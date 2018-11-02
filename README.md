@@ -1,66 +1,42 @@
-This is a Composer-based installer for the [Lightning](https://www.drupal.org/project/lightning) Drupal distribution. Welcome to the future!
+This is a Lightning based implementation of D8 that uses lando for container management.
 
 ## Get Started
+How to start:
+* get lando https://docs.devwithlando.io/installation/installing.html
+* `git clone git@github.com:ethanteague/va.gov-cms.git vagov`
+* `cd vagov`
+* `lando start`
+* `lando db-import drupal-starter.gz` (first time only)
+* `lando rebuild`
 
-```
-$ composer create-project acquia/lightning-project MY_PROJECT
-$ cd MY_PROJECT && composer quick-start
-```
+What it does:
+* Spins up php, mysql, and node containers
+* Dependencies (including components project) are pulled in via composer
+* Base config installs uswds and sets a subtheme for this project
 
-This will create a functioning Lightning site, open a web browser, and log you
-into the site using Drupal's built-in Quick Start command. If you'd rather use
-your own database and web server, you can skip the second step above and install
-Lightning like you would any other Drupal site.
+How to use:
+* visit the site by clicking one of the urls provided (aliased and https options are available)
+* compile scss to css by going to theme dir and running `lando gulp`
+* drush commands are prefixed with lando, e.g.: `lando drush cr`
+* composer is used for project management, e.g.: `composer require drupal/uswds`
 
-Normally, Composer will install all dependencies into a `vendor` directory that
-is *next* to `docroot`, not inside it. This may create problems in certain
-hosting environments, so if you need to, you can tell Composer to install
-dependencies into `docroot/vendor` instead:
+Running Behat Tests
+* `cd tests`
+* `lando behat --tags=name-of-tag`
 
-```
-$ composer create-project acquia/lightning-project MY_PROJECT --no-install
-$ composer config vendor-dir docroot/vendor
-$ cd MY_PROJECT
-$ composer install
-```
+Workflow
+* We use drupal-spec-tool to keep track of config changes, and sync tests
+* After updating config, cd into /tests, and run `lando behat --tags=spec`
+* Discrepancies between code and config will be reflected in test output
+* Visit https://docs.google.com/spreadsheets/d/1vL8rqLqcEVfESnJJK_GWQ7nf3BPe4SSevYYblisBTOI/edit?usp=sharing, choose the tab
+related to config changes, and update cells accordingly.
+* Go back to https://docs.google.com/spreadsheets/d/1vL8rqLqcEVfESnJJK_GWQ7nf3BPe4SSevYYblisBTOI/edit?usp=sharing, and copy the cell that
+pertains to the test you are updating, and paste into the test file in /tests/behat (before pasting, take note of any tags related to test(s), and add them back in after pasting).
+* Run tests again, correcting and updating the spreadsheet, and exporting accordingly until tests and spreadsheet are in sync.
+* Export config to code: `lando drush config:export` then commit changes to code.
 
-Either way, remember to keep the `composer.json` and `composer.lock` files that exist above `docroot` -- they are controlling your dependencies.
-
-## Maintenance
-`drush make`, `drush pm-download`, `drush pm-update` and their ilk are the old-school way of maintaining your code base. Forget them. You're in Composer land now!
-
-Let this handy table be your guide:
-
-| Task                                            | Drush                                         | Composer                                          |
-|-------------------------------------------------|-----------------------------------------------|---------------------------------------------------|
-| Installing a contrib project (latest version)   | ```drush pm-download PROJECT```               | ```composer require drupal/PROJECT```             |
-| Installing a contrib project (specific version) | ```drush pm-download PROJECT-8.x-1.0-beta3``` | ```composer require drupal/PROJECT:1.0.0-beta3``` |
-| Installing a javascript library (e.g. dropzone) | ```drush pm-download dropzone```              | ```composer require bower-asset/dropzone```       |
-| Updating all contrib projects and Drupal core   | ```drush pm-update```                         | ```composer update```                             |
-| Updating a single contrib project               | ```drush pm-update PROJECT```                 | ```composer update drupal/PROJECT```              |
-| Updating Drupal core                            | ```drush pm-update drupal```                  | ```composer update drupal/core```                 |
-
-The magic is that Composer, unlike Drush, is a *dependency manager*. If module ```foo version: 1.0.0``` depends on ```baz version: 3.2.0```, Composer will not let you update baz to ```3.3.0``` (or downgrade it to ```3.1.0```, for that matter). Drush has no concept of dependency management. If you've ever accidentally hosed a site because of dependency issues like this, you've probably already realized how valuable Composer can be.
-
-But to be clear: it is still very helpful to use a site management tool like Drush or Drupal Console. Tasks such as database updates (```drush updatedb```) are still firmly in the province of such utilities. This installer will install a copy of Drush (local to the project) in the ```bin``` directory.
-
-### Specifying a version
-you can specify a version from the command line with:
-
-    $ composer require drupal/<modulename>:<version> 
-
-For example:
-
-    $ composer require drupal/ctools:3.0.0-alpha26
-    $ composer require drupal/token:1.x-dev 
-
-In these examples, the composer version 3.0.0-alpha26 maps to the drupal.org version 8.x-3.0-alpha26 and 1.x-dev maps to 8.x-1.x branch on drupal.org.
-
-If you specify a branch, such as 1.x you must add -dev to the end of the version.
-
-**Composer is only responsible for maintaining the code base**.
-
-## Source Control
-If you peek at the ```.gitignore``` we provide, you'll see that certain directories, including all directories containing contributed projects, are excluded from source control. This might be a bit disconcerting if you're newly arrived from Planet Drush, but in a Composer-based project like this one, **you SHOULD NOT commit your installed dependencies to source control**.
-
-When you set up the project, Composer will create a file called ```composer.lock```, which is a list of which dependencies were installed, and in which versions. **Commit ```composer.lock``` to source control!** Then, when your colleagues want to spin up their own copies of the project, all they'll have to do is run ```composer install```, which will install the correct versions of everything in ```composer.lock```.
+Todo:
+* Integrate with devops helm setup (I think having a command that pulls in this repo and then runs lando start should get us pretty far down the road).
+* decide how we are going to sync files across environments
+* work out settings.php for various environments - lando db settings are stored in settings.lando.php
+* Create pull request against main repo (edited)

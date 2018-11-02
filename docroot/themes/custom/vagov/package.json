@@ -1,0 +1,23 @@
+{
+  "name": "vagov",
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "postcss --use autoprefixer -b 'last 2 versions' < assets/css/uswds.css | postcss --use cssnano --map -o assets/css/uswds.min.css",
+    "build": "npm run build:css",
+    "build:watch": "watch 'npm run build' assets/scss"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "autoprefixer": "^7.1.1",
+    "gulp-autoprefixer": "*",
+    "gulp-livereload": "*",
+    "gulp-sass": "4.0.2",
+    "gulp-sourcemaps": "*",
+    "cssnano": "^3.10.0",
+    "postcss": "^6.0.2",
+    "postcss-cli": "^4.1.0",
+    "uswds": "^1.4.2",
+    "watch": "^1.0.2"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,48 @@
+name: va-gov-cms
+recipe: drupal8
+config:
+  webroot: docroot
+  php: '7.2'
+
+events:
+  # Clear caches after a database import
+  post-db-import:
+    - appserver: cd $LANDO_WEBROOT && drush cr -y
+
+  # Runs composer install after app starts
+  post-start:
+    - appserver: cd $LANDO_MOUNT && composer install
+
+  # After code changes
+  post-update:
+    - appserver: cd $LANDO_MOUNT && composer install
+    - appserver: cd $LANDO_WEBROOT && drush updb -y &&  drush cr -y
+
+services:
+  node:
+    type: node
+    build:
+      - "cd $LANDO_MOUNT/docroot/themes/custom/vagov && npm install"
+    overrides:
+        services:
+          environment:
+            BEHAT_PARAMS: '{"extensions" : {"Behat\\MinkExtension" : {"base_url" : "http://vagovcms.lndo.site/"}, "Drupal\\DrupalExtension" : {"drush" : { "root": "/app/docroot" }}}}'
+        ports:
+          - 3000:3000
+          - 3001:3001
+        image: node:10.13-jessie
+
+    globals:
+      gulp-cli: "latest"
+tooling:
+  behat:
+    service: appserver
+    description: Run behat tests locally.
+    cmd:
+      - /app/docroot/vendor/bin/behat
+  npm:
+    service: node
+  node:
+    service: node
+  gulp:
+    service: node
