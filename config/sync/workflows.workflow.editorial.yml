@@ -14,16 +14,21 @@ label: Editorial
 type: content_moderation
 type_settings:
   states:
+    approved_by_reviewer:
+      published: false
+      default_revision: false
+      label: 'Approved by reviewer'
+      weight: -1
     archived:
       label: Archived
-      weight: 5
+      weight: 1
       published: false
       default_revision: true
     draft:
       label: Draft
       published: false
       default_revision: false
-      weight: -5
+      weight: -3
     published:
       label: Published
       published: true
@@ -31,7 +36,7 @@ type_settings:
       weight: 0
     review:
       label: 'In review'
-      weight: -1
+      weight: -2
       published: false
       default_revision: false
   transitions:
@@ -40,17 +45,17 @@ type_settings:
       from:
         - published
       to: archived
-      weight: 2
+      weight: 1
     archived_published:
       label: 'Restore from archive'
       from:
         - archived
       to: published
-      weight: 4
+      weight: 2
     create_new_draft:
       label: 'Create New Draft'
       to: draft
-      weight: 0
+      weight: -3
       from:
         - archived
         - draft
@@ -59,7 +64,7 @@ type_settings:
     publish:
       label: Publish
       to: published
-      weight: 1
+      weight: 0
       from:
         - draft
         - published
@@ -67,10 +72,18 @@ type_settings:
     review:
       label: 'Send to review'
       to: review
-      weight: 0
+      weight: -2
       from:
         - draft
         - review
+    stage_for_publishing:
+      label: 'Stage for publishing'
+      from:
+        - approved_by_reviewer
+        - draft
+        - review
+      to: approved_by_reviewer
+      weight: -1
   entity_types:
     node:
       - landing_page
