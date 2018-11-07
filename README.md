@@ -20,6 +20,12 @@ How to use:
 * drush commands are prefixed with lando, e.g.: `lando drush cr`
 * composer is used for project management, e.g.: `composer require drupal/uswds`
 
+Theme structure:
+* Base theme is USWDS: https://www.drupal.org/project/uswds
+* vagov Subtheme lives in themes/custom
+* Uses twig templating
+* Scss is compiled to css via gulp (from vagov dir run `lando gulp`)
+
 Running Behat Tests
 * `cd tests`
 * `lando behat --tags=name-of-tag`
