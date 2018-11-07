@@ -26,11 +26,16 @@ Theme structure:
 * Uses twig templating
 * Scss is compiled to css via gulp (from vagov dir run `lando gulp`)
 
-Running Behat Tests
+Running Behat Tests:
 * `cd tests`
 * `lando behat --tags=name-of-tag`
 
-Workflow
+Naming Conventions:
+* Modules: `vagov_modulename`
+* Content types: `vagov_contentype`
+* Fields: `field_[contenttypename]_fieldname`
+
+Workflow:
 * We use drupal-spec-tool to keep track of config changes, and sync tests
 * After updating config, cd into /tests, and run `lando behat --tags=spec`
 * Discrepancies between code and config will be reflected in test output
