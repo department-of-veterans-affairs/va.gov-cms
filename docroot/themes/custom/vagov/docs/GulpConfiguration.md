@@ -4,6 +4,8 @@
 2. gulp-livereload: automatically reload the browser upon making a change to styles or javascript during local dev
 3. gulp-autoprefixer: automatically add necessary browser prefixes while compiling sass
 4. gulp-sourcemaps: create inline sourcemaps
+5. gulp-concat: concatenate javascript files
+
 
 ## Gulp Tasks
 1. ``` sass ``` compile sass into css, add necessary browser prefixes, compress, and save in assets/css 

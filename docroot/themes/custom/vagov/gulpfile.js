@@ -1,9 +1,10 @@
+'use strict';
+
 var gulp = require('gulp'),
     livereload = require('gulp-livereload'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     sourcemaps = require('gulp-sourcemaps'),
-    babel = require('gulp-babel'),
     concat = require('gulp-concat'),
     cp = require('child_process');
 
@@ -25,20 +26,19 @@ gulp.task('sass', function () {
  * Compile files from js
  */
 gulp.task('scripts', function() {
-    return gulp.src(['assets/js/*.js', 'assets/js/custom.js'])
-        .pipe(babel({
-            presets: ['es2015']
-        }))
+    return gulp.src(['assets/js/src/**/*.js'])
+        .pipe(sourcemaps.init())
         .pipe(concat('scripts.js'))
-        .pipe(gulp.dest('js'));
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest('assets/js/dist/'));
 });
 
 /**
  * @task clearcache
- * Clear all caches
+ * Clear all drupal caches
  */
 gulp.task('clearcache', function(done) {
-    return cp.spawn('lando drush', ['cache-rebuild'], {stdio: 'inherit'})
+    return cp.spawn('lando', ['drush'], ['cache-rebuild'], {stdio: 'inherit'})
         .on('close', done);
 });
 
@@ -51,13 +51,14 @@ gulp.task('watch', function () {
   livereload.listen();
 
   gulp.watch('assets/scss/**/*.scss', ['sass']);
-  gulp.watch(['assets/css/uswds.css', './**/*.html.twig', './js/*.js'], ['clearcache'], function (files) {
+  gulp.watch('assets/js/src/**/*.js', ['scripts']);
+  gulp.watch(['assets/css/uswds.css', './**/*.html.twig', 'assets/js/dist/*.js'], function (files) {
     livereload.changed(files);
   });
 });
 
 /**
  * Default task, running just `gulp` will
- * compile Sass files, launch BrowserSync, watch files.
+ * compile Sass & JS files, launch livereload, watch files.
  */
 gulp.task('default', ['sass', 'scripts', 'watch']);

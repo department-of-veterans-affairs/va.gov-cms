@@ -6,7 +6,7 @@
 2. [Components module for Drupal 8](https://www.drupal.org/project/components) - to create a project namespace to use for a UI component libary. 
 That component namespace is defined in *vagov.info.yml*.
 
-    __Current component namespace:__ *uicomponents*
+    __Current component namespace:__ *uiComponents*
     
 3. Gulp
 
