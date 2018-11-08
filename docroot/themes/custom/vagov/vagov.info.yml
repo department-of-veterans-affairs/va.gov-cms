@@ -3,9 +3,8 @@ type: theme
 description: 'A subtheme of USWDS.'
 core: 8.x
 base theme: uswds
-
-
-
+libraries:
+  - vagov/global-scripts
 # The USWDS css and js needs to be available at the following paths, either by
 # configuring your Sass to output it there, or by manually downloading and
 # extracting this: https://github.com/18F/web-design-standards/releases/download/v1.4.2/uswds-1.4.2.zip
@@ -21,7 +20,8 @@ libraries-override:
         assets/css/uswds.css: assets/css/uswds.css
     js:
       assets/js/uswds.min.js: assets/js/uswds.min.js
-      assets/js/dist/scripts.js: assets/js/dist/scripts.js
+
+
 
 # Add the CSS to CKEditor, so that custom entries in "Style" will work.
 ckeditor_stylesheets:

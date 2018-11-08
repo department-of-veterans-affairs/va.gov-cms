@@ -6,6 +6,7 @@ var gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     sourcemaps = require('gulp-sourcemaps'),
     concat = require('gulp-concat'),
+    uglify = require('gulp-uglify'),
     cp = require('child_process');
 
 /**
@@ -28,9 +29,10 @@ gulp.task('sass', function () {
 gulp.task('scripts', function() {
     return gulp.src(['assets/js/src/**/*.js'])
         .pipe(sourcemaps.init())
-        .pipe(concat('scripts.js'))
+        .pipe(concat('script.min.js'))
+        .pipe(uglify())
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('assets/js/dist/'));
+        .pipe(gulp.dest('assets/js'));
 });
 
 /**
@@ -59,6 +61,6 @@ gulp.task('watch', function () {
 
 /**
  * Default task, running just `gulp` will
- * compile Sass & JS files, launch livereload, watch files.
+ * compile & autoprefix Sass & concatenate JS files, launch livereload, watch files.
  */
 gulp.task('default', ['sass', 'scripts', 'watch']);
