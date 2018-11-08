@@ -36,7 +36,7 @@ Naming Conventions:
 * Fields: `field_[contenttypename]_fieldname`
 
 Workflow:
-* We use drupal-spec-tool to keep track of config changes, and sync tests
+* We use [drupal-spec-tool](https://github.com/acquia/drupal-spec-tool) to keep track of config changes, and sync tests
 * After updating config, cd into /tests, and run `lando behat --tags=spec`
 * Discrepancies between code and config will be reflected in test output
 * Visit https://docs.google.com/spreadsheets/d/1vL8rqLqcEVfESnJJK_GWQ7nf3BPe4SSevYYblisBTOI/edit?usp=sharing, choose the tab
