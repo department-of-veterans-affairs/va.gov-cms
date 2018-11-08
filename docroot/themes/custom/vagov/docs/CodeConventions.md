@@ -13,10 +13,10 @@ Learn more: https://design.cms.gov/guidelines/code-conventions/
 * CSS name space: *vagov*
 
 * Prefixes
-  * l- layout style ex: *.vagov-l-container*
-  * c- component style ex: *.vagov-c-button*
-  * u- utility ex: *.vagov-u-color--primary*
-  * js- javascript hook *.vagov-js-expand*
+  * ```l- ``` layout style ex: *.vagov-l-container*
+  * ```c-``` component style ex: *.vagov-c-button*
+  * ```u-``` utility ex: *.vagov-u-color--primary*
+  * ```js-``` javascript hook *.vagov-js-expand*
   
 * [BEM SYNTAX](http://getbem.com/introduction/)
   * Block - a standalone component that is meaningful on it's own. e.g. a button
