@@ -15,7 +15,7 @@ Learn more: https://design.cms.gov/guidelines/code-conventions/
   * l- layout style ex: *.vagov-l-container*
   * c- component style ex: *.vagov-c-button*
   * u- utility ex: *.vagov-u-color--primary*
-  * js- javascript hook
+  * js- javascript hook *.vagov-js-expand*
 * [BEM SYNTAX](http://getbem.com/introduction/)
   * Block - a standalone component that is meaningful on it's own. e.g. a button
   * Element - a part of a component that has no standalone meaning and is tied to the component e.g. button text
