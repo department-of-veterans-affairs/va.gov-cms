@@ -25,7 +25,7 @@ gulp.task('sass', function () {
 
 /**
  * @task scripts
- * Compile files from js
+ * Compile files from js, concatenate, create a source map, and save in assets folder.
  */
 gulp.task('scripts', function() {
     return gulp.src(['assets/js/src/**/*.js'])
@@ -51,7 +51,7 @@ gulp.task('clearcache', function(done) {
 /**
  * @task watch
  * Watch scss, JS, and twig files for changes & recompile
- * Clear cache when Drupal related files are changed
+ * Reload browser with livereload to show changes
  */
 gulp.task('watch', function () {
   livereload.listen();
