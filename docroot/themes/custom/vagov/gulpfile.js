@@ -58,7 +58,7 @@ gulp.task('watch', function () {
 
   gulp.watch('assets/scss/**/*.scss', ['sass']);
   gulp.watch('assets/js/src/**/*.js', ['scripts']);
-  gulp.watch(['assets/css/uswds.css', './**/*.html.twig', 'assets/js/dist/*.js'], function (files) {
+  gulp.watch(['assets/css/uswds.css', './**/*.html.twig', 'assets/js/*.js'], function (files) {
     livereload.changed(files);
   });
 });
