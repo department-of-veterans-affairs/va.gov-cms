@@ -7,7 +7,8 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
-    cp = require('child_process');
+    cp = require('child_process'),
+    babel = require('gulp-babel');
 
 /**
  * @task sass
@@ -29,6 +30,9 @@ gulp.task('sass', function () {
 gulp.task('scripts', function() {
     return gulp.src(['assets/js/src/**/*.js'])
         .pipe(sourcemaps.init())
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
         .pipe(concat('script.min.js'))
         .pipe(uglify())
         .pipe(sourcemaps.write('./'))
