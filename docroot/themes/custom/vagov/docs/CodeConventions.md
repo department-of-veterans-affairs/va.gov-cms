@@ -1,6 +1,7 @@
 # Code Conventions
-## CSS class naming convention
+### CSS class naming convention
 Learn more: https://design.cms.gov/guidelines/code-conventions/
+
 ```
 .namespace-prefix-BEM--SYNTAX
 ```
@@ -8,7 +9,6 @@ Learn more: https://design.cms.gov/guidelines/code-conventions/
 ```
 .vagov-c-breadcrumb--container
 ```
-
 
 * CSS name space: *vagov*
 
