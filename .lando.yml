@@ -2,7 +2,7 @@ name: va-gov-cms
 recipe: drupal8
 config:
   webroot: docroot
-  php: '7.2'
+  php: "7.2"
 
 events:
   # Clear caches after a database import
@@ -19,25 +19,40 @@ events:
     - appserver: cd $LANDO_WEBROOT && drush updb -y &&  drush cr -y
 
 services:
+  appserver:
+    run_as_root:
+      - "apt-get update -y"
+      - "apt-get install build-essential chrpath libssl-dev libxft-dev libfreetype6-dev libfreetype6 libfontconfig1-dev libfontconfig1 -y"
+      - "tar xvjf /app/phantomjs-2.1.1-linux-x86_64.tar.bz2 -C /usr/local/share/"
+      - "mv /usr/local/share/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/bin/"
+      - "cd /usr/bin"
+      - "chmod +x phantomjs"
   node:
     type: node
     build:
       - "cd $LANDO_MOUNT/docroot/themes/custom/vagov && npm install"
     overrides:
-        services:
-          environment:
-            BEHAT_PARAMS: '{"extensions" : {"Behat\\MinkExtension" : {"base_url" : "http://vagovcms.lndo.site/"}, "Drupal\\DrupalExtension" : {"drush" : { "root": "/app/docroot" }}}}'
-        ports:
-          - 3000:3000
-          - 3001:3001
-        image: node:10.13-jessie
+      services:
+        environment:
+          BEHAT_PARAMS: '{"extensions" : {"Behat\\MinkExtension" : {"base_url" : "http://vagovcms.lndo.site/"}, "Drupal\\DrupalExtension" : {"drush" : { "root": "/app/docroot" }}}}'
+      ports:
+        - 3000:3000
+        - 3001:3001
+      image: node:10.13-jessie
 
     globals:
       gulp-cli: "latest"
 tooling:
+  phantomjs:
+    service: appserver
+    description: "Run phantomjs commands"
+  phpunit:
+    service: appserver
+    description: "Run PHP Unit tests: lando phpunit. Syntax: lando phpunit {PATH-TO-TEST}"
+    cmd: /app/docroot/vendor/bin/phpunit -c /app
   behat:
     service: appserver
-    description: Run behat tests locally.
+    description: "Run behat tests locally. Run from /tests dir."
     cmd:
       - /app/docroot/vendor/bin/behat
   npm:

@@ -3,7 +3,7 @@ This is a Lightning based implementation of D8 that uses lando for container man
 ## Get Started
 How to start:
 * get lando https://docs.devwithlando.io/installation/installing.html
-* `git clone git@github.com:ethanteague/va.gov-cms.git vagov`
+* `git clone git@github.com:department-of-veterans-affairs/va.gov-cms.git vagov`
 * `cd vagov`
 * `lando start`
 * `lando db-import drupal-starter.gz` (first time only)
@@ -30,6 +30,10 @@ Running Behat Tests:
 * `cd tests`
 * `lando behat --tags=name-of-tag`
 
+Running Phpunit Tests:
+* `cd tests`
+* `lando phpunit {Path-to-test}`
+
 Naming Conventions:
 * Modules: `vagov_modulename`
 * Content types: `vagov_contentype`
@@ -47,7 +51,6 @@ pertains to the test you are updating, and paste into the test file in /tests/be
 * Export config to code: `lando drush config:export` then commit changes to code.
 
 Todo:
-* Integrate with devops helm setup (I think having a command that pulls in this repo and then runs lando start should get us pretty far down the road).
+* Configure phantomjs to run js phpunit tests - using this pattern for setup is not working: https://www.breaktech.com/blog/using-lando-for-drupal-development.
 * decide how we are going to sync files across environments
 * work out settings.php for various environments - lando db settings are stored in settings.lando.php
-* Create pull request against main repo (edited)
