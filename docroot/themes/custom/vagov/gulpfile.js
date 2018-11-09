@@ -1,34 +1,49 @@
 'use strict';
+/*jshint esversion: 6 */
 
-var gulp = require('gulp'),
-    livereload = require('gulp-livereload'),
-    sass = require('gulp-sass'),
-    autoprefixer = require('gulp-autoprefixer'),
-    sourcemaps = require('gulp-sourcemaps'),
-    concat = require('gulp-concat'),
-    uglify = require('gulp-uglify'),
-    cp = require('child_process'),
-    babel = require('gulp-babel');
+const { src, dest, watch, series } = require('gulp');
+const livereload = require('gulp-livereload');
+const sass = require('gulp-sass');
+const autoprefixer = require('gulp-autoprefixer');
+const babel = require('gulp-babel');
+const uglify = require('gulp-uglify');
+const concat = require('gulp-concat');
+const sourcemaps = require('gulp-sourcemaps');
+const { spawn } = require('child_process');
 
 /**
- * @task sass
+ * Clear all drupal caches
+ */
+function clearcache (done) {
+    const cr = spawn(
+        'lando', ['drush', 'cache-rebuild'],
+        { stdio: 'inherit' });
+    cr.on('close', done);
+}
+
+exports.clearcache = clearcache;
+
+/**
+ * @function compileStyles
  * Compile and compress files from scss, add browser prefixes, create a source map, and save in assets folder.
  */
-gulp.task('sass', function () {
-  gulp.src('assets/scss/**/*.scss')
-    .pipe(sourcemaps.init())
-    .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
-    .pipe(autoprefixer('last 2 version'))
-    .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('assets/css/'));
-});
+function compileStyles() {
+    return src('assets/scss/**/*.scss')
+        .pipe(sourcemaps.init())
+        .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
+        .pipe(autoprefixer('last 2 version'))
+        .pipe(sourcemaps.write('./'))
+        .pipe(dest('assets/css/'));
+}
+
+exports.styles = compileStyles;
 
 /**
- * @task scripts
+ * @function compileScripts
  * Compile files from js, concatenate, create a source map, and save in assets folder.
  */
-gulp.task('scripts', function() {
-    return gulp.src(['assets/js/src/**/*.js'])
+function compileScripts() {
+    return src('assets/js/src/**/*.js')
         .pipe(sourcemaps.init())
         .pipe(babel({
             presets: ['@babel/env']
@@ -36,35 +51,31 @@ gulp.task('scripts', function() {
         .pipe(concat('script.min.js'))
         .pipe(uglify())
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('assets/js'));
-});
+        .pipe(dest('assets/js'));
+}
 
-/**
- * @task clearcache
- * Clear all drupal caches
- */
-gulp.task('clearcache', function(done) {
-    return cp.spawn('lando', ['drush'], ['cache-rebuild'], {stdio: 'inherit'})
-        .on('close', done);
-});
+exports.scripts = compileScripts;
 
 /**
  * @task watch
  * Watch scss, JS, and twig files for changes & recompile
  * Reload browser with livereload to show changes
  */
-gulp.task('watch', function () {
-  livereload.listen();
+function  watchFiles() {
+    livereload.listen();
+    watch('assets/scss/**/*.scss', compileStyles);
+    watch('assets/js/src/**/*.js', compileScripts);
+    watch(['assets/css/uswds.css', './**/*.html.twig', 'assets/js/*.js'], function (files) {
+        livereload.changed(files);
+    });
 
-  gulp.watch('assets/scss/**/*.scss', ['sass']);
-  gulp.watch('assets/js/src/**/*.js', ['scripts']);
-  gulp.watch(['assets/css/uswds.css', './**/*.html.twig', 'assets/js/*.js'], function (files) {
-    livereload.changed(files);
-  });
-});
+}
+
+exports.watch = watchFiles;
 
 /**
- * Default task, running just `gulp` will
+ * @task default
+ * running just `gulp` will
  * compile & autoprefix Sass & concatenate JS files, launch livereload, watch files.
  */
-gulp.task('default', ['sass', 'scripts', 'watch']);
+exports.default = series(compileStyles, compileScripts, watchFiles);
