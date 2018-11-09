@@ -11,12 +11,19 @@ var gulp = require('gulp'),
     browsersync = require('browser-sync').create();
 
 
-
+/**
+ * @task reload
+ * Reload browsersync server
+ */
 gulp.task('reload', function(done) {
     browsersync.reload();
     done();
 });
 
+/**
+ * @task serve
+ * Start browsersync server - for viewing changes made to CSS, JS, and twig without having to refresh
+ */
 gulp.task('serve', function(done) {
     browsersync.init({
         proxy: 'vagovcms.lndo.site',
