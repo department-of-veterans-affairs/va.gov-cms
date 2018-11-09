@@ -47,7 +47,7 @@ gulp.task('sass', function () {
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('assets/css/'));
 });
-gulp.task('sass').description = "process SCSS files:, compile to compressed css, add browser prefixes, create a source map, and save in assets folder";
+gulp.task('sass').description = "process SCSS files: compile to compressed css, add browser prefixes, create a source map, and save in assets folder";
 
 /**
  * @task scripts
@@ -74,23 +74,25 @@ gulp.task('clearcache', function(done) {
     return cp.spawn('lando', ['drush'], ['cache-rebuild'], {stdio: 'inherit'})
         .on('close', done);
 });
-gulp.task('clearcache').description = "Clear all Drupal caches";
+gulp.task('clearcache').description = "clear all Drupal caches";
 
 /**
  * @task watch
  * Watch scss, JS, and twig files for changes & recompile
- * Reload browser with livereload to show changes
+ * Reload browser with browsersync to show changes
  */
 gulp.task('watch', function () {
   gulp.watch('assets/scss/**/*.scss', gulp.series('sass'));
   gulp.watch('assets/js/src/**/*.js', gulp.series('scripts'));
   gulp.watch(['assets/css/uswds.css', './**/*.html.twig', 'assets/js/*.js'], gulp.series('clearcache', 'reload'));
 });
-gulp.task('watch').description = "Watch scss, JS, and twig files for changes & reload browser to show changes";
+gulp.task('watch').description = "watch SCSS, JS, and Twig files for changes & reload browser to show changes";
 
 /**
+ * @task default
  * Default task, running just `gulp` will
- * compile & autoprefix Sass & concatenate JS files, launch livereload, watch files.
+ * compile & autoprefix Sass & concatenate JS files,
+ * launch browsersync, watch files.
  */
 gulp.task('default', gulp.series('sass', 'scripts', 'serve', 'watch'));
-gulp.task('default').description = "process scss, process js, launch browser sync, watch twig, js, scss files for changes.";
+gulp.task('default').description = "process SCSS, process JS, launch browsersync, watch Twig, JS, SCSS files for changes.";
