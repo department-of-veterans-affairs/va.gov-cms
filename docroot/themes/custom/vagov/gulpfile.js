@@ -1,14 +1,17 @@
 'use strict';
+/*jshint esversion: 6 */
 
-var gulp = require('gulp'),
-    sass = require('gulp-sass'),
-    autoprefixer = require('gulp-autoprefixer'),
-    sourcemaps = require('gulp-sourcemaps'),
-    concat = require('gulp-concat'),
-    uglify = require('gulp-uglify'),
-    cp = require('child_process'),
-    babel = require('gulp-babel'),
-    browsersync = require('browser-sync').create();
+let gulp, sass, autoprefixer, sourcemaps, concat, uglify, babel, browsersync;
+gulp = require('gulp');
+sass = require('gulp-sass');
+autoprefixer = require('gulp-autoprefixer');
+sourcemaps = require('gulp-sourcemaps');
+concat = require('gulp-concat');
+uglify = require('gulp-uglify');
+babel = require('gulp-babel');
+browsersync = require('browser-sync').create();
+
+const { spawn } = require('child_process');
 
 
 /**
@@ -40,7 +43,7 @@ gulp.task('serve').description = "start browsersync server: for viewing changes 
  * Compile and compress files from scss, add browser prefixes, create a source map, and save in assets folder.
  */
 gulp.task('sass', function () {
-    return gulp.src('assets/scss/**/*.scss')
+    return gulp.src(['assets/scss/**/*.scss', 'uicomponents/**/*.scss'])
     .pipe(sourcemaps.init())
     .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
     .pipe(autoprefixer('last 2 version'))
@@ -54,7 +57,7 @@ gulp.task('sass').description = "process SCSS files: compile to compressed css, 
  * Compile files from js, concatenate, create a source map, and save in assets folder.
  */
 gulp.task('scripts', function() {
-    return gulp.src(['assets/js/src/**/*.js'])
+    return gulp.src(['assets/js/src/**/*.js', 'uicomponents/**/*.js'])
         .pipe(sourcemaps.init())
         .pipe(babel({
             presets: ['@babel/env']
@@ -71,8 +74,16 @@ gulp.task('scripts').description = "process JS files: concatenate, minify, creat
  * Clear all drupal caches
  */
 gulp.task('clearcache', function(done) {
-    return cp.spawn('lando', ['drush'], ['cache-rebuild'], {stdio: 'inherit'})
-        .on('close', done);
+    let child = spawn('lando', ['drush', 'cache-rebuild']);
+
+    child.stdout.on('data', (data) => {
+        console.log(`results:\n${data}`);
+    });
+    child.stderr.on('data', (data) => {
+        console.error(`error:\n${data}`);
+    });
+
+    child.on('close', done);
 });
 gulp.task('clearcache').description = "clear all Drupal caches";
 
@@ -82,9 +93,9 @@ gulp.task('clearcache').description = "clear all Drupal caches";
  * Reload browser with browsersync to show changes
  */
 gulp.task('watch', function () {
-  gulp.watch('assets/scss/**/*.scss', gulp.series('sass'));
-  gulp.watch('assets/js/src/**/*.js', gulp.series('scripts'));
-  gulp.watch(['assets/css/uswds.css', './**/*.html.twig', 'assets/js/*.js'], gulp.series('clearcache', 'reload'));
+  gulp.watch(['assets/scss/**/*.scss', 'uicomponents/**/*.scss'], gulp.series('sass'));
+  gulp.watch(['assets/js/src/**/*.js', 'uicomponents/**/*.js'], gulp.series('scripts'));
+  gulp.watch(['assets/css/uswds.css', 'assets/js/*.js', 'templates/**/*.html.twig', 'uicomponents/**/*.twig'], gulp.series('clearcache','reload'));
 });
 gulp.task('watch').description = "watch SCSS, JS, and Twig files for changes & reload browser to show changes";
 
@@ -94,5 +105,5 @@ gulp.task('watch').description = "watch SCSS, JS, and Twig files for changes & r
  * compile & autoprefix Sass & concatenate JS files,
  * launch browsersync, watch files.
  */
-gulp.task('default', gulp.series('sass', 'scripts', 'serve', 'watch'));
+gulp.task('default', gulp.series('sass', 'scripts', 'clearcache', 'serve', 'watch'));
 gulp.task('default').description = "process SCSS, process JS, launch browsersync, watch Twig, JS, SCSS files for changes.";
