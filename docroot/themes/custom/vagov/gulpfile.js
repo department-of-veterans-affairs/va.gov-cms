@@ -90,7 +90,8 @@ gulp.task('clearcache').description = "clear all Drupal caches";
 gulp.task('watch', function () {
   gulp.watch(['assets/scss/**/*.scss', 'uicomponents/**/*.scss'], gulp.series('sass'));
   gulp.watch(['assets/js/src/**/*.js', 'uicomponents/**/*.js'], gulp.series('scripts'));
-  gulp.watch(['assets/css/uswds.css', 'assets/js/*.js', 'templates/**/*.html.twig', 'uicomponents/**/*.twig'], gulp.series('clearcache','reload'));
+  gulp.watch(['templates/**/*.html.twig', 'uicomponents/**/*.twig'], gulp.series('clearcache'));
+  gulp.watch(['assets/css/uswds.css', 'assets/js/*.js'], gulp.series('reload'));
 });
 gulp.task('watch').description = "watch SCSS, JS, and Twig files for changes & reload browser to show changes";
 
