@@ -74,15 +74,10 @@ gulp.task('scripts').description = "process JS files: concatenate, minify, creat
  * Clear all drupal caches
  */
 gulp.task('clearcache', function(done) {
-    let child = spawn('lando', ['drush', 'cache-rebuild']);
-
-    child.stdout.on('data', (data) => {
-        console.log(`results:\n${data}`);
+    let child = spawn('lando drush cache-rebuild', {
+        stdio: 'inherit',
+        shell: 'true'
     });
-    child.stderr.on('data', (data) => {
-        console.error(`error:\n${data}`);
-    });
-
     child.on('close', done);
 });
 gulp.task('clearcache').description = "clear all Drupal caches";
