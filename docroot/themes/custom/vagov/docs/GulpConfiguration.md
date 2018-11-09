@@ -11,7 +11,7 @@
 
 ## Gulp Tasks
 ##### You can always run ```gulp --tasks``` to get a list of all the gulp tasks in this project with descriptions.
-1. ``` sass ``` compile sass into css, add necessary browser prefixes, compress, and save in assets/css 
-2. ``` watch ``` watch project directory for changes to theme files (sass, js, and twig files) and reloads browser to display changes
-3. ``` scripts ``` compile, concatenate, and minify javascript 
-4. ``` clearcache ``` clear drupal cache
+1. ``` gulp ``` default task: process scss, process js, start browsersync server, watch project directory for changes to theme files (sass, js, and twig files) and reloads browser to display changes
+2. ``` gulp sass ``` compile sass into css, add necessary browser prefixes, compress, and save in assets/css 
+3. ``` gulp scripts ``` compile, concatenate, and minify javascript 
+4. ``` gulp clearcache ``` clear drupal cache
