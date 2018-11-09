@@ -1,16 +1,30 @@
 'use strict';
 
 var gulp = require('gulp'),
-    livereload = require('gulp-livereload'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     sourcemaps = require('gulp-sourcemaps'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     cp = require('child_process'),
-    babel = require('gulp-babel');
+    babel = require('gulp-babel'),
+    browsersync = require('browser-sync').create();
 
-livereload({ start: true });
+
+
+gulp.task('reload', function(done) {
+    browsersync.reload();
+    done();
+});
+
+gulp.task('serve', function(done) {
+    browsersync.init({
+        proxy: 'vagovcms.lndo.site',
+        browserSyncPort: 3001,
+        reloadDelay: 2000
+    });
+    done();
+});
 
 /**
  * @task sass
@@ -56,14 +70,14 @@ gulp.task('clearcache', function(done) {
  * Reload browser with livereload to show changes
  */
 gulp.task('watch', function () {
-  livereload.listen();
+
   gulp.watch('assets/scss/**/*.scss', gulp.series('sass'));
   gulp.watch('assets/js/src/**/*.js', gulp.series('scripts'));
-  gulp.watch(['assets/css/uswds.css', './**/*.html.twig', 'assets/js/*.js'], gulp.series('clearcache'));
+  gulp.watch(['assets/css/uswds.css', './**/*.html.twig', 'assets/js/*.js'], gulp.series('clearcache', 'reload'));
 });
 
 /**
  * Default task, running just `gulp` will
  * compile & autoprefix Sass & concatenate JS files, launch livereload, watch files.
  */
-gulp.task('default', gulp.series('sass', 'scripts', 'watch'));
+gulp.task('default', gulp.series('sass', 'scripts', 'serve', 'watch'));
