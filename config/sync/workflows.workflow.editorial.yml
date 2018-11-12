@@ -17,7 +17,7 @@ type_settings:
     approved_by_reviewer:
       published: false
       default_revision: false
-      label: 'Approved by reviewer'
+      label: Staged
       weight: -1
     archived:
       label: Archived
@@ -57,6 +57,7 @@ type_settings:
       to: draft
       weight: -3
       from:
+        - approved_by_reviewer
         - archived
         - draft
         - published
@@ -66,6 +67,7 @@ type_settings:
       to: published
       weight: 0
       from:
+        - approved_by_reviewer
         - draft
         - published
         - review
