@@ -6,24 +6,16 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
+        "drush/drush": "^9.0",
         "drupal/media_entity_generic": "^1.0",
-        "acquia/lightning_dev": "dev-8.x-1.x",
-        "acquia/drupal-spec-tool": "^2.0",
-        "webflo/drupal-core-require-dev": "~8.6"
+        "acquia/lightning_dev": "dev-8.x-1.x"
     },
     "require": {
-        "drush/drush": "^9.0",
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "cweagans/composer-patches": "^1.6.0",
         "acquia/lightning": "~3.2.0",
         "drupal/components": "^1.0",
-        "drupal/uswds": "^1.0@beta",
-        "behat/behat": "^3.4",
-        "drupal/drupal-extension": "^3.4",
-        "drush-ops/behat-drush-endpoint": "^0.0.4",
-        "guzzlehttp/guzzle": "^6.0@dev",
-        "webflo/drupal-finder": "^1.0.0",
-        "webmozart/path-util": "^2.3"
+        "drupal/uswds": "^1.0@beta"
     },
     "repositories": {
         "drupal": {
@@ -42,12 +34,15 @@
     },
     "config": {
         "process-timeout": 0,
-        "vendor-dir": "docroot/vendor",
-        "bin-dir": "bin/"
+        "vendor-dir": "docroot/vendor"
     },
     "scripts": {
-        "post-install-cmd": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-        "post-update-cmd": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+        "post-install-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
+        ],
+        "post-update-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
+        ],
         "nuke": "rm -r -f docroot/modules/contrib docroot/profiles/contrib/lightning vendor composer.lock",
         "quick-start": [
             "composer install",
