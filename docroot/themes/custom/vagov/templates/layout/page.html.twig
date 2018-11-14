@@ -82,11 +82,6 @@
 
       {{ page.highlighted }}
 
-        {% include "@uiComponents/pattern-example/pattern-example.html.twig" with
-            { 'example_text' : 'this is an example component' }
-        %}
-
-
         {% if page.help|render|trim %}
       <div class="usa-alert usa-alert-info">
         <div class="usa-alert-body">
