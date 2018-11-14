@@ -82,7 +82,9 @@
 
       {{ page.highlighted }}
 
-        {% include "@uiComponents/example/example.twig" %}
+        {% include "@uiComponents/pattern-example/pattern-example.html.twig" with
+            { 'example_text' : 'this is an example component' }
+        %}
 
 
         {% if page.help|render|trim %}

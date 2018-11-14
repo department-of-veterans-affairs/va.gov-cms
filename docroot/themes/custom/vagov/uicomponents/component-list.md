@@ -38,5 +38,7 @@ your new component.
 4. If this component has specific styles or javascript add them with `_pattern-componentname.scss` and `pattern-componentname.js`. Don't forget to list them in the 
 libraries key of the component's YML!
 
+There's an example component in the `pattern-example` folder in this directory. Check it out.
+
 
 
