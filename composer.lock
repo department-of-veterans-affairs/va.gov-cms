@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "998b71a1c6c4a7fab5865ec3f7ae5195",
+    "content-hash": "395fda849f5277636e3b584a4fb36b48",
     "packages": [
         {
             "name": "acquia/lightning",
@@ -4825,6 +4825,123 @@
             "homepage": "https://www.drupal.org/project/token",
             "support": {
                 "source": "http://cgit.drupalcode.org/token"
+            }
+        },
+        {
+            "name": "drupal/ui_patterns",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/ui_patterns",
+                "reference": "8.x-1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ui_patterns-8.x-1.0.zip",
+                "reference": "8.x-1.0",
+                "shasum": "34fd89231ba3e2fbc19a32fb15f232e7d69743f8"
+            },
+            "require": {
+                "drupal/core": "^8.3.0"
+            },
+            "require-dev": {
+                "composer/installers": "^1.2",
+                "cweagans/composer-patches": "~1.4",
+                "drupal-composer/drupal-scaffold": "^2.2",
+                "drupal/coffee": "~1",
+                "drupal/config_devel": "~1",
+                "drupal/config_installer": "~1",
+                "drupal/console": "~1",
+                "drupal/ds": "~3",
+                "drupal/field_group": "~1",
+                "drupal/page_manager": "*",
+                "drupal/panels": "~4",
+                "drupal/paragraphs": "~1",
+                "drupal/token": "~1",
+                "drush/drush": "~9",
+                "openeuropa/drupal-core-require-dev": "~8.6@rc",
+                "openeuropa/task-runner": "~1.0-beta3",
+                "phpro/grumphp": "~0.14"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0",
+                    "datestamp": "1542050281",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "composer-exit-on-patch-failure": true,
+                "enable-patching": true,
+                "installer-paths": {
+                    "build/core": [
+                        "type:drupal-core"
+                    ],
+                    "build/modules/contrib/{$name}": [
+                        "type:drupal-module"
+                    ],
+                    "build/profiles/contrib/{$name}": [
+                        "type:drupal-profile"
+                    ],
+                    "build/themes/contrib/{$name}": [
+                        "type:drupal-theme"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Drupal\\ui_patterns\\": "./src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Drupal\\Tests\\ui_patterns\\": "./tests/src"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "scripts": {
+                "drupal-scaffold": [
+                    "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
+                ],
+                "post-install-cmd": [
+                    "./vendor/bin/run drupal:site-setup"
+                ],
+                "post-update-cmd": [
+                    "./vendor/bin/run drupal:site-setup"
+                ]
+            },
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Nuvole Web",
+                    "homepage": "https://www.drupal.org/user/186696",
+                    "email": "info@nuvole.org"
+                },
+                {
+                    "name": "bircher",
+                    "homepage": "https://www.drupal.org/user/1344166"
+                },
+                {
+                    "name": "pescetti",
+                    "homepage": "https://www.drupal.org/user/436244"
+                }
+            ],
+            "description": "UI Patterns.",
+            "homepage": "https://www.drupal.org/project/ui_patterns",
+            "keywords": [
+                "drupal",
+                "ui",
+                "web"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/ui_patterns"
             }
         },
         {
