@@ -60,6 +60,7 @@ source:
     - "https://www.va.gov/health-care/update-health-information/"
     - "https://www.va.gov/health-care/view-test-and-lab-results/"
     - "https://www.va.gov/health-care/wellness-programs/"
+    - "https://www.va.gov/health-care/apply/application/introduction"
 
   keys:
     - url
@@ -86,11 +87,19 @@ source:
           - 1
           - innerHTML
         -
-          # new va.gov (Metalsmith) and react pages
+          # new va.gov (Metalsmith)
           job: addSearch
           method: pluckSelector
           arguments:
           - 'h1'
+          - 1
+          - innerHTML
+        -
+          # full react pages - no page content, so have to get title from breadcrumb
+          job: addSearch
+          method: pluckSelector
+          arguments:
+          - '#va-breadcrumbs ul li:last-child'
           - 1
           - innerHTML
       body:
@@ -117,7 +126,7 @@ source:
           job: 'addSearch'
           method: 'pluckSelector'
           arguments:
-          - '#content #react-root'
+          - '#main .section'
           - '1'
           - innerHTML
         -
