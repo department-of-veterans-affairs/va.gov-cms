@@ -23,6 +23,8 @@ default:
       base_url: http://vagovcms.lndo.site
     Drupal\DrupalExtension:
       blackbox: ~
+      region_map:
+        Content: ".region.region-content"
       api_driver: 'drupal'
       drupal:
         drupal_root: '../docroot'

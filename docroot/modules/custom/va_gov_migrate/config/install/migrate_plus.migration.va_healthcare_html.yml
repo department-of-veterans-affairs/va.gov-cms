@@ -1,0 +1,186 @@
+id: va_gov_healthcare_html_import
+label: Import healthcare pages from va.gov
+migration_group: va_gov
+source:
+  plugin: url_list
+
+  urls:
+    - "https://www.va.gov/HEALTHBENEFITS/cost/disputes.asp"
+    - "https://www.va.gov/HEALTHBENEFITS/cost/financial_assessment.asp"
+    - "https://www.va.gov/HEALTHBENEFITS/cost/financialhardship.asp"
+    - "https://www.va.gov/HEALTHBENEFITS/cost/copays.asp"
+    - "https://www.va.gov/HEALTHBENEFITS/cost/debt.asp"
+    - "https://www.va.gov/HEALTHBENEFITS/cost/index.asp"
+    - "https://www.va.gov/HEALTHBENEFITS/apply/active_duty.asp"
+    - "https://www.va.gov/HEALTHBENEFITS/apply/returning_servicemembers.asp"
+    - "https://www.va.gov/health/topics/index.asp"
+    - "https://www.va.gov/communitycare/index.asp"
+    - "https://www.va.gov/HEALTHBENEFITS/vtp/Beneficiary_Travel.asp"
+    - "https://www.va.gov/health/rights/patientrights.asp"
+    - "https://www.va.gov/HEALTHBENEFITS/vhic/index.asp"
+    - "https://www.va.gov/COMMUNITYCARE/programs/veterans/VCP/index.asp"
+    - "https://www.va.gov/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services/"
+    - "https://www.va.gov/health-care/about-va-health-benefits/dental-care/"
+    - "https://www.va.gov/health-care/about-va-health-benefits/long-term-care/"
+    - "https://www.va.gov/health-care/about-va-health-benefits/va-health-care-and-other-insurance/"
+    - "https://www.va.gov/health-care/about-va-health-benefits/vision-care/"
+    - "https://www.va.gov/health-care/about-va-health-benefits/where-you-go-for-care/"
+    - "https://www.va.gov/health-care/about-va-health-benefits/your-care-team/"
+    - "https://www.va.gov/health-care/family-caregiver-benefits/champva/"
+    - "https://www.va.gov/health-care/family-caregiver-benefits/comprehensive-assistance/"
+    - "https://www.va.gov/health-care/health-needs-conditions/health-issues-related-to-service-era/cold-war/"
+    - "https://www.va.gov/health-care/health-needs-conditions/health-issues-related-to-service-era/gulf-war/"
+    - "https://www.va.gov/health-care/health-needs-conditions/health-issues-related-to-service-era/iraq-war/"
+    - "https://www.va.gov/health-care/health-needs-conditions/health-issues-related-to-service-era/korean-war/"
+    - "https://www.va.gov/health-care/health-needs-conditions/health-issues-related-to-service-era/operation-enduring-freedom/"
+    - "https://www.va.gov/health-care/health-needs-conditions/health-issues-related-to-service-era/vietnam-war/"
+    - "https://www.va.gov/health-care/health-needs-conditions/health-issues-related-to-service-era/world-war-ii/"
+    - "https://www.va.gov/health-care/health-needs-conditions/mental-health/depression/"
+    - "https://www.va.gov/health-care/health-needs-conditions/mental-health/ptsd/"
+    - "https://www.va.gov/health-care/health-needs-conditions/mental-health/suicide-prevention/"
+    - "https://www.va.gov/health-care/health-needs-conditions/chemical-hazardous-materials-exposure/"
+    - "https://www.va.gov/health-care/health-needs-conditions/health-issues-related-to-service-era/"
+    - "https://www.va.gov/health-care/health-needs-conditions/mental-health/"
+    - "https://www.va.gov/health-care/health-needs-conditions/military-sexual-trauma/"
+    - "https://www.va.gov/health-care/health-needs-conditions/substance-use-problems/"
+    - "https://www.va.gov/health-care/health-needs-conditions/womens-health-needs/"
+    - "https://www.va.gov/health-care/refill-track-prescriptions/"
+    - "https://www.va.gov/health-care/about-affordable-care-act/"
+    - "https://www.va.gov/health-care/about-va-health-benefits/"
+    - "https://www.va.gov/health-care/after-you-apply/"
+    - "https://www.va.gov/health-care/eligibility/"
+    - "https://www.va.gov/health-care/family-caregiver-benefits/"
+    - "https://www.va.gov/health-care/get-medical-records/"
+    - "https://www.va.gov/health-care/health-needs-conditions/"
+    - "https://www.va.gov/health-care/how-to-apply/"
+    - "https://www.va.gov/health-care/"
+    - "https://www.va.gov/health-care/order-hearing-aid-batteries-prosthetic-socks/"
+    - "https://www.va.gov/health-care/schedule-view-va-appointments/"
+    - "https://www.va.gov/health-care/secure-messaging/"
+    - "https://www.va.gov/health-care/update-health-information/"
+    - "https://www.va.gov/health-care/view-test-and-lab-results/"
+    - "https://www.va.gov/health-care/wellness-programs/"
+    - "https://www.va.gov/health-care/apply/application/introduction"
+
+  keys:
+    - url
+
+  migration_tools:
+  -
+    source: url
+    source_type: url
+
+    source_operations:
+    -
+      operation: modifier
+      modifier: basicCleanup
+    fields:
+      title:
+        obtainer: ObtainTitle
+        jobs:
+        -
+          # old va.gov (Teamsite)
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+          - 'h2.page-title'
+          - 1
+          - innerHTML
+        -
+          # new va.gov (Metalsmith)
+          job: addSearch
+          method: pluckSelector
+          arguments:
+          - 'h1'
+          - 1
+          - innerHTML
+        -
+          # full react pages - no page content, so have to get title from breadcrumb
+          job: addSearch
+          method: pluckSelector
+          arguments:
+          - '#va-breadcrumbs ul li:last-child'
+          - 1
+          - innerHTML
+      body:
+        obtainer: ObtainBody
+        jobs:
+        -
+          # new va.gov (Metalsmith)
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+          - '#content .usa-width-three-fourths'
+          - '1'
+          - innerHTML
+        -
+          # new va.gov (Metalsmith)
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+          - '#content .usa-grid-full'
+          - '1'
+          - innerHTML
+        -
+          # react pages
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+          - '#main .section'
+          - '1'
+          - innerHTML
+        -
+          # old va.gov (Teamsite)
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+          - '#tier4innerContent'
+          - 1
+          - innerHTML
+        -
+          # old va.gov (Teamsite)
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+          - '#innerContentWrapper .col-md-8'
+          - 1
+          - innerHTML
+    dom_operations:
+    -
+      operation: get_field
+      field: title
+    -
+      # new va.gov (Metalsmith)
+      operation: modifier
+      modifier: removeSelectorAll
+      arguments:
+      - 'button.va-btn-sidebarnav-trigger'
+    -
+      # old va.gov (Teamsite)
+      operation: modifier
+      modifier: removeSelectorAll
+      arguments:
+      - '.top_link'
+    -
+      operation: get_field
+      field: body
+
+process:
+  id: url
+  title: title
+  body/value: body
+  body/format:
+    plugin: default_value
+    default_value: rich_text
+  type:
+    plugin: default_value
+    default_value: page
+
+destination:
+  plugin: 'entity:node'
+
+migration_dependencies: {}
+dependencies:
+  enforced:
+    module:
+    - va_gov_migrate
