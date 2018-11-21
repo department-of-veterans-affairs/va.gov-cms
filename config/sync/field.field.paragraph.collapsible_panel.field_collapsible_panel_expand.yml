@@ -1,0 +1,23 @@
+uuid: 1cf29d05-3bbd-4bcd-ab85-2a6a4413c5e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_collapsible_panel_expand
+    - paragraphs.paragraphs_type.collapsible_panel
+id: paragraph.collapsible_panel.field_collapsible_panel_expand
+field_name: field_collapsible_panel_expand
+entity_type: paragraph
+bundle: collapsible_panel
+label: 'Start expanded'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,30 @@
+uuid: 79831f81-d1e9-4237-972b-1db4919825e3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.collapsible_panel.field_collapsible_panel_bordered
+    - field.field.paragraph.collapsible_panel.field_collapsible_panel_expand
+    - field.field.paragraph.collapsible_panel.field_collapsible_panel_multi
+    - 'field.field.paragraph.collapsible_panel.field_va  _paragraphs'
+    - paragraphs.paragraphs_type.collapsible_panel
+  module:
+    - entity_reference_revisions
+id: paragraph.collapsible_panel.default
+targetEntityType: paragraph
+bundle: collapsible_panel
+mode: default
+content:
+  field_va_paragraphs:
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+hidden:
+  field_collapsible_panel_bordered: true
+  field_collapsible_panel_expand: true
+  field_collapsible_panel_multi: true

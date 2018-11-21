@@ -1,0 +1,54 @@
+uuid: 00ee996a-6df3-4ed8-a959-d40bf89ad7a2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.collapsible_panel.field_collapsible_panel_bordered
+    - field.field.paragraph.collapsible_panel.field_collapsible_panel_expand
+    - field.field.paragraph.collapsible_panel.field_collapsible_panel_multi
+    - field.field.paragraph.collapsible_panel.field_va_paragraphs
+    - paragraphs.paragraphs_type.collapsible_panel
+  module:
+    - paragraphs
+id: paragraph.collapsible_panel.default
+targetEntityType: paragraph
+bundle: collapsible_panel
+mode: default
+content:
+  field_collapsible_panel_bordered:
+    weight: 1
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_collapsible_panel_expand:
+    weight: 2
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_collapsible_panel_multi:
+    weight: 0
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_va_paragraphs:
+    weight: 3
+    settings:
+      title: 'Collapsible Panel'
+      title_plural: 'Collapsible Panels'
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: collapsible_panel_item
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

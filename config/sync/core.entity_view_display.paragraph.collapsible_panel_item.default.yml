@@ -1,0 +1,31 @@
+uuid: 0f280000-20d6-4e8b-ba8e-01caffc9fbd4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.collapsible_panel_item.field_wysiwyg
+    - field.field.paragraph.collapsible_panel_item.field_title
+    - paragraphs.paragraphs_type.collapsible_panel_item
+  module:
+    - text
+id: paragraph.collapsible_panel_item.default
+targetEntityType: paragraph
+bundle: collapsible_panel_item
+mode: default
+content:
+  field_title:
+    weight: 1
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_wysiwyg:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden: {  }
