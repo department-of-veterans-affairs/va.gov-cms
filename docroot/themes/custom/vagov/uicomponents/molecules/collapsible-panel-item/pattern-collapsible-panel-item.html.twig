@@ -1,0 +1,15 @@
+
+{#<li{{ attributes.addClass(classes) }}>#}
+    {#{% block content %}#}
+
+        <button class="usa-accordion-button"
+                aria-expanded="{{ expanded }}" aria-controls="{{ controls }}">
+            {{ title }}
+        </button>
+
+        <div id="{{ controls }}" class="usa-accordion-content">
+            {{ wysiwyg }}
+        </div>
+
+    {#{% endblock %}#}
+{#</li>#}

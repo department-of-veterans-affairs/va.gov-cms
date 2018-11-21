@@ -4,11 +4,13 @@ status: true
 dependencies:
   config:
     - field.field.node.page.body
+    - field.field.node.page.field_content_block
     - field.field.node.page.field_meta_tags
     - node.type.page
   module:
     - content_moderation
     - metatag
+    - paragraphs
     - path
     - text
 _core:
@@ -31,6 +33,18 @@ content:
     type: datetime_timestamp
     weight: 2
     settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_content_block:
+    type: entity_reference_paragraphs
+    weight: 102
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
     region: content
   field_meta_tags:

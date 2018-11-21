@@ -1,0 +1,35 @@
+uuid: 0c70db85-f7ce-441f-98a5-239c5db5376c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.collapsible_panel_item.field_wysiwyg
+    - field.field.paragraph.collapsible_panel_item.field_title
+    - paragraphs.paragraphs_type.collapsible_panel_item
+  module:
+    - text
+id: paragraph.collapsible_panel_item.default
+targetEntityType: paragraph
+bundle: collapsible_panel_item
+mode: default
+content:
+  field_title:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_wysiwyg:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

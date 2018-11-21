@@ -1,0 +1,34 @@
+uuid: c1888f60-4684-4f37-93a0-508a165ff233
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_va_paragraphs
+    - paragraphs.paragraphs_type.collapsible_panel
+    - paragraphs.paragraphs_type.collapsible_panel_item
+  module:
+    - entity_reference_revisions
+id: paragraph.collapsible_panel.field_va_paragraphs
+field_name: field_va_paragraphs
+entity_type: paragraph
+bundle: collapsible_panel
+label: 'Collapsible Panel Items'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      collapsible_panel_item: collapsible_panel_item
+    target_bundles_drag_drop:
+      collapsible_panel:
+        weight: 7
+        enabled: false
+      collapsible_panel_item:
+        enabled: true
+        weight: 8
+field_type: entity_reference_revisions
