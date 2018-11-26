@@ -4,26 +4,6 @@
  * VAGov theme implementation for a collapsible panel item
  */
 #}
-{#{%#}
-    {#set classes = [#}
-    {#'paragraph',#}
-    {#'paragraph--type--' ~ paragraph.bundle|clean_class,#}
-    {#view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,#}
-{#]#}
-{#%}#}
-{#{% block paragraph %}#}
-    {#<li{{ attributes.addClass(classes) }}>#}
-
-        {#{% include "@uiComponents/molecules/collapsible-panel-item/pattern-collapsible-panel-item.html.twig" with#}
-            {#{#}
-               {#'title' : content.field_title,#}
-                {#'wysiwyg' : content.field_wysiwyg#}
-            {#}#}
-        {#%}#}
-
-    {#</li>#}
-{#{% endblock paragraph %}#}
-
 {%
     set classes = [
     'paragraph',
@@ -33,16 +13,13 @@
 %}
 {% block paragraph %}
     <li{{ attributes.addClass(classes) }}>
-        {% block content %}
 
-            <button class="usa-accordion-button"
-                    aria-expanded="{{ expanded }}" aria-controls="{{ controls }}">
-                {{ content.field_title.0 }}
-            </button>
-            <div id="{{ controls }}" class="usa-accordion-content">
-                {{ content|without('field_title') }}
-            </div>
+        {% include "@uiComponents/molecules/collapsible-panel-item/pattern-collapsible-panel-item.html.twig" with
+            {
+               'title' : content.field_title,
+                'wysiwyg' : content.field_wysiwyg
+            }
+        %}
 
-        {% endblock %}
     </li>
 {% endblock paragraph %}
