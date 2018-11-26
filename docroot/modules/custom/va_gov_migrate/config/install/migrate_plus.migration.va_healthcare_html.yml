@@ -162,6 +162,19 @@ source:
       arguments:
       - '.top_link'
     -
+      # react pages
+      operation: modifier
+      modifier: changeHtmlContents
+      arguments:
+        - '#react-root'
+        - 'DYNAMIC CONTENT GOES HERE'
+    -
+      operation: modifier
+      modifier: changeHtmlContents
+      arguments:
+      - '#react-applicationStatus'
+      - 'DYNAMIC FORM CONTENT GOES HERE'
+    -
       operation: get_field
       field: body
 
