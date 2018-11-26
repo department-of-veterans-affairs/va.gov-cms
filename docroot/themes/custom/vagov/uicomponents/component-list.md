@@ -17,7 +17,7 @@ Simple groups of UI elements that work together as a unit.
 5. Expandable text
 
 ## Organisms
-Complex UI components made up of molecules and atoms and other organisms. 
+Complex UI components made up of molecules and atoms and other organisms.
 1. Left rail navigation
 2. Right rail content
 3. Graybox
@@ -27,6 +27,7 @@ Complex UI components made up of molecules and atoms and other organisms.
 6. Featured
 7. Alerts
 8. Starred Horizontal Rule
+9. Header
 
 
 ### To add additional UI components:
@@ -35,8 +36,8 @@ Complex UI components made up of molecules and atoms and other organisms.
 2. Create a new folder for it in the directory that corresponds to it's component type. The folder name should `pattern` followed by the name of the component:
 `pattern-componentname`.
 3. At minimum, you need to create a Twig template `pattern-componentname.html.twig` and a YML file `pattern-componentname.ui_patterns.yml` in order to register
-your new component. 
-4. If this component has specific styles or javascript add them with `_pattern-componentname.scss` and `pattern-componentname.js`. Don't forget to list them in the 
+your new component.
+4. If this component has specific styles or javascript add them with `_pattern-componentname.scss` and `pattern-componentname.js`. Don't forget to list them in the
 libraries key of the component's YML!
 
 There's an example component in the `pattern-example` folder in this directory. Check it out.

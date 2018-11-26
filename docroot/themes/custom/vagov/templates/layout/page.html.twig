@@ -4,70 +4,8 @@
  * USWDS theme implementation to display a single page.
  */
 #}
-<header class="{{ header_classes }}" id="header" role="banner">
 
-  {% if page.header_top or government_banner %}
-  <section class="usa-banner">
-
-    {{ government_banner }}
-
-    {% if page.header_top %}
-    <div class="usa-banner-inner">
-      {{ page.header_top }}
-    </div>
-
-    {% endif %}
-
-  </section>
-  {% endif %}
-
-  {% if header_basic %}
-  <div class="usa-nav-container">
-  {% endif %}
-
-  <div class="usa-navbar">
-    <button class="usa-menu-btn">{{ 'Menu'|t }}</button>
-    {{ page.header }}
-  </div>
-
-  <div class="usa-overlay"></div>
-  <div class="usa-nav" role="navigation">
-    <div class="usa-nav-inner">
-
-      <button class="usa-nav-close">
-        <img src="{{ active_theme_path }}/assets/img/close.svg" alt="close" />
-      </button>
-
-      {% if page.mobile_menu %}
-      <div class="usa-nav-mobile">
-        {{ page.mobile_menu }}
-      </div>
-      {% endif %}
-
-      {% if page.mobile_menu %}
-      <div class="usa-nav-desktop">
-      {% endif %}
-
-      {% if page.primary_menu %}
-      {{ page.primary_menu }}
-      {% endif %}
-
-      {% if page.secondary_menu %}
-      {{ page.secondary_menu }}
-      {% endif %}
-
-      {% if page.mobile_menu %}
-      </div>
-      {% endif %}
-
-    </div>
-  </div>
-
-  {% if header_basic %}
-  </div>
-  {% endif %}
-
-</header>
+{% include "@uiComponents/organisms/header/pattern-header.html.twig" %}
 
 {% if page.hero %}
 <section>
