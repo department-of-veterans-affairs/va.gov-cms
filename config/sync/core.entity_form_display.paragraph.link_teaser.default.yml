@@ -1,0 +1,35 @@
+uuid: 24da8c48-14e0-4fb8-b220-c0a9efc08591
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.link_teaser.field_link
+    - field.field.paragraph.link_teaser.field_link_summary
+    - paragraphs.paragraphs_type.link_teaser
+  module:
+    - link
+id: paragraph.link_teaser.default
+targetEntityType: paragraph
+bundle: link_teaser
+mode: default
+content:
+  field_link:
+    weight: 0
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_link_summary:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

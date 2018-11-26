@@ -5,6 +5,9 @@ dependencies:
   config:
     - field.storage.node.field_content_block
     - node.type.page
+    - paragraphs.paragraphs_type.collapsible_panel_item
+    - paragraphs.paragraphs_type.link_teaser
+    - paragraphs.paragraphs_type.subway_map_stop
   module:
     - entity_reference_revisions
 id: node.page.field_content_block
@@ -21,12 +24,30 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     negate: 1
-    target_bundles: null
+    target_bundles:
+      collapsible_panel_item: collapsible_panel_item
+      subway_map_stop: subway_map_stop
+      link_teaser: link_teaser
     target_bundles_drag_drop:
       collapsible_panel:
         weight: 3
         enabled: false
       collapsible_panel_item:
+        enabled: true
         weight: 4
+      subway_map:
+        weight: 8
+        enabled: false
+      subway_map_stop:
+        enabled: true
+        weight: 9
+      link_teaser:
+        enabled: true
+        weight: 10
+      wysiwyg:
+        weight: 10
+        enabled: false
+      list_of_link_teasers:
+        weight: 11
         enabled: false
 field_type: entity_reference_revisions

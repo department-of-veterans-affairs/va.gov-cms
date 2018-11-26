@@ -1,0 +1,26 @@
+uuid: 7a700776-32b8-4f44-9e2b-3b0f883c9ea2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.subway_map_stop.field_wysiwyg
+    - paragraphs.paragraphs_type.subway_map_stop
+  module:
+    - text
+id: paragraph.subway_map_stop.default
+targetEntityType: paragraph
+bundle: subway_map_stop
+mode: default
+content:
+  field_wysiwyg:
+    weight: 0
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

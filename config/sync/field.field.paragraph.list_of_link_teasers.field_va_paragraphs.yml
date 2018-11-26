@@ -1,0 +1,49 @@
+uuid: aeffc784-1ac2-493c-8e49-6ea86ad09922
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_va_paragraphs
+    - paragraphs.paragraphs_type.link_teaser
+    - paragraphs.paragraphs_type.list_of_link_teasers
+  module:
+    - entity_reference_revisions
+id: paragraph.list_of_link_teasers.field_va_paragraphs
+field_name: field_va_paragraphs
+entity_type: paragraph
+bundle: list_of_link_teasers
+label: 'Link teasers'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      link_teaser: link_teaser
+    target_bundles_drag_drop:
+      collapsible_panel:
+        weight: 8
+        enabled: false
+      collapsible_panel_item:
+        weight: 9
+        enabled: false
+      link_teaser:
+        enabled: true
+        weight: 10
+      list_of_link_teasers:
+        weight: 11
+        enabled: false
+      subway_map:
+        weight: 12
+        enabled: false
+      subway_map_stop:
+        weight: 13
+        enabled: false
+      wysiwyg:
+        weight: 14
+        enabled: false
+field_type: entity_reference_revisions
