@@ -1,0 +1,33 @@
+uuid: f356aa1c-3af6-4aa7-ad5b-ab33d6afb079
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.list_of_link_teasers.field_title
+    - field.field.paragraph.list_of_link_teasers.field_va_paragraphs
+    - paragraphs.paragraphs_type.list_of_link_teasers
+  module:
+    - entity_reference_revisions
+id: paragraph.list_of_link_teasers.default
+targetEntityType: paragraph
+bundle: list_of_link_teasers
+mode: default
+content:
+  field_title:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_va_paragraphs:
+    weight: 1
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+hidden: {  }

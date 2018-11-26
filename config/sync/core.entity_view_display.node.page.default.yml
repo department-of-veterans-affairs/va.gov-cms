@@ -3,14 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.page.body
     - field.field.node.page.field_content_block
+    - field.field.node.page.field_intro_text
     - field.field.node.page.field_meta_tags
     - node.type.page
   module:
     - entity_reference_revisions
-    - metatag
-    - text
     - user
 _core:
   default_config_hash: Kfxnq5Imio9VFBoNa_PIkzXoTmjz_T-EY3mOrwDTddU
@@ -19,13 +17,6 @@ targetEntityType: node
 bundle: page
 mode: default
 content:
-  body:
-    label: hidden
-    type: text_default
-    weight: 1
-    settings: {  }
-    third_party_settings: {  }
-    region: content
   content_moderation_control:
     weight: 0
     region: content
@@ -33,24 +24,25 @@ content:
     third_party_settings: {  }
   field_content_block:
     type: entity_reference_revisions_entity_view
-    weight: 4
+    weight: 2
     label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
     region: content
-  field_meta_tags:
-    type: metatag_empty_formatter
-    region: content
-    weight: 3
-    label: above
+  field_intro_text:
+    weight: 1
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+    type: basic_string
+    region: content
   links:
-    weight: 2
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_meta_tags: true
   panelizer: true

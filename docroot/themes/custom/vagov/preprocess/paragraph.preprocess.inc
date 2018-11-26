@@ -51,7 +51,6 @@ function vagov_preprocess_paragraph(&$variables) {
  * Implements hook_preprocess_paragraph__collapsible_panel().
  */
 function vagov_preprocess_paragraph__collapsible_panel(&$variables) {
-  print('helloworld');
   $accordion = $variables['paragraph'];
 
   if ($accordion->field_collapsible_panel_multi->value) {
