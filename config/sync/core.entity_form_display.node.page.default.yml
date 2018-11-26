@@ -36,15 +36,22 @@ content:
     third_party_settings: {  }
     region: content
   field_content_block:
-    type: entity_reference_paragraphs
+    type: paragraphs
     weight: 102
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
+      title: 'Content block'
+      title_plural: 'Content blocks'
+      edit_mode: closed_expand_nested
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
       add_mode: dropdown
       form_display_mode: default
-      default_paragraph_type: ''
+      default_paragraph_type: wysiwyg
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
+        add_above: '0'
     third_party_settings: {  }
     region: content
   field_meta_tags:
