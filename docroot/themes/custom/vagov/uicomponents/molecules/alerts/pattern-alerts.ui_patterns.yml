@@ -1,0 +1,38 @@
+alerts:
+  label: Alert
+  description: Assorted VA alerts
+  variants:
+    success:
+      label: Success
+      description: An alert displayed when a special action is successful.
+    warning:
+      label: Warning
+      description: An alert displayed when the user needs to be warned about something.
+    error:
+      label: Error
+      description: An alert displayed when an action has caused an error.
+    continue:
+      label: Continue
+      description: An alert displayed when a user must be prompted to continue, like when they're filling out a form.
+    information:
+      label: Information Status
+      description: An alert with more information about a current page or action.
+    information_blue:
+      label: Information Status - Blue Background
+      description: An information status alert with a blue background.
+  fields:
+    title:
+      type: text
+      label: Alert Title
+      description: A title for this alert
+      preview: This is an alert
+    message:
+      type: text
+      label: Alert Message
+      description: The actual message this alert is meant to convey.
+      preview: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+    expand:
+      type: boolean
+      label: Is this an expanding alert?
+      preview: false
+

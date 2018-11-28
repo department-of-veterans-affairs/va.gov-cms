@@ -1,0 +1,23 @@
+.vagov-c-linkteaser {
+  &--list {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  &--item {
+    margin: $spacing-md-small 0;
+    &--header {
+      font-weight: bold;
+      @include display-icon('arrow-right', 'after', 10px, $spacing-x-small, 'null');
+      a {
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    &--description {
+      color: $color-black;
+      margin: 0;
+    }
+  }
+}
