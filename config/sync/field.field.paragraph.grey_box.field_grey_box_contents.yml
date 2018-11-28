@@ -1,0 +1,57 @@
+uuid: cb5501a1-73c8-43c6-811a-9c37439c225c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_grey_box_contents
+    - paragraphs.paragraphs_type.grey_box
+    - paragraphs.paragraphs_type.list_of_link_teasers
+    - paragraphs.paragraphs_type.wysiwyg
+  module:
+    - entity_reference_revisions
+id: paragraph.grey_box.field_grey_box_contents
+field_name: field_grey_box_contents
+entity_type: paragraph
+bundle: grey_box
+label: 'Grey Box Contents'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      list_of_link_teasers: list_of_link_teasers
+      wysiwyg: wysiwyg
+    target_bundles_drag_drop:
+      collapsible_panel:
+        weight: 10
+        enabled: false
+      collapsible_panel_item:
+        weight: 11
+        enabled: false
+      grey_box:
+        weight: 12
+        enabled: false
+      link_teaser:
+        weight: 13
+        enabled: false
+      list_of_link_teasers:
+        enabled: true
+        weight: 14
+      starred_horizontal_rule:
+        weight: 15
+        enabled: false
+      subway_map:
+        weight: 16
+        enabled: false
+      subway_map_stop:
+        weight: 17
+        enabled: false
+      wysiwyg:
+        enabled: true
+        weight: 18
+field_type: entity_reference_revisions

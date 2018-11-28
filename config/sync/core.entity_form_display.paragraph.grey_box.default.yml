@@ -1,0 +1,30 @@
+uuid: 1d447c9c-e7e0-4519-8004-6a4e02ec505b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.grey_box.field_grey_box_contents
+    - paragraphs.paragraphs_type.grey_box
+  module:
+    - paragraphs
+id: paragraph.grey_box.default
+targetEntityType: paragraph
+bundle: grey_box
+mode: default
+content:
+  field_grey_box_contents:
+    type: entity_reference_paragraphs
+    weight: 0
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true
