@@ -1,18 +1,16 @@
 <div class="vagov-c-linkteaser--item">
 
+    {%  for item in link %}
+        <span class="vagov-c-linkteaser--item--header">
+            {% if item.url %}
+                <a href="{{ item.url }}" class="no-external-icon">{{ item.text }}</a>
+            {% else %}
+                {{ item.text }}
+            {% endif %}
+        </span>
+    {% endfor %}
 
-
-    {% if link.url %}
-        <a href="{{ link.url }}" class="no-external-icon">{{ link.text }}</a>
-    {% else %}
-        {{ link }}
-    {% endif %}
-
-    <span class="vagov-c-linkteaser--header">
-        <img class="all-link-arrow" src="assets/img/arrow-right.svg" alt="right-arrow" />
-    </span>
-
-    <p class="vagov-c-linkteaser--description">
+    <p class="vagov-c-linkteaser--item--description">
         {{ link_summary }}
     </p>
 
