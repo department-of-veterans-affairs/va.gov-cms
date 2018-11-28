@@ -1,11 +1,10 @@
 <div class="vagov-c-linkteaser--item">
-
     {%  for item in link %}
         <span class="vagov-c-linkteaser--item--header">
             {% if item.url %}
-                <a href="{{ item.url }}" class="no-external-icon">{{ item.text }}</a>
+                <a href="{{ item.url }}" class="no-external-icon">{{ item.title }}</a>
             {% else %}
-                {{ item.text }}
+                {{ item.title }}
             {% endif %}
         </span>
     {% endfor %}
@@ -13,5 +12,4 @@
     <p class="vagov-c-linkteaser--item--description">
         {{ link_summary }}
     </p>
-
 </div>

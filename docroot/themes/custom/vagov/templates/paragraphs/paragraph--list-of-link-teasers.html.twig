@@ -43,18 +43,17 @@
     'paragraph',
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
-    not paragraph.isPublished() ? 'paragraph--unpublished'
+    not paragraph.isPublished() ? 'paragraph--unpublished',
+    'vagov-c-linkteaser'
 ]
 %}
 {% block paragraph %}
-    <li{{ attributes.addClass(classes) }}>
+    <div{{ attributes.addClass(classes) }}>
         {% block content %}
-            {% include "@uiComponents/molecules/link-teaser/pattern-link-teaser.html.twig" with
-                {
-                    'link' : paragraph.field_link,
-                    'link_summary' : paragraph.field_link_summary.value
-                }
-            %}
+            <h2 class="vagov-c-linkteaser--title">{{ paragraph.field_title.value }}</h2>
+            <ul class="vagov-c-linkteaser--list">
+                {{ content.field_va_paragraphs}}
+            </ul>
         {% endblock %}
-    </li>
+    </div>
 {% endblock paragraph %}
