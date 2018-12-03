@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function access_ui_install() {
+  /** @var \Drupal\Core\Path\AliasStorageInterface $storage */
+  $storage = \Drupal::service('path.alias_storage');
+
+  $storage->save('/admin/config/people/simple_oauth', '/admin/access/settings');
+  $storage->save('/admin/config/people/simple_oauth/oauth2_client', '/admin/access/clients');
+  $storage->save('/admin/people/roles', '/admin/access/roles');
+  $storage->save('/admin/config/people/simple_oauth/oauth2_token', '/admin/access/tokens');
+  $storage->save('/admin/people', '/admin/access/users');
+}

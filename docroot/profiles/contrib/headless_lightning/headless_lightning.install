@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall functions for the Headless Lightning distribution.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function headless_lightning_install() {
+  // Don't do anything during config sync.
+  if (\Drupal::isConfigSyncing()) {
+    return;
+  }
+
+  $module_handler = \Drupal::moduleHandler();
+  $config_factory = \Drupal::configFactory();
+
+  $config_factory
+    ->getEditable('system.theme')
+    ->set('default', 'seven')
+    ->save();
+
+  $config_factory
+    ->getEditable('system.site')
+    ->set('page.403', '/user/login')
+    ->save();
+
+  if ($module_handler->moduleExists('json_content')) {
+    // Use our special-sauce front page controller.
+    $config_factory
+      ->getEditable('system.site')
+      ->set('page.front', '/frontpage')
+      ->save();
+  }
+  if ($module_handler->moduleExists('lightning_api')) {
+    // Expose a 'View JSON' operation for all entities.
+    $config_factory
+      ->getEditable('lightning_api.settings')
+      ->set('entity_json', TRUE)
+      ->save();
+  }
+
+  entity_get_form_display('consumer', 'consumer', 'default')
+    ->removeComponent('description')
+    ->removeComponent('image')
+    ->save();
+}
+
+/**
+ * Implements hook_update_dependencies().
+ */
+function headless_lightning_update_dependencies() {
+  // TODO: Move this logic into Lightning itself.
+  return [
+    'lightning_media' => [
+      8019 => [
+        'lightning_api' => 8300,
+      ],
+    ],
+  ];
+}

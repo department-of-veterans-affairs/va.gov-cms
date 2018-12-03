@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * Implements hook_toolbar_alter().
+ */
+function content_model_ui_toolbar_alter(array &$items) {
+  if (isset($items['administration'])) {
+    $items['administration']['tray']['#attached']['library'][] = 'content_model_ui/toolbar';
+  }
+}
+
+/**
+ * Implements hook_menu_links_discovered_alter().
+ */
+function content_model_ui_menu_links_discovered_alter(array &$links) {
+  $links['system.admin_structure']['enabled'] = FALSE;
+}
+
+/**
+ * Implements hook_local_tasks_alter().
+ */
+function content_model_ui_local_tasks_alter(&$local_tasks) {
+  $local_tasks['entity.node_type.collection']['title'] = t('Content Types');
+  $local_tasks['entity.node_type.collection']['base_route'] = 'admin.content_models';
+  $local_tasks['entity.node_type.collection']['weight'] = 1;
+
+  $local_tasks['entity.media_type.collection']['title'] = t('Media Types');
+  $local_tasks['entity.media_type.collection']['base_route'] = 'admin.content_models';
+  $local_tasks['entity.media_type.collection']['weight'] = 2;
+}

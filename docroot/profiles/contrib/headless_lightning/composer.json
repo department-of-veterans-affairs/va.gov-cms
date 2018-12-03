@@ -1,0 +1,88 @@
+{
+    "name": "acquia/headless_lightning",
+    "description": "Drupal Lightning as a backend for fully decoupled applications.",
+    "type": "drupal-profile",
+    "license": "GPL-2.0-or-later",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require-dev": {
+        "drupal/devel": "^1.0",
+        "drupal/console": "^1.0.0",
+        "acquia/lightning_dev": "dev-8.x-1.x",
+        "drupal/schema_metatag": "^1.3"
+    },
+    "require": {
+        "drupal-composer/drupal-scaffold": "^2.0.0",
+        "cweagans/composer-patches": "^1.6.4",
+        "acquia/lightning": "3.2.2"
+    },
+    "repositories": {
+        "drupal": {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        "asset-packagist": {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        },
+        "dev": {
+            "type": "github",
+            "url": "https://github.com/acquia/lightning-dev",
+            "no-api": true
+        }
+    },
+    "config": {
+        "preferred-install": {
+            "drupal/core": "dist"
+        },
+        "platform": {
+            "php": "7.0.8"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "@drupal-scaffold",
+            "@push",
+            "ln -s -f git-hooks/pre-commit .git/hooks/pre-commit"
+        ],
+        "post-update-cmd": [
+            "@drupal-scaffold",
+            "@push",
+            "ln -s -f git-hooks/pre-commit .git/hooks/pre-commit"
+        ],
+        "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+        "release-version": "Acquia\\Lightning\\Composer\\ReleaseVersion::execute",
+        "nuke": "rm -r -f docroot vendor",
+        "pull": "Acquia\\Lightning\\Commands\\FileCommands::pull",
+        "push": "Acquia\\Lightning\\Commands\\FileCommands::push"
+    },
+    "extra": {
+        "installer-types": [
+            "bower-asset",
+            "npm-asset"
+        ],
+        "installer-paths": {
+            "docroot/core": [
+                "type:drupal-core"
+            ],
+            "docroot/modules/contrib/{$name}": [
+                "type:drupal-module"
+            ],
+            "docroot/profiles/contrib/{$name}": [
+                "type:drupal-profile"
+            ],
+            "docroot/themes/contrib/{$name}": [
+                "type:drupal-theme"
+            ],
+            "docroot/libraries/{$name}": [
+                "type:drupal-library",
+                "type:bower-asset",
+                "type:npm-asset"
+            ]
+        },
+        "enable-patching": true,
+        "patchLevel": {
+            "drupal/core": "-p2"
+        }
+    }
+}
