@@ -42,6 +42,11 @@ class VaPostRowSave extends PostRowSave {
 
     $paragraph_field = 'field_content_block';
     $node = Node::load($nid);
+
+    // Remove any existing paragraphs (for migrate updates)
+      $node->set($paragraph_field, []);
+      $node->save();
+
     $wysiwyg = $this->addParagraphs($query_path,$node, $paragraph_field);
     $this->addWysiwyg($wysiwyg,$node, $paragraph_field);
 
