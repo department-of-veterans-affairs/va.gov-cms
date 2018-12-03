@@ -1,0 +1,45 @@
+uuid: d3008ae1-b341-4020-a4a8-bf120afc2d50
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_alert_type
+field_name: field_alert_type
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: success
+      label: Success
+    -
+      value: warning
+      label: Warning
+    -
+      value: error
+      label: Error
+    -
+      value: information
+      label: Information
+    -
+      value: continue
+      label: Continue
+    -
+      value: information-blue
+      label: 'Information Blue Background'
+    -
+      value: information-paragraph
+      label: 'Information Paragraph Width'
+    -
+      value: expanding
+      label: Expanding
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

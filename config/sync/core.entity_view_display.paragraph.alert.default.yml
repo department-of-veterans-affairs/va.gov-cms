@@ -1,0 +1,40 @@
+uuid: 4e317f02-9729-43a5-931e-f401e106b618
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.alert.field_alert_heading
+    - field.field.paragraph.alert.field_alert_message
+    - field.field.paragraph.alert.field_alert_type
+    - paragraphs.paragraphs_type.alert
+  module:
+    - options
+    - text
+id: paragraph.alert.default
+targetEntityType: paragraph
+bundle: alert
+mode: default
+content:
+  field_alert_heading:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_alert_message:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_alert_type:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+hidden: {  }
