@@ -58,10 +58,19 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+            "cp -r hooks/' '.git/hooks/",
+            "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
+            "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
+            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
+            "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
         ],
         "post-update-cmd": [
-            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+            "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
+            "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
+            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
+            "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
         ],
         "nuke": "rm -r -f docroot/modules/contrib docroot/profiles/contrib/lightning vendor composer.lock",
         "quick-start": [
