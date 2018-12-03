@@ -1,0 +1,27 @@
+admin.content_models:
+  title: Content Models
+  description: 'Manage content models that define the data in your API.'
+  route_name: admin.content_models
+  parent: system.admin
+  weight: -9
+
+admin.content_models.node_type:
+  title: Content Types
+  description: 'Create and manage fields and relationships for different types of content.'
+  route_name: entity.node_type.collection
+  parent: admin.content_models
+  weight: 1
+
+admin.content_models.media_type:
+  title: Media Types
+  description: 'Manage the types of media available and what additional fields they have.'
+  route_name: entity.media_type.collection
+  parent: admin.content_models
+  weight: 2
+
+admin.content_models.taxonomy:
+  title: Taxonomy
+  description: 'Manage which tags and categories are available to structure and relate your content.'
+  route_name: entity.taxonomy_vocabulary.collection
+  parent: admin.content_models
+  weight: 3

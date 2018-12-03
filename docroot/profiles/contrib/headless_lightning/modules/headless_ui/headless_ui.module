@@ -1,0 +1,179 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Template\Attribute;
+use Drupal\headless_ui\Redirect;
+use Drupal\node\NodeTypeInterface;
+use Drupal\views\ViewEntityInterface;
+
+/**
+ * {@inheritdoc}
+ */
+function headless_ui_view_presave(ViewEntityInterface $view) {
+  if (\Drupal::isConfigSyncing()) {
+    return;
+  }
+  elseif ($view->isNew()) {
+    $display = &$view->getDisplay('default');
+
+    $fields = &$display['display_options']['fields'];
+
+    switch ($view->id()) {
+      case 'content':
+        if (isset($fields['title'])) {
+          $fields['title']['settings']['link_to_entity'] = FALSE;
+        }
+        if (isset($fields['name'])) {
+          $fields['name']['settings']['link_to_entity'] = FALSE;
+        }
+        break;
+
+      case 'media':
+        if (isset($fields['name'])) {
+          $fields['name']['settings']['link_to_entity'] = FALSE;
+        }
+        break;
+
+      case 'user_admin_people':
+        if (isset($fields['name'])) {
+          $fields['name']['settings']['link_to_entity'] = FALSE;
+        }
+        break;
+
+      default:
+        break;
+    }
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function headless_ui_form_node_form_alter(array &$form, FormStateInterface $form_state) {
+  Redirect::entityForm($form, $form_state);
+
+  // Remove the Promote and Sticky checkboxes.
+  $options = &$form;
+  \Drupal::service('lightning.form_helper')->applyStandardProcessing($options);
+  $options['#process'][] = 'headless_ui_process_node_type_workflow_options';
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function headless_ui_form_media_form_alter(array &$form, FormStateInterface $form_state) {
+  Redirect::entityForm($form, $form_state);
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function headless_ui_form_user_form_alter(array &$form, FormStateInterface $form_state) {
+  Redirect::entityForm($form, $form_state);
+}
+
+/**
+ * Implements hook_entity_operation_alter().
+ */
+function headless_ui_entity_operation_alter(array &$operations) {
+  unset($operations['manage-display']);
+}
+
+/**
+ * Implements hook_local_tasks_alter().
+ */
+function headless_ui_local_tasks_alter(array &$local_tasks) {
+  foreach (array_keys($local_tasks) as $key) {
+    if (strpos($key, 'field_ui.fields:display_overview_') === 0) {
+      unset($local_tasks[$key]);
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_create().
+ */
+function headless_ui_node_type_create(NodeTypeInterface $node_type) {
+  $node_type->setDisplaySubmitted(FALSE);
+  $node_type->setPreviewMode(DRUPAL_DISABLED);
+  $node_type->unsetThirdPartySetting('menu_ui', 'available_menus');
+  $node_type->unsetThirdPartySetting('menu_ui', 'parent');
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function headless_ui_form_node_type_add_form_alter(array &$form) {
+  $form['display']['#access'] = FALSE;
+  $form['submission']['preview_mode']['#access'] = FALSE;
+
+  $options = &$form['workflow']['options'];
+  \Drupal::service('lightning.form_helper')->applyStandardProcessing($options);
+  $options['#process'][] = 'headless_ui_process_node_type_workflow_options';
+}
+
+function headless_ui_process_node_type_workflow_options(array $element) {
+  $element['promote']['#access'] = FALSE;
+  $element['sticky']['#access'] = FALSE;
+  return $element;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function headless_ui_form_taxonomy_overview_terms_alter(array &$form) {
+  foreach (Element::children($form['terms']) as $key) {
+    $term = &$form['terms'][$key]['term'];
+
+    $term['#type'] = 'markup';
+    $term['#markup'] = $term['#title'];
+  }
+}
+
+/**
+ * Implements template_preprocess_admin_block_content().
+ */
+function headless_ui_preprocess_admin_block_content(array &$variables) {
+  template_preprocess_admin_block_content($variables);
+
+  foreach ($variables['content'] as &$item) {
+    if (isset($item['options']['attributes'])) {
+      $item['attributes'] = new Attribute($item['options']['attributes']);
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function headless_ui_theme_registry_alter(array &$theme_registry) {
+  $hook = &$theme_registry['admin_block_content'];
+
+  $hook['preprocess functions'] = array_diff(
+    $hook['preprocess functions'],
+    ['template_preprocess_admin_block_content']
+  );
+
+  $seven_path = drupal_get_path('theme', 'seven') . '/templates';
+  if ($hook['path'] == $seven_path) {
+    $hook['path'] = drupal_get_path('module', 'headless_ui') . '/templates';
+  }
+}
+
+/**
+ * Implements hook_menu_links_discovered_alter().
+ */
+function headless_ui_menu_links_discovered_alter(array &$links) {
+  $links['system.themes_page']['enabled'] = FALSE;
+
+  foreach ($links as &$link) {
+    if (isset($link['icon'])) {
+      $icon = drupal_get_path('module', $link['provider']) . '/' . $link['icon'];
+      $icon = file_create_url($icon);
+      $icon = file_url_transform_relative($icon);
+
+      $link['options']['attributes']['style'][] = "background-image: url($icon);";
+    }
+  }
+}

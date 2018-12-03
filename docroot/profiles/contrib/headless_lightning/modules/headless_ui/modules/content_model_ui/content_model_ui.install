@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function content_model_ui_install() {
+  /** @var \Drupal\Core\Path\AliasStorageInterface $storage */
+  $storage = \Drupal::service('path.alias_storage');
+
+  $storage->save('/admin/structure/types', '/admin/content-models/content');
+  $storage->save('/admin/structure/media', '/admin/content-models/media');
+  $storage->save('/admin/structure/taxonomy', '/admin/content-models/categories');
+  $storage->save('/admin/config/people/accounts', '/admin/content-models/users');
+}

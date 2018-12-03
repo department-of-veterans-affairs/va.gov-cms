@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * Implements hook_toolbar_alter().
+ */
+function access_ui_toolbar_alter(array &$items) {
+  if (isset($items['administration'])) {
+    $items['administration']['tray']['#attached']['library'][] = 'access_ui/toolbar';
+  }
+}
+
+/**
+ * Implements hook_help().
+ */
+function access_ui_help($route_name) {
+  switch ($route_name) {
+    case 'admin.access_control':
+     return t('<p>Anonymous access to the API is allowed in the same way that Drupal allows anonymous access to content. Generally, published content is available while unpublished content is not. If your application needs more privileged access (for example, accessing unpublished or creating new content) you will need to authenticate. Authentication involves a client, which is associated with a role, and a user which is assigned the same role as the client. Once you have a client and user set up, you can obtain an access token like this:</p><pre><code>curl -X POST -d "grant_type=password&client_id=api_test{CLIENT_ID}&client_secret={SECRET}&username={USERNAME}&password={PASSWORD}" https://{YOURDOMAIN}/oauth/token</code></pre>');
+
+    default:
+      return NULL;
+  }
+}
+
+/**
+ * Implements hook_menu_links_discovered_alter().
+ */
+function access_ui_menu_links_discovered_alter(array &$links) {
+  $links['oauth2_token.admin.config.people.settings']['title'] = t('API Settings');
+  $links['oauth2_token.admin.config.people.settings']['parent'] = 'admin.access_control';
+  $links['oauth2_token.admin.config.people.settings']['description'] = t('Allows you to configure certain settings for the API, including token expiration and the location of your keys.');
+  $links['oauth2_token.admin.config.people.settings']['weight'] = 1;
+
+  $links['entity.user.collection']['title'] = t('Users');
+  $links['entity.user.collection']['parent'] = 'admin.access_control';
+  $links['entity.user.collection']['description'] = t('In addition to providing the ability to login to this site, users are employed to authenticate with the API. API users should be assigned the same role as the client they are using.');
+  $links['entity.user.collection']['weight'] = 5;
+}
+
+/**
+ * Implements hook_local_tasks_alter().
+ */
+function access_ui_local_tasks_alter(array &$local_tasks) {
+  $local_tasks['oauth2_token.settings_tab']['title'] = t('API Settings');
+  $local_tasks['oauth2_token.settings_tab']['base_route'] = 'admin.access_control';
+  $local_tasks['oauth2_token.settings_tab']['weight'] = 1;
+
+  $local_tasks['entity.consumer.collection']['base_route'] = 'admin.access_control';
+  $local_tasks['entity.consumer.collection']['weight'] = 2;
+
+  $local_tasks['entity.user_role.collection']['base_route'] = 'admin.access_control';
+  $local_tasks['entity.user_role.collection']['weight'] = 3;
+
+  $local_tasks['entity.oauth2_token.collection']['base_route'] = 'admin.access_control';
+  $local_tasks['entity.oauth2_token.collection']['weight'] = 4;
+
+  $local_tasks['entity.user.collection']['title'] = t('Users');
+  $local_tasks['entity.user.collection']['base_route'] = 'admin.access_control';
+  $local_tasks['entity.user.collection']['weight'] = 5;
+}

@@ -1,0 +1,54 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_toolbar().
+ */
+function json_content_toolbar_alter(array &$items) {
+  // The front page redirects to admin/content and content is generally not
+  // viewed outside of the API so this link makes no sense.
+  unset($items['home']);
+}
+
+
+/**
+ * Implements hook_entity_operation_alter().
+ */
+function json_content_entity_operation_alter(array &$operations, EntityInterface $entity) {
+  if (isset($operations['edit'])) {
+    // Add the title of the node to the Edit link so our tests have something to
+    // target.
+    $operations['edit']['attributes']['title'] = t('Edit @title', [
+      '@title' => $entity->label(),
+    ]);
+  }
+}
+
+/**
+ * Implements  hook_menu_local_tasks_alter().
+ */
+function json_content_menu_local_tasks_alter(array &$data, $route_name) {
+  if (isset($data['tabs'][0])) {
+    foreach ($data['tabs'][0] as $name => $tab) {
+      if (preg_match('/^entity\.(\S*)\.canonical$/', $name, $matches)) {
+        // If there is a link to the canonical view of an entity, override it so
+        // that it points to the JSON rendered version of the entity. We tried
+        // doing this with hook_local_tasks_alter, but ended up with links to
+        // other bundles of the same entity types.
+        $entity_type = $matches[1];
+        $entity = \Drupal::routeMatch()->getParameter($entity_type);
+        $url = lightning_api_entity_json($entity);
+        $data['tabs'][0]['entity.' . $entity_type . '.canonical']['#link']['url'] = $url;
+        $data['tabs'][0]['entity.' . $entity_type . '.canonical']['#link']['title'] = t('View JSON');
+      }
+      if (preg_match('/^content_moderation\.workflows\:(\S*)\.latest_version_tab$/', $name, $matches)) {
+        // JSON API isn't capable of showing specific revisions, so we need to
+        // remove the Latest Revision tab if it exists. Once this issue is
+        // resolved we should be able to provide a link to the latest revision:
+        // https://www.drupal.org/project/jsonapi/issues/2795279
+        $data['tabs'][0]['content_moderation.workflows:' . $matches[1] . '.latest_version_tab']['#access'] = FALSE;
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+admin.access_control:
+  path: '/admin/access'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: API Access
+  requirements:
+    _permission: 'access administration pages'

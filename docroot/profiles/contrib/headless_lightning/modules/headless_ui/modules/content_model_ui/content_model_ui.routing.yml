@@ -1,0 +1,7 @@
+admin.content_models:
+  path: '/admin/content-models'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: Content Models
+  requirements:
+    _permission: 'access administration pages'
