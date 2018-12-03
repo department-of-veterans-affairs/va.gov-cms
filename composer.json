@@ -59,7 +59,7 @@
     "scripts": {
         "post-install-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-            "cp -r hooks/' '.git/hooks/",
+            "cp -r 'hooks/' '.git/hooks/'",
             "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
             "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
