@@ -1,0 +1,6 @@
+services:
+  va_gov_migrate.post_row_save:
+    class: Drupal\va_gov_migrate\EventSubscriber\VaPostRowSave
+    arguments: [ '@entity_type.manager' ]
+    tags:
+      - { name: event_subscriber }
