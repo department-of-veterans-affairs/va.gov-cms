@@ -62,6 +62,22 @@ source:
           job: 'addSearch'
           method: 'pluckSelector'
           arguments:
+            - '.usa-width-three-fourths'
+            - '1'
+            - innerHTML
+        -
+          # new va.gov (Metalsmith)
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - '#content .usa-grid-full'
+            - '1'
+            - innerHTML
+        -
+          # new va.gov (Metalsmith)
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
           - 'article'
           - '1'
           - innerHTML
