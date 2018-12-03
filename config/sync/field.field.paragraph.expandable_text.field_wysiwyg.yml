@@ -1,0 +1,21 @@
+uuid: 075a1659-84cf-4512-84f6-2fdeeb268314
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_wysiwyg
+    - paragraphs.paragraphs_type.expandable_text
+  module:
+    - text
+id: paragraph.expandable_text.field_wysiwyg
+field_name: field_wysiwyg
+entity_type: paragraph
+bundle: expandable_text
+label: 'Full Text'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
