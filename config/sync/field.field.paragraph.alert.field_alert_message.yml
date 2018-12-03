@@ -1,0 +1,21 @@
+uuid: 0edf0588-7026-43cf-a60a-00cddcf1077f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_alert_message
+    - paragraphs.paragraphs_type.alert
+  module:
+    - text
+id: paragraph.alert.field_alert_message
+field_name: field_alert_message
+entity_type: paragraph
+bundle: alert
+label: 'Alert Message'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
