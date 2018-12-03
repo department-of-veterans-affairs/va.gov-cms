@@ -3,6 +3,7 @@ recipe: drupal8
 config:
   webroot: docroot
   php: "7.2"
+  drush: path:/app/docroot/vendor/bin/drush
 
 events:
   # Clear caches after a database import
