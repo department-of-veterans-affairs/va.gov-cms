@@ -1,0 +1,35 @@
+uuid: a072e996-a2e7-4d65-b63c-3dfd311db5c3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.expandable_text.field_text_expander
+    - field.field.paragraph.expandable_text.field_wysiwyg
+    - paragraphs.paragraphs_type.expandable_text
+  module:
+    - text
+id: paragraph.expandable_text.default
+targetEntityType: paragraph
+bundle: expandable_text
+mode: default
+content:
+  field_text_expander:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_wysiwyg:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true
