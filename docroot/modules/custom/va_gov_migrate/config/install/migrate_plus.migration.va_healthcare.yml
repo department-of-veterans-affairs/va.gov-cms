@@ -54,6 +54,16 @@ source:
           - '#va-breadcrumbs ul li:last-child'
           - 1
           - innerHTML
+      intro_text:
+        obtainer: ObtainHtml
+        jobs:
+        -
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - '.va-introtext p'
+            - 1
+            - innerHTML
       body:
         obtainer: ObtainBody
         jobs:
@@ -102,6 +112,9 @@ source:
       operation: get_field
       field: title
     -
+      operation: get_field
+      field: intro_text
+    -
       # new va.gov (Metalsmith)
       operation: modifier
       modifier: removeSelectorAll
@@ -139,6 +152,7 @@ source:
 process:
   id: url
   title: title
+  field_intro_text: intro_text
   type:
     plugin: default_value
     default_value: page
