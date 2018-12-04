@@ -2,16 +2,24 @@
   "name": "vagov",
   "version": "1.0.0",
   "description": "VA.gov frontend and backend applications",
-  "main": "index.js",
+  "main": "app/index.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "jshintConfig": {
+    "esversion": "6"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "metalsmith": "^2.3.0"
+    "metalsmith": "^2.3.0",
+    "metalsmith-debug": "^1.2.0"
+  },
+  "dependencies": {
+    "jstransformer-nunjucks": "^0.5.0",
+    "metalsmith-in-place": "^4.2.0"
   }
 }
