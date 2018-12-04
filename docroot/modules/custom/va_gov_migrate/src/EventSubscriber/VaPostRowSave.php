@@ -32,6 +32,15 @@ class VaPostRowSave extends PostRowSave {
 
     $node = Node::load($nids[0]);
 
+    // Transform intro text paragraphs into newlines.
+    $intro_text = $row->getSourceProperty('intro_text');
+    $intro_text = $node->get('field_intro_text')->value;
+    $intro_text = preg_replace('/<\/p>\s+<p>/', PHP_EOL . PHP_EOL, $intro_text);
+    $intro_text = str_replace('<p>', '', $intro_text);
+    $intro_text = str_replace('</p>', '', $intro_text);
+    $node->set('field_intro_text', $intro_text);
+    $node->save();
+
     try {
       $query_path = htmlqp(mb_convert_encoding($html, "HTML-ENTITIES", "UTF-8"));
     }
