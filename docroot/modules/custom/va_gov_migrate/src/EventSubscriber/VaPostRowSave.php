@@ -61,7 +61,13 @@ class VaPostRowSave extends PostRowSave {
     $node->set($paragraph_field, []);
     $node->save();
 
-    $migrator = new ParagraphMigrator(['StarredHr']);
+    $migrator = new ParagraphMigrator(
+      [
+        'StarredHr',
+        'CollapsiblePanel',
+        'CollapsiblePanelItem',
+      ]
+    );
     $migrator->addParagraphs($query_path, $node, $paragraph_field);
     $migrator->addWysiwyg($node, $paragraph_field);
 

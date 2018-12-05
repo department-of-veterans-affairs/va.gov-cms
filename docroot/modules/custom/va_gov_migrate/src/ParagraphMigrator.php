@@ -73,7 +73,8 @@ class ParagraphMigrator {
       if (!$found_paragraph) {
         // These tags might contain paragraphs
         // (and shouldn't contain unwrapped text).
-        if (in_array($element->tag(), ['div', 'article', 'section', 'aside'])
+        $wrapper_tags = ['div', 'article', 'section', 'aside', 'ul'];
+        if (in_array($element->tag(), $wrapper_tags)
           && count($element->children())) {
           // If the element does contain unwrapped text, that text will be lost.
           if (str_replace(' ', '', $element->text()) !=
@@ -110,7 +111,7 @@ class ParagraphMigrator {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function addWysiwyg(Entity &$entity, $parent_field) {
-    if (!empty($this->wysiwyg)) {
+    if (!empty(strip_tags($this->wysiwyg))) {
       $paragraph = Paragraph::create([
         'type' => 'wysiwyg',
         'field_wysiwyg' => [

@@ -13,16 +13,6 @@ use QueryPath\DOMQuery;
  */
 abstract class ParagraphType {
   /**
-   * The name of the paragraph field, if any, that contains other paragraphs.
-   *
-   * This is only used when the paragraphs are of variable type. For paragraphs
-   * like List of link teasers, where the child paragraphs are added as part of
-   * the paragraph creation, this should be left blank.
-   *
-   * @var string
-   */
-  protected $paragraphField = '';
-  /**
    * The migrator object.
    *
    * @var \Drupal\va_gov_migrate\ParagraphMigrator
@@ -67,6 +57,10 @@ abstract class ParagraphType {
 
       $this->attachParagraph($paragraph, $entity, $parent_field);
 
+      if ($this->getParagraphField() && count($query_path->children())) {
+        self::$migrator->addParagraphs($query_path->children(), $paragraph, $this->getParagraphField());
+      }
+
       $found = TRUE;
     }
     return $found;
@@ -92,6 +86,16 @@ abstract class ParagraphType {
     ];
     $entity->set($parent_field, $current);
     $entity->save();
+  }
+
+  /**
+   * Return name of the paragraph field, if any, that contains other paragraphs.
+   *
+   * @return string
+   *   The machine name of the paragraph field.
+   */
+  protected function getParagraphField() {
+    return '';
   }
 
   /**
