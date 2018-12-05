@@ -4,7 +4,6 @@ namespace Drupal\va_gov_migrate;
 
 use Drupal\Core\Entity\Entity;
 use Drupal\paragraphs\Entity\Paragraph;
-use Drupal\migration_tools\Message;
 use QueryPath\DOMQuery;
 
 /**
@@ -79,9 +78,8 @@ class ParagraphMigrator {
           // If the element does contain unwrapped text, that text will be lost.
           if (str_replace(' ', '', $element->text()) !=
               str_replace(' ', '', $element->childrenText())) {
-            Message::make('Lost text, in @file', [
-              '@file' => $parent_entity->url(),
-            ], Message::WARNING);
+            \Drupal::logger('va_gov_migrate')->error('Lost text, in @file',
+              ['@file' => $parent_entity->url()]);
           }
           // Add the opening tag.
           $attr = '';
