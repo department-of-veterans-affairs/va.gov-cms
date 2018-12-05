@@ -42,28 +42,43 @@ abstract class ParagraphType {
    *   The paragraph fiend on the parent entity.
    *
    * @return bool
-   *   Returns true if a paragraph was created.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   *   Returns true if the current query path is a paragraph or part of one.
    */
   public function process(DOMQuery $query_path, Entity $entity, $parent_field) {
-    $found = FALSE;
+    try {
+      if ($this->isParagraph($query_path)) {
+        self::$migrator->addWysiwyg($entity, $parent_field);
 
-    if ($this->isParagraph($query_path)) {
-      self::$migrator->addWysiwyg($entity, $parent_field);
+        $paragraph = $this->create($query_path);
 
-      $paragraph = $this->create($query_path);
-      $paragraph->save();
+        if (!empty($paragraph)) {
+          $paragraph->save();
 
-      $this->attachParagraph($paragraph, $entity, $parent_field);
+          $this->attachParagraph($paragraph, $entity, $parent_field);
 
-      if ($this->getParagraphField() && count($query_path->children())) {
-        self::$migrator->addParagraphs($query_path->children(), $paragraph, $this->getParagraphField());
+          if ($this->getParagraphField() && count($query_path->children())) {
+            self::$migrator->addParagraphs($query_path->children(), $paragraph, $this->getParagraphField());
+          }
+        }
+        return TRUE;
       }
-
-      $found = TRUE;
+      if ($this->isExternalContent($query_path)) {
+        return TRUE;
+      }
     }
-    return $found;
+    catch (\Exception $exception) {
+      \Drupal::logger('va_gov_migrate')->error("Migration failed for paragraph on @parent @url: @message.",
+        [
+          '@message' => $exception->getMessage(),
+          '@parent' => $entity->bundle(),
+          '@url' => $entity->url(),
+        ]
+      );
+
+      return TRUE;
+    }
+
+    return FALSE;
   }
 
   /**
@@ -99,13 +114,31 @@ abstract class ParagraphType {
   }
 
   /**
+   * Test query path to see if it's external content.
+   *
+   * If a query path belongs to a paragraph entity but isn't nested in the same
+   * element as the rest of the paragraph, it's external content. No paragraph
+   * will be created, but the query path contents won't be added to  the wysiwyg
+   * buffer.
+   *
+   * @param \QueryPath\DOMQuery $query_path
+   *   The query path to test.
+   *
+   * @return bool
+   *   TRUE if this is external content.
+   */
+  protected function isExternalContent(DOMQuery $query_path) {
+    return FALSE;
+  }
+
+  /**
    * Creates a paragraph object from a query path.
    *
    * @param \QueryPath\DOMQuery $query_path
-   *   The query pat the create the paragraph from.
+   *   The query path to the create the paragraph from.
    *
    * @return \Drupal\paragraphs\Entity\Paragraph
-   *   The newly created paragraph object.
+   *   The new paragraph object.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
