@@ -1,0 +1,167 @@
+id: va_healthcare
+label: Import healthcare pages and paragraphs from va.gov
+migration_group: va_gov
+source:
+  plugin: url_list
+
+  urls:
+    - "https://www.va.gov/health-care/" # grey box with link teasers, starred hr
+    - "https://www.va.gov/health-care/family-caregiver-benefits/champva/" # blue box, accordion (all closed at start, allow multiple open)
+    - "https://www.va.gov/health-care/health-needs-conditions/health-issues-related-to-service-era/cold-war/" # grey box with link teasers, blue box, subway map
+    - "https://www.va.gov/health-care/health-needs-conditions/mental-health/suicide-prevention/" # expandable alert box, blue box, grey box with link teasers
+    - "https://www.va.gov/health-care/health-needs-conditions/mental-health/" # expandable alert box, accordion (all closed at start, don't allow multiple open)
+    - "https://www.va.gov/HEALTHBENEFITS/cost/financialhardship.asp" # wysiwyg only - teamsite page
+    - "https://www.va.gov/health-care/wellness-programs/" # Link teasers
+    - "https://www.va.gov/health-care/schedule-view-va-appointments/" # expandable alert box, react forms, grey box with link teasers
+
+  keys:
+    - url
+
+  migration_tools:
+  -
+    source: url
+    source_type: url
+
+    source_operations:
+    -
+      operation: modifier
+      modifier: basicCleanup
+    fields:
+      title:
+        obtainer: ObtainTitle
+        jobs:
+        -
+          # old va.gov (Teamsite)
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+          - 'h2.page-title'
+          - 1
+          - innerHTML
+        -
+          # new va.gov (Metalsmith)
+          job: addSearch
+          method: pluckSelector
+          arguments:
+          - 'h1'
+          - 1
+          - innerHTML
+        -
+          # full react pages - no page content, so have to get title from breadcrumb
+          job: addSearch
+          method: pluckSelector
+          arguments:
+          - '#va-breadcrumbs ul li:last-child'
+          - 1
+          - innerHTML
+      intro_text:
+        obtainer: ObtainHtml
+        jobs:
+        -
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - '.va-introtext'
+            - '1'
+            - innerHTML
+      body:
+        obtainer: ObtainBody
+        jobs:
+        -
+          # new va.gov (Metalsmith)
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - '.usa-width-three-fourths'
+            - '1'
+            - innerHTML
+        -
+          # new va.gov (Metalsmith)
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - '#content .usa-grid-full'
+            - '1'
+            - innerHTML
+        -
+          # new va.gov (Metalsmith)
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+          - 'article'
+          - '1'
+          - innerHTML
+        -
+          # old va.gov (Teamsite)
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+          - '#innerContentWrapper div'
+          - 1
+          - innerHTML
+        -
+          # react pages
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - '#main .section'
+            - '1'
+            - innerHTML
+    dom_operations:
+    -
+      operation: get_field
+      field: title
+    -
+      operation: get_field
+      field: intro_text
+    -
+      # new va.gov (Metalsmith)
+      operation: modifier
+      modifier: removeSelectorAll
+      arguments:
+      - 'button.va-btn-sidebarnav-trigger'
+    -
+      # old va.gov (Teamsite)
+      operation: modifier
+      modifier: removeSelectorAll
+      arguments:
+      - '.top_link'
+    -
+      operation: modifier
+      modifier: removeSelectorAll
+      arguments:
+        - 'script'
+    -
+      # react pages
+      operation: modifier
+      modifier: changeHtmlContents
+      arguments:
+        - '#react-root'
+        - '<p>DYNAMIC CONTENT GOES HERE</p>'
+    -
+      # react forms
+      operation: modifier
+      modifier: changeHtmlContents
+      arguments:
+      - '#react-applicationStatus, [data-app-id]'
+      - '<p>DYNAMIC FORM CONTENT GOES HERE</p>'
+    -
+      operation: get_field
+      field: body
+
+process:
+  id: url
+  title: title
+  field_intro_text: intro_text
+  type:
+    plugin: default_value
+    default_value: page
+
+destination:
+  plugin: 'entity:node'
+
+migration_dependencies: {}
+dependencies:
+  enforced:
+    module:
+    - va_gov_migrate
