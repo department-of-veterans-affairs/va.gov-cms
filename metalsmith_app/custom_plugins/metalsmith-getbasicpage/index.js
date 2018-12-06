@@ -33,6 +33,11 @@ function plugin(opts) {
             }
 
             const pageDataObj = JSON.parse(data);
+
+            pageDataObj.data.forEach(function (page) {
+                console.log(page);
+            });
+
         });
 
     };
