@@ -66,6 +66,8 @@ class VaPostRowSave extends PostRowSave {
         'StarredHr',
         'CollapsiblePanel',
         'CollapsiblePanelItem',
+        'LinksList',
+        'LinksListItem',
       ]
     );
     $migrator->addParagraphs($query_path, $node, $paragraph_field);
