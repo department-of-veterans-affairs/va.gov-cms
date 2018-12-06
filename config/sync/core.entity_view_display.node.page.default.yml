@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.page.field_content_block
     - field.field.node.page.field_intro_text
     - field.field.node.page.field_meta_tags
+    - field.field.node.page.field_related_links
     - node.type.page
   module:
     - entity_reference_revisions
@@ -37,6 +38,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
+  field_related_links:
+    type: entity_reference_revisions_entity_view
+    weight: 4
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
     region: content
   links:
     weight: 3
