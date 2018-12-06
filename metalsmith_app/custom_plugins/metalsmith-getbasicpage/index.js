@@ -1,4 +1,4 @@
-/*global __dirname, require, console, module, plugin, metalsmith, setImmediate, error, response, data, process, writeFileSync*/
+/*global __dirname, require, console, module, plugin, metalsmith,  error, response, data, process*/
 /*jshint esversion: 6 */
 
 
@@ -42,7 +42,7 @@ function plugin() {
 
             console.log(pagesSummary);
 
-            // add blogpostSummary variables to the metalsmith metadata
+            // add pagesSummary variables to the metalsmith metadata
             let metadata = metalsmith.metadata();
             metadata.basicPages = pagesSummary;
             metalsmith.metadata(metadata);
