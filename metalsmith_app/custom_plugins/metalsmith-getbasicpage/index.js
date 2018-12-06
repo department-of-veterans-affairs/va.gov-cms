@@ -15,13 +15,36 @@ function plugin() {
         return siteUrl + endPoint;
     };
 
+    const getParagraphQuery = (siteUrl, endPoint, paragraphType, paragraphID) => {
+        return siteUrl + endPoint + paragraphType + '/' + paragraphID;
+    };
+
+    const getParagraphData = (paragraphRequest) => {
+
+        request.get(paragraphRequest, function(error, response, data) {
+            if(error) {
+                console.log(error);
+            }
+
+            const paragraphObj = JSON.parse(data);
+            let paragraph = paragraphObj.data;
+
+            content = paragraph.attributes.field_wysiwyg;
+
+            return content;
+
+        });
+
+    };
+
     return function(files, metalsmith, done) {
         const siteUrl = 'http://vagovcms.lndo.site';
-        const endPoint = '/jsonapi/node/page';
-        const drupalRequest = getBasicPageQuery(siteUrl, endPoint);
+        const pageEndPoint = '/jsonapi/node/page';
+        const paragraphEndPoint = '/jsonapi/paragraph/';
+        const pageRequest = getBasicPageQuery(siteUrl, pageEndPoint);
 
         // get data from Lando Drupal instance
-        request.get(drupalRequest, function(error, response, data) {
+        request.get(pageRequest, function(error, response, data) {
             if(error) {
                 console.log(error);
             }
@@ -34,13 +57,20 @@ function plugin() {
 
             pageDataObj.data.forEach(function (page) {
                 temp = {};
+
                 temp.pageTitle = page.attributes.title;
                 temp.introText = page.attributes.field_intro_text;
 
+                paragraphID = page.relationships.field_content_block.data[0].id;
+                paragraphType = 'wysiwyg';
+
+                const paragraphRequest = getParagraphQuery(siteUrl, paragraphEndPoint, paragraphType, paragraphID);
+                temp.paragraph = getParagraphData(paragraphRequest);
+
+
+
                 pagesSummary[page.id] = temp;
             });
-
-            console.log(pagesSummary);
 
             // add pagesSummary variables to the metalsmith metadata
             let metadata = metalsmith.metadata();
