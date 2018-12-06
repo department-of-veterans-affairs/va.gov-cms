@@ -7,9 +7,6 @@ Metalsmith(__dirname)
     .destination('./build')
     .clean(true)
     .use(debug())
-    .use(request({
-        drupal: 'http://vagovcms.lndo.site/jsonapi/node/page'
-    }))
     .use(inplace())
     .build(function(err) { // build
         if (err) {
