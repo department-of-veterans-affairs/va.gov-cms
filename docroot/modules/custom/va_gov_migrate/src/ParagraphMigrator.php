@@ -3,8 +3,10 @@
 namespace Drupal\va_gov_migrate;
 
 use Drupal\Core\Entity\Entity;
+use Drupal\Driver\Exception\Exception;
 use Drupal\paragraphs\Entity\Paragraph;
 use QueryPath\DOMQuery;
+use Drupal\migrate\MigrateException;
 
 /**
  * ParagraphMigrator migrates paragraphs from query path.
@@ -37,6 +39,33 @@ class ParagraphMigrator {
       $class_name = 'Drupal\\va_gov_migrate\\Paragraph\\' . $class_name;
       $this->paragraphClasses[] = new $class_name($this);
     }
+  }
+
+  /**
+   * Create paragraphs from html and attach them to paragraph field on entity.
+   *
+   * @param string $html
+   *   The html that contains the paragraphs.
+   * @param \Drupal\Core\Entity\Entity $entity
+   *   The parent entity.
+   * @param string $paragraph_field
+   *   The machine name of the paragraph field on the parent entity.
+   *
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\migrate\MigrateException
+   */
+  public function create($html, Entity &$entity, $paragraph_field) {
+    // Clear any existing paragraphs - for update.
+    $entity->set($paragraph_field, []);
+    $entity->save();
+
+    $query_path = $this->createQueryPath($html, $entity);
+    $this->addParagraphs($query_path, $entity, $paragraph_field);
+
+    // Add any remaining wysiwyg in the buffer.
+    $this->addWysiwyg($entity, $paragraph_field);
+
   }
 
   /**
@@ -126,6 +155,45 @@ class ParagraphMigrator {
     }
 
     $this->wysiwyg = '';
+  }
+
+  /**
+   * Creates a query path from html text.
+   *
+   * @param string $html
+   *   The html to build the query path from.
+   * @param \Drupal\Core\Entity\Entity $entity
+   *   The entity the paragraphs are being attached to (for error message).
+   *
+   * @return \QueryPath\DOMQuery
+   *   The resulting query path.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  public function createQueryPath($html, Entity $entity) {
+    try {
+      $query_path = htmlqp(mb_convert_encoding($html, "HTML-ENTITIES", "UTF-8"));
+    }
+    catch (Exception $e) {
+      \Drupal::logger('va_gov_migrate')->error('Failed to instantiate QueryPath for HTML, Exception: @error_message', ['@error_message' => $e->getMessage()]);
+    }
+    // Sometimes queryPath fails.  So one last check.
+    if (!is_object($query_path)) {
+      try {
+        $url = $entity->toUrl();
+      }
+      catch (Exception $e) {
+        $url = '';
+      }
+      throw new MigrateException("@url failed to initialize QueryPath", ['@url' => $url]);
+    }
+
+    // Remove wrappers added by htmlqp().
+    while (in_array($query_path->tag(), ['html', 'body'])) {
+      $query_path = $query_path->children();
+    }
+
+    return $query_path;
   }
 
 }
