@@ -64,7 +64,7 @@ function plugin() {
                 paragraphID = page.relationships.field_content_block.data[0].id;
                 paragraphType = 'wysiwyg';
 
-                const paragraphRequest = getParagraphQuery(siteUrl, paragraphEndPoint, paragraphType, paragraphID);
+                let paragraphRequest = getParagraphQuery(siteUrl, paragraphEndPoint, paragraphType, paragraphID);
                 temp.paragraph = getParagraphData(paragraphRequest);
 
 
