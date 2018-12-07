@@ -109,7 +109,10 @@ class ParagraphMigrator {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function addWysiwyg(Entity &$entity, $parent_field) {
-    if (!empty(strip_tags($this->wysiwyg))) {
+    // These are tags we shouldn't ignore, even if they're empty.
+    $self_contained_tags = '<audio><base><br><embed><form><hr><img><object><progress><svg><video>';
+
+    if (!empty(strip_tags($this->wysiwyg, $self_contained_tags))) {
       $paragraph = Paragraph::create([
         'type' => 'wysiwyg',
         'field_wysiwyg' => [
