@@ -31,12 +31,15 @@ class ParagraphMigrator {
   /**
    * ParagraphImporter constructor.
    *
-   * @param array $paragraph_class_names
-   *   The names of ParagraphType classes to create paragraphs from.
+   * Create objects from all of the classes in Paragraph/.
    */
-  public function __construct(array $paragraph_class_names) {
-    foreach ($paragraph_class_names as $class_name) {
-      $class_name = 'Drupal\\va_gov_migrate\\Paragraph\\' . $class_name;
+  public function __construct() {
+    $path = 'modules/custom/va_gov_migrate/src/Paragraph/';
+    $paragraph_class_files = glob($path . '*.php');
+
+    foreach ($paragraph_class_files as $file) {
+      $class_name = str_replace($path, 'Drupal\\va_gov_migrate\\Paragraph\\', $file);
+      $class_name = str_replace('.php', '', $class_name);
       $this->paragraphClasses[] = new $class_name($this);
     }
   }

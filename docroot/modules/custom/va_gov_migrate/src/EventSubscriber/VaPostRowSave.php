@@ -34,15 +34,7 @@ class VaPostRowSave extends PostRowSave {
     $node->set('field_intro_text', $intro_text);
     $node->save();
 
-    $migrator = new ParagraphMigrator(
-      [
-        'StarredHr',
-        'CollapsiblePanel',
-        'CollapsiblePanelItem',
-        'LinksList',
-        'LinksListItem',
-      ]
-    );
+    $migrator = new ParagraphMigrator();
 
     // Create the Related links paragraph.
     $html = $row->getSourceProperty('related_links');
