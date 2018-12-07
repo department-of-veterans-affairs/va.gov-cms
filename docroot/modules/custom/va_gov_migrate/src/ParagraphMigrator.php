@@ -53,18 +53,20 @@ class ParagraphMigrator {
    *   The parent entity.
    * @param string $paragraph_field
    *   The machine name of the paragraph field on the parent entity.
+   * @param array $allowed_classes
+   *   The classes of paragraphs that are allowed in this entity/field.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\migrate\MigrateException
    */
-  public function create($html, Entity &$entity, $paragraph_field) {
+  public function create($html, Entity &$entity, $paragraph_field, array $allowed_classes = []) {
     // Clear any existing paragraphs - for update.
     $entity->set($paragraph_field, []);
     $entity->save();
 
     $query_path = $this->createQueryPath($html, $entity);
-    $this->addParagraphs($query_path, $entity, $paragraph_field);
+    $this->addParagraphs($query_path, $entity, $paragraph_field, $allowed_classes);
 
     // Add any remaining wysiwyg in the buffer.
     $this->addWysiwyg($entity, $paragraph_field);
@@ -84,18 +86,20 @@ class ParagraphMigrator {
    *   The parent entity.
    * @param string $parent_field
    *   The machine name of the paragraph field on the parent entity.
+   * @param array $allowed_classes
+   *   The classes of paragraphs that are allowed in this entity/field.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\migrate\MigrateException
    */
-  public function addParagraphs(DOMQuery $query_path, Entity &$parent_entity, $parent_field) {
+  public function addParagraphs(DOMQuery $query_path, Entity &$parent_entity, $parent_field, array $allowed_classes = []) {
 
     /** @var \QueryPath\DOMQuery $element */
     foreach ($query_path as $element) {
       $found_paragraph = FALSE;
 
       foreach ($this->paragraphClasses as $paragraphClass) {
-        $found_paragraph = $paragraphClass->process($element, $parent_entity, $parent_field);
+        $found_paragraph = $paragraphClass->process($element, $parent_entity, $parent_field, $allowed_classes);
         if ($found_paragraph) {
           break;
         }

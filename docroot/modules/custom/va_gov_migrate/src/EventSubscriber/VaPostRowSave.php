@@ -38,11 +38,17 @@ class VaPostRowSave extends PostRowSave {
 
     // Create the Related links paragraph.
     $html = $row->getSourceProperty('related_links');
-    $migrator->create($html, $node, 'field_related_links');
+    $migrator->create($html, $node, 'field_related_links', ['LinksList']);
 
     // Create Content Block paragraphs.
     $html = $row->getSourceProperty('body');
-    $migrator->create($html, $node, 'field_content_block');
+    $migrator->create($html, $node, 'field_content_block',
+      [
+        'StarredHr',
+        'CollapsiblePanel',
+        'LinksList',
+      ]
+    );
 
     parent::onMigratePostRowSave($event);
   }

@@ -43,6 +43,13 @@ class LinksList extends ParagraphType {
   /**
    * {@inheritdoc}
    */
+  protected function getChildClasses() {
+    return ['LinksListItem'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   protected function isExternalContent($query_path) {
     return $query_path->hasClass('va-nav-linkslist-heading');
   }
