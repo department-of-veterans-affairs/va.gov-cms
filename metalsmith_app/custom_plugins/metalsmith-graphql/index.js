@@ -1,5 +1,10 @@
 /*jshint esversion: 6 */
-//
+/*
+ * To be added:
+ *  @TODO Add authentication: https://www.apollographql.com/docs/react/recipes/authentication.html
+ *  @TODO better data model for paragraphs in metadata - need paragraph type and maybe a way to get raw values instead of whole rendered entity
+ *
+ *  */
 
 const { ApolloClient, gql } = require('apollo-boost');
 const { createHttpLink } = require('apollo-link-http');
@@ -10,7 +15,10 @@ const fetch = require('node-fetch');
 function plugin() {
     const siteUrl = "http://vagovcms.lndo.site/graphql";
     const client = new ApolloClient({
-        link: createHttpLink({uri: siteUrl, fetch: fetch}),
+        link: createHttpLink({
+            uri: siteUrl,
+            fetch: fetch
+        }),
         cache: new InMemoryCache()
     });
     const query = gql`
