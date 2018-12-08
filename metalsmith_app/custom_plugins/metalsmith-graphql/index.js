@@ -35,23 +35,11 @@ function plugin() {
             }
         `;
 
-    const getValueLike = (obj, prop) => {
-        let re = new RegExp('^' + prop);
-        let value;
-        Object.keys(obj).some(function(prop) {
-            if (re.test(prop)) {
-                value = obj[prop];
-                return true;
-            }
-        });
-        return value;
-    };
-
     const getParagraphData = (paragraphField) => {
         let temp = {};
         paragraphField.forEach(function(para){
-            let { id, entityRendered} = para.entity;
-            temp['paragraph' + id] = entityRendered;
+            let { id, entityRendered } = para.entity;
+            temp[`paragraph-${id}`] = entityRendered;
         });
         return temp;
     };
