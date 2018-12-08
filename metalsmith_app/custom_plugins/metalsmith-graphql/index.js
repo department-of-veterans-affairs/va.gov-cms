@@ -1,7 +1,8 @@
 /*jshint esversion: 6 */
 /*
+ *
  * To be added:
- *  @TODO Add authentication: https://www.apollographql.com/docs/react/recipes/authentication.html
+ *  @TODO Add authentication: https://www.apollographql.com/docs/react/recipes/authentication.html & https://github.com/drupal-graphql/graphql/issues/357
  *  @TODO better data model for paragraphs in metadata - need paragraph type and maybe a way to get raw values instead of whole rendered entity
  *
  *  */
