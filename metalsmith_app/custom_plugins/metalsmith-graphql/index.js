@@ -18,8 +18,6 @@ function plugin() {
               nodeQuery {
     entities {
       ...on NodePage {
-        entityId
-        entityUuid
         nid	
         title
         fieldIntroText
