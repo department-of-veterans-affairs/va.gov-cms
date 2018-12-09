@@ -28,13 +28,12 @@ function plugin() {
                 count
                 entities {
                     ... on NodePage {
-                        entityPublished
                         nid
-                        title
                         entityBundle
+                        entityPublished
+                        title
                         fieldIntroText
                         fieldContentBlock {
-                            targetId
                             entity {
                                 ... on Paragraph {
                                     id
