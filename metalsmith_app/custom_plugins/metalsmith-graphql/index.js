@@ -24,11 +24,11 @@ function plugin() {
     });
     const query = gql`
         {
-            nodeQuery {
+            nodeQuery{
                 count
                 entities {
                     ... on NodePage {
-                        entityPublished @skip(if:false)
+                        entityPublished
                         nid
                         title
                         entityBundle
@@ -66,17 +66,18 @@ function plugin() {
             let nodeData = {};
             const values = Object.values(entities);
             values.forEach(function(node) {
-                temp = {};
-                paraTemp = {};
-                let { nid } = node;
-                temp.nodeTitle = node.title;
-                temp.introText = node.fieldIntroText;
+                if(node) {
+                    temp = {};
+                    paraTemp = {};
+                    let { nid } = node;
+                    temp.nodeTitle = node.title;
+                    temp.introText = node.fieldIntroText;
 
-                // Get Paragraph data
-                const paragraphs = node.fieldContentBlock;
-                paraTemp = getParagraphData(paragraphs);
-                nodeData[nid] = Object.assign({}, temp, paraTemp);
-
+                    // Get Paragraph data
+                    const paragraphs = node.fieldContentBlock;
+                    paraTemp = getParagraphData(paragraphs);
+                    nodeData[nid] = Object.assign({}, temp, paraTemp);
+                }
             });
 
             // add nodeData variables to the metalsmith metadata
