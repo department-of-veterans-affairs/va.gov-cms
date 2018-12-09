@@ -23,25 +23,30 @@ function plugin() {
         cache: new InMemoryCache()
     });
     const query = gql`
-            {
-              nodeQuery {
-    entities {
-      ...on NodePage {
-        nid	
-        title
-        fieldIntroText
-        fieldContentBlock {
-          entity {
-            ... on Paragraph {
-              id
-              entityRendered
+        {
+            nodeQuery {
+                count
+                entities {
+                    ... on NodePage {
+                        entityPublished @skip(if:false)
+                        nid
+                        title
+                        entityBundle
+                        fieldIntroText
+                        fieldContentBlock {
+                            targetId
+                            entity {
+                                ... on Paragraph {
+                                    id
+                                    entityBundle
+                                    entityRendered
+                                }
+                            }
+                        }
+                    }
+                }
             }
-          }
         }
-      }
-    }
-  }
-            }
         `;
 
     const getParagraphData = (paragraphField) => {
