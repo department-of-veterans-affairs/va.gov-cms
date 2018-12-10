@@ -40,25 +40,42 @@ abstract class ParagraphType {
    *   The parent entity to attach the paragraph to.
    * @param string $parent_field
    *   The paragraph fiend on the parent entity.
+   * @param array $allowed_classes
+   *   The classes of paragraphs that are allowed in this entity/field.
    *
    * @return bool
    *   Returns true if the current query path is a paragraph or part of one.
    */
-  public function process(DOMQuery $query_path, Entity $entity, $parent_field) {
+  public function process(DOMQuery $query_path, Entity $entity, $parent_field, array $allowed_classes = []) {
     try {
       if ($this->isParagraph($query_path)) {
+        $this_class = get_class($this);
+        // Strip the namespace.
+        $this_class = end(explode('\\', $this_class));
+
+        if (!empty($allowed_classes) && !in_array($this_class, $allowed_classes)) {
+          \Drupal::logger('va_gov_migrate')->error(
+            '@class not allowed on @type in field @field: @html',
+            [
+              '@class' => $this_class,
+              '@type' => $entity->bundle(),
+              '@field' => $parent_field,
+              '@html' => $query_path->html(),
+            ]
+          );
+          return FALSE;
+        }
+
         self::$migrator->addWysiwyg($entity, $parent_field);
 
         $paragraph = $this->create($query_path);
+        $paragraph->save();
 
-        if (!empty($paragraph)) {
-          $paragraph->save();
+        $this->attachParagraph($paragraph, $entity, $parent_field);
 
-          $this->attachParagraph($paragraph, $entity, $parent_field);
-
-          if ($this->getParagraphField() && count($query_path->children())) {
-            self::$migrator->addParagraphs($query_path->children(), $paragraph, $this->getParagraphField());
-          }
+        if ($this->getParagraphField() && count($query_path->children())) {
+          self::$migrator->addParagraphs($query_path->children(), $paragraph,
+            $this->getParagraphField(), $this->getChildClasses());
         }
         return TRUE;
       }
@@ -111,6 +128,18 @@ abstract class ParagraphType {
    */
   protected function getParagraphField() {
     return '';
+  }
+
+  /**
+   * If a paragraph has a paragraph field, the classes that it can contain.
+   *
+   * @return array
+   *   The class names of paragraphs the paragraph field can contain.
+   *
+   *   If empty, there is no restriction on the classes that can be used.
+   */
+  protected function getChildClasses() {
+    return [];
   }
 
   /**

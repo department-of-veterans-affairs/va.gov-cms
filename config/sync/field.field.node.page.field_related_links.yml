@@ -1,0 +1,61 @@
+uuid: b794d9da-c9d8-4c1e-89d8-e6c3dc743b0c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_links
+    - node.type.page
+    - paragraphs.paragraphs_type.list_of_link_teasers
+  module:
+    - entity_reference_revisions
+id: node.page.field_related_links
+field_name: field_related_links
+entity_type: node
+bundle: page
+label: 'Related Links'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      list_of_link_teasers: list_of_link_teasers
+    target_bundles_drag_drop:
+      alert:
+        weight: 12
+        enabled: false
+      collapsible_panel:
+        weight: 13
+        enabled: false
+      collapsible_panel_item:
+        weight: 14
+        enabled: false
+      expandable_text:
+        weight: 15
+        enabled: false
+      grey_box:
+        weight: 16
+        enabled: false
+      link_teaser:
+        weight: 17
+        enabled: false
+      list_of_link_teasers:
+        enabled: true
+        weight: 18
+      starred_horizontal_rule:
+        weight: 19
+        enabled: false
+      subway_map:
+        weight: 20
+        enabled: false
+      subway_map_stop:
+        weight: 21
+        enabled: false
+      wysiwyg:
+        weight: 22
+        enabled: false
+field_type: entity_reference_revisions

@@ -42,4 +42,11 @@ class CollapsiblePanel extends ParagraphType {
     return 'field_va_paragraphs';
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  protected function getChildClasses() {
+    return ['CollapsiblePanelItem'];
+  }
+
 }

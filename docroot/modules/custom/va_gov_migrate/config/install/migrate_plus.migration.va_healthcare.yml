@@ -64,6 +64,16 @@ source:
             - '.va-introtext'
             - '1'
             - innerHTML
+      related_links:
+        obtainer: ObtainHtml
+        jobs:
+        -
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - '.va-nav-linkslist--related'
+            - '1'
+            - innerHTML
       body:
         obtainer: ObtainBody
         jobs:
@@ -114,6 +124,9 @@ source:
     -
       operation: get_field
       field: intro_text
+    -
+      operation: get_field
+      field: related_links
     -
       # new va.gov (Metalsmith)
       operation: modifier
