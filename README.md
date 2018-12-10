@@ -1,5 +1,5 @@
 This is a Lightning based implementation of D8 that uses lando for container management.
-test`
+
 ## Get Started
 How to start:
 * get lando https://docs.devwithlando.io/installation/installing.html
