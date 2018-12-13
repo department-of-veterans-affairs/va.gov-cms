@@ -26,7 +26,7 @@ class ExpandableText extends ParagraphType {
   protected function create(DOMQuery $query_path) {
     return Paragraph::create(
       [
-        'type' => 'subway_map_stop',
+        'type' => 'expandable_text',
         'field_text_expander' => $query_path->find('.additional-info-title')->text(),
         'field_wysiwyg' => $query_path->find('.additional-info-content')->innerHTML(),
       ]
