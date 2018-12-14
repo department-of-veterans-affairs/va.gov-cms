@@ -17,7 +17,7 @@ class LinksListItem extends ParagraphType {
    * {@inheritdoc}
    */
   protected function isParagraph(DOMQuery $query_path) {
-    return $query_path->is('li') && $query_path->parent()->hasClass('va-nav-linkslist-list');
+    return 'li' == $query_path->tag() && $query_path->parent()->hasClass('va-nav-linkslist-list');
   }
 
   /**

@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_backend.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Field\WidgetBase;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_help().
+ */
+function va_gov_backend_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the va_gov_form_helper module.
+    case 'help.page.va_gov_form_helper':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>Tools to improve backend user experience for VA.gov</p>';
+      $output .= '<ul>';
+      $output .= '<li>Hide Trigger Text field in Alert paragraph form unless Alert Type is Expanding</li>';
+      $output .= '</ul>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ */
+function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
+  // Hide Trigger Text in Alert paragraph form unless Alert Type is "Expanding".
+  $field_definition = $context['items']->getFieldDefinition();
+  /** @var \Drupal\field\Entity\FieldConfig $field_definition */
+  $paragraph_entity_reference_field_name = $field_definition->getName();
+
+  if ($paragraph_entity_reference_field_name == 'field_content_block') {
+    $widget_state = WidgetBase::getWidgetState($element['#field_parents'], $paragraph_entity_reference_field_name, $form_state);
+
+    $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'];
+    $paragraph_type = $paragraph_instance->bundle();
+
+    if ($paragraph_type == 'alert') {
+      $selector = sprintf(':input[name="%s[%d][subform][%s]"]', $paragraph_entity_reference_field_name, $element['#delta'], 'field_alert_type');
+
+      $element['subform']['field_alert_trigger_text']['#states'] = [
+        'visible' => [
+          $selector => ['value' => 'expanding'],
+        ],
+      ];
+    }
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function va_gov_backend_page_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'va_gov_backend/alert_form';
+}

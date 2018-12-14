@@ -47,6 +47,9 @@ class VaPostRowSave extends PostRowSave {
         'StarredHr',
         'CollapsiblePanel',
         'LinksList',
+        'ExpandableText',
+        'SubwayMap',
+        'Alert',
       ]
     );
 

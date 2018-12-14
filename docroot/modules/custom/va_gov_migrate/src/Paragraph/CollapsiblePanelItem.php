@@ -17,7 +17,7 @@ class CollapsiblePanelItem extends ParagraphType {
    * {@inheritdoc}
    */
   protected function isParagraph(DOMQuery $query_path) {
-    return $query_path->is('li') && count($query_path->children('button.usa-accordion-button'));
+    return 'li' == $query_path->tag() && count($query_path->children('button.usa-accordion-button'));
   }
 
   /**
