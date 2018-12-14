@@ -55,19 +55,21 @@ class Alert extends ParagraphType {
       $alert_type = 'success';
     }
 
-    // Get expander text, if any.
+    // Get expander text, if any, and alert message.
     if ('expanding' == $alert_type) {
       $trigger = $query_path->find('#crisis-expander-link')->text();
+      $message = $query_path->find('.usa-alert-text')->html();
     }
     else {
       $trigger = '';
+      $message = $query_path->find('p')->html();
     }
 
     return Paragraph::create(
       [
         'type' => 'alert',
         'field_alert_heading' => $query_path->find('.usa-alert-heading')->text(),
-        'field_alert_message' => $query_path->find('p')->html(),
+        'field_alert_message' => $message,
         'field_alert_type' => $alert_type,
         'field_alert_trigger_text' => $trigger,
       ]
