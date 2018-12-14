@@ -23,13 +23,15 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    *
    * @param string $item
    *   The menu item title.
+   * @param string $menuname
+   *   The menu name.
    *
-   * @Then the following items should exist :item
+   * @Then the following items should exist :item in :menuname menu
    */
-  public function theFollowingItemsShouldExist($item) {
+  public function theFollowingItemsShouldExist($item, $menuname) {
     $links = [];
     $storage = \Drupal::entityManager()->getStorage('menu_link_content');
-    $menu_links = $storage->loadByProperties(['menu_name' => 'main']);
+    $menu_links = $storage->loadByProperties(['menu_name' => $menuname]);
     if (empty($menu_links)) {
       throw new \Exception('Menu is empty');
     }
