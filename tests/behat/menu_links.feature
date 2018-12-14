@@ -2,9 +2,9 @@
 Feature: Menus
 Ensure all menu links are present
 
-@spec @menus
+@spec @main_menu
   Scenario Outline: Main Menu items
-    Then the following items should exist "<item>"
+    Then the following items should exist "<item>" in "main" menu
 
     Examples:
       | item                                                          |
@@ -123,3 +123,49 @@ Ensure all menu links are present
       | Veterans Legacy Program                                       |
       | Volunteer or Donate                                           |
       | Find a VA Location                                            |
+
+
+  @spec @footer_menu
+  Scenario Outline: Footer Menu items
+    Then the following items should exist "<item>" in "footer" menu
+
+    Examples:
+      | item                                                          |
+      | Veteran Programs and Services            |
+      | Homeless Veterans                        |
+      | Women Veterans                           |
+      | Minority Veterans                        |
+      | PTSD                                     |
+      | Mental Health                            |
+      | Adaptive Sports and Special Events       |
+      | National Resource Directory              |
+      | More VA Resources                        |
+      | Find a VA Form                           |
+      | Get VA Mobile Apps                       |
+      | Careers at VA                            |
+      | Doing Business with VA                   |
+      | Grants Management Services               |
+      | VA Claims Accreditation                  |
+      | Find a VA Health Care Provider           |
+      | Veterans Service Organizations (VSO)     |
+      | State Veterans Affairs Offices           |
+      | Print Your VA Welcome Kit                |
+      | Get VA Updates                           |
+      | Vantage Point Blog                       |
+      | Email Updates                            |
+      | Facebook                                 |
+      | Instagram                                |
+      | Twitter                                  |
+      | Flickr                                   |
+      | YouTube                                  |
+      | All VA Social Media                      |
+      | In Crisis? Get Help Now                  |
+      | Veterans Crisis Line                     |
+      | Contact Us                               |
+      | Find a VA Location                       |
+      | Ask a Question                           |
+      | Accessibility                            |
+      | Office of Inspector General              |
+      | Plain Language                           |
+      | Privacy, Policies, and Legal Information |
+      | VA.gov Scorecard                         |
