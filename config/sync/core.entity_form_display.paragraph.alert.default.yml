@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.alert.field_alert_heading
     - field.field.paragraph.alert.field_alert_message
+    - field.field.paragraph.alert.field_alert_trigger_text
     - field.field.paragraph.alert.field_alert_type
     - paragraphs.paragraphs_type.alert
   module:
@@ -23,12 +24,20 @@ content:
     type: string_textfield
     region: content
   field_alert_message:
-    weight: 2
+    weight: 3
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
+  field_alert_trigger_text:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
     region: content
   field_alert_type:
     weight: 0
