@@ -22,27 +22,11 @@ source:
         obtainer: ObtainTitle
         jobs:
         -
-          # old va.gov (Teamsite)
-          job: 'addSearch'
-          method: 'pluckSelector'
-          arguments:
-          - 'h2.page-title'
-          - 1
-          - innerHTML
-        -
           # new va.gov (Metalsmith)
           job: addSearch
           method: pluckSelector
           arguments:
           - 'h1'
-          - 1
-          - innerHTML
-        -
-          # full react pages - no page content, so have to get title from breadcrumb
-          job: addSearch
-          method: pluckSelector
-          arguments:
-          - '#va-breadcrumbs ul li:last-child'
           - 1
           - innerHTML
       intro_text:
@@ -92,30 +76,6 @@ source:
           - 'article'
           - '1'
           - innerHTML
-        -
-          # old va.gov (Teamsite)
-          job: 'addSearch'
-          method: 'pluckSelector'
-          arguments:
-          - '#innerContentWrapper div'
-          - 1
-          - innerHTML
-        -
-          # old va.gov (Teamsite)
-          job: 'addSearch'
-          method: 'pluckSelector'
-          arguments:
-          - '#homeinnerContent'
-          - 1
-          - innerHTML
-        -
-          # react pages
-          job: 'addSearch'
-          method: 'pluckSelector'
-          arguments:
-            - '#main .section'
-            - '1'
-            - innerHTML
     dom_operations:
     -
       operation: get_field
@@ -133,23 +93,10 @@ source:
       arguments:
       - 'button.va-btn-sidebarnav-trigger'
     -
-      # old va.gov (Teamsite)
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-      - '.top_link'
-    -
       operation: modifier
       modifier: removeSelectorAll
       arguments:
         - 'script'
-    -
-      # react pages
-      operation: modifier
-      modifier: changeHtmlContents
-      arguments:
-        - '#react-root'
-        - '<p>DYNAMIC CONTENT GOES HERE</p>'
     -
       # react forms
       operation: modifier

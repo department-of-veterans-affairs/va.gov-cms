@@ -153,6 +153,11 @@ class MetalsmithSource extends UrlList {
       }
     }
 
+    // Migrate metalsmith only.
+    if (empty($row['layout']) || 'page-react.html' == $row['layout']) {
+      return;
+    }
+
     // If the record doesn't have an href, get the url from the file path.
     if (empty($row['href'])) {
       // Get the path without the file name for index pages.
@@ -169,14 +174,21 @@ class MetalsmithSource extends UrlList {
       if (substr($row['href'], 0, 1) == '/') {
         $row['url'] = 'https://www.va.gov' . $row['href'];
       }
-      else {
+      // Make sure it's in va.gov (no subdomains).
+      elseif (preg_match('/https:\/\/(?:www.)?va.gov\//', $row['href'])) {
         $row['url'] = $row['href'];
+      }
+      else {
+        return;
       }
     }
 
-    if (preg_match('/https:\/\/(?:www.)?va.gov\//', $row['url'])) {
-      $this->rows[] = $row;
+    // Health Records requires a login to view, so we can't even get a title.
+    if ('https://www.va.gov/health-care/health-records/' == $row['url']) {
+      return;
     }
+
+    $this->rows[] = $row;
   }
 
   /**
