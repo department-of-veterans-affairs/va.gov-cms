@@ -137,6 +137,7 @@ class MetalsmithSource extends UrlList {
       'template',
       'lastupdate',
       'href',
+      'plainlanguage',
     ];
 
     $page_part = explode('---', $markdown);
@@ -183,9 +184,9 @@ class MetalsmithSource extends UrlList {
       }
     }
 
-    // Health Records requires a login to view, so we can't even get a title.
-    if ('https://www.va.gov/health-care/health-records/' == $row['url']) {
-      return;
+    // Extract the plainlanguage date, if any.
+    if ($row['plainlanguage'] && preg_match('/0?(\d+)[-\.]0?(\d+)[-\.](\d+)/', $row['plainlanguage'], $matches)) {
+      $row['plainlanguage_date'] = $matches[1] . '/' . $matches[2] . '/' . $matches[3];
     }
 
     $this->rows[] = $row;

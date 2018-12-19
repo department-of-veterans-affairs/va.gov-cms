@@ -7,6 +7,7 @@ source:
     - "https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages/health-care"
   fields:
     - description
+    - plainlanguage_date
 
   migration_tools:
   -
@@ -113,6 +114,11 @@ process:
   title: title
   field_intro_text: intro_text
   field_description: description
+  field_plainlanguage_date:
+    plugin: format_date
+    from_format: 'n/j/y'
+    to_format: 'Y-m-d'
+    source: plainlanguage_date
   type:
     plugin: default_value
     default_value: page
