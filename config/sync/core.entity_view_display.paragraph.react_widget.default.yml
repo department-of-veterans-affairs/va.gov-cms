@@ -1,0 +1,39 @@
+uuid: 44920c4e-0563-4f17-9c32-492431f19f15
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.react_widget.field_in_maintenance
+    - field.field.paragraph.react_widget.field_maintenance_line_1
+    - field.field.paragraph.react_widget.field_maintenance_line_2
+    - paragraphs.paragraphs_type.react_widget
+id: paragraph.react_widget.default
+targetEntityType: paragraph
+bundle: react_widget
+mode: default
+content:
+  field_in_maintenance:
+    weight: 0
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_maintenance_line_1:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_maintenance_line_2:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+hidden: {  }
