@@ -1,0 +1,21 @@
+uuid: 3432a700-82df-47fd-9d2d-4a919769e6b9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_plainlanguage_date
+    - node.type.page
+  module:
+    - datetime
+id: node.page.field_plainlanguage_date
+field_name: field_plainlanguage_date
+entity_type: node
+bundle: page
+label: 'Plainlanguage Date'
+description: 'Indicate the date this content was certified.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime
