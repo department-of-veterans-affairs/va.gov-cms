@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.react_widget.field_custom_react_root
     - field.field.paragraph.react_widget.field_in_maintenance
     - field.field.paragraph.react_widget.field_maintenance_line_1
     - field.field.paragraph.react_widget.field_maintenance_line_2
@@ -12,6 +13,16 @@ targetEntityType: paragraph
 bundle: react_widget
 mode: default
 content:
+  field_custom_react_root:
+    weight: 3
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
   field_in_maintenance:
     weight: 0
     label: above
