@@ -6,8 +6,7 @@ How to start:
 * `git clone git@github.com:department-of-veterans-affairs/va.gov-cms.git vagov`
 * `cd vagov`
 * `lando start`
-* `lando db-import drupal-starter.gz` (first time only)
-* `lando rebuild`
+* `cd scripts; ./sync-db.sh`
 
 What it does:
 * Spins up php, mysql, and node containers
