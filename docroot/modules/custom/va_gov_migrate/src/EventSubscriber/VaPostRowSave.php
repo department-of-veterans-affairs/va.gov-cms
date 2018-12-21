@@ -2,9 +2,10 @@
 
 namespace Drupal\va_gov_migrate\EventSubscriber;
 
-use Drupal\migration_tools\EventSubscriber\PostRowSave;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\va_gov_migrate\ParagraphMigrator;
 use Drupal\migrate\Event\MigratePostRowSaveEvent;
+use Drupal\migrate\Event\MigrateEvents;
 use Drupal\node\Entity\Node;
 
 /**
@@ -12,7 +13,15 @@ use Drupal\node\Entity\Node;
  *
  * @package Drupal\va_gov_migrate\EventSubscriber
  */
-class VaPostRowSave extends PostRowSave {
+class VaPostRowSave implements EventSubscriberInterface {
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getSubscribedEvents() {
+    $events[MigrateEvents::POST_ROW_SAVE] = 'onMigratePostRowSave';
+    return $events;
+  }
 
   /**
    * {@inheritdoc}
@@ -22,7 +31,6 @@ class VaPostRowSave extends PostRowSave {
    */
   public function onMigratePostRowSave(MigratePostRowSaveEvent $event) {
     $row = $event->getRow();
-    $url = $row->getSourceProperty('url');
     $nids = $event->getDestinationIdValues();
 
     $node = Node::load($nids[0]);
@@ -53,7 +61,6 @@ class VaPostRowSave extends PostRowSave {
       ]
     );
 
-    parent::onMigratePostRowSave($event);
   }
 
 }
