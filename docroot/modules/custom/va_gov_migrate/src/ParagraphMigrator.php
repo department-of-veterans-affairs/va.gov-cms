@@ -56,14 +56,27 @@ class ParagraphMigrator {
    * @param array $allowed_classes
    *   The classes of paragraphs that are allowed in this entity/field.
    *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\migrate\MigrateException
    */
   public function create($html, Entity &$entity, $paragraph_field, array $allowed_classes = []) {
-    // Clear any existing paragraphs - for update.
-    $entity->set($paragraph_field, []);
-    $entity->save();
+    // Clear any existing paragraphs.
+    $paragraph_targets = $entity->get($paragraph_field)->getValue();
+    if (!empty($paragraph_targets)) {
+      $paragraph_ids = [];
+      foreach ($paragraph_targets as $paragraph_target) {
+        $paragraph_ids[] = $paragraph_target['target_id'];
+      }
+      $storage_handler = \Drupal::entityTypeManager()->getStorage('paragraph');
+      $paragraphs = $storage_handler->loadMultiple($paragraph_ids);
+      $storage_handler->delete($paragraphs);
+
+      $entity->set($paragraph_field, []);
+      $entity->save();
+    }
 
     $query_path = $this->createQueryPath($html, $entity);
     $this->addParagraphs($query_path, $entity, $paragraph_field, $allowed_classes);
@@ -175,6 +188,7 @@ class ParagraphMigrator {
    * @return \QueryPath\DOMQuery
    *   The resulting query path.
    *
+   * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\migrate\MigrateException
    */
   public function createQueryPath($html, Entity $entity) {
@@ -185,7 +199,7 @@ class ParagraphMigrator {
       \Drupal::logger('va_gov_migrate')->error('Failed to instantiate QueryPath for HTML, Exception: @error_message', ['@error_message' => $e->getMessage()]);
     }
     // Sometimes queryPath fails.  So one last check.
-    if (!is_object($query_path)) {
+    if (empty($query_path) || !is_object($query_path)) {
       try {
         $url = $entity->toUrl();
       }
