@@ -24,6 +24,9 @@ class MetalsmithSource extends UrlList {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\migrate\MigrateException
+   * @throws \Drupal\migrate\MigrateSkipRowException
    */
   public function initializeIterator() {
     $this->rows = [];
@@ -46,7 +49,7 @@ class MetalsmithSource extends UrlList {
       if (in_array($row['url'], $urls)) {
         $key = array_search($row['url'], array_column($this->rows, 'url'));
         $this->rows[$key] = array_merge($row, $this->rows[$key]);
-        \Drupal::logger('va_gov_migrate')->debug('Found duplicate entry for @url', ['@url' => $row['url']]);
+        Message::make('Found duplicate entry for @url', ['@url' => $row['url']], Message::DEBUG);
       }
       else {
         $unique_rows[] = $row;
@@ -109,21 +112,21 @@ class MetalsmithSource extends UrlList {
 
     // Read the file.
     if (!($markdown = self::readUrl($url))) {
-      \Drupal::logger('va_gov_migrate')->error('Couldn\'t read markdown file at @url', ['@url' => $url]);
+      Message::make('Couldn\'t read markdown file at @url', ['@url' => $url], Message::ERROR);
       return;
     }
 
     // Parse elements from front-matter.
     $page_part = explode('---', $markdown);
     if (count($page_part) < 2) {
-      \Drupal::logger('va_gov_migrate')->error('No front matter in @url', ['@url' => $url_path]);
+      Message::make('No front matter in @url', ['@url' => $url_path], Message::DEBUG);
     }
     else {
       try {
         $row = Yaml::parse($page_part[1]);
       }
       catch (ParseException $exception) {
-        \Drupal::logger('va_gov_migrate')->error('Unable to parse the YAML string: @message', ['@message' => $exception->getMessage()]);
+        Message::make('Unable to parse the YAML string: @message', ['@message' => $exception->getMessage()], Message::ERROR);
         return;
       }
     }
@@ -146,7 +149,7 @@ class MetalsmithSource extends UrlList {
     }
     else {
       // There shouldn't be any with both layout and href, but just in case...
-      \Drupal::logger('va_gov_migrate')->debug('Found href, @href, at @url', ['@href' => $row['href'], '@url' => $url]);
+      Message::make('Found href, @href, at @url', ['@href' => $row['href'], '@url' => $url], Message::DEBUG);
       // If it's relative, make it absolute.
       if (substr($row['href'], 0, 1) == '/') {
         $row['url'] = 'https://www.va.gov' . $row['href'];

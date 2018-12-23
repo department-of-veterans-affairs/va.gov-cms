@@ -4,6 +4,7 @@ namespace Drupal\va_gov_migrate;
 
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Core\Entity\Entity;
+use Drupal\migration_tools\Message;
 use QueryPath\DOMQuery;
 
 /**
@@ -39,12 +40,14 @@ abstract class ParagraphType {
    * @param \Drupal\Core\Entity\Entity $entity
    *   The parent entity to attach the paragraph to.
    * @param string $parent_field
-   *   The paragraph fiend on the parent entity.
+   *   The paragraph field on the parent entity.
    * @param array $allowed_classes
-   *   The classes of paragraphs that are allowed in this entity/field.
+   *   The classes of paragraphs that are allowed in this field.
    *
    * @return bool
    *   Returns true if the current query path is a paragraph or part of one.
+   *
+   * @throws \Drupal\migrate\MigrateException
    */
   public function process(DOMQuery $query_path, Entity $entity, $parent_field, array $allowed_classes = []) {
     try {
@@ -54,14 +57,14 @@ abstract class ParagraphType {
         $this_class = end(explode('\\', $this_class));
 
         if (!empty($allowed_classes) && !in_array($this_class, $allowed_classes)) {
-          \Drupal::logger('va_gov_migrate')->error(
-            '@class not allowed on @type in field @field: @html',
+          Message::make('@class not allowed on @type in field @field: @html',
             [
               '@class' => $this_class,
               '@type' => $entity->bundle(),
               '@field' => $parent_field,
               '@html' => $query_path->html(),
-            ]
+            ],
+            Message::ERROR
           );
           return FALSE;
         }
@@ -83,12 +86,12 @@ abstract class ParagraphType {
         return TRUE;
       }
     }
-    catch (\Exception $exception) {
-      \Drupal::logger('va_gov_migrate')->error("Migration failed for paragraph on @parent @url: @message.",
+    catch (\Exception $e) {
+      Message::make("Migration failed for paragraph on @parent @url: @message.",
         [
-          '@message' => $exception->getMessage(),
           '@parent' => $entity->bundle(),
           '@url' => $entity->url(),
+          '@message' => $e->getMessage(),
         ]
       );
 

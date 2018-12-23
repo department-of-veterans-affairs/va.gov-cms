@@ -3,10 +3,10 @@
 namespace Drupal\va_gov_migrate;
 
 use Drupal\Core\Entity\Entity;
-use Drupal\Driver\Exception\Exception;
+use Drupal\migrate\MigrateException;
 use Drupal\paragraphs\Entity\Paragraph;
 use QueryPath\DOMQuery;
-use Drupal\migrate\MigrateException;
+use Drupal\migration_tools\Message;
 
 /**
  * ParagraphMigrator migrates paragraphs from query path.
@@ -58,7 +58,6 @@ class ParagraphMigrator {
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\migrate\MigrateException
    */
@@ -78,7 +77,26 @@ class ParagraphMigrator {
       $entity->save();
     }
 
-    $query_path = $this->createQueryPath($html, $entity);
+    try {
+      $query_path = $this->createQueryPath($html);
+    }
+    catch (MigrateException $e) {
+      try {
+        $url = $entity->toUrl();
+      }
+      catch (\Exception $e) {
+        $url = '';
+      }
+
+      Message::make('Paragraph migration failed for @field on @url: @error',
+        [
+          '@field' => $paragraph_field,
+          '@url' => $url,
+          '@error' => $e->getMessage(),
+        ],
+        Message::ERROR);
+      return;
+    }
     $this->addParagraphs($query_path, $entity, $paragraph_field, $allowed_classes);
 
     // Add any remaining wysiwyg in the buffer.
@@ -87,11 +105,13 @@ class ParagraphMigrator {
   }
 
   /**
-   * Turn query path into paragraphs and add them to the parent entity.
+   * INTERNAL FUNCTION - Extract paragraphs and add them to the parent entity.
+   *
+   * This shouldn't be called directly. Use run() instead.
    *
    * Step through the query path to find paragraphs. When they're found, attach
    * them to the parent entity. Any content that doesn't belong to any other
-   * paragraph type goes into wysiwyg paragraphs.
+   * paragraph type goes into the wysiwyg buffer.
    *
    * @param \QueryPath\DOMQuery $query_path
    *   The queryPath to search.
@@ -102,7 +122,6 @@ class ParagraphMigrator {
    * @param array $allowed_classes
    *   The classes of paragraphs that are allowed in this entity/field.
    *
-   * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\migrate\MigrateException
    */
   public function addParagraphs(DOMQuery $query_path, Entity &$parent_entity, $parent_field, array $allowed_classes = []) {
@@ -127,8 +146,7 @@ class ParagraphMigrator {
           // If the element does contain unwrapped text, that text will be lost.
           if (str_replace(' ', '', $element->text()) !=
               str_replace(' ', '', $element->childrenText())) {
-            \Drupal::logger('va_gov_migrate')->error('Lost text, in @file',
-              ['@file' => $parent_entity->url()]);
+            Message::make('Lost text, in @file', ['@file' => $parent_entity->url()], Message::ERROR);
           }
           // Add the opening tag.
           $attr = '';
@@ -148,7 +166,7 @@ class ParagraphMigrator {
   }
 
   /**
-   * Create wysiwyg paragraph and attach it to an entity. Clear wysiwyg buffer.
+   * Create wysiwyg paragraph from wysiwyg buffer and empty the buffer.
    *
    * @param \Drupal\Core\Entity\Entity $entity
    *   The parent entity.
@@ -182,31 +200,22 @@ class ParagraphMigrator {
    *
    * @param string $html
    *   The html to build the query path from.
-   * @param \Drupal\Core\Entity\Entity $entity
-   *   The entity the paragraphs are being attached to (for error message).
    *
    * @return \QueryPath\DOMQuery
    *   The resulting query path.
    *
-   * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\migrate\MigrateException
    */
-  public function createQueryPath($html, Entity $entity) {
+  public static function createQueryPath($html) {
     try {
       $query_path = htmlqp(mb_convert_encoding($html, "HTML-ENTITIES", "UTF-8"));
     }
-    catch (Exception $e) {
-      \Drupal::logger('va_gov_migrate')->error('Failed to instantiate QueryPath for HTML, Exception: @error_message', ['@error_message' => $e->getMessage()]);
+    catch (\Exception $e) {
+      throw new MigrateException('Failed to instantiate QueryPath: ' . $e->getMessage());
     }
     // Sometimes queryPath fails.  So one last check.
     if (empty($query_path) || !is_object($query_path)) {
-      try {
-        $url = $entity->toUrl();
-      }
-      catch (Exception $e) {
-        $url = '';
-      }
-      throw new MigrateException("@url failed to initialize QueryPath", ['@url' => $url]);
+      throw new MigrateException("Failed to initialize QueryPath.");
     }
 
     // Remove wrappers added by htmlqp().
