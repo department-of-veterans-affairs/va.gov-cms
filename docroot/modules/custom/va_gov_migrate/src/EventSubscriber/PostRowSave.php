@@ -13,7 +13,7 @@ use Drupal\node\Entity\Node;
  *
  * @package Drupal\va_gov_migrate\EventSubscriber
  */
-class VaPostRowSave implements EventSubscriberInterface {
+class PostRowSave implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
@@ -24,8 +24,13 @@ class VaPostRowSave implements EventSubscriberInterface {
   }
 
   /**
-   * {@inheritdoc}
+   * Perform Post Row Save events.
    *
+   *  - Turn intro text into plain text, preserving blank lines between paragraphs
+   *  - Create Paragraphs
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\migrate\MigrateException
    */
@@ -42,15 +47,15 @@ class VaPostRowSave implements EventSubscriberInterface {
     $node->set('field_intro_text', $intro_text);
     $node->save();
 
-    $migrator = new ParagraphMigrator();
+    $migrator = new ParagraphMigrator($row);
 
     // Create the Related links paragraph.
     $html = $row->getSourceProperty('related_links');
-    $migrator->create($html, $node, 'field_related_links', ['LinksList']);
+    $migrator->process($html, $node, 'field_related_links', ['LinksList']);
 
     // Create Content Block paragraphs.
     $html = $row->getSourceProperty('body');
-    $migrator->create($html, $node, 'field_content_block',
+    $migrator->process($html, $node, 'field_content_block',
       [
         'StarredHr',
         'CollapsiblePanel',
