@@ -195,7 +195,7 @@ class ParagraphMigrator {
           $this->addParagraphs($element->children(), $parent_entity, $parent_field);
           $this->wysiwyg .= "</{$element->tag()}>";
         }
-        elseif (!empty(trim($element->text()))) {
+        elseif (self::hasContent($element->html())) {
           $this->wysiwyg .= $element->html();
         }
       }
@@ -213,10 +213,7 @@ class ParagraphMigrator {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function addWysiwyg(Entity &$entity, $parent_field) {
-    // These are tags we shouldn't ignore, even if they're empty.
-    $self_contained_tags = '<audio><base><br><embed><form><hr><img><object><progress><svg><video>';
-
-    if (!empty(strip_tags($this->wysiwyg, $self_contained_tags))) {
+    if (self::hasContent($this->wysiwyg)) {
       $paragraph = Paragraph::create([
         'type' => 'wysiwyg',
         'field_wysiwyg' => [
@@ -301,6 +298,26 @@ class ParagraphMigrator {
     }
 
     return $allowed_paragraphs;
+  }
+
+  /**
+   * Does this html have actual content (not just empty wrappers)?
+   *
+   * @param string $html
+   *   The html to test.
+   *
+   * @return bool
+   *   Returns true if the html has actual content.
+   */
+  public static function hasContent($html) {
+    // These are tags we shouldn't ignore, even if they're empty.
+    $self_contained_tags = '<audio><base><br><embed><form><hr><img><object><progress><svg><video>';
+
+    if (empty(preg_replace('/\s/', '', strip_tags($html, $self_contained_tags)))) {
+      return FALSE;
+    }
+
+    return TRUE;
   }
 
 }
