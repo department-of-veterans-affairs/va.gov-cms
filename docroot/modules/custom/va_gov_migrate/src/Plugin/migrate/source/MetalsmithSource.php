@@ -183,20 +183,24 @@ class MetalsmithSource extends UrlList {
    * @throws \Drupal\migrate\MigrateException
    */
   public static function readUrl($url) {
-    $handle = curl_init($url);
-    curl_setopt($handle, CURLOPT_RETURNTRANSFER, TRUE);
+    $httpClient = \Drupal::httpClient();
 
-    $contents = curl_exec($handle);
-    $http_response_code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-    curl_close($handle);
-
-    if ($http_response_code != 200) {
-      $message = sprintf('Was unable to load %s, response code: %d', $url, $http_response_code);
-      Message::make($message, [], Message::ERROR);
+    try {
+      $response = $httpClient->get($url);
+      if (empty($response)) {
+        Message::make('No response at @url.', ['@url' => $url], Message::ERROR);
+        return FALSE;
+      }
+    }
+    catch (RequestException $e) {
+      Message::make('Error message: @message at @url.', [
+        '@message' => $e->getMessage(),
+        '@url' => $url,
+      ], Message::ERROR);
       return FALSE;
     }
 
-    return $contents;
+    return $response->getBody()->getContents();
   }
 
 }
