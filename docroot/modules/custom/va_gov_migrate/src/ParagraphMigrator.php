@@ -3,10 +3,12 @@
 namespace Drupal\va_gov_migrate;
 
 use Drupal\Core\Entity\Entity;
+use Drupal\migrate\Event\MigratePostRowSaveEvent;
 use Drupal\migrate\MigrateException;
 use Drupal\paragraphs\Entity\Paragraph;
 use QueryPath\DOMQuery;
 use Drupal\migration_tools\Message;
+use Drupal\migrate\Row;
 
 /**
  * ParagraphMigrator migrates paragraphs from query path.
@@ -29,17 +31,51 @@ class ParagraphMigrator {
   private $wysiwyg = '';
 
   /**
+   * The entity we're adding paragraphs to.
+   *
+   * @var \Drupal\Core\Entity\Entity
+   */
+  private $entity;
+  /**
+   * The row that was just saved.
+   *
+   * @var \Drupal\migrate\Row
+   */
+  public $row;
+
+  /**
    * ParagraphImporter constructor.
    *
-   * Create objects from all of the classes in Paragraph/.
+   * Loads dest entity and creates objects from class files in Paragraph/.
+   *
+   * @param \Drupal\migrate\Event\MigratePostRowSaveEvent $event
+   *   The PostRowSave event.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws MigrateException
    */
-  public function __construct() {
+  public function __construct(MigratePostRowSaveEvent $event) {
+    $ids = $event->getDestinationIdValues();
+    $dest_config = $event->getMigration()->getDestinationConfiguration();
+    $dest_plugin = $dest_config['plugin'];
+    if (preg_match('/entity:(.+)/', $dest_plugin, $matches)) {
+      $dest_entity_id = $matches[1];
+      $this->entity = \Drupal::entityTypeManager()->getStorage($dest_entity_id)->load($ids[0]);
+    }
+    else {
+      throw new MigrateException('ParagraphMigrator only works with entities. Destination found: @dest',
+        ['@dest' => $dest_plugin]);
+    }
+
+    $this->row = $event->getRow();
+
     $path = 'modules/custom/va_gov_migrate/src/Paragraph/';
     $paragraph_class_files = glob($path . '*.php');
 
     foreach ($paragraph_class_files as $file) {
-      $class_name = str_replace($path, 'Drupal\\va_gov_migrate\\Paragraph\\', $file);
-      $class_name = str_replace('.php', '', $class_name);
+      $file_name = str_replace($path, 'Drupal\\va_gov_migrate\\Paragraph\\', $file);
+      $class_name = str_replace('.php', '', $file_name);
       $this->paragraphClasses[] = new $class_name($this);
     }
   }
@@ -47,23 +83,19 @@ class ParagraphMigrator {
   /**
    * Create paragraphs from html and attach them to paragraph field on entity.
    *
-   * @param string $html
-   *   The html that contains the paragraphs.
-   * @param \Drupal\Core\Entity\Entity $entity
-   *   The parent entity.
-   * @param string $paragraph_field
+   * @param string $source_field
+   *   The the name of the field to get the paragraph html from.
+   * @param string $dest_field
    *   The machine name of the paragraph field on the parent entity.
-   * @param array $allowed_classes
-   *   The classes of paragraphs that are allowed in this entity/field.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\migrate\MigrateException
    */
-  public function create($html, Entity &$entity, $paragraph_field, array $allowed_classes = []) {
+  public function process($source_field, $dest_field) {
     // Clear any existing paragraphs.
-    $paragraph_targets = $entity->get($paragraph_field)->getValue();
+    $paragraph_targets = $this->entity->get($dest_field)->getValue();
     if (!empty($paragraph_targets)) {
       $paragraph_ids = [];
       foreach ($paragraph_targets as $paragraph_target) {
@@ -73,16 +105,16 @@ class ParagraphMigrator {
       $paragraphs = $storage_handler->loadMultiple($paragraph_ids);
       $storage_handler->delete($paragraphs);
 
-      $entity->set($paragraph_field, []);
-      $entity->save();
+      $this->entity->set($dest_field, []);
+      $this->entity->save();
     }
 
     try {
-      $query_path = $this->createQueryPath($html);
+      $query_path = $this->createQueryPath($this->row->getSourceProperty($source_field));
     }
     catch (MigrateException $e) {
       try {
-        $url = $entity->toUrl();
+        $url = $this->entity->toUrl();
       }
       catch (\Exception $e) {
         $url = '';
@@ -90,17 +122,17 @@ class ParagraphMigrator {
 
       Message::make('Paragraph migration failed for @field on @url: @error',
         [
-          '@field' => $paragraph_field,
+          '@field' => $dest_field,
           '@url' => $url,
           '@error' => $e->getMessage(),
         ],
         Message::ERROR);
       return;
     }
-    $this->addParagraphs($query_path, $entity, $paragraph_field, $allowed_classes);
+    $this->addParagraphs($query_path, $this->entity, $dest_field);
 
     // Add any remaining wysiwyg in the buffer.
-    $this->addWysiwyg($entity, $paragraph_field);
+    $this->addWysiwyg($this->entity, $dest_field);
 
   }
 
@@ -119,19 +151,24 @@ class ParagraphMigrator {
    *   The parent entity.
    * @param string $parent_field
    *   The machine name of the paragraph field on the parent entity.
-   * @param array $allowed_classes
-   *   The classes of paragraphs that are allowed in this entity/field.
    *
    * @throws \Drupal\migrate\MigrateException
    */
-  public function addParagraphs(DOMQuery $query_path, Entity &$parent_entity, $parent_field, array $allowed_classes = []) {
+  public function addParagraphs(DOMQuery $query_path, Entity &$parent_entity, $parent_field) {
+    try {
+      $allowed_paragraphs = self::getAllowedParagraphs($parent_entity, $parent_field);
+    }
+    catch (MigrateException $e) {
+      Message::make('Could not add paragraphs to @field. ' . $e->getMessage(), ['@field' => $parent_field], Message::ERROR);
+      return;
+    }
 
     /** @var \QueryPath\DOMQuery $element */
     foreach ($query_path as $element) {
       $found_paragraph = FALSE;
 
       foreach ($this->paragraphClasses as $paragraphClass) {
-        $found_paragraph = $paragraphClass->process($element, $parent_entity, $parent_field, $allowed_classes);
+        $found_paragraph = $paragraphClass->process($element, $parent_entity, $parent_field, $allowed_paragraphs);
         if ($found_paragraph) {
           break;
         }
@@ -224,6 +261,46 @@ class ParagraphMigrator {
     }
 
     return $query_path;
+  }
+
+  /**
+   * Gets an array of paragraphs allowed in selected field of selected entity.
+   *
+   * @param \Drupal\Core\Entity\Entity $entity
+   *   The entity that contains the field to check.
+   * @param string $field
+   *   The field to check.
+   *
+   * @return array
+   *   An array of paragraph machine names.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  public static function getAllowedParagraphs(Entity $entity, $field) {
+    $field_defs = \Drupal::service('entity_field.manager')->getFieldDefinitions($entity->getEntityTypeId(), $entity->bundle());
+
+    if (empty($field_defs[$field])) {
+      throw new MigrateException("$field not found on {$entity->bundle()}");
+    }
+    $settings = $field_defs[$field]->getSettings();
+    if ($settings['target_type'] != "paragraph") {
+      throw new MigrateException("{$entity->getEntityTypeId()} $field is not a paragraph.");
+    }
+
+    $available_paragraphs = $settings['handler_settings']['target_bundles_drag_drop'];
+    $selected_paragraphs = $settings['handler_settings']['target_bundles'];
+
+    if (empty($selected_paragraphs)) {
+      $allowed_paragraphs = array_keys($available_paragraphs);
+    }
+    elseif ($settings['handler_settings']['negate']) {
+      $allowed_paragraphs = array_keys(array_diff_key($available_paragraphs, $selected_paragraphs));
+    }
+    else {
+      $allowed_paragraphs = $selected_paragraphs;
+    }
+
+    return $allowed_paragraphs;
   }
 
 }

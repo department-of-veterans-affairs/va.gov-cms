@@ -26,8 +26,11 @@ class PostRowSave implements EventSubscriberInterface {
   /**
    * Perform Post Row Save events.
    *
-   *  - Turn intro text into plain text, preserving blank lines between paragraphs
-   *  - Create Paragraphs
+   *  - Turn intro into plain text, preserving blank lines between paragraphs.
+   *  - Create Paragraphs.
+   *
+   * @param \Drupal\migrate\Event\MigratePostRowSaveEvent $event
+   *   Information about the event that triggered this function.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
@@ -35,36 +38,21 @@ class PostRowSave implements EventSubscriberInterface {
    * @throws \Drupal\migrate\MigrateException
    */
   public function onMigratePostRowSave(MigratePostRowSaveEvent $event) {
-    $row = $event->getRow();
+    // Turn intro text content into plain text.
     $nids = $event->getDestinationIdValues();
-
     $node = Node::load($nids[0]);
 
-    // Turn intro text content into plain text.
     $intro_text = $node->get('field_intro_text')->value;
     $intro_text = preg_replace('/<\/p>\s+<p>/', PHP_EOL . PHP_EOL, $intro_text);
     $intro_text = strip_tags($intro_text);
     $node->set('field_intro_text', $intro_text);
     $node->save();
 
-    $migrator = new ParagraphMigrator($row);
+    // Migrate paragraphs.
+    $migrator = new ParagraphMigrator($event);
 
-    // Create the Related links paragraph.
-    $html = $row->getSourceProperty('related_links');
-    $migrator->process($html, $node, 'field_related_links', ['LinksList']);
-
-    // Create Content Block paragraphs.
-    $html = $row->getSourceProperty('body');
-    $migrator->process($html, $node, 'field_content_block',
-      [
-        'StarredHr',
-        'CollapsiblePanel',
-        'LinksList',
-        'ExpandableText',
-        'SubwayMap',
-        'Alert',
-      ]
-    );
+    $migrator->process('related_links', 'field_related_links');
+    $migrator->process('body', 'field_content_block');
 
   }
 

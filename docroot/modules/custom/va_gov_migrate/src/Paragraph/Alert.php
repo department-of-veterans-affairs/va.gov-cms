@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_migrate\Paragraph;
 
 use Drupal\va_gov_migrate\ParagraphType;
-use Drupal\paragraphs\Entity\Paragraph;
 use QueryPath\DOMQuery;
 
 /**
@@ -16,6 +15,13 @@ class Alert extends ParagraphType {
   /**
    * {@inheritdoc}
    */
+  protected function getParagraphName() {
+    return 'alert';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   protected function isParagraph(DOMQuery $query_path) {
     return $query_path->hasClass('usa-alert');
   }
@@ -23,7 +29,7 @@ class Alert extends ParagraphType {
   /**
    * {@inheritdoc}
    */
-  protected function create(DOMQuery $query_path) {
+  protected function getFieldValues(DOMQuery $query_path) {
     // Get alert type.
     if ($query_path->find('.crisis-expander-link')) {
       $alert_type = 'expanding';
@@ -65,15 +71,13 @@ class Alert extends ParagraphType {
       $message = $query_path->find('p')->html();
     }
 
-    return Paragraph::create(
+    return
       [
-        'type' => 'alert',
         'field_alert_heading' => $query_path->find('.usa-alert-heading')->text(),
         'field_alert_message' => $message,
         'field_alert_type' => $alert_type,
         'field_alert_trigger_text' => $trigger,
-      ]
-    );
+      ];
   }
 
 }
