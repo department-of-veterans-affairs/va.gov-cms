@@ -8,6 +8,7 @@ source:
   fields:
     - description
     - plainlanguage_date
+    - lastupdate
 
   migration_tools:
   -
@@ -110,10 +111,15 @@ source:
       field: body
 
 process:
-  id: url
   title: title
+  revision_timestamp: lastupdate
   field_intro_text: intro_text
   field_description: description
+  field_last_update:
+    plugin: format_date
+    from_format: 'U'
+    to_format: 'Y-m-d'
+    source: lastupdate
   field_plainlanguage_date:
     plugin: format_date
     from_format: 'n/j/y'
