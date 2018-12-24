@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.page.field_content_block
     - field.field.node.page.field_description
     - field.field.node.page.field_intro_text
+    - field.field.node.page.field_last_update
     - field.field.node.page.field_meta_tags
     - field.field.node.page.field_plainlanguage_date
     - field.field.node.page.field_related_links
@@ -49,6 +50,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
+  field_last_update:
+    weight: 7
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
     region: content
   field_plainlanguage_date:
     weight: 6
