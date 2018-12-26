@@ -10,18 +10,37 @@
 const { ApolloClient, gql } = require('apollo-boost');
 const { createHttpLink } = require('apollo-link-http');
 const { InMemoryCache } = require('apollo-cache-inmemory');
+const { setContext } = require('apollo-link-context');
 const fetch = require('node-fetch');
 
 
 function plugin() {
     const siteUrl = "http://vagovcms.lndo.site/graphql";
+    const devUrl = "http://dev.va.agile6.com/graphql/";
+
+    const authLink = setContext((_, { headers }) => {
+        // get the authentication token from local storage if it exists
+        const token = localStorage.getItem('token');
+        // return the headers to the context so httpLink can read them
+        return {
+            headers: {
+                ...headers,
+                authorization: token ? `Bearer ${token}` : "",
+            }
+        }
+    });
+
+
+    const endPoint = createHttpLink({
+        uri: siteUrl,
+        fetch: fetch
+    });
+
     const client = new ApolloClient({
-        link: createHttpLink({
-            uri: siteUrl,
-            fetch: fetch
-        }),
+        link: authLink.concat(endPoint),
         cache: new InMemoryCache()
     });
+
     const query = gql`
         {
             nodeQuery{
