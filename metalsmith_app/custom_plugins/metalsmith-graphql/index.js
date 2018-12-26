@@ -11,8 +11,7 @@ const { ApolloClient, gql } = require('apollo-boost');
 const { createHttpLink } = require('apollo-link-http');
 const { InMemoryCache } = require('apollo-cache-inmemory');
 const { setContext } = require('apollo-link-context');
-const { HttpHeaders } = require('node-fetch');
-const fetch = require('node-fetch');
+const { HttpHeaders, fetch } = require('node-fetch');
 
 
 function plugin() {
