@@ -6,31 +6,38 @@ use Drupal\va_gov_migrate\ParagraphType;
 use QueryPath\DOMQuery;
 
 /**
- * SubwayStop paragraph type.
+ * Process paragraph type.
  *
  * @package Drupal\va_gov_migrate\Paragraph
  */
-class SubwayStop extends ParagraphType {
+class Process extends ParagraphType {
 
   /**
    * {@inheritdoc}
    */
   protected function getParagraphName() {
-    return 'subway_map_stop';
+    return 'process';
   }
 
   /**
    * {@inheritdoc}
    */
   protected function isParagraph(DOMQuery $query_path) {
-    return 'li' == $query_path->tag() && $query_path->hasClass('process-step');
+    return 'ol' == $query_path->tag() && $query_path->hasClass('process');
   }
 
   /**
    * {@inheritdoc}
    */
   protected function getFieldValues(DOMQuery $query_path) {
-    return ['field_wysiwyg' => $query_path->innerHTML()];
+    $steps = [];
+    foreach ($query_path->children('li') as $child) {
+      $steps[] = [
+        "value" => $child->innerHTML(),
+        "format" => "rich_text",
+      ];
+    }
+    return ['field_steps' => $steps];
   }
 
 }
