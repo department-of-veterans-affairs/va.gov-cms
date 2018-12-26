@@ -1,18 +1,18 @@
-uuid: 7a700776-32b8-4f44-9e2b-3b0f883c9ea2
+uuid: 06c3ca75-924f-4015-8e61-e33d9118c1d2
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.subway_map_stop.field_wysiwyg
-    - paragraphs.paragraphs_type.subway_map_stop
+    - field.field.paragraph.process.field_steps
+    - paragraphs.paragraphs_type.process
   module:
     - text
-id: paragraph.subway_map_stop.default
+id: paragraph.process.default
 targetEntityType: paragraph
-bundle: subway_map_stop
+bundle: process
 mode: default
 content:
-  field_wysiwyg:
+  field_steps:
     weight: 0
     settings:
       rows: 5
