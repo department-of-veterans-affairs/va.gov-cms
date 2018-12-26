@@ -24,10 +24,9 @@ function plugin() {
         // return the headers to the context so httpLink can read them
         return {
             headers: {
-                ...headers,
-                authorization: token ? `Bearer ${token}` : "",
+                headers: new HttpHeaders().append('Authorization', `Bearer ${token}`).append('Content-Type', 'application/json')
             }
-        }
+        };
     });
 
 
