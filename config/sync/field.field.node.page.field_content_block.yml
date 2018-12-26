@@ -7,7 +7,6 @@ dependencies:
     - node.type.page
     - paragraphs.paragraphs_type.collapsible_panel_item
     - paragraphs.paragraphs_type.link_teaser
-    - paragraphs.paragraphs_type.subway_map_stop
   module:
     - entity_reference_revisions
 id: node.page.field_content_block
@@ -26,7 +25,6 @@ settings:
     negate: 1
     target_bundles:
       collapsible_panel_item: collapsible_panel_item
-      subway_map_stop: subway_map_stop
       link_teaser: link_teaser
     target_bundles_drag_drop:
       collapsible_panel:
@@ -61,5 +59,11 @@ settings:
         enabled: false
       starred_horizontal_rule:
         weight: 19
+        enabled: false
+      process:
+        weight: 21
+        enabled: false
+      react_widget:
+        weight: 22
         enabled: false
 field_type: entity_reference_revisions
