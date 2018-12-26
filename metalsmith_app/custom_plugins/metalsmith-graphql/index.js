@@ -17,7 +17,7 @@ const btoa = require('btoa');
 
 
 function plugin() {
-    const siteUrl = "http://vagovcms.lndo.site/graphql";
+    //const siteUrl = "http://localhost:32797/graphql";
     const devUrl = "http://dev.va.agile6.com/graphql/";
     const userName = "graphql";
     const password = "graphql";
@@ -42,7 +42,7 @@ function plugin() {
     });
 
     const endPoint = createHttpLink({
-        uri: siteUrl,
+        uri: devUrl,
         fetch: fetch
     });
 
