@@ -11,24 +11,35 @@ const { ApolloClient, gql } = require('apollo-boost');
 const { createHttpLink } = require('apollo-link-http');
 const { InMemoryCache } = require('apollo-cache-inmemory');
 const { setContext } = require('apollo-link-context');
-const { HttpHeaders, fetch } = require('node-fetch');
+const { HttpHeaders } = require('node-fetch');
+const fetch  = require('node-fetch');
+const btoa = require('btoa');
 
 
 function plugin() {
     const siteUrl = "http://vagovcms.lndo.site/graphql";
     const devUrl = "http://dev.va.agile6.com/graphql/";
+    const userName = "graphql";
+    const password = "graphql";
+
+    const formatBasicAuth = (userName, password) => {
+        let basicAuthCredential = userName + ":" + password;
+        let bace64 =  btoa(basicAuthCredential);
+        return 'Basic ' + bace64;
+    };
+
 
     const authLink = setContext((_, { headers }) => {
-        // get the authentication token from local storage if it exists
-        const token = localStorage.getItem('token');
+        const basic = formatBasicAuth(userName, password);
+
         // return the headers to the context so httpLink can read them
         return {
             headers: {
-                headers: new HttpHeaders().append('Authorization', `Bearer ${token}`).append('Content-Type', 'application/json')
+                ...headers,
+                authorization: basic ? `${basic}` : "",
             }
         };
     });
-
 
     const endPoint = createHttpLink({
         uri: siteUrl,
