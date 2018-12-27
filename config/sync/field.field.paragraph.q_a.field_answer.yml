@@ -1,0 +1,68 @@
+uuid: bc6820e5-87cc-4221-af1a-bdb9e09c0366
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_answer
+    - paragraphs.paragraphs_type.collapsible_panel
+    - paragraphs.paragraphs_type.process
+    - paragraphs.paragraphs_type.q_a
+    - paragraphs.paragraphs_type.wysiwyg
+  module:
+    - entity_reference_revisions
+id: paragraph.q_a.field_answer
+field_name: field_answer
+entity_type: paragraph
+bundle: q_a
+label: Answer
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      collapsible_panel: collapsible_panel
+      process: process
+      wysiwyg: wysiwyg
+    target_bundles_drag_drop:
+      address:
+        weight: 13
+        enabled: false
+      alert:
+        weight: 14
+        enabled: false
+      collapsible_panel:
+        enabled: true
+        weight: 15
+      collapsible_panel_item:
+        weight: 16
+        enabled: false
+      expandable_text:
+        weight: 17
+        enabled: false
+      link_teaser:
+        weight: 18
+        enabled: false
+      list_of_link_teasers:
+        weight: 19
+        enabled: false
+      process:
+        enabled: true
+        weight: 20
+      q_a:
+        weight: 21
+        enabled: false
+      react_widget:
+        weight: 22
+        enabled: false
+      starred_horizontal_rule:
+        weight: 23
+        enabled: false
+      wysiwyg:
+        enabled: true
+        weight: 24
+field_type: entity_reference_revisions
