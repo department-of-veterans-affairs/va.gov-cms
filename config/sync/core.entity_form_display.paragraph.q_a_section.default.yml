@@ -1,0 +1,39 @@
+uuid: 45e88493-60bf-4e22-81f9-53c71a3d894c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.q_a_section.field_questions
+    - field.field.paragraph.q_a_section.field_section_header
+    - paragraphs.paragraphs_type.q_a_section
+  module:
+    - paragraphs
+id: paragraph.q_a_section.default
+targetEntityType: paragraph
+bundle: q_a_section
+mode: default
+content:
+  field_questions:
+    type: entity_reference_paragraphs
+    weight: 1
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    region: content
+  field_section_header:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true
