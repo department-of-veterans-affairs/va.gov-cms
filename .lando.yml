@@ -28,6 +28,15 @@ services:
       - "mv /usr/local/share/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/bin/"
       - "cd /usr/bin"
       - "chmod +x phantomjs"
+    # Uncomment the below `xdebug: true` for Xdebug support
+    # @todo Change this to pull in a local Lando settings variable and use that boolean variable
+    # Run `lando rebuild` after uncommenting
+    xdebug: true
+    overrides:
+      services:
+        environment:
+          # Support debugging Drush with XDEBUG. Listen in PHPStorm then `lando drush` to trigger xdebug.
+          PHP_IDE_CONFIG: "serverName=appserver"
   node:
     type: node
     build:

@@ -39,6 +39,15 @@ Naming Conventions:
 * Content types: `vagov_contentype`
 * Fields: `field_[contenttypename]_fieldname`
 
+Debugging:
+* Enable Xdebug by uncommenting the `xdebug: true` line in .lando.yml
+* Configure PHPStorm: Go to Settings > Languages & Frameworks > PHP > Debug
+** Check "allow connections" and ensure max connections is 2
+** Open index.php and set a test breakpoint on the first line
+** Enable "Start listening for PHP debug connections"
+** Go to vagovcms.lndo.site in your browser (no extension needed) and it should trigger an "incoming connection" in PHPStorm, accept it
+** @todo Add instructions on debugging from CLI (e.g. `lando drush`)
+
 Workflow:
 * We use [drupal-spec-tool](https://github.com/acquia/drupal-spec-tool) to keep track of config changes, and sync tests
 * After updating config, cd into /tests, and run `lando behat --tags=spec`
