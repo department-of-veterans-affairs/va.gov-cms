@@ -43,10 +43,12 @@ Debugging:
 * Enable Xdebug by uncommenting the `xdebug: true` line in .lando.yml
 * Configure PHPStorm: Go to Settings > Languages & Frameworks > PHP > Debug
 ** Check "allow connections" and ensure max connections is 2
-** Open index.php and set a test breakpoint on the first line
+** Open index.php and set a test breakpoint on the first line ($autoloader)
 ** Enable "Start listening for PHP debug connections"
-** Go to vagovcms.lndo.site in your browser (no extension needed) and it should trigger an "incoming connection" in PHPStorm, accept it
-** @todo Add instructions on debugging from CLI (e.g. `lando drush`)
+** [BROWSER] Go to vagovcms.lndo.site in your browser (no extension needed) and it should trigger an "incoming connection" in PHPStorm, accept it
+** [CLI] Open Settings > Languages & Frameworks > PHP > Servers and change the server name to "appserver"
+** Set a test breakpoint on /docroot/vendor/drush/drush/drush
+** Run `lando drush status` and it should trigger the breakpoint
 
 Workflow:
 * We use [drupal-spec-tool](https://github.com/acquia/drupal-spec-tool) to keep track of config changes, and sync tests
