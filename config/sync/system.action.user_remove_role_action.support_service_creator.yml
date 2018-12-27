@@ -1,0 +1,14 @@
+uuid: 876fcbe8-88f0-4b0f-919e-91ea78fe5eb6
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.support_service_creator
+  module:
+    - user
+id: user_remove_role_action.support_service_creator
+label: 'Remove the Support Service creator role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: support_service_creator

@@ -1,0 +1,41 @@
+uuid: 05c2ae65-6e31-47b1-967a-ea4aac113ea1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.support_service.field_link
+    - field.field.node.support_service.field_phone_number
+    - node.type.support_service
+  module:
+    - link
+    - user
+id: node.support_service.default
+targetEntityType: node
+bundle: support_service
+mode: default
+content:
+  field_link:
+    weight: 102
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_phone_number:
+    weight: 103
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }
