@@ -30,6 +30,7 @@ Feature: Content model
       | WYSIWYG                 | wysiwyg                 | Paragraph type    | An open-ended text field.                                                     |
       | Support Service         | support_service         | Content type      | Help desks, hotlines, etc, to be contextually placed on relevant content.     |
       | Q&A                     | q_a                     | Paragraph type    | Question and Answer                                                           |
+      | Q&A Section             | q_a_section             | Paragraph type    | A set of questions and answers with optional header. |
 
   @spec @field_types
   Scenario: Fields
@@ -80,3 +81,5 @@ Feature: Content model
       | Content type      | Support Service        | Link                                         | field_link                       | Link                                 |          | 1           | Link                      |              |                                                                                                                                                                    |
       | Paragraph type    | Q&A                    | Question                                     | field_question                   | Text (plain)                         | Required | 1           | Textfield                 | Translatable |                                                                                                                                                                    |
       | Paragraph type    | Q&A                    | Answer                                       | field_answer                     | Entity reference revisions           | Required | Unlimited   | Paragraphs Classic        | Translatable |                                                                                                                                                                    |
+      | Paragraph type    | Q&A Section            | Section Header                               | field_section_header             | Text (plain)                         |          | 1           | Textfield                 | Translatable |                                                                                                                                                                    |
+      | Paragraph type    | Q&A Section            | Questions                                    | field_questions                  | Entity reference revisions           | Required | Unlimited   | Paragraphs EXPERIMENTAL   | Translatable |                                                                                                                                                                    |
