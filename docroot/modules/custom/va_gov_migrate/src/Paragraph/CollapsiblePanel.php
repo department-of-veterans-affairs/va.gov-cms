@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_migrate\Paragraph;
 
 use Drupal\va_gov_migrate\ParagraphType;
-use Drupal\paragraphs\Entity\Paragraph;
 use QueryPath\DOMQuery;
 
 /**
@@ -16,6 +15,13 @@ class CollapsiblePanel extends ParagraphType {
   /**
    * {@inheritdoc}
    */
+  protected function getParagraphName() {
+    return 'collapsible_panel';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   protected function isParagraph(DOMQuery $query_path) {
     return $query_path->hasClass('usa-accordion') ||
       $query_path->hasClass('usa-accordion-bordered');
@@ -24,15 +30,10 @@ class CollapsiblePanel extends ParagraphType {
   /**
    * {@inheritdoc}
    */
-  protected function create(DOMQuery $query_path) {
+  protected function getFieldValues(DOMQuery $query_path) {
     $bordered = $query_path->hasClass('usa-accordion-bordered');
 
-    return Paragraph::create(
-      [
-        'type' => 'collapsible_panel',
-        'field_collapsible_panel_bordered' => $bordered,
-      ]
-    );
+    return ['field_collapsible_panel_bordered' => $bordered];
   }
 
   /**

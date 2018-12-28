@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_migrate\Paragraph;
 
 use Drupal\va_gov_migrate\ParagraphType;
-use Drupal\paragraphs\Entity\Paragraph;
 use QueryPath\DOMQuery;
 
 /**
@@ -16,6 +15,13 @@ class StarredHr extends ParagraphType {
   /**
    * {@inheritdoc}
    */
+  protected function getParagraphName() {
+    return 'starred_horizontal_rule';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   protected function isParagraph(DOMQuery $query_path) {
     return $query_path->hasClass('va-h-ruled--stars');
   }
@@ -23,8 +29,8 @@ class StarredHr extends ParagraphType {
   /**
    * {@inheritdoc}
    */
-  protected function create(DOMQuery $query_path) {
-    return Paragraph::create(['type' => 'starred_horizontal_rule']);
+  protected function getFieldValues(DOMQuery $query_path) {
+    return [];
   }
 
 }
