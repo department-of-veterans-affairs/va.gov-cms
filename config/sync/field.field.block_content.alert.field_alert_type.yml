@@ -1,0 +1,21 @@
+uuid: 9f53fe1d-319e-4baf-8e35-ac91b083839f
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - field.storage.block_content.field_alert_type
+  module:
+    - options
+id: block_content.alert.field_alert_type
+field_name: field_alert_type
+entity_type: block_content
+bundle: alert
+label: 'Alert Type'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

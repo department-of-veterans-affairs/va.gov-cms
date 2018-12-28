@@ -1,0 +1,69 @@
+uuid: 930c5b8d-38c9-45fb-a8c3-8a8079309d83
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - field.storage.block_content.field_alert_content
+    - paragraphs.paragraphs_type.expandable_text
+    - paragraphs.paragraphs_type.wysiwyg
+  module:
+    - entity_reference_revisions
+id: block_content.alert.field_alert_content
+field_name: field_alert_content
+entity_type: block_content
+bundle: alert
+label: 'Alert Content'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      expandable_text: expandable_text
+      wysiwyg: wysiwyg
+    target_bundles_drag_drop:
+      address:
+        weight: 14
+        enabled: false
+      alert:
+        weight: 15
+        enabled: false
+      collapsible_panel:
+        weight: 16
+        enabled: false
+      collapsible_panel_item:
+        weight: 17
+        enabled: false
+      expandable_text:
+        enabled: true
+        weight: 18
+      link_teaser:
+        weight: 19
+        enabled: false
+      list_of_link_teasers:
+        weight: 20
+        enabled: false
+      process:
+        weight: 21
+        enabled: false
+      q_a:
+        weight: 22
+        enabled: false
+      q_a_section:
+        weight: 23
+        enabled: false
+      react_widget:
+        weight: 24
+        enabled: false
+      starred_horizontal_rule:
+        weight: 25
+        enabled: false
+      wysiwyg:
+        enabled: true
+        weight: 26
+field_type: entity_reference_revisions
