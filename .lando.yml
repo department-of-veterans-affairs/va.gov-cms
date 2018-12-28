@@ -8,16 +8,20 @@ config:
 events:
   # Clear caches after a database import
   post-db-import:
-    - appserver: cd $LANDO_WEBROOT && drush cr -y
+    - appserver: cd $LANDO_WEBROOT && drush cache-rebuild -y
 
   # Runs composer install after app starts
   post-start:
     - appserver: cd $LANDO_MOUNT && composer install
 
   # After code changes
+  # @see https://drupal.stackexchange.com/a/254411
   post-update:
     - appserver: cd $LANDO_MOUNT && composer install
-    - appserver: cd $LANDO_WEBROOT && drush updb -y &&  drush cr -y
+    - appserver: cd $LANDO_WEBROOT && drush updatedb -y
+    - appserver: cd $LANDO_WEBROOT && drush cache:rebuild -y
+    - appserver: cd $LANDO_WEBROOT && drush config:import -y
+    - appserver: cd $LANDO_WEBROOT && drush cache:rebuild -y
 
 services:
   appserver:
