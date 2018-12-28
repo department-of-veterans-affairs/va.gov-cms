@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_migrate\Paragraph;
 
 use Drupal\va_gov_migrate\ParagraphType;
-use Drupal\paragraphs\Entity\Paragraph;
 use QueryPath\DOMQuery;
 
 /**
@@ -16,6 +15,13 @@ class SubwayStop extends ParagraphType {
   /**
    * {@inheritdoc}
    */
+  protected function getParagraphName() {
+    return 'subway_map_stop';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   protected function isParagraph(DOMQuery $query_path) {
     return 'li' == $query_path->tag() && $query_path->hasClass('process-step');
   }
@@ -23,13 +29,8 @@ class SubwayStop extends ParagraphType {
   /**
    * {@inheritdoc}
    */
-  protected function create(DOMQuery $query_path) {
-    return Paragraph::create(
-      [
-        'type' => 'subway_map_stop',
-        'field_wysiwyg' => $query_path->innerHTML(),
-      ]
-    );
+  protected function getFieldValues(DOMQuery $query_path) {
+    return ['field_wysiwyg' => $query_path->innerHTML()];
   }
 
 }

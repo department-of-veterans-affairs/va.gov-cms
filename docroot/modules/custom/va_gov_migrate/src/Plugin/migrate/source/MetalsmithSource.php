@@ -4,6 +4,8 @@ namespace Drupal\va_gov_migrate\Plugin\migrate\source;
 
 use Drupal\migration_tools\Message;
 use Drupal\migration_tools\Plugin\migrate\source\UrlList;
+use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Exception\ParseException;
 
 /**
  * Gets frontmatter and page urls from metalsmith files in github directories.
@@ -22,6 +24,9 @@ class MetalsmithSource extends UrlList {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\migrate\MigrateException
+   * @throws \Drupal\migrate\MigrateSkipRowException
    */
   public function initializeIterator() {
     $this->rows = [];
@@ -35,39 +40,24 @@ class MetalsmithSource extends UrlList {
   }
 
   /**
-   * Removes any rows with duplicate key fields (url) or invalid urls.
+   * Removes any rows with duplicate key fields (url).
    */
   protected function validateRows() {
     $unique_rows = [];
     $urls = [];
     foreach ($this->rows as $row) {
-      if (!in_array($row['url'], $urls)) {
+      if (in_array($row['url'], $urls)) {
+        $key = array_search($row['url'], array_column($this->rows, 'url'));
+        $this->rows[$key] = array_merge($row, $this->rows[$key]);
+        Message::make('Found duplicate entry for @url', ['@url' => $row['url']], Message::DEBUG);
+      }
+      else {
         $unique_rows[] = $row;
         $urls[] = $row['url'];
       }
     }
 
-    $valid_rows = [];
-
-    foreach ($unique_rows as $row) {
-      $ok = FALSE;
-      $headers = get_headers($row['url']);
-      if ($headers) {
-        if ($headers[0] == "HTTP/1.1 200 OK") {
-          $valid_rows[] = $row;
-          $ok = TRUE;
-        }
-      }
-      if (!$ok) {
-        \Drupal::logger('va_gov_migrate')->debug('Could not reach @url. Response: @response',
-          [
-            '@url' => $row['url'],
-            '@response' => $headers[0],
-          ]
-        );
-      }
-    }
-    $this->rows = $valid_rows;
+    $this->rows = $unique_rows;
   }
 
   /**
@@ -90,17 +80,17 @@ class MetalsmithSource extends UrlList {
 
     foreach ($links as $link) {
       $path = $link->attr('href');
-      $link_name = 'https://github.com' . $path;
+      $link_href = 'https://github.com' . $path;
       // If it's a markdown file, process it.
       if (substr($path, -3) == '.md') {
-        $this->addRow($link_name);
+        $this->addRow($link_href);
       }
-      // If it's a child directory, recurse into it.
       else {
+        // If it's a child directory, recurse into it.
         $current_path = parse_url($url, PHP_URL_PATH);
-        $link_path = parse_url($link_name, PHP_URL_PATH);
+        $link_path = parse_url($link_href, PHP_URL_PATH);
         if (strpos($link_path, $current_path) === 0 && $link_path != $current_path) {
-          $this->getMarkdownData($link_name);
+          $this->getMarkdownData($link_href);
         }
       }
     }
@@ -122,39 +112,26 @@ class MetalsmithSource extends UrlList {
 
     // Read the file.
     if (!($markdown = self::readUrl($url))) {
+      Message::make('Couldn\'t read markdown file at @url', ['@url' => $url], Message::ERROR);
       return;
     }
 
     // Parse elements from front-matter.
-    $row = [];
-    $columns = [
-      'title',
-      'description',
-      'layout',
-      'collection',
-      'spoke',
-      'order',
-      'template',
-      'lastupdate',
-      'href',
-      'plainlanguage',
-    ];
-
     $page_part = explode('---', $markdown);
     if (count($page_part) < 2) {
-      \Drupal::logger('va_gov_migrate')->error('No front matter in @url', ['@url' => $url_path]);
+      Message::make('No front matter in @url', ['@url' => $url_path], Message::DEBUG);
     }
     else {
-      $front_matter = $page_part[1];
-
-      foreach ($columns as $column) {
-        if (preg_match('/^' . $column . ': (.*)/m', $front_matter, $matches)) {
-          $row[$column] = $matches[1];
-        }
+      try {
+        $row = Yaml::parse($page_part[1]);
+      }
+      catch (ParseException $exception) {
+        Message::make('Unable to parse the YAML string: @message', ['@message' => $exception->getMessage()], Message::ERROR);
+        return;
       }
     }
 
-    // Migrate metalsmith only.
+    // Migrate metalsmith only and no fully react pages.
     if (empty($row['layout']) || 'page-react.html' == $row['layout']) {
       return;
     }
@@ -171,6 +148,8 @@ class MetalsmithSource extends UrlList {
       }
     }
     else {
+      // There shouldn't be any with both layout and href, but just in case...
+      Message::make('Found href, @href, at @url', ['@href' => $row['href'], '@url' => $url], Message::DEBUG);
       // If it's relative, make it absolute.
       if (substr($row['href'], 0, 1) == '/') {
         $row['url'] = 'https://www.va.gov' . $row['href'];
@@ -185,7 +164,7 @@ class MetalsmithSource extends UrlList {
     }
 
     // Extract the plainlanguage date, if any.
-    if ($row['plainlanguage'] && preg_match('/0?(\d+)[-\.]0?(\d+)[-\.](\d+)/', $row['plainlanguage'], $matches)) {
+    if (!empty($row['plainlanguage']) && preg_match('/0?(\d+)[-\.]0?(\d+)[-\.](\d+)/', $row['plainlanguage'], $matches)) {
       $row['plainlanguage_date'] = $matches[1] . '/' . $matches[2] . '/' . $matches[3];
     }
 
@@ -204,20 +183,24 @@ class MetalsmithSource extends UrlList {
    * @throws \Drupal\migrate\MigrateException
    */
   public static function readUrl($url) {
-    $handle = curl_init($url);
-    curl_setopt($handle, CURLOPT_RETURNTRANSFER, TRUE);
+    $httpClient = \Drupal::httpClient();
 
-    $contents = curl_exec($handle);
-    $http_response_code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-    curl_close($handle);
-
-    if ($http_response_code != 200) {
-      $message = sprintf('Was unable to load %s, response code: %d', $url, $http_response_code);
-      Message::make($message, [], Message::ERROR);
+    try {
+      $response = $httpClient->get($url);
+      if (empty($response)) {
+        Message::make('No response at @url.', ['@url' => $url], Message::ERROR);
+        return FALSE;
+      }
+    }
+    catch (RequestException $e) {
+      Message::make('Error message: @message at @url.', [
+        '@message' => $e->getMessage(),
+        '@url' => $url,
+      ], Message::ERROR);
       return FALSE;
     }
 
-    return $contents;
+    return $response->getBody()->getContents();
   }
 
 }

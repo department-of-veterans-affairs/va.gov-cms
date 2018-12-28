@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_migrate\Paragraph;
 
 use Drupal\va_gov_migrate\ParagraphType;
-use Drupal\paragraphs\Entity\Paragraph;
 use QueryPath\DOMQuery;
 
 /**
@@ -16,6 +15,13 @@ class ExpandableText extends ParagraphType {
   /**
    * {@inheritdoc}
    */
+  protected function getParagraphName() {
+    return 'expandable_text';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   protected function isParagraph(DOMQuery $query_path) {
     return $query_path->hasClass('additional-info-container');
   }
@@ -23,14 +29,12 @@ class ExpandableText extends ParagraphType {
   /**
    * {@inheritdoc}
    */
-  protected function create(DOMQuery $query_path) {
-    return Paragraph::create(
+  protected function getFieldValues(DOMQuery $query_path) {
+    return
       [
-        'type' => 'expandable_text',
         'field_text_expander' => $query_path->find('.additional-info-title')->text(),
         'field_wysiwyg' => $query_path->find('.additional-info-content')->innerHTML(),
-      ]
-    );
+      ];
   }
 
 }
