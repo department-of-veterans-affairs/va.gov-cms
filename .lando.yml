@@ -18,10 +18,10 @@ events:
   # @see https://drupal.stackexchange.com/a/254411
   post-update:
     - appserver: cd $LANDO_MOUNT && composer install
-    - appserver: cd $LANDO_WEBROOT && drush updatedb -y
-    - appserver: cd $LANDO_WEBROOT && drush cache:rebuild -y
-    - appserver: cd $LANDO_WEBROOT && drush config:import -y
-    - appserver: cd $LANDO_WEBROOT && drush cache:rebuild -y
+    - appserver: cd $LANDO_WEBROOT && vendor/bin/drush updatedb -y
+    - appserver: cd $LANDO_WEBROOT && vendor/bin/drush cache:rebuild -y
+    - appserver: cd $LANDO_WEBROOT && vendor/bin/drush config:import -y
+    - appserver: cd $LANDO_WEBROOT && vendor/bin/drush cache:rebuild -y
 
 services:
   appserver:

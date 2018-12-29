@@ -25,6 +25,6 @@ RUN mkdir /templates
 COPY docker/templates/* /templates/
 RUN cd /app && composer install
 # @see https://drupal.stackexchange.com/a/254411
-RUN cd /app/docroot && drush cache:rebuild
-RUN cd /app/docroot && drush config:import --yes
-RUN cd /app/docroot && drush cache:rebuild
+RUN cd /app/docroot && vendor/bin/drush cache:rebuild
+RUN cd /app/docroot && vendor/bin/drush config:import --yes
+RUN cd /app/docroot && vendor/bin/drush cache:rebuild
