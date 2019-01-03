@@ -1,0 +1,36 @@
+uuid: 1f35bbb6-4950-4083-a523-0bc8c55ab35e
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - options
+id: block_content.field_alert_type
+field_name: field_alert_type
+entity_type: block_content
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: continue
+      label: Continue
+    -
+      value: error
+      label: Error
+    -
+      value: information
+      label: Information
+    -
+      value: success
+      label: Success
+    -
+      value: warning
+      label: Warning
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
