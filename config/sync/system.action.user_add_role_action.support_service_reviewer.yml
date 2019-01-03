@@ -1,0 +1,14 @@
+uuid: 9e3206c7-014a-40f2-81e7-0e3a7b9fcfe0
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.support_service_reviewer
+  module:
+    - user
+id: user_add_role_action.support_service_reviewer
+label: 'Add the Support Service reviewer role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: support_service_reviewer
