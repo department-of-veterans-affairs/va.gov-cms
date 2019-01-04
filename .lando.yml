@@ -59,7 +59,7 @@ tooling:
   phpunit:
     service: appserver
     description: "Run PHP Unit tests: lando phpunit. Syntax: lando phpunit {PATH-TO-TEST}"
-    cmd: /app/docroot/vendor/bin/phpunit -c /app
+    cmd: /app/docroot/vendor/bin/phpunit --bootstrap=/app/docroot/vendor/weitzman/drupal-test-traits/src/bootstrap.php -c /app
   behat:
     service: appserver
     description: "Run behat tests locally. Run from /tests dir."
