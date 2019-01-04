@@ -42,7 +42,13 @@
         "weitzman/drupal-test-traits": "dev-master",
         "drupal/address": "^1.4",
         "drupal/node_title_help_text": "^1.0",
-        "drupal/field_group": "^1.0"
+        "drupal/field_group": "^1.0",
+        "weitzman/drupal-test-traits": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Traits\\": "tests/traits"
+        }
     },
     "repositories": {
         "drupal": {
