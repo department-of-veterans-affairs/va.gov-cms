@@ -1,0 +1,69 @@
+uuid: a0f452e4-b64d-4195-9f56-4d7e6e8fe531
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_featured_content
+    - node.type.page
+    - paragraphs.paragraphs_type.q_a
+    - paragraphs.paragraphs_type.wysiwyg
+  module:
+    - entity_reference_revisions
+id: node.page.field_featured_content
+field_name: field_featured_content
+entity_type: node
+bundle: page
+label: 'Featured content'
+description: 'Highlight the most important content on your page here, in the form of a Q&A or some text edited in a WYWSIWYG editor. '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      wysiwyg: wysiwyg
+      q_a: q_a
+    target_bundles_drag_drop:
+      wysiwyg:
+        enabled: true
+        weight: -27
+      q_a:
+        enabled: true
+        weight: -26
+      address:
+        weight: -25
+        enabled: false
+      alert:
+        weight: -24
+        enabled: false
+      collapsible_panel:
+        weight: -23
+        enabled: false
+      collapsible_panel_item:
+        weight: -22
+        enabled: false
+      expandable_text:
+        weight: -21
+        enabled: false
+      link_teaser:
+        weight: -20
+        enabled: false
+      list_of_link_teasers:
+        weight: -19
+        enabled: false
+      process:
+        weight: -18
+        enabled: false
+      q_a_section:
+        weight: -17
+        enabled: false
+      react_widget:
+        weight: -16
+        enabled: false
+      starred_horizontal_rule:
+        weight: -15
+        enabled: false
+field_type: entity_reference_revisions
