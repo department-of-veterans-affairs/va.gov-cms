@@ -1,0 +1,168 @@
+uuid: e6423d00-e136-4aea-9907-1cf596bf0f91
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.inline_entity_form
+    - field.field.taxonomy_term.administration.field_acronym
+    - field.field.taxonomy_term.administration.field_email_updates_link_text
+    - field.field.taxonomy_term.administration.field_email_updates_url
+    - field.field.taxonomy_term.administration.field_intro_text
+    - field.field.taxonomy_term.administration.field_link
+    - field.field.taxonomy_term.administration.field_metatags
+    - field.field.taxonomy_term.administration.field_social_media_links
+    - field.field.taxonomy_term.administration.field_support_services
+    - taxonomy.vocabulary.administration
+  module:
+    - field_group
+    - inline_entity_form
+    - link
+    - metatag
+    - social_media_links_field
+    - text
+third_party_settings:
+  field_group:
+    group_connect_with_us:
+      children:
+        - field_link
+        - group_email_updates
+        - field_social_media_links
+      parent_name: group_contact_info
+      weight: 20
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: false
+        required_fields: false
+      label: 'Connect with us'
+    group_contact_info:
+      children:
+        - group_ask_questions
+        - group_connect_with_us
+      parent_name: ''
+      weight: 4
+      format_type: details
+      format_settings:
+        label: 'Contact info'
+        required_fields: true
+        id: ''
+        classes: ''
+        open: false
+      label: 'Contact info'
+    group_ask_questions:
+      children:
+        - field_support_services
+      parent_name: group_contact_info
+      weight: 20
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: false
+        required_fields: false
+      label: 'Ask questions'
+    group_email_updates:
+      children:
+        - field_email_updates_link_text
+        - field_email_updates_url
+      parent_name: group_connect_with_us
+      weight: 11
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: 'A link that leads someone to subscribe to email updates.'
+        required_fields: true
+      label: 'Email updates'
+id: taxonomy_term.administration.default
+targetEntityType: taxonomy_term
+bundle: administration
+mode: default
+content:
+  description:
+    type: text_textarea
+    weight: 2
+    region: content
+    settings:
+      placeholder: ''
+      rows: 5
+    third_party_settings: {  }
+  field_acronym:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_email_updates_link_text:
+    weight: 21
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_email_updates_url:
+    weight: 22
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_intro_text:
+    weight: 3
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_link:
+    weight: 10
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_metatags:
+    weight: 23
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_firehose
+    region: content
+  field_social_media_links:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+    type: social_media_links_field_default
+    region: content
+  field_support_services:
+    weight: 1
+    settings:
+      form_mode: inline_entity_form
+      override_labels: true
+      label_singular: 'Support service'
+      label_plural: 'Support services'
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      collapsible: false
+      collapsed: false
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+    region: content
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  path: true
