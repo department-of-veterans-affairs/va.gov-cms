@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_form_mode.node.inline_entity_form
     - field.field.taxonomy_term.administration.field_acronym
+    - field.field.taxonomy_term.administration.field_description
     - field.field.taxonomy_term.administration.field_email_updates_link_text
     - field.field.taxonomy_term.administration.field_email_updates_url
     - field.field.taxonomy_term.administration.field_intro_text
@@ -19,7 +20,6 @@ dependencies:
     - link
     - metatag
     - social_media_links_field
-    - text
 third_party_settings:
   field_group:
     group_connect_with_us:
@@ -80,16 +80,16 @@ targetEntityType: taxonomy_term
 bundle: administration
 mode: default
 content:
-  description:
-    type: text_textarea
-    weight: 2
-    region: content
-    settings:
-      placeholder: ''
-      rows: 5
-    third_party_settings: {  }
   field_acronym:
     weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_description:
+    weight: 2
     settings:
       size: 60
       placeholder: ''
@@ -129,7 +129,7 @@ content:
     type: link_default
     region: content
   field_metatags:
-    weight: 23
+    weight: 5
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -165,4 +165,5 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
+  description: true
   path: true
