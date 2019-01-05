@@ -1,0 +1,28 @@
+uuid: 3306aeb5-938e-4657-b441-34a160dacc1f
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - field.storage.node.field_alert
+    - node.type.page
+id: node.page.field_alert
+field_name: field_alert
+entity_type: node
+bundle: page
+label: Alert
+description: '[Help text here]'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      alert: alert
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
