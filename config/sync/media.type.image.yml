@@ -1,7 +1,12 @@
 uuid: 92f64a34-81e5-4094-82a9-4fe61d7f2227
 langcode: und
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - crop
+third_party_settings:
+  crop:
+    image_field: image
 _core:
   default_config_hash: UbLy1_yBV5jSxil0-k8gV9GiVUg3Oik3hlAJzqeT8YQ
 id: image
