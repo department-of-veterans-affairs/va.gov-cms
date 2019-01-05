@@ -1,0 +1,48 @@
+uuid: 64937948-c661-4935-a725-5e4a1408686a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.inline_entity_form
+    - field.field.node.support_service.field_link
+    - field.field.node.support_service.field_phone_number
+    - node.type.support_service
+  module:
+    - link
+    - telephone
+id: node.support_service.inline_entity_form
+targetEntityType: node
+bundle: support_service
+mode: inline_entity_form
+content:
+  field_link:
+    weight: 2
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_phone_number:
+    type: telephone_default
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  moderation_state: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
