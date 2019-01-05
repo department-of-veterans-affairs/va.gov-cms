@@ -1,0 +1,46 @@
+uuid: c5937ef6-121e-4444-a208-89e003f5b257
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.promo
+    - entity_browser.browser.media_browser
+    - field.field.block_content.promo.field_image
+    - field.field.block_content.promo.field_promo_link
+  module:
+    - entity_browser
+    - paragraphs
+id: block_content.promo.default
+targetEntityType: block_content
+bundle: promo
+mode: default
+content:
+  field_image:
+    type: entity_browser_entity_reference
+    weight: 0
+    settings:
+      entity_browser: media_browser
+      field_widget_display: rendered_entity
+      field_widget_edit: true
+      field_widget_remove: true
+      selection_mode: selection_append
+      field_widget_display_settings:
+        view_mode: thumbnail
+      open: true
+    region: content
+    third_party_settings: {  }
+  field_promo_link:
+    type: entity_reference_paragraphs
+    weight: 26
+    settings:
+      title: Link
+      title_plural: Links
+      edit_mode: open
+      add_mode: select
+      form_display_mode: default
+      default_paragraph_type: link_teaser
+    third_party_settings: {  }
+    region: content
+hidden:
+  info: true
+  moderation_state: true
