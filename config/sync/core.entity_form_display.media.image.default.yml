@@ -5,11 +5,12 @@ dependencies:
   config:
     - field.field.media.image.field_media_in_library
     - field.field.media.image.image
-    - image.style.thumbnail
+    - image.style.crop_thumbnail
     - media.type.image
   module:
     - content_moderation
     - image_widget_crop
+    - lightning_media
     - path
 _core:
   default_config_hash: kyoAHlZTGIuGTaQuBblGBk8EhfnVKOl19_0j5WbpQqM
@@ -29,16 +30,20 @@ content:
     type: image_widget_crop
     weight: 0
     settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-      crop_list:
-        - freeform
       show_crop_area: true
-      crop_preview_image_style: crop_thumbnail
-      crop_types_required: {  }
       show_default_crop: true
+      preview_image_style: crop_thumbnail
+      crop_preview_image_style: crop_thumbnail
+      crop_list:
+        - '2_1'
+        - freeform
+      progress_indicator: throbber
+      crop_types_required: {  }
       warn_multiple_usages: false
-    third_party_settings: {  }
+    third_party_settings:
+      lightning_media:
+        file_links: true
+        remove_button: true
     region: content
   moderation_state:
     type: moderation_state_default
