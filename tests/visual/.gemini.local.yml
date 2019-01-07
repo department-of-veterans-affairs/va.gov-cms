@@ -1,0 +1,43 @@
+rootUrl: https://nsf:nsfbeta@web.nsf.localtest.me
+gridUrl: https://hub.nsf.localtest.me/wd/hub
+
+browsers:
+  chrome-desktop:
+    desiredCapabilities:
+      browserName: chrome
+  chrome-mobile-high:
+    desiredCapabilities:
+      browserName: chrome
+      windowSize: 1366x768
+  chrome-mobile-low:
+    desiredCapabilities:
+      browserName: chrome
+      windowSize: 360x640
+  firefox-desktop:
+    desiredCapabilities:
+      browserName: firefox
+  firefox-mobile-high:
+    desiredCapabilities:
+      browserName: firefox
+      windowSize: 1366x768
+  firefox-mobile-low:
+    desiredCapabilities:
+      browserName: firefox
+      windowSize: 360x640
+system:
+  projectRoot: ./
+  sourceRoot: ./
+  tempDir: temp-images
+  exclude:
+    - node_modules/**
+sets:
+  ff:
+    files:
+     - gemini
+    browsers:
+     - firefox-desktop
+  chrome:
+    files:
+     - gemini
+    browsers:
+     - chrome-desktop
