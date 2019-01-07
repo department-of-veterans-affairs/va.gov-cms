@@ -1,19 +1,20 @@
-uuid: b794d9da-c9d8-4c1e-89d8-e6c3dc743b0c
+uuid: a0f452e4-b64d-4195-9f56-4d7e6e8fe531
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_related_links
+    - field.storage.node.field_featured_content
     - node.type.page
-    - paragraphs.paragraphs_type.list_of_link_teasers
+    - paragraphs.paragraphs_type.q_a
+    - paragraphs.paragraphs_type.wysiwyg
   module:
     - entity_reference_revisions
-id: node.page.field_related_links
-field_name: field_related_links
+id: node.page.field_featured_content
+field_name: field_featured_content
 entity_type: node
 bundle: page
-label: 'Related Links'
-description: '[Some help text]'
+label: 'Featured content'
+description: 'Highlight the most important content on your page here, in the form of a Q&A or some text edited in a WYWSIWYG editor. '
 required: false
 translatable: false
 default_value: {  }
@@ -23,45 +24,46 @@ settings:
   handler_settings:
     negate: 0
     target_bundles:
-      list_of_link_teasers: list_of_link_teasers
+      wysiwyg: wysiwyg
+      q_a: q_a
     target_bundles_drag_drop:
-      list_of_link_teasers:
+      wysiwyg:
         enabled: true
         weight: -27
-      alert:
+      q_a:
+        enabled: true
         weight: -26
-        enabled: false
-      collapsible_panel:
+      address:
         weight: -25
         enabled: false
-      address:
+      alert:
         weight: -24
         enabled: false
-      collapsible_panel_item:
+      collapsible_panel:
         weight: -23
         enabled: false
-      expandable_text:
+      collapsible_panel_item:
         weight: -22
         enabled: false
-      link_teaser:
+      expandable_text:
         weight: -21
         enabled: false
-      starred_horizontal_rule:
+      link_teaser:
         weight: -20
         enabled: false
-      process:
+      list_of_link_teasers:
         weight: -19
         enabled: false
-      q_a:
+      process:
         weight: -18
         enabled: false
-      wysiwyg:
+      q_a_section:
         weight: -17
         enabled: false
-      q_a_section:
+      react_widget:
         weight: -16
         enabled: false
-      react_widget:
+      starred_horizontal_rule:
         weight: -15
         enabled: false
 field_type: entity_reference_revisions

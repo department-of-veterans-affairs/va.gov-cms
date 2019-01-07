@@ -25,44 +25,47 @@ settings:
   handler_settings:
     negate: 0
     target_bundles:
-      collapsible_panel: collapsible_panel
-      process: process
       wysiwyg: wysiwyg
+      process: process
+      collapsible_panel: collapsible_panel
     target_bundles_drag_drop:
-      address:
-        weight: 13
-        enabled: false
-      alert:
-        weight: 14
-        enabled: false
-      collapsible_panel:
-        enabled: true
-        weight: 15
-      collapsible_panel_item:
-        weight: 16
-        enabled: false
-      expandable_text:
-        weight: 17
-        enabled: false
-      link_teaser:
-        weight: 18
-        enabled: false
-      list_of_link_teasers:
-        weight: 19
-        enabled: false
-      process:
-        enabled: true
-        weight: 20
-      q_a:
-        weight: 21
-        enabled: false
-      react_widget:
-        weight: 22
-        enabled: false
-      starred_horizontal_rule:
-        weight: 23
-        enabled: false
       wysiwyg:
         enabled: true
-        weight: 24
+        weight: -27
+      process:
+        enabled: true
+        weight: -26
+      collapsible_panel:
+        enabled: true
+        weight: -25
+      address:
+        weight: -24
+        enabled: false
+      alert:
+        weight: -23
+        enabled: false
+      collapsible_panel_item:
+        weight: -22
+        enabled: false
+      expandable_text:
+        weight: -21
+        enabled: false
+      link_teaser:
+        weight: -20
+        enabled: false
+      list_of_link_teasers:
+        weight: -19
+        enabled: false
+      q_a:
+        weight: -18
+        enabled: false
+      react_widget:
+        weight: -17
+        enabled: false
+      q_a_section:
+        weight: -16
+        enabled: false
+      starred_horizontal_rule:
+        weight: -15
+        enabled: false
 field_type: entity_reference_revisions

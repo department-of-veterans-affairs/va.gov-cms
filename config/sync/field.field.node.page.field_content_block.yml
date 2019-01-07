@@ -5,16 +5,19 @@ dependencies:
   config:
     - field.storage.node.field_content_block
     - node.type.page
-    - paragraphs.paragraphs_type.collapsible_panel_item
-    - paragraphs.paragraphs_type.link_teaser
+    - paragraphs.paragraphs_type.collapsible_panel
+    - paragraphs.paragraphs_type.process
+    - paragraphs.paragraphs_type.q_a_section
+    - paragraphs.paragraphs_type.react_widget
+    - paragraphs.paragraphs_type.wysiwyg
   module:
     - entity_reference_revisions
 id: node.page.field_content_block
 field_name: field_content_block
 entity_type: node
 bundle: page
-label: 'Content blocks'
-description: ''
+label: 'Main content'
+description: '[Some help text]'
 required: false
 translatable: false
 default_value: {  }
@@ -22,48 +25,51 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 1
+    negate: 0
     target_bundles:
-      collapsible_panel_item: collapsible_panel_item
-      link_teaser: link_teaser
+      wysiwyg: wysiwyg
+      collapsible_panel: collapsible_panel
+      process: process
+      q_a_section: q_a_section
+      react_widget: react_widget
     target_bundles_drag_drop:
-      collapsible_panel:
-        weight: 3
-        enabled: false
-      collapsible_panel_item:
-        enabled: true
-        weight: 4
-      subway_map:
-        weight: 8
-        enabled: false
-      subway_map_stop:
-        enabled: true
-        weight: 9
-      link_teaser:
-        enabled: true
-        weight: 10
       wysiwyg:
-        weight: 10
+        enabled: true
+        weight: -27
+      collapsible_panel:
+        enabled: true
+        weight: -26
+      process:
+        enabled: true
+        weight: -25
+      q_a_section:
+        enabled: true
+        weight: -24
+      react_widget:
+        enabled: true
+        weight: -23
+      collapsible_panel_item:
+        weight: -22
+        enabled: false
+      link_teaser:
+        weight: -21
         enabled: false
       list_of_link_teasers:
-        weight: 11
+        weight: -20
         enabled: false
       address:
-        weight: 12
+        weight: -19
         enabled: false
       alert:
-        weight: 13
+        weight: -18
         enabled: false
       expandable_text:
-        weight: 16
+        weight: -17
         enabled: false
       starred_horizontal_rule:
-        weight: 19
+        weight: -16
         enabled: false
-      process:
-        weight: 21
-        enabled: false
-      react_widget:
-        weight: 22
+      q_a:
+        weight: -15
         enabled: false
 field_type: entity_reference_revisions
