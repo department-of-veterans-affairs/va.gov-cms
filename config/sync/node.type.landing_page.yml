@@ -4,12 +4,15 @@ status: true
 dependencies:
   module:
     - menu_ui
+    - node_title_help_text
 third_party_settings:
   menu_ui:
     available_menus:
       - main
     parent: 'main:'
-name: 'Landing page'
+  node_title_help_text:
+    title_help: 'Eg ''VA Health Care'', ''VA Disability Compensation'', etc.'
+name: 'Hub landing page'
 type: landing_page
 description: 'A special page with its own one-off layout and content.'
 help: ''
