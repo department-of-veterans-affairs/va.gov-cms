@@ -6,6 +6,7 @@ use Drupal\migration_tools\Message;
 use Drupal\migration_tools\Plugin\migrate\source\UrlList;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
+use Drupal\migrate\Plugin\MigrationInterface;
 
 /**
  * Gets frontmatter and page urls from metalsmith files.
@@ -24,6 +25,26 @@ class MetalsmithSource extends UrlList {
    * @var array
    */
   protected $rows;
+
+  /**
+   * Name of the template file to filter for in this migration.
+   *
+   * @var array
+   */
+  protected $templates;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration);
+
+    if (empty($this->configuration['templates'])) {
+      throw new MigrateException('You must declare the "templates" in your source settings.');
+    }
+
+    $this->templates = $configuration['templates'];
+  }
 
   /**
    * {@inheritdoc}
@@ -147,6 +168,11 @@ class MetalsmithSource extends UrlList {
 
     // Migrate metalsmith only and no fully react pages.
     if (empty($row['layout']) || 'page-react.html' == $row['layout']) {
+      return;
+    }
+
+    // Filter for 'templates' field defined in migration yml.
+    if (!in_array($row['template'], $this->templates)) {
       return;
     }
 
