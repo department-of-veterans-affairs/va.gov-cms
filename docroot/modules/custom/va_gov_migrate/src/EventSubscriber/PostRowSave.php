@@ -52,6 +52,7 @@ class PostRowSave implements EventSubscriberInterface {
     $migrator = new ParagraphMigrator($event);
 
     $migrator->process('related_links', 'field_related_links');
+    $migrator->process('featured_content', 'field_featured_content');
     $migrator->process('body', 'field_content_block');
 
   }

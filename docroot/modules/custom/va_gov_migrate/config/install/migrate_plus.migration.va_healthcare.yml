@@ -41,6 +41,16 @@ source:
             - '.va-introtext'
             - '1'
             - innerHTML
+      featured_content:
+        obtainer: ObtainHtml
+        jobs:
+        -
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - '.feature'
+            - '1'
+            - innerHTML
       related_links:
         obtainer: ObtainHtml
         jobs:
@@ -85,6 +95,9 @@ source:
     -
       operation: get_field
       field: intro_text
+    -
+      operation: get_field
+      field: featured_content
     -
       operation: get_field
       field: related_links
