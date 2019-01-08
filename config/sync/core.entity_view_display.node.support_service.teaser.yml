@@ -1,0 +1,23 @@
+uuid: d3875744-49a4-40bf-8ce9-547dc7bf6d5e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.support_service
+  module:
+    - user
+id: node.support_service.teaser
+targetEntityType: node
+bundle: support_service
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  field_link: true
+  field_phone_number: true

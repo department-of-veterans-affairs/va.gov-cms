@@ -1,0 +1,42 @@
+uuid: 088c040c-3919-48b8-aee4-56e2e575c2bb
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - field.field.block_content.alert.field_alert_content
+    - field.field.block_content.alert.field_alert_title
+    - field.field.block_content.alert.field_alert_type
+  module:
+    - entity_reference_revisions
+    - options
+id: block_content.alert.default
+targetEntityType: block_content
+bundle: alert
+mode: default
+content:
+  field_alert_content:
+    type: entity_reference_revisions_entity_view
+    weight: 2
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_alert_title:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_alert_type:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+hidden: {  }

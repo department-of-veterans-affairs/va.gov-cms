@@ -1,0 +1,19 @@
+uuid: 2c5755d0-d086-42ad-a256-e4b7c0ebde30
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_description
+    - taxonomy.vocabulary.administration
+id: taxonomy_term.administration.field_description
+field_name: field_description
+entity_type: taxonomy_term
+bundle: administration
+label: Description
+description: "Describe the content concisely, ideally between 120 and 158 characters. This text will appear on content listings on the site, and will describe the content in search engines, and when this content is shared on social media.\r\n"
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

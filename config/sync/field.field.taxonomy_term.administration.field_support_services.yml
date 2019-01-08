@@ -1,0 +1,29 @@
+uuid: 0bad7a59-1992-4748-b186-9354c2ddc0c8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_support_services
+    - node.type.support_service
+    - taxonomy.vocabulary.administration
+id: taxonomy_term.administration.field_support_services
+field_name: field_support_services
+entity_type: taxonomy_term
+bundle: administration
+label: 'Support services'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      support_service: support_service
+    sort:
+      field: title
+      direction: ASC
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

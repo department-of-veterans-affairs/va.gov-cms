@@ -13,7 +13,7 @@ field_name: field_related_links
 entity_type: node
 bundle: page
 label: 'Related Links'
-description: ''
+description: '[Some help text]'
 required: false
 translatable: false
 default_value: {  }
@@ -25,37 +25,43 @@ settings:
     target_bundles:
       list_of_link_teasers: list_of_link_teasers
     target_bundles_drag_drop:
-      alert:
-        weight: 12
-        enabled: false
-      collapsible_panel:
-        weight: 13
-        enabled: false
-      collapsible_panel_item:
-        weight: 14
-        enabled: false
-      expandable_text:
-        weight: 15
-        enabled: false
-      grey_box:
-        weight: 16
-        enabled: false
-      link_teaser:
-        weight: 17
-        enabled: false
       list_of_link_teasers:
         enabled: true
-        weight: 18
+        weight: -27
+      alert:
+        weight: -26
+        enabled: false
+      collapsible_panel:
+        weight: -25
+        enabled: false
+      address:
+        weight: -24
+        enabled: false
+      collapsible_panel_item:
+        weight: -23
+        enabled: false
+      expandable_text:
+        weight: -22
+        enabled: false
+      link_teaser:
+        weight: -21
+        enabled: false
       starred_horizontal_rule:
-        weight: 19
+        weight: -20
         enabled: false
-      subway_map:
-        weight: 20
+      process:
+        weight: -19
         enabled: false
-      subway_map_stop:
-        weight: 21
+      q_a:
+        weight: -18
         enabled: false
       wysiwyg:
-        weight: 22
+        weight: -17
+        enabled: false
+      q_a_section:
+        weight: -16
+        enabled: false
+      react_widget:
+        weight: -15
         enabled: false
 field_type: entity_reference_revisions

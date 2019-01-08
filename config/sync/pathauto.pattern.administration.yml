@@ -1,0 +1,23 @@
+uuid: 9182c7b4-abb9-43eb-86a2-5720d27e4202
+langcode: en
+status: true
+dependencies:
+  module:
+    - ctools
+    - taxonomy
+id: administration
+label: Administration
+type: 'canonical_entities:taxonomy_term'
+pattern: 'administration/[term:field_acronym]'
+selection_criteria:
+  042ab0e0-3716-46f1-8292-95c26df8c5b4:
+    id: 'entity_bundle:taxonomy_term'
+    bundles:
+      administration: administration
+    negate: false
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    uuid: 042ab0e0-3716-46f1-8292-95c26df8c5b4
+selection_logic: and
+weight: -5
+relationships: {  }
