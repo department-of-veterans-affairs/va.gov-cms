@@ -7,21 +7,36 @@
  *
  *  */
 
+global.btoa = function (str) {return new Buffer(str).toString('base64');};
+
 const { ApolloClient, gql } = require('apollo-boost');
 const { createHttpLink } = require('apollo-link-http');
+const { setContext } = require('apollo-link-context');
 const { InMemoryCache } = require('apollo-cache-inmemory');
 const fetch = require('node-fetch');
 
+function formatBasicAuth(userName, password) {
+    const basicAuthCredential = userName + ":" + password;
+    const bace64 =  btoa(basicAuthCredential);
+    return 'Basic ' + bace64;
+}
 
 function plugin() {
     const siteUrl = "http://vagovcms.lndo.site/graphql";
+    const creds = formatBasicAuth('admin', 'drupal8');
+    const headers = {
+        'Authorization': creds
+    };
+
     const client = new ApolloClient({
         link: createHttpLink({
             uri: siteUrl,
+            headers: headers,
             fetch: fetch
         }),
         cache: new InMemoryCache()
     });
+
     const query = gql`
         {
             nodeQuery{
