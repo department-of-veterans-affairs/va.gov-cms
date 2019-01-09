@@ -52,12 +52,16 @@ abstract class ParagraphType {
   public function process(DOMQuery $query_path, Entity $entity, $parent_field, array $allowed_paragraphs) {
     try {
       if ($this->isParagraph($query_path)) {
+        if ("node" == $entity->getEntityTypeId()) {
+          $title = $entity->get('title')->value;
+        }
         if (!in_array($this->getParagraphName(), $allowed_paragraphs)) {
-          Message::make('@class not allowed on @type in field @field',
+          Message::make('@class not allowed on @type in field @field @node',
             [
               '@class' => $this->getParagraphName(),
               '@type' => $entity->bundle(),
               '@field' => $parent_field,
+              '@node' => empty($title) ? "" : "on $title",
             ],
             Message::ERROR
           );
