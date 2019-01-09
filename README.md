@@ -11,7 +11,7 @@ How to start:
 What it does:
 * Spins up php, mysql, and node containers
 * Dependencies (including components project) are pulled in via composer
-* Base config installs uswds and sets a subtheme for this project
+* Base config installs uswds and sets a subtheme for this project (project is headless, so this isn't critical)
 
 How to use:
 * visit the site by clicking one of the urls provided (aliased and https options are available)
@@ -19,14 +19,12 @@ How to use:
 * drush commands are prefixed with lando, e.g.: `lando drush cr`
 * composer is used for project management, e.g.: `composer require drupal/uswds`
 
-Theme structure:
+Theme structure (project is headless, so this isn't critical):
 * Base theme is USWDS: https://www.drupal.org/project/uswds
 * vagov Subtheme lives in themes/custom
-* Uses twig templating
-* Scss is compiled to css via gulp (from vagov dir run `lando gulp`)
 
 Running Behat Tests:
-* `cd tests`
+* `cd tests/behat`
 * `lando behat --tags=name-of-tag`
 
 Running Phpunit Tests:
@@ -52,6 +50,9 @@ Xdebug:
     * Set a test breakpoint on /docroot/vendor/drush/drush/drush
     * Run `lando drush status` and it should trigger the breakpoint
 
+Troubleshooting:
+* Sometimes after initial setup or `lando start`, Drush is not found. Running `lando rebuild -y` once or twice usually cures, if not, see: https://github.com/lando/lando/issues/580#issuecomment-354490298
+
 Workflow:
 * We use [drupal-spec-tool](https://github.com/acquia/drupal-spec-tool) to keep track of config changes, and sync tests
 * After updating config, cd into /tests, and run `lando behat --tags=spec`
@@ -64,6 +65,5 @@ pertains to the test you are updating, and paste into the test file in /tests/be
 * Export config to code: `lando drush config:export` then commit changes to code.
 
 Todo:
-* Configure phantomjs to run js phpunit tests - using this pattern for setup is not working: https://www.breaktech.com/blog/using-lando-for-drupal-development.
 * decide how we are going to sync files across environments
 * work out settings.php for various environments - lando db settings are stored in settings.lando.php
