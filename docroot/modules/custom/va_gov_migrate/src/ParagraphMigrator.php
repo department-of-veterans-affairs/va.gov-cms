@@ -178,8 +178,16 @@ class ParagraphMigrator {
         // These tags might contain paragraphs
         // (and shouldn't contain unwrapped text).
         $wrapper_tags = ['div', 'article', 'section', 'aside', 'ul'];
-        if (in_array($element->tag(), $wrapper_tags)
-          && count($element->children())) {
+        if (in_array($element->tag(), $wrapper_tags) && count($element->children())) {
+          // Don't save 'Last updated: <DATE>' line as text (date is in
+          // Last Update field).
+          if ($element->hasClass('last-updated')) {
+            if ($element->children()->count() > 1 || strpos(trim($element->text()), 'Last updated:') !== 0) {
+              Message::make('Unexpected content in "last-updated" div in @file',
+                ['@file' => $parent_entity->url()], Message::ERROR);
+            }
+            continue;
+          }
           // If the element does contain unwrapped text, that text will be lost.
           if (str_replace(' ', '', $element->text()) !=
               str_replace(' ', '', $element->childrenText())) {

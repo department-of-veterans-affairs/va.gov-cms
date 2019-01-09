@@ -6,9 +6,13 @@ use Drupal\migration_tools\Message;
 use Drupal\migration_tools\Plugin\migrate\source\UrlList;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
+use Drupal\migrate\Plugin\MigrationInterface;
 
 /**
- * Gets frontmatter and page urls from metalsmith files in github directories.
+ * Gets frontmatter and page urls from metalsmith files.
+ *
+ * This source requires a list of urls that are either metalsmith files
+ * or a github directory listing of metalsmith files.
  *
  * @MigrateSource(
  *  id = "metalsmith_source"
@@ -23,6 +27,26 @@ class MetalsmithSource extends UrlList {
   protected $rows;
 
   /**
+   * Name of the template file to filter for in this migration.
+   *
+   * @var array
+   */
+  protected $templates;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration);
+
+    if (empty($this->configuration['templates'])) {
+      throw new MigrateException('You must declare the "templates" in your source settings.');
+    }
+
+    $this->templates = $configuration['templates'];
+  }
+
+  /**
    * {@inheritdoc}
    *
    * @throws \Drupal\migrate\MigrateException
@@ -32,7 +56,15 @@ class MetalsmithSource extends UrlList {
     $this->rows = [];
 
     foreach ($this->urls as $url) {
-      $this->getMarkdownData($url);
+      // If it's a markdown file, process it.
+      if (substr($url, -3) == '.md') {
+        $this->addRow($url);
+      }
+      // Otherwise, assume it's a directory listing.
+      else {
+        $this->crawlDirectory($url);
+
+      }
     }
 
     $this->validateRows();
@@ -40,7 +72,7 @@ class MetalsmithSource extends UrlList {
   }
 
   /**
-   * Removes any rows with duplicate key fields (url).
+   * Removes any rows with duplicate key fields (urls).
    */
   protected function validateRows() {
     $unique_rows = [];
@@ -69,28 +101,31 @@ class MetalsmithSource extends UrlList {
    * @throws \Drupal\migrate\MigrateException
    * @throws \Drupal\migrate\MigrateSkipRowException
    */
-  protected function getMarkdownData($url) {
+  protected function crawlDirectory($url) {
     // Read the page at the url.
     if (!($html = self::readUrl($url))) {
       return;
     }
 
+    // Find all the links in the "files" table.
     $query_path = htmlqp($html);
-    $links = $query_path->find('a');
+    $links = $query_path->find('table.files a');
 
     foreach ($links as $link) {
       $path = $link->attr('href');
+      // File and directory paths are always relative.
       $link_href = 'https://github.com' . $path;
+
       // If it's a markdown file, process it.
       if (substr($path, -3) == '.md') {
         $this->addRow($link_href);
       }
-      else {
-        // If it's a child directory, recurse into it.
+      // If it's a child directory, recurse into it.
+      elseif ($link->closest('td')->prev()->find('svg')->attr('aria-label') == 'directory') {
         $current_path = parse_url($url, PHP_URL_PATH);
         $link_path = parse_url($link_href, PHP_URL_PATH);
         if (strpos($link_path, $current_path) === 0 && $link_path != $current_path) {
-          $this->getMarkdownData($link_href);
+          $this->crawlDirectory($link_href);
         }
       }
     }
@@ -133,6 +168,11 @@ class MetalsmithSource extends UrlList {
 
     // Migrate metalsmith only and no fully react pages.
     if (empty($row['layout']) || 'page-react.html' == $row['layout']) {
+      return;
+    }
+
+    // Filter for 'templates' field defined in migration yml.
+    if (!in_array($row['template'], $this->templates)) {
       return;
     }
 
