@@ -22,6 +22,15 @@ fi;
 # custom: render database settings from template
 j2 /templates/settings.lando.php.tpl > /app/docroot/sites/default/settings.lando.php
 
+# Run post-deploy hooks
+# Make sure backend services are up
+/usr/bin/wait-for-it.sh -t 120 ${DRUPAL_DATABASE_HOST}:${DRUPAL_DATABASE_HOST_PORT}
+cd ${LANDO_WEBROOT}/vendor/bin/
+./drush cache:rebuild
+./drush updatedb -y
+./drush config:import -y
+./drush cache:rebuild
+
 # Run the COMMAND
 echo "Running command $@"
 "$@" || tail -f /dev/null
