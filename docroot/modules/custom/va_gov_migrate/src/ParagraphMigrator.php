@@ -139,7 +139,7 @@ class ParagraphMigrator {
   /**
    * INTERNAL FUNCTION - Extract paragraphs and add them to the parent entity.
    *
-   * This shouldn't be called directly. Use run() instead.
+   * This shouldn't be called directly. Use process() instead.
    *
    * Step through the query path to find paragraphs. When they're found, attach
    * them to the parent entity. Any content that doesn't belong to any other
@@ -222,16 +222,37 @@ class ParagraphMigrator {
    */
   public function addWysiwyg(Entity &$entity, $parent_field) {
     if (self::hasContent($this->wysiwyg)) {
-      $paragraph = Paragraph::create([
-        'type' => 'wysiwyg',
-        'field_wysiwyg' => [
-          "value" => $this->wysiwyg,
-          "format" => "rich_text",
-        ],
-      ]);
-      $paragraph->save();
+      try {
+        $allowed_paragraphs = self::getAllowedParagraphs($entity, $parent_field);
+      }
+      catch (MigrateException $e) {
+        Message::make('Could not add paragraphs to @field. ' . $e->getMessage(), ['@field' => $parent_field], Message::ERROR);
+        return;
+      }
 
-      ParagraphType::attachParagraph($paragraph, $entity, $parent_field);
+      if (in_array('wysiwyg', $allowed_paragraphs)) {
+        $paragraph = Paragraph::create([
+          'type' => 'wysiwyg',
+          'field_wysiwyg' => [
+            "value" => $this->wysiwyg,
+            "format" => "rich_text",
+          ],
+        ]);
+        $paragraph->save();
+
+        ParagraphType::attachParagraph($paragraph, $entity, $parent_field);
+      }
+      else {
+        Message::make('Lost content for field @field on @type @node. Wysiwyg paragraphs not allowed. Content: "@wysiwyg"',
+          [
+            '@wysiwyg' => $this->wysiwyg,
+            '@type' => $entity->bundle(),
+            '@field' => $parent_field,
+            '@node' => empty($title) ? "" : "on $title",
+          ],
+          Message::ERROR
+        );
+      }
     }
 
     $this->wysiwyg = '';
