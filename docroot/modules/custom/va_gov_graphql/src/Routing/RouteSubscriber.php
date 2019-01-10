@@ -19,11 +19,11 @@ class RouteSubscriber extends RouteSubscriberBase {
     $graphql_routes = $route_provider->getRoutesByPattern('graphql');
     $graphql_iterator = $graphql_routes->getIterator();
 
-    foreach($graphql_iterator as $route_name => $route_params) {
+    foreach ($graphql_iterator as $route_name => $route_params) {
 
       if ($route = $collection->get($route_name)) {
-        $route->setOptions(['_auth', 'basic_auth']);
-        $route->setRequirements(['_user_is_logged_in', 'TRUE']);
+        $route->setOption('_auth', 'basic_auth');
+        $route->setRequirement('_user_is_logged_in', 'TRUE');
       }
     }
   }
