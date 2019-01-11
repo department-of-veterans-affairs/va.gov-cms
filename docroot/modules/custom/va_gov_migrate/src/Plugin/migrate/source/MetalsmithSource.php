@@ -39,11 +39,7 @@ class MetalsmithSource extends UrlList {
   public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $migration);
 
-    if (empty($this->configuration['templates'])) {
-      throw new MigrateException('You must declare the "templates" in your source settings.');
-    }
-
-    $this->templates = $configuration['templates'];
+    $this->templates = empty($configuration['templates']) ? '' : $configuration['templates'];
   }
 
   /**
@@ -140,30 +136,8 @@ class MetalsmithSource extends UrlList {
    * @throws \Drupal\migrate\MigrateException
    */
   protected function addRow($url) {
-    // Get the path to the raw markdown.
-    $url_path = parse_url($url, PHP_URL_PATH);
-    $url_path = str_replace('/blob', '', $url_path);
-    $url = 'https://raw.githubusercontent.com' . $url_path;
-
-    // Read the file.
-    if (!($markdown = self::readUrl($url))) {
-      Message::make('Couldn\'t read markdown file at @url', ['@url' => $url], Message::ERROR);
+    if (!($row = self::readMetalsmithFile($url))) {
       return;
-    }
-
-    // Parse elements from front-matter.
-    $page_part = explode('---', $markdown);
-    if (count($page_part) < 2) {
-      Message::make('No front matter in @url', ['@url' => $url_path], Message::DEBUG);
-    }
-    else {
-      try {
-        $row = Yaml::parse($page_part[1]);
-      }
-      catch (ParseException $exception) {
-        Message::make('Unable to parse the YAML string: @message', ['@message' => $exception->getMessage()], Message::ERROR);
-        return;
-      }
     }
 
     // Migrate metalsmith only and no fully react pages.
@@ -171,36 +145,13 @@ class MetalsmithSource extends UrlList {
       return;
     }
 
-    // Filter for 'templates' field defined in migration yml.
-    if (!in_array($row['template'], $this->templates)) {
+    // Filter for 'templates' field defined in migration yml, if any.
+    if (!empty($this->templates) && !in_array($row['template'], $this->templates)) {
       return;
     }
 
-    // If the record doesn't have an href, get the url from the file path.
-    if (empty($row['href'])) {
-      // Get the path without the file name for index pages.
-      if (preg_match('/\/department-of-veterans-affairs\/vagov-content\/master\/pages\/([^\.]+)\/index\.md/', $url_path, $matches)) {
-        $row['url'] = 'https://www.va.gov/' . $matches[1] . '/';
-      }
-      // Get the path with the file name for all others.
-      elseif (preg_match('/\/department-of-veterans-affairs\/vagov-content\/master\/pages\/([^\.]+)\.md/', $url_path, $matches)) {
-        $row['url'] = 'https://www.va.gov/' . $matches[1] . '/';
-      }
-    }
-    else {
-      // There shouldn't be any with both layout and href, but just in case...
-      Message::make('Found href, @href, at @url', ['@href' => $row['href'], '@url' => $url], Message::DEBUG);
-      // If it's relative, make it absolute.
-      if (substr($row['href'], 0, 1) == '/') {
-        $row['url'] = 'https://www.va.gov' . $row['href'];
-      }
-      // Make sure it's in va.gov (no subdomains).
-      elseif (preg_match('/https:\/\/(?:www.)?va.gov\//', $row['href'])) {
-        $row['url'] = $row['href'];
-      }
-      else {
-        return;
-      }
+    if (!($row['url'] = self::getPageUrl($url, $row))) {
+      return;
     }
 
     // Extract the plainlanguage date, if any.
@@ -209,6 +160,55 @@ class MetalsmithSource extends UrlList {
     }
 
     $this->rows[] = $row;
+  }
+
+  /**
+   * Parse Metalsmith file and return an array of front matter values.
+   *
+   * @param string $url
+   *   The file's url (used for error message).
+   * @param string $page_content
+   *   Gets populated with the page content section of the file (optional)
+   *
+   * @return array
+   *   The front matter values, keyed on field names.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  public static function readMetalsmithFile($url, &$page_content = NULL) {
+    if (!($markdown = self::readRawFile($url))) {
+      return [];
+    }
+
+    /*
+     * Metalsmith source pages look like this:
+     *  ---
+     *  [front matter in yaml format]
+     *  ---
+     *  [page content in markup and html]
+     */
+
+    // Add asterisks to markdown line breaks so we don't explode on them.
+    $markdown = str_replace('------', '**--*--*--**', $markdown);
+    $page_part = explode('---', $markdown);
+
+    if (count($page_part) < 2) {
+      Message::make('No front matter in @url', ['@url' => parse_url($url, PHP_URL_PATH)], Message::DEBUG);
+      return [];
+    }
+    else {
+      if ($page_content !== NULL && count($page_part) > 2) {
+        $page_content = str_replace('**--*--*--**', '------', $page_part[2]);
+      }
+
+      try {
+        return Yaml::parse($page_part[1]);
+      }
+      catch (ParseException $exception) {
+        Message::make('Unable to parse the YAML string: @message', ['@message' => $exception->getMessage()], Message::ERROR);
+        return [];
+      }
+    }
   }
 
   /**
@@ -241,6 +241,74 @@ class MetalsmithSource extends UrlList {
     }
 
     return $response->getBody()->getContents();
+  }
+
+  /**
+   * Read the raw contents of the referenced file.
+   *
+   * @param string $url
+   *   The github url of the file.
+   *
+   * @return bool|string
+   *   The contents of the file, or FALSE if the read failed.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  public static function readRawFile($url) {
+    // Get the path to the raw file.
+    $url_path = parse_url($url, PHP_URL_PATH);
+    $url_path = str_replace('/blob', '', $url_path);
+    $url = 'https://raw.githubusercontent.com' . $url_path;
+
+    // Read the file.
+    if (!($contents = self::readUrl($url))) {
+      Message::make('Couldn\'t read the file at @url', ['@url' => $url], Message::ERROR);
+      return FALSE;
+    }
+
+    return $contents;
+  }
+
+  /**
+   * Get the url of the page on va.gov that corresponds to a metalsmith file.
+   *
+   * @param string $url
+   *   The url of the metalsmith file.
+   * @param string $frontmatter
+   *   The array of metalsmith frontmatter.
+   *
+   * @return bool|string
+   *   The url of the associated web page or FALSE if no valid url was found.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  public static function getPageUrl($url, $frontmatter) {
+    // If the record doesn't have an href, get the url from the file path.
+    if (empty($frontmatter['href'])) {
+      $url_path = parse_url($url, PHP_URL_PATH);
+      // Get the path without the file name for index pages.
+      if (preg_match('/\/department-of-veterans-affairs\/vagov-content\/blob\/master\/pages\/([^\.]+)\/index\.md/', $url_path, $matches)) {
+        return 'https://www.va.gov/' . $matches[1] . '/';
+      }
+      // Get the path with the file name for all others.
+      elseif (preg_match('/\/department-of-veterans-affairs\/vagov-content\/blob\/master\/pages\/([^\.]+)\.md/', $url_path, $matches)) {
+        return 'https://www.va.gov/' . $matches[1] . '/';
+      }
+    }
+    else {
+      // This shouldn't happen on metalsmith pages, but just in case...
+      Message::make('Found href, @href, at @url', ['@href' => $frontmatter['href'], '@url' => $url], Message::ERROR);
+      // If it's relative, make it absolute.
+      if (substr($frontmatter['href'], 0, 1) == '/') {
+        return 'https://www.va.gov' . $frontmatter['href'];
+      }
+      // Make sure it's in va.gov (no subdomains).
+      elseif (preg_match('/https:\/\/(?:www.)?va.gov\//', $frontmatter['href'])) {
+        return $frontmatter['href'];
+      }
+    }
+
+    return FALSE;
   }
 
 }
