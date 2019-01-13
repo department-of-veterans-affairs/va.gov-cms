@@ -188,17 +188,24 @@ class ParagraphMigrator {
             }
             continue;
           }
-          // If the element does contain unwrapped text, that text will be lost.
-          if (str_replace(' ', '', $element->text()) !=
-              str_replace(' ', '', $element->childrenText())) {
-            Message::make('Lost text, in @file', ['@file' => $parent_entity->url()], Message::ERROR);
-          }
           // Add the opening tag.
           $attr = '';
           foreach ($element->attr() as $name => $value) {
             $attr .= $name . '="' . $value . '" ';
           }
           $this->wysiwyg .= "<{$element->tag()} $attr>";
+
+          // If the element does contain unwrapped text, that text will be lost.
+          if (str_replace(' ', '', $element->text()) !=
+            str_replace(' ', '', $element->childrenText())) {
+            Message::make('Lost text in @file from @element',
+              [
+                '@file' => $parent_entity->url(),
+                '@element' => "<{$element->tag()} $attr>",
+              ],
+              Message::ERROR);
+          }
+
           // Look for paragraphs in the children.
           $this->addParagraphs($element->children(), $parent_entity, $parent_field);
           $this->wysiwyg .= "</{$element->tag()}>";
