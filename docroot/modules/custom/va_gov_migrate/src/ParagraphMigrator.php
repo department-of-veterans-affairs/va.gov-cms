@@ -139,7 +139,7 @@ class ParagraphMigrator {
   /**
    * INTERNAL FUNCTION - Extract paragraphs and add them to the parent entity.
    *
-   * This shouldn't be called directly. Use run() instead.
+   * This shouldn't be called directly. Use process() instead.
    *
    * Step through the query path to find paragraphs. When they're found, attach
    * them to the parent entity. Any content that doesn't belong to any other
@@ -178,8 +178,16 @@ class ParagraphMigrator {
         // These tags might contain paragraphs
         // (and shouldn't contain unwrapped text).
         $wrapper_tags = ['div', 'article', 'section', 'aside', 'ul'];
-        if (in_array($element->tag(), $wrapper_tags)
-          && count($element->children())) {
+        if (in_array($element->tag(), $wrapper_tags) && count($element->children())) {
+          // Don't save 'Last updated: <DATE>' line as text (date is in
+          // Last Update field).
+          if ($element->hasClass('last-updated')) {
+            if ($element->children()->count() > 1 || strpos(trim($element->text()), 'Last updated:') !== 0) {
+              Message::make('Unexpected content in "last-updated" div in @file',
+                ['@file' => $parent_entity->url()], Message::ERROR);
+            }
+            continue;
+          }
           // If the element does contain unwrapped text, that text will be lost.
           if (str_replace(' ', '', $element->text()) !=
               str_replace(' ', '', $element->childrenText())) {
@@ -214,16 +222,37 @@ class ParagraphMigrator {
    */
   public function addWysiwyg(Entity &$entity, $parent_field) {
     if (self::hasContent($this->wysiwyg)) {
-      $paragraph = Paragraph::create([
-        'type' => 'wysiwyg',
-        'field_wysiwyg' => [
-          "value" => $this->wysiwyg,
-          "format" => "rich_text",
-        ],
-      ]);
-      $paragraph->save();
+      try {
+        $allowed_paragraphs = self::getAllowedParagraphs($entity, $parent_field);
+      }
+      catch (MigrateException $e) {
+        Message::make('Could not add paragraphs to @field. ' . $e->getMessage(), ['@field' => $parent_field], Message::ERROR);
+        return;
+      }
 
-      ParagraphType::attachParagraph($paragraph, $entity, $parent_field);
+      if (in_array('wysiwyg', $allowed_paragraphs)) {
+        $paragraph = Paragraph::create([
+          'type' => 'wysiwyg',
+          'field_wysiwyg' => [
+            "value" => $this->wysiwyg,
+            "format" => "rich_text",
+          ],
+        ]);
+        $paragraph->save();
+
+        ParagraphType::attachParagraph($paragraph, $entity, $parent_field);
+      }
+      else {
+        Message::make('Lost content for field @field on @type @node. Wysiwyg paragraphs not allowed. Content: "@wysiwyg"',
+          [
+            '@wysiwyg' => $this->wysiwyg,
+            '@type' => $entity->bundle(),
+            '@field' => $parent_field,
+            '@node' => empty($title) ? "" : "on $title",
+          ],
+          Message::ERROR
+        );
+      }
     }
 
     $this->wysiwyg = '';

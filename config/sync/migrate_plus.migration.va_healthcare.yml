@@ -1,4 +1,4 @@
-uuid: 22833e83-d8b9-4fcb-9166-2122a8ec320e
+uuid: 02ae08ef-daeb-41ec-8c89-bfae0f391635
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: c87Q_pIouzF_TmgdaLTWVnfGUhIQKaulETcy0BxCe7E
+  default_config_hash: 7DilaGcGAzwlOUp7iMvRLjGslatqH0VrJIzv-wXBsNI
 id: va_healthcare
 class: null
 field_plugin_method: null
@@ -18,6 +18,8 @@ source:
   plugin: metalsmith_source
   urls:
     - 'https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages/health-care'
+  templates:
+    - detail-page
   fields:
     - description
     - plainlanguage_date
@@ -49,6 +51,16 @@ source:
               method: pluckSelector
               arguments:
                 - .va-introtext
+                - '1'
+                - innerHTML
+        featured_content:
+          obtainer: ObtainHtml
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelector
+              arguments:
+                - .feature
                 - '1'
                 - innerHTML
         related_links:
@@ -92,6 +104,9 @@ source:
         -
           operation: get_field
           field: intro_text
+        -
+          operation: get_field
+          field: featured_content
         -
           operation: get_field
           field: related_links

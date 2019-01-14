@@ -45,20 +45,23 @@ abstract class ParagraphType {
    *   The machine names of paragraphs that are allowed in this field.
    *
    * @return bool
-   *   Returns true if the current query path is a paragraph or part of one.
+   *   Returns true if current query path is a valid paragraph or part of one.
    *
    * @throws \Drupal\migrate\MigrateException
    */
   public function process(DOMQuery $query_path, Entity $entity, $parent_field, array $allowed_paragraphs) {
     try {
       if ($this->isParagraph($query_path)) {
+        if ("node" == $entity->getEntityTypeId()) {
+          $title = $entity->get('title')->value;
+        }
         if (!in_array($this->getParagraphName(), $allowed_paragraphs)) {
-          Message::make('@class not allowed on @type in field @field: @html',
+          Message::make('@class not allowed on @type in field @field @node',
             [
               '@class' => $this->getParagraphName(),
               '@type' => $entity->bundle(),
               '@field' => $parent_field,
-              '@html' => $query_path->html(),
+              '@node' => empty($title) ? "" : "on $title",
             ],
             Message::ERROR
           );
@@ -70,7 +73,7 @@ abstract class ParagraphType {
         $paragraph = Paragraph::create(['type' => $this->getParagraphName()] + $this->getFieldValues($query_path));
         $paragraph->save();
 
-        $this->attachParagraph($paragraph, $entity, $parent_field);
+        static::attachParagraph($paragraph, $entity, $parent_field);
 
         // If this paragraph may contain other paragraphs, add them too.
         if (!empty($this->getParagraphField()) && count($query_path->children())) {
@@ -78,7 +81,7 @@ abstract class ParagraphType {
         }
         return TRUE;
       }
-      if ($this->isExternalContent($query_path)) {
+      if ($this->isExternalContent($query_path) && in_array($this->getParagraphName(), $allowed_paragraphs)) {
         return TRUE;
       }
     }

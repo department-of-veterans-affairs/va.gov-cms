@@ -23,14 +23,18 @@ class LinksList extends ParagraphType {
    * {@inheritdoc}
    */
   protected function isParagraph(DOMQuery $query_path) {
-    return $query_path->hasClass('va-nav-linkslist-list');
+    return $query_path->hasClass('hub-page-link-list') ? $query_path->hasClass('hub-page-link-list') : $query_path->hasClass('va-nav-linkslist-list');
   }
 
   /**
    * {@inheritdoc}
    */
   protected function getFieldValues(DOMQuery $query_path) {
-    $title = $query_path->prev()->hasClass('va-nav-linkslist-heading') ? $query_path->prev()->text() : '';
+    $title_raw = '';
+    if (!empty($query_path->prev()->hasClass('va-nav-linkslist-heading')) || !empty($query_path->prev()->hasClass('hub-page-link-list__title'))) {
+      $title_raw = !empty($query_path->prev()->text()) ? $query_path->prev()->text() : '';
+    }
+    $title = trim($title_raw);
     return ['field_title' => $title];
   }
 
@@ -45,7 +49,7 @@ class LinksList extends ParagraphType {
    * {@inheritdoc}
    */
   protected function isExternalContent(DOMQuery $query_path) {
-    return $query_path->hasClass('va-nav-linkslist-heading');
+    return $query_path->hasClass('hub-page-link-list__title') ? $query_path->hasClass('hub-page-link-list__title') : $query_path->hasClass('va-nav-linkslist-heading');
   }
 
 }

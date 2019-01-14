@@ -1,13 +1,13 @@
-id: va_healthcare
-label: Import healthcare pages and paragraphs from va.gov
+id: va_hub
+label: Import hub pages and paragraphs from va.gov
 migration_group: va_gov
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
-    - "https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages/health-care"
+    - "https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages"
   templates:  # A list of Metalsmith templates to process (detail-page=basic page, level2-index=hub page)
-    - detail-page
-  fields:  # :ist any frontmatter fields you want to migrate.
+    - level2-index
+  fields:  # List any frontmatter fields you want to migrate.
     - description
     - plainlanguage_date
     - lastupdate
@@ -63,6 +63,16 @@ source:
             - '.va-nav-linkslist--related'
             - '1'
             - innerHTML
+      hub_links:
+        obtainer: ObtainHtml
+        jobs:
+        -
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - 'article'
+            - '1'
+            - HTML
       body:
         obtainer: ObtainBody
         jobs:
@@ -107,6 +117,9 @@ source:
       operation: get_field
       field: related_links
     -
+      operation: get_field
+      field: hub_links
+    -
       # Clean things up before getting the body.
       # Remove javascript cruft.
       operation: modifier
@@ -126,20 +139,12 @@ source:
       arguments:
       - '#react-applicationStatus, [data-app-id]'
       - '<p>DYNAMIC FORM CONTENT GOES HERE</p>'
-    -
-      operation: get_field
-      field: body  # Now that we've plucked all the other fields and cleaned up, run the 'body' recipe on what's left.
 
 process:  # assign the fields we collected above to Drupal fields.
   title: title
   revision_timestamp: lastupdate
   field_intro_text: intro_text
   field_description: description
-  field_last_update:
-    plugin: format_date # Convert date format
-    from_format: 'U' # from unix timestamp
-    to_format: 'Y-m-d' # to Drupal format
-    source: lastupdate
   field_plainlanguage_date:
     plugin: format_date
     from_format: 'n/j/y'
@@ -147,7 +152,7 @@ process:  # assign the fields we collected above to Drupal fields.
     source: plainlanguage_date
   type:
     plugin: default_value   # We want to asign the 'type' field a static value.
-    default_value: page # The value is 'page'.
+    default_value: landing_page # The value is 'landing_page'.
 
 destination:
   plugin: 'entity:node'
