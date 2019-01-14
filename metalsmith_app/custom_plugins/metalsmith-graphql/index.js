@@ -16,9 +16,11 @@ const fetch = require('node-fetch');
 
 function formatBasicAuth(userName, password) {
     const basicAuthCredential = userName + ":" + password;
-    const bace64 =  btoa(basicAuthCredential);
-    return 'Basic ' + bace64;
+    const base64 =  btoa(basicAuthCredential);
+    return 'Basic ' + base64;
 }
+
+
 
 function plugin() {
     const siteUrl = "http://vagovcms.lndo.site/graphql";
