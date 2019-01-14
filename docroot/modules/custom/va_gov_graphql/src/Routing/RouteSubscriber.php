@@ -21,9 +21,10 @@ class RouteSubscriber extends RouteSubscriberBase {
 
     foreach ($graphql_iterator as $route_name => $route_params) {
       if ($route = $collection->get($route_name)) {
-        $route->setOption('_auth', array('basic_auth', 'cookie'));
+        $route->setOption('_auth', ['basic_auth', 'cookie']);
         $route->setRequirement('_user_is_logged_in', 'TRUE');
       }
     }
   }
+
 }
