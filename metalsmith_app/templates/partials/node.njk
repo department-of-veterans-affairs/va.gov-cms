@@ -1,8 +1,10 @@
-{% for node in nodes %}
-    <div class="vagov-node">
-        <h4> {{ node.nodeTitle }}</h4>
-        <p>Intro Text: {{ node.introText }}</p>
-    </div>
-{% else %}
-    <h3> There are no nodes to show </h3>
-{% endfor %}
+    <ul>
+    {% for node in nodes %}
+        <li class="vagov-node">
+            <h4>Title: {{ node.nodeTitle }}</h4>
+            <p>Intro Text: {{ node.introText }}</p>
+        </li>
+    {% else %}
+        <h3> There are no nodes to show </h3>
+    {% endfor %}
+</ul>
