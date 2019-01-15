@@ -41,13 +41,14 @@ class PostRowSave implements EventSubscriberInterface {
       case 'va_healthcare':
         $this->convertIntroTextToPlainText($event->getDestinationIdValues()[0]);
         $migrator->process('related_links', 'field_related_links');
+        $migrator->process('featured_content', 'field_featured_content');
         $migrator->process('body', 'field_content_block');
         break;
 
-        case 'va_alert_block':
+      case 'va_alert_block':
         $migrator->process('alert_body', 'field_alert_content');
         break;
-        
+
       case 'va_hub':
         $this->convertIntroTextToPlainText($event->getDestinationIdValues()[0]);
         $migrator->process('related_links', 'field_related_links');
