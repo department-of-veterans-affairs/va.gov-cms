@@ -1,0 +1,100 @@
+uuid: 4b48e284-7024-44e3-a43f-53fd534c7d98
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.administration.field_acronym
+    - field.field.taxonomy_term.administration.field_email_updates_link_text
+    - field.field.taxonomy_term.administration.field_email_updates_url
+    - field.field.taxonomy_term.administration.field_intro_text
+    - field.field.taxonomy_term.administration.field_link
+    - field.field.taxonomy_term.administration.field_metatags
+    - field.field.taxonomy_term.administration.field_social_media_links
+    - field.field.taxonomy_term.administration.field_support_services
+    - taxonomy.vocabulary.administration
+  module:
+    - link
+    - metatag
+    - social_media_links_field
+    - text
+id: taxonomy_term.administration.default
+targetEntityType: taxonomy_term
+bundle: administration
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_acronym:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_email_updates_link_text:
+    weight: 7
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_email_updates_url:
+    weight: 6
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_intro_text:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_link:
+    weight: 4
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_metatags:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+    region: content
+  field_social_media_links:
+    weight: 5
+    label: above
+    settings:
+      appearance: {  }
+      link_attributes: {  }
+    third_party_settings: {  }
+    type: social_media_links_field_default
+    region: content
+  field_support_services:
+    weight: 3
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+hidden:
+  field_description: true

@@ -1,0 +1,67 @@
+uuid: 4b26cb67-886c-4f6e-aefb-3a0fa8aa70ac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_links
+    - node.type.landing_page
+    - paragraphs.paragraphs_type.list_of_link_teasers
+  module:
+    - entity_reference_revisions
+id: node.landing_page.field_related_links
+field_name: field_related_links
+entity_type: node
+bundle: landing_page
+label: 'Related Links'
+description: '[Help text goes here]'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      list_of_link_teasers: list_of_link_teasers
+    target_bundles_drag_drop:
+      address:
+        weight: 14
+        enabled: false
+      alert:
+        weight: 15
+        enabled: false
+      collapsible_panel:
+        weight: 16
+        enabled: false
+      collapsible_panel_item:
+        weight: 17
+        enabled: false
+      expandable_text:
+        weight: 18
+        enabled: false
+      link_teaser:
+        weight: 19
+        enabled: false
+      list_of_link_teasers:
+        enabled: true
+        weight: 20
+      process:
+        weight: 21
+        enabled: false
+      q_a:
+        weight: 22
+        enabled: false
+      q_a_section:
+        weight: 23
+        enabled: false
+      react_widget:
+        weight: 24
+        enabled: false
+      starred_horizontal_rule:
+        weight: 25
+        enabled: false
+      wysiwyg:
+        weight: 26
+        enabled: false
+field_type: entity_reference_revisions

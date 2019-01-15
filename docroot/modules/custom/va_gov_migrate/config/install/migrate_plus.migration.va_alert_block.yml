@@ -1,0 +1,30 @@
+id: va_alert_block
+label: Migrate alert blocks from va.gov
+migration_group: va_gov
+
+source:
+  plugin: alert_block
+  urls:
+    - "https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages/health-care"
+  fields:
+    - alert_type
+    - alert_title
+
+process:
+  info: alert_title
+  field_alert_title: alert_title
+  field_alert_type: alert_type
+  type:
+    plugin: default_value
+    default_value: alert
+
+destination:
+  plugin: 'entity:block_content'
+
+migration_dependencies: {}
+
+# This belongs in all migration scripts. Without it the module the migration script belongs to won't uninstall cleanly.
+dependencies:
+  enforced:
+    module:
+      - va_gov_migrate

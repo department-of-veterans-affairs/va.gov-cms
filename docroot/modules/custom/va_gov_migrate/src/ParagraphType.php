@@ -4,6 +4,7 @@ namespace Drupal\va_gov_migrate;
 
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Core\Entity\Entity;
+use Drupal\migration_tools\Message;
 use QueryPath\DOMQuery;
 
 /**
@@ -39,56 +40,57 @@ abstract class ParagraphType {
    * @param \Drupal\Core\Entity\Entity $entity
    *   The parent entity to attach the paragraph to.
    * @param string $parent_field
-   *   The paragraph fiend on the parent entity.
-   * @param array $allowed_classes
-   *   The classes of paragraphs that are allowed in this entity/field.
+   *   The paragraph field on the parent entity.
+   * @param array $allowed_paragraphs
+   *   The machine names of paragraphs that are allowed in this field.
    *
    * @return bool
-   *   Returns true if the current query path is a paragraph or part of one.
+   *   Returns true if current query path is a valid paragraph or part of one.
+   *
+   * @throws \Drupal\migrate\MigrateException
    */
-  public function process(DOMQuery $query_path, Entity $entity, $parent_field, array $allowed_classes = []) {
+  public function process(DOMQuery $query_path, Entity $entity, $parent_field, array $allowed_paragraphs) {
     try {
       if ($this->isParagraph($query_path)) {
-        $this_class = get_class($this);
-        // Strip the namespace.
-        $this_class = end(explode('\\', $this_class));
-
-        if (!empty($allowed_classes) && !in_array($this_class, $allowed_classes)) {
-          \Drupal::logger('va_gov_migrate')->error(
-            '@class not allowed on @type in field @field: @html',
+        if ("node" == $entity->getEntityTypeId()) {
+          $title = $entity->get('title')->value;
+        }
+        if (!in_array($this->getParagraphName(), $allowed_paragraphs)) {
+          Message::make('@class not allowed on @type in field @field @node',
             [
-              '@class' => $this_class,
+              '@class' => $this->getParagraphName(),
               '@type' => $entity->bundle(),
               '@field' => $parent_field,
-              '@html' => $query_path->html(),
-            ]
+              '@node' => empty($title) ? "" : "on $title",
+            ],
+            Message::ERROR
           );
           return FALSE;
         }
 
         self::$migrator->addWysiwyg($entity, $parent_field);
 
-        $paragraph = $this->create($query_path);
+        $paragraph = Paragraph::create(['type' => $this->getParagraphName()] + $this->getFieldValues($query_path));
         $paragraph->save();
 
-        $this->attachParagraph($paragraph, $entity, $parent_field);
+        static::attachParagraph($paragraph, $entity, $parent_field);
 
-        if ($this->getParagraphField() && count($query_path->children())) {
-          self::$migrator->addParagraphs($query_path->children(), $paragraph,
-            $this->getParagraphField(), $this->getChildClasses());
+        // If this paragraph may contain other paragraphs, add them too.
+        if (!empty($this->getParagraphField()) && count($query_path->children())) {
+          self::$migrator->addParagraphs($query_path->children(), $paragraph, $this->getParagraphField());
         }
         return TRUE;
       }
-      if ($this->isExternalContent($query_path)) {
+      if ($this->isExternalContent($query_path) && in_array($this->getParagraphName(), $allowed_paragraphs)) {
         return TRUE;
       }
     }
-    catch (\Exception $exception) {
-      \Drupal::logger('va_gov_migrate')->error("Migration failed for paragraph on @parent @url: @message.",
+    catch (\Exception $e) {
+      Message::make("Migration failed for paragraph on @parent @url: @message.",
         [
-          '@message' => $exception->getMessage(),
           '@parent' => $entity->bundle(),
           '@url' => $entity->url(),
+          '@message' => $e->getMessage(),
         ]
       );
 
@@ -161,17 +163,23 @@ abstract class ParagraphType {
   }
 
   /**
-   * Creates a paragraph object from a query path.
+   * Returns the machine name of the paragraph this class is generating.
+   *
+   * @return string
+   *   The machine name of the Drupal paragraph.
+   */
+  abstract protected function getParagraphName();
+
+  /**
+   * Generates an associative array of paragraph field values from a query path.
    *
    * @param \QueryPath\DOMQuery $query_path
    *   The query path to the create the paragraph from.
    *
-   * @return \Drupal\paragraphs\Entity\Paragraph
-   *   The new paragraph object.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @return array
+   *   an associative array of paragraph field values keyed on field name.
    */
-  abstract protected function create(DOMQuery $query_path);
+  abstract protected function getFieldValues(DOMQuery $query_path);
 
   /**
    * Checks whether a paragraph should be created from the query path.

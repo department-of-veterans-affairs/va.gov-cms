@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_migrate\Paragraph;
 
 use Drupal\va_gov_migrate\ParagraphType;
-use Drupal\paragraphs\Entity\Paragraph;
 use QueryPath\DOMQuery;
 
 /**
@@ -16,21 +15,27 @@ class LinksList extends ParagraphType {
   /**
    * {@inheritdoc}
    */
-  protected function isParagraph(DOMQuery $query_path) {
-    return $query_path->hasClass('va-nav-linkslist-list');
+  protected function getParagraphName() {
+    return 'list_of_link_teasers';
   }
 
   /**
    * {@inheritdoc}
    */
-  protected function create(DOMQuery $query_path) {
-    $title = $query_path->prev()->hasClass('va-nav-linkslist-heading') ? $query_path->prev()->text() : '';
-    return Paragraph::create(
-      [
-        'type' => 'list_of_link_teasers',
-        'field_title' => $title,
-      ]
-    );
+  protected function isParagraph(DOMQuery $query_path) {
+    return $query_path->hasClass('hub-page-link-list') ? $query_path->hasClass('hub-page-link-list') : $query_path->hasClass('va-nav-linkslist-list');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getFieldValues(DOMQuery $query_path) {
+    $title_raw = '';
+    if (!empty($query_path->prev()->hasClass('va-nav-linkslist-heading')) || !empty($query_path->prev()->hasClass('hub-page-link-list__title'))) {
+      $title_raw = !empty($query_path->prev()->text()) ? $query_path->prev()->text() : '';
+    }
+    $title = trim($title_raw);
+    return ['field_title' => $title];
   }
 
   /**
@@ -43,15 +48,8 @@ class LinksList extends ParagraphType {
   /**
    * {@inheritdoc}
    */
-  protected function getChildClasses() {
-    return ['LinksListItem'];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function isExternalContent($query_path) {
-    return $query_path->hasClass('va-nav-linkslist-heading');
+  protected function isExternalContent(DOMQuery $query_path) {
+    return $query_path->hasClass('hub-page-link-list__title') ? $query_path->hasClass('hub-page-link-list__title') : $query_path->hasClass('va-nav-linkslist-heading');
   }
 
 }

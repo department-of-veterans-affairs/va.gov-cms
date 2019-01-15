@@ -6,13 +6,12 @@ How to start:
 * `git clone git@github.com:department-of-veterans-affairs/va.gov-cms.git vagov`
 * `cd vagov`
 * `lando start`
-* `lando db-import drupal-starter.gz` (first time only)
-* `lando rebuild`
+* `cd scripts; ./sync-db.sh`
 
 What it does:
 * Spins up php, mysql, and node containers
 * Dependencies (including components project) are pulled in via composer
-* Base config installs uswds and sets a subtheme for this project
+* Base config installs uswds and sets a subtheme for this project (project is headless, so this isn't critical)
 
 How to use:
 * visit the site by clicking one of the urls provided (aliased and https options are available)
@@ -20,14 +19,12 @@ How to use:
 * drush commands are prefixed with lando, e.g.: `lando drush cr`
 * composer is used for project management, e.g.: `composer require drupal/uswds`
 
-Theme structure:
+Theme structure (project is headless, so this isn't critical):
 * Base theme is USWDS: https://www.drupal.org/project/uswds
 * vagov Subtheme lives in themes/custom
-* Uses twig templating
-* Scss is compiled to css via gulp (from vagov dir run `lando gulp`)
 
 Running Behat Tests:
-* `cd tests`
+* `cd tests/behat`
 * `lando behat --tags=name-of-tag`
 
 Running Phpunit Tests:
@@ -38,6 +35,23 @@ Naming Conventions:
 * Modules: `vagov_modulename`
 * Content types: `vagov_contentype`
 * Fields: `field_[contenttypename]_fieldname`
+
+Xdebug:
+* Setup:
+    * Enable Xdebug by uncommenting the `xdebug: true` line in .lando.yml
+    * Configure PHPStorm: Go to Settings > Languages & Frameworks > PHP > Debug
+    * Check "allow connections" and ensure max connections is 2
+    * Enable "Start listening for PHP debug connections"
+* Browser:
+    * Go to vagovcms.lndo.site in your browser (no extension needed) and it should trigger an "incoming connection" in PHPStorm, accept it
+    * Open index.php and set a test breakpoint on the first line ($autoloader)
+* CLI:
+    * Open Settings > Languages & Frameworks > PHP > Servers and change the server name to "appserver"
+    * Set a test breakpoint on /docroot/vendor/drush/drush/drush
+    * Run `lando drush status` and it should trigger the breakpoint
+
+Troubleshooting:
+* Sometimes after initial setup or `lando start`, Drush is not found. Running `lando rebuild -y` once or twice usually cures, if not, see: https://github.com/lando/lando/issues/580#issuecomment-354490298
 
 Workflow:
 * We use [drupal-spec-tool](https://github.com/acquia/drupal-spec-tool) to keep track of config changes, and sync tests
@@ -51,6 +65,5 @@ pertains to the test you are updating, and paste into the test file in /tests/be
 * Export config to code: `lando drush config:export` then commit changes to code.
 
 Todo:
-* Configure phantomjs to run js phpunit tests - using this pattern for setup is not working: https://www.breaktech.com/blog/using-lando-for-drupal-development.
 * decide how we are going to sync files across environments
 * work out settings.php for various environments - lando db settings are stored in settings.lando.php

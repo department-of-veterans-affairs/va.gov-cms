@@ -1,0 +1,167 @@
+id: va_hub
+label: Import hub pages and paragraphs from va.gov
+migration_group: va_gov
+source:
+  plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
+  urls:     # This can be a list urls to crawl or .md files to read.
+    - "https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages"
+  templates:  # A list of Metalsmith templates to process (detail-page=basic page, level2-index=hub page)
+    - level2-index
+  fields:  # List any frontmatter fields you want to migrate.
+    - description
+    - plainlanguage_date
+    - lastupdate
+
+  migration_tools:
+  -
+    # Just leave this as is, if using metalsmith_source or url_list source.
+    source: url # The field we're passing to migration_tools is called 'url'.
+    source_type: url  # Source type can be either 'url' or 'html'.
+
+    source_operations:
+    -
+      operation: modifier
+      modifier: basicCleanup  # Tell migration_tools to run some basic cleanup of the page it just read.
+    fields:
+      title:  # This is the recipe for a field called 'title'.
+        obtainer: ObtainTitle # Good for grabbing titles, but could just as well have used ObtainHtml here.
+        jobs:
+        -
+          job: addSearch  # Run a job to search the DOM and assign the results to this field.
+          method: pluckSelector # Also remove it from the DOM (so it doesn't show up in body, too).
+          arguments:
+          - 'h1'  # Look for h1 tags.
+          - 1     # Only grab the first one.
+          - innerHTML  # Get any html it contains.
+      intro_text:
+        obtainer: ObtainHtml # Generic html obtainer.
+        jobs:
+        -
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - '.va-introtext'
+            - '1'
+            - innerHTML
+      featured_content:
+        obtainer: ObtainHtml
+        jobs:
+        -
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - '.feature'
+            - '1'
+            - innerHTML
+      related_links:
+        obtainer: ObtainHtml
+        jobs:
+        -
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - '.va-nav-linkslist--related'
+            - '1'
+            - innerHTML
+      hub_links:
+        obtainer: ObtainHtml
+        jobs:
+        -
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - 'article'
+            - '1'
+            - HTML
+      body:
+        obtainer: ObtainBody
+        jobs:
+        -
+          # First, look for a class of 'usa-width-three-fourths'.
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - '.usa-width-three-fourths'
+            - '1'
+            - innerHTML
+        -
+          # If it's not there, try '#content .usa-grid-full'.
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - '#content .usa-grid-full'
+            - '1'
+            - innerHTML
+        -
+          # If we still haven't found anything, grab the article tag.
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+          - 'article'
+          - '1'
+          - innerHTML
+    dom_operations:
+    -
+      # This runs first.
+      operation: get_field
+      field: title  # Use the 'title' recipe from above to create the field.
+    -
+      # This runs next.
+      operation: get_field
+      field: intro_text
+    -
+      # And so on...
+      operation: get_field
+      field: featured_content
+    -
+      operation: get_field
+      field: related_links
+    -
+      operation: get_field
+      field: hub_links
+    -
+      # Clean things up before getting the body.
+      # Remove javascript cruft.
+      operation: modifier
+      modifier: removeSelectorAll
+      arguments:
+      - 'button.va-btn-sidebarnav-trigger'
+    -
+      # Remove any scripts
+      operation: modifier
+      modifier: removeSelectorAll
+      arguments:
+        - 'script'
+    -
+      # Replace any React forms with a placeholder (this will be dropped soon)
+      operation: modifier
+      modifier: changeHtmlContents
+      arguments:
+      - '#react-applicationStatus, [data-app-id]'
+      - '<p>DYNAMIC FORM CONTENT GOES HERE</p>'
+
+process:  # assign the fields we collected above to Drupal fields.
+  title: title
+  revision_timestamp: lastupdate
+  field_intro_text: intro_text
+  field_description: description
+  field_plainlanguage_date:
+    plugin: format_date
+    from_format: 'n/j/y'
+    to_format: 'Y-m-d'
+    source: plainlanguage_date
+  type:
+    plugin: default_value   # We want to asign the 'type' field a static value.
+    default_value: landing_page # The value is 'landing_page'.
+
+destination:
+  plugin: 'entity:node'
+
+migration_dependencies: {} # Remove the {} before adding dependencies below.
+  # If there are migrations that should run before this one (e.g. for an entity that this node references), put them here.
+
+# This belongs in all migration scripts. Without it the module the migration script belongs to won't uninstall cleanly.
+dependencies:
+  enforced:
+    module:
+    - va_gov_migrate  # The module this migration script belongs to.

@@ -1,0 +1,58 @@
+uuid: 8c1d3cf4-8c08-4439-b977-bf29a454d4e8
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - field.field.block_content.alert.field_alert_content
+    - field.field.block_content.alert.field_alert_title
+    - field.field.block_content.alert.field_alert_type
+  module:
+    - content_moderation
+    - paragraphs
+id: block_content.alert.default
+targetEntityType: block_content
+bundle: alert
+mode: default
+content:
+  field_alert_content:
+    type: entity_reference_paragraphs
+    weight: 2
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    region: content
+  field_alert_title:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_alert_type:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  info:
+    type: string_textfield
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 4
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+hidden: {  }

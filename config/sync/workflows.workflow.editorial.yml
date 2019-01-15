@@ -3,7 +3,9 @@ langcode: en
 status: true
 dependencies:
   config:
+    - node.type.landing_page
     - node.type.page
+    - node.type.support_service
   module:
     - content_moderation
 _core:
@@ -88,4 +90,6 @@ type_settings:
       weight: -1
   entity_types:
     node:
+      - landing_page
       - page
+      - support_service

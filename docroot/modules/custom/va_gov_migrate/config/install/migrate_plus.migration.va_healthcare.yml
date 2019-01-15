@@ -2,60 +2,39 @@ id: va_healthcare
 label: Import healthcare pages and paragraphs from va.gov
 migration_group: va_gov
 source:
-  plugin: url_list
-
-  urls:
-    - "https://www.va.gov/health-care/" # grey box with link teasers, starred hr
-    - "https://www.va.gov/health-care/family-caregiver-benefits/champva/" # blue box, accordion (all closed at start, allow multiple open)
-    - "https://www.va.gov/health-care/health-needs-conditions/health-issues-related-to-service-era/cold-war/" # grey box with link teasers, blue box, subway map
-    - "https://www.va.gov/health-care/health-needs-conditions/mental-health/suicide-prevention/" # expandable alert box, blue box, grey box with link teasers
-    - "https://www.va.gov/health-care/health-needs-conditions/mental-health/" # expandable alert box, accordion (all closed at start, don't allow multiple open)
-    - "https://www.va.gov/HEALTHBENEFITS/cost/financialhardship.asp" # wysiwyg only - teamsite page
-    - "https://www.va.gov/health-care/wellness-programs/" # Link teasers
-    - "https://www.va.gov/health-care/schedule-view-va-appointments/" # expandable alert box, react forms, grey box with link teasers
-
-  keys:
-    - url
+  plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
+  urls:     # This can be a list urls to crawl or .md files to read.
+    - "https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages/health-care"
+  templates:  # A list of Metalsmith templates to process (detail-page=basic page, level2-index=hub page)
+    - detail-page
+  fields:  # :ist any frontmatter fields you want to migrate.
+    - description
+    - plainlanguage_date
+    - lastupdate
 
   migration_tools:
   -
-    source: url
-    source_type: url
+    # Just leave this as is, if using metalsmith_source or url_list source.
+    source: url # The field we're passing to migration_tools is called 'url'.
+    source_type: url  # Source type can be either 'url' or 'html'.
 
     source_operations:
     -
       operation: modifier
-      modifier: basicCleanup
+      modifier: basicCleanup  # Tell migration_tools to run some basic cleanup of the page it just read.
     fields:
-      title:
-        obtainer: ObtainTitle
+      title:  # This is the recipe for a field called 'title'.
+        obtainer: ObtainTitle # Good for grabbing titles, but could just as well have used ObtainHtml here.
         jobs:
         -
-          # old va.gov (Teamsite)
-          job: 'addSearch'
-          method: 'pluckSelector'
+          job: addSearch  # Run a job to search the DOM and assign the results to this field.
+          method: pluckSelector # Also remove it from the DOM (so it doesn't show up in body, too).
           arguments:
-          - 'h2.page-title'
-          - 1
-          - innerHTML
-        -
-          # new va.gov (Metalsmith)
-          job: addSearch
-          method: pluckSelector
-          arguments:
-          - 'h1'
-          - 1
-          - innerHTML
-        -
-          # full react pages - no page content, so have to get title from breadcrumb
-          job: addSearch
-          method: pluckSelector
-          arguments:
-          - '#va-breadcrumbs ul li:last-child'
-          - 1
-          - innerHTML
+          - 'h1'  # Look for h1 tags.
+          - 1     # Only grab the first one.
+          - innerHTML  # Get any html it contains.
       intro_text:
-        obtainer: ObtainHtml
+        obtainer: ObtainHtml # Generic html obtainer.
         jobs:
         -
           job: 'addSearch'
@@ -64,6 +43,24 @@ source:
             - '.va-introtext'
             - '1'
             - innerHTML
+      featured_content:
+        obtainer: ObtainHtml
+        jobs:
+        -
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - '.feature'
+            - '1'
+            - innerHTML
+      alert_title:
+        obtainer: ObtainHtml
+        jobs:
+        -
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - '.usa-alert-heading'
       related_links:
         obtainer: ObtainHtml
         jobs:
@@ -78,7 +75,7 @@ source:
         obtainer: ObtainBody
         jobs:
         -
-          # new va.gov (Metalsmith)
+          # First, look for a class of 'usa-width-three-fourths'.
           job: 'addSearch'
           method: 'pluckSelector'
           arguments:
@@ -86,7 +83,7 @@ source:
             - '1'
             - innerHTML
         -
-          # new va.gov (Metalsmith)
+          # If it's not there, try '#content .usa-grid-full'.
           job: 'addSearch'
           method: 'pluckSelector'
           arguments:
@@ -94,65 +91,59 @@ source:
             - '1'
             - innerHTML
         -
-          # new va.gov (Metalsmith)
+          # If we still haven't found anything, grab the article tag.
           job: 'addSearch'
           method: 'pluckSelector'
           arguments:
           - 'article'
           - '1'
           - innerHTML
-        -
-          # old va.gov (Teamsite)
-          job: 'addSearch'
-          method: 'pluckSelector'
-          arguments:
-          - '#innerContentWrapper div'
-          - 1
-          - innerHTML
-        -
-          # react pages
-          job: 'addSearch'
-          method: 'pluckSelector'
-          arguments:
-            - '#main .section'
-            - '1'
-            - innerHTML
     dom_operations:
     -
+      # This runs first.
       operation: get_field
-      field: title
+      field: title  # Use the 'title' recipe from above to create the field.
     -
+      # This runs next.
       operation: get_field
       field: intro_text
+    -
+      # And so on...
+      operation: get_field
+      field: featured_content
+    -
+      # Remove expander trigger before getting alert title
+      operation: modifier
+      modifier: removeSelectorAll
+      arguments:
+        - '#crisis-expander-link'
+    -
+      operation: get_field
+      field: alert_title
     -
       operation: get_field
       field: related_links
     -
-      # new va.gov (Metalsmith)
+      # Clean things up before getting the body.
+      # Remove javascript cruft.
       operation: modifier
       modifier: removeSelectorAll
       arguments:
       - 'button.va-btn-sidebarnav-trigger'
     -
-      # old va.gov (Teamsite)
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-      - '.top_link'
-    -
+      # Remove any scripts
       operation: modifier
       modifier: removeSelectorAll
       arguments:
         - 'script'
     -
-      # react pages
+      # Remove any alert boxes (they'll be attached via 'alert title', above).
       operation: modifier
-      modifier: changeHtmlContents
+      modifier: removeSelectorAll
       arguments:
-        - '#react-root'
-        - '<p>DYNAMIC CONTENT GOES HERE</p>'
+        - '.usa-alert'
     -
-      # react forms
+      # Replace any React forms with a placeholder (this will be dropped soon)
       operation: modifier
       modifier: changeHtmlContents
       arguments:
@@ -160,21 +151,41 @@ source:
       - '<p>DYNAMIC FORM CONTENT GOES HERE</p>'
     -
       operation: get_field
-      field: body
+      field: body  # Now that we've plucked all the other fields and cleaned up, run the 'body' recipe on what's left.
 
-process:
-  id: url
+process:  # assign the fields we collected above to Drupal fields.
   title: title
+  revision_timestamp: lastupdate
   field_intro_text: intro_text
+  field_description: description
+  field_last_update:
+    plugin: format_date # Convert date format
+    from_format: 'U' # from unix timestamp
+    to_format: 'Y-m-d' # to Drupal format
+    source: lastupdate
+  field_plainlanguage_date:
+    plugin: format_date
+    from_format: 'n/j/y'
+    to_format: 'Y-m-d'
+    source: plainlanguage_date
+  field_alert:
+    plugin: migration_lookup
+    migration: va_alert_block
+    source: alert_title
   type:
-    plugin: default_value
-    default_value: page
+    plugin: default_value   # We want to asign the 'type' field a static value.
+    default_value: page # The value is 'page'.
 
 destination:
   plugin: 'entity:node'
 
-migration_dependencies: {}
+# This migration depends on the va_alert_block migration to generate any alert blocks the nodes reference.
+migration_dependencies:
+  required:
+  - va_alert_block
+
+# This belongs in all migration scripts. Without it the module the migration script belongs to won't uninstall cleanly.
 dependencies:
   enforced:
     module:
-    - va_gov_migrate
+    - va_gov_migrate  # The module this migration script belongs to.

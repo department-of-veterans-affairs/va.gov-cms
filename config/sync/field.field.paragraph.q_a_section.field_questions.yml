@@ -1,0 +1,67 @@
+uuid: e55e93ff-36cc-45a1-b2ef-86ebe3cb1dd0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_questions
+    - paragraphs.paragraphs_type.q_a
+    - paragraphs.paragraphs_type.q_a_section
+  module:
+    - entity_reference_revisions
+id: paragraph.q_a_section.field_questions
+field_name: field_questions
+entity_type: paragraph
+bundle: q_a_section
+label: Questions
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      q_a: q_a
+    target_bundles_drag_drop:
+      address:
+        weight: 14
+        enabled: false
+      alert:
+        weight: 15
+        enabled: false
+      collapsible_panel:
+        weight: 16
+        enabled: false
+      collapsible_panel_item:
+        weight: 17
+        enabled: false
+      expandable_text:
+        weight: 18
+        enabled: false
+      link_teaser:
+        weight: 19
+        enabled: false
+      list_of_link_teasers:
+        weight: 20
+        enabled: false
+      process:
+        weight: 21
+        enabled: false
+      q_a:
+        enabled: true
+        weight: 22
+      q_a_section:
+        weight: 23
+        enabled: false
+      react_widget:
+        weight: 24
+        enabled: false
+      starred_horizontal_rule:
+        weight: 25
+        enabled: false
+      wysiwyg:
+        weight: 26
+        enabled: false
+field_type: entity_reference_revisions
