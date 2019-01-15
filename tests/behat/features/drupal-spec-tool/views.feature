@@ -26,6 +26,8 @@ Feature: Views
       | Who's new            | who_s_new          | Users             | Enabled  | Shows a list of the newest user accounts on the site.                                         |
       | Who's online block   | who_s_online       | Users             | Enabled  | Shows the user names of the most recently active users, and the total number of active users. |
       | Media library        | media_library      | Media             | Enabled  |                                                                                               |
+      | Blocks listing       | va_blocks_admin    | Custom Block      | Enabled  | Shows existing blocks on the site.                                                            |
+      | Redirect             | redirect           | Redirect          | Enabled  | List of redirects                                                                             |
 
   @spec @views
   Scenario: Views displays
@@ -75,3 +77,8 @@ Feature: Views
       | Who's new            | Who's new         | block_1            | Block          |
       | Who's online block   | Master            | default            | Master         |
       | Who's online block   | Who's online      | who_s_online_block | Block          |
+      | Blocks listing       | Promo blocks      | page_1             | Page           |
+      | Blocks listing       | Alert Blocks      | page_2             | Page           |
+      | Blocks listing       | Master            | default            | Master         |
+      | Redirect             | Master            | default            | Master         |
+      | Redirect             | Page              | page_1             | Page           |

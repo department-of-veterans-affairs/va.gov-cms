@@ -7,12 +7,14 @@ Feature: Access control
   @spec @access
   Scenario: User roles
     Then exactly the following roles should exist
-      | Name               | Machine name      |
-      | Administrator      | administrator     |
-      | Anonymous user     | anonymous         |
-      | Authenticated user | authenticated     |
-      | Media creator      | media_creator     |
-      | Media manager      | media_manager     |
-      | Content creator    | content_creator   |
-      | Content publisher  | content_publisher |
-      | Content reviewer   | content_reviewer  |
+      | Name                     | Machine name             |
+      | Administrator            | administrator            |
+      | Anonymous user           | anonymous                |
+      | Authenticated user       | authenticated            |
+      | Media creator            | media_creator            |
+      | Media manager            | media_manager            |
+      | Content creator          | content_creator          |
+      | Content publisher        | content_publisher        |
+      | Content reviewer         | content_reviewer         |
+      | Support Service creator  | support_service_creator  |
+      | Support Service reviewer | support_service_reviewer |
