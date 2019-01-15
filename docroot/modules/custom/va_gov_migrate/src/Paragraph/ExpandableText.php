@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_migrate\Paragraph;
 
+use Drupal\migration_tools\Message;
 use Drupal\va_gov_migrate\ParagraphType;
 use QueryPath\DOMQuery;
 
@@ -23,18 +24,34 @@ class ExpandableText extends ParagraphType {
    * {@inheritdoc}
    */
   protected function isParagraph(DOMQuery $query_path) {
-    return $query_path->hasClass('additional-info-container');
+    return $query_path->hasClass('expander-content');
   }
 
   /**
    * {@inheritdoc}
    */
   protected function getFieldValues(DOMQuery $query_path) {
+    if ($query_path->prev()->attr('id') == 'crisis-expander-link') {
+      $expander = $query_path->prev()->text();
+    }
+    else {
+      Message::make('Expanding block missing trigger text: @html',
+        ['@html' => $this::$migrator->row->getSourceProperty('alert_title')],
+        Message::ERROR);
+      $expander = "Show more";
+    }
     return
       [
-        'field_text_expander' => $query_path->find('.additional-info-title')->text(),
-        'field_wysiwyg' => $query_path->find('.additional-info-content')->innerHTML(),
+        'field_text_expander' => $expander,
+        'field_wysiwyg' => $query_path->find('.expander-content-inner')->innerHTML(),
       ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function isExternalContent(DOMQuery $query_path) {
+    return $query_path->attr('id') == 'crisis-expander-link';
   }
 
 }
