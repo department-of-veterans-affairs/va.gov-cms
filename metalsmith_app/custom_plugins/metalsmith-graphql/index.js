@@ -23,7 +23,9 @@ function formatBasicAuth(userName, password) {
 
 
 function plugin() {
-    const siteUrl = "http://vagovcms.lndo.site/graphql";
+    const dev = "http://dev.va.agile6.com/graphql";
+    const staging = "http://staging.va.agile6.com/graphql";
+    const siteUrl = dev;
     const creds = formatBasicAuth('admin', 'drupal8');
     const headers = {
         'Authorization': creds
@@ -78,7 +80,7 @@ function plugin() {
             const entities = resolvedValue.data.nodeQuery.entities;
             let temp = {};
             let paraTemp = {};
-            let nodeData = {};
+            let nodeData = [];
             const values = Object.values(entities);
             values.forEach(function(node) {
                 if(node) {
@@ -91,7 +93,7 @@ function plugin() {
                     // Get Paragraph data
                     const paragraphs = node.fieldContentBlock;
                     paraTemp = getParagraphData(paragraphs);
-                    nodeData[nid] = Object.assign({}, temp, paraTemp);
+                    nodeData.push(Object.assign({}, temp, paraTemp));
                 }
             });
 

@@ -1,0 +1,13 @@
+{% extends "./templates/base.njk" %}
+
+{% block body %}
+
+    <h1> {{ sitename }}</h1>
+    <h2> {{ description }} </h2>
+    <hr>
+
+
+    <h3>Content from Drupal</h3>
+    {% include "./templates/partials/node.njk" %}
+
+{% endblock %}
