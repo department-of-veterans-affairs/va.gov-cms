@@ -71,3 +71,7 @@ tooling:
     service: node
   gulp:
     service: node
+  db-sync-stg:
+    service: appserver
+    description: Sync latest STG DB to local
+    cmd: /app/scripts/sync-db-stg.sh && echo "Importing STG database" && `/app/docroot/vendor/bin/drush sql-connect` < /app/.sql-dumps/db-latest.sql && echo "STG database import complete"
