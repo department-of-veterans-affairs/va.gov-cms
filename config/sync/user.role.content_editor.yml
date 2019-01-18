@@ -1,4 +1,4 @@
-uuid: abeaf14e-b04e-42f4-b009-3f5fa1f03458
+uuid: dcc05526-22a7-4835-93ec-6d61a476f796
 langcode: en
 status: true
 dependencies:
@@ -6,10 +6,10 @@ dependencies:
     - lightning_core
 third_party_settings:
   lightning_core:
-    description: ''
-id: content_reviewer
-label: 'Content reviewer'
-weight: -5
+    description: 'Can create and edit content, but can''t review or publish it. '
+id: content_editor
+label: 'Content editor'
+weight: -7
 is_admin: null
 permissions:
   - 'access administration pages'
@@ -31,17 +31,10 @@ permissions:
   - 'edit own support_service content'
   - 'schedule editorial transition create_new_draft'
   - 'update any media'
-  - 'use editorial transition archived_published'
-  - 'use editorial transition create_new_draft'
-  - 'use editorial transition review'
-  - 'use editorial transition stage_for_publishing'
   - 'use workbench access'
   - 'view all revisions'
-  - 'view any unpublished content'
   - 'view landing_page revisions'
-  - 'view latest version'
   - 'view own unpublished content'
   - 'view page revisions'
   - 'view the administration theme'
   - 'view unpublished paragraphs'
-  - 'view workbench access information'
