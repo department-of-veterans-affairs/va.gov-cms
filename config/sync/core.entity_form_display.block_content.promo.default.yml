@@ -8,6 +8,7 @@ dependencies:
     - field.field.block_content.promo.field_image
     - field.field.block_content.promo.field_promo_link
   module:
+    - content_moderation
     - entity_browser
     - paragraphs
 id: block_content.promo.default
@@ -50,5 +51,10 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden:
-  moderation_state: true
+  moderation_state:
+    type: moderation_state_default
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }
