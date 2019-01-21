@@ -17,7 +17,7 @@ mode: default
 content:
   field_image:
     type: entity_browser_entity_reference
-    weight: 0
+    weight: 1
     settings:
       entity_browser: media_browser
       field_widget_display: rendered_entity
@@ -27,11 +27,12 @@ content:
       field_widget_display_settings:
         view_mode: thumbnail
       open: true
+      field_widget_replace: false
     region: content
     third_party_settings: {  }
   field_promo_link:
     type: entity_reference_paragraphs
-    weight: 26
+    weight: 2
     settings:
       title: Link
       title_plural: Links
@@ -41,6 +42,13 @@ content:
       default_paragraph_type: link_teaser
     third_party_settings: {  }
     region: content
+  info:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
 hidden:
-  info: true
   moderation_state: true
