@@ -1,0 +1,30 @@
+uuid: 2eb0d48b-24ae-496c-9342-5f1439e57e10
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - options
+id: block_content.field_reusability
+field_name: field_reusability
+entity_type: block_content
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: reusable
+      label: 'Anyone can reuse'
+    -
+      value: reusable_but_ask
+      label: 'Reusable, but please talk to Owner first'
+    -
+      value: restricted
+      label: 'Restricted, not for reuse'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
