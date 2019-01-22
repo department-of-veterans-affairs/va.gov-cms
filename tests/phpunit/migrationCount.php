@@ -31,7 +31,7 @@ class MigrationCount extends ExistingSiteBase {
    * @return array
    *   Array containing entity type as string and expected count as int
    */
-  private function validCounts() {
+  public function validCounts() {
     return array(
       array("page", 40),
       array("landing_page", 1),
