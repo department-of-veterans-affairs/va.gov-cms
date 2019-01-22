@@ -22,9 +22,12 @@ class RoleChecks extends ExistingSiteBase {
     $includes = [
       'anonymous',
       'authenticated',
+      'content_api_consumer',
       'content_editor',
       'content_reviewer',
       'content_publisher',
+      'admnistrator_users',
+      'administrator',
     ];
 
     // Creates an array from our role objects.
