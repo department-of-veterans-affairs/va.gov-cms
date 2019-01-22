@@ -153,6 +153,10 @@ process:  # assign the fields we collected above to Drupal fields.
   revision_timestamp: lastupdate
   field_intro_text: intro_text
   field_description: description
+  field_promo:
+    plugin: migration_lookup
+    migration: va_promo
+    source: url
   field_plainlanguage_date:
     plugin: format_date
     from_format: 'n/j/y'
@@ -165,8 +169,9 @@ process:  # assign the fields we collected above to Drupal fields.
 destination:
   plugin: 'entity:node'
 
-migration_dependencies: {} # Remove the {} before adding dependencies below.
-  # If there are migrations that should run before this one (e.g. for an entity that this node references), put them here.
+migration_dependencies:
+  required:
+    - va_promo
 
 # This belongs in all migration scripts. Without it the module the migration script belongs to won't uninstall cleanly.
 dependencies:
