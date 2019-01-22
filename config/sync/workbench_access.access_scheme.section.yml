@@ -1,0 +1,24 @@
+uuid: 43d697ca-89ee-4000-8b6a-ffcf1406e094
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.block_content.alert.field_owner
+    - field.field.node.landing_page.field_administration
+    - taxonomy.vocabulary.administration
+id: section
+label: Section
+plural_label: Sections
+scheme: taxonomy
+scheme_settings:
+  vocabularies:
+    - administration
+  fields:
+    -
+      entity_type: block_content
+      bundle: alert
+      field: field_owner
+    -
+      entity_type: node
+      bundle: landing_page
+      field: field_administration

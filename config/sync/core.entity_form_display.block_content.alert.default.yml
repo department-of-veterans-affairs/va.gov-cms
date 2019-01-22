@@ -7,9 +7,50 @@ dependencies:
     - field.field.block_content.alert.field_alert_content
     - field.field.block_content.alert.field_alert_title
     - field.field.block_content.alert.field_alert_type
+    - field.field.block_content.alert.field_content_preview
+    - field.field.block_content.alert.field_help_text
+    - field.field.block_content.alert.field_owner
+    - field.field.block_content.alert.field_reusability
   module:
     - content_moderation
+    - cshs
+    - field_group
+    - markup
     - paragraphs
+third_party_settings:
+  field_group:
+    group_admin:
+      children:
+        - info
+        - field_owner
+        - field_reusability
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        label: ''
+        description: ''
+        id: ''
+        classes: ''
+        required_fields: false
+      label: ''
+      region: content
+    group_content:
+      children:
+        - field_content_preview
+        - field_alert_title
+        - field_alert_content
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        label: ''
+        description: ''
+        id: ''
+        classes: ''
+        required_fields: false
+      label: ''
+      region: content
 id: block_content.alert.default
 targetEntityType: block_content
 bundle: alert
@@ -17,33 +58,54 @@ mode: default
 content:
   field_alert_content:
     type: entity_reference_paragraphs
-    weight: 2
+    weight: 28
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Content
+      title_plural: Contents
       edit_mode: open
-      add_mode: dropdown
+      add_mode: button
       form_display_mode: default
-      default_paragraph_type: ''
+      default_paragraph_type: _none
     third_party_settings: {  }
     region: content
   field_alert_title:
-    weight: 1
+    weight: 27
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_alert_type:
+  field_content_preview:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
+    region: content
+  field_help_text:
     weight: 0
     settings: {  }
     third_party_settings: {  }
-    type: options_select
+    type: markup
+    region: content
+  field_owner:
+    weight: 2
+    settings:
+      parent: '0'
+      level_labels: ''
+      force_deepest: 0
+    third_party_settings: {  }
+    type: cshs
+    region: content
+  field_reusability:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
     region: content
   info:
     type: string_textfield
-    weight: 3
+    weight: 1
     region: content
     settings:
       size: 60
@@ -51,8 +113,9 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 4
+    weight: 3
     settings: {  }
     region: content
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_alert_type: true
