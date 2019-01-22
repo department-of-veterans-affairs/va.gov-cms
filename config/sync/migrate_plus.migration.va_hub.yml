@@ -1,4 +1,4 @@
-uuid: 1e7dbda9-d523-4629-a2ab-4cc9ff982e37
+uuid: 0c186725-cdc5-4b47-85a1-39cca77f059a
 langcode: en
 status: true
 dependencies:
@@ -6,20 +6,28 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: bM1k_e5BDjE_cS49EjStgUyb1pqMjH-J3IhSrNj1JjM
-id: va_healthcare
+  default_config_hash: 7xJV8aF80kpGoGU4wAuNmYSGH31pcFR0skggiCKyf7A
+id: va_hub
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
 migration_group: va_gov
-label: 'Import healthcare pages and paragraphs from va.gov'
+label: 'Import hub pages and paragraphs from va.gov'
 source:
   plugin: metalsmith_source
   urls:
-    - 'https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages/health-care'
+    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/health-care/index.md'
+    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/disability/index.md'
+    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/education/index.md'
+    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/careers-employment/index.md'
+    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/pension/index.md'
+    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/housing-assistance/index.md'
+    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/life-insurance/index.md'
+    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/burials-memorials/index.md'
+    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/records/index.md'
   templates:
-    - detail-page
+    - level2-index
   fields:
     - description
     - plainlanguage_date
@@ -63,14 +71,6 @@ source:
                 - .feature
                 - '1'
                 - innerHTML
-        alert_title:
-          obtainer: ObtainHtml
-          jobs:
-            -
-              job: addSearch
-              method: pluckSelector
-              arguments:
-                - .usa-alert-heading
         related_links:
           obtainer: ObtainHtml
           jobs:
@@ -81,6 +81,16 @@ source:
                 - .va-nav-linkslist--related
                 - '1'
                 - innerHTML
+        hub_links:
+          obtainer: ObtainHtml
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelector
+              arguments:
+                - article
+                - '1'
+                - HTML
         body:
           obtainer: ObtainBody
           jobs:
@@ -116,16 +126,11 @@ source:
           operation: get_field
           field: featured_content
         -
-          operation: modifier
-          modifier: removeSelectorAll
-          arguments:
-            - '#crisis-expander-link'
-        -
-          operation: get_field
-          field: alert_title
-        -
           operation: get_field
           field: related_links
+        -
+          operation: get_field
+          field: hub_links
         -
           operation: modifier
           modifier: removeSelectorAll
@@ -138,42 +143,23 @@ source:
             - script
         -
           operation: modifier
-          modifier: removeSelectorAll
-          arguments:
-            - .usa-alert
-        -
-          operation: modifier
           modifier: changeHtmlContents
           arguments:
             - '#react-applicationStatus, [data-app-id]'
             - '<p>DYNAMIC FORM CONTENT GOES HERE</p>'
-        -
-          operation: get_field
-          field: body
 process:
   title: title
   revision_timestamp: lastupdate
   field_intro_text: intro_text
   field_description: description
-  field_last_update:
-    plugin: format_date
-    from_format: U
-    to_format: Y-m-d
-    source: lastupdate
   field_plainlanguage_date:
     plugin: format_date
     from_format: n/j/y
     to_format: Y-m-d
     source: plainlanguage_date
-  field_alert:
-    plugin: migration_lookup
-    migration: va_alert_block
-    source: alert_title
   type:
     plugin: default_value
-    default_value: page
+    default_value: landing_page
 destination:
   plugin: 'entity:node'
-migration_dependencies:
-  required:
-    - va_alert_block
+migration_dependencies: {  }

@@ -1,0 +1,14 @@
+uuid: d68b5552-215e-4815-b20f-04148536b45c
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.content_api_consumer
+  module:
+    - user
+id: user_remove_role_action.content_api_consumer
+label: 'Remove the Content API Consumer role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: content_api_consumer
