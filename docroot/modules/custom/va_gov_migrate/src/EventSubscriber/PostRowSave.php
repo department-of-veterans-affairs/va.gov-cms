@@ -54,6 +54,10 @@ class PostRowSave implements EventSubscriberInterface {
         $migrator->process('related_links', 'field_related_links');
         $migrator->process('hub_links', 'field_spokes');
         break;
+
+      case 'va_promo':
+        $migrator->process('body', 'field_promo_link');
+        break;
     }
   }
 

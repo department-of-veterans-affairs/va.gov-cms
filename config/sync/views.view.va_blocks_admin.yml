@@ -6,13 +6,11 @@ dependencies:
     - block_content.type.alert
     - block_content.type.promo
     - field.storage.block_content.field_image
-    - field.storage.block_content.field_promo_link
     - image.style.2_1_medium_thumbnail
     - user.role.authenticated
   module:
     - block_content
     - content_moderation
-    - entity_reference_revisions
     - media
     - user
 id: va_blocks_admin
@@ -152,10 +150,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_promo_link:
-          id: field_promo_link
-          table: block_content__field_promo_link
-          field: field_promo_link
+        info:
+          id: info
+          table: block_content_field_data
+          field: info
           relationship: none
           group_type: group
           admin_label: ''
@@ -188,7 +186,7 @@ display:
             trim: false
             preserve_tags: ''
             html: false
-          element_type: ''
+          element_type: strong
           element_class: ''
           element_label_type: ''
           element_label_class: ''
@@ -200,11 +198,11 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_revisions_entity_view
+          click_sort_column: value
+          type: string
           settings:
-            view_mode: default
-          group_column: ''
+            link_to_entity: false
+          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -214,6 +212,8 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: block_content
+          entity_field: info
           plugin_id: field
         edit_block_content:
           id: edit_block_content
@@ -429,7 +429,6 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.block_content.field_image'
-        - 'config:field.storage.block_content.field_promo_link'
   page_1:
     display_plugin: page
     id: page_1
@@ -457,7 +456,6 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.block_content.field_image'
-        - 'config:field.storage.block_content.field_promo_link'
   page_2:
     display_plugin: page
     id: page_2
@@ -565,7 +563,7 @@ display:
           admin_label: ''
           empty: true
           tokenize: false
-          content: 'You can <a href="/block/add/alert?destination=/admin/content/alerts">create an alert</a> to highlight time-sensitive content, usually at the top of a page.  Alerts can be created and then added to an existing page, or can be added directly from certain types of content.'
+          content: '<p>You can <a href="/block/add/alert?destination=/admin/content/alerts">create an alert</a> to highlight time-sensitive content, usually at the top of a page.  Alerts can be created and then added to an existing page, or can be added directly from certain types of content.</p>'
           plugin_id: text_custom
       display_description: ''
     cache_metadata:
@@ -577,4 +575,3 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.block_content.field_image'
-        - 'config:field.storage.block_content.field_promo_link'

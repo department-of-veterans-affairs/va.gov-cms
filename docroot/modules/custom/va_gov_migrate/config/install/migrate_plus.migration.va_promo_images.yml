@@ -1,0 +1,83 @@
+id: va_promo_images
+label: Import promo block images from va.gov
+migration_group: va_gov
+source:
+  plugin: url_list
+  urls:     # For url_list, this is a list of web pages to read
+    - "https://www.va.gov/health-care/"
+    - "https://www.va.gov/disability/"
+    - "https://www.va.gov/education/"
+    - "https://www.va.gov/careers-employment/"
+    - "https://www.va.gov/pension/"
+    - "https://www.va.gov/housing-assistance/"
+    - "https://www.va.gov/life-insurance/"
+    - "https://www.va.gov/burials-memorials/"
+    - "https://www.va.gov/records/"
+
+  migration_tools:
+  -
+    # Just leave this as is, if using metalsmith_source or url_list source.
+    source: url # The field we're passing to migration_tools is called 'url'.
+    source_type: url  # Source type can be either 'url' or 'html'.
+
+    source_operations:
+    -
+      operation: modifier
+      modifier: basicCleanup  # Tell migration_tools to run some basic cleanup of the page it just read.
+    fields:
+      image:
+        obtainer: ObtainImage
+        jobs:
+        -
+          job: 'addSearch'
+          method: 'pluckImages'
+          arguments:
+            - '.hub-promo'
+    dom_operations:
+    -
+      operation: get_field
+      field: image
+
+  constants:
+    file_dest_uri: 'public://hub_promos'
+
+process:  # assign the fields we collected above to Drupal fields.
+  src_url:
+    plugin: extract
+    source: image
+    index:
+      - 0
+      - src
+  image_file:
+    -
+      plugin: explode
+      source: '@src_url'
+      delimiter: /
+    -
+      plugin: array_pop
+
+  file_dest:
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/file_dest_uri
+        - '@image_file'
+
+  filename: '@image_file'
+  uri:
+    plugin: download
+    source:
+      - '@src_url'
+      - '@file_dest'
+
+destination:
+  plugin: entity:file
+
+migration_dependencies: {} # Remove the {} before adding dependencies below.
+  # If there are migrations that should run before this one (e.g. for an entity that this node references), put them here.
+
+# This belongs in all migration scripts. Without it the module the migration script belongs to won't uninstall cleanly.
+dependencies:
+  enforced:
+    module:
+    - va_gov_migrate  # The module this migration script belongs to.
