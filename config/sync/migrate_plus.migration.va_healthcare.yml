@@ -1,4 +1,4 @@
-uuid: 02ae08ef-daeb-41ec-8c89-bfae0f391635
+uuid: 82f80c09-4e29-47e9-aaf5-510f335039b9
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: 7DilaGcGAzwlOUp7iMvRLjGslatqH0VrJIzv-wXBsNI
+  default_config_hash: bM1k_e5BDjE_cS49EjStgUyb1pqMjH-J3IhSrNj1JjM
 id: va_healthcare
 class: null
 field_plugin_method: null
@@ -63,6 +63,14 @@ source:
                 - .feature
                 - '1'
                 - innerHTML
+        alert_title:
+          obtainer: ObtainHtml
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelector
+              arguments:
+                - .usa-alert-heading
         related_links:
           obtainer: ObtainHtml
           jobs:
@@ -108,6 +116,14 @@ source:
           operation: get_field
           field: featured_content
         -
+          operation: modifier
+          modifier: removeSelectorAll
+          arguments:
+            - '#crisis-expander-link'
+        -
+          operation: get_field
+          field: alert_title
+        -
           operation: get_field
           field: related_links
         -
@@ -120,6 +136,11 @@ source:
           modifier: removeSelectorAll
           arguments:
             - script
+        -
+          operation: modifier
+          modifier: removeSelectorAll
+          arguments:
+            - .usa-alert
         -
           operation: modifier
           modifier: changeHtmlContents
@@ -144,9 +165,15 @@ process:
     from_format: n/j/y
     to_format: Y-m-d
     source: plainlanguage_date
+  field_alert:
+    plugin: migration_lookup
+    migration: va_alert_block
+    source: alert_title
   type:
     plugin: default_value
     default_value: page
 destination:
   plugin: 'entity:node'
-migration_dependencies: {  }
+migration_dependencies:
+  required:
+    - va_alert_block

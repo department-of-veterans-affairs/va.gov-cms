@@ -1,0 +1,23 @@
+uuid: 82b2cdd2-094a-4d3c-b174-2044661a9eb6
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - field.storage.block_content.field_reusability
+  module:
+    - options
+id: block_content.alert.field_reusability
+field_name: field_reusability
+entity_type: block_content
+bundle: alert
+label: Reusability
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: reusable
+default_value_callback: ''
+settings: {  }
+field_type: list_string

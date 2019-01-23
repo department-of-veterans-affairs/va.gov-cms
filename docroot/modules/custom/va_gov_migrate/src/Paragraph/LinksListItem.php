@@ -29,6 +29,9 @@ class LinksListItem extends ParagraphType {
     elseif ($query_path->parent()->hasClass('hub-page-link-list')) {
       return 'li' == $query_path->tag() && $query_path->parent()->hasClass('hub-page-link-list');
     }
+    else {
+      return 'section' == $query_path->tag() && $query_path->hasClass('hub-promo-text');
+    }
 
   }
 
@@ -36,14 +39,34 @@ class LinksListItem extends ParagraphType {
    * {@inheritdoc}
    */
   protected function getFieldValues(DOMQuery $query_path) {
-    $title_raw = !empty($query_path->children('a')->children('.va-nav-linkslist-title')->text()) ?
-    $query_path->children('a')->children('.va-nav-linkslist-title')->text() : $query_path->children('a')->children('.hub-page-link-list__header')->text();
+    if ($query_path->parent()->hasClass('va-nav-linkslist-list') || $query_path->parent()->hasClass('hub-page-link-list')) {
+      $title_raw = !empty($query_path->children('a')
+        ->children('.va-nav-linkslist-title')
+        ->text()) ?
+        $query_path->children('a')
+          ->children('.va-nav-linkslist-title')
+          ->text() : $query_path->children('a')
+          ->children('.hub-page-link-list__header')
+          ->text();
 
-    $summary_raw = !empty($query_path->children('a')->children('.va-nav-linkslist-description')->text()) ?
-      $query_path->children('a')->children('.va-nav-linkslist-description')->text() : $query_path->children('a')->children('.hub-page-link-list__description')->text();
+      $summary_raw = !empty($query_path->children('a')
+        ->children('.va-nav-linkslist-description')
+        ->text()) ?
+        $query_path->children('a')
+          ->children('.va-nav-linkslist-description')
+          ->text() : $query_path->children('a')
+          ->children('.hub-page-link-list__description')
+          ->text();
 
-    if (empty($title_raw)) {
-      $title_raw = $query_path->children('a')->children('b')->text();
+      if (empty($title_raw)) {
+        $title_raw = $query_path->children('a')->children('b')->text();
+      }
+      $url = $query_path->children('a')->attr('href');
+    }
+    else {
+      $title_raw = $query_path->children('h4')->text();
+      $summary_raw = $query_path->children('p')->text();
+      $url = $query_path->children('h4')->children('a')->attr('href');
     }
 
     $title = trim($title_raw);
@@ -51,7 +74,7 @@ class LinksListItem extends ParagraphType {
 
     return [
       'field_link' => [
-        'uri' => $query_path->children('a')->attr('href'),
+        'uri' => $url,
         'title' => $title,
       ],
       'field_link_summary' => $summary,

@@ -5,25 +5,18 @@ dependencies:
   config:
     - block_content.type.alert
     - block_content.type.promo
-    - field.storage.block_content.field_alert_content
-    - field.storage.block_content.field_alert_title
-    - field.storage.block_content.field_alert_type
     - field.storage.block_content.field_image
-    - field.storage.block_content.field_promo_link
     - image.style.2_1_medium_thumbnail
     - user.role.authenticated
   module:
     - block_content
     - content_moderation
-    - entity_reference_revisions
     - media
-    - options
-    - paragraphs
     - user
 id: va_blocks_admin
 label: 'Blocks listing'
 module: views
-description: 'Shows existing blocks on the site.'
+description: 'Shows existing blocks on the site. '
 tag: ''
 base_table: block_content_field_data
 base_field: id
@@ -93,138 +86,10 @@ display:
       row:
         type: fields
       fields:
-        info:
-          id: info
-          table: block_content_field_data
-          field: info
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: h2
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: block_content
-          entity_field: info
-          plugin_id: field
-        field_alert_title:
-          id: field_alert_title
-          table: block_content__field_alert_title
-          field: field_alert_title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: h3
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        field_alert_content:
-          id: field_alert_content
-          table: block_content__field_alert_content
-          field: field_alert_content
+        field_image:
+          id: field_image
+          table: block_content__field_image
+          field: field_image
           relationship: none
           group_type: group
           admin_label: ''
@@ -270,10 +135,11 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: target_id
-          type: entity_reference_revisions_entity_view
+          type: media_thumbnail
           settings:
-            view_mode: default
-          group_column: ''
+            image_style: 2_1_medium_thumbnail
+            image_link: ''
+          group_column: target_id
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -284,76 +150,14 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_alert_type:
-          id: field_alert_type
-          table: block_content__field_alert_type
-          field: field_alert_type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Type
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: list_default
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        changed:
-          id: changed
+        info:
+          id: info
           table: block_content_field_data
-          field: changed
+          field: info
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Last updated'
+          label: ''
           exclude: false
           alter:
             alter_text: false
@@ -382,11 +186,11 @@ display:
             trim: false
             preserve_tags: ''
             html: false
-          element_type: ''
+          element_type: strong
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -395,11 +199,9 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: timestamp
+          type: string
           settings:
-            date_format: custom
-            custom_date_format: 'M j Y'
-            timezone: ''
+            link_to_entity: false
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -411,7 +213,7 @@ display:
           separator: ', '
           field_api_classes: false
           entity_type: block_content
-          entity_field: changed
+          entity_field: info
           plugin_id: field
         edit_block_content:
           id: edit_block_content
@@ -615,12 +417,7 @@ display:
           plugin_id: text_custom
       footer: {  }
       empty: {  }
-      relationships:
-        field_alert_content:
-          id: field_alert_content
-          table: block_content__field_alert_content
-          field: field_alert_content
-          plugin_id: standard
+      relationships: {  }
       arguments: {  }
       display_extenders: {  }
     cache_metadata:
@@ -631,9 +428,7 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.block_content.field_alert_content'
-        - 'config:field.storage.block_content.field_alert_title'
-        - 'config:field.storage.block_content.field_alert_type'
+        - 'config:field.storage.block_content.field_image'
   page_1:
     display_plugin: page
     id: page_1
@@ -652,384 +447,6 @@ display:
         context: '0'
         menu_name: admin
       display_description: ''
-      fields:
-        info:
-          id: info
-          table: block_content_field_data
-          field: info
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: h2
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: block_content
-          entity_field: info
-          plugin_id: field
-        field_image:
-          id: field_image
-          table: block_content__field_image
-          field: field_image
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: media_thumbnail
-          settings:
-            image_style: 2_1_medium_thumbnail
-            image_link: ''
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        field_promo_link:
-          id: field_promo_link
-          table: block_content__field_promo_link
-          field: field_promo_link
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_revisions_entity_view
-          settings:
-            view_mode: default
-          group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        changed:
-          id: changed
-          table: block_content_field_data
-          field: changed
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Last updated'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: em
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: timestamp
-          settings:
-            date_format: custom
-            custom_date_format: 'M j Y'
-            timezone: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: block_content
-          entity_field: changed
-          plugin_id: field
-        edit_block_content:
-          id: edit_block_content
-          table: block_content
-          field: edit_block_content
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: strong
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          text: edit
-          output_url_as_text: false
-          absolute: false
-          entity_type: block_content
-          plugin_id: entity_link_edit
-        moderation_state:
-          id: moderation_state
-          table: block_content_field_data
-          field: moderation_state
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: content_moderation_state
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: block_content
-          plugin_id: field
-      defaults:
-        fields: false
     cache_metadata:
       max-age: -1
       contexts:
@@ -1039,7 +456,6 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.block_content.field_image'
-        - 'config:field.storage.block_content.field_promo_link'
   page_2:
     display_plugin: page
     id: page_2
@@ -1063,7 +479,6 @@ display:
         filters: false
         filter_groups: false
         header: false
-        relationships: false
       filters:
         status:
           value: '1'
@@ -1148,10 +563,9 @@ display:
           admin_label: ''
           empty: true
           tokenize: false
-          content: 'You can <a href="/block/add/alert?destination=/admin/content/alerts">create an alert</a> to highlight time-sensitive content, usually at the top of a page.  Alerts can be created and then added to an existing page, or can be added directly from certain types of content.'
+          content: '<p>You can <a href="/block/add/alert?destination=/admin/content/alerts">create an alert</a> to highlight time-sensitive content, usually at the top of a page.  Alerts can be created and then added to an existing page, or can be added directly from certain types of content.</p>'
           plugin_id: text_custom
       display_description: ''
-      relationships: {  }
     cache_metadata:
       max-age: -1
       contexts:
@@ -1160,6 +574,4 @@ display:
         - url.query_args
         - user.roles
       tags:
-        - 'config:field.storage.block_content.field_alert_content'
-        - 'config:field.storage.block_content.field_alert_title'
-        - 'config:field.storage.block_content.field_alert_type'
+        - 'config:field.storage.block_content.field_image'
