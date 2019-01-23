@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.node.inline_entity_form
     - field.field.node.landing_page.field_administration
     - field.field.node.landing_page.field_alert
     - field.field.node.landing_page.field_description
@@ -12,11 +13,13 @@ dependencies:
     - field.field.node.landing_page.field_promo
     - field.field.node.landing_page.field_related_links
     - field.field.node.landing_page.field_spokes
+    - field.field.node.landing_page.field_support_services
     - node.type.landing_page
   module:
     - content_moderation
     - datetime
     - field_group
+    - inline_entity_form
     - metatag
     - paragraphs
     - path
@@ -27,7 +30,7 @@ third_party_settings:
         - field_administration
         - field_plainlanguage_date
       parent_name: ''
-      weight: 14
+      weight: 15
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -40,8 +43,9 @@ third_party_settings:
     group_right_rail:
       children:
         - field_promo
+        - field_support_services
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: fieldset
       format_settings:
         id: ''
@@ -49,6 +53,7 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Right Rail'
+      region: content
 id: node.landing_page.default
 targetEntityType: node
 bundle: landing_page
@@ -56,7 +61,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -89,7 +94,7 @@ content:
     type: string_textarea
     region: content
   field_meta_tags:
-    weight: 12
+    weight: 13
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -144,6 +149,22 @@ content:
     third_party_settings: {  }
     type: paragraphs
     region: content
+  field_support_services:
+    weight: 19
+    settings:
+      form_mode: inline_entity_form
+      label_singular: ''
+      label_plural: ''
+      collapsed: true
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+      collapsible: false
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+    region: content
   moderation_state:
     type: moderation_state_default
     weight: 14
@@ -152,7 +173,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -160,21 +181,21 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 8
+    weight: 9
     region: content
     third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 11
+    weight: 12
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 9
+    weight: 10
     region: content
     third_party_settings: {  }
   title:
@@ -187,7 +208,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 6
+    weight: 7
     settings:
       match_operator: CONTAINS
       size: 60
@@ -195,7 +216,7 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 15
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }

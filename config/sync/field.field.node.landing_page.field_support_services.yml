@@ -1,0 +1,29 @@
+uuid: 53c127fb-fc45-419e-8c23-2a424792e3ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_support_services
+    - node.type.landing_page
+    - node.type.support_service
+id: node.landing_page.field_support_services
+field_name: field_support_services
+entity_type: node
+bundle: landing_page
+label: 'Support Services'
+description: '[Help text goes here]'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      support_service: support_service
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
