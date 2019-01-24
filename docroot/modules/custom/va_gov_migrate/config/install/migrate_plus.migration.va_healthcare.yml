@@ -1,5 +1,5 @@
 id: va_healthcare
-label: Import healthcare pages and paragraphs from va.gov
+label: Import basic pages and paragraphs from va.gov
 migration_group: va_gov
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
@@ -183,6 +183,9 @@ process:  # assign the fields we collected above to Drupal fields.
     -
       plugin: migration_lookup
       migration: va_alert_block
+  moderation_state:
+    plugin: default_value
+    default_value: published
   type:
     plugin: default_value   # We want to asign the 'type' field a static value.
     default_value: page # The value is 'page'.
