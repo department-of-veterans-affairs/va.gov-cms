@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_build_trigger.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function va_gov_build_trigger_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // This is our site build trigger button for node forms.
+  if (in_array('node_form', $form['#theme'])) {
+    $form['actions']['build'] = [
+      '#type' => 'submit',
+      '#value' => 'Build',
+      '#weight' => 20,
+      '#submit' => ['va_gov_build_trigger_form_alter_submit'],
+    ];
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function va_gov_build_trigger_form_alter_submit(&$form, FormStateInterface $form_state) {
+  // Placeholder until change to Jenkins url.
+  $uri = 'http://example.com';
+
+  try {
+    $response = \Drupal::httpClient()->get($uri, ['headers' => ['Accept' => 'text/plain']]);
+    $data = (string) $response->getBody();
+    if (empty($data)) {
+      return FALSE;
+    }
+    \Drupal::messenger()->addMessage(t('Site rebuild request has been sent to :uri.', [':uri' => $uri]), 'status');
+
+  }
+  catch (RequestException $e) {
+    return FALSE;
+  }
+}
