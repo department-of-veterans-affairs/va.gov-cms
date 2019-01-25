@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Database\Database;
 
 /**
  * Implements hook_form_alter().
@@ -13,6 +14,7 @@ use Drupal\Core\Form\FormStateInterface;
 function va_gov_build_trigger_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // This is our site build trigger button for node forms.
   if (in_array('node_form', $form['#theme'])) {
+
     $form['actions']['build'] = [
       '#type' => 'submit',
       '#value' => 'Build',
@@ -35,6 +37,23 @@ function va_gov_build_trigger_form_alter_submit(&$form, FormStateInterface $form
     if (empty($data)) {
       return FALSE;
     }
+
+    // Get our sql formatted date.
+    $time_raw = format_date(time(), 'html_datetime');
+    $time = strtok($time_raw, '+');
+
+    // We only need to update field table - field is set on node import.
+    $query = \Drupal::database()
+      ->update('node__field_page_last_built')
+      ->fields(['field_page_last_built_value' => $time]);
+    $query->execute();
+
+    // We only need to update - revision field is set on node import.
+    $query_revision = \Drupal::database()
+      ->update('node_revision__field_page_last_built')
+      ->fields(['field_page_last_built_value' => $time]);
+    $query_revision->execute();
+
     \Drupal::messenger()->addMessage(t('Site rebuild request has been sent to :uri.', [':uri' => $uri]), 'status');
 
   }
