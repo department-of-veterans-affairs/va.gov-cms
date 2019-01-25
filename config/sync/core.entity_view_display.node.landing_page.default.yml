@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.landing_page.field_promo
     - field.field.node.landing_page.field_related_links
     - field.field.node.landing_page.field_spokes
+    - field.field.node.landing_page.field_support_services
     - node.type.landing_page
   module:
     - datetime
@@ -95,6 +96,14 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
+  field_support_services:
+    weight: 111
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
     region: content
   links:
     weight: 100
