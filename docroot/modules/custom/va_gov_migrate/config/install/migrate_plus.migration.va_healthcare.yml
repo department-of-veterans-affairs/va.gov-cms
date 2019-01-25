@@ -156,13 +156,9 @@ source:
 process:  # assign the fields we collected above to Drupal fields.
   title: title
   revision_timestamp: lastupdate
+  changed: lastupdate
   field_intro_text: intro_text
   field_description: description
-  field_last_update:
-    plugin: format_date # Convert date format
-    from_format: 'U' # from unix timestamp
-    to_format: 'Y-m-d' # to Drupal format
-    source: lastupdate
   field_plainlanguage_date:
     plugin: format_date
     from_format: 'n/j/y'
