@@ -1,0 +1,24 @@
+uuid: 8282ea10-575c-4dbb-91db-1b76148856de
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_page_last_built
+    - node.type.landing_page
+  module:
+    - datetime
+id: node.landing_page.field_page_last_built
+field_name: field_page_last_built
+entity_type: node
+bundle: landing_page
+label: 'Page last built'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime
