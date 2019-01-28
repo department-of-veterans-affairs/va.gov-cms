@@ -1,4 +1,4 @@
-uuid: c9af6710-4d8f-4749-a5a5-00ee606c542d
+uuid: d41e2e7c-a777-48b0-8c56-2db262168fb8
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: yfptjoHuwePOEJh-rs8MYeshewvuPCCrTE2QqO1Xjmk
+  default_config_hash: CSLLAunwOs416Lqklo9wNQ7sBptPPNf9Yc7qvAKpPhE
 id: va_healthcare
 class: null
 field_plugin_method: null
@@ -153,13 +153,9 @@ source:
 process:
   title: title
   revision_timestamp: lastupdate
+  changed: lastupdate
   field_intro_text: intro_text
   field_description: description
-  field_last_update:
-    plugin: format_date
-    from_format: U
-    to_format: Y-m-d
-    source: lastupdate
   field_plainlanguage_date:
     plugin: format_date
     from_format: n/j/y
