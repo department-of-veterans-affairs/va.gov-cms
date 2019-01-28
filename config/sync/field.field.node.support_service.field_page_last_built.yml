@@ -1,0 +1,24 @@
+uuid: 7e646cf4-8931-4616-94aa-9dfe2a22ec88
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_page_last_built
+    - node.type.support_service
+  module:
+    - datetime
+id: node.support_service.field_page_last_built
+field_name: field_page_last_built
+entity_type: node
+bundle: support_service
+label: 'Page last built'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

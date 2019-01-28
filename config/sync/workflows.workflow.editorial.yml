@@ -3,6 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
+    - block_content.type.alert
+    - block_content.type.promo
     - node.type.landing_page
     - node.type.page
     - node.type.support_service
@@ -89,6 +91,9 @@ type_settings:
       to: approved_by_reviewer
       weight: -1
   entity_types:
+    block_content:
+      - alert
+      - promo
     node:
       - landing_page
       - page

@@ -1,0 +1,48 @@
+id: va_promo_media
+label: Create media entities from promo block images.
+migration_group: va_gov
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      url: "https://www.va.gov/health-care/"
+    -
+      url: "https://www.va.gov/disability/"
+    -
+      url: "https://www.va.gov/education/"
+    -
+      url: "https://www.va.gov/careers-employment/"
+    -
+      url: "https://www.va.gov/pension/"
+    -
+      url: "https://www.va.gov/housing-assistance/"
+    -
+      url: "https://www.va.gov/life-insurance/"
+    -
+      url: "https://www.va.gov/burials-memorials/"
+    -
+      url: "https://www.va.gov/records/"
+  ids:
+    url:
+      type: string
+
+
+process:  # assign the fields we collected above to Drupal fields.
+  image/target_id:
+    plugin: migration_lookup
+    migration: va_promo_images
+    source: url
+
+destination:
+  plugin: entity:media
+  default_bundle: image
+
+migration_dependencies:
+  required:
+    - va_promo_images
+
+# This belongs in all migration scripts. Without it the module the migration script belongs to won't uninstall cleanly.
+dependencies:
+  enforced:
+    module:
+    - va_gov_migrate  # The module this migration script belongs to.

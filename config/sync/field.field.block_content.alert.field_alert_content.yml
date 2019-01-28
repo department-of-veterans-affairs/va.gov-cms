@@ -13,8 +13,8 @@ id: block_content.alert.field_alert_content
 field_name: field_alert_content
 entity_type: block_content
 bundle: alert
-label: 'Alert Content'
-description: ''
+label: 'Crisis Alert Answer'
+description: "Remember that this content is for people in crisis: be simple and straighforward. \r\n<ul><li>Give a single clear next step\r\n<li>Highlight the <strong>most important information</strong> in bold\r\n<li>Link to an additional page if there's more information to share</li><ul>"
 required: true
 translatable: false
 default_value: {  }
@@ -24,46 +24,46 @@ settings:
   handler_settings:
     negate: 0
     target_bundles:
-      expandable_text: expandable_text
       wysiwyg: wysiwyg
+      expandable_text: expandable_text
     target_bundles_drag_drop:
-      address:
-        weight: 14
-        enabled: false
-      alert:
-        weight: 15
-        enabled: false
-      collapsible_panel:
-        weight: 16
-        enabled: false
-      collapsible_panel_item:
-        weight: 17
-        enabled: false
-      expandable_text:
-        enabled: true
-        weight: 18
-      link_teaser:
-        weight: 19
-        enabled: false
-      list_of_link_teasers:
-        weight: 20
-        enabled: false
-      process:
-        weight: 21
-        enabled: false
-      q_a:
-        weight: 22
-        enabled: false
-      q_a_section:
-        weight: 23
-        enabled: false
-      react_widget:
-        weight: 24
-        enabled: false
-      starred_horizontal_rule:
-        weight: 25
-        enabled: false
       wysiwyg:
         enabled: true
-        weight: 26
+        weight: -27
+      expandable_text:
+        enabled: true
+        weight: -26
+      address:
+        weight: -25
+        enabled: false
+      alert:
+        weight: -24
+        enabled: false
+      collapsible_panel:
+        weight: -23
+        enabled: false
+      collapsible_panel_item:
+        weight: -22
+        enabled: false
+      link_teaser:
+        weight: -21
+        enabled: false
+      list_of_link_teasers:
+        weight: -20
+        enabled: false
+      process:
+        weight: -19
+        enabled: false
+      q_a:
+        weight: -18
+        enabled: false
+      q_a_section:
+        weight: -17
+        enabled: false
+      react_widget:
+        weight: -16
+        enabled: false
+      starred_horizontal_rule:
+        weight: -15
+        enabled: false
 field_type: entity_reference_revisions

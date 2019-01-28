@@ -4,7 +4,7 @@ Feature: Menus
   As a content editor
   I want to have menus that reflect my information architecture.
 
-  @spec
+  @spec @menus
   Scenario: Menus
     Then exactly the following menus should exist
       | Name              | Machine name | Description                              |

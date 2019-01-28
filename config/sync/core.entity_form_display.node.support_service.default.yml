@@ -4,10 +4,12 @@ status: true
 dependencies:
   config:
     - field.field.node.support_service.field_link
+    - field.field.node.support_service.field_page_last_built
     - field.field.node.support_service.field_phone_number
     - node.type.support_service
   module:
     - content_moderation
+    - datetime
     - link
     - path
     - telephone
@@ -29,6 +31,12 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
+  field_page_last_built:
+    weight: 124
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
     region: content
   field_phone_number:
     weight: 123
@@ -87,4 +95,9 @@ content:
       placeholder: ''
     region: content
     third_party_settings: {  }
+  url_redirects:
+    weight: 50
+    settings: {  }
+    third_party_settings: {  }
+    region: content
 hidden: {  }

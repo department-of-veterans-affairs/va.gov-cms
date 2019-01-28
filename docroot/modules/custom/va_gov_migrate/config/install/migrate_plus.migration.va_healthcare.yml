@@ -1,5 +1,5 @@
 id: va_healthcare
-label: Import healthcare pages and paragraphs from va.gov
+label: Import basic pages and paragraphs from va.gov
 migration_group: va_gov
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
@@ -156,22 +156,32 @@ source:
 process:  # assign the fields we collected above to Drupal fields.
   title: title
   revision_timestamp: lastupdate
+  changed: lastupdate
   field_intro_text: intro_text
   field_description: description
-  field_last_update:
-    plugin: format_date # Convert date format
-    from_format: 'U' # from unix timestamp
-    to_format: 'Y-m-d' # to Drupal format
-    source: lastupdate
   field_plainlanguage_date:
     plugin: format_date
     from_format: 'n/j/y'
     to_format: 'Y-m-d'
     source: plainlanguage_date
   field_alert:
-    plugin: migration_lookup
-    migration: va_alert_block
-    source: alert_title
+    -
+      plugin: explode
+      source: alert_title
+      delimiter: '<br/>'
+    -
+      plugin: extract
+      index:
+        - 0
+    -
+      plugin: callback
+      callable: strip_tags
+    -
+      plugin: migration_lookup
+      migration: va_alert_block
+  moderation_state:
+    plugin: default_value
+    default_value: published
   type:
     plugin: default_value   # We want to asign the 'type' field a static value.
     default_value: page # The value is 'page'.

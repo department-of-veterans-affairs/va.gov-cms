@@ -43,6 +43,7 @@ class PostRowSave implements EventSubscriberInterface {
         $migrator->process('related_links', 'field_related_links');
         $migrator->process('featured_content', 'field_featured_content');
         $migrator->process('body', 'field_content_block');
+        $this->setChangedDate($event);
         break;
 
       case 'va_alert_block':
@@ -53,6 +54,10 @@ class PostRowSave implements EventSubscriberInterface {
         $this->convertIntroTextToPlainText($event->getDestinationIdValues()[0]);
         $migrator->process('related_links', 'field_related_links');
         $migrator->process('hub_links', 'field_spokes');
+        break;
+
+      case 'va_promo':
+        $migrator->process('body', 'field_promo_link');
         break;
     }
   }
@@ -77,6 +82,26 @@ class PostRowSave implements EventSubscriberInterface {
     $node->set('field_intro_text', $intro_text);
     $node->save();
 
+  }
+
+  /**
+   * Set the changed (Updated) date for a node.
+   *
+   * This should be done after other post row save events so that they don't
+   * update the changed date after it's been set.
+   *
+   * @param \Drupal\migrate\Event\MigratePostRowSaveEvent $event
+   *   The event record for the node.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  public function setChangedDate(MigratePostRowSaveEvent $event) {
+    $node = Node::load($event->getDestinationIdValues()[0]);
+    // The timestamp we receive is 4 hours behind when displayed by drupal.
+    // So add 4 hours to account for that.
+    $last_update = $event->getRow()->getSourceProperty('lastupdate') + 3600 * 4;
+    $node->set('changed', $last_update);
+    $node->save();
   }
 
 }
