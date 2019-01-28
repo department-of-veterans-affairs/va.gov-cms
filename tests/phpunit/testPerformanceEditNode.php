@@ -3,7 +3,6 @@
 namespace tests\phpunit;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;
-use Drupal\node\Entity\Node;
 
 /**
  * A test to confirm amount of nodes by type.
@@ -13,15 +12,21 @@ class EditNodePerformance extends ExistingSiteBase {
   /**
    * A test method to deterine the amount of time to edit a node page.
    *
+   * @group performance
+   *
    * @dataProvider benchmarkTime
    */
-  public function testEditNodePerformance($benchmark) {
+  public function testEditNodePerformance($type, $benchmark) {
     // Creates a user. Will be automatically cleaned up at the end of the test.
     $author = $this->createUser();
 
-    $nids = \Drupal::entityQuery('node')->condition('type', 'page')->execute();
-    shuffle($nids);
-    $nid = array_pop($nids);
+    // Creates a node. Will be automatically cleaned up at the end of the test.
+    $node = $this->createNode([
+      'title' => 'Llama',
+      'type' => $type,
+      'uid' => $author->id(),
+    ]);
+    $node->setPublished()->save();
 
     // Start timer.
     $mtime = microtime();
@@ -29,7 +34,6 @@ class EditNodePerformance extends ExistingSiteBase {
     $mtime = $mtime[1] + $mtime[0];
     $starttime = $mtime;
 
-    $node = Node::load($nid);
     $node->setChangedTime(time())->save();
 
     // End timer.
@@ -41,9 +45,9 @@ class EditNodePerformance extends ExistingSiteBase {
 
     // Test assertion.
     $secs = number_format($microsecs, 3);
-    $this->assertLessThan($benchmark, $secs, "\nOperation took " . $secs . " seconds which is longer than the benchmark of " . $benchmark . " seconds.\n");
+    $this->assertLessThan($benchmark, $secs, "\nOperation took " . $secs . " seconds which is longer than the benchmark of " . $benchmark . " seconds for type " . $type . ".\n");
 
-    $message = "\nOperation took " . $secs . " seconds compared to the benchmark of " . $benchmark . " seconds.\n";
+    $message = "\nOperation took " . $secs . " seconds compared to the benchmark of " . $benchmark . " seconds for type " . $type . ".\n";
     fwrite(STDERR, print_r($message, TRUE));
   }
 
@@ -51,11 +55,12 @@ class EditNodePerformance extends ExistingSiteBase {
    * Returns benchmark time to beat in order for test to succeed.
    *
    * @return array
-   *   Array containing entity type as string and expected count as int
+   *   Array containing entity type as string and benchmark as int
    */
   public function benchmarkTime() {
     return [
-      [2],
+      ["page", 2],
+      ["landing_page", 2],
     ];
   }
 

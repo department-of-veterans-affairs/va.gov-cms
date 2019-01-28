@@ -12,6 +12,8 @@ class CreateNodePerformance extends ExistingSiteBase {
   /**
    * A test method to deterine the amount of time it takes to create a node.
    *
+   * @group performance
+   *
    * @dataProvider benchmarkTime
    */
   public function testCreateNodePerformance($benchmark) {
