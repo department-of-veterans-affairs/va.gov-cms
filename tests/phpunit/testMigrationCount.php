@@ -12,6 +12,8 @@ class MigrationCount extends ExistingSiteBase {
   /**
    * A test method to deterine the amount of entities in the systems by type.
    *
+   * @group migration
+   *
    * @dataProvider validCounts
    */
   public function testCount($type, $expcount) {
