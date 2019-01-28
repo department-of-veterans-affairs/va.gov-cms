@@ -6,6 +6,7 @@ use Drupal\migration_tools\Message;
 use QueryPath\DOMQuery;
 use Drupal\va_gov_migrate\ParagraphMigrator;
 use Drupal\migration_tools\StringTools;
+use Drupal\migration_tools\Obtainer\ObtainHtml;
 use Michelf\MarkdownExtra;
 
 /**
@@ -80,7 +81,7 @@ class AlertBlockSource extends MetalsmithSource {
       // Sometimes expander trigger is nested inside heading.
       $title_path = $alert->find('.usa-alert-heading');
       $trigger_path = $title_path->find('#crisis-expander-link')->remove();
-      $row['alert_title'] = $title_path->text();
+      $row['alert_title'] = strip_tags(ObtainHtml::trimAtBr($title_path->html()));
       // The heading is nested within the body, so remove it.
       $alert->find('.usa-alert-heading')->remove();
 

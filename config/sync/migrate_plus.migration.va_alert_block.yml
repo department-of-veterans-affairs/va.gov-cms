@@ -1,4 +1,4 @@
-uuid: eb59bae4-181e-4ae0-a366-c9c44887c6ca
+uuid: 7322ec4e-1f09-4ded-8e38-b893b65b904a
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: dok7tUmozPCFukzGC_QTs01QZ_EJHWurimdI6FoIU1Q
+  default_config_hash: QMqUwqlEvGFI9AS5tsElHjQINEDkbkFAIdx2NtBM0tk
 id: va_alert_block
 class: null
 field_plugin_method: null
@@ -25,6 +25,9 @@ process:
   info: alert_title
   field_alert_title: alert_title
   field_alert_type: alert_type
+  moderation_state:
+    plugin: default_value
+    default_value: published
   type:
     plugin: default_value
     default_value: alert

@@ -18,6 +18,9 @@ process:  # assign the fields we collected above to Drupal fields.
   title: service_name
   field_link: service_url
   field_phone_number: service_number
+  moderation_state:
+    plugin: default_value
+    default_value: published
   type:
     plugin: default_value   # We want to assign the 'type' field a static value.
     default_value: support_service # The value is 'support_service'.

@@ -8,10 +8,12 @@ dependencies:
     - field.field.node.landing_page.field_description
     - field.field.node.landing_page.field_intro_text
     - field.field.node.landing_page.field_meta_tags
+    - field.field.node.landing_page.field_page_last_built
     - field.field.node.landing_page.field_plainlanguage_date
     - field.field.node.landing_page.field_promo
     - field.field.node.landing_page.field_related_links
     - field.field.node.landing_page.field_spokes
+    - field.field.node.landing_page.field_support_services
     - node.type.landing_page
   module:
     - datetime
@@ -61,6 +63,15 @@ content:
     third_party_settings: {  }
     type: metatag_empty_formatter
     region: content
+  field_page_last_built:
+    weight: 111
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
   field_plainlanguage_date:
     weight: 109
     label: above
@@ -95,6 +106,14 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
+  field_support_services:
+    weight: 111
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
     region: content
   links:
     weight: 100
