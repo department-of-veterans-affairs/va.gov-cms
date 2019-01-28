@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.landing_page.field_description
     - field.field.node.landing_page.field_intro_text
     - field.field.node.landing_page.field_meta_tags
+    - field.field.node.landing_page.field_page_last_built
     - field.field.node.landing_page.field_plainlanguage_date
     - field.field.node.landing_page.field_promo
     - field.field.node.landing_page.field_related_links
@@ -98,6 +99,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
+    region: content
+  field_page_last_built:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
     region: content
   field_plainlanguage_date:
     weight: 2
