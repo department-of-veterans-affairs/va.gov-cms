@@ -71,7 +71,9 @@ process:  # assign the fields we collected above to Drupal fields.
       plugin: migration_lookup  # Get value from previous migration
       migration: va_promo_media # The migration to use
       source: url # The source field in this migration that corresponds to the source id of the previous migration
-
+  moderation_state:
+    plugin: default_value
+    default_value: published
   type:
     plugin: default_value
     default_value: promo

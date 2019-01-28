@@ -1,4 +1,4 @@
-uuid: 2800e063-47db-4d72-8ca1-1ded821997ae
+uuid: 6cd51dcf-46ab-4553-84c8-d30aa80b2cec
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: vjtNGpJjtC4diEFvKaR-2B-Yzm4io2X-lRgJSqB2q0s
+  default_config_hash: fwGhWuUcXnyw8ObwXqo2AQvuz1dNCR-0j5I2UNHH_NI
 id: va_support_service
 class: null
 field_plugin_method: null
@@ -29,6 +29,9 @@ process:
   title: service_name
   field_link: service_url
   field_phone_number: service_number
+  moderation_state:
+    plugin: default_value
+    default_value: published
   type:
     plugin: default_value
     default_value: support_service
