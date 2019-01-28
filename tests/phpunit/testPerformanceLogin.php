@@ -6,6 +6,8 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm amount of nodes by type.
+ *
+ * @group performance
  */
 class LoginPerformance extends ExistingSiteBase {
 
