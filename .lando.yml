@@ -21,13 +21,6 @@ events:
 
 services:
   appserver:
-    run_as_root:
-      - "apt-get update -y"
-      - "apt-get install build-essential chrpath libssl-dev libxft-dev libfreetype6-dev libfreetype6 libfontconfig1-dev libfontconfig1 -y"
-      - "tar xvjf /app/phantomjs-2.1.1-linux-x86_64.tar.bz2 -C /usr/local/share/"
-      - "mv /usr/local/share/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/bin/"
-      - "cd /usr/bin"
-      - "chmod +x phantomjs"
     # Uncomment the below `xdebug: true` for Xdebug support
     # @todo Change this to pull in a local Lando settings variable and use that boolean variable
     # Run `lando rebuild` after uncommenting
@@ -39,8 +32,8 @@ services:
           PHP_IDE_CONFIG: "serverName=appserver"
   node:
     type: node
-    build:
-      - "cd $LANDO_MOUNT/docroot/themes/custom/vagov && npm install"
+    run_as_root:
+      - "cd $LANDO_MOUNT && npm install"
     overrides:
       services:
         environment:
@@ -52,10 +45,8 @@ services:
 
     globals:
       gulp-cli: "latest"
+      nightwatch: "latest"
 tooling:
-  phantomjs:
-    service: appserver
-    description: "Run phantomjs commands"
   phpunit:
     service: appserver
     description: "Run PHP Unit tests: lando phpunit. Syntax: lando phpunit {PATH-TO-TEST}"
@@ -70,6 +61,8 @@ tooling:
   node:
     service: node
   gulp:
+    service: node
+  nightwatch:
     service: node
   db-sync-stg:
     service: appserver
