@@ -23,17 +23,16 @@ class CollapsiblePanel extends ParagraphType {
    * {@inheritdoc}
    */
   protected function isParagraph(DOMQuery $query_path) {
-    return $query_path->hasClass('usa-accordion') ||
-      $query_path->hasClass('usa-accordion-bordered');
+    if ($query_path->hasClass('usa-accordion')) {
+      return !QAAccordion::isQaAccordionGroup($query_path);
+    }
   }
 
   /**
    * {@inheritdoc}
    */
   protected function getFieldValues(DOMQuery $query_path) {
-    $bordered = $query_path->hasClass('usa-accordion-bordered');
-
-    return ['field_collapsible_panel_bordered' => $bordered];
+    return ['field_collapsible_panel_multi' => $query_path->hasAttr('aria-multiselectable')];
   }
 
   /**
@@ -41,13 +40,6 @@ class CollapsiblePanel extends ParagraphType {
    */
   protected function getParagraphField() {
     return 'field_va_paragraphs';
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function getChildClasses() {
-    return ['CollapsiblePanelItem'];
   }
 
 }
