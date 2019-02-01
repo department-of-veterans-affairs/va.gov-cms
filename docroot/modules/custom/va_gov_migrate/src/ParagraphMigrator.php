@@ -78,6 +78,10 @@ class ParagraphMigrator {
       $class_name = str_replace('.php', '', $file_name);
       $this->paragraphClasses[] = new $class_name($this);
     }
+
+    usort($this->paragraphClasses, function ($a, $b) {
+      return $a->getWeight() > $b->getWeight() ? 1 : ($a->getWeight() < $b->getWeight() ? -1 : 0);
+    });
   }
 
   /**
@@ -94,20 +98,7 @@ class ParagraphMigrator {
    * @throws \Drupal\migrate\MigrateException
    */
   public function process($source_field, $dest_field) {
-    // Clear any existing paragraphs.
-    $paragraph_targets = $this->entity->get($dest_field)->getValue();
-    if (!empty($paragraph_targets)) {
-      $paragraph_ids = [];
-      foreach ($paragraph_targets as $paragraph_target) {
-        $paragraph_ids[] = $paragraph_target['target_id'];
-      }
-      $storage_handler = \Drupal::entityTypeManager()->getStorage('paragraph');
-      $paragraphs = $storage_handler->loadMultiple($paragraph_ids);
-      $storage_handler->delete($paragraphs);
-
-      $this->entity->set($dest_field, []);
-      $this->entity->save();
-    }
+    $this->deleteExistingParagraphs($this->entity, $dest_field);
 
     try {
       $query_path = $this->createQueryPath($this->row->getSourceProperty($source_field));
@@ -288,6 +279,10 @@ class ParagraphMigrator {
       throw new MigrateException("Failed to initialize QueryPath.");
     }
 
+    // Remove all spans with ids
+    // Corrects problem in html where spans acting as anchors aren't closed.
+    $query_path->find('span[id]')->children()->unwrap();
+
     // Remove wrappers added by htmlqp().
     while (in_array($query_path->tag(), ['html', 'body'])) {
       $query_path = $query_path->children();
@@ -347,13 +342,51 @@ class ParagraphMigrator {
    */
   public static function hasContent($html) {
     // These are tags we shouldn't ignore, even if they're empty.
-    $self_contained_tags = '<audio><base><br><embed><form><hr><img><object><progress><svg><video>';
+    $self_contained_tags = '<audio><base><embed><form><hr><img><object><progress><svg><video>';
 
     if (empty(preg_replace('/\s/', '', strip_tags($html, $self_contained_tags)))) {
       return FALSE;
     }
 
     return TRUE;
+  }
+
+  /**
+   * Removes existing paragraphs from the entity and deletes them.
+   *
+   * @param \Drupal\Core\Entity\Entity $entity
+   *   The entity to remove paragraphs from.
+   * @param string $paragraph_field
+   *   The field that contains the paragraphs.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function deleteExistingParagraphs(Entity $entity, $paragraph_field) {
+    // Clear any existing paragraphs.
+    $paragraph_targets = $entity->get($paragraph_field)->getValue();
+    $entity->set($paragraph_field, []);
+    $entity->save();
+
+    if (!empty($paragraph_targets)) {
+      $paragraph_ids = [];
+      foreach ($paragraph_targets as $paragraph_target) {
+        $paragraph_ids[] = $paragraph_target['target_id'];
+      }
+      $storage_handler = \Drupal::entityTypeManager()->getStorage('paragraph');
+      $paragraphs = $storage_handler->loadMultiple($paragraph_ids);
+      foreach ($paragraphs as $paragraph) {
+        $fields = \Drupal::getContainer()->get("entity_field.manager")->getFieldDefinitions($paragraph->getEntityTypeId(), $paragraph->bundle());
+        foreach ($fields as $field) {
+          if ($field->getSetting('handler') == 'default:paragraph') {
+            $this->deleteExistingParagraphs($paragraph, $field->getName());
+            break;
+          }
+        }
+      }
+      $storage_handler->delete($paragraphs);
+    }
   }
 
 }
