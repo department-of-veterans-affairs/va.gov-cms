@@ -1,0 +1,29 @@
+uuid: 2a39f669-ddf3-44a0-aad8-925a698e24a1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.event
+    - taxonomy.vocabulary.administration
+id: node.event.field_administration
+field_name: field_administration
+entity_type: node
+bundle: event
+label: 'Department or program at VA who is managing this event.'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
