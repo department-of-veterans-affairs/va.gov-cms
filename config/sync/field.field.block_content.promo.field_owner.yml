@@ -1,0 +1,29 @@
+uuid: 77e4d1ad-7442-4b5e-b9a2-be99a6efdb57
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.promo
+    - field.storage.block_content.field_owner
+    - taxonomy.vocabulary.administration
+id: block_content.promo.field_owner
+field_name: field_owner
+entity_type: block_content
+bundle: promo
+label: Owner
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
