@@ -1,0 +1,19 @@
+uuid: c4983dd4-8c2a-4eb6-9723-9b9a072fc2e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_location_humanreadable
+    - node.type.event
+id: node.event.field_location_humanreadable
+field_name: field_location_humanreadable
+entity_type: node
+bundle: event
+label: 'A human-readable label for the event location.'
+description: 'Addresses are great for mapping, but real names are usually easier for people to understand. Like “Larkspur Community Center” or “Kittery Public Library, 3rd Floor Meeting Room”.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

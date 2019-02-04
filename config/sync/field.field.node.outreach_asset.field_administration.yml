@@ -1,0 +1,29 @@
+uuid: 8fe4a715-7b17-4ac8-9495-ce9c65a67b0d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.outreach_asset
+    - taxonomy.vocabulary.administration
+id: node.outreach_asset.field_administration
+field_name: field_administration
+entity_type: node
+bundle: outreach_asset
+label: Owner
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

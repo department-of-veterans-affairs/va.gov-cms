@@ -1,0 +1,32 @@
+uuid: a34f1b7f-57f9-480d-b055-d4003f9766f6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media
+    - media.type.document
+    - media.type.image
+    - media.type.video
+    - node.type.outreach_asset
+id: node.outreach_asset.field_media
+field_name: field_media
+entity_type: node
+bundle: outreach_asset
+label: 'File or video'
+description: "<strong>Document:</strong> DOC or PDF<br />\r\n<strong>Image:</strong> PNG or JPG<br />\r\n<strong>Video:</strong> A Youtube URL"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      document: document
+      image: image
+      video: video
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: image
+field_type: entity_reference

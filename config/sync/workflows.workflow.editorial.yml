@@ -5,7 +5,9 @@ dependencies:
   config:
     - block_content.type.alert
     - block_content.type.promo
+    - node.type.event
     - node.type.landing_page
+    - node.type.outreach_asset
     - node.type.page
     - node.type.support_service
   module:
@@ -95,6 +97,8 @@ type_settings:
       - alert
       - promo
     node:
+      - event
       - landing_page
+      - outreach_asset
       - page
       - support_service

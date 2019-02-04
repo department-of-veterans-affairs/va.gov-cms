@@ -19,11 +19,7 @@ settings:
           items:
             - Bold
             - Italic
-            - Strike
-            - Superscript
-            - Subscript
             - '-'
-            - RemoveFormat
         -
           name: Linking
           items:
@@ -37,24 +33,18 @@ settings:
         -
           name: Media
           items:
-            - Blockquote
-            - Table
             - HorizontalRule
-            - media_browser
+            - Source
         -
           name: 'Block Formatting'
           items:
             - Format
-        -
-          name: Tools
-          items:
-            - ShowBlocks
-            - Source
+            - Styles
   plugins:
     language:
       language_list: un
     stylescombo:
-      styles: ''
+      styles: 'p.addressblock|Address Block'
 image_upload:
   status: true
   scheme: public
