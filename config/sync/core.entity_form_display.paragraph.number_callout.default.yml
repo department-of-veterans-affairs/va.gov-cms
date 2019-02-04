@@ -1,0 +1,35 @@
+uuid: 415783f7-2aaf-48c7-b439-d239cc140a0e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.number_callout.field_short_phrase_with_a_number
+    - field.field.paragraph.number_callout.field_wysiwyg
+    - paragraphs.paragraphs_type.number_callout
+  module:
+    - text
+id: paragraph.number_callout.default
+targetEntityType: paragraph
+bundle: number_callout
+mode: default
+content:
+  field_short_phrase_with_a_number:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_wysiwyg:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true
