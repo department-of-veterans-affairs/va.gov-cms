@@ -1,0 +1,35 @@
+uuid: ae6fdded-6d29-466b-88da-63da2c729482
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.spanish_translation_summary.field_text_expander
+    - field.field.paragraph.spanish_translation_summary.field_wysiwyg
+    - paragraphs.paragraphs_type.spanish_translation_summary
+  module:
+    - text
+id: paragraph.spanish_translation_summary.default
+targetEntityType: paragraph
+bundle: spanish_translation_summary
+mode: default
+content:
+  field_text_expander:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_wysiwyg:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

@@ -1,0 +1,21 @@
+uuid: 214f88b6-30f2-449d-9206-224686ebdde4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_wysiwyg
+    - paragraphs.paragraphs_type.number_callout
+  module:
+    - text
+id: paragraph.number_callout.field_wysiwyg
+field_name: field_wysiwyg
+entity_type: paragraph
+bundle: number_callout
+label: 'Additional information'
+description: 'Should supplement the short, number-driven answer provided above.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

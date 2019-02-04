@@ -9,6 +9,7 @@ dependencies:
     - paragraphs.paragraphs_type.process
     - paragraphs.paragraphs_type.q_a_section
     - paragraphs.paragraphs_type.react_widget
+    - paragraphs.paragraphs_type.spanish_translation_summary
     - paragraphs.paragraphs_type.wysiwyg
   module:
     - entity_reference_revisions
@@ -32,44 +33,48 @@ settings:
       process: process
       q_a_section: q_a_section
       react_widget: react_widget
+      spanish_translation_summary: spanish_translation_summary
     target_bundles_drag_drop:
       wysiwyg:
         enabled: true
-        weight: -27
+        weight: -29
       collapsible_panel:
         enabled: true
-        weight: -26
+        weight: -28
       process:
         enabled: true
-        weight: -25
+        weight: -27
       q_a_section:
         enabled: true
-        weight: -24
+        weight: -26
       react_widget:
         enabled: true
-        weight: -23
+        weight: -25
+      spanish_translation_summary:
+        enabled: true
+        weight: -24
       collapsible_panel_item:
-        weight: -22
+        weight: -23
         enabled: false
       link_teaser:
-        weight: -21
+        weight: -22
         enabled: false
       list_of_link_teasers:
-        weight: -20
+        weight: -21
         enabled: false
       address:
-        weight: -19
+        weight: -20
         enabled: false
       alert:
-        weight: -18
+        weight: -19
         enabled: false
       expandable_text:
-        weight: -17
+        weight: -18
         enabled: false
       starred_horizontal_rule:
-        weight: -16
+        weight: -17
         enabled: false
       q_a:
-        weight: -15
+        weight: -16
         enabled: false
 field_type: entity_reference_revisions
