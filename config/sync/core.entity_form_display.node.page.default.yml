@@ -12,11 +12,13 @@ dependencies:
     - field.field.node.page.field_page_last_built
     - field.field.node.page.field_plainlanguage_date
     - field.field.node.page.field_related_links
+    - field.field.node.page.field_sidebar_nav_item
     - node.type.page
   module:
     - content_moderation
     - datetime
     - field_group
+    - hide_revision_field
     - metatag
     - paragraphs
     - path
@@ -25,18 +27,47 @@ third_party_settings:
     group_governance:
       children:
         - field_plainlanguage_date
-        - field_last_update
+        - moderation_state
+        - revision_log
       parent_name: ''
-      weight: 10
-      format_type: details_sidebar
+      weight: 8
+      format_type: details
       format_settings:
         label: Governance
-        open: '1'
+        open: true
         weight: '-10'
-        required_fields: '1'
+        required_fields: true
         id: ''
         classes: ''
       label: Governance
+      region: content
+    group_include_crisis_alert:
+      children:
+        - field_alert
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        label: 'Include crisis alert'
+        description: 'Crisis alerts draw attention to information that will be useful to veterans experiencing an active crisis. You can <a href="http://vagovcms.lndo.site/block/add/alert?destination=/admin/content/alerts">create a new crisis alert</a>, or reuse an existing one.'
+        id: ''
+        classes: ''
+        required_fields: false
+      label: 'Include crisis alert'
+      region: content
+    group_status:
+      children:
+        - field_page_last_built
+      parent_name: ''
+      weight: 6
+      format_type: details_sidebar
+      format_settings:
+        id: ''
+        classes: ''
+        open: 0
+        required_fields: 1
+        weight: '-5'
+      label: Status
       region: content
 _core:
   default_config_hash: 7fm6IQg6gNfLHHQlwMKSUqMSbPhM8O91P6nqQkjtH80
@@ -47,19 +78,22 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 12
+    weight: 10
     settings: {  }
     third_party_settings: {  }
     region: content
   field_alert:
     weight: 3
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: options_select
+    type: entity_reference_autocomplete
     region: content
   field_content_block:
     type: paragraphs
-    weight: 6
+    weight: 5
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -114,15 +148,15 @@ content:
   field_meta_tags:
     type: metatag_firehose
     region: content
-    weight: 17
+    weight: 13
     settings: {  }
     third_party_settings: {  }
   field_page_last_built:
-    weight: 26
+    type: datetime_default
+    weight: 17
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: datetime_default
-    region: content
   field_plainlanguage_date:
     weight: 7
     settings: {  }
@@ -131,7 +165,7 @@ content:
     region: content
   field_related_links:
     type: paragraphs
-    weight: 9
+    weight: 7
     settings:
       title: 'Link teaser'
       title_plural: 'Link teaser'
@@ -156,20 +190,13 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 15
+    weight: 11
     settings: {  }
-    third_party_settings: {  }
-    region: content
-  promote:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 13
     third_party_settings: {  }
     region: content
   revision_log:
     type: hide_revision_field_log_widget
-    weight: 80
+    weight: 9
     region: content
     settings:
       show: true
@@ -181,16 +208,9 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 16
+    weight: 12
     settings:
       display_label: true
-    third_party_settings: {  }
-    region: content
-  sticky:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 14
     third_party_settings: {  }
     region: content
   title:
@@ -203,7 +223,7 @@ content:
     region: content
   uid:
     type: entity_reference_autocomplete
-    weight: 11
+    weight: 9
     settings:
       match_operator: CONTAINS
       size: 60
@@ -211,9 +231,12 @@ content:
     third_party_settings: {  }
     region: content
   url_redirects:
-    weight: 18
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_sidebar_nav_item: true
   panelizer: true
+  promote: true
+  sticky: true
