@@ -14,7 +14,7 @@ field_name: field_featured_content
 entity_type: node
 bundle: page
 label: 'Featured content'
-description: 'Highlight the most important content on your page here, in the form of a Q&A or some text edited in a WYWSIWYG editor.'
+description: 'This section is not required, and should <strong>only</strong> be used to highlight content that is extremely relevant (like Eligibility Requirements, or a list of health risks to watch for) to the majority of visitors exploring this page. It should <em>not</em> be used to hold overview content or basic questions. '
 required: false
 translatable: false
 default_value: {  }
@@ -65,5 +65,11 @@ settings:
         enabled: false
       starred_horizontal_rule:
         weight: -15
+        enabled: false
+      number_callout:
+        weight: 23
+        enabled: false
+      spanish_translation_summary:
+        weight: 28
         enabled: false
 field_type: entity_reference_revisions

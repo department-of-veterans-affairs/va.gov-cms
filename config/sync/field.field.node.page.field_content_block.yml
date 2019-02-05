@@ -18,8 +18,8 @@ field_name: field_content_block
 entity_type: node
 bundle: page
 label: 'Main content'
-description: '[Some help text]'
-required: false
+description: "You can create your main content using one or more of these options:\r\n<ul><li>Use <em>WYSIWYG</em> for simple formatted text, including lists.</li>\r\n<li>Use <em>Q&A Section</em> for content that contains a single or multiple question-and-answers.</li>\r\n<li>Use <em>Process</em> to explain a list of numbered steps.</li>\r\n<li>Use <em>Spanish summary</em> to include a brief spanish-language summary of the content.</li>\r\n<li>Use <em>Accordion Group</em> to create a group of accordions that can store detailed content in collapsible sections. Do <em>not</em> use <em>Accordion Group</em> for a series of Q&As (use Q&A Section for that, there is an option to format the section as a group of accordions)</li>\r\n<li>Use <em>React Widget</em> if you are an advanced editor and you want to place a react widget on the page. </li></ul>"
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
@@ -29,52 +29,55 @@ settings:
     negate: 0
     target_bundles:
       wysiwyg: wysiwyg
-      collapsible_panel: collapsible_panel
-      process: process
       q_a_section: q_a_section
-      react_widget: react_widget
+      process: process
       spanish_translation_summary: spanish_translation_summary
+      collapsible_panel: collapsible_panel
+      react_widget: react_widget
     target_bundles_drag_drop:
       wysiwyg:
         enabled: true
-        weight: -29
-      collapsible_panel:
-        enabled: true
-        weight: -28
-      process:
-        enabled: true
-        weight: -27
+        weight: -31
       q_a_section:
         enabled: true
-        weight: -26
-      react_widget:
+        weight: -30
+      process:
         enabled: true
-        weight: -25
+        weight: -29
       spanish_translation_summary:
         enabled: true
-        weight: -24
+        weight: -28
+      collapsible_panel:
+        enabled: true
+        weight: -27
+      react_widget:
+        enabled: true
+        weight: -26
       collapsible_panel_item:
-        weight: -23
+        weight: -25
         enabled: false
       link_teaser:
-        weight: -22
+        weight: -24
         enabled: false
       list_of_link_teasers:
-        weight: -21
+        weight: -23
         enabled: false
       address:
-        weight: -20
+        weight: -22
         enabled: false
       alert:
-        weight: -19
+        weight: -21
         enabled: false
       expandable_text:
-        weight: -18
+        weight: -20
         enabled: false
       starred_horizontal_rule:
-        weight: -17
+        weight: -19
         enabled: false
       q_a:
-        weight: -16
+        weight: -18
+        enabled: false
+      number_callout:
+        weight: -17
         enabled: false
 field_type: entity_reference_revisions

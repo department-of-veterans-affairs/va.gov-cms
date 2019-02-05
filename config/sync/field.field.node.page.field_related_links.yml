@@ -13,7 +13,7 @@ field_name: field_related_links
 entity_type: node
 bundle: page
 label: 'Related Links'
-description: '[Some help text]'
+description: "<p>Include links to other closely-related programs or services in the VA that are likely to be helpful to visitors needing the information on this page.</p>\r\n \r\n<p>Avoid linking to high-level pages (like \"Learn more about VA benefits\" or \"Find your closest VA medical center\") as those are easily reached in the main site navigation.</p>"
 required: false
 translatable: false
 default_value: {  }
@@ -63,5 +63,11 @@ settings:
         enabled: false
       react_widget:
         weight: -15
+        enabled: false
+      number_callout:
+        weight: 23
+        enabled: false
+      spanish_translation_summary:
+        weight: 28
         enabled: false
 field_type: entity_reference_revisions
