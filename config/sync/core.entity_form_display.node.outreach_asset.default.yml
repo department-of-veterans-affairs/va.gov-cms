@@ -1,0 +1,155 @@
+uuid: 3f24dd16-5ca2-4f5b-967e-bc14c2016901
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.media_library
+    - field.field.node.outreach_asset.field_administration
+    - field.field.node.outreach_asset.field_description
+    - field.field.node.outreach_asset.field_format
+    - field.field.node.outreach_asset.field_media
+    - field.field.node.outreach_asset.field_meta_tags
+    - field.field.node.outreach_asset.field_related_benefits
+    - node.type.outreach_asset
+  module:
+    - content_moderation
+    - cshs
+    - field_group
+    - inline_entity_form
+    - metatag
+    - path
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 0
+      format_type: details_sidebar
+      format_settings:
+        label: Governance
+        open: '1'
+        weight: '-10'
+        id: ''
+        classes: ''
+        required_fields: 0
+      label: Governance
+      region: content
+id: node.outreach_asset.default
+targetEntityType: node
+bundle: outreach_asset
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_administration:
+    weight: 14
+    settings:
+      parent: 0
+      level_labels: ''
+      force_deepest: false
+    third_party_settings: {  }
+    type: cshs
+    region: content
+  field_description:
+    weight: 11
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_format:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_media:
+    type: inline_entity_form_complex
+    weight: 13
+    settings:
+      form_mode: media_library
+      label_singular: ''
+      label_plural: ''
+      collapsible: true
+      collapsed: true
+      allow_new: true
+      match_operator: CONTAINS
+      override_labels: false
+      allow_existing: false
+      allow_duplicate: false
+    region: content
+    third_party_settings: {  }
+  field_meta_tags:
+    weight: 15
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_firehose
+    region: content
+  field_related_benefits:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 8
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 4
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 9
+    region: content
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 5
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    region: content
+    third_party_settings: {  }
+  url_redirects:
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

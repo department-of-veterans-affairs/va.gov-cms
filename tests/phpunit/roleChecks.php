@@ -43,4 +43,35 @@ class RoleChecks extends ExistingSiteBase {
 
   }
 
+  /**
+   * A test method to deterine User Access Admin role perms.
+   */
+  public function testUserAccessAdminRolePerms() {
+
+    // Load the role.
+    $admin_user = Role::load('admnistrator_users');
+
+    $role_list = [];
+
+    // These are the perms we want.
+    $includes = [
+      'assign content_api_consumer role',
+      'assign content_editor role',
+      'assign content_publisher role',
+      'assign content_reviewer role',
+      'assign selected workbench access',
+    ];
+    foreach ($includes as $inc) {
+      if ($admin_user->hasPermission($inc)) {
+        $role_list[] = $inc;
+      }
+    }
+
+    // Validates role perms are there.
+    foreach ($includes as $perm) {
+      $this->assertContains($perm, $role_list);
+    }
+
+  }
+
 }

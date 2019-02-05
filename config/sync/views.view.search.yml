@@ -1,6 +1,6 @@
 uuid: 55705078-ff88-43b1-a7d3-bfb5dabffe18
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - search_api.index.content
@@ -77,8 +77,11 @@ display:
         options:
           view_modes:
             'entity:node':
+              event: default
               landing_page: default
+              outreach_asset: default
               page: teaser
+              shareable: default
       fields:
         rendered:
           table: search_api_index_content

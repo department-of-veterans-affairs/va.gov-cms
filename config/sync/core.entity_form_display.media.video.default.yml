@@ -26,13 +26,13 @@ content:
     region: content
   field_media_video_embed_field:
     type: video_embed_field_textfield
-    weight: 1
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     region: content
   moderation_state:
     type: moderation_state_default
-    weight: 100
+    weight: 5
     settings: {  }
     region: content
     third_party_settings: {  }
@@ -46,22 +46,19 @@ content:
     region: content
   path:
     type: path
-    weight: 30
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
-  preview:
-    weight: 0
-    settings: {  }
-    third_party_settings: {  }
-    region: content
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 100
+    weight: 4
     region: content
     third_party_settings: {  }
 hidden:
   created: true
+  preview: true
+  revision_log_message: true
   uid: true

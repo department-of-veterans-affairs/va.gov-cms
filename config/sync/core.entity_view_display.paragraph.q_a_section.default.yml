@@ -3,8 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.q_a_section.field_accordion_display
     - field.field.paragraph.q_a_section.field_questions
     - field.field.paragraph.q_a_section.field_section_header
+    - field.field.paragraph.q_a_section.field_section_intro
     - paragraphs.paragraphs_type.q_a_section
   module:
     - entity_reference_revisions
@@ -13,6 +15,16 @@ targetEntityType: paragraph
 bundle: q_a_section
 mode: default
 content:
+  field_accordion_display:
+    weight: 3
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
   field_questions:
     type: entity_reference_revisions_entity_view
     weight: 1
@@ -29,5 +41,12 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_section_intro:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
     region: content
 hidden: {  }

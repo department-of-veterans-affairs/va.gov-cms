@@ -1,0 +1,31 @@
+uuid: b0057b18-fa92-43a0-bdbf-cf55154a6a4b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.spanish_translation_summary.field_text_expander
+    - field.field.paragraph.spanish_translation_summary.field_wysiwyg
+    - paragraphs.paragraphs_type.spanish_translation_summary
+  module:
+    - text
+id: paragraph.spanish_translation_summary.default
+targetEntityType: paragraph
+bundle: spanish_translation_summary
+mode: default
+content:
+  field_text_expander:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_wysiwyg:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden: {  }

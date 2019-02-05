@@ -4,7 +4,10 @@ status: true
 dependencies:
   config:
     - field.field.block_content.alert.field_owner
+    - field.field.block_content.promo.field_owner
+    - field.field.node.event.field_administration
     - field.field.node.landing_page.field_administration
+    - field.field.node.outreach_asset.field_administration
     - taxonomy.vocabulary.administration
 id: section
 label: Section
@@ -19,6 +22,18 @@ scheme_settings:
       bundle: alert
       field: field_owner
     -
+      entity_type: block_content
+      bundle: promo
+      field: field_owner
+    -
       entity_type: node
       bundle: landing_page
+      field: field_administration
+    -
+      entity_type: node
+      bundle: event
+      field: field_administration
+    -
+      entity_type: node
+      bundle: outreach_asset
       field: field_administration

@@ -1,0 +1,28 @@
+uuid: 327d3928-5571-4c1d-86ad-75e49826262a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.outreach_asset.field_description
+    - field.field.node.outreach_asset.field_format
+    - field.field.node.outreach_asset.field_media
+    - field.field.node.outreach_asset.field_related_benefits
+    - node.type.outreach_asset
+  module:
+    - user
+id: node.outreach_asset.teaser
+targetEntityType: node
+bundle: outreach_asset
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_description: true
+  field_format: true
+  field_media: true
+  field_related_benefits: true

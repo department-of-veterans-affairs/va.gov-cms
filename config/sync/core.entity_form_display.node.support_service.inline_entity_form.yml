@@ -30,6 +30,18 @@ content:
     settings:
       placeholder: ''
     third_party_settings: {  }
+  revision_log:
+    type: hide_revision_field_log_widget
+    weight: 80
+    region: content
+    settings:
+      show: true
+      default: ''
+      permission_based: false
+      allow_user_settings: true
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
@@ -45,6 +57,7 @@ content:
     region: content
 hidden:
   created: true
+  field_page_last_built: true
   moderation_state: true
   path: true
   promote: true
