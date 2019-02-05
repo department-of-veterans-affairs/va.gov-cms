@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.event.field_administration
     - field.field.node.landing_page.field_administration
     - field.field.node.outreach_asset.field_administration
+    - field.field.node.page.field_administration
     - taxonomy.vocabulary.administration
 id: section
 label: Section
@@ -31,9 +32,13 @@ scheme_settings:
       field: field_administration
     -
       entity_type: node
+      bundle: outreach_asset
+      field: field_administration
+    -
+      entity_type: node
       bundle: event
       field: field_administration
     -
       entity_type: node
-      bundle: outreach_asset
+      bundle: page
       field: field_administration
