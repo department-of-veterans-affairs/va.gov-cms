@@ -18,7 +18,7 @@ bundle: document
 mode: default
 content:
   field_document:
-    weight: 0
+    weight: 1
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
@@ -28,18 +28,18 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 3
+    weight: 2
     third_party_settings: {  }
     region: content
   moderation_state:
     type: moderation_state_default
-    weight: 100
+    weight: 4
     settings: {  }
     region: content
     third_party_settings: {  }
   name:
     type: string_textfield
-    weight: 2
+    weight: 0
     settings:
       size: 60
       placeholder: ''
@@ -47,17 +47,12 @@ content:
     region: content
   path:
     type: path
-    weight: 30
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 100
-    region: content
-    third_party_settings: {  }
 hidden:
   created: true
+  revision_log_message: true
+  status: true
   uid: true

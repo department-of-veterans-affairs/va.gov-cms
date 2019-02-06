@@ -14,14 +14,14 @@ field_name: field_document
 entity_type: media
 bundle: document
 label: Document
-description: ''
-required: false
+description: 'For PDFs, please make sure the text can be cleanly copied out of the file – simple formatting is best.'
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
   file_directory: '[date:custom:Y]-[date:custom:m]'
-  file_extensions: 'txt pdf doc docx'
+  file_extensions: 'pdf doc docx'
   max_filesize: ''
   description_field: false
   handler: 'default:file'

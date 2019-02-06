@@ -1,0 +1,22 @@
+uuid: 586c2fcd-e4ad-4192-853f-7802803a3360
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.outreach_asset
+id: node.outreach_asset.promote
+field_name: promote
+entity_type: node
+bundle: outreach_asset
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

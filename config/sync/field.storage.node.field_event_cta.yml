@@ -1,0 +1,33 @@
+uuid: ebc45abb-0bec-4c86-b8ad-7f91a5cf8e18
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_event_cta
+field_name: field_event_cta
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: register
+      label: Register
+    -
+      value: apply
+      label: Apply
+    -
+      value: rsvp
+      label: RSVP
+    -
+      value: more_details
+      label: 'More Details'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

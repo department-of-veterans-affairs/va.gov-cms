@@ -52,16 +52,17 @@ abstract class ParagraphType {
   public function process(DOMQuery $query_path, Entity $entity, $parent_field, array $allowed_paragraphs) {
     try {
       if ($this->isParagraph($query_path)) {
-        if ("node" == $entity->getEntityTypeId()) {
-          $title = $entity->get('title')->value;
-        }
-        if (!in_array($this->getParagraphName(), $allowed_paragraphs)) {
+        if (!$this->allowedParagraph($allowed_paragraphs)) {
+          if ("node" == $entity->getEntityTypeId()) {
+            $title = $entity->get('title')->value;
+          }
+
           Message::make('@class not allowed on @type in field @field @node',
             [
               '@class' => $this->getParagraphName(),
               '@type' => $entity->bundle(),
               '@field' => $parent_field,
-              '@node' => empty($title) ? "" : "on $title",
+              '@node' => empty($title) ? html_entity_decode(substr($query_path->html(), 0, 150)) : "on $title",
             ],
             Message::ERROR
           );
@@ -75,13 +76,11 @@ abstract class ParagraphType {
 
         static::attachParagraph($paragraph, $entity, $parent_field);
 
-        // If this paragraph may contain other paragraphs, add them too.
-        if (!empty($this->getParagraphField()) && count($query_path->children())) {
-          self::$migrator->addParagraphs($query_path->children(), $paragraph, $this->getParagraphField());
-        }
+        $this->addChildParagraphs($paragraph, $query_path);
+
         return TRUE;
       }
-      if ($this->isExternalContent($query_path) && in_array($this->getParagraphName(), $allowed_paragraphs)) {
+      if ($this->isExternalContent($query_path) && $this->allowedParagraph($allowed_paragraphs)) {
         return TRUE;
       }
     }
@@ -133,18 +132,6 @@ abstract class ParagraphType {
   }
 
   /**
-   * If a paragraph has a paragraph field, the classes that it can contain.
-   *
-   * @return array
-   *   The class names of paragraphs the paragraph field can contain.
-   *
-   *   If empty, there is no restriction on the classes that can be used.
-   */
-  protected function getChildClasses() {
-    return [];
-  }
-
-  /**
    * Test query path to see if it's external content.
    *
    * If a query path belongs to a paragraph entity but isn't nested in the same
@@ -191,5 +178,45 @@ abstract class ParagraphType {
    *   True if the query_path matches the paragraph selector.
    */
   abstract protected function isParagraph(DOMQuery $query_path);
+
+  /**
+   * Determines the order in which this paragraph type processes the query.
+   *
+   * @return int
+   *   The weight of this type. Lower weights are processed earlier
+   */
+  public function getWeight() {
+    return 0;
+  }
+
+  /**
+   * Checks whether this paragraph is allowed on the parent field.
+   *
+   * @param array $allowed_paragraphs
+   *   An array of the machine names of paragraphs allowed on this field.
+   *
+   * @return bool
+   *   True if this paragraph is allowed, false if it's not.
+   */
+  protected function allowedParagraph(array $allowed_paragraphs) {
+    return in_array($this->getParagraphName(), $allowed_paragraphs);
+  }
+
+  /**
+   * If the paragraph can contain other paragraphs add them here.
+   *
+   * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
+   *   The paragraph to attach children to.
+   * @param \QueryPath\DOMQuery $query_path
+   *   The dom query containing html for the child paragraphs.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  protected function addChildParagraphs(Paragraph $paragraph, DOMQuery $query_path) {
+    // If this paragraph may contain other paragraphs, add them too.
+    if (!empty($this->getParagraphField()) && count($query_path->children())) {
+      self::$migrator->addParagraphs($query_path->children(), $paragraph, $this->getParagraphField());
+    }
+  }
 
 }

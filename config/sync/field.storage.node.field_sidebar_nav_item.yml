@@ -1,0 +1,20 @@
+uuid: 87ecb9af-5659-4101-89c9-3a2252e1dac5
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_sidebar_nav_item
+field_name: field_sidebar_nav_item
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

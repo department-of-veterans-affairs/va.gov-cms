@@ -3,8 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.q_a_section.field_accordion_display
     - field.field.paragraph.q_a_section.field_questions
     - field.field.paragraph.q_a_section.field_section_header
+    - field.field.paragraph.q_a_section.field_section_intro
     - paragraphs.paragraphs_type.q_a_section
   module:
     - paragraphs
@@ -13,9 +15,16 @@ targetEntityType: paragraph
 bundle: q_a_section
 mode: default
 content:
+  field_accordion_display:
+    weight: 2
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
   field_questions:
     type: entity_reference_paragraphs
-    weight: 1
+    weight: 3
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -32,6 +41,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
+  field_section_intro:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
     region: content
 hidden:
   created: true

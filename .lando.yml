@@ -10,6 +10,14 @@ events:
   post-db-import:
     - appserver: cd $LANDO_WEBROOT && drush cr -y
 
+  # Mirrors what is in lando-entrypoint-app.sh
+  # @todo don't use absolute path, somehow lando is not detecting drush in path right now. Fix this. 
+  post-db-sync-stg:
+    - appserver: cd $LANDO_WEBROOT && /app/docroot/vendor/bin/drush cache-rebuild -y
+    - appserver: cd $LANDO_WEBROOT && /app/docroot/vendor/bin/drush updatedb -y 
+    - appserver: cd $LANDO_WEBROOT && /app/docroot/vendor/bin/drush config:import -y
+    - appserver: cd $LANDO_WEBROOT && /app/docroot/vendor/bin/drush cache-rebuild -y
+
   # Runs composer install after app starts
   post-start:
     - appserver: cd $LANDO_MOUNT && composer install
@@ -73,5 +81,5 @@ tooling:
     service: node
   db-sync-stg:
     service: appserver
-    description: Sync latest STG DB to local
+    description: Sync sanitized STG DB to local (up to 2 hours old)
     cmd: /app/scripts/sync-db-stg.sh && echo "Importing STG database" && `/app/docroot/vendor/bin/drush sql-connect` < /app/.sql-dumps/db-latest.sql && echo "STG database import complete"

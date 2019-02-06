@@ -6,10 +6,13 @@ dependencies:
     - block_content.type.promo
     - entity_browser.browser.media_browser
     - field.field.block_content.promo.field_image
+    - field.field.block_content.promo.field_owner
     - field.field.block_content.promo.field_promo_link
   module:
     - content_moderation
+    - cshs
     - entity_browser
+    - hide_revision_field
     - paragraphs
 id: block_content.promo.default
 targetEntityType: block_content
@@ -31,6 +34,15 @@ content:
       field_widget_replace: false
     region: content
     third_party_settings: {  }
+  field_owner:
+    weight: 26
+    settings:
+      parent: 0
+      level_labels: ''
+      force_deepest: false
+    third_party_settings: {  }
+    type: cshs
+    region: content
   field_promo_link:
     type: entity_reference_paragraphs
     weight: 2
@@ -56,5 +68,17 @@ content:
     weight: 3
     region: content
     settings: {  }
+    third_party_settings: {  }
+  revision_log:
+    type: hide_revision_field_log_widget
+    weight: 80
+    region: content
+    settings:
+      show: true
+      default: ''
+      permission_based: false
+      allow_user_settings: true
+      rows: 5
+      placeholder: ''
     third_party_settings: {  }
 hidden: {  }

@@ -1,0 +1,22 @@
+uuid: d57b0ad6-e2c0-4ef9-a341-dd1c746e1baf
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.outreach_asset
+id: node.outreach_asset.status
+field_name: status
+entity_type: node
+bundle: outreach_asset
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
