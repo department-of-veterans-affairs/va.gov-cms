@@ -1,0 +1,74 @@
+uuid: 4711b98a-50ec-4b4f-94ce-e11d3698282d
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - va_gov_migrate
+_core:
+  default_config_hash: m7LzpAMYvT6LDAgggMm0NZ7RfokvGnXDsp8X6Z_tAZQ
+id: va_outreach_video
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
+migration_group: va_outreach
+label: '2. Migrate videos for outreach assets.'
+source:
+  plugin: csv
+  path: modules/custom/va_gov_migrate/data/assets-grid.csv
+  header_row_count: 1
+  keys:
+    - url
+  column_names:
+    -
+      url: URL
+    -
+      title: Title
+    -
+      topics: Topics
+    -
+      format: Format
+  migration_tools:
+    -
+      source: url
+      source_type: url
+      curl_options:
+        -
+          name: CURLOPT_USERAGENT
+          value: 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'
+      source_operations:
+        -
+          operation: modifier
+          modifier: basicCleanup
+      fields:
+        iframe:
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainIframeVideo
+          jobs:
+            -
+              job: addSearch
+              method: findIframes
+              arguments:
+                - '#youtube_player'
+      dom_operations:
+        -
+          operation: get_field
+          field: iframe
+process:
+  field_media_video_embed_field:
+    -
+      plugin: extract
+      source: iframe
+      index:
+        - 0
+        - url
+  name:
+    plugin: extract
+    source: iframe
+    index:
+      - 0
+      - title
+destination:
+  plugin: 'entity:media'
+  default_bundle: video
+migration_dependencies: {  }
