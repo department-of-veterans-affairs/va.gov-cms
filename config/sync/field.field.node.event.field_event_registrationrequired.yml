@@ -1,0 +1,23 @@
+uuid: 4281d18f-55c5-40c8-9ebf-3465e9def83e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_event_registrationrequired
+    - node.type.event
+id: node.event.field_event_registrationrequired
+field_name: field_event_registrationrequired
+entity_type: node
+bundle: event
+label: 'Registration required'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean
