@@ -5,16 +5,17 @@ dependencies:
   config:
     - core.entity_form_mode.media.media_library
     - field.field.node.outreach_asset.field_administration
+    - field.field.node.outreach_asset.field_benefits
     - field.field.node.outreach_asset.field_description
     - field.field.node.outreach_asset.field_format
     - field.field.node.outreach_asset.field_media
     - field.field.node.outreach_asset.field_meta_tags
-    - field.field.node.outreach_asset.field_related_benefits
     - node.type.outreach_asset
   module:
     - content_moderation
     - cshs
     - field_group
+    - hide_revision_field
     - inline_entity_form
     - metatag
     - path
@@ -55,6 +56,12 @@ content:
     third_party_settings: {  }
     type: cshs
     region: content
+  field_benefits:
+    weight: 13
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
   field_description:
     weight: 11
     settings:
@@ -71,7 +78,7 @@ content:
     region: content
   field_media:
     type: inline_entity_form_complex
-    weight: 13
+    weight: 14
     settings:
       form_mode: media_library
       label_singular: ''
@@ -91,12 +98,6 @@ content:
     third_party_settings: {  }
     type: metatag_firehose
     region: content
-  field_related_benefits:
-    weight: 12
-    settings: {  }
-    third_party_settings: {  }
-    type: options_buttons
-    region: content
   moderation_state:
     type: moderation_state_default
     weight: 8
@@ -115,6 +116,18 @@ content:
       display_label: true
     weight: 4
     region: content
+    third_party_settings: {  }
+  revision_log:
+    type: hide_revision_field_log_widget
+    weight: 16
+    region: content
+    settings:
+      show: true
+      default: ''
+      permission_based: false
+      allow_user_settings: true
+      rows: 5
+      placeholder: ''
     third_party_settings: {  }
   status:
     type: boolean_checkbox
