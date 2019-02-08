@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_featured_content
     - node.type.page
+    - paragraphs.paragraphs_type.list_of_link_teasers
     - paragraphs.paragraphs_type.q_a
     - paragraphs.paragraphs_type.wysiwyg
   module:
@@ -26,6 +27,7 @@ settings:
     target_bundles:
       wysiwyg: wysiwyg
       q_a: q_a
+      list_of_link_teasers: list_of_link_teasers
     target_bundles_drag_drop:
       wysiwyg:
         enabled: true
@@ -52,8 +54,8 @@ settings:
         weight: -20
         enabled: false
       list_of_link_teasers:
+        enabled: true
         weight: -19
-        enabled: false
       process:
         weight: -18
         enabled: false
