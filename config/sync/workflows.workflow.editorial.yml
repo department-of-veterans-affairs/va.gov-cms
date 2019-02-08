@@ -6,16 +6,20 @@ dependencies:
     - block_content.type.alert
     - block_content.type.promo
     - node.type.event
+    - node.type.health_care_local_facility
+    - node.type.health_care_region_page
     - node.type.landing_page
+    - node.type.news_story
     - node.type.outreach_asset
     - node.type.page
+    - node.type.person_profile
     - node.type.support_service
   module:
     - content_moderation
 _core:
   default_config_hash: 8FLw3dX-3yJxrgAtaiNul_N8e8yc70gQD4u9UehUHhs
 id: editorial
-label: Editorial
+label: 'Editorial workflow'
 type: content_moderation
 type_settings:
   states:
@@ -98,7 +102,11 @@ type_settings:
       - promo
     node:
       - event
+      - health_care_local_facility
+      - health_care_region_page
       - landing_page
+      - news_story
       - outreach_asset
       - page
+      - person_profile
       - support_service
