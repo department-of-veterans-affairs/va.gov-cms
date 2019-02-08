@@ -1,0 +1,35 @@
+uuid: 39af0a7e-25e4-4af3-b1c7-dc42f643f382
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.health_care_local_facility_servi.field_title
+    - field.field.paragraph.health_care_local_facility_servi.field_wysiwyg
+    - paragraphs.paragraphs_type.health_care_local_facility_servi
+  module:
+    - text
+id: paragraph.health_care_local_facility_servi.default
+targetEntityType: paragraph
+bundle: health_care_local_facility_servi
+mode: default
+content:
+  field_title:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_wysiwyg:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

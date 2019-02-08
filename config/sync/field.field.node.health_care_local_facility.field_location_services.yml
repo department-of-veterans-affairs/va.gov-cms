@@ -1,0 +1,76 @@
+uuid: 0d60eae8-2061-47cc-84f4-e2002bb9a80c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_location_services
+    - node.type.health_care_local_facility
+    - paragraphs.paragraphs_type.health_care_local_facility_servi
+  module:
+    - entity_reference_revisions
+id: node.health_care_local_facility.field_location_services
+field_name: field_location_services
+entity_type: node
+bundle: health_care_local_facility
+label: 'Location services'
+description: "<p>Location services include things like transportation, parking, visiting hours information, lodging options for families and caregivers, food & cafeteria options, etc.<p>\r\n\r\n<p><em>Do not</em> include Clinical Health Services or Patient & Family Services, those listings belong at the Region Page level.</p> "
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      health_care_local_facility_servi: health_care_local_facility_servi
+    target_bundles_drag_drop:
+      address:
+        weight: 17
+        enabled: false
+      alert:
+        weight: 18
+        enabled: false
+      collapsible_panel:
+        weight: 19
+        enabled: false
+      collapsible_panel_item:
+        weight: 20
+        enabled: false
+      expandable_text:
+        weight: 21
+        enabled: false
+      health_care_local_facility_servi:
+        enabled: true
+        weight: 22
+      link_teaser:
+        weight: 23
+        enabled: false
+      list_of_link_teasers:
+        weight: 24
+        enabled: false
+      number_callout:
+        weight: 25
+        enabled: false
+      process:
+        weight: 26
+        enabled: false
+      q_a:
+        weight: 27
+        enabled: false
+      q_a_section:
+        weight: 28
+        enabled: false
+      react_widget:
+        weight: 29
+        enabled: false
+      spanish_translation_summary:
+        weight: 30
+        enabled: false
+      starred_horizontal_rule:
+        weight: 31
+        enabled: false
+      wysiwyg:
+        weight: 32
+        enabled: false
+field_type: entity_reference_revisions
