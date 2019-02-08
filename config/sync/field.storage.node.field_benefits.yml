@@ -1,0 +1,51 @@
+uuid: 01e26815-da27-4e90-bc69-0a0ecc63ec12
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_benefits
+field_name: field_benefits
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: general
+      label: 'General Benefits Information'
+    -
+      value: burial
+      label: 'Burial Benefits And Memorial Items'
+    -
+      value: careers
+      label: 'Careers And Employment'
+    -
+      value: disability
+      label: 'Disability Compensation'
+    -
+      value: education
+      label: 'Education And Training Benefits'
+    -
+      value: healthcare
+      label: 'Health Care'
+    -
+      value: housing
+      label: 'Housing Assistance'
+    -
+      value: insurance
+      label: 'Life Insurance'
+    -
+      value: pension
+      label: 'Pension Benefits'
+    -
+      value: records
+      label: Records
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

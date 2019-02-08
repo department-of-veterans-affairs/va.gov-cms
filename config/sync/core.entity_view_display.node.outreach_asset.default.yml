@@ -4,11 +4,11 @@ status: true
 dependencies:
   config:
     - field.field.node.outreach_asset.field_administration
+    - field.field.node.outreach_asset.field_benefits
     - field.field.node.outreach_asset.field_description
     - field.field.node.outreach_asset.field_format
     - field.field.node.outreach_asset.field_media
     - field.field.node.outreach_asset.field_meta_tags
-    - field.field.node.outreach_asset.field_related_benefits
     - node.type.outreach_asset
   module:
     - metatag
@@ -26,6 +26,13 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_benefits:
+    weight: 108
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
     region: content
   field_description:
     weight: 103
@@ -57,14 +64,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: metatag_empty_formatter
-    region: content
-  field_related_benefits:
-    weight: 104
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
     region: content
   links:
     weight: 100
