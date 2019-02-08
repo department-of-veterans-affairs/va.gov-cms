@@ -5,13 +5,14 @@ dependencies:
   config:
     - field.field.node.health_care_region_page.field_administration
     - field.field.node.health_care_region_page.field_clinical_health_care_servi
+    - field.field.node.health_care_region_page.field_clinical_health_services
     - field.field.node.health_care_region_page.field_intro_text
     - field.field.node.health_care_region_page.field_locations_intro_blurb
     - field.field.node.health_care_region_page.field_patient_family_services_in
-    - field.field.node.health_care_region_page.field_popular_links
+    - field.field.node.health_care_region_page.field_related_links
     - node.type.health_care_region_page
   module:
-    - link
+    - entity_reference_revisions
     - text
     - user
 id: node.health_care_region_page.default
@@ -34,6 +35,14 @@ content:
     third_party_settings: {  }
     type: text_default
     region: content
+  field_clinical_health_services:
+    weight: 108
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
   field_intro_text:
     weight: 106
     label: above
@@ -55,17 +64,14 @@ content:
     third_party_settings: {  }
     type: text_default
     region: content
-  field_popular_links:
-    weight: 105
+  field_related_links:
+    weight: 107
     label: above
     settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
+      view_mode: default
+      link: ''
     third_party_settings: {  }
-    type: link
+    type: entity_reference_revisions_entity_view
     region: content
   links:
     weight: 100

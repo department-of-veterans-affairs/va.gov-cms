@@ -5,16 +5,18 @@ dependencies:
   config:
     - field.field.node.health_care_region_page.field_administration
     - field.field.node.health_care_region_page.field_clinical_health_care_servi
+    - field.field.node.health_care_region_page.field_clinical_health_services
     - field.field.node.health_care_region_page.field_intro_text
     - field.field.node.health_care_region_page.field_locations_intro_blurb
     - field.field.node.health_care_region_page.field_patient_family_services_in
-    - field.field.node.health_care_region_page.field_popular_links
+    - field.field.node.health_care_region_page.field_related_links
     - node.type.health_care_region_page
   module:
     - content_moderation
+    - cshs
+    - entity_reference_revisions
     - field_group
     - hide_revision_field
-    - link
     - path
     - text
 third_party_settings:
@@ -23,7 +25,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 11
+      weight: 13
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -38,7 +40,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 12
+      weight: 14
       format_type: fieldset
       format_settings:
         id: ''
@@ -50,8 +52,6 @@ third_party_settings:
     group_intro_text_for_secondary_p:
       children:
         - field_locations_intro_blurb
-        - field_clinical_health_care_servi
-        - field_patient_family_services_in
       parent_name: ''
       weight: 9
       format_type: details
@@ -61,6 +61,32 @@ third_party_settings:
         open: false
         required_fields: true
       label: 'Intro text for secondary pages'
+      region: content
+    group_clinical_health_services:
+      children:
+        - field_clinical_health_care_servi
+      parent_name: ''
+      weight: 10
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: false
+        required_fields: true
+      label: 'Clinical Health Services'
+      region: content
+    group_patient_family_services:
+      children:
+        - field_patient_family_services_in
+      parent_name: ''
+      weight: 11
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: false
+        required_fields: true
+      label: 'Patient & Family Services'
       region: content
 id: node.health_care_region_page.default
 targetEntityType: node
@@ -76,11 +102,11 @@ content:
   field_administration:
     weight: 11
     settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      parent: 0
+      level_labels: ''
+      force_deepest: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: cshs
     region: content
   field_clinical_health_care_servi:
     weight: 11
@@ -89,6 +115,15 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
+  field_clinical_health_services:
+    weight: 16
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
     region: content
   field_intro_text:
     weight: 1
@@ -114,13 +149,14 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
-  field_popular_links:
-    weight: 10
+  field_related_links:
+    weight: 15
     settings:
-      placeholder_url: ''
-      placeholder_title: ''
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: link_default
+    type: entity_reference_revisions_autocomplete
     region: content
   moderation_state:
     type: moderation_state_default

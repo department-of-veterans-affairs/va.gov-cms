@@ -1,0 +1,28 @@
+uuid: c286afac-377d-472f-9e29-60ca1960bbc4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.regional_health_care_service_des.body
+    - node.type.regional_health_care_service_des
+  module:
+    - text
+    - user
+id: node.regional_health_care_service_des.default
+targetEntityType: node
+bundle: regional_health_care_service_des
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }

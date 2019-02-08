@@ -1,17 +1,17 @@
-uuid: 25b6c92f-b7c7-4944-bc40-378d5822556e
+uuid: 7bf66156-eb91-4c58-b9d6-9c7f4c1d1669
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.news_story.body
-    - node.type.news_story
+    - field.field.node.regional_health_care_service_des.body
+    - node.type.regional_health_care_service_des
   module:
     - text
     - user
-id: node.news_story.teaser
+id: node.regional_health_care_service_des.teaser
 targetEntityType: node
-bundle: news_story
+bundle: regional_health_care_service_des
 mode: teaser
 content:
   body:
@@ -27,12 +27,4 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
-hidden:
-  field_administration: true
-  field_author: true
-  field_description: true
-  field_link: true
-  field_media: true
-  field_meta_tags: true
-  field_news_format: true
-  field_press_release_contact: true
+hidden: {  }

@@ -7,7 +7,9 @@ dependencies:
     - field.field.node.person_profile.field_administration
     - field.field.node.person_profile.field_description
     - field.field.node.person_profile.field_email_address
+    - field.field.node.person_profile.field_last_name
     - field.field.node.person_profile.field_meta_tags
+    - field.field.node.person_profile.field_name_first
     - field.field.node.person_profile.field_phone_number
     - field.field.node.person_profile.field_region_page
     - field.field.node.person_profile.field_suffix
@@ -51,12 +53,28 @@ content:
     third_party_settings: {  }
     type: basic_string
     region: content
+  field_last_name:
+    weight: 110
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
   field_meta_tags:
     weight: 106
     label: above
     settings: {  }
     third_party_settings: {  }
     type: metatag_empty_formatter
+    region: content
+  field_name_first:
+    weight: 109
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
     region: content
   field_phone_number:
     weight: 102
@@ -86,4 +104,5 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
-hidden: {  }
+hidden:
+  content_moderation_control: true
