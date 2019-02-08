@@ -1,0 +1,29 @@
+uuid: b493bd21-6c1b-49c2-889a-2b62bfdbe1e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.news_story
+    - taxonomy.vocabulary.administration
+id: node.news_story.field_administration
+field_name: field_administration
+entity_type: node
+bundle: news_story
+label: Owner
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
