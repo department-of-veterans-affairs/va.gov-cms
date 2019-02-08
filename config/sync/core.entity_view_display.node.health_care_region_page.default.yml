@@ -1,0 +1,76 @@
+uuid: 998dc5bd-3f01-41d2-944f-a90528781e07
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.health_care_region_page.field_administration
+    - field.field.node.health_care_region_page.field_clinical_health_care_servi
+    - field.field.node.health_care_region_page.field_intro_text
+    - field.field.node.health_care_region_page.field_locations_intro_blurb
+    - field.field.node.health_care_region_page.field_patient_family_services_in
+    - field.field.node.health_care_region_page.field_popular_links
+    - node.type.health_care_region_page
+  module:
+    - link
+    - text
+    - user
+id: node.health_care_region_page.default
+targetEntityType: node
+bundle: health_care_region_page
+mode: default
+content:
+  field_administration:
+    weight: 101
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_clinical_health_care_servi:
+    weight: 103
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_intro_text:
+    weight: 106
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_locations_intro_blurb:
+    weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_patient_family_services_in:
+    weight: 104
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_popular_links:
+    weight: 105
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
