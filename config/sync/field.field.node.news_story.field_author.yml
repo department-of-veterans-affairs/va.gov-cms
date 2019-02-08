@@ -1,0 +1,28 @@
+uuid: 2e337899-3e5d-4f80-9d3e-43c5adec8513
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_author
+    - node.type.news_story
+    - node.type.person_profile
+id: node.news_story.field_author
+field_name: field_author
+entity_type: node
+bundle: news_story
+label: 'Author byline'
+description: 'An optional byline for news entries. '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      person_profile: person_profile
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,29 @@
+uuid: 9e1008a3-6522-4b6e-9f3c-ee88f413e735
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.health_care_local_facility
+    - taxonomy.vocabulary.administration
+id: node.health_care_local_facility.field_administration
+field_name: field_administration
+entity_type: node
+bundle: health_care_local_facility
+label: Owner
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.event.field_event_cta
     - field.field.node.event.field_event_date
     - field.field.node.event.field_event_date_end
+    - field.field.node.event.field_event_registrationrequired
     - field.field.node.event.field_link
     - field.field.node.event.field_location_humanreadable
     - field.field.node.event.field_meta_tags
@@ -82,6 +83,16 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+    region: content
+  field_event_registrationrequired:
+    weight: 112
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_link:
     weight: 108

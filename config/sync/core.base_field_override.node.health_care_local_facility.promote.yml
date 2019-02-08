@@ -1,0 +1,22 @@
+uuid: 58eec45b-2214-4ad9-927a-fbd04065759b
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.health_care_local_facility
+id: node.health_care_local_facility.promote
+field_name: promote
+entity_type: node
+bundle: health_care_local_facility
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

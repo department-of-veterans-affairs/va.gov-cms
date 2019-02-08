@@ -1,0 +1,23 @@
+uuid: 6d2ba7a5-1fe4-42b0-be6d-de33f3b36fde
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_main_location
+    - node.type.health_care_local_facility
+id: node.health_care_local_facility.field_main_location
+field_name: field_main_location
+entity_type: node
+bundle: health_care_local_facility
+label: 'Main location'
+description: 'Indicate if this is a main location (such as a hospital) for the regional page, or a minor location (such as a clinic) .'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Main location'
+  off_label: 'Other location'
+field_type: boolean

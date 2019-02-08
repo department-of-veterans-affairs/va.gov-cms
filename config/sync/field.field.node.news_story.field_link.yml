@@ -1,0 +1,23 @@
+uuid: 9d5b2bea-947f-4880-aac9-0f1b81cb2491
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_link
+    - node.type.news_story
+  module:
+    - link
+id: node.news_story.field_link
+field_name: field_link
+entity_type: node
+bundle: news_story
+label: 'Link to the original story, if it’s not internal.'
+description: 'If this entry is referring to an article on a 3rd party site (like the New York Times or CNN), include a link to the original here.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 2
+field_type: link
