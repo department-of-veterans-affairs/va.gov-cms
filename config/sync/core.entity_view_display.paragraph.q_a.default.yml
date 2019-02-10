@@ -6,28 +6,18 @@ dependencies:
     - field.field.paragraph.q_a.field_answer
     - field.field.paragraph.q_a.field_question
     - paragraphs.paragraphs_type.q_a
-  module:
-    - entity_reference_revisions
 id: paragraph.q_a.default
 targetEntityType: paragraph
 bundle: q_a
 mode: default
 content:
-  field_answer:
-    type: entity_reference_revisions_entity_view
-    weight: 1
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    region: content
   field_question:
     weight: 0
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
     region: content
-hidden: {  }
+hidden:
+  field_answer: true
