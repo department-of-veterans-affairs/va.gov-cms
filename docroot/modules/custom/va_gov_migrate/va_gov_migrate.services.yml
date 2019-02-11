@@ -3,3 +3,7 @@ services:
     class: Drupal\va_gov_migrate\EventSubscriber\PostRowSave
     tags:
       - { name: event_subscriber }
+  va_gov_migrate.prepare_row:
+    class: Drupal\va_gov_migrate\EventSubscriber\PrepareRow
+    tags:
+      - { name: event_subscriber }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "320449c48941613e9fabcb174a961aad",
+    "content-hash": "5750c3de3cc69080566c89b0d406a7c0",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -5252,6 +5252,65 @@
             }
         },
         {
+            "name": "drupal/migrate_source_csv",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/migrate_source_csv",
+                "reference": "8.x-2.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/migrate_source_csv-8.x-2.2.zip",
+                "reference": "8.x-2.2",
+                "shasum": "c5ea6fffdfcf9d000279e0524b0a6a04ae78cce4"
+            },
+            "require": {
+                "drupal/core": "~8.1"
+            },
+            "require-dev": {
+                "drupal/migrate_plus": "^4",
+                "mikey179/vfsstream": "~1",
+                "phpunit/phpunit": "~4"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.x": "2.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-2.2",
+                    "datestamp": "1527712680",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Lucas Hedding",
+                    "homepage": "https://www.drupal.org/u/heddn",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "mikeryan",
+                    "homepage": "https://www.drupal.org/user/4420"
+                }
+            ],
+            "description": "CSV source migration.",
+            "homepage": "https://www.drupal.org/project/migrate_source_csv",
+            "support": {
+                "source": "https://cgit.drupalcode.org/migrate_source_csv",
+                "issues": "https://www.drupal.org/project/issues/migrate_source_csv",
+                "irc": "irc://irc.freenode.org/drupal-migrate"
+            }
+        },
+        {
             "name": "drupal/migrate_tools",
             "version": "4.1.0",
             "source": {
@@ -5350,7 +5409,8 @@
                     }
                 },
                 "patches_applied": {
-                    "Add changeHtmlContents DomModifier method": "https://www.drupal.org/files/issues/2018-11-26/change_html_contents-3015381-3.patch"
+                    "Add changeHtmlContents DomModifier method": "https://www.drupal.org/files/issues/2018-11-26/change_html_contents-3015381-3.patch",
+                    "Allow migration script to set curl options": "https://www.drupal.org/files/issues/2019-02-08/curl_options-3031705-2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -10202,16 +10262,16 @@
         },
         {
             "name": "swagger-api/swagger-ui",
-            "version": "v3.20.5",
+            "version": "v3.20.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swagger-api/swagger-ui.git",
-                "reference": "f69624bbedb3b95eb1ef4b89d963dd3e9d99d8ba"
+                "reference": "67c1e00d96b915737da66efdbb0ea559b2d465f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/f69624bbedb3b95eb1ef4b89d963dd3e9d99d8ba",
-                "reference": "f69624bbedb3b95eb1ef4b89d963dd3e9d99d8ba",
+                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/67c1e00d96b915737da66efdbb0ea559b2d465f9",
+                "reference": "67c1e00d96b915737da66efdbb0ea559b2d465f9",
                 "shasum": ""
             },
             "type": "library",
@@ -10255,7 +10315,7 @@
                 "swagger",
                 "ui"
             ],
-            "time": "2019-01-12T07:08:55+00:00"
+            "time": "2019-02-08T23:27:33+00:00"
         },
         {
             "name": "symfony-cmf/routing",
@@ -13010,16 +13070,16 @@
         },
         {
             "name": "consolidation/robo",
-            "version": "1.4.3",
+            "version": "1.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/consolidation/Robo.git",
-                "reference": "d0b6f516ec940add7abed4f1432d30cca5f8ae0c"
+                "reference": "8bec6a6ea54a7d03d56552a4250c49dec3b3083d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/consolidation/Robo/zipball/d0b6f516ec940add7abed4f1432d30cca5f8ae0c",
-                "reference": "d0b6f516ec940add7abed4f1432d30cca5f8ae0c",
+                "url": "https://api.github.com/repos/consolidation/Robo/zipball/8bec6a6ea54a7d03d56552a4250c49dec3b3083d",
+                "reference": "8bec6a6ea54a7d03d56552a4250c49dec3b3083d",
                 "shasum": ""
             },
             "require": {
@@ -13050,7 +13110,7 @@
                 "natxet/cssmin": "3.0.4",
                 "nikic/php-parser": "^3.1.5",
                 "patchwork/jsqueeze": "~2",
-                "pear/archive_tar": "^1.4.2",
+                "pear/archive_tar": "^1.4.4",
                 "php-coveralls/php-coveralls": "^1",
                 "phpunit/php-code-coverage": "~2|~4",
                 "squizlabs/php_codesniffer": "^2.8"
@@ -13114,7 +13174,7 @@
                 }
             ],
             "description": "Modern task runner",
-            "time": "2019-01-02T21:33:28+00:00"
+            "time": "2019-02-08T20:59:23+00:00"
         },
         {
             "name": "consolidation/self-update",
