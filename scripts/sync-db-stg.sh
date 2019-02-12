@@ -16,4 +16,4 @@ echo "Downloading latest STG database"
 curl --remote-name --remote-header-name https://s3-us-gov-west-1.amazonaws.com/agile6-backups-pub/mysql/db-latest.sql.gz
 gunzip db-latest.sql.gz
 
-echo "Downloaded STG Database to /.sql-dumps/db-latest.sql"
+echo "Downloaded STG Database to ./.sql-dumps/db-latest.sql"
