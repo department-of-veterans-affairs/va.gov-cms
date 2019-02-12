@@ -7,26 +7,19 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * A test to confirm amount of nodes by type.
  */
-class EditNodePerformance extends ExistingSiteBase {
+class CreateNodePerformance extends ExistingSiteBase {
 
   /**
-   * A test method to deterine the amount of time to edit a node page.
+   * A test method to deterine the amount of time it takes to create a node.
    *
    * @group performance
+   * @group all
    *
    * @dataProvider benchmarkTime
    */
-  public function testEditNodePerformance($type, $benchmark) {
+  public function testCreateNodePerformance($benchmark) {
     // Creates a user. Will be automatically cleaned up at the end of the test.
     $author = $this->createUser();
-
-    // Creates a node. Will be automatically cleaned up at the end of the test.
-    $node = $this->createNode([
-      'title' => 'Llama',
-      'type' => $type,
-      'uid' => $author->id(),
-    ]);
-    $node->setPublished()->save();
 
     // Start timer.
     $mtime = microtime();
@@ -34,7 +27,12 @@ class EditNodePerformance extends ExistingSiteBase {
     $mtime = $mtime[1] + $mtime[0];
     $starttime = $mtime;
 
-    $node->setChangedTime(time())->save();
+    $node = $this->createNode([
+      'title' => 'Llama',
+      'type' => 'page',
+      'uid' => $author->id(),
+    ]);
+    $node->setPublished()->save();
 
     // End timer.
     $mtime = microtime();
@@ -45,9 +43,9 @@ class EditNodePerformance extends ExistingSiteBase {
 
     // Test assertion.
     $secs = number_format($microsecs, 3);
-    $this->assertLessThan($benchmark, $secs, "\nOperation took " . $secs . " seconds which is longer than the benchmark of " . $benchmark . " seconds for type " . $type . ".\n");
+    $this->assertLessThan($benchmark, $secs, "\nOperation took " . $secs . " seconds which is longer than the benchmark of " . $benchmark . " seconds.\n");
 
-    $message = "\nOperation took " . $secs . " seconds compared to the benchmark of " . $benchmark . " seconds for type " . $type . ".\n";
+    $message = "\nOperation took " . $secs . " seconds compared to the benchmark of " . $benchmark . " seconds.\n";
     fwrite(STDERR, print_r($message, TRUE));
   }
 
@@ -55,13 +53,12 @@ class EditNodePerformance extends ExistingSiteBase {
    * Returns benchmark time to beat in order for test to succeed.
    *
    * @return array
-   *   Array containing entity type as string and benchmark as int
+   *   Array containing entity type as string and expected count as int
    */
   public function benchmarkTime() {
-    return [
-      ["page", 2],
-      ["landing_page", 2],
-    ];
+    return array(
+      array(2),
+    );
   }
 
 }

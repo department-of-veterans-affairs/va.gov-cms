@@ -12,6 +12,9 @@ class RoleChecks extends ExistingSiteBase {
 
   /**
    * A test method to deterine if the role exists.
+   *
+   * @group security
+   * @group all
    */
   public function testRole() {
 

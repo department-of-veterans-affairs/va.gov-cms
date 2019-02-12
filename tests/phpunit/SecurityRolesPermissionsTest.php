@@ -14,6 +14,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
    * Test method to deterine role are associated with the expected permissions.
    *
    * @group security
+   * @group all
    *
    * @dataProvider expectedPerms
    */
