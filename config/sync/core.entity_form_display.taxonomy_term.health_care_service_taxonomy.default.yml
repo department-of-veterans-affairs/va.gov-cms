@@ -1,0 +1,89 @@
+uuid: 71a244db-bc99-4cfc-bb57-5f292dc548ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_also_known_as
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_service_type_clinical
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_service_type_nonclinical
+    - taxonomy.vocabulary.health_care_service_taxonomy
+  module:
+    - cshs
+    - field_group
+    - path
+    - text
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_owner
+      parent_name: ''
+      weight: 6
+      format_type: details_sidebar
+      format_settings:
+        label: Governance
+        weight: '0'
+        required_fields: '1'
+        id: ''
+        classes: ''
+        open: 0
+      label: Governance
+      region: content
+id: taxonomy_term.health_care_service_taxonomy.default
+targetEntityType: taxonomy_term
+bundle: health_care_service_taxonomy
+mode: default
+content:
+  description:
+    type: text_textarea
+    weight: 4
+    region: content
+    settings:
+      placeholder: ''
+      rows: 5
+    third_party_settings: {  }
+  field_also_known_as:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_owner:
+    weight: 7
+    settings:
+      parent: 0
+      level_labels: ''
+      force_deepest: false
+    third_party_settings: {  }
+    type: cshs
+    region: content
+  field_service_type_clinical:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_service_type_nonclinical:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

@@ -1,15 +1,15 @@
-uuid: 8db6cc1e-9a9a-419b-a146-e892607e65b7
+uuid: 18440d20-4b6f-4595-9a0d-70d4029a3de7
 langcode: en
 status: true
 dependencies:
   module:
-    - node
-id: node.field_facility_locator_api_id
-field_name: field_facility_locator_api_id
-entity_type: node
+    - taxonomy
+id: taxonomy_term.field_also_known_as
+field_name: field_also_known_as
+entity_type: taxonomy_term
 type: string
 settings:
-  max_length: 10
+  max_length: 255
   is_ascii: false
   case_sensitive: false
 module: core

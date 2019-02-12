@@ -1,0 +1,29 @@
+uuid: 6e91e886-8dc8-457c-b7e3-562319109654
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_owner
+    - taxonomy.vocabulary.administration
+    - taxonomy.vocabulary.health_care_service_taxonomy
+id: taxonomy_term.health_care_service_taxonomy.field_owner
+field_name: field_owner
+entity_type: taxonomy_term
+bundle: health_care_service_taxonomy
+label: Owner
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
