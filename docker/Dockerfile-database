@@ -2,13 +2,13 @@ FROM mysql:5.7
 
 RUN apt-get update -y \
   && apt-get install curl -y
-COPY ../config/services/config/drupal8/mysql /etc/mysql/conf.d
-COPY ../config/engine/scripts/lando-entrypoint.sh /lando-entrypoint.sh
+COPY config/services/config/drupal8/mysql /etc/mysql/conf.d
+COPY config/engine/scripts/lando-entrypoint.sh /lando-entrypoint.sh
 COPY . /app
-COPY ../config /lando
+COPY config /lando
 RUN curl -Lo /docker-entrypoint-initdb.d/db-latest.sql.gz https://s3-us-gov-west-1.amazonaws.com/agile6-backups-pub/mysql/db-latest.sql.gz
-COPY ../config/engine/scripts/user-perms.sh /helpers/user-perms.sh
-COPY ../config/engine/scripts/add-cert.sh /scripts/add-cert.sh
-COPY ../config/engine/scripts/load-keys.sh /scripts/load-keys.sh
-COPY ../config/services/helpers/sql-import.sh /helpers/sql-import.sh
-COPY ../config/services/helpers/sql-export.sh /helpers/sql-export.sh
+COPY config/engine/scripts/user-perms.sh /helpers/user-perms.sh
+COPY config/engine/scripts/add-cert.sh /scripts/add-cert.sh
+COPY config/engine/scripts/load-keys.sh /scripts/load-keys.sh
+COPY config/services/helpers/sql-import.sh /helpers/sql-import.sh
+COPY config/services/helpers/sql-export.sh /helpers/sql-export.sh
