@@ -1,0 +1,30 @@
+uuid: bfa0e517-3910-4309-8084-56c9e85d6188
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - taxonomy
+id: taxonomy_term.field_service_type_clinical
+field_name: field_service_type_clinical
+entity_type: taxonomy_term
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: primary_care
+      label: 'Primary Care'
+    -
+      value: mental_health
+      label: 'Mental Health'
+    -
+      value: specialty_care
+      label: 'Specialty Care'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

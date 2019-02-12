@@ -1,18 +1,18 @@
-uuid: d61fa868-c794-4333-8043-237139cb0e90
+uuid: f4eec649-4a7a-4008-ba57-4d4633a324c3
 langcode: en
 status: true
 dependencies:
   module:
-    - node
-id: node.field_clinical_health_services
-field_name: field_clinical_health_services
-entity_type: node
+    - taxonomy
+id: taxonomy_term.field_owner
+field_name: field_owner
+entity_type: taxonomy_term
 type: entity_reference
 settings:
-  target_type: node
+  target_type: taxonomy_term
 module: core
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

@@ -1,0 +1,21 @@
+uuid: 92bed347-860c-4d81-b5cb-085f37835496
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_service_type_nonclinical
+    - taxonomy.vocabulary.health_care_service_taxonomy
+  module:
+    - options
+id: taxonomy_term.health_care_service_taxonomy.field_service_type_nonclinical
+field_name: field_service_type_nonclinical
+entity_type: taxonomy_term
+bundle: health_care_service_taxonomy
+label: 'Type of service (for non-clinical services)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

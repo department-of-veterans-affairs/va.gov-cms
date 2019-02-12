@@ -1,0 +1,22 @@
+uuid: 0b9892d8-48e4-44be-a257-6bac2d98a5af
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.press_release
+  module:
+    - text
+id: node.press_release.body
+field_name: body
+entity_type: node
+bundle: press_release
+label: 'Full text of the press release'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

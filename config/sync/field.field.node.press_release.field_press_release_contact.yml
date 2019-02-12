@@ -1,19 +1,19 @@
-uuid: 95d2fed0-2bf6-4c98-bee0-4f7619855dfa
+uuid: fe89d365-a8bc-459d-8492-a03580b613cd
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_press_release_contact
-    - node.type.news_story
     - node.type.person_profile
-id: node.news_story.field_press_release_contact
+    - node.type.press_release
+id: node.press_release.field_press_release_contact
 field_name: field_press_release_contact
 entity_type: node
-bundle: news_story
+bundle: press_release
 label: 'Press release contact'
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
