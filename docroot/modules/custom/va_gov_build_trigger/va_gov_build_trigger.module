@@ -12,8 +12,6 @@ use Drupal\Core\Form\FormStateInterface;
  * Implements hook_form_alter().
  */
 function va_gov_build_trigger_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // This is our preview button on node forms.
-  $host = \Drupal::request()->getHost();
 
   if (in_array('node_form', $form['#theme'])) {
     // Fire a submit function so we can create an entity,
