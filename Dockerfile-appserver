@@ -23,5 +23,5 @@ RUN apt-get update -y
 RUN apt-get install python-pip -y
 RUN pip install j2cli
 RUN mkdir /templates
-COPY templates/* /templates/
+COPY docker/templates/* /templates/
 RUN cd /app && composer install
