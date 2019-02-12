@@ -1,0 +1,23 @@
+uuid: 5f60ac50-b2db-4d2d-acbc-59c9d36a770a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_default_link
+    - paragraphs.paragraphs_type.react_widget
+  module:
+    - link
+id: paragraph.react_widget.field_default_link
+field_name: field_default_link
+entity_type: paragraph
+bundle: react_widget
+label: 'Default Link'
+description: 'Optionally enter a link to display if the react widget doesn''t try to load.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 2
+field_type: link

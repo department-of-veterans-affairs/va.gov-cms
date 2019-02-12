@@ -1,14 +1,17 @@
-uuid: daa6d208-62bd-4dad-8e3c-c8ebf4cb3520
+uuid: 57d6c169-165a-4847-95b8-07ae0e074663
 langcode: en
 status: true
 dependencies:
   module:
     - paragraphs
-id: paragraph.field_custom_react_root
-field_name: field_custom_react_root
+id: paragraph.field_loading_message
+field_name: field_loading_message
 entity_type: paragraph
-type: boolean
-settings: {  }
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
 module: core
 locked: false
 cardinality: 1
