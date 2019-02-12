@@ -1,0 +1,19 @@
+uuid: 1bd283d5-febd-486b-9c11-1aafc310005f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_widget_type
+    - paragraphs.paragraphs_type.react_widget
+id: paragraph.react_widget.field_widget_type
+field_name: field_widget_type
+entity_type: paragraph
+bundle: react_widget
+label: 'Widget Type'
+description: 'The code for the type of widget to use (e.g. health-records, appointments)'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

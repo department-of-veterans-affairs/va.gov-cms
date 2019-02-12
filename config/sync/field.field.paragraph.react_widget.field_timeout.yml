@@ -1,0 +1,25 @@
+uuid: b38b3153-2d61-46ea-bd91-e198d565975c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_timeout
+    - paragraphs.paragraphs_type.react_widget
+id: paragraph.react_widget.field_timeout
+field_name: field_timeout
+entity_type: paragraph
+bundle: react_widget
+label: Timeout
+description: 'The amount of time (in seconds) to wait for the react widget to load before giving up and displaying the error message.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 20
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
