@@ -75,29 +75,22 @@ source:
         obtainer: ObtainBody
         jobs:
         -
-          # First, look for a class of 'usa-width-three-fourths'.
-          job: 'addSearch'
-          method: 'pluckSelector'
-          arguments:
-            - '.usa-width-three-fourths'
-            - '1'
-            - innerHTML
-        -
-          # If it's not there, try '#content .usa-grid-full'.
-          job: 'addSearch'
-          method: 'pluckSelector'
-          arguments:
-            - '#content .usa-grid-full'
-            - '1'
-            - innerHTML
-        -
-          # If we still haven't found anything, grab the article tag.
           job: 'addSearch'
           method: 'pluckSelector'
           arguments:
           - 'article'
           - '1'
           - innerHTML
+      nav_linkslist:
+        obtainer: ObtainHtml
+        jobs:
+        -
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - 'aside.va-nav-linkslist'
+            - '1'
+            - innerHTML
     dom_operations:
     -
       # This runs first.
@@ -123,6 +116,9 @@ source:
     -
       operation: get_field
       field: related_links
+    -
+      operation: get_field
+      field: nav_linkslist
     -
       # Clean things up before getting the body.
       # Remove javascript cruft.
