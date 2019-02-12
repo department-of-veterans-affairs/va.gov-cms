@@ -31,6 +31,15 @@ Running Phpunit Tests:
 * `cd tests`
 * `lando phpunit {Path-to-test}`
 
+Triggering Metalsmith static site builds at /admin/config/build-trigger
+* See va_gov_build_trigger.module
+* `export` the following local environment variables from 
+va.gov-cms-devops Ansible Vault and then run `lando rebuild --yes`.
+Contact Mouncif or Elijah in Slack #cms-engineering to obtain these:
+  * VA_CMS_BOT_GITHUB_AUTH_TOKEN
+  * VA_SOCKS_PROXY_PRIVATE_KEY
+  * VA_SOCKS_PROXY_SSH_CONFIG
+
 Naming Conventions:
 * Modules: `vagov_modulename`
 * Content types: `vagov_contentype`
