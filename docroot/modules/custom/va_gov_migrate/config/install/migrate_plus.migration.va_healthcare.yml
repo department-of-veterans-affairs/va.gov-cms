@@ -139,13 +139,6 @@ source:
       arguments:
         - '.usa-alert'
     -
-      # Replace any React forms with a placeholder (this will be dropped soon)
-      operation: modifier
-      modifier: changeHtmlContents
-      arguments:
-      - '#react-applicationStatus, [data-app-id]'
-      - '<p>DYNAMIC FORM CONTENT GOES HERE</p>'
-    -
       operation: get_field
       field: body  # Now that we've plucked all the other fields and cleaned up, run the 'body' recipe on what's left.
 
