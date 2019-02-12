@@ -13,6 +13,7 @@ class LoginPerformance extends ExistingSiteBase {
    * A test method to deterine the amount of time to load the Login page.
    *
    * @group performance
+   * @group all
    *
    * @dataProvider benchmarkTime
    */

@@ -13,6 +13,7 @@ class MigrationCount extends ExistingSiteBase {
    * A test method to deterine the amount of entities in the systems by type.
    *
    * @group migration
+   * @group all
    *
    * @dataProvider validCounts
    */
@@ -35,8 +36,8 @@ class MigrationCount extends ExistingSiteBase {
    */
   public function validCounts() {
     return array(
-      array("page", 40),
-      array("landing_page", 1),
+      array("page", 41),
+      array("landing_page", 9),
     );
   }
 
