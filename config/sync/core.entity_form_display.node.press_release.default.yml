@@ -1,26 +1,24 @@
-uuid: 66f26a3e-1f62-4bbe-a39b-e97bae3d3dc1
+uuid: 8f06ec78-ac2d-4086-8d97-842e8fb58e69
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_form_mode.node.inline_entity_form
-    - entity_browser.browser.image_browser
-    - field.field.node.news_story.body
-    - field.field.node.news_story.field_administration
-    - field.field.node.news_story.field_author
-    - field.field.node.news_story.field_description
-    - field.field.node.news_story.field_link
-    - field.field.node.news_story.field_media
-    - field.field.node.news_story.field_meta_tags
-    - node.type.news_story
+    - field.field.node.press_release.body
+    - field.field.node.press_release.field_administration
+    - field.field.node.press_release.field_description
+    - field.field.node.press_release.field_media
+    - field.field.node.press_release.field_meta_tags
+    - field.field.node.press_release.field_press_release_contact
+    - field.field.node.press_release.field_release_date
+    - node.type.press_release
   module:
     - content_moderation
-    - cshs
-    - entity_browser
+    - datetime
     - field_group
     - hide_revision_field
     - inline_entity_form
-    - link
+    - media_library
     - metatag
     - path
     - text
@@ -30,7 +28,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 17
+      weight: 14
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -40,28 +38,28 @@ third_party_settings:
         weight: '-10'
       label: Governance
       region: content
-    group_editor:
+    group_editorial_workflow:
       children:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 16
-      format_type: fieldset
+      weight: 15
+      format_type: details
       format_settings:
         id: ''
         classes: ''
-        description: ''
+        open: true
         required_fields: true
       label: 'Editorial workflow'
       region: content
-id: node.news_story.default
+id: node.press_release.default
 targetEntityType: node
-bundle: news_story
+bundle: press_release
 mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 14
+    weight: 5
     settings:
       rows: 9
       summary_rows: 3
@@ -70,34 +68,18 @@ content:
     region: content
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   field_administration:
     weight: 11
     settings:
-      parent: 0
-      level_labels: ''
-      force_deepest: false
-    third_party_settings: {  }
-    type: cshs
-    region: content
-  field_author:
-    weight: 11
-    settings:
-      form_mode: inline_entity_form
-      override_labels: true
-      label_singular: author
-      label_plural: ''
-      collapsible: true
-      collapsed: true
-      allow_new: true
-      allow_existing: true
       match_operator: CONTAINS
-      allow_duplicate: false
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: inline_entity_form_complex
+    type: entity_reference_autocomplete
     region: content
   field_description:
     weight: 1
@@ -107,33 +89,39 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_link:
-    weight: 15
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
-    type: link_default
-    region: content
   field_media:
-    type: entity_browser_entity_reference
-    weight: 13
-    settings:
-      entity_browser: image_browser
-      field_widget_display: label
-      field_widget_edit: true
-      field_widget_remove: true
-      selection_mode: selection_append
-      field_widget_replace: false
-      open: false
-      field_widget_display_settings: {  }
+    type: media_library_widget
+    weight: 4
+    settings: {  }
     region: content
     third_party_settings: {  }
   field_meta_tags:
-    weight: 9
+    weight: 13
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
+    region: content
+  field_press_release_contact:
+    weight: 3
+    settings:
+      form_mode: inline_entity_form
+      override_labels: true
+      label_singular: 'Press Release Contact'
+      label_plural: 'Press Release Contact'
+      collapsible: true
+      collapsed: true
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+    region: content
+  field_release_date:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
     region: content
   moderation_state:
     type: moderation_state_default
@@ -143,7 +131,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -151,7 +139,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 4
+    weight: 8
     region: content
     third_party_settings: {  }
   revision_log:
@@ -170,14 +158,14 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 8
+    weight: 12
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 5
+    weight: 9
     region: content
     third_party_settings: {  }
   title:
@@ -190,7 +178,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 6
     settings:
       match_operator: CONTAINS
       size: 60
@@ -198,7 +186,7 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 7
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
