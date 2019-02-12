@@ -1,4 +1,4 @@
-uuid: d41e2e7c-a777-48b0-8c56-2db262168fb8
+uuid: afedb685-ec36-4351-b88f-c90514e02a20
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: CSLLAunwOs416Lqklo9wNQ7sBptPPNf9Yc7qvAKpPhE
+  default_config_hash: 2hfu0S6UIXlaux9SeFB1o138d7ESlDygs1WoxrLOPLA
 id: va_healthcare
 class: null
 field_plugin_method: null
@@ -88,21 +88,17 @@ source:
               job: addSearch
               method: pluckSelector
               arguments:
-                - .usa-width-three-fourths
-                - '1'
-                - innerHTML
-            -
-              job: addSearch
-              method: pluckSelector
-              arguments:
-                - '#content .usa-grid-full'
-                - '1'
-                - innerHTML
-            -
-              job: addSearch
-              method: pluckSelector
-              arguments:
                 - article
+                - '1'
+                - innerHTML
+        nav_linkslist:
+          obtainer: ObtainHtml
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelector
+              arguments:
+                - aside.va-nav-linkslist
                 - '1'
                 - innerHTML
       dom_operations:
@@ -127,6 +123,9 @@ source:
           operation: get_field
           field: related_links
         -
+          operation: get_field
+          field: nav_linkslist
+        -
           operation: modifier
           modifier: removeSelectorAll
           arguments:
@@ -141,12 +140,6 @@ source:
           modifier: removeSelectorAll
           arguments:
             - .usa-alert
-        -
-          operation: modifier
-          modifier: changeHtmlContents
-          arguments:
-            - '#react-applicationStatus, [data-app-id]'
-            - '<p>DYNAMIC FORM CONTENT GOES HERE</p>'
         -
           operation: get_field
           field: body

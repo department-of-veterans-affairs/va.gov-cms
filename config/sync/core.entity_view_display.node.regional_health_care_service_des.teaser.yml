@@ -1,0 +1,30 @@
+uuid: 7bf66156-eb91-4c58-b9d6-9c7f4c1d1669
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.regional_health_care_service_des.body
+    - node.type.regional_health_care_service_des
+  module:
+    - text
+    - user
+id: node.regional_health_care_service_des.teaser
+targetEntityType: node
+bundle: regional_health_care_service_des
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }

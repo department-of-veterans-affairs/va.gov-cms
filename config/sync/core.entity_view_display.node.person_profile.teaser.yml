@@ -1,0 +1,40 @@
+uuid: e075e9eb-df4a-49d1-a5ef-27a76c980ab5
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.person_profile.body
+    - node.type.person_profile
+  module:
+    - text
+    - user
+id: node.person_profile.teaser
+targetEntityType: node
+bundle: person_profile
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_description: true
+  field_email_address: true
+  field_last_name: true
+  field_meta_tags: true
+  field_name_first: true
+  field_phone_number: true
+  field_region_page: true
+  field_suffix: true

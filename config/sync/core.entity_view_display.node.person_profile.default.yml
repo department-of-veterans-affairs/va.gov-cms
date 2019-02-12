@@ -1,0 +1,108 @@
+uuid: 493f751e-c046-433f-b1a8-ec6a63a88e53
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.person_profile.body
+    - field.field.node.person_profile.field_administration
+    - field.field.node.person_profile.field_description
+    - field.field.node.person_profile.field_email_address
+    - field.field.node.person_profile.field_last_name
+    - field.field.node.person_profile.field_meta_tags
+    - field.field.node.person_profile.field_name_first
+    - field.field.node.person_profile.field_phone_number
+    - field.field.node.person_profile.field_region_page
+    - field.field.node.person_profile.field_suffix
+    - node.type.person_profile
+  module:
+    - metatag
+    - text
+    - user
+id: node.person_profile.default
+targetEntityType: node
+bundle: person_profile
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_administration:
+    weight: 107
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_description:
+    weight: 103
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_email_address:
+    weight: 105
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_last_name:
+    weight: 110
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_meta_tags:
+    weight: 106
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+    region: content
+  field_name_first:
+    weight: 109
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_phone_number:
+    weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_region_page:
+    weight: 108
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_suffix:
+    weight: 104
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true

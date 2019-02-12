@@ -1,0 +1,76 @@
+uuid: 4ec7340f-c1a3-44f7-ae7d-36b93e503db3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_links
+    - node.type.health_care_region_page
+    - paragraphs.paragraphs_type.list_of_link_teasers
+  module:
+    - entity_reference_revisions
+id: node.health_care_region_page.field_related_links
+field_name: field_related_links
+entity_type: node
+bundle: health_care_region_page
+label: 'Common Links'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      list_of_link_teasers: list_of_link_teasers
+    target_bundles_drag_drop:
+      address:
+        weight: 17
+        enabled: false
+      alert:
+        weight: 18
+        enabled: false
+      collapsible_panel:
+        weight: 19
+        enabled: false
+      collapsible_panel_item:
+        weight: 20
+        enabled: false
+      expandable_text:
+        weight: 21
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 22
+        enabled: false
+      link_teaser:
+        weight: 23
+        enabled: false
+      list_of_link_teasers:
+        enabled: true
+        weight: 24
+      number_callout:
+        weight: 25
+        enabled: false
+      process:
+        weight: 26
+        enabled: false
+      q_a:
+        weight: 27
+        enabled: false
+      q_a_section:
+        weight: 28
+        enabled: false
+      react_widget:
+        weight: 29
+        enabled: false
+      spanish_translation_summary:
+        weight: 30
+        enabled: false
+      starred_horizontal_rule:
+        weight: 31
+        enabled: false
+      wysiwyg:
+        weight: 32
+        enabled: false
+field_type: entity_reference_revisions

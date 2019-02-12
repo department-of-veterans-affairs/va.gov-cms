@@ -1,0 +1,29 @@
+uuid: fe89d365-a8bc-459d-8492-a03580b613cd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_press_release_contact
+    - node.type.person_profile
+    - node.type.press_release
+id: node.press_release.field_press_release_contact
+field_name: field_press_release_contact
+entity_type: node
+bundle: press_release
+label: 'Press release contact'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      person_profile: person_profile
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

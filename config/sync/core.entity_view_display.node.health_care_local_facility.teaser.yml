@@ -1,0 +1,28 @@
+uuid: 8d2aae65-2f11-4767-9d8a-240f65b6a636
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.health_care_local_facility
+  module:
+    - user
+id: node.health_care_local_facility.teaser
+targetEntityType: node
+bundle: health_care_local_facility
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_administration: true
+  field_facility_locator_api_id: true
+  field_intro_text: true
+  field_location_services: true
+  field_main_location: true
+  field_meta_tags: true
+  field_nickname_for_this_facility: true
+  field_region_page: true

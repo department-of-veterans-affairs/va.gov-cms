@@ -3,45 +3,91 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.react_widget.field_custom_react_root
-    - field.field.paragraph.react_widget.field_in_maintenance
-    - field.field.paragraph.react_widget.field_maintenance_line_1
-    - field.field.paragraph.react_widget.field_maintenance_line_2
+    - field.field.paragraph.react_widget.field_button_format
+    - field.field.paragraph.react_widget.field_cta_widget
+    - field.field.paragraph.react_widget.field_default_link
+    - field.field.paragraph.react_widget.field_error_message
+    - field.field.paragraph.react_widget.field_loading_message
+    - field.field.paragraph.react_widget.field_timeout
+    - field.field.paragraph.react_widget.field_widget_type
     - paragraphs.paragraphs_type.react_widget
+  module:
+    - field_group
+    - link
+    - text
+third_party_settings:
+  field_group:
+    group_default_content:
+      children:
+        - field_default_link
+        - field_button_format
+      parent_name: ''
+      weight: 5
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: false
+      label: 'Default Content'
+      region: content
 id: paragraph.react_widget.default
 targetEntityType: paragraph
 bundle: react_widget
 mode: default
 content:
-  field_custom_react_root:
-    weight: 3
+  field_button_format:
+    weight: 7
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
-  field_in_maintenance:
+  field_cta_widget:
     weight: 0
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
-  field_maintenance_line_1:
-    weight: 1
+  field_default_link:
+    weight: 6
     settings:
-      rows: 5
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_error_message:
+    weight: 4
+    settings:
+      size: 120
       placeholder: ''
     third_party_settings: {  }
-    type: string_textarea
+    type: text_textfield
     region: content
-  field_maintenance_line_2:
+  field_loading_message:
     weight: 2
     settings:
-      rows: 5
+      size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textarea
+    type: string_textfield
+    region: content
+  field_timeout:
+    weight: 3
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_widget_type:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
     region: content
 hidden:
   created: true

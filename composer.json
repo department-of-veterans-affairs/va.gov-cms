@@ -50,7 +50,10 @@
         "drupal/markup": "^1.0@beta",
         "drupal/role_delegation": "^1.0@alpha",
         "drupal/block_content_permissions": "^1.6",
-        "drupal/hide_revision_field": "^2.1"
+        "drupal/hide_revision_field": "^2.1",
+        "drupal/migrate_source_csv": "^2.2",
+        "drupal/auto_entitylabel": "^2.1@beta",
+        "zaporylie/composer-drupal-optimizations": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -128,7 +131,8 @@
         "enable-patching": true,
         "patches": {
             "drupal/migration_tools": {
-                "Add changeHtmlContents DomModifier method": "https://www.drupal.org/files/issues/2018-11-26/change_html_contents-3015381-3.patch"
+                "Add changeHtmlContents DomModifier method": "https://www.drupal.org/files/issues/2018-11-26/change_html_contents-3015381-3.patch",
+                "Allow migration script to set curl options": "https://www.drupal.org/files/issues/2019-02-08/curl_options-3031705-2.patch"
             },
             "drupal/field_group": {
                 "Allow to position the group in the advanced (sidebar) column": "https://www.drupal.org/files/issues/2018-07-26/2652642-59.patch"

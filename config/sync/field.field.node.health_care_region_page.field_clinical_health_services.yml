@@ -1,0 +1,28 @@
+uuid: 34458477-fe61-40bf-9f46-0fb6c6b7a86c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_clinical_health_services
+    - node.type.health_care_region_page
+    - node.type.regional_health_care_service_des
+id: node.health_care_region_page.field_clinical_health_services
+field_name: field_clinical_health_services
+entity_type: node
+bundle: health_care_region_page
+label: 'Clinical Health Services'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      regional_health_care_service_des: regional_health_care_service_des
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

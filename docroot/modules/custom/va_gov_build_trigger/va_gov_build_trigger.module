@@ -5,21 +5,24 @@
  * Contains va_gov_build_trigger.module.
  */
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Database\Database;
 
 /**
  * Implements hook_form_alter().
  */
 function va_gov_build_trigger_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // This is our site build trigger button for node forms.
-  if (in_array('node_form', $form['#theme'])) {
+  // This is our preview button on node forms.
+  $host = \Drupal::request()->getHost();
 
-    $form['actions']['build'] = [
+  if (in_array('node_form', $form['#theme'])) {
+    // Fire a submit function so we can create an entity,
+    // then custom function to alter revision.
+    $form['actions']['preview'] = [
       '#type' => 'submit',
-      '#value' => 'Build',
-      '#weight' => 20,
-      '#submit' => ['va_gov_build_trigger_form_alter_submit'],
+      '#weight' => 10,
+      '#value' => 'Preview',
+      '#submit' => ['::submitForm', 'va_gov_build_trigger_form_alter_submit'],
     ];
   }
 }
@@ -28,36 +31,49 @@ function va_gov_build_trigger_form_alter(&$form, FormStateInterface $form_state,
  * Implements hook_form_alter().
  */
 function va_gov_build_trigger_form_alter_submit(&$form, FormStateInterface $form_state) {
-  // Placeholder until change to Jenkins url.
-  $uri = 'http://example.com';
 
-  try {
-    $response = \Drupal::httpClient()->get($uri, ['headers' => ['Accept' => 'text/plain']]);
-    $data = (string) $response->getBody();
-    if (empty($data)) {
-      return FALSE;
-    }
+  // We want to associate our user with the revision.
+  $uid = Drupal::currentUser()->id();
 
-    // Get our sql formatted date.
-    $time_raw = format_date(time(), 'html_datetime');
-    $time = strtok($time_raw, '+');
+  // Build the revision info.
+  $node = $form_state->getFormObject()->getEntity();
+  $node->setNewRevision(TRUE);
+  $node->revision_log = 'Created revision for node in preview';
+  $node->setRevisionCreationTime(REQUEST_TIME);
 
-    // We only need to update field table - field is set on node import.
-    $query = \Drupal::database()
-      ->update('node__field_page_last_built')
-      ->fields(['field_page_last_built_value' => $time]);
-    $query->execute();
+  // Save it as unpublished and associate with user.
+  $node->setRevisionUserId($uid);
+  $node->set('moderation_state', 'draft');
+  $node->save();
 
-    // We only need to update - revision field is set on node import.
-    $query_revision = \Drupal::database()
-      ->update('node_revision__field_page_last_built')
-      ->fields(['field_page_last_built_value' => $time]);
-    $query_revision->execute();
+  // Determine the environment.
+  $host = \Drupal::request()->getHost();
+  switch ($host) {
+    // For local dev - requires setting constant DRUPAL_DEV in
+    // src/site/constants/drupals.js file in vets-website repo to local address
+    // and credentials.
+    case 'vagovcms.lndo.site':
+      $url = 'http://localhost:3001/preview?nodeId=' . $node->id();
+      break;
 
-    \Drupal::messenger()->addMessage(t('Site rebuild request has been sent to :uri.', [':uri' => $uri]), 'status');
+    case 'dev.va.agile6.com':
+      $url = 'http://preview-dev.vfs.va.gov/preview?nodeId=' . $node->id();
+      break;
 
+    case 'stg.va.agile6.com':
+      $url = 'http://preview-staging.vfs.va.gov/preview?nodeId=' . $node->id();
+      break;
+
+    case 'va.gov':
+      $url = 'http://preview-live.vfs.va.gov/preview?nodeId=' . $node->id();
+      break;
+
+    default:
+      $url = 'http://preview-live.vfs.va.gov/preview?nodeId=' . $node->id();
+      break;
   }
-  catch (RequestException $e) {
-    return FALSE;
-  }
+
+  // Send them to the preview server.
+  $response = new RedirectResponse($url);
+  $response->send();
 }

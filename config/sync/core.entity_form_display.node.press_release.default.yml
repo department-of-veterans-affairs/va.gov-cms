@@ -1,0 +1,193 @@
+uuid: 8f06ec78-ac2d-4086-8d97-842e8fb58e69
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.inline_entity_form
+    - field.field.node.press_release.body
+    - field.field.node.press_release.field_administration
+    - field.field.node.press_release.field_description
+    - field.field.node.press_release.field_media
+    - field.field.node.press_release.field_meta_tags
+    - field.field.node.press_release.field_press_release_contact
+    - field.field.node.press_release.field_release_date
+    - node.type.press_release
+  module:
+    - content_moderation
+    - datetime
+    - field_group
+    - hide_revision_field
+    - inline_entity_form
+    - media_library
+    - metatag
+    - path
+    - text
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 14
+      format_type: details_sidebar
+      format_settings:
+        id: ''
+        classes: ''
+        open: 1
+        required_fields: 1
+        weight: '-10'
+      label: Governance
+      region: content
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 15
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: true
+        required_fields: true
+      label: 'Editorial workflow'
+      region: content
+id: node.press_release.default
+targetEntityType: node
+bundle: press_release
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 5
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+  created:
+    type: datetime_timestamp
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_administration:
+    weight: 11
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_description:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_media:
+    type: media_library_widget
+    weight: 4
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  field_meta_tags:
+    weight: 13
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_firehose
+    region: content
+  field_press_release_contact:
+    weight: 3
+    settings:
+      form_mode: inline_entity_form
+      override_labels: true
+      label_singular: 'Press Release Contact'
+      label_plural: 'Press Release Contact'
+      collapsible: true
+      collapsed: true
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+    region: content
+  field_release_date:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 8
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 8
+    region: content
+    third_party_settings: {  }
+  revision_log:
+    type: hide_revision_field_log_widget
+    weight: 9
+    region: content
+    settings:
+      show: true
+      default: ''
+      permission_based: false
+      allow_user_settings: true
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 12
+    region: content
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 9
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 6
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    region: content
+    third_party_settings: {  }
+  url_redirects:
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

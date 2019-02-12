@@ -1,0 +1,22 @@
+uuid: 01cef6d8-22c9-4e1c-a044-453b0979e63a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.health_care_region_page
+id: node.health_care_region_page.promote
+field_name: promote
+entity_type: node
+bundle: health_care_region_page
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

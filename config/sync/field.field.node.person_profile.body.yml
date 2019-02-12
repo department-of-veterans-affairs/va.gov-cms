@@ -1,0 +1,22 @@
+uuid: 1b441768-37af-44ab-b45a-3d3e0ea55147
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.person_profile
+  module:
+    - text
+id: node.person_profile.body
+field_name: body
+entity_type: node
+bundle: person_profile
+label: Bio
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

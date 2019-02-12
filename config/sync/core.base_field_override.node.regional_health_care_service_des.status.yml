@@ -1,0 +1,22 @@
+uuid: efef1a08-f652-4fee-898b-e81ae962acb9
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.regional_health_care_service_des
+id: node.regional_health_care_service_des.status
+field_name: status
+entity_type: node
+bundle: regional_health_care_service_des
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

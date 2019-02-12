@@ -3,48 +3,31 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.react_widget.field_custom_react_root
-    - field.field.paragraph.react_widget.field_in_maintenance
-    - field.field.paragraph.react_widget.field_maintenance_line_1
-    - field.field.paragraph.react_widget.field_maintenance_line_2
+    - field.field.paragraph.react_widget.field_button_format
+    - field.field.paragraph.react_widget.field_cta_widget
+    - field.field.paragraph.react_widget.field_default_link
+    - field.field.paragraph.react_widget.field_error_message
+    - field.field.paragraph.react_widget.field_loading_message
+    - field.field.paragraph.react_widget.field_timeout
+    - field.field.paragraph.react_widget.field_widget_type
     - paragraphs.paragraphs_type.react_widget
 id: paragraph.react_widget.default
 targetEntityType: paragraph
 bundle: react_widget
 mode: default
 content:
-  field_custom_react_root:
-    weight: 3
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
-    region: content
-  field_in_maintenance:
+  field_widget_type:
     weight: 0
-    label: above
+    label: hidden
     settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
+      link_to_entity: false
     third_party_settings: {  }
-    type: boolean
+    type: string
     region: content
-  field_maintenance_line_1:
-    weight: 1
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-    region: content
-  field_maintenance_line_2:
-    weight: 2
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-    region: content
-hidden: {  }
+hidden:
+  field_button_format: true
+  field_cta_widget: true
+  field_default_link: true
+  field_error_message: true
+  field_loading_message: true
+  field_timeout: true

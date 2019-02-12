@@ -6,9 +6,12 @@ dependencies:
     - field.field.block_content.alert.field_owner
     - field.field.block_content.promo.field_owner
     - field.field.node.event.field_administration
+    - field.field.node.health_care_local_facility.field_administration
     - field.field.node.landing_page.field_administration
+    - field.field.node.news_story.field_administration
     - field.field.node.outreach_asset.field_administration
     - field.field.node.page.field_administration
+    - field.field.node.person_profile.field_administration
     - taxonomy.vocabulary.administration
 id: section
 label: Section
@@ -32,6 +35,10 @@ scheme_settings:
       field: field_administration
     -
       entity_type: node
+      bundle: page
+      field: field_administration
+    -
+      entity_type: node
       bundle: outreach_asset
       field: field_administration
     -
@@ -40,5 +47,13 @@ scheme_settings:
       field: field_administration
     -
       entity_type: node
-      bundle: page
+      bundle: health_care_local_facility
+      field: field_administration
+    -
+      entity_type: node
+      bundle: person_profile
+      field: field_administration
+    -
+      entity_type: node
+      bundle: news_story
       field: field_administration

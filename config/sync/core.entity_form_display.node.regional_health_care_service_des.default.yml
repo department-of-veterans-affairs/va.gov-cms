@@ -1,0 +1,138 @@
+uuid: 18b9e97c-ae58-475f-89fb-daf633426b03
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.regional_health_care_service_des.body
+    - field.field.node.regional_health_care_service_des.field_administration
+    - field.field.node.regional_health_care_service_des.field_service_location
+    - field.field.node.regional_health_care_service_des.field_service_name_and_descripti
+    - node.type.regional_health_care_service_des
+  module:
+    - cshs
+    - field_group
+    - path
+    - text
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 11
+      format_type: details_sidebar
+      format_settings:
+        label: Governance
+        weight: '-10'
+        required_fields: '1'
+        id: ''
+        classes: ''
+        open: 0
+      label: Governance
+      region: content
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 12
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: false
+        required_fields: true
+      label: 'Editorial workflow'
+      region: content
+id: node.regional_health_care_service_des.default
+targetEntityType: node
+bundle: regional_health_care_service_des
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 1
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_administration:
+    weight: 12
+    settings:
+      parent: 0
+      level_labels: ''
+      force_deepest: false
+    third_party_settings: {  }
+    type: cshs
+    region: content
+  field_service_location:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_service_name_and_descripti:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  moderation_state:
+    type: string_textfield
+    weight: 7
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 9
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  revision_log:
+    type: string_textarea
+    weight: 8
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 8
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  url_redirects:
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  title: true
+  uid: true

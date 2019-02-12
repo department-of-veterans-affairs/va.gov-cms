@@ -4,10 +4,12 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.outreach_asset.field_administration
+    - field.field.node.outreach_asset.field_benefits
     - field.field.node.outreach_asset.field_description
     - field.field.node.outreach_asset.field_format
     - field.field.node.outreach_asset.field_media
-    - field.field.node.outreach_asset.field_related_benefits
+    - field.field.node.outreach_asset.field_meta_tags
     - node.type.outreach_asset
   module:
     - user
@@ -22,7 +24,10 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_benefits: true
   field_description: true
   field_format: true
   field_media: true
-  field_related_benefits: true
+  field_meta_tags: true
