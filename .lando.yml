@@ -48,21 +48,6 @@ services:
         VA_JENKINS_BUILD_ENV: ${VA_JENKINS_BUILD_ENV}
         # Support debugging Drush with XDEBUG. Listen in PHPStorm then `lando drush` to trigger xdebug.
         PHP_IDE_CONFIG: "serverName=appserver"
-  node:
-    type: node
-    build:
-      - npm install
-#      - "cd $LANDO_MOUNT/docroot/themes/custom/vagov && npm install"
-    overrides:
-      services:
-        environment:
-          BEHAT_PARAMS: '{"extensions" : {"Behat\\MinkExtension" : {"base_url" : "http://vagovcms.lndo.site/"}, "Drupal\\DrupalExtension" : {"drush" : { "root": "/app/docroot" }}}}'
-      ports:
-        - 3000:3000
-        - 3001:3001
-      image: node:10.13-jessie
-    globals:
-      gulp-cli: "latest"
   # Uncomment this to work on site build triggers
   # Must use lando 3.0.0-rc9+
   # @see /README.md
