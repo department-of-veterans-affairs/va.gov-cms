@@ -88,4 +88,4 @@ tooling:
   db-sync-stg:
     service: appserver
     description: Sync sanitized STG DB to local (up to 2 hours old)
-    cmd: /app/scripts/sync-db-stg.sh && echo "Importing STG database" && `/app/docroot/vendor/bin/drush sql-connect` < /app/.sql-dumps/db-latest.sql && echo "STG database import complete"
+    cmd: /app/scripts/sync-db-stg.sh && echo "Importing STG database" && /app/docroot/vendor/bin/drush sql-drop --yes && `/app/docroot/vendor/bin/drush sql-connect` < /app/.sql-dumps/db-latest.sql && echo "STG database import complete"
