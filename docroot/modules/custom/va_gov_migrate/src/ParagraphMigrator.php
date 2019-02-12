@@ -87,8 +87,8 @@ class ParagraphMigrator {
   /**
    * Create paragraphs from html and attach them to paragraph field on entity.
    *
-   * @param string $source_field
-   *   The the name of the field to get the paragraph html from.
+   * @param mixed $source_field
+   *   The field (or array of fields) to get the paragraph html from.
    * @param string $dest_field
    *   The machine name of the paragraph field on the parent entity.
    *
@@ -100,8 +100,17 @@ class ParagraphMigrator {
   public function process($source_field, $dest_field) {
     $this->deleteExistingParagraphs($this->entity, $dest_field);
 
+    if (is_array($source_field)) {
+      $source = '';
+      foreach ($source_field as $field) {
+        $source .= $this->row->getSourceProperty($field);
+      }
+    }
+    else {
+      $source = $this->row->getSourceProperty($source_field);
+    }
     try {
-      $query_path = $this->createQueryPath($this->row->getSourceProperty($source_field));
+      $query_path = $this->createQueryPath($source);
     }
     catch (MigrateException $e) {
       try {
