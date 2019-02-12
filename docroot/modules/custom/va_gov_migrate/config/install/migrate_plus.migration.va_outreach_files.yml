@@ -1,0 +1,51 @@
+id: va_outreach_files
+label: 1. Migrate images and pdfs for outreach assets.
+migration_group: va_outreach
+
+source:
+  plugin: csv
+  path: modules/custom/va_gov_migrate/data/assets-grid.csv
+  header_row_count: 1
+  keys:
+    - url
+  column_names:
+    - url: URL
+    - title: 'Title'
+    - topics: 'Topics'
+    - format: 'Format'
+    - type: 'Document Type'
+    - file_format: 'File Format'
+
+  constants:
+    file_dest_uri: 'public://outreach_assets'
+
+process:
+  file_name:
+    plugin: callback
+    callable: basename
+    source: url
+
+  file_dest:
+    plugin: concat
+    delimiter: /
+    source:
+      - constants/file_dest_uri
+      - '@file_name'
+
+  filename: '@file_name'
+  uri:
+    plugin: download
+    source:
+      - url
+      - '@file_dest'
+
+destination:
+  plugin: entity:file
+
+migration_dependencies: {}
+
+# This belongs in all migration scripts. Without it the module the migration script belongs to won't uninstall cleanly.
+dependencies:
+  enforced:
+    module:
+      - va_gov_migrate

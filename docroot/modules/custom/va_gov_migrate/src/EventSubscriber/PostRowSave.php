@@ -42,7 +42,7 @@ class PostRowSave implements EventSubscriberInterface {
         $this->convertIntroTextToPlainText($event->getDestinationIdValues()[0]);
         $migrator->process('related_links', 'field_related_links');
         $migrator->process('featured_content', 'field_featured_content');
-        $migrator->process('body', 'field_content_block');
+        $migrator->process(['body', 'nav_linkslist'], 'field_content_block');
         $this->setChangedDate($event);
         break;
 
