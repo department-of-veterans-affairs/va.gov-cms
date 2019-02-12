@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5750c3de3cc69080566c89b0d406a7c0",
+    "content-hash": "0bc89f28294c086f29068d39a13eea80",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -2447,7 +2447,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.8",
-                    "datestamp": "1549175284",
+                    "datestamp": "1549832280",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6882,7 +6882,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.13",
-                    "datestamp": "1546204080",
+                    "datestamp": "1549832280",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6924,7 +6924,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.13",
-                    "datestamp": "1546204080",
+                    "datestamp": "1549832280",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -12231,6 +12231,49 @@
             ],
             "description": "Traits for testing Drupal sites that have user content (versus unpopulated sites).",
             "time": "2019-02-07T22:11:06+00:00"
+        },
+        {
+            "name": "zaporylie/composer-drupal-optimizations",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zaporylie/composer-drupal-optimizations.git",
+                "reference": "cc5eb9f0b5fa664885765748ce5190c1de7d2571"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zaporylie/composer-drupal-optimizations/zipball/cc5eb9f0b5fa664885765748ce5190c1de7d2571",
+                "reference": "cc5eb9f0b5fa664885765748ce5190c1de7d2571",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.1",
+                "drupal/core": "^8.5"
+            },
+            "require-dev": {
+                "composer/composer": "^1.6"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "zaporylie\\ComposerDrupalOptimizations\\Plugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "zaporylie\\ComposerDrupalOptimizations\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Jakub Piasecki",
+                    "email": "jakub@piaseccy.pl"
+                }
+            ],
+            "description": "Composer plugin to improve composer performance for Drupal projects",
+            "time": "2018-07-15T18:04:58+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
