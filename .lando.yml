@@ -44,7 +44,6 @@ services:
       environment:
         # You must manually `export` these VA* ENV variables to use them. @see /README.md
         VA_CMS_BOT_GITHUB_AUTH_TOKEN: ${VA_CMS_BOT_GITHUB_AUTH_TOKEN}
-        VA_JENKINS_BUILD_ENV: ${VA_JENKINS_BUILD_ENV}
         # Support debugging Drush with XDEBUG. Listen in PHPStorm then `lando drush` to trigger xdebug.
         PHP_IDE_CONFIG: "serverName=appserver"
   node:
