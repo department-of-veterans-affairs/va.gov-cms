@@ -3,9 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.image.field_image_caption
     - field.field.media.image.field_media_in_library
     - field.field.media.image.image
-    - image.style.crop_thumbnail
+    - image.style.3_2_medium_thumbnail
     - media.type.image
   module:
     - content_moderation
@@ -19,9 +20,17 @@ targetEntityType: media
 bundle: image
 mode: default
 content:
+  field_image_caption:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
   field_media_in_library:
     type: boolean_checkbox
-    weight: 2
+    weight: 3
     settings:
       display_label: true
     third_party_settings: {  }
@@ -32,12 +41,10 @@ content:
     settings:
       show_crop_area: true
       show_default_crop: true
-      preview_image_style: crop_thumbnail
+      preview_image_style: 3_2_medium_thumbnail
       crop_preview_image_style: crop_thumbnail
-      crop_list:
-        - '2_1'
-        - freeform
       progress_indicator: throbber
+      crop_list: {  }
       crop_types_required: {  }
       warn_multiple_usages: false
     third_party_settings:
@@ -47,7 +54,7 @@ content:
     region: content
   moderation_state:
     type: moderation_state_default
-    weight: 5
+    weight: 6
     settings: {  }
     region: content
     third_party_settings: {  }
@@ -61,7 +68,7 @@ content:
     region: content
   path:
     type: path
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -69,7 +76,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 4
+    weight: 5
     region: content
     third_party_settings: {  }
 hidden:
