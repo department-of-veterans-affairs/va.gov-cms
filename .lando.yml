@@ -3,7 +3,6 @@ recipe: drupal8
 config:
   webroot: docroot
   php: "7.2"
-  drush: path:/app/docroot/vendor/bin/drush
 
 events:
   # Clear caches after a database import
@@ -81,6 +80,8 @@ services:
 #        VA_SOCKS_PROXY_PRIVATE_KEY: ${VA_SOCKS_PROXY_PRIVATE_KEY}
 #        VA_SOCKS_PROXY_SSH_CONFIG: ${VA_SOCKS_PROXY_SSH_CONFIG}
 tooling:
+  drush:
+    cmd: /app/docroot/vendor/bin/drush
   phantomjs:
     service: appserver
     description: "Run phantomjs commands"
