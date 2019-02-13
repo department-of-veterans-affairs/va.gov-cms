@@ -1,28 +1,32 @@
-uuid: 4a5260fc-f3ab-4e19-9276-217bc3d1fad4
+uuid: 82ce5e0f-2b4c-4a84-bb71-e666ae4dee10
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_media
+    - field.storage.node.field_press_release_downloads
+    - media.type.document
     - media.type.image
+    - media.type.video
     - node.type.press_release
-id: node.press_release.field_media
-field_name: field_media
+id: node.press_release.field_press_release_downloads
+field_name: field_press_release_downloads
 entity_type: node
 bundle: press_release
-label: Image
+label: 'Downloadable media assets'
 description: ''
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:media'
   handler_settings:
     target_bundles:
+      document: document
       image: image
+      video: video
     sort:
       field: _none
     auto_create: true
-    auto_create_bundle: ''
+    auto_create_bundle: document
 field_type: entity_reference

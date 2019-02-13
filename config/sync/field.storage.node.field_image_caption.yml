@@ -1,18 +1,18 @@
-uuid: 7df6c597-87a6-4a6c-97ac-42951aef9a18
+uuid: 47831dcc-9d3a-459b-af18-6ba54716d9b2
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_press_release_contact
-field_name: field_press_release_contact
+id: node.field_image_caption
+field_name: field_image_caption
 entity_type: node
-type: entity_reference
+type: string_long
 settings:
-  target_type: node
+  case_sensitive: false
 module: core
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

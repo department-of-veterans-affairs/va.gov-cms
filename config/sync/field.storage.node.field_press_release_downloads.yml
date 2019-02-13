@@ -1,15 +1,16 @@
-uuid: 7df6c597-87a6-4a6c-97ac-42951aef9a18
+uuid: ce058ad7-69e7-4d2e-83ee-2c14a8b7e075
 langcode: en
 status: true
 dependencies:
   module:
+    - media
     - node
-id: node.field_press_release_contact
-field_name: field_press_release_contact
+id: node.field_press_release_downloads
+field_name: field_press_release_downloads
 entity_type: node
 type: entity_reference
 settings:
-  target_type: node
+  target_type: media
 module: core
 locked: false
 cardinality: -1
