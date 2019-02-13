@@ -761,7 +761,7 @@ $settings['entity_update_batch_size'] = 50;
  * Local developers will need to get and set the getenv() ENV variables below from va.gov-cms-devops Ansible Vault.
  * @see /README.md for details
  */
-$settings['va_jenkins_build_env'] = getenv('VA_JENKINS_BUILD_ENV') ?? 'dev';
+$settings['va_jenkins_build_env'] = getenv('VA_JENKINS_BUILD_ENV') ?: 'dev';
 $settings['va_jenkins_cms_build_url'] = 'http://jenkins.vetsgov-internal/job/testing/job/vets-website/job/master/buildWithParameters?cmsEnv=' . $settings['va_jenkins_build_env'];
 $settings['va_socks_proxy_url'] = 'socks5h://va-socks-proxy:2001';
 $settings['va_cms_bot_github_username'] = 'va-cms-bot';
