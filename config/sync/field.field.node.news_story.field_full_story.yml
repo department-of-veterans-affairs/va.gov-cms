@@ -1,0 +1,21 @@
+uuid: c609aee9-226b-41ed-a750-bcb933fdeaa5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_full_story
+    - node.type.news_story
+  module:
+    - text
+id: node.news_story.field_full_story
+field_name: field_full_story
+entity_type: node
+bundle: news_story
+label: 'Full story'
+description: 'Do not repeat the content you already included in the Intro text above. '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

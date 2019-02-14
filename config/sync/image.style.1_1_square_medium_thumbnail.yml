@@ -1,0 +1,25 @@
+uuid: f6d16a8d-726d-4f6f-89a7-7100bccec1d4
+langcode: en
+status: true
+dependencies:
+  config:
+    - crop.type.square
+  module:
+    - crop
+name: 1_1_square_medium_thumbnail
+label: '1:1 square medium thumbnail'
+effects:
+  78ceecdf-9c30-47a0-9994-b2eaba873996:
+    uuid: 78ceecdf-9c30-47a0-9994-b2eaba873996
+    id: crop_crop
+    weight: 1
+    data:
+      crop_type: square
+  1e627e01-bb9b-4d04-bb8d-ee4593b47403:
+    uuid: 1e627e01-bb9b-4d04-bb8d-ee4593b47403
+    id: image_scale
+    weight: 2
+    data:
+      width: 240
+      height: 240
+      upscale: false

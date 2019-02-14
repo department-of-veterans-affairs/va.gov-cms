@@ -9,10 +9,10 @@ dependencies:
     - field.field.node.person_profile.field_description
     - field.field.node.person_profile.field_email_address
     - field.field.node.person_profile.field_last_name
+    - field.field.node.person_profile.field_media
     - field.field.node.person_profile.field_meta_tags
     - field.field.node.person_profile.field_name_first
     - field.field.node.person_profile.field_phone_number
-    - field.field.node.person_profile.field_region_page
     - field.field.node.person_profile.field_suffix
     - node.type.person_profile
   module:
@@ -128,12 +128,6 @@ content:
     third_party_settings: {  }
     type: telephone_default
     region: content
-  field_region_page:
-    weight: 6
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: content
   field_suffix:
     weight: 3
     settings:
@@ -153,6 +147,7 @@ content:
 hidden:
   created: true
   field_administration: true
+  field_media: true
   field_meta_tags: true
   moderation_state: true
   path: true

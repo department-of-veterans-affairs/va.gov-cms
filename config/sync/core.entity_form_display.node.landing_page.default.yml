@@ -61,8 +61,8 @@ third_party_settings:
       region: content
     group_editorial_workflow:
       children:
-        - revision_log
         - moderation_state
+        - revision_log
       parent_name: ''
       weight: 16
       format_type: details
@@ -254,7 +254,7 @@ content:
     third_party_settings: {  }
   revision_log:
     type: hide_revision_field_log_widget
-    weight: 19
+    weight: 21
     region: content
     settings:
       show: true
