@@ -36,7 +36,7 @@ class NumberCallout extends ParagraphType {
   protected function getFieldValues(DOMQuery $query_path) {
     return [
       'field_short_phrase_with_a_number' => $query_path->children('.number')->text(),
-      'field_wysiwyg' => $query_path->children('.description')->innerHTML(),
+      'field_wysiwyg' => self::toRichText($query_path->children('.description')->innerHTML()),
     ];
   }
 
