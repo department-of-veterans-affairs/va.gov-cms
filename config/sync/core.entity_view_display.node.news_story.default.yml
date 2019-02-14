@@ -3,12 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.news_story.body
     - field.field.node.news_story.field_administration
     - field.field.node.news_story.field_author
-    - field.field.node.news_story.field_description
     - field.field.node.news_story.field_featured
+    - field.field.node.news_story.field_full_story
     - field.field.node.news_story.field_image_caption
+    - field.field.node.news_story.field_intro_text
     - field.field.node.news_story.field_link
     - field.field.node.news_story.field_media
     - field.field.node.news_story.field_meta_tags
@@ -24,13 +24,6 @@ targetEntityType: node
 bundle: news_story
 mode: default
 content:
-  body:
-    label: hidden
-    type: text_default
-    weight: 101
-    settings: {  }
-    third_party_settings: {  }
-    region: content
   field_administration:
     weight: 102
     label: above
@@ -47,14 +40,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_description:
-    weight: 108
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
   field_featured:
     weight: 112
     label: above
@@ -65,8 +50,22 @@ content:
     third_party_settings: {  }
     type: boolean
     region: content
+  field_full_story:
+    weight: 114
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
   field_image_caption:
     weight: 110
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_intro_text:
+    weight: 113
     label: above
     settings: {  }
     third_party_settings: {  }
