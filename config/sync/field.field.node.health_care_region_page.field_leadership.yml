@@ -1,28 +1,29 @@
-uuid: bd842276-3de5-47a9-bbe0-576f46adfb19
+uuid: f4c9ca6e-8121-4567-855d-224b0cf32c3f
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_region_page
+    - field.storage.node.field_leadership
     - node.type.health_care_region_page
     - node.type.person_profile
-id: node.person_profile.field_region_page
-field_name: field_region_page
+id: node.health_care_region_page.field_leadership
+field_name: field_leadership
 entity_type: node
-bundle: person_profile
-label: 'Region page'
+bundle: health_care_region_page
+label: Leadership
 description: ''
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      health_care_region_page: health_care_region_page
+      person_profile: person_profile
     sort:
-      field: _none
-    auto_create: false
+      field: title
+      direction: ASC
+    auto_create: true
     auto_create_bundle: ''
 field_type: entity_reference

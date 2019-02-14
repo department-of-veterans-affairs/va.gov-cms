@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.press_release.field_description
     - field.field.node.press_release.field_intro_text
     - field.field.node.press_release.field_meta_tags
+    - field.field.node.press_release.field_office
     - field.field.node.press_release.field_pdf_version
     - field.field.node.press_release.field_press_release_contact
     - field.field.node.press_release.field_press_release_downloads
@@ -121,6 +122,12 @@ content:
     third_party_settings: {  }
     type: metatag_firehose
     region: content
+  field_office:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   field_pdf_version:
     type: media_library_widget
     weight: 7
@@ -128,7 +135,7 @@ content:
     region: content
     third_party_settings: {  }
   field_press_release_contact:
-    weight: 4
+    weight: 5
     settings:
       form_mode: inline_entity_form
       override_labels: true
@@ -158,7 +165,7 @@ content:
     type: text_textarea
     region: content
   field_release_date:
-    weight: 3
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
