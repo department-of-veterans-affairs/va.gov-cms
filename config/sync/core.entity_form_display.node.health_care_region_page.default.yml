@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_clinical_health_care_servi
     - field.field.node.health_care_region_page.field_clinical_health_services
     - field.field.node.health_care_region_page.field_intro_text
+    - field.field.node.health_care_region_page.field_intro_text_news_stories
     - field.field.node.health_care_region_page.field_leadership
     - field.field.node.health_care_region_page.field_locations_intro_blurb
     - field.field.node.health_care_region_page.field_media
@@ -103,6 +104,7 @@ third_party_settings:
       children:
         - group_online_appointments
         - field_press_release_blurb
+        - field_intro_text_news_stories
         - field_related_links
       parent_name: ''
       weight: 15
@@ -198,6 +200,14 @@ content:
     third_party_settings: {  }
     type: string_textarea
     region: content
+  field_intro_text_news_stories:
+    weight: 22
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
   field_leadership:
     weight: 13
     settings:
@@ -253,7 +263,7 @@ content:
     type: text_textarea
     region: content
   field_press_release_blurb:
-    weight: 22
+    weight: 21
     settings:
       rows: 5
       placeholder: ''
