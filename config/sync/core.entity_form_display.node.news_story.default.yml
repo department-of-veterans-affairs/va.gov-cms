@@ -12,8 +12,6 @@ dependencies:
     - field.field.node.news_story.field_link
     - field.field.node.news_story.field_media
     - field.field.node.news_story.field_meta_tags
-    - field.field.node.news_story.field_news_format
-    - field.field.node.news_story.field_press_release_contact
     - node.type.news_story
   module:
     - content_moderation
@@ -136,28 +134,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
-    region: content
-  field_news_format:
-    weight: 10
-    settings: {  }
-    third_party_settings: {  }
-    type: options_buttons
-    region: content
-  field_press_release_contact:
-    weight: 12
-    settings:
-      form_mode: inline_entity_form
-      override_labels: true
-      label_singular: contact
-      label_plural: ''
-      collapsible: true
-      collapsed: true
-      allow_new: true
-      allow_existing: true
-      match_operator: CONTAINS
-      allow_duplicate: false
-    third_party_settings: {  }
-    type: inline_entity_form_complex
     region: content
   moderation_state:
     type: moderation_state_default

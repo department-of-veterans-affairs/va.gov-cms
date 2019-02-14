@@ -3,20 +3,23 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.node.inline_entity_form
     - field.field.node.health_care_region_page.field_administration
     - field.field.node.health_care_region_page.field_clinical_health_care_servi
     - field.field.node.health_care_region_page.field_clinical_health_services
     - field.field.node.health_care_region_page.field_intro_text
     - field.field.node.health_care_region_page.field_locations_intro_blurb
+    - field.field.node.health_care_region_page.field_patient_family_services
     - field.field.node.health_care_region_page.field_patient_family_services_in
     - field.field.node.health_care_region_page.field_related_links
     - node.type.health_care_region_page
   module:
     - content_moderation
     - cshs
-    - entity_reference_revisions
     - field_group
     - hide_revision_field
+    - inline_entity_form
+    - paragraphs
     - path
     - text
 third_party_settings:
@@ -52,19 +55,22 @@ third_party_settings:
     group_intro_text_for_secondary_p:
       children:
         - field_locations_intro_blurb
+        - field_health_care_local_facility
       parent_name: ''
       weight: 9
       format_type: details
       format_settings:
+        label: 'Our Locations'
+        required_fields: true
         id: ''
         classes: ''
         open: false
-        required_fields: true
-      label: 'Intro text for secondary pages'
+      label: 'Our Locations'
       region: content
     group_clinical_health_services:
       children:
         - field_clinical_health_care_servi
+        - field_clinical_health_services
       parent_name: ''
       weight: 10
       format_type: details
@@ -78,6 +84,7 @@ third_party_settings:
     group_patient_family_services:
       children:
         - field_patient_family_services_in
+        - field_patient_family_services
       parent_name: ''
       weight: 11
       format_type: details
@@ -117,13 +124,20 @@ content:
     type: text_textarea
     region: content
   field_clinical_health_services:
-    weight: 16
+    weight: 12
     settings:
+      form_mode: inline_entity_form
+      override_labels: true
+      label_singular: service
+      label_plural: services
+      collapsible: true
+      collapsed: true
+      allow_new: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      allow_existing: false
+      allow_duplicate: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
     region: content
   field_intro_text:
     weight: 1
@@ -141,6 +155,22 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
+  field_patient_family_services:
+    weight: 13
+    settings:
+      form_mode: inline_entity_form
+      override_labels: true
+      label_singular: service
+      label_plural: services
+      collapsible: true
+      collapsed: true
+      allow_new: true
+      match_operator: CONTAINS
+      allow_existing: false
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+    region: content
   field_patient_family_services_in:
     weight: 12
     settings:
@@ -150,13 +180,22 @@ content:
     type: text_textarea
     region: content
   field_related_links:
-    weight: 15
+    weight: 12
     settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
     third_party_settings: {  }
-    type: entity_reference_revisions_autocomplete
+    type: paragraphs
     region: content
   moderation_state:
     type: moderation_state_default

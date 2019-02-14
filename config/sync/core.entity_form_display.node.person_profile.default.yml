@@ -28,7 +28,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 16
+      weight: 15
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -38,6 +38,50 @@ third_party_settings:
         weight: '-10'
       label: Governance
       region: content
+    group_e:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 16
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+      region: content
+    group_name:
+      children:
+        - field_name_first
+        - field_last_name
+        - field_suffix
+        - field_description
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Name
+      region: content
+    group_contact_info:
+      children:
+        - field_email_address
+        - field_phone_number
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Contact info'
+      region: content
 id: node.person_profile.default
 targetEntityType: node
 bundle: person_profile
@@ -45,7 +89,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 10
+    weight: 3
     settings:
       rows: 9
       summary_rows: 3
@@ -54,7 +98,7 @@ content:
     region: content
   created:
     type: datetime_timestamp
-    weight: 2
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -68,7 +112,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_description:
-    weight: 12
+    weight: 6
     settings:
       size: 60
       placeholder: ''
@@ -76,7 +120,7 @@ content:
     type: string_textfield
     region: content
   field_email_address:
-    weight: 14
+    weight: 5
     settings:
       size: 60
       placeholder: ''
@@ -84,7 +128,7 @@ content:
     type: email_default
     region: content
   field_last_name:
-    weight: 20
+    weight: 4
     settings:
       size: 60
       placeholder: ''
@@ -92,13 +136,13 @@ content:
     type: string_textfield
     region: content
   field_meta_tags:
-    weight: 15
+    weight: 14
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
     region: content
   field_name_first:
-    weight: 19
+    weight: 3
     settings:
       size: 60
       placeholder: ''
@@ -106,20 +150,20 @@ content:
     type: string_textfield
     region: content
   field_phone_number:
-    weight: 11
+    weight: 6
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
     region: content
   field_region_page:
-    weight: 18
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_suffix:
-    weight: 13
+    weight: 5
     settings:
       size: 60
       placeholder: ''
@@ -128,13 +172,13 @@ content:
     region: content
   moderation_state:
     type: moderation_state_default
-    weight: 8
+    weight: 16
     settings: {  }
     region: content
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -142,12 +186,12 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 3
+    weight: 9
     region: content
     third_party_settings: {  }
   revision_log:
     type: hide_revision_field_log_widget
-    weight: 7
+    weight: 17
     region: content
     settings:
       show: true
@@ -161,14 +205,14 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 9
+    weight: 13
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 4
+    weight: 10
     region: content
     third_party_settings: {  }
   title:
@@ -181,7 +225,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 1
+    weight: 7
     settings:
       match_operator: CONTAINS
       size: 60
@@ -189,7 +233,7 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 6
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }

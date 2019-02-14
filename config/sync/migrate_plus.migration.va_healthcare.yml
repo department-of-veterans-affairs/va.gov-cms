@@ -1,4 +1,4 @@
-uuid: c2eb6e51-be79-4036-a213-fdc28aec6bd9
+uuid: afedb685-ec36-4351-b88f-c90514e02a20
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: 6FQVzhNoe9b2Zxvyehddo2X7rLuSUgwQqarVm-q4KvM
+  default_config_hash: 2hfu0S6UIXlaux9SeFB1o138d7ESlDygs1WoxrLOPLA
 id: va_healthcare
 class: null
 field_plugin_method: null
@@ -140,12 +140,6 @@ source:
           modifier: removeSelectorAll
           arguments:
             - .usa-alert
-        -
-          operation: modifier
-          modifier: changeHtmlContents
-          arguments:
-            - '#react-applicationStatus, [data-app-id]'
-            - '<p>DYNAMIC FORM CONTENT GOES HERE</p>'
         -
           operation: get_field
           field: body

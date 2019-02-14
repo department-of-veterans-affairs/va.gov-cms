@@ -1,15 +1,16 @@
-uuid: 361e1e7f-bb1a-4cd0-a529-0f5931490709
+uuid: caf6826a-2d9e-460d-83a1-690a3b5c74fb
 langcode: en
 status: true
 dependencies:
   module:
     - paragraphs
-id: paragraph.field_maintenance_line_2
-field_name: field_maintenance_line_2
+id: paragraph.field_timeout
+field_name: field_timeout
 entity_type: paragraph
-type: string_long
+type: integer
 settings:
-  case_sensitive: false
+  unsigned: false
+  size: normal
 module: core
 locked: false
 cardinality: 1

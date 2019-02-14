@@ -10,13 +10,10 @@ dependencies:
     - field.field.node.news_story.field_link
     - field.field.node.news_story.field_media
     - field.field.node.news_story.field_meta_tags
-    - field.field.node.news_story.field_news_format
-    - field.field.node.news_story.field_press_release_contact
     - node.type.news_story
   module:
     - link
     - metatag
-    - options
     - text
     - user
 id: node.news_story.default
@@ -81,21 +78,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: metatag_empty_formatter
-    region: content
-  field_news_format:
-    weight: 106
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
-    region: content
-  field_press_release_contact:
-    weight: 105
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
     region: content
   links:
     weight: 100
