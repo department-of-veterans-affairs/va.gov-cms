@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.news_story.field_administration
     - field.field.node.news_story.field_author
     - field.field.node.news_story.field_description
+    - field.field.node.news_story.field_featured
     - field.field.node.news_story.field_image_caption
     - field.field.node.news_story.field_link
     - field.field.node.news_story.field_media
@@ -53,6 +54,16 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_featured:
+    weight: 112
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_image_caption:
     weight: 110
