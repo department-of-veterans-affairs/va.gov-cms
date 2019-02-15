@@ -1,14 +1,14 @@
-uuid: 1b441768-37af-44ab-b45a-3d3e0ea55147
+uuid: 756e45fa-665e-4d60-a9ee-5cf54c094f8c
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.body
+    - field.storage.node.field_body
     - node.type.person_profile
   module:
     - text
-id: node.person_profile.body
-field_name: body
+id: node.person_profile.field_body
+field_name: field_body
 entity_type: node
 bundle: person_profile
 label: Bio
@@ -17,6 +17,5 @@ required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  display_summary: true
-field_type: text_with_summary
+settings: {  }
+field_type: text_long

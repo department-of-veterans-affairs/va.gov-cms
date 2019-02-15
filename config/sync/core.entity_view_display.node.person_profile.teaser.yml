@@ -4,24 +4,23 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.person_profile.body
+    - field.field.node.person_profile.field_administration
+    - field.field.node.person_profile.field_description
+    - field.field.node.person_profile.field_email_address
+    - field.field.node.person_profile.field_last_name
+    - field.field.node.person_profile.field_media
+    - field.field.node.person_profile.field_meta_tags
+    - field.field.node.person_profile.field_name_first
+    - field.field.node.person_profile.field_phone_number
+    - field.field.node.person_profile.field_suffix
     - node.type.person_profile
   module:
-    - text
     - user
 id: node.person_profile.teaser
 targetEntityType: node
 bundle: person_profile
 mode: teaser
 content:
-  body:
-    label: hidden
-    type: text_summary_or_trimmed
-    weight: 101
-    settings:
-      trim_length: 600
-    third_party_settings: {  }
-    region: content
   links:
     weight: 100
     settings: {  }
@@ -33,6 +32,7 @@ hidden:
   field_description: true
   field_email_address: true
   field_last_name: true
+  field_media: true
   field_meta_tags: true
   field_name_first: true
   field_phone_number: true

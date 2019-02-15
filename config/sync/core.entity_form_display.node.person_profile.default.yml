@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.person_profile.body
     - field.field.node.person_profile.field_administration
+    - field.field.node.person_profile.field_body
     - field.field.node.person_profile.field_description
     - field.field.node.person_profile.field_email_address
     - field.field.node.person_profile.field_last_name
@@ -30,7 +30,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 14
+      weight: 13
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -45,7 +45,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 15
+      weight: 14
       format_type: fieldset
       format_settings:
         id: ''
@@ -75,7 +75,7 @@ third_party_settings:
         - field_email_address
         - field_phone_number
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -89,18 +89,9 @@ targetEntityType: node
 bundle: person_profile
 mode: default
 content:
-  body:
-    type: text_textarea_with_summary
-    weight: 4
-    settings:
-      rows: 9
-      summary_rows: 3
-      placeholder: ''
-    third_party_settings: {  }
-    region: content
   created:
     type: datetime_timestamp
-    weight: 7
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -112,6 +103,14 @@ content:
       force_deepest: false
     third_party_settings: {  }
     type: cshs
+    region: content
+  field_body:
+    weight: 3
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
     region: content
   field_description:
     weight: 6
@@ -139,12 +138,12 @@ content:
     region: content
   field_media:
     type: media_library_widget
-    weight: 3
+    weight: 2
     settings: {  }
     region: content
     third_party_settings: {  }
   field_meta_tags:
-    weight: 13
+    weight: 12
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -180,7 +179,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 10
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -188,7 +187,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 8
+    weight: 7
     region: content
     third_party_settings: {  }
   revision_log:
@@ -207,14 +206,14 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 12
+    weight: 11
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 9
+    weight: 8
     region: content
     third_party_settings: {  }
   title:
@@ -227,7 +226,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 6
+    weight: 5
     settings:
       match_operator: CONTAINS
       size: 60
@@ -235,7 +234,7 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 11
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }

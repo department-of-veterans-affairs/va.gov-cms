@@ -4,8 +4,8 @@ status: true
 dependencies:
   config:
     - core.entity_form_mode.node.inline_entity_form
-    - field.field.node.person_profile.body
     - field.field.node.person_profile.field_administration
+    - field.field.node.person_profile.field_body
     - field.field.node.person_profile.field_description
     - field.field.node.person_profile.field_email_address
     - field.field.node.person_profile.field_last_name
@@ -17,6 +17,7 @@ dependencies:
     - node.type.person_profile
   module:
     - field_group
+    - media_library
     - telephone
     - text
 third_party_settings:
@@ -52,19 +53,6 @@ third_party_settings:
     group_name:
       children: {  }
       parent_name: ''
-      weight: 5
-      format_type: details
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        required_fields: true
-        open: false
-      label: Name
-      region: content
-    group_contact_info:
-      children: {  }
-      parent_name: ''
       weight: 10
       format_type: details
       format_settings:
@@ -73,22 +61,34 @@ third_party_settings:
         description: ''
         required_fields: true
         open: false
+      label: Name
+      region: hidden
+    group_contact_info:
+      children: {  }
+      parent_name: ''
+      weight: 9
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+        open: false
       label: 'Contact info'
-      region: content
+      region: hidden
 id: node.person_profile.inline_entity_form
 targetEntityType: node
 bundle: person_profile
 mode: inline_entity_form
 content:
-  body:
-    type: text_textarea_with_summary
-    weight: 7
+  field_body:
+    type: text_textarea
+    weight: 6
+    region: content
     settings:
-      rows: 9
-      summary_rows: 3
+      rows: 5
       placeholder: ''
     third_party_settings: {  }
-    region: content
   field_description:
     weight: 4
     settings:
@@ -98,7 +98,7 @@ content:
     type: string_textfield
     region: content
   field_email_address:
-    weight: 8
+    weight: 7
     settings:
       size: 60
       placeholder: ''
@@ -113,6 +113,12 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_media:
+    type: media_library_widget
+    weight: 5
+    settings: {  }
+    region: content
+    third_party_settings: {  }
   field_name_first:
     weight: 1
     settings:
@@ -122,7 +128,7 @@ content:
     type: string_textfield
     region: content
   field_phone_number:
-    weight: 9
+    weight: 8
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -147,7 +153,6 @@ content:
 hidden:
   created: true
   field_administration: true
-  field_media: true
   field_meta_tags: true
   moderation_state: true
   path: true
