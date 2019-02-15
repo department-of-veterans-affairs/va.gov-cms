@@ -1,0 +1,21 @@
+uuid: bc1c4053-500a-40b4-b575-886c4dcaa078
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_body
+    - node.type.event
+  module:
+    - text
+id: node.event.field_body
+field_name: field_body
+entity_type: node
+bundle: event
+label: 'Full event description'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
