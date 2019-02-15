@@ -8,16 +8,18 @@ dependencies:
     - field.field.node.person_profile.field_description
     - field.field.node.person_profile.field_email_address
     - field.field.node.person_profile.field_last_name
+    - field.field.node.person_profile.field_media
     - field.field.node.person_profile.field_meta_tags
     - field.field.node.person_profile.field_name_first
     - field.field.node.person_profile.field_phone_number
-    - field.field.node.person_profile.field_region_page
     - field.field.node.person_profile.field_suffix
     - node.type.person_profile
   module:
     - content_moderation
+    - cshs
     - field_group
     - hide_revision_field
+    - media_library
     - metatag
     - path
     - telephone
@@ -28,7 +30,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 16
+      weight: 14
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -38,6 +40,50 @@ third_party_settings:
         weight: '-10'
       label: Governance
       region: content
+    group_e:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 15
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+      region: content
+    group_name:
+      children:
+        - field_name_first
+        - field_last_name
+        - field_suffix
+        - field_description
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Name
+      region: content
+    group_contact_info:
+      children:
+        - field_email_address
+        - field_phone_number
+      parent_name: ''
+      weight: 5
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Contact info'
+      region: content
 id: node.person_profile.default
 targetEntityType: node
 bundle: person_profile
@@ -45,7 +91,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 10
+    weight: 4
     settings:
       rows: 9
       summary_rows: 3
@@ -54,21 +100,21 @@ content:
     region: content
   created:
     type: datetime_timestamp
-    weight: 2
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   field_administration:
     weight: 17
     settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      parent: 0
+      level_labels: ''
+      force_deepest: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: cshs
     region: content
   field_description:
-    weight: 12
+    weight: 6
     settings:
       size: 60
       placeholder: ''
@@ -76,7 +122,7 @@ content:
     type: string_textfield
     region: content
   field_email_address:
-    weight: 14
+    weight: 5
     settings:
       size: 60
       placeholder: ''
@@ -84,21 +130,27 @@ content:
     type: email_default
     region: content
   field_last_name:
-    weight: 20
+    weight: 4
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_media:
+    type: media_library_widget
+    weight: 3
+    settings: {  }
+    region: content
+    third_party_settings: {  }
   field_meta_tags:
-    weight: 15
+    weight: 13
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
     region: content
   field_name_first:
-    weight: 19
+    weight: 3
     settings:
       size: 60
       placeholder: ''
@@ -106,20 +158,14 @@ content:
     type: string_textfield
     region: content
   field_phone_number:
-    weight: 11
+    weight: 6
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
     region: content
-  field_region_page:
-    weight: 18
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: content
   field_suffix:
-    weight: 13
+    weight: 5
     settings:
       size: 60
       placeholder: ''
@@ -128,13 +174,13 @@ content:
     region: content
   moderation_state:
     type: moderation_state_default
-    weight: 8
+    weight: 16
     settings: {  }
     region: content
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -142,12 +188,12 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 3
+    weight: 8
     region: content
     third_party_settings: {  }
   revision_log:
     type: hide_revision_field_log_widget
-    weight: 7
+    weight: 17
     region: content
     settings:
       show: true
@@ -161,14 +207,14 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 9
+    weight: 12
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 4
+    weight: 9
     region: content
     third_party_settings: {  }
   title:
@@ -181,7 +227,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 1
+    weight: 6
     settings:
       match_operator: CONTAINS
       size: 60
@@ -189,7 +235,7 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 6
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }

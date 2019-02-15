@@ -23,15 +23,22 @@ content:
     type: boolean_checkbox
     region: content
   field_questions:
-    type: entity_reference_paragraphs
+    type: paragraphs
     weight: 3
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
-      add_mode: dropdown
+      title: 'Question & Answer'
+      title_plural: 'Questions & Answers'
+      edit_mode: closed
+      closed_mode: preview
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
       form_display_mode: default
-      default_paragraph_type: ''
+      default_paragraph_type: q_a
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: '0'
+        add_above: '0'
     third_party_settings: {  }
     region: content
   field_section_header:

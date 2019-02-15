@@ -1,0 +1,25 @@
+uuid: fbd6fd12-f53b-4382-b9fe-a7ceb18376fd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_service_name_and_descripti
+    - node.type.regional_health_care_service_des
+id: node.regional_health_care_service_des.field_service_name_and_descripti
+field_name: field_service_name_and_descripti
+entity_type: node
+bundle: regional_health_care_service_des
+label: 'Service name and description'
+description: 'Look up the name and description from the national list of health care services.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: health_care_service_names_and_descriptions
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

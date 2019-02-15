@@ -30,6 +30,13 @@ Running Behat Tests:
 Running Phpunit Tests:
 * `cd tests`
 * `lando phpunit {Path-to-test}`
+to run a test group use
+* `lando phpunit . --group security`
+
+groups include
+ - migration
+ - performance
+ - security
 
 Triggering Metalsmith static site builds at /admin/config/build-trigger
 * See va_gov_build_trigger.module

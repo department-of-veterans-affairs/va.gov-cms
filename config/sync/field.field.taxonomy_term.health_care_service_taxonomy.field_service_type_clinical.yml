@@ -1,0 +1,21 @@
+uuid: 6b2637bc-7063-4a5a-928a-e7c9158702e3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_service_type_clinical
+    - taxonomy.vocabulary.health_care_service_taxonomy
+  module:
+    - options
+id: taxonomy_term.health_care_service_taxonomy.field_service_type_clinical
+field_name: field_service_type_clinical
+entity_type: taxonomy_term
+bundle: health_care_service_taxonomy
+label: 'Type of service (for clinical services)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

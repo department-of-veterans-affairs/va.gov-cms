@@ -10,7 +10,6 @@ dependencies:
     - field.field.taxonomy_term.administration.field_link
     - field.field.taxonomy_term.administration.field_metatags
     - field.field.taxonomy_term.administration.field_social_media_links
-    - field.field.taxonomy_term.administration.field_support_services
     - taxonomy.vocabulary.administration
   module:
     - link
@@ -87,14 +86,6 @@ content:
       link_attributes: {  }
     third_party_settings: {  }
     type: social_media_links_field_default
-    region: content
-  field_support_services:
-    weight: 3
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
     region: content
 hidden:
   field_description: true

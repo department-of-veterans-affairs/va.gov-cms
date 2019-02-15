@@ -31,7 +31,7 @@ class LinksList extends ParagraphType {
    */
   protected function getFieldValues(DOMQuery $query_path) {
     $title_raw = '';
-    if (!empty($query_path->prev()->hasClass('va-nav-linkslist-heading')) || !empty($query_path->prev()->hasClass('hub-page-link-list__title'))) {
+    if ($query_path->prev()->hasClass('va-nav-linkslist-heading') || $query_path->prev()->hasClass('hub-page-link-list__title')) {
       $title_raw = !empty($query_path->prev()->text()) ? $query_path->prev()->text() : '';
     }
     $title = trim($title_raw);

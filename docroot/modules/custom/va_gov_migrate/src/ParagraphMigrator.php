@@ -8,7 +8,6 @@ use Drupal\migrate\MigrateException;
 use Drupal\paragraphs\Entity\Paragraph;
 use QueryPath\DOMQuery;
 use Drupal\migration_tools\Message;
-use Drupal\migrate\Row;
 
 /**
  * ParagraphMigrator migrates paragraphs from query path.
@@ -79,7 +78,7 @@ class ParagraphMigrator {
       $this->paragraphClasses[] = new $class_name($this);
     }
 
-    usort($this->paragraphClasses, function ($a, $b) {
+    usort($this->paragraphClasses, function (ParagraphType $a, ParagraphType $b) {
       return $a->getWeight() > $b->getWeight() ? 1 : ($a->getWeight() < $b->getWeight() ? -1 : 0);
     });
   }
@@ -87,8 +86,8 @@ class ParagraphMigrator {
   /**
    * Create paragraphs from html and attach them to paragraph field on entity.
    *
-   * @param string $source_field
-   *   The the name of the field to get the paragraph html from.
+   * @param mixed $source_field
+   *   The field (or array of fields) to get the paragraph html from.
    * @param string $dest_field
    *   The machine name of the paragraph field on the parent entity.
    *
@@ -100,8 +99,17 @@ class ParagraphMigrator {
   public function process($source_field, $dest_field) {
     $this->deleteExistingParagraphs($this->entity, $dest_field);
 
+    if (is_array($source_field)) {
+      $source = '';
+      foreach ($source_field as $field) {
+        $source .= $this->row->getSourceProperty($field);
+      }
+    }
+    else {
+      $source = $this->row->getSourceProperty($source_field);
+    }
     try {
-      $query_path = $this->createQueryPath($this->row->getSourceProperty($source_field));
+      $query_path = $this->createQueryPath($source);
     }
     catch (MigrateException $e) {
       try {
@@ -231,10 +239,7 @@ class ParagraphMigrator {
       if (in_array('wysiwyg', $allowed_paragraphs)) {
         $paragraph = Paragraph::create([
           'type' => 'wysiwyg',
-          'field_wysiwyg' => [
-            "value" => $this->wysiwyg,
-            "format" => "rich_text",
-          ],
+          'field_wysiwyg' => ParagraphType::toRichText($this->wysiwyg),
         ]);
         $paragraph->save();
 
@@ -378,6 +383,7 @@ class ParagraphMigrator {
       $paragraphs = $storage_handler->loadMultiple($paragraph_ids);
       foreach ($paragraphs as $paragraph) {
         $fields = \Drupal::getContainer()->get("entity_field.manager")->getFieldDefinitions($paragraph->getEntityTypeId(), $paragraph->bundle());
+        /** @var \Drupal\Core\Field\FieldDefinitionInterface $field */
         foreach ($fields as $field) {
           if ($field->getSetting('handler') == 'default:paragraph') {
             $this->deleteExistingParagraphs($paragraph, $field->getName());

@@ -1,0 +1,19 @@
+uuid: abcbbf39-7f29-4aad-93c9-676b4ebec572
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image_caption
+    - node.type.news_story
+id: node.news_story.field_image_caption
+field_name: field_image_caption
+entity_type: node
+bundle: news_story
+label: 'Image caption'
+description: "<p>You can provide a caption here which will override any caption stored in the media library with the image.</p>\r\n<p><em>Maximum 600 characters.</em></p>"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -24,10 +24,10 @@ class LinksListItem extends ParagraphType {
    */
   protected function isParagraph(DOMQuery $query_path) {
     if ($query_path->parent()->hasClass('va-nav-linkslist-list')) {
-      return 'li' == $query_path->tag() && $query_path->parent()->hasClass('va-nav-linkslist-list');
+      return 'li' == $query_path->tag();
     }
     elseif ($query_path->parent()->hasClass('hub-page-link-list')) {
-      return 'li' == $query_path->tag() && $query_path->parent()->hasClass('hub-page-link-list');
+      return 'li' == $query_path->tag();
     }
     else {
       return 'section' == $query_path->tag() && $query_path->hasClass('hub-promo-text');
@@ -74,7 +74,7 @@ class LinksListItem extends ParagraphType {
 
     return [
       'field_link' => [
-        'uri' => $url,
+        'uri' => self::toUri($url),
         'title' => $title,
       ],
       'field_link_summary' => $summary,

@@ -1,0 +1,28 @@
+uuid: 0ebeb684-b539-4db0-884c-11005e8eeb19
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media
+    - media.type.image
+    - node.type.health_care_local_facility
+id: node.health_care_local_facility.field_media
+field_name: field_media
+entity_type: node
+bundle: health_care_local_facility
+label: Image
+description: "Make sure to crop your image with the 7:2 aspect ratio. \r\n"
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

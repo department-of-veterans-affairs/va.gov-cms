@@ -12,7 +12,6 @@ dependencies:
     - field.field.taxonomy_term.administration.field_link
     - field.field.taxonomy_term.administration.field_metatags
     - field.field.taxonomy_term.administration.field_social_media_links
-    - field.field.taxonomy_term.administration.field_support_services
     - taxonomy.vocabulary.administration
   module:
     - field_group
@@ -139,22 +138,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: social_media_links_field_default
-    region: content
-  field_support_services:
-    weight: 1
-    settings:
-      form_mode: inline_entity_form
-      override_labels: true
-      label_singular: 'Support service'
-      label_plural: 'Support services'
-      allow_new: true
-      allow_existing: true
-      match_operator: CONTAINS
-      collapsible: false
-      collapsed: false
-      allow_duplicate: false
-    third_party_settings: {  }
-    type: inline_entity_form_complex
     region: content
   name:
     type: string_textfield

@@ -1,0 +1,53 @@
+uuid: 93fba646-8d4a-43bb-b218-ecf073138d79
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.inline_entity_form
+    - field.field.node.regional_health_care_service_des.body
+    - field.field.node.regional_health_care_service_des.field_service_location
+    - field.field.node.regional_health_care_service_des.field_service_name_and_descripti
+    - node.type.regional_health_care_service_des
+  module:
+    - text
+id: node.regional_health_care_service_des.inline_entity_form
+targetEntityType: node
+bundle: regional_health_care_service_des
+mode: inline_entity_form
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 1
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+  field_service_location:
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_service_name_and_descripti:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+hidden:
+  created: true
+  field_administration: true
+  moderation_state: true
+  path: true
+  promote: true
+  revision_log: true
+  status: true
+  sticky: true
+  title: true
+  uid: true
+  url_redirects: true

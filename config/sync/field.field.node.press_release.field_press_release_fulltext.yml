@@ -1,0 +1,21 @@
+uuid: 3f9559e6-eb93-49ec-af5d-f76d78d444cc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_press_release_fulltext
+    - node.type.press_release
+  module:
+    - text
+id: node.press_release.field_press_release_fulltext
+field_name: field_press_release_fulltext
+entity_type: node
+bundle: press_release
+label: 'Full text of the press release'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
