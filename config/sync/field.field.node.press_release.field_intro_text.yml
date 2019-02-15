@@ -1,0 +1,19 @@
+uuid: 98772f90-d663-4923-86b2-90bf022a591f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_intro_text
+    - node.type.press_release
+id: node.press_release.field_intro_text
+field_name: field_intro_text
+entity_type: node
+bundle: press_release
+label: 'Intro text'
+description: "<p>The first sentence (aka \"the lede\"). This will be displayed more prominently than the rest of the press release text.</p>\r\n\r\n<p><em>Maximum 300 characters.</em></p>"
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

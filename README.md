@@ -31,6 +31,14 @@ Running Phpunit Tests:
 * `cd tests`
 * `lando phpunit {Path-to-test}`
 
+to run a test group use
+* `lando phpunit . --group security`
+
+groups include
+ - migration
+ - performance
+ - security
+
 Naming Conventions:
 * Modules: `vagov_modulename`
 * Content types: `vagov_contentype`

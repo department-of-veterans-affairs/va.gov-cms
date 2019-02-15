@@ -1,0 +1,28 @@
+uuid: 6b0c4a2d-92e9-492a-a55b-b3cdd33097d4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.office.body
+    - node.type.office
+  module:
+    - text
+    - user
+id: node.office.default
+targetEntityType: node
+bundle: office
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }

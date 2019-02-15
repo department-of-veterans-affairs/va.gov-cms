@@ -4,11 +4,13 @@ status: true
 dependencies:
   config:
     - core.entity_form_mode.media.media_browser
+    - field.field.media.image.field_image_caption
     - field.field.media.image.field_media_in_library
     - field.field.media.image.image
     - image.style.2_1_medium_thumbnail
     - media.type.image
   module:
+    - hide_revision_field
     - image_widget_crop
     - lightning_media
 _core:
@@ -18,9 +20,17 @@ targetEntityType: media
 bundle: image
 mode: media_browser
 content:
+  field_image_caption:
+    type: string_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   field_media_in_library:
     type: boolean_checkbox
-    weight: 2
+    weight: 3
     settings:
       display_label: true
     third_party_settings: {  }
@@ -50,6 +60,18 @@ content:
       placeholder: ''
     third_party_settings: {  }
     region: content
+  revision_log_message:
+    type: hide_revision_field_log_widget
+    weight: 4
+    region: content
+    settings:
+      show: true
+      default: ''
+      permission_based: false
+      allow_user_settings: true
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
 hidden:
   created: true
   moderation_state: true

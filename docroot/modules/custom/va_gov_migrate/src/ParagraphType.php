@@ -219,4 +219,38 @@ abstract class ParagraphType {
     }
   }
 
+  /**
+   * Adds 'internal' scheme to root-relative urls.
+   *
+   * @param string $url
+   *   The url to process.
+   *
+   * @return string
+   *   The uri.
+   */
+  public static function toUri($url) {
+    if (substr($url, 0, 1) == '/' && substr($url, 0, 2) != '//') {
+      $url = 'internal:' . $url;
+    }
+    return $url;
+  }
+
+  /**
+   * Returns an array with 'value' and 'format' to assign to a rich text field.
+   *
+   * We may want to add to this to sanitize the html.
+   *
+   * @param string $text
+   *   The html save to the field.
+   *
+   * @return array
+   *   An array that can be assigned to a rich text field.
+   */
+  public static function toRichText($text) {
+    return [
+      "value" => $text,
+      "format" => "rich_text",
+    ];
+  }
+
 }

@@ -36,6 +36,20 @@ third_party_settings:
         required_fields: 0
       label: Governance
       region: content
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 15
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+      region: content
 id: node.outreach_asset.default
 targetEntityType: node
 bundle: outreach_asset
@@ -50,14 +64,14 @@ content:
   field_administration:
     weight: 14
     settings:
-      parent: 0
+      parent: '6'
       level_labels: ''
-      force_deepest: false
+      force_deepest: 0
     third_party_settings: {  }
     type: cshs
     region: content
   field_benefits:
-    weight: 13
+    weight: 12
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
@@ -78,7 +92,7 @@ content:
     region: content
   field_media:
     type: inline_entity_form_complex
-    weight: 14
+    weight: 13
     settings:
       form_mode: media_library
       label_singular: ''
@@ -93,7 +107,7 @@ content:
     region: content
     third_party_settings: {  }
   field_meta_tags:
-    weight: 15
+    weight: 14
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -119,7 +133,7 @@ content:
     third_party_settings: {  }
   revision_log:
     type: hide_revision_field_log_widget
-    weight: 80
+    weight: 9
     region: content
     settings:
       show: true

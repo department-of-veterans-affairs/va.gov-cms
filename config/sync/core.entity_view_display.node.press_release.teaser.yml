@@ -4,27 +4,38 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.press_release.body
+    - field.field.node.press_release.field_address
+    - field.field.node.press_release.field_administration
+    - field.field.node.press_release.field_description
+    - field.field.node.press_release.field_intro_text
+    - field.field.node.press_release.field_meta_tags
+    - field.field.node.press_release.field_pdf_version
+    - field.field.node.press_release.field_press_release_contact
+    - field.field.node.press_release.field_press_release_downloads
+    - field.field.node.press_release.field_release_date
     - node.type.press_release
   module:
-    - text
     - user
 id: node.press_release.teaser
 targetEntityType: node
 bundle: press_release
 mode: teaser
 content:
-  body:
-    label: hidden
-    type: text_summary_or_trimmed
-    weight: 101
-    settings:
-      trim_length: 600
-    third_party_settings: {  }
-    region: content
   links:
     weight: 100
     settings: {  }
     third_party_settings: {  }
     region: content
-hidden: {  }
+hidden:
+  content_moderation_control: true
+  field_address: true
+  field_administration: true
+  field_description: true
+  field_intro_text: true
+  field_meta_tags: true
+  field_office: true
+  field_pdf_version: true
+  field_press_release_contact: true
+  field_press_release_downloads: true
+  field_press_release_fulltext: true
+  field_release_date: true

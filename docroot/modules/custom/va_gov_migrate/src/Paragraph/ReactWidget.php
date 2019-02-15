@@ -66,7 +66,7 @@ class ReactWidget extends ParagraphType {
     return [
       'field_cta_widget' => $cta,
       'field_default_link' => [
-        'uri' => $link_url,
+        'uri' => self::toUri($link_url),
         'title' => $link_text,
       ],
       'field_button_format' => $link_button,

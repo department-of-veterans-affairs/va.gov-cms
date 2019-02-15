@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.regional_health_care_service_des.field_service_name_and_descripti
     - node.type.regional_health_care_service_des
   module:
+    - content_moderation
     - cshs
     - field_group
     - path
@@ -23,11 +24,11 @@ third_party_settings:
       format_type: details_sidebar
       format_settings:
         label: Governance
+        open: '1'
         weight: '-10'
         required_fields: '1'
         id: ''
         classes: ''
-        open: 0
       label: Governance
       region: content
     group_editorial_workflow:
@@ -36,12 +37,13 @@ third_party_settings:
         - revision_log
       parent_name: ''
       weight: 12
-      format_type: details
+      format_type: fieldset
       format_settings:
         id: ''
         classes: ''
         open: false
         required_fields: true
+        description: ''
       label: 'Editorial workflow'
       region: content
 id: node.regional_health_care_service_des.default
@@ -67,9 +69,9 @@ content:
   field_administration:
     weight: 12
     settings:
-      parent: 0
+      parent: '8'
       level_labels: ''
-      force_deepest: false
+      force_deepest: 0
     third_party_settings: {  }
     type: cshs
     region: content
@@ -86,12 +88,10 @@ content:
     type: options_select
     region: content
   moderation_state:
-    type: string_textfield
+    type: moderation_state_default
     weight: 7
     region: content
-    settings:
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   path:
     type: path

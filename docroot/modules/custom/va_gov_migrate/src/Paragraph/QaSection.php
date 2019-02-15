@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_migrate\Paragraph;
 
 use Drupal\migration_tools\Obtainer\ObtainHtml;
+use Drupal\migration_tools\StringTools;
 use Drupal\va_gov_migrate\ParagraphType;
 use QueryPath\DOMQuery;
 
@@ -76,7 +77,7 @@ class QaSection extends ParagraphType {
           $is_accordion = TRUE;
         }
       }
-      elseif ($qp->text() != 'Jump to a section:') {
+      elseif (StringTools::superTrim($qp->text()) != 'Jump to a section:') {
         // If it survived all the tests, it's intro text.
         if (!empty($intro_text)) {
           // Add line breaks between elements.
