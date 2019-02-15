@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_clinical_health_care_servi
     - field.field.node.health_care_region_page.field_clinical_health_services
     - field.field.node.health_care_region_page.field_intro_text
+    - field.field.node.health_care_region_page.field_intro_text_events_page
     - field.field.node.health_care_region_page.field_intro_text_news_stories
     - field.field.node.health_care_region_page.field_leadership
     - field.field.node.health_care_region_page.field_locations_intro_blurb
@@ -65,6 +66,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
+  field_intro_text_events_page:
+    weight: 115
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
     region: content
   field_intro_text_news_stories:
     weight: 114
