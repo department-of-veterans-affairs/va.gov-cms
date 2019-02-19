@@ -1,0 +1,147 @@
+uuid: 78572745-b77f-47ed-b233-ac6cf961e818
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_social_media_links
+    - node.type.health_care_region_page
+  module:
+    - social_media_links_field
+id: node.health_care_region_page.field_social_media_links
+field_name: field_social_media_links
+entity_type: node
+bundle: health_care_region_page
+label: 'Social media links'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    platform: null
+    value: null
+    platform_values:
+      behance:
+        value: ''
+      pinterest:
+        value: ''
+      youtube:
+        value: ''
+      vkontakte:
+        value: ''
+      vimeo:
+        value: ''
+      twitter:
+        value: ''
+      tumblr:
+        value: ''
+      slideshare:
+        value: ''
+      rss:
+        value: ''
+      linkedin:
+        value: ''
+      bitbucket:
+        value: ''
+      instagram:
+        value: ''
+      googleplus:
+        value: ''
+      github:
+        value: ''
+      flickr:
+        value: ''
+      facebook:
+        value: ''
+      email:
+        value: ''
+      drupal:
+        value: ''
+      contact:
+        value: ''
+      youtube_channel:
+        value: ''
+default_value_callback: ''
+settings:
+  iconset: 'fontawesome:2x'
+  platforms:
+    facebook:
+      enabled: '1'
+      description: ''
+      weight: '-30'
+    twitter:
+      enabled: '1'
+      description: ''
+      weight: '-29'
+    tumblr:
+      description: ''
+      weight: '-28'
+      enabled: 0
+    flickr:
+      description: ''
+      weight: '-27'
+      enabled: 0
+    behance:
+      description: ''
+      weight: '-26'
+      enabled: 0
+    bitbucket:
+      description: ''
+      weight: '-25'
+      enabled: 0
+    contact:
+      description: ''
+      weight: '-24'
+      enabled: 0
+    drupal:
+      description: ''
+      weight: '-23'
+      enabled: 0
+    email:
+      description: ''
+      weight: '-22'
+      enabled: 0
+    github:
+      description: ''
+      weight: '-21'
+      enabled: 0
+    googleplus:
+      description: ''
+      weight: '-20'
+      enabled: 0
+    instagram:
+      description: ''
+      weight: '-19'
+      enabled: 0
+    linkedin:
+      description: ''
+      weight: '-18'
+      enabled: 0
+    pinterest:
+      description: ''
+      weight: '-17'
+      enabled: 0
+    rss:
+      description: ''
+      weight: '-16'
+      enabled: 0
+    slideshare:
+      description: ''
+      weight: '-15'
+      enabled: 0
+    vimeo:
+      description: ''
+      weight: '-14'
+      enabled: 0
+    vkontakte:
+      description: ''
+      weight: '-13'
+      enabled: 0
+    youtube:
+      description: ''
+      weight: '-12'
+      enabled: 0
+    youtube_channel:
+      description: ''
+      weight: '-11'
+      enabled: 0
+field_type: social_media_links_field

@@ -17,9 +17,11 @@ dependencies:
     - field.field.node.health_care_region_page.field_patient_family_services_in
     - field.field.node.health_care_region_page.field_press_release_blurb
     - field.field.node.health_care_region_page.field_related_links
+    - field.field.node.health_care_region_page.field_social_media_links
     - node.type.health_care_region_page
   module:
     - entity_reference_revisions
+    - social_media_links_field
     - text
     - user
 id: node.health_care_region_page.default
@@ -134,6 +136,15 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
+  field_social_media_links:
+    weight: 116
+    label: above
+    settings:
+      appearance: {  }
+      link_attributes: {  }
+    third_party_settings: {  }
+    type: social_media_links_field_default
     region: content
   links:
     weight: 100

@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_patient_family_services_in
     - field.field.node.health_care_region_page.field_press_release_blurb
     - field.field.node.health_care_region_page.field_related_links
+    - field.field.node.health_care_region_page.field_social_media_links
     - node.type.health_care_region_page
   module:
     - content_moderation
@@ -28,6 +29,7 @@ dependencies:
     - media_library
     - paragraphs
     - path
+    - social_media_links_field
     - text
 third_party_settings:
   field_group:
@@ -311,6 +313,12 @@ content:
         add_above: '0'
     third_party_settings: {  }
     type: paragraphs
+    region: content
+  field_social_media_links:
+    weight: 25
+    settings: {  }
+    third_party_settings: {  }
+    type: social_media_links_field_default
     region: content
   moderation_state:
     type: moderation_state_default
