@@ -1,0 +1,19 @@
+uuid: ebb2f11f-e3a5-4f38-b3e9-be076ab7645c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_intro_text
+    - node.type.news_story
+id: node.news_story.field_intro_text
+field_name: field_intro_text
+entity_type: node
+bundle: news_story
+label: 'Intro text'
+description: "<p>The first sentence (aka \"the lede\"). This will be displayed more prominently than the rest of the story, and will also appear as the teaser text where more than one story is listed at a time. </p>\r\n\r\n<p><em>Maximum 300 characters.</em></p>"
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

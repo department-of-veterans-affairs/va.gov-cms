@@ -1,0 +1,23 @@
+uuid: 2b72afb7-4df5-484a-8aa1-090d3dffa5b0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_appointments_online
+    - node.type.health_care_region_page
+id: node.health_care_region_page.field_appointments_online
+field_name: field_appointments_online
+entity_type: node
+bundle: health_care_region_page
+label: 'Appointments can be scheduled and viewed online'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Appointments can be scheduled and viewed online'
+  off_label: 'Appointments can not be scheduled and viewed online'
+field_type: boolean

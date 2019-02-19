@@ -1,22 +1,21 @@
-uuid: a8c95fae-6301-4114-81b7-6ab749c66e1d
+uuid: 489a1a39-c318-40db-b91a-46662dae3ded
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.body
+    - field.storage.node.field_body
     - node.type.regional_health_care_service_des
   module:
     - text
-id: node.regional_health_care_service_des.body
-field_name: body
+id: node.regional_health_care_service_des.field_body
+field_name: field_body
 entity_type: node
 bundle: regional_health_care_service_des
 label: 'Local description of service'
-description: 'This short description supplements the description provided by VHA headquarters. '
+description: ''
 required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  display_summary: true
-field_type: text_with_summary
+settings: {  }
+field_type: text_long

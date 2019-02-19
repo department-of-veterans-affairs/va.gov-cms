@@ -36,14 +36,14 @@ class ExpandableText extends ParagraphType {
     }
     else {
       Message::make('Expanding block missing trigger text: @html',
-        ['@html' => $this::$migrator->row->getSourceProperty('alert_title')],
+        ['@html' => self::$migrator->row->getSourceProperty('alert_title')],
         Message::ERROR);
       $expander = "Show more";
     }
     return
       [
         'field_text_expander' => $expander,
-        'field_wysiwyg' => $query_path->find('.expander-content-inner')->innerHTML(),
+        'field_wysiwyg' => self::toRichText($query_path->find('.expander-content-inner')->innerHTML()),
       ];
   }
 

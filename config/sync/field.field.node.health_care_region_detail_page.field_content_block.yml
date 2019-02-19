@@ -1,0 +1,79 @@
+uuid: 05d5c8ac-c2d8-48fc-a8f4-ad7b6630dec2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_block
+    - node.type.health_care_region_detail_page
+    - paragraphs.paragraphs_type.wysiwyg
+  module:
+    - entity_reference_revisions
+id: node.health_care_region_detail_page.field_content_block
+field_name: field_content_block
+entity_type: node
+bundle: health_care_region_detail_page
+label: 'Main content'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      wysiwyg: wysiwyg
+    target_bundles_drag_drop:
+      wysiwyg:
+        enabled: true
+        weight: -33
+      address:
+        weight: -32
+        enabled: false
+      alert:
+        weight: -31
+        enabled: false
+      collapsible_panel:
+        weight: -30
+        enabled: false
+      collapsible_panel_item:
+        weight: -29
+        enabled: false
+      expandable_text:
+        weight: -28
+        enabled: false
+      health_care_local_facility_servi:
+        weight: -27
+        enabled: false
+      link_teaser:
+        weight: -26
+        enabled: false
+      list_of_link_teasers:
+        weight: -25
+        enabled: false
+      number_callout:
+        weight: -24
+        enabled: false
+      process:
+        weight: -23
+        enabled: false
+      q_a:
+        weight: -22
+        enabled: false
+      q_a_section:
+        weight: -21
+        enabled: false
+      react_widget:
+        weight: -20
+        enabled: false
+      spanish_translation_summary:
+        weight: -19
+        enabled: false
+      starred_horizontal_rule:
+        weight: -18
+        enabled: false
+      person_profile:
+        enabled: true
+        weight: 27
+field_type: entity_reference_revisions

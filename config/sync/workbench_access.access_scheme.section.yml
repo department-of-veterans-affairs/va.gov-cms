@@ -7,11 +7,17 @@ dependencies:
     - field.field.block_content.promo.field_owner
     - field.field.node.event.field_administration
     - field.field.node.health_care_local_facility.field_administration
+    - field.field.node.health_care_region_detail_page.field_administration
+    - field.field.node.health_care_region_page.field_administration
     - field.field.node.landing_page.field_administration
     - field.field.node.news_story.field_administration
     - field.field.node.outreach_asset.field_administration
     - field.field.node.page.field_administration
     - field.field.node.person_profile.field_administration
+    - field.field.node.press_release.field_administration
+    - field.field.node.regional_health_care_service_des.field_administration
+    - field.field.node.support_service.field_administration
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
     - taxonomy.vocabulary.administration
 id: section
 label: Section
@@ -47,7 +53,11 @@ scheme_settings:
       field: field_administration
     -
       entity_type: node
-      bundle: health_care_local_facility
+      bundle: regional_health_care_service_des
+      field: field_administration
+    -
+      entity_type: node
+      bundle: press_release
       field: field_administration
     -
       entity_type: node
@@ -57,3 +67,23 @@ scheme_settings:
       entity_type: node
       bundle: news_story
       field: field_administration
+    -
+      entity_type: node
+      bundle: health_care_region_page
+      field: field_administration
+    -
+      entity_type: node
+      bundle: health_care_local_facility
+      field: field_administration
+    -
+      entity_type: node
+      bundle: support_service
+      field: field_administration
+    -
+      entity_type: node
+      bundle: health_care_region_detail_page
+      field: field_administration
+    -
+      entity_type: taxonomy_term
+      bundle: health_care_service_taxonomy
+      field: field_owner

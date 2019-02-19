@@ -3,14 +3,13 @@ recipe: drupal8
 config:
   webroot: docroot
   php: "7.2"
-  drush: path:/app/docroot/vendor/bin/drush
 
 events:
   # Clear caches after a database import
   post-db-import:
     - appserver: cd $LANDO_WEBROOT && drush cr -y
 
-  # Mirrors what is in lando-entrypoint-app.sh
+  # Mirrors what is in lando-entrypoint-app.sh, keep in sync with that file.
   # @todo don't use absolute path, somehow lando is not detecting drush in path right now. Fix this. 
   post-db-sync-stg:
     - appserver: cd $LANDO_WEBROOT && /app/docroot/vendor/bin/drush cache-rebuild -y
@@ -42,26 +41,46 @@ services:
     # Run `lando rebuild` after uncommenting
     #xdebug: true
     overrides:
-      services:
-        environment:
-          # Support debugging Drush with XDEBUG. Listen in PHPStorm then `lando drush` to trigger xdebug.
-          PHP_IDE_CONFIG: "serverName=appserver"
+      environment:
+        # You must manually `export` these VA* ENV variables to use them. @see /README.md
+        VA_CMS_BOT_GITHUB_AUTH_TOKEN: ${VA_CMS_BOT_GITHUB_AUTH_TOKEN}
+        # Support debugging Drush with XDEBUG. Listen in PHPStorm then `lando drush` to trigger xdebug.
+        PHP_IDE_CONFIG: "serverName=appserver"
   node:
     type: node
     build:
       - npm install
 #      - "cd $LANDO_MOUNT/docroot/themes/custom/vagov && npm install"
     overrides:
-      services:
-        environment:
-          BEHAT_PARAMS: '{"extensions" : {"Behat\\MinkExtension" : {"base_url" : "http://vagovcms.lndo.site/"}, "Drupal\\DrupalExtension" : {"drush" : { "root": "/app/docroot" }}}}'
+      environment:
+        BEHAT_PARAMS: '{"extensions" : {"Behat\\MinkExtension" : {"base_url" : "http://vagovcms.lndo.site/"}, "Drupal\\DrupalExtension" : {"drush" : { "root": "/app/docroot" }}}}'
       ports:
         - 3000:3000
         - 3001:3001
       image: node:10.13-jessie
     globals:
       gulp-cli: "latest"
+  # Uncomment this to work on site build triggers
+  # Must use lando 3.0.0-rc9+
+  # @see /README.md
+#  va-socks-proxy:
+#    type: compose
+#    services:
+#      image: va/socks-proxy
+#      build:
+#        context: ./docker/images/va-socks-proxy
+#        dockerfile: Dockerfile
+#      restart: on-failure
+#      # Only way to run a custom entrypoint in Lando
+#      # @see https://docs.devwithlando.io/tutorials/compose.html#configuration
+#      command: /entrypoint.sh
+#      environment:
+#        # Must export these first, @see /README.md.
+#        VA_SOCKS_PROXY_PRIVATE_KEY: ${VA_SOCKS_PROXY_PRIVATE_KEY}
+#        VA_SOCKS_PROXY_SSH_CONFIG: ${VA_SOCKS_PROXY_SSH_CONFIG}
 tooling:
+  drush:
+    cmd: /app/docroot/vendor/bin/drush
   phantomjs:
     service: appserver
     description: "Run phantomjs commands"
@@ -88,4 +107,4 @@ tooling:
   db-sync-stg:
     service: appserver
     description: Sync sanitized STG DB to local (up to 2 hours old)
-    cmd: /app/scripts/sync-db-stg.sh && echo "Importing STG database" && `/app/docroot/vendor/bin/drush sql-connect` < /app/.sql-dumps/db-latest.sql && echo "STG database import complete"
+    cmd: /app/scripts/sync-db-stg.sh && echo "Importing STG database" && /app/docroot/vendor/bin/drush sql-drop --yes && `/app/docroot/vendor/bin/drush sql-connect` < /app/.sql-dumps/db-latest.sql && echo "STG database import complete"

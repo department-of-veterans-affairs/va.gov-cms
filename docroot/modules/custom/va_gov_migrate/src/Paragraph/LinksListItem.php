@@ -74,7 +74,7 @@ class LinksListItem extends ParagraphType {
 
     return [
       'field_link' => [
-        'uri' => $url,
+        'uri' => self::toUri($url),
         'title' => $title,
       ],
       'field_link_summary' => $summary,

@@ -3,15 +3,19 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.press_release.body
+    - field.field.node.press_release.field_address
     - field.field.node.press_release.field_administration
-    - field.field.node.press_release.field_description
-    - field.field.node.press_release.field_media
+    - field.field.node.press_release.field_intro_text
     - field.field.node.press_release.field_meta_tags
+    - field.field.node.press_release.field_office
+    - field.field.node.press_release.field_pdf_version
     - field.field.node.press_release.field_press_release_contact
+    - field.field.node.press_release.field_press_release_downloads
+    - field.field.node.press_release.field_press_release_fulltext
     - field.field.node.press_release.field_release_date
     - node.type.press_release
   module:
+    - address
     - datetime
     - metatag
     - text
@@ -21,12 +25,12 @@ targetEntityType: node
 bundle: press_release
 mode: default
 content:
-  body:
-    label: hidden
-    type: text_default
-    weight: 101
+  field_address:
+    weight: 109
+    label: above
     settings: {  }
     third_party_settings: {  }
+    type: address_default
     region: content
   field_administration:
     weight: 102
@@ -36,21 +40,12 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_description:
-    weight: 105
+  field_intro_text:
+    weight: 110
     label: above
-    settings:
-      link_to_entity: false
+    settings: {  }
     third_party_settings: {  }
-    type: string
-    region: content
-  field_media:
-    weight: 106
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
+    type: basic_string
     region: content
   field_meta_tags:
     weight: 107
@@ -59,6 +54,23 @@ content:
     third_party_settings: {  }
     type: metatag_empty_formatter
     region: content
+  field_office:
+    weight: 113
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_pdf_version:
+    type: entity_reference_entity_view
+    weight: 111
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
   field_press_release_contact:
     weight: 104
     label: above
@@ -66,6 +78,22 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_press_release_downloads:
+    type: entity_reference_entity_view
+    weight: 108
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+  field_press_release_fulltext:
+    weight: 112
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
     region: content
   field_release_date:
     weight: 103
@@ -81,4 +109,5 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
-hidden: {  }
+hidden:
+  content_moderation_control: true

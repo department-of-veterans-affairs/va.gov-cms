@@ -5,13 +5,20 @@ dependencies:
   config:
     - core.entity_form_mode.node.inline_entity_form
     - field.field.node.health_care_region_page.field_administration
+    - field.field.node.health_care_region_page.field_appointments_online
     - field.field.node.health_care_region_page.field_clinical_health_care_servi
     - field.field.node.health_care_region_page.field_clinical_health_services
     - field.field.node.health_care_region_page.field_intro_text
+    - field.field.node.health_care_region_page.field_intro_text_events_page
+    - field.field.node.health_care_region_page.field_intro_text_news_stories
+    - field.field.node.health_care_region_page.field_leadership
     - field.field.node.health_care_region_page.field_locations_intro_blurb
+    - field.field.node.health_care_region_page.field_media
     - field.field.node.health_care_region_page.field_patient_family_services
     - field.field.node.health_care_region_page.field_patient_family_services_in
+    - field.field.node.health_care_region_page.field_press_release_blurb
     - field.field.node.health_care_region_page.field_related_links
+    - field.field.node.health_care_region_page.field_social_media_links
     - node.type.health_care_region_page
   module:
     - content_moderation
@@ -19,8 +26,10 @@ dependencies:
     - field_group
     - hide_revision_field
     - inline_entity_form
+    - media_library
     - paragraphs
     - path
+    - social_media_links_field
     - text
 third_party_settings:
   field_group:
@@ -28,7 +37,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 13
+      weight: 17
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -43,7 +52,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 14
+      weight: 18
       format_type: fieldset
       format_settings:
         id: ''
@@ -55,9 +64,8 @@ third_party_settings:
     group_intro_text_for_secondary_p:
       children:
         - field_locations_intro_blurb
-        - field_health_care_local_facility
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details
       format_settings:
         label: 'Our Locations'
@@ -72,7 +80,7 @@ third_party_settings:
         - field_clinical_health_care_servi
         - field_clinical_health_services
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: details
       format_settings:
         id: ''
@@ -86,7 +94,7 @@ third_party_settings:
         - field_patient_family_services_in
         - field_patient_family_services
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: details
       format_settings:
         id: ''
@@ -95,6 +103,61 @@ third_party_settings:
         required_fields: true
       label: 'Patient & Family Services'
       region: content
+    group_additional_details_about_t:
+      children:
+        - group_online_appointments
+        - field_related_links
+      parent_name: ''
+      weight: 16
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: false
+        required_fields: false
+      label: 'Additional details about the region'
+      region: content
+    group_online_appointments:
+      children:
+        - field_appointments_online
+      parent_name: group_additional_details_about_t
+      weight: 20
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: false
+      label: 'Online appointments'
+      region: content
+    group_leadership:
+      children: {  }
+      parent_name: ''
+      weight: 14
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: false
+        required_fields: true
+      label: Leadership
+      region: content
+    group_intro_blurbs_for_subpages:
+      children:
+        - field_intro_text_news_stories
+        - field_intro_text_events_page
+        - field_press_release_blurb
+      parent_name: ''
+      weight: 15
+      format_type: details
+      format_settings:
+        label: 'Stories, events, and press release blurbs'
+        required_fields: true
+        id: ''
+        classes: ''
+        open: false
+      label: 'Stories, events, and press release blurbs'
+      region: content
 id: node.health_care_region_page.default
 targetEntityType: node
 bundle: health_care_region_page
@@ -102,7 +165,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -114,6 +177,13 @@ content:
       force_deepest: false
     third_party_settings: {  }
     type: cshs
+    region: content
+  field_appointments_online:
+    weight: 21
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   field_clinical_health_care_servi:
     weight: 11
@@ -147,6 +217,38 @@ content:
     third_party_settings: {  }
     type: string_textarea
     region: content
+  field_intro_text_events_page:
+    weight: 23
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_intro_text_news_stories:
+    weight: 22
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_leadership:
+    weight: 13
+    settings:
+      form_mode: default
+      override_labels: true
+      label_singular: person
+      label_plural: persons
+      collapsible: true
+      collapsed: true
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+    region: content
   field_locations_intro_blurb:
     weight: 10
     settings:
@@ -155,6 +257,12 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
+  field_media:
+    type: media_library_widget
+    weight: 2
+    settings: {  }
+    region: content
+    third_party_settings: {  }
   field_patient_family_services:
     weight: 13
     settings:
@@ -179,23 +287,38 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
-  field_related_links:
-    weight: 12
+  field_press_release_blurb:
+    weight: 24
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_related_links:
+    weight: 23
+    settings:
+      title: Link
+      title_plural: Links
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: all
+      closed_mode_threshold: 0
       add_mode: dropdown
       form_display_mode: default
-      default_paragraph_type: ''
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
+      default_paragraph_type: list_of_link_teasers
       features:
-        duplicate: duplicate
         collapse_edit_all: collapse_edit_all
+        duplicate: '0'
+        add_above: '0'
     third_party_settings: {  }
     type: paragraphs
+    region: content
+  field_social_media_links:
+    weight: 25
+    settings: {  }
+    third_party_settings: {  }
+    type: social_media_links_field_default
     region: content
   moderation_state:
     type: moderation_state_default
@@ -205,7 +328,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -213,7 +336,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 4
+    weight: 5
     region: content
     third_party_settings: {  }
   revision_log:
@@ -232,14 +355,14 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 8
+    weight: 9
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 5
+    weight: 6
     region: content
     third_party_settings: {  }
   title:
@@ -252,7 +375,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 3
     settings:
       match_operator: CONTAINS
       size: 60
@@ -260,7 +383,7 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }

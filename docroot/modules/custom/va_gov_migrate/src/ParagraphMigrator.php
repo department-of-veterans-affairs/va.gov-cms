@@ -8,7 +8,6 @@ use Drupal\migrate\MigrateException;
 use Drupal\paragraphs\Entity\Paragraph;
 use QueryPath\DOMQuery;
 use Drupal\migration_tools\Message;
-use Drupal\migrate\Row;
 
 /**
  * ParagraphMigrator migrates paragraphs from query path.
@@ -79,7 +78,7 @@ class ParagraphMigrator {
       $this->paragraphClasses[] = new $class_name($this);
     }
 
-    usort($this->paragraphClasses, function ($a, $b) {
+    usort($this->paragraphClasses, function (ParagraphType $a, ParagraphType $b) {
       return $a->getWeight() > $b->getWeight() ? 1 : ($a->getWeight() < $b->getWeight() ? -1 : 0);
     });
   }
@@ -240,10 +239,7 @@ class ParagraphMigrator {
       if (in_array('wysiwyg', $allowed_paragraphs)) {
         $paragraph = Paragraph::create([
           'type' => 'wysiwyg',
-          'field_wysiwyg' => [
-            "value" => $this->wysiwyg,
-            "format" => "rich_text",
-          ],
+          'field_wysiwyg' => ParagraphType::toRichText($this->wysiwyg),
         ]);
         $paragraph->save();
 
@@ -387,6 +383,7 @@ class ParagraphMigrator {
       $paragraphs = $storage_handler->loadMultiple($paragraph_ids);
       foreach ($paragraphs as $paragraph) {
         $fields = \Drupal::getContainer()->get("entity_field.manager")->getFieldDefinitions($paragraph->getEntityTypeId(), $paragraph->bundle());
+        /** @var \Drupal\Core\Field\FieldDefinitionInterface $field */
         foreach ($fields as $field) {
           if ($field->getSetting('handler') == 'default:paragraph') {
             $this->deleteExistingParagraphs($paragraph, $field->getName());

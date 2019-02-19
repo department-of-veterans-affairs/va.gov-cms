@@ -1,0 +1,25 @@
+uuid: 329bd781-25a9-4cf2-bd1f-d8932171eaea
+langcode: en
+status: true
+dependencies:
+  config:
+    - crop.type.2_1
+  module:
+    - crop
+name: 2_1_large
+label: '2:1 large'
+effects:
+  15ce8ca4-1fbe-4bd3-b993-bedd82f39beb:
+    uuid: 15ce8ca4-1fbe-4bd3-b993-bedd82f39beb
+    id: crop_crop
+    weight: 1
+    data:
+      crop_type: '2_1'
+  9285618a-76b2-43c9-85a9-0bce20e50ce1:
+    uuid: 9285618a-76b2-43c9-85a9-0bce20e50ce1
+    id: image_scale
+    weight: 2
+    data:
+      width: 768
+      height: null
+      upscale: true

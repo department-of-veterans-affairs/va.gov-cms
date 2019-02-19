@@ -1,0 +1,28 @@
+uuid: b81b9ead-2fed-427e-a9d6-6a1c15ecddcc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media
+    - media.type.image
+    - node.type.person_profile
+id: node.person_profile.field_media
+field_name: field_media
+entity_type: node
+bundle: person_profile
+label: Photo
+description: "Make sure to crop your image with the <em>square</em> aspect ratio. \r\n"
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

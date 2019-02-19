@@ -1,0 +1,25 @@
+uuid: 288f17a5-d436-4b04-bde8-7631549d310c
+langcode: en
+status: true
+dependencies:
+  config:
+    - crop.type.3_2
+  module:
+    - crop
+name: 3_2_medium_thumbnail
+label: '3:2 medium thumbnail'
+effects:
+  09ffac97-bcf8-4d0f-8d5a-423e3b7c0f3e:
+    uuid: 09ffac97-bcf8-4d0f-8d5a-423e3b7c0f3e
+    id: crop_crop
+    weight: 1
+    data:
+      crop_type: '3_2'
+  83a1bb94-856f-4f1e-903c-19218d2a07d2:
+    uuid: 83a1bb94-856f-4f1e-903c-19218d2a07d2
+    id: image_scale
+    weight: 2
+    data:
+      width: 300
+      height: 200
+      upscale: false

@@ -1,0 +1,28 @@
+uuid: b2b84363-c78c-4aa0-bd34-292b4d2957de
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_pdf_version
+    - media.type.document
+    - node.type.press_release
+id: node.press_release.field_pdf_version
+field_name: field_pdf_version
+entity_type: node
+bundle: press_release
+label: 'PDF version'
+description: 'Optionally include a PDF version of the press release that can be downloaded. '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      document: document
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference
