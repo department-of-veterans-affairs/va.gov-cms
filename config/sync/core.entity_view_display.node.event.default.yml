@@ -3,19 +3,23 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.event.body
     - field.field.node.event.field_additional_information_abo
     - field.field.node.event.field_address
     - field.field.node.event.field_administration
+    - field.field.node.event.field_body
     - field.field.node.event.field_description
+    - field.field.node.event.field_event_cost
     - field.field.node.event.field_event_cta
     - field.field.node.event.field_event_date
     - field.field.node.event.field_event_date_end
     - field.field.node.event.field_event_registrationrequired
+    - field.field.node.event.field_facility_location
     - field.field.node.event.field_link
     - field.field.node.event.field_location_humanreadable
+    - field.field.node.event.field_location_type
     - field.field.node.event.field_media
     - field.field.node.event.field_meta_tags
+    - field.field.node.event.field_office
     - field.field.node.event.field_url_of_an_online_event
     - node.type.event
   module:
@@ -31,13 +35,6 @@ targetEntityType: node
 bundle: event
 mode: default
 content:
-  body:
-    label: hidden
-    type: text_default
-    weight: 101
-    settings: {  }
-    third_party_settings: {  }
-    region: content
   field_additional_information_abo:
     weight: 114
     label: above
@@ -60,8 +57,23 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
+  field_body:
+    weight: 115
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
   field_description:
     weight: 106
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_event_cost:
+    weight: 117
     label: above
     settings:
       link_to_entity: false
@@ -103,6 +115,14 @@ content:
     third_party_settings: {  }
     type: boolean
     region: content
+  field_facility_location:
+    weight: 118
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
   field_link:
     weight: 108
     label: above
@@ -123,6 +143,13 @@ content:
     third_party_settings: {  }
     type: string
     region: content
+  field_location_type:
+    weight: 119
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
   field_media:
     weight: 113
     label: above
@@ -137,6 +164,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: metatag_empty_formatter
+    region: content
+  field_office:
+    weight: 116
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
     region: content
   field_url_of_an_online_event:
     weight: 110

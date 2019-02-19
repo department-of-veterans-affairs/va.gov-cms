@@ -4,24 +4,28 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.event.body
+    - field.field.node.event.field_additional_information_abo
+    - field.field.node.event.field_address
+    - field.field.node.event.field_administration
+    - field.field.node.event.field_body
+    - field.field.node.event.field_description
+    - field.field.node.event.field_event_cta
+    - field.field.node.event.field_event_date
+    - field.field.node.event.field_event_date_end
+    - field.field.node.event.field_event_registrationrequired
+    - field.field.node.event.field_link
+    - field.field.node.event.field_location_humanreadable
+    - field.field.node.event.field_media
+    - field.field.node.event.field_meta_tags
+    - field.field.node.event.field_url_of_an_online_event
     - node.type.event
   module:
-    - text
     - user
 id: node.event.teaser
 targetEntityType: node
 bundle: event
 mode: teaser
 content:
-  body:
-    label: hidden
-    type: text_summary_or_trimmed
-    weight: 101
-    settings:
-      trim_length: 600
-    third_party_settings: {  }
-    region: content
   links:
     weight: 100
     settings: {  }
@@ -29,8 +33,10 @@ content:
     region: content
 hidden:
   content_moderation_control: true
+  field_additional_information_abo: true
   field_address: true
   field_administration: true
+  field_body: true
   field_description: true
   field_event_cta: true
   field_event_date: true
@@ -38,5 +44,6 @@ hidden:
   field_event_registrationrequired: true
   field_link: true
   field_location_humanreadable: true
+  field_media: true
   field_meta_tags: true
   field_url_of_an_online_event: true

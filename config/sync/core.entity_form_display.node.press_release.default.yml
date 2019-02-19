@@ -6,7 +6,6 @@ dependencies:
     - core.entity_form_mode.node.inline_entity_form
     - field.field.node.press_release.field_address
     - field.field.node.press_release.field_administration
-    - field.field.node.press_release.field_description
     - field.field.node.press_release.field_intro_text
     - field.field.node.press_release.field_meta_tags
     - field.field.node.press_release.field_office
@@ -99,14 +98,6 @@ content:
       force_deepest: false
     third_party_settings: {  }
     type: cshs
-    region: content
-  field_description:
-    weight: 1
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
     region: content
   field_intro_text:
     weight: 3
