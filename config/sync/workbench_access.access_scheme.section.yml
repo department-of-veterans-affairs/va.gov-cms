@@ -7,6 +7,7 @@ dependencies:
     - field.field.block_content.promo.field_owner
     - field.field.node.event.field_administration
     - field.field.node.health_care_local_facility.field_administration
+    - field.field.node.health_care_region_detail_page.field_administration
     - field.field.node.health_care_region_page.field_administration
     - field.field.node.landing_page.field_administration
     - field.field.node.news_story.field_administration
@@ -40,6 +41,10 @@ scheme_settings:
       field: field_administration
     -
       entity_type: node
+      bundle: page
+      field: field_administration
+    -
+      entity_type: node
       bundle: outreach_asset
       field: field_administration
     -
@@ -48,7 +53,11 @@ scheme_settings:
       field: field_administration
     -
       entity_type: node
-      bundle: page
+      bundle: regional_health_care_service_des
+      field: field_administration
+    -
+      entity_type: node
+      bundle: press_release
       field: field_administration
     -
       entity_type: node
@@ -68,15 +77,11 @@ scheme_settings:
       field: field_administration
     -
       entity_type: node
-      bundle: regional_health_care_service_des
-      field: field_administration
-    -
-      entity_type: node
-      bundle: press_release
-      field: field_administration
-    -
-      entity_type: node
       bundle: support_service
+      field: field_administration
+    -
+      entity_type: node
+      bundle: health_care_region_detail_page
       field: field_administration
     -
       entity_type: taxonomy_term

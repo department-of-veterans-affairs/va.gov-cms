@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.regional_health_care_service_des.body
     - field.field.node.regional_health_care_service_des.field_administration
+    - field.field.node.regional_health_care_service_des.field_body
     - field.field.node.regional_health_care_service_des.field_service_location
     - field.field.node.regional_health_care_service_des.field_service_name_and_descripti
     - node.type.regional_health_care_service_des
@@ -20,7 +20,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 11
+      weight: 9
       format_type: details_sidebar
       format_settings:
         label: Governance
@@ -36,7 +36,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 12
+      weight: 10
       format_type: fieldset
       format_settings:
         id: ''
@@ -51,18 +51,9 @@ targetEntityType: node
 bundle: regional_health_care_service_des
 mode: default
 content:
-  body:
-    type: text_textarea_with_summary
-    weight: 1
-    settings:
-      rows: 9
-      summary_rows: 3
-      placeholder: ''
-    third_party_settings: {  }
-    region: content
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -74,6 +65,14 @@ content:
       force_deepest: 0
     third_party_settings: {  }
     type: cshs
+    region: content
+  field_body:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
     region: content
   field_service_location:
     weight: 2
@@ -95,13 +94,13 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 9
+    weight: 7
     region: content
     settings:
       display_label: true
@@ -123,13 +122,13 @@ content:
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 8
+    weight: 6
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   url_redirects:
-    weight: 5
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }

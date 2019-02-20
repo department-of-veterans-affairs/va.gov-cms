@@ -1,0 +1,30 @@
+uuid: c5bb3364-5bdf-40b3-b305-014445d46408
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_location_type
+field_name: field_location_type
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: facility
+      label: 'VA Facility (such as a hospital, clinic or other facility in the Facility Locator)'
+    -
+      value: non_facility
+      label: 'Non-VA facility (you''ll enter a custom address below)'
+    -
+      value: online
+      label: 'Online event'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

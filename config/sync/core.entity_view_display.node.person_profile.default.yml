@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.person_profile.body
     - field.field.node.person_profile.field_administration
+    - field.field.node.person_profile.field_body
     - field.field.node.person_profile.field_description
     - field.field.node.person_profile.field_email_address
     - field.field.node.person_profile.field_last_name
@@ -23,13 +23,6 @@ targetEntityType: node
 bundle: person_profile
 mode: default
 content:
-  body:
-    label: hidden
-    type: text_default
-    weight: 101
-    settings: {  }
-    third_party_settings: {  }
-    region: content
   field_administration:
     weight: 107
     label: above
@@ -37,6 +30,13 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_body:
+    weight: 112
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
     region: content
   field_description:
     weight: 103

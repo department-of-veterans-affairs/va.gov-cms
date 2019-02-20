@@ -1,29 +1,23 @@
-uuid: 8498468b-bb67-46b6-b191-db4c530de3c7
+uuid: cf40747a-621d-453f-bd24-a26c65f9de21
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.person_profile.field_administration
-    - field.field.node.person_profile.field_body
-    - field.field.node.person_profile.field_description
-    - field.field.node.person_profile.field_email_address
-    - field.field.node.person_profile.field_last_name
-    - field.field.node.person_profile.field_media
-    - field.field.node.person_profile.field_meta_tags
-    - field.field.node.person_profile.field_name_first
-    - field.field.node.person_profile.field_phone_number
-    - field.field.node.person_profile.field_suffix
-    - node.type.person_profile
+    - entity_browser.browser.media_browser
+    - field.field.node.health_care_region_detail_page.field_administration
+    - field.field.node.health_care_region_detail_page.field_content_block
+    - field.field.node.health_care_region_detail_page.field_description
+    - field.field.node.health_care_region_detail_page.field_media
+    - field.field.node.health_care_region_detail_page.field_office
+    - field.field.node.health_care_region_detail_page.field_related_links
+    - node.type.health_care_region_detail_page
   module:
     - content_moderation
-    - cshs
+    - entity_browser
     - field_group
     - hide_revision_field
-    - media_library
-    - metatag
+    - paragraphs
     - path
-    - telephone
-    - text
 third_party_settings:
   field_group:
     group_governance:
@@ -40,7 +34,7 @@ third_party_settings:
         weight: '-10'
       label: Governance
       region: content
-    group_e:
+    group_editorial_workflow:
       children:
         - moderation_state
         - revision_log
@@ -54,82 +48,47 @@ third_party_settings:
         required_fields: true
       label: 'Editorial workflow'
       region: content
-    group_name:
-      children:
-        - field_name_first
-        - field_last_name
-        - field_suffix
-        - field_description
-      parent_name: ''
-      weight: 1
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        required_fields: true
-      label: Name
-      region: content
-    group_contact_info:
-      children:
-        - field_email_address
-        - field_phone_number
-      parent_name: ''
-      weight: 4
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        required_fields: true
-      label: 'Contact info'
-      region: content
-id: node.person_profile.default
+id: node.health_care_region_detail_page.default
 targetEntityType: node
-bundle: person_profile
+bundle: health_care_region_detail_page
 mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   field_administration:
-    weight: 17
+    weight: 12
     settings:
-      parent: 0
-      level_labels: ''
-      force_deepest: false
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: cshs
+    type: entity_reference_autocomplete
     region: content
-  field_body:
+  field_content_block:
     weight: 3
     settings:
-      rows: 5
-      placeholder: ''
+      title: 'Content block'
+      title_plural: 'Content blocks'
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: wysiwyg
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: '0'
+        add_above: '0'
     third_party_settings: {  }
-    type: text_textarea
+    type: paragraphs
     region: content
   field_description:
-    weight: 6
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
-  field_email_address:
-    weight: 5
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: email_default
-    region: content
-  field_last_name:
-    weight: 4
+    weight: 1
     settings:
       size: 60
       placeholder: ''
@@ -137,49 +96,57 @@ content:
     type: string_textfield
     region: content
   field_media:
-    type: media_library_widget
-    weight: 2
-    settings: {  }
-    region: content
-    third_party_settings: {  }
-  field_meta_tags:
-    weight: 12
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_firehose
-    region: content
-  field_name_first:
-    weight: 3
+    type: entity_browser_entity_reference
+    weight: 4
     settings:
+      entity_browser: media_browser
+      field_widget_display: rendered_entity
+      field_widget_edit: true
+      field_widget_remove: true
+      selection_mode: selection_append
+      field_widget_display_settings:
+        view_mode: thumbnail
+      open: true
+      field_widget_replace: false
+    region: content
+    third_party_settings: {  }
+  field_office:
+    weight: 2
+    settings:
+      match_operator: CONTAINS
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
+    type: entity_reference_autocomplete
     region: content
-  field_phone_number:
-    weight: 6
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: telephone_default
-    region: content
-  field_suffix:
+  field_related_links:
     weight: 5
     settings:
-      size: 60
-      placeholder: ''
+      title: 'Related link'
+      title_plural: 'Related links'
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: list_of_link_teasers
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: '0'
+        add_above: '0'
     third_party_settings: {  }
-    type: string_textfield
+    type: paragraphs
     region: content
   moderation_state:
     type: moderation_state_default
-    weight: 16
+    weight: 8
     settings: {  }
     region: content
     third_party_settings: {  }
   path:
     type: path
-    weight: 9
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -187,12 +154,12 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 7
+    weight: 8
     region: content
     third_party_settings: {  }
   revision_log:
     type: hide_revision_field_log_widget
-    weight: 17
+    weight: 9
     region: content
     settings:
       show: true
@@ -206,14 +173,14 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 11
+    weight: 12
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 8
+    weight: 9
     region: content
     third_party_settings: {  }
   title:
@@ -226,7 +193,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 6
     settings:
       match_operator: CONTAINS
       size: 60
@@ -234,7 +201,7 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }

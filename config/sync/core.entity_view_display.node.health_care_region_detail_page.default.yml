@@ -1,0 +1,77 @@
+uuid: 698e7428-f372-49cf-9acd-af91acb6b730
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.health_care_region_detail_page.field_administration
+    - field.field.node.health_care_region_detail_page.field_content_block
+    - field.field.node.health_care_region_detail_page.field_description
+    - field.field.node.health_care_region_detail_page.field_media
+    - field.field.node.health_care_region_detail_page.field_office
+    - field.field.node.health_care_region_detail_page.field_related_links
+    - node.type.health_care_region_detail_page
+  module:
+    - entity_reference_revisions
+    - user
+id: node.health_care_region_detail_page.default
+targetEntityType: node
+bundle: health_care_region_detail_page
+mode: default
+content:
+  field_administration:
+    weight: 102
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_content_block:
+    weight: 105
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  field_description:
+    weight: 104
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_media:
+    weight: 107
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_office:
+    weight: 101
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_related_links:
+    weight: 106
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true

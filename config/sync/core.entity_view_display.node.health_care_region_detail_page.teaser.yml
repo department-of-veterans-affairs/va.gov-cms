@@ -1,0 +1,20 @@
+uuid: 61a8d54c-9fc3-4dc0-998a-0121aa0b7d84
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.health_care_region_detail_page
+  module:
+    - user
+id: node.health_care_region_detail_page.teaser
+targetEntityType: node
+bundle: health_care_region_detail_page
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }
