@@ -39,10 +39,12 @@ groups include
  - security
 
 Triggering Metalsmith static site builds at /admin/config/build-trigger
-* See va_gov_build_trigger.module
+* @see va_gov_build_trigger.module
+* Uncomment the va-socks-proxy code in .lando.yml
+* Uncomment the "VA_CMS_BOT_GITHUB_AUTH_TOKEN" in the appserver container in .lando.yml
 * `export` the following local environment variables from 
 va.gov-cms-devops Ansible Vault and then run `lando rebuild --yes`.
-Contact Mouncif or Elijah in Slack #cms-engineering to obtain these:
+Contact Mouncif or Elijah in Slack #cms-engineering to obtain these ENV variables:
   * VA_CMS_BOT_GITHUB_AUTH_TOKEN
   * VA_SOCKS_PROXY_PRIVATE_KEY
   * VA_SOCKS_PROXY_SSH_CONFIG
