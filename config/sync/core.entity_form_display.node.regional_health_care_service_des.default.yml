@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.regional_health_care_service_des.field_administration
     - field.field.node.regional_health_care_service_des.field_body
+    - field.field.node.regional_health_care_service_des.field_region_page
     - field.field.node.regional_health_care_service_des.field_service_location
     - field.field.node.regional_health_care_service_des.field_service_name_and_descripti
     - node.type.regional_health_care_service_des
@@ -20,7 +21,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details_sidebar
       format_settings:
         label: Governance
@@ -36,7 +37,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: fieldset
       format_settings:
         id: ''
@@ -53,7 +54,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 8
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -74,8 +75,14 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
-  field_service_location:
+  field_region_page:
     weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_service_location:
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
@@ -94,13 +101,13 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 7
+    weight: 8
     region: content
     settings:
       display_label: true
@@ -115,20 +122,20 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 3
+    weight: 4
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 6
+    weight: 7
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   url_redirects:
-    weight: 4
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
