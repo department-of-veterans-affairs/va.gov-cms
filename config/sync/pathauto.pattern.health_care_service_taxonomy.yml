@@ -1,23 +1,23 @@
-uuid: 9182c7b4-abb9-43eb-86a2-5720d27e4202
+uuid: a7a79e1c-b2d7-4e91-a2c0-d4fbd36ea557
 langcode: en
 status: true
 dependencies:
   module:
     - ctools
     - taxonomy
-id: administration
-label: Section
+id: health_care_service_taxonomy
+label: 'Health Care Service Taxonomy'
 type: 'canonical_entities:taxonomy_term'
-pattern: 'section/[term:field_acronym]'
+pattern: 'health-care/[term:name]'
 selection_criteria:
-  5cdeceb3-8b07-4fec-a199-7e3995d4c67c:
+  587bb972-e837-4f50-9443-fd62413f3482:
     id: 'entity_bundle:taxonomy_term'
     bundles:
-      administration: administration
+      health_care_service_taxonomy: health_care_service_taxonomy
     negate: false
     context_mapping:
       taxonomy_term: taxonomy_term
-    uuid: 5cdeceb3-8b07-4fec-a199-7e3995d4c67c
+    uuid: 587bb972-e837-4f50-9443-fd62413f3482
 selection_logic: and
 weight: -5
 relationships: {  }

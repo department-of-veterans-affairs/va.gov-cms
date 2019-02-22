@@ -1,0 +1,24 @@
+uuid: e8bbafab-e7ba-4bd4-86c6-ca6dcd23ab71
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: nodes_without_public_urls
+label: 'Nodes without public URLs'
+type: 'canonical_entities:node'
+pattern: '[node:content-type]/[node:title]'
+selection_criteria:
+  3fa981c5-3dda-497b-ac33-6d34be810db0:
+    id: node_type
+    bundles:
+      outreach_asset: outreach_asset
+      regional_health_care_service_des: regional_health_care_service_des
+      support_service: support_service
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 3fa981c5-3dda-497b-ac33-6d34be810db0
+selection_logic: and
+weight: -5
+relationships: {  }

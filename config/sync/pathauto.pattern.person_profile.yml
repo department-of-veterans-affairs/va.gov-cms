@@ -1,0 +1,22 @@
+uuid: 8d15f206-1390-42fe-be7f-6efb2c3b9431
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: person_profile
+label: 'Person profile'
+type: 'canonical_entities:node'
+pattern: '[node:field_office:entity:url:path]/[node:title]'
+selection_criteria:
+  8716c16a-a0f1-4cbc-b8b5-ee669f30c3da:
+    id: node_type
+    bundles:
+      person_profile: person_profile
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 8716c16a-a0f1-4cbc-b8b5-ee669f30c3da
+selection_logic: and
+weight: -5
+relationships: {  }
