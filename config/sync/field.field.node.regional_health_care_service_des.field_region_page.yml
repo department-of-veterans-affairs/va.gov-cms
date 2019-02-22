@@ -1,17 +1,16 @@
-uuid: 199fa0b5-b338-4287-9581-39d14d4be4de
+uuid: 7c52125d-5824-49a4-af14-4e2b24f79857
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_office
+    - field.storage.node.field_region_page
     - node.type.health_care_region_page
-    - node.type.office
-    - node.type.press_release
-id: node.press_release.field_office
-field_name: field_office
+    - node.type.regional_health_care_service_des
+id: node.regional_health_care_service_des.field_region_page
+field_name: field_region_page
 entity_type: node
-bundle: press_release
-label: 'Related office or health care region'
+bundle: regional_health_care_service_des
+label: 'Region page'
 description: ''
 required: true
 translatable: true
@@ -22,10 +21,9 @@ settings:
   handler_settings:
     target_bundles:
       health_care_region_page: health_care_region_page
-      office: office
     sort:
       field: title
       direction: ASC
     auto_create: false
-    auto_create_bundle: health_care_region_page
+    auto_create_bundle: ''
 field_type: entity_reference
