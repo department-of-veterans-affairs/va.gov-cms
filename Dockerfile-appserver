@@ -27,4 +27,4 @@ COPY docker/templates/* /templates/
 # @see .composer-cache/README.md & https://stackoverflow.com/a/46801962/292408
 COPY .composer-cache/README.md .composer-cache/composer-cache* /tmp/
 # Hack to only run composer install if no matching cache was downloaded
-RUN if [ -f /tmp/composer-cache*.tar.gz ]; then cd /app/docroot; tar --extract --gzip --file /tmp/composer-cache*.tar.gz; else cd /app && composer install; fi
+RUN if [ -f /tmp/composer-cache*.tar.gz ]; then cd /app; tar --extract --gzip --file /tmp/composer-cache*.tar.gz; else cd /app && composer install; fi
