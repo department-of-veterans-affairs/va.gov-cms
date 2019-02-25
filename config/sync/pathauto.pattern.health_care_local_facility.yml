@@ -1,0 +1,22 @@
+uuid: 453b9c3d-0ff8-4a34-ae19-914aecf56971
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: health_care_local_facility
+label: 'Health Care Local Facility'
+type: 'canonical_entities:node'
+pattern: '[node:field_region_page:entity:url:path]/locations/[node:title]'
+selection_criteria:
+  f45524d9-5a02-49ca-97cf-2b3b37649c1b:
+    id: node_type
+    bundles:
+      health_care_local_facility: health_care_local_facility
+    negate: false
+    context_mapping:
+      node: node
+    uuid: f45524d9-5a02-49ca-97cf-2b3b37649c1b
+selection_logic: and
+weight: -9
+relationships: {  }

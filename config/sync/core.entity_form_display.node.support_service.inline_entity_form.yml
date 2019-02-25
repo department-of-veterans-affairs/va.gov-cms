@@ -4,10 +4,14 @@ status: true
 dependencies:
   config:
     - core.entity_form_mode.node.inline_entity_form
+    - field.field.node.support_service.field_administration
     - field.field.node.support_service.field_link
+    - field.field.node.support_service.field_office
+    - field.field.node.support_service.field_page_last_built
     - field.field.node.support_service.field_phone_number
     - node.type.support_service
   module:
+    - hide_revision_field
     - link
     - telephone
 id: node.support_service.inline_entity_form
@@ -16,23 +20,29 @@ bundle: support_service
 mode: inline_entity_form
 content:
   field_link:
-    weight: 2
+    weight: 3
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
     region: content
+  field_office:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_phone_number:
     type: telephone_default
-    weight: 1
+    weight: 2
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   revision_log:
     type: hide_revision_field_log_widget
-    weight: 80
+    weight: 5
     region: content
     settings:
       show: true
@@ -51,12 +61,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 50
+    weight: 4
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
   created: true
+  field_administration: true
   field_page_last_built: true
   moderation_state: true
   path: true

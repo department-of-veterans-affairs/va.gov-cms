@@ -18,7 +18,6 @@ dependencies:
   module:
     - address
     - content_moderation
-    - cshs
     - datetime
     - field_group
     - hide_revision_field
@@ -33,7 +32,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 16
+      weight: 15
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -48,7 +47,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 17
+      weight: 16
       format_type: details
       format_settings:
         id: ''
@@ -79,7 +78,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 9
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -92,12 +91,9 @@ content:
     region: content
   field_administration:
     weight: 11
-    settings:
-      parent: 0
-      level_labels: ''
-      force_deepest: false
+    settings: {  }
     third_party_settings: {  }
-    type: cshs
+    type: options_select
     region: content
   field_intro_text:
     weight: 3
@@ -108,25 +104,25 @@ content:
     type: string_textarea
     region: content
   field_meta_tags:
-    weight: 15
+    weight: 14
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
     region: content
   field_office:
-    weight: 3
+    weight: 1
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_pdf_version:
     type: media_library_widget
-    weight: 7
+    weight: 6
     settings: {  }
     region: content
     third_party_settings: {  }
   field_press_release_contact:
-    weight: 5
+    weight: 4
     settings:
       form_mode: inline_entity_form
       override_labels: true
@@ -143,7 +139,7 @@ content:
     region: content
   field_press_release_downloads:
     type: media_library_widget
-    weight: 6
+    weight: 5
     settings: {  }
     region: content
     third_party_settings: {  }
@@ -156,7 +152,7 @@ content:
     type: text_textarea
     region: content
   field_release_date:
-    weight: 4
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
@@ -169,7 +165,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 12
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -177,7 +173,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 10
+    weight: 9
     region: content
     third_party_settings: {  }
   revision_log:
@@ -196,14 +192,14 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 14
+    weight: 13
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 11
+    weight: 10
     region: content
     third_party_settings: {  }
   title:
@@ -216,7 +212,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 8
+    weight: 7
     settings:
       match_operator: CONTAINS
       size: 60
@@ -224,7 +220,7 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 13
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }

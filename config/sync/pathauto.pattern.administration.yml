@@ -6,18 +6,18 @@ dependencies:
     - ctools
     - taxonomy
 id: administration
-label: Administration
+label: Section
 type: 'canonical_entities:taxonomy_term'
-pattern: 'administration/[term:field_acronym]'
+pattern: 'section/[term:field_acronym]'
 selection_criteria:
-  042ab0e0-3716-46f1-8292-95c26df8c5b4:
+  5cdeceb3-8b07-4fec-a199-7e3995d4c67c:
     id: 'entity_bundle:taxonomy_term'
     bundles:
       administration: administration
     negate: false
     context_mapping:
       taxonomy_term: taxonomy_term
-    uuid: 042ab0e0-3716-46f1-8292-95c26df8c5b4
+    uuid: 5cdeceb3-8b07-4fec-a199-7e3995d4c67c
 selection_logic: and
-weight: -5
+weight: 0
 relationships: {  }

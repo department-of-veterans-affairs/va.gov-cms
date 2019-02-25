@@ -5,6 +5,11 @@ dependencies:
   config:
     - field.storage.node.field_content_block
     - node.type.health_care_region_detail_page
+    - paragraphs.paragraphs_type.collapsible_panel
+    - paragraphs.paragraphs_type.number_callout
+    - paragraphs.paragraphs_type.process
+    - paragraphs.paragraphs_type.q_a_section
+    - paragraphs.paragraphs_type.react_widget
     - paragraphs.paragraphs_type.wysiwyg
   module:
     - entity_reference_revisions
@@ -24,47 +29,52 @@ settings:
     negate: 0
     target_bundles:
       wysiwyg: wysiwyg
+      number_callout: number_callout
+      collapsible_panel: collapsible_panel
+      q_a_section: q_a_section
+      process: process
+      react_widget: react_widget
     target_bundles_drag_drop:
       wysiwyg:
         enabled: true
         weight: -33
-      address:
+      number_callout:
+        enabled: true
         weight: -32
-        enabled: false
-      alert:
-        weight: -31
-        enabled: false
       collapsible_panel:
+        enabled: true
+        weight: -31
+      q_a_section:
+        enabled: true
         weight: -30
-        enabled: false
-      collapsible_panel_item:
+      process:
+        enabled: true
         weight: -29
-        enabled: false
-      expandable_text:
+      react_widget:
+        enabled: true
         weight: -28
-        enabled: false
-      health_care_local_facility_servi:
+      address:
         weight: -27
         enabled: false
-      link_teaser:
+      alert:
         weight: -26
         enabled: false
-      list_of_link_teasers:
+      collapsible_panel_item:
         weight: -25
         enabled: false
-      number_callout:
+      expandable_text:
         weight: -24
         enabled: false
-      process:
+      health_care_local_facility_servi:
         weight: -23
         enabled: false
-      q_a:
+      link_teaser:
         weight: -22
         enabled: false
-      q_a_section:
+      list_of_link_teasers:
         weight: -21
         enabled: false
-      react_widget:
+      q_a:
         weight: -20
         enabled: false
       spanish_translation_summary:
@@ -73,7 +83,4 @@ settings:
       starred_horizontal_rule:
         weight: -18
         enabled: false
-      person_profile:
-        enabled: true
-        weight: 27
 field_type: entity_reference_revisions

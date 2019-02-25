@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_appointments_online
     - field.field.node.health_care_region_page.field_clinical_health_care_servi
     - field.field.node.health_care_region_page.field_clinical_health_services
+    - field.field.node.health_care_region_page.field_email_subscription_links
     - field.field.node.health_care_region_page.field_intro_text
     - field.field.node.health_care_region_page.field_intro_text_events_page
     - field.field.node.health_care_region_page.field_intro_text_news_stories
@@ -18,6 +19,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_patient_family_services_in
     - field.field.node.health_care_region_page.field_press_release_blurb
     - field.field.node.health_care_region_page.field_related_links
+    - field.field.node.health_care_region_page.field_sign_up_for_emergency_emai
     - field.field.node.health_care_region_page.field_social_media_links
     - node.type.health_care_region_page
   module:
@@ -26,6 +28,7 @@ dependencies:
     - field_group
     - hide_revision_field
     - inline_entity_form
+    - link
     - media_library
     - paragraphs
     - path
@@ -108,7 +111,7 @@ third_party_settings:
         - group_online_appointments
         - field_related_links
       parent_name: ''
-      weight: 16
+      weight: 15
       format_type: details
       format_settings:
         id: ''
@@ -131,9 +134,10 @@ third_party_settings:
       label: 'Online appointments'
       region: content
     group_leadership:
-      children: {  }
+      children:
+        - field_leadership
       parent_name: ''
-      weight: 14
+      weight: 13
       format_type: details
       format_settings:
         id: ''
@@ -148,7 +152,7 @@ third_party_settings:
         - field_intro_text_events_page
         - field_press_release_blurb
       parent_name: ''
-      weight: 15
+      weight: 14
       format_type: details
       format_settings:
         label: 'Stories, events, and press release blurbs'
@@ -157,6 +161,21 @@ third_party_settings:
         classes: ''
         open: false
       label: 'Stories, events, and press release blurbs'
+      region: content
+    group_get_updates_from_us:
+      children:
+        - field_email_subscription_links
+        - field_sign_up_for_emergency_emai
+        - field_social_media_links
+      parent_name: ''
+      weight: 16
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Get updates from us'
       region: content
 id: node.health_care_region_page.default
 targetEntityType: node
@@ -208,6 +227,14 @@ content:
       allow_duplicate: false
     third_party_settings: {  }
     type: inline_entity_form_complex
+    region: content
+  field_email_subscription_links:
+    weight: 23
+    settings:
+      placeholder_url: ''
+      placeholder_title: 'Eg, "Sign up for email news and announcements"'
+    third_party_settings: {  }
+    type: link_default
     region: content
   field_intro_text:
     weight: 1
@@ -313,6 +340,14 @@ content:
         add_above: '0'
     third_party_settings: {  }
     type: paragraphs
+    region: content
+  field_sign_up_for_emergency_emai:
+    weight: 24
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
     region: content
   field_social_media_links:
     weight: 25
