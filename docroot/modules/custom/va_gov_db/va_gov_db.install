@@ -10,7 +10,7 @@ use Drupal\path_redirect_import\ImporterService;
 /**
  * Adding list of redirects.
  */
-function va_gov_db_update_8201() {
+function va_gov_db_install() {
   // Make sure our vocab terms get built via install operation.
   \Drupal::service('module_installer')->uninstall(['redirect_options']);
   \Drupal::service('module_installer')->install(['redirect_options']);
