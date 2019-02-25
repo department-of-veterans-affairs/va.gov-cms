@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * @file
+ * Install file for Va Gov DB.
+ */
+
+use Drupal\path_redirect_import\ImporterService;
+
+/**
+ * Adding list of redirects.
+ */
+function va_gov_db_update_8201() {
+  // Make sure our vocab terms get built via install operation.
+  \Drupal::service('module_installer')->uninstall(['redirect_options']);
+  \Drupal::service('module_installer')->install(['redirect_options']);
+
+  // Plug our redirects into redirects table.
+  $server = DRUPAL_ROOT . '/redirects.csv';
+  $template = DRUPAL_ROOT . '/template_redirects.csv';
+  $files = ['Template' => $template, 'Server' => $server];
+  foreach ($files as $key => $file) {
+    $options = [
+      'allow_nonexistent' => TRUE,
+      'override' => TRUE,
+    ];
+    ImporterService::import($file, $options);
+    $db = \Drupal::database();
+    $db->update('redirect')
+      ->fields(['redirect_redirect__title' => 'Server'])->execute();
+  }
+  // Now update our template redirects.
+  $csv = array_map('str_getcsv', file($template));
+  // Remove column header.
+  array_shift($csv);
+
+  foreach ($csv as $key => $item) {
+
+    $db->update('redirect')
+      ->condition('redirect_source__path', $item[0], '=')
+      ->fields(['redirect_redirect__title' => 'Template'])->execute();
+  }
+
+  // Now copy pertinent data over to our redirect_options table.
+  $results = $db->select('redirect', 'r')
+    ->fields('r', ['redirect_source__path', 'redirect_redirect__title'])->execute()->fetchAll();
+  foreach ($results as $result) {
+    $db->upsert('redirect_options')
+      ->key('source')
+      ->fields(['source', 'type'])
+      ->values([
+        'source' => $result->redirect_source__path,
+        'type' => $result->redirect_redirect__title,
+      ])->execute();
+  }
+}
