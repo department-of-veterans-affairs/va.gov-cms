@@ -30,7 +30,7 @@ third_party_settings:
         - field_administration
         - field_plainlanguage_date
       parent_name: ''
-      weight: 9
+      weight: 5
       format_type: details_sidebar
       format_settings:
         label: Governance
@@ -45,7 +45,7 @@ third_party_settings:
       children:
         - field_alert
       parent_name: ''
-      weight: 4
+      weight: 1
       format_type: fieldset
       format_settings:
         label: 'Include crisis alert'
@@ -55,26 +55,12 @@ third_party_settings:
         required_fields: false
       label: 'Include crisis alert'
       region: content
-    group_status:
-      children:
-        - field_page_last_built
-      parent_name: ''
-      weight: 7
-      format_type: details_sidebar
-      format_settings:
-        id: ''
-        classes: ''
-        open: 0
-        required_fields: 1
-        weight: '-5'
-      label: Status
-      region: content
     group_editorial_workflow:
       children:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 11
+      weight: 7
       format_type: details
       format_settings:
         label: 'Editorial workflow'
@@ -90,7 +76,7 @@ third_party_settings:
         - field_description
         - field_intro_text
       parent_name: ''
-      weight: 1
+      weight: 0
       format_type: details
       format_settings:
         label: 'Page Introduction'
@@ -109,7 +95,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 12
+    weight: 8
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -130,7 +116,7 @@ content:
     region: content
   field_content_block:
     type: paragraphs
-    weight: 6
+    weight: 3
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -157,7 +143,7 @@ content:
     region: content
   field_featured_content:
     type: paragraphs
-    weight: 5
+    weight: 2
     settings:
       title: Section
       title_plural: Sections
@@ -185,13 +171,7 @@ content:
   field_meta_tags:
     type: metatag_firehose
     region: content
-    weight: 15
-    settings: {  }
-    third_party_settings: {  }
-  field_page_last_built:
-    type: datetime_default
-    weight: 17
-    region: content
+    weight: 11
     settings: {  }
     third_party_settings: {  }
   field_plainlanguage_date:
@@ -202,7 +182,7 @@ content:
     region: content
   field_related_links:
     type: paragraphs
-    weight: 8
+    weight: 4
     settings:
       title: 'Link teaser'
       title_plural: 'Link teaser'
@@ -227,7 +207,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 13
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -245,7 +225,7 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 14
+    weight: 10
     settings:
       display_label: true
     third_party_settings: {  }
@@ -260,7 +240,7 @@ content:
     region: content
   uid:
     type: entity_reference_autocomplete
-    weight: 10
+    weight: 6
     settings:
       match_operator: CONTAINS
       size: 60
@@ -268,11 +248,12 @@ content:
     third_party_settings: {  }
     region: content
   url_redirects:
-    weight: 16
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_page_last_built: true
   panelizer: true
   promote: true
   sticky: true
