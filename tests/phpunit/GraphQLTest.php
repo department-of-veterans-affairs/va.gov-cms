@@ -49,7 +49,7 @@ class ServiceAvailable extends ExistingSiteBase {
     $author->setPassword('t3st0ma4tic');
     $author->save();
 
-    $url = 'http://vagovcms.lndo.site';
+    $url = 'localhost';
 
     try {
       $response = \Drupal::httpClient()->post($url . "/graphql?_format=json,", [
