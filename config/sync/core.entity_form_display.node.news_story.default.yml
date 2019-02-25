@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_form_mode.node.inline_entity_form
-    - entity_browser.browser.image_browser
     - field.field.node.news_story.field_administration
     - field.field.node.news_story.field_author
     - field.field.node.news_story.field_featured
@@ -19,11 +18,11 @@ dependencies:
   module:
     - content_moderation
     - cshs
-    - entity_browser
     - field_group
     - hide_revision_field
     - inline_entity_form
     - link
+    - media_library
     - metatag
     - path
     - text
@@ -147,17 +146,9 @@ content:
     type: link_default
     region: content
   field_media:
-    type: entity_browser_entity_reference
+    type: media_library_widget
     weight: 14
-    settings:
-      entity_browser: image_browser
-      field_widget_display: label
-      field_widget_edit: true
-      field_widget_remove: true
-      selection_mode: selection_append
-      field_widget_replace: false
-      open: false
-      field_widget_display_settings: {  }
+    settings: {  }
     region: content
     third_party_settings: {  }
   field_meta_tags:
