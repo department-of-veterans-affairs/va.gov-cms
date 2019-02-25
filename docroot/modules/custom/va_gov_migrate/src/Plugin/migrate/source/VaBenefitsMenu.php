@@ -109,13 +109,13 @@ class VaBenefitsMenu extends SourcePluginBase {
    * @param array $menu_tree
    *   The array of menu items.
    */
-  protected function setWeights(array &$menu_tree) {
+  public static function setWeights(array &$menu_tree) {
     $relative_weight = 0;
     foreach ($menu_tree as &$item) {
       $item['weight'] = -50 + $relative_weight;
       $relative_weight++;
       if (!empty($item['items'])) {
-        $this->setWeights($item['items']);
+        self::setWeights($item['items']);
       }
     }
   }
@@ -130,11 +130,11 @@ class VaBenefitsMenu extends SourcePluginBase {
    * @param string $parent_id
    *   The id of the current menu tree's parent.
    */
-  protected function setIds(array &$menu_tree, $parent_id = '') {
+  public static function setIds(array &$menu_tree, $parent_id = '') {
     foreach ($menu_tree as $index => &$item) {
       $item['id'] = $parent_id . '-' . $index;
       if (!empty($item['items'])) {
-        $this->setIds($item['items'], $item['id']);
+        self::setIds($item['items'], $item['id']);
       }
     }
   }
@@ -154,7 +154,7 @@ class VaBenefitsMenu extends SourcePluginBase {
    * @return array
    *   A one-dimensional array of menu items.
    */
-  protected function flattenMenu(array $menu_tree, $parent_id = '', $parent_menu = '') {
+  public static function flattenMenu(array $menu_tree, $parent_id = '', $parent_menu = '') {
     $flat_menu = [];
     foreach ($menu_tree as $index => $item) {
       if (parse_url($item['href'], PHP_URL_SCHEME)) {
@@ -178,7 +178,7 @@ class VaBenefitsMenu extends SourcePluginBase {
       $flat_menu[] = $item;
 
       if (!empty($item['items'])) {
-        $flat_menu = array_merge($flat_menu, $this->flattenMenu($item['items'], $item['id'], $item['menu']));
+        $flat_menu = array_merge($flat_menu, self::flattenMenu($item['items'], $item['id'], $item['menu']));
       }
       unset($item['items']);
 
