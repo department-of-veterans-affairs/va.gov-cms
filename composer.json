@@ -54,7 +54,8 @@
         "drupal/migrate_source_csv": "^2.2",
         "drupal/auto_entitylabel": "^2.1@beta",
         "zaporylie/composer-drupal-optimizations": "^1.0",
-        "drupal/redirect_options": "^1.2"
+        "drupal/redirect_options": "^1.2",
+        "drupal/path_redirect_import": "^1.0@beta"
     },
     "autoload": {
         "psr-4": {
@@ -137,6 +138,9 @@
             },
             "drupal/field_group": {
                 "Allow to position the group in the advanced (sidebar) column": "https://www.drupal.org/files/issues/2018-07-26/2652642-59.patch"
+            },
+            "drupal/path_migration_tools": {
+                "Add an option to import non-existent paths": "https://www.drupal.org/files/issues/2018-08-28/path_redirect_import-2995543-2.patch"
             },
             "acquia/headless_lightning": {
                 "Fix empty form id in redirect": "patches/nullFormIDFixInRedirect.patch"
