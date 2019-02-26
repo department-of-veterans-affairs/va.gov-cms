@@ -1,0 +1,29 @@
+uuid: 7c52125d-5824-49a4-af14-4e2b24f79857
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_region_page
+    - node.type.health_care_region_page
+    - node.type.regional_health_care_service_des
+id: node.regional_health_care_service_des.field_region_page
+field_name: field_region_page
+entity_type: node
+bundle: regional_health_care_service_des
+label: 'Region page'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      health_care_region_page: health_care_region_page
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

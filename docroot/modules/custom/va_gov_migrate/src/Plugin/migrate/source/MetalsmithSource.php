@@ -7,6 +7,7 @@ use Drupal\migration_tools\Plugin\migrate\source\UrlList;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Drupal\migrate\Plugin\MigrationInterface;
+use GuzzleHttp\Exception\RequestException;
 
 /**
  * Gets frontmatter and page urls from metalsmith files.
@@ -107,6 +108,7 @@ class MetalsmithSource extends UrlList {
     $query_path = htmlqp($html);
     $links = $query_path->find('table.files a');
 
+    /** @var \QueryPath\DOMQuery $link */
     foreach ($links as $link) {
       $path = $link->attr('href');
       // File and directory paths are always relative.
@@ -150,7 +152,8 @@ class MetalsmithSource extends UrlList {
       return;
     }
 
-    if (!($row['url'] = self::getPageUrl($url, $row))) {
+    self::setPagePath($url, $row);
+    if (empty($row['url'])) {
       return;
     }
 
@@ -270,45 +273,30 @@ class MetalsmithSource extends UrlList {
   }
 
   /**
-   * Get the url of the page on va.gov that corresponds to a metalsmith file.
+   * Set the 'url' key to the va.gov path that corresponds to a metalsmith file.
+   *
+   * Also set the 'path' key, used for drupal node alias.
    *
    * @param string $url
    *   The url of the metalsmith file.
-   * @param string $frontmatter
-   *   The array of metalsmith frontmatter.
-   *
-   * @return bool|string
-   *   The url of the associated web page or FALSE if no valid url was found.
-   *
-   * @throws \Drupal\migrate\MigrateException
+   * @param array $row
+   *   The row to set the url on.
    */
-  public static function getPageUrl($url, $frontmatter) {
-    // If the record doesn't have an href, get the url from the file path.
-    if (empty($frontmatter['href'])) {
-      $url_path = parse_url($url, PHP_URL_PATH);
-      // Get the path without the file name for index pages.
-      if (preg_match('/\/department-of-veterans-affairs\/vagov-content\/blob\/master\/pages\/([^\.]+)\/index\.md/', $url_path, $matches)) {
-        return 'https://www.va.gov/' . $matches[1] . '/';
-      }
-      // Get the path with the file name for all others.
-      elseif (preg_match('/\/department-of-veterans-affairs\/vagov-content\/blob\/master\/pages\/([^\.]+)\.md/', $url_path, $matches)) {
-        return 'https://www.va.gov/' . $matches[1] . '/';
-      }
+  public static function setPagePath($url, array &$row) {
+    $url_path = parse_url($url, PHP_URL_PATH);
+    // Get the path without the file name for index pages.
+    if (preg_match('/\/department-of-veterans-affairs\/vagov-content\/blob\/master\/pages\/([^\.]+)\/index\.md/', $url_path, $matches)) {
+      $path = $matches[1];
     }
-    else {
-      // This shouldn't happen on metalsmith pages, but just in case...
-      Message::make('Found href, @href, at @url', ['@href' => $frontmatter['href'], '@url' => $url], Message::ERROR);
-      // If it's relative, make it absolute.
-      if (substr($frontmatter['href'], 0, 1) == '/') {
-        return 'https://www.va.gov' . $frontmatter['href'];
-      }
-      // Make sure it's in va.gov (no subdomains).
-      elseif (preg_match('/https:\/\/(?:www.)?va.gov\//', $frontmatter['href'])) {
-        return $frontmatter['href'];
-      }
+    // Get the path with the file name for all others.
+    elseif (preg_match('/\/department-of-veterans-affairs\/vagov-content\/blob\/master\/pages\/([^\.]+)\.md/', $url_path, $matches)) {
+      $path = $matches[1];
+    }
+    if (!empty($path)) {
+      $row['url'] = 'https://www.va.gov/' . $path . '/';
+      $row['path'] = '/' . $path;
     }
 
-    return FALSE;
   }
 
 }

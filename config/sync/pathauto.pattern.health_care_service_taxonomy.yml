@@ -1,0 +1,23 @@
+uuid: a7a79e1c-b2d7-4e91-a2c0-d4fbd36ea557
+langcode: en
+status: true
+dependencies:
+  module:
+    - ctools
+    - taxonomy
+id: health_care_service_taxonomy
+label: 'Health Care Service Taxonomy'
+type: 'canonical_entities:taxonomy_term'
+pattern: 'health-care/[term:name]'
+selection_criteria:
+  587bb972-e837-4f50-9443-fd62413f3482:
+    id: 'entity_bundle:taxonomy_term'
+    bundles:
+      health_care_service_taxonomy: health_care_service_taxonomy
+    negate: false
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    uuid: 587bb972-e837-4f50-9443-fd62413f3482
+selection_logic: and
+weight: 1
+relationships: {  }

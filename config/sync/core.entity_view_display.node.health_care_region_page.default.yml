@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_appointments_online
     - field.field.node.health_care_region_page.field_clinical_health_care_servi
     - field.field.node.health_care_region_page.field_clinical_health_services
+    - field.field.node.health_care_region_page.field_email_subscription_links
     - field.field.node.health_care_region_page.field_intro_text
     - field.field.node.health_care_region_page.field_intro_text_events_page
     - field.field.node.health_care_region_page.field_intro_text_news_stories
@@ -17,10 +18,12 @@ dependencies:
     - field.field.node.health_care_region_page.field_patient_family_services_in
     - field.field.node.health_care_region_page.field_press_release_blurb
     - field.field.node.health_care_region_page.field_related_links
+    - field.field.node.health_care_region_page.field_sign_up_for_emergency_emai
     - field.field.node.health_care_region_page.field_social_media_links
     - node.type.health_care_region_page
   module:
     - entity_reference_revisions
+    - link
     - social_media_links_field
     - text
     - user
@@ -61,6 +64,18 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_email_subscription_links:
+    weight: 117
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
     region: content
   field_intro_text:
     weight: 106
@@ -136,6 +151,18 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
+  field_sign_up_for_emergency_emai:
+    weight: 118
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
     region: content
   field_social_media_links:
     weight: 116

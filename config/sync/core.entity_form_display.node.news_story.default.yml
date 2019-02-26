@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_form_mode.node.inline_entity_form
-    - entity_browser.browser.image_browser
     - field.field.node.news_story.field_administration
     - field.field.node.news_story.field_author
     - field.field.node.news_story.field_featured
@@ -19,11 +18,11 @@ dependencies:
   module:
     - content_moderation
     - cshs
-    - entity_browser
     - field_group
     - hide_revision_field
     - inline_entity_form
     - link
+    - media_library
     - metatag
     - path
     - text
@@ -33,7 +32,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 19
+      weight: 16
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -49,7 +48,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 18
+      weight: 15
       format_type: fieldset
       format_settings:
         id: ''
@@ -70,6 +69,51 @@ third_party_settings:
         description: 'Featured news stories appear in a "featured story" section of an office or Health Care System landing page.'
         required_fields: true
       label: 'Feature this story'
+      region: content
+    group_image:
+      children:
+        - field_media
+        - field_image_caption
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        label: Image
+        open: true
+        required_fields: true
+        id: ''
+        classes: ''
+      label: Image
+      region: content
+    group_text:
+      children:
+        - field_intro_text
+        - field_full_story
+        - field_link
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Text
+      region: content
+    group_basic_info:
+      children:
+        - title
+        - field_author
+        - field_office
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Basic info'
       region: content
 id: node.news_story.default
 targetEntityType: node
@@ -92,17 +136,17 @@ content:
     type: cshs
     region: content
   field_author:
-    weight: 13
+    weight: 15
     settings:
       form_mode: inline_entity_form
       override_labels: true
       label_singular: author
       label_plural: ''
       collapsible: true
-      collapsed: true
       allow_new: true
       allow_existing: true
       match_operator: CONTAINS
+      collapsed: false
       allow_duplicate: false
     third_party_settings: {  }
     type: inline_entity_form_complex
@@ -115,7 +159,7 @@ content:
     type: boolean_checkbox
     region: content
   field_full_story:
-    weight: 4
+    weight: 5
     settings:
       rows: 5
       placeholder: ''
@@ -131,7 +175,7 @@ content:
     type: string_textarea
     region: content
   field_intro_text:
-    weight: 3
+    weight: 4
     settings:
       rows: 5
       placeholder: ''
@@ -139,7 +183,7 @@ content:
     type: string_textarea
     region: content
   field_link:
-    weight: 17
+    weight: 6
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -147,17 +191,9 @@ content:
     type: link_default
     region: content
   field_media:
-    type: entity_browser_entity_reference
+    type: media_library_widget
     weight: 14
-    settings:
-      entity_browser: image_browser
-      field_widget_display: label
-      field_widget_edit: true
-      field_widget_remove: true
-      selection_mode: selection_append
-      field_widget_replace: false
-      open: false
-      field_widget_display_settings: {  }
+    settings: {  }
     region: content
     third_party_settings: {  }
   field_meta_tags:
@@ -167,7 +203,7 @@ content:
     type: metatag_firehose
     region: content
   field_office:
-    weight: 1
+    weight: 16
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -219,7 +255,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 0
+    weight: 14
     region: content
     settings:
       size: 60

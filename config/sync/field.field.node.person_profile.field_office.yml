@@ -1,0 +1,31 @@
+uuid: 41e5f89c-6080-4982-ae19-9ae8cf1fab13
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_office
+    - node.type.health_care_region_page
+    - node.type.office
+    - node.type.person_profile
+id: node.person_profile.field_office
+field_name: field_office
+entity_type: node
+bundle: person_profile
+label: 'Related office or health care region'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      health_care_region_page: health_care_region_page
+      office: office
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: health_care_region_page
+field_type: entity_reference

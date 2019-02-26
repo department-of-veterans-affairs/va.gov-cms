@@ -95,7 +95,7 @@ class AlertBlockSource extends MetalsmithSource {
       $body = str_replace(['<code>', '</code>', '<pre>', '</pre>'], '', $body);
       $row['alert_body'] = html_entity_decode($body);
 
-      $row['url'] = self::getPageUrl($url, $row);
+      self::setPagePath($url, $row);
 
       $this->rows[] = $row;
 
