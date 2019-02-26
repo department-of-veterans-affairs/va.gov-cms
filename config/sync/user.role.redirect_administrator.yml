@@ -1,0 +1,18 @@
+uuid: c342cb58-27f8-4a6a-b698-15b68416f3b7
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+third_party_settings:
+  lightning_core:
+    description: 'Can create and edit redirects.'
+id: redirect_administrator
+label: 'Redirect Administrator'
+weight: -1
+is_admin: null
+permissions:
+  - 'administer redirects'
+  - 'create terms in type_of_redirect'
+  - 'delete terms in type_of_redirect'
+  - 'edit terms in type_of_redirect'
