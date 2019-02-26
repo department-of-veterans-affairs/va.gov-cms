@@ -9,7 +9,6 @@ const axeOptions = {
         values: ['wcag2a'], //, 'wcag2aa'
     },
     verbose: true,
-    // exclude: [['#fix div']],
     reporter: 'v2',
     elementRef: true,
     abortOnAssertionFailure: false,
@@ -41,7 +40,7 @@ module.exports
             .setValue('input[name="name"]', name)
             .setValue('input[name="pass"]', pass)
             .click('input[id="edit-submit"]')
-            // todo get current environment url
+            // todo use current environment url
             .url(siteUrl+'/node/add/page')
             .waitForElementVisible('body', 6000)
             .initAccessibility()
