@@ -1,0 +1,14 @@
+uuid: 0fd8ea4a-7f6d-4ed9-a042-5447df14d4c3
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.redirect_administrator
+  module:
+    - user
+id: user_add_role_action.redirect_administrator
+label: 'Add the Redirect Administrator role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: redirect_administrator

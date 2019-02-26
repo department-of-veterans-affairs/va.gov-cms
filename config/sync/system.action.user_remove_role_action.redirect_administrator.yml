@@ -1,0 +1,14 @@
+uuid: e793ab4d-0a80-4480-85e9-21f4e160c221
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.redirect_administrator
+  module:
+    - user
+id: user_remove_role_action.redirect_administrator
+label: 'Remove the Redirect Administrator role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: redirect_administrator
