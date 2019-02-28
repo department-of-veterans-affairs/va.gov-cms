@@ -23,13 +23,13 @@ class ServiceAvailable extends ExistingSiteBase {
     $decodedText = html_entity_decode($json_string);
     $entities = json_decode($decodedText, TRUE)['data']['nodeQuery']['entities'];
 
-    $this->assertGreaterThan('0', count($entities), 'No entity data wes returned from request');
+    $this->assertGreaterThan('0', count($entities), 'No entity data was returned from request');
 
     foreach ($entities as $entity) {
       if (is_array($entity)) {
         $this->assertArrayHasKey('title', $entity, 'Returned GraphQL does not contain title');
-        $this->assertArrayHasKey('fieldIntroText', $entity, 'Returned GraphQL does not contain title');
-        $this->assertArrayHasKey('fieldContentBlock', $entity, 'Returned GraphQL does not contain title');
+        $this->assertArrayHasKey('fieldIntroText', $entity, 'Returned GraphQL does not contain fieldIntroText');
+        $this->assertArrayHasKey('fieldContentBlock', $entity, 'Returned GraphQL does not contain fieldContentBlock');
       }
     }
 
