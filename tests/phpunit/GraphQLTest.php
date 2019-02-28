@@ -23,6 +23,8 @@ class ServiceAvailable extends ExistingSiteBase {
     $decodedText = html_entity_decode($json_string);
     $entities = json_decode($decodedText, TRUE)['data']['nodeQuery']['entities'];
 
+    $this->assertGreaterThan('0', count($entities), 'No entity data wes returned from request');
+
     foreach ($entities as $entity) {
       if (is_array($entity)) {
         $this->assertArrayHasKey('title', $entity, 'Returned GraphQL does not contain title');
@@ -61,6 +63,8 @@ class ServiceAvailable extends ExistingSiteBase {
           'query' => $query,
         ],
       ]);
+
+      $this->assertEquals('200', $response->getStatusCode(), 'Request returned status code ' . $response->getStatusCode());
 
       $json_string = $response->getBody();
       return $json_string;
