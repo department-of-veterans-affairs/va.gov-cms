@@ -11,9 +11,9 @@ id: node.press_release.field_press_release_fulltext
 field_name: field_press_release_fulltext
 entity_type: node
 bundle: press_release
-label: 'Full text of the press release'
-description: ''
-required: false
+label: 'Full text of the Press Release'
+description: "<p>Do not include:</p>\r\n<ul><li>the location (eg \"Pittsburgh, PA -\")</li>\r\n<li>your introductory sentence</li>\r\n<li>the final boilerplate</li></ul>\r\n<p>These are all added automatically based on the other fields.</p>\r\n"
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''

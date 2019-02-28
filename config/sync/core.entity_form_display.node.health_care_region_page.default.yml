@@ -133,19 +133,6 @@ third_party_settings:
         required_fields: false
       label: 'Online appointments'
       region: content
-    group_leadership:
-      children:
-        - field_leadership
-      parent_name: ''
-      weight: 13
-      format_type: details
-      format_settings:
-        id: ''
-        classes: ''
-        open: false
-        required_fields: true
-      label: Leadership
-      region: content
     group_intro_blurbs_for_subpages:
       children:
         - field_intro_text_news_stories
@@ -169,12 +156,14 @@ third_party_settings:
         - field_social_media_links
       parent_name: ''
       weight: 16
-      format_type: fieldset
+      format_type: details
       format_settings:
-        id: ''
-        classes: ''
+        label: 'Get updates from us'
         description: ''
         required_fields: true
+        id: ''
+        classes: ''
+        open: false
       label: 'Get updates from us'
       region: content
 id: node.health_care_region_page.default
@@ -263,7 +252,7 @@ content:
   field_leadership:
     weight: 13
     settings:
-      form_mode: default
+      form_mode: inline_entity_form
       override_labels: true
       label_singular: person
       label_plural: persons
