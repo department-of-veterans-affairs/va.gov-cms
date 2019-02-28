@@ -85,28 +85,24 @@ class ServiceAvailable extends ExistingSiteBase {
     return [
       [
         '{
-            nodeQuery{
-                count
-                entities {
-                    ... on NodePage {
-                        nid
-                        entityBundle
-                        entityPublished
-                        title
-                        fieldIntroText
-                        fieldContentBlock {
-                            entity {
-                                ... on Paragraph {
-                                    id
-                                    entityBundle
-                                    entityRendered
-                                }
-                            }
-                        }
-                    }
+          nodeQuery(limit: 1, filter: {conditions: [{field: "type", value: "page"}]}) {
+            count
+            entities {
+              ... on NodePage {
+                nid
+                entityBundle
+                entityPublished
+                title
+                fieldIntroText
+                fieldContentBlock {
+                  targetId
+                  targetRevisionId
                 }
+              }
             }
-        }',
+          }
+        }
+        ',
       ],
     ];
   }
