@@ -65,7 +65,9 @@ class PostRowSave implements EventSubscriberInterface {
         break;
 
       case 'va_benefits_menu':
+      case 'va_main_menu':
         $this->setMenuParent($event);
+        break;
     }
   }
 
