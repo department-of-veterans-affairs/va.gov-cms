@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "91f6eb2a02532b3331fed812f983ca45",
+    "content-hash": "d4bfd5ea7e3bc807a6812141c50ef35b",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -3795,6 +3795,9 @@
                         "status": "not-covered",
                         "message": "RC releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "Fix broken entity reference query filter.": "https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/693.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -6283,6 +6286,9 @@
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
                     }
+                },
+                "patches_applied": {
+                    "Add an option to import non-existent paths": "https://www.drupal.org/files/issues/2018-08-28/path_redirect_import-2995543-2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
