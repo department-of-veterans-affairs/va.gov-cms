@@ -16,8 +16,6 @@ COPY docker/config/engine/scripts/load-keys.sh /scripts/load-keys.sh
 COPY docker/config/services/helpers/sql-import.sh /helpers/sql-import.sh
 COPY docker/config/services/helpers/sql-export.sh /helpers/sql-export.sh
 COPY docker/config/engine/scripts/wait-for-it.sh /usr/bin/wait-for-it.sh
-RUN curl -Lo /tmp/ https://s3-us-gov-west-1.amazonaws.com/agile6-backups-pub/mysql/db-latest.sql.gz
-
 COPY . /app
 
 # Custom vagovcms settings
