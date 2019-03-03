@@ -16,6 +16,8 @@ COPY docker/config/engine/scripts/load-keys.sh /scripts/load-keys.sh
 COPY docker/config/services/helpers/sql-import.sh /helpers/sql-import.sh
 COPY docker/config/services/helpers/sql-export.sh /helpers/sql-export.sh
 COPY docker/config/engine/scripts/wait-for-it.sh /usr/bin/wait-for-it.sh
+RUN curl -Lo /tmp/ https://s3-us-gov-west-1.amazonaws.com/agile6-backups-pub/mysql/db-latest.sql.gz
+
 COPY . /app
 
 # Custom vagovcms settings
@@ -28,3 +30,8 @@ COPY docker/templates/* /templates/
 COPY .composer-cache/README.md .composer-cache/composer-cache* /tmp/
 # Hack to only run composer install if no matching cache was downloaded.
 RUN if [ -f /tmp/composer-cache*.tar.gz ]; then cd /app && tar --extract --gzip --file /tmp/composer-cache*.tar.gz; else cd /app && composer install; fi
+# Sync sites/default/files from the latest backup in S3
+RUN backup_url=$(curl -L https://s3-us-gov-west-1.amazonaws.com/agile6-backups-pub/files/latest_url) && \
+    curl ${backup_url} -o /tmp/cmsapp_files.tgz && \
+    mkdir -p docroot/sites/default/files && \
+    tar -xzvf /tmp/cmsapp_files.tgz --directory docroot/sites/default/files
