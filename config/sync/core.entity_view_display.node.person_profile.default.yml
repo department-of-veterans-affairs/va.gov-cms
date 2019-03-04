@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.person_profile.field_name_first
     - field.field.node.person_profile.field_office
     - field.field.node.person_profile.field_phone_number
+    - field.field.node.person_profile.field_photo_allow_hires_download
     - field.field.node.person_profile.field_suffix
     - node.type.person_profile
   module:
@@ -99,6 +100,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
+  field_photo_allow_hires_download:
+    weight: 114
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_suffix:
     weight: 104
