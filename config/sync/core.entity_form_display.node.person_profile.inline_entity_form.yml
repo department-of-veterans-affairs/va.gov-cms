@@ -12,7 +12,9 @@ dependencies:
     - field.field.node.person_profile.field_media
     - field.field.node.person_profile.field_meta_tags
     - field.field.node.person_profile.field_name_first
+    - field.field.node.person_profile.field_office
     - field.field.node.person_profile.field_phone_number
+    - field.field.node.person_profile.field_photo_allow_hires_download
     - field.field.node.person_profile.field_suffix
     - node.type.person_profile
   module:
@@ -26,7 +28,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 19
+      weight: 7
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -35,13 +37,13 @@ third_party_settings:
         required_fields: 1
         weight: '-10'
       label: Governance
-      region: hidden
+      region: content
     group_e:
       children:
         - revision_log
         - moderation_state
       parent_name: ''
-      weight: 20
+      weight: 8
       format_type: fieldset
       format_settings:
         id: ''
@@ -49,11 +51,16 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Editorial workflow'
-      region: hidden
+      region: content
     group_name:
-      children: {  }
+      children:
+        - title
+        - field_name_first
+        - field_last_name
+        - field_suffix
+        - field_description
       parent_name: ''
-      weight: 10
+      weight: 1
       format_type: details
       format_settings:
         id: ''
@@ -62,11 +69,13 @@ third_party_settings:
         required_fields: true
         open: false
       label: Name
-      region: hidden
+      region: content
     group_contact_info:
-      children: {  }
+      children:
+        - field_email_address
+        - field_phone_number
       parent_name: ''
-      weight: 9
+      weight: 6
       format_type: details
       format_settings:
         id: ''
@@ -75,22 +84,46 @@ third_party_settings:
         required_fields: true
         open: false
       label: 'Contact info'
-      region: hidden
+      region: content
+    group_photo:
+      children:
+        - field_media
+        - field_photo_allow_hires_download
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        open: false
+        required_fields: true
+        description: ''
+      label: Photo
+      region: content
 id: node.person_profile.inline_entity_form
 targetEntityType: node
 bundle: person_profile
 mode: inline_entity_form
 content:
+  field_administration:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_body:
     type: text_textarea
-    weight: 6
+    weight: 5
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
   field_description:
-    weight: 4
+    weight: 6
     settings:
       size: 60
       placeholder: ''
@@ -98,7 +131,7 @@ content:
     type: string_textfield
     region: content
   field_email_address:
-    weight: 7
+    weight: 6
     settings:
       size: 60
       placeholder: ''
@@ -106,7 +139,7 @@ content:
     type: email_default
     region: content
   field_last_name:
-    weight: 2
+    weight: 4
     settings:
       size: 60
       placeholder: ''
@@ -115,26 +148,11 @@ content:
     region: content
   field_media:
     type: media_library_widget
-    weight: 5
+    weight: 4
     settings: {  }
     region: content
     third_party_settings: {  }
   field_name_first:
-    weight: 1
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
-  field_phone_number:
-    weight: 8
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: telephone_default
-    region: content
-  field_suffix:
     weight: 3
     settings:
       size: 60
@@ -142,7 +160,38 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
-  title:
+  field_office:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_phone_number:
+    weight: 7
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+    region: content
+  field_photo_allow_hires_download:
+    type: boolean_checkbox
+    weight: 5
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_suffix:
+    weight: 5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  moderation_state:
     type: string_textfield
     weight: 0
     region: content
@@ -150,14 +199,27 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  revision_log:
+    type: string_textarea
+    weight: 0
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
 hidden:
   created: true
-  field_administration: true
   field_meta_tags: true
-  moderation_state: true
   path: true
   promote: true
-  revision_log: true
   status: true
   sticky: true
   uid: true
