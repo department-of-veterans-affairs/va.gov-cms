@@ -7,7 +7,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * A test to confirm amount of nodes by type.
  */
-class CreateNodePerformance extends ExistingSiteBase {
+class CreateNodeSecurity extends ExistingSiteBase {
 
   /**
    * A test method to deterine the amount of time it takes to create a node.
@@ -21,7 +21,7 @@ class CreateNodePerformance extends ExistingSiteBase {
     // Creates a user. Will be automatically cleaned up at the end of the test.
     $author = $this->createUser();
     // We cannot assign the anonymous role to skip role assignment.
-    if ($role != 'anonymous') {
+    if ($role != 'authenticated') {
       $author->addRole($role);
     }
     $author->save();
@@ -45,7 +45,7 @@ class CreateNodePerformance extends ExistingSiteBase {
    */
   public function getRoles() {
     return [
-      ['anonymous'],
+      ['authenticated'],
       ['content_api_consumer'],
       ['admnistrator_users'],
     ];
