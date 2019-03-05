@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_form_mode.node.inline_entity_form
     - field.field.node.press_release.field_address
     - field.field.node.press_release.field_administration
     - field.field.node.press_release.field_intro_text
@@ -58,11 +57,10 @@ third_party_settings:
       region: content
     group_text:
       children:
-        - field_address
         - field_intro_text
         - field_press_release_fulltext
       parent_name: ''
-      weight: 2
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -70,6 +68,23 @@ third_party_settings:
         description: ''
         required_fields: false
       label: Text
+      region: content
+    group_location:
+      children:
+        - field_address
+        - field_office
+        - field_press_release_contact
+        - field_release_date
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        label: ''
+        description: ''
+        id: ''
+        classes: ''
+        required_fields: false
+      label: ''
       region: content
 id: node.press_release.default
 targetEntityType: node
@@ -83,9 +98,9 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_address:
-    weight: 2
+    weight: 1
     settings:
-      default_country: null
+      default_country: ''
     third_party_settings: {  }
     type: address_default
     region: content
@@ -96,7 +111,7 @@ content:
     type: options_select
     region: content
   field_intro_text:
-    weight: 3
+    weight: 4
     settings:
       rows: 5
       placeholder: ''
@@ -110,41 +125,41 @@ content:
     type: metatag_firehose
     region: content
   field_office:
-    weight: 1
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_pdf_version:
     type: media_library_widget
-    weight: 6
+    weight: 5
     settings: {  }
     region: content
     third_party_settings: {  }
   field_press_release_contact:
-    weight: 4
+    weight: 3
     settings:
-      form_mode: inline_entity_form
+      form_mode: default
       override_labels: true
-      label_singular: 'Press Release Contact'
-      label_plural: 'Press Release Contact'
+      label_singular: 'contact person'
+      label_plural: 'contact people'
       collapsible: true
-      collapsed: true
-      allow_new: true
       allow_existing: true
       match_operator: CONTAINS
+      collapsed: false
+      allow_new: false
       allow_duplicate: false
     third_party_settings: {  }
     type: inline_entity_form_complex
     region: content
   field_press_release_downloads:
     type: media_library_widget
-    weight: 5
+    weight: 6
     settings: {  }
     region: content
     third_party_settings: {  }
   field_press_release_fulltext:
-    weight: 4
+    weight: 5
     settings:
       rows: 5
       placeholder: ''
@@ -152,7 +167,7 @@ content:
     type: text_textarea
     region: content
   field_release_date:
-    weight: 3
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
@@ -211,12 +226,19 @@ content:
       placeholder: ''
     third_party_settings: {  }
   uid:
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
     weight: 7
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
+      collapsible: false
+      collapsed: false
+      allow_new: false
+      allow_duplicate: false
     region: content
     third_party_settings: {  }
   url_redirects:
