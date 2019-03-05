@@ -22,8 +22,13 @@ targetEntityType: node
 bundle: health_care_local_facility
 mode: default
 content:
+  content_moderation_control:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_administration:
-    weight: 103
+    weight: 3
     label: above
     settings:
       link: true
@@ -31,7 +36,7 @@ content:
     type: entity_reference_label
     region: content
   field_facility_locator_api_id:
-    weight: 102
+    weight: 2
     label: above
     settings:
       link_to_entity: false
@@ -39,7 +44,7 @@ content:
     type: string
     region: content
   field_intro_text:
-    weight: 105
+    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -47,7 +52,7 @@ content:
     region: content
   field_location_services:
     type: entity_reference_revisions_entity_view
-    weight: 106
+    weight: 6
     label: above
     settings:
       view_mode: default
@@ -55,7 +60,7 @@ content:
     third_party_settings: {  }
     region: content
   field_main_location:
-    weight: 107
+    weight: 7
     label: above
     settings:
       format: default
@@ -65,7 +70,7 @@ content:
     type: boolean
     region: content
   field_media:
-    weight: 109
+    weight: 9
     label: above
     settings:
       link: true
@@ -73,14 +78,14 @@ content:
     type: entity_reference_label
     region: content
   field_meta_tags:
-    weight: 104
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
     type: metatag_empty_formatter
     region: content
   field_nickname_for_this_facility:
-    weight: 108
+    weight: 8
     label: above
     settings:
       link_to_entity: false
@@ -88,17 +93,12 @@ content:
     type: string
     region: content
   field_region_page:
-    weight: 101
+    weight: 1
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  links:
-    weight: 100
-    settings: {  }
-    third_party_settings: {  }
-    region: content
 hidden:
-  content_moderation_control: true
+  links: true
