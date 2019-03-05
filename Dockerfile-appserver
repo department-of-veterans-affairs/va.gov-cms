@@ -1,5 +1,4 @@
 FROM devwithlando/php:7.2-apache
-ARG SYNC_SITE_FILES
 
 RUN apt-get update -y \
   && docker-php-ext-install pcntl
@@ -29,5 +28,3 @@ COPY docker/templates/* /templates/
 COPY .composer-cache/README.md .composer-cache/composer-cache* /tmp/
 # Hack to only run composer install if no matching cache was downloaded.
 RUN if [ -f /tmp/composer-cache*.tar.gz ]; then cd /app && tar --extract --gzip --file /tmp/composer-cache*.tar.gz; else cd /app && composer install; fi
-# Sync sites/default/files from the latest backup in S3
-#RUN if [ "$SYNC_SITE_FILES" = "yes" ] ; then backup_url=$(curl -L https://s3-us-gov-west-1.amazonaws.com/agile6-backups-pub/files/latest_url) && curl ${backup_url} -o /tmp/cmsapp_files.tgz && mount -a && rm -fR /app/docroot/sites/default/files/* && tar -xzvf /tmp/cmsapp_files.tgz --directory /app/docroot/sites/default/files && ls -l /app/docroot/sites/default/files/ ; else echo Skipping site files sync ; fi
