@@ -31,15 +31,15 @@ cd ${LANDO_WEBROOT}/vendor/bin/
 ./drush config:import -y
 ./drush cache:rebuild
 
-# Sync Site F
+# Sync drupal site/default/files
 if [ "${SYNC_SITE_FILES}" = "yes" ] ; then
-  backup_url=$(curl -L https://s3-us-gov-west-1.amazonaws.com/agile6-backups-pub/files/latest_url)
+  backup_url=$(curl -L https://s3-us-gov-west-1.amazonaws.com/${S3_BACKUP_BUCKET_PUB}/files/latest_url)
   curl ${backup_url} -o /tmp/cmsapp_files.tgz
   mount -a
   rm -fR /app/docroot/sites/default/files/*
   tar -xzvf /tmp/cmsapp_files.tgz --directory /app/docroot/sites/default/files
 else
-  echo "Skipping site files sync" ;
+  echo "Skipping site default files sync" ;
 fi
 
 # Run the COMMAND
