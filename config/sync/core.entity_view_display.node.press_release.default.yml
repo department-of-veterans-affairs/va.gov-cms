@@ -25,15 +25,20 @@ targetEntityType: node
 bundle: press_release
 mode: default
 content:
+  content_moderation_control:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_address:
-    weight: 109
+    weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
     region: content
   field_administration:
-    weight: 102
+    weight: 1
     label: above
     settings:
       link: true
@@ -41,21 +46,21 @@ content:
     type: entity_reference_label
     region: content
   field_intro_text:
-    weight: 110
+    weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_meta_tags:
-    weight: 107
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
     type: metatag_empty_formatter
     region: content
   field_office:
-    weight: 113
+    weight: 10
     label: above
     settings:
       link: true
@@ -64,7 +69,7 @@ content:
     region: content
   field_pdf_version:
     type: entity_reference_entity_view
-    weight: 111
+    weight: 8
     label: above
     settings:
       view_mode: default
@@ -72,7 +77,7 @@ content:
     third_party_settings: {  }
     region: content
   field_press_release_contact:
-    weight: 104
+    weight: 3
     label: above
     settings:
       link: true
@@ -81,7 +86,7 @@ content:
     region: content
   field_press_release_downloads:
     type: entity_reference_entity_view
-    weight: 108
+    weight: 5
     label: above
     settings:
       view_mode: default
@@ -89,14 +94,14 @@ content:
     third_party_settings: {  }
     region: content
   field_press_release_fulltext:
-    weight: 112
+    weight: 9
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_release_date:
-    weight: 103
+    weight: 2
     label: above
     settings:
       format_type: medium
@@ -104,10 +109,5 @@ content:
     third_party_settings: {  }
     type: datetime_default
     region: content
-  links:
-    weight: 100
-    settings: {  }
-    third_party_settings: {  }
-    region: content
 hidden:
-  content_moderation_control: true
+  links: true

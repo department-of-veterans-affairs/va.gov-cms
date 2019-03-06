@@ -35,22 +35,27 @@ targetEntityType: node
 bundle: event
 mode: default
 content:
+  content_moderation_control:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_additional_information_abo:
-    weight: 114
+    weight: 13
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_address:
-    weight: 104
+    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
     region: content
   field_administration:
-    weight: 107
+    weight: 6
     label: above
     settings:
       link: true
@@ -58,14 +63,14 @@ content:
     type: entity_reference_label
     region: content
   field_body:
-    weight: 115
+    weight: 14
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_description:
-    weight: 106
+    weight: 5
     label: above
     settings:
       link_to_entity: false
@@ -73,7 +78,7 @@ content:
     type: string
     region: content
   field_event_cost:
-    weight: 117
+    weight: 16
     label: above
     settings:
       link_to_entity: false
@@ -81,14 +86,14 @@ content:
     type: string
     region: content
   field_event_cta:
-    weight: 111
+    weight: 10
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
     region: content
   field_event_date:
-    weight: 102
+    weight: 1
     label: above
     settings:
       format_type: medium
@@ -97,7 +102,7 @@ content:
     type: datetime_default
     region: content
   field_event_date_end:
-    weight: 103
+    weight: 2
     label: above
     settings:
       format_type: medium
@@ -106,7 +111,7 @@ content:
     type: datetime_default
     region: content
   field_event_registrationrequired:
-    weight: 112
+    weight: 11
     label: above
     settings:
       format: default
@@ -116,7 +121,7 @@ content:
     type: boolean
     region: content
   field_facility_location:
-    weight: 118
+    weight: 17
     label: above
     settings:
       link: true
@@ -124,7 +129,7 @@ content:
     type: entity_reference_label
     region: content
   field_link:
-    weight: 108
+    weight: 7
     label: above
     settings:
       trim_length: 80
@@ -136,7 +141,7 @@ content:
     type: link
     region: content
   field_location_humanreadable:
-    weight: 109
+    weight: 8
     label: above
     settings:
       link_to_entity: false
@@ -144,14 +149,14 @@ content:
     type: string
     region: content
   field_location_type:
-    weight: 119
+    weight: 18
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
     region: content
   field_media:
-    weight: 113
+    weight: 12
     label: above
     settings:
       link: true
@@ -159,14 +164,14 @@ content:
     type: entity_reference_label
     region: content
   field_meta_tags:
-    weight: 105
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
     type: metatag_empty_formatter
     region: content
   field_office:
-    weight: 116
+    weight: 15
     label: above
     settings:
       link: true
@@ -174,7 +179,7 @@ content:
     type: entity_reference_label
     region: content
   field_url_of_an_online_event:
-    weight: 110
+    weight: 9
     label: above
     settings:
       trim_length: 80
@@ -185,10 +190,5 @@ content:
     third_party_settings: {  }
     type: link
     region: content
-  links:
-    weight: 100
-    settings: {  }
-    third_party_settings: {  }
-    region: content
 hidden:
-  content_moderation_control: true
+  links: true

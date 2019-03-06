@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_leadership
     - field.field.node.health_care_region_page.field_locations_intro_blurb
     - field.field.node.health_care_region_page.field_media
+    - field.field.node.health_care_region_page.field_nickname_for_this_facility
     - field.field.node.health_care_region_page.field_patient_family_services
     - field.field.node.health_care_region_page.field_patient_family_services_in
     - field.field.node.health_care_region_page.field_press_release_blurb
@@ -32,8 +33,13 @@ targetEntityType: node
 bundle: health_care_region_page
 mode: default
 content:
+  content_moderation_control:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_administration:
-    weight: 101
+    weight: 1
     label: above
     settings:
       link: true
@@ -41,7 +47,7 @@ content:
     type: entity_reference_label
     region: content
   field_appointments_online:
-    weight: 112
+    weight: 11
     label: above
     settings:
       format: default
@@ -51,14 +57,14 @@ content:
     type: boolean
     region: content
   field_clinical_health_care_servi:
-    weight: 103
+    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_clinical_health_services:
-    weight: 108
+    weight: 7
     label: above
     settings:
       link: true
@@ -66,7 +72,7 @@ content:
     type: entity_reference_label
     region: content
   field_email_subscription_links:
-    weight: 117
+    weight: 16
     label: above
     settings:
       trim_length: 80
@@ -78,28 +84,28 @@ content:
     type: link
     region: content
   field_intro_text:
-    weight: 106
+    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_intro_text_events_page:
-    weight: 115
+    weight: 14
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_intro_text_news_stories:
-    weight: 114
+    weight: 13
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_leadership:
-    weight: 113
+    weight: 12
     label: above
     settings:
       link: true
@@ -107,22 +113,30 @@ content:
     type: entity_reference_label
     region: content
   field_locations_intro_blurb:
-    weight: 102
+    weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_media:
-    weight: 110
+    weight: 9
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: content
+  field_nickname_for_this_facility:
+    weight: 18
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
   field_patient_family_services:
-    weight: 109
+    weight: 8
     label: above
     settings:
       link: true
@@ -130,21 +144,21 @@ content:
     type: entity_reference_label
     region: content
   field_patient_family_services_in:
-    weight: 104
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_press_release_blurb:
-    weight: 111
+    weight: 10
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_related_links:
-    weight: 107
+    weight: 6
     label: above
     settings:
       view_mode: default
@@ -153,7 +167,7 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   field_sign_up_for_emergency_emai:
-    weight: 118
+    weight: 17
     label: above
     settings:
       trim_length: 80
@@ -165,7 +179,7 @@ content:
     type: link
     region: content
   field_social_media_links:
-    weight: 116
+    weight: 15
     label: above
     settings:
       appearance: {  }
@@ -173,10 +187,5 @@ content:
     third_party_settings: {  }
     type: social_media_links_field_default
     region: content
-  links:
-    weight: 100
-    settings: {  }
-    third_party_settings: {  }
-    region: content
 hidden:
-  content_moderation_control: true
+  links: true

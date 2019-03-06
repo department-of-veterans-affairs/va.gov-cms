@@ -6,10 +6,12 @@ dependencies:
     - core.entity_form_mode.node.inline_entity_form
     - field.field.node.regional_health_care_service_des.field_administration
     - field.field.node.regional_health_care_service_des.field_body
+    - field.field.node.regional_health_care_service_des.field_region_page
     - field.field.node.regional_health_care_service_des.field_service_location
     - field.field.node.regional_health_care_service_des.field_service_name_and_descripti
     - node.type.regional_health_care_service_des
   module:
+    - content_moderation
     - text
 id: node.regional_health_care_service_des.inline_entity_form
 targetEntityType: node
@@ -36,10 +38,16 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   created: true
   field_administration: true
-  moderation_state: true
+  field_region_page: true
   path: true
   promote: true
   revision_log: true

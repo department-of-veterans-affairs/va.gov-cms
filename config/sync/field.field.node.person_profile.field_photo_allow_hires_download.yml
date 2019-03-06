@@ -1,0 +1,23 @@
+uuid: 76dd059c-a29e-46ef-875e-200cbad96d87
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_photo_allow_hires_download
+    - node.type.person_profile
+id: node.person_profile.field_photo_allow_hires_download
+field_name: field_photo_allow_hires_download
+entity_type: node
+bundle: person_profile
+label: 'High-resolution photo should be available for download by site visitors'
+description: "The high-resolution download is mostly for media and journalists. If this photo is available for download, please make sure it is at least 1500h x 1500w.\r\n"
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes, high-resolution photo should be available for download by site visitors'
+  off_label: 'No, high-resolution photo should not be available for download by site visitors'
+field_type: boolean
