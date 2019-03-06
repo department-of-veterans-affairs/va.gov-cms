@@ -1,22 +1,22 @@
-uuid: 1f35bbb6-4950-4083-a523-0bc8c55ab35e
+uuid: 0d35f65d-8df3-41ca-912a-dc7cd56f6589
 langcode: en
 status: true
 dependencies:
   module:
     - block_content
     - options
-id: block_content.field_alert_type
-field_name: field_alert_type
+id: block_content.field_alert_frequency
+field_name: field_alert_frequency
 entity_type: block_content
 type: list_string
 settings:
   allowed_values:
     -
-      value: information
-      label: Information
+      value: always
+      label: 'Every Session'
     -
-      value: warning
-      label: Warning
+      value: once
+      label: 'One Time'
   allowed_values_function: ''
 module: options
 locked: false

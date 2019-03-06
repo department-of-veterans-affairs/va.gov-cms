@@ -1,0 +1,50 @@
+uuid: cc48806e-eec1-42f1-b519-27c9a5c192b5
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - field.storage.block_content.field_node_reference
+    - node.type.event
+    - node.type.health_care_local_facility
+    - node.type.health_care_region_detail_page
+    - node.type.health_care_region_page
+    - node.type.landing_page
+    - node.type.news_story
+    - node.type.office
+    - node.type.outreach_asset
+    - node.type.page
+    - node.type.press_release
+    - node.type.regional_health_care_service_des
+    - node.type.support_service
+id: block_content.alert.field_node_reference
+field_name: field_node_reference
+entity_type: block_content
+bundle: alert
+label: 'Alert Scope'
+description: 'You may limit the scope of this alert to only appear on certain pages. Enter items in autocomplete fields where this alert should appear. If no values are entered, this alert will appear on all site pages.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      page: page
+      event: event
+      health_care_local_facility: health_care_local_facility
+      health_care_region_detail_page: health_care_region_detail_page
+      health_care_region_page: health_care_region_page
+      regional_health_care_service_des: regional_health_care_service_des
+      landing_page: landing_page
+      news_story: news_story
+      office: office
+      outreach_asset: outreach_asset
+      press_release: press_release
+      support_service: support_service
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: page
+field_type: entity_reference
