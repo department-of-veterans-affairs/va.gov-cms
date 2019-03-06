@@ -1,4 +1,4 @@
-This is an Aquia Lightning based implementation of Drupal 8 that uses [Lando](https://docs.devwithlando.io/) for local container management. 
+This is an Aquia Lightning based implementation of Drupal 8 that uses [Lando](https://docs.devwithlando.io/) for local container management.
 
 ## Get Started
 How to start:
@@ -7,6 +7,7 @@ How to start:
 * `cd vagov`
 * `lando start`
 * `lando db-sync-stg`
+* `lando files-sync-stg`
 
 What it does:
 * Spins up php, mysql, and node containers
@@ -42,7 +43,7 @@ Triggering Metalsmith static site builds at /admin/config/build-trigger
 * @see va_gov_build_trigger.module
 * Uncomment the va-socks-proxy code in .lando.yml
 * Uncomment the "VA_CMS_BOT_GITHUB_AUTH_TOKEN" in the appserver container in .lando.yml
-* `export` the following local environment variables from 
+* `export` the following local environment variables from
 va.gov-cms-devops Ansible Vault and then run `lando rebuild --yes`.
 Contact Mouncif or Elijah in Slack #cms-engineering to obtain these ENV variables:
   * VA_CMS_BOT_GITHUB_AUTH_TOKEN
