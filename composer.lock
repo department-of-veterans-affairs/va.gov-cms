@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce73a833d25804e7c56a63b11d875fe7",
+    "content-hash": "8efe7cae1215151d231b54e00e1c0a57",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -4075,6 +4075,91 @@
             }
         },
         {
+            "name": "drupal/graphql_core",
+            "version": "3.0.0-rc2",
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/graphql": "self.version"
+            },
+            "type": "metapackage",
+            "extra": {
+                "branch-alias": {
+                    "dev-3.x": "3.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-3.0-rc2",
+                    "datestamp": "1537443780",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "RC releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "fubhy",
+                    "homepage": "https://www.drupal.org/user/761344"
+                },
+                {
+                    "name": "pmelab",
+                    "homepage": "https://www.drupal.org/user/555322"
+                }
+            ],
+            "description": "Provides type system plugins and derivers on behalf of core modules.",
+            "homepage": "https://www.drupal.org/project/graphql",
+            "support": {
+                "source": "http://cgit.drupalcode.org/graphql"
+            }
+        },
+        {
+            "name": "drupal/graphql_metatag",
+            "version": "dev-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/graphql_metatag",
+                "reference": "48140c3f30c00ebd062e324d72b49ec985ea541f"
+            },
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/graphql_core": "*",
+                "drupal/metatag": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.x-dev",
+                    "datestamp": "1525687085",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "fubhy",
+                    "homepage": "https://www.drupal.org/user/761344"
+                }
+            ],
+            "description": "Exposes the Drupal Metatag data through a GraphQL schema.",
+            "homepage": "https://github.com/drupal-graphql/graphql-metatag",
+            "support": {
+                "source": "http://cgit.drupalcode.org/graphql_metatag"
+            },
+            "time": "2018-06-13T18:24:32+00:00"
+        },
+        {
             "name": "drupal/health_check",
             "version": "1.0.0",
             "source": {
@@ -4351,7 +4436,7 @@
                 },
                 "drupal": {
                     "version": "8.x-2.1",
-                    "datestamp": "1548087544",
+                    "datestamp": "1548086284",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -15723,6 +15808,7 @@
         "drupal/role_delegation": 15,
         "drupal/auto_entitylabel": 10,
         "drupal/path_redirect_import": 10,
+        "drupal/graphql_metatag": 20,
         "drupal/password_policy": 15,
         "drupal/fast_404": 15,
         "acquia/lightning_dev": 20
