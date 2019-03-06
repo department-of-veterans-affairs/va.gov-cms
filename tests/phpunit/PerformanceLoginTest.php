@@ -10,7 +10,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 class LoginPerformance extends ExistingSiteBase {
 
   /**
-   * A test method to deterine the amount of time to load the Login page.
+   * A test method to determine the amount of time to load the Login page.
    *
    * @group performance
    * @group all
@@ -18,6 +18,9 @@ class LoginPerformance extends ExistingSiteBase {
    * @dataProvider benchmarkTime
    */
   public function testLoginPerformance($benchmark) {
+    // Warm some cache before testing so login test will be more realistic.
+    // @todo Move this higher up so it runs once before all tests.
+    $this->visit('/');
 
     $author = $this->createUser();
 
