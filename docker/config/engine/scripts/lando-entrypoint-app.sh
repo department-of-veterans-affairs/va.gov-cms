@@ -36,6 +36,7 @@ if [ "${SYNC_SITE_FILES}" = "yes" ] ; then
   backup_url=$(curl -L https://s3-us-gov-west-1.amazonaws.com/${S3_BACKUP_BUCKET_PUB}/files/latest_url)
   curl ${backup_url} -o /tmp/cmsapp_files.tgz
   mount -a
+  [ -d /app/docroot/sites/default/files ] && echo "Site files directory exists, Not creating" || mkdir /app/docroot/sites/default/files
   rm -fR /app/docroot/sites/default/files/*
   tar -xzvf /tmp/cmsapp_files.tgz --directory /app/docroot/sites/default/files
 else
