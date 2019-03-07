@@ -23,11 +23,13 @@ class ServiceAvailable extends ExistingSiteBase {
     $decodedText = html_entity_decode($json_string);
     $entities = json_decode($decodedText, TRUE)['data']['nodeQuery']['entities'];
 
+    $this->assertGreaterThan('0', count($entities), 'No entity data was returned from request');
+
     foreach ($entities as $entity) {
       if (is_array($entity)) {
         $this->assertArrayHasKey('title', $entity, 'Returned GraphQL does not contain title');
-        $this->assertArrayHasKey('fieldIntroText', $entity, 'Returned GraphQL does not contain title');
-        $this->assertArrayHasKey('fieldContentBlock', $entity, 'Returned GraphQL does not contain title');
+        $this->assertArrayHasKey('fieldIntroText', $entity, 'Returned GraphQL does not contain fieldIntroText');
+        $this->assertArrayHasKey('fieldContentBlock', $entity, 'Returned GraphQL does not contain fieldContentBlock');
       }
     }
 
@@ -62,6 +64,8 @@ class ServiceAvailable extends ExistingSiteBase {
         ],
       ]);
 
+      $this->assertEquals('200', $response->getStatusCode(), 'Request returned status code ' . $response->getStatusCode());
+
       $json_string = $response->getBody();
       return $json_string;
 
@@ -81,28 +85,24 @@ class ServiceAvailable extends ExistingSiteBase {
     return [
       [
         '{
-            nodeQuery{
-                count
-                entities {
-                    ... on NodePage {
-                        nid
-                        entityBundle
-                        entityPublished
-                        title
-                        fieldIntroText
-                        fieldContentBlock {
-                            entity {
-                                ... on Paragraph {
-                                    id
-                                    entityBundle
-                                    entityRendered
-                                }
-                            }
-                        }
-                    }
+          nodeQuery(limit: 1, filter: {conditions: [{field: "type", value: "page"}]}) {
+            count
+            entities {
+              ... on NodePage {
+                nid
+                entityBundle
+                entityPublished
+                title
+                fieldIntroText
+                fieldContentBlock {
+                  targetId
+                  targetRevisionId
                 }
+              }
             }
-        }',
+          }
+        }
+        ',
       ],
     ];
   }

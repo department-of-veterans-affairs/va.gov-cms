@@ -1,0 +1,23 @@
+uuid: 25f2d4e2-2ee6-42db-8162-33e3b36d53f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - field.storage.block_content.field_alert_frequency
+  module:
+    - options
+id: block_content.alert.field_alert_frequency
+field_name: field_alert_frequency
+entity_type: block_content
+bundle: alert
+label: 'Alert Frequency'
+description: "Every Session alerts will be shown every time the user visits the site; the user can dismiss the alert during a browsing session, but it will reappear the next time they come back to the site.\r\n\r\nOne Time alerts will be displayed once; after the user dismisses it, they will never see that alert again."
+required: true
+translatable: false
+default_value:
+  -
+    value: always
+default_value_callback: ''
+settings: {  }
+field_type: list_string
