@@ -19,4 +19,6 @@ $config['environment_indicator.indicator']['name'] = 'Local';
 $settings['trusted_host_patterns'] = [
     '^localhost$',
     '^va-gov-cms\.lndo\.site',
+    '^pr-*\.va\.agile6\.com',
+    '^*\.us-gov-west-1\.elb.amazonaws.com',
 ];
