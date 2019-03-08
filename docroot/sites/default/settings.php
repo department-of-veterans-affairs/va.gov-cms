@@ -777,13 +777,29 @@ $settings['va_cms_bot_github_auth_token'] = getenv('VA_CMS_BOT_GITHUB_AUTH_TOKEN
  *
  * Keep this code block at the end of this file to take full effect.
  */
-#
-if (file_exists($app_root . '/' . $site_path . '/settings.lando.php')) {
-  include $app_root . '/' . $site_path . '/settings.lando.php';
-}
-
-if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-    include $app_root . '/' . $site_path . '/settings.local.php';
-}
-
+$config['config_split.config_split.config_dev']['status'] = FALSE;
 $config_directories['sync'] = '../config/sync';
+
+if (file_exists($app_root . '/' . $site_path . '/settings/settings.lando.php')) {
+  include $app_root . '/' . $site_path . '/settings/settings.lando.php';
+}
+
+$env_name = 'local';
+
+switch ($_SERVER[HTTP_HOST]) {
+    case 'dev.va.agile6.com':
+    case 'dev.cms.va.gov':
+        $env_name = 'dev';
+        break;
+    case 'stg.va.agile6.com':
+    case 'staging.cms.va.gov':
+        $env_name = 'stg';
+        break;
+    case 'cms.va.gov':
+        $env_name = 'prod';
+        break;
+}
+
+if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_name . '.php')) {
+    include $app_root . '/' . $site_path . '/settings/settings.' . $env_name . '.php';
+}
