@@ -2,6 +2,9 @@
 
 // @codingStandardsIgnoreFile
 
+$config['config_split.config_split.dev']['status'] = FALSE;
+$config['config_split.config_split.stg']['status'] = TRUE;
+$config['config_split.config_split.prod']['status'] = FALSE;
 $config['system.performance']['cache']['page']['use_internal'] = TRUE;
 $config['system.performance']['css']['preprocess'] = TRUE;
 $config['system.performance']['css']['gzip'] = TRUE;
