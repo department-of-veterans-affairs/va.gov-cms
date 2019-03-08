@@ -784,7 +784,7 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.lando.php')) 
   include $app_root . '/' . $site_path . '/settings/settings.lando.php';
 }
 
-$env_name = getenv('ENVIRONMENT_TYPE') ?: 'local';
+$env_type = getenv('ENVIRONMENT_TYPE') ?: 'local';
 
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php')) {
     include $app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php';
