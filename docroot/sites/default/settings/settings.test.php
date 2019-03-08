@@ -17,6 +17,6 @@ $config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'Local';
 
 $settings['trusted_host_patterns'] = [
-    '^pr-*\.va\.agile6\.com',
-    '^*\.us-gov-west-1\.elb.amazonaws.com',
+    '^pr-*\.va\.agile6\.com$',
+    '^*\.us-gov-west-1\.elb\.amazonaws\.com$',
 ];

@@ -16,8 +16,8 @@ $config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'Staging';
 
 $settings['trusted_host_patterns'] = [
-    '^cms\.va\.gov',
-    '^prod\.cms\.va\.gov',
+    '^cms\.va\.gov$',
+    '^prod\.cms\.va\.gov$',
 ];
 
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php')) {
