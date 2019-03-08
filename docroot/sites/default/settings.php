@@ -784,22 +784,8 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.lando.php')) 
   include $app_root . '/' . $site_path . '/settings/settings.lando.php';
 }
 
-$env_name = 'local';
+$env_name = get_env('ENVIRONMENT_TYPE') ?: 'local';
 
-switch ($_SERVER[HTTP_HOST]) {
-    case 'dev.va.agile6.com':
-    case 'dev.cms.va.gov':
-        $env_name = 'dev';
-        break;
-    case 'stg.va.agile6.com':
-    case 'staging.cms.va.gov':
-        $env_name = 'stg';
-        break;
-    case 'cms.va.gov':
-        $env_name = 'prod';
-        break;
-}
-
-if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_name . '.php')) {
-    include $app_root . '/' . $site_path . '/settings/settings.' . $env_name . '.php';
+if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php')) {
+    include $app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php';
 }
