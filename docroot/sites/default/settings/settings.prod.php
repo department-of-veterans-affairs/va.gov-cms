@@ -14,3 +14,13 @@ $config['system.logging']['error_level'] = 'none';
 $config['environment_indicator.indicator']['bg_color'] = '#ff2301';
 $config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'Staging';
+
+$settings['trusted_host_patterns'] = [
+    '^cms\.va\.gov',
+    '^prod\.cms\.va\.gov',
+];
+
+if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php')) {
+    include $app_root . '/' . $site_path . '/settings/settings.fast_404.php';
+}
+

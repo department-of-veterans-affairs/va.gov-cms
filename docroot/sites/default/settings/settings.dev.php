@@ -15,3 +15,8 @@ $config['system.logging']['error_level'] = 'all';
 $config['environment_indicator.indicator']['bg_color'] = '#05F901';
 $config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'Development';
+
+$settings['trusted_host_patterns'] = [
+    '^dev\.va\.agile6\.com',
+    '^dev\.cms\.va\.gov',
+];
