@@ -1,5 +1,7 @@
 <?php
 
+// @codingStandardsIgnoreFile
+
 $databases['default']['default'] = array (
   'database' => 'drupal8',
   'username' => 'drupal8',
