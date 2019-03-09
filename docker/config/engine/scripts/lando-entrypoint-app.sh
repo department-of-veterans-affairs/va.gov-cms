@@ -20,7 +20,7 @@ if [ -d "/scripts" ] && [ -z ${LANDO_NO_SCRIPTS+x} ]; then
 fi;
 
 # custom: render database settings from template
-j2 /templates/settings.lando.php.tpl > /app/docroot/sites/default/settings.lando.php
+j2 /templates/settings.lando.php.tpl > /app/docroot/sites/default/settings/settings.lando.php
 
 # Run post-deploy hooks
 # Make sure backend services are up
