@@ -40,6 +40,12 @@ display:
         type: tag
       query:
         type: views_query
+        options:
+          disable_sql_rewrite: false
+          distinct: true
+          replica: false
+          query_comment: ''
+          query_tags: {  }
       exposed_form:
         type: basic
         options:
@@ -696,16 +702,17 @@ display:
       path: admin/content/node
       menu:
         type: 'default tab'
-        title: Content
+        title: 'All content'
         description: ''
+        expanded: false
+        parent: ''
+        weight: -20
+        context: '0'
         menu_name: admin
-        weight: -10
-        context: ''
       tab_options:
         type: normal
         title: Content
         description: 'Find and manage content'
-        menu_name: admin
         weight: -10
       display_extenders: {  }
       display_description: ''
@@ -730,7 +737,7 @@ display:
       path: admin/content/health_facilities_and_services
       menu:
         type: tab
-        title: 'Health care facility and local services'
+        title: 'Health care'
         description: ''
         expanded: false
         parent: system.admin_content
@@ -941,7 +948,7 @@ display:
         groups:
           1: AND
       display_description: ''
-      title: 'Health care facility and local services'
+      title: 'Health care'
       fields:
         node_bulk_form:
           id: node_bulk_form
@@ -1375,35 +1382,8 @@ display:
           admin_label: author
           required: true
           plugin_id: standard
-        field_clinical_health_services:
-          id: field_clinical_health_services
-          table: node__field_clinical_health_services
-          field: field_clinical_health_services
-          relationship: none
-          group_type: group
-          admin_label: 'field_clinical_health_services: Content'
-          required: false
-          plugin_id: standard
-        field_patient_family_services:
-          id: field_patient_family_services
-          table: node__field_patient_family_services
-          field: field_patient_family_services
-          relationship: none
-          group_type: group
-          admin_label: 'field_patient_family_services: Content'
-          required: false
-          plugin_id: standard
-        field_service_location:
-          id: field_service_location
-          table: node__field_service_location
-          field: field_service_location
-          relationship: none
-          group_type: group
-          admin_label: 'field_service_location: Content'
-          required: false
-          plugin_id: standard
     display_plugin: page
-    display_title: 'Health care facility and local services'
+    display_title: 'Health care'
     id: page_2
     position: 1
     cache_metadata:
@@ -1424,7 +1404,7 @@ display:
       path: admin/content/news_and_press_releases
       menu:
         type: tab
-        title: 'News stories and press releases'
+        title: 'News & press releases'
         description: ''
         expanded: false
         parent: system.admin_content
@@ -1632,7 +1612,7 @@ display:
         groups:
           1: AND
       display_description: ''
-      title: 'News stories and press releases'
+      title: 'News & press releases'
       fields:
         node_bulk_form:
           id: node_bulk_form
@@ -2061,7 +2041,7 @@ display:
           field_api_classes: false
           plugin_id: field
     display_plugin: page
-    display_title: 'News stories and press releases'
+    display_title: 'News & press releases'
     id: page_3
     position: 1
     cache_metadata:
@@ -2697,7 +2677,7 @@ display:
       path: admin/content/benefits
       menu:
         type: tab
-        title: 'Benefits content'
+        title: Benefits
         description: ''
         expanded: false
         parent: system.admin_content
@@ -2906,7 +2886,7 @@ display:
         groups:
           1: AND
       display_description: ''
-      title: 'Benefits content'
+      title: Benefits
       fields:
         node_bulk_form:
           id: node_bulk_form
@@ -3368,7 +3348,7 @@ display:
           required: false
           plugin_id: standard
     display_plugin: page
-    display_title: 'Benefits content'
+    display_title: Benefits
     id: page_5
     position: 1
     cache_metadata:
