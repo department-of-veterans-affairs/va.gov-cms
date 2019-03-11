@@ -1,0 +1,23 @@
+uuid: faff0eb2-3577-4ffe-94f7-5126f865c523
+langcode: en
+status: true
+dependencies:
+  module:
+    - ics_field
+    - node
+id: node.field_add_to_calendar
+field_name: field_add_to_calendar
+entity_type: node
+type: calendar_download_type
+settings:
+  date_field_reference: field_event_date
+  file_directory: icsfiles
+  is_ascii: false
+  uri_scheme: public
+module: ics_field
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
