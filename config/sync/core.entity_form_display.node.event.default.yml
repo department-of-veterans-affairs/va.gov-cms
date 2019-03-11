@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.event.field_add_to_calendar
     - field.field.node.event.field_additional_information_abo
     - field.field.node.event.field_address
     - field.field.node.event.field_administration
@@ -29,6 +30,7 @@ dependencies:
     - datetime
     - field_group
     - hide_revision_field
+    - ics_field
     - link
     - media_library
     - metatag
@@ -126,6 +128,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_add_to_calendar:
+    weight: 41
+    settings: {  }
+    third_party_settings: {  }
+    type: calendar_download_default_widget
+    region: content
   field_additional_information_abo:
     weight: 34
     settings:
