@@ -777,9 +777,15 @@ $settings['va_cms_bot_github_auth_token'] = getenv('VA_CMS_BOT_GITHUB_AUTH_TOKEN
  *
  * Keep this code block at the end of this file to take full effect.
  */
-#
-if (file_exists($app_root . '/' . $site_path . '/settings.lando.php')) {
-  include $app_root . '/' . $site_path . '/settings.lando.php';
+$config['config_split.config_split.config_dev']['status'] = FALSE;
+$config_directories['sync'] = '../config/sync';
+
+if (file_exists($app_root . '/' . $site_path . '/settings/settings.lando.php')) {
+  include $app_root . '/' . $site_path . '/settings/settings.lando.php';
 }
 
-$config_directories['sync'] = '../config/sync';
+$env_type = getenv('ENVIRONMENT_TYPE') ?: 'local';
+
+if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php')) {
+    include $app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php';
+}

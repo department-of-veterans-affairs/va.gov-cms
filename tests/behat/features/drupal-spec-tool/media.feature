@@ -7,16 +7,23 @@ Feature: Media
   @spec @media
   Scenario: Image styles
     Then exactly the following image styles should exist
-      | Style name           | Machine name         |
-      | Crop thumbnail       | crop_thumbnail       |
-      | Cropped: Freeform    | crop_freeform        |
-      | Large (480×480)      | large                |
-      | Medium (220×220)     | medium               |
-      | Thumbnail (100×100)  | thumbnail            |
-      | Cropped: 2:1         | crop_2_1             |
-      | 2:1 medium thumbnail | 2_1_medium_thumbnail |
+      | Style name                  | Machine name                |
+      | Crop thumbnail              | crop_thumbnail              |
+      | Cropped: Freeform           | crop_freeform               |
+      | Large (480×480)             | large                       |
+      | Medium (220×220)            | medium                      |
+      | Thumbnail (100×100)         | thumbnail                   |
+      | Cropped: 2:1                | crop_2_1                    |
+      | 2:1 medium thumbnail        | 2_1_medium_thumbnail        |
+      | 1:1 square medium thumbnail | 1_1_square_medium_thumbnail |
+      | 2:1 large                   | 2_1_large                   |
+      | 3:2 medium thumbnail        | 3_2_medium_thumbnail        |
+      | 7:2 medium thumbnail        | 7_2_medium_thumbnail        |
+      | Cropped: 3:2                | crop_3_2                    |
+      | Cropped: 7:2                | crop_7_2                    |
+      | Cropped: Square             | crop_square                 |
 
-  @spec @media @effects
+  @spec @media
   Scenario: Image effects
     Then exactly the following image effects should exist
       | Image style          | Effect      | Summary                 |

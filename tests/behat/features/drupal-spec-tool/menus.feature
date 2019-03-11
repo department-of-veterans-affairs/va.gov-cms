@@ -7,9 +7,11 @@ Feature: Menus
   @spec @menus
   Scenario: Menus
     Then exactly the following menus should exist
-      | Name              | Machine name | Description                              |
-      | Administration    | admin        | Administrative task links                |
-      | Footer            | footer       | Site information links                   |
-      | Main navigation   | main         | Site section links                       |
-      | Tools             | tools        | User tool links, often added by modules  |
-      | User account menu | account      | Links related to the active user account |
+      | Name                     | Machine name             | Description                              |
+      | Administration           | admin                    | Administrative task links                |
+      | Footer                   | footer                   | Site information links                   |
+      | Main navigation          | main                     | Site section links                       |
+      | Tools                    | tools                    | User tool links, often added by modules  |
+      | User account menu        | account                  | Links related to the active user account |
+      | Health Care Benefits Hub | health-care-benefits-hub |                                          |
+      | Pittsburgh Health care   | pittsburgh-health-care   |                                          |
