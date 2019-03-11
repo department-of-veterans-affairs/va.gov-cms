@@ -20,6 +20,7 @@ $config['environment_indicator.indicator']['name'] = 'Staging';
 
 $settings['trusted_host_patterns'] = [
     '^stg\.va\.agile6\.com$',
+    '^staging\.va\.agile6\.com$',
     '^staging\.cms\.va\.gov$',
 ];
 
