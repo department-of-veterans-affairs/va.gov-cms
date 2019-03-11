@@ -54,6 +54,10 @@ function va_gov_build_trigger_form_alter_submit(&$form, FormStateInterface $form
       $url = 'http://localhost:3001/preview?nodeId=' . $node->id();
       break;
 
+    case 'test1.va.agile6.com':
+      $url = 'https://vetsgov-pr-9681.herokuapp.com/preview?nodeId=' . $node->id();
+      break;
+
     case 'dev.va.agile6.com':
       $url = 'http://preview-dev.vfs.va.gov/preview?nodeId=' . $node->id();
       break;

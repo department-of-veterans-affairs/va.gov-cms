@@ -4,27 +4,20 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.office.body
+    - field.field.node.office.field_description
     - node.type.office
   module:
-    - text
     - user
 id: node.office.teaser
 targetEntityType: node
 bundle: office
 mode: teaser
 content:
-  body:
-    label: hidden
-    type: text_summary_or_trimmed
-    weight: 101
-    settings:
-      trim_length: 600
-    third_party_settings: {  }
-    region: content
   links:
     weight: 100
     settings: {  }
     third_party_settings: {  }
     region: content
-hidden: {  }
+hidden:
+  content_moderation_control: true
+  field_description: true

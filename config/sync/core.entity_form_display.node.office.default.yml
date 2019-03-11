@@ -3,33 +3,31 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.office.body
+    - field.field.node.office.field_description
     - node.type.office
   module:
     - content_moderation
     - hide_revision_field
     - path
-    - text
 id: node.office.default
 targetEntityType: node
 bundle: office
 mode: default
 content:
-  body:
-    type: text_textarea_with_summary
-    weight: 121
-    settings:
-      rows: 9
-      summary_rows: 3
-      placeholder: ''
-    third_party_settings: {  }
-    region: content
   created:
     type: datetime_timestamp
     weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_description:
+    weight: 122
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   moderation_state:
     type: moderation_state_default
     weight: 100

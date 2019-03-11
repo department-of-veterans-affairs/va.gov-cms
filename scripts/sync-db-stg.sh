@@ -9,11 +9,11 @@ set -x
 set -e
 
 # Setup
-mkdir --parents .sql-dumps
-cd .sql-dumps
+mkdir --parents .dumps
+cd .dumps
 # @todo check if Lando stack is running, if not return error message or just start it
 echo "Downloading latest STG database"
 curl --remote-name --remote-header-name https://s3-us-gov-west-1.amazonaws.com/agile6-backups-pub/mysql/db-latest.sql.gz
 gunzip db-latest.sql.gz
 
-echo "Downloaded STG Database to ./.sql-dumps/db-latest.sql"
+echo "Downloaded STG Database to ./.dumps/db-latest.sql"
