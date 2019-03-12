@@ -5,11 +5,12 @@ dependencies:
   config:
     - field.field.node.regional_health_care_service_des.field_administration
     - field.field.node.regional_health_care_service_des.field_body
+    - field.field.node.regional_health_care_service_des.field_health_services_local_info
     - field.field.node.regional_health_care_service_des.field_region_page
-    - field.field.node.regional_health_care_service_des.field_service_location
     - field.field.node.regional_health_care_service_des.field_service_name_and_descripti
     - node.type.regional_health_care_service_des
   module:
+    - entity_reference_revisions
     - text
     - user
 id: node.regional_health_care_service_des.default
@@ -37,16 +38,17 @@ content:
     third_party_settings: {  }
     type: text_default
     region: content
-  field_region_page:
-    weight: 6
+  field_health_services_local_info:
+    type: entity_reference_revisions_entity_view
+    weight: 7
     label: above
     settings:
-      link: true
+      view_mode: default
+      link: ''
     third_party_settings: {  }
-    type: entity_reference_label
     region: content
-  field_service_location:
-    weight: 3
+  field_region_page:
+    weight: 6
     label: above
     settings:
       link: true

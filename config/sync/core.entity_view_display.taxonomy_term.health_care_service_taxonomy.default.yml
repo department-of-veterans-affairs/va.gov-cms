@@ -5,11 +5,8 @@ dependencies:
   config:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_also_known_as
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
-    - field.field.taxonomy_term.health_care_service_taxonomy.field_service_type_clinical
-    - field.field.taxonomy_term.health_care_service_taxonomy.field_service_type_nonclinical
     - taxonomy.vocabulary.health_care_service_taxonomy
   module:
-    - options
     - text
 id: taxonomy_term.health_care_service_taxonomy.default
 targetEntityType: taxonomy_term
@@ -38,19 +35,5 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
-  field_service_type_clinical:
-    weight: 4
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
-    region: content
-  field_service_type_nonclinical:
-    weight: 3
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
     region: content
 hidden: {  }
