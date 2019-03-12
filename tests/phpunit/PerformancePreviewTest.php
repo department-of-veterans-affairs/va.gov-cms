@@ -5,7 +5,7 @@ namespace tests\phpunit;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
- * A test to confirm amount of nodes by type.
+ * A test to assure the performance of edit preview.
  */
 class PreviewPerformance extends ExistingSiteBase {
 
@@ -46,8 +46,11 @@ class PreviewPerformance extends ExistingSiteBase {
     $hostip = getenv('LANDO_HOST_IP');
 
     $host = \Drupal::request()->getHost();
+
+    fwrite(STDERR, print_r($host, TRUE));
+
     switch ($host) {
-      case 'vagovcms.lndo.site':
+      case 'locahost':
         $url = 'http://' . $hostip . ':3001/preview?nodeId=' . $nid;
         break;
 
