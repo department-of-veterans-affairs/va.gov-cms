@@ -4,19 +4,23 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.event.field_add_to_calendar
     - field.field.node.event.field_additional_information_abo
     - field.field.node.event.field_address
     - field.field.node.event.field_administration
     - field.field.node.event.field_body
+    - field.field.node.event.field_date
     - field.field.node.event.field_description
+    - field.field.node.event.field_event_cost
     - field.field.node.event.field_event_cta
-    - field.field.node.event.field_event_date
-    - field.field.node.event.field_event_date_end
     - field.field.node.event.field_event_registrationrequired
+    - field.field.node.event.field_facility_location
     - field.field.node.event.field_link
     - field.field.node.event.field_location_humanreadable
+    - field.field.node.event.field_location_type
     - field.field.node.event.field_media
     - field.field.node.event.field_meta_tags
+    - field.field.node.event.field_office
     - field.field.node.event.field_url_of_an_online_event
     - node.type.event
   module:
@@ -33,15 +37,15 @@ content:
     region: content
 hidden:
   content_moderation_control: true
+  field_add_to_calendar: true
   field_additional_information_abo: true
   field_address: true
   field_administration: true
   field_body: true
+  field_date: true
   field_description: true
   field_event_cost: true
   field_event_cta: true
-  field_event_date: true
-  field_event_date_end: true
   field_event_registrationrequired: true
   field_facility_location: true
   field_link: true
