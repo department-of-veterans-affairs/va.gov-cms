@@ -4,7 +4,11 @@ status: true
 dependencies:
   config:
     - field.field.node.health_care_local_facility.field_administration
+    - field.field.node.health_care_local_facility.field_email_subscription
+    - field.field.node.health_care_local_facility.field_facebook
     - field.field.node.health_care_local_facility.field_facility_locator_api_id
+    - field.field.node.health_care_local_facility.field_flickr
+    - field.field.node.health_care_local_facility.field_instagram
     - field.field.node.health_care_local_facility.field_intro_text
     - field.field.node.health_care_local_facility.field_location_services
     - field.field.node.health_care_local_facility.field_main_location
@@ -12,9 +16,11 @@ dependencies:
     - field.field.node.health_care_local_facility.field_meta_tags
     - field.field.node.health_care_local_facility.field_nickname_for_this_facility
     - field.field.node.health_care_local_facility.field_region_page
+    - field.field.node.health_care_local_facility.field_twitter
     - node.type.health_care_local_facility
   module:
     - entity_reference_revisions
+    - link
     - metatag
     - user
 id: node.health_care_local_facility.default
@@ -35,6 +41,30 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
+  field_email_subscription:
+    weight: 14
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_facebook:
+    weight: 10
+    label: above
+    settings:
+      trim_length: 80
+      target: _blank
+      url_only: false
+      url_plain: false
+      rel: '0'
+    third_party_settings: {  }
+    type: link
+    region: content
   field_facility_locator_api_id:
     weight: 2
     label: above
@@ -42,6 +72,30 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_flickr:
+    weight: 13
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_instagram:
+    weight: 12
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
     region: content
   field_intro_text:
     weight: 5
@@ -99,6 +153,18 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_twitter:
+    weight: 11
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
     region: content
 hidden:
   links: true
