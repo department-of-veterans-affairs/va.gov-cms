@@ -16,7 +16,6 @@ dependencies:
     - node.type.page
   module:
     - content_moderation
-    - cshs
     - datetime
     - field_group
     - hide_revision_field
@@ -101,12 +100,9 @@ content:
     region: content
   field_administration:
     weight: 18
-    settings:
-      parent: '4'
-      level_labels: ''
-      force_deepest: 0
+    settings: {  }
     third_party_settings: {  }
-    type: cshs
+    type: options_select
     region: content
   field_alert:
     weight: 3

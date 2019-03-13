@@ -16,8 +16,6 @@ dependencies:
     - field.field.node.health_care_region_page.field_locations_intro_blurb
     - field.field.node.health_care_region_page.field_media
     - field.field.node.health_care_region_page.field_nickname_for_this_facility
-    - field.field.node.health_care_region_page.field_patient_family_services
-    - field.field.node.health_care_region_page.field_patient_family_services_in
     - field.field.node.health_care_region_page.field_press_release_blurb
     - field.field.node.health_care_region_page.field_related_links
     - field.field.node.health_care_region_page.field_sign_up_for_emergency_emai
@@ -25,7 +23,6 @@ dependencies:
     - node.type.health_care_region_page
   module:
     - content_moderation
-    - cshs
     - field_group
     - hide_revision_field
     - inline_entity_form
@@ -87,16 +84,15 @@ third_party_settings:
       weight: 12
       format_type: details
       format_settings:
+        label: 'Regional and local descriptions of health services'
+        required_fields: true
         id: ''
         classes: ''
         open: false
-        required_fields: true
-      label: 'Clinical Health Services'
+      label: 'Regional and local descriptions of health services'
       region: content
     group_patient_family_services:
-      children:
-        - field_patient_family_services_in
-        - field_patient_family_services
+      children: {  }
       parent_name: ''
       weight: 13
       format_type: details
@@ -180,12 +176,9 @@ content:
     third_party_settings: {  }
   field_administration:
     weight: 11
-    settings:
-      parent: 0
-      level_labels: ''
-      force_deepest: false
+    settings: {  }
     third_party_settings: {  }
-    type: cshs
+    type: options_select
     region: content
   field_appointments_online:
     weight: 21
@@ -210,9 +203,9 @@ content:
       label_singular: service
       label_plural: services
       collapsible: true
-      collapsed: true
       allow_new: true
       match_operator: CONTAINS
+      collapsed: false
       allow_existing: false
       allow_duplicate: false
     third_party_settings: {  }
@@ -287,30 +280,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
-    region: content
-  field_patient_family_services:
-    weight: 13
-    settings:
-      form_mode: inline_entity_form
-      override_labels: true
-      label_singular: service
-      label_plural: services
-      collapsible: true
-      collapsed: true
-      allow_new: true
-      match_operator: CONTAINS
-      allow_existing: false
-      allow_duplicate: false
-    third_party_settings: {  }
-    type: inline_entity_form_complex
-    region: content
-  field_patient_family_services_in:
-    weight: 12
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: text_textarea
     region: content
   field_press_release_blurb:
     weight: 24

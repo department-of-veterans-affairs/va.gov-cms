@@ -13,7 +13,7 @@ field_name: field_location_services
 entity_type: node
 bundle: health_care_local_facility
 label: 'Location services'
-description: "<p>Location services include things like transportation, parking, visiting hours information, lodging options for families and caregivers, food & cafeteria options, etc.<p>\r\n\r\n<p><em>Do not</em> include Clinical Health Services or Patient & Family Services, those listings belong at the Region Page level.</p> "
+description: "<p>Location services include things like transportation, parking, visiting hours information, lodging options for families and caregivers, food & cafeteria options, etc.<p>\r\n\r\n<p><em>Do not</em> include Health Services, that content belongs at the Region Page level.</p> "
 required: false
 translatable: false
 default_value: {  }
@@ -57,6 +57,12 @@ settings:
         enabled: false
       q_a:
         weight: 27
+        enabled: false
+      local_facility_health_service:
+        weight: 27
+        enabled: false
+      media:
+        weight: 28
         enabled: false
       q_a_section:
         weight: 28

@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_service_name_and_descripti
     - node.type.regional_health_care_service_des
+    - taxonomy.vocabulary.health_care_service_taxonomy
 id: node.regional_health_care_service_des.field_service_name_and_descripti
 field_name: field_service_name_and_descripti
 entity_type: node
@@ -16,10 +17,13 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: views
+  handler: 'default:taxonomy_term'
   handler_settings:
-    view:
-      view_name: health_care_service_names_and_descriptions
-      display_name: entity_reference_1
-      arguments: {  }
+    target_bundles:
+      health_care_service_taxonomy: health_care_service_taxonomy
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
 field_type: entity_reference

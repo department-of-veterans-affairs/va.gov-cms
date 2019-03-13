@@ -5,11 +5,8 @@ dependencies:
   config:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_also_known_as
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
-    - field.field.taxonomy_term.health_care_service_taxonomy.field_service_type_clinical
-    - field.field.taxonomy_term.health_care_service_taxonomy.field_service_type_nonclinical
     - taxonomy.vocabulary.health_care_service_taxonomy
   module:
-    - cshs
     - field_group
     - path
     - text
@@ -53,21 +50,6 @@ content:
     region: content
   field_owner:
     weight: 7
-    settings:
-      parent: 0
-      level_labels: ''
-      force_deepest: false
-    third_party_settings: {  }
-    type: cshs
-    region: content
-  field_service_type_clinical:
-    weight: 3
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: content
-  field_service_type_nonclinical:
-    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: options_select

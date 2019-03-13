@@ -1,18 +1,19 @@
-uuid: 8d7de52e-bcc3-4bef-8058-19eede653ceb
+uuid: ac8652cb-ac86-4d47-89ba-130675c8b8b3
 langcode: en
 status: true
 dependencies:
   module:
-    - node
-id: node.field_service_location
-field_name: field_service_location
-entity_type: node
+    - media
+    - paragraphs
+id: paragraph.field_media
+field_name: field_media
+entity_type: paragraph
 type: entity_reference
 settings:
-  target_type: node
+  target_type: media
 module: core
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

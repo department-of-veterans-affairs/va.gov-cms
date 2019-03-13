@@ -6,12 +6,13 @@ dependencies:
     - core.entity_form_mode.node.inline_entity_form
     - field.field.node.regional_health_care_service_des.field_administration
     - field.field.node.regional_health_care_service_des.field_body
+    - field.field.node.regional_health_care_service_des.field_health_services_local_info
     - field.field.node.regional_health_care_service_des.field_region_page
-    - field.field.node.regional_health_care_service_des.field_service_location
     - field.field.node.regional_health_care_service_des.field_service_name_and_descripti
     - node.type.regional_health_care_service_des
   module:
     - content_moderation
+    - paragraphs
     - text
 id: node.regional_health_care_service_des.inline_entity_form
 targetEntityType: node
@@ -26,12 +27,25 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_service_location:
+  field_health_services_local_info:
+    type: paragraphs
     weight: 2
-    settings: {  }
-    third_party_settings: {  }
-    type: options_buttons
     region: content
+    settings:
+      title: 'Local description of service'
+      title_plural: 'Local descriptions of service'
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: local_facility_health_service
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
+        add_above: '0'
+    third_party_settings: {  }
   field_service_name_and_descripti:
     weight: 0
     settings: {  }
