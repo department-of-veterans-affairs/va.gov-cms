@@ -4,11 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.health_care_local_facility.field_administration
-    - field.field.node.health_care_local_facility.field_email_subscription
-    - field.field.node.health_care_local_facility.field_facebook
     - field.field.node.health_care_local_facility.field_facility_locator_api_id
-    - field.field.node.health_care_local_facility.field_flickr
-    - field.field.node.health_care_local_facility.field_instagram
     - field.field.node.health_care_local_facility.field_intro_text
     - field.field.node.health_care_local_facility.field_location_services
     - field.field.node.health_care_local_facility.field_main_location
@@ -16,13 +12,11 @@ dependencies:
     - field.field.node.health_care_local_facility.field_meta_tags
     - field.field.node.health_care_local_facility.field_nickname_for_this_facility
     - field.field.node.health_care_local_facility.field_region_page
-    - field.field.node.health_care_local_facility.field_twitter
     - node.type.health_care_local_facility
   module:
     - content_moderation
     - field_group
     - hide_revision_field
-    - link
     - media_library
     - metatag
     - paragraphs
@@ -99,23 +93,6 @@ third_party_settings:
         required_fields: false
       label: Region
       region: content
-    group_social_media:
-      children:
-        - field_facebook
-        - field_twitter
-        - field_instagram
-        - field_flickr
-        - field_email_subscription
-      parent_name: ''
-      weight: 8
-      format_type: details
-      format_settings:
-        id: ''
-        classes: ''
-        open: false
-        required_fields: false
-      label: 'Social Media'
-      region: content
 id: node.health_care_local_facility.default
 targetEntityType: node
 bundle: health_care_local_facility
@@ -133,22 +110,6 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
-  field_email_subscription:
-    weight: 12
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
-    type: link_default
-    region: content
-  field_facebook:
-    weight: 8
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
-    type: link_default
-    region: content
   field_facility_locator_api_id:
     weight: 10
     settings:
@@ -156,22 +117,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
-    region: content
-  field_flickr:
-    weight: 11
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
-    type: link_default
-    region: content
-  field_instagram:
-    weight: 10
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
-    type: link_default
     region: content
   field_intro_text:
     weight: 4
@@ -225,14 +170,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
-    region: content
-  field_twitter:
-    weight: 9
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
-    type: link_default
     region: content
   moderation_state:
     type: moderation_state_default

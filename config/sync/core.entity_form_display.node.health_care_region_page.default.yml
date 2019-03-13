@@ -8,7 +8,11 @@ dependencies:
     - field.field.node.health_care_region_page.field_appointments_online
     - field.field.node.health_care_region_page.field_clinical_health_care_servi
     - field.field.node.health_care_region_page.field_clinical_health_services
+    - field.field.node.health_care_region_page.field_email_subscription
     - field.field.node.health_care_region_page.field_email_subscription_links
+    - field.field.node.health_care_region_page.field_facebook
+    - field.field.node.health_care_region_page.field_flickr
+    - field.field.node.health_care_region_page.field_instagram
     - field.field.node.health_care_region_page.field_intro_text
     - field.field.node.health_care_region_page.field_intro_text_events_page
     - field.field.node.health_care_region_page.field_intro_text_news_stories
@@ -20,6 +24,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_related_links
     - field.field.node.health_care_region_page.field_sign_up_for_emergency_emai
     - field.field.node.health_care_region_page.field_social_media_links
+    - field.field.node.health_care_region_page.field_twitter
     - node.type.health_care_region_page
   module:
     - content_moderation
@@ -38,7 +43,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 18
+      weight: 20
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -53,7 +58,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 19
+      weight: 21
       format_type: fieldset
       format_settings:
         id: ''
@@ -81,7 +86,7 @@ third_party_settings:
         - field_clinical_health_care_servi
         - field_clinical_health_services
       parent_name: ''
-      weight: 12
+      weight: 13
       format_type: details
       format_settings:
         label: 'Regional and local descriptions of health services'
@@ -94,7 +99,7 @@ third_party_settings:
     group_patient_family_services:
       children: {  }
       parent_name: ''
-      weight: 13
+      weight: 14
       format_type: details
       format_settings:
         id: ''
@@ -108,7 +113,7 @@ third_party_settings:
         - group_online_appointments
         - field_related_links
       parent_name: ''
-      weight: 16
+      weight: 18
       format_type: details
       format_settings:
         id: ''
@@ -136,7 +141,7 @@ third_party_settings:
         - field_intro_text_events_page
         - field_press_release_blurb
       parent_name: ''
-      weight: 15
+      weight: 17
       format_type: details
       format_settings:
         label: 'Stories, events, and press release blurbs'
@@ -152,7 +157,7 @@ third_party_settings:
         - field_sign_up_for_emergency_emai
         - field_social_media_links
       parent_name: ''
-      weight: 17
+      weight: 19
       format_type: details
       format_settings:
         label: 'Get updates from us'
@@ -162,6 +167,23 @@ third_party_settings:
         classes: ''
         open: false
       label: 'Get updates from us'
+      region: content
+    group_s:
+      children:
+        - field_facebook
+        - field_twitter
+        - field_instagram
+        - field_flickr
+        - field_email_subscription
+      parent_name: ''
+      weight: 12
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: false
+        required_fields: true
+      label: 'Social Media'
       region: content
 id: node.health_care_region_page.default
 targetEntityType: node
@@ -211,11 +233,43 @@ content:
     third_party_settings: {  }
     type: inline_entity_form_complex
     region: content
+  field_email_subscription:
+    weight: 17
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
   field_email_subscription_links:
     weight: 23
     settings:
       placeholder_url: ''
       placeholder_title: 'Eg, "Sign up for email news and announcements"'
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_facebook:
+    weight: 13
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_flickr:
+    weight: 16
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_instagram:
+    weight: 15
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
     third_party_settings: {  }
     type: link_default
     region: content
@@ -244,7 +298,7 @@ content:
     type: text_textarea
     region: content
   field_leadership:
-    weight: 14
+    weight: 15
     settings:
       form_mode: inline_entity_form
       override_labels: true
@@ -290,7 +344,7 @@ content:
     type: text_textarea
     region: content
   field_related_links:
-    weight: 23
+    weight: 21
     settings:
       title: Link
       title_plural: Links
@@ -321,6 +375,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: social_media_links_field_default
+    region: content
+  field_twitter:
+    weight: 14
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
     region: content
   moderation_state:
     type: moderation_state_default
