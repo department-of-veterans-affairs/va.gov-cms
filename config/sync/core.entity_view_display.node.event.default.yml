@@ -8,11 +8,10 @@ dependencies:
     - field.field.node.event.field_address
     - field.field.node.event.field_administration
     - field.field.node.event.field_body
+    - field.field.node.event.field_date
     - field.field.node.event.field_description
     - field.field.node.event.field_event_cost
     - field.field.node.event.field_event_cta
-    - field.field.node.event.field_event_date
-    - field.field.node.event.field_event_date_end
     - field.field.node.event.field_event_registrationrequired
     - field.field.node.event.field_facility_location
     - field.field.node.event.field_link
@@ -25,7 +24,7 @@ dependencies:
     - node.type.event
   module:
     - address
-    - datetime
+    - datetime_range
     - ics_field
     - link
     - metatag
@@ -78,6 +77,16 @@ content:
     third_party_settings: {  }
     type: text_default
     region: content
+  field_date:
+    weight: 20
+    label: above
+    settings:
+      separator: '-'
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: daterange_default
+    region: content
   field_description:
     weight: 5
     label: above
@@ -100,24 +109,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: list_default
-    region: content
-  field_event_date:
-    weight: 1
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    type: datetime_default
-    region: content
-  field_event_date_end:
-    weight: 2
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    type: datetime_default
     region: content
   field_event_registrationrequired:
     weight: 11

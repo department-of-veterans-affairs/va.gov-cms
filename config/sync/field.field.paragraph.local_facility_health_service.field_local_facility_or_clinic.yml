@@ -1,0 +1,25 @@
+uuid: e2a18e9e-58f3-4196-b52f-764d56bfae8b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_local_facility_or_clinic
+    - paragraphs.paragraphs_type.local_facility_health_service
+id: paragraph.local_facility_health_service.field_local_facility_or_clinic
+field_name: field_local_facility_or_clinic
+entity_type: paragraph
+bundle: local_facility_health_service
+label: 'Local facility or clinic'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: local_facilities_entity_reference_view
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

@@ -1,0 +1,23 @@
+uuid: 6da6aa21-feae-471b-a85c-53470a64f5b2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_twitter
+    - node.type.health_care_local_facility
+  module:
+    - link
+id: node.health_care_local_facility.field_twitter
+field_name: field_twitter
+entity_type: node
+bundle: health_care_local_facility
+label: Twitter
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 2
+field_type: link

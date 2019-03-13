@@ -1,17 +1,16 @@
-uuid: 9839e957-5e06-4375-aac3-921ef9560dcd
+uuid: 30bdc468-a359-4941-b874-577f0ec6ac6f
 langcode: en
 status: true
 dependencies:
   module:
-    - datetime
+    - link
     - node
-id: node.field_event_date
-field_name: field_event_date
+id: node.field_email_subscription
+field_name: field_email_subscription
 entity_type: node
-type: datetime
-settings:
-  datetime_type: datetime
-module: datetime
+type: link
+settings: {  }
+module: link
 locked: false
 cardinality: 1
 translatable: true

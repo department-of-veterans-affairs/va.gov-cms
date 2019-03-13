@@ -19,6 +19,8 @@ $config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'Staging';
 
 $settings['trusted_host_patterns'] = [
+    // For ELB Healthchecks.
+    '10\.199.*',
     '^stg\.va\.agile6\.com$',
     '^staging\.va\.agile6\.com$',
     '^stg\.cms\.va\.gov$',

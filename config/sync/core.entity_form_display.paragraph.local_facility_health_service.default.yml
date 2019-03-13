@@ -1,0 +1,33 @@
+uuid: ffff8f18-aafd-4c1c-a41c-7b4121019830
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.local_facility_health_service.field_local_facility_or_clinic
+    - field.field.paragraph.local_facility_health_service.field_wysiwyg
+    - paragraphs.paragraphs_type.local_facility_health_service
+  module:
+    - text
+id: paragraph.local_facility_health_service.default
+targetEntityType: paragraph
+bundle: local_facility_health_service
+mode: default
+content:
+  field_local_facility_or_clinic:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_wysiwyg:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

@@ -1,0 +1,90 @@
+uuid: a73622ef-3922-4a40-9eb5-09991ebc65d4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_block
+    - node.type.documentation_page
+    - paragraphs.paragraphs_type.collapsible_panel
+    - paragraphs.paragraphs_type.media
+    - paragraphs.paragraphs_type.process
+    - paragraphs.paragraphs_type.q_a_section
+    - paragraphs.paragraphs_type.wysiwyg
+  module:
+    - entity_reference_revisions
+id: node.documentation_page.field_content_block
+field_name: field_content_block
+entity_type: node
+bundle: documentation_page
+label: 'Main content'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      wysiwyg: wysiwyg
+      q_a_section: q_a_section
+      media: media
+      process: process
+      collapsible_panel: collapsible_panel
+    target_bundles_drag_drop:
+      wysiwyg:
+        enabled: true
+        weight: -37
+      q_a_section:
+        enabled: true
+        weight: -36
+      media:
+        enabled: true
+        weight: -35
+      process:
+        enabled: true
+        weight: -34
+      collapsible_panel:
+        enabled: true
+        weight: -33
+      address:
+        weight: -32
+        enabled: false
+      alert:
+        weight: -31
+        enabled: false
+      collapsible_panel_item:
+        weight: -30
+        enabled: false
+      expandable_text:
+        weight: -29
+        enabled: false
+      health_care_local_facility_servi:
+        weight: -28
+        enabled: false
+      link_teaser:
+        weight: -27
+        enabled: false
+      list_of_link_teasers:
+        weight: -26
+        enabled: false
+      local_facility_health_service:
+        weight: -25
+        enabled: false
+      number_callout:
+        weight: -24
+        enabled: false
+      q_a:
+        weight: -23
+        enabled: false
+      react_widget:
+        weight: -22
+        enabled: false
+      spanish_translation_summary:
+        weight: -21
+        enabled: false
+      starred_horizontal_rule:
+        weight: -20
+        enabled: false
+field_type: entity_reference_revisions
