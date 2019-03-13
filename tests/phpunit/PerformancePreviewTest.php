@@ -50,7 +50,7 @@ class PreviewPerformance extends ExistingSiteBase {
     fwrite(STDERR, print_r($host, TRUE));
 
     switch ($host) {
-      case 'locahost':
+      case 'localhost':
         $url = 'http://' . $hostip . ':3001/preview?nodeId=' . $nid;
         break;
 
