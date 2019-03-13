@@ -53,10 +53,10 @@ services:
 #      - "cd $LANDO_MOUNT/docroot/themes/custom/vagov && npm install"
     overrides:
       environment:
-        BEHAT_PARAMS: '{"extensions" : {"Behat\\MinkExtension" : {"base_url" : "http://vagovcms.lndo.site/"}, "Drupal\\DrupalExtension" : {"drush" : { "root": "/app/docroot" }}}}'
+        BEHAT_PARAMS: '{"extensions" : {"Behat\\MinkExtension" : {"base_url" : "http://localhost/"}, "Drupal\\DrupalExtension" : {"drush" : { "root": "/app/docroot" }}}}'
       ports:
-        - 3000:3000
-        - 3001:3001
+        - 3002:3002
+        - 3003:3003
       image: node:10.13-jessie
     globals:
       gulp-cli: "latest"
