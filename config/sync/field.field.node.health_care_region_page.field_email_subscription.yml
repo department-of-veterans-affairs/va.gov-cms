@@ -1,20 +1,20 @@
-uuid: 976a6c96-966c-4790-ae8a-b72197cb69f2
+uuid: 61ca9e52-2e8e-4e4e-9e8b-10c43d815a79
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_email_subscription
-    - node.type.health_care_local_facility
+    - node.type.health_care_region_page
   module:
     - link
-id: node.health_care_local_facility.field_email_subscription
+id: node.health_care_region_page.field_email_subscription
 field_name: field_email_subscription
 entity_type: node
-bundle: health_care_local_facility
+bundle: health_care_region_page
 label: 'Email Subscription'
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

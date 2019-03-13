@@ -12,14 +12,22 @@ effects:
   78ceecdf-9c30-47a0-9994-b2eaba873996:
     uuid: 78ceecdf-9c30-47a0-9994-b2eaba873996
     id: crop_crop
-    weight: 1
+    weight: -10
     data:
       crop_type: square
   1e627e01-bb9b-4d04-bb8d-ee4593b47403:
     uuid: 1e627e01-bb9b-4d04-bb8d-ee4593b47403
     id: image_scale
-    weight: 2
+    weight: -8
     data:
       width: 240
       height: 240
       upscale: false
+  79bf5dff-b68a-4a74-9a40-65dbbb95d967:
+    uuid: 79bf5dff-b68a-4a74-9a40-65dbbb95d967
+    id: image_scale_and_crop
+    weight: -9
+    data:
+      width: 240
+      height: 240
+      anchor: center-center

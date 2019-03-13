@@ -8,11 +8,10 @@ dependencies:
     - field.field.node.event.field_address
     - field.field.node.event.field_administration
     - field.field.node.event.field_body
+    - field.field.node.event.field_date
     - field.field.node.event.field_description
     - field.field.node.event.field_event_cost
     - field.field.node.event.field_event_cta
-    - field.field.node.event.field_event_date
-    - field.field.node.event.field_event_date_end
     - field.field.node.event.field_event_registrationrequired
     - field.field.node.event.field_facility_location
     - field.field.node.event.field_link
@@ -27,10 +26,9 @@ dependencies:
     - address
     - content_moderation
     - cshs
-    - datetime
+    - datetime_range
     - field_group
     - hide_revision_field
-    - ics_field
     - link
     - media_library
     - metatag
@@ -42,7 +40,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 9
+      weight: 8
       format_type: details_sidebar
       format_settings:
         label: Governance
@@ -61,7 +59,7 @@ third_party_settings:
         - field_location_humanreadable
         - field_address
       parent_name: ''
-      weight: 8
+      weight: 7
       format_type: details
       format_settings:
         label: Location
@@ -78,7 +76,7 @@ third_party_settings:
         - group_registration_link
         - field_additional_information_abo
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: details
       format_settings:
         label: Registration
@@ -93,7 +91,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 15
+      weight: 14
       format_type: details
       format_settings:
         id: ''
@@ -124,16 +122,10 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 12
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_add_to_calendar:
-    weight: 41
-    settings: {  }
-    third_party_settings: {  }
-    type: calendar_download_default_widget
-    region: content
   field_additional_information_abo:
     weight: 34
     settings:
@@ -159,15 +151,21 @@ content:
     type: cshs
     region: content
   field_body:
-    weight: 6
+    weight: 5
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
     region: content
+  field_date:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: daterange_default
+    region: content
   field_description:
-    weight: 2
+    weight: 3
     settings:
       size: 60
       placeholder: ''
@@ -187,18 +185,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
-    region: content
-  field_event_date:
-    weight: 3
-    settings: {  }
-    third_party_settings: {  }
-    type: datetime_default
-    region: content
-  field_event_date_end:
-    weight: 4
-    settings: {  }
-    third_party_settings: {  }
-    type: datetime_default
     region: content
   field_event_registrationrequired:
     weight: 31
@@ -237,18 +223,18 @@ content:
     region: content
   field_media:
     type: media_library_widget
-    weight: 5
+    weight: 4
     settings: {  }
     region: content
     third_party_settings: {  }
   field_meta_tags:
-    weight: 10
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
     region: content
   field_office:
-    weight: 1
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -269,7 +255,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 13
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -295,7 +281,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 11
+    weight: 10
     settings:
       match_operator: CONTAINS
       size: 60
@@ -303,11 +289,12 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 14
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_add_to_calendar: true
   promote: true
   status: true
   sticky: true

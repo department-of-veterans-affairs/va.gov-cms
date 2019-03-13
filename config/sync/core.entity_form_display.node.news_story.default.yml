@@ -16,7 +16,6 @@ dependencies:
     - node.type.news_story
   module:
     - content_moderation
-    - cshs
     - field_group
     - hide_revision_field
     - inline_entity_form
@@ -123,12 +122,9 @@ content:
     third_party_settings: {  }
   field_administration:
     weight: 11
-    settings:
-      parent: 0
-      level_labels: ''
-      force_deepest: false
+    settings: {  }
     third_party_settings: {  }
-    type: cshs
+    type: options_select
     region: content
   field_author:
     weight: 15

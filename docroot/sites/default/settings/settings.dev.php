@@ -19,6 +19,9 @@ $config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'Development';
 
 $settings['trusted_host_patterns'] = [
+    // For ELB Healthchecks.
+    '10\.199.*',
+    'localhost',
     '^dev\.va\.agile6\.com$',
     '^dev\.cms\.va\.gov$',
 ];

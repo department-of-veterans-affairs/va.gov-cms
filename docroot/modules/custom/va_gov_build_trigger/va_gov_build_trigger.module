@@ -63,7 +63,7 @@ function va_gov_build_trigger_form_alter_submit(&$form, FormStateInterface $form
       break;
 
     case 'stg.va.agile6.com':
-      $url = 'http://preview-staging.vfs.va.gov/preview?nodeId=' . $node->id();
+      $url = 'http://preview-dev.vfs.va.gov/preview?nodeId=' . $node->id();
       break;
 
     case 'va.gov':

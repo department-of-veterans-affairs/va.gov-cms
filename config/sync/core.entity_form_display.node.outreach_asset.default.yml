@@ -13,7 +13,6 @@ dependencies:
     - node.type.outreach_asset
   module:
     - content_moderation
-    - cshs
     - field_group
     - hide_revision_field
     - inline_entity_form
@@ -25,7 +24,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 0
+      weight: 14
       format_type: details_sidebar
       format_settings:
         label: Governance
@@ -41,7 +40,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 15
+      weight: 13
       format_type: fieldset
       format_settings:
         id: ''
@@ -57,27 +56,24 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
   field_administration:
     weight: 14
-    settings:
-      parent: '6'
-      level_labels: ''
-      force_deepest: 0
+    settings: {  }
     third_party_settings: {  }
-    type: cshs
+    type: options_select
     region: content
   field_benefits:
-    weight: 12
+    weight: 10
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
     region: content
   field_description:
-    weight: 11
+    weight: 9
     settings:
       size: 60
       placeholder: ''
@@ -85,14 +81,14 @@ content:
     type: string_textfield
     region: content
   field_format:
-    weight: 10
+    weight: 8
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_media:
     type: inline_entity_form_complex
-    weight: 13
+    weight: 11
     settings:
       form_mode: media_library
       label_singular: ''
@@ -107,7 +103,7 @@ content:
     region: content
     third_party_settings: {  }
   field_meta_tags:
-    weight: 14
+    weight: 12
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -120,7 +116,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -128,7 +124,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 4
+    weight: 3
     region: content
     third_party_settings: {  }
   revision_log:
@@ -147,19 +143,19 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 9
+    weight: 7
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 5
+    weight: 4
     region: content
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 1
+    weight: 0
     region: content
     settings:
       size: 60
@@ -167,7 +163,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 1
     settings:
       match_operator: CONTAINS
       size: 60
@@ -175,7 +171,7 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 7
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
