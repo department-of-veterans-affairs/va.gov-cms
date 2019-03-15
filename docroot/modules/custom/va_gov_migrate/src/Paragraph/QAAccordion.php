@@ -5,6 +5,7 @@ namespace Drupal\va_gov_migrate\Paragraph;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\va_gov_migrate\Paragraph\Base\QABase;
 use QueryPath\DOMQuery;
+use Drupal\migration_tools\Message;
 
 /**
  * For converting accordions to Q&A paragraphs.
@@ -36,6 +37,13 @@ class QAAccordion extends QABase {
   protected function addChildParagraphs(Paragraph $paragraph, DOMQuery $query_path) {
     // Transform the answerQuery we collected in getFieldValues into paragraphs.
     $answer = $query_path->children('.usa-accordion-content')->children();
+    if (empty($answer)) {
+      Message::make('QA without an answer @page: @html',
+        [
+          '@page' => self::$migrator->row->getDestinationProperty('title'),
+          '@html' => $query_path->html(),
+        ], Message::ERROR);
+    }
 
     self::$migrator->addParagraphs($answer, $paragraph, $this->getParagraphField());
     self::$migrator->addWysiwyg($paragraph, $this->getParagraphField());
