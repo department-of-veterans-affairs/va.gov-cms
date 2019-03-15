@@ -1,77 +1,212 @@
-uuid: 698e7428-f372-49cf-9acd-af91acb6b730
+uuid: cf40747a-621d-453f-bd24-a26c65f9de21
 langcode: en
 status: true
 dependencies:
   config:
+    - entity_browser.browser.media_browser
     - field.field.node.health_care_region_detail_page.field_administration
     - field.field.node.health_care_region_detail_page.field_content_block
     - field.field.node.health_care_region_detail_page.field_description
+    - field.field.node.health_care_region_detail_page.field_intro_text
     - field.field.node.health_care_region_detail_page.field_media
     - field.field.node.health_care_region_detail_page.field_office
     - field.field.node.health_care_region_detail_page.field_related_links
     - node.type.health_care_region_detail_page
   module:
-    - entity_reference_revisions
-    - user
+    - content_moderation
+    - entity_browser
+    - field_group
+    - hide_revision_field
+    - paragraphs
+    - path
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 14
+      format_type: details_sidebar
+      format_settings:
+        id: ''
+        classes: ''
+        open: 1
+        required_fields: 1
+        weight: '-10'
+      label: Governance
+      region: content
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 15
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+      region: content
 id: node.health_care_region_detail_page.default
 targetEntityType: node
 bundle: health_care_region_detail_page
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
+  created:
+    type: datetime_timestamp
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   field_administration:
-    weight: 2
-    label: above
-    settings:
-      link: true
+    weight: 12
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_label
+    type: options_select
     region: content
   field_content_block:
     weight: 4
-    label: above
     settings:
-      view_mode: default
-      link: ''
+      title: 'Content block'
+      title_plural: 'Content blocks'
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: wysiwyg
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: '0'
+        add_above: '0'
     third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
+    type: paragraphs
     region: content
   field_description:
-    weight: 3
-    label: above
+    weight: 1
     settings:
-      link_to_entity: false
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: string
+    type: string_textfield
+    region: content
+  field_intro_text:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
     region: content
   field_media:
-    weight: 6
-    label: above
+    type: entity_browser_entity_reference
+    weight: 5
     settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
+      entity_browser: media_browser
+      field_widget_display: rendered_entity
+      field_widget_edit: true
+      field_widget_remove: true
+      selection_mode: selection_append
+      field_widget_display_settings:
+        view_mode: thumbnail
+      open: true
+      field_widget_replace: false
     region: content
-  field_office:
-    weight: 1
-    label: above
-    settings:
-      link: true
     third_party_settings: {  }
-    type: entity_reference_label
+  field_office:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
     region: content
   field_related_links:
-    weight: 5
-    label: above
+    weight: 6
     settings:
-      view_mode: default
-      link: ''
+      title: 'Related link'
+      title_plural: 'Related links'
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: list_of_link_teasers
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: '0'
+        add_above: '0'
     third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
+    type: paragraphs
     region: content
-hidden:
-  links: true
+  moderation_state:
+    type: moderation_state_default
+    weight: 8
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 9
+    region: content
+    third_party_settings: {  }
+  revision_log:
+    type: hide_revision_field_log_widget
+    weight: 9
+    region: content
+    settings:
+      show: true
+      default: ''
+      permission_based: false
+      allow_user_settings: true
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 13
+    region: content
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 10
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 7
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    region: content
+    third_party_settings: {  }
+  url_redirects:
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }
+

@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.health_care_region_detail_page.field_administration
     - field.field.node.health_care_region_detail_page.field_content_block
     - field.field.node.health_care_region_detail_page.field_description
+    - field.field.node.health_care_region_detail_page.field_intro_text
     - field.field.node.health_care_region_detail_page.field_media
     - field.field.node.health_care_region_detail_page.field_office
     - field.field.node.health_care_region_detail_page.field_related_links
@@ -24,7 +25,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 13
+      weight: 14
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -39,7 +40,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 14
+      weight: 15
       format_type: fieldset
       format_settings:
         id: ''
@@ -55,7 +56,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -66,7 +67,7 @@ content:
     type: options_select
     region: content
   field_content_block:
-    weight: 3
+    weight: 4
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -92,9 +93,17 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_intro_text:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
   field_media:
     type: entity_browser_entity_reference
-    weight: 4
+    weight: 5
     settings:
       entity_browser: media_browser
       field_widget_display: rendered_entity
@@ -108,13 +117,13 @@ content:
     region: content
     third_party_settings: {  }
   field_office:
-    weight: 2
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_related_links:
-    weight: 5
+    weight: 6
     settings:
       title: 'Related link'
       title_plural: 'Related links'
@@ -140,7 +149,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -148,7 +157,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 8
+    weight: 9
     region: content
     third_party_settings: {  }
   revision_log:
@@ -167,14 +176,14 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 12
+    weight: 13
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 9
+    weight: 10
     region: content
     third_party_settings: {  }
   title:
@@ -187,7 +196,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 6
+    weight: 7
     settings:
       match_operator: CONTAINS
       size: 60
@@ -195,7 +204,7 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 11
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
