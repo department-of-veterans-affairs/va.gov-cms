@@ -20,6 +20,7 @@ $config['environment_indicator.indicator']['name'] = 'Development';
 
 $settings['trusted_host_patterns'] = [
     // For ELB Healthchecks.
+    '10\.199.*',
     '10\.247.*',
     'localhost',
     '^dev\.va\.agile6\.com$',

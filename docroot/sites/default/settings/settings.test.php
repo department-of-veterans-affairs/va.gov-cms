@@ -21,6 +21,7 @@ $config['environment_indicator.indicator']['name'] = 'Local';
 
 $settings['trusted_host_patterns'] = [
     // For ELB Healthchecks.
+    '10\.199.*',
     '10\.247.*',
     'localhost',
     '^pr.*\.va\.agile6\.com$',

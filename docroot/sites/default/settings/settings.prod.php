@@ -20,6 +20,7 @@ $config['environment_indicator.indicator']['name'] = 'Staging';
 
 $settings['trusted_host_patterns'] = [
     // For ELB Healthchecks.
+    '10\.199.*',
     '10\.247.*',
     'localhost',
     '^cms\.va\.gov$',
@@ -29,4 +30,3 @@ $settings['trusted_host_patterns'] = [
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php')) {
     include $app_root . '/' . $site_path . '/settings/settings.fast_404.php';
 }
-

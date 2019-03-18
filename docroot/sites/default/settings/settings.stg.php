@@ -20,6 +20,7 @@ $config['environment_indicator.indicator']['name'] = 'Staging';
 
 $settings['trusted_host_patterns'] = [
     // For ELB Healthchecks.
+    '10\.199.*',
     '10\.247.*',
     'localhost',
     '^stg\.va\.agile6\.com$',
