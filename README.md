@@ -49,6 +49,7 @@ Contact Mouncif or Elijah in Slack #cms-engineering to obtain these ENV variable
   * VA_CMS_BOT_GITHUB_AUTH_TOKEN
   * VA_SOCKS_PROXY_PRIVATE_KEY
   * VA_SOCKS_PROXY_SSH_CONFIG
+Trigger local build of Drupal content in vets-website `yarn build --pull-drupal`
 
 Naming Conventions:
 * Modules: `vagov_modulename`
