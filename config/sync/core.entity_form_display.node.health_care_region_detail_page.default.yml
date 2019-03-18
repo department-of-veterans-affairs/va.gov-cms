@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.health_care_region_detail_page.field_administration
     - field.field.node.health_care_region_detail_page.field_content_block
     - field.field.node.health_care_region_detail_page.field_description
+    - field.field.node.health_care_region_detail_page.field_intro_text
     - field.field.node.health_care_region_detail_page.field_media
     - field.field.node.health_care_region_detail_page.field_office
     - field.field.node.health_care_region_detail_page.field_related_links
@@ -91,6 +92,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
+  field_intro_text:
+    weight: 15
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
     region: content
   field_media:
     type: entity_browser_entity_reference
