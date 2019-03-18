@@ -1,4 +1,4 @@
-uuid: 8ddb4e8d-8cc6-440f-8ace-a459f1f28521
+uuid: f49a3c4b-7b42-495a-86af-3a8595c3df6f
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: 8wWe5M1hCb0kuj7rZluJ4wQqMTdomzJxLXh4oTQzQnM
+  default_config_hash: S9tTu8UKM0Ywuw97WmsqjHg1K3l0OcwOlK6WC2WhX98
 id: va_hub
 class: null
 field_plugin_method: null
@@ -153,9 +153,6 @@ source:
           arguments:
             - .usa-alert
         -
-          operation: get_field
-          field: hub_links
-        -
           operation: modifier
           modifier: removeSelectorAll
           arguments:
@@ -167,10 +164,22 @@ source:
             - script
         -
           operation: modifier
-          modifier: changeHtmlContents
+          modifier: removeSelectorAll
           arguments:
-            - '#react-applicationStatus, [data-app-id]'
-            - '<p>DYNAMIC FORM CONTENT GOES HERE</p>'
+            - 'h3:contains("On This Page")'
+        -
+          operation: modifier
+          modifier: removeSelectorAll
+          arguments:
+            - 'li > a[href^="#"]'
+        -
+          operation: modifier
+          modifier: removeSelectorAll
+          arguments:
+            - .va-h-ruled--stars
+        -
+          operation: get_field
+          field: hub_links
 process:
   title: title
   revision_timestamp: lastupdate

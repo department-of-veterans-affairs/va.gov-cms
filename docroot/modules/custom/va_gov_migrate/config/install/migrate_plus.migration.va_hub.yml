@@ -151,9 +151,6 @@ source:
       arguments:
         - '.usa-alert'
     -
-      operation: get_field
-      field: hub_links
-    -
       # Clean things up before getting the body.
       # Remove javascript cruft.
       operation: modifier
@@ -167,12 +164,25 @@ source:
       arguments:
         - 'script'
     -
-      # Replace any React forms with a placeholder (this will be dropped soon)
+      # Remove jump links section
       operation: modifier
-      modifier: changeHtmlContents
+      modifier: removeSelectorAll
       arguments:
-      - '#react-applicationStatus, [data-app-id]'
-      - '<p>DYNAMIC FORM CONTENT GOES HERE</p>'
+      - 'h3:contains("On This Page")'
+    -
+      operation: modifier
+      modifier: removeSelectorAll
+      arguments:
+      - 'li > a[href^="#"]'
+    -
+      # Remove starred HRs
+      operation: modifier
+      modifier: removeSelectorAll
+      arguments:
+        - '.va-h-ruled--stars'
+    -
+      operation: get_field
+      field: hub_links
 
 process:  # assign the fields we collected above to Drupal fields.
   title: title
