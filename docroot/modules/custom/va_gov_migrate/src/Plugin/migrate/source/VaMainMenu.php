@@ -38,7 +38,9 @@ class VaMainMenu extends SourcePluginBase {
       ];
       if (!empty($section['menuSections'])) {
         foreach ($section['menuSections'] as $menu_section) {
-          $main_section['items'][] = $this->makeSection($menu_section);
+          if (!empty($menu_section['title'])) {
+            $main_section['items'][] = $this->makeSection($menu_section);
+          }
         }
       }
       $menus[] = $main_section;
@@ -89,7 +91,7 @@ class VaMainMenu extends SourcePluginBase {
       if (!empty($link['title'])) {
         $column = [
           'title' => $link['title'],
-          'href' => $link['href'],
+          'href' => empty($link['href']) ? '' : $link['href'],
           'items' => [],
         ];
         foreach ($link['links'] as $item) {

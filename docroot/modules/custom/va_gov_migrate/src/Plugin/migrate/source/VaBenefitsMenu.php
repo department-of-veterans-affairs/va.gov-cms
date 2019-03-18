@@ -157,17 +157,16 @@ class VaBenefitsMenu extends SourcePluginBase {
   public static function flattenMenu(array $menu_tree, $parent_id = '', $parent_menu = '') {
     $flat_menu = [];
     foreach ($menu_tree as $index => $item) {
-      if (parse_url($item['href'], PHP_URL_SCHEME)) {
-        $item['href'] = str_replace('localhost', 'www.va.gov', $item['href']);
+      if (empty($item['href'])) {
+        $item['href'] = 'route:<nolink>';
+        $item['external'] = 0;
+      }
+      elseif (parse_url($item['href'], PHP_URL_SCHEME)) {
+        $item['href'] = str_replace('http://localhost:3001', '', $item['href']);
         $item['external'] = 1;
       }
       else {
-        if (empty($item['href'])) {
-          $item['href'] = 'route:<nolink>';
-        }
-        else {
-          $item['href'] = rtrim($item['href'], '/');
-        }
+        $item['href'] = rtrim($item['href'], '/');
         $item['external'] = 0;
       }
 
@@ -178,7 +177,11 @@ class VaBenefitsMenu extends SourcePluginBase {
       $flat_menu[] = $item;
 
       if (!empty($item['items'])) {
-        $flat_menu = array_merge($flat_menu, self::flattenMenu($item['items'], $item['id'], $item['menu']));
+        $new_parent = '';
+        if (!empty($item['menu'])) {
+          $new_parent = $item['menu'];
+        }
+        $flat_menu = array_merge($flat_menu, self::flattenMenu($item['items'], $item['id'], $new_parent));
       }
       unset($item['items']);
 
@@ -208,7 +211,9 @@ class VaBenefitsMenu extends SourcePluginBase {
     foreach ($menu as $menu_item) {
       $found = FALSE;
       foreach ($merge_menu as &$merge_item) {
-        if ($menu_item['title'] == $merge_item['title'] && $menu_item['href'] == $merge_item['href']) {
+        if ($menu_item['title'] == $merge_item['title'] &&
+          ((empty($menu_item['href']) && empty($merge_item['href'])) ||
+            $menu_item['href'] == $merge_item['href'])) {
           if (!empty($menu_item['items'])) {
             if (empty($merge_item['items'])) {
               $merge_item['items'] = $menu_item['items'];
@@ -245,7 +250,7 @@ class VaBenefitsMenu extends SourcePluginBase {
   protected function findMergeMenus(array $page, array &$menu) {
     $page_link = $page['backLink']['href'];
     foreach ($menu as &$menu_item) {
-      if ($menu_item['href'] == $page_link) {
+      if (!empty($menu_item['href']) && $menu_item['href'] == $page_link) {
         if (empty($menu_item['items'])) {
           $menu_item['items'] = $page['items'];
         }
