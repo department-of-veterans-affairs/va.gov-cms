@@ -610,6 +610,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'edit terms in administration',
           'manage password reset',
           'use moderation dashboard',
+          'use text format rich_text',
           'view any moderation dashboard',
           'view workbench access information',
         ],
