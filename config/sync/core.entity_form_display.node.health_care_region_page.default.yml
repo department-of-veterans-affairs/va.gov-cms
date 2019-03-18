@@ -23,7 +23,6 @@ dependencies:
     - field.field.node.health_care_region_page.field_press_release_blurb
     - field.field.node.health_care_region_page.field_related_links
     - field.field.node.health_care_region_page.field_sign_up_for_emergency_emai
-    - field.field.node.health_care_region_page.field_social_media_links
     - field.field.node.health_care_region_page.field_twitter
     - node.type.health_care_region_page
   module:
@@ -35,7 +34,6 @@ dependencies:
     - media_library
     - paragraphs
     - path
-    - social_media_links_field
     - text
 third_party_settings:
   field_group:
@@ -369,12 +367,6 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
-    region: content
-  field_social_media_links:
-    weight: 25
-    settings: {  }
-    third_party_settings: {  }
-    type: social_media_links_field_default
     region: content
   field_twitter:
     weight: 14
