@@ -2,8 +2,6 @@
 
 namespace Drupal\va_gov_migrate\Plugin\migrate\source;
 
-use Drupal\migrate\Plugin\migrate\source\SourcePluginBase;
-
 /**
  * Source to read from sidebar.json.
  *
@@ -11,7 +9,7 @@ use Drupal\migrate\Plugin\migrate\source\SourcePluginBase;
  *   id = "va_main_menu_source"
  * )
  */
-class VaMainMenu extends SourcePluginBase {
+class VaMainMenu extends VaMenuBase {
 
   /**
    * Return a string representing the source file path.
@@ -38,17 +36,15 @@ class VaMainMenu extends SourcePluginBase {
       ];
       if (!empty($section['menuSections'])) {
         foreach ($section['menuSections'] as $menu_section) {
-          $main_section['items'][] = $this->makeSection($menu_section);
+          if (!empty($menu_section['title'])) {
+            $main_section['items'][] = $this->makeSection($menu_section);
+          }
         }
       }
       $menus[] = $main_section;
     }
 
-    VaBenefitsMenu::setIds($menus);
-    VaBenefitsMenu::setWeights($menus);
-    $flat_menu = VaBenefitsMenu::flattenMenu($menus);
-
-    return new \ArrayIterator($flat_menu);
+    return new \ArrayIterator($this->process($menus));
   }
 
   /**
@@ -62,14 +58,8 @@ class VaMainMenu extends SourcePluginBase {
   /**
    * {@inheritdoc}
    */
-  public function fields() {
-    $fields['href'] = 'Link Path';
-    $fields['title'] = 'Link Title';
-    $fields['external'] = 'External Path';
-    $fields['weight'] = 'Weight';
-    $fields['parent_id'] = 'Parent Id';
-
-    return $fields;
+  protected function sanitizeDomain($href) {
+    return str_replace('https://www.va.gov', '', $href);
   }
 
   /**
@@ -89,7 +79,7 @@ class VaMainMenu extends SourcePluginBase {
       if (!empty($link['title'])) {
         $column = [
           'title' => $link['title'],
-          'href' => $link['href'],
+          'href' => empty($link['href']) ? '' : $link['href'],
           'items' => [],
         ];
         foreach ($link['links'] as $item) {
