@@ -14,6 +14,9 @@ class PreviewPerformance extends ExistingSiteBase {
    *
    * @group performance
    * @group all
+   * Disable this test since we don't have a preview server running for CI/PR
+   * environments and it is breaking builds.
+   * @group disabled
    *
    * @dataProvider benchmarkTime
    */
