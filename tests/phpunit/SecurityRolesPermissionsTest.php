@@ -15,6 +15,8 @@ class SecurityRolesPermissions extends ExistingSiteBase {
    *
    * @group security
    * @group all
+   * Disable until we better automate permission changes.
+   * @group disabled
    *
    * @dataProvider expectedPerms
    */
