@@ -3,6 +3,10 @@ FROM devwithlando/php:7.2-apache
 RUN apt-get update -y \
   && docker-php-ext-install pcntl
 
+# Load vagov trusted certs
+COPY docker/config/certs/vagov-trusted-ca.pem /tmp/
+RUN cat /tmp/vagov-trusted-ca.pem >> /etc/ssl/certs/ca-certificates.crt
+
 RUN mkdir /var/www/.drush
 RUN mkdir /var/www/.drupal
 COPY docker/config/services/config/php/php.ini /usr/local/etc/php/conf.d/xxx-lando-default.ini
