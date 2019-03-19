@@ -1,0 +1,28 @@
+uuid: 0f67e80f-3e25-4237-81e2-c7db4127825f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_local_health_care_service_
+    - node.type.health_care_local_health_service
+    - node.type.regional_health_care_service_des
+id: node.regional_health_care_service_des.field_local_health_care_service_
+field_name: field_local_health_care_service_
+entity_type: node
+bundle: regional_health_care_service_des
+label: 'Local health care service description'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      health_care_local_health_service: health_care_local_health_service
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference
