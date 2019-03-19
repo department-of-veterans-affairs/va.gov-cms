@@ -6,12 +6,15 @@ get their data from json files kindly provided by AdHoc and stored in `va_gov_mi
 
 That means the new page content gets added/updated automatically
 during the migration, but if a menu changes, we'll need to add the new json file to the repo in order for the changes to take 
-effect when the migration is run.   
+effect when the migration is run.
 
 **IMPORTANT:** Running the migrations as recommended below (with `Update` checked) adds any new pages and updates existing pages. 
 It does not delete any existing content, even if that content no longer exists in the migration source. To makes sure the migrated content 
 doesn't include any pages that were removed from the site, first run `Rollback` on the migration, to delete previously migrated 
 content, then run the migration.
+
+Be sure to go to Reports - Recent Log Messages (`/admin/reports/dblog`) after you run a migration to make sure that there were 
+no content errors.
 
 To run VA.gov migrations:
 1. Go to `/admin/structure/migrate/`.
