@@ -1,0 +1,25 @@
+uuid: c1d29525-4c28-405b-af76-3aed9a1de9dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_facility_location
+    - node.type.health_care_local_health_service
+id: node.health_care_local_health_service.field_facility_location
+field_name: field_facility_location
+entity_type: node
+bundle: health_care_local_health_service
+label: 'Facility location'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: local_facilities_entity_reference_view
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

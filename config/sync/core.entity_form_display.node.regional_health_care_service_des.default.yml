@@ -3,16 +3,17 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.node.inline_entity_form
     - field.field.node.regional_health_care_service_des.field_administration
     - field.field.node.regional_health_care_service_des.field_body
-    - field.field.node.regional_health_care_service_des.field_health_services_local_info
+    - field.field.node.regional_health_care_service_des.field_local_health_care_service_
     - field.field.node.regional_health_care_service_des.field_region_page
     - field.field.node.regional_health_care_service_des.field_service_name_and_descripti
     - node.type.regional_health_care_service_des
   module:
     - content_moderation
     - field_group
-    - paragraphs
+    - inline_entity_form
     - path
     - text
 third_party_settings:
@@ -21,7 +22,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: details_sidebar
       format_settings:
         label: Governance
@@ -37,7 +38,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: fieldset
       format_settings:
         id: ''
@@ -54,7 +55,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 9
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -72,27 +73,24 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
-  field_health_services_local_info:
-    type: paragraphs
+  field_local_health_care_service_:
     weight: 2
     settings:
-      title: Service
-      title_plural: Services
-      edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      add_mode: button
-      form_display_mode: default
-      default_paragraph_type: _none
-      features:
-        duplicate: duplicate
-        collapse_edit_all: collapse_edit_all
-        add_above: '0'
+      form_mode: inline_entity_form
+      override_labels: true
+      label_singular: 'Local clinic/hospital service availability and description'
+      label_plural: 'Local clinic/hospital service availability and descriptions'
+      allow_new: true
+      match_operator: CONTAINS
+      allow_duplicate: true
+      collapsible: false
+      collapsed: false
+      allow_existing: false
     third_party_settings: {  }
+    type: inline_entity_form_complex
     region: content
   field_region_page:
-    weight: 3
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -111,13 +109,13 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 8
+    weight: 9
     region: content
     settings:
       display_label: true
@@ -132,20 +130,20 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 4
+    weight: 5
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 7
+    weight: 8
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   url_redirects:
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
