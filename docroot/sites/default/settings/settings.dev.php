@@ -25,4 +25,5 @@ $settings['trusted_host_patterns'] = [
     'localhost',
     '^dev\.va\.agile6\.com$',
     '^dev\.cms\.va\.gov$',
+    '^*\.us-gov-west-1\.elb\.amazonaws\.com$',
 ];
