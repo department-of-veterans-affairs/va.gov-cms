@@ -31,7 +31,7 @@ class ExpandableText extends ParagraphType {
    * {@inheritdoc}
    */
   protected function getFieldValues(DOMQuery $query_path) {
-    if ($query_path->prev()->attr('id') == 'crisis-expander-link') {
+    if (strpos($query_path->prev()->attr('id'), 'expander-link') !== FALSE) {
       $expander = $query_path->prev()->text();
     }
     else {
@@ -51,7 +51,7 @@ class ExpandableText extends ParagraphType {
    * {@inheritdoc}
    */
   protected function isExternalContent(DOMQuery $query_path) {
-    return $query_path->attr('id') == 'crisis-expander-link';
+    return strpos($query_path->prev()->attr('id'), 'expander-link') !== FALSE;
   }
 
 }

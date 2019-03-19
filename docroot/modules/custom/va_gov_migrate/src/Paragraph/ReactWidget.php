@@ -63,6 +63,14 @@ class ReactWidget extends ParagraphType {
       $link_button = FALSE;
     }
 
+    if (empty($type)) {
+      Message::make('React widget without a type @page: @html',
+        [
+          '@page' => self::$migrator->row->getDestinationProperty('title'),
+          '@html' => $query_path->html(),
+        ], Message::ERROR);
+    }
+
     return [
       'field_cta_widget' => $cta,
       'field_default_link' => [
