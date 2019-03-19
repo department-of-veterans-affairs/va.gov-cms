@@ -4,6 +4,7 @@ namespace Drupal\va_gov_migrate\Paragraph;
 
 use Drupal\va_gov_migrate\ParagraphType;
 use QueryPath\DOMQuery;
+use Drupal\migration_tools\Message;
 
 /**
  * Link list item paragraph type.
@@ -61,6 +62,9 @@ class LinksListItem extends ParagraphType {
       if (empty($title_raw)) {
         $title_raw = $query_path->children('a')->children('b')->text();
       }
+      if (empty($title_raw)) {
+        $title_raw = $query_path->children('a')->children('strong')->text();
+      }
       $url = $query_path->children('a')->attr('href');
     }
     else {
@@ -71,6 +75,28 @@ class LinksListItem extends ParagraphType {
 
     $title = trim($title_raw);
     $summary = trim($summary_raw);
+
+    if (empty($title)) {
+      Message::make('Links list item without a title @page: @html',
+        [
+          '@page' => self::$migrator->row->getDestinationProperty('title'),
+          '@html' => $query_path->html(),
+        ], Message::ERROR);
+    }
+    if (empty($url)) {
+      Message::make('Links list item without a link @page: @html',
+        [
+          '@page' => self::$migrator->row->getDestinationProperty('title'),
+          '@html' => $query_path->html(),
+        ], Message::ERROR);
+    }
+    if (empty($summary)) {
+      Message::make('Links list item without a summary @page: @html',
+        [
+          '@page' => self::$migrator->row->getDestinationProperty('title'),
+          '@html' => $query_path->html(),
+        ], Message::ERROR);
+    }
 
     return [
       'field_link' => [

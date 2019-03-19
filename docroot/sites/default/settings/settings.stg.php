@@ -27,6 +27,7 @@ $settings['trusted_host_patterns'] = [
     '^staging\.va\.agile6\.com$',
     '^stg\.cms\.va\.gov$',
     '^staging\.cms\.va\.gov$',
+    '^*\.us-gov-west-1\.elb\.amazonaws\.com$',   
 ];
 
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php')) {

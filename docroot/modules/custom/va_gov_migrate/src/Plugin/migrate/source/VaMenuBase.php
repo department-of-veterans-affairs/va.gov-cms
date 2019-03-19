@@ -5,11 +5,7 @@ namespace Drupal\va_gov_migrate\Plugin\migrate\source;
 use Drupal\migrate\Plugin\migrate\source\SourcePluginBase;
 
 /**
- * Source to read from sidebar.json.
- *
- * @MigrateSource(
- *   id = "va_benefits_menu_source"
- * )
+ * Base class for migrating menus.
  */
 abstract class VaMenuBase extends SourcePluginBase {
   protected $sections;

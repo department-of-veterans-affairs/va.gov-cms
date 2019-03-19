@@ -4,6 +4,7 @@ namespace Drupal\va_gov_migrate\Paragraph;
 
 use Drupal\va_gov_migrate\ParagraphType;
 use QueryPath\DOMQuery;
+use Drupal\migration_tools\Message;
 
 /**
  * Process paragraph type.
@@ -36,6 +37,13 @@ class Process extends ParagraphType {
         "value" => $child->innerHTML(),
         "format" => "rich_text",
       ];
+    }
+    if (empty($steps)) {
+      Message::make('Process without any steps @page: @html',
+        [
+          '@page' => self::$migrator->row->getDestinationProperty('title'),
+          '@html' => $query_path->html(),
+        ], Message::ERROR);
     }
     return ['field_steps' => $steps];
   }

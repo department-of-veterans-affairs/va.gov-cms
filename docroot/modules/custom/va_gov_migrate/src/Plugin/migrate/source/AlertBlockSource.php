@@ -33,7 +33,9 @@ class AlertBlockSource extends MetalsmithSource {
       // If we've already got that title, make sure the blocks are identical.
       if (in_array($alert_title, array_column($unique_rows, 'alert_title'))) {
         $key = array_search($alert_title, array_column($unique_rows, 'alert_title'));
-        if (Stringtools::superTrim($row['alert_body']) != Stringtools::superTrim($unique_rows[$key]['alert_body'])) {
+        $old_alert = preg_replace('/>\s+</m', '><', $unique_rows[$key]['alert_body']);
+        $new_alert = preg_replace('/>\s+</m', '><', $row['alert_body']);
+        if (Stringtools::superTrim($old_alert) != Stringtools::superTrim($new_alert)) {
           Message::make('Alert boxes with the same title, but different bodies on @url1 and @url2',
             [
               '@url1' => $unique_rows[$key]['url'],
