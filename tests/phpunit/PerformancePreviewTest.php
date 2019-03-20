@@ -107,7 +107,7 @@ class PreviewPerformance extends ExistingSiteBase {
    */
   public function benchmarkTime() {
     return [
-      [2],
+      [5],
     ];
   }
 
