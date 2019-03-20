@@ -11,7 +11,7 @@ events:
 
   # Mirrors what is in lando-entrypoint-app.sh, keep in sync with that file.
   # @todo don't use absolute path, somehow lando is not detecting drush in path right now. Fix this.
-  post-db-sync-stg:
+  post-sync-db:
     - appserver: cd $LANDO_WEBROOT && /app/docroot/vendor/bin/drush cache-rebuild -y
     - appserver: cd $LANDO_WEBROOT && /app/docroot/vendor/bin/drush updatedb -y
     - appserver: cd $LANDO_WEBROOT && /app/docroot/vendor/bin/drush config:import -y
@@ -104,11 +104,11 @@ tooling:
       - ./node_modules/.bin/nightwatch --tags accessibility
   gulp:
     service: node
-  db-sync-stg:
+  sync-db:
     service: appserver
-    description: Sync sanitized STG DB to local (up to 2 hours old)
-    cmd: /app/scripts/sync-db-stg.sh && echo "Importing STG database" && /app/docroot/vendor/bin/drush sql-drop --yes && `/app/docroot/vendor/bin/drush sql-connect` < /app/.dumps/db-latest.sql && echo "STG database import complete"
-  files-sync-stg:
+    description: Sync sanitized PROD DB to local (up to 1 hour old, to get the latest DB, trigger http://jenkins.cms.va.gov/job/vagovcms_backup_rds/ which will also trigger http://jenkins.cms.va.gov/job/vagovcms_sanitize_rds/, when the latter is done then you will have the latest DB from PROD.)
+    cmd: /app/scripts/sync-db.sh && echo "Importing PROD database" && /app/docroot/vendor/bin/drush sql-drop --yes && `/app/docroot/vendor/bin/drush sql-connect` < /app/.dumps/db-latest.sql && echo "PROD database import complete"
+  sync-files:
     service: appserver
-    description: Sync site defailt files from STG to local (up to 2 hours old)
-    cmd: backup_url=$(curl -L https://s3-us-gov-west-1.amazonaws.com//agile6-backups-pub/files/latest_url) && curl ${backup_url} -o ./.dumps/cmsapp_files.tgz && rm -fR /app/docroot/sites/default/files/* && tar -xzvf ./.dumps/cmsapp_files.tgz --directory /app/docroot/sites/default/files && echo "STG files sync complete"
+    description: Sync sites/default/files directory from PROD to local (up to 1 hour old).
+    cmd: backup_url=$(curl -L https://s3-us-gov-west-1.amazonaws.com/vagov-cms-backups-pub/files/latest_url) && curl ${backup_url} -o ./.dumps/cmsapp_files.tgz && rm -fR /app/docroot/sites/default/files/* && tar -xzvf ./.dumps/cmsapp_files.tgz --directory /app/docroot/sites/default/files && echo "PROD file sync complete"
