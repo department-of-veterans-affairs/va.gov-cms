@@ -23,3 +23,7 @@ $settings['trusted_host_patterns'] = [
     '^va-gov-cms\.lndo\.site$',
     '^vagovcms\.lndo\.site$',
 ];
+
+if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php')) {
+  include $app_root . '/' . $site_path . '/settings/settings.fast_404.php';
+}
