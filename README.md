@@ -6,8 +6,15 @@ How to start:
 * `git clone git@github.com:department-of-veterans-affairs/va.gov-cms.git vagov`
 * `cd vagov`
 * `lando start`
-* `lando db-sync-stg`
-* `lando files-sync-stg`
+* `lando sync-db`
+* `lando sync-files`
+
+Example workflow:
+* `git fetch --all`
+* `git checkout --branch <VAGOV-000-name> origin/develop`
+* `lando composer install`
+* `lando sync-db`
+* `lando sync-files` # (optional)
 
 What it does:
 * Spins up php, mysql, and node containers
