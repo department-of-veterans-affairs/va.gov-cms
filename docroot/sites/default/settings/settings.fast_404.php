@@ -14,11 +14,15 @@
 * The second is to check whether or not the URL exists in Drupal by checking
 * with the menu router, aliases and redirects. If the page does not exist, we
 * will server a fast 404 error and exit.
+*
+* @see modules/contrib/fast_404/example.settings.fast404.php for updates
 */
 
 # Load the fast_404.inc file. This is needed if you wish to do extension
 # checking in settings.php.
-include_once('./modules/contrib/fast_404/fast404.inc');
+if (file_exists($app_root . '/' . $site_path . '/modules/contrib/fast_404/fast404.inc')) {
+  include_once $app_root . '/' . $site_path . '/modules/contrib/fast_404/fast404.inc';
+}
 
 # Disallowed extensions. Any extension in here will not be served by Drupal and
 # will get a fast 404.
