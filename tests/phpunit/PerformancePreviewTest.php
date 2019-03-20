@@ -55,20 +55,26 @@ class PreviewPerformance extends ExistingSiteBase {
         $url = 'http://' . $hostip . ':3001/preview?nodeId=' . $nid;
         break;
 
-      case 'dev.va.agile6.com':
+      case 'test1.cms.va.gov':
+        $url = 'https://vetsgov-pr-9681.herokuapp.com/preview?nodeId=' . $nid;
+        break;
+
+      case 'dev.cms.va.gov':
         $url = 'http://preview-dev.vfs.va.gov/preview?nodeId=' . $nid;
         break;
 
-      case 'stg.va.agile6.com':
+      case 'stg.cms.va.gov':
+      case 'staging.cms.va.gov':
         $url = 'http://preview-staging.vfs.va.gov/preview?nodeId=' . $nid;
         break;
 
-      case 'va.gov':
-        $url = 'http://preview-live.vfs.va.gov/preview?nodeId=' . $nid;
+      case 'cms.va.gov':
+      case 'prod.cms.va.gov':
+        $url = 'http://preview-prod.vfs.va.gov/preview?nodeId=' . $nid;
         break;
 
       default:
-        $url = 'http://preview-live.vfs.va.gov/preview?nodeId=' . $nid;
+        $url = 'http://preview-prod.vfs.va.gov/preview?nodeId=' . $nid;
         break;
     }
 
