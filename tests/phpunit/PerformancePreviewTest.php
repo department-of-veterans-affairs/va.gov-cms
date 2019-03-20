@@ -42,8 +42,6 @@ class PreviewPerformance extends ExistingSiteBase {
     $node->set('moderation_state', 'draft');
     $node->setPublished()->save();
 
-    $nid = $node->id();
-
     $this->visit('/node/' . $nid . '/edit');
 
     $hostip = getenv('LANDO_HOST_IP');
@@ -55,20 +53,26 @@ class PreviewPerformance extends ExistingSiteBase {
         $url = 'http://' . $hostip . ':3001/preview?nodeId=' . $nid;
         break;
 
-      case 'dev.va.agile6.com':
-        $url = 'http://preview-dev.vfs.va.gov/preview?nodeId=' . $nid;
+      case 'test1.cms.va.gov':
+        $url = 'https://vetsgov-pr-9681.herokuapp.com/preview?nodeId=' . $node->id();
         break;
 
-      case 'stg.va.agile6.com':
-        $url = 'http://preview-staging.vfs.va.gov/preview?nodeId=' . $nid;
+      case 'dev.cms.va.gov':
+        $url = 'http://preview-dev.vfs.va.gov/preview?nodeId=' . $node->id();
         break;
 
-      case 'va.gov':
-        $url = 'http://preview-live.vfs.va.gov/preview?nodeId=' . $nid;
+      case 'stg.cms.va.gov':
+      case 'staging.cms.va.gov':
+        $url = 'http://preview-staging.vfs.va.gov/preview?nodeId=' . $node->id();
+        break;
+
+      case 'cms.va.gov':
+      case 'prod.cms.va.gov':
+        $url = 'http://preview-prod.vfs.va.gov/preview?nodeId=' . $node->id();
         break;
 
       default:
-        $url = 'http://preview-live.vfs.va.gov/preview?nodeId=' . $nid;
+        $url = 'http://preview-prod.vfs.va.gov/preview?nodeId=' . $node->id();
         break;
     }
 
