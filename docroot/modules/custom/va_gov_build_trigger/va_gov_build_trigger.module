@@ -44,7 +44,7 @@ function va_gov_build_trigger_form_alter_submit(&$form, FormStateInterface $form
   $node->set('moderation_state', 'draft');
   $node->save();
 
-  $nid = $node->id();;
+  $nid = $node->id();
 
   // Determine the environment.
   $host = \Drupal::request()->getHost();
