@@ -27,3 +27,7 @@ $settings['trusted_host_patterns'] = [
     '^pr.*\.va\.agile6\.com$',
     '^*\.us-gov-west-1\.elb\.amazonaws\.com$',
 ];
+
+if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php')) {
+  include $app_root . '/' . $site_path . '/settings/settings.fast_404.php';
+}
