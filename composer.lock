@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "277836d62ad7229f35c62bf41d888716",
+    "content-hash": "45bcc1bd1ae49126fdf7673c666f85c9",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -5993,6 +5993,54 @@
             "homepage": "https://www.drupal.org/project/moderation_sidebar",
             "support": {
                 "source": "http://cgit.drupalcode.org/moderation_sidebar"
+            }
+        },
+        {
+            "name": "drupal/node_revisions_autoclean",
+            "version": "1.0.0-beta5",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/node_revisions_autoclean",
+                "reference": "8.x-1.0-beta5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/node_revisions_autoclean-8.x-1.0-beta5.zip",
+                "reference": "8.x-1.0-beta5",
+                "shasum": "8fe8861ace34815f0ac0faed3c9135bec5a17afa"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-beta5",
+                    "datestamp": "1543085281",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Stéphane Le Merre",
+                    "homepage": "https://www.drupal.org/u/oulalahakabu"
+                }
+            ],
+            "description": "This module allows to manage node's revisions store : according to settings, revisions are automaticaly deleted.",
+            "homepage": "http://drupal.org/project/node_revisions_autoclean",
+            "support": {
+                "source": "http://cgit.drupalcode.org/node_revisions_autoclean",
+                "issues": "https://www.drupal.org/project/issues/node_revisions_autoclean"
             }
         },
         {
@@ -16324,6 +16372,7 @@
         "drupal/graphql_metatag": 20,
         "drupal/password_policy": 15,
         "drupal/fast_404": 15,
+        "drupal/node_revisions_autoclean": 10,
         "acquia/lightning_dev": 20
     },
     "prefer-stable": true,
