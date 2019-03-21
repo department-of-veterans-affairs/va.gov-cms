@@ -39,6 +39,10 @@ class QaSection extends ParagraphType {
           return QAAccordion::isQaAccordionGroup($qp);
         }
 
+        if ($this->isOtherParagraph($qp)) {
+          return FALSE;
+        }
+
         $qp = $qp->next();
       }
     }
@@ -127,6 +131,10 @@ class QaSection extends ParagraphType {
             return FALSE;
           }
 
+          if ($this->isOtherParagraph($qp_next)) {
+            return FALSE;
+          }
+
           $qp_next = $qp_next->next();
         }
         return FALSE;
@@ -142,7 +150,29 @@ class QaSection extends ParagraphType {
    * {@inheritdoc}
    */
   public function getWeight() {
-    return -4;
+    return 10;
+  }
+
+  /**
+   * Checks whether a DOM query is a non-qa paragraph.
+   *
+   * @param \QueryPath\DOMQuery $query_path
+   *   The query to test.
+   *
+   * @return bool
+   *   Return true if it is another paragraph type.
+   */
+  protected function isOtherParagraph(DOMQuery $query_path) {
+    $paragraph_classes = self::$migrator->getParagraphClasses();
+    foreach ($paragraph_classes as $paragraph_class) {
+      if (strpos($paragraph_class->getParagraphName(), 'q_a') === 0) {
+        continue;
+      }
+      if ($paragraph_class->isParagraph($query_path)) {
+        return TRUE;
+      }
+    }
+    return FALSE;
   }
 
 }

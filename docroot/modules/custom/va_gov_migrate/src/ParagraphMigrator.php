@@ -136,6 +136,16 @@ class ParagraphMigrator {
   }
 
   /**
+   * Returns all of the paragraph objects used by this migrator.
+   *
+   * @return array
+   *   An array of ParagraphType objects
+   */
+  public function getParagraphClasses() {
+    return $this->paragraphClasses;
+  }
+
+  /**
    * INTERNAL FUNCTION - Extract paragraphs and add them to the parent entity.
    *
    * This shouldn't be called directly. Use process() instead.
