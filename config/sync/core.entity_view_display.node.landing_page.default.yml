@@ -14,11 +14,13 @@ dependencies:
     - field.field.node.landing_page.field_related_links
     - field.field.node.landing_page.field_spokes
     - field.field.node.landing_page.field_support_services
+    - field.field.node.landing_page.field_title_icon
     - node.type.landing_page
   module:
     - datetime
     - entity_reference_revisions
     - metatag
+    - options
     - user
 id: node.landing_page.default
 targetEntityType: node
@@ -119,6 +121,13 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_title_icon:
+    weight: 12
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
     region: content
 hidden:
   links: true

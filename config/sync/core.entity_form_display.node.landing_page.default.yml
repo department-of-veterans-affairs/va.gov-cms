@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.landing_page.field_related_links
     - field.field.node.landing_page.field_spokes
     - field.field.node.landing_page.field_support_services
+    - field.field.node.landing_page.field_title_icon
     - node.type.landing_page
   module:
     - content_moderation
@@ -232,6 +233,12 @@ content:
       allow_duplicate: false
     third_party_settings: {  }
     type: inline_entity_form_complex
+    region: content
+  field_title_icon:
+    weight: 22
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
     region: content
   moderation_state:
     type: moderation_state_default
