@@ -36,7 +36,6 @@ third_party_settings:
       weight: 13
       format_type: details_sidebar
       format_settings:
-        label: Governance
         open: '1'
         weight: '-10'
         required_fields: '1'
@@ -110,7 +109,6 @@ third_party_settings:
       weight: 1
       format_type: fieldset
       format_settings:
-        label: 'Include alert'
         description: 'Crisis alerts draw attention to information that will be useful to veterans experiencing an active crisis. You can <a href="http://vagovcms.lndo.site/block/add/alert?destination=/admin/content/alerts">create a new crisis alert</a>, or reuse an existing one.'
         required_fields: true
         id: ''
@@ -136,9 +134,12 @@ content:
     region: content
   field_alert:
     weight: 2
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: options_select
+    type: entity_reference_autocomplete
     region: content
   field_description:
     weight: 2

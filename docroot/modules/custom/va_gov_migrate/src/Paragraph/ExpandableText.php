@@ -31,7 +31,8 @@ class ExpandableText extends ParagraphType {
    * {@inheritdoc}
    */
   protected function getFieldValues(DOMQuery $query_path) {
-    if (strpos($query_path->prev()->attr('id'), 'expander-link') !== FALSE) {
+    if (strpos($query_path->prev()->attr('id'), 'expander-link') !== FALSE ||
+      strpos($query_path->prev()->firstChild()->attr('id'), 'expander-link') !== FALSE) {
       $expander = $query_path->prev()->text();
     }
     else {
@@ -51,7 +52,8 @@ class ExpandableText extends ParagraphType {
    * {@inheritdoc}
    */
   protected function isExternalContent(DOMQuery $query_path) {
-    return strpos($query_path->prev()->attr('id'), 'expander-link') !== FALSE;
+    return strpos($query_path->attr('id'), 'expander-link') !== FALSE ||
+      strpos($query_path->firstChild()->attr('id'), 'expander-link') !== FALSE;
   }
 
 }
