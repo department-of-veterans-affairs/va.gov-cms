@@ -232,10 +232,6 @@ process:  # assign the fields we collected above to Drupal fields.
     -
       plugin: migration_lookup
       migration: va_alert_block
-  field_administration:
-    -
-      plugin: default_value
-      default_value: 10
   moderation_state:
     plugin: default_value
     default_value: published
