@@ -22,6 +22,7 @@ dependencies:
     - content_moderation
     - node
     - user
+    - views_bulk_operations
 _core:
   default_config_hash: tS8PbpJX90aRFC3-UTgXzdqkq7_2frk2pz4TMijEebM
 id: content
@@ -163,14 +164,14 @@ display:
       row:
         type: fields
       fields:
-        node_bulk_form:
-          id: node_bulk_form
-          table: node
-          field: node_bulk_form
+        views_bulk_operations_bulk_form_1:
+          id: views_bulk_operations_bulk_form_1
+          table: views
+          field: views_bulk_operations_bulk_form
           relationship: none
           group_type: group
           admin_label: ''
-          label: ''
+          label: Action
           exclude: false
           alter:
             alter_text: false
@@ -203,7 +204,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
+          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -211,15 +212,43 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          batch: true
+          batch_size: 10
+          form_step: true
+          buttons: false
+          clear_on_exposed: false
           action_title: Action
-          include_exclude: exclude
           selected_actions:
-            - node_make_sticky_action
-            - node_make_unsticky_action
-            - node_promote_action
-            - node_unpromote_action
-          plugin_id: node_bulk_form
-          entity_type: node
+            node_unpromote_action: 0
+            node_unpublish_action: node_unpublish_action
+            node_publish_action: node_publish_action
+            node_unpublish_by_keyword_action: 0
+            node_assign_owner_action: node_assign_owner_action
+            node_promote_action: 0
+            node_save_action: node_save_action
+            node_make_sticky_action: 0
+            node_make_unsticky_action: 0
+            views_bulk_operations_delete_entity: views_bulk_operations_delete_entity
+            views_bulk_operations_example: 0
+            pathauto_update_alias: pathauto_update_alias
+            'entity:save_action:node': 0
+            'entity:unpublish_action:node': 0
+            'entity:publish_action:node': 0
+            'entity:delete_action:node': 0
+          preconfiguration:
+            node_unpublish_action:
+              label_override: ''
+            node_publish_action:
+              label_override: ''
+            node_assign_owner_action:
+              label_override: ''
+            node_save_action:
+              label_override: ''
+            views_bulk_operations_delete_entity:
+              label_override: ''
+            pathauto_update_alias:
+              label_override: ''
+          plugin_id: views_bulk_operations_bulk_form
         title:
           id: title
           table: node_field_data
