@@ -193,7 +193,7 @@ class ParagraphMigrator {
           if ($element->hasClass('last-updated')) {
             if ($element->children()->count() > 1 || strpos(trim($element->text()), 'Last updated:') !== 0) {
               Message::make('Unexpected content in "last-updated" div in @file',
-                ['@file' => $parent_entity->url()], Message::ERROR);
+                ['@file' => $parent_entity->url()], Message::WARNING);
             }
             continue;
           }
@@ -290,7 +290,7 @@ class ParagraphMigrator {
    *
    * @throws \Drupal\migrate\MigrateException
    */
-  public static function createQueryPath($html) {
+  protected function createQueryPath($html) {
     try {
       $query_path = htmlqp(mb_convert_encoding($html, "HTML-ENTITIES", "UTF-8"));
     }
@@ -304,6 +304,20 @@ class ParagraphMigrator {
 
     // Remove all spans with ids
     // Corrects problem in html where spans acting as anchors aren't closed.
+    /** @var \queryPath\DOMQuery $element */
+    foreach ($query_path->find('span[id]') as $element) {
+      if (str_replace(' ', '', $element->text()) !=
+        str_replace(' ', '', $element->children()->text())) {
+        Message::make('Text wrapped only in @tag#@id in @file',
+          [
+            '@file' => $this->row->getSourceProperty('title'),
+            '@tag' => $element->tag(),
+            '@id' => $element->attr('id'),
+          ],
+          Message::ERROR);
+      }
+    }
+
     $query_path->find('span[id]')->children()->unwrap();
 
     // Remove wrappers added by htmlqp().

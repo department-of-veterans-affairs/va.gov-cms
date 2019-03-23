@@ -4,10 +4,10 @@ namespace Drupal\va_gov_migrate\Plugin\migrate\source;
 
 use Drupal\migration_tools\Message;
 use QueryPath\DOMQuery;
-use Drupal\va_gov_migrate\ParagraphMigrator;
 use Drupal\migration_tools\StringTools;
 use Drupal\migration_tools\Obtainer\ObtainHtml;
 use Michelf\MarkdownExtra;
+use Drupal\migrate\MigrateException;
 
 /**
  * Gets blocks from pages referenced by metalsmith files.
@@ -74,7 +74,23 @@ class AlertBlockSource extends MetalsmithSource {
 
     $row = [];
 
-    $query_path = ParagraphMigrator::createQueryPath($page_content);
+    // Turn page content into DOM query.
+    try {
+      $query_path = htmlqp(mb_convert_encoding($page_content, "HTML-ENTITIES", "UTF-8"));
+    }
+    catch (\Exception $e) {
+      throw new MigrateException('Failed to instantiate QueryPath: ' . $e->getMessage());
+    }
+    // Sometimes queryPath fails.  So one last check.
+    if (empty($query_path) || !is_object($query_path)) {
+      throw new MigrateException("Failed to initialize QueryPath.");
+    }
+
+    // Remove wrappers added by htmlqp().
+    while (in_array($query_path->tag(), ['html', 'body'])) {
+      $query_path = $query_path->children();
+    }
+
     $alerts = $query_path->find('.usa-alert');
     /** @var \QueryPath\DOMQuery $alert */
     foreach ($alerts as $alert) {
