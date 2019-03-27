@@ -46,3 +46,7 @@ if [ "${SYNC_SITE_FILES}" = "yes" ] ; then
 else
   echo "Skipping site default files sync" ;
 fi
+
+# Run the COMMAND
+echo "Running command $@"
+"$@" || tail -f /dev/null
