@@ -21,7 +21,7 @@ if [ -d "/scripts" ] && [ -z ${LANDO_NO_SCRIPTS+x} ]; then
   find /scripts/ -type f -exec {} \;
 fi;
 
-# custom: render database settings from template
+# Custom: render database settings from template
 j2 /templates/settings.lando.php.tpl > /app/docroot/sites/default/settings/settings.lando.php
 
 # Run post-deploy hooks
