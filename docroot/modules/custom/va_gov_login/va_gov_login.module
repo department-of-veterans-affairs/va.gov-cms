@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_login.module.
+ */
+
+use Drupal\Core\Field\FieldFilteredMarkup;
+use Drupal\Component\Render\FormattableMarkup;
+
+/**
+ * Implements hook_form_alter().
+ */
+function va_gov_login_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == "user_login_form") {
+    $form['pass']["#description"] = FieldFilteredMarkup::create(t('Enter the password that accompanies your username, if you have an issue with your password please email the @helpdesk.', ['@helpdesk' => new FormattableMarkup('<a href="mailto:cms-admin@va.gov">helpdesk</a>', [])]));
+  }
+}
+
+/**
+ * Implements hook_local_tasks_alter().
+ */
+function va_gov_login_menu_local_tasks_alter(&$data, $route_name) {
+  if ($route_name == 'user.login') {
+    $data['tabs'][0]['user.pass']['#access'] = FALSE;
+  }
+}
