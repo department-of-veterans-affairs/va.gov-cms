@@ -33,7 +33,7 @@ cd ${LANDO_WEBROOT}/vendor/bin/
 ./drush config:import -y
 ./drush cache:rebuild
 else
-  echo "Skipping vagovcms drupal migrations since we are running it on deploy container" ;
+  echo "Skipping vagovcms Drupal update commands since we are running it on deploy container" ;
 fi
 
 # Sync drupal site/default/files
