@@ -16,7 +16,7 @@ $config['views.settings']['ui']['show']['performance_statistics'] = FALSE;
 $config['system.logging']['error_level'] = 'none';
 $config['environment_indicator.indicator']['bg_color'] = '#ff2301';
 $config['environment_indicator.indicator']['fg_color'] = '#000000';
-$config['environment_indicator.indicator']['name'] = 'Staging';
+$config['environment_indicator.indicator']['name'] = 'Production';
 
 $settings['trusted_host_patterns'] = [
     // For ALB/ELB Healthchecks.
@@ -25,6 +25,7 @@ $settings['trusted_host_patterns'] = [
     'localhost',
     '^cms\.va\.gov$',
     '^prod\.cms\.va\.gov$',
+    '^.*\.us-gov-west-1\.elb\.amazonaws\.com$',
 ];
 
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php')) {

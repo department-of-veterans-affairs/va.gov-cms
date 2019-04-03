@@ -1,5 +1,5 @@
 id: va_healthcare
-label: Import basic pages and paragraphs from va.gov
+label: Migrate Health Care benefits pages from VA.gov
 migration_group: va_gov
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
@@ -168,6 +168,10 @@ process:  # assign the fields we collected above to Drupal fields.
     -
       plugin: migration_lookup
       migration: va_alert_block
+  field_administration:
+    -
+      plugin: default_value
+      default_value: 10
   moderation_state:
     plugin: default_value
     default_value: published

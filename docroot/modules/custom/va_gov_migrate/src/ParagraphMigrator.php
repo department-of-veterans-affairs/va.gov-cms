@@ -136,6 +136,16 @@ class ParagraphMigrator {
   }
 
   /**
+   * Returns all of the paragraph objects used by this migrator.
+   *
+   * @return array
+   *   An array of ParagraphType objects
+   */
+  public function getParagraphClasses() {
+    return $this->paragraphClasses;
+  }
+
+  /**
    * INTERNAL FUNCTION - Extract paragraphs and add them to the parent entity.
    *
    * This shouldn't be called directly. Use process() instead.
@@ -183,31 +193,39 @@ class ParagraphMigrator {
           if ($element->hasClass('last-updated')) {
             if ($element->children()->count() > 1 || strpos(trim($element->text()), 'Last updated:') !== 0) {
               Message::make('Unexpected content in "last-updated" div in @file',
-                ['@file' => $parent_entity->url()], Message::ERROR);
+                ['@file' => $parent_entity->url()], Message::WARNING);
             }
             continue;
           }
-          // Add the opening tag.
-          $attr = '';
-          foreach ($element->attr() as $name => $value) {
-            $attr .= $name . '="' . $value . '" ';
-          }
-          $this->wysiwyg .= "<{$element->tag()} $attr>";
 
           // If the element does contain unwrapped text, that text will be lost.
           if (str_replace(' ', '', $element->text()) !=
-            str_replace(' ', '', $element->childrenText())) {
-            Message::make('Lost text in @file from @element',
+            str_replace(' ', '', $element->children()->text())) {
+            Message::make('Text wrapped only in @tag@file: "@text"',
               [
-                '@file' => $parent_entity->url(),
-                '@element' => "<{$element->tag()} $attr>",
+                '@file' => $parent_entity->url() ? ' in ' . $parent_entity->url() : '',
+                '@tag' => $element->tag(),
+                '@text' => $element->text(),
               ],
               Message::ERROR);
-          }
 
-          // Look for paragraphs in the children.
-          $this->addParagraphs($element->children(), $parent_entity, $parent_field);
-          $this->wysiwyg .= "</{$element->tag()}>";
+            // Better to risk losing nested paragraphs than content, so treat
+            // everything in this element as wysiwyg.
+            $this->wysiwyg .= $element->html();
+          }
+          else {
+            // Add the opening tag.
+            $attr = '';
+            foreach ($element->attr() as $name => $value) {
+              $attr .= $name . '="' . $value . '" ';
+            }
+            $this->wysiwyg .= "<{$element->tag()} $attr>";
+            // Look for paragraphs in the children.
+            $this->addParagraphs($element->children(), $parent_entity, $parent_field);
+            // Add the closing tag.
+            $this->wysiwyg .= "</{$element->tag()}>";
+
+          }
         }
         elseif (self::hasContent($element->html())) {
           $this->wysiwyg .= $element->html();
@@ -272,7 +290,7 @@ class ParagraphMigrator {
    *
    * @throws \Drupal\migrate\MigrateException
    */
-  public static function createQueryPath($html) {
+  protected function createQueryPath($html) {
     try {
       $query_path = htmlqp(mb_convert_encoding($html, "HTML-ENTITIES", "UTF-8"));
     }
@@ -286,6 +304,20 @@ class ParagraphMigrator {
 
     // Remove all spans with ids
     // Corrects problem in html where spans acting as anchors aren't closed.
+    /** @var \queryPath\DOMQuery $element */
+    foreach ($query_path->find('span[id]') as $element) {
+      if (str_replace(' ', '', $element->text()) !=
+        str_replace(' ', '', $element->children()->text())) {
+        Message::make('Text wrapped only in @tag#@id in @file',
+          [
+            '@file' => $this->row->getSourceProperty('title'),
+            '@tag' => $element->tag(),
+            '@id' => $element->attr('id'),
+          ],
+          Message::ERROR);
+      }
+    }
+
     $query_path->find('span[id]')->children()->unwrap();
 
     // Remove wrappers added by htmlqp().

@@ -4,6 +4,7 @@ namespace Drupal\va_gov_migrate\Paragraph;
 
 use Drupal\va_gov_migrate\ParagraphType;
 use QueryPath\DOMQuery;
+use Drupal\migration_tools\Message;
 
 /**
  * Starred Horizontal Rule paragraph type.
@@ -24,6 +25,9 @@ class CollapsiblePanel extends ParagraphType {
    */
   protected function isParagraph(DOMQuery $query_path) {
     if ($query_path->hasClass('usa-accordion')) {
+      if (!$query_path->find('li button.usa-accordion-button')) {
+        Message::make('Collapsible panel without any items: @html', ['@html' => $query_path->html()], Message::ERROR);
+      }
       return !QAAccordion::isQaAccordionGroup($query_path);
     }
   }

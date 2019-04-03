@@ -1,0 +1,23 @@
+uuid: e1d6be36-0d2a-4229-a369-c6749160f180
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_title_icon
+    - node.type.landing_page
+  module:
+    - options
+id: node.landing_page.field_title_icon
+field_name: field_title_icon
+entity_type: node
+bundle: landing_page
+label: 'Hub Icon'
+description: 'Select an icon to appear next to this hub landing page''s title. '
+required: false
+translatable: false
+default_value:
+  -
+    value: health-care
+default_value_callback: ''
+settings: {  }
+field_type: list_string

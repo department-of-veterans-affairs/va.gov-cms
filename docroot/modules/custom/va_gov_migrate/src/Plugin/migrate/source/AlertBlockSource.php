@@ -4,10 +4,10 @@ namespace Drupal\va_gov_migrate\Plugin\migrate\source;
 
 use Drupal\migration_tools\Message;
 use QueryPath\DOMQuery;
-use Drupal\va_gov_migrate\ParagraphMigrator;
 use Drupal\migration_tools\StringTools;
 use Drupal\migration_tools\Obtainer\ObtainHtml;
 use Michelf\MarkdownExtra;
+use Drupal\migrate\MigrateException;
 
 /**
  * Gets blocks from pages referenced by metalsmith files.
@@ -33,7 +33,9 @@ class AlertBlockSource extends MetalsmithSource {
       // If we've already got that title, make sure the blocks are identical.
       if (in_array($alert_title, array_column($unique_rows, 'alert_title'))) {
         $key = array_search($alert_title, array_column($unique_rows, 'alert_title'));
-        if (Stringtools::superTrim($row['alert_body']) != Stringtools::superTrim($unique_rows[$key]['alert_body'])) {
+        $old_alert = preg_replace('/>\s+</m', '><', $unique_rows[$key]['alert_body']);
+        $new_alert = preg_replace('/>\s+</m', '><', $row['alert_body']);
+        if (Stringtools::superTrim($old_alert) != Stringtools::superTrim($new_alert)) {
           Message::make('Alert boxes with the same title, but different bodies on @url1 and @url2',
             [
               '@url1' => $unique_rows[$key]['url'],
@@ -72,7 +74,23 @@ class AlertBlockSource extends MetalsmithSource {
 
     $row = [];
 
-    $query_path = ParagraphMigrator::createQueryPath($page_content);
+    // Turn page content into DOM query.
+    try {
+      $query_path = htmlqp(mb_convert_encoding($page_content, "HTML-ENTITIES", "UTF-8"));
+    }
+    catch (\Exception $e) {
+      throw new MigrateException('Failed to instantiate QueryPath: ' . $e->getMessage());
+    }
+    // Sometimes queryPath fails.  So one last check.
+    if (empty($query_path) || !is_object($query_path)) {
+      throw new MigrateException("Failed to initialize QueryPath.");
+    }
+
+    // Remove wrappers added by htmlqp().
+    while (in_array($query_path->tag(), ['html', 'body'])) {
+      $query_path = $query_path->children();
+    }
+
     $alerts = $query_path->find('.usa-alert');
     /** @var \QueryPath\DOMQuery $alert */
     foreach ($alerts as $alert) {

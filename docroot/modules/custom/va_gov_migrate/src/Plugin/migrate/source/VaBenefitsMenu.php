@@ -90,7 +90,7 @@ class VaBenefitsMenu extends VaMenuBase {
    * {@inheritdoc}
    */
   protected function sanitizeDomain($href) {
-    return str_replace('http://localhost:3001', '', $href);
+    return str_replace('http://localhost:3001', 'https://www.va.gov', $href);
   }
 
 }

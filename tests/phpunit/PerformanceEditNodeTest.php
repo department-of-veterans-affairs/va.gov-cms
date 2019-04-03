@@ -60,8 +60,8 @@ class EditNodePerformance extends ExistingSiteBase {
    */
   public function benchmarkTime() {
     return [
-      ["page", 2],
-      ["landing_page", 2],
+      ["page", 5],
+      ["landing_page", 5],
     ];
   }
 

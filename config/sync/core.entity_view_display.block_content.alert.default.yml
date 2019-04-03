@@ -10,6 +10,7 @@ dependencies:
     - field.field.block_content.alert.field_alert_type
     - field.field.block_content.alert.field_content_preview
     - field.field.block_content.alert.field_help_text
+    - field.field.block_content.alert.field_is_this_a_header_alert_
     - field.field.block_content.alert.field_node_reference
     - field.field.block_content.alert.field_owner
     - field.field.block_content.alert.field_reusability
@@ -59,6 +60,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: markup
+    region: content
+  field_is_this_a_header_alert_:
+    weight: 7
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
     region: content
   field_owner:
     weight: 3
