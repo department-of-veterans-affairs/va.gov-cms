@@ -1,4 +1,4 @@
-uuid: a49e2685-844a-413d-8e48-3b4822eed39a
+uuid: 69c3d560-c5d4-4de1-8ae0-b3ea2f40a442
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: LP3E7Qrk5iHMIBg6hC7siUtdTABRnwWt9tfLXvE5vsU
+  default_config_hash: rC9p5DgjKQl2s1gp1_oxjkr4weB0yfh_-g-zV_kJCKk
 id: va_healthcare
 class: null
 field_plugin_method: null
@@ -41,18 +41,14 @@ source:
               method: pluckSelector
               arguments:
                 - h1
-                - 1
-                - innerHTML
         intro_text:
-          obtainer: ObtainHtml
+          obtainer: ObtainPlainTextWithNewLines
           jobs:
             -
               job: addSearch
               method: pluckSelector
               arguments:
                 - .va-introtext
-                - '1'
-                - innerHTML
         featured_content:
           obtainer: ObtainHtml
           jobs:
@@ -61,7 +57,7 @@ source:
               method: pluckSelector
               arguments:
                 - .feature
-                - '1'
+                - 1
                 - innerHTML
         alert_title:
           obtainer: ObtainHtml
