@@ -174,6 +174,14 @@ class ParagraphMigrator {
 
     /** @var \QueryPath\DOMQuery $element */
     foreach ($query_path as $element) {
+
+      // This is just text, so add it to the wysiwyg.
+      if (get_class($element->get(0)) != 'DOMElement') {
+        if (!empty(trim($element->html()))) {
+          $this->wysiwyg .= $element->html();
+        }
+        continue;
+      }
       $found_paragraph = FALSE;
 
       foreach ($this->paragraphClasses as $paragraphClass) {
