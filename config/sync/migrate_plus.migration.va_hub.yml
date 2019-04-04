@@ -1,4 +1,4 @@
-uuid: 9e042024-44a2-492f-bccf-1d1279c5951a
+uuid: 8ac569be-8a46-45de-8cdd-30ffa42da29a
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: '-4wrJrY13Ocjj5zs1E7mBVN-OdJVmero9I_qa5oVc9c'
+  default_config_hash: IXrojkZALeIqUL_-8pM0KhazC6WZspxLwJnB1w27AU0
 id: va_hub
 class: null
 field_plugin_method: null
@@ -63,15 +63,13 @@ source:
                 - '1'
                 - innerHTML
         intro_text:
-          obtainer: ObtainHtml
+          obtainer: ObtainPlainTextWithNewLines
           jobs:
             -
               job: addSearch
               method: pluckSelector
               arguments:
                 - .va-introtext
-                - '1'
-                - innerHTML
         featured_content:
           obtainer: ObtainHtml
           jobs:
