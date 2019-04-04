@@ -50,13 +50,14 @@ source:
             - 1     # Grab the first one.
             - innerHTML  # Get any html it contains.
       alert_title:
-        obtainer: ObtainHtml
+        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAlertBlockTitles"
         jobs:
         -
           job: 'addSearch'
-          method: 'pluckSelector'
+          method: 'arrayPluckSelector'
           arguments:
             - '.usa-alert-heading'
+            - innerHTML
       related_links:
         obtainer: ObtainHtml
         jobs:
@@ -151,19 +152,9 @@ process:  # assign the fields we collected above to Drupal fields.
     source: plainlanguage_date
   field_alert:
     -
-      plugin: explode
-      source: alert_title
-      delimiter: '<br/>'
-    -
-      plugin: extract
-      index:
-        - 0
-    -
-      plugin: callback
-      callable: strip_tags
-    -
       plugin: migration_lookup
       migration: va_alert_block
+      source: alert_title
   field_administration:
     -
       plugin: default_value
