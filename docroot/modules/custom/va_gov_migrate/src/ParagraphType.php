@@ -57,12 +57,12 @@ abstract class ParagraphType {
             $title = $entity->get('title')->value;
           }
 
-          Message::make('@class not allowed on @type in field @field @node',
+          Message::make('@class not allowed on @type in field @field on @title',
             [
               '@class' => $this->getParagraphName(),
               '@type' => $entity->bundle(),
               '@field' => $parent_field,
-              '@node' => empty($title) ? html_entity_decode(substr($query_path->html(), 0, 150)) : "on $title",
+              '@title' => self::$migrator->row->getSourceProperty('title'),
             ],
             Message::ERROR
           );
@@ -85,10 +85,10 @@ abstract class ParagraphType {
       }
     }
     catch (\Exception $e) {
-      Message::make("Migration failed for paragraph on @parent @url: @message.",
+      Message::make("Migration failed for paragraph on @title @parent: @message.",
         [
+          '@title' => self::$migrator->row->getSourceProperty('title'),
           '@parent' => $entity->bundle(),
-          '@url' => $entity->url(),
           '@message' => $e->getMessage(),
         ]
       );
