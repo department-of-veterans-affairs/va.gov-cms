@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.health_care_local_health_service.field_body
+    - field.field.node.health_care_local_health_service.field_clinical_health_services
     - field.field.node.health_care_local_health_service.field_facility_location
     - node.type.health_care_local_health_service
   module:
@@ -21,6 +22,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
+  field_clinical_health_services:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
     region: content
   field_facility_location:
     weight: 0
