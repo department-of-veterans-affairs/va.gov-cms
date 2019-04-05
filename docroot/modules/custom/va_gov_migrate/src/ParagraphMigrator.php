@@ -190,7 +190,7 @@ class ParagraphMigrator {
         $found_paragraph = $paragraphClass->process($element, $parent_entity, $parent_field, $allowed_paragraphs['allowed']);
         if ($found_paragraph) {
           $num_paragraphs++;
-          if ($num_paragraphs > $allowed_paragraphs['max']) {
+          if ($allowed_paragraphs['max'] != -1 && $num_paragraphs > $allowed_paragraphs['max']) {
             Message::make("Too many paragraphs in @title on @entity, field, @field: Maximum: @max, found: @num", [
               '@title' => $this->row->getDestinationProperty('title'),
               '@entity' => $parent_entity->id(),
