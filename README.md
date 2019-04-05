@@ -45,7 +45,7 @@ Apply patches:
 * Get the patch file:
   * example" https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/726.patch
   * for Github, you can usually type in `.patch` at the end of the PR url to get the patch file
-  * some people use github, some use drupal.org. druapl is moving to gitlab
+  * some people use github, some use drupal.org. drupal is moving to gitlab
 * In the "`patches`" property of `composer.json`, make an entry for the package you are patching, if not already there, write an explanation as to what the patch does, and then put the url to the patch 
   * ex:
   * ```
