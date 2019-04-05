@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7be23dd500c3942e5cbcef9e1a289e70",
+    "content-hash": "8a7ea0ae568ddbe21694fc897450977e",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -683,7 +683,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/fengyuanchen/cropper/zipball/30c58b29ee21010e17e58ebab165fbd84285c685",
-                "reference": "30c58b29ee21010e17e58ebab165fbd84285c685"
+                "reference": "30c58b29ee21010e17e58ebab165fbd84285c685",
+                "shasum": null
             },
             "type": "bower-asset",
             "license": [
@@ -701,7 +702,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/enyo/dropzone/zipball/08b9e0a763b54a685404dea523a9c54242fbe1b9",
-                "reference": "08b9e0a763b54a685404dea523a9c54242fbe1b9"
+                "reference": "08b9e0a763b54a685404dea523a9c54242fbe1b9",
+                "shasum": null
             },
             "type": "bower-asset"
         },
@@ -716,7 +718,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/9e8ec3d10fad04748176144f108d7355662ae75e",
-                "reference": "9e8ec3d10fad04748176144f108d7355662ae75e"
+                "reference": "9e8ec3d10fad04748176144f108d7355662ae75e",
+                "shasum": null
             },
             "type": "bower-asset",
             "license": [
@@ -734,7 +737,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/kenwheeler/slick/zipball/0f40c9d6a02a5c08b5f4dd80fdada3a854a59bee",
-                "reference": "0f40c9d6a02a5c08b5f4dd80fdada3a854a59bee"
+                "reference": "0f40c9d6a02a5c08b5f4dd80fdada3a854a59bee",
+                "shasum": null
             },
             "require": {
                 "bower-asset/jquery": ">=1.7"
@@ -3949,6 +3953,53 @@
             }
         },
         {
+            "name": "drupal/entity_reference_unpublished",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/entity_reference_unpublished.git",
+                "reference": "8.x-1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/entity_reference_unpublished-8.x-1.1.zip",
+                "reference": "8.x-1.1",
+                "shasum": "864124a181f587d243fd891d36f86f4494d0432f"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.1",
+                    "datestamp": "1508332743",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "lahoosascoots",
+                    "homepage": "https://www.drupal.org/user/1933614"
+                }
+            ],
+            "description": "Allows unpublished content to be referenced in an entity reference.",
+            "homepage": "https://www.drupal.org/project/entity_reference_unpublished",
+            "support": {
+                "source": "https://git.drupalcode.org/project/entity_reference_unpublished"
+            }
+        },
+        {
             "name": "drupal/environment_indicator",
             "version": "3.5.0",
             "source": {
@@ -5972,7 +6023,8 @@
                 "patches_applied": {
                     "Add changeHtmlContents DomModifier method": "https://www.drupal.org/files/issues/2018-11-26/change_html_contents-3015381-3.patch",
                     "Allow migration script to set curl options": "https://www.drupal.org/files/issues/2019-02-08/curl_options-3031705-2.patch",
-                    "Eliminate 'Undefined index: arguments' notice during migration": "https://www.drupal.org/files/issues/2018-11-08/migration_tools-undef-arg-3012485-2.patch"
+                    "Eliminate 'Undefined index: arguments' notice during migration": "https://www.drupal.org/files/issues/2018-11-08/migration_tools-undef-arg-3012485-2.patch",
+                    "Add obtainer for long, plain text": "https://www.drupal.org/files/issues/2019-04-04/long_plain_text_obtainer-3044998-5.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
