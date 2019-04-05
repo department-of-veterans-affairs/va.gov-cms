@@ -184,9 +184,21 @@ class ParagraphMigrator {
       }
       $found_paragraph = FALSE;
 
+      $num_paragraphs = 0;
+
       foreach ($this->paragraphClasses as $paragraphClass) {
-        $found_paragraph = $paragraphClass->process($element, $parent_entity, $parent_field, $allowed_paragraphs);
+        $found_paragraph = $paragraphClass->process($element, $parent_entity, $parent_field, $allowed_paragraphs['allowed']);
         if ($found_paragraph) {
+          $num_paragraphs++;
+          if ($num_paragraphs > $allowed_paragraphs['max']) {
+            Message::make("Too many paragraphs in @title on @entity, field, @field: Maximum: @max, found: @num", [
+              '@title' => $this->row->getDestinationProperty('title'),
+              '@entity' => $parent_entity->id(),
+              '@field' => $parent_field,
+              '@max' => $allowed_paragraphs['max'],
+              '@num' => $num_paragraphs,
+            ], Message::ERROR);
+          }
           break;
         }
       }
@@ -251,7 +263,7 @@ class ParagraphMigrator {
   public function addWysiwyg(Entity &$entity, $parent_field) {
     if (self::hasContent($this->wysiwyg)) {
       try {
-        $allowed_paragraphs = self::getAllowedParagraphs($entity, $parent_field);
+        list('allowed' => $allowed_paragraphs) = self::getAllowedParagraphs($entity, $parent_field);
       }
       catch (MigrateException $e) {
         Message::make('Could not add paragraphs to @field. ' . $e->getMessage(), ['@field' => $parent_field], Message::ERROR);
@@ -343,17 +355,22 @@ class ParagraphMigrator {
    *   The field to check.
    *
    * @return array
-   *   An array of paragraph machine names.
+   *   An array consisting of array of paragraph machine names and max allowed.
    *
    * @throws \Drupal\migrate\MigrateException
    */
   public static function getAllowedParagraphs(Entity $entity, $field) {
     $field_defs = \Drupal::service('entity_field.manager')->getFieldDefinitions($entity->getEntityTypeId(), $entity->bundle());
 
+    /** @var \Drupal\field\Entity\FieldConfig $field_config */
+    $field_config = $field_defs[$field];
+    $settings = $field_config->getSettings();
+    $max_count = $field_config->get('fieldStorage')->get('cardinality');
+
     if (empty($field_defs[$field])) {
       throw new MigrateException("$field not found on {$entity->bundle()}");
     }
-    $settings = $field_defs[$field]->getSettings();
+    $settings = $field_config->getSettings();
     if ($settings['target_type'] != "paragraph") {
       throw new MigrateException("{$entity->getEntityTypeId()} $field is not a paragraph.");
     }
@@ -371,7 +388,10 @@ class ParagraphMigrator {
       $allowed_paragraphs = $selected_paragraphs;
     }
 
-    return $allowed_paragraphs;
+    return [
+      'allowed' => $allowed_paragraphs,
+      'max' => $max_count,
+    ];
   }
 
   /**

@@ -66,7 +66,7 @@ abstract class QABase extends ParagraphType {
    * {@inheritdoc}
    */
   public static function attachParagraph(Paragraph $paragraph, Entity &$entity, $parent_field) {
-    $allowed_paragraphs = ParagraphMigrator::getAllowedParagraphs($entity, $parent_field);
+    list('allowed' => $allowed_paragraphs) = ParagraphMigrator::getAllowedParagraphs($entity, $parent_field);
     // If this field allows Q&As just add it normally.
     if (in_array('q_a', $allowed_paragraphs)) {
       ParagraphType::attachParagraph($paragraph, $entity, $parent_field);
