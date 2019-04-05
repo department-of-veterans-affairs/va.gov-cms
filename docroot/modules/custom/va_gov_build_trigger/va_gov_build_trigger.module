@@ -65,7 +65,7 @@ function va_gov_build_trigger_preprocess_page(&$variables) {
     $arg = explode('/', $path);
 
     // Make sure we aren't on the node form.
-    if ($arg[1] !== 'node' && !is_numeric($arg[2])) {
+    if (empty($arg[1]) || empty($arg[2]) || $arg[1] !== 'node' && !is_numeric($arg[2])) {
       $node = \Drupal::routeMatch()->getParameter('node');
       $nid = $node->id();
       $host = \Drupal::request()->getHost();
