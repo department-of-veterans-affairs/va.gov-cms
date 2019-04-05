@@ -3,18 +3,21 @@
 namespace Drupal\va_gov_migrate;
 
 use Drupal\Core\Entity\Entity;
+use Drupal\migrate\Event\MigrateImportEvent;
 use Drupal\migrate\Event\MigratePostRowSaveEvent;
 use Drupal\migrate\MigrateException;
 use Drupal\paragraphs\Entity\Paragraph;
 use QueryPath\DOMQuery;
 use Drupal\migration_tools\Message;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Drupal\migrate\Event\MigrateEvents;
 
 /**
  * ParagraphMigrator migrates paragraphs from query path.
  *
  * @package Drupal\va_gov_migrate
  */
-class ParagraphMigrator {
+class ParagraphMigrator implements EventSubscriberInterface {
 
   /**
    * Objects of type ParagraphType.
@@ -43,6 +46,20 @@ class ParagraphMigrator {
   public $row;
 
   /**
+   * The path of the analysis report.
+   *
+   * @var string
+   */
+  public $rptFile;
+
+  /**
+   * The content to compare with the starting content.
+   *
+   * @var string
+   */
+  public $endingContent;
+
+  /**
    * ParagraphImporter constructor.
    *
    * Loads dest entity and creates objects from class files in Paragraph/.
@@ -54,7 +71,10 @@ class ParagraphMigrator {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws MigrateException
    */
-  public function __construct(MigratePostRowSaveEvent $event) {
+  public function __construct(MigratePostRowSaveEvent $event = NULL) {
+    if (empty($event)) {
+      return;
+    }
     $ids = $event->getDestinationIdValues();
     $dest_config = $event->getMigration()->getDestinationConfiguration();
     $dest_plugin = $dest_config['plugin'];
@@ -68,6 +88,9 @@ class ParagraphMigrator {
     }
 
     $this->row = $event->getRow();
+
+    $this->endingContent = '';
+    $this->rptFile = "./migration_analysis_{$event->getMigration()->id()}.csv";
 
     $path = 'modules/custom/va_gov_migrate/src/Paragraph/';
     $paragraph_class_files = glob($path . '*.php');
@@ -132,6 +155,11 @@ class ParagraphMigrator {
 
     // Add any remaining wysiwyg in the buffer.
     $this->addWysiwyg($this->entity, $dest_field);
+    $sim = similar_text(strip_tags($source), strip_tags($this->endingContent), $percent);
+
+    $handle = fopen($this->rptFile, "a");
+    fwrite($handle, "\"{$this->row->getDestinationProperty('title')}\",$dest_field,$sim,$percent\n");
+    fclose($handle);
 
   }
 
@@ -215,6 +243,7 @@ class ParagraphMigrator {
               Message::make('Unexpected content in "last-updated" div in @file',
                 ['@file' => $parent_entity->url()], Message::WARNING);
             }
+            $this->endingContent .= $element->html();
             continue;
           }
 
@@ -278,6 +307,8 @@ class ParagraphMigrator {
         $paragraph->save();
 
         ParagraphType::attachParagraph($paragraph, $entity, $parent_field);
+
+        $this->endingContent .= $this->wysiwyg;
       }
       else {
         Message::make('Lost content for field @field on @type @node. Wysiwyg paragraphs not allowed. Content: "@wysiwyg"',
@@ -451,6 +482,27 @@ class ParagraphMigrator {
       }
       $storage_handler->delete($paragraphs);
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getSubscribedEvents() {
+    $events[MigrateEvents::PRE_IMPORT] = 'createAnalysisFile';
+    return $events;
+  }
+
+  /**
+   * Create the csv file for text similarity scores for this migration.
+   *
+   * @param \Drupal\migrate\Event\MigrateImportEvent $event
+   *   The event.
+   */
+  public function createAnalysisFile(MigrateImportEvent $event) {
+    $rptFile = "./migration_analysis_{$event->getMigration()->id()}.csv";
+    $handle = fopen($rptFile, "w");
+    fwrite($handle, "title,field,similarity score,percent similarity\n");
+    fclose($handle);
   }
 
 }

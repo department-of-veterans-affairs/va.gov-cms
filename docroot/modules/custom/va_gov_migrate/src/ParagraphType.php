@@ -71,7 +71,18 @@ abstract class ParagraphType {
 
         self::$migrator->addWysiwyg($entity, $parent_field);
 
-        $paragraph = Paragraph::create(['type' => $this->getParagraphName()] + $this->getFieldValues($query_path));
+        $paragraph_fields = $this->getFieldValues($query_path);
+        foreach ($paragraph_fields as $contents) {
+          if (is_array($contents)) {
+            if (isset($contents['value'])) {
+              self::$migrator->endingContent .= $contents['value'];
+            }
+          }
+          else {
+            self::$migrator->endingContent .= $contents;
+          }
+        }
+        $paragraph = Paragraph::create(['type' => $this->getParagraphName()] + $paragraph_fields);
         $paragraph->save();
 
         static::attachParagraph($paragraph, $entity, $parent_field);

@@ -7,3 +7,7 @@ services:
     class: Drupal\va_gov_migrate\EventSubscriber\PrepareRow
     tags:
       - { name: event_subscriber }
+  va_gov_migrate.pre_migrate:
+    class: Drupal\va_gov_migrate\ParagraphMigrator
+    tags:
+      - { name: event_subscriber }
