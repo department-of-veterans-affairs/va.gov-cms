@@ -157,10 +157,38 @@ class ParagraphMigrator implements EventSubscriberInterface {
     $this->addWysiwyg($this->entity, $dest_field);
     $sim = similar_text(strip_tags($source), strip_tags($this->endingContent), $percent);
 
-    $handle = fopen($this->rptFile, "a");
-    fwrite($handle, "\"{$this->row->getDestinationProperty('title')}\",$dest_field,$sim,$percent\n");
-    fclose($handle);
+    $source_chars = $this->charMap($source);
+    $ending_chars = $this->charMap($this->endingContent);
+    $diff = count(array_diff_assoc($source_chars, $ending_chars));
 
+    $handle = fopen($this->rptFile, "a");
+    fwrite($handle, "\"{$this->row->getDestinationProperty('title')}\",$dest_field,$sim,$percent,$diff\n");
+    fclose($handle);
+  }
+
+  /**
+   * Generate array with number of each alphanumeric in string.
+   *
+   * @param string $source_string
+   *   The string to analyze.
+   *
+   * @return array
+   *   Array of character counts.
+   */
+  protected function charMap($source_string) {
+    $chars = str_split(strip_tags($source_string));
+    $result = [];
+    foreach ($chars as $char) {
+      if (ctype_alnum($char)) {
+        if (isset($result[$char])) {
+          $result[$char]++;
+        }
+        else {
+          $result[$char] = 1;
+        }
+      }
+    }
+    return $result;
   }
 
   /**
@@ -501,7 +529,7 @@ class ParagraphMigrator implements EventSubscriberInterface {
   public function createAnalysisFile(MigrateImportEvent $event) {
     $rptFile = "./migration_analysis_{$event->getMigration()->id()}.csv";
     $handle = fopen($rptFile, "w");
-    fwrite($handle, "title,field,similarity score,percent similarity\n");
+    fwrite($handle, "Title,Field,Similarity score,Percent similarity, Char difference score\n");
     fclose($handle);
   }
 

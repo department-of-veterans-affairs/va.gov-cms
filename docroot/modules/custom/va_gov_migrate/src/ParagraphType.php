@@ -71,15 +71,23 @@ abstract class ParagraphType {
 
         self::$migrator->addWysiwyg($entity, $parent_field);
 
+        // These types have only metadata fields and/or child paragraphs.
+        $excluded_paragraphs = ['react_widget', 'collapsible_panel'];
+
         $paragraph_fields = $this->getFieldValues($query_path);
-        foreach ($paragraph_fields as $contents) {
-          if (is_array($contents)) {
-            if (isset($contents['value'])) {
-              self::$migrator->endingContent .= $contents['value'];
+
+        if (!in_array($this->getParagraphName(), $excluded_paragraphs)) {
+          foreach ($paragraph_fields as $name => $contents) {
+            if ($name != "uri" && $name != "format") {
+              if (is_array($contents)) {
+                if (isset($contents['value'])) {
+                  self::$migrator->endingContent .= $contents['value'];
+                }
+              }
+              else {
+                self::$migrator->endingContent .= $contents;
+              }
             }
-          }
-          else {
-            self::$migrator->endingContent .= $contents;
           }
         }
         $paragraph = Paragraph::create(['type' => $this->getParagraphName()] + $paragraph_fields);
