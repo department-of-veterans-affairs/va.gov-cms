@@ -48,10 +48,13 @@ content:
     third_party_settings: {  }
     region: content
   field_column_three:
-    type: options_select
     weight: 26
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
+    type: entity_reference_autocomplete
     region: content
   field_column_two:
     type: entity_reference_paragraphs
