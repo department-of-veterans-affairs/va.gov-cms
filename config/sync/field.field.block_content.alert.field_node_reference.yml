@@ -14,6 +14,7 @@ dependencies:
     - node.type.office
     - node.type.outreach_asset
     - node.type.page
+    - node.type.person_profile
     - node.type.press_release
     - node.type.regional_health_care_service_des
     - node.type.support_service
@@ -28,23 +29,24 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: unpublished
   handler_settings:
     target_bundles:
       page: page
+      landing_page: landing_page
       event: event
       health_care_local_facility: health_care_local_facility
       health_care_region_detail_page: health_care_region_detail_page
       health_care_region_page: health_care_region_page
-      regional_health_care_service_des: regional_health_care_service_des
-      landing_page: landing_page
-      news_story: news_story
       office: office
       outreach_asset: outreach_asset
       press_release: press_release
+      regional_health_care_service_des: regional_health_care_service_des
+      person_profile: person_profile
+      news_story: news_story
       support_service: support_service
     sort:
       field: _none
-    auto_create: false
+    auto_create: 0
     auto_create_bundle: page
 field_type: entity_reference

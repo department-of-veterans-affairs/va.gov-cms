@@ -174,6 +174,14 @@ class ParagraphMigrator {
 
     /** @var \QueryPath\DOMQuery $element */
     foreach ($query_path as $element) {
+
+      // This is just text, so add it to the wysiwyg.
+      if (get_class($element->get(0)) != 'DOMElement') {
+        if (!empty(trim($element->html()))) {
+          $this->wysiwyg .= $element->html();
+        }
+        continue;
+      }
       $found_paragraph = FALSE;
 
       foreach ($this->paragraphClasses as $paragraphClass) {
@@ -198,20 +206,16 @@ class ParagraphMigrator {
             continue;
           }
 
-          // If the element does contain unwrapped text, that text will be lost.
+          // This can be removed if no problems pop up.
           if (str_replace(' ', '', $element->text()) !=
-            str_replace(' ', '', $element->children()->text())) {
+            str_replace(' ', '', $element->contents()->text())) {
             Message::make('Text wrapped only in @tag@file: "@text"',
               [
                 '@file' => $parent_entity->url() ? ' in ' . $parent_entity->url() : '',
                 '@tag' => $element->tag(),
                 '@text' => $element->text(),
               ],
-              Message::ERROR);
-
-            // Better to risk losing nested paragraphs than content, so treat
-            // everything in this element as wysiwyg.
-            $this->wysiwyg .= $element->html();
+              Message::NOTICE);
           }
           else {
             // Add the opening tag.
@@ -220,8 +224,8 @@ class ParagraphMigrator {
               $attr .= $name . '="' . $value . '" ';
             }
             $this->wysiwyg .= "<{$element->tag()} $attr>";
-            // Look for paragraphs in the children.
-            $this->addParagraphs($element->children(), $parent_entity, $parent_field);
+            // Look for paragraphs in the contents.
+            $this->addParagraphs($element->contents(), $parent_entity, $parent_field);
             // Add the closing tag.
             $this->wysiwyg .= "</{$element->tag()}>";
 
@@ -306,19 +310,21 @@ class ParagraphMigrator {
     // Corrects problem in html where spans acting as anchors aren't closed.
     /** @var \queryPath\DOMQuery $element */
     foreach ($query_path->find('span[id]') as $element) {
+      // This should no longer be a problem (the issue that necessitated this
+      // has been addressed, but let's leave this for now, just to make sure.
       if (str_replace(' ', '', $element->text()) !=
-        str_replace(' ', '', $element->children()->text())) {
+        str_replace(' ', '', $element->contents()->text())) {
         Message::make('Text wrapped only in @tag#@id in @file',
           [
             '@file' => $this->row->getSourceProperty('title'),
             '@tag' => $element->tag(),
             '@id' => $element->attr('id'),
           ],
-          Message::ERROR);
+          Message::NOTICE);
       }
     }
 
-    $query_path->find('span[id]')->children()->unwrap();
+    $query_path->find('span[id]')->contents()->unwrap();
 
     // Remove wrappers added by htmlqp().
     while (in_array($query_path->tag(), ['html', 'body'])) {
