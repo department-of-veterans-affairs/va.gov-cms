@@ -96,3 +96,20 @@ pertains to the test you are updating, and paste into the test file in /tests/be
 Todo:
 * decide how we are going to sync files across environments
 * work out settings.php for various environments - lando db settings are stored in settings.lando.php
+
+## GraphQL
+
+The site uses GraphQL (https://www.drupal.org/project/graphql) as the mechanism for delivering JSON to Metalsmith for the static site build (see https://github.com/department-of-veterans-affairs/vets-website for info and setup).
+
+The GraphQL endpoint is at `/graphql`. GraphQL Explorer to assist in writing queries is avilable via the CMS admin at: `/graphql/explorer`. Sample GraphQL query to grab all entities in the system:
+
+```
+query {
+  nodeQuery()  {
+    entities {
+      entityLabel
+      entityType
+    }
+  }
+}
+```
