@@ -1,0 +1,23 @@
+uuid: 736d0dc6-0425-4946-ad8b-1df5bf872120
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_link
+    - paragraphs.paragraphs_type.megamenu_links_column
+  module:
+    - link
+id: paragraph.megamenu_links_column.field_link
+field_name: field_link
+entity_type: paragraph
+bundle: megamenu_links_column
+label: Link
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 2
+field_type: link

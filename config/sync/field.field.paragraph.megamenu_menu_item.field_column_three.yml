@@ -1,0 +1,31 @@
+uuid: ff6c69ea-f441-41a9-ab35-6b1951d5fae6
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.promo
+    - field.storage.paragraph.field_column_three
+    - paragraphs.paragraphs_type.megamenu_menu_item
+  module:
+    - entity_reference_revisions
+id: paragraph.megamenu_menu_item.field_column_three
+field_name: field_column_three
+entity_type: paragraph
+bundle: megamenu_menu_item
+label: 'Column Three'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      promo: promo
+    sort:
+      field: info
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference_revisions

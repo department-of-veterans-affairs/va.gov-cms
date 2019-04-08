@@ -1,0 +1,87 @@
+uuid: b8bf2405-1d3e-44e9-bf79-f68f80201d49
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.megamenu_menu_item.field_column_one
+    - field.field.paragraph.megamenu_menu_item.field_column_three
+    - field.field.paragraph.megamenu_menu_item.field_column_two
+    - field.field.paragraph.megamenu_menu_item.field_see_all_link
+    - field.field.paragraph.megamenu_menu_item.field_title
+    - paragraphs.paragraphs_type.megamenu_menu_item
+  module:
+    - field_group
+    - link
+    - paragraphs
+third_party_settings:
+  field_group:
+    group_links:
+      children:
+        - field_column_one
+        - field_column_two
+        - field_see_all_link
+        - field_column_three
+      parent_name: ''
+      weight: 1
+      format_type: accordion
+      format_settings:
+        id: ''
+        classes: ''
+        effect: none
+      label: Links
+      region: content
+id: paragraph.megamenu_menu_item.default
+targetEntityType: paragraph
+bundle: megamenu_menu_item
+mode: default
+content:
+  field_column_one:
+    type: entity_reference_paragraphs
+    weight: 23
+    settings:
+      title: 'Column One'
+      title_plural: 'Column One'
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: megamenu_links_column
+    third_party_settings: {  }
+    region: content
+  field_column_three:
+    type: options_select
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_column_two:
+    type: entity_reference_paragraphs
+    weight: 24
+    settings:
+      title: 'Column Two'
+      title_plural: 'Column Two'
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: megamenu_links_column
+    third_party_settings: {  }
+    region: content
+  field_see_all_link:
+    weight: 25
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_title:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true
