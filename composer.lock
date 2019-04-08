@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ffb494bf76f2dc2679207e9961df83a6",
+    "content-hash": "7be23dd500c3942e5cbcef9e1a289e70",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -2406,6 +2406,65 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/block_visibility_groups",
                 "issues": "http://drupal.org/project/issues/block_visibility_groups"
+            }
+        },
+        {
+            "name": "drupal/cer",
+            "version": "4.0.0-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/cer.git",
+                "reference": "8.x-4.0-alpha2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/cer-8.x-4.0-alpha2.zip",
+                "reference": "8.x-4.0-alpha2",
+                "shasum": "666759c00b75ab43bb0b262d87c5574301229dfc"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-4.x": "4.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-4.0-alpha2",
+                    "datestamp": "1493956089",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "bmcclure",
+                    "homepage": "https://www.drupal.org/user/278485"
+                },
+                {
+                    "name": "chertzog",
+                    "homepage": "https://www.drupal.org/user/806366"
+                },
+                {
+                    "name": "gregcube",
+                    "homepage": "https://www.drupal.org/user/336930"
+                },
+                {
+                    "name": "phenaproxima",
+                    "homepage": "https://www.drupal.org/user/205645"
+                }
+            ],
+            "description": "Allows user to create two-way references between entities.",
+            "homepage": "https://www.drupal.org/project/cer",
+            "support": {
+                "source": "https://git.drupalcode.org/project/cer"
             }
         },
         {
@@ -15768,12 +15827,12 @@
             "version": "v1.6.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mikey179/vfsStream.git",
+                "url": "https://github.com/bovigo/vfsStream.git",
                 "reference": "d5fec95f541d4d71c4823bb5e30cf9b9e5b96145"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikey179/vfsStream/zipball/d5fec95f541d4d71c4823bb5e30cf9b9e5b96145",
+                "url": "https://api.github.com/repos/bovigo/vfsStream/zipball/d5fec95f541d4d71c4823bb5e30cf9b9e5b96145",
                 "reference": "d5fec95f541d4d71c4823bb5e30cf9b9e5b96145",
                 "shasum": ""
             },
@@ -16450,6 +16509,7 @@
         "drupal/fast_404": 15,
         "drupal/node_revisions_autoclean": 10,
         "drupal/pathologic": 15,
+        "drupal/cer": 15,
         "acquia/lightning_dev": 20
     },
     "prefer-stable": true,
