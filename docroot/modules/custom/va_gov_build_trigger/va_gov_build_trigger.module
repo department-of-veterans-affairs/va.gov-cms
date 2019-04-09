@@ -6,23 +6,25 @@
  */
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\node\NodeInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\va_gov_build_trigger\Form\PreviewForm;
 
 /**
  * Implements hook_form_alter().
  */
 function va_gov_build_trigger_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
-  if (is_array($form['#theme']) && in_array('node_form', $form['#theme'])) {
-    // Fire a submit function so we can create an entity,
-    // then custom function to alter revision.
+  if (in_array('node_form', $form['#theme'])) {
+
     $form['actions']['preview'] = [
       '#type' => 'submit',
       '#weight' => 10,
-      '#value' => 'Preview',
+      '#value' => 'Save and continue editing',
       '#submit' => ['::submitForm', 'va_gov_build_trigger_form_alter_submit'],
     ];
   }
+
 }
 
 /**
@@ -45,41 +47,39 @@ function va_gov_build_trigger_form_alter_submit(&$form, FormStateInterface $form
   $node->save();
 
   $nid = $node->id();
+  $url = 'http' . ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 's' : '') . '://' . \Drupal::request()->getHost() . '/node/' . $nid . '/edit';
 
-  // Determine the environment.
-  $host = \Drupal::request()->getHost();
-  switch ($host) {
-    // For local dev - requires setting constant DRUPAL_DEV in
-    // src/site/constants/drupals.js file in vets-website repo to local address
-    // and credentials.
-    case 'vagovcms.lndo.site':
-      $url = 'http://localhost:3001/preview?nodeId=' . $nid;
-      break;
-
-    case 'test1.cms.va.gov':
-      $url = 'https://vetsgov-pr-9681.herokuapp.com/preview?nodeId=' . $nid;
-      break;
-
-    case 'dev.cms.va.gov':
-      $url = 'http://preview-dev.vfs.va.gov/preview?nodeId=' . $nid;
-      break;
-
-    case 'stg.cms.va.gov':
-    case 'staging.cms.va.gov':
-      $url = 'http://preview-staging.vfs.va.gov/preview?nodeId=' . $nid;
-      break;
-
-    case 'cms.va.gov':
-    case 'prod.cms.va.gov':
-      $url = 'http://preview-prod.vfs.va.gov/preview?nodeId=' . $nid;
-      break;
-
-    default:
-      $url = 'http://preview-prod.vfs.va.gov/preview?nodeId=' . $nid;
-      break;
-  }
-
-  // Send them to the preview server.
+  // Send them to the edit node.
   $response = new RedirectResponse($url);
   $response->send();
+}
+
+/**
+ * Add preview button to node view.
+ */
+function va_gov_build_trigger_preprocess_page(&$variables) {
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof NodeInterface) {
+    // It's a node.
+    $path = \Drupal::request()->getpathInfo();
+    $arg = explode('/', $path);
+
+    // Make sure we aren't on the node form.
+    if (empty($arg[1]) || empty($arg[2]) || $arg[1] !== 'node' && !is_numeric($arg[2])) {
+      $node = \Drupal::routeMatch()->getParameter('node');
+      $nid = $node->id();
+      $host = \Drupal::request()->getHost();
+      $preview_form = new PreviewForm();
+      $url = $preview_form->getEnvironment($host, $nid);
+      $button = '<a class="button button--primary js-form-submit form-submit" target="_blank" href="' . $url . '">Preview</a>';
+      $variables['page']['content']['#markup'] = $button;
+    }
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function va_gov_build_trigger_page_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'va_gov_build_trigger/preview_button';
 }
