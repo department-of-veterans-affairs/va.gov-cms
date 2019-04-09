@@ -13,7 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
  */
 function va_gov_build_trigger_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
-  if (is_array($form['#theme']) && in_array('node_form', $form['#theme'])) {
+  if (in_array('node_form', $form['#theme'])) {
     // Fire a submit function so we can create an entity,
     // then custom function to alter revision.
     $form['actions']['preview'] = [

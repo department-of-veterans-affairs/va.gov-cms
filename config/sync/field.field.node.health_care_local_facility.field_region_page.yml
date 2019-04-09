@@ -17,13 +17,13 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: unpublished
+  handler: 'default:node'
   handler_settings:
     target_bundles:
       health_care_region_page: health_care_region_page
     sort:
       field: title
       direction: ASC
-    auto_create: 0
+    auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference

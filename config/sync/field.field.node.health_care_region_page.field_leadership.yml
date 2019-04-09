@@ -17,13 +17,13 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: unpublished
+  handler: 'default:node'
   handler_settings:
     target_bundles:
       person_profile: person_profile
     sort:
       field: title
       direction: ASC
-    auto_create: 1
+    auto_create: true
     auto_create_bundle: ''
 field_type: entity_reference
