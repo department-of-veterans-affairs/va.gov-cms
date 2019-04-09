@@ -5,6 +5,7 @@ dependencies:
   config:
     - block_content.type.megamenu
     - field.field.block_content.megamenu.field_menu_sections
+    - field.field.block_content.megamenu.field_owner
     - field.field.block_content.megamenu.field_title
   module:
     - content_moderation
@@ -26,6 +27,15 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
+    region: content
+  field_owner:
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
     region: content
   field_title:
     weight: 1
