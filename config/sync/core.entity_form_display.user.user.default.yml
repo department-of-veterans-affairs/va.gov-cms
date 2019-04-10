@@ -2,11 +2,7 @@ uuid: 45736b04-ffcc-4b4d-b664-2bd6db6e7fe7
 langcode: en
 status: true
 dependencies:
-  config:
-    - field.field.user.user.field_last_password_reset
-    - field.field.user.user.field_password_expiration
   module:
-    - datetime
     - path
     - user
 id: user.user.default
@@ -17,19 +13,6 @@ content:
   account:
     weight: -10
     settings: {  }
-    third_party_settings: {  }
-    region: content
-  field_last_password_reset:
-    type: datetime_default
-    weight: 4
-    settings: {  }
-    third_party_settings: {  }
-    region: content
-  field_password_expiration:
-    type: boolean_checkbox
-    weight: 3
-    settings:
-      display_label: true
     third_party_settings: {  }
     region: content
   language:
