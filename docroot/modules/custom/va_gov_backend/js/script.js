@@ -12,7 +12,7 @@
     attach: function () {
       // Adds a help email popup to Help menu link in admin toolbar.
       $('.toolbar-icon-help-main').click(function () {
-        window.open('mailto:sandra.yune@agile6.com?cc=elijah.lynn@agile6.com&subject=Help desk Support Request&body=Hello Support Team, [Insert your issue here. Please also update the subject line with the specific nature of your request (ie “URL Redirect Request”]');
+        window.open('mailto:vacmssupport@va.gov?subject=Help desk Support Request&body=Hello Support Team, [Insert your issue here. Please also update the subject line with the specific nature of your request (ie “URL Redirect Request”]');
         return false;
       })
 
