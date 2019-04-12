@@ -34,13 +34,12 @@ class AdminModeration {
    * Unpublish current revision.
    */
   public function unpublish() {
-    // drupal_set_message($message); //deprecated but still okay to use.
     \Drupal::logger('AdminModeration-log')->notice(utf8_encode('Unpublish action in va_gov_bulk'));
     \Drupal::Messenger()->addStatus(utf8_encode('Unpublish action in va_gov_bulk'));
     $entity_manager = \Drupal::entityTypeManager();
     $this->entity->set('moderation_state', 'archived');
+
     if ($this->entity instanceof RevisionLogInterface) {
-      // $now = time();
       $this->entity->setRevisionCreationTime(\Drupal::time()->getRequestTime());
       $msg = 'Bulk operation create archived revision';
       $this->entity->setRevisionLogMessage($msg);
@@ -50,8 +49,8 @@ class AdminModeration {
     $this->entity->save();
     $this->entity = $entity_manager->getStorage($this->entity->getEntityTypeId())->load($this->nid);
     $this->entity->set('moderation_state', 'draft');
+
     if ($this->entity instanceof RevisionLogInterface) {
-      // $now = time();
       $this->entity->setRevisionCreationTime(\Drupal::time()->getRequestTime());
       $msg = 'Bulk operation create draft revision';
       $this->entity->setRevisionLogMessage($msg);
@@ -67,13 +66,13 @@ class AdminModeration {
    * Publish Latest Revision.
    */
   public function publish() {
-    // drupal_set_message($message); //deprecated but still okay to use.
+
     \Drupal::logger('AdminModeration-log')->notice(utf8_encode('Publish latest revision bulk operation'));
     \Drupal::Messenger()->addStatus(utf8_encode('Publish latest revision bulk operation'));
     $entity_manager = \Drupal::entityTypeManager();
     $this->entity->set('moderation_state', 'published');
+
     if ($this->entity instanceof RevisionLogInterface) {
-      // $now = time();
       $this->entity->setRevisionCreationTime(\Drupal::time()->getRequestTime());
       $msg = 'Bulk operation publish revision';
       $this->entity->setRevisionLogMessage($msg);
@@ -90,10 +89,10 @@ class AdminModeration {
    * {@inheritdoc}
    */
   private function privateSomething() {
-    // Not sure if need to update both translations or just one.
+
     $this->entity->getTranslation("en")->set('moderation_state', 'published');
     $this->entity->getTranslation("fr")->set('moderation_state', 'published');
-    // Not needed?
+
     $this->entity->save();
   }
 
