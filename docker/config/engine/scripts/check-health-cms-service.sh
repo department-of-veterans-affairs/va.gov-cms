@@ -12,6 +12,6 @@ do
     break
   else
     echo "Got $STATUS HTTP status code, CMS Service is not up yet, retrying..."
+    sleep $SLEEP_TIME
   fi
-  sleep $SLEEP_TIME
 done
