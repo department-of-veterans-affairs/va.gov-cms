@@ -13,6 +13,7 @@ COPY docker/config/services/config/php/php.ini /usr/local/etc/php/conf.d/xxx-lan
 COPY docker/config/services/config/php/httpd-ssl.conf /etc/apache2/sites-enabled/000-default.conf
 COPY docker/config/services/config/drupal8/php.ini /usr/local/etc/php/conf.d/zzz-lando-my-custom-ini-file-called-php.ini
 COPY docker/config/engine/scripts/lando-entrypoint-app.sh /lando-entrypoint.sh
+COPY docker/config/engine/scripts/check-health-cms-service.sh /check-health-cms-service.sh
 COPY docker/config /lando
 COPY docker/config/engine/scripts/user-perms.sh /helpers/user-perms.sh
 COPY docker/config/engine/scripts/add-cert.sh /scripts/add-cert.sh
