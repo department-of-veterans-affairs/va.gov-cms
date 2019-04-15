@@ -48,4 +48,16 @@ class Process extends ParagraphType {
     return ['field_steps' => $steps];
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  protected function paragraphContent(array $paragraph_fields) {
+    $content = '';
+    foreach ($paragraph_fields['field_steps'] as $step) {
+      $content .= $step['value'];
+    }
+
+    return $content;
+  }
+
 }

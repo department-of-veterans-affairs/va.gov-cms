@@ -46,4 +46,13 @@ class CollapsiblePanel extends ParagraphType {
     return 'field_va_paragraphs';
   }
 
+  /**
+   * Collapsible panel paragraphs don't add any content.
+   *
+   * {@inheritDoc}
+   */
+  protected function paragraphContent(array $paragraph_fields) {
+    return '';
+  }
+
 }

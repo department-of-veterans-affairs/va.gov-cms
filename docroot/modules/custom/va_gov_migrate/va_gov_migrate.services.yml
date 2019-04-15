@@ -11,3 +11,7 @@ services:
     class: Drupal\va_gov_migrate\ParagraphMigrator
     tags:
       - { name: event_subscriber }
+  va_gov_migrate.message:
+    class: Drupal\va_gov_migrate\EventSubscriber\MessageHandler
+    tags:
+      - { name: event_subscriber }

@@ -15,6 +15,13 @@ use QueryPath\DOMQuery;
 class QaSection extends ParagraphType {
 
   /**
+   * Save jumplinks to add to endingContent to account for them in analysis.
+   *
+   * @var string
+   */
+  protected $jumpLinks = '';
+
+  /**
    * {@inheritdoc}
    */
   protected function getParagraphName() {
@@ -79,9 +86,13 @@ class QaSection extends ParagraphType {
         $first_content = $qp->firstChild()->firstChild();
         if ($first_content->tag() == 'a' && substr($first_content->attr('href'), 0, 1) == '#') {
           $is_accordion = TRUE;
+          $this->jumpLinks .= $qp->text();
         }
       }
-      elseif (StringTools::superTrim($qp->text()) != 'Jump to a section:') {
+      elseif (StringTools::superTrim($qp->text()) == 'Jump to a section:') {
+        $this->jumpLinks .= $qp->text();
+      }
+      else {
         // If it survived all the tests, it's intro text.
         if (!empty($intro_text)) {
           // Add line breaks between elements.
@@ -173,6 +184,13 @@ class QaSection extends ParagraphType {
       }
     }
     return FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function paragraphContent(array $paragraph_fields) {
+    return $paragraph_fields['field_section_header'] . $paragraph_fields['field_section_intro'];
   }
 
 }

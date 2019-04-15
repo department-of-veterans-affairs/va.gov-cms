@@ -53,6 +53,13 @@ class ParagraphMigrator implements EventSubscriberInterface {
   public $rptFile;
 
   /**
+   * The path of the error report.
+   *
+   * @var string
+   */
+  public $errorFile;
+
+  /**
    * The content to compare with the starting content.
    *
    * @var string
@@ -122,6 +129,8 @@ class ParagraphMigrator implements EventSubscriberInterface {
   public function process($source_field, $dest_field) {
     $this->deleteExistingParagraphs($this->entity, $dest_field);
 
+    $this->endingContent = '';
+
     if (is_array($source_field)) {
       $source = '';
       foreach ($source_field as $field) {
@@ -161,8 +170,11 @@ class ParagraphMigrator implements EventSubscriberInterface {
     $ending_chars = $this->charMap($this->endingContent);
     $diff = count(array_diff_assoc($source_chars, $ending_chars));
 
+    $source_url = reset($this->row->getSourceIdValues());
+    $url_parts = explode("/", parse_url($source_url, PHP_URL_PATH));
+    $hub = $url_parts[1];
     $handle = fopen($this->rptFile, "a");
-    fwrite($handle, "\"{$this->row->getDestinationProperty('title')}\",$dest_field,$sim,$percent,$diff\n");
+    fwrite($handle, "\"{$this->row->getDestinationProperty('title')}\",$hub,$dest_field,$source_url,$sim,$percent,$diff\n");
     fclose($handle);
   }
 
@@ -529,7 +541,11 @@ class ParagraphMigrator implements EventSubscriberInterface {
   public function createAnalysisFile(MigrateImportEvent $event) {
     $rptFile = "./migration_analysis_{$event->getMigration()->id()}.csv";
     $handle = fopen($rptFile, "w");
-    fwrite($handle, "Title,Field,Similarity score,Percent similarity, Char difference score\n");
+    fwrite($handle, "Title,Hub,Field,Url,Similarity score,Percent similarity, Char difference score\n");
+    fclose($handle);
+
+    $handle = fopen("migrate_errors.csv", "w");
+    fwrite($handle, 'message');
     fclose($handle);
   }
 

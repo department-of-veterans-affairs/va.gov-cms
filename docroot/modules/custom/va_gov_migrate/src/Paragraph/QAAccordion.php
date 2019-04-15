@@ -35,7 +35,7 @@ class QAAccordion extends QABase {
    * {@inheritdoc}
    */
   protected function addChildParagraphs(Paragraph $paragraph, DOMQuery $query_path) {
-    // Transform the answerQuery we collected in getFieldValues into paragraphs.
+    // Transform the answer into paragraphs.
     $answer = $query_path->children('.usa-accordion-content')->children();
     if (empty($answer)) {
       Message::make('QA without an answer @page: @html',

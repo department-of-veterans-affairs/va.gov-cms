@@ -71,31 +71,17 @@ abstract class ParagraphType {
 
         self::$migrator->addWysiwyg($entity, $parent_field);
 
-        // These types have only metadata fields and/or child paragraphs.
-        $excluded_paragraphs = ['react_widget', 'collapsible_panel'];
-
         $paragraph_fields = $this->getFieldValues($query_path);
 
-        if (!in_array($this->getParagraphName(), $excluded_paragraphs)) {
-          foreach ($paragraph_fields as $name => $contents) {
-            if ($name != "uri" && $name != "format") {
-              if (is_array($contents)) {
-                if (isset($contents['value'])) {
-                  self::$migrator->endingContent .= $contents['value'];
-                }
-              }
-              else {
-                self::$migrator->endingContent .= $contents;
-              }
-            }
-          }
-        }
         $paragraph = Paragraph::create(['type' => $this->getParagraphName()] + $paragraph_fields);
         $paragraph->save();
 
         static::attachParagraph($paragraph, $entity, $parent_field);
 
         $this->addChildParagraphs($paragraph, $query_path);
+
+        self::$migrator->endingContent .= $this->paragraphContent($paragraph_fields);
+        self::$migrator->endingContent .= $this->unmigratedContent();
 
         return TRUE;
       }
@@ -236,6 +222,39 @@ abstract class ParagraphType {
     if (!empty($this->getParagraphField()) && count($query_path->children())) {
       self::$migrator->addParagraphs($query_path->children(), $paragraph, $this->getParagraphField());
     }
+  }
+
+  /**
+   * Returns paragraph content for comparison with source content.
+   *
+   * @param array $paragraph_fields
+   *   An array of fields to be added to drupal paragraphs.
+   *
+   * @return string
+   *   The content.
+   */
+  protected function paragraphContent(array $paragraph_fields) {
+    $paragraph_content = '';
+
+    foreach ($paragraph_fields as $name => $contents) {
+      if (is_array($contents) && isset($contents['value'])) {
+        $paragraph_content .= $contents['value'];
+      }
+      else {
+        $paragraph_content .= $contents;
+      }
+    }
+    return $paragraph_content;
+  }
+
+  /**
+   * Returns content that shouldn't be migrated to drupal.
+   *
+   * @return string
+   *   The content.
+   */
+  protected function unmigratedContent() {
+    return '';
   }
 
   /**
