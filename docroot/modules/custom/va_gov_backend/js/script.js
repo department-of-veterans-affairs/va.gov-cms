@@ -22,7 +22,7 @@
         if ($('form#user-pass #edit-name').val()) {
           val = $('form#user-pass #edit-name').val();
         }
-        window.open('mailto:cms-support@va.gov?cc=elijah.lynn@agile6.com&subject=Password Reset Request for ' + val + '&body=Hi support team, Please reset the password for my username: ' + val + '. Thanks!');
+        window.open('mailto:vacmssupport@va.gov?subject=Password Reset Request for ' + val + '&body=Hi support team, Please reset the password for my username: ' + val + '. Thanks!');
 
         return false;
       })

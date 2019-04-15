@@ -63,6 +63,7 @@
         "drupal/fast_404": "^1.0@alpha",
         "drupal/config_split": "^1.4",
         "twig/twig": "1.37.1",
+        "drupal/cer": "^4.0@alpha",
         "drupal/node_revisions_autoclean": "^1.0@beta",
         "drupal/views_bulk_operations": "^2.5",
         "drupal/health_check_url": "^2.1",
@@ -165,7 +166,9 @@
                 "Collapsed by default complex widget closes when trying to edit reference.": "https://www.drupal.org/files/issues/2018-11-08/2994001-open-on-action.patch"
             },
             "drupal/graphql": {
-                "Fix broken entity reference query filter.": "https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/693.patch"
+                "Fix broken entity reference query filter.": "https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/693.patch",
+                "Fix null results from queryField": "https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/726.patch",
+                "Fix error from queryField results": "https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/743.patch"
             },
             "drupal/ics_field": {
                 "Include end date / time in ICS file.": "https://www.drupal.org/files/issues/2018-10-06/ics_field-2852239-11.patch"

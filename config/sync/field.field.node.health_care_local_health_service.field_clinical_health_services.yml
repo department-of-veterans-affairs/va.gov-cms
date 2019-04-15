@@ -1,28 +1,28 @@
-uuid: 34458477-fe61-40bf-9f46-0fb6c6b7a86c
+uuid: 262d3936-4ce5-4327-b205-a26f80dab00d
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_clinical_health_services
-    - node.type.health_care_region_page
+    - node.type.health_care_local_health_service
     - node.type.regional_health_care_service_des
-id: node.health_care_region_page.field_clinical_health_services
+id: node.health_care_local_health_service.field_clinical_health_services
 field_name: field_clinical_health_services
 entity_type: node
-bundle: health_care_region_page
+bundle: health_care_local_health_service
 label: 'Regional Health Services'
-description: 'Health services available in the region, including a local description for each clinic / hospital that offers the service.'
+description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: unpublished
+  handler: 'default:node'
   handler_settings:
     target_bundles:
       regional_health_care_service_des: regional_health_care_service_des
     sort:
       field: _none
-    auto_create: 1
+    auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference

@@ -1,0 +1,23 @@
+uuid: 5abb81a7-f962-435c-aeba-03df6112fe88
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.health_care_local_health_service
+  module:
+    - user
+id: node.health_care_local_health_service.teaser
+targetEntityType: node
+bundle: health_care_local_health_service
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  field_body: true
+  field_facility_location: true

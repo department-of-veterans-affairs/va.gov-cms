@@ -8,6 +8,8 @@ dependencies:
     - field.storage.node.field_region_page
     - node.type.documentation_page
     - node.type.health_care_local_facility
+    - node.type.health_care_local_health_service
+    - node.type.health_care_region_detail_page
     - node.type.health_care_region_page
     - node.type.landing_page
     - node.type.news_story
@@ -928,8 +930,10 @@ display:
           operator: in
           value:
             health_care_local_facility: health_care_local_facility
-            health_care_region_page: health_care_region_page
+            health_care_local_health_service: health_care_local_health_service
+            health_care_region_detail_page: health_care_region_detail_page
             regional_health_care_service_des: regional_health_care_service_des
+            health_care_region_page: health_care_region_page
           group: 1
           exposed: true
           expose:
@@ -951,6 +955,8 @@ display:
               content_publisher: '0'
               admnistrator_users: '0'
               administrator: '0'
+              redirect_administrator: '0'
+              documentation_editor: '0'
             reduce: true
             argument: ''
           is_grouped: false
@@ -978,8 +984,10 @@ display:
           operator: in
           value:
             health_care_local_facility: health_care_local_facility
-            health_care_region_page: health_care_region_page
+            health_care_local_health_service: health_care_local_health_service
+            health_care_region_detail_page: health_care_region_detail_page
             regional_health_care_service_des: regional_health_care_service_des
+            health_care_region_page: health_care_region_page
           group: 1
           exposed: false
           expose:
@@ -3450,7 +3458,7 @@ display:
         description: ''
         expanded: false
         parent: system.admin_content
-        weight: 0
+        weight: 1000
         context: '0'
         menu_name: admin
       filters:

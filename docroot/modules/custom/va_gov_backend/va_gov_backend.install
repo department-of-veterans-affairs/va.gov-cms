@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Install file for Va Gov Backend.
+ */
+
+/**
+ * Removing Local hospital paragraph entities.
+ */
+function va_gov_backend_update_8001() {
+  $paragraphs = \Drupal::entityTypeManager()
+    ->getStorage('paragraph')
+    ->loadByProperties(['type' => 'local_facility_health_service']);
+
+  foreach ($paragraphs as $paragraph) {
+    $paragraph->delete();
+  }
+}
