@@ -2,6 +2,8 @@
 
 // @codingStandardsIgnoreFile
 
+$settings['va_jenkins_build_job_url_params'] = '/job/testing/job/vets-website/job/master/buildWithParameters?cmsEnv=' . $settings['va_jenkins_build_env'];
+
 $config['config_split.config_split.dev']['status'] = FALSE;
 $config['config_split.config_split.stg']['status'] = TRUE;
 $config['config_split.config_split.prod']['status'] = FALSE;

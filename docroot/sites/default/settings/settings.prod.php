@@ -2,6 +2,10 @@
 
 // @codingStandardsIgnoreFile
 
+// Disabled for now, not sure we want to trigger PROD just yet. Update array in
+// modules/custom/va_gov_build_trigger/src/Form/BuildTriggerForm.php:35 too.
+// $settings['va_jenkins_build_job_url_params'] = '/job/deploys/job/vets-gov-autodeploy-vets-website/buildWithParameters?' . 'release_wait=5' . '&' . 'use_latest_release=1';
+
 $config['config_split.config_split.dev']['status'] = FALSE;
 $config['config_split.config_split.stg']['status'] = FALSE;
 $config['config_split.config_split.prod']['status'] = TRUE;
