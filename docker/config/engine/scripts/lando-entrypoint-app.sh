@@ -24,7 +24,7 @@ j2 /templates/settings.lando.php.tpl > /app/docroot/sites/default/settings/setti
 
 # Run post-deploy hooks
 # Make sure backend services are up
-/usr/bin/wait-for-it.sh -t 240 ${DRUPAL_DATABASE_HOST}:${DRUPAL_DATABASE_HOST_PORT}
+/usr/bin/wait-for-it.sh -t 120 ${DRUPAL_DATABASE_HOST}:${DRUPAL_DATABASE_HOST_PORT}
 
 if [ "${DRUPAL_DATABASE_HOST}" = "database" ] ; then
 cd ${LANDO_WEBROOT}/vendor/bin/
