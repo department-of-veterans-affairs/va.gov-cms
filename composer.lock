@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ba7d9ae3dc34763ecc294bfde0f438c2",
+    "content-hash": "470828ec16effdb082ca0426f1c680d0",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -2238,6 +2238,57 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/auto_entitylabel",
                 "issues": "https://www.drupal.org/project/issues/auto_entitylabel"
+            }
+        },
+        {
+            "name": "drupal/better_field_descriptions",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/better_field_descriptions.git",
+                "reference": "8.x-1.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/better_field_descriptions-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "61a691c8c1cd483b7b42f3828b344bd2d7e866ec"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.4",
+                    "datestamp": "1536585481",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "odegard",
+                    "homepage": "https://www.drupal.org/user/703222"
+                },
+                {
+                    "name": "yogeshmpawar",
+                    "homepage": "https://www.drupal.org/user/2922907"
+                }
+            ],
+            "description": "Allows users with certain roles to add themeable descriptions to fields in forms",
+            "homepage": "https://www.drupal.org/project/better_field_descriptions",
+            "support": {
+                "source": "https://git.drupalcode.org/project/better_field_descriptions"
             }
         },
         {
@@ -4603,7 +4654,7 @@
             "description": "Provides a widget for inline management (creation, modification, removal) of referenced entities.",
             "homepage": "https://www.drupal.org/project/inline_entity_form",
             "support": {
-                "source": "https://git.drupalcode.org/project/inline_entity_form"
+                "source": "http://cgit.drupalcode.org/inline_entity_form"
             }
         },
         {
@@ -12202,7 +12253,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
+                    "email": "backendtea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -14898,65 +14949,6 @@
             "time": "2014-10-24T07:27:01+00:00"
         },
         {
-            "name": "drupal/cer",
-            "version": "4.0.0-alpha2",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupal.org/project/cer",
-                "reference": "8.x-4.0-alpha2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/cer-8.x-4.0-alpha2.zip",
-                "reference": "8.x-4.0-alpha2",
-                "shasum": "666759c00b75ab43bb0b262d87c5574301229dfc"
-            },
-            "require": {
-                "drupal/core": "~8.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-4.x": "4.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-4.0-alpha2",
-                    "datestamp": "1493956089",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "bmcclure",
-                    "homepage": "https://www.drupal.org/user/278485"
-                },
-                {
-                    "name": "chertzog",
-                    "homepage": "https://www.drupal.org/user/806366"
-                },
-                {
-                    "name": "gregcube",
-                    "homepage": "https://www.drupal.org/user/336930"
-                },
-                {
-                    "name": "phenaproxima",
-                    "homepage": "https://www.drupal.org/user/205645"
-                }
-            ],
-            "description": "Allows user to create two-way references between entities.",
-            "homepage": "https://www.drupal.org/project/cer",
-            "support": {
-                "source": "http://cgit.drupalcode.org/cer"
-            }
-        },
-        {
             "name": "drupal/coder",
             "version": "8.2.12",
             "source": {
@@ -15390,7 +15382,7 @@
                 "Drupal"
             ],
             "support": {
-                "source": "http://cgit.drupalcode.org/ics_field"
+                "source": "https://git.drupalcode.org/project/ics_field"
             }
         },
         {
@@ -16099,12 +16091,12 @@
             "version": "v1.6.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mikey179/vfsStream.git",
+                "url": "https://github.com/bovigo/vfsStream.git",
                 "reference": "d5fec95f541d4d71c4823bb5e30cf9b9e5b96145"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikey179/vfsStream/zipball/d5fec95f541d4d71c4823bb5e30cf9b9e5b96145",
+                "url": "https://api.github.com/repos/bovigo/vfsStream/zipball/d5fec95f541d4d71c4823bb5e30cf9b9e5b96145",
                 "reference": "d5fec95f541d4d71c4823bb5e30cf9b9e5b96145",
                 "shasum": ""
             },
@@ -16779,7 +16771,6 @@
         "drupal/graphql_metatag": 20,
         "drupal/password_policy": 15,
         "drupal/fast_404": 15,
-        "drupal/cer": 15,
         "drupal/node_revisions_autoclean": 10,
         "drupal/pathologic": 15,
         "drupal/cer": 15,
