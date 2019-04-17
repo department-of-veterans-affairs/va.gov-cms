@@ -110,7 +110,7 @@ function va_gov_backend_block_view_alter(array &$build, BlockPluginInterface $bl
   if ($block->getBaseId() === 'system_main_block') {
     $current_uri = \Drupal::request()->getRequestUri();
     if ($current_uri === '/training-guide') {
-      $build['#pre_render'][] = '_va_gov_backend_block_poweredby_prerender';
+      $build['#pre_render'][] = '_va_gov_backend_block_prerender';
     }
   }
 }
@@ -118,7 +118,7 @@ function va_gov_backend_block_view_alter(array &$build, BlockPluginInterface $bl
 /**
  * Pre render for main content block.
  */
-function _va_gov_backend_block_poweredby_prerender(array $build) {
+function _va_gov_backend_block_prerender(array $build) {
   $client = new Client();
   $response = $client->get('https://raw.githubusercontent.com/department-of-veterans-affairs/drupal-helpdesk-training/master/manual.md?token=ACSwwy_DAv2U6KyfjfItr__fxDJiMGkJks5cvz90wA%3D%3D');
 
