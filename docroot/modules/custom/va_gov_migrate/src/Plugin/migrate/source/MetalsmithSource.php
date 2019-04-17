@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_migrate\Plugin\migrate\source;
 
+use Drupal\Core\Site\Settings;
 use Drupal\migration_tools\Message;
 use Drupal\migration_tools\Plugin\migrate\source\UrlList;
 use Symfony\Component\Yaml\Yaml;
@@ -34,6 +35,9 @@ class MetalsmithSource extends UrlList {
    */
   protected $templates;
 
+  const CONTENT_URL = "https://api.github.com/repos/department-of-veterans-affairs/vagov-content/contents";
+  const PAGES_URL = "https://api.github.com/repos/department-of-veterans-affairs/vagov-content/contents/pages";
+
   /**
    * {@inheritdoc}
    */
@@ -55,7 +59,11 @@ class MetalsmithSource extends UrlList {
     foreach ($this->urls as $url) {
       // If it's a markdown file, process it.
       if (substr($url, -3) == '.md') {
-        $this->addRow($url);
+        $contents = self::readUrl(self::PAGES_URL . $url);
+        if (!empty($contents)) {
+          $file_info = json_decode($contents);
+          $this->addRow($file_info->git_url, $url);
+        }
       }
       // Otherwise, assume it's a directory listing.
       else {
@@ -99,32 +107,44 @@ class MetalsmithSource extends UrlList {
    * @throws \Drupal\migrate\MigrateSkipRowException
    */
   protected function crawlDirectory($url) {
-    // Read the page at the url.
-    if (!($html = self::readUrl($url))) {
+
+    if (strrpos($url, '/') === FALSE) {
+      Message::make('Url must start with a slash (/) @url', ['@url' => $url], Message::ERROR);
       return;
     }
 
-    // Find all the links in the "files" table.
-    $query_path = htmlqp($html);
-    $links = $query_path->find('table.files a');
+    if ($url == '/') {
+      $parent = self::CONTENT_URL;
+      $dir = 'pages';
+    }
+    else {
+      $path_parts = explode('/', $url);
+      $dir = array_pop($path_parts);
 
-    /** @var \QueryPath\DOMQuery $link */
-    foreach ($links as $link) {
-      $path = $link->attr('href');
-      // File and directory paths are always relative.
-      $link_href = 'https://github.com' . $path;
-
-      // If it's a markdown file, process it.
-      if (substr($path, -3) == '.md') {
-        $this->addRow($link_href);
+      $parent = self::PAGES_URL . implode('/', $path_parts);
+    }
+    // Read the page at the url.
+    if (!($parent_tree = self::readUrl($parent))) {
+      return;
+    }
+    $parent_tree = json_decode($parent_tree);
+    foreach ($parent_tree as $branch) {
+      if ($branch->name == $dir) {
+        $git_url = $branch->git_url;
+        break;
       }
-      // If it's a child directory, recurse into it.
-      elseif ($link->closest('td')->prev()->find('svg')->attr('aria-label') == 'directory') {
-        $current_path = parse_url($url, PHP_URL_PATH);
-        $link_path = parse_url($link_href, PHP_URL_PATH);
-        if (strpos($link_path, $current_path) === 0 && $link_path != $current_path) {
-          $this->crawlDirectory($link_href);
-        }
+    }
+    if (empty($git_url)) {
+      Message::make('Problem with @url', ['@url' => $url], Message::ERROR);
+      return;
+    }
+
+    $tree = self::readUrl($git_url . '?recursive=1');
+    $tree = json_decode($tree);
+
+    foreach ($tree->tree as $branch) {
+      if ($branch->type == 'blob') {
+        $this->addRow($branch->url, $url . '/' . $branch->path);
       }
     }
   }
@@ -134,10 +154,12 @@ class MetalsmithSource extends UrlList {
    *
    * @param string $url
    *   The url of the markdown file to get fields from.
+   * @param string $path
+   *   The root relative path.
    *
    * @throws \Drupal\migrate\MigrateException
    */
-  protected function addRow($url) {
+  protected function addRow($url, $path) {
     if (!($row = self::readMetalsmithFile($url))) {
       return;
     }
@@ -152,7 +174,7 @@ class MetalsmithSource extends UrlList {
       return;
     }
 
-    self::setPagePath($url, $row);
+    self::setPagePath($path, $row);
     if (empty($row['url'])) {
       return;
     }
@@ -179,9 +201,11 @@ class MetalsmithSource extends UrlList {
    * @throws \Drupal\migrate\MigrateException
    */
   public static function readMetalsmithFile($url, &$page_content = NULL) {
-    if (!($markdown = self::readRawFile($url))) {
+    if (!($response = self::readUrl($url))) {
       return [];
     }
+    $response = json_decode($response);
+    $markdown = base64_decode($response->content);
 
     /*
      * Metalsmith source pages look like this:
@@ -226,10 +250,16 @@ class MetalsmithSource extends UrlList {
    * @throws \Drupal\migrate\MigrateException
    */
   public static function readUrl($url) {
+    $accessToken = Settings::get('va_cms_bot_github_auth_token');
     $httpClient = \Drupal::httpClient();
+    $headers = [
+      'User-Agent'    => Settings::get('va_cms_bot_github_username'),
+      'Accept'        => 'application/json',
+      'Authorization' => 'Bearer ' . $accessToken,
+    ];
 
     try {
-      $response = $httpClient->get($url);
+      $response = $httpClient->get($url, ['headers' => $headers]);
       if (empty($response)) {
         Message::make('No response at @url.', ['@url' => $url], Message::ERROR);
         return FALSE;
@@ -247,54 +277,27 @@ class MetalsmithSource extends UrlList {
   }
 
   /**
-   * Read the raw contents of the referenced file.
-   *
-   * @param string $url
-   *   The github url of the file.
-   *
-   * @return bool|string
-   *   The contents of the file, or FALSE if the read failed.
-   *
-   * @throws \Drupal\migrate\MigrateException
-   */
-  public static function readRawFile($url) {
-    // Get the path to the raw file.
-    $url_path = parse_url($url, PHP_URL_PATH);
-    $url_path = str_replace('/blob', '', $url_path);
-    $url = 'https://raw.githubusercontent.com' . $url_path;
-
-    // Read the file.
-    if (!($contents = self::readUrl($url))) {
-      Message::make('Couldn\'t read the file at @url', ['@url' => $url], Message::ERROR);
-      return FALSE;
-    }
-
-    return $contents;
-  }
-
-  /**
    * Set the 'url' key to the va.gov path that corresponds to a metalsmith file.
    *
    * Also set the 'path' key, used for drupal node alias.
    *
-   * @param string $url
-   *   The url of the metalsmith file.
+   * @param string $path
+   *   The path of the metalsmith file.
    * @param array $row
    *   The row to set the url on.
    */
-  public static function setPagePath($url, array &$row) {
-    $url_path = parse_url($url, PHP_URL_PATH);
+  public static function setPagePath($path, array &$row) {
     // Get the path without the file name for index pages.
-    if (preg_match('/\/department-of-veterans-affairs\/vagov-content\/blob\/master\/pages\/([^\.]+)\/index\.md/', $url_path, $matches)) {
-      $path = $matches[1];
+    if (preg_match('/([^\.]+)\/index\.md/', $path, $matches)) {
+      $site_path = $matches[1];
     }
     // Get the path with the file name for all others.
-    elseif (preg_match('/\/department-of-veterans-affairs\/vagov-content\/blob\/master\/pages\/([^\.]+)\.md/', $url_path, $matches)) {
-      $path = $matches[1];
+    elseif (preg_match('/([^\.]+)\.md/', $path, $matches)) {
+      $site_path = $matches[1];
     }
-    if (!empty($path)) {
-      $row['url'] = 'https://www.va.gov/' . $path . '/';
-      $row['path'] = '/' . $path;
+    if (!empty($site_path)) {
+      $row['url'] = 'https://www.va.gov' . $site_path . '/';
+      $row['path'] = $path;
     }
 
   }
