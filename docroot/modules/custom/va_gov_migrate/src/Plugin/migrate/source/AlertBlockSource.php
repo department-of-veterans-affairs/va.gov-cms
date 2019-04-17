@@ -68,7 +68,7 @@ class AlertBlockSource extends MetalsmithSource {
    */
   protected function addRow($url, $path) {
     $page_content = '';
-    if (!($row = self::readMetalsmithFile($url, $page_content)) || empty($page_content)) {
+    if (!($row = $this->readMetalsmithFile($url, $page_content)) || empty($page_content)) {
       return;
     }
 

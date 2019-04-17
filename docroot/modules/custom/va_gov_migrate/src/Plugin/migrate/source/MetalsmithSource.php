@@ -59,7 +59,7 @@ class MetalsmithSource extends UrlList {
     foreach ($this->urls as $url) {
       // If it's a markdown file, process it.
       if (substr($url, -3) == '.md') {
-        $contents = self::readUrl(self::PAGES_URL . $url);
+        $contents = $this->readUrl(self::PAGES_URL . $url);
         if (!empty($contents)) {
           $file_info = json_decode($contents);
           $this->addRow($file_info->git_url, $url);
@@ -67,7 +67,7 @@ class MetalsmithSource extends UrlList {
       }
       // Otherwise, assume it's a directory listing.
       else {
-        $this->crawlDirectory($url);
+        $this->readDirectory($url);
 
       }
     }
@@ -106,7 +106,7 @@ class MetalsmithSource extends UrlList {
    * @throws \Drupal\migrate\MigrateException
    * @throws \Drupal\migrate\MigrateSkipRowException
    */
-  protected function crawlDirectory($url) {
+  protected function readDirectory($url) {
 
     if (strrpos($url, '/') === FALSE) {
       Message::make('Url must start with a slash (/) @url', ['@url' => $url], Message::ERROR);
@@ -124,7 +124,7 @@ class MetalsmithSource extends UrlList {
       $parent = self::PAGES_URL . implode('/', $path_parts);
     }
     // Read the page at the url.
-    if (!($parent_tree = self::readUrl($parent))) {
+    if (!($parent_tree = $this->readUrl($parent))) {
       return;
     }
     $parent_tree = json_decode($parent_tree);
@@ -139,7 +139,7 @@ class MetalsmithSource extends UrlList {
       return;
     }
 
-    $tree = self::readUrl($git_url . '?recursive=1');
+    $tree = $this->readUrl($git_url . '?recursive=1');
     $tree = json_decode($tree);
 
     foreach ($tree->tree as $branch) {
@@ -160,7 +160,7 @@ class MetalsmithSource extends UrlList {
    * @throws \Drupal\migrate\MigrateException
    */
   protected function addRow($url, $path) {
-    if (!($row = self::readMetalsmithFile($url))) {
+    if (!($row = $this->readMetalsmithFile($url))) {
       return;
     }
 
@@ -200,8 +200,8 @@ class MetalsmithSource extends UrlList {
    *
    * @throws \Drupal\migrate\MigrateException
    */
-  public static function readMetalsmithFile($url, &$page_content = NULL) {
-    if (!($response = self::readUrl($url))) {
+  public function readMetalsmithFile($url, &$page_content = NULL) {
+    if (!($response = $this->readUrl($url))) {
       return [];
     }
     $response = json_decode($response);
@@ -239,7 +239,7 @@ class MetalsmithSource extends UrlList {
   }
 
   /**
-   * Read the page at the url.
+   * Get the page from github.
    *
    * @param string $url
    *   The url of the page to read.
@@ -249,7 +249,9 @@ class MetalsmithSource extends UrlList {
    *
    * @throws \Drupal\migrate\MigrateException
    */
-  public static function readUrl($url) {
+  public function readUrl($url) {
+    $cache = $this->getCache()->get('github_url:' . $url);
+
     $accessToken = Settings::get('va_cms_bot_github_auth_token');
     $httpClient = \Drupal::httpClient();
     $headers = [
@@ -257,6 +259,9 @@ class MetalsmithSource extends UrlList {
       'Accept'        => 'application/json',
       'Authorization' => 'Bearer ' . $accessToken,
     ];
+    if (!empty($cache->data['etag'])) {
+      $headers['If-None-Match'] = $cache->data['etag'];
+    }
 
     try {
       $response = $httpClient->get($url, ['headers' => $headers]);
@@ -273,7 +278,25 @@ class MetalsmithSource extends UrlList {
       return FALSE;
     }
 
-    return $response->getBody()->getContents();
+    switch ($response->getStatusCode()) {
+      case 304:
+        return $cache->data['contents'];
+
+      case 200:
+        $contents = $response->getBody()->getContents();
+
+        $next_month = mktime(0, 0, 0, date("m") + 1, date("d"), date("Y"));
+        $this->getCache()->set('github_url:' . $url,
+          [
+            'etag' => $response->getHeader("ETag"),
+            'contents' => $contents,
+          ], $next_month);
+
+        return $contents;
+
+      default:
+        return FALSE;
+    }
   }
 
   /**
