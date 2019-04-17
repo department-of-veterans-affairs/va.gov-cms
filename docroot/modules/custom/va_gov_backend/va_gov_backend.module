@@ -8,6 +8,8 @@
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Field\WidgetBase;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception as GuzzleException;
@@ -135,6 +137,13 @@ function _va_gov_backend_block_prerender(array $build) {
         $data = $response->getBody()->getContents();
         $converter = new CommonMarkConverter();
         $text = $converter->convertToHtml($data);
+
+        // Add link to repo to encourage participation.
+        $footer = t('This guide is maintained by the Drupal Helpdesk Training repository.');
+        $url = 'https://github.com/department-of-veterans-affairs/drupal-helpdesk-training';
+        $link = Link::fromTextAndUrl($footer, Url::fromUri($url, ['attributes' => ['target' => '_blank']]))->toString();
+
+        $text .= $link;
       }
 
     }
