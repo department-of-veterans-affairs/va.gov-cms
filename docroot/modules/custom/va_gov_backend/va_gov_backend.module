@@ -10,6 +10,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception as GuzzleException;
 use League\CommonMark\CommonMarkConverter;
 
 /**
@@ -119,14 +120,23 @@ function va_gov_backend_block_view_alter(array &$build, BlockPluginInterface $bl
  * Pre render for main content block.
  */
 function _va_gov_backend_block_prerender(array $build) {
+  $text = 'Help text is not available.';
   $client = new Client();
-  $response = $client->get('https://raw.githubusercontent.com/department-of-veterans-affairs/drupal-helpdesk-training/master/manual.md?token=ACSwwy_DAv2U6KyfjfItr__fxDJiMGkJks5cvz90wA%3D%3D');
+  try {
+    $response = $client->get('https://raw.githubusercontent.com/department-of-veterans-affairs/drupal-helpdesk-training/master/manual.md?token=ACSwwy_DAv2U6KyfjfItr__fxDJiMGkJks5cvz90wA%3D%3D');
 
-  $data = $response->getBody()->getContents();
+    if ($response->getStatusCode() === 200) {
+      $data = $response->getBody()->getContents();
+      $converter = new CommonMarkConverter();
+      $text = $converter->convertToHtml($data);
+    }
 
-  $converter = new CommonMarkConverter();
-  $text = $converter->convertToHtml($data);
+  }
+  catch (GuzzleException $e) {
+    watchdog_exception('help_text', $e->getMessage());
+  }
 
   $build['content']['#markup'] = $text;
+
   return $build;
 }
