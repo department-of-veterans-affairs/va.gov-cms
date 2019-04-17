@@ -5,9 +5,12 @@
  * Contains va_gov_backend.module.
  */
 
+use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use GuzzleHttp\Client;
+use League\CommonMark\CommonMarkConverter;
 
 /**
  * Implements hook_help().
@@ -96,4 +99,34 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
  */
 function va_gov_backend_page_attachments(array &$attachments) {
   $attachments['#attached']['library'][] = 'va_gov_backend/alert_form';
+}
+
+/**
+ * Implements hook_block_view_alter().
+ *
+ * Used for grabbing help markup from github.
+ */
+function va_gov_backend_block_view_alter(array &$build, BlockPluginInterface $block) {
+  if ($block->getBaseId() === 'system_main_block') {
+    $current_uri = \Drupal::request()->getRequestUri();
+    if ($current_uri === '/training-guide') {
+      $build['#pre_render'][] = '_va_gov_backend_block_poweredby_prerender';
+    }
+  }
+}
+
+/**
+ * Pre render for main content block.
+ */
+function _va_gov_backend_block_poweredby_prerender(array $build) {
+  $client = new Client();
+  $response = $client->get('https://raw.githubusercontent.com/department-of-veterans-affairs/drupal-helpdesk-training/master/manual.md?token=ACSwwy_DAv2U6KyfjfItr__fxDJiMGkJks5cvz90wA%3D%3D');
+
+  $data = $response->getBody()->getContents();
+
+  $converter = new CommonMarkConverter();
+  $text = $converter->convertToHtml($data);
+
+  $build['content']['#markup'] = $text;
+  return $build;
 }
