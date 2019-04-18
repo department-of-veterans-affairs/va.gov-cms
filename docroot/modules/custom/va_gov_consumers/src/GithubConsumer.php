@@ -22,7 +22,7 @@ class GithubConsumer {
    * @param string $attribution_source
    *   The repo link for the footer.
    */
-  public function blockPrerender($data_source, $attribution_source = NULL) {
+  public function contentRender($data_source, $attribution_source = NULL) {
     $build = [];
 
     // We want to cache so we aren't making a new request every page load.

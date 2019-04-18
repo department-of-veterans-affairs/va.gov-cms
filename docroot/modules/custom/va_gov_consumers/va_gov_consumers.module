@@ -30,5 +30,5 @@ function _va_gov_consumers_content() {
   $consumer = new GithubConsumer();
   $source = 'https://raw.githubusercontent.com/department-of-veterans-affairs/drupal-helpdesk-training/master/manual.md?token=ACSwwy_DAv2U6KyfjfItr__fxDJiMGkJks5cvz90wA%3D%3D';
   $attribution = 'https://github.com/department-of-veterans-affairs/drupal-helpdesk-training';
-  return $consumer->blockPrerender($source, $attribution);
+  return $consumer->contentRender($source, $attribution);
 }
