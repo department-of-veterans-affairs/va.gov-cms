@@ -5,16 +5,9 @@
  * Contains va_gov_backend.module.
  */
 
-use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Field\WidgetBase;
-use Drupal\Core\Link;
-use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception as GuzzleException;
-use League\CommonMark\CommonMarkConverter;
-use Drupal\Core\Cache\CacheBackendInterface;
 
 /**
  * Implements hook_help().
@@ -103,65 +96,4 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
  */
 function va_gov_backend_page_attachments(array &$attachments) {
   $attachments['#attached']['library'][] = 'va_gov_backend/alert_form';
-}
-
-/**
- * Implements hook_block_view_alter().
- *
- * Used for grabbing help markup from github.
- */
-function va_gov_backend_block_view_alter(array &$build, BlockPluginInterface $block) {
-  if ($block->getBaseId() === 'system_main_block') {
-    $current_uri = \Drupal::request()->getRequestUri();
-    // Make sure we are on the help page.
-    if ($current_uri === '/training-guide') {
-      $build['#pre_render'][] = '_va_gov_backend_block_prerender';
-    }
-  }
-}
-
-/**
- * Pre render for main content block.
- */
-function _va_gov_backend_block_prerender(array $build) {
-  // We want to cache so we aren't making a new request every page load.
-  if (empty(\Drupal::cache()->get('help_text_content'))) {
-    $text = 'Help text is not available.';
-    $client = new Client();
-    // Make sure we get a good response before heavy lifting.
-    try {
-      $response = $client->get('https://raw.githubusercontent.com/department-of-veterans-affairs/drupal-helpdesk-training/master/manual.md?token=ACSwwy_DAv2U6KyfjfItr__fxDJiMGkJks5cvz90wA%3D%3D');
-
-      if ($response->getStatusCode() === 200) {
-        // Convert our markdown to html.
-        $data = $response->getBody()->getContents();
-        $converter = new CommonMarkConverter();
-        $text = $converter->convertToHtml($data);
-
-        // Add link to repo to encourage participation.
-        $footer = t('This guide is maintained by the Drupal Helpdesk Training repository.');
-        $url = 'https://github.com/department-of-veterans-affairs/drupal-helpdesk-training';
-        $link = Link::fromTextAndUrl($footer, Url::fromUri($url, ['attributes' => ['target' => '_blank']]))->toString();
-
-        $text .= $link;
-      }
-
-    }
-    // Record any trouble to watchdog.
-    catch (GuzzleException $e) {
-      watchdog_exception('help_text', $e->getMessage());
-    }
-
-    $build['content']['#markup'] = $text;
-    \Drupal::cache()->set('help_text_content', $text, CacheBackendInterface::CACHE_PERMANENT);
-
-  }
-  else {
-    // Already cached, so load our data.
-    $cache = \Drupal::cache()->get('help_text_content');
-    $build['content']['#markup'] = $cache->data;
-
-  }
-  return $build;
-
 }
