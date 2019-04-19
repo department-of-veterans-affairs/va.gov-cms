@@ -3,21 +3,18 @@
 namespace Drupal\va_gov_migrate;
 
 use Drupal\Core\Entity\Entity;
-use Drupal\migrate\Event\MigrateImportEvent;
 use Drupal\migrate\Event\MigratePostRowSaveEvent;
 use Drupal\migrate\MigrateException;
 use Drupal\paragraphs\Entity\Paragraph;
 use QueryPath\DOMQuery;
 use Drupal\migration_tools\Message;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Drupal\migrate\Event\MigrateEvents;
 
 /**
  * ParagraphMigrator migrates paragraphs from query path.
  *
  * @package Drupal\va_gov_migrate
  */
-class ParagraphMigrator implements EventSubscriberInterface {
+class ParagraphMigrator {
 
   /**
    * Objects of type ParagraphType.
@@ -44,20 +41,6 @@ class ParagraphMigrator implements EventSubscriberInterface {
    * @var \Drupal\migrate\Row
    */
   public $row;
-
-  /**
-   * The path of the analysis report.
-   *
-   * @var string
-   */
-  public $rptFile;
-
-  /**
-   * The path of the error report.
-   *
-   * @var string
-   */
-  public $errorFile;
 
   /**
    * The content to compare with the starting content.
@@ -97,7 +80,6 @@ class ParagraphMigrator implements EventSubscriberInterface {
     $this->row = $event->getRow();
 
     $this->endingContent = '';
-    $this->rptFile = "./migration_analysis_{$event->getMigration()->id()}.csv";
 
     $path = 'modules/custom/va_gov_migrate/src/Paragraph/';
     $paragraph_class_files = glob($path . '*.php');
@@ -170,12 +152,23 @@ class ParagraphMigrator implements EventSubscriberInterface {
     $ending_chars = $this->charMap($this->endingContent);
     $diff = count(array_diff_assoc($source_chars, $ending_chars));
 
-    $source_url = reset($this->row->getSourceIdValues());
-    $url_parts = explode("/", parse_url($source_url, PHP_URL_PATH));
-    $hub = $url_parts[1];
-    $handle = fopen($this->rptFile, "a");
-    fwrite($handle, "\"{$this->row->getDestinationProperty('title')}\",$hub,$dest_field,$source_url,$sim,$percent,$diff\n");
-    fclose($handle);
+    if ($diff == 0) {
+      $level = Message::DEBUG;
+    }
+    else {
+      $diff = 1;
+      $level = Message::ERROR;
+    }
+    Message::make("@title, @url, @field, @resulted with a similarity percentage of @percent",
+      [
+        "@title" => $this->row->getDestinationProperty('title'),
+        "@url" => reset($this->row->getSourceIdValues()),
+        "@field" => $dest_field,
+        "@resulted" => $diff == 1 ? 'failed' : 'passed',
+        "@diff" => $diff,
+        "@percent" => $percent,
+      ], $level
+      );
   }
 
   /**
@@ -522,31 +515,6 @@ class ParagraphMigrator implements EventSubscriberInterface {
       }
       $storage_handler->delete($paragraphs);
     }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getSubscribedEvents() {
-    $events[MigrateEvents::PRE_IMPORT] = 'createAnalysisFile';
-    return $events;
-  }
-
-  /**
-   * Create the csv file for text similarity scores for this migration.
-   *
-   * @param \Drupal\migrate\Event\MigrateImportEvent $event
-   *   The event.
-   */
-  public function createAnalysisFile(MigrateImportEvent $event) {
-    $rptFile = "./migration_analysis_{$event->getMigration()->id()}.csv";
-    $handle = fopen($rptFile, "w");
-    fwrite($handle, "Title,Hub,Field,Url,Similarity score,Percent similarity, Char difference score\n");
-    fclose($handle);
-
-    $handle = fopen("migrate_errors.csv", "w");
-    fwrite($handle, 'message');
-    fclose($handle);
   }
 
 }

@@ -57,17 +57,26 @@ abstract class ParagraphType {
             $title = $entity->get('title')->value;
           }
 
-          Message::make('@class not allowed on @type in field @field on @title',
+          Message::make('@class not allowed on @type in field @field on @title @url',
             [
               '@class' => $this->getParagraphName(),
               '@type' => $entity->bundle(),
               '@field' => $parent_field,
               '@title' => self::$migrator->row->getSourceProperty('title'),
+              '@url' => self::$migrator->row->getSourceIdValues()['url'],
             ],
-            Message::ERROR
+            Message::WARNING
           );
           return FALSE;
         }
+
+        Message::make('@paragraph added to @title @url',
+          [
+            '@paragraph' => $this->getParagraphName(),
+            '@title' => self::$migrator->row->getSourceProperty('title'),
+            '@url' => self::$migrator->row->getSourceIdValues()['url'],
+            '@field' => $parent_field,
+          ]);
 
         self::$migrator->addWysiwyg($entity, $parent_field);
 
