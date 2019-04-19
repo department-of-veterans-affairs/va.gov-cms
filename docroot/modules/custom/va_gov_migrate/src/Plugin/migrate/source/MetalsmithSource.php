@@ -35,6 +35,13 @@ class MetalsmithSource extends UrlList {
    */
   protected $templates;
 
+  /**
+   * Holds values of github directory listings.
+   *
+   * @var array
+   */
+  protected $dirLists;
+
   const CONTENT_URL = "https://api.github.com/repos/department-of-veterans-affairs/vagov-content/contents";
   const PAGES_URL = "https://api.github.com/repos/department-of-veterans-affairs/vagov-content/contents/pages";
 
@@ -45,6 +52,7 @@ class MetalsmithSource extends UrlList {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $migration);
 
     $this->templates = empty($configuration['templates']) ? '' : $configuration['templates'];
+    $this->dirLists = [];
   }
 
   /**
@@ -123,9 +131,17 @@ class MetalsmithSource extends UrlList {
 
       $parent = self::PAGES_URL . implode('/', $path_parts);
     }
-    // Read the page at the url.
-    if (!($parent_tree = $this->readUrl($parent))) {
-      return;
+    if (empty($this->dirLists[$parent])) {
+      // Read the page at the url.
+      if (!($parent_tree = $this->readUrl($parent))) {
+        return;
+      }
+
+      $this->dirLists[$parent] = $parent_tree;
+    }
+    else {
+      $parent_tree = $this->dirLists[$parent];
+
     }
     $parent_tree = json_decode($parent_tree);
     foreach ($parent_tree as $branch) {
