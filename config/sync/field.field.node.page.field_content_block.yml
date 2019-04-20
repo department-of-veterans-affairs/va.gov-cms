@@ -11,6 +11,7 @@ dependencies:
     - paragraphs.paragraphs_type.q_a_section
     - paragraphs.paragraphs_type.react_widget
     - paragraphs.paragraphs_type.spanish_translation_summary
+    - paragraphs.paragraphs_type.table
     - paragraphs.paragraphs_type.wysiwyg
   module:
     - entity_reference_revisions
@@ -35,51 +36,67 @@ settings:
       spanish_translation_summary: spanish_translation_summary
       collapsible_panel: collapsible_panel
       react_widget: react_widget
+      table: table
       list_of_link_teasers: list_of_link_teasers
     target_bundles_drag_drop:
       wysiwyg:
         enabled: true
-        weight: -31
+        weight: -41
       q_a_section:
         enabled: true
-        weight: -30
+        weight: -40
       process:
         enabled: true
-        weight: -29
+        weight: -39
       spanish_translation_summary:
         enabled: true
-        weight: -28
+        weight: -38
       collapsible_panel:
         enabled: true
-        weight: -27
+        weight: -37
       react_widget:
         enabled: true
-        weight: -26
+        weight: -36
+      table:
+        enabled: true
+        weight: -35
       collapsible_panel_item:
-        weight: -25
+        weight: -34
         enabled: false
       link_teaser:
-        weight: -24
+        weight: -33
         enabled: false
       list_of_link_teasers:
         enabled: true
-        weight: -23
+        weight: -32
       address:
-        weight: -22
+        weight: -31
         enabled: false
       alert:
-        weight: -21
+        weight: -30
         enabled: false
       expandable_text:
-        weight: -20
+        weight: -29
         enabled: false
       starred_horizontal_rule:
-        weight: -19
+        weight: -28
         enabled: false
       q_a:
-        weight: -18
+        weight: -27
         enabled: false
       number_callout:
-        weight: -17
+        weight: -26
+        enabled: false
+      health_care_local_facility_servi:
+        weight: -25
+        enabled: false
+      media:
+        weight: -24
+        enabled: false
+      megamenu_links_column:
+        weight: -23
+        enabled: false
+      megamenu_menu_item:
+        weight: -22
         enabled: false
 field_type: entity_reference_revisions
