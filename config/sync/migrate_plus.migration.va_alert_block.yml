@@ -1,4 +1,4 @@
-uuid: 202a8883-19a2-4eb3-a122-0e8ccd3f8e60
+uuid: de4c2aff-b03d-410c-9263-f8a91ba8106e
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: zWAvjvaL92dzyAAcQRQGc_jt4QQ1Nn2sjR5Xc1VFR1s
+  default_config_hash: esGEqZX430J594iTZa6p7bnOhEoqKq9rmvsEnW21Ujw
 id: va_alert_block
 class: null
 field_plugin_method: null
@@ -17,7 +17,7 @@ label: 'Migrate alert blocks from VA.gov'
 source:
   plugin: alert_block
   urls:
-    - 'https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages/health-care'
+    - /records
   fields:
     - alert_type
     - alert_title
