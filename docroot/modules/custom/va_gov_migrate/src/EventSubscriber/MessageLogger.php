@@ -6,6 +6,7 @@ use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigrateImportEvent;
 use Drupal\migration_tools\Event\MessageEvent;
 use Drupal\migration_tools\Message;
+use Drupal\Core\State\StateInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -14,8 +15,34 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * @package Drupal\va_gov_migrate\EventSubscriber
  */
 class MessageLogger implements EventSubscriberInterface {
+
+  /**
+   * The name of the test report file.
+   *
+   * @var string
+   */
   protected static $rptFile;
+
+  /**
+   * The name of the error.
+   *
+   * @var string
+   */
   protected static $errFile;
+
+  /**
+   * The drupal state object.
+   *
+   * @var \Drupal\Core\State\StateInterface
+   */
+  protected $state;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(StateInterface $state) {
+    $this->state = $state;
+  }
 
   /**
    * {@inheritdoc}
@@ -33,6 +60,10 @@ class MessageLogger implements EventSubscriberInterface {
    *   The event.
    */
   public function onMessage(MessageEvent $event) {
+    if (!$this->state->get('va_gov_migrate.create_csv_files')) {
+      return;
+    }
+
     $url = $event->variables['@url'];
 
     if (array_key_exists('@diff', $event->variables) &&
@@ -111,6 +142,10 @@ class MessageLogger implements EventSubscriberInterface {
    *   The event.
    */
   public function createAnalysisFile(MigrateImportEvent $event) {
+    if (!$this->state->get('va_gov_migrate.create_csv_files')) {
+      return;
+    }
+
     self::$rptFile = "./migration_analysis_{$event->getMigration()->id()}.csv";
     $handle = fopen(self::$rptFile, "w");
     fwrite($handle, "Title,Hub,Field,Url,Github Url,Percent similarity, Char difference score\n");

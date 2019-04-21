@@ -9,5 +9,6 @@ services:
       - { name: event_subscriber }
   va_gov_migrate.message:
     class: Drupal\va_gov_migrate\EventSubscriber\MessageLogger
+    arguments: ['@state']
     tags:
       - { name: event_subscriber }
