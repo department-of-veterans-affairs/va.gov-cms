@@ -1,7 +1,12 @@
 uuid: 94287bee-efbe-43e3-8198-8bb3e4e8be97
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - paragraphs_browser
+third_party_settings:
+  paragraphs_browser:
+    description: 'For explaining specific steps in a process, like applying for benefits or appealing a decision. <a href="https://design.va.gov/components/process-list">View this in the style guide</a>.'
 id: process
 label: Process
 icon_uuid: null

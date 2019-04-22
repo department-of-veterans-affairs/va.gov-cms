@@ -1,7 +1,12 @@
 uuid: 17be725c-343b-4050-a3c0-4e953226233e
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - paragraphs_browser
+third_party_settings:
+  paragraphs_browser:
+    description: 'For holding links and descriptions to related pages. These are generally displayed as the last element on a page.'
 id: list_of_link_teasers
 label: 'List of link teasers'
 icon_uuid: null
