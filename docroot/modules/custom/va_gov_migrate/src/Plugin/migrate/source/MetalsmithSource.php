@@ -97,6 +97,9 @@ class MetalsmithSource extends UrlList {
         Message::make('Found duplicate entry for @url', ['@url' => $row['url']], Message::DEBUG);
       }
       else {
+        if (empty($row['lastupdate'])) {
+          $row['lastupdate'] = 0;
+        }
         $unique_rows[] = $row;
         $urls[] = $row['url'];
       }
@@ -336,7 +339,7 @@ class MetalsmithSource extends UrlList {
     }
     if (!empty($site_path)) {
       $row['url'] = 'https://www.va.gov' . $site_path . '/';
-      $row['path'] = $path;
+      $row['path'] = $site_path;
     }
 
   }
