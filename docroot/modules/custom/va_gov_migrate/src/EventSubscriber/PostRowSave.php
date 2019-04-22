@@ -108,6 +108,11 @@ class PostRowSave implements EventSubscriberInterface {
   public function setChangedDate(MigratePostRowSaveEvent $event) {
     $node = Node::load($event->getDestinationIdValues()[0]);
     $last_update = $event->getRow()->getSourceProperty('lastupdate');
+    // Drupal doesn't seem to accept 0 here, so use 1 for pages without a
+    // lastupdate field.
+    if ($last_update == 0) {
+      $last_update = 1;
+    }
     $node->set('changed', $last_update);
     $node->save();
   }
