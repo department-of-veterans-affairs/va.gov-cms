@@ -2,7 +2,7 @@
 
 // @codingStandardsIgnoreFile
 
-$settings['va_jenkins_build_job_url_params'] = $settings['va_jenkins_build_job_prod'] . '/buildWithParameters?' . 'release_wait=5' . '&' . 'use_latest_release=1';
+$settings['va_jenkins_build_job_url_params'] = $settings['va_jenkins_build_job_prod'] . '/buildWithParameters?' . 'release_wait=5' . '&' . 'use_latest_release=true';
 
 $config['config_split.config_split.dev']['status'] = FALSE;
 $config['config_split.config_split.stg']['status'] = FALSE;
