@@ -1,10 +1,10 @@
-id: va_healthcare
+id: va_benefits_records
 label: Migrate Health Care benefits pages from VA.gov
-migration_group: va_gov
+migration_group: va_benefits
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
-    - "https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages/health-care"
+    - "/records"
   templates:  # A list of Metalsmith templates to process (detail-page=basic page, level2-index=hub page)
     - detail-page
   fields:  # :ist any frontmatter fields you want to migrate.

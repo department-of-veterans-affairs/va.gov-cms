@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_consumers.module.
+ */
+
+use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\va_gov_consumers\GithubConsumer;
+
+/**
+ * Implements hook_block_view_alter().
+ *
+ * Used for grabbing help markup from github.
+ */
+function va_gov_consumers_block_view_alter(array &$build, BlockPluginInterface $block) {
+  if ($block->getBaseId() === 'system_main_block') {
+    $current_uri = \Drupal::request()->getRequestUri();
+    // Make sure we are on the help page.
+    if ($current_uri === '/training-guide') {
+      $build['#pre_render'][] = '_va_gov_consumers_content';
+    }
+  }
+}
+
+/**
+ * Callback for block view alter.
+ */
+function _va_gov_consumers_content() {
+  $consumer = new GithubConsumer();
+  $source = 'https://raw.githubusercontent.com/department-of-veterans-affairs/drupal-helpdesk-training/master/manual.md?token=ACSwwy_DAv2U6KyfjfItr__fxDJiMGkJks5cvz90wA%3D%3D';
+  $attribution = 'https://github.com/department-of-veterans-affairs/drupal-helpdesk-training';
+  return $consumer->contentRender($source, $attribution);
+}
