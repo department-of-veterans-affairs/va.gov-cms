@@ -41,6 +41,7 @@ class PostRowSave implements EventSubscriberInterface {
 
     switch ($event->getMigration()->id()) {
       case 'va_healthcare':
+      case 'va_benefits_records':
         $this->convertIntroTextToPlainText($event->getDestinationIdValues()[0]);
         $migrator->process('related_links', 'field_related_links');
         $migrator->process('featured_content', 'field_featured_content');
@@ -106,9 +107,12 @@ class PostRowSave implements EventSubscriberInterface {
    */
   public function setChangedDate(MigratePostRowSaveEvent $event) {
     $node = Node::load($event->getDestinationIdValues()[0]);
-    // The timestamp we receive is 4 hours behind when displayed by drupal.
-    // So add 4 hours to account for that.
-    $last_update = $event->getRow()->getSourceProperty('lastupdate') + 3600 * 4;
+    $last_update = $event->getRow()->getSourceProperty('lastupdate');
+    // Drupal doesn't seem to accept 0 here, so use 1 for pages without a
+    // lastupdate field.
+    if ($last_update == 0) {
+      $last_update = 1;
+    }
     $node->set('changed', $last_update);
     $node->save();
   }

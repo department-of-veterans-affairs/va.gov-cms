@@ -66,9 +66,9 @@ class AlertBlockSource extends MetalsmithSource {
   /**
    * {@inheritdoc}
    */
-  protected function addRow($url) {
+  protected function addRow($url, $path) {
     $page_content = '';
-    if (!($row = self::readMetalsmithFile($url, $page_content)) || empty($page_content)) {
+    if (!($row = $this->readMetalsmithFile($url, $page_content)) || empty($page_content)) {
       return;
     }
 
@@ -113,7 +113,7 @@ class AlertBlockSource extends MetalsmithSource {
       $body = str_replace(['<code>', '</code>', '<pre>', '</pre>'], '', $body);
       $row['alert_body'] = html_entity_decode($body);
 
-      self::setPagePath($url, $row);
+      self::setPagePath($path, $row);
 
       $this->rows[] = $row;
 
