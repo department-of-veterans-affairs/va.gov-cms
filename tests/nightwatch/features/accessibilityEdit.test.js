@@ -16,10 +16,10 @@ const axeOptions = {
     skip_testcases_on_fail: true,
 };
 
-const dev = "http://vagovcms.lndo.site";
-const siteUrl = dev;
-const name = 'admin';
-const pass = 'drupal8';
+// Environmental variables must be set before running test
+const siteUrl = process.env.TESTURL;
+const name = process.env.TESTUSERNAME;
+const pass = process.env.TESTUSERPASS;
 
 const contextOptions = {
     include: [['body']],
@@ -40,9 +40,9 @@ module.exports
             .setValue('input[name="name"]', name)
             .setValue('input[name="pass"]', pass)
             .click('input[id="edit-submit"]')
-            // todo use current environment url
             .url(siteUrl+'/node/add/page')
-            .waitForElementVisible('body', 6000)
+            .waitForElementVisible('.page-title', 6000)
+            .assert.title('Create Benefits detail page | Veterans Affairs')
             .initAccessibility()
             .verify.accessibility(contextOptions, axeOptions)
             .end(function(err, res){
