@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * This file is only used for local Lando development environments.
+ */
+
 // @codingStandardsIgnoreFile
 
 $databases['default']['default'] = array (

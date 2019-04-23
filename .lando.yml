@@ -42,8 +42,11 @@ services:
     #xdebug: true
     overrides:
       environment:
-        # You must manually `export` this VA* ENV variable to use it. @see /README.md Build Trigger section
+        # You must manually `export` these ENV vars before uncommenting, then run `lando rebuild`
+        # @see /README.md Build Trigger section
 #        VA_CMS_BOT_GITHUB_AUTH_TOKEN: ${VA_CMS_BOT_GITHUB_AUTH_TOKEN}
+#        ENVIRONMENT_TYPE: ${ENVIRONMENT_TYPE}
+#        JENKINS_BUILD_ENV: ${JENKINS_BUILD_ENV}
         # Support debugging Drush with XDEBUG. Listen in PHPStorm then `lando drush` to trigger xdebug.
         PHP_IDE_CONFIG: "serverName=appserver"
   node:
@@ -60,7 +63,7 @@ services:
       image: node:10.13-jessie
     globals:
       gulp-cli: "latest"
-  # Uncomment this to work on site build triggers
+  # Uncomment this to work on site build triggers, then export ENV vars below, then `lando rebuild`.
   # Must use lando 3.0.0-rc9+
   # @see /README.md Build Trigger section
 #  va-socks-proxy:

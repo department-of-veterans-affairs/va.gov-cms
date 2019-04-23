@@ -29,8 +29,20 @@ class BuildTriggerForm extends FormBase {
     $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Rebuild site'),
+      '#description' => 'yes',
       '#button_type' => 'primary',
     ];
+    if (!in_array(getenv('ENVIRONMENT_TYPE'), [
+      'dev',
+      'stg',
+      'prod',
+    ])) {
+      \Drupal::messenger()
+        ->addMessage(t('You cannot trigger a build in this environment. Only the DEV, STAGING and PROD environments support triggering builds.'), 'warning');
+      $form['actions']['submit']['#attributes'] = [
+        'disabled' => 'disabled',
+      ];
+    }
     return $form;
   }
 
@@ -58,9 +70,18 @@ class BuildTriggerForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $va_socks_proxy_url = Settings::get('va_socks_proxy_url');
-    $va_jenkins_cms_build_url = Settings::get('va_jenkins_cms_build_url');
     $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
     $va_cms_bot_github_auth_token = Settings::get('va_cms_bot_github_auth_token');
+    $va_jenkins_build_host = Settings::get('va_jenkins_build_host');
+    $va_jenkins_build_job_dev_staging = Settings::get('va_jenkins_build_job_dev_staging');
+    $va_jenkins_build_job_prod = Settings::get('va_jenkins_build_job_prod');
+    $va_jenkins_build_job_url_params = Settings::get('va_jenkins_build_job_url_params');
+    if (!$va_jenkins_build_job_url_params) {
+      \Drupal::messenger()
+        ->addMessage(t('You cannot trigger a build in this environment. Only the DEV, STAGING and PROD environments support triggering builds.'), 'warning');
+      return FALSE;
+    }
+    $va_jenkins_build_url = $va_jenkins_build_host . $va_jenkins_build_job_url_params;
 
     try {
       // Setup the REQUEST options.
@@ -73,7 +94,7 @@ class BuildTriggerForm extends FormBase {
         'curl' => [
           CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2,
           CURLOPT_VERBOSE => TRUE,
-          CURLOPT_URL => $va_jenkins_cms_build_url,
+          CURLOPT_URL => $va_jenkins_build_url,
           CURLOPT_POST => 1,
           CURLOPT_PROXY => $va_socks_proxy_url,
           CURLOPT_USERNAME => $va_cms_bot_github_username,
@@ -83,7 +104,7 @@ class BuildTriggerForm extends FormBase {
           CURLOPT_HEADER => 1,
         ],
       ];
-      // Retry request w/lazy backoff.
+      // Setup the REQUEST retry logic w/lazy backoff.
       // @link http://dawehner.github.io/php,/guzzle/2017/05/19/guzzle-retry.html
       $handler_stack = HandlerStack::create();
       $handler_stack->push(Middleware::retry(function ($retry, $request, $response, $reason) {
@@ -101,7 +122,7 @@ class BuildTriggerForm extends FormBase {
         return $retry * $delay_ms;
       }));
 
-      // Make the REQUEST.
+      // Handle the RESPONSE.
       $client = new Client(['handler' => $handler_stack]);
       $response = $client->post($va_socks_proxy_url, $request_options);
 
@@ -111,15 +132,16 @@ class BuildTriggerForm extends FormBase {
               [
                 ':status_code' => $response->getStatusCode(),
                 ':reason_phrase' => $response->getReasonPhrase(),
-                ':url' => $va_jenkins_cms_build_url,
+                ':url' => $va_jenkins_build_url,
               ]
           );
         \Drupal::messenger()
-          ->addMessage(t('Site rebuild request has failed for :url, check log for more information.', [':url' => $va_jenkins_cms_build_url]), 'error');
+          ->addMessage(t('Site rebuild request has failed for :url, check log for more information.', [':url' => $va_jenkins_build_url]), 'error');
       }
       else {
-        // Get our sql formatted date.
-        $time_raw = format_date(time(), 'html_datetime');
+        // Get our SQL formatted date.
+        $time_raw = \Drupal::service('date.formatter')
+          ->format(time(), 'html_datetime', '', 'UTC');
         $time = strtok($time_raw, '+');
 
         // We only need to update field table - field is set on node import.
@@ -134,13 +156,30 @@ class BuildTriggerForm extends FormBase {
           ->fields(['field_page_last_built_value' => $time]);
         $query_revision->execute();
 
-        \Drupal::messenger()
-          ->addMessage(t('Site rebuild request has been triggered with :url.', [':url' => $va_jenkins_cms_build_url]), 'status');
+        if (in_array(Settings::get('va_jenkins_build_env'), [
+          'dev',
+          'staging',
+        ])) {
+          \Drupal::messenger()
+            ->addMessage(t('Site rebuild request has been triggered for :url. Please visit <a href="@job_link">@job_link</a> to see status.', [
+              ':url' => $va_jenkins_build_url,
+              '@job_link' => $va_jenkins_build_host . $va_jenkins_build_job_dev_staging,
+            ]), 'status');
+        }
+        elseif (in_array(Settings::get('va_jenkins_build_env'), [
+          'prod',
+        ])) {
+          \Drupal::messenger()
+            ->addMessage(t('Site rebuild request has been triggered for :url. Please visit <a href="@job_link">@job_link</a> to see status.', [
+              ':url' => $va_jenkins_build_url,
+              '@job_link' => $va_jenkins_build_host . $va_jenkins_build_job_prod,
+            ]), 'status');
+        }
       }
     }
     catch (RequestException $exception) {
       \Drupal::messenger()
-        ->addMessage(t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the LIVE environment please notify cms-admin@va.gov immediately.', [':url' => $va_jenkins_cms_build_url]), 'error');
+        ->addMessage(t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify cms-admin@va.gov immediately.', [':url' => $va_jenkins_build_url]), 'error');
       watchdog_exception('va_gov_build_trigger', $exception);
 
     }
