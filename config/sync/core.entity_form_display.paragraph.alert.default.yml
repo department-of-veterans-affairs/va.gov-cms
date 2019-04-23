@@ -3,36 +3,57 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.alert.field_alert_block_reference
     - field.field.paragraph.alert.field_alert_heading
-    - field.field.paragraph.alert.field_alert_message
-    - field.field.paragraph.alert.field_alert_trigger_text
     - field.field.paragraph.alert.field_alert_type
+    - field.field.paragraph.alert.field_va_paragraphs
     - paragraphs.paragraphs_type.alert
   module:
-    - text
+    - field_group
+    - paragraphs
+third_party_settings:
+  field_group:
+    group_reusable_alert:
+      children:
+        - field_alert_block_reference
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        description: 'Some alerts are reusable. If you select an existing alert, do not complete the rest of the form. '
+        required_fields: true
+        id: reusable-alert
+        classes: ''
+      label: 'Reusable alert'
+      region: content
+    group_non_reusable_alert:
+      children:
+        - field_alert_heading
+        - field_va_paragraphs
+        - field_alert_type
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        description: ''
+        required_fields: true
+        id: non-reusable-alert
+        classes: ''
+      label: 'Non-reusable alert'
+      region: content
 id: paragraph.alert.default
 targetEntityType: paragraph
 bundle: alert
 mode: default
 content:
-  field_alert_heading:
+  field_alert_block_reference:
     weight: 1
-    settings:
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: string_textfield
+    type: options_select
     region: content
-  field_alert_message:
-    weight: 3
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: text_textarea
-    region: content
-  field_alert_trigger_text:
-    weight: 2
+  field_alert_heading:
+    weight: 4
     settings:
       size: 60
       placeholder: ''
@@ -40,10 +61,28 @@ content:
     type: string_textfield
     region: content
   field_alert_type:
-    weight: 0
+    weight: 6
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
+  field_va_paragraphs:
+    weight: 5
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: closed
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
+    third_party_settings: {  }
+    type: paragraphs
     region: content
 hidden:
   created: true
