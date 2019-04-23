@@ -32,9 +32,9 @@ class BuildTriggerForm extends FormBase {
       '#description' => 'yes',
       '#button_type' => 'primary',
     ];
-    if (!in_array(Settings::get('va_jenkins_build_env'), ['DEV', 'STAGING'])) {
+    if (!in_array(Settings::get('va_jenkins_build_env'), ['dev', 'staging', 'prod'])) {
       \Drupal::messenger()
-        ->addMessage(t('You cannot trigger a build in this environment. Only the DEV and STAGING environments support triggering builds.'), 'warning');
+        ->addMessage(t('You cannot trigger a build in this environment. Only the DEV, STAGING and PROD environments support triggering builds.'), 'warning');
       $form['actions']['submit']['#attributes'] = [
         'disabled' => 'disabled',
       ];
@@ -69,8 +69,12 @@ class BuildTriggerForm extends FormBase {
     $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
     $va_cms_bot_github_auth_token = Settings::get('va_cms_bot_github_auth_token');
     $va_jenkins_build_host = Settings::get('va_jenkins_build_host');
+    $va_jenkins_build_job_dev_staging = Settings::get('va_jenkins_build_job_dev_staging');
+    $va_jenkins_build_job_prod = Settings::get('va_jenkins_build_job_prod');
     $va_jenkins_build_job_url_params = Settings::get('va_jenkins_build_job_url_params');
     if (!$va_jenkins_build_job_url_params) {
+      \Drupal::messenger()
+        ->addMessage(t('You cannot trigger a build in this environment. Only the DEV, STAGING and PROD environments support triggering builds.'), 'warning');
       return FALSE;
     }
     $va_jenkins_build_url = $va_jenkins_build_host . $va_jenkins_build_job_url_params;
@@ -96,7 +100,7 @@ class BuildTriggerForm extends FormBase {
           CURLOPT_HEADER => 1,
         ],
       ];
-      // Retry request w/lazy backoff.
+      // Setup the REQUEST retry logic w/lazy backoff.
       // @link http://dawehner.github.io/php,/guzzle/2017/05/19/guzzle-retry.html
       $handler_stack = HandlerStack::create();
       $handler_stack->push(Middleware::retry(function ($retry, $request, $response, $reason) {
@@ -114,7 +118,7 @@ class BuildTriggerForm extends FormBase {
         return $retry * $delay_ms;
       }));
 
-      // Make the REQUEST.
+      // Handle the RESPONSE.
       $client = new Client(['handler' => $handler_stack]);
       $response = $client->post($va_socks_proxy_url, $request_options);
 
@@ -131,8 +135,9 @@ class BuildTriggerForm extends FormBase {
           ->addMessage(t('Site rebuild request has failed for :url, check log for more information.', [':url' => $va_jenkins_build_url]), 'error');
       }
       else {
-        // Get our sql formatted date.
-        $time_raw = format_date(time(), 'html_datetime');
+        // Get our SQL formatted date.
+        $time_raw = \Drupal::service('date.formatter')
+          ->format(time(), 'html_datetime', '', 'UTC');
         $time = strtok($time_raw, '+');
 
         // We only need to update field table - field is set on node import.
@@ -147,8 +152,25 @@ class BuildTriggerForm extends FormBase {
           ->fields(['field_page_last_built_value' => $time]);
         $query_revision->execute();
 
-        \Drupal::messenger()
-          ->addMessage(t('Site rebuild request has been triggered with :url.', [':url' => $va_jenkins_build_url]), 'status');
+        if (in_array(Settings::get('va_jenkins_build_env'), [
+          'dev',
+          'staging'
+        ])) {
+          \Drupal::messenger()
+            ->addMessage(t('Site rebuild request has been triggered for :url. Please visit <a href="@job_link">@job_link</a> to see status.', [
+              ':url' => $va_jenkins_build_url,
+              '@job_link' => $va_jenkins_build_host . $va_jenkins_build_job_dev_staging
+            ]), 'status');
+        }
+        elseif (in_array(Settings::get('va_jenkins_build_env'), [
+          'prod'
+        ])) {
+          \Drupal::messenger()
+            ->addMessage(t('Site rebuild request has been triggered for :url. Please visit <a href="@job_link">@job_link</a> to see status.', [
+              ':url' => $va_jenkins_build_url,
+              '@job_link' => $va_jenkins_build_host . $va_jenkins_build_job_prod
+            ]), 'status');
+        }
       }
     }
     catch (RequestException $exception) {

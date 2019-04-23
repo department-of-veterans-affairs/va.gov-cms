@@ -763,6 +763,8 @@ $settings['entity_update_batch_size'] = 50;
  */
 $settings['va_jenkins_build_env'] = getenv('JENKINS_BUILD_ENV') ?: FALSE;
 $settings['va_jenkins_build_host'] = 'http://jenkins.vetsgov-internal';
+$settings['va_jenkins_build_job_dev_staging'] = '/job/testing/job/vets-website/job/master';
+$settings['va_jenkins_build_job_prod'] = '/job/deploys/job/vets-gov-autodeploy-vets-website';
 $settings['va_socks_proxy_url'] = 'socks5h://va-socks-proxy:2001';
 $settings['va_cms_bot_github_username'] = 'va-cms-bot';
 $settings['va_cms_bot_github_auth_token'] = getenv('VA_CMS_BOT_GITHUB_AUTH_TOKEN') ?: FALSE;
