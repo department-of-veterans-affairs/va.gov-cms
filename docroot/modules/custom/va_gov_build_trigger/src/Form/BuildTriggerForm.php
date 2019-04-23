@@ -32,7 +32,11 @@ class BuildTriggerForm extends FormBase {
       '#description' => 'yes',
       '#button_type' => 'primary',
     ];
-    if (!in_array(Settings::get('va_jenkins_build_env'), ['dev', 'staging', 'prod'])) {
+    if (!in_array(getenv('ENVIRONMENT_TYPE'), [
+      'dev',
+      'stg',
+      'prod',
+    ])) {
       \Drupal::messenger()
         ->addMessage(t('You cannot trigger a build in this environment. Only the DEV, STAGING and PROD environments support triggering builds.'), 'warning');
       $form['actions']['submit']['#attributes'] = [
@@ -154,21 +158,21 @@ class BuildTriggerForm extends FormBase {
 
         if (in_array(Settings::get('va_jenkins_build_env'), [
           'dev',
-          'staging'
+          'staging',
         ])) {
           \Drupal::messenger()
             ->addMessage(t('Site rebuild request has been triggered for :url. Please visit <a href="@job_link">@job_link</a> to see status.', [
               ':url' => $va_jenkins_build_url,
-              '@job_link' => $va_jenkins_build_host . $va_jenkins_build_job_dev_staging
+              '@job_link' => $va_jenkins_build_host . $va_jenkins_build_job_dev_staging,
             ]), 'status');
         }
         elseif (in_array(Settings::get('va_jenkins_build_env'), [
-          'prod'
+          'prod',
         ])) {
           \Drupal::messenger()
             ->addMessage(t('Site rebuild request has been triggered for :url. Please visit <a href="@job_link">@job_link</a> to see status.', [
               ':url' => $va_jenkins_build_url,
-              '@job_link' => $va_jenkins_build_host . $va_jenkins_build_job_prod
+              '@job_link' => $va_jenkins_build_host . $va_jenkins_build_job_prod,
             ]), 'status');
         }
       }
