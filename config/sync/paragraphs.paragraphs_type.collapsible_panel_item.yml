@@ -1,7 +1,13 @@
 uuid: e2a6831d-9d06-45d6-940e-dc542830f6ec
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - paragraphs_browser
+third_party_settings:
+  paragraphs_browser:
+    description: 'An individual accordion item. For hiding content behind headers; they are collapsed by default. If most users will want to read all of the collapsed information, try Paragraph or Q&A instead.'
+    image_path: 'public://Screen Shot 2019-04-16 at 2.10.08 AM_0.png'
 id: collapsible_panel_item
 label: 'Accordion Item'
 icon_uuid: null

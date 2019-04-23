@@ -2,6 +2,8 @@
 
 // @codingStandardsIgnoreFile
 
+$settings['va_jenkins_build_job_url_params'] = $settings['va_jenkins_build_job_dev_staging'] . '/buildWithParameters?cmsEnvBuildOverride=' . $settings['va_jenkins_build_env'];
+
 $config['config_split.config_split.dev']['status'] = TRUE;
 $config['config_split.config_split.stg']['status'] = FALSE;
 $config['config_split.config_split.prod']['status'] = FALSE;

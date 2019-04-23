@@ -1,3 +1,5 @@
+import os
+
 from locust import HttpLocust, TaskSet
 from bs4 import BeautifulSoup
 
@@ -5,13 +7,13 @@ def login(self):
     response = self.client.get("/user/login", name="Login")
     soup = BeautifulSoup(response.text, "html.parser")
     drupal_form_id = soup.select('input[name="form_build_id"]')[0]["value"]
-    r = self.client.post("/", {"name":"admin", "pass":"drupal8", "form_id":"user_login_form", "op":"Log+in", "form_build_id":drupal_form_id}, name='Login')
+    r = self.client.post("/", {"name":os.environ.get('TESTUSERNAME'), "pass":os.environ.get('TESTUSERPASS'), "form_id":"user_login_form", "op":"Log+in", "form_build_id":drupal_form_id}, name='Login')
 
 def logout(self):
     self.client.get("/user/logout", name='Log out')
 
 def admin(self):
-    self.client.get("/admin", name="Admin")
+    self.client.get("/admin", name="Administration")
 
 class UserBehavior(TaskSet):
     tasks = {admin: 1}

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3292247f39f6c46adab2bba5895d7570",
+    "content-hash": "aec8a7a845c2c0ec62a46e5264553579",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -4095,62 +4095,6 @@
             }
         },
         {
-            "name": "drupal/external_data_source",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/external_data_source.git",
-                "reference": "8.x-1.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/external_data_source-8.x-1.0.zip",
-                "reference": "8.x-1.0",
-                "shasum": "e5c70919022808af203fd3175a3e8abdd79b8abc"
-            },
-            "require": {
-                "drupal/core": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.0",
-                    "datestamp": "1535672580",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Amine Cherif (macherif)",
-                    "homepage": "https://www.drupal.org/u/macherif",
-                    "role": "Maintainer"
-                }
-            ],
-            "description": "Fields for External Data Source.",
-            "homepage": "http://drupal.org/project/external_data_source",
-            "keywords": [
-                "Drupal",
-                "External Source Fields",
-                "Fields",
-                "Microservices",
-                "Webservices"
-            ],
-            "support": {
-                "source": "http://cgit.drupalcode.org/external_data_source",
-                "issues": "https://www.drupal.org/project/issues/external_data_source"
-            }
-        },
-        {
             "name": "drupal/fast_404",
             "version": "1.0.0-alpha4",
             "source": {
@@ -4327,7 +4271,7 @@
             "description": "Exposes your Drupal data model through a GraphQL schema.",
             "homepage": "http://drupal.org/project/graphql",
             "support": {
-                "source": "https://git.drupalcode.org/project/graphql"
+                "source": "http://cgit.drupalcode.org/graphql"
             }
         },
         {
@@ -7076,6 +7020,66 @@
             "homepage": "https://www.drupal.org/project/paragraphs",
             "support": {
                 "source": "https://git.drupalcode.org/project/paragraphs"
+            }
+        },
+        {
+            "name": "drupal/paragraphs_browser",
+            "version": "1.0.0-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/paragraphs_browser.git",
+                "reference": "8.x-1.0-alpha2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/paragraphs_browser-8.x-1.0-alpha2.zip",
+                "reference": "8.x-1.0-alpha2",
+                "shasum": "62cfc10b57e6b5b613d88a961534912cb84037d5"
+            },
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/paragraphs": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-alpha2",
+                    "datestamp": "1545237480",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Deciphered",
+                    "homepage": "https://www.drupal.org/user/103796"
+                },
+                {
+                    "name": "Mojiferous",
+                    "homepage": "https://www.drupal.org/user/1678298"
+                },
+                {
+                    "name": "michaellander",
+                    "homepage": "https://www.drupal.org/user/636494"
+                },
+                {
+                    "name": "tandroid",
+                    "homepage": "https://www.drupal.org/user/2879591"
+                }
+            ],
+            "description": "Provides browser for adding additional paragraphs.",
+            "homepage": "https://www.drupal.org/project/paragraphs_browser",
+            "support": {
+                "source": "https://git.drupalcode.org/project/paragraphs_browser"
             }
         },
         {
@@ -15501,6 +15505,62 @@
             }
         },
         {
+            "name": "drupal/external_data_source",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/external_data_source.git",
+                "reference": "8.x-1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/external_data_source-8.x-1.0.zip",
+                "reference": "8.x-1.0",
+                "shasum": "e5c70919022808af203fd3175a3e8abdd79b8abc"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0",
+                    "datestamp": "1535672580",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Amine Cherif (macherif)",
+                    "homepage": "https://www.drupal.org/u/macherif",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Fields for External Data Source.",
+            "homepage": "http://drupal.org/project/external_data_source",
+            "keywords": [
+                "Drupal",
+                "External Source Fields",
+                "Fields",
+                "Microservices",
+                "Webservices"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/external_data_source",
+                "issues": "https://www.drupal.org/project/issues/external_data_source"
+            }
+        },
+        {
             "name": "drupal/ics_field",
             "version": "1.0.0",
             "source": {
@@ -16957,6 +17017,7 @@
         "drupal/node_revisions_autoclean": 10,
         "drupal/pathologic": 15,
         "drupal/cer": 15,
+        "drupal/paragraphs_browser": 15,
         "acquia/lightning_dev": 20
     },
     "prefer-stable": true,

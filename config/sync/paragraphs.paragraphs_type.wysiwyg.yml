@@ -1,7 +1,12 @@
 uuid: 885e4b61-cfd2-44b9-94ae-f068ba2b48b6
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - paragraphs_browser
+third_party_settings:
+  paragraphs_browser:
+    description: 'For simple formatted text.'
 id: wysiwyg
 label: WYSIWYG
 icon_uuid: null

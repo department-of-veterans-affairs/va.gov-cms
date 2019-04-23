@@ -1,7 +1,12 @@
 uuid: 525c8535-c6fa-4e64-8824-82c889785a6a
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - paragraphs_browser
+third_party_settings:
+  paragraphs_browser:
+    description: 'For content formatted as a series of questions and answers. Use this (instead of Paragraph) for better accessibility and easy rearranging.'
 id: q_a
 label: 'Q&A'
 icon_uuid: null
