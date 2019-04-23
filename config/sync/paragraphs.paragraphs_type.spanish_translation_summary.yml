@@ -1,7 +1,12 @@
 uuid: 67c233c6-37ea-409b-98e2-7427873ebfcc
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - paragraphs_browser
+third_party_settings:
+  paragraphs_browser:
+    description: 'For hiding a small amount of content behind a simple link; this is most commonly used for Spanish-language instructions on a page. <a href="https://design.va.gov/components/additional-info">View this in the style guide</a>.'
 id: spanish_translation_summary
 label: 'Additional information'
 icon_uuid: null

@@ -96,4 +96,11 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
  */
 function va_gov_backend_page_attachments(array &$attachments) {
   $attachments['#attached']['library'][] = 'va_gov_backend/alert_form';
+
+  // Add custom css for paragraph browser.
+  $is_admin = \Drupal::service('router.admin_context')->isAdminRoute();
+  if ($is_admin) {
+    $attachments['#attached']['library'][] = 'va_gov_backend/admin_styles';
+    return;
+  }
 }

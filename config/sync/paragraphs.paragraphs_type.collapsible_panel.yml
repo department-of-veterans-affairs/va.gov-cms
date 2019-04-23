@@ -1,7 +1,13 @@
 uuid: 9d342344-615c-4c0b-b4c8-991d7ec4d20c
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - paragraphs_browser
+third_party_settings:
+  paragraphs_browser:
+    description: 'For hiding content behind headers; they are collapsed by default. If most users will want to read all of the collapsed information, try Paragraph or Q&A instead. <a href="https://design.va.gov/components/accordions">View this in the style guide</a>.'
+    image_path: 'public://Screen Shot 2019-04-16 at 2.10.08 AM.png'
 id: collapsible_panel
 label: 'Accordion group'
 icon_uuid: null
