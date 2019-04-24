@@ -1,4 +1,4 @@
-uuid: 23547cde-1662-46c5-8e06-b5528cc6b45f
+uuid: b743ab2d-42ed-490b-9c1c-ccfa9eec03a4
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: rHI9jIKb5IG7bCviKjKD35F4qZoCOAve4aumgDIx9jM
+  default_config_hash: 1ja75r3J86qqWEn6mutSg7MGy4vRReHUxdBsOYiXLg0
 id: va_hub
 class: null
 field_plugin_method: null
@@ -17,15 +17,14 @@ label: 'Migrate all landing pages from VA.gov'
 source:
   plugin: metalsmith_source
   urls:
-    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/health-care/index.md'
-    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/disability/index.md'
-    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/education/index.md'
-    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/careers-employment/index.md'
-    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/pension/index.md'
-    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/housing-assistance/index.md'
-    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/life-insurance/index.md'
-    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/burials-memorials/index.md'
-    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/records/index.md'
+    - /disability/index.md
+    - /education/index.md
+    - /careers-employment/index.md
+    - /pension/index.md
+    - /housing-assistance/index.md
+    - /life-insurance/index.md
+    - /burials-memorials/index.md
+    - /records/index.md
   templates:
     - level2-index
   fields:

@@ -1,17 +1,26 @@
 id: va_new_hubs
-label: Migrate Remaining benefits pages from VA.gov
-migration_group: va_gov
+label: Migrate Remaining benefits detail pages from VA.gov
+migration_group: va_benefits
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
-    - "https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages/disability"
-    - "https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages/education"
-    - "https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages/careers-employment"
-    - "https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages/pension"
-    - "https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages/housing-assistance"
-    - "https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages/life-insurance"
-    - "https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages/burials-memorials"
-    - "https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages/records"
+    - "/disability"
+    - "/education"
+    - "/careers-employment"
+    - "/pension"
+    - "/housing-assistance"
+    - "/life-insurance"
+    - "/burials-memorials"
+    - "/records"
+    - "/va-payment-history.md"
+    - "/privacy.md"
+    - "/welcome-kit.md"
+    - "/sign-in-faq.md"
+    - "/veterans-portrait-project.md"
+    - "/decision-reviews"
+    - "/family-member-benefits.md"
+    - "/service-member-benefits.md"
+    - "/discharge-upgrade-instructions"
   templates:  # A list of Metalsmith templates to process (detail-page=basic page, level2-index=hub page)
     - detail-page
   fields:  # :ist any frontmatter fields you want to migrate.

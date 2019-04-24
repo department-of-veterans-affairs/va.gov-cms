@@ -4,15 +4,14 @@ migration_group: va_gov
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
-    - "https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/health-care/index.md"
-    - "https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/disability/index.md"
-    - "https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/education/index.md"
-    - "https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/careers-employment/index.md"
-    - "https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/pension/index.md"
-    - "https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/housing-assistance/index.md"
-    - "https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/life-insurance/index.md"
-    - "https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/burials-memorials/index.md"
-    - "https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/records/index.md"
+    - "/disability/index.md"
+    - "/education/index.md"
+    - "/careers-employment/index.md"
+    - "/pension/index.md"
+    - "/housing-assistance/index.md"
+    - "/life-insurance/index.md"
+    - "/burials-memorials/index.md"
+    - "/records/index.md"
   templates:  # A list of Metalsmith templates to process (detail-page=basic page, level2-index=hub page)
     - level2-index
   fields:  # List any frontmatter fields you want to migrate.
