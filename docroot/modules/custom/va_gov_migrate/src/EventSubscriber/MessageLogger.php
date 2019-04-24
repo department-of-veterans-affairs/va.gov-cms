@@ -24,11 +24,18 @@ class MessageLogger implements EventSubscriberInterface {
   protected static $rptFile;
 
   /**
-   * The name of the error.
+   * The name of the error file.
    *
    * @var string
    */
   protected static $errFile;
+
+  /**
+   * The name of the paragraph inventory file.
+   *
+   * @var string
+   */
+  protected static $paragraphFile;
 
   /**
    * The drupal state object.
@@ -146,14 +153,25 @@ class MessageLogger implements EventSubscriberInterface {
       return;
     }
 
-    self::$rptFile = "./migration_analysis_{$event->getMigration()->id()}.csv";
+    $rpt_path = parse_url(file_create_url("public://migration_reports"), PHP_URL_PATH);
+    // Strip leading slash.
+    $rpt_path = substr($rpt_path, 1);
+    if (!is_dir($rpt_path)) {
+      mkdir($rpt_path);
+    }
+    self::$rptFile = $rpt_path . "/migration_analysis_{$event->getMigration()->id()}.csv";
     $handle = fopen(self::$rptFile, "w");
     fwrite($handle, "Title,Hub,Field,Url,Github Url,Percent similarity, Char difference score\n");
     fclose($handle);
 
-    self::$errFile = "migrate_errors_{$event->getMigration()->id()}.csv";
+    self::$errFile = $rpt_path . "/migrate_errors_{$event->getMigration()->id()}.csv";
     $handle = fopen(self::$errFile, "w");
     fwrite($handle, "message,title,url,hub\n");
+    fclose($handle);
+
+    self::$paragraphFile = $rpt_path . "/paragraphs_{$event->getMigration()->id()}.csv";
+    $handle = fopen(self::$paragraphFile, "w");
+    fwrite($handle, "title,field,paragraph,hub,url\n");
     fclose($handle);
   }
 
