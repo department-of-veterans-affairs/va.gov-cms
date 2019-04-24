@@ -1,5 +1,5 @@
 id: va_benefits_records
-label: Migrate Health Care benefits pages from VA.gov
+label: Migrate Records benefits pages from VA.gov
 migration_group: va_benefits
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
@@ -141,13 +141,16 @@ source:
 
 process:  # assign the fields we collected above to Drupal fields.
   title: title
-  revision_timestamp: lastupdate
+  revision_timestamp:
+    -
+      plugin: default_value
+      source: lastupdate
+      default_value: 1
   changed:
     -
-      plugin: skip_on_empty
-      method: process
+      plugin: default_value
       source: lastupdate
-
+      default_value: 1
   field_intro_text: intro_text
   field_description: description
   field_plainlanguage_date:
