@@ -109,9 +109,26 @@ tooling:
     service: node
   sync-db:
     service: appserver
-    description: Sync sanitized PROD DB to local (up to 1 hour old, to get the latest DB, trigger http://jenkins.cms.va.gov/job/vagovcms_backup_rds/ which will also trigger http://jenkins.cms.va.gov/job/vagovcms_sanitize_rds/, when the latter is done then you will have the latest DB from PROD.)
-    cmd: /app/scripts/sync-db.sh && echo "Importing PROD database" && /app/docroot/vendor/bin/drush sql-drop --yes && `/app/docroot/vendor/bin/drush sql-connect` < /app/.dumps/db-latest.sql && echo "PROD database import complete"
+    description: Import a manually downloaded, santized PROD DB and run cache-clear, updatedb, config:import & cache-clear. You must manually download DB to .dumps/db-latest.sql.gz.
+    cmd: >
+      bash -c
+      '
+      echo "Download the latest sanitized PROD DB into .dumps/db-latest.sql.gz." &&
+      read -n1 -r -p "Press any key after you placed .dumps/db-latest.sql.gz..." &&
+      gunzip /app/.dumps/db-latest.sql.gz 2> /dev/null || true &&
+      /app/docroot/vendor/bin/drush sql-drop --yes &&
+      `/app/docroot/vendor/bin/drush sql-connect` < /app/.dumps/db-latest.sql &&
+      echo "PROD database import to LOCAL complete. Running post database import Drush commands: cache-clear, updatedb, config-import, cache-clear"
+      '
   sync-files:
     service: appserver
-    description: Sync sites/default/files directory from PROD to local (up to 1 hour old).
-    cmd: backup_url=$(curl -L https://s3-us-gov-west-1.amazonaws.com/vagov-cms-backups-pub/files/latest_url) && curl ${backup_url} -o ./.dumps/cmsapp_files.tgz && rm -fR /app/docroot/sites/default/files/* && tar -xzvf ./.dumps/cmsapp_files.tgz --directory /app/docroot/sites/default/files && echo "PROD file sync complete"
+    description: Import files from PROD. You must manually download files to /app/.dumps/cmsapp_files.tgz.
+    cmd: >
+      bash -c
+      '
+      echo "Download the latest files dump from PROD into /app/.dumps/cmsapp_files.tgz" &&
+      read -n1 -r -p "Press any key after you placed /app/.dumps/cmsapp_files.tgz..." &&
+      rm -fR /app/docroot/sites/default/files/* &&
+      tar -xzvf ./.dumps/cmsapp_files.tgz --directory /app/docroot/sites/default/files &&
+      echo "PROD file sync to LOCAL complete."
+      '
