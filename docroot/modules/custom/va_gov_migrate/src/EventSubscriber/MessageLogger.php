@@ -71,13 +71,25 @@ class MessageLogger implements EventSubscriberInterface {
       return;
     }
 
-    $url = $event->variables['@url'];
+    if (empty($event->variables['@url'])) {
+      $url = '';
+    }
+    else {
+      $url = $event->variables['@url'];
+    }
+
+    if (empty($event->variables['@title'])) {
+      $title = '';
+    }
+    else {
+      $title = $event->variables['@title'];
+    }
 
     if (array_key_exists('@diff', $event->variables) &&
       $event->type == 'Drupal\va_gov_migrate\ParagraphMigrator') {
       $handle = fopen(self::$rptFile, "a");
       fwrite($handle,
-        '"' . $event->variables['@title'] . '",' .
+        '"' . $title . '",' .
         self::getHub($url) . ',' .
         $event->variables['@field'] . ',' .
         $url . ',' .
@@ -92,7 +104,7 @@ class MessageLogger implements EventSubscriberInterface {
       $handle = fopen(self::$errFile, "a");
       fwrite($handle,
         '"' . $event->message . '","' .
-        $event->variables['@title'] . '",' .
+        $title . '",' .
         $url . ',' .
         self::getHub($url) . "\n");
       fclose($handle);
@@ -103,7 +115,7 @@ class MessageLogger implements EventSubscriberInterface {
       fwrite($handle,
         $event->variables['@paragraph'] . ',' .
         $event->variables['@field'] .
-        ',"' . $event->variables['@title'] . '",' .
+        ',"' . $title . '",' .
         $url . ',' .
         self::getHub($url) . "\n");
       fclose($handle);
