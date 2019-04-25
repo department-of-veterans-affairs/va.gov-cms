@@ -43,7 +43,6 @@ class PostRowSave implements EventSubscriberInterface {
       case 'va_healthcare':
       case 'va_benefits_records':
       case 'va_new_hubs':
-        $this->convertIntroTextToPlainText($event->getDestinationIdValues()[0]);
         $migrator->process('related_links', 'field_related_links');
         $migrator->process('featured_content', 'field_featured_content');
         $migrator->process(['body', 'nav_linkslist'], 'field_content_block');
@@ -56,7 +55,6 @@ class PostRowSave implements EventSubscriberInterface {
         break;
 
       case 'va_hub':
-        $this->convertIntroTextToPlainText($event->getDestinationIdValues()[0]);
         $migrator->process('related_links', 'field_related_links');
         $migrator->process('hub_links', 'field_spokes');
         $this->setNodeAlias($event);
@@ -71,28 +69,6 @@ class PostRowSave implements EventSubscriberInterface {
         $this->setMenuParent($event);
         break;
     }
-  }
-
-  /**
-   * Turns intro text content into plain text.
-   *
-   * Should be run on any migration that includes the Intro Text field.
-   *
-   * @todo Do this during the actual migration instead of on post row save.
-   *
-   * @param int $nid
-   *   The nid of the node to work on.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   */
-  public function convertIntroTextToPlainText($nid) {
-    $node = Node::load($nid);
-    $intro_text = $node->get('field_intro_text')->value;
-    $intro_text = preg_replace('/<\/p>\s+<p>/', PHP_EOL . PHP_EOL, $intro_text);
-    $intro_text = strip_tags($intro_text);
-    $node->set('field_intro_text', $intro_text);
-    $node->save();
-
   }
 
   /**
