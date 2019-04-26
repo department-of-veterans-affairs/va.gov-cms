@@ -84,8 +84,13 @@ abstract class QABase extends ParagraphType {
       }
       // If it's not, create one.
       if (empty($qa_section)) {
-        $qa_section = Paragraph::create(['type' => 'q_a_section', 'field_accordion_display' => static::isAccordion()]);
-        $qa_section->save();
+        $qa_section = Paragraph::create([
+          'type' => 'q_a_section',
+          'field_accordion_display' => static::isAccordion(),
+        ]);
+        if (!\Drupal::state()->get('va_gov_migrate.dont_migrate_paragraphs')) {
+          $qa_section->save();
+        }
         ParagraphType::attachParagraph($qa_section, $entity, $parent_field);
       }
       ParagraphType::attachParagraph($paragraph, $qa_section, 'field_questions');

@@ -148,6 +148,7 @@ class ParagraphMigrator {
 
     // Add any remaining wysiwyg in the buffer.
     $this->addWysiwyg($this->entity, $dest_field);
+
     $sim = similar_text(strip_tags($source), strip_tags($this->endingContent), $percent);
 
     $source_chars = $this->charMap($source);
@@ -339,7 +340,9 @@ class ParagraphMigrator {
           'type' => 'wysiwyg',
           'field_wysiwyg' => ParagraphType::toRichText($this->wysiwyg),
         ]);
-        $paragraph->save();
+        if (!\Drupal::state()->get('va_gov_migrate.dont_migrate_paragraphs')) {
+          $paragraph->save();
+        }
 
         ParagraphType::attachParagraph($paragraph, $entity, $parent_field);
 
