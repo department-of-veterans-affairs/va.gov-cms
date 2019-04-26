@@ -109,7 +109,9 @@ class ParagraphMigrator {
    * @throws \Drupal\migrate\MigrateException
    */
   public function process($source_field, $dest_field) {
-    $this->deleteExistingParagraphs($this->entity, $dest_field);
+    if (!\Drupal::state()->get('va_gov_migrate.dont_migrate_paragraphs')) {
+      $this->deleteExistingParagraphs($this->entity, $dest_field);
+    }
 
     $this->endingContent = '';
 
