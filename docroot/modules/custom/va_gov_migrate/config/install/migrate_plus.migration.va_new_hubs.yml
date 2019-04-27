@@ -40,25 +40,21 @@ source:
       modifier: basicCleanup  # Tell migration_tools to run some basic cleanup of the page it just read.
     fields:
       title:  # This is the recipe for a field called 'title'.
-        obtainer: ObtainTitle # Good for grabbing titles, but could just as well have used ObtainHtml here.
+        obtainer: ObtainTitle # Good for grabbing titles.
         jobs:
         -
           job: addSearch  # Run a job to search the DOM and assign the results to this field.
           method: pluckSelector # Also remove it from the DOM (so it doesn't show up in body, too).
           arguments:
           - 'h1'  # Look for h1 tags.
-          - 1     # Only grab the first one.
-          - innerHTML  # Get any html it contains.
       intro_text:
-        obtainer: ObtainHtml # Generic html obtainer.
+        obtainer: ObtainPlainTextWithNewLines
         jobs:
         -
-          job: 'addSearch'
-          method: 'pluckSelector'
+          job: addSearch
+          method: pluckSelector
           arguments:
             - '.va-introtext'
-            - '1'
-            - innerHTML
       featured_content:
         obtainer: ObtainHtml
         jobs:
@@ -66,17 +62,18 @@ source:
           job: 'addSearch'
           method: 'pluckSelector'
           arguments:
-            - '.feature'
-            - '1'
-            - innerHTML
+            - '.feature' # find something with class, 'feature'
+            - 1     # Grab the first one.
+            - innerHTML  # Get any html it contains.
       alert_title:
-        obtainer: ObtainHtml
+        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAlertBlockTitles"
         jobs:
         -
           job: 'addSearch'
-          method: 'pluckSelector'
+          method: 'arrayPluckSelector'
           arguments:
             - '.usa-alert-heading'
+            - innerHTML
       related_links:
         obtainer: ObtainHtml
         jobs:
@@ -160,6 +157,16 @@ source:
 
 process:  # assign the fields we collected above to Drupal fields.
   title: title
+  revision_timestamp:
+    -
+      plugin: default_value
+      source: lastupdate
+      default_value: 1
+  changed:
+    -
+      plugin: default_value
+      source: lastupdate
+      default_value: 1
   field_intro_text: intro_text
   field_description: description
   field_plainlanguage_date:
@@ -169,19 +176,9 @@ process:  # assign the fields we collected above to Drupal fields.
     source: plainlanguage_date
   field_alert:
     -
-      plugin: explode
-      source: alert_title
-      delimiter: '<br/>'
-    -
-      plugin: extract
-      index:
-        - 0
-    -
-      plugin: callback
-      callable: strip_tags
-    -
       plugin: migration_lookup
       migration: va_alert_block
+      source: alert_title
   field_administration:
     -
       plugin: default_value
@@ -190,7 +187,7 @@ process:  # assign the fields we collected above to Drupal fields.
     plugin: default_value
     default_value: published
   type:
-    plugin: default_value   # We want to asign the 'type' field a static value.
+    plugin: default_value   # We want to assign the 'type' field a static value.
     default_value: page # The value is 'page'.
 
 destination:
