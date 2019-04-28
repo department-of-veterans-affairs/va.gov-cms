@@ -27,8 +27,8 @@ j2 /templates/settings.lando.php.tpl > /app/docroot/sites/default/settings/setti
 /usr/bin/wait-for-it.sh -t 120 ${DRUPAL_DATABASE_HOST}:${DRUPAL_DATABASE_HOST_PORT}
 cd ${LANDO_WEBROOT}/vendor/bin/
 ./drush cache:rebuild
-./drush updatedb -y
-./drush config:import -y
+./drush updatedb --yes
+./drush config:import --yes
 ./drush cache:rebuild
 
 # Sync Drupal sites/default/files
