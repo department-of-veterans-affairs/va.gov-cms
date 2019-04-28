@@ -31,14 +31,12 @@ cd ${LANDO_WEBROOT}/vendor/bin/
 ./drush config:import -y
 ./drush cache:rebuild
 
-# Sync drupal site/default/files
+# Sync Drupal sites/default/files
 if [ "${SYNC_SITE_FILES}" = "yes" ] ; then
-  backup_url=$(curl -L https://s3-us-gov-west-1.amazonaws.com/${S3_BACKUP_BUCKET_PUB}/files/latest_url)
-  curl ${backup_url} -o /tmp/cmsapp_files.tgz
-  mount -a
+  mount --all
   [ -d /app/docroot/sites/default/files ] && echo "Site files directory exists, Not creating" || mkdir /app/docroot/sites/default/files
-  rm -fR /app/docroot/sites/default/files/*
-  tar -xzvf /tmp/cmsapp_files.tgz --directory /app/docroot/sites/default/files
+  rm --force --recursive /app/docroot/sites/default/files/*
+  tar -xzvf /app/.dumps/cms-app-files-latest.tgz --directory /app/docroot/sites/default/files
 else
   echo "Skipping site default files sync" ;
 fi
