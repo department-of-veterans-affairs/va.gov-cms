@@ -69,6 +69,10 @@ class PostRowSave implements EventSubscriberInterface {
         $this->setMenuParent($event);
         break;
     }
+
+    // va_gov_migrate.anomaly is an array of reported anomalies so we don't
+    // report the same anomaly twice for the same page.
+    \Drupal::state()->set('va_gov_migrate.anomaly', []);
   }
 
   /**
