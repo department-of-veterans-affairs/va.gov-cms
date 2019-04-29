@@ -48,13 +48,15 @@ source:
           arguments:
           - 'h1'  # Look for h1 tags.
       intro_text:
-        obtainer: ObtainPlainTextWithNewLines
+        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAndTestPlainTextWithNewLines"
         jobs:
         -
           job: addSearch
-          method: pluckSelector
+          method: pluckSelectorAndTest
           arguments:
             - '.va-introtext'
+            - '@title'
+            - '@url'
       featured_content:
         obtainer: ObtainHtml
         jobs:
@@ -70,10 +72,11 @@ source:
         jobs:
         -
           job: 'addSearch'
-          method: 'arrayPluckSelector'
+          method: 'pluckSelectorAndTest'
           arguments:
             - '.usa-alert-heading'
-            - innerHTML
+            - '@title'
+            - '@url'
       related_links:
         obtainer: ObtainHtml
         jobs:
