@@ -27,18 +27,16 @@ j2 /templates/settings.lando.php.tpl > /app/docroot/sites/default/settings/setti
 /usr/bin/wait-for-it.sh -t 120 ${DRUPAL_DATABASE_HOST}:${DRUPAL_DATABASE_HOST_PORT}
 cd ${LANDO_WEBROOT}/vendor/bin/
 ./drush cache:rebuild
-./drush updatedb -y
-./drush config:import -y
+./drush updatedb --yes
+./drush config:import --yes
 ./drush cache:rebuild
 
-# Sync drupal site/default/files
+# Sync Drupal sites/default/files
 if [ "${SYNC_SITE_FILES}" = "yes" ] ; then
-  backup_url=$(curl -L https://s3-us-gov-west-1.amazonaws.com/${S3_BACKUP_BUCKET_PUB}/files/latest_url)
-  curl ${backup_url} -o /tmp/cmsapp_files.tgz
-  mount -a
+  mount --all
   [ -d /app/docroot/sites/default/files ] && echo "Site files directory exists, Not creating" || mkdir /app/docroot/sites/default/files
-  rm -fR /app/docroot/sites/default/files/*
-  tar -xzvf /tmp/cmsapp_files.tgz --directory /app/docroot/sites/default/files
+  rm --force --recursive /app/docroot/sites/default/files/*
+  tar -xzvf /app/.dumps/cms-app-files-latest.tgz --directory /app/docroot/sites/default/files
 else
   echo "Skipping site default files sync" ;
 fi
