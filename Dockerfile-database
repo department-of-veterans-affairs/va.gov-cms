@@ -6,7 +6,8 @@ COPY docker/config/services/config/drupal8/mysql /etc/mysql/conf.d
 COPY docker/config/engine/scripts/lando-entrypoint.sh /lando-entrypoint.sh
 COPY . /app
 COPY config /lando
-RUN curl -Lo /docker-entrypoint-initdb.d/db-latest.sql.gz https://s3-us-gov-west-1.amazonaws.com/vagov-cms-backups-pub/mysql/db-latest.sql.gz
+# cms-db-latest.sql.gz is put in .dumps by an Ansible task
+COPY .dumps/cms-db-latest.sql.gz /docker-entrypoint-initdb.d/cms-db-latest.sql.gz
 COPY docker/config/engine/scripts/user-perms.sh /helpers/user-perms.sh
 COPY docker/config/engine/scripts/add-cert.sh /scripts/add-cert.sh
 COPY docker/config/engine/scripts/load-keys.sh /scripts/load-keys.sh
