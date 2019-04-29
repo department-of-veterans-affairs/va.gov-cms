@@ -58,14 +58,15 @@ source:
             - '@title'
             - '@url'
       featured_content:
-        obtainer: ObtainHtml
+        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAndTestFeature"
         jobs:
         -
-          job: 'addSearch'
-          method: 'pluckSelector'
+          job: addSearch
+          method: pluckSelectorAndTest
           arguments:
             - '.feature' # find something with class, 'feature'
-            - 1     # Grab the first one.
+            - '@title'
+            - '@url'
             - innerHTML  # Get any html it contains.
       alert_title:
         obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAlertBlockTitles"
