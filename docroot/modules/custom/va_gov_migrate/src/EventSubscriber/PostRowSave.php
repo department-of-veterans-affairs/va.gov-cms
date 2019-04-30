@@ -56,8 +56,10 @@ class PostRowSave implements EventSubscriberInterface {
         break;
 
       case 'va_hub':
+      case 'va_new_landing_pages':
         $migrator->process('related_links', 'field_related_links');
         $migrator->process('hub_links', 'field_spokes');
+        $this->setChangedDate($event);
         $this->setNodeAlias($event);
         break;
 
