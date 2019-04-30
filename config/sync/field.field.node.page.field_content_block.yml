@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_content_block
     - node.type.page
+    - paragraphs.paragraphs_type.alert
     - paragraphs.paragraphs_type.collapsible_panel
     - paragraphs.paragraphs_type.list_of_link_teasers
     - paragraphs.paragraphs_type.process
@@ -36,50 +37,60 @@ settings:
       collapsible_panel: collapsible_panel
       react_widget: react_widget
       list_of_link_teasers: list_of_link_teasers
+      alert: alert
     target_bundles_drag_drop:
       wysiwyg:
         enabled: true
-        weight: -31
+        weight: -37
       q_a_section:
         enabled: true
-        weight: -30
+        weight: -36
       process:
         enabled: true
-        weight: -29
+        weight: -35
       spanish_translation_summary:
         enabled: true
-        weight: -28
+        weight: -34
       collapsible_panel:
         enabled: true
-        weight: -27
+        weight: -33
       react_widget:
         enabled: true
-        weight: -26
-      collapsible_panel_item:
-        weight: -25
-        enabled: false
-      link_teaser:
-        weight: -24
-        enabled: false
+        weight: -32
       list_of_link_teasers:
         enabled: true
-        weight: -23
-      address:
-        weight: -22
-        enabled: false
+        weight: -31
       alert:
-        weight: -21
+        enabled: true
+        weight: -30
+      collapsible_panel_item:
+        weight: -29
+        enabled: false
+      link_teaser:
+        weight: -28
+        enabled: false
+      address:
+        weight: -27
         enabled: false
       expandable_text:
-        weight: -20
+        weight: -26
         enabled: false
       starred_horizontal_rule:
-        weight: -19
+        weight: -25
         enabled: false
       q_a:
-        weight: -18
+        weight: -24
         enabled: false
       number_callout:
-        weight: -17
+        weight: -23
+        enabled: false
+      health_care_local_facility_servi:
+        weight: -22
+        enabled: false
+      local_facility_health_service:
+        weight: -21
+        enabled: false
+      media:
+        weight: -20
         enabled: false
 field_type: entity_reference_revisions

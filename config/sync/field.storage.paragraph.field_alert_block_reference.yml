@@ -1,17 +1,16 @@
-uuid: 9fc15c7c-a9cc-47d0-bf9a-ba956b013547
+uuid: e7b725a9-924d-4f3f-ad64-c77ef73cc78e
 langcode: en
 status: true
 dependencies:
   module:
+    - block_content
     - paragraphs
-id: paragraph.field_alert_trigger_text
-field_name: field_alert_trigger_text
+id: paragraph.field_alert_block_reference
+field_name: field_alert_block_reference
 entity_type: paragraph
-type: string
+type: entity_reference
 settings:
-  max_length: 255
-  is_ascii: false
-  case_sensitive: false
+  target_type: block_content
 module: core
 locked: false
 cardinality: 1
