@@ -43,6 +43,13 @@ class ParagraphMigrator {
   public $row;
 
   /**
+   * The content to compare with the starting content.
+   *
+   * @var string
+   */
+  public $endingContent;
+
+  /**
    * ParagraphImporter constructor.
    *
    * Loads dest entity and creates objects from class files in Paragraph/.
@@ -54,7 +61,10 @@ class ParagraphMigrator {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws MigrateException
    */
-  public function __construct(MigratePostRowSaveEvent $event) {
+  public function __construct(MigratePostRowSaveEvent $event = NULL) {
+    if (empty($event)) {
+      return;
+    }
     $ids = $event->getDestinationIdValues();
     $dest_config = $event->getMigration()->getDestinationConfiguration();
     $dest_plugin = $dest_config['plugin'];
@@ -68,6 +78,8 @@ class ParagraphMigrator {
     }
 
     $this->row = $event->getRow();
+
+    $this->endingContent = '';
 
     $path = 'modules/custom/va_gov_migrate/src/Paragraph/';
     $paragraph_class_files = glob($path . '*.php');
@@ -98,6 +110,8 @@ class ParagraphMigrator {
    */
   public function process($source_field, $dest_field) {
     $this->deleteExistingParagraphs($this->entity, $dest_field);
+
+    $this->endingContent = '';
 
     if (is_array($source_field)) {
       $source = '';
@@ -132,7 +146,54 @@ class ParagraphMigrator {
 
     // Add any remaining wysiwyg in the buffer.
     $this->addWysiwyg($this->entity, $dest_field);
+    $sim = similar_text(strip_tags($source), strip_tags($this->endingContent), $percent);
 
+    $source_chars = $this->charMap($source);
+    $ending_chars = $this->charMap($this->endingContent);
+    $diff = count(array_diff_assoc($source_chars, $ending_chars));
+
+    if ($diff == 0) {
+      $level = Message::DEBUG;
+    }
+    else {
+      $diff = 1;
+      $level = Message::ERROR;
+    }
+    Message::make("@title, @url, @field, @resulted with a similarity percentage of @percent",
+      [
+        "@title" => $this->row->getDestinationProperty('title'),
+        "@url" => reset($this->row->getSourceIdValues()),
+        "@field" => $dest_field,
+        "@resulted" => $diff == 1 ? 'failed' : 'passed',
+        "@diff" => $diff,
+        "@percent" => $percent,
+      ], $level
+      );
+  }
+
+  /**
+   * Generate array with number of each alphanumeric in string.
+   *
+   * @param string $source_string
+   *   The string to analyze.
+   *
+   * @return array
+   *   Array of character counts.
+   */
+  protected function charMap($source_string) {
+    $chars = str_split(strip_tags($source_string));
+    $result = [];
+    foreach ($chars as $char) {
+      if (ctype_alnum($char)) {
+        if (isset($result[$char])) {
+          $result[$char]++;
+        }
+        else {
+          $result[$char] = 1;
+        }
+      }
+    }
+    return $result;
   }
 
   /**
@@ -184,9 +245,21 @@ class ParagraphMigrator {
       }
       $found_paragraph = FALSE;
 
+      $num_paragraphs = 0;
+
       foreach ($this->paragraphClasses as $paragraphClass) {
-        $found_paragraph = $paragraphClass->process($element, $parent_entity, $parent_field, $allowed_paragraphs);
+        $found_paragraph = $paragraphClass->process($element, $parent_entity, $parent_field, $allowed_paragraphs['allowed']);
         if ($found_paragraph) {
+          $num_paragraphs++;
+          if ($allowed_paragraphs['max'] != -1 && $num_paragraphs > $allowed_paragraphs['max']) {
+            Message::make("Too many paragraphs in @title on @entity, field, @field: Maximum: @max, found: @num", [
+              '@title' => $this->row->getDestinationProperty('title'),
+              '@entity' => $parent_entity->id(),
+              '@field' => $parent_field,
+              '@max' => $allowed_paragraphs['max'],
+              '@num' => $num_paragraphs,
+            ], Message::ERROR);
+          }
           break;
         }
       }
@@ -203,6 +276,7 @@ class ParagraphMigrator {
               Message::make('Unexpected content in "last-updated" div in @file',
                 ['@file' => $parent_entity->url()], Message::WARNING);
             }
+            $this->endingContent .= $element->html();
             continue;
           }
 
@@ -251,7 +325,7 @@ class ParagraphMigrator {
   public function addWysiwyg(Entity &$entity, $parent_field) {
     if (self::hasContent($this->wysiwyg)) {
       try {
-        $allowed_paragraphs = self::getAllowedParagraphs($entity, $parent_field);
+        list('allowed' => $allowed_paragraphs) = self::getAllowedParagraphs($entity, $parent_field);
       }
       catch (MigrateException $e) {
         Message::make('Could not add paragraphs to @field. ' . $e->getMessage(), ['@field' => $parent_field], Message::ERROR);
@@ -266,6 +340,8 @@ class ParagraphMigrator {
         $paragraph->save();
 
         ParagraphType::attachParagraph($paragraph, $entity, $parent_field);
+
+        $this->endingContent .= $this->wysiwyg;
       }
       else {
         Message::make('Lost content for field @field on @type @node. Wysiwyg paragraphs not allowed. Content: "@wysiwyg"',
@@ -343,17 +419,22 @@ class ParagraphMigrator {
    *   The field to check.
    *
    * @return array
-   *   An array of paragraph machine names.
+   *   An array consisting of array of paragraph machine names and max allowed.
    *
    * @throws \Drupal\migrate\MigrateException
    */
   public static function getAllowedParagraphs(Entity $entity, $field) {
     $field_defs = \Drupal::service('entity_field.manager')->getFieldDefinitions($entity->getEntityTypeId(), $entity->bundle());
 
+    /** @var \Drupal\field\Entity\FieldConfig $field_config */
+    $field_config = $field_defs[$field];
+    $settings = $field_config->getSettings();
+    $max_count = $field_config->get('fieldStorage')->get('cardinality');
+
     if (empty($field_defs[$field])) {
       throw new MigrateException("$field not found on {$entity->bundle()}");
     }
-    $settings = $field_defs[$field]->getSettings();
+    $settings = $field_config->getSettings();
     if ($settings['target_type'] != "paragraph") {
       throw new MigrateException("{$entity->getEntityTypeId()} $field is not a paragraph.");
     }
@@ -371,7 +452,10 @@ class ParagraphMigrator {
       $allowed_paragraphs = $selected_paragraphs;
     }
 
-    return $allowed_paragraphs;
+    return [
+      'allowed' => $allowed_paragraphs,
+      'max' => $max_count,
+    ];
   }
 
   /**

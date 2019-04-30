@@ -1,0 +1,7 @@
+va_gov_migrate.config:
+  path: '/admin/config/structure/va_gov_migrate/config'
+  defaults:
+    _form: '\Drupal\va_gov_migrate\Form\MigrateConfigForm'
+    _title: 'Migration Config'
+  requirements:
+    _permission: 'administer migrations'

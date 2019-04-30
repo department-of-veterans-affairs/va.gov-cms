@@ -6,11 +6,12 @@ dependencies:
     - field.storage.node.field_office
     - node.type.health_care_region_detail_page
     - node.type.health_care_region_page
+    - node.type.office
 id: node.health_care_region_detail_page.field_office
 field_name: field_office
 entity_type: node
 bundle: health_care_region_detail_page
-label: 'Related health care region'
+label: 'Related office or health care system'
 description: ''
 required: true
 translatable: true
@@ -21,9 +22,10 @@ settings:
   handler_settings:
     target_bundles:
       health_care_region_page: health_care_region_page
+      office: office
     sort:
       field: title
       direction: ASC
-    auto_create: false
-    auto_create_bundle: ''
+    auto_create: 0
+    auto_create_bundle: health_care_region_page
 field_type: entity_reference

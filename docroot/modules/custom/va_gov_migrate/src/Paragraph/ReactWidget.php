@@ -13,6 +13,13 @@ use QueryPath\DOMQuery;
 class ReactWidget extends ParagraphType {
 
   /**
+   * Holds any text content from inside a react widget to report as unmigrated.
+   *
+   * @var string
+   */
+  protected $reactContent;
+
+  /**
    * {@inheritdoc}
    */
   protected function getParagraphName() {
@@ -23,7 +30,13 @@ class ReactWidget extends ParagraphType {
    * {@inheritdoc}
    */
   protected function isParagraph(DOMQuery $query_path) {
-    return $query_path->attr('id') == 'react-applicationStatus' || $query_path->hasAttr('data-app-id');
+    if ($query_path->attr('id') == 'react-applicationStatus' || $query_path->hasAttr('data-app-id')) {
+      $this->reactContent = $query_path->text();
+      return TRUE;
+    }
+
+    $this->reactContent = '';
+    return FALSE;
   }
 
   /**
@@ -84,6 +97,22 @@ class ReactWidget extends ParagraphType {
       'field_widget_type' => $type,
     ];
 
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function paragraphContent(array $paragraph_fields) {
+    // React paragraphs don't add any content.
+    return '';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function unmigratedContent() {
+    // Any content added by react widgets should be ignored.
+    return $this->reactContent;
   }
 
 }

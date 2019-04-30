@@ -107,4 +107,11 @@ class LinksListItem extends ParagraphType {
     ];
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  protected function paragraphContent(array $paragraph_fields) {
+    return $paragraph_fields['field_link']['title'] . $paragraph_fields['field_link_summary'];
+  }
+
 }

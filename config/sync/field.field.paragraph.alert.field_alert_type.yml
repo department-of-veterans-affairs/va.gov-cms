@@ -12,12 +12,12 @@ field_name: field_alert_type
 entity_type: paragraph
 bundle: alert
 label: 'Alert Type'
-description: ''
-required: true
+description: "<ul>\r\n<li>Use <a href=\"https://design.va.gov/components/alertboxes#warning-status\" target=\"_blank\">warning alert</a> only when there is serious negative consequence if the user does not do something or know something communicated in the alert.</li>\r\n<li>Use <a href=\"https://design.va.gov/components/alertboxes#information-status\" target=\"_blank\">informational alert</a> (the default alert type) when it’s not a warning about a consequence, but warrants more attention than a regular note in body copy. (Most situations can be addressed by regular body copy as a bolded Note text.)</li>\r\n</ul>"
+required: false
 translatable: false
 default_value:
   -
-    value: success
+    value: information
 default_value_callback: ''
 settings: {  }
 field_type: list_string

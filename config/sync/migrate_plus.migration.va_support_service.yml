@@ -1,4 +1,4 @@
-uuid: 1801a328-aad8-4fd7-8d6c-36d3350c6a90
+uuid: a9a29099-20e1-4823-8bd2-ebec581a25a8
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: 8x7Xbdue6zlJegfba1jkOKhxHvBLJKGDz9QH8ZiiUpk
+  default_config_hash: hGruvyo7qgO3YgatfNUjHQ6G8ix-60Aah5f8rFnSug8
 id: va_support_service
 class: null
 field_plugin_method: null
@@ -17,10 +17,9 @@ label: 'Migrate support services from VA.gov'
 source:
   plugin: support_service
   urls:
-    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/pension/index.md'
-    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/burials-memorials/index.md'
-    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/health-care/index.md'
-    - 'https://github.com/department-of-veterans-affairs/vagov-content/blob/master/pages/records/index.md'
+    - /pension/index.md
+    - /burials-memorials/index.md
+    - /records/index.md
   fields:
     - service_name
     - service_number
