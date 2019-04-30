@@ -57,26 +57,40 @@ abstract class ParagraphType {
             $title = $entity->get('title')->value;
           }
 
-          Message::make('@class not allowed on @type in field @field @node',
+          Message::make('@class not allowed on @type in field @field on @title @url',
             [
               '@class' => $this->getParagraphName(),
               '@type' => $entity->bundle(),
               '@field' => $parent_field,
-              '@node' => empty($title) ? html_entity_decode(substr($query_path->html(), 0, 150)) : "on $title",
+              '@title' => self::$migrator->row->getSourceProperty('title'),
+              '@url' => self::$migrator->row->getSourceIdValues()['url'],
             ],
-            Message::ERROR
+            Message::WARNING
           );
           return FALSE;
         }
 
+        Message::make('@paragraph added to @title @url',
+          [
+            '@paragraph' => $this->getParagraphName(),
+            '@title' => self::$migrator->row->getSourceProperty('title'),
+            '@url' => self::$migrator->row->getSourceIdValues()['url'],
+            '@field' => $parent_field,
+          ]);
+
         self::$migrator->addWysiwyg($entity, $parent_field);
 
-        $paragraph = Paragraph::create(['type' => $this->getParagraphName()] + $this->getFieldValues($query_path));
+        $paragraph_fields = $this->getFieldValues($query_path);
+
+        $paragraph = Paragraph::create(['type' => $this->getParagraphName()] + $paragraph_fields);
         $paragraph->save();
 
         static::attachParagraph($paragraph, $entity, $parent_field);
 
         $this->addChildParagraphs($paragraph, $query_path);
+
+        self::$migrator->endingContent .= $this->paragraphContent($paragraph_fields);
+        self::$migrator->endingContent .= $this->unmigratedContent();
 
         return TRUE;
       }
@@ -85,10 +99,10 @@ abstract class ParagraphType {
       }
     }
     catch (\Exception $e) {
-      Message::make("Migration failed for paragraph on @parent @url: @message.",
+      Message::make("Migration failed for paragraph on @title @parent: @message.",
         [
+          '@title' => self::$migrator->row->getSourceProperty('title'),
           '@parent' => $entity->bundle(),
-          '@url' => $entity->url(),
           '@message' => $e->getMessage(),
         ]
       );
@@ -217,6 +231,39 @@ abstract class ParagraphType {
     if (!empty($this->getParagraphField()) && count($query_path->children())) {
       self::$migrator->addParagraphs($query_path->children(), $paragraph, $this->getParagraphField());
     }
+  }
+
+  /**
+   * Returns paragraph content for comparison with source content.
+   *
+   * @param array $paragraph_fields
+   *   An array of fields to be added to drupal paragraphs.
+   *
+   * @return string
+   *   The content.
+   */
+  protected function paragraphContent(array $paragraph_fields) {
+    $paragraph_content = '';
+
+    foreach ($paragraph_fields as $name => $contents) {
+      if (is_array($contents) && isset($contents['value'])) {
+        $paragraph_content .= $contents['value'];
+      }
+      else {
+        $paragraph_content .= $contents;
+      }
+    }
+    return $paragraph_content;
+  }
+
+  /**
+   * Returns content that shouldn't be migrated to drupal.
+   *
+   * @return string
+   *   The content.
+   */
+  protected function unmigratedContent() {
+    return '';
   }
 
   /**

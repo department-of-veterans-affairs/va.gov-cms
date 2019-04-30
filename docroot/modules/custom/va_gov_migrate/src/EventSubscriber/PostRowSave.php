@@ -42,6 +42,7 @@ class PostRowSave implements EventSubscriberInterface {
     switch ($event->getMigration()->id()) {
       case 'va_healthcare':
       case 'va_benefits_records':
+      case 'va_new_hubs':
         $this->convertIntroTextToPlainText($event->getDestinationIdValues()[0]);
         $migrator->process('related_links', 'field_related_links');
         $migrator->process('featured_content', 'field_featured_content');

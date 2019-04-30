@@ -1,10 +1,26 @@
-id: va_benefits_records
-label: Migrate Records benefits pages from VA.gov
+id: va_new_hubs
+label: Migrate Remaining benefits detail pages from VA.gov
 migration_group: va_benefits
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
+    - "/disability"
+    - "/education"
+    - "/careers-employment"
+    - "/pension"
+    - "/housing-assistance"
+    - "/life-insurance"
+    - "/burials-memorials"
     - "/records"
+    - "/va-payment-history.md"
+    - "/privacy.md"
+    - "/welcome-kit.md"
+    - "/sign-in-faq.md"
+    - "/veterans-portrait-project.md"
+    - "/decision-reviews"
+    - "/family-member-benefits.md"
+    - "/service-member-benefits.md"
+    - "/discharge-upgrade-instructions"
   templates:  # A list of Metalsmith templates to process (detail-page=basic page, level2-index=hub page)
     - detail-page
   fields:  # :ist any frontmatter fields you want to migrate.
@@ -24,21 +40,25 @@ source:
       modifier: basicCleanup  # Tell migration_tools to run some basic cleanup of the page it just read.
     fields:
       title:  # This is the recipe for a field called 'title'.
-        obtainer: ObtainTitle # Good for grabbing titles.
+        obtainer: ObtainTitle # Good for grabbing titles, but could just as well have used ObtainHtml here.
         jobs:
         -
           job: addSearch  # Run a job to search the DOM and assign the results to this field.
           method: pluckSelector # Also remove it from the DOM (so it doesn't show up in body, too).
           arguments:
           - 'h1'  # Look for h1 tags.
+          - 1     # Only grab the first one.
+          - innerHTML  # Get any html it contains.
       intro_text:
-        obtainer: ObtainPlainTextWithNewLines
+        obtainer: ObtainHtml # Generic html obtainer.
         jobs:
-          -
-            job: addSearch
-            method: pluckSelector
-            arguments:
-              - '.va-introtext'
+        -
+          job: 'addSearch'
+          method: 'pluckSelector'
+          arguments:
+            - '.va-introtext'
+            - '1'
+            - innerHTML
       featured_content:
         obtainer: ObtainHtml
         jobs:
@@ -46,18 +66,17 @@ source:
           job: 'addSearch'
           method: 'pluckSelector'
           arguments:
-            - '.feature' # find something with class, 'feature'
-            - 1     # Grab the first one.
-            - innerHTML  # Get any html it contains.
+            - '.feature'
+            - '1'
+            - innerHTML
       alert_title:
-        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAlertBlockTitles"
+        obtainer: ObtainHtml
         jobs:
         -
           job: 'addSearch'
-          method: 'arrayPluckSelector'
+          method: 'pluckSelector'
           arguments:
             - '.usa-alert-heading'
-            - innerHTML
       related_links:
         obtainer: ObtainHtml
         jobs:
@@ -141,16 +160,6 @@ source:
 
 process:  # assign the fields we collected above to Drupal fields.
   title: title
-  revision_timestamp:
-    -
-      plugin: default_value
-      source: lastupdate
-      default_value: 1
-  changed:
-    -
-      plugin: default_value
-      source: lastupdate
-      default_value: 1
   field_intro_text: intro_text
   field_description: description
   field_plainlanguage_date:
@@ -160,9 +169,19 @@ process:  # assign the fields we collected above to Drupal fields.
     source: plainlanguage_date
   field_alert:
     -
+      plugin: explode
+      source: alert_title
+      delimiter: '<br/>'
+    -
+      plugin: extract
+      index:
+        - 0
+    -
+      plugin: callback
+      callable: strip_tags
+    -
       plugin: migration_lookup
       migration: va_alert_block
-      source: alert_title
   field_administration:
     -
       plugin: default_value
@@ -171,7 +190,7 @@ process:  # assign the fields we collected above to Drupal fields.
     plugin: default_value
     default_value: published
   type:
-    plugin: default_value   # We want to assign the 'type' field a static value.
+    plugin: default_value   # We want to asign the 'type' field a static value.
     default_value: page # The value is 'page'.
 
 destination:
