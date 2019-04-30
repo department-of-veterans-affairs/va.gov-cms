@@ -49,6 +49,7 @@ class AnomalyMessage {
    * @throws \Drupal\migrate\MigrateException
    */
   public static function make($anomalytype, $page_title, $page_url) {
+    // 'va_gov_migrate.anomaly' is reset to empty in PostRowSave.
     $anomaly = \Drupal::state()->get('va_gov_migrate.anomaly');
     if (empty($anomaly)) {
       $anomaly = [];

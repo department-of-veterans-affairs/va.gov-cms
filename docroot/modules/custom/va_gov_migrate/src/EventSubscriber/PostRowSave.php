@@ -43,6 +43,7 @@ class PostRowSave implements EventSubscriberInterface {
       case 'va_healthcare':
       case 'va_benefits_records':
       case 'va_new_hubs':
+      case 'va_new_pages':
         $migrator->process('related_links', 'field_related_links');
         $migrator->process('featured_content', 'field_featured_content');
         $migrator->process(['body', 'nav_linkslist'], 'field_content_block');
@@ -72,7 +73,7 @@ class PostRowSave implements EventSubscriberInterface {
 
     // va_gov_migrate.anomaly is an array of reported anomalies so we don't
     // report the same anomaly twice for the same page.
-    \Drupal::state()->set('va_gov_migrate.anomaly', []);
+    \Drupal::state()->delete('va_gov_migrate.anomaly');
   }
 
   /**
