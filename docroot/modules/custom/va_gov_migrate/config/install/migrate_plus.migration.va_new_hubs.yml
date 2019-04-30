@@ -1,6 +1,6 @@
 id: va_new_hubs
 label: Migrate Remaining benefits detail pages from VA.gov
-migration_group: va_benefits
+migration_group: va_new_benefits
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
@@ -89,14 +89,15 @@ source:
             - '1'
             - innerHTML
       body:
-        obtainer: ObtainBody
+        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAndTestBody"
         jobs:
         -
           job: 'addSearch'
-          method: 'pluckSelector'
+          method: 'pluckSelectorAndTest'
           arguments:
           - 'article'
-          - '1'
+          - '@title'
+          - '@url'
           - innerHTML
       nav_linkslist:
         obtainer: ObtainHtml
