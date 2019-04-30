@@ -5,6 +5,36 @@ The format is based on [git-relese-notes](https://github.com/ariatemplates/git-r
 
 ## [Unreleased]
 
+* __Nothing unreleased__
+
+## 2019-04-30.1 Sprint 13 mid-sprint release 1. 
+
+
+* __Merge pull request #289 from ElijahLynn/VAGOV-3079-fix-backup-public-private-s3-bucket-master__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 29 Apr 2019 14:18:07 -0600
+    
+    VAGOV-3079 fix backup public private s3 bucket master
+
+* __Merge branch &#39;VAGOV-3079-fix-backup-public-private-s3-bucket&#39; into VAGOV-3079-fix-backup-public-private-s3-bucket-master__
+
+    [Elijah Lynn](mailto:elijah.lynn@agile6.com) - Mon, 29 Apr 2019 13:13:36 -0700
+        
+
+* __Merge remote-tracking branch &#39;origin/develop&#39; into VAGOV-3079-fix-backup-public-private-s3-bucket__
+
+    [Elijah Lynn](mailto:elijah.lynn@agile6.com) - Mon, 29 Apr 2019 09:21:41 -0700
+    
+   
+* __Merge pull request #285 from ElijahLynn/VAGOV-3079-temp-fix-sync-db-files-public-private-s3-bucket__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 25 Apr 2019 18:40:02 -0600
+     
+    VAGOV-3079 Fix sync-db, sync-files commands to use manually downloaded files
+    temporarily.
+
+
+
 ## 2019-04-23.1 Sprint 12 final release 1. 
 
 
@@ -143,4 +173,4 @@ The format is based on [git-relese-notes](https://github.com/ariatemplates/git-r
     
     VAGOV-2623: Remove password_policy.
 
-
+## END OF FILE
