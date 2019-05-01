@@ -257,6 +257,7 @@ class ParagraphMigrator {
           if ($allowed_paragraphs['max'] != -1 && $num_paragraphs > $allowed_paragraphs['max']) {
             Message::make("Too many paragraphs in @title on @entity, field, @field: Maximum: @max, found: @num", [
               '@title' => $this->row->getDestinationProperty('title'),
+              '@url' => $this->row->getSourceIdValues()['url'],
               '@entity' => $parent_entity->id(),
               '@field' => $parent_field,
               '@max' => $allowed_paragraphs['max'],
@@ -354,7 +355,8 @@ class ParagraphMigrator {
             '@wysiwyg' => $this->wysiwyg,
             '@type' => $entity->bundle(),
             '@field' => $parent_field,
-            '@node' => empty($title) ? "" : "on $title",
+            '@node' => $this->row->getSourceProperty('title'),
+            '@url' => $this->row->getSourceIdValues()['url'],
           ],
           Message::ERROR
         );
@@ -395,9 +397,9 @@ class ParagraphMigrator {
       // has been addressed, but let's leave this for now, just to make sure.
       if (str_replace(' ', '', $element->text()) !=
         str_replace(' ', '', $element->contents()->text())) {
-        Message::make('Text wrapped only in @tag#@id in @file',
+        Message::make('Text wrapped only in @tag#@id in @title',
           [
-            '@file' => $this->row->getSourceProperty('title'),
+            '@title' => $this->row->getSourceProperty('title'),
             '@tag' => $element->tag(),
             '@id' => $element->attr('id'),
           ],

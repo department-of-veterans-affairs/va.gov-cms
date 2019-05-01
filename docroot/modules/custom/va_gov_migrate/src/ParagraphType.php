@@ -105,6 +105,7 @@ abstract class ParagraphType {
       Message::make("Migration failed for paragraph on @title @parent: @message.",
         [
           '@title' => self::$migrator->row->getSourceProperty('title'),
+          '@url' => self::$migrator->row->getSourceIdValues()['url'],
           '@parent' => $entity->bundle(),
           '@message' => $e->getMessage(),
         ]
