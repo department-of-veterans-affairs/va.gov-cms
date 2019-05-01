@@ -92,6 +92,10 @@ class MessageLogger implements EventSubscriberInterface {
       $title = $event->variables['@title'];
     }
 
+    if (empty(self::$rptFile)) {
+      return;
+    }
+
     if (array_key_exists('@diff', $event->variables) &&
       $event->type == 'Drupal\va_gov_migrate\ParagraphMigrator') {
       $handle = fopen(self::$rptFile, "a");
@@ -153,11 +157,15 @@ class MessageLogger implements EventSubscriberInterface {
     if ($url_parts['host'] == 'www.va.gov') {
       $path_parts = explode('/', trim($url_parts['path'], '/'));
       if (count($path_parts) > 1) {
+        if ($path_parts[0] == 'disability') {
+          if ($path_parts[1] == 'eligibility') {
+            return 'disability - eligibility';
+          }
+          return 'disability - everything else';
+        }
         return $path_parts[0];
       }
-      else {
-        return 'root';
-      }
+      return 'root';
     }
     return '';
   }
