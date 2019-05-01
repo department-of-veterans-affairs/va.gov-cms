@@ -41,7 +41,7 @@ class ObtainAndTestFeature extends ObtainHtml {
         $text = $element->$method();
         $this->setCurrentFindMethod("pluckSelector($selector, " . 1 . ')');
 
-        if ($element->prev()->count() && !$element->prev()->hasClass('va-introtext')) {
+        if ($element->prev()->count() && !$element->prev()->hasClass('va-introtext') && !$element->prev()->tag() == 'br') {
           AnomalyMessage::make(AnomalyMessage::FEATURED_NOT_AT_TOP_OF_CONTENT, $title, $url);
         }
         if ($elements->count() > 1) {
