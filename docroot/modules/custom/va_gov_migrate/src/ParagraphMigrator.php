@@ -109,7 +109,9 @@ class ParagraphMigrator {
    * @throws \Drupal\migrate\MigrateException
    */
   public function process($source_field, $dest_field) {
-    $this->deleteExistingParagraphs($this->entity, $dest_field);
+    if (!\Drupal::state()->get('va_gov_migrate.dont_migrate_paragraphs')) {
+      $this->deleteExistingParagraphs($this->entity, $dest_field);
+    }
 
     $this->endingContent = '';
 
@@ -146,6 +148,7 @@ class ParagraphMigrator {
 
     // Add any remaining wysiwyg in the buffer.
     $this->addWysiwyg($this->entity, $dest_field);
+
     $sim = similar_text(strip_tags($source), strip_tags($this->endingContent), $percent);
 
     $source_chars = $this->charMap($source);
@@ -254,6 +257,7 @@ class ParagraphMigrator {
           if ($allowed_paragraphs['max'] != -1 && $num_paragraphs > $allowed_paragraphs['max']) {
             Message::make("Too many paragraphs in @title on @entity, field, @field: Maximum: @max, found: @num", [
               '@title' => $this->row->getDestinationProperty('title'),
+              '@url' => $this->row->getSourceIdValues()['url'],
               '@entity' => $parent_entity->id(),
               '@field' => $parent_field,
               '@max' => $allowed_paragraphs['max'],
@@ -337,7 +341,9 @@ class ParagraphMigrator {
           'type' => 'wysiwyg',
           'field_wysiwyg' => ParagraphType::toRichText($this->wysiwyg),
         ]);
-        $paragraph->save();
+        if (!\Drupal::state()->get('va_gov_migrate.dont_migrate_paragraphs')) {
+          $paragraph->save();
+        }
 
         ParagraphType::attachParagraph($paragraph, $entity, $parent_field);
 
@@ -349,7 +355,8 @@ class ParagraphMigrator {
             '@wysiwyg' => $this->wysiwyg,
             '@type' => $entity->bundle(),
             '@field' => $parent_field,
-            '@node' => empty($title) ? "" : "on $title",
+            '@node' => $this->row->getSourceProperty('title'),
+            '@url' => $this->row->getSourceIdValues()['url'],
           ],
           Message::ERROR
         );
@@ -390,9 +397,9 @@ class ParagraphMigrator {
       // has been addressed, but let's leave this for now, just to make sure.
       if (str_replace(' ', '', $element->text()) !=
         str_replace(' ', '', $element->contents()->text())) {
-        Message::make('Text wrapped only in @tag#@id in @file',
+        Message::make('Text wrapped only in @tag#@id in @title',
           [
-            '@file' => $this->row->getSourceProperty('title'),
+            '@title' => $this->row->getSourceProperty('title'),
             '@tag' => $element->tag(),
             '@id' => $element->attr('id'),
           ],

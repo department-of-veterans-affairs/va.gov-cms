@@ -4,6 +4,7 @@ namespace Drupal\va_gov_migrate\EventSubscriber;
 
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\migration_tools\Message;
+use Drupal\va_gov_migrate\AnomalyMessage;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\va_gov_migrate\ParagraphMigrator;
 use Drupal\migrate\Event\MigratePostRowSaveEvent;
@@ -38,12 +39,17 @@ class PostRowSave implements EventSubscriberInterface {
    */
   public function onMigratePostRowSave(MigratePostRowSaveEvent $event) {
     $migrator = new ParagraphMigrator($event);
+    if (!empty($event->getRow()->getSourceProperty('nav_linkslist'))) {
+      AnomalyMessage::make(AnomalyMessage::MAJOR_LINKS,
+        $event->getRow()->getSourceProperty('title'),
+        $event->getRow()->getSourceIdValues()['url']);
+    }
 
     switch ($event->getMigration()->id()) {
       case 'va_healthcare':
       case 'va_benefits_records':
       case 'va_new_hubs':
-        $this->convertIntroTextToPlainText($event->getDestinationIdValues()[0]);
+      case 'va_new_pages':
         $migrator->process('related_links', 'field_related_links');
         $migrator->process('featured_content', 'field_featured_content');
         $migrator->process(['body', 'nav_linkslist'], 'field_content_block');
@@ -56,9 +62,10 @@ class PostRowSave implements EventSubscriberInterface {
         break;
 
       case 'va_hub':
-        $this->convertIntroTextToPlainText($event->getDestinationIdValues()[0]);
+      case 'va_new_landing_pages':
         $migrator->process('related_links', 'field_related_links');
         $migrator->process('hub_links', 'field_spokes');
+        $this->setChangedDate($event);
         $this->setNodeAlias($event);
         break;
 
@@ -71,28 +78,10 @@ class PostRowSave implements EventSubscriberInterface {
         $this->setMenuParent($event);
         break;
     }
-  }
 
-  /**
-   * Turns intro text content into plain text.
-   *
-   * Should be run on any migration that includes the Intro Text field.
-   *
-   * @todo Do this during the actual migration instead of on post row save.
-   *
-   * @param int $nid
-   *   The nid of the node to work on.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   */
-  public function convertIntroTextToPlainText($nid) {
-    $node = Node::load($nid);
-    $intro_text = $node->get('field_intro_text')->value;
-    $intro_text = preg_replace('/<\/p>\s+<p>/', PHP_EOL . PHP_EOL, $intro_text);
-    $intro_text = strip_tags($intro_text);
-    $node->set('field_intro_text', $intro_text);
-    $node->save();
-
+    // va_gov_migrate.anomaly is an array of reported anomalies so we don't
+    // report the same anomaly twice for the same page.
+    \Drupal::state()->delete('va_gov_migrate.anomaly');
   }
 
   /**

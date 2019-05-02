@@ -78,12 +78,15 @@ abstract class ParagraphType {
             '@field' => $parent_field,
           ]);
 
-        self::$migrator->addWysiwyg($entity, $parent_field);
-
         $paragraph_fields = $this->getFieldValues($query_path);
 
+        self::$migrator->addWysiwyg($entity, $parent_field);
+
         $paragraph = Paragraph::create(['type' => $this->getParagraphName()] + $paragraph_fields);
-        $paragraph->save();
+
+        if (!\Drupal::state()->get('va_gov_migrate.dont_migrate_paragraphs')) {
+          $paragraph->save();
+        }
 
         static::attachParagraph($paragraph, $entity, $parent_field);
 
@@ -102,6 +105,7 @@ abstract class ParagraphType {
       Message::make("Migration failed for paragraph on @title @parent: @message.",
         [
           '@title' => self::$migrator->row->getSourceProperty('title'),
+          '@url' => self::$migrator->row->getSourceIdValues()['url'],
           '@parent' => $entity->bundle(),
           '@message' => $e->getMessage(),
         ]
@@ -126,13 +130,15 @@ abstract class ParagraphType {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public static function attachParagraph(Paragraph $paragraph, Entity &$entity, $parent_field) {
-    $current = $entity->get($parent_field)->getValue();
-    $current[] = [
-      'target_id' => $paragraph->id(),
-      'target_revision_id' => $paragraph->getRevisionId(),
-    ];
-    $entity->set($parent_field, $current);
-    $entity->save();
+    if (!\Drupal::state()->get('va_gov_migrate.dont_migrate_paragraphs')) {
+      $current = $entity->get($parent_field)->getValue();
+      $current[] = [
+        'target_id' => $paragraph->id(),
+        'target_revision_id' => $paragraph->getRevisionId(),
+      ];
+      $entity->set($parent_field, $current);
+      $entity->save();
+    }
   }
 
   /**
