@@ -1,4 +1,4 @@
-uuid: 56bdfac1-34f8-4dd0-818b-f5e109856a73
+uuid: a481fe83-50aa-407c-99f9-881c7ea1f6cd
 langcode: en
 status: true
 dependencies:
@@ -6,20 +6,22 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: saqeNYn8g1sVyAQHVFcoRRhy5e4k2uHzrDozyCyqSBo
-id: va_benefits_records
+  default_config_hash: jW8DrD-PagxtCmrDBeVQz7k_Ik2XdpVTgCIqogi5bYU
+id: va_new_pages
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
 migration_group: va_new_benefits
-label: 'Migrate Records benefits pages from VA.gov'
+label: 'Migrate selected root pages from VA.gov'
 source:
   plugin: metalsmith_source
   urls:
-    - /records
-  templates:
-    - detail-page
+    - /va-payment-history.md
+    - /privacy.md
+    - /welcome-kit.md
+    - /sign-in-faq.md
+    - /veterans-portrait-project.md
   fields:
     - description
     - plainlanguage_date
@@ -42,32 +44,36 @@ source:
               arguments:
                 - h1
         intro_text:
-          obtainer: ObtainPlainTextWithNewLines
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainAndTestPlainTextWithNewLines
           jobs:
             -
               job: addSearch
-              method: pluckSelector
+              method: pluckSelectorAndTest
               arguments:
                 - .va-introtext
+                - '@title'
+                - '@url'
         featured_content:
-          obtainer: ObtainHtml
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainAndTestFeature
           jobs:
             -
               job: addSearch
-              method: pluckSelector
+              method: pluckSelectorAndTest
               arguments:
                 - .feature
-                - 1
+                - '@title'
+                - '@url'
                 - innerHTML
         alert_title:
           obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainAlertBlockTitles
           jobs:
             -
               job: addSearch
-              method: arrayPluckSelector
+              method: pluckSelectorAndTest
               arguments:
                 - .usa-alert-heading
-                - innerHTML
+                - '@title'
+                - '@url'
         related_links:
           obtainer: ObtainHtml
           jobs:
@@ -79,14 +85,15 @@ source:
                 - '1'
                 - innerHTML
         body:
-          obtainer: ObtainBody
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainAndTestBody
           jobs:
             -
               job: addSearch
-              method: pluckSelector
+              method: pluckSelectorAndTest
               arguments:
                 - article
-                - '1'
+                - '@title'
+                - '@url'
                 - innerHTML
         nav_linkslist:
           obtainer: ObtainHtml

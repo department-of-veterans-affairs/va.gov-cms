@@ -1,12 +1,14 @@
-id: va_benefits_records
-label: Migrate Records benefits pages from VA.gov
+id: va_new_pages
+label: Migrate selected root pages from VA.gov
 migration_group: va_new_benefits
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
-    - "/records"
-  templates:  # A list of Metalsmith templates to process (detail-page=basic page, level2-index=hub page)
-    - detail-page
+    - "/va-payment-history.md"
+    - "/privacy.md"
+    - "/welcome-kit.md"
+    - "/sign-in-faq.md"
+    - "/veterans-portrait-project.md"
   fields:  # :ist any frontmatter fields you want to migrate.
     - description
     - plainlanguage_date
@@ -32,32 +34,36 @@ source:
           arguments:
           - 'h1'  # Look for h1 tags.
       intro_text:
-        obtainer: ObtainPlainTextWithNewLines
-        jobs:
-          -
-            job: addSearch
-            method: pluckSelector
-            arguments:
-              - '.va-introtext'
-      featured_content:
-        obtainer: ObtainHtml
+        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAndTestPlainTextWithNewLines"
         jobs:
         -
-          job: 'addSearch'
-          method: 'pluckSelector'
+          job: addSearch
+          method: pluckSelectorAndTest
+          arguments:
+            - '.va-introtext'
+            - '@title'
+            - '@url'
+      featured_content:
+        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAndTestFeature"
+        jobs:
+        -
+          job: addSearch
+          method: pluckSelectorAndTest
           arguments:
             - '.feature' # find something with class, 'feature'
-            - 1     # Grab the first one.
+            - '@title'
+            - '@url'
             - innerHTML  # Get any html it contains.
       alert_title:
         obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAlertBlockTitles"
         jobs:
         -
           job: 'addSearch'
-          method: 'arrayPluckSelector'
+          method: 'pluckSelectorAndTest'
           arguments:
             - '.usa-alert-heading'
-            - innerHTML
+            - '@title'
+            - '@url'
       related_links:
         obtainer: ObtainHtml
         jobs:
@@ -69,14 +75,15 @@ source:
             - '1'
             - innerHTML
       body:
-        obtainer: ObtainBody
+        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAndTestBody"
         jobs:
         -
           job: 'addSearch'
-          method: 'pluckSelector'
+          method: 'pluckSelectorAndTest'
           arguments:
           - 'article'
-          - '1'
+          - '@title'
+          - '@url'
           - innerHTML
       nav_linkslist:
         obtainer: ObtainHtml

@@ -38,6 +38,13 @@ class MessageLogger implements EventSubscriberInterface {
   protected static $paragraphFile;
 
   /**
+   * The name of the paragraph inventory file.
+   *
+   * @var string
+   */
+  protected static $anomaliesFile;
+
+  /**
    * The drupal state object.
    *
    * @var \Drupal\Core\State\StateInterface
@@ -71,13 +78,29 @@ class MessageLogger implements EventSubscriberInterface {
       return;
     }
 
-    $url = $event->variables['@url'];
+    if (empty($event->variables['@url'])) {
+      $url = '';
+    }
+    else {
+      $url = $event->variables['@url'];
+    }
+
+    if (empty($event->variables['@title'])) {
+      $title = '';
+    }
+    else {
+      $title = $event->variables['@title'];
+    }
+
+    if (empty(self::$rptFile)) {
+      return;
+    }
 
     if (array_key_exists('@diff', $event->variables) &&
       $event->type == 'Drupal\va_gov_migrate\ParagraphMigrator') {
       $handle = fopen(self::$rptFile, "a");
       fwrite($handle,
-        '"' . $event->variables['@title'] . '",' .
+        '"' . $title . '",' .
         self::getHub($url) . ',' .
         $event->variables['@field'] . ',' .
         $url . ',' .
@@ -87,12 +110,21 @@ class MessageLogger implements EventSubscriberInterface {
         "\n");
       fclose($handle);
     }
+    elseif (array_key_exists('@anomaly_type', $event->variables)) {
+      $handle = fopen(self::$anomaliesFile, "a");
+      fwrite($handle,
+        '"' . $title . '","' .
+        $event->variables['@anomaly_type'] . '",' .
+        $url . ',' .
+        self::getHub($url) . "\n");
+      fclose($handle);
+    }
     elseif ($event->severity <= Message::ERROR ||
       ($event->severity == Message::WARNING && $event->type == 'Drupal\va_gov_migrate\ParagraphType')) {
       $handle = fopen(self::$errFile, "a");
       fwrite($handle,
         '"' . $event->message . '","' .
-        $event->variables['@title'] . '",' .
+        $title . '",' .
         $url . ',' .
         self::getHub($url) . "\n");
       fclose($handle);
@@ -103,7 +135,7 @@ class MessageLogger implements EventSubscriberInterface {
       fwrite($handle,
         $event->variables['@paragraph'] . ',' .
         $event->variables['@field'] .
-        ',"' . $event->variables['@title'] . '",' .
+        ',"' . $title . '",' .
         $url . ',' .
         self::getHub($url) . "\n");
       fclose($handle);
@@ -121,8 +153,19 @@ class MessageLogger implements EventSubscriberInterface {
    *   The hub name.
    */
   public static function getHub($url) {
-    if (preg_match('/https:\/\/www\.va\.gov\/([^\/]*)/', $url, $matches)) {
-      return $matches[1];
+    $url_parts = parse_url($url);
+    if ($url_parts['host'] == 'www.va.gov') {
+      $path_parts = explode('/', trim($url_parts['path'], '/'));
+      if (count($path_parts) > 1) {
+        if ($path_parts[0] == 'disability') {
+          if ($path_parts[1] == 'eligibility') {
+            return 'disability - eligibility';
+          }
+          return 'disability - everything else';
+        }
+        return $path_parts[0];
+      }
+      return 'root';
     }
     return '';
   }
@@ -172,6 +215,11 @@ class MessageLogger implements EventSubscriberInterface {
     self::$paragraphFile = $rpt_path . "/paragraphs_{$event->getMigration()->id()}.csv";
     $handle = fopen(self::$paragraphFile, "w");
     fwrite($handle, "title,field,paragraph,hub,url\n");
+    fclose($handle);
+
+    self::$anomaliesFile = $rpt_path . "/anomalies_{$event->getMigration()->id()}.csv";
+    $handle = fopen(self::$anomaliesFile, "w");
+    fwrite($handle, "title,type,hub,url\n");
     fclose($handle);
   }
 

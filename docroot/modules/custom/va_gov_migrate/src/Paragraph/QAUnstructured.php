@@ -192,8 +192,10 @@ class QAUnstructured extends QABase {
             $content = self::$externalContent->children()->get($i)->textContent;
           }
 
-          Message::make('Content was excluded that wasn\'t part of answer on @question: @content',
+          Message::make('Content was excluded that wasn\'t part of answer for @question: @content, on @title, @url',
             [
+              '@title' => self::$migrator->row->getSourceProperty('title'),
+              '@url' => self::$migrator->row->getSourceIdValues()['url'],
               '@question' => self::$lastQuestionText,
               '@content' => $content,
             ], Message::ERROR);

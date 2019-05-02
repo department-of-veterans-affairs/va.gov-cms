@@ -189,7 +189,7 @@ class MetalsmithSource extends UrlList {
     }
 
     // Filter for 'templates' field defined in migration yml, if any.
-    if (!empty($this->templates) && !in_array($row['template'], $this->templates)) {
+    if (!empty($this->templates) && (empty($row['template']) || !in_array($row['template'], $this->templates))) {
       return;
     }
 
