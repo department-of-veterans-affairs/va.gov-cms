@@ -8,6 +8,44 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
+## 2019-05-02.1 Sprint 13 mid-sprint release 2. 
+
+* __Merge branch &#39;develop&#39;__
+
+    [Andy Hawks](mailto:andy@andyhawks.com) - Thu, 2 May 2019 16:19:41 -0600
+    
+    EAD -&gt; refs/heads/master, tag: refs/tags/20190502.1, refs/remotes/upstream/master
+    VAGOV-000: 20190502.1 Release
+    
+* __Merge pull request #293 from beeyayjay/VAGOV-2867-migration-anomalies-tests__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 2 May 2019 16:17:08 -0600
+    
+    efs/remotes/upstream/develop, refs/heads/develop
+    VAGOV-2867 migration anomalies tests
+
+* __Merge pull request #292 from kevwalsh/3143-admin-content-permissions__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 2 May 2019 16:11:42 -0600
+    
+    VAGOV-3143: Remove access to admin/content for anon.
+
+* __Merge branch &#39;develop&#39; into 3143-admin-content-permissions__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 2 May 2019 16:11:34 -0600
+    
+* __Merge pull request #291 from andyhawks/feature/VAGOV-000-update-env-indicator-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 2 May 2019 16:09:50 -0600
+    
+    VAGOV-3143: VAGOV-000: Environment indicator and admin/content fixes.
+
+* __Merge pull request #290 from ethanteague/VAGOV-2973-drupal-assets-lib-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 1 May 2019 13:00:20 -0600
+        
+    VAGOV-2973: Updating outreach asset config to add field_office.
+
 
 ## 2019-04-30.1 Sprint 13 mid-sprint release 1. 
 
@@ -178,3 +216,4 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
     VAGOV-2623: Remove password_policy.
 
 ## END OF FILE
+
