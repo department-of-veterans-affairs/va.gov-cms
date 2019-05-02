@@ -18,7 +18,13 @@ dependencies:
     - node.type.press_release
     - node.type.regional_health_care_service_des
     - user.role.administrator
+    - user.role.admnistrator_users
+    - user.role.content_api_consumer
+    - user.role.content_editor
+    - user.role.content_publisher
+    - user.role.content_reviewer
     - user.role.documentation_editor
+    - user.role.redirect_administrator
     - workflows.workflow.editorial
   module:
     - content_moderation
@@ -39,8 +45,17 @@ display:
   default:
     display_options:
       access:
-        type: none
-        options: {  }
+        type: role
+        options:
+          role:
+            content_api_consumer: content_api_consumer
+            content_editor: content_editor
+            content_reviewer: content_reviewer
+            content_publisher: content_publisher
+            admnistrator_users: admnistrator_users
+            administrator: administrator
+            redirect_administrator: redirect_administrator
+            documentation_editor: documentation_editor
       cache:
         type: tag
       query:
@@ -758,6 +773,7 @@ display:
         - url
         - url.query_args
         - 'user.node_grants:view'
+        - user.roles
       max-age: 0
       tags:
         - 'config:field.storage.node.field_administration'
@@ -805,6 +821,7 @@ display:
         - url
         - url.query_args
         - 'user.node_grants:view'
+        - user.roles
       max-age: 0
       tags:
         - 'config:field.storage.node.field_administration'
@@ -1476,6 +1493,7 @@ display:
         - url
         - url.query_args
         - 'user.node_grants:view'
+        - user.roles
       max-age: 0
       tags:
         - 'config:field.storage.node.field_administration'
@@ -2133,6 +2151,7 @@ display:
         - url
         - url.query_args
         - 'user.node_grants:view'
+        - user.roles
       max-age: 0
       tags:
         - 'config:field.storage.node.field_administration'
@@ -2747,6 +2766,7 @@ display:
         - url
         - url.query_args
         - 'user.node_grants:view'
+        - user.roles
       max-age: 0
       tags:
         - 'config:field.storage.node.field_administration'
@@ -3440,6 +3460,7 @@ display:
         - url
         - url.query_args
         - 'user.node_grants:view'
+        - user.roles
       max-age: 0
       tags:
         - 'config:field.storage.node.field_administration'
