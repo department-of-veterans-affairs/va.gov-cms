@@ -35,6 +35,7 @@ class AnomalyMessage {
   const HUB_RELATED_BANNER_ALERTS = "Hub-related banner alerts";
   const JUMPLINKS = "Jumplinks";
   const MAJOR_LINKS = "Major links (related links with white background)";
+  const MULTI_SELECTABLE = "Accordions are multi-selectable";
 
   /**
    * Makes a warning message for anomalies.

@@ -41,31 +41,43 @@ class ObtainAndTestBody extends ObtainHtml {
         $text = $element->$method();
         $this->setCurrentFindMethod("pluckSelector($selector, " . 1 . ')');
 
-        if ($element->find('.usa-grid-full columns')->count()) {
-          AnomalyMessage::make(AnomalyMessage::TWO_COLUMN_CONTENT, $title, $url);
+        $anomalies = [];
+
+        if ($element->find('.usa-grid-full .columns')->count()) {
+          $anomalies[] = AnomalyMessage::TWO_COLUMN_CONTENT;
         }
         if ($element->find('ul a[href^="#"]')->count()) {
-          AnomalyMessage::make(AnomalyMessage::JUMPLINKS, $title, $url);
+          $anomalies[] = AnomalyMessage::JUMPLINKS;
         }
         if ($element->find('.va-h-ruled--stars')->count()) {
-          AnomalyMessage::make(AnomalyMessage::STARRED_DIVIDER, $title, $url);
+          $anomalies[] = AnomalyMessage::STARRED_DIVIDER;
         }
         if ($element->find('.vertical-list-group')->count()) {
-          AnomalyMessage::make(AnomalyMessage::SUBWAY_MAP_WITHOUT_NUMBERS, $title, $url);
+          $anomalies[] = AnomalyMessage::SUBWAY_MAP_WITHOUT_NUMBERS;
         }
-        if ($element->find('[class^="fa-"]')->count()) {
-          $fa_elements = $element->find('[class^="fa-"]');
-          /** @var \QueryPath\DOMQuery $fa */
-          foreach ($fa_elements as $fa) {
-            if ($fa->parent('.vertical-list-group')->count()) {
-              AnomalyMessage::make(AnomalyMessage::FONT_AWESOME_NUMBER_CALLOUTS, $title, $url);
-            }
-            else {
-              AnomalyMessage::make(AnomalyMessage::FONT_AWESOME_SNIPPETS, $title, $url);
+        if ($element->find('a.usa-button-primary')->count()) {
+          /** @var \QueryPath\DOMQuery $btn_element */
+          foreach ($element->find('a.usa-button-primary') as $btn_element) {
+            if ($btn_element->prev()->count() && $btn_element->prev()->hasClass('usa-button-primary')) {
+              $anomalies[] = AnomalyMessage::TWO_BUTTONS_SIDE_BY_SIDE;
+              break;
             }
           }
         }
+        if ($element->find('table')->count()) {
+          $anomalies[] = AnomalyMessage::TABLES;
+        }
+        if ($element->find('.background-color-only')->count()) {
+          $anomalies[] = AnomalyMessage::ALERTS_BACKGROUND_COLOR_ONLY;
+        }
+        if ($element->find('[aria-multiselectable="true"]')->count()) {
+          $anomalies[] = AnomalyMessage::MULTI_SELECTABLE;
+        }
       }
+    }
+
+    foreach ($anomalies as $anomaly) {
+      AnomalyMessage::make($anomaly, $title, $url);
     }
 
     return $text;
