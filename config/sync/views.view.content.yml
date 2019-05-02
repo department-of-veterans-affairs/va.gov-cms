@@ -19,6 +19,7 @@ dependencies:
     - node.type.regional_health_care_service_des
     - user.role.administrator
     - user.role.admnistrator_users
+    - user.role.content_api_consumer
     - user.role.content_editor
     - user.role.content_publisher
     - user.role.content_reviewer
@@ -47,6 +48,7 @@ display:
         type: role
         options:
           role:
+            content_api_consumer: content_api_consumer
             content_editor: content_editor
             content_reviewer: content_reviewer
             content_publisher: content_publisher
