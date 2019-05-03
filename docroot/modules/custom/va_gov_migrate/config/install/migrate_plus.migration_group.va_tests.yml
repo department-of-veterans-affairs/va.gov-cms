@@ -1,0 +1,9 @@
+id: va_tests
+label: NEVER RUN ON PROD - Migrations for all new benefits pages for testing purposes only
+description: Migrate content from VA.gov metalsmith repo and website
+source_type: HTML files
+
+dependencies:
+  enforced:
+    module:
+      - va_gov_migrate
