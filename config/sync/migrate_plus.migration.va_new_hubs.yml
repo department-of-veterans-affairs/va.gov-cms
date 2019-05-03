@@ -1,4 +1,4 @@
-uuid: 40c3034c-03f7-41ab-b1ea-d6b8f7cf06c9
+uuid: c3d2800d-e26f-4b51-a877-837e4c4c654b
 langcode: en
 status: true
 dependencies:
@@ -6,13 +6,13 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: 1SZHXC5UljtD6Nu09Jy5EPq6liUHI0pLdhSBHNg6mKM
+  default_config_hash: xgur2o4i2OubgtUFQI4HuzmbG4CWlrtFsaXbw8I14oE
 id: va_new_hubs
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
-migration_group: va_new_benefits
+migration_group: va_tests
 label: 'Migrate Remaining benefits detail pages from VA.gov'
 source:
   plugin: metalsmith_source
@@ -184,7 +184,7 @@ process:
       default_value: 10
   moderation_state:
     plugin: default_value
-    default_value: published
+    default_value: draft
   type:
     plugin: default_value
     default_value: page

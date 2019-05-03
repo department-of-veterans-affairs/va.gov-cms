@@ -1,4 +1,4 @@
-uuid: cc3b8769-d903-412c-abf8-b4181e018990
+uuid: e1b87cfc-75d1-47ef-8339-5c8587be3007
 langcode: en
 status: true
 dependencies:
@@ -6,13 +6,13 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: EKV98VEvbqmXQJRNLvs9J9Yo5YwFGPmIX70kJx2ZDKE
+  default_config_hash: efpFcgp9DLGjMf2KnVsoa5ugrG2Y04X_PGCUHMhcUCk
 id: va_new_landing_pages
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
-migration_group: va_new_benefits
+migration_group: va_tests
 label: 'Migrate all remaining landing pages from VA.gov'
 source:
   plugin: metalsmith_source
@@ -218,7 +218,7 @@ process:
       source: alert_title
   moderation_state:
     plugin: default_value
-    default_value: published
+    default_value: draft
   type:
     plugin: default_value
     default_value: landing_page
