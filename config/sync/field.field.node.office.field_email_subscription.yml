@@ -1,0 +1,23 @@
+uuid: 4069f9ff-91fd-4240-8adb-b0ecec15a4de
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_email_subscription
+    - node.type.office
+  module:
+    - link
+id: node.office.field_email_subscription
+field_name: field_email_subscription
+entity_type: node
+bundle: office
+label: 'Email Subscription'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 2
+field_type: link

@@ -3,9 +3,27 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.office.field_acronym
+    - field.field.node.office.field_administration
+    - field.field.node.office.field_content_block
     - field.field.node.office.field_description
+    - field.field.node.office.field_email_subscription
+    - field.field.node.office.field_facebook
+    - field.field.node.office.field_flickr
+    - field.field.node.office.field_instagram
+    - field.field.node.office.field_intro_text
+    - field.field.node.office.field_intro_text_events_page
+    - field.field.node.office.field_intro_text_news_stories
+    - field.field.node.office.field_media_library_intro_text
+    - field.field.node.office.field_meta_tags
+    - field.field.node.office.field_press_release_blurb
+    - field.field.node.office.field_twitter
     - node.type.office
   module:
+    - entity_reference_revisions
+    - link
+    - metatag
+    - text
     - user
 id: node.office.default
 targetEntityType: node
@@ -17,6 +35,31 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_acronym:
+    weight: 9
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_administration:
+    weight: 5
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_content_block:
+    weight: 16
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
   field_description:
     weight: 2
     label: above
@@ -24,6 +67,108 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_email_subscription:
+    weight: 15
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_facebook:
+    weight: 11
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_flickr:
+    weight: 10
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_instagram:
+    weight: 13
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_intro_text:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_intro_text_events_page:
+    weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_intro_text_news_stories:
+    weight: 7
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_media_library_intro_text:
+    weight: 17
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_meta_tags:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+    region: content
+  field_press_release_blurb:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_twitter:
+    weight: 12
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
     region: content
 hidden:
   links: true

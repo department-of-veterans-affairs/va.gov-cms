@@ -1,0 +1,23 @@
+uuid: f01b8505-7ad7-49e8-94e0-c324e16725f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_flickr
+    - node.type.office
+  module:
+    - link
+id: node.office.field_flickr
+field_name: field_flickr
+entity_type: node
+bundle: office
+label: Flickr
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 2
+field_type: link

@@ -1,0 +1,101 @@
+uuid: ca812d3d-9964-41c1-9ec5-c949b263cd03
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_block
+    - node.type.office
+    - paragraphs.paragraphs_type.alert
+    - paragraphs.paragraphs_type.collapsible_panel
+    - paragraphs.paragraphs_type.list_of_link_teasers
+    - paragraphs.paragraphs_type.number_callout
+    - paragraphs.paragraphs_type.process
+    - paragraphs.paragraphs_type.q_a_section
+    - paragraphs.paragraphs_type.spanish_translation_summary
+    - paragraphs.paragraphs_type.starred_horizontal_rule
+    - paragraphs.paragraphs_type.wysiwyg
+  module:
+    - entity_reference_revisions
+id: node.office.field_content_block
+field_name: field_content_block
+entity_type: node
+bundle: office
+label: 'Main content'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      wysiwyg: wysiwyg
+      collapsible_panel: collapsible_panel
+      number_callout: number_callout
+      q_a_section: q_a_section
+      starred_horizontal_rule: starred_horizontal_rule
+      alert: alert
+      list_of_link_teasers: list_of_link_teasers
+      spanish_translation_summary: spanish_translation_summary
+      process: process
+    target_bundles_drag_drop:
+      wysiwyg:
+        enabled: true
+        weight: -39
+      collapsible_panel:
+        enabled: true
+        weight: -38
+      number_callout:
+        enabled: true
+        weight: -37
+      q_a_section:
+        enabled: true
+        weight: -36
+      starred_horizontal_rule:
+        enabled: true
+        weight: -35
+      alert:
+        enabled: true
+        weight: -34
+      list_of_link_teasers:
+        enabled: true
+        weight: -33
+      spanish_translation_summary:
+        enabled: true
+        weight: -32
+      process:
+        enabled: true
+        weight: -31
+      address:
+        weight: -30
+        enabled: false
+      collapsible_panel_item:
+        weight: -29
+        enabled: false
+      expandable_text:
+        weight: -28
+        enabled: false
+      health_care_local_facility_servi:
+        weight: -27
+        enabled: false
+      link_teaser:
+        weight: -26
+        enabled: false
+      media:
+        weight: -25
+        enabled: false
+      megamenu_links_column:
+        weight: -24
+        enabled: false
+      megamenu_menu_item:
+        weight: -23
+        enabled: false
+      q_a:
+        weight: -22
+        enabled: false
+      react_widget:
+        weight: -21
+        enabled: false
+field_type: entity_reference_revisions

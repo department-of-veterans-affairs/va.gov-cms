@@ -1,0 +1,23 @@
+uuid: 55c0b43e-a825-46d9-bc8c-6a0346710d8c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_twitter
+    - node.type.office
+  module:
+    - link
+id: node.office.field_twitter
+field_name: field_twitter
+entity_type: node
+bundle: office
+label: Twitter
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 2
+field_type: link
