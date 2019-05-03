@@ -46,7 +46,6 @@ class PostRowSave implements EventSubscriberInterface {
     }
 
     switch ($event->getMigration()->id()) {
-      case 'va_healthcare':
       case 'va_benefits_records':
       case 'va_new_hubs':
       case 'va_new_pages':
@@ -62,7 +61,6 @@ class PostRowSave implements EventSubscriberInterface {
         break;
 
       case 'va_hub':
-      case 'va_benefits_records_hub':
       case 'va_new_landing_pages':
         $migrator->process('related_links', 'field_related_links');
         $migrator->process('hub_links', 'field_spokes');
