@@ -46,7 +46,6 @@ class PostRowSave implements EventSubscriberInterface {
     }
 
     switch ($event->getMigration()->id()) {
-      case 'va_healthcare':
       case 'va_benefits_records':
       case 'va_new_hubs':
       case 'va_new_pages':
