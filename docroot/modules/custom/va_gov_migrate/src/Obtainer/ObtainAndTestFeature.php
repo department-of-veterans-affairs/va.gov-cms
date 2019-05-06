@@ -24,8 +24,8 @@ class ObtainAndTestFeature extends ObtainHtml {
    * @param string $method
    *   (optional) The method to use on the element, text or html. Default: text.
    *
-   * @return array
-   *   The alert block titles found on the page.
+   * @return string
+   *   The first feature found on the page.
    *
    * @throws \Drupal\migrate\MigrateException
    */
@@ -37,9 +37,6 @@ class ObtainAndTestFeature extends ObtainHtml {
 
       if (is_object($elements) && $elements->count()) {
         $element = $elements->first();
-        $this->setElementToRemove($element);
-        $text = $element->$method();
-        $this->setCurrentFindMethod("pluckSelector($selector, " . 1 . ')');
 
         if ($element->prev()->count() && !$element->prev()->hasClass('va-introtext') && !$element->prev()->tag() == 'br') {
           AnomalyMessage::make(AnomalyMessage::FEATURED_NOT_AT_TOP_OF_CONTENT, $title, $url);
@@ -50,7 +47,7 @@ class ObtainAndTestFeature extends ObtainHtml {
       }
     }
 
-    return $text;
+    return $this->pluckSelector($selector, 1, $method);
   }
 
 }
