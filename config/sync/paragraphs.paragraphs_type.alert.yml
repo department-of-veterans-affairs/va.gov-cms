@@ -1,7 +1,12 @@
 uuid: daa6bb41-1b12-46f7-a355-96ceb6fa18dc
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - paragraphs_browser
+third_party_settings:
+  paragraphs_browser:
+    description: 'A reusable or non-reusable alert, either "information status" or "warning status". <a href="https://design.va.gov/components/alertboxes">View this in the styleguide.</a>'
 id: alert
 label: Alert
 icon_uuid: null
