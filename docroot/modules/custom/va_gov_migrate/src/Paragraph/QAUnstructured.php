@@ -108,7 +108,7 @@ class QAUnstructured extends QABase {
   /**
    * {@inheritdoc}
    */
-  protected function addChildParagraphs(Paragraph $paragraph, DOMQuery $query_path) {
+  protected function addChildParagraphs(Paragraph $paragraph, DOMQuery $query_path = NULL) {
     // Generate answer query by starting with an empty div tag and inserting
     // all subsequent sibling tags in the query path
     // until we hit another question, an hr, or any header at or above the

@@ -27,7 +27,7 @@ class QASchema extends QABase {
   /**
    * {@inheritdoc}
    */
-  protected function addChildParagraphs(Paragraph $paragraph, DOMQuery $query_path) {
+  protected function addChildParagraphs(Paragraph $paragraph, DOMQuery $query_path = NULL) {
     $answer = $query_path->find('[itemprop="acceptedAnswer"]');
     if (empty($answer)) {
       Message::make('QA without an answer @page: @html',
@@ -37,8 +37,7 @@ class QASchema extends QABase {
         ], Message::ERROR);
     }
 
-    self::$migrator->addParagraphs($answer->children(), $paragraph, $this->getParagraphField());
-    self::$migrator->addWysiwyg($paragraph, $this->getParagraphField());
+    parent::addChildParagraphs($answer, $paragraph, $this->getParagraphField());
   }
 
   /**

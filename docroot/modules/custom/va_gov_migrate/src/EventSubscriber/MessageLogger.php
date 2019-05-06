@@ -131,7 +131,7 @@ class MessageLogger implements EventSubscriberInterface {
     }
     elseif ($event->severity == Message::NOTICE && array_key_exists('@paragraph', $event->variables) &&
       $event->type == 'Drupal\va_gov_migrate\ParagraphType') {
-      $handle = fopen("paragraphs.csv", "a");
+      $handle = fopen(self::$paragraphFile, "a");
       fwrite($handle,
         $event->variables['@paragraph'] . ',' .
         $event->variables['@field'] .

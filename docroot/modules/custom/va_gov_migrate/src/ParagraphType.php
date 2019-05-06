@@ -90,7 +90,7 @@ abstract class ParagraphType {
 
         static::attachParagraph($paragraph, $entity, $parent_field);
 
-        $this->addChildParagraphs($paragraph, $query_path);
+        $this->addChildParagraphs($paragraph, $this->getChildQuery($query_path));
 
         self::$migrator->endingContent .= $this->paragraphContent($paragraph_fields);
         self::$migrator->endingContent .= $this->unmigratedContent();
@@ -149,6 +149,19 @@ abstract class ParagraphType {
    */
   protected function getParagraphField() {
     return '';
+  }
+
+  /**
+   * Lets individual paragraphs filter the query to use for child paragraphs.
+   *
+   * @param \QueryPath\DOMQuery $query_path
+   *   The current DOM query for this paragraph.
+   *
+   * @return \QueryPath\DOMQuery
+   *   The filtered DOM query.
+   */
+  protected function getChildQuery(DOMQuery $query_path) {
+    return $query_path;
   }
 
   /**
@@ -232,10 +245,14 @@ abstract class ParagraphType {
    *
    * @throws \Drupal\migrate\MigrateException
    */
-  protected function addChildParagraphs(Paragraph $paragraph, DOMQuery $query_path) {
+  protected function addChildParagraphs(Paragraph $paragraph, DOMQuery $query_path = NULL) {
+    if (!$query_path) {
+      return;
+    }
     // If this paragraph may contain other paragraphs, add them too.
     if (!empty($this->getParagraphField()) && count($query_path->children())) {
       self::$migrator->addParagraphs($query_path->children(), $paragraph, $this->getParagraphField());
+      self::$migrator->addWysiwyg($paragraph, $this->getParagraphField());
     }
   }
 
