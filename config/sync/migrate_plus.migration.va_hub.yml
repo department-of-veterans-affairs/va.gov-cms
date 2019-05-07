@@ -1,4 +1,4 @@
-uuid: 27f2392b-8d26-4929-a5cc-7def514fb30d
+uuid: dd10f9b6-0812-439b-a8bb-d01527790376
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: '-qt8Bd9yh-yEzmnw149bdLOItO3Ued4JzDiNL4V74ro'
+  default_config_hash: D694t3whQGnUbacT6LNwpJAVT4QZtVy5SWPlrt9T8vA
 id: va_hub
 class: null
 field_plugin_method: null
@@ -207,11 +207,8 @@ process:
     migration: va_alert_block
     source: alert_title
   field_administration:
-    plugin: static_map
-    source: hub
-    map:
-      records: 76
-    default_value: 10
+    plugin: default_value
+    default_value: 76
   moderation_state:
     plugin: default_value
     default_value: draft

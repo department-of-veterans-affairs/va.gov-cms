@@ -43,6 +43,17 @@ class VaBenefitsMenu extends VaMenuBase {
    * {@inheritdoc}
    */
   public function initializeIterator() {
+    $hub_dirs = [
+      'Records' => '/records',
+      'Disability benefits' => '/disability',
+      'Education and training' => '/education',
+      'Careers and employment' => '/careers-employment',
+      'Pension benefits' => '/pension',
+      'Housing assistance' => '/housing-assistance',
+      'Life insurance' => '/life-insurance/',
+      'Burials and memorials' => '/burials-memorials/',
+    ];
+
     $contents = file_get_contents("modules/custom/va_gov_migrate/data/sidebar.json");
     $json_sidebar = json_decode($contents, TRUE);
     // Get top level menus.
@@ -53,7 +64,7 @@ class VaBenefitsMenu extends VaMenuBase {
           $menu_name = strtolower(str_replace(' ', '-', $page['sidebarTitle'])) . '-benefits-hub';
           $menus[$page['sidebarTitle']] = [
             'title' => $page['sidebarTitle'],
-            'href' => 'route:<nolink>',
+            'href' => $hub_dirs[$page['sidebarTitle']],
             'items' => [],
             'menu' => $menu_name,
           ];

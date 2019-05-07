@@ -1,4 +1,4 @@
-uuid: f5b4e310-dddd-4c4d-8d44-0a6e437da5a3
+uuid: 645baa2e-d4bc-4ee7-8940-d43ae46b9322
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: AgBQ9YnKwPvTXndFnEMAzbMD9txhnVCSiNMsJZnoB7s
+  default_config_hash: LxsYkmQOuItzLPA4PoT99lFTqO9Hu0vpcJeTvKLOkOM
 id: va_new_pages
 class: null
 field_plugin_method: null
@@ -64,16 +64,6 @@ source:
                 - '@title'
                 - '@url'
                 - innerHTML
-        alert_title:
-          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainAlertBlockTitles
-          jobs:
-            -
-              job: addSearch
-              method: pluckSelectorAndTest
-              arguments:
-                - .usa-alert-heading
-                - '@title'
-                - '@url'
         related_links:
           obtainer: ObtainHtml
           jobs:
@@ -122,9 +112,6 @@ source:
             - '#crisis-expander-link'
         -
           operation: get_field
-          field: alert_title
-        -
-          operation: get_field
           field: related_links
         -
           operation: get_field
@@ -139,11 +126,6 @@ source:
           modifier: removeSelectorAll
           arguments:
             - script
-        -
-          operation: modifier
-          modifier: removeSelectorAll
-          arguments:
-            - .usa-alert
         -
           operation: get_field
           field: body
@@ -166,11 +148,6 @@ process:
     from_format: n/j/y
     to_format: Y-m-d
     source: plainlanguage_date
-  field_alert:
-    -
-      plugin: migration_lookup
-      migration: va_alert_block
-      source: alert_title
   field_administration:
     -
       plugin: default_value
@@ -183,6 +160,4 @@ process:
     default_value: page
 destination:
   plugin: 'entity:node'
-migration_dependencies:
-  required:
-    - va_alert_block
+migration_dependencies: {  }
