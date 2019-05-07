@@ -8,6 +8,53 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
+## 2019-05-07.1 Sprint 13 final release 1.
+
+* __Merge branch &#39;develop&#39;__
+
+    [Andy Hawks](mailto:andy@andyhawks.com) - Tue, 7 May 2019 09:36:57 -0600
+    
+    EAD -&gt; refs/heads/master, tag: refs/tags/20190507.1
+    VAGOV-000: Release 20190507.1 Sprint 13 final release
+    
+* __Merge pull request #304 from ethanteague/VAGOV-3247-deactivate-theme-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 7 May 2019 08:53:09 -0600
+    
+    efs/remotes/upstream/develop, refs/heads/develop
+    VAGOV-3247: Uninstall vagov custom theme - merge 1st
+
+* __Merge pull request #301 from ElijahLynn/VAGOV-3079-fix-public-private-s3-backup-issue__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 7 May 2019 08:51:38 -0600   
+    
+    VAGOV-3079 Fix public private S3 bucket, backup issue
+
+* __Merge pull request #299 from beeyayjay/VAGOV-3058-records-migration__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 7 May 2019 08:50:03 -0600
+       
+    VAGOV-3058 records migration
+
+* __Merge pull request #298 from beeyayjay/VAGOV-3164-migrate-alert-paragraphs__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 6 May 2019 10:59:26 -0600 
+    
+    VAGOV-3164 migrate alert paragraphs
+
+* __Merge pull request #297 from beeyayjay/VAGOV-2807-records-section-migration__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 6 May 2019 10:57:29 -0600
+     
+    VAGOV-2807 records section migration
+
+* __Merge pull request #294 from kevwalsh/2865-alerts-paragraph-browser__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 6 May 2019 10:53:55 -0600
+      
+    VAGOV-2865: Provide help text in paragraphs browser.
+
+
 ## 2019-05-02.1 Sprint 13 mid-sprint release 2. 
 
 * __Merge branch &#39;develop&#39;__
