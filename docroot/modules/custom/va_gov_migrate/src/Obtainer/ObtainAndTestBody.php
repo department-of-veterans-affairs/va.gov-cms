@@ -46,9 +46,14 @@ class ObtainAndTestBody extends ObtainHtml {
         if ($element->find('.usa-grid-full .columns')->count()) {
           $anomalies[] = AnomalyMessage::TWO_COLUMN_CONTENT;
         }
-        if ($element->find('ul a[href^="#"]')->count()) {
+        if ($element->find('a[href^="#"]')->count()) {
           $anomalies[] = AnomalyMessage::JUMPLINKS;
         }
+        elseif ($element->find('a[href*="#"]')->count()) {
+          $anomalies[] = 'Anchor link to another page';
+          AnomalyMessage::make('Anchor link to another page', $title, $url, $element->find('a[href*="#"]')->text());
+        }
+
         if ($element->find('.va-h-ruled--stars')->count()) {
           $anomalies[] = AnomalyMessage::STARRED_DIVIDER;
         }

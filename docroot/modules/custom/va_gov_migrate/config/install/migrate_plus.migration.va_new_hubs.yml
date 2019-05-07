@@ -1,6 +1,6 @@
 id: va_new_hubs
 label: Migrate Remaining benefits detail pages from VA.gov
-migration_group: va_new_benefits
+migration_group: va_tests
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
@@ -61,16 +61,6 @@ source:
             - '@title'
             - '@url'
             - innerHTML  # Get any html it contains.
-      alert_title:
-        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAlertBlockTitles"
-        jobs:
-        -
-          job: 'addSearch'
-          method: 'pluckSelectorAndTest'
-          arguments:
-            - '.usa-alert-heading'
-            - '@title'
-            - '@url'
       related_links:
         obtainer: ObtainHtml
         jobs:
@@ -123,9 +113,6 @@ source:
         - '#crisis-expander-link'
     -
       operation: get_field
-      field: alert_title
-    -
-      operation: get_field
       field: related_links
     -
       operation: get_field
@@ -143,12 +130,6 @@ source:
       modifier: removeSelectorAll
       arguments:
         - 'script'
-    -
-      # Remove any alert boxes (they'll be attached via 'alert title', above).
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-        - '.usa-alert'
     -
       operation: get_field
       field: body  # Now that we've plucked all the other fields and cleaned up, run the 'body' recipe on what's left.
@@ -172,18 +153,13 @@ process:  # assign the fields we collected above to Drupal fields.
     from_format: 'n/j/y'
     to_format: 'Y-m-d'
     source: plainlanguage_date
-  field_alert:
-    -
-      plugin: migration_lookup
-      migration: va_alert_block
-      source: alert_title
   field_administration:
     -
       plugin: default_value
       default_value: 10
   moderation_state:
     plugin: default_value
-    default_value: published
+    default_value: draft
   type:
     plugin: default_value   # We want to assign the 'type' field a static value.
     default_value: page # The value is 'page'.
@@ -191,10 +167,7 @@ process:  # assign the fields we collected above to Drupal fields.
 destination:
   plugin: 'entity:node'
 
-# This migration depends on the va_alert_block migration to generate any alert blocks the nodes reference.
-migration_dependencies:
-  required:
-  - va_alert_block
+migration_dependencies: {}
 
 # This belongs in all migration scripts. Without it the module the migration script belongs to won't uninstall cleanly.
 dependencies:

@@ -5,13 +5,9 @@ config:
   php: "7.2"
 
 events:
-  # Clear caches after a database import
-  post-db-import:
-    - appserver: cd $LANDO_WEBROOT && drush cr -y
-
   # Mirrors what is in lando-entrypoint-app.sh, keep in sync with that file.
   # @todo don't use absolute path, somehow lando is not detecting drush in path right now. Fix this.
-  post-sync-db:
+  post-db-import:
     - appserver: cd $LANDO_WEBROOT && /app/docroot/vendor/bin/drush cache-rebuild -y
     - appserver: cd $LANDO_WEBROOT && /app/docroot/vendor/bin/drush updatedb -y
     - appserver: cd $LANDO_WEBROOT && /app/docroot/vendor/bin/drush config:import -y
@@ -109,26 +105,10 @@ tooling:
     service: node
   sync-db:
     service: appserver
-    description: Import a manually downloaded, santized PROD DB and run cache-clear, updatedb, config:import & cache-clear. You must manually download DB to .dumps/db-latest.sql.gz.
-    cmd: >
-      bash -c
-      '
-      echo "Download the latest sanitized PROD DB into .dumps/db-latest.sql.gz." &&
-      read -n1 -r -p "Press any key after you placed .dumps/db-latest.sql.gz..." &&
-      gunzip /app/.dumps/db-latest.sql.gz 2> /dev/null || true &&
-      /app/docroot/vendor/bin/drush sql-drop --yes &&
-      `/app/docroot/vendor/bin/drush sql-connect` < /app/.dumps/db-latest.sql &&
-      echo "PROD database import to LOCAL complete. Running post database import Drush commands: cache-clear, updatedb, config-import, cache-clear"
-      '
+    description: This command has moved to a non-lando command, from app root run like this `scripts/sync-db.sh`.
+    cmd: 'echo "This command has moved to a non-lando command, from app root run like this `scripts/sync-db.sh`."'
+
   sync-files:
     service: appserver
-    description: Import files from PROD. You must manually download files to /app/.dumps/cmsapp_files.tgz.
-    cmd: >
-      bash -c
-      '
-      echo "Download the latest files dump from PROD into /app/.dumps/cmsapp_files.tgz" &&
-      read -n1 -r -p "Press any key after you placed /app/.dumps/cmsapp_files.tgz..." &&
-      rm -fR /app/docroot/sites/default/files/* &&
-      tar -xzvf ./.dumps/cmsapp_files.tgz --directory /app/docroot/sites/default/files &&
-      echo "PROD file sync to LOCAL complete."
-      '
+    description: This command has moved to a non-lando command, from app root run like this `scripts/sync-files.sh`.
+    cmd: 'echo "This command has moved to a non-lando command, from app root run like this `scripts/sync-files.sh`."'

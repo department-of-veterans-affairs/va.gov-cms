@@ -1,6 +1,6 @@
 id: va_new_landing_pages
 label: Migrate all remaining landing pages from VA.gov
-migration_group: va_new_benefits
+migration_group: va_tests
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
@@ -223,7 +223,7 @@ process:  # assign the fields we collected above to Drupal fields.
       source: alert_title
   moderation_state:
     plugin: default_value
-    default_value: published
+    default_value: draft
   type:
     plugin: default_value   # We want to asign the 'type' field a static value.
     default_value: landing_page # The value is 'landing_page'.
