@@ -46,7 +46,6 @@ class PostRowSave implements EventSubscriberInterface {
     }
 
     switch ($event->getMigration()->id()) {
-      case 'va_healthcare':
       case 'va_benefits_records':
       case 'va_new_hubs':
       case 'va_new_pages':
@@ -75,6 +74,7 @@ class PostRowSave implements EventSubscriberInterface {
 
       case 'va_benefits_menu':
       case 'va_main_menu':
+      case 'va_benefits_records_menu':
         $this->setMenuParent($event);
         break;
     }
@@ -102,6 +102,7 @@ class PostRowSave implements EventSubscriberInterface {
     // lastupdate field.
     if ($last_update == 0) {
       $last_update = 1;
+      AnomalyMessage::make('Lastupdate', $event->getRow()->getSourceProperty('title'), $event->getRow()->getSourceProperty('url'));
     }
     $node->set('changed', $last_update);
     $node->save();
