@@ -6,8 +6,8 @@ How to start:
 * `git clone git@github.com:department-of-veterans-affairs/va.gov-cms.git vagov`
 * `cd vagov`
 * `lando start`
-* `lando sync-db`
-* `lando sync-files`
+* `scripts/sync-db.sh`
+* `scripts/sync-files.sh`
 
 Example workflow:
 * `git fetch --all`
