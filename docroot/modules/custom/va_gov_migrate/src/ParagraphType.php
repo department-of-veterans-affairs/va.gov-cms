@@ -57,8 +57,15 @@ abstract class ParagraphType {
             $title = $entity->get('title')->value;
           }
 
+          if (($this->getParagraphName() == 'q_a' && $entity->bundle() == 'q_a')) {
+            $anomaly = 'Q&A - nested';
+          }
+          else {
+            $anomaly = "{$this->getParagraphName()} not allowed on {$entity->bundle()}";
+          }
           Message::make('@class not allowed on @type in field @field on @title @url',
             [
+              '@anomaly_type' => $anomaly,
               '@class' => $this->getParagraphName(),
               '@type' => $entity->bundle(),
               '@field' => $parent_field,
