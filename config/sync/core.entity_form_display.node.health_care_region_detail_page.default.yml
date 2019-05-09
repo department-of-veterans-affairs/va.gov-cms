@@ -19,6 +19,7 @@ dependencies:
     - hide_revision_field
     - paragraphs
     - path
+    - textfield_counter
 third_party_settings:
   field_group:
     group_governance:
@@ -90,8 +91,14 @@ content:
     settings:
       size: 60
       placeholder: ''
+      maxlength: 160
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
     third_party_settings: {  }
-    type: string_textfield
+    type: string_textfield_with_counter
     region: content
   field_intro_text:
     weight: 2
@@ -187,12 +194,18 @@ content:
     region: content
     third_party_settings: {  }
   title:
-    type: string_textfield
+    type: string_textfield_with_counter
     weight: 0
     region: content
     settings:
       size: 60
       placeholder: ''
+      maxlength: 150
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
