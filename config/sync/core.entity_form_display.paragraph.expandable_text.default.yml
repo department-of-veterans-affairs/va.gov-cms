@@ -7,7 +7,7 @@ dependencies:
     - field.field.paragraph.expandable_text.field_wysiwyg
     - paragraphs.paragraphs_type.expandable_text
   module:
-    - text
+    - textfield_counter
 id: paragraph.expandable_text.default
 targetEntityType: paragraph
 bundle: expandable_text
@@ -18,16 +18,27 @@ content:
     settings:
       size: 60
       placeholder: ''
+      use_field_maxlength: false
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: string_textfield
+    type: string_textfield_with_counter
     region: content
   field_wysiwyg:
     weight: 1
     settings:
       rows: 5
       placeholder: ''
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: text_textarea
+    type: text_textarea_with_counter
     region: content
 hidden:
   created: true
