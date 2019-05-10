@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# TODO allow script to be run from anywhere
+# TODO check if socks proxy is running
+# TODO check if lando is running
+
 # Exit immediately if a command fails with a non-zero status code
 set -e
 
