@@ -3,7 +3,7 @@
 # Exit immediately if a command fails with a non-zero status code
 set -e
 
-echo "You must have your PROXY running `ssh socks -D 2001 -N &`"
+echo "You must have your PROXY running with 'ssh socks -D 2001 -N &'"
 # Setup
 cd .dumps
 # @todo check if Lando stack is running, if not return error message or just start it
