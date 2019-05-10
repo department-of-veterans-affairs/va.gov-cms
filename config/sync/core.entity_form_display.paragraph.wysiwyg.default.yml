@@ -6,7 +6,7 @@ dependencies:
     - field.field.paragraph.wysiwyg.field_wysiwyg
     - paragraphs.paragraphs_type.wysiwyg
   module:
-    - text
+    - textfield_counter
 id: paragraph.wysiwyg.default
 targetEntityType: paragraph
 bundle: wysiwyg
@@ -17,8 +17,13 @@ content:
     settings:
       rows: 5
       placeholder: ''
+      maxlength: null
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: text_textarea
+    type: text_textarea_with_counter
     region: content
 hidden:
   created: true

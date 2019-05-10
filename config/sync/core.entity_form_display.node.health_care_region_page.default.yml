@@ -35,6 +35,7 @@ dependencies:
     - paragraphs
     - path
     - text
+    - textfield_counter
 third_party_settings:
   field_group:
     group_governance:
@@ -72,7 +73,6 @@ third_party_settings:
       weight: 11
       format_type: details
       format_settings:
-        label: 'Our Locations'
         required_fields: true
         id: ''
         classes: ''
@@ -87,7 +87,6 @@ third_party_settings:
       weight: 13
       format_type: details
       format_settings:
-        label: 'Regional and local descriptions of health services'
         required_fields: true
         id: ''
         classes: ''
@@ -142,7 +141,6 @@ third_party_settings:
       weight: 17
       format_type: details
       format_settings:
-        label: 'Stories, events, and press release blurbs'
         required_fields: true
         id: ''
         classes: ''
@@ -157,7 +155,6 @@ third_party_settings:
       weight: 19
       format_type: details
       format_settings:
-        label: 'Get updates from us'
         description: ''
         required_fields: true
         id: ''
@@ -283,16 +280,26 @@ content:
     settings:
       rows: 5
       placeholder: ''
+      maxlength: 300
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: text_textarea
+    type: text_textarea_with_counter
     region: content
   field_intro_text_news_stories:
     weight: 22
     settings:
       rows: 5
       placeholder: ''
+      maxlength: 300
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: text_textarea
+    type: text_textarea_with_counter
     region: content
   field_leadership:
     weight: 15
@@ -337,8 +344,13 @@ content:
     settings:
       rows: 5
       placeholder: ''
+      maxlength: 500
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: text_textarea
+    type: text_textarea_with_counter
     region: content
   field_related_links:
     weight: 21
