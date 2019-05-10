@@ -27,22 +27,22 @@ const contextOptions = {
 }
 
 const exclusions = {
-    exclude: [['#content'], ['#behavior']]
+    exclude: [['#content', '#behavior']]
 }
 
 module.exports
     = {
     '@tags': ['accessibility'],
 
-    'Test add node': function (browser) {
+    'Test Create Support Service': function (browser) {
         browser
             .url(siteUrl)
             .setValue('input[name="name"]', name)
             .setValue('input[name="pass"]', pass)
             .click('input[id="edit-submit"]')
-            .url(siteUrl+'/node/add/page')
+            .url(siteUrl+'/node/add/support_service')
             .waitForElementVisible('.page-title', 6000)
-            .assert.title('Create Benefits detail page | Veterans Affairs')
+            .assert.title('Create Support Service | Veterans Affairs')
             .initAccessibility()
             .verify.accessibility(contextOptions, axeOptions)
             .end(function(err, res){
