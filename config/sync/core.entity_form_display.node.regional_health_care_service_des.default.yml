@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_form_mode.node.inline_entity_form
     - field.field.node.regional_health_care_service_des.field_administration
     - field.field.node.regional_health_care_service_des.field_body
     - field.field.node.regional_health_care_service_des.field_local_health_care_service_
@@ -13,7 +12,6 @@ dependencies:
   module:
     - content_moderation
     - field_group
-    - inline_entity_form
     - path
     - text
 third_party_settings:
@@ -25,7 +23,6 @@ third_party_settings:
       weight: 11
       format_type: details_sidebar
       format_settings:
-        label: Governance
         open: '1'
         weight: '-10'
         required_fields: '1'
@@ -75,19 +72,9 @@ content:
     region: content
   field_local_health_care_service_:
     weight: 2
-    settings:
-      form_mode: inline_entity_form
-      override_labels: true
-      label_singular: 'Local clinic/hospital service availability and description'
-      label_plural: 'Local clinic/hospital service availability and descriptions'
-      allow_new: true
-      match_operator: CONTAINS
-      allow_duplicate: true
-      collapsible: false
-      collapsed: false
-      allow_existing: false
+    settings: {  }
     third_party_settings: {  }
-    type: inline_entity_form_complex
+    type: options_select
     region: content
   field_region_page:
     weight: 4
