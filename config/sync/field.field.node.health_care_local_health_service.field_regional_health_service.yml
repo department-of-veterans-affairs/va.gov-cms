@@ -1,19 +1,19 @@
-uuid: 262d3936-4ce5-4327-b205-a26f80dab00d
+uuid: 85dfe3c2-09da-4384-8f80-77264be8f69e
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_clinical_health_services
+    - field.storage.node.field_regional_health_service
     - node.type.health_care_local_health_service
     - node.type.regional_health_care_service_des
-id: node.health_care_local_health_service.field_clinical_health_services
-field_name: field_clinical_health_services
+id: node.health_care_local_health_service.field_regional_health_service
+field_name: field_regional_health_service
 entity_type: node
 bundle: health_care_local_health_service
-label: 'Regional Health Service Offerings'
+label: 'Regional Health Service Offering'
 description: ''
-required: false
-translatable: true
+required: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
