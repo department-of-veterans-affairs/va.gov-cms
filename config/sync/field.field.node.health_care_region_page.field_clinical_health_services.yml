@@ -10,8 +10,8 @@ id: node.health_care_region_page.field_clinical_health_services
 field_name: field_clinical_health_services
 entity_type: node
 bundle: health_care_region_page
-label: 'Regional Health Services'
-description: 'Health services available in the region, including a local description for each clinic / hospital that offers the service.'
+label: 'Regional Health Service Offerings.'
+description: 'Health services available in the region.'
 required: false
 translatable: false
 default_value: {  }
@@ -22,7 +22,8 @@ settings:
     target_bundles:
       regional_health_care_service_des: regional_health_care_service_des
     sort:
-      field: _none
+      field: title
+      direction: ASC
     auto_create: 1
     auto_create_bundle: ''
 field_type: entity_reference
