@@ -6,15 +6,15 @@ How to start:
 * `git clone git@github.com:department-of-veterans-affairs/va.gov-cms.git vagov`
 * `cd vagov`
 * `lando start`
-* `scripts/sync-db.sh`
-* `scripts/sync-files.sh`
+* `scripts/sync-db.sh` # Requires SOCKS proxy access
+* `scripts/sync-files.sh` Requires SOCKS proxy access
 
 Example workflow:
 * `git fetch --all`
 * `git checkout --branch <VAGOV-000-name> origin/develop`
 * `lando composer install`
-* `lando sync-db`
-* `lando sync-files` # (optional)
+* `scripts/sync-db.sh`
+* `scripts/sync-files.sh` # (optional)
 
 What it does:
 * Spins up php, mysql, and node containers
@@ -46,7 +46,7 @@ Apply patches:
   * example" https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/726.patch
   * for Github, you can usually type in `.patch` at the end of the PR url to get the patch file
   * some people use github, some use drupal.org. drupal is moving to gitlab
-* In the "`patches`" property of `composer.json`, make an entry for the package you are patching, if not already there, write an explanation as to what the patch does, and then put the url to the patch 
+* In the "`patches`" property of `composer.json`, make an entry for the package you are patching, if not already there, write an explanation lando sync-dbas to what the patch does, and then put the url to the patch 
   * ex:
   * ```
     "patches": {
