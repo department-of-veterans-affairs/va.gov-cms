@@ -7,7 +7,7 @@ How to start:
 * `cd vagov`
 * `lando start`
 * `scripts/sync-db.sh` # Requires SOCKS proxy access
-* `scripts/sync-files.sh` Requires SOCKS proxy access
+* `scripts/sync-files.sh` # Requires SOCKS proxy access
 
 Example workflow:
 * `git fetch --all`
