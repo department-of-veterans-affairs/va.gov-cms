@@ -20,6 +20,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_locations_intro_blurb
     - field.field.node.health_care_region_page.field_media
     - field.field.node.health_care_region_page.field_nickname_for_this_facility
+    - field.field.node.health_care_region_page.field_other_va_locations
     - field.field.node.health_care_region_page.field_press_release_blurb
     - field.field.node.health_care_region_page.field_related_links
     - field.field.node.health_care_region_page.field_sign_up_for_emergency_emai
@@ -69,10 +70,12 @@ third_party_settings:
     group_intro_text_for_secondary_p:
       children:
         - field_locations_intro_blurb
+        - field_other_va_locations
       parent_name: ''
       weight: 11
       format_type: details
       format_settings:
+        description: "<p>To add locations to the \"Our Locations\" page, <a href=\"/node/add/health_care_local_facility\">create a facility listing</a> for each one.This section also allows you to add other content to the \"Our Locations\" page.</p>\r\n\r\n\r\n"
         required_fields: true
         id: ''
         classes: ''
@@ -326,6 +329,14 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_other_va_locations:
+    weight: 11
+    settings:
+      size: 60
+      placeholder: vha_
     third_party_settings: {  }
     type: string_textfield
     region: content
