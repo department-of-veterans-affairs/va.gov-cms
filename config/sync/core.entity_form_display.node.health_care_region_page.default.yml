@@ -213,19 +213,9 @@ content:
     region: content
   field_clinical_health_services:
     weight: 12
-    settings:
-      form_mode: inline_entity_form
-      override_labels: true
-      label_singular: 'Regional health care service description'
-      label_plural: 'Regional health care service descriptions'
-      collapsible: true
-      allow_new: true
-      match_operator: CONTAINS
-      collapsed: false
-      allow_existing: false
-      allow_duplicate: false
+    settings: {  }
     third_party_settings: {  }
-    type: inline_entity_form_complex
+    type: options_select
     region: content
   field_email_subscription:
     weight: 17
