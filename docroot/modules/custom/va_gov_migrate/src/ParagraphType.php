@@ -61,9 +61,9 @@ abstract class ParagraphType {
             $anomaly = 'Q&A - nested';
           }
           else {
-            $anomaly = "{$this->getParagraphName()} not allowed on {$entity->bundle()}";
+            $anomaly = "{$this->paragraphLabel()} not allowed on {$this->paragraphLabel($entity->bundle())}";
           }
-          Message::make('@class not allowed on @type in field @field on @title @url',
+          AnomalyMessage::makeCustom('@class not allowed on @type in field @field on @title @url',
             [
               '@anomaly_type' => $anomaly,
               '@class' => $this->getParagraphName(),
@@ -122,6 +122,24 @@ abstract class ParagraphType {
     }
 
     return FALSE;
+  }
+
+  /**
+   * Returns best guess of paragraph label based on paragraph machine name.
+   *
+   * @param string $machine_name
+   *   The machine name to build the label from (defaults to paragraph name).
+   *
+   * @return string
+   *   The paragraph label.
+   */
+  protected function paragraphLabel($machine_name = '') {
+    if (empty($machine_name)) {
+      $machine_name = $this->getParagraphName();
+    }
+
+    $machine_name = str_replace('Q_A', 'Q&A', $machine_name);
+    return ucfirst(str_replace('_', ' ', $machine_name));
   }
 
   /**
