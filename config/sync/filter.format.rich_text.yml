@@ -14,13 +14,13 @@ filters:
   filter_align:
     id: filter_align
     provider: filter
-    status: true
+    status: false
     weight: -48
     settings: {  }
   filter_caption:
     id: filter_caption
     provider: filter
-    status: true
+    status: false
     weight: -47
     settings: {  }
   filter_htmlcorrector:
@@ -38,7 +38,7 @@ filters:
   entity_embed:
     id: entity_embed
     provider: entity_embed
-    status: true
+    status: false
     weight: -49
     settings: {  }
   filter_html:
@@ -47,7 +47,7 @@ filters:
     status: true
     weight: -50
     settings:
-      allowed_html: '<em> <strong> <b> <cite> <blockquote cite> <ul type> <ol start type> <li> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <img src alt data-entity-type data-entity-uuid data-align data-caption> <hr> <br> <drupal-entity data-* title alt> <a href hreflang class=" usa-button usa-button-primary usa-button-secondary"> <p class="va-address-block">'
+      allowed_html: '<em> <strong> <b> <cite> <blockquote cite> <ul type> <ol start type> <li> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <hr> <br> <drupal-entity data-* title alt> <p class="va-address-block"> <a href hreflang class=" usa-button usa-button-primary usa-button-secondary va-button-primary">'
       filter_html_help: true
       filter_html_nofollow: false
   filter_autop:

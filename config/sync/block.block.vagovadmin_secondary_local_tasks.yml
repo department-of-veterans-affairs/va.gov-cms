@@ -1,0 +1,22 @@
+uuid: 83484ec5-b14d-4de2-95a4-4d80ec6cf1e9
+langcode: en
+status: true
+dependencies:
+  theme:
+    - vagovadmin
+_core:
+  default_config_hash: DIhfo3vqMBmJ5dgZj7bocULh6Kv2WB5yKrtfzB2EFEM
+id: vagovadmin_secondary_local_tasks
+theme: vagovadmin
+region: pre_content
+weight: 0
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Secondary tabs'
+  provider: core
+  label_display: '0'
+  primary: false
+  secondary: true
+visibility: {  }

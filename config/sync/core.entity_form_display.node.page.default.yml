@@ -22,6 +22,7 @@ dependencies:
     - metatag
     - paragraphs_browser
     - path
+    - textfield_counter
 third_party_settings:
   field_group:
     group_governance:
@@ -129,8 +130,14 @@ content:
     settings:
       size: 120
       placeholder: ''
+      maxlength: 160
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
     third_party_settings: {  }
-    type: string_textfield
+    type: string_textfield_with_counter
     region: content
   field_featured_content:
     type: entity_reference_paragraphs_browser
@@ -152,8 +159,13 @@ content:
     settings:
       rows: 5
       placeholder: ''
+      maxlength: 500
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: string_textarea
+    type: string_textarea_with_counter
     region: content
   field_meta_tags:
     type: metatag_firehose
@@ -214,11 +226,17 @@ content:
     third_party_settings: {  }
     region: content
   title:
-    type: string_textfield
+    type: string_textfield_with_counter
     weight: 0
     settings:
       size: 60
       placeholder: ''
+      maxlength: 150
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
     third_party_settings: {  }
     region: content
   uid:
