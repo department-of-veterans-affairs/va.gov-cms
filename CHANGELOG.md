@@ -8,6 +8,70 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
+## 2019-05-14.1 Sprint 14 mid-sprint release 1.
+
+* __Merge branch &#39;develop&#39;__
+
+    [Andy Hawks](mailto:andy@andyhawks.com) - Tue, 14 May 2019 10:26:01 -0600
+    
+    EAD -&gt; refs/heads/master, tag: refs/tags/20190514.1, refs/remotes/upstream/master
+    VAGOV-000: Release 2019-05-14.1 Sprint 14 mid-sprint release 1.
+
+* __Merge pull request #314 from kevwalsh/3457-other-va-locations__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 14 May 2019 08:52:23 -0600
+    
+    efs/remotes/upstream/develop, refs/heads/develop
+    VAGOV-3457: Other VA locations field on Our Locations page.
+
+* __Merge pull request #313 from kevwalsh/3474-allow-react-widget__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 14 May 2019 08:49:56 -0600
+    
+    VAGOV-3474: Allow react widget as a question type.
+
+* __Merge pull request #312 from kevwalsh/3448-health-service-relationships__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 14 May 2019 08:48:09 -0600
+    
+    VAGOV-3448: Health service relationships
+
+* __Merge pull request #309 from ElijahLynn/VAGOV-3461-fix-sync-db-invoking-socks-proxy__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 13 May 2019 09:15:03 -0600
+    
+    VAGOV-3461 Fix sync-db/files.sh invoking socks proxy.
+
+* __Merge pull request #302 from acabouet/VAGOV-3262-admin-custom-theme__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 10 May 2019 11:33:31 -0600
+    
+    VAGOV-3262: Adding seven sub theme
+
+* __Merge pull request #308 from kevwalsh/3249-buttons__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 10 May 2019 11:28:04 -0600 
+    
+    VAGOV-3249: Fix primary button in rich text format and VAGOV-3197: Remove img
+    and drupal-entity
+
+* __Merge pull request #306 from acabouet/VAGOV-1897-max-character-length-counter__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 10 May 2019 11:27:06 -0600
+    
+    VAGOV-1897: Textfield Counter Module
+
+* __Merge pull request #305 from schiavo/VAGOV-2945__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 10 May 2019 11:16:52 -0600
+        
+    VAGOV-2945 Write new Nightwatch tests for new content types
+
+* __Merge branch &#39;develop&#39; into VAGOV-3262-admin-custom-theme__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 7 May 2019 09:27:35 -0600
+    
+
 ## 2019-05-07.1 Sprint 13 final release 1.
 
 * __Merge branch &#39;develop&#39;__
@@ -263,4 +327,9 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
     VAGOV-2623: Remove password_policy.
 
 ## END OF FILE
+
+
+
+    
+
 
