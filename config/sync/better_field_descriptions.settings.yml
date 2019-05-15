@@ -1,4 +1,16 @@
-better_field_descriptions: {  }
-better_field_descriptions_settings: {  }
+better_field_descriptions:
+  template: better-field-descriptions-text
+  default_label: Description
+  paragraph:
+    react_widget:
+      field_widget_type:
+        description: "Insert here the code for the type of widget to use. Below is the list of widget codes in use as of May 2019. \r\n\r\nhealth-records | \r\nrx |  \r\nmessaging |  \r\nlab-and-test-results | \r\nappointments | \r\ngi-bill-benefits | \r\ndisability-benefits | \r\nclaims-and-appeals | \r\nletters | \r\nvic | \r\nvet-tec"
+        label: 'How to populate this field'
+        position: '1'
+  template_uri: modules/contrib/better_field_descriptions/templates/better-field-descriptions-text.html.twig
+better_field_descriptions_settings:
+  paragraph:
+    react_widget:
+      field_widget_type: field_widget_type
 _core:
   default_config_hash: TOIlYzdlzFXxp8rDBhTd-2U8MjEt7a-RRXSQNA8AqhA
