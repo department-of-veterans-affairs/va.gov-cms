@@ -4,3 +4,20 @@
  * @file
  * Install, update and uninstall hooks for the VA.gov subprofile.
  */
+
+/**
+ * Implements hook_install().
+ *
+ * Perform actions to set up the site for this profile.
+ *
+ * @see system_install()
+ */
+function va_gov_install() {
+
+  // First, do everything in base profile.
+  include_once DRUPAL_ROOT . '/profiles/contrib/headless_lightning/headless_lightning.install';
+  headless_lightning_install();
+
+  // Can add code in here to make nodes, terms, etc.
+
+}
