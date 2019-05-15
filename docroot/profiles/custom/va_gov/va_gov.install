@@ -18,4 +18,9 @@ function va_gov_install() {
   include_once DRUPAL_ROOT . '/profiles/contrib/headless_lightning/headless_lightning.install';
   headless_lightning_install();
 
+  // Content module must be installed after lightning because the modules aren't
+  // ready yet.
+  $module = 'va_gov_content';
+  \Drupal::service('module_installer')->install([$module]);
+
 }
