@@ -4,6 +4,7 @@ namespace Drupal\va_gov_migrate\Plugin\migrate\source;
 
 use Drupal\migrate\MigrateException;
 use Drupal\migrate\Plugin\MigrationInterface;
+use Drupal\migration_tools\Message;
 
 /**
  * Source to read from sidebar.json.
@@ -50,8 +51,8 @@ class VaBenefitsMenu extends VaMenuBase {
       'Careers and employment' => '/careers-employment',
       'Pension benefits' => '/pension',
       'Housing assistance' => '/housing-assistance',
-      'Life insurance' => '/life-insurance/',
-      'Burials and memorials' => '/burials-memorials/',
+      'Life insurance' => '/life-insurance',
+      'Burials and memorials' => '/burials-memorials',
     ];
 
     $contents = file_get_contents("modules/custom/va_gov_migrate/data/sidebar.json");
@@ -61,10 +62,18 @@ class VaBenefitsMenu extends VaMenuBase {
     foreach ($json_sidebar as $page) {
       if (!empty($page['sidebarTitle']) && in_array($page['sidebarTitle'], $this->sections)) {
         if (empty($menus[$page['sidebarTitle']])) {
-          $menu_name = strtolower(str_replace(' ', '-', $page['sidebarTitle'])) . '-benefits-hub';
+
+          if (empty($hub_dirs[$page['sidebarTitle']])) {
+            Message::make("Hub @title doesn't have a directory in menus", ['@title' => $page['sidebarTitle']], Message::ERROR);
+            $hub_dir = strtolower(str_replace(' ', '-', $page['sidebarTitle']));
+          }
+          else {
+            $hub_dir = $hub_dirs[$page['sidebarTitle']];
+          }
+          $menu_name = strtolower(str_replace('/', '', $hub_dir . '-benefits-hub'));
           $menus[$page['sidebarTitle']] = [
             'title' => $page['sidebarTitle'],
-            'href' => $hub_dirs[$page['sidebarTitle']],
+            'href' => $hub_dir,
             'items' => [],
             'menu' => $menu_name,
           ];

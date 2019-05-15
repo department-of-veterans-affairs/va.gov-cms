@@ -116,7 +116,8 @@ class MessageLogger implements EventSubscriberInterface {
         '"' . $title . '","' .
         $event->variables['@anomaly_type'] . '",' .
         $url . ',' .
-        self::getHub($url) . "\n");
+        self::getHub($url) . ',"' .
+        $event->variables['@additional_info'] . '"' . "\n");
       fclose($handle);
     }
     elseif ($event->severity <= Message::ERROR ||
@@ -219,7 +220,7 @@ class MessageLogger implements EventSubscriberInterface {
 
     self::$anomaliesFile = $rpt_path . "/anomalies_{$event->getMigration()->id()}.csv";
     $handle = fopen(self::$anomaliesFile, "w");
-    fwrite($handle, "title,type,hub,url\n");
+    fwrite($handle, "title,type,url,hub,additional_info\n");
     fclose($handle);
   }
 

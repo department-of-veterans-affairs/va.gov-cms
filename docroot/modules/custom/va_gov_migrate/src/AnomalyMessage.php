@@ -40,34 +40,69 @@ class AnomalyMessage {
   /**
    * Makes a warning message for anomalies.
    *
-   * @param string $anomalytype
+   * @param string $anomaly_type
    *   The name of the anomaly (corresponds to 'Name' column in airtable).
    * @param string $page_title
    *   The title of the page the anomaly is on.
    * @param string $page_url
    *   The url of the page.
+   * @param string $additional_info
+   *   Useful information about the anomaly, if any.
    *
    * @throws \Drupal\migrate\MigrateException
    */
-  public static function make($anomalytype, $page_title, $page_url) {
+  public static function make($anomaly_type, $page_title, $page_url, $additional_info = '') {
     // 'va_gov_migrate.anomaly' is reset to empty in PostRowSave.
     $anomaly = \Drupal::state()->get('va_gov_migrate.anomaly');
     if (empty($anomaly)) {
       $anomaly = [];
     }
 
-    if (empty($anomaly[$anomalytype])) {
-      $anomaly[$anomalytype] = TRUE;
+    if (empty($anomaly[$anomaly_type])) {
+      $anomaly[$anomaly_type] = TRUE;
       \Drupal::state()->set('va_gov_migrate.anomaly', $anomaly);
 
       Message::make('@anomaly_type anomaly on @title @url',
         [
-          '@anomaly_type' => $anomalytype,
+          '@anomaly_type' => $anomaly_type,
           '@title' => $page_title,
           '@url' => $page_url,
+          '@additional_info' => $additional_info,
         ],
         Message::WARNING
       );
+    }
+  }
+
+  /**
+   * Message::make + limiting messages to 1 per anomaly per page.
+   *
+   * @param string $message
+   *   The message to store in the log.
+   * @param array $params
+   *   Array of variables to replace in the message on display.
+   * @param int $severity
+   *   The severity of the message.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  public static function makeCustom($message, array $params, $severity = Message::WARNING) {
+    if (empty($params['@anomaly_type'])) {
+      Message::make($message, $params, $severity);
+    }
+    else {
+      $anomaly_type = $params['@anomaly_type'];
+      // 'va_gov_migrate.anomaly' is reset to empty in PostRowSave.
+      $anomaly = \Drupal::state()->get('va_gov_migrate.anomaly');
+      if (empty($anomaly)) {
+        $anomaly = [];
+      }
+
+      if (empty($anomaly[$anomaly_type])) {
+        $anomaly[$anomaly_type] = TRUE;
+        \Drupal::state()->set('va_gov_migrate.anomaly', $anomaly);
+        Message::make($message, $params, $severity);
+      }
     }
   }
 

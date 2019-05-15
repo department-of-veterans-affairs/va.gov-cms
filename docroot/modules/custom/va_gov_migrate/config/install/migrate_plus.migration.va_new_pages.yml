@@ -4,11 +4,18 @@ migration_group: va_tests
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
-    - "/va-payment-history.md"
-    - "/privacy.md"
-    - "/welcome-kit.md"
+    - "/change-direct-deposit-and-contact-information.md"
+    - "/claim-or-appeal-status.md"
+#    - "/discharge-upgrade-instructions/index.md" # react page
     - "/sign-in-faq.md"
+    - "/va-payment-history.md"
     - "/veterans-portrait-project.md"
+    - "/welcome-kit.md"
+    - "/change-address.md"
+    - "/connected-accounts-faq.md"
+    - "/privacy-policy.md"
+    - "/session-expired.md"
+    - "/my-health-account-validation.md"
   fields:  # :ist any frontmatter fields you want to migrate.
     - description
     - plainlanguage_date
