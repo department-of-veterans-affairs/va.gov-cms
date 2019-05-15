@@ -116,9 +116,14 @@
             "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
         ],
         "nuke": "rm -r -f docroot/modules/contrib docroot/profiles/contrib/lightning vendor composer.lock",
-        "quick-start": [
-            "composer install",
-            "php docroot/core/scripts/drupal quick-start lightning --no-interaction"
+        "va:start": [
+            "composer install --ansi",
+            "php docroot/core/scripts/drupal quick-start va_gov --no-interaction --ansi"
+        ],
+        "va:reinstall": [
+            "chmod +w -R docroot/sites/default",
+            "rm -rf docroot/sites/default/files docroot/sites/default/settings.php",
+            "@va:start"
         ]
     },
     "extra": {
