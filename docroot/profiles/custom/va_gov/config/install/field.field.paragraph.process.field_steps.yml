@@ -1,0 +1,21 @@
+uuid: a26fc54b-9b94-451c-9726-6a25c422b2af
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_steps
+    - paragraphs.paragraphs_type.process
+  module:
+    - text
+id: paragraph.process.field_steps
+field_name: field_steps
+entity_type: paragraph
+bundle: process
+label: Steps
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

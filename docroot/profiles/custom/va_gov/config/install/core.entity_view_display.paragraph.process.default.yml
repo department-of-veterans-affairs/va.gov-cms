@@ -1,0 +1,22 @@
+uuid: 067fcd60-31b2-4f64-9453-23ff320950a7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.process.field_steps
+    - paragraphs.paragraphs_type.process
+  module:
+    - text
+id: paragraph.process.default
+targetEntityType: paragraph
+bundle: process
+mode: default
+content:
+  field_steps:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden: {  }

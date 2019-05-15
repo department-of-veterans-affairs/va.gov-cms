@@ -1,0 +1,26 @@
+uuid: 06c3ca75-924f-4015-8e61-e33d9118c1d2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.process.field_steps
+    - paragraphs.paragraphs_type.process
+  module:
+    - text
+id: paragraph.process.default
+targetEntityType: paragraph
+bundle: process
+mode: default
+content:
+  field_steps:
+    weight: 0
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

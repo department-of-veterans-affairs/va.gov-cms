@@ -1,0 +1,31 @@
+uuid: b5b78704-1bfe-44a8-875f-50d4d25672ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.expandable_text.field_text_expander
+    - field.field.paragraph.expandable_text.field_wysiwyg
+    - paragraphs.paragraphs_type.expandable_text
+  module:
+    - text
+id: paragraph.expandable_text.default
+targetEntityType: paragraph
+bundle: expandable_text
+mode: default
+content:
+  field_text_expander:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_wysiwyg:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden: {  }

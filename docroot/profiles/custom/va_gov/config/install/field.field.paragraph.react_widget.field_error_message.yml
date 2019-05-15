@@ -1,0 +1,24 @@
+uuid: b5f4e263-6638-4d33-94f8-ac4c8a9bebf1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_error_message
+    - paragraphs.paragraphs_type.react_widget
+  module:
+    - text
+id: paragraph.react_widget.field_error_message
+field_name: field_error_message
+entity_type: paragraph
+bundle: react_widget
+label: 'Error Message'
+description: 'The message to display in an error box if the react widget fails to load.'
+required: false
+translatable: false
+default_value:
+  -
+    value: '<strong>We’re sorry. Something went wrong when we tried to load your saved application.</strong><br/>Please try refreshing your browser in a few minutes.'
+    format: rich_text
+default_value_callback: ''
+settings: {  }
+field_type: text

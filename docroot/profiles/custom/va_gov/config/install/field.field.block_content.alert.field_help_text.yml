@@ -1,0 +1,25 @@
+uuid: 662e71bc-76bd-4807-bc36-64e8a1431008
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - field.storage.block_content.field_help_text
+  module:
+    - markup
+id: block_content.alert.field_help_text
+field_name: field_help_text
+entity_type: block_content
+bundle: alert
+label: 'General help text'
+description: ''
+required: false
+translatable: false
+default_value:
+  - {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: "<p>Crisis Alerts draw attention to information that will be useful to veterans experiencing a crisis.<br />\r\nMost of them can be reused across different areas of the site.&nbsp;</p>\r\n\r\n<p>They should be used for information like:</p>\r\n\r\n<ul>\r\n\t<li>Lorem ipsum dolor&nbsp;</li>\r\n\t<li>Sit amet, consectetur&nbsp;</li>\r\n\t<li>Adipisicing elit, sed do eiusmod tempor&nbsp;&nbsp;</li>\r\n</ul>\r\n\r\n<p>They should <strong>not</strong>&nbsp;be used for information like:</p>\r\n\r\n<ul>\r\n\t<li>Labore et dolore magna aliqua (use XYZ instead)</li>\r\n\t<li>Ut enim ad minim veniam (contact ABC or use XYZ instead)</li>\r\n\t<li>Quis nostrud exercitation ullamco (check with QRS for existing entries)</li>\r\n</ul>\r\n"
+    format: rich_text
+field_type: markup

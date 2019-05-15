@@ -1,0 +1,21 @@
+uuid: 8d4f2965-c77a-4d70-a6b6-fc5d9ed08a66
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_benefits
+    - node.type.outreach_asset
+  module:
+    - options
+id: node.outreach_asset.field_benefits
+field_name: field_benefits
+entity_type: node
+bundle: outreach_asset
+label: 'Related Benefits'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

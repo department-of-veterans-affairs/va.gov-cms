@@ -1,0 +1,28 @@
+uuid: b83cea91-e2b8-4906-a20c-7f49293fb23a
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.promo
+    - field.storage.block_content.field_image
+    - media.type.image
+id: block_content.promo.field_image
+field_name: field_image
+entity_type: block_content
+bundle: promo
+label: Image
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

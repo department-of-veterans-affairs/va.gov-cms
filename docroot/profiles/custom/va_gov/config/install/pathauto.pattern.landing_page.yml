@@ -1,0 +1,26 @@
+uuid: d957edc0-04cf-4a53-b32c-4b38fc848b51
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: 8aTzJfhfIZ2Twd4_TsRkj1OcwgrlV-GtbGmNGRqAv_s
+id: landing_page
+label: 'Landing page'
+type: 'canonical_entities:node'
+pattern: '[node:title]'
+selection_criteria:
+  55f4907b-2525-406e-b9ca-939f893b98c4:
+    id: node_type
+    bundles:
+      health_care_region_page: health_care_region_page
+      landing_page: landing_page
+      office: office
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 55f4907b-2525-406e-b9ca-939f893b98c4
+selection_logic: and
+weight: -7
+relationships: {  }

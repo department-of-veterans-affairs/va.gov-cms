@@ -1,0 +1,23 @@
+uuid: 78be4dce-1312-4e67-8ffa-164d2868576b
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - field.storage.block_content.field_is_this_a_header_alert_
+  module:
+    - options
+id: block_content.alert.field_is_this_a_header_alert_
+field_name: field_is_this_a_header_alert_
+entity_type: block_content
+bundle: alert
+label: 'Is this a header alert?'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: in_page_alert
+default_value_callback: ''
+settings: {  }
+field_type: list_string

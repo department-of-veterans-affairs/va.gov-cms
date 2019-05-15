@@ -1,0 +1,19 @@
+uuid: ebb2f11f-e3a5-4f38-b3e9-be076ab7645c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_intro_text
+    - node.type.news_story
+id: node.news_story.field_intro_text
+field_name: field_intro_text
+entity_type: node
+bundle: news_story
+label: 'Intro text'
+description: "<p>The first sentence (\"lede\") is displayed more prominently (<a href=\"#\">see screenshot</a>). It is also displayed in the teaser view of each story.</p>\r\n\r\n<p>This should serve as a summary or lead-in to the rest of the story.</p>\r\n\r\n<p><em>Maximum characters: 300</em></p>"
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,28 @@
+uuid: b2b84363-c78c-4aa0-bd34-292b4d2957de
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_pdf_version
+    - media.type.document
+    - node.type.press_release
+id: node.press_release.field_pdf_version
+field_name: field_pdf_version
+entity_type: node
+bundle: press_release
+label: 'PDF of Press Release'
+description: "<p><em>Optional</em></p> \r\n<p>Include a PDF version of this press release for users to download.</p>\r\n<p>Be sure to include <em>all</em> information (city, introduction text, boilerplate, and so on) using the <a href=\"#\">VA internal template (coming soon!)</a>.</p>"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      document: document
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

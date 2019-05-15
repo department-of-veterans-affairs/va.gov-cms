@@ -1,0 +1,29 @@
+uuid: 2ad4d376-5787-49cb-a910-742aeef6da0b
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.promo
+    - field.storage.node.field_promo
+    - node.type.landing_page
+id: node.landing_page.field_promo
+field_name: field_promo
+entity_type: node
+bundle: landing_page
+label: Promo
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      promo: promo
+    sort:
+      field: info
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

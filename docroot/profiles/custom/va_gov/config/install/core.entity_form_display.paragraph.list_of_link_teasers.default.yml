@@ -1,0 +1,39 @@
+uuid: 726e2d12-c758-42a4-b6da-9ee909893098
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.list_of_link_teasers.field_title
+    - field.field.paragraph.list_of_link_teasers.field_va_paragraphs
+    - paragraphs.paragraphs_type.list_of_link_teasers
+  module:
+    - paragraphs
+id: paragraph.list_of_link_teasers.default
+targetEntityType: paragraph
+bundle: list_of_link_teasers
+mode: default
+content:
+  field_title:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_va_paragraphs:
+    weight: 1
+    settings:
+      title: 'Link teaser'
+      title_plural: 'Link teasers'
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: link_teaser
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

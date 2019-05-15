@@ -1,0 +1,20 @@
+uuid: 72a26be9-7553-4296-aa9b-21b3c3f89a31
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_link_content
+    - serialization
+    - simple_oauth
+    - user
+id: entity.menu_link_content
+plugin_id: 'entity:menu_link_content'
+granularity: resource
+configuration:
+  methods:
+    - GET
+  formats:
+    - json
+  authentication:
+    - oauth2
+    - cookie

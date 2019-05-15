@@ -1,0 +1,93 @@
+uuid: bc6820e5-87cc-4221-af1a-bdb9e09c0366
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_answer
+    - paragraphs.paragraphs_type.collapsible_panel
+    - paragraphs.paragraphs_type.number_callout
+    - paragraphs.paragraphs_type.process
+    - paragraphs.paragraphs_type.q_a
+    - paragraphs.paragraphs_type.react_widget
+    - paragraphs.paragraphs_type.wysiwyg
+  module:
+    - entity_reference_revisions
+id: paragraph.q_a.field_answer
+field_name: field_answer
+entity_type: paragraph
+bundle: q_a
+label: Answer
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      wysiwyg: wysiwyg
+      collapsible_panel: collapsible_panel
+      process: process
+      number_callout: number_callout
+      react_widget: react_widget
+    target_bundles_drag_drop:
+      wysiwyg:
+        enabled: true
+        weight: -31
+      collapsible_panel:
+        enabled: true
+        weight: -30
+      process:
+        enabled: true
+        weight: -29
+      number_callout:
+        enabled: true
+        weight: -28
+      address:
+        weight: -27
+        enabled: false
+      alert:
+        weight: -26
+        enabled: false
+      collapsible_panel_item:
+        weight: -25
+        enabled: false
+      expandable_text:
+        weight: -24
+        enabled: false
+      link_teaser:
+        weight: -23
+        enabled: false
+      list_of_link_teasers:
+        weight: -22
+        enabled: false
+      q_a:
+        weight: -21
+        enabled: false
+      react_widget:
+        enabled: true
+        weight: -20
+      q_a_section:
+        weight: -19
+        enabled: false
+      starred_horizontal_rule:
+        weight: -18
+        enabled: false
+      spanish_translation_summary:
+        weight: -17
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 25
+        enabled: false
+      media:
+        weight: 28
+        enabled: false
+      megamenu_links_column:
+        weight: 29
+        enabled: false
+      megamenu_menu_item:
+        weight: 30
+        enabled: false
+field_type: entity_reference_revisions

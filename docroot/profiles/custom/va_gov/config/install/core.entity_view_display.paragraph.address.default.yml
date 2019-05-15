@@ -1,0 +1,22 @@
+uuid: 649f87a0-9f5c-4383-ad99-5753c1f135f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.address.field_address
+    - paragraphs.paragraphs_type.address
+  module:
+    - address
+id: paragraph.address.default
+targetEntityType: paragraph
+bundle: address
+mode: default
+content:
+  field_address:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+    region: content
+hidden: {  }

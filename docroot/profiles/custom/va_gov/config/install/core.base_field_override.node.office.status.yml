@@ -1,0 +1,22 @@
+uuid: 723a9038-ad64-4e05-be10-04d89a098a69
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.office
+id: node.office.status
+field_name: status
+entity_type: node
+bundle: office
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

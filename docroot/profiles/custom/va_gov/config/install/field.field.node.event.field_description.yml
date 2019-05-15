@@ -1,0 +1,19 @@
+uuid: c07fb521-2f07-4a57-a4fd-67059ff1f888
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description
+    - node.type.event
+id: node.event.field_description
+field_name: field_description
+entity_type: node
+bundle: event
+label: 'A brief (ideally one sentence) summary of the event'
+description: 'This gives the user an overview of the event in teaser views (like calendars or sidebar lists), and when the event is shared on social media.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

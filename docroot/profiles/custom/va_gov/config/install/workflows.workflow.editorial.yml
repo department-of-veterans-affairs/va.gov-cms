@@ -1,0 +1,124 @@
+uuid: 1e565c5c-5b27-4819-ab0f-9b9a2895d9ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - block_content.type.promo
+    - node.type.documentation_page
+    - node.type.event
+    - node.type.health_care_local_facility
+    - node.type.health_care_local_health_service
+    - node.type.health_care_region_detail_page
+    - node.type.health_care_region_page
+    - node.type.landing_page
+    - node.type.news_story
+    - node.type.office
+    - node.type.outreach_asset
+    - node.type.page
+    - node.type.person_profile
+    - node.type.press_release
+    - node.type.regional_health_care_service_des
+    - node.type.support_service
+  module:
+    - content_moderation
+_core:
+  default_config_hash: 8FLw3dX-3yJxrgAtaiNul_N8e8yc70gQD4u9UehUHhs
+id: editorial
+label: 'Editorial workflow'
+type: content_moderation
+type_settings:
+  states:
+    approved_by_reviewer:
+      published: false
+      default_revision: false
+      label: Staged
+      weight: -1
+    archived:
+      label: Archived
+      weight: 1
+      published: false
+      default_revision: true
+    draft:
+      label: Draft
+      published: false
+      default_revision: false
+      weight: -3
+    published:
+      label: Published
+      published: true
+      default_revision: true
+      weight: 0
+    review:
+      label: 'In review'
+      weight: -2
+      published: false
+      default_revision: false
+  transitions:
+    archive:
+      label: Archive
+      from:
+        - published
+      to: archived
+      weight: 1
+    archived_published:
+      label: 'Restore from archive'
+      from:
+        - archived
+      to: published
+      weight: 2
+    create_new_draft:
+      label: 'Create New Draft'
+      to: draft
+      weight: -3
+      from:
+        - approved_by_reviewer
+        - archived
+        - draft
+        - published
+        - review
+    publish:
+      label: Publish
+      to: published
+      weight: 0
+      from:
+        - approved_by_reviewer
+        - draft
+        - published
+        - review
+    review:
+      label: 'Send to review'
+      to: review
+      weight: -2
+      from:
+        - approved_by_reviewer
+        - draft
+        - review
+    stage_for_publishing:
+      label: 'Stage for publishing'
+      from:
+        - approved_by_reviewer
+        - draft
+        - review
+      to: approved_by_reviewer
+      weight: -1
+  entity_types:
+    block_content:
+      - alert
+      - promo
+    node:
+      - documentation_page
+      - event
+      - health_care_local_facility
+      - health_care_local_health_service
+      - health_care_region_detail_page
+      - health_care_region_page
+      - landing_page
+      - news_story
+      - office
+      - outreach_asset
+      - page
+      - person_profile
+      - press_release
+      - regional_health_care_service_des
+      - support_service

@@ -1,0 +1,69 @@
+uuid: 93fba646-8d4a-43bb-b218-ecf073138d79
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.inline_entity_form
+    - field.field.node.regional_health_care_service_des.field_administration
+    - field.field.node.regional_health_care_service_des.field_body
+    - field.field.node.regional_health_care_service_des.field_local_health_care_service_
+    - field.field.node.regional_health_care_service_des.field_region_page
+    - field.field.node.regional_health_care_service_des.field_service_name_and_descripti
+    - node.type.regional_health_care_service_des
+  module:
+    - content_moderation
+    - inline_entity_form
+    - text
+id: node.regional_health_care_service_des.inline_entity_form
+targetEntityType: node
+bundle: regional_health_care_service_des
+mode: inline_entity_form
+content:
+  field_body:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_local_health_care_service_:
+    type: inline_entity_form_complex
+    weight: 2
+    region: content
+    settings:
+      form_mode: inline_entity_form
+      override_labels: true
+      label_singular: 'Local clinic/hospital service availability and description'
+      label_plural: 'Local clinic/hospital service availability and descriptions'
+      collapsible: true
+      allow_new: true
+      match_operator: CONTAINS
+      allow_duplicate: true
+      collapsed: false
+      allow_existing: false
+    third_party_settings: {  }
+  field_service_name_and_descripti:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_administration: true
+  field_region_page: true
+  path: true
+  promote: true
+  revision_log: true
+  status: true
+  sticky: true
+  title: true
+  uid: true
+  url_redirects: true

@@ -1,0 +1,29 @@
+uuid: 85dfe3c2-09da-4384-8f80-77264be8f69e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_regional_health_service
+    - node.type.health_care_local_health_service
+    - node.type.regional_health_care_service_des
+id: node.health_care_local_health_service.field_regional_health_service
+field_name: field_regional_health_service
+entity_type: node
+bundle: health_care_local_health_service
+label: 'Regional Health Service Offering'
+description: 'The regional health service offering must be created first, before you create a local offering.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: unpublished
+  handler_settings:
+    target_bundles:
+      regional_health_care_service_des: regional_health_care_service_des
+    sort:
+      field: title
+      direction: ASC
+    auto_create: 0
+    auto_create_bundle: ''
+field_type: entity_reference

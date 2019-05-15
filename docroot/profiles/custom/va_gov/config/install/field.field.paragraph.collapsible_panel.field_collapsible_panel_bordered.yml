@@ -1,0 +1,23 @@
+uuid: 6fdf81bd-2045-49b0-b8d4-50786a188bb7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_collapsible_panel_bordered
+    - paragraphs.paragraphs_type.collapsible_panel
+id: paragraph.collapsible_panel.field_collapsible_panel_bordered
+field_name: field_collapsible_panel_bordered
+entity_type: paragraph
+bundle: collapsible_panel
+label: 'Add border around items'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

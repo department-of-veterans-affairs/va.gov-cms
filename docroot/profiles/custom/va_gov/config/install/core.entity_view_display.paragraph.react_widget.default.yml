@@ -1,0 +1,33 @@
+uuid: 44920c4e-0563-4f17-9c32-492431f19f15
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.react_widget.field_button_format
+    - field.field.paragraph.react_widget.field_cta_widget
+    - field.field.paragraph.react_widget.field_default_link
+    - field.field.paragraph.react_widget.field_error_message
+    - field.field.paragraph.react_widget.field_loading_message
+    - field.field.paragraph.react_widget.field_timeout
+    - field.field.paragraph.react_widget.field_widget_type
+    - paragraphs.paragraphs_type.react_widget
+id: paragraph.react_widget.default
+targetEntityType: paragraph
+bundle: react_widget
+mode: default
+content:
+  field_widget_type:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  field_button_format: true
+  field_cta_widget: true
+  field_default_link: true
+  field_error_message: true
+  field_loading_message: true
+  field_timeout: true

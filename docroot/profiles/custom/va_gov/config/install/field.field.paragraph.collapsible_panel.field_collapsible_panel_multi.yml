@@ -1,0 +1,23 @@
+uuid: 4c9bf483-e8b9-4161-aaf3-2f77156003b0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_collapsible_panel_multi
+    - paragraphs.paragraphs_type.collapsible_panel
+id: paragraph.collapsible_panel.field_collapsible_panel_multi
+field_name: field_collapsible_panel_multi
+entity_type: paragraph
+bundle: collapsible_panel
+label: 'Allow more than one item to expand at a time'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

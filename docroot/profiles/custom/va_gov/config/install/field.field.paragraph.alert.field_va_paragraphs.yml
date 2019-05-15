@@ -1,0 +1,84 @@
+uuid: 8a3a5250-b3c0-4d18-bb26-a74172f7c1f5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_va_paragraphs
+    - paragraphs.paragraphs_type.alert
+    - paragraphs.paragraphs_type.expandable_text
+    - paragraphs.paragraphs_type.wysiwyg
+  module:
+    - entity_reference_revisions
+id: paragraph.alert.field_va_paragraphs
+field_name: field_va_paragraphs
+entity_type: paragraph
+bundle: alert
+label: 'Alert content'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      expandable_text: expandable_text
+      wysiwyg: wysiwyg
+    target_bundles_drag_drop:
+      expandable_text:
+        enabled: true
+        weight: -37
+      wysiwyg:
+        enabled: true
+        weight: -36
+      address:
+        weight: -35
+        enabled: false
+      alert:
+        weight: -34
+        enabled: false
+      collapsible_panel:
+        weight: -33
+        enabled: false
+      collapsible_panel_item:
+        weight: -32
+        enabled: false
+      health_care_local_facility_servi:
+        weight: -31
+        enabled: false
+      link_teaser:
+        weight: -30
+        enabled: false
+      list_of_link_teasers:
+        weight: -29
+        enabled: false
+      local_facility_health_service:
+        weight: -28
+        enabled: false
+      media:
+        weight: -27
+        enabled: false
+      number_callout:
+        weight: -26
+        enabled: false
+      process:
+        weight: -25
+        enabled: false
+      q_a:
+        weight: -24
+        enabled: false
+      q_a_section:
+        weight: -23
+        enabled: false
+      react_widget:
+        weight: -22
+        enabled: false
+      spanish_translation_summary:
+        weight: -21
+        enabled: false
+      starred_horizontal_rule:
+        weight: -20
+        enabled: false
+field_type: entity_reference_revisions

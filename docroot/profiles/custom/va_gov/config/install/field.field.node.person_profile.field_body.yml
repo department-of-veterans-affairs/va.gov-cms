@@ -1,0 +1,21 @@
+uuid: 756e45fa-665e-4d60-a9ee-5cf54c094f8c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_body
+    - node.type.person_profile
+  module:
+    - text
+id: node.person_profile.field_body
+field_name: field_body
+entity_type: node
+bundle: person_profile
+label: Bio
+description: 'The full text of the bio, which flows from the Introduction. '
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

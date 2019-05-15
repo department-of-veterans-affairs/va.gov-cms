@@ -1,0 +1,161 @@
+uuid: 8c1d3cf4-8c08-4439-b977-bf29a454d4e8
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - field.field.block_content.alert.field_alert_content
+    - field.field.block_content.alert.field_alert_frequency
+    - field.field.block_content.alert.field_alert_title
+    - field.field.block_content.alert.field_alert_type
+    - field.field.block_content.alert.field_content_preview
+    - field.field.block_content.alert.field_help_text
+    - field.field.block_content.alert.field_is_this_a_header_alert_
+    - field.field.block_content.alert.field_node_reference
+    - field.field.block_content.alert.field_owner
+    - field.field.block_content.alert.field_reusability
+  module:
+    - content_moderation
+    - cshs
+    - field_group
+    - hide_revision_field
+    - markup
+    - paragraphs
+third_party_settings:
+  field_group:
+    group_admin:
+      children:
+        - info
+        - field_owner
+        - field_reusability
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        description: ''
+        id: ''
+        classes: ''
+        required_fields: false
+      label: ''
+      region: content
+    group_content:
+      children:
+        - field_content_preview
+        - field_alert_title
+        - field_alert_content
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        description: ''
+        id: ''
+        classes: ''
+        required_fields: false
+      label: ''
+      region: content
+id: block_content.alert.default
+targetEntityType: block_content
+bundle: alert
+mode: default
+content:
+  field_alert_content:
+    type: entity_reference_paragraphs
+    weight: 28
+    settings:
+      title: Content
+      title_plural: Contents
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
+    region: content
+  field_alert_frequency:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_alert_title:
+    weight: 27
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_alert_type:
+    type: options_select
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_content_preview:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
+    region: content
+  field_help_text:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
+    region: content
+  field_is_this_a_header_alert_:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_node_reference:
+    weight: 6
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_owner:
+    weight: 2
+    settings:
+      parent: '0'
+      level_labels: ''
+      force_deepest: 0
+    third_party_settings: {  }
+    type: cshs
+    region: content
+  field_reusability:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  info:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 7
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  revision_log:
+    type: hide_revision_field_log_widget
+    weight: 8
+    region: content
+    settings:
+      show: true
+      default: ''
+      permission_based: false
+      allow_user_settings: true
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

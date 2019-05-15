@@ -1,0 +1,22 @@
+uuid: 739cadac-ec09-4810-a6dd-c715380c098d
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.health_care_local_health_service
+id: node.health_care_local_health_service.status
+field_name: status
+entity_type: node
+bundle: health_care_local_health_service
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
