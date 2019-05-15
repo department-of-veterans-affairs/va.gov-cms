@@ -18,9 +18,24 @@ function va_gov_install() {
   include_once DRUPAL_ROOT . '/profiles/contrib/headless_lightning/headless_lightning.install';
   headless_lightning_install();
 
-  // Content module must be installed after lightning because the modules aren't
-  // ready yet.
-  $module = 'va_gov_content';
-  \Drupal::service('module_installer')->install([$module]);
+  // Set Site UUID to match the real cms.VA.gov.
+  $site_uuid = '45814d2f-3e31-4878-aa12-733ea60ff326';
+  Drupal::configFactory()
+    ->getEditable('system.site')
+    ->set('uuid', $site_uuid)
+    ->save(TRUE);
 
+  // Import config sync folder.
+  // @TODO: Remove comments once config import actually works.
+  /*
+  global $config_directories;
+  $config_directories[CONFIG_SYNC_DIRECTORY] =
+  dirname(dirname(dirname(dirname(__DIR__)))) . '/config/sync';
+
+  $form_state = new Drupal\Core\Form\FormState();
+  $values['op'] = t('Import all');
+  $form_state
+  ->setValues($values);
+  \Drupal::formBuilder()
+  ->submitForm('\Drupal\config\Form\ConfigSync', $form_state);*/
 }
