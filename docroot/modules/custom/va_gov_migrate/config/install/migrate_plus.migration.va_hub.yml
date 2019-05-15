@@ -223,6 +223,15 @@ process:  # assign the fields we collected above to Drupal fields.
   field_administration:
     plugin: default_value
     default_value: 76
+  field_title_icon:
+    -
+      plugin: explode
+      source: url
+      delimiter: '/'
+    -
+      plugin: extract
+      index:
+        - 3
   moderation_state:
     plugin: default_value
     default_value: draft
