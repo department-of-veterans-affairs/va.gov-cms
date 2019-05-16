@@ -790,7 +790,7 @@ $databases['default']['default'] = array (
   'driver' => 'sqlite',
 );
 
-if (file_exists($app_root . '/' . $site_path . '/settings/settings.lando.php')) {
+if (getenv('LANDO_INFO') && file_exists($app_root . '/' . $site_path . '/settings/settings.lando.php')) {
   include $app_root . '/' . $site_path . '/settings/settings.lando.php';
 }
 
