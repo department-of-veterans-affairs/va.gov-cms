@@ -126,7 +126,6 @@
         "va:start": [
             "composer install --ansi",
             "drupal site:install va_gov --account-name=admin --account-pass=admin --ansi && echo 'VA.gov installed. Username: admin  Password: admin' || true",
-            "drupal user:login:url 1 --uri=localhost:9999 --ansi",
             "drupal server localhost:80 --ansi"
         ],
         "va:reinstall": [
