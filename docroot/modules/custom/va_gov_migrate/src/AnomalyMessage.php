@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_migrate;
 
+use Drupal\migrate\Row;
 use Drupal\migration_tools\Message;
 
 /**
@@ -62,7 +63,7 @@ class AnomalyMessage {
       $anomaly[$anomaly_type] = TRUE;
       \Drupal::state()->set('va_gov_migrate.anomaly', $anomaly);
 
-      Message::make('@anomaly_type anomaly on @title @url',
+      Message::make('@anomaly_type anomaly on @title @url -- @additional_info',
         [
           '@anomaly_type' => $anomaly_type,
           '@title' => $page_title,
@@ -104,6 +105,22 @@ class AnomalyMessage {
         Message::make($message, $params, $severity);
       }
     }
+  }
+
+  /**
+   * Convenience function for make().
+   *
+   * @param string $anomaly_type
+   *   The name of the anomaly (corresponds to 'Name' column in airtable).
+   * @param \Drupal\migrate\Row $row
+   *   The migration row, which contains the page title and url.
+   * @param string $additional_info
+   *   Useful information about the anomaly, if any.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  public static function makeFromRow($anomaly_type, Row $row, $additional_info = '') {
+    self::make($anomaly_type, $row->getSourceProperty('title'), $row->getSourceProperty('url'), $additional_info);
   }
 
 }
