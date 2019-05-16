@@ -1,7 +1,13 @@
 uuid: 1a700162-e613-465d-9be8-a5b65578aefa
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - workbench_menu_access
+third_party_settings:
+  workbench_menu_access:
+    access_scheme:
+      4: '4'
 _core:
   default_config_hash: sapEi2YDGoI9yQIT_WgIV2vUdQ6DScH0V3fAyTadAL0
 id: admin

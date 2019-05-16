@@ -1,8 +1,14 @@
 uuid: 0781ec34-160b-4568-bb4b-e9d19c0049ca
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - workbench_menu_access
+third_party_settings:
+  workbench_menu_access:
+    access_scheme:
+      51: '51'
 id: documentation
-label: Documentation
-description: ''
+label: 'VA.gov CMS documentation'
+description: 'How-to''s for editing content in the VA.gov CMS'
 locked: false
