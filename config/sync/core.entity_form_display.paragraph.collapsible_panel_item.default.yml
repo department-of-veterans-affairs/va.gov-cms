@@ -4,10 +4,12 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.collapsible_panel_item.field_title
+    - field.field.paragraph.collapsible_panel_item.field_va_paragraphs
     - field.field.paragraph.collapsible_panel_item.field_wysiwyg
     - paragraphs.paragraphs_type.collapsible_panel_item
   module:
     - textfield_counter
+    - paragraphs
 id: paragraph.collapsible_panel_item.default
 targetEntityType: paragraph
 bundle: collapsible_panel_item
@@ -26,6 +28,18 @@ content:
       textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
     type: string_textfield_with_counter
+    region: content
+  field_va_paragraphs:
+    weight: 3
+    settings:
+      title: Block
+      title_plural: Blocks
+      edit_mode: closed
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
     region: content
   field_wysiwyg:
     weight: 2
