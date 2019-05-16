@@ -126,6 +126,7 @@
         "va:start": [
             "composer install --ansi",
             "drupal site:install va_gov --account-name=admin --account-pass=admin --ansi || true",
+            "drupal module:install va_gov_content || true",
             "# cms.VA.gov installed: Username: admin  Password: admin",
             "drupal server localhost:80 --ansi"
         ],
