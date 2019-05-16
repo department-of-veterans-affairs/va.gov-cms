@@ -104,6 +104,9 @@
         }
     },
     "scripts": {
+        "command": [
+            "PATH=docroot/vendor/bin:$PATH"
+        ],
         "post-install-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
             "cp -r 'hooks/' '.git/hooks/'",
@@ -122,21 +125,21 @@
         "nuke": "rm -r -f docroot/modules/contrib docroot/profiles/contrib/lightning vendor composer.lock",
         "va:start": [
             "composer install --ansi",
-            "PATH=docroot/vendor/bin:$PATH",
             "drupal site:install va_gov --account-name=admin --account-pass=admin --ansi && echo 'VA.gov installed. Username: admin  Password: admin' || true",
             "drupal user:login:url 1 --uri=localhost:9999 --ansi",
-            "drupal server localhost:9999 --ansi"
+            "drupal server localhost:80 --ansi"
         ],
         "va:reinstall": [
+            "# This only reinstalls sites installed with SQLite...",
             "chmod +w -R docroot/sites/default",
             "rm -rf docroot/sites/default/files",
             "@va:start"
         ],
         "va:config:export": [
-            "php docroot/vendor/bin/drupal config:export --ansi"
+            "drupal config:export --ansi"
         ],
         "va:config:import": [
-            "php docroot/vendor/bin/drupal config:import --ansi"
+            "drupal config:import --ansi"
         ]
     },
     "extra": {
