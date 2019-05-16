@@ -23,7 +23,13 @@ class LinksList extends ParagraphType {
    * {@inheritdoc}
    */
   protected function isParagraph(DOMQuery $query_path) {
-    return $query_path->hasClass('hub-page-link-list') || $query_path->hasClass('va-nav-linkslist-list');
+    $is_linkslist = FALSE;
+    if ($query_path->hasClass('hub-page-link-list') || $query_path->hasClass('va-nav-linkslist-list')) {
+      if ($query_path->find('li')->count()) {
+        $is_linkslist = TRUE;
+      }
+    }
+    return $is_linkslist;
   }
 
   /**
