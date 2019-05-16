@@ -683,7 +683,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/fengyuanchen/cropper/zipball/30c58b29ee21010e17e58ebab165fbd84285c685",
-                "reference": "30c58b29ee21010e17e58ebab165fbd84285c685"
+                "reference": "30c58b29ee21010e17e58ebab165fbd84285c685",
+                "shasum": null
             },
             "type": "bower-asset",
             "license": [
@@ -701,7 +702,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/enyo/dropzone/zipball/08b9e0a763b54a685404dea523a9c54242fbe1b9",
-                "reference": "08b9e0a763b54a685404dea523a9c54242fbe1b9"
+                "reference": "08b9e0a763b54a685404dea523a9c54242fbe1b9",
+                "shasum": null
             },
             "type": "bower-asset"
         },
@@ -716,7 +718,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/9e8ec3d10fad04748176144f108d7355662ae75e",
-                "reference": "9e8ec3d10fad04748176144f108d7355662ae75e"
+                "reference": "9e8ec3d10fad04748176144f108d7355662ae75e",
+                "shasum": null
             },
             "type": "bower-asset",
             "license": [
@@ -734,7 +737,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/kenwheeler/slick/zipball/0f40c9d6a02a5c08b5f4dd80fdada3a854a59bee",
-                "reference": "0f40c9d6a02a5c08b5f4dd80fdada3a854a59bee"
+                "reference": "0f40c9d6a02a5c08b5f4dd80fdada3a854a59bee",
+                "shasum": null
             },
             "require": {
                 "bower-asset/jquery": ">=1.7"
@@ -8245,6 +8249,77 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/social_media_links",
                 "issues": "https://www.drupal.org/project/issues/social_media_links"
+            }
+        },
+        {
+            "name": "drupal/tablefield",
+            "version": "2.0.0-alpha3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/tablefield.git",
+                "reference": "8.x-2.0-alpha3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/tablefield-8.x-2.0-alpha3.zip",
+                "reference": "8.x-2.0-alpha3",
+                "shasum": "6f852634af750b00b6b25be98976c14df653c6fc"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.x": "2.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-2.0-alpha3",
+                    "datestamp": "1556720881",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Kevin Hankens",
+                    "homepage": "https://www.drupal.org/user/78090"
+                },
+                {
+                    "name": "Liam Morland",
+                    "homepage": "https://www.drupal.org/user/493050"
+                },
+                {
+                    "name": "colan",
+                    "homepage": "https://www.drupal.org/user/58704"
+                },
+                {
+                    "name": "jenlampton",
+                    "homepage": "https://www.drupal.org/user/85586"
+                },
+                {
+                    "name": "lolandese",
+                    "homepage": "https://www.drupal.org/user/210402"
+                },
+                {
+                    "name": "mayurjadhav",
+                    "homepage": "https://www.drupal.org/user/2266604"
+                },
+                {
+                    "name": "vitalie",
+                    "homepage": "https://www.drupal.org/user/175134"
+                }
+            ],
+            "description": "Defines a generic tablular data field.",
+            "homepage": "https://www.drupal.org/project/tablefield",
+            "support": {
+                "source": "https://git.drupalcode.org/project/tablefield"
             }
         },
         {
@@ -17113,6 +17188,7 @@
         "drupal/fast_404": 15,
         "drupal/node_revisions_autoclean": 10,
         "drupal/pathologic": 15,
+        "drupal/tablefield": 15,
         "drupal/cer": 15,
         "drupal/paragraphs_browser": 15,
         "acquia/lightning_dev": 20
