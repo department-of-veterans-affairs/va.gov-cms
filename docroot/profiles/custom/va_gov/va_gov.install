@@ -24,9 +24,9 @@ function va_gov_install() {
   // Enable va_gov_content module.
   // This must be done here and not in va_gov.info.yml because the structure
   // must exist first.
-  $module = 'va_gov_content';
-  \Drupal::service('module_installer')->install([$module]);
-
+  // @TODO: Enabling the module this way does NOT create the content!
+  // $module = 'va_gov_content';
+  // \Drupal::service('module_installer')->install([$module]);.
   // Import config sync folder.
   // @TODO: Remove comments once config import actually works.
   /*
