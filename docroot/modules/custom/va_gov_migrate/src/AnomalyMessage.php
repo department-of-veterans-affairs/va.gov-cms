@@ -12,8 +12,8 @@ use Drupal\migration_tools\Message;
  */
 class AnomalyMessage {
 
-  const FONT_AWESOME_NUMBER_CALLOUTS = "Font awesome number callouts";
-  const FONT_AWESOME_SNIPPETS = "Font awesome snippets";
+  const FONT_AWESOME_NUMBER_CALLOUTS = "Font awesome number callouts (Decision Reviews)";
+  const FONT_AWESOME_SNIPPETS = "Font awesome snippets (Decision Reviews)";
   const TWO_COLUMN_CONTENT = "Two-column content";
   const TWO_BUTTONS_SIDE_BY_SIDE = "Two buttons side-by-side";
   const SUBWAY_MAP_WITHOUT_NUMBERS = "Subway map without numbers";

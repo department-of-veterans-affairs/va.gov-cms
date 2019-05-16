@@ -91,6 +91,19 @@ class ObtainAndTestBody extends ObtainHtml {
         if ($element->find('[aria-multiselectable="true"]')->count()) {
           $anomalies[] = AnomalyMessage::MULTI_SELECTABLE;
         }
+        $fas = $element->find('[class*="fa-"].fas,[class*="fa-"].far');
+        if ($fas->count()) {
+          /** @var \QueryPath\DOMQuery $fa */
+          foreach ($fas as $fa) {
+            // The below looks redundant, but it's needed to perform the test.
+            if ($fa->parent('.number')->hasClass('number')) {
+              $anomalies[] = AnomalyMessage::FONT_AWESOME_NUMBER_CALLOUTS;
+            }
+            else {
+              $anomalies[] = AnomalyMessage::FONT_AWESOME_SNIPPETS;
+            }
+          }
+        }
       }
     }
 
