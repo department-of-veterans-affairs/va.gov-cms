@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc272331eecf763bacda6804d702db47",
+    "content-hash": "b9699c69f967d1979ef0e4530a6dc36e",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -8844,6 +8844,54 @@
             "homepage": "https://www.drupal.org/project/workbench_access",
             "support": {
                 "source": "http://cgit.drupalcode.org/workbench_access"
+            }
+        },
+        {
+            "name": "drupal/workbench_menu_access",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/workbench_menu_access.git",
+                "reference": "8.x-1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/workbench_menu_access-8.x-1.0.zip",
+                "reference": "8.x-1.0",
+                "shasum": "f0b04bee77202f32722c921c2c1a927fa4c71868"
+            },
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/workbench_access": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0",
+                    "datestamp": "1554937981",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "agentrickard",
+                    "homepage": "https://www.drupal.org/user/20975"
+                }
+            ],
+            "description": "Adds Workbench Access controls to menus.",
+            "homepage": "https://www.drupal.org/project/workbench_menu_access",
+            "support": {
+                "source": "https://git.drupalcode.org/project/workbench_menu_access"
             }
         },
         {
