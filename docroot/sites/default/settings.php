@@ -280,7 +280,7 @@ $config_directories = [];
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = 'uiHdnabaMLrHArPNb9TFcCFBtpmC7Vq4PMn-sICmQ6hbfpttluwZLBsPKsPSgqpsICj79Igixw';
+$settings['hash_salt'] = 'HJwuroKYGPRzhRHXnWR7H38RkH9rOkJ0WP8C5qD_pRStai8zvFX655aKHZO1gXNXPXhkFRNjoQ';
 
 /**
  * Deployment identifier.
@@ -755,6 +755,21 @@ $settings['file_scan_ignore_directories'] = [
 $settings['entity_update_batch_size'] = 50;
 
 /**
+ * CMS Build settings.
+ *
+ * These are settings to trigger a static file build job.
+ * Local developers will need to get and set the getenv() ENV variables below from va.gov-cms-devops Ansible Vault.
+ * @see /README.md for details
+ */
+$settings['va_jenkins_build_env'] = getenv('JENKINS_BUILD_ENV') ?: FALSE;
+$settings['va_jenkins_build_host'] = 'http://jenkins.vetsgov-internal';
+$settings['va_jenkins_build_job_dev_staging'] = '/job/testing/job/vets-website/job/master';
+$settings['va_jenkins_build_job_prod'] = '/job/deploys/job/vets-gov-autodeploy-vets-website';
+$settings['va_socks_proxy_url'] = 'socks5h://va-socks-proxy:2001';
+$settings['va_cms_bot_github_username'] = 'va-cms-bot';
+$settings['va_cms_bot_github_auth_token'] = getenv('VA_CMS_BOT_GITHUB_AUTH_TOKEN') ?: FALSE;
+
+/**
  * Load local development override configuration, if available.
  *
  * Use settings.local.php to override variables on secondary (staging,
@@ -764,13 +779,23 @@ $settings['entity_update_batch_size'] = 50;
  *
  * Keep this code block at the end of this file to take full effect.
  */
-#
-# if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-#   include $app_root . '/' . $site_path . '/settings.local.php';
-# }
+$config['config_split.config_split.config_dev']['status'] = FALSE;
+$config_directories['sync'] = '../config/sync';
+
+// Use .sqlite file for a database, unless otherwise specified in sub settings.
 $databases['default']['default'] = array (
   'database' => 'sites/default/files/.sqlite',
   'prefix' => '',
   'namespace' => 'Drupal\\Core\\Database\\Driver\\sqlite',
   'driver' => 'sqlite',
 );
+
+if (getenv('LANDO_INFO') && file_exists($app_root . '/' . $site_path . '/settings/settings.lando.php')) {
+  include $app_root . '/' . $site_path . '/settings/settings.lando.php';
+}
+
+$env_type = getenv('ENVIRONMENT_TYPE') ?: 'local';
+
+if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php')) {
+    include $app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php';
+}
