@@ -1,6 +1,88 @@
-This is an Aquia Lightning based implementation of Drupal 8 that uses [Lando](https://docs.devwithlando.io/) for local container management.
+# cms.VA.gov
+
+## About
+
+This is the Content Management System and API for VA.gov.
+
+It is an Aquia Lightning based implementation of Drupal 8.
 
 ## Get Started
+
+Since this is a Drupal site, it can be launched with any Drupal development tool.
+
+For regular development, the DSVA team uses [Lando](https://docs.devwithlando.io/) for local container management.
+
+For testing and simple development, you can use the special Composer commands and Drupal Console to launch on any system 
+with PHP-CLI and SQLite.
+
+### Launch with Composer
+
+1. [Install Composer "globally"](https://getcomposer.org/doc/00-intro.md#globally). 
+2. Clone this repo:
+
+    ```bash 
+    $ git clone git@github.com:department-of-veterans-affairs/va.gov-cms.git
+    $ cd va.gov-cms
+    ```
+3. Install and Launch
+ 
+    Run the "va:start" composer command to install and launch a local instance of cms.va.gov:
+
+    ```bash
+    $ composer va:start
+    ```
+    
+    At the end of the long process you should get output that looks like this:
+    
+    ```
+    > # cms.VA.gov installed: Username: admin  Password: admin
+    > drupal server localhost:80 --ansi
+
+     [OK] Executing php from "/usr/bin/php".                                        
+     Listening on "http://localhost:80".                                          
+    ```
+    The port (80) may change based on your system. The Drupal Console command `drupal server` will automatically find an available port, defaulting to 80 if available.
+    
+    Click the link that looks like "http://localhost:80" and log in with username `admin` and password `admin`.
+    
+    ##### About `composer va:start`
+    
+    The `composer va:start` command (shortcut `composer v:s`) is defined in [composer.json](composer.json#L123). It is similar to the [Drupal Quickstart command](https://www.drupal.org/docs/8/install/drupal-8-quick-start-command) and was inspired by the default commands in the [Acquia Lightning Composer Project](https://github.com/acquia/lightning-project/blob/master/composer.json#L69).
+    
+    The `composer v:s` command does the following:
+    
+    1. Runs `composer install`.
+    2. Runs `drupal site:install va_gov` to run the [VA.gov CMS Install Profile](docroot/profiles/va_gov).*
+    3. Runs `drupal server` to launch a running instance of the site.**
+    
+    \**The install profile does not yet automatically import the configuration. Right now config import on an empty site fails because it's looking for modules in headless_lightning. The code is there to import, it is commented out. See [va_gov.profile](docroot/profiles/va_gov/va_gov.profile).*
+    
+    \***The site is launched using a simple PHP CLI web server and connects to whatever database credentials are setup in [settings.php](docroot/sites/default/settings.php). By default, this command will use SQLite, which is pre-installed on most systems.*
+
+4. Reinstall & Launch
+
+    The `composer va:reinstall` command (shortcut `v:r`) will delete the SQLite database, reinstall the site from the [VA.gov CMS Install Profile](docroot/profiles/va_gov) and restart the PHP web server.
+    
+    **WARNING: This will delete any content or un-exported configuration in your site.**
+    
+    *This command can currently only reinstall sites that use SQLite.*
+    
+ 4. Configure, Export, Commit.
+ 
+    ##### Command `composer va:config:import` and `composer va:config:export` 
+    
+    The structure and behavior of the Drupal site is determined by it's "Configuration". You can import and export 
+    the Drupal configuration with these helpful composer commands.
+    
+    These are defined in `composer.json` as well and are just wrappers for `drush` and `drupal` console commands.
+    
+    - The `composer va:config:import` command (shortcut `v:c:i`) will import the Drupal configuration from the [config/sync](config/sync) folder.
+    - The `composer va:config:export` command (shortcut `v:c:e`) will export the Drupal configuration from the site into the [config/sync](config/sync) folder.
+    
+    After running `va:config:export`, you can commit the changes to your branch. 
+
+
+### Launch with Lando
 How to start:
 * get lando https://docs.devwithlando.io/installation/installing.html
 * `git clone git@github.com:department-of-veterans-affairs/va.gov-cms.git vagov`
