@@ -122,7 +122,7 @@
         "nuke": "rm -r -f docroot/modules/contrib docroot/profiles/contrib/lightning vendor composer.lock",
         "va:start": [
             "composer install --ansi",
-            "php docroot/core/scripts/drupal quick-start va_gov --no-interaction --ansi"
+            "php docroot/core/scripts/drupal quick-start va_gov --host=localhost --no-interaction --ansi"
         ],
         "va:reinstall": [
             "chmod +w -R docroot/sites/default",
