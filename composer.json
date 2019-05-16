@@ -130,6 +130,12 @@
             "chmod +w -R docroot/sites/default",
             "rm -rf docroot/sites/default/files",
             "@va:start"
+        ],
+        "va:config:export": [
+            "php docroot/vendor/bin/drupal config:export --ansi"
+        ],
+        "va:config:import": [
+            "php docroot/vendor/bin/drupal config:import --ansi"
         ]
     },
     "extra": {
