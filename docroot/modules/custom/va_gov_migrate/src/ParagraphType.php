@@ -138,7 +138,7 @@ abstract class ParagraphType {
       $machine_name = $this->getParagraphName();
     }
 
-    $machine_name = str_replace('Q_A', 'Q&A', $machine_name);
+    $machine_name = str_replace('q_a', 'Q&A', $machine_name);
     return ucfirst(str_replace('_', ' ', $machine_name));
   }
 
