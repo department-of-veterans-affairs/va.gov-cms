@@ -26,7 +26,6 @@ dependencies:
     - metatag
     - paragraphs
     - path
-    - textfield_counter
 third_party_settings:
   field_group:
     group_governance:
@@ -91,7 +90,6 @@ third_party_settings:
     group_title_and_summary:
       children:
         - title
-        - field_title_icon
         - field_description
         - field_intro_text
       parent_name: ''
@@ -144,21 +142,15 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_description:
-    weight: 3
+    weight: 2
     settings:
       size: 60
       placeholder: ''
-      maxlength: 158
-      counter_position: after
-      js_prevent_submit: true
-      count_html_characters: true
-      textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
-      use_field_maxlength: false
     third_party_settings: {  }
-    type: string_textfield_with_counter
+    type: string_textfield
     region: content
   field_intro_text:
-    weight: 4
+    weight: 3
     settings:
       rows: 5
       placeholder: ''
@@ -190,7 +182,7 @@ content:
     type: options_select
     region: content
   field_related_links:
-    weight: 3
+    weight: 4
     settings:
       title: 'Related link'
       title_plural: 'Related links'
@@ -209,7 +201,7 @@ content:
     type: paragraphs
     region: content
   field_spokes:
-    weight: 2
+    weight: 3
     settings:
       title: Spoke
       title_plural: Spokes
@@ -244,7 +236,7 @@ content:
     type: inline_entity_form_complex
     region: content
   field_title_icon:
-    weight: 2
+    weight: 22
     settings: {  }
     third_party_settings: {  }
     type: options_select
