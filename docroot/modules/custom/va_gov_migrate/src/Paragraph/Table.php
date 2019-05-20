@@ -12,6 +12,8 @@ use QueryPath\DOMQuery;
  */
 class Table extends ParagraphType {
 
+  private $captionTags = ['h2', 'h3'];
+
   /**
    * {@inheritdoc}
    */
@@ -30,8 +32,10 @@ class Table extends ParagraphType {
    * {@inheritdoc}
    */
   protected function getFieldValues(DOMQuery $query_path) {
+    if (in_array($query_path->prev()->tag(), $this->captionTags)) {
+      $caption = $query_path->prev()->text();
+    }
     $contents = [];
-
     $rows = $query_path->find('tr');
     foreach ($rows as $row) {
       $contents[] = $this->parseTableRow($row);
@@ -41,8 +45,16 @@ class Table extends ParagraphType {
       'field_table' => [
         'value' => $contents,
         'format' => 'rich_text',
+        'caption' => $caption,
       ],
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function isExternalContent(DOMQuery $query_path) {
+    return in_array($query_path->tag(), $this->captionTags) && $this->isParagraph($query_path->next());
   }
 
   /**
