@@ -8,6 +8,99 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
+## 2019-05-21.1 Sprint 14 final release 1.
+
+
+* __Merge branch &#39;develop&#39;__
+
+    [Andy Hawks](mailto:andy@andyhawks.com) - Tue, 21 May 2019 09:51:40 -0600
+    
+    EAD -&gt; refs/heads/master, tag: refs/tags/20190521.1, refs/remotes/upstream/master
+    VAGOV-000: 2019-05-21 Sprint 14 final release 1.
+   
+* __Merge pull request #330 from beeyayjay/VAGOV-3259-fix-migration-title-casing__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 21 May 2019 08:55:30 -0600
+    
+    efs/remotes/upstream/develop, refs/heads/develop
+    VAGOV-3259 Fix migration title casing
+
+* __Merge pull request #329 from andyhawks/feature/VAGOV-000-perms-0520-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 20 May 2019 17:44:40 -0600
+   
+    VAGOV-000: Update permissions phpunit test.
+
+* __Merge pull request #326 from beeyayjay/VAGOV-3531-migrate-table-paragraphs__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 20 May 2019 14:46:26 -0600
+    
+    VAGOV-3531: Add paragraph migration for tables.
+
+* __Merge pull request #325 from ethanteague/VAGOV-2270-facility-maps-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 20 May 2019 14:44:55 -0600
+    
+    VAGOV-2270: Updating image field to indicate 3:2 crop style.
+
+* __Merge pull request #324 from kevwalsh/vagov-3655-textfield-counter-bug__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 20 May 2019 14:44:23 -0600
+   
+    VAGOV-3665: textfield counter bug.
+
+* __Merge branch &#39;develop&#39; into vagov-3655-textfield-counter-bug__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 20 May 2019 14:43:15 -0600
+
+* __Merge pull request #323 from acabouet/VAGOV-3663-graphql-module-update__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 20 May 2019 14:41:42 -0600
+   
+    VAGOV-3663: Update graphql module
+
+* __Merge pull request #327 from schiavo/VAGOV-000__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 20 May 2019 13:17:14 -0600
+    
+    VAGOV-000 Update roles/permission test
+
+* __Merge pull request #322 from beeyayjay/VAGOV-3305-records-migration-content-bugs__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 17 May 2019 08:47:34 -0600
+    
+    VAGOV-3305 records migration content bugs
+
+* __Merge pull request #320 from kevwalsh/3639-workbench-menu-access__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 16 May 2019 14:43:25 -0600 
+    
+    VAGOV-3639: Workbench menu access
+
+* __Merge branch &#39;develop&#39; into 3639-workbench-menu-access__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 16 May 2019 14:38:22 -0600 
+
+* __Merge pull request #318 from department-of-veterans-affairs/VAGOV-3028__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 16 May 2019 14:36:06 -0600  
+    
+    VAGOV-3028 Tablefield authoring experience updates with test updates.
+
+* __Merge pull request #317 from kevwalsh/3517-hub-icons__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 16 May 2019 14:32:52 -0600
+       
+    VAGOV-3517: Add more icons as options for hub landing pages, and improve form
+    AX
+
+* __Merge pull request #316 from beeyayjay/VAGOV-000-migration-work__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 15 May 2019 13:39:04 -0600
+      
+    Vagov 000 migration work
+
+
 ## 2019-05-14.1 Sprint 14 mid-sprint release 1.
 
 * __Merge branch &#39;develop&#39;__
@@ -327,9 +420,5 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
     VAGOV-2623: Remove password_policy.
 
 ## END OF FILE
-
-
-
-    
 
 
