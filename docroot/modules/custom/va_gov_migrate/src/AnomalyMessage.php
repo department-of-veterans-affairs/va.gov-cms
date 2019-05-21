@@ -26,7 +26,7 @@ class AnomalyMessage {
   const ALERTS_TOP_OF_PAGE = "Alerts - top-of-page";
   const ALERTS_IN_BODY = "Alerts - in-body";
   const TABLES = "Tables";
-  const FILE_LINKS = "File links (eg PDFs)";
+  const FILE_LINKS = "File links (eg PDFs) and the /assets directory";
   const INTRO_TEXT_DOES_NOT_SUPPORT_PDF_LINKS = "Intro text does not support pdf links";
   const Q_A_NESTED = "Q&A - nested";
   const ALERTS_BACKGROUND_COLOR_ONLY = "Alerts - background color only";
@@ -34,7 +34,7 @@ class AnomalyMessage {
   const FEATURED_MORE_THAN_ONE = "Featured - more than one div.feature";
   const Q_A_EXCLUDED_CONTENT = "Q&A - excluded content";
   const HUB_RELATED_BANNER_ALERTS = "Hub-related banner alerts";
-  const JUMPLINKS = "Jumplinks";
+  const JUMPLINKS = "Table of contents component";
   const MAJOR_LINKS = "Major links (related links with white background)";
   const MULTI_SELECTABLE = "Accordions are multi-selectable";
 
