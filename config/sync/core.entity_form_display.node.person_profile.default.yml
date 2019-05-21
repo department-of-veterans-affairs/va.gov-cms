@@ -26,7 +26,6 @@ dependencies:
     - path
     - telephone
     - text
-    - textfield_counter
 third_party_settings:
   field_group:
     group_governance:
@@ -95,6 +94,7 @@ third_party_settings:
       weight: 5
       format_type: fieldset
       format_settings:
+        label: Photo
         open: '1'
         required_fields: true
         id: ''
@@ -162,13 +162,8 @@ content:
     settings:
       rows: 5
       placeholder: ''
-      maxlength: 160
-      counter_position: after
-      textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
-      js_prevent_submit: false
-      count_html_characters: false
     third_party_settings: {  }
-    type: string_textarea_with_counter
+    type: string_textarea
     region: content
   field_last_name:
     weight: 4

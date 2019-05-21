@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.regional_health_care_service_des.field_service_name_and_descripti
     - node.type.regional_health_care_service_des
   module:
+    - content_moderation
     - field_group
     - path
     - text
@@ -19,7 +20,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: details_sidebar
       format_settings:
         open: '1'
@@ -34,7 +35,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: fieldset
       format_settings:
         id: ''
@@ -43,7 +44,7 @@ third_party_settings:
         required_fields: true
         description: ''
       label: 'Editorial workflow'
-      region: hidden
+      region: content
 id: node.regional_health_care_service_des.default
 targetEntityType: node
 bundle: regional_health_care_service_des
@@ -51,7 +52,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 9
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -62,7 +63,7 @@ content:
     type: options_select
     region: content
   field_body:
-    weight: 2
+    weight: 1
     settings:
       rows: 5
       placeholder: ''
@@ -70,13 +71,13 @@ content:
     type: text_textarea
     region: content
   field_local_health_care_service_:
-    weight: 3
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_region_page:
-    weight: 1
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -87,40 +88,52 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 8
+    weight: 9
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
+  revision_log:
+    type: string_textarea
+    weight: 8
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 4
+    weight: 5
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 7
+    weight: 8
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   url_redirects:
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
-  moderation_state: true
-  revision_log: true
   title: true
   uid: true
