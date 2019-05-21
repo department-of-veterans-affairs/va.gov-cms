@@ -143,7 +143,7 @@
             "@va:start"
         ],
         "va:database:download": [
-            "curl --remote-name --remote-header-name --proxy socks5h://127.0.0.1:2001 10.247.89.58:8000/cms-db-latest.sql.gz && gunzip --force cms-db-latest.sql.gz"
+            "cd .dumps && curl --remote-name --remote-header-name --proxy socks5h://127.0.0.1:2001 10.247.89.58:8000/cms-db-latest.sql.gz && gunzip --force cms-db-latest.sql.gz && echo 'SQL dump saved to .dumps/cms-db-latest.sql'"
         ],
         "va:config:export": [
             "drupal config:export --ansi"
