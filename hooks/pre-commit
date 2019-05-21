@@ -6,7 +6,7 @@
  * This pre-commit hook will drush dcs Drupal files.
  */
 
-echo exec('./docroot/vendor/bin/phpcs --version') . " sniffing...\n";
+echo exec('./bin/phpcs --version') . " sniffing...\n";
 
 exec('git diff --cached --name-status --diff-filter=ACM', $output);
 
@@ -31,7 +31,7 @@ foreach ($output as $file) {
   $check_ext = array('php', 'module', 'install', 'test', 'inc', 'profile', 'view', 'info');
   if (in_array($ext, $check_ext)) {
     $sniff = array();
-    exec('./docroot/vendor/bin/phpcs --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml ' . escapeshellarg($file_name), $sniff, $return);
+    exec('./bin/phpcs --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml ' . escapeshellarg($file_name), $sniff, $return);
 
     if ($return) {
       $status = 1;
