@@ -1,4 +1,4 @@
-uuid: 561e5af1-da1e-4d9f-9bfa-3e5c09194ee9
+uuid: 60f0231b-96db-4138-9f7c-848535494827
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: 6HgkCpMHskDDZyxQECu8Cnherjkqt-uF_Sk4gpWFOZI
+  default_config_hash: 9CykfHrpVA4_8_ZkYkJoIBVj4W8-R_coYf63PIYrf5o
 id: va_new_pages
 class: null
 field_plugin_method: null
@@ -42,7 +42,7 @@ source:
           modifier: basicCleanup
       fields:
         title:
-          obtainer: ObtainTitle
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainTitleUncased
           jobs:
             -
               job: addSearch
