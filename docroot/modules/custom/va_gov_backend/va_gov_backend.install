@@ -17,3 +17,28 @@ function va_gov_backend_update_8001() {
     $paragraph->delete();
   }
 }
+
+/**
+ * Change the install profile to va_gov.
+ *
+ * See https://www.drupal.org/project/drupal/issues/2677722.
+ */
+function va_gov_backend_update_8002() {
+  $old = 'headless_lightning';
+  $new = 'va_gov';
+  \Drupal::configFactory()->getEditable('core.extension')
+    ->set('profile', $new)
+    ->save();
+  drupal_flush_all_caches();
+
+  \Drupal::service('module_installer')->install([$new]);
+  \Drupal::service('module_installer')->uninstall([$old]);
+
+  $sc = \Drupal::keyValue('system.schema');
+  $weight = 8000;
+  if ($weight == $sc->get($old)) {
+    $sc->delete($old);
+  }
+  $sc->set($new, $weight);
+  drupal_flush_all_caches();
+}
