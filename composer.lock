@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe1ec3e94e027882a5c3770a04bfc4db",
+    "content-hash": "2397f75868873d6f8760e11a3925e1c6",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -8244,6 +8244,77 @@
             }
         },
         {
+            "name": "drupal/tablefield",
+            "version": "2.0.0-alpha3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/tablefield.git",
+                "reference": "8.x-2.0-alpha3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/tablefield-8.x-2.0-alpha3.zip",
+                "reference": "8.x-2.0-alpha3",
+                "shasum": "6f852634af750b00b6b25be98976c14df653c6fc"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.x": "2.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-2.0-alpha3",
+                    "datestamp": "1556720881",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Kevin Hankens",
+                    "homepage": "https://www.drupal.org/user/78090"
+                },
+                {
+                    "name": "Liam Morland",
+                    "homepage": "https://www.drupal.org/user/493050"
+                },
+                {
+                    "name": "colan",
+                    "homepage": "https://www.drupal.org/user/58704"
+                },
+                {
+                    "name": "jenlampton",
+                    "homepage": "https://www.drupal.org/user/85586"
+                },
+                {
+                    "name": "lolandese",
+                    "homepage": "https://www.drupal.org/user/210402"
+                },
+                {
+                    "name": "mayurjadhav",
+                    "homepage": "https://www.drupal.org/user/2266604"
+                },
+                {
+                    "name": "vitalie",
+                    "homepage": "https://www.drupal.org/user/175134"
+                }
+            ],
+            "description": "Defines a generic tablular data field.",
+            "homepage": "https://www.drupal.org/project/tablefield",
+            "support": {
+                "source": "https://git.drupalcode.org/project/tablefield"
+            }
+        },
+        {
             "name": "drupal/textfield_counter",
             "version": "1.6.0",
             "source": {
@@ -8272,6 +8343,9 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -8765,6 +8839,54 @@
             "homepage": "https://www.drupal.org/project/workbench_access",
             "support": {
                 "source": "http://cgit.drupalcode.org/workbench_access"
+            }
+        },
+        {
+            "name": "drupal/workbench_menu_access",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/workbench_menu_access.git",
+                "reference": "8.x-1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/workbench_menu_access-8.x-1.0.zip",
+                "reference": "8.x-1.0",
+                "shasum": "f0b04bee77202f32722c921c2c1a927fa4c71868"
+            },
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/workbench_access": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0",
+                    "datestamp": "1554937981",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "agentrickard",
+                    "homepage": "https://www.drupal.org/user/20975"
+                }
+            ],
+            "description": "Adds Workbench Access controls to menus.",
+            "homepage": "https://www.drupal.org/project/workbench_menu_access",
+            "support": {
+                "source": "https://git.drupalcode.org/project/workbench_menu_access"
             }
         },
         {
@@ -12488,7 +12610,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -17051,7 +17173,6 @@
         "drupal/migration_tools": 15,
         "drupal/workbench_access": 10,
         "drupal/xmlsitemap": 15,
-        "drupal/graphql": 5,
         "drupal/field_group": 20,
         "weitzman/drupal-test-traits": 20,
         "drupal/cshs": 10,
@@ -17064,6 +17185,7 @@
         "drupal/fast_404": 15,
         "drupal/node_revisions_autoclean": 10,
         "drupal/pathologic": 15,
+        "drupal/tablefield": 15,
         "drupal/cer": 15,
         "drupal/paragraphs_browser": 15,
         "acquia/lightning_dev": 20

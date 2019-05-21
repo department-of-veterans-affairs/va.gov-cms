@@ -98,11 +98,23 @@ class Alert extends ParagraphType {
    */
   protected function getChildQuery(DOMQuery $query_path) {
     $heading = $query_path->find('.usa-alert-heading')->text();
+    $query_path->find('.usa-alert-heading')->remove();
+
     if (empty($this->alertBlocks[$heading])) {
-      $query_path->find('.usa-alert-heading')->remove();
       return $query_path;
     }
+
+    // Remaining content won't be added to text comparison unless we do it here.
+    self::$migrator->endingContent .= $query_path->text();
     return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function paragraphContent(array $paragraph_fields) {
+    // There are child paragraphs, so we need to explicitly count this field.
+    return $paragraph_fields['field_alert_heading'];
   }
 
 }

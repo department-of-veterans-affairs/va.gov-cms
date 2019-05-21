@@ -2,7 +2,7 @@
 
 namespace Drupal\va_gov_migrate\Paragraph;
 
-use Drupal\migration_tools\Obtainer\ObtainHtml;
+use Drupal\migration_tools\Obtainer\ObtainPlainTextWithNewLines;
 use Drupal\migration_tools\StringTools;
 use Drupal\va_gov_migrate\ParagraphType;
 use QueryPath\DOMQuery;
@@ -98,8 +98,8 @@ class QaSection extends ParagraphType {
           // Add line breaks between elements.
           $intro_text .= PHP_EOL . PHP_EOL;
         }
-        // Replace br tags with line breaks.
-        $intro_text .= strip_tags(implode(PHP_EOL, ObtainHtml::splitOnBr($qp->html())));
+        // Replace p and br tags with line breaks.
+        $intro_text .= ObtainPlainTextWithNewLines::cleanString($qp->html());
       }
 
       $qp = $qp->next();

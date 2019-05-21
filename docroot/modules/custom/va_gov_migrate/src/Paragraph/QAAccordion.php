@@ -84,7 +84,7 @@ class QAAccordion extends QABase {
     }
     $section_titles = $query_path->find('button.usa-accordion-button');
     foreach ($section_titles as $section_title) {
-      if (substr($section_title->text(), -1) != '?') {
+      if (substr(trim($section_title->text()), -1) != '?') {
         return FALSE;
       }
     }

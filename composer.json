@@ -37,7 +37,7 @@
         "drupal/rest_menu_tree": "^1.1",
         "drupal/restui": "^1.16",
         "drupal/health_check": "^1.0",
-        "drupal/graphql": "^3.0@RC",
+        "drupal/graphql": "^3.0",
         "drupal/address": "^1.4",
         "drupal/node_title_help_text": "^1.0",
         "drupal/field_group": "3.x-dev",
@@ -69,11 +69,13 @@
         "drupal/pathologic": "^1.0@alpha",
         "drupal/menu_breadcrumb": "^1.8",
         "drupal/entity_reference_unpublished": "^1.1",
+        "drupal/tablefield": "^2.0@alpha",
         "drupal/cer": "^4.0@alpha",
         "drupal/better_field_descriptions": "^1.4",
         "drupal/markdown": "^1.2",
         "drupal/paragraphs_browser": "^1.0@alpha",
-        "drupal/textfield_counter": "^1.6"
+        "drupal/textfield_counter": "^1.6",
+        "drupal/workbench_menu_access": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -183,7 +185,10 @@
             "drupal/password_policy": {
                 "Use core temp store.": "https://www.drupal.org/files/issues/2019-03-04/password_policy-use-core-temp-store-3032549-3.patch",
                 "Fix field field_last_password_reset is unknown.": "https://www.drupal.org/files/issues/2019-02-24/password_policy-config_import_field_error-2771129-73_alpha4_1.patch",
-		"Password expires does not work.": "https://www.drupal.org/files/issues/2019-03-11/2917622-password_policy-expiration-issue-for-8.x-3.0-alpha4.patch"
+                "Password expires does not work.": "https://www.drupal.org/files/issues/2019-03-11/2917622-password_policy-expiration-issue-for-8.x-3.0-alpha4.patch"
+            },
+            "drupal/textfield_counter": {
+              "Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch"
             }
 
         }
