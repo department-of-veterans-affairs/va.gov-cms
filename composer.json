@@ -133,6 +133,9 @@
             "# cms.VA.gov installed: Username: admin  Password: admin",
             "drupal server localhost:80 --ansi"
         ],
+        "va:install": [
+            "drush site:install headless_lightning --existing-config --yes --account-name admin --account-pass admin --ansi"
+        ],
         "va:reinstall": [
             "# This only reinstalls sites installed with SQLite...",
             "chmod +w -R docroot/sites/default",
