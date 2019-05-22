@@ -226,10 +226,10 @@
         "va:config:import": [
             "drupal config:import --ansi"
         ],
-        "va:socks": [
+        "va:proxy:start": [
             "ssh socks -D 2001 -N"
         ],
-        "va:socks:test": [
+        "va:proxy:test": [
             "curl -v --proxy socks5h://127.0.0.1:2001 sentry.vetsgov-internal"
         ]
     }
