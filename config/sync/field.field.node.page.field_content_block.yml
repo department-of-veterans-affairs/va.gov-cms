@@ -12,6 +12,7 @@ dependencies:
     - paragraphs.paragraphs_type.q_a_section
     - paragraphs.paragraphs_type.react_widget
     - paragraphs.paragraphs_type.spanish_translation_summary
+    - paragraphs.paragraphs_type.table
     - paragraphs.paragraphs_type.wysiwyg
   module:
     - entity_reference_revisions
@@ -20,7 +21,7 @@ field_name: field_content_block
 entity_type: node
 bundle: page
 label: 'Main content'
-description: 'You can create your main content using one or more of these options: <ul><li>Use <em>WYSIWYG</em> for simple formatted text, including lists.</li> <li>Use <em>Q&A Section</em> for content that contains a single or multiple question-and-answers.</li> <li>Use <a href="https://department-of-veterans-affairs.github.io/vets-design-system-documentation/components/process-list" target="_blank">Process list (subway map)</a> to explain a list of numbered steps.</li> <li>Use <a href="https://department-of-veterans-affairs.github.io/vets-design-system-documentation/components/additional-info" target="_blank">Additional info</a> to add interactive components that reveal and hide content from the page, such as a brief spanish-language summary of the content.</li> <li>Use <a href="https://department-of-veterans-affairs.github.io/vets-design-system-documentation/components/accordions" target="_blank">Accordion Group</a> to create a group of accordions that can store detailed content in collapsible sections. Do <em>not</em> use Accordion Group for a series of Q&As (use Q&A Section for that, there is an option to format the section as a group of accordions)</li> <li>Use <em>React Widget</em> if you are an advanced editor and you want to place a react widget on the page. </li></ul>'
+description: 'The main body of the page, which appears below the featured content.'
 required: true
 translatable: false
 default_value: {  }
@@ -30,67 +31,74 @@ settings:
   handler_settings:
     negate: 0
     target_bundles:
+      table: table
+      react_widget: react_widget
+      list_of_link_teasers: list_of_link_teasers
       wysiwyg: wysiwyg
+      alert: alert
       q_a_section: q_a_section
       process: process
       spanish_translation_summary: spanish_translation_summary
       collapsible_panel: collapsible_panel
-      react_widget: react_widget
-      list_of_link_teasers: list_of_link_teasers
-      alert: alert
     target_bundles_drag_drop:
-      wysiwyg:
-        enabled: true
-        weight: -37
-      q_a_section:
-        enabled: true
-        weight: -36
-      process:
+      table:
         enabled: true
         weight: -35
-      spanish_translation_summary:
-        enabled: true
-        weight: -34
-      collapsible_panel:
-        enabled: true
-        weight: -33
       react_widget:
         enabled: true
         weight: -32
       list_of_link_teasers:
         enabled: true
         weight: -31
+      wysiwyg:
+        enabled: true
+        weight: -31
       alert:
         enabled: true
         weight: -30
-      collapsible_panel_item:
+      q_a_section:
+        enabled: true
+        weight: -30
+      process:
+        enabled: true
         weight: -29
-        enabled: false
-      link_teaser:
+      spanish_translation_summary:
+        enabled: true
         weight: -28
-        enabled: false
-      address:
+      collapsible_panel:
+        enabled: true
         weight: -27
-        enabled: false
-      expandable_text:
+      number_callout:
         weight: -26
         enabled: false
-      starred_horizontal_rule:
+      collapsible_panel_item:
         weight: -25
         enabled: false
-      q_a:
+      health_care_local_facility_servi:
+        weight: -25
+        enabled: false
+      link_teaser:
         weight: -24
         enabled: false
-      number_callout:
+      media:
+        weight: -24
+        enabled: false
+      megamenu_links_column:
         weight: -23
         enabled: false
-      health_care_local_facility_servi:
+      address:
         weight: -22
         enabled: false
-      local_facility_health_service:
-        weight: -21
+      megamenu_menu_item:
+        weight: -22
         enabled: false
-      media:
+      expandable_text:
         weight: -20
+        enabled: false
+      starred_horizontal_rule:
+        weight: -19
+        enabled: false
+      q_a:
+        weight: -18
         enabled: false
 field_type: entity_reference_revisions

@@ -10,8 +10,8 @@ id: node.health_care_local_health_service.field_facility_location
 field_name: field_facility_location
 entity_type: node
 bundle: health_care_local_health_service
-label: 'Facility location'
-description: ''
+label: Facility
+description: 'A clinic or hospital'
 required: true
 translatable: true
 default_value: {  }
@@ -22,7 +22,8 @@ settings:
     target_bundles:
       health_care_local_facility: health_care_local_facility
     sort:
-      field: _none
+      field: title
+      direction: ASC
     auto_create: 0
     auto_create_bundle: ''
 field_type: entity_reference

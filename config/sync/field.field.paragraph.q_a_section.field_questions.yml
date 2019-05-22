@@ -6,6 +6,7 @@ dependencies:
     - field.storage.paragraph.field_questions
     - paragraphs.paragraphs_type.q_a
     - paragraphs.paragraphs_type.q_a_section
+    - paragraphs.paragraphs_type.react_widget
   module:
     - entity_reference_revisions
 id: paragraph.q_a_section.field_questions
@@ -24,6 +25,7 @@ settings:
     negate: 0
     target_bundles:
       q_a: q_a
+      react_widget: react_widget
     target_bundles_drag_drop:
       address:
         weight: 14
@@ -56,12 +58,30 @@ settings:
         weight: 23
         enabled: false
       react_widget:
+        enabled: true
         weight: 24
+      health_care_local_facility_servi:
+        weight: 25
         enabled: false
       starred_horizontal_rule:
         weight: 25
         enabled: false
       wysiwyg:
         weight: 26
+        enabled: false
+      media:
+        weight: 28
+        enabled: false
+      megamenu_links_column:
+        weight: 29
+        enabled: false
+      megamenu_menu_item:
+        weight: 30
+        enabled: false
+      number_callout:
+        weight: 31
+        enabled: false
+      spanish_translation_summary:
+        weight: 36
         enabled: false
 field_type: entity_reference_revisions

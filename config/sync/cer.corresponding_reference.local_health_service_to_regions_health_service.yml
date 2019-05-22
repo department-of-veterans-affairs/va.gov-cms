@@ -5,10 +5,9 @@ dependencies: {  }
 id: local_health_service_to_regions_health_service
 label: 'local health service to regions health service'
 enabled: true
-first_field: field_local_health_care_service_
-second_field: field_clinical_health_services
+first_field: field_regional_health_service
+second_field: field_local_health_care_service_
 bundles:
   node:
-    - health_care_local_facility
     - health_care_local_health_service
-    - health_care_region_page
+    - regional_health_care_service_des

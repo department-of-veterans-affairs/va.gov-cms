@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.outreach_asset.field_format
     - field.field.node.outreach_asset.field_media
     - field.field.node.outreach_asset.field_meta_tags
+    - field.field.node.outreach_asset.field_office
     - node.type.outreach_asset
   module:
     - content_moderation
@@ -24,10 +25,9 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 14
+      weight: 15
       format_type: details_sidebar
       format_settings:
-        label: Governance
         open: '1'
         weight: '-10'
         id: ''
@@ -40,7 +40,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 13
+      weight: 14
       format_type: fieldset
       format_settings:
         id: ''
@@ -88,7 +88,7 @@ content:
     region: content
   field_media:
     type: inline_entity_form_complex
-    weight: 11
+    weight: 12
     settings:
       form_mode: media_library
       label_singular: ''
@@ -103,10 +103,16 @@ content:
     region: content
     third_party_settings: {  }
   field_meta_tags:
-    weight: 12
+    weight: 13
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
+    region: content
+  field_office:
+    weight: 11
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
     region: content
   moderation_state:
     type: moderation_state_default
