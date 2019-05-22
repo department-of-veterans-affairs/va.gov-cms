@@ -1,4 +1,4 @@
-uuid: ee3647da-b78d-4f14-b324-a1776f6ac6b8
+uuid: b743ab2d-42ed-490b-9c1c-ccfa9eec03a4
 langcode: en
 status: true
 dependencies:
@@ -6,17 +6,24 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: FPCQjtYdBQOi5cfnXn8Gu129UGlZkm2t5xwgWxhbWVI
+  default_config_hash: 1ja75r3J86qqWEn6mutSg7MGy4vRReHUxdBsOYiXLg0
 id: va_hub
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
-migration_group: va_new_benefits
-label: 'Records landing page - NEVER ROLLBACK (would delete ALL hub landing pages)'
+migration_group: va_gov
+label: 'Migrate all landing pages from VA.gov'
 source:
   plugin: metalsmith_source
   urls:
+    - /disability/index.md
+    - /education/index.md
+    - /careers-employment/index.md
+    - /pension/index.md
+    - /housing-assistance/index.md
+    - /life-insurance/index.md
+    - /burials-memorials/index.md
     - /records/index.md
   templates:
     - level2-index
@@ -35,7 +42,7 @@ source:
           modifier: basicCleanup
       fields:
         title:
-          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainTitleUncased
+          obtainer: ObtainTitle
           jobs:
             -
               job: addSearch
@@ -202,22 +209,14 @@ process:
           plugin: migration_lookup
           migration: va_support_service
           source: title
-  field_alert/target_id: alert_title
-  field_administration:
-    plugin: default_value
-    default_value: 76
-  field_title_icon:
+  field_alert:
     -
-      plugin: explode
-      source: url
-      delimiter: /
-    -
-      plugin: extract
-      index:
-        - 3
+      plugin: migration_lookup
+      migration: va_alert_block
+      source: alert_title
   moderation_state:
     plugin: default_value
-    default_value: draft
+    default_value: published
   type:
     plugin: default_value
     default_value: landing_page
