@@ -5,17 +5,17 @@ namespace tests\phpunit;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
- * A test to confirm access to node edit form tabs.
+ * A test to confirm access to workflow moderation.
  */
-class AccessNodeEditTabs extends ExistingSiteBase {
+class AccessWorkflow extends ExistingSiteBase {
 
   /**
-   * A test method to determine whether users can access node edit form tabs.
+   * A test method to determine whether users can access workflow moderation.
    *
    * @group edit
    * @group all
    */
-  public function testAccessNodeEditTab() {
+  public function testAccessWorkflow() {
 
     // Creates a user. Will be automatically cleaned up at the end of the test.
     $author = $this->createUser();
