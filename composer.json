@@ -128,7 +128,7 @@
         "nuke": "rm -r -f docroot/modules/contrib docroot/profiles/contrib/lightning vendor composer.lock",
         "va:start": [
             "@composer install --ansi",
-            "drupal site:install va_gov --account-name=admin --account-pass=admin --ansi || true",
+            "@va:install",
             "# To setup default content, run: `drupal module:install va_gov_content`",
             "# cms.VA.gov installed: Username: admin  Password: admin",
             "drupal server localhost:80 --ansi"
