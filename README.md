@@ -15,7 +15,7 @@ Once you have [submitted your SSH Public Key](https://github.com/department-of-v
 
 * `ssh socks -D 2001 -N &` # Runs an SSH socks proxy in a separate process. Run `ps` to see the running ssh process.
 * `./scripts/sync-db.sh` # Downloads a recent, sanitized database export file to `.dumps/cms-db-latest.sql`.
-* `./scripts/sync-files.sh` # Downloads a recent backup of site files to `sites/default/files`
+* `./scripts/sync-files.sh` # Downloads a recent backup of site files to `sites/default/files`, and runs `lando db-import cms-db-latest.sql`.
 
 ### Example workflow:
 
