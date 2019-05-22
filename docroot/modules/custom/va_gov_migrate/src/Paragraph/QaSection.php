@@ -4,6 +4,7 @@ namespace Drupal\va_gov_migrate\Paragraph;
 
 use Drupal\migration_tools\Obtainer\ObtainPlainTextWithNewLines;
 use Drupal\migration_tools\StringTools;
+use Drupal\va_gov_migrate\AnomalyMessage;
 use Drupal\va_gov_migrate\ParagraphType;
 use QueryPath\DOMQuery;
 
@@ -94,6 +95,7 @@ class QaSection extends ParagraphType {
       }
       else {
         // If it survived all the tests, it's intro text.
+        $this->testIntro($qp);
         if (!empty($intro_text)) {
           // Add line breaks between elements.
           $intro_text .= PHP_EOL . PHP_EOL;
@@ -191,6 +193,31 @@ class QaSection extends ParagraphType {
    */
   protected function paragraphContent(array $paragraph_fields) {
     return $paragraph_fields['field_section_header'] . $paragraph_fields['field_section_intro'];
+  }
+
+  /**
+   * Make sure intro text doesn't contain html tags.
+   *
+   * @param \QueryPath\DOMQuery $element
+   *   The query to test.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  protected function testIntro(DOMQuery $element) {
+    $new_line_tags = ['p', 'br'];
+    if ($element->children()->count()) {
+      $elements = $element->children();
+    }
+    else {
+      return;
+    }
+    /* @var \QueryPath\DOMQuery $element */
+    foreach ($elements as $element) {
+      if ($element->tag() && !in_array($element->tag(), $new_line_tags)) {
+        $message = 'Q&A Section intro text does not support ' . $element->tag();
+        AnomalyMessage::makeFromRow($message, self::$migrator->row);
+      }
+    }
   }
 
 }

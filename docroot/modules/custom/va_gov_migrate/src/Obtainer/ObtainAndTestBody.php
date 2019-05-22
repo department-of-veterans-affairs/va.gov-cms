@@ -50,8 +50,21 @@ class ObtainAndTestBody extends ObtainHtml {
           $anomalies[] = AnomalyMessage::JUMPLINKS;
         }
         elseif ($element->find('a[href*="#"]')->count()) {
-          $anomalies[] = 'Anchor link to another page';
-          AnomalyMessage::make('Anchor link to another page', $title, $url, $element->find('a[href*="#"]')->text());
+          $links = $element->find('a[href*="#"]');
+          /** @var \QueryPath\DOMQuery $link */
+          foreach ($links as $link) {
+            $href = $link->attr('href');
+            $url_parts = parse_url($href);
+            if (!empty($url_parts['fragment'])) {
+              if (empty($url_parts['host']) || $url_parts['host'] == 'www.va.gov') {
+                // Discharge-upgrade-instructions is a react page, so it's fine.
+                if ($url_parts['path'] != '/discharge-upgrade-instructions/') {
+                  AnomalyMessage::make('Anchor link to another page', $title, $url, $href . ': ' . $link->text());
+                  break;
+                }
+              }
+            }
+          }
         }
 
         if ($element->find('.va-h-ruled--stars')->count()) {
@@ -77,6 +90,19 @@ class ObtainAndTestBody extends ObtainHtml {
         }
         if ($element->find('[aria-multiselectable="true"]')->count()) {
           $anomalies[] = AnomalyMessage::MULTI_SELECTABLE;
+        }
+        $fas = $element->find('[class*="fa-"].fas,[class*="fa-"].far');
+        if ($fas->count()) {
+          /** @var \QueryPath\DOMQuery $fa */
+          foreach ($fas as $fa) {
+            // The below looks redundant, but it's needed to perform the test.
+            if ($fa->parent('.number')->hasClass('number')) {
+              $anomalies[] = AnomalyMessage::FONT_AWESOME_NUMBER_CALLOUTS;
+            }
+            else {
+              $anomalies[] = AnomalyMessage::FONT_AWESOME_SNIPPETS;
+            }
+          }
         }
       }
     }
