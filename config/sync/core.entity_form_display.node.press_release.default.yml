@@ -117,9 +117,9 @@ content:
       placeholder: ''
       maxlength: 300
       counter_position: after
-      js_prevent_submit: true
-      count_html_characters: true
       textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      js_prevent_submit: false
+      count_html_characters: false
     third_party_settings: {  }
     type: string_textarea_with_counter
     region: content
@@ -231,10 +231,10 @@ content:
       placeholder: ''
       maxlength: 150
       counter_position: after
-      js_prevent_submit: true
-      count_html_characters: true
       textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
       use_field_maxlength: false
+      js_prevent_submit: false
+      count_html_characters: false
     third_party_settings: {  }
   uid:
     type: inline_entity_form_complex
