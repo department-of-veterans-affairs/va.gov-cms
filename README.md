@@ -1,15 +1,24 @@
 This is an Aquia Lightning based implementation of Drupal 8 that uses [Lando](https://docs.devwithlando.io/) for local container management.
 
 ## Get Started
-How to start:
+### How to launch a local development environment:
 * get lando https://docs.devwithlando.io/installation/installing.html
 * `git clone git@github.com:department-of-veterans-affairs/va.gov-cms.git vagov`
 * `cd vagov`
 * `lando start`
-* `scripts/sync-db.sh` # Requires SOCKS proxy access
-* `scripts/sync-files.sh` # Requires SOCKS proxy access
 
-Example workflow:
+### How to sync:
+
+Run these scripts to recreate the site locally. The server holding the database dump must be accessed via a proxy.
+
+Once you have [submitted your SSH Public Key](https://github.com/department-of-veterans-affairs/vets-external-teams/blob/master/Onboarding/request-access-to-tools.md#additional-onboarding-steps-for-developers), you can run the following commands to create a local instance of https://cms.va.gov:
+
+* `ssh socks -D 2001 -N &` # Runs an SSH socks proxy in a separate process. Run `ps` to see the running ssh process.
+* `./scripts/sync-db.sh` # Downloads a recent, sanitized database export file to `.dumps/cms-db-latest.sql`.
+* `./scripts/sync-files.sh` # Downloads a recent backup of site files to `sites/default/files`, and runs `lando db-import cms-db-latest.sql`.
+
+### Example workflow:
+
 * `git fetch --all`
 * `git checkout --branch <VAGOV-000-name> origin/develop`
 * `lando composer install`
@@ -31,6 +40,9 @@ Theme structure (project is headless, so this isn't critical):
 * Base theme is USWDS: https://www.drupal.org/project/uswds
 * vagov Subtheme lives in themes/custom
 
+
+### Testing
+
 Running Behat Tests:
 * `cd tests/behat`
 * `lando behat --tags=name-of-tag`
@@ -40,6 +52,8 @@ Running Phpunit Tests:
 * `lando phpunit {Path-to-test}`
 to run a test group use
 * `lando phpunit . --group security`
+
+### Patching
 
 Apply patches:
 * Get the patch file:
@@ -128,3 +142,7 @@ query {
   }
 }
 ```
+
+# Branches
+
+The `develop` branch is now protected. It requires tests to pass and a manual review to be merged.

@@ -1,4 +1,4 @@
-uuid: 589bda6b-d1a3-4c06-89d5-1a6c91b60ada
+uuid: 51790df0-738f-4979-b316-b4d8e4297f85
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: dyYm-C3ZVxbesSU7fi5eHL3Lb34mQcqeW24ni-IkleQ
+  default_config_hash: 8PO7cEebZbIe4WzoRnAwMZCiOTNXh-g5M7pLQTVsEBE
 id: va_new_hubs
 class: null
 field_plugin_method: null
@@ -71,6 +71,16 @@ source:
                 - '@title'
                 - '@url'
                 - innerHTML
+        alert_title:
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainAlertBlockTitles
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelectorAndTest
+              arguments:
+                - .usa-alert
+                - '@title'
+                - '@url'
         related_links:
           obtainer: ObtainHtml
           jobs:
@@ -119,6 +129,9 @@ source:
             - '#crisis-expander-link'
         -
           operation: get_field
+          field: alert_title
+        -
+          operation: get_field
           field: related_links
         -
           operation: get_field
@@ -155,10 +168,11 @@ process:
     from_format: n/j/y
     to_format: Y-m-d
     source: plainlanguage_date
+  field_alert/target_id: alert_title
   field_administration:
     -
       plugin: default_value
-      default_value: 10
+      default_value: 51
   moderation_state:
     plugin: default_value
     default_value: draft

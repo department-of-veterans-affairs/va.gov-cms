@@ -216,10 +216,7 @@ process:  # assign the fields we collected above to Drupal fields.
           plugin: migration_lookup
           migration: va_support_service
           source: title
-  field_alert:
-    plugin: migration_lookup
-    migration: va_alert_block
-    source: alert_title
+  'field_alert/target_id': alert_title
   field_administration:
     plugin: default_value
     default_value: 76
