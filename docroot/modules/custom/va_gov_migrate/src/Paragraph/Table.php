@@ -76,4 +76,11 @@ class Table extends ParagraphType {
     return $return_row;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  protected function paragraphContent(array $paragraph_fields) {
+    return implode('', array_reduce($paragraph_fields['field_table']['value'], 'array_merge', []));
+  }
+
 }
