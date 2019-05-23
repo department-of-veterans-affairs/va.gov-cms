@@ -341,6 +341,9 @@ abstract class ParagraphType {
    *   An array that can be assigned to a rich text field.
    */
   public static function toRichText($text) {
+    if (strpos($text, '<table>') !== FALSE) {
+      AnomalyMessage::makeFromRow(AnomalyMessage::TABLES, self::$migrator->row);
+    }
     return [
       "value" => $text,
       "format" => "rich_text",
