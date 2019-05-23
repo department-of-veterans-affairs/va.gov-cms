@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_intro_text_events_page
     - field.field.node.health_care_region_page.field_intro_text_leadership
     - field.field.node.health_care_region_page.field_intro_text_news_stories
+    - field.field.node.health_care_region_page.field_intro_text_press_releases
     - field.field.node.health_care_region_page.field_leadership
     - field.field.node.health_care_region_page.field_locations_intro_blurb
     - field.field.node.health_care_region_page.field_media
@@ -355,6 +356,14 @@ content:
       textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
     type: text_textarea_with_counter
+    region: content
+  field_intro_text_press_releases:
+    weight: 25
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
     region: content
   field_leadership:
     weight: 21
