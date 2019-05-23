@@ -82,9 +82,6 @@ class ObtainAndTestBody extends ObtainHtml {
             }
           }
         }
-        if ($element->find('table')->count()) {
-          $anomalies[] = AnomalyMessage::TABLES;
-        }
         if ($element->find('.background-color-only')->count()) {
           $anomalies[] = AnomalyMessage::ALERTS_BACKGROUND_COLOR_ONLY;
         }
