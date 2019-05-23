@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_migrate;
 
+use Drupal\migrate\Row;
 use Drupal\migration_tools\Message;
 
 /**
@@ -11,8 +12,8 @@ use Drupal\migration_tools\Message;
  */
 class AnomalyMessage {
 
-  const FONT_AWESOME_NUMBER_CALLOUTS = "Font awesome number callouts";
-  const FONT_AWESOME_SNIPPETS = "Font awesome snippets";
+  const FONT_AWESOME_NUMBER_CALLOUTS = "Font awesome number callouts (Decision Reviews)";
+  const FONT_AWESOME_SNIPPETS = "Font awesome snippets (Decision Reviews)";
   const TWO_COLUMN_CONTENT = "Two-column content";
   const TWO_BUTTONS_SIDE_BY_SIDE = "Two buttons side-by-side";
   const SUBWAY_MAP_WITHOUT_NUMBERS = "Subway map without numbers";
@@ -25,7 +26,7 @@ class AnomalyMessage {
   const ALERTS_TOP_OF_PAGE = "Alerts - top-of-page";
   const ALERTS_IN_BODY = "Alerts - in-body";
   const TABLES = "Tables";
-  const FILE_LINKS = "File links (eg PDFs)";
+  const FILE_LINKS = "File links (eg PDFs) and the /assets directory";
   const INTRO_TEXT_DOES_NOT_SUPPORT_PDF_LINKS = "Intro text does not support pdf links";
   const Q_A_NESTED = "Q&A - nested";
   const ALERTS_BACKGROUND_COLOR_ONLY = "Alerts - background color only";
@@ -33,7 +34,7 @@ class AnomalyMessage {
   const FEATURED_MORE_THAN_ONE = "Featured - more than one div.feature";
   const Q_A_EXCLUDED_CONTENT = "Q&A - excluded content";
   const HUB_RELATED_BANNER_ALERTS = "Hub-related banner alerts";
-  const JUMPLINKS = "Jumplinks";
+  const JUMPLINKS = "Table of contents component";
   const MAJOR_LINKS = "Major links (related links with white background)";
   const MULTI_SELECTABLE = "Accordions are multi-selectable";
 
@@ -62,7 +63,7 @@ class AnomalyMessage {
       $anomaly[$anomaly_type] = TRUE;
       \Drupal::state()->set('va_gov_migrate.anomaly', $anomaly);
 
-      Message::make('@anomaly_type anomaly on @title @url',
+      Message::make('@anomaly_type anomaly on @title @url -- @additional_info',
         [
           '@anomaly_type' => $anomaly_type,
           '@title' => $page_title,
@@ -104,6 +105,22 @@ class AnomalyMessage {
         Message::make($message, $params, $severity);
       }
     }
+  }
+
+  /**
+   * Convenience function for make().
+   *
+   * @param string $anomaly_type
+   *   The name of the anomaly (corresponds to 'Name' column in airtable).
+   * @param \Drupal\migrate\Row $row
+   *   The migration row, which contains the page title and url.
+   * @param string $additional_info
+   *   Useful information about the anomaly, if any.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  public static function makeFromRow($anomaly_type, Row $row, $additional_info = '') {
+    self::make($anomaly_type, $row->getSourceProperty('title'), $row->getSourceProperty('url'), $additional_info);
   }
 
 }

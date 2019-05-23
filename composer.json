@@ -101,28 +101,6 @@
         "process-timeout": 0,
         "vendor-dir": "docroot/vendor"
     },
-    "scripts": {
-        "post-install-cmd": [
-            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-            "cp -r 'hooks/' '.git/hooks/'",
-            "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
-            "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
-            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
-            "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
-        ],
-        "post-update-cmd": [
-            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-            "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
-            "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
-            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
-            "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
-        ],
-        "nuke": "rm -r -f docroot/modules/contrib docroot/profiles/contrib/lightning vendor composer.lock",
-        "quick-start": [
-            "composer install",
-            "php docroot/core/scripts/drupal quick-start lightning --no-interaction"
-        ]
-    },
     "extra": {
         "installer-types": [
             "bower-asset",
@@ -192,5 +170,41 @@
             }
 
         }
+    },
+    "scripts": {
+        "command": [
+            "export PATH=./bin:$PATH"
+        ],
+        "post-install-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+            "cp -r 'hooks/' '.git/hooks/'",
+            "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
+            "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
+            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
+            "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
+        ],
+        "post-update-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+            "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
+            "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
+            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
+            "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
+        ],
+        "nuke": "rm -r -f docroot/modules/contrib docroot/profiles/contrib/lightning vendor composer.lock",
+        "va:config:export": [
+            "drupal config:export --ansi"
+        ],
+        "va:config:import": [
+            "drupal config:import --ansi"
+        ],
+        "va:database:download": [
+            "cd .dumps && curl --remote-name --remote-header-name --proxy socks5h://127.0.0.1:2001 10.247.89.58:8000/cms-db-latest.sql.gz && gunzip --force cms-db-latest.sql.gz && echo 'SQL dump saved to .dumps/cms-db-latest.sql'"
+        ],
+        "va:proxy:start": [
+            "ssh socks -D 2001 -N"
+        ],
+        "va:proxy:test": [
+            "curl -v --proxy socks5h://127.0.0.1:2001 sentry.vetsgov-internal"
+        ]
     }
 }

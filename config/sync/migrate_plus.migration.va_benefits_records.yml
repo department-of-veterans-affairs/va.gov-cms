@@ -1,4 +1,4 @@
-uuid: 23174558-2aaa-449f-b7a9-c176d380dc22
+uuid: c574716e-c271-421c-8f55-697e8974820a
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: YnYB-5nflywilDk6gQ-7zh8ANelF2E4N6hHoEDPEhiE
+  default_config_hash: _VE4z1sSVpmiN70HBTTjWwhpP1kJOSfKJFTBrZ1aFrA
 id: va_benefits_records
 class: null
 field_plugin_method: null
@@ -34,7 +34,7 @@ source:
           modifier: basicCleanup
       fields:
         title:
-          obtainer: ObtainTitle
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainTitleUncased
           jobs:
             -
               job: addSearch
@@ -62,6 +62,16 @@ source:
                 - '@title'
                 - '@url'
                 - innerHTML
+        alert_title:
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainAlertBlockTitles
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelectorAndTest
+              arguments:
+                - .usa-alert-heading
+                - '@title'
+                - '@url'
         related_links:
           obtainer: ObtainHtml
           jobs:
@@ -110,6 +120,9 @@ source:
             - '#crisis-expander-link'
         -
           operation: get_field
+          field: alert_title
+        -
+          operation: get_field
           field: related_links
         -
           operation: get_field
@@ -146,6 +159,7 @@ process:
     from_format: n/j/y
     to_format: Y-m-d
     source: plainlanguage_date
+  field_alert/target_id: alert_title
   field_administration:
     -
       plugin: default_value
