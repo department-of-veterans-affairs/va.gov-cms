@@ -13,7 +13,7 @@ field_name: field_related_links
 entity_type: node
 bundle: health_care_region_detail_page
 label: 'Related Links'
-description: ''
+description: "Include links to other closely-related programs or services in the VA that are likely to be helpful to visitors needing the information on this page.\r\n\r\nAvoid linking to high-level pages (like \"Learn more about VA benefits\" or \"Find your closest VA medical center\") as those are easily reached in the main site navigation."
 required: false
 translatable: true
 default_value: {  }
@@ -61,16 +61,28 @@ settings:
       q_a_section:
         weight: 28
         enabled: false
+      media:
+        weight: 29
+        enabled: false
       react_widget:
         weight: 29
         enabled: false
       spanish_translation_summary:
         weight: 30
         enabled: false
+      megamenu_links_column:
+        weight: 30
+        enabled: false
+      megamenu_menu_item:
+        weight: 31
+        enabled: false
       starred_horizontal_rule:
         weight: 31
         enabled: false
       wysiwyg:
         weight: 32
+        enabled: false
+      table:
+        weight: 39
         enabled: false
 field_type: entity_reference_revisions

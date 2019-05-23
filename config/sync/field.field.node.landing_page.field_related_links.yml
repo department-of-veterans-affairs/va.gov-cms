@@ -13,7 +13,7 @@ field_name: field_related_links
 entity_type: node
 bundle: landing_page
 label: 'Related Links'
-description: '[Help text goes here]'
+description: "<p>Include links to other closely-related programs or services in the VA that are likely to be helpful to visitors needing the information on this page.</p>\r\n<p>Avoid linking to high-level pages (like \"Learn more about VA benefits\" or \"Find your closest VA medical center\") as those are easily reached in the main site navigation.</p>"
 required: false
 translatable: true
 default_value: {  }
@@ -63,5 +63,26 @@ settings:
         enabled: false
       wysiwyg:
         weight: 26
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 26
+        enabled: false
+      media:
+        weight: 29
+        enabled: false
+      megamenu_links_column:
+        weight: 30
+        enabled: false
+      megamenu_menu_item:
+        weight: 31
+        enabled: false
+      number_callout:
+        weight: 32
+        enabled: false
+      spanish_translation_summary:
+        weight: 37
+        enabled: false
+      table:
+        weight: 39
         enabled: false
 field_type: entity_reference_revisions
