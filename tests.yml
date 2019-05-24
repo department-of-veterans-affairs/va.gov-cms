@@ -1,0 +1,10 @@
+
+va/phpunit:
+  description: PHPUnit
+  command: phpunit tests/phpunit --colors=always
+va/phpcs:
+    - phpcs --standard=PSR2 -n docroot/modules/custom docroot/themes --colors
+va/phplint:
+    - find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l
+    - find docroot/modules/custom docroot/themes -name '*.module' -print0 | xargs -0 -n1 php -l
+    - find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l
