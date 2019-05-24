@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.landing_page.field_alert
     - field.field.node.landing_page.field_description
     - field.field.node.landing_page.field_intro_text
+    - field.field.node.landing_page.field_links
     - field.field.node.landing_page.field_meta_tags
     - field.field.node.landing_page.field_page_last_built
     - field.field.node.landing_page.field_plainlanguage_date
@@ -23,6 +24,7 @@ dependencies:
     - field_group
     - hide_revision_field
     - inline_entity_form
+    - link
     - metatag
     - paragraphs
     - path
@@ -47,6 +49,7 @@ third_party_settings:
     group_right_rail:
       children:
         - field_promo
+        - field_links
         - field_support_services
       parent_name: ''
       weight: 5
@@ -165,6 +168,14 @@ content:
     third_party_settings: {  }
     type: string_textarea
     region: content
+  field_links:
+    type: link_default
+    weight: 19
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
   field_meta_tags:
     weight: 12
     settings: {  }
@@ -228,7 +239,7 @@ content:
     type: paragraphs
     region: content
   field_support_services:
-    weight: 19
+    weight: 20
     settings:
       form_mode: inline_entity_form
       label_singular: ''
