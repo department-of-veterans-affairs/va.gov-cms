@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.page.field_featured_content
     - field.field.node.page.field_intro_text
     - field.field.node.page.field_meta_tags
+    - field.field.node.page.field_meta_title
     - field.field.node.page.field_page_last_built
     - field.field.node.page.field_plainlanguage_date
     - field.field.node.page.field_related_links
@@ -96,6 +97,14 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
+  field_meta_title:
+    weight: 10
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
   field_plainlanguage_date:
     weight: 2
     label: above

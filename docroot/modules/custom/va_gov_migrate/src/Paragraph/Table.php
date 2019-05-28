@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_migrate\Paragraph;
 
+use Drupal\va_gov_migrate\AnomalyMessage;
 use Drupal\va_gov_migrate\ParagraphType;
 use QueryPath\DOMQuery;
 
@@ -11,8 +12,6 @@ use QueryPath\DOMQuery;
  * @package Drupal\va_gov_migrate\Paragraph
  */
 class Table extends ParagraphType {
-
-  private $captionTags = ['h2', 'h3'];
 
   /**
    * {@inheritdoc}
@@ -32,9 +31,6 @@ class Table extends ParagraphType {
    * {@inheritdoc}
    */
   protected function getFieldValues(DOMQuery $query_path) {
-    if (in_array($query_path->prev()->tag(), $this->captionTags)) {
-      $caption = $query_path->prev()->text();
-    }
     $contents = [];
     $rows = $query_path->find('tr');
     foreach ($rows as $row) {
@@ -45,16 +41,9 @@ class Table extends ParagraphType {
       'field_table' => [
         'value' => $contents,
         'format' => 'rich_text',
-        'caption' => $caption,
+        'caption' => $query_path->find('caption')->text(),
       ],
     ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function isExternalContent(DOMQuery $query_path) {
-    return in_array($query_path->tag(), $this->captionTags) && $this->isParagraph($query_path->next());
   }
 
   /**
@@ -67,13 +56,26 @@ class Table extends ParagraphType {
    *   The resulting array
    */
   protected function parseTableRow(DOMQuery $html_row) {
-    $columns = $html_row->find('td, th');
+    $col_tags = ['th', 'td'];
     $return_row = [];
     /** @var \QueryPath\DOMQuery $column */
-    foreach ($columns as $column) {
-      $return_row[] = $column->text();
+    foreach ($html_row->children() as $column) {
+      if (in_array($column->tag(), $col_tags)) {
+        $return_row[] = $column->innerHTML();
+      }
+      else {
+        AnomalyMessage::makeFromRow('Illegal tag in table', self::$migrator->row, $column->innerHTML());
+      }
     }
     return $return_row;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function paragraphContent(array $paragraph_fields) {
+    $table = $paragraph_fields['field_table'];
+    return implode('', array_merge(...$table['value'])) . $table['caption'];
   }
 
 }
