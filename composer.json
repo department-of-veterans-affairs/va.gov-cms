@@ -215,6 +215,7 @@
         "va:test:cs": [
             "phpcs --standard=PSR2 -n docroot/modules/custom docroot/themes --colors"
         ],
-        "va:test:unit": "phpunit tests/phpunit --colors=always"
+        "va:test:unit": "phpunit tests/phpunit --colors=always",
+        "va:cbf": "phpcbf --standard=PSR2 -n docroot/modules/custom docroot/themes --colors"
     }
 }
