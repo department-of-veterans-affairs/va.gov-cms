@@ -5,11 +5,15 @@ dependencies:
   config:
     - field.storage.node.field_content_block
     - node.type.health_care_region_detail_page
+    - paragraphs.paragraphs_type.alert
     - paragraphs.paragraphs_type.collapsible_panel
+    - paragraphs.paragraphs_type.list_of_link_teasers
     - paragraphs.paragraphs_type.number_callout
     - paragraphs.paragraphs_type.process
     - paragraphs.paragraphs_type.q_a_section
     - paragraphs.paragraphs_type.react_widget
+    - paragraphs.paragraphs_type.spanish_translation_summary
+    - paragraphs.paragraphs_type.table
     - paragraphs.paragraphs_type.wysiwyg
   module:
     - entity_reference_revisions
@@ -18,7 +22,7 @@ field_name: field_content_block
 entity_type: node
 bundle: health_care_region_detail_page
 label: 'Main content'
-description: ''
+description: 'The main body of the page, which appears below the featured content.'
 required: false
 translatable: true
 default_value: {  }
@@ -34,53 +38,69 @@ settings:
       q_a_section: q_a_section
       process: process
       react_widget: react_widget
+      list_of_link_teasers: list_of_link_teasers
+      spanish_translation_summary: spanish_translation_summary
+      alert: alert
+      table: table
     target_bundles_drag_drop:
       wysiwyg:
         enabled: true
-        weight: -33
+        weight: -41
       number_callout:
         enabled: true
-        weight: -32
+        weight: -40
       collapsible_panel:
         enabled: true
-        weight: -31
+        weight: -39
       q_a_section:
         enabled: true
-        weight: -30
+        weight: -38
       process:
         enabled: true
-        weight: -29
+        weight: -37
       react_widget:
         enabled: true
-        weight: -28
-      address:
-        weight: -27
-        enabled: false
+        weight: -36
+      list_of_link_teasers:
+        enabled: true
+        weight: -35
+      spanish_translation_summary:
+        enabled: true
+        weight: -34
       alert:
-        weight: -26
+        enabled: true
+        weight: -33
+      table:
+        enabled: true
+        weight: -32
+      expandable_text:
+        weight: -31
+        enabled: false
+      address:
+        weight: -30
         enabled: false
       collapsible_panel_item:
-        weight: -25
-        enabled: false
-      expandable_text:
-        weight: -24
+        weight: -29
         enabled: false
       health_care_local_facility_servi:
-        weight: -23
+        weight: -28
         enabled: false
       link_teaser:
-        weight: -22
-        enabled: false
-      list_of_link_teasers:
-        weight: -21
+        weight: -27
         enabled: false
       q_a:
-        weight: -20
-        enabled: false
-      spanish_translation_summary:
-        weight: -19
+        weight: -26
         enabled: false
       starred_horizontal_rule:
-        weight: -18
+        weight: -25
+        enabled: false
+      media:
+        weight: -24
+        enabled: false
+      megamenu_links_column:
+        weight: -23
+        enabled: false
+      megamenu_menu_item:
+        weight: -22
         enabled: false
 field_type: entity_reference_revisions
