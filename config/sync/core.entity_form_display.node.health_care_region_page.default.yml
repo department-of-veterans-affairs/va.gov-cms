@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_appointments_online
     - field.field.node.health_care_region_page.field_clinical_health_care_servi
     - field.field.node.health_care_region_page.field_clinical_health_services
+    - field.field.node.health_care_region_page.field_description
     - field.field.node.health_care_region_page.field_email_subscription
     - field.field.node.health_care_region_page.field_email_subscription_links
     - field.field.node.health_care_region_page.field_facebook
@@ -15,10 +16,13 @@ dependencies:
     - field.field.node.health_care_region_page.field_instagram
     - field.field.node.health_care_region_page.field_intro_text
     - field.field.node.health_care_region_page.field_intro_text_events_page
+    - field.field.node.health_care_region_page.field_intro_text_leadership
     - field.field.node.health_care_region_page.field_intro_text_news_stories
+    - field.field.node.health_care_region_page.field_intro_text_press_releases
     - field.field.node.health_care_region_page.field_leadership
     - field.field.node.health_care_region_page.field_locations_intro_blurb
     - field.field.node.health_care_region_page.field_media
+    - field.field.node.health_care_region_page.field_meta_title
     - field.field.node.health_care_region_page.field_nickname_for_this_facility
     - field.field.node.health_care_region_page.field_other_va_locations
     - field.field.node.health_care_region_page.field_press_release_blurb
@@ -43,7 +47,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 20
+      weight: 16
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -58,7 +62,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 21
+      weight: 17
       format_type: fieldset
       format_settings:
         id: ''
@@ -72,7 +76,7 @@ third_party_settings:
         - field_locations_intro_blurb
         - field_other_va_locations
       parent_name: ''
-      weight: 11
+      weight: 9
       format_type: details
       format_settings:
         description: "<p>To add locations to the \"Our Locations\" page, <a href=\"/node/add/health_care_local_facility\">create a facility listing</a> for each one.This section also allows you to add other content to the \"Our Locations\" page.</p>\r\n\r\n\r\n"
@@ -87,7 +91,7 @@ third_party_settings:
         - field_clinical_health_care_servi
         - field_clinical_health_services
       parent_name: ''
-      weight: 13
+      weight: 11
       format_type: details
       format_settings:
         required_fields: true
@@ -99,7 +103,7 @@ third_party_settings:
     group_patient_family_services:
       children: {  }
       parent_name: ''
-      weight: 14
+      weight: 18
       format_type: details
       format_settings:
         id: ''
@@ -107,13 +111,13 @@ third_party_settings:
         open: false
         required_fields: true
       label: 'Patient & Family Services'
-      region: content
+      region: hidden
     group_additional_details_about_t:
       children:
         - group_online_appointments
         - field_related_links
       parent_name: ''
-      weight: 18
+      weight: 14
       format_type: details
       format_settings:
         id: ''
@@ -141,7 +145,7 @@ third_party_settings:
         - field_intro_text_events_page
         - field_press_release_blurb
       parent_name: ''
-      weight: 17
+      weight: 13
       format_type: details
       format_settings:
         required_fields: true
@@ -155,7 +159,7 @@ third_party_settings:
         - field_email_subscription_links
         - field_sign_up_for_emergency_emai
       parent_name: ''
-      weight: 19
+      weight: 15
       format_type: details
       format_settings:
         description: ''
@@ -173,7 +177,7 @@ third_party_settings:
         - field_flickr
         - field_email_subscription
       parent_name: ''
-      weight: 12
+      weight: 10
       format_type: details
       format_settings:
         id: ''
@@ -182,6 +186,38 @@ third_party_settings:
         required_fields: true
       label: 'Social Media'
       region: content
+    group_title_and_summary:
+      children:
+        - title
+        - field_meta_title
+        - field_nickname_for_this_facility
+        - field_description
+        - field_intro_text
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: false
+      label: 'Title and summary'
+      region: content
+    group_leadership:
+      children:
+        - field_intro_text_leadership
+        - field_leadership
+      parent_name: ''
+      weight: 12
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+        open: false
+      label: Leadership
+      region: content
 id: node.health_care_region_page.default
 targetEntityType: node
 bundle: health_care_region_page
@@ -189,7 +225,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 5
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -219,6 +255,20 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
+  field_description:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+      maxlength: 300
+      counter_position: after
+      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
+      js_prevent_submit: false
+      count_html_characters: false
+    third_party_settings: {  }
+    type: string_textfield_with_counter
     region: content
   field_email_subscription:
     weight: 17
@@ -261,12 +311,17 @@ content:
     type: link_default
     region: content
   field_intro_text:
-    weight: 2
+    weight: 5
     settings:
       rows: 5
       placeholder: ''
+      maxlength: 600
+      counter_position: after
+      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
+      js_prevent_submit: false
+      count_html_characters: false
     third_party_settings: {  }
-    type: string_textarea
+    type: string_textarea_with_counter
     region: content
   field_intro_text_events_page:
     weight: 23
@@ -281,6 +336,14 @@ content:
     third_party_settings: {  }
     type: text_textarea_with_counter
     region: content
+  field_intro_text_leadership:
+    weight: 20
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
   field_intro_text_news_stories:
     weight: 22
     settings:
@@ -294,18 +357,26 @@ content:
     third_party_settings: {  }
     type: text_textarea_with_counter
     region: content
+  field_intro_text_press_releases:
+    weight: 25
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
   field_leadership:
-    weight: 15
+    weight: 21
     settings:
       form_mode: inline_entity_form
       override_labels: true
       label_singular: person
       label_plural: persons
-      collapsible: true
       collapsed: true
       allow_new: true
       allow_existing: true
       match_operator: CONTAINS
+      collapsible: false
       allow_duplicate: false
     third_party_settings: {  }
     type: inline_entity_form_complex
@@ -320,12 +391,26 @@ content:
     region: content
   field_media:
     type: media_library_widget
-    weight: 3
+    weight: 1
     settings: {  }
     region: content
     third_party_settings: {  }
+  field_meta_title:
+    weight: 2
+    settings:
+      size: 70
+      placeholder: ''
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
   field_nickname_for_this_facility:
-    weight: 1
+    weight: 3
     settings:
       size: 60
       placeholder: ''
@@ -396,7 +481,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 8
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -404,7 +489,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 6
+    weight: 4
     region: content
     third_party_settings: {  }
   revision_log:
@@ -423,27 +508,33 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 10
+    weight: 8
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 7
+    weight: 5
     region: content
     third_party_settings: {  }
   title:
-    type: string_textfield
-    weight: 0
+    type: string_textfield_with_counter
+    weight: 1
     region: content
     settings:
       size: 60
       placeholder: ''
+      maxlength: 150
+      counter_position: after
+      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
+      js_prevent_submit: false
+      count_html_characters: false
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 4
+    weight: 2
     settings:
       match_operator: CONTAINS
       size: 60
@@ -451,7 +542,7 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 9
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }

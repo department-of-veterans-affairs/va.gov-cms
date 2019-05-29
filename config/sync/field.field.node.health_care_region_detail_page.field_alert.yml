@@ -1,0 +1,29 @@
+uuid: 0281e10e-a70b-4aa9-8264-e015eb486cdd
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - field.storage.node.field_alert
+    - node.type.health_care_region_detail_page
+id: node.health_care_region_detail_page.field_alert
+field_name: field_alert
+entity_type: node
+bundle: health_care_region_detail_page
+label: Alert
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      alert: alert
+    sort:
+      field: info
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
