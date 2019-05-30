@@ -1,4 +1,4 @@
-uuid: 408ceee1-3563-4c13-bdca-aacd329c1195
+uuid: 15e83178-f2b3-4273-9da4-83413d1ecc78
 langcode: en
 status: true
 dependencies:
@@ -6,28 +6,20 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: iJ0B79NBiHea3wCX9jOB5iDANzvMnb3RsGJmg3cV04c
-id: va_new_pages
+  default_config_hash: nR_iHaC2QrqlSKjK-Ek0lL4jY0LwNW-VP8rS6PpKVu4
+id: va_benefits_pension
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
-migration_group: va_tests
-label: 'Migrate selected root pages from VA.gov'
+migration_group: va_new_benefits
+label: 'Migrate Pension benefits pages from VA.gov'
 source:
   plugin: metalsmith_source
   urls:
-    - /change-direct-deposit-and-contact-information.md
-    - /claim-or-appeal-status.md
-    - /sign-in-faq.md
-    - /va-payment-history.md
-    - /veterans-portrait-project.md
-    - /welcome-kit.md
-    - /change-address.md
-    - /connected-accounts-faq.md
-    - /privacy-policy.md
-    - /session-expired.md
-    - /my-health-account-validation.md
+    - /pension
+  templates:
+    - detail-page
   fields:
     - description
     - plainlanguage_date
@@ -77,7 +69,7 @@ source:
               job: addSearch
               method: pluckSelectorAndTest
               arguments:
-                - .usa-alert
+                - .usa-alert-heading
                 - '@title'
                 - '@url'
         related_links:
@@ -171,7 +163,7 @@ process:
   field_administration:
     -
       plugin: default_value
-      default_value: 51
+      default_value: 67
   moderation_state:
     plugin: default_value
     default_value: draft

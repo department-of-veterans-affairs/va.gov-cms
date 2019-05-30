@@ -130,14 +130,14 @@ class QaSection extends ParagraphType {
     }
 
     // Eat intro text.
-    $qp = $query_path->prev();
+    $qp = $query_path;
     while ($qp->count()) {
       // If a previous element may be a Q&A header, see if there are questions.
       if (in_array($qp->tag(), ['h2', 'h3']) && !QAUnstructured::isQuestion($qp)) {
         $qp_next = $query_path->next();
         while ($qp_next->count()) {
-          if (QAUnstructured::isQuestion($qp_next) || QASchema::isQuestion($qp_next)
-            || QAAccordion::isQaAccordionGroup($qp_next)) {
+          if ((QAUnstructured::isQuestion($qp_next) || QASchema::isQuestion($qp_next)
+            || QAAccordion::isQaAccordionGroup($qp_next)) && $qp_next->tag() > $qp->tag()) {
             return TRUE;
           }
           if (in_array($qp_next->tag(), ['h2', 'h3', 'h4'])) {

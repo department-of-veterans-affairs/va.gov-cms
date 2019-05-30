@@ -81,7 +81,6 @@ class VaBenefitsMenu extends VaMenuBase {
         if (!empty($page['menus'])) {
           $menus[$page['sidebarTitle']]['items'] = $this->mergeMenus($page['menus'], $menus[$page['sidebarTitle']]['items']);
         }
-        $menus[$page['sidebarTitle']]['menu'] = strtolower(str_replace(' ', '-', $page['sidebarTitle'])) . '-benefits-hub';
       }
     }
 

@@ -53,26 +53,7 @@ abstract class ParagraphType {
     try {
       if ($this->isParagraph($query_path)) {
         if (!$this->allowedParagraph($allowed_paragraphs)) {
-          if ("node" == $entity->getEntityTypeId()) {
-            $title = $entity->get('title')->value;
-          }
-
-          $anomaly = "{$this->paragraphLabel()} not allowed on {$this->paragraphLabel($entity->bundle())}";
-          if (($this->getParagraphName() == 'q_a' && $entity->bundle() == 'q_a')) {
-            $anomaly = 'Q&A - nested';
-          }
-
-          AnomalyMessage::makeCustom('@class not allowed on @type in field @field on @title @url',
-            [
-              '@anomaly_type' => $anomaly,
-              '@class' => $this->getParagraphName(),
-              '@type' => $entity->bundle(),
-              '@field' => $parent_field,
-              '@title' => self::$migrator->row->getSourceProperty('title'),
-              '@url' => self::$migrator->row->getSourceIdValues()['url'],
-            ],
-            Message::WARNING
-          );
+          $this->makeNotAllowedMessage($entity, $parent_field);
           return FALSE;
         }
 
@@ -121,6 +102,41 @@ abstract class ParagraphType {
     }
 
     return FALSE;
+  }
+
+  /**
+   * Create message for attempt to add a paragraph where it's not allowed.
+   *
+   * @param \Drupal\Core\Entity\Entity $entity
+   *   The entity we tried to attach this paragraph to.
+   * @param string $parent_field
+   *   The name of the field we tried to attach this paragraph to.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  protected function makeNotAllowedMessage(Entity $entity, $parent_field) {
+    $anomaly = "{$this->paragraphLabel()} not allowed on {$this->paragraphLabel($entity->bundle())}";
+    if (($this->getParagraphName() === 'q_a' && $entity->bundle() === 'q_a')) {
+      $anomaly = AnomalyMessage::Q_A_NESTED;
+    }
+    elseif ($anomaly === "List of link teasers not allowed on Q&A") {
+      $anomaly = AnomalyMessage::MAJOR_LINKS;
+    }
+
+    // Link teaser message inevitably follows list of link teasers, so ignore.
+    if (($this->getParagraphName() !== 'link_teaser' || $entity->bundle() !== 'q_a')) {
+      AnomalyMessage::makeCustom('@class not allowed on @type in field @field on @title @url',
+        [
+          '@anomaly_type' => $anomaly,
+          '@class' => $this->getParagraphName(),
+          '@type' => $entity->bundle(),
+          '@field' => $parent_field,
+          '@title' => self::$migrator->row->getSourceProperty('title'),
+          '@url' => self::$migrator->row->getSourceIdValues()['url'],
+        ],
+        Message::WARNING
+      );
+    }
   }
 
   /**

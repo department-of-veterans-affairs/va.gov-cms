@@ -45,10 +45,8 @@ class PostRowSave implements EventSubscriberInterface {
         $event->getRow()->getSourceIdValues()['url']);
     }
 
-    switch ($event->getMigration()->id()) {
-      case 'va_benefits_records':
-      case 'va_new_hubs':
-      case 'va_new_pages':
+    switch ($event->getRow()->getDestinationProperty('type')) {
+      case 'page':
         $migrator->process('related_links', 'field_related_links');
         $migrator->process('featured_content', 'field_featured_content');
         $migrator->process(['body', 'nav_linkslist'], 'field_content_block');
@@ -56,27 +54,26 @@ class PostRowSave implements EventSubscriberInterface {
         $this->setNodeAlias($event);
         break;
 
-      case 'va_alert_block':
+      case 'alert':
         $migrator->process('alert_body', 'field_alert_content');
         break;
 
-      case 'va_hub':
-      case 'va_new_landing_pages':
+      case 'landing_page':
         $migrator->process('related_links', 'field_related_links');
         $migrator->process('hub_links', 'field_spokes');
         $this->setChangedDate($event);
         $this->setNodeAlias($event);
         break;
 
-      case 'va_promo':
+      case 'promo':
         $migrator->process('body', 'field_promo_link');
         break;
 
-      case 'va_benefits_menu':
-      case 'va_main_menu':
-      case 'va_benefits_records_menu':
-        $this->setMenuParent($event);
-        break;
+      default:
+        if ($event->getRow()->getDestinationProperty('bundle') === 'menu_link_content') {
+          $this->setMenuParent($event);
+          break;
+        }
     }
 
     // va_gov_migrate.anomaly is an array of reported anomalies so we don't
