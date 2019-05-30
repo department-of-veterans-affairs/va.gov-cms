@@ -64,7 +64,18 @@ class SupportService extends MetalsmithSource {
         }
       }
     }
-    $this->rows = $unique_rows;
+    $new_rows = [];
+    foreach ($unique_rows as $unique_row) {
+      $query = \Drupal::entityQuery('node');
+      $query->condition('type', 'support_service')
+        ->condition('title', $unique_row['service_name'])
+        ->count();
+
+      if (empty($query->execute())) {
+        $new_rows[] = $unique_row;
+      }
+    }
+    $this->rows = $new_rows;
   }
 
   /**
