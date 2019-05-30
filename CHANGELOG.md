@@ -8,8 +8,202 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
-## 2019-05-21.1 Sprint 14 final release 1.
 
+## 2019-05-30.1 Sprint 15 mid-sprint release 1.
+
+* __Merge branch &#39;develop&#39;__
+
+    [Andy Hawks](mailto:andy@andyhawks.com) - Thu, 30 May 2019 13:14:08 -0600
+    
+    EAD -&gt; refs/heads/master, tag: refs/tags/20190530.1, refs/remotes/origin/master
+    VAGOV-000: Sprint 15 mid-sprint release 1.
+
+* __Merge pull request #352 from ethanteague/VAGOV-2955-json-tab-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 30 May 2019 12:33:08 -0600
+    
+    efs/remotes/upstream/develop, refs/heads/develop
+    VAGOV-2955: Change the view json tab to node view.
+
+* __Merge branch &#39;develop&#39; into VAGOV-2955-json-tab-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 30 May 2019 09:40:43 -0600
+    
+* __Merge pull request #351 from beeyayjay/VAGOV-3600-pension-migration__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 30 May 2019 09:40:09 -0600
+    
+    Vagov 3600 pension migration
+
+* __Merge pull request #350 from andyhawks/feature/VAGOV-3750-feature-flag-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 29 May 2019 13:20:45 -0600
+    
+    VAGOV-3750: Implement Feature Flagging in Drupal. 
+
+* __Merge branch &#39;develop&#39; into feature/VAGOV-3750-feature-flag-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 29 May 2019 12:41:58 -0600
+    
+    efs/remotes/origin/feature/VAGOV-3750-feature-flag-ah
+
+* __Merge pull request #349 from schiavo/VAGOV-3633__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 29 May 2019 12:41:38 -0600
+    
+    VAGOV-3633 Uninstall paragraphs_type_permissions module, update test.
+
+* __Merge branch &#39;develop&#39; into feature/VAGOV-3750-feature-flag-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 29 May 2019 11:56:57 -0600
+    
+* __Merge branch &#39;develop&#39; into VAGOV-3633__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 29 May 2019 11:56:44 -0600
+   
+* __Merge pull request #347 from beeyayjay/VAGOV-000-records-menu-migration__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 29 May 2019 11:39:27 -0600
+   
+    VAGOV-000 records menu migration
+
+* __Merge branch &#39;develop&#39; into feature/VAGOV-3750-feature-flag-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 29 May 2019 11:24:23 -0600
+    
+* __Merge branch &#39;develop&#39; into VAGOV-3633__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 29 May 2019 11:24:14 -0600
+    
+* __Merge branch &#39;develop&#39; into VAGOV-000-records-menu-migration__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 29 May 2019 11:21:42 -0600
+    
+* __Merge pull request #346 from kevwalsh/3850-not-a-veteran__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 29 May 2019 11:21:28 -0600
+    
+    VAGOV-3850: Links for non-veterans on hub landing pages.
+
+* __Merge branch &#39;develop&#39; into VAGOV-3633__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 29 May 2019 10:41:14 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-000-records-menu-migration__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 28 May 2019 11:07:14 -0600
+    
+* __Merge branch &#39;develop&#39; into 3850-not-a-veteran__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 28 May 2019 11:04:41 -0600
+    
+* __Merge pull request #343 from kevwalsh/ax-various__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 28 May 2019 11:02:51 -0600
+    
+    efs/heads/feature/VAGOV-3213-core-update-ah
+    VAGOV-000: Various Sprint 15 AX improvements.
+
+* __Merge pull request #333 from schiavo/VAGOV-3650__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 23 May 2019 16:57:25 -0600
+    
+    VAGOV-3650 Added functional tests for edit node tab and workflow mode…
+
+* __Merge branch &#39;develop&#39; into VAGOV-3650__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 23 May 2019 16:31:22 -0600
+
+* __Merge pull request #344 from beeyayjay/VAGOV-000-migration-updates__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 23 May 2019 16:30:32 -0600
+    
+    Vagov 000 migration updates
+
+* __Merge branch &#39;develop&#39; into VAGOV-000-migration-updates__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 23 May 2019 16:06:15 -0600
+    
+* __Merge branch &#39;develop&#39; into VAGOV-3650__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 23 May 2019 15:55:50 -0600
+    
+* __Merge pull request #339 from ethanteague/VAGOV-3439-outreach-nav-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 23 May 2019 15:55:01 -0600
+    
+    VAGOV-3439: 
+
+* __Merge branch &#39;develop&#39; into VAGOV-3650__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 23 May 2019 15:09:34 -0600
+    
+* __Merge branch &#39;develop&#39; into VAGOV-3439-outreach-nav-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 23 May 2019 15:06:35 -0600
+
+* __Merge pull request #341 from department-of-veterans-affairs/VAGOV-000-composer-commands__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 23 May 2019 09:20:01 -0600
+    
+    VAGOV-000: Add fun commands to allow easily connecting to the proxy
+
+* __Merge branch &#39;develop&#39; into VAGOV-000-composer-commands__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 23 May 2019 08:52:58 -0600
+    
+    efs/remotes/upstream/VAGOV-000-composer-commands
+    
+* __Merge pull request #337 from department-of-veterans-affairs/VAGOV-3559-readme__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 23 May 2019 08:51:52 -0600
+    
+    VAGOV-3559: Updating readability of README.md, including SOCKS proxy command.
+
+* __Merge branch &#39;develop&#39; into VAGOV-000-composer-commands__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 22 May 2019 16:49:21 -0600 
+
+* __Merge branch &#39;develop&#39; into VAGOV-3559-readme__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 22 May 2019 16:48:20 -0600
+    
+    efs/remotes/upstream/VAGOV-3559-readme
+   
+* __Merge pull request #336 from department-of-veterans-affairs/VAGOV-0000-graphql-update-fix__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 22 May 2019 16:46:28 -0600
+    
+    VAGOV-0000: Graphql Module update with graphql core update
+
+* __Merge branch &#39;develop&#39; into VAGOV-0000-graphql-update-fix__
+
+    [Adrienne](mailto:adrienne.cabouet@gmail.com) - Wed, 22 May 2019 13:49:20 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-3559-readme__
+
+    [Elijah Lynn](mailto:elijah.lynn@agile6.com) - Wed, 22 May 2019 12:13:46 -0700
+    
+* __Merge pull request #338 from department-of-veterans-affairs/readme-test__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 22 May 2019 13:04:58 -0600
+    
+    Update README.md
+
+* __Merge pull request #335 from beeyayjay/VAGOV-3288-migration-tests__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 22 May 2019 13:02:57 -0600
+    
+    VAGOV-3288 migration tests
+
+* __Merge pull request #332 from schiavo/VAGOV-0000__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 21 May 2019 12:29:06 -0600    
+    
+    VAGOV-0000 Update permissions security phpunit test.
+
+
+## 2019-05-21.1 Sprint 14 final release 1.
 
 * __Merge branch &#39;develop&#39;__
 
@@ -420,5 +614,3 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
     VAGOV-2623: Remove password_policy.
 
 ## END OF FILE
-
-
