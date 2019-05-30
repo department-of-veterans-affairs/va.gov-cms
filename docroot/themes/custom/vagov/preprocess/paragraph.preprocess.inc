@@ -24,7 +24,6 @@ function vagov_preprocess_paragraph(&$variables) {
 
   // We want to make sure that Paragraphs are on the grid.
   // But there are some exceptions. We don't need to add the grid class if...
-
   // ...if this is a Paragraph on a Paragraph.
   $paragraph = $variables['paragraph'];
   if ('paragraph' == $paragraph->getParentEntity()->getEntityTypeId()) {
