@@ -1,10 +1,10 @@
 
-va/phpunit:
-  description: PHPUnit
-  command: composer va:test:unit
+#va/phpunit:
+#  description: PHPUnit
+#  command: phpunit tests/phpunit --colors=always
 va/phpcs:
   description: PHP CodeSniffer
-  command: composer va:test:cs
+  command: phpcs --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml -n docroot/modules/custom docroot/themes --colors
 va/phplint:
   description: PHP Lint
   command: composer va:test:lint
