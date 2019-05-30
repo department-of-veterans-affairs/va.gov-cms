@@ -24,7 +24,7 @@ source:
           modifier: basicCleanup  # Tell migration_tools to run some basic cleanup of the page it just read.
       fields:
         title:  # This is the recipe for a field called 'title'.
-          obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainTitleUncased"
+          obtainer: "obtainTitleNoCaseChange"
           jobs:
             -
               job: addSearch  # Run a job to search the DOM and assign the results to this field.
@@ -52,6 +52,15 @@ source:
                 - '@title'
                 - '@url'
                 - innerHTML  # Get any html it contains.
+        alert_title:
+          obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAlertBlockTitles"
+          jobs:
+            - job: 'addSearch'
+              method: 'pluckSelectorAndTest'
+              arguments:
+                - '.usa-alert-heading'
+                - '@title'
+                - '@url'
         related_links:
           obtainer: ObtainHtml
           jobs:
@@ -104,6 +113,9 @@ source:
             - '#crisis-expander-link'
         -
           operation: get_field
+          field: alert_title
+        -
+          operation: get_field
           field: related_links
         -
           operation: get_field
@@ -144,6 +156,7 @@ process:  # assign the fields we collected above to Drupal fields.
     from_format: 'n/j/y'
     to_format: 'Y-m-d'
     source: plainlanguage_date
+  'field_alert/target_id': alert_title
   field_administration:
     -
       plugin: default_value

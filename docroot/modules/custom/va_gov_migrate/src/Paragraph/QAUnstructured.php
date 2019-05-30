@@ -192,12 +192,12 @@ class QAUnstructured extends QABase {
             $content = self::$externalContent->children()->get($i)->textContent;
           }
 
-          Message::make('Content was excluded that wasn\'t part of answer for @question: @content, on @title, @url',
+          Message::make('Content was excluded that wasn\'t part of answer for @question on @title, @url',
             [
+              '@anomaly_type' => "Q&A - excluded content",
               '@title' => self::$migrator->row->getSourceProperty('title'),
               '@url' => self::$migrator->row->getSourceIdValues()['url'],
               '@question' => self::$lastQuestionText,
-              '@content' => $content,
             ], Message::ERROR);
         }
         // Elements were duplicated.

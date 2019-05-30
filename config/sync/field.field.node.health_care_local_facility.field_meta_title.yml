@@ -1,0 +1,19 @@
+uuid: 19a02e24-e5fd-45a7-acd5-ea50d564de3d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_meta_title
+    - node.type.health_care_local_facility
+id: node.health_care_local_facility.field_meta_title
+field_name: field_meta_title
+entity_type: node
+bundle: health_care_local_facility
+label: 'Meta title tag'
+description: "This title displays in search results, and as the browser title page (eg, in a browser tab). <a href=\"https://design.va.gov/content-style-guide/seo#meta-properties\" target=\"_blank\">Use title case</a>. Format as follows: \"VAMC Short Name | Facility nickname | Veterans Affairs\", but omit the “| Veterans Affairs” if the title tag goes over 70 characters. For example: \r\n<ul>\r\n<li>VA Pittsburgh Health Care | H.J. Heinz III Campus | Veterans Affairs</br></li>\r\n<li>VA Pittsburgh Health Care | Fayette County outpatient clinic</br></li>\r\n</ul>\r\n\r\n\r\n\r\n"
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
