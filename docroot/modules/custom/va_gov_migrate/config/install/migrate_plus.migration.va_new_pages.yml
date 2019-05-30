@@ -61,11 +61,10 @@ source:
         alert_title:
           obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAlertBlockTitles"
           jobs:
-            -
-              job: 'addSearch'
+            - job: 'addSearch'
               method: 'pluckSelectorAndTest'
               arguments:
-                - '.usa-alert'
+                - '.usa-alert-heading'
                 - '@title'
                 - '@url'
         related_links:
