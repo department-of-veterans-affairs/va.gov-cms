@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Preprocess function for blocks.
@@ -44,8 +45,6 @@ function vagov_preprocess_paragraph(&$variables) {
   $variables['uswds_grid_class'] = 'usa-grid';
 
 }
-
-
 
 /**
  * Implements hook_preprocess_paragraph__collapsible_panel().

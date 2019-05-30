@@ -41,6 +41,3 @@ your new component.
 libraries key of the component's YML!
 
 There's an example component in the `pattern-example` folder in this directory. Check it out.
-
-
-
