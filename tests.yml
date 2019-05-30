@@ -4,7 +4,7 @@
 #  command: phpunit tests/phpunit --colors=always
 va/phpcs:
   description: PHP CodeSniffer
-  command: phpcs --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml -n docroot/modules/custom docroot/themes/custom --colors
+  command: phpcs --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors
 va/phplint:
   description: PHP Lint
   command: composer va:test:lint
