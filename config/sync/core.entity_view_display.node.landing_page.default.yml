@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.landing_page.field_description
     - field.field.node.landing_page.field_intro_text
     - field.field.node.landing_page.field_meta_tags
+    - field.field.node.landing_page.field_meta_title
     - field.field.node.landing_page.field_page_last_built
     - field.field.node.landing_page.field_plainlanguage_date
     - field.field.node.landing_page.field_promo
@@ -70,6 +71,14 @@ content:
     third_party_settings: {  }
     type: metatag_empty_formatter
     region: content
+  field_meta_title:
+    weight: 13
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
   field_page_last_built:
     weight: 10
     label: above
@@ -130,4 +139,5 @@ content:
     type: list_default
     region: content
 hidden:
+  field_links: true
   links: true

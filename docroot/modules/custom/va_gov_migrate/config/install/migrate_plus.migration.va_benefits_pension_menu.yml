@@ -1,0 +1,43 @@
+id: va_benefits_pension_menu
+label: Migrate Pension sidebar menu
+migration_group: va_new_benefits
+
+source:
+  plugin: va_benefits_menu_source
+  sections:
+    - "Pension benefits"
+  constants:
+    bundle: menu_link_content
+    zero: 0
+    one: 1
+
+process:
+  bundle: 'constants/bundle'
+  title: title
+  menu_name: menu
+  'link/uri':
+    plugin: link_uri
+    source:
+      - href
+    validate_route: false
+  route:
+    plugin: route
+    source: href
+  route_name: '@route/route_name'
+  route_parameters: '@route/route_parameters'
+  url: '@route/url'
+  options: '@route/options'
+  external: external
+  weight: weight
+  expanded: 'constants/zero'
+  enabled: 'constants/one'
+
+destination:
+  plugin: entity:menu_link_content
+  no_stub: true
+
+migration_dependencies: {}
+dependencies:
+  enforced:
+    module:
+      - va_gov_migrate

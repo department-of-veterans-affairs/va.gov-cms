@@ -76,7 +76,8 @@
         "drupal/paragraphs_browser": "^1.0@alpha",
         "drupal/textfield_counter": "^1.6",
         "drupal/workbench_menu_access": "^1.0",
-        "provision-ops/yaml-tests": "dev-master"
+        "provision-ops/yaml-tests": "^1.2",
+        "drupal/feature_toggle": "^1.2"
     },
     "autoload": {
         "psr-4": {
@@ -136,7 +137,8 @@
                 "Allow migration script to set curl options": "https://www.drupal.org/files/issues/2019-02-08/curl_options-3031705-2.patch",
                 "Eliminate 'Undefined index: arguments' notice during migration": "https://www.drupal.org/files/issues/2018-11-08/migration_tools-undef-arg-3012485-2.patch",
                 "Add obtainer for long, plain text": "https://www.drupal.org/files/issues/2019-04-04/long_plain_text_obtainer-3044998-5.patch",
-                "Add event dispatcher to messages": "https://www.drupal.org/files/issues/2019-04-15/message_event-3048397-2.patch"
+                "Add event dispatcher to messages": "https://www.drupal.org/files/issues/2019-04-15/message_event-3048397-2.patch",
+                "Obtain title without title casing it": "https://www.drupal.org/files/issues/2019-05-27/title_no_case_change-3056452-2.patch"
             },
             "drupal/field_group": {
                 "Allow to position the group in the advanced (sidebar) column": "https://www.drupal.org/files/issues/2018-07-26/2652642-59.patch"
@@ -160,6 +162,9 @@
             },
             "drupal/paragraphs": {
                 "Fix broken fieldset wrapping.": "https://www.drupal.org/files/issues/2907094_7_field_group_support.patch"
+            },
+            "drupal/paragraphs_browser":  {
+              "Extend from ParagraphsWidget instead of InlineParagraphsWidget": "https://www.drupal.org/files/issues/2019-01-22/paragraphs_browser-extend-from-ParagraphsWidget-2917656-14_0.patch"
             },
             "drupal/password_policy": {
                 "Use core temp store.": "https://www.drupal.org/files/issues/2019-03-04/password_policy-use-core-temp-store-3032549-3.patch",

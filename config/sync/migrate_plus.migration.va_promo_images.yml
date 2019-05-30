@@ -1,4 +1,4 @@
-uuid: 41ded882-334e-4f7e-ab42-1a1cf1c762a4
+uuid: 741afdf5-6ce3-4d70-940b-2280c9f67386
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: XVjRsOPdZrIaES9nvphY5uuKvjpXyMWuUg8svW9kGGA
+  default_config_hash: d3tyG5olJmOQesWO31UIXCjKaDV2Pw4rr16FXf5zA0U
 id: va_promo_images
 class: null
 field_plugin_method: null
@@ -17,14 +17,7 @@ label: 'Migrate promo block images from VA.gov'
 source:
   plugin: url_list
   urls:
-    - 'https://www.va.gov/disability/'
-    - 'https://www.va.gov/education/'
-    - 'https://www.va.gov/careers-employment/'
     - 'https://www.va.gov/pension/'
-    - 'https://www.va.gov/housing-assistance/'
-    - 'https://www.va.gov/life-insurance/'
-    - 'https://www.va.gov/burials-memorials/'
-    - 'https://www.va.gov/records/'
   migration_tools:
     -
       source: url
