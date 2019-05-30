@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1348273522c1392f43a164361b6c7b87",
+    "content-hash": "c397bf784c2038085a58b73c92c1f6c6",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -4832,9 +4832,6 @@
                         "status": "not-covered",
                         "message": "Alpha releases are not covered by Drupal security advisories."
                     }
-                },
-                "patches_applied": {
-                    "2882709 - Misnamed interface causes \"Fatal error: Cannot declare interface Drupal\\libraries\\ExternalLibrary\\Utility\\LibraryAccessorIdInterface\"": "https://www.drupal.org/files/issues/2882709-2-interface-libraryidaccessorinterface-misnamed.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -11079,16 +11076,16 @@
         },
         {
             "name": "provision-ops/yaml-tests",
-            "version": "1.2.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/provision-ops/yaml-tests.git",
-                "reference": "8d55b1aab4a52cf5dc88132b92c737bb637b5181"
+                "reference": "066b479a5f13b1fadb8a52663cb801a12a07331b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/provision-ops/yaml-tests/zipball/8d55b1aab4a52cf5dc88132b92c737bb637b5181",
-                "reference": "8d55b1aab4a52cf5dc88132b92c737bb637b5181",
+                "url": "https://api.github.com/repos/provision-ops/yaml-tests/zipball/066b479a5f13b1fadb8a52663cb801a12a07331b",
+                "reference": "066b479a5f13b1fadb8a52663cb801a12a07331b",
                 "shasum": ""
             },
             "require": {
@@ -11100,7 +11097,7 @@
             },
             "require-dev": {
                 "composer/composer": "^1.9@dev",
-                "squizlabs/php_codesniffer": "^2.0"
+                "squizlabs/php_codesniffer": "~2"
             },
             "bin": [
                 "yaml-tests"
@@ -11125,7 +11122,7 @@
                 }
             ],
             "description": "Plugin to run commands from a YML file and pass to GitHub commit status API.",
-            "time": "2019-05-30T16:37:47+00:00"
+            "time": "2019-05-30T17:25:35+00:00"
         },
         {
             "name": "psr/container",
@@ -16140,6 +16137,9 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "Include end date / time in ICS file.": "https://www.drupal.org/files/issues/2018-10-06/ics_field-2852239-11.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -17559,6 +17559,7 @@
         "drupal/tablefield": 15,
         "drupal/cer": 15,
         "drupal/paragraphs_browser": 15,
+        "provision-ops/yaml-tests": 20,
         "acquia/lightning_dev": 20
     },
     "prefer-stable": true,
