@@ -119,7 +119,7 @@ abstract class ParagraphType {
     if (($this->getParagraphName() === 'q_a' && $entity->bundle() === 'q_a')) {
       $anomaly = AnomalyMessage::Q_A_NESTED;
     }
-    elseif ($anomaly == "List of link teasers not allowed on Q&A") {
+    elseif ($anomaly === "List of link teasers not allowed on Q&A") {
       $anomaly = AnomalyMessage::MAJOR_LINKS;
     }
 
