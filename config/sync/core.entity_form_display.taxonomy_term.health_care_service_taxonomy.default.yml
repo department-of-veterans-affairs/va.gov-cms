@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_also_known_as
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_commonly_treated_condition
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
     - taxonomy.vocabulary.health_care_service_taxonomy
   module:
@@ -42,6 +43,14 @@ content:
     third_party_settings: {  }
   field_also_known_as:
     weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_commonly_treated_condition:
+    weight: 8
     settings:
       size: 60
       placeholder: ''
