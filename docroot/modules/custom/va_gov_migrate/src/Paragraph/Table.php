@@ -75,7 +75,7 @@ class Table extends ParagraphType {
    */
   protected function paragraphContent(array $paragraph_fields) {
     $table = $paragraph_fields['field_table'];
-    return implode('', array_merge(...$table['value'])) . $table['caption'];
+    return implode('', array_merge(...$table['value']));
   }
 
 }
