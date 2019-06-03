@@ -24,164 +24,164 @@ source:
     - social
 
   migration_tools:
-  -
-    # Just leave this as is, if using metalsmith_source or url_list source.
-    source: url # The field we're passing to migration_tools is called 'url'.
-    source_type: url  # Source type can be either 'url' or 'html'.
+    -
+      # Just leave this as is, if using metalsmith_source or url_list source.
+      source: url # The field we're passing to migration_tools is called 'url'.
+      source_type: url  # Source type can be either 'url' or 'html'.
 
-    source_operations:
-    -
-      operation: modifier
-      modifier: basicCleanup  # Tell migration_tools to run some basic cleanup of the page it just read.
-    fields:
-      title:  # This is the recipe for a field called 'title'.
-        obtainer: ObtainTitle # Good for grabbing titles, but could just as well have used ObtainHtml here.
-        jobs:
+      source_operations:
         -
-          job: addSearch  # Run a job to search the DOM and assign the results to this field.
-          method: pluckSelector # Also remove it from the DOM (so it doesn't show up in body, too).
-          arguments:
-          - 'h1'  # Look for h1 tags.
-          - 1     # Only grab the first one.
-          - innerHTML  # Get any html it contains.
-      alert_title:
-        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAlertBlockTitles"
-        jobs:
-          -
-            job: 'addSearch'
-            method: 'arrayPluckSelector'
-            arguments:
-              - '.usa-alert-heading'
-              - innerHTML
-      intro_text:
-        obtainer: ObtainPlainTextWithNewLines
-        jobs:
-          -
-            job: addSearch
-            method: pluckSelector
-            arguments:
-              - '.va-introtext'
-      featured_content:
-        obtainer: ObtainHtml
-        jobs:
+          operation: modifier
+          modifier: basicCleanup  # Tell migration_tools to run some basic cleanup of the page it just read.
+      fields:
+        title:  # This is the recipe for a field called 'title'.
+          obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainTitleNoCaseChange"
+          jobs:
+            -
+              job: addSearch  # Run a job to search the DOM and assign the results to this field.
+              method: pluckSelector # Also remove it from the DOM (so it doesn't show up in body, too).
+              arguments:
+                - 'h1'  # Look for h1 tags.
+                - 1     # Only grab the first one.
+                - innerHTML  # Get any html it contains.
+        alert_title:
+          obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAlertBlockTitles"
+          jobs:
+            -
+              job: 'addSearch'
+              method: 'arrayPluckSelector'
+              arguments:
+                - '.usa-alert-heading'
+                - innerHTML
+        intro_text:
+          obtainer: ObtainPlainTextWithNewLines
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelector
+              arguments:
+                - '.va-introtext'
+        featured_content:
+          obtainer: ObtainHtml
+          jobs:
+            -
+              job: 'addSearch'
+              method: 'pluckSelector'
+              arguments:
+                - '.feature'
+                - '1'
+                - innerHTML
+        related_links:
+          obtainer: ObtainHtml
+          jobs:
+            -
+              job: 'addSearch'
+              method: 'pluckSelector'
+              arguments:
+                - '.va-nav-linkslist--related'
+                - '1'
+                - innerHTML
+        hub_links:
+          obtainer: ObtainHtml
+          jobs:
+            -
+              job: 'addSearch'
+              method: 'pluckSelector'
+              arguments:
+                - 'article'
+                - '1'
+                - HTML
+        body:
+          obtainer: ObtainBody
+          jobs:
+            -
+              # First, look for a class of 'usa-width-three-fourths'.
+              job: 'addSearch'
+              method: 'pluckSelector'
+              arguments:
+                - '.usa-width-three-fourths'
+                - '1'
+                - innerHTML
+            -
+              # If it's not there, try '#content .usa-grid-full'.
+              job: 'addSearch'
+              method: 'pluckSelector'
+              arguments:
+                - '#content .usa-grid-full'
+                - '1'
+                - innerHTML
+            -
+              # If we still haven't found anything, grab the article tag.
+              job: 'addSearch'
+              method: 'pluckSelector'
+              arguments:
+                - 'article'
+                - '1'
+                - innerHTML
+      dom_operations:
         -
-          job: 'addSearch'
-          method: 'pluckSelector'
-          arguments:
-            - '.feature'
-            - '1'
-            - innerHTML
-      related_links:
-        obtainer: ObtainHtml
-        jobs:
+          # This runs first.
+          operation: get_field
+          field: title  # Use the 'title' recipe from above to create the field.
         -
-          job: 'addSearch'
-          method: 'pluckSelector'
-          arguments:
-            - '.va-nav-linkslist--related'
-            - '1'
-            - innerHTML
-      hub_links:
-        obtainer: ObtainHtml
-        jobs:
+          # This runs next.
+          operation: get_field
+          field: intro_text
         -
-          job: 'addSearch'
-          method: 'pluckSelector'
-          arguments:
-            - 'article'
-            - '1'
-            - HTML
-      body:
-        obtainer: ObtainBody
-        jobs:
+          # And so on...
+          operation: get_field
+          field: featured_content
         -
-          # First, look for a class of 'usa-width-three-fourths'.
-          job: 'addSearch'
-          method: 'pluckSelector'
+          # Remove expander trigger before getting alert title
+          operation: modifier
+          modifier: removeSelectorAll
           arguments:
-            - '.usa-width-three-fourths'
-            - '1'
-            - innerHTML
+            - '#crisis-expander-link'
         -
-          # If it's not there, try '#content .usa-grid-full'.
-          job: 'addSearch'
-          method: 'pluckSelector'
-          arguments:
-            - '#content .usa-grid-full'
-            - '1'
-            - innerHTML
+          operation: get_field
+          field: alert_title
         -
-          # If we still haven't found anything, grab the article tag.
-          job: 'addSearch'
-          method: 'pluckSelector'
+          operation: get_field
+          field: related_links
+        -
+          # Remove any alert boxes (they'll be attached via 'alert title', above).
+          operation: modifier
+          modifier: removeSelectorAll
           arguments:
-          - 'article'
-          - '1'
-          - innerHTML
-    dom_operations:
-    -
-      # This runs first.
-      operation: get_field
-      field: title  # Use the 'title' recipe from above to create the field.
-    -
-      # This runs next.
-      operation: get_field
-      field: intro_text
-    -
-      # And so on...
-      operation: get_field
-      field: featured_content
-    -
-      # Remove expander trigger before getting alert title
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-        - '#crisis-expander-link'
-    -
-      operation: get_field
-      field: alert_title
-    -
-      operation: get_field
-      field: related_links
-    -
-      # Remove any alert boxes (they'll be attached via 'alert title', above).
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-        - '.usa-alert'
-    -
-      # Clean things up before getting the body.
-      # Remove javascript cruft.
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-      - 'button.va-btn-sidebarnav-trigger'
-    -
-      # Remove any scripts
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-        - 'script'
-    -
-      # Remove jump links section
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-      - 'h3:contains("On This Page")'
-    -
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-      - 'li > a[href^="#"]'
-    -
-      # Remove starred HRs
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-        - '.va-h-ruled--stars'
-    -
-      operation: get_field
-      field: hub_links
+            - '.usa-alert'
+        -
+          # Clean things up before getting the body.
+          # Remove javascript cruft.
+          operation: modifier
+          modifier: removeSelectorAll
+          arguments:
+            - 'button.va-btn-sidebarnav-trigger'
+        -
+          # Remove any scripts
+          operation: modifier
+          modifier: removeSelectorAll
+          arguments:
+            - 'script'
+        -
+          # Remove jump links section
+          operation: modifier
+          modifier: removeSelectorAll
+          arguments:
+            - 'h3:contains("On This Page")'
+        -
+          operation: modifier
+          modifier: removeSelectorAll
+          arguments:
+            - 'li > a[href^="#"]'
+        -
+          # Remove starred HRs
+          operation: modifier
+          modifier: removeSelectorAll
+          arguments:
+            - '.va-h-ruled--stars'
+        -
+          operation: get_field
+          field: hub_links
 
 process:  # assign the fields we collected above to Drupal fields.
   title: title
@@ -216,16 +216,24 @@ process:  # assign the fields we collected above to Drupal fields.
           plugin: migration_lookup
           migration: va_support_service
           source: title
-  field_alert:
+  'field_alert/target_id': alert_title
+  field_administration:
+    plugin: default_value
+    default_value: 76
+  field_title_icon:
     -
-      plugin: migration_lookup
-      migration: va_alert_block
-      source: alert_title
+      plugin: explode
+      source: url
+      delimiter: '/'
+    -
+      plugin: extract
+      index:
+        - 3
   moderation_state:
     plugin: default_value
     default_value: draft
   type:
-    plugin: default_value   # We want to asign the 'type' field a static value.
+    plugin: default_value   # We want to assign the 'type' field a static value.
     default_value: landing_page # The value is 'landing_page'.
 
 destination:
@@ -241,4 +249,4 @@ migration_dependencies:
 dependencies:
   enforced:
     module:
-    - va_gov_migrate  # The module this migration script belongs to.
+      - va_gov_migrate  # The module this migration script belongs to.

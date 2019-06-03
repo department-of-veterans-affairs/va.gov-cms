@@ -33,6 +33,7 @@ dependencies:
     - metatag
     - path
     - text
+    - textfield_counter
 third_party_settings:
   field_group:
     group_governance:
@@ -42,7 +43,6 @@ third_party_settings:
       weight: 8
       format_type: details_sidebar
       format_settings:
-        label: Governance
         open: '1'
         weight: '-15'
         required_fields: '1'
@@ -61,7 +61,6 @@ third_party_settings:
       weight: 7
       format_type: details
       format_settings:
-        label: Location
         open: true
         id: ''
         classes: ''
@@ -78,7 +77,6 @@ third_party_settings:
       weight: 6
       format_type: details
       format_settings:
-        label: Registration
         open: true
         id: ''
         classes: ''
@@ -176,8 +174,14 @@ content:
     settings:
       size: 60
       placeholder: ''
+      maxlength: 60
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
     third_party_settings: {  }
-    type: string_textfield
+    type: string_textfield_with_counter
     region: content
   field_event_cta:
     weight: 26

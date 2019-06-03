@@ -7,14 +7,15 @@ dependencies:
     - node_title_help_text
 third_party_settings:
   menu_ui:
-    available_menus: {  }
-    parent: ''
+    available_menus:
+      - pittsburgh-health-care
+    parent: 'pittsburgh-health-care:'
   node_title_help_text:
-    title_help: "Please use sentence case.<br/>\r\n<em>Maximum characters: 150</em>"
+    title_help: 'This appears as the h1 to visitors of the page. <a href="https://design.va.gov/content-style-guide/page-titles-and-section-titles" target="_blank">Use sentence case</a>. '
 name: 'Detail Page'
 type: health_care_region_detail_page
 description: 'For static pages where there''s not another content type already available. '
-help: ''
+help: 'For static pages where there''s not another content type already available. '
 new_revision: true
 preview_mode: 0
 display_submitted: false

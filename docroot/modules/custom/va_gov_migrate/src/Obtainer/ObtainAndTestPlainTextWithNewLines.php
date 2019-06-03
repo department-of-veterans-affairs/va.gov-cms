@@ -30,14 +30,13 @@ class ObtainAndTestPlainTextWithNewLines extends ObtainPlainTextWithNewLines {
       /* @var \QueryPath\DOMQuery $element */
       foreach ((is_object($elements)) ? $elements : [] as $i => $element) {
         if ($i == $n) {
-          $text = $element->html();
-          $this->setCurrentFindMethod("findSelector($selector, " . ++$n . ')');
           $this->test($element);
+          break;
         }
       }
     }
 
-    return $text;
+    return $this->pluckSelector($selector, $n);
   }
 
   /**

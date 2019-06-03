@@ -4,11 +4,13 @@ status: true
 dependencies:
   config:
     - field.storage.paragraph.field_answer
+    - paragraphs.paragraphs_type.alert
     - paragraphs.paragraphs_type.collapsible_panel
     - paragraphs.paragraphs_type.number_callout
     - paragraphs.paragraphs_type.process
     - paragraphs.paragraphs_type.q_a
     - paragraphs.paragraphs_type.react_widget
+    - paragraphs.paragraphs_type.table
     - paragraphs.paragraphs_type.wysiwyg
   module:
     - entity_reference_revisions
@@ -31,7 +33,9 @@ settings:
       collapsible_panel: collapsible_panel
       process: process
       number_callout: number_callout
+      alert: alert
       react_widget: react_widget
+      table: table
     target_bundles_drag_drop:
       wysiwyg:
         enabled: true
@@ -49,8 +53,8 @@ settings:
         weight: -27
         enabled: false
       alert:
+        enabled: true
         weight: -26
-        enabled: false
       collapsible_panel_item:
         weight: -25
         enabled: false
@@ -90,4 +94,7 @@ settings:
       megamenu_menu_item:
         weight: 30
         enabled: false
+      table:
+        enabled: true
+        weight: 39
 field_type: entity_reference_revisions

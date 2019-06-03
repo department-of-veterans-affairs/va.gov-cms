@@ -10,19 +10,20 @@ id: node.regional_health_care_service_des.field_local_health_care_service_
 field_name: field_local_health_care_service_
 entity_type: node
 bundle: regional_health_care_service_des
-label: 'Local health care service description'
-description: ''
+label: 'Local offering for this service'
+description: 'This will get automatically updated when you <a href="/node/add/health_care_local_health_service">create a local health service offering. '
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: unpublished
   handler_settings:
     target_bundles:
       health_care_local_health_service: health_care_local_health_service
     sort:
-      field: _none
-    auto_create: true
+      field: title
+      direction: ASC
+    auto_create: 0
     auto_create_bundle: ''
 field_type: entity_reference

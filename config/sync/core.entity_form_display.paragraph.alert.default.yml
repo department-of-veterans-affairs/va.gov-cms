@@ -11,6 +11,7 @@ dependencies:
   module:
     - field_group
     - paragraphs
+    - textfield_counter
 third_party_settings:
   field_group:
     group_reusable_alert:
@@ -57,8 +58,14 @@ content:
     settings:
       size: 60
       placeholder: ''
+      use_field_maxlength: false
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: string_textfield
+    type: string_textfield_with_counter
     region: content
   field_alert_type:
     weight: 6

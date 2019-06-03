@@ -37,7 +37,7 @@
         "drupal/rest_menu_tree": "^1.1",
         "drupal/restui": "^1.16",
         "drupal/health_check": "^1.0",
-        "drupal/graphql": "^3.0@RC",
+        "drupal/graphql": "^3.0",
         "drupal/address": "^1.4",
         "drupal/node_title_help_text": "^1.0",
         "drupal/field_group": "3.x-dev",
@@ -69,10 +69,14 @@
         "drupal/pathologic": "^1.0@alpha",
         "drupal/menu_breadcrumb": "^1.8",
         "drupal/entity_reference_unpublished": "^1.1",
+        "drupal/tablefield": "^2.0@alpha",
         "drupal/cer": "^4.0@alpha",
         "drupal/better_field_descriptions": "^1.4",
         "drupal/markdown": "^1.2",
-        "drupal/paragraphs_browser": "^1.0@alpha"
+        "drupal/paragraphs_browser": "^1.0@alpha",
+        "drupal/textfield_counter": "^1.6",
+        "drupal/workbench_menu_access": "^1.0",
+        "drupal/feature_toggle": "^1.2"
     },
     "autoload": {
         "psr-4": {
@@ -97,28 +101,6 @@
     "config": {
         "process-timeout": 0,
         "vendor-dir": "docroot/vendor"
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-            "cp -r 'hooks/' '.git/hooks/'",
-            "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
-            "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
-            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
-            "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
-        ],
-        "post-update-cmd": [
-            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-            "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
-            "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
-            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
-            "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
-        ],
-        "nuke": "rm -r -f docroot/modules/contrib docroot/profiles/contrib/lightning vendor composer.lock",
-        "quick-start": [
-            "composer install",
-            "php docroot/core/scripts/drupal quick-start lightning --no-interaction"
-        ]
     },
     "extra": {
         "installer-types": [
@@ -179,12 +161,54 @@
             "drupal/paragraphs": {
                 "Fix broken fieldset wrapping.": "https://www.drupal.org/files/issues/2907094_7_field_group_support.patch"
             },
+            "drupal/paragraphs_browser":  {
+              "Extend from ParagraphsWidget instead of InlineParagraphsWidget": "https://www.drupal.org/files/issues/2019-01-22/paragraphs_browser-extend-from-ParagraphsWidget-2917656-14_0.patch"
+            },
             "drupal/password_policy": {
                 "Use core temp store.": "https://www.drupal.org/files/issues/2019-03-04/password_policy-use-core-temp-store-3032549-3.patch",
                 "Fix field field_last_password_reset is unknown.": "https://www.drupal.org/files/issues/2019-02-24/password_policy-config_import_field_error-2771129-73_alpha4_1.patch",
-		"Password expires does not work.": "https://www.drupal.org/files/issues/2019-03-11/2917622-password_policy-expiration-issue-for-8.x-3.0-alpha4.patch"
+                "Password expires does not work.": "https://www.drupal.org/files/issues/2019-03-11/2917622-password_policy-expiration-issue-for-8.x-3.0-alpha4.patch"
+            },
+            "drupal/textfield_counter": {
+              "Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch"
             }
 
         }
+    },
+    "scripts": {
+        "command": [
+            "export PATH=./bin:$PATH"
+        ],
+        "post-install-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+            "cp -r 'hooks/' '.git/hooks/'",
+            "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
+            "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
+            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
+            "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
+        ],
+        "post-update-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+            "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
+            "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
+            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
+            "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
+        ],
+        "nuke": "rm -r -f docroot/modules/contrib docroot/profiles/contrib/lightning vendor composer.lock",
+        "va:config:export": [
+            "drupal config:export --ansi"
+        ],
+        "va:config:import": [
+            "drupal config:import --ansi"
+        ],
+        "va:database:download": [
+            "cd .dumps && curl --remote-name --remote-header-name --proxy socks5h://127.0.0.1:2001 10.247.89.58:8000/cms-db-latest.sql.gz && gunzip --force cms-db-latest.sql.gz && echo 'SQL dump saved to .dumps/cms-db-latest.sql'"
+        ],
+        "va:proxy:start": [
+            "ssh socks -D 2001 -N"
+        ],
+        "va:proxy:test": [
+            "curl -v --proxy socks5h://127.0.0.1:2001 sentry.vetsgov-internal"
+        ]
     }
 }

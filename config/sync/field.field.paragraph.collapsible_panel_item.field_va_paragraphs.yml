@@ -1,0 +1,88 @@
+uuid: 1bcd69e9-5bf4-4399-bb60-e6421b70d6a4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_va_paragraphs
+    - paragraphs.paragraphs_type.collapsible_panel_item
+    - paragraphs.paragraphs_type.table
+  module:
+    - entity_reference_revisions
+id: paragraph.collapsible_panel_item.field_va_paragraphs
+field_name: field_va_paragraphs
+entity_type: paragraph
+bundle: collapsible_panel_item
+label: 'Content block(s)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      table: table
+    target_bundles_drag_drop:
+      address:
+        weight: 21
+        enabled: false
+      alert:
+        weight: 22
+        enabled: false
+      collapsible_panel:
+        weight: 23
+        enabled: false
+      collapsible_panel_item:
+        weight: 24
+        enabled: false
+      expandable_text:
+        weight: 25
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 26
+        enabled: false
+      link_teaser:
+        weight: 27
+        enabled: false
+      list_of_link_teasers:
+        weight: 28
+        enabled: false
+      media:
+        weight: 29
+        enabled: false
+      megamenu_links_column:
+        weight: 30
+        enabled: false
+      megamenu_menu_item:
+        weight: 31
+        enabled: false
+      number_callout:
+        weight: 32
+        enabled: false
+      process:
+        weight: 33
+        enabled: false
+      q_a:
+        weight: 34
+        enabled: false
+      q_a_section:
+        weight: 35
+        enabled: false
+      react_widget:
+        weight: 36
+        enabled: false
+      spanish_translation_summary:
+        weight: 37
+        enabled: false
+      starred_horizontal_rule:
+        weight: 38
+        enabled: false
+      table:
+        enabled: true
+        weight: 39
+      wysiwyg:
+        weight: 40
+        enabled: false
+field_type: entity_reference_revisions

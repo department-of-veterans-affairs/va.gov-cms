@@ -1,14 +1,14 @@
 id: va_hub
-label: Records landing page - NEVER ROLLBACK (would delete ALL hub landing pages)
+label: Pension landing page - NEVER ROLLBACK
 migration_group: va_new_benefits
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
-    - "/records/index.md"
 #    - "/disability/index.md"
 #    - "/education/index.md"
 #    - "/careers-employment/index.md"
-#    - "/pension/index.md"
+#    - "/records/index.md"
+    - "/pension/index.md"
 #    - "/housing-assistance/index.md"
 #    - "/life-insurance/index.md"
 #    - "/burials-memorials/index.md"
@@ -35,7 +35,7 @@ source:
       modifier: basicCleanup  # Tell migration_tools to run some basic cleanup of the page it just read.
     fields:
       title:  # This is the recipe for a field called 'title'.
-        obtainer: ObtainTitle # Good for grabbing titles, but could just as well have used ObtainHtml here.
+        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainTitleNoCaseChange"
         jobs:
         -
           job: addSearch  # Run a job to search the DOM and assign the results to this field.
@@ -213,16 +213,26 @@ process:  # assign the fields we collected above to Drupal fields.
       plugin: sub_process # run for each subsection in array that we extracted above
       process:
         target_id:
-          plugin: migration_lookup
-          migration: va_support_service
+          plugin: entity_lookup
           source: title
-  field_alert:
-    plugin: migration_lookup
-    migration: va_alert_block
-    source: alert_title
+          value_key: title
+          bundle_key: type
+          bundle: support_service
+          entity_type: node
+          ignore_case: true
+  'field_alert/target_id': alert_title
   field_administration:
     plugin: default_value
-    default_value: 10
+    default_value: 67
+  field_title_icon:
+    -
+      plugin: explode
+      source: url
+      delimiter: '/'
+    -
+      plugin: extract
+      index:
+        - 3
   moderation_state:
     plugin: default_value
     default_value: draft

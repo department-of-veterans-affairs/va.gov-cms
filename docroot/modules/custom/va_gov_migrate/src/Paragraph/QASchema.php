@@ -37,7 +37,7 @@ class QASchema extends QABase {
         ], Message::ERROR);
     }
 
-    parent::addChildParagraphs($answer, $paragraph, $this->getParagraphField());
+    parent::addChildParagraphs($paragraph, $answer);
   }
 
   /**
