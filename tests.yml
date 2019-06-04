@@ -8,9 +8,9 @@ va/deploy/config:
   - drush config:import --yes
   - drush cache:rebuild
 
-#va/phpunit:
-#  description: PHPUnit
-#  command: phpunit tests/phpunit --colors=always
+va/phpunit:
+  description: PHPUnit
+  command: phpunit --exclude-group disabled tests/phpunit --colors=always
 va/phpcs:
   description: PHP CodeSniffer
   command: composer va:test:cs
