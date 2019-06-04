@@ -8,6 +8,133 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
+## 2019-06-04.1 Sprint 15 final release 1. 
+
+* __Merge branch &#39;develop&#39;__
+
+    [Andy Hawks](mailto:andy@andyhawks.com) - Tue, 4 Jun 2019 13:59:55 -0600
+    
+    EAD -&gt; refs/heads/master, tag: refs/tags/20190604.1
+    VAGOV-000: 2019-06-04.1 Sprint 15 final release 1.
+
+* __Merge pull request #365 from kevwalsh/1895-revert-moderation-tab-change__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 4 Jun 2019 10:17:46 -0600
+    
+    efs/remotes/upstream/develop, refs/heads/develop
+    VAGOV-1895: Revert: Hide history and revision tabs on node edit pages.
+
+* __Merge branch &#39;develop&#39; into 1895-revert-moderation-tab-change__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 4 Jun 2019 08:53:05 -0600
+
+* __Merge pull request #363 from beeyayjay/VAGOV-3472-migrate-linkslist-outside-qa__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 4 Jun 2019 08:52:16 -0600
+
+    VAGOV-3957: End answer when links list is hit during migration.
+
+* __Merge pull request #303 from ethanteague/VAGOV-3247-remove-deactivated-theme-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 3 Jun 2019 16:26:51 -0600
+
+    VAGOV-3247 remove deactivated theme - merge 2nd
+
+* __Merge branch &#39;develop&#39; into VAGOV-3247-remove-deactivated-theme-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 3 Jun 2019 15:39:05 -0600
+
+* __Merge pull request #361 from andyhawks/feature/VAGOV-2247-simplesamlphp-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 3 Jun 2019 15:38:37 -0600
+
+    VAGOV-2247: Set up SimpleSAML infrastructure on CMS.
+
+* __Merge branch &#39;develop&#39; into feature/VAGOV-2247-simplesamlphp-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 3 Jun 2019 15:09:47 -0600
+    
+    efs/remotes/origin/feature/VAGOV-2247-simplesamlphp-ah
+
+* __Merge pull request #362 from department-of-veterans-affairs/VAGOV-000-adhoc-enable-menu-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 3 Jun 2019 15:09:15 -0600
+
+    VAGOV-000: Adding additional menu option to detail pages.
+
+* __Merge pull request #360 from department-of-veterans-affairs/VAGOV-3734-remaining-health-services-field__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 3 Jun 2019 13:41:55 -0600
+
+    VAGOV-3734: Changing commonly treated conditions label 
+
+* __Merge branch &#39;develop&#39; into VAGOV-3734-remaining-health-services-field__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 3 Jun 2019 11:27:42 -0600
+    
+    efs/remotes/upstream/VAGOV-3734-remaining-health-services-field
+    
+* __Merge pull request #359 from kevwalsh/3887-sort-composer__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 3 Jun 2019 11:25:29 -0600
+
+    VAGOV-3887: Sort composer dependencies alphabetically.
+
+* __Merge branch &#39;develop&#39; into VAGOV-3734-remaining-health-services-field__
+
+    [Adrienne](mailto:adrienne.cabouet@gmail.com) - Mon, 3 Jun 2019 10:02:44 -0700
+
+* __Merge branch &#39;develop&#39; into 3887-sort-composer__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 3 Jun 2019 10:53:49 -0600
+
+* __Merge pull request #358 from beeyayjay/VAGOV-3483-migration-similarity-test__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 3 Jun 2019 10:53:28 -0600
+
+    VAGOV-3483 migration similarity test
+
+* __Merge branch &#39;develop&#39; into VAGOV-3483-migration-similarity-test__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 3 Jun 2019 10:25:30 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-3247-remove-deactivated-theme-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 3 Jun 2019 10:24:36 -0600
+
+* __Merge pull request #356 from department-of-veterans-affairs/VAGOV-3734-health-services-fields__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 3 Jun 2019 10:21:28 -0600
+
+    VAGOV-3734: Updated fields on health service taxonomy
+
+* __Merge branch &#39;develop&#39; into VAGOV-3734-health-services-fields__
+
+    [Adrienne](mailto:adrienne.cabouet@gmail.com) - Fri, 31 May 2019 16:45:07 -0700
+    
+    efs/remotes/upstream/VAGOV-3734-health-services-fields
+
+* __Merge pull request #354 from beeyayjay/VAGOV-3600-composer-patch-workaround__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 31 May 2019 17:31:22 -0600
+    
+    VAGOV-3600 composer patch workaround
+
+* __Merge branch &#39;develop&#39; into VAGOV-3600-composer-patch-workaround__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 31 May 2019 16:39:51 -0600
+
+* __Merge pull request #355 from schiavo/VAGOV-001__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 31 May 2019 16:38:08 -0600
+
+    VAGOV-000 Update counts in migration count test.
+
+* __Merge pull request #353 from beeyayjay/VAGOV-3600-pension-migration-alert__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 31 May 2019 12:44:51 -0600
+    
+    VAGOV-3600 pension migration alert
 
 ## 2019-05-30.1 Sprint 15 mid-sprint release 1.
 
@@ -614,3 +741,4 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
     VAGOV-2623: Remove password_policy.
 
 ## END OF FILE
+
