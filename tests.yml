@@ -1,10 +1,10 @@
-va/cache:
+va/deploy/cache:
   description: Rebuild Drupal caches
   command: drush cache:rebuild
-va/update:
+va/deploy/update:
   description: Run Drupal Update Hooks
   command: drush updatedb --yes
-va/config:
+va/deploy/config:
   - drush config:import --yes
   - drush cache:rebuild
 
