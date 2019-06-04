@@ -170,6 +170,7 @@ class ParagraphMigrator {
    *   Array of character counts.
    */
   protected function charMap($source_string) {
+    $source_string = str_replace('&amp;', '&', $source_string);
     $chars = str_split(strip_tags($source_string));
     $result = [];
     foreach ($chars as $char) {
