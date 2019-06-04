@@ -1,3 +1,12 @@
+va/cache:
+  description: Rebuild Drupal caches
+  command: drush cache:rebuild
+va/update:
+  description: Run Drupal Update Hooks
+  command: drush updatedb --yes
+va/config:
+  - drush config:import --yes
+  - drush cache:rebuild
 
 #va/phpunit:
 #  description: PHPUnit
