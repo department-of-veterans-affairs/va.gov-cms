@@ -52,6 +52,10 @@ class QAUnstructured extends QABase {
     if ($query_path->tag() == 'hr') {
       return FALSE;
     }
+    // We don't allow links lists in answers.
+    if ($this->isLinksList($query_path)) {
+      return FALSE;
+    }
     // If it's a question, it can't be part of an answer.
     if (self::isQuestion($query_path)) {
       return FALSE;
@@ -73,6 +77,10 @@ class QAUnstructured extends QABase {
         substr($qp->tag(), 1) <= self::$lastQuestionLevel) {
         return FALSE;
       }
+      if ($this->isLinksList($qp)) {
+        return FALSE;
+      }
+
       $qp = $qp->prev();
     }
 
@@ -126,6 +134,10 @@ class QAUnstructured extends QABase {
       }
       // Stop if it's a horizontal rule.
       if ($qp->tag() == 'hr') {
+        break;
+      }
+      // Stop if it's a links lists.
+      if ($this->isLinksList($qp)) {
         break;
       }
       $qp->appendTo(self::$answerQuery);
@@ -249,6 +261,19 @@ class QAUnstructured extends QABase {
           '@content' => self::$externalContent->firstChild()->html(),
         ], Message::ERROR);
     }
+  }
+
+  /**
+   * Test whether the current element is or contains a links list.
+   *
+   * @param \QueryPath\DOMQuery $query_path
+   *   The element to test.
+   *
+   * @return bool
+   *   Returns true if the current element is or contains a links list.
+   */
+  protected function isLinksList(DOMQuery $query_path) {
+    return $query_path->find('.va-nav-linkslist-heading')->count() > 0;
   }
 
 }
