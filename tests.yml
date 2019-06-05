@@ -1,18 +1,18 @@
-va/error:
-  command: intentionalFailure
-  description: Intentional Failure. Uncomment to test CI system failure behavior.
-
-va/deploy/1-cache:
-  description: Rebuild Drupal caches
-  command: drush cache:rebuild
-
-va/deploy/2-update:
-  description: Run Drupal Update Hooks
-  command: drush updatedb --yes
-
-va/deploy/3-config:
-  - drush config:import --yes
-  - drush cache:rebuild
+#va/error:
+#  command: intentionalFailure
+#  description: Intentional Failure. Uncomment to test CI system failure behavior.
+#
+#va/deploy/1-cache:
+#  description: Rebuild Drupal caches
+#  command: drush cache:rebuild
+#
+#va/deploy/2-update:
+#  description: Run Drupal Update Hooks
+#  command: drush updatedb --yes
+#
+#va/deploy/3-config:
+#  - drush config:import --yes
+#  - drush cache:rebuild
 
 va/phpunit:
   description: PHPUnit
@@ -26,7 +26,6 @@ va/phplint:
   description: PHP Lint
   command: composer va:test:lint
 
-# behat test
 va/behat:
   description: Behat
   command: behat --tags=spec
