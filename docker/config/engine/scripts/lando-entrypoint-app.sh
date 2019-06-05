@@ -25,6 +25,7 @@ j2 /templates/settings.lando.php.tpl > /app/docroot/sites/default/settings/setti
 # custom: render php ini template, smtp integration
 j2 /templates/ssmtp.ini.tpl > /usr/local/etc/php/conf.d/zzz-ssmtp.ini
 j2 /templates/ssmtp.tpl > /etc/ssmtp/ssmtp.conf
+j2 /templates/ssmtp.revaliases.tpl > /etc/ssmtp/revaliases
 
 # Run post-deploy hooks
 # Make sure backend services are up
