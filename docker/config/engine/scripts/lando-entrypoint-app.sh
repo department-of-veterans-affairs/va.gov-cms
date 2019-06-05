@@ -22,6 +22,10 @@ fi;
 # custom: render database settings from template
 j2 /templates/settings.lando.php.tpl > /app/docroot/sites/default/settings/settings.lando.php
 
+# custom: render php ini template, smtp integration
+j2 /templates/ssmtp.ini.tpl > /usr/local/etc/php/conf.d/ssmtp.ini
+j2 /templates/ssmtp.tpl > /etc/ssmtp/ssmtp.conf
+
 # Run post-deploy hooks
 # Make sure backend services are up
 /usr/bin/wait-for-it.sh -t 120 ${DRUPAL_DATABASE_HOST}:${DRUPAL_DATABASE_HOST_PORT}
