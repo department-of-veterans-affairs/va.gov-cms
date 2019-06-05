@@ -23,7 +23,7 @@ fi;
 j2 /templates/settings.lando.php.tpl > /app/docroot/sites/default/settings/settings.lando.php
 
 # custom: render php ini template, smtp integration
-j2 /templates/ssmtp.ini.tpl > /usr/local/etc/php/conf.d/ssmtp.ini
+j2 /templates/ssmtp.ini.tpl > /usr/local/etc/php/conf.d/zzz-ssmtp.ini
 j2 /templates/ssmtp.tpl > /etc/ssmtp/ssmtp.conf
 
 # Run post-deploy hooks
