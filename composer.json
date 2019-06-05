@@ -103,6 +103,7 @@
     },
     "config": {
         "process-timeout": 0,
+        "bin-dir": "bin",
         "vendor-dir": "docroot/vendor",
         "sort-packages": true
     },
@@ -180,9 +181,6 @@
         }
     },
     "scripts": {
-        "command": [
-            "export PATH=./bin:$PATH"
-        ],
         "post-install-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
             "cp -r 'hooks/' '.git/hooks/'",
