@@ -33,3 +33,5 @@ COPY docker/templates/* /templates/
 COPY .composer-cache/README.md .composer-cache/composer-cache* /tmp/
 # Hack to only run composer install if no matching cache was downloaded.
 RUN if [ -f /tmp/composer-cache*.tar.gz ]; then cd /app && tar --extract --gzip --file /tmp/composer-cache*.tar.gz; else cd /app && composer install; fi
+# SMTP integration
+RUN apt-get install -y ssmtp
