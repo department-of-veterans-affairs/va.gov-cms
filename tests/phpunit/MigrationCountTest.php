@@ -36,7 +36,7 @@ class MigrationCount extends ExistingSiteBase {
    */
   public function validCounts() {
     return array(
-      array("page", 54),
+      array("page", 55),
       array("landing_page", 9),
     );
   }
