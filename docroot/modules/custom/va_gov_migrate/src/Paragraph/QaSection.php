@@ -36,7 +36,7 @@ class QaSection extends ParagraphType {
     if (in_array($query_path->tag(), ['h2', 'h3']) && !QAUnstructured::isQuestion($query_path)) {
       $qp = $query_path->next();
       while ($qp->count()) {
-        if (substr($qp->tag(), 0, 1) == 'h' && $qp->tag() <= $query_path->tag()) {
+        if (preg_match('/h\d/', $qp->tag(), $header) && $qp->tag() <= $query_path->tag()) {
           return FALSE;
         }
         if (QAUnstructured::isQuestion($qp) || QASchema::isQuestion($qp)) {
@@ -46,7 +46,9 @@ class QaSection extends ParagraphType {
         if ($qp->hasClass('usa-accordion')) {
           return QAAccordion::isQaAccordionGroup($qp);
         }
-
+        if (!empty($header)) {
+          return FALSE;
+        }
         if ($this->isOtherParagraph($qp)) {
           return FALSE;
         }
@@ -77,8 +79,8 @@ class QaSection extends ParagraphType {
         $is_accordion = TRUE;
         break;
       }
-      // Stop if it's a h# tag at header level or higher.
-      if (substr($qp->tag(), 0, 1) == 'h' && $qp->tag() <= $query_path->tag()) {
+      // Stop if it's a h# tag.
+      if (preg_match('/h\d/', $qp->tag())) {
         break;
       }
 
@@ -130,17 +132,17 @@ class QaSection extends ParagraphType {
     }
 
     // Eat intro text.
-    $qp = $query_path->prev();
+    $qp = $query_path;
     while ($qp->count()) {
       // If a previous element may be a Q&A header, see if there are questions.
       if (in_array($qp->tag(), ['h2', 'h3']) && !QAUnstructured::isQuestion($qp)) {
         $qp_next = $query_path->next();
         while ($qp_next->count()) {
-          if (QAUnstructured::isQuestion($qp_next) || QASchema::isQuestion($qp_next)
-            || QAAccordion::isQaAccordionGroup($qp_next)) {
+          if ((QAUnstructured::isQuestion($qp_next) || QASchema::isQuestion($qp_next)
+            || QAAccordion::isQaAccordionGroup($qp_next)) && $qp_next->tag() > $qp->tag()) {
             return TRUE;
           }
-          if (in_array($qp_next->tag(), ['h2', 'h3', 'h4'])) {
+          if (preg_match('/h\d/', $qp_next->tag())) {
             return FALSE;
           }
 
@@ -198,24 +200,21 @@ class QaSection extends ParagraphType {
   /**
    * Make sure intro text doesn't contain html tags.
    *
-   * @param \QueryPath\DOMQuery $element
+   * @param \QueryPath\DOMQuery $elements
    *   The query to test.
    *
    * @throws \Drupal\migrate\MigrateException
    */
-  protected function testIntro(DOMQuery $element) {
+  protected function testIntro(DOMQuery $elements) {
     $new_line_tags = ['p', 'br'];
-    if ($element->children()->count()) {
-      $elements = $element->children();
-    }
-    else {
-      return;
-    }
     /* @var \QueryPath\DOMQuery $element */
     foreach ($elements as $element) {
       if ($element->tag() && !in_array($element->tag(), $new_line_tags)) {
-        $message = 'Q&A Section intro text does not support ' . $element->tag();
-        AnomalyMessage::makeFromRow($message, self::$migrator->row);
+        $message = 'Q&A Section intro text does not support html';
+        AnomalyMessage::makeFromRow($message, self::$migrator->row, $element->tag());
+      }
+      if ($element->children()->count()) {
+        $this->testIntro($element->children());
       }
     }
   }

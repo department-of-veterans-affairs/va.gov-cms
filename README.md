@@ -43,6 +43,14 @@ Theme structure (project is headless, so this isn't critical):
 
 ### Testing
 
+There's a new command to run all tests on the codebase in the same way they are run in CI:
+
+    ```
+    composer yaml-tests
+    ```
+
+Check out the file `tests.yml` for the list of tests that are included in the automated testing system.
+
 Running Behat Tests:
 * `cd tests/behat`
 * `lando behat --tags=name-of-tag`
@@ -146,3 +154,4 @@ query {
 # Branches
 
 The `develop` branch is now protected. It requires tests to pass and a manual review to be merged.
+

@@ -1,4 +1,4 @@
-uuid: fab45cdc-73b8-4f2c-8faa-3f01883e452e
+uuid: bdf84e5d-839a-4b19-bb82-133a7810bd8f
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: SVsV3VGDItZdSVLH_WPICWfCdpwMt5Zh_9yNRZXDQEU
+  default_config_hash: O9ICiOSfxYew0IHtefTTLJFmtVynxc3hBz9N5nXfsFc
 id: va_new_pages
 class: null
 field_plugin_method: null
@@ -17,17 +17,15 @@ label: 'Migrate selected root pages from VA.gov'
 source:
   plugin: metalsmith_source
   urls:
-    - /change-direct-deposit-and-contact-information.md
+    - /change-address.md
+    - /change-direct-deposit.md
     - /claim-or-appeal-status.md
+    - /privacy-policy.md
+    - /session-expired.md
     - /sign-in-faq.md
     - /va-payment-history.md
     - /veterans-portrait-project.md
     - /welcome-kit.md
-    - /change-address.md
-    - /connected-accounts-faq.md
-    - /privacy-policy.md
-    - /session-expired.md
-    - /my-health-account-validation.md
   fields:
     - description
     - plainlanguage_date
@@ -42,7 +40,7 @@ source:
           modifier: basicCleanup
       fields:
         title:
-          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainTitleUncased
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainTitleNoCaseChange
           jobs:
             -
               job: addSearch
@@ -77,7 +75,7 @@ source:
               job: addSearch
               method: pluckSelectorAndTest
               arguments:
-                - .usa-alert
+                - .usa-alert-heading
                 - '@title'
                 - '@url'
         related_links:

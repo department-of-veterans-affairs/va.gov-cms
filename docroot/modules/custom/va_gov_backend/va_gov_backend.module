@@ -5,9 +5,11 @@
  * Contains va_gov_backend.module.
  */
 
+use Drupal\node\NodeInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_help().
@@ -102,5 +104,18 @@ function va_gov_backend_page_attachments(array &$attachments) {
   if ($is_admin) {
     $attachments['#attached']['library'][] = 'va_gov_backend/admin_styles';
     return;
+  }
+}
+
+/**
+ * Implements hook_local_tasks_alter().
+ */
+function va_gov_backend_menu_local_tasks_alter(&$local_tasks) {
+  // Replace the View Json tab with the node view.
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof NodeInterface) {
+    $nid = $node->id();
+    $local_tasks['tabs'][0]['entity.node.canonical']['#link']['title'] = 'View';
+    $local_tasks['tabs'][0]['entity.node.canonical']['#link']['url'] = Url::fromUri('internal:/node/' . $nid);
   }
 }

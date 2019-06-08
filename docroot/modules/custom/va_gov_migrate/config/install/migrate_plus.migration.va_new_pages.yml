@@ -4,18 +4,15 @@ migration_group: va_tests
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
-    - "/change-direct-deposit-and-contact-information.md"
+    - "/change-address.md"
+    - "/change-direct-deposit.md"
     - "/claim-or-appeal-status.md"
-#    - "/discharge-upgrade-instructions/index.md" # react page
+    - "/privacy-policy.md"
+    - "/session-expired.md"
     - "/sign-in-faq.md"
     - "/va-payment-history.md"
     - "/veterans-portrait-project.md"
     - "/welcome-kit.md"
-    - "/change-address.md"
-    - "/connected-accounts-faq.md"
-    - "/privacy-policy.md"
-    - "/session-expired.md"
-    - "/my-health-account-validation.md"
   fields:  # :ist any frontmatter fields you want to migrate.
     - description
     - plainlanguage_date
@@ -33,7 +30,7 @@ source:
           modifier: basicCleanup  # Tell migration_tools to run some basic cleanup of the page it just read.
       fields:
         title:  # This is the recipe for a field called 'title'.
-          obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainTitleUncased"
+          obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainTitleNoCaseChange"
           jobs:
             -
               job: addSearch  # Run a job to search the DOM and assign the results to this field.
@@ -64,11 +61,10 @@ source:
         alert_title:
           obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAlertBlockTitles"
           jobs:
-            -
-              job: 'addSearch'
+            - job: 'addSearch'
               method: 'pluckSelectorAndTest'
               arguments:
-                - '.usa-alert'
+                - '.usa-alert-heading'
                 - '@title'
                 - '@url'
         related_links:
