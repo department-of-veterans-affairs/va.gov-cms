@@ -33,6 +33,9 @@ class QaSection extends ParagraphType {
    * {@inheritdoc}
    */
   protected function isParagraph(DOMQuery $query_path) {
+    if ($this->isJumpMenuHeader($query_path)) {
+      return TRUE;
+    }
     if (in_array($query_path->tag(), ['h2', 'h3']) && !QAUnstructured::isQuestion($query_path)) {
       $qp = $query_path->next();
       while ($qp->count()) {
@@ -64,12 +67,18 @@ class QaSection extends ParagraphType {
    * {@inheritdoc}
    */
   protected function getFieldValues(DOMQuery $query_path) {
-    $header = $query_path->text();
     $intro_text = '';
     $is_accordion = FALSE;
 
+    $header = '';
+    $qp = $query_path;
+
+    if (!$this->isJumpMenuHeader($query_path)) {
+      $header = $query_path->text();
+      $qp = $qp->next();
+    }
+
     // Get any intro text or jump links.
-    $qp = $query_path->next();
     while ($qp->count()) {
       // Stop when we get to a question.
       if (QAUnstructured::isQuestion($qp) || QASchema::isQuestion($qp)) {
@@ -85,14 +94,11 @@ class QaSection extends ParagraphType {
       }
 
       // If it's a list of jump links, set the accordion flag.
-      if ($qp->tag() == 'ul') {
-        $first_content = $qp->firstChild()->firstChild();
-        if ($first_content->tag() == 'a' && substr($first_content->attr('href'), 0, 1) == '#') {
-          $is_accordion = TRUE;
-          $this->jumpLinks .= $qp->text();
-        }
+      if ($this->isJumpMenu($qp)) {
+        $is_accordion = TRUE;
+        $this->jumpLinks .= $qp->text();
       }
-      elseif (StringTools::superTrim($qp->text()) == 'Jump to a section:') {
+      elseif ($this->isJumpMenuHeader($qp)) {
         $this->jumpLinks .= $qp->text();
       }
       else {
@@ -121,14 +127,11 @@ class QaSection extends ParagraphType {
    */
   protected function isExternalContent(DOMQuery $query_path) {
     // Eat jump link related content.
-    if (trim($query_path->text()) == 'Jump to a section:') {
+    if ($this->isJumpMenuHeader($query_path)) {
       return TRUE;
     }
-    if ($query_path->tag() == 'ul') {
-      $first_content = $query_path->firstChild()->firstChild();
-      if ($first_content->tag() == 'a' && substr($first_content->attr('href'), 0, 1) == '#') {
-        return TRUE;
-      }
+    if ($this->isJumpMenu($query_path)) {
+      return TRUE;
     }
 
     // Eat intro text.
@@ -179,6 +182,7 @@ class QaSection extends ParagraphType {
    */
   protected function isOtherParagraph(DOMQuery $query_path) {
     $paragraph_classes = self::$migrator->getParagraphClasses();
+    /** @var \Drupal\va_gov_migrate\ParagraphType $paragraph_class */
     foreach ($paragraph_classes as $paragraph_class) {
       if (strpos($paragraph_class->getParagraphName(), 'q_a') === 0) {
         continue;
@@ -217,6 +221,50 @@ class QaSection extends ParagraphType {
         $this->testIntro($element->children());
       }
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function unmigratedContent() {
+    // We replace jump links with accordion, so we don't migrate them.
+    return $this->jumpLinks;
+  }
+
+  /**
+   * Tests whether the element is a jump menu header.
+   *
+   * @param \QueryPath\DOMQuery $query_path
+   *   The element to test.
+   *
+   * @return bool
+   *   Returns true if it's a jump menu header.
+   */
+  public static function isJumpMenuHeader(DOMQuery $query_path) {
+    return StringTools::superTrim($query_path->text()) === 'Jump to a section:';
+  }
+
+  /**
+   * Tests whether the element is a jump menu.
+   *
+   * @param \QueryPath\DOMQuery $query_path
+   *   The element to test.
+   *
+   * @return bool
+   *   Returns true if it's a jump menu.
+   */
+  protected function isJumpMenu(DOMQuery $query_path) {
+    if (!self::isJumpMenuHeader($query_path->prev())) {
+      return FALSE;
+    }
+    if (strtolower($query_path->tag()) === 'ul') {
+      $first_content = $query_path->firstChild()->firstChild();
+      if (strtolower($first_content->tag()) === 'a' && substr($first_content->attr('href'), 0, 1) === '#') {
+        return TRUE;
+      }
+    }
+
+    return FALSE;
   }
 
 }
