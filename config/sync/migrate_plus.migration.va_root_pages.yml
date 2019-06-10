@@ -1,4 +1,4 @@
-uuid: 003f6964-98cc-4380-a43b-ef919519292c
+uuid: 05c73b1b-9d92-453c-9bee-79456a729fef
 langcode: en
 status: true
 dependencies:
@@ -6,13 +6,13 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: O9ICiOSfxYew0IHtefTTLJFmtVynxc3hBz9N5nXfsFc
-id: va_new_pages
+  default_config_hash: 0oX_zqruupz3Y94vQR0fU6_n_q0xqIqtjhytpam7QRU
+id: va_root_pages
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
-migration_group: va_tests
+migration_group: va_new_benefits
 label: 'Migrate selected root pages from VA.gov'
 source:
   plugin: metalsmith_source
@@ -99,6 +99,14 @@ source:
                 - '@title'
                 - '@url'
                 - innerHTML
+            -
+              job: addSearch
+              method: pluckSelectorAndTest
+              arguments:
+                - '.main.home .usa-content'
+                - '@title'
+                - '@url'
+                - innerHTML
         nav_linkslist:
           obtainer: ObtainHtml
           jobs:
@@ -169,7 +177,7 @@ process:
   field_administration:
     -
       plugin: default_value
-      default_value: 51
+      default_value: 77
   moderation_state:
     plugin: default_value
     default_value: draft

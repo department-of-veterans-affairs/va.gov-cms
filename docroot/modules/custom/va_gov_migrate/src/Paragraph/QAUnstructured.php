@@ -39,6 +39,10 @@ class QAUnstructured extends QABase {
     if (self::isQuestion($query_path)) {
       return FALSE;
     }
+    // We don't allow jump menus in answers.
+    if (QaSection::isJumpMenuHeader($query_path)) {
+      return FALSE;
+    }
     // If it's a header at or above the question's level, we didn't use it.
     if (substr($query_path->tag(), 0, 1) == 'h' &&
       substr($query_path->tag(), 1) <= self::$lastQuestionLevel) {
@@ -111,6 +115,10 @@ class QAUnstructured extends QABase {
       }
       // Stop if it's a links lists.
       if ($this->isLinksList($qp)) {
+        break;
+      }
+      // Stop if it's a jump menu.
+      if (QaSection::isJumpMenuHeader($qp)) {
         break;
       }
       $qp->appendTo($answerQuery);
