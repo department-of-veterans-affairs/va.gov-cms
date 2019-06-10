@@ -5,7 +5,7 @@
  or your current system user. See core/tests/README.md and
  https://www.drupal.org/node/2116263 for details.
 -->
-<phpunit bootstrap="/app/docroot/vendor/weitzman/drupal-test-traits/src/bootstrap.php" colors="true" beStrictAboutTestsThatDoNotTestAnything="true" beStrictAboutOutputDuringTests="true" beStrictAboutChangesToGlobalState="true">
+<phpunit bootstrap="./docroot/vendor/weitzman/drupal-test-traits/src/bootstrap.php" colors="true" beStrictAboutTestsThatDoNotTestAnything="true" beStrictAboutOutputDuringTests="true" beStrictAboutChangesToGlobalState="true">
   <!-- TODO set printerClass="\Drupal\Tests\Listeners\HtmlOutputPrinter" once
  https://youtrack.jetbrains.com/issue/WI-24808 is resolved. Drupal provides a
  result printer that links to the html output results for functional tests.
