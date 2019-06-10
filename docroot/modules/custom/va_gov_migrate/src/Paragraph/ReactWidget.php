@@ -4,6 +4,7 @@ namespace Drupal\va_gov_migrate\Paragraph;
 
 use Drupal\va_gov_migrate\ParagraphType;
 use QueryPath\DOMQuery;
+use Drupal\migration_tools\Message;
 
 /**
  * Migration for ReactWidget paragraphs.
@@ -30,7 +31,7 @@ class ReactWidget extends ParagraphType {
    * {@inheritdoc}
    */
   protected function isParagraph(DOMQuery $query_path) {
-    if ($query_path->attr('id') == 'react-applicationStatus' || $query_path->hasAttr('data-app-id')) {
+    if ($query_path->attr('id') === 'react-applicationStatus' || $query_path->hasAttr('data-app-id')) {
       $this->reactContent = $query_path->text();
       return TRUE;
     }
@@ -43,9 +44,9 @@ class ReactWidget extends ParagraphType {
    * {@inheritdoc}
    */
   protected function getFieldValues(DOMQuery $query_path) {
-    if ($query_path->attr('id') == 'react-applicationStatus') {
+    if ($query_path->attr('id') === 'react-applicationStatus') {
       $cta = FALSE;
-      $type = 'health-care-app-status';
+      $type = $query_path->attr('data-widget-type');
 
       $widget_frontmatter = self::$migrator->row->getSourceProperty('widgets')[0];
       $timeout = $widget_frontmatter['timeout'];
