@@ -5,8 +5,10 @@ dependencies:
   config:
     - field.field.media.video.field_media_in_library
     - field.field.media.video.field_media_video_embed_field
+    - image.style.large
     - media.type.video
   module:
+    - image
     - user
     - video_embed_field
 _core:
@@ -17,19 +19,29 @@ bundle: video
 mode: default
 content:
   created:
-    label: hidden
+    label: above
     type: timestamp
-    weight: 1
+    weight: 3
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
     region: content
+  field_media_in_library:
+    type: boolean
+    weight: 5
+    region: content
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
   field_media_video_embed_field:
     type: video_embed_field_video
-    weight: 3
-    label: hidden
+    weight: 1
+    label: above
     settings:
       responsive: true
       width: 854
@@ -38,20 +50,27 @@ content:
     third_party_settings: {  }
     region: content
   name:
-    label: hidden
+    label: above
     type: string
     weight: 0
     settings:
       link_to_entity: false
     third_party_settings: {  }
     region: content
-  uid:
-    label: hidden
-    type: author
+  thumbnail:
+    type: image
     weight: 2
+    region: content
+    label: above
+    settings:
+      image_style: large
+      image_link: ''
+    third_party_settings: {  }
+  uid:
+    label: above
+    type: author
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     region: content
-hidden:
-  field_media_in_library: true
-  thumbnail: true
+hidden: {  }
