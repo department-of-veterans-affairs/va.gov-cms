@@ -18,8 +18,23 @@ dependencies:
     - node.type.health_care_local_facility
   module:
     - entity_reference_revisions
-    - metatag
+    - field_group
     - user
+third_party_settings:
+  field_group:
+    group_meta:
+      children:
+        - field_meta_title
+        - field_description
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Meta
+      region: content
 id: node.health_care_local_facility.default
 targetEntityType: node
 bundle: health_care_local_facility
@@ -31,7 +46,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_administration:
-    weight: 3
+    weight: 1
     label: above
     settings:
       link: true
@@ -47,7 +62,7 @@ content:
     type: string
     region: content
   field_facility_locator_api_id:
-    weight: 2
+    weight: 7
     label: above
     settings:
       link_to_entity: false
@@ -62,7 +77,7 @@ content:
     type: basic_string
     region: content
   field_local_health_care_service_:
-    weight: 10
+    weight: 9
     label: above
     settings:
       link: true
@@ -71,7 +86,7 @@ content:
     region: content
   field_location_services:
     type: entity_reference_revisions_entity_view
-    weight: 6
+    weight: 10
     label: above
     settings:
       view_mode: default
@@ -79,7 +94,7 @@ content:
     third_party_settings: {  }
     region: content
   field_main_location:
-    weight: 7
+    weight: 8
     label: above
     settings:
       format: default
@@ -89,19 +104,12 @@ content:
     type: boolean
     region: content
   field_media:
-    weight: 9
+    weight: 6
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
-  field_meta_tags:
-    weight: 4
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_empty_formatter
     region: content
   field_meta_title:
     weight: 11
@@ -112,7 +120,7 @@ content:
     type: string
     region: content
   field_nickname_for_this_facility:
-    weight: 8
+    weight: 4
     label: above
     settings:
       link_to_entity: false
@@ -120,7 +128,7 @@ content:
     type: string
     region: content
   field_region_page:
-    weight: 1
+    weight: 2
     label: above
     settings:
       link: true
@@ -128,4 +136,5 @@ content:
     type: entity_reference_label
     region: content
 hidden:
+  field_meta_tags: true
   links: true

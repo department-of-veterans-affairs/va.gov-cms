@@ -32,10 +32,80 @@ dependencies:
     - node.type.health_care_region_page
   module:
     - entity_reference_revisions
+    - field_group
     - link
-    - metatag
     - text
     - user
+third_party_settings:
+  field_group:
+    group_meta:
+      children:
+        - field_meta_title
+        - field_description
+      parent_name: ''
+      weight: 7
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Meta
+      region: content
+    group_content:
+      children:
+        - field_intro_text
+        - field_media
+        - field_nickname_for_this_facility
+        - field_other_va_locations
+        - field_leadership
+        - field_appointments_online
+        - field_clinical_health_services
+      parent_name: ''
+      weight: 10
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Content
+      region: content
+    group_blurbs_for_subpages:
+      children:
+        - field_locations_intro_blurb
+        - field_clinical_health_care_servi
+        - field_intro_text_leadership
+        - field_intro_text_press_releases
+        - field_press_release_blurb
+        - field_intro_text_events_page
+        - field_intro_text_news_stories
+      parent_name: ''
+      weight: 11
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Blurbs for subpages'
+      region: content
+    group_social_media_and_links:
+      children:
+        - field_email_subscription
+        - field_email_subscription_links
+        - field_sign_up_for_emergency_emai
+        - field_facebook
+        - field_flickr
+        - field_instagram
+        - field_twitter
+        - field_related_links
+      parent_name: ''
+      weight: 19
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Social media and links'
+      region: content
 id: node.health_care_region_page.default
 targetEntityType: node
 bundle: health_care_region_page
@@ -55,7 +125,7 @@ content:
     type: entity_reference_label
     region: content
   field_appointments_online:
-    weight: 11
+    weight: 9
     label: above
     settings:
       format: default
@@ -72,7 +142,7 @@ content:
     type: text_default
     region: content
   field_clinical_health_services:
-    weight: 7
+    weight: 10
     label: above
     settings:
       link: true
@@ -88,7 +158,7 @@ content:
     type: string
     region: content
   field_email_subscription:
-    weight: 19
+    weight: 18
     label: above
     settings:
       trim_length: 80
@@ -100,7 +170,7 @@ content:
     type: link
     region: content
   field_email_subscription_links:
-    weight: 16
+    weight: 19
     label: above
     settings:
       trim_length: 80
@@ -112,18 +182,6 @@ content:
     type: link
     region: content
   field_facebook:
-    weight: 20
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-    region: content
-  field_flickr:
     weight: 21
     label: above
     settings:
@@ -135,7 +193,7 @@ content:
     third_party_settings: {  }
     type: link
     region: content
-  field_instagram:
+  field_flickr:
     weight: 22
     label: above
     settings:
@@ -147,43 +205,55 @@ content:
     third_party_settings: {  }
     type: link
     region: content
+  field_instagram:
+    weight: 23
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
   field_intro_text:
-    weight: 5
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_intro_text_events_page:
-    weight: 14
+    weight: 8
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_intro_text_leadership:
-    weight: 27
+    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_intro_text_news_stories:
-    weight: 13
+    weight: 9
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_intro_text_press_releases:
-    weight: 28
+    weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_leadership:
-    weight: 12
+    weight: 8
     label: above
     settings:
       link: true
@@ -198,37 +268,14 @@ content:
     type: text_default
     region: content
   field_media:
-    weight: 9
+    weight: 5
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_meta_tags:
-    weight: 29
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_empty_formatter
-    region: content
   field_meta_title:
-    weight: 26
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_nickname_for_this_facility:
-    weight: 18
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_other_va_locations:
     weight: 24
     label: above
     settings:
@@ -236,15 +283,31 @@ content:
     third_party_settings: {  }
     type: string
     region: content
+  field_nickname_for_this_facility:
+    weight: 6
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_other_va_locations:
+    weight: 7
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
   field_press_release_blurb:
-    weight: 10
+    weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_related_links:
-    weight: 6
+    weight: 25
     label: above
     settings:
       view_mode: default
@@ -253,7 +316,7 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   field_sign_up_for_emergency_emai:
-    weight: 17
+    weight: 20
     label: above
     settings:
       trim_length: 80
@@ -265,7 +328,7 @@ content:
     type: link
     region: content
   field_twitter:
-    weight: 23
+    weight: 24
     label: above
     settings:
       trim_length: 80
@@ -277,4 +340,5 @@ content:
     type: link
     region: content
 hidden:
+  field_meta_tags: true
   links: true
