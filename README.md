@@ -1,6 +1,59 @@
 This is an Aquia Lightning based implementation of Drupal 8 that uses [Lando](https://docs.devwithlando.io/) for local container management.
 
 ## Get Started
+
+### Custom Composer Scripts
+
+There are a number of helpful composer "scripts" available, located in the [composer.json](composer.json) file, in the `scripts` section. These scripts get loaded in as composer commands.
+
+Change to the CMS repositiory directory and run `composer` to list all commands, both built in and ones from this repo.
+
+The VA.gov project has the following custom commands.
+
+1. `set-path`
+
+    Use `composer set-path` command to print out the needed PATH variable to allow running any command in the `./bin` directory just by it's name.
+    
+    For example:
+    
+    ```bash
+    $  composer set-path
+    > # Run the command output below to set your current terminal PATH variable.
+    > # This will allow you to run any command in the ./bin directory without a path.
+    > echo "export PATH=${PATH}"
+    export PATH=/Users/VaDeveloper/Projects/VA/va.gov-cms/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin
+    ```
+    
+    Then, copy the last line (with all of the paths) and paste it into your desired terminal, and hit ENTER.
+    
+    Once the path is set, you can run any of the commands listed in the [bin directory](bin) directly:
+    
+    ```bash
+    $ phpcs --version
+    PHP_CodeSniffer version 2.9.2 (stable) by Squiz (http://www.squiz.net)
+    ```
+
+    The path will remain in place as you change directories. 
+    
+    Useful for running the `behat` tests:
+    
+    ```bash
+    $ cd tests/behat
+    $ behat
+    ```
+
+2. `va:proxy:start`
+
+    Simply runs the "socks proxy" command which is needed to connect to the VA.gov network. Add the `&` character to run it as a background process.
+
+3. `va:proxy:test`
+
+    Test the proxy when it is running.
+
+@TODO: Document all of the custom composer commands.
+
+See https://getcomposer.org/doc/articles/scripts.md for more information on how to create and manage scripts.
+  
 ### How to launch a local development environment:
 * get lando https://docs.devwithlando.io/installation/installing.html
 * `git clone git@github.com:department-of-veterans-affairs/va.gov-cms.git vagov`
