@@ -10,7 +10,6 @@ dependencies:
     - field.field.node.support_service.field_phone_number
     - node.type.support_service
   module:
-    - datetime
     - link
     - telephone
     - user
@@ -25,7 +24,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_administration:
-    weight: 4
+    weight: 1
     label: above
     settings:
       link: true
@@ -33,7 +32,7 @@ content:
     type: entity_reference_label
     region: content
   field_link:
-    weight: 1
+    weight: 3
     label: above
     settings:
       trim_length: 80
@@ -45,24 +44,15 @@ content:
     type: link
     region: content
   field_office:
-    weight: 5
+    weight: 2
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_page_last_built:
-    weight: 3
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    type: datetime_default
-    region: content
   field_phone_number:
-    weight: 2
+    weight: 4
     label: above
     settings:
       title: ''
@@ -70,4 +60,5 @@ content:
     type: telephone_link
     region: content
 hidden:
+  field_page_last_built: true
   links: true

@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.landing_page.field_alert
     - field.field.node.landing_page.field_description
     - field.field.node.landing_page.field_intro_text
+    - field.field.node.landing_page.field_links
     - field.field.node.landing_page.field_meta_tags
     - field.field.node.landing_page.field_meta_title
     - field.field.node.landing_page.field_page_last_built
@@ -18,11 +19,61 @@ dependencies:
     - field.field.node.landing_page.field_title_icon
     - node.type.landing_page
   module:
-    - datetime
     - entity_reference_revisions
-    - metatag
+    - field_group
+    - link
     - options
     - user
+third_party_settings:
+  field_group:
+    group_right_rail:
+      children:
+        - field_promo
+        - field_support_services
+        - field_links
+        - field_administration
+      parent_name: ''
+      weight: 8
+      format_type: details_sidebar
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: true
+        required_fields: false
+        weight: 0
+      label: 'Right rail'
+      region: content
+    group_meta:
+      children:
+        - field_meta_title
+        - field_description
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: true
+        required_fields: false
+      label: Meta
+      region: content
+    group_body:
+      children:
+        - field_intro_text
+        - field_alert
+        - field_spokes
+        - field_related_links
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Body
+      region: content
 id: node.landing_page.default
 targetEntityType: node
 bundle: landing_page
@@ -34,12 +85,13 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_administration:
-    weight: 7
+    weight: 15
     label: above
     settings:
       link: true
+      view_mode: default
     third_party_settings: {  }
-    type: entity_reference_label
+    type: entity_reference_entity_view
     region: content
   field_alert:
     weight: 5
@@ -50,7 +102,7 @@ content:
     type: entity_reference_label
     region: content
   field_description:
-    weight: 4
+    weight: 5
     label: above
     settings:
       link_to_entity: false
@@ -58,47 +110,34 @@ content:
     type: string
     region: content
   field_intro_text:
-    weight: 2
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
-  field_meta_tags:
-    weight: 1
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_empty_formatter
+  field_links:
+    type: link
+    weight: 14
     region: content
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
   field_meta_title:
-    weight: 13
+    weight: 4
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
     region: content
-  field_page_last_built:
-    weight: 10
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    type: datetime_default
-    region: content
-  field_plainlanguage_date:
-    weight: 8
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    type: datetime_default
-    region: content
   field_promo:
-    weight: 9
+    weight: 12
     label: above
     settings:
       link: true
@@ -106,7 +145,7 @@ content:
     type: entity_reference_label
     region: content
   field_related_links:
-    weight: 3
+    weight: 7
     label: above
     settings:
       view_mode: default
@@ -124,7 +163,7 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   field_support_services:
-    weight: 11
+    weight: 13
     label: above
     settings:
       link: true
@@ -132,12 +171,14 @@ content:
     type: entity_reference_label
     region: content
   field_title_icon:
-    weight: 12
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
     region: content
 hidden:
-  field_links: true
+  field_meta_tags: true
+  field_page_last_built: true
+  field_plainlanguage_date: true
   links: true

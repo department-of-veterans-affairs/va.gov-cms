@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.media.image.field_media_in_library
     - field.field.media.image.image
+    - image.style.large
     - media.type.image
   module:
     - image
@@ -15,18 +16,58 @@ targetEntityType: media
 bundle: image
 mode: default
 content:
+  created:
+    type: timestamp
+    weight: 4
+    region: content
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  field_media_in_library:
+    type: boolean
+    weight: 5
+    region: content
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
   image:
     type: image
-    weight: 0
-    label: hidden
+    weight: 1
+    label: above
     settings:
       image_style: ''
       image_link: ''
     third_party_settings: {  }
     region: content
-hidden:
-  created: true
-  field_media_in_library: true
-  name: true
-  thumbnail: true
-  uid: true
+  name:
+    type: string
+    weight: 0
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  thumbnail:
+    type: image
+    weight: 2
+    region: content
+    label: above
+    settings:
+      image_style: large
+      image_link: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_label
+    weight: 3
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+hidden: {  }
