@@ -19,9 +19,9 @@ bundle: document
 mode: default
 content:
   created:
-    label: hidden
+    label: above
     type: timestamp
-    weight: 0
+    weight: 4
     settings:
       date_format: medium
       custom_date_format: ''
@@ -29,35 +29,45 @@ content:
     third_party_settings: {  }
     region: content
   field_document:
-    weight: 2
+    weight: 1
     label: above
-    settings: {  }
+    settings:
+      use_description_as_link_text: true
     third_party_settings: {  }
     type: file_default
     region: content
+  field_media_in_library:
+    type: boolean
+    weight: 5
+    region: content
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
   name:
-    label: hidden
+    label: above
     type: string
-    weight: -5
+    weight: 0
     settings:
       link_to_entity: false
     third_party_settings: {  }
     region: content
   thumbnail:
     type: image
-    weight: 1
-    label: hidden
+    weight: 2
+    label: above
     settings:
       image_style: thumbnail
       image_link: ''
     third_party_settings: {  }
     region: content
   uid:
-    label: hidden
+    label: above
     type: author
-    weight: 0
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     region: content
-hidden:
-  field_media_in_library: true
+hidden: {  }
