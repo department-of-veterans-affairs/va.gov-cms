@@ -27,3 +27,12 @@ filters:
     status: true
     weight: 0
     settings: {  }
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: true
+    weight: -10
+    settings:
+      allowed_html: '<a href hreflang> <em> <strong><p><br>'
+      filter_html_help: true
+      filter_html_nofollow: false

@@ -186,6 +186,11 @@
         }
     },
     "scripts": {
+        "set-path": [
+            "# Run the command output below to set your current terminal PATH variable.",
+            "# This will allow you to run any command in the ./bin directory without a path.",
+            "echo \"export PATH=${PATH}\""
+        ],
         "post-install-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
             "cp -r 'hooks/' '.git/hooks/'",
