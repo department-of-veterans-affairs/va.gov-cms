@@ -75,6 +75,7 @@
         "guzzlehttp/guzzle": "^6.0@dev",
         "michelf/php-markdown": "^1.8",
         "mouf/nodejs-installer": "^1.0",
+        "npm-asset/yarn": "^1.16",
         "phpunit/phpunit": "^6",
         "provision-ops/yaml-tests": "^1.4",
         "querypath/querypath": "^3.0",
@@ -211,7 +212,10 @@
             "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
             "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
-            "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
+            "php -r \"chmod('.git/hooks/commit-msg', 0777);\"",
+            "# Preparing Front-end...",
+            "ln -sf docroot/libraries/yarn/bin/yarn bin/yarn",
+            "cd app && yarn install"
         ],
         "post-update-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
