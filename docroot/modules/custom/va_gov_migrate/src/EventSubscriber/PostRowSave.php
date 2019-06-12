@@ -4,7 +4,6 @@ namespace Drupal\va_gov_migrate\EventSubscriber;
 
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\migration_tools\Message;
-use Drupal\va_gov_migrate\AnomalyMessage;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\va_gov_migrate\ParagraphMigrator;
 use Drupal\migrate\Event\MigratePostRowSaveEvent;
@@ -39,11 +38,6 @@ class PostRowSave implements EventSubscriberInterface {
    */
   public function onMigratePostRowSave(MigratePostRowSaveEvent $event) {
     $migrator = new ParagraphMigrator($event);
-    if (!empty($event->getRow()->getSourceProperty('nav_linkslist'))) {
-      AnomalyMessage::make(AnomalyMessage::MAJOR_LINKS,
-        $event->getRow()->getSourceProperty('title'),
-        $event->getRow()->getSourceIdValues()['url']);
-    }
 
     switch ($event->getRow()->getDestinationProperty('type')) {
       case 'page':

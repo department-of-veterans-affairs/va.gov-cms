@@ -1,12 +1,18 @@
-id: va_benefits_records
-label: Migrate Records benefits pages from VA.gov
+id: va_root_pages
+label: Migrate selected root pages from VA.gov
 migration_group: va_new_benefits
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
-    - "/records"
-  templates:  # A list of Metalsmith templates to process (detail-page=basic page, level2-index=hub page)
-    - detail-page
+    - "/change-address.md"
+    - "/change-direct-deposit.md"
+    - "/claim-or-appeal-status.md"
+    - "/privacy-policy.md"
+    - "/session-expired.md"
+    - "/sign-in-faq.md"
+    - "/va-payment-history.md"
+    - "/veterans-portrait-project.md"
+    - "/welcome-kit.md"
   fields:  # :ist any frontmatter fields you want to migrate.
     - description
     - plainlanguage_date
@@ -79,6 +85,14 @@ source:
               method: 'pluckSelectorAndTest'
               arguments:
                 - 'article'
+                - '@title'
+                - '@url'
+                - innerHTML
+            -
+              job: 'addSearch'
+              method: 'pluckSelectorAndTest'
+              arguments:
+                - '.main.home .usa-content'
                 - '@title'
                 - '@url'
                 - innerHTML
@@ -160,7 +174,7 @@ process:  # assign the fields we collected above to Drupal fields.
   field_administration:
     -
       plugin: default_value
-      default_value: 76
+      default_value: 77
   moderation_state:
     plugin: default_value
     default_value: draft
