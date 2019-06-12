@@ -8,7 +8,7 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
-## 2019-06-04.1 Sprint 15 final release 1. 
+## 2019-06-12.1 Sprint 15 final release 1. 
 
 * __Merge branch &#39;develop&#39;__
 
