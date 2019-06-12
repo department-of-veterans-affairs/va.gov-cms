@@ -14,7 +14,7 @@ bundle: documentation_page
 mode: default
 content:
   field_content_block:
-    weight: 101
+    weight: 0
     label: above
     settings:
       view_mode: default
@@ -22,9 +22,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
     region: content
-  links:
-    weight: 100
-    settings: {  }
-    third_party_settings: {  }
-    region: content
-hidden: {  }
+hidden:
+  content_moderation_control: true
+  links: true

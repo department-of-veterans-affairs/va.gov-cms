@@ -3,10 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.collapsible_panel_item.field_wysiwyg
     - field.field.paragraph.collapsible_panel_item.field_title
+    - field.field.paragraph.collapsible_panel_item.field_va_paragraphs
+    - field.field.paragraph.collapsible_panel_item.field_wysiwyg
     - paragraphs.paragraphs_type.collapsible_panel_item
   module:
+    - entity_reference_revisions
     - text
 id: paragraph.collapsible_panel_item.default
 targetEntityType: paragraph
@@ -14,15 +16,24 @@ bundle: collapsible_panel_item
 mode: default
 content:
   field_title:
-    weight: 1
+    weight: 0
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
     region: content
-  field_wysiwyg:
+  field_va_paragraphs:
+    type: entity_reference_revisions_entity_view
     weight: 2
+    region: content
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  field_wysiwyg:
+    weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
