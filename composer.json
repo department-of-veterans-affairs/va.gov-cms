@@ -222,6 +222,9 @@
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
             "php -r \"chmod('.git/hooks/commit-msg', 0777);\"",
             "# Preparing Front-end...",
+            "node -v",
+            "npm -v",
+            "yarn -v",
             "ln -sf docroot/libraries/yarn/bin/yarn bin/yarn",
             "cd app && yarn install"
         ],
