@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.megamenu_links_column.field_link
+    - field.field.paragraph.megamenu_links_column.field_links
     - field.field.paragraph.megamenu_links_column.field_title
     - paragraphs.paragraphs_type.megamenu_links_column
   module:
@@ -13,8 +13,8 @@ targetEntityType: paragraph
 bundle: megamenu_links_column
 mode: default
 content:
-  field_link:
-    weight: 0
+  field_links:
+    weight: 2
     label: above
     settings:
       trim_length: 80

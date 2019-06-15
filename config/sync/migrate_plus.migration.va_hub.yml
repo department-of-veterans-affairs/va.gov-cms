@@ -1,4 +1,4 @@
-uuid: d0c65953-fdcb-4c1a-8a97-a0778527094c
+uuid: 1e3c150f-09e0-4b57-8b9e-87035c1e2ea8
 langcode: en
 status: true
 dependencies:
@@ -6,18 +6,18 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: ChHGwGt5w8JF8sx42XZtx9w2MBvDxBB5tpjCPhyrvBA
+  default_config_hash: 5WUPrkkHcnbFMsaomkaz9-_sUbHWlwoixuiymRnoKEA
 id: va_hub
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
 migration_group: va_new_benefits
-label: 'Pension landing page - NEVER ROLLBACK'
+label: 'Migrate Careers & Employment landing page - NEVER ROLLBACK'
 source:
   plugin: metalsmith_source
   urls:
-    - /pension/index.md
+    - /careers-employment/index.md
   templates:
     - level2-index
   fields:
@@ -209,7 +209,7 @@ process:
   field_alert/target_id: alert_title
   field_administration:
     plugin: default_value
-    default_value: 67
+    default_value: 1
   field_title_icon:
     -
       plugin: explode

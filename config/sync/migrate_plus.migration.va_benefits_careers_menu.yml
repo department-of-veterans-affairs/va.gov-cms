@@ -1,4 +1,4 @@
-uuid: 921d8395-90df-4477-a8db-5d4f33ee1830
+uuid: 841bbac6-b614-4e7a-817b-77197e606ade
 langcode: en
 status: true
 dependencies:
@@ -6,18 +6,18 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: hOm-_djjsEKfWU8zVuCavEozHhbiEKTW4Lx8jtOFhLk
-id: va_benefits_menu
+  default_config_hash: 6iEs_otnxGq7g67Byp1N_9SuUDh-IDhA_iaVqZuqKHU
+id: va_benefits_careers_menu
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
-migration_group: va_tests
-label: 'Migrate health care sidebar menu'
+migration_group: va_new_benefits
+label: 'Migrate Careers & Employment sidebar menu'
 source:
   plugin: va_benefits_menu_source
   sections:
-    - Records
+    - 'Careers and employment'
   constants:
     bundle: menu_link_content
     zero: 0
