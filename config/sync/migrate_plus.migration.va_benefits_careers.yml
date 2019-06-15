@@ -1,4 +1,4 @@
-uuid: 9d82db64-d087-4584-8f3b-23fe82dcf8c9
+uuid: a0c1ea49-a056-4dde-a157-4da2c01767a7
 langcode: en
 status: true
 dependencies:
@@ -6,26 +6,20 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: 0oX_zqruupz3Y94vQR0fU6_n_q0xqIqtjhytpam7QRU
-id: va_root_pages
+  default_config_hash: pFYiV_yw4vUwnMWj3X5-lHAUs_EkDTSnngOl5Adfl0I
+id: va_benefits_careers
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
 migration_group: va_new_benefits
-label: 'Migrate selected root pages from VA.gov'
+label: 'Migrate Careers & Employment benefits pages from VA.gov'
 source:
   plugin: metalsmith_source
   urls:
-    - /change-address.md
-    - /change-direct-deposit.md
-    - /claim-or-appeal-status.md
-    - /privacy-policy.md
-    - /session-expired.md
-    - /sign-in-faq.md
-    - /va-payment-history.md
-    - /veterans-portrait-project.md
-    - /welcome-kit.md
+    - /careers-employment
+  templates:
+    - detail-page
   fields:
     - description
     - plainlanguage_date
@@ -99,14 +93,6 @@ source:
                 - '@title'
                 - '@url'
                 - innerHTML
-            -
-              job: addSearch
-              method: pluckSelectorAndTest
-              arguments:
-                - '.main.home .usa-content'
-                - '@title'
-                - '@url'
-                - innerHTML
         nav_linkslist:
           obtainer: ObtainHtml
           jobs:
@@ -177,7 +163,7 @@ process:
   field_administration:
     -
       plugin: default_value
-      default_value: 77
+      default_value: 72
   moderation_state:
     plugin: default_value
     default_value: draft
