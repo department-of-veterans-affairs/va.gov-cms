@@ -1,4 +1,4 @@
-uuid: 60f2df14-a415-4408-9fd7-640316f83d61
+uuid: ed88a514-70d1-47cd-aeda-7e6a888244b4
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: O9ICiOSfxYew0IHtefTTLJFmtVynxc3hBz9N5nXfsFc
+  default_config_hash: Rmh2SDBSTNHkwA8lcf8FuGpzcM-YwT6rPO0OiaxX3qU
 id: va_new_pages
 class: null
 field_plugin_method: null
@@ -30,6 +30,7 @@ source:
     - description
     - plainlanguage_date
     - lastupdate
+    - title
   migration_tools:
     -
       source: url
@@ -39,7 +40,7 @@ source:
           operation: modifier
           modifier: basicCleanup
       fields:
-        title:
+        page_title:
           obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainTitleNoCaseChange
           jobs:
             -
@@ -112,7 +113,7 @@ source:
       dom_operations:
         -
           operation: get_field
-          field: title
+          field: page_title
         -
           operation: get_field
           field: intro_text
@@ -146,8 +147,20 @@ source:
         -
           operation: get_field
           field: body
+  constants:
+    meta_title_suffix: ' | Veterans Affairs'
 process:
-  title: title
+  title: page_title
+  meta_title:
+    plugin: substr
+    source: title
+    length: 51
+  field_meta_title:
+    -
+      plugin: concat
+      source:
+        - '@meta_title'
+        - constants/meta_title_suffix
   revision_timestamp:
     -
       plugin: default_value
