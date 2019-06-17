@@ -8,7 +8,6 @@ source:
     - "/change-direct-deposit.md"
     - "/claim-or-appeal-status.md"
     - "/privacy-policy.md"
-    - "/session-expired.md"
     - "/sign-in-faq.md"
     - "/va-payment-history.md"
     - "/veterans-portrait-project.md"
@@ -17,6 +16,7 @@ source:
     - description
     - plainlanguage_date
     - lastupdate
+    - title
 
   migration_tools:
     -
@@ -29,7 +29,7 @@ source:
           operation: modifier
           modifier: basicCleanup  # Tell migration_tools to run some basic cleanup of the page it just read.
       fields:
-        title:  # This is the recipe for a field called 'title'.
+        page_title:  # This is the recipe for a field called 'title'.
           obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainTitleNoCaseChange"
           jobs:
             -
@@ -110,7 +110,7 @@ source:
         -
           # This runs first.
           operation: get_field
-          field: title  # Use the 'title' recipe from above to create the field.
+          field: page_title  # Use the 'title' recipe from above to create the field.
         -
           # This runs next.
           operation: get_field
@@ -151,8 +151,21 @@ source:
           operation: get_field
           field: body  # Now that we've plucked all the other fields and cleaned up, run the 'body' recipe on what's left.
 
+  constants:
+    meta_title_suffix: ' | Veterans Affairs'
+
 process:  # assign the fields we collected above to Drupal fields.
-  title: title
+  title: page_title
+  meta_title:
+    plugin: substr
+    source: title
+    length: 51
+  field_meta_title:
+    -
+      plugin: concat
+      source:
+        - '@meta_title'
+        - constants/meta_title_suffix
   revision_timestamp:
     -
       plugin: default_value
