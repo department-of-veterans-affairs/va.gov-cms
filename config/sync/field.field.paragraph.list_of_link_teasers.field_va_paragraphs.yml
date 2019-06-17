@@ -14,7 +14,7 @@ entity_type: paragraph
 bundle: list_of_link_teasers
 label: 'Link teasers'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -37,13 +37,52 @@ settings:
       list_of_link_teasers:
         weight: 11
         enabled: false
-      subway_map:
-        weight: 12
-        enabled: false
-      subway_map_stop:
-        weight: 13
-        enabled: false
       wysiwyg:
         weight: 14
+        enabled: false
+      address:
+        weight: 21
+        enabled: false
+      alert:
+        weight: 22
+        enabled: false
+      expandable_text:
+        weight: 25
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 26
+        enabled: false
+      media:
+        weight: 29
+        enabled: false
+      megamenu_links_column:
+        weight: 30
+        enabled: false
+      megamenu_menu_item:
+        weight: 31
+        enabled: false
+      number_callout:
+        weight: 32
+        enabled: false
+      process:
+        weight: 33
+        enabled: false
+      q_a:
+        weight: 34
+        enabled: false
+      q_a_section:
+        weight: 35
+        enabled: false
+      react_widget:
+        weight: 36
+        enabled: false
+      spanish_translation_summary:
+        weight: 37
+        enabled: false
+      starred_horizontal_rule:
+        weight: 38
+        enabled: false
+      table:
+        weight: 39
         enabled: false
 field_type: entity_reference_revisions

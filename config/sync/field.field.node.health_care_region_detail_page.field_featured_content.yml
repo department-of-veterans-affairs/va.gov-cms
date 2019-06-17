@@ -1,0 +1,90 @@
+uuid: 6e91fb69-7bb3-4b12-b742-62036ea6b553
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_featured_content
+    - node.type.health_care_region_detail_page
+    - paragraphs.paragraphs_type.q_a
+    - paragraphs.paragraphs_type.wysiwyg
+  module:
+    - entity_reference_revisions
+id: node.health_care_region_detail_page.field_featured_content
+field_name: field_featured_content
+entity_type: node
+bundle: health_care_region_detail_page
+label: 'Featured content'
+description: 'This section is not required, and should <strong>only</strong> be used to highlight content that is extremely relevant (like Eligibility Requirements) to the majority of visitors exploring this page. It should <em>not</em> be used to hold overview content or basic questions.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      q_a: q_a
+      wysiwyg: wysiwyg
+    target_bundles_drag_drop:
+      address:
+        weight: 21
+        enabled: false
+      alert:
+        weight: 22
+        enabled: false
+      collapsible_panel:
+        weight: 23
+        enabled: false
+      collapsible_panel_item:
+        weight: 24
+        enabled: false
+      expandable_text:
+        weight: 25
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 26
+        enabled: false
+      link_teaser:
+        weight: 27
+        enabled: false
+      list_of_link_teasers:
+        weight: 28
+        enabled: false
+      media:
+        weight: 29
+        enabled: false
+      megamenu_links_column:
+        weight: 30
+        enabled: false
+      megamenu_menu_item:
+        weight: 31
+        enabled: false
+      number_callout:
+        weight: 32
+        enabled: false
+      process:
+        weight: 33
+        enabled: false
+      q_a:
+        enabled: true
+        weight: 34
+      q_a_section:
+        weight: 35
+        enabled: false
+      react_widget:
+        weight: 36
+        enabled: false
+      spanish_translation_summary:
+        weight: 37
+        enabled: false
+      starred_horizontal_rule:
+        weight: 38
+        enabled: false
+      table:
+        weight: 39
+        enabled: false
+      wysiwyg:
+        enabled: true
+        weight: 40
+field_type: entity_reference_revisions

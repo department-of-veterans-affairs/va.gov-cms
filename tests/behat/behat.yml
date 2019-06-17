@@ -1,134 +1,47 @@
 default:
   suites:
     default:
-      paths:
-        - %paths.base%/features-default
-        - %paths.base%/features/drupal-spec-tool
       contexts:
-        - Drupal\FeatureContext:
-          parameters:
-            environment:
-              # absolute path to local directory to store screenshots - do not include trailing slash
-              screenshot_dir: /var/www/gleanings/reports
-        - Acquia\DrupalSpecTool\Context\AccessControlContext
-        - Drupal\ContentModelContextCustom
-        - Acquia\DrupalSpecTool\Context\MediaContext
-        - Acquia\DrupalSpecTool\Context\MenuContext
-        - Acquia\DrupalSpecTool\Context\ViewsContext
-        - Acquia\DrupalSpecTool\Context\WorkflowContext
-        - Drupal\ContentModelContext
+        - FeatureContext
         - Drupal\DrupalExtension\Context\DrupalContext
         - Drupal\DrupalExtension\Context\MinkContext
         - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\DrupalExtension\Context\DrushContext
-        - Drupal\UserRolesAndPermissionsContext
-    local:
-      paths:
-        - %paths.base%/features-default
-        - %paths.base%/environments/local
-      contexts:
-        - Drupal\FeatureContext:
-          parameters:
-            environment:
-              screenshot_dir: /var/www/gleanings/reports
-        - Acquia\DrupalSpecTool\Context\AccessControlContext
-        - Drupal\ContentModelContextCustom
-        - Acquia\DrupalSpecTool\Context\MediaContext
-        - Acquia\DrupalSpecTool\Context\MenuContext
-        - Acquia\DrupalSpecTool\Context\ViewsContext
-        - Acquia\DrupalSpecTool\Context\WorkflowContext
-        - Drupal\ContentModelContext
-        - Drupal\DrupalExtension\Context\DrupalContext
-        - Drupal\DrupalExtension\Context\MinkContext
-        - Drupal\DrupalExtension\Context\MessageContext
-        - Drupal\DrupalExtension\Context\DrushContext
-        - Drupal\UserRolesAndPermissionsContext
-    dev:
-      paths:
-        - %paths.base%/features-default
-        - %paths.base%/features/drupal-spec-tool
-        - %paths.base%/environments/dev
-      contexts:
-        - Drupal\FeatureContext:
-          parameters:
-            environment:
-              screenshot_dir: /var/www/gleanings/reports
-        - Acquia\DrupalSpecTool\Context\AccessControlContext
-        - Drupal\ContentModelContextCustom
-        - Acquia\DrupalSpecTool\Context\MediaContext
-        - Acquia\DrupalSpecTool\Context\MenuContext
-        - Acquia\DrupalSpecTool\Context\ViewsContext
-        - Acquia\DrupalSpecTool\Context\WorkflowContext
-        - Drupal\ContentModelContext
-        - Drupal\DrupalExtension\Context\DrupalContext
-        - Drupal\DrupalExtension\Context\MinkContext
-        - Drupal\DrupalExtension\Context\MessageContext
-        - Drupal\DrupalExtension\Context\DrushContext
-        - Drupal\UserRolesAndPermissionsContext
-    stage:
-      paths:
-        - %paths.base%/features-default
-        - %paths.base%/features/drupal-spec-tool
-        - %paths.base%/environments/stage
-      contexts:
-        - Drupal\FeatureContext:
-          parameters:
-            environment:
-              screenshot_dir: /var/www/gleanings/reports
-        - Acquia\DrupalSpecTool\Context\AccessControlContext
-        - Drupal\ContentModelContextCustom
-        - Acquia\DrupalSpecTool\Context\MediaContext
-        - Acquia\DrupalSpecTool\Context\MenuContext
-        - Acquia\DrupalSpecTool\Context\ViewsContext
-        - Acquia\DrupalSpecTool\Context\WorkflowContext
-        - Drupal\ContentModelContext
-        - Drupal\DrupalExtension\Context\DrupalContext
-        - Drupal\DrupalExtension\Context\MinkContext
-        - Drupal\DrupalExtension\Context\MessageContext
-        - Drupal\DrupalExtension\Context\DrushContext
-        - Drupal\UserRolesAndPermissionsContext
-    prod:
-      paths:
-        - %paths.base%/features-default
-        - %paths.base%/features/drupal-spec-tool
-        - %paths.base%/environments/prod
-      contexts:
-        - Drupal\FeatureContext:
-          parameters:
-            environment:
-              screenshot_dir: /var/www/gleanings/reports
-        - Acquia\DrupalSpecTool\Context\AccessControlContext
-        - Drupal\ContentModelContextCustom
-        - Acquia\DrupalSpecTool\Context\MediaContext
-        - Acquia\DrupalSpecTool\Context\MenuContext
-        - Acquia\DrupalSpecTool\Context\ViewsContext
-        - Acquia\DrupalSpecTool\Context\WorkflowContext
-        - Drupal\ContentModelContext
-        - Drupal\DrupalExtension\Context\DrupalContext
-        - Drupal\DrupalExtension\Context\MinkContext
-        - Drupal\DrupalExtension\Context\MessageContext
-        - Drupal\DrupalExtension\Context\DrushContext
-        - Drupal\UserRolesAndPermissionsContext
-
   extensions:
-    DMore\ChromeExtension\Behat\ServiceContainer\ChromeExtension: ~
     Behat\MinkExtension:
       goutte: ~
-      default_session: goutte
-      browser_name: chrome
-      show_cmd: "open %s"
-      sessions:
-        default:
-          chrome:
-            api_url: "http://localhost:9222"
-      javascript_session: default
-      selenium2: ~
-      base_url: http://vagovcms.lndo.site
-      files_path: "%paths.base%/media"
+
+      # Point this at your selenium container. The fastest way launch selenium
+      # is to launch a docker container: https://github.com/SeleniumHQ/docker-selenium#standalone-chrome-and-firefox
+      #   docker run -d -p 4444:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome:3.14.0-helium
+      selenium2:
+        wd_host: http://localhost:4444/wd/hub
+
+      # Leave your base_url commented unless running locally, in order to ensure
+      # it is overridable using BEHAT_PARAMS.
+      # base_url: http://127.0.0.1:8888/
+
+      # The "show_cmd" option is used when you use the step "Then show last response".
+      # When using the step, a browser will be opened with the response.
+
+      # MacOS and Safari:
+      # show_cmd: open -a "Safari" %s
+
+      # MacOS and Google Chrome:
+      # show_cmd: open -a "Google Chrome" %s
+
+      # Others:
+      # show_cmd: firefox %s
+      # show_cmd: google-chrome %s
+
     Drupal\DrupalExtension:
       blackbox: ~
-      api_driver: "drupal"
-      drupal:
-        drupal_root: ../../docroot
-      drush:
-        alias: "@self"
+      api_driver: 'drush'
+
+      # Leave your drupal_root and drush alias commented out unless running
+      # locally, in order to ensure it is overridable using BEHAT_PARAMS.
+
+      # drupal:
+      #   drupal_root: '/var/www/my.site.com/webroot'
+#       drush:
+#         alias: 'local'

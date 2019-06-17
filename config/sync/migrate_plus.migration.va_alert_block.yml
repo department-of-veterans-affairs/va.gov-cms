@@ -1,4 +1,4 @@
-uuid: fb9431b3-8e69-45b3-a074-6c6a7d91c749
+uuid: 77325b2c-8ded-4cf6-87d4-b402c577fa4a
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: esGEqZX430J594iTZa6p7bnOhEoqKq9rmvsEnW21Ujw
+  default_config_hash: NzRLhmuuxYnmLgVq3XcomGDg5mJJaU5vV-7FunMJc1M
 id: va_alert_block
 class: null
 field_plugin_method: null
@@ -17,7 +17,7 @@ label: 'Migrate alert blocks from VA.gov'
 source:
   plugin: alert_block
   urls:
-    - /records
+    - /pension/index.md
   fields:
     - alert_type
     - alert_title

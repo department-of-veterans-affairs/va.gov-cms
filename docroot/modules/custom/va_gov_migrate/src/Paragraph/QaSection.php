@@ -4,6 +4,7 @@ namespace Drupal\va_gov_migrate\Paragraph;
 
 use Drupal\migration_tools\Obtainer\ObtainPlainTextWithNewLines;
 use Drupal\migration_tools\StringTools;
+use Drupal\va_gov_migrate\AnomalyMessage;
 use Drupal\va_gov_migrate\ParagraphType;
 use QueryPath\DOMQuery;
 
@@ -32,10 +33,13 @@ class QaSection extends ParagraphType {
    * {@inheritdoc}
    */
   protected function isParagraph(DOMQuery $query_path) {
+    if ($this->isJumpMenuHeader($query_path)) {
+      return TRUE;
+    }
     if (in_array($query_path->tag(), ['h2', 'h3']) && !QAUnstructured::isQuestion($query_path)) {
       $qp = $query_path->next();
       while ($qp->count()) {
-        if (substr($qp->tag(), 0, 1) == 'h' && $qp->tag() <= $query_path->tag()) {
+        if (preg_match('/h\d/', $qp->tag(), $header) && $qp->tag() <= $query_path->tag()) {
           return FALSE;
         }
         if (QAUnstructured::isQuestion($qp) || QASchema::isQuestion($qp)) {
@@ -45,7 +49,9 @@ class QaSection extends ParagraphType {
         if ($qp->hasClass('usa-accordion')) {
           return QAAccordion::isQaAccordionGroup($qp);
         }
-
+        if (!empty($header)) {
+          return FALSE;
+        }
         if ($this->isOtherParagraph($qp)) {
           return FALSE;
         }
@@ -61,12 +67,18 @@ class QaSection extends ParagraphType {
    * {@inheritdoc}
    */
   protected function getFieldValues(DOMQuery $query_path) {
-    $header = $query_path->text();
     $intro_text = '';
     $is_accordion = FALSE;
 
+    $header = '';
+    $qp = $query_path;
+
+    if (!$this->isJumpMenuHeader($query_path)) {
+      $header = $query_path->text();
+      $qp = $qp->next();
+    }
+
     // Get any intro text or jump links.
-    $qp = $query_path->next();
     while ($qp->count()) {
       // Stop when we get to a question.
       if (QAUnstructured::isQuestion($qp) || QASchema::isQuestion($qp)) {
@@ -76,24 +88,22 @@ class QaSection extends ParagraphType {
         $is_accordion = TRUE;
         break;
       }
-      // Stop if it's a h# tag at header level or higher.
-      if (substr($qp->tag(), 0, 1) == 'h' && $qp->tag() <= $query_path->tag()) {
+      // Stop if it's a h# tag.
+      if (preg_match('/h\d/', $qp->tag())) {
         break;
       }
 
       // If it's a list of jump links, set the accordion flag.
-      if ($qp->tag() == 'ul') {
-        $first_content = $qp->firstChild()->firstChild();
-        if ($first_content->tag() == 'a' && substr($first_content->attr('href'), 0, 1) == '#') {
-          $is_accordion = TRUE;
-          $this->jumpLinks .= $qp->text();
-        }
+      if ($this->isJumpMenu($qp)) {
+        $is_accordion = TRUE;
+        $this->jumpLinks .= $qp->text();
       }
-      elseif (StringTools::superTrim($qp->text()) == 'Jump to a section:') {
+      elseif ($this->isJumpMenuHeader($qp)) {
         $this->jumpLinks .= $qp->text();
       }
       else {
         // If it survived all the tests, it's intro text.
+        $this->testIntro($qp);
         if (!empty($intro_text)) {
           // Add line breaks between elements.
           $intro_text .= PHP_EOL . PHP_EOL;
@@ -117,28 +127,25 @@ class QaSection extends ParagraphType {
    */
   protected function isExternalContent(DOMQuery $query_path) {
     // Eat jump link related content.
-    if (trim($query_path->text()) == 'Jump to a section:') {
+    if ($this->isJumpMenuHeader($query_path)) {
       return TRUE;
     }
-    if ($query_path->tag() == 'ul') {
-      $first_content = $query_path->firstChild()->firstChild();
-      if ($first_content->tag() == 'a' && substr($first_content->attr('href'), 0, 1) == '#') {
-        return TRUE;
-      }
+    if ($this->isJumpMenu($query_path)) {
+      return TRUE;
     }
 
     // Eat intro text.
-    $qp = $query_path->prev();
+    $qp = $query_path;
     while ($qp->count()) {
       // If a previous element may be a Q&A header, see if there are questions.
       if (in_array($qp->tag(), ['h2', 'h3']) && !QAUnstructured::isQuestion($qp)) {
         $qp_next = $query_path->next();
         while ($qp_next->count()) {
-          if (QAUnstructured::isQuestion($qp_next) || QASchema::isQuestion($qp_next)
-            || QAAccordion::isQaAccordionGroup($qp_next)) {
+          if ((QAUnstructured::isQuestion($qp_next) || QASchema::isQuestion($qp_next)
+            || QAAccordion::isQaAccordionGroup($qp_next)) && $qp_next->tag() > $qp->tag()) {
             return TRUE;
           }
-          if (in_array($qp_next->tag(), ['h2', 'h3', 'h4'])) {
+          if (preg_match('/h\d/', $qp_next->tag())) {
             return FALSE;
           }
 
@@ -175,6 +182,7 @@ class QaSection extends ParagraphType {
    */
   protected function isOtherParagraph(DOMQuery $query_path) {
     $paragraph_classes = self::$migrator->getParagraphClasses();
+    /** @var \Drupal\va_gov_migrate\ParagraphType $paragraph_class */
     foreach ($paragraph_classes as $paragraph_class) {
       if (strpos($paragraph_class->getParagraphName(), 'q_a') === 0) {
         continue;
@@ -191,6 +199,72 @@ class QaSection extends ParagraphType {
    */
   protected function paragraphContent(array $paragraph_fields) {
     return $paragraph_fields['field_section_header'] . $paragraph_fields['field_section_intro'];
+  }
+
+  /**
+   * Make sure intro text doesn't contain html tags.
+   *
+   * @param \QueryPath\DOMQuery $elements
+   *   The query to test.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  protected function testIntro(DOMQuery $elements) {
+    $new_line_tags = ['p', 'br'];
+    /* @var \QueryPath\DOMQuery $element */
+    foreach ($elements as $element) {
+      if ($element->tag() && !in_array($element->tag(), $new_line_tags)) {
+        $message = 'Q&A Section intro text does not support html';
+        AnomalyMessage::makeFromRow($message, self::$migrator->row, $element->tag());
+      }
+      if ($element->children()->count()) {
+        $this->testIntro($element->children());
+      }
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function unmigratedContent() {
+    // We replace jump links with accordion, so we don't migrate them.
+    return $this->jumpLinks;
+  }
+
+  /**
+   * Tests whether the element is a jump menu header.
+   *
+   * @param \QueryPath\DOMQuery $query_path
+   *   The element to test.
+   *
+   * @return bool
+   *   Returns true if it's a jump menu header.
+   */
+  public static function isJumpMenuHeader(DOMQuery $query_path) {
+    return StringTools::superTrim($query_path->text()) === 'Jump to a section:';
+  }
+
+  /**
+   * Tests whether the element is a jump menu.
+   *
+   * @param \QueryPath\DOMQuery $query_path
+   *   The element to test.
+   *
+   * @return bool
+   *   Returns true if it's a jump menu.
+   */
+  protected function isJumpMenu(DOMQuery $query_path) {
+    if (!self::isJumpMenuHeader($query_path->prev())) {
+      return FALSE;
+    }
+    if (strtolower($query_path->tag()) === 'ul') {
+      $first_content = $query_path->firstChild()->firstChild();
+      if (strtolower($first_content->tag()) === 'a' && substr($first_content->attr('href'), 0, 1) === '#') {
+        return TRUE;
+      }
+    }
+
+    return FALSE;
   }
 
 }

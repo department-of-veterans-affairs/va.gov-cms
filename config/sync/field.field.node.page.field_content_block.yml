@@ -8,6 +8,7 @@ dependencies:
     - paragraphs.paragraphs_type.alert
     - paragraphs.paragraphs_type.collapsible_panel
     - paragraphs.paragraphs_type.list_of_link_teasers
+    - paragraphs.paragraphs_type.number_callout
     - paragraphs.paragraphs_type.process
     - paragraphs.paragraphs_type.q_a_section
     - paragraphs.paragraphs_type.react_widget
@@ -33,13 +34,14 @@ settings:
     target_bundles:
       table: table
       react_widget: react_widget
-      list_of_link_teasers: list_of_link_teasers
       wysiwyg: wysiwyg
+      list_of_link_teasers: list_of_link_teasers
       alert: alert
       q_a_section: q_a_section
       process: process
       spanish_translation_summary: spanish_translation_summary
       collapsible_panel: collapsible_panel
+      number_callout: number_callout
     target_bundles_drag_drop:
       table:
         enabled: true
@@ -47,10 +49,10 @@ settings:
       react_widget:
         enabled: true
         weight: -32
-      list_of_link_teasers:
+      wysiwyg:
         enabled: true
         weight: -31
-      wysiwyg:
+      list_of_link_teasers:
         enabled: true
         weight: -31
       alert:
@@ -69,8 +71,8 @@ settings:
         enabled: true
         weight: -27
       number_callout:
+        enabled: true
         weight: -26
-        enabled: false
       collapsible_panel_item:
         weight: -25
         enabled: false

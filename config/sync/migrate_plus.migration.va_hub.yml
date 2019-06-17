@@ -1,4 +1,4 @@
-uuid: 650722c2-9d50-4f38-b446-d4fd030ee520
+uuid: 1ac202bc-e4d1-4bef-b48d-4ecf3ff2c939
 langcode: en
 status: true
 dependencies:
@@ -6,18 +6,18 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: aOZ4JOhR03gB4fnJFL25B9JRf9H6NZnIC-rMIeetwyo
+  default_config_hash: Y-bU9HdVSli_2_uN9OKeKoaR7I3qv_IigAfFnyfZ81s
 id: va_hub
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
 migration_group: va_new_benefits
-label: 'Records landing page - NEVER ROLLBACK (would delete ALL hub landing pages)'
+label: 'Migrate Careers & Employment landing page - NEVER ROLLBACK'
 source:
   plugin: metalsmith_source
   urls:
-    - /records/index.md
+    - /careers-employment/index.md
   templates:
     - level2-index
   fields:
@@ -25,6 +25,7 @@ source:
     - plainlanguage_date
     - lastupdate
     - social
+    - title
   migration_tools:
     -
       source: url
@@ -34,8 +35,8 @@ source:
           operation: modifier
           modifier: basicCleanup
       fields:
-        title:
-          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainTitleUncased
+        page_title:
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainTitleNoCaseChange
           jobs:
             -
               job: addSearch
@@ -118,7 +119,7 @@ source:
       dom_operations:
         -
           operation: get_field
-          field: title
+          field: page_title
         -
           operation: get_field
           field: intro_text
@@ -169,8 +170,20 @@ source:
         -
           operation: get_field
           field: hub_links
+  constants:
+    meta_title_suffix: ' | Veterans Affairs'
 process:
-  title: title
+  title: page_title
+  meta_title:
+    plugin: substr
+    source: title
+    length: 51
+  field_meta_title:
+    -
+      plugin: concat
+      source:
+        - '@meta_title'
+        - constants/meta_title_suffix
   revision_timestamp: lastupdate
   field_intro_text: intro_text
   field_description: description
@@ -199,16 +212,17 @@ process:
       plugin: sub_process
       process:
         target_id:
-          plugin: migration_lookup
-          migration: va_support_service
+          plugin: entity_lookup
           source: title
-  field_alert:
-    plugin: migration_lookup
-    migration: va_alert_block
-    source: alert_title
+          value_key: title
+          bundle_key: type
+          bundle: support_service
+          entity_type: node
+          ignore_case: true
+  field_alert/target_id: alert_title
   field_administration:
     plugin: default_value
-    default_value: 76
+    default_value: 1
   field_title_icon:
     -
       plugin: explode
