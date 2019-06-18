@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "96fc01bb0337f15d3e2684161f5bbcf1",
+    "content-hash": "782b12fd5e8ab66761adf8670d8585bc",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -62,7 +62,8 @@
                     "drupal/core": "-p2"
                 },
                 "patches_applied": {
-                    "Fix empty form id in redirect": "patches/nullFormIDFixInRedirect.patch"
+                    "Fix empty form id in redirect": "patches/nullFormIDFixInRedirect.patch",
+                    "Fix moderation sidebar": "patches/moderationSidebar.patch"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -6964,6 +6965,51 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/moderation_dashboard"
             }
+        },
+        {
+            "name": "drupal/moderation_note",
+            "version": "dev-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/moderation_note.git",
+                "reference": "743b1191b5769d2a73e8827844375c9acffcea4b"
+            },
+            "require": {
+                "drupal/core": "^8.5"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-beta1+6-dev",
+                    "datestamp": "1525721880",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
+                },
+                "patches_applied": {
+                    "Support long plain text fields and paragraphs": "patches/support-paragraphs-and-long-plain-text.patch"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "samuel.mortenson",
+                    "homepage": "https://www.drupal.org/user/2582268"
+                }
+            ],
+            "description": "Provides the ability to notate elements of a moderated Entity.",
+            "homepage": "https://www.drupal.org/project/moderation_note",
+            "support": {
+                "source": "https://git.drupalcode.org/project/moderation_note"
+            },
+            "time": "2018-05-07T19:39:59+00:00"
         },
         {
             "name": "drupal/moderation_sidebar",
@@ -18331,6 +18377,7 @@
         "drupal/graphql_metatag": 20,
         "drupal/markup": 10,
         "drupal/migration_tools": 15,
+        "drupal/moderation_note": 20,
         "drupal/node_revisions_autoclean": 10,
         "drupal/paragraphs_browser": 15,
         "drupal/password_policy": 15,

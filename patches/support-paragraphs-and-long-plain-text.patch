@@ -1,0 +1,70 @@
+This merges two patches:
+https://www.drupal.org/files/issues/2018-05-05/2954753-14.patch
+and https://www.drupal.org/files/issues/2018-12-10/3019328-9.patch
+diff --git a/moderation_note.module b/moderation_note.module
+index cb1d2aa..3954d69 100644
+--- a/moderation_note.module
++++ b/moderation_note.module
+@@ -150,8 +150,15 @@ function moderation_note_preprocess_field(&$variables) {
+     return;
+   }
+ 
+-  // Check the field type - we only support text fields at this time.
+-  $supported_types = ['string', 'text', 'text_long', 'text_with_summary'];
++  // We only support text and entity reference revision fields at this time.
++  $supported_types = [
++    'entity_reference_revisions',
++    'string',
++    'string_long',
++    'text',
++    'text_long',
++    'text_with_summary',
++  ];
+   if (!in_array($field_definition->getType(), $supported_types, TRUE)) {
+     return;
+   }
+@@ -223,6 +230,12 @@ function _moderation_note_attach_field_notes(array &$variables) {
+  *   TRUE if the current user can access the Entity, FALSE otherwise.
+  */
+ function _moderation_note_access(EntityInterface $entity) {
++  // If this entity is being referenced with entity reference revisions, it
++  // should not be notated individually.
++  if (isset($entity->_referringItem) && is_a($entity->_referringItem, '\Drupal\entity_reference_revisions\Plugin\Field\FieldType\EntityReferenceRevisionsItem')) {
++    return FALSE;
++  }
++
+   /** @var \Drupal\content_moderation\ModerationInformation $moderation_information */
+   $moderation_information = \Drupal::service('content_moderation.moderation_information');
+ 
+diff --git a/tests/src/FunctionalJavascript/ModerationNoteTest.php b/tests/src/FunctionalJavascript/ModerationNoteTest.php
+index 61b6ebc..e59dc1f 100644
+--- a/tests/src/FunctionalJavascript/ModerationNoteTest.php
++++ b/tests/src/FunctionalJavascript/ModerationNoteTest.php
+@@ -6,6 +6,7 @@ use Drupal\field\Entity\FieldConfig;
+ use Drupal\field\Entity\FieldStorageConfig;
+ use Drupal\FunctionalJavascriptTests\JavascriptTestBase;
+ use Drupal\moderation_note\Entity\ModerationNote;
++use Drupal\Tests\content_moderation\Traits\ContentModerationTestTrait;
+ 
+ /**
+  * Contains Moderation Note integration tests.
+@@ -14,6 +15,8 @@ use Drupal\moderation_note\Entity\ModerationNote;
+  */
+ class ModerationNoteTest extends JavascriptTestBase {
+ 
++  use ContentModerationTestTrait;
++
+   /**
+    * {@inheritdoc}
+    */
+@@ -29,6 +32,10 @@ class ModerationNoteTest extends JavascriptTestBase {
+     $node_type = $this->drupalCreateContentType(['type' => 'article', 'name' => 'Article']);
+     /* @var \Drupal\workflows\WorkflowInterface $workflow */
+     $workflow = $this->container->get('entity_type.manager')->getStorage('workflow')->load('editorial');
++    if (!$workflow) {
++      $workflow = $this->createEditorialWorkflow();
++    }
++
+     $workflow->getTypePlugin()->addEntityTypeAndBundle('node', 'article');
+     $workflow->save();
+     $node_type->setNewRevision(TRUE);
