@@ -8,7 +8,169 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
-## 2019-06-12.1 Sprint 15 final release 1. 
+## 2019-06-18.1 Sprint 16 final release 1. 
+
+* __Merge branch &#39;develop&#39;__
+
+    [Andy Hawks](mailto:andy@andyhawks.com) - Tue, 18 Jun 2019 11:19:51 -0600
+    
+    EAD -&gt; refs/heads/master, tag: refs/tags/20190618.1, refs/remotes/upstream/master
+    VAGOV-000: 2019-06-18 Sprint 16 final release 1.
+
+* __Merge pull request #400 from kevwalsh/3983-alias-permissions__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 18 Jun 2019 11:15:56 -0600
+    
+    efs/remotes/upstream/develop, refs/heads/develop
+    VAGOV-3983: Allow content_publisher to create URL aliases.
+
+* __Merge branch &#39;develop&#39; into 3983-alias-permissions__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 18 Jun 2019 09:44:28 -0600
+
+* __Merge pull request #402 from kevwalsh/4333-cer-region-to-regional-health-service__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 18 Jun 2019 09:43:42 -0600
+
+     VAGOV-4333: Create CER between Health System and Regional Health Service.
+
+* __Merge branch &#39;develop&#39; into 3983-alias-permissions__
+
+    [Kevin Walsh](mailto:kevinjosephwalsh@gmail.com) - Mon, 17 Jun 2019 23:46:59 +0200
+
+* __Merge pull request #399 from ethanteague/VAGOV-4154-event-info-field-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 17 Jun 2019 13:14:29 -0600
+    
+    VAGOV-4154: Changing additional info event field to rich text.
+
+* __Merge branch &#39;develop&#39; into VAGOV-4154-event-info-field-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 17 Jun 2019 12:39:57 -0600
+
+* __Merge pull request #398 from kevwalsh/3982-aliases-menus__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 17 Jun 2019 12:39:39 -0600
+
+    VAGOV-3982: Fix menu link alias.
+
+* __Merge branch &#39;develop&#39; into 3982-aliases-menus__
+
+    [Kevin Walsh](mailto:kevinjosephwalsh@gmail.com) - Mon, 17 Jun 2019 18:50:59 +0200
+
+* __Merge pull request #397 from beeyayjay/VAGOV-3365-migrate-meta-title__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 17 Jun 2019 10:04:36 -0600
+
+    VAGOV-3365 migrate meta title
+
+* __Merge branch &#39;develop&#39; into VAGOV-3365-migrate-meta-title__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 17 Jun 2019 09:36:04 -0600
+
+* __Merge pull request #396 from schiavo/VAGOV-0000__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 17 Jun 2019 09:35:26 -0600
+    
+    VAGOV-0000 Disable outdated migration phpunit test.
+
+* __Merge pull request #394 from department-of-veterans-affairs/VAGOV-3733-single-value-link-teaser-field__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 14 Jun 2019 10:30:28 -0600
+
+    VAGOV-3733: fieldLink multivalue fix
+
+* __Merge branch &#39;develop&#39; into VAGOV-3733-single-value-link-teaser-field__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 14 Jun 2019 10:01:34 -0600
+    
+    efs/remotes/upstream/VAGOV-3733-single-value-link-teaser-field
+
+* __Merge pull request #393 from ethanteague/VAGOV-3951-debug-mod-sidebar-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 14 Jun 2019 10:00:36 -0600
+
+    VAGOV-3951
+
+* __Merge branch &#39;develop&#39; into VAGOV-3733-single-value-link-teaser-field__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 14 Jun 2019 09:12:53 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-3951-debug-mod-sidebar-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 14 Jun 2019 09:12:44 -0600
+
+* __Merge pull request #390 from beeyayjay/VAGOV-3911-migrate-careers__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 14 Jun 2019 09:10:58 -0600
+
+    VAGOV-3911 migrate careers
+
+* __Merge branch &#39;develop&#39; into VAGOV-3911-migrate-careers__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 13 Jun 2019 09:27:43 -0600
+
+* __Merge pull request #388 from kevwalsh/2753-content-locking__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 13 Jun 2019 09:27:22 -0600
+
+    VAGOV-2753: Content locking
+
+* __Merge branch &#39;develop&#39; into VAGOV-3911-migrate-careers__
+
+    [Elijah Lynn](mailto:elijah.lynn@agile6.com) - Wed, 12 Jun 2019 13:29:13 -0700
+
+* __Merge pull request #364 from kevwalsh/3888-admin-menu-improvements__
+
+    [Elijah Lynn](mailto:elijah.lynn@agile6.com) - Wed, 12 Jun 2019 13:21:23 -0700
+
+    VAGOV-3888: admin menu improvements. (Sprint 16)
+
+* __Merge pull request #2 from schiavo/PR-364__
+
+    [Kevin Walsh](mailto:kevinjosephwalsh@gmail.com) - Wed, 12 Jun 2019 20:36:38 +0200
+
+    VAGOV-3888 Update security permissions test.
+
+* __Merge branch &#39;develop&#39; into 3888-admin-menu-improvements__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 12 Jun 2019 11:59:42 -0600
+
+* __Merge branch &#39;develop&#39; into 3888-admin-menu-improvements__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 11 Jun 2019 15:19:22 -0600
+
+* __Merge branch &#39;develop&#39; into 3888-admin-menu-improvements__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 11 Jun 2019 09:50:06 -0600
+
+* __VAGOV-3888 Merge branch &#39;develop&#39; into 3888-admin-menu-improvements__
+
+    [Elijah Lynn](mailto:elijah.lynn@agile6.com) - Mon, 10 Jun 2019 17:07:07 -0700
+    
+    Conflicts:
+       composer.lock
+    
+    `git fetch origin`
+    `git merge origin/develop` (conflicts here)
+    `git checkout develop -- composer.json composer.lock
+    &#39;Manually add back GraphQL deletions we lost on above step`
+    `lando composer require drupal/taxonomy_menu drupal/toolbar_menu 
+    drupal/toolbar_menu_clean` (adds these to composer.json and updates 
+    composer.lock`
+    `git add --update`
+    `git commit` (finish the merge here)
+
+* __Merge branch &#39;develop&#39; into 3888-admin-menu-improvements__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 7 Jun 2019 16:52:26 -0600
+
+* __Merge branch &#39;develop&#39; into 3888-admin-menu-improvements__
+
+    [Kevin Walsh](mailto:kevin.walsh@civicactions.com) - Wed, 5 Jun 2019 07:05:58 -0700
+    
+
+## 2019-06-12.1 Sprint 16 mid-sprint release 1. 
 
 * __Merge branch &#39;develop&#39;__
 
