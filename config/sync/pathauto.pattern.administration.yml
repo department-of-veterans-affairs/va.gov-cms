@@ -8,16 +8,16 @@ dependencies:
 id: administration
 label: Section
 type: 'canonical_entities:taxonomy_term'
-pattern: 'section/[term:field_acronym]'
+pattern: 'section/[term:parent:parents:join-path]/[term:name]'
 selection_criteria:
-  5cdeceb3-8b07-4fec-a199-7e3995d4c67c:
+  ebe7814b-100c-45c2-8d40-d5f97cadbff8:
     id: 'entity_bundle:taxonomy_term'
     bundles:
       administration: administration
     negate: false
     context_mapping:
       taxonomy_term: taxonomy_term
-    uuid: 5cdeceb3-8b07-4fec-a199-7e3995d4c67c
+    uuid: ebe7814b-100c-45c2-8d40-d5f97cadbff8
 selection_logic: and
 weight: 0
 relationships: {  }
