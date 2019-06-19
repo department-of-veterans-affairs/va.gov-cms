@@ -15,6 +15,27 @@ For regular development, the DSVA team uses [Lando](https://docs.devwithlando.io
 For testing and simple development, you can use the special Composer commands and Drupal Console to launch on any system 
 with PHP-CLI and SQLite.
 
+## VA.gov WEB
+
+This Drupal site acts solely as a CMS and API. The actual website for va.gov is powered by the [vets-website](https://github.com/department-of-veterans-affairs/vets-website) repo.
+
+The `WEB` project is built on Metalsmith. The project consumes the Drupal CMS GraphQL endpoint and generates static files for VA.gov.
+
+## Unity Initiative
+
+This repository now includes the vets-website project, and it is built on `composer install`. 
+
+The "Unification" or "Unity" initiative aims to stabilize the project by unifying the codebases to allow for paired releases.
+
+This has many benefits:
+
+- Prepare the source code for the entire project, CMS+WEB in a single command. 
+- Run instances of CMS and WEB site by side, locked into the right versions.
+- Run tests against BOTH CMS and WEB to ensure compatibility.
+- Release both projects at once. CMS is handled as a dependency of WEB, so we can tag a release of web, then tag a release of CMS that is locked to that release of WEB.
+
+See `composer.json` `scripts.va:web:install` section for the code that triggers the WEB build process.
+
 ### Launch with Composer
 
 1. [Install Composer "globally"](https://getcomposer.org/doc/00-intro.md#globally). 
