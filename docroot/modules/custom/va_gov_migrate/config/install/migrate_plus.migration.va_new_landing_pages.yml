@@ -22,6 +22,7 @@ source:
     - plainlanguage_date
     - lastupdate
     - social
+    - title
 
   migration_tools:
     -
@@ -34,7 +35,7 @@ source:
           operation: modifier
           modifier: basicCleanup  # Tell migration_tools to run some basic cleanup of the page it just read.
       fields:
-        title:  # This is the recipe for a field called 'title'.
+        page_title:  # This is the recipe for a field called 'title'.
           obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainTitleNoCaseChange"
           jobs:
             -
@@ -122,7 +123,7 @@ source:
         -
           # This runs first.
           operation: get_field
-          field: title  # Use the 'title' recipe from above to create the field.
+          field: page_title  # Use the 'title' recipe from above to create the field.
         -
           # This runs next.
           operation: get_field
@@ -183,8 +184,21 @@ source:
           operation: get_field
           field: hub_links
 
+  constants:
+    meta_title_suffix: ' | Veterans Affairs'
+
 process:  # assign the fields we collected above to Drupal fields.
-  title: title
+  title: page_title
+  meta_title:
+    plugin: substr
+    source: title
+    length: 51
+  field_meta_title:
+    -
+      plugin: concat
+      source:
+        - '@meta_title'
+        - constants/meta_title_suffix
   revision_timestamp: lastupdate
   field_intro_text: intro_text
   field_description: description

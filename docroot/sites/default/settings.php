@@ -782,7 +782,15 @@ $settings['va_cms_bot_github_auth_token'] = getenv('VA_CMS_BOT_GITHUB_AUTH_TOKEN
 $config['config_split.config_split.config_dev']['status'] = FALSE;
 $config_directories['sync'] = '../config/sync';
 
-if (file_exists($app_root . '/' . $site_path . '/settings/settings.lando.php')) {
+// Use .sqlite file for a database, unless otherwise specified in sub settings.
+$databases['default']['default'] = array (
+  'database' => 'sites/default/files/.sqlite',
+  'prefix' => '',
+  'namespace' => 'Drupal\\Core\\Database\\Driver\\sqlite',
+  'driver' => 'sqlite',
+);
+
+if (getenv('LANDO_INFO') && file_exists($app_root . '/' . $site_path . '/settings/settings.lando.php')) {
   include $app_root . '/' . $site_path . '/settings/settings.lando.php';
 }
 

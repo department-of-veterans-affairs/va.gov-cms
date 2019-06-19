@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall hooks for the VA.gov subprofile.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Perform actions to set up the site for this profile.
+ *
+ * @see system_install()
+ */
+function va_gov_install() {
+
+  // Set Site UUID to match the real cms.VA.gov.
+  $site_uuid = '45814d2f-3e31-4878-aa12-733ea60ff326';
+  Drupal::configFactory()
+    ->getEditable('system.site')
+    ->set('uuid', $site_uuid)
+    ->save(TRUE);
+
+  // Enable va_gov_content module.
+  // This must be done here and not in va_gov.info.yml because the structure
+  // must exist first.
+  // @TODO: Enabling the module this way does NOT create the content!
+  // $module = 'va_gov_content';
+  // \Drupal::service('module_installer')->install([$module]);.
+  // Import config sync folder.
+  // @TODO: Remove comments once config import actually works.
+  /*
+  global $config_directories;
+  $config_directories[CONFIG_SYNC_DIRECTORY] =
+  dirname(dirname(dirname(dirname(__DIR__)))) . '/config/sync';
+
+  $form_state = new Drupal\Core\Form\FormState();
+  $values['op'] = t('Import all');
+  $form_state
+  ->setValues($values);
+  \Drupal::formBuilder()
+  ->submitForm('\Drupal\config\Form\ConfigSync', $form_state);*/
+
+  // @TODO: Remove once the profile config import works.
+  // Set Seven as the default theme.
+  \Drupal::configFactory()
+    ->getEditable('system.theme')
+    ->set('default', 'seven')
+    ->save();
+
+  // @TODO: An install with Drush seems to override this setting.
+  // Set site name.
+  \Drupal::configFactory()
+    ->getEditable('system.site')
+    ->set('name', 'Veterans Affairs')
+    ->save();
+}

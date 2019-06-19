@@ -1,0 +1,23 @@
+name: 'VA.gov'
+type: profile
+version: 8.x-dev
+description: 'Content API for VA.gov'
+core: '8.x'
+
+themes:
+  - bartik
+  - seven
+  - vagovadmin
+
+base profile: lightning
+
+
+install:
+  - va_gov_backend
+  - va_gov_build_trigger
+  - va_gov_bulk
+  - va_gov_consumers
+  - va_gov_graphql
+  - va_gov_login
+  # - va_gov_db
+  # - va_gov_migrate
