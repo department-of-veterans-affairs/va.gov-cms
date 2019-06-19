@@ -4,15 +4,9 @@
 #
 # The runner of this script (currently the jenkins slave container) must have PHP CLI and Composer installed.
 #
-#
-#
-
 # @TODO: these are in place as suggested tests to add in the future.
 #
-# @TODO: Decide: Do we install "yaml-tests" globally so we can test "composer install"?
-#        Or. we cam run `composer install` again on the existing codebase, which would catch any errors too?
-#        I think maybe the solution to this is the deployment system, which will mostly be external tools.
-#
+
 va/static/composer:
   command: composer install --ansi
 
