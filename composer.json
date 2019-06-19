@@ -226,12 +226,7 @@
             "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
             "php -r \"chmod('.git/hooks/commit-msg', 0777);\"",
-            "# Preparing Front-end...",
-            "node -v",
-            "npm -v",
-            "yarn -v",
-            "ln -sf docroot/libraries/yarn/bin/yarn bin/yarn",
-            "cd app && yarn install"
+            "@va:web:install"
         ],
         "post-update-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
@@ -285,10 +280,18 @@
         ],
         "va:test:unit": "phpunit tests/phpunit --colors=always",
         "va:cbf": "phpcbf  --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml -n docroot/modules/custom docroot/themes/custom --colors",
-        "va:front-end:run": [
-            "cd app && npm run build"
+        "va:web:install":  [
+            "# Preparing Front-end...",
+            "node -v",
+            "npm -v",
+            "yarn -v",
+            "ln -sf docroot/libraries/yarn/bin/yarn bin/yarn",
+            "cd app && yarn install"
         ],
-        "va:front-end:watch": [
+        "va:web:build": [
+            "cd app && yarn build"
+        ],
+        "va:web:watch": [
             "cd app && npm run watch"
         ]
     }
