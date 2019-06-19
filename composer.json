@@ -282,10 +282,10 @@
         "va:cbf": "phpcbf  --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml -n docroot/modules/custom docroot/themes/custom --colors",
         "va:web:install":  [
             "# Preparing Front-end...",
+            "cd bin && ln -sf ../docroot/libraries/yarn/bin/yarn yarn",
             "node -v",
             "npm -v",
             "yarn -v",
-            "ln -sf docroot/libraries/yarn/bin/yarn bin/yarn",
             "cd app && yarn install"
         ],
         "va:web:build": [
