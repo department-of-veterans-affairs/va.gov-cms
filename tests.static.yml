@@ -13,6 +13,11 @@
 #        Or. we cam run `composer install` again on the existing codebase, which would catch any errors too?
 #        I think maybe the solution to this is the deployment system, which will mostly be external tools.
 #
+
+va/demo/wait: 
+  command: sleep 3
+  description: Wait 3 seconds before launching static tests.
+
 va/static/composer:
   command: composer install --ansi
 
