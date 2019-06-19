@@ -40,4 +40,10 @@ function va_gov_install() {
   ->setValues($values);
   \Drupal::formBuilder()
   ->submitForm('\Drupal\config\Form\ConfigSync', $form_state);*/
+
+  // Set Seven as the default theme.
+  \Drupal::configFactory()
+    ->getEditable('system.theme')
+    ->set('default', 'machine_name')
+    ->save();
 }
