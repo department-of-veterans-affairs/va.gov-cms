@@ -71,6 +71,7 @@ class VaBenefitsMenu extends VaMenuBase {
             $hub_dir = $hub_dirs[$page['sidebarTitle']];
           }
           $menu_name = strtolower(str_replace('/', '', $hub_dir . '-benefits-hub'));
+          $menu_name = substr($menu_name, 0, 27);
           $menus[$page['sidebarTitle']] = [
             'title' => $page['sidebarTitle'],
             'href' => $hub_dir,

@@ -27,6 +27,7 @@
         "drupal/config_split": "^1.4",
         "drupal/content_lock": "^1.0@alpha",
         "drupal/cshs": "^1.0@beta",
+        "drupal/default_content": "^1.0@alpha",
         "drupal/drupal-extension": "^3.4",
         "drupal/entity_reference_unpublished": "^1.1",
         "drupal/environment_indicator": "^3.5",
@@ -137,7 +138,10 @@
         "process-timeout": 0,
         "bin-dir": "bin",
         "vendor-dir": "docroot/vendor",
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "7.1.3"
+        }
     },
     "extra": {
         "drupal-scaffold": {
@@ -194,7 +198,8 @@
                 "Add an option to import non-existent paths": "https://www.drupal.org/files/issues/2018-08-28/path_redirect_import-2995543-2.patch"
             },
             "acquia/headless_lightning": {
-                "Fix empty form id in redirect": "patches/nullFormIDFixInRedirect.patch"
+                "Fix empty form id in redirect": "patches/nullFormIDFixInRedirect.patch",
+                "Fix moderation sidebar": "patches/moderationSidebar.patch"
             },
             "drupal/inline_entity_form": {
                 "Collapsed by default complex widget closes when trying to edit reference.": "https://www.drupal.org/files/issues/2018-11-08/2994001-open-on-action.patch"
@@ -234,12 +239,7 @@
             "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
             "php -r \"chmod('.git/hooks/commit-msg', 0777);\"",
-            "# Preparing Front-end...",
-            "node -v",
-            "npm -v",
-            "yarn -v",
-            "ln -sf docroot/libraries/yarn/bin/yarn bin/yarn",
-            "cd app && yarn install"
+            "@va:web:install"
         ],
         "post-update-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
@@ -249,6 +249,25 @@
             "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
         ],
         "nuke": "rm -r -f docroot/modules/contrib docroot/profiles/contrib/lightning vendor composer.lock",
+        "va:start": [
+          "@composer install --ansi",
+          "@va:install",
+          "# To setup default content, run: `drupal module:install va_gov_content`",
+          "# cms.VA.gov installed: Username: admin  Password: admin",
+          "@va:server"
+        ],
+        "va:server": [
+          "drupal server localhost:9000 --ansi"
+        ],
+        "va:install": [
+          "drush site:install va_gov --yes --account-name admin --account-pass admin --ansi --site-name='Veterans Affairs'"
+        ],
+        "va:reinstall": [
+          "# This only reinstalls sites installed with SQLite...",
+          "chmod +w -R docroot/sites/default",
+          "rm -rf docroot/sites/default/files",
+          "@va:start"
+        ],
         "va:config:export": [
             "drupal config:export --ansi"
         ],
@@ -274,10 +293,18 @@
         ],
         "va:test:unit": "phpunit tests/phpunit --colors=always",
         "va:cbf": "phpcbf  --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml -n docroot/modules/custom docroot/themes/custom --colors",
-        "va:front-end:run": [
-            "cd app && npm run build"
+        "va:web:install":  [
+            "# Preparing Front-end...",
+            "cd bin && ln -sf ../docroot/libraries/yarn/bin/yarn yarn",
+            "node -v",
+            "npm -v",
+            "yarn -v",
+            "cd app && yarn install"
         ],
-        "va:front-end:watch": [
+        "va:web:build": [
+            "cd app && yarn build"
+        ],
+        "va:web:watch": [
             "cd app && npm run watch"
         ]
     }

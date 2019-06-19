@@ -14,6 +14,7 @@ class MigrationCount extends ExistingSiteBase {
    *
    * @group migration
    * @group all
+   * @group disabled
    *
    * @dataProvider validCounts
    */
