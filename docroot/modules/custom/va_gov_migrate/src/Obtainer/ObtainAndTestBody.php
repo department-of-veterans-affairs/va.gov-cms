@@ -67,6 +67,18 @@ class ObtainAndTestBody extends ObtainHtml {
           }
         }
 
+        $buttons = $element->find('button');
+        /** @var \QueryPath\DOMQuery $button */
+        foreach ($buttons as $button) {
+          if (!$button->hasClass('usa-accordion-button')) {
+            AnomalyMessage::make('<button> not supported', $title, $url, $button->html());
+          }
+        }
+
+        if ($element->find('a[class="login-required"]')->count()) {
+          $anomalies[] = 'Sign-in modal trigger not yet supported';
+        }
+
         if ($element->find('.va-h-ruled--stars')->count()) {
           $anomalies[] = AnomalyMessage::STARRED_DIVIDER;
         }
