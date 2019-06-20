@@ -83,8 +83,7 @@
         "querypath/querypath": "^3.0",
         "simplesamlphp/simplesamlphp": "^1.17",
         "twig/twig": "1.37.1",
-        "vagov/app": "dev-VAGOV-2937-unity",
-        "vagov/content": "dev-master",
+        "va-gov/web": "dev-VAGOV-2937-unity",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
         "weitzman/drupal-test-traits": "dev-master",
@@ -96,22 +95,10 @@
         }
     },
     "repositories": {
-        "va-content":   {
+        "va-gov-web":   {
             "type": "package",
             "package": {
-                "name": "vagov/content",
-                "version": "dev-master",
-                "source": {
-                    "url": "https://github.com/department-of-veterans-affairs/vagov-content",
-                    "type": "git",
-                    "reference": "origin/master"
-                }
-            }
-        },
-        "va-app":   {
-            "type": "package",
-            "package": {
-                "name": "vagov/app",
+                "name": "va-gov/web",
                 "version": "dev-VAGOV-2937-unity",
                 "source": {
                     "url": "https://github.com/department-of-veterans-affairs/vets-website",
@@ -299,13 +286,13 @@
             "node -v",
             "npm -v",
             "yarn -v",
-            "cd app && yarn install"
+            "cd web && yarn install"
         ],
         "va:web:build": [
-            "cd app && yarn build"
+            "cd web && yarn build"
         ],
         "va:web:watch": [
-            "cd app && npm run watch"
+            "cd web && npm run watch"
         ],
         "va:web:start": [
             "@va:web:install",
