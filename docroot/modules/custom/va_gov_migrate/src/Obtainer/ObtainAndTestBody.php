@@ -43,7 +43,7 @@ class ObtainAndTestBody extends ObtainHtml {
 
         $anomalies = [];
 
-        if ($element->find('.usa-grid-full .columns')->count()) {
+        if ($element->find('.usa-grid-full > .columns')->count()) {
           $anomalies[] = AnomalyMessage::TWO_COLUMN_CONTENT;
         }
         if ($element->find('a[href^="#"]')->count()) {
