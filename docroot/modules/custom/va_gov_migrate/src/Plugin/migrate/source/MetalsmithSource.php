@@ -36,6 +36,12 @@ class MetalsmithSource extends UrlList {
   protected $templates;
 
   /**
+   * The server where the pages that will be scraped live.
+   *
+   * @var string
+   */
+  protected $server;
+  /**
    * Holds values of github directory listings.
    *
    * @var array
@@ -52,6 +58,7 @@ class MetalsmithSource extends UrlList {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $migration);
 
     $this->templates = empty($configuration['templates']) ? '' : $configuration['templates'];
+    $this->server = empty($configuration['server']) ? 'https://www.va.gov' : $configuration['server'];
     $this->dirLists = [];
   }
 
@@ -193,7 +200,7 @@ class MetalsmithSource extends UrlList {
       return;
     }
 
-    self::setPagePath($path, $row);
+    $this->setPagePath($path, $row);
     if (empty($row['url'])) {
       return;
     }
@@ -328,7 +335,7 @@ class MetalsmithSource extends UrlList {
    * @param array $row
    *   The row to set the url on.
    */
-  public static function setPagePath($path, array &$row) {
+  protected function setPagePath($path, array &$row) {
     // Get the path without the file name for index pages.
     if (preg_match('/([^\.]+)\/index\.md/', $path, $matches)) {
       $site_path = $matches[1];
@@ -338,7 +345,7 @@ class MetalsmithSource extends UrlList {
       $site_path = $matches[1];
     }
     if (!empty($site_path)) {
-      $row['url'] = 'https://www.va.gov' . $site_path . '/';
+      $row['url'] = $this->server . $site_path . '/';
       $row['path'] = $site_path;
     }
 
