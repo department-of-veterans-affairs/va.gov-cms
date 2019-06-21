@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_migrate\Obtainer;
 
 use Drupal\migration_tools\Obtainer\ObtainPlainTextWithNewLines;
+use Drupal\migration_tools\StringTools;
 use Drupal\va_gov_migrate\AnomalyMessage;
 use QueryPath\DOMQuery;
 
@@ -48,7 +49,7 @@ class ObtainAndTestPlainTextWithNewLines extends ObtainPlainTextWithNewLines {
    * @throws \Drupal\migrate\MigrateException
    */
   protected function test(DOMQuery $element) {
-    $new_line_tags = ['p', 'br'];
+    $allowed_tags = ['a', 'em', 'strong', 'p', 'br'];
     if ($element->children()->count()) {
       $elements = $element->children();
     }
@@ -57,17 +58,8 @@ class ObtainAndTestPlainTextWithNewLines extends ObtainPlainTextWithNewLines {
     }
     /* @var \QueryPath\DOMQuery $element */
     foreach ($elements as $element) {
-      if (!in_array($element->tag(), $new_line_tags)) {
+      if (!in_array($element->tag(), $allowed_tags)) {
         switch ($element->tag()) {
-          case 'a':
-            if (substr($element->attr('href'), -3) == 'pdf') {
-              $message = AnomalyMessage::INTRO_TEXT_DOES_NOT_SUPPORT_PDF_LINKS;
-            }
-            else {
-              $message = AnomalyMessage::INTRO_TEXT_DOES_NOT_SUPPORT_LINKS;
-            }
-            break;
-
           case 'ul':
             $message = AnomalyMessage::INTRO_TEXT_DOES_NOT_SUPPORT_BULLETS;
             break;
@@ -82,6 +74,30 @@ class ObtainAndTestPlainTextWithNewLines extends ObtainPlainTextWithNewLines {
         $this->test($element);
       }
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function cleanString($string) {
+
+    $string = strip_tags($string, '<a><em><strong><p><br>');
+
+    // There are also numeric html special chars, let's change those.
+    $string = StringTools::decodeHtmlEntityNumeric($string);
+    // Checking again in case another process rendered it non UTF-8.
+    $is_utf8 = mb_check_encoding($string, 'UTF-8');
+
+    if (!$is_utf8) {
+      $string = StringTools::fixEncoding($string);
+    }
+
+    // Remove white space-like things from the ends and decodes html entities.
+    // This also removes new lines at the beginning and end of the string added
+    // by the p tag replacement above.
+    $string = StringTools::superTrim($string);
+
+    return $string;
   }
 
 }
