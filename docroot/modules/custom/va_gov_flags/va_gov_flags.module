@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_flags.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function va_gov_flags_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the va_gov_flags module.
+    case 'help.page.va_gov_flags':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides flags for frontend build') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function va_gov_flags_theme() {
+  return [
+    'va_gov_flags' => [
+      'render element' => 'children',
+    ],
+  ];
+}

@@ -1,0 +1,8 @@
+va_gov_flags.json_api:
+  path: 'flags_list'
+  defaults:
+    _controller: 'Drupal\va_gov_flags\Controller\VaGovFlagsController::renderApi'
+    _title: 'Flags list'
+  methods:  [GET]
+  requirements:
+    _access: 'TRUE'
