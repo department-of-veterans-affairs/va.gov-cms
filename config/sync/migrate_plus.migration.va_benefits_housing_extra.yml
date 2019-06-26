@@ -1,4 +1,4 @@
-uuid: 07929800-b090-4065-a84f-20efd3d68c86
+uuid: 174d628f-ab51-4a13-b0b8-937bec948365
 langcode: en
 status: true
 dependencies:
@@ -6,34 +6,30 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: JUHRzsgJpxaS6nYJ4UO17Fc-njZHgYaJ11qGRCTsm4s
-id: va_new_hubs
+  default_config_hash: jaRDU_6z8CiDiOM7pB61MiBiKPHhnaZ4ZmXmGVmtiOM
+id: va_benefits_housing_extra
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
-migration_group: va_tests
-label: 'Migrate Remaining benefits detail pages from VA.gov'
+migration_group: va_new_benefits
+label: 'Migrate additional Housing benefits pages from Heroku'
 source:
-  plugin: metalsmith_source
-  urls:
-    - /disability
-    - /education
-    - /careers-employment
-    - /pension
-    - /housing-assistance
-    - /life-insurance
-    - /burials-memorials
-    - /records
-    - /decision-reviews
-    - /discharge-upgrade-instructions
-  templates:
-    - detail-page
-  fields:
-    - description
-    - plainlanguage_date
-    - lastupdate
-    - title
+  plugin: embedded_data
+  data_rows:
+    -
+      title: 'VA Home Loan Limits'
+      url: 'https://vagov-content-pr-325.herokuapp.com/housing-assistance/home-loans/loan-limits/'
+      description: 'Learn about VA home loan limits (also called VA home loan maximums). Find out the current loan limits and how they may affect the amount of money you can borrow using a VA-backed home loan, without a down payment.'
+      lastupdate: 0
+    -
+      title: 'VA Funding Fee And Loan Closing Costs'
+      url: 'https://vagov-content-pr-325.herokuapp.com/housing-assistance/home-loans/funding-fee-and-closing-costs/'
+      description: 'The VA funding fee is a one-time payment that the Veteran, service member, or survivor pays on a VA-backed or VA direct home loan. Learn about the VA funding fee and other loan closing costs you may need to pay on your loan.'
+      lastupdate: 0
+  ids:
+    url:
+      type: string
   migration_tools:
     -
       source: url
@@ -79,7 +75,7 @@ source:
               job: addSearch
               method: pluckSelectorAndTest
               arguments:
-                - .usa-alert
+                - .usa-alert-heading
                 - '@title'
                 - '@url'
         related_links:
@@ -185,7 +181,7 @@ process:
   field_administration:
     -
       plugin: default_value
-      default_value: 51
+      default_value: 68
   moderation_state:
     plugin: default_value
     default_value: draft
