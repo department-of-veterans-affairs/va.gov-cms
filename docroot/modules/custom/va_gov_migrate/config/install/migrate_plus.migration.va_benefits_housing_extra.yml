@@ -1,17 +1,22 @@
-id: va_benefits_pension
-label: Migrate Pension benefits pages from VA.gov
+id: va_benefits_housing_extra
+label: Migrate additional Housing benefits pages from Heroku
 migration_group: va_new_benefits
 source:
-  plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
-  urls:     # This can be a list urls to crawl or .md files to read.
-    - "/pension"
-  templates:  # A list of Metalsmith templates to process (detail-page=basic page, level2-index=hub page)
-    - detail-page
-  fields:  # :ist any frontmatter fields you want to migrate.
-    - description
-    - plainlanguage_date
-    - lastupdate
-    - title
+  plugin: embedded_data
+  data_rows:
+    -
+      title: 'VA Home Loan Limits'
+      url: 'https://vagov-content-pr-325.herokuapp.com/housing-assistance/home-loans/loan-limits/'
+      description: 'Learn about VA home loan limits (also called VA home loan maximums). Find out the current loan limits and how they may affect the amount of money you can borrow using a VA-backed home loan, without a down payment.'
+      lastupdate: 0
+    -
+      title: 'VA Funding Fee And Loan Closing Costs'
+      url: 'https://vagov-content-pr-325.herokuapp.com/housing-assistance/home-loans/funding-fee-and-closing-costs/'
+      description: 'The VA funding fee is a one-time payment that the Veteran, service member, or survivor pays on a VA-backed or VA direct home loan. Learn about the VA funding fee and other loan closing costs you may need to pay on your loan.'
+      lastupdate: 0
+  ids:
+    url:
+      type: string
 
   migration_tools:
     -
@@ -137,7 +142,6 @@ source:
         -
           operation: get_field
           field: body  # Now that we've plucked all the other fields and cleaned up, run the 'body' recipe on what's left.
-
   constants:
     meta_title_suffix: ' | Veterans Affairs'
 
@@ -174,7 +178,7 @@ process:  # assign the fields we collected above to Drupal fields.
   field_administration:
     -
       plugin: default_value
-      default_value: 67
+      default_value: 68
   moderation_state:
     plugin: default_value
     default_value: draft

@@ -1,4 +1,4 @@
-uuid: 07929800-b090-4065-a84f-20efd3d68c86
+uuid: 0ab670b9-027f-4a7a-b479-9c9915c46d5c
 langcode: en
 status: true
 dependencies:
@@ -6,27 +6,19 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: JUHRzsgJpxaS6nYJ4UO17Fc-njZHgYaJ11qGRCTsm4s
-id: va_new_hubs
+  default_config_hash: VZlP-csWnGTnv-9xr9lTc8IzAhMygn9m5qb-Wt17ZKI
+id: va_benefits_housing
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
-migration_group: va_tests
-label: 'Migrate Remaining benefits detail pages from VA.gov'
+migration_group: va_new_benefits
+label: 'Migrate Housing benefits pages from Heroku'
 source:
   plugin: metalsmith_source
   urls:
-    - /disability
-    - /education
-    - /careers-employment
-    - /pension
     - /housing-assistance
-    - /life-insurance
-    - /burials-memorials
-    - /records
-    - /decision-reviews
-    - /discharge-upgrade-instructions
+  server: 'https://vagov-content-pr-325.herokuapp.com'
   templates:
     - detail-page
   fields:
@@ -79,7 +71,7 @@ source:
               job: addSearch
               method: pluckSelectorAndTest
               arguments:
-                - .usa-alert
+                - .usa-alert-heading
                 - '@title'
                 - '@url'
         related_links:
@@ -185,7 +177,7 @@ process:
   field_administration:
     -
       plugin: default_value
-      default_value: 51
+      default_value: 68
   moderation_state:
     plugin: default_value
     default_value: draft
