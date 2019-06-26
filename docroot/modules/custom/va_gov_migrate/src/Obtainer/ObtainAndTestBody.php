@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_migrate\Obtainer;
 
+use Drupal\migration_tools\Message;
 use Drupal\migration_tools\Obtainer\ObtainHtml;
 use Drupal\va_gov_migrate\AnomalyMessage;
 
@@ -43,28 +44,49 @@ class ObtainAndTestBody extends ObtainHtml {
 
         $anomalies = [];
 
-        if ($element->find('.usa-grid-full .columns')->count()) {
+        if ($element->find('.usa-grid-full > .columns')->count()) {
           $anomalies[] = AnomalyMessage::TWO_COLUMN_CONTENT;
         }
         if ($element->find('a[href^="#"]')->count()) {
           $anomalies[] = AnomalyMessage::JUMPLINKS;
         }
-        elseif ($element->find('a[href*="#"]')->count()) {
+        if ($element->find('a[href*="#"]')->count()) {
           $links = $element->find('a[href*="#"]');
           /** @var \QueryPath\DOMQuery $link */
           foreach ($links as $link) {
             $href = $link->attr('href');
             $url_parts = parse_url($href);
             if (!empty($url_parts['fragment'])) {
-              if (empty($url_parts['host']) || $url_parts['host'] == 'www.va.gov') {
+              if (empty($url_parts['host']) || $url_parts['host'] === 'www.va.gov') {
                 // Discharge-upgrade-instructions is a react page, so it's fine.
                 if ($url_parts['path'] != '/discharge-upgrade-instructions/') {
-                  AnomalyMessage::make('Anchor link to another page', $title, $url, $href . ': ' . $link->text());
-                  break;
+                  if (!$element->find('a[href^="#"]')->count()) {
+                    AnomalyMessage::make('Anchor link to another page', $title, $url, $href . ': ' . $link->text());
+                  }
+                  Message::make('Anchor link',
+                    [
+                      '@title' => $title,
+                      '@url' => $url,
+                      '@link_text' => $link->text(),
+                      '@link' => $href,
+                    ]
+                  );
                 }
               }
             }
           }
+        }
+
+        $buttons = $element->find('button');
+        /** @var \QueryPath\DOMQuery $button */
+        foreach ($buttons as $button) {
+          if (!$button->hasClass('usa-accordion-button')) {
+            AnomalyMessage::make('<button> not supported', $title, $url, $button->html());
+          }
+        }
+
+        if ($element->find('a[class="login-required"]')->count()) {
+          $anomalies[] = 'Sign-in modal trigger not yet supported';
         }
 
         if ($element->find('.va-h-ruled--stars')->count()) {

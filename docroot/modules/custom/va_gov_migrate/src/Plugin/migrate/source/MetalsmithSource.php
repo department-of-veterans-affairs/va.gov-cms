@@ -5,6 +5,7 @@ namespace Drupal\va_gov_migrate\Plugin\migrate\source;
 use Drupal\Core\Site\Settings;
 use Drupal\migration_tools\Message;
 use Drupal\migration_tools\Plugin\migrate\source\UrlList;
+use Drupal\va_gov_migrate\AnomalyMessage;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Drupal\migrate\Plugin\MigrationInterface;
@@ -203,6 +204,11 @@ class MetalsmithSource extends UrlList {
     $this->setPagePath($path, $row);
     if (empty($row['url'])) {
       return;
+    }
+
+    // Make sure title isn't too long.
+    if (!empty($row['title']) && strlen($row['title']) > 51) {
+      AnomalyMessage::make("Some <title> tags are longer than 51 characters", $row['heading'], $row['url'], $row['title']);
     }
 
     // Extract the plainlanguage date, if any.
