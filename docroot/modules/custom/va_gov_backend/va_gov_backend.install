@@ -5,6 +5,9 @@
  * Install file for Va Gov Backend.
  */
 
+use Drupal\node\Entity\Node;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+
 /**
  * Removing Local hospital paragraph entities.
  */
@@ -16,4 +19,83 @@ function va_gov_backend_update_8001() {
   foreach ($paragraphs as $paragraph) {
     $paragraph->delete();
   }
+}
+
+/**
+ * Migrate asset and event items to outreach.
+ */
+function va_gov_backend_update_8002() {
+
+  // Delete the outreach and events detail page.
+  $va_bene_items = ['VA benefits outreach', 'Benefit Materials', 'Events'];
+
+  foreach ($va_bene_items as $item) {
+    $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
+    $va_bene_title_result = \Drupal::entityQuery('node')
+      ->condition('title', $item, '=')
+      ->execute();
+    $entities = $storage_handler->loadMultiple($va_bene_title_result);
+    if ($item === 'Benefit Materials') {
+      $swap_key = key($entities);
+    }
+    $storage_handler->delete($entities);
+  }
+
+  // Create outreach and events office.
+  $node = Node::create([
+    'type' => 'office',
+    'title' => 'Outreach and events',
+    'status' => '1',
+    'moderation_state' => 'published',
+    'field_description' => 'The office description',
+    'field_event_listing_description' => 'The event listing description',
+    'field_asset_library_description' => 'The benefits page description',
+    'field_body' => 'Some body text.',
+  ]);
+  $node->save();
+
+  $nid = (int) $node->id();
+
+  // Load the MenuLinkManager.
+  $menu_handler = \Drupal::service('plugin.manager.menu.link');
+
+  $outreach_landing_page = MenuLinkContent::create([
+    'title' => 'Outreach and events',
+    'link' => ['uri' => 'internal:/outreach-and-events'],
+    'menu_name' => 'outreach-and-events',
+    'expanded' => TRUE,
+  ]);
+  $outreach_landing_page->save();
+
+  $second_level_events = MenuLinkContent::create([
+    'title' => 'Events',
+    'link' => ['uri' => 'internal:/outreach-and-events?q=events'],
+    'parent' => $outreach_landing_page->getPluginId(),
+    'expanded' => TRUE,
+  ]);
+  $second_level_events->save();
+
+  $second_level_benefits = MenuLinkContent::create([
+    'title' => 'Benefits',
+    'link' => ['uri' => 'internal:/outreach-and-events?q=benefit'],
+    'parent' => $outreach_landing_page->getPluginId(),
+    'expanded' => TRUE,
+  ]);
+  $second_level_benefits->save();
+
+  // Change our ef to new node.
+  $connection = \Drupal::database();
+  $swap = $connection->update('node__field_office')
+    ->fields([
+      'field_office_target_id' => $nid,
+    ])
+    ->condition('field_office_target_id', $swap_key)
+    ->execute();
+
+  $swap_revision = $connection->update('node_revision__field_office')
+    ->fields([
+      'field_office_target_id' => $nid,
+    ])
+    ->condition('field_office_target_id', $swap_key)
+    ->execute();
 }
