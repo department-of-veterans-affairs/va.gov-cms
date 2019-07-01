@@ -8,6 +8,190 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
+## 2019-07-01.1 Sprint 17 mid-sprint release 1. 
+
+* __Merge branch &#39;develop&#39;__
+
+    [Andy Hawks](mailto:andy@andyhawks.com) - Mon, 1 Jul 2019 11:12:17 -0600
+    
+    EAD -&gt; refs/heads/master, tag: refs/tags/20190701.1, refs/remotes/upstream/master
+    VAGOV-000: 2019-07-01 Sprint 17 mid-sprint release 1.
+
+* __Merge pull request #418 from ethanteague/VAGOV-4361-related-office-fix-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 27 Jun 2019 11:39:29 -0600
+    
+    efs/remotes/upstream/develop, refs/heads/develop
+    VAGOV-4361
+
+* __Merge branch &#39;develop&#39; into VAGOV-4361-related-office-fix-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 27 Jun 2019 09:36:10 -0600
+
+* __Merge pull request #417 from kevwalsh/4662-menu-items-unpublished-nodes__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 27 Jun 2019 09:35:04 -0600
+
+    VAGOV-4662: Patch drupal core to allow unpublished parent menu items.
+
+* __Merge branch &#39;develop&#39; into 4662-menu-items-unpublished-nodes__
+
+    [Kevin Walsh](mailto:kevin.walsh@civicactions.com) - Thu, 27 Jun 2019 00:59:33 +0200
+
+* __Merge pull request #416 from beeyayjay/VAGOV-4302-life-insurance-migration__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 26 Jun 2019 13:13:42 -0600
+
+    VAGOV-4302: life insurance migration
+
+* __Merge branch &#39;develop&#39; into VAGOV-4302-life-insurance-migration__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 26 Jun 2019 12:40:46 -0600
+
+* __Merge pull request #413 from department-of-veterans-affairs/VAGOV-3158-email-sending__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 26 Jun 2019 12:40:30 -0600
+
+    VAGOV-3158: Email Sending from Drupal
+
+* __Merge branch &#39;develop&#39; into VAGOV-3158-email-sending__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 26 Jun 2019 12:04:23 -0600
+    
+    efs/remotes/upstream/VAGOV-3158-email-sending
+
+* __Merge branch &#39;develop&#39; into VAGOV-4302-life-insurance-migration__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 26 Jun 2019 12:04:20 -0600
+
+* __Merge pull request #415 from kevwalsh/4580-node-revisions-setting__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 26 Jun 2019 12:03:57 -0600
+
+    VAGOV-4580: Set page content type revisions autoclean to 200.
+
+* __Merge branch &#39;develop&#39; into VAGOV-4302-life-insurance-migration__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 26 Jun 2019 11:25:37 -0600
+
+* __Merge branch &#39;develop&#39; into 4580-node-revisions-setting__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 26 Jun 2019 11:25:21 -0600
+
+* __Merge pull request #414 from kevwalsh/4579-entity-reference-unpublished__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 26 Jun 2019 11:25:06 -0600
+
+    VAGOV-4579: Remove published checkbox and other fields from media entity forms.
+
+* __Merge branch &#39;develop&#39; into VAGOV-3158-email-sending__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 26 Jun 2019 11:22:33 -0600
+
+* __Merge pull request #412 from beeyayjay/VAGOV-4316-housing-migration__
+
+    [jonbot](mailto:jonathan@majorrobot.com) - Tue, 25 Jun 2019 12:15:55 -0400
+
+    VAGOV-4316: housing migration
+
+* __Merge pull request #406 from ethanteague/VAGOV-3812-flags-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 24 Jun 2019 10:31:14 -0600
+
+    VAGOV-3812
+
+* __Merge branch &#39;develop&#39; into VAGOV-3812-flags-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 21 Jun 2019 18:03:05 -0600
+
+* __Merge pull request #405 from kevwalsh/4398-moderation-sidebar-permissions__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 21 Jun 2019 18:02:20 -0600
+
+    VAGOV-4398: Permissions for moderation sidebar.
+
+* __Merge branch &#39;develop&#39; into VAGOV-3812-flags-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 21 Jun 2019 13:33:56 -0600
+
+* __Merge branch &#39;develop&#39; into 4398-moderation-sidebar-permissions__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 21 Jun 2019 13:33:51 -0600
+
+* __Merge pull request #410 from department-of-veterans-affairs/VAGOV-4804-facility-detail-config-updates__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 21 Jun 2019 13:30:28 -0600
+
+    VAGOV-4804: Config changes for healthcare local facility content type
+
+* __Merge branch &#39;develop&#39; into VAGOV-4804-facility-detail-config-updates__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 21 Jun 2019 12:08:44 -0600
+    
+    efs/remotes/upstream/VAGOV-4804-facility-detail-config-updates
+
+* __Merge branch &#39;develop&#39; into VAGOV-3812-flags-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 21 Jun 2019 12:08:30 -0600
+
+* __Merge branch &#39;develop&#39; into 4398-moderation-sidebar-permissions__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 21 Jun 2019 12:08:17 -0600
+
+* __Merge pull request #409 from beeyayjay/VAGOV-4117-migrate-from-different-sources__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 21 Jun 2019 11:47:03 -0600
+
+    VAGOV-4117: Add optional config var to set server (defaults to va.gov)
+
+* __Merge branch &#39;develop&#39; into VAGOV-4804-facility-detail-config-updates__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 21 Jun 2019 08:57:45 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-4117-migrate-from-different-sources__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 21 Jun 2019 08:57:01 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-3812-flags-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 21 Jun 2019 08:56:21 -0600
+
+* __Merge branch &#39;develop&#39; into 4398-moderation-sidebar-permissions__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 21 Jun 2019 08:55:54 -0600
+
+* __Merge pull request #403 from beeyayjay/VAGOV-4368-migrate-select-tags-to-intro__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 21 Jun 2019 08:55:34 -0600
+
+    VAGOV-4368: Modify plain text migration to allow &lt;a&gt;&lt;em&gt;&lt;strong&gt;&lt;p&gt;&lt;br&gt;
+
+* __Merge branch &#39;develop&#39; into VAGOV-4117-migrate-from-different-sources__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 20 Jun 2019 14:06:29 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-3812-flags-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 20 Jun 2019 14:05:41 -0600
+
+* __Merge branch &#39;develop&#39; into 4398-moderation-sidebar-permissions__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 20 Jun 2019 14:05:24 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-4368-migrate-select-tags-to-intro__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 20 Jun 2019 14:05:04 -0600
+
+* __Merge pull request #408 from kevwalsh/4506-allow-required-login-class__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 20 Jun 2019 13:40:56 -0600
+
+    VAGOV-4506: Allow login-required class in rich text.
+
+* __Merge branch &#39;develop&#39; into 4398-moderation-sidebar-permissions__
+
+    [Kevin Walsh](mailto:kevinjosephwalsh@gmail.com) - Wed, 19 Jun 2019 15:57:11 +0200
+
 ## 2019-06-18.1 Sprint 16 final release 1. 
 
 * __Merge branch &#39;develop&#39;__
@@ -903,4 +1087,3 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
     VAGOV-2623: Remove password_policy.
 
 ## END OF FILE
-
