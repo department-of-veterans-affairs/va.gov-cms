@@ -8,7 +8,7 @@
 /**
  * Housing and Life Insurance.
  */
-function va_gov_migrate_update_8002() {
+function va_gov_migrate_update_8003() {
   $env_type = getenv('ENVIRONMENT_TYPE') ?: 'local';
 
   if ($env_type !== 'prod') {
@@ -19,7 +19,7 @@ function va_gov_migrate_update_8002() {
     $migrator->import('va_benefits_housing_menu');
     $migrator->import('va_benefits_life_insurance');
     $migrator->import('va_benefits_life_insurance_menu');
-    $migrator->import('va_hub', ['update']);
+    $migrator->import('va_hub', ['update', 'execute-dependencies']);
   }
 
 }
