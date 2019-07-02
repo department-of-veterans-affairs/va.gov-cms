@@ -8,8 +8,7 @@ dependencies:
     - field.field.media.video.field_media_video_embed_field
     - media.type.video
   module:
-    - content_moderation
-    - path
+    - video_embed_field
 _core:
   default_config_hash: Wft8ifOMAlgFjAvTyWmpKS_RnTcBkckjM2u90vzd7cM
 id: media.video.media_browser
@@ -17,46 +16,30 @@ targetEntityType: media
 bundle: video
 mode: media_browser
 content:
-  field_media_in_library:
-    type: boolean_checkbox
-    weight: 1
-    settings:
-      display_label: true
-    third_party_settings: {  }
+  field_media_video_embed_field:
+    type: video_embed_field_textfield
+    weight: 2
     region: content
-  moderation_state:
-    type: moderation_state_default
-    weight: 100
     settings: {  }
-    region: content
     third_party_settings: {  }
   name:
     type: string_textfield
-    weight: 0
+    weight: 1
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     region: content
-  path:
-    type: path
-    weight: 30
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   preview:
-    weight: null
+    weight: 0
+    region: content
     settings: {  }
-    third_party_settings: {  }
-    region: content
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 100
-    region: content
     third_party_settings: {  }
 hidden:
   created: true
-  field_media_video_embed_field: true
+  field_media_in_library: true
+  moderation_state: true
+  path: true
+  revision_log_message: true
+  status: true
   uid: true

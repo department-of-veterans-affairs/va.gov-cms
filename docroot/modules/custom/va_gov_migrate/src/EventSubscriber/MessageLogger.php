@@ -38,6 +38,13 @@ class MessageLogger implements EventSubscriberInterface {
   protected static $paragraphFile;
 
   /**
+   * The name of the anchor link file.
+   *
+   * @var string
+   */
+  protected static $anchorLinks;
+
+  /**
    * The name of the paragraph inventory file.
    *
    * @var string
@@ -118,6 +125,16 @@ class MessageLogger implements EventSubscriberInterface {
         $url . ',' .
         self::getHub($url) . ',"' .
         $event->variables['@additional_info'] . '"' . "\n");
+      fclose($handle);
+    }
+    elseif ($event->message == 'Anchor link') {
+      $handle = fopen(self::$anchorLinks, "a");
+      fwrite($handle,
+        '"' . $title . '","' .
+        $url . '",' .
+        self::getHub($url) . ',"' .
+        $event->variables['@link_text'] . '","' .
+        $event->variables['@link'] . '"' . "\n");
       fclose($handle);
     }
     elseif ($event->severity <= Message::ERROR ||
@@ -221,6 +238,11 @@ class MessageLogger implements EventSubscriberInterface {
     self::$anomaliesFile = $rpt_path . "/anomalies_{$event->getMigration()->id()}.csv";
     $handle = fopen(self::$anomaliesFile, "w");
     fwrite($handle, "title,type,url,hub,additional_info\n");
+    fclose($handle);
+
+    self::$anchorLinks = $rpt_path . "/anchor_links_{$event->getMigration()->id()}.csv";
+    $handle = fopen(self::$anchorLinks, "w");
+    fwrite($handle, "title,url,hub,link text,link\n");
     fclose($handle);
   }
 
