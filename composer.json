@@ -247,7 +247,7 @@
           "@va:server"
         ],
         "va:server": [
-          "drupal server localhost:9000 --ansi"
+          "drupal server localhost:9000 --ansi "
         ],
         "va:install": [
           "drush site:install va_gov --yes --account-name admin --account-pass admin --ansi --site-name='Veterans Affairs'"
@@ -291,7 +291,7 @@
             "yarn -v",
             "cd web && yarn install"
         ],
-        "va:web:build": [
+        "va:web:server": [
             "cd web && yarn build"
         ],
         "va:web:watch": [
@@ -300,6 +300,9 @@
         "va:web:start": [
             "@va:web:install",
             "@va:web:watch"
+        ],
+        "va:web:build": [
+            "cd web && npm run build -- --buildtype=${envName} --asset-source=${assetSource} --drupal-address=${drupalAddress} ${drupalMode}"
         ]
     }
 }
