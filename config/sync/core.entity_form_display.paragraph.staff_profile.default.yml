@@ -1,0 +1,21 @@
+uuid: 2735c881-a4f0-455c-a5b9-de0e4f15abfa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.staff_profile.field_staff_profile
+    - paragraphs.paragraphs_type.staff_profile
+id: paragraph.staff_profile.default
+targetEntityType: paragraph
+bundle: staff_profile
+mode: default
+content:
+  field_staff_profile:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+hidden:
+  created: true
+  status: true
