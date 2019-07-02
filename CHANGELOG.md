@@ -8,6 +8,51 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
+## 2019-07-02.1 Sprint 17 final release 1. 
+
+* __Merge branch &#39;develop&#39;__
+
+    [Andy Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 13:18:13 -0600
+    
+    EAD -&gt; refs/heads/master, tag: refs/tags/20190702.1, refs/remotes/upstream/master
+    VAGOV-000: 2019-07-02.1 Sprint 17 final release 1.
+
+* __Merge pull request #421 from department-of-veterans-affairs/VAGOV-3733-single-value-field-link__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 12:54:59 -0600
+    
+    efs/remotes/upstream/develop, refs/heads/develop
+    VAGOV-3733: Revert back to single value field_link
+
+* __Merge branch &#39;develop&#39; into VAGOV-3733-single-value-field-link__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 12:26:45 -0600
+    
+    efs/remotes/upstream/VAGOV-3733-single-value-field-link
+
+* __Merge pull request #423 from kevwalsh/4383-pittsburgh-menu-breadcrumb__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 12:25:29 -0600
+
+    VAGOV-4383: Enable menu breadcrumb for Pittsburgh menu.
+
+* __Merge branch &#39;develop&#39; into VAGOV-3733-single-value-field-link__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 12:24:04 -0600
+
+* __Merge pull request #420 from beeyayjay/VAGOV-4319-migration-add-page__
+
+    [jonbot](mailto:jonathan@majorrobot.com) - Tue, 2 Jul 2019 12:37:27 -0400
+
+    VAGOV-4319 migration add page
+
+* __Merge pull request #419 from beeyayjay/VAGOV-4319-migration-fixes__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 1 Jul 2019 15:32:27 -0600
+    
+    VAGOV-4319 migration fixes
+
+
 ## 2019-07-01.1 Sprint 17 mid-sprint release 1. 
 
 * __Merge branch &#39;develop&#39;__
@@ -1087,3 +1132,6 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
     VAGOV-2623: Remove password_policy.
 
 ## END OF FILE
+
+
+
