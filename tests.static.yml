@@ -4,9 +4,6 @@
 #
 # The runner of this script (currently the jenkins slave container) must have PHP CLI and Composer installed.
 #
-#
-#
-
 # @TODO: these are in place as suggested tests to add in the future.
 #
 # @TODO: Decide: Do we install "yaml-tests" globally so we can test "composer install"?
@@ -34,3 +31,7 @@ va/static/phpcs:
 va/static/phplint:
   description: PHP Lint
   command: composer va:test:lint
+
+va/cms/install:
+  description: cms.VA.gov Install Profile
+  command: composer va:install

@@ -119,3 +119,10 @@ function va_gov_backend_menu_local_tasks_alter(&$local_tasks) {
     $local_tasks['tabs'][0]['entity.node.canonical']['#link']['url'] = Url::fromUri('internal:/node/' . $nid);
   }
 }
+
+/**
+ * Implements hook_mail_alter().
+ */
+function va_gov_backend_mail_alter(&$message) {
+  $message['headers']['Sender'] = $message['headers']['From'];
+}
