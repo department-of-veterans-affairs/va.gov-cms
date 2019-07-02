@@ -1,10 +1,10 @@
-id: va_benefits_pension
-label: Migrate Pension benefits pages from VA.gov
+id: va_benefits_life_insurance
+label: Migrate Life insurance pages from va.gov
 migration_group: va_new_benefits
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
-    - "/pension"
+    - "/life-insurance"
   templates:  # A list of Metalsmith templates to process (detail-page=basic page, level2-index=hub page)
     - detail-page
   fields:  # :ist any frontmatter fields you want to migrate.
@@ -137,7 +137,6 @@ source:
         -
           operation: get_field
           field: body  # Now that we've plucked all the other fields and cleaned up, run the 'body' recipe on what's left.
-
   constants:
     meta_title_suffix: ' | Veterans Affairs'
 
@@ -174,7 +173,7 @@ process:  # assign the fields we collected above to Drupal fields.
   field_administration:
     -
       plugin: default_value
-      default_value: 67
+      default_value: 66
   moderation_state:
     plugin: default_value
     default_value: draft

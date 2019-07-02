@@ -1,4 +1,4 @@
-uuid: 1ac202bc-e4d1-4bef-b48d-4ecf3ff2c939
+uuid: 18ea0a14-bb29-484c-a5ac-48ab0c9ee162
 langcode: en
 status: true
 dependencies:
@@ -6,18 +6,19 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: Y-bU9HdVSli_2_uN9OKeKoaR7I3qv_IigAfFnyfZ81s
+  default_config_hash: VwcI7pW_qmWsyg8KTnlDmclkSFw7_D6FAPxhV4KeLa0
 id: va_hub
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
 migration_group: va_new_benefits
-label: 'Migrate Careers & Employment landing page - NEVER ROLLBACK'
+label: 'Migrate Housing and Life insurance landing pages - NEVER ROLLBACK'
 source:
   plugin: metalsmith_source
   urls:
-    - /careers-employment/index.md
+    - /housing-assistance/index.md
+    - /life-insurance/index.md
   templates:
     - level2-index
   fields:

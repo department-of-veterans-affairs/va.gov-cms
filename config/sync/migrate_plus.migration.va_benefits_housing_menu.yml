@@ -1,4 +1,4 @@
-uuid: ff42a714-5366-4ab8-802c-a3b3cd32f750
+uuid: 0fdf49f3-d4a0-40e9-97ce-9996fd5dcc30
 langcode: en
 status: true
 dependencies:
@@ -6,18 +6,18 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: hOm-_djjsEKfWU8zVuCavEozHhbiEKTW4Lx8jtOFhLk
-id: va_benefits_menu
+  default_config_hash: FHe0DwRS_2Z82TzeICMCh2naLpsCbNEyio-chB4tbZE
+id: va_benefits_housing_menu
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
-migration_group: va_tests
-label: 'Migrate health care sidebar menu'
+migration_group: va_new_benefits
+label: 'Migrate Housing assistance sidebar menu'
 source:
   plugin: va_benefits_menu_source
   sections:
-    - Records
+    - 'Housing assistance'
   constants:
     bundle: menu_link_content
     zero: 0

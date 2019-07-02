@@ -1,0 +1,21 @@
+uuid: 673af0e6-cf0c-418d-bfa5-5cfc9658a57a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.staff_profile.field_staff_profile
+    - paragraphs.paragraphs_type.staff_profile
+id: paragraph.staff_profile.default
+targetEntityType: paragraph
+bundle: staff_profile
+mode: default
+content:
+  field_staff_profile:
+    weight: 0
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+hidden: {  }

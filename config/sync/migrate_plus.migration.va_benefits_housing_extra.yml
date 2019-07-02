@@ -1,4 +1,4 @@
-uuid: cef18287-c431-4628-8804-6e3608562edb
+uuid: ea22322f-2d32-4caf-8b24-564e50efe1f9
 langcode: en
 status: true
 dependencies:
@@ -6,25 +6,38 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: L54dHnV6nwdyXy3swDL9hZsnKrhYPp7hKyhoKNd_BxQ
-id: va_benefits_careers
+  default_config_hash: Eb3DWSPTj-qPQuMK4BZ8RyGSF56yUqOQhdPO7YrP3Qc
+id: va_benefits_housing_extra
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
 migration_group: va_new_benefits
-label: 'Migrate Careers & Employment benefits pages from VA.gov'
+label: 'Migrate additional Housing benefits pages from Heroku'
 source:
-  plugin: metalsmith_source
-  urls:
-    - /careers-employment
-  templates:
-    - detail-page
-  fields:
-    - description
-    - plainlanguage_date
-    - lastupdate
-    - title
+  plugin: embedded_data
+  data_rows:
+    -
+      title: 'VA Home Loan Limits'
+      url: 'https://vagov-content-pr-325.herokuapp.com/housing-assistance/home-loans/loan-limits/'
+      description: 'Learn about VA home loan limits (also called VA home loan maximums). Find out the current loan limits and how they may affect the amount of money you can borrow using a VA-backed home loan, without a down payment.'
+      path: /housing-assistance/home-loans/loan-limits
+      lastupdate: 0
+    -
+      title: 'VA Funding Fee And Loan Closing Costs'
+      url: 'https://vagov-content-pr-325.herokuapp.com/housing-assistance/home-loans/funding-fee-and-closing-costs/'
+      description: 'The VA funding fee is a one-time payment that the Veteran, service member, or survivor pays on a VA-backed or VA direct home loan. Learn about the VA funding fee and other loan closing costs you may need to pay on your loan.'
+      path: /housing-assistance/home-loans/funding-fee-and-closing-costs
+      lastupdate: 0
+    -
+      title: 'Buying A Home With A VA-backed Loan'
+      url: 'https://vagov-content-pr-325.herokuapp.com/housing-assistance/home-loans/home-buying-process/'
+      description: 'Get step-by-step instructions for buying a home with a VA-backed loan. You''ll get your loan through a private lender, like a bank or mortgage company. We''ll guarantee part of the loan against loss, which will allow your lender to give you better loan terms.'
+      path: /housing-assistance/home-loans/home-buying-process
+      lastupdate: 0
+  ids:
+    url:
+      type: string
   migration_tools:
     -
       source: url
@@ -176,7 +189,7 @@ process:
   field_administration:
     -
       plugin: default_value
-      default_value: 72
+      default_value: 68
   moderation_state:
     plugin: default_value
     default_value: draft

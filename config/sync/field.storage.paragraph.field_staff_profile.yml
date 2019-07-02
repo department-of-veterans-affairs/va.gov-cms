@@ -1,16 +1,17 @@
-uuid: dabb2967-19ba-424c-9f0f-27f56269cca3
+uuid: 70bc7e9a-c97f-4b93-afe1-066870e9a10b
 langcode: en
 status: true
 dependencies:
   module:
-    - link
+    - node
     - paragraphs
-id: paragraph.field_link
-field_name: field_link
+id: paragraph.field_staff_profile
+field_name: field_staff_profile
 entity_type: paragraph
-type: link
-settings: {  }
-module: link
+type: entity_reference
+settings:
+  target_type: node
+module: core
 locked: false
 cardinality: 1
 translatable: true
