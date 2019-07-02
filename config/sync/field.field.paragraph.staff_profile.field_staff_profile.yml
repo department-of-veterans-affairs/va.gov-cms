@@ -1,0 +1,29 @@
+uuid: 7ce3c523-98f0-4ee1-ab1c-9bc8546fd04b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_staff_profile
+    - node.type.person_profile
+    - paragraphs.paragraphs_type.staff_profile
+id: paragraph.staff_profile.field_staff_profile
+field_name: field_staff_profile
+entity_type: paragraph
+bundle: staff_profile
+label: 'Staff profile'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: unpublished
+  handler_settings:
+    target_bundles:
+      person_profile: person_profile
+    sort:
+      field: title
+      direction: ASC
+    auto_create: 0
+    auto_create_bundle: ''
+field_type: entity_reference
