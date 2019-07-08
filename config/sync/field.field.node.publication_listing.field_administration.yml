@@ -1,19 +1,19 @@
-uuid: 9ab54be3-df59-4b12-a707-b08c46715c68
+uuid: c873219d-d4bc-4a3f-8c50-1ae62091ac5b
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_administration
-    - node.type.landing_page
+    - node.type.publication_listing
     - taxonomy.vocabulary.administration
-id: node.landing_page.field_administration
+id: node.publication_listing.field_administration
 field_name: field_administration
 entity_type: node
-bundle: landing_page
+bundle: publication_listing
 label: Owner
 description: ''
 required: true
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
@@ -25,5 +25,5 @@ settings:
       field: name
       direction: asc
     auto_create: false
-    auto_create_bundle: ''
+    auto_create_bundle: health_care_service_taxonomy
 field_type: entity_reference

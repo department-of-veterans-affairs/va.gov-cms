@@ -1,0 +1,19 @@
+uuid: bdeff998-682b-4b25-9202-f0c94cd251bf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_intro_text
+    - node.type.publication_listing
+id: node.publication_listing.field_intro_text
+field_name: field_intro_text
+entity_type: node
+bundle: publication_listing
+label: 'Intro text'
+description: 'This is displayed directly beneath the title as an introduction to the page. This text should help a user figure out whether the information on this page is relevant to them, and should be written in the 2nd person. '
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

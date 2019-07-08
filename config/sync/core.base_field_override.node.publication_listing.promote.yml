@@ -1,0 +1,22 @@
+uuid: 017e98df-6e49-4b3d-859a-4d3b8ee6281f
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.publication_listing
+id: node.publication_listing.promote
+field_name: promote
+entity_type: node
+bundle: publication_listing
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

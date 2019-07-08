@@ -1,0 +1,20 @@
+uuid: 138a7b0a-1e28-4ed4-9274-d6dd159d1ebc
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.event_listing
+  module:
+    - user
+id: node.event_listing.teaser
+targetEntityType: node
+bundle: event_listing
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }
