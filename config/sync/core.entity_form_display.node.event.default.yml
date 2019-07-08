@@ -24,7 +24,6 @@ dependencies:
   module:
     - address
     - content_moderation
-    - cshs
     - datetime_range
     - field_group
     - hide_revision_field
@@ -140,12 +139,9 @@ content:
     region: content
   field_administration:
     weight: 16
-    settings:
-      parent: '0'
-      level_labels: ''
-      force_deepest: 0
+    settings: {  }
     third_party_settings: {  }
-    type: cshs
+    type: options_select
     region: content
   field_body:
     weight: 5
