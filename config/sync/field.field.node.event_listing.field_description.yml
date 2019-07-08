@@ -1,0 +1,19 @@
+uuid: 9687b104-976c-4dd7-af69-5382dc02f3db
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description
+    - node.type.event_listing
+id: node.event_listing.field_description
+field_name: field_description
+entity_type: node
+bundle: event_listing
+label: 'Meta description'
+description: 'This text appears search results, social media shares, and may appear in teaser listings, and should include a brief (ideally one sentence) summary of the topic of this page. <a href="https://design.va.gov/content-style-guide/seo#meta-properties">See content style guide for more guidance</a>.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

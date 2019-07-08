@@ -1,0 +1,20 @@
+uuid: eadc90f3-26dc-45ff-bcb0-955963d35c6f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.publication_listing
+  module:
+    - user
+id: node.publication_listing.teaser
+targetEntityType: node
+bundle: publication_listing
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }
