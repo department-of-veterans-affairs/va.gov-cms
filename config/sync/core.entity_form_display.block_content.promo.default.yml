@@ -10,7 +10,6 @@ dependencies:
     - field.field.block_content.promo.field_promo_link
   module:
     - content_moderation
-    - cshs
     - entity_browser
     - hide_revision_field
     - paragraphs
@@ -36,12 +35,9 @@ content:
     third_party_settings: {  }
   field_owner:
     weight: 26
-    settings:
-      parent: 0
-      level_labels: ''
-      force_deepest: false
+    settings: {  }
     third_party_settings: {  }
-    type: cshs
+    type: options_select
     region: content
   field_promo_link:
     type: entity_reference_paragraphs

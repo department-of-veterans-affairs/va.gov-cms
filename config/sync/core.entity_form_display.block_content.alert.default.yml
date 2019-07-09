@@ -16,7 +16,6 @@ dependencies:
     - field.field.block_content.alert.field_reusability
   module:
     - content_moderation
-    - cshs
     - field_group
     - hide_revision_field
     - markup
@@ -119,12 +118,9 @@ content:
     region: content
   field_owner:
     weight: 2
-    settings:
-      parent: '0'
-      level_labels: ''
-      force_deepest: 0
+    settings: {  }
     third_party_settings: {  }
-    type: cshs
+    type: options_select
     region: content
   field_reusability:
     weight: 3

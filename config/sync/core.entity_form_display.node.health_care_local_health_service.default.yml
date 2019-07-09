@@ -3,17 +3,42 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.health_care_local_health_service.field_administration
     - field.field.node.health_care_local_health_service.field_body
     - field.field.node.health_care_local_health_service.field_facility_location
     - field.field.node.health_care_local_health_service.field_regional_health_service
     - node.type.health_care_local_health_service
   module:
+    - field_group
     - text
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 3
+      format_type: details_sidebar
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: 1
+        required_fields: 1
+        weight: '0'
+      label: Governance
+      region: content
 id: node.health_care_local_health_service.default
 targetEntityType: node
 bundle: health_care_local_health_service
 mode: default
 content:
+  field_administration:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   field_body:
     weight: 2
     settings:
