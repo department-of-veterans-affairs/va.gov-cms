@@ -8,8 +8,6 @@ dependencies:
     - field.field.node.health_care_region_page.field_clinical_health_care_servi
     - field.field.node.health_care_region_page.field_clinical_health_services
     - field.field.node.health_care_region_page.field_description
-    - field.field.node.health_care_region_page.field_email_subscription
-    - field.field.node.health_care_region_page.field_email_subscription_links
     - field.field.node.health_care_region_page.field_facebook
     - field.field.node.health_care_region_page.field_flickr
     - field.field.node.health_care_region_page.field_instagram
@@ -19,6 +17,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_intro_text_news_stories
     - field.field.node.health_care_region_page.field_intro_text_press_releases
     - field.field.node.health_care_region_page.field_leadership
+    - field.field.node.health_care_region_page.field_links
     - field.field.node.health_care_region_page.field_locations_intro_blurb
     - field.field.node.health_care_region_page.field_media
     - field.field.node.health_care_region_page.field_meta_tags
@@ -27,7 +26,6 @@ dependencies:
     - field.field.node.health_care_region_page.field_other_va_locations
     - field.field.node.health_care_region_page.field_press_release_blurb
     - field.field.node.health_care_region_page.field_related_links
-    - field.field.node.health_care_region_page.field_sign_up_for_emergency_emai
     - field.field.node.health_care_region_page.field_twitter
     - node.type.health_care_region_page
   module:
@@ -157,30 +155,6 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_email_subscription:
-    weight: 18
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-    region: content
-  field_email_subscription_links:
-    weight: 19
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-    region: content
   field_facebook:
     weight: 21
     label: above
@@ -260,6 +234,18 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
+  field_links:
+    weight: 26
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
   field_locations_intro_blurb:
     weight: 2
     label: above
@@ -314,18 +300,6 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
-    region: content
-  field_sign_up_for_emergency_emai:
-    weight: 20
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
     region: content
   field_twitter:
     weight: 24
