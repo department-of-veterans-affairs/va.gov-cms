@@ -8,6 +8,134 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
+## 2019-07-09.1 Sprint 18 mid-sprint release 1.
+
+* __Merge branch &#39;develop&#39;__
+
+    [Andy Hawks](mailto:andy@andyhawks.com) - Tue, 9 Jul 2019 13:47:30 -0600
+    
+    EAD -&gt; refs/heads/master, tag: refs/tags/20190709.1, refs/remotes/upstream/master
+    VAGOV-000: 2019-07-09.1 Sprint 18 mid-sprint release 1.
+
+* __Merge pull request #429 from kevwalsh/4688-get-updates-links__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 9 Jul 2019 13:46:10 -0600
+    
+    efs/remotes/upstream/develop, refs/heads/develop
+    VAGOV-4688: Configure new email links on facility pages.
+
+* __Merge pull request #428 from kevwalsh/4779-benefits-hubs-menus__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 9 Jul 2019 11:12:01 -0600
+    
+    efs/heads/feature/VAGOV-3950-remove-xmlsitemap-ah
+    VAGOV-4779: Configure menus for remaining benefits hub.
+
+* __Merge branch &#39;develop&#39; into 4779-benefits-hubs-menus__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 9 Jul 2019 10:41:48 -0600
+
+* __Merge pull request #427 from kevwalsh/4732-outreach-events__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 9 Jul 2019 10:41:30 -0600
+
+    VAGOV-4732: Outreach events. 
+
+* __Merge pull request #425 from kevwalsh/4732-outreach-events__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 8 Jul 2019 14:24:47 -0600
+    
+    VAGOV-4732: Refactor outreach events and publications to use listings.
+
+* __Merge branch &#39;4732-outreach-events&#39; of https://github.com/kevwalsh/va.gov-cms into 4732-outreach-events__
+
+    [Daniel Schiavone](mailto:daniel@snakehill.net) - Mon, 8 Jul 2019 13:43:36 -0400
+
+* __Merge pull request #422 from kevwalsh/4709-housing-icon__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 14:53:52 -0600
+
+    VAGOV-4709: (and 4708) for Housing Assistance and Careers icons.
+
+* __Merge branch &#39;develop&#39; into 4709-housing-icon__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 13:53:41 -0600
+
+* __Merge pull request #424 from kevwalsh/4383-pittsburgh-menu-breadcrumb2__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 13:53:31 -0600
+
+    VAGOV-4383: Re-enable housing and life insurance menu breadcrumb settings.
+
+* __Merge branch &#39;develop&#39;__
+
+    [Andy Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 13:29:28 -0600
+
+    VAGOV-000: 2019-07-01.1 final PR merges.
+
+* __Merge branch &#39;develop&#39; into 4383-pittsburgh-menu-breadcrumb2__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 13:23:23 -0600
+
+* __Merge branch &#39;develop&#39; into 4709-housing-icon__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 13:23:19 -0600
+
+* __Merge pull request #392 from kevwalsh/3122-staff-profile-paragraph__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 13:23:08 -0600
+
+    VAGOV-3122: Create staff profile paragraph type, and enable on Detail Page.
+
+* __Merge branch &#39;develop&#39; into 4383-pittsburgh-menu-breadcrumb2__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 13:20:40 -0600
+
+* __Merge branch &#39;develop&#39; into 3122-staff-profile-paragraph__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 12:55:17 -0600
+
+* __Merge branch &#39;develop&#39; into 4709-housing-icon__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 12:55:15 -0600
+
+* __Merge branch &#39;develop&#39; into 4709-housing-icon__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 12:26:52 -0600
+
+* __Merge branch &#39;develop&#39; into 3122-staff-profile-paragraph__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 12:25:42 -0600
+
+* __Merge branch &#39;develop&#39; into 4709-housing-icon__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 12:24:36 -0600
+
+* __Merge branch &#39;develop&#39; into 3122-staff-profile-paragraph__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 28 Jun 2019 11:11:45 -0600
+
+* __Merge branch &#39;develop&#39; into 3122-staff-profile-paragraph__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 20 Jun 2019 14:06:54 -0600
+
+* __Merge branch &#39;develop&#39; into 3122-staff-profile-paragraph__
+
+    [Kevin Walsh](mailto:kevinjosephwalsh@gmail.com) - Mon, 17 Jun 2019 23:34:11 +0200
+
+* __Merge branch &#39;develop&#39; into 3122-staff-profile-paragraph__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 14 Jun 2019 10:06:07 -0600
+
+* __Merge branch &#39;develop&#39; into 3122-staff-profile-paragraph__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 14 Jun 2019 09:12:20 -0600
+
+* __Merge branch &#39;develop&#39; into 3122-staff-profile-paragraph__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 13 Jun 2019 09:28:14 -0600
+
+
 ## 2019-07-02.1 Sprint 17 final release 1. 
 
 * __Merge branch &#39;develop&#39;__
@@ -1132,6 +1260,3 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
     VAGOV-2623: Remove password_policy.
 
 ## END OF FILE
-
-
-
