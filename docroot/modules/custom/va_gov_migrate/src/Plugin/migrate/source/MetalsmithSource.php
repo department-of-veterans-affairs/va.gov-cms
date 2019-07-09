@@ -51,6 +51,13 @@ class MetalsmithSource extends UrlList {
    */
   protected $dirLists;
 
+  /**
+   * List of excluded paths from yaml file.
+   *
+   * @var array
+   */
+  protected $excludedPaths;
+
   const CONTENT_URL = "https://api.github.com/repos/department-of-veterans-affairs/vagov-content/contents";
   const PAGES_URL = "https://api.github.com/repos/department-of-veterans-affairs/vagov-content/contents/pages";
 
@@ -61,6 +68,7 @@ class MetalsmithSource extends UrlList {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $migration);
 
     $this->templates = empty($configuration['templates']) ? '' : $configuration['templates'];
+    $this->excludedPaths = empty($configuration['excluded_paths']) ? [] : $configuration['excluded_paths'];
     $this->server = empty($configuration['server']) ? 'https://www.va.gov' : $configuration['server'];
     $this->dirLists = [];
   }
@@ -173,7 +181,16 @@ class MetalsmithSource extends UrlList {
 
     foreach ($tree->tree as $branch) {
       if ($branch->type == 'blob') {
-        $this->addRow($branch->url, $url . '/' . $branch->path);
+        $excluded = FALSE;
+        foreach ($this->excludedPaths as $excluded_path) {
+          if (strpos($branch->path, $excluded_path . '/') === 0) {
+            $excluded = TRUE;
+            break;
+          }
+        }
+        if (!$excluded) {
+          $this->addRow($branch->url, $url . '/' . $branch->path);
+        }
       }
     }
   }
