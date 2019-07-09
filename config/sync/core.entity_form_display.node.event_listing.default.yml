@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.event_listing.field_office
     - node.type.event_listing
   module:
+    - content_moderation
     - field_group
     - hide_revision_field
     - metatag
@@ -22,7 +23,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 5
+      weight: 3
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -38,7 +39,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 4
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -58,11 +59,11 @@ third_party_settings:
       weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
-        classes: ''
         description: ''
         required_fields: true
-      label: Meta
+        id: ''
+        classes: ''
+      label: 'Title, Meta tags, and Intro'
       region: content
 id: node.event_listing.default
 targetEntityType: node
@@ -98,7 +99,7 @@ content:
     type: string_textarea
     region: content
   field_meta_tags:
-    weight: 7
+    weight: 5
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -118,22 +119,20 @@ content:
     type: string_textfield_with_counter
     region: content
   field_office:
-    weight: 3
+    weight: 0
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   moderation_state:
-    type: string_textfield
+    type: moderation_state_default
     weight: 5
     region: content
-    settings:
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
