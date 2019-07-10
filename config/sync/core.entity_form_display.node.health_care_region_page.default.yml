@@ -24,6 +24,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_meta_tags
     - field.field.node.health_care_region_page.field_meta_title
     - field.field.node.health_care_region_page.field_nickname_for_this_facility
+    - field.field.node.health_care_region_page.field_operating_status
     - field.field.node.health_care_region_page.field_other_va_locations
     - field.field.node.health_care_region_page.field_press_release_blurb
     - field.field.node.health_care_region_page.field_related_links
@@ -100,18 +101,6 @@ third_party_settings:
         open: false
       label: 'Regional and local descriptions of health services'
       region: content
-    group_patient_family_services:
-      children: {  }
-      parent_name: ''
-      weight: 19
-      format_type: details
-      format_settings:
-        id: ''
-        classes: ''
-        open: false
-        required_fields: true
-      label: 'Patient & Family Services'
-      region: hidden
     group_additional_details_about_t:
       children:
         - group_online_appointments
@@ -158,6 +147,7 @@ third_party_settings:
     group_get_updates_from_us:
       children:
         - field_links
+        - field_operating_status
         - group_s
       parent_name: ''
       weight: 10
@@ -177,7 +167,7 @@ third_party_settings:
         - field_instagram
         - field_flickr
       parent_name: group_get_updates_from_us
-      weight: 26
+      weight: 27
       format_type: fieldset
       format_settings:
         id: ''
@@ -415,6 +405,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
+  field_operating_status:
+    weight: 26
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
     region: content
   field_other_va_locations:
     weight: 11
