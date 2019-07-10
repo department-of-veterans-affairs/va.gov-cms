@@ -1,17 +1,16 @@
-uuid: 2adef271-7d5b-47d0-b61c-34caf5efeda7
+uuid: e1b5141a-e128-44d7-bb14-07167654344e
 langcode: en
 status: true
 dependencies:
   module:
-    - block_content
+    - link
     - node
-id: node.field_alert
-field_name: field_alert
+id: node.field_operating_status
+field_name: field_operating_status
 entity_type: node
-type: entity_reference
-settings:
-  target_type: block_content
-module: core
+type: link
+settings: {  }
+module: link
 locked: false
 cardinality: 1
 translatable: true
