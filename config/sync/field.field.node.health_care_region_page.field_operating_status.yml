@@ -1,23 +1,23 @@
-uuid: 61ca9e52-2e8e-4e4e-9e8b-10c43d815a79
+uuid: de5405db-9fbd-4dd5-a6bb-4f14476607cd
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_email_subscription
+    - field.storage.node.field_operating_status
     - node.type.health_care_region_page
   module:
     - link
-id: node.health_care_region_page.field_email_subscription
-field_name: field_email_subscription
+id: node.health_care_region_page.field_operating_status
+field_name: field_operating_status
 entity_type: node
 bundle: health_care_region_page
-label: 'Email Subscription'
+label: 'Operating status'
 description: ''
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
+  title: 1
   link_type: 17
-  title: 2
 field_type: link

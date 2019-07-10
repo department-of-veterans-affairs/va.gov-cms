@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_migrate\Paragraph;
 
+use Drupal\va_gov_migrate\AnomalyMessage;
 use Drupal\va_gov_migrate\ParagraphType;
 use QueryPath\DOMQuery;
 use Drupal\migration_tools\Message;
@@ -31,7 +32,7 @@ class ReactWidget extends ParagraphType {
    * {@inheritdoc}
    */
   protected function isParagraph(DOMQuery $query_path) {
-    if ($query_path->attr('id') === 'react-applicationStatus' || $query_path->hasAttr('data-app-id')) {
+    if ($query_path->hasAttr('data-widget-type') || $query_path->hasAttr('data-app-id')) {
       $this->reactContent = $query_path->text();
       return TRUE;
     }
@@ -44,25 +45,33 @@ class ReactWidget extends ParagraphType {
    * {@inheritdoc}
    */
   protected function getFieldValues(DOMQuery $query_path) {
-    if ($query_path->attr('id') === 'react-applicationStatus') {
+    if ($query_path->hasAttr('data-widget-type') && $query_path->attr('data-widget-type') !== 'cta') {
       $cta = FALSE;
       $type = $query_path->attr('data-widget-type');
 
-      $widget_frontmatter = self::$migrator->row->getSourceProperty('widgets')[0];
-      $timeout = $widget_frontmatter['timeout'];
-      $loading = $widget_frontmatter['loadingMessage'];
-      $error = $widget_frontmatter['errorMessage'];
+      if (count(self::$migrator->row->getSourceProperty('widgets')) > 0) {
+        $widget_frontmatter = self::$migrator->row->getSourceProperty('widgets')[0];
+        $timeout = $widget_frontmatter['timeout'];
+        $loading = $widget_frontmatter['loadingMessage'];
+        $error = $widget_frontmatter['errorMessage'];
 
-      $link = $query_path->find('a');
-      if ($link->count()) {
-        $link_url = $link->attr('href');
-        $link_text = $link->text();
-        $link_button = $link->hasClass('usa-button-primary');
+        $link = $query_path->find('a');
+        if ($link->count()) {
+          $link_url = $link->attr('href');
+          $link_text = $link->text();
+          $link_button = $link->hasClass('usa-button-primary');
+        }
+        else {
+          $link_url = '';
+          $link_text = '';
+          $link_button = FALSE;
+        }
+        if (count(self::$migrator->row->getSourceProperty('widgets')) > 1) {
+          AnomalyMessage::makeFromRow('Too many widgets', self::$migrator->row);
+        }
       }
       else {
-        $link_url = '';
-        $link_text = '';
-        $link_button = FALSE;
+        AnomalyMessage::makeFromRow('Not enough widgets', self::$migrator->row);
       }
     }
     else {

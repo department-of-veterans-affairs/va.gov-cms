@@ -9,8 +9,6 @@ dependencies:
     - field.field.node.health_care_region_page.field_clinical_health_care_servi
     - field.field.node.health_care_region_page.field_clinical_health_services
     - field.field.node.health_care_region_page.field_description
-    - field.field.node.health_care_region_page.field_email_subscription
-    - field.field.node.health_care_region_page.field_email_subscription_links
     - field.field.node.health_care_region_page.field_facebook
     - field.field.node.health_care_region_page.field_flickr
     - field.field.node.health_care_region_page.field_instagram
@@ -20,15 +18,16 @@ dependencies:
     - field.field.node.health_care_region_page.field_intro_text_news_stories
     - field.field.node.health_care_region_page.field_intro_text_press_releases
     - field.field.node.health_care_region_page.field_leadership
+    - field.field.node.health_care_region_page.field_links
     - field.field.node.health_care_region_page.field_locations_intro_blurb
     - field.field.node.health_care_region_page.field_media
     - field.field.node.health_care_region_page.field_meta_tags
     - field.field.node.health_care_region_page.field_meta_title
     - field.field.node.health_care_region_page.field_nickname_for_this_facility
+    - field.field.node.health_care_region_page.field_operating_status
     - field.field.node.health_care_region_page.field_other_va_locations
     - field.field.node.health_care_region_page.field_press_release_blurb
     - field.field.node.health_care_region_page.field_related_links
-    - field.field.node.health_care_region_page.field_sign_up_for_emergency_emai
     - field.field.node.health_care_region_page.field_twitter
     - node.type.health_care_region_page
   module:
@@ -93,7 +92,7 @@ third_party_settings:
         - field_clinical_health_care_servi
         - field_clinical_health_services
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: details
       format_settings:
         required_fields: true
@@ -102,24 +101,12 @@ third_party_settings:
         open: false
       label: 'Regional and local descriptions of health services'
       region: content
-    group_patient_family_services:
-      children: {  }
-      parent_name: ''
-      weight: 18
-      format_type: details
-      format_settings:
-        id: ''
-        classes: ''
-        open: false
-        required_fields: true
-      label: 'Patient & Family Services'
-      region: hidden
     group_additional_details_about_t:
       children:
         - group_online_appointments
         - field_related_links
       parent_name: ''
-      weight: 14
+      weight: 15
       format_type: details
       format_settings:
         id: ''
@@ -145,9 +132,10 @@ third_party_settings:
       children:
         - field_intro_text_news_stories
         - field_intro_text_events_page
+        - field_intro_text_press_releases
         - field_press_release_blurb
       parent_name: ''
-      weight: 13
+      weight: 14
       format_type: details
       format_settings:
         required_fields: true
@@ -158,18 +146,19 @@ third_party_settings:
       region: content
     group_get_updates_from_us:
       children:
-        - field_email_subscription_links
-        - field_sign_up_for_emergency_emai
+        - field_links
+        - field_operating_status
+        - group_s
       parent_name: ''
-      weight: 15
+      weight: 10
       format_type: details
       format_settings:
-        description: ''
+        description: 'This will populate the "Get updates" from us block on the health care system page and its facility pages. '
         required_fields: true
         id: ''
         classes: ''
         open: false
-      label: 'Get updates from us'
+      label: 'Email lists and social media'
       region: content
     group_s:
       children:
@@ -177,15 +166,15 @@ third_party_settings:
         - field_twitter
         - field_instagram
         - field_flickr
-        - field_email_subscription
-      parent_name: ''
-      weight: 10
-      format_type: details
+      parent_name: group_get_updates_from_us
+      weight: 27
+      format_type: fieldset
       format_settings:
         id: ''
         classes: ''
         open: false
         required_fields: true
+        description: ''
       label: 'Social Media'
       region: content
     group_title_and_summary:
@@ -210,7 +199,7 @@ third_party_settings:
         - field_intro_text_leadership
         - field_leadership
       parent_name: ''
-      weight: 12
+      weight: 13
       format_type: details
       format_settings:
         id: ''
@@ -272,24 +261,8 @@ content:
     third_party_settings: {  }
     type: string_textfield_with_counter
     region: content
-  field_email_subscription:
-    weight: 17
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
-    type: link_default
-    region: content
-  field_email_subscription_links:
-    weight: 23
-    settings:
-      placeholder_url: ''
-      placeholder_title: 'Eg, "Sign up for email news and announcements"'
-    third_party_settings: {  }
-    type: link_default
-    region: content
   field_facebook:
-    weight: 13
+    weight: 14
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -297,7 +270,7 @@ content:
     type: link_default
     region: content
   field_flickr:
-    weight: 16
+    weight: 17
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -305,7 +278,7 @@ content:
     type: link_default
     region: content
   field_instagram:
-    weight: 15
+    weight: 16
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -360,7 +333,7 @@ content:
     type: text_textarea_with_counter
     region: content
   field_intro_text_press_releases:
-    weight: 25
+    weight: 24
     settings:
       rows: 5
       placeholder: ''
@@ -383,6 +356,14 @@ content:
     third_party_settings: {  }
     type: inline_entity_form_complex
     region: content
+  field_links:
+    weight: 25
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
   field_locations_intro_blurb:
     weight: 10
     settings:
@@ -398,7 +379,7 @@ content:
     region: content
     third_party_settings: {  }
   field_meta_tags:
-    weight: 26
+    weight: 18
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -425,6 +406,14 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_operating_status:
+    weight: 26
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
   field_other_va_locations:
     weight: 11
     settings:
@@ -434,7 +423,7 @@ content:
     type: string_textfield
     region: content
   field_press_release_blurb:
-    weight: 24
+    weight: 26
     settings:
       rows: 5
       placeholder: ''
@@ -465,16 +454,8 @@ content:
     third_party_settings: {  }
     type: paragraphs
     region: content
-  field_sign_up_for_emergency_emai:
-    weight: 24
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
-    type: link_default
-    region: content
   field_twitter:
-    weight: 14
+    weight: 15
     settings:
       placeholder_url: ''
       placeholder_title: ''

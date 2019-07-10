@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_build_trigger\Form;
 
+use Drupal;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Site\Settings;
@@ -72,16 +73,19 @@ class BuildTriggerForm extends FormBase {
     $va_socks_proxy_url = Settings::get('va_socks_proxy_url');
     $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
     $va_cms_bot_github_auth_token = Settings::get('va_cms_bot_github_auth_token');
-    $va_jenkins_build_host = Settings::get('va_jenkins_build_host');
-    $va_jenkins_build_job_dev_staging = Settings::get('va_jenkins_build_job_dev_staging');
-    $va_jenkins_build_job_prod = Settings::get('va_jenkins_build_job_prod');
-    $va_jenkins_build_job_url_params = Settings::get('va_jenkins_build_job_url_params');
-    if (!$va_jenkins_build_job_url_params) {
-      \Drupal::messenger()
+    $jenkins_build_job_host = Settings::get('jenkins_build_job_host');
+    $jenkins_build_job_path = Settings::get('jenkins_build_job_path');
+    $jenkins_build_job_url = Settings::get('jenkins_build_job_url');
+
+    if (in_array(Settings::get('va_jenkins_build_env'), [
+      'dev',
+      'staging',
+      'prod',
+    ])) {
+      Drupal::messenger()
         ->addMessage(t('You cannot trigger a build in this environment. Only the DEV, STAGING and PROD environments support triggering builds.'), 'warning');
       return FALSE;
     }
-    $va_jenkins_build_url = $va_jenkins_build_host . $va_jenkins_build_job_url_params;
 
     try {
       // Setup the REQUEST options.
@@ -94,9 +98,10 @@ class BuildTriggerForm extends FormBase {
         'curl' => [
           CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2,
           CURLOPT_VERBOSE => TRUE,
-          CURLOPT_URL => $va_jenkins_build_url,
+          CURLOPT_URL => $jenkins_build_job_url,
           CURLOPT_POST => 1,
           CURLOPT_PROXY => $va_socks_proxy_url,
+          // Authorize to the Jenkins API via GitHub login.
           CURLOPT_USERNAME => $va_cms_bot_github_username,
           CURLOPT_PASSWORD => $va_cms_bot_github_auth_token,
           CURLOPT_FOLLOWLOCATION => 1,
@@ -105,7 +110,7 @@ class BuildTriggerForm extends FormBase {
         ],
       ];
       // Setup the REQUEST retry logic w/lazy backoff.
-      // @link http://dawehner.github.io/php,/guzzle/2017/05/19/guzzle-retry.html
+      // @see http://dawehner.github.io/php,/guzzle/2017/05/19/guzzle-retry.html
       $handler_stack = HandlerStack::create();
       $handler_stack->push(Middleware::retry(function ($retry, $request, $response, $reason) {
         // Must be a "201 Created" response code & message, if not then continue
@@ -132,54 +137,40 @@ class BuildTriggerForm extends FormBase {
               [
                 ':status_code' => $response->getStatusCode(),
                 ':reason_phrase' => $response->getReasonPhrase(),
-                ':url' => $va_jenkins_build_url,
+                ':url' => $jenkins_build_job_url,
               ]
           );
-        \Drupal::messenger()
-          ->addMessage(t('Site rebuild request has failed for :url, check log for more information.', [':url' => $va_jenkins_build_url]), 'error');
+        Drupal::messenger()
+          ->addMessage(t('Site rebuild request has failed for :url, check log for more information.', [':url' => $jenkins_build_job_url]), 'error');
       }
       else {
         // Get our SQL formatted date.
-        $time_raw = \Drupal::service('date.formatter')
+        $time_raw = Drupal::service('date.formatter')
           ->format(time(), 'html_datetime', '', 'UTC');
         $time = strtok($time_raw, '+');
 
         // We only need to update field table - field is set on node import.
-        $query = \Drupal::database()
+        $query = Drupal::database()
           ->update('node__field_page_last_built')
           ->fields(['field_page_last_built_value' => $time]);
         $query->execute();
 
         // We only need to update - revision field is set on node import.
-        $query_revision = \Drupal::database()
+        $query_revision = Drupal::database()
           ->update('node_revision__field_page_last_built')
           ->fields(['field_page_last_built_value' => $time]);
         $query_revision->execute();
 
-        if (in_array(Settings::get('va_jenkins_build_env'), [
-          'dev',
-          'staging',
-        ])) {
-          \Drupal::messenger()
-            ->addMessage(t('Site rebuild request has been triggered for :url. Please visit <a href="@job_link">@job_link</a> to see status.', [
-              ':url' => $va_jenkins_build_url,
-              '@job_link' => $va_jenkins_build_host . $va_jenkins_build_job_dev_staging,
-            ]), 'status');
-        }
-        elseif (in_array(Settings::get('va_jenkins_build_env'), [
-          'prod',
-        ])) {
-          \Drupal::messenger()
-            ->addMessage(t('Site rebuild request has been triggered for :url. Please visit <a href="@job_link">@job_link</a> to see status.', [
-              ':url' => $va_jenkins_build_url,
-              '@job_link' => $va_jenkins_build_host . $va_jenkins_build_job_prod,
-            ]), 'status');
-        }
+        Drupal::messenger()
+          ->addMessage(t('Site rebuild request has been triggered with :url. Please visit <a href="@job_link">@job_link</a> to see status.', [
+            ':url' => $jenkins_build_job_url,
+            '@job_link' => $jenkins_build_job_host . $jenkins_build_job_path,
+          ]), 'status');
       }
     }
     catch (RequestException $exception) {
-      \Drupal::messenger()
-        ->addMessage(t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify cms-admin@va.gov immediately.', [':url' => $va_jenkins_build_url]), 'error');
+      Drupal::messenger()
+        ->addMessage(t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify in #cms-engineering Slack and please email cms-admin@va.gov immediately with the error message you see here.', [':url' => $jenkins_build_job_url]), 'error');
       watchdog_exception('va_gov_build_trigger', $exception);
 
     }
