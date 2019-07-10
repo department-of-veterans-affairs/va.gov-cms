@@ -2,7 +2,10 @@
 
 // @codingStandardsIgnoreFile
 
-$settings['va_jenkins_build_job_url_params'] = $settings['va_jenkins_build_job_dev_staging'] . '/buildWithParameters?cmsEnvBuildOverride=' . $settings['va_jenkins_build_env'];
+$settings['jenkins_build_job_path'] = '/job/builds/job/vets-website-content-vagov' . $settings['jenkins_build_env'];
+$settings['jenkins_build_job_params'] = '/buildWithParameters?deploy=true';
+$settings['jenkins_build_job_url'] = $settings['jenkins_build_job_host'] . $settings['jenkins_build_job_path'] . $settings['jenkins_build_job_params'];
+
 
 $config['config_split.config_split.dev']['status'] = TRUE;
 $config['config_split.config_split.stg']['status'] = FALSE;
@@ -25,7 +28,6 @@ $settings['trusted_host_patterns'] = [
     '10\.199.*',
     '10\.247.*',
     'localhost',
-    '^dev\.va\.agile6\.com$',
     '^dev\.cms\.va\.gov$',
     '^.*\.us-gov-west-1\.elb\.amazonaws\.com$',
 ];
