@@ -27,8 +27,6 @@ $settings['trusted_host_patterns'] = [
     '10\.199.*',
     '10\.247.*',
     'localhost',
-    '^stg\.va\.agile6\.com$',
-    '^staging\.va\.agile6\.com$',
     '^stg\.cms\.va\.gov$',
     '^staging\.cms\.va\.gov$',
     '^.*\.us-gov-west-1\.elb\.amazonaws\.com$',
