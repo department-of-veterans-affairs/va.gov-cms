@@ -227,7 +227,11 @@ class MetalsmithSource extends UrlList {
 
     // Make sure title isn't too long.
     if (!empty($row['title']) && strlen($row['title']) > 51) {
-      AnomalyMessage::make("Some <title> tags are longer than 51 characters", $row['heading'], $row['url'], $row['title']);
+      // Allow multiple title tag errors.
+      \Drupal::state()->delete('va_gov_migrate.anomaly');
+
+      $page_title = empty($row['heading']) ? $row['title'] : $row['heading'];
+      AnomalyMessage::make("Some <title> tags are longer than 51 characters", $page_title, $row['url'], $row['title']);
     }
 
     // Extract the plainlanguage date, if any.
