@@ -791,3 +791,40 @@ $env_type = getenv('ENVIRONMENT_TYPE') ?: 'local';
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php')) {
     include $app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php';
 }
+
+// SimpleSAMLphp configuration
+# Provide universal absolute path to the installation.
+$simplesamlphp_dir = 'simplesamlphp-1.17.2';
+if (is_dir(DRUPAL_ROOT . '/../' . $simplesamlphp_dir)) {
+    $settings['simplesamlphp_dir'] = DRUPAL_ROOT . '/../' . $simplesamlphp_dir;
+}
+# SimpleSAMLphp Auth module settings
+$config['simplesamlphp_auth.settings'] = [
+    // Basic settings.
+    'activate'                => TRUE, // Enable or Disable SAML login.
+    'auth_source'             => 'default-sp',
+    'login_link_display_name' => 'Login with your SSO account',
+    'register_users'          => TRUE,
+    'debug'                   => FALSE,
+    // Local authentication.
+    'allow' => [
+        'default_login'         => TRUE,
+        'set_drupal_pwd'        => TRUE,
+        'default_login_users'   => '',
+        'default_login_roles'   => [
+            'authenticated' => FALSE,
+            'administrator' => 'administrator',
+        ],
+    ],
+    'logout_goto_url'         => '',
+    // User info and syncing.
+    // `unique_id` is specified in Transient format, otherwise this should be `UPN`
+    // Please talk to your SSO adminsitrators about which format you should be using.
+    'unique_id'               => 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn',
+    'user_name'               => 'uid',
+    'mail_attr'               => 'mail',
+    'sync' => [
+        'mail'      => FALSE,
+        'user_name' => FALSE,
+    ],
+];
