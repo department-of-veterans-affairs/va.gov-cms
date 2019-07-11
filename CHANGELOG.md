@@ -8,6 +8,195 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
+## 2019-07-11.1 Sprint 18 mid-sprint release 2.
+
+* __Merge branch &#39;develop&#39;__
+
+    [Andy Hawks](mailto:andy@andyhawks.com) - Thu, 11 Jul 2019 11:01:30 -0600
+    
+    EAD -&gt; refs/heads/master, tag: refs/tags/20190711.1, refs/remotes/upstream/master
+    VAGOV-000: 2019-07-11.1 Sprint 18 mid-sprint release 2.
+
+* __Merge pull request #440 from kevwalsh/4010-improve-sections-view__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 11 Jul 2019 09:17:32 -0600
+    
+    efs/remotes/upstream/develop, refs/heads/develop
+    VAGOV-4010: Improve Sections content admin views.
+
+* __Merge pull request #439 from ethanteague/VAGOV-4423-redirects-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 18:27:43 -0600
+
+    VAGOV-4423: 
+
+* __Merge branch &#39;develop&#39; into VAGOV-4423-redirects-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 16:47:40 -0600
+
+* __Merge pull request #437 from kevwalsh/4688-get-updates-links3__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 16:47:14 -0600
+
+     VAGOV-4688: Temporarily restore deleted field instances.
+
+* __Merge branch &#39;develop&#39; into 4688-get-updates-links3__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 16:12:41 -0600
+
+* __Merge pull request #436 from ElijahLynn/VAGOV-4770-build-trigger-url-update__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 16:12:15 -0600
+
+    VAGOV-4770 Update Jenkins job build trigger URL.
+
+* __Merge branch &#39;develop&#39; into VAGOV-4770-build-trigger-url-update__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 15:43:13 -0600
+
+* __Merge branch &#39;develop&#39; into 4688-get-updates-links3__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 15:42:56 -0600
+
+* __Merge pull request #435 from schiavo/VAGOV-2833__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 15:42:06 -0600
+
+    VAGOV 2833 Update Drupal Spec Tool 
+
+* __Merge branch &#39;develop&#39; into 4688-get-updates-links3__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 14:38:34 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-4770-build-trigger-url-update__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 14:38:31 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-2833__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 14:38:27 -0600
+
+* __Merge pull request #434 from kevwalsh/4744-edit-link-on-content-listing__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 14:38:04 -0600
+
+    VAGOV-4744: Edit link on content listing. 
+
+* __Merge branch &#39;develop&#39; into VAGOV-4770-build-trigger-url-update__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 13:28:08 -0600
+    
+* __Merge branch &#39;develop&#39; into 4688-get-updates-links3__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 13:28:03 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-2833__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 13:28:00 -0600
+
+* __Merge branch &#39;develop&#39; into 4744-edit-link-on-content-listing__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 13:27:56 -0600
+
+* __Merge pull request #433 from department-of-veterans-affairs/VAGOV-4732-outreach-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 13:27:28 -0600
+
+    VAGOV-4732: Updating update hook to account for new outreach config.
+
+* __Merge branch &#39;develop&#39; into 4688-get-updates-links3__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 11:39:44 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-2833__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 11:39:18 -0600
+
+* __Merge branch &#39;develop&#39; into 4744-edit-link-on-content-listing__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 11:39:12 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-4732-outreach-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 11:39:07 -0600
+    
+    efs/remotes/upstream/VAGOV-4732-outreach-et
+
+* __Merge pull request #431 from kevwalsh/000-single-value-alert__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 11:38:38 -0600
+
+    VAGOV-000: Make alert to single value, and update landing page AX.
+
+* __Merge branch &#39;develop&#39; into 000-single-value-alert__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 10:05:47 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-4770-build-trigger-url-update__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 10:05:14 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-2833__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 10:05:10 -0600
+
+* __Merge branch &#39;develop&#39; into 4744-edit-link-on-content-listing__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 10:05:05 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-4732-outreach-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 10:04:47 -0600
+
+* __Merge pull request #432 from kevwalsh/4688-get-updates-links2__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 10:04:17 -0600
+
+    VAGOV-4688: Add operating status field to health care system.
+
+* __Merge branch &#39;develop&#39; into 4688-get-updates-links2__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 09:12:45 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-4770-build-trigger-url-update__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 09:12:19 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-2833__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 09:12:14 -0600
+
+* __Merge branch &#39;develop&#39; into 4744-edit-link-on-content-listing__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 09:12:11 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-4732-outreach-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 09:11:57 -0600
+
+* __Merge branch &#39;develop&#39; into 000-single-value-alert__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 09:11:43 -0600
+
+* __Merge pull request #430 from beeyayjay/VAGOV-4562-widget-migration-update__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 09:11:24 -0600
+
+    VAGOV-4562: Update migration to get widget data from content
+
+* __Merge branch &#39;develop&#39; into VAGOV-4562-widget-migration-update__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 9 Jul 2019 13:46:39 -0600
+
+* __Merge branch &#39;develop&#39; into 000-single-value-alert__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 9 Jul 2019 13:46:36 -0600
+
+* __Merge branch &#39;develop&#39; into 000-single-value-alert__
+
+    [Kevin Walsh](mailto:kevin.walsh@civicactions.com) - Tue, 9 Jul 2019 20:52:02 +0200
+    
+
 ## 2019-07-09.1 Sprint 18 mid-sprint release 1.
 
 * __Merge branch &#39;develop&#39;__
