@@ -18,15 +18,25 @@ $config = [
 
         // The entity ID of this SP.
         // Can be NULL/unset, in which case an entity ID is generated based on the metadata URL.
-        'entityID' => null,
+        'entityID' => 'urn:drupal:adfs-saml',
 
         // The entity ID of the IdP this SP should contact.
         // Can be NULL/unset, in which case the user will be shown a list of available IdPs.
-        'idp' => null,
+        'idp' => 'VA_SSOi_IDP',
 
         // The URL to the discovery service.
         // Can be NULL/unset, in which case a builtin discovery service will be used.
         'discoURL' => null,
+
+        'NameIDPolicy'         => null,
+        'redirect.sign'        => true,
+        'assertion.encryption' => true,
+        'sign.logout'          => true,
+
+        'privatekey'           => 'saml.pem',
+        'certificate'          => 'saml.crt',
+        // Defaults to SHA1 (http://www.w3.org/2000/09/xmldsig#rsa-sha1)
+        'signature.algorithm'  => 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256',
 
         /*
          * The attributes parameter must contain an array of desired attributes by the SP.
