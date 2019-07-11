@@ -803,28 +803,36 @@ $config['simplesamlphp_auth.settings'] = [
     // Basic settings.
     'activate'                => TRUE, // Enable or Disable SAML login.
     'auth_source'             => 'default-sp',
-    'login_link_display_name' => 'Login with your SSO account',
+    'login_link_display_name' => 'Login with your SSOi account.',
     'register_users'          => TRUE,
-    'debug'                   => FALSE,
+    'debug'                   => TRUE,
     // Local authentication.
     'allow' => [
         'default_login'         => TRUE,
         'set_drupal_pwd'        => TRUE,
-        'default_login_users'   => '',
+        'default_login_users'   => '1',
         'default_login_roles'   => [
             'authenticated' => FALSE,
             'administrator' => 'administrator',
+            'content_api_consumer' => 'content_api_consumer',
+            'content_editor' => 'content_editor',
+            'content_reviewer' => 'content_reviewer',
+            'content_publisher' => 'content_publisher',
+            'admnistrator_users' => 'admnistrator_users',
+            'administrator' => 'administrator',
+            'redirect_administrator' => 'redirect_administrator',
+            'documentation_editor' => FALSE,
         ],
     ],
     'logout_goto_url'         => '',
     // User info and syncing.
     // `unique_id` is specified in Transient format, otherwise this should be `UPN`
     // Please talk to your SSO adminsitrators about which format you should be using.
-    'unique_id'               => 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn',
-    'user_name'               => 'uid',
-    'mail_attr'               => 'mail',
+    'unique_id'               => 'VAUID',
+    'user_name'               => 'adUPN',
+    'mail_attr'               => 'adUPN',
     'sync' => [
-        'mail'      => FALSE,
-        'user_name' => FALSE,
+        'mail'      => TRUE,
+        'user_name' => TRUE,
     ],
 ];
