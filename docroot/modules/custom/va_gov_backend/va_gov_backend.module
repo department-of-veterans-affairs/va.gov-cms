@@ -34,6 +34,30 @@ function va_gov_backend_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id === 'redirect_redirect_edit_form' || $form_id === 'redirect_redirect_form') {
+    $value = 'prefix';
+    if ($form_id === 'redirect_redirect_edit_form') {
+      $src_path = $form['redirect_source']['widget'][0]['path']['#default_value'];
+      $connection = \Drupal::database()->select('redirect', 'r');
+      $connection->fields('r', ['redirect_redirect__options']);
+      $connection->condition('r.redirect_source__path', $src_path, '=');
+      $query = unserialize($connection->execute()->fetchField());
+      $value = $query['matchType'];
+    }
+    $form['redirect_match_type'] = [
+      '#type' => 'select',
+      '#options' => [
+        'prefix' => 'prefix',
+        'exact_match' => 'exact match',
+        'regex_case_sensitive' => 'regex case sensitive',
+        'regex_case_insensitive' => 'regex case insensitive',
+        'non_re' => 'non re',
+      ],
+      '#title' => t('Match Type'),
+      '#default_value' => $value,
+    ];
+    $form['actions']['submit']['#submit'][] = 'va_gov_backend_form_alter_redirect_submit';
+  }
   // First make sure this isn't new content.
   $path = \Drupal::service('path.current')->getPath();
   $arg = explode('/', $path);
@@ -64,6 +88,21 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     }
 
   }
+}
+
+/**
+ * Redirect form alter submit handler to store redirect Match Type.
+ */
+function va_gov_backend_form_alter_redirect_submit($form, FormStateInterface $form_state) {
+  $connection = \Drupal::database();
+  $src_path = reset($form_state->getValue('redirect_source', 'path'));
+  $match_type = $form_state->getValue('redirect_match_type', 'path');
+  $type = ['matchType' => $match_type];
+  $converted = serialize($type);
+  $connection->update('redirect')
+    ->fields(['redirect_redirect__options' => $converted])
+    ->condition('redirect_source__path', $src_path, '=')
+    ->execute();
 }
 
 /**
