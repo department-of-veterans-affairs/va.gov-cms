@@ -202,7 +202,8 @@
             "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
             "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
-            "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
+            "php -r \"chmod('.git/hooks/commit-msg', 0777);\"",
+            "cp -r 'simplesamlphp-1.17.2/config/' 'docroot/vendor/simplesamlphp/simplesamlphp/config/'"
         ],
         "post-update-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
