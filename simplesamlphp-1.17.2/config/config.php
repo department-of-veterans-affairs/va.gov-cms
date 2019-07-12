@@ -1078,7 +1078,7 @@ $config = [
      *
      * The default datastore is 'phpsession'.
      */
-    'store.type'                    => 'phpsession',
+    'store.type'                    => 'sql',
 
     /*
      * The DSN the sql datastore should connect to.
@@ -1086,7 +1086,7 @@ $config = [
      * See http://www.php.net/manual/en/pdo.drivers.php for the various
      * syntaxes.
      */
-    'store.sql.dsn'                 => 'sqlite:/path/to/sqlitedatabase.sq3',
+    'store.sql.dsn'                 => 'sqlite:/app/samlsessiondb.sq3',
 
     /*
      * The username and password to use when connecting to the database.
