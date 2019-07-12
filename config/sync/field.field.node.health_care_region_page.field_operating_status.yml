@@ -1,0 +1,23 @@
+uuid: de5405db-9fbd-4dd5-a6bb-4f14476607cd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_operating_status
+    - node.type.health_care_region_page
+  module:
+    - link
+id: node.health_care_region_page.field_operating_status
+field_name: field_operating_status
+entity_type: node
+bundle: health_care_region_page
+label: 'Operating status'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link
