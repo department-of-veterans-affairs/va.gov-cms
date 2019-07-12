@@ -8,6 +8,27 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
+## 2019-07-12.1 Sprint 18 mid-sprint release 3.
+
+* __Merge branch &#39;develop&#39;__
+
+    [Andy Hawks](mailto:andy@andyhawks.com) - Fri, 12 Jul 2019 16:23:23 -0600
+    
+    EAD -&gt; refs/heads/master, tag: refs/tags/20190712.1, refs/remotes/upstream/master
+    VAGOV-000: 2019-07-12.1 Sprint 18 mid-sprint release 3.
+
+* __Merge pull request #438 from ElijahLynn/VAGOV-4891-lando-drush-commands-broken__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 12 Jul 2019 14:14:06 -0600
+    
+    efs/remotes/upstream/develop, refs/heads/develop
+    VAGOV-4891 Update bin paths for .lando.yml, they were moved.
+
+* __Merge branch &#39;develop&#39; into VAGOV-4891-lando-drush-commands-broken__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 11 Jul 2019 09:18:54 -0600
+    
+    
 ## 2019-07-11.1 Sprint 18 mid-sprint release 2.
 
 * __Merge branch &#39;develop&#39;__
