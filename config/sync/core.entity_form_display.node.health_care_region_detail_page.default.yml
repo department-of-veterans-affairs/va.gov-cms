@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.health_care_region_detail_page.field_meta_title
     - field.field.node.health_care_region_detail_page.field_office
     - field.field.node.health_care_region_detail_page.field_related_links
+    - field.field.node.health_care_region_detail_page.field_table_of_contents_boolean
     - node.type.health_care_region_detail_page
   module:
     - content_moderation
@@ -85,6 +86,20 @@ third_party_settings:
         classes: ''
         required_fields: false
       label: 'Include alert'
+      region: content
+    group_table_of_contents:
+      children:
+        - field_table_of_contents_boolean
+      parent_name: ''
+      weight: 3
+      format_type: details
+      format_settings:
+        description: ''
+        required_fields: true
+        id: ''
+        classes: ''
+        open: false
+      label: 'Include table of contents?'
       region: content
 id: node.health_care_region_detail_page.default
 targetEntityType: node
@@ -193,7 +208,7 @@ content:
     region: content
     third_party_settings: {  }
   field_meta_tags:
-    weight: 16
+    weight: 14
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -236,6 +251,13 @@ content:
         add_above: '0'
     third_party_settings: {  }
     type: paragraphs
+    region: content
+  field_table_of_contents_boolean:
+    weight: 15
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   moderation_state:
     type: moderation_state_default
