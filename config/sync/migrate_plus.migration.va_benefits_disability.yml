@@ -1,4 +1,4 @@
-uuid: cef18287-c431-4628-8804-6e3608562edb
+uuid: 5c5da5e3-8ec9-4a4d-99ee-e973e5f9c545
 langcode: en
 status: true
 dependencies:
@@ -6,18 +6,20 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: L54dHnV6nwdyXy3swDL9hZsnKrhYPp7hKyhoKNd_BxQ
-id: va_benefits_careers
+  default_config_hash: 46ZjsXamjgvVHvx4vF8At2nNP4m0W5sBLAb4fiEQiDo
+id: va_benefits_disability
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
 migration_group: va_new_benefits
-label: 'Migrate Careers & Employment benefits pages from VA.gov'
+label: 'Migrate Disability - non-eligibility pages from va.gov'
 source:
   plugin: metalsmith_source
   urls:
-    - /careers-employment
+    - /disability
+  excluded_paths:
+    - eligibility
   templates:
     - detail-page
   fields:
@@ -176,7 +178,7 @@ process:
   field_administration:
     -
       plugin: default_value
-      default_value: 72
+      default_value: 69
   moderation_state:
     plugin: default_value
     default_value: draft

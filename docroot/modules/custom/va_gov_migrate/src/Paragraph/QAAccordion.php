@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_migrate\Paragraph;
 
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\va_gov_migrate\AnomalyMessage;
 use Drupal\va_gov_migrate\Paragraph\Base\QABase;
 use QueryPath\DOMQuery;
 use Drupal\migration_tools\Message;
@@ -61,8 +62,19 @@ class QAAccordion extends QABase {
   public static function isQuestion(DOMQuery $query_path) {
     // If it's part of an accordion group that contains only questions.
     if ('li' == $query_path->tag() && $query_path->children('button.usa-accordion-button')->count()) {
-      $accordion_group = $query_path->parent('.usa-accordion');
-      if ($accordion_group->count() && self::isQaAccordionGroup($accordion_group)) {
+      $accordion_group = '';
+      $qp = $query_path->parent();
+      while ($qp->count() && $qp->tag() !== 'body') {
+        if ($qp->hasClass('usa-accordion') || $qp->hasClass('usa-accordion-bordered')) {
+          $accordion_group = $qp;
+          break;
+        }
+        $qp = $qp->parent();
+      }
+      if (empty($accordion_group)) {
+        AnomalyMessage::makeFromRow('Accordion button without accordion', self::$migrator->row);
+      }
+      elseif ($accordion_group->count() && self::isQaAccordionGroup($accordion_group)) {
         return TRUE;
       }
     }
@@ -79,12 +91,12 @@ class QAAccordion extends QABase {
    *   True if all of the accordion items are questions.
    */
   public static function isQaAccordionGroup(DOMQuery $query_path) {
-    if (!$query_path->hasClass('usa-accordion')) {
+    if (!$query_path->hasClass('usa-accordion') && !$query_path->hasClass('usa-accordion-bordered')) {
       return FALSE;
     }
     $section_titles = $query_path->find('button.usa-accordion-button');
     foreach ($section_titles as $section_title) {
-      if (substr(trim($section_title->text()), -1) != '?') {
+      if (substr(trim($section_title->text()), -1) !== '?') {
         return FALSE;
       }
     }
