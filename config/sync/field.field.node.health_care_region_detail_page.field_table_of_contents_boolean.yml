@@ -1,0 +1,23 @@
+uuid: aaae45b6-d214-442d-8148-eae7f74bf3ec
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_table_of_contents_boolean
+    - node.type.health_care_region_detail_page
+id: node.health_care_region_detail_page.field_table_of_contents_boolean
+field_name: field_table_of_contents_boolean
+entity_type: node
+bundle: health_care_region_detail_page
+label: 'Generate a table of contents from major headings'
+description: 'By checking this box, all &lt;h2&gt;''s below this point on the page will be linked with with anchor links. '
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Include table of contents'
+  off_label: 'No table contents'
+field_type: boolean
