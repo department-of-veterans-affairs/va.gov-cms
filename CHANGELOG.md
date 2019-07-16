@@ -8,6 +8,53 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
+## 2019-07-16.1 Sprint 18 final sprint release 1.
+
+* __Merge branch &#39;develop&#39;__
+
+    [Andy Hawks](mailto:andy@andyhawks.com) - Tue, 16 Jul 2019 13:51:49 -0600
+    
+    EAD -&gt; refs/heads/master, tag: refs/tags/20190716.1, refs/remotes/upstream/master
+    VAGOV-000: 2019-07-16.1 Sprint 18 final release 1.
+
+* __Merge pull request #445 from kevwalsh/4625-featured-on-health-services__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 16 Jul 2019 10:13:24 -0600
+    
+    efs/remotes/upstream/develop, refs/heads/develop
+    VAGOV-4625: Add a featured content block for health services page.
+
+* __Merge branch &#39;develop&#39; into 4625-featured-on-health-services__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 16 Jul 2019 09:34:06 -0600
+
+* __Merge pull request #444 from ethanteague/VAGOV-000-fix-events-pathauto-pattern__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 16 Jul 2019 09:33:47 -0600
+
+    VAGOV-000: Updating events path to include events landing page.
+
+* __Merge branch &#39;develop&#39; into 4625-featured-on-health-services__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 15 Jul 2019 16:24:49 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-000-fix-events-pathauto-pattern__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 15 Jul 2019 16:24:42 -0600
+
+* __Merge pull request #441 from kevwalsh/4005-toc-field__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 15 Jul 2019 16:24:25 -0600
+    
+    VAGOV-4005: Table of contents boolean for detail pages.
+
+* __Merge pull request #443 from beeyayjay/VAGOV-000-hub-icon-migration-fix__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 15 Jul 2019 13:20:09 -0600
+    
+    VAGOV-000 hub icon migration fix
+
+
 ## 2019-07-12.1 Sprint 18 mid-sprint release 3.
 
 * __Merge branch &#39;develop&#39;__
@@ -1470,3 +1517,5 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
     VAGOV-2623: Remove password_policy.
 
 ## END OF FILE
+
+
