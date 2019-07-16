@@ -24,8 +24,8 @@ class CollapsiblePanel extends ParagraphType {
    * {@inheritdoc}
    */
   protected function isParagraph(DOMQuery $query_path) {
-    if ($query_path->hasClass('usa-accordion')) {
-      if (!$query_path->find('li button.usa-accordion-button')) {
+    if ($query_path->hasClass('usa-accordion') || $query_path->hasClass('usa-accordion-bordered')) {
+      if ($query_path->find('li button.usa-accordion-button')->count() == 0) {
         Message::make('Collapsible panel without any items: @html', ['@html' => $query_path->html()], Message::ERROR);
       }
       return !QAAccordion::isQaAccordionGroup($query_path);
