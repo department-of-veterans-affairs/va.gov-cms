@@ -8,7 +8,10 @@ dependencies:
     - field.field.node.health_care_region_page.field_clinical_health_care_servi
     - field.field.node.health_care_region_page.field_clinical_health_services
     - field.field.node.health_care_region_page.field_description
+    - field.field.node.health_care_region_page.field_email_subscription
+    - field.field.node.health_care_region_page.field_email_subscription_links
     - field.field.node.health_care_region_page.field_facebook
+    - field.field.node.health_care_region_page.field_featured_content_healthser
     - field.field.node.health_care_region_page.field_flickr
     - field.field.node.health_care_region_page.field_instagram
     - field.field.node.health_care_region_page.field_intro_text
@@ -27,6 +30,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_other_va_locations
     - field.field.node.health_care_region_page.field_press_release_blurb
     - field.field.node.health_care_region_page.field_related_links
+    - field.field.node.health_care_region_page.field_sign_up_for_emergency_emai
     - field.field.node.health_care_region_page.field_twitter
     - node.type.health_care_region_page
   module:
@@ -166,6 +170,15 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
+  field_featured_content_healthser:
+    type: entity_reference_revisions_entity_view
+    weight: 26
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
     region: content
   field_flickr:
     weight: 14
@@ -326,5 +339,8 @@ content:
     type: link
     region: content
 hidden:
+  field_email_subscription: true
+  field_email_subscription_links: true
   field_meta_tags: true
+  field_sign_up_for_emergency_emai: true
   links: true
