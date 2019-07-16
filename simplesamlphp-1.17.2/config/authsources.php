@@ -29,7 +29,10 @@ $config = [
         // Can be NULL/unset, in which case a builtin discovery service will be used.
         'discoURL' => null,
 
-        'NameIDPolicy'         => null,
+        'NameIDPolicy'         => [
+            'Format' => 'urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified',
+            'allowcreate' => 'true',
+        ],
         'redirect.sign'        => false,
         'assertion.encryption' => false,
         'sign.logout'          => false,
