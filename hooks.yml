@@ -1,0 +1,15 @@
+
+deploy: |
+  echo "Running deploy hooks from hooks.yml in the $DEVSHOP_ENVIRONMENT environment for the $DEVSHOP_PROJECT..."
+  drush {{alias}} cr
+  drush {{alias}} updb -y
+  drush {{alias}} cim -y
+  drush {{alias}} cr
+
+  echo "Environment Variables:"
+  env
+
+# Fires after "Run Tests" task.
+test: |
+  echo "Running test hooks from hooks.yml in the $DEVSHOP_ENVIRONMENT environment for the $DEVSHOP_PROJECT..."
+  bin/yaml-tests
