@@ -4,7 +4,7 @@
 
 va/deploy/0-composer:
   description: Composer Install
-  command: composer install --no-interaction --no-progress
+  command: composer install --no-interaction --no-progress --no-dev
 
 va/deploy/1-cache:
   description: Rebuild Drupal caches
