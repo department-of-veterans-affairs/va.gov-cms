@@ -1,10 +1,8 @@
 
 deploy: |
   echo "Running deploy hooks from hooks.yml in the $DEVSHOP_ENVIRONMENT environment for the $DEVSHOP_PROJECT..."
-  drush {{alias}} cr
-  drush {{alias}} updb -y
-  drush {{alias}} cim -y
-  drush {{alias}} cr
+
+  composer yaml-tests --tests-file=deploy.yml --ansi
 
   echo "Environment Variables:"
   env
