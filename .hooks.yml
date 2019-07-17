@@ -1,11 +1,8 @@
 
 deploy: |
-  echo "Running deploy hooks from hooks.yml in the $DEVSHOP_ENVIRONMENT environment for the $DEVSHOP_PROJECT..."
-
-  composer yaml-tests --tests-file=deploy.yml --ansi
-
-  echo "Environment Variables:"
-  env
+  echo "Skipping deploy.yml hooks, since they are run in the 'test' task."
+  echo "This command SHOULD be run during a real deployment to production, where tests.yml will not be run."
+  # composer yaml-tests --tests-file=deploy.yml --ansi
 
 # Fires after "Run Tests" task.
 test: |
