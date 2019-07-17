@@ -2,7 +2,7 @@
 deploy: |
   echo "Running deploy hooks from hooks.yml in the $DEVSHOP_ENVIRONMENT environment for the $DEVSHOP_PROJECT..."
 
-  composer yaml-tests --tests-file=deploy.yml --ansi || true
+  composer yaml-tests --tests-file=deploy.yml --ansi
 
   echo "Environment Variables:"
   env
