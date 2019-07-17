@@ -31,12 +31,13 @@ node_modules/
 .idea
 
 # Ignore CMS-CI files
-sites/sites.php
-sites/*/files
-sites/*/private
-sites/*/drushrc.php
-sites/*/settings.php
-sites/*/local.settings.php
-sites/all/drush/drushrc.php
+/docroot/sites/sites.php
+/docroot/sites/*/files
+/docroot/sites/*/private
+/docroot/sites/*/drushrc.php
+/docroot/sites/*/aegir.services.yml
+/docroot/sites/*/settings.php
+/docroot/sites/*/local.settings.php
+/docroot/sites/all/drush/drushrc.php
 
-!sites/default/settings.php
+!/docroot/sites/default/settings.php
