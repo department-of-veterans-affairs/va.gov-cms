@@ -13,7 +13,7 @@ $metadata['VA_SSOi_IDP'] = array(
     'contacts' =>
         array(),
     'metadata-set' => 'saml20-idp-remote',
-    'sign.authnrequest' => FALSE,
+    'sign.authnrequest' => TRUE,
     'SingleSignOnService' =>
         array(
             0 =>
