@@ -3,7 +3,7 @@
 
 va/deploy/1-cache:
   description: Rebuild Drupal caches
-  command: env && drush $DRUSH_ALIAS cr
+  command: which drush && drush $DRUSH_ALIAS cr
 
 va/deploy/2-update:
   description: Run Drupal Update Hooks
