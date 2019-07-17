@@ -25,7 +25,7 @@ events:
 
 services:
   appserver:
-    run_as_root:et,
+    run_as_root:
       - "apt-get update -y"
       - "apt-get install build-essential chrpath libssl-dev libxft-dev libfreetype6-dev libfreetype6 libfontconfig1-dev libfontconfig1 -y"
 #      - "tar xvjf /app/phantomjs-2.1.1-linux-x86_64.tar.bz2 -C /usr/local/share/"
