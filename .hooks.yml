@@ -1,0 +1,13 @@
+
+deploy: |
+  echo "Skipping deploy.yml hooks, since they are run in the 'test' task."
+  echo "This command SHOULD be run during a real deployment to production, where tests.yml will not be run."
+
+# Current Deploy command: This runs all hooks: cache rebuild, config import, etc.
+# composer yaml-tests --tests-file=deploy.yml --ansi
+
+# Fires after "Run Tests" task.
+test: |
+  echo "Running test hooks from hooks.yml in the $DEVSHOP_ENVIRONMENT environment for the $DEVSHOP_PROJECT..."
+  env
+  composer yaml-tests --ansi
