@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.health_care_region_detail_page.field_meta_title
     - field.field.node.health_care_region_detail_page.field_office
     - field.field.node.health_care_region_detail_page.field_related_links
+    - field.field.node.health_care_region_detail_page.field_table_of_contents_boolean
     - node.type.health_care_region_detail_page
   module:
     - entity_reference_revisions
@@ -142,6 +143,16 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
+  field_table_of_contents_boolean:
+    weight: 13
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
 hidden:
   field_meta_tags: true

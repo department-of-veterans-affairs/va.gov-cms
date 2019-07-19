@@ -5,13 +5,14 @@ dependencies:
   config:
     - field.storage.node.field_office
     - node.type.event
+    - node.type.event_listing
     - node.type.health_care_region_page
     - node.type.office
 id: node.event.field_office
 field_name: field_office
 entity_type: node
 bundle: event
-label: 'Related office or health care region'
+label: 'Event listing'
 description: ''
 required: true
 translatable: true
@@ -21,6 +22,7 @@ settings:
   handler: unpublished
   handler_settings:
     target_bundles:
+      event_listing: event_listing
       health_care_region_page: health_care_region_page
       office: office
     sort:

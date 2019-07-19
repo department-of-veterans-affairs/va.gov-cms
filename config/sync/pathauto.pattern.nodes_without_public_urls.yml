@@ -7,9 +7,9 @@ dependencies:
 id: nodes_without_public_urls
 label: 'Nodes without public URLs'
 type: 'canonical_entities:node'
-pattern: '[node:content-type]/[node:title]'
+pattern: '[node:field_office:entity:url:path]/[node:title]'
 selection_criteria:
-  3fa981c5-3dda-497b-ac33-6d34be810db0:
+  555fa314-9f67-4e9a-99ea-d3a66cea1343:
     id: node_type
     bundles:
       outreach_asset: outreach_asset
@@ -18,7 +18,7 @@ selection_criteria:
     negate: false
     context_mapping:
       node: node
-    uuid: 3fa981c5-3dda-497b-ac33-6d34be810db0
+    uuid: 555fa314-9f67-4e9a-99ea-d3a66cea1343
 selection_logic: and
 weight: -4
 relationships: {  }

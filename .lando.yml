@@ -8,10 +8,10 @@ events:
   # Mirrors what is in lando-entrypoint-app.sh, keep in sync with that file.
   # @todo don't use absolute path, somehow lando is not detecting drush in path right now. Fix this.
   post-db-import:
-    - appserver: cd $LANDO_WEBROOT && /app/docroot/vendor/bin/drush cache-rebuild -y
-    - appserver: cd $LANDO_WEBROOT && /app/docroot/vendor/bin/drush updatedb -y
-    - appserver: cd $LANDO_WEBROOT && /app/docroot/vendor/bin/drush config:import -y
-    - appserver: cd $LANDO_WEBROOT && /app/docroot/vendor/bin/drush cache-rebuild -y
+    - appserver: cd $LANDO_WEBROOT && /app/bin/drush cache-rebuild -y
+    - appserver: cd $LANDO_WEBROOT && /app/bin/drush updatedb -y
+    - appserver: cd $LANDO_WEBROOT && /app/bin/drush config:import -y
+    - appserver: cd $LANDO_WEBROOT && /app/bin/drush cache-rebuild -y
 
   # Runs composer install after app starts
   post-start:
@@ -79,19 +79,19 @@ services:
 #        VA_SOCKS_PROXY_SSH_CONFIG: ${VA_SOCKS_PROXY_SSH_CONFIG}
 tooling:
   drush:
-    cmd: /app/docroot/vendor/bin/drush
+    cmd: /app/bin/drush
   phantomjs:
     service: appserver
     description: "Run phantomjs commands"
   phpunit:
     service: appserver
     description: "Run PHP Unit tests: lando phpunit. Syntax: lando phpunit {PATH-TO-TEST}"
-    cmd: /app/docroot/vendor/bin/phpunit --bootstrap=/app/docroot/vendor/weitzman/drupal-test-traits/src/bootstrap.php -c /app
+    cmd: /app/bin/phpunit --bootstrap=/app/docroot/vendor/weitzman/drupal-test-traits/src/bootstrap.php -c /app
   behat:
     service: appserver
     description: "Run behat tests locally. Run from /tests dir."
     cmd:
-      - /app/docroot/vendor/bin/behat
+      - /app/bin/behat
   npm:
     service: node
   node:

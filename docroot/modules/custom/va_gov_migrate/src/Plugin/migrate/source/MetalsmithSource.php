@@ -3,8 +3,10 @@
 namespace Drupal\va_gov_migrate\Plugin\migrate\source;
 
 use Drupal\Core\Site\Settings;
+use Drupal\migrate\MigrateException;
 use Drupal\migration_tools\Message;
 use Drupal\migration_tools\Plugin\migrate\source\UrlList;
+use Drupal\migration_tools\StringTools;
 use Drupal\va_gov_migrate\AnomalyMessage;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -49,6 +51,13 @@ class MetalsmithSource extends UrlList {
    */
   protected $dirLists;
 
+  /**
+   * List of excluded paths from yaml file.
+   *
+   * @var array
+   */
+  protected $excludedPaths;
+
   const CONTENT_URL = "https://api.github.com/repos/department-of-veterans-affairs/vagov-content/contents";
   const PAGES_URL = "https://api.github.com/repos/department-of-veterans-affairs/vagov-content/contents/pages";
 
@@ -59,6 +68,7 @@ class MetalsmithSource extends UrlList {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $migration);
 
     $this->templates = empty($configuration['templates']) ? '' : $configuration['templates'];
+    $this->excludedPaths = empty($configuration['excluded_paths']) ? [] : $configuration['excluded_paths'];
     $this->server = empty($configuration['server']) ? 'https://www.va.gov' : $configuration['server'];
     $this->dirLists = [];
   }
@@ -171,7 +181,16 @@ class MetalsmithSource extends UrlList {
 
     foreach ($tree->tree as $branch) {
       if ($branch->type == 'blob') {
-        $this->addRow($branch->url, $url . '/' . $branch->path);
+        $excluded = FALSE;
+        foreach ($this->excludedPaths as $excluded_path) {
+          if (strpos($branch->path, $excluded_path . '/') === 0) {
+            $excluded = TRUE;
+            break;
+          }
+        }
+        if (!$excluded) {
+          $this->addRow($branch->url, $url . '/' . $branch->path);
+        }
       }
     }
   }
@@ -208,7 +227,11 @@ class MetalsmithSource extends UrlList {
 
     // Make sure title isn't too long.
     if (!empty($row['title']) && strlen($row['title']) > 51) {
-      AnomalyMessage::make("Some <title> tags are longer than 51 characters", $row['heading'], $row['url'], $row['title']);
+      // Allow multiple title tag errors.
+      \Drupal::state()->delete('va_gov_migrate.anomaly');
+
+      $page_title = empty($row['heading']) ? $row['title'] : $row['heading'];
+      AnomalyMessage::make("Some <title> tags are longer than 51 characters", $page_title, $row['url'], $row['title']);
     }
 
     // Extract the plainlanguage date, if any.
@@ -256,12 +279,24 @@ class MetalsmithSource extends UrlList {
       return [];
     }
     else {
-      if ($page_content !== NULL && count($page_part) > 2) {
+      $widget_data = [];
+      if (count($page_part) > 1) {
         $page_content = str_replace('**--*--*--**', '------', $page_part[2]);
+        $qp = $this->createQueryPath($page_content);
+        $widgets = $qp->find('[data-widget-type]');
+        /** @var \QueryPath\DOMQuery $widget */
+        foreach ($widgets as $widget) {
+          $data = [];
+          $data['type'] = $widget->attr('data-widget-type');
+          $data['timeout'] = $widget->attr('data-widget-timeout');
+          $data['loadingMessage'] = StringTools::superTrim($widget->find('.loading-indicator-message')->innerHTML());
+          $data['errorMessage'] = StringTools::superTrim($widget->find('.usa-alert-body')->innerHTML());
+          $widget_data[] = $data;
+        }
       }
 
       try {
-        return Yaml::parse($page_part[1]);
+        return array_merge(['widgets' => $widget_data], Yaml::parse($page_part[1]));
       }
       catch (ParseException $exception) {
         Message::make('Unable to parse the YAML string: @message', ['@message' => $exception->getMessage()], Message::ERROR);
@@ -355,6 +390,32 @@ class MetalsmithSource extends UrlList {
       $row['path'] = $site_path;
     }
 
+  }
+
+  /**
+   * Creates a query path from html text.
+   *
+   * @param string $html
+   *   The html to build the query path from.
+   *
+   * @return \QueryPath\DOMQuery
+   *   The resulting query path.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  protected function createQueryPath($html) {
+    try {
+      $query_path = htmlqp(mb_convert_encoding($html, "HTML-ENTITIES", "UTF-8"));
+    }
+    catch (\Exception $e) {
+      throw new MigrateException('Failed to instantiate QueryPath: ' . $e->getMessage());
+    }
+    // Sometimes queryPath fails.  So one last check.
+    if (empty($query_path) || !is_object($query_path)) {
+      throw new MigrateException("Failed to initialize QueryPath.");
+    }
+
+    return $query_path;
   }
 
 }
