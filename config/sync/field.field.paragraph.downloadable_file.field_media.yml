@@ -1,0 +1,30 @@
+uuid: f2a16603-7407-4f4c-8779-44f67be36a47
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_media
+    - media.type.document
+    - media.type.image
+    - paragraphs.paragraphs_type.downloadable_file
+id: paragraph.downloadable_file.field_media
+field_name: field_media
+entity_type: paragraph
+bundle: downloadable_file
+label: 'Select a document or image to be displayed as a downloadable file'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      document: document
+      image: image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: document
+field_type: entity_reference
