@@ -877,7 +877,7 @@ display:
           group_type: group
           admin_label: ''
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -909,7 +909,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -1313,13 +1313,13 @@ display:
       tags:
         - 'config:core.entity_view_display.media.document.default'
         - 'config:core.entity_view_display.media.document.media_library'
-        - 'config:core.entity_view_display.media.document.download_link'
-        - 'config:core.entity_view_display.media.document.embedded'
-        - 'config:core.entity_view_display.media.document.thumbnail'
         - 'config:core.entity_view_display.media.image.default'
         - 'config:core.entity_view_display.media.image.download_link'
         - 'config:core.entity_view_display.media.image.embedded'
         - 'config:core.entity_view_display.media.image.thumbnail'
+        - 'config:core.entity_view_display.media.document.download_link'
+        - 'config:core.entity_view_display.media.document.embedded'
+        - 'config:core.entity_view_display.media.document.thumbnail'
         - 'config:core.entity_view_display.media.video.default'
         - 'config:core.entity_view_display.media.video.embedded'
         - 'config:core.entity_view_display.media.video.thumbnail'
