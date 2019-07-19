@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.media.field_allow_clicks_on_this_image
     - field.field.paragraph.media.field_markup
     - field.field.paragraph.media.field_media
     - paragraphs.paragraphs_type.media
@@ -11,6 +12,16 @@ targetEntityType: paragraph
 bundle: media
 mode: default
 content:
+  field_allow_clicks_on_this_image:
+    weight: 1
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
   field_media:
     type: entity_reference_entity_view
     weight: 0
