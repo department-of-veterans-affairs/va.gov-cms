@@ -1,0 +1,53 @@
+uuid: 64e07883-7ab6-4790-8a55-7bbf509afec4
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.media
+  module:
+    - lightning_media
+    - views
+name: downloadable_file_browser
+label: 'Downloadable file browser'
+display: modal
+display_configuration:
+  width: ''
+  height: ''
+  link_text: 'Select file'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  b33369f7-597c-4cf4-bad4-3fa4e012fe9f:
+    settings:
+      submit_text: Place
+      target_bundles: {  }
+      form_mode: media_browser
+      return_file: false
+      upload_validators: {  }
+    uuid: b33369f7-597c-4cf4-bad4-3fa4e012fe9f
+    weight: -8
+    label: 'Upload a new file'
+    id: file_upload
+  5a0f18d8-bafa-4a6f-951c-021e423a0507:
+    settings:
+      view: media
+      view_display: entity_browser_3
+      submit_text: Place
+      auto_select: false
+    uuid: 5a0f18d8-bafa-4a6f-951c-021e423a0507
+    weight: -9
+    label: 'Document library'
+    id: view
+  4eb37a67-bf08-4966-a066-cfa80b42a2ad:
+    settings:
+      view: media
+      view_display: entity_browser_2
+      submit_text: Place
+      auto_select: false
+    uuid: 4eb37a67-bf08-4966-a066-cfa80b42a2ad
+    weight: -10
+    label: 'Image library'
+    id: view
