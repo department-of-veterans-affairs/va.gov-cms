@@ -75,7 +75,7 @@ abstract class ParagraphType {
           $paragraph->save();
         }
 
-        static::attachParagraph($paragraph, $entity, $parent_field);
+        static::attachParagraph($paragraph, $entity, $parent_field, $query_path);
 
         $this->addChildParagraphs($paragraph, $this->getChildQuery($query_path));
 
@@ -166,10 +166,12 @@ abstract class ParagraphType {
    *   The parent entity.
    * @param string $parent_field
    *   The machine name of the paragraph field on the parent entity.
+   * @param \QueryPath\DOMQuery|null $query_path
+   *   Optional parameter for the use of children.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public static function attachParagraph(Paragraph $paragraph, Entity &$entity, $parent_field) {
+  public static function attachParagraph(Paragraph $paragraph, Entity &$entity, $parent_field, DOMQuery $query_path = NULL) {
     if (!\Drupal::state()->get('va_gov_migrate.dont_migrate_paragraphs')) {
       $current = $entity->get($parent_field)->getValue();
       $current[] = [
