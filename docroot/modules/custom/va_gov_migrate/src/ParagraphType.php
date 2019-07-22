@@ -366,4 +366,38 @@ abstract class ParagraphType {
     ];
   }
 
+  /**
+   * Checks content for illegal tags and returns html.
+   *
+   * @param \QueryPath\DOMQuery $query_path
+   *   The query containing the content.
+   *
+   * @return mixed
+   *   Inner html as rich text.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  public static function toLongText(DOMQuery $query_path) {
+    $legal_tags = ['em', 'a', 'strong', 'br', 'p'];
+    $illegal_tags = [];
+    if (!in_array($query_path->tag(), $legal_tags)) {
+      $illegal_tags[] = $query_path->tag();
+    }
+    $children = $query_path->children();
+    foreach ($children as $child) {
+      if (!in_array($child->tag(), $legal_tags)) {
+        $illegal_tags[] = $child->tag();
+      }
+    }
+    if (!empty($illegal_tags)) {
+      AnomalyMessage::makeFromRow('Illegal tag(s) in long text', static::$migrator->row, implode(', ', $illegal_tags));
+    }
+
+    $text = '';
+    if (!empty(trim($query_path->text()))) {
+      $text = strip_tags($query_path->html(), '<em><a><strong><br><p>');
+    }
+    return $text;
+  }
+
 }

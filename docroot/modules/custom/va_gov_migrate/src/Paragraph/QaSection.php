@@ -2,7 +2,6 @@
 
 namespace Drupal\va_gov_migrate\Paragraph;
 
-use Drupal\migration_tools\Obtainer\ObtainPlainTextWithNewLines;
 use Drupal\migration_tools\StringTools;
 use Drupal\va_gov_migrate\AnomalyMessage;
 use Drupal\va_gov_migrate\ParagraphType;
@@ -103,13 +102,7 @@ class QaSection extends ParagraphType {
       }
       else {
         // If it survived all the tests, it's intro text.
-        $this->testIntro($qp);
-        if (!empty($intro_text)) {
-          // Add line breaks between elements.
-          $intro_text .= PHP_EOL . PHP_EOL;
-        }
-        // Replace p and br tags with line breaks.
-        $intro_text .= ObtainPlainTextWithNewLines::cleanString($qp->html());
+        $intro_text .= self::toLongText($qp);
       }
 
       $qp = $qp->next();
