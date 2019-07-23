@@ -7,16 +7,16 @@ dependencies:
 id: person_profile
 label: 'Person profile'
 type: 'canonical_entities:node'
-pattern: '[node:field_office:entity:url:path]/[node:title]'
+pattern: '[node:field_office:entity:url:path]/staff-profiles/[node:title]'
 selection_criteria:
-  8716c16a-a0f1-4cbc-b8b5-ee669f30c3da:
+  8864c793-a626-401c-8b8b-538d28f2f196:
     id: node_type
     bundles:
       person_profile: person_profile
     negate: false
     context_mapping:
       node: node
-    uuid: 8716c16a-a0f1-4cbc-b8b5-ee669f30c3da
+    uuid: 8864c793-a626-401c-8b8b-538d28f2f196
 selection_logic: and
 weight: -3
 relationships: {  }
