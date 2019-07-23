@@ -1,0 +1,45 @@
+uuid: b8969443-dedd-4514-9ed5-bb3e4b130c97
+langcode: en
+status: true
+dependencies:
+  config:
+    - page_manager.page.homepage
+  module:
+    - panels
+    - user
+id: homepage-panels_variant-1
+label: 'Anonymous homepage'
+variant: panels_variant
+variant_settings:
+  blocks:
+    8aee8501-845f-470c-9e54-7436cf9d2d5e:
+      id: user_login_block
+      label: 'User login'
+      provider: user
+      label_display: visible
+      region: top
+      weight: 0
+      uuid: 8aee8501-845f-470c-9e54-7436cf9d2d5e
+      context_mapping: {  }
+  id: panels_variant
+  uuid: a6f5b1a4-2c26-472f-aae9-588cabc1fe32
+  label: null
+  weight: 0
+  layout: layout_twocol_bricks
+  layout_settings: {  }
+  page_title: 'Welcome to the VA.gov CMS'
+  storage_type: page_manager
+  storage_id: homepage-panels_variant-1
+  builder: standard
+page: homepage
+weight: 0
+selection_criteria:
+  -
+    id: user_role
+    roles:
+      anonymous: anonymous
+    negate: false
+    context_mapping:
+      user: current_user
+selection_logic: and
+static_context: {  }
