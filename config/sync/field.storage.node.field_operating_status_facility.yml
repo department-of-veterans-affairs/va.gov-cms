@@ -1,0 +1,30 @@
+uuid: 865cd8d7-fa61-4174-a21e-e386ab083d7e
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_operating_status_facility
+field_name: field_operating_status_facility
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: normal
+      label: 'Normal services and hours'
+    -
+      value: limited
+      label: 'Limited services and hours'
+    -
+      value: closed
+      label: 'Facility closed'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
