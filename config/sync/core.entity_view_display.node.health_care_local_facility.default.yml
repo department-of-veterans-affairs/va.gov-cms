@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_meta_tags
     - field.field.node.health_care_local_facility.field_meta_title
     - field.field.node.health_care_local_facility.field_nickname_for_this_facility
+    - field.field.node.health_care_local_facility.field_operating_status_facility
     - field.field.node.health_care_local_facility.field_region_page
     - field.field.node.health_care_local_facility.field_twitter
     - node.type.health_care_local_facility
@@ -25,6 +26,7 @@ dependencies:
     - entity_reference_revisions
     - field_group
     - link
+    - options
     - user
 third_party_settings:
   field_group:
@@ -180,6 +182,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_operating_status_facility:
+    weight: 18
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
     region: content
   field_region_page:
     weight: 2
