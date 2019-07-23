@@ -8,6 +8,88 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
+
+## 2019-07-23.1 Sprint 19 mid-sprint release 1.
+
+* __Merge branch &#39;develop&#39;__
+
+    [Andy Hawks](mailto:andy@andyhawks.com) - Tue, 23 Jul 2019 13:22:58 -0600
+    
+    EAD -&gt; refs/heads/master, tag: refs/tags/20190723.1, refs/remotes/upstream/master
+    VAGOV-000: 2019-07-23 Sprint 19 mid-sprint release 1.
+
+* __Merge pull request #461 from department-of-veterans-affairs/VAGOV-4852-operating-status-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 23 Jul 2019 13:08:32 -0600
+    
+    efs/remotes/upstream/develop, refs/heads/develop
+    VAGOV-4852: Adding operation status to facility type.
+
+* __Merge branch &#39;develop&#39; into VAGOV-4852-operating-status-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 23 Jul 2019 11:03:54 -0600
+    
+    efs/remotes/upstream/VAGOV-4852-operating-status-et
+
+* __Merge pull request #459 from ethanteague/VAGOV-4351-staff-fields__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 23 Jul 2019 11:03:27 -0600
+
+    VAGOV-4351: Updating profile alias pattern.
+
+* __Merge branch &#39;develop&#39; into VAGOV-4351-staff-fields__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 23 Jul 2019 10:16:26 -0600
+
+* __Merge pull request #456 from beeyayjay/VAGOV-5066-update-hub-icons__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 23 Jul 2019 10:16:06 -0600
+
+    VAGOV-5066 update hub icons
+
+* __Merge branch &#39;develop&#39; into VAGOV-4852-operating-status-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 23 Jul 2019 09:19:11 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-4351-staff-fields__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 23 Jul 2019 09:19:05 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-5066-update-hub-icons__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 23 Jul 2019 09:18:39 -0600
+
+* __Merge pull request #455 from department-of-veterans-affairs/VAGOV-4623-featured-facilities-content__
+
+    [jonbot](mailto:jonathan@majorrobot.com) - Tue, 23 Jul 2019 10:50:38 -0400
+
+    VAGOV-4623: Featured content functionality
+
+* __Merge pull request #454 from kevwalsh/4371-rename-press-release__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 19 Jul 2019 09:59:56 -0600
+
+    VAGOV-4371: Rename press release and health service node types.
+
+* __Merge pull request #452 from ElijahLynn/VAGOV-5047-fix-failed-deploys__
+
+    [Elijah Lynn](mailto:elijah.lynn@agile6.com) - Thu, 18 Jul 2019 20:41:20 -0700
+
+    VAGOV-5047 Use 0.3.10 of j2cli `j2` due to upstream bug.
+
+* __Merge pull request #450 from beeyayjay/VAGOV-4767-link-teasers__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 18 Jul 2019 08:50:38 -0600
+    
+    VAGOV-4899: Migrate linkslist items with html in summary.
+
+* __Merge pull request #447 from ethanteague/VAGOV-4965-update-office-config__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 17 Jul 2019 09:56:20 -0600
+
+    VAGOV-4965: Updating office config.
+
+
 ## 2019-07-16.1 Sprint 18 final sprint release 1.
 
 * __Merge branch &#39;develop&#39;__
@@ -1517,5 +1599,3 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
     VAGOV-2623: Remove password_policy.
 
 ## END OF FILE
-
-
