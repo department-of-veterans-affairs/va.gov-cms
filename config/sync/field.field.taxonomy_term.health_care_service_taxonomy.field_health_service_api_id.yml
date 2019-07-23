@@ -1,0 +1,19 @@
+uuid: 7657acde-69a6-4b95-81da-2fa2438f87e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_health_service_api_id
+    - taxonomy.vocabulary.health_care_service_taxonomy
+id: taxonomy_term.health_care_service_taxonomy.field_health_service_api_id
+field_name: field_health_service_api_id
+entity_type: taxonomy_term
+bundle: health_care_service_taxonomy
+label: 'Health Service API ID'
+description: "The \"Health Service API ID\" is used to match the health service with the data result set that comes back from calling the endpoint that retrieves the facility data.\r\nThis is used to display data such as appointment wait times on the local facility page.\r\nThis value must be exact, or else the desired data will not appear.\r\nHere is a list of known \"Health Service API ID\"s that come back from the facility API we are currently using:\r\naudiology,\r\ncardiology,\r\ndermatology,\r\ngastroenterology,\r\ngynecology,\r\nmentalHealth,\r\nophthalmology,\r\noptometry,\r\northopedics,\r\nprimaryCare,\r\nspecialtyCare,\r\nurology."
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
