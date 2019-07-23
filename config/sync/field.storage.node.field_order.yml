@@ -1,0 +1,27 @@
+uuid: 5c00e11c-1ad8-4af3-94c1-93a961070a42
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_order
+field_name: field_order
+entity_type: node
+type: list_integer
+settings:
+  allowed_values:
+    -
+      value: 0
+      label: 1st
+    -
+      value: 1
+      label: 2nd
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
