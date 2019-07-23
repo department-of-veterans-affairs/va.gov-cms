@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.news_story.field_media
     - field.field.node.news_story.field_meta_tags
     - field.field.node.news_story.field_office
+    - field.field.node.news_story.field_order
     - node.type.news_story
   module:
     - content_moderation
@@ -58,6 +59,7 @@ third_party_settings:
     group_feature_this_story:
       children:
         - field_featured
+        - field_order
       parent_name: group_editor
       weight: 20
       format_type: fieldset
@@ -197,6 +199,12 @@ content:
     region: content
   field_office:
     weight: 16
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_order:
+    weight: 22
     settings: {  }
     third_party_settings: {  }
     type: options_select
