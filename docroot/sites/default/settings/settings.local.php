@@ -20,6 +20,7 @@ $config['environment_indicator.indicator']['name'] = 'Local';
 
 $settings['trusted_host_patterns'] = [
     '^localhost$',
+    'local.cms.va.gov',
     '^va-gov-cms\.lndo\.site$',
     '^vagovcms\.lndo\.site$',
 ];

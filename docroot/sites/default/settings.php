@@ -782,9 +782,10 @@ $settings['va_cms_bot_github_auth_token'] = getenv('VA_CMS_BOT_GITHUB_AUTH_TOKEN
 $config['config_split.config_split.config_dev']['status'] = FALSE;
 $config_directories['sync'] = '../config/sync';
 
-if (file_exists($app_root . '/' . $site_path . '/settings/settings.lando.php')) {
-  include $app_root . '/' . $site_path . '/settings/settings.lando.php';
-}
+# Not using right now while working on BRD.
+//if (file_exists($app_root . '/' . $site_path . '/settings/settings.lando.php')) {
+//  include $app_root . '/' . $site_path . '/settings/settings.lando.php';
+//}
 
 $env_type = getenv('ENVIRONMENT_TYPE') ?: 'local';
 
