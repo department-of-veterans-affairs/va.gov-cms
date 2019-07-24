@@ -24,9 +24,9 @@ COPY docker/config/engine/scripts/wait-for-it.sh /usr/bin/wait-for-it.sh
 COPY . /app
 
 # Custom vagovcms settings
-RUN apt-get update -y
-RUN apt-get install python-pip -y
-RUN pip install j2cli
+RUN apt-get update -y \
+ && apt-get install python-pip -y
+RUN pip install -Iv j2cli==0.3.10
 RUN mkdir /templates
 COPY docker/templates/* /templates/
 # @see .composer-cache/README.md & https://stackoverflow.com/a/46801962/292408

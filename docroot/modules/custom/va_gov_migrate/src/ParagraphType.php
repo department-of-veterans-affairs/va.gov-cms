@@ -75,7 +75,7 @@ abstract class ParagraphType {
           $paragraph->save();
         }
 
-        static::attachParagraph($paragraph, $entity, $parent_field);
+        static::attachParagraph($paragraph, $entity, $parent_field, $query_path);
 
         $this->addChildParagraphs($paragraph, $this->getChildQuery($query_path));
 
@@ -166,10 +166,12 @@ abstract class ParagraphType {
    *   The parent entity.
    * @param string $parent_field
    *   The machine name of the paragraph field on the parent entity.
+   * @param \QueryPath\DOMQuery|null $query_path
+   *   Optional parameter for the use of children.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public static function attachParagraph(Paragraph $paragraph, Entity &$entity, $parent_field) {
+  public static function attachParagraph(Paragraph $paragraph, Entity &$entity, $parent_field, DOMQuery $query_path = NULL) {
     if (!\Drupal::state()->get('va_gov_migrate.dont_migrate_paragraphs')) {
       $current = $entity->get($parent_field)->getValue();
       $current[] = [
@@ -364,6 +366,40 @@ abstract class ParagraphType {
       "value" => $text,
       "format" => "rich_text",
     ];
+  }
+
+  /**
+   * Checks content for illegal tags and returns html.
+   *
+   * @param \QueryPath\DOMQuery $query_path
+   *   The query containing the content.
+   *
+   * @return mixed
+   *   Inner html as rich text.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  public static function toLongText(DOMQuery $query_path) {
+    $legal_tags = ['em', 'a', 'strong', 'br', 'p'];
+    $illegal_tags = [];
+    if (!in_array($query_path->tag(), $legal_tags)) {
+      $illegal_tags[] = $query_path->tag();
+    }
+    $children = $query_path->children();
+    foreach ($children as $child) {
+      if (!in_array($child->tag(), $legal_tags)) {
+        $illegal_tags[] = $child->tag();
+      }
+    }
+    if (!empty($illegal_tags)) {
+      AnomalyMessage::makeFromRow('Illegal tag(s) in long text', static::$migrator->row, implode(', ', $illegal_tags));
+    }
+
+    $text = '';
+    if (!empty(trim($query_path->text()))) {
+      $text = strip_tags($query_path->html(), '<em><a><strong><br><p>');
+    }
+    return $text;
   }
 
 }
