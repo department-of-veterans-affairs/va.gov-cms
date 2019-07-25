@@ -13,7 +13,7 @@ id: block_content.alert.field_alert_content
 field_name: field_alert_content
 entity_type: block_content
 bundle: alert
-label: 'Crisis Alert Answer'
+label: 'Alert body'
 description: 'Remember that this content is for people in crisis: be simple and straighforward.<br /><ul><li>Give a single clear next step</li><li>Highlight the <strong>most important information</strong> in bold</li><li>Link to an additional page if there''s more information to share</li><ul>'
 required: true
 translatable: false
@@ -65,5 +65,32 @@ settings:
         enabled: false
       starred_horizontal_rule:
         weight: -15
+        enabled: false
+      downloadable_file:
+        weight: 27
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 29
+        enabled: false
+      media:
+        weight: 32
+        enabled: false
+      megamenu_links_column:
+        weight: 33
+        enabled: false
+      megamenu_menu_item:
+        weight: 34
+        enabled: false
+      number_callout:
+        weight: 35
+        enabled: false
+      spanish_translation_summary:
+        weight: 40
+        enabled: false
+      staff_profile:
+        weight: 41
+        enabled: false
+      table:
+        weight: 43
         enabled: false
 field_type: entity_reference_revisions
