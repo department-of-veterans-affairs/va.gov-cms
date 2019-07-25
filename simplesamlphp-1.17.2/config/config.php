@@ -73,7 +73,7 @@ $config = [
      * also as the technical contact in generated metadata.
      */
     'technicalcontact_name' => 'VA.gov Administrator',
-    'technicalcontact_email' => 'andy.hawks@civicactions.com',
+    'technicalcontact_email' => 'cms-admin@va.gov',
 
     /*
      * The envelope from address for outgoing emails.
