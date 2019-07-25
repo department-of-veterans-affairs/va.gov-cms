@@ -4,6 +4,7 @@ namespace Drupal\va_gov_migrate\Paragraph\Base;
 
 use Drupal\Core\Entity\Entity;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\va_gov_migrate\Paragraph\QAAccordion;
 use Drupal\va_gov_migrate\ParagraphMigrator;
 use Drupal\va_gov_migrate\ParagraphType;
 use QueryPath\DOMQuery;
@@ -65,7 +66,7 @@ abstract class QABase extends ParagraphType {
   /**
    * {@inheritdoc}
    */
-  public static function attachParagraph(Paragraph $paragraph, Entity &$entity, $parent_field) {
+  public static function attachParagraph(Paragraph $paragraph, Entity &$entity, $parent_field, DOMQuery $query_path = NULL) {
     list('allowed' => $allowed_paragraphs) = ParagraphMigrator::getAllowedParagraphs($entity, $parent_field);
     // If this field allows Q&As just add it normally.
     if (in_array('q_a', $allowed_paragraphs)) {
@@ -83,7 +84,7 @@ abstract class QABase extends ParagraphType {
         }
       }
       // If it's not, create one.
-      if (empty($qa_section)) {
+      if (empty($qa_section) || static::needsNewSection($query_path)) {
         $qa_section = Paragraph::create([
           'type' => 'q_a_section',
           'field_accordion_display' => static::isAccordion(),
@@ -95,6 +96,26 @@ abstract class QABase extends ParagraphType {
       }
       ParagraphType::attachParagraph($paragraph, $qa_section, 'field_questions');
     }
+  }
+
+  /**
+   * Test whether a Q&A needs a new section even though there's an existing one.
+   *
+   * @param \QueryPath\DOMQuery $query_path
+   *   The path to test.
+   *
+   * @return bool
+   *   TRUE if we need a new Q&A Section.
+   */
+  protected static function needsNewSection(DOMQuery $query_path = NULL) {
+    $needs_section = FALSE;
+
+    // If don't attach Q&A's to accordions they're not a part of.
+    if (!empty($query_path) && $query_path->prev()->count() && QAAccordion::isQaAccordionGroup($query_path->prev())) {
+      $needs_section = TRUE;
+    }
+
+    return $needs_section;
   }
 
   /**
