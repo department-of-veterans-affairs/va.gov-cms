@@ -6,14 +6,15 @@ dependencies:
     - field.storage.paragraph.field_media
     - media.type.document
     - media.type.image
+    - media.type.video
     - paragraphs.paragraphs_type.downloadable_file
 id: paragraph.downloadable_file.field_media
 field_name: field_media
 entity_type: paragraph
 bundle: downloadable_file
-label: 'Select a document or image to be displayed as a downloadable file'
+label: 'Link to a file or video'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -23,6 +24,7 @@ settings:
     target_bundles:
       document: document
       image: image
+      video: video
     sort:
       field: _none
     auto_create: false
