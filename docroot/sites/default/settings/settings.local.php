@@ -19,12 +19,7 @@ $config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'Local';
 
 $settings['trusted_host_patterns'] = [
-    '^localhost$',
+    'localhost',
     'local.cms.va.gov',
-    '^va-gov-cms\.lndo\.site$',
-    '^vagovcms\.lndo\.site$',
+    'va-gov-cms.lndo.site',
 ];
-
-if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php')) {
-  include $app_root . '/' . $site_path . '/settings/settings.fast_404.php';
-}
