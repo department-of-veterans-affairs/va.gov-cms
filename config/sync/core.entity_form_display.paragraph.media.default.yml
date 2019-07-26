@@ -3,14 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - entity_browser.browser.image_browser
     - field.field.paragraph.media.field_allow_clicks_on_this_image
     - field.field.paragraph.media.field_markup
     - field.field.paragraph.media.field_media
     - paragraphs.paragraphs_type.media
   module:
-    - entity_browser
     - markup
+    - media_library
 id: paragraph.media.default
 targetEntityType: paragraph
 bundle: media
@@ -30,18 +29,9 @@ content:
     type: markup
     region: content
   field_media:
-    type: entity_browser_entity_reference
+    type: media_library_widget
     weight: 1
-    settings:
-      entity_browser: image_browser
-      field_widget_display: rendered_entity
-      field_widget_edit: true
-      field_widget_remove: true
-      field_widget_replace: true
-      open: true
-      selection_mode: selection_append
-      field_widget_display_settings:
-        view_mode: media_library
+    settings: {  }
     third_party_settings: {  }
     region: content
 hidden:
