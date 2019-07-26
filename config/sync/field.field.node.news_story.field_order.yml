@@ -1,0 +1,21 @@
+uuid: 5097d5a6-19d5-4366-989a-f7a967c0ff03
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_order
+    - node.type.news_story
+  module:
+    - options
+id: node.news_story.field_order
+field_name: field_order
+entity_type: node
+bundle: news_story
+label: Order
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_integer
