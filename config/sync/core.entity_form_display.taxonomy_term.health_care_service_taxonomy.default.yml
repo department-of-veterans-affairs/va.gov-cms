@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_also_known_as
     - field.field.taxonomy_term.health_care_service_taxonomy.field_commonly_treated_condition
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_health_service_api_id
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
     - taxonomy.vocabulary.health_care_service_taxonomy
   module:
@@ -20,7 +21,6 @@ third_party_settings:
       weight: 6
       format_type: details_sidebar
       format_settings:
-        label: Governance
         weight: '0'
         required_fields: '1'
         id: ''
@@ -42,7 +42,7 @@ content:
       rows: 5
     third_party_settings: {  }
   field_also_known_as:
-    weight: 1
+    weight: 2
     settings:
       size: 60
       placeholder: ''
@@ -50,7 +50,15 @@ content:
     type: string_textfield
     region: content
   field_commonly_treated_condition:
-    weight: 8
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_health_service_api_id:
+    weight: 1
     settings:
       size: 60
       placeholder: ''
