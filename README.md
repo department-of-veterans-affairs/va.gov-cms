@@ -2,6 +2,18 @@ This is an Aquia Lightning based implementation of Drupal 8 that uses [Lando](ht
 
 ## Get Started
 
+## HTTPS testing
+You can't test with the VA cert (custom cert on Lando) but you can use Lando's self signed cert. If you need to test the actual cert locally contact the DevOps team to help you setup the vagrant build system to get HTTPS working with VA CA. 
+
+To test with Lando's self-signed cert you need to tell your system to trust the Lando Certificate Authority. Instructions are here > https://docs.devwithlando.io/config/security.html
+
+Arch, TODO, create upstream PR with `sudo trust anchor --store ~/.lando/certs/lndo.site.pem`
+
+Note: I had to still import that same CA into Chrome.
+Go to chrome://settings/certificates?search=https
+Click "Authorities"
+Import `.lando\certs\lndo.site.pem` 
+
 ### Custom Composer Scripts
 
 There are a number of helpful composer "scripts" available, located in the [composer.json](composer.json) file, in the `scripts` section. These scripts get loaded in as composer commands.
