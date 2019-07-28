@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# TODO check if socks proxy is running
-# TODO check if lando is running
-
 # Exit immediately if a command fails with a non-zero status code
 set -e
 
@@ -13,9 +10,21 @@ cd $(git rev-parse --show-toplevel)/.dumps
 # @todo check if Lando stack is running, if not return error message or just start it
 echo "Downloading latest PROD database"
 curl --remote-name --remote-header-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/database/cms-prod-db-sanitized-latest.sql.gz
-gunzip --force cms-db-latest.sql.gz 2> /dev/null || true &&
+gunzip --force cms-prod-db-sanitized-latest.sql.gz 2> /dev/null || true &&
 
-echo "Downloaded PROD Database to .dumps/cms-db-latest.sql"
+echo "Downloaded PROD Database to .dumps/cms-prod-db-sanitized-latest.sql"
 
-echo "Importing PROD database"
-lando db-import cms-db-latest.sql
+# BRD DEV, STAGING, PROD only
+if [ ! -z "$CMS_BRD" ]; then
+    echo "Dropping existing database tables"
+    drush sql-drop --yes
+    echo "Database tables dropped"
+    echo "Importing .dumps/cms-prod-db-sanitized-latest.sql"
+    drush sql-cli < cms-prod-db-sanitized-latest.sql
+    echo "Database import complete"
+fi
+# Local only
+if [ -z "$CMS_BRD" ]; then
+echo $CMS_BRD;
+    lando db-import cms-db-latest.sql
+fi
