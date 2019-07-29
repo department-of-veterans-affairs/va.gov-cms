@@ -4,12 +4,14 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.media.media_library
+    - taxonomy.vocabulary.administration
   enforced:
     module:
       - media_library
   module:
     - media
     - media_library
+    - taxonomy
     - user
 _core:
   default_config_hash: 1F1cSZ5MlvxdwjdyrwnH2I8CWngOp8Pu2SXDzix2QUc
@@ -190,52 +192,6 @@ display:
           entity_type: media
           plugin_id: rendered_entity
       filters:
-        status:
-          id: status
-          table: media_field_data
-          field: status
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: '='
-          value: '1'
-          group: 1
-          exposed: true
-          expose:
-            operator_id: ''
-            label: 'Publishing status'
-            description: null
-            use_operator: false
-            operator: status_op
-            identifier: status
-            required: true
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: true
-          group_info:
-            label: Published
-            description: ''
-            identifier: status
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items:
-              1:
-                title: Published
-                operator: '='
-                value: '1'
-              2:
-                title: Unpublished
-                operator: '='
-                value: '0'
-          plugin_id: boolean
-          entity_type: media
-          entity_field: status
         name:
           id: name
           table: media_field_data
@@ -320,6 +276,61 @@ display:
           entity_type: media
           entity_field: bundle
           plugin_id: bundle
+        field_owner_target_id:
+          id: field_owner_target_id
+          table: media__field_owner
+          field: field_owner_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_owner_target_id_op
+            label: Section
+            description: ''
+            use_operator: false
+            operator: field_owner_target_id_op
+            identifier: field_owner_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              redirect_administrator: '0'
+              documentation_editor: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: administration
+          hierarchy: true
+          error_message: true
+          parent: 0
+          level_labels: ''
+          force_deepest: false
+          plugin_id: taxonomy_index_tid
       sorts:
         created:
           id: created
@@ -384,14 +395,28 @@ display:
       use_ajax: true
       css_class: 'media-library-view js-media-library-view'
     cache_metadata:
-      max-age: -1
+      max-age: 0
       contexts:
         - 'languages:language_interface'
         - url
         - url.query_args
         - 'url.query_args:sort_by'
+        - user
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:core.entity_view_display.media.document.default'
+        - 'config:core.entity_view_display.media.document.media_library'
+        - 'config:core.entity_view_display.media.image.default'
+        - 'config:core.entity_view_display.media.image.media_library'
+        - 'config:core.entity_view_display.media.document.download_link'
+        - 'config:core.entity_view_display.media.document.embedded'
+        - 'config:core.entity_view_display.media.document.thumbnail'
+        - 'config:core.entity_view_display.media.image.download_link'
+        - 'config:core.entity_view_display.media.image.embedded'
+        - 'config:core.entity_view_display.media.image.thumbnail'
+        - 'config:core.entity_view_display.media.video.default'
+        - 'config:core.entity_view_display.media.video.embedded'
+        - 'config:core.entity_view_display.media.video.thumbnail'
   page:
     display_plugin: page
     id: page
@@ -410,14 +435,28 @@ display:
         context: '0'
         menu_name: admin
     cache_metadata:
-      max-age: -1
+      max-age: 0
       contexts:
         - 'languages:language_interface'
         - url
         - url.query_args
         - 'url.query_args:sort_by'
+        - user
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:core.entity_view_display.media.document.default'
+        - 'config:core.entity_view_display.media.document.download_link'
+        - 'config:core.entity_view_display.media.document.embedded'
+        - 'config:core.entity_view_display.media.document.media_library'
+        - 'config:core.entity_view_display.media.document.thumbnail'
+        - 'config:core.entity_view_display.media.image.default'
+        - 'config:core.entity_view_display.media.image.download_link'
+        - 'config:core.entity_view_display.media.image.embedded'
+        - 'config:core.entity_view_display.media.image.media_library'
+        - 'config:core.entity_view_display.media.image.thumbnail'
+        - 'config:core.entity_view_display.media.video.default'
+        - 'config:core.entity_view_display.media.video.embedded'
+        - 'config:core.entity_view_display.media.video.thumbnail'
   widget:
     display_plugin: page
     id: widget
@@ -543,5 +582,19 @@ display:
         - url
         - url.query_args
         - 'url.query_args:sort_by'
+        - user
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:core.entity_view_display.media.document.default'
+        - 'config:core.entity_view_display.media.document.download_link'
+        - 'config:core.entity_view_display.media.document.embedded'
+        - 'config:core.entity_view_display.media.document.media_library'
+        - 'config:core.entity_view_display.media.document.thumbnail'
+        - 'config:core.entity_view_display.media.image.default'
+        - 'config:core.entity_view_display.media.image.download_link'
+        - 'config:core.entity_view_display.media.image.embedded'
+        - 'config:core.entity_view_display.media.image.media_library'
+        - 'config:core.entity_view_display.media.image.thumbnail'
+        - 'config:core.entity_view_display.media.video.default'
+        - 'config:core.entity_view_display.media.video.embedded'
+        - 'config:core.entity_view_display.media.video.thumbnail'
