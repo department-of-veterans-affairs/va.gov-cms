@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.media.video.field_media_in_library
     - field.field.media.video.field_media_video_embed_field
+    - field.field.media.video.field_owner
     - image.style.large
     - media.type.video
   module:
@@ -37,6 +38,14 @@ content:
       height: 480
       autoplay: true
     third_party_settings: {  }
+    region: content
+  field_owner:
+    weight: 5
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
     region: content
   name:
     label: hidden

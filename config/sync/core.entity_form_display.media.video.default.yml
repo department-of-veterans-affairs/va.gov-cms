@@ -5,9 +5,27 @@ dependencies:
   config:
     - field.field.media.video.field_media_in_library
     - field.field.media.video.field_media_video_embed_field
+    - field.field.media.video.field_owner
     - media.type.video
   module:
+    - field_group
     - video_embed_field
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_owner
+        - field_media_in_library
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Governance
+      region: content
 _core:
   default_config_hash: OUea_b_jf81XjPvIY9J8KrRUckqz2APuLv4bkxYfdT4
 id: media.video.default
@@ -17,7 +35,7 @@ mode: default
 content:
   field_media_in_library:
     type: boolean_checkbox
-    weight: 2
+    weight: 5
     region: content
     settings:
       display_label: true
@@ -27,6 +45,12 @@ content:
     weight: 1
     settings: {  }
     third_party_settings: {  }
+    region: content
+  field_owner:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
     region: content
   name:
     type: string_textfield
