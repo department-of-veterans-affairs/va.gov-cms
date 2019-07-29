@@ -895,6 +895,50 @@ display:
           level_labels: ''
           force_deepest: false
           plugin_id: taxonomy_index_tid
+        field_media_in_library_value:
+          id: field_media_in_library_value
+          table: media__field_media_in_library
+          field: field_media_in_library_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ''
+            label: 'Show in media library (field_media_in_library)'
+            description: null
+            use_operator: false
+            operator: field_media_in_library_value_op
+            identifier: field_media_in_library_value
+            required: true
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: true
+          group_info:
+            label: 'Reusable?'
+            description: ''
+            identifier: field_media_in_library_value
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: 'Yes, shows up in media library'
+                operator: '='
+                value: '1'
+              2:
+                title: 'No, does not show in media library'
+                operator: '='
+                value: '0'
+          plugin_id: boolean
       sorts:
         created:
           id: created
@@ -1416,14 +1460,14 @@ display:
         - user.permissions
       tags:
         - 'config:core.entity_view_display.media.document.default'
+        - 'config:core.entity_view_display.media.document.media_library'
+        - 'config:core.entity_view_display.media.image.default'
+        - 'config:core.entity_view_display.media.image.media_library'
         - 'config:core.entity_view_display.media.document.download_link'
         - 'config:core.entity_view_display.media.document.embedded'
-        - 'config:core.entity_view_display.media.document.media_library'
         - 'config:core.entity_view_display.media.document.thumbnail'
-        - 'config:core.entity_view_display.media.image.default'
         - 'config:core.entity_view_display.media.image.download_link'
         - 'config:core.entity_view_display.media.image.embedded'
-        - 'config:core.entity_view_display.media.image.media_library'
         - 'config:core.entity_view_display.media.image.thumbnail'
         - 'config:core.entity_view_display.media.video.default'
         - 'config:core.entity_view_display.media.video.embedded'
