@@ -1,11 +1,12 @@
 uuid: 789a0832-84c5-482d-8071-8cb3e8aef649
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_form_mode.media.media_browser
     - field.field.media.document.field_document
     - field.field.media.document.field_media_in_library
+    - field.field.media.document.field_owner
     - media.type.document
   module:
     - file
@@ -34,6 +35,7 @@ content:
 hidden:
   created: true
   field_media_in_library: true
+  field_owner: true
   moderation_state: true
   path: true
   revision_log_message: true

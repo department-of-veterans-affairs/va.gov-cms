@@ -5,9 +5,27 @@ dependencies:
   config:
     - field.field.media.document.field_document
     - field.field.media.document.field_media_in_library
+    - field.field.media.document.field_owner
     - media.type.document
   module:
+    - field_group
     - file
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_owner
+        - field_media_in_library
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Governance
+      region: content
 _core:
   default_config_hash: xFJUl0MccoGPEv1eb_I_XnxzjqvZ8M5HA1G3PBtv9IE
 id: media.document.default
@@ -22,6 +40,19 @@ content:
     third_party_settings: {  }
     type: file_generic
     region: content
+  field_media_in_library:
+    type: boolean_checkbox
+    weight: 4
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_owner:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   name:
     type: string_textfield
     weight: 0
@@ -32,7 +63,6 @@ content:
     region: content
 hidden:
   created: true
-  field_media_in_library: true
   moderation_state: true
   path: true
   revision_log_message: true
