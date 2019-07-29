@@ -219,7 +219,7 @@
             "drupal config:import --ansi"
         ],
         "va:database:download": [
-            "cd .dumps && curl --remote-name --remote-header-name --proxy socks5h://127.0.0.1:2001 10.247.89.58:8000/cms-db-latest.sql.gz && gunzip --force cms-db-latest.sql.gz && echo 'SQL dump saved to .dumps/cms-db-latest.sql'"
+            "cd .dumps && curl --remote-name --remote-header-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/database/cms-prod-db-sanitized-latest.sql.gz && gunzip --force cms-prod-db-sanitized-latest.sql.gz && echo 'SQL dump saved to .dumps/cms-db-latest.sql'"
         ],
         "va:proxy:start": [
             "ssh socks -D 2001 -N"
