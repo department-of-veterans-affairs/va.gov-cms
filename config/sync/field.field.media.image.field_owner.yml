@@ -1,0 +1,29 @@
+uuid: 73668c1a-d70f-427a-a51b-6bf7a113d73d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_owner
+    - media.type.image
+    - taxonomy.vocabulary.administration
+id: media.image.field_owner
+field_name: field_owner
+entity_type: media
+bundle: image
+label: Owner
+description: 'Only members of the section you select here will be able to make changes to this image. '
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
