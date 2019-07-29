@@ -12,10 +12,19 @@ Domains for this application are below, they both correspond to a frontend (FE) 
 All computers in VA already have this setup, if you are using a non-VA laptop for development you will need to trust the VA Root Certificate Authority (CA) in your browser(s).
 
 Chrome
-* Download http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-RCA1-v1.cer
+* `wget http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-RCA1-v1.cer`
 * Go to chrome://settings/certificates?search=https
 * Click "Authorities"
 * Click "Import" and select VA-Internal-S2-RCA1-v1.cer file downloaded above
+
+Firefox
+* `wget http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-RCA1-v1.cer`
+* `wget http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-ICA1-v1.cer`
+* Go to about:preferences#privacy, scroll to bottom
+* Click "View Certificates"
+* Click "Authorities" tab
+* Click "Import"
+* Import both files downloaded above
 
 ## HTTPS testing (locally/Lando)
 You can't test with the VA cert locally using Lando but you can use Lando's self-signed cert. If you need to test the actual cert locally contact the DevOps team to help you setup the vagrant build system to get HTTPS working with VA CA.
