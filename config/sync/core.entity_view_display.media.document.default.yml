@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.media.document.field_document
     - field.field.media.document.field_media_in_library
+    - field.field.media.document.field_owner
     - image.style.thumbnail
     - media.type.document
   module:
@@ -46,6 +47,14 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
+  field_owner:
+    weight: 6
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
   name:
     label: above
     type: string
