@@ -3,18 +3,34 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.media.field_allow_clicks_on_this_image
+    - field.field.paragraph.media.field_markup
     - field.field.paragraph.media.field_media
     - paragraphs.paragraphs_type.media
   module:
+    - markup
     - media_library
 id: paragraph.media.default
 targetEntityType: paragraph
 bundle: media
 mode: default
 content:
+  field_allow_clicks_on_this_image:
+    weight: 2
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_markup:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
+    region: content
   field_media:
     type: media_library_widget
-    weight: 0
+    weight: 1
     settings: {  }
     third_party_settings: {  }
     region: content
