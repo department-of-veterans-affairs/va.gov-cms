@@ -17,13 +17,15 @@ vendor/
 node_modules/
 
 # Ignore local dev files
-/docroot/sites/settings.local.php
+/docroot/sites/default/settings/settings.local.php
 
 # Ignore SQL dumps
-/.dumps/cmsapp_files.tgz
+# Current
+/.dumps/cms-prod-files-latest.tgz
+/.dumps/cms-prod-db-sanitized-latest.sql*
+# Deprecated
 /.dumps/cms-app-files-latest.tgz
 /.dumps/cms-db-latest.sql*
-/.dumps/db-latest.sql*
 
 # Ignore IntelliJ/PhpStorm
 .idea
