@@ -9,15 +9,36 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 * __Nothing unreleased__
 
 
-## 2019-07-30.1 Sprint 19 final release 1.
-
+## 2019-07-30.1 Sprint 19 final release 3.
 
 * __Merge branch &#39;develop&#39;__
 
-    [Andy Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 13:36:05 -0600
+    [Andy Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 14:03:56 -0600
     
-    EAD -&gt; refs/heads/master, tag: refs/tags/20190730.1, refs/remotes/upstream/master, refs/remotes/origin/master
-    VAGOV-000: 2019-07-30.1 Sprint 19 final release 1.
+    EAD -&gt; refs/heads/master, tag: refs/tags/20190730.3, refs/remotes/upstream/master
+    VAGOV-000: 2019-07-30.3 Sprint 19 final release 3.
+
+* __Merge pull request #481 from ElijahLynn/VAGOV-5135-fix-vfs-build-trigger__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 14:03:27 -0600
+    
+    efs/remotes/upstream/develop, refs/heads/develop
+    VAGOV-5135 Update build trigger to not use SOCKS proxy anymore. (update)
+
+* __Merge branch &#39;develop&#39; into VAGOV-5135-fix-vfs-build-trigger__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 14:02:29 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-5135-fix-vfs-build-trigger__
+
+    [Elijah Lynn](mailto:elijah.lynn@agile6.com) - Tue, 30 Jul 2019 13:00:44 -0700
+
+
+* __Merge pull request #469 from kevwalsh/4967-toc-help-text__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 13:57:51 -0600
+    
+    VAGOV-4967: Improve TOC help text.
 
 * __Merge pull request #471 from ethanteague/VAGOV-000-add-missed-profile-file-download-field-et__
 
