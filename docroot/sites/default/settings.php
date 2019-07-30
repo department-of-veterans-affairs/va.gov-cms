@@ -98,13 +98,9 @@ $settings['entity_update_batch_size'] = 50;
  * DevOps engineers will need to get and set the getenv() ENV variables below
  * from va.gov-cms-devops Ansible Vault for testing.
  * @see /README.md for details
- *
- * TODO: Update this comment, no more vault
- * TODO: Remove SOCKS once no longer needed
  */
 $settings['jenkins_build_env'] = getenv('CMS_ENVIRONMENT_TYPE') ?: FALSE;
 $settings['jenkins_build_job_host'] = 'http://jenkins.vfs.va.gov';
-$settings['va_socks_proxy_url'] = 'socks5h://va-socks-proxy:2001';
 // Authorized to the Jenkins API via GitHub login.
 $settings['va_cms_bot_github_username'] = 'va-cms-bot';
 $settings['va_cms_bot_github_auth_token'] = getenv('CMS_GITHUB_VA_CMS_BOT_TOKEN') ?: FALSE;
