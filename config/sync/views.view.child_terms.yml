@@ -53,11 +53,14 @@ display:
           items_per_page: 0
           offset: 0
       style:
-        type: default
+        type: html_list
         options:
           grouping: {  }
           row_class: ''
           default_row_class: false
+          type: ul
+          wrapper_class: item-list
+          class: ''
       row:
         type: fields
         options:
@@ -144,7 +147,7 @@ display:
           entity_field: vid
           plugin_id: bundle
       sorts: {  }
-      title: Subsections
+      title: 'Child sections'
       header:
         area:
           id: area
