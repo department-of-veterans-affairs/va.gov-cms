@@ -1,0 +1,25 @@
+uuid: 78497a17-828b-4207-baeb-d66afefbda3d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_markup
+    - paragraphs.paragraphs_type.media
+  module:
+    - markup
+id: paragraph.media.field_markup
+field_name: field_markup
+entity_type: paragraph
+bundle: media
+label: Markup
+description: ''
+required: false
+translatable: false
+default_value:
+  - {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: "<p>To fill up the full available width of the content area on all screen sizes, upload an image that is 1000px or larger. This image will be displayed at its full width, without being cropped. If the original image you upload is wider than the viewport of the screen, it will be downsized to fit in the content area.</p>\r\n"
+    format: rich_text
+field_type: markup

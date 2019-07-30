@@ -1,0 +1,33 @@
+uuid: eb3131cb-baa4-47a9-96bc-ad95c892eaca
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.downloadable_file.field_markup
+    - field.field.paragraph.downloadable_file.field_media
+    - field.field.paragraph.downloadable_file.field_title
+    - paragraphs.paragraphs_type.downloadable_file
+id: paragraph.downloadable_file.default
+targetEntityType: paragraph
+bundle: downloadable_file
+mode: default
+content:
+  field_media:
+    weight: 0
+    label: above
+    settings:
+      view_mode: media_library
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+  field_title:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  field_markup: true

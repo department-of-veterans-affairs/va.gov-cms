@@ -1,39 +1,32 @@
-uuid: aab93b9c-73d2-4b94-ae3f-61cbbf641b67
+uuid: 17c45e77-9ba8-4a5d-b7a0-33f5e9ec3472
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.media.media_library
+    - core.entity_view_mode.media.download_link
     - field.field.media.document.field_document
     - field.field.media.document.field_media_in_library
     - media.type.document
   module:
     - file
 _core:
-  default_config_hash: b2OT-HhPhS2sEoaHLM_9deYfXw2A37hxc0TwsahXsp4
-id: media.document.media_library
+  default_config_hash: 4tgcXj_iKv9Fw3xmONUfCHKqO7OeOa11qVesruN4k4k
+id: media.document.download_link
 targetEntityType: media
 bundle: document
-mode: media_library
+mode: download_link
 content:
   field_document:
-    type: file_table
     weight: 0
-    region: content
     label: hidden
     settings:
       use_description_as_link_text: true
     third_party_settings: {  }
-  name:
-    type: string
-    weight: 1
+    type: file_default
     region: content
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
 hidden:
   created: true
   field_media_in_library: true
+  name: true
   thumbnail: true
   uid: true
