@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.media.embedded
     - field.field.media.image.field_media_in_library
     - field.field.media.image.image
+    - image.style.full_content_width
     - media.type.image
   module:
     - image
@@ -21,7 +22,7 @@ content:
     weight: 0
     label: hidden
     settings:
-      image_style: ''
+      image_style: full_content_width
       image_link: ''
     third_party_settings: {  }
     region: content
