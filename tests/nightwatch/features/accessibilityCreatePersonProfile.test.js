@@ -42,7 +42,7 @@ module.exports
             .click('input[id="edit-submit"]')
             .url(siteUrl+'/node/add/person_profile')
             .waitForElementVisible('.page-title', 6000)
-            .assert.title('Create Staff profile | Veterans Affairs')
+            .assert.title('Create Staff profile | VA CMS')
             .initAccessibility()
             .verify.accessibility(contextOptions, axeOptions)
             .end(function(err, res){

@@ -42,7 +42,7 @@ module.exports
             .click('input[id="edit-submit"]')
             .url(siteUrl+'/node/add/support_service')
             .waitForElementVisible('.page-title', 6000)
-            .assert.title('Create Support Service | Veterans Affairs')
+            .assert.title('Create Support Service | VA CMS')
             .initAccessibility()
             .verify.accessibility(contextOptions, axeOptions)
             .end(function(err, res){
