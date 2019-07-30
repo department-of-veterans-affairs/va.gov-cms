@@ -10,6 +10,7 @@ dependencies:
     - image.style.thumbnail
     - media.type.document
     - media.type.image
+    - system.menu.admin
     - taxonomy.vocabulary.administration
   module:
     - entity_browser
@@ -196,8 +197,8 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          action_title: Action
-          include_exclude: exclude
+          action_title: 'Bulk action'
+          include_exclude: include
           selected_actions:
             - media_delete_action
           entity_type: media
@@ -1463,13 +1464,13 @@ display:
         - 'config:core.entity_view_display.media.document.media_library'
         - 'config:core.entity_view_display.media.image.default'
         - 'config:core.entity_view_display.media.image.media_library'
+        - 'config:core.entity_view_display.media.video.default'
         - 'config:core.entity_view_display.media.document.download_link'
         - 'config:core.entity_view_display.media.document.embedded'
         - 'config:core.entity_view_display.media.document.thumbnail'
         - 'config:core.entity_view_display.media.image.download_link'
         - 'config:core.entity_view_display.media.image.embedded'
         - 'config:core.entity_view_display.media.image.thumbnail'
-        - 'config:core.entity_view_display.media.video.default'
         - 'config:core.entity_view_display.media.video.embedded'
         - 'config:core.entity_view_display.media.video.thumbnail'
   entity_browser_2:
@@ -2285,8 +2286,31 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: admin/content/media-table
+      path: admin/content/media
       display_description: ''
+      menu:
+        type: normal
+        title: 'Media library'
+        description: ''
+        expanded: false
+        parent: system.admin_content
+        weight: 0
+        context: '0'
+        menu_name: admin
+      header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content: '<div>This page shows all media files (documents, images, videos) across the VA.gov CMS. Media can be edited by members of the <a href="/sections">section</a> to which it was posted (or members of any "parent" section).  Media can be reused by CMS editors outside that section, as long as the media item is set to be shown in the media library. You can filter by section or by whether or not the media is reusable (shown in library). When adding media to a piece of content, you will only be able to see media that has the "Show in library" checked.  </div>'
+          plugin_id: text_custom
+      defaults:
+        header: false
     cache_metadata:
       max-age: 0
       contexts:

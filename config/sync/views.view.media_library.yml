@@ -16,7 +16,7 @@ dependencies:
 _core:
   default_config_hash: 1F1cSZ5MlvxdwjdyrwnH2I8CWngOp8Pu2SXDzix2QUc
 id: media_library
-label: 'Media library'
+label: 'Media library widget'
 module: views
 description: ''
 tag: ''
@@ -412,18 +412,7 @@ display:
           entity_field: name
           plugin_id: standard
       title: Media
-      header:
-        area_text_custom:
-          id: area_text_custom
-          table: views
-          field: area_text_custom
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: false
-          tokenize: false
-          content: 'This page displays all media on the VA.gov CMS, including media that does not show up in the shared media library.'
-          plugin_id: text_custom
+      header: {  }
       footer: {  }
       empty:
         area_text_custom:
@@ -455,25 +444,25 @@ display:
         - 'config:core.entity_view_display.media.document.media_library'
         - 'config:core.entity_view_display.media.image.default'
         - 'config:core.entity_view_display.media.image.media_library'
+        - 'config:core.entity_view_display.media.video.default'
         - 'config:core.entity_view_display.media.document.download_link'
         - 'config:core.entity_view_display.media.document.embedded'
         - 'config:core.entity_view_display.media.document.thumbnail'
         - 'config:core.entity_view_display.media.image.download_link'
         - 'config:core.entity_view_display.media.image.embedded'
         - 'config:core.entity_view_display.media.image.thumbnail'
-        - 'config:core.entity_view_display.media.video.default'
         - 'config:core.entity_view_display.media.video.embedded'
         - 'config:core.entity_view_display.media.video.thumbnail'
   page:
     display_plugin: page
     id: page
-    display_title: Page
+    display_title: 'Deprecated (to follow D8.7 approach)'
     position: 1
     display_options:
       display_extenders: {  }
-      path: admin/content/media
+      path: admin/content/media_old
       menu:
-        type: tab
+        type: none
         title: Media
         description: 'Allows users to browse and administer media items'
         expanded: false
@@ -672,6 +661,8 @@ display:
         operator: AND
         groups:
           1: AND
+      enabled: false
+      display_description: ''
     cache_metadata:
       max-age: 0
       contexts:
