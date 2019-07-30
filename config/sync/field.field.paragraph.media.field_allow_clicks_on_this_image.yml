@@ -1,0 +1,23 @@
+uuid: e12f605b-4929-4736-b8e8-1799fa07a00c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_allow_clicks_on_this_image
+    - paragraphs.paragraphs_type.media
+id: paragraph.media.field_allow_clicks_on_this_image
+field_name: field_allow_clicks_on_this_image
+entity_type: paragraph
+bundle: media
+label: 'Allow clicks on this image to open it in new tab'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Allow clicks on this image to open it in new tab'
+  off_label: 'Clicks on this image will not open it in new tab'
+field_type: boolean
