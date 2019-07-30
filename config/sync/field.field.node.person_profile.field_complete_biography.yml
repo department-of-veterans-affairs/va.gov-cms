@@ -1,0 +1,27 @@
+uuid: f906f76e-42e0-4619-bc1b-ca82471ee1a3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_complete_biography
+    - node.type.person_profile
+  module:
+    - file
+id: node.person_profile.field_complete_biography
+field_name: field_complete_biography
+entity_type: node
+bundle: person_profile
+label: 'Complete Biography'
+description: 'Upload a pdf file for users to download.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: pdf
+  max_filesize: ''
+  description_field: false
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

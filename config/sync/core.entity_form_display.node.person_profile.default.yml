@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.person_profile.field_administration
     - field.field.node.person_profile.field_body
+    - field.field.node.person_profile.field_complete_biography
     - field.field.node.person_profile.field_description
     - field.field.node.person_profile.field_email_address
     - field.field.node.person_profile.field_intro_text
@@ -20,6 +21,7 @@ dependencies:
   module:
     - content_moderation
     - field_group
+    - file
     - hide_revision_field
     - media_library
     - metatag
@@ -78,7 +80,7 @@ third_party_settings:
         - field_email_address
         - field_phone_number
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: fieldset
       format_settings:
         id: ''
@@ -92,7 +94,7 @@ third_party_settings:
         - field_media
         - field_photo_allow_hires_download
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: fieldset
       format_settings:
         open: '1'
@@ -106,6 +108,7 @@ third_party_settings:
       children:
         - field_intro_text
         - field_body
+        - field_complete_biography
       parent_name: ''
       weight: 3
       format_type: fieldset
@@ -123,7 +126,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 8
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -140,6 +143,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
+  field_complete_biography:
+    weight: 18
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+    type: file_generic
     region: content
   field_description:
     weight: 6
@@ -242,7 +252,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 9
+    weight: 8
     region: content
     third_party_settings: {  }
   revision_log:
@@ -281,7 +291,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 7
+    weight: 6
     settings:
       match_operator: CONTAINS
       size: 60
