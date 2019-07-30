@@ -1,0 +1,27 @@
+uuid: f921f638-3e10-425a-b637-92889c8e546b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_complete_biography
+    - node.type.person_profile
+  module:
+    - file
+id: node.person_profile.field_complete_biography
+field_name: field_complete_biography
+entity_type: node
+bundle: person_profile
+label: 'Complete Biography'
+description: 'A pdf file that consists of a comprehensive professional biography.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: pdf
+  max_filesize: ''
+  description_field: true
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file
