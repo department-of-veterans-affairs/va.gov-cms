@@ -1,0 +1,40 @@
+uuid: b763c6d1-a1a2-4939-9493-13a67dd25ab5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.downloadable_file.field_markup
+    - field.field.paragraph.downloadable_file.field_media
+    - field.field.paragraph.downloadable_file.field_title
+    - paragraphs.paragraphs_type.downloadable_file
+  module:
+    - markup
+    - media_library
+id: paragraph.downloadable_file.default
+targetEntityType: paragraph
+bundle: downloadable_file
+mode: default
+content:
+  field_markup:
+    type: markup
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_media:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: media_library_widget
+    region: content
+  field_title:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  status: true
