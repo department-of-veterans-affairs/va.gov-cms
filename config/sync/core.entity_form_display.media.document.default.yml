@@ -5,11 +5,13 @@ dependencies:
   config:
     - field.field.media.document.field_document
     - field.field.media.document.field_media_in_library
+    - field.field.media.document.field_media_submission_guideline
     - field.field.media.document.field_owner
     - media.type.document
   module:
     - field_group
     - file
+    - markup
 third_party_settings:
   field_group:
     group_governance:
@@ -17,7 +19,7 @@ third_party_settings:
         - field_owner
         - field_media_in_library
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -34,7 +36,7 @@ bundle: document
 mode: default
 content:
   field_document:
-    weight: 1
+    weight: 2
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
@@ -47,6 +49,12 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
+  field_media_submission_guideline:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
+    region: content
   field_owner:
     weight: 3
     settings: {  }
@@ -55,7 +63,7 @@ content:
     region: content
   name:
     type: string_textfield
-    weight: 0
+    weight: 1
     settings:
       size: 60
       placeholder: ''

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.media.image.field_media_in_library
+    - field.field.media.image.field_media_submission_guideline
     - field.field.media.image.field_owner
     - field.field.media.image.image
     - image.style.3_2_medium_thumbnail
@@ -12,6 +13,7 @@ dependencies:
     - field_group
     - image_widget_crop
     - lightning_media
+    - markup
 third_party_settings:
   field_group:
     group_governance:
@@ -19,7 +21,7 @@ third_party_settings:
         - field_owner
         - field_media_in_library
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -42,6 +44,12 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
+  field_media_submission_guideline:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
+    region: content
   field_owner:
     weight: 3
     settings: {  }
@@ -50,7 +58,7 @@ content:
     region: content
   image:
     type: image_widget_crop
-    weight: 1
+    weight: 2
     settings:
       show_crop_area: true
       show_default_crop: true
@@ -67,7 +75,7 @@ content:
     region: content
   name:
     type: string_textfield
-    weight: 0
+    weight: 1
     settings:
       size: 60
       placeholder: ''
