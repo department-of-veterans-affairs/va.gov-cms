@@ -33,12 +33,12 @@ class BuildTriggerForm extends FormBase {
       '#description' => 'yes',
       '#button_type' => 'primary',
     ];
-    if (!in_array(getenv('ENVIRONMENT_TYPE'), [
+    if (!in_array(getenv('CMS_ENVIRONMENT_TYPE'), [
       'dev',
-      'stg',
+      'staging',
       'prod',
     ])) {
-      \Drupal::messenger()
+      Drupal::messenger()
         ->addMessage(t('You cannot trigger a build in this environment. Only the DEV, STAGING and PROD environments support triggering builds.'), 'warning');
       $form['actions']['submit']['#attributes'] = [
         'disabled' => 'disabled',
@@ -76,7 +76,7 @@ class BuildTriggerForm extends FormBase {
     $jenkins_build_job_path = Settings::get('jenkins_build_job_path');
     $jenkins_build_job_url = Settings::get('jenkins_build_job_url');
 
-    if (in_array(Settings::get('jenkins_build_env'), [
+    if (!in_array(Settings::get('jenkins_build_env'), [
       'dev',
       'staging',
       'prod',
