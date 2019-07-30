@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.media.video.field_media_in_library
+    - field.field.media.video.field_media_submission_guideline
     - field.field.media.video.field_media_video_embed_field
     - field.field.media.video.field_owner
     - image.style.large
@@ -28,6 +29,16 @@ content:
       granularity: 1
     third_party_settings: {  }
     region: content
+  field_media_in_library:
+    type: boolean
+    weight: 6
+    region: content
+    label: hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
   field_media_video_embed_field:
     type: video_embed_field_video
     weight: 1
@@ -36,7 +47,7 @@ content:
       responsive: true
       width: 854
       height: 480
-      autoplay: true
+      autoplay: false
     third_party_settings: {  }
     region: content
   field_owner:
@@ -73,4 +84,4 @@ content:
       link: true
     third_party_settings: {  }
 hidden:
-  field_media_in_library: true
+  field_media_submission_guideline: true
