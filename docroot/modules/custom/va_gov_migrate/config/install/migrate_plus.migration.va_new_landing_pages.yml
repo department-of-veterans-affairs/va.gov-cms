@@ -243,6 +243,15 @@ process:  # assign the fields we collected above to Drupal fields.
       plugin: extract
       index:
         - 3
+    -
+      plugin: static_map
+      map:
+        careers-employment: careers
+        housing-assistance: housing
+        burials-memorials: burials
+        family-member-benefits: family-member
+        service-member-benefits: service-member
+      bypass: true
   moderation_state:
     plugin: default_value
     default_value: draft

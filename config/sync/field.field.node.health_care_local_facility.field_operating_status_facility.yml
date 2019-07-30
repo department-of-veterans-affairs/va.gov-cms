@@ -1,0 +1,23 @@
+uuid: a084a08d-f0d9-44de-bda9-235183cf40cf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_operating_status_facility
+    - node.type.health_care_local_facility
+  module:
+    - options
+id: node.health_care_local_facility.field_operating_status_facility
+field_name: field_operating_status_facility
+entity_type: node
+bundle: health_care_local_facility
+label: 'Operating status'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: normal
+default_value_callback: ''
+settings: {  }
+field_type: list_string

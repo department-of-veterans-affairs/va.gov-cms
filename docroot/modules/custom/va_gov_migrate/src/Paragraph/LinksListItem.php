@@ -5,6 +5,7 @@ namespace Drupal\va_gov_migrate\Paragraph;
 use Drupal\va_gov_migrate\ParagraphType;
 use QueryPath\DOMQuery;
 use Drupal\migration_tools\Message;
+use Drupal\migration_tools\StringTools;
 
 /**
  * Link list item paragraph type.
@@ -41,40 +42,41 @@ class LinksListItem extends ParagraphType {
    */
   protected function getFieldValues(DOMQuery $query_path) {
     if ($query_path->parent()->hasClass('va-nav-linkslist-list') || $query_path->parent()->hasClass('hub-page-link-list')) {
-      $title_raw = !empty($query_path->children('a')
-        ->children('.va-nav-linkslist-title')
-        ->text()) ?
-        $query_path->children('a')
-          ->children('.va-nav-linkslist-title')
-          ->text() : $query_path->children('a')
-          ->children('.hub-page-link-list__header')
-          ->text();
-
-      $summary_raw = !empty($query_path->children('a')
-        ->children('.va-nav-linkslist-description')
-        ->text()) ?
-        $query_path->children('a')
-          ->children('.va-nav-linkslist-description')
-          ->text() : $query_path->children('a')
-          ->children('.hub-page-link-list__description')
-          ->text();
-
-      if (empty($title_raw)) {
-        $title_raw = $query_path->children('a')->children('b')->text();
+      if ($query_path->children('a')->children('.va-nav-linkslist-title')->count()) {
+        $title_qp = $query_path->children('a')
+          ->children('.va-nav-linkslist-title');
       }
-      if (empty($title_raw)) {
-        $title_raw = $query_path->children('a')->children('strong')->text();
+      else {
+        $title_qp = $query_path->children('a')
+          ->children('.hub-page-link-list__header');
+      }
+
+      if ($query_path->children('a')->children('.va-nav-linkslist-description')->count()) {
+        $summary_qp = $query_path->children('a')->children('.va-nav-linkslist-description');
+      }
+      else {
+        $summary_qp = $query_path->children('a')->children('.hub-page-link-list__description');
+      }
+
+      if (!$title_qp->count()) {
+        $title_qp = $query_path->children('a')->children('b');
+      }
+      if (!$title_qp->count()) {
+        $title_qp = $query_path->children('a')->children('strong');
+      }
+      if (!$title_qp->count()) {
+        $title_qp = $query_path->children('a')->children('.hub-page-link-list__header');
       }
       $url = $query_path->children('a')->attr('href');
     }
     else {
-      $title_raw = $query_path->children('h4')->text();
-      $summary_raw = $query_path->children('p')->text();
+      $title_qp = $query_path->children('h4');
+      $summary_qp = $query_path->children('p');
       $url = $query_path->children('h4')->children('a')->attr('href');
     }
 
-    $title = trim($title_raw);
-    $summary = trim($summary_raw);
+    $title = trim($title_qp->text());
+    $summary = StringTools::superTrim($summary_qp->innerHTML());
 
     if (empty($title)) {
       Message::make('Links list item without a title @page: @html',

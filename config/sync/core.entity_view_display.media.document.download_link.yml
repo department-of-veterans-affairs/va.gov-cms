@@ -1,0 +1,32 @@
+uuid: 17c45e77-9ba8-4a5d-b7a0-33f5e9ec3472
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.download_link
+    - field.field.media.document.field_document
+    - field.field.media.document.field_media_in_library
+    - media.type.document
+  module:
+    - file
+_core:
+  default_config_hash: 4tgcXj_iKv9Fw3xmONUfCHKqO7OeOa11qVesruN4k4k
+id: media.document.download_link
+targetEntityType: media
+bundle: document
+mode: download_link
+content:
+  field_document:
+    weight: 0
+    label: hidden
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    type: file_default
+    region: content
+hidden:
+  created: true
+  field_media_in_library: true
+  name: true
+  thumbnail: true
+  uid: true

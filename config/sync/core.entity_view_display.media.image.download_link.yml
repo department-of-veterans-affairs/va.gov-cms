@@ -1,0 +1,32 @@
+uuid: 2508563d-dbdc-429f-885b-00101bcd0e3d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.download_link
+    - field.field.media.image.field_media_in_library
+    - field.field.media.image.image
+    - media.type.image
+  module:
+    - image
+_core:
+  default_config_hash: VLDxfMVPTkd2xvOjFMCh3kWmaOYnd03zggFXuUXQVEY
+id: media.image.download_link
+targetEntityType: media
+bundle: image
+mode: download_link
+content:
+  image:
+    type: image_url
+    weight: 0
+    label: hidden
+    settings:
+      image_style: ''
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  field_media_in_library: true
+  name: true
+  thumbnail: true
+  uid: true

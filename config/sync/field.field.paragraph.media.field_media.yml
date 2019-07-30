@@ -5,13 +5,12 @@ dependencies:
   config:
     - field.storage.paragraph.field_media
     - media.type.image
-    - media.type.video
     - paragraphs.paragraphs_type.media
 id: paragraph.media.field_media
 field_name: field_media
 entity_type: paragraph
 bundle: media
-label: Media
+label: 'Select an image'
 description: ''
 required: false
 translatable: false
@@ -22,7 +21,6 @@ settings:
   handler_settings:
     target_bundles:
       image: image
-      video: video
     sort:
       field: revision_created
       direction: DESC
