@@ -42,7 +42,7 @@ module.exports
             .click('input[id="edit-submit"]')
             .url(siteUrl+'/node/add/news_story')
             .waitForElementVisible('.page-title', 6000)
-            .assert.title('Create Story | Veterans Affairs')
+            .assert.title('Create Story | VA CMS')
             .initAccessibility()
             .verify.accessibility(contextOptions, axeOptions)
             .end(function(err, res){
