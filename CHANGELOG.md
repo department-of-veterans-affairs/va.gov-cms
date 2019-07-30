@@ -9,6 +9,194 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 * __Nothing unreleased__
 
 
+## 2019-07-30.1 Sprint 19 final release 1.
+
+
+* __Merge branch &#39;develop&#39;__
+
+    [Andy Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 13:36:05 -0600
+    
+    EAD -&gt; refs/heads/master, tag: refs/tags/20190730.1, refs/remotes/upstream/master, refs/remotes/origin/master
+    VAGOV-000: 2019-07-30.1 Sprint 19 final release 1.
+
+* __Merge pull request #471 from ethanteague/VAGOV-000-add-missed-profile-file-download-field-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 13:12:32 -0600
+    
+    efs/remotes/upstream/develop, refs/heads/develop
+    VAGOV-000: Adding file download field to staff profile content type.
+
+* __Merge pull request #426 from kevwalsh/000-top-tasks-menu__
+
+    [jonbot](mailto:jonathan@majorrobot.com) - Tue, 30 Jul 2019 14:16:13 -0400
+
+    VAGOV-4870: Top tasks menu for homepage. 
+
+* __Merge pull request #475 from ElijahLynn/VAGOV-5135-fix-vfs-build-trigger__
+
+    [Elijah Lynn](mailto:elijah.lynn@agile6.com) - Tue, 30 Jul 2019 11:11:43 -0700
+
+    VAGOV-5135 Remove SOCKS proxy, not needed anymore
+
+* __Merge pull request #473 from department-of-veterans-affairs/VAGOV-4970-add-entityqueue__
+
+    [jonbot](mailto:jonathan@majorrobot.com) - Tue, 30 Jul 2019 13:55:52 -0400
+
+    VAGOV-4970: Add Entityqueue Module
+
+* __Merge branch &#39;develop&#39; into 000-top-tasks-menu__
+
+    [jonbot](mailto:jonathan@majorrobot.com) - Tue, 30 Jul 2019 13:43:31 -0400
+
+* __Merge branch &#39;develop&#39; into VAGOV-5135-fix-vfs-build-trigger__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 11:29:36 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-4970-add-entityqueue__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 11:27:50 -0600
+    
+    efs/remotes/upstream/VAGOV-4970-add-entityqueue
+
+* __Merge pull request #468 from kevwalsh/3311-sections-home__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 11:24:06 -0600
+
+    VAGOV-3311: Replace moderation dashboard with new sections listing.
+
+* __Merge branch &#39;develop&#39; into 000-top-tasks-menu__
+
+    [jonbot](mailto:jonathan@majorrobot.com) - Tue, 30 Jul 2019 13:01:26 -0400
+
+* __Merge branch &#39;develop&#39; into 3311-sections-home__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 10:49:08 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-4970-add-entityqueue__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 10:46:14 -0600
+
+* __Merge pull request #474 from ElijahLynn/VAGOV-5135-merge-brd-vsp-migration-code-develop__
+
+    [Elijah Lynn](mailto:elijah.lynn@agile6.com) - Tue, 30 Jul 2019 09:45:09 -0700
+
+    VAGOV-5135 Merge migration code into develop
+
+* __Merge branch &#39;develop&#39; into 3311-sections-home__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 10:42:27 -0600
+
+* __Merge pull request #453 from kevwalsh/5013-inline-images-and-files__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 10:42:10 -0600
+
+    VAGOV-5013: Inline images and files.
+
+* __Merge branch &#39;master&#39; into VAGOV-5135-merge-brd-vsp-migration-code-develop__
+
+    [Elijah Lynn](mailto:elijah.lynn@agile6.com) - Tue, 30 Jul 2019 09:11:50 -0700
+
+* __Merge pull request #466 from department-of-veterans-affairs/brd-migration__
+
+    [Elijah Lynn](mailto:elijah.lynn@agile6.com) - Mon, 29 Jul 2019 13:47:07 -0700
+
+    [DO NOT MERGE] Update settings for BRD migration.
+
+* __Merge branch &#39;develop&#39; into 3311-sections-home__
+
+    [Kevin Walsh](mailto:kevin.walsh@civicactions.com) - Mon, 29 Jul 2019 14:16:13 +0200
+
+* __Merge branch &#39;develop&#39; into 5013-inline-images-and-files__
+
+    [Kevin Walsh](mailto:kevin.walsh@civicactions.com) - Mon, 29 Jul 2019 14:15:19 +0200
+
+* __Merge pull request #470 from ethanteague/VAGOV-000-remove-commented-code-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 26 Jul 2019 16:37:21 -0600
+
+    VAGOV-000: Removing commented out code to pass fortify scan.
+
+* __Merge branch &#39;develop&#39; into VAGOV-000-remove-commented-code-et__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 26 Jul 2019 14:05:24 -0600
+
+* __Merge branch &#39;develop&#39; into 3311-sections-home__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 26 Jul 2019 14:05:17 -0600
+
+* __Merge pull request #463 from department-of-veterans-affairs/vagov-4546__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 26 Jul 2019 14:04:35 -0600
+
+    VAGOV-4546: add health service api id field to health service taxonomy
+
+* __Merge branch &#39;develop&#39; into vagov-4546__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 25 Jul 2019 15:09:34 -0600
+    
+    efs/remotes/upstream/vagov-4546
+
+* __Merge pull request #458 from kevwalsh/5212-alert-ax-improvements__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 25 Jul 2019 15:09:07 -0600
+
+    5212 alert ax improvements
+
+* __Merge branch &#39;develop&#39; into 5212-alert-ax-improvements__
+
+    [Kevin Walsh](mailto:kevin.walsh@civicactions.com) - Thu, 25 Jul 2019 12:45:16 +0200
+
+* __Merge branch &#39;develop&#39; into vagov-4546__
+
+    [ahay-agile6](mailto:aurora.hampton@agile6.com) - Tue, 23 Jul 2019 13:10:05 -0700
+
+* __Merge pull request #460 from beeyayjay/VAGOV-4638-disability-migration-fixes__
+
+    [jonbot](mailto:jonathan@majorrobot.com) - Tue, 23 Jul 2019 16:08:46 -0400
+    
+    VAGOV-4638: disability migration fixes
+
+* __Merge branch &#39;develop&#39; into VAGOV-4638-disability-migration-fixes__
+
+    [jonbot](mailto:jonathan@majorrobot.com) - Tue, 23 Jul 2019 15:43:02 -0400
+
+* __Merge branch &#39;develop&#39; into VAGOV-4638-disability-migration-fixes__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 23 Jul 2019 11:03:57 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-4638-disability-migration-fixes__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 23 Jul 2019 10:16:29 -0600
+
+* __Merge branch &#39;develop&#39; into 5212-alert-ax-improvements__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 23 Jul 2019 10:16:23 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-4638-disability-migration-fixes__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 23 Jul 2019 09:19:09 -0600
+
+* __Merge branch &#39;develop&#39; into 5212-alert-ax-improvements__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 23 Jul 2019 09:19:03 -0600
+
+* __Merge branch &#39;develop&#39; into 5212-alert-ax-improvements__
+
+    [Kevin Walsh](mailto:kevin.walsh@civicactions.com) - Sun, 21 Jul 2019 14:15:18 +0200
+
+* __Merge branch &#39;develop&#39; into 000-top-tasks-menu__
+
+    [Jon Pugh](mailto:jon@thinkdrop.net) - Tue, 16 Jul 2019 13:26:17 -0400
+
+* __Merge branch &#39;develop&#39; into 000-top-tasks-menu__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 10 Jul 2019 16:14:15 -0600
+
+* __Merge branch &#39;develop&#39; into 000-top-tasks-menu__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 8 Jul 2019 14:25:14 -0600
+    
+   
 ## 2019-07-23.1 Sprint 19 mid-sprint release 1.
 
 * __Merge branch &#39;develop&#39;__
