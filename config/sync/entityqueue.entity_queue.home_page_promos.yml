@@ -1,0 +1,25 @@
+uuid: 642bf7e4-01f7-4225-9ae8-a2252960306e
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+id: home_page_promos
+label: 'Home page promos'
+handler: simple
+handler_configuration: {  }
+entity_settings:
+  target_type: block_content
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      promo: promo
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+queue_settings:
+  min_size: 3
+  max_size: 3
+  act_as_queue: false
+  reverse_in_admin: false
