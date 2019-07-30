@@ -77,7 +77,7 @@ class BuildTriggerForm extends FormBase {
     $jenkins_build_job_path = Settings::get('jenkins_build_job_path');
     $jenkins_build_job_url = Settings::get('jenkins_build_job_url');
 
-    if (in_array(Settings::get('va_jenkins_build_env'), [
+    if (in_array(Settings::get('jenkins_build_env'), [
       'dev',
       'staging',
       'prod',
