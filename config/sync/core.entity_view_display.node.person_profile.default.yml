@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.person_profile.field_administration
     - field.field.node.person_profile.field_body
+    - field.field.node.person_profile.field_complete_biography
     - field.field.node.person_profile.field_description
     - field.field.node.person_profile.field_email_address
     - field.field.node.person_profile.field_intro_text
@@ -19,6 +20,7 @@ dependencies:
     - node.type.person_profile
   module:
     - field_group
+    - file
     - telephone
     - text
     - user
@@ -69,6 +71,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
+  field_complete_biography:
+    weight: 14
+    label: above
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    type: file_default
     region: content
   field_description:
     weight: 8

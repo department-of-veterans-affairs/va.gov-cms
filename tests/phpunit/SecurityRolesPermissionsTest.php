@@ -11,7 +11,7 @@ use Drupal\user\Entity\Role;
 class SecurityRolesPermissions extends ExistingSiteBase {
 
   /**
-   * Test method to deterine role are associated with the expected permissions.
+   * Test method to determine if each role is associated with its expected permissions.
    *
    * @group security
    * @group all
@@ -37,7 +37,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
   }
 
   /**
-   * Returns expected roles amd associated permissions.
+   * Returns expected roles and associated permissions.
    *
    * @return array
    *   Array containing all the roles in the system as an array
@@ -78,6 +78,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
         [
           'access administration pages',
           'access content overview',
+          'access files overview',
           'access image_browser entity browser pages',
           'access media overview',
           'access media_browser entity browser pages',
@@ -85,6 +86,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'access toolbar',
           'access user profiles',
           'administer menu',
+          'break content lock',
           'create alert block content',
           'create document media',
           'create event content',
@@ -152,7 +154,6 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'use editorial transition archived_published',
           'use editorial transition create_new_draft',
           'use editorial transition review',
-          'use moderation dashboard',
           'use moderation sidebar',
           'use text format rich_text',
           'use workbench access',
@@ -188,6 +189,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
         [
           'access administration pages',
           'access content overview',
+          'access files overview',
           'access image_browser entity browser pages',
           'access media overview',
           'access media_browser entity browser pages',
@@ -195,6 +197,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'access toolbar',
           'access user profiles',
           'administer menu',
+          'break content lock',
           'create alert block content',
           'create document media',
           'create event content',
@@ -263,7 +266,6 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'use editorial transition create_new_draft',
           'use editorial transition review',
           'use editorial transition stage_for_publishing',
-          'use moderation dashboard',
           'use moderation sidebar',
           'use text format rich_text',
           'use workbench access',
@@ -292,13 +294,14 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'view the administration theme',
           'view unpublished paragraphs',
           'view workbench access information',
-        ],
+          ],
       ],
       [
         'content_publisher',
         [
           'access administration pages',
           'access content overview',
+          'access files overview',
           'access image_browser entity browser pages',
           'access media overview',
           'access media_browser entity browser pages',
@@ -306,6 +309,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'access toolbar',
           'access user profiles',
           'administer menu',
+          'break content lock',
           'create alert block content',
           'create document media',
           'create event content',
@@ -447,13 +451,11 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'use editorial transition publish',
           'use editorial transition review',
           'use editorial transition stage_for_publishing',
-          'use moderation dashboard',
           'use moderation sidebar',
           'use text format rich_text',
           'use workbench access',
           'view all media revisions',
           'view all revisions',
-          'view any moderation dashboard',
           'view any unpublished content',
           'view event revisions',
           'view event_listing revisions',
@@ -483,6 +485,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
         'admnistrator_users',
         [
           'access content overview',
+          'access files overview',
           'access shortcuts',
           'access toolbar',
           'administer menu',
@@ -495,15 +498,14 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'assign documentation_editor role',
           'assign selected workbench access',
           'batch update workbench access',
+          'break content lock',
           'bypass password policies',
           'bypass workbench access',
           'create terms in administration',
           'delete terms in administration',
           'edit terms in administration',
           'manage password reset',
-          'use moderation dashboard',
           'use text format rich_text',
-          'view any moderation dashboard',
           'view sections in toolbar',
           'view workbench access information',
         ],
