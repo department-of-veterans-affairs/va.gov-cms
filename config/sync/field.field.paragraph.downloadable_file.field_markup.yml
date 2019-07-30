@@ -1,0 +1,25 @@
+uuid: 79c34b1b-57de-4963-8fac-9757d14c5b63
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_markup
+    - paragraphs.paragraphs_type.downloadable_file
+  module:
+    - markup
+id: paragraph.downloadable_file.field_markup
+field_name: field_markup
+entity_type: paragraph
+bundle: downloadable_file
+label: Markup
+description: ''
+required: false
+translatable: true
+default_value:
+  - {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: "<p>Allowed file types:&nbsp;</p>\r\n\r\n<p>For images: png, gif, jpg, jpeg&nbsp;</p>\r\n\r\n<p>For files: pdf, doc, docx, ppt, xlsx (pdf is preferable)</p>\r\n"
+    format: rich_text
+field_type: markup

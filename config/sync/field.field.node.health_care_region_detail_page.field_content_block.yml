@@ -7,7 +7,9 @@ dependencies:
     - node.type.health_care_region_detail_page
     - paragraphs.paragraphs_type.alert
     - paragraphs.paragraphs_type.collapsible_panel
+    - paragraphs.paragraphs_type.downloadable_file
     - paragraphs.paragraphs_type.list_of_link_teasers
+    - paragraphs.paragraphs_type.media
     - paragraphs.paragraphs_type.number_callout
     - paragraphs.paragraphs_type.process
     - paragraphs.paragraphs_type.q_a_section
@@ -44,6 +46,8 @@ settings:
       alert: alert
       staff_profile: staff_profile
       table: table
+      media: media
+      downloadable_file: downloadable_file
     target_bundles_drag_drop:
       wysiwyg:
         enabled: true
@@ -100,12 +104,15 @@ settings:
         weight: -26
         enabled: false
       media:
+        enabled: true
         weight: -25
-        enabled: false
       megamenu_links_column:
         weight: -24
         enabled: false
       megamenu_menu_item:
         weight: -23
         enabled: false
+      downloadable_file:
+        enabled: true
+        weight: 23
 field_type: entity_reference_revisions
