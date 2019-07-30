@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.person_profile.field_administration
     - field.field.node.person_profile.field_body
+    - field.field.node.person_profile.field_complete_biography
     - field.field.node.person_profile.field_description
     - field.field.node.person_profile.field_email_address
     - field.field.node.person_profile.field_intro_text
@@ -20,6 +21,7 @@ dependencies:
   module:
     - content_moderation
     - field_group
+    - file
     - hide_revision_field
     - media_library
     - metatag
@@ -106,6 +108,7 @@ third_party_settings:
       children:
         - field_intro_text
         - field_body
+        - field_complete_biography
       parent_name: ''
       weight: 3
       format_type: fieldset
@@ -140,6 +143,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
+  field_complete_biography:
+    weight: 7
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+    type: file_generic
     region: content
   field_description:
     weight: 6
