@@ -37,8 +37,8 @@ $config = [
         'assertion.encryption' => true,
         'sign.logout'          => true,
 
-        'privatekey'           => 'cms.va.gov-private-key.pem',
-        'certificate'          => 'cms.va.gov-public-ca-chain-certificate.crt',
+        'privatekey'           => 'cms.va.gov.private.key',
+        'certificate'          => 'cms.va.gov.chain.crt',
         // Defaults to SHA1 (http://www.w3.org/2000/09/xmldsig#rsa-sha1)
         'signature.algorithm'  => 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256',
 

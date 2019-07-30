@@ -62,7 +62,7 @@ $config = [
      * When specified as a relative path, this is relative to the SimpleSAMLphp
      * root directory.
      */
-    'certdir' => '/app/va-certs/',
+    'certdir' => '/certs/',
     'loggingdir' => 'log/',
     'datadir' => 'data/',
     'tempdir' => '/tmp/simplesaml',
