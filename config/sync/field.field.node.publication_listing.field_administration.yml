@@ -1,0 +1,29 @@
+uuid: c873219d-d4bc-4a3f-8c50-1ae62091ac5b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.publication_listing
+    - taxonomy.vocabulary.administration
+id: node.publication_listing.field_administration
+field_name: field_administration
+entity_type: node
+bundle: publication_listing
+label: Owner
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: health_care_service_taxonomy
+field_type: entity_reference

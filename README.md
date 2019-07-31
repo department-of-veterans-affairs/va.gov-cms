@@ -1,15 +1,113 @@
 This is an Aquia Lightning based implementation of Drupal 8 that uses [Lando](https://docs.devwithlando.io/) for local container management.
 
 ## Get Started
-How to start:
+
+### Domains
+Domains for this application are below, they both correspond to a frontend (FE) domain that consumes data from the CMS via GraphQL API endpoint at /graphql:
+* dev.cms.va.gov (FE dev.va.gov)
+* staging.cms.va.gov (FE staging.va.gov)
+* prod.va.gov (FE www.va.gov)
+
+## HTTPS browser setup for production usage
+All computers in VA already have this setup, if you are using a non-VA laptop for development you will need to trust the VA Root Certificate Authority (CA) in your browser(s).
+
+Chrome
+* `wget http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-RCA1-v1.cer`
+* Go to chrome://settings/certificates?search=https
+* Click "Authorities"
+* Click "Import" and select VA-Internal-S2-RCA1-v1.cer file downloaded above
+
+Firefox
+* `wget http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-RCA1-v1.cer`
+* `wget http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-ICA1-v1.cer`
+* Go to about:preferences#privacy, scroll to bottom
+* Click "View Certificates"
+* Click "Authorities" tab
+* Click "Import"
+* Import both files downloaded above
+
+## HTTPS testing (locally/Lando)
+You can't test with the VA cert locally using Lando but you can use Lando's self-signed cert. If you need to test the actual cert locally contact the DevOps team to help you setup the vagrant build system to get HTTPS working with VA CA.
+
+To test with Lando's self-signed cert you need to tell your system to trust the Lando Certificate Authority. Instructions are here > https://docs.devwithlando.io/config/security.html
+
+TODO, create upstream PR with `sudo trust anchor --store ~/.lando/certs/lndo.site.pem` for Arch Linux
+
+Note: I had to still import that same CA into Chrome.
+Go to chrome://settings/certificates?search=https
+Click "Authorities"
+Import `.lando\certs\lndo.site.pem` 
+
+### Custom Composer Scripts
+
+There are a number of helpful composer "scripts" available, located in the [composer.json](composer.json) file, in the `scripts` section. These scripts get loaded in as composer commands.
+
+Change to the CMS repositiory directory and run `composer` to list all commands, both built in and ones from this repo.
+
+The VA.gov project has the following custom commands.
+
+1. `set-path`
+
+    Use `composer set-path` command to print out the needed PATH variable to allow running any command in the `./bin` directory just by it's name.
+    
+    For example:
+    
+    ```bash
+    $  composer set-path
+    > # Run the command output below to set your current terminal PATH variable.
+    > # This will allow you to run any command in the ./bin directory without a path.
+    > echo "export PATH=${PATH}"
+    export PATH=/Users/VaDeveloper/Projects/VA/va.gov-cms/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin
+    ```
+    
+    Then, copy the last line (with all of the paths) and paste it into your desired terminal, and hit ENTER.
+    
+    Once the path is set, you can run any of the commands listed in the [bin directory](bin) directly:
+    
+    ```bash
+    $ phpcs --version
+    PHP_CodeSniffer version 2.9.2 (stable) by Squiz (http://www.squiz.net)
+    ```
+
+    The path will remain in place as you change directories. 
+    
+    Useful for running the `behat` tests:
+    
+    ```bash
+    $ cd tests/behat
+    $ behat
+    ```
+
+2. `va:proxy:start`
+
+    Simply runs the "socks proxy" command which is needed to connect to the VA.gov network. Add the `&` character to run it as a background process.
+
+3. `va:proxy:test`
+
+    Test the proxy when it is running.
+
+@TODO: Document all of the custom composer commands.
+
+See https://getcomposer.org/doc/articles/scripts.md for more information on how to create and manage scripts.
+  
+### How to launch a local development environment:
 * get lando https://docs.devwithlando.io/installation/installing.html
 * `git clone git@github.com:department-of-veterans-affairs/va.gov-cms.git vagov`
 * `cd vagov`
 * `lando start`
-* `scripts/sync-db.sh` # Requires SOCKS proxy access
-* `scripts/sync-files.sh` # Requires SOCKS proxy access
 
-Example workflow:
+### How to sync:
+
+Run these scripts to recreate the site locally. The server holding the database dump must be accessed via a proxy.
+
+Once you have [submitted your SSH Public Key](https://github.com/department-of-veterans-affairs/vets-external-teams/blob/master/Onboarding/request-access-to-tools.md#additional-onboarding-steps-for-developers), you can run the following commands to create a local instance of https://cms.va.gov:
+
+* `ssh socks -D 2001 -N &` # Runs an SSH socks proxy in a separate process. Run `ps` to see the running ssh process.
+* `./scripts/sync-db.sh` # Downloads a recent, sanitized database export file to `.dumps/cms-db-latest.sql`.
+* `./scripts/sync-files.sh` # Downloads a recent backup of site files to `sites/default/files`, and runs `lando db-import cms-db-latest.sql`.
+
+### Example workflow:
+
 * `git fetch --all`
 * `git checkout --branch <VAGOV-000-name> origin/develop`
 * `lando composer install`
@@ -31,6 +129,17 @@ Theme structure (project is headless, so this isn't critical):
 * Base theme is USWDS: https://www.drupal.org/project/uswds
 * vagov Subtheme lives in themes/custom
 
+
+### Testing
+
+There's a new command to run all tests on the codebase in the same way they are run in CI:
+
+    ```
+    composer yaml-tests
+    ```
+
+Check out the file `tests.yml` for the list of tests that are included in the automated testing system.
+
 Running Behat Tests:
 * `cd tests/behat`
 * `lando behat --tags=name-of-tag`
@@ -40,6 +149,8 @@ Running Phpunit Tests:
 * `lando phpunit {Path-to-test}`
 to run a test group use
 * `lando phpunit . --group security`
+
+### Patching
 
 Apply patches:
 * Get the patch file:
@@ -128,4 +239,9 @@ query {
   }
 }
 ```
+
+
+# Branches
+
+The `develop` branch is now protected. It requires tests to pass and a manual review to be merged.
 

@@ -8,10 +8,8 @@ dependencies:
     - image.style.3_2_medium_thumbnail
     - media.type.image
   module:
-    - content_moderation
     - image_widget_crop
     - lightning_media
-    - path
 _core:
   default_config_hash: kyoAHlZTGIuGTaQuBblGBk8EhfnVKOl19_0j5WbpQqM
 id: media.image.default
@@ -19,13 +17,6 @@ targetEntityType: media
 bundle: image
 mode: default
 content:
-  field_media_in_library:
-    type: boolean_checkbox
-    weight: 3
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    region: content
   image:
     type: image_widget_crop
     weight: 1
@@ -43,12 +34,6 @@ content:
         file_links: true
         remove_button: true
     region: content
-  moderation_state:
-    type: moderation_state_default
-    weight: 6
-    settings: {  }
-    region: content
-    third_party_settings: {  }
   name:
     type: string_textfield
     weight: 0
@@ -57,20 +42,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     region: content
-  path:
-    type: path
-    weight: 4
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 5
-    region: content
-    third_party_settings: {  }
 hidden:
   created: true
+  field_media_in_library: true
+  moderation_state: true
+  path: true
   revision_log_message: true
+  status: true
   uid: true

@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.media.image.field_media_in_library
     - field.field.media.image.image
+    - image.style.full_content_width
     - media.type.image
   module:
     - image
@@ -17,16 +18,23 @@ mode: default
 content:
   image:
     type: image
-    weight: 0
-    label: hidden
+    weight: 1
+    label: above
     settings:
-      image_style: ''
+      image_style: full_content_width
       image_link: ''
     third_party_settings: {  }
     region: content
+  name:
+    type: string
+    weight: 0
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
 hidden:
   created: true
   field_media_in_library: true
-  name: true
   thumbnail: true
   uid: true

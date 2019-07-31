@@ -2,7 +2,9 @@
 
 // @codingStandardsIgnoreFile
 
-$settings['va_jenkins_build_job_url_params'] = $settings['va_jenkins_build_job_prod'] . '/buildWithParameters?' . 'release_wait=5' . '&' . 'use_latest_release=true';
+$settings['jenkins_build_job_path'] = '/job/deploys/job/vets-gov-autodeploy-vets-website';
+$settings['jenkins_build_job_params'] = '/buildWithParameters?' . 'release_wait=5' . '&' . 'use_latest_release=true';
+$settings['jenkins_build_job_url'] = $settings['jenkins_build_job_host'] . $settings['jenkins_build_job_path'] . $settings['jenkins_build_job_params'];
 
 $config['config_split.config_split.dev']['status'] = FALSE;
 $config['config_split.config_split.stg']['status'] = FALSE;
@@ -25,11 +27,7 @@ $settings['trusted_host_patterns'] = [
     '10\.199.*',
     '10\.247.*',
     'localhost',
-    '^cms\.va\.gov$',
-    '^prod\.cms\.va\.gov$',
-    '^.*\.us-gov-west-1\.elb\.amazonaws\.com$',
+    'prod.cms.va.gov',
+    'cms.va.gov',
+    '.*\.us-gov-west-1\.elb\.amazonaws\.com',
 ];
-
-if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php')) {
-    include $app_root . '/' . $site_path . '/settings/settings.fast_404.php';
-}

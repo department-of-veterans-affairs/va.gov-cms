@@ -3,12 +3,33 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.office.field_administration
+    - field.field.node.office.field_body
     - field.field.node.office.field_description
     - node.type.office
   module:
     - content_moderation
+    - field_group
     - hide_revision_field
     - path
+    - text
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 8
+      format_type: details_sidebar
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: 1
+        required_fields: 1
+        weight: '-10'
+      label: Governance
+      region: content
 id: node.office.default
 targetEntityType: node
 bundle: office
@@ -16,12 +37,26 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_administration:
+    weight: 15
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_body:
+    type: text_textarea
+    weight: 14
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   field_description:
-    weight: 122
+    weight: 11
     settings:
       size: 60
       placeholder: ''
@@ -30,13 +65,13 @@ content:
     region: content
   moderation_state:
     type: moderation_state_default
-    weight: 100
+    weight: 9
     settings: {  }
     region: content
     third_party_settings: {  }
   path:
     type: path
-    weight: 30
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -44,12 +79,12 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 15
+    weight: 3
     region: content
     third_party_settings: {  }
   revision_log:
     type: hide_revision_field_log_widget
-    weight: 80
+    weight: 7
     region: content
     settings:
       show: true
@@ -63,19 +98,19 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 120
+    weight: 10
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 16
+    weight: 4
     region: content
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: -5
+    weight: 0
     region: content
     settings:
       size: 60
@@ -83,7 +118,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 1
     settings:
       match_operator: CONTAINS
       size: 60
@@ -91,8 +126,8 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 50
+    weight: 6
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden: {  }

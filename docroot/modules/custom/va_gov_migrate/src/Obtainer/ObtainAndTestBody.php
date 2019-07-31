@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_migrate\Obtainer;
 
+use Drupal\migration_tools\Message;
 use Drupal\migration_tools\Obtainer\ObtainHtml;
 use Drupal\va_gov_migrate\AnomalyMessage;
 
@@ -43,15 +44,49 @@ class ObtainAndTestBody extends ObtainHtml {
 
         $anomalies = [];
 
-        if ($element->find('.usa-grid-full .columns')->count()) {
+        if ($element->find('.usa-grid-full > .columns')->count()) {
           $anomalies[] = AnomalyMessage::TWO_COLUMN_CONTENT;
         }
         if ($element->find('a[href^="#"]')->count()) {
           $anomalies[] = AnomalyMessage::JUMPLINKS;
         }
-        elseif ($element->find('a[href*="#"]')->count()) {
-          $anomalies[] = 'Anchor link to another page';
-          AnomalyMessage::make('Anchor link to another page', $title, $url, $element->find('a[href*="#"]')->text());
+        if ($element->find('a[href*="#"]')->count()) {
+          $links = $element->find('a[href*="#"]');
+          /** @var \QueryPath\DOMQuery $link */
+          foreach ($links as $link) {
+            $href = $link->attr('href');
+            $url_parts = parse_url($href);
+            if (!empty($url_parts['fragment'])) {
+              if (empty($url_parts['host']) || $url_parts['host'] === 'www.va.gov') {
+                // Discharge-upgrade-instructions is a react page, so it's fine.
+                if ($url_parts['path'] != '/discharge-upgrade-instructions/') {
+                  if (!$element->find('a[href^="#"]')->count()) {
+                    AnomalyMessage::make('Anchor link to another page', $title, $url, $href . ': ' . $link->text());
+                  }
+                  Message::make('Anchor link',
+                    [
+                      '@title' => $title,
+                      '@url' => $url,
+                      '@link_text' => $link->text(),
+                      '@link' => $href,
+                    ]
+                  );
+                }
+              }
+            }
+          }
+        }
+
+        $buttons = $element->find('button');
+        /** @var \QueryPath\DOMQuery $button */
+        foreach ($buttons as $button) {
+          if (!$button->hasClass('usa-accordion-button')) {
+            AnomalyMessage::make('<button> not supported', $title, $url, $button->html());
+          }
+        }
+
+        if ($element->find('a[class="login-required"]')->count()) {
+          $anomalies[] = 'Sign-in modal trigger not yet supported';
         }
 
         if ($element->find('.va-h-ruled--stars')->count()) {
@@ -69,14 +104,24 @@ class ObtainAndTestBody extends ObtainHtml {
             }
           }
         }
-        if ($element->find('table')->count()) {
-          $anomalies[] = AnomalyMessage::TABLES;
-        }
         if ($element->find('.background-color-only')->count()) {
           $anomalies[] = AnomalyMessage::ALERTS_BACKGROUND_COLOR_ONLY;
         }
         if ($element->find('[aria-multiselectable="true"]')->count()) {
           $anomalies[] = AnomalyMessage::MULTI_SELECTABLE;
+        }
+        $fas = $element->find('[class*="fa-"].fas,[class*="fa-"].far');
+        if ($fas->count()) {
+          /** @var \QueryPath\DOMQuery $fa */
+          foreach ($fas as $fa) {
+            // The below looks redundant, but it's needed to perform the test.
+            if ($fa->parent('.number')->hasClass('number')) {
+              $anomalies[] = AnomalyMessage::FONT_AWESOME_NUMBER_CALLOUTS;
+            }
+            else {
+              $anomalies[] = AnomalyMessage::FONT_AWESOME_SNIPPETS;
+            }
+          }
         }
       }
     }

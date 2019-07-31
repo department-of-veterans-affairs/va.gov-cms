@@ -1,0 +1,14 @@
+# These hooks are run by the "ecs_vagovcms_deploy_prod" jenkins job.
+# http://jenkins.cms.va.gov/job/ecs_vagovcms_deploy_prod/configure
+
+va/deploy/1-cache:
+  description: Rebuild Drupal caches
+  command: drush cache:rebuild
+
+va/deploy/2-update:
+  description: Run Drupal Update Hooks
+  command: drush updatedb --yes
+
+va/deploy/3-config:
+  - drush config:import --yes
+  - drush cache:rebuild

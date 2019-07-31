@@ -1,0 +1,26 @@
+uuid: eadc90f3-26dc-45ff-bcb0-955963d35c6f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.publication_listing
+  module:
+    - user
+id: node.publication_listing.teaser
+targetEntityType: node
+bundle: publication_listing
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_administration: true
+  field_description: true
+  field_intro_text: true
+  field_meta_tags: true
+  field_meta_title: true
+  field_office: true

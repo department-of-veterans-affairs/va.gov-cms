@@ -8,8 +8,7 @@ dependencies:
     - field.field.media.document.field_media_in_library
     - media.type.document
   module:
-    - content_moderation
-    - path
+    - file
 _core:
   default_config_hash: X8KEO5iV-XcsBLSyLEMOMv3sw-WxXeIdWnZZ1btyyVU
 id: media.document.media_browser
@@ -17,18 +16,12 @@ targetEntityType: media
 bundle: document
 mode: media_browser
 content:
-  field_media_in_library:
-    type: boolean_checkbox
-    settings:
-      display_label: true
+  field_document:
+    type: file_generic
     weight: 1
-    third_party_settings: {  }
     region: content
-  moderation_state:
-    type: moderation_state_default
-    weight: 100
-    settings: {  }
-    region: content
+    settings:
+      progress_indicator: throbber
     third_party_settings: {  }
   name:
     type: string_textfield
@@ -38,20 +31,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     region: content
-  path:
-    type: path
-    weight: 30
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 100
-    region: content
-    third_party_settings: {  }
 hidden:
   created: true
-  field_document: true
+  field_media_in_library: true
+  moderation_state: true
+  path: true
+  revision_log_message: true
+  status: true
   uid: true

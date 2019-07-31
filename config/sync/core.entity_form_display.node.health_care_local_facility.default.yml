@@ -4,31 +4,41 @@ status: true
 dependencies:
   config:
     - field.field.node.health_care_local_facility.field_administration
+    - field.field.node.health_care_local_facility.field_description
+    - field.field.node.health_care_local_facility.field_email_subscription
+    - field.field.node.health_care_local_facility.field_facebook
     - field.field.node.health_care_local_facility.field_facility_locator_api_id
+    - field.field.node.health_care_local_facility.field_flickr
+    - field.field.node.health_care_local_facility.field_instagram
     - field.field.node.health_care_local_facility.field_intro_text
     - field.field.node.health_care_local_facility.field_local_health_care_service_
     - field.field.node.health_care_local_facility.field_location_services
     - field.field.node.health_care_local_facility.field_main_location
     - field.field.node.health_care_local_facility.field_media
     - field.field.node.health_care_local_facility.field_meta_tags
+    - field.field.node.health_care_local_facility.field_meta_title
     - field.field.node.health_care_local_facility.field_nickname_for_this_facility
+    - field.field.node.health_care_local_facility.field_operating_status_facility
     - field.field.node.health_care_local_facility.field_region_page
+    - field.field.node.health_care_local_facility.field_twitter
     - node.type.health_care_local_facility
   module:
     - content_moderation
     - field_group
     - hide_revision_field
+    - link
     - media_library
     - metatag
     - paragraphs
     - path
+    - textfield_counter
 third_party_settings:
   field_group:
     group_governance:
       children:
         - field_administration
       parent_name: ''
-      weight: 15
+      weight: 13
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -43,7 +53,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 16
+      weight: 14
       format_type: fieldset
       format_settings:
         id: ''
@@ -56,7 +66,7 @@ third_party_settings:
       children:
         - field_facility_locator_api_id
       parent_name: ''
-      weight: 5
+      weight: 2
       format_type: details
       format_settings:
         id: ''
@@ -70,10 +80,9 @@ third_party_settings:
       children:
         - field_location_services
       parent_name: ''
-      weight: 6
+      weight: 4
       format_type: details
       format_settings:
-        label: 'Location services "Prepare for your visit"'
         id: ''
         classes: ''
         open: false
@@ -85,7 +94,7 @@ third_party_settings:
         - field_region_page
         - field_main_location
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         id: ''
@@ -94,6 +103,42 @@ third_party_settings:
         required_fields: false
       label: Region
       region: content
+    group_title_and_summary:
+      children:
+        - title
+        - field_meta_title
+        - field_nickname_for_this_facility
+        - field_description
+        - field_operating_status_facility
+        - field_intro_text
+        - field_media
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: false
+      label: 'Title and summary'
+      region: content
+    group_social_media:
+      children:
+        - field_facebook
+        - field_twitter
+        - field_instagram
+        - field_flickr
+        - field_email_subscription
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Social Media'
+      region: content
 id: node.health_care_local_facility.default
 targetEntityType: node
 bundle: health_care_local_facility
@@ -101,7 +146,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 9
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -111,6 +156,36 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  field_description:
+    weight: 4
+    settings:
+      size: 120
+      placeholder: ''
+      maxlength: 300
+      counter_position: after
+      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
+      js_prevent_submit: false
+      count_html_characters: false
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_email_subscription:
+    weight: 24
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_facebook:
+    weight: 19
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
   field_facility_locator_api_id:
     weight: 10
     settings:
@@ -119,22 +194,34 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_flickr:
+    weight: 23
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_instagram:
+    weight: 22
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
   field_intro_text:
-    weight: 4
+    weight: 6
     settings:
       rows: 5
       placeholder: ''
+      maxlength: 600
+      counter_position: after
+      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
+      js_prevent_submit: false
+      count_html_characters: false
     third_party_settings: {  }
-    type: string_textarea
-    region: content
-  field_local_health_care_service_:
-    weight: 18
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: string_textarea_with_counter
     region: content
   field_location_services:
     type: entity_reference_paragraphs
@@ -149,7 +236,7 @@ content:
     third_party_settings: {  }
     region: content
   field_main_location:
-    weight: 3
+    weight: 21
     settings:
       display_label: true
     third_party_settings: {  }
@@ -157,29 +244,57 @@ content:
     region: content
   field_media:
     type: media_library_widget
-    weight: 1
+    weight: 7
     settings: {  }
     region: content
     third_party_settings: {  }
   field_meta_tags:
-    weight: 17
+    weight: 15
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
     region: content
+  field_meta_title:
+    weight: 2
+    settings:
+      size: 70
+      placeholder: ''
+      use_field_maxlength: true
+      maxlength: null
+      counter_position: after
+      js_prevent_submit: true
+      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
+      count_html_characters: false
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
   field_nickname_for_this_facility:
     weight: 3
     settings:
-      size: 60
+      size: 120
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_region_page:
-    weight: 2
+  field_operating_status_facility:
+    weight: 5
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
+  field_region_page:
+    weight: 20
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_twitter:
+    weight: 20
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
     region: content
   moderation_state:
     type: moderation_state_default
@@ -189,7 +304,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 12
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -197,7 +312,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 10
+    weight: 7
     region: content
     third_party_settings: {  }
   revision_log:
@@ -216,27 +331,33 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 14
+    weight: 12
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 11
+    weight: 9
     region: content
     third_party_settings: {  }
   title:
-    type: string_textfield
-    weight: 0
+    type: string_textfield_with_counter
+    weight: 1
     region: content
     settings:
       size: 60
       placeholder: ''
+      maxlength: 150
+      counter_position: after
+      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
+      js_prevent_submit: false
+      count_html_characters: false
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 8
+    weight: 5
     settings:
       match_operator: CONTAINS
       size: 60
@@ -244,8 +365,9 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 13
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_local_health_care_service_: true

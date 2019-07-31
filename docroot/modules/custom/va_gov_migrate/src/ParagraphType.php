@@ -53,20 +53,7 @@ abstract class ParagraphType {
     try {
       if ($this->isParagraph($query_path)) {
         if (!$this->allowedParagraph($allowed_paragraphs)) {
-          if ("node" == $entity->getEntityTypeId()) {
-            $title = $entity->get('title')->value;
-          }
-
-          Message::make('@class not allowed on @type in field @field on @title @url',
-            [
-              '@class' => $this->getParagraphName(),
-              '@type' => $entity->bundle(),
-              '@field' => $parent_field,
-              '@title' => self::$migrator->row->getSourceProperty('title'),
-              '@url' => self::$migrator->row->getSourceIdValues()['url'],
-            ],
-            Message::WARNING
-          );
+          $this->makeNotAllowedMessage($entity, $parent_field);
           return FALSE;
         }
 
@@ -88,7 +75,7 @@ abstract class ParagraphType {
           $paragraph->save();
         }
 
-        static::attachParagraph($paragraph, $entity, $parent_field);
+        static::attachParagraph($paragraph, $entity, $parent_field, $query_path);
 
         $this->addChildParagraphs($paragraph, $this->getChildQuery($query_path));
 
@@ -118,6 +105,59 @@ abstract class ParagraphType {
   }
 
   /**
+   * Create message for attempt to add a paragraph where it's not allowed.
+   *
+   * @param \Drupal\Core\Entity\Entity $entity
+   *   The entity we tried to attach this paragraph to.
+   * @param string $parent_field
+   *   The name of the field we tried to attach this paragraph to.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  protected function makeNotAllowedMessage(Entity $entity, $parent_field) {
+    $anomaly = "{$this->paragraphLabel()} not allowed on {$this->paragraphLabel($entity->bundle())}";
+    if (($this->getParagraphName() === 'q_a' && $entity->bundle() === 'q_a')) {
+      $anomaly = AnomalyMessage::Q_A_NESTED;
+    }
+    elseif ($anomaly === "List of link teasers not allowed on Q&A") {
+      $anomaly = AnomalyMessage::MAJOR_LINKS;
+    }
+
+    // Link teaser message inevitably follows list of link teasers, so ignore.
+    if (($this->getParagraphName() !== 'link_teaser' || $entity->bundle() !== 'q_a')) {
+      AnomalyMessage::makeCustom('@class not allowed on @type in field @field on @title @url',
+        [
+          '@anomaly_type' => $anomaly,
+          '@class' => $this->getParagraphName(),
+          '@type' => $entity->bundle(),
+          '@field' => $parent_field,
+          '@title' => self::$migrator->row->getSourceProperty('title'),
+          '@url' => self::$migrator->row->getSourceIdValues()['url'],
+        ],
+        Message::WARNING
+      );
+    }
+  }
+
+  /**
+   * Returns best guess of paragraph label based on paragraph machine name.
+   *
+   * @param string $machine_name
+   *   The machine name to build the label from (defaults to paragraph name).
+   *
+   * @return string
+   *   The paragraph label.
+   */
+  protected function paragraphLabel($machine_name = '') {
+    if (empty($machine_name)) {
+      $machine_name = $this->getParagraphName();
+    }
+
+    $machine_name = str_replace('q_a', 'Q&A', $machine_name);
+    return ucfirst(str_replace('_', ' ', $machine_name));
+  }
+
+  /**
    * Attach the paragraph to its parent entity.
    *
    * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
@@ -126,10 +166,12 @@ abstract class ParagraphType {
    *   The parent entity.
    * @param string $parent_field
    *   The machine name of the paragraph field on the parent entity.
+   * @param \QueryPath\DOMQuery|null $query_path
+   *   Optional parameter for the use of children.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public static function attachParagraph(Paragraph $paragraph, Entity &$entity, $parent_field) {
+  public static function attachParagraph(Paragraph $paragraph, Entity &$entity, $parent_field, DOMQuery $query_path = NULL) {
     if (!\Drupal::state()->get('va_gov_migrate.dont_migrate_paragraphs')) {
       $current = $entity->get($parent_field)->getValue();
       $current[] = [
@@ -317,10 +359,47 @@ abstract class ParagraphType {
    *   An array that can be assigned to a rich text field.
    */
   public static function toRichText($text) {
+    if (strpos($text, '<table>') !== FALSE) {
+      AnomalyMessage::makeFromRow(AnomalyMessage::TABLES, self::$migrator->row);
+    }
     return [
       "value" => $text,
       "format" => "rich_text",
     ];
+  }
+
+  /**
+   * Checks content for illegal tags and returns html.
+   *
+   * @param \QueryPath\DOMQuery $query_path
+   *   The query containing the content.
+   *
+   * @return mixed
+   *   Inner html as rich text.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  public static function toLongText(DOMQuery $query_path) {
+    $legal_tags = ['em', 'a', 'strong', 'br', 'p'];
+    $illegal_tags = [];
+    if (!in_array($query_path->tag(), $legal_tags)) {
+      $illegal_tags[] = $query_path->tag();
+    }
+    $children = $query_path->children();
+    foreach ($children as $child) {
+      if (!in_array($child->tag(), $legal_tags)) {
+        $illegal_tags[] = $child->tag();
+      }
+    }
+    if (!empty($illegal_tags)) {
+      AnomalyMessage::makeFromRow('Illegal tag(s) in long text', static::$migrator->row, implode(', ', $illegal_tags));
+    }
+
+    $text = '';
+    if (!empty(trim($query_path->text()))) {
+      $text = strip_tags($query_path->html(), '<em><a><strong><br><p>');
+    }
+    return $text;
   }
 
 }

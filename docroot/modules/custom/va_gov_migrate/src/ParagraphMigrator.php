@@ -155,23 +155,9 @@ class ParagraphMigrator {
     $ending_chars = $this->charMap($this->endingContent);
     $diff = count(array_diff_assoc($source_chars, $ending_chars));
 
-    if ($diff == 0) {
-      $level = Message::DEBUG;
+    if ($diff > 0) {
+      AnomalyMessage::make('Failed content similarity test', $this->row->getDestinationProperty('title'), reset($this->row->getSourceIdValues()));
     }
-    else {
-      $diff = 1;
-      $level = Message::ERROR;
-    }
-    Message::make("@title, @url, @field, @resulted with a similarity percentage of @percent",
-      [
-        "@title" => $this->row->getDestinationProperty('title'),
-        "@url" => reset($this->row->getSourceIdValues()),
-        "@field" => $dest_field,
-        "@resulted" => $diff == 1 ? 'failed' : 'passed',
-        "@diff" => $diff,
-        "@percent" => $percent,
-      ], $level
-      );
   }
 
   /**
@@ -184,6 +170,7 @@ class ParagraphMigrator {
    *   Array of character counts.
    */
   protected function charMap($source_string) {
+    $source_string = str_replace('&amp;', '&', $source_string);
     $chars = str_split(strip_tags($source_string));
     $result = [];
     foreach ($chars as $char) {

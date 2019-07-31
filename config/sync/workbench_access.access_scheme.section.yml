@@ -6,7 +6,9 @@ dependencies:
     - field.field.block_content.alert.field_owner
     - field.field.block_content.promo.field_owner
     - field.field.node.event.field_administration
+    - field.field.node.event_listing.field_administration
     - field.field.node.health_care_local_facility.field_administration
+    - field.field.node.health_care_local_health_service.field_administration
     - field.field.node.health_care_region_detail_page.field_administration
     - field.field.node.health_care_region_page.field_administration
     - field.field.node.landing_page.field_administration
@@ -15,6 +17,7 @@ dependencies:
     - field.field.node.page.field_administration
     - field.field.node.person_profile.field_administration
     - field.field.node.press_release.field_administration
+    - field.field.node.publication_listing.field_administration
     - field.field.node.regional_health_care_service_des.field_administration
     - field.field.node.support_service.field_administration
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
@@ -82,6 +85,18 @@ scheme_settings:
     -
       entity_type: node
       bundle: health_care_region_detail_page
+      field: field_administration
+    -
+      entity_type: node
+      bundle: publication_listing
+      field: field_administration
+    -
+      entity_type: node
+      bundle: event_listing
+      field: field_administration
+    -
+      entity_type: node
+      bundle: health_care_local_health_service
       field: field_administration
     -
       entity_type: taxonomy_term

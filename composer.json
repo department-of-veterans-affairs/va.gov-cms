@@ -12,70 +12,82 @@
         "acquia/drupal-spec-tool": "^2.0"
     },
     "require": {
-        "drupal-composer/drupal-scaffold": "^2.0.0",
-        "cweagans/composer-patches": "^1.6.0",
         "acquia/headless_lightning": "^1.4.0-beta2",
-        "drupal/components": "^1.0",
-        "drupal/uswds": "^1.0@beta",
-        "drupal/ui_patterns": "^1.0",
         "behat/behat": "^3.4",
-        "drupal/drupal-extension": "^3.4",
-        "drush-ops/behat-drush-endpoint": "^0.0.4",
-        "guzzlehttp/guzzle": "^6.0@dev",
-        "drupal/migrate_plus": "^4.0",
-        "drupal/migrate_tools": "^4.0",
-        "drupal/migration_tools": "^2.0@alpha",
-        "querypath/querypath": "^3.0",
-        "webflo/drupal-finder": "^1.0.0",
-        "webmozart/path-util": "^2.3",
-        "drupal/workbench_access": "^1.0@beta",
-        "drupal/paragraphs": "^1.5",
-        "drupal/block_visibility_groups": "^1.3",
-        "drupal/admin_toolbar": "^1.24",
-        "drupal/xmlsitemap": "^1.0@alpha",
-        "drupal/menu_export": "^1.2",
-        "drupal/rest_menu_tree": "^1.1",
-        "drupal/restui": "^1.16",
-        "drupal/health_check": "^1.0",
-        "drupal/graphql": "^3.0",
+        "cweagans/composer-patches": "^1.6.0",
+        "drupal-composer/drupal-scaffold": "^2.0.0",
         "drupal/address": "^1.4",
-        "drupal/node_title_help_text": "^1.0",
-        "drupal/field_group": "3.x-dev",
-        "drupal/social_media_links": "^2.6",
-        "weitzman/drupal-test-traits": "dev-master",
-        "phpunit/phpunit": "^6",
-        "drupal/redirect": "^1.3",
-        "michelf/php-markdown": "^1.8",
-        "drupal/cshs": "^1.0@beta",
-        "drupal/markup": "^1.0@beta",
-        "drupal/role_delegation": "^1.0@alpha",
-        "drupal/block_content_permissions": "^1.6",
-        "drupal/hide_revision_field": "^2.1",
-        "drupal/migrate_source_csv": "^2.2",
+        "drupal/admin_toolbar": "^1.24",
         "drupal/auto_entitylabel": "^2.1@beta",
-        "zaporylie/composer-drupal-optimizations": "^1.0",
-        "drupal/redirect_options": "^1.2",
-        "drupal/path_redirect_import": "^1.0@beta",
-        "drupal/graphql_metatag": "1.x-dev",
-        "drupal/seckit": "^1.1",
-        "drupal/password_policy": "^3.0@alpha",
+        "drupal/better_field_descriptions": "^1.4",
+        "drupal/block_content_permissions": "^1.6",
+        "drupal/block_visibility_groups": "^1.3",
+        "drupal/cer": "^4.0@alpha",
+        "drupal/components": "^1.0",
+        "drupal/config_split": "^1.4",
+        "drupal/content_lock": "^1.0@alpha",
+        "drupal/cshs": "^1.0@beta",
+        "drupal/drupal-extension": "^3.4",
+        "drupal/entity_reference_unpublished": "^1.1",
+        "drupal/entityqueue": "^1.0@beta",
         "drupal/environment_indicator": "^3.5",
         "drupal/fast_404": "^1.0@alpha",
-        "drupal/config_split": "^1.4",
-        "twig/twig": "1.37.1",
-        "drupal/node_revisions_autoclean": "^1.0@beta",
-        "drupal/views_bulk_operations": "^2.5",
+        "drupal/feature_toggle": "^1.2",
+        "drupal/field_group": "3.x-dev",
+        "drupal/graphql": "^3.0",
+        "drupal/graphql_metatag": "1.x-dev",
+        "drupal/health_check": "^1.0",
         "drupal/health_check_url": "^2.1",
-        "drupal/pathologic": "^1.0@alpha",
-        "drupal/menu_breadcrumb": "^1.8",
-        "drupal/entity_reference_unpublished": "^1.1",
-        "drupal/tablefield": "^2.0@alpha",
-        "drupal/cer": "^4.0@alpha",
-        "drupal/better_field_descriptions": "^1.4",
+        "drupal/hide_revision_field": "^2.1",
         "drupal/markdown": "^1.2",
+        "drupal/markup": "^1.0@beta",
+        "drupal/menu_breadcrumb": "^1.8",
+        "drupal/menu_export": "^1.2",
+        "drupal/migrate_plus": "^4.0",
+        "drupal/migrate_source_csv": "^2.2",
+        "drupal/migrate_tools": "^4.0",
+        "drupal/migration_tools": "^2.0@alpha",
+        "drupal/node_revisions_autoclean": "^1.0@beta",
+        "drupal/node_title_help_text": "^1.0",
+        "drupal/paragraphs": "^1.5",
         "drupal/paragraphs_browser": "^1.0@alpha",
+        "drupal/password_policy": "^3.0@alpha",
+        "drupal/path_redirect_import": "^1.0@beta",
+        "drupal/pathologic": "^1.0@alpha",
+        "drupal/redirect": "^1.3",
+        "drupal/redirect_after_login": "^2.5",
+        "drupal/redirect_options": "^1.2",
+        "drupal/rest_menu_tree": "^1.1",
+        "drupal/restui": "^1.16",
+        "drupal/role_delegation": "^1.0@alpha",
+        "drupal/seckit": "^1.1",
+        "drupal/simplesamlphp_auth": "^3.0",
+        "drupal/social_media_links": "^2.6",
+        "drupal/tablefield": "^2.0@alpha",
+        "drupal/taxonomy_menu": "^3.4",
         "drupal/textfield_counter": "^1.6",
-        "drupal/workbench_menu_access": "^1.0"
+        "drupal/toolbar_menu": "^2.1",
+        "drupal/toolbar_menu_clean": "^1.0",
+        "drupal/tour_ui": "^1.0@beta",
+        "drupal/ui_patterns": "^1.0",
+        "drupal/uswds": "^1.0@beta",
+        "drupal/views_bulk_operations": "^2.5",
+        "drupal/views_tree": "^2.0@alpha",
+        "drupal/workbench_access": "^1.0@beta",
+        "drupal/workbench_menu_access": "^1.0",
+        "drupal/xmlsitemap": "^1.0@alpha",
+        "drush-ops/behat-drush-endpoint": "^0.0.4",
+        "guzzlehttp/guzzle": "^6.0@dev",
+        "michelf/php-markdown": "^1.8",
+        "phpunit/phpunit": "^6",
+        "provision-ops/yaml-tests": "^1.4",
+        "querypath/querypath": "^3.0",
+        "simplesamlphp/simplesamlphp": "^1.17",
+        "twig/twig": "1.37.1",
+        "webflo/drupal-finder": "^1.0.0",
+        "webmozart/path-util": "^2.3",
+        "weitzman/drupal-test-traits": "dev-master",
+        "zaporylie/composer-drupal-optimizations": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -99,31 +111,16 @@
     },
     "config": {
         "process-timeout": 0,
-        "vendor-dir": "docroot/vendor"
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-            "cp -r 'hooks/' '.git/hooks/'",
-            "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
-            "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
-            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
-            "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
-        ],
-        "post-update-cmd": [
-            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-            "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
-            "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
-            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
-            "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
-        ],
-        "nuke": "rm -r -f docroot/modules/contrib docroot/profiles/contrib/lightning vendor composer.lock",
-        "quick-start": [
-            "composer install",
-            "php docroot/core/scripts/drupal quick-start lightning --no-interaction"
-        ]
+        "bin-dir": "bin",
+        "vendor-dir": "docroot/vendor",
+        "sort-packages": true
     },
     "extra": {
+        "drupal-scaffold": {
+            "excludes": [
+                ".htaccess"
+            ]
+        },
         "installer-types": [
             "bower-asset",
             "npm-asset"
@@ -152,6 +149,9 @@
         },
         "enable-patching": true,
         "patches": {
+            "drupal/core": {
+                "Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch"
+            },
             "drupal/migration_tools": {
                 "Add changeHtmlContents DomModifier method": "https://www.drupal.org/files/issues/2018-11-26/change_html_contents-3015381-3.patch",
                 "Allow migration script to set curl options": "https://www.drupal.org/files/issues/2019-02-08/curl_options-3031705-2.patch",
@@ -166,21 +166,23 @@
                 "Add an option to import non-existent paths": "https://www.drupal.org/files/issues/2018-08-28/path_redirect_import-2995543-2.patch"
             },
             "acquia/headless_lightning": {
-                "Fix empty form id in redirect": "patches/nullFormIDFixInRedirect.patch"
+                "Fix empty form id in redirect": "patches/nullFormIDFixInRedirect.patch",
+                "Fix moderation sidebar": "patches/moderationSidebar.patch"
             },
             "drupal/inline_entity_form": {
                 "Collapsed by default complex widget closes when trying to edit reference.": "https://www.drupal.org/files/issues/2018-11-08/2994001-open-on-action.patch"
             },
-            "drupal/graphql": {
-                "Fix broken entity reference query filter.": "https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/693.patch",
-                "Fix null results from queryField": "https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/726.patch",
-                "Fix error from queryField results": "https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/743.patch"
-            },
             "drupal/ics_field": {
                 "Include end date / time in ICS file.": "https://www.drupal.org/files/issues/2018-10-06/ics_field-2852239-11.patch"
             },
+            "drupal/menu_link_content": {
+                "Fix php warning when creating new items": "https://www.drupal.org/files/issues/updateLink-2775665-2.patch"
+            },
             "drupal/paragraphs": {
                 "Fix broken fieldset wrapping.": "https://www.drupal.org/files/issues/2907094_7_field_group_support.patch"
+            },
+            "drupal/paragraphs_browser": {
+                "Extend from ParagraphsWidget instead of InlineParagraphsWidget": "https://www.drupal.org/files/issues/2019-01-22/paragraphs_browser-extend-from-ParagraphsWidget-2917656-14_0.patch"
             },
             "drupal/password_policy": {
                 "Use core temp store.": "https://www.drupal.org/files/issues/2019-03-04/password_policy-use-core-temp-store-3032549-3.patch",
@@ -188,9 +190,58 @@
                 "Password expires does not work.": "https://www.drupal.org/files/issues/2019-03-11/2917622-password_policy-expiration-issue-for-8.x-3.0-alpha4.patch"
             },
             "drupal/textfield_counter": {
-              "Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch"
+                "Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch"
             }
-
         }
+    },
+    "scripts": {
+        "set-path": [
+            "# Run the command output below to set your current terminal PATH variable.",
+            "# This will allow you to run any command in the ./bin directory without a path.",
+            "echo \"export PATH=${PATH}\""
+        ],
+        "post-install-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+            "cp -r 'hooks/' '.git/hooks/'",
+            "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
+            "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
+            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
+            "php -r \"chmod('.git/hooks/commit-msg', 0777);\"",
+            "cp -r 'simplesamlphp-1.17.2/config/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
+            "cp -r 'simplesamlphp-1.17.2/metadata/' 'docroot/vendor/simplesamlphp/simplesamlphp/'"
+        ],
+        "post-update-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+            "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
+            "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
+            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
+            "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
+        ],
+        "nuke": "rm -r -f docroot/modules/contrib docroot/profiles/contrib/lightning vendor composer.lock",
+        "va:config:export": [
+            "drupal config:export --ansi"
+        ],
+        "va:config:import": [
+            "drupal config:import --ansi"
+        ],
+        "va:database:download": [
+            "cd .dumps && curl --remote-name --remote-header-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/database/cms-prod-db-sanitized-latest.sql.gz && gunzip --force cms-prod-db-sanitized-latest.sql.gz && echo 'SQL dump saved to .dumps/cms-db-latest.sql'"
+        ],
+        "va:proxy:start": [
+            "ssh socks -D 2001 -N"
+        ],
+        "va:proxy:test": [
+            "curl -v --proxy socks5h://127.0.0.1:2001 sentry.vetsgov-internal"
+        ],
+        "va:test:lint": [
+            "find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null",
+            "find docroot/modules/custom docroot/themes -name '*.module' -print0 | xargs -0 -n1 php -l > /dev/null",
+            "find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l > /dev/null"
+        ],
+        "va:test:cs": [
+            "phpcs --ignore=*.md,*.min.css,uswds.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors"
+        ],
+        "va:test:unit": "phpunit tests/phpunit --colors=always",
+        "va:cbf": "phpcbf  --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml -n docroot/modules/custom docroot/themes/custom --colors"
     }
 }

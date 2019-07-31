@@ -14,6 +14,7 @@ class MigrationCount extends ExistingSiteBase {
    *
    * @group migration
    * @group all
+   * @group disabled
    *
    * @dataProvider validCounts
    */
@@ -36,7 +37,7 @@ class MigrationCount extends ExistingSiteBase {
    */
   public function validCounts() {
     return array(
-      array("page", 50),
+      array("page", 56),
       array("landing_page", 9),
     );
   }
