@@ -7,7 +7,9 @@ dependencies:
     - node.type.page
     - paragraphs.paragraphs_type.alert
     - paragraphs.paragraphs_type.collapsible_panel
+    - paragraphs.paragraphs_type.downloadable_file
     - paragraphs.paragraphs_type.list_of_link_teasers
+    - paragraphs.paragraphs_type.media
     - paragraphs.paragraphs_type.number_callout
     - paragraphs.paragraphs_type.process
     - paragraphs.paragraphs_type.q_a_section
@@ -36,12 +38,14 @@ settings:
       react_widget: react_widget
       wysiwyg: wysiwyg
       list_of_link_teasers: list_of_link_teasers
-      alert: alert
       q_a_section: q_a_section
+      alert: alert
       process: process
       spanish_translation_summary: spanish_translation_summary
       collapsible_panel: collapsible_panel
       number_callout: number_callout
+      media: media
+      downloadable_file: downloadable_file
     target_bundles_drag_drop:
       table:
         enabled: true
@@ -55,10 +59,10 @@ settings:
       list_of_link_teasers:
         enabled: true
         weight: -31
-      alert:
+      q_a_section:
         enabled: true
         weight: -30
-      q_a_section:
+      alert:
         enabled: true
         weight: -30
       process:
@@ -83,15 +87,15 @@ settings:
         weight: -24
         enabled: false
       media:
+        enabled: true
         weight: -24
-        enabled: false
       megamenu_links_column:
         weight: -23
         enabled: false
-      address:
+      megamenu_menu_item:
         weight: -22
         enabled: false
-      megamenu_menu_item:
+      address:
         weight: -22
         enabled: false
       expandable_text:
@@ -102,5 +106,11 @@ settings:
         enabled: false
       q_a:
         weight: -18
+        enabled: false
+      downloadable_file:
+        enabled: true
+        weight: 23
+      staff_profile:
+        weight: 39
         enabled: false
 field_type: entity_reference_revisions

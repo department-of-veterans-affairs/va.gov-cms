@@ -1,9 +1,15 @@
 uuid: 71445226-8425-4b28-a78e-a6a6cce821a6
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - paragraphs_browser
+third_party_settings:
+  paragraphs_browser:
+    image_path: themes/custom/vagovadmin/images/screenshots/vetportraits.jpg
+    description: 'An image will be displayed at its full width, without being cropped. If the original image you upload is wider than the viewport of the screen, it will be downsized to fit in the main content area.'
 id: media
-label: 'Image or video'
+label: 'Embedded image'
 icon_uuid: null
-description: ''
+description: 'For adding an image inline'
 behavior_plugins: {  }

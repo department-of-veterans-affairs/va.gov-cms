@@ -33,12 +33,12 @@ class BuildTriggerForm extends FormBase {
       '#description' => 'yes',
       '#button_type' => 'primary',
     ];
-    if (!in_array(getenv('ENVIRONMENT_TYPE'), [
+    if (!in_array(getenv('CMS_ENVIRONMENT_TYPE'), [
       'dev',
-      'stg',
+      'staging',
       'prod',
     ])) {
-      \Drupal::messenger()
+      Drupal::messenger()
         ->addMessage(t('You cannot trigger a build in this environment. Only the DEV, STAGING and PROD environments support triggering builds.'), 'warning');
       $form['actions']['submit']['#attributes'] = [
         'disabled' => 'disabled',
@@ -70,14 +70,13 @@ class BuildTriggerForm extends FormBase {
    *   Object containing current form state.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $va_socks_proxy_url = Settings::get('va_socks_proxy_url');
     $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
     $va_cms_bot_github_auth_token = Settings::get('va_cms_bot_github_auth_token');
     $jenkins_build_job_host = Settings::get('jenkins_build_job_host');
     $jenkins_build_job_path = Settings::get('jenkins_build_job_path');
     $jenkins_build_job_url = Settings::get('jenkins_build_job_url');
 
-    if (in_array(Settings::get('va_jenkins_build_env'), [
+    if (!in_array(Settings::get('jenkins_build_env'), [
       'dev',
       'staging',
       'prod',
@@ -100,7 +99,6 @@ class BuildTriggerForm extends FormBase {
           CURLOPT_VERBOSE => TRUE,
           CURLOPT_URL => $jenkins_build_job_url,
           CURLOPT_POST => 1,
-          CURLOPT_PROXY => $va_socks_proxy_url,
           // Authorize to the Jenkins API via GitHub login.
           CURLOPT_USERNAME => $va_cms_bot_github_username,
           CURLOPT_PASSWORD => $va_cms_bot_github_auth_token,
@@ -129,7 +127,7 @@ class BuildTriggerForm extends FormBase {
 
       // Handle the RESPONSE.
       $client = new Client(['handler' => $handler_stack]);
-      $response = $client->post($va_socks_proxy_url, $request_options);
+      $response = $client->post($jenkins_build_job_host, $request_options);
 
       if ($response->getStatusCode() !== 201) {
         FormBase::logger('va_gov_build_trigger')
