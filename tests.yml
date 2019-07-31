@@ -8,7 +8,7 @@ va/deploy/0-composer:
 
 va/deploy/1-cache:
   description: Rebuild Drupal caches
-  command: drush @DRUSH_ALIAS cr
+  command: drush $DRUSH_ALIAS cr
 
 va/deploy/2-update:
   description: Run Drupal Update Hooks
