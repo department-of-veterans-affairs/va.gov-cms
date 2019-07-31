@@ -110,20 +110,14 @@
         }
     },
     "config": {
-        "process-timeout": 0,
         "bin-dir": "bin",
-        "vendor-dir": "docroot/vendor",
+        "discard-changes": true,
+        "platform": {
+            "php": "7.1.3"
+        },
+        "process-timeout": 0,
         "sort-packages": true,
-        "config": {
-            "bin-dir": "bin",
-            "discard-changes": true,
-            "platform": {
-                "php": "7.1.3"
-            },
-            "process-timeout": 0,
-            "sort-packages": true,
-            "vendor-dir": "docroot/vendor"
-        }
+        "vendor-dir": "docroot/vendor"
     },
     "extra": {
         "drupal-scaffold": {
