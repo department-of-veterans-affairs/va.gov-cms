@@ -6,7 +6,7 @@ deploy: |
 # Current Deploy command: This runs all hooks: cache rebuild, config import, etc.
 # composer yaml-tests --tests-file=deploy.yml --ansi
 
-# Fires after "Run Tests" task.
+# Fires after the "Run Tests" task.
 test: |
   echo "Running test hooks from hooks.yml in the $DEVSHOP_ENVIRONMENT environment for the $DEVSHOP_PROJECT..."
   env
