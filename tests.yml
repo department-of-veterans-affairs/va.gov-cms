@@ -24,14 +24,14 @@ va/tests/behat:
     cd tests/behat
     behat
 
-va/phpunit:
+va/tests/phpunit:
   description: PHPUnit
   command: phpunit --exclude-group disabled tests/phpunit --colors=always
 
-va/phpcs:
+va/tests/phpcs:
   description: PHP CodeSniffer
   command: composer va:test:cs
 
-va/phplint:
+va/tests/phplint:
   description: PHP Lint
   command: composer va:test:lint
