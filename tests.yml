@@ -8,11 +8,11 @@ va/deploy/0-composer:
 
 va/deploy/1-cache:
   description: Rebuild Drupal caches
-  command: drush cache:rebuild
+  command: drush @DRUSH_ALIAS cr
 
 va/deploy/2-update:
   description: Run Drupal Update Hooks
-  command: drush $DRUSH_ALIAS  updatedb --yes
+  command: drush $DRUSH_ALIAS updatedb --yes
 
 va/deploy/3-config:
   - drush $DRUSH_ALIAS cim --yes
