@@ -86,11 +86,10 @@ class Alert extends ParagraphType {
         ], Message::ERROR);
       $alert_type = 'information';
     }
-    return
-      [
-        'field_alert_heading' => $query_path->find('.usa-alert-heading')->text(),
-        'field_alert_type' => $alert_type,
-      ];
+    return [
+      'field_alert_heading' => $query_path->find('.usa-alert-heading')->text(),
+      'field_alert_type' => $alert_type,
+    ];
   }
 
   /**
