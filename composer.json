@@ -113,7 +113,17 @@
         "process-timeout": 0,
         "bin-dir": "bin",
         "vendor-dir": "docroot/vendor",
-        "sort-packages": true
+        "sort-packages": true,
+        "config": {
+            "bin-dir": "bin",
+            "discard-changes": true,
+            "platform": {
+                "php": "7.1.3"
+            },
+            "process-timeout": 0,
+            "sort-packages": true,
+            "vendor-dir": "docroot/vendor"
+        }
     },
     "extra": {
         "drupal-scaffold": {
