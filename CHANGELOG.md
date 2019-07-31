@@ -9,6 +9,98 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 * __Nothing unreleased__
 
 
+## 2019-07-31.1 Sprint 19 final release 4.
+
+
+* __Merge branch &#39;develop&#39;__
+
+    [Andy Hawks](mailto:andy@andyhawks.com) - Wed, 31 Jul 2019 10:44:13 -0600
+    
+    EAD -&gt; refs/heads/master, tag: refs/tags/20190731.1, refs/remotes/upstream/master, refs/remotes/origin/master
+    VAGOV-000: 2019-07-31.1 Sprint 19 final release 4.
+    
+* __Merge pull request #483 from ElijahLynn/VAGOV-3930-simplesaml__
+
+    [Elijah Lynn](mailto:elijah.lynn@agile6.com) - Tue, 30 Jul 2019 20:31:49 -0700
+    
+    efs/remotes/upstream/develop, refs/heads/develop
+    VAGOV-3930 Fix simplesamlphp sq3 database path to work on new hosting platform.
+
+* __Merge pull request #401 from andyhawks/VAGOV-3930-new-simplesamlphp-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 15:08:22 -0600
+
+    VAGOV-3930: SimpleSAMLPHP Configuration. 
+
+* __Merge branch &#39;develop&#39; into VAGOV-3930-new-simplesamlphp-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 14:08:45 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-3930-new-simplesamlphp-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 13:20:07 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-3930-new-simplesamlphp-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 10:51:34 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-3930-new-simplesamlphp-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 30 Jul 2019 10:05:37 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-3930-new-simplesamlphp-ah__
+
+    [Elijah Lynn](mailto:elijah.lynn@agile6.com) - Thu, 25 Jul 2019 16:09:36 -0700
+
+* __Merge branch &#39;develop&#39; into VAGOV-3930-new-simplesamlphp-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 25 Jul 2019 14:58:40 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-3930-new-simplesamlphp-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 19 Jul 2019 11:42:38 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-3930-new-simplesamlphp-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 2 Jul 2019 13:37:48 -0600
+
+* __Merge remote-tracking branch &#39;elijahlynn/VAGOV-1555-https&#39; into VAGOV-3930-new-simplesamlphp-ah__
+
+    [Elijah Lynn](mailto:elijah.lynn@agile6.com) - Fri, 28 Jun 2019 09:50:48 -0700
+
+* __Merge branch &#39;develop&#39; into VAGOV-3930-new-simplesamlphp-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Mon, 24 Jun 2019 10:31:47 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-3930-new-simplesamlphp-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 21 Jun 2019 18:02:39 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-3930-new-simplesamlphp-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Fri, 21 Jun 2019 16:01:12 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-3930-new-simplesamlphp-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Thu, 20 Jun 2019 14:07:34 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-3930-new-simplesamlphp-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Wed, 19 Jun 2019 10:08:53 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-3930-new-simplesamlphp-ah__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 18 Jun 2019 09:44:39 -0600
+
+* __Merge branch &#39;develop&#39; into VAGOV-1555-https__
+
+    [Elijah Lynn](mailto:elijah.lynn@agile6.com) - Fri, 7 Jun 2019 18:01:37 -0700
+
+* __Merge branch &#39;develop&#39; into VAGOV-1555-https__
+
+    [Andrew Hawks](mailto:andy@andyhawks.com) - Tue, 28 May 2019 11:09:44 -0600
+
+
 ## 2019-07-30.1 Sprint 19 final release 3.
 
 * __Merge branch &#39;develop&#39;__
