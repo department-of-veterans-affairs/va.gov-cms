@@ -26,5 +26,5 @@ fi
 # Local only
 if [ -z "$CMS_BRD" ]; then
 echo $CMS_BRD;
-    lando db-import cms-db-latest.sql
+    lando db-import cms-prod-db-sanitized-latest.sql
 fi
