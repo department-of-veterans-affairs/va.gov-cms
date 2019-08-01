@@ -2,6 +2,10 @@
 #  command: intentionalFailure
 #  description: Intentional Failure. Uncomment to test CI system failure behavior.
 
+va/debug/env:
+  description: Debug Environment
+  command: env
+
 va/deploy/0-composer:
   description: Composer Install
   command: composer install --no-interaction --no-progress --no-dev --ansi
