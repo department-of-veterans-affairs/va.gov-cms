@@ -19,7 +19,7 @@ class AdminModeration {
   private $testMode = FALSE;
 
   /**
-   * Core Entity
+   * Core Entity.
    *
    * @var \Drupal\Core\Entity\Entity
    */
