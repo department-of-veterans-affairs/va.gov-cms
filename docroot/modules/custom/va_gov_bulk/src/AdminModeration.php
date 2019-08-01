@@ -11,12 +11,46 @@ use Drupal\Core\Entity\RevisionLogInterface;
  */
 class AdminModeration {
 
+  /**
+   * TestMode.
+   *
+   * @var bool
+   */
   private $testMode = FALSE;
+
+  /**
+   * Core Entity
+   *
+   * @var \Drupal\Core\Entity\Entity
+   */
   private $entity = NULL;
+
+  /**
+   * Nid.
+   *
+   * @var int
+   */
   private $nid = 0;
+
+  /**
+   * Current Revision ID.
+   *
+   * @var int
+   */
   private $currentRevisionId = 0;
+
+  /**
+   * Latest Revision ID.
+   *
+   * @var int
+   */
   private $latestRevisionId = 0;
 
+  /**
+   * Status.
+   *
+   * @var int
+   */
   private $status = 0;
 
   /**

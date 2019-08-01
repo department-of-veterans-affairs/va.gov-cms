@@ -14,6 +14,12 @@ use Drupal\migration_tools\Message;
  * )
  */
 class VaBenefitsMenu extends VaMenuBase {
+
+  /**
+   * Sections.
+   *
+   * @var mixed
+   */
   protected $sections;
 
   /**
