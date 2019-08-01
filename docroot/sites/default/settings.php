@@ -105,17 +105,23 @@ $settings['jenkins_build_job_host'] = 'http://jenkins.vfs.va.gov';
 $settings['va_cms_bot_github_username'] = 'va-cms-bot';
 $settings['va_cms_bot_github_auth_token'] = getenv('CMS_GITHUB_VA_CMS_BOT_TOKEN') ?: FALSE;
 
-/**
- * Load local development override configuration, if available.
- *
- * Use settings.local.php to override variables on secondary (staging,
- * development, etc) installations of this site. Typically used to disable
- * caching, JavaScript/CSS compression, re-routing of outgoing emails, and
- * other things that should not happen on development and testing sites.
- *
- * Keep this code block at the end of this file to take full effect.
- */
-$config['config_split.config_split.config_dev']['status'] = FALSE;
+// Defaults (should only be local that doesn't set these), default to dev for config_split
+$config['config_split.config_split.dev']['status'] = TRUE;
+$config['config_split.config_split.stg']['status'] = FALSE;
+$config['config_split.config_split.prod']['status'] = FALSE;
+$config['system.performance']['cache']['page']['use_internal'] = FALSE;
+$config['system.performance']['css']['preprocess'] = FALSE;
+$config['system.performance']['css']['gzip'] = FALSE;
+$config['system.performance']['js']['preprocess'] = FALSE;
+$config['system.performance']['js']['gzip'] = FALSE;
+$config['system.performance']['response']['gzip'] = FALSE;
+$config['views.settings']['ui']['show']['sql_query']['enabled'] = TRUE;
+$config['views.settings']['ui']['show']['performance_statistics'] = TRUE;
+$config['system.logging']['error_level'] = 'all';
+$config['environment_indicator.indicator']['bg_color'] = '#05F901';
+$config['environment_indicator.indicator']['fg_color'] = '#000000';
+$config['environment_indicator.indicator']['name'] = 'Local';
+
 $config_directories['sync'] = '../config/sync';
 
 $env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'local';
@@ -175,6 +181,16 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php'
   include $app_root . '/' . $site_path . '/settings/settings.fast_404.php';
 }
 
+/**
+ * Load local development override configuration, if available.
+ *
+ * Use settings.local.php to override variables on secondary (staging,
+ * development, etc) installations of this site. Typically used to disable
+ * caching, JavaScript/CSS compression, re-routing of outgoing emails, and
+ * other things that should not happen on development and testing sites.
+ *
+ * Keep this code block at the end of this file to take full effect.
+ */
 // Local settings, must stay at bottom of file, this file is ignored by git.
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.local.php')) {
   include $app_root . '/' . $site_path . '/settings/settings.local.php';
