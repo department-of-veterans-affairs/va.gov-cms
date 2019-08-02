@@ -42,7 +42,7 @@ module.exports
             .click('input[id="edit-submit"]')
             .url(siteUrl+'/node/add/health_care_local_facility')
             .waitForElementVisible('.page-title', 6000)
-            .assert.title('Create Health Care Local Facility | Veterans Affairs')
+            .assert.title('Create Health Care Local Facility | VA CMS')
             .initAccessibility()
             .verify.accessibility(contextOptions, axeOptions)
             .end(function(err, res){
