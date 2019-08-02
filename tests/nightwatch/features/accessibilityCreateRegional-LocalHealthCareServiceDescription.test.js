@@ -42,7 +42,7 @@ module.exports
             .click('input[id="edit-submit"]')
             .url(siteUrl+'/node/add/regional_health_care_service_des')
             .waitForElementVisible('.page-title', 6000)
-            .assert.title('Create Regional/Local Health Care Service Description | Veterans Affairs')
+            .assert.title('Create Regional/Local Health Care Service Description | VA CMS')
             .initAccessibility()
             .verify.accessibility(contextOptions, axeOptions)
             .end(function(err, res){
