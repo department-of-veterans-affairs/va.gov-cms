@@ -398,7 +398,7 @@ class ParagraphMigrator {
 
     // Remove wrappers added by htmlqp().
     while (in_array($query_path->tag(), ['html', 'body'])) {
-      $query_path = $query_path->children();
+      $query_path = $query_path->contents();
     }
 
     return $query_path;
