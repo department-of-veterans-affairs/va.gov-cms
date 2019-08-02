@@ -8,6 +8,5 @@ deploy: |
 
 # Fires after "Run Tests" task.
 test: |
-  echo "Running test hooks from hooks.yml in the $DEVSHOP_ENVIRONMENT environment for the $DEVSHOP_PROJECT..."
-  env
+  echo "Running `composer yaml-tests` on tests.yml..."
   composer yaml-tests --ansi
