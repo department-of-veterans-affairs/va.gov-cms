@@ -380,7 +380,7 @@ abstract class ParagraphType {
    * @throws \Drupal\migrate\MigrateException
    */
   public static function toLongText(DOMQuery $query_path) {
-    $legal_tags = ['em', 'a', 'strong', 'br', 'p'];
+    $legal_tags = ['em', 'a', 'strong', 'br', 'p', 'ul', 'li', 'ol'];
     $illegal_tags = [];
     if (!in_array($query_path->tag(), $legal_tags)) {
       $illegal_tags[] = $query_path->tag();
@@ -397,7 +397,7 @@ abstract class ParagraphType {
 
     $text = '';
     if (!empty(trim($query_path->text()))) {
-      $text = strip_tags($query_path->html(), '<em><a><strong><br><p>');
+      $text = strip_tags($query_path->html(), '<em><a><strong><br><p><ul><li><ol>');
     }
     return $text;
   }
