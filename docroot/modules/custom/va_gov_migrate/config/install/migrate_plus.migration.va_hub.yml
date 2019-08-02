@@ -5,16 +5,10 @@ source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
     - "/disability/index.md"
-#    - "/education/index.md"
-#    - "/careers-employment/index.md"
-#    - "/records/index.md"
-#    - "/pension/index.md"
-    - "/housing-assistance/index.md"
-    - "/life-insurance/index.md"
-#    - "/burials-memorials/index.md"
-#    - "/records/index.md"
-#    - "/family-member-benefits.md"
-#    - "/service-member-benefits.md"
+    - "/education/index.md"
+    - "/burials-memorials/index.md"
+    - "/family-member-benefits.md"
+    - "/service-member-benefits.md"
   templates:  # A list of Metalsmith templates to process (detail-page=basic page, level2-index=hub page)
     - level2-index
   fields:  # List any frontmatter fields you want to migrate.
