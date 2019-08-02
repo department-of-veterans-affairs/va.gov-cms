@@ -1,0 +1,23 @@
+uuid: 634fb9ba-974f-4042-b1a6-a8efdb9e458d
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - field.storage.block_content.field_alert_dismissable
+id: block_content.alert.field_alert_dismissable
+field_name: field_alert_dismissable
+entity_type: block_content
+bundle: alert
+label: 'Alert dismissable?'
+description: 'Dismissable blocks can be closed/hidden by users by clicking an X in the top right of the alert. Leave this unchecked if you wan the alert to appear permanently on the targeted pages.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Dismissable
+  off_label: 'Off'
+field_type: boolean
