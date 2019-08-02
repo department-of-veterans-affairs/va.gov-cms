@@ -311,7 +311,7 @@
             "@va:web:watch"
         ],
         "va:web:build": [
-            "cd web && npm run build -- --buildtype=${envName} --asset-source=${assetSource} --drupal-address=${drupalAddress} ${drupalMode}"
+            "cd app && npm run build -- --buildtype=${envName} --asset-source=${assetSource} --drupal-address=${drupalAddress} ${drupalMode}"
         ]
     }
 }
