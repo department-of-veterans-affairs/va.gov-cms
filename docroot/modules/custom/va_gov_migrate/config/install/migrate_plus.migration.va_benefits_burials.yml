@@ -1,10 +1,12 @@
-id: va_benefits_life_insurance
-label: Migrate Life insurance pages from va.gov
-migration_group: va_new_benefits
+id: va_benefits_burials
+label: Migrate Burials & Memorials pages from vagov-content-pr-137.herokuapp.com
+migration_group: va_tests
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
-    - "/life-insurance"
+    - "/burials-memorials"
+  server: "https://vagov-content-pr-137.herokuapp.com"
+  branch:
   templates:  # A list of Metalsmith templates to process (detail-page=basic page, level2-index=hub page)
     - detail-page
   fields:  # :ist any frontmatter fields you want to migrate.
@@ -173,7 +175,7 @@ process:  # assign the fields we collected above to Drupal fields.
   field_administration:
     -
       plugin: default_value
-      default_value: 66
+      default_value: 51
   moderation_state:
     plugin: default_value
     default_value: draft
@@ -190,4 +192,4 @@ migration_dependencies: {}
 dependencies:
   enforced:
     module:
-      - va_gov_migrate  # The module this migration script belongs to.
+    - va_gov_migrate  # The module this migration script belongs to.
