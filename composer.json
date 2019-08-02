@@ -298,13 +298,13 @@
             "node -v",
             "npm -v",
             "yarn -v",
-            "cd web && yarn install"
+            "cd app && yarn install"
         ],
         "va:web:server": [
-            "cd web && yarn build"
+            "cd app && yarn build"
         ],
         "va:web:watch": [
-            "cd web && npm run watch"
+            "cd app && npm run watch"
         ],
         "va:web:start": [
             "@va:web:install",
