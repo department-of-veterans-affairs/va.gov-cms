@@ -1,22 +1,24 @@
-uuid: de7085f5-1807-415d-ac80-47e460cddcd4
+uuid: f2f9d26f-5661-49d0-bcba-88cd986d8be2
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.media.document.field_document
-    - field.field.media.document.field_media_in_library
-    - field.field.media.document.field_media_submission_guideline
-    - field.field.media.document.field_owner
-    - media.type.document
+    - core.entity_form_mode.media.media_library
+    - field.field.media.video.field_media_in_library
+    - field.field.media.video.field_media_submission_guideline
+    - field.field.media.video.field_media_video_embed_field
+    - field.field.media.video.field_owner
+    - media.type.video
   module:
     - field_group
-    - file
     - markup
+    - video_embed_field
 third_party_settings:
   field_group:
     group_governance:
       children:
         - field_owner
+        - field_media_in_library
       parent_name: ''
       weight: 3
       format_type: fieldset
@@ -28,27 +30,33 @@ third_party_settings:
       label: Governance
       region: content
 _core:
-  default_config_hash: xFJUl0MccoGPEv1eb_I_XnxzjqvZ8M5HA1G3PBtv9IE
-id: media.document.default
+  default_config_hash: OUea_b_jf81XjPvIY9J8KrRUckqz2APuLv4bkxYfdT4
+id: media.video.media_library
 targetEntityType: media
-bundle: document
-mode: default
+bundle: video
+mode: media_library
 content:
-  field_document:
-    weight: 2
-    settings:
-      progress_indicator: throbber
-    third_party_settings: {  }
-    type: file_generic
+  field_media_in_library:
+    type: boolean_checkbox
+    weight: 5
     region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_media_submission_guideline:
     weight: 0
     settings: {  }
     third_party_settings: {  }
     type: markup
     region: content
+  field_media_video_embed_field:
+    type: video_embed_field_textfield
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   field_owner:
-    weight: 3
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -63,9 +71,9 @@ content:
     region: content
 hidden:
   created: true
-  field_media_in_library: true
   moderation_state: true
   path: true
+  preview: true
   revision_log_message: true
   status: true
   uid: true
