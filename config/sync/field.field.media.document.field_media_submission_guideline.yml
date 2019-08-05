@@ -1,0 +1,25 @@
+uuid: e9881062-8b8b-4322-911a-90c4fa7ada8e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_media_submission_guideline
+    - media.type.document
+  module:
+    - markup
+id: media.document.field_media_submission_guideline
+field_name: field_media_submission_guideline
+entity_type: media
+bundle: document
+label: 'Media submission guidelines'
+description: ''
+required: false
+translatable: false
+default_value:
+  - {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: "<p>Provide a name that will help other users of the CMS find and reuse this document. The name is not visible to end users.</p>\r\n"
+    format: rich_text
+field_type: markup

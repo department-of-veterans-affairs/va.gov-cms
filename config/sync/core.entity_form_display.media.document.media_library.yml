@@ -1,8 +1,9 @@
-uuid: de7085f5-1807-415d-ac80-47e460cddcd4
+uuid: aabcef09-c5d4-43ff-bec1-8095a6b28d61
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.media.media_library
     - field.field.media.document.field_document
     - field.field.media.document.field_media_in_library
     - field.field.media.document.field_media_submission_guideline
@@ -11,14 +12,14 @@ dependencies:
   module:
     - field_group
     - file
-    - markup
 third_party_settings:
   field_group:
     group_governance:
       children:
         - field_owner
+        - field_media_in_library
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -29,24 +30,25 @@ third_party_settings:
       region: content
 _core:
   default_config_hash: xFJUl0MccoGPEv1eb_I_XnxzjqvZ8M5HA1G3PBtv9IE
-id: media.document.default
+id: media.document.media_library
 targetEntityType: media
 bundle: document
-mode: default
+mode: media_library
 content:
   field_document:
-    weight: 2
+    weight: 1
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
     type: file_generic
     region: content
-  field_media_submission_guideline:
-    weight: 0
-    settings: {  }
-    third_party_settings: {  }
-    type: markup
+  field_media_in_library:
+    type: boolean_checkbox
+    weight: 4
     region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_owner:
     weight: 3
     settings: {  }
@@ -55,7 +57,7 @@ content:
     region: content
   name:
     type: string_textfield
-    weight: 1
+    weight: 0
     settings:
       size: 60
       placeholder: ''
@@ -63,7 +65,7 @@ content:
     region: content
 hidden:
   created: true
-  field_media_in_library: true
+  field_media_submission_guideline: true
   moderation_state: true
   path: true
   revision_log_message: true
