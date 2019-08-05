@@ -42,7 +42,7 @@ module.exports
             .click('input[id="edit-submit"]')
             .url(siteUrl+'/node/add/outreach_asset')
             .waitForElementVisible('.page-title', 6000)
-            .assert.title('Create Outreach asset | Veterans Affairs')
+            .assert.title('Create Outreach asset | VA CMS')
             .initAccessibility()
             .verify.accessibility(contextOptions, axeOptions)
             .end(function(err, res){
