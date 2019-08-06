@@ -1,8 +1,9 @@
-uuid: 46977bd4-384a-41e2-b8f4-160c07864c79
+uuid: 14f3871c-799e-4362-9b48-40e34af5c34a
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.media.media_library
     - field.field.media.image.field_media_in_library
     - field.field.media.image.field_media_submission_guideline
     - field.field.media.image.field_owner
@@ -19,6 +20,7 @@ third_party_settings:
     group_governance:
       children:
         - field_owner
+        - field_media_in_library
       parent_name: ''
       weight: 3
       format_type: fieldset
@@ -31,11 +33,18 @@ third_party_settings:
       region: content
 _core:
   default_config_hash: kyoAHlZTGIuGTaQuBblGBk8EhfnVKOl19_0j5WbpQqM
-id: media.image.default
+id: media.image.media_library
 targetEntityType: media
 bundle: image
-mode: default
+mode: media_library
 content:
+  field_media_in_library:
+    type: boolean_checkbox
+    weight: 4
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_media_submission_guideline:
     weight: 0
     settings: {  }
@@ -75,7 +84,6 @@ content:
     region: content
 hidden:
   created: true
-  field_media_in_library: true
   moderation_state: true
   path: true
   revision_log_message: true

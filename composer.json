@@ -74,6 +74,7 @@
         "drupal/views_tree": "^2.0@alpha",
         "drupal/workbench_access": "^1.0@beta",
         "drupal/workbench_menu_access": "^1.0",
+        "drupal/workflow_participants": "^2.4",
         "drupal/xmlsitemap": "^1.0@alpha",
         "drush-ops/behat-drush-endpoint": "^0.0.4",
         "guzzlehttp/guzzle": "^6.0@dev",
@@ -190,6 +191,9 @@
             },
             "drupal/textfield_counter": {
                 "Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch"
+            },
+            "drupal/workflow_participants": {
+                "Fix uncaught type error by extending class.": "patches/workflowParticipantsUncaughtType.patch"
             }
         }
     },
