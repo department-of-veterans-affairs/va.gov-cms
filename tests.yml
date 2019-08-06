@@ -8,7 +8,8 @@ va/debug/env:
 
 va/deploy/0-composer:
   description: Composer Install
-  command: composer install --no-interaction --no-progress --no-dev --ansi
+  about: Using --dev is actually the default. Putting it here to make it clear this is the way composer should be run right now.
+  command: composer install --dev --no-interaction --no-progress --ansi
 
 va/deploy/1-cache:
   description: Rebuild Drupal caches
@@ -21,10 +22,6 @@ va/deploy/2-update:
 va/deploy/3-config:
   - drush $DRUSH_ALIAS cim --yes
   - drush $DRUSH_ALIAS cr
-
-va/web/rebuild:
-  description: Build va.gov WEB content from this Drupal site.
-  command: composer va:web:build
 
 va/tests/behat:
   description: Behat Tests
