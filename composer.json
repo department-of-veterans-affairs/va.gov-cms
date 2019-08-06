@@ -13,6 +13,7 @@
     },
     "require": {
         "acquia/headless_lightning": "^1.4.0-beta2",
+        "bangpound/composer-dotenv": "^1.0@dev",
         "behat/behat": "^3.4",
         "cweagans/composer-patches": "^1.6.0",
         "drupal-composer/drupal-scaffold": "^2.0.0",
@@ -315,7 +316,10 @@
             "@va:web:watch"
         ],
         "va:web:build": [
-            "cd app && npm run build -- --drupal-address=http://va-gov-cms.lndo.site"
+            "cd app && npm run build -- "
+        ],
+        "va:web:test": [
+            "echo 'drupal address: ' $DRUPAL_ADDRESS"
         ]
     }
 }
