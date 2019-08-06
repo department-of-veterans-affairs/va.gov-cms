@@ -22,6 +22,10 @@ va/deploy/3-config:
   - drush $DRUSH_ALIAS cim --yes
   - drush $DRUSH_ALIAS cr
 
+va/web/rebuild:
+  description: Build va.gov WEB content from this Drupal site.
+  command: composer va:web:build
+
 va/tests/behat:
   description: Behat Tests
   command: |
