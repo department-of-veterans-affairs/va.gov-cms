@@ -1,0 +1,91 @@
+uuid: 14f3871c-799e-4362-9b48-40e34af5c34a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.media_library
+    - field.field.media.image.field_media_in_library
+    - field.field.media.image.field_media_submission_guideline
+    - field.field.media.image.field_owner
+    - field.field.media.image.image
+    - image.style.3_2_medium_thumbnail
+    - media.type.image
+  module:
+    - field_group
+    - image_widget_crop
+    - lightning_media
+    - markup
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_owner
+        - field_media_in_library
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Governance
+      region: content
+_core:
+  default_config_hash: kyoAHlZTGIuGTaQuBblGBk8EhfnVKOl19_0j5WbpQqM
+id: media.image.media_library
+targetEntityType: media
+bundle: image
+mode: media_library
+content:
+  field_media_in_library:
+    type: boolean_checkbox
+    weight: 4
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_media_submission_guideline:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
+    region: content
+  field_owner:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  image:
+    type: image_widget_crop
+    weight: 2
+    settings:
+      show_crop_area: true
+      show_default_crop: true
+      preview_image_style: 3_2_medium_thumbnail
+      crop_preview_image_style: crop_thumbnail
+      progress_indicator: throbber
+      crop_list: {  }
+      crop_types_required: {  }
+      warn_multiple_usages: false
+    third_party_settings:
+      lightning_media:
+        file_links: true
+        remove_button: true
+    region: content
+  name:
+    type: string_textfield
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  moderation_state: true
+  path: true
+  revision_log_message: true
+  status: true
+  uid: true

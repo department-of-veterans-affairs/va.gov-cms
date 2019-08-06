@@ -12,6 +12,14 @@ nightwatch-accessibility - https://github.com/ahmadnassri/nightwatch-accessibili
 aXe - https://www.deque.com/axe/documentation
 
 ## Running tests
+Before running tests create the `tests/nightwatch/pageobjects` directory and load the follwoing environmental variables:
+
+`export TESTURL="http://va-gov-cms.lndo.site"`
+
+`export TESTUSERNAME="axcsd452ksey"`
+
+`export TESTUSERPASS="drupal8"`
+
 From the commend line 
 
 `npm run-script nightwatch --test <path-to-test>`
