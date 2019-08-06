@@ -1,0 +1,25 @@
+uuid: e8f4c101-862d-4008-86a5-1c69e52ec5bd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_media_submission_guideline
+    - media.type.video
+  module:
+    - markup
+id: media.video.field_media_submission_guideline
+field_name: field_media_submission_guideline
+entity_type: media
+bundle: video
+label: 'Media submission guidelines'
+description: ''
+required: false
+translatable: true
+default_value:
+  - {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: "<p>Provide a name that will help other users of the CMS find and reuse this video. The name is not visible to end users.</p>\r\n"
+    format: rich_text
+field_type: markup

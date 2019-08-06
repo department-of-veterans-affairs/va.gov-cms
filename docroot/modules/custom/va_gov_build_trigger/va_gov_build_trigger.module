@@ -80,10 +80,3 @@ function va_gov_build_trigger_preprocess_page(&$variables) {
     }
   }
 }
-
-/**
- * Implements hook_page_attachments().
- */
-function va_gov_build_trigger_page_attachments(array &$attachments) {
-  $attachments['#attached']['library'][] = 'va_gov_build_trigger/preview_button';
-}
