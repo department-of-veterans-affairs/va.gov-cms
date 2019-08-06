@@ -19,8 +19,8 @@
 $devshop_db_settings = $databases;
 
 // This brings back in our defaults but wipes DevShop's DB settings.
-if (file_exists($app_root . '/' . $site_path . '/settings.php')) {
-  include $app_root . '/' . $site_path . '/settings.php';
+if (file_exists($app_root . '/' . $site_path . '/../default/settings.php')) {
+  include $app_root . '/' . $site_path . '/../default/settings.php';
 }
 
 // Restore DevShop's $databases settings.
