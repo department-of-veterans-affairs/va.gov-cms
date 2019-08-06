@@ -242,6 +242,6 @@
             "phpcs --ignore=*.md,*.min.css,uswds.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors"
         ],
         "va:test:unit": "phpunit tests/phpunit --colors=always",
-        "va:cbf": "phpcbf  --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml -n docroot/modules/custom docroot/themes/custom --colors"
+        "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors"
     }
 }
