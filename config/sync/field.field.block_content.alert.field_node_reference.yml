@@ -6,6 +6,7 @@ dependencies:
     - block_content.type.alert
     - field.storage.block_content.field_node_reference
     - node.type.event
+    - node.type.event_listing
     - node.type.health_care_local_facility
     - node.type.health_care_region_detail_page
     - node.type.health_care_region_page
@@ -16,14 +17,15 @@ dependencies:
     - node.type.page
     - node.type.person_profile
     - node.type.press_release
+    - node.type.publication_listing
     - node.type.regional_health_care_service_des
     - node.type.support_service
 id: block_content.alert.field_node_reference
 field_name: field_node_reference
 entity_type: block_content
 bundle: alert
-label: 'Alert Scope'
-description: 'You may limit the scope of this alert to only appear on certain pages. Enter items in autocomplete fields where this alert should appear. If no values are entered, this alert will appear on all site pages.'
+label: 'Scope '
+description: 'You may limit the scope of this alert to only appear on certain pages, but this currently only supports Drupal nodes. Enter items in autocomplete fields where this alert should appear. If no values are entered, this alert will appear on all site pages.'
 required: false
 translatable: false
 default_value: {  }
@@ -34,19 +36,22 @@ settings:
     target_bundles:
       page: page
       landing_page: landing_page
-      event: event
-      health_care_local_facility: health_care_local_facility
       health_care_region_detail_page: health_care_region_detail_page
+      event: event
+      event_listing: event_listing
+      health_care_local_facility: health_care_local_facility
       health_care_region_page: health_care_region_page
+      press_release: press_release
       office: office
       outreach_asset: outreach_asset
-      press_release: press_release
+      publication_listing: publication_listing
       regional_health_care_service_des: regional_health_care_service_des
       person_profile: person_profile
       news_story: news_story
       support_service: support_service
     sort:
-      field: _none
+      field: title
+      direction: ASC
     auto_create: 0
     auto_create_bundle: page
 field_type: entity_reference

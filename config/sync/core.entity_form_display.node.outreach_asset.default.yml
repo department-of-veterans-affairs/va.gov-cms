@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - entity_browser.browser.media_browser
     - field.field.node.outreach_asset.field_administration
     - field.field.node.outreach_asset.field_benefits
     - field.field.node.outreach_asset.field_description
@@ -14,9 +13,9 @@ dependencies:
     - node.type.outreach_asset
   module:
     - content_moderation
-    - entity_browser
     - field_group
     - hide_revision_field
+    - media_library
     - metatag
     - path
 third_party_settings:
@@ -87,18 +86,9 @@ content:
     type: options_select
     region: content
   field_media:
-    type: entity_browser_entity_reference
+    type: media_library_widget
     weight: 12
-    settings:
-      entity_browser: media_browser
-      field_widget_display: rendered_entity
-      field_widget_edit: true
-      field_widget_remove: true
-      selection_mode: selection_append
-      field_widget_display_settings:
-        view_mode: media_library
-      field_widget_replace: false
-      open: false
+    settings: {  }
     region: content
     third_party_settings: {  }
   field_meta_tags:

@@ -5,17 +5,16 @@ dependencies:
   config:
     - block_content.type.alert
     - field.field.block_content.alert.field_alert_content
+    - field.field.block_content.alert.field_alert_dismissable
     - field.field.block_content.alert.field_alert_frequency
     - field.field.block_content.alert.field_alert_title
     - field.field.block_content.alert.field_alert_type
-    - field.field.block_content.alert.field_help_text
     - field.field.block_content.alert.field_is_this_a_header_alert_
     - field.field.block_content.alert.field_node_reference
     - field.field.block_content.alert.field_owner
     - field.field.block_content.alert.field_reusability
   module:
     - entity_reference_revisions
-    - markup
     - options
 id: block_content.alert.default
 targetEntityType: block_content
@@ -31,6 +30,16 @@ content:
       link: ''
     third_party_settings: {  }
     region: content
+  field_alert_dismissable:
+    weight: 8
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
   field_alert_title:
     weight: 1
     label: hidden
@@ -45,13 +54,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: list_default
-    region: content
-  field_help_text:
-    weight: 5
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: markup
     region: content
   field_is_this_a_header_alert_:
     weight: 7
