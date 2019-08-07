@@ -41,11 +41,10 @@ class ExpandableText extends ParagraphType {
         Message::ERROR);
       $expander = "Show more";
     }
-    return
-      [
-        'field_text_expander' => $expander,
-        'field_wysiwyg' => self::toRichText($query_path->find('.expander-content-inner')->innerHTML()),
-      ];
+    return [
+      'field_text_expander' => $expander,
+      'field_wysiwyg' => self::toRichText($query_path->find('.expander-content-inner')->innerHTML()),
+    ];
   }
 
   /**

@@ -51,7 +51,7 @@ class ServiceAvailable extends ExistingSiteBase {
     $author->setPassword('t3st0ma4tic');
     $author->save();
 
-    $url = 'localhost';
+    $url = $this->baseUrl;
 
     try {
       $response = \Drupal::httpClient()->post($url . "/graphql?_format=json,", [
