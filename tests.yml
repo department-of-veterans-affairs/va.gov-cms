@@ -23,6 +23,10 @@ va/deploy/3-config:
   - drush $DRUSH_ALIAS cim --yes
   - drush $DRUSH_ALIAS cr
 
+va/web/build:
+  - composer va:web:build
+  - echo "Front end site was built! Check $DRUPAL_ADDRESS/web for raw output... new URLs coming soon!"
+
 va/tests/behat:
   description: Behat Tests
   command: |
