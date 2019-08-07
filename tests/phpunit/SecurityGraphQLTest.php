@@ -20,7 +20,7 @@ class ServiceSecure extends ExistingSiteBase {
    */
   public function testGraphqlAccess($query) {
 
-    $url = 'localhost';
+    $url = $this->baseUrl;
 
     try {
       $response = \Drupal::httpClient()->post($url . "/graphql?_format=json,", [
