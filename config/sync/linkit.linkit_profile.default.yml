@@ -1,0 +1,37 @@
+uuid: bf7f7058-5f69-4b37-b9a0-b83108eddfaf
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: Tt8DtxZ3Nooo0PoWPpJvszA3R_5d8MmpUW7LM_R-BzY
+id: default
+label: Default
+description: 'A default Linkit profile'
+matchers:
+  556010a3-e317-48b3-b4ed-854c10f4b950:
+    uuid: 556010a3-e317-48b3-b4ed-854c10f4b950
+    id: 'entity:node'
+    weight: 0
+    settings:
+      metadata: 'by [node:author] | [node:created:medium]'
+      bundles:
+        documentation_page: documentation_page
+        event: event
+        event_listing: event_listing
+        health_care_local_facility: health_care_local_facility
+        health_care_region_detail_page: health_care_region_detail_page
+        health_care_region_page: health_care_region_page
+        landing_page: landing_page
+        news_story: news_story
+        office: office
+        outreach_asset: outreach_asset
+        page: page
+        person_profile: person_profile
+        press_release: press_release
+        publication_listing: publication_listing
+      group_by_bundle: true
+      include_unpublished: true
+      substitution_type: canonical
+      limit: 100
