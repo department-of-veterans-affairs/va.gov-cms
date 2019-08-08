@@ -26,7 +26,7 @@ dependencies:
     - field_group
     - hide_revision_field
     - inline_entity_form
-    - link
+    - linkit
     - metatag
     - paragraphs
     - path
@@ -177,12 +177,13 @@ content:
     type: string_textarea
     region: content
   field_links:
-    type: link_default
+    type: linkit
     weight: 19
     region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      linkit_profile: default
     third_party_settings: {  }
   field_meta_tags:
     weight: 7
