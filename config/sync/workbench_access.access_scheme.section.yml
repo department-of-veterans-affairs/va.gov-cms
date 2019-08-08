@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_administration
     - field.field.node.landing_page.field_administration
     - field.field.node.news_story.field_administration
+    - field.field.node.office.field_administration
     - field.field.node.outreach_asset.field_administration
     - field.field.node.page.field_administration
     - field.field.node.person_profile.field_administration
@@ -110,6 +111,14 @@ scheme_settings:
       bundle: health_care_local_health_service
       field: field_administration
     -
+      entity_type: node
+      bundle: event_listing
+      field: field_administration
+    -
+      entity_type: node
+      bundle: office
+      field: field_administration
+    -    
       entity_type: node
       bundle: event_listing
       field: field_administration
