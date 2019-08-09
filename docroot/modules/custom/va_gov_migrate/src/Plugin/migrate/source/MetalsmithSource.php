@@ -58,8 +58,17 @@ class MetalsmithSource extends UrlList {
    */
   protected $excludedPaths;
 
-  const CONTENT_URL = "https://api.github.com/repos/department-of-veterans-affairs/vagov-content/contents";
-  const PAGES_URL = "https://api.github.com/repos/department-of-veterans-affairs/vagov-content/contents/pages";
+  /**
+   * The branch to pull content from.
+   *
+   * @var string
+   */
+  protected $prNumber;
+
+  const API_PATH = "https://api.github.com/repos/department-of-veterans-affairs/vagov-content";
+  protected $prUrl;
+  protected $contentUrl;
+  protected $pagesUrl;
 
   /**
    * {@inheritdoc}
@@ -70,7 +79,12 @@ class MetalsmithSource extends UrlList {
     $this->templates = empty($configuration['templates']) ? '' : $configuration['templates'];
     $this->excludedPaths = empty($configuration['excluded_paths']) ? [] : $configuration['excluded_paths'];
     $this->server = empty($configuration['server']) ? 'https://www.va.gov' : $configuration['server'];
+    $this->prNumber = empty($configuration['pr']) ? NULL : $configuration['pr'];
     $this->dirLists = [];
+
+    $this->prUrl = self::API_PATH . "/pulls/";
+    $this->contentUrl = self::API_PATH . "/contents";
+    $this->pagesUrl = self::API_PATH . "/contents/pages";
   }
 
   /**
@@ -82,19 +96,23 @@ class MetalsmithSource extends UrlList {
   public function initializeIterator() {
     $this->rows = [];
 
-    foreach ($this->urls as $url) {
-      // If it's a markdown file, process it.
-      if (substr($url, -3) == '.md') {
-        $contents = $this->readUrl(self::PAGES_URL . $url);
-        if (!empty($contents)) {
-          $file_info = json_decode($contents);
-          $this->addRow($file_info->git_url, $url);
+    if (!empty($this->prNumber)) {
+      $this->readPr();
+    }
+    else {
+      foreach ($this->urls as $url) {
+        // If it's a markdown file, process it.
+        if (substr($url, -3) == '.md') {
+          $contents = $this->readUrl($this->pagesUrl . $url);
+          if (!empty($contents)) {
+            $file_info = json_decode($contents);
+            $this->addRow($file_info->git_url, $url);
+          }
         }
-      }
-      // Otherwise, assume it's a directory listing.
-      else {
-        $this->readDirectory($url);
-
+        // Otherwise, assume it's a directory listing.
+        else {
+          $this->readDirectory($url);
+        }
       }
     }
 
@@ -143,14 +161,14 @@ class MetalsmithSource extends UrlList {
     }
 
     if ($url == '/') {
-      $parent = self::CONTENT_URL;
+      $parent = $this->contentUrl;
       $dir = 'pages';
     }
     else {
       $path_parts = explode('/', $url);
       $dir = array_pop($path_parts);
 
-      $parent = self::PAGES_URL . implode('/', $path_parts);
+      $parent = $this->pagesUrl . implode('/', $path_parts);
     }
     if (empty($this->dirLists[$parent])) {
       // Read the page at the url.
@@ -191,6 +209,23 @@ class MetalsmithSource extends UrlList {
         if (!$excluded) {
           $this->addRow($branch->url, $url . '/' . $branch->path);
         }
+      }
+    }
+  }
+
+  /**
+   * Reads files in the pr passed by config.
+   *
+   * @throws \Drupal\migrate\MigrateException
+   */
+  protected function readPr() {
+    $git_url = $this->prUrl . $this->prNumber . '/files';
+    $pr = $this->readUrl($git_url);
+    $files = json_decode($pr);
+    foreach ($files as $file) {
+      if (preg_match('/pages(.*)/', $file->filename, $matches)) {
+        $path = $matches[1];
+        $this->addRow($file->contents_url, $path);
       }
     }
   }
