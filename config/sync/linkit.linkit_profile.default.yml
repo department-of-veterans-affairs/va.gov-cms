@@ -15,7 +15,7 @@ matchers:
     id: 'entity:node'
     weight: 0
     settings:
-      metadata: 'by [node:author] | [node:created:medium]'
+      metadata: '[node:field_administration] | Created by [node:author] on [node:created:html_date]'
       bundles:
         documentation_page: documentation_page
         event: event
