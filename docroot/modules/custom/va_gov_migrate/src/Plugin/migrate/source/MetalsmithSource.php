@@ -102,7 +102,8 @@ class MetalsmithSource extends UrlList {
     else {
       foreach ($this->urls as $url) {
         // If it's a markdown file, process it.
-        if (substr($url, -3) == '.md') {
+        $ext = pathinfo($url, PATHINFO_EXTENSION);
+        if (strtolower($ext) === 'md') {
           $contents = $this->readUrl($this->pagesUrl . $url);
           if (!empty($contents)) {
             $file_info = json_decode($contents);
