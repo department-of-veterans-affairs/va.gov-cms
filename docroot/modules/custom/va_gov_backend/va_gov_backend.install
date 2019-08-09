@@ -139,3 +139,15 @@ function va_gov_backend_update_8002() {
     ->condition('field_office_target_id', $swap_key)
     ->execute();
 }
+
+/**
+ * Removing the "headless_lightning" profile record.
+ *
+ * See https://www.drupal.org/node/2487215.
+ */
+function va_gov_backend_update_8003() {
+  $query = \Drupal::database()->delete('key_value')
+    ->condition('collection', 'system.schema')
+    ->condition('name', 'headless_lightning')
+    ->execute();
+}
