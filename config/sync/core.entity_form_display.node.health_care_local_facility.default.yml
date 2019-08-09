@@ -26,6 +26,7 @@ dependencies:
     - content_moderation
     - field_group
     - hide_revision_field
+    - link
     - linkit
     - media_library
     - metatag
@@ -184,9 +185,8 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
-      linkit_profile: default
     third_party_settings: {  }
-    type: linkit
+    type: link_default
     region: content
   field_facility_locator_api_id:
     weight: 10
@@ -201,18 +201,16 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
-      linkit_profile: default
     third_party_settings: {  }
-    type: linkit
+    type: link_default
     region: content
   field_instagram:
     weight: 22
     settings:
       placeholder_url: ''
       placeholder_title: ''
-      linkit_profile: default
     third_party_settings: {  }
-    type: linkit
+    type: link_default
     region: content
   field_intro_text:
     weight: 6
@@ -297,9 +295,8 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
-      linkit_profile: default
     third_party_settings: {  }
-    type: linkit
+    type: link_default
     region: content
   moderation_state:
     type: moderation_state_default
