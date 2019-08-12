@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.office.field_administration
     - field.field.node.office.field_body
     - field.field.node.office.field_description
+    - field.field.node.office.field_meta_title
     - node.type.office
   module:
     - user
@@ -29,6 +30,14 @@ content:
     region: content
   field_description:
     weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_meta_title:
+    weight: 4
     label: above
     settings:
       link_to_entity: false
