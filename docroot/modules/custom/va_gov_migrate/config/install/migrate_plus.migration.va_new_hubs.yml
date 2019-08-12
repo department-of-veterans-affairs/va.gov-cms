@@ -175,8 +175,18 @@ process:  # assign the fields we collected above to Drupal fields.
   'field_alert/target_id': alert_title
   field_administration:
     -
-      plugin: default_value
-      default_value: 51
+      plugin: explode
+      source: url
+      delimiter: '/'
+    -
+      plugin: extract
+      index:
+        - 3
+    -
+      plugin: static_map
+      map:
+        disability: 69
+        education: 70
   moderation_state:
     plugin: default_value
     default_value: draft
