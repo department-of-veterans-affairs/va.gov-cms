@@ -9,6 +9,8 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     Given I am at "/web/"
     Then I should see "Access and manage your VA benefits and health care" in the "h1.homepage-heading" element
 
+    Then print current URL
+
 #    When I am logged in as a user with the "administrator" role
 #    And I am at "/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services"
 #    Then I should see "VA blind and low vision rehabilitation services"
