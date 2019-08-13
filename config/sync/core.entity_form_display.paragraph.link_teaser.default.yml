@@ -7,7 +7,7 @@ dependencies:
     - field.field.paragraph.link_teaser.field_link_summary
     - paragraphs.paragraphs_type.link_teaser
   module:
-    - link
+    - linkit
     - textfield_counter
 id: paragraph.link_teaser.default
 targetEntityType: paragraph
@@ -19,8 +19,9 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      linkit_profile: default
     third_party_settings: {  }
-    type: link_default
+    type: linkit
     region: content
   field_link_summary:
     weight: 1

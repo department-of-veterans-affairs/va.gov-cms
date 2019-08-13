@@ -7,7 +7,7 @@ dependencies:
     - field.field.paragraph.megamenu_links_column.field_title
     - paragraphs.paragraphs_type.megamenu_links_column
   module:
-    - link
+    - linkit
 id: paragraph.megamenu_links_column.default
 targetEntityType: paragraph
 bundle: megamenu_links_column
@@ -18,8 +18,9 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      linkit_profile: default
     third_party_settings: {  }
-    type: link_default
+    type: linkit
     region: content
   field_title:
     weight: 0
