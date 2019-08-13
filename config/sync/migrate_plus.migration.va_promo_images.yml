@@ -1,4 +1,4 @@
-uuid: b0258e46-e11e-4be7-8a27-ba315309d37e
+uuid: d45c1465-fb5f-49d8-85c7-3883946338d8
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: Y4Ue3WVjI6f5ZeF7uyqoi9Cxg2di-2BLx9EzRK7OWbw
+  default_config_hash: 0BVr2NysZ6EAVxNujpDv6Dl21NFnm2bRLqHNlbngDjI
 id: va_promo_images
 class: null
 field_plugin_method: null
@@ -18,6 +18,10 @@ source:
   plugin: url_list
   urls:
     - 'https://www.va.gov/disability/'
+    - 'https://www.va.gov/education/'
+    - 'https://www.va.gov/burials-memorials/'
+    - 'https://www.va.gov/family-member-benefits/'
+    - 'https://www.va.gov/service-member-benefits/'
   migration_tools:
     -
       source: url

@@ -53,11 +53,10 @@ class CollapsiblePanelItem extends ParagraphType {
       $tables = $contents->find('table')->remove();
       $this->tables = qp('<div id="tables">' . $tables->html() . '</div>')->find('#tables');
     }
-    return
-      [
-        'field_title' => $query_path->children('button.usa-accordion-button')->text(),
-        'field_wysiwyg' => self::toRichText($contents->html()),
-      ];
+    return [
+      'field_title' => $query_path->children('button.usa-accordion-button')->text(),
+      'field_wysiwyg' => self::toRichText($contents->html()),
+    ];
   }
 
   /**

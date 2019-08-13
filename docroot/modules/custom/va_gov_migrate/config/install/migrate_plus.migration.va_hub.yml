@@ -1,20 +1,14 @@
 id: va_hub
-label: Migrate Housing, Life insurance, and Disability landing pages - NEVER ROLLBACK
+label: Migrate Education, Burials, Disability, Family Member and Service Member Benefits landing pages - NEVER ROLLBACK
 migration_group: va_new_benefits
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
     - "/disability/index.md"
-#    - "/education/index.md"
-#    - "/careers-employment/index.md"
-#    - "/records/index.md"
-#    - "/pension/index.md"
-    - "/housing-assistance/index.md"
-    - "/life-insurance/index.md"
-#    - "/burials-memorials/index.md"
-#    - "/records/index.md"
-#    - "/family-member-benefits.md"
-#    - "/service-member-benefits.md"
+    - "/education/index.md"
+    - "/burials-memorials/index.md"
+    - "/family-member-benefits.md"
+    - "/service-member-benefits.md"
   templates:  # A list of Metalsmith templates to process (detail-page=basic page, level2-index=hub page)
     - level2-index
   fields:  # List any frontmatter fields you want to migrate.
@@ -235,10 +229,7 @@ process:  # assign the fields we collected above to Drupal fields.
           entity_type: node
           ignore_case: true
   'field_alert/target_id': alert_title
-  field_administration:
-    plugin: default_value
-    default_value: 1
-  field_title_icon:
+  root_dir:
     -
       plugin: explode
       source: url
@@ -247,8 +238,16 @@ process:  # assign the fields we collected above to Drupal fields.
       plugin: extract
       index:
         - 3
+  field_administration:
+    plugin: static_map
+    source: "@root_dir"
+    map:
+      burials-memorials: 2
+    default_value: 1
+  field_title_icon:
     -
       plugin: static_map
+      source: "@root_dir"
       map:
         careers-employment: careers
         housing-assistance: housing

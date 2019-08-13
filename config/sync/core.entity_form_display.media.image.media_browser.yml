@@ -1,10 +1,11 @@
 uuid: 3c752a6e-b497-44cf-906c-652c5a95e4eb
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_form_mode.media.media_browser
     - field.field.media.image.field_media_in_library
+    - field.field.media.image.field_owner
     - field.field.media.image.image
     - image.style.2_1_medium_thumbnail
     - media.type.image
@@ -46,6 +47,8 @@ content:
 hidden:
   created: true
   field_media_in_library: true
+  field_media_submission_guideline: true
+  field_owner: true
   moderation_state: true
   path: true
   revision_log_message: true

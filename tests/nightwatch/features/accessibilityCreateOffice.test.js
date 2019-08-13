@@ -42,7 +42,7 @@ module.exports
             .click('input[id="edit-submit"]')
             .url(siteUrl+'/node/add/office')
             .waitForElementVisible('.page-title', 6000)
-            .assert.title('Create Office | Veterans Affairs')
+            .assert.title('Create Office | VA CMS')
             .initAccessibility()
             .verify.accessibility(contextOptions, axeOptions)
             .end(function(err, res){

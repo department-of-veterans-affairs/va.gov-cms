@@ -1,4 +1,4 @@
-uuid: 6caf7155-6e73-495d-a65a-361f93f0ff0d
+uuid: 95eb52e5-ada2-4695-8b45-3213e554533d
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: 1njiDiuLUJGkJIOFhJ7wdjpIwObdMvSjXrBFl7OOMA0
+  default_config_hash: rx1ZMpqLxZELhdXhnha_FrlBJHJzKIv3O9SfzwryCHk
 id: va_support_service
 class: null
 field_plugin_method: null
@@ -17,7 +17,10 @@ label: 'Migrate support services from VA.gov'
 source:
   plugin: support_service
   urls:
-    - /pension/index.md
+    - /disability/index.md
+    - /burials-memorials/index.md
+    - /family-member-benefits.md
+    - /service-member-benefits.md
   fields:
     - service_name
     - service_number

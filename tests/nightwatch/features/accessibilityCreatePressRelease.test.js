@@ -42,7 +42,7 @@ module.exports
             .click('input[id="edit-submit"]')
             .url(siteUrl+'/node/add/press_release')
             .waitForElementVisible('.page-title', 6000)
-            .assert.title('Create Press release | Veterans Affairs')
+            .assert.title('Create Press release | VA CMS')
             .initAccessibility()
             .verify.accessibility(contextOptions, axeOptions)
             .end(function(err, res){

@@ -1,4 +1,4 @@
-uuid: 590448b7-b8ea-47e3-a4d3-8bbe1fb700ac
+uuid: 36573a67-e784-49d9-ab59-d7bb2e6a4d3c
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: uWErpS8sId3EL4Z21UHRGTr1YJfJ8SOT4ZkVa4jvczQ
+  default_config_hash: 9cHK5qnysOu6oye4FontUb21fJ-2u4YAAP8tY6ZNc0g
 id: va_new_landing_pages
 class: null
 field_plugin_method: null
@@ -17,14 +17,8 @@ label: 'Migrate all remaining landing pages from VA.gov'
 source:
   plugin: metalsmith_source
   urls:
-    - /disability/index.md
     - /education/index.md
-    - /careers-employment/index.md
-    - /pension/index.md
-    - /housing-assistance/index.md
-    - /life-insurance/index.md
     - /burials-memorials/index.md
-    - /records/index.md
     - /family-member-benefits.md
     - /service-member-benefits.md
   templates:
@@ -61,7 +55,7 @@ source:
               job: addSearch
               method: arrayPluckSelector
               arguments:
-                - .usa-alert-heading
+                - .usa-alert
                 - innerHTML
         intro_text:
           obtainer: ObtainPlainTextWithNewLines

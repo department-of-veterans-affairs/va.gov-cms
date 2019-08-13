@@ -14,11 +14,14 @@ field_name: field_media_video_embed_field
 entity_type: media
 bundle: video
 label: 'Video URL'
-description: ''
+description: 'Currently supports YouTube and Vimeo URLs.'
 required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  allowed_providers: {  }
+  allowed_providers:
+    vimeo: vimeo
+    youtube: youtube
+    youtube_playlist: youtube_playlist
 field_type: video_embed_field

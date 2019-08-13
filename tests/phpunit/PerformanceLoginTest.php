@@ -18,11 +18,13 @@ class LoginPerformance extends ExistingSiteBase {
    * @dataProvider benchmarkTime
    */
   public function testLoginPerformance($benchmark) {
-    // Warm some cache before testing so login test will be more realistic.
-    // @todo Move this higher up so it runs once before all tests.
-    $this->visit('/');
 
     $author = $this->createUser();
+    $author->addRole('content_editor');
+    $author->save();
+
+    // Warm some cache before testing so login test will be more realistic.
+    $this->drupalLogin($author);
 
     // Start timer.
     $mtime = microtime();
@@ -56,7 +58,7 @@ class LoginPerformance extends ExistingSiteBase {
    */
   public function benchmarkTime() {
     return array(
-      array(5),
+      array(2),
     );
   }
 

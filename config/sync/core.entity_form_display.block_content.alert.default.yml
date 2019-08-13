@@ -5,10 +5,10 @@ dependencies:
   config:
     - block_content.type.alert
     - field.field.block_content.alert.field_alert_content
+    - field.field.block_content.alert.field_alert_dismissable
     - field.field.block_content.alert.field_alert_frequency
     - field.field.block_content.alert.field_alert_title
     - field.field.block_content.alert.field_alert_type
-    - field.field.block_content.alert.field_help_text
     - field.field.block_content.alert.field_is_this_a_header_alert_
     - field.field.block_content.alert.field_node_reference
     - field.field.block_content.alert.field_owner
@@ -17,7 +17,6 @@ dependencies:
     - content_moderation
     - field_group
     - hide_revision_field
-    - markup
     - paragraphs
 third_party_settings:
   field_group:
@@ -30,11 +29,11 @@ third_party_settings:
       weight: 2
       format_type: fieldset
       format_settings:
-        description: 'These fields are all visible to users.'
+        description: ''
         id: ''
         classes: ''
         required_fields: false
-      label: 'Alert content'
+      label: Content
       region: content
     group_content:
       children:
@@ -68,18 +67,18 @@ third_party_settings:
       region: content
     group_if_this_is_a_full_width_al:
       children:
+        - field_alert_dismissable
         - field_alert_frequency
         - field_node_reference
       parent_name: group_behaviour_and_placement
       weight: 6
       format_type: fieldset
       format_settings:
+        description: ''
+        required_fields: true
         id: ''
         classes: ''
-        description: ''
-        open: false
-        required_fields: true
-      label: 'If this is a full width alert'
+      label: 'If this is a banner alert'
       region: content
 id: block_content.alert.default
 targetEntityType: block_content
@@ -98,8 +97,15 @@ content:
       default_paragraph_type: _none
     third_party_settings: {  }
     region: content
+  field_alert_dismissable:
+    weight: 9
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
   field_alert_frequency:
-    weight: 7
+    weight: 10
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -118,12 +124,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_help_text:
-    weight: 1
-    settings: {  }
-    third_party_settings: {  }
-    type: markup
-    region: content
   field_is_this_a_header_alert_:
     weight: 5
     settings: {  }
@@ -131,7 +131,7 @@ content:
     type: options_select
     region: content
   field_node_reference:
-    weight: 8
+    weight: 11
     settings:
       match_operator: CONTAINS
       size: 60

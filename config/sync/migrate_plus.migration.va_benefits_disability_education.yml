@@ -1,4 +1,4 @@
-uuid: c7d3e949-fca4-411b-ad34-51a6da959d7a
+uuid: 01382b86-9a93-4a6b-b4df-57d16940f726
 langcode: en
 status: true
 dependencies:
@@ -6,18 +6,19 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: cCpxfxg2kvOFo_FpNox9MrxJbnuHRg4iXHmaZ2MMmPk
-id: va_benefits_life_insurance
+  default_config_hash: JySVqBk81fGNnHzTSyoBc0IIHcYJeIh8xN0JI4pOdvA
+id: va_benefits_disability_education
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
 migration_group: va_new_benefits
-label: 'Migrate Life insurance pages from va.gov'
+label: 'Migrate Disability and Education pages from va.gov'
 source:
   plugin: metalsmith_source
   urls:
-    - /life-insurance
+    - /disability
+    - /education
   templates:
     - detail-page
   fields:
@@ -70,7 +71,7 @@ source:
               job: addSearch
               method: pluckSelectorAndTest
               arguments:
-                - .usa-alert-heading
+                - .usa-alert
                 - '@title'
                 - '@url'
         related_links:
@@ -175,8 +176,18 @@ process:
   field_alert/target_id: alert_title
   field_administration:
     -
-      plugin: default_value
-      default_value: 66
+      plugin: explode
+      source: url
+      delimiter: /
+    -
+      plugin: extract
+      index:
+        - 3
+    -
+      plugin: static_map
+      map:
+        disability: 69
+        education: 70
   moderation_state:
     plugin: default_value
     default_value: draft

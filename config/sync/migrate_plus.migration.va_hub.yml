@@ -1,4 +1,4 @@
-uuid: e9a6862a-b256-4d4d-81ac-aacccb5fb0a5
+uuid: 4f9e4c85-cc0d-407d-9717-ffeb2dd994f6
 langcode: en
 status: true
 dependencies:
@@ -6,20 +6,22 @@ dependencies:
     module:
       - va_gov_migrate
 _core:
-  default_config_hash: 2ayP5boeoY-RNrHQ8OfMSX6v82B1j_pG6KPGCPfprR0
+  default_config_hash: WKmBpPtFOPuCYY1xnLL4kXoAHUqBJAyA7ItYORDQ3zg
 id: va_hub
 class: null
 field_plugin_method: null
 cck_plugin_method: null
 migration_tags: null
 migration_group: va_new_benefits
-label: 'Migrate Housing, Life insurance, and Disability landing pages - NEVER ROLLBACK'
+label: 'Migrate Education, Burials, Disability, Family Member and Service Member Benefits landing pages - NEVER ROLLBACK'
 source:
   plugin: metalsmith_source
   urls:
     - /disability/index.md
-    - /housing-assistance/index.md
-    - /life-insurance/index.md
+    - /education/index.md
+    - /burials-memorials/index.md
+    - /family-member-benefits.md
+    - /service-member-benefits.md
   templates:
     - level2-index
   fields:
@@ -222,10 +224,7 @@ process:
           entity_type: node
           ignore_case: true
   field_alert/target_id: alert_title
-  field_administration:
-    plugin: default_value
-    default_value: 1
-  field_title_icon:
+  root_dir:
     -
       plugin: explode
       source: url
@@ -234,8 +233,16 @@ process:
       plugin: extract
       index:
         - 3
+  field_administration:
+    plugin: static_map
+    source: '@root_dir'
+    map:
+      burials-memorials: 2
+    default_value: 1
+  field_title_icon:
     -
       plugin: static_map
+      source: '@root_dir'
       map:
         careers-employment: careers
         housing-assistance: housing

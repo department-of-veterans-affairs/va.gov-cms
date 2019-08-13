@@ -1,11 +1,13 @@
-id: va_benefits_housing_menu
-label: Migrate Housing assistance sidebar menu
+id: va_benefits_remaining_menus
+label: Migrate Disability, Education and Burials sidebar menu
 migration_group: va_new_benefits
 
 source:
   plugin: va_benefits_menu_source
   sections:
-    - "Housing assistance"
+    - "Disability benefits"
+    - "Education and training"
+    - "Burials and memorials"
   constants:
     bundle: menu_link_content
     zero: 0

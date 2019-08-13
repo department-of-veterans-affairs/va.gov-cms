@@ -1,0 +1,25 @@
+uuid: 54e00f85-5b50-45ef-b997-d2f70dd8dd9b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_media_submission_guideline
+    - media.type.image
+  module:
+    - markup
+id: media.image.field_media_submission_guideline
+field_name: field_media_submission_guideline
+entity_type: media
+bundle: image
+label: 'Media submission guidelines'
+description: ''
+required: false
+translatable: true
+default_value:
+  - {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: "<p>Provide a name that will help other users of the CMS find and reuse this image. The name is not visible to end users.</p>\r\n"
+    format: rich_text
+field_type: markup

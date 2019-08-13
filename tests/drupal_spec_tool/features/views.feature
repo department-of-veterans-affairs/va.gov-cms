@@ -104,11 +104,6 @@ Feature: Views
       | Health care service names and descriptions | Master                | default            | Master           |
       | Child terms                                | Block                 | block_1            | Block            |
       | Child terms                                | Master                | default            | Master           |
-      | Content                                    | Benefits              | page_5             | Page             |
-      | Content                                    | Documentation         | page_6             | Page             |
-      | Content                                    | Health care           | page_2             | Page             |
-      | Content                                    | News & press releases | page_3             | Page             |
-      | Content                                    | Staff profiles        | page_4             | Page             |
       | Health service offerings                   | Master                | default            | Master           |
       | Health service offerings                   | Page                  | page_1             | Page             |
       | Local facilities entity reference view     | Entity Reference      | entity_reference_1 | Entity Reference |
