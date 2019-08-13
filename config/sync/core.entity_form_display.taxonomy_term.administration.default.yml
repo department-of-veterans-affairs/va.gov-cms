@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_form_mode.node.inline_entity_form
     - field.field.taxonomy_term.administration.field_acronym
     - field.field.taxonomy_term.administration.field_description
     - field.field.taxonomy_term.administration.field_email_updates_link_text
@@ -15,8 +14,7 @@ dependencies:
     - taxonomy.vocabulary.administration
   module:
     - field_group
-    - inline_entity_form
-    - link
+    - linkit
     - metatag
     - social_media_links_field
 third_party_settings:
@@ -24,8 +22,8 @@ third_party_settings:
     group_connect_with_us:
       children:
         - field_link
-        - group_email_updates
         - field_social_media_links
+        - group_email_updates
       parent_name: group_contact_info
       weight: 20
       format_type: details
@@ -35,6 +33,7 @@ third_party_settings:
         open: false
         required_fields: false
       label: 'Connect with us'
+      region: hidden
     group_contact_info:
       children:
         - group_ask_questions
@@ -43,15 +42,14 @@ third_party_settings:
       weight: 4
       format_type: details
       format_settings:
-        label: 'Contact info'
         required_fields: true
         id: ''
         classes: ''
         open: false
       label: 'Contact info'
+      region: hidden
     group_ask_questions:
-      children:
-        - field_support_services
+      children: {  }
       parent_name: group_contact_info
       weight: 20
       format_type: details
@@ -61,6 +59,7 @@ third_party_settings:
         open: false
         required_fields: false
       label: 'Ask questions'
+      region: hidden
     group_email_updates:
       children:
         - field_email_updates_link_text
@@ -74,6 +73,7 @@ third_party_settings:
         description: 'A link that leads someone to subscribe to email updates.'
         required_fields: true
       label: 'Email updates'
+      region: hidden
 id: taxonomy_term.administration.default
 targetEntityType: taxonomy_term
 bundle: administration
@@ -124,8 +124,9 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      linkit_profile: default
     third_party_settings: {  }
-    type: link_default
+    type: linkit
     region: content
   field_metatags:
     weight: 5

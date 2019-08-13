@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7407d4e537aa972cd230b3d264c82b3",
+    "content-hash": "dc1c4bffdaf1a3dbb9f097e9f9e2f955",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -6285,6 +6285,58 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/lightning_workflow"
             }
+        },
+        {
+            "name": "drupal/linkit",
+            "version": "dev-5.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/linkit.git",
+                "reference": "9b54704679d65869e711239339fe149a0b97a69a"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "require-dev": {
+                "drupal/imce": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-5.x": "5.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-5.0-beta8+10-dev",
+                    "datestamp": "1559774281",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
+                },
+                "patches_applied": {
+                    "Adds field level linkit functionality.": "https://www.drupal.org/files/issues/2019-07-25/linkit_modified_patch-118-123.patch",
+                    "Fix broken autocomplete.js loading.": "https://www.drupal.org/files/issues/2018-07-19/linkit_autocomplete_not_loaded-2973181-4.patch"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Emil Stjerneman",
+                    "homepage": "https://stjerneman.com",
+                    "email": "emil@stjerneman.com",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Linkit - Enriched linking experience",
+            "homepage": "http://drupal.org/project/linkit",
+            "support": {
+                "source": "http://cgit.drupalcode.org/linkit",
+                "issues": "http://drupal.org/project/linkit"
+            },
+            "time": "2019-06-05T22:35:41+00:00"
         },
         {
             "name": "drupal/markdown",
@@ -18325,6 +18377,7 @@
         "drupal/fast_404": 15,
         "drupal/field_group": 20,
         "drupal/graphql_metatag": 20,
+        "drupal/linkit": 20,
         "drupal/markup": 10,
         "drupal/migration_tools": 15,
         "drupal/node_revisions_autoclean": 10,
