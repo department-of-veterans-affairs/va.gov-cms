@@ -308,20 +308,20 @@
             "node -v",
             "npm -v",
             "yarn -v",
-            "cd app && yarn install"
+            "cd web && yarn install"
         ],
         "va:web:server": [
-            "cd app && yarn build"
+            "cd web && yarn build"
         ],
         "va:web:watch": [
-            "cd app && npm run watch"
+            "cd web && npm run watch"
         ],
         "va:web:start": [
             "@va:web:install",
             "@va:web:watch"
         ],
         "va:web:build": [
-            "cd app && npm run build -- "
+            "cd web && npm run build -- "
         ],
         "va:web:test": [
             "echo 'drupal address: ' $DRUPAL_ADDRESS"
