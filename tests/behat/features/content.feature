@@ -6,7 +6,7 @@ Feature: The VA Website is generated inside the Drupal CMS code.
 
 #  @api
   Scenario: Ensure the static site builds an index.html file with content.
-    Given I am at "/web/"
+    Given I am at "/static/"
     Then I should see "Access and manage your VA benefits and health care" in the "h1.homepage-heading" element
 
     Then print current URL
