@@ -1,5 +1,5 @@
 id: va_hub
-label: Migrate Housing, Life insurance, and Disability landing pages - NEVER ROLLBACK
+label: Migrate Education, Burials, Disability, Family Member and Service Member Benefits landing pages - NEVER ROLLBACK
 migration_group: va_new_benefits
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
@@ -229,10 +229,7 @@ process:  # assign the fields we collected above to Drupal fields.
           entity_type: node
           ignore_case: true
   'field_alert/target_id': alert_title
-  field_administration:
-    plugin: default_value
-    default_value: 1
-  field_title_icon:
+  root_dir:
     -
       plugin: explode
       source: url
@@ -241,8 +238,16 @@ process:  # assign the fields we collected above to Drupal fields.
       plugin: extract
       index:
         - 3
+  field_administration:
+    plugin: static_map
+    source: "@root_dir"
+    map:
+      burials-memorials: 2
+    default_value: 1
+  field_title_icon:
     -
       plugin: static_map
+      source: "@root_dir"
       map:
         careers-employment: careers
         housing-assistance: housing
