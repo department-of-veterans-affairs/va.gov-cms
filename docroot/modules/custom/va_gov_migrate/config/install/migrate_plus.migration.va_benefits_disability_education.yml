@@ -1,12 +1,11 @@
-id: va_benefits_disability
-label: Migrate Disability - non-eligibility pages from va.gov
+id: va_benefits_disability_education
+label: Migrate Disability and Education pages from va.gov
 migration_group: va_new_benefits
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
     - "/disability"
-  excluded_paths:
-    - "eligibility"
+    - "/education"
   templates:  # A list of Metalsmith templates to process (detail-page=basic page, level2-index=hub page)
     - detail-page
   fields:  # :ist any frontmatter fields you want to migrate.
@@ -58,10 +57,11 @@ source:
         alert_title:
           obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAlertBlockTitles"
           jobs:
-            - job: 'addSearch'
+            -
+              job: 'addSearch'
               method: 'pluckSelectorAndTest'
               arguments:
-                - '.usa-alert-heading'
+                - '.usa-alert'
                 - '@title'
                 - '@url'
         related_links:
@@ -139,6 +139,7 @@ source:
         -
           operation: get_field
           field: body  # Now that we've plucked all the other fields and cleaned up, run the 'body' recipe on what's left.
+
   constants:
     meta_title_suffix: ' | Veterans Affairs'
 
@@ -174,8 +175,18 @@ process:  # assign the fields we collected above to Drupal fields.
   'field_alert/target_id': alert_title
   field_administration:
     -
-      plugin: default_value
-      default_value: 69
+      plugin: explode
+      source: url
+      delimiter: '/'
+    -
+      plugin: extract
+      index:
+        - 3
+    -
+      plugin: static_map
+      map:
+        disability: 69
+        education: 70
   moderation_state:
     plugin: default_value
     default_value: draft

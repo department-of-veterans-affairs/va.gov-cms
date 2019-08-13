@@ -1,6 +1,6 @@
 id: va_benefits_burials
 label: Migrate Burials & Memorials pages from vagov-content-pr-137.herokuapp.com
-migration_group: va_tests
+migration_group: va_new_benefits
 source:
   plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
   urls:     # This can be a list urls to crawl or .md files to read.
@@ -175,7 +175,7 @@ process:  # assign the fields we collected above to Drupal fields.
   field_administration:
     -
       plugin: default_value
-      default_value: 51
+      default_value: 75
   moderation_state:
     plugin: default_value
     default_value: draft

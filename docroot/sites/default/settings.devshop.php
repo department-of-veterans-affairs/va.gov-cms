@@ -62,3 +62,6 @@ $settings['trusted_host_patterns'] = [
   'localhost',
   '^.*\.ci\.cms\.va\.gov',
 ];
+
+// Github token for migrations
+$settings['va_cms_bot_github_auth_token'] = getenv('GITHUB_TOKEN') ?: FALSE;
