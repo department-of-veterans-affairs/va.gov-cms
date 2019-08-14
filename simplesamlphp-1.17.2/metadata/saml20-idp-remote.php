@@ -63,12 +63,12 @@ $metadata['VA_SSOi_IDP'] = array (
             0 =>
                 array (
                     'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
-                    'Location' => 'https://logon.sqa.iam.va.gov/affwebservices/public/saml2sso',
+                    'Location' => 'https://logon.preprod.iam.va.gov/affwebservices/public/saml2sso',
                 ),
             1 =>
                 array (
                     'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
-                    'Location' => 'https://logon.sqa.iam.va.gov/affwebservices/public/saml2sso',
+                    'Location' => 'https://logon.preprod.iam.va.gov/affwebservices/public/saml2sso',
                 ),
         ),
     'SingleLogoutService' =>
