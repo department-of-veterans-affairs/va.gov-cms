@@ -250,6 +250,7 @@
             "php -r \"chmod('.git/hooks/commit-msg', 0777);\"",
             "cp -r 'simplesamlphp-1.17.2/config/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
             "cp -r 'simplesamlphp-1.17.2/metadata/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
+            "cp -n .env-local .env",
             "@va:web:install"
         ],
         "post-update-cmd": [
