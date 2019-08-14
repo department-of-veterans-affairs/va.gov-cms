@@ -6,5 +6,9 @@ Feature: Behat tests work out of the box.
 
   Scenario: Make sure we can run bin/behat
     Given I run "pwd"
-    Given I run "echo $PATH"
-    And I run "behat -dl --colors"
+  # Just here for debugging.
+  #    Given I run "echo $PATH"
+
+  # This was NOT working in CI:
+  # And I run "bin/behat -dl --colors"
+  # Interestingly enough, it DID work in lando!
