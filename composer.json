@@ -1,6 +1,6 @@
 {
-    "name": "acquia/lightning-project",
-    "description": "Project template for Drupal 8 sites built with the Lightning distribution",
+    "name": "va-gov/cms",
+    "description": "The CMS for VA.gov",
     "type": "project",
     "license": "GPL-2.0+",
     "minimum-stability": "dev",
@@ -83,6 +83,8 @@
         "drush/drush": "~8.3",
         "guzzlehttp/guzzle": "^6.0@dev",
         "michelf/php-markdown": "^1.8",
+        "mouf/nodejs-installer": "^1.0",
+        "npm-asset/yarn": "1.12.3",
         "phpunit/phpunit": "^6",
         "provision-ops/yaml-tests": "dev-composer-argg",
         "querypath/querypath": "^3.0",
@@ -90,7 +92,7 @@
         "symfony/config": "^3.4",
         "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^4.3",
-        "twig/twig": "1.37.1",
+        "va-gov/web": "dev-VAGOV-2937-unity",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
         "weitzman/drupal-test-traits": "dev-master",
@@ -102,6 +104,18 @@
         }
     },
     "repositories": {
+        "va-gov-web":   {
+            "type": "package",
+            "package": {
+                "name": "va-gov/web",
+                "version": "dev-VAGOV-2937-unity",
+                "source": {
+                    "url": "https://github.com/department-of-veterans-affairs/vets-website",
+                    "type": "git",
+                    "reference": "origin/VAGOV-2937-unity"
+                }
+            }
+        },
         "drupal": {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
@@ -117,6 +131,7 @@
         }
     },
     "config": {
+        "discard-changes": true,
         "process-timeout": 0,
         "bin-dir": "bin",
         "vendor-dir": "docroot/vendor",
@@ -130,6 +145,13 @@
             "excludes": [
                 ".htaccess"
             ]
+        },
+        "mouf": {
+            "nodejs": {
+                "version": "10.15.3",
+                "targetDir": "vendor/nodejs/nodejs",
+                "forceLocal": true
+            }
         },
         "installer-types": [
             "bower-asset",
@@ -218,6 +240,8 @@
             "echo \"export PATH=${PATH}\""
         ],
         "post-install-cmd": [
+            "echo 'Preparing behat tests folder...'",
+            "cd tests/behat && composer install --ansi",
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
             "cp -r 'hooks/' '.git/hooks/'",
             "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
@@ -225,7 +249,9 @@
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
             "php -r \"chmod('.git/hooks/commit-msg', 0777);\"",
             "cp -r 'simplesamlphp-1.17.2/config/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
-            "cp -r 'simplesamlphp-1.17.2/metadata/' 'docroot/vendor/simplesamlphp/simplesamlphp/'"
+            "cp -r 'simplesamlphp-1.17.2/metadata/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
+            "cp -n .env-local .env",
+            "@va:web:install"
         ],
         "post-update-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
@@ -235,6 +261,25 @@
             "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
         ],
         "nuke": "rm -r -f docroot/modules/contrib docroot/profiles/contrib/lightning vendor composer.lock",
+        "va:start": [
+          "@composer install --ansi",
+          "@va:install",
+          "# To setup default content, run: `drupal module:install va_gov_content`",
+          "# cms.VA.gov installed: Username: admin  Password: admin",
+          "@va:server"
+        ],
+        "va:server": [
+          "drupal server localhost:9000 --ansi "
+        ],
+        "va:install": [
+          "drush site:install va_gov --yes --account-name admin --account-pass admin --ansi --site-name='Veterans Affairs'"
+        ],
+        "va:reinstall": [
+          "# This only reinstalls sites installed with SQLite...",
+          "chmod +w -R docroot/sites/default",
+          "rm -rf docroot/sites/default/files",
+          "@va:start"
+        ],
         "va:config:export": [
             "drupal config:export --ansi"
         ],
@@ -244,11 +289,14 @@
         "va:database:download": [
             "cd .dumps && curl --remote-name --remote-header-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/database/cms-prod-db-sanitized-latest.sql.gz && gunzip --force cms-prod-db-sanitized-latest.sql.gz && echo 'SQL dump saved to .dumps/cms-db-latest.sql'"
         ],
-        "va:proxy:start": [
+        "va:proxy:socks": [
             "ssh socks -D 2001 -N"
         ],
         "va:proxy:test": [
             "curl -v --proxy socks5h://127.0.0.1:2001 sentry.vetsgov-internal"
+        ],
+        "va:proxy:sshuttle": [
+            "sudo -E sshuttle -r dsva@52.222.32.121 -e 'ssh -A ' 10.0.0.0/8"
         ],
         "va:test:lint": [
             "find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null",
@@ -259,6 +307,30 @@
             "phpcs --ignore=*.md,*.min.css,uswds.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors"
         ],
         "va:test:unit": "phpunit tests/phpunit --colors=always --exclude-group=disabled",
-        "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors"
+        "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors",
+        "va:web:install":  [
+            "# Preparing Front-end...",
+            "cd bin && ln -sf ../docroot/libraries/yarn/bin/yarn yarn",
+            "node -v",
+            "npm -v",
+            "yarn -v",
+            "cd web && yarn install"
+        ],
+        "va:web:server": [
+            "cd web && yarn build"
+        ],
+        "va:web:watch": [
+            "cd web && npm run watch"
+        ],
+        "va:web:start": [
+            "@va:web:install",
+            "@va:web:watch"
+        ],
+        "va:web:build": [
+            "cd web && npm run build -- "
+        ],
+        "va:web:test": [
+            "echo 'drupal address: ' $DRUPAL_ADDRESS"
+        ]
     }
 }
