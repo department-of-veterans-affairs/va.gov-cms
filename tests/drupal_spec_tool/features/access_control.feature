@@ -4,7 +4,7 @@ Feature: Access control
   As a site owner
   I want to control access with user roles and permissions.
 
-  @spec @access
+  @spec @access @test
   Scenario: User roles
     Then exactly the following roles should exist
       | Name | Machine name |
