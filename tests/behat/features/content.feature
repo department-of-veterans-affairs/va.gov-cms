@@ -16,7 +16,7 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     Then I should see "VA blind and low vision rehabilitation services"
     When I am logged in as a user with the "administrator" role
     And I am at "node/2/edit"
-    And I fill in "Page Title" with "VA blind and low vision rehabilitation services - EDITED"
+    And I fill in "Page title" with "VA blind and low vision rehabilitation services - EDITED"
     And I press "Save"
     Then I should see "Benefits detail page VA blind and low vision rehabilitation services has been updated."
     When I run "composer va:web:build"
