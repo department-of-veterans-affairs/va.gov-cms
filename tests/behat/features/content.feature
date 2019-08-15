@@ -14,8 +14,6 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     When I am logged in as a user with the "administrator" role
     And I am at "/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services"
     Then I should see "VA blind and low vision rehabilitation services"
-
-
     When I am logged in as a user with the "administrator" role
     And I am at "node/2/edit"
     And I fill in "Page Title" with "VA blind and low vision rehabilitation services - EDITED"
