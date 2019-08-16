@@ -13,7 +13,7 @@ pipeline {
           stringParam(name: 'release', value: false),
           booleanParam(name: 'notify_slack', value: true),
           stringParam(name: 'ref', value: '`git rev-parse HEAD`'),
-          booleanParam('force_rebuild', value: false)
+          booleanParam(name: 'force_rebuild', value: false)
         ], wait: true
 	  }
 	}
