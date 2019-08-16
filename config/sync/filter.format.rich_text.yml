@@ -18,13 +18,13 @@ filters:
     id: filter_align
     provider: filter
     status: false
-    weight: -46
+    weight: -43
     settings: {  }
   filter_caption:
     id: filter_caption
     provider: filter
     status: false
-    weight: -45
+    weight: -42
     settings: {  }
   filter_htmlcorrector:
     id: filter_htmlcorrector
@@ -42,7 +42,7 @@ filters:
     id: entity_embed
     provider: entity_embed
     status: false
-    weight: -47
+    weight: -44
     settings: {  }
   filter_html:
     id: filter_html
@@ -57,48 +57,48 @@ filters:
     id: filter_autop
     provider: filter
     status: false
-    weight: -43
+    weight: -40
     settings: {  }
   filter_html_escape:
     id: filter_html_escape
     provider: filter
     status: false
-    weight: -44
+    weight: -41
     settings: {  }
   filter_html_image_secure:
     id: filter_html_image_secure
     provider: filter
     status: false
-    weight: -42
+    weight: -39
     settings: {  }
   filter_url:
     id: filter_url
     provider: filter
     status: true
-    weight: -38
+    weight: -47
     settings:
       filter_url_length: 72
   linkit:
     id: linkit
     provider: linkit
     status: true
-    weight: -41
+    weight: -45
     settings:
       title: true
   markdown:
     id: markdown
     provider: markdown
     status: false
-    weight: -40
+    weight: -38
     settings:
       markdown_library: php-markdown
   filter_pathologic:
     id: filter_pathologic
     provider: pathologic
     status: true
-    weight: -39
+    weight: -46
     settings:
-      settings_source: global
+      settings_source: local
       local_settings:
-        protocol_style: full
+        protocol_style: path
         local_paths: ''
