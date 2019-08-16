@@ -92,7 +92,7 @@ services:
 tooling:
 
   # "drush" being here overrides the default "lando drush" command.
-  # Using /app/bindrush means we are using the site-local drush directly.
+  # Using /app/bin/drush means we are using the site-local drush directly.
   # The reason it does not need "service" is because "drush" already has "service" set!
   drush:
     cmd: /app/bin/drush
