@@ -102,9 +102,8 @@ tooling:
     cmd: /app/bin/phpunit --bootstrap=/app/docroot/vendor/weitzman/drupal-test-traits/src/bootstrap.php -c /app
   behat:
     service: appserver
-    description: "Run behat tests locally. Run from /tests dir."
-    cmd:
-      - /app/bin/behat
+    description: "Run behat tests located in ./tests/behat"
+    cmd: cd /app/tests/behat && /app/bin/behat
   npm:
     service: node
   node:
