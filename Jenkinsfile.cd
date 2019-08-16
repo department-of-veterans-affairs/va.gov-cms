@@ -10,7 +10,7 @@ pipeline {
     stage('Build new AMI on master commit') {
 	  steps {
         build job: "builds/cms", parameters: [
-          stringParam(name: 'release', value: false),
+          booleanParam(name: 'release', value: false),
           booleanParam(name: 'notify_slack', value: true),
           stringParam(name: 'ref', value: '`git rev-parse HEAD`'),
           booleanParam(name: 'force_rebuild', value: false)
