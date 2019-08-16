@@ -31,7 +31,7 @@ pipeline {
         build job: "deploy/cms-vagov-staging", parameters: [
           stringParam(name: 'app', value: 'cms'),
           booleanParam(name: 'notify_slack', value: true),
-          choiceParam(name: 'environment', value: 'vagov-dev'),
+          choiceParam(name: 'environment', value: 'vagov-staging'),
           stringParam(name: 'ref', value: '`git rev-parse HEAD`'),
           booleanParam(name: 'migration_status', value: false)
         ] , wait: true
