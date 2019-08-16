@@ -1,0 +1,47 @@
+@Library('va.gov-devops-jenkins-lib') _
+
+pipeline {
+  agent {
+    label 'vetsgov-general-purpose'
+  }
+
+  stages {
+
+    stage('Build new AMI on master commit') {
+	  steps {
+        build job: "builds/cms", parameters: [
+          stringParam(name: 'release', value: false),
+          booleanParam(name: 'notify_slack', value: true),
+          stringParam(name: 'ref', value: '`git rev-parse HEAD`'),
+          booleanParam('force_rebuild', value: false)
+        ], wait: true
+	  }
+	}
+
+    stage('Deploy to dev and staging') {
+      steps {
+        build job: "deploy/cms-vagov-dev", parameters: [
+          stringParam(name: 'app', value: 'cms'),
+          booleanParam(name: 'notify_slack', value: true),
+          choiceParam(name: 'environment', value: 'vagov-dev'),
+          stringParam(name: 'ref', value: '`git rev-parse HEAD`'),
+          booleanParam(name: 'migration_status', value: false)
+        ] , wait: true
+
+        build job: "deploy/cms-vagov-staging", parameters: [
+          stringParam(name: 'app', value: 'cms'),
+          booleanParam(name: 'notify_slack', value: true),
+          choiceParam(name: 'environment', value: 'vagov-dev'),
+          stringParam(name: 'ref', value: '`git rev-parse HEAD`'),
+          booleanParam(name: 'migration_status', value: false)
+        ] , wait: true
+      }
+    }
+  }
+
+  post {
+    always {
+      cleanWs()
+    }
+  }
+}
