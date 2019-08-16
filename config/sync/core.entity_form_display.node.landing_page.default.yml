@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.landing_page.field_administration
     - field.field.node.landing_page.field_alert
     - field.field.node.landing_page.field_description
+    - field.field.node.landing_page.field_home_page_hub_label
     - field.field.node.landing_page.field_intro_text
     - field.field.node.landing_page.field_links
     - field.field.node.landing_page.field_meta_tags
@@ -97,6 +98,7 @@ third_party_settings:
       children:
         - field_title_icon
         - title
+        - field_home_page_hub_label
         - field_meta_title
         - field_description
         - field_teaser_text
@@ -155,7 +157,7 @@ content:
     type: options_select
     region: content
   field_description:
-    weight: 5
+    weight: 6
     settings:
       size: 300
       placeholder: ''
@@ -168,8 +170,16 @@ content:
     third_party_settings: {  }
     type: string_textfield_with_counter
     region: content
+  field_home_page_hub_label:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_intro_text:
-    weight: 7
+    weight: 8
     settings:
       rows: 5
       placeholder: ''
@@ -192,7 +202,7 @@ content:
     type: metatag_firehose
     region: content
   field_meta_title:
-    weight: 4
+    weight: 5
     settings:
       size: 70
       placeholder: ''
@@ -271,7 +281,7 @@ content:
     type: inline_entity_form_complex
     region: content
   field_teaser_text:
-    weight: 6
+    weight: 7
     settings:
       size: 200
       placeholder: ''
