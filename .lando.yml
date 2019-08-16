@@ -77,7 +77,20 @@ services:
 #        # Must export these first, @see /README.md.
 #        VA_SOCKS_PROXY_PRIVATE_KEY: ${VA_SOCKS_PROXY_PRIVATE_KEY}
 #        VA_SOCKS_PROXY_SSH_CONFIG: ${VA_SOCKS_PROXY_SSH_CONFIG}
+
+# Lando Tooling
+#
+# The list of commands below, under 'tooling' become `lando x` commands.
+#
+# You do NOT have to restart lando or the environment when you make changes to this file.
+# You DO have to reload the command cache by calling `lando` by itself or `lando --clear`.
+#
+# See https://docs.lando.dev/config/tooling.html#usage
+
 tooling:
+
+  # "drush" being here overrides the default "lando drush" command.
+  # Using /app/bindrush means we are using the site-local drush directly.
   drush:
     cmd: /app/bin/drush
   phantomjs:
