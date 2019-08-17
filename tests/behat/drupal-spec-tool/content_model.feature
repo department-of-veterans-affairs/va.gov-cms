@@ -56,6 +56,7 @@ Feature: Content model
       | Publication listing                | publication_listing              | Content type      | This allows the listing of publication materials such as documents, videos, and images all in one place.                                                                                                                                    |
       | Staff profile                      | staff_profile                    | Paragraph type    | Add a profile of a staff person.                                                                                                                                                                                                            |
 
+  @field_type
   Scenario: Fields
     Then exactly the following fields should exist
       | Type              | Bundle                                   | Field label                                                             | Machine name                     | Field type                           | Required | Cardinality | Form widget                           | Translatable |

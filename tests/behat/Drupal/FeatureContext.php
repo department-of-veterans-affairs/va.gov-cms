@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal;
+namespace CustomDrupal;
 
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\TableNode;
