@@ -117,7 +117,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $element = $session->getPage()->find('css', $element);
 
     if (NULL === $element) {
-      throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $xpath));
+      throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $element));
     }
 
     $element->click();
