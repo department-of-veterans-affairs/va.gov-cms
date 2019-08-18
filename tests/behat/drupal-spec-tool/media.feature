@@ -28,12 +28,26 @@ Feature: Media
   @spec @image_effects
   Scenario: Image effects
     Then exactly the following image effects should exist
-      | Image style          | Effect      | Summary                 |
-      | Cropped: Freeform    | Manual crop | uses Freeform crop type |
-      | Crop thumbnail       | Scale       | width 400               |
-      | Large (480×480)      | Scale       | 480×480                 |
-      | Medium (220×220)     | Scale       | 220×220                 |
-      | 2:1 medium thumbnail | Manual crop | uses 2:1 crop type      |
-      | 2:1 medium thumbnail | Scale       | 480x240                 |
-      | Cropped: 2:1         | Manual crop | uses 2:1 crop type      |
-      | Thumbnail (100×100)  | Scale       | 100x100                 |
+      | Image style                          | Effect         | Summary                 |
+      | 1:1 square medium thumbnail          | Manual crop    | uses Square crop type   |
+      | 1:1 square medium thumbnail          | Scale and crop | 240×240                 |
+      | 1:1 square medium thumbnail          | Scale          | 240×240                 |
+      | 2:1 large                            | Manual crop    | uses 2:1 crop type      |
+      | 2:1 large                            | Scale and crop | 1024×512                |
+      | 2:1 medium thumbnail                 | Manual crop    | uses 2:1 crop type      |
+      | 2:1 medium thumbnail                 | Scale and crop | 480×240                 |
+      | 3:2 medium thumbnail                 | Manual crop    | uses 3:2 crop type      |
+      | 3:2 medium thumbnail                 | Scale and crop | 480×320                 |
+      | 7:2 medium thumbnail                 | Manual crop    | uses 7:2 crop type      |
+      | 7:2 medium thumbnail                 | Scale and crop | 1050×300                |
+      | Cropped: 2:1                         | Manual crop    | uses 2:1 crop type      |
+      | Cropped: 3:2                         | Manual crop    | uses 3:2 crop type      |
+      | Cropped: 7:2                         | Manual crop    | uses 7:2 crop type      |
+      | Cropped: Freeform                    | Manual crop    | uses Freeform crop type |
+      | Cropped: Square                      | Manual crop    | uses Square crop type   |
+      | Crop thumbnail                       | Scale          | width 400               |
+      | Full content width with no upscaling | Scale          | width 1400              |
+      | Large (480×480)                      | Scale          | 480×480                 |
+      | Linkit result thumbnail              | Scale and crop | 50×50                   |
+      | Medium (220×220)                     | Scale          | 220×220                 |
+      | Thumbnail (100×100)                  | Scale          | 100×100                 |
