@@ -4,7 +4,7 @@ Feature: Content model
   As a content editor
   I want to have content entity types that reflect my content model.
 
-  @spec @content_type
+  @spec @dst @content_type
   Scenario: Bundles
     Then exactly the following content entity type bundles should exist
       | Name                               | Machine name                     | Type              | Description                                                                                                                                                                                                                                 |
@@ -57,7 +57,7 @@ Feature: Content model
       | Publication listing                | publication_listing              | Content type      | This allows the listing of publication materials such as documents, videos, and images all in one place.                                                                                                                                    |
       | Staff profile                      | staff_profile                    | Paragraph type    | Add a profile of a staff person.                                                                                                                                                                                                            |
 
-  @spec @field_type
+  @spec @dst @field_type
   Scenario: Fields
     Then exactly the following fields should exist
       | Type              | Bundle                             | Field label                                                             | Machine name                     | Field type                 | Required | Cardinality | Form widget                           | Translatable |

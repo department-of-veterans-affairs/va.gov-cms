@@ -4,7 +4,7 @@ Feature: Media
   As a site owner
   I want to have image styles for various contexts.
 
-  @spec @image_styles
+  @spec @dst @image_styles
   Scenario: Image styles
     Then exactly the following image styles should exist
       | Style name                           | Machine name                |
@@ -25,7 +25,7 @@ Feature: Media
       | Full content width with no upscaling | full_content_width          |
       | Linkit result thumbnail              | linkit_result_thumbnail     |
 
-  @spec @image_effects
+  @spec @dst @image_effects
   Scenario: Image effects
     Then exactly the following image effects should exist
       | Image style                          | Effect         | Summary                 |

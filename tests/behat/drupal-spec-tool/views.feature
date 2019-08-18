@@ -4,7 +4,7 @@ Feature: Views
   As a site owner
   I want to have views for various contexts and applications.
 
-  @spec @views
+  @spec @dst @views
   Scenario: Views
     Then exactly the following views should exist
       | Name                                       | Machine name                               | Base table        | Status   | Description                                                                                   |
@@ -36,7 +36,7 @@ Feature: Views
       | Local facilities entity reference view     | local_facilities_entity_reference_view     | Content           | Enabled  | An entity reference view that determines options for the Local Health Service descriptions    |
       | Locked content                             | locked_content                             | Content           | Enabled  |                                                                                               |
 
-  @spec @views_displays
+  @spec @dst @views_displays
   Scenario: Views displays
     Then exactly the following views displays should exist
       | View                                       | Title                                | Machine name       | Display plugin   |
