@@ -39,69 +39,71 @@ Feature: Views
   @spec @views_displays
   Scenario: Views displays
     Then exactly the following views displays should exist
-      | View                                       | Title                                   | Machine name       | Display plugin   |
-      | Archive                                    | Master                                  | default            | Master           |
-      | Archive                                    | Block                                   | block_1            | Block            |
-      | Archive                                    | Page                                    | page_1             | Page             |
-      | Custom block library                       | Master                                  | default            | Master           |
-      | Custom block library                       | Page                                    | page_1             | Page             |
-      | Content                                    | Master                                  | default            | Master           |
-      | Content                                    | All content                             | page_1             | Page             |
-      | Recent content                             | Master                                  | default            | Master           |
-      | Recent content                             | Block                                   | block_1            | Block            |
-      | Files                                      | Master                                  | default            | Master           |
-      | Files                                      | Files overview                          | page_1             | Page             |
-      | Files                                      | File usage                              | page_2             | Page             |
-      | Frontpage                                  | Master                                  | default            | Master           |
-      | Frontpage                                  | Feed                                    | feed_1             | Feed             |
-      | Frontpage                                  | Page                                    | page_1             | Page             |
-      | Glossary                                   | Master                                  | default            | Master           |
-      | Glossary                                   | Attachment                              | attachment_1       | Attachment       |
-      | Glossary                                   | Page                                    | page_1             | Page             |
-      | Media                                      | Master                                  | default            | Master           |
-      | Media                                      | Browser                                 | entity_browser_1   | Entity browser   |
-      | Media                                      | Image Browser                           | entity_browser_2   | Entity browser   |
-      | Media                                      | Media                                   | media_page_list    | Page             |
-      | Media library                              | Master                                  | default            | Master           |
-      | Media library                              | Page                                    | page               | Page             |
-      | Media library                              | Widget                                  | widget             | Page             |
-      | Moderated content                          | Master                                  | default            | Master           |
-      | Moderated content                          | Moderated content                       | moderated_content  | Page             |
-      | Moderation history                         | Master                                  | default            | Master           |
-      | Moderation history                         | Page                                    | page               | Page             |
-      | Search                                     | Master                                  | default            | Master           |
-      | Search                                     | Page                                    | page               | Page             |
-      | Taxonomy term                              | Master                                  | default            | Master           |
-      | Taxonomy term                              | Feed                                    | feed_1             | Feed             |
-      | Taxonomy term                              | Page                                    | page_1             | Page             |
-      | People                                     | Master                                  | default            | Master           |
-      | People                                     | Page                                    | page_1             | Page             |
-      | Watchdog                                   | Master                                  | default            | Master           |
-      | Watchdog                                   | Page                                    | page               | Page             |
-      | Who's new                                  | Master                                  | default            | Master           |
-      | Who's new                                  | Who's new                               | block_1            | Block            |
-      | Who's online block                         | Master                                  | default            | Master           |
-      | Who's online block                         | Who's online                            | who_s_online_block | Block            |
-      | Blocks listing                             | Promo blocks                            | page_1             | Page             |
-      | Blocks listing                             | Alert Blocks                            | page_2             | Page             |
-      | Blocks listing                             | Master                                  | default            | Master           |
-      | Redirect                                   | Master                                  | default            | Master           |
-      | Redirect                                   | Page                                    | page_1             | Page             |
-      | Build info                                 | Master                                  | default            | Master           |
-      | Build info                                 | REST export                             | rest_export_1      | REST export      |
-      | Moderation Dashboard In Review             | In draft                                | block_2            | Block            |
-      | Moderation Dashboard In Review             | In review                               | block_1            | Block            |
-      | Moderation Dashboard In Review             | Master                                  | default            | Master           |
-      | Moderation Dashboard In Review             | Your drafts                             | block_3            | Block            |
-      | Moderation Dashboard Recent Changes        | Master                                  | default            | Master           |
-      | Moderation Dashboard Recent Changes        | Recent Changes                          | block_1            | Block            |
-      | Moderation Dashboard Recent Changes        | Your activity                           | block_2            | Block            |
-      | Moderation Dashboard Recently Created      | Content you created                     | block_2            | Block            |
-      | Moderation Dashboard Recently Created      | Master                                  | default            | Master           |
-      | Moderation Dashboard Recently Created      | Recently created                        | block_1            | Block            |
-      | Content                                    | Benefits content                        | page_5             | Page             |
-      | Content                                    | Health care facility and local services | page_2             | Page             |
-      | Content                                    | News stories and press releases         | page_3             | Page             |
-      | Content                                    | Person profiles                         | page_4             | Page             |
-      | Health care service names and descriptions | Entity Reference                        | entity_reference_1 | Entity Reference |
-      | Health care service names and descriptions | Master                                  | default            | Master           |
+      | View                                       | Title                                | Machine name       | Display plugin   |
+      | Archive                                    | Master                               | default            | Master           |
+      | Archive                                    | Block                                | block_1            | Block            |
+      | Archive                                    | Page                                 | page_1             | Page             |
+      | Custom block library                       | Master                               | default            | Master           |
+      | Custom block library                       | Page                                 | page_1             | Page             |
+      | Content                                    | Master                               | default            | Master           |
+      | Content                                    | All content                          | page_1             | Page             |
+      | Recent content                             | Master                               | default            | Master           |
+      | Recent content                             | Block                                | block_1            | Block            |
+      | Files                                      | Master                               | default            | Master           |
+      | Files                                      | Files overview                       | page_1             | Page             |
+      | Files                                      | File usage                           | page_2             | Page             |
+      | Frontpage                                  | Master                               | default            | Master           |
+      | Frontpage                                  | Feed                                 | feed_1             | Feed             |
+      | Frontpage                                  | Page                                 | page_1             | Page             |
+      | Glossary                                   | Master                               | default            | Master           |
+      | Glossary                                   | Attachment                           | attachment_1       | Attachment       |
+      | Glossary                                   | Page                                 | page_1             | Page             |
+      | Media                                      | Master                               | default            | Master           |
+      | Media                                      | Browser                              | entity_browser_1   | Entity browser   |
+      | Media                                      | Image Browser                        | entity_browser_2   | Entity browser   |
+      | Media                                      | Media                                | media_page_list    | Page             |
+      | Media library widget                       | Master                               | default            | Master           |
+      | Media library widget                       | Deprecated (to follow D8.7 approach) | page               | Page             |
+      | Media library widget                       | Widget                               | widget             | Page             |
+      | Moderated content                          | Master                               | default            | Master           |
+      | Moderated content                          | Moderated content                    | moderated_content  | Page             |
+      | Moderation history                         | Master                               | default            | Master           |
+      | Moderation history                         | Page                                 | page               | Page             |
+      | Search                                     | Master                               | default            | Master           |
+      | Search                                     | Page                                 | page               | Page             |
+      | Taxonomy term                              | Master                               | default            | Master           |
+      | Taxonomy term                              | Feed                                 | feed_1             | Feed             |
+      | Taxonomy term                              | Page                                 | page_1             | Page             |
+      | People                                     | Master                               | default            | Master           |
+      | People                                     | Page                                 | page_1             | Page             |
+      | Watchdog                                   | Master                               | default            | Master           |
+      | Watchdog                                   | Page                                 | page               | Page             |
+      | Who's new                                  | Master                               | default            | Master           |
+      | Who's new                                  | Who's new                            | block_1            | Block            |
+      | Who's online block                         | Master                               | default            | Master           |
+      | Who's online block                         | Who's online                         | who_s_online_block | Block            |
+      | Blocks listing                             | Promo blocks                         | page_1             | Page             |
+      | Blocks listing                             | Alert Blocks                         | page_2             | Page             |
+      | Blocks listing                             | Master                               | default            | Master           |
+      | Redirect                                   | Master                               | default            | Master           |
+      | Redirect                                   | Page                                 | page_1             | Page             |
+      | Build info                                 | Master                               | default            | Master           |
+      | Build info                                 | REST export                          | rest_export_1      | REST export      |
+      | Health care service names and descriptions | Entity Reference                     | entity_reference_1 | Entity Reference |
+      | Health care service names and descriptions | Master                               | default            | Master           |
+      | Child terms                                | Block                                | block_1            | Block            |
+      | Child terms                                | Master                               | default            | Master           |
+      | Content                                    | Bulk edit content                    | page_2             | Page             |
+      | Health service offerings                   | Master                               | default            | Master           |
+      | Health service offerings                   | Page                                 | page_1             | Page             |
+      | Local facilities entity reference view     | Entity Reference                     | entity_reference_1 | Entity Reference |
+      | Local facilities entity reference view     | Master                               | default            | Master           |
+      | Locked content                             | Master                               | default            | Master           |
+      | Locked content                             | Page                                 | page_1             | Page             |
+      | Media                                      | Downloadable document browser        | entity_browser_3   | Entity browser   |
+      | Media                                      | Media bulk edit                      | page_1             | Page             |
+      | My Workflow                                | Master                               | default            | Master           |
+      | My Workflow                                | My workflow                          | my_workflow_page   | Page             |
+      | Sections tree                              | Block                                | block_1            | Block            |
+      | Sections tree                              | Master                               | default            | Master           |
+      | Sections tree                              | Page                                 | page_1             | Page             |
