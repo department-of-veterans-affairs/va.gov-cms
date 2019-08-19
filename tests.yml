@@ -26,7 +26,7 @@ va/deploy/3-config:
 
 va/web/build:
   description: Build VA.gov Front-end
-  command: composer va:web:build | grep  "Failed to pipe Drupal content into Metalsmith!" -B1000 -C8 && echo "Metalsmith error detected in npm build process." && exit 1 || echo "Front end site was built! Check $DRUPAL_ADDRESS/web for raw output!"
+  command: composer va:web:build | tee /dev/tty | grep "Failed to pipe Drupal content into Metalsmith!" -B1000 -C8 && echo "Metalsmith error detected in npm build process." && exit 1 || echo "Front end site was built! Check $DRUPAL_ADDRESS/web for raw output!"
 
 va/tests/behat:
   description: Behat Tests
