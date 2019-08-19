@@ -25,8 +25,8 @@ va/deploy/3-config:
   - drush $DRUSH_ALIAS cr
 
 va/web/build:
-  - composer va:web:build | grep  "Failed to pipe Drupal content into Metalsmith!" -C4 && echo "Metalsmith Drupal error detected." && exit 1
-  - echo "Front end site was built! Check $DRUPAL_ADDRESS/web for raw output... new URLs coming soon!"
+  description: Build VA.gov Front-end
+  command: composer va:web:build | grep  "Failed to pipe Drupal content into Metalsmith!" -C4 && echo "Metalsmith Drupal error detected." && exit 1 || echo "Front end site was built! Check $DRUPAL_ADDRESS/web for raw output!"
 
 va/tests/behat:
   description: Behat Tests
