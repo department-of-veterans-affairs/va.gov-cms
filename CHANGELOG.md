@@ -8,6 +8,19 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
+## 2019-08-20.1 Sprint 20 release 3. tag  20190820.1
+
+*  __VAGOV-1555 Add preprod cert for staging IAM SSO metadata.__
+    2019-08-16 12:53:04 -0700 - (Elijah Lynn) [3facd609]
+
+## 2019-08-19.1 Sprint 20 release 2.
+
+These two items were needed urgently on prod so they were cherry-picked on top of the previous release.
+*  __VAGOV-5510: Update linkit url filters.__
+    2019-08-19 13:27:13 -0400 - (Steve Wirt) [19a45699] Cherry-picked.
+*  __VAGOV-5586 Add homepage label field.__
+    2019-08-19 13:26:34 -0400 - (Steve Wirt) [51c2e245] Cherry-picked.
+
 
 ## 2019-08-13.1 Sprint 20 release 1.
 
