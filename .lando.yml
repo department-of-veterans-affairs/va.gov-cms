@@ -8,9 +8,8 @@ env_file:
   - .env.lando
 
 events:
-  # Mirrors what is in lando-entrypoint-app.sh, keep in sync with that file.
-  # @todo don't use absolute path, somehow lando is not detecting drush in path right now. Fix this.
   post-db-import:
+    // @TODO: Change to `composer yaml-tests va/deploy` once the "filter argument" feature is in place.
     - appserver: cd $LANDO_WEBROOT && /app/bin/drush cache-rebuild -y
     - appserver: cd $LANDO_WEBROOT && /app/bin/drush updatedb -y
     - appserver: cd $LANDO_WEBROOT && /app/bin/drush config:import -y
