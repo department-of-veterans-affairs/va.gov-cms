@@ -107,3 +107,4 @@ Feature: Views
       | Sections tree                              | Block                                | block_1            | Block            |
       | Sections tree                              | Master                               | default            | Master           |
       | Sections tree                              | Page                                 | page_1             | Page             |
+      | Redirect                                   | Non admin Page                       | page_2             | Page             |
