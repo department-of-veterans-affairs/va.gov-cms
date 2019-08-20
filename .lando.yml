@@ -18,6 +18,7 @@ events:
   # Runs composer install after app starts
   post-start:
     - appserver: cd $LANDO_MOUNT && composer install
+  #    - appserver: cd $LANDO_MOUNT && npm install
 
   # After code changes
   post-update:
