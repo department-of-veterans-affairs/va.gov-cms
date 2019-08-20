@@ -20,8 +20,8 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     And I press "Save"
     Then I should see "Benefits detail page VA blind and low vision rehabilitation services - EDITED has been updated."
 
-#    When I run "composer va:web:build"
-#    And I am at "/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services"
-#    Then I should see "VA blind and low vision rehabilitation services - EDITED"
-#    And I am at "/web/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services"
-#    Then I should see "VA blind and low vision rehabilitation services - EDITED"
+    When I run "composer va:web:build"
+    And I am at "/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services"
+    Then I should see "VA blind and low vision rehabilitation services - EDITED"
+    And I am at "/web/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services"
+    Then I should see "VA blind and low vision rehabilitation services - EDITED"
