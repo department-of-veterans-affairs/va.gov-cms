@@ -4,6 +4,9 @@ config:
   webroot: docroot
   php: "7.2"
 
+env_file:
+  - .env.lando
+
 events:
   # Mirrors what is in lando-entrypoint-app.sh, keep in sync with that file.
   # @todo don't use absolute path, somehow lando is not detecting drush in path right now. Fix this.
