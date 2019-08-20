@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal;
+namespace CustomDrupal;
 
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\TableNode;
@@ -14,9 +14,9 @@ use PHPUnit\Framework\Assert;
  */
 class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
 
-  use Tests\Traits\FieldTrait;
-  use Tests\Traits\UserEntityTrait;
-  use Tests\Traits\ContentTrait;
+  use \Traits\FieldTrait;
+  use \Traits\UserEntityTrait;
+  use \Traits\ContentTrait;
   use \Traits\GroupTrait;
 
   /**
