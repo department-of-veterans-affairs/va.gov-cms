@@ -18,11 +18,9 @@ events:
   # Runs composer install after app starts
   post-start:
     - appserver: cd $LANDO_MOUNT && composer install
-#    - appserver: cd $LANDO_MOUNT && npm install
 
   # After code changes
   post-update:
-    # @TODO: Change to `composer yaml-tests va/deploy` once the "filter argument" feature is in place.
     - appserver: cd $LANDO_MOUNT && composer install
     - appserver: cd $LANDO_WEBROOT && drush updb -y &&  drush cr -y
 
@@ -31,10 +29,6 @@ services:
     run_as_root:
       - "apt-get update -y"
       - "apt-get install build-essential chrpath libssl-dev libxft-dev libfreetype6-dev libfreetype6 libfontconfig1-dev libfontconfig1 -y"
-#      - "tar xvjf /app/phantomjs-2.1.1-linux-x86_64.tar.bz2 -C /usr/local/share/"
-#      - "mv /usr/local/share/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/bin/"
-#      - "cd /usr/bin"
-#      - "chmod +x phantomjs"
     # Uncomment the below `xdebug: true` for Xdebug support
     # @todo Change this to pull in a local Lando settings variable and use that boolean variable
     # Run `lando rebuild` after uncommenting
@@ -43,25 +37,12 @@ services:
       environment:
         # You must manually `export` these ENV vars before uncommenting, then run `lando rebuild`
         # @see /README.md Build Trigger section
-#        VA_CMS_BOT_GITHUB_AUTH_TOKEN: ${VA_CMS_BOT_GITHUB_AUTH_TOKEN}
-#        ENVIRONMENT_TYPE: ${ENVIRONMENT_TYPE}
-#        JENKINS_BUILD_ENV: ${JENKINS_BUILD_ENV}
+        #        VA_CMS_BOT_GITHUB_AUTH_TOKEN: ${VA_CMS_BOT_GITHUB_AUTH_TOKEN}
+        #        ENVIRONMENT_TYPE: ${ENVIRONMENT_TYPE}
+        #        JENKINS_BUILD_ENV: ${JENKINS_BUILD_ENV}
         # Support debugging Drush with XDEBUG. Listen in PHPStorm then `lando drush` to trigger xdebug.
         PHP_IDE_CONFIG: "serverName=appserver"
-  node:
-    type: node
-    build:
-      - npm install
-#      - "cd $LANDO_MOUNT/docroot/themes/custom/vagov && npm install"
-    overrides:
-      environment:
-        BEHAT_PARAMS: '{"extensions" : {"Behat\\MinkExtension" : {"base_url" : "http://localhost/"}, "Drupal\\DrupalExtension" : {"drush" : { "root": "/app/docroot" }}}}'
-      ports:
-        - 3002:3002
-        - 3003:3003
-      image: node:10.13-jessie
-    globals:
-      gulp-cli: "latest"
+
   # Uncomment this to work on site build triggers, then export ENV vars below, then `lando rebuild`.
   # Must use lando 3.0.0-rc9+
   # @see /README.md Build Trigger section
@@ -108,13 +89,11 @@ tooling:
     service: appserver
     cmd: "composer va:web:build"
 
-  phantomjs:
-    service: appserver
-    description: "Run phantomjs commands"
   phpunit:
     service: appserver
     description: "Run PHP Unit tests: lando phpunit. Syntax: lando phpunit {PATH-TO-TEST}"
     cmd: /app/bin/phpunit --bootstrap=/app/docroot/vendor/weitzman/drupal-test-traits/src/bootstrap.php -c /app
+
   behat:
     service: appserver
     description: "Run behat tests located in ./tests/behat"
@@ -133,8 +112,7 @@ tooling:
     description: "Run nightwatch tests locally. Syntax: npm run-script nightwatch."
     cmd:
       - ./node_modules/.bin/nightwatch --tags accessibility
-  gulp:
-    service: node
+
   sync-db:
     service: appserver
     description: This command has moved to a non-lando command, from app root run like this `scripts/sync-db.sh`.
