@@ -242,7 +242,7 @@
         ],
         "post-install-cmd": [
             "echo 'Preparing behat tests folder...'",
-            "cd tests/behat && /usr/local/bin/composer install --ansi",
+            "cd tests/behat && composer install --ansi",
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
             "cp -r 'hooks/' '.git/hooks/'",
             "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
