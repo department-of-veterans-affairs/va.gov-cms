@@ -77,9 +77,29 @@ services:
 #        # Must export these first, @see /README.md.
 #        VA_SOCKS_PROXY_PRIVATE_KEY: ${VA_SOCKS_PROXY_PRIVATE_KEY}
 #        VA_SOCKS_PROXY_SSH_CONFIG: ${VA_SOCKS_PROXY_SSH_CONFIG}
+
+# Lando Tooling
+#
+# The list of commands below, under 'tooling' become `lando x` commands.
+#
+# You do NOT have to restart lando or the environment when you make changes to this file.
+# You DO have to reload the command cache by calling `lando` by itself or `lando --clear`.
+#
+# See https://docs.lando.dev/config/tooling.html#usage
+
 tooling:
+
+  # "drush" being here overrides the default "lando drush" command.
+  # Using /app/bindrush means we are using the site-local drush directly.
+  # The reason it does not need "service" is because "drush" already has "service" set!
   drush:
     cmd: /app/bin/drush
+
+  # Build the web front-end
+  web-build:
+    service: appserver
+    cmd: "composer va:web:build"
+
   phantomjs:
     service: appserver
     description: "Run phantomjs commands"
@@ -89,13 +109,17 @@ tooling:
     cmd: /app/bin/phpunit --bootstrap=/app/docroot/vendor/weitzman/drupal-test-traits/src/bootstrap.php -c /app
   behat:
     service: appserver
-    description: "Run behat tests locally. Run from /tests dir."
-    cmd:
-      - /app/bin/behat
+    description: "Run behat tests located in ./tests/behat"
+    cmd: cd /app/tests/behat && /app/bin/behat
+
+  # NPM and NODE are now installed via composer install: this ensures version consistency.
   npm:
-    service: node
+    service: appserver
+    cmd: /app/bin/npm
   node:
-    service: node
+    service: appserver
+    cmd: /app/bin/npm
+
   nightwatch:
     service: node
     description: "Run nightwatch tests locally. Syntax: npm run-script nightwatch."

@@ -13,6 +13,7 @@
         "acquia/headless_lightning": "^1.4.0-beta2",
         "bangpound/composer-dotenv": "^1.0@dev",
         "cweagans/composer-patches": "^1.6.0",
+        "devshop/behat-drupal-extension": "dev-master",
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "drupal/address": "^1.4",
         "drupal/admin_toolbar": "^1.24",
@@ -241,8 +242,6 @@
             "echo \"export PATH=${PATH}\""
         ],
         "post-install-cmd": [
-            "echo 'Preparing behat tests folder...'",
-            "cd tests/behat && composer install --ansi",
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
             "cp -r 'hooks/' '.git/hooks/'",
             "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
