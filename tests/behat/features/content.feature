@@ -25,3 +25,4 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     Then I should see "VA blind and low vision rehabilitation services - EDITED"
     And I am at "/static/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services"
     Then I should see "VA blind and low vision rehabilitation services - EDITED"
+    Then print current URL
