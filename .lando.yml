@@ -22,6 +22,7 @@ events:
 
   # After code changes
   post-update:
+    # @TODO: Change to `composer yaml-tests va/deploy` once the "filter argument" feature is in place.
     - appserver: cd $LANDO_MOUNT && composer install
     - appserver: cd $LANDO_WEBROOT && drush updb -y &&  drush cr -y
 
@@ -90,6 +91,11 @@ services:
 # See https://docs.lando.dev/config/tooling.html#usage
 
 tooling:
+
+  test:
+    description: Run all VA.gov tests, as defined in tests.yml.
+    service: appserver
+    cmd: composer yaml-tests
 
   # "drush" being here overrides the default "lando drush" command.
   # Using /app/bin/drush means we are using the site-local drush directly.
