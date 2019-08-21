@@ -74,7 +74,7 @@ services:
 tooling:
 
   test:
-    description: Run all VA.gov tests, as defined in tests.yml.
+    description: Run all VA.gov tests, as defined in tests.yml. Add arguments to run subsets of tests. For example. "lando test deploy" will run all of the "va/deploy/*" tests.
     service: appserver
     cmd: composer yaml-tests
 
@@ -92,12 +92,17 @@ tooling:
   phpunit:
     service: appserver
     description: "Run PHP Unit tests: lando phpunit. Syntax: lando phpunit {PATH-TO-TEST}"
-    cmd: /app/bin/phpunit --bootstrap=/app/docroot/vendor/weitzman/drupal-test-traits/src/bootstrap.php -c /app
+    cmd: "composer yaml-tests va/tests/phpunit"
 
   behat:
     service: appserver
     description: "Run behat tests located in ./tests/behat"
     cmd: cd /app/tests/behat && /app/bin/behat
+
+  test_filter_test:
+    service: appserver
+    description: "Run this command to see the strange problem where `lando test behat` does not work."
+    cmd: "composer yaml-tests va/tests/behat"
 
   # NPM and NODE are now installed via composer install: this ensures version consistency.
   npm:
