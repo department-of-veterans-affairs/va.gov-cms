@@ -16,9 +16,19 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
    * context constructor through behat.yml.
    */
   public function __construct() {
-    $dotenv = new Dotenv(dirname(dirname(dirname(dirname(__DIR__)))));
-    $dotenv->load();
-    parent::__construct();
 
+    // The .env file is only used in CMS-CI and if a developer wants to override
+    // any environment variables.
+
+    // Add any Lando-specific and team-wide variables to .env.lando.
+
+    // Load the .env file from the root of the project, if there is one.
+    $dotenv_file = dirname(dirname(dirname(dirname(__DIR__)))) . '/.env';
+    if (file_exists($dotenv_file)) {
+      $dotenv = new Dotenv(dirname(dirname(dirname(dirname(__DIR__)))));
+      $dotenv->load();
+    }
+
+    parent::__construct();
   }
 }
