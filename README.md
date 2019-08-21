@@ -89,6 +89,12 @@ The VA.gov project has the following custom commands.
 
     Test the proxy when it is running.
 
+4. `nuke`
+
+    Removes all composer installed directories, useful when you manually
+    made changes to any files inside a composer managed directory. e.g.
+    docroot/core, docroot/vendor.
+
 @TODO: Document all of the custom composer commands.
 
 See https://getcomposer.org/doc/articles/scripts.md for more information on how to create and manage scripts.
