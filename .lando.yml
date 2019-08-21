@@ -18,7 +18,6 @@ events:
   # Runs composer install after app starts
   post-start:
     - appserver: cd $LANDO_MOUNT && composer install
-  #    - appserver: cd $LANDO_MOUNT && npm install
 
   # After code changes
   post-update:
@@ -104,14 +103,6 @@ tooling:
     service: appserver
     description: "Run this command to see the strange problem where `lando test behat` does not work."
     cmd: "composer yaml-tests va/tests/behat"
-
-  # NPM and NODE are now installed via composer install: this ensures version consistency.
-  npm:
-    service: appserver
-    cmd: /app/bin/npm
-  node:
-    service: appserver
-    cmd: /app/bin/npm
 
   nightwatch:
     service: node
