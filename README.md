@@ -26,6 +26,9 @@ Firefox
 * Click "Import"
 * Import both files downloaded above
 
+Lando
+* `rebuild lando -y`
+
 ## HTTPS testing (locally/Lando)
 You can't test with the VA cert locally using Lando but you can use Lando's self-signed cert. If you need to test the actual cert locally contact the DevOps team to help you setup the vagrant build system to get HTTPS working with VA CA.
 
