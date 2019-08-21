@@ -104,6 +104,14 @@ tooling:
     description: "Run this command to see the strange problem where `lando test behat` does not work."
     cmd: "composer yaml-tests va/tests/behat"
 
+  # NPM and NODE are now installed via composer install: this ensures version consistency.
+  npm:
+    service: appserver
+    cmd: /app/bin/npm
+  node:
+    service: appserver
+    cmd: /app/bin/npm
+
   nightwatch:
     service: node
     description: "Run nightwatch tests locally. Syntax: npm run-script nightwatch."
