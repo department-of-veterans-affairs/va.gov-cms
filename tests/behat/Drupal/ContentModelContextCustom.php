@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal;
+namespace CustomDrupal;
 
 use Behat\Gherkin\Node\TableNode;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;

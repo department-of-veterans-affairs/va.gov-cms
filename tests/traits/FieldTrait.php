@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\Traits;
+namespace Traits;
 
 use PHPUnit\Framework\Assert;
 
