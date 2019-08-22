@@ -270,6 +270,15 @@ class MetalsmithSource extends UrlList {
       AnomalyMessage::make("Some <title> tags are longer than 51 characters", $page_title, $row['url'], $row['title']);
     }
 
+    // Make sure meta description exists.
+    if (empty($row['description'])) {
+      // Allow multiple title tag errors.
+      \Drupal::state()->delete('va_gov_migrate.anomaly');
+
+      $page_title = empty($row['heading']) ? $row['title'] : $row['heading'];
+      AnomalyMessage::make("Meta description missing", $page_title, $row['url']);
+    }
+
     // Extract the plainlanguage date, if any.
     if (!empty($row['plainlanguage']) && preg_match('/0?(\d+)[-\.]0?(\d+)[-\.](\d+)/', $row['plainlanguage'], $matches)) {
       $row['plainlanguage_date'] = $matches[1] . '/' . $matches[2] . '/' . $matches[3];
