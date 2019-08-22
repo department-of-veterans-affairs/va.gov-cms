@@ -6,6 +6,7 @@ use Acquia\Lightning\Composer\Package;
 use Dotenv\Dotenv;
 use Dotenv\Exception\ValidationException;
 
+// Run here so it is loaded as soon as the file is included.
 EnvironmentHandler::load();
 
 /**
