@@ -1,0 +1,37 @@
+uuid: 652ec8ec-d208-483e-8d4c-e860ed775729
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.menu_link_content.footer.field_label
+    - field.field.menu_link_content.footer.field_open_link_in_new_tab
+    - system.menu.footer
+id: menu_link_content.footer.default
+targetEntityType: menu_link_content
+bundle: footer
+mode: default
+content:
+  children:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_label:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_open_link_in_new_tab:
+    weight: 3
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+hidden: {  }
