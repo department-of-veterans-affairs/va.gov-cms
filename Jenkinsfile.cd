@@ -11,12 +11,15 @@ pipeline {
 
     stage('Build new AMI on ${params.branch} commit') {
 	  steps {
+	  /*
         build job: "builds/cms", parameters: [
           booleanParam(name: 'release', value: params.release),
           booleanParam(name: 'notify_slack', value: true),
           stringParam(name: 'ref', value: params.ref),
           booleanParam(name: 'force_rebuild', value: false)
         ], wait: true
+        */
+        println "${params}\n"
 	  }
 	}
 
