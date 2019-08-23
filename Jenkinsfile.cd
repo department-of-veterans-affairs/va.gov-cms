@@ -7,39 +7,39 @@ pipeline {
 
   stages {
 
-    stage('Build new AMI on ${params.branch} commit') {
+    stage('Notify Slack') {
+      steps {
+        script {
+          notifySlack("Deploying `va.gov-cms` to `develop`.", showTrigger: true, showBuildLink: true)
+        }
+      }
+    }
+
+    stage('Build new AMI on branch:develop commit') {
 	  steps {
 	    script{
-	      ref = getLatestGitRef('va.gov-cms', branch: params.branch)
-	      properties ( [[$class: 'ParametersDefinitionProperty', parameterDefinitions: [[$class: 'StringParameterDefinition', defaultValue: '', description: '', name: 'payload']]]] )
-          echo ("This build is built with the payload: $payload")
+	      commit = (ref == "") ? getLatestGitRef('va.gov-cms', branch: params.branch) : ref
 	    }
-	  /*
         build job: "builds/cms", parameters: [
           booleanParam(name: 'release', value: params.release),
           booleanParam(name: 'notify_slack', value: true),
-          stringParam(name: 'ref', value: params.ref),
+          stringParam(name: 'ref', value: commit),
           booleanParam(name: 'force_rebuild', value: false)
         ], wait: true
-        */
-        println "${params}\n"
-        println "${ref}\n"
 	  }
 	}
 
-/*
-    stage('Deploy to ${params.env}') {
+    stage('Deploy to cms[vagov-dev]') {
       steps {
         build job: "deploy/cms-vagov-dev", parameters: [
           stringParam(name: 'app', value: 'cms'),
           booleanParam(name: 'notify_slack', value: true),
           choiceParam(name: 'environment', value: params.env),
-          stringParam(name: 'ref', value: params.ref),
+          stringParam(name: 'ref', value: commit),
           booleanParam(name: 'migration_status', value: false)
         ] , wait: true
       }
     }
-*/
   }
 
   post {
