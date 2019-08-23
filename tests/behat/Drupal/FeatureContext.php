@@ -1,10 +1,10 @@
 <?php
 
-namespace Drupal;
+namespace CustomDrupal;
 
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\TableNode;
-use Drupal\DrupalExtension\Context\RawDrupalContext;
+use DevShop\Behat\DrupalExtension\Context\DevShopDrupalContext;
 use Drupal\file\Entity\File;
 use Drupal\node\Entity\NodeType;
 use PHPUnit\Framework\Assert;
@@ -12,11 +12,11 @@ use PHPUnit\Framework\Assert;
 /**
  * FeatureContext class defines custom step definitions for Behat.
  */
-class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
+class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingContext {
 
-  use Tests\Traits\FieldTrait;
-  use Tests\Traits\UserEntityTrait;
-  use Tests\Traits\ContentTrait;
+  use \Traits\FieldTrait;
+  use \Traits\UserEntityTrait;
+  use \Traits\ContentTrait;
   use \Traits\GroupTrait;
 
   /**
@@ -117,7 +117,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $element = $session->getPage()->find('css', $element);
 
     if (NULL === $element) {
-      throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $xpath));
+      throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $element));
     }
 
     $element->click();

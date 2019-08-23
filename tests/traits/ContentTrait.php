@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\Traits;
+namespace Traits;
 
 use Drupal\node\NodeInterface;
 use Drupal\node\Entity\Node;

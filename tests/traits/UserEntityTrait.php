@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\Traits;
+namespace Traits;
 
 use Drupal\user\Entity\Role;
 use PHPUnit\Framework\Assert;
