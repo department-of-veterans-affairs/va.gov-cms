@@ -8,8 +8,8 @@ auth_source: default-sp
 login_link_display_name: 'Login with your SSOi account.'
 header_no_cache: false
 role:
-  population: ''
-  eval_every_time: false
+  population: 'content_editor:adUPN,@=,va.gov'
+  eval_every_time: true
 register_users: true
 allow:
   set_drupal_pwd: true

@@ -26,6 +26,9 @@ Firefox
 * Click "Import"
 * Import both files downloaded above
 
+Lando
+* `rebuild lando -y`
+
 ## HTTPS testing (locally/Lando)
 You can't test with the VA cert locally using Lando but you can use Lando's self-signed cert. If you need to test the actual cert locally contact the DevOps team to help you setup the vagrant build system to get HTTPS working with VA CA.
 
@@ -85,6 +88,12 @@ The VA.gov project has the following custom commands.
 3. `va:proxy:test`
 
     Test the proxy when it is running.
+
+4. `nuke`
+
+    Removes all composer installed directories, useful when you manually
+    made changes to any files inside a composer managed directory. e.g.
+    docroot/core, docroot/vendor.
 
 @TODO: Document all of the custom composer commands.
 

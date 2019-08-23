@@ -13,6 +13,7 @@
         "acquia/headless_lightning": "^1.4.0-beta2",
         "bangpound/composer-dotenv": "^1.0@dev",
         "cweagans/composer-patches": "^1.6.0",
+        "devshop/behat-drupal-extension": "dev-master",
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "drupal/address": "^1.4",
         "drupal/admin_toolbar": "^1.24",
@@ -86,7 +87,7 @@
         "mouf/nodejs-installer": "^1.0",
         "npm-asset/yarn": "1.12.3",
         "phpunit/phpunit": "^6",
-        "provision-ops/yaml-tests": "dev-composer-argg",
+        "provision-ops/yaml-tests": "^1.7",
         "querypath/querypath": "^3.0",
         "simplesamlphp/simplesamlphp": "^1.17",
         "symfony/config": "^3.4",
@@ -101,7 +102,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Traits\\": "tests/traits"
+            "Traits\\": "tests/traits",
+            "CustomDrupal\\": "tests/behat/Drupal"
         }
     },
     "repositories": {
@@ -113,7 +115,7 @@
                 "source": {
                     "url": "https://github.com/department-of-veterans-affairs/vets-website",
                     "type": "git",
-                    "reference": "4c8a42a43aad335adba2a7e7fc865804cf516d2a"
+                    "reference": "e76d8b6e1ae5fddc9c3f629b76c082e2d956ee8f"
                 }
             }
         },
@@ -230,7 +232,7 @@
                 "Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch"
             },
             "drupal/workflow_participants": {
-                "Fix uncaught type error by extending class.": "patches/workflowParticipantsUncaughtType.patch"
+                "Fix revision uncaught type error by extending class.": "https://www.drupal.org/files/issues/2019-08-16/workflow_participants-revision-error-3075426-1.patch"
             }
         }
     },
@@ -241,8 +243,6 @@
             "echo \"export PATH=${PATH}\""
         ],
         "post-install-cmd": [
-            "echo 'Preparing behat tests folder...'",
-            "cd tests/behat && echo $PATH && which composer && composer install --ansi",
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
             "cp -r 'hooks/' '.git/hooks/'",
             "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
@@ -251,7 +251,6 @@
             "php -r \"chmod('.git/hooks/commit-msg', 0777);\"",
             "cp -r 'simplesamlphp-1.17.2/config/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
             "cp -r 'simplesamlphp-1.17.2/metadata/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
-            "cp -n .env-local .env",
             "@va:web:install"
         ],
         "post-update-cmd": [
@@ -261,7 +260,7 @@
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
             "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
         ],
-        "nuke": "rm -r -f docroot/modules/contrib docroot/profiles/contrib/lightning vendor composer.lock",
+        "nuke": "rm --recursive --force bin docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor",
         "va:start": [
           "@composer install --ansi",
           "@va:install",
@@ -328,7 +327,7 @@
             "@va:web:watch"
         ],
         "va:web:build": [
-            "cd web && npm run build -- "
+            "cd web && npm run build -- --pull-drupal"
         ],
         "va:web:test": [
             "echo 'drupal address: ' $DRUPAL_ADDRESS"

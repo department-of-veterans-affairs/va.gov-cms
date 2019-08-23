@@ -1,3 +1,6 @@
+Patch is project specific, and not a candidate for drupal contribution.
+This patch checks for null in redirects that could potenitally
+be imported from VSF team one time csv import list.
 diff --git a/modules/headless_ui/src/Redirect.php b/modules/headless_ui/src/Redirect.php
 index 5b0301b..6148be4 100644
 --- a/modules/headless_ui/src/Redirect.php

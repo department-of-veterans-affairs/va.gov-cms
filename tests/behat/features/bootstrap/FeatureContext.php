@@ -1,6 +1,7 @@
 <?php
 use DevShop\Behat\DrupalExtension\Context\DevShopDrupalContext;
 use Behat\Behat\Context\SnippetAcceptingContext;
+
 /**
  * Defines application features from the specific context.
  */
