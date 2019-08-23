@@ -9,6 +9,11 @@ pipeline {
 
     stage('Build new AMI on ${params.branch} commit') {
 	  steps {
+	    script{
+	      ref = getLatestGitRef('va.gov-cms', branch: params.branch)
+	      properties ( [[$class: 'ParametersDefinitionProperty', parameterDefinitions: [[$class: 'StringParameterDefinition', defaultValue: '', description: '', name: 'payload']]]] )
+          echo ("This build is built with the payload: $payload")
+	    }
 	  /*
         build job: "builds/cms", parameters: [
           booleanParam(name: 'release', value: params.release),
@@ -18,6 +23,7 @@ pipeline {
         ], wait: true
         */
         println "${params}\n"
+        println "${ref}\n"
 	  }
 	}
 
