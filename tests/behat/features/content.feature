@@ -1,4 +1,3 @@
-
 Feature: The VA Website is generated inside the Drupal CMS code.
   In order to fully test va.gov,
   As anyone involved in the project

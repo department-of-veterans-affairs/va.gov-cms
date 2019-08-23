@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal;
+namespace CustomDrupal;
 
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 

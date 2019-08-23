@@ -4,7 +4,7 @@ Feature: Menus
   As a content editor
   I want to have menus that reflect my information architecture.
 
-  @spec @menus
+  @spec @dst @menus
   Scenario: Menus
     Then exactly the following menus should exist
       | Name                               | Machine name                | Description                                                                     |
@@ -14,8 +14,8 @@ Feature: Menus
       | Tools                              | tools                       | User tool links, often added by modules                                         |
       | User account menu                  | account                     | Links related to the active user account                                        |
       | Health Care benefits hub           | health-care-benefits-hub    | va.gov/health-care                                                              |
-      | Outreach and Events                | outreach-and-events         |                                                                                 |
-      | Pittsburgh Health Care             | pittsburgh-health-care      | va.gov/pittsburgh-health-care                                                   |
+      | Outreach and events                | outreach-and-events         |                                                                                 |
+      | VA Pittsburgh health care          | pittsburgh-health-care      | va.gov/pittsburgh-health-care                                                   |
       | Sections                           | sections                    | Automatically updated from the Sections taxonomy, and appears in admin toolbar. |
       | VA.gov CMS documentation           | documentation               | How-to's for editing content in the VA.gov CMS                                  |
       | Burials and memorials benefits hub | burials-and-memorials-benef | For pages in the /burials-and-memorials benefits hub                            |
@@ -29,3 +29,4 @@ Feature: Menus
       | Pension benefits hub               | pension-benefits-hub        | va.gov/pension                                                                  |
       | Records benefits hub               | records-benefits-hub        | va.gov/records                                                                  |
       | Root pages                         | root-benefits-hub           | For various pages that live at the top level of the URL structure.              |
+      | Homepage top tasks blocks          | homepage-top-tasks-blocks   |                                                                                 |
