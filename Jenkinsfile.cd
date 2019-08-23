@@ -7,8 +7,6 @@ pipeline {
 
   stages {
 
-    commit = (ref == "`git rev-parse HEAD`") ? sh(returnStdout: true, script: "git rev-parse HEAD").trim() : ref
-
     stage('Build new AMI on ${params.branch} commit') {
 	  steps {
 	  /*
