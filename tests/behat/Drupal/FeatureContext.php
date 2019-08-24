@@ -7,6 +7,7 @@ use Behat\Gherkin\Node\TableNode;
 use DevShop\Behat\DrupalExtension\Context\DevShopDrupalContext;
 use Drupal\file\Entity\File;
 use Drupal\node\Entity\NodeType;
+use Drupal\node\Entity\Node;
 use PHPUnit\Framework\Assert;
 
 /**
@@ -87,6 +88,104 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   }
 
   /**
+   * Check that an exact match for text exists.
+   *
+   * @param string $string
+   *   The string.
+   *
+   * @Then I should see exactly :string
+   */
+  public function iShouldSeeExactly($string) {
+    $session = $this->getSession();
+    $element = $session->getPage()->findAll('xpath', "//*[contains(text(), '$string')]");
+
+    if (empty($element)) {
+      throw new \InvalidArgumentException(sprintf('This string is not visible: "%s"', $string));
+    }
+  }
+
+  /**
+   * Check that an exact match for text does not exist.
+   *
+   * @param string $string
+   *   The string.
+   *
+   * @Then I should not see exactly :string
+   */
+  public function iShouldNotSeeExactly($string) {
+    $session = $this->getSession();
+    $element = $session->getPage()->findAll('xpath', "//*[contains(text(), '$string')]");
+
+    if ($element) {
+      throw new \InvalidArgumentException(sprintf('This string is not visible: "%s"', $string));
+    }
+  }
+
+  /**
+   * Check that an html element does not exist.
+   *
+   * @param string $element
+   *   The css selector.
+   *
+   * @Then the :element element should not exist
+   */
+  public function theElementShouldNotExist($element) {
+    $session = $this->getSession();
+    $element = $session->getPage()->find('css', $element);
+
+    if ($element) {
+      throw new \InvalidArgumentException(sprintf('This element should not appear: "%s"', $element));
+    }
+  }
+
+  /**
+   * Check that an html element exists.
+   *
+   * @param string $element
+   *   The css selector.
+   *
+   * @Then the :element element should exist
+   */
+  public function theElementShouldExist($element) {
+    $session = $this->getSession();
+    $element = $session->getPage()->find('css', $element);
+
+    if (NULL === $element) {
+      throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $element));
+    }
+  }
+
+  /**
+   * Check value of html attribute.
+   *
+   * @param string $element
+   *   The css selector.
+   * @param string $attribute
+   *   The attribute.
+   * @param string $value
+   *   The attribute value.
+   *
+   * @Then :element should have the :attribute with :value
+   */
+  public function theElementShouldHaveAttributeValue($element, $attribute, $value) {
+    $session = $this->getSession();
+    $element = $session->getPage()->find('css', $element);
+    if (NULL === $element) {
+      throw new \InvalidArgumentException(sprintf('This element is not available: "%s"', $element));
+    }
+
+    $attribute_val = $element->getAttribute($attribute);
+    if (empty($attribute_val)) {
+      throw new \InvalidArgumentException(sprintf('This attribute is not available: "%s"', $attribute_val));
+    }
+
+    if ($attribute_val !== $value) {
+      throw new \InvalidArgumentException(sprintf('This attribute value is incorrect: "%s"', $attribute_val));
+    }
+
+  }
+
+  /**
    * This permits click on non-link, non-button text.
    *
    * @param string $text
@@ -144,6 +243,82 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
     }
     $session->getPage()->find('css', $locator)->setValue($value);
 
+  }
+
+  /**
+   * Check option from select with specified id|name|label|value.
+   *
+   * @param string $option
+   *   The option selected.
+   * @param string $select
+   *   Input id, name or label.
+   *
+   * @throws Exception
+   *
+   * @Then the :option option from :select should be selected
+   */
+  public function theOptionFromShouldBeSelected($option, $select) {
+    $session = $this->getSession();
+    $select_element = $session->getPage()->find('css', $select);
+    if (empty($select_element)) {
+      throw new \Exception('The select field ' . $select_element . ' does not exist.');
+    }
+    $option_field_val = $select_element->getText();
+    if ($option !== $option_field_val) {
+      throw new \Exception('Current selection value is ' . $option_field_val . '. The option ' . $option . ' is not selected.');
+    }
+  }
+
+  /**
+   * Check option from select with specified id|name|label|value.
+   *
+   * @param string $selector
+   *   The haystack.
+   * @param string $item
+   *   The needle.
+   *
+   * @throws Exception
+   *
+   * @Then :selector should contain :item
+   */
+  public function thenSelectorShouldContain($selector, $item) {
+    $session = $this->getSession();
+    $select_item = $session->getPage()->find('css', $selector);
+    if (empty($select_item)) {
+      throw new \Exception('The selector ' . $select_item . ' does not exist.');
+    }
+    $vals = $select_item->getText();
+    $match = preg_match("/{$item}/i", $vals);
+    // DraftIn reviewStagedPublished.
+    if (empty($match)) {
+      throw new \Exception('Current selection value ' . $item . ' is not present.');
+    }
+  }
+
+  /**
+   * Check option from select with specified id|name|label|value does not exist.
+   *
+   * @param string $selector
+   *   The haystack.
+   * @param string $item
+   *   The needle.
+   *
+   * @throws Exception
+   *
+   * @Then :selector should not contain :item
+   */
+  public function thenSelectorShouldNotContain($selector, $item) {
+    $session = $this->getSession();
+    $select_item = $session->getPage()->find('css', $selector);
+    if (empty($select_item)) {
+      throw new \Exception('The selector ' . $select_item . ' does not exist.');
+    }
+    $vals = $select_item->getText();
+    $match = preg_match("/{$item}/i", $vals);
+    // DraftIn reviewStagedPublished.
+    if ($match) {
+      throw new \Exception('Current selection value ' . $item . ' is present.');
+    }
   }
 
   /**
