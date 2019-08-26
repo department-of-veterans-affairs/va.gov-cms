@@ -27,3 +27,9 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     Then I should see "VA blind and low vision rehabilitation services - EDITED"
     Then print current URL
     And every link should work
+
+  Scenario: The homepage is the log in form and the site title is as intended.
+    Given I am on the homepage
+    Then I should see "Log in"
+    And I should see "VA.gov CMS" in the "title" element
+    Then print current URL
