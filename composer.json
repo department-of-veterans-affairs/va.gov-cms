@@ -331,7 +331,7 @@
             "cd web && NODE_ENV=production npm run build -- --pull-drupal --buildtype=vagovprod "
         ],
         "va:web:test": [
-            "cd web && npm run test"
+            "cd web && npm run test -- --buildtype=vagovprod"
         ]
     }
 }
