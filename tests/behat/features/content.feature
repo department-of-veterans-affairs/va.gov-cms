@@ -7,6 +7,7 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     Given I am at "/static/"
     Then I should see "Access and manage your VA benefits and health care" in the "h1.homepage-heading" element
     Then print current URL
+    And every link should work
 
   @api @errors
   Scenario: Log in, edit a node, save the node, see the change in the CMS and the front end website.
@@ -25,3 +26,4 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     And I am at "/static/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services"
     Then I should see "VA blind and low vision rehabilitation services - EDITED"
     Then print current URL
+    And every link should work
