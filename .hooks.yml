@@ -3,7 +3,8 @@
 # It can be removed once devshop supports yaml-tests natively.
 
 deploy: |
-  composer yaml-tests --tests-file=deploy.yml --ansi
+# @TODO: Change this to a yaml-tests call with a filter for "va/deploy", once global yaml tests
+#  composer yaml-tests --tests-file=deploy.yml --ansi
 
 test: |
   echo "Running `composer yaml-tests` on tests.yml..."
