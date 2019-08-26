@@ -2,10 +2,6 @@
 #  command: intentionalFailure
 #  description: Intentional Failure. Uncomment to test CI system failure behavior.
 
-va/debug/env:
-  description: Debug Environment
-  command: env
-
 # TODO: These can be removed once the DevShop deploy task runs the install task before it runs the deploy hooks.
 va/deploy/0-composer:
   description: Composer Install

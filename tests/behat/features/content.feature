@@ -25,3 +25,9 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     And I am at "/static/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services"
     Then I should see "VA blind and low vision rehabilitation services - EDITED"
     Then print current URL
+
+  Scenario: The homepage is the log in form and the site title is as intended.
+    Given I am on the homepage
+    Then I should see "Log in"
+    And I should see "VA.gov CMS" in the "title" element
+    Then print current URL
