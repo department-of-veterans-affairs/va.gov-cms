@@ -326,9 +326,9 @@ Feature: Content model
       | Vocabulary | Sections | Social media links | field_social_media_links | Social Media Links Field  |  | 1 | List with all available platforms |  |
       | Vocabulary | Sections | URL | field_email_updates_url | Text (plain) |  | 1 | Textfield |  |
       | Content type | Support Service | Link | field_link | Link |  | 1 | Link |  |
-      | Content type | Support Service | Owner | field_administration | Entity reference | Required | 1 | Client-side hierarchical select | Translatable |
+      | Content type | Support Service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | Support Service | Page last built | field_page_last_built | Date |  | 1 | Date and time | Translatable |
       | Content type | Support Service | Phone Number | field_phone_number | Telephone number |  | 1 | Telephone number |  |
-      | Content type | Support Service | Related office | field_office | Entity reference | Required | 1 | Autocomplete | Translatable |
+      | Content type | Support Service | Related office | field_office | Entity reference | Required | 1 | Select list | Translatable |
       | Media type | Video | Video URL | field_media_video_embed_field | Video Embed | Required | 1 | Video Textfield | Translatable |
       | Content type | Benefits hub landing page | Home page hub label | field_home_page_hub_label | Text (plain) |  | 1 | Textfield |  |
