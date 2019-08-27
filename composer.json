@@ -328,6 +328,9 @@
             "@va:web:watch"
         ],
         "va:web:build": [
+            "cd web && NODE_ENV=production npm run build -- --pull-drupal"
+        ],
+        "va:web:build:prod": [
             "cd web && NODE_ENV=production npm run build -- --pull-drupal --buildtype=vagovprod "
         ],
         "va:web:test": [
