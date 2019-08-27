@@ -4,9 +4,6 @@ config:
   webroot: docroot
   php: "7.2"
 
-env_file:
-  - .env.lando
-
 events:
   post-db-import:
     # @TODO: Change to `composer yaml-tests va/deploy` once the "filter argument" feature is in place.
