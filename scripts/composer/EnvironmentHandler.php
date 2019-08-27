@@ -22,35 +22,38 @@ class EnvironmentHandler {
   static function load() {
 
     $env_file_dir = dirname(dirname(__DIR__));
+    $env_file_name = '.env';
 
     try {
 
       // If LANDO Server variable exists, load lando env file.
       if (!empty($_SERVER['LANDO']) && $_SERVER['LANDO'] == 'ON') {
 
-        // Load .env file if it exists, otherise use .env.lando.
-        if (file_exists($env_file_dir . '/.env')) {
-          $dotenv = new Dotenv($env_file_dir);
+        // Load .env file if it exists first. Otherise use .env.lando.
+        if (file_exists($env_file_dir . '/' . $env_file_name)) {
+          $env_file_name = '.env';
         }
         else {
-          $dotenv = new Dotenv($env_file_dir, EnvironmentHandler::landoEnvironmentFile);
+          $env_file_name = '.env.lando';
         }
       }
 
       // If NOT in LANDO, and .env file exists, load it.
       elseif (file_exists($env_file_dir . '/.env')) {
-        $dotenv = new Dotenv($env_file_dir);
+          $env_file_name = '.env';
+      }
+      else {
+          // No lando and .env does not exist: don't load.
+          return;
       }
 
-      // If dotenv files exist, load it and make vars required.
-      if (isset($dotenv)) {
-        $dotenv->overload();
-        $dotenv->required('DRUPAL_ADDRESS')->notEmpty();
-        $dotenv->required('BEHAT_PARAMS')->notEmpty();
-      }
+      // Load environment and set required params.
+      $dotenv = Dotenv::create($env_file_dir, $env_file_name);
+      $dotenv->overload();
+      $dotenv->required('DRUPAL_ADDRESS')->notEmpty();
+      $dotenv->required('BEHAT_PARAMS')->notEmpty();
     }
-    catch (\Dotenv\Exception\ValidationException $exception) {
-
+    catch (\Exception $exception) {
       throw $exception;
     }
   }
