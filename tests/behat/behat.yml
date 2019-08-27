@@ -20,6 +20,19 @@ default:
         - CustomDrupal\FeatureContext
         - CustomDrupal\UserRolesAndPermissionsContext
 
+  # The gherkin.filters.tags configuration is used to exclude tests from running during
+  # normal `bin/behat` calls. The tests with the specified tags WILL be run if
+  # directly specified, in this case with `bin/behat --tags=dst`.
+  #
+  # The `lando spec` command and the `composer yaml-tests va/tests/spec`
+  # both call `bin/behat --tags=dst`, so they only invoke the tests tagged with @dst.
+  #
+  # The `lando behat` and `composer yaml-tests va/tests/behat` commands run
+  # bin/behat directly, ignoring the tests tagged with @dst.
+  gherkin:
+    filters:
+      tags: ~@dst
+
   extensions:
     Behat\MinkExtension:
       goutte: ~
