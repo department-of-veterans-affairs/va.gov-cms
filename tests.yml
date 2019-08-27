@@ -35,6 +35,12 @@ va/tests/behat:
     cd tests/behat
     behat --colors
 
+va/tests/spec:
+  description: Drupal Spec Tool Tests
+  command: |
+    cd tests/behat
+    behat --colors --tags=dst
+
 va/tests/phpunit:
   description: PHPUnit
   command: phpunit --exclude-group disabled tests/phpunit --colors=always

@@ -99,6 +99,11 @@ tooling:
     description: "Run behat tests located in ./tests/behat"
     cmd: cd /app/tests/behat && /app/bin/behat
 
+  spec:
+    service: appserver
+    description: "Run behat Drupal Spec Tools tests located in ./tests/behat/drupal-spec-tool"
+    cmd: cd /app/tests/behat && /app/bin/behat --tags=dst
+
   test_filter_test:
     service: appserver
     description: "Run this command to see the strange problem where `lando test behat` does not work."
