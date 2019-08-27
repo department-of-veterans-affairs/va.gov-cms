@@ -11,7 +11,6 @@ dependencies:
     - node.type.support_service
   module:
     - content_moderation
-    - cshs
     - datetime
     - field_group
     - hide_revision_field
@@ -26,7 +25,7 @@ third_party_settings:
         - revision_log
         - field_page_last_built
       parent_name: ''
-      weight: 12
+      weight: 5
       format_type: fieldset
       format_settings:
         id: ''
@@ -40,7 +39,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 13
+      weight: 6
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -55,23 +54,14 @@ targetEntityType: node
 bundle: support_service
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 3
-    region: content
+  field_administration:
+    weight: 14
     settings: {  }
     third_party_settings: {  }
-  field_administration:
-    weight: 13
-    settings:
-      parent: '4'
-      level_labels: ''
-      force_deepest: 0
-    third_party_settings: {  }
-    type: cshs
+    type: options_select
     region: content
   field_link:
-    weight: 9
+    weight: 3
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -80,12 +70,9 @@ content:
     region: content
   field_office:
     weight: 1
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: options_select
     region: content
   field_page_last_built:
     weight: 10
@@ -94,7 +81,7 @@ content:
     type: datetime_default
     region: content
   field_phone_number:
-    weight: 10
+    weight: 4
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -108,16 +95,9 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 2
     region: content
     settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 4
-    region: content
     third_party_settings: {  }
   revision_log:
     type: hide_revision_field_log_widget
@@ -131,20 +111,6 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 8
-    region: content
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 5
-    region: content
-    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
@@ -153,18 +119,10 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 2
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    region: content
-    third_party_settings: {  }
-  url_redirects:
-    weight: 7
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-hidden: {  }
+hidden:
+  created: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true
