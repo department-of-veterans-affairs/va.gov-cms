@@ -33,8 +33,9 @@ function va_gov_migrate_update_8004() {
           'sourceid1' => $source_id,
           'destid1' => $values['nid'],
         ])
-        ->execute();
+        ->execute()->rowCount();
     }
+    return "Added benefits nodes to migrate_map_va_hub";
   }
 
 }
