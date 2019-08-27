@@ -19,8 +19,14 @@ targetEntityType: node
 bundle: support_service
 mode: inline_entity_form
 content:
+  field_administration:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_link:
-    weight: 3
+    weight: 4
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -35,7 +41,7 @@ content:
     third_party_settings: {  }
   field_phone_number:
     type: telephone_default
-    weight: 2
+    weight: 3
     region: content
     settings:
       placeholder: ''
@@ -60,14 +66,8 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  url_redirects:
-    weight: 4
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   created: true
-  field_administration: true
   field_page_last_built: true
   moderation_state: true
   path: true
@@ -75,3 +75,4 @@ hidden:
   status: true
   sticky: true
   uid: true
+  url_redirects: true

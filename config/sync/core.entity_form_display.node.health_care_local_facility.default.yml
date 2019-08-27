@@ -39,7 +39,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 13
+      weight: 6
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -54,7 +54,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 14
+      weight: 7
       format_type: fieldset
       format_settings:
         id: ''
@@ -145,12 +145,6 @@ targetEntityType: node
 bundle: health_care_local_facility
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 6
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_administration:
     weight: 12
     settings: {  }
@@ -251,7 +245,7 @@ content:
     region: content
     third_party_settings: {  }
   field_meta_tags:
-    weight: 15
+    weight: 8
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -306,16 +300,9 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 10
+    weight: 5
     region: content
     settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 7
-    region: content
     third_party_settings: {  }
   revision_log:
     type: hide_revision_field_log_widget
@@ -328,20 +315,6 @@ content:
       allow_user_settings: true
       rows: 5
       placeholder: ''
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 12
-    region: content
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 9
-    region: content
     third_party_settings: {  }
   title:
     type: string_textfield_with_counter
@@ -357,19 +330,11 @@ content:
       js_prevent_submit: false
       count_html_characters: false
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 5
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    region: content
-    third_party_settings: {  }
-  url_redirects:
-    weight: 11
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
+  created: true
   field_local_health_care_service_: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true
