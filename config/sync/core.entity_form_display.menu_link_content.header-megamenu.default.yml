@@ -1,0 +1,39 @@
+uuid: 45de3be0-968c-4d10-8632-4611d9e8a38d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.menu_link_content.header-megamenu.field_promo_reference
+    - system.menu.header-megamenu
+  module:
+    - link
+    - menu_item_extras
+id: menu_link_content.header-megamenu.default
+targetEntityType: menu_link_content
+bundle: header-megamenu
+mode: default
+content:
+  field_promo_reference:
+    weight: 21
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  title:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  view_mode:
+    type: menu_item_extras_view_mode_selector_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }
