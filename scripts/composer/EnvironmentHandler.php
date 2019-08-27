@@ -48,7 +48,7 @@ class EnvironmentHandler {
       }
 
       // Load environment and set required params.
-      $dotenv = Dotenv::create($env_file_dir, $env_file_name);
+      $dotenv = new Dotenv($env_file_dir, $env_file_name);
       $dotenv->overload();
       $dotenv->required('DRUPAL_ADDRESS')->notEmpty();
       $dotenv->required('BEHAT_PARAMS')->notEmpty();
