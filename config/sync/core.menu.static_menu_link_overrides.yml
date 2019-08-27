@@ -6,7 +6,7 @@ definitions:
     enabled: false
     expanded: false
   entity__menu__collection:
-    weight: 6
+    weight: 7
     menu_name: admin
     parent: system.admin_content
     expanded: false
@@ -114,15 +114,39 @@ definitions:
     expanded: false
     enabled: true
   va_gov_build_trigger__build_trigger_form:
-    weight: 3
+    weight: 5
     menu_name: admin
     parent: system.admin_content
     expanded: false
     enabled: true
   admin_toolbar_tools__view__files:
+    weight: 6
+    parent: 'views_view:views.media.media_page_list'
+    menu_name: admin
+    expanded: false
+    enabled: true
+  system__theme_settings_theme__bartik:
+    weight: 6
+    menu_name: admin
+    parent: system.themes_page
+    expanded: false
+    enabled: true
+  system__theme_settings_theme__seven:
     weight: 4
     menu_name: admin
-    parent: system.admin_content
+    parent: system.themes_page
+    expanded: false
+    enabled: true
+  system__theme_settings_theme__uswds:
+    weight: 7
+    menu_name: admin
+    parent: system.themes_page
+    expanded: false
+    enabled: true
+  system__theme_settings_theme__vagovadmin:
+    weight: 8
+    menu_name: admin
+    parent: system.themes_page
     expanded: false
     enabled: true
 _core:

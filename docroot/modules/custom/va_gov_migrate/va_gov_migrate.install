@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Update functions for the va_gov_migrate module.
+ */
+
+use Drupal\Core\Database\Database;
+
+/**
+ * Make migration think family and service member benefits pages were migrated.
+ */
+function va_gov_migrate_update_8004() {
+  $new_landing_pages = [
+    'https://www.va.gov/service-member-benefits/' => [
+      'nid' => 809,
+      'source_hash' => '951e07e46c7fd11da864969eef622e993e18918679df9d24c6f0c1c875573813',
+    ],
+    'https://www.va.gov/family-member-benefits/' => [
+      'nid' => 810,
+      'source_hash' => '1f0a1abd890c735c9f5bcb6a793166aa51622e729d50f78c55f984687dd71b17',
+    ],
+  ];
+  $connection = Database::getConnection();
+  $migration = \Drupal::getContainer()->get('plugin.manager.migration')->createInstance('va_hub');
+
+  foreach ($new_landing_pages as $source_id => $values) {
+    $result = $connection->query('SELECT destid1 FROM {migrate_map_va_hub} WHERE sourceid1 = :sourceid', [':sourceid' => $source_id]);
+    if (!$result->fetch()) {
+      $connection->insert('migrate_map_va_hub')
+        ->fields([
+          'source_ids_hash' => $values['source_hash'],
+          'sourceid1' => $source_id,
+          'destid1' => $values['nid'],
+        ])
+        ->execute();
+    }
+    return "Added benefits nodes to migrate_map_va_hub";
+  }
+
+}

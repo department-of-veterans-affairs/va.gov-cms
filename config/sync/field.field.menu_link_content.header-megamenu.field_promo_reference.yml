@@ -1,0 +1,21 @@
+uuid: 9bf5f2b8-903b-4aa9-a88c-b13e91cc6ea7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.menu_link_content.field_promo_reference
+    - system.menu.header-megamenu
+id: menu_link_content.header-megamenu.field_promo_reference
+field_name: field_promo_reference
+entity_type: menu_link_content
+bundle: header-megamenu
+label: 'Promo for About VA dropdown'
+description: 'Promo that appears when hovering on  About VA on larger screens. (The only menu item where this has an effect is the About VA menu item)'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings: {  }
+field_type: entity_reference
