@@ -1,4 +1,3 @@
-
 # Changelog
 All notable changes to this project will be documented in this file.
 
@@ -8,6 +7,145 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 ## [Unreleased]
 
 * __Nothing unreleased__
+
+## 2019-09-27.1 Sprint 21 release 2. tag  20190827.1
+
+*  __VAGOV-000 Merge Develop.__
+    2019-08-27 16:40:20 -0400 - (Steve Wirt) [bc6084b9]
+*  __Merge pull request #552 from department-of-veterans-affairs/VAGOV-5114-header-menu-promo-field__
+    2019-08-27 16:29:45 -0400 - (Steve Wirt) [59e9166e]
+*  __Merge branch 'develop' into VAGOV-5114-header-menu-promo-field__
+    2019-08-27 13:28:22 -0700 - (Elijah Lynn) [9c621665]
+*  __Merge pull request #553 from department-of-veterans-affairs/VAGOV-5778-field-teaser-text-help-text__
+    2019-08-27 16:19:55 -0400 - (Steve Wirt) [a20ca5a6]
+*  __Merge branch 'develop' into VAGOV-5778-field-teaser-text-help-text__
+    2019-08-27 15:54:06 -0400 - (Steve Wirt) [085a3e61]
+*  __Merge branch 'develop' into VAGOV-5114-header-menu-promo-field__
+    2019-08-27 15:53:42 -0400 - (Steve Wirt) [b0be1bb1]
+*  __Merge pull request #551 from department-of-veterans-affairs/VAGOV-4940-secure-graphql-field__
+    2019-08-27 15:41:12 -0400 - (Steve Wirt) [aa51e494]
+*  __Merge branch 'develop' into VAGOV-4940-secure-graphql-field__
+    2019-08-27 15:20:01 -0400 - (Steve Wirt) [e56ad2b8]
+*  __VAGOV-5778: update landing page fields' help text__
+    2019-08-27 15:13:19 -0400 - (Jonathan Bourland) [ff87e9e2]
+*  __Merge pull request #550 from beeyayjay/VAGOV-5696-landing-page-stubs__
+    2019-08-27 15:07:49 -0400 - (Steve Wirt) [d89c7bcc]
+*  __VAGOV-5114: update menu spectool behat test__
+    2019-08-27 14:58:53 -0400 - (Jonathan Bourland) [61e9d293]
+*  __VAGOV-5696: Fix message mistake.__
+    2019-08-27 14:37:22 -0400 - (Beth Jacobson) [56f99fad]
+*  __VAGOV-4940: Secure graphql plugin__
+    2019-08-27 12:33:57 -0600 - (Adrienne Cabouet) [cbba6ff3]
+*  __VAGOV-5696: Display return message for update hook.__
+    2019-08-27 14:22:44 -0400 - (Beth Jacobson) [e4607d13]
+*  __Merge branch 'develop' into VAGOV-5696-landing-page-stubs__
+    2019-08-27 13:58:02 -0400 - (Beth Jacobson) [8b36fe30]
+*  __Merge pull request #527 from kevwalsh/5393-cshs-disable__
+    2019-08-27 13:57:35 -0400 - (Steve Wirt) [3f82d32a]
+*  __Merge branch 'develop' into VAGOV-5696-landing-page-stubs__
+    2019-08-27 13:41:01 -0400 - (Beth Jacobson) [fadfa151]
+*  __Merge branch 'develop' into 5393-cshs-disable__
+    2019-08-27 13:36:38 -0400 - (Steve Wirt) [fe7e386d]
+*  __VAGOV-5393: Update drupal spec tool behat test.__
+    2019-08-27 13:31:06 -0400 - (Kevin Walsh) [0a903601]
+*  __VAGOV-5696: Attach existing Family and Service Member landing pages to va_hub migration.__
+    2019-08-27 13:30:39 -0400 - (Beth Jacobson) [9c63fb09]
+*  __Merge pull request #543 from department-of-veterans-affairs/VAGOV-000-graphql-menu-plugin__
+    2019-08-27 13:00:33 -0400 - (Steve Wirt) [9acd5d21]
+*  __VAGOV-5114: Add Header megamenu config; add promo reference field to menu links__
+    2019-08-27 12:47:25 -0400 - (Jonathan Bourland) [c36e852e]
+*  __Merge branch 'develop' into VAGOV-000-graphql-menu-plugin__
+    2019-08-27 10:10:45 -0600 - (Adrienne) [f0b1424e]
+*  __VAGOV-5393: Disable unneeded fields from three node forms, and replace cshs.__
+    2019-08-27 12:05:04 -0400 - (Kevin Walsh) [0d552e0a]
+*  __VAGOV-5393: Disable facility inline_entity form.__
+    2019-08-27 12:05:04 -0400 - (Kevin Walsh) [6e88a542]
+*  __VAGOV-5393: Disable cshs module.__
+    2019-08-27 12:05:04 -0400 - (Kevin Walsh) [69d8c289]
+*  __Merge pull request #506 from kevwalsh/5409-outreach-hub-metatags__
+    2019-08-27 11:53:57 -0400 - (Steve Wirt) [ac323afd]
+*  __VAGOV-000: Update test to reflect actual <title> tag.__
+    2019-08-27 11:09:03 -0400 - (Kevin Walsh) [dc446cab]
+*  __VAGOV-5409: Update drupal spec behat test.__
+    2019-08-27 11:04:56 -0400 - (Kevin Walsh) [8bc6e0fd]
+*  __VAGOV-5409: Add meta tags field to office node type.__
+    2019-08-27 11:04:56 -0400 - (Kevin Walsh) [7f023f55]
+*  __VAGOV-5409: Configure event listing and publication listing to use meta title tag field.__
+    2019-08-27 11:04:43 -0400 - (Kevin Walsh) [52e298cf]
+*  __VAGOV-5409: Add meta title tag field to Office, and configure metatags.__
+    2019-08-27 11:04:43 -0400 - (Kevin Walsh) [41051831]
+*  __VAGOV-5409: Update sitename to Veterans Affairs.__
+    2019-08-27 11:04:43 -0400 - (Kevin Walsh) [9e694866]
+*  __Merge branch 'develop' into VAGOV-000-graphql-menu-plugin__
+    2019-08-26 15:55:35 -0600 - (Adrienne) [da86fad6]
+*  __Merge pull request #546 from department-of-veterans-affairs/VAGOV-5757-fix-deploys__
+    2019-08-26 17:07:22 -0400 - (Steve Wirt) [a9e550e8]
+*  __VAGOV-5757: Comment out deploy hooks for now.__
+    2019-08-26 12:12:19 -0400 - (Jon Pugh) [47face61]
+*  __Merge branch 'develop' into VAGOV-000-graphql-menu-plugin__
+    2019-08-26 11:58:48 -0400 - (Steve Wirt) [9cb62799]
+*  __Merge pull request #540 from department-of-veterans-affairs/VAGOV-000-test-test__
+    2019-08-26 11:52:57 -0400 - (Steve Wirt) [90f8db4c]
+*  __Merge branch 'develop' into VAGOV-000-test-test__
+    2019-08-26 11:25:09 -0400 - (Steve Wirt) [50422a76]
+*  __Merge branch 'develop' into VAGOV-000-graphql-menu-plugin__
+    2019-08-26 11:24:15 -0400 - (Steve Wirt) [d0b0688d]
+*  __Merge pull request #537 from department-of-veterans-affairs/VAGOV-000-composer-lock__
+    2019-08-26 11:22:56 -0400 - (Steve Wirt) [a6415c1d]
+*  __Merge branch 'develop' into VAGOV-000-test-test__
+    2019-08-26 11:13:57 -0400 - (Jon Pugh) [362c5af1]
+*  __Merge branch 'develop' into VAGOV-000-composer-lock__
+    2019-08-26 11:13:19 -0400 - (Steve Wirt) [058aa2ed]
+*  __Merge branch 'develop' of github.com:department-of-veterans-affairs/va.gov-cms into VAGOV-000-composer-lock__
+    2019-08-26 11:11:55 -0400 - (Jon Pugh) [78fdac3f]
+*  __Merge pull request #538 from ElijahLynn/VAGOV-000-remove-env-from-yaml-tests-sensitive-info__
+    2019-08-26 11:11:04 -0400 - (Steve Wirt) [a28cb0fd]
+*  __Merge branch 'develop' into VAGOV-000-test-test__
+    2019-08-26 11:02:37 -0400 - (Steve Wirt) [4b3b75e6]
+*  __Merge branch 'develop' into VAGOV-000-remove-env-from-yaml-tests-sensitive-info__
+    2019-08-26 10:58:38 -0400 - (Steve Wirt) [0cd7095b]
+*  __VAGOV-000: add field to root graphql query to get all menu machine names__
+    2019-08-24 11:18:16 -0600 - (Adrienne Cabouet) [f242a4da]
+*  __VAGOV-000: Adding site menus field plugin__
+    2019-08-23 16:04:32 -0600 - (Adrienne Cabouet) [5706a8ac]
+*  __Merge pull request #531 from kevwalsh/5471-lock-breaking__
+    2019-08-23 17:49:47 -0400 - (Steve Wirt) [dc22d423]
+*  __Merge branch 'develop' into 5471-lock-breaking__
+    2019-08-23 17:41:41 -0400 - (Steve Wirt) [c286ef04]
+*  __Merge pull request #541 from beeyayjay/5476-menu-item-extras__
+    2019-08-23 17:35:20 -0400 - (Steve Wirt) [edc2f79e]
+*  __Merge branch 'develop' into 5476-menu-item-extras__
+    2019-08-23 17:06:16 -0400 - (Steve Wirt) [616dadc2]
+*  __VAGOV-000: Confirm the homepage is the login page and "VA.gov CMS" is the site title.__
+    2019-08-23 17:01:38 -0400 - (Jon Pugh) [ae4a57a0]
+*  __Merge pull request #532 from beeyayjay/VAGOV-5046-migration-fix__
+    2019-08-23 17:00:43 -0400 - (Steve Wirt) [091b9787]
+*  __VAGOV-000: Confirm the homepage is the login page and "Veterans Affairs" is the site title.__
+    2019-08-23 16:52:13 -0400 - (Jon Pugh) [3032a6dd]
+*  __Merge branch 'develop' into VAGOV-5046-migration-fix__
+    2019-08-23 16:40:21 -0400 - (Steve Wirt) [5d9a09f1]
+*  __VAGOV-000: no commit, PR test__
+    2019-08-23 16:15:44 -0400 - (Jon Pugh) [76a9d439]
+*  __VAGOV-5476: Add label and 'open link in new tab' fields to footer menu.__
+    2019-08-23 15:23:10 -0400 - (Beth Jacobson) [f2772910]
+*  __VAGOV-5476: Enable menu item extras.__
+    2019-08-23 09:58:13 -0400 - (Kevin Walsh) [78f0fc23]
+*  __VAGOV-5476: Composer require menu_item_extras.__
+    2019-08-23 09:57:45 -0400 - (Kevin Walsh) [f1b7fade]
+*  __Remove `env` dump from tests.yml, sensitive output.__
+    2019-08-22 17:40:17 -0700 - (Elijah Lynn) [cbc85a8c]
+*  __VAGOV-000: Run composer update --lock__
+    2019-08-22 18:14:38 -0400 - (Jon Pugh) [6ba6a740]
+*  __VAGOV-5046: Check for missing description field.__
+    2019-08-22 11:16:24 -0400 - (Beth Jacobson) [ac7c9dea]
+*  __VAGOV-5048: Update migration config to include burials pr number.__
+    2019-08-22 11:15:09 -0400 - (Beth Jacobson) [fc051822]
+*  __VAGOV-5594: Handle unwrapped text in paragraphs.__
+    2019-08-22 10:56:41 -0400 - (Beth Jacobson) [1b96e84a]
+*  __VAGOV-5471: Add lock breaking and replace operations with edit links.__
+    2019-08-22 09:11:39 -0400 - (Kevin Walsh) [1bca87d5]
+*  __VAGOV-5471: Clean up admin menu items.__
+    2019-08-22 09:11:39 -0400 - (Kevin Walsh) [bab6047b]
 
 ## 2019-08-22.1 Sprint 21 release 1. tag  20190822.1
 
