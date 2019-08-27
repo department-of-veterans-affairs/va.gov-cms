@@ -15,6 +15,7 @@ use GraphQL\Type\Definition\ResolveInfo;
  *   name = "siteMenus",
  *   nullable = true,
  *   multi = true,
+ *   secure = true,
  * )
  */
 class SiteMenus extends FieldPluginBase {
