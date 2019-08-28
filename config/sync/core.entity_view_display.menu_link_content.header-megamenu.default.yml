@@ -1,0 +1,26 @@
+uuid: 812852b1-f015-42e9-9194-df5a84339743
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.menu_link_content.header-megamenu.field_promo_reference
+    - system.menu.header-megamenu
+id: menu_link_content.header-megamenu.default
+targetEntityType: menu_link_content
+bundle: header-megamenu
+mode: default
+content:
+  children:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_promo_reference:
+    weight: 2
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+hidden: {  }
