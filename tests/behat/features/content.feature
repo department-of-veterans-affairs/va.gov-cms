@@ -30,5 +30,4 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     Given I am on the homepage
     Then I should see "Log in"
     And I should see "Veterans Affairs" in the "title" element
-    And I should see "Test Failure Test" in the "title" element
     Then print current URL
