@@ -1,21 +1,30 @@
 uuid: 3097a0f3-ada6-41e7-b9e8-08d74a0ef7b9
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_form_mode.node.inline_entity_form
     - field.field.node.health_care_local_facility.field_administration
+    - field.field.node.health_care_local_facility.field_description
+    - field.field.node.health_care_local_facility.field_email_subscription
+    - field.field.node.health_care_local_facility.field_facebook
     - field.field.node.health_care_local_facility.field_facility_locator_api_id
+    - field.field.node.health_care_local_facility.field_flickr
+    - field.field.node.health_care_local_facility.field_instagram
     - field.field.node.health_care_local_facility.field_intro_text
+    - field.field.node.health_care_local_facility.field_local_health_care_service_
     - field.field.node.health_care_local_facility.field_location_services
     - field.field.node.health_care_local_facility.field_main_location
+    - field.field.node.health_care_local_facility.field_media
     - field.field.node.health_care_local_facility.field_meta_tags
+    - field.field.node.health_care_local_facility.field_meta_title
     - field.field.node.health_care_local_facility.field_nickname_for_this_facility
+    - field.field.node.health_care_local_facility.field_operating_status_facility
     - field.field.node.health_care_local_facility.field_region_page
+    - field.field.node.health_care_local_facility.field_twitter
     - node.type.health_care_local_facility
   module:
     - content_moderation
-    - cshs
     - field_group
     - hide_revision_field
     - metatag
@@ -105,13 +114,13 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_administration:
-    weight: 12
+    weight: 16
     settings:
-      parent: 0
-      level_labels: ''
-      force_deepest: false
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: cshs
+    type: entity_reference_autocomplete
     region: content
   field_facility_locator_api_id:
     weight: 10

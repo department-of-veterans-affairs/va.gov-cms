@@ -1,0 +1,20 @@
+uuid: 86201cfd-dc00-4245-b052-d136a26549a1
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - menu_link_content
+id: menu_link_content.field_promo_reference
+field_name: field_promo_reference
+entity_type: menu_link_content
+type: entity_reference
+settings:
+  target_type: block_content
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
