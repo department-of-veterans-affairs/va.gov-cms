@@ -18,6 +18,7 @@ dependencies:
     - content_moderation
     - node
     - taxonomy
+    - taxonomy_entity_index
     - user
     - views_bulk_operations
 _core:
@@ -681,10 +682,10 @@ display:
             group_items: {  }
           entity_type: node
           plugin_id: moderation_state_filter
-        field_administration_target_id:
-          id: field_administration_target_id
-          table: node__field_administration
-          field: field_administration_target_id
+        taxonomy_entity_index_tid_depth:
+          id: taxonomy_entity_index_tid_depth
+          table: node
+          field: taxonomy_entity_index_tid_depth
           relationship: none
           group_type: group
           admin_label: ''
@@ -693,12 +694,12 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: owner
+            operator_id: taxonomy_entity_index_tid_depth_op
             label: Owner
             description: ''
-            use_operator: true
-            operator: field_administration_target_id_op
-            identifier: owner
+            use_operator: false
+            operator: taxonomy_entity_index_tid_depth_op
+            identifier: taxonomy_entity_index_tid_depth
             required: false
             remember: false
             multiple: false
@@ -713,7 +714,7 @@ display:
               administrator: '0'
               redirect_administrator: '0'
               documentation_editor: '0'
-            reduce: false
+            reduce: 0
           is_grouped: false
           group_info:
             label: ''
@@ -726,16 +727,15 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: false
+          reduce_duplicates: 0
           type: select
           limit: true
           vid: administration
-          hierarchy: true
-          error_message: true
-          parent: 0
-          level_labels: ''
-          force_deepest: false
-          plugin_id: taxonomy_index_tid
+          hierarchy: 1
+          error_message: 1
+          depth: '6'
+          entity_type: node
+          plugin_id: taxonomy_entity_index_tid_depth
       sorts: {  }
       title: Content
       empty:

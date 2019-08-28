@@ -28,8 +28,16 @@ default:
       javascript_session: "selenium2"
       selenium2: ~
       files_path: "%paths.base%/media"
+
+# DO NOT UNCOMMENT: Set with BEHAT_PARAMS. @see .env
+#      base_url: localhost
+
     Drupal\DrupalExtension:
       blackbox: ~
       api_driver: "drupal"
-      drupal:
-        drupal_root: ../../docroot
+
+# DO NOT UNCOMMENT: Set with BEHAT_PARAMS. @see .env
+#      drupal:
+#        drupal_root: ../../docroot
+#      drush:
+#        alias: 'local'
