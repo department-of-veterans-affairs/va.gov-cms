@@ -164,7 +164,7 @@ Feature: Permissions
 
 
   @perms @redirects
-  Scenario Outline: Redirect administrator can add/edit redirects
+  Scenario Outline: Redirect administrator can add/edit, administer redirects
     Given I am logged in as a user with the "redirect_administrator" role
     And I am on <page>
     Then the response status code should be <code>
@@ -172,6 +172,8 @@ Feature: Permissions
       | page                                     | code |
       | "/admin/config/search/redirect/edit/261" | 200  |
       | "/admin/config/search/redirect/add"      | 200  |
+      | "/admin/config/search/redirect/import"   | 200  |
+      | "/admin/config/search/redirect"          | 200  |
 
 
   @perms @administer_users
