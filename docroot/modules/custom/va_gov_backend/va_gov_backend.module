@@ -42,7 +42,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
       $connection->fields('r', ['redirect_redirect__options']);
       $connection->condition('r.redirect_source__path', $src_path, '=');
       $query = unserialize($connection->execute()->fetchField());
-      $value = $query['matchType'];
+      $value = !empty($query['matchType']) ? $query['matchType'] : '';
     }
     $form['redirect_match_type'] = [
       '#type' => 'select',
@@ -61,7 +61,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   // First make sure this isn't new content.
   $path = \Drupal::service('path.current')->getPath();
   $arg = explode('/', $path);
-  if ($arg[2] !== 'empty' && $arg[2] !== 'add') {
+  if (!empty($arg[2]) && $arg[2] !== 'empty' && $arg[2] !== 'add') {
 
     // We want to show time last built on nodes, promos and alerts.
     if (!empty($form['#entity_type']) && ($form['#entity_type'] === 'node'
