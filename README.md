@@ -3,6 +3,7 @@ Table of Contents
 
 1. **Developer Info**
     1. [Project Conventions](READMES/project-conventions.md)
+    1. [Environements](READMES/environments.md)
     1. [Testing](READMES/testing.md)
     1. [Debugging](READMES/debugging.md)
 1. **Architecture**
@@ -14,11 +15,7 @@ This is an Aquia Lightning based implementation of Drupal 8 that uses [Lando](ht
 
 ## Get Started
 
-### Domains
-Domains for this application are below, they both correspond to a frontend (FE) domain that consumes data from the CMS via GraphQL API endpoint at /graphql:
-* dev.cms.va.gov (FE dev.va.gov)
-* staging.cms.va.gov (FE staging.va.gov)
-* prod.va.gov (FE www.va.gov)
+
 
 ## HTTPS browser setup for production usage
 All computers in VA already have this setup, if you are using a non-VA laptop for development you will need to trust the VA Root Certificate Authority (CA) in your browser(s).
