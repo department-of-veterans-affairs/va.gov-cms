@@ -1,8 +1,13 @@
 Table of Contents
 =================
 
-1. [Testing](READMES/testing.md)
-1. [Debugging](READMES/debugging.md)
+1. **Developer Info**
+    1. [Project Conventions](READMES/project-conventions.md)
+    1. [Testing](READMES/testing.md)
+    1. [Debugging](READMES/debugging.md)
+1. **Architecture**
+    1. Overview
+    1. Drupal
 
 
 This is an Aquia Lightning based implementation of Drupal 8 that uses [Lando](https://docs.devwithlando.io/) for local container management.
@@ -174,11 +179,6 @@ Contact Mouncif or Elijah in Slack #cms-engineering to obtain these ENV variable
   * VA_SOCKS_PROXY_SSH_CONFIG
 
 Trigger local build of Drupal content in vets-website `yarn build --pull-drupal`
-
-Naming Conventions:
-* Modules: `vagov_modulename`
-* Content types: `vagov_contentype`
-* Fields: `field_[contenttypename]_fieldname`
 
 
 Troubleshooting:
