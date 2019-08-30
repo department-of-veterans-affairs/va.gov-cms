@@ -2,6 +2,7 @@ Table of Contents
 =================
 
 1. [Testing](READMES/testing.md)
+1. [Debugging](READMES/debugging.md)
 
 
 This is an Aquia Lightning based implementation of Drupal 8 that uses [Lando](https://docs.devwithlando.io/) for local container management.
@@ -179,20 +180,6 @@ Naming Conventions:
 * Content types: `vagov_contentype`
 * Fields: `field_[contenttypename]_fieldname`
 
-Xdebug:
-* Setup:
-    * Enable Xdebug by uncommenting the `xdebug: true` line in .lando.yml
-    * Run `lando rebuild`
-    * Configure PHPStorm: Go to Settings > Languages & Frameworks > PHP > Debug
-    * Check "allow connections" and ensure max connections is 2
-    * Enable "Start listening for PHP debug connections"
-* Browser:
-    * Open index.php and set a test breakpoint on the first line ($autoloader)
-    * Go to vagovcms.lndo.site in your browser (no extension needed) and it should trigger an "incoming connection" in PHPStorm, accept it
-* CLI:
-    * Open Settings > Languages & Frameworks > PHP > Servers and change the server name to "appserver"
-    * Set a test breakpoint on /docroot/vendor/drush/drush/drush
-    * Run `lando drush status` and it should trigger the breakpoint
 
 Troubleshooting:
 * Sometimes after initial setup or `lando start`, Drush is not found. Running `lando rebuild -y` once or twice usually cures, if not, see: https://github.com/lando/lando/issues/580#issuecomment-354490298
