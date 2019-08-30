@@ -1,3 +1,9 @@
+Table of Contents
+=================
+
+1. [Testing](READMES/testing.md)
+
+
 This is an Aquia Lightning based implementation of Drupal 8 that uses [Lando](https://docs.devwithlando.io/) for local container management.
 
 ## Get Started
@@ -39,7 +45,7 @@ TODO, create upstream PR with `sudo trust anchor --store ~/.lando/certs/lndo.sit
 Note: I had to still import that same CA into Chrome.
 Go to chrome://settings/certificates?search=https
 Click "Authorities"
-Import `.lando\certs\lndo.site.pem` 
+Import `.lando\certs\lndo.site.pem`
 
 ### Custom Composer Scripts
 
@@ -52,9 +58,9 @@ The VA.gov project has the following custom commands.
 1. `set-path`
 
     Use `composer set-path` command to print out the needed PATH variable to allow running any command in the `./bin` directory just by it's name.
-    
+
     For example:
-    
+
     ```bash
     $  composer set-path
     > # Run the command output below to set your current terminal PATH variable.
@@ -62,24 +68,18 @@ The VA.gov project has the following custom commands.
     > echo "export PATH=${PATH}"
     export PATH=/Users/VaDeveloper/Projects/VA/va.gov-cms/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin
     ```
-    
+
     Then, copy the last line (with all of the paths) and paste it into your desired terminal, and hit ENTER.
-    
+
     Once the path is set, you can run any of the commands listed in the [bin directory](bin) directly:
-    
+
     ```bash
     $ phpcs --version
     PHP_CodeSniffer version 2.9.2 (stable) by Squiz (http://www.squiz.net)
     ```
 
-    The path will remain in place as you change directories. 
-    
-    Useful for running the `behat` tests:
-    
-    ```bash
-    $ cd tests/behat
-    $ behat
-    ```
+    The path will remain in place as you change directories.
+
 
 2. `va:proxy:start`
 
@@ -98,7 +98,7 @@ The VA.gov project has the following custom commands.
 @TODO: Document all of the custom composer commands.
 
 See https://getcomposer.org/doc/articles/scripts.md for more information on how to create and manage scripts.
-  
+
 ### How to launch a local development environment:
 * get lando https://docs.devwithlando.io/installation/installing.html
 * `git clone git@github.com:department-of-veterans-affairs/va.gov-cms.git vagov`
@@ -139,26 +139,6 @@ Theme structure (project is headless, so this isn't critical):
 * vagov Subtheme lives in themes/custom
 
 
-### Testing
-
-There's a new command to run all tests on the codebase in the same way they are run in CI:
-
-    ```
-    composer yaml-tests
-    ```
-
-Check out the file `tests.yml` for the list of tests that are included in the automated testing system.
-
-Running Behat Tests:
-* `cd tests/behat`
-* `lando behat --tags=name-of-tag`
-
-Running Phpunit Tests:
-* `cd tests`
-* `lando phpunit {Path-to-test}`
-to run a test group use
-* `lando phpunit . --group security`
-
 ### Patching
 
 Apply patches:
@@ -166,7 +146,7 @@ Apply patches:
   * example" https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/726.patch
   * for Github, you can usually type in `.patch` at the end of the PR url to get the patch file
   * some people use github, some use drupal.org. drupal is moving to gitlab
-* In the "`patches`" property of `composer.json`, make an entry for the package you are patching, if not already there, write an explanation lando sync-dbas to what the patch does, and then put the url to the patch 
+* In the "`patches`" property of `composer.json`, make an entry for the package you are patching, if not already there, write an explanation lando sync-dbas to what the patch does, and then put the url to the patch
   * ex:
   * ```
     "patches": {
