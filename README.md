@@ -4,6 +4,7 @@ Table of Contents
 1. **Developer Info**
     1. [Project Conventions](READMES/project-conventions.md)
     1. [Environements](READMES/environments.md)
+        1. [Builds](READMES/builds.md)
     1. [Testing](READMES/testing.md)
     1. [Debugging](READMES/debugging.md)
 1. **Architecture**
