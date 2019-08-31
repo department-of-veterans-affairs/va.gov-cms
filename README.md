@@ -9,6 +9,8 @@ Table of Contents
 1. **Architecture**
     1. Overview
     1. Drupal
+    1. MetalSmith
+    1. [Interfaces](READMES/interfaces.md)
 
 
 This is an Aquia Lightning based implementation of Drupal 8 that uses [Lando](https://docs.devwithlando.io/) for local container management.
