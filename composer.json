@@ -11,9 +11,8 @@
     },
     "require": {
         "acquia/headless_lightning": "^1.4.0-beta2",
-        "bangpound/composer-dotenv": "^1.0@dev",
         "cweagans/composer-patches": "^1.6.0",
-        "devshop/behat-drupal-extension": "dev-master",
+        "devshop/behat-drupal-extension": "dev-rewrite-last-page-output-links",
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "drupal/address": "^1.4",
         "drupal/admin_toolbar": "^1.24",
@@ -28,6 +27,7 @@
         "drupal/content_lock": "^1.0@alpha",
         "drupal/cshs": "^1.0@beta",
         "drupal/devel": "^2.1",
+        "drupal/entity_clone": "^1.0@beta",
         "drupal/entity_reference_unpublished": "^1.1",
         "drupal/entityqueue": "^1.0@beta",
         "drupal/environment_indicator": "^3.5",
@@ -105,7 +105,10 @@
         "psr-4": {
             "Traits\\": "tests/traits",
             "CustomDrupal\\": "tests/behat/Drupal"
-        }
+        },
+        "files": [
+            "scripts/composer/EnvironmentHandler.php"
+        ]
     },
     "repositories": {
         "va-gov-web":   {
