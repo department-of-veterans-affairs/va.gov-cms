@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e55fad0d8a98c503b551f3a939d2fdbe",
+    "content-hash": "1a39a998f1b9164a4a8906127d295525",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -4850,6 +4850,53 @@
                 "source": "http://cgit.drupalcode.org/entity_browser",
                 "issues": "http://drupal.org/project/issues/entity_browser",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
+            }
+        },
+        {
+            "name": "drupal/entity_clone",
+            "version": "1.0.0-beta3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/entity_clone.git",
+                "reference": "8.x-1.0-beta3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/entity_clone-8.x-1.0-beta3.zip",
+                "reference": "8.x-1.0-beta3",
+                "shasum": "011ca7b8e2af77594f2d9df41954d5a950b0958c"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-beta3",
+                    "datestamp": "1551868984",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "vpeltot",
+                    "homepage": "https://www.drupal.org/user/1361586"
+                }
+            ],
+            "description": "Add a clone action for all entities",
+            "homepage": "https://www.drupal.org/project/entity_clone",
+            "support": {
+                "source": "https://git.drupalcode.org/project/entity_clone"
             }
         },
         {
@@ -17417,7 +17464,7 @@
                 "reference": "origin/VAGOV-2937-unity"
             },
             "type": "library",
-            "time": "2019-07-31T14:06:28+00:00"
+            "time": "2019-08-22T21:24:18+00:00"
         },
         {
             "name": "vardot/blazy",
@@ -18462,6 +18509,7 @@
         "drupal/cer": 15,
         "drupal/content_lock": 15,
         "drupal/cshs": 10,
+        "drupal/entity_clone": 10,
         "drupal/entityqueue": 10,
         "drupal/fast_404": 15,
         "drupal/field_group": 20,
