@@ -8,7 +8,93 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
-## 2019-09-27.1 Sprint 21 release 2. tag  20190827.1
+## 2019-09-03.2 Sprint 22 release 1. tag  20190903.2
+
+*  __VAGOV-5843: Enabling entity_clone.__
+    2019-08-31 16:58:35 -0400 - (Ethan Teague) [61a57b68]
+*  __VAGOV-5843: Adding entity_clone to composer.json/composer.lock.__
+    2019-08-31 16:56:57 -0400 - (Ethan Teague) [dd058000]
+*  __VAGOV-5669: Add build documentation.__
+    2019-08-30 23:42:18 -0400 - (Steve Wirt) [4ce28a0c]
+*  __VAGOV-5669: Add interfaces documentation.__
+    2019-08-30 23:18:53 -0400 - (Steve Wirt) [85db59e3]
+*  __VAGOV-5669: Add environment documentation.__
+    2019-08-30 17:57:05 -0400 - (Steve Wirt) [2d7fa5eb]
+*  __VAGOV-5669: Add conventions documentation.__
+    2019-08-30 17:29:47 -0400 - (Steve Wirt) [b9c180de]
+*  __VAGOV-5669: Add debug documentation.__
+    2019-08-30 17:14:34 -0400 - (Steve Wirt) [764f185d]
+*  __VAGOV-5669: Add testing documentation.__
+    2019-08-30 17:02:38 -0400 - (Steve Wirt) [c2ba2243]
+*  __Update Jenkinsfile__
+    2019-08-30 12:42:27 -0600 - (Ryan Watson) [091844ac]
+*  __VAGOV-5810 Add global redirect perms to redirect administrator role.__
+    2019-08-29 09:42:29 -0400 - (Steve Wirt) [3b207339]
+*  __VAGOV-000: Move return outside of for loop.__
+    2019-08-28 14:54:56 -0400 - (Beth Jacobson) [94b0e92f]
+*  __VAGOV-5807: Fix Owner dropdown on bulk edit view.__
+    2019-08-28 09:57:09 -0400 - (Kevin Walsh) [4d214798]
+*  __Revert "VAGOV-5553: commit a failing test to confirm devshop behat extension failure output works"__
+    2019-08-28 09:14:54 -0400 - (Jon Pugh) [a3ce4e27]
+*  __VAGOV-5690: Forcing removal of bangpound/composer-dotenv.__
+    2019-08-28 08:56:15 -0400 - (Jon Pugh) [0bb8bff8]
+*  __VAGOV-5553: commit a failing test to confirm devshop behat extension failure output works__
+    2019-08-27 20:44:42 -0400 - (Jon Pugh) [883f9179]
+*  __VAGOV-5553: Update devshop behat extension to rewrite links to file output so the links are correct.__
+    2019-08-27 20:41:24 -0400 - (Jon Pugh) [61d79bc1]
+*  __VAGOV-5690: Whitespace commit to test auto_merge.__
+    2019-08-27 19:24:54 -0400 - (Jon Pugh) [7c22a19d]
+*  __VAGOV-5690: Update comments in .env.lando__
+    2019-08-27 19:09:00 -0400 - (Jon Pugh) [c25c9dc8]
+*  __VAGOV-5690: Back to phpdotenv 2.x style.__
+    2019-08-27 16:52:40 -0400 - (Jon Pugh) [16a950b1]
+*  __VAGOV-5690: Clear up logic in .env file finding.__
+    2019-08-27 14:05:17 -0400 - (Jon Pugh) [e9379a7b]
+*  __VAGOV-5690: Adding an EnvironmentHandler.php file to load .env files the same way across the application.__
+    2019-08-27 11:18:11 -0400 - (Jon Pugh) [1411a0f1]
+*  __VAGOV-5738: Removing unused step methods.__
+    2019-08-26 13:06:02 -0400 - (Ethan Teague) [0e392a2c]
+*  __VAGOV-5738: Adding behat perm tests.__
+    2019-08-26 13:06:02 -0400 - (Ethan Teague) [0237824e]
+*  __VAGOV-5960:Add comment explaining why we run it here.__
+    2019-08-26 13:06:02 -0400 - (Jon Pugh) [ff5ff479]
+*  __VAGOV-5960: Load `.env` if it exists, THEN load `.lando.yml`. This way developers can override vars by creating a `.env` file. Make vars required if there is a file to load.__
+    2019-08-26 13:06:02 -0400 - (Jon Pugh) [b931b3b6]
+*  __VAGOV-5960: Removing environment file reference from .lando.yml, adding commented out drush and drupal root items in behat.yml so future devs don't add them back.__
+    2019-08-26 13:06:02 -0400 - (Jon Pugh) [9aa3632d]
+*  __VAGOV-5690: Adding our own EnvironmentHandler.php script to have total simple control over environment.__
+    2019-08-26 13:06:02 -0400 - (Jon Pugh) [c7ebc12b]
+*  __VAGOV-5690: Removing bangpound/composer-dotenv__
+    2019-08-26 13:05:27 -0400 - (Jon Pugh) [168e7222]
+*  __first pass on CD Jenkinsfile__
+    2019-08-23 13:22:47 -0600 - (Ryan Watson) [37c53fa6]
+*  __Trying to access payload__
+    2019-08-23 07:34:48 -0600 - (Ryan Watson) [e887c2c5]
+*  __Testing input__
+    2019-08-23 07:04:19 -0600 - (Ryan Watson) [200ada30]
+*  __Testing input__
+    2019-08-23 07:03:02 -0600 - (Ryan Watson) [2f5c61b6]
+*  __composer testing__
+    2019-08-20 13:08:30 -0600 - (Ryan Watson) [6cad82b7]
+*  __Reverting composer.json change__
+    2019-08-20 11:48:22 -0600 - (Ryan Watson) [3b492740]
+*  __Tweaking composer command__
+    2019-08-20 09:20:19 -0600 - (Ryan Watson) [9b5644b3]
+*  __Move comment around to catch brace__
+    2019-08-19 10:17:36 -0600 - (Ryan Watson) [b7f59178]
+*  __Comment out deploy bit__
+    2019-08-19 10:07:03 -0600 - (Ryan Watson) [d7705e9e]
+*  __Fixing environment__
+    2019-08-16 13:19:43 -0600 - (Ryan Watson) [3b859bb8]
+*  __blasted missed boolean__
+    2019-08-16 12:27:50 -0600 - (Ryan Watson) [db204038]
+*  __fixing named variable__
+    2019-08-16 12:25:06 -0600 - (Ryan Watson) [6910ec53]
+*  __CD pipeline job first pass__
+    2019-08-16 11:04:01 -0600 - (Ryan Watson) [8815ddda]
+
+
+## 2019-08-27.1 Sprint 21 release 2. tag  20190827.1
 
 *  __VAGOV-000 Merge Develop.__
     2019-08-27 16:40:20 -0400 - (Steve Wirt) [bc6084b9]
