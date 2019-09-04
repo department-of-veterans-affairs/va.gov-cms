@@ -90,7 +90,7 @@ Feature: Content model
       | Content type | Health Care Facility | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | Health Care Facility | Region page | field_region_page | Entity reference | Required | 1 | Select list |  |
       | Content type | Health Care System | Banner image | field_media | Entity reference |  | 1 | Media library | Translatable |
-      | Content type | Health Care System | Leadership team | field_leadership | Entity reference |  | Unlimited | Inline entity form - Complex |  |
+      | Content type | Health Care System | Leadership team | field_leadership | Entity reference |  | Unlimited | Autocomplete |  |
       | Content type | Health Care System | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | Health Care System | Regional Health Service Offerings. | field_clinical_health_services | Entity reference |  | Unlimited | Select list |  |
       | Content type | Local Health Service | Facility | field_facility_location | Entity reference | Required | 1 | Select list | Translatable |
@@ -109,7 +109,7 @@ Feature: Content model
       | Content type | Staff profile | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | Staff profile | Photo | field_media | Entity reference |  | 1 | Media library | Translatable |
       | Content type | Staff profile | Related office or health care region | field_office | Entity reference | Required | 1 | Select list | Translatable |
-      | Content type | Story | Author byline | field_author | Entity reference |  | 1 | Inline entity form - Complex |  |
+      | Content type | Story | Author byline | field_author | Entity reference |  | 1 | Autocomplete |  |
       | Content type | Story | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
       | Content type | Story | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | Story | Related office or health care region | field_office | Entity reference | Required | 1 | Select list |  |
@@ -299,7 +299,7 @@ Feature: Content model
       | Content type | News release | Healthcare system or related office | field_office | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | News release | Location | field_address | Address | Required | 1 | Address | Translatable |
       | Content type | News release | Media assets | field_press_release_downloads | Entity reference |  | Unlimited | Media library |  |
-      | Content type | News release | Media Contact(s) | field_press_release_contact | Entity reference |  | Unlimited | Inline entity form - Complex | Translatable |
+      | Content type | News release | Media Contact(s) | field_press_release_contact | Entity reference |  | Unlimited | Autocomplete | Translatable |
       | Content type | News release | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
       | Content type | News release | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | News release | PDF of Press Release | field_pdf_version | Entity reference |  | 1 | Media library |  |
