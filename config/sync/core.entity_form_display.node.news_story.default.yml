@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_form_mode.node.inline_entity_form
     - field.field.node.news_story.field_administration
     - field.field.node.news_story.field_author
     - field.field.node.news_story.field_featured
@@ -19,7 +18,6 @@ dependencies:
     - content_moderation
     - field_group
     - hide_revision_field
-    - inline_entity_form
     - media_library
     - metatag
     - path
@@ -31,7 +29,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 14
+      weight: 4
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -47,7 +45,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 13
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -75,7 +73,7 @@ third_party_settings:
         - field_media
         - field_image_caption
       parent_name: ''
-      weight: 4
+      weight: 2
       format_type: details
       format_settings:
         open: true
@@ -85,9 +83,11 @@ third_party_settings:
       label: Image
       region: content
     group_text:
-      children: {  }
+      children:
+        - field_intro_text
+        - field_full_story
       parent_name: ''
-      weight: 3
+      weight: 1
       format_type: fieldset
       format_settings:
         id: ''
@@ -131,18 +131,11 @@ content:
   field_author:
     weight: 15
     settings:
-      form_mode: inline_entity_form
-      override_labels: true
-      label_singular: author
-      label_plural: ''
-      collapsible: true
-      allow_new: true
-      allow_existing: true
       match_operator: CONTAINS
-      collapsed: false
-      allow_duplicate: false
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: inline_entity_form_complex
+    type: entity_reference_autocomplete
     region: content
   field_featured:
     weight: 21
@@ -152,7 +145,7 @@ content:
     type: boolean_checkbox
     region: content
   field_full_story:
-    weight: 2
+    weight: 3
     settings:
       rows: 5
       placeholder: ''
@@ -173,7 +166,7 @@ content:
     type: string_textarea_with_counter
     region: content
   field_intro_text:
-    weight: 1
+    weight: 2
     settings:
       rows: 5
       placeholder: ''
@@ -192,7 +185,7 @@ content:
     region: content
     third_party_settings: {  }
   field_meta_tags:
-    weight: 12
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -217,16 +210,9 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 9
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 7
     region: content
+    settings: {  }
     third_party_settings: {  }
   revision_log:
     type: hide_revision_field_log_widget
@@ -239,20 +225,6 @@ content:
       allow_user_settings: true
       rows: 5
       placeholder: ''
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 11
-    region: content
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 8
-    region: content
     third_party_settings: {  }
   title:
     type: string_textfield_with_counter
@@ -278,8 +250,11 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 10
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  promote: true
+  status: true
+  sticky: true
