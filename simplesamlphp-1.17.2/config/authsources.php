@@ -19,7 +19,7 @@ $config = [
         // The entity ID of this SP.
         // Can be NULL/unset, in which case an entity ID is generated based on the metadata URL.
         //'entityID' => 'urn:drupal:adfs-saml',
-        'entityID' => 'https://staging.cms.va.gov/simplesaml/module.php/saml/sp/metadata.php/default-sp',
+        'entityID' => 'https://prod.cms.va.gov/simplesaml/module.php/saml/sp/metadata.php/default-sp',
 
         // The entity ID of the IdP this SP should contact.
         // Can be NULL/unset, in which case the user will be shown a list of available IdPs.
