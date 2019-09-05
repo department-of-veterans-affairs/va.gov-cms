@@ -32,7 +32,7 @@ third_party_settings:
         - field_administration
         - field_plainlanguage_date
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: details_sidebar
       format_settings:
         open: true
@@ -46,7 +46,7 @@ third_party_settings:
       children:
         - field_alert
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver. You can <a href="/block/add/alert?destination=/admin/content/alerts">create a new alert</a>, or reuse an existing one.'
@@ -60,7 +60,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 8
+      weight: 6
       format_type: fieldset
       format_settings:
         open: true
@@ -95,7 +95,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 9
+    weight: 7
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -113,7 +113,7 @@ content:
     region: content
   field_content_block:
     type: paragraphs_browser
-    weight: 4
+    weight: 3
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -149,7 +149,7 @@ content:
     region: content
   field_featured_content:
     type: paragraphs
-    weight: 3
+    weight: 2
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -181,7 +181,7 @@ content:
   field_meta_tags:
     type: metatag_firehose
     region: content
-    weight: 12
+    weight: 9
     settings: {  }
     third_party_settings: {  }
   field_meta_title:
@@ -206,7 +206,7 @@ content:
     region: content
   field_related_links:
     type: paragraphs
-    weight: 5
+    weight: 4
     settings:
       title: 'Related links'
       title_plural: 'Related links'
@@ -230,7 +230,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 10
+    weight: 8
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -246,13 +246,6 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    weight: 11
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    region: content
   title:
     type: string_textfield_with_counter
     weight: 0
@@ -267,17 +260,8 @@ content:
       count_html_characters: false
     third_party_settings: {  }
     region: content
-  uid:
-    type: entity_reference_autocomplete
-    weight: 7
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    region: content
   url_redirects:
-    weight: 13
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -285,4 +269,6 @@ hidden:
   field_page_last_built: true
   panelizer: true
   promote: true
+  status: true
   sticky: true
+  uid: true

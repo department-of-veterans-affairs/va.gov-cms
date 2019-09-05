@@ -20,7 +20,6 @@ dependencies:
     - datetime
     - field_group
     - hide_revision_field
-    - inline_entity_form
     - media_library
     - metatag
     - path
@@ -32,7 +31,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 15
+      weight: 5
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -47,44 +46,46 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 16
-      format_type: details
-      format_settings:
-        id: ''
-        classes: ''
-        open: true
-        required_fields: true
-      label: 'Editorial workflow'
-      region: content
-    group_text:
-      children:
-        - field_intro_text
-        - field_press_release_fulltext
-      parent_name: ''
       weight: 4
       format_type: fieldset
       format_settings:
         id: ''
         classes: ''
+        open: true
+        required_fields: true
         description: ''
-        required_fields: false
-      label: Text
+      label: 'Editorial workflow'
       region: content
     group_location:
       children:
-        - field_address
-        - field_office
-        - field_press_release_contact
-        - field_release_date
+        - field_intro_text
+        - field_press_release_fulltext
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         description: ''
         id: ''
         classes: ''
         required_fields: false
-      label: ''
+      label: Text
+      region: content
+    group_basic_info:
+      children:
+        - title
+        - field_address
+        - field_press_release_contact
+        - field_office
+        - field_release_date
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: false
+      label: 'Basic info'
       region: content
 id: node.press_release.default
 targetEntityType: node
@@ -93,12 +94,12 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 8
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   field_address:
-    weight: 1
+    weight: 2
     settings:
       default_country: ''
     third_party_settings: {  }
@@ -111,7 +112,7 @@ content:
     type: options_select
     region: content
   field_intro_text:
-    weight: 4
+    weight: 23
     settings:
       rows: 5
       placeholder: ''
@@ -124,47 +125,40 @@ content:
     type: string_textarea_with_counter
     region: content
   field_meta_tags:
-    weight: 14
+    weight: 10
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
     region: content
   field_office:
-    weight: 2
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_pdf_version:
     type: media_library_widget
-    weight: 5
+    weight: 2
     settings: {  }
     region: content
     third_party_settings: {  }
   field_press_release_contact:
     weight: 3
     settings:
-      form_mode: default
-      override_labels: true
-      label_singular: 'contact person'
-      label_plural: 'contact people'
-      collapsible: true
-      allow_existing: true
       match_operator: CONTAINS
-      collapsed: false
-      allow_new: false
-      allow_duplicate: false
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: inline_entity_form_complex
+    type: entity_reference_autocomplete
     region: content
   field_press_release_downloads:
     type: media_library_widget
-    weight: 6
+    weight: 3
     settings: {  }
     region: content
     third_party_settings: {  }
   field_press_release_fulltext:
-    weight: 5
+    weight: 24
     settings:
       rows: 5
       placeholder: ''
@@ -172,7 +166,7 @@ content:
     type: text_textarea
     region: content
   field_release_date:
-    weight: 4
+    weight: 5
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
@@ -185,16 +179,9 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 11
+    weight: 8
     region: content
     settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 9
-    region: content
     third_party_settings: {  }
   revision_log:
     type: hide_revision_field_log_widget
@@ -208,23 +195,9 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 13
-    region: content
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 10
-    region: content
-    third_party_settings: {  }
   title:
     type: string_textfield_with_counter
-    weight: 0
+    weight: 1
     region: content
     settings:
       size: 60
@@ -237,24 +210,20 @@ content:
       count_html_characters: false
     third_party_settings: {  }
   uid:
-    type: inline_entity_form_complex
-    weight: 7
+    type: entity_reference_autocomplete
+    weight: 6
     settings:
-      form_mode: default
-      label_singular: ''
-      label_plural: ''
-      allow_existing: true
       match_operator: CONTAINS
-      override_labels: false
-      collapsible: false
-      collapsed: false
-      allow_new: false
-      allow_duplicate: false
+      size: 60
+      placeholder: ''
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 12
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  promote: true
+  status: true
+  sticky: true
