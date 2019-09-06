@@ -3,8 +3,9 @@ Table of Contents
 
 1. **Developer Info**
     1. [Project Conventions](READMES/project-conventions.md)
-    1. [Environements](READMES/environments.md)
+    1. [Environments](READMES/environments.md)
         1. [Builds](READMES/builds.md)
+        1. [Local - Lando](READMES/local.md)
     1. [Testing](READMES/testing.md)
     1. [Debugging](READMES/debugging.md)
 1. **Architecture**
@@ -39,71 +40,9 @@ Firefox
 * Import both files downloaded above
 
 Lando
-* `rebuild lando -y`
 
-## HTTPS testing (locally/Lando)
-You can't test with the VA cert locally using Lando but you can use Lando's self-signed cert. If you need to test the actual cert locally contact the DevOps team to help you setup the vagrant build system to get HTTPS working with VA CA.
+* `ssh socks -D 2001 -N &` # Runs an SSH socks proxy in a separate process. Run `ps` to see the running ssh process.
 
-To test with Lando's self-signed cert you need to tell your system to trust the Lando Certificate Authority. Instructions are here > https://docs.devwithlando.io/config/security.html
-
-TODO, create upstream PR with `sudo trust anchor --store ~/.lando/certs/lndo.site.pem` for Arch Linux
-
-Note: I had to still import that same CA into Chrome.
-Go to chrome://settings/certificates?search=https
-Click "Authorities"
-Import `.lando\certs\lndo.site.pem`
-
-### Custom Composer Scripts
-
-There are a number of helpful composer "scripts" available, located in the [composer.json](composer.json) file, in the `scripts` section. These scripts get loaded in as composer commands.
-
-Change to the CMS repositiory directory and run `composer` to list all commands, both built in and ones from this repo.
-
-The VA.gov project has the following custom commands.
-
-1. `set-path`
-
-    Use `composer set-path` command to print out the needed PATH variable to allow running any command in the `./bin` directory just by it's name.
-
-    For example:
-
-    ```bash
-    $  composer set-path
-    > # Run the command output below to set your current terminal PATH variable.
-    > # This will allow you to run any command in the ./bin directory without a path.
-    > echo "export PATH=${PATH}"
-    export PATH=/Users/VaDeveloper/Projects/VA/va.gov-cms/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin
-    ```
-
-    Then, copy the last line (with all of the paths) and paste it into your desired terminal, and hit ENTER.
-
-    Once the path is set, you can run any of the commands listed in the [bin directory](bin) directly:
-
-    ```bash
-    $ phpcs --version
-    PHP_CodeSniffer version 2.9.2 (stable) by Squiz (http://www.squiz.net)
-    ```
-
-    The path will remain in place as you change directories.
-
-
-2. `va:proxy:start`
-
-    Simply runs the "socks proxy" command which is needed to connect to the VA.gov network. Add the `&` character to run it as a background process.
-
-3. `va:proxy:test`
-
-    Test the proxy when it is running.
-
-4. `nuke`
-
-    Removes all composer installed directories, useful when you manually
-    made changes to any files inside a composer managed directory. e.g.
-    docroot/core, docroot/vendor.
-
-@TODO: Document all of the custom composer commands.
-
-See https://getcomposer.org/doc/articles/scripts.md for more information on how to create and manage scripts.
 
 ### How to launch a local development environment:
 * get lando https://docs.devwithlando.io/installation/installing.html
@@ -111,15 +50,8 @@ See https://getcomposer.org/doc/articles/scripts.md for more information on how 
 * `cd vagov`
 * `lando start`
 
-### How to sync:
 
-Run these scripts to recreate the site locally. The server holding the database dump must be accessed via a proxy.
 
-Once you have [submitted your SSH Public Key](https://github.com/department-of-veterans-affairs/vets-external-teams/blob/master/Onboarding/request-access-to-tools.md#additional-onboarding-steps-for-developers), you can run the following commands to create a local instance of https://cms.va.gov:
-
-* `ssh socks -D 2001 -N &` # Runs an SSH socks proxy in a separate process. Run `ps` to see the running ssh process.
-* `./scripts/sync-db.sh` # Downloads a recent, sanitized database export file to `.dumps/cms-db-latest.sql`.
-* `./scripts/sync-files.sh` # Downloads a recent backup of site files to `sites/default/files`, and runs `lando db-import cms-db-latest.sql`.
 
 ### Example workflow:
 
