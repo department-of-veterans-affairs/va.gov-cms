@@ -219,4 +219,3 @@ query {
 # Branches
 
 The `develop` branch is now protected. It requires tests to pass and a manual review to be merged.
-
