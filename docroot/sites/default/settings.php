@@ -124,11 +124,11 @@ $config['environment_indicator.indicator']['name'] = 'Local';
 
 $config_directories['sync'] = '../config/sync';
 
-$env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'local';
+$env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'lando';
 
 // Environment specific settings
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php')) {
-    include $app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php';
+  include $app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php';
 }
 
 // SimpleSAMLphp configuration
@@ -195,4 +195,3 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php'
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.local.php')) {
   include $app_root . '/' . $site_path . '/settings/settings.local.php';
 }
-
