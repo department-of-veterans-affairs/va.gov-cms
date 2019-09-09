@@ -137,43 +137,45 @@ $simplesamlphp_dir = 'simplesamlphp-1.17.2';
 if (is_dir(DRUPAL_ROOT . '/../' . $simplesamlphp_dir)) {
     $settings['simplesamlphp_dir'] = DRUPAL_ROOT . '/../' . $simplesamlphp_dir;
 }
-# SimpleSAMLphp Auth module settings
+# SimpleSAMLphp Auth module settings.
+# This code resides here so that it can not be overridden by UI settings.
 $config['simplesamlphp_auth.settings'] = [
-    // Basic settings.
-    'activate'                => TRUE, // Enable or Disable SAML login.
-    'auth_source'             => 'default-sp',
-    'login_link_display_name' => 'Login with your SSOi account.',
-    'register_users'          => TRUE,
-    'debug'                   => TRUE,
-    // Local authentication.
-    'allow' => [
-        'default_login'         => TRUE,
-        'set_drupal_pwd'        => TRUE,
-        'default_login_users'   => '1',
-        'default_login_roles'   => [
-            'authenticated' => FALSE,
-            'administrator' => 'administrator',
-            'content_api_consumer' => 'content_api_consumer',
-            'content_editor' => 'content_editor',
-            'content_reviewer' => 'content_reviewer',
-            'content_publisher' => 'content_publisher',
-            'admnistrator_users' => 'admnistrator_users',
-            'administrator' => 'administrator',
-            'redirect_administrator' => 'redirect_administrator',
-            'documentation_editor' => FALSE,
-        ],
+  // Basic settings.
+  'activate'                => TRUE, // Enable or Disable SAML login.
+  'auth_source'             => 'default-sp',
+  'login_link_display_name' => 'Click here to use Smartcard.',
+  'register_users'          => TRUE,
+  'debug'                   => FALSE,
+  'secure'                  => TRUE,
+  'httponly'                => FALSE,
+  // Local authentication.
+  'allow' => [
+    'default_login'         => TRUE,
+    'set_drupal_pwd'        => FALSE,
+    'default_login_users'   => '1',
+    'default_login_roles'   => [
+      'authenticated' => '0',
+      'administrator' => 'administrator',
+      'content_api_consumer' => '0',
+      'content_editor' => '0',
+      'content_reviewer' => '0',
+      'content_publisher' => '0',
+      'admnistrator_users' => '0',
+      'redirect_administrator' => '0',
+      'documentation_editor' => '0',
     ],
-    'logout_goto_url'         => '',
-    // User info and syncing.
-    // `unique_id` is specified in Transient format, otherwise this should be `UPN`
-    // Please talk to your SSO adminsitrators about which format you should be using.
-    'unique_id'               => 'VAUID',
-    'user_name'               => 'adUPN',
-    'mail_attr'               => 'adUPN',
-    'sync' => [
-        'mail'      => TRUE,
-        'user_name' => TRUE,
-    ],
+  ],
+  'logout_goto_url'         => '',
+  // User info and syncing.
+  // `unique_id` is specified in Transient format, otherwise this should be `UPN`
+  // Please talk to your SSO adminsitrators about which format you should be using.
+  'unique_id'               => 'VAUID',
+  'user_name'               => 'adUPN',
+  'mail_attr'               => 'adUPN',
+  'sync' => [
+    'mail'      => TRUE,
+    'user_name' => TRUE,
+  ],
 ];
 
 // Fast 404 settings
