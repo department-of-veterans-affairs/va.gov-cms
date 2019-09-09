@@ -9,12 +9,12 @@ dependencies:
     - views
 name: downloadable_file_browser
 label: 'Downloadable file browser'
-display: modal
+display: iframe
 display_configuration:
-  width: ''
-  height: ''
-  link_text: 'Select file'
-  auto_open: false
+  width: '650'
+  height: '500'
+  link_text: 'Select entities'
+  auto_open: true
 selection_display: no_display
 selection_display_configuration: {  }
 widget_selector: tabs
@@ -40,16 +40,6 @@ widgets:
     uuid: 5a0f18d8-bafa-4a6f-951c-021e423a0507
     weight: -9
     label: 'Document library'
-    id: view
-  4eb37a67-bf08-4966-a066-cfa80b42a2ad:
-    settings:
-      view: media
-      view_display: entity_browser_2
-      submit_text: Place
-      auto_select: false
-    uuid: 4eb37a67-bf08-4966-a066-cfa80b42a2ad
-    weight: -10
-    label: 'Image library'
     id: view
   466b62ab-c284-4d93-8157-376741f03db3:
     settings:
