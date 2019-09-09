@@ -1,7 +1,13 @@
 uuid: e1652f93-71f6-4a8f-ab1d-b445320d4045
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - workbench_menu_access
+third_party_settings:
+  workbench_menu_access:
+    access_scheme:
+      78: '78'
 id: header-megamenu
 label: 'Header megamenu'
 description: 'Links and promos for the site''s header menu.'
