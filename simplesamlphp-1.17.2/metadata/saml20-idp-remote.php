@@ -50,7 +50,7 @@ $metadata['VA_SSOi_IDP'] = array(
 );
  */
 
-// For staging.cms.va.gov
+// For prod.cms.va.gov
 $metadata['VA_SSOi_IDP'] = array (
     'entityid' => 'VA_SSOi_IDP',
     'contacts' =>
@@ -63,12 +63,12 @@ $metadata['VA_SSOi_IDP'] = array (
             0 =>
                 array (
                     'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
-                    'Location' => 'https://logon.preprod.iam.va.gov/affwebservices/public/saml2sso',
+                    'Location' => 'https://logon.iam.va.gov/affwebservices/public/saml2sso',
                 ),
             1 =>
                 array (
                     'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
-                    'Location' => 'https://logon.preprod.iam.va.gov/affwebservices/public/saml2sso',
+                    'Location' => 'https://logon.iam.va.gov/affwebservices/public/saml2sso',
                 ),
         ),
     'SingleLogoutService' =>
@@ -88,7 +88,7 @@ $metadata['VA_SSOi_IDP'] = array (
                     'encryption' => false,
                     'signing' => true,
                     'type' => 'X509Certificate',
-                    'X509Certificate' => 'MIIFRTCCBC2gAwIBAgIHPQAAACB/ZDANBgkqhkiG9w0BAQsFADBKMRMwEQYKCZImiZPyLGQBGRYDZ292MRIwEAYKCZImiZPyLGQBGRYCdmExHzAdBgNVBAMTFlZBLUludGVybmFsLVMyLUlDQTEtdjEwHhcNMTgwNjE4MjExMTQ1WhcNMjEwNjE3MjExMTQ1WjCBsjELMAkGA1UEBhMCVVMxETAPBgNVBAgTCFZpcmdpbmlhMRAwDgYDVQQHEwdBc2hidXJuMSwwKgYDVQQKEyNVLlMuIERlcGFydG1lbnQgb2YgVmV0ZXJhbnMgQWZmYWlyczEMMAoGA1UECxMDSUFNMSEwHwYDVQQDExhsb2dvbi5wcmVwcm9kLmlhbS52YS5nb3YxHzAdBgkqhkiG9w0BCQEWEGFjc2FkbWluc0B2YS5nb3YwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDO+en/aiQ5/fs9mQ0LfGi00VCvta0IiXQTSSc7XdKHqsgJLfJ2oaq6JEkppWvtS0+pa3aZfrTU4Erd2mZ9Ur99IwIM0ZJHCNICGbKB/yA6nbFuu53Xo2P0Y7gLyhmTNlGOTdlln85Em6QRrrBGvZvxGVX/hthuCtnTv1u+Mhd5feXc7liWLgI6kpHKTnFPiYIq4BAtu6KKoKrAQfM0BzKbKCc8+f/r1Ju4Ma+IdFYuP1TG14YH88FK+y/GdZ/EAEbZOPVxKNif8hyVwCa6nwvK8S/gtEGNDh5tt+hs3SBBmuvBTE7qdbuSnJNNteyBXzhvHbBGD/r3jY3EOJaBXqf1AgMBAAGjggHFMIIBwTALBgNVHQ8EBAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMBMCMGA1UdEQQcMBqCGGxvZ29uLnByZXByb2QuaWFtLnZhLmdvdjAdBgNVHQ4EFgQU7UpWRSA6BzdCpUR/wKN3EMvwSIowHwYDVR0jBBgwFoAUG23f6z3l4g3vFrHQ3l9YGlbL5OwwSQYDVR0fBEIwQDA+oDygOoY4aHR0cDovL2NybC5wa2kudmEuZ292L3BraS9jcmwvVkEtSW50ZXJuYWwtUzItSUNBMS12MS5jcmwwewYIKwYBBQUHAQEEbzBtMEcGCCsGAQUFBzAChjtodHRwOi8vYWlhLnBraS52YS5nb3YvcGtpL2FpYS92YS9WQS1JbnRlcm5hbC1TMi1JQ0ExLXYxLmNlcjAiBggrBgEFBQcwAYYWaHR0cDovL29jc3AucGtpLnZhLmdvdjA9BgkrBgEEAYI3FQcEMDAuBiYrBgEEAYI3FQiByMMzgfnwBoGlnw2E4IEIhcKqSwaDgp9ggeCLUgIBZAIBFTAnBgkrBgEEAYI3FQoEGjAYMAoGCCsGAQUFBwMCMAoGCCsGAQUFBwMBMA0GCSqGSIb3DQEBCwUAA4IBAQAsrFZmAF9OSWsm4YmxTqwAbLW8zppGvh6rhLHWHazGkIh6WlQqar7lu5KuJmIkTmH5dbT1XFnjHKTUZFI5PT3afVqpyDEVcg6McY7fxBOfC0tj8GHUrZWDsOKgA4Shr4QlFMYcawY92Mv0KmAOFuXr+ybF8WGX1zNbF/P3qbywxShLJgSqUa8pP+eE1EO8pm447Ruj6e3odRzL/yi3qOJJccJWHh5E5McQqrijsnmknbZ/KuavSiHEqHz73i9DrWnYCHtDa0mljsIa3LFOx7RVjNhqVta0ME5eCoz7XeJ8KoFKPKHAY2XoDfGDg6JwM6pWDLyDazc1DkV+lBZd9s8m',
+                    'X509Certificate' => 'MIIFBjCCA+6gAwIBAgIHPQAAAAm/rzANBgkqhkiG9w0BAQsFADBKMRMwEQYKCZImiZPyLGQBGRYDZ292MRIwEAYKCZImiZPyLGQBGRYCdmExHzAdBgNVBAMTFlZBLUludGVybmFsLVMyLUlDQTEtdjEwHhcNMTcxMjE5MjI0NzEyWhcNMjAxMjE4MjI0NzEyWjCBmDELMAkGA1UEBhMCVVMxETAPBgNVBAgTCFZpcmdpbmlhMREwDwYDVQQHEwhDdWxwZXBlcjEnMCUGA1UEChMeRGVwYXJ0bWVudCBvZiBWZXRlcmFucyBBZmZhaXJzMRkwFwYDVQQDExBsb2dvbi5pYW0udmEuZ292MR8wHQYJKoZIhvcNAQkBFhBBQ1NBZG1pbnNAdmEuZ292MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqyhWwhdTx/GAbo+MoHRAs8FrKYqNIIPL5DTlBY/L7T/hFWprsNgaCfRWa4No8CeIHlWkl52rDnUlLOwFY+3Y7TpSijGZ+/IqoHwlv8pRSq3GhmSryjdFNgdDiFS/JsrIc62H3XBJ/Bg8DyPdcxIy+2NvOdrVqKXQ2B87Lh6rKrL9exh+XEfkbeCsuKkw3C3Vw8H+04Teejt4VwId8zhPIVeGFQ4B2RjlfUrgkkI2DAit7KqyrMMRZ5imVRdREfaWn872hl7jFdw9I6j+yAGfqE+EGW91+uEFi/CEBr5/wk6JiiFjwCpVNyU5lbjNp+0ShGFpF6WJUtQVBr7cIlnMdQIDAQABo4IBoDCCAZwwHQYDVR0OBBYEFGJ90w7bYgsWz8mZzDBFhTli2icXMB8GA1UdIwQYMBaAFBtt3+s95eIN7xax0N5fWBpWy+TsMEkGA1UdHwRCMEAwPqA8oDqGOGh0dHA6Ly9jcmwucGtpLnZhLmdvdi9wa2kvY3JsL1ZBLUludGVybmFsLVMyLUlDQTEtdjEuY3JsMHsGCCsGAQUFBwEBBG8wbTBHBggrBgEFBQcwAoY7aHR0cDovL2FpYS5wa2kudmEuZ292L3BraS9haWEvdmEvVkEtSW50ZXJuYWwtUzItSUNBMS12MS5jZXIwIgYIKwYBBQUHMAGGFmh0dHA6Ly9vY3NwLnBraS52YS5nb3YwCwYDVR0PBAQDAgWgMD0GCSsGAQQBgjcVBwQwMC4GJisGAQQBgjcVCIHIwzOB+fAGgaWfDYTggQiFwqpLBoOCn2CB4ItSAgFkAgEVMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDATAnBgkrBgEEAYI3FQoEGjAYMAoGCCsGAQUFBwMCMAoGCCsGAQUFBwMBMA0GCSqGSIb3DQEBCwUAA4IBAQBVCc2Fjrk5+zLI/S7ZG32nIThf/tlUEsAIDcGPEdorOLVIoS5ILiRLWKMBeEzMeaH+rzD4zCkRZd8sME5S32MeDM6BYtkmE/sryYFtWxsmVqAenKcYb27zftTM/oCB2OOySeBFryLWxUbUPjA6iZvLjeLLRBqo8wdEJJWw5H7E6dQdHEz+h+27O58w1/jIpJRu7Qye6jE4i1yd3a7P2LCChH5KqurpztUzQSGylqqujW8Knm+FyM4Ovv+EhHDwgtXXf9b4jw5M+5CaViJW8JrCLFgT6cC9cUmKCvOG33njaB63myK/rrngqioMfxfICI1LEfUfImxfH0wulo9YKdzs',
                 ),
         ),
 );
