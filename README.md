@@ -14,10 +14,10 @@ The VA.gov Team.
 
 ## Table of Contents
 1. **Introduction**
-    1. [About VA.gov](#about-va-gov)
+    1. [About VA.gov](#about-vagov)
     1. [Contributing](#contributing)
     1. [Decoupled Drupal Implementation](#decoupled-drupal-implementation)
-    1. [Continuous Integration & Testing](#continuous-integration-testing)
+    1. [Continuous Integration & Testing](#continuous-integration--testing)
 1. **Developer Info**
     1. [Getting Started](READMES/getting-started.md)
     1. [Workflow](READMES/workflow.md)
