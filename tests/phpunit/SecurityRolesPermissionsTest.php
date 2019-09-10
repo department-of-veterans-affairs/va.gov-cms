@@ -146,6 +146,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'edit own publication_listing content',
           'edit own regional_health_care_service_des content',
           'edit own support_service content',
+          'notify of path changes',
           'rebuild tablefield',
           'schedule editorial transition create_new_draft',
           'update any alert block content',
@@ -182,7 +183,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'view support_service revisions',
           'view the administration theme',
           'view unpublished paragraphs',
-          'view workbench access information',
+          'view workbench access information'
         ],
       ],
       [
@@ -257,6 +258,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'edit own publication_listing content',
           'edit own regional_health_care_service_des content',
           'edit own support_service content',
+          'notify of path changes',
           'rebuild tablefield',
           'schedule editorial transition create_new_draft',
           'update any alert block content',
@@ -294,7 +296,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'view support_service revisions',
           'view the administration theme',
           'view unpublished paragraphs',
-          'view workbench access information',
+          'view workbench access information'
           ],
       ],
       [
@@ -420,6 +422,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'edit own support_service content',
           'edit own video media',
           'edit terms in health_care_service_taxonomy',
+          'notify of path changes',
           'rebuild tablefield',
           'revert all revisions',
           'revert event revisions',
@@ -479,12 +482,13 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'view support_service revisions',
           'view the administration theme',
           'view unpublished paragraphs',
-          'view workbench access information',
+          'view workbench access information'
         ],
       ],
       [
         'admnistrator_users',
         [
+          'access administration pages',
           'access content overview',
           'access files overview',
           'access shortcuts',
@@ -492,11 +496,13 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'administer menu',
           'administer nodes',
           'administer users',
+          'assign content_admin role',
           'assign content_api_consumer role',
           'assign content_editor role',
           'assign content_publisher role',
           'assign content_reviewer role',
           'assign documentation_editor role',
+          'assign redirect_administrator role',
           'assign selected workbench access',
           'batch update workbench access',
           'break content lock',
@@ -506,9 +512,11 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'delete terms in administration',
           'edit terms in administration',
           'manage password reset',
+          'notify of path changes',
           'use text format rich_text',
           'view sections in toolbar',
-          'view workbench access information',
+          'view the administration theme',
+          'view workbench access information'
         ],
       ],
     ];
