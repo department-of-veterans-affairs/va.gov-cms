@@ -17,17 +17,22 @@ The VA.gov Team.
     1. [About VA.gov](#about-vagov)
     1. [Contributing](#contributing)
     1. [Decoupled Drupal Implementation](#decoupled-drupal-implementation)
-    1. [Continuous Integration & Testing](#continuous-integration--testing)
+    1. [Continuous Integration](#continuous-integration)
 1. **Developer Info**
     1. [Getting Started](READMES/getting-started.md)
     1. [WEB & CMS Integration](READMES/unity.md)
     1. [Workflow](READMES/workflow.md)
     1. [Project Conventions](READMES/project-conventions.md)
     1. [Environments](READMES/environments.md)
-        1. [Builds](READMES/builds.md)
+        1. [CI Environments](READMES/cms-ci.md)
         1. [Local - Lando](READMES/local.md)
+        1. [BRD Environments](READMES/brd.md)
     1. [Testing](READMES/testing.md)
     1. [Debugging](READMES/debugging.md)
+1. **Release & Deployment**
+    1. [The BRD System: Build, Release, Deploy](READMES/brd.md)
+    1. [CMS Release Process](READMES/brd.md#cms-release-process)
+    1. [CMS-CI Release Process](READMES/brd.md#cmsci-release-process)
 1. **Architecture**
     1. Overview
     1. Drupal
