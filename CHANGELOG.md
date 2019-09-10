@@ -8,6 +8,624 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
+## 2019-09-03.2 Sprint 22 release 1. tag  20190903.2
+
+*  __VAGOV-5843: Enabling entity_clone.__
+    2019-08-31 16:58:35 -0400 - (Ethan Teague) [61a57b68]
+*  __VAGOV-5843: Adding entity_clone to composer.json/composer.lock.__
+    2019-08-31 16:56:57 -0400 - (Ethan Teague) [dd058000]
+*  __VAGOV-5669: Add build documentation.__
+    2019-08-30 23:42:18 -0400 - (Steve Wirt) [4ce28a0c]
+*  __VAGOV-5669: Add interfaces documentation.__
+    2019-08-30 23:18:53 -0400 - (Steve Wirt) [85db59e3]
+*  __VAGOV-5669: Add environment documentation.__
+    2019-08-30 17:57:05 -0400 - (Steve Wirt) [2d7fa5eb]
+*  __VAGOV-5669: Add conventions documentation.__
+    2019-08-30 17:29:47 -0400 - (Steve Wirt) [b9c180de]
+*  __VAGOV-5669: Add debug documentation.__
+    2019-08-30 17:14:34 -0400 - (Steve Wirt) [764f185d]
+*  __VAGOV-5669: Add testing documentation.__
+    2019-08-30 17:02:38 -0400 - (Steve Wirt) [c2ba2243]
+*  __Update Jenkinsfile__
+    2019-08-30 12:42:27 -0600 - (Ryan Watson) [091844ac]
+*  __VAGOV-5810 Add global redirect perms to redirect administrator role.__
+    2019-08-29 09:42:29 -0400 - (Steve Wirt) [3b207339]
+*  __VAGOV-000: Move return outside of for loop.__
+    2019-08-28 14:54:56 -0400 - (Beth Jacobson) [94b0e92f]
+*  __VAGOV-5807: Fix Owner dropdown on bulk edit view.__
+    2019-08-28 09:57:09 -0400 - (Kevin Walsh) [4d214798]
+*  __Revert "VAGOV-5553: commit a failing test to confirm devshop behat extension failure output works"__
+    2019-08-28 09:14:54 -0400 - (Jon Pugh) [a3ce4e27]
+*  __VAGOV-5690: Forcing removal of bangpound/composer-dotenv.__
+    2019-08-28 08:56:15 -0400 - (Jon Pugh) [0bb8bff8]
+*  __VAGOV-5553: commit a failing test to confirm devshop behat extension failure output works__
+    2019-08-27 20:44:42 -0400 - (Jon Pugh) [883f9179]
+*  __VAGOV-5553: Update devshop behat extension to rewrite links to file output so the links are correct.__
+    2019-08-27 20:41:24 -0400 - (Jon Pugh) [61d79bc1]
+*  __VAGOV-5690: Whitespace commit to test auto_merge.__
+    2019-08-27 19:24:54 -0400 - (Jon Pugh) [7c22a19d]
+*  __VAGOV-5690: Update comments in .env.lando__
+    2019-08-27 19:09:00 -0400 - (Jon Pugh) [c25c9dc8]
+*  __VAGOV-5690: Back to phpdotenv 2.x style.__
+    2019-08-27 16:52:40 -0400 - (Jon Pugh) [16a950b1]
+*  __VAGOV-5690: Clear up logic in .env file finding.__
+    2019-08-27 14:05:17 -0400 - (Jon Pugh) [e9379a7b]
+*  __VAGOV-5690: Adding an EnvironmentHandler.php file to load .env files the same way across the application.__
+    2019-08-27 11:18:11 -0400 - (Jon Pugh) [1411a0f1]
+*  __VAGOV-5738: Removing unused step methods.__
+    2019-08-26 13:06:02 -0400 - (Ethan Teague) [0e392a2c]
+*  __VAGOV-5738: Adding behat perm tests.__
+    2019-08-26 13:06:02 -0400 - (Ethan Teague) [0237824e]
+*  __VAGOV-5960:Add comment explaining why we run it here.__
+    2019-08-26 13:06:02 -0400 - (Jon Pugh) [ff5ff479]
+*  __VAGOV-5960: Load `.env` if it exists, THEN load `.lando.yml`. This way developers can override vars by creating a `.env` file. Make vars required if there is a file to load.__
+    2019-08-26 13:06:02 -0400 - (Jon Pugh) [b931b3b6]
+*  __VAGOV-5960: Removing environment file reference from .lando.yml, adding commented out drush and drupal root items in behat.yml so future devs don't add them back.__
+    2019-08-26 13:06:02 -0400 - (Jon Pugh) [9aa3632d]
+*  __VAGOV-5690: Adding our own EnvironmentHandler.php script to have total simple control over environment.__
+    2019-08-26 13:06:02 -0400 - (Jon Pugh) [c7ebc12b]
+*  __VAGOV-5690: Removing bangpound/composer-dotenv__
+    2019-08-26 13:05:27 -0400 - (Jon Pugh) [168e7222]
+*  __first pass on CD Jenkinsfile__
+    2019-08-23 13:22:47 -0600 - (Ryan Watson) [37c53fa6]
+*  __Trying to access payload__
+    2019-08-23 07:34:48 -0600 - (Ryan Watson) [e887c2c5]
+*  __Testing input__
+    2019-08-23 07:04:19 -0600 - (Ryan Watson) [200ada30]
+*  __Testing input__
+    2019-08-23 07:03:02 -0600 - (Ryan Watson) [2f5c61b6]
+*  __composer testing__
+    2019-08-20 13:08:30 -0600 - (Ryan Watson) [6cad82b7]
+*  __Reverting composer.json change__
+    2019-08-20 11:48:22 -0600 - (Ryan Watson) [3b492740]
+*  __Tweaking composer command__
+    2019-08-20 09:20:19 -0600 - (Ryan Watson) [9b5644b3]
+*  __Move comment around to catch brace__
+    2019-08-19 10:17:36 -0600 - (Ryan Watson) [b7f59178]
+*  __Comment out deploy bit__
+    2019-08-19 10:07:03 -0600 - (Ryan Watson) [d7705e9e]
+*  __Fixing environment__
+    2019-08-16 13:19:43 -0600 - (Ryan Watson) [3b859bb8]
+*  __blasted missed boolean__
+    2019-08-16 12:27:50 -0600 - (Ryan Watson) [db204038]
+*  __fixing named variable__
+    2019-08-16 12:25:06 -0600 - (Ryan Watson) [6910ec53]
+*  __CD pipeline job first pass__
+    2019-08-16 11:04:01 -0600 - (Ryan Watson) [8815ddda]
+
+
+## 2019-08-27.1 Sprint 21 release 2. tag  20190827.1
+
+*  __VAGOV-000 Merge Develop.__
+    2019-08-27 16:40:20 -0400 - (Steve Wirt) [bc6084b9]
+*  __Merge pull request #552 from department-of-veterans-affairs/VAGOV-5114-header-menu-promo-field__
+    2019-08-27 16:29:45 -0400 - (Steve Wirt) [59e9166e]
+*  __Merge branch 'develop' into VAGOV-5114-header-menu-promo-field__
+    2019-08-27 13:28:22 -0700 - (Elijah Lynn) [9c621665]
+*  __Merge pull request #553 from department-of-veterans-affairs/VAGOV-5778-field-teaser-text-help-text__
+    2019-08-27 16:19:55 -0400 - (Steve Wirt) [a20ca5a6]
+*  __Merge branch 'develop' into VAGOV-5778-field-teaser-text-help-text__
+    2019-08-27 15:54:06 -0400 - (Steve Wirt) [085a3e61]
+*  __Merge branch 'develop' into VAGOV-5114-header-menu-promo-field__
+    2019-08-27 15:53:42 -0400 - (Steve Wirt) [b0be1bb1]
+*  __Merge pull request #551 from department-of-veterans-affairs/VAGOV-4940-secure-graphql-field__
+    2019-08-27 15:41:12 -0400 - (Steve Wirt) [aa51e494]
+*  __Merge branch 'develop' into VAGOV-4940-secure-graphql-field__
+    2019-08-27 15:20:01 -0400 - (Steve Wirt) [e56ad2b8]
+*  __VAGOV-5778: update landing page fields' help text__
+    2019-08-27 15:13:19 -0400 - (Jonathan Bourland) [ff87e9e2]
+*  __Merge pull request #550 from beeyayjay/VAGOV-5696-landing-page-stubs__
+    2019-08-27 15:07:49 -0400 - (Steve Wirt) [d89c7bcc]
+*  __VAGOV-5114: update menu spectool behat test__
+    2019-08-27 14:58:53 -0400 - (Jonathan Bourland) [61e9d293]
+*  __VAGOV-5696: Fix message mistake.__
+    2019-08-27 14:37:22 -0400 - (Beth Jacobson) [56f99fad]
+*  __VAGOV-4940: Secure graphql plugin__
+    2019-08-27 12:33:57 -0600 - (Adrienne Cabouet) [cbba6ff3]
+*  __VAGOV-5696: Display return message for update hook.__
+    2019-08-27 14:22:44 -0400 - (Beth Jacobson) [e4607d13]
+*  __Merge branch 'develop' into VAGOV-5696-landing-page-stubs__
+    2019-08-27 13:58:02 -0400 - (Beth Jacobson) [8b36fe30]
+*  __Merge pull request #527 from kevwalsh/5393-cshs-disable__
+    2019-08-27 13:57:35 -0400 - (Steve Wirt) [3f82d32a]
+*  __Merge branch 'develop' into VAGOV-5696-landing-page-stubs__
+    2019-08-27 13:41:01 -0400 - (Beth Jacobson) [fadfa151]
+*  __Merge branch 'develop' into 5393-cshs-disable__
+    2019-08-27 13:36:38 -0400 - (Steve Wirt) [fe7e386d]
+*  __VAGOV-5393: Update drupal spec tool behat test.__
+    2019-08-27 13:31:06 -0400 - (Kevin Walsh) [0a903601]
+*  __VAGOV-5696: Attach existing Family and Service Member landing pages to va_hub migration.__
+    2019-08-27 13:30:39 -0400 - (Beth Jacobson) [9c63fb09]
+*  __Merge pull request #543 from department-of-veterans-affairs/VAGOV-000-graphql-menu-plugin__
+    2019-08-27 13:00:33 -0400 - (Steve Wirt) [9acd5d21]
+*  __VAGOV-5114: Add Header megamenu config; add promo reference field to menu links__
+    2019-08-27 12:47:25 -0400 - (Jonathan Bourland) [c36e852e]
+*  __Merge branch 'develop' into VAGOV-000-graphql-menu-plugin__
+    2019-08-27 10:10:45 -0600 - (Adrienne) [f0b1424e]
+*  __VAGOV-5393: Disable unneeded fields from three node forms, and replace cshs.__
+    2019-08-27 12:05:04 -0400 - (Kevin Walsh) [0d552e0a]
+*  __VAGOV-5393: Disable facility inline_entity form.__
+    2019-08-27 12:05:04 -0400 - (Kevin Walsh) [6e88a542]
+*  __VAGOV-5393: Disable cshs module.__
+    2019-08-27 12:05:04 -0400 - (Kevin Walsh) [69d8c289]
+*  __Merge pull request #506 from kevwalsh/5409-outreach-hub-metatags__
+    2019-08-27 11:53:57 -0400 - (Steve Wirt) [ac323afd]
+*  __VAGOV-000: Update test to reflect actual <title> tag.__
+    2019-08-27 11:09:03 -0400 - (Kevin Walsh) [dc446cab]
+*  __VAGOV-5409: Update drupal spec behat test.__
+    2019-08-27 11:04:56 -0400 - (Kevin Walsh) [8bc6e0fd]
+*  __VAGOV-5409: Add meta tags field to office node type.__
+    2019-08-27 11:04:56 -0400 - (Kevin Walsh) [7f023f55]
+*  __VAGOV-5409: Configure event listing and publication listing to use meta title tag field.__
+    2019-08-27 11:04:43 -0400 - (Kevin Walsh) [52e298cf]
+*  __VAGOV-5409: Add meta title tag field to Office, and configure metatags.__
+    2019-08-27 11:04:43 -0400 - (Kevin Walsh) [41051831]
+*  __VAGOV-5409: Update sitename to Veterans Affairs.__
+    2019-08-27 11:04:43 -0400 - (Kevin Walsh) [9e694866]
+*  __Merge branch 'develop' into VAGOV-000-graphql-menu-plugin__
+    2019-08-26 15:55:35 -0600 - (Adrienne) [da86fad6]
+*  __Merge pull request #546 from department-of-veterans-affairs/VAGOV-5757-fix-deploys__
+    2019-08-26 17:07:22 -0400 - (Steve Wirt) [a9e550e8]
+*  __VAGOV-5757: Comment out deploy hooks for now.__
+    2019-08-26 12:12:19 -0400 - (Jon Pugh) [47face61]
+*  __Merge branch 'develop' into VAGOV-000-graphql-menu-plugin__
+    2019-08-26 11:58:48 -0400 - (Steve Wirt) [9cb62799]
+*  __Merge pull request #540 from department-of-veterans-affairs/VAGOV-000-test-test__
+    2019-08-26 11:52:57 -0400 - (Steve Wirt) [90f8db4c]
+*  __Merge branch 'develop' into VAGOV-000-test-test__
+    2019-08-26 11:25:09 -0400 - (Steve Wirt) [50422a76]
+*  __Merge branch 'develop' into VAGOV-000-graphql-menu-plugin__
+    2019-08-26 11:24:15 -0400 - (Steve Wirt) [d0b0688d]
+*  __Merge pull request #537 from department-of-veterans-affairs/VAGOV-000-composer-lock__
+    2019-08-26 11:22:56 -0400 - (Steve Wirt) [a6415c1d]
+*  __Merge branch 'develop' into VAGOV-000-test-test__
+    2019-08-26 11:13:57 -0400 - (Jon Pugh) [362c5af1]
+*  __Merge branch 'develop' into VAGOV-000-composer-lock__
+    2019-08-26 11:13:19 -0400 - (Steve Wirt) [058aa2ed]
+*  __Merge branch 'develop' of github.com:department-of-veterans-affairs/va.gov-cms into VAGOV-000-composer-lock__
+    2019-08-26 11:11:55 -0400 - (Jon Pugh) [78fdac3f]
+*  __Merge pull request #538 from ElijahLynn/VAGOV-000-remove-env-from-yaml-tests-sensitive-info__
+    2019-08-26 11:11:04 -0400 - (Steve Wirt) [a28cb0fd]
+*  __Merge branch 'develop' into VAGOV-000-test-test__
+    2019-08-26 11:02:37 -0400 - (Steve Wirt) [4b3b75e6]
+*  __Merge branch 'develop' into VAGOV-000-remove-env-from-yaml-tests-sensitive-info__
+    2019-08-26 10:58:38 -0400 - (Steve Wirt) [0cd7095b]
+*  __VAGOV-000: add field to root graphql query to get all menu machine names__
+    2019-08-24 11:18:16 -0600 - (Adrienne Cabouet) [f242a4da]
+*  __VAGOV-000: Adding site menus field plugin__
+    2019-08-23 16:04:32 -0600 - (Adrienne Cabouet) [5706a8ac]
+*  __Merge pull request #531 from kevwalsh/5471-lock-breaking__
+    2019-08-23 17:49:47 -0400 - (Steve Wirt) [dc22d423]
+*  __Merge branch 'develop' into 5471-lock-breaking__
+    2019-08-23 17:41:41 -0400 - (Steve Wirt) [c286ef04]
+*  __Merge pull request #541 from beeyayjay/5476-menu-item-extras__
+    2019-08-23 17:35:20 -0400 - (Steve Wirt) [edc2f79e]
+*  __Merge branch 'develop' into 5476-menu-item-extras__
+    2019-08-23 17:06:16 -0400 - (Steve Wirt) [616dadc2]
+*  __VAGOV-000: Confirm the homepage is the login page and "VA.gov CMS" is the site title.__
+    2019-08-23 17:01:38 -0400 - (Jon Pugh) [ae4a57a0]
+*  __Merge pull request #532 from beeyayjay/VAGOV-5046-migration-fix__
+    2019-08-23 17:00:43 -0400 - (Steve Wirt) [091b9787]
+*  __VAGOV-000: Confirm the homepage is the login page and "Veterans Affairs" is the site title.__
+    2019-08-23 16:52:13 -0400 - (Jon Pugh) [3032a6dd]
+*  __Merge branch 'develop' into VAGOV-5046-migration-fix__
+    2019-08-23 16:40:21 -0400 - (Steve Wirt) [5d9a09f1]
+*  __VAGOV-000: no commit, PR test__
+    2019-08-23 16:15:44 -0400 - (Jon Pugh) [76a9d439]
+*  __VAGOV-5476: Add label and 'open link in new tab' fields to footer menu.__
+    2019-08-23 15:23:10 -0400 - (Beth Jacobson) [f2772910]
+*  __VAGOV-5476: Enable menu item extras.__
+    2019-08-23 09:58:13 -0400 - (Kevin Walsh) [78f0fc23]
+*  __VAGOV-5476: Composer require menu_item_extras.__
+    2019-08-23 09:57:45 -0400 - (Kevin Walsh) [f1b7fade]
+*  __Remove `env` dump from tests.yml, sensitive output.__
+    2019-08-22 17:40:17 -0700 - (Elijah Lynn) [cbc85a8c]
+*  __VAGOV-000: Run composer update --lock__
+    2019-08-22 18:14:38 -0400 - (Jon Pugh) [6ba6a740]
+*  __VAGOV-5046: Check for missing description field.__
+    2019-08-22 11:16:24 -0400 - (Beth Jacobson) [ac7c9dea]
+*  __VAGOV-5048: Update migration config to include burials pr number.__
+    2019-08-22 11:15:09 -0400 - (Beth Jacobson) [fc051822]
+*  __VAGOV-5594: Handle unwrapped text in paragraphs.__
+    2019-08-22 10:56:41 -0400 - (Beth Jacobson) [1b96e84a]
+*  __VAGOV-5471: Add lock breaking and replace operations with edit links.__
+    2019-08-22 09:11:39 -0400 - (Kevin Walsh) [1bca87d5]
+*  __VAGOV-5471: Clean up admin menu items.__
+    2019-08-22 09:11:39 -0400 - (Kevin Walsh) [bab6047b]
+
+## 2019-08-22.1 Sprint 21 release 1. tag  20190822.1
+
+*  __VAGOV-2836: Remove comment from tests.yml.__
+    2019-08-21 20:03:46 -0400 - (Ethan Teague) [ede0e517]
+*  __VAGOV-2836: Adding node and npm tooling back to lando.__
+    2019-08-21 19:48:15 -0400 - (Ethan Teague) [92b794f9]
+*  __VAGOV-2836: Revert composer.lock to develop.__
+    2019-08-21 19:28:24 -0400 - (Ethan Teague) [615419bd]
+*  __VAGOV-2836: Updating content test to match dev.__
+    2019-08-21 18:00:23 -0400 - (Ethan Teague) [8da36387]
+*  __VAGOV-2836: Removing node / npm req's that creeped back into .lando.__
+    2019-08-21 17:41:56 -0400 - (Ethan Teague) [7ee480ae]
+*  __VAGOV-2836: Removing drush alias from behat.yml.__
+    2019-08-21 17:41:56 -0400 - (Ethan Teague) [3781c98f]
+*  __VAGOV-2836: Changing drush alias in behat.yml - debugging.__
+    2019-08-21 17:41:56 -0400 - (Ethan Teague) [b97cf859]
+*  __VAGOV-2836: Adding drush alias to behat.yml - debugging.__
+    2019-08-21 17:41:56 -0400 - (Ethan Teague) [d7574580]
+*  __VAGOV-2836: Removing drush alias from behat.yml.__
+    2019-08-21 17:41:56 -0400 - (Ethan Teague) [ae756b71]
+*  __VAGOV-2836: Removing lando address from behat.yml.__
+    2019-08-21 17:41:56 -0400 - (Ethan Teague) [7f399465]
+*  __VAGOV-2836: Updating sha from master to working pr.__
+    2019-08-21 17:41:56 -0400 - (Ethan Teague) [3dabb5e5]
+*  __VAGOV-2836: Setting vets-website ref to master.__
+    2019-08-21 17:41:56 -0400 - (Ethan Teague) [c944763b]
+*  __VAGOV-2936: Synchronizng views_display test with DST sheet.__
+    2019-08-21 17:41:56 -0400 - (Ethan Teague) [fe7f4367]
+*  __VAGOV-2836: Change behat alias to none.__
+    2019-08-21 17:41:56 -0400 - (Ethan Teague) [652558f5]
+*  __VAGOV-2836: Remove unused node container and deps.__
+    2019-08-21 17:41:56 -0400 - (Ethan Teague) [17869b5e]
+*  __VAGOV-2836: Replace RaqDrupal extend with DevShop extend for better output.__
+    2019-08-21 17:41:56 -0400 - (Ethan Teague) [bb68b748]
+*  __VAGOV-2836: Adding new field to DST field test.__
+    2019-08-21 17:41:56 -0400 - (Ethan Teague) [2624ab63]
+*  __VAGOV-2836: Adding comment to trigger build.__
+    2019-08-21 17:41:56 -0400 - (Ethan Teague) [1cd3aa0e]
+*  __VAGOV-2836: Comment out undefined behat steps.__
+    2019-08-21 17:41:55 -0400 - (Ethan Teague) [f27f764d]
+*  __VAGOV-2836: Removing stale tests.__
+    2019-08-21 17:41:55 -0400 - (Ethan Teague) [7213210c]
+*  __VAGOV-2836: Adding dst tag to all dst tests.__
+    2019-08-21 17:41:55 -0400 - (Ethan Teague) [4f619e21]
+*  __VAGOV-2836: Replacing undefined with defined var.__
+    2019-08-21 17:41:55 -0400 - (Ethan Teague) [ef399c75]
+*  __VAGOV-2836: Synchronizing field_type DST test.__
+    2019-08-21 17:41:55 -0400 - (Ethan Teague) [2a12fa8e]
+*  __VAGOV-2836: Synchronizing views_displays DST test.__
+    2019-08-21 17:41:55 -0400 - (Ethan Teague) [843c332e]
+*  __VAGOV-2836: Synchronizing views DST test.__
+    2019-08-21 17:41:55 -0400 - (Ethan Teague) [d2470a80]
+*  __VAGOV-2836: Synchronizing menus DST test.__
+    2019-08-21 17:41:55 -0400 - (Ethan Teague) [50ddc34b]
+*  __VAGOV-2836: Synchronizing image_effects DST test.__
+    2019-08-21 17:41:55 -0400 - (Ethan Teague) [daa8f834]
+*  __VAGOV-2836: Synchronizing image_styles DST test.__
+    2019-08-21 17:41:55 -0400 - (Ethan Teague) [ca119a65]
+*  __VAGOV-2836: Synchronizing content_type DST test.__
+    2019-08-21 17:41:55 -0400 - (Ethan Teague) [321718ff]
+*  __VAGOV-5582: Changing binary path in test.yml.__
+    2019-08-21 17:41:55 -0400 - (Ethan Teague) [e50f245e]
+*  __VAGOV-5582: Restoring traits and updating behat.yml.__
+    2019-08-21 17:41:55 -0400 - (Ethan Teague) [10299fcc]
+*  __VAGOV-5582: Moving DST into behat dir.__
+    2019-08-21 17:41:17 -0400 - (Ethan Teague) [c0a110bf]
+*  __VAGOV-5582: Updating behat.yml to include DST and required classes.__
+    2019-08-21 17:41:17 -0400 - (Ethan Teague) [c67fd70a]
+*  __VAGOV-5582: Update composer to autoload CustomDrupal namespace.__
+    2019-08-21 17:41:17 -0400 - (Ethan Teague) [eb4e05d3]
+*  __VAGOV-5582: update web to latest PR with proxy check fix__
+    2019-08-21 17:41:17 -0400 - (Jon Pugh) [8f7da5eb]
+*  __VAGOV-5385: Separate the scenarios for testing build vs edit.__
+    2019-08-21 17:41:17 -0400 - (Jon Pugh) [c70a4715]
+*  __VAGOV-5389: Print the URL at the end of the test.__
+    2019-08-21 17:41:17 -0400 - (Jon Pugh) [77315cdf]
+*  __VAGOV-5389: Uncomment test to confirm Drupal edits show in web.__
+    2019-08-21 17:41:17 -0400 - (Jon Pugh) [0fe1b10c]
+*  __Merge pull request #530 from department-of-veterans-affairs/VAGOV-5683-behat-env__
+    2019-08-21 14:37:25 -0700 - (Elijah Lynn) [44d73c40]
+*  __VAGOV-5683: Wait a minute this isn't needed AND doesn't work! Remove dotenv stuff. We will solve a different way.__
+    2019-08-21 17:05:25 -0400 - (Jon Pugh) [574ca3ad]
+*  __VAGOV-5683: Only load .env if it exists.__
+    2019-08-21 17:01:38 -0400 - (Jon Pugh) [8dd34ab4]
+*  __Merge pull request #512 from department-of-veterans-affairs/VAGOV-5385-edit__
+    2019-08-21 16:15:29 -0400 - (Steve Wirt) [a7c70463]
+*  __Merge branch 'develop' into VAGOV-5385-edit__
+    2019-08-21 16:04:15 -0400 - (Steve Wirt) [15d74da4]
+*  __Merge pull request #529 from ElijahLynn/VAGOV-3930-update-sso-for-preprod__
+    2019-08-21 16:03:56 -0400 - (Steve Wirt) [abc0569c]
+*  __Use app name, PATH is set.__
+    2019-08-21 15:46:12 -0400 - (Jon Pugh) [c5957d43]
+*  __Merge branch 'develop' into VAGOV-3930-update-sso-for-preprod__
+    2019-08-21 15:44:52 -0400 - (Steve Wirt) [77546904]
+*  __Merge remote-tracking branch 'origin/VAGOV-5385-edit' into VAGOV-5385-edit__
+    2019-08-21 15:38:34 -0400 - (Jon Pugh) [bc568b75]
+*  __Merge branch 'develop' into VAGOV-5385-edit__
+    2019-08-21 15:25:54 -0400 - (Steve Wirt) [d28c18ba]
+*  __Merge pull request #523 from ElijahLynn/VAGOV-000-add-composer-nuke-command__
+    2019-08-21 15:24:28 -0400 - (Steve Wirt) [f8cc034d]
+*  __Merge branch 'develop' into VAGOV-000-add-composer-nuke-command__
+    2019-08-21 15:14:33 -0400 - (Steve Wirt) [7f410125]
+*  __Merge branch 'develop' into VAGOV-3930-update-sso-for-preprod__
+    2019-08-21 12:12:37 -0700 - (Elijah Lynn) [1595d6ab]
+*  __Merge branch 'develop' into VAGOV-5385-edit__
+    2019-08-21 13:24:07 -0400 - (Steve Wirt) [cca0dcb8]
+*  __Merge pull request #515 from ethanteague/VAGOV-5520-patch-comments-et__
+    2019-08-21 13:18:21 -0400 - (Steve Wirt) [41db3329]
+*  __VAGOV-5385: Fix link to WEB content.__
+    2019-08-20 22:14:27 -0400 - (Jon Pugh) [5751c138]
+*  __VAGOV-5385: Update va-gov/web to latest sha with URL request output.__
+    2019-08-20 22:07:09 -0400 - (Jon Pugh) [a72abb21]
+*  __VAGOV-5546: Fix strings in .env.lando: Don't need quad slashes if not in quotes.__
+    2019-08-20 22:04:25 -0400 - (Jon Pugh) [92b732dc]
+*  __VAGOV-5546: Fix strings in .env.lando.__
+    2019-08-20 21:55:28 -0400 - (Jon Pugh) [76090fae]
+*  __VAGOV-5546: Fix strings in .env.lando.__
+    2019-08-20 21:52:47 -0400 - (Jon Pugh) [ff4668bb]
+*  __VAGOV-5546: Fix strings in .env.lando.__
+    2019-08-20 21:40:27 -0400 - (Jon Pugh) [e4c2dc90]
+*  __VAGOV-5635: Lando yml config: - Add mention of filter arguments to the help text of the `lando test` command. - Use composer yaml-tests to run phpunit tests. - Add  `lando test_filter_test` to demonstrate very weird behat error when using `yaml-tests` filter__
+    2019-08-20 21:39:26 -0400 - (Jon Pugh) [223a8060]
+*  __VAGOV-5563: allow filtering of test runs__
+    2019-08-20 21:17:40 -0400 - (Jon Pugh) [b4078706]
+*  __Merge branch 'master' into VAGOV-3930-update-sso-for-preprod__
+    2019-08-20 18:06:56 -0700 - (Elijah Lynn) [aeedba8d]
+*  __VAGOV-3930 Remove SSOi/simplesaml_php from PROD config split.__
+    2019-08-20 17:31:04 -0700 - (Elijah Lynn) [87a9ab2e]
+*  __VAGOV-3930 Auto-assign content_editor roles for all staging SSOi login.__
+    2019-08-20 17:21:24 -0700 - (Elijah Lynn) [17d1c145]
+*  __VAGOV-5628: Cherry-pick Ethan's work to stabilize lando.__
+    2019-08-20 19:41:49 -0400 - (Jon Pugh) [f79e96ba]
+*  __VAGOV-5549:Adding todo about deploy hooks.__
+    2019-08-20 19:29:30 -0400 - (Jon Pugh) [8265918f]
+*  __VAGOV-5549: Add PROVISION_PROCESS_OUTPUT=direct to make logs easier to read.__
+    2019-08-20 19:21:44 -0400 - (Jon Pugh) [36c2a7d3]
+*  __VAGOV-5549: # for comments in YML.__
+    2019-08-20 19:06:36 -0400 - (Jon Pugh) [15812bc2]
+*  __VAGOV-5547: Fixing lando behat command__
+    2019-08-20 19:04:15 -0400 - (Jon Pugh) [27bd1688]
+*  __VAGOV-5547: Add comments to lando.yml to explain what this does.__
+    2019-08-20 19:03:16 -0400 - (Jon Pugh) [9b291d24]
+*  __VAGOV-5549: Add comment to lando.yml to use composer yaml-tests for post db import.__
+    2019-08-20 18:59:37 -0400 - (Jon Pugh) [fad11b13]
+*  __VAGOV-5549: Fix comment to say you must destroy/rebuild the lando environment to see the new environment vars.__
+    2019-08-20 18:52:18 -0400 - (Jon Pugh) [54756fe8]
+*  __VAGOV-5549: Stabilizing the environments: - Keep .env ignored. - Add .env.lando and only load that with env_vars in `.lando.yml` - Simplify .env.lando so it works. Variable substitution does not work. - Remove .env-local and copying script.__
+    2019-08-20 18:43:40 -0400 - (Jon Pugh) [df398c70]
+*  __Merge branch 'develop' into VAGOV-5520-patch-comments-et__
+    2019-08-20 17:00:19 -0400 - (Ethan Teague) [2d7b1cd4]
+*  __VAGOV-5385: removing .gitignore for .env__
+    2019-08-20 16:39:14 -0400 - (Jon Pugh) [d2fee05c]
+*  __VAGOV-5385: renaming .env-local to .env and removing .env example.__
+    2019-08-20 16:37:58 -0400 - (Jon Pugh) [b44d94bc]
+*  __VAGOV-5385 Use @none drush alias for .env-local, behat.__
+    2019-08-20 13:23:24 -0700 - (Ethan Teague) [43e59ab9]
+*  __VAGOV-5385 Fix .env-local to have proper ENV vars set.__
+    2019-08-20 13:14:51 -0700 - (Elijah Lynn) [27b895f0]
+*  __VAGOV-5385 Adjust local env settings.__
+    2019-08-20 15:58:37 -0400 - (Steve Wirt) [91a442d1]
+*  __Merge branch 'develop' into VAGOV-000-add-composer-nuke-command__
+    2019-08-20 11:37:34 -0700 - (Elijah Lynn) [f05d7615]
+*  __VAGOV-5389: Print the URL at the end of the test.__
+    2019-08-20 13:15:10 -0400 - (Jon Pugh) [7821fc15]
+*  __VAGOV-5389: Update Yaml tests and power process to allow clean output.__
+    2019-08-20 13:02:20 -0400 - (Jon Pugh) [1962e4bc]
+*  __VAGOV-5389: Update vets-website sha.__
+    2019-08-20 12:57:41 -0400 - (Jon Pugh) [af5b883e]
+*  __VAGOV-5389: Bump vets-website to latest SHA.__
+    2019-08-20 12:27:49 -0400 - (Jon Pugh) [9fa91065]
+*  __VAGOV-5389: Add --pull-drupal option to the npm build command in composer va:web:build.__
+    2019-08-20 12:23:13 -0400 - (Jon Pugh) [0c7b7bb4]
+*  __Merge branch 'VAGOV-5385-edit' into VAGOV-5389-graphql-error-test__
+    2019-08-20 11:59:38 -0400 - (Jon Pugh) [0c4cff56]
+*  __VAGOV-5389: Run web build in right folder.__
+    2019-08-20 11:48:36 -0400 - (Jon Pugh) [4d844bea]
+*  __VAGOV-5389: Uncomment test to confirm Drupal edits show in web.__
+    2019-08-20 11:35:35 -0400 - (Jon Pugh) [d84e5159]
+*  __Merge branch 'VAGOV-5389-graphql-error-test' into VAGOV-5385-edit__
+    2019-08-19 18:33:31 -0400 - (Jon Pugh) [c8ad747e]
+*  __Merge branch 'develop' of github.com:department-of-veterans-affairs/va.gov-cms into VAGOV-5385-edit__
+    2019-08-19 18:31:57 -0400 - (Jon Pugh) [820bb20a]
+*  __Merge branch 'VAGOV-5385-edit' of github.com:department-of-veterans-affairs/va.gov-cms into VAGOV-5385-edit__
+    2019-08-19 18:31:46 -0400 - (Jon Pugh) [7656e3e3]
+*  __Merge branch 'VAGOV-5389-graphql-error-test' into VAGOV-5385-edit__
+    2019-08-19 18:31:39 -0400 - (Jon Pugh) [649618a6]
+*  __Merge branch 'develop' into VAGOV-5389-graphql-error-test__
+    2019-08-19 18:10:08 -0400 - (Steve Wirt) [36f199c5]
+*  __Merge pull request #520 from ethanteague/VAGOV-4960-redirects-perms-et__
+    2019-08-19 17:55:07 -0400 - (Steve Wirt) [da1d7fe6]
+*  __Merge branch 'develop' into VAGOV-5385-edit__
+    2019-08-19 17:23:21 -0400 - (Jon Pugh) [939cbe82]
+*  __VAGOV-5389: Add va-gov/web removal to composer install test set.__
+    2019-08-19 17:00:37 -0400 - (Jon Pugh) [ecdd8490]
+*  __VAGOV-5389: tee to stderr, make a more literal error message, and add a big comment about why we are grepping.__
+    2019-08-19 16:24:55 -0400 - (Jon Pugh) [e520db3c]
+*  __Merge branch 'develop' into VAGOV-4960-redirects-perms-et__
+    2019-08-19 16:20:58 -0400 - (Steve Wirt) [b896451d]
+*  __VAGOV-5389: Use tee to show output and pass to grep.__
+    2019-08-19 16:09:01 -0400 - (Jon Pugh) [957a09fb]
+*  __VAGOV-5389: Show 1000 prior lines before error message.__
+    2019-08-19 15:51:58 -0400 - (Jon Pugh) [992c11c5]
+*  __Consolidate command into a single line so we can have a description too.__
+    2019-08-19 13:09:07 -0400 - (Jon Pugh) [0bd4aed1]
+*  __Merge pull request #518 from kevwalsh/5510-url-filters__
+    2019-08-19 13:08:55 -0400 - (Steve Wirt) [c585ddc3]
+*  __Merge branch 'develop' into VAGOV-5389-graphql-error-test__
+    2019-08-19 12:46:05 -0400 - (Jon Pugh) [b29ef116]
+*  __VAGOV-5389: Add a `grep` to the web build test to check for output that indicates an error.__
+    2019-08-19 12:42:58 -0400 - (Jon Pugh) [7c6f3fec]
+*  __Merge branch 'develop' into 5510-url-filters__
+    2019-08-19 11:58:55 -0400 - (Steve Wirt) [a0fc3e09]
+*  __Merge pull request #521 from department-of-veterans-affairs/VAGOV-5586-add-homepage-label-field__
+    2019-08-19 11:51:32 -0400 - (Steve Wirt) [2a73fdb5]
+*  __VAGOV-000 Add composer `nuke` command.__
+    2019-08-16 16:51:38 -0700 - (Elijah Lynn) [7e6e86e9]
+*  __VAGOV-4960: Adding content api user redirect view.__
+    2019-08-16 15:07:30 -0400 - (Ethan Teague) [baa28478]
+*  __VAGOV-5586: Add config for new Home page hub label field__
+    2019-08-16 15:00:55 -0400 - (Jonathan Bourland) [619d12bd]
+*  __VAGOV-5510: Changing linkit pattern to relative path.__
+    2019-08-16 13:00:29 -0400 - (Ethan Teague) [ab996edb]
+*  __VAGOV-5572: Remove behat specific composer file.__
+    2019-08-16 12:48:28 -0400 - (Jon Pugh) [a64aa321]
+*  __VAGOV-5572: removing composer for behat. Go back to global behat.__
+    2019-08-16 12:45:17 -0400 - (Jon Pugh) [9271d88f]
+*  __VAGOV-5549: Add more to .env-local so all the needed environment vars are set.__
+    2019-08-16 12:33:56 -0400 - (Jon Pugh) [94883b31]
+*  __VAGOV-5510: Enable Linkit and Pathologic filters on rich text.__
+    2019-08-16 12:33:32 -0400 - (Kevin Walsh) [d40ef173]
+*  __VAGOV-5571: Add `lando web-build` command, fix lando npm and node commands to use local bin.__
+    2019-08-16 12:33:21 -0400 - (Jon Pugh) [611f2097]
+*  __VAGOV-5547: Add more docs to drush command.__
+    2019-08-16 12:27:58 -0400 - (Jon Pugh) [c691978e]
+*  __VAGOV-5547: Fixing lando behat command__
+    2019-08-16 12:21:49 -0400 - (Jon Pugh) [f5a86cb3]
+*  __VAGOV-5547: Add comments to lando.yml to explain what this does.__
+    2019-08-16 12:03:06 -0400 - (Jon Pugh) [34805e7e]
+*  __VAGOV-5520: Updating patch comments.__
+    2019-08-16 10:28:36 -0400 - (Ethan Teague) [e635a39e]
+*  __VAGOV-5520: Adding comments to local patches.__
+    2019-08-16 10:28:36 -0400 - (Ethan Teague) [d71e95fe]
+*  __Merge pull request #510 from kevwalsh/000-pittsburgh-menu-title__
+    2019-08-15 23:44:15 -0400 - (Steve Wirt) [7abde1cb]
+*  __Merge branch 'develop' into 000-pittsburgh-menu-title__
+    2019-08-15 23:30:27 -0400 - (Steve Wirt) [6a8f98a3]
+*  __Merge pull request #509 from beeyayjay/VAGOV-2287-header-nav-content__
+    2019-08-15 23:29:20 -0400 - (Steve Wirt) [791919b4]
+*  __Merge branch 'develop' into VAGOV-2287-header-nav-content__
+    2019-08-15 23:20:38 -0400 - (Steve Wirt) [74346361]
+*  __Merge pull request #504 from kevwalsh/5415-menu-order__
+    2019-08-15 23:19:47 -0400 - (Steve Wirt) [0c07d287]
+*  __Merge branch 'develop' into 5415-menu-order__
+    2019-08-15 23:12:18 -0400 - (Steve Wirt) [86d6adb3]
+*  __Merge pull request #511 from kevwalsh/5472-reenable-views-bulk-edit__
+    2019-08-15 22:49:46 -0400 - (Steve Wirt) [9eb5a904]
+*  __Merge branch 'develop' into 5415-menu-order__
+    2019-08-15 22:49:32 -0400 - (Steve Wirt) [b33040c9]
+*  __Merge branch 'develop' into 5472-reenable-views-bulk-edit__
+    2019-08-15 22:43:29 -0400 - (Steve Wirt) [afee3cf8]
+*  __Merge pull request #514 from department-of-veterans-affairs/VAGOV-4867-homepage-hub-limit__
+    2019-08-15 22:35:43 -0400 - (Steve Wirt) [0e266a83]
+*  __Merge branch 'develop' into VAGOV-4867-homepage-hub-limit__
+    2019-08-15 16:57:24 -0500 - (jonbot) [cfadc7d9]
+*  __VAGOV-5385: Separate the scenarios for testing build vs edit.__
+    2019-08-15 17:07:30 -0400 - (Jon Pugh) [cdbdb4e6]
+*  __VAGOV-5385: Go to the right path before calling `composer va:web:build`__
+    2019-08-15 13:46:57 -0400 - (Jon Pugh) [82bca7d0]
+*  __VAGOV-5481: Uncomment out tests for Canary PR.__
+    2019-08-15 13:21:09 -0400 - (Jon Pugh) [a78feb00]
+*  __VAGOV-5385: updating lockfile__
+    2019-08-15 13:17:44 -0400 - (Jon Pugh) [9246c055]
+*  __VAGOV-5385: Adding the @errors tag to the test, I think that removes the lightning hook that checks for watchdog logs.__
+    2019-08-15 13:06:06 -0400 - (Jon Pugh) [d88679f1]
+*  __VAGOV-5385: Fix the text of the confirmation message__
+    2019-08-15 12:55:38 -0400 - (Jon Pugh) [ca31464c]
+*  __VAGOV-5385: Fix capitalization of test.__
+    2019-08-15 12:34:27 -0400 - (Jon Pugh) [aa64b668]
+*  __VAGOV-5385: Fixing twig version.__
+    2019-08-15 12:25:43 -0400 - (Jon Pugh) [912bba1f]
+*  __VAGOV-4867: Add max of 11 hubs to home page hub entity queue__
+    2019-08-15 11:38:36 -0400 - (Jonathan Bourland) [b7e46a36]
+*  __VAGOV-5472: Reenable views bulk edit.__
+    2019-08-15 10:24:48 -0400 - (Kevin Walsh) [c125b6b0]
+*  __VAGOV-2937 Add Drupal behat test to ensure CMS is running & behat is configured properly.__
+    2019-08-14 17:20:48 -0700 - (Elijah Lynn) [1b6d662b]
+*  __VAGOV-2937 Pin exact SHA of Unity branch for vets-website.__
+    2019-08-14 17:11:16 -0700 - (Elijah Lynn) [278598af]
+*  __VAGOV-5385: Adding back pinned twig version to an exact. I thought I understood version constraints but cant get it working__
+    2019-08-14 19:54:32 -0400 - (Jon Pugh) [7ac65dd5]
+*  __VAGOV-5385: Adding back pinned twig version: Found out why by stepping through 5 commits of git blame! https://github.com/department-of-veterans-affairs/va.gov-cms/commit/d6f16bdf13780cadac5d525d2d70e67b25f3926d ... Thanks @andyhawks!__
+    2019-08-14 18:37:23 -0400 - (Jon Pugh) [8864f76d]
+*  __VAGOV-5385: Adding back pinned twig version: Found out why by stepping through 5 commits of git blame! https://github.com/department-of-veterans-affairs/va.gov-cms/commit/d6f16bdf13780cadac5d525d2d70e67b25f3926d ... Thanks @andyhawks!__
+    2019-08-14 18:23:58 -0400 - (Jon Pugh) [46f5c115]
+*  __VAGOV-0000: Uncomment Drupal API tests that edit the node and re-runs the WEB build.__
+    2019-08-14 13:01:51 -0400 - (Jon Pugh) [c54f877b]
+*  __VAGOV-000: Add VA to Pittsburgh menu block title.__
+    2019-08-14 10:12:12 -0400 - (Kevin Walsh) [4533419d]
+*  __VAGOV-5415: Reorder breadcrumb menus.__
+    2019-08-14 09:03:27 -0400 - (Kevin Walsh) [276f9000]
+*  __VAGOV-2287: Menu export config and data for main nav.__
+    2019-08-14 07:58:17 -0400 - (Beth Jacobson) [50d81e96]
+*  __VAGOV-2937: Adding .env file copy to composer install.__
+    2019-08-13 21:49:06 -0400 - (Jon Pugh) [e7d3349c]
+*  __VAGOV-2937: Change the test URL to /static.__
+    2019-08-13 16:42:17 -0400 - (Jon Pugh) [3dd85bdb]
+*  __Revert "VAGOV-2937: Removing headless_lightning to avoid warning"__
+    2019-08-13 16:21:04 -0400 - (Jon Pugh) [3c492e3a]
+*  __VAGOV-2937: Renaming /docroot/web to /docroot/static__
+    2019-08-13 12:32:45 -0400 - (Jon Pugh) [d6e02e43]
+*  __VAGOV-2937: Moving our symlink so it goes straight to vendor/va-gov__
+    2019-08-13 12:28:35 -0400 - (Jon Pugh) [cc67c199]
+*  __VAGOV-2937: rename /app to /web__
+    2019-08-13 12:23:23 -0400 - (Jon Pugh) [77cb4e33]
+*  __VAGOV-2937: Removing our reference to twig/twig so dependencies can decide the version to use.__
+    2019-08-13 11:28:54 -0400 - (Jon Pugh) [2ae24cb5]
+*  __VAGOV-2937: composer lock update__
+    2019-08-13 11:25:53 -0400 - (Jon Pugh) [3132cda8]
+*  __VAGOV-2937: Changing the project name and description in composer.json.__
+    2019-08-13 11:23:11 -0400 - (Jon Pugh) [9618cf27]
+*  __VAGOV-2937: Print the current URL so test users can see the link in test results.__
+    2019-08-12 19:09:20 -0400 - (Jon Pugh) [e7861b6f]
+*  __VAGOV-2937: Comment out behat verification step. It's acting weird.__
+    2019-08-12 19:08:05 -0400 - (Jon Pugh) [864e3478]
+*  __VAGOV-2937: Commenting out Drupal bootstrapping from the behat tests.__
+    2019-08-12 18:54:50 -0400 - (Jon Pugh) [58862994]
+*  __VAGOV-2937: Set correct bin/behat command.__
+    2019-08-09 16:12:36 -0400 - (Jon Pugh) [47e63de0]
+*  __VAGOV-2937: Removing headless_lightning to avoid warning__
+    2019-08-09 16:11:05 -0400 - (Jon Pugh) [80a3d021]
+*  __VAGOV-2937: Remove the echo PATH step and run the right behat executable.__
+    2019-08-09 15:54:21 -0400 - (Jon Pugh) [fc127c90]
+*  __VAGOV-2937: Adding @api to allow "drupal" steps: changing scenario title, removing duplicate step.__
+    2019-08-09 15:53:07 -0400 - (Jon Pugh) [16bf3ac6]
+*  __VAGOV-2937: Downgrading symfony/translation__
+    2019-08-09 15:41:57 -0400 - (Jon Pugh) [9249f95d]
+*  __VAGOV-2937: Adding.env example file for behat__
+    2019-08-09 12:48:10 -0400 - (Jon Pugh) [cd6351f8]
+*  __VAGOV-2937: removing dotenv for now.;__
+    2019-08-09 12:42:48 -0400 - (Jon Pugh) [e56e1733]
+*  __VAGOV-2937: Adding composer install to behat tests folder from primary composer install.__
+    2019-08-09 12:08:22 -0400 - (Jon Pugh) [b071eea6]
+*  __VAGOV-2937: Removing devshop behat extension and behat from main composer.__
+    2019-08-09 12:02:05 -0400 - (Jon Pugh) [3b50962e]
+*  __VAGOV-2937: Making behat a separate "application".__
+    2019-08-09 12:00:37 -0400 - (Jon Pugh) [5f36e405]
+*  __VAGOV-2937: Commenting out deploy hooks because they dont need to run here__
+    2019-08-08 14:03:36 -0400 - (Jon Pugh) [1de2f42b]
+*  __VAGOV-2937: Adding --colors to behat to force color test output.__
+    2019-08-08 14:00:50 -0400 - (Jon Pugh) [67719d1c]
+*  __VAGOV-2937: Adding behat-drupal-extension to improve error reporting.__
+    2019-08-08 13:59:47 -0400 - (Jon Pugh) [5e3a0407]
+*  __VAGOV-2937: Adding first Behat test to confirm web gets built.__
+    2019-08-08 13:45:52 -0400 - (Jon Pugh) [34cffc96]
+*  __VAGOV-2937 Re-add deploy commands to tests.yml. (temporary)__
+    2019-08-07 16:02:52 -0700 - (Elijah Lynn) [4c56d56f]
+*  __Merge remote-tracking branch 'origin/develop' into VAGOV-2937-web__
+    2019-08-07 15:58:41 -0700 - (Elijah Lynn) [3d5e69bf]
+*  __VAGOV-2937: Updating hooks.yml so that the deploy steps run on deploy tasks, and test steps run on test tasks.__
+    2019-08-07 15:24:59 -0400 - (Jon Pugh) [c7eb8ce5]
+*  __VAGOV-2937: Move deploy steps to deploy.yml__
+    2019-08-07 15:13:40 -0400 - (Jon Pugh) [0604275d]
+*  __VAGOV-2937: Add va/web/build as a test!__
+    2019-08-07 14:34:13 -0400 - (Jon Pugh) [f7defa2f]
+*  __Merge branch 'VAGOV-5292-ci-migration' into VAGOV-2937-web__
+    2019-08-07 14:27:48 -0400 - (Jon Pugh) [7f71db98]
+*  __Merge branch 'VAGOV-5292-ci-migration' into VAGOV-2937-web__
+    2019-08-06 15:35:55 -0400 - (Jon Pugh) [06bd1009]
+*  __VAGOV-2937: Add local env file.__
+    2019-08-06 12:55:23 -0400 - (Beth Jacobson) [14ddad81]
+*  __VAGOV-2937: Adding WEB rebuild to the tests.__
+    2019-08-06 10:01:05 -0400 - (Jon Pugh) [4a76a581]
+*  __VAGOV-2937: Add composer-dotenv library so composer will load vars from .env files__
+    2019-08-06 09:53:05 -0400 - (Jon Pugh) [6398c0bc]
+*  __VAGOV-2937: add symlink app/build/localhost -> docroot/web__
+    2019-08-06 00:15:59 +0000 - (lightning) [22aabbef]
+*  __VAGOV-2937: merge with develop__
+    2019-08-05 22:24:07 +0000 - (lightning) [8b2316fd]
+*  __Merge branch 'develop' of github.com:department-of-veterans-affairs/va.gov-cms into VAGOV-2937-web__
+    2019-08-05 11:13:00 -0400 - (Jon Pugh) [17b9bdbe]
+*  __VAGOV-2937: Change the path for the va:web commands to /app.__
+    2019-08-02 11:48:31 -0400 - (Jon Pugh) [1f8bb523]
+*  __VAGOV-2937: Change the path for the va:web commands to /app.__
+    2019-08-02 10:51:29 -0400 - (Jon Pugh) [7d115883]
+*  __VAGOV-2937: Adding the symlink to "/app".__
+    2019-08-02 10:50:24 -0400 - (Jon Pugh) [272ee028]
+*  __VAGOV-2937: Adding .hooks and tests.yml from hooks-yml branch.__
+    2019-08-02 10:48:30 -0400 - (Jon Pugh) [0f6e1ab5]
+*  __VAGOV-2937: Adding .gitignore for CMS-CI.__
+    2019-08-02 10:47:08 -0400 - (Jon Pugh) [8a7b3e72]
+*  __VAGOV-2937: Adding all useful things from UNITY branch to composer: va-gov/web project, nodejs installer, yarn, va web commands.__
+    2019-08-02 10:45:51 -0400 - (Jon Pugh) [f676384e]
+
 ## 2019-08-20.1 Sprint 20 release 3. tag  20190820.1
 
 *  __VAGOV-1555 Add preprod cert for staging IAM SSO metadata.__
