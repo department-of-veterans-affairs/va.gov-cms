@@ -9,16 +9,20 @@ third_party_settings:
     description: ''
 id: documentation_editor
 label: 'Documentation editor'
-weight: 0
+weight: -7
 is_admin: null
 permissions:
+  - 'access administration pages'
   - 'access files overview'
+  - 'administer menu'
   - 'break content lock'
   - 'create documentation_page content'
   - 'delete any documentation_page content'
   - 'delete own documentation_page content'
   - 'edit any documentation_page content'
   - 'edit own documentation_page content'
+  - 'notify of path changes'
   - 'revert documentation_page revisions'
   - 'view documentation_page revisions'
   - 'view sections in toolbar'
+  - 'view the administration theme'
