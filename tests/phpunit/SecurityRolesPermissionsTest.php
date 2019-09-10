@@ -67,6 +67,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
       [
         'content_api_consumer',
         [
+          'administer menu',
           'use graphql explorer',
           'use graphql voyager',
           'view any unpublished content',
