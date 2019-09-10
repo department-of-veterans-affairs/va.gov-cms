@@ -41,7 +41,7 @@ See `"reference": "e76d8b6e1ae5fddc9c3f629b76c082e2d956ee8f"` above.
 This means tests can be run against a specific commit, ensuring the entire content editing workflow, including the WEB 
 build process, is working correctly.
 
-### Build WEB from CMS Locally
+### Developing WEB and CMS Together
 
 #### Change branch or SHA of WEB
 
