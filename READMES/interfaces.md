@@ -7,8 +7,20 @@
 
 ## GraphQL
 
-@TODO Descrption and Details needed.
-The GraphQL  Explorer is for testing Queries and their responses. `/graphql/explorer`
+The site uses GraphQL (https://www.drupal.org/project/graphql) as the mechanism for delivering JSON to Metalsmith for the static site build (see https://github.com/department-of-veterans-affairs/vets-website for info and setup).
+
+The GraphQL endpoint is at `/graphql`. GraphQL Explorer to assist in writing queries is avilable via the CMS admin at: `/graphql/explorer`. Sample GraphQL query to grab all entities in the system:
+
+```
+query {
+  nodeQuery()  {
+    entities {
+      entityLabel
+      entityType
+    }
+  }
+}
+```
 
 ## FeatureFlags
 Feature Flags are set in Drupal as configuration and either turned off or on to enable the use of new features on the Front End.  They are controlled in the DB via
