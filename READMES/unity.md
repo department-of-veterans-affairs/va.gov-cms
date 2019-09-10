@@ -11,7 +11,7 @@ The `WEB` project is built on Metalsmith. The project consumes the Drupal CMS Gr
 ### Using Composer to install WEB
 
 The CMS codebase leverages a composer feature called "repositories" that let's us define 
-our own "pseudo-package":
+our own "pseudo-package" inside `composer.json`:
 
 ```json
 {
