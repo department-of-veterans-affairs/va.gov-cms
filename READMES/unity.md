@@ -88,6 +88,7 @@ NOTE: We are working on a method to load this content from a root url, like http
 If a WEB developer has an open PR (or just commits) and wants to get a PR environment with the CMS and the WEB code, they 
 can open a PR in the `va.gov-cms` repository:
  
+1. Fork the va.gov-cms repository.
 1. Determine the SHA of the WEB code you want to test.
 1. Put that SHA into the "reference" field in `composer.json`, as described above.
 1. Visit [Create Pull Request](https://github.com/department-of-veterans-affairs/va.gov-cms/compare?expand=1) page of
