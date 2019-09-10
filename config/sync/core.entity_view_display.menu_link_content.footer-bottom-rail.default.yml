@@ -1,0 +1,29 @@
+uuid: a2e413f2-a741-431d-a14b-327718116ea5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.menu_link_content.footer-bottom-rail.field_open_link_in_new_tab
+    - system.menu.footer-bottom-rail
+id: menu_link_content.footer-bottom-rail.default
+targetEntityType: menu_link_content
+bundle: footer-bottom-rail
+mode: default
+content:
+  children:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_open_link_in_new_tab:
+    weight: 2
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+hidden:
+  search_api_excerpt: true

@@ -31,3 +31,4 @@ Feature: Menus
 | Root pages | root-benefits-hub | For various pages that live at the top level of the URL structure. |
 | Homepage top tasks blocks | homepage-top-tasks-blocks |  |
 | Header megamenu | header-megamenu | Links and promos for the site's header menu. |
+| Footer Bottom Rail | footer-bottom-rail | Horizontal list of links at the bottom of the page |
