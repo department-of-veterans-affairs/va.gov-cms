@@ -1,5 +1,17 @@
 # VA.gov CMS
 
+Welcome to the VA.gov CMS git repository README!
+
+We hope everything you need to know about how the [VA.gov](https://www.va.gov) website and Content Management System works is right here.
+
+If you find any errors in this documentation, please feel free to [make an edit and submit a Pull Request](https://github.com/department-of-veterans-affairs/va.gov-cms/edit/VAGOV-2303-readme/README.md)!
+
+Thanks,
+
+The VA.gov Team.
+
+
+
 ## Table of Contents
 1. **Introduction**
     1. [About VA.gov](#about-va-gov)
@@ -35,6 +47,22 @@ Access to the production CMS is restricted with CAG. See [Getting Access](README
 
 The **CMS** is built on [Drupal 8](https://www.drupal.org), using the [Composer](https://getcomposer.org) package management system. See [Getting Started](READMES/getting-started.md).
 
+### Contributing
+
+All of the source code used for generating VA.gov is open source, listed under the [department-of-veterans-affairs](https://github.com/department-of-veterans-affairs) 
+organization on GitHub:
+
+- **CMS**: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms) - Drupal 8, Lightning Distribution
+- **WEB**: [github.com/department-of-veterans-affairs/vets-website](https://github.com/department-of-veterans-affairs/vets-website) - Metalsmith
+- **VETS-API**: [github.com/department-of-veterans-affairs/vets-api](https://github.com/department-of-veterans-affairs/vets-api) - Ruby
+- **VETS-CONTENT**: [github.com/department-of-veterans-affairs/vagov-content](https://github.com/department-of-veterans-affairs/vagov-content) - Markdown
+
+The VFS team deploys all of these apps using a Jenkins server, configured with a private GitHub Repo: 
+
+- **DEVOPS**: [github.com/department-of-veterans-affairs/devops](https://github.com/department-of-veterans-affairs/devops)
+
+All development on these projects is done via Pull Requests.  See [CONTRIBUTING.md](CONTRIBUTING.md) for our PR policies.
+
 ### Decoupled Drupal Implementation
 
 The public website seen at [VA.gov](https://www.va.gov) is a static site: just HTML, CSS, and images.
@@ -46,22 +74,6 @@ When the content and code updates are ready for release, the **WEB** Build proce
 content from the [CMS](https://cms.va.gov) via GraphQL (and other locations), and outputs HTML, CSS, and images.
 
 See [Deployment Workflow](READMES/deployment.md) for full details on how the WEB and CMS projects work together.
-
-### Contributing
-
-All of the source code used for generating VA.gov is open source, listed under the [department-of-veterans-affairs](https://github.com/department-of-veterans-affairs) 
-organization on GitHub:
-
-- **CMS**: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms)
-- **WEB**: [github.com/department-of-veterans-affairs/vets-website](https://github.com/department-of-veterans-affairs/vets-website)
-- **VETS-API**: [github.com/department-of-veterans-affairs/vets-api](https://github.com/department-of-veterans-affairs/vets-api)
-- **VETS-CONTENT**: [github.com/department-of-veterans-affairs/vagov-content](https://github.com/department-of-veterans-affairs/vagov-content)
-
-The VFS team deploys all of these apps using a private GitHub Repo: 
-
-- **DEVOPS**: [github.com/department-of-veterans-affairs/devops](https://github.com/department-of-veterans-affairs/devops)
-
-All development on these projects is done via Pull Requests.  See [CONTRIBUTING.md](CONTRIBUTING.md) for our PR policies.
 
 ### Continuous Integration & Testing
 
