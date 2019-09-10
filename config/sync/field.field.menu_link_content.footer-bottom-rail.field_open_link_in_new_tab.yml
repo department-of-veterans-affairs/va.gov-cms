@@ -1,0 +1,23 @@
+uuid: ed8ef977-ce42-498f-92b5-8f6d1adbfe7c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.menu_link_content.field_open_link_in_new_tab
+    - system.menu.footer-bottom-rail
+id: menu_link_content.footer-bottom-rail.field_open_link_in_new_tab
+field_name: field_open_link_in_new_tab
+entity_type: menu_link_content
+bundle: footer-bottom-rail
+label: 'Open link in new tab'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
