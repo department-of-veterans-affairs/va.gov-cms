@@ -1,45 +1,11 @@
 # VA.gov CMS
 
-## Introduction 
-
-The [VA.gov](https://www.va.gov) website is made possible by a number of different tools and systems. See 
-[Architecture Overview](READMES/overview.md) for high level details.
-
-This repository contains the source code for the *Content Management System* (**CMS**)
-for [VA.gov](https://www.va.gov), running at [cms.VA.gov](https://cms.va.gov).
-
-Access to the production CMS is restricted with CAG. See [Getting Access](READMES/access.md).
-
-The **CMS** is built on [Drupal 8](https://www.drupal.org), using the [Composer](https://getcomposer.org) package management system. See [Getting Started](READMES/getting-started.md).
-
-## CMS API & Static Site Generation
-
-The public website seen at [VA.gov](https://www.va.gov) is a static site: just HTML, CSS, and images.
-
-The source code used to generate the public site is called *vets-website* or *Front-end* or **WEB**, and is availalble 
-at [github.com/department-of-veterans-affairs/vets-website](https://github.com/department-of-veterans-affairs/vets-website).
-
-When the content and code updates are ready for release, the **WEB** Build process is kicked off, it reads 
-content from the [CMS](https://cms.va.gov) via GraphQL (and other locations), and outputs HTML, CSS, and images.
-
-See [Deployment Workflow](READMES/deployment.md) for full details on how the WEB and CMS projects work together.
-
-## Contributing
-
-All of the source code used for generating VA.gov is open source, listed under the [department-of-veterans-affairs](https://github.com/department-of-veterans-affairs) 
-organization on GitHub:
-
-- **CMS**: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cmss)
-- **WEB**: [github.com/department-of-veterans-affairs/vets-website](https://github.com/department-of-veterans-affairs/vets-website)
-- **VETS-API**: [github.com/department-of-veterans-affairs/vets-api](https://github.com/department-of-veterans-affairs/vets-api)
-- **VETS-CONTENT**: [github.com/department-of-veterans-affairs/vagov-content](https://github.com/department-of-veterans-affairs/vagov-content)
-
-All development on these projects is done via Pull Requests. 
-
-@TODO: Create a CONTRIBUTING.md file to outline our PR policies.
-
 ## Table of Contents
-
+1. **Introduction**
+    1. [About VA.gov](#about-va-gov)
+    1. [Contributing](#contributing)
+    1. [Decoupled Drupal Implementation](#decoupled-drupal-implementation)
+    1. [Continuous Integration & Testing](#continuous-integration-testing)
 1. **Developer Info**
     1. [Getting Started](READMES/getting-started.md)
     1. [Workflow](READMES/workflow.md)
@@ -55,10 +21,64 @@ All development on these projects is done via Pull Requests.
     1. MetalSmith
     1. [Interfaces](READMES/interfaces.md) - API's and Feature Flags
 
-@TODO: Move below to sub-pages.
-@TODO: Write a good introduction here.
+## Introduction
+
+### About VA.gov 
+
+The [VA.gov](https://www.va.gov) website is made possible by a number of different tools and systems. See 
+[Architecture Overview](READMES/overview.md) for high level details.
+
+This repository contains the source code for the *Content Management System* (**CMS** or **CMS-API**)
+for [VA.gov](https://www.va.gov), running at [cms.VA.gov](https://cms.va.gov).
+
+Access to the production CMS is restricted with CAG. See [Getting Access](READMES/access.md).
+
+The **CMS** is built on [Drupal 8](https://www.drupal.org), using the [Composer](https://getcomposer.org) package management system. See [Getting Started](READMES/getting-started.md).
+
+### Decoupled Drupal Implementation
+
+The public website seen at [VA.gov](https://www.va.gov) is a static site: just HTML, CSS, and images.
+
+The source code used to generate the public site is called *vets-website* or *Front-end* or **WEB**, and is availalble 
+at [github.com/department-of-veterans-affairs/vets-website](https://github.com/department-of-veterans-affairs/vets-website).
+
+When the content and code updates are ready for release, the **WEB** Build process is kicked off, it reads 
+content from the [CMS](https://cms.va.gov) via GraphQL (and other locations), and outputs HTML, CSS, and images.
+
+See [Deployment Workflow](READMES/deployment.md) for full details on how the WEB and CMS projects work together.
+
+### Contributing
+
+All of the source code used for generating VA.gov is open source, listed under the [department-of-veterans-affairs](https://github.com/department-of-veterans-affairs) 
+organization on GitHub:
+
+- **CMS**: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms)
+- **WEB**: [github.com/department-of-veterans-affairs/vets-website](https://github.com/department-of-veterans-affairs/vets-website)
+- **VETS-API**: [github.com/department-of-veterans-affairs/vets-api](https://github.com/department-of-veterans-affairs/vets-api)
+- **VETS-CONTENT**: [github.com/department-of-veterans-affairs/vagov-content](https://github.com/department-of-veterans-affairs/vagov-content)
+
+The VFS team deploys all of these apps using a private GitHub Repo: 
+
+- **DEVOPS**: [github.com/department-of-veterans-affairs/devops](https://github.com/department-of-veterans-affairs/devops)
+
+All development on these projects is done via Pull Requests.  See [CONTRIBUTING.md](CONTRIBUTING.md) for our PR policies.
+
+### Continuous Integration & Testing
+
+The **CMS** project is running continuous integration and testing (**CMS-CI**) with [DevShop](https://getdevshop.com).
+
+A customized DevShop is deployed to [devshop.cms.va.gov](https://devshop.cms.va.gov). The customizations are contained 
+in the **DEVOPS** repo, which is *not* open source. See [DevShop Customizations](readmes/devshop.md)
+
+All pull requests submitted to the [va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms) project 
+get a running instance of the **CMS** on their branch, along with a dedicated **WEB** instance. See [Deployment Workflow](READMES/deployment.md) 
+for more details.
+
+Access to DevShop is also restricted to CAG.  See [Getting Access](READMES/access.md).  
 
 ## Get Started
+
+@TODO: Move below to sub-pages.
 
 Since this is a Drupal site, it can be launched with any Drupal development tool.
 
