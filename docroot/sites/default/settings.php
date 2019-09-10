@@ -124,18 +124,11 @@ $config['environment_indicator.indicator']['name'] = 'Local';
 
 $config_directories['sync'] = '../config/sync';
 
-$env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'lando';
-
-// Environment specific settings
-if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php')) {
-  include $app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php';
-}
-
 // SimpleSAMLphp configuration
 # Provide universal absolute path to the installation.
 $simplesamlphp_dir = 'simplesamlphp-1.17.2';
 if (is_dir(DRUPAL_ROOT . '/../' . $simplesamlphp_dir)) {
-    $settings['simplesamlphp_dir'] = DRUPAL_ROOT . '/../' . $simplesamlphp_dir;
+  $settings['simplesamlphp_dir'] = DRUPAL_ROOT . '/../' . $simplesamlphp_dir;
 }
 # SimpleSAMLphp Auth module settings.
 # This code resides here so that it can not be overridden by UI settings.
@@ -143,11 +136,11 @@ $config['simplesamlphp_auth.settings'] = [
   // Basic settings.
   'activate'                => TRUE, // Enable or Disable SAML login.
   'auth_source'             => 'default-sp',
+  'debug'                   => FALSE,
+  'httponly'                => FALSE,
   'login_link_display_name' => 'Click here to use Smartcard.',
   'register_users'          => TRUE,
-  'debug'                   => FALSE,
   'secure'                  => TRUE,
-  'httponly'                => FALSE,
   // Local authentication.
   'allow' => [
     'default_login'         => TRUE,
@@ -177,6 +170,13 @@ $config['simplesamlphp_auth.settings'] = [
     'user_name' => TRUE,
   ],
 ];
+
+$env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'lando';
+
+// Environment specific settings
+if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php')) {
+  include $app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php';
+}
 
 // Fast 404 settings
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php')) {
