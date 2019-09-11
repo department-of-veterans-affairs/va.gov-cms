@@ -55,7 +55,7 @@ See [Environments: Local](./local.md) for more information on Lando.
 If you are used to using tools like `composer` and `drush` locally, you can 
 install the project using your native Terminal:
 
-1. Change into the project directory and run `lando start`:
+1. Change into the project directory and run `composer install`:
 
     ```
     $ cd va.gov-cms
