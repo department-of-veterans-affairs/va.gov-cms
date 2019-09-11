@@ -148,8 +148,10 @@ $config['simplesamlphp_auth.settings'] = [
     'default_login_users'   => '1',
     'default_login_roles'   => [
       'authenticated' => '0',
+      # Someone with this role ought to be able to login in case of SSO failure.
       'administrator' => 'administrator',
-      'content_api_consumer' => '0',
+      # The api consumer does not use SSO to pull content from CMS.
+      'content_api_consumer' => 'content_api_consumer',
       'content_editor' => '0',
       'content_reviewer' => '0',
       'content_publisher' => '0',
