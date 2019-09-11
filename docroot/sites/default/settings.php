@@ -166,7 +166,7 @@ $config['simplesamlphp_auth.settings'] = [
   // User info and syncing.
   // `unique_id` is specified in Transient format, otherwise this should be `UPN`
   // Please talk to your SSO adminsitrators about which format you should be using.
-  'unique_id'               => 'VAUID',
+  'unique_id'               => 'adUPN',
   'user_name'               => 'adUPN',
   'mail_attr'               => 'adUPN',
   'sync' => [
