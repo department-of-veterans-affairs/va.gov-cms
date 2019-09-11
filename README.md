@@ -28,6 +28,7 @@ The VA.gov Team.
         1. [CI Environments](READMES/cms-ci.md)
         1. [Local - Lando](READMES/local.md)
         1. [BRD Environments](READMES/brd.md)
+        1. [HTTPS](READMES/https.md)
     1. [Testing](READMES/testing.md)
     1. [Debugging](READMES/debugging.md)
 1. **Release & Deployment**
