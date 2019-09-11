@@ -1,12 +1,25 @@
 ## WEB & CMS Integration
 
-Recoupled Drupal. 
-
-### VA.gov WEB
-
-This Drupal site acts solely as a CMS and Content API. The actual website for va.gov is powered by the [vets-website](https://github.com/department-of-veterans-affairs/vets-website) repo.
+This Drupal site acts solely as a CMS and Content API for the Front-End Website Generator.
+The actual website for va.gov is powered by the [vets-website](https://github.com/department-of-veterans-affairs/vets-website) repo.
 
 The `WEB` project is built on Metalsmith. The project consumes the Drupal CMS GraphQL endpoint and generates static files for VA.gov.
+
+### CMS & WEB Unity
+
+In order to fully test and stabilize the **WEB** building process as it consumes **CMS** content, we need to build the 
+**WEB** project in the **CMS-CI** system, and be able to pin the version we are working with.
+
+There a number of components that allow us to build the **WEB** project inside
+the **CMS** build process:
+
+- Add **WEB** as a composer "package", with it's version defined in the **CMS** composer.json's "repositories" section.
+- Require the [mouf/nodejs-installer](https://packagist.org/packages/mouf/nodejs-installer) package.
+  This tool automatically installs executable versions of Node and NPM at the specific version we set in `composer.json`.
+- Add to `composer.json`'s "scripts" section (post-install-cmd), to kick off "yarn build" and "npm build" commands after `composer install`.
+- Add Composer commands (See `composer.json`'s "scripts" section) to faciitate building and rebuilding the **WEB** project.
+- To confirm this entire stack is working, the Behat test suite includes editing a CMS node, running the web rebuild, 
+  then confirms edited content is visible.
 
 ### Using Composer to install WEB
 
@@ -69,9 +82,9 @@ the "reference" under "va-gov-web" repository:
 ```
 Then followup with a `composer update --lock` and `lando test` will build the FE with the new hash.
 
-#### Build static content from local CMS
+#### Rebuild WEB from a local CMS
 
-There is now a composer command to rebuild the WEB front-end static files from a locally running Drupal site:
+There is a composer command to rebuild the WEB front-end static files from a locally running Drupal site:
 
 ```
 composer va:web:build
@@ -82,6 +95,15 @@ This command will regenerate the HTML and CSS for the entire site, and will put 
 If using lando, you can load it using http://va-gov-cms.lndo.site/static.
 
 NOTE: We are working on a method to load this content from a root url, like http://va-gov-web.lndo.site
+
+#### Rebuild WEB from a CMS-CI Environment
+
+The **CMS-CI** system rebuilds the PR sites, including **WEB** every time code is pushed via git.
+
+If team members wish to rebuild WEB manually, they can now sign into DevShop and press the "Rebuild Front-End" button 
+on the environment they are working on.
+
+![Screenshot of DevShop Environment "Rebuild VA.gov Front-end" Button](devshop-rebuild.png)
 
 ### Build CMS PR Environment for WEB PR
 
