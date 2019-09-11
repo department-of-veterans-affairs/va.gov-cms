@@ -113,19 +113,13 @@ This section outlines only the systems utilized by the CMS. For information on t
 
 #### CMS in BRD: Dev, Staging, Production
 
+The VFS Team maintains a system called **BRD**: *Build, Release, Deploy.*
 
+The system is powered by Ansible Roles in the VA's "DevOps" repository, located at [github.com/department-of-veterans-affairs/devops/tree/master/ansible/build/roles/cms](https://github.com/department-of-veterans-affairs/devops/tree/master/ansible/build/roles/cms)
 
-#### Continuous Integration & Testing
+The **BRD** system builds Amazon server images using Ansible, and tags those 
+images for release along with the source code of CMS.
 
-The **CMS** project is running continuous integration and testing (**CMS-CI**) with [DevShop](https://getdevshop.com).
+The VFS team then deploys those images to the *dev*, *staging* and *production* environments inside the VAEC when the release is ready.
 
-A customized DevShop is deployed to [devshop.cms.va.gov](https://devshop.cms.va.gov). The customizations are contained 
-in the **DEVOPS** repo, which is *not* open source. See [DevShop Customizations](readmes/devshop.md)
-
-All pull requests submitted to the [va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms) project 
-get a running instance of the **CMS** on their branch, along with a dedicated **WEB** instance. See [Deployment Workflow](READMES/deployment.md) 
-for more details.
-
-Access to DevShop is also restricted to CAG.  See [Getting Access](READMES/access.md).  
-
-
+See [The BRD System: Build, Release, Deploy](READMES/brd.md) for more information.
