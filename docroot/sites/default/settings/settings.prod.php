@@ -22,6 +22,9 @@ $config['environment_indicator.indicator']['bg_color'] = '#ff2301';
 $config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'Production';
 
+// @todo Uncomment this block when SSOi beta is complete and all other roles
+// must use SSOi.
+/*
 $config['simplesamlphp_auth.settings']['allow']['default_login_roles'] = [
   'authenticated' => '0',
   # Someone with this role ought to be able to login in case of SSO failure.
@@ -35,6 +38,7 @@ $config['simplesamlphp_auth.settings']['allow']['default_login_roles'] = [
   'redirect_administrator' => '0',
   'documentation_editor' => '0',
 ];
+*/
 
 $settings['trusted_host_patterns'] = [
     // For ALB/ELB Healthchecks.
