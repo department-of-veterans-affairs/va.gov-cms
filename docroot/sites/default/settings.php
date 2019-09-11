@@ -141,23 +141,25 @@ $config['simplesamlphp_auth.settings'] = [
   'login_link_display_name' => 'Click here to use Smartcard.',
   'register_users'          => TRUE,
   'secure'                  => TRUE,
-  // Local authentication.
+  // Local authentication.  In order for Behat tests to run, all users need to
+  // have the option to login without SSO.  settings.prod has a more
+  // restrictive list.
   'allow' => [
     'default_login'         => TRUE,
     'set_drupal_pwd'        => FALSE,
     'default_login_users'   => '1',
     'default_login_roles'   => [
-      'authenticated' => '0',
+      'authenticated' => 'authenticated',
       # Someone with this role ought to be able to login in case of SSO failure.
       'administrator' => 'administrator',
       # The api consumer does not use SSO to pull content from CMS.
       'content_api_consumer' => 'content_api_consumer',
-      'content_editor' => '0',
-      'content_reviewer' => '0',
-      'content_publisher' => '0',
-      'admnistrator_users' => '0',
-      'redirect_administrator' => '0',
-      'documentation_editor' => '0',
+      'content_editor' => 'content_editor',
+      'content_reviewer' => 'content_reviewer',
+      'content_publisher' => 'content_publisher',
+      'admnistrator_users' => 'admnistrator_users',
+      'redirect_administrator' => 'redirect_administrator',
+      'documentation_editor' => 'documentation_editor',
     ],
   ],
   'logout_goto_url'         => '',
