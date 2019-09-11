@@ -23,6 +23,8 @@ $config['environment_indicator.indicator']['bg_color'] = '#05F901';
 $config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'Development';
 
+$config['simplesamlphp_auth.settings']['debug'] = TRUE;
+
 $settings['trusted_host_patterns'] = [
     // For ALB/ELB Healthchecks.
     '10\.199.*',
