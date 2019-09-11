@@ -146,8 +146,11 @@ $config['simplesamlphp_auth.settings'] = [
   // restrictive list.
   'allow' => [
     'default_login'         => TRUE,
-    'set_drupal_pwd'        => FALSE,
+    // @TODO when the beta period is over, this should be changed to FALSE.
+    'set_drupal_pwd'        => TRUE,
     'default_login_users'   => '1',
+    // For Behat tests, all roles need to be access on lower environments.
+    // See settings.prod.php for prod specific restrictions.
     'default_login_roles'   => [
       'authenticated' => 'authenticated',
       # Someone with this role ought to be able to login in case of SSO failure.
