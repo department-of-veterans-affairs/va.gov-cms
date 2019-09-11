@@ -170,8 +170,8 @@ $config['simplesamlphp_auth.settings'] = [
   'user_name'               => 'adUPN',
   'mail_attr'               => 'adUPN',
   'sync' => [
-    'mail'      => TRUE,
-    'user_name' => TRUE,
+    'mail'      => FALSE,
+    'user_name' => FALSE,
   ],
 ];
 
