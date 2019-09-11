@@ -16,8 +16,9 @@ The VA.gov Team.
 1. **Introduction**
     1. [About VA.gov](#about-vagov)
     1. [Contributing](#contributing)
-    1. [Decoupled Drupal Implementation](#decoupled-drupal-implementation)
-    1. [Continuous Integration](#continuous-integration)
+    1. [High Level Architecture](#highlevel-architecture)
+    1. [Infrastructure](#infrastructure)
+    1. [Sites](#sites)
 1. **Developer Info**
     1. [Getting Started](READMES/getting-started.md)
     1. [WEB & CMS Integration](READMES/unity.md)
@@ -44,7 +45,7 @@ The VA.gov Team.
 ### About VA.gov 
 
 The [VA.gov](https://www.va.gov) website is made possible by a number of different tools and systems. See 
-[Architecture Overview](READMES/overview.md) for high level details.
+[High-Level Architecture](#highlevel-architecture) for an overview of all of the components.
 
 This repository contains the source code for the *Content Management System* (**CMS** or **CMS-API**)
 for [VA.gov](https://www.va.gov), running at [cms.VA.gov](https://cms.va.gov).
@@ -69,22 +70,52 @@ The VFS team deploys all of these apps using a Jenkins server, configured with a
 
 All development on these projects is done via Pull Requests.  See [CONTRIBUTING.md](CONTRIBUTING.md) for our PR policies.
 
-### Decoupled Drupal Implementation
+### High-Level Architecture
 
 The public website seen at [VA.gov](https://www.va.gov) is a static site: just HTML, CSS, and images.
 
 The source code used to generate the public site is called *vets-website* or *Front-end* or **WEB**, and is availalble 
 at [github.com/department-of-veterans-affairs/vets-website](https://github.com/department-of-veterans-affairs/vets-website).
 
+#### Decoupled Drupal
+
+The codebase in [this repository (va.gov-cms)](https://github.com/department-of-veterans-affairs/va.gov-cms) is for the 
+**CMS**, which is built on Drupal 8. The **CMS** is not publicly available. It 
+acts as a *Content API* for the **WEB** application, and a *Content Management System* for VA.gov Content Team.
+
 The **CMS** codebase now includes the **WEB** codebase as a dependency: the version is set in `composer.json`. It is 
 downloaded to the `./web` folder during `composer install`.
+
+#### Build and Release Process 
 
 When the content and code updates are ready for release, the **WEB** Build process is kicked off, it reads 
 content from the [CMS](https://cms.va.gov) via GraphQL (and other locations), and outputs HTML, CSS, and images.
 
 See [WEB & CMS Integration](READMES/unity.md) for full details on how the WEB and CMS projects work together.
 
-### Continuous Integration & Testing
+### Infrastructure
+
+This section outlines only the systems utilized by the CMS. For information on the **WEB** project's infrastucture, see 
+[]().
+
+#### CMS-CI: Pull Request and Ad-hoc Environments
+
+ - Running OpenDevShop at [devshop.cms.va.gov](http://devshop.cms.va.gov). Access restricted to CAG, sign in with GitHub.
+ - A single "mirror" environment is regularly populated with a sanitized production database copy.
+ - Open Pull Requests get environments created automatically, cloned from the "mirror" environment, with URLS like 
+ [pr123.ci.cms.va.gov](http://pr123.ci.cms.va.gov) and
+   a **WEB** instance built from that PR environment's content, like [pr123.web.ci.cms.va.gov](http://pr123.web.ci.cms.va.gov).
+ - Ad-hoc environments can be created and deleted at any time by any logged in user to [devshop.cms.va.gov](http://devshop.cms.va.gov): 
+   - Can be named anything and can be set to any branch or Pull Request.
+   - These environments will not change or be rebuild unless the creator chooses.
+   - Useful for testing and demos outside of the CMS-CI process.
+ - Single EC2 Instance: @TODO: List size, storage, etc.
+
+#### CMS in BRD: Dev, Staging, Production
+
+
+
+#### Continuous Integration & Testing
 
 The **CMS** project is running continuous integration and testing (**CMS-CI**) with [DevShop](https://getdevshop.com).
 
