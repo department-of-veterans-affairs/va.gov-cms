@@ -91,15 +91,23 @@ You can add an argument to filter the tests to run:
  ```
  
 
-## GitHub Integration and Enforcement 
+## GitHub Integration 
  
 The Yaml-Tests tool also integrates with GitHub, providing pass/fail commit
  status for each test listed in `tests.yml`, and posting errors as comments
   on the commit's page on GitHub.com.
-  
+
+### Branch Enforcement Rules
+   
 All of the tests in `tests.yml` are required to pass before a Pull Request
  can be merged. This is enforced by GitHub.com and is configurable: See the
   [Branches section of the repository's Settings](https://github.com/department-of-veterans-affairs/va.gov-cms/settings/branches).  
+
+![GitHub comment with the output from a failed test.](github-test-fail-comment.png)
+
+If an individual test fails, the Yaml-test tool creates a comment on the
+ commit with the failed test results. 
+ The test results are also logged in DevShop. 
 
 ### GitHub Statuses API
 
