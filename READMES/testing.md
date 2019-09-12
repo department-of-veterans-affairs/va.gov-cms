@@ -103,12 +103,15 @@ All of the tests in `tests.yml` are required to pass before a Pull Request
 
 ## Test Suite
 
-There are 3 main types of tests:
+There are 4 main types of tests:
 
 1. **Static Tests:**
   Static tests are run as a Git Commit hook: Developers cannot commit code if
   any of these tests fail. Static tests only require the source code. No site
-  is needed.
+  is needed. 
+
+    See the [hooks/pre-commit file](../hooks/pre-commit) for the exact
+  command run before git commit.
     1. `va/tests/phpcs` - "PHP CodeSniffer" tests ensure coding standards
      are met.
     1. `va/tests/phplint` - Ensures no syntax errors are present.
@@ -128,7 +131,8 @@ There are 3 main types of tests:
     1. `va/web/unit` - Run the front-end unit tests. (Not yet merged. See
      [PR547](https://github.com/department-of-veterans-affairs/va.gov-cms/pull/547))
      
-    The target is to run *all* of the **WEB** project's tests in our test
+    The long term goal is to run *all* of the **WEB** project's tests in our
+     test
     suite, but more work is needed in the **WEB** codebase to make that
     possible.
      
@@ -215,10 +219,19 @@ The `which npm` command helps you find out which file is actually being run.
 In this project's case, `which npm` would print `/path/to/va.gov-cms/bin/npm`.
 
 
-## @TODO: Document Additional Testing:
-
 ## Fortify security scans
+
+Fortify scans are run manually. @TODO: Add documentation on Fortify
+
 ## Nightwatch accessibility testing
+
+Nightwatch is not currently included in the CMS test suite.
+
+@TODO: Add Nightwatch tests using composer npm-asset and add to `tests.yml`
+
 ## Manual visual regression
+
+@TODO: Document what this means.
+
 
 [Table of Contents](../README.md)
