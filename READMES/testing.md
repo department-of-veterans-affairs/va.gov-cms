@@ -10,9 +10,6 @@ The automated test suite for cms.VA.gov is defined in the [tests.yml](tests.yml)
 The *Yaml Tests* Composer plugin is required by the main va.gov-cms 
 `composer.json` file.
 
-Always refer to the file `tests.yml` for the list of tests that are included in
- the automated testing system.
- 
 ## Goals
 
 To adopt a strong test driven culture, the testing tools must:
@@ -26,6 +23,87 @@ To adopt a strong test driven culture, the testing tools must:
 
 The **Yaml Tests** tool was designed with these goals in mind.
 
+## VA.gov CMS Test Suite
+
+Always refer to the file `tests.yml` for the canonical list of required tests
+ that are included in the automated testing system, and are required to pass 
+ before merge or deplotyment,
+ 
+There are 4 main types of tests:
+
+1. **Static Tests:**
+  Static tests are run as a Git Commit hook: Developers cannot commit code if
+  any of these tests fail. Static tests only require the source code. No site
+  is needed. 
+
+    See the [hooks/pre-commit file](../hooks/pre-commit) for the exact
+  command run before git commit.
+    1. `va/tests/phpcs` - "PHP CodeSniffer" tests ensure coding standards
+     are met.
+    1. `va/tests/phplint` - Ensures no syntax errors are present.
+1. **Deployment Tests:** These commands are run during a production
+ deployment. By treating them as tests, developers can identify failures in
+  the deployment process before they go to production.
+    1. `va/deploy/0-composer` - Composer Install.
+    1. `va/deploy/1-cache` - Cache Rebuild.
+    1. `va/deploy/2-update` - Database Update.
+    1. `va/deploy/3-config` - Configuration Import.
+    
+    *NOTE: The tests are run in the order listed in `tests.yml`. The numbers
+     here are to keep them in order when listed on GitHub.*
+1. **WEB Integration Tests**
+    1. `va/web/build` - Build the front-end from the current site. (Alias for
+     `composer va:web:build`).
+    1. `va/web/unit` - Run the front-end unit tests. (Not yet merged. See
+     [PR547](https://github.com/department-of-veterans-affairs/va.gov-cms/pull/547))
+     
+    The long term goal is to run *all* of the **WEB** project's tests in our
+     test
+    suite, but more work is needed in the **WEB** codebase to make that
+    possible.
+     
+1. **Functional Tests** 
+    1. `va/tests/phpunit` - The CMS PHPUnit Tests include a number
+     of tests, including Creating Media, testing GraphQL, Performance tests
+     , Security, and more. See the [tests/phpunit folder](tests/phpunit) to
+      see all the PHPUnit tests. 
+      
+        Run a specific PHPUnit test with the "path" argument: 
+        
+        ```
+        lando phpunit {Path-to-test}
+        ```
+       
+        Run a group of PHPUnit tests:
+       
+        ```sh
+        lando phpunit . --group security
+        ```
+      
+    1. `va/tests/behat` - The Behat test suite includes:
+        1. *Content-Edit-Web-Rebuild test:* 
+        
+            This test is critical: it ensures the CMS does not break the WEB
+             build.
+             
+             See [tests/behat/features/content.feature](../tests/behat/features/content.feature)
+        
+        1. *Permissons Test:* 
+          
+            See [tests/behat/features/perms.feature](../tests/behat/features/perms.feature)
+           
+        1. *Drupal Spec Tests:* The DST tool enforces the desired structure of
+         the Drupal site by generating Gherkin Feature files. See 
+         [tests/behat/drupal-spec-tool](../tests/behat/drupal-spec-tool/) folder
+          for all of the tests and more information on managing the Drupal Spec 
+          Tool.
+      
+        Run a specific behat test with the `--name` or `--tags` options:
+        
+        ```
+        lando behat --tags=spec 
+        ```
+       
 ## Running Tests
 
 The main way to run Yaml-tests is the `composer yaml-tests` command.
@@ -129,84 +207,6 @@ What you end up seeing is something like this:
  *This means 
 if you open a second PR with the same commits, the commit status AND the
  commit comments will show in *both* pull requests.*
-
-## Test Suite
-
-There are 4 main types of tests:
-
-1. **Static Tests:**
-  Static tests are run as a Git Commit hook: Developers cannot commit code if
-  any of these tests fail. Static tests only require the source code. No site
-  is needed. 
-
-    See the [hooks/pre-commit file](../hooks/pre-commit) for the exact
-  command run before git commit.
-    1. `va/tests/phpcs` - "PHP CodeSniffer" tests ensure coding standards
-     are met.
-    1. `va/tests/phplint` - Ensures no syntax errors are present.
-1. **Deployment Tests:** These commands are run during a production
- deployment. By treating them as tests, developers can identify failures in
-  the deployment process before they go to production.
-    1. `va/deploy/0-composer` - Composer Install.
-    1. `va/deploy/1-cache` - Cache Rebuild.
-    1. `va/deploy/2-update` - Database Update.
-    1. `va/deploy/3-config` - Configuration Import.
-    
-    *NOTE: The tests are run in the order listed in `tests.yml`. The numbers
-     here are to keep them in order when listed on GitHub.*
-1. **WEB Integration Tests**
-    1. `va/web/build` - Build the front-end from the current site. (Alias for
-     `composer va:web:build`).
-    1. `va/web/unit` - Run the front-end unit tests. (Not yet merged. See
-     [PR547](https://github.com/department-of-veterans-affairs/va.gov-cms/pull/547))
-     
-    The long term goal is to run *all* of the **WEB** project's tests in our
-     test
-    suite, but more work is needed in the **WEB** codebase to make that
-    possible.
-     
-1. **Functional Tests** 
-    1. `va/tests/phpunit` - The CMS PHPUnit Tests include a number
-     of tests, including Creating Media, testing GraphQL, Performance tests
-     , Security, and more. See the [tests/phpunit folder](tests/phpunit) to
-      see all the PHPUnit tests. 
-      
-        Run a specific PHPUnit test with the "path" argument: 
-        
-        ```
-        lando phpunit {Path-to-test}
-        ```
-       
-        Run a group of PHPUnit tests:
-       
-        ```sh
-        lando phpunit . --group security
-        ```
-      
-    1. `va/tests/behat` - The Behat test suite includes:
-        1. *Content-Edit-Web-Rebuild test:* 
-        
-            This test is critical: it ensures the CMS does not break the WEB
-             build.
-             
-             See [tests/behat/features/content.feature](../tests/behat/features/content.feature)
-        
-        1. *Permissons Test:* 
-          
-            See [tests/behat/features/perms.feature](../tests/behat/features/perms.feature)
-           
-        1. *Drupal Spec Tests:* The DST tool enforces the desired structure of
-         the Drupal site by generating Gherkin Feature files. See 
-         [tests/behat/drupal-spec-tool](../tests/behat/drupal-spec-tool/) folder
-          for all of the tests and more information on managing the Drupal Spec 
-          Tool.
-      
-        Run a specific behat test with the `--name` or `--tags` options:
-        
-        ```
-        lando behat --tags=spec 
-        ```
-       
 
  ### Composer, `config.bin-path`, and $PATH
  
