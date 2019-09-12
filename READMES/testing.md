@@ -3,11 +3,94 @@
 The code for cms.VA.gov undergoes numerous tests before merging, and tests
 are run before deployment and release.
 
-The test suite for cms.VA.gov is defined in the [tests.yml](tests.yml) file
- and is run using the [Yaml-Tests](https://github.com/provision-ops/yaml-tests) 
- tool, allowing the same command to be used local development, in CMS-CI, and 
- for production releases.
+The automated test suite for cms.VA.gov is defined in the [tests.yml](tests.yml)
+ file and is run using the [Yaml-Tests](https://github.com/provision-ops/yaml-tests) tool, allowing the same command to be used local development, in CMS
+ -CI and for production releases.
+
+The *Yaml Tests* Composer plugin is required by the main va.gov-cms 
+`composer.json` file.
+
+Always refer to the file `tests.yml` for the list of tests that are included in
+ the automated testing system.
  
+## Goals
+
+To adopt a strong test driven culture, the testing tools must:
+
+1. Run the same tests in multiple environments with minimal configuration and
+ a single command.
+2. Allow developers to define tests to include in the suite and to write the
+ tests.
+3. Provide feedback to developers as quickly as possible and make test output as
+ readable and accessible as possible.
+
+The **Yaml Tests** tool was designed with these goals in mind.
+
+## Running Tests
+
+The main way to run Yaml-tests is the `composer yaml-tests` command.
+
+Run `composer yaml-tests --help` for more information.
+
+### Composer Command:  `composer yaml-tests` 
+
+All composer commands can be shortened to any unique string, so `composer y
+` is an alias for `composer yaml-tests`.
+
+Run `composer y --help` to see more options.
+
+### Bin dir executable: `./bin/yaml-tests`
+
+There is a `bin/yaml-tests` file provided with this package. You can run it
+ from the project root.
+ 
+*NOTE: The `bin` directory is automatically included in the $PATH for all
+ Composer commands, including yaml-tests itself.*
+ 
+  See [Composer Paths](#composer-configbinpath-and-path) for more information
+   on Composer and $PATH.
+ 
+### Local Testing with Lando: `lando test`
+
+This project is configured to work with Lando out of the box.
+
+Lando commands are listed in [`.lando.yml`](../.lando.yml). There are some
+ helper commands that map to Composer Yaml-test commands.
+ 
+
+ | Lando Command        | Composer Command
+ |--------------        |----------------
+ |lando test            | composer yaml-tests 
+ |lando test va/deploy  | composer yaml-tests va/deploy 
+ |lando web-build       | composer va:web:build  
+ |lando phpunit         | composer yaml-tests  va/tests/phpunit
+ |lando web-build       | composer va:web:build  
+ |lando behat           | cd /app/tests/behat && /app/bin/behat
+ 
+*NOTES:* 
+  - Any arguments passed to the `lando` command are passed through to the
+ composer command.
+  - Any Composer command can be run inside a Lando container after you call
+   `lando ssh`.
+   
+@TODO: Standardize this mapping on Yaml-tests. It will continue to improve
+ with features like timing, profiling, output logging, etc.
+ 
+### Limit tests to run
+You can add an argument to filter the tests to run:
+                   
+ ```sh
+ # Run the entire test suite.
+ composer yaml-tests
+ 
+ # Run `va/tests/phpunit` only
+ composer yaml-tests phpunit
+ 
+ # Run all `va/deploy/*` tests.
+ composer yaml-tests va/deploy
+ ```
+ 
+
 ## GitHub Integration and Enforcement 
  
 The Yaml-Tests tool also integrates with GitHub, providing pass/fail commit
@@ -92,36 +175,45 @@ There are 3 main types of tests:
         ```
        
 
-## Test Runner
-The [Yaml-Tests](https://github.com/provision-ops/yaml-tests) Composer Plugin was created 
-to standardize the way tests were run and make it easy to maintain the suite in
-code. 
-
-Run the `yaml-tests` command from the root of the git repository. You can add
- an argument to only run tests where the entered string is in the name.
+ ### Composer, `config.bin-path`, and $PATH
+ 
+ Composer automatically loads the directory `bin` into the PATH of any
+  composer command or script. More accurately, it includes the directory set in 
+  the `config.bin-dir` section of `composer.json`. 
   
-If you are inside the container/server:
+  This means you only have to include the script name when referring to them in
+  `composer.json` or in `tests.yml`.
+ 
+ For example, if you wanted to create a `composer special-tests` command as
+  an alias for `yaml-tests` but with a different file and with a filter, add
+   this to `composer.json`:
+ 
+  ```json
+  {
+    "scripts": {
+      "special-tests": [
+        "which yaml-tests",
+        "yaml-tests myuniquetests --file=custom.yml"
+      ]
+    }
+  }
+  ``` 
 
-```sh
-# Run the entire test suite.
-composer yaml-tests
+ Or, if you want to run `drush` or `npm` (or any other script in the `bin` dir) as a
+  test, just call the script name:
+  
+  ```yaml
+  # tests.yml example that runs commands from the project's ./bin directory.
+  example/drush/status: drush status
+  example/drush/version: drush --version
+  example/npm/which: which npm
+  example/npm/version: npm --version
+  ```
 
-# Run `va/tests/phpunit` only
-composer yaml-tests phpunit
+The `which npm` command helps you find out which file is actually being run.
 
-# Run all `va/deploy/*` tests.
-composer yaml-tests va/deploy
-```
+In this project's case, `which npm` would print `/path/to/va.gov-cms/bin/npm`.
 
-OR if you are using Lando and are in your native terminal, the `lando test
-` command is an alias for `composer yaml-tests`
-
-```
-$ lando test
-```
-
-Always refer to the file `tests.yml` for the list of tests that are included in
- the automated testing system.
 
 ## @TODO: Document Additional Testing:
 
