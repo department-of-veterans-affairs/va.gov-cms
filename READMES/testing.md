@@ -27,7 +27,7 @@ The **Yaml Tests** tool was designed with these goals in mind.
 
 Always refer to the file `tests.yml` for the canonical list of required tests
  that are included in the automated testing system, and are required to pass 
- before merge or deplotyment,
+ before merge or deployment,
  
 There are 4 main types of tests:
 
