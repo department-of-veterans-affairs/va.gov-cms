@@ -10,4 +10,6 @@ Going forward the following will apply to anyone working on a VA.gov team
  adjudication will need to be initiated. this should take <=30 days from the time the person joins the team.
 to check on the status of either milestone for non-gov't employees (so, any folks working on any contracts), please check with @Hayter. and of course let me know if you have any questions!
 
+See https://dsva.slack.com/archives/C7S6EA0ES/p1568297100157500
+
 @TODO: Fill out with content from the old CMS-devops repo.
