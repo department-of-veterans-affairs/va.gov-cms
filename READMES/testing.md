@@ -101,6 +101,27 @@ All of the tests in `tests.yml` are required to pass before a Pull Request
  can be merged. This is enforced by GitHub.com and is configurable: See the
   [Branches section of the repository's Settings](https://github.com/department-of-veterans-affairs/va.gov-cms/settings/branches).  
 
+### GitHub Statuses API
+
+The API used by Yaml Tests and GitHub for testing code is called the
+ "Statuses API": https://developer.github.com/v3/repos/statuses/
+ 
+It stores test results attached to the commit, based on SHA.
+
+Yaml-tests reads the SHA of git repository, runs the test, and sends the state
+to GitHub Status API, which sends it along to the users.
+
+What you end up seeing is something like this: 
+
+![GitHub Commit Statuses, some failing, some passing.](github-commit-status.png)
+
+*NOTE: The GitHub API stores this information attached to the Commit, not to
+ the PR.*
+ 
+ *This means 
+if you open a second PR with the same commits, the commit status AND the
+ commit comments will show in *both* pull requests.*
+
 ## Test Suite
 
 There are 4 main types of tests:
