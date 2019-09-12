@@ -124,60 +124,6 @@ $config['environment_indicator.indicator']['name'] = 'Local';
 
 $config_directories['sync'] = '../config/sync';
 
-// SimpleSAMLphp configuration
-# Provide universal absolute path to the installation.
-$simplesamlphp_dir = 'simplesamlphp-1.17.2';
-if (is_dir(DRUPAL_ROOT . '/../' . $simplesamlphp_dir)) {
-  $settings['simplesamlphp_dir'] = DRUPAL_ROOT . '/../' . $simplesamlphp_dir;
-}
-# SimpleSAMLphp Auth module settings.
-# This code resides here so that it can not be overridden by UI settings.
-$config['simplesamlphp_auth.settings'] = [
-  // Basic settings.
-  'activate'                => TRUE, // Enable or Disable SAML login.
-  'auth_source'             => 'default-sp',
-  'debug'                   => FALSE,
-  'httponly'                => FALSE,
-  'login_link_display_name' => 'Click here to use Smartcard.',
-  'register_users'          => TRUE,
-  'secure'                  => TRUE,
-  // Local authentication.  In order for Behat tests to run, all users need to
-  // have the option to login without SSO.  settings.prod has a more
-  // restrictive list.
-  'allow' => [
-    'default_login'         => TRUE,
-    // @TODO when the beta period is over, this should be changed to FALSE.
-    'set_drupal_pwd'        => TRUE,
-    'default_login_users'   => '1',
-    // For Behat tests, all roles need to be access on lower environments.
-    // See settings.prod.php for prod specific restrictions.
-    'default_login_roles'   => [
-      'authenticated' => 'authenticated',
-      # Someone with this role ought to be able to login in case of SSO failure.
-      'administrator' => 'administrator',
-      # The api consumer does not use SSO to pull content from CMS.
-      'content_api_consumer' => 'content_api_consumer',
-      'content_editor' => 'content_editor',
-      'content_reviewer' => 'content_reviewer',
-      'content_publisher' => 'content_publisher',
-      'admnistrator_users' => 'admnistrator_users',
-      'redirect_administrator' => 'redirect_administrator',
-      'documentation_editor' => 'documentation_editor',
-    ],
-  ],
-  'logout_goto_url'         => '',
-  // User info and syncing.
-  // `unique_id` is specified in Transient format, otherwise this should be `UPN`
-  // Please talk to your SSO adminsitrators about which format you should be using.
-  'unique_id'               => 'VAUID',
-  'user_name'               => 'adUPN',
-  'mail_attr'               => 'adUPN',
-  'sync' => [
-    'mail'      => TRUE,
-    'user_name' => TRUE,
-  ],
-];
-
 $env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'lando';
 
 // Environment specific settings
