@@ -21,14 +21,10 @@ $config['views.settings']['ui']['show']['performance_statistics'] = TRUE;
 $config['system.logging']['error_level'] = 'all';
 $config['environment_indicator.indicator']['bg_color'] = '#05F901';
 $config['environment_indicator.indicator']['fg_color'] = '#000000';
-$config['environment_indicator.indicator']['name'] = 'Development';
-
+$config['environment_indicator.indicator']['name'] = 'Lando';
 
 $settings['trusted_host_patterns'] = [
     // For ALB/ELB Healthchecks.
-    '10\.199.*',
-    '10\.247.*',
     'localhost',
-    'dev.cms.va.gov',
-    '.*\.us-gov-west-1\.elb\.amazonaws\.com',
+    'va-gov-cms.lndo.site',
 ];

@@ -25,3 +25,20 @@ function va_gov_login_menu_local_tasks_alter(&$data, $route_name) {
     $data['tabs'][0]['user.pass']['#access'] = FALSE;
   }
 }
+
+/**
+ * Implements hook_simplesamlphp_auth_existing_user().
+ *
+ * @see hook_simplesamlphp_auth_existing_user()
+ */
+function va_gov_login_simplesamlphp_auth_existing_user($attributes) {
+  $saml_mail = $attributes['adEmail'];
+  $existing_users = \Drupal::service('entity.manager')->getStorage('user')->loadByProperties(['mail' => $saml_mail]);
+  if ($existing_users) {
+    $existing_user = is_array($existing_users) ? reset($existing_users) : FALSE;
+    if ($existing_user) {
+      return $existing_user;
+    }
+  }
+  return FALSE;
+}
