@@ -28,10 +28,16 @@ Feature: Permissions
     And I am on <page>
     Then the response status code should be <code>
     Examples:
-      | role                   | page          | code |
-      | "content_api_consumer" | "/graphql"    | 200  |
-      | "content_api_consumer" | "/flags_list" | 200  |
+      | role                   | page                   | code |
+      | "content_api_consumer" | "/graphql"             | 200  |
+      | "content_api_consumer" | "/flags_list"          | 200  |
 
+  @perms @content_api_consumer @cac_menus
+  Scenario: Content api consumer cannot alter existing menus
+    Given I am logged in as a user with the "content_api_consumer" role
+    And I am on "admin/structure/menu"
+    Then I should not see "Edit menu"
+    And I should see "View JSON"
 
   @perms @content_editor
   Scenario Outline: Content editor can edit - edit test indicates save perm is true.

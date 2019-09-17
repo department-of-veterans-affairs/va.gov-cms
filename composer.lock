@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a39a998f1b9164a4a8906127d295525",
+    "content-hash": "2511e988d06a3d102bca63e414526334",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -3414,6 +3414,110 @@
             }
         },
         {
+            "name": "drupal/config_ignore",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/config_ignore.git",
+                "reference": "8.x-2.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/config_ignore-8.x-2.1.zip",
+                "reference": "8.x-2.1",
+                "shasum": "07e00684930706632b3f2fc2a7433ffdae57cde7"
+            },
+            "require": {
+                "drupal/config_filter": "1.*",
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.x": "2.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-2.1",
+                    "datestamp": "1507706044",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Tommy Lynge Jørgensen",
+                    "homepage": "https://www.drupal.org/u/tlyngej",
+                    "email": "tlyngej@gmail.com",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Fabian Bircher",
+                    "homepage": "https://www.drupal.org/u/bircher",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Ignore certain configuration during import.",
+            "homepage": "http://drupal.org/project/config_ignore",
+            "support": {
+                "source": "http://cgit.drupalcode.org/config_ignore",
+                "issues": "http://drupal.org/project/config_ignore",
+                "irc": "irc://irc.freenode.org/drupal-contribute"
+            }
+        },
+        {
+            "name": "drupal/config_override_warn",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/config_override_warn.git",
+                "reference": "8.x-1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/config_override_warn-8.x-1.2.zip",
+                "reference": "8.x-1.2",
+                "shasum": "589efcdc9dc22c7483aa4707129c15aa2f8d7a91"
+            },
+            "require": {
+                "drupal/core": "^8.5"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.2",
+                    "datestamp": "1562352181",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Dave Reid",
+                    "homepage": "https://www.drupal.org/user/53892"
+                }
+            ],
+            "description": "Provide a warning message on configuration forms when any values on the form are possibly being overridden.",
+            "homepage": "https://www.drupal.org/project/config_override_warn",
+            "support": {
+                "source": "https://git.drupalcode.org/project/config_override_warn"
+            }
+        },
+        {
             "name": "drupal/config_split",
             "version": "1.4.0",
             "source": {
@@ -3524,10 +3628,6 @@
                 {
                     "name": "e0ipso",
                     "homepage": "https://www.drupal.org/user/550110"
-                },
-                {
-                    "name": "eojthebrave",
-                    "homepage": "https://www.drupal.org/user/79230"
                 }
             ],
             "description": "Declare all the consumers of your API",
@@ -4961,10 +5061,6 @@
                 {
                     "name": "cs_shadow",
                     "homepage": "https://www.drupal.org/user/2828287"
-                },
-                {
-                    "name": "oknate",
-                    "homepage": "https://www.drupal.org/user/471638"
                 },
                 {
                     "name": "phenaproxima",
@@ -7474,7 +7570,7 @@
                 },
                 "drupal": {
                     "version": "8.x-4.1",
-                    "datestamp": "1565213885",
+                    "datestamp": "1546879080",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -8411,7 +8507,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.8",
-                    "datestamp": "1565881389",
+                    "datestamp": "1553618281",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -8610,7 +8706,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-beta1",
-                    "datestamp": "1565535787",
+                    "datestamp": "1485452283",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -8628,10 +8724,6 @@
                 {
                     "name": "gabrielu",
                     "homepage": "https://www.drupal.org/user/279352"
-                },
-                {
-                    "name": "otrolopezmas",
-                    "homepage": "https://www.drupal.org/user/3516204"
                 },
                 {
                     "name": "plopesc",
@@ -9567,22 +9659,22 @@
         },
         {
             "name": "drupal/simplesamlphp_auth",
-            "version": "3.0.0",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/simplesamlphp_auth.git",
-                "reference": "8.x-3.0"
+                "reference": "8.x-3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/simplesamlphp_auth-8.x-3.0.zip",
-                "reference": "8.x-3.0",
-                "shasum": "2ee230173df2128edb5d72953222d229dabf27e7"
+                "url": "https://ftp.drupal.org/files/projects/simplesamlphp_auth-8.x-3.1.zip",
+                "reference": "8.x-3.1",
+                "shasum": "db464b1a4716ad21e7f2ec141640691b8d040d59"
             },
             "require": {
                 "drupal/core": "*",
-                "drupal/externalauth": "*",
-                "simplesamlphp/simplesamlphp": "~1.15"
+                "drupal/externalauth": "^1.1",
+                "simplesamlphp/simplesamlphp": "~1.17.2"
             },
             "type": "drupal-module",
             "extra": {
@@ -9590,12 +9682,15 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0",
+                    "version": "8.x-3.1",
                     "datestamp": "1565118485",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2019-08-14/2748731-23.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -11330,9 +11425,9 @@
             "authors": [
                 {
                     "name": "Oscar Otero",
-                    "role": "Developer",
                     "email": "oom@oscarotero.com",
-                    "homepage": "http://oscarotero.com"
+                    "homepage": "http://oscarotero.com",
+                    "role": "Developer"
                 }
             ],
             "description": "PHP gettext manager",
@@ -12088,8 +12183,8 @@
             "authors": [
                 {
                     "name": "Luís Otávio Cobucci Oblonczyk",
-                    "role": "Developer",
-                    "email": "lcobucci@gmail.com"
+                    "email": "lcobucci@gmail.com",
+                    "role": "Developer"
                 }
             ],
             "description": "A simple library to work with JSON Web Token and JSON Web Signature",
@@ -17281,8 +17376,8 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "role": "Developer",
-                    "email": "arne@blankerts.de"
+                    "email": "arne@blankerts.de",
+                    "role": "Developer"
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",

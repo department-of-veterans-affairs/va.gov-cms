@@ -1,221 +1,126 @@
-Table of Contents
-=================
+# VA.gov CMS
 
+Welcome to the VA.gov CMS git repository README!
+
+We hope everything you need to know about how the [VA.gov](https://www.va.gov) website and Content Management System works is right here.
+
+If you find any errors in this documentation, please feel free to [make an edit and submit a Pull Request](https://github.com/department-of-veterans-affairs/va.gov-cms/edit/VAGOV-2303-readme/README.md)!
+
+Thanks,
+
+The VA.gov Team.
+
+
+
+## Table of Contents
+1. **Introduction**
+    1. [About VA.gov](#about-vagov)
+    1. [Contributing](#contributing)
+    1. [High Level Architecture](#highlevel-architecture)
+    1. [Infrastructure](#infrastructure)
+    1. [Sites](#sites)
 1. **Developer Info**
+    1. [Getting Started](READMES/getting-started.md)
+    1. [WEB & CMS Integration](READMES/unity.md)
+    1. [Workflow](READMES/workflow.md)
     1. [Project Conventions](READMES/project-conventions.md)
-    1. [Environements](READMES/environments.md)
-        1. [Builds](READMES/builds.md)
+    1. [Environments](READMES/environments.md)
+        1. [CI Environments](READMES/cms-ci.md)
+        1. [Local - Lando](READMES/local.md)
+        1. [BRD Environments](READMES/brd.md)
+        1. [HTTPS](READMES/https.md)
     1. [Testing](READMES/testing.md)
     1. [Debugging](READMES/debugging.md)
+1. **Release & Deployment**
+    1. [The BRD System: Build, Release, Deploy](READMES/brd.md)
+    1. [CMS Release Process](READMES/brd.md#cms-release-process)
+    1. [CMS-CI Release Process](READMES/brd.md#cmsci-release-process)
 1. **Architecture**
     1. Overview
     1. Drupal
     1. MetalSmith
-    1. [Interfaces](READMES/interfaces.md)
+    1. [Interfaces](READMES/interfaces.md) - API's and Feature Flags
 
+## Introduction
 
-This is an Aquia Lightning based implementation of Drupal 8 that uses [Lando](https://docs.devwithlando.io/) for local container management.
+### About VA.gov 
 
-## Get Started
+The [VA.gov](https://www.va.gov) website is made possible by a number of different tools and systems. See 
+[High-Level Architecture](#highlevel-architecture) for an overview of all of the components.
 
+This repository contains the source code for the *Content Management System* (**CMS** or **CMS-API**)
+for [VA.gov](https://www.va.gov), running at [cms.VA.gov](https://cms.va.gov).
 
+Access to the production CMS is restricted with CAG. See [Getting Access](READMES/access.md).
 
-## HTTPS browser setup for production usage
-All computers in VA already have this setup, if you are using a non-VA laptop for development you will need to trust the VA Root Certificate Authority (CA) in your browser(s).
+The **CMS** is built on [Drupal 8](https://www.drupal.org), using the [Composer](https://getcomposer.org) package management system. See [Getting Started](READMES/getting-started.md).
 
-Chrome
-* `wget http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-RCA1-v1.cer`
-* Go to chrome://settings/certificates?search=https
-* Click "Authorities"
-* Click "Import" and select VA-Internal-S2-RCA1-v1.cer file downloaded above
+### Contributing
 
-Firefox
-* `wget http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-RCA1-v1.cer`
-* `wget http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-ICA1-v1.cer`
-* Go to about:preferences#privacy, scroll to bottom
-* Click "View Certificates"
-* Click "Authorities" tab
-* Click "Import"
-* Import both files downloaded above
+All of the source code used for generating VA.gov is open source, listed under the [department-of-veterans-affairs](https://github.com/department-of-veterans-affairs) 
+organization on GitHub:
 
-Lando
-* `rebuild lando -y`
+- **CMS**: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms) - Drupal 8, Lightning Distribution
+- **WEB**: [github.com/department-of-veterans-affairs/vets-website](https://github.com/department-of-veterans-affairs/vets-website) - Metalsmith
+- **VETS-API**: [github.com/department-of-veterans-affairs/vets-api](https://github.com/department-of-veterans-affairs/vets-api) - Ruby
+- **VETS-CONTENT**: [github.com/department-of-veterans-affairs/vagov-content](https://github.com/department-of-veterans-affairs/vagov-content) - Markdown
 
-## HTTPS testing (locally/Lando)
-You can't test with the VA cert locally using Lando but you can use Lando's self-signed cert. If you need to test the actual cert locally contact the DevOps team to help you setup the vagrant build system to get HTTPS working with VA CA.
+The VFS team deploys all of these apps using a Jenkins server, configured with a private GitHub Repo: 
 
-To test with Lando's self-signed cert you need to tell your system to trust the Lando Certificate Authority. Instructions are here > https://docs.devwithlando.io/config/security.html
+- **DEVOPS**: [github.com/department-of-veterans-affairs/devops](https://github.com/department-of-veterans-affairs/devops)
 
-TODO, create upstream PR with `sudo trust anchor --store ~/.lando/certs/lndo.site.pem` for Arch Linux
+All development on these projects is done via Pull Requests.  See [CONTRIBUTING.md](CONTRIBUTING.md) for our PR policies.
 
-Note: I had to still import that same CA into Chrome.
-Go to chrome://settings/certificates?search=https
-Click "Authorities"
-Import `.lando\certs\lndo.site.pem`
+### High-Level Architecture
 
-### Custom Composer Scripts
+The public website seen at [VA.gov](https://www.va.gov) is a static site: just HTML, CSS, and images.
 
-There are a number of helpful composer "scripts" available, located in the [composer.json](composer.json) file, in the `scripts` section. These scripts get loaded in as composer commands.
+The source code used to generate the public site is called *vets-website* or *Front-end* or **WEB**, and is availalble 
+at [github.com/department-of-veterans-affairs/vets-website](https://github.com/department-of-veterans-affairs/vets-website).
 
-Change to the CMS repositiory directory and run `composer` to list all commands, both built in and ones from this repo.
+#### Decoupled Drupal
 
-The VA.gov project has the following custom commands.
+The codebase in [this repository (va.gov-cms)](https://github.com/department-of-veterans-affairs/va.gov-cms) is for the 
+**CMS**, which is built on Drupal 8. The **CMS** is not publicly available. It 
+acts as a *Content API* for the **WEB** application, and a *Content Management System* for VA.gov Content Team.
 
-1. `set-path`
+The **CMS** codebase now includes the **WEB** codebase as a dependency: the version is set in `composer.json`. It is 
+downloaded to the `./web` folder during `composer install`.
 
-    Use `composer set-path` command to print out the needed PATH variable to allow running any command in the `./bin` directory just by it's name.
+#### Build and Release Process 
 
-    For example:
+When the content and code updates are ready for release, the **WEB** Build process is kicked off, it reads 
+content from the [CMS](https://cms.va.gov) via GraphQL (and other locations), and outputs HTML, CSS, and images.
 
-    ```bash
-    $  composer set-path
-    > # Run the command output below to set your current terminal PATH variable.
-    > # This will allow you to run any command in the ./bin directory without a path.
-    > echo "export PATH=${PATH}"
-    export PATH=/Users/VaDeveloper/Projects/VA/va.gov-cms/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin
-    ```
+See [WEB & CMS Integration](READMES/unity.md) for full details on how the WEB and CMS projects work together.
 
-    Then, copy the last line (with all of the paths) and paste it into your desired terminal, and hit ENTER.
+### Infrastructure
 
-    Once the path is set, you can run any of the commands listed in the [bin directory](bin) directly:
+This section outlines only the systems utilized by the CMS. For information on the **WEB** project's infrastucture, see 
+[]().
 
-    ```bash
-    $ phpcs --version
-    PHP_CodeSniffer version 2.9.2 (stable) by Squiz (http://www.squiz.net)
-    ```
+#### CMS-CI: Pull Request and Ad-hoc Environments
 
-    The path will remain in place as you change directories.
+ - Running OpenDevShop at [devshop.cms.va.gov](http://devshop.cms.va.gov). Access restricted to CAG, sign in with GitHub.
+ - A single "mirror" environment is regularly populated with a sanitized production database copy.
+ - Open Pull Requests get environments created automatically, cloned from the "mirror" environment, with URLS like 
+ [pr123.ci.cms.va.gov](http://pr123.ci.cms.va.gov) and
+   a **WEB** instance built from that PR environment's content, like [pr123.web.ci.cms.va.gov](http://pr123.web.ci.cms.va.gov).
+ - Ad-hoc environments can be created and deleted at any time by any logged in user to [devshop.cms.va.gov](http://devshop.cms.va.gov): 
+   - Can be named anything and can be set to any branch or Pull Request.
+   - These environments will not change or be rebuild unless the creator chooses.
+   - Useful for testing and demos outside of the CMS-CI process.
+ - Single EC2 Instance: @TODO: List size, storage, etc.
 
+#### CMS in BRD: Dev, Staging, Production
 
-2. `va:proxy:start`
+The VFS Team maintains a system called **BRD**: *Build, Release, Deploy.*
 
-    Simply runs the "socks proxy" command which is needed to connect to the VA.gov network. Add the `&` character to run it as a background process.
+The system is powered by Ansible Roles in the VA's "DevOps" repository, located at [github.com/department-of-veterans-affairs/devops/tree/master/ansible/build/roles/cms](https://github.com/department-of-veterans-affairs/devops/tree/master/ansible/build/roles/cms)
 
-3. `va:proxy:test`
+The **BRD** system builds Amazon server images using Ansible, and tags those 
+images for release along with the source code of CMS.
 
-    Test the proxy when it is running.
+The VFS team then deploys those images to the *dev*, *staging* and *production* environments inside the VAEC when the release is ready.
 
-4. `nuke`
-
-    Removes all composer installed directories, useful when you manually
-    made changes to any files inside a composer managed directory. e.g.
-    docroot/core, docroot/vendor.
-
-@TODO: Document all of the custom composer commands.
-
-See https://getcomposer.org/doc/articles/scripts.md for more information on how to create and manage scripts.
-
-### How to launch a local development environment:
-* get lando https://docs.devwithlando.io/installation/installing.html
-* `git clone git@github.com:department-of-veterans-affairs/va.gov-cms.git vagov`
-* `cd vagov`
-* `lando start`
-
-### How to sync:
-
-Run these scripts to recreate the site locally. The server holding the database dump must be accessed via a proxy.
-
-Once you have [submitted your SSH Public Key](https://github.com/department-of-veterans-affairs/vets-external-teams/blob/master/Onboarding/request-access-to-tools.md#additional-onboarding-steps-for-developers), you can run the following commands to create a local instance of https://cms.va.gov:
-
-* `ssh socks -D 2001 -N &` # Runs an SSH socks proxy in a separate process. Run `ps` to see the running ssh process.
-* `./scripts/sync-db.sh` # Downloads a recent, sanitized database export file to `.dumps/cms-db-latest.sql`.
-* `./scripts/sync-files.sh` # Downloads a recent backup of site files to `sites/default/files`, and runs `lando db-import cms-db-latest.sql`.
-
-### Example workflow:
-
-* `git fetch --all`
-* `git checkout --branch <VAGOV-000-name> origin/develop`
-* `lando composer install`
-* `scripts/sync-db.sh`
-* `scripts/sync-files.sh` # (optional)
-
-What it does:
-* Spins up php, mysql, and node containers
-* Dependencies (including components project) are pulled in via composer
-* Base config installs uswds and sets a subtheme for this project (project is headless, so this isn't critical)
-
-How to use:
-* visit the site by clicking one of the urls provided (aliased and https options are available)
-* compile scss to css by going to theme dir and running `lando gulp`
-* drush commands are prefixed with lando, e.g.: `lando drush cr`
-* composer is used for project management, e.g.: `composer require drupal/uswds`
-
-Theme structure (project is headless, so this isn't critical):
-* Base theme is USWDS: https://www.drupal.org/project/uswds
-* vagov Subtheme lives in themes/custom
-
-
-### Patching
-
-Apply patches:
-* Get the patch file:
-  * example" https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/726.patch
-  * for Github, you can usually type in `.patch` at the end of the PR url to get the patch file
-  * some people use github, some use drupal.org. drupal is moving to gitlab
-* In the "`patches`" property of `composer.json`, make an entry for the package you are patching, if not already there, write an explanation lando sync-dbas to what the patch does, and then put the url to the patch
-  * ex:
-  * ```
-    "patches": {
-                   "drupal/migration_tools": {
-                       "Add changeHtmlContents DomModifier method": "https://www.drupal.org/files/issues/2018-11-26/change_html_contents-3015381-3.patch",
-    ```
-* Run `lando composer update <source>/<package>`
-  * `lando composer update drupal/graphql`
-
-groups include
- - migration
- - performance
- - security
-
-Triggering Metalsmith static site builds at /admin/config/build-trigger
-* @see va_gov_build_trigger.module
-* Uncomment the va-socks-proxy code in .lando.yml
-* Uncomment the "VA_CMS_BOT_GITHUB_AUTH_TOKEN" in the appserver container in .lando.yml
-* `export` the following local environment variables from
-va.gov-cms-devops Ansible Vault and then run `lando rebuild --yes`.
-Contact Mouncif or Elijah in Slack #cms-engineering to obtain these ENV variables:
-  * VA_CMS_BOT_GITHUB_AUTH_TOKEN
-  * VA_SOCKS_PROXY_PRIVATE_KEY
-  * VA_SOCKS_PROXY_SSH_CONFIG
-
-Trigger local build of Drupal content in vets-website `yarn build --pull-drupal`
-
-
-Troubleshooting:
-* Sometimes after initial setup or `lando start`, Drush is not found. Running `lando rebuild -y` once or twice usually cures, if not, see: https://github.com/lando/lando/issues/580#issuecomment-354490298
-
-Workflow:
-* We use [drupal-spec-tool](https://github.com/acquia/drupal-spec-tool) to keep track of config changes, and sync tests
-* After updating config, cd into /tests, and run `lando behat --tags=spec`
-* Discrepancies between code and config will be reflected in test output
-* Visit https://docs.google.com/spreadsheets/d/1vL8rqLqcEVfESnJJK_GWQ7nf3BPe4SSevYYblisBTOI/edit?usp=sharing, choose the tab
-related to config changes, and update cells accordingly.
-* Go back to https://docs.google.com/spreadsheets/d/1vL8rqLqcEVfESnJJK_GWQ7nf3BPe4SSevYYblisBTOI/edit?usp=sharing, and copy the cell that
-pertains to the test you are updating, and paste into the test file in /tests/behat (before pasting, take note of any tags related to test(s), and add them back in after pasting).
-* Run tests again, correcting and updating the spreadsheet, and exporting accordingly until tests and spreadsheet are in sync.
-* Export config to code: `lando drush config:export` then commit changes to code.
-
-Todo:
-* decide how we are going to sync files across environments
-* work out settings.php for various environments - lando db settings are stored in settings.lando.php
-
-## GraphQL
-
-The site uses GraphQL (https://www.drupal.org/project/graphql) as the mechanism for delivering JSON to Metalsmith for the static site build (see https://github.com/department-of-veterans-affairs/vets-website for info and setup).
-
-The GraphQL endpoint is at `/graphql`. GraphQL Explorer to assist in writing queries is avilable via the CMS admin at: `/graphql/explorer`. Sample GraphQL query to grab all entities in the system:
-
-```
-query {
-  nodeQuery()  {
-    entities {
-      entityLabel
-      entityType
-    }
-  }
-}
-```
-
-# Branches
-
-The `develop` branch is now protected. It requires tests to pass and a manual review to be merged.
+See [The BRD System: Build, Release, Deploy](READMES/brd.md) for more information.

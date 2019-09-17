@@ -8,6 +8,47 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 
 * __Nothing unreleased__
 
+## 2019-09-10.1 Sprint 22 release 2. tag  20190910.1
+*  __VAGOV-000 Merge CHANGELOG.md from master.__
+    2019-09-10 17:44:47 -0400 - (Steve Wirt) [03d5064e]
+*  __VAGOV-5776: Move top tasks menu ownership to Global UX team. (#574)__
+    2019-09-10 16:11:20 -0400 - (Kevin Walsh) [9d886fe2]
+*  __VAGOV-5908: Config ignore menu breadcrumbs settings. (#566)__
+    2019-09-10 15:42:30 -0400 - (Kevin Walsh) [3cd3b8eb]
+*  __VAGOV-5776: Add content admin role. (#572)__
+    2019-09-10 14:19:25 -0400 - (Kevin Walsh) [ca460e48]
+*  __VAGOV-5857: Adding embedded asset functionality to wysiwyg. (#571)__
+    2019-09-10 14:16:17 -0400 - (Ethan Teague) [5c76e5f6]
+*  __VAGOV-5865: Bottom Rail Footer Config (#569)__
+    2019-09-10 13:16:14 -0400 - (jonbot) [ffa1f5f0]
+*  __VAGOV-5884: Content API Consumer Menu Permission (#568)__
+    2019-09-10 09:19:36 -0400 - (jonbot) [f41a384e]
+*  __VAGOV-5669:Move documentation to github. (#563)__
+    2019-09-09 18:07:19 -0400 - (Steve Wirt) [050bcda5]
+*  __VAGOV-4871: Header Feature Flag (#570)__
+    2019-09-09 17:17:03 -0400 - (jonbot) [a37db289]
+*  __VAGOV-000: Empty commit for devops test to trigger CD to DEV. #6__
+    2019-09-09 09:37:08 -0700 - (Elijah Lynn) [d425ad77]
+*  __VAGOV-5827 Use PROD SSO metadata and endpoint. (#562)__
+    2019-09-06 14:53:25 -0400 - (Elijah Lynn) [9ea94e7d]
+*  __VAGOV-5890 test commit devops CD to DEV. (#564)__
+    2019-09-06 11:44:31 -0700 - (Elijah Lynn) [2c3cf8de]
+*  __VAGOV-5890 Test commit to trigger CD to DEV.__
+    2019-09-06 11:39:11 -0700 - (Elijah Lynn) [ea628188]
+*  __VAGOV-000: Empty commit for devops test to trigger CD to DEV. #4__
+    2019-09-05 10:48:49 -0700 - (Elijah Lynn) [759447ff]
+*  __VAGOV-000: Empty commit for devops test to trigger CD to DEV. #3__
+    2019-09-05 10:47:36 -0700 - (Elijah Lynn) [1ae4635a]
+*  __VAGOV-000: Empty commit for devops test to trigger CD to DEV. #2__
+    2019-09-05 09:55:39 -0700 - (Elijah Lynn) [4c7357bd]
+*  __VAGOV-000: Empty commit for devops test to trigger CD to DEV.__
+    2019-09-05 08:45:24 -0700 - (Elijah Lynn) [176e07cb]
+*  __VAGOV-5857: Adding all flags to config. (#561)__
+    2019-09-04 16:36:54 -0400 - (Ethan Teague) [7359f6b4]
+*  __VAGOV-5834: Remove inline entity form widgets. (#560)__
+    2019-09-04 09:48:58 -0400 - (Kevin Walsh) [71703908]
+
+
 ## 2019-09-03.2 Sprint 22 release 1. tag  20190903.2
 
 *  __VAGOV-5843: Enabling entity_clone.__

@@ -1,7 +1,13 @@
 uuid: 7dacb8b1-49be-4e55-a0e7-e37c69527b67
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - workbench_menu_access
+third_party_settings:
+  workbench_menu_access:
+    access_scheme:
+      administration: administration
 id: sections
 label: Sections
 description: 'Automatically updated from the Sections taxonomy, and appears in admin toolbar.'

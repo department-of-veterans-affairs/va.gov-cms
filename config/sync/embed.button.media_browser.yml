@@ -2,11 +2,10 @@ uuid: baeec144-6dc5-48df-9383-50fd6f145aec
 langcode: en
 status: true
 dependencies:
-  content:
-    - 'file:file:24dad24a-86f6-4509-9b9e-90bec9d013d0'
+  config:
+    - media.type.document
   module:
     - entity_embed
-    - image
     - media
 _core:
   default_config_hash: ShmiFDMOjYFcwCuRYCxiR3-z-A892AG9cgjMKet5lns
@@ -15,12 +14,10 @@ id: media_browser
 type_id: entity
 type_settings:
   entity_type: media
-  bundles: {  }
-  display_plugins:
-    - 'entity_reference:entity_reference_entity_view'
-    - media_image
-    - 'view_mode:media.embedded'
+  bundles:
+    - document
+  display_plugins: {  }
   entity_browser: media_browser
   entity_browser_settings:
-    display_review: false
-icon_uuid: 24dad24a-86f6-4509-9b9e-90bec9d013d0
+    display_review: true
+icon_uuid: null
