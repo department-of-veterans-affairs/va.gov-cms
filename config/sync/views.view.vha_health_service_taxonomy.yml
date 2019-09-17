@@ -437,14 +437,14 @@ display:
           entity_type: taxonomy_term
           entity_field: tid
           plugin_id: field
-        field_commonly_treated_condition:
-          id: field_commonly_treated_condition
-          table: taxonomy_term__field_commonly_treated_condition
-          field: field_commonly_treated_condition
+        field_also_known_as:
+          id: field_also_known_as
+          table: taxonomy_term__field_also_known_as
+          field: field_also_known_as
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Common conditions'
+          label: 'Patient-friendly name'
           exclude: false
           alter:
             alter_text: false
@@ -500,14 +500,14 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_also_known_as:
-          id: field_also_known_as
-          table: taxonomy_term__field_also_known_as
-          field: field_also_known_as
+        field_commonly_treated_condition:
+          id: field_commonly_treated_condition
+          table: taxonomy_term__field_commonly_treated_condition
+          field: field_commonly_treated_condition
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Patient-friendly name'
+          label: 'Common conditions'
           exclude: false
           alter:
             alter_text: false
@@ -853,7 +853,18 @@ display:
           entity_field: weight
           plugin_id: standard
       title: 'VHA Health service taxonomy'
-      header: {  }
+      header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content: '<p><a class="button" href="/vha-healthcare-services/export?_format=csv">Download as a CSV</a></p>'
+          plugin_id: text_custom
       footer: {  }
       empty: {  }
       relationships:
@@ -1045,59 +1056,6 @@ display:
           entity_type: taxonomy_term
           entity_field: parent
           plugin_id: field
-        edit_taxonomy_term:
-          id: edit_taxonomy_term
-          table: taxonomy_term_data
-          field: edit_taxonomy_term
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Edit
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          text: edit
-          output_url_as_text: true
-          absolute: true
-          entity_type: taxonomy_term
-          plugin_id: entity_link_edit
         tid:
           id: tid
           table: taxonomy_term_field_data
