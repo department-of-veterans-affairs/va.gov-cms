@@ -1,6 +1,6 @@
 uuid: 8b4816ce-c4d3-4621-9868-8fed1e85ebaa
 langcode: en
-status: true
+status: false
 dependencies: {  }
 id: stg
 label: Stg
@@ -11,7 +11,8 @@ module:
   syslog: 0
 theme: {  }
 blacklist: {  }
-graylist: {  }
+graylist:
+  - simplesamlphp_auth.settings
 graylist_dependents: true
 graylist_skip_equal: true
 weight: 0
