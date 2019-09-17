@@ -32,7 +32,7 @@ function va_gov_login_menu_local_tasks_alter(&$data, $route_name) {
  * @see hook_simplesamlphp_auth_existing_user()
  */
 function va_gov_login_simplesamlphp_auth_existing_user($attributes) {
-  $saml_mail = $attributes['mail'];
+  $saml_mail = $attributes['adEmail'];
   $existing_users = \Drupal::service('entity.manager')->getStorage('user')->loadByProperties(['mail' => $saml_mail]);
   if ($existing_users) {
     $existing_user = is_array($existing_users) ? reset($existing_users) : FALSE;
