@@ -16,17 +16,29 @@ Import `.lando\certs\lndo.site.pem`
 ## HTTPS browser setup for production usage
 All computers in VA already have this setup, if you are using a non-VA laptop for development you will need to trust the VA Root Certificate Authority (CA) in your browser(s).
 
-Chrome
+### Download certificates
 * `wget http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-RCA1-v1.cer`
+* `wget http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-ICA1-v1.cer`
+
+### Linux:
+
+Chrome
 * Go to chrome://settings/certificates?search=https
 * Click "Authorities"
 * Click "Import" and select VA-Internal-S2-RCA1-v1.cer file downloaded above
 
 Firefox
-* `wget http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-RCA1-v1.cer`
-* `wget http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-ICA1-v1.cer`
 * Go to about:preferences#privacy, scroll to bottom
 * Click "View Certificates"
 * Click "Authorities" tab
 * Click "Import"
 * Import both files downloaded above
+
+### On OSX
+* Open Keychain Access
+* Go to Certificates (under Category in left sidebar)
+* Select "Import Items..." from File menu. (Shift-Command-I)
+* Select the two .cer files above.
+* They should now appear in your list of certificates
+* For each certificate: 1) File > Get info  2) Under Trust > When using this certificate, select "Always Trust". 3) Close the Get info window, which will prompt a password save. 
+* You may need to restart your browser.
