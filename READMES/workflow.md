@@ -1,7 +1,16 @@
 # Workflow
+1. Project
 1. Git
+    1. Branches
+    1. Example Workflow
+    1.  Pull Request Norms
 1. Drupal SpecTool
 1. Patching Modules
+
+## Project
+1. Pull a ticket, move to 'In Progress'
+1. Review the ticket's story, Acceptance Criteria, and Implementation Notes. Raise any questions/concerns/risks in the ticket comments and mention the relevant/appropriate people.
+Write a manual test in the Jira ticket to test ticket completion.
 
 ## Git
 To avoid cluttering up the main repo with lots of branches, please push your branches to your fork and make your pull request from your fork to the upstream repo.
@@ -14,26 +23,63 @@ Develop is protected and requires both approval from code review and passing tes
 ### Example Git workflow:
 
 1. `git fetch --all`
-1. `git checkout --branch <VAGOV-000-name> origin/develop`
+1. `git checkout --branch <VAGOV-000-name> upstream/develop`
 1. `lando composer install`
 1. `./scripts/sync-db.sh`
 1. `./scripts/sync-files.sh` # (optional)
 1. Running `lando tests` will build the frontend web and run all tests (php unit, behat, FE web) See [testing](testing.md) for additional details.
+1.  If possible, write your test, before you write code.  The test should fail initially and not pass until you succeed.
+1.  Fix code formatting issues with CodeSniffer, Drupal 8 standard.
+1. Commit your changes. Each commit should be logically atomic (e.g. module adds in one commit, config in another, custom code in additional logical commits), and your commit messages should follow the pattern: "VAGOV-123: A grammatically correct sentence starting with an action verb and ending with punctuation."
+_Example: VAGOV-1234 Add configuration for menu reduction._
+1.  Push work to your fork of the repository (origin) so a Pull Request may be created
+`git push --set-upstream origin VAGOV-123-short-desc-mi`
 
-What it does:
-* Spins up php, mysql, and node containers
-* Dependencies (including components project) are pulled in via composer
-* Base config installs uswds and sets a subtheme for this project (project is headless, so this isn't critical)
 
-How to use:
-* visit the site by clicking one of the urls provided (aliased and https options are available)
-* compile scss to css by going to theme dir and running `lando gulp`
-* drush commands are prefixed with lando, e.g.: `lando drush cr`
-* composer is used for project management, e.g.: `composer require drupal/uswds`
+### Pull Request Norms
+* Pull requests should be made against the develop branch.
+* Pull Request title should be in the format: "VAGOV-123: Jira ticket title, starting with an action verb and ending with punctuation."
+* If your PR is a work in progress or should not be merged, prefix the pull request title with "WIP: " and use the Draft feature.
+* Put a link to the ticket at the top of the PR description.
+* Add required notes in the PR description:
+  1. If the PR requires manual deployment steps (this should never happen).
+  1. If the timing of the merging of the PR affects or has dependencies on additional PRs in this or other repositories.
+  1. f the PR removes existing functionality that may impact other developers.
 
-Theme structure (project is headless, so this isn't critical):
-* Base theme is USWDS: https://www.drupal.org/project/uswds
-* vagov Subtheme lives in themes/custom
+
+### Resolving merge conflicts
+Merge conflicts result when multiple developers submit PRs modifying the same code and Git cannot automatically resolve the conflict. For instance, if two developers add update hooks to the same module at the same time, these will necessarily conflict, because update hooks must be numbered in a defined sequence.
+
+Developers are responsible for fixing merge conflicts on their own PRs. Follow this process to resolve a merge conflict:
+
+1.  Fetch upstream history: git fetch upstream
+Check out the branch against which you opened your PR (e.g., develop): git checkout develop
+1.  Make sure it matches upstream: git reset --hard upstream/develop
+1.  Check out your feature branch: git checkout feature/VAGOV-123-short-desc-mi
+1.  Merge develop: `git rebase develop`
+At this point, Git will complain about a merge conflict. Run git status to find the conflicting file(s).
+1.  Edit the files to fix the conflict. The resources at the end of this section provide more information on this process.
+1.  Use git add to add all of the files you fixed. (Do not commit them)
+Finally, run `git rebase --continue` to finish the merge, and `git push origin VAGOV-123-short-desc-mi -f` to update the PR.
+Additional resources:
+
+https://confluence.atlassian.com/bitbucket/resolve-merge-conflicts-704414003.html
+https://githowto.com/resolving_conflicts
+
+
+## Merge Conflict on Composer
+If your composer.lock ends up with a conflict due to incoming changes, these steps should safely resolve the conflict.
+  1.  Make note of what package(s) changes were coming in from the other developers.
+  1.  Make note of what package(s) you were adding.
+  1.  Checkout the the incoming change
+  `git checkout origin/{base} -- composer.lock composer.json`
+  1.  Replay your package addition(s).
+  `composer require {new/package} --update-with-dependencies`
+  1.  Run the new updates to make sure you have them locally.
+  `composer update {incoming/package}`  - repeat for each incoming package addition
+  `composer update {your/package}`  - repeat for each package you were adding
+  Your environment can now be tested with the new code.
+  Commit the changes to composer.json and composer.lock.
 
 
 ## Drupal SpecTool
