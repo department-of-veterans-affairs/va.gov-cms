@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ec4cd42aaabfa80e481f62eb23f40d36",
+    "content-hash": "53cdbda759a420d510e281435ad22a82",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -3468,6 +3468,53 @@
                 "source": "http://cgit.drupalcode.org/config_ignore",
                 "issues": "http://drupal.org/project/config_ignore",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
+            }
+        },
+        {
+            "name": "drupal/config_override_warn",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/config_override_warn.git",
+                "reference": "8.x-1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/config_override_warn-8.x-1.2.zip",
+                "reference": "8.x-1.2",
+                "shasum": "589efcdc9dc22c7483aa4707129c15aa2f8d7a91"
+            },
+            "require": {
+                "drupal/core": "^8.5"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.2",
+                    "datestamp": "1562352181",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Dave Reid",
+                    "homepage": "https://www.drupal.org/user/53892"
+                }
+            ],
+            "description": "Provide a warning message on configuration forms when any values on the form are possibly being overridden.",
+            "homepage": "https://www.drupal.org/project/config_override_warn",
+            "support": {
+                "source": "https://git.drupalcode.org/project/config_override_warn"
             }
         },
         {
@@ -9624,22 +9671,22 @@
         },
         {
             "name": "drupal/simplesamlphp_auth",
-            "version": "3.0.0",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/simplesamlphp_auth.git",
-                "reference": "8.x-3.0"
+                "reference": "8.x-3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/simplesamlphp_auth-8.x-3.0.zip",
-                "reference": "8.x-3.0",
-                "shasum": "2ee230173df2128edb5d72953222d229dabf27e7"
+                "url": "https://ftp.drupal.org/files/projects/simplesamlphp_auth-8.x-3.1.zip",
+                "reference": "8.x-3.1",
+                "shasum": "db464b1a4716ad21e7f2ec141640691b8d040d59"
             },
             "require": {
                 "drupal/core": "*",
-                "drupal/externalauth": "*",
-                "simplesamlphp/simplesamlphp": "~1.15"
+                "drupal/externalauth": "^1.1",
+                "simplesamlphp/simplesamlphp": "~1.17.2"
             },
             "type": "drupal-module",
             "extra": {
@@ -9647,12 +9694,15 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0",
+                    "version": "8.x-3.1",
                     "datestamp": "1565118485",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2019-08-14/2748731-23.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -9860,17 +9910,17 @@
         },
         {
             "name": "drupal/tablefield",
-            "version": "2.0.0-alpha3",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/tablefield.git",
-                "reference": "8.x-2.0-alpha3"
+                "reference": "8.x-2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/tablefield-8.x-2.0-alpha3.zip",
-                "reference": "8.x-2.0-alpha3",
-                "shasum": "6f852634af750b00b6b25be98976c14df653c6fc"
+                "url": "https://ftp.drupal.org/files/projects/tablefield-8.x-2.1.zip",
+                "reference": "8.x-2.1",
+                "shasum": "f31df87ad48c43484948414760da70afa1ced8af"
             },
             "require": {
                 "drupal/core": "*"
@@ -9881,11 +9931,11 @@
                     "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.0-alpha3",
-                    "datestamp": "1556720881",
+                    "version": "8.x-2.1",
+                    "datestamp": "1568823337",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Alpha releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -17521,7 +17571,7 @@
                 "reference": "origin/VAGOV-2937-unity"
             },
             "type": "library",
-            "time": "2019-07-31T14:06:28+00:00"
+            "time": "2019-08-22T21:24:18+00:00"
         },
         {
             "name": "vardot/blazy",
@@ -18580,7 +18630,6 @@
         "drupal/path_redirect_import": 10,
         "drupal/pathologic": 15,
         "drupal/role_delegation": 15,
-        "drupal/tablefield": 15,
         "drupal/tour_ui": 10,
         "drupal/uswds": 10,
         "drupal/views_tree": 15,

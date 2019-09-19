@@ -124,57 +124,12 @@ $config['environment_indicator.indicator']['name'] = 'Local';
 
 $config_directories['sync'] = '../config/sync';
 
-$env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'local';
+$env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'lando';
 
 // Environment specific settings
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php')) {
-    include $app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php';
+  include $app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php';
 }
-
-// SimpleSAMLphp configuration
-# Provide universal absolute path to the installation.
-$simplesamlphp_dir = 'simplesamlphp-1.17.2';
-if (is_dir(DRUPAL_ROOT . '/../' . $simplesamlphp_dir)) {
-    $settings['simplesamlphp_dir'] = DRUPAL_ROOT . '/../' . $simplesamlphp_dir;
-}
-# SimpleSAMLphp Auth module settings
-$config['simplesamlphp_auth.settings'] = [
-    // Basic settings.
-    'activate'                => TRUE, // Enable or Disable SAML login.
-    'auth_source'             => 'default-sp',
-    'login_link_display_name' => 'Login with your SSOi account.',
-    'register_users'          => TRUE,
-    'debug'                   => TRUE,
-    // Local authentication.
-    'allow' => [
-        'default_login'         => TRUE,
-        'set_drupal_pwd'        => TRUE,
-        'default_login_users'   => '1',
-        'default_login_roles'   => [
-            'authenticated' => FALSE,
-            'administrator' => 'administrator',
-            'content_api_consumer' => 'content_api_consumer',
-            'content_editor' => 'content_editor',
-            'content_reviewer' => 'content_reviewer',
-            'content_publisher' => 'content_publisher',
-            'admnistrator_users' => 'admnistrator_users',
-            'administrator' => 'administrator',
-            'redirect_administrator' => 'redirect_administrator',
-            'documentation_editor' => FALSE,
-        ],
-    ],
-    'logout_goto_url'         => '',
-    // User info and syncing.
-    // `unique_id` is specified in Transient format, otherwise this should be `UPN`
-    // Please talk to your SSO adminsitrators about which format you should be using.
-    'unique_id'               => 'VAUID',
-    'user_name'               => 'adUPN',
-    'mail_attr'               => 'adUPN',
-    'sync' => [
-        'mail'      => TRUE,
-        'user_name' => TRUE,
-    ],
-];
 
 // Fast 404 settings
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php')) {
@@ -195,4 +150,3 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php'
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.local.php')) {
   include $app_root . '/' . $site_path . '/settings/settings.local.php';
 }
-
