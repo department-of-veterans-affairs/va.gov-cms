@@ -2,17 +2,14 @@
 
 DEV_BRANCH     = 'master'
 STAGING_BRANCH = 'master'
-PROD_BRANCH    = 'master'
 
 IS_DEV_BRANCH     = env.BRANCH_NAME == DEV_BRANCH
 IS_STAGING_BRANCH = env.BRANCH_NAME == STAGING_BRANCH
-IS_PROD_BRANCH    = env.BRANCH_NAME == PROD_BRANCH
 
 def shouldBail() {
   // abort the job if we're not on deployable branch (usually master) and there's a newer build going now
   return !IS_DEV_BRANCH &&
          !IS_STAGING_BRANCH &&
-         !IS_PROD_BRANCH &&
          !env.CHANGE_TARGET &&
          currentBuild.nextBuild
 }
@@ -83,7 +80,7 @@ pipeline {
       cleanWs()
     }
     failure {
-      notifySlack("", showTrigger: true, showBuildLink: true)
+      notifySlack("${env.JOB_NAME} failed", showTrigger: true, showBuildLink: true)
     }
   }
 }
