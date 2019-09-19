@@ -152,8 +152,7 @@
         },
         "installer-types": [
             "bower-asset",
-            "npm-asset",
-            "node-project"
+            "npm-asset"
         ],
         "installer-paths": {
             "docroot/core": [
@@ -175,9 +174,6 @@
             ],
             "drush/contrib/{$name}": [
                 "type:drupal-drush"
-            ],
-            "web": [
-                "type:node-project"
             ]
         },
         "enable-patching": true,
