@@ -1,7 +1,6 @@
 /**
  * @file Run Axe accessibility tests on page node edit form with Nightwatch.
  */
-
 const axeOptions = {
     timeout: 500,
     runOnly: {
@@ -17,10 +16,13 @@ const axeOptions = {
 };
 
 // Environmental variables must be set before running test
-const siteUrl = process.env.TESTURL;
-const name = process.env.TESTUSERNAME;
-const pass = process.env.TESTUSERPASS;
-
+/**const siteUrl = process.env.TESTURL;
+ const name = process.env.TESTUSERNAME;
+ const pass = process.env.TESTUSERPASS;
+ */
+const siteUrl = "http://va-gov-cms.lndo.site";
+const name = "axcsd452ksey";
+const pass = "drupal8";
 const contextOptions = {
     include: [['body']],
     exclude: [['#content'], ['#behavior'], ['.hidden']]
@@ -32,21 +34,25 @@ const exclusions = {
 
 module.exports
     = {
-    '@tags': ['accessibility'],
+   '@tags': ['accessibility'],
 
-    'Test Create Benefits detail page': function (browser) {
+    'Test Create Benefits detail page':  function(browser){
         browser
             .url(siteUrl)
+
+            .pause(1000)
             .setValue('input[name="name"]', name)
             .setValue('input[name="pass"]', pass)
             .click('input[id="edit-submit"]')
             .url(siteUrl+'/node/add/page')
             .waitForElementVisible('.page-title', 6000)
             .assert.title('Create Benefits detail page | VA CMS')
+            .pause(5000)
             .initAccessibility()
-            .verify.accessibility(contextOptions, axeOptions)
+            .assert.accessibility(axeOptions, contextOptions)
             .end(function(err, res){
-                console.log(res);
+                console.log(res, err);
             });
-    }
-}
+    },
+
+};

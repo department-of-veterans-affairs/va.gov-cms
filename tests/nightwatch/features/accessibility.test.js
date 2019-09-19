@@ -1,7 +1,7 @@
 /**
  * @file Run Axe accessibility tests with Nightwatch.
  */
-// import "nightwatch-accessibility";
+
 
 module.exports = {
     '@tags': ['accessibility'],

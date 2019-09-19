@@ -43,6 +43,7 @@ module.exports
             .url(siteUrl+'/node/add/event')
             .waitForElementVisible('.page-title', 6000)
             .assert.title('Create Event | VA CMS')
+            .pause(1000)
             .initAccessibility()
             .verify.accessibility(contextOptions, axeOptions)
             .end(function(err, res){
