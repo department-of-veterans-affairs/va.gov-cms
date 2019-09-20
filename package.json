@@ -1,22 +1,24 @@
 {
-  "name": "vagov",
+  "name": "axe_tests",
   "version": "1.0.0",
   "description": "This is an Aquia Lightning based implementation of Drupal 8 that uses [Lando](https://docs.devwithlando.io/) for local container management.",
   "main": "index.js",
   "scripts": {
-    "nightwatch": "./node_modules/.bin/nightwatch --tag accessibility"
+    "test": "node ./tests/nightwatch/features/axe.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/department-of-veterans-affairs/va.gov-cms.git"
   },
-  "author": "",
+  "author": "andrey",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/department-of-veterans-affairs/va.gov-cms/issues"
   },
   "homepage": "https://github.com/department-of-veterans-affairs/va.gov-cms#readme",
   "devDependencies": {
+    "axe-core": "^3.3.2",
+    "axe-webdriverjs": "^2.3.0",
     "chromedriver": "^77.0.0",
     "eslint-config-wikimedia": "^0.10.1",
     "grunt": "^1.0.4",
@@ -26,11 +28,15 @@
     "load-grunt-tasks": "^4.0.0",
     "nightwatch": "^1.2.2",
     "nightwatch-accessibility": "^1.8.0",
-    "axe-core": "^3.3.2",
-    "axe-webdriverjs": "^2.3.0",
-    "selenium-webdriver": "^4.0.0-alpha.5"
+    "selenium-webdriver": "^3.6.0",
+    "phantomjs-prebuilt": "^2.1.16"
   },
-  "dependencies": {
-
-  }
+  "dependencies": {},
+  "directories": {
+    "test": "tests"
+  },
+  "keywords": [
+    "axe",
+    "tests"
+  ]
 }
