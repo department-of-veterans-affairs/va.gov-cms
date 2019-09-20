@@ -193,6 +193,37 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   }
 
   /**
+   * Step to publish/unpublish node by title.
+   *
+   * @param string $status
+   *   The node publishing status.
+   * @param string $title
+   *   The node title.
+   *
+   * @Given I set the node with title :title to :status
+   */
+  public function setTheNodeWithTitle($status, $title) {
+    if ($status === 'published') {
+      $status = ['pub' => TRUE, 'mod' => 'published'];
+    }
+    else {
+      $status = ['pub' => FALSE, 'mod' => 'archived'];
+    }
+
+    $nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties(['title' => $title]);
+
+    if (empty($nodes) || empty(reset($nodes))) {
+      throw new \InvalidArgumentException(sprintf('Node with title "%s" does not exist', $title));
+    }
+    $node = reset($nodes);
+    $node->setPublished($status['pub']);
+    $node->set('moderation_state', $status['mod']);
+    $node->save();
+  }
+
+  /**
    * This permits click on non-link, non-button text.
    *
    * @param string $text
