@@ -1,7 +1,7 @@
 @api
 Feature: Menu links appear as expected.
       """
-      @TODO: When header integration work is complete,
+      @TODO: When header and footer integration work is complete,
       test changing of menu items in cms being mapped to website build.
       """
     In order to confirm menu item existence
@@ -150,7 +150,34 @@ Feature: Menu links appear as expected.
     And I should see "Agency Financial Report"
     And I should see "Agency financial report"
     And I should see "Find a VA Location"
-
+    And I should see "Homeless Veterans"
+    And I should see "Women Veterans"
+    And I should see "Minority Veterans"
+    And I should see "PTSD"
+    And I should see "Mental Health"
+    And I should see "Adaptive sports and special events"
+    And I should see "National Resource Directory"
+    And I should see "Find a VA form"
+    And I should see "Get VA mobile apps"
+    And I should see "Careers at VA"
+    And I should see "Doing business with VA"
+    And I should see "VA claims accreditation"
+    And I should see "Find a VA health care provider"
+    And I should see "Veterans Service Organizations (VSOs)"
+    And I should see "State Veterans Affairs offices"
+    And I should see "Print your VA welcome kit"
+    And I should see "VAntage Point blog"
+    And I should see "Email updates"
+    And I should see "Facebook"
+    And I should see "Instagram"
+    And I should see "Twitter"
+    And I should see "Flickr"
+    And I should see "YouTube"
+    And I should see "All VA social media"
+    And I should see "Veterans Crisis Line"
+    And I should see "Find a VA location"
+    And I should see "Ask a question"
+    And I should see "844-698-2311"
 
 
 
