@@ -4,7 +4,7 @@ Feature: Menus
   As a content editor
   I want to have menus that reflect my information architecture.
 
-  @dst @menus                                                                                                                                                                             
+  @dst @menus
      Scenario: Menus
        Then exactly the following menus should exist
        | Name | Machine name | Description |
@@ -21,7 +21,6 @@ Feature: Menus
 | Burials and memorials benefits hub | burials-and-memorials-benef | For pages in the /burials-and-memorials benefits hub |
 | Careers & employment benefits hub | careers-employment-benefits | va.gov/careers-employment |
 | Decision reviews benefits hub | decision-reviews-benefits-h |  |
-| Development | devel | Links related to Devel module. |
 | Disability benefits hub | disability-benefits-hub | For pages in the /disability benefits hub |
 | Education benefits hub | education-benefits-hub | For pages in the /education benefits hub |
 | Housing Assistance benefits hub | housing-assistance-benefits | va.gov/housing-assistance |
