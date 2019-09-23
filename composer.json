@@ -333,7 +333,7 @@
             "@va:web:watch"
         ],
         "va:web:build": [
-            "cd web && npm run build -- --pull-drupal"
+            "cd web && npm run build -- --pull-drupal --drupal-fail-fast"
         ],
         "va:web:test": [
             "echo 'drupal address: ' $DRUPAL_ADDRESS"
