@@ -1,0 +1,5 @@
+services:
+  serializer.encoder.va_gov_preview:
+    class: Drupal\va_gov_preview\Encoder\StaticEncoder
+    tags:
+      - { name: encoder, priority: 10, format: static_html }
