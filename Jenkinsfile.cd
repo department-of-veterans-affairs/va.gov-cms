@@ -49,7 +49,7 @@ pipeline {
     }
 
     stage('Deploy to dev') {
-      if (IS_DEV_BRANCH) {
+      if (IS_DEV_BRANCH && !shouldBail()) {
         steps {
           build job: "deploys/cms-vagov-dev", parameters: [
             stringParam(name: 'app', value: 'cms'),
@@ -62,7 +62,7 @@ pipeline {
     }
 
     stage('Deploy to staging') {
-      if (IS_STAGING_BRANCH) {
+      if (IS_STAGING_BRANCH && !shouldBail()) {
         steps {
           build job: "deploys/cms-vagov-staging", parameters: [
             stringParam(name: 'app', value: 'cms'),
