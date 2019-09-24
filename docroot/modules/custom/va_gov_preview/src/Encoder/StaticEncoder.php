@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_preview\Encoder;
 
 use Drupal\serialization\Encoder\JsonEncoder as SerializationJsonEncoder;
+use Drupal\va_gov_preview\StaticServiceProvider;
 
 /**
  * Encodes data in JSON.
@@ -18,9 +19,6 @@ class StaticEncoder extends SerializationJsonEncoder {
    */
   protected static $format = ['static_html'];
 
-  const STATIC_DIRECTORY_NAME = 'static';
-  const INDEX_FILE_NAME = 'index.html';
-
   /**
    * Manipulate the output before it is rendered to the browser.
    */
@@ -28,13 +26,8 @@ class StaticEncoder extends SerializationJsonEncoder {
     $encoded = parent::encode($data, $format, $context);
 
     $requested_path = \Drupal::url('<current>', [], ['absolute' => FALSE]);
-    $content_path = implode(DIRECTORY_SEPARATOR, [
-      DRUPAL_ROOT,
-      self::STATIC_DIRECTORY_NAME,
-      $requested_path,
-      self::INDEX_FILE_NAME,
-    ]);
 
+    $content_path = StaticServiceProvider::urlPathToServerPath($requested_path);
     if (file_exists($content_path)) {
 
       // We print here instead of returning because, right now, we inherit the
@@ -44,7 +37,7 @@ class StaticEncoder extends SerializationJsonEncoder {
       exit;
     }
     else {
-      throw new \Exception("Unable to load content from $content_path. Run `composer va:web:build` command or press `Rebuild VA.gov Front=End` button.");
+      throw new \Exception("Static content file does not exist: $content_path. Run `composer va:web:build` command or press `Rebuild VA.gov Front=End` button.");
     }
   }
 
