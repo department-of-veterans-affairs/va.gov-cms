@@ -60,28 +60,38 @@ class BuildTriggerForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
-    // If function exists to trigger a devshop front-end rebuild, run it.
-    // This function only exists in DevShop-hosted sites. It is created and
-    // injected into the site's settings.php file.
-    if (function_exists('devshop_tasks_api_create')) {
-      devshop_tasks_api_create('vabuild');
-      return;
+    // If running in CMS-CI and DevShopTaskApiClient has been loaded, use it.
+    if (!empty($_SERVER['DEVSHOP_ENVIRONMENT']) && class_exists('DevShopTaskApiClient')) {
+      $task_json = DevShopTaskApiClient::create('vabuild');
+      $task = json_decode($task_json);
+      if (!empty($task->nid)) {
+        drupal_set_message(t('VA Web Rebuild has been queued.'));
+      }
+      else {
+        drupal_set_message($task_json);
+      }
     }
+    elseif (!empty($_SERVER['LANDO'])) {
+      // If LANDO: Show command to run.
+      drupal_set_message(t('VA Web Rebuild has been queued. Run composer va:web:build to trigger it.'));
+    }
+    else {
 
-    $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
-    $va_cms_bot_github_auth_token = Settings::get('va_cms_bot_github_auth_token');
-    $jenkins_build_job_host = Settings::get('jenkins_build_job_host');
-    $jenkins_build_job_path = Settings::get('jenkins_build_job_path');
-    $jenkins_build_job_url = Settings::get('jenkins_build_job_url');
+      $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
+      $va_cms_bot_github_auth_token = Settings::get('va_cms_bot_github_auth_token');
+      $jenkins_build_job_host = Settings::get('jenkins_build_job_host');
+      $jenkins_build_job_path = Settings::get('jenkins_build_job_path');
+      $jenkins_build_job_url = Settings::get('jenkins_build_job_url');
 
-    if (!in_array(Settings::get('jenkins_build_env'), [
-      'dev',
-      'staging',
-      'prod',
-    ])) {
-      Drupal::messenger()
-        ->addMessage(t('You cannot trigger a build in this environment. Only the DEV, STAGING and PROD environments support triggering builds.'), 'warning');
-      return FALSE;
+      if (!in_array(Settings::get('jenkins_build_env'), [
+        'dev',
+        'staging',
+        'prod',
+      ])) {
+        Drupal::messenger()
+          ->addMessage(t('You cannot trigger a build in this environment. Only the DEV, STAGING and PROD environments support triggering builds.'), 'warning');
+        return FALSE;
+      }
     }
 
     try {
