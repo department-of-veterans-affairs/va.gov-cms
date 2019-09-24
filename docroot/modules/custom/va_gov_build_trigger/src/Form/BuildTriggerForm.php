@@ -168,7 +168,7 @@ class BuildTriggerForm extends FormBase {
     }
     catch (RequestException $exception) {
       Drupal::messenger()
-        ->addMessage(t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify in #cms-engineering Slack and please email cms-admin@va.gov immediately with the error message you see here.', [':url' => $jenkins_build_job_url]), 'error');
+        ->addMessage(t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify in #cms-engineering Slack and please email vacmssupport@va.gov immediately with the error message you see here.', [':url' => $jenkins_build_job_url]), 'error');
       watchdog_exception('va_gov_build_trigger', $exception);
 
     }

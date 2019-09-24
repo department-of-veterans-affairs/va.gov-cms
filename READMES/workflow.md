@@ -1,11 +1,15 @@
 # Workflow
-1. Project
-1. Git
+1. [Project](#project)
+1. [Git](#git)
     1. Branches
     1. Example Workflow
     1.  Pull Request Norms
-1. Drupal SpecTool
-1. Patching Modules
+    1. Merge Conflicts
+1. [Drupal SpecTool](#drupal-spectool)
+1. [Patching](#patching)
+1. [Updates](#updates)
+    1. [Updating Drupal/Lightning](#updating-lightning)
+    1. [Updating Contrib Modules](#updating-contrib-modules)
 
 ## Project
 1. Pull a ticket, move to 'In Progress'
@@ -111,5 +115,21 @@ Apply patches:
 * Run `lando composer update <source>/<package>`
   * `lando composer update drupal/graphql`
 
+## Updates
+### Updating Lightning
+
+Security updates to Drupal core take a little while to make their way to the [Lightning distribution](https://www.drupal.org/project/lightning) and then into [headless_lightning](https://github.com/acquia/headless_lightning).  As such, the particular security issue should be assessed to see if it is warranted, and if so then the issue should be patched, using the patch method described in [patching](#patching).
+
+1. ```lando composer update acquia/headless_lightning --with-dependencies --dry-run```
+This will show you what is to change, without actually changing anything.
+2. ```lando composer update acquia/headless_lightning --with-dependencies```
+3. ```lando composer update --lock```
+4. ```lando test```
+5. Commit and review your changes.
+
+### Updating Contrib Modules
+1. ```lando composer update drupal/MODULE_NAME```  That will update the composer.lock
+2.  ```lando test``` to make sure nothing broke.
+3. Commit your work.
 
 [Table of Contents](../README.md)
