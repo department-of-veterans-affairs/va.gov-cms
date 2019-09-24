@@ -75,11 +75,6 @@ class BuildTriggerForm extends FormBase {
     // Save pending state.
     $config = \Drupal::service('config.factory')->getEditable('va_gov.build');
     if ($config->get('web.build.pending', 0)) {
-      drupal_set_message(t('Web Rebuild & Deploy is in progress: You must wait for it to complete before triggering another Rebuild & Deploy.'));
-
-      if ($environment_type == 'lando') {
-        drupal_set_message(t('You are using Lando. Run the command <code>lando composer va:web:build</code> to rebuild the front-end and unlock this form.'), 'warning');
-      }
 
       $form['actions']['submit']['#disabled'] = TRUE;
       $form['actions']['submit']['#suffix'] .= ' ' . t('disabled');

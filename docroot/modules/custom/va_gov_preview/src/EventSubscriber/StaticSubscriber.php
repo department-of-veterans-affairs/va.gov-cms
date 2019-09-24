@@ -2,7 +2,7 @@
 
 namespace Drupal\va_gov_preview\EventSubscriber;
 
-use Drupal\va_gov_preview\StaticServiceProvider;
+use Drupal\Core\Link;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -39,10 +39,14 @@ class StaticSubscriber extends HttpExceptionSubscriberBase {
     $request = \Drupal::request();
 
     // When requesting static_html, load the content and return it.
-    if ($request->query->get('_format') == 'static_html') {
-      if (file_exists(StaticServiceProvider::urlPathToServerPath($request->server->get('REDIRECT_URL', NULL)))) {
-        // @TODO: Do something.
+    $config = \Drupal::service('config.factory')->getEditable('va_gov.build');
+    if ($config->get('web.build.pending', 0) && $request->query->get('_format') != 'static_html') {
+      drupal_set_message(t('Web Rebuild & Deploy is in progress: You must wait for it to complete before triggering another Rebuild & Deploy. See the %link for status.', [
+        '%link' => Link::createFromRoute(t('Build & Deploy Page'), 'va_gov_build_trigger.build_trigger_form')->toString(),
+      ]));
 
+      if (getenv('CMS_ENVIRONMENT_TYPE') == 'lando') {
+        drupal_set_message(t('You are using Lando. Run the command <code>lando composer va:web:build</code> to rebuild the front-end and unlock this form.'), 'warning');
       }
     }
   }
