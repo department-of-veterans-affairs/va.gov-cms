@@ -7,14 +7,14 @@
 # /static assets are built using the `composer va:web:build` command.
 # See https://stackoverflow.com/questions/595005/redirect-requests-only-if-the-file-is-not-found
 
-# If requested file exists, skip the next rule.
+# If requested file or directory exists, skip the next rule.
 RewriteCond %{DOCUMENT_ROOT}/$1 -f [OR]
 RewriteCond %{DOCUMENT_ROOT}/$1 -d
 RewriteRule (.*) - [S=1]
 
 # If requested file exists in /static, rewrite to /static
-RewriteCond %{DOCUMENT_ROOT}/static/$1 -f [OR]
-RewriteCond %{DOCUMENT_ROOT}/static/$1 -d
+# Using only files here ensures the paths still resolve to Drupal and not to the index.html files.
+RewriteCond %{DOCUMENT_ROOT}/static/$1 -f
 RewriteRule (.*) /static/$1 [L]
 
 # Protect files and directories from prying eyes.
