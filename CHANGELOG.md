@@ -1,3 +1,4 @@
+
 # Changelog
 All notable changes to this project will be documented in this file.
 
@@ -7,6 +8,38 @@ The format is based on [git-release-notes](https://github.com/ariatemplates/git-
 ## [Unreleased]
 
 * __Nothing unreleased__
+
+## 2019-09-24.1 Sprint 23 release 1. tag  20190924.1
+*  __VAGOV-6018: disable devel and remove test (#590)__
+    2019-09-23 09:28:48 -0400 - (Steve Wirt) [5753c272]
+*  __VAGOV-6017: Replace legacy support email with new. (#592)__
+    2019-09-20 17:21:29 -0400 - (Ethan Teague) [c574c314]
+*  __VAGOV-5935: Adding new image style and flag. (#578)__
+    2019-09-19 13:44:40 -0400 - (Ethan Teague) [14a016ee]
+*  __VAGOV-2214 Add SSOi documentation. (#579)__
+    2019-09-19 13:28:01 -0400 - (Steve Wirt) [1e91e351]
+*  __VAGOV-5835: Remove unused legacy flags. (#585)__
+    2019-09-19 13:25:27 -0400 - (Ethan Teague) [8073e70d]
+*  __VAGOV-5835 Update vets-website to latest. (#587)__
+    2019-09-19 12:56:09 -0400 - (Elijah Lynn) [9d56fda4]
+*  __VAGOV-5984 Update header menu promo reference (#586)__
+    2019-09-19 12:43:09 -0400 - (jonbot) [41c59db7]
+*  __VAGOV-5809: Updating tablefield to prevent log notices. (#588)__
+    2019-09-19 10:18:02 -0400 - (Ethan Teague) [e00a83a5]
+*  __Update https.md README with OS X tips for importing VA-Internal certs. (#584)__
+    2019-09-18 16:31:08 -0400 - (Kevin Walsh) [68fdb4f4]
+*  __VAOGV-000 Move fast tests to beginning for faster feedback. (#583)__
+    2019-09-18 16:27:54 -0400 - (Elijah Lynn) [d1034366]
+*  __VAGOV-0000 SSOi fix (#582)__
+    2019-09-17 20:24:04 -0400 - (Steve Wirt) [0f82552c]
+*  __VAGOV-5892 Adjust SSO settings. (#565)__
+    2019-09-17 10:04:24 -0700 - (Steve Wirt) [c124a67a]
+*  __VAGOV-2303: README.md (#567)__
+    2019-09-13 11:12:24 -0400 - (Jon Pugh) [1d035143]
+*  __VAGOV-5913: Adding cac role test for menu access. (#577)__
+    2019-09-12 11:43:08 -0400 - (Steve Wirt) [9ba5dd35]
+*  __VAGOV-5766: Changing node type meta tag order. (#575)__
+    2019-09-11 16:22:02 -0400 - (Ethan Teague) [5e3492f9]
 
 ## 2019-09-10.1 Sprint 22 release 2. tag  20190910.1
 *  __VAGOV-000 Merge CHANGELOG.md from master.__
