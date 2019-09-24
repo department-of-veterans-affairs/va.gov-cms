@@ -29,21 +29,10 @@ class BuildTriggerForm extends FormBase {
     $form['actions']['#type'] = 'actions';
     $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Rebuild site'),
-      '#description' => 'yes',
+      '#value' => $this->t('Rebuild VA.gov Front-End'),
+      '#description' => 'Trigger the rebuilding of the front-end of this website using the latest content.',
       '#button_type' => 'primary',
     ];
-    if (!in_array(getenv('CMS_ENVIRONMENT_TYPE'), [
-      'dev',
-      'staging',
-      'prod',
-    ])) {
-      Drupal::messenger()
-        ->addMessage(t('You cannot trigger a build in this environment. Only the DEV, STAGING and PROD environments support triggering builds.'), 'warning');
-      $form['actions']['submit']['#attributes'] = [
-        'disabled' => 'disabled',
-      ];
-    }
     return $form;
   }
 
@@ -70,6 +59,15 @@ class BuildTriggerForm extends FormBase {
    *   Object containing current form state.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+
+    // If function exists to trigger a devshop front-end rebuild, run it.
+    // This function only exists in DevShop-hosted sites. It is created and
+    // injected into the site's settings.php file.
+    if (function_exists('devshop_tasks_api_create')) {
+      devshop_tasks_api_create('vabuild');
+      return;
+    }
+
     $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
     $va_cms_bot_github_auth_token = Settings::get('va_cms_bot_github_auth_token');
     $jenkins_build_job_host = Settings::get('jenkins_build_job_host');
