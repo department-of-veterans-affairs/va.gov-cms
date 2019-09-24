@@ -4,7 +4,7 @@
   "description": "This is an Aquia Lightning based implementation of Drupal 8 that uses [Lando](https://docs.devwithlando.io/) for local container management.",
   "main": "index.js",
   "scripts": {
-    "test": "node ./tests/nightwatch/features/axe.js"
+    "test": "node ./tests/aXe508/axe.js"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,9 @@
     "nightwatch": "^1.2.2",
     "nightwatch-accessibility": "^1.8.0",
     "selenium-webdriver": "^3.6.0",
-    "phantomjs-prebuilt": "^2.1.16"
+    "phantomjs-prebuilt": "^2.1.16",
+    "require": "^2.4.20",
+    "axe-reports": "^1.1.11"
   },
   "dependencies": {},
   "directories": {
