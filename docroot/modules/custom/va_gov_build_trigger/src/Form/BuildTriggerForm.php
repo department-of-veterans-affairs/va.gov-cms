@@ -130,7 +130,7 @@ class BuildTriggerForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // If running in CMS-CI and DevShopTaskApiClient has been loaded, use it.
     if ($form_state->getValue('environment_type') == 'ci' && class_exists('DevShopTaskApiClient')) {
-      $task_json = DevShopTaskApiClient::create('vabuild');
+      $task_json = \DevShopTaskApiClient::create('vabuild');
       $task = json_decode($task_json);
       if (!empty($task->nid)) {
         drupal_set_message(t('VA Web Rebuild & Deploy has been queued. The process should complete in around 1 minute. !link', [
