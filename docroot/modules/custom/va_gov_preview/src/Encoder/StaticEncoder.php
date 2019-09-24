@@ -21,6 +21,8 @@ class StaticEncoder extends SerializationJsonEncoder {
 
   /**
    * Manipulate the output before it is rendered to the browser.
+   *
+   * This reads the static files right off the server and returns them.
    */
   public function encode($data, $format, array $context = []) {
     $encoded = parent::encode($data, $format, $context);
