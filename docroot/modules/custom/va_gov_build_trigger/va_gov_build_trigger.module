@@ -11,6 +11,18 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\va_gov_build_trigger\Form\PreviewForm;
 
 /**
+ * Trigger a web rebuild whenever a node is updated.
+ *
+ * @param \Drupal\node\NodeInterface $node
+ *   The node being updated.
+ */
+function va_gov_node_update(NodeInterface $node) {
+  if (function_exists('devshop_tasks_api_create')) {
+    devshop_tasks_api_create('vabuild');
+  }
+}
+
+/**
  * Implements hook_form_alter().
  */
 function va_gov_build_trigger_form_alter(&$form, FormStateInterface $form_state, $form_id) {
