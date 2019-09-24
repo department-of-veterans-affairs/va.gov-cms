@@ -98,14 +98,6 @@ class PreviewForm extends FormBase {
   public function getEnvironment($host, $nid) {
     $url = '';
     switch ($host) {
-// @TODO: Remove when local development preview works well.
-//      // For local dev - requires setting constant DRUPAL_DEV in
-//      // src/site/constants/drupals.js file in vets-website repo to local
-//      // address and credentials.
-//      case 'vagovcms.lndo.site':
-//        $url = 'http://localhost:3001/preview?nodeId=' . $nid;
-//        break;
-
       case 'test1.cms.va.gov':
         $url = 'https://vetsgov-pr-9681.herokuapp.com/preview?nodeId=' . $nid;
         break;
