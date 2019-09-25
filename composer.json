@@ -24,6 +24,7 @@
         "drupal/coder": "~8.2.12",
         "drupal/components": "^1.0",
         "drupal/config_ignore": "^2.1",
+        "drupal/config_override_warn": "^1.0",
         "drupal/config_split": "^1.4",
         "drupal/content_lock": "^1.0@alpha",
         "drupal/cshs": "^1.0@beta",
@@ -67,7 +68,7 @@
         "drupal/seckit": "^1.1",
         "drupal/simplesamlphp_auth": "^3.0",
         "drupal/social_media_links": "^2.6",
-        "drupal/tablefield": "^2.0@alpha",
+        "drupal/tablefield": "^2.1",
         "drupal/taxonomy_menu": "^3.4",
         "drupal/textfield_counter": "^1.6",
         "drupal/toolbar_menu": "^2.1",
@@ -120,7 +121,7 @@
                 "source": {
                     "url": "https://github.com/department-of-veterans-affairs/vets-website",
                     "type": "git",
-                    "reference": "e76d8b6e1ae5fddc9c3f629b76c082e2d956ee8f"
+                    "reference": "35deea6e8afaf58b9b4e3ee23fe2e0134c18d2e2"
                 }
             }
         },
@@ -188,8 +189,16 @@
             ]
         },
         "enable-patching": true,
+        "patches-ignore": {
+            "drupal/lightning_core": {
+                "drupal/core": {
+                    "2815221 - Add quickedit to the latest-revision route: Don't use this outdate patch https://www.drupal.org/project/lightning_core/issues/3040013": "https://www.drupal.org/files/issues/2019-02-26/2815221-115-8.6.x.patch"
+                }
+            }
+        },
         "patches": {
             "drupal/core": {
+                "2815221 - Add quickedit to the latest-revision route": "https://www.drupal.org/files/issues/2019-03-05/2815221-116.patch",
                 "Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch"
             },
             "drupal/migration_tools": {
@@ -232,6 +241,9 @@
                 "Use core temp store.": "https://www.drupal.org/files/issues/2019-03-04/password_policy-use-core-temp-store-3032549-3.patch",
                 "Fix field field_last_password_reset is unknown.": "https://www.drupal.org/files/issues/2019-02-24/password_policy-config_import_field_error-2771129-73_alpha4_1.patch",
                 "Password expires does not work.": "https://www.drupal.org/files/issues/2019-03-11/2917622-password_policy-expiration-issue-for-8.x-3.0-alpha4.patch"
+            },
+            "drupal/simplesamlphp_auth": {
+                "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2019-08-14/2748731-23.patch"
             },
             "drupal/textfield_counter": {
                 "Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch"

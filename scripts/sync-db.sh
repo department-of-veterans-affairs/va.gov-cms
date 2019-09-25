@@ -26,5 +26,13 @@ fi
 # Local only
 if [ -z "$CMS_BRD" ]; then
 echo $CMS_BRD;
+echo "Purging devel configuration files."
+    rm $(git rev-parse --show-toplevel)/config/sync/devel.settings.yml -f
+    rm $(git rev-parse --show-toplevel)/config/sync/devel.toolbar.settings.yml -f
+    rm $(git rev-parse --show-toplevel)/config/sync/system.menu.devel.yml -f
+    rm $(git rev-parse --show-toplevel)/config/dev/devel.settings.yml -f
+    rm $(git rev-parse --show-toplevel)/config/dev/devel.toolbar.settings.yml -f
+    rm $(git rev-parse --show-toplevel)/config/dev/system.menu.devel.yml -f
+echo "Importing database."
     lando db-import cms-prod-db-sanitized-latest.sql
 fi
