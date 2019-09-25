@@ -1,0 +1,25 @@
+uuid: 07d6bf3c-0d5b-44a5-ad83-8aa5f65ca2a5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_banner_alert_vamcs
+    - node.type.full_width_banner_alert
+id: node.full_width_banner_alert.field_banner_alert_vamcs
+field_name: field_banner_alert_vamcs
+entity_type: node
+bundle: full_width_banner_alert
+label: 'VA Medical Centers'
+description: 'Your banner alert will display on the homepage for each VAMC you select here. '
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: vamc_operating_statuses
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

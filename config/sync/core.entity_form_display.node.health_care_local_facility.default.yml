@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_meta_title
     - field.field.node.health_care_local_facility.field_nickname_for_this_facility
     - field.field.node.health_care_local_facility.field_operating_status_facility
+    - field.field.node.health_care_local_facility.field_operating_status_more_info
     - field.field.node.health_care_local_facility.field_region_page
     - field.field.node.health_care_local_facility.field_twitter
     - node.type.health_care_local_facility
@@ -39,7 +40,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -54,7 +55,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: fieldset
       format_settings:
         id: ''
@@ -67,7 +68,7 @@ third_party_settings:
       children:
         - field_facility_locator_api_id
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: details
       format_settings:
         id: ''
@@ -81,7 +82,7 @@ third_party_settings:
       children:
         - field_location_services
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: details
       format_settings:
         id: ''
@@ -95,7 +96,7 @@ third_party_settings:
         - field_region_page
         - field_main_location
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -110,7 +111,6 @@ third_party_settings:
         - field_meta_title
         - field_nickname_for_this_facility
         - field_description
-        - field_operating_status_facility
         - field_intro_text
         - field_media
       parent_name: ''
@@ -131,7 +131,7 @@ third_party_settings:
         - field_flickr
         - field_email_subscription
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -139,6 +139,20 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Social Media'
+      region: content
+    group_operating_status:
+      children:
+        - field_operating_status_facility
+        - field_operating_status_more_info
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Operating status'
       region: content
 id: node.health_care_local_facility.default
 targetEntityType: node
@@ -191,7 +205,7 @@ content:
     type: string_textfield
     region: content
   field_flickr:
-    weight: 23
+    weight: 22
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -199,7 +213,7 @@ content:
     type: link_default
     region: content
   field_instagram:
-    weight: 22
+    weight: 21
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -245,7 +259,7 @@ content:
     region: content
     third_party_settings: {  }
   field_meta_tags:
-    weight: 8
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -278,6 +292,14 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  field_operating_status_more_info:
+    weight: 6
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
   field_region_page:
     weight: 20
     settings: {  }
@@ -300,7 +322,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }

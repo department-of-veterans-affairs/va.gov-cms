@@ -1,0 +1,97 @@
+uuid: f40f0bc9-cf27-4cde-8cee-1c8b6e4127ca
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_situation_updates
+    - node.type.full_width_banner_alert
+    - paragraphs.paragraphs_type.situation_update
+  module:
+    - entity_reference_revisions
+id: node.full_width_banner_alert.field_situation_updates
+field_name: field_situation_updates
+entity_type: node
+bundle: full_width_banner_alert
+label: 'Situation updates'
+description: 'Situation updates appear on each VAMCs'' Operating status page, and optionally send out emails to subscribers of emergency emails for that VAMC. '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      situation_update: situation_update
+    target_bundles_drag_drop:
+      address:
+        weight: 24
+        enabled: false
+      alert:
+        weight: 25
+        enabled: false
+      collapsible_panel:
+        weight: 26
+        enabled: false
+      collapsible_panel_item:
+        weight: 27
+        enabled: false
+      downloadable_file:
+        weight: 28
+        enabled: false
+      expandable_text:
+        weight: 29
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 30
+        enabled: false
+      link_teaser:
+        weight: 31
+        enabled: false
+      list_of_link_teasers:
+        weight: 32
+        enabled: false
+      media:
+        weight: 33
+        enabled: false
+      megamenu_links_column:
+        weight: 34
+        enabled: false
+      megamenu_menu_item:
+        weight: 35
+        enabled: false
+      number_callout:
+        weight: 36
+        enabled: false
+      process:
+        weight: 37
+        enabled: false
+      q_a:
+        weight: 38
+        enabled: false
+      q_a_section:
+        weight: 39
+        enabled: false
+      react_widget:
+        weight: 40
+        enabled: false
+      situation_update:
+        enabled: true
+        weight: 41
+      spanish_translation_summary:
+        weight: 42
+        enabled: false
+      staff_profile:
+        weight: 43
+        enabled: false
+      starred_horizontal_rule:
+        weight: 44
+        enabled: false
+      table:
+        weight: 45
+        enabled: false
+      wysiwyg:
+        weight: 46
+        enabled: false
+field_type: entity_reference_revisions

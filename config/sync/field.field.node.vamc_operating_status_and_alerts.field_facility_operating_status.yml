@@ -1,0 +1,29 @@
+uuid: 9141f15a-7585-4e4f-8a5f-d6ec7324cce7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_facility_operating_status
+    - node.type.health_care_local_facility
+    - node.type.vamc_operating_status_and_alerts
+id: node.vamc_operating_status_and_alerts.field_facility_operating_status
+field_name: field_facility_operating_status
+entity_type: node
+bundle: vamc_operating_status_and_alerts
+label: 'Update individual facility statuses'
+description: 'By editing the operating status here, you will update both the Operating status page and the Facility page. '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      health_care_local_facility: health_care_local_facility
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
