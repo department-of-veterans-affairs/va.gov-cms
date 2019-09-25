@@ -41,12 +41,14 @@ class StaticEncoder extends SerializationJsonEncoder {
       exit;
     }
     else {
+      // Drupal: Goto!
       drupal_set_message(t("Static content file does not yet exist at %path. Please wait for rebuild process to complete.", [
         '%path' => $content_path,
       ]), 'warning');
-      // @TODO: ??? This was all needed to get this to work.
-      print new RedirectResponse($requested_path);
-      exit;
+
+      // Yup. drupal_goto() is gone.
+      (new RedirectResponse($requested_path))->send();
+      return;
     }
   }
 
