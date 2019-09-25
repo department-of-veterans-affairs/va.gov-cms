@@ -27,7 +27,6 @@ class StaticEncoder extends SerializationJsonEncoder {
    * This reads the static files right off the server and returns them.
    */
   public function encode($data, $format, array $context = []) {
-    $encoded = parent::encode($data, $format, $context);
 
     $requested_path = \Drupal::url('<current>', [], ['absolute' => FALSE]);
 
