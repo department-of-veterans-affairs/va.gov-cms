@@ -1,0 +1,23 @@
+uuid: 3db112fa-60f3-4dfc-8977-7cd44a70dd00
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_send_email_to_subscribers
+    - paragraphs.paragraphs_type.situation_update
+id: paragraph.situation_update.field_send_email_to_subscribers
+field_name: field_send_email_to_subscribers
+entity_type: paragraph
+bundle: situation_update
+label: 'Send email to subscribers via GovDelivery?'
+description: 'If this box is checked, an email will be sent to all those subscribed to emergency updates for VAMCs associated to this situation update.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Send email to subscribers via GovDelivery'
+  off_label: 'Off'
+field_type: boolean

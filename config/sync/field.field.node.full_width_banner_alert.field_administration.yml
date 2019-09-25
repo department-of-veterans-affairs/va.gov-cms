@@ -1,0 +1,33 @@
+uuid: a713a9c1-0e10-4b1e-aba1-cff7a456ba03
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.full_width_banner_alert
+    - taxonomy.vocabulary.administration
+  content:
+    - 'taxonomy_term:administration:87832236-1e54-4ce3-8141-8dec27c8a9a7'
+id: node.full_width_banner_alert.field_administration
+field_name: field_administration
+entity_type: node
+bundle: full_width_banner_alert
+label: Owner
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    target_uuid: 87832236-1e54-4ce3-8141-8dec27c8a9a7
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

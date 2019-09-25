@@ -1,0 +1,22 @@
+uuid: 610d9496-b4a8-4c90-8b91-10ec5c5d29e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_operating_status_and_alerts
+id: node.vamc_operating_status_and_alerts.promote
+field_name: promote
+entity_type: node
+bundle: vamc_operating_status_and_alerts
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

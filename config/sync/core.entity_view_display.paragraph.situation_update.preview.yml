@@ -1,0 +1,46 @@
+uuid: 7a0ae46e-5067-4d03-a0dc-93b9afd54e33
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.preview
+    - field.field.paragraph.situation_update.field_date_and_time
+    - field.field.paragraph.situation_update.field_send_email_to_subscribers
+    - field.field.paragraph.situation_update.field_wysiwyg
+    - paragraphs.paragraphs_type.situation_update
+  module:
+    - datetime
+    - text
+id: paragraph.situation_update.preview
+targetEntityType: paragraph
+bundle: situation_update
+mode: preview
+content:
+  field_date_and_time:
+    weight: 0
+    label: inline
+    settings:
+      timezone_override: America/New_York
+      format_type: long
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_send_email_to_subscribers:
+    weight: 1
+    label: inline
+    settings:
+      format: yes-no
+      format_custom_true: ''
+      format_custom_false: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_wysiwyg:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden:
+  search_api_excerpt: true

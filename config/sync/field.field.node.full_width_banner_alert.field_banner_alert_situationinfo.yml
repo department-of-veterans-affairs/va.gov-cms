@@ -1,0 +1,21 @@
+uuid: 911df7b7-fc61-41b6-8974-99af40c7c47e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_banner_alert_situationinfo
+    - node.type.full_width_banner_alert
+  module:
+    - text
+id: node.full_width_banner_alert.field_banner_alert_situationinfo
+field_name: field_banner_alert_situationinfo
+entity_type: node
+bundle: full_width_banner_alert
+label: 'Situation information'
+description: 'For "static" situation information that is additional to any situation updates.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

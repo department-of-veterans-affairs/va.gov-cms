@@ -1,0 +1,22 @@
+uuid: 4015dce6-06a0-4ad6-ba1f-a2a0201077ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.full_width_banner_alert
+id: node.full_width_banner_alert.status
+field_name: status
+entity_type: node
+bundle: full_width_banner_alert
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
