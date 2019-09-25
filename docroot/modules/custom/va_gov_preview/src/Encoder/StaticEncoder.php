@@ -39,7 +39,11 @@ class StaticEncoder extends SerializationJsonEncoder {
       exit;
     }
     else {
-      throw new \Exception("Static content file does not exist: $content_path. Run `composer va:web:build` command or press `Rebuild VA.gov Front=End` button.");
+      drupal_set_message(t("Static content file does not yet exist at %path. Please wait for rebuild process to complete.", [
+        '%path' => $content_path,
+      ]));
+      drupal_goto($requested_path);
+      return;
     }
   }
 
