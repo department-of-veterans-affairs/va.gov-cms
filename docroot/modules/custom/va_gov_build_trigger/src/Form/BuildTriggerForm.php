@@ -135,6 +135,12 @@ class BuildTriggerForm extends FormBase {
       $task = json_decode($task_json);
       if (!empty($task->nid)) {
         drupal_set_message(t('VA Web Rebuild & Deploy has been queued. The process should complete in around 1 minute.') . ' ' . Link::fromTextAndUrl(t('Deploy Log'), Url::fromUri('http://' . $_SERVER['DEVSHOP_HOSTNAME'] . '/node/' . $task->nid))->toString());
+
+        // Save pending state.
+        $config = \Drupal::service('config.factory')->getEditable('va_gov.build');
+        $config->set('web.build.pending', 1);
+        $config->save();
+
       }
     }
     elseif ($form_state->getValue('environment_type') == 'lando') {
@@ -245,12 +251,6 @@ class BuildTriggerForm extends FormBase {
 
       }
     }
-
-    // Save pending state.
-    $config = \Drupal::service('config.factory')->getEditable('va_gov.build');
-    $config->set('web.build.pending', 1);
-    $config->save();
-
   }
 
 }
