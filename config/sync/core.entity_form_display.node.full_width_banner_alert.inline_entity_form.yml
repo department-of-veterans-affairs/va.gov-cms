@@ -6,7 +6,9 @@ dependencies:
     - core.entity_form_mode.node.inline_entity_form
     - field.field.node.full_width_banner_alert.field_administration
     - field.field.node.full_width_banner_alert.field_alert_dismissable
+    - field.field.node.full_width_banner_alert.field_alert_find_facilities_cta
     - field.field.node.full_width_banner_alert.field_alert_inheritance_subpages
+    - field.field.node.full_width_banner_alert.field_alert_operating_status_cta
     - field.field.node.full_width_banner_alert.field_alert_type
     - field.field.node.full_width_banner_alert.field_banner_alert_situationinfo
     - field.field.node.full_width_banner_alert.field_banner_alert_vamcs
@@ -66,10 +68,11 @@ third_party_settings:
       region: content
     group_alert_content:
       children:
-        - title
-        - field_body
         - field_alert_type
         - field_alert_dismissable
+        - title
+        - field_body
+        - group_calls_to_action
       parent_name: ''
       weight: 0
       format_type: fieldset
@@ -98,7 +101,7 @@ third_party_settings:
     group_situation_information:
       children: {  }
       parent_name: ''
-      weight: 13
+      weight: 17
       format_type: fieldset
       format_settings:
         description: "For \"static\" situation information that is additional to any situation updates.\r\n"
@@ -107,18 +110,39 @@ third_party_settings:
         classes: ''
       label: 'Situation information'
       region: hidden
+    group_calls_to_action:
+      children:
+        - field_alert_find_facilities_cta
+        - field_alert_operating_status_cta
+      parent_name: group_alert_content
+      weight: 8
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: false
+      label: 'Calls to action'
+      region: content
 id: node.full_width_banner_alert.inline_entity_form
 targetEntityType: node
 bundle: full_width_banner_alert
 mode: inline_entity_form
 content:
   field_alert_dismissable:
-    weight: 4
+    weight: 5
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
+  field_alert_find_facilities_cta:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_alert_inheritance_subpages:
     weight: 8
     settings:
@@ -126,8 +150,15 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
+  field_alert_operating_status_cta:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_alert_type:
-    weight: 3
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -141,7 +172,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_body:
-    weight: 2
+    weight: 7
     settings:
       rows: 5
       placeholder: ''
@@ -189,7 +220,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 1
+    weight: 6
     region: content
     settings:
       size: 60

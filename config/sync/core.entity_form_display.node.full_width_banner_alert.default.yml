@@ -5,7 +5,9 @@ dependencies:
   config:
     - field.field.node.full_width_banner_alert.field_administration
     - field.field.node.full_width_banner_alert.field_alert_dismissable
+    - field.field.node.full_width_banner_alert.field_alert_find_facilities_cta
     - field.field.node.full_width_banner_alert.field_alert_inheritance_subpages
+    - field.field.node.full_width_banner_alert.field_alert_operating_status_cta
     - field.field.node.full_width_banner_alert.field_alert_type
     - field.field.node.full_width_banner_alert.field_banner_alert_situationinfo
     - field.field.node.full_width_banner_alert.field_banner_alert_vamcs
@@ -53,7 +55,7 @@ third_party_settings:
     group_alert_display_and_behavior:
       children: {  }
       parent_name: ''
-      weight: 13
+      weight: 16
       format_type: details
       format_settings:
         id: ''
@@ -69,6 +71,7 @@ third_party_settings:
         - field_alert_dismissable
         - title
         - field_body
+        - group_calls_to_action
       parent_name: ''
       weight: 1
       format_type: details
@@ -114,7 +117,7 @@ third_party_settings:
     group_situation_information:
       children: {  }
       parent_name: ''
-      weight: 12
+      weight: 15
       format_type: fieldset
       format_settings:
         description: 'For "static" situation information that is additional to any situation updates.'
@@ -123,6 +126,20 @@ third_party_settings:
         required_fields: false
       label: 'Situation information'
       region: hidden
+    group_calls_to_action:
+      children:
+        - field_alert_operating_status_cta
+        - field_alert_find_facilities_cta
+      parent_name: group_alert_content
+      weight: 8
+      format_type: fieldset
+      format_settings:
+        description: 'These buttons will be displayed at the bottom of an alert, as well as in the emails sent out via GovDelivery'
+        id: ''
+        classes: ''
+        required_fields: false
+      label: 'Calls to action'
+      region: content
 id: node.full_width_banner_alert.default
 targetEntityType: node
 bundle: full_width_banner_alert
@@ -141,8 +158,22 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
+  field_alert_find_facilities_cta:
+    weight: 7
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
   field_alert_inheritance_subpages:
     weight: 2
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_alert_operating_status_cta:
+    weight: 6
     settings:
       display_label: true
     third_party_settings: {  }

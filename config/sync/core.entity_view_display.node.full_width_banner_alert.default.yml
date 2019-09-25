@@ -5,7 +5,9 @@ dependencies:
   config:
     - field.field.node.full_width_banner_alert.field_administration
     - field.field.node.full_width_banner_alert.field_alert_dismissable
+    - field.field.node.full_width_banner_alert.field_alert_find_facilities_cta
     - field.field.node.full_width_banner_alert.field_alert_inheritance_subpages
+    - field.field.node.full_width_banner_alert.field_alert_operating_status_cta
     - field.field.node.full_width_banner_alert.field_alert_type
     - field.field.node.full_width_banner_alert.field_banner_alert_situationinfo
     - field.field.node.full_width_banner_alert.field_banner_alert_vamcs
@@ -75,6 +77,16 @@ content:
     third_party_settings: {  }
     type: boolean
     region: content
+  field_alert_find_facilities_cta:
+    weight: 11
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
   field_alert_inheritance_subpages:
     weight: 9
     label: inline
@@ -82,6 +94,16 @@ content:
       format: custom
       format_custom_true: 'Yes'
       format_custom_false: 'No'
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_alert_operating_status_cta:
+    weight: 10
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
     third_party_settings: {  }
     type: boolean
     region: content
