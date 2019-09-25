@@ -1,0 +1,93 @@
+uuid: d03f15c2-f32f-4819-9090-292e8379d9b4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.vamc_operating_status_and_alerts.field_administration
+    - field.field.node.vamc_operating_status_and_alerts.field_banner_alert
+    - field.field.node.vamc_operating_status_and_alerts.field_facility_operating_status
+    - field.field.node.vamc_operating_status_and_alerts.field_links
+    - field.field.node.vamc_operating_status_and_alerts.field_meta_tags
+    - field.field.node.vamc_operating_status_and_alerts.field_office
+    - field.field.node.vamc_operating_status_and_alerts.field_operating_status_emerg_inf
+    - node.type.vamc_operating_status_and_alerts
+  module:
+    - link
+    - metatag
+    - text
+    - user
+id: node.vamc_operating_status_and_alerts.default
+targetEntityType: node
+bundle: vamc_operating_status_and_alerts
+mode: default
+content:
+  content_moderation_control:
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_administration:
+    weight: 10
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_banner_alert:
+    weight: 9
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_facility_operating_status:
+    weight: 3
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_links:
+    weight: 8
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_meta_tags:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+    region: content
+  field_office:
+    weight: 5
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_operating_status_emerg_inf:
+    weight: 7
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  search_api_excerpt: true

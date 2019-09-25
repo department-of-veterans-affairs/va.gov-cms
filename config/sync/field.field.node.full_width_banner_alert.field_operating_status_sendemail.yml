@@ -1,0 +1,23 @@
+uuid: f66e85ab-5dfc-43db-80de-6cd134d650cd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_operating_status_sendemail
+    - node.type.full_width_banner_alert
+id: node.full_width_banner_alert.field_operating_status_sendemail
+field_name: field_operating_status_sendemail
+entity_type: node
+bundle: full_width_banner_alert
+label: 'Send email to subscribers via GovDelivery?'
+description: "When this is checked, any update to the banner alert content (the title or body field) will trigger an email to all subscribers of the VAMC's emergency updates email list. \r\n"
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Send email to subscribers via GovDelivery?'
+  off_label: 'Off'
+field_type: boolean
