@@ -1,0 +1,27 @@
+uuid: cec536f5-539c-4769-821c-5c2c29947540
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_alert_type
+field_name: field_alert_type
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: information
+      label: Information
+    -
+      value: warning
+      label: Warning
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
