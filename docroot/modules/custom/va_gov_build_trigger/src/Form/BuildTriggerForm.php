@@ -133,9 +133,7 @@ class BuildTriggerForm extends FormBase {
       $task_json = \DevShopTaskApiClient::create('vabuild');
       $task = json_decode($task_json);
       if (!empty($task->nid)) {
-        drupal_set_message(t('VA Web Rebuild & Deploy has been queued. The process should complete in around 1 minute. !link', [
-          '!link' => Drupal::l(t('Deploy Log'), Url::fromUri('http://' . $_SERVER['DEVSHOP_HOSTNAME'] . '/node/' . $task->nid)),
-        ]));
+        drupal_set_message(t('VA Web Rebuild & Deploy has been queued. The process should complete in around 1 minute.') . ' ' . Drupal::l(t('Deploy Log'), Url::fromUri('http://' . $_SERVER['DEVSHOP_HOSTNAME'] . '/node/' . $task->nid)));
       }
     }
     elseif ($form_state->getValue('environment_type') == 'lando') {
