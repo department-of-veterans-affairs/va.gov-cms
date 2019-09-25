@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b9c435a013680ba6f1ba704d3c6ed1c1",
+    "content-hash": "0bc259a198b960f87fdb0c20944f7563",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -17744,16 +17744,37 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jonpugh/vets-website.git",
-                "reference": "35deea6e8afaf58b9b4e3ee23fe2e0134c18d2e2"
+                "reference": "4b8632d70c7910f17d9f164a43f48aaf3c392154"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jonpugh/vets-website/zipball/35deea6e8afaf58b9b4e3ee23fe2e0134c18d2e2",
-                "reference": "35deea6e8afaf58b9b4e3ee23fe2e0134c18d2e2",
+                "url": "https://api.github.com/repos/jonpugh/vets-website/zipball/4b8632d70c7910f17d9f164a43f48aaf3c392154",
+                "reference": "4b8632d70c7910f17d9f164a43f48aaf3c392154",
                 "shasum": ""
             },
-            "type": "library",
-            "time": "2019-09-18T21:26:31+00:00"
+            "type": "node-project",
+            "extra": {
+                "installer-types": [
+                    "node-project"
+                ],
+                "installer-paths": {
+                    "web/": [
+                        "type:node-project"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "CC0-1.0"
+            ],
+            "authors": [
+                {
+                    "name": "VA.gov Team",
+                    "homepage": "https://github.com/department-of-veterans-affairs/vets-website/graphs/contributors"
+                }
+            ],
+            "description": "Front-end for VA.gov. This repositroy contains the code that generates the VA.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to Packagist, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
+            "time": "2019-09-19T23:14:33+00:00"
         },
         {
             "name": "vardot/blazy",
