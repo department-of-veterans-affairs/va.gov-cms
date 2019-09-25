@@ -5,6 +5,7 @@ namespace Drupal\va_gov_preview\Encoder;
 use Drupal\Core\Url;
 use Drupal\serialization\Encoder\JsonEncoder as SerializationJsonEncoder;
 use Drupal\va_gov_preview\StaticServiceProvider;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Encodes data in JSON.
@@ -43,7 +44,9 @@ class StaticEncoder extends SerializationJsonEncoder {
       drupal_set_message(t("Static content file does not yet exist at %path. Please wait for rebuild process to complete.", [
         '%path' => $content_path,
       ]));
-      return new RedirectResponse(Url::fromUri($requested_path));
+      // @TODO: ??? This was all needed to get this to work.
+      print new RedirectResponse($requested_path);
+      exit;
     }
   }
 
