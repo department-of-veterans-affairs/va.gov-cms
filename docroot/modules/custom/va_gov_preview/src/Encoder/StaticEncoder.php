@@ -2,7 +2,6 @@
 
 namespace Drupal\va_gov_preview\Encoder;
 
-use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\serialization\Encoder\JsonEncoder as SerializationJsonEncoder;
 use Drupal\va_gov_preview\StaticServiceProvider;
@@ -30,11 +29,6 @@ class StaticEncoder extends SerializationJsonEncoder {
     $encoded = parent::encode($data, $format, $context);
 
     $requested_path = \Drupal::url('<current>', [], ['absolute' => FALSE]);
-    $requested_static_path = '/static/' . \Drupal::url('<current>', [], ['absolute' => FALSE]);
-    $requested_static_url = Url::fromUri($requested_static_path, [
-      'absolute' => FALSE,
-    ]);
-    $requested_static_link = Link::fromTextAndUrl($requested_static_url, $requested_static_url);
 
     $content_path = StaticServiceProvider::urlPathToServerPath($requested_path);
     if (file_exists($content_path)) {
@@ -47,7 +41,7 @@ class StaticEncoder extends SerializationJsonEncoder {
     }
     else {
       drupal_set_message(t("Static content file does not yet exist at %path. Please wait for rebuild process to complete.", [
-        '%path' => $requested_static_link,
+        '%path' => $content_path,
       ]));
       return new RedirectResponse(Url::fromUri($requested_path));
     }
