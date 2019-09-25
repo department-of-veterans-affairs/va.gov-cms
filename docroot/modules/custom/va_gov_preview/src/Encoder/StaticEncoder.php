@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_preview\Encoder;
 
+use Drupal\Core\Url;
 use Drupal\serialization\Encoder\JsonEncoder as SerializationJsonEncoder;
 use Drupal\va_gov_preview\StaticServiceProvider;
 
@@ -42,8 +43,7 @@ class StaticEncoder extends SerializationJsonEncoder {
       drupal_set_message(t("Static content file does not yet exist at %path. Please wait for rebuild process to complete.", [
         '%path' => $content_path,
       ]));
-      drupal_goto($requested_path);
-      return;
+      return new RedirectResponse(Url::fromUri($requested_path));
     }
   }
 
