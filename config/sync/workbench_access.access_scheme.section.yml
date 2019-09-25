@@ -10,6 +10,7 @@ dependencies:
     - field.field.media.video.field_owner
     - field.field.node.event.field_administration
     - field.field.node.event_listing.field_administration
+    - field.field.node.full_width_banner_alert.field_administration
     - field.field.node.health_care_local_facility.field_administration
     - field.field.node.health_care_local_health_service.field_administration
     - field.field.node.health_care_region_detail_page.field_administration
@@ -24,6 +25,7 @@ dependencies:
     - field.field.node.publication_listing.field_administration
     - field.field.node.regional_health_care_service_des.field_administration
     - field.field.node.support_service.field_administration
+    - field.field.node.vamc_operating_status_and_alerts.field_administration
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
     - taxonomy.vocabulary.administration
 id: section
@@ -44,11 +46,11 @@ scheme_settings:
       field: field_owner
     -
       entity_type: media
-      bundle: document
+      bundle: image
       field: field_owner
     -
       entity_type: media
-      bundle: image
+      bundle: document
       field: field_owner
     -
       entity_type: media
@@ -108,6 +110,10 @@ scheme_settings:
       field: field_administration
     -
       entity_type: node
+      bundle: office
+      field: field_administration
+    -
+      entity_type: node
       bundle: health_care_local_health_service
       field: field_administration
     -
@@ -116,11 +122,11 @@ scheme_settings:
       field: field_administration
     -
       entity_type: node
-      bundle: office
+      bundle: vamc_operating_status_and_alerts
       field: field_administration
     -
       entity_type: node
-      bundle: event_listing
+      bundle: full_width_banner_alert
       field: field_administration
     -
       entity_type: taxonomy_term
