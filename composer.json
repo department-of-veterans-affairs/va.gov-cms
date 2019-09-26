@@ -97,7 +97,7 @@
         "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^4.3",
         "twig/twig": "~1.37.1",
-        "va-gov/web": "dev-VAGOV-2937-unity",
+        "va-gov/web": "dev-master#f86b0f7",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
         "weitzman/drupal-test-traits": "dev-master",
@@ -118,11 +118,11 @@
             "type": "package",
             "package": {
                 "name": "va-gov/web",
-                "version": "dev-VAGOV-2937-unity",
+                "version": "dev-master",
                 "source": {
                     "url": "https://github.com/department-of-veterans-affairs/vets-website",
                     "type": "git",
-                    "reference": "35deea6e8afaf58b9b4e3ee23fe2e0134c18d2e2"
+                    "reference": "master"
                 }
             }
         },
@@ -255,6 +255,9 @@
         }
     },
     "scripts": {
+        "pre-dependencies-solving": [
+            "VA\\Composer\\UpdateHandler::preDepSolve"
+        ],
         "set-path": [
             "# Run the command output below to set your current terminal PATH variable.",
             "# This will allow you to run any command in the ./bin directory without a path.",
@@ -270,12 +273,6 @@
             "cp -r 'simplesamlphp-1.17.2/config/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
             "cp -r 'simplesamlphp-1.17.2/metadata/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
             "@va:web:install"
-        ],
-        "pre-update-cmd": [
-            "VA\\Composer\\UpdateHandler::preUpdateCommand"
-        ],
-        "pre-package-update": [
-            "VA\\Composer\\UpdateHandler::prePackageUpdate"
         ],
         "post-update-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
