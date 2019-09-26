@@ -35,8 +35,8 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     When I run "cd .. && composer va:web:build"
     And I am at "/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services"
     Then I should see "VA blind and low vision rehabilitation services - EDITED"
-    And I am at "/static/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services"
-    Then I should see "VA blind and low vision rehabilitation services - EDITED"
+#    And I am at "/static/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services"
+#    Then I should see "VA blind and low vision rehabilitation services - EDITED"
     Then print current URL
     Given I am at "/static/health-care"
     Then the response status code should be 200
