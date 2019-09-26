@@ -106,7 +106,8 @@
     "autoload": {
         "psr-4": {
             "Traits\\": "tests/traits",
-            "CustomDrupal\\": "tests/behat/Drupal"
+            "CustomDrupal\\": "tests/behat/Drupal",
+            "VA\\Composer\\": "scripts/composer"
         },
         "files": [
             "scripts/composer/EnvironmentHandler.php"
@@ -269,6 +270,12 @@
             "cp -r 'simplesamlphp-1.17.2/config/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
             "cp -r 'simplesamlphp-1.17.2/metadata/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
             "@va:web:install"
+        ],
+        "pre-update-cmd": [
+            "VA\\Composer\\UpdateHandler::preUpdateCommand"
+        ],
+        "pre-package-update": [
+            "VA\\Composer\\UpdateHandler::prePackageUpdate"
         ],
         "post-update-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
