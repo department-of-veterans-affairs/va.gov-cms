@@ -3,7 +3,18 @@
 	"homepage": "https://github.com/department-of-veterans-affairs/vets-website",
 	"description": "Front-end for VA.gov. This repository contains the code that generates the VA.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to Packagist, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
 	"repositories": [
-		{ "type": "vcs", "url": "https://github.com/department-of-veterans-affairs/vets-website" }
+		{
+			"type": "package",
+			"package": {
+				"name": "va-gov/web",
+				"version": "dev-unity",
+				"source": {
+					"url": "https://github.com/department-of-veterans-affairs/vets-website",
+					"type": "git",
+					"reference": "unity"
+				}
+			}
+		}
 	],
 	"require": {
 		"va-gov/web": "dev-unity"
