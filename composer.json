@@ -97,7 +97,7 @@
         "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^4.3",
         "twig/twig": "~1.37.1",
-        "va-gov/web": "0.1",
+        "va-gov/web": "^0.1.0",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
         "weitzman/drupal-test-traits": "dev-master",
@@ -113,17 +113,9 @@
         ]
     },
     "repositories": {
-        "va-gov-web":   {
-            "type": "package",
-            "package": {
-                "name": "va-gov/web",
-                "version": "0.1",
-                "source": {
-                    "url": "https://github.com/department-of-veterans-affairs/vets-website",
-                    "type": "git",
-                    "reference": "master"
-                }
-            }
+        "vets-website": {
+            "type": "composer",
+            "url": "https://raw.githubusercontent.com/department-of-veterans-affairs/va.gov-cms/VAGOV-5963-release-redux/packagist/packages.json"
         },
         "drupal": {
             "type": "composer",
