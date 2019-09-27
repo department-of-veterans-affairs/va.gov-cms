@@ -45,9 +45,9 @@ class StaticSubscriber extends HttpExceptionSubscriberBase {
       // Only show messages to users with access.]// Get the current user.
       $user = \Drupal::currentUser();
       if ($user->isAuthenticated() && $user->hasPermission('access content')) {
-        drupal_set_message(t('Web Rebuild & Deploy is in progress: You must wait for it to complete before triggering another Rebuild & Deploy. See the %link for status.', [
+        drupal_set_message(t('Web Rebuild & Deploy is in progress: See the %link for status.', [
           '%link' => Link::createFromRoute(t('Build & Deploy Page'), 'va_gov_build_trigger.build_trigger_form')->toString(),
-        ]));
+        ]), 'warning');
 
         if (getenv('CMS_ENVIRONMENT_TYPE') == 'lando') {
           drupal_set_message(t('You are using Lando. Run the command <code>lando composer va:web:build</code> to rebuild the front-end and unlock this form.'), 'warning');
