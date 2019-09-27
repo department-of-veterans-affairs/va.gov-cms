@@ -25,9 +25,8 @@ use GuzzleHttp\Client;
 class BuildTriggerForm extends FormBase {
 
   const ENVIRONMENTS = [
-    'pre_prod' => 'https://cms.va.gov',
     'prod' => 'https://www.va.gov',
-    'staging' => 'https://stg.va.gov',
+    'staging' => 'https://staging.va.gov',
     'dev' => 'https://dev.va.gov',
   ];
 
