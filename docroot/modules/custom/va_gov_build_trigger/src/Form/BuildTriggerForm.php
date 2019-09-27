@@ -31,6 +31,23 @@ class BuildTriggerForm extends FormBase {
   ];
 
   /**
+   * Get the WEB Url for a desired environment type.
+   */
+  public function getWebUrl($environment_type) {
+
+    $cms_url = !empty(self::ENVIRONMENTS[$environment_type]) ?
+      self::ENVIRONMENTS[$environment_type] :
+      getenv('HTTP_HOST');
+
+    // If this is not a Prod environment, link to /static site.
+    if (empty(self::ENVIRONMENTS[$environment_type])) {
+      $cms_url .= "/static";
+    }
+
+    return $cms_url;
+  }
+
+  /**
    * Build the build trigger form.
    *
    * @param array $form
@@ -40,10 +57,8 @@ class BuildTriggerForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    $environment_type = getenv('CMS_ENVIRONMENT_TYPE')?: 'ci';
-    $target = !empty(self::ENVIRONMENTS[$environment_type]) ?
-      self::ENVIRONMENTS[$environment_type] :
-      getenv('HTTP_HOST');
+    $environment_type = getenv('CMS_ENVIRONMENT_TYPE')?: 'lando';
+    $target = $this->getWebURL($environment_type);
 
     $form['actions']['#type'] = 'actions';
     $form['help_1'] = [
@@ -75,12 +90,8 @@ class BuildTriggerForm extends FormBase {
     // Save pending state.
     $config = \Drupal::service('config.factory')->getEditable('va_gov.build');
     if ($config->get('web.build.pending', 0)) {
-
-      $form['actions']['submit']['#disabled'] = TRUE;
-      $form['actions']['submit']['#suffix'] .= ' ' . t('disabled');
-
       $form['tip']['#prefix'] = '<em>';
-      $form['tip']['#markup'] = t('NOTE: You can run the command <code> drush config-set va_gov.build web.build.pending 0</code> to break this lock.');
+      $form['tip']['#markup'] = t('A site rebuild is queued.');
       $form['tip']['#suffix'] = '</em>';
       $form['tip']['#weight'] = 100;
     }
@@ -88,8 +99,11 @@ class BuildTriggerForm extends FormBase {
     if ($environment_type == 'prod') {
       $description = t('Rebuilds for this environment will be handled by VFS Jenkins.');
     }
-    else {
-      $description = t('Rebuilds for this environment are handled internally.');
+    elseif ($environment_type == 'ci') {
+      $description = t('Rebuilds for this environment are handled by CMS-CI. You may press this button to trigger a full site rebuild. It will take around 45 seconds.');
+    }
+    elseif ($environment_type == 'lando') {
+      $description = t('Rebuilds for Lando sites must be run manually. Run the following command to regenerate the static site: <pre>lando composer va:web:build</pre>  The button below is used in CMS and production environments. You can use it to emulate their behavior. You may change the CMS_ENVIRONMENT_TYPE environment behavior to develop.');
     }
 
     $form['environment_target'] = [
@@ -143,7 +157,12 @@ class BuildTriggerForm extends FormBase {
       }
     }
     elseif ($form_state->getValue('environment_type') == 'lando') {
-      // Do nothing if using Lando. The form will display instructions.
+
+      // Save pending state.
+      $config = \Drupal::service('config.factory')->getEditable('va_gov.build');
+      $config->set('web.build.pending', 1);
+      $config->save();
+
     }
     else {
 
