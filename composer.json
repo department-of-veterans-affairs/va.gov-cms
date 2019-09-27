@@ -97,7 +97,7 @@
         "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^4.3",
         "twig/twig": "~1.37.1",
-        "va-gov/web": "dev-master#f86b0f7",
+        "va-gov/web": "dev-master",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
         "weitzman/drupal-test-traits": "dev-master",
@@ -257,9 +257,6 @@
     "scripts": {
         "pre-dependencies-solving": [
             "VA\\Composer\\UpdateHandler::preDepSolve"
-        ],
-        "post-dependencies-solving": [
-            "VA\\Composer\\UpdateHandler::postDepSolve"
         ],
         "set-path": [
             "# Run the command output below to set your current terminal PATH variable.",
