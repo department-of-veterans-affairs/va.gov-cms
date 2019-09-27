@@ -70,7 +70,7 @@ driver.get(URL)
                                     process.exit(1);
                                 });
                         } else {
-                            console.log('!!! NO ACCESSIBILITY ERRORS !!!');
+                            console.log('!!! NO ACCESSIBILITY VIOLATIONS !!!');
                             driver.quit();
                         }
                     });
