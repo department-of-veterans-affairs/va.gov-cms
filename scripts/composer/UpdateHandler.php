@@ -40,17 +40,19 @@ class UpdateHandler {
      *
      * @param InstallerEvent $event
      */
-    public static function preDepSolve(InstallerEvent &$event) {
+    public static function postDepSolve(InstallerEvent &$event) {
       // Prevent double runs.
       $temp_file = sys_get_temp_dir() . '/va-gov-updated';
       if (file_exists($temp_file)) {
         unlink($temp_file);
+        self::printLine("Already running. Not running again. (Flag file $temp_file)");
         return;
       }
 
       // Look for the package.
-      $package = $event->getInstalledRepo()->findPackage('va-gov/web', "dev-master");
+      $package = $event->getInstalledRepo()->findPackage('va-gov/web', "*");
       if (!$package) {
+        self::printLine("No package found for va-gov/web (No code in vendor directory). Unable to set Source now.");
         return;
       }
 
@@ -62,15 +64,11 @@ class UpdateHandler {
       $sha = self::getWebSha();
       self::printLine("      SHA Found: " . $sha);
 
-      if (strpos($package->getSourceReference(), $sha) !== 0) {
-        self::printLine("Source version is not the same as latest SHA: " . $sha);
+      $package->setSourceReference($sha);
+      $package->setDistReference($sha);
 
-        $package->setSourceReference($sha);
-        $package->setDistReference($sha);
-
-        self::printLine("Set Source & Dist Reference of the package. SHA will be written to composer.lock.");
-        touch($temp_file);
-      }
+      self::printLine("Set Source & Dist Reference of the package. SHA will be written to composer.lock.");
+      touch($temp_file);
     }
 
   /**

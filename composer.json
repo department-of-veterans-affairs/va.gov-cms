@@ -255,8 +255,8 @@
         }
     },
     "scripts": {
-        "pre-dependencies-solving": [
-            "VA\\Composer\\UpdateHandler::preDepSolve"
+        "post-dependencies-solving": [
+            "VA\\Composer\\UpdateHandler::postDepSolve"
         ],
         "set-path": [
             "# Run the command output below to set your current terminal PATH variable.",
