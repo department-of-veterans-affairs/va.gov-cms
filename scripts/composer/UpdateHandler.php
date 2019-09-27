@@ -31,69 +31,57 @@ class UpdateHandler {
 
     const CLI_PREFIX = 'UpdateHandler.php | ';
 
-//    /**
-//     * @param \Composer\Script\CommandEvent $event
-//     */
-//    public static function postUpdateCmd(Event $event) {
-//
-//        $package = $event->getComposer()->getRepositoryManager()->findPackage('va-gov/web', "*");
-//        self::printLine("Package Found: " . $package->getPrettyString());
-//
-//        // Prevent infinite loops
-//        static $run_once;
-//
-//        if ($run_once) {
-//          return;
-//        }
-//
-//
-//        // Read the REF directly from git repo.
-//        $git_url = self::REPOSITORY_URL;
-//        $git_branch = self::REPOSITORY_BRANCH;
-//        $package = self::PACKAGE_NAME;
-//
-//        $output = trim(shell_exec("git ls-remote {$git_url} {$git_branch}"));
-//        list($git_sha) = explode("	", $output);
-//
-//        $cmd = "composer require {$package}:dev-{$git_branch}#{$git_sha}";
-//        self:self::printLine("Maybe we can run $cmd ? ...");
-////        shell_exec($cmd);
-//
-//      $run_once = TRUE;
-//    }
-
     /**
-     * @param \Composer\Plugin\PreCommandRunEvent $event
+     * Runs before composer update does dependency lookup: This forces
+     * va-gov/web to use the SHA we detect from the desired branch.
+     *
+     * At the end of this method, $package->setSourceReference($sha) is called.
+     * The $sha set for sourceReference is used in composer.lock!
+     *
+     * @param InstallerEvent $event
      */
     public static function preDepSolve(InstallerEvent &$event) {
-      if (file_exists(sys_get_temp_dir() . '/va-gov-updated')) {
-        unlink(sys_get_temp_dir() . '/va-gov-updated');
+      // Prevent double runs.
+      $temp_file = sys_get_temp_dir() . '/va-gov-updated';
+      if (file_exists($temp_file)) {
+        unlink($temp_file);
         return;
       }
 
-      $repo =  $event->getInstalledRepo();
-
-      $package = $repo->findPackage('va-gov/web', "dev-master");
+      // Look for the package.
+      $package = $event->getInstalledRepo()->findPackage('va-gov/web', "dev-master");
+      if (!$package) {
+        return;
+      }
 
       self::printLine("Found package " . $package->getPrettyString());
       self::printLine("Source Ref " . $package->getSourceReference());
 
-      self::printLine("Looking up master SHA of vets-website... ");
+      // Load origin/master SHA.
+      self::printLine("Looking up SHA of vets-website... ");
       $sha = self::getWebSha();
-      self::printLine("SHA Found: " . $sha);
+      self::printLine("      SHA Found: " . $sha);
 
       if (strpos($package->getSourceReference(), $sha) !== 0) {
-        self::printLine("Local version is not the latest. Updating to " . $sha);
+        self::printLine("Source version is not the same as latest SHA: " . $sha);
+
+        $package->setSourceReference($sha);
+        $package->setDistReference($sha);
+
+        self::printLine("Set Source & Dist Reference of the package. SHA will be written to composer.lock.");
+        touch($temp_file);
       }
-
-      // @TODO: How to save this data in composer's metadata?
-      $package->setSourceReference($sha);
-      $package->setDistReference($sha);
-      $package->setInstallationSource('path');
-
-      self::printLine("Set Source & Dist Reference of the package: " .       $package->getSourceReference());
-      touch(sys_get_temp_dir() . '/va-gov-updated');
     }
+
+  /**
+   * @param \Composer\Plugin\PreCommandRunEvent $event
+   */
+//  public static function postDepSolve(InstallerEvent &$event) {
+
+//    print "huh";
+
+
+//  }
 
   /**
    * Return the SHA from origin/master.
