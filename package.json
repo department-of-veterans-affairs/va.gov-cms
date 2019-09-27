@@ -4,7 +4,7 @@
   "description": "This is an Aquia Lightning based implementation of Drupal 8 that uses [Lando](https://docs.devwithlando.io/) for local container management.",
   "main": "index.js",
   "scripts": {
-    "test": "node ./tests/accessibility/axe.js"
+    "test": "node ./tests/accessibility/aXeAccessibilityCheck.js"
   },
   "repository": {
     "type": "git",
@@ -16,24 +16,14 @@
     "url": "https://github.com/department-of-veterans-affairs/va.gov-cms/issues"
   },
   "homepage": "https://github.com/department-of-veterans-affairs/va.gov-cms#readme",
-  "devDependencies": {
+  "dependencies": {
     "axe-core": "^3.3.2",
     "axe-webdriverjs": "^2.3.0",
-    "chromedriver": "^77.0.0",
-    "eslint-config-wikimedia": "^0.10.1",
-    "grunt": "^1.0.4",
-    "grunt-eslint": "^21.0.0",
-    "grunt-jsonlint": "^1.1.0",
-    "grunt-nightwatch": "^0.5.4",
-    "load-grunt-tasks": "^4.0.0",
-    "nightwatch": "^1.2.2",
-    "nightwatch-accessibility": "^1.8.0",
     "selenium-webdriver": "^3.6.0",
     "phantomjs-prebuilt": "^2.1.16",
     "require": "^2.4.20",
     "axe-reports": "^1.1.11"
   },
-  "dependencies": {},
   "directories": {
     "test": "tests"
   },
