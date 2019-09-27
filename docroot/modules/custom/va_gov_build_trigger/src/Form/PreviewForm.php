@@ -98,7 +98,7 @@ class PreviewForm extends FormBase {
   public function getEnvironment($host, $nid) {
     $url = '';
     switch ($host) {
-      
+
       case 'dev.cms.va.gov':
         $url = 'http://preview-dev.vfs.va.gov/preview?nodeId=' . $nid;
         break;
