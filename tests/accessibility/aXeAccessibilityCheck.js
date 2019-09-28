@@ -43,7 +43,7 @@ driver.get(URL)
         AXE_BUILDER
             .analyze((results) => {
                 totalViolations = totalViolations + results.violations.length;
-                AxeReports.processResults(results, 'csv', './tests/accessibility/reports/aXeAccessibilityCheckReport', true);
+                AxeReports.processResults(results, 'csv', './tests/accessibility/axeReport/aXeAccessibilityCheckReport', true);
                 console.log('!!!  NUMBER OF NEW VIOLATIONS on ' + URL + ' ' + results.violations.length);
                 driver.findElement(By.name('name')).sendKeys(userName);
                 driver.findElement(By.name('pass')).sendKeys(password);
@@ -55,7 +55,7 @@ driver.get(URL)
                                     return AXE_BUILDER
                                         .analyze(results => {
                                             totalViolations = totalViolations + results.violations.length;
-                                            AxeReports.processResults(results, 'csv', './tests/accessibility/reports/aXeAccessibilityCheckReport');
+                                            AxeReports.processResults(results, 'csv', './tests/accessibility/axeReport/aXeAccessibilityCheckReport');
                                             console.log('!!!  NUMBER OF NEW VIOLATIONS on ' + URL + paths[i] + '  = ' + results.violations.length);
                                             return console.log(results.violations);
                                         });
