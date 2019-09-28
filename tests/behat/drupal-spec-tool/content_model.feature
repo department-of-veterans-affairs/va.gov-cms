@@ -15,11 +15,11 @@ Feature: Content model
 | Image | image | Media type | Locally hosted images. |
 | Video | video | Media type | A video hosted by YouTube, Vimeo, or some other provider. |
 | Accordion group | collapsible_panel | Paragraph type | A group of accordions. |
-| Accordion Item | collapsible_panel_item | Paragraph type | An individual accordion.  |
+| Accordion Item | collapsible_panel_item | Paragraph type | An individual accordion. |
 | Alert | alert | Paragraph type | A reusable or non-reusable alert, either "information status" or "warning status". |
 | Expandable Text | expandable_text | Paragraph type | Text that expands upon click. |
 | Link teaser | link_teaser | Paragraph type | A link followed by a description. For building inline "menus" of content. |
-| List of link teasers | list_of_link_teasers  | Paragraph type | A paragraph that contains only one type of paragraph: Link teaser.   |
+| List of link teasers | list_of_link_teasers | Paragraph type | A paragraph that contains only one type of paragraph: Link teaser. |
 | Process list | process | Paragraph type | An ordered list (1, 2, 3, 4, N) of steps in a process. |
 | Q&A | q_a | Paragraph type | Question and Answer |
 | Q&A Section | q_a_section | Paragraph type | For content formatted as a series of questions and answers. Use this (instead of WYSIWYG) for better accessibility and easy rearranging. |
@@ -34,8 +34,8 @@ Feature: Content model
 | Number callout | number_callout | Paragraph type | Number callouts can be used in the context of a question & answer, where the answer can be summarized in a short phrase that is number-oriented. |
 | Health Care Facility | health_care_local_facility | Content type | Specific facilities, like clinics or hospitals, within a healthcare system. |
 | Health Care Local Facility Service | health_care_local_facility_servi | Paragraph type | A service available at a specific health care facility. |
-| Health Care System | health_care_region_page  | Content type | A landing page for a regional health care system. |
-| Health Care Service taxonomy  | health_care_service_taxonomy  | Vocabulary | For Clinical Health or Patient & Family & Caregiver services |
+| Health Care System | health_care_region_page | Content type | A landing page for a regional health care system. |
+| Health Care Service taxonomy | health_care_service_taxonomy | Vocabulary | For Clinical Health or Patient & Family & Caregiver services |
 | Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
 | Publication | outreach_asset | Content type | Contains a document, image, or video, for publication within a Publication library. |
 | Staff profile | person_profile | Content type | Profiles of staff members for display in various places around the site. |
@@ -44,7 +44,7 @@ Feature: Content model
 | Office | office | Content type | An office at the VA, which may have contact info, events, news, and a leadership page in some cases. |
 | News release | press_release | Content type | Announcements directed at members of the media for the purpose of publicizing newsworthy events/happenings/programs at specific facilities or healthcare systems. |
 | Type of Redirect | type_of_redirect | Vocabulary |  |
-| Documentation page | documentation_page | Content type | Help pages VA.gov CMS editors.  |
+| Documentation page | documentation_page | Content type | Help pages VA.gov CMS editors. |
 | Local Health Service | health_care_local_health_service | Content type | A facility specific description of a health care service, always embedded within a regional description |
 | Additional information | spanish_translation_summary | Paragraph type | Spanish summary to include a brief spanish-language summary of the content. |
 | Embedded image | media | Paragraph type | For adding an image inline |
@@ -52,10 +52,10 @@ Feature: Content model
 | Megamenu - Links Column | megamenu_links_column | Paragraph type | First or second column in a megamenu pane - contains a list of links. |
 | Megamenu - Menu Item | megamenu_menu_item | Paragraph type | A menu item displayed in a mega menu pane. Contains title, two columns of links, 1 column containing a block, and a 'see all' link. |
 | Table | table | Paragraph type | Add an HTML table with rows and columns. |
-| Event listing | event_listing | Content type | A listing of events.  |
+| Event listing | event_listing | Content type | A listing of events. |
 | Link to file or video | downloadable_file | Paragraph type | For image or document downloads. |
-| Publication listing  | publication_listing | Content type | This allows the listing of publication materials such as documents, videos, and images all in one place. |
-| Staff profile  | staff_profile | Paragraph type | Add a profile of a staff person.  |
+| Publication listing | publication_listing | Content type | This allows the listing of publication materials such as documents, videos, and images all in one place. |
+| Staff profile | staff_profile | Paragraph type | Add a profile of a staff person. |
 
   @dst @field_type
      Scenario: Fields
@@ -100,8 +100,8 @@ Feature: Content model
 | Content type | Publication | File or video | field_media | Entity reference |  | 1 | Media library |  |
 | Content type | Publication | Healthcare system or related office | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Publication | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Publication listing  | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Publication listing  | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Publication listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Publication listing | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Regional Health Service | Facility-specific descriptions of this service | field_local_health_care_service_ | Entity reference |  | Unlimited | Select list |  |
 | Content type | Regional Health Service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Regional Health Service | Region page | field_region_page | Entity reference | Required | 1 | Select list | Translatable |
@@ -182,7 +182,7 @@ Feature: Content model
 | Content type | Health Care Facility | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Content type | Health Care System | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Content type | Office | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
-| Content type | Publication listing  | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | Publication listing | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Content type | Staff profile | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Content type | Story | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Paragraph type | Table | Table | field_table | Table Field |  | 1 | Table Field |  |
@@ -220,9 +220,9 @@ Feature: Content model
 | Content type | Health Care System | Other VA Locations | field_other_va_locations | Text (plain) |  | Unlimited | Textfield |  |
 | Content type | Health Care System | Short name | field_nickname_for_this_facility | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Office | Description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
-| Content type | Publication listing  | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | Publication listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Office | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | Publication listing  | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | Publication listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Staff profile | First name | field_name_first | Text (plain) |  | 1 | Textfield |  |
 | Content type | Staff profile | Job Title | field_description | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Staff profile | Last name | field_last_name | Text (plain) |  | 1 | Textfield |  |
@@ -240,9 +240,9 @@ Feature: Content model
 | Paragraph type | Megamenu - Menu Item | Title | field_title | Text (plain) |  | 1 | Textfield | Translatable |
 | Paragraph type | Number callout | Short phrase with a number, or time element | field_short_phrase_with_a_number | Text (plain) | Required | 1 | Textfield with counter |  |
 | Paragraph type | Q&A | Question | field_question | Text (plain) | Required | 1 | Textfield with counter |  |
-| Vocabulary | Health Care Service taxonomy  | Common conditions | field_commonly_treated_condition | Text (plain) |  | 1 | Textfield |  |
-| Vocabulary | Health Care Service taxonomy  | Health Service API ID | field_health_service_api_id | Text (plain) |  | 1 | Textfield |  |
-| Vocabulary | Health Care Service taxonomy  | Patient-friendly name | field_also_known_as | Text (plain) |  | 1 | Textfield |  |
+| Vocabulary | Health Care Service taxonomy | Common conditions | field_commonly_treated_condition | Text (plain) |  | 1 | Textfield |  |
+| Vocabulary | Health Care Service taxonomy | Health Service API ID | field_health_service_api_id | Text (plain) |  | 1 | Textfield |  |
+| Vocabulary | Health Care Service taxonomy | Patient-friendly name | field_also_known_as | Text (plain) |  | 1 | Textfield |  |
 | Content type | Detail Page | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Event listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Content type | Health Care Facility | Intro text | field_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
@@ -250,7 +250,7 @@ Feature: Content model
 | Content type | Health Care System | Leadership page intro text | field_intro_text_leadership | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | Health Care System | Press releases intro text | field_intro_text_press_releases | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | News release | Introduction | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
-| Content type | Publication listing  | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
+| Content type | Publication listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Content type | Staff profile | Introduction | field_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Story | Image caption | field_image_caption | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | Story | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
@@ -333,4 +333,4 @@ Feature: Content model
 | Content type | Support Service | Related office | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Media type | Video | Video URL | field_media_video_embed_field | Video Embed | Required | 1 | Video Textfield | Translatable |
 | Content type | Benefits hub landing page | Home page hub label | field_home_page_hub_label | Text (plain) |  | 1 | Textfield |  |
-| Vocabulary | Health Care Service taxonomy  | Stop code | field_vha_healthservice_stopcode | Number (integer) |  | 1 | Number field |  |
+| Vocabulary | Health Care Service taxonomy | Stop code | field_vha_healthservice_stopcode | Number (integer) |  | 1 | Number field |  |
