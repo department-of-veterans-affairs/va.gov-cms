@@ -42,7 +42,7 @@ After tests finished you can check or export `aXeAccessibilityCheckReport.csv` r
 ##### Note
 Accessibility test run with `phantomjs` headless browser and will not be visible. If you want to see execution of test in browser locally, 
 please install chrome drive  by using `npm install chromedriver` command or by other options that can be found at - https://www.npmjs.com/package/chromedriver and then replace `phantomjs` with `chrome`  inside `./tests/accessibility/aXeAccessibilityCheck.js line:15`.
-
+c
 #To Do
 Add more URL paths to: `./tests/accessibility/aXeAccessibilityCheck.js line:23` for complete coverage.
 
