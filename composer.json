@@ -336,7 +336,7 @@
             "@va:web:watch"
         ],
         "va:web:build": [
-            "cd web && npm run build -- --pull-drupal --drupal-fail-fast"
+            "cd web && npm run build -- --pull-drupal --drupal-fail-fast --no-drupal-proxy"
         ],
         "va:web:test": [
             "echo 'drupal address: ' $DRUPAL_ADDRESS"
