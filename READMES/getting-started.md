@@ -4,7 +4,7 @@ Since this is a Drupal site, it can be launched with any Drupal development tool
 
 For regular development, the DSVA team uses [Lando](https://docs.devwithlando.io/) for local container management.
 
-For testing and simple development, you can use the special Composer commands and Drupal Console to launch on any system 
+For testing and simple development, you can use the special Composer commands and Drupal Console to launch on any system
 with PHP-CLI and SQLite.
 
 ## Step 1: Get Source Code.
@@ -14,7 +14,7 @@ with PHP-CLI and SQLite.
 
    ```sh
     $ git clone git@github.com:YOUR-GITHUB-USERNAME/va.gov-cms
-    $ cd va.gov-cms  
+    $ cd va.gov-cms
    ```
 - Add upstream repo (Recommended):
 
@@ -22,10 +22,15 @@ with PHP-CLI and SQLite.
    $ git remote add upstream git@github.com:department-of-veterans-affairs/va.gov-cms.git
    ```
   You should periodically update your branch from `upstream:develop` branch:
-  
+
   ```sh
    $ git pull upstream develop
-  ``` 
+  ```
+
+  Make changes to simplesaml storage not be tracked locally.
+  ```sh
+   git update-index --skip-worktree samlsessiondb.sq3
+  ```
 
 
 ## Step 2: Launch development environment
@@ -33,7 +38,7 @@ with PHP-CLI and SQLite.
 It is possible to run this site with Lando or any other Drupal development tool,
 including PHP's built-in web server.
 
-If you don't want to worry about your development machine's PHP version or 
+If you don't want to worry about your development machine's PHP version or
 libraries, use Lando.
 
 ### Option 1: Lando
@@ -45,14 +50,14 @@ libraries, use Lando.
     $ cd va.gov-cms
     $ lando start
     ```
-   
+
 The `lando start` command will include the `composer install` command.
 
 See [Environments: Local](./local.md) for more information on Lando.
 
 ### Option 2: Local PHP
 
-If you are used to using tools like `composer` and `drush` locally, you can 
+If you are used to using tools like `composer` and `drush` locally, you can
 install the project using your native Terminal:
 
 1. Change into the project directory and run `composer install`:
@@ -69,19 +74,19 @@ install the project using your native Terminal:
 
 You need a copy of the production database to get the full VA.gov CMS running.
 
-Use the provided scripts to download a database and files backup into the 
+Use the provided scripts to download a database and files backup into the
 correct locations in your local development environment.
 
 * `.scripts/sync-db.sh`
 * `.scripts/sync-files.sh`
 
-NOTE: These scripts download the SQL and files first, then attempts to use 
-`lando` commands to import them. 
+NOTE: These scripts download the SQL and files first, then attempts to use
+`lando` commands to import them.
 
 If you are not using lando, the scripts will
- fail, but the files will still be available. The `sync-db.sh` script downloads the 
+ fail, but the files will still be available. The `sync-db.sh` script downloads the
  SQL file to `./.dumps/cms-prod-db-sanitized-latest.sql`
- 
+
 See [Environments: Local](./local.md) for more information on Lando.
 
 [Table of Contents](../README.md)

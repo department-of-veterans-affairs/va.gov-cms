@@ -78,6 +78,7 @@
         "drupal/uswds": "^1.0@beta",
         "drupal/views_bulk_edit": "^2.3",
         "drupal/views_bulk_operations": "^2.5",
+        "drupal/views_data_export": "^1.0@beta",
         "drupal/views_tree": "^2.0@alpha",
         "drupal/workbench_access": "^1.0@beta",
         "drupal/workbench_menu_access": "^1.0",
@@ -189,8 +190,16 @@
             ]
         },
         "enable-patching": true,
+        "patches-ignore": {
+            "drupal/lightning_core": {
+                "drupal/core": {
+                    "2815221 - Add quickedit to the latest-revision route: Don't use this outdate patch https://www.drupal.org/project/lightning_core/issues/3040013": "https://www.drupal.org/files/issues/2019-02-26/2815221-115-8.6.x.patch"
+                }
+            }
+        },
         "patches": {
             "drupal/core": {
+                "2815221 - Add quickedit to the latest-revision route": "https://www.drupal.org/files/issues/2019-03-05/2815221-116.patch",
                 "Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch"
             },
             "drupal/migration_tools": {
