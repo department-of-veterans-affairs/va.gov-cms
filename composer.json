@@ -257,6 +257,7 @@
     },
     "scripts": {
         "post-dependencies-solving": [
+            "VA\\Composer\\UpdateHandler::postDepSolve"
         ],
         "set-path": [
             "# Run the command output below to set your current terminal PATH variable.",
@@ -275,7 +276,6 @@
             "@va:web:install"
         ],
         "post-update-cmd": [
-            "VA\\Composer\\UpdateHandler::postUpdateCmd",
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
             "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
             "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
