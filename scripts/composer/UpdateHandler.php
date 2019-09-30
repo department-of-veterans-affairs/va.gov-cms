@@ -51,6 +51,7 @@ class UpdateHandler {
 
       self::printLine("Found package " . $package->getPrettyString());
       self::printLine("Source Ref " . $package->getSourceReference());
+      self::printLine("Dist Ref " . $package->getDistReference());
 
       // Load origin/master SHA.
       self::printLine("Looking up SHA of vets-website... ");
