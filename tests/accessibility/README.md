@@ -12,7 +12,7 @@ This Accessibility automation testing framework using `axe-core` as a primary 50
 <br>
 
 `axe-reports` csv report generator, more information can be found at - https://www.npmjs.com/package/axe-reports. new CSV report saved after each run and can de found 
-in `.test/accessibility/report/` folder.
+in `.test/accessibility/axeReport/` folder.
 
 
 #Before tests
@@ -37,10 +37,10 @@ Start CMS environment locally by running `lando start` command.
 To run tests locally from the commend line use `npm test` command.
 
 ##### Third 
-After tests finished you can check or export `aXeAccessibilityCheckReport.csv` report that can be found inside `.test/accessibility/report` folder for more detailed information.
+After tests finished you can check or export `aXeAccessibilityCheckReport.csv` report that can be found inside `.test/accessibility/axeReport` folder for more detailed information.
 
 ##### Note
-Accessibility test run with `phantomjs` headless browser and will not be visible. If you want to see execution of test in browser, 
+Accessibility test run with `phantomjs` headless browser and will not be visible. If you want to see execution of test in browser locally, 
 please install chrome drive  by using `npm install chromedriver` command or by other options that can be found at - https://www.npmjs.com/package/chromedriver and then replace `phantomjs` with `chrome`  inside `./tests/accessibility/aXeAccessibilityCheck.js line:15`.
 
 #To Do
