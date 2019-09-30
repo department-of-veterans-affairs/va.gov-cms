@@ -333,4 +333,4 @@ Feature: Content model
 | Content type | Support Service | Related office | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Media type | Video | Video URL | field_media_video_embed_field | Video Embed | Required | 1 | Video Textfield | Translatable |
 | Content type | Benefits hub landing page | Home page hub label | field_home_page_hub_label | Text (plain) |  | 1 | Textfield |  |
-| Vocabulary | Health Care Service taxonomy | Stop code | field_vha_healthservice_stopcode | Number (integer) |  | 1 | Number field |  |
+| Vocabulary | Health Care Service taxonomy | VHA Stop code | field_vha_healthservice_stopcode | Number (integer) |  | 1 | Number field |  |
