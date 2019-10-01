@@ -101,7 +101,7 @@ There are 4 main types of tests:
         Run a specific behat test with the `--name` or `--tags` options:
 
         ```
-        lando behat --tags=spec
+        lando behat --tags=dst
         ```
 
 ## Running Tests

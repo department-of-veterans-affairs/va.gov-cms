@@ -7,6 +7,7 @@ dependencies:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_commonly_treated_condition
     - field.field.taxonomy_term.health_care_service_taxonomy.field_health_service_api_id
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vha_healthservice_stopcode
     - taxonomy.vocabulary.health_care_service_taxonomy
   module:
     - text
@@ -53,5 +54,14 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_vha_healthservice_stopcode:
+    weight: 5
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
     region: content
 hidden: {  }

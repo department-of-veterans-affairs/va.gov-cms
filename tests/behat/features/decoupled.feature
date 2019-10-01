@@ -4,12 +4,13 @@ Feature: The VA Website is generated inside the Drupal CMS code.
   As anyone involved in the project
   I need to run tests against the CMS and the WEB site in one shot.
 
+@frontend
   Scenario: Ensure the static site builds an index.html file with content "Access and manage your VA benefits and health care"
     Given I am at "/static/"
     Then I should see "Access and manage your VA benefits and health care" in the "h1.homepage-heading" element
     Then print current URL
 
-  @unpublished_content
+  @unpublished_content @frontend
   Scenario: Unpublish health-care and confirm it is not in build
       """
       Necessary to run the build twice in this file to toggle
@@ -21,7 +22,7 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     And I am on "/static/health-care"
     Then the response status code should be 403
 
-  @errors @cms_in_static
+  @errors @cms_in_static @frontend
   Scenario: Log in, edit, publish, unpublish, and save nodes and see changes in the CMS and the front end website. Confirm cms menu items are in static site build.
     When I am logged in as a user with the "administrator" role
     And I am at "/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services"
@@ -206,9 +207,3 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     And I should see "Find a VA location"
     And I should see "Ask a question"
     And I should see "844-698-2311"
-
-  Scenario: The homepage is the log in form and the site title is as intended.
-    Given I am on the homepage
-    Then I should see "Log in"
-    And I should see "Veterans Affairs" in the "title" element
-    Then print current URL

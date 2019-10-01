@@ -7,6 +7,7 @@ dependencies:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_commonly_treated_condition
     - field.field.taxonomy_term.health_care_service_taxonomy.field_health_service_api_id
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vha_healthservice_stopcode
     - taxonomy.vocabulary.health_care_service_taxonomy
   module:
     - field_group
@@ -18,7 +19,7 @@ third_party_settings:
       children:
         - field_owner
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details_sidebar
       format_settings:
         weight: '0'
@@ -35,14 +36,14 @@ mode: default
 content:
   description:
     type: text_textarea
-    weight: 4
+    weight: 5
     region: content
     settings:
       placeholder: ''
       rows: 5
     third_party_settings: {  }
   field_also_known_as:
-    weight: 2
+    weight: 3
     settings:
       size: 60
       placeholder: ''
@@ -50,7 +51,7 @@ content:
     type: string_textfield
     region: content
   field_commonly_treated_condition:
-    weight: 3
+    weight: 4
     settings:
       size: 60
       placeholder: ''
@@ -71,6 +72,13 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  field_vha_healthservice_stopcode:
+    weight: 2
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
   name:
     type: string_textfield
     weight: 0
@@ -81,7 +89,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
