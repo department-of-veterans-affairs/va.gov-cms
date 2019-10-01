@@ -21,6 +21,27 @@ va/deploy/3-config:
   - drush $DRUSH_ALIAS cim --yes
   - drush $DRUSH_ALIAS cr
 
+va/tests/graphql:
+  description: Verify GraphQL Endpoint Test | Count how many times
+  # Loop through the curl command, print how long it takes, the response, and the number of times it ran on the last line.
+  command: echo "Curl and curl again until JSON data comes through."
+
+va/tests/graphql-workaround:
+  description: Fail when Number of times curl has to run is more than 1.
+  command: echo "If the va/tests/graphql "
+  ignore_failure: true
+
+va/tests/graphql-cache:
+  description: Confirm GraphQL loads again faster after first request.
+  command: echo "Curl graphQL again, confirm JSON again. (Output time so we can see caching improvements)"
+
+# At this point, the va:web:build command should work, because the next GraphQL request should be good.
+
+# Test-Driven Development: Break the build!
+va/tests/graphql-error:
+  description: "Reproduce the GraphQL Error: Clear cache, curl, fail when 200 and empty response."
+  command: "This command should fail if curl on GraphQL is !200 or is 200 and empty response."
+
 va/tests/phpcs:
   description: PHP CodeSniffer
   command: composer va:test:cs
