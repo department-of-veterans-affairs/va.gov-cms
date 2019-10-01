@@ -313,6 +313,12 @@
         "va:test:cs": [
             "phpcs --ignore=*.md,*.min.css,uswds.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors"
         ],
+        "va:test:graphql": [
+            "# Testing /graphql response for non-empty response...",
+            "curl --silent --user api:drupal8 --request POST --data-binary '@./scripts/graphql-curl-test-post-body.txt' $DRUPAL_ADDRESS/graphql | (test -s /dev/stdin && echo 'pipe has data' && cat || echo 'pipe is empty')",
+            "# Size of response in bytes is...",
+            "curl --silent --user api:drupal8 --request POST --data-binary '@./scripts/graphql-curl-test-post-body.txt' $DRUPAL_ADDRESS/graphql | wc --bytes"
+        ],
         "va:test:unit": "phpunit tests/phpunit --colors=always --exclude-group=disabled",
         "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors",
         "va:web:install":  [
