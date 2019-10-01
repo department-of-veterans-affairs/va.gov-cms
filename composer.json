@@ -122,7 +122,7 @@
                 "source": {
                     "url": "https://github.com/department-of-veterans-affairs/vets-website",
                     "type": "git",
-                    "reference": "6653df5c8952535c70625b38ecf10c9658c198e1"
+                    "reference": "594625361cb56b5079f7e44cf329b3a65e9a3494"
                 }
             }
         },
@@ -332,7 +332,7 @@
             "node -v",
             "npm -v",
             "yarn -v",
-            "cd web && yarn install"
+            "cd web && yarn install && yarn run install-repos"
         ],
         "va:web:server": [
             "cd web && yarn build"
