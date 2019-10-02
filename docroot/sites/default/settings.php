@@ -124,7 +124,7 @@ $config['environment_indicator.indicator']['name'] = 'Local';
 
 $config_directories['sync'] = '../config/sync';
 
-$env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'lando';
+$env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
 
 // Environment specific settings
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php')) {
