@@ -14,3 +14,9 @@ The account will be created with no additional permissions.
   * Once the connection has been established by the the user logging in with their PIV card, the system will update their CMS account with username and email address changes from their Active Directory account.
   * Logging in via username and passwords will be turned off once the SSOi system has proven to be reliable.
   * Config settings are split to allow debugging data on DEV but not STAGING or PROD.
+  * Accounts are connect in authmap by VAUID (a number that is specific to a single user.)
+  * Email addresses are synced at each login for changes with adUPN (the user's email address) and that email is also used to connect existing accounts to initial logins with SSOi.
+  * Usernames are synced at each login to the adUPN (the user's email address).
+
+##Sample SSOi Response
+![Sample simplesaml response](images/ssoi-response.png)

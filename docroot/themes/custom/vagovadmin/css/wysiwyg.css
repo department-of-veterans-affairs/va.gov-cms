@@ -1,15 +1,9 @@
-
-
-.node-form textarea {
-  max-width: 750px;
-}
-
 /*
  CSS used by CKeditor.
  A small subset of Formation for html tags enabled in rich text editor.
  */
 
-.node__content {
+body {
   font-family: 'Source Sans Pro', Sans-Serif;
   margin: .5em; /* to provide padding within ckeditor */
   max-width: 700px;
@@ -20,50 +14,50 @@
 
 /* Paragraph formats */
 
-.node__content p {
+p {
   line-height: 1.5;
   margin-bottom: 1em;
 }
 
-.node__content h2, .node__content h3, .node__content h4, .node__content h5, .node__content h6 {
+h2, h3, h4, h5, h6 {
   font-weight: 700;
   font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
   line-height: 1.3;
   margin-bottom: .5em;
 }
 
-.node__content h2 {
+h2 {
   font-size: 30px;
 }
 
-.node__content h3 {
+h3 {
   font-size: 24px;
 }
 
-.node__content h4 {
+h4 {
   font-size: 20px;
 }
 
 /* Lists */
 
-.node__content ul {
+ul {
   padding: 0 0 0 1.5em;
   list-style: square;
 }
 
-.node__content li {
+li {
   line-height: 1.5;
   margin-bottom: .5em;
 }
 
-.node__content ol {
+ol {
   margin: 0 0 0 1.25em;
   list-style-position: outside;
 }
 
 /* Links */
 
-.node__content a, .node__content a:hover {
+a, a:hover {
   color: #004795;
   text-decoration: underline;
   transition-duration: .3s;
@@ -71,7 +65,7 @@
   transition-property: color,background-color,border-color;
 }
 
-.node__content a:hover {
+a:hover {
   background-color: rgba(0,0,0,.05);
   color: inherit;
 }

@@ -73,10 +73,10 @@ https://githowto.com/resolving_conflicts
 
 ## Merge Conflict on Composer
 If your composer.lock ends up with a conflict due to incoming changes, these steps should safely resolve the conflict.
-  1.  Make note of what package(s) changes were coming in from the other developers.
+  1.  Make note of what new packages are coming in from master.
   1.  Make note of what package(s) you were adding.
-  1.  Checkout the the incoming change
-  `git checkout origin/{base} -- composer.lock composer.json`
+  1.  Checkout the the incoming changes to composer.
+  `git checkout upstream/master -- composer.lock composer.json`
   1.  Replay your package addition(s).
   `composer require {new/package} --update-with-dependencies`
   1.  Run the new updates to make sure you have them locally.
@@ -112,8 +112,6 @@ Apply patches:
                    "drupal/migration_tools": {
                        "Add changeHtmlContents DomModifier method": "https://www.drupal.org/files/issues/2018-11-26/change_html_contents-3015381-3.patch",
     ```
-* Run `lando composer update <source>/<package>`
-  * `lando composer update drupal/graphql`
 
 ## Updates
 ### Updating Lightning
@@ -124,12 +122,16 @@ Security updates to Drupal core take a little while to make their way to the [Li
 This will show you what is to change, without actually changing anything.
 2. ```lando composer update acquia/headless_lightning --with-dependencies```
 3. ```lando composer update --lock```
-4. ```lando test```
-5. Commit and review your changes.
+4. ```lando drush updb -y```
+5. ```lando drush cr```
+6. ```lando test```
+7. Commit and review your changes.
 
 ### Updating Contrib Modules
-1. ```lando composer update drupal/MODULE_NAME```  That will update the composer.lock
-2.  ```lando test``` to make sure nothing broke.
-3. Commit your work.
+1. ```lando composer update drupal/MODULE_NAME --with-dependencies```  That will update the composer.lock
+2. ```lando drush updb -y```
+3. ```lando drush cr```
+4.  ```lando test``` to make sure nothing broke.
+5. Commit your work.
 
 [Table of Contents](../README.md)
