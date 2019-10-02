@@ -25,6 +25,11 @@ va/tests/graphql:
   description: Verify GraphQL Endpoint Bug
   command: "composer va:test:graphql"
 
+# Reproduce the GraphQL error.
+va/tests/graphql-reproduce:
+  - drush $DRUSH_ALIAS cr
+  - composer va:test:graphql
+
   # @TODO: Add feature to yaml tests to stop the whole suite if this test fails.
   # exit_on_failure: true
 
