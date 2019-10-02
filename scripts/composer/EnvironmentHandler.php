@@ -87,8 +87,8 @@ class EnvironmentHandler {
     $curl_command = "curl --silent --fail --user api:drupal8 --request POST --data-binary '@./scripts/graphql-curl-test-post-body.txt' {$graphql_url}";
 
     $process = new Process($curl_command);
-    $process->mustRun();
     $process->setTimeout(null);
+    $process->mustRun();
 
     $output = $process->getOutput();
     if (empty($output)) {
