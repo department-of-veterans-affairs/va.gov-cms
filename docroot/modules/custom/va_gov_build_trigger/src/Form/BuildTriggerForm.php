@@ -35,12 +35,12 @@ class BuildTriggerForm extends FormBase {
    */
   public function getWebUrl($environment_type) {
 
-    $cms_url = !empty(self::ENVIRONMENTS[$environment_type]) ?
-      self::ENVIRONMENTS[$environment_type] :
+    $cms_url = !empty(self::WEB_ENVIRONMENTS[$environment_type]) ?
+      self::WEB_ENVIRONMENTS[$environment_type] :
       getenv('HTTP_HOST');
 
     // If this is not a Prod environment, link to /static site.
-    if (empty(self::ENVIRONMENTS[$environment_type])) {
+    if (empty(self::WEB_ENVIRONMENTS[$environment_type])) {
       $cms_url .= "/static";
     }
 
