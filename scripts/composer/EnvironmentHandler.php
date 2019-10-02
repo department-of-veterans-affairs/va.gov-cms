@@ -88,6 +88,7 @@ class EnvironmentHandler {
 
     $process = new Process($curl_command);
     $process->mustRun();
+    $process->setTimeout(null);
 
     $output = $process->getOutput();
     if (empty($output)) {
