@@ -24,7 +24,7 @@ use GuzzleHttp\Client;
  */
 class BuildTriggerForm extends FormBase {
 
-  const ENVIRONMENTS = [
+  const WEB_ENVIRONMENTS = [
     'prod' => 'https://www.va.gov',
     'staging' => 'https://staging.va.gov',
     'dev' => 'https://dev.va.gov',
@@ -57,7 +57,7 @@ class BuildTriggerForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    $environment_type = getenv('CMS_ENVIRONMENT_TYPE')?: 'lando';
+    $environment_type = getenv('CMS_ENVIRONMENT_TYPE')?: 'ci';
     $target = $this->getWebURL($environment_type);
 
     $form['actions']['#type'] = 'actions';
