@@ -96,7 +96,7 @@ class BuildTriggerForm extends FormBase {
       $form['tip']['#weight'] = 100;
     }
 
-    if ($environment_type == 'prod') {
+    if ($environment_type == 'prod' && $environment_type == 'staging' && $environment_type == 'dev') {
       $description = t('Rebuilds for this environment will be handled by VFS Jenkins.');
     }
     elseif ($environment_type == 'ci') {
@@ -104,6 +104,9 @@ class BuildTriggerForm extends FormBase {
     }
     elseif ($environment_type == 'lando') {
       $description = t('Rebuilds for Lando sites must be run manually. Run the following command to regenerate the static site: <pre>lando composer va:web:build</pre>  The button below is used in CMS and production environments. You can use it to emulate their behavior. You may change the CMS_ENVIRONMENT_TYPE environment behavior to develop.');
+    }
+    else {
+      $description = 'Environment not detected. Rebuild by running the <pre>composer va:web:build</pre> command.';
     }
 
     $form['environment_target'] = [
