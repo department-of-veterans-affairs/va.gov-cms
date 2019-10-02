@@ -33,6 +33,12 @@ va/tests/phpunit:
   description: PHPUnit
   command: phpunit --exclude-group disabled tests/phpunit --colors=always
 
+va/tests/accessibility:
+  description: accessibility test with axe-webdriverjs for 508 compliance
+  command: composer va:test:accessibility
+  # ignore failures until 508 issues are resoled
+  ignore-failure: true
+
 va/web/build:
   description: Build VA.gov Front-end
   # Right now, va:web:build command does not fire an exit code, so we are using

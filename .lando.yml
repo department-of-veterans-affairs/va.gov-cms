@@ -109,12 +109,6 @@ tooling:
     service: appserver
     cmd: /app/bin/npm
 
-  nightwatch:
-    service: node
-    description: "Run nightwatch tests locally. Syntax: npm run-script nightwatch."
-    cmd:
-      - ./node_modules/.bin/nightwatch --tags accessibility
-
   sync-db:
     service: appserver
     description: This command has moved to a non-lando command, from app root run like this `scripts/sync-db.sh`.
