@@ -73,10 +73,10 @@ https://githowto.com/resolving_conflicts
 
 ## Merge Conflict on Composer
 If your composer.lock ends up with a conflict due to incoming changes, these steps should safely resolve the conflict.
-  1.  Make note of what package(s) changes were coming in from the other developers.
+  1.  Make note of what new packages are coming in from master.
   1.  Make note of what package(s) you were adding.
-  1.  Checkout the the incoming change
-  `git checkout origin/{base} -- composer.lock composer.json`
+  1.  Checkout the the incoming changes to composer.
+  `git checkout upstream/master -- composer.lock composer.json`
   1.  Replay your package addition(s).
   `composer require {new/package} --update-with-dependencies`
   1.  Run the new updates to make sure you have them locally.
