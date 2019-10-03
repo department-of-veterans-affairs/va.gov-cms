@@ -17,7 +17,7 @@ def shouldBail() {
 pipeline {
   agent any
   stages {
-  
+
     stage('Checkout Code') {
       steps {
         checkout scm
@@ -26,7 +26,11 @@ pipeline {
 
     stage('Build new AMI') {
       steps {
-        if (shouldBail()) { return }
+        when {
+          expression {
+            !shouldBail()
+          }
+        }
 
         script {
           commit = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
