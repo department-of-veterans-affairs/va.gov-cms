@@ -76,7 +76,7 @@ pipeline {
       cleanWs()
     }
     failure {
-      notifySlack("${env.JOB_NAME} failed", showTrigger: true, showBuildLink: true)
+      slackSend(channel: '#cms-engineering', color: 'danger', message: "${env.JOB_NAME} failed ${env.BUILD_URL}")
     }
   }
 }
