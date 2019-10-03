@@ -45,28 +45,33 @@ pipeline {
     }
 
     stage('Deploy to dev') {
-      if (IS_DEV_BRANCH && !shouldBail()) {
-        steps {
-          build job: "deploys/cms-vagov-dev", parameters: [
-            stringParam(name: 'app', value: 'cms'),
-            booleanParam(name: 'notify_slack', value: true),
-            stringParam(name: 'ref', value: commit),
-            booleanParam(name: 'migration_status', value: false)
-          ] , wait: false
-        }
+      steps {
+        when {
+          expression {
+            IS_DEV_BRANCH && !shouldBail()
+          }
+
+        build job: "deploys/cms-vagov-dev", parameters: [
+          stringParam(name: 'app', value: 'cms'),
+          booleanParam(name: 'notify_slack', value: true),
+          stringParam(name: 'ref', value: commit),
+          booleanParam(name: 'migration_status', value: false)
+        ] , wait: false
       }
     }
 
     stage('Deploy to staging') {
-      if (IS_STAGING_BRANCH && !shouldBail()) {
-        steps {
-          build job: "deploys/cms-vagov-staging", parameters: [
-            stringParam(name: 'app', value: 'cms'),
-            booleanParam(name: 'notify_slack', value: true),
-            stringParam(name: 'ref', value: commit),
-            booleanParam(name: 'migration_status', value: false)
-          ] , wait: false
-        }
+     steps {
+       when {
+         expression {
+           IS_STAGING_BRANCH && !shouldBail()
+         }
+        build job: "deploys/cms-vagov-staging", parameters: [
+          stringParam(name: 'app', value: 'cms'),
+          booleanParam(name: 'notify_slack', value: true),
+          stringParam(name: 'ref', value: commit),
+          booleanParam(name: 'migration_status', value: false)
+        ] , wait: false
       }
     }
   }
