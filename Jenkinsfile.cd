@@ -24,13 +24,14 @@ pipeline {
     }
 
     stage('Build new AMI') {
-      steps {
-        when {
-          expression {
-            !shouldBail()
-          }
-        }
 
+      when {
+        expression {
+          !shouldBail()
+        }
+      }
+
+      steps {
         script {
           commit = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
         }
@@ -45,13 +46,12 @@ pipeline {
     }
 
     stage('Deploy to dev') {
-      steps {
-        when {
-          expression {
-            IS_DEV_BRANCH && !shouldBail()
-          }
+      when {
+        expression {
+          IS_DEV_BRANCH && !shouldBail()
         }
-
+      }
+      steps {
         build job: "deploys/cms-vagov-dev", parameters: [
           stringParam(name: 'app', value: 'cms'),
           booleanParam(name: 'notify_slack', value: true),
@@ -62,12 +62,12 @@ pipeline {
     }
 
     stage('Deploy to staging') {
-     steps {
-       when {
-         expression {
-           IS_STAGING_BRANCH && !shouldBail()
-         }
-       }
+      when {
+        expression {
+          IS_STAGING_BRANCH && !shouldBail()
+        }
+      }
+      steps {
        build job: "deploys/cms-vagov-staging", parameters: [
          stringParam(name: 'app', value: 'cms'),
          booleanParam(name: 'notify_slack', value: true),
