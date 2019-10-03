@@ -17,15 +17,7 @@ def shouldBail() {
 pipeline {
   agent any
   stages {
-
-    # stage('Notify Slack') {
-    #   steps {
-    #     script {
-    #       notifySlack("Deploying `va.gov-cms` to `develop`.", showTrigger: true, showBuildLink: true)
-    #     }
-    #   }
-    # }
-
+  
     stage('Checkout Code') {
       steps {
         checkout scm
