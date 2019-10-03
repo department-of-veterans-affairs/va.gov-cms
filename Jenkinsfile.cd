@@ -1,17 +1,6 @@
-@Library('va.gov-devops-jenkins-lib') _
-
-DEV_BRANCH     = 'master'
-STAGING_BRANCH = 'master'
-
-IS_DEV_BRANCH     = env.BRANCH_NAME == DEV_BRANCH
-IS_STAGING_BRANCH = env.BRANCH_NAME == STAGING_BRANCH
-
 def shouldBail() {
-  // abort the job if we're not on deployable branch (usually master) and there's a newer build going now
-  return !IS_DEV_BRANCH &&
-         !IS_STAGING_BRANCH &&
-         !env.CHANGE_TARGET &&
-         currentBuild.nextBuild
+  // abort the job if there's a newer build going now
+  return currentBuild.nextBuild
 }
 
 pipeline {
@@ -48,42 +37,34 @@ pipeline {
     stage('Deploy to dev') {
       when {
         expression {
-          IS_DEV_BRANCH && !shouldBail()
+          !shouldBail()
         }
       }
       steps {
+        sh 'echo SUCCESS, we are in DEV step'
         build job: "deploys/cms-vagov-dev", parameters: [
           stringParam(name: 'app', value: 'cms'),
           booleanParam(name: 'notify_slack', value: true),
           stringParam(name: 'ref', value: commit),
           booleanParam(name: 'migration_status', value: false)
-          ] , wait: false
+        ] , wait: false
       }
     }
 
     stage('Deploy to staging') {
       when {
         expression {
-          IS_STAGING_BRANCH && !shouldBail()
+          !shouldBail()
         }
       }
       steps {
-       build job: "deploys/cms-vagov-staging", parameters: [
-         stringParam(name: 'app', value: 'cms'),
-         booleanParam(name: 'notify_slack', value: true),
-         stringParam(name: 'ref', value: commit),
-         booleanParam(name: 'migration_status', value: false)
-         ] , wait: false
+        build job: "deploys/cms-vagov-staging", parameters: [
+          stringParam(name: 'app', value: 'cms'),
+          booleanParam(name: 'notify_slack', value: true),
+          stringParam(name: 'ref', value: commit),
+          booleanParam(name: 'migration_status', value: false)
+        ] , wait: false
       }
-    }
-  }
-
-  post {
-    always {
-      cleanWs()
-    }
-    failure {
-      slackSend(channel: '#cms-engineering', color: 'danger', message: "${env.JOB_NAME} failed ${env.BUILD_URL}")
     }
   }
 }
