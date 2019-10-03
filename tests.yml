@@ -1,3 +1,6 @@
+# If any of these test names get updated they need to be updated here too
+# https://github.com/department-of-veterans-affairs/va.gov-cms/settings/branch_protection_rules
+
 # va/error:
 #  command: intentionalFailure
 #  description: Intentional Failure. Uncomment to test CI system failure behavior.
@@ -32,6 +35,12 @@ va/tests/phplint:
 va/tests/phpunit:
   description: PHPUnit
   command: phpunit --exclude-group disabled tests/phpunit --colors=always
+
+va/tests/accessibility:
+  description: accessibility test with axe-webdriverjs for 508 compliance
+  command: composer va:test:accessibility
+  # ignore failures until 508 issues are resoled
+  ignore-failure: true
 
 va/web/build:
   description: Build VA.gov Front-end
