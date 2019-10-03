@@ -1,0 +1,23 @@
+uuid: 8aa44e20-d187-4936-8942-1fe1e6044d62
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_vha_healthservice_stopcode
+    - taxonomy.vocabulary.health_care_service_taxonomy
+id: taxonomy_term.health_care_service_taxonomy.field_vha_healthservice_stopcode
+field_name: field_vha_healthservice_stopcode
+entity_type: taxonomy_term
+bundle: health_care_service_taxonomy
+label: 'VHA Stop code'
+description: 'Must be an integer, no more than four digits. Eg: "279", "502", "1922".'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: 9999
+  prefix: ''
+  suffix: ''
+field_type: integer

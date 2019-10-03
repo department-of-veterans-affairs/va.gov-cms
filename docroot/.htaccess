@@ -2,6 +2,21 @@
 # Apache/PHP/Drupal settings:
 #
 
+# This rule allows asset files from the /static folder to be loaded from the root.
+# This is so WEB assets can be loaded from the same URL, like /css/style.css.
+# /static assets are built using the `composer va:web:build` command.
+# See https://stackoverflow.com/questions/595005/redirect-requests-only-if-the-file-is-not-found
+
+# If requested file or directory exists, skip the next rule.
+RewriteCond %{DOCUMENT_ROOT}/$1 -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/$1 -d
+RewriteRule (.*) - [S=1]
+
+# If requested file exists in /static, rewrite to /static
+# Using only files here ensures the paths still resolve to Drupal and not to the index.html files.
+RewriteCond %{DOCUMENT_ROOT}/static/$1 -f
+RewriteRule (.*) /static/$1 [L]
+
 # Protect files and directories from prying eyes.
 <FilesMatch "\.(engine|inc|install|make|module|profile|po|sh|.*sql|theme|twig|tpl(\.php)?|xtmpl|yml)(~|\.sw[op]|\.bak|\.orig|\.save)?$|^(\.(?!well-known).*|Entries.*|Repository|Root|Tag|Template|composer\.(json|lock))$|^#.*#$|\.php(~|\.sw[op]|\.bak|\.orig|\.save)$">
   <IfModule mod_authz_core.c>

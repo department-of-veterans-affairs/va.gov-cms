@@ -64,7 +64,7 @@ $settings['update_free_access'] = FALSE;
 /**
  * Load services definition file.
  */
-$settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
+$settings['container_yamls'][] = $app_root . '/' . $site_path . '/../default/services.yml';
 
 /**
  * The default list of directories that will be ignored by Drupal's file API.
@@ -124,7 +124,7 @@ $config['environment_indicator.indicator']['name'] = 'Local';
 
 $config_directories['sync'] = '../config/sync';
 
-$env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'lando';
+$env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
 
 // Environment specific settings
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php')) {

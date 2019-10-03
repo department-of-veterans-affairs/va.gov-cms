@@ -78,6 +78,7 @@
         "drupal/uswds": "^1.0@beta",
         "drupal/views_bulk_edit": "^2.3",
         "drupal/views_bulk_operations": "^2.5",
+        "drupal/views_data_export": "^1.0@beta",
         "drupal/views_tree": "^2.0@alpha",
         "drupal/workbench_access": "^1.0@beta",
         "drupal/workbench_menu_access": "^1.0",
@@ -189,8 +190,16 @@
             ]
         },
         "enable-patching": true,
+        "patches-ignore": {
+            "drupal/lightning_core": {
+                "drupal/core": {
+                    "2815221 - Add quickedit to the latest-revision route: Don't use this outdate patch https://www.drupal.org/project/lightning_core/issues/3040013": "https://www.drupal.org/files/issues/2019-02-26/2815221-115-8.6.x.patch"
+                }
+            }
+        },
         "patches": {
             "drupal/core": {
+                "2815221 - Add quickedit to the latest-revision route": "https://www.drupal.org/files/issues/2019-03-05/2815221-116.patch",
                 "Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch"
             },
             "drupal/migration_tools": {
@@ -269,7 +278,7 @@
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
             "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
         ],
-        "nuke": "rm --recursive --force bin docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor",
+        "nuke": "rm -r -f bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor",
         "va:start": [
           "@composer install --ansi",
           "@va:install",
@@ -307,6 +316,10 @@
         "va:proxy:sshuttle": [
             "sudo -E sshuttle -r dsva@52.222.32.121 -e 'ssh -A ' 10.0.0.0/8"
         ],
+        "va:test:accessibility": [
+            "npm install --only=production",
+            "npm test"
+        ],
         "va:test:lint": [
             "find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null",
             "find docroot/modules/custom docroot/themes -name '*.module' -print0 | xargs -0 -n1 php -l > /dev/null",
@@ -336,10 +349,13 @@
             "@va:web:watch"
         ],
         "va:web:build": [
-            "cd web && npm run build -- --pull-drupal"
+            "drush config-set va_gov.build web.build.pending 1 -y",
+            "cd web && npm run build -- --pull-drupal",
+            "drush config-set va_gov.build web.build.pending 0 -y"
         ],
         "va:web:test": [
             "echo 'drupal address: ' $DRUPAL_ADDRESS"
         ]
+
     }
 }
