@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Adds support for returning static assets from the same URL.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function va_gov_preview_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.va_gov_preview':
+      $output = '';
+      $output .= '<h3>' . t('VA.gov Content Preview') . '</h3>';
+      $output .= '<p>' . t('This module provides content previewing.') . '</p>';
+      return $output;
+  }
+}
