@@ -36,6 +36,9 @@ Feature: Views
       | Local facilities entity reference view | local_facilities_entity_reference_view | Content | Enabled | An entity reference view that determines options for the Local Health Service descriptions |
       | Locked content  | locked_content | Content | Enabled |  |
       | VHA Health service taxonomy | vha_health_service_taxonomy | Taxonomy terms | Enabled |  |
+      | VAMC alerts and operating statuses | vamc_alerts_and_operating_statuses | Content | Enabled |  |
+      | VAMC operating statuses | vamc_operating_statuses | Content | Enabled |  |
+      | VAMCs | vamcs | Content | Enabled |  |
 
   @dst @views_displays
   Scenario: Views displays
@@ -112,3 +115,8 @@ Feature: Views
       | VHA Health service taxonomy | Page | page_1 | Page |
       | VHA Health service taxonomy | Data export | data_export_1 | Data export |
       | VHA Health service taxonomy | Master | default | Master |
+      | VAMCs | Master | default | Master |
+      | VAMC operating statuses | Master | default | Master |
+      | VAMC operating statuses | Entity Reference | entity_reference_1 | Entity Reference |
+      | VAMC alerts and operating statuses | Master | default | Master |
+      | VAMC alerts and operating statuses | Page | page_1 | Page |
