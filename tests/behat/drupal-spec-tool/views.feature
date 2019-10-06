@@ -33,6 +33,9 @@ Feature: Views
 | Taxonomy term | taxonomy_term | Content | Enabled | Content belonging to a certain taxonomy term. |
 | People | user_admin_people | Users | Enabled | Find and manage people interacting with your site. |
 | Blocks listing | va_blocks_admin | Custom Block | Enabled | Shows existing blocks on the site. |
+| VAMC alerts and operating statuses | vamc_alerts_and_operating_statuses | Content | Enabled |  |
+| VAMC operating statuses | vamc_operating_statuses | Content | Enabled |  |
+| VAMCs | vamcs | Content | Enabled |  |
 | VHA Health service taxonomy | vha_health_service_taxonomy | Taxonomy terms | Enabled |  |
 | Watchdog | watchdog | Log entries | Enabled | Recent log messages |
 | Who's new | who_s_new | Users | Disabled | Shows a list of the newest user accounts on the site. |
@@ -107,6 +110,11 @@ Feature: Views
 | Taxonomy term | Master | default | Master |
 | Taxonomy term | Feed | feed_1 | Feed |
 | Taxonomy term | Page | page_1 | Page |
+| VAMC alerts and operating statuses | Master | default | Master |
+| VAMC alerts and operating statuses | Page | page_1 | Page |
+| VAMC operating statuses | Master | default | Master |
+| VAMC operating statuses | Entity Reference | entity_reference_1 | Entity Reference |
+| VAMCs | Master | default | Master |
 | VHA Health service taxonomy | Page | page_1 | Page |
 | VHA Health service taxonomy | Data export | data_export_1 | Data export |
 | VHA Health service taxonomy | Master | default | Master |
