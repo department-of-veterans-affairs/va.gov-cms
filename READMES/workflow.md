@@ -3,7 +3,7 @@
 1. [Git](#git)
     1. Branches
     1. Example Workflow
-    1.  Pull Request Norms
+    1. Pull Request Norms
     1. Merge Conflicts
 1. [Drupal SpecTool](#drupal-spectool)
 1. [Patching](#patching)
@@ -12,36 +12,34 @@
     1. [Updating Contrib Modules](#updating-contrib-modules)
 
 ## Project
-1. Pull a ticket, move to 'In Progress'
+1. Pull a ticket, move to 'In Development'
 1. Review the ticket's story, Acceptance Criteria, and Implementation Notes. Raise any questions/concerns/risks in the ticket comments and mention the relevant/appropriate people.
 Write a manual test in the Jira ticket to test ticket completion.
 
 ## Git
-To avoid cluttering up the main repo with lots of branches, please push your branches to your fork and make your pull request from your fork to the upstream repo.
+To avoid cluttering up the main repo with lots of branches, fork the repo and push your branches to your fork and make your pull request from your fork to the upstream repo. You can use [`hub`](https://github.com/github/hub) to do this from the command line. Or after you push you will see a link in the output to ctrl + click and create a new PR from the branch you just pushed. 
 
 ### Branches
- We are currently working off a two branch system.  Development is performed on a fresh branch off `develop`  At the time of release, code is merged from `develop` into `master` and tagged appropriately.  Production runs off of tagged master.
-Develop is protected and requires both approval from code review and passing tests to be merged.  Commits within PR's are squashed and merged when they are accepted so that the only relate to one git commit, even if they originally contained multiple commits.
-**Note:** Soon we will be moving to continuous deployment and all merge requests will be made against the master branch and the develop branch will be removed.
+ We are currently working off a single `master` branch system. `master` is protected and requires both approval from code review and passing tests to be merged. Commits within pull requests are squashed and merged when they are accepted so that the only relate to one git commit, even if they originally contained multiple commits, the commit messages are added as a bulleted list so they are retained in the merge commit.
 
 ### Example Git workflow:
 
 1. `git fetch --all`
-1. `git checkout --branch <VAGOV-000-name> upstream/develop`
+1. `git checkout --branch <VAGOV-000-name> origin/master`
 1. `lando composer install`
 1. `./scripts/sync-db.sh`
 1. `./scripts/sync-files.sh` # (optional)
-1. Running `lando tests` will build the frontend web and run all tests (php unit, behat, FE web) See [testing](testing.md) for additional details.
-1.  If possible, write your test, before you write code.  The test should fail initially and not pass until you succeed.
-1.  Fix code formatting issues with CodeSniffer, Drupal 8 standard.
+1. Running `lando test` will build the frontend web and run all tests (PHPUnit, Behat, accessibility, FE web) See [testing](testing.md) for additional details.
+1. If possible, write your test, before you write code.  The test should fail initially and not pass until you succeed.
+1. Fix code formatting issues with CodeSniffer, Drupal 8 standard.
 1. Commit your changes. Each commit should be logically atomic (e.g. module adds in one commit, config in another, custom code in additional logical commits), and your commit messages should follow the pattern: "VAGOV-123: A grammatically correct sentence starting with an action verb and ending with punctuation."
 _Example: VAGOV-1234 Add configuration for menu reduction._
-1.  Push work to your fork of the repository (origin) so a Pull Request may be created
-`git push --set-upstream origin VAGOV-123-short-desc-mi`
-
+1. Push work to your fork of the repository so a Pull Request may be created
+`git push --set-upstream <fork name> HEAD`
+1. Once your PR is merged it will be automatically deployed to dev.cms.va.gov and staging.cms.va.gov. If it is merged before 2:30pm ET it will be in the daily, scheduled deploy to prod.cms.va.gov at 3:30pm ET.
 
 ### Pull Request Norms
-* Pull requests should be made against the develop branch.
+* Pull requests should be made against the `master` branch.
 * Pull Request title should be in the format: "VAGOV-123: Jira ticket title, starting with an action verb and ending with punctuation."
 * If your PR is a work in progress or should not be merged, prefix the pull request title with "WIP: " and use the Draft feature.
 * Put a link to the ticket at the top of the PR description.
@@ -122,15 +120,15 @@ Security updates to Drupal core take a little while to make their way to the [Li
 This will show you what is to change, without actually changing anything.
 2. ```lando composer update acquia/headless_lightning --with-dependencies```
 3. ```lando composer update --lock```
-4. ```lando drush updb -y```
-5. ```lando drush cr```
+4. ```lando drush updatedb --yes```
+5. ```lando drush cache:rebuild```
 6. ```lando test```
 7. Commit and review your changes.
 
 ### Updating Contrib Modules
 1. ```lando composer update drupal/MODULE_NAME --with-dependencies```  That will update the composer.lock
-2. ```lando drush updb -y```
-3. ```lando drush cr```
+2. ```lando drush updatedb --yes```
+3. ```lando drush cache:rebuild```
 4.  ```lando test``` to make sure nothing broke.
 5. Commit your work.
 

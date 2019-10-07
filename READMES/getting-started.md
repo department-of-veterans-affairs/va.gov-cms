@@ -21,10 +21,10 @@ with PHP-CLI and SQLite.
    ```sh
    $ git remote add upstream git@github.com:department-of-veterans-affairs/va.gov-cms.git
    ```
-  You should periodically update your branch from `upstream:develop` branch:
+  You should periodically update your branch from `upstream:master` branch:
 
   ```sh
-   $ git pull upstream develop
+   $ git pull upstream master
   ```
 
   Make changes to simplesaml storage not be tracked locally.
