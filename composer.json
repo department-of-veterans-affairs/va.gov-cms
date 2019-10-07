@@ -264,39 +264,37 @@
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
             "cp -r 'hooks/' '.git/hooks/'",
             "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
-            "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
-            "php -r \"chmod('.git/hooks/commit-msg', 0777);\"",
             "cp -r 'simplesamlphp-1.17.2/config/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
             "cp -r 'simplesamlphp-1.17.2/metadata/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
+            "echo 'Removing deleted .git/hooks/commit-msg file, no longer used.'",
+            "rm -f .git/hooks/commit-msg",
             "@va:web:install"
         ],
         "post-update-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
             "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
-            "php -r \"copy('hooks/commit-msg', '.git/hooks/commit-msg');\"",
-            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
-            "php -r \"chmod('.git/hooks/commit-msg', 0777);\""
+            "php -r \"chmod('.git/hooks/pre-commit', 0777);\""
         ],
-        "nuke": "rm -r -f bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor",
+        "nuke": "rm -rf bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor",
         "va:start": [
-          "@composer install --ansi",
-          "@va:install",
-          "# To setup default content, run: `drupal module:install va_gov_content`",
-          "# cms.VA.gov installed: Username: admin  Password: admin",
-          "@va:server"
+            "@composer install --ansi",
+            "@va:install",
+            "# To setup default content, run: `drupal module:install va_gov_content`",
+            "# cms.VA.gov installed: Username: admin  Password: admin",
+            "@va:server"
         ],
         "va:server": [
-          "drupal server localhost:9000 --ansi "
+            "drupal server localhost:9000 --ansi "
         ],
         "va:install": [
-          "drush site:install va_gov --yes --account-name admin --account-pass admin --ansi --site-name='Veterans Affairs'"
+            "drush site:install va_gov --yes --account-name admin --account-pass admin --ansi --site-name='Veterans Affairs'"
         ],
         "va:reinstall": [
-          "# This only reinstalls sites installed with SQLite...",
-          "chmod +w -R docroot/sites/default",
-          "rm -rf docroot/sites/default/files",
-          "@va:start"
+            "# This only reinstalls sites installed with SQLite...",
+            "chmod +w -R docroot/sites/default",
+            "rm -rf docroot/sites/default/files",
+            "@va:start"
         ],
         "va:config:export": [
             "drupal config:export --ansi"
