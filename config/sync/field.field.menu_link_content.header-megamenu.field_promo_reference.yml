@@ -3,19 +3,26 @@ langcode: en
 status: true
 dependencies:
   config:
+    - block_content.type.promo
     - field.storage.menu_link_content.field_promo_reference
     - system.menu.header-megamenu
 id: menu_link_content.header-megamenu.field_promo_reference
 field_name: field_promo_reference
 entity_type: menu_link_content
 bundle: header-megamenu
-label: 'Promo for About VA dropdown'
-description: 'Promo that appears when hovering on  About VA on larger screens. (The only menu item where this has an effect is the About VA menu item)'
+label: 'Related Promo'
+description: 'Promo block that appears in benefit hub sections or in the About VA menu tab.'
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:block_content'
-  handler_settings: {  }
+  handler_settings:
+    target_bundles:
+      promo: promo
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
 field_type: entity_reference

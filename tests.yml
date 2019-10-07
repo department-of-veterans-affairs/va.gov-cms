@@ -1,3 +1,6 @@
+# If any of these test names get updated they need to be updated here too
+# https://github.com/department-of-veterans-affairs/va.gov-cms/settings/branch_protection_rules
+
 # va/error:
 #  command: intentionalFailure
 #  description: Intentional Failure. Uncomment to test CI system failure behavior.
@@ -21,6 +24,24 @@ va/deploy/3-config:
   - drush $DRUSH_ALIAS cim --yes
   - drush $DRUSH_ALIAS cr
 
+va/tests/phpcs:
+  description: PHP CodeSniffer
+  command: composer va:test:cs
+
+va/tests/phplint:
+  description: PHP Lint
+  command: composer va:test:lint
+
+va/tests/phpunit:
+  description: PHPUnit
+  command: phpunit --exclude-group disabled tests/phpunit --colors=always
+
+va/tests/accessibility:
+  description: accessibility test with axe-webdriverjs for 508 compliance
+  command: composer va:test:accessibility
+  # ignore failures until 508 issues are resoled
+  ignore-failure: true
+
 va/web/build:
   description: Build VA.gov Front-end
   # Right now, va:web:build command does not fire an exit code, so we are using
@@ -40,15 +61,3 @@ va/tests/spec:
   command: |
     cd tests/behat
     behat --colors --tags=dst
-
-va/tests/phpunit:
-  description: PHPUnit
-  command: phpunit --exclude-group disabled tests/phpunit --colors=always
-
-va/tests/phpcs:
-  description: PHP CodeSniffer
-  command: composer va:test:cs
-
-va/tests/phplint:
-  description: PHP Lint
-  command: composer va:test:lint

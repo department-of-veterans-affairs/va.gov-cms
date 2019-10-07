@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_form_mode.node.inline_entity_form
     - field.field.node.health_care_region_page.field_administration
     - field.field.node.health_care_region_page.field_appointments_online
     - field.field.node.health_care_region_page.field_clinical_health_care_servi
@@ -38,7 +37,6 @@ dependencies:
     - content_moderation
     - field_group
     - hide_revision_field
-    - inline_entity_form
     - link
     - linkit
     - media_library
@@ -375,18 +373,11 @@ content:
   field_leadership:
     weight: 25
     settings:
-      form_mode: inline_entity_form
-      override_labels: true
-      label_singular: person
-      label_plural: persons
-      collapsed: true
-      allow_new: true
-      allow_existing: true
       match_operator: CONTAINS
-      collapsible: false
-      allow_duplicate: false
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: inline_entity_form_complex
+    type: entity_reference_autocomplete
     region: content
   field_links:
     weight: 25

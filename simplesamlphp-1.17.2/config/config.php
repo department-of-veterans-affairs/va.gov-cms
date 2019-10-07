@@ -73,7 +73,7 @@ $config = [
      * also as the technical contact in generated metadata.
      */
     'technicalcontact_name' => 'VA.gov Administrator',
-    'technicalcontact_email' => 'cms-admin@va.gov',
+    'technicalcontact_email' => 'vacmssupport@va.gov',
 
     /*
      * The envelope from address for outgoing emails.
@@ -1086,7 +1086,7 @@ $config = [
      * See http://www.php.net/manual/en/pdo.drivers.php for the various
      * syntaxes.
      */
-    'store.sql.dsn'                 => 'sqlite:/var/www/cms/samlsessiondb.sq3',
+    'store.sql.dsn'                 => "sqlite:{$_SERVER['DOCUMENT_ROOT']}/../samlsessiondb.sq3",
 
     /*
      * The username and password to use when connecting to the database.
