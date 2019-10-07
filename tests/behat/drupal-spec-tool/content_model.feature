@@ -8,85 +8,62 @@ Feature: Content model
   Scenario: Bundles
     Then exactly the following content entity type bundles should exist
       | Name | Machine name | Type | Description |
+      | Benefits detail page | page | Content type | These pages hold all of the benefits overview content, such the detail pages linked to from va.gov/disability, va.gov/health-care, and va.gov/education. |
+      | Benefits hub landing page | landing_page | Content type | A special page for top-level Benefits content with its own one-off layout and content. |
+      | Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
+      | Documentation page | documentation_page | Content type | Help pages VA.gov CMS editors. |
+      | Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
+      | Event listing | event_listing | Content type | A listing of events. |
+      | News release | press_release | Content type | Announcements directed at members of the media for the purpose of publicizing newsworthy events/happenings/programs at specific facilities or healthcare systems. |
+      | Office | office | Content type | An office at the VA, which may have contact info, events, news, and a leadership page in some cases. |
+      | Publication | outreach_asset | Content type | Contains a document, image, or video, for publication within a Publication library. |
+      | Publication listing | publication_listing | Content type | This allows the listing of publication materials such as documents, videos, and images all in one place. |
+      | Staff profile | person_profile | Content type | Profiles of staff members for display in various places around the site. |
+      | Story | news_story | Content type | Community stories highlight the role of a VA facility, program, or healthcare system in a Veteran's journey. They may be a case study of a specific patient, a description of a new or successful program, or a community-interest story. |
+      | Support Service | support_service | Content type | Help desks, hotlines, etc, to be contextually placed alongside relevant content. |
+      | VAMC | health_care_region_page | Content type | A landing page for a VAMC system, which typically includes multiple facilities. |
+      | VAMC banner alert with situation updates | full_width_banner_alert | Content type | A full-width alert that will be added to a VAMC, or multiple VAMCS. |
+      | VAMC facility        | health_care_local_facility | Content type | A clinic or hospital within a VAMC / healthcare system. |
+      | VAMC facility health service        | health_care_local_health_service | Content type | A facility specific description of a health care service, always embedded within a regional description |
+      | VAMC health service | regional_health_care_service_des | Content type | A description of a health service specific to a VAMC. Does not include facility-specific services (except in cases where a VAMC only has one facility).  |
+      | VAMC operating status | vamc_operating_status_and_alerts | Content type | Create one of these pages for each VAMC. Then you can add banner alerts and update facilities' operating status, all from one place. |
+      | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
+      | Megamenu | megamenu | Custom block type | A pane within the main nav megamenu |
+      | Promo | promo | Custom block type | Promote a link with an image, title, and description. |
+      | Document | document | Media type | A locally hosted document, such as a PDF. |
+      | Image | image | Media type | Locally hosted images. |
+      | Video | video | Media type | A video hosted by YouTube, Vimeo, or some other provider. |
       | Accordion group | collapsible_panel | Paragraph type | A group of accordions. |
       | Accordion Item | collapsible_panel_item | Paragraph type | An individual accordion. |
       | Additional information | spanish_translation_summary | Paragraph type | Spanish summary to include a brief spanish-language summary of the content. |
       | Address | address | Paragraph type | An address block. |
       | Alert | alert | Paragraph type | A reusable or non-reusable alert, either "information status" or "warning status". |
-      | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
-      | Benefits detail page | page | Content type | These pages hold all of the benefits overview content, such the detail pages linked to from va.gov/disability, va.gov/health-care, and va.gov/education. |
-      | Benefits hub landing page | landing_page | Content type | A special page for top-level Benefits content with its own one-off layout and content. |
-      | Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
-      | Document | document | Media type | A locally hosted document, such as a PDF. |
-      | Documentation page | documentation_page | Content type | Help pages VA.gov CMS editors. |
       | Embedded image | media | Paragraph type | For adding an image inline |
-      | Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
-      | Event listing | event_listing | Content type | A listing of events. |
       | Expandable Text | expandable_text | Paragraph type | Text that expands upon click. |
-      | Image | image | Media type | Locally hosted images. |
       | Link teaser | link_teaser | Paragraph type | A link followed by a description. For building inline "menus" of content. |
       | Link to file or video | downloadable_file | Paragraph type | For image or document downloads. |
       | List of link teasers | list_of_link_teasers | Paragraph type | A paragraph that contains only one type of paragraph: Link teaser. |
-      | Megamenu | megamenu | Custom block type | A pane within the main nav megamenu |
       | Megamenu - Links Column | megamenu_links_column | Paragraph type | First or second column in a megamenu pane - contains a list of links. |
       | Megamenu - Menu Item | megamenu_menu_item | Paragraph type | A menu item displayed in a mega menu pane. Contains title, two columns of links, 1 column containing a block, and a 'see all' link. |
-      | News release | press_release | Content type | Announcements directed at members of the media for the purpose of publicizing newsworthy events/happenings/programs at specific facilities or healthcare systems. |
       | Number callout | number_callout | Paragraph type | Number callouts can be used in the context of a question & answer, where the answer can be summarized in a short phrase that is number-oriented. |
-      | Office | office | Content type | An office at the VA, which may have contact info, events, news, and a leadership page in some cases. |
       | Process list | process | Paragraph type | An ordered list (1, 2, 3, 4, N) of steps in a process. |
-      | Promo | promo | Custom block type | Promote a link with an image, title, and description. |
-      | Publication | outreach_asset | Content type | Contains a document, image, or video, for publication within a Publication library. |
-      | Publication listing | publication_listing | Content type | This allows the listing of publication materials such as documents, videos, and images all in one place. |
       | Q&A | q_a | Paragraph type | Question and Answer |
       | Q&A Section | q_a_section | Paragraph type | For content formatted as a series of questions and answers. Use this (instead of WYSIWYG) for better accessibility and easy rearranging. |
       | React Widget | react_widget | Paragraph type | Advanced editors can use this to place react widgets (like a form) on the page. |
-      | Sections | administration | Vocabulary | Represents a hierarchy of the VA, partly for governance purposes. |
-      | Staff profile | person_profile | Content type | Profiles of staff members for display in various places around the site. |
       | Staff profile | staff_profile | Paragraph type | Add a profile of a staff person. |
       | Starred Horizontal Rule | starred_horizontal_rule | Paragraph type |  |
-      | Story | news_story | Content type | Community stories highlight the role of a VA facility, program, or healthcare system in a Veteran's journey. They may be a case study of a specific patient, a description of a new or successful program, or a community-interest story. |
-      | Support Service | support_service | Content type | Help desks, hotlines, etc, to be contextually placed alongside relevant content. |
       | Table | table | Paragraph type | Add an HTML table with rows and columns. |
-      | Type of Redirect | type_of_redirect | Vocabulary |  |
-      | VAMC | health_care_region_page | Content type | A landing page for a VAMC system, which typically includes multiple facilities. |
-      | VAMC banner alert with situation updates | full_width_banner_alert | Content type | A full-width alert that will be added to a VAMC, or multiple VAMCS. |
-      | VAMC facility        | health_care_local_facility | Content type | A clinic or hospital within a VAMC / healthcare system. |
-      | VAMC facility service | health_care_local_facility_servi | Paragraph type | A service available at a specific health care facility, like Parking, or Chaplaincy. |
-      | VAMC facility health service        | health_care_local_health_service | Content type | A facility specific description of a health care service, always embedded within a regional description |
-      | VAMC health service | regional_health_care_service_des | Content type | A description of a health service specific to a VAMC. Does not include facility-specific services (except in cases where a VAMC only has one facility).  |
-      | VAMC operating status | vamc_operating_status_and_alerts | Content type | Create one of these pages for each VAMC. Then you can add banner alerts and update facilities' operating status, all from one place. |
-      | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | For Clinical Health or Patient & Family & Caregiver services |
-      | Video | video | Media type | A video hosted by YouTube, Vimeo, or some other provider. |
+      | VAMC facility service (non-healthcare service) | health_care_local_facility_servi | Paragraph type | A service available at a specific health care facility, like Parking, or Chaplaincy. |
       | WYSIWYG | wysiwyg | Paragraph type | An open-ended text field. |
       | Situation update | situation_update | Paragraph type | A time-sensitive, added to a banner alert, and displayed on VAMC operating status pages. |
+      | Sections | administration | Vocabulary | Represents a hierarchy of the VA, partly for governance purposes. |
+      | Type of Redirect | type_of_redirect | Vocabulary |  |
+      | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
 
   @dst @field_type
   Scenario: Fields
     Then exactly the following fields should exist
       | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
-      | Paragraph type | Accordion group | Accordion Items | field_va_paragraphs | Entity reference revisions | Required | Unlimited | Paragraphs Classic | Translatable |
-      | Paragraph type | Accordion group | Add border around items | field_collapsible_panel_bordered | Boolean |  | 1 | -- Disabled -- |  |
-      | Paragraph type | Accordion group | Allow more than one item to expand at a time | field_collapsible_panel_multi | Boolean |  | 1 | -- Disabled -- |  |
-      | Paragraph type | Accordion group | Start expanded | field_collapsible_panel_expand | Boolean |  | 1 | -- Disabled -- |  |
-      | Paragraph type | Accordion Item | Content block(s) | field_va_paragraphs | Entity reference revisions |  | Unlimited | Paragraphs Classic | Translatable |
-      | Paragraph type | Accordion Item | Text | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
-      | Paragraph type | Accordion Item | Title | field_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-      | Paragraph type | Additional information | Text | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
-      | Paragraph type | Additional information | Instructions for obtaining more information in Spanish | field_text_expander | Text (plain) |  | 1 | Textfield with counter | Translatable |
-      | Paragraph type | Address | Address | field_address | Address |  | 1 | Address |  |
-      | Custom block type | Alert | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  |
-      | Custom block type | Alert | Owner | field_owner | Entity reference | Required | 1 | Select list |  |
-      | Custom block type | Alert | Scope | field_node_reference | Entity reference |  | Unlimited | Autocomplete |  |
-      | Paragraph type | Alert | Reusable alert | field_alert_block_reference | Entity reference |  | 1 | Select list |  |
-      | Custom block type | Alert | Alert body | field_alert_content | Entity reference revisions | Required | 1 | Paragraphs Classic |  |
-      | Paragraph type | Alert | Alert content | field_va_paragraphs | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
-      | Custom block type | Alert | Alert Type | field_alert_type | List (text) | Required | 1 | Select list |  |
-      | Custom block type | Alert | Banner or in-page alert? | field_is_this_a_header_alert_ | List (text) |  | 1 | Select list |  |
-      | Custom block type | Alert | Persistence (for dismissable alerts only) | field_alert_frequency | List (text) | Required | 1 | Select list |  |
-      | Custom block type | Alert | Reusability | field_reusability | List (text) | Required | 1 | -- Disabled -- |  |
-      | Paragraph type | Alert | Alert Type | field_alert_type | List (text) |  | 1 | Select list |  |
-      | Custom block type | Alert | Alert title | field_alert_title | Text (plain) | Required | 1 | Textfield |  |
-      | Paragraph type | Alert | Alert Heading | field_alert_heading | Text (plain) |  | 1 | Textfield with counter |  |
       | Content type | Benefits detail page | Alert | field_alert | Entity reference |  | 1 | Select list |  |
       | Content type | Benefits detail page | Main content | field_content_block | Entity reference revisions | Required | Unlimited | Paragraphs Browser EXPERIMENTAL |  |
       | Content type | Benefits detail page | Description | field_description | Text (plain) | Required | 1 | Textfield with counter |  |
@@ -126,14 +103,7 @@ Feature: Content model
       | Content type | Detail Page | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
       | Content type | Detail Page | Summary | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
       | Content type | Detail Page | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
-      | Media type | Document | Reusable | field_media_in_library | Boolean |  | 1 | -- Disabled -- | Translatable |
-      | Media type | Document | Owner | field_owner | Entity reference | Required | 1 | Select list |  |
-      | Media type | Document | Media submission guidelines | field_media_submission_guideline | Markup |  | 1 | Markup |  |
-      | Media type | Document | Document | field_document | File | Required | 1 | File |  |
       | Content type | Documentation page | Main content | field_content_block | Entity reference revisions |  | Unlimited | Paragraphs Browser Classic | Translatable |
-      | Paragraph type | Embedded image | Allow clicks on this image to open it in new tab | field_allow_clicks_on_this_image | Boolean |  | 1 | Single on/off checkbox |  |
-      | Paragraph type | Embedded image | Select an image | field_media | Entity reference |  | 1 | Media library |  |
-      | Paragraph type | Embedded image | Markup | field_markup | Markup |  | 1 | Markup |  |
       | Content type | Event | Featured | field_featured | Boolean |  | 1 | Single on/off checkbox | Translatable |
       | Content type | Event | Date and time | field_date | Date range |  | 1 | Date and time range |  |
       | Content type | Event | Event listing | field_office | Entity reference | Required | 1 | Select list | Translatable |
@@ -159,29 +129,6 @@ Feature: Content model
       | Content type | Event listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
       | Content type | Event listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
       | Content type | Event listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
-      | Paragraph type | Expandable Text | Full Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
-      | Paragraph type | Expandable Text | Text Expander | field_text_expander | Text (plain) | Required | 1 | Textfield with counter |  |
-      | Media type | Image | Reusable | field_media_in_library | Boolean |  | 1 | -- Disabled -- |  |
-      | Media type | Image | Owner | field_owner | Entity reference | Required | 1 | Select list | Translatable |
-      | Media type | Image | Media submission guidelines | field_media_submission_guideline | Markup |  | 1 | Markup | Translatable |
-      | Media type | Image | Image | image | Image | Required | 1 | ImageWidget crop |  |
-      | Paragraph type | Link teaser | Link | field_link | Link |  | 1 | Linkit |  |
-      | Paragraph type | Link teaser | Link summary | field_link_summary | Text (plain) |  | 1 | Textfield with counter |  |
-      | Paragraph type | Link to file or video | Link to a file or video | field_media | Entity reference | Required | 1 | Media library | Translatable |
-      | Paragraph type | Link to file or video | Markup | field_markup | Markup |  | 1 | Markup | Translatable |
-      | Paragraph type | Link to file or video | Link text | field_title | Text (plain) | Required | 1 | Textfield | Translatable |
-      | Paragraph type | List of link teasers | Link teasers | field_va_paragraphs | Entity reference revisions | Required | Unlimited | Paragraphs Classic | Translatable |
-      | Paragraph type | List of link teasers | Title | field_title | Text (plain) |  | 1 | Textfield | Translatable |
-      | Custom block type | Megamenu | Owner | field_owner | Entity reference | Required | 1 | Select list | Translatable |
-      | Custom block type | Megamenu | Menu Sections | field_menu_sections | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
-      | Custom block type | Megamenu | Title | field_title | Text (plain) | Required | 1 | Textfield |  |
-      | Paragraph type | Megamenu - Links Column | Links | field_links | Link |  | Unlimited | Linkit |  |
-      | Paragraph type | Megamenu - Links Column | Title | field_title | Text (plain) |  | 1 | Textfield | Translatable |
-      | Paragraph type | Megamenu - Menu Item | Column Three | field_column_three | Entity reference |  | 1 | Select list |  |
-      | Paragraph type | Megamenu - Menu Item | Column One | field_column_one | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
-      | Paragraph type | Megamenu - Menu Item | Column Two | field_column_two | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
-      | Paragraph type | Megamenu - Menu Item | See All Link | field_see_all_link | Link |  | 1 | Linkit |  |
-      | Paragraph type | Megamenu - Menu Item | Title | field_title | Text (plain) |  | 1 | Textfield | Translatable |
       | Content type | News release | Introduction | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
       | Content type | News release | Full text of the Press Release | field_press_release_fulltext | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
       | Content type | News release | Healthcare system or related office | field_office | Entity reference | Required | 1 | Select list | Translatable |
@@ -192,18 +139,11 @@ Feature: Content model
       | Content type | News release | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | News release | PDF of Press Release | field_pdf_version | Entity reference |  | 1 | Media library |  |
       | Content type | News release | Release date | field_release_date | Date |  | 1 | Date and time |  |
-      | Paragraph type | Number callout | Additional information | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
-      | Paragraph type | Number callout | Short phrase with a number, or time element | field_short_phrase_with_a_number | Text (plain) | Required | 1 | Textfield with counter |  |
       | Content type | Office | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | Office | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
       | Content type | Office | Body | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
       | Content type | Office | Description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
       | Content type | Office | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-      | Paragraph type | Process list | Steps | field_steps | Text (formatted, long) | Required | Unlimited | Text area (multiple rows) |  |
-      | Custom block type | Promo | Owner | field_owner | Entity reference | Required | 1 | Select list | Translatable |
-      | Custom block type | Promo | Image | field_image | Entity reference | Required | 1 | Entity browser |  |
-      | Custom block type | Promo | Link | field_promo_link | Entity reference revisions |  | 1 | Paragraphs Classic |  |
-      | Custom block type | Promo | Instructions | field_instructions | Markup |  | 1 | Markup |  |
       | Content type | Publication | File or video | field_media | Entity reference |  | 1 | Media library |  |
       | Content type | Publication | Healthcare system or related office | field_office | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | Publication | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
@@ -217,33 +157,11 @@ Feature: Content model
       | Content type | Publication listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
       | Content type | Publication listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
       | Content type | Publication listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
-      | Paragraph type | Q&A | Question | field_question | Text (plain) | Required | 1 | Textfield with counter |  |
-      | Paragraph type | Q&A | Answer | field_answer | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
-      | Paragraph type | Q&A Section | Display this set of Q&As as a group of accordions. | field_accordion_display | Boolean |  | 1 | Single on/off checkbox |  |
-      | Paragraph type | Q&A Section | Questions | field_questions | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
-      | Paragraph type | Q&A Section | Section Header | field_section_header | Text (plain) |  | 1 | Textfield |  |
-      | Paragraph type | Q&A Section | Section Intro | field_section_intro | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
-      | Paragraph type | React Widget | Default Link | field_default_link | Link |  | 1 | Linkit |  |
-      | Paragraph type | React Widget | Call To Action Widget | field_cta_widget | Boolean |  | 1 | Single on/off checkbox |  |
-      | Paragraph type | React Widget | Display default link as button | field_button_format | Boolean |  | 1 | Single on/off checkbox |  |
-      | Paragraph type | React Widget | Error Message | field_error_message | Text (formatted) |  | 1 | Text field |  |
-      | Paragraph type | React Widget | Loading Message | field_loading_message | Text (plain) |  | 1 | Textfield |  |
-      | Paragraph type | React Widget | Timeout | field_timeout | Number (integer) |  | 1 | Number field |  |
-      | Paragraph type | React Widget | Widget Type | field_widget_type | Text (plain) | Required | 1 | Textfield |  |
-      | Vocabulary | Sections | Acronym | field_acronym | Text (plain) |  | 1 | Textfield |  |
-      | Vocabulary | Sections | Description | field_description | Text (plain) |  | 1 | Textfield |  |
-      | Vocabulary | Sections | Intro text | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
-      | Vocabulary | Sections | Link | field_link | Link |  | 1 | Linkit |  |
-      | Vocabulary | Sections | Link text | field_email_updates_link_text | Text (plain) |  | 1 | Textfield |  |
-      | Vocabulary | Sections | Metatags | field_metatags | Meta tags |  | 1 | Advanced meta tags form |  |
-      | Vocabulary | Sections | Social media links | field_social_media_links | Social Media Links Field  |  | 1 | List with all available platforms |  |
-      | Vocabulary | Sections | URL | field_email_updates_url | Text (plain) |  | 1 | Textfield |  |
       | Content type | Staff profile | High-resolution photo should be available for download by site visitors | field_photo_allow_hires_download | Boolean |  | 1 | Single on/off checkbox |  |
       | Content type | Staff profile | Email address | field_email_address | Email |  | 1 | Email |  |
       | Content type | Staff profile | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | Staff profile | Photo | field_media | Entity reference |  | 1 | Media library | Translatable |
       | Content type | Staff profile | Related office or health care region | field_office | Entity reference | Required | 1 | Select list | Translatable |
-      | Paragraph type | Staff profile | Staff profile | field_staff_profile | Entity reference | Required | 1 | Select list |  |
       | Content type | Staff profile | Complete Biography | field_complete_biography | File |  | 1 | File |  |
       | Content type | Staff profile | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
       | Content type | Staff profile | Phone Number | field_phone_number | Telephone number |  | 1 | Telephone number | Translatable |
@@ -268,7 +186,6 @@ Feature: Content model
       | Content type | Support Service | Page last built | field_page_last_built | Date |  | 1 | Date and time | Translatable |
       | Content type | Support Service | Phone Number | field_phone_number | Telephone number |  | 1 | Telephone number |  |
       | Content type | Support Service | Related office | field_office | Entity reference | Required | 1 | Select list | Translatable |
-      | Paragraph type | Table | Table | field_table | Table Field | Required | 1 | Table Field |  |
       | Content type | VAMC | Appointments can be scheduled and viewed online | field_appointments_online | Boolean |  | 1 | Single on/off checkbox |  |
       | Content type | VAMC | Banner image | field_media | Entity reference |  | 1 | Media library | Translatable |
       | Content type | VAMC | Leadership team | field_leadership | Entity reference |  | Unlimited | Autocomplete |  |
@@ -298,17 +215,17 @@ Feature: Content model
       | Content type | VAMC | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
       | Content type | VAMC | Leadership page intro text | field_intro_text_leadership | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
       | Content type | VAMC | Press releases intro text | field_intro_text_press_releases | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
-      | Content type | VAMC banner alert with situation updates | Alert body | field_body | Text (formatted, long) | Required |  |  |  |
-      | Content type | VAMC banner alert with situation updates | Alert dismissable? | field_alert_dismissable | Boolean |  |  |  |  |
-      | Content type | VAMC banner alert with situation updates | Alert type | field_alert_type | List (text) | Required |  |  |  |
-      | Content type | VAMC banner alert with situation updates | Display "Find other VA facilities near you" link? | field_alert_find_facilities_cta | Boolean |  |  |  |  |
-      | Content type | VAMC banner alert with situation updates | Display "Get updates on affected services and facilities" link | field_alert_operating_status_cta | Boolean |  |  |  |  |
-      | Content type | VAMC banner alert with situation updates | Inherited by subpages | field_alert_inheritance_subpages | Boolean |  |  |  |  |
-      | Content type | VAMC banner alert with situation updates | Owner | field_administration | Entity reference |  |  |  |  |
-      | Content type | VAMC banner alert with situation updates | Send email to subscribers via GovDelivery? | field_operating_status_sendemail | Boolean |  |  |  |  |
-      | Content type | VAMC banner alert with situation updates | Situation information | field_banner_alert_situationinfo | Text (formatted, long) |  |  |  |  |
-      | Content type | VAMC banner alert with situation updates | Situation updates | field_situation_updates | Entity reference revisions |  |  |  |  |
-      | Content type | VAMC banner alert with situation updates | VA Medical Centers | field_banner_alert_vamcs | Entity reference |  |  |  |  |
+      | Content type | VAMC banner alert with situation updates | Alert body | field_body | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
+      | Content type | VAMC banner alert with situation updates | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  |
+      | Content type | VAMC banner alert with situation updates | Alert type | field_alert_type | List (text) | Required | 1 | Select list |  |
+      | Content type | VAMC banner alert with situation updates | Display "Find other VA facilities near you" link? | field_alert_find_facilities_cta | Boolean |  | 1 | Single on/off checkbox |  |
+      | Content type | VAMC banner alert with situation updates | Display "Get updates on affected services and facilities" link | field_alert_operating_status_cta | Boolean |  | 1 | Single on/off checkbox |  |
+      | Content type | VAMC banner alert with situation updates | Inherited by subpages | field_alert_inheritance_subpages | Boolean |  | 1 | Single on/off checkbox |  |
+      | Content type | VAMC banner alert with situation updates | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+      | Content type | VAMC banner alert with situation updates | Send email to subscribers via GovDelivery? | field_operating_status_sendemail | Boolean |  | 1 | Single on/off checkbox | Translatable |
+      | Content type | VAMC banner alert with situation updates | Situation information | field_banner_alert_situationinfo | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
+      | Content type | VAMC banner alert with situation updates | Situation updates | field_situation_updates | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
+      | Content type | VAMC banner alert with situation updates | VA Medical Centers | field_banner_alert_vamcs | Entity reference | Required | Unlimited | Check boxes/radio buttons |  |
       | Content type | VAMC facility        | Main location | field_main_location | Boolean |  | 1 | Single on/off checkbox |  |
       | Content type | VAMC facility        | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
       | Content type | VAMC facility        | Local health care service offerings | field_local_health_care_service_ | Entity reference |  | Unlimited | -- Disabled -- | Translatable |
@@ -320,7 +237,7 @@ Feature: Content model
       | Content type | VAMC facility        | Flickr | field_flickr | Link |  | 1 | Link | Translatable |
       | Content type | VAMC facility        | Instagram | field_instagram | Link |  | 1 | Link | Translatable |
       | Content type | VAMC facility        | Twitter | field_twitter | Link |  | 1 | Link | Translatable |
-      | Content type | VAMC facility        | Operating status | field_operating_status_facility | List (text) |  | 1 | Select list |  |
+      | Content type | VAMC facility        | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list |  |
       | Content type | VAMC facility        | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
       | Content type | VAMC facility        | Description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
       | Content type | VAMC facility        | Facility Locator API ID | field_facility_locator_api_id | Text (plain) | Required | 1 | Textfield |  |
@@ -332,30 +249,113 @@ Feature: Content model
       | Content type | VAMC facility health service        | Owner | field_administration | Entity reference |  | 1 | Select list | Translatable |
       | Content type | VAMC facility health service        | Regional Health Service Offering | field_regional_health_service | Entity reference | Required | 1 | Select list |  |
       | Content type | VAMC facility health service        | Local description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
-      | Paragraph type | VAMC health service |  | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
-      | Paragraph type | VAMC health service |  | field_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
       | Content type | VAMC health service | Facility-specific descriptions of this service | field_local_health_care_service_ | Entity reference |  | Unlimited | Select list |  |
       | Content type | VAMC health service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | VAMC health service | Region page | field_region_page | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | VAMC health service | Service name and description | field_service_name_and_descripti | Entity reference | Required | 1 | Select list |  |
       | Content type | VAMC health service | Regional description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
-      | Content type | VAMC operating status | Banner alert and situation updates | field_banner_alert | Entity reference |  |  |  |  |
-      | Content type | VAMC operating status | Emergency information | field_operating_status_emerg_inf | Text (formatted, long) |  |  |  |  |
-      | Content type | VAMC operating status | Links | field_links | Link |  |  |  |  |
-      | Content type | VAMC operating status | Meta tags | field_meta_tags | Meta tags |  |  |  |  |
-      | Content type | VAMC operating status | Owner | field_administration | Entity reference |  |  |  |  |
-      | Content type | VAMC operating status | Update individual facility statuses | field_facility_operating_status | Entity reference |  |  |  |  |
-      | Content type | VAMC operating status | VAMC | field_office | Entity reference |  |  |  |  |
+      | Content type | VAMC operating status | Banner alert and situation updates | field_banner_alert | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
+      | Content type | VAMC operating status | Emergency information | field_operating_status_emerg_inf | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
+      | Content type | VAMC operating status | Links | field_links | Link |  | Unlimited | Link | Translatable |
+      | Content type | VAMC operating status | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
+      | Content type | VAMC operating status | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+      | Content type | VAMC operating status | Update individual facility statuses | field_facility_operating_status | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
+      | Content type | VAMC operating status | VAMC | field_office | Entity reference | Required | 1 | Select list | Translatable |
+      | Custom block type | Alert | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  |
+      | Custom block type | Alert | Owner | field_owner | Entity reference | Required | 1 | Select list |  |
+      | Custom block type | Alert | Scope | field_node_reference | Entity reference |  | Unlimited | Autocomplete |  |
+      | Custom block type | Alert | Alert body | field_alert_content | Entity reference revisions | Required | 1 | Paragraphs Classic |  |
+      | Custom block type | Alert | Alert Type | field_alert_type | List (text) | Required | 1 | Select list |  |
+      | Custom block type | Alert | Banner or in-page alert? | field_is_this_a_header_alert_ | List (text) |  | 1 | Select list |  |
+      | Custom block type | Alert | Persistence (for dismissable alerts only) | field_alert_frequency | List (text) | Required | 1 | Select list |  |
+      | Custom block type | Alert | Reusability | field_reusability | List (text) | Required | 1 | -- Disabled -- |  |
+      | Custom block type | Alert | Alert title | field_alert_title | Text (plain) | Required | 1 | Textfield |  |
+      | Custom block type | Megamenu | Owner | field_owner | Entity reference | Required | 1 | Select list | Translatable |
+      | Custom block type | Megamenu | Menu Sections | field_menu_sections | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
+      | Custom block type | Megamenu | Title | field_title | Text (plain) | Required | 1 | Textfield |  |
+      | Custom block type | Promo | Owner | field_owner | Entity reference | Required | 1 | Select list | Translatable |
+      | Custom block type | Promo | Image | field_image | Entity reference | Required | 1 | Entity browser |  |
+      | Custom block type | Promo | Link | field_promo_link | Entity reference revisions |  | 1 | Paragraphs Classic |  |
+      | Custom block type | Promo | Instructions | field_instructions | Markup |  | 1 | Markup |  |
+      | Media type | Document | Reusable | field_media_in_library | Boolean |  | 1 | -- Disabled -- | Translatable |
+      | Media type | Document | Owner | field_owner | Entity reference | Required | 1 | Select list |  |
+      | Media type | Document | Media submission guidelines | field_media_submission_guideline | Markup |  | 1 | Markup |  |
+      | Media type | Document | Document | field_document | File | Required | 1 | File |  |
+      | Media type | Image | Reusable | field_media_in_library | Boolean |  | 1 | -- Disabled -- |  |
+      | Media type | Image | Owner | field_owner | Entity reference | Required | 1 | Select list | Translatable |
+      | Media type | Image | Media submission guidelines | field_media_submission_guideline | Markup |  | 1 | Markup | Translatable |
+      | Media type | Image | Image | image | Image | Required | 1 | ImageWidget crop |  |
+      | Media type | Video | Reusable | field_media_in_library | Boolean |  | 1 | -- Disabled -- | Translatable |
+      | Media type | Video | Owner | field_owner | Entity reference | Required | 1 | Select list | Translatable |
+      | Media type | Video | Media submission guidelines | field_media_submission_guideline | Markup |  | 1 | Markup | Translatable |
+      | Media type | Video | Video URL | field_media_video_embed_field | Video Embed | Required | 1 | Video Textfield | Translatable |
+      | Paragraph type | Accordion group | Accordion Items | field_va_paragraphs | Entity reference revisions | Required | Unlimited | Paragraphs Classic | Translatable |
+      | Paragraph type | Accordion group | Add border around items | field_collapsible_panel_bordered | Boolean |  | 1 | -- Disabled -- |  |
+      | Paragraph type | Accordion group | Allow more than one item to expand at a time | field_collapsible_panel_multi | Boolean |  | 1 | -- Disabled -- |  |
+      | Paragraph type | Accordion group | Start expanded | field_collapsible_panel_expand | Boolean |  | 1 | -- Disabled -- |  |
+      | Paragraph type | Accordion Item | Content block(s) | field_va_paragraphs | Entity reference revisions |  | Unlimited | Paragraphs Classic | Translatable |
+      | Paragraph type | Accordion Item | Text | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
+      | Paragraph type | Accordion Item | Title | field_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+      | Paragraph type | Additional information | Text | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
+      | Paragraph type | Additional information | Instructions for obtaining more information in Spanish | field_text_expander | Text (plain) |  | 1 | Textfield with counter | Translatable |
+      | Paragraph type | Address | Address | field_address | Address |  | 1 | Address |  |
+      | Paragraph type | Alert | Reusable alert | field_alert_block_reference | Entity reference |  | 1 | Select list |  |
+      | Paragraph type | Alert | Alert content | field_va_paragraphs | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
+      | Paragraph type | Alert | Alert Type | field_alert_type | List (text) |  | 1 | Select list |  |
+      | Paragraph type | Alert | Alert Heading | field_alert_heading | Text (plain) |  | 1 | Textfield with counter |  |
+      | Paragraph type | Embedded image | Allow clicks on this image to open it in new tab | field_allow_clicks_on_this_image | Boolean |  | 1 | Single on/off checkbox |  |
+      | Paragraph type | Embedded image | Select an image | field_media | Entity reference |  | 1 | Media library |  |
+      | Paragraph type | Embedded image | Markup | field_markup | Markup |  | 1 | Markup |  |
+      | Paragraph type | Expandable Text | Full Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+      | Paragraph type | Expandable Text | Text Expander | field_text_expander | Text (plain) | Required | 1 | Textfield with counter |  |
+      | Paragraph type | Link teaser | Link | field_link | Link |  | 1 | Linkit |  |
+      | Paragraph type | Link teaser | Link summary | field_link_summary | Text (plain) |  | 1 | Textfield with counter |  |
+      | Paragraph type | Link to file or video | Link to a file or video | field_media | Entity reference | Required | 1 | Media library | Translatable |
+      | Paragraph type | Link to file or video | Markup | field_markup | Markup |  | 1 | Markup | Translatable |
+      | Paragraph type | Link to file or video | Link text | field_title | Text (plain) | Required | 1 | Textfield | Translatable |
+      | Paragraph type | List of link teasers | Link teasers | field_va_paragraphs | Entity reference revisions | Required | Unlimited | Paragraphs Classic | Translatable |
+      | Paragraph type | List of link teasers | Title | field_title | Text (plain) |  | 1 | Textfield | Translatable |
+      | Paragraph type | Megamenu - Links Column | Links | field_links | Link |  | Unlimited | Linkit |  |
+      | Paragraph type | Megamenu - Links Column | Title | field_title | Text (plain) |  | 1 | Textfield | Translatable |
+      | Paragraph type | Megamenu - Menu Item | Column Three | field_column_three | Entity reference |  | 1 | Select list |  |
+      | Paragraph type | Megamenu - Menu Item | Column One | field_column_one | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
+      | Paragraph type | Megamenu - Menu Item | Column Two | field_column_two | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
+      | Paragraph type | Megamenu - Menu Item | See All Link | field_see_all_link | Link |  | 1 | Linkit |  |
+      | Paragraph type | Megamenu - Menu Item | Title | field_title | Text (plain) |  | 1 | Textfield | Translatable |
+      | Paragraph type | Number callout | Additional information | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
+      | Paragraph type | Number callout | Short phrase with a number, or time element | field_short_phrase_with_a_number | Text (plain) | Required | 1 | Textfield with counter |  |
+      | Paragraph type | Process list | Steps | field_steps | Text (formatted, long) | Required | Unlimited | Text area (multiple rows) |  |
+      | Paragraph type | Q&A | Question | field_question | Text (plain) | Required | 1 | Textfield with counter |  |
+      | Paragraph type | Q&A | Answer | field_answer | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
+      | Paragraph type | Q&A Section | Display this set of Q&As as a group of accordions. | field_accordion_display | Boolean |  | 1 | Single on/off checkbox |  |
+      | Paragraph type | Q&A Section | Questions | field_questions | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
+      | Paragraph type | Q&A Section | Section Header | field_section_header | Text (plain) |  | 1 | Textfield |  |
+      | Paragraph type | Q&A Section | Section Intro | field_section_intro | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
+      | Paragraph type | React Widget | Default Link | field_default_link | Link |  | 1 | Linkit |  |
+      | Paragraph type | React Widget | Call To Action Widget | field_cta_widget | Boolean |  | 1 | Single on/off checkbox |  |
+      | Paragraph type | React Widget | Display default link as button | field_button_format | Boolean |  | 1 | Single on/off checkbox |  |
+      | Paragraph type | React Widget | Error Message | field_error_message | Text (formatted) |  | 1 | Text field |  |
+      | Paragraph type | React Widget | Loading Message | field_loading_message | Text (plain) |  | 1 | Textfield |  |
+      | Paragraph type | React Widget | Timeout | field_timeout | Number (integer) |  | 1 | Number field |  |
+      | Paragraph type | React Widget | Widget Type | field_widget_type | Text (plain) | Required | 1 | Textfield |  |
+      | Paragraph type | Staff profile | Staff profile | field_staff_profile | Entity reference | Required | 1 | Select list |  |
+      | Paragraph type | Table | Table | field_table | Table Field | Required | 1 | Table Field |  |
+      | Paragraph type | VAMC facility service (non-healthcare service) | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+      | Paragraph type | VAMC facility service (non-healthcare service) | Service name | field_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+      | Paragraph type | WYSIWYG | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+      | Paragraph type | Situation update | Date and time | field_date_and_time | Date | Required | 1 | Date and time |  |
+      | Paragraph type | Situation update | Send email to subscribers via GovDelivery? | field_send_email_to_subscribers | Boolean |  | 1 | Single on/off checkbox |  |
+      | Paragraph type | Situation update | Update | field_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
+      | Vocabulary | Sections | Acronym | field_acronym | Text (plain) |  | 1 | Textfield |  |
+      | Vocabulary | Sections | Description | field_description | Text (plain) |  | 1 | Textfield |  |
+      | Vocabulary | Sections | Intro text | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
+      | Vocabulary | Sections | Link | field_link | Link |  | 1 | Linkit |  |
+      | Vocabulary | Sections | Link text | field_email_updates_link_text | Text (plain) |  | 1 | Textfield |  |
+      | Vocabulary | Sections | Metatags | field_metatags | Meta tags |  | 1 | Advanced meta tags form |  |
+      | Vocabulary | Sections | Social media links | field_social_media_links | Social Media Links Field  |  | 1 | List with all available platforms |  |
+      | Vocabulary | Sections | URL | field_email_updates_url | Text (plain) |  | 1 | Textfield |  |
       | Vocabulary | VHA health service taxonomy | Owner | field_owner | Entity reference | Required | 1 | Select list |  |
       | Vocabulary | VHA health service taxonomy | Common conditions | field_commonly_treated_condition | Text (plain) |  | 1 | Textfield |  |
       | Vocabulary | VHA health service taxonomy | Health Service API ID | field_health_service_api_id | Text (plain) |  | 1 | Textfield |  |
       | Vocabulary | VHA health service taxonomy | Patient-friendly name | field_also_known_as | Text (plain) |  | 1 | Textfield |  |
       | Vocabulary | VHA health service taxonomy | VHA Stop code | field_vha_healthservice_stopcode | Number (integer) |  | 1 | Number field |  |
-      | Media type | Video | Reusable | field_media_in_library | Boolean |  | 1 | -- Disabled -- | Translatable |
-      | Media type | Video | Owner | field_owner | Entity reference | Required | 1 | Select list | Translatable |
-      | Media type | Video | Media submission guidelines | field_media_submission_guideline | Markup |  | 1 | Markup | Translatable |
-      | Media type | Video | Video URL | field_media_video_embed_field | Video Embed | Required | 1 | Video Textfield | Translatable |
-      | Paragraph type | WYSIWYG | Text | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
-      | Paragraph type | Situation update | Date and time | field_date_and_time | Date |  |  |  |  |
-      | Paragraph type | Situation update | Send email to subscribers via GovDelivery? | field_send_email_to_subscribers | Boolean |  |  |  |  |
-      | paragraph type | Situation update | Update | field_wysiwyg | Text (formatted, long) |  |  |  |
