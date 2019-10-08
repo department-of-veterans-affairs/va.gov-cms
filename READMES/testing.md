@@ -3,7 +3,7 @@
 The code for cms.VA.gov undergoes numerous tests before merging, and tests
 are run before deployment and release.
 
-The automated test suite for cms.VA.gov is defined in the [tests.yml](tests.yml)
+The automated test suite for cms.VA.gov is defined in the [tests.yml](../tests.yml)
  file and is run using the [Yaml-Tests](https://github.com/provision-ops/yaml-tests) tool, allowing the same command to be used local development, in CMS
  -CI and for production releases.
 
@@ -20,6 +20,26 @@ To adopt a strong test driven culture, the testing tools must:
  tests.
 3. Provide feedback to developers as quickly as possible and make test output as
  readable and accessible as possible.
+
+## Scope
+
+To avoid entanglement of tests, tests should adhere, when possible, to their own
+area of concern. Practice separation of concerns as much as possible. There are
+three areas of concern.
+
+1. **CMS** - This is the functioning of being able to login, edit and publish
+  content.  It's boundary of concern ends at the GraphQL endpoints.
+2. **Front-end** - This is the Metalsmith build that creates the html front-end
+  from the content accessed at the GraphQL endpoints of the CMS.
+3. **Content** - This is the realm of making sure menu links and other links in
+  content work.  508 testing is also part of content testing.
+
+  Entanglement should be avoided because it causes people from the non-relevant
+  team to spend time solving issues that are not in their area of concern.
+  Example: *Developers chasing down a mis-entered content link is not a good use
+  of time.*
+  End to End tests should be achieved when possible, by each area of concern
+  providing coverage for their particular area.
 
 The **Yaml Tests** tool was designed with these goals in mind.
 
@@ -67,6 +87,11 @@ There are 4 main types of tests:
      of tests, including Creating Media, testing GraphQL, Performance tests
      , Security, and more. See the [tests/phpunit folder](tests/phpunit) to
       see all the PHPUnit tests.
+
+      Utilizing the DrupalTestTraits library with PHPUnit gives developers the
+      ability to bootstrap Drupal and write tests in PHP without an abstraction
+      layer provided by Gherkin. PHPUnit is the preferred tool to write tests
+      due to its speed of execution.
 
         Run a specific PHPUnit test with the "path" argument:
 
