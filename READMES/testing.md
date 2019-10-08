@@ -3,7 +3,7 @@
 The code for cms.VA.gov undergoes numerous tests before merging, and tests
 are run before deployment and release.
 
-The automated test suite for cms.VA.gov is defined in the [tests.yml](tests.yml)
+The automated test suite for cms.VA.gov is defined in the [tests.yml](../tests.yml)
  file and is run using the [Yaml-Tests](https://github.com/provision-ops/yaml-tests) tool, allowing the same command to be used local development, in CMS
  -CI and for production releases.
 
@@ -20,6 +20,26 @@ To adopt a strong test driven culture, the testing tools must:
  tests.
 3. Provide feedback to developers as quickly as possible and make test output as
  readable and accessible as possible.
+
+## Scope
+
+To avoid entanglement of tests, tests should adhere, when possible, to their own
+area of concern. Practice separation of concerns as much as possible. There are
+three areas of concern.
+
+1. **CMS** - This is the functioning of being able to login, edit and publish
+  content.  It's boundary of concern ends at the GraphQL endpoints.
+2. **Front-end** - This is the Metalsmith build that creates the html front-end
+  from the content accessed at the GraphQL endpoints of the CMS.
+3. **Content** - This is the realm of making sure menu links and other links in
+  content work.  508 testing is also part of content testing.
+
+  Entanglement should be avoided because it causes people from the non-relevant
+  team to spend time solving issues that are not in their area of concern.
+  Example: *Developers chasing down a mis-entered content link is not a good use
+  of time.*
+  End to End tests should be achieved when possible, by each area of concern
+  providing coverage for their particular area.
 
 The **Yaml Tests** tool was designed with these goals in mind.
 
@@ -67,6 +87,11 @@ There are 4 main types of tests:
      of tests, including Creating Media, testing GraphQL, Performance tests
      , Security, and more. See the [tests/phpunit folder](tests/phpunit) to
       see all the PHPUnit tests.
+
+      Utilizing the DrupalTestTraits library with PHPUnit gives developers the
+      ability to bootstrap Drupal and write tests in PHP without an abstraction
+      layer provided by Gherkin. PHPUnit is the preferred tool to write tests
+      due to its speed of execution.
 
         Run a specific PHPUnit test with the "path" argument:
 
@@ -250,7 +275,29 @@ In this project's case, `which npm` would print `/path/to/va.gov-cms/bin/npm`.
 
 ## Fortify security scans
 
-Fortify scans are run manually. @TODO: Add documentation on Fortify
+Fortify scans are run manually.
+
+About Drupal Security Team Coverage
+When a module is covered by the Drupal Security Team it means that the team will receive reports of vulnerabilities from the Drupal community and the general public and will work with the maintainer to fix and coordinate the module and advisory release.
+
+Symfony and other non-Drupal.org hosted libraries are all out of scope for the Drupal Security Team, though the security team will occasionally work with these projects security teams to coordinate releases or help test etc. Symfony has an active security team and process/advisories (see https://symfony.com/blog/category/security-advisories).
+
+Composer libraries don't have any defined process nor advisories, therefore this scan offers of additional scrutiny.
+
+Excluded directories
+Drupal 8 core and contributed modules covered by the Drupal Security Team were not included in the scan.
+```
+  ./docroot/core/**/*"
+  ./docroot/includes/**/*"
+  ./docroot/modules/contrib/**/*"
+  ./docroot/themes/contrib/**/*"
+  ./docroot/profiles/**/*"
+  ./docroot/scripts/**/*"
+```
+Included Vendor Libraries
+Vender libraries are third party open source packages included by Drupal core and modules to add functionality. For example Drupal 8 includes the Symfony open source project which in turn may include libraries from other open source projects. Symfony has an active security team monitoring security and posting process/advisories (see https://symfony.com/blog/category/security-advisories).
+
+Whether these third party libraries are secure involves multiple factors (and has no definitive answer) project lifetime, maintenance status, frequency/size of major changes, number of maintainers, skills of maintainers in security topics, security of the projects own dependencies, security surface area (does the project deal with user actions, data, sessions, external systems etc), security architecture and threat model, code quality, documentation etc.
 
 ## Nightwatch accessibility testing
 
