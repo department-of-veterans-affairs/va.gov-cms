@@ -275,7 +275,29 @@ In this project's case, `which npm` would print `/path/to/va.gov-cms/bin/npm`.
 
 ## Fortify security scans
 
-Fortify scans are run manually. @TODO: Add documentation on Fortify
+Fortify scans are run manually.
+
+About Drupal Security Team Coverage
+When a module is covered by the Drupal Security Team it means that the team will receive reports of vulnerabilities from the Drupal community and the general public and will work with the maintainer to fix and coordinate the module and advisory release.
+
+Symfony and other non-Drupal.org hosted libraries are all out of scope for the Drupal Security Team, though the security team will occasionally work with these projects security teams to coordinate releases or help test etc. Symfony has an active security team and process/advisories (see https://symfony.com/blog/category/security-advisories).
+
+Composer libraries don't have any defined process nor advisories, therefore this scan offers of additional scrutiny.
+
+Excluded directories
+Drupal 8 core and contributed modules covered by the Drupal Security Team were not included in the scan.
+```
+  ./docroot/core/**/*"
+  ./docroot/includes/**/*"
+  ./docroot/modules/contrib/**/*"
+  ./docroot/themes/contrib/**/*"
+  ./docroot/profiles/**/*"
+  ./docroot/scripts/**/*"
+```
+Included Vendor Libraries
+Vender libraries are third party open source packages included by Drupal core and modules to add functionality. For example Drupal 8 includes the Symfony open source project which in turn may include libraries from other open source projects. Symfony has an active security team monitoring security and posting process/advisories (see https://symfony.com/blog/category/security-advisories).
+
+Whether these third party libraries are secure involves multiple factors (and has no definitive answer) project lifetime, maintenance status, frequency/size of major changes, number of maintainers, skills of maintainers in security topics, security of the projects own dependencies, security surface area (does the project deal with user actions, data, sessions, external systems etc), security architecture and threat model, code quality, documentation etc.
 
 ## Nightwatch accessibility testing
 
