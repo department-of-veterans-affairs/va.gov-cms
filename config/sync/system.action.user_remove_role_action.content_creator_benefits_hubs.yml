@@ -1,0 +1,14 @@
+uuid: 3835829c-7b83-4213-8efc-375b1ee28545
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.content_creator_benefits_hubs
+  module:
+    - user
+id: user_remove_role_action.content_creator_benefits_hubs
+label: 'Remove the Content creator - benefits hubs role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: content_creator_benefits_hubs
