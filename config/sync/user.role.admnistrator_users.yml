@@ -9,7 +9,7 @@ third_party_settings:
     description: 'Can create and manage users, roles, and access to sections of content.'
 id: admnistrator_users
 label: 'User access admin'
-weight: -1
+weight: 1
 is_admin: null
 permissions:
   - 'access administration pages'
@@ -22,12 +22,13 @@ permissions:
   - 'administer users'
   - 'assign content_admin role'
   - 'assign content_api_consumer role'
+  - 'assign content_creator_benefits_hubs role'
   - 'assign content_editor role'
   - 'assign content_publisher role'
   - 'assign content_reviewer role'
-  - 'assign documentation_editor role'
   - 'assign redirect_administrator role'
   - 'assign selected workbench access'
+  - 'assign vamc_content_creator role'
   - 'batch update workbench access'
   - 'break content lock'
   - 'bypass password policies'
