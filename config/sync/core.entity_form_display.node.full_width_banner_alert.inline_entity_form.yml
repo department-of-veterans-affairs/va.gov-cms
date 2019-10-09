@@ -6,6 +6,7 @@ dependencies:
     - core.entity_form_mode.node.inline_entity_form
     - field.field.node.full_width_banner_alert.field_administration
     - field.field.node.full_width_banner_alert.field_alert_dismissable
+    - field.field.node.full_width_banner_alert.field_alert_email_updates_button
     - field.field.node.full_width_banner_alert.field_alert_find_facilities_cta
     - field.field.node.full_width_banner_alert.field_alert_inheritance_subpages
     - field.field.node.full_width_banner_alert.field_alert_operating_status_cta
@@ -112,8 +113,9 @@ third_party_settings:
       region: hidden
     group_calls_to_action:
       children:
-        - field_alert_find_facilities_cta
         - field_alert_operating_status_cta
+        - field_alert_email_updates_button
+        - field_alert_find_facilities_cta
       parent_name: group_alert_content
       weight: 8
       format_type: fieldset
@@ -136,15 +138,22 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
+  field_alert_email_updates_button:
+    type: boolean_checkbox
+    weight: 9
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_alert_find_facilities_cta:
     type: boolean_checkbox
-    weight: 6
+    weight: 10
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_alert_inheritance_subpages:
-    weight: 8
+    weight: 9
     settings:
       display_label: true
     third_party_settings: {  }
@@ -152,7 +161,7 @@ content:
     region: content
   field_alert_operating_status_cta:
     type: boolean_checkbox
-    weight: 7
+    weight: 8
     region: content
     settings:
       display_label: true

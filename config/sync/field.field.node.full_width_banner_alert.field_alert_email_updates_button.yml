@@ -1,0 +1,23 @@
+uuid: 5712f0d9-eb2c-47b5-8734-62b293fba2cc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_alert_email_updates_button
+    - node.type.full_width_banner_alert
+id: node.full_width_banner_alert.field_alert_email_updates_button
+field_name: field_alert_email_updates_button
+entity_type: node
+bundle: full_width_banner_alert
+label: 'Display "Subscribe to email updates" link?'
+description: 'Add a CTA button linking out to the email subscription URL, which is configured at the VAMC level.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
