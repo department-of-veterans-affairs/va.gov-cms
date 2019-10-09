@@ -17,5 +17,6 @@ Feature: Access control
       | Content reviewer | content_reviewer |
       | User access admin | admnistrator_users |
       | Redirect admin | redirect_administrator |
-      | Documentation editor | documentation_editor |
       | Content admin | content_admin |
+      | Content creator - Benefits hubs | content_creator_benefits_hubs |
+      | Content creator - VAMC | vamc_content_creator |
