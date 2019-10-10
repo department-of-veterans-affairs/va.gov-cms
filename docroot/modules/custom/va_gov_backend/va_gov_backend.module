@@ -165,3 +165,12 @@ function va_gov_backend_menu_local_tasks_alter(&$local_tasks) {
 function va_gov_backend_mail_alter(&$message) {
   $message['headers']['Sender'] = $message['headers']['From'];
 }
+
+/**
+ * Implements hook_rebuild().
+ */
+function va_gov_backend_rebuild() {
+  // Update the drupal state to display git info in admin toolbar.
+  $tag_hash = trim(exec('git describe --tags')) ?? 'git unknown';
+  \Drupal::state()->set("environment_indicator.current_release", $tag_hash);
+}
