@@ -171,6 +171,7 @@ function va_gov_backend_mail_alter(&$message) {
  */
 function va_gov_backend_rebuild() {
   // Update the drupal state to display git info in admin toolbar.
-  $tag_hash = trim(exec('git describe --tags')) ?? 'git unknown';
-  \Drupal::state()->set("environment_indicator.current_release", $tag_hash);
+  $branch = mb_strimwidth(exec('git rev-parse --abbrev-ref HEAD'), 0, 35, '...') ?? 'git unknown';
+  $tag_hash = trim(exec('git describe --tags')) ?? '--';
+  \Drupal::state()->set("environment_indicator.current_release", "Branch: {$branch} Tag-SHA: {$tag_hash}");
 }
