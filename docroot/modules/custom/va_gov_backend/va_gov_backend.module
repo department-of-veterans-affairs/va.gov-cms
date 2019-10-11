@@ -34,6 +34,7 @@ function va_gov_backend_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
   if ($form_id === 'redirect_redirect_edit_form' || $form_id === 'redirect_redirect_form') {
     $value = 'prefix';
     if ($form_id === 'redirect_redirect_edit_form') {

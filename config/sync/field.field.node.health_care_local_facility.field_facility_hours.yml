@@ -1,0 +1,58 @@
+uuid: 5890780c-a7ac-41ef-aa27-c890ea6ea239
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_facility_hours
+    - node.type.health_care_local_facility
+  module:
+    - tablefield
+id: node.health_care_local_facility.field_facility_hours
+field_name: field_facility_hours
+entity_type: node
+bundle: health_care_local_facility
+label: Hours
+description: 'The hours of operation (populated by Facility API)'
+required: false
+translatable: false
+default_value:
+  -
+    rebuild:
+      cols: '2'
+      rows: '7'
+    value:
+      0:
+        - Mon
+        - ''
+      1:
+        - Tue
+        - ''
+      2:
+        - Wed
+        - ''
+      3:
+        - Thu
+        - ''
+      4:
+        - Fri
+        - ''
+      5:
+        - Sat
+        - ''
+      6:
+        - Sun
+        - ''
+      caption: ''
+    format: null
+    caption: ''
+default_value_callback: ''
+settings:
+  export: 0
+  restrict_rebuild: 1
+  restrict_import: 1
+  lock_values: 0
+  cell_processing: '0'
+  empty_rules:
+    ignore_table_structure: 0
+    ignore_table_header: 0
+field_type: tablefield
