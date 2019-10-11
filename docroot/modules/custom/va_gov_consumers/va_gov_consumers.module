@@ -63,6 +63,7 @@ function va_gov_consumers_entity_presave(EntityInterface $entity) {
           ];
           // Prevent trailing 'x' from appearing in phone string.
           $entity->field_phone_number = substr($data['attributes']['phone']['main'], 0, 12);
+          $entity->field_mental_health_phone = substr($data['attributes']['phone']['mental_health_clinic'], 0, 12);
 
           $days_array = [];
           $days_array['caption'] = 'n/a';
@@ -94,6 +95,7 @@ function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $fo
     $form['field_facility_hours']['widget'][0]['#addrow'] = FALSE;
     $form['field_facility_hours']['widget'][0]['#attributes']['disabled'] = TRUE;
     $form['field_phone_number']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
+    $form['field_mental_health_phone']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
     // Special handling for the address field widget.
     $form['field_address']['widget'][0]['address']['#after_build'][] = '_va_gov_consumers_customize_address';
     // Special handling for the table field widget.
