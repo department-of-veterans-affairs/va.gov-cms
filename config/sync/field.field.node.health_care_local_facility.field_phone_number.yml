@@ -1,0 +1,21 @@
+uuid: 555f9b76-04aa-4b90-a4ed-564680d3e7e5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_phone_number
+    - node.type.health_care_local_facility
+  module:
+    - telephone
+id: node.health_care_local_facility.field_phone_number
+field_name: field_phone_number
+entity_type: node
+bundle: health_care_local_facility
+label: 'Phone Number'
+description: 'The phone number (populated by Facility API)'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone
