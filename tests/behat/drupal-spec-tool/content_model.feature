@@ -50,8 +50,8 @@ Feature: Content model
 | Staff profile | staff_profile | Paragraph type | Add a profile of a staff person. |
 | Starred Horizontal Rule | starred_horizontal_rule | Paragraph type | Current an inactive paragraph type, not enabled within any fields. |
 | Table | table | Paragraph type | Add an HTML table with rows and columns. |
-| VAMC facility service (non-healthcare service) | VAMC facility | Paragraph type | A service available at a specific health care facility, like Parking, or Chaplaincy. |
-| WYSIWYG | 0.3 | Paragraph type | An open-ended text field. |
+| VAMC facility service (non-healthcare service) | health_care_local_facility_servi | Paragraph type | A service available at a specific health care facility, like Parking, or Chaplaincy. |
+| WYSIWYG | wysiwyg | Paragraph type | An open-ended text field. |
 | Situation update | situation_update | Paragraph type | A time-sensitive, added to a banner alert, and displayed on VAMC operating status pages. |
 | Sections | administration | Vocabulary | Represents a hierarchy of the VA, partly for governance purposes. |
 | Type of Redirect | type_of_redirect | Vocabulary |  |
@@ -232,7 +232,7 @@ Feature: Content model
 | Content type | VAMC facility | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | VAMC facility | Instagram | field_instagram | Link |  | 1 | Link | Translatable |
 | Content type | VAMC facility | Intro text | field_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
-| Content type | VAMC facility health service | Local health care service offerings | field_local_health_care_service_ | Entity reference |  | Unlimited | -- Disabled -- | Translatable |
+| Content type | VAMC facility | Local health care service offerings | field_local_health_care_service_ | Entity reference |  | Unlimited | -- Disabled -- | Translatable |
 | Content type | VAMC facility | Location services | field_location_services | Entity reference revisions |  | Unlimited | Paragraphs Classic |  |
 | Content type | VAMC facility | Main location | field_main_location | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC facility | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
@@ -243,7 +243,7 @@ Feature: Content model
 | Content type | VAMC facility | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC facility | Region page | field_region_page | Entity reference | Required | 1 | Select list |  |
 | Content type | VAMC facility | Twitter | field_twitter | Link |  | 1 | Link | Translatable |
-| Content type | Accordion group | Facility | field_facility_location | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC facility health service | Facility | field_facility_location | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC facility health service | Local description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | VAMC facility health service | Owner | field_administration | Entity reference |  | 1 | Select list | Translatable |
 | Content type | VAMC facility health service | Regional Health Service Offering | field_regional_health_service | Entity reference | Required | 1 | Select list |  |
