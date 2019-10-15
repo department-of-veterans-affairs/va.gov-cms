@@ -3,10 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.health_care_local_facility.field_address
     - field.field.node.health_care_local_facility.field_administration
     - field.field.node.health_care_local_facility.field_description
     - field.field.node.health_care_local_facility.field_email_subscription
     - field.field.node.health_care_local_facility.field_facebook
+    - field.field.node.health_care_local_facility.field_facility_hours
     - field.field.node.health_care_local_facility.field_facility_locator_api_id
     - field.field.node.health_care_local_facility.field_flickr
     - field.field.node.health_care_local_facility.field_instagram
@@ -15,14 +17,17 @@ dependencies:
     - field.field.node.health_care_local_facility.field_location_services
     - field.field.node.health_care_local_facility.field_main_location
     - field.field.node.health_care_local_facility.field_media
+    - field.field.node.health_care_local_facility.field_mental_health_phone
     - field.field.node.health_care_local_facility.field_meta_tags
     - field.field.node.health_care_local_facility.field_meta_title
     - field.field.node.health_care_local_facility.field_nickname_for_this_facility
     - field.field.node.health_care_local_facility.field_operating_status_facility
+    - field.field.node.health_care_local_facility.field_phone_number
     - field.field.node.health_care_local_facility.field_region_page
     - field.field.node.health_care_local_facility.field_twitter
     - node.type.health_care_local_facility
   module:
+    - address
     - content_moderation
     - field_group
     - hide_revision_field
@@ -32,6 +37,8 @@ dependencies:
     - metatag
     - paragraphs
     - path
+    - tablefield
+    - telephone
     - textfield_counter
 third_party_settings:
   field_group:
@@ -39,7 +46,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -54,7 +61,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: fieldset
       format_settings:
         id: ''
@@ -63,25 +70,11 @@ third_party_settings:
         required_fields: true
       label: 'Editorial Workflow'
       region: content
-    group_facility_locator:
-      children:
-        - field_facility_locator_api_id
-      parent_name: ''
-      weight: 2
-      format_type: details
-      format_settings:
-        id: ''
-        classes: ''
-        open: true
-        required_fields: false
-        description: ''
-      label: 'Facility Locator'
-      region: content
     group_location_services:
       children:
         - field_location_services
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: details
       format_settings:
         id: ''
@@ -95,7 +88,7 @@ third_party_settings:
         - field_region_page
         - field_main_location
       parent_name: ''
-      weight: 1
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -106,7 +99,6 @@ third_party_settings:
       region: content
     group_title_and_summary:
       children:
-        - title
         - field_meta_title
         - field_nickname_for_this_facility
         - field_description
@@ -114,7 +106,7 @@ third_party_settings:
         - field_intro_text
         - field_media
       parent_name: ''
-      weight: 0
+      weight: 1
       format_type: fieldset
       format_settings:
         id: ''
@@ -131,7 +123,7 @@ third_party_settings:
         - field_flickr
         - field_email_subscription
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -140,11 +132,37 @@ third_party_settings:
         required_fields: true
       label: 'Social Media'
       region: content
+    group_facility_api:
+      children:
+        - field_facility_locator_api_id
+        - title
+        - field_address
+        - field_phone_number
+        - field_mental_health_phone
+        - field_facility_hours
+      parent_name: ''
+      weight: 0
+      format_type: details
+      format_settings:
+        description: ''
+        open: true
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Facility API'
+      region: content
 id: node.health_care_local_facility.default
 targetEntityType: node
 bundle: health_care_local_facility
 mode: default
 content:
+  field_address:
+    weight: 12
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
+    region: content
   field_administration:
     weight: 12
     settings: {  }
@@ -181,6 +199,13 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
+  field_facility_hours:
+    weight: 15
+    settings:
+      input_type: textfield
+    third_party_settings: {  }
+    type: tablefield
     region: content
   field_facility_locator_api_id:
     weight: 10
@@ -232,7 +257,7 @@ content:
     third_party_settings: {  }
     region: content
   field_main_location:
-    weight: 21
+    weight: 22
     settings:
       display_label: true
     third_party_settings: {  }
@@ -244,8 +269,15 @@ content:
     settings: {  }
     region: content
     third_party_settings: {  }
+  field_mental_health_phone:
+    weight: 14
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+    region: content
   field_meta_tags:
-    weight: 8
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -278,6 +310,13 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  field_phone_number:
+    weight: 13
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+    region: content
   field_region_page:
     weight: 20
     settings: {  }
@@ -300,7 +339,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -318,7 +357,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield_with_counter
-    weight: 1
+    weight: 11
     region: content
     settings:
       size: 60

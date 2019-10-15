@@ -1,0 +1,21 @@
+uuid: 656f6da0-b259-4b9c-869c-c80b82ef0d8a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_mental_health_phone
+    - node.type.health_care_local_facility
+  module:
+    - telephone
+id: node.health_care_local_facility.field_mental_health_phone
+field_name: field_mental_health_phone
+entity_type: node
+bundle: health_care_local_facility
+label: 'Mental Health Phone'
+description: 'The mental health helpline  (populated by Facility API)'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone
