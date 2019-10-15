@@ -19,6 +19,7 @@ class FacilityConsumer {
    */
   public function contentRender($facility_id) {
     if (!empty(getenv('CMS_FACILITY_API'))) {
+      $data = '';
       $client = new Client();
       // Make sure we get a good response before heavy lifting.
       try {
@@ -38,10 +39,9 @@ class FacilityConsumer {
       catch (GuzzleException $e) {
         watchdog_exception('Facility_content', $e->getMessage());
       }
-
-      return $data;
-
     }
+    return $data;
+
   }
 
 }
