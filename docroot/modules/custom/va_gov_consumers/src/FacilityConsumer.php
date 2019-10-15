@@ -18,7 +18,7 @@ class FacilityConsumer {
    *   The facility id.
    */
   public function contentRender($facility_id) {
-    if (!empty(getenv('FACILITY_API'))) {
+    if (!empty(getenv('CMS_FACILITY_API'))) {
       $client = new Client();
       // Make sure we get a good response before heavy lifting.
       try {
