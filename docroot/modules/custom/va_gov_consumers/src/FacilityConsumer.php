@@ -19,16 +19,19 @@ class FacilityConsumer {
    */
   public function contentRender($facility_id) {
 
+    $data = FALSE;
     $client = new Client();
     // Make sure we get a good response before heavy lifting.
     try {
+      // Taking these out while determine why api request is timing out.
+      /*
       $data_source = 'https://api.va.gov/v0/facilities/va/' . $facility_id;
       $response = $client->get($data_source);
 
       if ($response->getStatusCode() === 200) {
         $data = Json::decode($response->getBody());
       }
-
+      */
     }
     // Record any trouble to watchdog.
     catch (GuzzleException $e) {
