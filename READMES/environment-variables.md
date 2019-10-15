@@ -86,3 +86,10 @@ See the files:
  - [ansible/deployment/config/cms-vagov-prod](https://github.com/department-of-veterans-affairs/devops/blob/master/ansible/deployment/config/cms-vagov-prod.yml#L125) 
  
 
+
+### CredStash
+
+Environment variables like API tokens should be treated as secrets.
+
+For secrets, the BRD system uses CredStash. See the [DevOps Repo: CredStash Readme](https://github.com/department-of-veterans-affairs/devops/blob/fef2340e5891c5aef6f7ed23af4d5a6f56711468/ansible/README.md#credstash) section for information on how to add 
+values to CredStash. 
