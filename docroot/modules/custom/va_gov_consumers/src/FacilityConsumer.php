@@ -18,12 +18,13 @@ class FacilityConsumer {
    *   The facility id.
    */
   public function contentRender($facility_id) {
+    $data = '';
+
     if (!empty(getenv('CMS_FACILITY_API'))) {
-      $data = '';
       $client = new Client();
       // Make sure we get a good response before heavy lifting.
       try {
-        $data_source = 'https://api.va.gov/services/va_facilities/v0/facilities/' . $facility_id;
+        $data_source = 'https://dev-api.va.gov/services/va_facilities/v0/facilities/' . $facility_id;
         $response = $client->get($data_source, [
           'headers' => [
             'apikey' => getenv('CMS_FACILITY_API'),
