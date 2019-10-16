@@ -334,3 +334,7 @@ Feature: Content model
 | Media type | Video | Video URL | field_media_video_embed_field | Video Embed | Required | 1 | Video Textfield | Translatable |
 | Content type | Benefits hub landing page | Home page hub label | field_home_page_hub_label | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | Health Care Service taxonomy | VHA Stop code | field_vha_healthservice_stopcode | Number (integer) |  | 1 | Number field |  |
+| Content type | Health Care Facility | Address | field_address | Address | Required | 1 | Address | Translatable |
+| Content type | Health Care Facility | Hours | field_facility_hours | Table Field |  | 1 | Table Field |  |
+| Content type | Health Care Facility | Mental Health Phone | field_mental_health_phone | Telephone number |  | 1 | Telephone number |  |
+| Content type | Health Care Facility | Phone Number | field_phone_number | Telephone number |  | 1 | Telephone number | Translatable |

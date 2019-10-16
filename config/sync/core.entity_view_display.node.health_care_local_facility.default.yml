@@ -3,10 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.health_care_local_facility.field_address
     - field.field.node.health_care_local_facility.field_administration
     - field.field.node.health_care_local_facility.field_description
     - field.field.node.health_care_local_facility.field_email_subscription
     - field.field.node.health_care_local_facility.field_facebook
+    - field.field.node.health_care_local_facility.field_facility_hours
     - field.field.node.health_care_local_facility.field_facility_locator_api_id
     - field.field.node.health_care_local_facility.field_flickr
     - field.field.node.health_care_local_facility.field_instagram
@@ -15,18 +17,23 @@ dependencies:
     - field.field.node.health_care_local_facility.field_location_services
     - field.field.node.health_care_local_facility.field_main_location
     - field.field.node.health_care_local_facility.field_media
+    - field.field.node.health_care_local_facility.field_mental_health_phone
     - field.field.node.health_care_local_facility.field_meta_tags
     - field.field.node.health_care_local_facility.field_meta_title
     - field.field.node.health_care_local_facility.field_nickname_for_this_facility
     - field.field.node.health_care_local_facility.field_operating_status_facility
+    - field.field.node.health_care_local_facility.field_phone_number
     - field.field.node.health_care_local_facility.field_region_page
     - field.field.node.health_care_local_facility.field_twitter
     - node.type.health_care_local_facility
   module:
+    - address
     - entity_reference_revisions
     - field_group
     - link
     - options
+    - tablefield
+    - telephone
     - user
 third_party_settings:
   field_group:
@@ -53,6 +60,13 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_address:
+    weight: 9
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+    region: content
   field_administration:
     weight: 1
     label: above
@@ -70,7 +84,7 @@ content:
     type: string
     region: content
   field_email_subscription:
-    weight: 17
+    weight: 18
     label: above
     settings:
       trim_length: 80
@@ -82,26 +96,6 @@ content:
     type: link
     region: content
   field_facebook:
-    weight: 13
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-    region: content
-  field_facility_locator_api_id:
-    weight: 7
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_flickr:
     weight: 14
     label: above
     settings:
@@ -113,8 +107,37 @@ content:
     third_party_settings: {  }
     type: link
     region: content
-  field_instagram:
+  field_facility_hours:
+    weight: 20
+    label: above
+    settings:
+      row_header: 1
+      column_header: 0
+    third_party_settings: {  }
+    type: tablefield
+    region: content
+  field_facility_locator_api_id:
+    weight: 7
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_flickr:
     weight: 15
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_instagram:
+    weight: 16
     label: above
     settings:
       trim_length: 80
@@ -133,7 +156,7 @@ content:
     type: basic_string
     region: content
   field_local_health_care_service_:
-    weight: 9
+    weight: 12
     label: above
     settings:
       link: true
@@ -142,7 +165,7 @@ content:
     region: content
   field_location_services:
     type: entity_reference_revisions_entity_view
-    weight: 10
+    weight: 13
     label: above
     settings:
       view_mode: default
@@ -167,6 +190,13 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
+  field_mental_health_phone:
+    weight: 21
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
   field_meta_title:
     weight: 11
     label: above
@@ -184,11 +214,19 @@ content:
     type: string
     region: content
   field_operating_status_facility:
-    weight: 18
+    weight: 19
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
+    region: content
+  field_phone_number:
+    weight: 10
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
     region: content
   field_region_page:
     weight: 2
@@ -199,7 +237,7 @@ content:
     type: entity_reference_label
     region: content
   field_twitter:
-    weight: 16
+    weight: 17
     label: above
     settings:
       trim_length: 80
@@ -213,3 +251,4 @@ content:
 hidden:
   field_meta_tags: true
   links: true
+  search_api_excerpt: true

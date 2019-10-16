@@ -1,0 +1,44 @@
+uuid: 2988497e-c800-417e-a246-d3deb36241c5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_address
+    - node.type.health_care_local_facility
+  module:
+    - address
+id: node.health_care_local_facility.field_address
+field_name: field_address
+entity_type: node
+bundle: health_care_local_facility
+label: Address
+description: 'The physical address (populated by Facility API)'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  available_countries:
+    US: US
+  langcode_override: ''
+  field_overrides:
+    givenName:
+      override: hidden
+    familyName:
+      override: hidden
+    organization:
+      override: hidden
+    addressLine1:
+      override: optional
+    addressLine2:
+      override: hidden
+    postalCode:
+      override: optional
+    sortingCode:
+      override: hidden
+    locality:
+      override: optional
+    administrativeArea:
+      override: optional
+  fields: {  }
+field_type: address
