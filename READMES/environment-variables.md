@@ -4,7 +4,7 @@ This Drupal site is designed to read critical environment variables from the `.e
 leveraging the [`phpdotenv` library](https://github.com/vlucas/phpdotenv).
 
 The file [EnvironmentHandler.php](../scripts/composer/EnvironmentHandler.php) loads this file for every request or CLI 
-action that includes to Drupal autoloader. 
+action that includes the Drupal autoloader. 
 
 Any existing environment variables will be overwritten if the same variable exists in this file.
 
@@ -18,8 +18,8 @@ Using a `.env` file instead on relying on the server environment has many benefi
  - No need to pass variables through docker, docker-compose, Dockerfiles, etc.
  - No need to worry about the execution environment: 
    - Every system (local, CI, BRD, etc) has it's way of loading the "execution environment" for running processes. 
-   - In other words, commands like `drush cache-rebuild` or `composer yaml-tests` are run by the `jenkins` user in BRD,
-     the `aegir` user in CMS-CI, and the `root` user in lando.
+   - In other words, commands like `drush cache-rebuild` or `composer yaml-tests` are run by the `apache` user in BRD,
+     the `aegir` user in CMS-CI, and the `www-data` user in Lando.
    - By using a single `.env` file for all environments, we no longer have to maintain scripts to set system-specific
      environment variables. 
  
@@ -41,7 +41,7 @@ file and changing the values as needed.
 
 ### CMS-CI
 
-The `.env` file in CMS-CI is written using DevShop/Drush hooks in a drushrc file on the CMS-CI server: `/var/aegir/.drush/va.drush.inc`
+The `.env` file in CMS-CI is written using DevShop/Drush hooks in a Drush include file on the CMS-CI server: `/var/aegir/.drush/va.drush.inc`
 
 The drush hook `hook_devshop_environment_file_alter` is used to set more environment variables. The VA-specific hook
 looks like this:
@@ -75,7 +75,7 @@ function va_devshop_environment_file_alter(&$environment){
 
 ### CMS in BRD
 
-The BRD environments for CMS include dev, staging, and prod. The environment variables for these are set in the [DevOps Repo](https://github.com/department-of-veterans-affairs/devops/tree/master/ansible/deployment/config).
+The BRD environments for CMS include DEV, STAGING, and PROD. The environment variables for these are set in the [DevOps Repo](https://github.com/department-of-veterans-affairs/devops/tree/master/ansible/deployment/config).
 
 The VA `devops` repo is private. Sensitive environment variables for BRD *may* be stored in Credstash if it is deemed 
 necessary, but it is not required.
