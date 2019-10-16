@@ -1,14 +1,14 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Regular expression to validate that the branch name starts with Jira story ID, e.g. VAGOV-000-
 commit_regex='(VAGOV-[0-9]+)'
 branch_name=$(git rev-parse --abbrev-ref HEAD)
 error_msg="Aborting commit. Your branch must start start with a VAGOV-* Jira issue number format, e.g. 'VAGOV-123 or VAGOV-123-issue-name. Use \`git branch --move <VAGOV-000-new-name>\` to rename."
 
-if ! grep --ignore-case --quiet --extended-regexp "${commit_regex}" <<<"${branch_name}"; then
+if ! grep --ignore-case --quiet --extended-regexp "${commit_regex}" <<< "${branch_name}"; then
     echo "${error_msg}" >&2
     exit 1
 fi
 
-# Run PHP Codesniffer for now pre-commit.
+# Run PHP Codesniffer as pre-commit check.
 composer va:test:cs
