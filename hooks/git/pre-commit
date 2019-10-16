@@ -7,8 +7,8 @@ error_msg="Aborting commit. Your branch must start start with a VAGOV-* Jira iss
 
 if ! grep --ignore-case --quiet --extended-regexp "${commit_regex}" <<< "${branch_name}"; then
     echo "${error_msg}" >&2
-    exit 1q
+    exit 1
 fi
 
-# Run PHP Codesniffer for now pre-commit.
+# Run PHP Codesniffer as pre-commit check.
 composer va:test:cs
