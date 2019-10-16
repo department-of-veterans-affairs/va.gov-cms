@@ -33,7 +33,7 @@ The `.env` file is ignored in the git repo. It must be created by the ops platfo
 
 ### Local Development
 
-The default values contained in [`.env.lando`](../.env.lando) are designed to work in a standard lando environment. You
+The default values contained in [`.env.lando`](../.env.lando) are designed to work in a standard Lando environment. You
 shouldn't have to change these, but you are free to.
 
 If you are using a different Drupal development environment, you can create your own `.env` file by copying the `.env.lando`
