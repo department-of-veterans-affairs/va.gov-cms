@@ -2,7 +2,6 @@
 
 namespace Drupal\va_gov_consumers;
 
-use Drupal\Component\Serialization\Json;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception as GuzzleException;
 
@@ -23,15 +22,7 @@ class FacilityConsumer {
     $client = new Client();
     // Make sure we get a good response before heavy lifting.
     try {
-      // Taking these out while determine why api request is timing out.
-      /*
-      $data_source = 'https://api.va.gov/v0/facilities/va/' . $facility_id;
-      $response = $client->get($data_source);
-
-      if ($response->getStatusCode() === 200) {
-        $data = Json::decode($response->getBody());
-      }
-      */
+      // @TODO  Restore the logic here when the env-API call is finalized.
     }
     // Record any trouble to watchdog.
     catch (GuzzleException $e) {
@@ -39,7 +30,6 @@ class FacilityConsumer {
     }
 
     return $data;
-
   }
 
 }
