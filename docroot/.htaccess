@@ -12,6 +12,9 @@ RewriteCond %{DOCUMENT_ROOT}/$1 -f [OR]
 RewriteCond %{DOCUMENT_ROOT}/$1 -d
 RewriteRule (.*) - [S=1]
 
+# @TODO: sitemap.xml does not get caught by the above rule because it's not a file but a drupal callback.
+# Add a rule that excludes sitemap.xml from the redirect.
+
 # If requested file exists in /static, rewrite to /static
 # Using only files here ensures the paths still resolve to Drupal and not to the index.html files.
 RewriteCond %{DOCUMENT_ROOT}/static/$1 -f
