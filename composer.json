@@ -348,6 +348,7 @@
         ],
         "va:web:build": [
             "drush config-set va_gov.build web.build.pending 1 -y",
+            "rm -rf vendor/va-gov/web/build/localhost/",
             "cd web && npm run build -- --pull-drupal",
             "drush config-set va_gov.build web.build.pending 0 -y"
         ],
