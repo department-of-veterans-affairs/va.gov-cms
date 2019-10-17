@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a097420fd492426b4a41a4ca60027762",
+    "content-hash": "1fb7e93546b3a0d35e39eaf8691680ad",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -9931,7 +9931,8 @@
                     }
                 },
                 "patches_applied": {
-                    "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2019-08-14/2748731-23.patch"
+                    "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2019-08-14/2748731-23.patch",
+                    "Bypass password requirement for password change if logged in with sso.": "https://www.drupal.org/files/issues/2018-05-01/simplesamlphp_auth-change-password-access-2968598-2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -14464,12 +14465,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/provision-ops/power-process.git",
-                "reference": "7f7699fbe5f38da0dfb4451b00e707ec07aa9891"
+                "reference": "7f07c8560e67dbd4d5ed95b26ac80ffea7e9bbb3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/provision-ops/power-process/zipball/7f7699fbe5f38da0dfb4451b00e707ec07aa9891",
-                "reference": "7f7699fbe5f38da0dfb4451b00e707ec07aa9891",
+                "url": "https://api.github.com/repos/provision-ops/power-process/zipball/7f07c8560e67dbd4d5ed95b26ac80ffea7e9bbb3",
+                "reference": "7f07c8560e67dbd4d5ed95b26ac80ffea7e9bbb3",
                 "shasum": ""
             },
             "require": {
@@ -14493,7 +14494,7 @@
                 }
             ],
             "description": "A more powerful Process component.",
-            "time": "2019-08-15T22:18:38+00:00"
+            "time": "2019-10-10T23:16:38+00:00"
         },
         {
             "name": "provision-ops/yaml-tests",
