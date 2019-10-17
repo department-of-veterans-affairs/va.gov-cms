@@ -33,12 +33,33 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     Then I should see "Benefits detail page VA blind and low vision rehabilitation services - EDITED has been updated."
     Then I set the node with title "VA health care" to "published"
     Then print current URL
+
+    # Edit a URL to check the behavior of
+    Given I am at "/node/868/edit"
+    And I fill in "URL alias" with "/disability/effective-date/edited"
+    And I press "Save"
+    Then I should see "has been updated."
+
+    # Rebuild WEB
     When I run "cd .. && composer va:web:build"
     And I am at "/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services"
     Then I should see "VA blind and low vision rehabilitation services - EDITED"
     And I am at "/static/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services"
     Then I should see "VA blind and low vision rehabilitation services - EDITED"
     Then print current URL
+
+    Given I am at "/static/disability/effective-date/edited"
+    Then the response status code should be 200
+    And the "a:empty" element should exist
+
+    Given I am at "/static/disability/about-disability-ratings/effective-date"
+    # @TODO: Old URLs should redirect to the latest URL.
+    # This page should NOT Exist in HTML, it should redirect.
+    Then the response status code should not be 200
+
+    # @TODO: Empty A tags should not appear, but these pages shouldn't exist either, so this test might not really be needed.
+    And the "a:empty" element should exist
+
     Given I am at "/static/health-care"
     Then the response status code should be 200
     And I should see "VA Benefits and Health Care"
@@ -207,3 +228,4 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     And I should see "Find a VA location"
     And I should see "Ask a question"
     And I should see "844-698-2311"
+
