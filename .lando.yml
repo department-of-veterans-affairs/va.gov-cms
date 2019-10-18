@@ -29,7 +29,9 @@ services:
     # Uncomment the below `xdebug: true` for Xdebug support
     # @todo Change this to pull in a local Lando settings variable and use that boolean variable
     # Run `lando rebuild` after uncommenting
-    #xdebug: true
+    # xdebug: true
+    config:
+      php: .lando/xdebug/php.ini
     overrides:
       environment:
         # You must manually `export` these ENV vars before uncommenting, then run `lando rebuild`
