@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_consumers;
 
+use Drupal\Component\Serialization\Json;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception as GuzzleException;
 
@@ -17,19 +18,31 @@ class FacilityConsumer {
    *   The facility id.
    */
   public function contentRender($facility_id) {
+    $data = '';
 
-    $data = FALSE;
-    $client = new Client();
-    // Make sure we get a good response before heavy lifting.
-    try {
-      // @TODO  Restore the logic here when the env-API call is finalized.
-    }
-    // Record any trouble to watchdog.
-    catch (GuzzleException $e) {
-      watchdog_exception('Facility_content', $e->getMessage());
-    }
+    if (!empty(getenv('CMS_FACILITY_API_KEY'))) {
+      $client = new Client();
+      // Make sure we get a good response before heavy lifting.
+      try {
+        $data_source = getenv('CMS_FACILITY_API_URL') . '/services/va_facilities/v0/facilities/' . $facility_id;
+        $response = $client->get($data_source, [
+          'headers' => [
+            'apikey' => getenv('CMS_FACILITY_API_KEY'),
+          ],
+        ]);
 
+        if ($response->getStatusCode() === 200) {
+          $data = Json::decode($response->getBody());
+        }
+
+      }
+      // Record any trouble to watchdog.
+      catch (GuzzleException $e) {
+        watchdog_exception('Facility_content', $e->getMessage());
+      }
+    }
     return $data;
+
   }
 
 }
