@@ -50,15 +50,6 @@ function va_gov_consumers_entity_presave(EntityInterface $entity) {
       if (empty($entity->title)) {
         $entity->title = 'TBD';
       }
-      if (empty($entity->field_address['address_line1'])) {
-        $entity->field_address = [
-          'country_code' => 'US',
-          'address_line1' => 'TBD',
-          'locality' => 'Sarasota',
-          'administrative_area' => 'FL',
-          'postal_code' => '34243',
-        ];
-      }
       if (!empty($facility_id)) {
         $vast = new FacilityConsumer();
         $reset_facility_id = reset($facility_id);
@@ -90,7 +81,10 @@ function va_gov_consumers_entity_presave(EntityInterface $entity) {
           $entity->field_facility_hours = $days_array;
         }
         else {
-          drupal_set_message(t('Facility API response is empty. CMS_FACILITY_API_KEY environment variable may not be set.'), 'warning');
+          $message = t('Facility API response for Facility ID :facility_id is empty. CMS_FACILITY_API_KEY environment variable may not be set.',
+          [':facility_id' => $facility_id['value']]);
+          \Drupal::logger('va_gov_consumers')->notice($message);
+          drupal_set_message($message, 'warning');
         }
       }
       break;

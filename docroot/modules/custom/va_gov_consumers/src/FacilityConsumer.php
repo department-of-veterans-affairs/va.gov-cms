@@ -19,15 +19,16 @@ class FacilityConsumer {
    */
   public function contentRender($facility_id) {
     $data = '';
-
-    if (!empty(getenv('CMS_FACILITY_API_KEY'))) {
+    $cms_facility_api_key = getenv('CMS_FACILITY_API_KEY');
+    $cms_facility_api_url = getenv('CMS_FACILITY_API_URL');
+    if ((!empty($cms_facility_api_key)) && (!empty($cms_facility_api_url))) {
       $client = new Client();
       // Make sure we get a good response before heavy lifting.
       try {
-        $data_source = getenv('CMS_FACILITY_API_URL') . '/services/va_facilities/v0/facilities/' . $facility_id;
+        $data_source = $cms_facility_api_url . '/services/va_facilities/v0/facilities/' . $facility_id;
         $response = $client->get($data_source, [
           'headers' => [
-            'apikey' => getenv('CMS_FACILITY_API_KEY'),
+            'apikey' => $cms_facility_api_key,
           ],
         ]);
 
