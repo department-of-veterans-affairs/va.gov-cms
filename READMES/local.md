@@ -11,6 +11,7 @@
     * `lando rebuild -y`
     * `lando composer nuke`  Destroy the vendor directory so it can be rebuilt
         properly.
+    * `lando xdebug-on` | `lando xdebug-off` Turns [xdebug](debugging.md) on or off.
 
     ### Troubleshooting:
     * Sometimes after initial setup or `lando start`, Drush is not found. Running `lando rebuild -y` once or twice usually cures, if not, see: https://github.com/lando/lando/issues/580#issuecomment-354490298
