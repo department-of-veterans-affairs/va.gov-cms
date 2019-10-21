@@ -10,7 +10,7 @@ Domains for this application are below, they both correspond to a frontend (FE) 
 | [LOCAL](local.md) | [va-gov-cms.lndo.site](http://va-gov-cms.lndo.site)  | [va-gov-web.lndo.site](http://va-gov-web.lndo.site)
 |                   |                                                      | [va-gov-web.lndo.site/static](http://va-gov-web.lndo.site)  
 |                   |                                                      | [va-gov-web.lndo.site/$URL?_format=static_html](http://va-gov-web.lndo.site/$URL)  
-| CI / PR           | pr###.ci.cms.va.gov                                  |  pr###.ci.cms.web.va.gov                                                            | [CMS-CI: DevShop](https://devshop.cms.va.gov/)
+| CI / PR           | pr###.ci.cms.va.gov                                  |  pr###.ci.cms.web.va.gov                                                            | [CMS-CI: DevShop](http://devshop.cms.va.gov/)
 |                   | [devshop.cms.va.gov](https://devshop.cms.va.gov/)    |  pr###.ci.cms.va.gov/static                                                         
 |                   | Visit the DevShop site to view all PR environments   |  pr###.ci.cms.va.go/$URL?_format=static_html
 
