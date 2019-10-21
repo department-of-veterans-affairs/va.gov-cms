@@ -26,10 +26,9 @@ services:
     run_as_root:
       - "apt-get update -y"
       - "apt-get install build-essential chrpath libssl-dev libxft-dev libfreetype6-dev libfreetype6 libfontconfig1-dev libfontconfig1 -y"
-    # Uncomment the below `xdebug: true` for Xdebug support
-    # @todo Change this to pull in a local Lando settings variable and use that boolean variable
-    # Run `lando rebuild` after uncommenting
-    #xdebug: true
+    xdebug: false
+    config:
+      php: .lando/xdebug/php.ini
     overrides:
       environment:
         # You must manually `export` these ENV vars before uncommenting, then run `lando rebuild`
@@ -85,6 +84,19 @@ tooling:
   web-build:
     service: appserver
     cmd: "composer va:web:build"
+
+  xdebug-on:
+    service: appserver
+    description: Enable xdebug for apache.
+    cmd: "docker-php-ext-enable xdebug && /etc/init.d/apache2 reload"
+    user: root
+
+  xdebug-off:
+    service: appserver
+    description: Disable xdebug for apache.
+    cmd: "rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && /etc/init.d/apache2 reload"
+    user: root
+
 
   phpunit:
     service: appserver
