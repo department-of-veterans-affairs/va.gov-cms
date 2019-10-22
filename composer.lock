@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4df252b2d64739faeaa43b0f4d4374c2",
+    "content-hash": "3d326d27f90f4630f0f6ad55bcd20477",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -5676,7 +5676,8 @@
                     }
                 },
                 "patches_applied": {
-                    "Allow to position the group in the advanced (sidebar) column": "https://www.drupal.org/files/issues/2018-07-26/2652642-59.patch"
+                    "Allow to position the group in the advanced (sidebar) column": "https://www.drupal.org/files/issues/2018-07-26/2652642-59.patch",
+                    "Incompatibility with inline entity form": "https://www.drupal.org/files/issues/2018-10-30/field_group-inline_entity_form_compatibility-2986704-3.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -6008,6 +6009,54 @@
             "homepage": "https://www.drupal.org/project/hide_revision_field",
             "support": {
                 "source": "http://cgit.drupalcode.org/hide_revision_field"
+            }
+        },
+        {
+            "name": "drupal/ief_table_view_mode",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ief_table_view_mode.git",
+                "reference": "8.x-2.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ief_table_view_mode-8.x-2.1.zip",
+                "reference": "8.x-2.1",
+                "shasum": "ff6bf0d8deab009f13030b3836f43d4f4a6f5cf8"
+            },
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/inline_entity_form": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.x": "2.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-2.1",
+                    "datestamp": "1567370887",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "mnico",
+                    "homepage": "https://www.drupal.org/user/1119544"
+                }
+            ],
+            "description": "Defines a view mode to set up the columns of the table for the Inline Entity Form widget.",
+            "homepage": "https://www.drupal.org/project/ief_table_view_mode",
+            "support": {
+                "source": "https://git.drupalcode.org/project/ief_table_view_mode"
             }
         },
         {

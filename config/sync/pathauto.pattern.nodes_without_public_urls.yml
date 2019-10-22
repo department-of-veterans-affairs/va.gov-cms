@@ -9,16 +9,17 @@ label: 'Nodes without public URLs'
 type: 'canonical_entities:node'
 pattern: '[node:field_office:entity:url:path]/[node:title]'
 selection_criteria:
-  555fa314-9f67-4e9a-99ea-d3a66cea1343:
+  87854d3a-f8d9-4056-bb3b-7cad86cb92b8:
     id: node_type
     bundles:
+      full_width_banner_alert: full_width_banner_alert
       outreach_asset: outreach_asset
       regional_health_care_service_des: regional_health_care_service_des
       support_service: support_service
     negate: false
     context_mapping:
       node: node
-    uuid: 555fa314-9f67-4e9a-99ea-d3a66cea1343
+    uuid: 87854d3a-f8d9-4056-bb3b-7cad86cb92b8
 selection_logic: and
 weight: -4
 relationships: {  }

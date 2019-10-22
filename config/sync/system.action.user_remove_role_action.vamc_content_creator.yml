@@ -1,0 +1,14 @@
+uuid: a44e4c77-61f0-48c3-a5c3-32fba5614a2b
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.vamc_content_creator
+  module:
+    - user
+id: user_remove_role_action.vamc_content_creator
+label: 'Remove the VAMC content creator role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: vamc_content_creator

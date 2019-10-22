@@ -1,0 +1,116 @@
+uuid: dd857581-82f9-45ec-9d04-fdfcdd895045
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.ief_table
+    - field.field.node.health_care_local_facility.field_administration
+    - field.field.node.health_care_local_facility.field_description
+    - field.field.node.health_care_local_facility.field_email_subscription
+    - field.field.node.health_care_local_facility.field_facebook
+    - field.field.node.health_care_local_facility.field_facility_locator_api_id
+    - field.field.node.health_care_local_facility.field_flickr
+    - field.field.node.health_care_local_facility.field_instagram
+    - field.field.node.health_care_local_facility.field_intro_text
+    - field.field.node.health_care_local_facility.field_local_health_care_service_
+    - field.field.node.health_care_local_facility.field_location_services
+    - field.field.node.health_care_local_facility.field_main_location
+    - field.field.node.health_care_local_facility.field_media
+    - field.field.node.health_care_local_facility.field_meta_tags
+    - field.field.node.health_care_local_facility.field_meta_title
+    - field.field.node.health_care_local_facility.field_nickname_for_this_facility
+    - field.field.node.health_care_local_facility.field_operating_status_facility
+    - field.field.node.health_care_local_facility.field_operating_status_more_info
+    - field.field.node.health_care_local_facility.field_region_page
+    - field.field.node.health_care_local_facility.field_twitter
+    - image.style.thumbnail
+    - node.type.health_care_local_facility
+  module:
+    - field_group
+    - media
+    - options
+    - user
+third_party_settings:
+  field_group:
+    group_meta:
+      children:
+        - field_description
+        - field_meta_title
+      parent_name: ''
+      weight: 21
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Meta
+      region: hidden
+id: node.health_care_local_facility.ief_table
+targetEntityType: node
+bundle: health_care_local_facility
+mode: ief_table
+content:
+  field_administration:
+    type: entity_reference_label
+    weight: 5
+    region: content
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+  field_media:
+    type: media_thumbnail
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      image_style: thumbnail
+      image_link: ''
+    third_party_settings: {  }
+  field_operating_status_facility:
+    weight: 3
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_operating_status_more_info:
+    type: basic_string
+    weight: 4
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  label:
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  content_moderation_control: true
+  field_address: true
+  field_description: true
+  field_email_subscription: true
+  field_facebook: true
+  field_facility_hours: true
+  field_facility_locator_api_id: true
+  field_flickr: true
+  field_instagram: true
+  field_intro_text: true
+  field_local_health_care_service_: true
+  field_location_services: true
+  field_main_location: true
+  field_mental_health_phone: true
+  field_meta_tags: true
+  field_meta_title: true
+  field_nickname_for_this_facility: true
+  field_phone_number: true
+  field_region_page: true
+  field_twitter: true
+  links: true
+  search_api_excerpt: true

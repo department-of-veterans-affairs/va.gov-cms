@@ -1,0 +1,19 @@
+uuid: 0f58cb55-45f4-4af8-a296-c338a8f3d7d0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_operating_status_more_info
+    - node.type.health_care_local_facility
+id: node.health_care_local_facility.field_operating_status_more_info
+field_name: field_operating_status_more_info
+entity_type: node
+bundle: health_care_local_facility
+label: 'Operating status - more info'
+description: 'Up to 300 characters to provide additional information about the facility''s operating status. '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -87,7 +87,17 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     The next build will be triggered on <b>:date2</b>.',
       [':date1' => $date1, ':date2' => $date2]);
     }
-
+  }
+  if ($form_id === 'node_full_width_banner_alert_edit_form') {
+    // Hide send email field because this form will only send an email once.
+    // @todo Consider disabling it instead of hiding it. And/or:
+    // @todo Check node revisions and disable this field if node has ever been published.
+    $form['field_operating_status_sendemail']['#attributes']['class'] = 'hidden';
+  }
+  if ($form_id === 'node_vamc_operating_status_and_alerts_edit_form') {
+    // Hide field_office for existing operating statuses: they won't be moved.
+    // @todo Consider disabling it instead of hiding it.
+    $form['field_office']['#attributes']['class'] = 'hidden';
   }
 }
 
@@ -130,6 +140,17 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
         ],
       ];
     }
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_alter().
+ */
+function va_gov_backend_inline_entity_form_entity_form_alter(&$entity_form, $form_state) {
+  // Show the facility name so that the editor knows what they're editing,
+  // but don't let the editor change it. It's driven by Facility API.
+  if ($entity_form['#bundle'] === 'health_care_local_facility') {
+    $entity_form['title']['widget'][0]['value']['#attributes']['disabled'] = 'disabled';
   }
 }
 

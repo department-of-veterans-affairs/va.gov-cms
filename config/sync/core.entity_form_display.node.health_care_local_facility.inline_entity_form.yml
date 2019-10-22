@@ -1,6 +1,6 @@
 uuid: 3097a0f3-ada6-41e7-b9e8-08d74a0ef7b9
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - core.entity_form_mode.node.inline_entity_form
@@ -20,23 +20,19 @@ dependencies:
     - field.field.node.health_care_local_facility.field_meta_title
     - field.field.node.health_care_local_facility.field_nickname_for_this_facility
     - field.field.node.health_care_local_facility.field_operating_status_facility
+    - field.field.node.health_care_local_facility.field_operating_status_more_info
     - field.field.node.health_care_local_facility.field_region_page
     - field.field.node.health_care_local_facility.field_twitter
     - node.type.health_care_local_facility
   module:
-    - content_moderation
     - field_group
-    - hide_revision_field
-    - metatag
-    - paragraphs
-    - path
 third_party_settings:
   field_group:
     group_governance:
       children:
         - field_administration
       parent_name: ''
-      weight: 13
+      weight: 25
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -45,13 +41,13 @@ third_party_settings:
         required_fields: 1
         weight: '-10'
       label: Governance
-      region: content
+      region: hidden
     group_editorial_workflow:
       children:
-        - moderation_state
         - revision_log
+        - moderation_state
       parent_name: ''
-      weight: 14
+      weight: 26
       format_type: fieldset
       format_settings:
         id: ''
@@ -59,12 +55,12 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Editorial Workflow'
-      region: content
+      region: hidden
     group_facility_locator:
       children:
         - field_facility_locator_api_id
       parent_name: ''
-      weight: 4
+      weight: 23
       format_type: fieldset
       format_settings:
         id: ''
@@ -73,12 +69,12 @@ third_party_settings:
         required_fields: false
         description: ''
       label: 'Facility Locator'
-      region: content
+      region: hidden
     group_location_services:
       children:
         - field_location_services
       parent_name: ''
-      weight: 5
+      weight: 24
       format_type: details
       format_settings:
         id: ''
@@ -87,13 +83,13 @@ third_party_settings:
         required_fields: false
         open: false
       label: 'Location services'
-      region: content
+      region: hidden
     group_region:
       children:
-        - field_region_page
         - field_main_location
+        - field_region_page
       parent_name: ''
-      weight: 1
+      weight: 22
       format_type: fieldset
       format_settings:
         id: ''
@@ -101,126 +97,25 @@ third_party_settings:
         description: ''
         required_fields: false
       label: Region
-      region: content
+      region: hidden
 id: node.health_care_local_facility.inline_entity_form
 targetEntityType: node
 bundle: health_care_local_facility
 mode: inline_entity_form
 content:
-  created:
-    type: datetime_timestamp
-    weight: 7
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_administration:
-    weight: 16
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
-  field_facility_locator_api_id:
-    weight: 10
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
-  field_intro_text:
-    weight: 3
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textarea
-    region: content
-  field_location_services:
-    type: entity_reference_paragraphs
-    weight: 5
-    settings:
-      title: Service
-      title_plural: Services
-      edit_mode: closed
-      add_mode: button
-      form_display_mode: default
-      default_paragraph_type: _none
-    third_party_settings: {  }
-    region: content
-  field_main_location:
-    weight: 3
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
-  field_meta_tags:
-    weight: 15
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_firehose
-    region: content
-  field_nickname_for_this_facility:
-    weight: 2
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
-  field_region_page:
-    weight: 2
-    settings: {  }
-    third_party_settings: {  }
+  field_operating_status_facility:
     type: options_select
-    region: content
-  moderation_state:
-    type: moderation_state_default
-    weight: 8
-    settings: {  }
-    region: content
-    third_party_settings: {  }
-  path:
-    type: path
-    weight: 10
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 8
-    region: content
-    third_party_settings: {  }
-  revision_log:
-    type: hide_revision_field_log_widget
-    weight: 9
+  field_operating_status_more_info:
+    type: string_textarea
+    weight: 2
     region: content
     settings:
-      show: true
-      default: ''
-      permission_based: false
-      allow_user_settings: true
       rows: 5
       placeholder: ''
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 12
-    region: content
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 9
-    region: content
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -230,28 +125,34 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 6
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    region: content
-    third_party_settings: {  }
-  url_redirects:
-    weight: 11
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
+  created: true
+  field_address: true
+  field_administration: true
   field_description: true
   field_email_subscription: true
   field_facebook: true
+  field_facility_hours: true
+  field_facility_locator_api_id: true
   field_flickr: true
   field_instagram: true
+  field_intro_text: true
   field_local_health_care_service_: true
+  field_location_services: true
+  field_main_location: true
   field_media: true
+  field_mental_health_phone: true
+  field_meta_tags: true
   field_meta_title: true
-  field_operating_status_facility: true
+  field_nickname_for_this_facility: true
+  field_phone_number: true
+  field_region_page: true
   field_twitter: true
+  moderation_state: true
+  path: true
+  promote: true
+  revision_log: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true

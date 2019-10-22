@@ -1,0 +1,22 @@
+uuid: a1112bcd-ea8a-4bde-b09a-fcc5c5bcacd6
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: operating_status
+label: 'Operating status'
+type: 'canonical_entities:node'
+pattern: '[node:field_office:entity:url:path]/operating-status'
+selection_criteria:
+  0b9a0bea-aeb4-4eef-bcb4-b611a498ffb6:
+    id: node_type
+    bundles:
+      vamc_operating_status_and_alerts: vamc_operating_status_and_alerts
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 0b9a0bea-aeb4-4eef-bcb4-b611a498ffb6
+selection_logic: and
+weight: -5
+relationships: {  }

@@ -1,0 +1,23 @@
+uuid: ac3ec542-5841-4ed0-95f2-09f3aaaa5bde
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_alert_dismissable
+    - node.type.full_width_banner_alert
+id: node.full_width_banner_alert.field_alert_dismissable
+field_name: field_alert_dismissable
+entity_type: node
+bundle: full_width_banner_alert
+label: 'Alert dismissable?'
+description: 'Dismissable blocks can be closed/hidden by users by clicking an X in the top right of the alert. Leave this unchecked if you wan the alert to appear permanently on the targeted pages.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Dismissable
+  off_label: 'Off'
+field_type: boolean
