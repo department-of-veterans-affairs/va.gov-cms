@@ -1,0 +1,277 @@
+uuid: 756ca89b-ad06-42c6-83d8-e38d0ddb7b66
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.full_width_banner_alert.field_administration
+    - field.field.node.full_width_banner_alert.field_alert_dismissable
+    - field.field.node.full_width_banner_alert.field_alert_email_updates_button
+    - field.field.node.full_width_banner_alert.field_alert_find_facilities_cta
+    - field.field.node.full_width_banner_alert.field_alert_inheritance_subpages
+    - field.field.node.full_width_banner_alert.field_alert_operating_status_cta
+    - field.field.node.full_width_banner_alert.field_alert_type
+    - field.field.node.full_width_banner_alert.field_banner_alert_situationinfo
+    - field.field.node.full_width_banner_alert.field_banner_alert_vamcs
+    - field.field.node.full_width_banner_alert.field_body
+    - field.field.node.full_width_banner_alert.field_operating_status_sendemail
+    - field.field.node.full_width_banner_alert.field_situation_updates
+    - node.type.full_width_banner_alert
+  module:
+    - content_moderation
+    - field_group
+    - hide_revision_field
+    - paragraphs
+    - text
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 4
+      format_type: details_sidebar
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: 1
+        required_fields: 1
+        weight: '0'
+      label: Governance
+      region: content
+    group_edi:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+      region: content
+    group_alert_display_and_behavior:
+      children: {  }
+      parent_name: ''
+      weight: 16
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'Display and behavior'
+      region: hidden
+    group_alert_content:
+      children:
+        - field_alert_type
+        - field_alert_dismissable
+        - title
+        - field_body
+        - group_calls_to_action
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        description: ''
+        open: true
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Content and format'
+      region: content
+    group_type:
+      children:
+        - field_banner_alert_vamcs
+        - field_alert_inheritance_subpages
+        - field_operating_status_sendemail
+      parent_name: ''
+      weight: 0
+      format_type: details
+      format_settings:
+        description: ''
+        open: true
+        id: ''
+        classes: ''
+        required_fields: false
+      label: 'Where will this banner appear?'
+      region: content
+    group_situation_updates:
+      children:
+        - field_situation_updates
+        - field_banner_alert_situationinfo
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        description: ''
+        open: true
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Situation updates'
+      region: content
+    group_situation_information:
+      children: {  }
+      parent_name: ''
+      weight: 15
+      format_type: fieldset
+      format_settings:
+        description: 'For "static" situation information that is additional to any situation updates.'
+        id: ''
+        classes: ''
+        required_fields: false
+      label: 'Situation information'
+      region: hidden
+    group_calls_to_action:
+      children:
+        - field_alert_operating_status_cta
+        - field_alert_email_updates_button
+        - field_alert_find_facilities_cta
+      parent_name: group_alert_content
+      weight: 8
+      format_type: fieldset
+      format_settings:
+        description: 'These buttons will be displayed at the bottom of an alert, as well as in the emails sent out via GovDelivery'
+        id: ''
+        classes: ''
+        required_fields: false
+      label: 'Calls to action'
+      region: content
+id: node.full_width_banner_alert.default
+targetEntityType: node
+bundle: full_width_banner_alert
+mode: default
+content:
+  field_administration:
+    weight: 9
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_alert_dismissable:
+    weight: 5
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_alert_email_updates_button:
+    weight: 7
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_alert_find_facilities_cta:
+    weight: 8
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_alert_inheritance_subpages:
+    weight: 2
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_alert_operating_status_cta:
+    weight: 6
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_alert_type:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_banner_alert_situationinfo:
+    weight: 5
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_banner_alert_vamcs:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_body:
+    weight: 7
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_operating_status_sendemail:
+    weight: 3
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_situation_updates:
+    type: paragraphs
+    weight: 4
+    settings:
+      title: 'situation update'
+      title_plural: 'situation updates'
+      edit_mode: closed
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
+    third_party_settings: {  }
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 3
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  revision_log:
+    type: hide_revision_field_log_widget
+    weight: 4
+    region: content
+    settings:
+      show: true
+      default: ''
+      permission_based: false
+      allow_user_settings: true
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 6
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true

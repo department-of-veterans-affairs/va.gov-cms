@@ -1,0 +1,22 @@
+uuid: 2514eb1f-ed1a-4aff-a321-7a7a8f703319
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_operating_status_and_alerts
+id: node.vamc_operating_status_and_alerts.status
+field_name: status
+entity_type: node
+bundle: vamc_operating_status_and_alerts
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

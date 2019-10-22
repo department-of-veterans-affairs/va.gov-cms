@@ -1,0 +1,28 @@
+uuid: d61bb4b4-697c-470e-b9ea-47a72730064e
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+third_party_settings:
+  lightning_core:
+    description: "Can create content types related to VAMC (except for the parent \"VAMC\" and \"VAMC Operating Status\" content types, which are created by content admins). <br/>\r\nUsers with this role should also be editors, reviewers, or publishers."
+id: vamc_content_creator
+label: 'Content creator - VAMC'
+weight: -5
+is_admin: null
+permissions:
+  - 'access files overview'
+  - 'create alert block content'
+  - 'create event content'
+  - 'create event_listing content'
+  - 'create full_width_banner_alert content'
+  - 'create health_care_local_facility content'
+  - 'create health_care_local_health_service content'
+  - 'create health_care_region_detail_page content'
+  - 'create news_story content'
+  - 'create outreach_asset content'
+  - 'create person_profile content'
+  - 'create press_release content'
+  - 'create promo block content'
+  - 'create regional_health_care_service_des content'

@@ -1,0 +1,28 @@
+uuid: f6d632c3-327c-43bf-8e26-7e5c4757820d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.vamc_operating_status_and_alerts
+  module:
+    - user
+id: node.vamc_operating_status_and_alerts.teaser
+targetEntityType: node
+bundle: vamc_operating_status_and_alerts
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_administration: true
+  field_banner_alert: true
+  field_facility_operating_status: true
+  field_links: true
+  field_meta_tags: true
+  field_office: true
+  field_operating_status_emerg_inf: true
+  search_api_excerpt: true

@@ -1,0 +1,23 @@
+uuid: 77e39cf6-5d55-4028-ac00-1d606f2387e5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_alert_find_facilities_cta
+    - node.type.full_width_banner_alert
+id: node.full_width_banner_alert.field_alert_find_facilities_cta
+field_name: field_alert_find_facilities_cta
+entity_type: node
+bundle: full_width_banner_alert
+label: 'Display "Find other VA facilities near you" link?'
+description: 'Add a CTA button linking out to the Facility finder tool, like this: "<a href="https://www.va.gov/find-locations/">Find other VA facilities near you</a>"'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

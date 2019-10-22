@@ -1,0 +1,14 @@
+uuid: ce7fd4ad-5a4a-4153-8424-1b390a714a54
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.vamc_content_creator
+  module:
+    - user
+id: user_add_role_action.vamc_content_creator
+label: 'Add the VAMC content creator role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: vamc_content_creator

@@ -1,0 +1,21 @@
+uuid: 8f32608e-6686-4a4b-a44d-8bfd2fe10b32
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+    - node_title_help_text
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - pittsburgh-health-care
+    parent: 'pittsburgh-health-care:menu_link_content:b8d97bd0-2308-4a52-aa5d-8dda031ac239'
+  node_title_help_text:
+    title_help: 'This field is automatically populated.'
+name: 'VAMC system operating status'
+type: vamc_operating_status_and_alerts
+description: 'Create one of these pages for each VAMC system. Then you can add banner alerts and update facilities'' operating status, all from one place.'
+help: "<h1>Operating status</h1>\r\n\r\n<p>Each VAMC system has one operating status page showing each facility operating status and emergency information. Users will also be able to subscribe to emergency notifications from this page.</p>"
+new_revision: true
+preview_mode: 1
+display_submitted: true

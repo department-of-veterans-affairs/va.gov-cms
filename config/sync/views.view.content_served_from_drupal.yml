@@ -1,0 +1,663 @@
+uuid: 9cf103be-f534-4a20-b352-f684303f7cdd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.event_listing
+    - node.type.health_care_local_facility
+    - node.type.health_care_region_detail_page
+    - node.type.health_care_region_page
+    - node.type.landing_page
+    - node.type.office
+    - node.type.page
+    - node.type.publication_listing
+    - taxonomy.vocabulary.administration
+  module:
+    - csv_serialization
+    - node
+    - rest
+    - serialization
+    - taxonomy
+    - user
+    - views_data_export
+id: content_served_from_drupal
+label: 'Content served from Drupal'
+module: views
+description: 'An exportable list of all content served from Drupal'
+tag: ''
+base_table: node_field_data
+base_field: nid
+core: 8.x
+display:
+  default:
+    display_plugin: default
+    id: default
+    display_title: Master
+    position: 0
+    display_options:
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      cache:
+        type: tag
+        options: {  }
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_comment: ''
+          query_tags: {  }
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        type: mini
+        options:
+          items_per_page: 500
+          offset: 0
+          id: 0
+          total_pages: null
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          tags:
+            previous: ‹‹
+            next: ››
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          override: true
+          sticky: false
+          caption: ''
+          summary: ''
+          description: ''
+          columns:
+            view_node: view_node
+            title: title
+            field_administration: field_administration
+          info:
+            view_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_administration:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          default: '-1'
+          empty_table: false
+      row:
+        type: fields
+        options:
+          default_field_elements: true
+          inline:
+            title: title
+            view_node: view_node
+          separator: ' | '
+          hide_empty: false
+      fields:
+        view_node:
+          id: view_node
+          table: node
+          field: view_node
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: URL
+          exclude: false
+          alter:
+            alter_text: true
+            text: '<a href="https://www.va.gov{{ view_node }}">https://www.va.gov{{ view_node }}</a>'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          text: view
+          output_url_as_text: true
+          absolute: false
+          entity_type: node
+          plugin_id: entity_link
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Title
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: false
+            ellipsis: false
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: node
+          entity_field: title
+          plugin_id: field
+        field_administration:
+          id: field_administration
+          table: node__field_administration
+          field: field_administration
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Owner
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+      filters:
+        status:
+          value: '1'
+          table: node_field_data
+          field: status
+          plugin_id: boolean
+          entity_type: node
+          entity_field: status
+          id: status
+          expose:
+            operator: ''
+          group: 1
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: in
+          value:
+            page: page
+            landing_page: landing_page
+            health_care_region_detail_page: health_care_region_detail_page
+            event_listing: event_listing
+            health_care_local_facility: health_care_local_facility
+            health_care_region_page: health_care_region_page
+            office: office
+            publication_listing: publication_listing
+          group: 1
+          exposed: false
+          expose:
+            operator_id: type_op
+            label: 'Content type'
+            description: ''
+            use_operator: false
+            operator: type_op
+            identifier: type
+            required: true
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              documentation_editor: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            reduce: true
+            argument: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: title_op
+            label: Title
+            description: ''
+            use_operator: false
+            operator: title_op
+            identifier: title
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              documentation_editor: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: node
+          entity_field: title
+          plugin_id: string
+        type_1:
+          id: type_1
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: in
+          value:
+            page: page
+            landing_page: landing_page
+            health_care_region_detail_page: health_care_region_detail_page
+            event_listing: event_listing
+            health_care_local_facility: health_care_local_facility
+            health_care_region_page: health_care_region_page
+            office: office
+            publication_listing: publication_listing
+          group: 1
+          exposed: true
+          expose:
+            operator_id: type_1_op
+            label: 'Content type'
+            description: ''
+            use_operator: false
+            operator: type_1_op
+            identifier: type_1
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              documentation_editor: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            reduce: true
+            argument: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+        field_administration_target_id:
+          id: field_administration_target_id
+          table: node__field_administration
+          field: field_administration_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_administration_target_id_op
+            label: Owner
+            description: ''
+            use_operator: false
+            operator: field_administration_target_id_op
+            identifier: field_administration_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              documentation_editor: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: administration
+          hierarchy: true
+          error_message: true
+          plugin_id: taxonomy_index_tid
+      sorts:
+        field_administration_target_id:
+          id: field_administration_target_id
+          table: node__field_administration
+          field: field_administration_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          plugin_id: standard
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: standard
+      title: 'Content served from Drupal'
+      header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content: "<a href=\"/cms-content/export?page&_format=csv\" class=\"button\">Download as CSV</a>\r\n\r\n<p>This page shows all published content <em>that has a front end URL</em>, with a few exceptions. It does not show:</p>\r\n<ul>\r\n<li>Documentation pages</li>\r\n<li>Events</li>\r\n<li>News releases</li>\r\n<li>Publications</li>\r\n<li>Staff profiles</li>\r\n<li>Stories</li>\r\n</ul>\r\n<p>It also does not list content that is sub-page, such as: </p>\r\n<ul>\r\n<li>Alert blocks</li>\r\n<li>VAMC health services</li>\r\n<li>VAMC facility health services</li>\r\n<li>Support services</li>\r\n</ul>\r\n\r\n\r\n\r\n\r\nYou might also be interested in the <a href=\"/vha-health-services\">VHA Health service taxonomy</a>. "
+          plugin_id: text_custom
+      footer: {  }
+      empty: {  }
+      relationships: {  }
+      arguments: {  }
+      display_extenders: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_administration'
+  data_export_1:
+    display_plugin: data_export
+    id: data_export_1
+    display_title: 'Data export'
+    position: 2
+    display_options:
+      display_extenders: {  }
+      path: cms-content/export
+      filename: va-drupal-content.csv
+      style:
+        type: data_export
+        options:
+          formats:
+            csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+      pager:
+        type: none
+        options:
+          offset: 0
+      displays:
+        page_1: page_1
+        default: '0'
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_administration'
+  page_1:
+    display_plugin: page
+    id: page_1
+    display_title: Page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: cms-content
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_administration'

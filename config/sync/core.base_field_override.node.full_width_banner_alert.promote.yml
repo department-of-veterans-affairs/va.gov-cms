@@ -1,0 +1,22 @@
+uuid: c17df9dc-7017-4a91-8e49-16069cb94e4b
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.full_width_banner_alert
+id: node.full_width_banner_alert.promote
+field_name: promote
+entity_type: node
+bundle: full_width_banner_alert
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

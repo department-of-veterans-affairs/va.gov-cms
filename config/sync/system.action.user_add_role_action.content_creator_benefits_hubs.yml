@@ -1,0 +1,14 @@
+uuid: 538ee1d9-9407-4eeb-8593-367bd67d481f
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.content_creator_benefits_hubs
+  module:
+    - user
+id: user_add_role_action.content_creator_benefits_hubs
+label: 'Add the Content creator - benefits hubs role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: content_creator_benefits_hubs

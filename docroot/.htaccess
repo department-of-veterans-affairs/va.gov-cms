@@ -7,6 +7,12 @@
 # /static assets are built using the `composer va:web:build` command.
 # See https://stackoverflow.com/questions/595005/redirect-requests-only-if-the-file-is-not-found
 
+# Block web.config because of Nessus scan
+# @see https://va-gov.atlassian.net/browse/VAGOV-6156
+<Files "web.config">
+  Require all denied
+</Files>
+
 # If requested file or directory exists, skip the next rule.
 RewriteCond %{DOCUMENT_ROOT}/$1 -f [OR]
 RewriteCond %{DOCUMENT_ROOT}/$1 -d

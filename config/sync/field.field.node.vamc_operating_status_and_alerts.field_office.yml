@@ -1,0 +1,33 @@
+uuid: dce04605-6cbd-492c-8a54-07a2f892e57e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_office
+    - node.type.health_care_region_page
+    - node.type.vamc_operating_status_and_alerts
+  content:
+    - 'node:health_care_region_page:2bddb1a7-6fb1-4503-838d-9c2fcb51c46a'
+id: node.vamc_operating_status_and_alerts.field_office
+field_name: field_office
+entity_type: node
+bundle: vamc_operating_status_and_alerts
+label: 'VAMC system'
+description: 'To do: hide this field or disable it after node creation. '
+required: true
+translatable: true
+default_value:
+  -
+    target_uuid: 2bddb1a7-6fb1-4503-838d-9c2fcb51c46a
+default_value_callback: ''
+settings:
+  handler: unpublished
+  handler_settings:
+    target_bundles:
+      health_care_region_page: health_care_region_page
+    sort:
+      field: title
+      direction: ASC
+    auto_create: 0
+    auto_create_bundle: ''
+field_type: entity_reference
