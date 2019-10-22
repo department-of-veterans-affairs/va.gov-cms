@@ -21,12 +21,12 @@ Feature: Content model
 | Staff profile | person_profile | Content type | Profiles of staff members for display in various places around the site. |
 | Story | news_story | Content type | Community stories highlight the role of a VA facility, program, or healthcare system in a Veteran's journey. They may be a case study of a specific patient, a description of a new or successful program, or a community-interest story. |
 | Support Service | support_service | Content type | Help desks, hotlines, etc, to be contextually placed alongside relevant content. |
-| VAMC | health_care_region_page | Content type | A landing page for a VAMC system, which typically includes multiple facilities. |
-| VAMC banner alert with situation updates | full_width_banner_alert | Content type | A full-width alert that will be added to a VAMC, or multiple VAMCS. |
-| VAMC facility | health_care_local_facility | Content type | A clinic or hospital within a VAMC / healthcare system. |
-| VAMC facility health service | health_care_local_health_service | Content type | A facility specific description of a health care service, always embedded within a regional description |
-| VAMC health service | regional_health_care_service_des | Content type | A description of a health service specific to a VAMC. Does not include facility-specific services (except in cases where a VAMC only has one facility).  |
-| VAMC operating status | vamc_operating_status_and_alerts | Content type | Create one of these pages for each VAMC. Then you can add banner alerts and update facilities' operating status, all from one place. |
+| VAMC system | health_care_region_page | Content type | A landing page for a VAMC system, which typically includes multiple facilities. |
+| VAMC system banner alert with situation updates | full_width_banner_alert | Content type | A full-width alert that will be added to a VAMC system, or multiple VAMC systems. |
+| VAMC facility | health_care_local_facility | Content type | A clinic or hospital within a VAMC system. |
+| VAMC facility health service | health_care_local_health_service | Content type | A facility specific description of a health care service, always embedded within a VAMC system description. |
+| VAMC system health service | regional_health_care_service_des | Content type | A description of a health service specific to a VAMC system. |
+| VAMC system operating status | vamc_operating_status_and_alerts | Content type | Create one of these pages for each VAMC system. Then you can add banner alerts and update facilities' operating status, all from one place. |
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
 | Promo | promo | Custom block type | Promote a link with an image, title, and description. |
 | Document | document | Media type | A locally hosted document, such as a PDF. |
@@ -183,47 +183,47 @@ Feature: Content model
 | Content type | Support Service | Page last built | field_page_last_built | Date |  | 1 | Date and time | Translatable |
 | Content type | Support Service | Phone Number | field_phone_number | Telephone number |  | 1 | Telephone number |  |
 | Content type | Support Service | Related office | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC | Appointments can be scheduled and viewed online | field_appointments_online | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | VAMC | Banner image | field_media | Entity reference |  | 1 | Media library | Translatable |
-| Content type | VAMC | Common Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL | Translatable |
-| Content type | VAMC | Community stories intro text | field_intro_text_news_stories | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
-| Content type | VAMC | Description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | VAMC | Email lists | field_links | Link |  | Unlimited | Linkit | Translatable |
-| Content type | VAMC | Email Subscription | field_email_subscription | Link |  | 1 | -- Disabled -- | Translatable |
-| Content type | VAMC | Events page intro text | field_intro_text_events_page | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
-| Content type | VAMC | Facebook | field_facebook | Link |  | 1 | Link | Translatable |
-| Content type | VAMC | Featured content on health-services page | field_featured_content_healthser | Entity reference revisions |  | 3 | Paragraphs Classic |  |
-| Content type | VAMC | Flickr | field_flickr | Link |  | 1 | Link | Translatable |
-| Content type | VAMC | Health services intro text | field_clinical_health_care_servi | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
-| Content type | VAMC | Instagram | field_instagram | Link |  | 1 | Link | Translatable |
-| Content type | VAMC | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
-| Content type | VAMC | Leadership page intro text | field_intro_text_leadership | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
-| Content type | VAMC | Leadership team | field_leadership | Entity reference |  | Unlimited | Autocomplete |  |
-| Content type | VAMC | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
-| Content type | VAMC | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | VAMC | Operating status | field_operating_status | Link |  | 1 | Linkit |  |
-| Content type | VAMC | Other VA Locations | field_other_va_locations | Text (plain) |  | Unlimited | Textfield |  |
-| Content type | VAMC | Our Locations intro text | field_locations_intro_blurb | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
-| Content type | VAMC | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC | Press Release Blurb | field_press_release_blurb | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
-| Content type | VAMC | Press releases intro text | field_intro_text_press_releases | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
-| Content type | VAMC | Regional Health Service Offerings. | field_clinical_health_services | Entity reference |  | Unlimited | Select list |  |
-| Content type | VAMC | Short name | field_nickname_for_this_facility | Text (plain) |  | 1 | Textfield | Translatable |
-| Content type | VAMC | Twitter | field_twitter | Link |  | 1 | Link | Translatable |
-| Content type | VAMC | URL for signing up for email news and announcements | field_email_subscription_links | Link |  | 1 | -- Disabled -- |  |
-| Content type | VAMC | URL for signing up for emergency email alerts | field_sign_up_for_emergency_emai | Link |  | 1 | -- Disabled -- |  |
-| Content type | VAMC banner alert with situation updates | Alert body | field_body | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
-| Content type | VAMC banner alert with situation updates | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | VAMC banner alert with situation updates | Alert type | field_alert_type | List (text) | Required | 1 | Select list |  |
-| Content type | VAMC banner alert with situation updates | Display "Find other VA facilities near you" link? | field_alert_find_facilities_cta | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | VAMC banner alert with situation updates | Display "Get updates on affected services and facilities" link | field_alert_operating_status_cta | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | VAMC banner alert with situation updates | Display "Subscribe to email updates" link? | field_alert_email_updates_button | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | VAMC banner alert with situation updates | Inherited by subpages | field_alert_inheritance_subpages | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | VAMC banner alert with situation updates | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC banner alert with situation updates | Send email to subscribers via GovDelivery? | field_operating_status_sendemail | Boolean |  | 1 | Single on/off checkbox | Translatable |
-| Content type | VAMC banner alert with situation updates | Situation information | field_banner_alert_situationinfo | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
-| Content type | VAMC banner alert with situation updates | Situation updates | field_situation_updates | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
-| Content type | VAMC banner alert with situation updates | VA Medical Centers | field_banner_alert_vamcs | Entity reference | Required | Unlimited | Check boxes/radio buttons |  |
+| Content type | VAMC system | Appointments can be scheduled and viewed online | field_appointments_online | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | VAMC system | Banner image | field_media | Entity reference |  | 1 | Media library | Translatable |
+| Content type | VAMC system | Common Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL | Translatable |
+| Content type | VAMC system | Community stories intro text | field_intro_text_news_stories | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
+| Content type | VAMC system | Description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | VAMC system | Email lists | field_links | Link |  | Unlimited | Linkit | Translatable |
+| Content type | VAMC system | Email Subscription | field_email_subscription | Link |  | 1 | -- Disabled -- | Translatable |
+| Content type | VAMC system | Events page intro text | field_intro_text_events_page | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
+| Content type | VAMC system | Facebook | field_facebook | Link |  | 1 | Link | Translatable |
+| Content type | VAMC system | Featured content on health-services page | field_featured_content_healthser | Entity reference revisions |  | 3 | Paragraphs Classic |  |
+| Content type | VAMC system | Flickr | field_flickr | Link |  | 1 | Link | Translatable |
+| Content type | VAMC system | Health services intro text | field_clinical_health_care_servi | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
+| Content type | VAMC system | Instagram | field_instagram | Link |  | 1 | Link | Translatable |
+| Content type | VAMC system | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+| Content type | VAMC system | Leadership page intro text | field_intro_text_leadership | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
+| Content type | VAMC system | Leadership team | field_leadership | Entity reference |  | Unlimited | Autocomplete |  |
+| Content type | VAMC system | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | VAMC system | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | VAMC system | Operating status | field_operating_status | Link |  | 1 | Linkit |  |
+| Content type | VAMC system | Other VA Locations | field_other_va_locations | Text (plain) |  | Unlimited | Textfield |  |
+| Content type | VAMC system | Our Locations intro text | field_locations_intro_blurb | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
+| Content type | VAMC system | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC system | Press Release Blurb | field_press_release_blurb | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
+| Content type | VAMC system | Press releases intro text | field_intro_text_press_releases | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
+| Content type | VAMC system | Regional Health Service Offerings. | field_clinical_health_services | Entity reference |  | Unlimited | Select list |  |
+| Content type | VAMC system | Short name | field_nickname_for_this_facility | Text (plain) |  | 1 | Textfield | Translatable |
+| Content type | VAMC system | Twitter | field_twitter | Link |  | 1 | Link | Translatable |
+| Content type | VAMC system | URL for signing up for email news and announcements | field_email_subscription_links | Link |  | 1 | -- Disabled -- |  |
+| Content type | VAMC system | URL for signing up for emergency email alerts | field_sign_up_for_emergency_emai | Link |  | 1 | -- Disabled -- |  |
+| Content type | VAMC system banner alert with situation updates | Alert body | field_body | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
+| Content type | VAMC system banner alert with situation updates | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | VAMC system banner alert with situation updates | Alert type | field_alert_type | List (text) | Required | 1 | Select list |  |
+| Content type | VAMC system banner alert with situation updates | Display "Find other VA facilities near you" link? | field_alert_find_facilities_cta | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | VAMC system banner alert with situation updates | Display "Get updates on affected services and facilities" link | field_alert_operating_status_cta | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | VAMC system banner alert with situation updates | Display "Subscribe to email updates" link? | field_alert_email_updates_button | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | VAMC system banner alert with situation updates | Inherited by subpages | field_alert_inheritance_subpages | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | VAMC system banner alert with situation updates | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC system banner alert with situation updates | Send email to subscribers via GovDelivery? | field_operating_status_sendemail | Boolean |  | 1 | Single on/off checkbox | Translatable |
+| Content type | VAMC system banner alert with situation updates | Situation information | field_banner_alert_situationinfo | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
+| Content type | VAMC system banner alert with situation updates | Situation updates | field_situation_updates | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
+| Content type | VAMC system banner alert with situation updates | VA Medical Centers | field_banner_alert_vamcs | Entity reference | Required | Unlimited | Check boxes/radio buttons |  |
 | Content type | VAMC facility | Description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | VAMC facility | Email Subscription | field_email_subscription | Link |  | 1 | Linkit | Translatable |
 | Content type | VAMC facility | Facebook | field_facebook | Link |  | 1 | Link | Translatable |
@@ -247,18 +247,18 @@ Feature: Content model
 | Content type | VAMC facility health service | Local description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | VAMC facility health service | Owner | field_administration | Entity reference |  | 1 | Select list | Translatable |
 | Content type | VAMC facility health service | Regional Health Service Offering | field_regional_health_service | Entity reference | Required | 1 | Select list |  |
-| Content type | VAMC health service | Facility-specific descriptions of this service | field_local_health_care_service_ | Entity reference |  | Unlimited | Select list |  |
-| Content type | VAMC health service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC health service | Region page | field_region_page | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC health service | Regional description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
-| Content type | VAMC health service | Service name and description | field_service_name_and_descripti | Entity reference | Required | 1 | Select list |  |
-| Content type | VAMC operating status | Banner alert and situation updates | field_banner_alert | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
-| Content type | VAMC operating status | Emergency information | field_operating_status_emerg_inf | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
-| Content type | VAMC operating status | Links | field_links | Link |  | Unlimited | Link | Translatable |
-| Content type | VAMC operating status | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
-| Content type | VAMC operating status | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC operating status | Update individual facility statuses | field_facility_operating_status | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
-| Content type | VAMC operating status | VAMC | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC system health service | Facility-specific descriptions of this service | field_local_health_care_service_ | Entity reference |  | Unlimited | Select list |  |
+| Content type | VAMC system health service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC system health service | Region page | field_region_page | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC system health service | Regional description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | VAMC system health service | Service name and description | field_service_name_and_descripti | Entity reference | Required | 1 | Select list |  |
+| Content type | VAMC system operating status | Banner alert and situation updates | field_banner_alert | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
+| Content type | VAMC system operating status | Emergency information | field_operating_status_emerg_inf | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
+| Content type | VAMC system operating status | Links | field_links | Link |  | Unlimited | Link | Translatable |
+| Content type | VAMC system operating status | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
+| Content type | VAMC system operating status | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC system operating status | Update individual facility statuses | field_facility_operating_status | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
+| Content type | VAMC system operating status | VAMC system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Custom block type | Alert | Alert body | field_alert_content | Entity reference revisions | Required | 1 | Paragraphs Classic |  |
 | Custom block type | Alert | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  |
 | Custom block type | Alert | Alert title | field_alert_title | Text (plain) | Required | 1 | Textfield |  |
