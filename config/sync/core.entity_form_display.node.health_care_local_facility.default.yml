@@ -22,8 +22,8 @@ dependencies:
     - field.field.node.health_care_local_facility.field_meta_title
     - field.field.node.health_care_local_facility.field_nickname_for_this_facility
     - field.field.node.health_care_local_facility.field_operating_status_facility
-    - field.field.node.health_care_local_facility.field_phone_number
     - field.field.node.health_care_local_facility.field_operating_status_more_info
+    - field.field.node.health_care_local_facility.field_phone_number
     - field.field.node.health_care_local_facility.field_region_page
     - field.field.node.health_care_local_facility.field_twitter
     - node.type.health_care_local_facility
@@ -71,20 +71,6 @@ third_party_settings:
         required_fields: true
       label: 'Editorial Workflow'
       region: content
-    group_facility_locator:
-      children:
-        - field_facility_locator_api_id
-      parent_name: ''
-      weight: 3
-      format_type: details
-      format_settings:
-        id: ''
-        classes: ''
-        open: true
-        required_fields: false
-        description: ''
-      label: 'Facility Locator'
-      region: content
     group_location_services:
       children:
         - field_location_services
@@ -103,7 +89,7 @@ third_party_settings:
         - field_region_page
         - field_main_location
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -164,12 +150,13 @@ third_party_settings:
         id: ''
         classes: ''
       label: 'Facility API'
+      region: content
     group_operating_status:
       children:
         - field_operating_status_facility
         - field_operating_status_more_info
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -337,12 +324,6 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
-  field_phone_number:
-    weight: 13
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: telephone_default
   field_operating_status_more_info:
     weight: 6
     settings:
@@ -350,6 +331,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+    region: content
+  field_phone_number:
+    weight: 13
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
     region: content
   field_region_page:
     weight: 20
