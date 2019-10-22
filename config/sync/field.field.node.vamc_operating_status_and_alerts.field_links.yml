@@ -1,0 +1,23 @@
+uuid: 49644875-a0fd-4313-93a2-77f7ef2e753e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_links
+    - node.type.vamc_operating_status_and_alerts
+  module:
+    - link
+id: node.vamc_operating_status_and_alerts.field_links
+field_name: field_links
+entity_type: node
+bundle: vamc_operating_status_and_alerts
+label: Links
+description: 'You can add as many links here as needed. For example: State Police, the local or state Department of Transportation, Highway Patrol, Fire Bureau, Emergency Management Agency, etc.  '
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 2
+field_type: link

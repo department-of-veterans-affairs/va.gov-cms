@@ -1,0 +1,247 @@
+uuid: 3199432d-775e-4aec-a704-1fb9fb4d434d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.inline_entity_form
+    - field.field.node.full_width_banner_alert.field_administration
+    - field.field.node.full_width_banner_alert.field_alert_dismissable
+    - field.field.node.full_width_banner_alert.field_alert_email_updates_button
+    - field.field.node.full_width_banner_alert.field_alert_find_facilities_cta
+    - field.field.node.full_width_banner_alert.field_alert_inheritance_subpages
+    - field.field.node.full_width_banner_alert.field_alert_operating_status_cta
+    - field.field.node.full_width_banner_alert.field_alert_type
+    - field.field.node.full_width_banner_alert.field_banner_alert_situationinfo
+    - field.field.node.full_width_banner_alert.field_banner_alert_vamcs
+    - field.field.node.full_width_banner_alert.field_body
+    - field.field.node.full_width_banner_alert.field_operating_status_sendemail
+    - field.field.node.full_width_banner_alert.field_situation_updates
+    - node.type.full_width_banner_alert
+  module:
+    - content_moderation
+    - field_group
+    - paragraphs
+    - text
+third_party_settings:
+  field_group:
+    group_governance:
+      children: {  }
+      parent_name: ''
+      weight: 3
+      format_type: details_sidebar
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: 1
+        required_fields: 1
+        weight: '0'
+      label: Governance
+      region: content
+    group_edi:
+      children:
+        - revision_log
+        - moderation_state
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+      region: content
+    group_alert_display_and_behavior:
+      children:
+        - field_operating_status_sendemail
+        - field_alert_inheritance_subpages
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'Display and behavior'
+      region: content
+    group_alert_content:
+      children:
+        - field_alert_type
+        - field_alert_dismissable
+        - title
+        - field_body
+        - group_calls_to_action
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Content
+      region: content
+    group_situation_updates:
+      children:
+        - field_situation_updates
+        - field_banner_alert_situationinfo
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'Situation updates'
+      region: content
+    group_situation_information:
+      children: {  }
+      parent_name: ''
+      weight: 17
+      format_type: fieldset
+      format_settings:
+        description: "For \"static\" situation information that is additional to any situation updates.\r\n"
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Situation information'
+      region: hidden
+    group_calls_to_action:
+      children:
+        - field_alert_operating_status_cta
+        - field_alert_email_updates_button
+        - field_alert_find_facilities_cta
+      parent_name: group_alert_content
+      weight: 8
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: false
+      label: 'Calls to action'
+      region: content
+id: node.full_width_banner_alert.inline_entity_form
+targetEntityType: node
+bundle: full_width_banner_alert
+mode: inline_entity_form
+content:
+  field_alert_dismissable:
+    weight: 5
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_alert_email_updates_button:
+    type: boolean_checkbox
+    weight: 9
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_alert_find_facilities_cta:
+    type: boolean_checkbox
+    weight: 10
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_alert_inheritance_subpages:
+    weight: 9
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_alert_operating_status_cta:
+    type: boolean_checkbox
+    weight: 8
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_alert_type:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_banner_alert_situationinfo:
+    type: text_textarea
+    weight: 4
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_body:
+    weight: 7
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_operating_status_sendemail:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_situation_updates:
+    type: paragraphs
+    weight: 3
+    region: content
+    settings:
+      title: 'situation update'
+      title_plural: 'situation updates'
+      edit_mode: closed
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 1
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  revision_log:
+    type: string_textarea
+    weight: 0
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 6
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_administration: true
+  field_banner_alert_vamcs: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true

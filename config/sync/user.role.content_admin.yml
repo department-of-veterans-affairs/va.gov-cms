@@ -6,10 +6,10 @@ dependencies:
     - lightning_core
 third_party_settings:
   lightning_core:
-    description: 'For members of the Global UX team, and other content users who have permissions beyond those of Content Publisher'
+    description: 'For members of the Global UX team, and other content users who have permissions beyond those of Content Publisher. '
 id: content_admin
 label: 'Content admin'
-weight: -3
+weight: -1
 is_admin: null
 permissions:
   - 'access administration pages'
@@ -19,6 +19,7 @@ permissions:
   - 'access media_browser entity browser pages'
   - 'access toolbar'
   - 'access user profiles'
+  - 'access vamc_operating_statuses entity browser pages'
   - 'administer menu'
   - 'administer nodes'
   - 'administer taxonomy'

@@ -1,0 +1,47 @@
+uuid: 8eab4e7e-0c7d-4d02-85de-899bbcc73b2a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.situation_update.field_date_and_time
+    - field.field.paragraph.situation_update.field_send_email_to_subscribers
+    - field.field.paragraph.situation_update.field_wysiwyg
+    - paragraphs.paragraphs_type.situation_update
+  module:
+    - datetime
+    - text
+id: paragraph.situation_update.default
+targetEntityType: paragraph
+bundle: situation_update
+mode: default
+content:
+  field_date_and_time:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_send_email_to_subscribers:
+    weight: 0
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_wysiwyg:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  status:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden:
+  created: true

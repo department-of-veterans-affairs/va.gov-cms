@@ -1,0 +1,33 @@
+uuid: 36dcef51-af70-4929-a43e-5db9eb3c3970
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.full_width_banner_alert
+  module:
+    - user
+id: node.full_width_banner_alert.teaser
+targetEntityType: node
+bundle: full_width_banner_alert
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_administration: true
+  field_alert_dismissable: true
+  field_alert_email_updates_button: true
+  field_alert_find_facilities_cta: true
+  field_alert_inheritance_subpages: true
+  field_alert_operating_status_cta: true
+  field_alert_type: true
+  field_banner_alert_situationinfo: true
+  field_banner_alert_vamcs: true
+  field_body: true
+  field_operating_status_sendemail: true
+  field_situation_updates: true
+  search_api_excerpt: true

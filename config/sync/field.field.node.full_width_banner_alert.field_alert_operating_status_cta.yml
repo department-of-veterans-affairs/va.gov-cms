@@ -1,0 +1,23 @@
+uuid: fb2f53ea-902c-4d31-bf45-6f95938a34ec
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_alert_operating_status_cta
+    - node.type.full_width_banner_alert
+id: node.full_width_banner_alert.field_alert_operating_status_cta
+field_name: field_alert_operating_status_cta
+entity_type: node
+bundle: full_width_banner_alert
+label: 'Display "Get updates on affected services and facilities" link'
+description: 'Add a link out to each affected VAMC''s Operating status page, like this: "<a href="#">Get updates on affected services and facilities</a>" '
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

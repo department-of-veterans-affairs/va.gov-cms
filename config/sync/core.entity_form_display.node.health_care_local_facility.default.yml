@@ -22,6 +22,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_meta_title
     - field.field.node.health_care_local_facility.field_nickname_for_this_facility
     - field.field.node.health_care_local_facility.field_operating_status_facility
+    - field.field.node.health_care_local_facility.field_operating_status_more_info
     - field.field.node.health_care_local_facility.field_phone_number
     - field.field.node.health_care_local_facility.field_region_page
     - field.field.node.health_care_local_facility.field_twitter
@@ -102,7 +103,6 @@ third_party_settings:
         - field_meta_title
         - field_nickname_for_this_facility
         - field_description
-        - field_operating_status_facility
         - field_intro_text
         - field_media
       parent_name: ''
@@ -150,6 +150,20 @@ third_party_settings:
         id: ''
         classes: ''
       label: 'Facility API'
+      region: content
+    group_operating_status:
+      children:
+        - field_operating_status_facility
+        - field_operating_status_more_info
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Operating status'
       region: content
 id: node.health_care_local_facility.default
 targetEntityType: node
@@ -216,7 +230,7 @@ content:
     type: string_textfield
     region: content
   field_flickr:
-    weight: 23
+    weight: 22
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -224,7 +238,7 @@ content:
     type: link_default
     region: content
   field_instagram:
-    weight: 22
+    weight: 21
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -309,6 +323,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
+  field_operating_status_more_info:
+    weight: 6
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
     region: content
   field_phone_number:
     weight: 13

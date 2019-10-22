@@ -1,0 +1,160 @@
+uuid: eaa26582-9819-408f-a267-cc973f700eb4
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.inline_entity_form
+    - field.field.node.vamc_operating_status_and_alerts.field_administration
+    - field.field.node.vamc_operating_status_and_alerts.field_banner_alert
+    - field.field.node.vamc_operating_status_and_alerts.field_facility_operating_status
+    - field.field.node.vamc_operating_status_and_alerts.field_links
+    - field.field.node.vamc_operating_status_and_alerts.field_meta_tags
+    - field.field.node.vamc_operating_status_and_alerts.field_office
+    - field.field.node.vamc_operating_status_and_alerts.field_operating_status_emerg_inf
+    - node.type.vamc_operating_status_and_alerts
+  module:
+    - field_group
+    - hide_revision_field
+    - ief_table_view_mode
+    - link
+    - text
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 6
+      format_type: details_sidebar
+      format_settings:
+        description: ''
+        open: '1'
+        weight: '-10'
+        required_fields: '1'
+        id: ''
+        classes: ''
+      label: Governance
+      region: content
+    group_editorial_workflow:
+      children:
+        - revision_log
+      parent_name: ''
+      weight: 5
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+      region: content
+    group_local_emergency_resources:
+      children:
+        - field_operating_status_emerg_inf
+        - field_links
+      parent_name: ''
+      weight: 4
+      format_type: details
+      format_settings:
+        description: 'This content should be relatively evergreen and contain phone numbers, links, and other info that members of this VAMC community may require in various types of emergencies or operating statuses.'
+        id: ''
+        classes: ''
+        open: false
+        required_fields: false
+      label: 'Local emergency resources'
+      region: content
+id: node.vamc_operating_status_and_alerts.default
+targetEntityType: node
+bundle: vamc_operating_status_and_alerts
+mode: default
+content:
+  field_administration:
+    weight: 18
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_banner_alert:
+    weight: 2
+    settings:
+      form_mode: inline_entity_form
+      override_labels: true
+      label_singular: 'banner alert'
+      label_plural: 'banner alerts'
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      collapsible: false
+      collapsed: false
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex_table_view_mode
+    region: content
+  field_facility_operating_status:
+    weight: 3
+    settings:
+      form_mode: inline_entity_form
+      override_labels: true
+      label_singular: 'facility operating status'
+      label_plural: 'facility operating statuses'
+      collapsible: true
+      collapsed: true
+      allow_existing: true
+      match_operator: CONTAINS
+      allow_new: false
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex_table_view_mode
+    region: content
+  field_links:
+    weight: 6
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_office:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_operating_status_emerg_inf:
+    weight: 5
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  revision_log:
+    type: hide_revision_field_log_widget
+    weight: 5
+    region: content
+    settings:
+      show: true
+      default: ''
+      permission_based: false
+      allow_user_settings: true
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_meta_tags: true
+  moderation_state: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true

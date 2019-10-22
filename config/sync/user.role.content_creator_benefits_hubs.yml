@@ -1,0 +1,20 @@
+uuid: bbd2be72-5d09-4e7d-94c8-ddecbcc1f481
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+third_party_settings:
+  lightning_core:
+    description: "Can create benefits hub content (hub landing pages and detail pages).<br/>\r\nUsers with this role should also be editors, reviewers, or publishers."
+id: content_creator_benefits_hubs
+label: 'Content creator - Benefits hubs'
+weight: -6
+is_admin: null
+permissions:
+  - 'access files overview'
+  - 'create alert block content'
+  - 'create landing_page content'
+  - 'create page content'
+  - 'create promo block content'
+  - 'create support_service content'

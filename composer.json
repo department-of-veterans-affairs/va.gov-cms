@@ -41,6 +41,7 @@
         "drupal/health_check": "^1.0",
         "drupal/health_check_url": "^2.1",
         "drupal/hide_revision_field": "^2.1",
+        "drupal/ief_table_view_mode": "^2.1",
         "drupal/kint": "^2.1",
         "drupal/linkit": "5.x-dev",
         "drupal/markdown": "^1.2",
@@ -91,7 +92,7 @@
         "mouf/nodejs-installer": "^1.0",
         "npm-asset/yarn": "1.12.3",
         "phpunit/phpunit": "^6",
-        "provision-ops/yaml-tests": "^1.7",
+        "provision-ops/yaml-tests": "~1.9",
         "querypath/querypath": "^3.0",
         "simplesamlphp/simplesamlphp": "^1.17",
         "symfony/config": "^3.4",
@@ -210,7 +211,8 @@
                 "Add event dispatcher to messages": "https://www.drupal.org/files/issues/2019-04-15/message_event-3048397-2.patch"
             },
             "drupal/field_group": {
-                "Allow to position the group in the advanced (sidebar) column": "https://www.drupal.org/files/issues/2018-07-26/2652642-59.patch"
+                "Allow to position the group in the advanced (sidebar) column": "https://www.drupal.org/files/issues/2018-07-26/2652642-59.patch",
+                "Incompatibility with inline entity form": "https://www.drupal.org/files/issues/2018-10-30/field_group-inline_entity_form_compatibility-2986704-3.patch"
             },
             "drupal/path_redirect_import": {
                 "Add an option to import non-existent paths": "https://www.drupal.org/files/issues/2018-08-28/path_redirect_import-2995543-2.patch"
@@ -263,8 +265,7 @@
         ],
         "post-install-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-            "cp -r 'hooks/' '.git/hooks/'",
-            "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
+            "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
             "cp -r 'simplesamlphp-1.17.2/config/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
             "cp -r 'simplesamlphp-1.17.2/metadata/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
@@ -274,7 +275,7 @@
         ],
         "post-update-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-            "php -r \"copy('hooks/pre-commit', '.git/hooks/pre-commit');\"",
+            "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\""
         ],
         "nuke": "rm -rf bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor",
@@ -349,6 +350,7 @@
         ],
         "va:web:build": [
             "drush config-set va_gov.build web.build.pending 1 -y",
+            "rm -rf vendor/va-gov/web/build/localhost/",
             "cd web && npm run build -- --pull-drupal",
             "drush config-set va_gov.build web.build.pending 0 -y"
         ],

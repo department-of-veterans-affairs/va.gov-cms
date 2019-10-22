@@ -6,109 +6,109 @@ definitions:
     enabled: false
     expanded: false
   entity__menu__collection:
-    weight: 7
+    weight: 6
     menu_name: admin
     parent: system.admin_content
     expanded: false
     enabled: true
   node__add__landing_page:
-    weight: 1
-    menu_name: admin
-    parent: admin_toolbar_tools.add_content
-    expanded: false
-    enabled: true
-  node__add__health_care_region_detail_page:
-    weight: 2
-    menu_name: admin
-    parent: admin_toolbar_tools.add_content
-    expanded: false
-    enabled: true
-  node__add__documentation_page:
     weight: 3
     menu_name: admin
     parent: admin_toolbar_tools.add_content
-    expanded: false
     enabled: true
-  node__add__event_listing:
-    weight: 4
-    menu_name: admin
-    parent: admin_toolbar_tools.add_content
     expanded: false
-    enabled: true
-  node__add__event:
-    weight: 5
-    menu_name: admin
-    parent: admin_toolbar_tools.add_content
-    expanded: false
-    enabled: true
-  node__add__health_care_local_facility:
-    weight: 6
-    menu_name: admin
-    parent: admin_toolbar_tools.add_content
-    expanded: false
-    enabled: true
-  node__add__health_care_region_page:
-    weight: 7
-    menu_name: admin
-    parent: admin_toolbar_tools.add_content
-    expanded: false
-    enabled: true
-  node__add__health_care_local_health_service:
-    weight: 8
-    menu_name: admin
-    parent: admin_toolbar_tools.add_content
-    expanded: false
-    enabled: true
-  node__add__press_release:
-    weight: 9
-    menu_name: admin
-    parent: admin_toolbar_tools.add_content
-    expanded: false
-    enabled: true
-  node__add__office:
-    weight: 10
-    menu_name: admin
-    parent: admin_toolbar_tools.add_content
-    expanded: false
-    enabled: true
-  node__add__publication_listing:
+  node__add__health_care_region_detail_page:
     weight: 11
     menu_name: admin
     parent: admin_toolbar_tools.add_content
     expanded: false
     enabled: true
-  node__add__outreach_asset:
+  node__add__documentation_page:
     weight: 12
     menu_name: admin
     parent: admin_toolbar_tools.add_content
     expanded: false
     enabled: true
-  node__add__regional_health_care_service_des:
-    weight: 13
-    menu_name: admin
-    parent: admin_toolbar_tools.add_content
-    expanded: false
-    enabled: true
-  node__add__person_profile:
+  node__add__event_listing:
     weight: 14
     menu_name: admin
     parent: admin_toolbar_tools.add_content
     expanded: false
     enabled: true
-  node__add__news_story:
+  node__add__event:
+    weight: 13
+    menu_name: admin
+    parent: admin_toolbar_tools.add_content
+    expanded: false
+    enabled: true
+  node__add__health_care_local_facility:
+    weight: 8
+    menu_name: admin
+    parent: admin_toolbar_tools.add_content
+    expanded: false
+    enabled: true
+  node__add__health_care_region_page:
+    weight: 5
+    menu_name: admin
+    parent: admin_toolbar_tools.add_content
+    expanded: false
+    enabled: true
+  node__add__health_care_local_health_service:
+    weight: 9
+    menu_name: admin
+    parent: admin_toolbar_tools.add_content
+    expanded: false
+    enabled: true
+  node__add__press_release:
     weight: 15
     menu_name: admin
     parent: admin_toolbar_tools.add_content
     expanded: false
     enabled: true
-  node__add__support_service:
+  node__add__office:
     weight: 16
     menu_name: admin
     parent: admin_toolbar_tools.add_content
     expanded: false
     enabled: true
+  node__add__publication_listing:
+    weight: 18
+    menu_name: admin
+    parent: admin_toolbar_tools.add_content
+    expanded: false
+    enabled: true
+  node__add__outreach_asset:
+    weight: 17
+    menu_name: admin
+    parent: admin_toolbar_tools.add_content
+    expanded: false
+    enabled: true
+  node__add__regional_health_care_service_des:
+    weight: 10
+    menu_name: admin
+    parent: admin_toolbar_tools.add_content
+    expanded: false
+    enabled: true
+  node__add__person_profile:
+    weight: 19
+    menu_name: admin
+    parent: admin_toolbar_tools.add_content
+    expanded: false
+    enabled: true
+  node__add__news_story:
+    weight: 20
+    menu_name: admin
+    parent: admin_toolbar_tools.add_content
+    expanded: false
+    enabled: true
+  node__add__support_service:
+    weight: 21
+    parent: admin_toolbar_tools.add_content
+    menu_name: admin
+    expanded: false
+    enabled: true
   admin_toolbar_tools__add_media:
-    weight: 1
+    weight: 2
     menu_name: admin
     parent: system.admin_content
     expanded: false
@@ -149,5 +149,155 @@ definitions:
     parent: system.themes_page
     expanded: false
     enabled: true
+  admin_toolbar_tools__add_content:
+    weight: 1
+    menu_name: admin
+    parent: system.admin_content
+    expanded: false
+    enabled: true
+  admin_toolbar_tools__help:
+    weight: 1
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  system__admin_content:
+    weight: 2
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  system__admin_structure:
+    weight: 4
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  block__admin_display:
+    weight: 4
+    menu_name: admin
+    parent: system.admin_structure
+    expanded: false
+    enabled: true
+  entity__node_type__collection:
+    weight: 5
+    menu_name: admin
+    parent: system.admin_structure
+    expanded: false
+    enabled: true
+  field_ui__display_mode:
+    weight: 6
+    menu_name: admin
+    parent: system.admin_structure
+    expanded: false
+    enabled: true
+  entity__entity_queue__collection:
+    weight: 7
+    menu_name: admin
+    parent: system.admin_structure
+    expanded: false
+    enabled: true
+  entity__media_type__collection:
+    weight: 8
+    menu_name: admin
+    parent: system.admin_structure
+    expanded: false
+    enabled: true
+  menu_export__menu_link:
+    weight: 9
+    menu_name: admin
+    parent: system.admin_structure
+    expanded: false
+    enabled: true
+  migrate_tools__menu:
+    weight: 10
+    menu_name: admin
+    parent: system.admin_structure
+    expanded: false
+    enabled: true
+  entity__paragraphs_type__collection:
+    weight: 11
+    menu_name: admin
+    parent: system.admin_structure
+    expanded: false
+    enabled: true
+  entity__taxonomy_menu__collection:
+    weight: 12
+    menu_name: admin
+    parent: system.admin_structure
+    expanded: false
+    enabled: true
+  entity__taxonomy_vocabulary__collection:
+    weight: 13
+    menu_name: admin
+    parent: system.admin_structure
+    expanded: false
+    enabled: true
+  entity__view__collection:
+    weight: 14
+    menu_name: admin
+    parent: system.admin_structure
+    expanded: false
+    enabled: true
+  auto_entitylabel__settings:
+    weight: 15
+    menu_name: admin
+    parent: system.admin_structure
+    expanded: false
+    enabled: true
+  system__themes_page:
+    weight: 5
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  system__modules_list:
+    weight: 6
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  system__admin_config:
+    weight: 7
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  entity__user__collection:
+    weight: 8
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  system__admin_reports:
+    weight: 9
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  help__main:
+    weight: 10
+    menu_name: admin
+    parent: system.admin
+    expanded: false
+    enabled: true
+  node__add__full_width_banner_alert:
+    weight: 6
+    menu_name: admin
+    parent: admin_toolbar_tools.add_content
+    expanded: false
+    enabled: true
+  node__add__vamc_operating_status_and_alerts:
+    weight: 7
+    menu_name: admin
+    parent: admin_toolbar_tools.add_content
+    expanded: false
+    enabled: true
+  node__add__page:
+    weight: 4
+    menu_name: admin
+    parent: admin_toolbar_tools.add_content
+    enabled: true
+    expanded: false
 _core:
   default_config_hash: jdY7AU0tU-QsjmiOw3W8vwpYMb-By--_MSFgbqKUTYM
