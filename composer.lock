@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64217cfcaa47a827c3538a5f145acecf",
+    "content-hash": "368a837bac7dd8598cf0d5765bd17194",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -5657,11 +5657,17 @@
         },
         {
             "name": "drupal/field_group",
-            "version": "dev-3.x",
+            "version": "3.0.0-beta1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/field_group.git",
-                "reference": "b245b85f99c48221edf5fb60344dfe53737ae0f9"
+                "reference": "8.x-3.0-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/field_group-8.x-3.0-beta1.zip",
+                "reference": "8.x-3.0-beta1",
+                "shasum": "a5dfb66385be7a1b3db232e49779d5bc530a048e"
             },
             "require": {
                 "drupal/core": "*"
@@ -5672,16 +5678,15 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-beta1+54-dev",
-                    "datestamp": "1553812381",
+                    "version": "8.x-3.0-beta1",
+                    "datestamp": "1558647185",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
                 },
                 "patches_applied": {
-                    "Allow to position the group in the advanced (sidebar) column": "https://www.drupal.org/files/issues/2018-07-26/2652642-59.patch",
-                    "Incompatibility with inline entity form": "https://www.drupal.org/files/issues/2018-10-30/field_group-inline_entity_form_compatibility-2986704-3.patch"
+                    "Allow to position the group in the advanced (sidebar) column": "https://www.drupal.org/files/issues/2018-07-26/2652642-59.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5714,8 +5719,7 @@
             "homepage": "https://www.drupal.org/project/field_group",
             "support": {
                 "source": "https://git.drupalcode.org/project/field_group"
-            },
-            "time": "2019-10-14T17:11:18+00:00"
+            }
         },
         {
             "name": "drupal/graphql",
@@ -11294,7 +11298,7 @@
                 "source": "http://cgit.drupalcode.org/workflow_participants",
                 "issues": "https://www.drupal.org/project/issues/workflow_participants"
             },
-            "time": "2019-09-27T22:16:11+00:00"
+            "time": "2019-04-11T17:27:47+00:00"
         },
         {
             "name": "drupal/xmlsitemap",
@@ -19048,7 +19052,6 @@
         "drupal/entity_clone": 10,
         "drupal/entityqueue": 10,
         "drupal/fast_404": 15,
-        "drupal/field_group": 20,
         "drupal/graphql_metatag": 20,
         "drupal/linkit": 20,
         "drupal/markup": 10,
