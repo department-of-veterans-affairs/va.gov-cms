@@ -17963,14 +17963,41 @@
         },
         {
             "name": "va-gov/web",
-            "version": "dev-VAGOV-2937-unity",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/department-of-veterans-affairs/vets-website",
-                "reference": "35deea6e8afaf58b9b4e3ee23fe2e0134c18d2e2"
+                "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
+                "reference": "af75dc832c9a77d70bf875445eec196ceae5c3b6"
             },
-            "type": "library",
-            "time": "2019-09-18T21:26:31+00:00"
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/af75dc832c9a77d70bf875445eec196ceae5c3b6",
+                "reference": "af75dc832c9a77d70bf875445eec196ceae5c3b6",
+                "shasum": ""
+            },
+            "type": "node-project",
+            "extra": {
+                "installer-types": [
+                    "node-project"
+                ],
+                "installer-paths": {
+                    "web/": [
+                        "type:node-project"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "CC0-1.0"
+            ],
+            "authors": [
+                {
+                    "name": "VA.gov Team",
+                    "homepage": "https://github.com/department-of-veterans-affairs/vets-website/graphs/contributors"
+                }
+            ],
+            "description": "Front-end for VA.gov. This repositroy contains the code that generates the VA.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to Packagist, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
+            "time": "2019-10-16T13:50:31+00:00"
         },
         {
             "name": "vardot/blazy",

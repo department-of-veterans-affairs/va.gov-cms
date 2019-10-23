@@ -99,7 +99,7 @@
         "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^4.3",
         "twig/twig": "~1.37.1",
-        "va-gov/web": "dev-VAGOV-2937-unity",
+        "va-gov/web": "dev-master",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
         "weitzman/drupal-test-traits": "dev-master",
@@ -166,7 +166,8 @@
         },
         "installer-types": [
             "bower-asset",
-            "npm-asset"
+            "npm-asset",
+            "node-project"
         ],
         "installer-paths": {
             "docroot/core": [
@@ -336,6 +337,7 @@
             "node -v",
             "npm -v",
             "yarn -v",
+            "cd web && yarn run install-repos",
             "cd web && yarn install"
         ],
         "va:web:server": [
@@ -351,7 +353,7 @@
         "va:web:build": [
             "drush config-set va_gov.build web.build.pending 1 -y",
             "rm -rf vendor/va-gov/web/build/localhost/",
-            "cd web && npm run build -- --pull-drupal",
+            "cd web && npm run build -- --pull-drupal  --no-drupal-proxy",
             "drush config-set va_gov.build web.build.pending 0 -y"
         ],
         "va:web:test": [

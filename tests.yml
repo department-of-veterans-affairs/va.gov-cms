@@ -48,7 +48,7 @@ va/web/build:
   # GREP to look for the error message from WEB "Failed to pipe Drupal content into Metalsmith!"
   # @TODO: Remove once the WEB project is able to fail properly EVERY time: https://va-gov.atlassian.net/browse/VAGOV-5481
   # @TODO: Find this error message in WEB! This is where we can fail the build.
-  command: composer va:web:build | tee /dev/stderr | grep "Failed to pipe Drupal content into Metalsmith!" -B1000 -C8 && echo "tests.yml | composer va:web:build included the Drupal/Metalsmith error." && exit 1 || echo "tests.yml | Front end site was built! Check $DRUPAL_ADDRESS/static for raw output!"
+  command: composer va:web:build
 
 va/tests/behat:
   description: Behat Tests

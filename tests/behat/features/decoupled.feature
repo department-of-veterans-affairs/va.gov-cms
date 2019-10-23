@@ -41,4 +41,3 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     Then print current URL
     Given I am at "/static/health-care"
     Then the response status code should be 200
- 
