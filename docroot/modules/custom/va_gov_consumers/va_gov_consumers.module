@@ -101,6 +101,7 @@ function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $fo
       $form['title']['widget'][0]['value']['#default_value'] = t('API Data');
     }
     $form['title']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
+    $form['field_facility_classification']['widget']['#attributes']['disabled'] = TRUE;
     unset($form['field_facility_hours']['widget'][0]['caption']);
     $form['field_facility_hours']['widget'][0]['#addrow'] = FALSE;
     $form['field_facility_hours']['widget'][0]['#attributes']['disabled'] = TRUE;
