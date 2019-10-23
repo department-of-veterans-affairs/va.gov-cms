@@ -1,0 +1,160 @@
+uuid: bee70160-b24a-4391-9074-45f4bf0883fa
+langcode: en
+status: true
+dependencies: {  }
+id: va_node_health_care_local_facility
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - Continuous
+  - Content
+  - Node
+migration_group: facility
+label: 'Node - Health Care Local Facility'
+source:
+  track_changes: true
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: json
+  urls:
+    - 'https://dev-api.va.gov/services/va_facilities/v0/facilities/all'
+  headers:
+    Accept: application/json
+    apikey: ''
+  params:
+    quote_params: ''''
+    common:
+      trimduplicates: 'false'
+      querytemplatepropertiesurl: 'spfile://webroot/queryparametertemplate.xml'
+      selectproperties: 'fsaTitle,fsaOffice,fsaOpportunityID,fsaGMSID,fsaSolicitationType,fsaActualRelease,fsaApplicationDeadline,fsaProgramDescription,fsaFY,fsaGrantType,LastModifiedTime'
+      collapsespecification: 'fsaTitle,fsaOffice,fsaOpportunityID,fsaGMSID,fsaSolicitationType,fsaActualRelease,fsaApplicationDeadline,fsaProgramDescription,fsaFY,fsaGrantType,LastModifiedTime'
+      sortlist: 'LastModifiedTime:ascending'
+      rowlimit: '500'
+  item_selector: d/query/PrimaryQueryResult/RelevantResults/Table/Rows/results
+  pager:
+    type: paginator
+    paginator_type: starting_item
+    default_num_items: 500
+    page_key: startrow
+    size_key: rowlimit
+    selector: d/query/PrimaryQueryResult/RelevantResults/RowCount
+  skip_count: true
+  ids:
+    opportunity_id:
+      type: string
+  constants:
+    end_time: '23:59:59'
+  fields:
+    -
+      name: doc_id
+      label: DocId
+      selector: Cells/results/1/Value
+    -
+      name: title
+      label: fsaTitle
+      selector: Cells/results/2/Value
+    -
+      name: office
+      label: fsaOffice
+      selector: Cells/results/3/Value
+    -
+      name: opportunity_id
+      label: fsaOpportunityID
+      selector: Cells/results/4/Value
+process:
+  langcode:
+    plugin: default_value
+    default_value: en
+  date_posted:
+    plugin: callback
+    callable: strtotime
+    source: posting_date
+  title: title
+  created: '@date_posted'
+  date_closed:
+    -
+      plugin: explode
+      delimiter: T
+      source: closing_date
+    -
+      plugin: extract
+      index:
+        - 0
+  field_closing_date:
+    -
+      plugin: concat
+      source:
+        - '@date_closed'
+        - constants/end_time
+      delimiter: T
+    -
+      plugin: format_date
+      from_format: 'Y-m-d\TH:i:s'
+      to_format: 'Y-m-d\TH:i:s'
+      from_timezone: America/New_York
+      to_timezone: UTC
+  body/value: body
+  body/format:
+    plugin: default_value
+    default_value: rich_text
+  field_external_data_source:
+    plugin: default_value
+    default_value: 1
+  field_fiscal_year: fiscal_year
+  field_gms_id: gms_id
+  field_opportunity_id: opportunity_id
+  field_posting_date:
+    plugin: format_date
+    source: '@date_posted'
+    from_format: U
+    to_format: Y-m-d
+  field_opportunity_document:
+    -
+      plugin: migration_lookup
+      migration: media_funding_opportunity
+      source: opportunity_id
+      no_stub: true
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    default_value: 1
+  promote:
+    plugin: default_value
+    default_value: 0
+  sticky:
+    plugin: default_value
+    default_value: 0
+  comment_node_article/0/status:
+    plugin: default_value
+    default_value: 0
+  path/pathauto:
+    plugin: default_value
+    default_value: 1
+  published_status:
+    -
+      plugin: get
+      source: posting_date
+    -
+      plugin: default_value
+      default_value: draft
+    -
+      plugin: static_map
+      map:
+        draft: draft
+      default_value: published
+  moderation_state: '@published_status'
+destination:
+  plugin: 'entity:node'
+  default_bundle: health_care_local_facility
+  overwrite_properties:
+    - title
+    - field_facility_locator_api_id
+    - field_phone_number
+    - field_mental_health_phone
+    - field_address
+    - field_facility_hours
+migration_dependencies:
+  required: {  }
