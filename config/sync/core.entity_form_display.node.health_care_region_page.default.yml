@@ -20,6 +20,8 @@ dependencies:
     - field.field.node.health_care_region_page.field_intro_text_news_stories
     - field.field.node.health_care_region_page.field_intro_text_press_releases
     - field.field.node.health_care_region_page.field_leadership
+    - field.field.node.health_care_region_page.field_link_facility_emerg_list
+    - field.field.node.health_care_region_page.field_link_facility_news_list
     - field.field.node.health_care_region_page.field_links
     - field.field.node.health_care_region_page.field_locations_intro_blurb
     - field.field.node.health_care_region_page.field_media
@@ -80,7 +82,7 @@ third_party_settings:
         - field_locations_intro_blurb
         - field_other_va_locations
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details
       format_settings:
         description: "<p>To add locations to the \"Our Locations\" page, <a href=\"/node/add/health_care_local_facility\">create a facility listing</a> for each one.This section also allows you to add other content to the \"Our Locations\" page.</p>\r\n\r\n\r\n"
@@ -151,11 +153,12 @@ third_party_settings:
       region: content
     group_get_updates_from_us:
       children:
-        - field_links
         - field_operating_status
+        - field_link_facility_emerg_list
+        - field_link_facility_news_list
         - group_s
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: details
       format_settings:
         description: 'This will populate the "Get updates" from us block on the health care system page and its facility pages. '
@@ -172,7 +175,7 @@ third_party_settings:
         - field_instagram
         - field_flickr
       parent_name: group_get_updates_from_us
-      weight: 27
+      weight: 29
       format_type: fieldset
       format_settings:
         id: ''
@@ -234,7 +237,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -260,13 +263,13 @@ content:
     type: text_textarea
     region: content
   field_clinical_health_services:
-    weight: 31
+    weight: 32
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_description:
-    weight: 4
+    weight: 5
     settings:
       size: 60
       placeholder: ''
@@ -316,7 +319,7 @@ content:
     type: link_default
     region: content
   field_intro_text:
-    weight: 5
+    weight: 6
     settings:
       rows: 5
       placeholder: ''
@@ -329,7 +332,7 @@ content:
     type: string_textarea_with_counter
     region: content
   field_intro_text_events_page:
-    weight: 24
+    weight: 23
     settings:
       rows: 5
       placeholder: ''
@@ -379,14 +382,21 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
-  field_links:
-    weight: 25
+  field_link_facility_emerg_list:
+    weight: 27
     settings:
       placeholder_url: ''
       placeholder_title: ''
-      linkit_profile: default
     third_party_settings: {  }
-    type: linkit
+    type: link_default
+    region: content
+  field_link_facility_news_list:
+    weight: 28
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
     region: content
   field_locations_intro_blurb:
     weight: 10
@@ -423,7 +433,7 @@ content:
     type: string_textfield_with_counter
     region: content
   field_nickname_for_this_facility:
-    weight: 3
+    weight: 4
     settings:
       size: 60
       placeholder: ''
@@ -461,7 +471,7 @@ content:
     type: text_textarea_with_counter
     region: content
   field_related_links:
-    weight: 21
+    weight: 22
     settings:
       title: Link
       title_plural: Links
@@ -495,7 +505,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -503,7 +513,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 4
+    weight: 5
     region: content
     third_party_settings: {  }
   revision_log:
@@ -522,14 +532,14 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 8
+    weight: 9
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 5
+    weight: 6
     region: content
     third_party_settings: {  }
   title:
@@ -548,7 +558,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 3
     settings:
       match_operator: CONTAINS
       size: 60
@@ -556,11 +566,12 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   field_email_subscription: true
   field_email_subscription_links: true
+  field_links: true
   field_sign_up_for_emergency_emai: true
