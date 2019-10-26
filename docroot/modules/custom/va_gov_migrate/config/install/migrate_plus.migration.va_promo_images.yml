@@ -1,42 +1,51 @@
+uuid: db72569b-a168-469c-b743-cccfd87c214e
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - va_gov_migrate
+_core:
+  default_config_hash: 0BVr2NysZ6EAVxNujpDv6Dl21NFnm2bRLqHNlbngDjI
 id: va_promo_images
-label: Migrate promo block images from VA.gov
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
 migration_group: va_gov
+label: 'Migrate promo block images from VA.gov'
 source:
   plugin: url_list
-  urls:     # For url_list, this is a list of web pages to read
-    - "https://www.va.gov/disability/"
-    - "https://www.va.gov/education/"
-    - "https://www.va.gov/burials-memorials/"
-    - "https://www.va.gov/family-member-benefits/"
-    - "https://www.va.gov/service-member-benefits/"
+  urls:
+    - 'https://www.va.gov/disability/'
+    - 'https://www.va.gov/education/'
+    - 'https://www.va.gov/burials-memorials/'
+    - 'https://www.va.gov/family-member-benefits/'
+    - 'https://www.va.gov/service-member-benefits/'
   migration_tools:
-  -
-    # Just leave this as is, if using metalsmith_source or url_list source.
-    source: url # The field we're passing to migration_tools is called 'url'.
-    source_type: url  # Source type can be either 'url' or 'html'.
-
-    source_operations:
     -
-      operation: modifier
-      modifier: basicCleanup  # Tell migration_tools to run some basic cleanup of the page it just read.
-    fields:
-      image:
-        obtainer: ObtainImage
-        jobs:
+      source: url
+      source_type: url
+      source_operations:
         -
-          job: 'addSearch'
-          method: 'pluckImages'
-          arguments:
-            - '.hub-promo'
-    dom_operations:
-    -
-      operation: get_field
-      field: image
-
+          operation: modifier
+          modifier: basicCleanup
+      fields:
+        image:
+          obtainer: ObtainImage
+          jobs:
+            -
+              job: addSearch
+              method: pluckImages
+              arguments:
+                - .hub-promo
+      dom_operations:
+        -
+          operation: get_field
+          field: image
   constants:
     file_dest_uri: 'public://hub_promos'
-
-process:  # assign the fields we collected above to Drupal fields.
+process:
   src_url:
     plugin: extract
     source: image
@@ -50,29 +59,18 @@ process:  # assign the fields we collected above to Drupal fields.
       delimiter: /
     -
       plugin: array_pop
-
   file_dest:
-      plugin: concat
-      delimiter: /
-      source:
-        - constants/file_dest_uri
-        - '@image_file'
-
+    plugin: concat
+    delimiter: /
+    source:
+      - constants/file_dest_uri
+      - '@image_file'
   filename: '@image_file'
   uri:
     plugin: download
     source:
       - '@src_url'
       - '@file_dest'
-
 destination:
-  plugin: entity:file
-
-migration_dependencies: {} # Remove the {} before adding dependencies below.
-  # If there are migrations that should run before this one (e.g. for an entity that this node references), put them here.
-
-# This belongs in all migration scripts. Without it the module the migration script belongs to won't uninstall cleanly.
-dependencies:
-  enforced:
-    module:
-    - va_gov_migrate  # The module this migration script belongs to.
+  plugin: 'entity:file'
+migration_dependencies: {  }

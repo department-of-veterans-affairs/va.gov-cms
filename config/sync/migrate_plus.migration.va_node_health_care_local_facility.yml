@@ -1,4 +1,4 @@
-uuid: bee70160-b24a-4391-9074-45f4bf0883fa
+uuid: e2db4c7e-064a-4083-b88d-7f9b13f52273
 langcode: en
 status: true
 dependencies: {  }
@@ -20,141 +20,203 @@ source:
   urls:
     - 'https://dev-api.va.gov/services/va_facilities/v0/facilities/all'
   headers:
-    Accept: application/json
-    apikey: ''
-  params:
-    quote_params: ''''
-    common:
-      trimduplicates: 'false'
-      querytemplatepropertiesurl: 'spfile://webroot/queryparametertemplate.xml'
-      selectproperties: 'fsaTitle,fsaOffice,fsaOpportunityID,fsaGMSID,fsaSolicitationType,fsaActualRelease,fsaApplicationDeadline,fsaProgramDescription,fsaFY,fsaGrantType,LastModifiedTime'
-      collapsespecification: 'fsaTitle,fsaOffice,fsaOpportunityID,fsaGMSID,fsaSolicitationType,fsaActualRelease,fsaApplicationDeadline,fsaProgramDescription,fsaFY,fsaGrantType,LastModifiedTime'
-      sortlist: 'LastModifiedTime:ascending'
-      rowlimit: '500'
-  item_selector: d/query/PrimaryQueryResult/RelevantResults/Table/Rows/results
-  pager:
-    type: paginator
-    paginator_type: starting_item
-    default_num_items: 500
-    page_key: startrow
-    size_key: rowlimit
-    selector: d/query/PrimaryQueryResult/RelevantResults/RowCount
-  skip_count: true
+    Accept: application/vnd.geo+json
+    apikey: 'DEFINED IN settings.php'
+  item_selector: features/
   ids:
-    opportunity_id:
+    id:
       type: string
-  constants:
-    end_time: '23:59:59'
+  constants: null
   fields:
     -
-      name: doc_id
-      label: DocId
-      selector: Cells/results/1/Value
+      name: address1
+      label: address1
+      selector: properties/address/physical/address_1
     -
-      name: title
-      label: fsaTitle
-      selector: Cells/results/2/Value
+      name: address2
+      label: address2
+      selector: properties/address/physical/address_2
     -
-      name: office
-      label: fsaOffice
-      selector: Cells/results/3/Value
+      name: address3
+      label: address3
+      selector: properties/address/physical/address_3
     -
-      name: opportunity_id
-      label: fsaOpportunityID
-      selector: Cells/results/4/Value
+      name: classification
+      label: classification
+      selector: properties/classification
+    -
+      name: city
+      label: city
+      selector: properties/address/physical/city
+    -
+      name: facility_type
+      label: facility_type
+      selector: properties/facility_type
+    -
+      name: hours
+      label: hours
+      selector: properties/hours
+    -
+      name: id
+      label: id
+      selector: properties/id
+    -
+      name: name
+      label: name
+      selector: properties/name
+    -
+      name: phone-main
+      label: phone-main
+      selector: properties/phone/main
+    -
+      name: phone-mental-health
+      label: phone-mental-health
+      selector: properties/phone/mental_health_clinic
+    -
+      name: state
+      label: state
+      selector: properties/address/physical/state
+    -
+      name: zip
+      label: zip
+      selector: properties/address/physical/zip
 process:
+  non_field1:
+    plugin: skip_on_value
+    not_equals: true
+    source: facility_type
+    method: row
+    value:
+      - va_health_facility
+  title:
+    plugin: skip_on_empty
+    method: row
+    source: name
+    message: 'Skipped: Source title/name is empty, can not have a node without title.'
+  field_facility_locator_api_id:
+    plugin: skip_on_empty
+    method: row
+    source: id
+    message: 'Skipped: Source API ID is empty, must have it.'
+  field_administration:
+    plugin: default_value
+    default_value: 8
   langcode:
     plugin: default_value
     default_value: en
-  date_posted:
-    plugin: callback
-    callable: strtotime
-    source: posting_date
-  title: title
-  created: '@date_posted'
-  date_closed:
+  field_address/country_code:
+    plugin: default_value
+    default_value: US
+  field_address/langcode:
+    plugin: default_value
+    default_value: en
+  field_address/address_line1:
     -
-      plugin: explode
-      delimiter: T
-      source: closing_date
+      plugin: get
+      source:
+        - address1
+        - address2
+        - address3
     -
-      plugin: extract
-      index:
-        - 0
-  field_closing_date:
+      plugin: callback
+      callable: array_filter
+    -
+      plugin: multiple_values
+    -
+      plugin: callback
+      callable: trim
     -
       plugin: concat
-      source:
-        - '@date_closed'
-        - constants/end_time
-      delimiter: T
+      delimiter: ', '
+  field_address/locality: city
+  field_address/administrative_area: state
+  field_address/postal_code: zip
+  field_facility_hours/value:
+    plugin: va_table_field_hours
+    source: hours
+  field_facility_hours/caption:
+    plugin: default_value
+    default_value: 'Daily hours of operation.'
+  field_facility_classification:
     -
-      plugin: format_date
-      from_format: 'Y-m-d\TH:i:s'
-      to_format: 'Y-m-d\TH:i:s'
-      from_timezone: America/New_York
-      to_timezone: UTC
-  body/value: body
-  body/format:
-    plugin: default_value
-    default_value: rich_text
-  field_external_data_source:
-    plugin: default_value
-    default_value: 1
-  field_fiscal_year: fiscal_year
-  field_gms_id: gms_id
-  field_opportunity_id: opportunity_id
-  field_posting_date:
-    plugin: format_date
-    source: '@date_posted'
-    from_format: U
-    to_format: Y-m-d
-  field_opportunity_document:
+      plugin: static_map
+      source: classification
+      map:
+        'VA Medical Center (VAMC)': 1
+        'Health Care Center (HCC)': 2
+        'Multi-Specialty CBOC': 3
+        'Primary Care CBOC': 4
+        MCS: 5
+        'Other Outpatient Services (OOS)': 6
+        'Extended Care Site (Community Living Center) (Stand-Alone)': 7
+        'Residential Care Site (MH RRTP/DRRTP) (Stand-Alone)': 8
+  field_mental_health_phone:
     -
-      plugin: migration_lookup
-      migration: media_funding_opportunity
-      source: opportunity_id
-      no_stub: true
-  uid:
-    plugin: default_value
-    default_value: 1
+      plugin: str_replace
+      source: phone-mental-health
+      search: Ext.
+      replace: x
+    -
+      plugin: explode
+      delimiter: x
+    -
+      plugin: callback
+      callable: trim
+    -
+      plugin: concat
+      delimiter: ' x'
+  field_phone_number:
+    -
+      plugin: str_replace
+      source: phone-main
+      search: Ext.
+      replace: x
+    -
+      plugin: explode
+      delimiter: x
+    -
+      plugin: callback
+      callable: trim
+    -
+      plugin: concat
+      delimiter: ' x'
   status:
     plugin: default_value
-    default_value: 1
+    default_value: 0
   promote:
     plugin: default_value
     default_value: 0
   sticky:
     plugin: default_value
     default_value: 0
-  comment_node_article/0/status:
-    plugin: default_value
-    default_value: 0
   path/pathauto:
     plugin: default_value
     default_value: 1
   published_status:
-    -
-      plugin: get
-      source: posting_date
-    -
-      plugin: default_value
-      default_value: draft
-    -
-      plugin: static_map
-      map:
-        draft: draft
-      default_value: published
-  moderation_state: '@published_status'
+    plugin: default_value
+    default_value: 0
+  moderation_state:
+    plugin: default_value
+    default_value: draft
+  uid:
+    plugin: default_value
+    default_value: 0
+  type:
+    plugin: default_value
+    default_value: health_care_local_facility
 destination:
   plugin: 'entity:node'
   default_bundle: health_care_local_facility
   overwrite_properties:
     - title
-    - field_facility_locator_api_id
-    - field_phone_number
+    - field_address/address_line1
+    - field_address/administrative_area
+    - field_address/country_code
+    - field_address/locality
+    - field_address/postal_code
+    - field_facility_classification
+    - field_facility_hours/value
     - field_mental_health_phone
-    - field_address
-    - field_facility_hours
+    - field_phone_number
 migration_dependencies:
   required: {  }
