@@ -20,6 +20,8 @@ dependencies:
     - field.field.node.health_care_region_page.field_intro_text_news_stories
     - field.field.node.health_care_region_page.field_intro_text_press_releases
     - field.field.node.health_care_region_page.field_leadership
+    - field.field.node.health_care_region_page.field_link_facility_emerg_list
+    - field.field.node.health_care_region_page.field_link_facility_news_list
     - field.field.node.health_care_region_page.field_links
     - field.field.node.health_care_region_page.field_locations_intro_blurb
     - field.field.node.health_care_region_page.field_media
@@ -247,6 +249,30 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
+  field_link_facility_emerg_list:
+    weight: 27
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_link_facility_news_list:
+    weight: 28
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
   field_links:
     weight: 11
     label: above
@@ -344,3 +370,4 @@ hidden:
   field_meta_tags: true
   field_sign_up_for_emergency_emai: true
   links: true
+  search_api_excerpt: true
