@@ -188,7 +188,7 @@ Feature: Content model
 | Content type | VAMC system | Common Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | VAMC system | Community stories intro text | field_intro_text_news_stories | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC system | Description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | VAMC system | Email lists | field_links | Link |  | Unlimited | Linkit | Translatable |
+| Content type | VAMC system | Email lists | field_links | Link |  | Unlimited | -- Disabled -- | Translatable |
 | Content type | VAMC system | Email Subscription | field_email_subscription | Link |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC system | Events page intro text | field_intro_text_events_page | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC system | Facebook | field_facebook | Link |  | 1 | Link | Translatable |
@@ -351,3 +351,5 @@ Feature: Content model
 | Content type | VAMC facility | Hours | field_facility_hours  | Table Field |  | 1 | Table Field |  |
 | Content type | VAMC facility | Mental Health Phone | field_mental_health_phone | Telephone number |  | 1 | Telephone number |  |
 | Content type | VAMC facility | Phone Number | field_phone_number  | Telephone number |  | 1 | Telephone number | Translatable |
+| Content type | VAMC system | Emergency updates email list  | field_link_facility_emerg_list | Link |  | 1 | Link |  |
+| Content type | VAMC system | News and announcements email list | field_link_facility_news_list | Link |  | 1 | Link |  |
