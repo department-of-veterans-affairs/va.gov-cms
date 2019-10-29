@@ -5,52 +5,56 @@
  * Install file for Va Gov DB.
  */
 
-use Drupal\path_redirect_import\ImporterService;
+use Drupal\Core\Utility\UpdateException;
 
 /**
- * Adding list of redirects.
+ * Utility to change the max length of a text field.
+ *
+ * @param string $field_name
+ *   Field name.
+ * @param int $new_length
+ *   Field length in characters.
+ *
+ * @throws \DrupalUpdateException
  */
-function va_gov_db_install() {
-  // Make sure our vocab terms get built via install operation.
-  \Drupal::service('module_installer')->uninstall(['redirect_options']);
-  \Drupal::service('module_installer')->install(['redirect_options']);
+function _va_gov_db_change_text_field_max_length($field_name, $new_length) {
+  // The transaction opens here.
+  $database = \Drupal::database();
 
-  // Plug our redirects into redirects table.
-  $server = DRUPAL_ROOT . '/redirects.csv';
-  $template = DRUPAL_ROOT . '/template_redirects.csv';
-  $files = ['Template' => $template, 'Server' => $server];
-  foreach ($files as $key => $file) {
-    $options = [
-      'allow_nonexistent' => TRUE,
-      'override' => TRUE,
-    ];
-    ImporterService::import($file, $options);
-    $db = \Drupal::database();
-    $db->update('redirect')
-      ->fields(['redirect_redirect__title' => 'Server'])->execute();
+  try {
+    // Update field content tables with new max length.
+    foreach (['node__', 'node_revision__'] as $prefix) {
+      $database->query('
+      ALTER TABLE {' . $prefix . $field_name . '}
+        MODIFY ' . $field_name . '_value VARCHAR( ' . $new_length . ' )
+      ');
+    }
+
+    // Update drupal storage schema.
+    $storage_key = "node.field_schema_data.{$field_name}";
+    $storage_schema = \Drupal::keyValue('entity.storage_schema.sql');
+    $field_schema = $storage_schema->get($storage_key);
+    $field_schema["node__{$field_name}"]['fields']["{$field_name}_value"]['length'] = $new_length;
+    $field_schema["node_revision__{$field_name}"]['fields']["{$field_name}_value"]['length'] = $new_length;
+    $storage_schema->set($storage_key, $field_schema);
+
+    // Update field config record with new max length.
+    $config = \Drupal::configFactory()
+      ->getEditable("field.storage.node.{$field_name}");
+    $config->set('settings.max_length', $new_length);
+    $config->save(TRUE);
+
+    // Update field storage configuration.
+    // This needs to happen in the config yml.
   }
-  // Now update our template redirects.
-  $csv = array_map('str_getcsv', file($template));
-  // Remove column header.
-  array_shift($csv);
-
-  foreach ($csv as $key => $item) {
-
-    $db->update('redirect')
-      ->condition('redirect_source__path', $item[0], '=')
-      ->fields(['redirect_redirect__title' => 'Template'])->execute();
+  catch (Exception $e) {
+    // Something went wrong somewhere, so roll back now.
+    $database->rollback();
+    // Allow update to be re-run when errors are fixed.
+    throw new UpdateException(
+      "Failed to change $field_name field max length: " . $e->getMessage(),
+      $e->getCode(), $e
+    );
   }
-
-  // Now copy pertinent data over to our redirect_options table.
-  $results = $db->select('redirect', 'r')
-    ->fields('r', ['redirect_source__path', 'redirect_redirect__title'])->execute()->fetchAll();
-  foreach ($results as $result) {
-    $db->upsert('redirect_options')
-      ->key('source')
-      ->fields(['source', 'type'])
-      ->values([
-        'source' => $result->redirect_source__path,
-        'type' => $result->redirect_redirect__title,
-      ])->execute();
-  }
+  return "Updated field $field_name to the new size of $new_length Be sure to update vagov/config/sync/field.storage.node.{$field_name}.yml to match.";
 }
