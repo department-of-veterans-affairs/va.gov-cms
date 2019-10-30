@@ -7888,17 +7888,17 @@
         },
         {
             "name": "drupal/migration_tools",
-            "version": "2.0.0-alpha2",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/migration_tools.git",
-                "reference": "8.x-2.0-alpha2"
+                "reference": "8.x-2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/migration_tools-8.x-2.0-alpha2.zip",
-                "reference": "8.x-2.0-alpha2",
-                "shasum": "fadd92b460481b279d49d0f394d9434be4ca6773"
+                "url": "https://ftp.drupal.org/files/projects/migration_tools-8.x-2.1.zip",
+                "reference": "8.x-2.1",
+                "shasum": "dda93e06918068c13abfa8ddbe3eb86dfa259976"
             },
             "require": {
                 "drupal/core": "*"
@@ -7909,19 +7909,12 @@
                     "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.0-alpha2",
+                    "version": "8.x-2.1",
                     "datestamp": "1571175786",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Alpha releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": {
-                    "Add changeHtmlContents DomModifier method": "https://www.drupal.org/files/issues/2018-11-26/change_html_contents-3015381-3.patch",
-                    "Allow migration script to set curl options": "https://www.drupal.org/files/issues/2019-02-08/curl_options-3031705-2.patch",
-                    "Eliminate 'Undefined index: arguments' notice during migration": "https://www.drupal.org/files/issues/2018-11-08/migration_tools-undef-arg-3012485-2.patch",
-                    "Add obtainer for long, plain text": "https://www.drupal.org/files/issues/2019-04-04/long_plain_text_obtainer-3044998-5.patch",
-                    "Add event dispatcher to messages": "https://www.drupal.org/files/issues/2019-04-15/message_event-3048397-2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -18976,7 +18969,6 @@
         "drupal/graphql_metatag": 20,
         "drupal/linkit": 20,
         "drupal/markup": 10,
-        "drupal/migration_tools": 15,
         "drupal/node_revisions_autoclean": 10,
         "drupal/paragraphs_browser": 15,
         "drupal/password_policy": 15,
