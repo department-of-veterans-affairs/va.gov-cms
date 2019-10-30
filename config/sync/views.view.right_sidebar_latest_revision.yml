@@ -585,6 +585,7 @@ display:
       row:
         type: fields
         options: {  }
+      enabled: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -741,6 +742,7 @@ display:
           offset: 0
       header: {  }
       relationships: {  }
+      enabled: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -1099,6 +1101,7 @@ display:
           absolute: false
           entity_type: node
           plugin_id: entity_link_edit
+      enabled: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -1159,7 +1162,7 @@ display:
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
-          empty: ''
+          empty: Empty
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -1222,7 +1225,7 @@ display:
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
-          empty: ''
+          empty: Empty
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -1263,8 +1266,8 @@ display:
           group_type: group
           admin_label: ''
           empty: false
-          tokenize: false
-          content: "<a href=\"/node/{{ raw_arguments.nid }}/revisions\">See full revision history</a>\r\n<h2>Meta tags</h2>\r\n<em>Displays in search engine results, social media shares, browser tabs</em>"
+          tokenize: true
+          content: "<h2>Meta tags</h2>\r\n<em>Displays in search engine results, social media shares, browser tabs</em>"
           plugin_id: text_custom
       pager:
         type: some
@@ -1274,6 +1277,7 @@ display:
       displays:
         block_1: block_1
       display_description: ''
+      enabled: true
     cache_metadata:
       max-age: -1
       contexts:
