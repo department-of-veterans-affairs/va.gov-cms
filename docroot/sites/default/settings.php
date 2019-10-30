@@ -126,6 +126,10 @@ $config_directories['sync'] = '../config/sync';
 
 $env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
 
+// Set migration settings from environment variables.
+$config['migrate_plus.migration.va_node_health_care_local_facility']['source']['urls'] = [getenv('CMS_FACILITY_API_URL') . '/services/va_facilities/v0/facilities/all'];
+$config['migrate_plus.migration.va_node_health_care_local_facility']['source']['headers']['apikey'] = getenv('CMS_FACILITY_API_KEY');
+
 // Environment specific settings
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php')) {
   include $app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php';

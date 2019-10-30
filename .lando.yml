@@ -69,6 +69,11 @@ services:
 
 tooling:
 
+  migrate-sync:
+    description: Copy migration ymls from va_gov_migrate to config/sync and run config import. Always edit in va_gov_migrate.
+    service: appserver
+    cmd: cp -r /app/docroot/modules/custom/va_gov_migrate/config/install/. /app/config/sync/  && drush config-import --partial --source=/app/docroot/modules/custom/va_gov_migrate/config/install/
+
   test:
     description: Run all VA.gov tests, as defined in tests.yml. Add arguments to run subsets of tests. For example. "lando test deploy" will run all of the "va/deploy/*" tests.
     service: appserver
