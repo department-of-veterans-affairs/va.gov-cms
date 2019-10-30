@@ -51,29 +51,30 @@
 
 
     <div class="node-columns">
-        {% if page.sidebar_first %}
-          <aside class="layout-sidebar-first" role="complementary">
-            {{ page.sidebar_first }}
-          </aside>{# /.layout-sidebar-first #}
+
+      <main class="page-content clearfix" role="main">
+        <div class="visually-hidden"><a id="main-content" tabindex="-1"></a></div>
+        {{ page.highlighted }}
+        {% if page.help %}
+          <div class="help">
+            {{ page.help }}
+          </div>
         {% endif %}
 
-        <main class="page-content clearfix" role="main">
-          <div class="visually-hidden"><a id="main-content" tabindex="-1"></a></div>
-          {{ page.highlighted }}
-          {% if page.help %}
-            <div class="help">
-              {{ page.help }}
-            </div>
-          {% endif %}
+        {{ page.content }}
+      </main>
 
 
-          {{ page.content }}
-        </main>
+      {% if page.sidebar_first %}
+        <aside class="layout-sidebar-first" role="complementary">
+          {{ page.sidebar_first }}
+        </aside>{# /.layout-sidebar-first #}
+      {% endif %}
 
-        {% if page.sidebar_second %}
-          <aside class="layout-sidebar-second" role="complementary">
-            {{ page.sidebar_second }}
-          </aside>{# /.layout-sidebar-second #}
-        {% endif %}
+      {% if page.sidebar_second %}
+        <aside class="layout-sidebar-second" role="complementary">
+          {{ page.sidebar_second }}
+        </aside>{# /.layout-sidebar-second #}
+      {% endif %}
     </div>
   </div>
