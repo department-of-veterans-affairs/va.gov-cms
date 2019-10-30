@@ -52,7 +52,7 @@
         "drupal/migrate_plus": "^4.0",
         "drupal/migrate_source_csv": "^2.2",
         "drupal/migrate_tools": "^4.0",
-        "drupal/migration_tools": "^2.0@alpha",
+        "drupal/migration_tools": "^2.1",
         "drupal/node_revisions_autoclean": "^1.0@beta",
         "drupal/node_title_help_text": "^1.0",
         "drupal/paragraphs": "^1.5",
@@ -187,16 +187,12 @@
             }
         },
         "patches": {
+            "drupal/content_lock":{
+                "Content lock causes redirect response preventing migration rollback.": "https://www.drupal.org/files/issues/2018-08-28/2951652-4.patch"
+            },
             "drupal/core": {
                 "2815221 - Add quickedit to the latest-revision route": "https://www.drupal.org/files/issues/2019-03-05/2815221-116.patch",
                 "Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch"
-            },
-            "drupal/migration_tools": {
-                "Add changeHtmlContents DomModifier method": "https://www.drupal.org/files/issues/2018-11-26/change_html_contents-3015381-3.patch",
-                "Allow migration script to set curl options": "https://www.drupal.org/files/issues/2019-02-08/curl_options-3031705-2.patch",
-                "Eliminate 'Undefined index: arguments' notice during migration": "https://www.drupal.org/files/issues/2018-11-08/migration_tools-undef-arg-3012485-2.patch",
-                "Add obtainer for long, plain text": "https://www.drupal.org/files/issues/2019-04-04/long_plain_text_obtainer-3044998-5.patch",
-                "Add event dispatcher to messages": "https://www.drupal.org/files/issues/2019-04-15/message_event-3048397-2.patch"
             },
             "drupal/field_group": {
                 "Allow to position the group in the advanced (sidebar) column": "https://www.drupal.org/files/issues/2018-07-26/2652642-59.patch",

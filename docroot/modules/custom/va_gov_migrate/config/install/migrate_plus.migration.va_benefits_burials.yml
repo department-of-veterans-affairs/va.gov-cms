@@ -1,87 +1,98 @@
+uuid: 931a5331-af1d-4e61-ac92-642ccc0004d4
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - va_gov_migrate
+_core:
+  default_config_hash: WKhCdMjcL4aLOecDfi__PqBVciVZuio2BI-Ml4qtBYc
 id: va_benefits_burials
-label: Migrate Burials & Memorials pages from vagov-content-pr-137.herokuapp.com
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
 migration_group: va_new_benefits
+label: 'Migrate Burials & Memorials pages from vagov-content-pr-137.herokuapp.com'
 source:
-  plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
-  urls:     # This can be a list urls to crawl or .md files to read.
-    - "/burials-memorials"
-  server: "https://vagov-content-pr-137.herokuapp.com"
+  plugin: metalsmith_source
+  urls:
+    - /burials-memorials
+  server: 'https://vagov-content-pr-137.herokuapp.com'
   pr: 137
-  templates:  # A list of Metalsmith templates to process (detail-page=basic page, level2-index=hub page)
+  templates:
     - detail-page
-  fields:  # :ist any frontmatter fields you want to migrate.
+  fields:
     - description
     - plainlanguage_date
     - lastupdate
     - title
-
   migration_tools:
     -
-      # Just leave this as is, if using metalsmith_source or url_list source.
-      source: url # The field we're passing to migration_tools is called 'url'.
-      source_type: url  # Source type can be either 'url' or 'html'.
-
+      source: url
+      source_type: url
       source_operations:
         -
           operation: modifier
-          modifier: basicCleanup  # Tell migration_tools to run some basic cleanup of the page it just read.
+          modifier: basicCleanup
       fields:
-        page_title:  # This is the recipe for a field called 'title'.
-          obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainTitleNoCaseChange"
+        page_title:
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainTitleNoCaseChange
           jobs:
             -
-              job: addSearch  # Run a job to search the DOM and assign the results to this field.
-              method: pluckSelector # Also remove it from the DOM (so it doesn't show up in body, too).
+              job: addSearch
+              method: pluckSelector
               arguments:
-                - 'h1'  # Look for h1 tags.
+                - h1
         intro_text:
-          obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAndTestPlainTextWithNewLines"
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainAndTestPlainTextWithNewLines
           jobs:
             -
               job: addSearch
               method: pluckSelectorAndTest
               arguments:
-                - '.va-introtext'
+                - .va-introtext
                 - '@title'
                 - '@url'
         featured_content:
-          obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAndTestFeature"
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainAndTestFeature
           jobs:
             -
               job: addSearch
               method: pluckSelectorAndTest
               arguments:
-                - '.feature' # find something with class, 'feature'
+                - .feature
                 - '@title'
                 - '@url'
-                - innerHTML  # Get any html it contains.
+                - innerHTML
         alert_title:
-          obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAlertBlockTitles"
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainAlertBlockTitles
           jobs:
-            - job: 'addSearch'
-              method: 'pluckSelectorAndTest'
+            -
+              job: addSearch
+              method: pluckSelectorAndTest
               arguments:
-                - '.usa-alert-heading'
+                - .usa-alert-heading
                 - '@title'
                 - '@url'
         related_links:
           obtainer: ObtainHtml
           jobs:
             -
-              job: 'addSearch'
-              method: 'pluckSelector'
+              job: addSearch
+              method: pluckSelector
               arguments:
-                - '.va-nav-linkslist--related'
+                - .va-nav-linkslist--related
                 - '1'
                 - innerHTML
         body:
-          obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAndTestBody"
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainAndTestBody
           jobs:
             -
-              job: 'addSearch'
-              method: 'pluckSelectorAndTest'
+              job: addSearch
+              method: pluckSelectorAndTest
               arguments:
-                - 'article'
+                - article
                 - '@title'
                 - '@url'
                 - innerHTML
@@ -89,27 +100,23 @@ source:
           obtainer: ObtainHtml
           jobs:
             -
-              job: 'addSearch'
-              method: 'pluckSelector'
+              job: addSearch
+              method: pluckSelector
               arguments:
-                - 'aside.va-nav-linkslist'
+                - aside.va-nav-linkslist
                 - '1'
                 - innerHTML
       dom_operations:
         -
-          # This runs first.
           operation: get_field
-          field: page_title  # Use the 'title' recipe from above to create the field.
+          field: page_title
         -
-          # This runs next.
           operation: get_field
           field: intro_text
         -
-          # And so on...
           operation: get_field
           field: featured_content
         -
-          # Remove expander trigger before getting alert title
           operation: modifier
           modifier: removeSelectorAll
           arguments:
@@ -124,25 +131,21 @@ source:
           operation: get_field
           field: nav_linkslist
         -
-          # Clean things up before getting the body.
-          # Remove javascript cruft.
           operation: modifier
           modifier: removeSelectorAll
           arguments:
-            - 'button.va-btn-sidebarnav-trigger'
+            - button.va-btn-sidebarnav-trigger
         -
-          # Remove any scripts
           operation: modifier
           modifier: removeSelectorAll
           arguments:
-            - 'script'
+            - script
         -
           operation: get_field
-          field: body  # Now that we've plucked all the other fields and cleaned up, run the 'body' recipe on what's left.
+          field: body
   constants:
     meta_title_suffix: ' | Veterans Affairs'
-
-process:  # assign the fields we collected above to Drupal fields.
+process:
   title: page_title
   meta_title:
     plugin: substr
@@ -168,10 +171,10 @@ process:  # assign the fields we collected above to Drupal fields.
   field_description: description
   field_plainlanguage_date:
     plugin: format_date
-    from_format: 'n/j/y'
-    to_format: 'Y-m-d'
+    from_format: n/j/y
+    to_format: Y-m-d
     source: plainlanguage_date
-  'field_alert/target_id': alert_title
+  field_alert/target_id: alert_title
   field_administration:
     -
       plugin: default_value
@@ -180,16 +183,8 @@ process:  # assign the fields we collected above to Drupal fields.
     plugin: default_value
     default_value: draft
   type:
-    plugin: default_value   # We want to assign the 'type' field a static value.
-    default_value: page # The value is 'page'.
-
+    plugin: default_value
+    default_value: page
 destination:
   plugin: 'entity:node'
-
-migration_dependencies: {}
-
-# This belongs in all migration scripts. Without it the module the migration script belongs to won't uninstall cleanly.
-dependencies:
-  enforced:
-    module:
-    - va_gov_migrate  # The module this migration script belongs to.
+migration_dependencies: {  }

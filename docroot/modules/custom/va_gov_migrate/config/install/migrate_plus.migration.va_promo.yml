@@ -1,88 +1,87 @@
+uuid: fd30ce7a-0e51-4b81-990a-eedb3c7e8d34
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - va_gov_migrate
+_core:
+  default_config_hash: jGG6wMuft1Kojj2AezyYL1K4YiMX-hCyz1ozHe2B4zM
 id: va_promo
-label: Migrate promo blocks from VA.gov
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
 migration_group: va_gov
+label: 'Migrate promo blocks from VA.gov'
 source:
   plugin: url_list
-  urls:     # For url_list, this is a list of web pages to read
-    - "https://www.va.gov/disability/"
-    - "https://www.va.gov/education/"
-    - "https://www.va.gov/burials-memorials/"
-    - "https://www.va.gov/family-member-benefits/"
-    - "https://www.va.gov/service-member-benefits/"
-
+  urls:
+    - 'https://www.va.gov/disability/'
+    - 'https://www.va.gov/education/'
+    - 'https://www.va.gov/burials-memorials/'
+    - 'https://www.va.gov/family-member-benefits/'
+    - 'https://www.va.gov/service-member-benefits/'
   migration_tools:
-  -
-    # Just leave this as is, if using metalsmith_source or url_list source.
-    source: url # The field we're passing to migration_tools is called 'url'.
-    source_type: url  # Source type can be either 'url' or 'html'.
-
-    source_operations:
     -
-      operation: modifier
-      modifier: basicCleanup  # Tell migration_tools to run some basic cleanup of the page it just read.
-    fields:
-      title:
-        obtainer: ObtainHtml
-        jobs:
+      source: url
+      source_type: url
+      source_operations:
         -
-          job: addSearch  # Run a job to search the DOM and assign the results to this field.
-          method: findSelector # Don't remove it from the DOM (the paragraph will need it).
-          arguments:
-          - '.hub-promo-text h4.heading a'
-      image:
-        obtainer: ObtainImage
-        jobs:
+          operation: modifier
+          modifier: basicCleanup
+      fields:
+        title:
+          obtainer: ObtainHtml
+          jobs:
+            -
+              job: addSearch
+              method: findSelector
+              arguments:
+                - '.hub-promo-text h4.heading a'
+        image:
+          obtainer: ObtainImage
+          jobs:
+            -
+              job: addSearch
+              method: pluckImages
+              arguments:
+                - .hub-promo
+        body:
+          obtainer: ObtainHtml
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelector
+              arguments:
+                - .hub-promo-text
+                - '1'
+                - HTML
+      dom_operations:
         -
-          job: 'addSearch'
-          method: 'pluckImages'
-          arguments:
-            - '.hub-promo'
-      body:
-        obtainer: ObtainHtml
-        jobs:
+          operation: get_field
+          field: title
         -
-          job: 'addSearch'
-          method: 'pluckSelector'
-          arguments:
-            - '.hub-promo-text'
-            - '1'
-            - HTML
-    dom_operations:
-    -
-      # This runs first.
-      operation: get_field
-      field: title  # Use the 'title' recipe from above to create the field.
-    -
-      # This runs next.
-      operation: get_field
-      field: image
-    -
-      operation: get_field
-      field: body
-
-process:  # assign the fields we collected above to Drupal fields.
+          operation: get_field
+          field: image
+        -
+          operation: get_field
+          field: body
+process:
   info: title
   field_image:
     -
-      plugin: migration_lookup  # Get value from previous migration
-      migration: va_promo_media # The migration to use
-      source: url # The source field in this migration that corresponds to the source id of the previous migration
+      plugin: migration_lookup
+      migration: va_promo_media
+      source: url
   moderation_state:
     plugin: default_value
     default_value: published
   type:
     plugin: default_value
     default_value: promo
-
 destination:
   plugin: 'entity:block_content'
-
 migration_dependencies:
   required:
     - va_promo_media
-
-# This belongs in all migration scripts. Without it the module the migration script belongs to won't uninstall cleanly.
-dependencies:
-  enforced:
-    module:
-    - va_gov_migrate  # The module this migration script belongs to.

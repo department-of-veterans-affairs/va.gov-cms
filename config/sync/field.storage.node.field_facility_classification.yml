@@ -1,0 +1,45 @@
+uuid: 20955e58-2ee0-439c-896a-e2ca5b9b9b5b
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_facility_classification
+field_name: field_facility_classification
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '1'
+      label: 'VA Medical Center (VAMC)'
+    -
+      value: '2'
+      label: 'Health Care Center (HCC)'
+    -
+      value: '3'
+      label: 'Multi-Specialty CBOC'
+    -
+      value: '4'
+      label: 'Primary Care CBOC'
+    -
+      value: '5'
+      label: MCS
+    -
+      value: '6'
+      label: 'Other Outpatient Services (OOS)'
+    -
+      value: '7'
+      label: 'Extended Care Site (Community Living Center) (Stand-Alone)'
+    -
+      value: '8'
+      label: 'Residential Care Site (MH RRTP/DRRTP) (Stand-Alone)'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
