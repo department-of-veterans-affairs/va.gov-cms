@@ -94,6 +94,21 @@ third_party_settings:
         description: ''
       label: 'Registration related'
       region: content
+    group_curation:
+      children:
+        - field_featured
+        - field_order
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: false
+      label: Curation
+      region: content
 id: node.event.default
 targetEntityType: node
 bundle: event
@@ -177,7 +192,7 @@ content:
     type: entity_reference_label
     region: content
   field_featured:
-    weight: 3
+    weight: 30
     label: above
     settings:
       format: default
@@ -230,7 +245,7 @@ content:
     type: entity_reference_label
     region: content
   field_order:
-    weight: 4
+    weight: 31
     label: above
     settings: {  }
     third_party_settings: {  }

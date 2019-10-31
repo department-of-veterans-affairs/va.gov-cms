@@ -28,6 +28,11 @@ third_party_settings:
       children:
         - field_alert_type
         - field_body
+        - field_alert_operating_status_cta
+        - field_alert_find_facilities_cta
+        - field_alert_email_updates_button
+        - field_situation_updates
+        - field_banner_alert_situationinfo
       parent_name: ''
       weight: 1
       format_type: fieldset
@@ -39,13 +44,11 @@ third_party_settings:
       region: content
     group_behavior:
       children:
-        - field_situation_updates
-        - field_banner_alert_situationinfo
         - field_alert_dismissable
         - field_operating_status_sendemail
         - field_alert_inheritance_subpages
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -71,7 +74,7 @@ content:
     type: boolean
     region: content
   field_alert_email_updates_button:
-    weight: 5
+    weight: 10
     label: above
     settings:
       format: default
@@ -81,7 +84,7 @@ content:
     type: boolean
     region: content
   field_alert_find_facilities_cta:
-    weight: 4
+    weight: 9
     label: above
     settings:
       format: default
@@ -101,7 +104,7 @@ content:
     type: boolean
     region: content
   field_alert_operating_status_cta:
-    weight: 3
+    weight: 8
     label: above
     settings:
       format: default
@@ -118,7 +121,7 @@ content:
     type: list_default
     region: content
   field_banner_alert_situationinfo:
-    weight: 6
+    weight: 12
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -151,7 +154,7 @@ content:
     region: content
   field_situation_updates:
     type: entity_reference_revisions_entity_view
-    weight: 5
+    weight: 11
     label: above
     settings:
       view_mode: default

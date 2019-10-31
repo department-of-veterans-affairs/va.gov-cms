@@ -35,6 +35,7 @@ dependencies:
     - link
     - options
     - tablefield
+    - taxonomy
     - telephone
     - user
 third_party_settings:
@@ -42,18 +43,16 @@ third_party_settings:
     group_meta:
       children:
         - field_meta_title
-        - field_administration
-        - field_region_page
         - field_description
       parent_name: ''
-      weight: 21
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
         classes: ''
         description: ''
       label: Meta
-      region: hidden
+      region: content
 id: node.health_care_local_facility.default
 targetEntityType: node
 bundle: health_care_local_facility
@@ -65,14 +64,29 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_address:
-    weight: 6
+    weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
     region: content
+  field_administration:
+    type: entity_reference_rss_category
+    weight: 22
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_description:
+    type: string
+    weight: 1
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
   field_email_subscription:
-    weight: 14
+    weight: 15
     label: above
     settings:
       trim_length: 80
@@ -84,42 +98,6 @@ content:
     type: link
     region: content
   field_facebook:
-    weight: 10
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-    region: content
-  field_facility_classification:
-    weight: 22
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
-    region: content
-  field_facility_hours:
-    weight: 17
-    label: above
-    settings:
-      row_header: 1
-      column_header: 0
-    third_party_settings: {  }
-    type: tablefield
-    region: content
-  field_facility_locator_api_id:
-    weight: 4
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_flickr:
     weight: 11
     label: above
     settings:
@@ -131,7 +109,31 @@ content:
     third_party_settings: {  }
     type: link
     region: content
-  field_instagram:
+  field_facility_classification:
+    weight: 20
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_facility_hours:
+    weight: 18
+    label: above
+    settings:
+      row_header: 1
+      column_header: 0
+    third_party_settings: {  }
+    type: tablefield
+    region: content
+  field_facility_locator_api_id:
+    weight: 5
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_flickr:
     weight: 12
     label: above
     settings:
@@ -143,87 +145,7 @@ content:
     third_party_settings: {  }
     type: link
     region: content
-  field_intro_text:
-    weight: 2
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-    region: content
-  field_local_health_care_service_:
-    weight: 8
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_location_services:
-    type: entity_reference_revisions_entity_view
-    weight: 9
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    region: content
-  field_main_location:
-    weight: 5
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
-    region: content
-  field_media:
-    weight: 3
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_mental_health_phone:
-    weight: 18
-    label: above
-    settings:
-      title: ''
-    third_party_settings: {  }
-    type: telephone_link
-    region: content
-  field_nickname_for_this_facility:
-    weight: 1
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_operating_status_facility:
-    weight: 15
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
-    region: content
-  field_operating_status_more_info:
-    weight: 16
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-    region: content
-  field_phone_number:
-    weight: 7
-    label: above
-    settings:
-      title: ''
-    third_party_settings: {  }
-    type: telephone_link
-    region: content
-  field_twitter:
+  field_instagram:
     weight: 13
     label: above
     settings:
@@ -235,11 +157,115 @@ content:
     third_party_settings: {  }
     type: link
     region: content
+  field_intro_text:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_local_health_care_service_:
+    weight: 9
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_location_services:
+    type: entity_reference_revisions_entity_view
+    weight: 10
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_main_location:
+    weight: 6
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_media:
+    weight: 4
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_mental_health_phone:
+    weight: 19
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
+    region: content
+  field_meta_title:
+    type: string
+    weight: 0
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_nickname_for_this_facility:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_operating_status_facility:
+    weight: 16
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_operating_status_more_info:
+    weight: 17
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_phone_number:
+    weight: 8
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
+    region: content
+  field_region_page:
+    type: entity_reference_label
+    weight: 21
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+  field_twitter:
+    weight: 14
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
 hidden:
-  field_administration: true
-  field_description: true
   field_meta_tags: true
-  field_meta_title: true
-  field_region_page: true
   links: true
   search_api_excerpt: true
