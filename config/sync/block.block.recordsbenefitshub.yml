@@ -1,0 +1,29 @@
+uuid: e8514b94-2911-4962-9f4b-d1aaac1a20eb
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.records-benefits-hub
+  module:
+    - system
+  theme:
+    - vagovadmin
+id: recordsbenefitshub
+theme: vagovadmin
+region: sidebar_first
+weight: -2
+provider: null
+plugin: 'system_menu_block:records-benefits-hub'
+settings:
+  id: 'system_menu_block:records-benefits-hub'
+  label: 'Records benefits hub'
+  provider: system
+  label_display: visible
+  level: 2
+  depth: 0
+visibility:
+  request_path:
+    id: request_path
+    pages: '/record*'
+    negate: false
+    context_mapping: {  }

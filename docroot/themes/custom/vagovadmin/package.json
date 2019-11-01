@@ -1,0 +1,28 @@
+{
+  "name": "vagovadmin",
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "postcss --use autoprefixer -b 'last 2 versions' < assets/css/styles.css | postcss --use cssnano --map -o assets/css/styles.min.css",
+    "build": "npm run build:css",
+    "build:watch": "watch 'npm run build' assets/scss"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.5",
+    "@babel/preset-env": "^7.1.5",
+    "autoprefixer": "^7.1.1",
+    "browser-sync": "^2.26.3",
+    "child_process": "^1.0.2",
+    "cssnano": "^3.10.0",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "*",
+    "gulp-babel": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "4.0.2",
+    "gulp-sourcemaps": "*",
+    "gulp-uglify": "^3.0.1",
+    "postcss": "^6.0.2",
+    "postcss-cli": "^4.1.0",
+    "watch": "^1.0.2"
+  },
+  "dependencies": {}
+}
