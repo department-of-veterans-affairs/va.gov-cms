@@ -1,0 +1,29 @@
+uuid: 5a3f2c1e-c8cb-40b2-b966-71e46b4089d9
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.health-care-benefits-hub
+  module:
+    - system
+  theme:
+    - vagovadmin
+id: healthcarebenefitshub
+theme: vagovadmin
+region: sidebar_first
+weight: -6
+provider: null
+plugin: 'system_menu_block:health-care-benefits-hub'
+settings:
+  id: 'system_menu_block:health-care-benefits-hub'
+  label: 'Health Care benefits hub'
+  provider: system
+  label_display: visible
+  level: 2
+  depth: 0
+visibility:
+  request_path:
+    id: request_path
+    pages: '/health-car*'
+    negate: false
+    context_mapping: {  }

@@ -1,187 +1,182 @@
+uuid: aced0fd5-e2ef-417a-8421-183cd25ae95f
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - va_gov_migrate
+_core:
+  default_config_hash: WKmBpPtFOPuCYY1xnLL4kXoAHUqBJAyA7ItYORDQ3zg
 id: va_hub
-label: Migrate Education, Burials, Disability, Family Member and Service Member Benefits landing pages - NEVER ROLLBACK
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
 migration_group: va_new_benefits
+label: 'Migrate Education, Burials, Disability, Family Member and Service Member Benefits landing pages - NEVER ROLLBACK'
 source:
-  plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
-  urls:     # This can be a list urls to crawl or .md files to read.
-    - "/disability/index.md"
-    - "/education/index.md"
-    - "/burials-memorials/index.md"
-    - "/family-member-benefits.md"
-    - "/service-member-benefits.md"
-  templates:  # A list of Metalsmith templates to process (detail-page=basic page, level2-index=hub page)
+  plugin: metalsmith_source
+  urls:
+    - /disability/index.md
+    - /education/index.md
+    - /burials-memorials/index.md
+    - /family-member-benefits.md
+    - /service-member-benefits.md
+  templates:
     - level2-index
-  fields:  # List any frontmatter fields you want to migrate.
+  fields:
     - description
     - plainlanguage_date
     - lastupdate
     - social
     - title
-
   migration_tools:
-  -
-    # Just leave this as is, if using metalsmith_source or url_list source.
-    source: url # The field we're passing to migration_tools is called 'url'.
-    source_type: url  # Source type can be either 'url' or 'html'.
-
-    source_operations:
     -
-      operation: modifier
-      modifier: basicCleanup  # Tell migration_tools to run some basic cleanup of the page it just read.
-    fields:
-      page_title:  # This is the recipe for a field called 'title'.
-        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainTitleNoCaseChange"
-        jobs:
+      source: url
+      source_type: url
+      source_operations:
         -
-          job: addSearch  # Run a job to search the DOM and assign the results to this field.
-          method: pluckSelector # Also remove it from the DOM (so it doesn't show up in body, too).
-          arguments:
-          - 'h1'  # Look for h1 tags.
-          - 1     # Only grab the first one.
-          - innerHTML  # Get any html it contains.
-      alert_title:
-        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAlertBlockTitles"
-        jobs:
-          -
-            job: 'addSearch'
-            method: 'arrayPluckSelector'
-            arguments:
-              - '.usa-alert-heading'
-              - innerHTML
-      intro_text:
-        obtainer: ObtainPlainTextWithNewLines
-        jobs:
-          -
-            job: addSearch
-            method: pluckSelector
-            arguments:
-              - '.va-introtext'
-      featured_content:
-        obtainer: ObtainHtml
-        jobs:
+          operation: modifier
+          modifier: basicCleanup
+      fields:
+        page_title:
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainTitleNoCaseChange
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelector
+              arguments:
+                - h1
+                - 1
+                - innerHTML
+        alert_title:
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainAlertBlockTitles
+          jobs:
+            -
+              job: addSearch
+              method: arrayPluckSelector
+              arguments:
+                - .usa-alert-heading
+                - innerHTML
+        intro_text:
+          obtainer: ObtainPlainTextWithNewLines
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelector
+              arguments:
+                - .va-introtext
+        featured_content:
+          obtainer: ObtainHtml
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelector
+              arguments:
+                - .feature
+                - '1'
+                - innerHTML
+        related_links:
+          obtainer: ObtainHtml
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelector
+              arguments:
+                - .va-nav-linkslist--related
+                - '1'
+                - innerHTML
+        hub_links:
+          obtainer: ObtainHtml
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelector
+              arguments:
+                - article
+                - '1'
+                - HTML
+        body:
+          obtainer: ObtainBody
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelector
+              arguments:
+                - .usa-width-three-fourths
+                - '1'
+                - innerHTML
+            -
+              job: addSearch
+              method: pluckSelector
+              arguments:
+                - '#content .usa-grid-full'
+                - '1'
+                - innerHTML
+            -
+              job: addSearch
+              method: pluckSelector
+              arguments:
+                - article
+                - '1'
+                - innerHTML
+      dom_operations:
         -
-          job: 'addSearch'
-          method: 'pluckSelector'
-          arguments:
-            - '.feature'
-            - '1'
-            - innerHTML
-      related_links:
-        obtainer: ObtainHtml
-        jobs:
+          operation: get_field
+          field: page_title
         -
-          job: 'addSearch'
-          method: 'pluckSelector'
-          arguments:
-            - '.va-nav-linkslist--related'
-            - '1'
-            - innerHTML
-      hub_links:
-        obtainer: ObtainHtml
-        jobs:
+          operation: get_field
+          field: intro_text
         -
-          job: 'addSearch'
-          method: 'pluckSelector'
-          arguments:
-            - 'article'
-            - '1'
-            - HTML
-      body:
-        obtainer: ObtainBody
-        jobs:
+          operation: get_field
+          field: featured_content
         -
-          # First, look for a class of 'usa-width-three-fourths'.
-          job: 'addSearch'
-          method: 'pluckSelector'
+          operation: modifier
+          modifier: removeSelectorAll
           arguments:
-            - '.usa-width-three-fourths'
-            - '1'
-            - innerHTML
+            - '#crisis-expander-link'
         -
-          # If it's not there, try '#content .usa-grid-full'.
-          job: 'addSearch'
-          method: 'pluckSelector'
-          arguments:
-            - '#content .usa-grid-full'
-            - '1'
-            - innerHTML
+          operation: get_field
+          field: alert_title
         -
-          # If we still haven't found anything, grab the article tag.
-          job: 'addSearch'
-          method: 'pluckSelector'
+          operation: get_field
+          field: related_links
+        -
+          operation: modifier
+          modifier: removeSelectorAll
           arguments:
-          - 'article'
-          - '1'
-          - innerHTML
-    dom_operations:
-    -
-      # This runs first.
-      operation: get_field
-      field: page_title  # Use the 'title' recipe from above to create the field.
-    -
-      # This runs next.
-      operation: get_field
-      field: intro_text
-    -
-      # And so on...
-      operation: get_field
-      field: featured_content
-    -
-      # Remove expander trigger before getting alert title
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-        - '#crisis-expander-link'
-    -
-      operation: get_field
-      field: alert_title
-    -
-      operation: get_field
-      field: related_links
-    -
-      # Remove any alert boxes (they'll be attached via 'alert title', above).
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-        - '.usa-alert'
-    -
-      # Clean things up before getting the body.
-      # Remove javascript cruft.
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-      - 'button.va-btn-sidebarnav-trigger'
-    -
-      # Remove any scripts
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-        - 'script'
-    -
-      # Remove jump links section
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-      - 'h3:contains("On This Page")'
-    -
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-      - 'li > a[href^="#"]'
-    -
-      # Remove starred HRs
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-        - '.va-h-ruled--stars'
-    -
-      operation: get_field
-      field: hub_links
-
+            - .usa-alert
+        -
+          operation: modifier
+          modifier: removeSelectorAll
+          arguments:
+            - button.va-btn-sidebarnav-trigger
+        -
+          operation: modifier
+          modifier: removeSelectorAll
+          arguments:
+            - script
+        -
+          operation: modifier
+          modifier: removeSelectorAll
+          arguments:
+            - 'h3:contains("On This Page")'
+        -
+          operation: modifier
+          modifier: removeSelectorAll
+          arguments:
+            - 'li > a[href^="#"]'
+        -
+          operation: modifier
+          modifier: removeSelectorAll
+          arguments:
+            - .va-h-ruled--stars
+        -
+          operation: get_field
+          field: hub_links
   constants:
     meta_title_suffix: ' | Veterans Affairs'
-
-process:  # assign the fields we collected above to Drupal fields.
+process:
   title: page_title
   meta_title:
     plugin: substr
@@ -202,23 +197,23 @@ process:  # assign the fields we collected above to Drupal fields.
     source: url
   field_plainlanguage_date:
     plugin: format_date
-    from_format: 'n/j/y'
-    to_format: 'Y-m-d'
+    from_format: n/j/y
+    to_format: Y-m-d
     source: plainlanguage_date
   field_support_services:
     -
-      plugin: skip_on_empty # if source is empty, skip it
-      method: process # don't process this field (but do process the rest of the row)
-      source: social  # the field to check and to pass to the next step
+      plugin: skip_on_empty
+      method: process
+      source: social
     -
-      plugin: extract # extract values from array - this returns the contents of social[0]['subsections'][1]['links']
+      plugin: extract
       index:
-        - 0 # heading: Ask Questions
+        - 0
         - subsections
         - 1
         - links
     -
-      plugin: sub_process # run for each subsection in array that we extracted above
+      plugin: sub_process
       process:
         target_id:
           plugin: entity_lookup
@@ -228,26 +223,26 @@ process:  # assign the fields we collected above to Drupal fields.
           bundle: support_service
           entity_type: node
           ignore_case: true
-  'field_alert/target_id': alert_title
+  field_alert/target_id: alert_title
   root_dir:
     -
       plugin: explode
       source: url
-      delimiter: '/'
+      delimiter: /
     -
       plugin: extract
       index:
         - 3
   field_administration:
     plugin: static_map
-    source: "@root_dir"
+    source: '@root_dir'
     map:
       burials-memorials: 2
     default_value: 1
   field_title_icon:
     -
       plugin: static_map
-      source: "@root_dir"
+      source: '@root_dir'
       map:
         careers-employment: careers
         housing-assistance: housing
@@ -259,20 +254,12 @@ process:  # assign the fields we collected above to Drupal fields.
     plugin: default_value
     default_value: draft
   type:
-    plugin: default_value   # We want to assign the 'type' field a static value.
-    default_value: landing_page # The value is 'landing_page'.
-
+    plugin: default_value
+    default_value: landing_page
 destination:
   plugin: 'entity:node'
-
 migration_dependencies:
   required:
     - va_promo
     - va_support_service
     - va_alert_block
-
-# This belongs in all migration scripts. Without it the module the migration script belongs to won't uninstall cleanly.
-dependencies:
-  enforced:
-    module:
-    - va_gov_migrate  # The module this migration script belongs to.

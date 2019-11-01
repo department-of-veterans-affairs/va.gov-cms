@@ -23,32 +23,16 @@ third_party_settings:
   field_group:
     group_meta:
       children:
-        - field_meta_title
         - field_description
+        - field_meta_title
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         id: ''
         classes: ''
         description: ''
       label: Meta
-      region: content
-    group_content:
-      children:
-        - field_intro_text
-        - field_alert
-        - field_featured_content
-        - field_content_block
-        - field_related_links
-      parent_name: ''
-      weight: 3
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-      label: Content
       region: content
 _core:
   default_config_hash: Kfxnq5Imio9VFBoNa_PIkzXoTmjz_T-EY3mOrwDTddU
@@ -62,16 +46,8 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_administration:
-    weight: 1
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_alert:
-    weight: 5
+    weight: 3
     label: above
     settings:
       link: true
@@ -80,7 +56,7 @@ content:
     region: content
   field_content_block:
     type: entity_reference_revisions_entity_view
-    weight: 7
+    weight: 5
     label: above
     settings:
       view_mode: default
@@ -88,16 +64,16 @@ content:
     third_party_settings: {  }
     region: content
   field_description:
-    weight: 4
+    type: string
+    weight: 0
+    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
-    region: content
   field_featured_content:
     type: entity_reference_revisions_entity_view
-    weight: 6
+    weight: 4
     label: above
     settings:
       view_mode: default
@@ -105,7 +81,7 @@ content:
     third_party_settings: {  }
     region: content
   field_intro_text:
-    weight: 4
+    weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -121,16 +97,16 @@ content:
     type: datetime_default
     region: content
   field_meta_title:
-    weight: 3
+    type: string
+    weight: 0
+    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
-    region: content
   field_related_links:
     type: entity_reference_revisions_entity_view
-    weight: 8
+    weight: 6
     label: above
     settings:
       view_mode: default
@@ -138,8 +114,10 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  field_administration: true
   field_meta_tags: true
   field_page_last_built: true
   field_plainlanguage_date: true
   links: true
   panelizer: true
+  search_api_excerpt: true

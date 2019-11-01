@@ -1,23 +1,34 @@
+uuid: f7b4a31a-b05d-479e-bab1-1555435c8fe4
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - va_gov_migrate
+_core:
+  default_config_hash: 1p8WUV7zkAKNbZSlrtUnyt4kUcmYcKlqUALzyGYa_1Q
 id: va_benefits_remaining_menus
-label: Migrate Disability, Education and Burials sidebar menu
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
 migration_group: va_new_benefits
-
+label: 'Migrate Disability, Education and Burials sidebar menu'
 source:
   plugin: va_benefits_menu_source
   sections:
-    - "Disability benefits"
-    - "Education and training"
-    - "Burials and memorials"
+    - 'Disability benefits'
+    - 'Education and training'
+    - 'Burials and memorials'
   constants:
     bundle: menu_link_content
     zero: 0
     one: 1
-
 process:
-  bundle: 'constants/bundle'
+  bundle: constants/bundle
   title: title
   menu_name: menu
-  'link/uri':
+  link/uri:
     plugin: link_uri
     source:
       - href
@@ -31,15 +42,9 @@ process:
   options: '@route/options'
   external: external
   weight: weight
-  expanded: 'constants/zero'
-  enabled: 'constants/one'
-
+  expanded: constants/zero
+  enabled: constants/one
 destination:
-  plugin: entity:menu_link_content
+  plugin: 'entity:menu_link_content'
   no_stub: true
-
-migration_dependencies: {}
-dependencies:
-  enforced:
-    module:
-      - va_gov_migrate
+migration_dependencies: {  }

@@ -35,8 +35,8 @@ third_party_settings:
         - field_links
         - field_administration
       parent_name: ''
-      weight: 8
-      format_type: details_sidebar
+      weight: 2
+      format_type: fieldset
       format_settings:
         id: ''
         classes: ''
@@ -48,10 +48,10 @@ third_party_settings:
       region: content
     group_meta:
       children:
-        - field_meta_title
         - field_description
+        - field_meta_title
       parent_name: ''
-      weight: 2
+      weight: 0
       format_type: fieldset
       format_settings:
         id: ''
@@ -68,7 +68,7 @@ third_party_settings:
         - field_spokes
         - field_related_links
       parent_name: ''
-      weight: 3
+      weight: 1
       format_type: fieldset
       format_settings:
         id: ''
@@ -76,16 +76,27 @@ third_party_settings:
         description: ''
       label: Body
       region: content
+    group_other:
+      children:
+        - field_title_icon
+        - field_teaser_text
+        - field_home_page_hub_label
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: false
+      label: Other
+      region: content
 id: node.landing_page.default
 targetEntityType: node
 bundle: landing_page
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_administration:
     weight: 15
     label: above
@@ -104,15 +115,15 @@ content:
     type: entity_reference_label
     region: content
   field_description:
-    weight: 5
+    type: string
+    weight: 0
+    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
-    region: content
   field_home_page_hub_label:
-    weight: 17
+    weight: 5
     label: above
     settings:
       link_to_entity: false
@@ -139,13 +150,13 @@ content:
       target: ''
     third_party_settings: {  }
   field_meta_title:
-    weight: 4
+    type: string
+    weight: 0
+    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
-    region: content
   field_promo:
     weight: 12
     label: above
@@ -181,7 +192,7 @@ content:
     type: entity_reference_label
     region: content
   field_teaser_text:
-    weight: 16
+    weight: 4
     label: above
     settings:
       link_to_entity: false
@@ -189,14 +200,16 @@ content:
     type: string
     region: content
   field_title_icon:
-    weight: 1
+    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
     region: content
 hidden:
+  content_moderation_control: true
   field_meta_tags: true
   field_page_last_built: true
   field_plainlanguage_date: true
   links: true
+  search_api_excerpt: true
