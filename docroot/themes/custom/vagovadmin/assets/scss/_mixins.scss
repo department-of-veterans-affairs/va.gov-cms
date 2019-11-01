@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Bitter:400,700&display=swap&subset=latin-ext');
+
+@mixin va-buttons {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  margin-top: .5em;
+  margin-right: .5em;
+  margin-bottom: .5em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 0;
+  border-radius: 5px;
+  color: #fff;
+  display: inline-block;
+  font-family: Source Sans Pro,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif;
+  font-size: 1em;
+  font-weight: 700;
+  line-height: 1;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  width: auto;
+}
+
+
+/*
+ A small subset of Formation for html tags enabled in rich text editor used in
+ wysiwyg editor and node views.
+ */
+
+@mixin va-basic-styling {
+  p {
+    line-height: 1.5;
+    margin-bottom: 1em;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 700;
+    font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
+    line-height: 1.3;
+    margin-bottom: .5em;
+  }
+
+  h2 {
+   font-size: 30px;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+
+  h4 {
+    font-size: 20px;
+  }
+
+  /* Lists */
+
+  ul {
+    padding: 0 0 0 1.5em;
+    list-style: square;
+  }
+
+  li {
+    line-height: 1.5;
+    margin-bottom: .5em;
+  }
+
+  ol {
+    margin: 0 0 0 1.25em;
+    list-style-position: outside;
+  }
+
+  /* Links */
+
+  a,
+  a:hover {
+    color: #004795;
+    text-decoration: underline;
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
+    transition-property: color,background-color,border-color;
+  }
+
+  a:hover {
+    background-color: rgba(0,0,0,.05);
+    color: inherit;
+  }
+
+  /* Block styles */
+
+  .va-address-block {
+    margin-left: 5rem;
+    border-left: 3px solid #0071bb;
+    padding-left: 1rem;
+  }
+
+  /* Buttons */
+  a.usa-button,
+  a.usa-button-primary,
+  a.va-button-primary,
+  a.usa-secondary-button {
+    @include va-buttons;
+    &:hover {
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+
+  /* Default button (blue) */
+  .usa-button,
+  .usa-button-primary {
+    @include va-buttons;
+    background-color: #0071bb;
+    &:hover {
+      background-color: #003e73;
+    }
+  }
+
+  /* Primary button (green) */
+  .va-button-primary {
+    @include va-buttons;
+    background: #2e8540;
+    &:hover {
+      background: #195c27;
+    }
+  }
+
+  /* Secondary button (blue "ghost") */
+  .usa-button-secondary {
+    @include va-buttons;
+    background: transparent;
+    box-shadow: inset 0 0 0 2px #0071bb;
+    color: #0071bb;
+    &:hover {
+      box-shadow: inset 0 0 0 2px #003e73;
+      color: #003e73;
+    }
+  }
+}

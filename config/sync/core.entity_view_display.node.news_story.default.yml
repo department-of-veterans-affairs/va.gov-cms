@@ -16,7 +16,6 @@ dependencies:
     - node.type.news_story
   module:
     - field_group
-    - options
     - text
     - user
 third_party_settings:
@@ -29,7 +28,7 @@ third_party_settings:
         - field_intro_text
         - field_full_story
       parent_name: ''
-      weight: 4
+      weight: 2
       format_type: fieldset
       format_settings:
         description: ''
@@ -47,14 +46,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_administration:
-    weight: 1
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_author:
     weight: 3
     label: above
@@ -64,7 +55,7 @@ content:
     type: entity_reference_label
     region: content
   field_featured:
-    weight: 3
+    weight: 1
     label: above
     settings:
       format: default
@@ -102,21 +93,10 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_office:
-    weight: 2
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_order:
-    weight: 4
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
-    region: content
 hidden:
+  field_administration: true
   field_meta_tags: true
+  field_office: true
+  field_order: true
   links: true
+  search_api_excerpt: true

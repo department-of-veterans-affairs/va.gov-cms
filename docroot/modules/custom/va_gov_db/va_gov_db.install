@@ -58,3 +58,12 @@ function _va_gov_db_change_text_field_max_length($field_name, $new_length) {
   }
   return "Updated field $field_name to the new size of $new_length Be sure to update vagov/config/sync/field.storage.node.{$field_name}.yml to match.";
 }
+
+/**
+ * Modify field_facility_locator_api_id field to be longer.
+ */
+function va_gov_db_update_8001(&$sandbox) {
+  $message = _va_gov_db_change_text_field_max_length('field_facility_locator_api_id', 12);
+
+  return $message;
+}

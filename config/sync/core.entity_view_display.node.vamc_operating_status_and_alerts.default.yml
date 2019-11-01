@@ -13,7 +13,6 @@ dependencies:
     - node.type.vamc_operating_status_and_alerts
   module:
     - link
-    - metatag
     - text
     - user
 id: node.vamc_operating_status_and_alerts.default
@@ -22,20 +21,12 @@ bundle: vamc_operating_status_and_alerts
 mode: default
 content:
   content_moderation_control:
-    weight: 1
+    weight: 0
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_administration:
-    weight: 10
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_banner_alert:
-    weight: 9
+    weight: 2
     label: above
     settings:
       link: true
@@ -51,7 +42,7 @@ content:
     type: entity_reference_label
     region: content
   field_links:
-    weight: 8
+    weight: 5
     label: above
     settings:
       trim_length: 80
@@ -62,15 +53,8 @@ content:
     third_party_settings: {  }
     type: link
     region: content
-  field_meta_tags:
-    weight: 4
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_empty_formatter
-    region: content
   field_office:
-    weight: 5
+    weight: 1
     label: above
     settings:
       link: true
@@ -78,16 +62,14 @@ content:
     type: entity_reference_label
     region: content
   field_operating_status_emerg_inf:
-    weight: 7
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
-  links:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
+  field_administration: true
+  field_meta_tags: true
+  links: true
   search_api_excerpt: true
