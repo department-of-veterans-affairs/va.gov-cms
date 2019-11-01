@@ -1,0 +1,29 @@
+uuid: 98842b59-a5a2-4c21-9f28-9fa81183c3ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.housing-assistance-benefits
+  module:
+    - system
+  theme:
+    - vagovadmin
+id: housingassistancebenefitshub
+theme: vagovadmin
+region: sidebar_first
+weight: -5
+provider: null
+plugin: 'system_menu_block:housing-assistance-benefits'
+settings:
+  id: 'system_menu_block:housing-assistance-benefits'
+  label: 'Housing Assistance benefits hub'
+  provider: system
+  label_display: visible
+  level: 2
+  depth: 0
+visibility:
+  request_path:
+    id: request_path
+    pages: '/housin*'
+    negate: false
+    context_mapping: {  }

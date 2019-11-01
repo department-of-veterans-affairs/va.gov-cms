@@ -10,8 +10,24 @@ dependencies:
     - field.field.node.office.field_meta_title
     - node.type.office
   module:
+    - field_group
     - metatag
     - user
+third_party_settings:
+  field_group:
+    group_meta:
+      children:
+        - field_meta_title
+        - field_meta_tags
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Meta tags'
+      region: content
 id: node.office.default
 targetEntityType: node
 bundle: office
@@ -22,14 +38,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_administration:
-    weight: 3
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_description:
     weight: 2
     label: above
@@ -54,5 +62,7 @@ content:
     type: string
     region: content
 hidden:
+  field_administration: true
   field_body: true
   links: true
+  search_api_excerpt: true
