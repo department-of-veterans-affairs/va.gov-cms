@@ -1,19 +1,30 @@
+uuid: 8ed981c4-c7d8-42f1-b080-c32c93e4af8b
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - va_gov_migrate
+_core:
+  default_config_hash: wcyKcd7YsWcapl7ml8J0USa5VuyU1lo3nRgrkzPxyPA
 id: va_alert_block
-label: Migrate alert blocks from VA.gov
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
 migration_group: va_gov
-
+label: 'Migrate alert blocks from VA.gov'
 source:
   plugin: alert_block
   urls:
-    - "/disability/index.md"
-    - "/education/index.md"
-    - "/burials-memorials/index.md"
-    - "/family-member-benefits.md"
-    - "/service-member-benefits.md"
+    - /disability/index.md
+    - /education/index.md
+    - /burials-memorials/index.md
+    - /family-member-benefits.md
+    - /service-member-benefits.md
   fields:
     - alert_type
     - alert_title
-
 process:
   info: alert_title
   field_alert_title: alert_title
@@ -24,14 +35,6 @@ process:
   type:
     plugin: default_value
     default_value: alert
-
 destination:
   plugin: 'entity:block_content'
-
-migration_dependencies: {}
-
-# This belongs in all migration scripts. Without it the module the migration script belongs to won't uninstall cleanly.
-dependencies:
-  enforced:
-    module:
-      - va_gov_migrate
+migration_dependencies: {  }

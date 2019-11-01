@@ -28,6 +28,7 @@ Feature: Views
 | Moderation history | moderation_history | Content revisions | Enabled |  |
 | My Workflow  | my_workflow | Content | Enabled | Content a user has access to that is ready for moderation  |
 | Redirect | redirect | Redirect | Enabled | List of redirects |
+| Right sidebar latest revision | right_sidebar_latest_revision | Content revisions | Enabled |  |
 | Search | search | Index Content | Disabled |  |
 | Sections tree | sections_tree | Taxonomy terms | Enabled |  |
 | Taxonomy term | taxonomy_term | Content | Enabled | Content belonging to a certain taxonomy term. |
@@ -102,6 +103,12 @@ Feature: Views
 | Redirect | Master | default | Master |
 | Redirect | Page | page_1 | Page |
 | Redirect | Non admin Page | page_2 | Page |
+| Right sidebar latest revision | All revisions | block_1 | Block |
+| Right sidebar latest revision | Latest revision | attachment_1 | Attachment |
+| Right sidebar latest revision | Master | default | Master |
+| Right sidebar latest revision | Meta tags | attachment_2 | Attachment |
+| Right sidebar latest revision | Owner | attachment_0 | Attachment |
+| Right sidebar latest revision | Posted to | attachment_0b | Attachment |
 | Search | Master | default | Master |
 | Search | Page | page | Page |
 | Sections tree | Block | block_1 | Block |

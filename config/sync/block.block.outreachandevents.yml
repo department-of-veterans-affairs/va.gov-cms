@@ -1,0 +1,40 @@
+uuid: 3bf42de9-addc-4c1e-8a2f-78378da05443
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.outreach-and-events
+  module:
+    - ctools
+    - system
+  theme:
+    - vagovadmin
+id: outreachandevents
+theme: vagovadmin
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:outreach-and-events'
+settings:
+  id: 'system_menu_block:outreach-and-events'
+  label: 'Outreach and events'
+  provider: system
+  label_display: visible
+  level: 2
+  depth: 0
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      event: event
+      event_listing: event_listing
+      office: office
+      publication_listing: publication_listing
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+  request_path:
+    id: request_path
+    pages: '/outreac*'
+    negate: false
+    context_mapping: {  }

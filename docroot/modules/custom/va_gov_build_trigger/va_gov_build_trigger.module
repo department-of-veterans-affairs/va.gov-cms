@@ -87,7 +87,7 @@ function va_gov_build_trigger_preprocess_page(&$variables) {
         $preview_form = new PreviewForm();
         $url = $preview_form->getEnvironment($host, $nid);
         $button = '<a class="button button--primary js-form-submit form-submit" target="_blank" href="' . $url . '">Preview</a>';
-        $variables['page']['content']['#markup'] = $button;
+        $variables['page']['sidebar_second']['#markup'] = $button;
       }
     }
   }

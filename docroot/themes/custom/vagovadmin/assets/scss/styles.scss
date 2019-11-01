@@ -1,0 +1,85 @@
+@import 'mixins';
+
+.node-form textarea {
+  max-width: 750px;
+}
+
+.node {
+  &__content {
+    @include va-basic-styling;
+  }
+}
+
+/* Node view from page--node.html.twig */
+
+.node-columns {
+  display: flex;
+  flex-flow: row wrap;
+
+  /* Single column */
+  > * {
+    flex: 1 100%;
+  }
+
+  /* Asides form two columns on small tablets. */
+  @media all and (min-width: 600px) {
+    aside {
+      flex: 1 0 0;
+    }
+  }
+
+  /* Three column layout on larger devices. */
+  @media all and (min-width: 800px) {
+    main {
+      flex: 3 0px;
+    }
+
+    .layout-sidebar-first {
+      order: 1;
+    }
+
+    main {
+      order: 2;
+      padding: 0 2em;
+    }
+
+    .layout-sidebar-second {
+      order: 3;
+    }
+  }
+}
+
+/* Node view content, aimed primarily at page Detail pages, for now. */
+#block-vagovadmin-content {
+  .field__label {
+    text-transform: uppercase;
+  }
+
+  .field--name-field-intro-text,
+  .field--name-field-alert,
+  .field--name-field-featured-content,
+  .field--name-field-content-block,
+  .field--name-field-related-links {
+    margin: 1em 0;
+
+    > .field__item,
+    > .field__items {
+      padding: 1em;
+      background: #eee;
+    }
+
+    > .field__label {
+      text-transform: uppercase;
+    }
+  }
+}
+
+/* Right sidebar on node view pages. */
+
+.view-id-right_sidebar_latest_revision .views-row {
+  padding-bottom: 1em;
+}
+
+
+
+
