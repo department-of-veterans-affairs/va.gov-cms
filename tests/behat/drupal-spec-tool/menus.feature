@@ -31,11 +31,11 @@ Feature: Menus
 | Root pages | root-benefits-hub | For various pages that live at the top level of the URL structure. |
 | Sections | sections | Automatically updated from the Sections taxonomy, and appears in admin toolbar. |
 | Tools | tools | User tool links, often added by modules |
-| VA Altoona health care | va-altoona-health-care |  |
-| VA Butler health care | va-butler-health-care |  |
-| VA Coatesville health care | va-coatesville-health-care |  |
-| VA Erie health care | va-erie-health-care |  |
-| VA Lebanon health care | va-lebanon |  |
-| VA Philadelphia health care | va-philadelphia-health-care |  |
-| VA Wilkes-Barre health care | va-wilkes-barre-health-care |  |
-| VA Wilmington health care | va-wilmington-health-care |  |
+| VA Altoona health care | va-altoona-health-care | va.gov/altoona-health-care |
+| VA Butler health care | va-butler-health-care | va.gov/butler-health-care |
+| VA Coatesville health care | va-coatesville-health-care | va.gov/coatesville-health-care |
+| VA Erie health care | va-erie-health-care | va.gov/erie-health-care |
+| VA Lebanon health care | va-lebanon | va.gov/lebanon-health-care |
+| VA Philadelphia health care | va-philadelphia-health-care | va.gov/philadelphia-health-care |
+| VA Wilkes-Barre health care | va-wilkes-barre-health-care | va.gov/wilkes-barre-health-care |
+| VA Wilmington health care | va-wilmington-health-care | va.gov/wilmington-health-care |
