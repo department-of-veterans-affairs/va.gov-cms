@@ -1,0 +1,29 @@
+uuid: 219dd608-918d-4c00-91ce-234eaf78803a
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.va-erie-health-care
+  module:
+    - system
+  theme:
+    - vagovadmin
+id: vaeriehealthcare
+theme: vagovadmin
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:va-erie-health-care'
+settings:
+  id: 'system_menu_block:va-erie-health-care'
+  label: 'VA Erie health care'
+  provider: system
+  label_display: visible
+  level: 1
+  depth: 0
+visibility:
+  request_path:
+    id: request_path
+    pages: '/erie-health-car*'
+    negate: false
+    context_mapping: {  }

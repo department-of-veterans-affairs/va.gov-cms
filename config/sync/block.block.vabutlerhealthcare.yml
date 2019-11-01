@@ -1,0 +1,29 @@
+uuid: 262dae20-5a9b-4788-9924-5bad0e28f35b
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.va-butler-health-care
+  module:
+    - system
+  theme:
+    - vagovadmin
+id: vabutlerhealthcare
+theme: vagovadmin
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:va-butler-health-care'
+settings:
+  id: 'system_menu_block:va-butler-health-care'
+  label: 'VA Butler health care'
+  provider: system
+  label_display: visible
+  level: 2
+  depth: 0
+visibility:
+  request_path:
+    id: request_path
+    pages: '/butler-health-car*'
+    negate: false
+    context_mapping: {  }
