@@ -1,0 +1,67 @@
+uuid: bb008cdc-9edb-487f-b0f7-083bc51f0bc5
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.inline_entity_form
+    - field.field.node.health_care_local_health_service.field_administration
+    - field.field.node.health_care_local_health_service.field_body
+    - field.field.node.health_care_local_health_service.field_facility_location
+    - field.field.node.health_care_local_health_service.field_regional_health_service
+    - node.type.health_care_local_health_service
+  module:
+    - field_group
+    - text
+third_party_settings:
+  field_group:
+    group_governance:
+      children: {  }
+      parent_name: ''
+      weight: 4
+      format_type: details_sidebar
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: 1
+        required_fields: 1
+        weight: '0'
+      label: Governance
+      region: hidden
+id: node.health_care_local_health_service.inline_entity_form
+targetEntityType: node
+bundle: health_care_local_health_service
+mode: inline_entity_form
+content:
+  field_administration:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_body:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_facility_location:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+hidden:
+  created: true
+  field_regional_health_service: true
+  moderation_state: true
+  path: true
+  promote: true
+  revision_log: true
+  status: true
+  sticky: true
+  title: true
+  uid: true
+  url_redirects: true
