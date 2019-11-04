@@ -1,8 +1,9 @@
-uuid: 0a2f9c1d-b5a5-484e-9fea-7c25c9c3f0f6
+uuid: 3cff84ce-1b07-4be7-838c-8c2ea605581f
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.ief_table
     - field.field.node.health_care_local_health_service.field_administration
     - field.field.node.health_care_local_health_service.field_body
     - field.field.node.health_care_local_health_service.field_facility_location
@@ -11,21 +12,21 @@ dependencies:
   module:
     - text
     - user
-id: node.health_care_local_health_service.default
+id: node.health_care_local_health_service.ief_table
 targetEntityType: node
 bundle: health_care_local_health_service
-mode: default
+mode: ief_table
 content:
   field_body:
     weight: 1
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_facility_location:
     weight: 0
-    label: above
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
@@ -35,5 +36,7 @@ hidden:
   content_moderation_control: true
   field_administration: true
   field_regional_health_service: true
+  label: true
   links: true
   search_api_excerpt: true
+  status: true

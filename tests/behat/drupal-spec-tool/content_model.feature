@@ -255,9 +255,9 @@ Feature: Content model
 | Content type | VAMC system banner alert with situation updates | Send email to subscribers via GovDelivery? | field_operating_status_sendemail | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | VAMC system banner alert with situation updates | Situation updates | field_situation_updates | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Content type | VAMC system health service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC system health service | Regional description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
-| Content type | VAMC system health service | Facility-specific descriptions of this service | field_local_health_care_service_ | Entity reference |  | Unlimited | Select list |  |
-| Content type | VAMC system health service | Region page | field_region_page | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC system health service | VAMC system description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | VAMC system health service | Facility-specific descriptions of this service | field_local_health_care_service_ | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
+| Content type | VAMC system health service | VAMC system | field_region_page | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC system health service | Service name and description | field_service_name_and_descripti | Entity reference | Required | 1 | Select list |  |
 | Content type | VAMC system operating status | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC system operating status | Banner alert and situation updates | field_banner_alert | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
