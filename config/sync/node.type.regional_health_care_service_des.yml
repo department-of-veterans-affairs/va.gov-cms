@@ -7,23 +7,14 @@ dependencies:
     - node_title_help_text
 third_party_settings:
   menu_ui:
-    available_menus:
-      - va-altoona-health-care
-      - va-butler-health-care
-      - va-coatesville-health-care
-      - va-erie-health-care
-      - va-lebanon
-      - va-philadelphia-health-care
-      - pittsburgh-health-care
-      - va-wilkes-barre-health-care
-      - va-wilmington-health-care
-    parent: 'pittsburgh-health-care:'
+    available_menus: {  }
+    parent: ''
   node_title_help_text:
     title_help: ''
 name: 'VAMC system health service'
 type: regional_health_care_service_des
 description: 'A description of a health service specific to a VAMC system.'
-help: "<ol><li><a href=\"/admin/structure/taxonomy/manage/health_care_service_taxonomy/overview\">Ensure the health service exists in the VHA health services taxonomy</a></li>\r\n<li>Add a VAMC health service, and link it to the VAMC by filling out this form.</li>\r\n<li>Add <a href=\"/node/add/health_care_local_health_service\">a VAMC facility health service</a> and point it to a VAMC health service.</li></ol>"
+help: "<ol><li><a href=\"/admin/structure/taxonomy/manage/health_care_service_taxonomy/overview\">Ensure the health service exists in the VHA health services taxonomy</a></li>\r\n<li>Add a VAMC health service, and link it to the VAMC by filling out this form.</li>\r\n<li>Add as many VAMC facility health services as there are facilities that provide this service, using this form.</li></ol>"
 new_revision: true
 preview_mode: 0
 display_submitted: false
