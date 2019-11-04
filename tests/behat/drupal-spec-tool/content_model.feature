@@ -246,15 +246,15 @@ Feature: Content model
 | Content type | VAMC system banner alert with situation updates | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  | 
 | Content type | VAMC system banner alert with situation updates | Display "Subscribe to email updates" link? | field_alert_email_updates_button | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC system banner alert with situation updates | Display "Find other VA facilities near you" link? | field_alert_find_facilities_cta | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | VAMC system banner alert with situation updates | Inherited by subpages | field_alert_inheritance_subpages | Boolean |  | 1 | Single on/off checkbox |  | 
+| Content type | VAMC system banner alert with situation updates | Inherited by subpages | field_alert_inheritance_subpages | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC system banner alert with situation updates | Display "Get updates on affected services and facilities" link | field_alert_operating_status_cta | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | VAMC system banner alert with situation updates | Alert type | field_alert_type | List (text) | Required | 1 | Select list |  | 
-| Content type | VAMC system banner alert with situation updates | Situation information | field_banner_alert_situationinfo | Text (formatted, long) |  | 1 | Text area (multiple rows) |  | 
-| Content type | VAMC system banner alert with situation updates | VA Medical Centers | field_banner_alert_vamcs | Entity reference | Required | Unlimited | Check boxes/radio buttons |  | 
-| Content type | VAMC system banner alert with situation updates | Alert body | field_body | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable | 
-| Content type | VAMC system banner alert with situation updates | Send email to subscribers via GovDelivery? | field_operating_status_sendemail | Boolean |  | 1 | Single on/off checkbox | Translatable | 
-| Content type | VAMC system banner alert with situation updates | Situation updates | field_situation_updates | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  | 
-| Content type | VAMC system health service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable | 
+| Content type | VAMC system banner alert with situation updates | Alert type | field_alert_type | List (text) | Required | 1 | Select list |  |
+| Content type | VAMC system banner alert with situation updates | Situation information | field_banner_alert_situationinfo | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
+| Content type | VAMC system banner alert with situation updates | VA Medical Centers | field_banner_alert_vamcs | Entity reference | Required | Unlimited | Check boxes/radio buttons |  |
+| Content type | VAMC system banner alert with situation updates | Alert body | field_body | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
+| Content type | VAMC system banner alert with situation updates | Send email to subscribers via GovDelivery? | field_operating_status_sendemail | Boolean |  | 1 | Single on/off checkbox | Translatable |
+| Content type | VAMC system banner alert with situation updates | Situation updates | field_situation_updates | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
+| Content type | VAMC system health service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC system health service | VAMC system description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | VAMC system health service | Facility-specific descriptions of this service | field_local_health_care_service_ | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  | 
 | Content type | VAMC system health service | VAMC system | field_region_page | Entity reference | Required | 1 | Select list | Translatable | 
