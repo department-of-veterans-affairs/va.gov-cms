@@ -6,10 +6,8 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\va_gov_consumers\GithubConsumer;
-use Drupal\va_gov_consumers\FacilityConsumer;
 
 /**
  * Implements hook_block_view_alter().
@@ -37,62 +35,6 @@ function _va_gov_consumers_content() {
 }
 
 /**
- * Implements hook_entity_presave().
- */
-function va_gov_consumers_entity_presave(EntityInterface $entity) {
-  switch ($entity->bundle()) {
-    // Populate title, address, phone, and hours via facility api.
-    case 'health_care_local_facility':
-      $facility_id_raw = $entity->get('field_facility_locator_api_id')->getValue();
-      $facility_id = !empty($facility_id_raw) ? reset($facility_id_raw) : '';
-
-      // Make sure we have something to prevent empty field errors.
-      if (empty($entity->title)) {
-        $entity->title = 'TBD';
-      }
-      if (!empty($facility_id)) {
-        $vast = new FacilityConsumer();
-        $reset_facility_id = reset($facility_id);
-        $data_raw = $vast->contentRender($reset_facility_id);
-        if (!empty($data_raw)) {
-          $data = reset($data_raw);
-
-          $entity->title = $data['attributes']['name'];
-          $entity->field_address = [
-            'country_code' => 'US',
-            'address_line1' => $data['attributes']['address']['physical']['address_1'],
-            'locality' => $data['attributes']['address']['physical']['city'],
-            'administrative_area' => $data['attributes']['address']['physical']['state'],
-            'postal_code' => $data['attributes']['address']['physical']['zip'],
-          ];
-          // Prevent trailing 'x' from appearing in phone string.
-          $entity->field_phone_number = substr($data['attributes']['phone']['main'], 0, 12);
-          $entity->field_mental_health_phone = substr($data['attributes']['phone']['mental_health_clinic'], 0, 12);
-
-          $days_array = [];
-          $days_array['caption'] = 'n/a';
-          $i = 0;
-          foreach ($data['attributes']['hours'] as $key => $day) {
-            $upcase_day = substr(ucfirst($key), 0, 3);
-            // Format our days / hours.
-            $days_array['value'][$i] = [$upcase_day, $day];
-            $i++;
-          }
-          $entity->field_facility_hours = $days_array;
-        }
-        else {
-          $message = t('Facility API response for Facility ID :facility_id is empty. CMS_FACILITY_API_KEY environment variable may not be set.',
-          [':facility_id' => $facility_id['value']]);
-          \Drupal::logger('va_gov_consumers')->notice($message);
-          drupal_set_message($message, 'warning');
-        }
-      }
-      break;
-  }
-
-}
-
-/**
  * Implements hook_form_alter().
  */
 function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $form_id) {
@@ -101,6 +43,7 @@ function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $fo
       $form['title']['widget'][0]['value']['#default_value'] = t('API Data');
     }
     $form['title']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
+    $form['field_facility_classification']['widget']['#attributes']['disabled'] = TRUE;
     unset($form['field_facility_hours']['widget'][0]['caption']);
     $form['field_facility_hours']['widget'][0]['#addrow'] = FALSE;
     $form['field_facility_hours']['widget'][0]['#attributes']['disabled'] = TRUE;

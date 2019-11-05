@@ -1,149 +1,150 @@
+uuid: c053be1a-df09-4371-8899-ec0364041cfb
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - va_gov_migrate
+_core:
+  default_config_hash: peLioSAuvcHQa6WDUODJgwh3wzs9-DAiD04fQRtFYIg
 id: va_new_hubs
-label: Migrate Remaining benefits detail pages from VA.gov
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
 migration_group: va_tests
+label: 'Migrate Remaining benefits detail pages from VA.gov'
 source:
-  plugin: metalsmith_source  # This is where the page urls and frontmatter come from (see MetalsmithSource.php)
-  urls:     # This can be a list urls to crawl or .md files to read.
-    - "/disability"
-    - "/education"
-  templates:  # A list of Metalsmith templates to process (detail-page=basic page, level2-index=hub page)
+  plugin: metalsmith_source
+  urls:
+    - /disability
+    - /education
+  templates:
     - detail-page
-  fields:  # :ist any frontmatter fields you want to migrate.
+  fields:
     - description
     - plainlanguage_date
     - lastupdate
     - title
-
   migration_tools:
-  -
-    # Just leave this as is, if using metalsmith_source or url_list source.
-    source: url # The field we're passing to migration_tools is called 'url'.
-    source_type: url  # Source type can be either 'url' or 'html'.
-
-    source_operations:
     -
-      operation: modifier
-      modifier: basicCleanup  # Tell migration_tools to run some basic cleanup of the page it just read.
-    fields:
-      page_title:  # This is the recipe for a field called 'title'.
-        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainTitleNoCaseChange"
-        jobs:
+      source: url
+      source_type: url
+      source_operations:
         -
-          job: addSearch  # Run a job to search the DOM and assign the results to this field.
-          method: pluckSelector # Also remove it from the DOM (so it doesn't show up in body, too).
-          arguments:
-          - 'h1'  # Look for h1 tags.
-      intro_text:
-        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAndTestPlainTextWithNewLines"
-        jobs:
+          operation: modifier
+          modifier: basicCleanup
+      fields:
+        page_title:
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainTitleNoCaseChange
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelector
+              arguments:
+                - h1
+        intro_text:
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainAndTestPlainTextWithNewLines
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelectorAndTest
+              arguments:
+                - .va-introtext
+                - '@title'
+                - '@url'
+        featured_content:
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainAndTestFeature
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelectorAndTest
+              arguments:
+                - .feature
+                - '@title'
+                - '@url'
+                - innerHTML
+        alert_title:
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainAlertBlockTitles
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelectorAndTest
+              arguments:
+                - .usa-alert
+                - '@title'
+                - '@url'
+        related_links:
+          obtainer: ObtainHtml
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelector
+              arguments:
+                - .va-nav-linkslist--related
+                - '1'
+                - innerHTML
+        body:
+          obtainer: \Drupal\va_gov_migrate\Obtainer\ObtainAndTestBody
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelectorAndTest
+              arguments:
+                - article
+                - '@title'
+                - '@url'
+                - innerHTML
+        nav_linkslist:
+          obtainer: ObtainHtml
+          jobs:
+            -
+              job: addSearch
+              method: pluckSelector
+              arguments:
+                - aside.va-nav-linkslist
+                - '1'
+                - innerHTML
+      dom_operations:
         -
-          job: addSearch
-          method: pluckSelectorAndTest
-          arguments:
-            - '.va-introtext'
-            - '@title'
-            - '@url'
-      featured_content:
-        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAndTestFeature"
-        jobs:
+          operation: get_field
+          field: page_title
         -
-          job: addSearch
-          method: pluckSelectorAndTest
-          arguments:
-            - '.feature' # find something with class, 'feature'
-            - '@title'
-            - '@url'
-            - innerHTML  # Get any html it contains.
-      alert_title:
-        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAlertBlockTitles"
-        jobs:
-          -
-            job: 'addSearch'
-            method: 'pluckSelectorAndTest'
-            arguments:
-              - '.usa-alert'
-              - '@title'
-              - '@url'
-      related_links:
-        obtainer: ObtainHtml
-        jobs:
+          operation: get_field
+          field: intro_text
         -
-          job: 'addSearch'
-          method: 'pluckSelector'
-          arguments:
-            - '.va-nav-linkslist--related'
-            - '1'
-            - innerHTML
-      body:
-        obtainer: "\\Drupal\\va_gov_migrate\\Obtainer\\ObtainAndTestBody"
-        jobs:
+          operation: get_field
+          field: featured_content
         -
-          job: 'addSearch'
-          method: 'pluckSelectorAndTest'
+          operation: modifier
+          modifier: removeSelectorAll
           arguments:
-          - 'article'
-          - '@title'
-          - '@url'
-          - innerHTML
-      nav_linkslist:
-        obtainer: ObtainHtml
-        jobs:
+            - '#crisis-expander-link'
         -
-          job: 'addSearch'
-          method: 'pluckSelector'
+          operation: get_field
+          field: alert_title
+        -
+          operation: get_field
+          field: related_links
+        -
+          operation: get_field
+          field: nav_linkslist
+        -
+          operation: modifier
+          modifier: removeSelectorAll
           arguments:
-            - 'aside.va-nav-linkslist'
-            - '1'
-            - innerHTML
-    dom_operations:
-    -
-      # This runs first.
-      operation: get_field
-      field: page_title  # Use the 'title' recipe from above to create the field.
-    -
-      # This runs next.
-      operation: get_field
-      field: intro_text
-    -
-      # And so on...
-      operation: get_field
-      field: featured_content
-    -
-      # Remove expander trigger before getting alert title
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-        - '#crisis-expander-link'
-    -
-      operation: get_field
-      field: alert_title
-    -
-      operation: get_field
-      field: related_links
-    -
-      operation: get_field
-      field: nav_linkslist
-    -
-      # Clean things up before getting the body.
-      # Remove javascript cruft.
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-      - 'button.va-btn-sidebarnav-trigger'
-    -
-      # Remove any scripts
-      operation: modifier
-      modifier: removeSelectorAll
-      arguments:
-        - 'script'
-    -
-      operation: get_field
-      field: body  # Now that we've plucked all the other fields and cleaned up, run the 'body' recipe on what's left.
-
+            - button.va-btn-sidebarnav-trigger
+        -
+          operation: modifier
+          modifier: removeSelectorAll
+          arguments:
+            - script
+        -
+          operation: get_field
+          field: body
   constants:
     meta_title_suffix: ' | Veterans Affairs'
-
-process:  # assign the fields we collected above to Drupal fields.
+process:
   title: page_title
   meta_title:
     plugin: substr
@@ -169,15 +170,15 @@ process:  # assign the fields we collected above to Drupal fields.
   field_description: description
   field_plainlanguage_date:
     plugin: format_date
-    from_format: 'n/j/y'
-    to_format: 'Y-m-d'
+    from_format: n/j/y
+    to_format: Y-m-d
     source: plainlanguage_date
-  'field_alert/target_id': alert_title
+  field_alert/target_id: alert_title
   field_administration:
     -
       plugin: explode
       source: url
-      delimiter: '/'
+      delimiter: /
     -
       plugin: extract
       index:
@@ -191,16 +192,8 @@ process:  # assign the fields we collected above to Drupal fields.
     plugin: default_value
     default_value: draft
   type:
-    plugin: default_value   # We want to assign the 'type' field a static value.
-    default_value: page # The value is 'page'.
-
+    plugin: default_value
+    default_value: page
 destination:
   plugin: 'entity:node'
-
-migration_dependencies: {}
-
-# This belongs in all migration scripts. Without it the module the migration script belongs to won't uninstall cleanly.
-dependencies:
-  enforced:
-    module:
-    - va_gov_migrate  # The module this migration script belongs to.
+migration_dependencies: {  }

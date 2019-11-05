@@ -1,0 +1,21 @@
+uuid: ffddc098-f713-4dd8-ae2b-a0481d06c4ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_facility_classification
+    - node.type.health_care_local_facility
+  module:
+    - options
+id: node.health_care_local_facility.field_facility_classification
+field_name: field_facility_classification
+entity_type: node
+bundle: health_care_local_facility
+label: Classification
+description: 'The classification for this facility. (populated by Facility API)'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,29 @@
+uuid: d74f987e-1277-4bb2-8c59-c799c5c0d151
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.pension-benefits-hub
+  module:
+    - system
+  theme:
+    - vagovadmin
+id: pensionbenefitshub
+theme: vagovadmin
+region: sidebar_first
+weight: -3
+provider: null
+plugin: 'system_menu_block:pension-benefits-hub'
+settings:
+  id: 'system_menu_block:pension-benefits-hub'
+  label: 'Pension benefits hub'
+  provider: system
+  label_display: visible
+  level: 2
+  depth: 0
+visibility:
+  request_path:
+    id: request_path
+    pages: '/pensi*'
+    negate: false
+    context_mapping: {  }

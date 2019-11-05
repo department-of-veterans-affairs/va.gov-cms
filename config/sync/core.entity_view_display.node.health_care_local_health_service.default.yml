@@ -16,36 +16,15 @@ targetEntityType: node
 bundle: health_care_local_health_service
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_administration:
-    weight: 4
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_body:
-    weight: 3
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_facility_location:
-    weight: 1
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_regional_health_service:
-    weight: 2
+    weight: 0
     label: above
     settings:
       link: true
@@ -53,4 +32,8 @@ content:
     type: entity_reference_label
     region: content
 hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_regional_health_service: true
   links: true
+  search_api_excerpt: true

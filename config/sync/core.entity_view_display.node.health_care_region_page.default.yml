@@ -48,7 +48,7 @@ third_party_settings:
         - field_meta_title
         - field_description
       parent_name: ''
-      weight: 7
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -66,7 +66,7 @@ third_party_settings:
         - field_appointments_online
         - field_clinical_health_services
       parent_name: ''
-      weight: 10
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -78,13 +78,14 @@ third_party_settings:
       children:
         - field_locations_intro_blurb
         - field_clinical_health_care_servi
+        - field_featured_content_healthser
         - field_intro_text_leadership
         - field_intro_text_press_releases
         - field_press_release_blurb
         - field_intro_text_events_page
         - field_intro_text_news_stories
       parent_name: ''
-      weight: 11
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -95,6 +96,10 @@ third_party_settings:
     group_social_media_and_links:
       children:
         - field_links
+        - field_sign_up_for_emergency_emai
+        - field_email_subscription_links
+        - field_link_facility_emerg_list
+        - field_link_facility_news_list
         - field_operating_status
         - field_facebook
         - field_flickr
@@ -102,7 +107,7 @@ third_party_settings:
         - field_twitter
         - field_related_links
       parent_name: ''
-      weight: 19
+      weight: 5
       format_type: fieldset
       format_settings:
         id: ''
@@ -161,8 +166,20 @@ content:
     third_party_settings: {  }
     type: string
     region: content
+  field_email_subscription_links:
+    type: link
+    weight: 8
+    region: content
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
   field_facebook:
-    weight: 13
+    weight: 12
     label: above
     settings:
       trim_length: 80
@@ -175,7 +192,7 @@ content:
     region: content
   field_featured_content_healthser:
     type: entity_reference_revisions_entity_view
-    weight: 26
+    weight: 4
     label: above
     settings:
       view_mode: default
@@ -183,7 +200,7 @@ content:
     third_party_settings: {  }
     region: content
   field_flickr:
-    weight: 14
+    weight: 13
     label: above
     settings:
       trim_length: 80
@@ -195,7 +212,7 @@ content:
     type: link
     region: content
   field_instagram:
-    weight: 15
+    weight: 14
     label: above
     settings:
       trim_length: 80
@@ -250,7 +267,7 @@ content:
     type: entity_reference_label
     region: content
   field_link_facility_emerg_list:
-    weight: 27
+    weight: 9
     label: above
     settings:
       trim_length: 80
@@ -262,7 +279,7 @@ content:
     type: link
     region: content
   field_link_facility_news_list:
-    weight: 28
+    weight: 10
     label: above
     settings:
       trim_length: 80
@@ -274,7 +291,9 @@ content:
     type: link
     region: content
   field_links:
-    weight: 11
+    type: link
+    weight: 6
+    region: content
     label: above
     settings:
       trim_length: 80
@@ -283,8 +302,6 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
-    region: content
   field_locations_intro_blurb:
     weight: 2
     label: above
@@ -317,7 +334,7 @@ content:
     type: string
     region: content
   field_operating_status:
-    weight: 12
+    weight: 11
     label: above
     settings:
       trim_length: 80
@@ -344,7 +361,7 @@ content:
     type: text_default
     region: content
   field_related_links:
-    weight: 17
+    weight: 16
     label: above
     settings:
       view_mode: default
@@ -352,8 +369,20 @@ content:
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
     region: content
+  field_sign_up_for_emergency_emai:
+    type: link
+    weight: 7
+    region: content
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
   field_twitter:
-    weight: 16
+    weight: 15
     label: above
     settings:
       trim_length: 80
@@ -366,8 +395,6 @@ content:
     region: content
 hidden:
   field_email_subscription: true
-  field_email_subscription_links: true
   field_meta_tags: true
-  field_sign_up_for_emergency_emai: true
   links: true
   search_api_excerpt: true

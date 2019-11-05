@@ -1,0 +1,29 @@
+uuid: 681bfd0a-5700-426c-b181-b71ad3dc4406
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.va-philadelphia-health-care
+  module:
+    - system
+  theme:
+    - vagovadmin
+id: vaphiladelphiahealthcare
+theme: vagovadmin
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:va-philadelphia-health-care'
+settings:
+  id: 'system_menu_block:va-philadelphia-health-care'
+  label: 'VA Philadelphia health care'
+  provider: system
+  label_display: visible
+  level: 2
+  depth: 0
+visibility:
+  request_path:
+    id: request_path
+    pages: '/philadelphia-health-car*'
+    negate: false
+    context_mapping: {  }
