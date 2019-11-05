@@ -1,0 +1,31 @@
+uuid: cbebdefd-10af-4660-96cc-527a7956649a
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.right_sidebar_latest_revision
+  module:
+    - system
+    - views
+  theme:
+    - vagovadmin
+id: views_block__right_sidebar_latest_revision_block_1
+theme: vagovadmin
+region: sidebar_second
+weight: 0
+provider: null
+plugin: 'views_block:right_sidebar_latest_revision-block_1'
+settings:
+  id: 'views_block:right_sidebar_latest_revision-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  request_path:
+    id: request_path
+    pages: "/node/*/edit\r\n/node/*/history\r\n/node/*/delete\r\n/node/*/clone\r\n/node/*/moderation-history\r\n"
+    negate: true
+    context_mapping: {  }

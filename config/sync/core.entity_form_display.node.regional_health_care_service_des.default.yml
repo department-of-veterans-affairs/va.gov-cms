@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.node.inline_entity_form
     - field.field.node.regional_health_care_service_des.field_administration
     - field.field.node.regional_health_care_service_des.field_body
     - field.field.node.regional_health_care_service_des.field_local_health_care_service_
@@ -11,7 +12,7 @@ dependencies:
     - node.type.regional_health_care_service_des
   module:
     - field_group
-    - path
+    - ief_table_view_mode
     - text
 third_party_settings:
   field_group:
@@ -20,7 +21,7 @@ third_party_settings:
         - field_region_page
         - field_administration
       parent_name: ''
-      weight: 10
+      weight: 3
       format_type: details_sidebar
       format_settings:
         open: '1'
@@ -35,7 +36,7 @@ third_party_settings:
         - revision_log
         - moderation_state
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: fieldset
       format_settings:
         id: ''
@@ -50,12 +51,6 @@ targetEntityType: node
 bundle: regional_health_care_service_des
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 9
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_administration:
     weight: 2
     settings: {  }
@@ -63,7 +58,7 @@ content:
     type: options_select
     region: content
   field_body:
-    weight: 2
+    weight: 1
     settings:
       rows: 5
       placeholder: ''
@@ -71,10 +66,20 @@ content:
     type: text_textarea
     region: content
   field_local_health_care_service_:
-    weight: 3
-    settings: {  }
+    weight: 2
+    settings:
+      form_mode: inline_entity_form
+      label_singular: ''
+      label_plural: ''
+      collapsible: true
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      allow_duplicate: true
+      override_labels: false
+      collapsed: false
     third_party_settings: {  }
-    type: options_select
+    type: inline_entity_form_complex_table_view_mode
     region: content
   field_region_page:
     weight: 1
@@ -88,40 +93,14 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
-  path:
-    type: path
-    weight: 6
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    weight: 8
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    weight: 4
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    weight: 7
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  url_redirects:
-    weight: 5
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
+  created: true
   moderation_state: true
+  path: true
+  promote: true
   revision_log: true
+  status: true
+  sticky: true
   title: true
   uid: true
+  url_redirects: true

@@ -1,0 +1,29 @@
+uuid: 771fb54f-76cb-4f8a-9223-bc873b857b8b
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.va-wilkes-barre-health-care
+  module:
+    - system
+  theme:
+    - vagovadmin
+id: vawilkesbarrehealthcare
+theme: vagovadmin
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:va-wilkes-barre-health-care'
+settings:
+  id: 'system_menu_block:va-wilkes-barre-health-care'
+  label: 'VA Wilkes-Barre health care'
+  provider: system
+  label_display: visible
+  level: 2
+  depth: 0
+visibility:
+  request_path:
+    id: request_path
+    pages: '/wilkes-barre-health-car*'
+    negate: false
+    context_mapping: {  }

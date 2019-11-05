@@ -6,12 +6,14 @@
  */
 
 use Drupal\Core\Database\Database;
+use Drupal\migrate\MigrateMessage;
+use Drupal\migrate_tools\MigrateExecutable;
 
 /**
  * Make migration think family and service member benefits pages were migrated.
  */
 function va_gov_migrate_update_8004() {
-  $new_landing_pages = [
+  $nodes_to_be_migratized = [
     'https://www.va.gov/service-member-benefits/' => [
       'nid' => 809,
       'source_hash' => '951e07e46c7fd11da864969eef622e993e18918679df9d24c6f0c1c875573813',
@@ -21,21 +23,105 @@ function va_gov_migrate_update_8004() {
       'source_hash' => '1f0a1abd890c735c9f5bcb6a793166aa51622e729d50f78c55f984687dd71b17',
     ],
   ];
-  $connection = Database::getConnection();
-  $migration = \Drupal::getContainer()->get('plugin.manager.migration')->createInstance('va_hub');
+  $message = _va_gov_migrate_add_nodes_to_migrate_map('va_hub', $nodes_to_be_migratized);
 
-  foreach ($new_landing_pages as $source_id => $values) {
-    $result = $connection->query('SELECT destid1 FROM {migrate_map_va_hub} WHERE sourceid1 = :sourceid', [':sourceid' => $source_id]);
-    if (!$result->fetch()) {
-      $connection->insert('migrate_map_va_hub')
-        ->fields([
-          'source_ids_hash' => $values['source_hash'],
-          'sourceid1' => $source_id,
-          'destid1' => $values['nid'],
-        ])
-        ->execute();
+  return $message;
+
+}
+
+/**
+ * Make migration think existing facility pages were migrated.
+ */
+function va_gov_migrate_update_8005(&$sandbox) {
+  $nodes_to_be_migratized = _va_gov_migrate_gather_existing_nodes_of_type('health_care_local_facility', 'field_facility_locator_api_id');
+  // Update the table migrate_map_va_node_health_care_local_facility.
+  $message = _va_gov_migrate_add_nodes_to_migrate_map('va_node_health_care_local_facility', $nodes_to_be_migratized);
+
+  return $message;
+}
+
+/**
+ * Find all existing nodes of bundle and build array migrate map data.
+ *
+ * @param string $bundle
+ *   The node bundle to load existing nodes from.
+ * @param string $unique_field_name
+ *   The field that migrate should treat as the source id.
+ *   Warning, this only works for migrations that use a single field and it
+ *   the field matches exactly that provided by the source.
+ *
+ * @return array
+ *   An array of arrays, one element per node.
+ */
+function _va_gov_migrate_gather_existing_nodes_of_type(string $bundle, string $unique_field_name) {
+  $existing_nodes = [];
+
+  if (!empty($bundle)) {
+    $values = [
+      'type' => $bundle,
+    ];
+    $nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties($values);
+    // Loop through the nodes to build the migration nodes array.
+    foreach ($nodes as $nid => $node) {
+      $source_id = $node->get($unique_field_name)->getString();
+      $existing_nodes[] = [
+        'destination_id' => $nid,
+        'source_id' => $source_id,
+        // Use the same method migrate uses to hash.
+        'source_hash' => hash('sha256', serialize(array_map('strval', [$source_id]))),
+        // Set rollback action to preserve, not delete on rollback.
+        'rollback_action' => 1,
+      ];
     }
   }
-  return "Added benefits nodes to migrate_map_va_hub";
+  return $existing_nodes;
+}
 
+/**
+ * Add nodes to migration map table so migrate thinks the were migrated.
+ *
+ * @param string $migration_name
+ *   The table to add the node details to.
+ * @param array $nodes_to_be_migratized
+ *   An array of arrays to be fake migrated.
+ *
+ * @return string
+ *   A message of what was done.
+ */
+function _va_gov_migrate_add_nodes_to_migrate_map(string $migration_name, array $nodes_to_be_migratized) {
+  $count = 0;
+  $migration_map_table = "migrate_map_{$migration_name}";
+  // Make sure the table exists.
+  $connection = Database::getConnection();
+  if (!$connection->schema()->tableExists($migration_map_table)) {
+    // Table does not exist yet so make it.
+    $migration = \Drupal::getContainer()->get('plugin.manager.migration')->createInstance($migration_name);
+    // Migrate just 1 item so the migrate map gets built.
+    $executable = new MigrateExecutable($migration, new MigrateMessage(), ['limit' => 1]);
+    $executable->import();
+    // Roll it back so it does not exist.
+    $executable->rollback();
+  }
+
+  foreach ($nodes_to_be_migratized as $values) {
+    $result = $connection->query("SELECT destid1 FROM {$migration_map_table} WHERE sourceid1 = :sourceid", [':sourceid' => $source_id]);
+    if (!$result->fetch()) {
+      // There is none, so insert it.
+      $connection->insert($migration_map_table)
+        ->fields([
+          'source_ids_hash' => $values['source_hash'],
+          'sourceid1' => $values['source_id'],
+          'destid1' => $values['destination_id'],
+          'rollback_action' => $values['rollback_action'],
+        ])
+        ->execute();
+      $count++;
+    }
+
+  }
+  // Report what was done.
+  $total = count($nodes_to_be_migratized);
+  return "Added {$count}/{$total} nodes to migrate map table {$migration_map_table}.";
 }

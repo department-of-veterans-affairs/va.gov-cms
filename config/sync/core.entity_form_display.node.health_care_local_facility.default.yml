@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_description
     - field.field.node.health_care_local_facility.field_email_subscription
     - field.field.node.health_care_local_facility.field_facebook
+    - field.field.node.health_care_local_facility.field_facility_classification
     - field.field.node.health_care_local_facility.field_facility_hours
     - field.field.node.health_care_local_facility.field_facility_locator_api_id
     - field.field.node.health_care_local_facility.field_flickr
@@ -134,8 +135,9 @@ third_party_settings:
       region: content
     group_facility_api:
       children:
-        - field_facility_locator_api_id
         - title
+        - field_facility_locator_api_id
+        - field_facility_classification
         - field_address
         - field_phone_number
         - field_mental_health_phone
@@ -146,9 +148,9 @@ third_party_settings:
       format_settings:
         description: ''
         open: true
-        required_fields: true
         id: ''
         classes: ''
+        required_fields: false
       label: 'Facility API'
       region: content
     group_operating_status:
@@ -171,7 +173,7 @@ bundle: health_care_local_facility
 mode: default
 content:
   field_address:
-    weight: 12
+    weight: 14
     settings:
       default_country: null
     third_party_settings: {  }
@@ -214,15 +216,21 @@ content:
     third_party_settings: {  }
     type: link_default
     region: content
+  field_facility_classification:
+    weight: 13
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   field_facility_hours:
-    weight: 15
+    weight: 17
     settings:
       input_type: textfield
     third_party_settings: {  }
     type: tablefield
     region: content
   field_facility_locator_api_id:
-    weight: 10
+    weight: 12
     settings:
       size: 60
       placeholder: ''
@@ -284,7 +292,7 @@ content:
     region: content
     third_party_settings: {  }
   field_mental_health_phone:
-    weight: 14
+    weight: 16
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -333,7 +341,7 @@ content:
     type: string_textarea
     region: content
   field_phone_number:
-    weight: 13
+    weight: 15
     settings:
       placeholder: ''
     third_party_settings: {  }

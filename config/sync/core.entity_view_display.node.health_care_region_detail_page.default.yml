@@ -27,7 +27,7 @@ third_party_settings:
         - field_meta_title
         - field_description
       parent_name: ''
-      weight: 3
+      weight: 1
       format_type: fieldset
       format_settings:
         id: ''
@@ -38,13 +38,14 @@ third_party_settings:
     group_cone:
       children:
         - field_intro_text
+        - field_table_of_contents_boolean
         - field_alert
         - field_featured_content
         - field_content_block
         - field_media
         - field_related_links
       parent_name: ''
-      weight: 4
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -62,16 +63,8 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_administration:
-    weight: 1
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_alert:
-    weight: 6
+    weight: 7
     label: above
     settings:
       link: true
@@ -79,7 +72,7 @@ content:
     type: entity_reference_label
     region: content
   field_content_block:
-    weight: 8
+    weight: 9
     label: above
     settings:
       view_mode: default
@@ -88,15 +81,15 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   field_description:
-    weight: 12
+    type: string
+    weight: 1
+    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
-    region: content
   field_featured_content:
-    weight: 7
+    weight: 8
     label: above
     settings:
       view_mode: default
@@ -112,7 +105,7 @@ content:
     type: basic_string
     region: content
   field_media:
-    weight: 9
+    weight: 10
     label: above
     settings:
       link: true
@@ -120,23 +113,15 @@ content:
     type: entity_reference_label
     region: content
   field_meta_title:
-    weight: 11
+    type: string
+    weight: 0
+    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
-    region: content
-  field_office:
-    weight: 2
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_related_links:
-    weight: 10
+    weight: 11
     label: above
     settings:
       view_mode: default
@@ -145,7 +130,7 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   field_table_of_contents_boolean:
-    weight: 13
+    weight: 6
     label: above
     settings:
       format: default
@@ -155,5 +140,8 @@ content:
     type: boolean
     region: content
 hidden:
+  field_administration: true
   field_meta_tags: true
+  field_office: true
   links: true
+  search_api_excerpt: true
