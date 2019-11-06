@@ -14,15 +14,16 @@ va/deploy/0-composer:
 
 va/deploy/1-cache:
   description: Rebuild Drupal caches
-  command: drush $DRUSH_ALIAS cr
+  command: drush $DRUSH_ALIAS cache:rebuild
 
 va/deploy/2-update:
   description: Run Drupal Update Hooks
   command: drush $DRUSH_ALIAS updatedb --yes
 
 va/deploy/3-config:
-  - drush $DRUSH_ALIAS cim --yes
-  - drush $DRUSH_ALIAS cr
+  - drush $DRUSH_ALIAS config:import --yes
+  - drush $DRUSH_ALIAS config:status | tee /dev/stderr | grep "Different" --context 5 && echo "tests.yml | Drupal configuration is not importing cleanly." && exit 1 || echo "Drupal configuration imported cleanly"
+  - drush $DRUSH_ALIAS cache:rebuild
 
 va/tests/phpcs:
   description: PHP CodeSniffer
