@@ -206,3 +206,23 @@ function va_gov_backend_rebuild() {
 
   \Drupal::state()->set("environment_indicator.current_release", $indicator);
 }
+
+/**
+ * Set values in VAMC banner alert nodes, according to values in VAMC system,
+ * for passing values into Granicus bulleting and email notifications.
+ * For each VAMC Operating status referenced in field_banner_alert_vamcs:
+ *  - $vamc_system_operating_status_url (URL of Operating status page,
+ *     eg 'https://www.va.gov/pittsburgh-health-care/operating-status')
+ *  - $vamc_system_name (Name of VAMC, eg "Pittsburgh VA health care",
+ *    via field_office->title)
+ *  - $vamc_system_emerg_topicid (Granicus topic id, eg "USVHA_396",
+ *    via field_office->field_link_facility_emerg_list)
+ * Store each array as a value in the multivalue field_banner_alert_computdvalues
+ * field on the full_width_banner_alert content type, eg:
+ * 'https://www.va.gov/pittsburgh-health-care/operating-status, Pittsburgh VA health care, USVHA_396'
+ */
+
+function computed_field_field_banner_alert_computdvalues_compute($entity_type_manager, $entity, $fields, $delta) {
+
+
+}
