@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6de224a82b65bcbab9b20716f2e57772",
+    "content-hash": "cb84a4854b5aa1588dace6a017d6233a",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -3874,6 +3874,9 @@
                         "status": "not-covered",
                         "message": "Alpha releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "Content lock causes redirect response preventing migration rollback.": "https://www.drupal.org/files/issues/2018-08-28/2951652-4.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4551,10 +4554,6 @@
                     "homepage": "https://www.drupal.org/node/3236/committers"
                 },
                 {
-                    "name": "pcambra",
-                    "homepage": "https://www.drupal.org/user/122101"
-                },
-                {
                     "name": "salvis",
                     "homepage": "https://www.drupal.org/user/82964"
                 },
@@ -4901,7 +4900,7 @@
                 },
                 "drupal": {
                     "version": "8.x-2.0-alpha9",
-                    "datestamp": "1573073887",
+                    "datestamp": "1554021181",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Alpha releases are not covered by Drupal security advisories."
@@ -5690,8 +5689,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-rc1+19-dev",
-                    "datestamp": "1572476880",
+                    "version": "8.x-3.0-rc1+18-dev",
+                    "datestamp": "1572476284",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -6082,6 +6081,55 @@
             }
         },
         {
+            "name": "drupal/image_style_warmer",
+            "version": "1.0.0-beta2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/image_style_warmer.git",
+                "reference": "8.x-1.0-beta2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/image_style_warmer-8.x-1.0-beta2.zip",
+                "reference": "8.x-1.0-beta2",
+                "shasum": "e83e8d0fc53b18774d298ef1b3c95e6a16576dd9"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-beta2",
+                    "datestamp": "1552142584",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Steffen Schlaer (IT-Cru)",
+                    "homepage": "https://www.drupal.org/u/IT-Cru",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Create image styles of an image on upload or via queue worker.",
+            "homepage": "https://drupal.org/project/image_style_warmer",
+            "support": {
+                "source": "https://cgit.drupalcode.org/image_style_warmer",
+                "issues": "https://drupal.org/project/issues/image_style_warmer"
+            }
+        },
+        {
             "name": "drupal/image_widget_crop",
             "version": "2.2.0",
             "source": {
@@ -6329,10 +6377,6 @@
                     "homepage": "https://www.drupal.org/user/35733"
                 },
                 {
-                    "name": "jonathan1055",
-                    "homepage": "https://www.drupal.org/user/92645"
-                },
-                {
                     "name": "juampynr",
                     "homepage": "https://www.drupal.org/user/682736"
                 },
@@ -6544,10 +6588,6 @@
             ],
             "authors": [
                 {
-                    "name": "acquia",
-                    "homepage": "https://www.drupal.org/user/1231722"
-                },
-                {
                     "name": "balsama",
                     "homepage": "https://www.drupal.org/user/223087"
                 },
@@ -6696,16 +6736,8 @@
             ],
             "authors": [
                 {
-                    "name": "acquia",
-                    "homepage": "https://www.drupal.org/user/1231722"
-                },
-                {
                     "name": "balsama",
                     "homepage": "https://www.drupal.org/user/223087"
-                },
-                {
-                    "name": "katherined",
-                    "homepage": "https://www.drupal.org/user/109870"
                 },
                 {
                     "name": "phenaproxima",
@@ -6756,7 +6788,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.7",
-                    "datestamp": "1573062784",
+                    "datestamp": "1552942380",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6829,16 +6861,8 @@
             ],
             "authors": [
                 {
-                    "name": "acquia",
-                    "homepage": "https://www.drupal.org/user/1231722"
-                },
-                {
                     "name": "balsama",
                     "homepage": "https://www.drupal.org/user/223087"
-                },
-                {
-                    "name": "katherined",
-                    "homepage": "https://www.drupal.org/user/109870"
                 },
                 {
                     "name": "phenaproxima",
@@ -6994,10 +7018,6 @@
             ],
             "authors": [
                 {
-                    "name": "acquia",
-                    "homepage": "https://www.drupal.org/user/1231722"
-                },
-                {
                     "name": "balsama",
                     "homepage": "https://www.drupal.org/user/223087"
                 },
@@ -7126,10 +7146,6 @@
                 "GPL-2.0-or-later"
             ],
             "authors": [
-                {
-                    "name": "acquia",
-                    "homepage": "https://www.drupal.org/user/1231722"
-                },
                 {
                     "name": "balsama",
                     "homepage": "https://www.drupal.org/user/223087"
@@ -8841,9 +8857,6 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": {
-                    "Fix broken fieldset wrapping.": "https://www.drupal.org/files/issues/2907094_7_field_group_support.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -9046,7 +9059,7 @@
                     }
                 },
                 "patches_applied": {
-                    "Add an option to import non-existent paths": "https://www.drupal.org/files/issues/2018-08-28/path_redirect_import-2995543-2.patch"
+                    "Add an option to import non-existent paths": "https://www.drupal.org/files/issues/2019-09-17/path_redirect_import-2995543-4.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -9718,7 +9731,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.14",
-                    "datestamp": "1573122785",
+                    "datestamp": "1562599986",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -19130,6 +19143,7 @@
         "drupal/fast_404": 15,
         "drupal/field_group": 20,
         "drupal/graphql_metatag": 20,
+        "drupal/image_style_warmer": 10,
         "drupal/linkit": 20,
         "drupal/markup": 10,
         "drupal/node_revisions_autoclean": 10,
