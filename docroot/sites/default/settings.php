@@ -94,9 +94,7 @@ $settings['entity_update_batch_size'] = 50;
 /**
  * Image Style Settings
  *
- * We don't need `itok` DDoS protection in this environment.
- *   1) We are using Image Style Warmer anyways.
- *
+ * We don't need `itok` DDoS protection in this firewalled environment.
  */
 $config['image.settings']['allow_insecure_derivatives'] = TRUE;
 $config['image.settings']['suppress_itok_output'] = TRUE;
