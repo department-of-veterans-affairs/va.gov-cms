@@ -27,7 +27,7 @@ function va_gov_node_update(NodeInterface $node) {
  */
 function va_gov_build_trigger_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
-  if (in_array('node_form', $form['#theme'])) {
+  if (in_array('node_form', (array) $form['#theme'])) {
 
     $form['actions']['preview'] = [
       '#type' => 'submit',
