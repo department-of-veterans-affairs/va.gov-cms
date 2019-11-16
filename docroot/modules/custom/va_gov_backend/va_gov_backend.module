@@ -5,6 +5,7 @@
  * Contains va_gov_backend.module.
  */
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Field\WidgetBase;
@@ -208,21 +209,42 @@ function va_gov_backend_rebuild() {
 }
 
 /**
- * Implements computed_field_compute for field_banner_alert_computdvalues.
+ * Implements hook_entity_presave().
  */
-function computed_field_field_banner_alert_computdvalues_compute($entity_type_manager, $entity, $fields, $delta) {
-  // Set values in VAMC banner alert nodes, according to values in VAMC system,
-  // for passing values into Granicus bulletins and email notifications, and
-  // for determining the alert visibility on VAMC system pages.
-  // For each VAMC Operating status referenced in field_banner_alert_vamcs, get:
-  // - $vamc_system_name (Name of VAMC, via field_office)
-  // - $vamc_system_path (via field_office)
-  // - $vamc_system_operating_status_url (URL of Operating status page)
-  // - $vamc_system_emerg_topicid (Granicus topic id, via
-  // field_office->field_link_facility_emerg_list).
-  //
-  // Store each array as a value in multivalue field_banner_alert_computdvalues
-  // field on the full_width_banner_alert content type, eg:
-  // 'Pittsburgh VA health care, /pittsburgh-health-care,
-  // https://www.va.gov/pittsburgh-health-care/operating-status,  USVHA_396'.
+function va_gov_backend_entity_presave(EntityInterface $entity) {
+
+  // Make sure it's a node.
+  if ($entity instanceof NodeInterface && $entity->bundle() === 'full_width_banner_alert') {
+
+    // This is where we get our Operating status node id's.
+    $vamcs_ids = $entity->get('field_banner_alert_vamcs')->getValue();
+    foreach ($vamcs_ids as $key => $vamc_id) {
+      $vamcs_ids[$key] = !empty($vamc_id['target_id']) ? 'entity:node/' . $vamc_id['target_id'] : '';
+    }
+
+    // Get vamc's that are associated with our operating status nodes.
+    $database = \Drupal::database();
+    $query = $database->select('node__field_operating_status', 'n');
+    $query->fields('n', ['entity_id']);
+    $query->condition('n.field_operating_status_uri', $vamcs_ids, 'IN');
+    $results = $query->execute()->fetchCol();
+
+    $vamcs_loaded = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($results);
+    $computed_return = [];
+    foreach ($vamcs_loaded as $key => $vamc_single) {
+      // Pull the vha id out of the path string.
+      $vamcs_topic_id = explode('?topic_id=', $vamc_single->get('field_link_facility_emerg_list')->getString());
+      // Get our op status uri out of nested array for building path alias.
+      $vamcs_op_status_raw = $vamc_single->get('field_operating_status')->getValue();
+      $vamcs_op_status_reset = !empty($vamcs_op_status_raw) ? reset($vamcs_op_status_raw) : '';
+      $vamcs_op_status_sanitized = !empty($vamcs_op_status_reset['uri']) ? str_replace('entity:', '/', $vamcs_op_status_reset['uri']) : '';
+      // Put together the computed field array.
+      $computed_return['vamc_op_status'][] = \Drupal::service('path.alias_manager')->getAliasByPath($vamcs_op_status_sanitized);
+      $computed_return['vamc_title'][] = $vamc_single->getTitle();
+      $computed_return['vamc_path'][] = $vamc_single->toUrl()->toString();
+      $computed_return['vamc_topic_id'][] = !empty($vamcs_topic_id[1]) ? $vamcs_topic_id[1] : '';
+    }
+    $storage = json_encode($computed_return);
+    $entity->field_banner_alert_computdvalues->setValue(['value' => $storage]);
+  }
 }
