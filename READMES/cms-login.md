@@ -2,12 +2,13 @@
 
 ## The CMS uses A SimpleSAML connection to VA's Active Directory:
 
-Accounts can be created in either of two ways:
-1.  Login with PIV card first, have administrator add user role(s) on request. (Recommended)
-Have the user go to the CMS login and click the link to login with their PIV card.
-The account will be created with no additional permissions.
-1. Have an administrator create the user first and assign role.
-    1. The username and email address must both match the va.gov email address of the user.
+How to request a user account:
+1. Send an email to vacmssupport@va.gov, cc'ing your VA Product Owner and including your:
+1.1 VA Email Address associated with your PIV card
+1.2 Requested Role (editor, reviewer, publisher)
+2. A user administrator will verify the request is approved with the PO via email 
+3. Once approved, the user administrator will create your account and assign the requested role(s) and you will receive an email with your username and temporary password
+4. You may then log into Drupal (cms.va.gov) while on the VA Network only using either your PIV or username/password
 
 ## Technical Details
   * SSOi is handled by the simplesaml_php module.  It connects existing accounts to the Active Directory user via their email address and user name.
