@@ -9,7 +9,7 @@ How to request a user account:
     3. Section(s) of the site to which you require access (ie Benefit Hub, VHA - specify which VAMC(s), NCA etc).
 2. A user administrator will verify the request is approved with the PO via email .
 3. Once approved, the user administrator will create your account and assign the requested role(s) and you will receive an email with your username and temporary password.
-4. You may then log into Drupal (https://prod.cms.va.gov) while on the VA Network using either your username/password or your PIV/Smartcard by clicking "Login with PIV or other Smartcard.". Note, you _must_ be on the VA Network to login with PIV/Smartcard. 
+4. You may then log into Drupal (https://prod.cms.va.gov) while on the VA Network using either your username/password or your PIV/Smartcard by clicking "Login with PIV or other Smartcard.". 
 
 ## Technical Details
   * SSOi is handled by the simplesaml_php module.  It connects existing accounts to the Active Directory user via their email address and user name.
