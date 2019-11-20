@@ -1,15 +1,15 @@
 # CMS-login
 
-## The CMS uses A SimpleSAML connection to VA's Active Directory:
+## The CMS uses provides a way to login using your account in VA's Active Directory:
 
 How to request a user account:
 1. Send an email to vacmssupport@va.gov, cc'ing your VA Product Owner and including your:
-    1. VA Email Address associated with your PIV card
-    2. Requested Role (editor, reviewer, publisher)
-    3. Section(s) of the site to which you require access (ie Benefit Hub, VHA - specify which VAMC(s), NCA etc)
-2. A user administrator will verify the request is approved with the PO via email 
-3. Once approved, the user administrator will create your account and assign the requested role(s) and you will receive an email with your username and temporary password
-4. You may then log into Drupal (cms.va.gov) while on the VA Network only using either your PIV or username/password
+    1. VA Email Address associated with your PIV card.
+    2. Requested Role (editor, reviewer, publisher).
+    3. Section(s) of the site to which you require access (ie Benefit Hub, VHA - specify which VAMC(s), NCA etc).
+2. A user administrator will verify the request is approved with the PO via email .
+3. Once approved, the user administrator will create your account and assign the requested role(s) and you will receive an email with your username and temporary password.
+4. You may then log into Drupal (https://prod.cms.va.gov) while on the VA Network using either your username/password or your PIV/Smartcard by clicking "Login with PIV or other Smartcard.". 
 
 ## Technical Details
   * SSOi is handled by the simplesaml_php module.  It connects existing accounts to the Active Directory user via their email address and user name.
