@@ -92,6 +92,14 @@ $settings['file_scan_ignore_directories'] = [
 $settings['entity_update_batch_size'] = 50;
 
 /**
+ * Image Style Settings
+ *
+ * We don't need `itok` DDoS protection in this firewalled environment.
+ */
+$config['image.settings']['allow_insecure_derivatives'] = TRUE;
+$config['image.settings']['suppress_itok_output'] = TRUE;
+
+/**
  * CMS Build settings.
  *
  * These are settings to trigger a static file, front-end WEB build job.
