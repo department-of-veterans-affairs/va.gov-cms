@@ -13,6 +13,8 @@ dependencies:
     - field.field.node.health_care_region_page.field_facebook
     - field.field.node.health_care_region_page.field_featured_content_healthser
     - field.field.node.health_care_region_page.field_flickr
+    - field.field.node.health_care_region_page.field_govdelivery_id_emerg
+    - field.field.node.health_care_region_page.field_govdelivery_id_news
     - field.field.node.health_care_region_page.field_instagram
     - field.field.node.health_care_region_page.field_intro_text
     - field.field.node.health_care_region_page.field_intro_text_events_page
@@ -210,6 +212,22 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
+  field_govdelivery_id_emerg:
+    weight: 26
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_govdelivery_id_news:
+    weight: 27
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
     region: content
   field_instagram:
     weight: 14

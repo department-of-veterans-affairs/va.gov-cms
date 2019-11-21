@@ -1,0 +1,19 @@
+uuid: 4100e5a4-432e-49a3-8f83-ceb32675bebf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_govdelivery_id_news
+    - node.type.health_care_region_page
+id: node.health_care_region_page.field_govdelivery_id_news
+field_name: field_govdelivery_id_news
+entity_type: node
+bundle: health_care_region_page
+label: 'GovDelivery ID for News and Announcements'
+description: 'The GovDelivery ID where people can subscribe to news and announcement email lists.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

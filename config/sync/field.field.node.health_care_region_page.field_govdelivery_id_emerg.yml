@@ -1,0 +1,19 @@
+uuid: 3a97b514-a89e-4516-94de-833c07c5c943
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_govdelivery_id_emerg
+    - node.type.health_care_region_page
+id: node.health_care_region_page.field_govdelivery_id_emerg
+field_name: field_govdelivery_id_emerg
+entity_type: node
+bundle: health_care_region_page
+label: 'GovDelivery ID for Emergency updates email'
+description: 'The GovDelivery ID where people can subscribe to emergency email lists.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
