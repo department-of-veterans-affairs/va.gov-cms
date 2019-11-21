@@ -20,6 +20,7 @@ Feature: Views
 | Glossary | glossary | Content | Disabled | All content, by letter. |
 | Health care service names and descriptions | health_care_service_names_and_descriptions | Taxonomy terms | Enabled | A list of nationally-controlled health care service names and descriptions |
 | Health service offerings | health_service_offerings | Content | Enabled |  |
+| Image Style Warmer Warmup Files | image_style_warmer_warmup_files | Files | Enabled | VBO for processing existing files with Image Style Warmer. |
 | Local facilities entity reference view | local_facilities_entity_reference_view | Content | Enabled | An entity reference view that determines options for the Local Health Service descriptions |
 | Locked content  | locked_content | Content | Enabled |  |
 | Media | media | Media | Enabled |  |
@@ -77,6 +78,8 @@ Feature: Views
 | Health care service names and descriptions |  Entity Reference   | entity_reference_1 | Entity Reference |
 | Health service offerings | Master | default | Master |
 | Health service offerings | Page | page_1 | Page |
+| Image Style Warmer Warmup Files | Files overview  | page_1 | Page |
+| Image Style Warmer Warmup Files | Master | default | Master |
 | Local facilities entity reference view | Master | default | Master |
 | Local facilities entity reference view | Entity Reference | entity_reference_1 | Entity Reference |
 | Locked content  | Master | default | Master |
