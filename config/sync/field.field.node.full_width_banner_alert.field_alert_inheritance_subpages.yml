@@ -9,8 +9,8 @@ id: node.full_width_banner_alert.field_alert_inheritance_subpages
 field_name: field_alert_inheritance_subpages
 entity_type: node
 bundle: full_width_banner_alert
-label: 'Inherited by subpages'
-description: 'Should all pages of the VAMC display this block? For example, if you pick VA Pittsburgh health care, should va.gov/pittsburgh-health-care/about-us, and all other children pages, display this alert? '
+label: 'Only show on VAMC System Page & Operating Status Page'
+description: 'By checking this box, you will limit the alert to display only on the VAMC System Page and the Operating Status Page.'
 required: false
 translatable: false
 default_value:
@@ -18,6 +18,6 @@ default_value:
     value: 0
 default_value_callback: ''
 settings:
-  on_label: 'All subpages should display this alert'
+  on_label: 'Only show on VAMC System Page & Operating Status Page'
   off_label: 'Off'
 field_type: boolean
