@@ -228,8 +228,10 @@ Feature: Content model
 | Content type | VAMC system | Community stories intro text | field_intro_text_news_stories | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC system | Press releases intro text | field_intro_text_press_releases | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | VAMC system | Leadership team | field_leadership | Entity reference |  | Unlimited | Autocomplete |  |
-| Content type | VAMC system | Emergency updates email list  | field_link_facility_emerg_list | Link |  | 1 | Link |  |
-| Content type | VAMC system | News and announcements email list | field_link_facility_news_list | Link |  | 1 | Link |  |
+| Content type | VAMC system | Emergency updates email list               | field_link_facility_emerg_list | Link         |          | 1 | -- Disabled -- |  |
+| Content type | VAMC system | News and announcements email list          | field_link_facility_news_list  | Link         |          | 1 | -- Disabled -- |  |
+| Content type | VAMC system | GovDelivery ID for News and Announcements  | field_govdelivery_id_news      | Text (plain) | Required | 1 | Textfield      |  |
+| Content type | VAMC system | GovDelivery ID for Emergency updates email | field_govdelivery_id_emerg     | Text (plain) | Required | 1 | Textfield      |  |
 | Content type | VAMC system | Email lists | field_links | Link |  | Unlimited | -- Disabled -- | Translatable |
 | Content type | VAMC system | Our Locations intro text | field_locations_intro_blurb | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
 | Content type | VAMC system | Banner image | field_media | Entity reference |  | 1 | Media library | Translatable |
