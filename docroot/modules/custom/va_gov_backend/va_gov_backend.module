@@ -219,10 +219,10 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
 /**
  * Populates computed field on banner alert nodes.
  *
- * @param object $entity
+ * @param \Drupal\Core\Entity\EntityInterface $entity
  *   The node object.
  */
-function _va_gov_backend_build_alert_computed_field_data($entity) {
+function _va_gov_backend_build_alert_computed_field_data(EntityInterface $entity) {
   // Make sure it's a node.
   if ($entity instanceof NodeInterface && $entity->bundle() === 'full_width_banner_alert') {
 
