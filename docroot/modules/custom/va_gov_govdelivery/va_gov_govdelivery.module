@@ -5,31 +5,42 @@
  * Module hooks for va_gov_govdelivery module.
  */
 
-use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_ENTITY_TYPE_presave().
  */
-function va_gov_govdelivery_node_presave(EntityInterface $entity) {
+function va_gov_govdelivery_node_presave(NodeInterface $node) {
   // Make sure we are dealing with correct content type.
-  if ($entity->getType() === ' full_width_banner_alert') {
+  if ($node->getType() === ' full_width_banner_alert') {
     // Build computed field array on banner alert nodes.
-    _va_gov_govdelivery_build_alert_computed_field_data($entity);
+    _va_gov_govdelivery_build_alert_computed_field_data($node);
+    _va_gov_add_bulletin_to_queue($node);
   }
+}
+
+/**
+ * Adds an alert or situation update to bulletin queue.
+ *
+ * @param \Drupal\node\NodeInterface $node
+ *   The node entity containing the data to add to queue.
+ */
+function _va_gov_add_bulletin_to_queue(NodeInterface $node) {
+
 }
 
 /**
  * Populates computed field on banner alert nodes.
  *
- * @param \Drupal\Core\Entity\EntityInterface $entity
+ * @param \Drupal\node\NodeInterface $node
  *   The node object.
  */
-function _va_gov_govdelivery_build_alert_computed_field_data(EntityInterface $entity) {
+function _va_gov_govdelivery_build_alert_computed_field_data(NodeInterface $node) {
   // Make sure it's a node.
-  if ($entity instanceof NodeInterface && $entity->bundle() === 'full_width_banner_alert') {
+  if ($node instanceof NodeInterface && $node->bundle() === 'full_width_banner_alert') {
 
     // This is where we get our Operating status node id's.
-    $vamcs_op_status_ids = $entity->get('field_banner_alert_vamcs')->getValue();
+    $vamcs_op_status_ids = $node->get('field_banner_alert_vamcs')->getValue();
     foreach ($vamcs_op_status_ids as $key => $vamcs_op_status_id) {
       $vamcs_op_status_ids[$key] = !empty($vamcs_op_status_id['target_id']) ? $vamcs_op_status_id['target_id'] : '';
     }
@@ -55,6 +66,6 @@ function _va_gov_govdelivery_build_alert_computed_field_data(EntityInterface $en
     }
     // Convert to string for field storage.
     $storage = json_encode($computed_return);
-    $entity->field_banner_alert_computdvalues->setValue(['value' => $storage]);
+    $node->field_banner_alert_computdvalues->setValue(['value' => $storage]);
   }
 }
