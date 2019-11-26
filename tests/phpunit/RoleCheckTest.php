@@ -27,6 +27,7 @@ class RoleChecks extends ExistingSiteBase {
       'authenticated',
       'content_api_consumer',
       'content_editor',
+      'content_admin',
       'content_reviewer',
       'content_publisher',
       'admnistrator_users',
@@ -47,7 +48,7 @@ class RoleChecks extends ExistingSiteBase {
   }
 
   /**
-   * A test method to deterine User Access Admin role perms.
+   * A test method to determine User Access Admin role perms.
    */
   public function testUserAccessAdminRolePerms() {
 
