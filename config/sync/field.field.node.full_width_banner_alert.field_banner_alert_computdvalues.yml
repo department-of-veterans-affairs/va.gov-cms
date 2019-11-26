@@ -1,0 +1,24 @@
+uuid: 4d547aeb-7d33-4d64-aead-0b6f0b20e492
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_banner_alert_computdvalues
+    - node.type.full_width_banner_alert
+  module:
+    - computed_field
+id: node.full_width_banner_alert.field_banner_alert_computdvalues
+field_name: field_banner_alert_computdvalues
+entity_type: node
+bundle: full_width_banner_alert
+label: 'Computed values for alerts'
+description: 'The name of affected VAMC system, its path, its Granicus topic ID, and the URL of its Operating Status page. '
+required: false
+translatable: false
+default_value:
+  -
+    value: ''
+default_value_callback: ''
+settings:
+  code: '$value = '''';'
+field_type: computed_string_long
