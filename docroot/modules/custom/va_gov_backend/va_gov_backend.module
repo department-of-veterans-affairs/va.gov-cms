@@ -5,6 +5,7 @@
  * Contains va_gov_backend.module.
  */
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Field\WidgetBase;
@@ -205,4 +206,53 @@ function va_gov_backend_rebuild() {
   }
 
   \Drupal::state()->set("environment_indicator.current_release", $indicator);
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function va_gov_backend_entity_presave(EntityInterface $entity) {
+  // Build computed field array on banner alert nodes.
+  _va_gov_backend_build_alert_computed_field_data($entity);
+}
+
+/**
+ * Populates computed field on banner alert nodes.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The node object.
+ */
+function _va_gov_backend_build_alert_computed_field_data(EntityInterface $entity) {
+  // Make sure it's a node.
+  if ($entity instanceof NodeInterface && $entity->bundle() === 'full_width_banner_alert') {
+
+    // This is where we get our Operating status node id's.
+    $vamcs_op_status_ids = $entity->get('field_banner_alert_vamcs')->getValue();
+    foreach ($vamcs_op_status_ids as $key => $vamcs_op_status_id) {
+      $vamcs_op_status_ids[$key] = !empty($vamcs_op_status_id['target_id']) ? $vamcs_op_status_id['target_id'] : '';
+    }
+    // Get a node storage object.
+    $node_storage = \Drupal::entityManager()->getStorage('node');
+
+    $vamc_office_values = [];
+    $computed_return = [];
+    $vamc_op_nodes = $node_storage->loadMultiple($vamcs_op_status_ids);
+
+    // Get out op status page paths.
+    foreach ($vamc_op_nodes as $key => $vamc_op_node) {
+      $computed_return[$key]['vamc_op_status_path'] = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $vamc_op_node->id());
+      $vamc_office_values[] = $vamc_op_node->get('field_office')->getString();
+    }
+
+    // Grab what we need from our vamcs.
+    $vamc_system_nodes = $node_storage->loadMultiple($vamc_office_values);
+    foreach ($vamc_system_nodes as $key => $vamc_system_node) {
+      $computed_return[$key]['vamc_topic_id'] = !empty($vamc_system_node->get('field_govdelivery_id_emerg')->getString()) ? $vamc_system_node->get('field_govdelivery_id_emerg')->getString() : '';
+      $computed_return[$key]['vamc_title'] = $vamc_system_node->getTitle();
+      $computed_return[$key]['vamc_path'] = $vamc_system_node->toUrl()->toString();
+    }
+    // Convert to string for field storage.
+    $storage = json_encode($computed_return);
+    $entity->field_banner_alert_computdvalues->setValue(['value' => $storage]);
+  }
 }

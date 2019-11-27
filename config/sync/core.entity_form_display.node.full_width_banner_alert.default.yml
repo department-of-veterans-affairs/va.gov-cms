@@ -7,9 +7,9 @@ dependencies:
     - field.field.node.full_width_banner_alert.field_alert_dismissable
     - field.field.node.full_width_banner_alert.field_alert_email_updates_button
     - field.field.node.full_width_banner_alert.field_alert_find_facilities_cta
-    - field.field.node.full_width_banner_alert.field_alert_inheritance_subpages
     - field.field.node.full_width_banner_alert.field_alert_operating_status_cta
     - field.field.node.full_width_banner_alert.field_alert_type
+    - field.field.node.full_width_banner_alert.field_banner_alert_computdvalues
     - field.field.node.full_width_banner_alert.field_banner_alert_situationinfo
     - field.field.node.full_width_banner_alert.field_banner_alert_vamcs
     - field.field.node.full_width_banner_alert.field_body
@@ -56,7 +56,7 @@ third_party_settings:
     group_alert_display_and_behavior:
       children: {  }
       parent_name: ''
-      weight: 16
+      weight: 14
       format_type: details
       format_settings:
         id: ''
@@ -87,7 +87,6 @@ third_party_settings:
     group_type:
       children:
         - field_banner_alert_vamcs
-        - field_alert_inheritance_subpages
         - field_operating_status_sendemail
       parent_name: ''
       weight: 0
@@ -118,7 +117,7 @@ third_party_settings:
     group_situation_information:
       children: {  }
       parent_name: ''
-      weight: 15
+      weight: 13
       format_type: fieldset
       format_settings:
         description: 'For "static" situation information that is additional to any situation updates.'
@@ -169,13 +168,6 @@ content:
     region: content
   field_alert_find_facilities_cta:
     weight: 8
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
-  field_alert_inheritance_subpages:
-    weight: 2
     settings:
       display_label: true
     third_party_settings: {  }
@@ -269,6 +261,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_banner_alert_computdvalues: true
   path: true
   promote: true
   status: true

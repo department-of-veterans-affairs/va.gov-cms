@@ -6,7 +6,9 @@ dependencies:
     - core.entity_view_mode.node.ief_table
     - field.field.node.full_width_banner_alert.field_administration
     - field.field.node.full_width_banner_alert.field_alert_dismissable
-    - field.field.node.full_width_banner_alert.field_alert_inheritance_subpages
+    - field.field.node.full_width_banner_alert.field_alert_email_updates_button
+    - field.field.node.full_width_banner_alert.field_alert_find_facilities_cta
+    - field.field.node.full_width_banner_alert.field_alert_operating_status_cta
     - field.field.node.full_width_banner_alert.field_alert_type
     - field.field.node.full_width_banner_alert.field_banner_alert_situationinfo
     - field.field.node.full_width_banner_alert.field_banner_alert_vamcs
@@ -33,16 +35,6 @@ content:
     third_party_settings: {  }
   field_alert_dismissable:
     weight: 2
-    label: hidden
-    settings:
-      format: custom
-      format_custom_true: 'Yes'
-      format_custom_false: 'No'
-    third_party_settings: {  }
-    type: boolean
-    region: content
-  field_alert_inheritance_subpages:
-    weight: 3
     label: hidden
     settings:
       format: custom
