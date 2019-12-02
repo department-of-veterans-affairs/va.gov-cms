@@ -20,5 +20,5 @@ How to request a user account:
   * Email addresses are synced at each login for changes with adUPN (the user's email address) and that email is also used to connect existing accounts to initial logins with SSOi.
   * Usernames are synced at each login to the adUPN (the user's email address).
 
-##Sample SSOi Response
+## Sample SSOi Response
 ![Sample simplesaml response](images/ssoi-response.png)
