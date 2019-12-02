@@ -6,27 +6,39 @@
  */
 
 use Drupal\node\NodeInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_ENTITY_TYPE_presave().
  */
 function va_gov_govdelivery_node_presave(NodeInterface $node) {
   // Make sure we are dealing with correct content type.
-  if ($node->getType() === ' full_width_banner_alert') {
+  $original = $node->original;
+  $original_alert = $original->get('field_alert_type')->value;
+  $new_alert = $node->get('field_alert_type')->value;
+  if ($node->getType() === 'full_width_banner_alert') {
     // Build computed field array on banner alert nodes.
     _va_gov_govdelivery_build_alert_computed_field_data($node);
-    _va_gov_add_bulletin_to_queue($node);
+    $bulletin = \Drupal::service('va_gov_govdelivery.process_status_bulletin')
+      ->processNode($node);
   }
 }
 
 /**
- * Adds an alert or situation update to bulletin queue.
- *
- * @param \Drupal\node\NodeInterface $node
- *   The node entity containing the data to add to queue.
+ * Implements hook_form_alter().
  */
-function _va_gov_add_bulletin_to_queue(NodeInterface $node) {
+function va_gov_govdelivery_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id === 'node_full_width_banner_alert_edit_form') {
+    $node = $form_state->getFormObject()->getEntity();
+    $state = $node->moderation_state->value;
+    if ($state === 'published') {
+      // Disable send email field, this form will only send initial email once.
+      // @todo Check node revisions in addition to current state, disable this
+      // field if it was ever published.
+      $form['field_operating_status_sendemail']['widget']['#disabled'] = TRUE;
+    }
 
+  }
 }
 
 /**
@@ -38,7 +50,6 @@ function _va_gov_add_bulletin_to_queue(NodeInterface $node) {
 function _va_gov_govdelivery_build_alert_computed_field_data(NodeInterface $node) {
   // Make sure it's a node.
   if ($node instanceof NodeInterface && $node->bundle() === 'full_width_banner_alert') {
-
     // This is where we get our Operating status node id's.
     $vamcs_op_status_ids = $node->get('field_banner_alert_vamcs')->getValue();
     foreach ($vamcs_op_status_ids as $key => $vamcs_op_status_id) {
