@@ -1,0 +1,33 @@
+uuid: 17ac5706-e48a-46ae-a4bc-4ca4c9b62d92
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.documentation_page
+    - taxonomy.vocabulary.administration
+  content:
+    - 'taxonomy_term:administration:d2799316-7164-43e4-9f2b-090fd62141c8'
+id: node.documentation_page.field_administration
+field_name: field_administration
+entity_type: node
+bundle: documentation_page
+label: Owner
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    target_uuid: d2799316-7164-43e4-9f2b-090fd62141c8
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
