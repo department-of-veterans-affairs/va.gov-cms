@@ -28,7 +28,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -44,7 +44,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -102,7 +102,6 @@ third_party_settings:
     group_situation_updates:
       children:
         - field_situation_updates
-        - field_banner_alert_situationinfo
       parent_name: ''
       weight: 2
       format_type: details
@@ -115,17 +114,19 @@ third_party_settings:
       label: 'Situation updates'
       region: content
     group_situation_information:
-      children: {  }
+      children:
+        - field_banner_alert_situationinfo
       parent_name: ''
-      weight: 13
-      format_type: fieldset
+      weight: 3
+      format_type: details
       format_settings:
         description: 'For "static" situation information that is additional to any situation updates.'
         id: ''
         classes: ''
         required_fields: false
+        open: false
       label: 'Situation information'
-      region: hidden
+      region: content
     group_calls_to_action:
       children:
         - field_alert_operating_status_cta
@@ -241,7 +242,7 @@ content:
     third_party_settings: {  }
   revision_log:
     type: hide_revision_field_log_widget
-    weight: 4
+    weight: 5
     region: content
     settings:
       show: true
