@@ -100,6 +100,7 @@ Feature: Content model
 | Content type | Detail Page | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Detail Page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Detail Page | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | Documentation page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Documentation page | Main content | field_content_block | Entity reference revisions |  | Unlimited | Paragraphs Browser Classic | Translatable |
 | Content type | Event | Additional information about registration | field_additional_information_abo | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | Event | Address | field_address | Address |  | 1 | Address |  |

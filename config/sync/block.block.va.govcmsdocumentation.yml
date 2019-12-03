@@ -1,0 +1,37 @@
+uuid: 7aa15e6c-def1-4c34-b4bb-78abb09eecb7
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.documentation
+  module:
+    - node
+    - system
+  theme:
+    - vagovadmin
+id: va.govcmsdocumentation
+theme: vagovadmin
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:documentation'
+settings:
+  id: 'system_menu_block:documentation'
+  label: 'VA.gov CMS documentation'
+  provider: system
+  label_display: visible
+  level: 1
+  depth: 0
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      documentation_page: documentation_page
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+  request_path:
+    id: request_path
+    pages: '/documentatio*'
+    negate: false
+    context_mapping: {  }
