@@ -5,18 +5,18 @@ dependencies:
   module:
     - node
 id: press_releases
-label: 'Press releases'
+label: 'News releases'
 type: 'canonical_entities:node'
-pattern: '[node:field_office:entity:url:path]/press-releases/[node:title]'
+pattern: '[node:field_office:entity:url:path]/news-releases/[node:title]'
 selection_criteria:
-  62daff5f-289d-4d57-955c-e3984a2abbb5:
+  450ebdcc-ac14-4a1d-bbc5-4782ad59f1d1:
     id: node_type
     bundles:
       press_release: press_release
     negate: false
     context_mapping:
       node: node
-    uuid: 62daff5f-289d-4d57-955c-e3984a2abbb5
+    uuid: 450ebdcc-ac14-4a1d-bbc5-4782ad59f1d1
 selection_logic: and
 weight: -2
 relationships: {  }

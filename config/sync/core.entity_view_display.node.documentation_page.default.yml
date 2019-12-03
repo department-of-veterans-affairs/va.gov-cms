@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.documentation_page.field_administration
     - field.field.node.documentation_page.field_content_block
     - node.type.documentation_page
   module:
@@ -13,8 +14,13 @@ targetEntityType: node
 bundle: documentation_page
 mode: default
 content:
-  field_content_block:
+  content_moderation_control:
     weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_content_block:
+    weight: 1
     label: above
     settings:
       view_mode: default
@@ -23,5 +29,6 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
 hidden:
-  content_moderation_control: true
+  field_administration: true
   links: true
+  search_api_excerpt: true
