@@ -36,8 +36,8 @@ class ProcessStatusBulletin {
       // Pull the data from the alert fields.
       $body = $node->get('field_body')->getString();
       $type = $node->get("field_alert_type")->getString();
-      $header = $node->get("fieldName")->getString();
-      $footer = $node->get("fieldName")->getString();
+      $header = '';
+      $footer = '';
       $subject = $node->get('title')->getString();
       // @TODO  get the time the alert was saved.
     }
@@ -54,8 +54,10 @@ class ProcessStatusBulletin {
     }
 
     if (!empty($this->sendType)) {
-      $vmacs_data = reset($node->get('field_banner_alert_computdvalues')->getValue());
-      $vmacs = !empty($vmacs_data['value']) ? json_decode($vmacs_data['value']) : [];
+
+      $vmacs_data = $node->get('field_banner_alert_computdvalues')->getValue();
+      $vmacs_datum = reset($vmacs_data);
+      $vmacs = !empty($vmacs_datum['value']) ? json_decode($vmacs_datum['value']) : [];
 
       // Loop through the VMACs since each title will be VAMC specific.
       foreach ($vmacs as $vmac) {
