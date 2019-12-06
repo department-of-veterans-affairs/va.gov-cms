@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.full_width_banner_alert.field_alert_find_facilities_cta
     - field.field.node.full_width_banner_alert.field_alert_operating_status_cta
     - field.field.node.full_width_banner_alert.field_alert_type
+    - field.field.node.full_width_banner_alert.field_banner_alert_computdvalues
     - field.field.node.full_width_banner_alert.field_banner_alert_situationinfo
     - field.field.node.full_width_banner_alert.field_banner_alert_vamcs
     - field.field.node.full_width_banner_alert.field_body
@@ -26,7 +27,7 @@ third_party_settings:
     group_governance:
       children: {  }
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -42,7 +43,7 @@ third_party_settings:
         - revision_log
         - moderation_state
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: fieldset
       format_settings:
         id: ''
@@ -54,7 +55,6 @@ third_party_settings:
     group_alert_display_and_behavior:
       children:
         - field_operating_status_sendemail
-        - field_alert_inheritance_subpages
       parent_name: ''
       weight: 1
       format_type: fieldset
@@ -86,7 +86,6 @@ third_party_settings:
     group_situation_updates:
       children:
         - field_situation_updates
-        - field_banner_alert_situationinfo
       parent_name: ''
       weight: 2
       format_type: details
@@ -99,17 +98,19 @@ third_party_settings:
       label: 'Situation updates'
       region: content
     group_situation_information:
-      children: {  }
+      children:
+        - field_banner_alert_situationinfo
       parent_name: ''
-      weight: 17
-      format_type: fieldset
+      weight: 3
+      format_type: details
       format_settings:
         description: "For \"static\" situation information that is additional to any situation updates.\r\n"
         required_fields: true
         id: ''
         classes: ''
+        open: false
       label: 'Situation information'
-      region: hidden
+      region: content
     group_calls_to_action:
       children:
         - field_alert_operating_status_cta
