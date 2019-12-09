@@ -51,22 +51,23 @@ pipeline {
         ] , wait: false
       }
     }
-
-    stage('Deploy to staging') {
-      when {
-        expression {
-          !shouldBail()
-        }
-      }
-      steps {
-        build job: "deploys/cms-vagov-staging", parameters: [
-          stringParam(name: 'app', value: 'cms'),
-          booleanParam(name: 'notify_slack', value: true),
-          stringParam(name: 'ref', value: commit),
-          booleanParam(name: 'migration_status', value: false)
-        ] , wait: false
-      }
-    }
+// Commenting out temporarily for User Testing on STAGING. This should be reenabled around Tuesday Dec. 10th, 2019.
+//
+//    stage('Deploy to staging') {
+//      when {
+//        expression {
+//          !shouldBail()
+//        }
+//      }
+//      steps {
+//        build job: "deploys/cms-vagov-staging", parameters: [
+//          stringParam(name: 'app', value: 'cms'),
+//          booleanParam(name: 'notify_slack', value: true),
+//          stringParam(name: 'ref', value: commit),
+//          booleanParam(name: 'migration_status', value: false)
+//        ] , wait: false
+//      }
+//    }
   }
   post {
     always {

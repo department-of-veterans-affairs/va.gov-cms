@@ -47,6 +47,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
       [
         'anonymous',
         [
+          'access bulletin queue trigger api',
           'access content',
           'access site-wide contact form',
           'view media',
@@ -105,6 +106,8 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'edit own document media',
           'edit own image media',
           'edit own video media',
+          'export tablefield',
+          'import tablefield',
           'link to any page',
           'manipulate all entityqueues',
           'manipulate entityqueues',
