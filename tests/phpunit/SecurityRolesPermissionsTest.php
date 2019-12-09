@@ -47,6 +47,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
       [
         'anonymous',
         [
+          'access bulletin queue trigger api',
           'access content',
           'access site-wide contact form',
           'view media',
