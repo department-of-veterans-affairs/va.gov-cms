@@ -42,6 +42,7 @@ function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $fo
     if (empty($form['title']['widget'][0]['value']['#default_value'])) {
       $form['title']['widget'][0]['value']['#default_value'] = t('API Data');
     }
+    // Disable items that are populated by the Facility API migration.
     $form['title']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
     $form['field_facility_classification']['widget']['#attributes']['disabled'] = TRUE;
     unset($form['field_facility_hours']['widget'][0]['caption']);
@@ -49,25 +50,12 @@ function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $fo
     $form['field_facility_hours']['widget'][0]['#attributes']['disabled'] = TRUE;
     $form['field_phone_number']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
     $form['field_mental_health_phone']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
+
     // Special handling for the address field widget.
-    $form['field_address']['widget'][0]['address']['#after_build'][] = '_va_gov_consumers_customize_address';
+    $form['field_address']['widget']['#disabled'] = TRUE;
     // Special handling for the table field widget.
     $form['field_facility_hours']['widget'][0]['#after_build'][] = '_va_gov_consumers_customize_table';
   }
-}
-
-/**
- * Callback for address field widget.
- *
- * @param object $element
- *   The field object.
- */
-function _va_gov_consumers_customize_address($element) {
-  $element['address_line1']['#attributes']['disabled'] = TRUE;
-  $element['administrative_area']['#attributes']['disabled'] = TRUE;
-  $element['locality']['#attributes']['disabled'] = TRUE;
-  $element['postal_code']['#attributes']['disabled'] = TRUE;
-  return $element;
 }
 
 /**
