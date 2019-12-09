@@ -41,6 +41,7 @@ third_party_settings:
       region: content
     group_edi:
       children:
+        - status
         - moderation_state
         - revision_log
       parent_name: ''
@@ -56,7 +57,7 @@ third_party_settings:
     group_alert_display_and_behavior:
       children: {  }
       parent_name: ''
-      weight: 14
+      weight: 13
       format_type: details
       format_settings:
         id: ''
@@ -121,10 +122,10 @@ third_party_settings:
       format_type: details
       format_settings:
         description: 'For "static" situation information that is additional to any situation updates.'
+        open: true
         id: ''
         classes: ''
         required_fields: false
-        open: false
       label: 'Situation information'
       region: content
     group_calls_to_action:
@@ -188,7 +189,7 @@ content:
     type: options_select
     region: content
   field_banner_alert_situationinfo:
-    weight: 5
+    weight: 3
     settings:
       rows: 5
       placeholder: ''
@@ -236,13 +237,13 @@ content:
     region: content
   moderation_state:
     type: moderation_state_default
-    weight: 3
+    weight: 7
     settings: {  }
     region: content
     third_party_settings: {  }
   revision_log:
     type: hide_revision_field_log_widget
-    weight: 5
+    weight: 8
     region: content
     settings:
       show: true
@@ -251,6 +252,13 @@ content:
       allow_user_settings: true
       rows: 5
       placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -265,7 +273,6 @@ hidden:
   field_banner_alert_computdvalues: true
   path: true
   promote: true
-  status: true
   sticky: true
   uid: true
   url_redirects: true
