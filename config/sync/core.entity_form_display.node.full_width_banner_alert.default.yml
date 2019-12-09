@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.full_width_banner_alert.field_alert_dismissable
     - field.field.node.full_width_banner_alert.field_alert_email_updates_button
     - field.field.node.full_width_banner_alert.field_alert_find_facilities_cta
+    - field.field.node.full_width_banner_alert.field_alert_inheritance_subpages
     - field.field.node.full_width_banner_alert.field_alert_operating_status_cta
     - field.field.node.full_width_banner_alert.field_alert_type
     - field.field.node.full_width_banner_alert.field_banner_alert_computdvalues
@@ -28,7 +29,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -45,7 +46,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: fieldset
       format_settings:
         id: ''
@@ -57,7 +58,7 @@ third_party_settings:
     group_alert_display_and_behavior:
       children: {  }
       parent_name: ''
-      weight: 13
+      weight: 14
       format_type: details
       format_settings:
         id: ''
@@ -88,6 +89,7 @@ third_party_settings:
     group_type:
       children:
         - field_banner_alert_vamcs
+        - field_alert_inheritance_subpages
         - field_operating_status_sendemail
       parent_name: ''
       weight: 0
@@ -104,7 +106,7 @@ third_party_settings:
       children:
         - field_situation_updates
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: details
       format_settings:
         description: ''
@@ -118,7 +120,7 @@ third_party_settings:
       children:
         - field_banner_alert_situationinfo
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: details
       format_settings:
         description: 'For "static" situation information that is additional to any situation updates.'
@@ -175,6 +177,13 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
+  field_alert_inheritance_subpages:
+    weight: 3
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
   field_alert_operating_status_cta:
     weight: 6
     settings:
@@ -211,7 +220,7 @@ content:
     type: text_textarea
     region: content
   field_operating_status_sendemail:
-    weight: 3
+    weight: 4
     settings:
       display_label: true
     third_party_settings: {  }

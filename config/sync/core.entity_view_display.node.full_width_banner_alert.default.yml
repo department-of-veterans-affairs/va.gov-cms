@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.full_width_banner_alert.field_alert_dismissable
     - field.field.node.full_width_banner_alert.field_alert_email_updates_button
     - field.field.node.full_width_banner_alert.field_alert_find_facilities_cta
+    - field.field.node.full_width_banner_alert.field_alert_inheritance_subpages
     - field.field.node.full_width_banner_alert.field_alert_operating_status_cta
     - field.field.node.full_width_banner_alert.field_alert_type
     - field.field.node.full_width_banner_alert.field_banner_alert_computdvalues
@@ -84,6 +85,16 @@ content:
     region: content
   field_alert_find_facilities_cta:
     weight: 9
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_alert_inheritance_subpages:
+    weight: 14
     label: above
     settings:
       format: default
