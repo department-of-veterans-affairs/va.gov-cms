@@ -47,7 +47,6 @@ class SecurityRolesPermissions extends ExistingSiteBase {
       [
         'anonymous',
         [
-          'access bulletin queue trigger api',
           'access content',
           'access site-wide contact form',
           'view media',
@@ -139,6 +138,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
       [
         'content_api_consumer',
         [
+          'access bulletin queue trigger api',
           'administer menu',
           'use graphql explorer',
           'use graphql voyager',
