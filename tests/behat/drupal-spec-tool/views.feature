@@ -40,6 +40,7 @@ Feature: Views
 | VAMCs | vamcs | Content | Enabled |  |
 | VHA Health service taxonomy | vha_health_service_taxonomy | Taxonomy terms | Enabled |  |
 | Watchdog | watchdog | Log entries | Enabled | Recent log messages |
+| Webform submissions | webform_submissions | Webform submission | Enabled | Default webform submissions views. |
 | Who's new | who_s_new | Users | Disabled | Shows a list of the newest user accounts on the site. |
 | Who's online block | who_s_online | Users | Disabled | Shows the user names of the most recently active users, and the total number of active users. |
 
@@ -130,6 +131,11 @@ Feature: Views
 | VHA Health service taxonomy | Master | default | Master |
 | Watchdog | Master | default | Master |
 | Watchdog | Page | page | Page |
+| Webform submissions | Embed: Administer | embed_administer | Embed |
+| Webform submissions | Embed: Default | embed_default | Embed |
+| Webform submissions | Embed: Manage | embed_manage | Embed |
+| Webform submissions | Embed: Review | embed_review | Embed |
+| Webform submissions | Master | default | Master |
 | Who's new | Who's new | block_1 | Block |
 | Who's new | Master | default | Master |
 | Who's online block | Master | default | Master |
