@@ -47,7 +47,6 @@ class SecurityRolesPermissions extends ExistingSiteBase {
       [
         'anonymous',
         [
-          'access bulletin queue trigger api',
           'access content',
           'access site-wide contact form',
           'view media',
@@ -89,6 +88,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'create image media',
           'create media',
           'create promo block content',
+          'create url aliases',
           'create video media',
           'delete any alert block content',
           'delete any document media',
@@ -139,6 +139,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
       [
         'content_api_consumer',
         [
+          'access bulletin queue trigger api',
           'administer menu',
           'use graphql explorer',
           'use graphql voyager',
@@ -378,7 +379,6 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'create media',
           'create promo block content',
           'create terms in health_care_service_taxonomy',
-          'create url aliases',
           'create video media',
           'delete any alert block content',
           'delete any document media',
