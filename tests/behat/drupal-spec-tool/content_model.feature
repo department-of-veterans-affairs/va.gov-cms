@@ -249,6 +249,7 @@ Feature: Content model
 | Content type | VAMC system banner alert with situation updates | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC system banner alert with situation updates | Display "Subscribe to email updates" link? | field_alert_email_updates_button | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC system banner alert with situation updates | Display "Find other VA facilities near you" link? | field_alert_find_facilities_cta | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | VAMC system banner alert with situation updates | Only show on VAMC System Page & Operating Status Page | field_alert_inheritance_subpages | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC system banner alert with situation updates | Computed values for alerts | field_banner_alert_computdvalues | Computed (text, long) |  | 1 | -- Disabled -- |  |
 | Content type | VAMC system banner alert with situation updates | Display "Get updates on affected services and facilities" link | field_alert_operating_status_cta | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC system banner alert with situation updates | Alert type | field_alert_type | List (text) | Required | 1 | Select list |  |
