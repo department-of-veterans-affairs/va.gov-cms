@@ -191,7 +191,7 @@
             }
         },
         "patches": {
-            "drupal/content_lock":{
+            "drupal/content_lock": {
                 "Content lock causes redirect response preventing migration rollback.": "https://www.drupal.org/files/issues/2018-08-28/2951652-4.patch"
             },
             "drupal/core": {
@@ -233,6 +233,9 @@
             "drupal/simplesamlphp_auth": {
                 "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2019-08-14/2748731-23.patch",
                 "Bypass password requirement for password change if logged in with sso.": "https://www.drupal.org/files/issues/2018-05-01/simplesamlphp_auth-change-password-access-2968598-2.patch"
+            },
+            "drupal/tablefield": {
+                "0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch"
             },
             "drupal/textfield_counter": {
                 "Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch"
@@ -316,7 +319,7 @@
         ],
         "va:test:unit": "phpunit tests/phpunit --colors=always --exclude-group=disabled",
         "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors",
-        "va:web:install":  [
+        "va:web:install": [
             "# Preparing Front-end...",
             "cd bin && ln -sf ../docroot/libraries/yarn/bin/yarn yarn",
             "node -v",
@@ -344,6 +347,5 @@
         "va:web:test": [
             "echo 'drupal address: ' $DRUPAL_ADDRESS"
         ]
-
     }
 }
