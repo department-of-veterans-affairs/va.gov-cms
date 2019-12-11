@@ -48,7 +48,6 @@ class ProcessStatusBulletin {
       // Pull the data from the alert fields.
       $template_variables['message'] = $node->get('field_body')->value;
       $template_variables['situation_update'] = FALSE;
-      // "Alert - White River Junction VA Medical Center".
       $subject_prefix = "Alert - ";
       $time = time();
       $time = \Drupal::service('date.formatter')->format($time, 'custom', 'n/j/Y h:i A T');
