@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4cc49c8ea5b28e341df7da4e2baf3ae4",
+    "content-hash": "3a28e2c66978df58599399dd24f8e36d",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -5823,7 +5823,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/govdelivery_bulletins.git",
-                "reference": "cdde79b062941b11a9906352684b7aaea6cf6e4a"
+                "reference": "d9a707aec2fc58491ec96aaed6bf883098c7be37"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -5835,7 +5835,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.x-dev",
-                    "datestamp": "1575604384",
+                    "datestamp": "1576100280",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -5861,7 +5861,7 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/govdelivery_bulletins"
             },
-            "time": "2019-12-06T05:49:34+00:00"
+            "time": "2019-12-12T04:41:35+00:00"
         },
         {
             "name": "drupal/graphql",
@@ -11400,7 +11400,7 @@
                 },
                 "drupal": {
                     "version": "8.x-5.5",
-                    "datestamp": "1572377284",
+                    "datestamp": "1575331086",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -11637,27 +11637,29 @@
         },
         {
             "name": "drush-ops/behat-drush-endpoint",
-            "version": "0.0.4",
+            "version": "9.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/behat-drush-endpoint.git",
-                "reference": "aba768db7338b2fe1f17693421760baadb37a39e"
+                "reference": "06e290cd5f477186d9df8501b1991ebd80f652fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/behat-drush-endpoint/zipball/aba768db7338b2fe1f17693421760baadb37a39e",
-                "reference": "aba768db7338b2fe1f17693421760baadb37a39e",
+                "url": "https://api.github.com/repos/drush-ops/behat-drush-endpoint/zipball/06e290cd5f477186d9df8501b1991ebd80f652fc",
+                "reference": "06e290cd5f477186d9df8501b1991ebd80f652fc",
                 "shasum": ""
             },
             "require": {
-                "composer/installers": "~1.0",
                 "drupal/drupal-driver": "*",
                 "php": ">=5.3.0"
+            },
+            "conflict": {
+                "drush/drush": "<8.2 || >=9.0 <9.6.0 || >=10.0"
             },
             "type": "drupal-drush",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPLv2"
+                "GPL-2.0-or-later"
             ],
             "description": "Drush commandfile for use with drupal/drupal-driver.",
             "homepage": "https://github.com/drush-ops/behat-drush-endpoint",
@@ -11666,7 +11668,7 @@
                 "Drush",
                 "testing"
             ],
-            "time": "2015-11-11T07:34:40+00:00"
+            "time": "2019-03-29T17:31:34+00:00"
         },
         {
             "name": "drush/drush",
