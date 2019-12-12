@@ -83,7 +83,6 @@ class ProcessStatusBulletin {
           ->setBody($body)
           ->setFooter(NULL)
           ->setFromAddress('us@example.org')
-          ->setGovDeliveryID('some_unique_id')
           ->setHeader(NULL)
           ->setSubject("{$subject_prefix}: {$vmac->vamc_title}")
           ->addTopic($vmac->vamc_topic_id)
