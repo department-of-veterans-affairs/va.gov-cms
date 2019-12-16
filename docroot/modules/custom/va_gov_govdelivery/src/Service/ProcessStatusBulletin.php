@@ -31,52 +31,60 @@ class ProcessStatusBulletin {
     $this->node = $node;
     $this->setSendType();
     $this->published = $node->status;
+
+    // Set common Variables.
+    $type = $node->get("field_alert_type")->getString();
+    $time_zone = drupal_get_user_timezone();
+    // Set common template variables.
+    $template_variables = [
+      // The type of alert 'information' or 'warning'.
+      'alert_type' => $node->get("field_alert_type")->value,
+      // Needed to prevent notices when Twig debugging is enabled.
+      'theme_hook_original' => 'not-applicable',
+    ];
+
     if ($this->sendType === 'status alert') {
       $queue_id = "{$node->get('nid')->value}-alert";
       // Pull the data from the alert fields.
-      $body = $node->get('field_body')->getString();
-      $type = $node->get("field_alert_type")->getString();
-      $header = '';
-      $footer = '';
-      $subject = $node->get('title')->getString();
-      // @TODO  get the time the alert was saved.
+      $template_variables['message'] = $node->get('field_body')->value;
+      $template_variables['situation_update'] = FALSE;
+      $subject_prefix = "Alert - ";
+      $time = time();
+      $time = \Drupal::service('date.formatter')->format($time, 'custom', 'n/j/Y h:i A T');
     }
     elseif ($this->sendType === 'situation update') {
-      // Might be multiples, use this to dedupe so that only the last one goes.
+      // Might be multiples, used to dedupe so that only the last one goes.
       $queue_id = "{$node->get('nid')->value}-update";
       // Pull the data from the situation update fields $this->situationUpdate.
-      $time = $this->situationUpdate->get('field_date_and_time')->value;
-      $body = $this->situationUpdate->get('field_wysiwyg')->value;
-      $type = $node->get("field_alert_type")->getString();
-      $header = '';
-      $footer = '';
-      $subject = "{$node->get('title')->getString()} - Situation Update";
+      $template_variables['message'] = $this->situationUpdate->get('field_wysiwyg')->value;
+      $template_variables['situation_update'] = TRUE;
+      $time = $this->situationUpdate->get('field_date_and_time')->date->getTimestamp();
+      $time = \Drupal::service('date.formatter')->format($time, 'custom', 'n/j/Y h:i A T');
+      $subject_prefix = "Situation Update - ";
     }
 
     if (!empty($this->sendType)) {
-
+      $template_variables['date_time'] = $time;
+      $template_variables['alert_title'] = $node->get('title')->getString();
       $vmacs_data = $node->get('field_banner_alert_computdvalues')->getValue();
       $vmacs_datum = reset($vmacs_data);
       $vmacs = !empty($vmacs_datum['value']) ? json_decode($vmacs_datum['value']) : [];
 
       // Loop through the VMACs since each title will be VAMC specific.
       foreach ($vmacs as $vmac) {
-        $vamc_title = $vmac->vamc_title;
-        $vamc_path = $vmac->vamc_path;
-        $vamc_op_status_path = $vmac->vamc_op_status_path;
+        $template_variables['vamc_name'] = $vmac->vamc_title;
+        $template_variables['vamc_url'] = $vmac->vamc_path;
+        $template_variables['ops_page_url'] = $vmac->vamc_op_status_path;
+        $body = (string) twig_render_template(drupal_get_path('module', 'va_gov_govdelivery') . '/templates/va-gov-body-alert.html.twig', $template_variables);
         // Add the item to queue.
         \Drupal::service('govdelivery_bulletins.add_bulletin_to_queue')
           ->setFlag('dedupe', TRUE)
           ->setQueueUid($queue_id)
-          // @TODO run body through a twig template.
           ->setBody($body)
-          ->setFooter($footer)
+          ->setFooter(NULL)
           ->setFromAddress('us@example.org')
-          ->setGovDeliveryID('some_unique_id')
-          ->setHeader($header)
-          // @TODO make subject VMAC specific.
-          ->setSubject("{$type}: {$vmac->vamc_title} {$subject}")
-          // ->setSMSBody('Some text SMS text.')
+          ->setHeader(NULL)
+          ->setSubject("{$subject_prefix}: {$vmac->vamc_title}")
           ->addTopic($vmac->vamc_topic_id)
           ->setXmlBool('click_tracking', FALSE)
           ->setXmlBool('open_tracking', FALSE)

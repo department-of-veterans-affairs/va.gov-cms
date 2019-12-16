@@ -2,3 +2,7 @@ services:
   va_gov_govdelivery.process_status_bulletin:
     class: Drupal\va_gov_govdelivery\Service\ProcessStatusBulletin
     arguments: []
+  va_gov_govdelivery.route_subscriber:
+    class: Drupal\va_gov_govdelivery\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
