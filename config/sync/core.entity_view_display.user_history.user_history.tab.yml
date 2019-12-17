@@ -1,0 +1,120 @@
+uuid: 5e59f202-0d3c-4b0b-9492-b4860908a738
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.user_history.tab
+  module:
+    - user_history
+_core:
+  default_config_hash: uxO5xvIEQjwUbRFm14GjNr7Deyfzm_PCTj4x1H_5vnY
+id: user_history.user_history.tab
+targetEntityType: user_history
+bundle: user_history
+mode: tab
+content:
+  action:
+    label: inline
+    type: string
+    weight: 3
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  created:
+    label: inline
+    type: timestamp
+    weight: 1
+    region: content
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  difference:
+    label: inline
+    type: string
+    weight: 20
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  label:
+    label: inline
+    type: string
+    weight: 0
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  modified_by:
+    label: inline
+    type: entity_reference_label
+    weight: 2
+    region: content
+    settings:
+      link: true
+    third_party_settings: {  }
+  user_login:
+    type: timestamp
+    weight: 9
+    region: content
+    label: inline
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  user_mail:
+    label: inline
+    type: basic_string
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  user_name:
+    label: inline
+    type: string
+    weight: 4
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_roles:
+    label: inline
+    type: string
+    weight: 8
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_status:
+    label: inline
+    type: boolean
+    settings:
+      format: custom
+      format_custom_true: Active
+      format_custom_false: Blocked
+    weight: 7
+    region: content
+    third_party_settings: {  }
+  user_timezone:
+    label: inline
+    type: string
+    weight: 6
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  search_api_excerpt: true
+  user_access: true
+  user_changed: true
+  user_created: true
+  user_deleted: true
+  user_id: true
+  user_init: true
+  user_langcode: true
+  user_pass: true
+  user_preferred_admin_langcode: true
+  user_preferred_langcode: true

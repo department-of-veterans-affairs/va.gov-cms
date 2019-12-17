@@ -5,6 +5,7 @@
  * Contains va_gov_backend.module.
  */
 
+use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Field\WidgetBase;
@@ -200,4 +201,15 @@ function va_gov_backend_rebuild() {
   }
 
   \Drupal::state()->set("environment_indicator.current_release", $indicator);
+}
+
+/**
+ * Implements hook_css_alter().
+ */
+function va_gov_backend_css_alter(&$css, AttachedAssetsInterface $assets) {
+  // Remove user_history css - not congruous with theme.
+  $module_handler = \Drupal::service('module_handler');
+  $module_path = $module_handler->getModule('user_history')->getPath();
+
+  unset($css[$module_path . '/css/user_history.css']);
 }

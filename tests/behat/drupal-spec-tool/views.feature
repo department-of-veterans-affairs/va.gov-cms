@@ -35,6 +35,9 @@ Feature: Views
 | Taxonomy term | taxonomy_term | Content | Enabled | Content belonging to a certain taxonomy term. |
 | People | user_admin_people | Users | Enabled | Find and manage people interacting with your site. |
 | Blocks listing | va_blocks_admin | Custom Block | Enabled | Shows existing blocks on the site. |
+| User creation & editing activity | user_creation_editing_activity | Users        | Enabled |  |
+| User history | user_history | User history | Enabled |  |
+| User history list | user_history_list | User history | Enabled |  |
 | VAMC alerts and operating statuses | vamc_alerts_and_operating_statuses | Content | Enabled |  |
 | VAMC operating statuses | vamc_operating_statuses | Content | Enabled |  |
 | VAMCs | vamcs | Content | Enabled |  |
@@ -121,6 +124,12 @@ Feature: Views
 | Taxonomy term | Master | default | Master |
 | Taxonomy term | Feed | feed_1 | Feed |
 | Taxonomy term | Page | page_1 | Page |
+| User creation & editing activity | Master | default | Master |
+| User creation & editing activity | Page | page_1 | Page |
+| User history | Master | default | Master |
+| User history | Page | page_1 | Page |
+| User history list | Master | default | Master |
+| User history list | Page | page_1 | Page |
 | VAMC alerts and operating statuses | Master | default | Master |
 | VAMC alerts and operating statuses | Page | page_1 | Page |
 | VAMC operating statuses | Master | default | Master |
