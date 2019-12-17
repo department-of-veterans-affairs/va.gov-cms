@@ -59,6 +59,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'access environment indicator',
           'access site-wide contact form',
           'access taxonomy overview',
+          'add user_history entities',
           'execute graphql requests',
           'execute persisted graphql requests',
           'view media',

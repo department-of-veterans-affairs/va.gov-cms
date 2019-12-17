@@ -1,0 +1,197 @@
+uuid: 2a93f022-5d4d-47db-b3ee-f272f2ff8064
+langcode: en
+status: true
+dependencies:
+  module:
+    - user_history
+_core:
+  default_config_hash: '-0vnOySVIzwUHXIP1yi-OwdUJLYvUJgdxpIp1m_5e7s'
+id: user_history.user_history.default
+targetEntityType: user_history
+bundle: user_history
+mode: default
+content:
+  action:
+    label: inline
+    type: string
+    weight: 2
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  created:
+    label: inline
+    type: timestamp
+    weight: 1
+    region: content
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  difference:
+    label: inline
+    type: string
+    weight: 20
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  label:
+    label: inline
+    type: string
+    weight: 0
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  modified_by:
+    label: inline
+    type: entity_reference_label
+    weight: 3
+    region: content
+    settings:
+      link: true
+    third_party_settings: {  }
+  user_access:
+    label: inline
+    type: timestamp
+    weight: 14
+    region: content
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  user_changed:
+    label: inline
+    type: timestamp
+    weight: 13
+    region: content
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  user_created:
+    label: inline
+    type: timestamp
+    weight: 12
+    region: content
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  user_deleted:
+    label: inline
+    type: boolean
+    settings:
+      format: yes-no
+      format_custom_false: ''
+      format_custom_true: ''
+    weight: 4
+    region: content
+    third_party_settings: {  }
+  user_id:
+    label: inline
+    type: entity_reference_entity_id
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  user_init:
+    label: inline
+    type: basic_string
+    weight: 16
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  user_langcode:
+    label: inline
+    type: language
+    weight: 17
+    region: content
+    settings:
+      link_to_entity: false
+      native_language: false
+    third_party_settings: {  }
+  user_login:
+    label: inline
+    type: timestamp
+    weight: 15
+    region: content
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  user_mail:
+    label: inline
+    type: basic_string
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  user_name:
+    label: inline
+    type: string
+    weight: 6
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_pass:
+    label: inline
+    type: string
+    weight: 7
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_preferred_admin_langcode:
+    label: inline
+    type: language
+    weight: 19
+    region: content
+    settings:
+      link_to_entity: false
+      native_language: false
+    third_party_settings: {  }
+  user_preferred_langcode:
+    label: inline
+    type: language
+    weight: 18
+    region: content
+    settings:
+      link_to_entity: false
+      native_language: false
+    third_party_settings: {  }
+  user_roles:
+    label: inline
+    type: string
+    weight: 11
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_status:
+    label: inline
+    type: boolean
+    settings:
+      format: custom
+      format_custom_true: Active
+      format_custom_false: Blocked
+    weight: 10
+    region: content
+    third_party_settings: {  }
+  user_timezone:
+    label: inline
+    type: string
+    weight: 9
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  search_api_excerpt: true
