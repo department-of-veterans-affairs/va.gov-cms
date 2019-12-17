@@ -1,4 +1,4 @@
-@import 'mixins';
+@import "mixins";
 
 .node-form textarea {
   max-width: 750px;
@@ -88,6 +88,7 @@
   cursor: pointer;
 }
 
-
-
-
+.layout-region-node-main,
+.layout-region-node-footer {
+  display: grid !important;
+}
