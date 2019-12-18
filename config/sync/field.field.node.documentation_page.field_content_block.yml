@@ -5,10 +5,14 @@ dependencies:
   config:
     - field.storage.node.field_content_block
     - node.type.documentation_page
+    - paragraphs.paragraphs_type.alert
     - paragraphs.paragraphs_type.collapsible_panel
+    - paragraphs.paragraphs_type.downloadable_file
+    - paragraphs.paragraphs_type.expandable_text
     - paragraphs.paragraphs_type.media
     - paragraphs.paragraphs_type.process
     - paragraphs.paragraphs_type.q_a_section
+    - paragraphs.paragraphs_type.table
     - paragraphs.paragraphs_type.wysiwyg
   module:
     - entity_reference_revisions
@@ -32,6 +36,10 @@ settings:
       media: media
       process: process
       collapsible_panel: collapsible_panel
+      alert: alert
+      expandable_text: expandable_text
+      downloadable_file: downloadable_file
+      table: table
     target_bundles_drag_drop:
       wysiwyg:
         enabled: true
@@ -52,14 +60,14 @@ settings:
         weight: -32
         enabled: false
       alert:
+        enabled: true
         weight: -31
-        enabled: false
       collapsible_panel_item:
         weight: -30
         enabled: false
       expandable_text:
+        enabled: true
         weight: -29
-        enabled: false
       health_care_local_facility_servi:
         weight: -28
         enabled: false
@@ -68,9 +76,6 @@ settings:
         enabled: false
       list_of_link_teasers:
         weight: -26
-        enabled: false
-      local_facility_health_service:
-        weight: -25
         enabled: false
       number_callout:
         weight: -24
@@ -87,4 +92,16 @@ settings:
       starred_horizontal_rule:
         weight: -20
         enabled: false
+      downloadable_file:
+        enabled: true
+        weight: 26
+      situation_update:
+        weight: 37
+        enabled: false
+      staff_profile:
+        weight: 39
+        enabled: false
+      table:
+        enabled: true
+        weight: 41
 field_type: entity_reference_revisions
