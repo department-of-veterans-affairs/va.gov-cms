@@ -79,7 +79,7 @@ class ProcessStatusBulletin {
         // Add the item to queue.
         \Drupal::service('govdelivery_bulletins.add_bulletin_to_queue')
           ->setFlag('dedupe', TRUE)
-          ->setQueueUid($queue_id)
+          ->setQueueUid("{$queue_id}-{$vmac->vamc_topic_id}")
           ->setBody($body)
           ->setFooter(NULL)
           ->setFromAddress('us@example.org')
