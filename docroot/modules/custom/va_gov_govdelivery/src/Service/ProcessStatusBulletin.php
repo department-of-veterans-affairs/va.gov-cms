@@ -48,7 +48,7 @@ class ProcessStatusBulletin {
       // Pull the data from the alert fields.
       $template_variables['message'] = $node->get('field_body')->value;
       $template_variables['situation_update'] = FALSE;
-      $subject_prefix = "Alert - ";
+      $subject_prefix = "Alert";
       $time = time();
       $time = \Drupal::service('date.formatter')->format($time, 'custom', 'n/j/Y h:i A T');
     }
@@ -60,7 +60,7 @@ class ProcessStatusBulletin {
       $template_variables['situation_update'] = TRUE;
       $time = $this->situationUpdate->get('field_date_and_time')->date->getTimestamp();
       $time = \Drupal::service('date.formatter')->format($time, 'custom', 'n/j/Y h:i A T');
-      $subject_prefix = "Situation Update - ";
+      $subject_prefix = "Situation Update";
     }
 
     if (!empty($this->sendType)) {
