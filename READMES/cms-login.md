@@ -18,6 +18,12 @@ Future State
 2. The request will be routed to the appropriate user_access_admin who will establish the account with appropriate roles and permissions
 3. An email will be sent to the uer with relevant information on how to access their new account (username, password PIV login instruction) and will providel links to the training guides in Drupal
 
+user_access_admins (proposed / notional)
+VACO: Joshua Tuscher
+VHA: Jennifer Heiland-Luedtke, Steven Tokar
+VBA: TBD
+NVA: TBD
+
 ## Technical Details
   * SSOi is handled by the simplesaml_php module.  It connects existing accounts to the Active Directory user via their email address and user name.
   * Once the connection has been established by the the user logging in with their PIV card, the system will update their CMS account with username and email address changes from their Active Directory account.
