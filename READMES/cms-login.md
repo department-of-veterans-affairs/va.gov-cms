@@ -19,8 +19,8 @@ Future State
 3. An email will be sent to the uer with relevant information on how to access their new account (username, password PIV login instruction) and will providel links to the training guides in Drupal
 
 user_access_admins (proposed / notional)
-VACO: Joshua Tuscher
-VHA: Jennifer Heiland-Luedtke, Steven Tokar
+VACO: Joshua Tuscher (joshua.tuscher@va.gov)
+VHA: Jennifer Heiland-Luedtke (jennifer.heiland-luedtke@va.gov), Steve Tokar (Steve.Tokar2@va.gov)
 VBA: TBD
 NVA: TBD
 
