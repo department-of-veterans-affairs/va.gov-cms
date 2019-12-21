@@ -18,15 +18,6 @@ function va_gov_login_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
- * Implements hook_local_tasks_alter().
- */
-function va_gov_login_menu_local_tasks_alter(&$data, $route_name) {
-  if ($route_name == 'user.login') {
-    $data['tabs'][0]['user.pass']['#access'] = FALSE;
-  }
-}
-
-/**
  * Implements hook_simplesamlphp_auth_existing_user().
  *
  * @see hook_simplesamlphp_auth_existing_user()
