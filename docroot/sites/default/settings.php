@@ -134,6 +134,10 @@ $config_directories['sync'] = '../config/sync';
 
 $env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
 
+$config['govdelivery_bulletins.settings']['govdelivery_endpoint'] = getenv('CMS_GOVDELIVERY_ENDPOINT') ?: FALSE;
+$config['govdelivery_bulletins.settings']['govdelivery_username'] = getenv('CMS_GOVDELIVERY_USERNAME') ?: FALSE;
+$config['govdelivery_bulletins.settings']['govdelivery_password'] = getenv('CMS_GOVDELIVERY_PASSWORD') ?: FALSE;
+
 // Set migration settings from environment variables.
 $config['migrate_plus.migration.va_node_health_care_local_facility']['source']['urls'] = [getenv('CMS_FACILITY_API_URL') . '/services/va_facilities/v0/facilities/all'];
 $config['migrate_plus.migration.va_node_health_care_local_facility']['source']['headers']['apikey'] = getenv('CMS_FACILITY_API_KEY');

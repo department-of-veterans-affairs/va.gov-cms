@@ -12,16 +12,6 @@ targetEntityType: paragraph
 bundle: media
 mode: default
 content:
-  field_allow_clicks_on_this_image:
-    weight: 1
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
-    region: content
   field_media:
     type: entity_reference_entity_view
     weight: 0
@@ -32,4 +22,6 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  field_allow_clicks_on_this_image: true
   field_markup: true
+  search_api_excerpt: true
