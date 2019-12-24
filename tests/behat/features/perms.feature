@@ -28,9 +28,10 @@ Feature: Permissions
     And I am on <page>
     Then the response status code should be <code>
     Examples:
-      | role                   | page                   | code |
-      | "content_api_consumer" | "/graphql"             | 200  |
-      | "content_api_consumer" | "/flags_list"          | 200  |
+      | role                   | page                                         | code |
+      | "content_api_consumer" | "/graphql"                                   | 200  |
+      | "content_api_consumer" | "/flags_list"                                | 200  |
+      | "content_api_consumer" | "/api/govdelivery_bulletins/queue?EndTime=1" | 200  |
 
   @perms @content_api_consumer @cac_menus
   Scenario: Content api consumer cannot alter existing menus
