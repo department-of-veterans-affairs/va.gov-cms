@@ -36,6 +36,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_related_links
     - field.field.node.health_care_region_page.field_sign_up_for_emergency_emai
     - field.field.node.health_care_region_page.field_twitter
+    - field.field.node.health_care_region_page.field_vamc_system_official_name
     - node.type.health_care_region_page
   module:
     - content_moderation
@@ -55,7 +56,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 15
+      weight: 11
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -70,7 +71,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 16
+      weight: 12
       format_type: fieldset
       format_settings:
         id: ''
@@ -84,7 +85,7 @@ third_party_settings:
         - field_locations_intro_blurb
         - field_other_va_locations
       parent_name: ''
-      weight: 9
+      weight: 5
       format_type: details
       format_settings:
         description: "<p>To add locations to the \"Our Locations\" page, <a href=\"/node/add/health_care_local_facility\">create a facility listing</a> for each one.This section also allows you to add other content to the \"Our Locations\" page.</p>\r\n\r\n\r\n"
@@ -100,7 +101,7 @@ third_party_settings:
         - field_clinical_health_care_servi
         - field_clinical_health_services
       parent_name: ''
-      weight: 11
+      weight: 7
       format_type: details
       format_settings:
         description: 'This content will appear on the Health Services page, (eg va.gov/pittsburgh-health-care/health-services). '
@@ -115,7 +116,7 @@ third_party_settings:
         - group_online_appointments
         - field_related_links
       parent_name: ''
-      weight: 14
+      weight: 10
       format_type: details
       format_settings:
         id: ''
@@ -144,7 +145,7 @@ third_party_settings:
         - field_intro_text_press_releases
         - field_press_release_blurb
       parent_name: ''
-      weight: 13
+      weight: 9
       format_type: details
       format_settings:
         required_fields: true
@@ -159,7 +160,7 @@ third_party_settings:
         - group_govdelivery_email_lists
         - group_s
       parent_name: ''
-      weight: 10
+      weight: 6
       format_type: details
       format_settings:
         description: 'This will populate the "Get updates" from us block on the health care system page and its facility pages. '
@@ -189,10 +190,10 @@ third_party_settings:
     group_title_and_summary:
       children:
         - title
-        - field_meta_title
+        - field_vamc_system_official_name
         - field_nickname_for_this_facility
-        - field_description
         - field_intro_text
+        - group_meta_tags
       parent_name: ''
       weight: 0
       format_type: fieldset
@@ -208,7 +209,7 @@ third_party_settings:
         - field_intro_text_leadership
         - field_leadership
       parent_name: ''
-      weight: 12
+      weight: 8
       format_type: details
       format_settings:
         id: ''
@@ -245,17 +246,25 @@ third_party_settings:
         required_fields: true
       label: 'GovDelivery email lists'
       region: content
+    group_meta_tags:
+      children:
+        - field_meta_title
+        - field_description
+      parent_name: group_title_and_summary
+      weight: 6
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Meta tags'
+      region: content
 id: node.health_care_region_page.default
 targetEntityType: node
 bundle: health_care_region_page
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 3
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_administration:
     weight: 10
     settings: {  }
@@ -318,7 +327,7 @@ content:
     third_party_settings: {  }
     region: content
   field_flickr:
-    weight: 17
+    weight: 18
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -342,7 +351,7 @@ content:
     type: string_textfield
     region: content
   field_instagram:
-    weight: 16
+    weight: 17
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -350,7 +359,7 @@ content:
     type: link_default
     region: content
   field_intro_text:
-    weight: 6
+    weight: 5
     settings:
       rows: 5
       placeholder: ''
@@ -405,7 +414,7 @@ content:
     type: string_textarea
     region: content
   field_leadership:
-    weight: 22
+    weight: 23
     settings:
       match_operator: CONTAINS
       size: 60
@@ -428,13 +437,13 @@ content:
     region: content
     third_party_settings: {  }
   field_meta_tags:
-    weight: 17
+    weight: 13
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
     region: content
   field_meta_title:
-    weight: 2
+    weight: 4
     settings:
       size: 70
       placeholder: ''
@@ -448,7 +457,7 @@ content:
     type: string_textfield_with_counter
     region: content
   field_nickname_for_this_facility:
-    weight: 4
+    weight: 3
     settings:
       size: 60
       placeholder: ''
@@ -505,12 +514,20 @@ content:
     type: paragraphs
     region: content
   field_twitter:
-    weight: 15
+    weight: 16
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
+  field_vamc_system_official_name:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
     region: content
   moderation_state:
     type: moderation_state_default
@@ -520,16 +537,9 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 2
     region: content
     settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 4
-    region: content
     third_party_settings: {  }
   revision_log:
     type: hide_revision_field_log_widget
@@ -547,48 +557,30 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 8
-    region: content
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 5
+    weight: 4
     region: content
     third_party_settings: {  }
   title:
-    type: string_textfield_with_counter
+    type: string_textfield
     weight: 1
     region: content
     settings:
       size: 60
       placeholder: ''
-      maxlength: 150
-      counter_position: after
-      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
-      use_field_maxlength: false
-      js_prevent_submit: false
-      count_html_characters: false
-    third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 2
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 7
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  created: true
   field_email_subscription: true
   field_email_subscription_links: true
   field_link_facility_emerg_list: true
   field_link_facility_news_list: true
   field_links: true
   field_sign_up_for_emergency_emai: true
+  promote: true
+  sticky: true
+  uid: true
