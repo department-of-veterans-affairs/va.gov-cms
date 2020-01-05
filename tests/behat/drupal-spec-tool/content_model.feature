@@ -237,7 +237,6 @@ Feature: Content model
 | Content type | VAMC system | Banner image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | VAMC system | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Content type | VAMC system | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | VAMC system | VAMC system short name | field_nickname_for_this_facility | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | VAMC system | VAMC system official name | field_vamc_system_official_name | Text (plain) |  | 1 | Textfield |  |
 | Content type | VAMC system | Operating status | field_operating_status | Link |  | 1 | Linkit |  |
 | Content type | VAMC system | Other VA Locations | field_other_va_locations | Text (plain) |  | Unlimited | Textfield |  |
