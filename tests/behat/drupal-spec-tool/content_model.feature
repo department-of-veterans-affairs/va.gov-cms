@@ -21,7 +21,7 @@ Feature: Content model
 | Staff profile | person_profile | Content type | Profiles of staff members for display in various places around the site. |
 | Story | news_story | Content type | Community stories highlight the role of a VA facility, program, or healthcare system in a Veteran's journey. They may be a case study of a specific patient, a description of a new or successful program, or a community-interest story. |
 | Support Service | support_service | Content type | Help desks, hotlines, etc, to be contextually placed alongside relevant content. |
-| VAMC system | health_care_region_page | Content type | A landing page for a VAMC system, which typically includes multiple facilities. |
+| VAMC system | health_care_region_page | Content type | A VAMC system contains multiple VHA health facilities, including usually at least one VAMC, sometimes more. |
 | VAMC system banner alert with situation updates | full_width_banner_alert | Content type | A full-width alert that will be added to a VAMC system, or multiple VAMC systems. |
 | VAMC facility | health_care_local_facility | Content type | A clinic or hospital within a VAMC system. |
 | VAMC facility health service | health_care_local_health_service | Content type | A facility specific description of a health care service, always embedded within a VAMC system description. |
