@@ -36,6 +36,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_related_links
     - field.field.node.health_care_region_page.field_sign_up_for_emergency_emai
     - field.field.node.health_care_region_page.field_twitter
+    - field.field.node.health_care_region_page.field_vamc_system_official_name
     - node.type.health_care_region_page
   module:
     - entity_reference_revisions
@@ -410,6 +411,14 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
+  field_vamc_system_official_name:
+    weight: 28
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
     region: content
 hidden:
   field_email_subscription: true
