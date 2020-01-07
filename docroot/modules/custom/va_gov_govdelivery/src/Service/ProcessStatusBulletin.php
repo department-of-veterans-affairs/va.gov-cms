@@ -29,8 +29,8 @@ class ProcessStatusBulletin {
    */
   public function processNode(NodeInterface $node) {
     $this->node = $node;
+    $this->published = $node->isPublished();
     $this->setSendType();
-    $this->published = $node->status;
 
     // Set common Variables.
     $type = $node->get("field_alert_type")->getString();
@@ -75,7 +75,15 @@ class ProcessStatusBulletin {
         $template_variables['vamc_name'] = $vmac->vamc_title;
         $template_variables['vamc_url'] = $vmac->vamc_path;
         $template_variables['ops_page_url'] = $vmac->vamc_op_status_path;
-        $body = (string) twig_render_template(drupal_get_path('module', 'va_gov_govdelivery') . '/templates/va-gov-body-alert.html.twig', $template_variables);
+        if (PHP_SAPI === 'cli') {
+          // The function twig_render_template throws a 'context not set'
+          // exception when run from CLI.
+          // Set a limited mock body for phpUnit Tests.
+          $body = "This is a phpUnit body that should never be sent to GovDelivery.";
+        }
+        else {
+          $body = (string) twig_render_template(drupal_get_path('module', 'va_gov_govdelivery') . '/templates/va-gov-body-alert.html.twig', $template_variables);
+        }
         // Add the item to queue.
         \Drupal::service('govdelivery_bulletins.add_bulletin_to_queue')
           ->setFlag('dedupe', TRUE)
@@ -103,14 +111,12 @@ class ProcessStatusBulletin {
     // If field_operating_status_sendemail is checked AND it is the first save
     // (no original) then it is a status alert.
     $original = $this->node->original;
-    $published = $this->node->isPublished();
 
     $first_save = (empty($this->node->original)) ? TRUE : FALSE;
     $send_status_email = $this->node->get('field_operating_status_sendemail')->value;
-    $first_save_published = ($first_save && $published);
-    $just_updated_to_published = (!$first_save && $published && !$this->node->original->isPublished());
-
-    if ($send_status_email) {
+    $first_save_published = ($first_save && $this->published);
+    $just_updated_to_published = (!$first_save && $this->published && !$this->node->original->isPublished());
+    if ($this->published && $send_status_email) {
       // The node is set to send email.
       if ($first_save_published || $just_updated_to_published) {
         // This is the first that the node has been published, should be queued
