@@ -21,7 +21,7 @@ Feature: Content model
 | Staff profile | person_profile | Content type | Profiles of staff members for display in various places around the site. |
 | Story | news_story | Content type | Community stories highlight the role of a VA facility, program, or healthcare system in a Veteran's journey. They may be a case study of a specific patient, a description of a new or successful program, or a community-interest story. |
 | Support Service | support_service | Content type | Help desks, hotlines, etc, to be contextually placed alongside relevant content. |
-| VAMC system | health_care_region_page | Content type | A landing page for a VAMC system, which typically includes multiple facilities. |
+| VAMC system | health_care_region_page | Content type | A VAMC system contains multiple VHA health facilities, including usually at least one VAMC, sometimes more. |
 | VAMC system banner alert with situation updates | full_width_banner_alert | Content type | A full-width alert that will be added to a VAMC system, or multiple VAMC systems. |
 | VAMC facility | health_care_local_facility | Content type | A clinic or hospital within a VAMC system. |
 | VAMC facility health service | health_care_local_health_service | Content type | A facility specific description of a health care service, always embedded within a VAMC system description. |
@@ -237,7 +237,8 @@ Feature: Content model
 | Content type | VAMC system | Banner image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | VAMC system | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Content type | VAMC system | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | VAMC system | Short name | field_nickname_for_this_facility | Text (plain) |  | 1 | Textfield | Translatable |
+| Content type | VAMC system | VAMC system short name | field_nickname_for_this_facility | Text (plain) |  | 1 | Textfield | Translatable |
+| Content type | VAMC system | VAMC system official name | field_vamc_system_official_name | Text (plain) |  | 1 | Textfield |  |
 | Content type | VAMC system | Operating status | field_operating_status | Link |  | 1 | Linkit |  |
 | Content type | VAMC system | Other VA Locations | field_other_va_locations | Text (plain) |  | Unlimited | Textfield |  |
 | Content type | VAMC system | Press Release Blurb | field_press_release_blurb | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |

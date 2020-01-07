@@ -10,10 +10,12 @@ field_name: field_intro_text
 entity_type: node
 bundle: health_care_region_page
 label: 'Intro text'
-description: ''
+description: 'Note: If the VAMC has an official system name, use it in the intro text. If not, use the VAMC system name.'
 required: true
 translatable: true
-default_value: {  }
+default_value:
+  -
+    value: "At [VAMC system official system name], our health care teams are deeply experienced and guided by the needs of Veterans, their families, and caregivers. Find a health facility near you, and manage your health online. Sign up for community events and updates.\r\n"
 default_value_callback: ''
 settings: {  }
 field_type: string_long
