@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "283cb0c3d548e0d16f27646bade6e391",
+    "content-hash": "ffa5eb85ab74229a9b407f30f2c02718",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -676,6 +676,51 @@
                 "transliterator"
             ],
             "time": "2017-04-04T11:38:05+00:00"
+        },
+        {
+            "name": "bjeavons/zxcvbn-php",
+            "version": "0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bjeavons/zxcvbn-php.git",
+                "reference": "7a7e1130c74c715e84c60c27384f657e9574a933"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bjeavons/zxcvbn-php/zipball/7a7e1130c74c715e84c60c27384f657e9574a933",
+                "reference": "7a7e1130c74c715e84c60c27384f657e9574a933",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*",
+                "satooshi/php-coveralls": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ZxcvbnPhp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "See contributors",
+                    "homepage": "https://github.com/bjeavons/zxcvbn-php"
+                }
+            ],
+            "description": "Realistic password strength estimation PHP library based on Zxcvbn JS",
+            "homepage": "https://github.com/bjeavons/zxcvbn-php",
+            "keywords": [
+                "password",
+                "zxcvbn"
+            ],
+            "time": "2018-07-23T05:05:36+00:00"
         },
         {
             "name": "bower-asset/cropper",
@@ -7466,6 +7511,85 @@
             }
         },
         {
+            "name": "drupal/mass_pwreset",
+            "version": "1.0.0-alpha5",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/mass_pwreset.git",
+                "reference": "8.x-1.0-alpha5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/mass_pwreset-8.x-1.0-alpha5.zip",
+                "reference": "8.x-1.0-alpha5",
+                "shasum": "1ba7e07e260d3c9adf2306341212ebc86cf7c945"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-alpha5",
+                    "datestamp": "1530150527",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "bdone",
+                    "homepage": "https://www.drupal.org/user/687670"
+                },
+                {
+                    "name": "cyu-dupe",
+                    "homepage": "https://www.drupal.org/user/786422"
+                },
+                {
+                    "name": "deekayen",
+                    "homepage": "https://www.drupal.org/user/972"
+                },
+                {
+                    "name": "deetergp",
+                    "homepage": "https://www.drupal.org/user/1134002"
+                },
+                {
+                    "name": "mikebarkas",
+                    "homepage": "https://www.drupal.org/user/1982966"
+                },
+                {
+                    "name": "shrop",
+                    "homepage": "https://www.drupal.org/user/14767"
+                },
+                {
+                    "name": "sjpatrick",
+                    "homepage": "https://www.drupal.org/user/114741"
+                },
+                {
+                    "name": "tecto",
+                    "homepage": "https://www.drupal.org/user/54020"
+                },
+                {
+                    "name": "tlattimore",
+                    "homepage": "https://www.drupal.org/user/624754"
+                }
+            ],
+            "description": "Reset all user accounts!",
+            "homepage": "https://www.drupal.org/project/mass_pwreset",
+            "support": {
+                "source": "https://git.drupalcode.org/project/mass_pwreset"
+            }
+        },
+        {
             "name": "drupal/media_entity_instagram",
             "version": "2.0.0-alpha2",
             "source": {
@@ -8236,17 +8360,17 @@
         },
         {
             "name": "drupal/node_link_report",
-            "version": "1.1.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/node_link_report.git",
-                "reference": "8.x-1.1"
+                "reference": "8.x-1.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/node_link_report-8.x-1.1.zip",
-                "reference": "8.x-1.1",
-                "shasum": "e0ca59f20bf4f04ccf742ba3f78489f37e4a60f5"
+                "url": "https://ftp.drupal.org/files/projects/node_link_report-8.x-1.6.zip",
+                "reference": "8.x-1.6",
+                "shasum": "b90975e370d4ae0da3f1dbec667b8af49776a960"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -8257,11 +8381,11 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.1",
-                    "datestamp": "1578660783",
+                    "version": "8.x-1.6",
+                    "datestamp": "1579124583",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -9239,6 +9363,71 @@
             "homepage": "https://www.drupal.org/project/password_policy",
             "support": {
                 "source": "https://git.drupalcode.org/project/password_policy"
+            }
+        },
+        {
+            "name": "drupal/password_strength",
+            "version": "2.0.0-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/password_strength.git",
+                "reference": "8.x-2.0-alpha2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/password_strength-8.x-2.0-alpha2.zip",
+                "reference": "8.x-2.0-alpha2",
+                "shasum": "9f4b309731c396306880b1085a87841ca8323ac4"
+            },
+            "require": {
+                "bjeavons/zxcvbn-php": "*",
+                "drupal/core": "~8.0",
+                "drupal/password_policy": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.x": "2.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-2.0-alpha2",
+                    "datestamp": "1490306283",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "coltrane",
+                    "homepage": "https://www.drupal.org/user/91990"
+                },
+                {
+                    "name": "greggles",
+                    "homepage": "https://www.drupal.org/user/36762"
+                },
+                {
+                    "name": "jrbeeman",
+                    "homepage": "https://www.drupal.org/user/16734"
+                },
+                {
+                    "name": "nerdstein",
+                    "homepage": "https://www.drupal.org/user/1557710"
+                },
+                {
+                    "name": "scor",
+                    "homepage": "https://www.drupal.org/user/52142"
+                }
+            ],
+            "description": "Integrates the Password Strength into Drupal's Password Policy module.",
+            "homepage": "https://www.drupal.org/project/password_strength",
+            "support": {
+                "source": "https://git.drupalcode.org/project/password_strength"
             }
         },
         {
@@ -19536,9 +19725,11 @@
         "drupal/image_style_warmer": 10,
         "drupal/linkit": 20,
         "drupal/markup": 10,
+        "drupal/mass_pwreset": 15,
         "drupal/node_revisions_autoclean": 10,
         "drupal/paragraphs_browser": 15,
         "drupal/password_policy": 15,
+        "drupal/password_strength": 15,
         "drupal/path_redirect_import": 10,
         "drupal/pathologic": 15,
         "drupal/role_delegation": 15,
