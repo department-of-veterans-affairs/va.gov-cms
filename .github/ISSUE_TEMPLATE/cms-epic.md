@@ -1,8 +1,8 @@
 ---
-name: CMS task
-about: A task for the CMS team.
-title: '<Insert summary of task>'
-labels: 'cms-task'
+name: CMS epic
+about: A epic for the CMS team.
+title: '<Insert summary of epic>'
+labels: 'cms-epic'
 assignees: kevwalsh
 ---
 
