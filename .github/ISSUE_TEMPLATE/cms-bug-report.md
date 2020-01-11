@@ -6,7 +6,6 @@ labels: bug
 assignees: kevwalsh
 
 ---
-
 **Describe the bug**
 A clear and concise description of what the bug is.
 
@@ -28,6 +27,13 @@ If applicable, add screenshots to help explain your problem.
  - Browser [e.g. chrome, safari]
  - Version [e.g. 22]
 
-
 **Additional context**
 Add any other context about the problem here.
+
+
+## Required labels
+- [ ] "Product support" (for VSA teams) or "CMS platform" (For core CMS functionality), or "VSP collaboration" for Platform
+  - [ ] If product support: which product team (CMS team, Public website team, VAMC upgrade team, etc)
+  - [ ] Which CMS-supported product, if any (VAMC, Benefits hubs, Outreach Hub, VA.gov homepage, Media library)
+  - [ ] For VSP collaboration: which platform team?, (content-ia-team, devops, design, documentation, frontend, etc)
+- [ ] Which CMS component (Content model, Content API, Content Governance, Authoring experience, Media library, Login, Documentation, etc)
