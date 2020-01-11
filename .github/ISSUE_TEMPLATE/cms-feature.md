@@ -1,5 +1,5 @@
 ---
-name: CMS user story (or feature request)
+name: User story (or feature request)
 about: Suggest an idea for the CMS
 title: '<Summary of user story or feature>'
 labels: 'User story'
