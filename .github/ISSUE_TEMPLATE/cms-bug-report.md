@@ -1,5 +1,5 @@
 ---
-name: CMS Bug report
+name: CMS bug report
 about: Create a report to help us improve
 title: "[CMS bug]  "
 labels: bug
