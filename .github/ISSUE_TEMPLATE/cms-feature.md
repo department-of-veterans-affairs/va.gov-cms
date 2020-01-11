@@ -1,7 +1,7 @@
 ---
 name: CMS user story (or feature request)
 about: Suggest an idea for this project
-title: '<Summary of user story or feature'
+title: '<Summary of user story or feature>'
 labels: 'User story'
 assignees: kevwalsh
 ---
