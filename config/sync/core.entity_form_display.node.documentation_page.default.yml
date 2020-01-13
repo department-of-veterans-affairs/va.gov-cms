@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.documentation_page.field_administration
     - field.field.node.documentation_page.field_content_block
     - node.type.documentation_page
   module:
@@ -18,7 +19,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -27,17 +28,32 @@ third_party_settings:
         required_fields: true
       label: 'Editorial workflow'
       region: content
+    group_governance:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 2
+      format_type: details_sidebar
+      format_settings:
+        description: ''
+        open: '1'
+        weight: '0'
+        required_fields: '1'
+        id: ''
+        classes: ''
+      label: Governance
+      region: content
 id: node.documentation_page.default
 targetEntityType: node
 bundle: documentation_page
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 4
-    region: content
+  field_administration:
+    weight: 5
     settings: {  }
     third_party_settings: {  }
+    type: options_select
+    region: content
   field_content_block:
     weight: 1
     settings:
@@ -50,8 +66,14 @@ content:
       paragraphs_browser: content
       modal_width: 80%
       modal_height: auto
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
     third_party_settings: {  }
-    type: entity_reference_paragraphs_browser
+    type: paragraphs_browser
     region: content
   moderation_state:
     type: moderation_state_default
@@ -61,16 +83,9 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 7
+    weight: 4
     region: content
     settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 5
-    region: content
     third_party_settings: {  }
   revision_log:
     type: hide_revision_field_log_widget
@@ -84,13 +99,6 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 6
-    region: content
-    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
@@ -99,19 +107,10 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 3
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    region: content
-    third_party_settings: {  }
-  url_redirects:
-    weight: 8
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
+  created: true
+  promote: true
   status: true
+  sticky: true
+  uid: true
+  url_redirects: true

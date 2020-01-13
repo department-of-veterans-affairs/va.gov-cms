@@ -1,0 +1,135 @@
+{#
+/**
+ * @file
+ * Bulletin body html to be sent to govdelivery bulletin API.
+ *
+ * This is not meant to be renderd by Drupal and is only for use in this module.
+ *
+ * Available variables:
+ * - alert_title: The title of the actual alert.
+ * - alert_type: The type of alert 'information' or 'warning'.
+ * - date_time: Time that should look like "12/09/2019 02:45 PM EST".
+ * - message: The content of the message to be sent. Contains HTML.
+ * - ops_page_url: // The link to the status update page.
+ * - situation_update: Bool indicating it is a situation update.
+ * - vamc_name: The name of the VMAC.
+ * - vamc_url: The URL of the VAMC.
+ *
+ */
+#}
+{% set content = {
+    '#type': 'processed_text',
+    '#text': message,
+    '#format': 'rich_text',
+  } %}
+
+<style>
+	<!--
+	a:link {
+		color: #003F72;
+		text-decoration: none;
+	}
+	.rss_title {
+		font-family: myriad pro, calibri, arial, sans serif;
+		font-size: 22px;
+		text-decoration: underline;
+	}
+	.rss_pub_date {
+		font-family: myriad pro, calibri, arial, sans serif;
+		font-size: 16px;
+		font-style: italic;
+		color: #999999;
+	}
+	.rss_description {
+		color: #333333;
+		font-family: myriad pro, calibri, arial, sans serif;
+		font-size: 19px;
+	}--></style>
+<table border="0" width="700" cellspacing="0" cellpadding="0" align="center" bgcolor="#0482BE">
+	<tbody>
+		<tr>
+			<td colspan="3" bgcolor="#C4262E">&nbsp;</td>
+		</tr>
+		<tr>
+			<td bgcolor="#C4262E" width="26">&nbsp;</td>
+			<td bgcolor="#C4262E">
+<h1 style="text-transform: uppercase; font-family: myriad pro, calibri, arial, sans serif; color: #ffffff; font-weight: 600; margin-bottom: 0px; font-size: 32px;">{{ vamc_name }}
+					<br/>System {{ situation_update ? 'Update' : 'Alert' }}</h1>
+			</td>
+			<td bgcolor="#C4262E" width="26">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="3" bgcolor="#C4262E">&nbsp;</td>
+		</tr>
+	</tbody>
+</table>
+<table border="0" width="700" cellspacing="0" cellpadding="0" align="center">
+	<tbody>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+	</tbody>
+</table>
+<table border="0" width="700" cellspacing="0" cellpadding="0" align="center">
+	<tbody>
+		<tr>
+			<td width="26">&nbsp;</td>
+      {% if alert_type  == 'warning' %}
+        <td align="left" width="50"><img src="https://content.govdelivery.com/attachments/fancy_images/USVHA/2014/11/383699/email-icon-exclamation_original.png" width="46" height="46"/></td>
+      {% else %}
+        <td align="left" width="50"></td>
+      {% endif %}
+
+    	<td width="14px">&nbsp;</td>
+			<td valign="middle">
+				<h2 style="font-family: myriad pro, calibri, arial, sans serif; color: #666666; font-size: 26px; font-weight: normal;">
+					<em>{{ (alert_type == 'warning') ? 'EMERGENCY' : 'INFORMATION' }} NOTIFICATIONS</em>
+				</h2>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<table border="0" width="700" cellspacing="0" cellpadding="0" align="center">
+	<tbody>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+	</tbody>
+</table>
+<table border="0" width="700" cellspacing="0" cellpadding="0" align="center">
+	<tbody>
+		<tr>
+			<td width="90">&nbsp;</td>
+<td>
+<div class="rss_item" style="margin-bottom: 2em;">
+	<div class="rss_title" style="font-weight: bold; font-size: 120%; margin: 0 0 0.3em; padding: 0;">
+<a href="https://va.gov{{ ops_page_url }}">{{ situation_update ? 'Situation Update' : 'Alert' }}
+	-
+	{{ vamc_name }}</a>
+
+	</div>
+<div class="rss_pub_date" style="font-size: 90%; font-style: italic; color: #666666; margin: 0 0 0.3em; padding: 0;">{{ date_time }}</div>
+
+	<br>
+	<div class="rss_description" style="margin: 0 0 0.3em; padding: 0;">
+<h2>{{ situation_update ? 'Update to ' : '' }}{{ alert_title }}</h2>
+
+		{{ content }}
+	</div>
+</div>
+
+</td>
+			<td width="50">&nbsp;</td>
+		</tr>
+	</tbody>
+</table>
+<table border="0" width="700" cellspacing="0" cellpadding="0" align="center">
+	<tbody>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+	</tbody>
+</table>

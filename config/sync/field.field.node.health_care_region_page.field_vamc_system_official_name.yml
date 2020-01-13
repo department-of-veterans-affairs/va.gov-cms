@@ -1,0 +1,19 @@
+uuid: d3bb1ef8-b318-4f60-adad-8f3033eaddeb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_vamc_system_official_name
+    - node.type.health_care_region_page
+id: node.health_care_region_page.field_vamc_system_official_name
+field_name: field_vamc_system_official_name
+entity_type: node
+bundle: health_care_region_page
+label: 'VAMC system official name'
+description: 'Eg: "VA Pittsburgh Healthcare System". This official name is used sparingly on some page templates. If this VAMC system does not have an official name, those templates will just use the VAMC system name above. '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
