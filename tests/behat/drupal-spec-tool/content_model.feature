@@ -216,8 +216,6 @@ Feature: Content model
 | Content type | VAMC system | Health services intro text | field_clinical_health_care_servi | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | VAMC system | Regional Health Service Offerings. | field_clinical_health_services | Entity reference |  | Unlimited | Select list |  |
 | Content type | VAMC system | Description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | VAMC system | Email Subscription | field_email_subscription | Link |  | 1 | -- Disabled -- | Translatable |
-| Content type | VAMC system | URL for signing up for email news and announcements | field_email_subscription_links | Link |  | 1 | -- Disabled -- |  |
 | Content type | VAMC system | Facebook | field_facebook | Link |  | 1 | Link | Translatable |
 | Content type | VAMC system | Featured content on health-services page | field_featured_content_healthser | Entity reference revisions |  | 3 | Paragraphs Classic |  |
 | Content type | VAMC system | Flickr | field_flickr | Link |  | 1 | Link | Translatable |
@@ -228,11 +226,8 @@ Feature: Content model
 | Content type | VAMC system | Community stories intro text | field_intro_text_news_stories | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC system | Press releases intro text | field_intro_text_press_releases | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | VAMC system | Leadership team | field_leadership | Entity reference |  | Unlimited | Autocomplete |  |
-| Content type | VAMC system | Emergency updates email list               | field_link_facility_emerg_list | Link         |          | 1 | -- Disabled -- |  |
-| Content type | VAMC system | News and announcements email list          | field_link_facility_news_list  | Link         |          | 1 | -- Disabled -- |  |
 | Content type | VAMC system | GovDelivery ID for News and Announcements  | field_govdelivery_id_news      | Text (plain) | Required | 1 | Textfield      |  |
 | Content type | VAMC system | GovDelivery ID for Emergency updates email | field_govdelivery_id_emerg     | Text (plain) | Required | 1 | Textfield      |  |
-| Content type | VAMC system | Email lists | field_links | Link |  | Unlimited | -- Disabled -- | Translatable |
 | Content type | VAMC system | Our Locations intro text | field_locations_intro_blurb | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
 | Content type | VAMC system | Banner image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | VAMC system | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
@@ -243,7 +238,6 @@ Feature: Content model
 | Content type | VAMC system | Other VA Locations | field_other_va_locations | Text (plain) |  | Unlimited | Textfield |  |
 | Content type | VAMC system | Press Release Blurb | field_press_release_blurb | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC system | Common Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL | Translatable |
-| Content type | VAMC system | URL for signing up for emergency email alerts | field_sign_up_for_emergency_emai | Link |  | 1 | -- Disabled -- |  |
 | Content type | VAMC system | Twitter | field_twitter | Link |  | 1 | Link | Translatable |
 | Content type | VAMC system banner alert with situation updates | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC system banner alert with situation updates | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  |
