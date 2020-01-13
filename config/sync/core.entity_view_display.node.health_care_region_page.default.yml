@@ -8,8 +8,6 @@ dependencies:
     - field.field.node.health_care_region_page.field_clinical_health_care_servi
     - field.field.node.health_care_region_page.field_clinical_health_services
     - field.field.node.health_care_region_page.field_description
-    - field.field.node.health_care_region_page.field_email_subscription
-    - field.field.node.health_care_region_page.field_email_subscription_links
     - field.field.node.health_care_region_page.field_facebook
     - field.field.node.health_care_region_page.field_featured_content_healthser
     - field.field.node.health_care_region_page.field_flickr
@@ -22,9 +20,6 @@ dependencies:
     - field.field.node.health_care_region_page.field_intro_text_news_stories
     - field.field.node.health_care_region_page.field_intro_text_press_releases
     - field.field.node.health_care_region_page.field_leadership
-    - field.field.node.health_care_region_page.field_link_facility_emerg_list
-    - field.field.node.health_care_region_page.field_link_facility_news_list
-    - field.field.node.health_care_region_page.field_links
     - field.field.node.health_care_region_page.field_locations_intro_blurb
     - field.field.node.health_care_region_page.field_media
     - field.field.node.health_care_region_page.field_meta_tags
@@ -34,7 +29,6 @@ dependencies:
     - field.field.node.health_care_region_page.field_other_va_locations
     - field.field.node.health_care_region_page.field_press_release_blurb
     - field.field.node.health_care_region_page.field_related_links
-    - field.field.node.health_care_region_page.field_sign_up_for_emergency_emai
     - field.field.node.health_care_region_page.field_twitter
     - field.field.node.health_care_region_page.field_vamc_system_official_name
     - node.type.health_care_region_page
@@ -169,18 +163,6 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_email_subscription_links:
-    type: link
-    weight: 8
-    region: content
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
   field_facebook:
     weight: 12
     label: above
@@ -285,42 +267,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_link_facility_emerg_list:
-    weight: 9
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-    region: content
-  field_link_facility_news_list:
-    weight: 10
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-    region: content
-  field_links:
-    type: link
-    weight: 6
-    region: content
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
   field_locations_intro_blurb:
     weight: 2
     label: above
@@ -388,18 +334,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
     region: content
-  field_sign_up_for_emergency_emai:
-    type: link
-    weight: 7
-    region: content
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
   field_twitter:
     weight: 15
     label: above
@@ -421,7 +355,6 @@ content:
     type: string
     region: content
 hidden:
-  field_email_subscription: true
   field_meta_tags: true
   links: true
   search_api_excerpt: true
