@@ -11,7 +11,6 @@ Thanks,
 The VA.gov Team.
 
 
-
 ## Table of Contents
 1. **Introduction**
     1. [About VA.gov](#about-vagov)
