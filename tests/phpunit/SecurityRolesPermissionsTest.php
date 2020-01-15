@@ -83,7 +83,13 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'bypass node access',
           'bypass workbench access',
           'clone block entity',
+          'clone block_content entity',
+          'clone field_config entity',
+          'clone file entity',
+          'clone media entity',
+          'clone menu entity',
           'clone node entity',
+          'clone paragraph entity',
           'create alert block content',
           'create document media',
           'create image media',
@@ -134,7 +140,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'view sections in toolbar',
           'view the administration theme',
           'view unpublished paragraphs',
-          'view workbench access information'
+          'view workbench access information',
         ],
       ],
       [
@@ -250,7 +256,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'view the administration theme',
           'view unpublished paragraphs',
           'view vamc_operating_status_and_alerts revisions',
-          'view workbench access information'
+          'view workbench access information',
         ],
       ],
       [
@@ -356,8 +362,8 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'view the administration theme',
           'view unpublished paragraphs',
           'view vamc_operating_status_and_alerts revisions',
-          'view workbench access information'
-          ],
+          'view workbench access information',
+        ],
       ],
       [
         'content_publisher',
@@ -533,7 +539,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'view the administration theme',
           'view unpublished paragraphs',
           'view vamc_operating_status_and_alerts revisions',
-          'view workbench access information'
+          'view workbench access information',
         ],
       ],
       [
@@ -568,7 +574,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'use text format rich_text',
           'view sections in toolbar',
           'view the administration theme',
-          'view workbench access information'
+          'view workbench access information',
         ],
       ],
     ];
