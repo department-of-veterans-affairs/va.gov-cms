@@ -73,7 +73,7 @@ pipeline {
       cleanWs()
     }
     failure {
-      slackSend(channel: '#cms-engineering', color: 'danger', message: "${env.JOB_NAME} failed ${env.BUILD_URL}")
+      slackSend(channel: '#cms-team', color: 'danger', message: "${env.JOB_NAME} failed ${env.BUILD_URL}")
     }
   }
 }
