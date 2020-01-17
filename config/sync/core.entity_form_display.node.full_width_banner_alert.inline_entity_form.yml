@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.full_width_banner_alert.field_alert_dismissable
     - field.field.node.full_width_banner_alert.field_alert_email_updates_button
     - field.field.node.full_width_banner_alert.field_alert_find_facilities_cta
+    - field.field.node.full_width_banner_alert.field_alert_inheritance_subpages
     - field.field.node.full_width_banner_alert.field_alert_operating_status_cta
     - field.field.node.full_width_banner_alert.field_alert_type
     - field.field.node.full_width_banner_alert.field_banner_alert_computdvalues
@@ -18,7 +19,6 @@ dependencies:
     - field.field.node.full_width_banner_alert.field_situation_updates
     - node.type.full_width_banner_alert
   module:
-    - content_moderation
     - field_group
     - paragraphs
     - text
@@ -41,7 +41,7 @@ third_party_settings:
     group_edi:
       children:
         - revision_log
-        - moderation_state
+        - status
       parent_name: ''
       weight: 5
       format_type: fieldset
@@ -206,12 +206,6 @@ content:
         duplicate: duplicate
         collapse_edit_all: collapse_edit_all
     third_party_settings: {  }
-  moderation_state:
-    type: moderation_state_default
-    weight: 1
-    settings: {  }
-    region: content
-    third_party_settings: {  }
   revision_log:
     type: string_textarea
     weight: 0
@@ -219,6 +213,13 @@ content:
     settings:
       rows: 5
       placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 1
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -231,11 +232,12 @@ content:
 hidden:
   created: true
   field_administration: true
+  field_alert_inheritance_subpages: true
   field_banner_alert_computdvalues: true
   field_banner_alert_vamcs: true
+  moderation_state: true
   path: true
   promote: true
-  status: true
   sticky: true
   uid: true
   url_redirects: true
