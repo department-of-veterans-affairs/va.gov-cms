@@ -83,7 +83,13 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'bypass node access',
           'bypass workbench access',
           'clone block entity',
+          'clone block_content entity',
+          'clone field_config entity',
+          'clone file entity',
+          'clone media entity',
+          'clone menu entity',
           'clone node entity',
+          'clone paragraph entity',
           'create alert block content',
           'create document media',
           'create image media',
@@ -131,10 +137,11 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'view all media revisions',
           'view any unpublished content',
           'view latest version',
+          'view node link report',
           'view sections in toolbar',
           'view the administration theme',
           'view unpublished paragraphs',
-          'view workbench access information'
+          'view workbench access information',
         ],
       ],
       [
@@ -212,6 +219,11 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'edit own support_service content',
           'edit own vamc_operating_status_and_alerts content',
           'notify of path changes',
+          'override event authored on option',
+          'override full_width_banner_alert authored on option',
+          'override news_story authored on option',
+          'override outreach_asset authored on option',
+          'override press_release authored on option',
           'rebuild tablefield',
           'schedule editorial transition create_new_draft',
           'update any alert block content',
@@ -237,6 +249,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'view landing_page revisions',
           'view latest version',
           'view news_story revisions',
+          'view node link report',
           'view office revisions',
           'view outreach_asset revisions',
           'view own unpublished content',
@@ -250,7 +263,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'view the administration theme',
           'view unpublished paragraphs',
           'view vamc_operating_status_and_alerts revisions',
-          'view workbench access information'
+          'view workbench access information',
         ],
       ],
       [
@@ -343,6 +356,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'view landing_page revisions',
           'view latest version',
           'view news_story revisions',
+          'view node link report',
           'view office revisions',
           'view outreach_asset revisions',
           'view own unpublished content',
@@ -356,8 +370,8 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'view the administration theme',
           'view unpublished paragraphs',
           'view vamc_operating_status_and_alerts revisions',
-          'view workbench access information'
-          ],
+          'view workbench access information',
+        ],
       ],
       [
         'content_publisher',
@@ -520,6 +534,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'view landing_page revisions',
           'view latest version',
           'view news_story revisions',
+          'view node link report',
           'view office revisions',
           'view outreach_asset revisions',
           'view own unpublished content',
@@ -533,7 +548,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'view the administration theme',
           'view unpublished paragraphs',
           'view vamc_operating_status_and_alerts revisions',
-          'view workbench access information'
+          'view workbench access information',
         ],
       ],
       [
@@ -568,7 +583,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'use text format rich_text',
           'view sections in toolbar',
           'view the administration theme',
-          'view workbench access information'
+          'view workbench access information',
         ],
       ],
     ];

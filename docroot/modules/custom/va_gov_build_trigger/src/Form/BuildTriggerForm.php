@@ -96,17 +96,24 @@ class BuildTriggerForm extends FormBase {
       $form['tip']['#weight'] = 100;
     }
 
-    if ($environment_type == 'prod' && $environment_type == 'staging' && $environment_type == 'dev') {
-      $description = t('Rebuilds for this environment will be handled by VFS Jenkins.');
-    }
-    elseif ($environment_type == 'ci') {
-      $description = t('Rebuilds for this environment are handled by CMS-CI. You may press this button to trigger a full site rebuild. It will take around 45 seconds.');
-    }
-    elseif ($environment_type == 'lando') {
-      $description = t('Rebuilds for Lando sites must be run manually. Run the following command to regenerate the static site: <pre>lando composer va:web:build</pre>  The button below is used in CMS and production environments. You can use it to emulate their behavior. You may change the CMS_ENVIRONMENT_TYPE environment behavior to develop.');
-    }
-    else {
-      $description = 'Environment not detected. Rebuild by running the <pre>composer va:web:build</pre> command.';
+    // Case race, first to evaluate TRUE wins.
+    switch (TRUE) {
+      case $environment_type == 'prod':
+      case $environment_type == 'staging':
+      case $environment_type == 'dev':
+        $description = t('Rebuilds for this environment will be handled by VFS Jenkins.');
+        break;
+
+      case $environment_type == 'ci':
+        $description = t('Rebuilds for this environment are handled by CMS-CI. You may press this button to trigger a full site rebuild. It will take around 45 seconds.');
+        break;
+
+      case $environment_type == 'lando':
+        $description = t('Rebuilds for Lando sites must be run manually. Run the following command to regenerate the static site: <pre>lando composer va:web:build</pre>  The button below is used in CMS and production environments. You can use it to emulate their behavior. You may change the CMS_ENVIRONMENT_TYPE environment behavior to develop.');
+        break;
+
+      default:
+        $description = t('Environment not detected. Rebuild by running the <pre>composer va:web:build</pre> command.');
     }
 
     $form['environment_target'] = [
