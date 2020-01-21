@@ -132,13 +132,14 @@
   }
 
   /* Secondary button (blue "ghost") */
-  .usa-button-secondary {
+  a.usa-button-secondary {
     @include va-buttons;
     background: transparent;
     box-shadow: inset 0 0 0 2px #0071bb;
     color: #0071bb;
     &:hover {
       box-shadow: inset 0 0 0 2px #003e73;
+      background: transparent;
       color: #003e73;
     }
   }
