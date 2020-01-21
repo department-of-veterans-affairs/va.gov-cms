@@ -57,8 +57,9 @@ class BuildTriggerForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    $environment_type = getenv('CMS_ENVIRONMENT_TYPE')?: 'ci';
-    $target = $this->getWebURL($environment_type);
+    $environment_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
+    $frontend_service = \Drupal::service('va_gov_build_trigger.build_frontend');
+    $target = $frontend_service->getWebUrl($environment_type);
 
     $form['actions']['#type'] = 'actions';
     $form['help_1'] = [
