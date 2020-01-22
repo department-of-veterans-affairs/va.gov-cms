@@ -32,10 +32,62 @@ function va_gov_backend_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
+ * Implements hook_form_FORMID_alter().
+ */
+function va_gov_backend_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  if ($form['#id'] === 'views-exposed-form-health-service-offerings-service-offerings-dash') {
+    // Change our textfield to a dropdown displaying all VAMC systems.
+    _va_gov_backend_add_vamc_regions_select($form);
+  }
+}
+
+/**
+ * AChange text input to select list of VAMC systems.
+ *
+ * @param array $form
+ *   The exposed widget form array.
+ */
+function _va_gov_backend_add_vamc_regions_select(array &$form) {
+  // Query nodes.
+  $storage = Drupal::getContainer()->get('entity_type.manager')->getStorage('node');
+  $nids = $storage->getQuery();
+
+  // Gather vamc nodes and sort by title.
+  $nids = $nids->condition('type', 'health_care_region_page')
+    ->sort('title')
+    ->execute();
+
+  // If there are no nodes, move on.
+  if (!$nids) {
+    return FALSE;
+  }
+
+  // Start building out the options for our select list.
+  $options = [];
+  $nodes = $storage->loadMultiple($nids);
+
+  // Push titles into select list.
+  foreach ($nodes as $node) {
+    $options[$node->getTitle()] = $node->getTitle();
+  }
+
+  // Start building out our replacement form element.
+  $form['title']['#type'] = 'select';
+  $form['title']['#multiple'] = FALSE;
+
+  // Specify the empty option for our select list.
+  $form['title']['#empty_option'] = t('VAMC');
+
+  // Add the $options from above to our select list.
+  $form['title']['#options'] = $options;
+  unset($form['title']['#size']);
+}
+
+/**
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-
   if ($form_id === 'redirect_redirect_edit_form' || $form_id === 'redirect_redirect_form') {
     $value = 'prefix';
     if ($form_id === 'redirect_redirect_edit_form') {
