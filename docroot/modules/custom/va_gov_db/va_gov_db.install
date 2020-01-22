@@ -8,6 +8,33 @@
 use Drupal\Core\Utility\UpdateException;
 
 /**
+ * Uninstalls requested modules.
+ *
+ * @param array $modules
+ *   An array of module machine names to uninstall.
+ * @param bool $uninstall_dependents
+ *   TRUE if dependent modules should also be uninstalled, FALSE otherwise.
+ *
+ * @return string
+ *   A message about what requested modules were uninstalled.
+ *
+ * @throws Drupal\Core\Utility\UpdateException
+ */
+function _va_gov_db_uninstall_modules(array $modules, $uninstall_dependents = TRUE) {
+  $success = \Drupal::service('module_installer')->uninstall($modules, $uninstall_dependents);
+  $modules_list = implode(', ', $modules);
+  if ($success) {
+    return "Uninstalled the following modules: $modules_list";
+  }
+  else {
+    // Something went wrong. Throw exception.
+    throw new UpdateException(
+      t("Failed to uninstall the requested modules: @modules", ['@modules' => $modules_list])
+    );
+  }
+}
+
+/**
  * Utility to change the max length of a text field.
  *
  * @param string $field_name
@@ -66,4 +93,13 @@ function va_gov_db_update_8001(&$sandbox) {
   $message = _va_gov_db_change_text_field_max_length('field_facility_locator_api_id', 12);
 
   return $message;
+}
+
+/**
+ * Uninstall json_content module.
+ */
+function va_gov_db_update_8002(&$sandbox) {
+  $messages = _va_gov_db_uninstall_modules(['json_content']);
+
+  return $messages;
 }
