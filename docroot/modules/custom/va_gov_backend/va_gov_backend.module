@@ -112,35 +112,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     ];
     $form['actions']['submit']['#submit'][] = 'va_gov_backend_form_alter_redirect_submit';
   }
-  // First make sure this isn't new content.
-  $path = \Drupal::service('path.current')->getPath();
-  $arg = explode('/', $path);
-  if (!empty($arg[2]) && $arg[2] !== 'empty' && $arg[2] !== 'add') {
-
-    // We want to show time last built on nodes, promos and alerts.
-    if (!empty($form['#entity_type']) && ($form['#entity_type'] === 'node'
-    || $form['#entity_type'] === 'block_content')) {
-
-      // Every value in this column is the same, so just get the last one.
-      $query = \Drupal::database()->select('node__field_page_last_built', 'nf')
-        ->fields('nf', ['field_page_last_built_value'])
-        ->execute()->fetchField();
-
-      // Convert it to unixtime.
-      $time1 = strtotime($query);
-      $time2 = strtotime('+1 day', $time1);
-      // Here's our last published formatted date.
-      $date1 = date('M d, Y', $time1);
-      // 24 hours later.
-      $date2 = date('M d, Y', $time2);
-
-      // Append it to the top of the workflow fieldset.
-      $form['moderation_state']['widget'][0]['#prefix'] = t('The published
-    version of this content was last built on va.gov on <b>:date1</b>.<br />
-    The next build will be triggered on <b>:date2</b>.',
-      [':date1' => $date1, ':date2' => $date2]);
-    }
-  }
 
   if ($form_id === 'node_vamc_operating_status_and_alerts_edit_form') {
     // Hide field_office for existing operating statuses: they won't be moved.
