@@ -66,7 +66,7 @@ function va_gov_backend_form_views_exposed_form_alter(&$form, FormStateInterface
   $form['title']['#multiple'] = FALSE;
 
   // Specify the empty option for our select list.
-  $form['title']['#empty_option'] = t('VAMC');
+  $form['title']['#empty_option'] = t('Filter by VAMC system');
 
   // Add the $options from above to our select list.
   $form['title']['#options'] = $options;
