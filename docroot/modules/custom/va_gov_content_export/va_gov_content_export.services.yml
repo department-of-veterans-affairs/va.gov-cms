@@ -1,0 +1,7 @@
+services:
+ serializer.normalizer.content_entity_tome_sync.va_gov_content_export:
+    decorates: serializer.normalizer.content_entity_tome_sync
+    class: Drupal\va_gov_content_export\Normalizer\ContentEntityNormalizer
+    tags:
+      - { name: normalizer, priority: 1 }
+    arguments: ['@entity.manager']
