@@ -203,11 +203,6 @@
         },
         "enable-patching": true,
         "patches-ignore": {
-            "drupal/lightning_core": {
-                "drupal/core": {
-                    "2815221 - Add quickedit to the latest-revision route: Don't use this outdate patch https://www.drupal.org/project/lightning_core/issues/3040013": "https://www.drupal.org/files/issues/2019-02-26/2815221-115-8.6.x.patch"
-                }
-            }
         },
         "patches": {
             "drupal/content_lock": {
@@ -233,20 +228,8 @@
             "drupal/ics_field": {
                 "Include end date / time in ICS file.": "https://www.drupal.org/files/issues/2018-10-06/ics_field-2852239-11.patch"
             },
-            "drupal/linkit": {
-                "Adds field level linkit functionality.": "https://www.drupal.org/files/issues/2019-07-25/linkit_modified_patch-118-123.patch",
-                "Fix broken autocomplete.js loading.": "https://www.drupal.org/files/issues/2018-07-19/linkit_autocomplete_not_loaded-2973181-4.patch"
-            },
             "drupal/menu_link_content": {
                 "Fix php warning when creating new items": "https://www.drupal.org/files/issues/updateLink-2775665-2.patch"
-            },
-            "drupal/paragraphs_browser": {
-                "Extend from ParagraphsWidget instead of InlineParagraphsWidget": "https://www.drupal.org/files/issues/2019-01-22/paragraphs_browser-extend-from-ParagraphsWidget-2917656-14_0.patch"
-            },
-            "drupal/password_policy": {
-                "Use core temp store.": "https://www.drupal.org/files/issues/2019-03-04/password_policy-use-core-temp-store-3032549-3.patch",
-                "Fix field field_last_password_reset is unknown.": "https://www.drupal.org/files/issues/2019-02-24/password_policy-config_import_field_error-2771129-73_alpha4_1.patch",
-                "Password expires does not work.": "https://www.drupal.org/files/issues/2019-03-11/2917622-password_policy-expiration-issue-for-8.x-3.0-alpha4.patch"
             },
             "drupal/simplesamlphp_auth": {
                 "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2019-08-14/2748731-23.patch",
