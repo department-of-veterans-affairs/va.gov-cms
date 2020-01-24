@@ -6001,17 +6001,17 @@
         },
         {
             "name": "drupal/graphql",
-            "version": "3.0.0",
+            "version": "3.0.0-rc3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/graphql.git",
-                "reference": "8.x-3.0"
+                "reference": "8.x-3.0-rc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/graphql-8.x-3.0.zip",
-                "reference": "8.x-3.0",
-                "shasum": "ccba88a346fd816cccbf93f65273efbd6be70c2b"
+                "url": "https://ftp.drupal.org/files/projects/graphql-8.x-3.0-rc3.zip",
+                "reference": "8.x-3.0-rc3",
+                "shasum": "9764fe0c8c2288cb114e3c58b8c3abc5008432dc"
             },
             "require": {
                 "drupal/core": "~8.0",
@@ -6023,11 +6023,11 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0",
-                    "datestamp": "1572538570",
+                    "version": "8.x-3.0-rc3",
+                    "datestamp": "1555138081",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "RC releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -6057,7 +6057,7 @@
         },
         {
             "name": "drupal/graphql_core",
-            "version": "3.0.0",
+            "version": "3.0.0-rc3",
             "require": {
                 "drupal/core": "~8.0",
                 "drupal/graphql": "self.version"
@@ -6068,11 +6068,11 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0",
-                    "datestamp": "1572538570",
+                    "version": "8.x-3.0-rc3",
+                    "datestamp": "1555138081",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "RC releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -6099,6 +6099,50 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/graphql"
             }
+        },
+        {
+            "name": "drupal/graphql_metatag",
+            "version": "dev-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/graphql_metatag.git",
+                "reference": "48140c3f30c00ebd062e324d72b49ec985ea541f"
+            },
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/graphql_core": "*",
+                "drupal/metatag": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.x-dev",
+                    "datestamp": "1543855680",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "fubhy",
+                    "homepage": "https://www.drupal.org/user/761344"
+                }
+            ],
+            "description": "Exposes the Drupal Metatag data through a GraphQL schema.",
+            "homepage": "https://github.com/drupal-graphql/graphql-metatag",
+            "support": {
+                "source": "https://git.drupalcode.org/project/graphql_metatag"
+            },
+            "time": "2018-06-13T18:24:32+00:00"
         },
         {
             "name": "drupal/graphql_metatag",
