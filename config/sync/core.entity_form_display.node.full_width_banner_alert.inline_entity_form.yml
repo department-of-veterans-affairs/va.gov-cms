@@ -25,46 +25,48 @@ dependencies:
 third_party_settings:
   field_group:
     group_governance:
-      children: {  }
-      parent_name: ''
-      weight: 4
-      format_type: details_sidebar
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        open: 1
-        required_fields: 1
-        weight: '0'
-      label: Governance
-      region: content
-    group_edi:
       children:
         - revision_log
-        - status
       parent_name: ''
       weight: 5
       format_type: fieldset
       format_settings:
+        description: ''
+        open: true
+        weight: '0'
+        required_fields: true
         id: ''
         classes: ''
-        description: ''
+      label: Changelog
+      region: content
+    group_edi:
+      children:
+        - status
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      format_settings:
+        description: "<p>To help streamline the process of publishing time-sensitive alerts, and to clarify the email sending behavior, VAMC banner alerts do not follow the typical editorial workflow of content elsewhere in the VA.gov CMS, where content moves from Draft to In review to Published. </p>\r\n\r\n<p>Instead, banner alerts are either published or not. There is no \"archived\" state.</p>\r\n\r\n<p>To publish a banner, check this this box. When it's time to remove the banner, uncheck it.</p>\r\n\r\n"
         required_fields: true
+        id: ''
+        classes: ''
+        open: false
       label: 'Editorial workflow'
       region: content
     group_alert_display_and_behavior:
       children:
         - field_operating_status_sendemail
+        - field_alert_inheritance_subpages
       parent_name: ''
-      weight: 1
+      weight: 0
       format_type: fieldset
       format_settings:
+        description: ''
+        required_fields: true
         id: ''
         classes: ''
-        description: ''
         open: false
-        required_fields: true
-      label: 'Display and behavior'
+      label: 'Alert options'
       region: content
     group_alert_content:
       children:
@@ -74,13 +76,14 @@ third_party_settings:
         - field_body
         - group_calls_to_action
       parent_name: ''
-      weight: 0
+      weight: 1
       format_type: fieldset
       format_settings:
         id: ''
         classes: ''
         description: ''
         required_fields: true
+        open: false
       label: Content
       region: content
     group_situation_updates:
@@ -88,7 +91,7 @@ third_party_settings:
         - field_situation_updates
       parent_name: ''
       weight: 2
-      format_type: details
+      format_type: fieldset
       format_settings:
         id: ''
         classes: ''
@@ -102,7 +105,7 @@ third_party_settings:
         - field_banner_alert_situationinfo
       parent_name: ''
       weight: 3
-      format_type: details
+      format_type: fieldset
       format_settings:
         description: "For \"static\" situation information that is additional to any situation updates.\r\n"
         required_fields: true
@@ -124,6 +127,7 @@ third_party_settings:
         classes: ''
         description: ''
         required_fields: false
+        open: false
       label: 'Calls to action'
       region: content
 id: node.full_width_banner_alert.inline_entity_form
@@ -147,7 +151,14 @@ content:
     third_party_settings: {  }
   field_alert_find_facilities_cta:
     type: boolean_checkbox
-    weight: 10
+    weight: 11
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_alert_inheritance_subpages:
+    type: boolean_checkbox
+    weight: 8
     region: content
     settings:
       display_label: true
@@ -208,7 +219,7 @@ content:
     third_party_settings: {  }
   revision_log:
     type: string_textarea
-    weight: 0
+    weight: 6
     region: content
     settings:
       rows: 5
@@ -232,7 +243,6 @@ content:
 hidden:
   created: true
   field_administration: true
-  field_alert_inheritance_subpages: true
   field_banner_alert_computdvalues: true
   field_banner_alert_vamcs: true
   moderation_state: true
