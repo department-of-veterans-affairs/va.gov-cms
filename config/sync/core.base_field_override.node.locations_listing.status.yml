@@ -1,0 +1,22 @@
+uuid: 81c2c3ae-416c-4d14-b148-1f5bb8e89629
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.locations_listing
+id: node.locations_listing.status
+field_name: status
+entity_type: node
+bundle: locations_listing
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

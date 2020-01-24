@@ -1,0 +1,19 @@
+uuid: 05a023a2-32a2-478d-86ba-fa1fff2a9b4a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description
+    - node.type.press_releases_listing
+id: node.press_releases_listing.field_description
+field_name: field_description
+entity_type: node
+bundle: press_releases_listing
+label: 'Meta description'
+description: 'This text appears search results, social media shares, and may appear in teaser listings, and should include a brief (ideally one sentence) summary of the topic of this page. <a href="https://design.va.gov/content-style-guide/seo#meta-properties">See content style guide for more guidance</a>.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

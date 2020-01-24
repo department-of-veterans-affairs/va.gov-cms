@@ -1,0 +1,94 @@
+uuid: 8aee64ef-9684-49e1-bcdf-14b4f0a7ce31
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.locations_listing.field_administration
+    - field.field.node.locations_listing.field_description
+    - field.field.node.locations_listing.field_intro_text
+    - field.field.node.locations_listing.field_meta_tags
+    - field.field.node.locations_listing.field_meta_title
+    - field.field.node.locations_listing.field_office
+    - node.type.locations_listing
+  module:
+    - field_group
+    - user
+third_party_settings:
+  field_group:
+    group_content:
+      children:
+        - field_intro_text
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Content
+      region: content
+    group_relationships:
+      children:
+        - field_administration
+        - field_office
+      parent_name: ''
+      weight: 6
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Relationships
+      region: hidden
+    group_meta:
+      children:
+        - field_description
+        - field_meta_title
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Meta
+      region: content
+id: node.locations_listing.default
+targetEntityType: node
+bundle: locations_listing
+mode: default
+content:
+  content_moderation_control:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_description:
+    type: string
+    weight: 0
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_intro_text:
+    weight: 7
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_meta_title:
+    type: string
+    weight: 0
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  field_administration: true
+  field_meta_tags: true
+  field_office: true
+  links: true
+  search_api_excerpt: true

@@ -1,0 +1,21 @@
+uuid: e8a84791-1750-4107-b68f-32745a0c2a07
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_press_release_blurb
+    - node.type.press_releases_listing
+  module:
+    - text
+id: node.press_releases_listing.field_press_release_blurb
+field_name: field_press_release_blurb
+entity_type: node
+bundle: press_releases_listing
+label: 'Press Release Blurb'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

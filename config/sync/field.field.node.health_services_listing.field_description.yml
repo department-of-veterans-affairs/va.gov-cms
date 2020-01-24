@@ -1,0 +1,19 @@
+uuid: 6d25c88f-f667-496b-8454-2e7198335218
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description
+    - node.type.health_services_listing
+id: node.health_services_listing.field_description
+field_name: field_description
+entity_type: node
+bundle: health_services_listing
+label: 'Meta description'
+description: 'This text appears search results, social media shares, and may appear in teaser listings, and should include a brief (ideally one sentence) summary of the topic of this page. <a href="https://design.va.gov/content-style-guide/seo#meta-properties">See content style guide for more guidance</a>.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,21 @@
+uuid: 6ca836d1-fd35-4096-9093-131c720b61ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_meta_tags
+    - node.type.story_listing
+  module:
+    - metatag
+id: node.story_listing.field_meta_tags
+field_name: field_meta_tags
+entity_type: node
+bundle: story_listing
+label: 'Meta tags'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: metatag

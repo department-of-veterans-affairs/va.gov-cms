@@ -1,0 +1,22 @@
+uuid: 92cbb066-89cb-472c-9c94-1b5ab2e1e73a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.press_releases_listing
+id: node.press_releases_listing.promote
+field_name: promote
+entity_type: node
+bundle: press_releases_listing
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,29 @@
+uuid: 47d45468-d343-4df3-932b-0614553b256a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.story_listing
+    - taxonomy.vocabulary.administration
+id: node.story_listing.field_administration
+field_name: field_administration
+entity_type: node
+bundle: story_listing
+label: Owner
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
