@@ -1,10 +1,10 @@
 services:
- serializer.normalizer.content_entity_tome_sync.va_gov_content_export:
-    decorates: serializer.normalizer.content_entity_tome_sync
+  serializer.normalizer.content_entity_tome_sync.va_gov_content_export:
     class: Drupal\va_gov_content_export\Normalizer\ContentEntityNormalizer
+    decorates: serializer.normalizer.content_entity_tome_sync
+    arguments: ['@entity.manager', '@serializer.normalizer.content_entity_tome_sync.va_gov_content_export.inner']
     tags:
       - { name: normalizer, priority: 1 }
-    arguments: ['@entity.manager']
  serializer.normalizer.field_tome_sync:
    # Override (add back) tome_sync's removal of the "processed" field here.
    class: stdClass
