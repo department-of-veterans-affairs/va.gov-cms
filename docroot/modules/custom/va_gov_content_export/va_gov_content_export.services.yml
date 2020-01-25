@@ -6,8 +6,5 @@ services:
       - { name: normalizer, priority: 1 }
     arguments: ['@entity.manager']
  serializer.normalizer.field_tome_sync:
-   class: Drupal\va_gov_content_export\Normalizer\FieldItemNormalizer
-   tags:
-     - { name: normalizer, priority: 7 }
-   arguments: ['@entity.repository']
-
+   # Override (add back) tome_sync's removal of the "processed" field here.
+   class: stdClass
