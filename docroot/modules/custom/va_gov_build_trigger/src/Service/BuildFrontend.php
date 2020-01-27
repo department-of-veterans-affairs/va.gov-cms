@@ -226,7 +226,7 @@ class BuildFrontend {
   public function triggerFrontendBuildFromContentSave(NodeInterface $node) {
     $allowed_content_types = [
       'full_width_banner_alert',
-      'vamc_operating_status_and_alerts',
+      'health_care_local_facility',
     ];
     if (in_array($node->getType(), $allowed_content_types)) {
       // This is the right content type to trigger a build. Is it published?
