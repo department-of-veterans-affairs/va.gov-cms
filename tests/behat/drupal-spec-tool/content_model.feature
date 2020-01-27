@@ -58,7 +58,7 @@ Feature: Content model
 | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
 | Health services listing | health_services_listing | Content type | A listing of health services. |
 | Locations listing | locations_listing | Content type | A listing of locations. |
-| Press releases listing | press_releases_listing | Content type | A listing of press releases. |
+| News releases listing | press_releases_listing | Content type | A listing of press releases. |
 | Story listing | story_listing | Content type | A listing of stories. |
 
   @dst @field_type
@@ -247,7 +247,7 @@ Feature: Content model
 | Content type | VAMC system banner alert with situation updates | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC system banner alert with situation updates | Display "Subscribe to email updates" link? | field_alert_email_updates_button | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC system banner alert with situation updates | Display "Find other VA facilities near you" link? | field_alert_find_facilities_cta | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | VAMC system banner alert with situation updates | Only show on VAMC System page & Operating status page | field_alert_inheritance_subpages | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | VAMC system banner alert with situation updates | Only show on VAMC System Page & Operating Status Page | field_alert_inheritance_subpages | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC system banner alert with situation updates | Computed values for alerts | field_banner_alert_computdvalues | Computed (text, long) |  | 1 | -- Disabled -- |  |
 | Content type | VAMC system banner alert with situation updates | Display "Get updates on affected services and facilities" link | field_alert_operating_status_cta | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC system banner alert with situation updates | Alert type | field_alert_type | List (text) | Required | 1 | Select list |  |
@@ -281,13 +281,13 @@ Feature: Content model
 | Content type | Locations listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter    | Translatable |
 | Content type | Locations listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Locations listing | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Press releases listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
-| Content type | Press releases listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter    | Translatable |
-| Content type | Press releases listing | Meta tags | field_meta_tags | Meta tags | | 1 | Advanced meta tags form   | Translatable |
-| Content type | Press releases listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | Press releases listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Press releases listing | Press Release Blurb | field_press_release_blurb | Text (formatted, long)| | 1 | Text area (multiple rows) | Translatable |
-| Content type | Press releases listing | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | News releases listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
+| Content type | News releases listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter    | Translatable |
+| Content type | News releases listing | Meta tags | field_meta_tags | Meta tags | | 1 | Advanced meta tags form   | Translatable |
+| Content type | News releases listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | News releases listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | News releases listing | Press Release Blurb | field_press_release_blurb | Text (formatted, long)| | 1 | Text area (multiple rows) | Translatable |
+| Content type | News releases listing | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Story listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Content type | Story listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Story listing | Meta tags | field_meta_tags | Meta tags | | 1 | Advanced meta tags form   | Translatable |
