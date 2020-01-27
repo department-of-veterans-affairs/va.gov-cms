@@ -2,9 +2,7 @@
 
 namespace VA\Composer;
 
-use Acquia\Lightning\Composer\Package;
 use Dotenv\Dotenv;
-use Dotenv\Exception\ValidationException;
 
 // Run here so it is loaded as soon as the file is included.
 EnvironmentHandler::load();
@@ -23,11 +21,10 @@ class EnvironmentHandler {
 
     $env_file_dir = dirname(dirname(__DIR__));
     $env_file_name = '.env';
-
     try {
 
       // If LANDO Server variable exists, load lando env file.
-      if (!empty($_SERVER['LANDO']) && $_SERVER['LANDO'] == 'ON') {
+      if (!empty(getenv('LANDO')) && getenv('LANDO') === 'ON') {
 
         // Load .env file if it exists first. Otherise use .env.lando.
         if (file_exists($env_file_dir . '/' . $env_file_name)) {
@@ -58,5 +55,3 @@ class EnvironmentHandler {
     }
   }
 }
-
-
