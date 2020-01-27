@@ -74,9 +74,9 @@ class BuildFrontend {
       $task = json_decode($task_json);
       if (!empty($task->nid)) {
         $vars = [
-          ':link' => Link::fromTextAndUrl(t('Deploy Log'), Url::fromUri('http://' . $_SERVER['DEVSHOP_HOSTNAME'] . '/node/' . $task->nid))->toString(),
+          '@link' => Link::fromTextAndUrl(t('Deploy Log'), Url::fromUri('http://' . $_SERVER['DEVSHOP_HOSTNAME'] . '/node/' . $task->nid))->toString(),
         ];
-        $message = t('VA Web Rebuild & Deploy has been queued. The process should complete in around 1 minute. :link', $vars);
+        $message = t('VA Web Rebuild & Deploy has been queued. The process should complete in around 1 minute. @link', $vars);
         $this->messenger->addStatus($message);
 
         // Save pending state.
