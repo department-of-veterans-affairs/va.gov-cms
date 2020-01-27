@@ -3,8 +3,8 @@
 namespace Drupal\va_gov_build_trigger\Service;
 
 use Drupal;
-use Drupal\Core\Form\FormBase;
 use Drupal\Core\Link;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\Url;
@@ -18,6 +18,13 @@ use GuzzleHttp\Middleware;
  * Class for processing facility status to GovDelivery Bulletin.
  */
 class BuildFrontend {
+
+  /**
+   * The logger service.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelInterface
+   */
+  protected $logger;
 
   /**
    * The Messenger service.
@@ -34,9 +41,15 @@ class BuildFrontend {
 
   /**
    * BuildFrontend constructor.
+   *
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger interface.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
+   *   The logger factory service.
    */
-  public function __construct(MessengerInterface $messenger) {
+  public function __construct(MessengerInterface $messenger, LoggerChannelFactoryInterface $logger_factory) {
     $this->messenger = $messenger;
+    $this->logger = $logger_factory->get('va-gov_build_trigger');
   }
 
   /**
@@ -78,6 +91,7 @@ class BuildFrontend {
         ];
         $message = t('VA Web Rebuild & Deploy has been queued. The process should complete in around 1 minute. @link', $vars);
         $this->messenger->addStatus($message);
+        $this->logger->info($message);
 
         // Save pending state.
         $this->setPendingState(1);
@@ -86,6 +100,7 @@ class BuildFrontend {
     elseif ($this->getEnvironment() === 'lando') {
       // This is a local dev environment.
       // Save pending state.
+      $this->logger->info(t('Frontend build was triggered, to be handled by Lando.'));
       $this->setPendingState(1);
     }
     elseif ((!empty($jenkins_build_environment)) && array_key_exists($jenkins_build_environment, self::WEB_ENVIRONMENTS)) {
@@ -126,8 +141,7 @@ class BuildFrontend {
           if ($response && $response->getStatusCode() === 201) {
             return FALSE;
           }
-          FormBase::logger('va_gov_build_trigger')
-            ->warning('Retry site build - attempt #' . $retry);
+          $this->logger->warning('Retry site build - attempt #' . $retry);
           // Stop after 3 retries.
           return $retry < 3;
         }, function ($retry) {
@@ -140,15 +154,18 @@ class BuildFrontend {
         $response = $client->post($jenkins_build_job_host, $request_options);
 
         if ($response->getStatusCode() !== 201) {
-          $this->messenger->addError(t('Site rebuild failed with status code {:status_code} {:reason_phrase} and URL {:url}.',
-            [
-              ':status_code' => $response->getStatusCode(),
-              ':reason_phrase' => $response->getReasonPhrase(),
-              ':url' => $jenkins_build_job_url,
-            ]
-          ));
+          $vars = [
+            ':status_code' => $response->getStatusCode(),
+            ':reason_phrase' => $response->getReasonPhrase(),
+            ':url' => $jenkins_build_job_url,
+          ];
+          $message = t('Site rebuild failed with status code {:status_code} {:reason_phrase} and URL {:url}.', $vars);
+          $this->messenger->addError($message);
+          $this->logger->error($message);
 
-          $this->messenger->addError(t('Site rebuild request has failed for :url, check log for more information.', [':url' => $jenkins_build_job_url]));
+          $message = t('Site rebuild request has failed for :url, check log for more information.', [':url' => $jenkins_build_job_url]);
+          $this->messenger->addError($message);
+          $this->logger->error($message);
         }
         else {
           $this->recordBuildTime();
@@ -157,17 +174,21 @@ class BuildFrontend {
             ':url' => $jenkins_build_job_url,
             '@job_link' => $jenkins_build_job_host . $jenkins_build_job_path,
           ]));
+          $this->logger->info(t('Site rebuild triggered.'));
         }
       }
       catch (RequestException $exception) {
-        $this->messenger->addError(t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify in #cms-engineering Slack and please email vacmssupport@va.gov immediately with the error message you see here.', [':url' => $jenkins_build_job_url]));
+        $message = t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify in #cms-engineering Slack and please email vacmssupport@va.gov immediately with the error message you see here.', [':url' => $jenkins_build_job_url]);
+        $this->messenger->addError($message);
+        $this->logger->error($message);
         watchdog_exception('va_gov_build_trigger', $exception);
-
       }
     }
     else {
       // In an unaccounted for environment. Call it off.
-      $this->messenger->addWarning(t('You cannot trigger a build in this environment. Only the DEV, STAGING and PROD environments support triggering builds.'));
+      $message = t('You cannot trigger a build in this environment. Only the DEV, STAGING and PROD environments support triggering builds.');
+      $this->messenger->addWarning($message);
+      $this->logger->warning($message);
       return FALSE;
     }
   }
@@ -227,6 +248,7 @@ class BuildFrontend {
     $allowed_content_types = [
       'full_width_banner_alert',
       'health_care_local_facility',
+      'vamc_operating_status_and_alerts',
     ];
     if (in_array($node->getType(), $allowed_content_types)) {
       // This is the right content type to trigger a build. Is it published?
