@@ -1,0 +1,4 @@
+services:
+  va_gov_build_trigger.build_frontend:
+    class: Drupal\va_gov_build_trigger\Service\BuildFrontend
+    arguments: ['@messenger', '@logger.factory']
