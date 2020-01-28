@@ -49,7 +49,7 @@ class BuildFrontend {
    */
   public function __construct(MessengerInterface $messenger, LoggerChannelFactoryInterface $logger_factory) {
     $this->messenger = $messenger;
-    $this->logger = $logger_factory->get('va-gov_build_trigger');
+    $this->logger = $logger_factory->get('va_gov_build_trigger');
   }
 
   /**
@@ -99,8 +99,11 @@ class BuildFrontend {
     }
     elseif ($this->getEnvironment() === 'lando') {
       // This is a local dev environment.
+      $vars = ['@command' => 'lando composer va:web:build'];
+      $message = t('Frontend build would have been triggered. To build with Lando, run the command: @command', $vars);
+      $this->messenger->addStatus($message);
+      $this->logger->info($message);
       // Save pending state.
-      $this->logger->info(t('Frontend build was triggered, to be handled by Lando.'));
       $this->setPendingState(1);
     }
     elseif ((!empty($jenkins_build_environment)) && array_key_exists($jenkins_build_environment, self::WEB_ENVIRONMENTS)) {
@@ -169,12 +172,13 @@ class BuildFrontend {
         }
         else {
           $this->recordBuildTime();
-
-          $this->messenger->addStatus(t('Site rebuild request has been triggered with :url. Please visit <a href="@job_link">@job_link</a> to see status.', [
+          $vars = [
             ':url' => $jenkins_build_job_url,
             '@job_link' => $jenkins_build_job_host . $jenkins_build_job_path,
-          ]));
-          $this->logger->info(t('Site rebuild triggered.'));
+          ];
+          $message = t('Site rebuild request has been triggered with :url. Please visit <a href="@job_link">@job_link</a> to see status.', $vars);
+          $this->messenger->addStatus($message);
+          $this->logger->info($message);
         }
       }
       catch (RequestException $exception) {
