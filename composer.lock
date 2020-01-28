@@ -8031,10 +8031,10 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/linkit.git",
-                "reference": "4a5834c7bc3d78bb684fd1766e857105ad037378"
+                "reference": "9b54704679d65869e711239339fe149a0b97a69a"
             },
             "require": {
-                "drupal/core": "^8.7.7 || ^9"
+                "drupal/core": "~8.0"
             },
             "require-dev": {
                 "drupal/imce": "*"
@@ -8045,14 +8045,17 @@
                     "dev-5.x": "5.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-5.0-beta10+3-dev",
-                    "datestamp": "1573863181",
+                    "version": "8.x-5.0-beta8+10-dev",
+                    "datestamp": "1559774281",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 },
-                "patches_applied": []
+                "patches_applied": {
+                    "Adds field level linkit functionality.": "https://www.drupal.org/files/issues/2019-07-25/linkit_modified_patch-118-123.patch",
+                    "Fix broken autocomplete.js loading.": "https://www.drupal.org/files/issues/2018-07-19/linkit_autocomplete_not_loaded-2973181-4.patch"
+                }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
@@ -8072,7 +8075,7 @@
                 "source": "http://cgit.drupalcode.org/linkit",
                 "issues": "http://drupal.org/project/linkit"
             },
-            "time": "2019-11-16T00:07:03+00:00"
+            "time": "2019-06-05T22:35:41+00:00"
         },
         {
             "name": "drupal/markdown",
