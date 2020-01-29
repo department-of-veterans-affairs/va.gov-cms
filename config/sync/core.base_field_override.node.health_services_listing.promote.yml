@@ -1,0 +1,22 @@
+uuid: 232a9ddc-6ec4-4335-8a08-67a9ee240585
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.health_services_listing
+id: node.health_services_listing.promote
+field_name: promote
+entity_type: node
+bundle: health_services_listing
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

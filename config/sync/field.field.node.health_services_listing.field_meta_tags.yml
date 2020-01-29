@@ -1,0 +1,21 @@
+uuid: 47a4ef75-0a09-4152-9463-98c7669c4bf5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_meta_tags
+    - node.type.health_services_listing
+  module:
+    - metatag
+id: node.health_services_listing.field_meta_tags
+field_name: field_meta_tags
+entity_type: node
+bundle: health_services_listing
+label: 'Meta tags'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: metatag

@@ -1,0 +1,29 @@
+uuid: ee5596d9-eb5f-4636-aa89-0effd5a51c04
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.press_releases_listing
+    - taxonomy.vocabulary.administration
+id: node.press_releases_listing.field_administration
+field_name: field_administration
+entity_type: node
+bundle: press_releases_listing
+label: Owner
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

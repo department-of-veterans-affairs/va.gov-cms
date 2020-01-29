@@ -1,22 +1,22 @@
-uuid: 6510fda2-14d1-40c5-b0b6-82679f5a84cd
+uuid: fed3baab-17f6-4a11-9170-cbb9c614e603
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: events
-label: 'Events listings'
+id: event
+label: Events
 type: 'canonical_entities:node'
 pattern: '[node:field_office:entity:url:path]/events'
 selection_criteria:
-  e657dac0-8173-4d27-b597-7b26606b848d:
+  8058b0db-0d30-4662-9931-0804f29a6036:
     id: node_type
     bundles:
-      event_listing: event_listing
+      event: event
     negate: false
     context_mapping:
       node: node
-    uuid: e657dac0-8173-4d27-b597-7b26606b848d
+    uuid: 8058b0db-0d30-4662-9931-0804f29a6036
 selection_logic: and
-weight: -10
+weight: -5
 relationships: {  }

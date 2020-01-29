@@ -1,0 +1,22 @@
+uuid: 682f6678-af5f-4417-b5cc-8a1c8544187e
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: news_releases_listings
+label: 'News releases listings'
+type: 'canonical_entities:node'
+pattern: '[node:field_office:entity:url:path]/news-releases'
+selection_criteria:
+  cc33cd1c-dff3-4667-84f2-31562ab365f3:
+    id: node_type
+    bundles:
+      press_releases_listing: press_releases_listing
+    negate: false
+    context_mapping:
+      node: node
+    uuid: cc33cd1c-dff3-4667-84f2-31562ab365f3
+selection_logic: and
+weight: -5
+relationships: {  }

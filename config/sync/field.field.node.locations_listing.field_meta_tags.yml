@@ -1,0 +1,21 @@
+uuid: be885ae9-644b-4376-9f9a-f97285c52b32
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_meta_tags
+    - node.type.locations_listing
+  module:
+    - metatag
+id: node.locations_listing.field_meta_tags
+field_name: field_meta_tags
+entity_type: node
+bundle: locations_listing
+label: 'Meta tags'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: metatag

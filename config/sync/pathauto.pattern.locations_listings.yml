@@ -1,0 +1,22 @@
+uuid: b3330ad3-48cd-4e45-a49c-ae2940326e24
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: locations_listings
+label: 'Locations listings'
+type: 'canonical_entities:node'
+pattern: '[node:field_office:entity:url:path]/locations'
+selection_criteria:
+  b1f0c13b-9840-47ea-86b5-e83ceb25a40d:
+    id: node_type
+    bundles:
+      locations_listing: locations_listing
+    negate: false
+    context_mapping:
+      node: node
+    uuid: b1f0c13b-9840-47ea-86b5-e83ceb25a40d
+selection_logic: and
+weight: -5
+relationships: {  }

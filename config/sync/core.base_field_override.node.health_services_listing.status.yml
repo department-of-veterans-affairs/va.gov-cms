@@ -1,0 +1,22 @@
+uuid: 0fc33978-70c0-418d-8cdc-bb11793eecb3
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.health_services_listing
+id: node.health_services_listing.status
+field_name: status
+entity_type: node
+bundle: health_services_listing
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

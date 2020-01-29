@@ -1,0 +1,35 @@
+uuid: 8ddd8102-c06e-4911-93ab-c2af6cbb8be0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.health_services_listing.field_administration
+    - field.field.node.health_services_listing.field_description
+    - field.field.node.health_services_listing.field_intro_text
+    - field.field.node.health_services_listing.field_meta_tags
+    - field.field.node.health_services_listing.field_meta_title
+    - field.field.node.health_services_listing.field_office
+    - node.type.health_services_listing
+  module:
+    - user
+id: node.health_services_listing.teaser
+targetEntityType: node
+bundle: health_services_listing
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_description: true
+  field_featured_content_healthser: true
+  field_intro_text: true
+  field_meta_tags: true
+  field_meta_title: true
+  field_office: true
+  search_api_excerpt: true

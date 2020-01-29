@@ -1,0 +1,22 @@
+uuid: ea879b6b-3c90-45e1-baad-0573082de64b
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: health_services_listings
+label: 'Health services listings'
+type: 'canonical_entities:node'
+pattern: '[node:field_office:entity:url:path]/health-services'
+selection_criteria:
+  2bef6639-57c4-499a-91a3-6d6665715092:
+    id: node_type
+    bundles:
+      health_services_listing: health_services_listing
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 2bef6639-57c4-499a-91a3-6d6665715092
+selection_logic: and
+weight: -5
+relationships: {  }

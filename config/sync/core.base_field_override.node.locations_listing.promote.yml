@@ -1,0 +1,22 @@
+uuid: fd7775a3-d806-47f0-8fc1-b73e615464ba
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.locations_listing
+id: node.locations_listing.promote
+field_name: promote
+entity_type: node
+bundle: locations_listing
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

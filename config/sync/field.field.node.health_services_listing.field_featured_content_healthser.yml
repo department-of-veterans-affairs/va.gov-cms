@@ -1,0 +1,91 @@
+uuid: 8e447956-9d00-4a26-a7f2-6f8b2f828c0d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_featured_content_healthser
+    - node.type.health_services_listing
+    - paragraphs.paragraphs_type.link_teaser
+  module:
+    - entity_reference_revisions
+id: node.health_services_listing.field_featured_content_healthser
+field_name: field_featured_content_healthser
+entity_type: node
+bundle: health_services_listing
+label: 'Featured content on health-services page'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      link_teaser: link_teaser
+    target_bundles_drag_drop:
+      address:
+        weight: 22
+        enabled: false
+      alert:
+        weight: 23
+        enabled: false
+      collapsible_panel:
+        weight: 24
+        enabled: false
+      collapsible_panel_item:
+        weight: 25
+        enabled: false
+      downloadable_file:
+        weight: 26
+        enabled: false
+      expandable_text:
+        weight: 27
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 28
+        enabled: false
+      link_teaser:
+        enabled: true
+        weight: 29
+      list_of_link_teasers:
+        weight: 30
+        enabled: false
+      media:
+        weight: 31
+        enabled: false
+      number_callout:
+        weight: 32
+        enabled: false
+      process:
+        weight: 33
+        enabled: false
+      q_a:
+        weight: 34
+        enabled: false
+      q_a_section:
+        weight: 35
+        enabled: false
+      react_widget:
+        weight: 36
+        enabled: false
+      situation_update:
+        weight: 37
+        enabled: false
+      spanish_translation_summary:
+        weight: 38
+        enabled: false
+      staff_profile:
+        weight: 39
+        enabled: false
+      starred_horizontal_rule:
+        weight: 40
+        enabled: false
+      table:
+        weight: 41
+        enabled: false
+      wysiwyg:
+        weight: 42
+        enabled: false
+field_type: entity_reference_revisions

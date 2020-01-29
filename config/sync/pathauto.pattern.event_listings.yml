@@ -5,19 +5,18 @@ dependencies:
   module:
     - node
 id: event_listings
-label: 'Event & Publication listings'
+label: 'Publication listings'
 type: 'canonical_entities:node'
 pattern: '[node:field_office:entity:url:path]/[node:title]'
 selection_criteria:
-  5c7d2156-1fb0-4561-bcc6-95b0c4b6df07:
+  0b6e0428-a503-48ae-89c1-2e507c487efe:
     id: node_type
     bundles:
       publication_listing: publication_listing
-      event_listing: event_listing
     negate: false
     context_mapping:
       node: node
-    uuid: 5c7d2156-1fb0-4561-bcc6-95b0c4b6df07
+    uuid: 0b6e0428-a503-48ae-89c1-2e507c487efe
 selection_logic: and
 weight: -5
 relationships: {  }

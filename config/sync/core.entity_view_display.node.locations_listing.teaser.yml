@@ -1,0 +1,34 @@
+uuid: 4a9051da-7e8b-4e0a-ba39-0253d99adb6d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.locations_listing.field_administration
+    - field.field.node.locations_listing.field_description
+    - field.field.node.locations_listing.field_intro_text
+    - field.field.node.locations_listing.field_meta_tags
+    - field.field.node.locations_listing.field_meta_title
+    - field.field.node.locations_listing.field_office
+    - node.type.locations_listing
+  module:
+    - user
+id: node.locations_listing.teaser
+targetEntityType: node
+bundle: locations_listing
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_description: true
+  field_intro_text: true
+  field_meta_tags: true
+  field_meta_title: true
+  field_office: true
+  search_api_excerpt: true
