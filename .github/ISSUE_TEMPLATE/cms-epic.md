@@ -19,3 +19,7 @@ Problem description. How might we _____________ ?
 * Testable Outcome X
 * Testable Outcome Y
 * Testable Outcome Z
+
+## Product release notes
+
+<How would you describe this feature to CMS users? This can be a draft, or just some talking points, for now.>
