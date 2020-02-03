@@ -78,8 +78,25 @@ class BuildFrontend {
 
   /**
    * Triggers the appropriate frontend Build based on the environment.
+   *
+   * Checks for the Drupal setting va_gov.remote_builds_enabled. There is no UI
+   * for this setting, it will only be set by tests.
+   *
+   * Use the following drush command to turn off remote build triggering:
+   *
+   *   drush config-set va_gov.build web.build.disable_triggers 1
    */
   public function triggerFrontendBuild() {
+
+    // Don't trigger a remote build if the feature is disabled.
+    $config = \Drupal::service('config.factory')->getEditable('va_gov.build');
+    if ($config->get('web.build.disable_triggers', FALSE)) {
+      $message = t('Build triggers are disabled. To re-enable, run the command: drush config-set va_gov.build web.build.disable_triggers 0');
+      $this->messenger->addWarning($message);
+      $this->logger->warning($message);
+      return;
+    }
+
     $jenkins_build_environment = Settings::get('jenkins_build_env');
     if (($this->getEnvironment() === 'ci') && (class_exists('DevShopTaskApiClient'))) {
       // Running in CMS-CI and DevShopTaskApiClient has been loaded, use it.
