@@ -79,25 +79,26 @@ class BuildFrontend {
   /**
    * Triggers the appropriate frontend Build based on the environment.
    *
-   * Checks for the Drupal setting va_gov.remote_builds_enabled. There is no UI
-   * for this setting, it will only be set by tests.
+   * Only runs if in BRD environments or if the Drupal setting
+   * va_gov.build.web.build.disable_trigger is not 1
    *
-   * Use the following drush command to turn off remote build triggering:
+   * Use the following drush command to turn off remote build triggers
    *
    *   drush config-set va_gov.build web.build.disable_triggers 1
    */
   public function triggerFrontendBuild() {
 
-    // Don't trigger a remote build if the feature is disabled.
+    // If not in BRD and disable_triggers is set, return without doing anything.
+    $jenkins_build_environment = Settings::get('jenkins_build_env');
+    $is_brd = in_array($this->getEnvironment(), ['dev', 'prod', 'staging']) && (!empty($jenkins_build_environment)) && array_key_exists($jenkins_build_environment, self::WEB_ENVIRONMENTS);
     $config = \Drupal::service('config.factory')->getEditable('va_gov.build');
-    if ($config->get('web.build.disable_triggers', FALSE)) {
+    if (!$is_brd && $config->get('web.build.disable_triggers', FALSE)) {
       $message = t('Build triggers are disabled. To re-enable, run the command: drush config-set va_gov.build web.build.disable_triggers 0');
       $this->messenger->addWarning($message);
       $this->logger->warning($message);
       return;
     }
 
-    $jenkins_build_environment = Settings::get('jenkins_build_env');
     if (($this->getEnvironment() === 'ci') && (class_exists('DevShopTaskApiClient'))) {
       // Running in CMS-CI and DevShopTaskApiClient has been loaded, use it.
       $task_json = \DevShopTaskApiClient::create('vabuild');
@@ -123,7 +124,7 @@ class BuildFrontend {
       // Save pending state.
       $this->setPendingState(1);
     }
-    elseif ((!empty($jenkins_build_environment)) && array_key_exists($jenkins_build_environment, self::WEB_ENVIRONMENTS)) {
+    elseif ($is_brd) {
       // This is in a BRD environment.
       $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
       $va_cms_bot_github_auth_token = Settings::get('va_cms_bot_github_auth_token');
