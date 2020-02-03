@@ -23,8 +23,6 @@ va/deploy/2-update:
 va/deploy/3-config:
   - drush $DRUSH_ALIAS cim --yes
   - drush $DRUSH_ALIAS cr
-  # @TODO: check for BRD environment and skip this step.
-  - drush $DRUSH_ALIAS config-set va_gov.build web.build.disable_triggers 1
 
 va/tests/phpcs:
   description: PHP CodeSniffer
@@ -36,7 +34,9 @@ va/tests/phplint:
 
 va/tests/phpunit:
   description: PHPUnit
-  command: phpunit --exclude-group disabled tests/phpunit --colors=always
+  command: |
+    drush $DRUSH_ALIAS config-set va_gov.build web.build.disable_triggers 1
+    phpunit --exclude-group disabled tests/phpunit --colors=always
 
 va/tests/accessibility:
   description: accessibility test with axe-webdriverjs for 508 compliance
@@ -59,3 +59,4 @@ va/tests/behat:
   command: |
     cd tests/behat
     behat --colors
+    drush $DRUSH_ALIAS config-set va_gov.build web.build.disable_triggers 0
