@@ -50,7 +50,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -65,7 +65,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 12
+      weight: 13
       format_type: fieldset
       format_settings:
         id: ''
@@ -79,7 +79,7 @@ third_party_settings:
         - field_locations_intro_blurb
         - field_other_va_locations
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: details
       format_settings:
         description: "<p>To add locations to the \"Our Locations\" page, <a href=\"/node/add/health_care_local_facility\">create a facility listing</a> for each one.This section also allows you to add other content to the \"Our Locations\" page.</p>\r\n\r\n\r\n"
@@ -95,7 +95,7 @@ third_party_settings:
         - field_clinical_health_care_servi
         - field_clinical_health_services
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: details
       format_settings:
         description: 'This content will appear on the Health Services page, (eg va.gov/pittsburgh-health-care/health-services). '
@@ -110,7 +110,7 @@ third_party_settings:
         - group_online_appointments
         - field_related_links
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: details
       format_settings:
         id: ''
@@ -139,7 +139,7 @@ third_party_settings:
         - field_intro_text_press_releases
         - field_press_release_blurb
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details
       format_settings:
         required_fields: true
@@ -154,7 +154,7 @@ third_party_settings:
         - group_govdelivery_email_lists
         - group_s
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details
       format_settings:
         description: 'This will populate the "Get updates" from us block on the health care system page and its facility pages. '
@@ -187,7 +187,6 @@ third_party_settings:
         - field_vamc_system_official_name
         - field_nickname_for_this_facility
         - field_intro_text
-        - group_meta_tags
       parent_name: ''
       weight: 0
       format_type: fieldset
@@ -203,7 +202,7 @@ third_party_settings:
         - field_intro_text_leadership
         - field_leadership
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: details
       format_settings:
         id: ''
@@ -244,8 +243,8 @@ third_party_settings:
       children:
         - field_meta_title
         - field_description
-      parent_name: group_title_and_summary
-      weight: 6
+      parent_name: ''
+      weight: 1
       format_type: fieldset
       format_settings:
         id: ''
@@ -426,12 +425,12 @@ content:
     region: content
   field_media:
     type: media_library_widget
-    weight: 1
+    weight: 2
     settings: {  }
     region: content
     third_party_settings: {  }
   field_meta_tags:
-    weight: 13
+    weight: 14
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -531,7 +530,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 2
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -551,7 +550,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 4
+    weight: 5
     region: content
     third_party_settings: {  }
   title:
@@ -563,7 +562,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }

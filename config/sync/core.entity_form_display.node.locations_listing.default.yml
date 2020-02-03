@@ -23,7 +23,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -39,7 +39,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -52,8 +52,6 @@ third_party_settings:
     group_meta:
       children:
         - title
-        - field_meta_title
-        - field_description
         - field_intro_text
       parent_name: ''
       weight: 1
@@ -63,7 +61,21 @@ third_party_settings:
         required_fields: true
         id: ''
         classes: ''
-      label: 'Title, Meta tags, and Intro'
+      label: 'Title and summary'
+      region: content
+    group_meta_tags:
+      children:
+        - field_meta_title
+        - field_description
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Meta Tags'
       region: content
 id: node.locations_listing.default
 targetEntityType: node
@@ -99,7 +111,7 @@ content:
     type: string_textarea
     region: content
   field_meta_tags:
-    weight: 5
+    weight: 6
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -132,7 +144,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 4
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
