@@ -23,6 +23,8 @@ va/deploy/2-update:
 va/deploy/3-config:
   - drush $DRUSH_ALIAS cim --yes
   - drush $DRUSH_ALIAS cr
+  # @TODO: check for BRD environment and skip this step.
+  - drush $DRUSH_ALIAS config-set va_gov.build web.build.disable_triggers 1
 
 va/tests/phpcs:
   description: PHP CodeSniffer
