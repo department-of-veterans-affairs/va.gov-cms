@@ -2,7 +2,7 @@
 name: Epic
 about: A epic for the CMS team.
 title: '<Insert summary of epic>'
-labels: 'cms-epic'
+labels: 'Epic'
 assignees: kevwalsh
 ---
 
