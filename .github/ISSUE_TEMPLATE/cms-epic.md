@@ -27,7 +27,7 @@ _or_
 
 ### Hypothesis
 
-(this may require a spike ticket to be cr
+_A hypothesis may depend on a spike ticket to be completed._
 
 We believe that _this_solution_ will achieve _this_outcome_. We'll know that to be true when _this measurable outcome occurs._
 
@@ -60,6 +60,7 @@ This is particularly relevant for feature launches, or for making changes to the
 
 - [ ] User research
 - [ ] Design
+- [ ] UX writing
 - [ ] Usability testing (eg with a prototype or other design stimula)
 - [ ] Implementation
 - [ ] Documentation (What needs changing or adding to the documentation?
