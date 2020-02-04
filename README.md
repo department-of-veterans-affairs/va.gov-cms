@@ -1,6 +1,6 @@
 # VA.gov CMS
 
-Welcome to the VA.gov CMS git repository README!
+Welcome to the VA.gov CMS git repository README.
 
 We hope everything you need to know about how the [VA.gov](https://www.va.gov) website and Content Management System works is right here.
 
