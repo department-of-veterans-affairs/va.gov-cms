@@ -81,7 +81,7 @@ class BuildFrontend {
    */
   public function triggerFrontendBuild() {
     $jenkins_build_environment = Settings::get('jenkins_build_env');
-    if (($this->getEnvironment() === 'ci') && (class_exists('DevShopTaskApiClient'))) {
+    if (($this->getEnvironment() === 'ci') && (class_exists('DevShopTaskApiClient')) && (PHP_SAPI !== 'cli')) {
       // Running in CMS-CI and DevShopTaskApiClient has been loaded, use it.
       $task_json = \DevShopTaskApiClient::create('vabuild');
       $task = json_decode($task_json);
