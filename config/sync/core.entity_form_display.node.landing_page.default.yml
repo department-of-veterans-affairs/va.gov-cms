@@ -99,8 +99,6 @@ third_party_settings:
         - field_title_icon
         - title
         - field_home_page_hub_label
-        - field_meta_title
-        - field_description
         - field_teaser_text
         - field_intro_text
       parent_name: ''
@@ -117,7 +115,7 @@ third_party_settings:
       children:
         - field_alert
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         description: 'Crisis alerts draw attention to information that will be useful to veterans experiencing an active crisis. You can <a href="http://vagovcms.lndo.site/block/add/alert?destination=/admin/content/alerts">create a new crisis alert</a>, or reuse an existing one.'
@@ -130,7 +128,7 @@ third_party_settings:
       children:
         - field_related_links
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         description: ''
@@ -138,6 +136,20 @@ third_party_settings:
         id: ''
         classes: ''
       label: 'Related content'
+      region: content
+    group_meta_tags:
+      children:
+        - field_meta_title
+        - field_description
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Meta Tags'
       region: content
 id: node.landing_page.default
 targetEntityType: node
@@ -246,7 +258,7 @@ content:
     type: entity_reference_paragraphs
     region: content
   field_spokes:
-    weight: 2
+    weight: 3
     settings:
       title: Spoke
       title_plural: Spokes

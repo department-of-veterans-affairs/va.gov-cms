@@ -64,7 +64,6 @@ third_party_settings:
         - field_name_first
         - field_last_name
         - field_suffix
-        - field_description
       parent_name: ''
       weight: 2
       format_type: fieldset
@@ -110,7 +109,7 @@ third_party_settings:
         - field_body
         - field_complete_biography
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -118,6 +117,19 @@ third_party_settings:
         description: ''
         required_fields: true
       label: Bio
+      region: content
+    group_meta_tags:
+      children:
+        - field_description
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Meta Tags'
       region: content
 id: node.person_profile.default
 targetEntityType: node
