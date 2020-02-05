@@ -57,6 +57,7 @@ This is particularly relevant for feature launches, or for making changes to the
 * Analysis of the drupal landscape
 * Possible implementation(s)
 * Proof of concept or prototype
+* UX writing discovery
 
 - [ ] User research
 - [ ] Design
