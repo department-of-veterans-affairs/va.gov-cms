@@ -28,7 +28,7 @@ services:
       - "apt-get install build-essential chrpath libssl-dev libxft-dev libfreetype6-dev libfreetype6 libfontconfig1-dev libfontconfig1 -y"
     xdebug: false
     config:
-      php: .lando/xdebug/php.ini
+      php: .lando/zzz-lando-my-custom.ini
     overrides:
       environment:
         # You must manually `export` these ENV vars before uncommenting, then run `lando rebuild`
