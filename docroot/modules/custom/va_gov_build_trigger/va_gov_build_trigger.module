@@ -87,9 +87,17 @@ function va_gov_build_trigger_preprocess_page(&$variables) {
     // It's a node.
     $path = \Drupal::request()->getpathInfo();
     $arg = explode('/', $path);
-
-    // Make sure we aren't on the node form.
-    if (empty($arg[1]) || empty($arg[2]) || $arg[1] !== 'node' && !is_numeric($arg[2])) {
+    $exclusion_types = [
+      'outreach_asset',
+      'person_profile',
+      'support_service',
+      'regional_health_care_service_des',
+      'health_care_local_health_service',
+    ];
+    // Make sure we aren't on the node form or an excluded type.
+    $route_name = \Drupal::routeMatch()->getRouteName();
+    if (($route_name !== 'entity.node.edit_form') &&
+      (!in_array($node->bundle(), $exclusion_types))) {
       // Make sure we aren't on /training-guide.
       $current_uri = \Drupal::request()->getRequestUri();
       if ($current_uri !== '/training-guide') {

@@ -198,6 +198,10 @@ function va_gov_backend_menu_local_tasks_alter(&$local_tasks) {
     $local_tasks['tabs'][0]['entity.node.canonical']['#link']['title'] = 'View';
     $local_tasks['tabs'][0]['entity.node.canonical']['#link']['url'] = Url::fromUri('internal:/node/' . $nid);
   }
+  // Remove the history tab.
+  if (!empty($local_tasks['tabs'][0]['views_view:view.moderation_history.page'])) {
+    unset($local_tasks['tabs'][0]['views_view:view.moderation_history.page']);
+  }
 }
 
 /**
