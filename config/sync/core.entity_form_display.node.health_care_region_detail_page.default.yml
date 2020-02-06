@@ -31,7 +31,7 @@ third_party_settings:
         - field_office
         - field_administration
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -46,7 +46,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 12
+      weight: 13
       format_type: fieldset
       format_settings:
         id: ''
@@ -58,8 +58,6 @@ third_party_settings:
     group_page_introduction:
       children:
         - title
-        - field_meta_title
-        - field_description
         - field_intro_text
       parent_name: ''
       weight: 0
@@ -75,7 +73,7 @@ third_party_settings:
       children:
         - field_alert
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver. You can <a href="/block/add/alert?destination=/admin/content/alerts">create a new alert</a>, or reuse an existing one.'
@@ -88,7 +86,7 @@ third_party_settings:
       children:
         - field_table_of_contents_boolean
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: details
       format_settings:
         description: ''
@@ -98,6 +96,20 @@ third_party_settings:
         open: false
       label: 'Include table of contents?'
       region: content
+    group_meta_tags:
+      children:
+        - field_meta_title
+        - field_description
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Meta Tags'
+      region: content
 id: node.health_care_region_detail_page.default
 targetEntityType: node
 bundle: health_care_region_detail_page
@@ -105,7 +117,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -122,7 +134,7 @@ content:
     type: options_select
     region: content
   field_content_block:
-    weight: 4
+    weight: 5
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -158,7 +170,7 @@ content:
     type: string_textfield_with_counter
     region: content
   field_featured_content:
-    weight: 2
+    weight: 3
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -190,7 +202,7 @@ content:
     type: string_textarea_with_counter
     region: content
   field_meta_tags:
-    weight: 13
+    weight: 14
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -216,7 +228,7 @@ content:
     type: options_select
     region: content
   field_related_links:
-    weight: 5
+    weight: 6
     settings:
       title: 'Related link'
       title_plural: 'Related links'
@@ -249,7 +261,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 8
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -269,7 +281,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 10
+    weight: 11
     region: content
     third_party_settings: {  }
   title:
@@ -288,7 +300,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 6
+    weight: 7
     settings:
       match_operator: CONTAINS
       size: 60
@@ -296,7 +308,7 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 9
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
