@@ -12,7 +12,6 @@ dependencies:
   module:
     - field_group
     - image_widget_crop
-    - lightning_media
     - markup
 third_party_settings:
   field_group:
@@ -60,10 +59,7 @@ content:
       crop_list: {  }
       crop_types_required: {  }
       warn_multiple_usages: false
-    third_party_settings:
-      lightning_media:
-        file_links: true
-        remove_button: true
+    third_party_settings: {  }
     region: content
   name:
     type: string_textfield
