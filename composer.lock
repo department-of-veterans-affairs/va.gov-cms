@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ffa5eb85ab74229a9b407f30f2c02718",
+    "content-hash": "f454807573157c18c55668edee1b8b3b",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -760,7 +760,7 @@
             "version": "3.4.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jquery/jquery-dist.git",
+                "url": "git@github.com:jquery/jquery-dist.git",
                 "reference": "15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
             },
             "dist": {
@@ -10689,7 +10689,8 @@
                     }
                 },
                 "patches_applied": {
-                    "0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch"
+                    "0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch",
+                    "Make tables draggable": "https://www.drupal.org/files/issues/2019-04-25/tablefield-tabledrag_support-3040358-4-D8.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -18639,12 +18640,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
-                "reference": "a19ab00e7e972a38cdfaed9d2f1da675ac5db734"
+                "reference": "a0976884f4a1610360d16343df7e2b2d32d6145f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/a19ab00e7e972a38cdfaed9d2f1da675ac5db734",
-                "reference": "a19ab00e7e972a38cdfaed9d2f1da675ac5db734",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/a0976884f4a1610360d16343df7e2b2d32d6145f",
+                "reference": "a0976884f4a1610360d16343df7e2b2d32d6145f",
                 "shasum": ""
             },
             "type": "node-project",
@@ -18669,7 +18670,7 @@
                 }
             ],
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
-            "time": "2019-12-23T18:39:43+00:00"
+            "time": "2020-02-06T19:42:12+00:00"
         },
         {
             "name": "vardot/blazy",
