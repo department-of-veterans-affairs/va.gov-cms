@@ -36,11 +36,6 @@ label: 'Editorial workflow'
 type: content_moderation
 type_settings:
   states:
-    approved_by_reviewer:
-      published: false
-      default_revision: false
-      label: Staged
-      weight: -1
     archived:
       label: Archived
       weight: 1
@@ -79,7 +74,6 @@ type_settings:
       to: draft
       weight: -3
       from:
-        - approved_by_reviewer
         - archived
         - draft
         - published
@@ -89,7 +83,6 @@ type_settings:
       to: published
       weight: 0
       from:
-        - approved_by_reviewer
         - draft
         - published
         - review
@@ -98,17 +91,8 @@ type_settings:
       to: review
       weight: -2
       from:
-        - approved_by_reviewer
         - draft
         - review
-    stage_for_publishing:
-      label: 'Stage for publishing'
-      from:
-        - approved_by_reviewer
-        - draft
-        - review
-      to: approved_by_reviewer
-      weight: -1
   entity_types:
     block_content:
       - alert

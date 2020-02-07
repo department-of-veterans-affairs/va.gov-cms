@@ -68,7 +68,7 @@ Feature: Content model
 | Content type | Benefits detail page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Benefits detail page | Alert | field_alert | Entity reference |  | 1 | Select list |  |
 | Content type | Benefits detail page | Main content | field_content_block | Entity reference revisions | Required | Unlimited | Paragraphs Browser EXPERIMENTAL |  |
-| Content type | Benefits detail page | Description | field_description | Text (plain) | Required | 1 | Textfield with counter |  |
+| Content type | Benefits detail page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter |  |
 | Content type | Benefits detail page | Featured content | field_featured_content | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Content type | Benefits detail page | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter |  |
 | Content type | Benefits detail page | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form |  |
@@ -78,7 +78,7 @@ Feature: Content model
 | Content type | Benefits detail page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | Benefits hub landing page | Owner | field_administration | Entity reference | Required | 1 | Select list |  |
 | Content type | Benefits hub landing page | Alert | field_alert | Entity reference |  | 1 | Select list | Translatable |
-| Content type | Benefits hub landing page | Description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | Benefits hub landing page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Benefits hub landing page | Home page hub label | field_home_page_hub_label | Text (plain) |  | 1 | Textfield |  |
 | Content type | Benefits hub landing page | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Content type | Benefits hub landing page | Links for non-veterans | field_links | Link |  | Unlimited | Linkit |  |
@@ -95,7 +95,7 @@ Feature: Content model
 | Content type | Detail Page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Detail Page | Alert | field_alert | Entity reference |  | 1 | Select list | Translatable |
 | Content type | Detail Page | Main content | field_content_block | Entity reference revisions |  | Unlimited | Paragraphs Browser EXPERIMENTAL | Translatable |
-| Content type | Detail Page | Summary | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | Detail Page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Detail Page | Featured content | field_featured_content | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Detail Page | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Detail Page | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
@@ -110,7 +110,7 @@ Feature: Content model
 | Content type | Event | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Event | Full event description | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | Event | Date and time | field_date | Date range |  | 1 | Date and time range |  |
-| Content type | Event | A brief (ideally one sentence) summary of the event | field_description | Text (plain) |  | 1 | Textfield | Translatable |
+| Content type | Event | Meta description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Event | Cost | field_event_cost | Text (plain) |  | 1 | Textfield with counter |  |
 | Content type | Event | URL Link Label | field_event_cta | List (text) |  | 1 | Select list |  |
 | Content type | Event | Registration required | field_event_registrationrequired | Boolean |  | 1 | Single on/off checkbox |  |
@@ -142,12 +142,12 @@ Feature: Content model
 | Content type | News release | Release date | field_release_date | Date |  | 1 | Date and time |  |
 | Content type | Office | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Office | Body | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
-| Content type | Office | Description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
+| Content type | Office | Meta description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Office | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Content type | Office | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Publication | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Publication | Related Benefits | field_benefits | List (text) |  | 1 | Select list |  |
-| Content type | Publication | A brief (ideally one sentence) summary of this asset | field_description | Text (plain) |  | 1 | Textfield | Translatable |
+| Content type | Publication | Meta description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Publication | Format | field_format | List (text) | Required | 1 | Select list |  |
 | Content type | Publication | File or video | field_media | Entity reference |  | 1 | Media library |  |
 | Content type | Publication | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
@@ -161,7 +161,7 @@ Feature: Content model
 | Content type | Staff profile | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Staff profile | Bio | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Staff profile | Complete Biography | field_complete_biography | File |  | 1 | File |  |
-| Content type | Staff profile | Job Title | field_description | Text (plain) |  | 1 | Textfield | Translatable |
+| Content type | Staff profile | Meta description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Staff profile | Email address | field_email_address | Email |  | 1 | Email |  |
 | Content type | Staff profile | Introduction | field_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Staff profile | Last name | field_last_name | Text (plain) |  | 1 | Textfield |  |
@@ -189,7 +189,7 @@ Feature: Content model
 | Content type | Support Service | Phone Number | field_phone_number | Telephone number |  | 1 | Telephone number |  |
 | Content type | VAMC facility | Address | field_address | Address |  | 1 | Address | Translatable |
 | Content type | VAMC facility | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC facility | Description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | VAMC facility | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | VAMC facility | Email Subscription | field_email_subscription | Link |  | 1 | Linkit | Translatable |
 | Content type | VAMC facility | Facebook | field_facebook | Link |  | 1 | Link | Translatable |
 | Content type | VAMC facility | Classification | field_facility_classification | List (text) |  | 1 | Select list |  |
@@ -219,7 +219,7 @@ Feature: Content model
 | Content type | VAMC system | Appointments can be scheduled and viewed online | field_appointments_online | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC system | Health services intro text | field_clinical_health_care_servi | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | VAMC system | Regional Health Service Offerings. | field_clinical_health_services | Entity reference |  | Unlimited | Select list |  |
-| Content type | VAMC system | Description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | VAMC system | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | VAMC system | Facebook | field_facebook | Link |  | 1 | Link | Translatable |
 | Content type | VAMC system | Featured content on health-services page | field_featured_content_healthser | Entity reference revisions |  | 3 | Paragraphs Classic |  |
 | Content type | VAMC system | Flickr | field_flickr | Link |  | 1 | Link | Translatable |

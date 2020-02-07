@@ -48,6 +48,19 @@ third_party_settings:
         required_fields: true
       label: 'Editorial workflow'
       region: content
+    group_meta_tags:
+      children:
+        - field_description
+      parent_name: ''
+      weight: 13
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Meta Tags'
+      region: content
 id: node.outreach_asset.default
 targetEntityType: node
 bundle: outreach_asset
@@ -87,18 +100,18 @@ content:
     region: content
   field_media:
     type: media_library_widget
-    weight: 12
+    weight: 11
     settings: {  }
     region: content
     third_party_settings: {  }
   field_meta_tags:
-    weight: 13
+    weight: 12
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
     region: content
   field_office:
-    weight: 11
+    weight: 10
     settings: {  }
     third_party_settings: {  }
     type: options_select
