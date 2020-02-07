@@ -18,7 +18,6 @@ Feature: Workflow
       | Editorial workflow | In review | review               |
       | Editorial workflow | Published | published            |
       | Editorial workflow | Archived  | archived             |
-      | Editorial workflow | Staged    | approved_by_reviewer |
 
   @spec @dst @workflow_transitions
   Scenario: Workflow transitions
@@ -35,9 +34,3 @@ Feature: Workflow
       | Editorial workflow | Publish              | publish              | Published  | Published |
       | Editorial workflow | Archive              | archive              | Published  | Archived  |
       | Editorial workflow | Restore from archive | archived_published   | Archived   | Published |
-      | Editorial workflow | Create New Draft     | create_new_draft     | Staged     | Draft     |
-      | Editorial workflow | Publish              | publish              | Staged     | Published |
-      | Editorial workflow | Send to review       | review               | Staged     | In review |
-      | Editorial workflow | Stage for publishing | stage_for_publishing | Draft      | Staged    |
-      | Editorial workflow | Stage for publishing | stage_for_publishing | In review  | Staged    |
-      | Editorial workflow | Stage for publishing | stage_for_publishing | Staged     | Staged    |
