@@ -18,7 +18,7 @@ As user _uid_ with _user_role_
 - [ ] That
 - [ ] The other thing
 
-Also:
+## Definition of Done
 - [ ] Product release notes 
 - [ ] Documentation has been updated, if applicable
 - [ ] A link has been provided to the originating GitHub issue (or connected to it via ZenHub)
