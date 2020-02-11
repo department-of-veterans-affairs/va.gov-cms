@@ -1,9 +1,10 @@
 ---
 name: CMS access request
 about: Includes instructions for requesting access within the CMS itself.
-title: 'Requesting CMS access for <insert name or team>.'
-labels: 'cms-access'
+title: Requesting CMS access for <insert name or team>.
+labels: ''
 assignees: howardbrande
+
 ---
 
 ## Important

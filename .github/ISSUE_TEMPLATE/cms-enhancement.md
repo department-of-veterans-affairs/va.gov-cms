@@ -1,9 +1,10 @@
 ---
 name: Enhancement (user story or feature request)
 about: Suggest an idea for the CMS
-title: '<Summary of enhancement>'
-labels: 'Enhancement'
-assignees:
+title: "<Summary of enhancement>"
+labels: Enhancement
+assignees: ''
+
 ---
 
 ## User Story or Problem Statement
