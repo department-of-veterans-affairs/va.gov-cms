@@ -3,7 +3,7 @@ name: Product release notes
 about: Draft release notes
 title: '[datetime or release number] []'
 labels: 'Release notes'
-assignees: '@rachel-kauff'
+assignees: 'rachel-kauff'
 ---
 
 ## User Story 
