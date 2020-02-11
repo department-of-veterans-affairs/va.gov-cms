@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "26febc39c6f13fecb1bf52829fbdcff2",
+    "content-hash": "005b432ac00e1b45964ce4be5c489263",
     "packages": [
         {
             "name": "acquia/headless_lightning",
@@ -5299,6 +5299,9 @@
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
