@@ -119,6 +119,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'create event_listing content',
           'create health_services_listing content',
           'create image media',
+          'create leadership_listing content',
           'create locations_listing content',
           'create media',
           'create press_releases_listing content',
