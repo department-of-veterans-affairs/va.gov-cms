@@ -1,9 +1,10 @@
 ---
 name: CMS discovery
 about: A discovery request
-title: '<Insert summary>'
-labels: 'cms-discovery'
+title: "<Insert summary>"
+labels: ''
 assignees: kevwalsh
+
 ---
 
 [template in progress]
