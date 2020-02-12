@@ -1,9 +1,10 @@
 ---
 name: Task
 about: A task for the CMS team.
-title: '<Insert summary of task>'
-labels: 'cms-task'
+title: "<Insert summary of task>"
+labels: ''
 assignees: kevwalsh
+
 ---
 
 ## Description
