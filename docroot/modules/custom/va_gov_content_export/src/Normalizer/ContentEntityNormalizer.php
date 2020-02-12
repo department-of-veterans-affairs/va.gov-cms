@@ -1,7 +1,4 @@
 <?php
-/**
- * @file Overrides to tome_sync's ContentEntityNormalizer.
- */
 
 namespace Drupal\va_gov_content_export\Normalizer;
 
@@ -24,11 +21,14 @@ class ContentEntityNormalizer extends TomeSyncContentEntityNormalizer {
    *
    * @var array
    */
-  protected $fieldDenyList = [];
+  protected $fieldDenyList = [
     // Add metatags back in. Leave this commented out.
-//    'metatag',
-//  ];
+    // 'metatag',
+  ];
 
+  /**
+   * ContentEntityNormalizer constructor.
+   */
   public function __construct(EntityManagerInterface $entity_manager, DenormalizerInterface $inner_service) {
     $this->innerService = $inner_service;
     parent::__construct($entity_manager);
@@ -57,4 +57,5 @@ class ContentEntityNormalizer extends TomeSyncContentEntityNormalizer {
     // Empty, to unnormalize Tome as we want the entity IDs.
     return $values;
   }
+
 }

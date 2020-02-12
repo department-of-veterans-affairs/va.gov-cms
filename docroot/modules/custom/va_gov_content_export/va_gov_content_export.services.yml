@@ -5,6 +5,6 @@ services:
     arguments: ['@entity.manager', '@serializer.normalizer.content_entity_tome_sync.va_gov_content_export.inner']
     tags:
       - { name: normalizer, priority: 1 }
- serializer.normalizer.field_tome_sync:
-   # Override (add back) tome_sync's removal of the "processed" field here.
-   class: stdClass
+  serializer.normalizer.field_tome_sync:
+    # Override (add back) tome_sync's removal of the "processed" field here.
+    class: stdClass
