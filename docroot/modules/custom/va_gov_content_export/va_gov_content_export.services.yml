@@ -1,13 +1,9 @@
 services:
   serializer.normalizer.content_entity_tome_sync.va_gov_content_export:
     class: Drupal\va_gov_content_export\Normalizer\ContentEntityNormalizer
-    decorates: serializer.normalizer.content_entity_tome_sync
-    arguments: ['@entity.manager', '@serializer.normalizer.content_entity']
+    arguments: ['@entity.manager']
     tags:
       - { name: normalizer, priority: 1 }
-  serializer.normalizer.field_tome_sync:
-    # Override (add back) tome_sync's removal of the "processed" field here.
-    class: stdClass
   va_gov.content_export.breadcrumb_update:
     class: Drupal\va_gov_content_export\AddBreadcrumbToEntity
     arguments: ['@breadcrumb', '@router.route_provider', '@paramconverter_manager']
