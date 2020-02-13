@@ -99,6 +99,7 @@ class BuildFrontend {
       else {
         // This has failed due to bad devshop setting.
         $message = t('VA Web Rebuild & Deploy has NOT been queued because @method returned no id.', ['@method' => "\DevShopTaskApiClient::create('vabuild')"]);
+        $this->setPendingState(0);
         $this->messenger->addError($message);
         $this->logger->error($message);
       }
@@ -191,6 +192,7 @@ class BuildFrontend {
         $message = t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify in #cms-engineering Slack and please email vacmssupport@va.gov immediately with the error message you see here.', [':url' => $jenkins_build_job_url]);
         $this->messenger->addError($message);
         $this->logger->error($message);
+        $this->setPendingState(0);
         watchdog_exception('va_gov_build_trigger', $exception);
       }
     }
@@ -199,6 +201,7 @@ class BuildFrontend {
       $message = t('You cannot trigger a build in this environment. Only the DEV, STAGING and PROD environments support triggering builds.');
       $this->messenger->addWarning($message);
       $this->logger->warning($message);
+      $this->setPendingState(0);
       return FALSE;
     }
   }

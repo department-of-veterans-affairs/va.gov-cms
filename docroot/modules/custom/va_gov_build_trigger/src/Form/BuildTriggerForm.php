@@ -48,9 +48,10 @@ class BuildTriggerForm extends FormBase {
       ]),
     ];
 
-    // Save pending state.
+    // Get pending state.
     $config = \Drupal::service('config.factory')->getEditable('va_gov.build');
     if ($config->get('web.build.pending', 0)) {
+      // A build is pending so set a display.
       $form['tip']['#prefix'] = '<em>';
       $form['tip']['#markup'] = t('A site rebuild is queued.');
       $form['tip']['#suffix'] = '</em>';
