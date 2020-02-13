@@ -60,6 +60,8 @@ Feature: Content model
 | Locations listing | locations_listing | Content type | A listing of locations. |
 | News releases listing | press_releases_listing | Content type | A listing of press releases. |
 | Story listing | story_listing | Content type | A listing of stories. |
+| Leadership listing | leadership_listing | Content type | A listing of staff members. |
+
 
   @dst @field_type
      Scenario: Fields
@@ -275,6 +277,12 @@ Feature: Content model
 | Content type | Health services listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Health services listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Health services listing | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Leadership listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
+| Content type | Leadership listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | Leadership listing | Meta tags | field_meta_tags | Meta tags | | 1 | Advanced meta tags form   | Translatable |
+| Content type | Leadership listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | Leadership listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Leadership listing | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Locations listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Content type | Locations listing | Meta description | field_description | Text (plain)| Required | 1 | Textfield with counter    | Translatable |
 | Content type | Locations listing | Meta tags | field_meta_tags | Meta tags | | 1 | Advanced meta tags form   | Translatable |
