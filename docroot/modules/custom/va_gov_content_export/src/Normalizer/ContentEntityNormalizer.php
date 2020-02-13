@@ -52,7 +52,7 @@ class ContentEntityNormalizer extends BaseContentEntityNormalizer {
       $breadcrumb_content[] = [
         'url' => [
           'path' => $breadcrumb->getUrl()->toString(),
-          'routed' => $breadcrumb->getUrl()->isRouted(),
+          'routed' => $breadcrumb->getUrl()->isRouted()
         ],
         'text' => $breadcrumb->getText(),
       ];
