@@ -52,6 +52,7 @@ class ContentEntityNormalizer extends TomeSyncContentEntityNormalizer {
     $breadcrumb_values = $this->getBreadCrumbsForValues($entity);
     if ($breadcrumb_values) {
       $values['entityUrl']['breadcrumb'] = $breadcrumb_values;
+      $values['entityUrl']['path'] = $entity->url();
     }
 
     return $values;
@@ -67,7 +68,8 @@ class ContentEntityNormalizer extends TomeSyncContentEntityNormalizer {
     foreach ($entity->breadcrumbs as $breadcrumb) {
       $breadcrumb_content[] = [
         'url' => [
-          'path' => $breadcrumb->getUrl()->getUri(),
+          'path' => $breadcrumb->getUrl()->toString(),
+          'routed' => $breadcrumb->getUrl()->isRouted()
         ],
         'text' => $breadcrumb->getText(),
       ];
