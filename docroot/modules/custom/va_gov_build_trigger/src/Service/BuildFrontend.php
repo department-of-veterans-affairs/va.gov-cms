@@ -96,6 +96,12 @@ class BuildFrontend {
         // Save pending state.
         $this->setPendingState(1);
       }
+      else {
+        // This has failed due to bad devshop setting.
+        $message = t('VA Web Rebuild & Deploy has NOT been queued because @method returned no id.', ['@method' => "\DevShopTaskApiClient::create('vabuild')"]);
+        $this->messenger->addError($message);
+        $this->logger->error($message);
+      }
     }
     elseif ($this->getEnvironment() === 'lando') {
       // This is a local dev environment.
