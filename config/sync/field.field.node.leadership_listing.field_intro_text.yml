@@ -1,0 +1,19 @@
+uuid: 835218df-9ef8-45c6-91a8-6fa6474b72c9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_intro_text
+    - node.type.leadership_listing
+id: node.leadership_listing.field_intro_text
+field_name: field_intro_text
+entity_type: node
+bundle: leadership_listing
+label: 'Intro text'
+description: 'This is displayed directly beneath the title as an introduction to the page. This text should help a user figure out whether the information on this page is relevant to them, and should be written in the 2nd person. It will never be shown alongside the Description, so it''s ok for it to be duplicative of that information.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long
