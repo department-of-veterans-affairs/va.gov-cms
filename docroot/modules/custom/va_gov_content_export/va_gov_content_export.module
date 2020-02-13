@@ -4,3 +4,23 @@
  * @file
  * Contains va_gov_export.module
  */
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_entity_insert().
+ */
+function va_gov_content_export_entity_insert(EntityInterface $entity) {
+  if (_tome_sync_should_export($entity)) {
+    \Drupal::service('va_gov.content_export.breadcrumb_update')->alterEntity($entity);
+  }
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function va_gov_content_export_entity_update(
+  Drupal\Core\Entity\EntityInterface $entity
+) {
+  va_gov_content_export_entity_insert($entity);
+}
