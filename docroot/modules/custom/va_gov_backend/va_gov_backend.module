@@ -5,13 +5,16 @@
  * Contains va_gov_backend.module.
  */
 
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Url;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Implements hook_help().
@@ -301,15 +304,115 @@ function va_gov_backend_inline_entity_form_entity_form_alter(&$entity_form, $for
  * Implements hook_page_attachments().
  */
 function va_gov_backend_page_attachments(array &$attachments) {
-  $attachments['#attached']['library'][] = 'va_gov_backend/alert_form';
+  // Add GTM to cms theme.
+  $attachments['#attached']['library'][] = 'va_gov_backend/gtm_tag_push';
+  // Track GTM click events.
+  $attachments['#attached']['library'][] = 'va_gov_backend/gtm_tag_trackers';
 
-  // Add custom css for paragraph browser.
+  // Pass our relevant data to settings.
+  $attachments['#attached']['drupalSettings']['gtm_data'] = _va_gov_backend_gtm_settings();
+
+  $attachments['#attached']['library'][] = 'va_gov_backend/alert_form';
   $is_admin = \Drupal::service('router.admin_context')->isAdminRoute();
   if ($is_admin) {
+    // Add custom css for paragraph browser.
     $attachments['#attached']['library'][] = 'va_gov_backend/admin_styles';
+
+    return;
+  }
+}
+
+/**
+ * Builds section associations for gtm push array.
+ *
+ * @return array
+ *   Keyed array of the section item names.
+ */
+function _va_gov_backend_gtm_settings() {
+  $sections = [];
+  $page_title = '';
+  $current_path = \Drupal::service('path.current')->getPath();
+  $request = \Drupal::request();
+  // Grab our page title.
+  if ($route = $request->attributes->get(RouteObjectInterface::ROUTE_OBJECT)) {
+    $page_title = \Drupal::service('title_resolver')->getTitle($request, $route);
+    $sections['pageTitle'] = $page_title;
+  }
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof NodeInterface) {
+    $loaded_node = \Drupal::entityTypeManager()->getStorage('node')->load($node->id());
+    $last_path_arg = end(explode('/', $current_path));
+    // If we are on node view, get the alias.
+    if (is_numeric($last_path_arg)) {
+      $current_path = $node->toUrl()->toString();
+    }
+    $sections['nodeID'] = $node->id();
+    $sections['pagePath'] = $current_path;
+    $sections['contentTitle'] = $node->getTitle();
+    $sections['contentType'] = $node->bundle();
+
+    $section_entity_id = $loaded_node->field_administration->getString();
+    // Load up our section name.
+    $section_entity_load = Term::load($section_entity_id);
+    $sections['contentOwner'] = $section_entity_load->getName();
+
+    // Now we can start building the section tree.
+    if (!empty($section_entity_id)) {
+      $perms_service = \Drupal::service('va_gov_backend.user_perms');
+      $section_ids = $perms_service->entitySections($section_entity_id);
+      $switched_ids = array_reverse($section_ids);
+      if (!empty($switched_ids)) {
+        $i = 0;
+        foreach ($switched_ids as $section) {
+          $key = _va_gov_backend_key_switch($i);
+          $sections[$key] = $section;
+          $i++;
+        }
+      }
+    }
+  }
+  return $sections;
+}
+
+/**
+ * Replaces key value with gtm key.
+ *
+ * @param int $count
+ *   The key number.
+ *
+ * @return int
+ *   The replaced key.
+ */
+function _va_gov_backend_key_switch($count) {
+  $key_Value = '';
+  switch ($count) {
+    case 0:
+      $key_value = 'firstSectionLevel';
+      break;
+
+    case 1:
+      $key_value = 'secondSectionLevel';
+      break;
+
+    case 2:
+      $key_value = 'thirdSectionLevel';
+      break;
+
+    case 3:
+      $key_value = 'fourthSectionLevel';
+      break;
   }
 
-  $attachments['#attached']['library'][] = 'va_gov_backend/system_styles';
+  return $key_value;
+}
+
+/**
+ * Implements hook_page_bottom().
+ */
+function va_gov_backend_page_bottom(array &$page_bottom) {
+  // Add GTM noscript iframe to body.
+  $gtm_noscript = Markup::create('<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ3DLLB&gtm_auth=GDc7Zfyf8G-0S5j8FC1WXQ&gtm_preview=env-5&gtm_cookies_win=x" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>');
+  $page_bottom['va_gov_backend'] = ['#markup' => $gtm_noscript];
 }
 
 /**
