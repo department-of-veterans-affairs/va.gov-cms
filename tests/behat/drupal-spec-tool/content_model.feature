@@ -283,6 +283,7 @@ Feature: Content model
 | Content type | Leadership listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Leadership listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Leadership listing | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Leadership listing | Leadership team | field_leadership | Entity reference |  | Unlimited | Autocomplete | Translatable |
 | Content type | Locations listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Content type | Locations listing | Meta description | field_description | Text (plain)| Required | 1 | Textfield with counter    | Translatable |
 | Content type | Locations listing | Meta tags | field_meta_tags | Meta tags | | 1 | Advanced meta tags form   | Translatable |

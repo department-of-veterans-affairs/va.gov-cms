@@ -1,0 +1,29 @@
+uuid: f4ab4664-fc98-4a1d-a349-617560b8a67b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_leadership
+    - node.type.leadership_listing
+    - node.type.person_profile
+id: node.leadership_listing.field_leadership
+field_name: field_leadership
+entity_type: node
+bundle: leadership_listing
+label: 'Leadership team'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: unpublished
+  handler_settings:
+    target_bundles:
+      person_profile: person_profile
+    sort:
+      field: title
+      direction: ASC
+    auto_create: 1
+    auto_create_bundle: ''
+field_type: entity_reference
