@@ -2,9 +2,11 @@
 
 namespace Drupal\va_gov_content_export;
 
+use Drupal;
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Breadcrumb\ChainBreadcrumbBuilderInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\Exception\UndefinedLinkTemplateException;
 use Drupal\Core\ParamConverter\ParamConverterManagerInterface;
 use Drupal\Core\Routing\RouteMatch;
 use Drupal\Core\Routing\RouteProviderInterface;
@@ -45,6 +47,7 @@ class AddBreadcrumbToEntity {
   protected static $excludedTypes = [
     'content_moderation_state',
     'paragraph',
+    'file',
   ];
 
   /**
@@ -81,7 +84,14 @@ class AddBreadcrumbToEntity {
       return;
     }
 
-    $routeName = $entity->toUrl()->getRouteName();
+    try {
+      $routeName = $entity->toUrl()->getRouteName();
+    }
+    catch (UndefinedLinkTemplateException $e) {
+      Drupal::logger('VA-TOME')->notice('URL not supported for %entity_type', ['%entity_type' => $entity->getEntityTypeId()]);
+      return;
+    }
+
     if (!$this->doesRouteMatch($routeName)) {
       return;
     }
