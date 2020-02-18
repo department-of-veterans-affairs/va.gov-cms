@@ -7,4 +7,3 @@ services:
   va_gov.content_export.breadcrumb_update:
     class: Drupal\va_gov_content_export\AddBreadcrumbToEntity
     arguments: ['@breadcrumb', '@router.route_provider', '@paramconverter_manager']
-

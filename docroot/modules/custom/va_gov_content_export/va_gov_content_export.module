@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains va_gov_export.module
+ * Contains va_gov_export.module.
  */
 
 use Drupal\Core\Entity\EntityInterface;
@@ -20,7 +20,7 @@ function va_gov_content_export_entity_insert(EntityInterface $entity) {
  * Implements hook_entity_update().
  */
 function va_gov_content_export_entity_update(
-  Drupal\Core\Entity\EntityInterface $entity
+  EntityInterface $entity
 ) {
   va_gov_content_export_entity_insert($entity);
 }
