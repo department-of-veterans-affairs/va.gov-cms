@@ -88,7 +88,7 @@ class AddBreadcrumbToEntity {
       $routeName = $entity->toUrl()->getRouteName();
     }
     catch (UndefinedLinkTemplateException $e) {
-      Drupal::logger('VA-TOME')->notice('URL not supported for %entity_type', ['%entity_type' => $entity->getEntityTypeId()]);
+      Drupal::logger('VA-EXPORT')->notice('URL not supported for %entity_type', ['%entity_type' => $entity->getEntityTypeId()]);
       return;
     }
 
