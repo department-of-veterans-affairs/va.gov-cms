@@ -6,7 +6,7 @@ Domains for this application are below, they both correspond to a frontend (FE) 
 | -----------       | ------------                                         | ------------------                                                                  | ----------  
 | DEV               | [dev.cms.va.gov](https://dev.cms.va.gov)             | [dev.cms.va.gov](https://dev.va.gov)                                                | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Dev/job/cms-vagov-dev/)
 | STAGING           | [staging.cms.va.gov](http://staging.cms.va.gov)      | [staging.cms.va.gov](http://staging.va.gov)                                         | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Staging/job/cms-vagov-staging/)
-| PROD              | [prod.va.gov](http://prod.va.gov)                    | [www.va.gov](http://www.va.gov)                                                     | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Prod/job/cms-vagov-prod/)
+| PROD              | [prod.cms.va.gov](http://prod.cms.va.gov)                    | [www.va.gov](http://www.va.gov)                                                     | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Prod/job/cms-vagov-prod/)
 | [LOCAL](local.md) | [va-gov-cms.lndo.site](http://va-gov-cms.lndo.site)  | [va-gov-web.lndo.site](http://va-gov-web.lndo.site)
 |                   |                                                      | [va-gov-web.lndo.site/static](http://va-gov-web.lndo.site)  
 |                   |                                                      | [va-gov-web.lndo.site/$URL?_format=static_html](http://va-gov-web.lndo.site/$URL)  
