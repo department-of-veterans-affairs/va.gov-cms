@@ -2,7 +2,8 @@
 
 Welcome to the VA.gov CMS documentation!
 
-This is the public documentation is for the Content Management System (CMS) that powers [www.va.gov](https://www.va.gov).
+This is the public documentation is for the Content Management System (CMS) that powers [www.va.gov](https://www.va.gov).  
+
 The private documentation will be at https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/teams/cms and you should follow https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/sensitive-guidance.md to know what should be public vs private. 
 
 If you find any errors in this documentation, please feel free to [make an edit and submit a Pull Request](https://github.com/department-of-veterans-affairs/va.gov-cms/edit/master/README.md)!
