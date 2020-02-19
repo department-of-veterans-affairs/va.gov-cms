@@ -1,7 +1,7 @@
 # Build Release Deploy (BRD)
 
 The "BRD" system is designed and maintained by the VSP DevOps Team using the 
-[DevOps GitHub Repository](https://github.com/department-of-veterans-affairs/devops).
+[DevOps GitHub Repository](https://github.com/department-of-veterans-affairs/devops/ansible).
 
 The BRD system is used for many different apps in different languages. It uses 
 Ansible roles to standardize a testing and release process across all of these 
