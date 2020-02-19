@@ -1,5 +1,7 @@
 # CMS-login
 
+More info at https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/teams/cms/cms-sso-saml-iam-login-braindump.md
+
 ## The CMS uses provides a way to login using your account in VA's Active Directory:
 
 How to request a user account:
