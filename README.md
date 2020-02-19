@@ -2,7 +2,7 @@
 
 Welcome to the VA.gov CMS documentation!
 
-This is the public documentation is for the Content Management System (CMS) that powers [www.va.gov](https://www.va.gov).  
+This is the public documentation for the Content Management System (CMS) that powers [www.va.gov](https://www.va.gov).  
 
 The private, sensitive documentation is at https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/platform/cms and you should follow https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/sensitive-guidance.md to know what should be public vs private. 
 
@@ -52,7 +52,7 @@ The VA.gov CMS Team
 ### About VA.gov
 
 The [VA.gov](https://www.va.gov) website is made possible by a number of different tools and systems. See
-[High-Level Architecture](#highlevel-architecture) for an overview of all of the components.
+[High-Level Architecture](#high-level-architecture) for an overview of all of the components.
 
 This repository contains the source code for the *Content Management System* (**CMS** or **CMS-API**)
 for [VA.gov](https://www.va.gov), running at [cms.VA.gov](https://cms.va.gov).
@@ -75,11 +75,11 @@ The VFS team deploys all of these apps using a Jenkins server, configured with a
 
 - **DEVOPS**: [github.com/department-of-veterans-affairs/devops](https://github.com/department-of-veterans-affairs/devops)
 
-All development on these projects is done via Pull Requests.  See [CONTRIBUTING.md](CONTRIBUTING.md) for our PR policies.
+All development on these projects is done via Pull Requests.
 
 ### High-Level Architecture
 
-The public website seen at [VA.gov](https://www.va.gov) is a static site: just HTML, CSS, and images.
+The public website seen at [VA.gov](https://www.va.gov) is a static site hosted on S3: just HTML, CSS, JavaScript and images.
 
 The source code used to generate the public site is called *vets-website* or *Front-end* or **WEB**, and is availalble
 at [github.com/department-of-veterans-affairs/vets-website](https://github.com/department-of-veterans-affairs/vets-website).
@@ -96,7 +96,7 @@ downloaded to the `./web` folder during `composer install`.
 #### Build and Release Process
 
 When the content and code updates are ready for release, the **WEB** Build process is kicked off, it reads
-content from the [CMS](https://cms.va.gov) via GraphQL (and other locations), and outputs HTML, CSS, and images.
+content from the [CMS](https://cms.va.gov) via GraphQL (and other locations), and outputs HTML, CSS, JavaScript and images.
 
 See [WEB & CMS Integration](READMES/unity.md) for full details on how the WEB and CMS projects work together.
 
