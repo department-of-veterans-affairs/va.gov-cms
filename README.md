@@ -1,14 +1,15 @@
 # VA.gov CMS
 
-Welcome to the VA.gov CMS git repository README!
+Welcome to the VA.gov CMS documentation!
 
-We hope everything you need to know about how the [VA.gov](https://www.va.gov) website and Content Management System works is right here.
+This is the public documentation is for the Content Management System (CMS) that powers [www.va.gov](https://www.va.gov).
+The private documentation will be at https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/teams/cms and you should follow https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/sensitive-guidance.md to know what should be public vs private. 
 
-If you find any errors in this documentation, please feel free to [make an edit and submit a Pull Request](https://github.com/department-of-veterans-affairs/va.gov-cms/edit/VAGOV-2303-readme/README.md)!
+If you find any errors in this documentation, please feel free to [make an edit and submit a Pull Request](https://github.com/department-of-veterans-affairs/va.gov-cms/edit/master/README.md)!
 
 Thanks,
 
-The VA.gov Team.
+The VA.gov CMS Team
 
 
 
