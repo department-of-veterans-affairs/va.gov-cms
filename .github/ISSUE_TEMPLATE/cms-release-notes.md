@@ -19,7 +19,8 @@ assignees: rachel-kauff
 
 ## Process
 1. Identify items for release notes during grooming and demo
-2. Create release note issue using this template and add to the [Editorial calendar](https://docs.google.com/spreadsheets/d/13nWUY11A84c4WmC6vVmSE42OHaywPir5Eil4orBZz5Q/edit#gid=0)
+2. Create new release note issue using this template and add items to the [Editorial calendar](https://docs.google.com/spreadsheets/d/13nWUY11A84c4WmC6vVmSE42OHaywPir5Eil4orBZz5Q/edit#gid=0)
+3. Fill out release background info in this template
 3. Draft the release note in this GH issue
 4. Assign someone to peer review the drafted content. Ideally, this is the person/developer who made the change, and the product manager.
 5. Migrate content into markdown file in va.gov-cms/product-release-notes using a correct naming convention
@@ -31,7 +32,7 @@ assignees: rachel-kauff
 * Make sure you have info on the following before drafting:
 
 **Who is responsible for the change?**
-<e.g. What team(s) were involved? 
+What team(s) were involved? 
 * CMS team
 * VSA facilities
 * Public website team
