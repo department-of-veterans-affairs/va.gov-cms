@@ -56,27 +56,42 @@ class UserPermsService {
   }
 
   /**
-   * Return an access status object for entity.
+   * Return an access status string for entity.
    *
-   * @param string $user_id
-   *   The user id.
    * @param string $entity_id
    *   The entity id.
    * @param string $entity_type
    *   E.g. node, block.
+   * @param string $user_id
+   *   The user id.
    * @param string $op
    *   E.g., create, update, delete.
    *
-   * @return object
-   *   Object indicating Neutral (allowed) or Forbidden (disallowed) status.
+   * @return string
+   *   Access will be TRUE or FALSE.
    */
-  public function userAccess($user_id, $entity_id, $entity_type, $op) {
+  public function userAccess($entity_id, $entity_type, $user_id = NULL, $op = NULL) {
 
-    $account = User::load($user_id);
+    $account = $this->currentUser;
+    // If uid passed, use it.
+    if (!empty($user_id)) {
+      $account = User::load($user_id);
+    }
     $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($entity_id);
+
+    // If op is passed, use it.
+    if (empty($op)) {
+      $op = 'create';
+      if (strpos($entity->bundle(), '_listing') !== FALSE) {
+        $op = 'view';
+      }
+    }
     return array_reduce(\Drupal::entityTypeManager()->getStorage('access_scheme')->loadMultiple(), function (AccessResult $carry, AccessSchemeInterface $scheme) use ($entity, $op, $account) {
-      $carry->addCacheableDependency($scheme)->cachePerPermissions()->addCacheableDependency($entity);
-      return $carry->orIf($scheme->getAccessScheme()->checkEntityAccess($scheme, $entity, $op, $account));
+      $status_class_name = get_class($scheme->getAccessScheme()->checkEntityAccess($scheme, $entity, $op, $account));
+      if ($status_class_name === 'Drupal\Core\Access\AccessResultForbidden') {
+        return FALSE;
+      }
+      return TRUE;
     }, AccessResult::neutral());
 
   }
