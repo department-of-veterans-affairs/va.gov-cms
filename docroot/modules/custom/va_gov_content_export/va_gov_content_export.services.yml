@@ -4,6 +4,10 @@ services:
     arguments: ['@entity.manager']
     tags:
       - { name: normalizer, priority: 1 }
+  tome_sync.exporter.va_gov_conetent_export:
+    class: Drupal\va_gov_content_export\TomeExporter
+    decorates: tome_sync.exporter
+    arguments: ['@tome_sync.storage.content', '@serializer', '@entity_type.manager', '@event_dispatcher', '@account_switcher', '@tome_sync.file_sync']
   va_gov.content_export.breadcrumb_update:
     class: Drupal\va_gov_content_export\AddBreadcrumbToEntity
     arguments: ['@breadcrumb', '@router.route_provider', '@paramconverter_manager']

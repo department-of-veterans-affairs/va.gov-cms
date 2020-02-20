@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_content_export\Normalizer;
 
 use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\serialization\Normalizer\ContentEntityNormalizer as BaseContentEntityNormalizer;
 
 /**
@@ -12,18 +11,6 @@ use Drupal\serialization\Normalizer\ContentEntityNormalizer as BaseContentEntity
  * @internal
  */
 class ContentEntityNormalizer extends BaseContentEntityNormalizer {
-
-  /**
-   * ContentEntityNormalizer constructor.
-   *
-   * The ignore comments are because PHPCS keeps warning about
-   * "Possible useless method overriding detected" which I don't think is valid.
-   */
-  // @codingStandardsIgnoreStart
-  public function __construct(EntityManagerInterface $entity_manager) {
-    parent::__construct($entity_manager);
-  }
-  // @codingStandardsIgnoreEnd
 
   /**
    * Normalize values that Tome either removes or does not add.
