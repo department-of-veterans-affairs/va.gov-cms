@@ -1,19 +1,63 @@
-# Environments
+# Environments & the Content Build Process
 
-Domains for this application are below, they both correspond to a frontend (FE) domain that consumes data from the CMS via GraphQL API endpoint at /graphql:
+In order to ensure quality and prevent problems from going to production, multiple 
+*Environments* are available to test and review the CMS and WEB sites.
 
-| Environment       | Drupal (CMS)                                         | Frontend (FE / WEB                                                                  | Management
+The following table lists all environments and CMS/WEB sites used in the development process for VA.gov:
+
+| Environment       | Drupal (CMS)                                         | Frontend (FE / WEB / Static)                                                        | Management
 | -----------       | ------------                                         | ------------------                                                                  | ----------  
-| DEV               | [dev.cms.va.gov](https://dev.cms.va.gov)             | [dev.cms.va.gov](https://dev.va.gov)                                                | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Dev/job/cms-vagov-dev/)
-| STAGING           | [staging.cms.va.gov](http://staging.cms.va.gov)      | [staging.cms.va.gov](http://staging.va.gov)                                         | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Staging/job/cms-vagov-staging/)
-| PROD              | [prod.cms.va.gov](http://prod.cms.va.gov)                    | [www.va.gov](http://www.va.gov)                                                     | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Prod/job/cms-vagov-prod/)
-| [LOCAL](local.md) | [va-gov-cms.lndo.site](http://va-gov-cms.lndo.site)  | [va-gov-web.lndo.site](http://va-gov-web.lndo.site)
-|                   |                                                      | [va-gov-web.lndo.site/static](http://va-gov-web.lndo.site)  
-|                   |                                                      | [va-gov-web.lndo.site/$URL?_format=static_html](http://va-gov-web.lndo.site/$URL)  
-| CI / PR           | pr###.ci.cms.va.gov                                  |  pr###.ci.cms.web.va.gov                                                            | [CMS-CI: DevShop](http://devshop.cms.va.gov/)
-|                   | [devshop.cms.va.gov](https://devshop.cms.va.gov/)    |  pr###.ci.cms.va.gov/static                                                         
-|                   | Visit the DevShop site to view all PR environments   |  pr###.ci.cms.va.go/$URL?_format=static_html
+| [PROD](1) <br> Live Site                 | [prod.cms.va.gov](1)            | [www.va.gov](http://www.va.gov)                                                     | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Prod/job/cms-vagov-prod/)
+| [STAGING](2) <br> Pre-release testing.   | [staging.cms.va.gov](http://staging.cms.va.gov)      | [staging.cms.va.gov](http://staging.va.gov)                                         | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Staging/job/cms-vagov-staging/)
+| [DEV](3) <br> Latest approved code.      | [dev.cms.va.gov](https://dev.cms.va.gov)             | [dev.cms.va.gov](https://dev.va.gov)                                                | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Dev/job/cms-vagov-dev/)
+| [LOCAL](4) <br> Local development        | [va-gov-cms.lndo.site](http://va-gov-cms.lndo.site)  | [va-gov-web.lndo.site](http://va-gov-web.lndo.site) <br> [va-gov-web.lndo.site/static](http://va-gov-web.lndo.site)  <br> [va-gov-web.lndo.site/$URL?_format=static_html](http://va-gov-web.lndo.site/$URL)  
+| [CI / PR](1)  <br> Pull Requests & Automated Testing           | pr###.ci.cms.va.gov     |  pr###.web.ci.cms.va.gov <br>  pr###.ci.cms.va.gov/static <br> pr###.ci.cms.va.gov/$URL?_format=static_html  | [CMS-CI: DevShop](1)     
+| [Demos](2) <br> Demos & Training       | NAME.demo.ci.cms.va.gov |  NAME.web.demo.ci.cms.va.gov  <br> NAME.demo.ci.cms.va.gov/static <br> NAME.demo.ci.cms.va.gov/$URL?_format=static_html | [CMS-CI: DevShop](1)
 
+
+## What is an Environment?
+
+*Environments* are just copies of the production site that are running newer
+ code or have different content that needs to be tested before going live. 
+ 
+*Environments* can also be used for demonstrations or training, without worrying 
+about disrupting production content.
+ 
+Each *Environment* has both a *CMS* and a *WEB* site. The *CMS* is a content management 
+system built with Drupal, and the *WEB* site is a static HTML site, built with Metalsmith.
+
+The *WEB* build process consumes the content from the *CMS* in the same environment. 
+
+## Important Concepts
+
+- Each *WEB* site is made up of generated "static" files. This means that the *WEB* site reflects the content from the CMS *at the time the WEB Build process was run*.
+- *CMS* Editors will not see changes in the *WEB* site until a "WEB Build" is triggered and the process completes successfully.
+- The *WEB* site will not be accessible until at least one "WEB Build" has run successfully. This happens automatically for CI environments, but not yet for Demo environments. If you get an error such as "Forbidden" when visiting the *WEB* site, try running the *Rebuild WEB* process again.
+
+## Rebuilding WEB
+
+Within each environment, the static HTML for the *WEB* site is occasionally 
+"rebuilt" so that the latest content from that environment's *CMS* is used.
+
+The *WEB* build process is tested in the CI system to ensure compatiblity with the
+ CMS content schema.
+ 
+The *WEB* build process is triggered automatically by certain actions in the CMS 
+or manually via the [command line](#cli-build) or the [DevShop Dashboard](1).
+ 
+## Build Triggers
+The *WEB* instance of an environment is rebuilt when any of the following actions take place in the *CMS*:
+
+- Alert content is created or updated.
+- The "Rebuild WEB" button is pressed.
+- @TODO: Document all current build trigger
+- **Rebuild Environment** button in DevShop:
+  1. Visit the [DevShop Dashboard](1) and sign in.. 
+  2. Click the Project or the Environment you want to rebuild.
+  3. Find the environment you want to rebuild and press the "Hamburger Menu" button, then the "Rebuild Environment" button.
+  4. @TODO: Document options and add screenshots.
+  
+*Note to Developers:* Keep this list up to date to help content editors understand the process. 
 
 ## Hosting Architecture
 
@@ -78,3 +122,7 @@ SOCKS proxy or PIV+GFE hardware is required for accessing VA internal network.
 
 
 [Table of Contents](../README.md)
+
+
+[1]: https://devshop.cms.va.gov
+[2]: https://devshop.cms.va.gov/project/demo
