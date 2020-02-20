@@ -10,8 +10,8 @@
         "acquia/drupal-spec-tool": "^2.0"
     },
     "require": {
-        "cweagans/composer-patches": "^1.6.4",
         "acquia/headless_lightning": "^1.4.0-beta2",
+        "cweagans/composer-patches": "^1.6.4",
         "devshop/behat-drupal-extension": "dev-rewrite-last-page-output-links",
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "drupal/address": "^1.4",
@@ -109,7 +109,7 @@
         "drupal/workbench_menu_access": "^1.0",
         "drupal/workflow_participants": "^2.4",
         "drush-ops/behat-drush-endpoint": "^0.0.4",
-        "drush/drush": "~8",
+        "drush/drush": "~8.3",
         "guzzlehttp/guzzle": "^6.0@dev",
         "michelf/php-markdown": "^1.8",
         "mouf/nodejs-installer": "^1.0",
@@ -211,8 +211,7 @@
             },
             "drupal/core": {
                 "2815221 - Add quickedit to the latest-revision route": "https://www.drupal.org/files/issues/2019-03-05/2815221-116.patch",
-                "Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch",
-                "MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "https://www.drupal.org/files/issues/updateLink-2775665-2.patch"
+                "Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch"
             },
             "drupal/entity_clone": {
                 "Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch"
@@ -236,9 +235,6 @@
             },
             "drupal/path_redirect_import": {
                 "Add an option to import non-existent paths": "https://www.drupal.org/files/issues/2019-09-17/path_redirect_import-2995543-4.patch"
-            },
-            "drupal/schemata": {
-                "PHP 7.2 notice - \"Undefined offset: 1\" in JsonSchemaEncoder": "https://www.drupal.org/files/issues/2019-07-08/3063027-5-undefined-offset.patch"
             },
             "drupal/simplesamlphp_auth": {
                 "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2019-08-14/2748731-23.patch",
