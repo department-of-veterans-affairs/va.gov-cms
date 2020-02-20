@@ -49,5 +49,63 @@
     * Set a test breakpoint on /docroot/vendor/drush/drush/drush
     * Run `lando drush status` and it should trigger the breakpoint
 
+## External Database Conntection in PHPStorm
+
+* Run `lando info` to get the port.  The output will be similar to the following:
+
+```
+-> % lando info
+[
+  {
+    service: 'appserver',
+    urls: [
+      'https://localhost:32779',
+      'http://localhost:32780',
+      'http://va-gov-cms.lndo.site',
+      'https://va-gov-cms.lndo.site'
+    ],
+    type: 'php',
+    via: 'apache',
+    webroot: 'docroot',
+    config: {
+      php: '.lando/zzz-lando-my-custom.ini'
+    },
+    version: '7.2',
+    meUser: 'www-data',
+    hostnames: [
+      'appserver.vagovcms.internal'
+    ]
+  },
+  {
+    service: 'database',
+    urls: [],
+    type: 'mysql',
+    internal_connection: {
+      host: 'database',
+      port: '3306'
+    },
+    external_connection: {
+      host: 'localhost',
+      port: '32778'
+    },
+    creds: {
+      database: 'drupal8',
+      password: 'drupal8',
+      user: 'drupal8'
+    },
+    config: {
+      database: '/Users/indytechcook/.lando/config/drupal8/mysql.cnf'
+    },
+    version: '5.7',
+    meUser: 'www-data',
+    hostnames: [
+      'database.vagovcms.internal'
+    ]
+  }
+]
+```
+* Make note of the `database.external_connection.port` and `database.creds`.
+* Add a new database connection using `mariadb` as the datasource.  Use the information from the `lando info` from the `external_connection` connection section.
+
 
 [Table of Contents](../README.md)
