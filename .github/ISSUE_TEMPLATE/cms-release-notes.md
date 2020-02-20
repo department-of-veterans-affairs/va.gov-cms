@@ -52,16 +52,10 @@ New paths in the CMS for VAMC pages “/events,” “/locations,” “/health-
 <e.g. Users need training to use the new form for rebuilding content PR environments for demo purposes, or content changes that require a separate front-end branch.>
 
 ## Drafted content for Slack
-### CMS Release notes: Removed irrelevant items from the editorial workflow options
+### CMS Release notes: [title]
 **[datetime]** 
 
 Get the full details here: <link>
 
 ## Drafted extended content for GH repo
-**Who is affected?**
-<complete list of who is affected, in bulleted form
-**Where will I see the change?**
-<complete list of where changes will appear, in bulleted form>
 
-**Ecstatic? Confused? Angry?**
-Talk to <person> in #cms-support
