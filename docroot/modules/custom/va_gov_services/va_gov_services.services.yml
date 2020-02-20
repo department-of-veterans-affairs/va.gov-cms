@@ -1,0 +1,4 @@
+services:
+    va_gov_services.user_perms:
+        class: Drupal\va_gov_services\UserPermsService
+        arguments: ['@current_user']
