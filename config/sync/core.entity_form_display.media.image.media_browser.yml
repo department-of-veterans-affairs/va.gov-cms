@@ -5,13 +5,13 @@ dependencies:
   config:
     - core.entity_form_mode.media.media_browser
     - field.field.media.image.field_media_in_library
+    - field.field.media.image.field_media_submission_guideline
     - field.field.media.image.field_owner
     - field.field.media.image.image
     - image.style.2_1_medium_thumbnail
     - media.type.image
   module:
     - image_widget_crop
-    - lightning_media
 _core:
   default_config_hash: iVmRBD7y3Gmddt29sSx9DwwH6Q4UaROqMu7FLyy_bvQ
 id: media.image.media_browser
@@ -31,10 +31,7 @@ content:
       crop_list: {  }
       crop_types_required: {  }
       warn_multiple_usages: false
-    third_party_settings:
-      lightning_media:
-        remove_button: true
-        file_links: false
+    third_party_settings: {  }
     region: content
   name:
     type: string_textfield

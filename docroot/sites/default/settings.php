@@ -24,9 +24,6 @@ $databases['default']['default'] = array(
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
 );
 
-//@todo Delete config_directories, not used.
-$config_directories = [];
-
 /**
  * Salt for one-time login links, cancel links, form tokens, etc.
  *
@@ -130,7 +127,7 @@ $config['environment_indicator.indicator']['bg_color'] = '#05F901';
 $config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'Local';
 
-$config_directories['sync'] = '../config/sync';
+$settings['config_sync_directory'] = '../config/sync';
 
 $env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
 

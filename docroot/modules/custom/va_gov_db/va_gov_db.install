@@ -103,3 +103,33 @@ function va_gov_db_update_8002(&$sandbox) {
 
   return $messages;
 }
+
+/**
+ * Switch to Drupal minimal profile.
+ */
+function va_gov_db_update_8003(&$sandbox) {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('core.extension');
+  $config->set('profile', 'minimal');
+  $config->save(TRUE);
+  $messages = "Update the install profile to use minimal.";
+
+  return $messages;
+}
+
+/**
+ * Uninstall lightning media modules.
+ */
+function va_gov_db_update_8004(&$sandbox) {
+  $unistall_modules = [
+    'lightning_media_document',
+    'lightning_media_image',
+    'lightning_media_video',
+    'lightning_media_bulk_upload',
+    'lightning_media',
+  ];
+
+  $messages = _va_gov_db_uninstall_modules($unistall_modules);
+
+  return $messages;
+}

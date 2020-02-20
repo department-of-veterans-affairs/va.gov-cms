@@ -38,7 +38,6 @@ Feature: Permissions
     Given I am logged in as a user with the "content_api_consumer" role
     And I am on "admin/structure/menu"
     Then I should not see "Edit menu"
-    And I should see "View JSON"
 
   @perms @content_editor
   Scenario Outline: Content editor can edit - edit test indicates save perm is true.

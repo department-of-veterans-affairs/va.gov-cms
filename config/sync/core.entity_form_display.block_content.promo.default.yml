@@ -4,11 +4,11 @@ status: true
 dependencies:
   config:
     - block_content.type.promo
-    - entity_browser.browser.media_browser
     - field.field.block_content.promo.field_image
     - field.field.block_content.promo.field_instructions
     - field.field.block_content.promo.field_owner
     - field.field.block_content.promo.field_promo_link
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - entity_browser
@@ -22,21 +22,20 @@ mode: default
 content:
   field_image:
     type: entity_browser_entity_reference
-    weight: 1
+    weight: 4
+    region: content
     settings:
-      entity_browser: media_browser
-      field_widget_display: rendered_entity
+      entity_browser: null
+      open: false
+      field_widget_display: label
       field_widget_edit: true
       field_widget_remove: true
-      selection_mode: selection_append
-      field_widget_display_settings:
-        view_mode: thumbnail
-      open: true
       field_widget_replace: false
-    region: content
+      field_widget_display_settings: {  }
+      selection_mode: selection_append
     third_party_settings: {  }
   field_instructions:
-    weight: 3
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: markup
@@ -49,7 +48,7 @@ content:
     region: content
   field_promo_link:
     type: entity_reference_paragraphs
-    weight: 2
+    weight: 1
     settings:
       title: Link
       title_plural: Links
@@ -69,7 +68,7 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 4
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }

@@ -14,7 +14,6 @@ description: ''
 tag: ''
 base_table: user_history
 base_field: id
-core: 8.x
 display:
   default:
     display_plugin: default
@@ -848,6 +847,8 @@ display:
             placeholder: (account)
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -895,6 +896,8 @@ display:
             placeholder: ''
             min_placeholder: 'Start date (yyyy-mm-dd hh:mm)'
             max_placeholder: 'End date (yyyy-mm-dd hh:mm)'
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -936,6 +939,8 @@ display:
               anonymous: '0'
               administrator: '0'
             placeholder: (contains)
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -977,6 +982,8 @@ display:
               anonymous: '0'
               administrator: '0'
             placeholder: (contains)
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1019,6 +1026,8 @@ display:
               administrator: '0'
               editor: '0'
             placeholder: (contains)
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
