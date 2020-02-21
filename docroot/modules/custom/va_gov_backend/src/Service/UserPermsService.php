@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_backend\Service;
 
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\user\Entity\User;
 use Drupal\workbench_access\Entity\AccessSchemeInterface;
 use Drupal\Core\Access\AccessResult;
@@ -21,38 +22,38 @@ class UserPermsService {
   private $currentUser;
 
   /**
+   * The entity interface.
+   *
+   * @var object
+   *  The entity interface object.
+   */
+  private $entityInterface;
+
+  /**
    * UserPermsService constructor.
    */
-  public function __construct(AccountInterface $currentUser) {
+  public function __construct(AccountInterface $currentUser, EntityTypeManagerInterface $entityInterface) {
     $this->currentUser = $currentUser;
+    $this->entityInterface = $entityInterface;
   }
 
   /**
-   * Returns a Drupal user ID.
+   * Getter setter for a, user, defaults to current user.
+   *
+   * @param int $user_id
+   *   A user id to lookup the user. (optional)
+   *
+   * @return \Drupal\Core\Session\AccountInterface
+   *   The user specified by $user_id or the current user
    */
-  public function userId() {
-    return $this->currentUser->id();
-  }
-
-  /**
-   * Returns a Drupal username.
-   */
-  public function userName() {
-    return $this->currentUser->getDisplayName();
-  }
-
-  /**
-   * Returns a Drupal user's roles.
-   */
-  public function userRoles() {
-    return $this->currentUser->getRoles();
-  }
-
-  /**
-   * Returns true if user has perm.
-   */
-  public function userPerm(String $permString) {
-    return $this->currentUser->hasPermission($permString);
+  private  function getUser($user_id = NULL) {
+    if (!empty($user_id)) {
+      // Not available, so load it.
+      return User::load($user_id);
+    }
+    else {
+      return $this->currentUser;
+    }
   }
 
   /**
@@ -62,12 +63,12 @@ class UserPermsService {
    *   The entity id.
    * @param string $entity_type
    *   E.g. node, block.
-   * @param string $user_id
+   * @param int $user_id
    *   The user id.
    * @param string $op
    *   E.g., create, update, delete.
    *
-   * @return string
+   * @return bool
    *   Access will be TRUE or FALSE.
    */
   public function userAccess($entity_id, $entity_type, $user_id = NULL, $op = NULL) {
@@ -75,9 +76,9 @@ class UserPermsService {
     $account = $this->currentUser;
     // If uid passed, use it.
     if (!empty($user_id)) {
-      $account = User::load($user_id);
+      $account = $this->getUser($user_id);
     }
-    $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($entity_id);
+    $entity = $this->entityInterface->getStorage($entity_type)->load($entity_id);
 
     // If op is passed, use it.
     if (empty($op)) {

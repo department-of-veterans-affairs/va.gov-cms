@@ -88,21 +88,8 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Limit options on forms with field_office field.
-  $perms = \Drupal::service('va_gov_backend.user_perms');
-  $targets = ['field_office'];
-  foreach ($targets as $target) {
-    if (in_array('field_office', $form)) {
-      foreach ($form[$target]['widget']['#options'] as $header_key => $option_header) {
-        foreach ($option_header as $option_key => $option_item) {
-          $status = $perms->userAccess($option_key, 'node', 1277);
-          if ($status === FALSE) {
-            unset($form[$target]['widget']['#options'][$header_key][$option_key]);
-          }
-        }
-      }
-    }
-  }
+
+  _va_gov_backend_access($form);
 
   if ($form_id === 'redirect_redirect_edit_form' || $form_id === 'redirect_redirect_form') {
     $value = 'prefix';
@@ -133,6 +120,32 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     // Hide field_office for existing operating statuses: they won't be moved.
     // @todo Consider disabling it instead of hiding it.
     $form['field_office']['#attributes']['class'] = 'hidden';
+  }
+}
+
+/**
+ * For determining dropdown field access on nodeforms.
+ *
+ * @param array $form
+ *   The node form.
+ */
+function _va_gov_backend_access(array &$form) {
+  // Limit options on forms with field_office field.
+  $perms = \Drupal::service('va_gov_backend.user_perms');
+  $targets = ['field_office'];
+  foreach ($targets as $target) {
+    if (in_array($target, $form)) {
+      foreach ($form[$target]['widget']['#options'] as $header_key => $option_header) {
+        if (is_array($option_header) && !empty($option_header)) {
+          foreach ($option_header as $option_key => $option_item) {
+            $access = $perms->userAccess($option_key, 'node');
+            if (!$access) {
+              unset($form[$target]['widget']['#options'][$header_key][$option_key]);
+            }
+          }
+        }
+      }
+    }
   }
 }
 
