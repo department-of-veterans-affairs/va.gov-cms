@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_services;
+namespace Drupal\va_gov_backend\Service;
 
 use Drupal\Core\Session\AccountInterface;
 use Drupal\user\Entity\User;
@@ -82,10 +82,21 @@ class UserPermsService {
     // If op is passed, use it.
     if (empty($op)) {
       $op = 'create';
-      if (strpos($entity->bundle(), '_listing') !== FALSE) {
-        $op = 'view';
-      }
     }
+
+    // Special snowflake check for Outreach section - unique perms set beyond
+    // scope of workbench_access.
+    $database = \Drupal::database();
+    $query = $database->select('section_association__user_id', 's');
+    $query->condition('s.user_id_target_id', $account->id());
+    $query->condition('s.entity_id', 4);
+    $query->fields('s', ['entity_id']);
+    $results = $query->execute()->fetchAll();
+    if (count($results) > 0) {
+      return TRUE;
+    }
+
+    // Compare user sections against subject section to determine access.
     return array_reduce(\Drupal::entityTypeManager()->getStorage('access_scheme')->loadMultiple(), function (AccessResult $carry, AccessSchemeInterface $scheme) use ($entity, $op, $account) {
       $status_class_name = get_class($scheme->getAccessScheme()->checkEntityAccess($scheme, $entity, $op, $account));
       if ($status_class_name === 'Drupal\Core\Access\AccessResultForbidden') {
