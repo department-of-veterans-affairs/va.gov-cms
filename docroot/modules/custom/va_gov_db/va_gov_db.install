@@ -133,3 +133,15 @@ function va_gov_db_update_8004(&$sandbox) {
 
   return $messages;
 }
+
+/**
+ * Uninstall health_check.
+ */
+function va_gov_db_update_8005(&$sandbox) {
+  $unistall_modules = [
+    'health_check',
+  ];
+  $messages = _va_gov_db_uninstall_modules($unistall_modules);
+
+  return $messages;
+}
