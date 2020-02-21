@@ -100,6 +100,22 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     $form['#submit'][] = 'va_gov_backend_workbench_assign_user_form_submit';
   }
 
+  // Limit options on forms with field_office field.
+  $perms = \Drupal::service('va_gov_backend.user_perms');
+  $targets = ['field_office'];
+  foreach ($targets as $target) {
+    if (in_array('field_office', $form)) {
+      foreach ($form[$target]['widget']['#options'] as $header_key => $option_header) {
+        foreach ($option_header as $option_key => $option_item) {
+          $status = $perms->userAccess($option_key, 'node', 1277);
+          if ($status === FALSE) {
+            unset($form[$target]['widget']['#options'][$header_key][$option_key]);
+          }
+        }
+      }
+    }
+  }
+
   if ($form_id === 'redirect_redirect_edit_form' || $form_id === 'redirect_redirect_form') {
     $value = 'prefix';
     if ($form_id === 'redirect_redirect_edit_form') {
