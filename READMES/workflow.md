@@ -17,7 +17,7 @@
 Write a manual test in the Jira ticket to test ticket completion.
 
 ## Git
-To avoid cluttering up the main repo with lots of branches, fork the repo and push your branches to your fork and make your pull request from your fork to the upstream repo. You can use [`hub`](https://github.com/github/hub) to do this from the command line. Or after you push you will see a link in the output to ctrl + click and create a new PR from the branch you just pushed. 
+To avoid cluttering up the main repo with lots of branches, fork the repo and push your branches to your fork and make your pull request from your fork to the upstream repo. You can use [`hub`](https://github.com/github/hub) to do this from the command line. Or after you push you will see a link in the output to ctrl + click and create a new PR from the branch you just pushed.
 
 ### Branches
  We are currently working off a single `master` branch system. `master` is protected and requires both approval from code review and passing tests to be merged. Commits within pull requests are squashed and merged when they are accepted so that the only relate to one git commit, even if they originally contained multiple commits, the commit messages are added as a bulleted list so they are retained in the merge commit.
@@ -112,13 +112,11 @@ Apply patches:
     ```
 
 ## Updates
-### Updating Lightning
+### Updating Core
 
-Security updates to Drupal core take a little while to make their way to the [Lightning distribution](https://www.drupal.org/project/lightning) and then into [headless_lightning](https://github.com/acquia/headless_lightning).  As such, the particular security issue should be assessed to see if it is warranted, and if so then the issue should be patched, using the patch method described in [patching](#patching).
-
-1. ```lando composer update acquia/headless_lightning --with-dependencies --dry-run```
+1. ```lando composer update drupal/core --with-dependencies --dry-run```
 This will show you what is to change, without actually changing anything.
-2. ```lando composer update acquia/headless_lightning --with-dependencies```
+2. ```lando composer update drupal/core --with-dependencies```
 3. ```lando composer update --lock```
 4. ```lando drush updatedb --yes```
 5. ```lando drush cache:rebuild```

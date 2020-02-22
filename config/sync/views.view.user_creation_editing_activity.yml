@@ -11,7 +11,6 @@ description: ''
 tag: ''
 base_table: users_field_data
 base_field: nid
-core: 8.x
 display:
   default:
     display_plugin: default
@@ -124,6 +123,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
       sorts: {  }
       title: 'User creation & editing activity'
