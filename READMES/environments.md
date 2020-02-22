@@ -70,7 +70,9 @@ Within the [CMS-CI](1) platform, in the "demo" project, users can "Create New En
 
     ![Installing DevShop Environment](images/devshop-install.png)
 
-## WEB Rebuild Process
+**NOTE:** The WEB site for this environment will not work until you trigger a WEB Build process.
+
+## WEB Build Process
 
 Within each environment, the static HTML for the *WEB* site is occasionally 
 "rebuilt" so that the latest content from that environment's *CMS* is used.
@@ -81,19 +83,48 @@ The *WEB* build process is tested in the CI system to ensure compatiblity with t
 The *WEB* build process is triggered automatically by certain actions in the CMS 
 or manually via the [command line](#cli-build) or the [DevShop Dashboard](1).
  
-## Build Triggers
+### Build Triggers
+
 The *WEB* instance of an environment is rebuilt when any of the following actions take place in the *CMS*:
 
 - Alert content is created or updated.
 - The "Rebuild WEB" button is pressed.
-- @TODO: Document all current build trigger
-- **Rebuild Environment** button in DevShop:
-  1. Visit the [DevShop Dashboard](1) and sign in.. 
-  2. Click the Project or the Environment you want to rebuild.
-  3. Find the environment you want to rebuild and press the "Hamburger Menu" button, then the "Rebuild Environment" button.
-  4. @TODO: Document options and add screenshots.
-  
+- @TODO: Document all current build triggers.
+
 *Note to Developers:* Keep this list up to date to help content editors understand the process. 
+
+### Rebuilding Environments Manually
+
+There is a special button and form for rebuilding VA.gov environments. Use this 
+to manually trigger either a WEB or CMS rebuild (or both), and optionally check 
+out different code.
+
+#### Step-by-step Instructions
+
+1. Find the environment you would like to build in the [CMS-CI](1) site.
+2. Click the "Hamburger Menu" button, then the "Rebuild Environment" button.
+
+    ![Environment Rebuild Button](images/devshop-rebuild.png)
+
+3. If you wish to just trigger a WEB rebuild with the existing content, do not change any other options.
+
+    ![Environment Rebuild Form](images/devshop-rebuild-form.png)
+
+    **For advanced users and developers:**
+    
+    1. If you wish to change the branch of the CMS or WEB, click "Change Code Versions".
+    2. If you wish to reset your environment's Content or Configuration, click "Advanced Options".
+
+    ![Environment Advanced Options](images/devshop-rebuild-form-advanced.png)
+
+4. Press the "Rebuild Environment" button.
+5. Once the REBUILD process is complete, you can click the "WEB" site link for the environment in the DevShop UI.
+
+    ![WEB & CMS Links](images/devshop-web-links.png)
+
+6. That's it! If the process completed, you should see a site that looks like VA.gov.
+   
+  
 
 ## Hosting Architecture
 
