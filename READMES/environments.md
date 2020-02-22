@@ -34,7 +34,43 @@ The *WEB* build process consumes the content from the *CMS* in the same environm
 - *CMS* Editors will not see changes in the *WEB* site until a "WEB Build" is triggered and the process completes successfully.
 - The *WEB* site will not be accessible until at least one "WEB Build" has run successfully. This happens automatically for CI environments, but not yet for Demo environments. If you get an error such as "Forbidden" when visiting the *WEB* site, try running the *Rebuild WEB* process again.
 
-## Rebuilding WEB
+## Creating new Environments
+
+Within the [CMS-CI](1) platform, in the "demo" project, users can "Create New Environments" using the big green button.
+
+### Step-by-step Instructions
+
+1. Visit [http://devshop.cms.va.gov/](http://devshop.cms.va.gov/) and click "G" icon to log in with GitHub.
+
+    ![CMS-CI Homepage](images/devshop-home.png)
+
+
+2. Click [demo](http://devshop.cms.va.gov/project/demo) link to visit the "Demos Dashboard".
+
+    ![Demo Project and all environments](images/devshop-demos.png)
+ 
+3. Scroll down if needed and press the "Create New Environment" button.
+
+    ![Add new Environment button](images/devshop-add-environment.png)
+
+4. Enter a "name" for your environment, using only letters and numbers, all lowercase.
+
+    ![Add new Environment Form](images/devshop-add-environment-form.png)
+
+5. If you wish to copy [prod.cms.va.gov](http://prod.cms.va.gov) using the latest content, do not change any additional options. 
+
+    **For advanced users, such as those testing out new functionality:**
+
+    6. If you want to test out the CMS on a developer's branch, click the **Branch, Tag, or Pull Request** field, and start typing the name or pull request title you wish to use.
+    7. If you wish to copy a existing demo environment, instead of prod, click **Advanced Options** and select *Clone Environment* under *Install Method*.
+    8. If you wish to add additional *Domain Names* to this environment, click  **Advanced Options** and then *Domain Names*. Any extra domain names must be in the pattern "*.ci.cms.va.gov".
+
+9. Finally, Press the "Create New Environment" button. After about 10-15 minutes, you will have a running site!
+10. Click the URLs for your environment to visit, once "install" step is complete.
+
+    ![Installing DevShop Environment](images/devshop-install.png)
+
+## WEB Rebuild Process
 
 Within each environment, the static HTML for the *WEB* site is occasionally 
 "rebuilt" so that the latest content from that environment's *CMS* is used.
@@ -124,5 +160,5 @@ SOCKS proxy or PIV+GFE hardware is required for accessing VA internal network.
 [Table of Contents](../README.md)
 
 
-[1]: https://devshop.cms.va.gov
-[2]: https://devshop.cms.va.gov/project/demo
+[1]: http://devshop.cms.va.gov
+[2]: http://devshop.cms.va.gov/project/demo
