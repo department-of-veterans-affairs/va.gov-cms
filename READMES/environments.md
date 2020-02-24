@@ -1,22 +1,21 @@
 # Environments & the Content Build Process
 
-In order to ensure quality and prevent problems from going to production, multiple 
-*Environments* are available to test and review the CMS and WEB sites.
+To enable end to end quality analysis, from the VA.gov CMS through to the public facing website, new feature review, and stakeholder demonstrations, multiple joined CMS/WEB environments may be created by any user with access to DevShop.
 
 The following table lists all environments and CMS/WEB sites used in the development process for VA.gov:
 
 | Environment       | Drupal (CMS)                                         | Frontend (FE / WEB / Static)                                                        | Management
 | -----------       | ------------                                         | ------------------                                                                  | ----------  
-| [PROD](http://prod.cms.va.gov) <br> Live Site                 | [prod.cms.va.gov](http://prod.cms.va.gov)            | [www.va.gov](http://www.va.gov)                                                     | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Prod/job/cms-vagov-prod/)
-| [STAGING](http://staging.cms.va.gov) <br> Pre-release testing.   | [staging.cms.va.gov](http://staging.cms.va.gov)      | [staging.cms.va.gov](http://staging.va.gov)                                         | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Staging/job/cms-vagov-staging/)
-| [DEV](http://dev.cms.va.gov) <br> Latest approved code.      | [dev.cms.va.gov](https://dev.cms.va.gov)             | [dev.cms.va.gov](https://dev.va.gov)                                                | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Dev/job/cms-vagov-dev/)
-| [LOCAL](http://va-gov-cms.lndo.site) <br> Local development        | [va-gov-cms.lndo.site](http://va-gov-cms.lndo.site)  | [va-gov-web.lndo.site](http://va-gov-web.lndo.site) <br> [va-gov-web.lndo.site/static](http://va-gov-web.lndo.site)  <br> [va-gov-web.lndo.site/$URL?_format=static_html](http://va-gov-web.lndo.site/$URL)  
+| [PROD](http://prod.cms.va.gov) <br> Live Site                 | [www.va.gov](http://www.va.gov)            | [www.va.gov](http://www.va.gov)                                                     | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Prod/job/cms-vagov-prod/)
+| [STAGING](http://staging.cms.va.gov) <br> Pre-release testing.   | [staging.va.gov](http://staging.va.gov)      | [staging.cms.va.gov](http://staging.va.gov)                                         | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Staging/job/cms-vagov-staging/)
+| [DEV](http://dev.cms.va.gov) <br> Latest approved code.      | [dev.va.gov](https://dev.va.gov)             | [dev.cms.va.gov](https://dev.va.gov)                                                | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Dev/job/cms-vagov-dev/)
+| [LOCAL](http://va-gov-cms.lndo.site) <br> Local development        | [va-gov-cms.lndo.site](http://va-gov-cms.lndo.site)  | [va-gov-cms.lndo.site](http://va-gov-cms.lndo.site) <br> [va-gov-cms.lndo.site/static](http://va-gov-cms.lndo.site)  <br> [va-gov-cms.lndo.site/$URL?_format=static_html](http://va-gov-cms.lndo.site/$URL)
 | [CI / PR](1)  <br> Pull Requests & Automated Testing           | pr###.ci.cms.va.gov     |  pr###.web.ci.cms.va.gov <br>  pr###.ci.cms.va.gov/static <br> pr###.ci.cms.va.gov/$URL?_format=static_html  | [CMS-CI: DevShop](1)     
 | [Demos](2) <br> Demos & Training       | NAME.demo.ci.cms.va.gov |  NAME.web.demo.ci.cms.va.gov  <br> NAME.demo.ci.cms.va.gov/static <br> NAME.demo.ci.cms.va.gov/$URL?_format=static_html | [CMS-CI: DevShop](1)
 
 ## What is an Environment?
 
-*Environments* are just copies of the production site that are running newer
+*Environments* are copies of the production site that are running newer
  code or have different content that needs to be tested before going live. 
  
 *Environments* can also be used for demonstrations or training, without worrying 
