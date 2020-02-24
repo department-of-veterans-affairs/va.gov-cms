@@ -216,7 +216,7 @@ function va_gov_backend_mail_alter(&$message) {
  */
 function va_gov_backend_rebuild() {
   // Update the drupal state to display git info in admin toolbar.
-  $branch = mb_strimwidth(exec('git rev-parse --abbrev-ref HEAD'), 0, 35, '...') ?? 'git unknown';
+  $branch = mb_strimwidth(exec('git rev-parse --abbrev-ref HEAD'), 0, 20, '...') ?? 'git unknown';
   $tag_hash = trim(exec('git describe --tags')) ?? '--';
   if ($branch === 'HEAD') {
     // In BRD environment or checked out a tag/commit directly, show no branch.
@@ -224,7 +224,7 @@ function va_gov_backend_rebuild() {
   }
   else {
     // We are in not in BRD environment, so display branch.
-    $indicator = "Branch: {$branch} Tag-SHA: {$tag_hash}";
+    $indicator = "Branch: {$branch}  Tag-SHA: {$tag_hash}";
   }
 
   \Drupal::state()->set("environment_indicator.current_release", $indicator);
