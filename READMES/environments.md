@@ -86,7 +86,7 @@ or manually via the [command line](#cli-build) or the [DevShop Dashboard](1).
 
 The *WEB* instance of an environment is rebuilt when any of the following actions take place in the *CMS*:
 
-- Alert content is created or updated.
+- Facility Alert or Individual Facility Operating Status is created or updated.
 - The "Rebuild WEB" button is pressed.
 - @TODO: Document all current build triggers.
 
