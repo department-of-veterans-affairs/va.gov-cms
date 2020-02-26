@@ -89,7 +89,7 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
-  _va_gov_backend_access($form);
+  _va_gov_backend_dropdown_field_access($form);
 
   if ($form_id === 'redirect_redirect_edit_form' || $form_id === 'redirect_redirect_form') {
     $value = 'prefix';
@@ -129,7 +129,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
  * @param array $form
  *   The node form.
  */
-function _va_gov_backend_access(array &$form) {
+function _va_gov_backend_dropdown_field_access(array &$form) {
   // Limit options on forms with field_office field.
   $perms = \Drupal::service('va_gov_backend.user_perms');
   $targets = ['field_office'];

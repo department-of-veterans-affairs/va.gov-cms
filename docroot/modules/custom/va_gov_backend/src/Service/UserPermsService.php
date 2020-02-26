@@ -57,7 +57,7 @@ class UserPermsService {
   }
 
   /**
-   * Return an access status string for entity.
+   * Check to see if a user has access.
    *
    * @param string $entity_id
    *   The entity id.
@@ -69,18 +69,17 @@ class UserPermsService {
    *   E.g., create, update, delete.
    *
    * @return bool
-   *   Access will be TRUE or FALSE.
+   *   TRUE if the user has access, FALSE otherwise.
    */
   public function userAccess($entity_id, $entity_type, $user_id = NULL, $op = NULL) {
 
-    $account = $this->currentUser;
-    // If uid passed, use it.
-    if (!empty($user_id)) {
-      $account = $this->getUser($user_id);
-    }
+    $account = $this->getUser($user_id);
+
     $entity = $this->entityInterface->getStorage($entity_type)->load($entity_id);
 
-    // If op is passed, use it.
+    // We want create access perm for most cases. For occasional snowflake
+    // situations, we may allow a different permission: e.g., 'view' for
+    // some listing types.
     if (empty($op)) {
       $op = 'create';
     }
