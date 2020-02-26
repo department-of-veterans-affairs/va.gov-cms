@@ -46,7 +46,7 @@ class UserPermsService {
    * @return \Drupal\Core\Session\AccountInterface
    *   The user specified by $user_id or the current user
    */
-  private  function getUser($user_id = NULL) {
+  private function getUser($user_id = NULL) {
     if (!empty($user_id)) {
       // Not available, so load it.
       return User::load($user_id);
@@ -54,6 +54,56 @@ class UserPermsService {
     else {
       return $this->currentUser;
     }
+  }
+
+  /**
+   * Check which values are allowed and put into array.
+   *
+   * @param array $form
+   *   The entity add or edit form.
+   * @param array $targets
+   *   The form fields to target for filtering.
+   *
+   * @return array
+   *   The options that are allowed for user selection.
+   */
+  public function userOptionsStorage(array &$form, array $targets) {
+
+    $cid = 'user-dropdown-access-' . $this->getUser()->id();
+    $allowed_options = [];
+
+    $cached_data = \Drupal::cache()->get($cid);
+    // If we have a cache, return it.
+    if (!empty($cached_data)) {
+      $allowed_options = $cached_data->data;
+    }
+    else {
+      // Return allowed form field options by filtering disallowed items.
+      $targets = ['field_office'];
+      foreach ($targets as $target) {
+        if (in_array($target, $form)) {
+          foreach ($form[$target]['widget']['#options'] as $header_key => $option_header) {
+            if (is_array($option_header) && !empty($option_header)) {
+              foreach ($option_header as $option_key => $option_item) {
+                $access = $this->userAccess($option_key, 'node');
+                if ($access) {
+                  $allowed_options[] = $option_key;
+                }
+              }
+            }
+          }
+        }
+      }
+      $tags = [
+        $form['#id'],
+        'allowed-dropdown-options-' . $this->getUser()->id(),
+      ];
+      // Cache for 24 hours.
+      $expire_time = time() + 24 * 60 * 60;
+      \Drupal::cache()->set($cid, $allowed_options, $expire_time, $tags);
+
+    }
+    return $allowed_options;
   }
 
   /**
@@ -73,7 +123,7 @@ class UserPermsService {
    */
   public function userAccess($entity_id, $entity_type, $user_id = NULL, $op = NULL) {
 
-    $account = $this->getUser($user_id);
+    $account = $this->getUser();
 
     $entity = $this->entityInterface->getStorage($entity_type)->load($entity_id);
 
