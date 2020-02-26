@@ -35,9 +35,6 @@ Feature: Views
 | Taxonomy term | taxonomy_term | Content | Enabled | Content belonging to a certain taxonomy term. |
 | People | user_admin_people | Users | Enabled | Find and manage people interacting with your site. |
 | Blocks listing | va_blocks_admin | Custom Block | Enabled | Shows existing blocks on the site. |
-| User creation & editing activity | user_creation_editing_activity | Users        | Enabled |  |
-| User history | user_history | User history | Enabled |  |
-| User history list | user_history_list | User history | Enabled |  |
 | VAMC alerts and operating statuses | vamc_alerts_and_operating_statuses | Content | Enabled |  |
 | VAMC operating statuses | vamc_operating_statuses | Content | Enabled |  |
 | VAMCs | vamcs | Content | Enabled |  |
@@ -46,6 +43,10 @@ Feature: Views
 | Webform submissions | webform_submissions | Webform submission | Enabled | Default webform submissions views. |
 | Who's new | who_s_new | Users | Disabled | Shows a list of the newest user accounts on the site. |
 | Who's online block | who_s_online | Users | Disabled | Shows the user names of the most recently active users, and the total number of active users. |
+| User creation & editing activity | user_creation_editing_activity | Users | Enabled |  |
+| User history | user_history | User history | Enabled |  |
+| User history list | user_history_list | User history | Enabled |  |
+| User email csv | user_email_csv | Users | Enabled |  |
 
   @dst @views_displays
      Scenario: Views displays
@@ -124,12 +125,6 @@ Feature: Views
 | Taxonomy term | Master | default | Master |
 | Taxonomy term | Feed | feed_1 | Feed |
 | Taxonomy term | Page | page_1 | Page |
-| User creation & editing activity | Master | default | Master |
-| User creation & editing activity | Page | page_1 | Page |
-| User history | Master | default | Master |
-| User history | Page | page_1 | Page |
-| User history list | Master | default | Master |
-| User history list | Page | page_1 | Page |
 | VAMC alerts and operating statuses | Master | default | Master |
 | VAMC alerts and operating statuses | Page | page_1 | Page |
 | VAMC operating statuses | Master | default | Master |
@@ -149,3 +144,12 @@ Feature: Views
 | Who's new | Master | default | Master |
 | Who's online block | Master | default | Master |
 | Who's online block | Who's online | who_s_online_block | Block |
+| User creation & editing activity | Master | default | Master |
+| User creation & editing activity | Page | page_1 | Page |
+| User history | Master | default | Master |
+| User history | Page | page_1 | Page |
+| User history list | Master | default | Master |
+| User history list | Page | page_1 | Page |
+| User email csv | Data export | data_export_1 | Data export |
+| User email csv | Master | default | Master |
+| User email csv | Page | page_1 | Page |
