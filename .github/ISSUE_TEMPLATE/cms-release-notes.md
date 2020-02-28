@@ -32,24 +32,34 @@ assignees: rachel-kauff
 * Make sure you have info on the following before drafting:
 
 **Who is responsible for the change?**
+
 What team(s) were involved? 
 * CMS team
 * VSA facilities
 * Public website team
 * VAMC upgrade team>
 
+**What was it like for users before the change?**
+
+**What is like for users *after* the change?**
+
+
 **Technically, what happened?**
+
 <e.g. Previously, we were using Metalsmith to generate VAMC content listing pages as Frankenstein-like assemblages of many different content types, and they only existed on the front end. Now that these pages are their own content type, pages like /events have a home in the CMS.>
 
 **Who is affected?**
+
 <e.g.> VAMC content editors 
 
 **Where will I see the change?**
+
 <e.g. VAMC home pages: fields for content listings removed
 VAMC content sections: now searchable by the new content types: “Events listing,” “Stories listing” 
 New paths in the CMS for VAMC pages “/events,” “/locations,” “/health-services,” “/stories” “/news-releases,” “/leadership”>
 
 **Will users need additional training to utilize the change?**
+
 <e.g. Users need training to use the new form for rebuilding content PR environments for demo purposes, or content changes that require a separate front-end branch.>
 
 ## Drafted content for Slack
