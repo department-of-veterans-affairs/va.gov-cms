@@ -25,7 +25,6 @@ To provide the VA with a CMS implementation that is a best-in-class, de-coupled 
 - #cms-team
 
 ### Github Labels
-`[508/Accessibility]`, `[analytics-insights]`, `[backend]`, `[Content-ia-team]`...
 
 ### Points of Contact
 - Program Management: Jeff Brauer
