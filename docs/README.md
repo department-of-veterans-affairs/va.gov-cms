@@ -13,13 +13,13 @@ To provide the VA with a CMS implementation that is a best-in-class, de-coupled 
 ### Slack Channels
 
 **Public Channels**
-- #cms-support (For product, application, and other platform teams to collaboarte with the CMS team)
-- #platform-cms-fe-superteam (A cross-platform channel in order to facilitate shipping the PGH product. Very little work remains and this channel will soon be archived.)
-- #vfs-all-teams (Announcements and updates for everyone building for VA.gov or Veterans Facing Services teams)
-- #vfs-platform-support (Support channel for all platform services)
-- #vsa-facilities (For collaboration with the VSA-Facilities team)
-- #vsa-public-websites (Global Unauthenticated Experience team for VA.gov. Products include home page, content hubs, search, and facility locator)
-- #vsa-vamc-upgrade (For collaboration with the VAMC-Upgrade team)
+- #cms-support
+- #platform-cms-fe-superteam
+- #vfs-all-teams
+- #vfs-platform-support
+- #vsa-facilities
+- #vsa-public-websites
+- #vsa-vamc-upgrade
 
 **Internal Channels**
 - #cms-team
