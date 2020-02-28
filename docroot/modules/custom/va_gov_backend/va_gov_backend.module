@@ -5,8 +5,6 @@
  * Contains va_gov_backend.module.
  */
 
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Cache\Cache;
 use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\WidgetBase;
@@ -85,14 +83,6 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
   // Add the $options from above to our select list.
   $form['title']['#options'] = $options;
   unset($form['title']['#size']);
-}
-
-/**
- * Implements hook_entity_update().
- */
-function va_gov_backend_user_update(EntityInterface $entity) {
-  // When the user object is updated, delete the allowed options cache.
-  Cache::invalidateTags(['allowed-dropdown-options-' . $entity->id()]);
 }
 
 /**
