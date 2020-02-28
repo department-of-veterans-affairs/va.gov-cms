@@ -81,7 +81,7 @@ class UserPermsService {
       // Return allowed form field options by filtering disallowed items.
       $targets = ['field_office'];
       foreach ($targets as $target) {
-        if (in_array($target, $form)) {
+        if (in_array($target, $form) && !empty($form[$target]['widget']['#options'])) {
           foreach ($form[$target]['widget']['#options'] as $header_key => $option_header) {
             if (is_array($option_header) && !empty($option_header)) {
               foreach ($option_header as $option_key => $option_item) {
