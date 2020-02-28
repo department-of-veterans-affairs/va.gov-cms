@@ -19,7 +19,7 @@ assignees: rachel-kauff
 
 ## Process
 1. Identify items for release notes during grooming and demo
-2. Create new release note issue using this template and add items to the [Editorial calendar](https://docs.google.com/spreadsheets/d/13nWUY11A84c4WmC6vVmSE42OHaywPir5Eil4orBZz5Q/edit#gid=0)
+2. Create new release note issue using this template and add items to the [Editorial calendar](https://airtable.com/tblulo3XrMLuh4N0l/viwL2poNtFAZMeS6Z?blocks=hide)
 3. Fill out release background info in this template
 3. Draft the release note in this GH issue
 4. Assign someone to peer review the drafted content. Ideally, this is the person/developer who made the change, and the product manager.
