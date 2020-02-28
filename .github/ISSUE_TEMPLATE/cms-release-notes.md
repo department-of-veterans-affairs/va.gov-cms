@@ -8,9 +8,13 @@ assignees: rachel-kauff
 ---
 
 ## Publishing info
+
 **Release date:** [mm/dd/yyyy] [optional: time]
+
 **Scheduled publication date for product release note:** [mm/dd/yy] [optional: time]
-** Items to be covered in the release note:** [e.g. several bugs], [an enhancement], [another thing]
+
+**Items to be covered in the release note:** [e.g. several bugs], [an enhancement], [another thing]
+
 **GH repo link:** [a link]
 
 
