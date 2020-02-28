@@ -5,8 +5,6 @@
  * Contains va_gov_backend.module.
  */
 
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Cache\Cache;
 use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -87,14 +85,6 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
 }
 
 /**
- * Implements hook_entity_update().
- */
-function va_gov_backend_user_update(EntityInterface $entity) {
-  // When the user object is updated, delete the allowed options cache.
-  Cache::invalidateTags(['allowed-dropdown-options-' . $entity->id()]);
-}
-
-/**
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
@@ -102,7 +92,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   $targets = ['field_office'];
   _va_gov_backend_dropdown_field_access($form, $targets);
 
-  // _va_gov_backend_dropdown_field_access($form);
   if ($form_id === 'redirect_redirect_edit_form' || $form_id === 'redirect_redirect_form') {
     $value = 'prefix';
     if ($form_id === 'redirect_redirect_edit_form') {
@@ -144,11 +133,11 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
  *   The node form fields to check.
  */
 function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
+  $user_id = \Drupal::currentUser()->id();
   $perms_service = \Drupal::service('va_gov_backend.user_perms');
   // Grabs items user can access per section associations.
-  $allowed_options = $perms_service->userOptionsStorage($form, $targets);
+  $allowed_options = $perms_service->userOptionsStorage($form, $targets, $user_id);
 
-  $targets = ['field_office'];
   // Loop through all of our target fields.
   foreach ($targets as $target) {
     if (in_array($target, $form) && !empty($form[$target]['widget']['#options'])) {
