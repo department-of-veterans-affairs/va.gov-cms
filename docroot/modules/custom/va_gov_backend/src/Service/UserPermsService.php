@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_backend\Service;
 
+use Drupal\Core\Access\AccessResultForbidden;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\user\Entity\User;
@@ -82,28 +83,32 @@ class UserPermsService {
         if (!empty($cached_data)) {
           $allowed_options = $cached_data->data;
         }
-        foreach ($form[$target]['widget']['#options'] as $header_key => $option_header) {
-          if (is_array($option_header) && !empty($option_header)) {
-            foreach ($option_header as $option_key => $option_item) {
-              $access = $this->userAccess($option_key, 'node', $user_id);
+        else {
+          $target_allowed_options = [];
+          foreach ($form[$target]['widget']['#options'] as $header_key => $option_header) {
+            if (is_array($option_header) && !empty($option_header)) {
+              foreach ($option_header as $option_key => $option_item) {
+                $access = $this->userAccess($option_key, 'node', $user_id);
 
-              if ($access) {
-                $allowed_options[] = $option_key;
+                if ($access) {
+                  $target_allowed_options[] = $option_key;
+                }
               }
             }
           }
+          $tags = [
+            'va_gov_backend_user_perms',
+            'user:' . $user_id,
+          ];
+          // Cache for 24 hours.
+          $expire_time = time() + 24 * 60 * 60;
+          \Drupal::cache()->set($cid, $target_allowed_options, $expire_time, $tags);
+          array_merge($target_allowed_options, $allowed_options);
         }
-        $tags = [
-          'va_gov_backend_user_perms',
-          'user:' . $user_id,
-        ];
-        // Cache for 24 hours.
-        $expire_time = time() + 24 * 60 * 60;
-        \Drupal::cache()->set($cid, $allowed_options, $expire_time, $tags);
       }
     }
 
-    return $allowed_options;
+    return array_unique($allowed_options);
 
   }
 
@@ -150,7 +155,7 @@ class UserPermsService {
       if ((count($results) > 0) && ($entity->id() === '736')) {
         return TRUE;
       }
-      if ($status_class_name === 'Drupal\Core\Access\AccessResultForbidden') {
+      if ($status_class_name === AccessResultForbidden::class) {
         return FALSE;
       }
       return TRUE;
