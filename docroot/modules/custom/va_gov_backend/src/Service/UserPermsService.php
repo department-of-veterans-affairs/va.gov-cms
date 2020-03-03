@@ -103,7 +103,7 @@ class UserPermsService {
           // Cache for 24 hours.
           $expire_time = time() + 24 * 60 * 60;
           \Drupal::cache()->set($cid, $target_allowed_options, $expire_time, $tags);
-          array_merge($target_allowed_options, $allowed_options);
+          $allowed_options = array_merge($target_allowed_options, $allowed_options);
         }
       }
     }
