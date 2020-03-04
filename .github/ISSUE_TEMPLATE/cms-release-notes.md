@@ -6,7 +6,7 @@ labels: Release notes
 assignees: rachel-kauff
 
 ---
-* Use this template to make a ticket for an entire release note. To flag individual release note items, add the "release notes" label to the relevant ticket. These items flagged for release notes will be groomed weekly by Rachel and Kev.*
+_Use this template to make a ticket for an entire release note. To flag individual release note items, add the "release notes" label to the relevant ticket. Flagged items will be groomed weekly by Rachel and Kev._
 
 ## Publishing info
 
