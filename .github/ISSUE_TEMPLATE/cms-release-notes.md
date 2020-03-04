@@ -37,16 +37,16 @@ _Use this template to make a ticket for an entire release note. To flag individu
 * Post in Slack: @here in #cms-support
 
 ## Background info list
-[link to relevant GH issues or epics]
-[link to any relevant screenshots or artifacts]
-Who is responsible for the change?
-What team(s) were involved? (e.g. CMS team, VSA facilities, Public website team, VAMC upgrade team)
-What was it like for users before the change?
-What is like for users after the change?
-Technically, what happened?
-Who is affected?
-Where will I see the change?
-Will users need additional training to utilize the change?
+* [link to relevant GH issues or epics]
+* [link to any relevant screenshots or artifacts]
+* Who is responsible for the change?
+* What team(s) were involved? (e.g. CMS team, VSA facilities, Public website team, VAMC upgrade team)
+* What was it like for users before the change?
+* What is like for users after the change?
+* Technically, what happened?
+* Who is affected?
+* Where will I see the change?
+* Will users need additional training to utilize the change?
 
 ## User Story
 As a CMS user, I need product release notes that help me understand what changed and how it might affect my work. And because I expect these changes are boring at best and annoying at worst, I need extra encouragement to read them. Entertain me, dangit.
