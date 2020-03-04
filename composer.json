@@ -168,6 +168,9 @@
         "sort-packages": true,
         "platform": {
             "php": "7.1.3"
+        },
+        "preferred-install": {
+            "drupal/core": "source"
         }
     },
     "extra": {
@@ -352,7 +355,7 @@
             "npm -v",
             "yarn -v",
             "cd web && yarn run install-repos",
-            "cd web && yarn install"
+            "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd web && yarn install"
         ],
         "va:web:server": [
             "cd web && yarn build"

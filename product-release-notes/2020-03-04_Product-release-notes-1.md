@@ -1,20 +1,32 @@
-# CMS Product Release Note #1: demo environments, cloning, and a few other improvements
+# CMS Product Release Notes #1: Link testing, demo environments, and a few other improvements
 *March 04, 2020*
 
 📣 Starting today, the CMS team will be posting notes with each significant release to keep you up to date. Here’s a quick summary of what’s changed in the CMS: 
 
-1. 🔄 [New: Form for rebuilding test environments](#1)
-2. 🔧 [Fixed: clone trouble](#2)
-3. 🧚 [Improved: streamlined editorial workflow options](#3)
-4. 🥢 [Improved: Edit menu item titles at will](#4)
+* 🔗 [New: Content automatically tested to find broken links](#-new-content-automatically-tested-to-find-broken-links)
+* 🔄 [New: Form for rebuilding test environments](#-new-form-for-rebuilding-content-demo-environments)
+* 🔧 [Fixed: clone trouble](#-fixed-clone-trouble)
+* 🧚 [Improved: streamlined editorial workflow options](#-improved-streamlined-editorial-workflow-options)
+* 🥢 [Improved: Edit menu item titles at will](#-improved-edit-menu-item-titles-at-will)
 
 ---
 
 ---
 
-# 1 
+## 🔗 New: Content automatically tested to find broken links
 
-### 🔄 New: Form for rebuilding content demo environments
+![link reports](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/product-release-notes/screenshots/1-node-link-reports-2.png)
+
+Broken links break builds, bringing big bummers! To avoid link-related problems, we’ve added a feature that will automatically test links and let you know what needs to be fixed.
+
+* Red warning messages let you know what links are broken
+* Yellow messages warn of redirected links or links to unpublished content
+* We also indicate links that we don’t (or can’t) test, like phone or sms links
+
+
+---
+
+## 🔄 New: Form for rebuilding content demo environments
 
 ![content demo environment](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/product-release-notes/screenshots/1-rebuild-form.png "content demo environment")
 
@@ -25,9 +37,7 @@ We extended our testing infrastructure to be useful for other teams who want to 
 
 ---
 
-# 2
-
-### 🔧 Fixed: Clone trouble
+## 🔧 Fixed: Clone trouble
 
 We fixed a problem that was preventing content editors from successfully cloning page content. Cloning living things is still difficult and controversial; cloning content in VA.gov CMS isn’t. 
 
@@ -36,9 +46,7 @@ We fixed a problem that was preventing content editors from successfully cloning
 
 ---
 
-# 3
-
-### 🧚🏽 Improved: Streamlined editorial workflow options
+## 🧚🏽 Improved: Streamlined editorial workflow options
 
 ![screenshot: editorial workflow options](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/product-release-notes/screenshots/1-editorial-workflow-options.png)
 We removed an outdated state from the editorial workflow called “staged.”
@@ -47,8 +55,7 @@ We removed an outdated state from the editorial workflow called “staged.”
 
 ---
 
-# 4
-### 🥢 Improved: Edit menu item titles at will
+## 🥢 Improved: Edit menu item titles at will
 
 ![screenshot: menu item titles](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/product-release-notes/screenshots/1-menu-item-titles.jpg)
 
