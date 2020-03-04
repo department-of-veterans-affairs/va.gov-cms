@@ -17,12 +17,12 @@ _Use this template to make a ticket for an entire release note. To flag individu
 ---
 
 ## Checklist
-- [] Drafted
-- [] Reviewed by those who did the work
-- [] Approved by Product Manager
-- [] Publish as md file in the vagov-cms repo
-- [] Publish in Slack after 3:30 pm ET (12pm PT)
-- [] Updated in the editorial calendar
+- [ ] Drafted
+- [ ] Reviewed by those who did the work
+- [ ] Approved by Product Manager
+- [ ] Publish as md file in the vagov-cms repo
+- [ ] Publish in Slack after 3:30 pm ET (12pm PT)
+- [ ] Updated in the editorial calendar
 
 ---
 
