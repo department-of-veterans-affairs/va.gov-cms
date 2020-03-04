@@ -3,10 +3,10 @@
 
 📣 Starting today, the CMS team will be posting notes with each significant release to keep you up to date. Here’s a quick summary of what’s changed in the CMS: 
 
-* 🔄 [New: Form for rebuilding test environments](#1)
-* 🔧 [Fixed: clone trouble](#2)
-* 🧚 [Improved: streamlined editorial workflow options](#3)
-* 🥢 [Improved: Edit menu item titles at will](#4)
+1. 🔄 [New: Form for rebuilding test environments](#1)
+2. 🔧 [Fixed: clone trouble](#2)
+3. 🧚 [Improved: streamlined editorial workflow options](#3)
+4. 🥢 [Improved: Edit menu item titles at will](#4)
 
 ---
 
