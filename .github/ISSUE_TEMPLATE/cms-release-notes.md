@@ -6,71 +6,49 @@ labels: Release notes
 assignees: rachel-kauff
 
 ---
+* Use this template to make a ticket for an entire release note. To flag individual release note items, add the "release notes" label to the relevant ticket. These items flagged for release notes will be groomed weekly by Rachel and Kev.*
 
 ## Publishing info
 
-**Release date:** [mm/dd/yyyy] [optional: time]
+* **Release date of the last item updated:** [mm/dd/yyyy] [optional: time]
+* **Scheduled publication date for product release note:** [mm/dd/yy] [optional: time]
+* **Items to be covered in the release note:** [identified in this Airtable](https://airtable.com/tblulo3XrMLuh4N0l/viwL2poNtFAZMeS6Z?blocks=hide)
 
-**Scheduled publication date for product release note:** [mm/dd/yy] [optional: time]
+---
 
-**Items to be covered in the release note:** [e.g. several bugs], [an enhancement], [another thing]
+## Checklist
+- [] Drafted
+- [] Reviewed by those who did the work
+- [] Approved by Product Manager
+- [] Publish as md file in the vagov-cms repo
+- [] Publish in Slack after 3:30 pm ET (12pm PT)
+- [] Updated in the editorial calendar
 
-**GH repo link:** [a link]
-
-
-## User Story 
-*(General) As a CMS user, I need product release notes that help me understand what changed and how it might affect my work. And because I expect these changes are boring at best and annoying at worst, I need extra encouragement to read them. Entertain me, dangit.*
+---
 
 ## Process
-1. Identify items for release notes during grooming and demo
-2. Create new release note issue using this template and add items to the [Editorial calendar](https://airtable.com/tblulo3XrMLuh4N0l/viwL2poNtFAZMeS6Z?blocks=hide)
-3. Fill out release background info in this template
-3. Draft the release note in this GH issue
-4. Assign someone to peer review the drafted content. Ideally, this is the person/developer who made the change, and the product manager.
-5. Migrate content into markdown file in va.gov-cms/product-release-notes using a correct naming convention
-6. Post in Slack: @here in #cms-support  
+* Team and product manager identifies items for release notes during grooming and demo by adding the maroon “release notes” label to tickets
+* UX Writer tracks the status of individual release note items in the Editorial calendar
+* Gather background information on each item using the background list
+* Draft the release note in this document
+* Ask the person who did the work to review their item by adding the text to their ticket and @ing them.
+* Review entire release note with product manager and get approval 
+* Migrate content into markdown file in va.gov-cms/product-release-notes using a correct naming convention
+* Post in Slack: @here in #cms-support
 
-## Release background info
-* [link to relevant GH issues or epics]
-* [link to any relevant screenshots or artifacts]
-* Make sure you have info on the following before drafting:
+## Background info list
+[link to relevant GH issues or epics]
+[link to any relevant screenshots or artifacts]
+Who is responsible for the change?
+What team(s) were involved? (e.g. CMS team, VSA facilities, Public website team, VAMC upgrade team)
+What was it like for users before the change?
+What is like for users after the change?
+Technically, what happened?
+Who is affected?
+Where will I see the change?
+Will users need additional training to utilize the change?
 
-**Who is responsible for the change?**
+## User Story
+As a CMS user, I need product release notes that help me understand what changed and how it might affect my work. And because I expect these changes are boring at best and annoying at worst, I need extra encouragement to read them. Entertain me, dangit.
 
-What team(s) were involved? 
-* CMS team
-* VSA facilities
-* Public website team
-* VAMC upgrade team>
-
-**What was it like for users before the change?**
-
-**What is like for users *after* the change?**
-
-
-**Technically, what happened?**
-
-<e.g. Previously, we were using Metalsmith to generate VAMC content listing pages as Frankenstein-like assemblages of many different content types, and they only existed on the front end. Now that these pages are their own content type, pages like /events have a home in the CMS.>
-
-**Who is affected?**
-
-<e.g.> VAMC content editors 
-
-**Where will I see the change?**
-
-<e.g. VAMC home pages: fields for content listings removed
-VAMC content sections: now searchable by the new content types: “Events listing,” “Stories listing” 
-New paths in the CMS for VAMC pages “/events,” “/locations,” “/health-services,” “/stories” “/news-releases,” “/leadership”>
-
-**Will users need additional training to utilize the change?**
-
-<e.g. Users need training to use the new form for rebuilding content PR environments for demo purposes, or content changes that require a separate front-end branch.>
-
-## Drafted content for Slack
-### CMS Release notes: [title]
-**[datetime]** 
-
-Get the full details here: <link>
-
-## Drafted extended content for GH repo
 
