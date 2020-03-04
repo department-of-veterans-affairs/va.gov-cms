@@ -1,14 +1,28 @@
-# CMS Product Release Note #1: demo environments, cloning, and a few other improvements
+# CMS Product Release Note #1: Link testing, demo environments, and a few other improvements
 *March 04, 2020*
 
 📣 Starting today, the CMS team will be posting notes with each significant release to keep you up to date. Here’s a quick summary of what’s changed in the CMS: 
 
+* 🔗 [New: Content automatically tested to find broken links](#-new-content-automatically-tested-to-find-broken-links)
 * 🔄 [New: Form for rebuilding test environments](#-new-form-for-rebuilding-content-demo-environments)
 * 🔧 [Fixed: clone trouble](#-fixed-clone-trouble)
 * 🧚 [Improved: streamlined editorial workflow options](#-improved-streamlined-editorial-workflow-options)
 * 🥢 [Improved: Edit menu item titles at will](#-improved-edit-menu-item-titles-at-will)
 
 ---
+
+---
+
+## 🔗 New: Content automatically tested to find broken links
+
+![link reports](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/product-release-notes/screenshots/1-node-link-reports-2.png)
+
+Broken links break builds, bringing big bummers! To avoid link-related problems, we’ve added a feature that will automatically test links and let you know what needs to be fixed.
+
+* Red warning messages let you know what links are broken
+* Yellow messages warn of redirected links or links to unpublished content
+* We also indicate links that we don’t (or can’t) test, like phone or sms links
+
 
 ---
 
