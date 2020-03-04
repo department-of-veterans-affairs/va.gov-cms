@@ -21,10 +21,6 @@ class EnvironmentHandler {
     $env_file_name = '.env';
     try {
 
-      // Load global ENV variables that should always be present.
-      $global = new Dotenv($env_file_dir, '.env.global');
-      $global->overload();
-
       // If LANDO Server variable exists, load Lando env file.
       if (!empty(getenv('LANDO')) && getenv('LANDO') === 'ON') {
 
