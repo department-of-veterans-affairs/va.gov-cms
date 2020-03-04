@@ -163,3 +163,7 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php'
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.local.php')) {
   include $app_root . '/' . $site_path . '/settings/settings.local.php';
 }
+
+$export_dir = $settings['file_public_path'] . '/export';
+$settings['tome_content_directory'] =  "$export_dir/content";
+$settings['tome_files_directory'] =  "$export_dir/files";
