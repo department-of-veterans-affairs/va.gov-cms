@@ -40,7 +40,7 @@ The VA.gov CMS Team
     1. Overview
     1. Drupal
     1. MetalSmith
-    1. [Interfaces](READMES/interfaces.md) - API's and Feature Flags
+    1. [Interfaces](READMES/interfaces.md) - APIs and Feature Flags
     1. [Security](READMES/security.md)
 1. **CMS Users**
     1. [Login / SSOi](READMES/cms-login.md)
