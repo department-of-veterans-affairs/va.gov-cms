@@ -1,4 +1,4 @@
-# CMS Release Note #1: demo environments, cloning, and a few other improvements
+# CMS Product Release Note #1: demo environments, cloning, and a few other improvements
 *March 04, 2020*
 
 📣 Starting today, the CMS team will be posting notes with each significant release to keep you up to date. Here’s a quick summary of what’s changed in the CMS: 
