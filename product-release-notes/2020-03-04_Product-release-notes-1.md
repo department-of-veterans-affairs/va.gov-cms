@@ -6,7 +6,7 @@
 * 🔄 [New: Form for rebuilding test environments](#-new-form-for-rebuilding-content-demo-environments)
 * 🔧 [Fixed: clone trouble](#-fixed-clone-trouble)
 * 🧚 [Improved: streamlined editorial workflow options](#-improved-streamlined-editorial-workflow-options)
-* 🥢 [Improved: Edit menu item titles at will](##-improved-edit-menu-item-titles-at-will)
+* 🥢 [Improved: Edit menu item titles at will](#-improved-edit-menu-item-titles-at-will)
 
 ---
 
