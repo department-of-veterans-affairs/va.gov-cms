@@ -3,16 +3,16 @@
 
 📣 Starting today, the CMS team will be posting notes with each significant release to keep you up to date. Here’s a quick summary of what’s changed in the CMS: 
 
-* 🔄 [New: Form for rebuilding test environments](#-new-form-for-rebuilding-content-demo-environments)
-* 🔧 [Fixed: clone trouble](#-fixed-clone-trouble)
-* 🧚 [Improved: streamlined editorial workflow options](#-improved-streamlined-editorial-workflow-options)
-* 🥢 [Improved: Edit menu item titles at will](#-improved-edit-menu-item-titles-at-will)
+* 🔄 [New: Form for rebuilding test environments](##-new-form-for-rebuilding-content-demo-environments)
+* 🔧 [Fixed: clone trouble](##-fixed-clone-trouble)
+* 🧚 [Improved: streamlined editorial workflow options](##-improved-streamlined-editorial-workflow-options)
+* 🥢 [Improved: Edit menu item titles at will](##-improved-edit-menu-item-titles-at-will)
 
 ---
 
 ---
 
-# 🔄 New: Form for rebuilding content demo environments
+## 🔄 New: Form for rebuilding content demo environments
 
 ![content demo environment](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/product-release-notes/screenshots/1-rebuild-form.png "content demo environment")
 
@@ -23,7 +23,7 @@ We extended our testing infrastructure to be useful for other teams who want to 
 
 ---
 
-# 🔧 Fixed: Clone trouble
+## 🔧 Fixed: Clone trouble
 
 We fixed a problem that was preventing content editors from successfully cloning page content. Cloning living things is still difficult and controversial; cloning content in VA.gov CMS isn’t. 
 
@@ -32,7 +32,7 @@ We fixed a problem that was preventing content editors from successfully cloning
 
 ---
 
-# 🧚🏽 Improved: Streamlined editorial workflow options
+## 🧚🏽 Improved: Streamlined editorial workflow options
 
 ![screenshot: editorial workflow options](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/product-release-notes/screenshots/1-editorial-workflow-options.png)
 We removed an outdated state from the editorial workflow called “staged.”
@@ -41,7 +41,7 @@ We removed an outdated state from the editorial workflow called “staged.”
 
 ---
 
-# 🥢 Improved: Edit menu item titles at will
+## 🥢 Improved: Edit menu item titles at will
 
 ![screenshot: menu item titles](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/product-release-notes/screenshots/1-menu-item-titles.jpg)
 
