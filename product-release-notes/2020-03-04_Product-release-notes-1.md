@@ -4,9 +4,9 @@
 📣 Starting today, the CMS team will be posting notes with each significant release to keep you up to date. Here’s a quick summary of what’s changed in the CMS: 
 
 * 🔄 [New: Form for rebuilding test environments](##1)
-* 🔧 Fixed: clone trouble
-* 🧚 Improved: streamlined editorial workflow options
-* 🥢 Improved: Edit menu item titles at will
+* 🔧 [Fixed: clone trouble](##2)
+* 🧚 [Improved: streamlined editorial workflow options](##3)
+* 🥢 [Improved: Edit menu item titles at will](##4)
 
 ---
 
@@ -25,7 +25,9 @@ We extended our testing infrastructure to be useful for other teams who want to 
 
 ---
 
-## 🔧 Fixed: Clone trouble
+## 2
+
+### 🔧 Fixed: Clone trouble
 
 We fixed a problem that was preventing content editors from successfully cloning page content. Cloning living things is still difficult and controversial; cloning content in VA.gov CMS isn’t. 
 
@@ -34,7 +36,9 @@ We fixed a problem that was preventing content editors from successfully cloning
 
 ---
 
-## 🧚🏽 Improved: Streamlined editorial workflow options
+## 3
+
+### 🧚🏽 Improved: Streamlined editorial workflow options
 
 ![screenshot: editorial workflow options](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/product-release-notes/screenshots/1-editorial-workflow-options.png)
 We removed an outdated state from the editorial workflow called “staged.”
@@ -43,7 +47,8 @@ We removed an outdated state from the editorial workflow called “staged.”
 
 ---
 
-## 🥢 Improved: Edit menu item titles at will
+## 4
+### 🥢 Improved: Edit menu item titles at will
 
 ![screenshot: menu item titles](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/product-release-notes/screenshots/1-menu-item-titles.jpg)
 
