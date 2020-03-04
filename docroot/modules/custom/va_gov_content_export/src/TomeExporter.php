@@ -24,13 +24,24 @@ class TomeExporter extends Exporter {
   ];
 
   /**
-   * Gets the index file path.
+   * Acquires a lock for writing to the index.
    *
-   * @return string
-   *   The index file path.
+   * @return resource
+   *   A file pointer resource on success.
+   *
+   * @throws \Exception
+   *   Throws an exception when the index file cannot be written to.
    */
-  protected function getContentIndexFilePath() {
-    return Settings::get('tome_content_directory', '../content') . '/meta_index.json';
+  protected function acquireContentIndexLock() {
+    $destination = $this->getContentIndexFilePath();
+    $directory = dirname($destination);
+    file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
+    chmod($directory, 2770);
+    $handle = fopen($destination, 'c+');
+    if (!flock($handle, LOCK_EX)) {
+      throw new \Exception('Unable to acquire lock for the index file.');
+    }
+    return $handle;
   }
 
 }
