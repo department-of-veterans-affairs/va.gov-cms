@@ -43,7 +43,7 @@ function va_gov_backend_form_views_exposed_form_alter(&$form, FormStateInterface
 }
 
 /**
- * AChange text input to select list of VAMC systems.
+ * A Change text input to select list of VAMC systems.
  *
  * @param array $form
  *   The exposed widget form array.
@@ -92,6 +92,10 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   $targets = ['field_office'];
   _va_gov_backend_dropdown_field_access($form, $targets);
 
+  if ($form_id === 'workbench_access_assign_user') {
+    $form['#submit'][] = 'va_gov_backend_workbench_assign_user_form_submit';
+  }
+
   if ($form_id === 'redirect_redirect_edit_form' || $form_id === 'redirect_redirect_form') {
     $value = 'prefix';
     if ($form_id === 'redirect_redirect_edit_form') {
@@ -122,6 +126,20 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     // @todo Consider disabling it instead of hiding it.
     $form['field_office']['#attributes']['class'] = 'hidden';
   }
+}
+
+/**
+ * Callback handler for workbench_access_assign_user form - resets perms.
+ *
+ * @param array $form
+ *   The workbench_access_assign_user form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   Provides an interface for an object containing the current state of a form.
+ */
+function va_gov_backend_workbench_assign_user_form_submit(array $form, FormStateInterface $form_state) {
+  $user_id = \Drupal::currentUser()->id();
+  $tags = ['user:' . $user_id];
+  \Drupal::service('cache_tags.invalidator')->invalidateTags($tags);
 }
 
 /**
