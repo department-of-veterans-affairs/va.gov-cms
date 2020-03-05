@@ -10,6 +10,7 @@ use Drupal\tome_sync\Exporter;
  * Overridden to exclude more types of entities.
  */
 class TomeExporter extends Exporter {
+
   /**
    * An array of excluded entity types.
    *
@@ -22,4 +23,23 @@ class TomeExporter extends Exporter {
     'user_history',
   ];
 
+  /**
+   * Acquires a lock for writing to the index.
+   *
+   * @return resource
+   *   A file pointer resource on success.
+   *
+   * @throws \Exception
+   *   Throws an exception when the index file cannot be written to.
+   */
+  protected function acquireContentIndexLock() {
+    $destination = $this->getContentIndexFilePath();
+    $directory = dirname($destination);
+    @mkdir($directory);
+    $handle = fopen($destination, 'c+');
+    if (!flock($handle, LOCK_EX)) {
+      throw new \Exception('Unable to acquire lock for the index file.');
+    }
+    return $handle;
+  }
 }
