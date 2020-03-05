@@ -1,0 +1,5 @@
+services:
+  file_system.devshop:
+    class: Drupal\va_gov_content_export\FileSystem
+    decorates: file_system
+    arguments: ['@stream_wrapper_manager', '@settings', '@logger.channel.file']
