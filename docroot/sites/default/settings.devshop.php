@@ -24,7 +24,7 @@ if (file_exists($app_root . '/' . $site_path . '/../default/settings.php')) {
 }
 
 // Add devshopt level service file for FileSystem overrides
-$settings['file_chmod_directory'] = 02770;
+$settings['file_chmod_directory'] = 02775;
 
 // Restore DevShop's $databases settings.
 $databases  = $devshop_db_settings;
@@ -35,7 +35,7 @@ $databases  = $devshop_db_settings;
 // authoritative source for the cookie_lifetime.
 ini_set('session.cookie_lifetime', 0);
 
-$settings['container_yamls'][] = DRUPAL_ROOT . '/sites/devshop.services.yml';
+//$settings['container_yamls'][] = DRUPAL_ROOT . '/sites/devshop.services.yml';
 
 /**
  * GLOBAL SETTINGS.PHP OVERRIDES
