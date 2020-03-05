@@ -14,7 +14,7 @@
  * DEVSHOP SETTINGS.PHP OVERRIDES
  */
 // Add devshopt level service file for FileSystem overrides
-$settings['file_chmod_directory'] = 2770;
+$settings['file_chmod_directory'] = 02770;
 
 // The file, settings.php, on devshop.cms.va.gov has it's own $databases array.
 // We copy it so we can restore it after we import our global settings.php file.
