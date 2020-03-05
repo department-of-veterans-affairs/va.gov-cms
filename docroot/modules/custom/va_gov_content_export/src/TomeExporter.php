@@ -2,7 +2,6 @@
 
 namespace Drupal\va_gov_content_export;
 
-use Drupal\Core\Site\Settings;
 use Drupal\tome_sync\Exporter;
 
 /**

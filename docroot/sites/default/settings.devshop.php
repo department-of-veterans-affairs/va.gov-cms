@@ -15,8 +15,8 @@
  */
 // Add devshopt level service file for FileSystem overrides
 //$settings['container_yamls'][] = DRUPAL_ROOT . '/sites/deveshop.services.yml';
-$settings['file_chmod_directory'] = 2775;
-$settings['file_chmod_file'] = 2664;
+$settings['file_chmod_directory'] = 2770;
+//$settings['file_chmod_file'] = 2664;
 
 // The file, settings.php, on devshop.cms.va.gov has it's own $databases array.
 // We copy it so we can restore it after we import our global settings.php file.

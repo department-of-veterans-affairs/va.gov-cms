@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Drupal\va_gov_content_export;
 
 
@@ -21,4 +20,5 @@ class FileSystem extends CoreFileSystem {
    * Default mode for new files. See self::chmod().
    */
   const CHMOD_FILE = 2664;
+
 }
