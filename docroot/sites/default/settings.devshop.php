@@ -35,8 +35,6 @@ $databases  = $devshop_db_settings;
 // authoritative source for the cookie_lifetime.
 ini_set('session.cookie_lifetime', 0);
 
-//$settings['container_yamls'][] = DRUPAL_ROOT . '/sites/devshop.services.yml';
-
 /**
  * GLOBAL SETTINGS.PHP OVERRIDES
  *

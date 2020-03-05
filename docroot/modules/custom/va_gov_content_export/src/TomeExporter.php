@@ -35,6 +35,9 @@ class TomeExporter extends Exporter {
   protected function acquireContentIndexLock() {
     $destination = $this->getContentIndexFilePath();
     $directory = dirname($destination);
+    // Overridding how the directory is being created because we want to
+    // use the default parent directory permission
+    // for devshop tests to work correctly.
     @mkdir($directory);
     $handle = fopen($destination, 'c+');
     if (!flock($handle, LOCK_EX)) {
