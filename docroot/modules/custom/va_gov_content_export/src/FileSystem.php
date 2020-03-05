@@ -7,7 +7,7 @@ namespace Drupal\va_gov_content_export;
 use Drupal\Core\File\FileSystem as CoreFileSystem;
 
 /**
- * Override how files are handled on Devshop
+ * Override how files are handled on Devshop.
  *
  * @package Drupal\va_gov_content_export
  */
