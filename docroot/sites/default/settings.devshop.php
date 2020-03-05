@@ -13,8 +13,6 @@
 /**
  * DEVSHOP SETTINGS.PHP OVERRIDES
  */
-// Add devshopt level service file for FileSystem overrides
-$settings['file_chmod_directory'] = 02770;
 
 // The file, settings.php, on devshop.cms.va.gov has it's own $databases array.
 // We copy it so we can restore it after we import our global settings.php file.
@@ -25,6 +23,9 @@ if (file_exists($app_root . '/' . $site_path . '/../default/settings.php')) {
   include $app_root . '/' . $site_path . '/../default/settings.php';
 }
 
+// Add devshopt level service file for FileSystem overrides
+$settings['file_chmod_directory'] = 02770;
+
 // Restore DevShop's $databases settings.
 $databases  = $devshop_db_settings;
 
@@ -34,6 +35,7 @@ $databases  = $devshop_db_settings;
 // authoritative source for the cookie_lifetime.
 ini_set('session.cookie_lifetime', 0);
 
+$settings['container_yamls'][] = DRUPAL_ROOT . '/sites/devshop.services.yml';
 
 /**
  * GLOBAL SETTINGS.PHP OVERRIDES
