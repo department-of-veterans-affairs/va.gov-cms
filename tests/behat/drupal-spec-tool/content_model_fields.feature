@@ -1,69 +1,10 @@
 @api
-Feature: Content model
+Feature: Content model fields
   In order to enter structured content into my site
   As a content editor
-  I want to have content entity types that reflect my content model.
+  I want to have fields that reflect my content model.
 
-  @dst @content_type
-     Scenario: Bundles
-       Then exactly the following content entity type bundles should exist
-       | Name | Machine name | Type | Description |
-| Benefits detail page | page | Content type | These pages hold all of the benefits overview content, such the detail pages linked to from va.gov/disability, va.gov/health-care, and va.gov/education. |
-| Benefits hub landing page | landing_page | Content type | A special page for top-level Benefits content with its own one-off layout and content. |
-| Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
-| Documentation page | documentation_page | Content type | Help pages VA.gov CMS editors. |
-| Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
-| Event listing | event_listing | Content type | A listing of events. |
-| News release | press_release | Content type | Announcements directed at members of the media for the purpose of publicizing newsworthy events/happenings/programs at specific facilities or healthcare systems. |
-| Office | office | Content type | An office at the VA, which may have contact info, events, news, and a leadership page in some cases. |
-| Publication | outreach_asset | Content type | Contains a document, image, or video, for publication within a Publication library. |
-| Publication listing | publication_listing | Content type | This allows the listing of publication materials such as documents, videos, and images all in one place. |
-| Staff profile | person_profile | Content type | Profiles of staff members for display in various places around the site. |
-| Story | news_story | Content type | Community stories highlight the role of a VA facility, program, or healthcare system in a Veteran's journey. They may be a case study of a specific patient, a description of a new or successful program, or a community-interest story. |
-| Support Service | support_service | Content type | Help desks, hotlines, etc, to be contextually placed alongside relevant content. |
-| VAMC system | health_care_region_page | Content type | A VAMC system contains multiple VHA health facilities, including usually at least one VAMC, sometimes more. |
-| VAMC system banner alert with situation updates | full_width_banner_alert | Content type | A full-width alert that will be added to a VAMC system, or multiple VAMC systems. |
-| VAMC facility | health_care_local_facility | Content type | A clinic or hospital within a VAMC system. |
-| VAMC facility health service | health_care_local_health_service | Content type | A facility specific description of a health care service, always embedded within a VAMC system description. |
-| VAMC system health service | regional_health_care_service_des | Content type | A description of a health service specific to a VAMC system. |
-| VAMC system operating status | vamc_operating_status_and_alerts | Content type | Create one of these pages for each VAMC system. Then you can add banner alerts and update facilities' operating status, all from one place. |
-| Alert | alert | Custom block type | An alert box that can be added to individual pages. |
-| Promo | promo | Custom block type | Promote a link with an image, title, and description. |
-| Document | document | Media type | A locally hosted document, such as a PDF. |
-| Image | image | Media type | Locally hosted images. |
-| Video | video | Media type | A video hosted by YouTube, Vimeo, or some other provider. |
-| Accordion group | collapsible_panel | Paragraph type | A group of accordions. |
-| Accordion Item | collapsible_panel_item | Paragraph type | An individual accordion. |
-| Additional information | spanish_translation_summary | Paragraph type | Spanish summary to include a brief spanish-language summary of the content. |
-| Address | address | Paragraph type | An address block. |
-| Alert | alert | Paragraph type | A reusable or non-reusable alert, either "information status" or "warning status". |
-| Embedded image | media | Paragraph type | For adding an image inline |
-| Expandable Text | expandable_text | Paragraph type | Text that expands upon click. |
-| Link teaser | link_teaser | Paragraph type | A link followed by a description. For building inline "menus" of content. |
-| Link to file or video | downloadable_file | Paragraph type | For image or document downloads. |
-| List of link teasers | list_of_link_teasers | Paragraph type | A paragraph that contains only one type of paragraph: Link teaser. |
-| Number callout | number_callout | Paragraph type | Number callouts can be used in the context of a question & answer, where the answer can be summarized in a short phrase that is number-oriented. |
-| Process list | process | Paragraph type | An ordered list (1, 2, 3, 4, N) of steps in a process. |
-| Q&A | q_a | Paragraph type | Question and Answer |
-| Q&A Section | q_a_section | Paragraph type | For content formatted as a series of questions and answers. Use this (instead of WYSIWYG) for better accessibility and easy rearranging. |
-| React Widget | react_widget | Paragraph type | Advanced editors can use this to place react widgets (like a form) on the page. |
-| Staff profile | staff_profile | Paragraph type | Add a profile of a staff person. |
-| Starred Horizontal Rule | starred_horizontal_rule | Paragraph type | Current an inactive paragraph type, not enabled within any fields. |
-| Table | table | Paragraph type | Add an HTML table with rows and columns. |
-| VAMC facility service (non-healthcare service) | health_care_local_facility_servi | Paragraph type | A service available at a specific health care facility, like Parking, or Chaplaincy. |
-| WYSIWYG | wysiwyg | Paragraph type | An open-ended text field. |
-| Situation update | situation_update | Paragraph type | A time-sensitive, added to a banner alert, and displayed on VAMC operating status pages. |
-| Sections | administration | Vocabulary | Represents a hierarchy of the VA, partly for governance purposes. |
-| Type of Redirect | type_of_redirect | Vocabulary |  |
-| VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
-| Health services listing | health_services_listing | Content type | A listing of health services. |
-| Locations listing | locations_listing | Content type | A listing of locations. |
-| News releases listing | press_releases_listing | Content type | A listing of press releases. |
-| Story listing | story_listing | Content type | A listing of stories. |
-| Leadership listing | leadership_listing | Content type | A listing of staff members. |
-
-
-  @dst @field_type
+  @dst @field_type @dstfields
      Scenario: Fields
        Then exactly the following fields should exist
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
@@ -232,8 +173,6 @@ Feature: Content model
 | Content type | VAMC system | Community stories intro text | field_intro_text_news_stories | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC system | Press releases intro text | field_intro_text_press_releases | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | VAMC system | Leadership team | field_leadership | Entity reference |  | Unlimited | Autocomplete |  |
-| Content type | VAMC system | GovDelivery ID for News and Announcements  | field_govdelivery_id_news      | Text (plain) | Required | 1 | Textfield      |  |
-| Content type | VAMC system | GovDelivery ID for Emergency updates email | field_govdelivery_id_emerg     | Text (plain) | Required | 1 | Textfield      |  |
 | Content type | VAMC system | Our Locations intro text | field_locations_intro_blurb | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
 | Content type | VAMC system | Banner image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | VAMC system | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
@@ -249,7 +188,6 @@ Feature: Content model
 | Content type | VAMC system banner alert with situation updates | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC system banner alert with situation updates | Display "Subscribe to email updates" link? | field_alert_email_updates_button | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC system banner alert with situation updates | Display "Find other VA facilities near you" link? | field_alert_find_facilities_cta | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | VAMC system banner alert with situation updates | Only show on VAMC System page & Operating status page | field_alert_inheritance_subpages | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC system banner alert with situation updates | Computed values for alerts | field_banner_alert_computdvalues | Computed (text, long) |  | 1 | -- Disabled -- |  |
 | Content type | VAMC system banner alert with situation updates | Display "Get updates on affected services and facilities" link | field_alert_operating_status_cta | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC system banner alert with situation updates | Alert type | field_alert_type | List (text) | Required | 1 | Select list |  |
@@ -270,39 +208,6 @@ Feature: Content model
 | Content type | VAMC system operating status | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC system operating status | VAMC system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC system operating status | Emergency information | field_operating_status_emerg_inf | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
-| Content type | Health services listing | Featured content on health-services page | field_featured_content_healthser | Entity reference revisions | | 3 | Paragraphs Classic | Translatable |
-| Content type | Health services listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
-| Content type | Health services listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | Health services listing | Meta tags | field_meta_tags | Meta tags | | 1 | Advanced meta tags form | Translatable |
-| Content type | Health services listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | Health services listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Health services listing | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Leadership listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
-| Content type | Leadership listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | Leadership listing | Meta tags | field_meta_tags | Meta tags | | 1 | Advanced meta tags form   | Translatable |
-| Content type | Leadership listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | Leadership listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Leadership listing | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Leadership listing | Leadership team | field_leadership | Entity reference |  | Unlimited | Autocomplete | Translatable |
-| Content type | Locations listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
-| Content type | Locations listing | Meta description | field_description | Text (plain)| Required | 1 | Textfield with counter    | Translatable |
-| Content type | Locations listing | Meta tags | field_meta_tags | Meta tags | | 1 | Advanced meta tags form   | Translatable |
-| Content type | Locations listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter    | Translatable |
-| Content type | Locations listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Locations listing | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | News releases listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
-| Content type | News releases listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter    | Translatable |
-| Content type | News releases listing | Meta tags | field_meta_tags | Meta tags | | 1 | Advanced meta tags form   | Translatable |
-| Content type | News releases listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | News releases listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | News releases listing | Press Release Blurb | field_press_release_blurb | Text (formatted, long)| | 1 | Text area (multiple rows) | Translatable |
-| Content type | News releases listing | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Story listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
-| Content type | Story listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | Story listing | Meta tags | field_meta_tags | Meta tags | | 1 | Advanced meta tags form   | Translatable |
-| Content type | Story listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | Story listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Story listing | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Custom block type | Alert | Alert body | field_alert_content | Entity reference revisions | Required | 1 | Paragraphs Classic |  |
 | Custom block type | Alert | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  |
 | Custom block type | Alert | Persistence (for dismissable alerts only) | field_alert_frequency | List (text) | Required | 1 | Select list |  |
@@ -391,3 +296,39 @@ Feature: Content model
 | Vocabulary | VHA health service taxonomy | Health Service API ID | field_health_service_api_id | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VHA health service taxonomy | Owner | field_owner | Entity reference | Required | 1 | Select list |  |
 | Vocabulary | VHA health service taxonomy | VHA Stop code | field_vha_healthservice_stopcode | Number (integer) |  | 1 | Number field |  |
+| Content type | VAMC system banner alert with situation updates | Only show on VAMC System page & Operating status page | field_alert_inheritance_subpages | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | VAMC system | GovDelivery ID for Emergency updates email | field_govdelivery_id_emerg | Text (plain) | Required | 1 | Textfield |  |
+| Content type | VAMC system | GovDelivery ID for News and Announcements | field_govdelivery_id_news | Text (plain) | Required | 1 | Textfield |  |
+| Content type | Health services listing | Featured content on health-services page | field_featured_content_healthser | Entity reference revisions |  | 3 | Paragraphs Classic | Translatable |
+| Content type | Health services listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
+| Content type | Health services listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | Health services listing | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | Health services listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | Health services listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Health services listing | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Locations listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
+| Content type | Locations listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | Locations listing | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | Locations listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | Locations listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Locations listing | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | News releases listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
+| Content type | News releases listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | News releases listing | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | News releases listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | News releases listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | News releases listing | Press Release Blurb | field_press_release_blurb | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | News releases listing | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Story listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
+| Content type | Story listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | Story listing | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | Story listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | Story listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Story listing | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Leadership listing | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
+| Content type | Leadership listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | Leadership listing | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | Leadership listing | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | Leadership listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Leadership listing | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Leadership listing | Leadership team | field_leadership | Entity reference |  | Unlimited | Autocomplete | Translatable |
