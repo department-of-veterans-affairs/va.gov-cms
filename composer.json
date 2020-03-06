@@ -279,6 +279,7 @@
         ],
         "post-install-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+            "mkdir --parents docroot/profiles",
             "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
             "cp -r 'simplesamlphp-1.17.2/config/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
