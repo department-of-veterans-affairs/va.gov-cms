@@ -1,10 +1,8 @@
 # VA.gov CMS
 
-Welcome to the VA.gov CMS documentation!
+VA.gov Content Management System (CMS) documentation that powers [www.va.gov](https://www.va.gov).
 
-This is the public documentation for the Content Management System (CMS) that powers [www.va.gov](https://www.va.gov).  
-
-The private, sensitive documentation is at https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/platform/cms and you should follow https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/sensitive-guidance.md to know what should be public vs private. 
+The private/sensitive documentation is at https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/platform/cms and you should follow https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/sensitive-guidance.md to know what should be public vs private. 
 
 If you find any errors in this documentation, please feel free to [make an edit and submit a Pull Request](https://github.com/department-of-veterans-affairs/va.gov-cms/edit/master/README.md)!
 
@@ -42,7 +40,7 @@ The VA.gov CMS Team
     1. Overview
     1. Drupal
     1. MetalSmith
-    1. [Interfaces](READMES/interfaces.md) - API's and Feature Flags
+    1. [Interfaces](READMES/interfaces.md) - APIs and Feature Flags
     1. [Security](READMES/security.md)
 1. **CMS Users**
     1. [Login / SSOi](READMES/cms-login.md)
