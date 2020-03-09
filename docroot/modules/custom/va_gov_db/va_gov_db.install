@@ -145,3 +145,16 @@ function va_gov_db_update_8005(&$sandbox) {
 
   return $messages;
 }
+
+/**
+ * Uninstall slick modules.
+ */
+function va_gov_db_update_8006(&$sandbox) {
+  $unistall_modules = [
+    'slick_entityreference',
+    'slick',
+  ];
+  $messages = _va_gov_db_uninstall_modules($unistall_modules);
+
+  return $messages;
+}
