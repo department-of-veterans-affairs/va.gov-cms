@@ -130,7 +130,7 @@
         "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^4.3",
         "twig/twig": "^1.38.2",
-        "va-gov/web": "dev-master",
+        "va-gov/web": "dev-VAGOV-6425-refactor-listings-et",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
         "weitzman/drupal-test-traits": "dev-master",
@@ -295,6 +295,8 @@
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\""
         ],
         "nuke": [
+            "cd bin && ln -sf ../docroot/libraries/yarn/bin/yarn yarn",
+            "yarn cache clean",
             "rm -rf bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor",
             "composer clear-cache"
         ],
