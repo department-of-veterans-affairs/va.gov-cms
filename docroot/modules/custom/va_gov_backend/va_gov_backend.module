@@ -137,7 +137,9 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
  *   Provides an interface for an object containing the current state of a form.
  */
 function va_gov_backend_workbench_assign_user_form_submit(array $form, FormStateInterface $form_state) {
-  $user_id = \Drupal::currentUser()->id();
+  $raw_path_to_args = $form_state->getBuildInfo()['args'];
+  $path_to_args = reset($raw_path_to_args);
+  $user_id = $path_to_args->id();
   $tags = ['user:' . $user_id];
   \Drupal::service('cache_tags.invalidator')->invalidateTags($tags);
 }
