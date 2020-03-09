@@ -1,0 +1,6 @@
+va_gov_content_export.content_tar:
+  path: /export/content
+  defaults:
+    _controller: 'va_gov.content_export.content_tar_page_controller:exportTar'
+  requirements:
+    _va_gov_content_tar_exists: 'TRUE'
