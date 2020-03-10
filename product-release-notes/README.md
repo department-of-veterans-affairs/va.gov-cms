@@ -19,7 +19,7 @@ Learn about the latest changes to the VA.gov CMS. The CMS team will log product 
 **Q: Excellent. So how do I become release note famous?**
 
 **A:** Flag it in the ticket
-* 🟥 Use the marron colored "release notes" label 
+* 🟥 Use the maroon colored "release notes" label 
 * 🧹 Best done right when the ticket is created, such as in planning or grooming
 * 📎 Product manager and UX writer (Kevin + Rachel) will review flagged items weekly
 * 💎 UX writer may follow up for details after item is demoed
