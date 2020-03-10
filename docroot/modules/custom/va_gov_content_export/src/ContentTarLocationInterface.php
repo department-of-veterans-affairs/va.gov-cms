@@ -2,8 +2,6 @@
 
 namespace Drupal\va_gov_content_export;
 
-use Drupal\Core\Url;
-
 /**
  * Interface for getting a cotnent tar.
  *

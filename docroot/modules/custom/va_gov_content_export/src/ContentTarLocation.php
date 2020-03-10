@@ -4,10 +4,11 @@ namespace Drupal\va_gov_content_export;
 
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Url;
 
 /**
+ * Content Tar Location Service.
  *
+ * Provides uri and urls to the export content tar.
  */
 class ContentTarLocation implements ContentTarLocationInterface {
   /**
