@@ -14,7 +14,7 @@ Learn about the latest changes to the VA.gov CMS. The CMS team will log product 
 **A:** Yes, if our work will cause changes our users will notice, such as when we: 
 * 🐛 Fix a bug that’s in their way
 * 🎁 Add a new feature to enhance their work
-* 🦆 Something inbetween
+* 🦆 Something in between
 
 **Q: Excellent. So how do I become release note famous?**
 
