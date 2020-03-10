@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Drupal\va_gov_content_export;
-
 
 use Drupal\Core\Config\StorageException;
 use Drupal\tome_sync\FileSync;
