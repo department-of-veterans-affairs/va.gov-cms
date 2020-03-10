@@ -12,11 +12,15 @@ services:
     class: Drupal\va_gov_content_export\AddBreadcrumbToEntity
     arguments: ['@breadcrumb', '@router.route_provider', '@paramconverter_manager']
   va_gov.content_export.content_tar_page_controller:
+    arguments: ['@va_gov.content_export.content_tar_location']
     class: Drupal\va_gov_content_export\Controller\ContentTar
   va_gov.content_export.access.content_tar_access:
     class: Drupal\va_gov_content_export\Access\ContentTarAccess
-    arguments: ['va_gov.content_export.content_tar_uri', '@config.factory']
+    arguments: ['va_gov.content_export.content_tar_uri', '@va_gov.content_export.content_tar_location']
     calls:
       - [access, ['@current_user']]
     tags:
       - { name: access_check, applies_to: _va_gov_content_tar_exists }
+  va_gov.content_export.content_tar_location:
+    class: Drupal\va_gov_content_export\ContentTarLocation
+    arguments: ['@config.factory', '@file_system']

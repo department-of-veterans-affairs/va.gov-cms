@@ -4,10 +4,10 @@ namespace Drupal\va_gov_content_export\Access;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Access\AccessResultInterface;
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\File\Exception\FileExistsException;
 use Drupal\Core\Routing\Access\AccessInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\va_gov_content_export\ContentTarLocationInterface;
 
 /**
  * Control Access to the content export file.
@@ -22,34 +22,27 @@ class ContentTarAccess implements AccessInterface {
   protected $permission;
 
   /**
-   * The config name which holds the uri to the file.
+   * The Content Tar Location Service.
    *
-   * @var string
+   * @var \Drupal\va_gov_content_export\ContentTarLocationInterface
    */
-  protected $contentFileConfig;
-
-  /**
-   * The configuration factory.
-   *
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
-   */
-  protected $configFactory;
+  private $contentTarLocation;
 
   /**
    * ContentTarAccess constructor.
    *
    * @param string $permission
    *   The permission name to check access.
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   Access to the Config.
+   * @param \Drupal\va_gov_content_export\ContentTarLocationInterface $contentTarLocation
+   *   The content tar location service.
    */
-  public function __construct(string $permission, ConfigFactoryInterface $configFactory) {
+  public function __construct(string $permission, ContentTarLocationInterface $contentTarLocation) {
     $this->permission = $permission;
-    $this->configFactory = $configFactory;
+    $this->contentTarLocation = $contentTarLocation;
   }
 
   /**
-   * Check access sto content tar file.
+   * Check access to content tar file.
    *
    * Access is determined on the following:
    * 1. Does the user have access to the permission being injected
@@ -62,12 +55,15 @@ class ContentTarAccess implements AccessInterface {
    * @return \Drupal\Core\Access\AccessResultInterface
    *   The access result.
    */
-  public function access(AccountInterface $account) : AccessResultInterface {
+  public function access(AccountInterface $account): AccessResultInterface {
     if (!$account->hasPermission($this->permission)) {
       return AccessResult::forbidden('Permission does not match');
     }
 
-    $uri = $this->getContentTarUrl();
+    $uri = $this->contentTarLocation->getUri();
+    if (!$uri) {
+      return AccessResult::forbidden('No config set');
+    }
     if (!$this->fileExists($uri)) {
       return AccessResult::forbidden('file does not exist');
     }
@@ -84,7 +80,7 @@ class ContentTarAccess implements AccessInterface {
    * @return bool
    *   IF the file exists.
    */
-  protected function fileExists(string $uri) : bool {
+  protected function fileExists(string $uri): bool {
     try {
       if (file_exists($uri)) {
         return TRUE;
@@ -95,21 +91,6 @@ class ContentTarAccess implements AccessInterface {
     catch (FileExistsException $e) {
       return FALSE;
     }
-  }
-
-  /**
-   * Get the content url.
-   *
-   * @return string|null
-   *   The uri to the content tar file.
-   */
-  protected function getContentTarUrl() : ?string {
-    $path_to_tar_config = $this->configFactory->get($this->contentFileConfig);
-    if (!$path_to_tar_config->get()) {
-      return NULL;
-    }
-
-    return $path_to_tar_config->get();
   }
 
 }
