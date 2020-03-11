@@ -1,0 +1,28 @@
+diff --git a/src/Plugin/Field/FieldWidget/ParagraphsWidget.php b/src/Plugin/Field/FieldWidget/ParagraphsWidget.php
+index 7c2a707..354d848 100644
+--- a/src/Plugin/Field/FieldWidget/ParagraphsWidget.php
++++ b/src/Plugin/Field/FieldWidget/ParagraphsWidget.php
+@@ -379,8 +379,12 @@ class ParagraphsWidget extends WidgetBase {
+     elseif (isset($items[$delta]->entity)) {
+       $paragraphs_entity = $items[$delta]->entity;
+ 
++      // If there's an 'edit_para' parameters, open listed paragraphs.
++      if (isset($_GET['edit_para']) && in_array($paragraphs_entity->id(),  $_GET['edit_para'])) {
++        $item_mode = 'edit';
++      }
+       // We don't have a widget state yet, get from selector settings.
+-      if (!isset($widget_state['paragraphs'][$delta]['mode'])) {
++      elseif (!isset($widget_state['paragraphs'][$delta]['mode'])) {
+ 
+         if ($default_edit_mode == 'open' || $widget_state['items_count'] < $this->getSetting('closed_mode_threshold')) {
+           $item_mode = 'edit';
+@@ -518,7 +522,8 @@ class ParagraphsWidget extends WidgetBase {
+         ),
+       );
+ 
+-      $element['#prefix'] = '<div id="' . $wrapper_id . '">';
++      // Create an anchor based on the paragraph id.
++      $element['#prefix'] = '<span id="p' . $paragraphs_entity->id() . '"></span><div id="' . $wrapper_id . '">';
+       $element['#suffix'] = '</div>';
+ 
+       // Create top section structure with all needed subsections.
