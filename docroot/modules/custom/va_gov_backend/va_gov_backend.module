@@ -129,7 +129,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 }
 
 /**
- * Callback handler for workbench_access_assign_user form - resets perms.
+ * Callback handler for workbench_access_assign_user form - invalidate cache.
  *
  * @param array $form
  *   The workbench_access_assign_user form.
