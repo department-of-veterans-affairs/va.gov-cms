@@ -20,7 +20,7 @@ class TomeFileSync extends FileSync {
     $file_directory = $this->getFileDirectory();
     file_prepare_directory($file_directory, FILE_CREATE_DIRECTORY);
     // Here is the overridden line of code.  Added FALSE.
-    file_save_htaccess($file_directory, FALSE);
+    //file_save_htaccess($file_directory, FALSE);
     if (!file_exists($file_directory)) {
       throw new StorageException('Failed to create config directory ' . $file_directory);
     }
