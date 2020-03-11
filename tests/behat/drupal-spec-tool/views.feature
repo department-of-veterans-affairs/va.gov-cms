@@ -47,6 +47,7 @@ Feature: Views
 | User history | user_history | User history | Enabled |  |
 | User history list | user_history_list | User history | Enabled |  |
 | User email csv | user_email_csv | Users | Enabled |  |
+| Node revisions | node_71_revisions | Content revisions | Enabled |  |
 
   @dst @views_displays
      Scenario: Views displays
@@ -104,6 +105,8 @@ Feature: Views
 | Moderation history | Page | page | Page |
 | My Workflow  | Master | default | Master |
 | My Workflow  | My workflow | my_workflow_page | Page |
+| Node revisions | Master | default | Master |
+| Node revisions | Page   | page_1  | Page   |
 | People | Master | default | Master |
 | People | Page | page_1 | Page |
 | Recent content | Block | block_1 | Block |
