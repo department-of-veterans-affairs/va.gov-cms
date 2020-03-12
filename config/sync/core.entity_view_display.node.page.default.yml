@@ -31,9 +31,9 @@ third_party_settings:
       weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
-        classes: ''
         description: ''
+        id: ''
+        classes: meta-content
       label: Meta
       region: content
 _core:
@@ -70,14 +70,14 @@ content:
     type: string
     weight: 0
     region: content
-    label: above
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
   field_featured_content:
     type: entity_reference_revisions_entity_view
     weight: 4
-    label: above
+    label: visually_hidden
     settings:
       view_mode: default
       link: ''
@@ -85,7 +85,7 @@ content:
     region: content
   field_intro_text:
     weight: 2
-    label: above
+    label: visually_hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
@@ -103,7 +103,7 @@ content:
     type: string
     weight: 0
     region: content
-    label: above
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
