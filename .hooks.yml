@@ -8,4 +8,4 @@ deploy: |
 
 test: |
   echo "Running `composer yaml-tests` on tests.yml..."
-  composer yaml-tests --tests-file=tests.yml --ansi
+  composer yaml-tests --tests-file=tests.yml --ansi --status-url=$DEVSHOP_TASK_URL
