@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * @file
+ * Vagovadmin.theme.
+ */
+
+use Drupal\paragraphs\Entity\Paragraph;
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function vagovadmin_preprocess_paragraph(&$variables) {
+  /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+  $paragraph = $variables['paragraph'];
+
+  $parent_ids = [];
+  $node_id = get_parents($paragraph, $parent_ids);
+
+  $variables['edit_link_text'] = 'Edit ' . $paragraph->type->entity->label();
+  $variables['edit_link'] = "/node/$node_id/edit?edit_para[]={$paragraph->id()}";
+  foreach ($parent_ids as $id) {
+    $variables['edit_link'] .= "&edit_para[]=$id";
+  }
+  $variables['edit_link'] .= '#p' . $paragraph->id();
+}
+
+/**
+ * Adds all of the paragraph's ancestor ids to parent_ids.
+ *
+ * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
+ *   The paragraph to find the parent's of.
+ * @param array $parent_ids
+ *   An array to hold parent ids.
+ *
+ * @return int
+ *   The paragraph's node id.
+ */
+function get_parents(Paragraph $paragraph, array &$parent_ids) {
+  $node_id = 0;
+
+  $parent = $paragraph->getParentEntity();
+  if ($parent->getEntityType()->id() === 'paragraph') {
+    $parent_ids[] = $parent->id();
+    $node_id = get_parents($parent, $parent_ids);
+  }
+  elseif ($parent->getEntityType()->id() === 'node') {
+    $node_id = $parent->id();
+  }
+  return $node_id;
+
+}
