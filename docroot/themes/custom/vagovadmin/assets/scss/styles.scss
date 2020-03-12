@@ -51,29 +51,29 @@
 }
 
 /* Node view content, aimed primarily at page Detail pages, for now. */
-#block-vagovadmin-content {
-  .field__label {
-    text-transform: uppercase;
-  }
-
-  .field--name-field-intro-text,
-  .field--name-field-alert,
-  .field--name-field-featured-content,
-  .field--name-field-content-block,
-  .field--name-field-related-links {
-    margin: 1em 0;
-
-    > .field__item,
-    > .field__items {
-      padding: 1em;
-      background: #eee;
-    }
-
-    > .field__label {
-      text-transform: uppercase;
-    }
-  }
-}
+//#block-vagovadmin-content {
+//  .field__label {
+//    text-transform: uppercase;
+//  }
+//
+//  .field--name-field-intro-text,
+//  .field--name-field-alert,
+//  .field--name-field-featured-content,
+//  .field--name-field-content-block,
+//  .field--name-field-related-links {
+//    margin: 1em 0;
+//
+//    > .field__item,
+//    > .field__items {
+//      padding: 1em;
+//      background: #eee;
+//    }
+//
+//    > .field__label {
+//      text-transform: uppercase;
+//    }
+//  }
+//}
 
 /* Right sidebar on node view pages. */
 
@@ -96,6 +96,93 @@
     overflow: auto;
   }
 }
+
+.node--view-mode-full {
+  .field--name-field-steps .field__item,
+  .paragraph {
+    border: #dddddd dotted;
+    margin: 1em;
+    padding: .5em;
+    background-color: rgba(220,225,230,.2);
+
+    .field__label {
+      font-weight: normal;
+      font-style: italic;
+      color: #999;
+    }
+  }
+
+  .paragraph--type--list-of-link-teasers .field--name-field-title,
+  .field--name-field-question .field__item {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
+    line-height: 1.3;
+    margin-bottom: .5em;
+  }
+
+  a.proof-edit {
+    margin-top: -1.7em;
+    margin-right: -1rem;
+    float: right;
+    border: solid #ddd .1rem;
+    text-decoration: none;
+    font-size: .7rem;
+    background-color: #eeeeee;
+    color: #333333;
+    line-height: 1;
+    padding: .2rem;
+  }
+
+  .field--name-field-intro-text .field__item {
+    font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    max-width: 77rem;
+    line-height: 2rem;
+    margin: 0 1rem;
+  }
+
+  .field--name-field-featured-content {
+    margin: 1rem 0;
+    .field__item {
+      background: #e1f3f8;
+      padding: 0.1rem;
+      clear: both;
+      margin: 0;
+    }
+  }
+
+  .field--name-field-section-header .field__items {
+    font-size: 27px;
+    font-weight: 700;
+    font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
+    line-height: 1.3;
+    margin-bottom: .5em;
+
+  }
+
+  .meta-content {
+    border: none;
+    border-bottom: solid #999;
+    padding-bottom: 2rem;
+
+    .fieldset-wrapper {
+      border: .1rem solid #ccc;
+      padding: .5rem;
+      background-color: #eee;
+      color: #666;
+
+      .field__item {
+        font-style: italic;
+      }
+    }
+  }
+}
+.node-form a.proof-edit {
+  display: none;
+}
+
 
 .views-field-rendered-entity h2 {
   font-size: 20px;
