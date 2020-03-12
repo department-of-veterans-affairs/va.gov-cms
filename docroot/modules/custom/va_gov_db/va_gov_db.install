@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Utility\UpdateException;
+use Drupal\node\Entity\Node;
 
 /**
  * Uninstalls requested modules.
@@ -157,4 +158,38 @@ function va_gov_db_update_8006(&$sandbox) {
   $messages = _va_gov_db_uninstall_modules($unistall_modules);
 
   return $messages;
+}
+
+/**
+ * Remove dateless revisions.
+ */
+function va_gov_db_update_8007(&$sandbox) {
+  // These nodes have some revisions without timestamps.
+  $subject_nids = [68, 71, 72, 73, 74, 77, 78, 79];
+  // Load up our node storage object for reuse.
+  $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+  $vids = [];
+  foreach ($subject_nids as $nid) {
+    $loaded_node = Node::load($nid);
+    // Once our node is loaded, we can get all revisions.
+    if (!empty($loaded_node)) {
+      $vids[] = $node_storage->revisionIds($loaded_node);
+    }
+  }
+  foreach ($vids as $vid_collection) {
+    // Iterate through all of our vid groups.
+    foreach ($vid_collection as $vid) {
+      // Load up our revisions to start our checks.
+      $storage = $node_storage->loadRevision($vid);
+      if (!empty($storage)) {
+        // Look for a timestamp.
+        $timestamp = $storage->get('revision_timestamp')->value;
+        if ($timestamp === NULL) {
+          // If we don't have one, dump the revision.
+          $node_storage->deleteRevision($vid);
+        }
+      }
+    }
+  }
+
 }
