@@ -43,7 +43,7 @@ function va_gov_backend_form_views_exposed_form_alter(&$form, FormStateInterface
 }
 
 /**
- * AChange text input to select list of VAMC systems.
+ * A Change text input to select list of VAMC systems.
  *
  * @param array $form
  *   The exposed widget form array.
@@ -88,6 +88,14 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  $targets = ['field_office'];
+  _va_gov_backend_dropdown_field_access($form, $targets);
+
+  if ($form_id === 'workbench_access_assign_user') {
+    $form['#submit'][] = 'va_gov_backend_workbench_assign_user_form_submit';
+  }
+
   if ($form_id === 'redirect_redirect_edit_form' || $form_id === 'redirect_redirect_form') {
     $value = 'prefix';
     if ($form_id === 'redirect_redirect_edit_form') {
@@ -117,6 +125,53 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     // Hide field_office for existing operating statuses: they won't be moved.
     // @todo Consider disabling it instead of hiding it.
     $form['field_office']['#attributes']['class'] = 'hidden';
+  }
+}
+
+/**
+ * Callback handler for workbench_access_assign_user form - invalidate cache.
+ *
+ * @param array $form
+ *   The workbench_access_assign_user form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   Provides an interface for an object containing the current state of a form.
+ */
+function va_gov_backend_workbench_assign_user_form_submit(array $form, FormStateInterface $form_state) {
+  $raw_path_to_args = $form_state->getBuildInfo()['args'];
+  $path_to_args = reset($raw_path_to_args);
+  $user_id = $path_to_args->id();
+  $tags = ['user:' . $user_id];
+  \Drupal::service('cache_tags.invalidator')->invalidateTags($tags);
+}
+
+/**
+ * For determining dropdown field access on nodeforms.
+ *
+ * @param array $form
+ *   The node form.
+ * @param array $targets
+ *   The node form fields to check.
+ */
+function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
+  $user_id = \Drupal::currentUser()->id();
+  $perms_service = \Drupal::service('va_gov_backend.user_perms');
+  // Grabs items user can access per section associations.
+  $allowed_options = $perms_service->userOptionsStorage($form, $targets, $user_id);
+
+  // Loop through all of our target fields.
+  foreach ($targets as $target) {
+    if (in_array($target, $form) && !empty($form[$target]['widget']['#options'])) {
+      foreach ($form[$target]['widget']['#options'] as $header_key => $option_header) {
+        if (is_array($option_header) && !empty($option_header)) {
+          foreach ($option_header as $option_key => $option_item) {
+            // If not in the allowed items array, take it out.
+            if (!in_array($option_key, $allowed_options)) {
+              unset($form[$target]['widget']['#options'][$header_key][$option_key]);
+            }
+          }
+        }
+      }
+    }
   }
 }
 
