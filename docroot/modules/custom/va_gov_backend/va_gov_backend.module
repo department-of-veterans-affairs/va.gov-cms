@@ -89,7 +89,10 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
-  $targets = ['field_office'];
+  $targets = [
+    'field_office',
+    'field_listing',
+  ];
   _va_gov_backend_dropdown_field_access($form, $targets);
 
   if ($form_id === 'workbench_access_assign_user') {
@@ -162,7 +165,15 @@ function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
   foreach ($targets as $target) {
     if (in_array($target, $form) && !empty($form[$target]['widget']['#options'])) {
       foreach ($form[$target]['widget']['#options'] as $header_key => $option_header) {
-        if (is_array($option_header) && !empty($option_header)) {
+        // Field_listing is an exception. It is a one level field and doesn't
+        // have opt groups.
+        if ($target == 'field_listing' && !is_array($option_header) && !empty($option_header)) {
+          // If not in the allowed items array, take it out.
+          if (!in_array($header_key, $allowed_options)) {
+            unset($form[$target]['widget']['#options'][$header_key]);
+          }
+        }
+        elseif (is_array($option_header) && !empty($option_header)) {
           foreach ($option_header as $option_key => $option_item) {
             // If not in the allowed items array, take it out.
             if (!in_array($option_key, $allowed_options)) {

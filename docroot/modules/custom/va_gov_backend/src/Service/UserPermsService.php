@@ -86,7 +86,13 @@ class UserPermsService {
         else {
           $target_allowed_options = [];
           foreach ($form[$target]['widget']['#options'] as $header_key => $option_header) {
-            if (is_array($option_header) && !empty($option_header)) {
+            if (!is_array($option_header) && !empty($option_header)) {
+              $access = $this->userAccess($header_key, 'node', $user_id);
+              if ($access) {
+                $target_allowed_options[] = $header_key;
+              }
+            }
+            elseif (is_array($option_header) && !empty($option_header)) {
               foreach ($option_header as $option_key => $option_item) {
                 $access = $this->userAccess($option_key, 'node', $user_id);
 
