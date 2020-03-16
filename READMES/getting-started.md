@@ -77,8 +77,8 @@ You need a copy of the production database to get the full VA.gov CMS running.
 Use the provided scripts to download a database and files backup into the
 correct locations in your local development environment.
 
-* `.scripts/sync-db.sh`
-* `.scripts/sync-files.sh`
+* `./scripts/sync-db.sh`
+* `./scripts/sync-files.sh`
 
 NOTE: These scripts download the SQL and files first, then attempts to use
 `lando` commands to import them.
