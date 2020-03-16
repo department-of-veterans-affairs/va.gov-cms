@@ -23,6 +23,14 @@ function vagovadmin_preprocess_paragraph(&$variables) {
     $variables['edit_link'] .= "&edit_para[]=$id";
   }
   $variables['edit_link'] .= '#p' . $paragraph->id();
+
+  if ($paragraph->getType() === 'q_a') {
+    $variables['as_accordion'] = FALSE;
+    if (!empty($parent_ids)) {
+      $parent = Paragraph::load($parent_ids[0]);
+      $variables['as_accordion'] = $parent->field_accordion_display->value;
+    }
+  }
 }
 
 /**
