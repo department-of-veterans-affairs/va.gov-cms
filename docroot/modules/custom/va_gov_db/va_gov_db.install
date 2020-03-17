@@ -193,3 +193,37 @@ function va_gov_db_update_8007(&$sandbox) {
   }
 
 }
+
+/**
+ * Fix node revisions which have 'approved_by_reviewer' state.
+ */
+function va_gov_db_update_8008() {
+  // These nid / revision ids are the ones in `approved_by_reviewer` status.
+  // 841 / 9646.
+  // 992 / 11407.
+  // 2587 / 15111.
+  $revisions_ids_to_draft = [
+    841 => 9646,
+    992 => 11407,
+    2587 => 15111,
+  ];
+
+  foreach ($revisions_ids_to_draft as $nid => $vid) {
+    $log_message = t('Deleting vid :vid from :nid', [':vid' => $vid, ':nid' => $nid]);
+    \Drupal::logger('va_gov_db')->info($log_message);
+
+    node_revision_delete($vid);
+  }
+
+  \Drupal::logger('va_gov_db')->info('Update state of vid 15132 to "draft".');
+  // Only 2628 / 15165 is node which needs to be set to draft.
+  \Drupal::database()
+    ->update('content_moderation_state_field_revision')
+    ->condition('content_entity_id', 2628)
+    ->condition('content_entity_revision_id', 15132)
+    ->condition('content_entity_type_id', 'node')
+    ->fields([
+      'moderation_state' => 'draft',
+    ])
+    ->execute();
+}
