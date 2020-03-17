@@ -1,9 +1,15 @@
 uuid: eadc90f3-26dc-45ff-bcb0-955963d35c6f
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.publication_listing.field_administration
+    - field.field.node.publication_listing.field_description
+    - field.field.node.publication_listing.field_intro_text
+    - field.field.node.publication_listing.field_meta_tags
+    - field.field.node.publication_listing.field_meta_title
+    - field.field.node.publication_listing.field_office
     - node.type.publication_listing
   module:
     - user

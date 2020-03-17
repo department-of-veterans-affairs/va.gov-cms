@@ -1,9 +1,20 @@
 uuid: 61a8d54c-9fc3-4dc0-998a-0121aa0b7d84
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.health_care_region_detail_page.field_administration
+    - field.field.node.health_care_region_detail_page.field_alert
+    - field.field.node.health_care_region_detail_page.field_content_block
+    - field.field.node.health_care_region_detail_page.field_description
+    - field.field.node.health_care_region_detail_page.field_featured_content
+    - field.field.node.health_care_region_detail_page.field_intro_text
+    - field.field.node.health_care_region_detail_page.field_meta_tags
+    - field.field.node.health_care_region_detail_page.field_meta_title
+    - field.field.node.health_care_region_detail_page.field_office
+    - field.field.node.health_care_region_detail_page.field_related_links
+    - field.field.node.health_care_region_detail_page.field_table_of_contents_boolean
     - node.type.health_care_region_detail_page
   module:
     - user

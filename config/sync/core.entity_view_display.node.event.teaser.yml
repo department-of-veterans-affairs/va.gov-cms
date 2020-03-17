@@ -1,9 +1,10 @@
 uuid: c40c9321-10e8-4d5b-9bc4-329dcda09ec1
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.event.field_additional_information_abo
     - field.field.node.event.field_address
     - field.field.node.event.field_administration
     - field.field.node.event.field_body
@@ -13,12 +14,15 @@ dependencies:
     - field.field.node.event.field_event_cta
     - field.field.node.event.field_event_registrationrequired
     - field.field.node.event.field_facility_location
+    - field.field.node.event.field_featured
     - field.field.node.event.field_link
+    - field.field.node.event.field_listing
     - field.field.node.event.field_location_humanreadable
     - field.field.node.event.field_location_type
     - field.field.node.event.field_media
     - field.field.node.event.field_meta_tags
     - field.field.node.event.field_office
+    - field.field.node.event.field_order
     - field.field.node.event.field_url_of_an_online_event
     - node.type.event
   module:
@@ -47,6 +51,7 @@ hidden:
   field_facility_location: true
   field_featured: true
   field_link: true
+  field_listing: true
   field_location_humanreadable: true
   field_location_type: true
   field_media: true
