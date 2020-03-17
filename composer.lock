@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2c7c961884159a3dff63bb91a6692766",
+    "content-hash": "0ed19e8466c3dcf645dce67d1908636d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -612,7 +612,7 @@
             "version": "v5.5.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:enyo/dropzone.git",
+                "url": "https://github.com/enyo/dropzone.git",
                 "reference": "08b9e0a763b54a685404dea523a9c54242fbe1b9"
             },
             "dist": {
@@ -9772,6 +9772,60 @@
             }
         },
         {
+            "name": "drupal/site_alert",
+            "version": "dev-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/site_alert.git",
+                "reference": "7e8a229292ec6cf85cb5e22d8a58afac098c3bd1"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0+13-dev",
+                    "datestamp": "1583740113",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
+                },
+                "patches_applied": {
+                    "Add drush commands https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-03-13/site_alert-add_drush_commands-3118800-6.patch",
+                    "Make drush commands Drush 8 https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-03-13/site_alert-support_drush8_commands-3118800-7.patch"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "cecrs",
+                    "homepage": "https://www.drupal.org/user/1876384"
+                },
+                {
+                    "name": "nicola85",
+                    "homepage": "https://www.drupal.org/user/1746956"
+                },
+                {
+                    "name": "pfrenssen",
+                    "homepage": "https://www.drupal.org/user/382067"
+                }
+            ],
+            "description": "Allows site admins to display a site-wide alert to all users.",
+            "homepage": "https://www.drupal.org/project/site_alert",
+            "support": {
+                "source": "https://git.drupalcode.org/project/site_alert"
+            },
+            "time": "2020-03-09T08:06:36+00:00"
+        },
+        {
             "name": "drupal/social_media_links",
             "version": "2.6.0",
             "source": {
@@ -18904,6 +18958,7 @@
         "drupal/path_redirect_import": 10,
         "drupal/pathologic": 15,
         "drupal/role_delegation": 15,
+        "drupal/site_alert": 20,
         "drupal/tour_ui": 10,
         "drupal/user_history": 15,
         "drupal/uswds": 10,
