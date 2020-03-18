@@ -136,6 +136,12 @@ class UserPermsService {
   public function userAccess($entity_id, $entity_type, $user_id, $op = NULL) {
     $account = $this->getUser($user_id);
 
+    // When using entity reference view as a source for field options,
+    // first option has key '_none' and should be ignored in access checks.
+    if ($entity_id == '_none') {
+      return TRUE;
+    }
+
     $entity = $this->entityInterface->getStorage($entity_type)->load($entity_id);
 
     // We want create access perm for most cases. For occasional snowflake
