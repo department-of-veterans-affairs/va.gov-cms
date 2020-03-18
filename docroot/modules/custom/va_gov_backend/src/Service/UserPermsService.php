@@ -138,7 +138,7 @@ class UserPermsService {
 
     // When using entity reference view as a source for field options,
     // first option has key '_none' and should be ignored in access checks.
-    if ($entity_id == '_none') {
+    if ($entity_id === '_none') {
       return TRUE;
     }
 
