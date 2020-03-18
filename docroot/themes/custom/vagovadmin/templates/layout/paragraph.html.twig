@@ -48,7 +48,8 @@
 %}
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
-    <a href="{{ edit_link }}" class="proof-edit">{{ edit_link_text }}</a>
+    {{ title_suffix }}
+    <span class="proof-label">{{ paragraph_name }}</span>
     {% block content %}
       {{ content }}
     {% endblock %}
