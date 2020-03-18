@@ -238,8 +238,9 @@ function va_gov_backend_page_attachments(array &$attachments) {
   $is_admin = \Drupal::service('router.admin_context')->isAdminRoute();
   if ($is_admin) {
     $attachments['#attached']['library'][] = 'va_gov_backend/admin_styles';
-    return;
   }
+
+  $attachments['#attached']['library'][] = 'va_gov_backend/system_styles';
 }
 
 /**
