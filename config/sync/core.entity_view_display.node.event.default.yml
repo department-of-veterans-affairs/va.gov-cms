@@ -214,6 +214,14 @@ content:
     third_party_settings: {  }
     type: link
     region: content
+  field_listing:
+    type: entity_reference_label
+    weight: 4
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
   field_location_humanreadable:
     weight: 14
     label: above
@@ -266,7 +274,6 @@ content:
     region: content
 hidden:
   field_administration: true
-  field_listing: true
   field_meta_tags: true
   links: true
   search_api_excerpt: true

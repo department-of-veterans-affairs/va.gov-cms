@@ -44,7 +44,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 9
+      weight: 8
       format_type: details_sidebar
       format_settings:
         open: '1'
@@ -62,7 +62,7 @@ third_party_settings:
         - field_location_humanreadable
         - field_address
       parent_name: ''
-      weight: 8
+      weight: 7
       format_type: details
       format_settings:
         open: true
@@ -78,7 +78,7 @@ third_party_settings:
         - group_registration_link
         - field_additional_information_abo
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: details
       format_settings:
         open: true
@@ -92,7 +92,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 16
+      weight: 15
       format_type: fieldset
       format_settings:
         id: ''
@@ -122,7 +122,7 @@ third_party_settings:
         - field_featured
         - field_order
       parent_name: ''
-      weight: 10
+      weight: 9
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -137,7 +137,7 @@ third_party_settings:
       children:
         - field_description
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: fieldset
       format_settings:
         id: ''
@@ -153,7 +153,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 12
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -178,7 +178,7 @@ content:
     type: options_select
     region: content
   field_body:
-    weight: 5
+    weight: 4
     settings:
       rows: 5
       placeholder: ''
@@ -247,12 +247,6 @@ content:
     third_party_settings: {  }
     type: link_default
     region: content
-  field_listing:
-    weight: 2
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: content
   field_location_humanreadable:
     weight: 15
     settings:
@@ -269,19 +263,19 @@ content:
     region: content
   field_media:
     type: media_library_widget
-    weight: 4
+    weight: 3
     settings:
       media_types: {  }
     region: content
     third_party_settings: {  }
   field_meta_tags:
-    weight: 15
+    weight: 14
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
     region: content
   field_office:
-    weight: 3
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -309,7 +303,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 13
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -335,7 +329,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 11
+    weight: 10
     settings:
       match_operator: CONTAINS
       size: 60
@@ -344,11 +338,12 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 14
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_listing: true
   promote: true
   status: true
   sticky: true
