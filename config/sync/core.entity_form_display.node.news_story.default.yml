@@ -181,12 +181,6 @@ content:
     third_party_settings: {  }
     type: string_textarea_with_counter
     region: content
-  field_listing:
-    type: options_select
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_media:
     type: media_library_widget
     weight: 14
@@ -266,6 +260,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_listing: true
   promote: true
   status: true
   sticky: true
