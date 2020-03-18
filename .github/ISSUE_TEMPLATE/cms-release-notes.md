@@ -30,7 +30,7 @@ _Use this template to make a ticket for an entire release note. To flag individu
 1. Team and product manager identifies items for release notes during grooming and demo by adding the maroon “release notes” label to tickets
 2. UX Writer tracks the status of individual release note items in the Editorial calendar
 3. Gather background information on each item using the background list
-4. Draft the release note [in this document](https://docs.google.com/document/d/1_nxk59uV22Cy5B5Rt9DAXWUonPd9BG_ssIz5l_4pfX0/edit#)
+4. Draft the release note in the [AT release note log](https://airtable.com/tblulo3XrMLuh4N0l/viwL2poNtFAZMeS6Z?blocks=hide)
 5. Ask the person who did the work to review their item by adding the text to their ticket and @ing them.
 6. Review entire release note with product manager and get approval 
 7. Migrate content into markdown file in va.gov-cms/product-release-notes using a correct naming convention
