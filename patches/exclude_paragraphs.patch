@@ -1,0 +1,24 @@
+diff --git a/src/ParagraphViewBuilder.php b/src/ParagraphViewBuilder.php
+index 1a02dc9..7568a91 100644
+--- a/src/ParagraphViewBuilder.php
++++ b/src/ParagraphViewBuilder.php
+@@ -41,11 +41,15 @@ class ParagraphViewBuilder extends EntityViewBuilder {
+       }
+       $build_list[$key]['#attached']['library'][] = 'paragraphs/drupal.paragraphs.unpublished';
+ 
+-      if (ContextualLinkController::get_parents($build_list[$key]['#paragraph'])) {
++      /** @var Paragraph $paragraph */
++      $paragraph = $build_list[$key]['#paragraph'];
++      $excluded_parents = ['q_a', 'list_of_link_teasers'];
++      $parent = $paragraph->getParentEntity();
++      if (!in_array($parent->bundle(), $excluded_parents) && ContextualLinkController::get_parents($paragraph)) {
+         $build_list[$key]['#contextual_links']['paragraph'] = [
+-          'route_parameters' => [
+-            'paragraph' => $build_list[$key]['#paragraph']->id(),
+-          ]
++            'route_parameters' => [
++                'paragraph' => $paragraph->id(),
++            ]
+         ];
+       }
+     }
