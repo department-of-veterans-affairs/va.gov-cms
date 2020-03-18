@@ -1,0 +1,25 @@
+uuid: a527ac36-bb9a-47ea-a2d5-7bde32228098
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_listing
+    - node.type.outreach_asset
+id: node.outreach_asset.field_listing
+field_name: field_listing
+entity_type: node
+bundle: outreach_asset
+label: 'Publication listing'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: content_entity_reference_source
+      display_name: entity_reference_2
+      arguments: {  }
+field_type: entity_reference
