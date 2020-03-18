@@ -344,7 +344,7 @@ function va_gov_backend_pathauto_alias_alter(&$alias, array &$context) {
  * Implements hook_entity_presave().
  */
 function va_gov_backend_entity_presave(EntityInterface $entity) {
-  $bundle_types = ['event', 'news_story', 'news_release', 'publication'];
+  $bundle_types = ['event', 'news_story', 'press_release', 'outreach_asset'];
 
   if ($entity->getEntityTypeId() == 'node' && in_array($entity->bundle(), $bundle_types)) {
     _va_gov_backend_sync_office_listing_fields($entity);
@@ -362,8 +362,8 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
 function _va_gov_backend_sync_office_listing_fields(EntityInterface $entity) {
   $entity_listing_mapping = [
     'news_story' => 'story_listing',
-    'news_release' => 'news_releases_listing',
-    'publication' => 'publication_listing',
+    'press_release' => 'press_releases_listing',
+    'outreach_asset' => 'publication_listing',
   ];
 
   // Deduct field_listing value from field_office.
@@ -394,8 +394,8 @@ function _va_gov_backend_sync_office_listing_fields(EntityInterface $entity) {
 
     // Story; News release; Publication.
     case 'news_story':
-    case 'news_release':
-    case 'publication':
+    case 'press_release':
+    case 'outreach_asset':
       $entity_ref = Drupal::entityTypeManager()->getStorage('node')->load($office);
 
       // Check if the entity reference is an office or health_care_region_page.
