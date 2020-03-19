@@ -87,6 +87,8 @@ class UserPermsService {
           $target_allowed_options = [];
           foreach ($form[$target]['widget']['#options'] as $header_key => $option_header) {
             if (!is_array($option_header) && !empty($option_header)) {
+              // Exception for one level select fields that don't
+              // have opt groups.
               $access = $this->userAccess($header_key, 'node', $user_id);
               if ($access) {
                 $target_allowed_options[] = $header_key;
