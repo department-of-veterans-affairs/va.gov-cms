@@ -371,12 +371,12 @@ function _va_gov_backend_sync_office_listing_fields(EntityInterface $entity) {
   // ^ confirmed in current DB.
   $office = $entity->hasField('field_office') ? $entity->get('field_office')->target_id : NULL;
 
+  $entity_ref = $office ? Drupal::entityTypeManager()->getStorage('node')->load($office) : NULL;
+
   switch ($entity->bundle()) {
     case 'event':
       // Check if the entity reference is an event_listing.
-      $entity_ref = Drupal::entityTypeManager()->getStorage('node')->load($office);
-
-      if ($entity_ref->bundle() === 'event_listing') {
+      if ($entity_ref && $entity_ref->bundle() === 'event_listing') {
         // Store reference in field_listing.
         $entity->set('field_listing', NULL);
         $entity->field_listing[] = ['target_id' => $office];
@@ -396,10 +396,8 @@ function _va_gov_backend_sync_office_listing_fields(EntityInterface $entity) {
     case 'news_story':
     case 'press_release':
     case 'outreach_asset':
-      $entity_ref = Drupal::entityTypeManager()->getStorage('node')->load($office);
-
       // Check if the entity reference is an office or health_care_region_page.
-      if (in_array($entity_ref->bundle(), ['office', 'health_care_region_page'])) {
+      if ($entity_ref && in_array($entity_ref->bundle(), ['office', 'health_care_region_page'])) {
         // Find *_listing node by office or health_care_region_page id.
         $result = Drupal::entityQuery('node')
           ->condition('type', $entity_listing_mapping[$entity->bundle()])
@@ -427,12 +425,8 @@ function _va_gov_backend_sync_office_listing_fields(EntityInterface $entity) {
  */
 function _va_gov_backend_set_field_listing_value(EntityInterface &$entity, array $entity_listing_mapping, int $id = NULL) {
   if (!is_int($id) || $id == 0) {
-    // Listing corresponding to field_office, was not found. Throw exception.
-    // @todo: If we're keeping this temp solution in the codebase for more
-    // than a week, we should perform this check within form validation logic
-    // and give the user a chance to correct the input instead of throwing an
-    // exception.
-    throw new \Exception(t('%label Listing page within selected office or health care region does not exist. Please create a %label Listing page for the office/region first.', ['%label' => $entity->type->entity->label()]));
+    // Listing corresponding to field_office, was not found. Fail silently.
+    return;
   }
 
   // We have a listing node id.
