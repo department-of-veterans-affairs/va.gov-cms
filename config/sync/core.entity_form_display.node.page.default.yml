@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - entity_browser.browser.alert_blocks
     - field.field.node.page.field_administration
     - field.field.node.page.field_alert
     - field.field.node.page.field_content_block
@@ -15,9 +16,11 @@ dependencies:
     - field.field.node.page.field_plainlanguage_date
     - field.field.node.page.field_related_links
     - node.type.page
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - datetime
+    - entity_browser
     - field_group
     - hide_revision_field
     - metatag
@@ -119,9 +122,18 @@ content:
     region: content
   field_alert:
     weight: 3
-    settings: {  }
+    settings:
+      entity_browser: alert_blocks
+      field_widget_display: rendered_entity
+      field_widget_display_settings:
+        view_mode: default
+      field_widget_edit: true
+      field_widget_remove: true
+      open: true
+      selection_mode: selection_append
+      field_widget_replace: false
     third_party_settings: {  }
-    type: options_select
+    type: entity_browser_entity_reference
     region: content
   field_content_block:
     type: paragraphs_browser

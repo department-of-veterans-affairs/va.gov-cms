@@ -9,7 +9,7 @@ Feature: Content model fields
        Then exactly the following fields should exist
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
 | Content type | Benefits detail page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Benefits detail page | Alert | field_alert | Entity reference |  | 1 | Select list |  |
+| Content type | Benefits detail page | Alert | field_alert | Entity reference |  | 1 | Entity browser |  |
 | Content type | Benefits detail page | Main content | field_content_block | Entity reference revisions | Required | Unlimited | Paragraphs Browser EXPERIMENTAL |  |
 | Content type | Benefits detail page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter |  |
 | Content type | Benefits detail page | Featured content | field_featured_content | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
@@ -243,7 +243,7 @@ Feature: Content model fields
 | Paragraph type | Additional information | Instructions for obtaining more information in Spanish | field_text_expander | Text (plain) |  | 1 | Textfield with counter | Translatable |
 | Paragraph type | Additional information | Text | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Address | Address | field_address | Address |  | 1 | Address |  |
-| Paragraph type | Alert | Reusable alert | field_alert_block_reference | Entity reference |  | 1 | Select list |  |
+| Paragraph type | Alert | Reusable alert | field_alert_block_reference | Entity reference |  | 1 | Entity browser |  |
 | Paragraph type | Alert | Alert Heading | field_alert_heading | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Alert | Alert Type | field_alert_type | List (text) |  | 1 | Select list |  |
 | Paragraph type | Alert | Alert content | field_va_paragraphs | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
