@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.page.field_table_of_contents_boolean
     - node.type.page
   module:
+    - datetime
     - entity_reference_revisions
     - field_group
     - user
@@ -27,6 +28,7 @@ third_party_settings:
       children:
         - field_description
         - field_meta_title
+        - field_plainlanguage_date
       parent_name: ''
       weight: 1
       format_type: fieldset
@@ -77,7 +79,7 @@ content:
   field_featured_content:
     type: entity_reference_revisions_entity_view
     weight: 4
-    label: visually_hidden
+    label: above
     settings:
       view_mode: default
       link: ''
@@ -85,7 +87,7 @@ content:
     region: content
   field_intro_text:
     weight: 2
-    label: visually_hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
@@ -101,7 +103,7 @@ content:
     region: content
   field_meta_title:
     type: string
-    weight: 0
+    weight: 1
     region: content
     label: inline
     settings:
