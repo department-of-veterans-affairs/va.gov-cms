@@ -5,16 +5,16 @@
  * Contains va_gov_backend.module.
  */
 
-use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Render\Markup;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\taxonomy\Entity\Term;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 
 /**
  * Implements hook_help().
@@ -330,7 +330,6 @@ function va_gov_backend_page_attachments(array &$attachments) {
  */
 function _va_gov_backend_gtm_settings() {
   $sections = [];
-  $page_title = '';
   $current_path = \Drupal::service('path.current')->getPath();
   $request = \Drupal::request();
   // Grab our page title.
@@ -347,6 +346,7 @@ function _va_gov_backend_gtm_settings() {
       $current_path = $node->toUrl()->toString();
     }
     $sections['nodeID'] = $node->id();
+    $sections['pageTitle'] = $node->getTitle();
     $sections['pagePath'] = $current_path;
     $sections['contentTitle'] = $node->getTitle();
     $sections['contentType'] = $node->bundle();
@@ -355,55 +355,8 @@ function _va_gov_backend_gtm_settings() {
     // Load up our section name.
     $section_entity_load = Term::load($section_entity_id);
     $sections['contentOwner'] = $section_entity_load->getName();
-
-    // Now we can start building the section tree.
-    if (!empty($section_entity_id)) {
-      $perms_service = \Drupal::service('va_gov_backend.user_perms');
-      $section_ids = $perms_service->entitySections($section_entity_id);
-      $switched_ids = array_reverse($section_ids);
-      if (!empty($switched_ids)) {
-        $i = 0;
-        foreach ($switched_ids as $section) {
-          $key = _va_gov_backend_key_switch($i);
-          $sections[$key] = $section;
-          $i++;
-        }
-      }
-    }
   }
   return $sections;
-}
-
-/**
- * Replaces key value with gtm key.
- *
- * @param int $count
- *   The key number.
- *
- * @return int
- *   The replaced key.
- */
-function _va_gov_backend_key_switch($count) {
-  $key_Value = '';
-  switch ($count) {
-    case 0:
-      $key_value = 'firstSectionLevel';
-      break;
-
-    case 1:
-      $key_value = 'secondSectionLevel';
-      break;
-
-    case 2:
-      $key_value = 'thirdSectionLevel';
-      break;
-
-    case 3:
-      $key_value = 'fourthSectionLevel';
-      break;
-  }
-
-  return $key_value;
 }
 
 /**

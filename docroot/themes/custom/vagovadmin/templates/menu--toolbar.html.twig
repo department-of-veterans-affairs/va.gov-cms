@@ -31,29 +31,35 @@
 {% macro menu_links(items, attributes, menu_level) %}
 	{% import _self as menus %}
 	{% if items %}
+		{% set menu_level_class = 'menu-level-' ~ menu_level %}
+
+
 		{% if menu_level == 0 %}
 			<ul{{attributes.addClass(['toolbar-menu','top-level-nav'])}}>
-
 			{% else %}
-				<ul class="toolbar-menu lower-level-nav">
-
+				<ul class="toolbar-menu lower-level-nav {{menu_level_class}}">
 				{% endif %}
+
 				{% for item in items %}
+
 					{%
-        set classes = [
-          'menu-item',
-          item.is_expanded ? 'menu-item--expanded',
-          item.is_collapsed ? 'menu-item--collapsed',
-          item.in_active_trail ? 'menu-item--active-trail',
-        ]
-      %}
+					set classes = [
+						'menu-item',
+						item.is_expanded ? 'menu-item--expanded',
+						item.is_collapsed ? 'menu-item--collapsed',
+						item.in_active_trail ? 'menu-item--active-trail',
+						menu_level_class,
+					]
+				%}
 					<li{{item.attributes.addClass(classes)}}>
 						{{ link(item.title, item.url) }}
 						{% if item.below %}
 							{{ menus.menu_links(item.below, attributes, menu_level + 1) }}
 						{% endif %}
 					</li>
+
 				{% endfor %}
+
 			</ul>
 		{% endif %}
 	{% endmacro %}

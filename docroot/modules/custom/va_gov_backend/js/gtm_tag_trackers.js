@@ -1,14 +1,56 @@
+/**
+ * @file
+ */
+
 (function ($, Drupal) {
   Drupal.behaviors.vaGovTagTracker = {
     attach: function (context, settings) {
+
+      // Handle different title data scenarios.
+      const titleResolver = (data) => {
+        let title = null;
+        if (data) {
+          title = data;
+          if (data['#markup']) {
+            title = data['#markup'];
+          }
+        }
+        return title;
+      }
+
+      // Walk the main nav tree from point of click.
+      const menuTraverser = (item) => {
+        parentClasses = item.parentNode.className;
+        let level4, level3, level2, level1 = null;
+
+        if (parentClasses.includes('menu-level-3')) {
+          level4 = item;
+          level3 = item.closest('li.menu-item--expanded.menu-level-2').firstElementChild;
+          level2 = level3.closest('li.menu-item--expanded.menu-level-1').firstElementChild;
+          level1 = level2.closest('li.menu-item--expanded.menu-level-0').firstElementChild;
+        }
+        if (parentClasses.includes('menu-level-2')) {
+          level3 = item;
+          level2 = item.closest('li.menu-item--expanded.menu-level-1').firstElementChild;
+          level1 = level2.closest('li.menu-item--expanded.menu-level-0').firstElementChild;
+        }
+        if (parentClasses.includes('menu-level-1')) {
+          level2 = item;
+          level1 = item.closest('li.menu-item--expanded.menu-level-0').firstElementChild;
+        }
+        if (parentClasses.includes('menu-level-0')) {
+          level1 = item;
+        }
+        dataCollection['firstSectionLevel'] = level1 ? level1.textContent : '';
+        dataCollection['secondSectionLevel'] = level2 ? level2.textContent : '';
+        dataCollection['thirdSectionLevel'] = level3 ? level3.textContent : '';
+        dataCollection['fourthSectionLevel'] = level4 ? level4.textContent : '';
+      }
+
       // Build our gtm settings push object.
       const dataCollection = {
         'pagePath': settings.gtm_data.pagePath ? settings.gtm_data.pagePath : null,
-        'pageTitle': settings.gtm_data.pageTitle ? settings.gtm_data.pageTitle : null,
-        'firstSectionLevel': settings.gtm_data.firstSectionLevel ? settings.gtm_data.firstSectionLevel : null,
-        'secondSectionLevel': settings.gtm_data.secondSectionLevel ? settings.gtm_data.secondSectionLevel : null,
-        'thirdSectionLevel': settings.gtm_data.thirdSectionLevel ? settings.gtm_data.thirdSectionLevel : null,
-        'fourthSectionLevel': settings.gtm_data.fourthSectionLevel ? settings.gtm_data.foourthSectionLevel : null,
+        'pageTitle': titleResolver(settings.gtm_data.pageTitle),
         'nodeID': settings.gtm_data.nodeID ? settings.gtm_data.nodeID : null,
         'contentTitle': settings.gtm_data.contentTitle ? settings.gtm_data.contentTitle : null,
         'contentType': settings.gtm_data.contentType ? settings.gtm_data.contentType : null,
@@ -16,12 +58,25 @@
       }
 
       // For processing our click events.
-      const pushGTM = (selector, event) => {
+      const pushGTM = (selector, event, subtype) => {
+        const editPageTypes = ['content-page', 'bulk-content-page'];
         // Push cms data into dataLayer.
-        selector.forEach(el => {
-          // Using jQuery begrudgingly. ES6 doesn't have a nice once() method.
+        selector.forEach((el, i) => {
+          // Using jQuery - ES6 once method doesn't prevent multiple Drupal behavior fire records.
           $(el, context).once().click(function (e) {
             dataCollection['event'] = event;
+
+            // Special handling for content admin pages.
+            if (editPageTypes.includes(subtype)) {
+              dataCollection['contentTitle'] = document.querySelectorAll('.views-field-title a')[i + 1].textContent;
+              dataCollection['contentType'] = document.querySelectorAll('.views-field-type')[i + 1].textContent;
+              dataCollection['contentOwner'] = document.querySelectorAll('.views-field-field-administration')[i + 1].textContent;
+            }
+
+            // Special handling for menu nav items.
+            menuTraverser(el);
+
+            // Now send it to the dataLayer.
             dataLayer.push(dataCollection);
           });
         });
@@ -31,48 +86,57 @@
       const targets = [
         {
           selector: document.querySelectorAll('ul.toolbar-menu.top-level-nav > li > a'),
-          event: 'top-level-nav'
+          event: 'top-level-nav',
+          subtype: false
         },
         {
-          selector: document.querySelectorAll('ul.toolbar-menu.lower-level-nav li a'),
-          event: 'lower-level-nav'
+          selector: document.querySelectorAll("ul.toolbar-menu.lower-level-nav li a"),
+          event: 'lower-level-nav',
+          subtype: false
         },
         {
           // Edit tab on node page.
           selector: document.querySelectorAll('li.tabs__tab a[rel="edit-form"]'),
-          event: 'content-edit'
+          event: 'content-edit',
+          subtype: 'node-page'
         },
         {
           // Edit button on content view page.
           selector: document.querySelectorAll('.views-field-edit-node a.button'),
-          event: 'content-edit'
+          event: 'content-edit',
+          subtype: 'content-page'
         },
         {
           // Edit button on bulk content view page.
-          selector: document.querySelectorAll('.views-field-operations li.dropbutton-action a'),
-          event: 'content-edit'
+          selector: document.querySelectorAll('.views-field-operations li.edit > a'),
+          event: 'content-edit',
+          subtype: 'bulk-content-page'
         },
         {
           selector: document.querySelectorAll('#edit-actions.form-actions [value="Save"]'),
-          event: 'content-save'
+          event: 'content-save',
+          subtype: false
         },
         {
           selector: document.querySelectorAll('.node-preview-button'),
-          event: 'content-preview'
+          event: 'content-preview',
+          subtype: false
         },
         {
           selector: document.querySelectorAll('#edit-actions.form-actions [value="Save and continue editing"]'),
-          event: 'content-save-and-continue'
+          event: 'content-save-and-continue',
+          subtype: false
         },
         {
           selector: document.querySelectorAll('#edit-actions.form-actions a.button:last-child'),
-          event: 'content-unlock'
+          event: 'content-unlock',
+          subtype: false
         },
       ];
 
       // Send it off to GTM on click.
       targets.forEach(e => {
-        pushGTM(e.selector, e.event);
+        pushGTM(e.selector, e.event, e.subtype);
       });
 
       // Send data to GTM onLoad.
@@ -81,7 +145,13 @@
         dataLayer.push(dataCollection);
       }
 
-      window.addEventListener('load', gtmPageLoadPush);
+      // Three behaviors loaded on edit pages.
+      // This causes function to fire three times on page load.
+      // I don't think complex limiting of behaviors can be done without jQuery.
+      // Google searches all point to jQuery to handle this issue.
+      $(window, context).once('vaGovTagTracker').on('load', function () {
+        gtmPageLoadPush();
+      });
 
     }
   };
