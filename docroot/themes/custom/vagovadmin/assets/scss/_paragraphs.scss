@@ -1,4 +1,30 @@
 .node--view-mode-full {
+  //.field--name-field-steps .field__item,
+  .paragraph {
+    border: #dddddd dotted;
+    //margin: 1rem;
+    //padding: .5rem;
+    background-color: rgba(220, 225, 230, .2);
+
+    &:hover {
+      background-color: rgba(220, 245, 230, .2);
+    }
+    .field--label-above {
+      .field__label {
+        font-size: .6rem;
+      }
+    }
+  }
+
+  .proof-label {
+    float: right;
+    font-size: .8rem;
+    color: #336633;
+    line-height: 1;
+    margin-right: 2rem;
+    font-weight: 700;
+  }
+
   .paragraph--type--list-of-link-teasers .field--name-field-title {
     font-size: 20px;
     font-weight: 700;
@@ -14,17 +40,6 @@
     max-width: 77rem;
     line-height: 2rem;
     margin: 0 1rem;
-  }
-
-  .field--name-field-featured-content {
-    margin: 1rem 0;
-
-    .field__item {
-      background: #e1f3f8;
-      padding: 0.1rem;
-      clear: both;
-      margin: 0;
-    }
   }
 
   .usa-accordion-button,
@@ -44,11 +59,6 @@
     border-left: 7px solid #9bdaf1;
   }
 
-  .proof-label {
-    font-size: .6rem;
-    color: #336633;
-    line-height: 1;
-    padding: 0;  }
 }
 
 .node-form {
