@@ -45,6 +45,8 @@
     'field--label-' ~ label_display,
   ]
 %}
+<div{{ attributes.addClass(classes) }}>
+  <div{{ title_attributes.addClass('field__label') }}>{{ label }}</div>
   {% if multiple %}
     <div{{ attributes.addClass(classes, 'field__items') }}>
   {% endif %}
@@ -56,3 +58,4 @@
   {% if multiple %}
     </div>
   {% endif %}
+  </div>
