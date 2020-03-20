@@ -16,6 +16,7 @@ Feature: Views
 | Recent content | content_recent | Content | Disabled | Recent content. |
 | Content served from Drupal | content_served_from_drupal | Content | Enabled | An exportable list of all content served from Drupal |
 | Content Entity Reference Source | content_entity_reference_source | Content | Enabled |  |
+| Custom block entity browsers | custom_block_entity_browsers | Custom Block | Enabled | For placing on content forms |
 | Files | files | Files | Enabled | Find and manage files. |
 | Frontpage | frontpage | Content | Enabled | All content promoted to frontpage |
 | Glossary | glossary | Content | Disabled | All content, by letter. |
@@ -74,6 +75,8 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: Publication Listing | entity_reference_2 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Story Listing | entity_reference_3 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
+| Custom block entity browsers | Alert block entity browsers | entity_browser_1 | Entity browser |
+| Custom block entity browsers | Master                      | default          | Master         |
 | Custom block library | Master | default | Master |
 | Custom block library | Page | page_1 | Page |
 | Files | Master | default | Master |
