@@ -5,8 +5,6 @@
  * Vagovadmin.theme.
  */
 
-use Drupal\paragraphs\Entity\Paragraph;
-
 /**
  * Implements hook_preprocess_HOOK().
  */
@@ -18,8 +16,8 @@ function vagovadmin_preprocess_paragraph(&$variables) {
 
   if ($paragraph->getType() === 'q_a') {
     $variables['as_accordion'] = FALSE;
-    if (!empty($parent_ids)) {
-      $parent = Paragraph::load($parent_ids[0]);
+    $parent = $paragraph->getParentEntity();
+    if ($parent->bundle() === 'q_a_section') {
       $variables['as_accordion'] = $parent->field_accordion_display->value;
     }
   }
