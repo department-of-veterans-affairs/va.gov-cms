@@ -124,5 +124,20 @@
   .proof-label + .field .field__label {
     border: none;
   }
-
+  &.version-1 {
+    fieldset.meta-content:not(.fieldgroup) > legend,
+    .field,
+    .paragraph {
+      .field--label-above {
+        .field__label {
+          font-size: .8rem !important;
+        }
+      }
+    }
+  }
 }
+
+body .version-1 {
+  font-size: 1rem;
+}
+
