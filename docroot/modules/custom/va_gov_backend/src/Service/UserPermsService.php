@@ -86,7 +86,15 @@ class UserPermsService {
         else {
           $target_allowed_options = [];
           foreach ($form[$target]['widget']['#options'] as $header_key => $option_header) {
-            if (is_array($option_header) && !empty($option_header)) {
+            if (!is_array($option_header) && !empty($option_header)) {
+              // Exception for one level select fields that don't
+              // have opt groups.
+              $access = $this->userAccess($header_key, 'node', $user_id);
+              if ($access) {
+                $target_allowed_options[] = $header_key;
+              }
+            }
+            elseif (is_array($option_header) && !empty($option_header)) {
               foreach ($option_header as $option_key => $option_item) {
                 $access = $this->userAccess($option_key, 'node', $user_id);
 
@@ -129,6 +137,12 @@ class UserPermsService {
    */
   public function userAccess($entity_id, $entity_type, $user_id, $op = NULL) {
     $account = $this->getUser($user_id);
+
+    // When using entity reference view as a source for field options,
+    // first option has key '_none' and should be ignored in access checks.
+    if ($entity_id === '_none') {
+      return TRUE;
+    }
 
     $entity = $this->entityInterface->getStorage($entity_type)->load($entity_id);
 
