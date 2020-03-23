@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - block_content.type.promo
+    - entity_browser.browser.media
     - field.field.block_content.promo.field_image
     - field.field.block_content.promo.field_instructions
     - field.field.block_content.promo.field_owner
@@ -25,14 +26,14 @@ content:
     weight: 4
     region: content
     settings:
-      entity_browser: null
-      open: false
+      entity_browser: media
       field_widget_display: label
       field_widget_edit: true
       field_widget_remove: true
-      field_widget_replace: false
-      field_widget_display_settings: {  }
       selection_mode: selection_append
+      field_widget_replace: false
+      open: false
+      field_widget_display_settings: {  }
     third_party_settings: {  }
   field_instructions:
     weight: 2

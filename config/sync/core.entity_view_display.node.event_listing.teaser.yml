@@ -1,9 +1,15 @@
 uuid: 138a7b0a-1e28-4ed4-9274-d6dd159d1ebc
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.event_listing.field_administration
+    - field.field.node.event_listing.field_description
+    - field.field.node.event_listing.field_intro_text
+    - field.field.node.event_listing.field_meta_tags
+    - field.field.node.event_listing.field_meta_title
+    - field.field.node.event_listing.field_office
     - node.type.event_listing
   module:
     - user

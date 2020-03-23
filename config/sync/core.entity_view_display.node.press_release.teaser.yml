@@ -1,12 +1,13 @@
 uuid: e7428890-f7e2-4949-a270-94ef68faf612
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.press_release.field_address
     - field.field.node.press_release.field_administration
     - field.field.node.press_release.field_intro_text
+    - field.field.node.press_release.field_listing
     - field.field.node.press_release.field_meta_tags
     - field.field.node.press_release.field_office
     - field.field.node.press_release.field_pdf_version
@@ -32,6 +33,7 @@ hidden:
   field_address: true
   field_administration: true
   field_intro_text: true
+  field_listing: true
   field_meta_tags: true
   field_office: true
   field_pdf_version: true
@@ -39,3 +41,4 @@ hidden:
   field_press_release_downloads: true
   field_press_release_fulltext: true
   field_release_date: true
+  search_api_excerpt: true
