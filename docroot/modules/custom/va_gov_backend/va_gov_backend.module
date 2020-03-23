@@ -6,11 +6,12 @@
  */
 
 use Drupal\Core\Asset\AttachedAssetsInterface;
-use Drupal\node\NodeInterface;
-use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_help().
@@ -89,7 +90,10 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
-  $targets = ['field_office'];
+  $targets = [
+    'field_office',
+    'field_listing',
+  ];
   _va_gov_backend_dropdown_field_access($form, $targets);
 
   if ($form_id === 'workbench_access_assign_user') {
@@ -162,7 +166,15 @@ function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
   foreach ($targets as $target) {
     if (in_array($target, $form) && !empty($form[$target]['widget']['#options'])) {
       foreach ($form[$target]['widget']['#options'] as $header_key => $option_header) {
-        if (is_array($option_header) && !empty($option_header)) {
+        // Field_listing is an exception. It is a one level field and doesn't
+        // have opt groups.
+        if ($target === 'field_listing' && !is_array($option_header) && !empty($option_header)) {
+          // If not in the allowed items array, take it out.
+          if (!in_array($header_key, $allowed_options)) {
+            unset($form[$target]['widget']['#options'][$header_key]);
+          }
+        }
+        elseif (is_array($option_header) && !empty($option_header)) {
           foreach ($option_header as $option_key => $option_item) {
             // If not in the allowed items array, take it out.
             if (!in_array($option_key, $allowed_options)) {
@@ -326,5 +338,106 @@ function va_gov_backend_pathauto_alias_alter(&$alias, array &$context) {
 
   if ($context['module'] === 'node' && ($context['bundle'] === 'event')) {
     $alias = str_replace('/events/events/', '/events/', $alias);
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function va_gov_backend_entity_presave(EntityInterface $entity) {
+  $bundle_types = ['event', 'news_story', 'press_release', 'outreach_asset'];
+
+  if ($entity->getEntityTypeId() == 'node' && in_array($entity->bundle(), $bundle_types)) {
+    _va_gov_backend_sync_office_listing_fields($entity);
+  }
+}
+
+/**
+ * Sync field_listing with field_office.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Entity.
+ *
+ * @todo: Use this function in hook_update_n() - VACMS-1239 Phase 2.
+ */
+function _va_gov_backend_sync_office_listing_fields(EntityInterface $entity) {
+  $entity_listing_mapping = [
+    'news_story' => 'story_listing',
+    'press_release' => 'press_releases_listing',
+    'outreach_asset' => 'publication_listing',
+  ];
+
+  // Deduct field_listing value from field_office.
+  // Assuming that there's only one Listing node for each office+content type.
+  // ^ confirmed in current DB.
+  $office = $entity->hasField('field_office') ? $entity->get('field_office')->target_id : NULL;
+
+  $entity_ref = $office ? Drupal::entityTypeManager()->getStorage('node')->load($office) : NULL;
+
+  switch ($entity->bundle()) {
+    case 'event':
+      // Check if the entity reference is an event_listing.
+      if ($entity_ref && $entity_ref->bundle() === 'event_listing') {
+        // Store reference in field_listing.
+        $entity->set('field_listing', NULL);
+        $entity->field_listing[] = ['target_id' => $office];
+      }
+      else {
+        // Find event_listing by office or health_care_region_page id.
+        $result = Drupal::entityQuery('node')
+          ->condition('type', 'event_listing')
+          ->condition('field_office', $office)
+          ->execute();
+
+        _va_gov_backend_set_field_listing_value($entity, $entity_listing_mapping, reset($result));
+      }
+      break;
+
+    // Story; News release; Publication.
+    case 'news_story':
+    case 'press_release':
+    case 'outreach_asset':
+      // Check if the entity reference is an office or health_care_region_page.
+      if ($entity_ref && in_array($entity_ref->bundle(), ['office', 'health_care_region_page'])) {
+        // Find *_listing node by office or health_care_region_page id.
+        $result = Drupal::entityQuery('node')
+          ->condition('type', $entity_listing_mapping[$entity->bundle()])
+          ->condition('field_office', $office)
+          ->execute();
+
+        _va_gov_backend_set_field_listing_value($entity, $entity_listing_mapping, reset($result));
+      }
+      break;
+  }
+}
+
+/**
+ * Sets field_listing value or throws an exception for an empty value.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Entity.
+ * @param array $entity_listing_mapping
+ *   Mapping that specifies how content type maps to corresponding
+ *   "listing" content type.
+ * @param int|null $id
+ *   NID of the node of type "listing".
+ *
+ * @throws \Exception
+ */
+function _va_gov_backend_set_field_listing_value(EntityInterface &$entity, array $entity_listing_mapping, int $id = NULL) {
+  if (!is_int($id) || $id == 0) {
+    // Listing corresponding to field_office, was not found. Fail silently.
+    // Give a warning message to the user and log in dblog.
+    Drupal::messenger()->addWarning("{$entity->type->entity->label()} Listing page for the office or system you've selected does not exist. Please create {$entity->type->entity->label()} Listing page and come back to re-save this {$entity->type->entity->label()}.");
+    Drupal::logger('va_gov_backend')->warning('%bundle Listing page for the office or system you\'ve selected does not exist. Please create %bundle Listing page and come back to re-save this %bundle.', ['%bundle' => $entity->type->entity->label()]);
+    return;
+  }
+
+  // We have a listing node id.
+  if ($entity->hasField('field_listing')) {
+    // Clear previous value.
+    $entity->set('field_listing', NULL);
+    // Assuming there's only one Event Listing per Office/VAMC System.
+    $entity->field_listing[] = ['target_id' => $id];
   }
 }

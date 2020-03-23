@@ -105,7 +105,7 @@ Feature: Permissions
 
 
   @perms @field_administration
-  Scenario Outline: Checkc for field_administration.
+  Scenario Outline: Check for field_administration.
     Given I am logged in as a user with the "administrator" role
     Then I am viewing an <type> with the title <title>
     Then I visit the "edit" page for a node with the title <title>
