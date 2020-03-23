@@ -139,3 +139,36 @@ function va_gov_backend_update_8002() {
     ->condition('field_office_target_id', $swap_key)
     ->execute();
 }
+
+/**
+ * Sync field_listing with field_office on four content types.
+ */
+function va_gov_backend_update_8003() {
+  $bundles = [
+    'event',
+    'news_story',
+    'press_release',
+    'outreach_asset',
+  ];
+
+  $storage = \Drupal::entityTypeManager()->getStorage("node");
+
+  foreach ($bundles as $bundle) {
+    $nodes = $storage->loadByProperties(['type' => $bundle]);
+
+    // Re-save each node to trigger field sync.
+    // Not writing batch process here, because out targeted nodes quantity
+    // is limited.
+    foreach ($nodes as $node) {
+      $node->setNewRevision(TRUE);
+      // New revision will inherit content moderation status from default rev.
+      $node->isDefaultRevision(TRUE);
+      $node->setRevisionLogMessage('VACMS Team: Synced field_listing with field_office for upcoming content model updates.');
+      $node->setRevisionCreationTime(Drupal::time()->getRequestTime());
+      $node->setChangedTime(Drupal::time()->getRequestTime());
+      // Setting revision as super admin.
+      $node->setRevisionUserId(1);
+      $node->save();
+    }
+  }
+}
