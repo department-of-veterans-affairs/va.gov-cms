@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.event.field_facility_location
     - field.field.node.event.field_featured
     - field.field.node.event.field_link
+    - field.field.node.event.field_listing
     - field.field.node.event.field_location_humanreadable
     - field.field.node.event.field_location_type
     - field.field.node.event.field_media
@@ -23,6 +24,7 @@ dependencies:
     - field.field.node.event.field_order
     - field.field.node.event.field_url_of_an_online_event
     - node.type.event
+    - workflows.workflow.editorial
   module:
     - address
     - content_moderation
@@ -91,12 +93,13 @@ third_party_settings:
         - revision_log
       parent_name: ''
       weight: 15
-      format_type: details
+      format_type: fieldset
       format_settings:
         id: ''
         classes: ''
         open: true
         required_fields: true
+        description: ''
       label: 'Editorial Workflow'
       region: content
     group_registration_link:
@@ -104,7 +107,7 @@ third_party_settings:
         - field_event_cta
         - field_link
       parent_name: group_link
-      weight: 33
+      weight: 34
       format_type: fieldset
       format_settings:
         id: ''
@@ -155,7 +158,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_additional_information_abo:
-    weight: 41
+    weight: 35
     settings:
       rows: 5
       placeholder: ''
@@ -169,7 +172,7 @@ content:
     type: address_default
     region: content
   field_administration:
-    weight: 21
+    weight: 43
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -197,7 +200,7 @@ content:
     type: string_textfield
     region: content
   field_event_cost:
-    weight: 32
+    weight: 33
     settings:
       size: 60
       placeholder: ''
@@ -261,7 +264,8 @@ content:
   field_media:
     type: media_library_widget
     weight: 3
-    settings: {  }
+    settings:
+      media_types: {  }
     region: content
     third_party_settings: {  }
   field_meta_tags:
@@ -339,6 +343,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_listing: true
   promote: true
   status: true
   sticky: true

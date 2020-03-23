@@ -1,9 +1,11 @@
 uuid: 26535241-b24b-4b82-a985-774d13bf0903
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.documentation_page.field_administration
+    - field.field.node.documentation_page.field_content_block
     - node.type.documentation_page
   module:
     - user
