@@ -74,33 +74,26 @@
 }
 
 .node--view-mode-full {
-  .field--name-field-steps .field__item,
-  .paragraph {
-    border: #dddddd dotted;
-    margin: 1em;
-    padding: .5em;
-    background-color: rgba(220,225,230,.2);
+  font-size: 1rem;
 
-    .field__label {
-      font-weight: normal;
-      font-style: italic;
-      color: #999;
+  h1 {
+    line-height: 1.5rem;
+    margin-bottom: 2rem;
+
+    .field--name-title {
+      font-family: "Bitter", "Georgia", "Cambria", "Times New Roman", "Times", serif;
+      font-size: 2rem;
     }
   }
-
-  .meta-content {
-    border: none;
-    border-bottom: solid #999;
-    padding-bottom: 2rem;
-
-    .fieldset-wrapper {
-      border: .1rem solid #ccc;
-      padding: .5rem;
-      background-color: #eee;
-      color: #666;
-
-      .field__item {
-        font-style: italic;
+  .meta-content-wrapper {
+    .meta-content {
+      .field__label {
+        color: #006633;
+      }
+      td {
+        padding: 0;
+        font-size: 0.8rem;
+        margin-right: 0.8rem;
       }
     }
     .seo-alert .field__label {

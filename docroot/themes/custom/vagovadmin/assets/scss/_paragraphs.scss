@@ -1,29 +1,53 @@
 .node--view-mode-full {
-  //.field--name-field-steps .field__item,
+  .field--name-field-steps .field__item,
   .paragraph {
-    border: #dddddd dotted;
-    margin: 1rem;
-    padding: .5rem;
-    padding-top: .8rem;
-    background-color: rgba(220, 225, 230, .2);
+    border: #e0eaef solid 0.1rem;
+    padding: 1.4rem 1rem;
+    position: relative;
 
     &:hover {
-      background-color: rgba(220, 245, 230, .2);
+      background-color: rgba(222, 227, 230, 0.2);
     }
     .field--label-above {
       .field__label {
-        font-size: .6rem;
+        font-size: .8rem;
       }
     }
-  }
 
-  .proof-label {
-    float: right;
-    font-size: .8rem;
-    color: #336633;
-    line-height: 1;
-    margin-right: 2rem;
-    font-weight: 700;
+    .contextual {
+      display: none;
+    }
+    .proof-edit {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      font-size: .8rem;
+
+      .proof-label {
+        color: #336633;
+        line-height: 1;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .paragraph-button {
+        padding: 0.5rem;
+        border-radius: .8rem;
+        line-height: .4;
+      }
+    }
+    .field--name-field-answer {
+      .field__item:only-child {
+        .proof-edit {
+          display: none;
+        }
+      }
+    }
+    .paragraph--type--link-teaser {
+      .proof-edit {
+        display: none;
+      }
+    }
   }
 
   .paragraph--type--list-of-link-teasers .field--name-field-title {
@@ -61,4 +85,18 @@
     border-left: 7px solid #9bdaf1;
   }
 
+  &[about="/health-care/about-va-health-benefits/your-care-team"] {
+    .paragraph {
+      .contextual {
+        display: block;
+      }
+      .proof-edit {
+        right: 2.2rem;
+
+        .paragraph-button {
+          display: none;
+        }
+      }
+    }
+  }
 }
