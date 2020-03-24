@@ -1,7 +1,7 @@
 ---
-name: Product release notes
-about: Draft release notes
-title: "[datetime or release number] []"
+name: Product release note
+about: Writing a product release note to be published
+title: "[datetime or release note number]"
 labels: Release notes
 assignees: rachel-kauff
 
