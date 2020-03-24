@@ -87,13 +87,23 @@
   }
   .meta-content-wrapper {
     .meta-content {
-      .field__label {
-        color: #006633;
-      }
-      td {
-        padding: 0;
-        font-size: 0.8rem;
-        margin-right: 0.8rem;
+      tbody {
+        tr {
+          border: none;
+          &:hover {
+            background-color: inherit;
+          }
+          td {
+            padding: 0;
+            font-size: 0.8rem;
+            margin-right: 0.8rem;
+          }
+          &.field--label-inline {
+            .field__label:after {
+              content: '';
+            }
+          }
+        }
       }
     }
     .seo-alert .field__label {
