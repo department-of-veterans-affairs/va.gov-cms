@@ -18,7 +18,6 @@ dependencies:
     - field.field.node.page.field_table_of_contents_boolean
     - node.type.page
   module:
-    - datetime
     - entity_reference_revisions
     - field_group
     - user
@@ -26,9 +25,8 @@ third_party_settings:
   field_group:
     group_meta:
       children:
-        - field_description
         - field_meta_title
-        - field_plainlanguage_date
+        - field_description
       parent_name: ''
       weight: 1
       format_type: fieldset
@@ -70,7 +68,7 @@ content:
     region: content
   field_description:
     type: string
-    weight: 0
+    weight: 2
     region: content
     label: inline
     settings:
