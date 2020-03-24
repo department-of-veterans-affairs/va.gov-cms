@@ -74,33 +74,26 @@
 }
 
 .node--view-mode-full {
-  .field--name-field-steps .field__item,
-  .paragraph {
-    border: #dddddd dotted;
-    margin: 1em;
-    padding: .5em;
-    background-color: rgba(220,225,230,.2);
+  font-size: 1rem;
 
-    .field__label {
-      font-weight: normal;
-      font-style: italic;
-      color: #999;
+  h1 {
+    line-height: 1.5rem;
+    margin-bottom: 2rem;
+
+    .field--name-title {
+      font-family: "Bitter", "Georgia", "Cambria", "Times New Roman", "Times", serif;
+      font-size: 2rem;
     }
   }
-
-  .meta-content {
-    border: none;
-    border-bottom: solid #999;
-    padding-bottom: 2rem;
-
-    .fieldset-wrapper {
-      border: .1rem solid #ccc;
-      padding: .5rem;
-      background-color: #eee;
-      color: #666;
-
-      .field__item {
-        font-style: italic;
+  .meta-content-wrapper {
+    .meta-content {
+      .field__label {
+        color: #006633;
+      }
+      td {
+        padding: 0;
+        font-size: 0.8rem;
+        margin-right: 0.8rem;
       }
     }
     .seo-alert .field__label {
@@ -108,31 +101,33 @@
     }
   }
 
-  fieldset.meta-content:not(.fieldgroup) > legend,
-  .field--label-above {
-    .field__label {
-      font-size: .8rem;
-      color: #8a8a8a;
-      margin: .4rem 0 0 0;
-      padding: .2rem 0 0 0;
-      border-top: 1px #cccccc solid;
-
+  fieldset:not(.fieldgroup) {
+    background-color: #eff6f6;
+    margin: 0;
+    margin-bottom: .5rem;
+    padding: 10px 18px 0;
+    > legend {
+      position: inherit;
+      display: none;
     }
   }
 
-  .proof-label + h3 .field .field__label,
-  .proof-label + .field .field__label {
-    border: none;
+  .field__item {
+    margin: 0 .2rem .5rem 0.5rem;
   }
-  &.version-1 {
-    fieldset.meta-content:not(.fieldgroup) > legend,
-    .field,
-    .paragraph {
-      .field--label-above {
-        .field__label {
-          font-size: .8rem !important;
-        }
-      }
+  .field--label-above {
+    .field__label {
+      font-size: 1rem;
+      color: #7b7b7b;
+      margin: .4rem 0 0 0;
+      padding: .2rem 0 0 0;
+      font-weight: normal;
+    }
+  }
+
+  .field--name-field-featured-content {
+    .field__item {
+      background-color: #e1f3f8;
     }
   }
 }
