@@ -49,7 +49,12 @@
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {{ title_suffix }}
-    <span class="proof-label">{{ paragraph_name }}</span>
+    <div class="proof-edit">
+      <span class="proof-label">{{ paragraph_name }}</span>
+      <a href="/paragraph/{{ paragraph.id() }}/edit">
+        <span class="button paragraph-button">Edit</span>
+      </a>
+    </div>
     {% block content %}
       {{ content }}
     {% endblock %}

@@ -44,19 +44,7 @@
 		<div{{description.attributes.addClass('description')}}>{{ description.content }}</div>
 	{% endif %}
 
-	<div class="fieldset-wrapper">
-		{% if errors %}
-			<div class="form-item--error-message">
-				<strong>{{ errors }}</strong>
-			</div>
-		{% endif %}
-		{% if prefix %}
-			<span class="field-prefix">{{ prefix }}</span>
-		{% endif %}
-		{{ children }}
-		{% if suffix %}
-			<span class="field-suffix">{{ suffix }}</span>
-		{% endif %}
-
-	</div>
+	<table class="fieldset-wrapper">
+    {{ children }}
+	</table>
 </fieldset>

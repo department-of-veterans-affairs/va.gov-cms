@@ -22,20 +22,3 @@ function vagovadmin_preprocess_paragraph(&$variables) {
     }
   }
 }
-
-/**
- * Implements hook_preprocess_HOOK().
- */
-function vagovadmin_preprocess_node(&$variables) {
-  // Demo.
-  $demo_version = '0';
-  $session = \Drupal::request()->getSession();
-  if (!empty($GLOBALS['_GET']['demo'])) {
-    $demo_version = $GLOBALS['_GET']['demo'];
-    $session->set('demo_version', $demo_version);
-  }
-  elseif ($version = $session->get('demo_version')) {
-    $demo_version = $version;
-  }
-  $variables['demo_version'] = $demo_version;
-}

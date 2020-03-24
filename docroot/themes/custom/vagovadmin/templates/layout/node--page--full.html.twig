@@ -78,18 +78,31 @@
     node.isSticky() ? 'node--sticky',
     not node.isPublished() ? 'node--unpublished',
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-    demo_version ? 'version-' ~ demo_version
   ]
 %}
+{% if demo_version %}
+  {% set versions = demo_version|split(',') %}
+  {% set classes = classes|merge(versions) %}
+{% endif %}
+{#{{ kint(content.group_meta) }}#}
+
 {{ attach_library('classy/node') }}
 <article{{ attributes.addClass(classes) }}>
 
+  <div class="meta-content-wrapper">
+    {{ content.group_meta }}
+  </div>
   {{ title_prefix }}
   {% if label %}
     {% if page %}
-      <h1{{ title_attributes }}>
-        {{ label }}
-      </h1>
+      <div class="title field--label-above">
+        <div class="field__label">Title</div>
+        <div class="field__item">
+          <h1 class="field--label-above">
+            {{ label }}
+          </h1>
+        </div>
+      </div>
     {% else %}
       <h2{{ title_attributes }}>
         <a href="{{ url }}" rel="bookmark">{{ label }}</a>
@@ -109,7 +122,7 @@
   {% endif %}
 
   <div{{ content_attributes.addClass('node__content') }}>
-    {{ content }}
+    {{ content|without('group_meta') }}
   </div>
 
 </article>
