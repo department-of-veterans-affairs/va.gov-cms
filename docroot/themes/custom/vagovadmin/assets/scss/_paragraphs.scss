@@ -1,90 +1,137 @@
-.node--view-mode-full {
-  .field--name-field-steps .field__item,
-  .paragraph {
-    border: #e0eaef solid 0.1rem;
-    padding: 1.4rem 1rem;
-    position: relative;
+.page-node-type-page {
+  .node--view-mode-full {
+    .field--name-field-steps .field__item,
+    .paragraph {
+      border: #e0eaef solid 0.1rem;
+      padding: 2.4rem 1rem;
+      position: relative;
 
-    &:hover {
-      background-color: rgba(222, 227, 230, 0.2);
-    }
-    .field--label-above {
-      .field__label {
+      &:hover {
+        background-color: rgba(222, 227, 230, 0.1);
+      }
+
+      .field--label-above {
+        .field__label {
+          font-size: .8rem;
+          padding: 0;
+        }
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+
+      .contextual-region, &.contextual-region {
+        .contextual {
+          .trigger {
+            display: none;
+          }
+
+          .contextual-links {
+            display: block;
+            border: none;
+            top: -0.4rem;
+            background-color: inherit;
+
+            li.paragraphsedit-paragraph {
+              background-color: inherit;
+              a {
+                position: relative; /* 1 */
+                display: inline-block;
+                box-sizing: border-box;
+                cursor: pointer;
+                -webkit-transition: all 0.1s;
+                transition: all 0.1s;
+                text-align: center;
+                text-decoration: none;
+                color: #333;
+                border: 1px solid #a6a6a6;
+                background-color: #f2f1eb;
+                background-image: -webkit-linear-gradient(top, #f6f6f3, #e7e7df);
+                background-image: linear-gradient(to bottom, #f6f6f3, #e7e7df);
+                text-shadow: 0 1px hsla(0, 0%, 100%, 0.6);
+                font-size: 0.875rem; /* 5 */
+                font-weight: 600;
+                -webkit-appearance: none; /* 3 */
+                -moz-appearance: none; /* 3 */
+                -webkit-font-smoothing: antialiased; /* 6 */
+                padding: 0.5rem;
+                border-radius: .8rem;
+                line-height: .4;
+              }
+            }
+          }
+        }
+      }
+      .proof-edit {
+        position: absolute;
+        top: 0.5rem;
+        right: 3.5rem;
         font-size: .8rem;
-      }
-    }
 
-    .contextual {
-      display: none;
-    }
-    .proof-edit {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      font-size: .8rem;
-
-      .proof-label {
-        color: #336633;
-        line-height: 1;
-        font-weight: 700;
+        .proof-label {
+          color: #336633;
+          line-height: 1;
+          font-weight: 700;
+        }
       }
 
-      .paragraph-button {
-        padding: 0.5rem;
-        border-radius: .8rem;
-        line-height: .4;
+      .field--name-field-answer {
+        .field__item:only-child {
+          .paragraph {
+            padding-top: 0.4rem;
+            padding-bottom: 0.4rem;
+
+            .proof-edit {
+              display: none;
+            }
+          }
+        }
       }
-    }
-    .field--name-field-answer {
-      .field__item:only-child {
+
+      .paragraph--type--link-teaser {
         .proof-edit {
           display: none;
         }
       }
     }
-    .paragraph--type--link-teaser {
-      .proof-edit {
-        display: none;
-      }
+
+    .paragraph--type--list-of-link-teasers .field--name-field-title {
+      font-size: 20px;
+      font-weight: 700;
+      font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
+      line-height: 1.3;
+      margin-bottom: .5em;
     }
-  }
 
-  .paragraph--type--list-of-link-teasers .field--name-field-title {
-    font-size: 20px;
-    font-weight: 700;
-    font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
-    line-height: 1.3;
-    margin-bottom: .5em;
-  }
+    .usa-accordion-button .field__item,
+    .paragraph--type--collapsible-panel-item .field--name-field-title {
+      background-color: #ddd;
+      padding: .8rem;
+      font-weight: 700;
+    }
 
-  .usa-accordion-button .field__item,
-  .paragraph--type--collapsible-panel-item .field--name-field-title .field__item {
-    background-color: #ddd;
-    padding: .8rem;
-    font-weight: 700;
-    margin-top: 1rem;
-  }
+    .additional-info-title {
+      border-bottom: 2px dotted #0071bb;
+      color: #323a45;
+    }
 
-  .additional-info-title {
-    border-bottom: 2px dotted #0071bb;
-    color: #323a45;
-  }
+    .paragraph.paragraph--type--spanish-translation-summary {
+      padding-left: calc(2rem - 7px);
+      border-left: 7px solid #9bdaf1;
+    }
 
-  .paragraph.paragraph--type--spanish-translation-summary {
-    padding-left: calc(2rem - 7px);
-    border-left: 7px solid #9bdaf1;
-  }
+    &[about="/health-care/about-va-health-benefits/your-care-team"] {
+      .paragraph {
+        .contextual {
+          display: block;
+        }
 
-  &[about="/health-care/about-va-health-benefits/your-care-team"] {
-    .paragraph {
-      .contextual {
-        display: block;
-      }
-      .proof-edit {
-        right: 2.2rem;
+        .proof-edit {
+          right: 2.2rem;
 
-        .paragraph-button {
-          display: none;
+          .paragraph-button {
+            display: none;
+          }
         }
       }
     }

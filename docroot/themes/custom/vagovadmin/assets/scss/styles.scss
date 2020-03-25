@@ -33,7 +33,7 @@
   /* Three column layout on larger devices. */
   @media all and (min-width: 800px) {
     main {
-      flex: 3 0px;
+      flex: 3 0;
     }
 
     .layout-sidebar-first {
@@ -73,85 +73,94 @@
   }
 }
 
-.node--view-mode-full {
-  font-size: 1rem;
+.page-node-type-page {
+  .node--view-mode-full {
+    font-size: 1rem;
 
-  h1 {
-    line-height: 2.5rem;
-    margin-bottom: 2rem;
+    h1 {
+      line-height: 2.5rem;
+      margin-bottom: 2rem;
 
-    .field--name-title {
-      font-family: "Bitter", "Georgia", "Cambria", "Times New Roman", "Times", serif;
-      font-size: 2rem;
+      .field--name-title {
+        font-family: "Bitter", "Georgia", "Cambria", "Times New Roman", "Times", serif;
+        font-size: 2rem;
+      }
     }
-  }
-  .meta-content-wrapper {
-    .meta-content {
-      tbody {
-        tr {
-          border: none;
-          &:hover {
-            background-color: inherit;
-          }
-          td {
-            padding: 0;
-            font-size: 0.8rem;
-            margin-right: 0.8rem;
-          }
-          &.field--label-inline {
-            .field__label:after {
-              content: '';
+
+    .meta-content-wrapper {
+      .meta-content {
+        background-color: #eff6f6;
+
+        tbody {
+          tr {
+            border: none;
+
+            &:hover {
+              background-color: inherit;
+            }
+
+            td {
+              padding: 0;
+              font-size: 0.8rem;
+              margin-right: 0.8rem;
+            }
+
+            &.field--label-inline {
+              .field__label:after {
+                content: '';
+              }
             }
           }
         }
       }
+
+      .seo-alert .field__label {
+        color: #cc0000;
+      }
     }
-    .seo-alert .field__label {
-      color: #cc0000;
+
+    fieldset:not(.fieldgroup) {
+      margin: 9px 0 10px 0;
+      padding: 10px 18px 0;
+      background-color: inherit;
+
+      > legend {
+        position: inherit;
+        display: none;
+      }
+    }
+
+    .field__item {
+      margin: 0 .2rem .5rem 0.5rem;
+    }
+
+    .field--label-above {
+      .field__label {
+        font-size: 1rem;
+        color: #7b7b7b;
+        margin: 0.6rem 0 0.2rem 0;
+        padding: .2rem 0 0 0;
+        font-weight: normal;
+      }
+    }
+
+    .field--name-field-intro-text .field__item {
+      font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      max-width: 77rem;
+      line-height: 2rem;
+      margin: 0;
+    }
+
+    .field--name-field-featured-content {
+      .field__items {
+        background-color: #e1f3f8;
+      }
     }
   }
 
-  fieldset:not(.fieldgroup) {
-    background-color: #eff6f6;
-    margin: 0;
-    margin-bottom: .5rem;
-    padding: 10px 18px 0;
-    > legend {
-      position: inherit;
-      display: none;
-    }
-  }
-
-  .field__item {
-    margin: 0 .2rem .5rem 0.5rem;
-  }
-  .field--label-above {
-    .field__label {
-      font-size: 1rem;
-      color: #7b7b7b;
-      margin: .4rem 0 0 0;
-      padding: .2rem 0 0 0;
-      font-weight: normal;
-    }
-  }
-
-  .field--name-field-intro-text .field__item {
-    font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
-    font-size: 1.25rem;
-    font-weight: 400;
-    max-width: 77rem;
-    line-height: 2rem;
-    margin: 0;
-  }
-
-  .field--name-field-featured-content {
-    .field__items {
-      background-color: #e1f3f8;
-    }
+  body .version-1 {
+    font-size: 1rem;
   }
 }
-
-body .version-1 {
-  font-size: 1rem;
-}
-
