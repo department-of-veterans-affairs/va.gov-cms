@@ -9,9 +9,4 @@ deploy: |
 test: |
   env
   echo "Running `composer yaml-tests` on tests.yml..."
-  composer yaml-tasks --ansi \
-    --ignore-ssl \
-    --tasks-file=tasks.yml \
-    --status-url=$DEVSHOP_TASK_URL \
-    --github-token=$GITHUB_TOKEN \
-
+  composer yaml-tasks --ansi --ignore-ssl --tasks-file=tasks.yml --status-url=$DEVSHOP_TASK_URL --github-token=$GITHUB_TOKEN
