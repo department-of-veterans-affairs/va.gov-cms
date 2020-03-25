@@ -221,7 +221,7 @@ Feature: Content model fields
 | Custom block type | Alert | Scope | field_node_reference | Entity reference |  | Unlimited | Autocomplete |  |
 | Custom block type | Alert | Owner | field_owner | Entity reference | Required | 1 | Select list |  |
 | Custom block type | Alert | Reusability | field_reusability | List (text) | Required | 1 | -- Disabled -- |  |
-| Custom block type | Promo | Image | field_image | Entity reference | Required | 1 | Entity browser |  |
+| Custom block type | Promo | Image | field_image | Entity reference | Required | 1 | Media library |  |
 | Custom block type | Promo | Instructions | field_instructions | Markup |  | 1 | Markup |  |
 | Custom block type | Promo | Owner | field_owner | Entity reference | Required | 1 | Select list | Translatable |
 | Custom block type | Promo | Link | field_promo_link | Entity reference revisions |  | 1 | Paragraphs Classic |  |
