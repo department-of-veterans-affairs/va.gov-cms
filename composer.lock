@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2dcb4146c403d3bbc2ba824c1a06cc81",
+    "content-hash": "9b1ddc3e48ff19fddb8688219727cfc6",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1685,16 +1685,16 @@
         },
         {
             "name": "devshop/yaml-tasks",
-            "version": "1.6.0-alpha3",
+            "version": "dev-component/yaml-tasks/env-fixes",
             "source": {
                 "type": "git",
                 "url": "https://github.com/devshop-packages/yaml-tasks.git",
-                "reference": "db8d1555515d39c13fa51a2f51c9ad81823e36e3"
+                "reference": "68cf1d03de67a1495fd5570ba8a0258bd68e3d4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/devshop-packages/yaml-tasks/zipball/db8d1555515d39c13fa51a2f51c9ad81823e36e3",
-                "reference": "db8d1555515d39c13fa51a2f51c9ad81823e36e3",
+                "url": "https://api.github.com/repos/devshop-packages/yaml-tasks/zipball/68cf1d03de67a1495fd5570ba8a0258bd68e3d4d",
+                "reference": "68cf1d03de67a1495fd5570ba8a0258bd68e3d4d",
                 "shasum": ""
             },
             "require": {
@@ -1703,8 +1703,7 @@
                 "ext-json": "*",
                 "knplabs/github-api": "^1.4",
                 "php-http/guzzle6-adapter": "^1.1",
-                "teqneers/php-stream-wrapper-for-git": "^2.0",
-                "vlucas/phpdotenv": "~2"
+                "teqneers/php-stream-wrapper-for-git": "^2.0"
             },
             "require-dev": {
                 "composer/composer": "^1.10",
@@ -1716,7 +1715,8 @@
             "type": "composer-plugin",
             "extra": {
                 "branch-alias": {
-                    "dev-1.x": "1.6-dev"
+                    "dev-1.x": "1.6-dev",
+                    "dev-component/yaml-tasks/env-fixes": "1.6-dev"
                 },
                 "class": "DevShop\\Component\\YamlTasks\\Composer\\Plugin"
             },
@@ -1741,7 +1741,7 @@
             ],
             "description": "Plugin to run commands from a YML file and pass to GitHub commit status API.",
             "homepage": "https://getdevshop.com",
-            "time": "2020-03-23T17:24:48+00:00"
+            "time": "2020-03-25T20:21:34+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -17819,12 +17819,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
-                "reference": "a0976884f4a1610360d16343df7e2b2d32d6145f"
+                "reference": "df5b716aeba156ae7f842756f0d94e24339514d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/a0976884f4a1610360d16343df7e2b2d32d6145f",
-                "reference": "a0976884f4a1610360d16343df7e2b2d32d6145f",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/df5b716aeba156ae7f842756f0d94e24339514d0",
+                "reference": "df5b716aeba156ae7f842756f0d94e24339514d0",
                 "shasum": ""
             },
             "type": "node-project",
@@ -17849,7 +17849,7 @@
                 }
             ],
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
-            "time": "2020-02-06T19:42:12+00:00"
+            "time": "2020-03-25T19:59:44+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -19065,7 +19065,7 @@
     "stability-flags": {
         "devshop/behat-drupal-extension": 20,
         "devshop/power-process": 20,
-        "devshop/yaml-tasks": 15,
+        "devshop/yaml-tasks": 20,
         "drupal/auto_entitylabel": 10,
         "drupal/blazy": 5,
         "drupal/cer": 15,
