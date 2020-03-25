@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.press_release.field_address
     - field.field.node.press_release.field_administration
     - field.field.node.press_release.field_intro_text
+    - field.field.node.press_release.field_listing
     - field.field.node.press_release.field_meta_tags
     - field.field.node.press_release.field_office
     - field.field.node.press_release.field_pdf_version
@@ -14,6 +15,7 @@ dependencies:
     - field.field.node.press_release.field_press_release_fulltext
     - field.field.node.press_release.field_release_date
     - node.type.press_release
+    - workflows.workflow.editorial
   module:
     - address
     - content_moderation
@@ -100,8 +102,7 @@ content:
     third_party_settings: {  }
   field_address:
     weight: 2
-    settings:
-      default_country: ''
+    settings: {  }
     third_party_settings: {  }
     type: address_default
     region: content
@@ -139,7 +140,8 @@ content:
   field_pdf_version:
     type: media_library_widget
     weight: 2
-    settings: {  }
+    settings:
+      media_types: {  }
     region: content
     third_party_settings: {  }
   field_press_release_contact:
@@ -155,11 +157,12 @@ content:
   field_press_release_downloads:
     type: media_library_widget
     weight: 3
-    settings: {  }
+    settings:
+      media_types: {  }
     region: content
     third_party_settings: {  }
   field_press_release_fulltext:
-    weight: 24
+    weight: 25
     settings:
       rows: 5
       placeholder: ''
@@ -167,7 +170,7 @@ content:
     type: text_textarea
     region: content
   field_release_date:
-    weight: 5
+    weight: 6
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
@@ -186,7 +189,7 @@ content:
     third_party_settings: {  }
   revision_log:
     type: hide_revision_field_log_widget
-    weight: 9
+    weight: 10
     region: content
     settings:
       show: true
@@ -226,6 +229,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_listing: true
   promote: true
   status: true
   sticky: true

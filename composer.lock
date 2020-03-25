@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e0f3c46ad318935e835f45cf31a6e798",
+    "content-hash": "79cfccc06764568761cfced3e990e0f2",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -612,7 +612,7 @@
             "version": "v5.5.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:enyo/dropzone.git",
+                "url": "https://github.com/enyo/dropzone.git",
                 "reference": "08b9e0a763b54a685404dea523a9c54242fbe1b9"
             },
             "dist": {
@@ -9772,123 +9772,59 @@
             }
         },
         {
-            "name": "drupal/slick",
-            "version": "2.1.0",
+            "name": "drupal/site_alert",
+            "version": "dev-1.x",
             "source": {
                 "type": "git",
-                "url": "https://git.drupalcode.org/project/slick.git",
-                "reference": "8.x-2.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/slick-8.x-2.1.zip",
-                "reference": "8.x-2.1",
-                "shasum": "126dd674ee5b074b1893fd060caa437ecbd8b2bd"
+                "url": "https://git.drupalcode.org/project/site_alert.git",
+                "reference": "7e8a229292ec6cf85cb5e22d8a58afac098c3bd1"
             },
             "require": {
-                "drupal/blazy": "~2.0",
                 "drupal/core": "^8 || ^9"
             },
             "type": "drupal-module",
             "extra": {
                 "branch-alias": {
-                    "dev-2.x": "2.x-dev"
+                    "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.1",
-                    "datestamp": "1581756259",
+                    "version": "8.x-1.0+13-dev",
+                    "datestamp": "1583740113",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "Add drush commands https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-03-13/site_alert-add_drush_commands-3118800-6.patch",
+                    "Add aria https://www.drupal.org/project/site_alert/issues/3120303": "https://www.drupal.org/files/issues/2020-03-17/site_alert-add-508-aria-3120303-3.patch",
+                    "Make drush commands Drush 8 https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-03-13/site_alert-support_drush8_commands-3118800-7.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
-                    "name": "arshadcn",
-                    "homepage": "https://www.drupal.org/user/571032"
+                    "name": "cecrs",
+                    "homepage": "https://www.drupal.org/user/1876384"
                 },
                 {
-                    "name": "gausarts",
-                    "homepage": "https://www.drupal.org/user/159062"
+                    "name": "nicola85",
+                    "homepage": "https://www.drupal.org/user/1746956"
                 },
                 {
-                    "name": "thalles",
-                    "homepage": "https://www.drupal.org/user/3589086"
+                    "name": "pfrenssen",
+                    "homepage": "https://www.drupal.org/user/382067"
                 }
             ],
-            "description": "Slick carousel, the last carousel you'll ever need.",
-            "homepage": "https://drupal.org/project/slick",
-            "keywords": [
-                "Drupal",
-                "carousel",
-                "slideshow"
-            ],
+            "description": "Allows site admins to display a site-wide alert to all users.",
+            "homepage": "https://www.drupal.org/project/site_alert",
             "support": {
-                "source": "http://cgit.drupalcode.org/slick",
-                "issues": "https://drupal.org/project/issues/slick"
-            }
-        },
-        {
-            "name": "drupal/slick_entityreference",
-            "version": "2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/slick_entityreference.git",
-                "reference": "8.x-2.0"
+                "source": "https://git.drupalcode.org/project/site_alert"
             },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/slick_entityreference-8.x-2.0.zip",
-                "reference": "8.x-2.0",
-                "shasum": "168195cc1a200b7c323509129d1e0d292c135810"
-            },
-            "require": {
-                "drupal/core": "^8 || ^9",
-                "drupal/slick": "~2.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-2.x": "2.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-2.0",
-                    "datestamp": "1581259945",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "alanburke",
-                    "homepage": "https://www.drupal.org/user/35997"
-                },
-                {
-                    "name": "dpacassi",
-                    "homepage": "https://www.drupal.org/user/2831253"
-                },
-                {
-                    "name": "mikl",
-                    "homepage": "https://www.drupal.org/user/58679"
-                }
-            ],
-            "description": "Slick entity reference fields for the Slick carousel.",
-            "homepage": "https://drupal.org/project/slick_entityreference",
-            "support": {
-                "source": "https://cgit.drupalcode.org/slick_entityreference",
-                "issues": "https://drupal.org/project/issues/slick_entityreference"
-            }
+            "time": "2020-03-09T08:06:36+00:00"
         },
         {
             "name": "drupal/social_media_links",
@@ -19023,6 +18959,7 @@
         "drupal/path_redirect_import": 10,
         "drupal/pathologic": 15,
         "drupal/role_delegation": 15,
+        "drupal/site_alert": 20,
         "drupal/tour_ui": 10,
         "drupal/user_history": 15,
         "drupal/uswds": 10,
