@@ -20,7 +20,7 @@ Feature: Content model fields
 | Content type | Benefits detail page | Plain Language Certification Date | field_plainlanguage_date | Date |  | 1 | Date and time |  |
 | Content type | Benefits detail page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | Benefits hub landing page | Owner | field_administration | Entity reference | Required | 1 | Select list |  |
-| Content type | Benefits hub landing page | Alert | field_alert | Entity reference |  | 1 | Select list | Translatable |
+| Content type | Benefits hub landing page | Alert | field_alert | Entity reference |  | 1 | Entity browser | Translatable |
 | Content type | Benefits hub landing page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Benefits hub landing page | Home page hub label | field_home_page_hub_label | Text (plain) |  | 1 | Textfield |  |
 | Content type | Benefits hub landing page | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
