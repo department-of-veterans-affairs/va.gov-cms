@@ -5,9 +5,10 @@
  * Install file for Va Gov Backend.
  */
 
-use Drupal\node\Entity\Node;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\node\Entity\Node;
 use Drupal\pathauto\PathautoState;
+use Psr\Log\LogLevel;
 
 /**
  * Removing Local hospital paragraph entities.
@@ -138,4 +139,47 @@ function va_gov_backend_update_8002() {
     ])
     ->condition('field_office_target_id', $swap_key)
     ->execute();
+}
+
+/**
+ * Sync field_listing with field_office on four content types.
+ */
+function va_gov_backend_update_8003() {
+  $bundles = [
+    'event',
+    'news_story',
+    'press_release',
+    'outreach_asset',
+  ];
+
+  $storage = \Drupal::entityTypeManager()->getStorage("node");
+
+  foreach ($bundles as $bundle) {
+    $updated = 0;
+    $nodes = $storage->loadByProperties(['type' => $bundle]);
+
+    // Re-save each node to trigger field sync.
+    // Not writing batch process here, because out targeted nodes quantity
+    // is limited.
+    foreach ($nodes as $node) {
+      $node->setNewRevision(TRUE);
+      // New revision will inherit content moderation status from default rev.
+      $node->isDefaultRevision(TRUE);
+      $node->setRevisionLogMessage('VACMS Team: Synced field_listing with field_office for upcoming content model updates.');
+      $node->setRevisionCreationTime(Drupal::time()->getRequestTime());
+      $node->setChangedTime(Drupal::time()->getRequestTime());
+      // Setting revision as super admin.
+      $node->setRevisionUserId(1);
+      $saved = $node->save();
+      $updated = (is_int($saved) && $saved > 0) ? $updated + 1 : $updated;
+    }
+
+    $log_level = ($updated === count($nodes)) ? LogLevel::INFO : LogLevel::ERROR;
+
+    Drupal::logger('va_gov_backend')->log($log_level, '%bundle CT field sync: Successfully updated %ct_updated out of %ct_count nodes.', [
+      '%bundle' => $node->type->entity->label(),
+      '%ct_count' => count($nodes),
+      '%ct_updated' => $updated,
+    ]);
+  }
 }

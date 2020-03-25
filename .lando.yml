@@ -126,11 +126,15 @@ tooling:
     service: appserver
     cmd: /app/bin/npm
 
+  # Deprecated.
+  # Moved to scripts/sync-db.sh
   sync-db:
     service: appserver
     description: This command has moved to a non-lando command, from app root run like this `scripts/sync-db.sh`.
     cmd: 'echo "This command has moved to a non-lando command, from app root run like this `scripts/sync-db.sh`."'
 
+  # Deprecated.
+  # Moved to scripts/sync-files.sh
   sync-files:
     service: appserver
     description: This command has moved to a non-lando command, from app root run like this `scripts/sync-files.sh`.
