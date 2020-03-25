@@ -10,6 +10,7 @@
         * Configure PhpStorm: Go to Settings > Languages & Frameworks > PHP > Debug
         * Check "allow connections" and ensure max connections is 2 or more (more is useful for debugging requests in parallel, for side by side testing)
         * Enable "Start listening for PHP debug connections"
+        * If you have issues connecting see the bottem of this page where it talks about setting up a custom `php.ini`.
     * VS Code
         * Details are here on [lando docs](https://docs.lando.dev/guides/lando-with-vscode.html#getting-started), however, all the php.ini extras have already been added.  The only thing needed is to add the necessary config to .vscode/launch.json
 
@@ -106,6 +107,46 @@
 ```
 * Make note of the `database.external_connection.port` and `database.creds`.
 * Add a new database connection using `mariadb` as the datasource.  Use the information from the `lando info` from the `external_connection` connection section.
+
+## Configuration using custom lando files
+
+A file name `.lando.local.yml` can be added to customize lando settings for your local.  This file is ignored by git.  Here is an example `.lando.local.yml` file which sets a static external database port and uses a custom `php.ini` file.
+
+```
+services:
+  appserver:
+    config:
+      php: ./lando/.zzzz-php-local.ini
+  database:
+    portforward: 33242
+```
+
+## Custom PHP.INI settings.
+
+To use a custom `php.ini` setting, first a custom `.lando.local.yml` will need to be setup as described above.  Then a file needs to be added to `./lando/.zzzz-php-local.ini`.  Below is an example where I had to override `xdebug` settings to get it to work with phpstorm.
+
+```
+[PHP]
+; File is named zzz-lando-my-custom.ini because Lando renames on copy to /usr/local/etc/php/conf.d/
+
+; Default is 90, this is higher because /graphql requests timeout locally for WEB builds otherwise.
+max_execution_time = 190
+; Xdebug
+xdebug.max_nesting_level = 256
+xdebug.show_exception_trace = 0
+; Extra custom Xdebug setting for debug to work in VSCode.
+xdebug.remote_enable = 1
+xdebug.remote_autostart = 1
+xdebug.remote_log = /tmp/xdebug.log
+
+xdebug.remote_port=9001
+xdebug.collect_assignments=1
+xdebug.collect_includes=1
+xdebug.collect_vars=1
+xdebug.force_display_errors=1
+xdebug.force_error_reporting=1
+xdebug.collect_params=4
+```
 
 
 [Table of Contents](../README.md)

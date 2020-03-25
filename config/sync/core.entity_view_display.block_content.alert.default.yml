@@ -24,25 +24,15 @@ content:
   field_alert_content:
     type: entity_reference_revisions_entity_view
     weight: 2
-    label: hidden
+    label: above
     settings:
       view_mode: preview
       link: ''
     third_party_settings: {  }
     region: content
-  field_alert_dismissable:
-    weight: 8
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
-    region: content
   field_alert_title:
     weight: 1
-    label: hidden
+    label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -50,34 +40,24 @@ content:
     region: content
   field_alert_type:
     weight: 0
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
-    region: content
-  field_is_this_a_header_alert_:
-    weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
     region: content
   field_owner:
-    weight: 3
-    label: hidden
-    settings:
-      link: true
-    third_party_settings: {  }
     type: entity_reference_label
+    weight: 3
     region: content
-  field_reusability:
-    weight: 4
-    label: hidden
-    settings: {  }
+    label: above
+    settings:
+      link: false
     third_party_settings: {  }
-    type: list_default
-    region: content
 hidden:
   content_moderation_control: true
+  field_alert_dismissable: true
   field_alert_frequency: true
+  field_is_this_a_header_alert_: true
   field_node_reference: true
+  field_reusability: true
+  search_api_excerpt: true

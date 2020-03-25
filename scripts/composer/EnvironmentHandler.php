@@ -12,8 +12,6 @@ EnvironmentHandler::load();
  */
 class EnvironmentHandler {
 
-  const landoEnvironmentFile = '.env.lando';
-
   /**
    * Loads .env files if they exist.
    */
@@ -23,10 +21,10 @@ class EnvironmentHandler {
     $env_file_name = '.env';
     try {
 
-      // If LANDO Server variable exists, load lando env file.
+      // If LANDO Server variable exists, load Lando env file.
       if (!empty(getenv('LANDO')) && getenv('LANDO') === 'ON') {
 
-        // Load .env file if it exists first. Otherise use .env.lando.
+        // Load .env file if it exists first. Otherwise use .env.lando.
         if (file_exists($env_file_dir . '/' . $env_file_name)) {
           $env_file_name = '.env';
         }

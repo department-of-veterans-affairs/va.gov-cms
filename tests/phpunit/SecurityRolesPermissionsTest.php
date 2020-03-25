@@ -24,7 +24,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
 
     if (isset($role)) {
       $permissions = $role->getPermissions();
-      $message = "The permissions for the " . $roleMatch . " do not match the expected permissions: \n '" . implode("',\n '", $permissions) . "'\n";
+      $message = "The permissions for the " . $roleMatch . " do not match the expected permissions.  Make the expected look like this, to get the test passing: \n '" . implode("',\n '", $permissions) . "'\n";
     }
     else {
       $message = 'The ' . $roleMatch . ' role is missing from the system.';
@@ -93,8 +93,10 @@ class SecurityRolesPermissions extends ExistingSiteBase {
         'content_admin',
         [
           'access administration pages',
+          'access alert_blocks entity browser pages',
           'access files overview',
           'access image_browser entity browser pages',
+          'access media entity browser pages',
           'access media overview',
           'access media_browser entity browser pages',
           'access toolbar',
@@ -116,15 +118,9 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'clone paragraph entity',
           'create alert block content',
           'create document media',
-          'create event_listing content',
-          'create health_services_listing content',
           'create image media',
-          'create leadership_listing content',
-          'create locations_listing content',
           'create media',
-          'create press_releases_listing content',
           'create promo block content',
-          'create story_listing content',
           'create url aliases',
           'create video media',
           'delete any alert block content',
@@ -190,9 +186,11 @@ class SecurityRolesPermissions extends ExistingSiteBase {
         'content_editor',
         [
           'access administration pages',
+          'access alert_blocks entity browser pages',
           'access content overview',
           'access files overview',
           'access image_browser entity browser pages',
+          'access media entity browser pages',
           'access media overview',
           'access media_browser entity browser pages',
           'access shortcuts',
@@ -283,6 +281,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'view landing_page revisions',
           'view latest version',
           'view news_story revisions',
+          'view node link report',
           'view office revisions',
           'view outreach_asset revisions',
           'view own unpublished content',
@@ -303,9 +302,11 @@ class SecurityRolesPermissions extends ExistingSiteBase {
         'content_reviewer',
         [
           'access administration pages',
+          'access alert_blocks entity browser pages',
           'access content overview',
           'access files overview',
           'access image_browser entity browser pages',
+          'access media entity browser pages',
           'access media overview',
           'access media_browser entity browser pages',
           'access shortcuts',
@@ -389,6 +390,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'view landing_page revisions',
           'view latest version',
           'view news_story revisions',
+          'view node link report',
           'view office revisions',
           'view outreach_asset revisions',
           'view own unpublished content',
@@ -409,9 +411,11 @@ class SecurityRolesPermissions extends ExistingSiteBase {
         'content_publisher',
         [
           'access administration pages',
+          'access alert_blocks entity browser pages',
           'access content overview',
           'access files overview',
           'access image_browser entity browser pages',
+          'access media entity browser pages',
           'access media overview',
           'access media_browser entity browser pages',
           'access shortcuts',
@@ -566,6 +570,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'view landing_page revisions',
           'view latest version',
           'view news_story revisions',
+          'view node link report',
           'view office revisions',
           'view outreach_asset revisions',
           'view own unpublished content',
@@ -612,6 +617,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'manage password reset',
           'notify of path changes',
           'use text format rich_text',
+          'view node link report',
           'view sections in toolbar',
           'view the administration theme',
           'view workbench access information',

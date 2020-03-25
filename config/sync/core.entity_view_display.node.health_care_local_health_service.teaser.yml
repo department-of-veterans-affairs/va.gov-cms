@@ -1,9 +1,13 @@
 uuid: 5abb81a7-f962-435c-aeba-03df6112fe88
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.health_care_local_health_service.field_administration
+    - field.field.node.health_care_local_health_service.field_body
+    - field.field.node.health_care_local_health_service.field_facility_location
+    - field.field.node.health_care_local_health_service.field_regional_health_service
     - node.type.health_care_local_health_service
   module:
     - user
