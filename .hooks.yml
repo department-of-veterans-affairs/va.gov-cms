@@ -8,4 +8,4 @@ deploy: |
 
 test: |
   echo "Running `composer yaml-tests` on tests.yml..."
-  bin/yaml-tasks --ansi --ignore-ssl --tasks-file=tasks.yml --status-url=$DEVSHOP_TASK_URL --github-token=$GITHUB_TOKEN
+  bin/yaml-tasks --ansi --ignore-ssl --tasks-file=tasks.yml --status-url=$DEVSHOP_TASK_URL
