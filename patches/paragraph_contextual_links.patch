@@ -22,7 +22,7 @@ index ee8b03f..fb355d6 100644
 +  defaults:
 +    _controller: '\Drupal\paragraphs\Controller\ContextualLinkController::goToEdit'
 +  requirements:
-+    _permission: 'edit content'
++    _permission: 'access content'
 +    node: \d+
 diff --git a/src/Controller/ContextualLinkController.php b/src/Controller/ContextualLinkController.php
 new file mode 100644
