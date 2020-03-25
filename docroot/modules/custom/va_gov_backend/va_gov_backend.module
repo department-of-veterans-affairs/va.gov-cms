@@ -429,7 +429,7 @@ function _va_gov_backend_set_field_listing_value(EntityInterface &$entity, array
     // Listing corresponding to field_office, was not found. Fail silently.
     // Give a warning message to the user and log in dblog.
     Drupal::messenger()->addWarning("{$entity->type->entity->label()} Listing page for the office or system you've selected does not exist. Please create {$entity->type->entity->label()} Listing page and come back to re-save this {$entity->type->entity->label()}.");
-    Drupal::logger('va_gov_backend')->warning('%bundle Listing page for the office or system you\'ve selected does not exist. Please create %bundle Listing page and come back to re-save this %bundle.', ['%bundle' => $entity->type->entity->label()]);
+    Drupal::logger('va_gov_backend')->warning('%bundle Listing page for the office or system you\'ve selected does not exist. Please create %bundle Listing page and come back to re-save %bundle with NID %nid.', ['%bundle' => $entity->type->entity->label(), '%nid' => $entity->id()]);
     return;
   }
 
