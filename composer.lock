@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "01529c9fbb91a6493c1788e147dcf03c",
+    "content-hash": "e15901e0b5dbdc27edf47b8ea45b5c37",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -597,7 +597,7 @@
             "version": "v4.1.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:fengyuanchen/cropper.git",
+                "url": "https://github.com/fengyuanchen/cropper.git",
                 "reference": "617d9bdb8688cc4edb3b03bc49a04b83c7facbe7"
             },
             "dist": {
@@ -4044,6 +4044,7 @@
                     "2815221 - Add quickedit to the latest-revision route": "https://www.drupal.org/files/issues/2019-11-27/2815221-125.patch",
                     "Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch",
                     "2869592 - Disabled update module shouldn't produce a status report warning": "https://www.drupal.org/files/issues/2869592-remove-update-warning-7.patch",
+                    "1356276 - Allow profiles to define a base/parent profile and load them in the correct order": "https://www.drupal.org/files/issues/2019-11-05/1356276-531-8.8.x-4.patch",
                     "2914389 - Allow profiles to exclude dependencies of their parent": "https://www.drupal.org/files/issues/2018-07-09/2914389-8-do-not-test.patch"
                 }
             },
@@ -5734,6 +5735,9 @@
                         "status": "not-covered",
                         "message": "RC releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "PHP 7.4 Notices (https://github.com/drupal-graphql/graphql/pull/989)": "https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/989.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -8580,7 +8584,8 @@
                     }
                 },
                 "patches_applied": {
-                    "Remove confusing paragraph group.": "https://www.drupal.org/files/issues/2020-02-27/remove-paragraph-group-3116501-2.patch"
+                    "#3057621: Notice: Undefined index: paragraph_type_title": "https://www.drupal.org/files/issues/2019-07-18/undefined-index-paragraph_type_title-trait-3057621-7.patch",
+                    "Remove confusing paragraph group.": "./patches/paragraphs_browser/remove-paragraph-group-3116501-2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -18952,6 +18957,6 @@
     "platform": [],
     "platform-dev": [],
     "platform-overrides": {
-        "php": "7.4.3"
+        "php": "7.1.3"
     }
 }
