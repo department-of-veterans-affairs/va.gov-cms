@@ -86,7 +86,6 @@ function va_gov_build_trigger_preprocess_page(&$variables) {
   if ($node instanceof NodeInterface) {
     // It's a node.
     $path = \Drupal::request()->getpathInfo();
-    $arg = explode('/', $path);
     $exclusion_types = [
       'full_width_banner_alert',
       'health_care_local_health_service',
