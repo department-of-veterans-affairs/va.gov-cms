@@ -88,8 +88,11 @@
 {{ attach_library('classy/node') }}
 {{ attach_library('vagovadmin/proofing') }}
 <article{{ attributes.addClass(classes) }}>
-
+{{ content.content_moderation_control }}
   <div class="meta-content-wrapper">
+
+      <div class="node-status">{{ status }}</div>
+    <div class="revision-details">Revised by <span class="revision-author">{{ revision_author }}</span></div>
     {{ content.group_meta }}
   </div>
   {{ title_prefix }}
@@ -122,7 +125,7 @@
   {% endif %}
 
   <div{{ content_attributes.addClass('node__content') }}>
-    {{ content|without('group_meta') }}
+    {{ content|without('group_meta', 'content_moderation_control') }}
   </div>
 
 </article>
