@@ -1,0 +1,56 @@
+/**
+ * @file
+ * Element help styles.
+ */
+
+.proofing-element-help {
+  display: inline-block;
+  box-sizing: content-box;
+  border: 2px solid #bbb;
+  background: #bbb;
+  line-height: 14px;
+  height: 14px;
+  width: 14px;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 50%;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: baseline;
+  margin: 0 0.3em;
+}
+
+.proofing-element-help:focus,
+.proofing-element-help:active,
+.proofing-element-help:hover {
+  border: 2px solid #0074bd;
+  background: #0074bd;
+  color: #fff;
+  cursor: help;
+}
+
+.proofing-element-help--title {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin: 0 0 0.2em 0;
+}
+
+.ui-tooltip.proofing-element-help--tooltip {
+  max-width: 480px;
+}
+.ui-tooltip-content {
+  border: 0.1rem solid #cccccc;
+  background-color: #ffffff;
+  max-width: 600px;
+  -moz-box-shadow:    3px 2px 2px #ccc;
+  -webkit-box-shadow: 3px 2px 2px #ccc;
+  box-shadow:         3px 2px 2px #ccc;
+  border-radius: 5px;
+  padding: 0.6rem;
+}
+
+@media only screen and (max-width: 400px) {
+  .ui-tooltip.proofing-element-help--tooltip {
+    max-width: 300px;
+  }
+}

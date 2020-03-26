@@ -3,11 +3,18 @@
     .field--name-field-steps .field__item,
     .paragraph {
       border: #e0eaef solid 0.1rem;
-      padding: 2.4rem 1rem;
+      padding: 1.8rem 0.6rem 0.2rem;
       position: relative;
 
       &:hover {
         background-color: rgba(222, 227, 230, 0.1);
+      }
+
+      *:first-child {
+        margin-top: 0;
+      }
+      *:last-child {
+        margin-bottom: 0;
       }
 
       .field--label-above {
@@ -64,7 +71,7 @@
       }
       .proof-edit {
         position: absolute;
-        top: 0.5rem;
+        top: 0.3rem;
         right: 3.5rem;
         font-size: .8rem;
 
@@ -81,6 +88,7 @@
             padding-top: 0.4rem;
             padding-bottom: 0.4rem;
 
+            .paragraphsedit-paragraph,
             .proof-edit {
               display: none;
             }
@@ -89,6 +97,10 @@
       }
 
       .paragraph--type--link-teaser {
+        padding-top: 0.4rem;
+        padding-bottom: 0.4rem;
+
+        .paragraphsedit-paragraph,
         .proof-edit {
           display: none;
         }
