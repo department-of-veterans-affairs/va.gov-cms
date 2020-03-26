@@ -74,9 +74,16 @@
   }
 }
 
+.node--unpublished {
+  background-color: #fcf6e4;
+}
+
 .page-node-type-page {
   .node--view-mode-full {
     font-size: 1rem;
+    .node__content > .field {
+      margin-bottom: 1.5rem;
+    }
 
     h1 {
       line-height: 2.5rem;
