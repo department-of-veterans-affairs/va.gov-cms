@@ -6,6 +6,8 @@ dependencies:
     - field.storage.taxonomy_term.field_owner
     - taxonomy.vocabulary.administration
     - taxonomy.vocabulary.health_care_service_taxonomy
+  content:
+    - 'taxonomy_term:administration:0e30e74c-76b9-4c25-aa12-745086f02e37'
 id: taxonomy_term.health_care_service_taxonomy.field_owner
 field_name: field_owner
 entity_type: taxonomy_term
@@ -14,7 +16,9 @@ label: Owner
 description: 'The VA office or program that owns this content.'
 required: true
 translatable: false
-default_value: {  }
+default_value:
+  -
+    target_uuid: 0e30e74c-76b9-4c25-aa12-745086f02e37
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'
