@@ -183,3 +183,46 @@ function va_gov_backend_update_8003() {
     ]);
   }
 }
+
+/**
+ * Update the Owner for terms in health_care_service_taxonomy vocab.
+ */
+function va_gov_backend_update_8004() {
+  $updated = 0;
+  $failed = 0;
+
+  // "National health care service descriptions" term ID.
+  $tid = 46;
+
+  $storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $terms = $storage->loadByProperties(['vid' => 'health_care_service_taxonomy']);
+
+  foreach ($terms as $term) {
+    // Check if owner is already set to term tid 46.
+    $owner = intval($term->field_owner->target_id);
+    if ($owner !== $tid) {
+      $term->set('field_owner', NULL);
+      $term->field_owner[] = ['target_id' => $tid];
+      try {
+        $saved = $term->save();
+        $updated = (is_int($saved) && $saved > 0) ? $updated + 1 : $updated;
+        Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'VHA health service taxonomy: Updated owner for term "%term_name".', [
+          '%term_name' => $term->label(),
+        ]);
+      }
+      catch (\Exception $e) {
+        $failed = (is_int($saved) && $saved <= 0) ? $failed + 1 : $failed;
+        Drupal::logger('va_gov_backend')->log(LogLevel::ERROR, 'VHA health service taxonomy: Error updating owner for term "%term_name". Do it manually. Error message: %error_message.', [
+          '%term_name' => $term->label(),
+          '%error_message' => $e->getMessage(),
+        ]);
+      }
+    }
+  }
+
+  Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'VHA health service taxonomy: Successfully updated an owner for %updated out of %count terms. Failed to update %failed out of %count terms.', [
+    '%count' => count($terms),
+    '%updated' => $updated,
+    '%failed' => $failed,
+  ]);
+}

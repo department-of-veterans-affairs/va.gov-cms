@@ -11,6 +11,7 @@ dependencies:
     - taxonomy.vocabulary.health_care_service_taxonomy
   module:
     - field_group
+    - hide_revision_field
     - path
     - text
 third_party_settings:
@@ -19,7 +20,7 @@ third_party_settings:
       children:
         - field_owner
       parent_name: ''
-      weight: 7
+      weight: 9
       format_type: details_sidebar
       format_settings:
         weight: '0'
@@ -28,7 +29,7 @@ third_party_settings:
         classes: ''
         open: 0
       label: Governance
-      region: content
+      region: hidden
 id: taxonomy_term.health_care_service_taxonomy.default
 targetEntityType: taxonomy_term
 bundle: health_care_service_taxonomy
@@ -66,12 +67,6 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_owner:
-    weight: 7
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: content
   field_vha_healthservice_stopcode:
     weight: 2
     settings:
@@ -95,7 +90,7 @@ content:
     third_party_settings: {  }
   revision_log_message:
     type: hide_revision_field_log_widget
-    weight: 80
+    weight: 7
     region: content
     settings:
       show: true
@@ -109,7 +104,8 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 100
+    weight: 8
     region: content
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_owner: true
