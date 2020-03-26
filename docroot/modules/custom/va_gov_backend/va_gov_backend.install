@@ -189,7 +189,7 @@ function va_gov_backend_update_8003() {
  */
 function va_gov_backend_update_8004() {
   $updated = 0;
-  $skipped = 0;
+  $failed = 0;
 
   // "National health care service descriptions" term ID.
   $tid = 46;
@@ -211,7 +211,7 @@ function va_gov_backend_update_8004() {
         ]);
       }
       catch (\Exception $e) {
-        $skipped = (is_int($saved) && $saved <= 0) ? $skipped + 1 : $skipped;
+        $failed = (is_int($saved) && $saved <= 0) ? $failed + 1 : $failed;
         Drupal::logger('va_gov_backend')->log(LogLevel::ERROR, 'VHA health service taxonomy: Error updating owner for term "%term_name". Do it manually. Error message: %error_message.', [
           '%term_name' => $term->label(),
           '%error_message' => $e->getMessage(),
@@ -220,9 +220,9 @@ function va_gov_backend_update_8004() {
     }
   }
 
-  Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'VHA health service taxonomy: Successfully updated an owner for %updated out of %count terms. Failed to update %skipped out of %count terms.', [
+  Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'VHA health service taxonomy: Successfully updated an owner for %updated out of %count terms. Failed to update %failed out of %count terms.', [
     '%count' => count($terms),
     '%updated' => $updated,
-    '%skipped' => $skipped,
+    '%failed' => $failed,
   ]);
 }
