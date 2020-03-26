@@ -17,15 +17,15 @@ va/deploy/0-composer:
 
 va/deploy/1-cache:
   description: Rebuild Drupal caches
-  command: drush $DRUSH_ALIAS cr
+  command: bin/drush $DRUSH_ALIAS cr
 
 va/deploy/2-update:
   description: Run Drupal Update Hooks
-  command: drush $DRUSH_ALIAS updatedb --yes
+  command: bin/drush $DRUSH_ALIAS updatedb --yes
 
 va/deploy/3-config:
-  - drush $DRUSH_ALIAS cim --yes
-  - drush $DRUSH_ALIAS cr
+  - bin/drush $DRUSH_ALIAS cim --yes
+  - bin/drush $DRUSH_ALIAS cr
 
 va/tests/phpcs:
   description: PHP CodeSniffer
@@ -37,7 +37,7 @@ va/tests/phplint:
 
 va/tests/phpunit:
   description: PHPUnit
-  command: phpunit --exclude-group disabled tests/phpunit --colors=always
+  command: bin/phpunit --exclude-group disabled tests/phpunit --colors=always
 
 va/tests/accessibility:
   description: accessibility test with axe-webdriverjs for 508 compliance
@@ -59,4 +59,4 @@ va/tests/behat:
   description: Behat Tests
   command: |
     cd tests/behat
-    behat --colors
+    ../../bin/behat --colors
