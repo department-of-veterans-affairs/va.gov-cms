@@ -75,7 +75,7 @@
 }
 
 .node--unpublished {
-  background-color: #fcf6e4;
+  background-color: #fffcf1;
 }
 
 .page-node-type-page {
@@ -96,23 +96,31 @@
     }
 
     .meta-content-wrapper {
+      .node-status {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #357070;
+        padding: 0.8rem 0 0.4rem ;
+      }
+      .revision-details {
+        font-size: 0.8rem;
+        .revision-author {
+          font-style: italic;
+        }
+      }
       .meta-content {
         background-color: #eff6f6;
-
         tbody {
           tr {
             border: none;
-
             &:hover {
               background-color: inherit;
             }
-
             td {
               padding: 0;
               font-size: 0.8rem;
               margin-right: 0.8rem;
             }
-
             &.field--label-inline {
               .field__label:after {
                 content: '';
@@ -121,12 +129,7 @@
           }
         }
       }
-
-      .seo-alert .field__label {
-        color: #cc0000;
-      }
     }
-
     fieldset:not(.fieldgroup) {
       margin: 9px 0 10px 0;
       padding: 10px 18px 0;
