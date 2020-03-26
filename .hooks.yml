@@ -7,7 +7,4 @@ deploy: |
 #  composer yaml-tests --tests-file=deploy.yml --ansi
 
 test: |
-  echo $DEVSHOP_TASK_URL
-  env
-  echo "Running `composer yaml-tests` on tests.yml... Looking for $DEVSHOP_TASK_URL ... but it's not expanding. "
   bin/yaml-tasks --ansi --ignore-ssl --tasks-file=tasks.yml
