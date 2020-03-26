@@ -1,6 +1,7 @@
 @import "mixins";
 @import "paragraphs";
 @import "external_content";
+@import "tooltip";
 
 .node-form textarea {
   max-width: 750px;
@@ -119,17 +120,30 @@
       }
     }
 
-  fieldset.meta-content:not(.fieldgroup) > legend,
-  .field--label-above {
-    .field__label {
-      font-size: .8rem;
-      color: #8a8a8a;
-      margin: .4rem 0 0 0;
-      padding: .2rem 0 0 0;
-      border-top: 1px #cccccc solid;
+    fieldset:not(.fieldgroup) {
+      margin: 9px 0 10px 0;
+      padding: 10px 18px 0;
+      background-color: inherit;
 
+      > legend {
+        position: inherit;
+        display: none;
+      }
     }
-  }
+
+    .field__item {
+      margin: 0.2rem 0.2rem 0.5rem 0.2rem;
+    }
+
+    .field--label-above {
+      .field__label {
+        font-size: 1rem;
+        color: #7b7b7b;
+        margin: 0;
+        padding: .2rem 0 0 0;
+        font-weight: normal;
+      }
+    }
 
     .field--name-field-intro-text .field__item {
       font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
@@ -140,52 +154,18 @@
       margin: 0;
     }
 
-  .field--name-field-featured-content {
-    .field__items {
-      background-color: #e1f3f8;
-    }
-  .proof-label + h3 .field .field__label,
-  .proof-label + .field .field__label {
-    border: none;
-  }
-
-}
     .field--name-field-featured-content {
       .field__items {
         background-color: #e1f3f8;
       }
     }
   }
+  .field--name-field-related-links .field__item  {
+    background: #f1f1f1;
+  }
 
-.node--view-mode-full {
-  a.proof-edit {
-    margin-top: -1.7em;
-    margin-right: -1rem;
-    float: right;
-    border: solid #ddd .1rem;
-    text-decoration: none;
-    font-size: .7rem;
-    background-color: #eeeeee;
-    color: #333333;
-    line-height: 1;
-    padding: .2rem;
-  }
-}
-.node-form {
-  a.proof-edit {
-    display: none;
-  }
-}
 
-.paragraphs-subform {
-  .field--name-field-phone-number,
-  .field--name-field-phone-extension {
-    float: left;
-  }
-  .field--name-field-phone-extension {
-    margin-left: 20px;
-  }
-  .field--name-field-phone-label {
-    clear: both;
+  body .version-1 {
+    font-size: 1rem;
   }
 }

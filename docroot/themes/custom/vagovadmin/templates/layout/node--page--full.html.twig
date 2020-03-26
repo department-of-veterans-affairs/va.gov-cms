@@ -84,9 +84,9 @@
   {% set versions = demo_version|split(',') %}
   {% set classes = classes|merge(versions) %}
 {% endif %}
-{#{{ kint(content.group_meta) }}#}
 
 {{ attach_library('classy/node') }}
+{{ attach_library('vagovadmin/proofing') }}
 <article{{ attributes.addClass(classes) }}>
 
   <div class="meta-content-wrapper">
