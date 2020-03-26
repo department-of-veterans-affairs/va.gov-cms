@@ -9,7 +9,7 @@ index 0000000..a989763
 +  route_name: paragraphs.edit_paragraph
 +  group: paragraph
 diff --git a/paragraphs.routing.yml b/paragraphs.routing.yml
-index ee8b03f..fb355d6 100644
+index ee8b03f..f8d5166 100644
 --- a/paragraphs.routing.yml
 +++ b/paragraphs.routing.yml
 @@ -37,3 +37,11 @@ paragraphs.settings:
@@ -20,15 +20,15 @@ index ee8b03f..fb355d6 100644
 +paragraphs.edit_paragraph:
 +  path: '/paragraph/{paragraph}/edit'
 +  defaults:
-+    _controller: '\Drupal\paragraphs\Controller\ContextualLinkController::goToEdit'
++    _controller: '\Drupal\paragraphs\Controller\ParagraphsContextualLinkController::goToEdit'
 +  requirements:
 +    _permission: 'access content'
 +    node: \d+
-diff --git a/src/Controller/ContextualLinkController.php b/src/Controller/ContextualLinkController.php
+diff --git a/src/Controller/ParagraphsContextualLinkController.php b/src/Controller/ParagraphsContextualLinkController.php
 new file mode 100644
-index 0000000..f00d3be
+index 0000000..b2a9870
 --- /dev/null
-+++ b/src/Controller/ContextualLinkController.php
++++ b/src/Controller/ParagraphsContextualLinkController.php
 @@ -0,0 +1,58 @@
 +<?php
 +
@@ -41,7 +41,7 @@ index 0000000..f00d3be
 +use Drupal\paragraphs\Entity\Paragraph;
 +use Drupal\Core\Url;
 +
-+class ContextualLinkController extends ControllerBase {
++class ParagraphsContextualLinkController extends ControllerBase {
 +  public function goToEdit($paragraph) {
 +    $parents = [];
 +    $paragraph_object = $this->entityTypeManager()->getStorage('paragraph')->load($paragraph);
@@ -89,28 +89,31 @@ index 0000000..f00d3be
 +
 +}
 diff --git a/src/ParagraphViewBuilder.php b/src/ParagraphViewBuilder.php
-index 87b45eb..1a02dc9 100644
+index 87b45eb..891fec7 100644
 --- a/src/ParagraphViewBuilder.php
 +++ b/src/ParagraphViewBuilder.php
 @@ -5,6 +5,8 @@ namespace Drupal\paragraphs;
  use Drupal\Core\Entity\Entity\EntityViewDisplay;
  use Drupal\Core\Entity\EntityViewBuilder;
  use Drupal\Core\Render\Element;
-+use Drupal\paragraphs\Controller\ContextualLinkController;
++use Drupal\paragraphs\Controller\ParagraphsContextualLinkController;
 +use Drupal\paragraphs\Entity\Paragraph;
  
  /**
   * Render controller for paragraphs.
-@@ -38,6 +40,14 @@ class ParagraphViewBuilder extends EntityViewBuilder {
+@@ -38,6 +40,17 @@ class ParagraphViewBuilder extends EntityViewBuilder {
          $plugin_value->view($build_list[$key], $build['#paragraph'], $display, $build['#view_mode']);
        }
        $build_list[$key]['#attached']['library'][] = 'paragraphs/drupal.paragraphs.unpublished';
 +
-+      if (ContextualLinkController::get_parents($build_list[$key]['#paragraph'])) {
++      /** @var Paragraph $paragraph */
++      $paragraph = $build_list[$key]['#paragraph'];
++      $parent = $paragraph->getParentEntity();
++      if (ParagraphsContextualLinkController::get_parents($paragraph)) {
 +        $build_list[$key]['#contextual_links']['paragraph'] = [
-+          'route_parameters' => [
-+            'paragraph' => $build_list[$key]['#paragraph']->id(),
-+          ]
++            'route_parameters' => [
++                'paragraph' => $paragraph->id(),
++            ]
 +        ];
 +      }
      }
