@@ -64,7 +64,6 @@ Feature: Content model fields
 | Content type | Event | Location type | field_location_type | List (text) |  | 1 | Select list |  |
 | Content type | Event | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Event | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
-| Content type | Event | Event listing | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Event | Event listing | field_listing | Entity reference | Required | 1 | -- Disabled -- |  |
 | Content type | Event | Order | field_order | List (integer) |  | 1 | Select list |  |
 | Content type | Event | URL of an online event | field_url_of_an_online_event | Link |  | 1 | Linkit |  |
@@ -78,7 +77,6 @@ Feature: Content model fields
 | Content type | News release | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | News release | Introduction | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | News release | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
-| Content type | News release | Healthcare system or related office | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | News release | PDF of Press Release | field_pdf_version | Entity reference |  | 1 | Media library |  |
 | Content type | News release | Media Contact(s) | field_press_release_contact | Entity reference |  | Unlimited | Autocomplete | Translatable |
 | Content type | News release | Media assets | field_press_release_downloads | Entity reference |  | Unlimited | Media library |  |
@@ -96,7 +94,6 @@ Feature: Content model fields
 | Content type | Publication | Format | field_format | List (text) | Required | 1 | Select list |  |
 | Content type | Publication | File or video | field_media | Entity reference |  | 1 | Media library |  |
 | Content type | Publication | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
-| Content type | Publication | Healthcare system or related office | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Publication | Publication listing | field_listing | Entity reference | Required | 1 | -- Disabled -- | Translatable |
 | Content type | Publication listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Publication listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
@@ -126,7 +123,6 @@ Feature: Content model fields
 | Content type | Story | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Story | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Story | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
-| Content type | Story | Related office or health care region | field_office | Entity reference | Required | 1 | Select list |  |
 | Content type | Story | Order | field_order | List (integer) |  | 1 | Select list | Translatable |
 | Content type | Story | Story listing | field_listing | Entity reference | Required | 1 | -- Disabled -- | Translatable |
 | Content type | Support Service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
