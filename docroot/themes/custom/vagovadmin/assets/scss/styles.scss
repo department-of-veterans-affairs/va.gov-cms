@@ -95,19 +95,38 @@
       }
     }
 
-    .meta-content-wrapper {
-      .node-status {
+    .revision-wrapper {
+      display: flex;
+      .revision-details {
+        flex: 50%;
+      }
+      .revision-diff {
+        flex: 50%;
+        text-align: right;
+        margin-right: 1rem;
+        .button {
+          margin-top: 0.6rem;
+          margin-bottom: 0.2rem;
+        }
+        .diff-message {
+          font-size: 0.8rem;
+          font-style: italic;
+        }
+      }
+      .revision-status {
         font-size: 1.5rem;
         font-weight: bold;
         color: #357070;
         padding: 0.8rem 0 0.4rem ;
       }
-      .revision-details {
+      .revision-byline {
         font-size: 0.8rem;
         .revision-author {
           font-style: italic;
         }
       }
+    }
+    .meta-content-wrapper {
       .meta-content {
         background-color: #eff6f6;
         tbody {
