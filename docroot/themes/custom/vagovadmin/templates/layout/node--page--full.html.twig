@@ -88,11 +88,22 @@
 {{ attach_library('classy/node') }}
 {{ attach_library('vagovadmin/proofing') }}
 <article{{ attributes.addClass(classes) }}>
+  <div class="revision-wrapper">
+    <div class="revision-details">
+      <div class="revision-status">{{ status }}</div>
+      <div class="revision-byline">Revised by <span class="revision-author">{{ revision_author }}</span></div>
+    </div>
+    <div class="revision-diff">
+      {% if previous_revision_id %}
+        <a href="/node/{{ node.id() }}/revisions/view/{{previous_revision_id}}/{{ revision_id }}/unified_fields" class="button button--primary">
+          View differences
+        </a>
+        <div class="diff-message">{{ revision_diff_label }}</div>
+      {% endif %}
+    </div>
+  </div>
 {{ content.content_moderation_control }}
   <div class="meta-content-wrapper">
-
-      <div class="node-status">{{ status }}</div>
-    <div class="revision-details">Revised by <span class="revision-author">{{ revision_author }}</span></div>
     {{ content.group_meta }}
   </div>
   {{ title_prefix }}
@@ -112,7 +123,7 @@
       </h2>
     {% endif %}
   {% endif %}
-  {{ title_suffix }}
+{#  {{ title_suffix }}#}
 
   {% if display_submitted %}
     <footer class="node__meta">
