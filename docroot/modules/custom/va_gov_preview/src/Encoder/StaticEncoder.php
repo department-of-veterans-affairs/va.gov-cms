@@ -2,7 +2,6 @@
 
 namespace Drupal\va_gov_preview\Encoder;
 
-use Drupal\Core\Url;
 use Drupal\serialization\Encoder\JsonEncoder as SerializationJsonEncoder;
 use Drupal\va_gov_preview\StaticServiceProvider;
 use Symfony\Component\HttpFoundation\RedirectResponse;

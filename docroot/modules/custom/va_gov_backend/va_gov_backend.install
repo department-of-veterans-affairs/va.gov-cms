@@ -226,3 +226,44 @@ function va_gov_backend_update_8004() {
     '%failed' => $failed,
   ]);
 }
+
+/**
+ * Resave nodes of some content types to regenerate path alias.
+ */
+function va_gov_backend_update_8005() {
+
+  // Adding event ct here, to cover any aliases from VACMS-1328.
+  $bundles = [
+    'event',
+    'health_care_local_health_service',
+    'outreach_asset',
+    'regional_health_care_service_des',
+    'support_service',
+  ];
+
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+
+  foreach ($bundles as $bundle) {
+    $updated = 0;
+    $failed = 0;
+    $failed_nids = [];
+    $entities = $storage->loadByProperties(['type' => $bundle]);
+
+    foreach ($entities as $entity) {
+      // Save in order to update path alias without creating a new revision.
+      $saved = $entity->save();
+      $updated = (is_int($saved) && $saved > 0) ? $updated + 1 : $updated;
+      $failed = (is_int($saved) && $saved <= 0) ? $failed + 1 : $failed;
+      $failed_nids = (is_int($saved) && $saved <= 0) ? $failed_nids[$entity->id()] : $failed_nids;
+    }
+
+    Drupal::logger('va_gov_backend')
+      ->log(LogLevel::INFO, 'Path Alias for %bundle: Successfully updated path alias for %updated out of %count entities. %failed %failed_nids', [
+        '%bundle' => $bundle,
+        '%count' => count($entities),
+        '%updated' => $updated,
+        '%failed' => $failed ? 'Failed to update ' . $failed . ' out of %count.' : NULL,
+        '%failed_nids' => count($failed_nids) ? 'Failed nids: ' . implode(', ', $failed_nids) . '.' : NULL,
+      ]);
+  }
+}

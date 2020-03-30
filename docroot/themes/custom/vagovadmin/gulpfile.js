@@ -1,3 +1,7 @@
+/**
+ * @file
+ */
+
 'use strict';
 /*jshint esversion: 6 */
 
@@ -32,7 +36,7 @@ gulp.task('sass').description = "process SCSS files: compile to compressed css, 
  * @task clearcache
  * Clear all drupal caches
  */
-gulp.task('clearcache', function(done) {
+gulp.task('clearcache', function (done) {
     let child = spawn('lando drush cache-rebuild', {
         stdio: 'inherit',
         shell: 'true'

@@ -1,0 +1,18 @@
+diff --git a/src/Plugin/Field/FieldWidget/InlineParagraphsBrowserWidgetTrait.php b/src/Plugin/Field/FieldWidget/InlineParagraphsBrowserWidgetTrait.php
+index b01aebc3..3fcb6f70 100644
+--- a/src/Plugin/Field/FieldWidget/InlineParagraphsBrowserWidgetTrait.php
++++ b/src/Plugin/Field/FieldWidget/InlineParagraphsBrowserWidgetTrait.php
+@@ -94,7 +94,7 @@ public function formElement(FieldItemListInterface $items, $delta, array $elemen
+       $group = $groups->getGroup($group_name);
+       if ($group) {
+         $element['top']['paragraph_type_title']['info'] = array(
+-          '#markup' => '<span class="paragraph-group">' . $group->getLabel() . '</span> ' . $current_title,
++          '#markup' => $current_title,
+         );
+       }
+     }
+@@ -165,3 +165,4 @@ public function formMultipleElements(FieldItemListInterface $items, array &$form
+   }
+
+ }
++

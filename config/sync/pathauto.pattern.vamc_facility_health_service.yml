@@ -1,0 +1,22 @@
+uuid: 834c53fd-9774-4004-960a-7ababa7f0fe2
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: vamc_facility_health_service
+label: 'VAMC facility health service'
+type: 'canonical_entities:node'
+pattern: 'facility-health-services/[node:title]'
+selection_criteria:
+  c6d8d5a7-41a7-44ac-941f-bface61164f5:
+    id: node_type
+    bundles:
+      health_care_local_health_service: health_care_local_health_service
+    negate: false
+    context_mapping:
+      node: node
+    uuid: c6d8d5a7-41a7-44ac-941f-bface61164f5
+selection_logic: and
+weight: -5
+relationships: {  }

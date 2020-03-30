@@ -5,18 +5,18 @@ dependencies:
   module:
     - node
 id: event
-label: Events
+label: Event
 type: 'canonical_entities:node'
 pattern: '[node:field_office:entity:url:path]/events/[node:title]'
 selection_criteria:
-  205e1830-7588-486c-95b1-f91f33592e62:
+  6be7c8c6-0f8f-4c97-95a6-efb77d336633:
     id: node_type
     bundles:
       event: event
     negate: false
     context_mapping:
       node: node
-    uuid: 205e1830-7588-486c-95b1-f91f33592e62
+    uuid: 6be7c8c6-0f8f-4c97-95a6-efb77d336633
 selection_logic: and
 weight: -5
 relationships: {  }

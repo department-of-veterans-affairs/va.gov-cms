@@ -66,8 +66,26 @@ class MetalsmithSource extends UrlList {
   protected $prNumber;
 
   const API_PATH = "https://api.github.com/repos/department-of-veterans-affairs/vagov-content";
+
+  /**
+   * Url.
+   *
+   * @var string
+   */
   protected $prUrl;
+
+  /**
+   * Conetent url.
+   *
+   * @var string
+   */
   protected $contentUrl;
+
+  /**
+   * Pages URL.
+   *
+   * @var string
+   */
   protected $pagesUrl;
 
   /**
