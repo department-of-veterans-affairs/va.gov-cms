@@ -24,7 +24,7 @@
         "drupal/block_content_permissions": "^1.6",
         "drupal/block_visibility_groups": "^1.3",
         "drupal/cer": "^4.0@alpha",
-        "drupal/coder": "~8.2.12",
+        "drupal/coder": "^8.3",
         "drupal/components": "^1.0",
         "drupal/computed_field": "^2.0",
         "drupal/config_ignore": "^2.1",
@@ -119,7 +119,7 @@
         "drupal/workbench_menu_access": "^1.0",
         "drupal/workflow_participants": "^2.4",
         "drush-ops/behat-drush-endpoint": "^0.0.4",
-        "drush/drush": "~8.3",
+        "drush/drush": "~8",
         "guzzlehttp/guzzle": "^6.0@dev",
         "michelf/php-markdown": "^1.8",
         "mouf/nodejs-installer": "^1.0",
@@ -128,6 +128,7 @@
         "provision-ops/yaml-tests": "~1.9",
         "querypath/querypath": "^3.0",
         "simplesamlphp/simplesamlphp": "^1.17",
+        "squizlabs/php_codesniffer": "^3.5",
         "symfony/config": "^3.4",
         "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^4.3",
@@ -223,8 +224,7 @@
             },
             "drupal/core": {
                 "2815221 - Add quickedit to the latest-revision route": "https://www.drupal.org/files/issues/2019-03-05/2815221-116.patch",
-                "Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch",
-                "Views ui disabling causing wsod on status page.": "https://www.drupal.org/files/issues/2019-12-13/Content_Moderation_requirements_check_relies_on_Views_UI_module-3099364-13.patch"
+                "Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch"
             },
             "drupal/entity_clone": {
                 "Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch"
@@ -232,6 +232,9 @@
             "drupal/field_group": {
                 "Allow to position the group in the advanced (sidebar) column": "https://www.drupal.org/files/issues/2018-07-26/2652642-59.patch",
                 "Incompatibility with inline entity form": "https://www.drupal.org/files/issues/2018-10-30/field_group-inline_entity_form_compatibility-2986704-3.patch"
+            },
+            "drupal/graphql": {
+                "PHP 7.4 Notices (https://github.com/drupal-graphql/graphql/pull/989)": "https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/989.patch"
             },
             "drupal/inline_entity_form": {
                 "Collapsed by default complex widget closes when trying to edit reference.": "https://www.drupal.org/files/issues/2018-11-08/2994001-open-on-action.patch"
@@ -247,7 +250,8 @@
                 "Fix php warning when creating new items": "https://www.drupal.org/files/issues/updateLink-2775665-2.patch"
             },
             "drupal/paragraphs_browser": {
-                "Remove confusing paragraph group.": "https://www.drupal.org/files/issues/2020-02-27/remove-paragraph-group-3116501-2.patch"
+                "#3057621: Notice: Undefined index: paragraph_type_title": "https://www.drupal.org/files/issues/2019-07-18/undefined-index-paragraph_type_title-trait-3057621-7.patch",
+                "Local version of https://www.drupal.org/project/paragraphs_browser/issues/3116501 to apply correctly": "./patches/paragraphs_browser/remove-paragraph-group-3116501-2.patch"
             },
             "drupal/path_redirect_import": {
                 "Add an option to import non-existent paths": "https://www.drupal.org/files/issues/2019-09-17/path_redirect_import-2995543-4.patch"

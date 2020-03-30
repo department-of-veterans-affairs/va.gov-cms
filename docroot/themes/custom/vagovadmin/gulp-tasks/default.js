@@ -1,13 +1,14 @@
 /**
  * @file
  * Task: Gulp.
- * Default gulp task
+ *
+ * Default gulp task.
  */
 
 module.exports = function (gulp, plugins, options) {
   'use strict';
 
-  // Watch
+  // Watch.
   gulp.task('default', [
     'sass-lint',
     'sass',
