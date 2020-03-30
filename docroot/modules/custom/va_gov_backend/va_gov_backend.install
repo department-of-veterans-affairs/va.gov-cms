@@ -235,7 +235,9 @@ function va_gov_backend_update_8005() {
   $failed = 0;
   $failed_nids = [];
 
+  // Adding event ct here, to cover any aliases from VACMS-1328.
   $bundles = [
+    'event',
     'full_width_banner_alert',
     'health_care_local_health_service',
     'outreach_asset',
