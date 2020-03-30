@@ -14,7 +14,18 @@ use QueryPath\DOMQuery;
  */
 class ObtainAndTestPlainTextWithNewLines extends ObtainPlainTextWithNewLines {
 
+  /**
+   * Title.
+   *
+   * @var string
+   */
   protected $title;
+
+  /**
+   * Url.
+   *
+   * @var string
+   */
   protected $url;
 
   /**
