@@ -7,6 +7,7 @@
 
 use Drupal\Core\Utility\UpdateException;
 use Drupal\node\Entity\Node;
+use Psr\Log\LogLevel;
 
 /**
  * Uninstalls requested modules.
@@ -226,4 +227,49 @@ function va_gov_db_update_8008() {
       'moderation_state' => 'draft',
     ])
     ->execute();
+}
+
+/**
+ * Save benefits page to migrate old intro text data to new intro text field.
+ */
+function va_gov_db_update_8009(&$sandbox) {
+  // Grab our nodes and set the count.
+  if (empty($sandbox['total'])) {
+    $nids = \Drupal::entityQuery('node')
+      ->condition('type', 'page')
+      ->execute();
+    $sandbox['total'] = count($nids);
+    $sandbox['current'] = 0;
+  }
+
+  // Batch 25 at a time. Low number, but we have less than 300.
+  $nodes_per_batch = 25;
+
+  // Establish our place in the process.
+  $nids = \Drupal::entityQuery('node')
+    ->condition('type', 'page')
+    ->range($sandbox['current'], $sandbox['current'] + $nodes_per_batch)
+    ->execute();
+
+  // Save the nodes to update fields, and count where we are.
+  foreach ($nids as $nid) {
+    $node = Node::load($nid);
+    $node->save();
+    $sandbox['current']++;
+  }
+
+  // Tell drupal we processed some nodes.
+  Drupal::logger('va_gov_db')
+    ->log(LogLevel::INFO, '%current nodes processed', [
+      '%current' => $sandbox['current'],
+    ]);
+
+  // Determine when to stop batching.
+  if ($sandbox['total'] === 0) {
+    $sandbox['#finished'] = 1;
+  }
+  else {
+    $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
+  }
+
 }

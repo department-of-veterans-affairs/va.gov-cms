@@ -404,9 +404,12 @@ function va_gov_backend_pathauto_alias_alter(&$alias, array &$context) {
 function va_gov_backend_entity_presave(EntityInterface $entity) {
   $bundle_types = ['event', 'news_story', 'press_release', 'outreach_asset'];
 
-  if ($entity->getEntityTypeId() == 'node' && in_array($entity->bundle(), $bundle_types)) {
+  if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $bundle_types)) {
     _va_gov_backend_sync_office_listing_fields($entity);
     _va_gov_backend_feature_bump($entity);
+  }
+  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'page') {
+    _va_gov_backend_sync_wysiwyg_fields($entity);
   }
 }
 
@@ -501,6 +504,22 @@ function _va_gov_backend_sync_office_listing_fields(EntityInterface $entity) {
         _va_gov_backend_set_field_listing_value($entity, $entity_listing_mapping, reset($result));
       }
       break;
+  }
+}
+
+/**
+ * Sync field_intro_text with field_intro_text_limited_html.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Entity.
+ *
+ * @todo: Use this function in hook_update_n() - VACMS-939 Phase 2.
+ */
+function _va_gov_backend_sync_wysiwyg_fields(EntityInterface $entity) {
+  // Match the new intro field with the old intro field.
+  if ($entity->hasField('field_intro_text_limited_html')) {
+    $intro_text_field_data = $entity->field_intro_text->value;
+    $entity->set('field_intro_text_limited_html', $intro_text_field_data);
   }
 }
 
