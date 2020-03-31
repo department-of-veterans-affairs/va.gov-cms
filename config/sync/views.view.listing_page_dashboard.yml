@@ -4,11 +4,12 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.storage.node.field_date
     - node.type.event
-    - workflows.workflow.editorial
   module:
     - content_moderation
     - datetime
+    - datetime_range
     - node
     - user
 id: listing_page_dashboard
@@ -55,7 +56,7 @@ display:
         options:
           items_per_page: 10
           offset: 0
-          id: 0
+          id: 1
           total_pages: null
           tags:
             previous: '‹ Previous'
@@ -84,18 +85,12 @@ display:
           summary: ''
           description: ''
           columns:
-            moderation_state: moderation_state
             rendered_entity: rendered_entity
-            uid: uid
+            field_date: field_date
+            moderation_state: moderation_state
             changed: changed
+            revision_uid: changed
           info:
-            moderation_state:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             rendered_entity:
               sortable: false
               default_sort_order: asc
@@ -103,15 +98,29 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            uid:
-              sortable: true
+            field_date:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             changed:
-              sortable: true
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: '<br />by '
+              empty_column: false
+              responsive: ''
+            revision_uid:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -125,6 +134,122 @@ display:
           relationship: none
           view_mode: teaser
       fields:
+        rendered_entity:
+          id: rendered_entity
+          table: node
+          field: rendered_entity
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Event name and description'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          view_mode: teaser
+          entity_type: node
+          plugin_id: rendered_entity
+        field_date:
+          id: field_date
+          table: node__field_date
+          field: field_date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Date and time'
+          exclude: true
+          alter:
+            alter_text: false
+            text: '{{ field_date__value }}'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: daterange_default
+          settings:
+            timezone_override: ''
+            format_type: long
+            separator: '-'
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
         moderation_state:
           id: moderation_state
           table: node_field_data
@@ -132,7 +257,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Moderation state'
+          label: Status
           exclude: false
           alter:
             alter_text: false
@@ -188,14 +313,14 @@ display:
           field_api_classes: false
           entity_type: node
           plugin_id: moderation_state_field
-        rendered_entity:
-          id: rendered_entity
-          table: node
-          field: rendered_entity
+        changed:
+          id: changed
+          table: node_field_data
+          field: changed
           relationship: none
           group_type: group
           admin_label: ''
-          label: Event
+          label: 'Last updated'
           exclude: false
           alter:
             alter_text: false
@@ -228,7 +353,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
+          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -236,17 +361,33 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          view_mode: teaser
+          click_sort_column: value
+          type: timestamp_ago
+          settings:
+            future_format: '@interval hence'
+            past_format: '@interval ago'
+            granularity: 1
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
           entity_type: node
-          plugin_id: rendered_entity
-        uid:
-          id: uid
-          table: node_field_data
-          field: uid
+          entity_field: changed
+          plugin_id: field
+        revision_uid:
+          id: revision_uid
+          table: node_revision
+          field: revision_uid
           relationship: none
           group_type: group
           admin_label: ''
-          label: Author
+          label: 'Revision user'
           exclude: false
           alter:
             alter_text: false
@@ -302,74 +443,7 @@ display:
           separator: ', '
           field_api_classes: false
           entity_type: node
-          entity_field: uid
-          plugin_id: field
-        changed:
-          id: changed
-          table: node_field_data
-          field: changed
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Last updated'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: timestamp
-          settings:
-            date_format: medium
-            custom_date_format: ''
-            timezone: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: node
-          entity_field: changed
+          entity_field: revision_uid
           plugin_id: field
       filters:
         type:
@@ -422,18 +496,18 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          operator: '>'
+          operator: '<'
           value:
             min: ''
             max: ''
-            value: '+0 day'
-            type: offset
+            value: now
+            type: date
           group: 1
-          exposed: true
+          exposed: false
           expose:
             operator_id: field_date_value_op
-            label: 'Date range'
-            description: '-1 day goes back one day, etc.'
+            label: 'Date and time (field_date)'
+            description: ''
             use_operator: false
             operator: field_date_value_op
             operator_limit_selection: false
@@ -471,130 +545,29 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           plugin_id: datetime
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: in
-          value:
-            editorial-published: editorial-published
-          group: 1
-          exposed: true
-          expose:
-            operator_id: moderation_state_op
-            label: 'Moderation state'
-            description: ''
-            use_operator: false
-            operator: moderation_state_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: moderation_state
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              vamc_content_creator: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: node
-          plugin_id: moderation_state_filter
-        uid:
-          id: uid
-          table: node_field_data
-          field: uid
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: in
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: uid_op
-            label: Author
-            description: ''
-            use_operator: false
-            operator: uid_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: uid
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              vamc_content_creator: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: node
-          entity_field: uid
-          plugin_id: user_name
       sorts:
-        created:
-          id: created
-          table: node_field_data
-          field: created
-          order: DESC
-          entity_type: node
-          entity_field: created
-          plugin_id: date
+        field_date_value:
+          id: field_date_value
+          table: node__field_date
+          field: field_date_value
           relationship: none
           group_type: group
           admin_label: ''
+          order: ASC
           exposed: false
           expose:
             label: ''
           granularity: second
+          plugin_id: datetime
       title: 'Listing page dashboard'
       header: {  }
       footer: {  }
-      empty: {  }
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          plugin_id: text_custom
       relationships: {  }
       arguments:
         field_listing_target_id:
@@ -698,18 +671,159 @@ display:
         - 'config:core.entity_view_display.node.support_service.teaser'
         - 'config:core.entity_view_display.node.vamc_operating_status_and_alerts.default'
         - 'config:core.entity_view_display.node.vamc_operating_status_and_alerts.teaser'
-        - 'config:workflow_list'
+        - 'config:field.storage.node.field_date'
   block_1:
     display_plugin: block
     id: block_1
-    display_title: 'Event listing block'
+    display_title: 'Upcoming events'
     position: 1
     display_options:
       display_extenders: {  }
       display_description: ''
-      title: Events
+      title: 'Upcoming events'
       defaults:
         title: false
+        filters: false
+        filter_groups: false
+        empty: false
+        pager: false
+      filters:
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: in
+          value:
+            event: event
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+            argument: null
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+        field_date_value:
+          id: field_date_value
+          table: node__field_date
+          field: field_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '>'
+          value:
+            min: ''
+            max: ''
+            value: '-1 day'
+            type: date
+          group: 1
+          exposed: false
+          expose:
+            operator_id: field_date_value_op
+            label: 'Date and time (field_date)'
+            description: ''
+            use_operator: false
+            operator: field_date_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_date_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              vamc_content_creator: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            placeholder: ''
+            min_placeholder: ''
+            max_placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: datetime
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content: 'There are no upcoming events.'
+          plugin_id: text_custom
+      pager:
+        type: full
+        options:
+          items_per_page: 10
+          offset: 0
+          id: 0
+          total_pages: null
+          tags:
+            previous: '‹ Previous'
+            next: 'Next ›'
+            first: '« First'
+            last: 'Last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
     cache_metadata:
       max-age: -1
       contexts:
@@ -771,4 +885,211 @@ display:
         - 'config:core.entity_view_display.node.support_service.teaser'
         - 'config:core.entity_view_display.node.vamc_operating_status_and_alerts.default'
         - 'config:core.entity_view_display.node.vamc_operating_status_and_alerts.teaser'
-        - 'config:workflow_list'
+        - 'config:field.storage.node.field_date'
+  block_2:
+    display_plugin: block
+    id: block_2
+    display_title: 'Past events'
+    position: 1
+    display_options:
+      display_extenders: {  }
+      display_description: ''
+      title: 'Past events'
+      defaults:
+        title: false
+        filters: false
+        filter_groups: false
+        empty: false
+        sorts: false
+      filters:
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: in
+          value:
+            event: event
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+            argument: null
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+        field_date_value:
+          id: field_date_value
+          table: node__field_date
+          field: field_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '<'
+          value:
+            min: ''
+            max: ''
+            value: now
+            type: date
+          group: 1
+          exposed: false
+          expose:
+            operator_id: field_date_value_op
+            label: 'Date and time (field_date)'
+            description: ''
+            use_operator: false
+            operator: field_date_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_date_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              vamc_content_creator: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            placeholder: ''
+            min_placeholder: ''
+            max_placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: datetime
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content: 'There are no past events.'
+          plugin_id: text_custom
+      sorts:
+        field_date_value:
+          id: field_date_value
+          table: node__field_date
+          field: field_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: DESC
+          exposed: false
+          expose:
+            label: ''
+          granularity: second
+          plugin_id: datetime
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:core.entity_view_display.node.documentation_page.default'
+        - 'config:core.entity_view_display.node.documentation_page.teaser'
+        - 'config:core.entity_view_display.node.event.default'
+        - 'config:core.entity_view_display.node.event.teaser'
+        - 'config:core.entity_view_display.node.event_listing.default'
+        - 'config:core.entity_view_display.node.event_listing.teaser'
+        - 'config:core.entity_view_display.node.full_width_banner_alert.default'
+        - 'config:core.entity_view_display.node.full_width_banner_alert.ief_table'
+        - 'config:core.entity_view_display.node.full_width_banner_alert.teaser'
+        - 'config:core.entity_view_display.node.health_care_local_facility.default'
+        - 'config:core.entity_view_display.node.health_care_local_facility.ief_table'
+        - 'config:core.entity_view_display.node.health_care_local_facility.teaser'
+        - 'config:core.entity_view_display.node.health_care_local_health_service.default'
+        - 'config:core.entity_view_display.node.health_care_local_health_service.ief_table'
+        - 'config:core.entity_view_display.node.health_care_local_health_service.teaser'
+        - 'config:core.entity_view_display.node.health_care_region_detail_page.default'
+        - 'config:core.entity_view_display.node.health_care_region_detail_page.teaser'
+        - 'config:core.entity_view_display.node.health_care_region_page.default'
+        - 'config:core.entity_view_display.node.health_care_region_page.teaser'
+        - 'config:core.entity_view_display.node.health_services_listing.default'
+        - 'config:core.entity_view_display.node.health_services_listing.teaser'
+        - 'config:core.entity_view_display.node.landing_page.default'
+        - 'config:core.entity_view_display.node.landing_page.teaser'
+        - 'config:core.entity_view_display.node.leadership_listing.default'
+        - 'config:core.entity_view_display.node.leadership_listing.teaser'
+        - 'config:core.entity_view_display.node.locations_listing.default'
+        - 'config:core.entity_view_display.node.locations_listing.teaser'
+        - 'config:core.entity_view_display.node.news_story.default'
+        - 'config:core.entity_view_display.node.news_story.teaser'
+        - 'config:core.entity_view_display.node.office.default'
+        - 'config:core.entity_view_display.node.office.teaser'
+        - 'config:core.entity_view_display.node.outreach_asset.default'
+        - 'config:core.entity_view_display.node.outreach_asset.teaser'
+        - 'config:core.entity_view_display.node.page.default'
+        - 'config:core.entity_view_display.node.page.teaser'
+        - 'config:core.entity_view_display.node.person_profile.default'
+        - 'config:core.entity_view_display.node.person_profile.teaser'
+        - 'config:core.entity_view_display.node.press_release.default'
+        - 'config:core.entity_view_display.node.press_release.teaser'
+        - 'config:core.entity_view_display.node.press_releases_listing.default'
+        - 'config:core.entity_view_display.node.press_releases_listing.teaser'
+        - 'config:core.entity_view_display.node.publication_listing.default'
+        - 'config:core.entity_view_display.node.publication_listing.teaser'
+        - 'config:core.entity_view_display.node.regional_health_care_service_des.default'
+        - 'config:core.entity_view_display.node.regional_health_care_service_des.teaser'
+        - 'config:core.entity_view_display.node.story_listing.default'
+        - 'config:core.entity_view_display.node.story_listing.teaser'
+        - 'config:core.entity_view_display.node.support_service.default'
+        - 'config:core.entity_view_display.node.support_service.teaser'
+        - 'config:core.entity_view_display.node.vamc_operating_status_and_alerts.default'
+        - 'config:core.entity_view_display.node.vamc_operating_status_and_alerts.teaser'
+        - 'config:field.storage.node.field_date'
