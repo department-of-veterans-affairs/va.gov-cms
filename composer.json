@@ -349,7 +349,7 @@
             "curl -v --proxy socks5h://127.0.0.1:2001 sentry.vetsgov-internal"
         ],
         "va:proxy:sshuttle": [
-            "sudo -E sshuttle -r dsva@52.222.32.121 -e \"ssh -A -i $HOME/.ssh/id_rsa\" 10.0.0.0/8"
+            "sudo -E sshuttle -r dsva@52.222.32.121 -e 'ssh -A ' 10.0.0.0/8"
         ],
         "va:test:accessibility": [
             "npm install --only=production",
