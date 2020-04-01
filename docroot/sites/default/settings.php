@@ -164,5 +164,5 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.local.php')) 
   include $app_root . '/' . $site_path . '/settings/settings.local.php';
 }
 
-$settings['tome_content_directory'] = isset($settings['file_public_path']) ? "{$settings['file_public_path']}/export-content" : 'sites/default/files/export-content';
-$settings['tome_files_directory'] = isset($settings['file_public_path']) ? "{$settings['file_public_path']}/export-files" : 'sites/default/files/export-files';
+$settings['tome_content_directory'] = 'public://cms-export/content';
+$settings['tome_files_directory'] = 'public://cms-export/files';
