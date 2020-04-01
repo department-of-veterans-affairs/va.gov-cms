@@ -10,7 +10,6 @@ dependencies:
     - field.field.node.outreach_asset.field_listing
     - field.field.node.outreach_asset.field_media
     - field.field.node.outreach_asset.field_meta_tags
-    - field.field.node.outreach_asset.field_office
     - node.type.outreach_asset
     - workflows.workflow.editorial
   module:
@@ -112,12 +111,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
-    region: content
-  field_office:
-    weight: 9
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
     region: content
   moderation_state:
     type: moderation_state_default

@@ -5,6 +5,7 @@
  * Install file for Va Gov Backend.
  */
 
+use Drupal\field\Entity\FieldConfig;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\node\Entity\Node;
 use Drupal\pathauto\PathautoState;
@@ -265,5 +266,23 @@ function va_gov_backend_update_8005() {
         '%failed' => $failed ? 'Failed to update ' . $failed . ' out of %count.' : NULL,
         '%failed_nids' => count($failed_nids) ? 'Failed nids: ' . implode(', ', $failed_nids) . '.' : NULL,
       ]);
+  }
+}
+
+/**
+ * Remove field_office from four content types.
+ */
+function va_gov_backend_update_8006() {
+  $bundles = [
+    'event',
+    'news_story',
+    'press_release',
+    'publication',
+  ];
+  foreach ($bundles as $bundle) {
+    $field = FieldConfig::loadByName('node', $bundle, 'field_office');
+    if ($field) {
+      $field->delete();
+    }
   }
 }
