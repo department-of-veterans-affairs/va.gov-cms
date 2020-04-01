@@ -9,6 +9,7 @@ events:
     # @TODO: Change to `composer yaml-tests va/deploy` once the "filter argument" feature is in place.
     - appserver: cd $LANDO_WEBROOT && /app/bin/drush cache-rebuild -y
     - appserver: cd $LANDO_WEBROOT && /app/bin/drush updatedb -y
+    - appserver: cd $LANDO_WEBROOT && /app/bin/drush cache-rebuild -y
     - appserver: cd $LANDO_WEBROOT && /app/bin/drush config:import -y
     - appserver: cd $LANDO_WEBROOT && /app/bin/drush cache-rebuild -y
 
