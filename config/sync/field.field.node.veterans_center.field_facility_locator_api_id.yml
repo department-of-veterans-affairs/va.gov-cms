@@ -1,0 +1,19 @@
+uuid: 26455d1d-4817-4c31-a3c1-bbea090dbfc4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_facility_locator_api_id
+    - node.type.veterans_center
+id: node.veterans_center.field_facility_locator_api_id
+field_name: field_facility_locator_api_id
+entity_type: node
+bundle: veterans_center
+label: 'Facility Locator API ID'
+description: "You'll need to manually add the facility API id so that we can display certain location information such as opening hours, address, and service wait times.\r\n<ol><li>Search for the facility using the <a href=\"https://www.va.gov/find-locations/\">Facility Locator</a> tool.</li>\r\n<li>Click on the facility you are adding here.</li>\r\n<li>In the URL for the page (eg https://www.va.gov/find-locations/facility/vha_688), note the digits at the end. In this example, \"vha_688\" is the id.</li>\r\n<li>Enter that ID here.</li>\r\n<li><em>For VHA facilities, this is the Station ID prefixed by \"vha_\".</em>\r\n</ol>"
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

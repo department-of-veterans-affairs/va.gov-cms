@@ -1,0 +1,22 @@
+uuid: fac226d5-3201-4dbe-8cd0-463dd510944c
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.veterans_center
+id: node.veterans_center.status
+field_name: status
+entity_type: node
+bundle: veterans_center
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,29 @@
+uuid: 9a692884-d56b-4c6e-93c6-638183a70475
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.veterans_center.field_administration
+    - field.field.node.veterans_center.field_facility_locator_api_id
+    - field.field.node.veterans_center.field_operating_status_facility
+    - field.field.node.veterans_center.field_operating_status_more_info
+    - node.type.veterans_center
+  module:
+    - user
+id: node.veterans_center.teaser
+targetEntityType: node
+bundle: veterans_center
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_administration: true
+  field_facility_locator_api_id: true
+  field_operating_status_facility: true
+  field_operating_status_more_info: true
+  search_api_excerpt: true

@@ -1,0 +1,22 @@
+uuid: 58c32420-2dc2-4c8f-9658-11d6d5b06baf
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.veterans_center
+id: node.veterans_center.promote
+field_name: promote
+entity_type: node
+bundle: veterans_center
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
