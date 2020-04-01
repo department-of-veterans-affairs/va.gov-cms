@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "db563b12643ef86d0c180629f78d5846",
+    "content-hash": "fede30dc72faabf978d41721145e0814",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -8585,7 +8585,7 @@
                 },
                 "patches_applied": {
                     "#3057621: Notice: Undefined index: paragraph_type_title": "https://www.drupal.org/files/issues/2019-07-18/undefined-index-paragraph_type_title-trait-3057621-7.patch",
-                    "Remove confusing paragraph group.": "./patches/paragraphs_browser/remove-paragraph-group-3116501-2.patch"
+                    "Local version of https://www.drupal.org/project/paragraphs_browser/issues/3116501 to apply correctly": "./patches/paragraphs_browser/remove-paragraph-group-3116501-2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -18129,12 +18129,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
-                "reference": "a0976884f4a1610360d16343df7e2b2d32d6145f"
+                "reference": "36e8a5a534db7d2c45d64a1c31b5217a3107d19f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/a0976884f4a1610360d16343df7e2b2d32d6145f",
-                "reference": "a0976884f4a1610360d16343df7e2b2d32d6145f",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/36e8a5a534db7d2c45d64a1c31b5217a3107d19f",
+                "reference": "36e8a5a534db7d2c45d64a1c31b5217a3107d19f",
                 "shasum": ""
             },
             "type": "node-project",
@@ -18159,7 +18159,7 @@
                 }
             ],
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
-            "time": "2020-02-06T19:42:12+00:00"
+            "time": "2020-04-01T14:08:29+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -18958,5 +18958,6 @@
     "platform-dev": [],
     "platform-overrides": {
         "php": "7.1.3"
-    }
+    },
+    "plugin-api-version": "1.1.0"
 }
