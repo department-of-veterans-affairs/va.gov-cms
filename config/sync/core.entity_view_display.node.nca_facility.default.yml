@@ -1,0 +1,55 @@
+uuid: 0db27c9f-38d8-47de-9b46-09c6a6e10761
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.nca_facility.field_administration
+    - field.field.node.nca_facility.field_facility_locator_api_id
+    - field.field.node.nca_facility.field_operating_status_facility
+    - field.field.node.nca_facility.field_operating_status_more_info
+    - node.type.nca_facility
+  module:
+    - options
+    - user
+id: node.nca_facility.default
+targetEntityType: node
+bundle: nca_facility
+mode: default
+content:
+  field_administration:
+    weight: 104
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_facility_locator_api_id:
+    weight: 101
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_operating_status_facility:
+    weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_operating_status_more_info:
+    weight: 103
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  search_api_excerpt: true
