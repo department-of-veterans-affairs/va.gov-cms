@@ -1,19 +1,19 @@
-uuid: e7a93270-49e8-4760-9f67-6f47f1299ed5
+uuid: 0eda943d-b583-4bd1-b3d1-cd3e73e49243
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.veterans_center.field_administration
-    - field.field.node.veterans_center.field_facility_locator_api_id
-    - field.field.node.veterans_center.field_operating_status_facility
-    - field.field.node.veterans_center.field_operating_status_more_info
-    - node.type.veterans_center
+    - field.field.node.vet_center.field_administration
+    - field.field.node.vet_center.field_facility_locator_api_id
+    - field.field.node.vet_center.field_operating_status_facility
+    - field.field.node.vet_center.field_operating_status_more_info
+    - node.type.vet_center
   module:
     - options
     - user
-id: node.veterans_center.default
+id: node.vet_center.default
 targetEntityType: node
-bundle: veterans_center
+bundle: vet_center
 mode: default
 content:
   field_administration:
@@ -52,4 +52,5 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  content_moderation_control: true
   search_api_excerpt: true

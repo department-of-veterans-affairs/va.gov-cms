@@ -1,13 +1,13 @@
-uuid: 3f208172-09d0-476e-a6e5-b2fec6fff13e
+uuid: e368b3a0-3a06-4c89-953f-6006d04fe30e
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.veterans_center.field_administration
-    - field.field.node.veterans_center.field_facility_locator_api_id
-    - field.field.node.veterans_center.field_operating_status_facility
-    - field.field.node.veterans_center.field_operating_status_more_info
-    - node.type.veterans_center
+    - field.field.node.vet_center.field_administration
+    - field.field.node.vet_center.field_facility_locator_api_id
+    - field.field.node.vet_center.field_operating_status_facility
+    - field.field.node.vet_center.field_operating_status_more_info
+    - node.type.vet_center
   module:
     - content_moderation
     - field_group
@@ -73,9 +73,9 @@ third_party_settings:
         required_fields: true
       label: 'Editorial Workflow'
       region: content
-id: node.veterans_center.default
+id: node.vet_center.default
 targetEntityType: node
-bundle: veterans_center
+bundle: vet_center
 mode: default
 content:
   field_administration:
