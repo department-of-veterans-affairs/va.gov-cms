@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.press_release.field_intro_text
     - field.field.node.press_release.field_listing
     - field.field.node.press_release.field_meta_tags
-    - field.field.node.press_release.field_office
     - field.field.node.press_release.field_pdf_version
     - field.field.node.press_release.field_press_release_contact
     - field.field.node.press_release.field_press_release_downloads
@@ -43,14 +42,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
-    region: content
-  field_office:
-    weight: 8
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
     region: content
   field_pdf_version:
     type: entity_reference_entity_view

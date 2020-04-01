@@ -8,6 +8,12 @@ use Drupal\migrate\Plugin\migrate\source\SourcePluginBase;
  * Base class for migrating menus.
  */
 abstract class VaMenuBase extends SourcePluginBase {
+
+  /**
+   * Sections.
+   *
+   * @var mixed
+   */
   protected $sections;
 
   /**

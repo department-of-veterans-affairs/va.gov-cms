@@ -1,3 +1,7 @@
+/**
+ * @file
+ */
+
 (function ($, Drupal) {
   Drupal.behaviors.vaGovAlertForm = {
     attach: function () {

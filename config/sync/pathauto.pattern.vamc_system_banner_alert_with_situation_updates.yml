@@ -1,0 +1,22 @@
+uuid: fc17a38e-bce6-4a4d-b17a-b7a221ca226e
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: vamc_system_banner_alert_with_situation_updates
+label: 'VAMC system banner alert with situation updates'
+type: 'canonical_entities:node'
+pattern: '[node:field_administration:entity:name]/vamc-banner-alert/[node:changed:html_date]/[node:title]'
+selection_criteria:
+  b04bbe2a-5fbd-43bb-8ee8-09b8a02c7c4e:
+    id: node_type
+    bundles:
+      full_width_banner_alert: full_width_banner_alert
+    negate: false
+    context_mapping:
+      node: node
+    uuid: b04bbe2a-5fbd-43bb-8ee8-09b8a02c7c4e
+selection_logic: and
+weight: -5
+relationships: {  }

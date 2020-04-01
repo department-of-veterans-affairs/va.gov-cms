@@ -1,10 +1,11 @@
 /**
  * @file
  * Task: Lint & Watch Sass.
- * Usage: gulp watch
+ *
+ * Usage: gulp watch.
  */
 
-module.exports = function(gulp, options, plugins) {
+module.exports = function (gulp, options, plugins) {
   'use strict';
 
   function lintFile(file) {
@@ -13,17 +14,17 @@ module.exports = function(gulp, options, plugins) {
       .pipe(plugins.sassLint.format());
   }
 
-  // Keep an eye on Sass files for changes and only lint changed files
-  gulp.task('watch', function() {
+  // Keep an eye on Sass files for changes and only lint changed files.
+  gulp.task('watch', function () {
     gulp.watch([
       options.sass.sassFiles,
       options.sass.plFiles
-    ], function(ev) {
+    ], function (ev) {
       if (ev.type === 'added' || ev.type === 'changed') {
         lintFile(ev.path);
       }
     });
-    // Compile sass changes
+    // Compile sass changes.
     gulp.watch([
         options.sass.sassFiles,
         options.sass.plFiles],
