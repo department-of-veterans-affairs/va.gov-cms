@@ -1,0 +1,19 @@
+uuid: 0152c1ad-ef7f-4808-a80d-689032ff6494
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_operating_status_more_info
+    - node.type.nca_facility
+id: node.nca_facility.field_operating_status_more_info
+field_name: field_operating_status_more_info
+entity_type: node
+bundle: nca_facility
+label: 'Operating status - more info'
+description: 'Up to 300 characters to provide additional information about the facility''s operating status. '
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

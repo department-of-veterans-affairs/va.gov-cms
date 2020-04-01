@@ -1,0 +1,148 @@
+uuid: 6dff3ba9-a5ed-42e3-b96b-b156942f3f55
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.nca_facility.field_administration
+    - field.field.node.nca_facility.field_facility_locator_api_id
+    - field.field.node.nca_facility.field_operating_status_facility
+    - field.field.node.nca_facility.field_operating_status_more_info
+    - node.type.nca_facility
+  module:
+    - content_moderation
+    - field_group
+    - hide_revision_field
+    - textfield_counter
+third_party_settings:
+  field_group:
+    group_facility_api:
+      children:
+        - title
+        - field_facility_locator_api_id
+      parent_name: ''
+      weight: 0
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: true
+        required_fields: false
+      label: 'Facility API'
+      region: content
+    group_operating_status:
+      children:
+        - field_operating_status_facility
+        - field_operating_status_more_info
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Operating status'
+      region: content
+    group_governance:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 2
+      format_type: details_sidebar
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: 1
+        required_fields: 1
+        weight: '-10'
+      label: Governance
+      region: content
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial Workflow'
+      region: content
+id: node.nca_facility.default
+targetEntityType: node
+bundle: nca_facility
+mode: default
+content:
+  field_administration:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_facility_locator_api_id:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_operating_status_facility:
+    weight: 11
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_operating_status_more_info:
+    weight: 12
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 5
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  revision_log:
+    type: hide_revision_field_log_widget
+    weight: 6
+    region: content
+    settings:
+      show: true
+      default: ''
+      permission_based: false
+      allow_user_settings: true
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  title:
+    type: string_textfield_with_counter
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      maxlength: 150
+      counter_position: after
+      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
+      js_prevent_submit: false
+      count_html_characters: false
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true
