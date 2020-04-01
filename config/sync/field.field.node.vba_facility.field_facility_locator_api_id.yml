@@ -1,0 +1,19 @@
+uuid: 2ac7758b-875e-4270-a073-4bfa2159d82f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_facility_locator_api_id
+    - node.type.vba_facility
+id: node.vba_facility.field_facility_locator_api_id
+field_name: field_facility_locator_api_id
+entity_type: node
+bundle: vba_facility
+label: 'Facility Locator API ID'
+description: "You'll need to manually add the facility API id so that we can display certain location information such as opening hours, address, and service wait times.\r\n<ol><li>Search for the facility using the <a href=\"https://www.va.gov/find-locations/\">Facility Locator</a> tool.</li>\r\n<li>Click on the facility you are adding here.</li>\r\n<li>In the URL for the page (eg https://www.va.gov/find-locations/facility/vba_688), note the digits at the end. In this example, \"vba_688\" is the id.</li>\r\n<li>Enter that ID here.</li>\r\n<li><em>For VBA facilities, this is the Station ID prefixed by \"vba_\".</em>\r\n</ol>"
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

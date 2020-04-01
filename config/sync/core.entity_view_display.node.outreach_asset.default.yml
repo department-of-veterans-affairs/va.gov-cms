@@ -10,7 +10,6 @@ dependencies:
     - field.field.node.outreach_asset.field_listing
     - field.field.node.outreach_asset.field_media
     - field.field.node.outreach_asset.field_meta_tags
-    - field.field.node.outreach_asset.field_office
     - node.type.outreach_asset
   module:
     - options
@@ -55,14 +54,6 @@ content:
       view_mode: default
       link: false
     third_party_settings: {  }
-    region: content
-  field_office:
-    weight: 4
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
     region: content
 hidden:
   field_administration: true
