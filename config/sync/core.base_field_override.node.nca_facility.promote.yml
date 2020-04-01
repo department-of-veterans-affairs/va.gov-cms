@@ -1,0 +1,22 @@
+uuid: 98005641-24e3-4e94-93ac-911ffa988ef2
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.nca_facility
+id: node.nca_facility.promote
+field_name: promote
+entity_type: node
+bundle: nca_facility
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

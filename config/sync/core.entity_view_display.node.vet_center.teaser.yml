@@ -1,0 +1,30 @@
+uuid: af3a6033-16fe-4bf0-9bcd-0c789103b134
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.vet_center.field_administration
+    - field.field.node.vet_center.field_facility_locator_api_id
+    - field.field.node.vet_center.field_operating_status_facility
+    - field.field.node.vet_center.field_operating_status_more_info
+    - node.type.vet_center
+  module:
+    - user
+id: node.vet_center.teaser
+targetEntityType: node
+bundle: vet_center
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_facility_locator_api_id: true
+  field_operating_status_facility: true
+  field_operating_status_more_info: true
+  search_api_excerpt: true

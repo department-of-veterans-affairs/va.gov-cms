@@ -61,3 +61,6 @@ Feature: Content model bundles
 | News releases listing | press_releases_listing | Content type | A listing of press releases. |
 | Story listing | story_listing | Content type | A listing of stories. |
 | Leadership listing | leadership_listing | Content type | A listing of staff members. |
+| VBA facility | vba_facility | Content type | A facility within Veterans Benefits Administration system. |
+| NCA facility | nca_facility | Content type | A facility within National Cemetery Administration system. |
+| Vet Center | vet_center | Content type | A facility within Vet Centers system. |

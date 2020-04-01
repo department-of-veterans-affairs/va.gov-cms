@@ -16,6 +16,7 @@ dependencies:
     - node.type.landing_page
     - node.type.leadership_listing
     - node.type.locations_listing
+    - node.type.nca_facility
     - node.type.news_story
     - node.type.office
     - node.type.outreach_asset
@@ -28,6 +29,8 @@ dependencies:
     - node.type.story_listing
     - node.type.support_service
     - node.type.vamc_operating_status_and_alerts
+    - node.type.vba_facility
+    - node.type.vet_center
   module:
     - content_moderation
 _core:
@@ -110,6 +113,7 @@ type_settings:
       - landing_page
       - leadership_listing
       - locations_listing
+      - nca_facility
       - news_story
       - office
       - outreach_asset
@@ -122,4 +126,6 @@ type_settings:
       - story_listing
       - support_service
       - vamc_operating_status_and_alerts
+      - vba_facility
+      - vet_center
   default_moderation_state: draft
