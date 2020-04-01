@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fede30dc72faabf978d41721145e0814",
+    "content-hash": "2551090edb61a472cf5d004537bb07fd",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2657,7 +2657,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.7",
-                    "datestamp": "1559642884",
+                    "datestamp": "1582913039",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2680,6 +2680,10 @@
                 {
                     "name": "googletorp",
                     "homepage": "https://www.drupal.org/user/386230"
+                },
+                {
+                    "name": "jsacksick",
+                    "homepage": "https://www.drupal.org/user/972218"
                 },
                 {
                     "name": "mglaman",
@@ -2967,7 +2971,7 @@
                 },
                 "drupal": {
                     "version": "8.x-2.0-rc7",
-                    "datestamp": "1581756279",
+                    "datestamp": "1582995235",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "RC releases are not covered by Drupal security advisories."
@@ -3349,7 +3353,7 @@
                 "shasum": "81210684c378dab856b3c2bce5eeaa58992d2efc"
             },
             "require": {
-                "drupal/core": "~8.0"
+                "drupal/core": "^8 || ^9"
             },
             "suggest": {
                 "drupal/config_split": "Split site configuration for different environments."
@@ -3816,16 +3820,20 @@
             ],
             "authors": [
                 {
-                    "name": "Joseph Zhao",
-                    "homepage": "https://www.drupal.org/user/1987218"
-                },
-                {
                     "name": "chr.fritsch",
                     "homepage": "https://www.drupal.org/user/2103716"
                 },
                 {
                     "name": "ergonlogic",
                     "homepage": "https://www.drupal.org/user/368613"
+                },
+                {
+                    "name": "mfb",
+                    "homepage": "https://www.drupal.org/user/12302"
+                },
+                {
+                    "name": "pandaski",
+                    "homepage": "https://www.drupal.org/user/1987218"
                 }
             ],
             "description": "Prevents multiple users from trying to edit a content entity simultaneously to prevent edit conflicts.",
@@ -4473,6 +4481,10 @@
                     "homepage": "https://www.drupal.org/node/3236/committers"
                 },
                 {
+                    "name": "pcambra",
+                    "homepage": "https://www.drupal.org/user/122101"
+                },
+                {
                     "name": "salvis",
                     "homepage": "https://www.drupal.org/user/82964"
                 },
@@ -5015,6 +5027,9 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5609,8 +5624,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-rc1+15-dev",
-                    "datestamp": "1570894385",
+                    "version": "8.x-3.0-rc2+8-dev",
+                    "datestamp": "1580249379",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -5639,12 +5654,12 @@
                     "homepage": "https://www.drupal.org/user/591438"
                 },
                 {
-                    "name": "swentel",
-                    "homepage": "https://www.drupal.org/user/107403"
+                    "name": "nils.destoop",
+                    "homepage": "https://www.drupal.org/user/361625"
                 },
                 {
-                    "name": "zuuperman",
-                    "homepage": "https://www.drupal.org/user/361625"
+                    "name": "swentel",
+                    "homepage": "https://www.drupal.org/user/107403"
                 }
             ],
             "description": "Provides the field_group module.",
@@ -5730,7 +5745,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-rc3",
-                    "datestamp": "1555138081",
+                    "datestamp": "1572538084",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "RC releases are not covered by Drupal security advisories."
@@ -5778,7 +5793,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-rc3",
-                    "datestamp": "1555138081",
+                    "datestamp": "1572538084",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "RC releases are not covered by Drupal security advisories."
@@ -6250,6 +6265,10 @@
                 {
                     "name": "catch",
                     "homepage": "https://www.drupal.org/user/35733"
+                },
+                {
+                    "name": "jonathan1055",
+                    "homepage": "https://www.drupal.org/user/92645"
                 },
                 {
                     "name": "juampynr",
@@ -6923,11 +6942,17 @@
         },
         {
             "name": "drupal/linkit",
-            "version": "dev-5.x",
+            "version": "5.0.0-beta8",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/linkit.git",
-                "reference": "9b54704679d65869e711239339fe149a0b97a69a"
+                "reference": "8.x-5.0-beta8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/linkit-8.x-5.0-beta8.zip",
+                "reference": "8.x-5.0-beta8",
+                "shasum": "677be19d6128f1d5c6d239132e98b1817ad91acb"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -6941,11 +6966,11 @@
                     "dev-5.x": "5.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-5.0-beta8+10-dev",
-                    "datestamp": "1559774281",
+                    "version": "8.x-5.0-beta8",
+                    "datestamp": "1562194985",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
                 },
                 "patches_applied": {
@@ -6970,8 +6995,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/linkit",
                 "issues": "http://drupal.org/project/linkit"
-            },
-            "time": "2019-06-05T22:35:41+00:00"
+            }
         },
         {
             "name": "drupal/markdown",
@@ -7807,7 +7831,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.2",
-                    "datestamp": "1562866084",
+                    "datestamp": "1581285935",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -8080,7 +8104,7 @@
                     "datestamp": "1563908885",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -8089,6 +8113,10 @@
                 "GPL-2.0+"
             ],
             "authors": [
+                {
+                    "name": "e0ipso",
+                    "homepage": "https://www.drupal.org/user/550110"
+                },
                 {
                     "name": "mrjmd",
                     "homepage": "https://www.drupal.org/user/1800446"
@@ -8509,7 +8537,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.10",
-                    "datestamp": "1572617586",
+                    "datestamp": "1581850829",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -8646,8 +8674,7 @@
                         "status": "not-covered",
                         "message": "Alpha releases are not covered by Drupal security advisories."
                     }
-                },
-                "patches_applied": []
+                }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
@@ -9271,7 +9298,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0",
-                    "datestamp": "1560754985",
+                    "datestamp": "1580498751",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -9733,7 +9760,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.1",
-                    "datestamp": "1565118485",
+                    "datestamp": "1580423953",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -9797,8 +9824,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0+13-dev",
-                    "datestamp": "1583740113",
+                    "version": "8.x-1.0+15-dev",
+                    "datestamp": "1584812888",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -10044,7 +10071,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.6",
-                    "datestamp": "1538436481",
+                    "datestamp": "1579988281",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10424,7 +10451,7 @@
                 "shasum": "660ea8fd108f73c6da87640863079e83005aefca"
             },
             "require": {
-                "drupal/core": "*"
+                "drupal/core": "^8 || ^9"
             },
             "type": "drupal-module",
             "extra": {
@@ -10433,7 +10460,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-alpha3",
-                    "datestamp": "1574828585",
+                    "datestamp": "1580423785",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -10703,7 +10730,7 @@
                 },
                 "drupal": {
                     "version": "8.x-2.5",
-                    "datestamp": "1550740384",
+                    "datestamp": "1580924749",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10774,7 +10801,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-beta3",
-                    "datestamp": "1569361684",
+                    "datestamp": "1580333468",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -18931,7 +18958,6 @@
         "drupal/graphql_metatag": 20,
         "drupal/image_style_warmer": 10,
         "drupal/libraries": 15,
-        "drupal/linkit": 20,
         "drupal/markup": 10,
         "drupal/mass_pwreset": 15,
         "drupal/node_revisions_autoclean": 10,
