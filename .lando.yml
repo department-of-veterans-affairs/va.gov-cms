@@ -6,9 +6,10 @@ config:
 
 events:
   post-db-import:
-    # @TODO: Change to `composer yaml-tests va/deploy` once the "filter argument" feature is in place.
+    # @TODO: Change to `composer yaml-tasks va/deploy` once the "filter argument" feature is in place.
     - appserver: cd $LANDO_WEBROOT && /app/bin/drush cache-rebuild -y
     - appserver: cd $LANDO_WEBROOT && /app/bin/drush updatedb -y
+    - appserver: cd $LANDO_WEBROOT && /app/bin/drush cache-rebuild -y
     - appserver: cd $LANDO_WEBROOT && /app/bin/drush config:import -y
     - appserver: cd $LANDO_WEBROOT && /app/bin/drush cache-rebuild -y
 
@@ -19,7 +20,7 @@ events:
   # After code changes
   post-update:
     - appserver: cd $LANDO_MOUNT && composer install
-    - appserver: cd $LANDO_WEBROOT && drush updb -y &&  drush cr -y
+    - appserver: cd $LANDO_WEBROOT && drush updateb -y &&  drush cache:rebuild -y
 
 services:
   appserver:
@@ -75,9 +76,9 @@ tooling:
     cmd: cp -r /app/docroot/modules/custom/va_gov_migrate/config/install/. /app/config/sync/  && drush config-import --partial --source=/app/docroot/modules/custom/va_gov_migrate/config/install/
 
   test:
-    description: Run all VA.gov tests, as defined in tests.yml. Add arguments to run subsets of tests. For example. "lando test deploy" will run all of the "va/deploy/*" tests.
+    description: Run all VA.gov tests, as defined in tasks.yml. Add arguments to run subsets of tasks. For example. "lando test deploy" will run all of the "va/deploy/*" tasks.
     service: appserver
-    cmd: composer yaml-tests
+    cmd: composer yaml-tasks
 
   # "drush" being here overrides the default "lando drush" command.
   # Using /app/bin/drush means we are using the site-local drush directly.
@@ -106,7 +107,7 @@ tooling:
   phpunit:
     service: appserver
     description: "Run PHP Unit tests: lando phpunit. Syntax: lando phpunit {PATH-TO-TEST}"
-    cmd: "composer yaml-tests va/tests/phpunit"
+    cmd: "composer yaml-tasks va/tests/phpunit"
 
   behat:
     service: appserver
@@ -116,7 +117,7 @@ tooling:
   test_filter_test:
     service: appserver
     description: "Run this command to see the strange problem where `lando test behat` does not work."
-    cmd: "composer yaml-tests va/tests/behat"
+    cmd: "composer yaml-tasks va/tests/behat"
 
   # NPM and NODE are now installed via composer install: this ensures version consistency.
   npm:

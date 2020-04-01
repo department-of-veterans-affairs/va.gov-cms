@@ -1,10 +1,10 @@
 # This file is needed for us to customize what devshop does.
 #
-# It can be removed once devshop supports yaml-tests natively.
+# It can be removed once devshop supports yaml-tasks natively.
 
 deploy: |
-# @TODO: Change this to a yaml-tests call with a filter for "va/deploy", once global yaml tests
-#  composer yaml-tests --tests-file=deploy.yml --ansi
+# @TODO: Change this to a yaml-tasks call with a filter for "va/deploy", once global yaml tests
+#  composer yaml-tasks --tests-file=deploy.yml --ansi
 
 test: |
   bin/yaml-tasks --ansi --ignore-ssl --tasks-file=tasks.yml
