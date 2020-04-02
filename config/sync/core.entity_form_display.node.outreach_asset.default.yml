@@ -69,7 +69,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 2
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -94,11 +94,17 @@ content:
     type: string_textfield
     region: content
   field_format:
-    weight: 8
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
+  field_listing:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_media:
     type: media_library_widget
     weight: 10
@@ -120,7 +126,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -128,7 +134,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 3
+    weight: 4
     region: content
     third_party_settings: {  }
   revision_log:
@@ -147,14 +153,14 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 7
+    weight: 8
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 4
+    weight: 5
     region: content
     third_party_settings: {  }
   title:
@@ -176,9 +182,8 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden:
-  field_listing: true
+hidden: {  }
