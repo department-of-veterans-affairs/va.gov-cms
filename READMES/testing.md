@@ -3,12 +3,39 @@
 The code for cms.VA.gov undergoes numerous tests before merging, and tests
 are run before deployment and release.
 
-The automated test suite for cms.VA.gov is defined in the [tests.yml](../tests.yml)
- file and is run using the [Yaml-tasks](https://github.com/provision-ops/yaml-tasks) tool, allowing the same command to be used local development, in CMS
+The automated test suite for cms.VA.gov is defined in the [tasks.yml](../tasks.yml)
+ file and is run using the [Yaml Tasks](https://github.com/devshop-packages/yaml-tasks) tool, allowing the same command to be used local development, in CMS
  -CI and for production releases.
 
-The *Yaml Tests* Composer plugin is required by the main va.gov-cms
+The *Yaml Tasks* Composer plugin is required by the main va.gov-cms
 `composer.json` file.
+
+## Deployment vs Testing Tasks
+
+The tasks.yml file contains everything that needs to be run to *test* a copy of the CMS.
+
+In order to be sure code will work in production, this includes what are considered *deployment* tasks: Cache rebuild, config import, update database (listed below).
+
+The YamlTasks plugin was designed to be both a testing and deployment tool. To support this, you can use an argument after the `yaml-tasks` command to only run a subset of the tasks listed.
+
+By keeping a single file for all tasks, developers and operators can be sure that the exact same steps ran during CI and during the production deployment.
+
+For example, `tasks.yml` includes all steps to deploy *and* test the site:
+
+    va/tests/phpcs: bin/phpcs
+    va/deploy/0-composer: composer install
+    va/deploy/1-cache: drush cache-rebuild
+    va/deploy/2-update: drush update-db
+    va/deploy/3-config: drush config-import
+    va/tests/behat: bin/behat
+
+Then, the *testing* script can be `composer yaml-tasks` to run all tasks, and the "production deployment" script can be
+`composer yaml-tests va/deploy` to only run the test that begin with `va/deploy`.
+
+By keeping a single tasks.yml file you don't have to maintain copies of the list of commands to run in different places: such as in ansible scripts, the va.gov-cms repo's lando.yml, etc.
+
+This reduces chances of instability since the "site rebuild" command is the same, every time, even if the command set changes in the future.
+
 
 ## Goals
 
