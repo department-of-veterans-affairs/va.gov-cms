@@ -10,7 +10,7 @@ use Drupal\Core\File\FileSystemInterface;
 use Psr\Log\LoggerInterface;
 
 /**
- * Archive a file path for CMS Content Export
+ * Archive a file path for CMS Content Export.
  */
 class ArchiveDirectory {
 
@@ -29,6 +29,8 @@ class ArchiveDirectory {
   protected $fileSystem;
 
   /**
+   * Logger Manager.
+   *
    * @var \Psr\Log\LoggerInterface
    */
   private $logger;
@@ -36,11 +38,12 @@ class ArchiveDirectory {
   /**
    * ArchiveDirectory constructor.
    *
-   * @param \Alchemy\Zippy\Zippy
+   * @param \Alchemy\Zippy\Zippy $zippy
    *   Zippy.
    * @param \Drupal\Core\File\FileSystemInterface $fileSystem
    *   Drupal FileSystem.
    * @param \Psr\Log\LoggerInterface $logger
+   *   The logger Manger.
    */
   public function __construct(Zippy $zippy, FileSystemInterface $fileSystem, LoggerInterface $logger) {
     $this->zippy = $zippy;
@@ -49,16 +52,12 @@ class ArchiveDirectory {
   }
 
   /**
-   * Archive a Directory
-   *
-   * @TODO Add locking/queueing/waiting so only one archive is occurring at a
-   *   time.
+   * Archive a Directory.
    *
    * @param string $input_dir
    *   The input path or uri to the directory to tar.
    * @param string $output_path
    *   The name of the output tar file.
-   *
    * @param array $file_to_exclude
    *   An array of file and directory names to exclude.
    *
@@ -66,6 +65,7 @@ class ArchiveDirectory {
    *   The Archive which was created.
    */
   public function archive(string $input_dir, string $output_path, array $file_to_exclude = []) : ArchiveInterface {
+    // @TODO Add locking/queueing/waiting so only one archive is occurring at a time.
     $output_dir = dirname($output_path);
     $writable = $this->fileSystem->prepareDirectory($output_dir, FileSystemInterface::CREATE_DIRECTORY);
     if (!$writable) {
@@ -85,6 +85,8 @@ class ArchiveDirectory {
    *
    * @param string $input_dir
    *   The directory to tar.
+   * @param string[] $file_to_exclude
+   *   An array of files to exclude.
    *
    * @return array
    *   An array of files keyed by url.  See FileSystemInterface::scanDirectory
@@ -101,4 +103,5 @@ class ArchiveDirectory {
       watchdog_exception('VA-EXPORT', $e);
     }
   }
+
 }

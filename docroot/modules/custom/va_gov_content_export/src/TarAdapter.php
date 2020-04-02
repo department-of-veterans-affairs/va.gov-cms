@@ -1,24 +1,27 @@
 <?php
 
-
 namespace Drupal\va_gov_content_export;
-
 
 use Alchemy\Zippy\Adapter\AdapterContainer;
 use Alchemy\Zippy\Adapter\GNUTar\TarGNUTarAdapter;
 use Alchemy\Zippy\Archive\Archive;
 use Alchemy\Zippy\Exception\RuntimeException;
-use Alchemy\Zippy\Resource\Resource as ZippyResource;
 use Symfony\Component\Process\Exception\ExceptionInterface as ProcessException;
 
 /**
- * Class TarAdapter
+ * Class TarAdapter.
  */
 class TarAdapter extends TarGNUTarAdapter {
 
+  /**
+   * Get an instance of TarAdapter.
+   *
+   * @return \Drupal\va_gov_content_export\TarAdapter
+   *   The instance of TarAdapter.
+   */
   public static function get() : TarAdapter {
     $container = AdapterContainer::load();
-    $container['va_gov_cms_tar'] = function($container) {
+    $container['va_gov_cms_tar'] = function ($container) {
       return TarAdapter::newInstance(
         $container['executable-finder'],
         $container['resource-manager'],
@@ -34,11 +37,10 @@ class TarAdapter extends TarGNUTarAdapter {
    * {@inheritDoc}
    */
   protected function doTarCreate($options, $path, $files = NULL, $recursive = TRUE) {
-    // the $files are seperated into $files['exclude'] and $files['path']
+    // The $files are seperated into $files['exclude'] and $files['path']
     // $files['exclude'] (array) are the files/paths to exculde to the tar
     // $files['path'] (string) is the path to tar up.
-    // Notes these have to be full paths and not uri's currently
-
+    // Notes these have to be full paths and not uri's currently.
     $exclude_files = $files['exclude'] ?? [];
     $tar_dir = $files['path'] ?? '';
 
@@ -70,7 +72,8 @@ class TarAdapter extends TarGNUTarAdapter {
       $process = $builder->getProcess();
       $process->run();
 
-    } else {
+    }
+    else {
       if (!$recursive) {
         $builder->add('--no-recursion');
       }
@@ -86,7 +89,8 @@ class TarAdapter extends TarGNUTarAdapter {
 
       try {
         $process->run();
-      } catch (ProcessException $e) {
+      }
+      catch (ProcessException $e) {
         throw $e;
       }
     }
@@ -101,4 +105,5 @@ class TarAdapter extends TarGNUTarAdapter {
 
     return new Archive($this->createResource($path), $this, $this->manager);
   }
+
 }
