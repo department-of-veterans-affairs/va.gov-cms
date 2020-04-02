@@ -16,4 +16,4 @@ services:
     decorates: tome_sync.file_sync
   va_gov.content_export.archive_directory:
     class: Drupal\va_gov_content_export\ArchiveDirectory
-    arguments: ['@zippy_factory', '@file_system', '@logger.channel.file']
+    arguments: ['@zippy', '@file_system', '@logger.channel.file']

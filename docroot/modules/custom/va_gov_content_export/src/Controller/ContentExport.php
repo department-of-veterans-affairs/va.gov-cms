@@ -27,6 +27,9 @@ class ContentExport extends ControllerBase {
     'css',
     'js',
     'xmlsitemap',
+    'cms-export-content',
+    'cms-export-files',
+    'php'
   ];
 
   /**
@@ -106,7 +109,7 @@ class ContentExport extends ControllerBase {
    *   The uri of the directory to export
    */
   protected function getArchiveFileName() : string {
-    return Settings::get('va_gov_content_export_archive_file_name', ' public://cms-content-export-latest.tar');
+    return Settings::get('va_gov_content_export_archive_file_name', 'public://cms-content-export-latest.tar');
   }
 
   /**
@@ -116,7 +119,7 @@ class ContentExport extends ControllerBase {
    *   The directory to archive.
    */
   protected function getDirectoryToArchive() : string {
-    return Settings::get('va_gov_content_export_directory', 'public://cms-export');
+    return Settings::get('va_gov_content_export_directory', 'public://');
   }
 
 
@@ -127,7 +130,7 @@ class ContentExport extends ControllerBase {
    *   An array of string files names to exclude
    */
   protected function getExcludeList() : array {
-    return Settings::get('va_gov_content_export_files_to_ignore', []) ??
+    return Settings::get('va_gov_content_export_files_to_ignore', []) ?:
       static::$defaultExcludeList;
   }
 }

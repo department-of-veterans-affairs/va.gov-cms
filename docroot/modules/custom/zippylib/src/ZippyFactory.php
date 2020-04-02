@@ -4,6 +4,7 @@ namespace Drupal\zippylib;
 
 use Alchemy\Zippy\Zippy;
 use Drupal\Core\Site\Settings;
+use Drupal\va_gov_content_export\TarStrategy;
 
 /**
  * ZippyFactory Service Class
@@ -20,6 +21,8 @@ class ZippyFactory {
    */
   public function get() : Zippy {
     $zippy = Zippy::load();
+
+    $zippy->addStrategy(new TarStrategy());
 
     $adapter_settings = $this->getAdapterSettings();
     if (!$adapter_settings) {

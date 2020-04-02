@@ -12,3 +12,10 @@ bsd-tar.inflator
 bsd-tar.deflator
 zip.inflator
 zip.deflator
+
+
+## TODO before contrib module
+
+* Add all adapters/strategies as services
+* Replace Zippy::Load into the factory using DI
+* Implement plugin system for current and new adapters/strategies

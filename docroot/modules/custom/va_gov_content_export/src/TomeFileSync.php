@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_content_export;
 
 use Drupal\Core\Config\StorageException;
+use Drupal\Core\Site\Settings;
 use Drupal\tome_sync\FileSync;
 
 /**
@@ -12,6 +13,15 @@ use Drupal\tome_sync\FileSync;
  * permissions so we override the protected nature to allow it to be deleted.
  */
 class TomeFileSync extends FileSync {
+
+  /**
+   * @inheritDoc
+   */
+  protected function getFileDirectory() {
+    // Overriding to remove "public" from the path
+    return Settings::get('tome_files_directory', '../files');
+  }
+
 
   /**
    * Ensures that the file directory exists.

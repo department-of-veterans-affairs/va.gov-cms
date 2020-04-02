@@ -3,10 +3,10 @@
 namespace Drupal\va_gov_content_export;
 
 use Alchemy\Zippy\Archive\ArchiveInterface;
+use Alchemy\Zippy\Zippy;
 use Drupal\Core\File\Exception\FileException;
 use Drupal\Core\File\Exception\FileWriteException;
 use Drupal\Core\File\FileSystemInterface;
-use Drupal\zippylib\ZippyFactory;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -31,19 +31,19 @@ class ArchiveDirectory {
   /**
    * @var \Psr\Log\LoggerInterface
    */
-  private LoggerInterface $logger;
+  private $logger;
 
   /**
    * ArchiveDirectory constructor.
    *
-   * @param \Drupal\zippylib\ZippyFactory $zippyFactory
-   *   ZippyFactor.
+   * @param \Alchemy\Zippy\Zippy
+   *   Zippy.
    * @param \Drupal\Core\File\FileSystemInterface $fileSystem
    *   Drupal FileSystem.
    * @param \Psr\Log\LoggerInterface $logger
    */
-  public function __construct(ZippyFactory $zippyFactory, FileSystemInterface $fileSystem, LoggerInterface $logger) {
-    $this->zippy = $zippyFactory->get();
+  public function __construct(Zippy $zippy, FileSystemInterface $fileSystem, LoggerInterface $logger) {
+    $this->zippy = $zippy;
     $this->fileSystem = $fileSystem;
     $this->logger = $logger;
   }
@@ -65,13 +65,19 @@ class ArchiveDirectory {
    * @return \Alchemy\Zippy\Archive\ArchiveInterface
    *   The Archive which was created.
    */
-  public function archive(string $input_dir, string $output_path, array $file_to_exclude) : ArchiveInterface {
-    $writable = $this->fileSystem->prepareDirectory($output_path, FileSystemInterface::CREATE_DIRECTORY);
+  public function archive(string $input_dir, string $output_path, array $file_to_exclude = []) : ArchiveInterface {
+    $output_dir = dirname($output_path);
+    $writable = $this->fileSystem->prepareDirectory($output_dir, FileSystemInterface::CREATE_DIRECTORY);
     if (!$writable) {
       throw new FileWriteException("The directory at '$input_dir' is not writable.");
     }
 
-    return $this->zippy->create($output_path, $this->getFilesList($input_dir, $file_to_exclude));
+    $files = [
+      'exclude' => $file_to_exclude,
+      'path' => $this->fileSystem->realpath($input_dir),
+    ];
+    $real_path = $this->fileSystem->realpath($output_path);
+    return $this->zippy->create($real_path, $files, TRUE);
   }
 
   /**
@@ -92,7 +98,7 @@ class ArchiveDirectory {
     }
     catch (FileException $e) {
       $this->logger->error('Content Export Tar file was not created.  See exception output for more information.');
-      watchdog_exception('VA-EXPORT', $e, );
+      watchdog_exception('VA-EXPORT', $e);
     }
   }
 }
