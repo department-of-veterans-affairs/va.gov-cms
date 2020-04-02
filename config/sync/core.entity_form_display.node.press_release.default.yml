@@ -74,9 +74,9 @@ third_party_settings:
     group_basic_info:
       children:
         - title
+        - field_listing
         - field_address
         - field_press_release_contact
-        - field_office
         - field_release_date
       parent_name: ''
       weight: 0
@@ -100,7 +100,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_address:
-    weight: 2
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: address_default
@@ -124,6 +124,12 @@ content:
     third_party_settings: {  }
     type: string_textarea_with_counter
     region: content
+  field_listing:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_meta_tags:
     weight: 10
     settings: {  }
@@ -138,7 +144,7 @@ content:
     region: content
     third_party_settings: {  }
   field_press_release_contact:
-    weight: 3
+    weight: 4
     settings:
       match_operator: CONTAINS
       size: 60
@@ -163,7 +169,7 @@ content:
     type: text_textarea
     region: content
   field_release_date:
-    weight: 6
+    weight: 5
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
@@ -222,7 +228,6 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
-  field_listing: true
   promote: true
   status: true
   sticky: true
