@@ -15,13 +15,12 @@ use Drupal\tome_sync\FileSync;
 class TomeFileSync extends FileSync {
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   protected function getFileDirectory() {
-    // Overriding to remove "public" from the path
+    // Overriding to remove "public" from the path.
     return Settings::get('tome_files_directory', '../files');
   }
-
 
   /**
    * Ensures that the file directory exists.

@@ -5,19 +5,19 @@ namespace Drupal\va_gov_content_export;
 use Alchemy\Zippy\FileStrategy\FileStrategyInterface;
 
 /**
- * A Zippy Tar Strategy to use our custom tar operations
+ * A Zippy Tar Strategy to use our custom tar operations.
  */
 class TarStrategy implements FileStrategyInterface {
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function getAdapters() {
     return [TarAdapter::get()];
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function getFileExtension() {
     return 'tar';

@@ -7,7 +7,7 @@ use Drupal\Core\Site\Settings;
 use Drupal\va_gov_content_export\TarStrategy;
 
 /**
- * ZippyFactory Service Class
+ * ZippyFactory Service Class.
  */
 class ZippyFactory {
 
@@ -18,6 +18,7 @@ class ZippyFactory {
    * @see https://zippy.readthedocs.io/en/latest/#add-custom-utility-strategy
    *
    * @return \Alchemy\Zippy\Zippy
+   *   The Zippy file.
    */
   public function get() : Zippy {
     $zippy = Zippy::load();
@@ -51,7 +52,7 @@ class ZippyFactory {
       $adapter_settings_keys
     );
 
-    return array_filter($adapter_settings, function($k) use ($adapter_keys_filter) {
+    return array_filter($adapter_settings, function ($k) use ($adapter_keys_filter) {
       return isset($adapter_keys_filter[$k]);
     });
   }
@@ -72,4 +73,5 @@ class ZippyFactory {
       'zip.deflator',
     ];
   }
+
 }

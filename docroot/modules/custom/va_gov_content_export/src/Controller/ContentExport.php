@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Page Controller for Content Export
+ * Page Controller for Content Export.
  */
 class ContentExport extends ControllerBase {
 
@@ -29,7 +29,7 @@ class ContentExport extends ControllerBase {
     'xmlsitemap',
     'cms-export-content',
     'cms-export-files',
-    'php'
+    'php',
   ];
 
   /**
@@ -57,7 +57,6 @@ class ContentExport extends ControllerBase {
       $container->get('va_gov.content_export.archive_directory')
     );
   }
-
 
   /**
    * Redirect to the tar file.
@@ -89,8 +88,6 @@ class ContentExport extends ControllerBase {
   /**
    * Tar up a directory.
    *
-   * @param string $directory
-   *   The path to tar.
    * @return string
    *   The path to the tar.
    */
@@ -106,14 +103,14 @@ class ContentExport extends ControllerBase {
    * Get the export directory.
    *
    * @return string
-   *   The uri of the directory to export
+   *   The uri of the directory to export.
    */
   protected function getArchiveFileName() : string {
     return Settings::get('va_gov_content_export_archive_file_name', 'public://cms-content-export-latest.tar');
   }
 
   /**
-   * Get the directory to tar
+   * Get the directory to tar.
    *
    * @return string
    *   The directory to archive.
@@ -121,7 +118,6 @@ class ContentExport extends ControllerBase {
   protected function getDirectoryToArchive() : string {
     return Settings::get('va_gov_content_export_directory', 'public://');
   }
-
 
   /**
    * Get a list of file names to exclude.
@@ -133,4 +129,5 @@ class ContentExport extends ControllerBase {
     return Settings::get('va_gov_content_export_files_to_ignore', []) ?:
       static::$defaultExcludeList;
   }
+
 }
