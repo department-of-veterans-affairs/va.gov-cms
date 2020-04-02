@@ -9,9 +9,25 @@ use Drupal\node\NodeInterface;
  */
 class ProcessStatusBulletin {
 
+  /**
+   * Node.
+   *
+   * @var mixed
+   */
   private $node;
+
+  /**
+   * Situation Update.
+   *
+   * @var mixed
+   */
   private $situationUpdate = NULL;
 
+  /**
+   * Send Type.
+   *
+   * @var mixed
+   */
   private $sendType;
 
   /**
@@ -26,6 +42,8 @@ class ProcessStatusBulletin {
    *
    * @param \Drupal\node\NodeInterface $node
    *   The node object.
+   *
+   * @throws \Twig_Error_Runtime
    */
   public function processNode(NodeInterface $node) {
     $this->node = $node;

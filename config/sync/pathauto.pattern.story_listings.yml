@@ -5,18 +5,18 @@ dependencies:
   module:
     - node
 id: story_listings
-label: 'Story listings'
+label: 'Story listing'
 type: 'canonical_entities:node'
 pattern: '[node:field_office:entity:url:path]/stories'
 selection_criteria:
-  3f81d8fe-27bd-4f9b-b46d-928297122594:
+  7b7aff29-bf96-4fb4-b1e3-edcdcd03656b:
     id: node_type
     bundles:
       story_listing: story_listing
     negate: false
     context_mapping:
       node: node
-    uuid: 3f81d8fe-27bd-4f9b-b46d-928297122594
+    uuid: 7b7aff29-bf96-4fb4-b1e3-edcdcd03656b
 selection_logic: and
 weight: -5
 relationships: {  }

@@ -5,18 +5,18 @@ dependencies:
   module:
     - node
 id: news_story
-label: 'News story'
+label: Story
 type: 'canonical_entities:node'
 pattern: '[node:field_office:entity:url:path]/stories/[node:title]'
 selection_criteria:
-  229e8583-f098-4262-92af-77fb154f8b37:
+  17fd564a-497f-4b38-a619-8fbc653e9cfa:
     id: node_type
     bundles:
       news_story: news_story
     negate: false
     context_mapping:
       node: node
-    uuid: 229e8583-f098-4262-92af-77fb154f8b37
+    uuid: 17fd564a-497f-4b38-a619-8fbc653e9cfa
 selection_logic: and
 weight: -5
 relationships: {  }

@@ -3,10 +3,10 @@
  * Task: Lint: Sass.
  */
 
-module.exports = function(gulp, options, plugins) {
+module.exports = function (gulp, options, plugins) {
   'use strict';
-  // Sass linting task
-  gulp.task('sass-lint', function() {
+  // Sass linting task.
+  gulp.task('sass-lint', function () {
     return gulp.src([
         options.sass.sassFiles,
         options.sass.plFiles
@@ -14,10 +14,10 @@ module.exports = function(gulp, options, plugins) {
 
       .pipe(plugins.sassLint({
         rules: {
-          // Find sass-lint rules in .sass-lint.yml
+          // Find sass-lint rules in .sass-lint.yml.
         },
         files: {
-          //ignore: 'design-library/**/_typey**.scss'
+          // ignore: 'design-library/**/_typey**.scss'.
         }
       }))
       .pipe(plugins.sassLint.format())

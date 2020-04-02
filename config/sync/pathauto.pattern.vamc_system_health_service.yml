@@ -1,0 +1,22 @@
+uuid: 91f3e4f3-4880-4640-9068-a91fbd51d036
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: vamc_system_health_service
+label: 'VAMC system health service'
+type: 'canonical_entities:node'
+pattern: '[node:field_administration:entity:name]/system-health-services/[node:title]'
+selection_criteria:
+  f6aaf730-401f-452e-a2f8-c8e98b08ebf6:
+    id: node_type
+    bundles:
+      regional_health_care_service_des: regional_health_care_service_des
+    negate: false
+    context_mapping:
+      node: node
+    uuid: f6aaf730-401f-452e-a2f8-c8e98b08ebf6
+selection_logic: and
+weight: 0
+relationships: {  }

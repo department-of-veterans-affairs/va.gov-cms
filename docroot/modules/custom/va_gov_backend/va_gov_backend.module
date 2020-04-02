@@ -349,6 +349,42 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
 
   if ($entity->getEntityTypeId() == 'node' && in_array($entity->bundle(), $bundle_types)) {
     _va_gov_backend_sync_office_listing_fields($entity);
+    _va_gov_backend_feature_bump($entity);
+  }
+}
+
+/**
+ * Unfeature other items of same bundle in system.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Entity.
+ */
+function _va_gov_backend_feature_bump(EntityInterface $entity) {
+  // Check to see if this entity has a featured option.
+  if (!empty($entity->field_featured)) {
+    $status = $entity->field_featured->value;
+    $bundle = $entity->bundle();
+    $target = $entity->field_listing->target_id;
+    // If this is our feature item, start the process.
+    if ($status === 1) {
+      // Look for all of same bundle in system that are also featured.
+      $select = \Drupal::database()->select('node__field_featured', 'nff');
+      $select->join('node__field_listing', 'nfl', 'nfl.entity_id = nff.entity_id');
+      $select->fields('nff', ['entity_id'])
+      // We don't want to operate on current node.
+        ->condition('nff.entity_id', $entity->id(), '!=')
+        ->condition('nff.field_featured_value', 1)
+        ->condition('nfl.field_listing_target_id', $target)
+        ->condition('nff.bundle', $bundle);
+      $results = $select->execute()->fetchAllKeyed();
+      // Better to use entity api than raw db query to get drupal magic.
+      $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple(array_keys($results));
+      foreach ($nodes as $node) {
+        // Set the others to unfeatured.
+        $node->field_featured->value = 0;
+        $node->save();
+      }
+    }
   }
 }
 

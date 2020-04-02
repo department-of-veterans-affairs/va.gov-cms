@@ -298,7 +298,7 @@ Feature: Content model fields
 | Vocabulary | VHA health service taxonomy | Patient-friendly name | field_also_known_as | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VHA health service taxonomy | Common conditions | field_commonly_treated_condition | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VHA health service taxonomy | Health Service API ID | field_health_service_api_id | Text (plain) |  | 1 | Textfield |  |
-| Vocabulary | VHA health service taxonomy | Owner | field_owner | Entity reference | Required | 1 | Select list |  |
+| Vocabulary | VHA health service taxonomy | Owner | field_owner | Entity reference | Required | 1 | -- Disabled -- |  |
 | Vocabulary | VHA health service taxonomy | VHA Stop code | field_vha_healthservice_stopcode | Number (integer) |  | 1 | Number field |  |
 | Content type | VAMC system banner alert with situation updates | Only show on VAMC System page & Operating status page | field_alert_inheritance_subpages | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC system | GovDelivery ID for Emergency updates email | field_govdelivery_id_emerg | Text (plain) | Required | 1 | Textfield |  |
