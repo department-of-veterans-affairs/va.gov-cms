@@ -165,7 +165,7 @@ content:
     type: text_textarea
     region: content
   field_address:
-    weight: 16
+    weight: 17
     settings: {  }
     third_party_settings: {  }
     type: address_default
@@ -199,7 +199,7 @@ content:
     type: string_textfield
     region: content
   field_event_cost:
-    weight: 33
+    weight: 32
     settings:
       size: 60
       placeholder: ''
@@ -246,6 +246,12 @@ content:
     third_party_settings: {  }
     type: link_default
     region: content
+  field_listing:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_location_humanreadable:
     weight: 15
     settings:
@@ -336,7 +342,6 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
-  field_listing: true
   promote: true
   status: true
   sticky: true
