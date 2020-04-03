@@ -23,7 +23,7 @@ E.g. *As a user who may be making changes to content, I'd like a message that wa
 
 ## AC
 
-- [ ] Draft text in a format that is ready for usability testing or implementation
+- [ ] Draft text in a format that is ready for usability testing or implementation, such as [this MURAL template](https://app.mural.co/t/vagov6717/m/vagov6717/1585780955246/6b5e798420e2992bbd56d825de8c42fbf343dfa0)
 - [ ] Validate draft with those responsible for the work
 - [ ] Peer review by a member of the design pod 
 - [ ] Finalize edits to text, and mark as ready to implement in the original issue
