@@ -85,13 +85,12 @@ function va_gov_build_trigger_preprocess_page(&$variables) {
   $node = \Drupal::routeMatch()->getParameter('node');
   if ($node instanceof NodeInterface) {
     // It's a node.
-    $path = \Drupal::request()->getpathInfo();
-    $arg = explode('/', $path);
     $exclusion_types = [
-      'outreach_asset',
-      'support_service',
-      'regional_health_care_service_des',
+      'full_width_banner_alert',
       'health_care_local_health_service',
+      'outreach_asset',
+      'regional_health_care_service_des',
+      'support_service',
     ];
     // Make sure we aren't on the node form or an excluded type.
     $route_name = \Drupal::routeMatch()->getRouteName();

@@ -2,13 +2,14 @@ name: va-gov-cms
 recipe: drupal8
 config:
   webroot: docroot
-  php: "7.2"
+  php: "7.1"
 
 events:
   post-db-import:
     # @TODO: Change to `composer yaml-tests va/deploy` once the "filter argument" feature is in place.
     - appserver: cd $LANDO_WEBROOT && /app/bin/drush cache-rebuild -y
     - appserver: cd $LANDO_WEBROOT && /app/bin/drush updatedb -y
+    - appserver: cd $LANDO_WEBROOT && /app/bin/drush cache-rebuild -y
     - appserver: cd $LANDO_WEBROOT && /app/bin/drush config:import -y
     - appserver: cd $LANDO_WEBROOT && /app/bin/drush cache-rebuild -y
 
@@ -126,11 +127,15 @@ tooling:
     service: appserver
     cmd: /app/bin/npm
 
+  # Deprecated.
+  # Moved to scripts/sync-db.sh
   sync-db:
     service: appserver
     description: This command has moved to a non-lando command, from app root run like this `scripts/sync-db.sh`.
     cmd: 'echo "This command has moved to a non-lando command, from app root run like this `scripts/sync-db.sh`."'
 
+  # Deprecated.
+  # Moved to scripts/sync-files.sh
   sync-files:
     service: appserver
     description: This command has moved to a non-lando command, from app root run like this `scripts/sync-files.sh`.

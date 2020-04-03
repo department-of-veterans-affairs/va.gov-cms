@@ -13,6 +13,11 @@ use QueryPath\DOMQuery;
  */
 class Alert extends ParagraphType {
 
+  /**
+   * Descriptions for alert blocks.
+   *
+   * @var array
+   */
   protected $alertBlocks = [
     "How do I get help if I'm homeless or at risk of becoming homeless?" => 4,
     "How do I talk to someone right now?" => 2,
