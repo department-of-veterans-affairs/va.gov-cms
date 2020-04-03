@@ -4,6 +4,7 @@ A story specifically written towards the user's need for text.
 E.g. *As a user who may be making changes to content, I'd like a message that warns me before a deployment happens so I can avoid losing unsaved changes.*
 
 ## Context
+*Get answers to the following and document here, or use [this handy MURAL template](https://app.mural.co/t/vagov6717/m/vagov6717/1585780955246/6b5e798420e2992bbd56d825de8c42fbf343dfa0), especially when working with screenshots.*
 
 **1. Provide a link to the original issue**
 
