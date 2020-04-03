@@ -1,0 +1,29 @@
+uuid: 4dcac5e0-f6db-436b-9b2a-0a5d7fd0bba4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.nca_facility
+    - taxonomy.vocabulary.administration
+id: node.nca_facility.field_administration
+field_name: field_administration
+entity_type: node
+bundle: nca_facility
+label: Owner
+description: 'The health care system that manages this local facility.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

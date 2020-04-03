@@ -1,9 +1,16 @@
 uuid: f6d632c3-327c-43bf-8e26-7e5c4757820d
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.vamc_operating_status_and_alerts.field_administration
+    - field.field.node.vamc_operating_status_and_alerts.field_banner_alert
+    - field.field.node.vamc_operating_status_and_alerts.field_facility_operating_status
+    - field.field.node.vamc_operating_status_and_alerts.field_links
+    - field.field.node.vamc_operating_status_and_alerts.field_meta_tags
+    - field.field.node.vamc_operating_status_and_alerts.field_office
+    - field.field.node.vamc_operating_status_and_alerts.field_operating_status_emerg_inf
     - node.type.vamc_operating_status_and_alerts
   module:
     - user

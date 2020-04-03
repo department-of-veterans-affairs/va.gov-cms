@@ -1,0 +1,21 @@
+uuid: 1adab529-776b-4f35-af2b-489439a10793
+langcode: en
+status: true
+dependencies:
+  module:
+    - site_alert
+  theme:
+    - vagovadmin
+id: sitealert
+theme: vagovadmin
+region: header
+weight: -15
+provider: null
+plugin: site_alert_block
+settings:
+  id: site_alert_block
+  label: 'Site Alert'
+  provider: site_alert
+  label_display: '0'
+  timeout: 20
+visibility: {  }

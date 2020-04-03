@@ -1,0 +1,4 @@
+services:
+    va_gov_backend.user_perms:
+        class: Drupal\va_gov_backend\Service\UserPermsService
+        arguments: ["@current_user", "@entity_type.manager"]
