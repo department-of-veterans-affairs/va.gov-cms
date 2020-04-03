@@ -72,9 +72,6 @@ pipeline {
     always {
       cleanWs()
     }
-    success {
-      slackSend(channel: params.slack_channel, color: 'danger', message: "Deployment for ${env.JOB_NAME} succeeded ${env.BUILD_URL}, please visit prod.cms.va.gov to smoke test and leave a checkmark emoji here once done.")
-    }
     failure {
       slackSend(channel: params.slack_channel, color: 'danger', message: "Deployment for ${env.JOB_NAME} failed ${env.BUILD_URL}, please leave a checkmark emoji here to indicate ownership of failure. ")
     }
