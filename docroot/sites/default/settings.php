@@ -136,8 +136,12 @@ $config['govdelivery_bulletins.settings']['govdelivery_username'] = getenv('CMS_
 $config['govdelivery_bulletins.settings']['govdelivery_password'] = getenv('CMS_GOVDELIVERY_PASSWORD') ?: FALSE;
 
 // Set migration settings from environment variables.
-$config['migrate_plus.migration.va_node_health_care_local_facility']['source']['urls'] = [getenv('CMS_FACILITY_API_URL') . '/services/va_facilities/v0/facilities/all'];
-$config['migrate_plus.migration.va_node_health_care_local_facility']['source']['headers']['apikey'] = getenv('CMS_FACILITY_API_KEY');
+$facility_api_urls = [getenv('CMS_FACILITY_API_URL') . '/services/va_facilities/v0/facilities/all'];
+$facility_api_key = getenv('CMS_FACILITY_API_KEY');
+$config['migrate_plus.migration.va_node_health_care_local_facility']['source']['urls'] = $facility_api_urls;
+$config['migrate_plus.migration.va_node_health_care_local_facility']['source']['headers']['apikey'] = $facility_api_key;
+$config['migrate_plus.migration.va_node_facility_vba']['source']['urls'] = $facility_api_urls;
+$config['migrate_plus.migration.va_node_facility_vba']['source']['headers']['apikey'] = $facility_api_key;
 
 // Environment specific settings
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php')) {
