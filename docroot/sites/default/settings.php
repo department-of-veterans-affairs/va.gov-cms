@@ -142,6 +142,7 @@ $facility_migrations = [
   'va_node_health_care_local_facility',
   'va_node_facility_vba',
   'va_node_facility_nca',
+  'va_node_facility_vet_centers',
 ];
 
 foreach ($facility_migrations as $facility_migration) {
