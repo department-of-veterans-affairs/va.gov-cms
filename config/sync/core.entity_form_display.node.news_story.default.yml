@@ -12,7 +12,6 @@ dependencies:
     - field.field.node.news_story.field_listing
     - field.field.node.news_story.field_media
     - field.field.node.news_story.field_meta_tags
-    - field.field.node.news_story.field_office
     - field.field.node.news_story.field_order
     - node.type.news_story
     - workflows.workflow.editorial
@@ -31,7 +30,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -102,7 +101,7 @@ third_party_settings:
       children:
         - title
         - field_author
-        - field_office
+        - field_listing
       parent_name: ''
       weight: 0
       format_type: fieldset
@@ -120,7 +119,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -148,7 +147,7 @@ content:
     type: boolean_checkbox
     region: content
   field_full_story:
-    weight: 4
+    weight: 17
     settings:
       rows: 5
       placeholder: ''
@@ -156,7 +155,7 @@ content:
     type: text_textarea
     region: content
   field_image_caption:
-    weight: 15
+    weight: 16
     settings:
       rows: 5
       placeholder: ''
@@ -169,7 +168,7 @@ content:
     type: string_textarea_with_counter
     region: content
   field_intro_text:
-    weight: 2
+    weight: 16
     settings:
       rows: 5
       placeholder: ''
@@ -181,6 +180,12 @@ content:
     third_party_settings: {  }
     type: string_textarea_with_counter
     region: content
+  field_listing:
+    type: options_select
+    weight: 16
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_media:
     type: media_library_widget
     weight: 14
@@ -189,16 +194,10 @@ content:
     region: content
     third_party_settings: {  }
   field_meta_tags:
-    weight: 9
+    weight: 10
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
-    region: content
-  field_office:
-    weight: 16
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
     region: content
   field_order:
     weight: 22
@@ -214,7 +213,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -246,7 +245,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 6
     settings:
       match_operator: CONTAINS
       size: 60
@@ -255,12 +254,11 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 8
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
-  field_listing: true
   promote: true
   status: true
   sticky: true

@@ -64,8 +64,7 @@ Feature: Content model fields
 | Content type | Event | Location type | field_location_type | List (text) |  | 1 | Select list |  |
 | Content type | Event | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Event | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
-| Content type | Event | Event listing | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Event | Event listing | field_listing | Entity reference | Required | 1 | -- Disabled -- |  |
+| Content type | Event | Event listing | field_listing | Entity reference | Required | 1 | Select list |  |
 | Content type | Event | Order | field_order | List (integer) |  | 1 | Select list |  |
 | Content type | Event | URL of an online event | field_url_of_an_online_event | Link |  | 1 | Linkit |  |
 | Content type | Event listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
@@ -78,13 +77,12 @@ Feature: Content model fields
 | Content type | News release | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | News release | Introduction | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | News release | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
-| Content type | News release | Healthcare system or related office | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | News release | PDF of Press Release | field_pdf_version | Entity reference |  | 1 | Media library |  |
 | Content type | News release | Media Contact(s) | field_press_release_contact | Entity reference |  | Unlimited | Autocomplete | Translatable |
 | Content type | News release | Media assets | field_press_release_downloads | Entity reference |  | Unlimited | Media library |  |
 | Content type | News release | Full text of the Press Release | field_press_release_fulltext | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
 | Content type | News release | Release date | field_release_date | Date |  | 1 | Date and time |  |
-| Content type | News release | News releases listing | field_listing | Entity reference | Required | 1 | -- Disabled -- | Translatable |
+| Content type | News release | News releases listing | field_listing | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Office | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Office | Body | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Office | Meta description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
@@ -96,8 +94,7 @@ Feature: Content model fields
 | Content type | Publication | Format | field_format | List (text) | Required | 1 | Select list |  |
 | Content type | Publication | File or video | field_media | Entity reference |  | 1 | Media library |  |
 | Content type | Publication | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
-| Content type | Publication | Healthcare system or related office | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Publication | Publication listing | field_listing | Entity reference | Required | 1 | -- Disabled -- | Translatable |
+| Content type | Publication | Publication listing | field_listing | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Publication listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Publication listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Publication listing | Intro text | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
@@ -126,9 +123,8 @@ Feature: Content model fields
 | Content type | Story | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Story | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Story | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
-| Content type | Story | Related office or health care region | field_office | Entity reference | Required | 1 | Select list |  |
 | Content type | Story | Order | field_order | List (integer) |  | 1 | Select list | Translatable |
-| Content type | Story | Story listing | field_listing | Entity reference | Required | 1 | -- Disabled -- | Translatable |
+| Content type | Story | Story listing | field_listing | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Support Service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Support Service | Link | field_link | Link |  | 1 | Link |  |
 | Content type | Support Service | Related office | field_office | Entity reference | Required | 1 | Select list | Translatable |
@@ -336,4 +332,15 @@ Feature: Content model fields
 | Content type | Leadership listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Leadership listing | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Leadership listing | Leadership team | field_leadership | Entity reference |  | Unlimited | Autocomplete | Translatable |
-
+| Content type | VBA facility | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
+| Content type | VBA facility | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VBA facility | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
+| Content type | VBA facility | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | NCA facility | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
+| Content type | NCA facility | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | NCA facility | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
+| Content type | NCA facility | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | Vet Center | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
+| Content type | Vet Center | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Vet Center | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
+| Content type | Vet Center | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
