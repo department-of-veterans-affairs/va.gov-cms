@@ -87,7 +87,7 @@ class TomeExporter extends Exporter {
     $destination = $this->getContentIndexFilePath();
     $directory = dirname($destination);
     // Overridden to allow the drupal file system to create the directory.
-    $this->fileSystem->prepareDirectory($directory);
+    $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
     $handle = fopen($destination, 'c+');
     if (!flock($handle, LOCK_EX)) {
       throw new \Exception('Unable to acquire lock for the index file.');
