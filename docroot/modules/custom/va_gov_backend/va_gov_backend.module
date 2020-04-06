@@ -130,6 +130,63 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     // @todo Consider disabling it instead of hiding it.
     $form['field_office']['#attributes']['class'] = 'hidden';
   }
+
+  if ($form_id === 'views_bulk_operations_configure_action') {
+    $build_info = $form_state->getBuildInfo();
+    // We need to target only the VBO "Modify field values" form from
+    // Facility Status tool.
+    if ($build_info['args'][0] === 'facility_governance' && $build_info['args'][1] === 'page_1') {
+      _va_gov_backend_vbo_facility_status_form_ui($form, $form_state);
+    }
+  }
+}
+
+/**
+ * Modifies UI of the Facility Status VBO Modify Field Values form.
+ *
+ * The form that allows the user to modify field values contains too many
+ * options that are irrelevant to the primary purpose of the tool. This
+ * function modifies the form to eliminate UI noise.
+ *
+ * @param array $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function _va_gov_backend_vbo_facility_status_form_ui(&$form, FormStateInterface $form_state) {
+  // This if Facility Status form.
+  // Clean up the UI.
+  $bundle_fields = [];
+  $entity_data = (isset($form['node']) && is_array($form['node'])) ? $form['node'] : NULL;
+
+  if (!empty($entity_data)) {
+    foreach ($entity_data as $bundle => $data) {
+      if (is_array($data)) {
+        $bundle_fields[$bundle] = $data;
+      }
+    }
+  }
+
+  foreach ($bundle_fields as $bundle => $fields) {
+    if (is_array($fields)) {
+      foreach ($fields as $field_name => $field_meta) {
+        $form['node'][$bundle]['#open'] = TRUE;
+        if (!in_array($field_name, ['field_operating_status_facility', 'field_operating_status_more_info']) && strpos($field_name, '#', 0) === FALSE) {
+          // Remove all facility content type fields that are not related
+          // to Operating status and Op info from field_selection form.
+          unset($form['node'][$bundle]['_field_selector'][$field_name]);
+
+          if (strpos($field_name, '_field_selector', 0) === FALSE) {
+            // Remove all facility content type fields that are not related
+            // to Operating status and Op info from vbo content type form.
+            unset($form['node'][$bundle][$field_name]);
+          }
+        }
+      }
+    }
+  }
+
+  // Remove multi-value field options, since none of the fields we're editing
+  // are multi-value.
+  unset($form['options']);
 }
 
 /**

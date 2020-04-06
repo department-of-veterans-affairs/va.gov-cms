@@ -4,12 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_administration
-    - user.role.administrator
-    - user.role.admnistrator_users
-    - user.role.content_editor
-    - user.role.content_publisher
-    - user.role.content_reviewer
-    - user.role.redirect_administrator
+    - user.role.authenticated
     - views.view.child_terms
     - workflows.workflow.editorial
   module:
@@ -48,12 +43,7 @@ display:
         type: role
         options:
           role:
-            content_editor: content_editor
-            content_reviewer: content_reviewer
-            content_publisher: content_publisher
-            admnistrator_users: admnistrator_users
-            administrator: administrator
-            redirect_administrator: redirect_administrator
+            authenticated: authenticated
       cache:
         type: none
         options: {  }
