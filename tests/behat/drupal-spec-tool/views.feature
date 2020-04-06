@@ -17,6 +17,7 @@ Feature: Views
 | Content served from Drupal | content_served_from_drupal | Content | Enabled | An exportable list of all content served from Drupal |
 | Content Entity Reference Source | content_entity_reference_source | Content | Enabled |  |
 | Custom block entity browsers | custom_block_entity_browsers | Custom Block | Enabled | For placing on content forms |
+| Facility Governance | facility_governance | Content | Enabled | Provides facility management tools. |
 | Files | files | Files | Enabled | Find and manage files. |
 | Frontpage | frontpage | Content | Enabled | All content promoted to frontpage |
 | Glossary | glossary | Content | Disabled | All content, by letter. |
@@ -79,6 +80,8 @@ Feature: Views
 | Custom block entity browsers | Master                      | default          | Master         |
 | Custom block library | Master | default | Master |
 | Custom block library | Page | page_1 | Page |
+| Facility Governance | Master | default | Master |
+| Facility Governance | Page | page_1 | Page |
 | Files | Master | default | Master |
 | Files | Files overview | page_1 | Page |
 | Files | File usage | page_2 | Page |

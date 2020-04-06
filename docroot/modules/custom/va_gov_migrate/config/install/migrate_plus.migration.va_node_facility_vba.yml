@@ -1,0 +1,112 @@
+# Migration meta data.
+langcode: en
+status: true
+dependencies: {  }
+id: va_node_facility_vba
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - Continuous
+  - Content
+  - Node
+migration_group: facility
+label: 'Node - Veterans Benefits Administration Facility'
+# Defines the source of the migration.
+source:
+  track_changes: true
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: json
+  urls:
+    # This gets overridden in settings.php.
+    - 'https://dev-api.va.gov/services/va_facilities/v0/facilities/all'
+  headers:
+    Accept: application/vnd.geo+json
+    apikey: 'DEFINED IN settings.php'
+  # This is the main data wrapper in the JSON.
+  item_selector: features/
+  # The unique identifiers that are used to map the source to the destination.
+  ids:
+    id:
+      type: string
+  # Define any constants that are needed to pass in as data.
+  constants:
+  # All the fields that are used from the source.
+  fields:
+    -
+      name: facility_type
+      label: facility_type
+      selector: properties/facility_type
+    -
+      name: id
+      label: id
+      selector: properties/id
+    -
+      name: name
+      label: name
+      selector: properties/name
+# The destination fields mapped and processed from source fields.
+process:
+  # We have no destination of facility type, but we need to skip the migration
+  # if it is not a va_health_facility
+  non_field1:
+    plugin: skip_on_value
+    not_equals: true
+    source: facility_type
+    method: row
+    value:
+      - va_benefits_facility
+  title:
+    plugin: skip_on_empty
+    method: row
+    source: name
+    message: 'Skipped: Source title/name is empty, can not have a node without title.'
+  field_facility_locator_api_id:
+    plugin: skip_on_empty
+    method: row
+    source: id
+    message: 'Skipped: Source API ID is empty, must have it.'
+  field_administration:
+    plugin: default_value
+    # Set the value for "VBA Facilities" which is 191.
+    default_value: 191
+  langcode:
+    plugin: default_value
+    default_value: en
+  # Bring these in as unpublished.
+  status:
+    plugin: default_value
+    default_value: 0
+  promote:
+    plugin: default_value
+    default_value: 0
+  sticky:
+    plugin: default_value
+    default_value: 0
+  path/pathauto:
+    plugin: default_value
+    default_value: 1
+  # Bring these in as unpublished.
+  published_status:
+    plugin: default_value
+    default_value: 0
+  moderation_state:
+    plugin: default_value
+    default_value: draft
+  uid:
+    plugin: default_value
+    default_value: 0
+  type:
+    plugin: default_value
+    default_value: vba_facility
+# Sets the destination for the migration.
+destination:
+  plugin: 'entity:node'
+  default_bundle: vba_facility
+  # Only these fields will be overwritten if the content changes in the API.
+  overwrite_properties:
+    - title
+# Dependency on other migrations.
+migration_dependencies:
+  required: {  }
