@@ -85,7 +85,7 @@ class TarAdapter extends TarGNUTarAdapter {
         $builder->setWorkingDirectory($cwd);
       }
 
-      // Do not include parent directory
+      // Do not include parent directory.
       $builder->add(sprintf('--directory=%s', $cwd));
 
       foreach ($exclude_files as $file) {
