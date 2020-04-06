@@ -67,10 +67,7 @@ class ArchiveDirectory {
   public function archive(string $input_dir, string $output_path, array $file_to_exclude = []) : ArchiveInterface {
     // @TODO Add locking/queueing/waiting so only one archive is occurring at a time.
     $output_dir = dirname($output_path);
-    $writable = $this->fileSystem->prepareDirectory($output_dir, FileSystemInterface::CREATE_DIRECTORY);
-    if (!$writable) {
-      throw new FileWriteException("The directory at '$input_dir' is not writable.");
-    }
+    $this->fileSystem->prepareDirectory($output_dir, FileSystemInterface::CREATE_DIRECTORY);
 
     $files = [
       'exclude' => $file_to_exclude,

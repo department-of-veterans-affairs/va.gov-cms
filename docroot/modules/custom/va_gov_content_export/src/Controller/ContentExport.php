@@ -5,6 +5,7 @@ namespace Drupal\va_gov_content_export\Controller;
 use Alchemy\Zippy\Archive\ArchiveInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\File\Exception\FileException;
+use Drupal\Core\PageCache\ResponsePolicy\KillSwitch;
 use Drupal\Core\Site\Settings;
 use Drupal\va_gov_content_export\ArchiveDirectory;
 use Exception;
@@ -27,7 +28,6 @@ class ContentExport extends ControllerBase {
     'css',
     'js',
     'xmlsitemap',
-    'cms-export-content',
     'cms-export-files',
     'php',
   ];
@@ -40,13 +40,23 @@ class ContentExport extends ControllerBase {
   protected $archiver;
 
   /**
+   * Kill Switch.
+   *
+   * @var \Drupal\Core\PageCache\ResponsePolicy\KillSwitch
+   */
+  protected $killSwitch;
+
+  /**
    * ContentExport constructor.
    *
    * @param \Drupal\va_gov_content_export\ArchiveDirectory $archiver
    *   The Archiver!
+   * @param \Drupal\Core\PageCache\ResponsePolicy\KillSwitch $killSwitch
+   *   Kill switch.
    */
-  public function __construct(ArchiveDirectory $archiver) {
+  public function __construct(ArchiveDirectory $archiver, KillSwitch $killSwitch) {
     $this->archiver = $archiver;
+    $this->killSwitch = $killSwitch;
   }
 
   /**
@@ -54,7 +64,8 @@ class ContentExport extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('va_gov.content_export.archive_directory')
+      $container->get('va_gov.content_export.archive_directory'),
+      $container->get('page_cache_kill_switch')
     );
   }
 
@@ -70,6 +81,8 @@ class ContentExport extends ControllerBase {
    *   Response.
    */
   public function redirectToFile() : Response {
+    // Disable anon page cache for this response.
+    $this->killSwitch->trigger();
     try {
       $this->archive();
       $file_name = $this->getArchiveFileName();

@@ -44,6 +44,8 @@ class TarAdapter extends TarGNUTarAdapter {
     $exclude_files = $files['exclude'] ?? [];
     $tar_dir = $files['path'] ?? '';
 
+    $cwd = $files['cwd'] ?? $files['path'] ?? getcwd();
+
     if (!$tar_dir) {
       throw new RuntimeException('Path must be included');
     }
@@ -76,6 +78,10 @@ class TarAdapter extends TarGNUTarAdapter {
     else {
       if (!$recursive) {
         $builder->add('--no-recursion');
+      }
+
+      if ($cwd) {
+        $builder->setWorkingDirectory($cwd);
       }
 
       foreach ($exclude_files as $file) {
