@@ -40,6 +40,7 @@ class TarAdapter extends TarGNUTarAdapter {
     // The $files are seperated into $files['exclude'] and $files['path']
     // $files['exclude'] (array) are the files/paths to exculde to the tar
     // $files['path'] (string) is the path to tar up.
+    // $files['cwd'] (string) is the base path of the tared up files.
     // Notes these have to be full paths and not uri's currently.
     $exclude_files = $files['exclude'] ?? [];
     $tar_dir = $files['path'] ?? '';
@@ -83,6 +84,9 @@ class TarAdapter extends TarGNUTarAdapter {
       if ($cwd) {
         $builder->setWorkingDirectory($cwd);
       }
+
+      // Do not include parent directory
+      $builder->add(sprintf('--directory=%s', $cwd));
 
       foreach ($exclude_files as $file) {
         $builder->add(sprintf('--exclude=%s', $file));

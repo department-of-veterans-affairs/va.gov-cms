@@ -68,9 +68,11 @@ class ArchiveDirectory {
     $output_dir = dirname($output_path);
     $this->fileSystem->prepareDirectory($output_dir, FileSystemInterface::CREATE_DIRECTORY);
 
+    $input_path = $this->fileSystem->realpath($input_dir);
     $files = [
       'exclude' => $file_to_exclude,
-      'path' => $this->fileSystem->realpath($input_dir),
+      'path' => '.',
+      'cwd' =>  $input_path,
     ];
     $real_path = $this->fileSystem->realpath($output_path);
     return $this->zippy->create($real_path, $files, TRUE);
