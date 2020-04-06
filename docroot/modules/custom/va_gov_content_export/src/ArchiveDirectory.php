@@ -5,7 +5,6 @@ namespace Drupal\va_gov_content_export;
 use Alchemy\Zippy\Archive\ArchiveInterface;
 use Alchemy\Zippy\Zippy;
 use Drupal\Core\File\Exception\FileException;
-use Drupal\Core\File\Exception\FileWriteException;
 use Drupal\Core\File\FileSystemInterface;
 use Psr\Log\LoggerInterface;
 
