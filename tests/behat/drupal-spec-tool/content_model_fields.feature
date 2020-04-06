@@ -14,6 +14,7 @@ Feature: Content model fields
 | Content type | Benefits detail page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter |  |
 | Content type | Benefits detail page | Featured content | field_featured_content | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Content type | Benefits detail page | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter |  |
+| Content type | Benefits detail page | Intro text | field_intro_text_limited_html | Text (formatted, long) | Required | 1 | -- Disabled -- |  |
 | Content type | Benefits detail page | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form |  |
 | Content type | Benefits detail page | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter |  |
 | Content type | Benefits detail page | Page last built | field_page_last_built | Date |  | 1 | -- Disabled -- |  |
