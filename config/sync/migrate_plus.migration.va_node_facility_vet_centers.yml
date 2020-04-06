@@ -1,0 +1,97 @@
+uuid: 0099e8f7-4307-4db2-98fe-caa8ecc1e990
+langcode: en
+status: true
+dependencies: {  }
+id: va_node_facility_vet_centers
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - Continuous
+  - Content
+  - Node
+migration_group: facility
+label: 'Node - Vet Centers Facility'
+source:
+  track_changes: true
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: json
+  urls:
+    - 'https://dev-api.va.gov/services/va_facilities/v0/facilities/all'
+  headers:
+    Accept: application/vnd.geo+json
+    apikey: 'DEFINED IN settings.php'
+  item_selector: features/
+  ids:
+    id:
+      type: string
+  constants: null
+  fields:
+    -
+      name: facility_type
+      label: facility_type
+      selector: properties/facility_type
+    -
+      name: id
+      label: id
+      selector: properties/id
+    -
+      name: name
+      label: name
+      selector: properties/name
+process:
+  non_field1:
+    plugin: skip_on_value
+    not_equals: true
+    source: facility_type
+    method: row
+    value:
+      - vet_center
+  title:
+    plugin: skip_on_empty
+    method: row
+    source: name
+    message: 'Skipped: Source title/name is empty, can not have a node without title.'
+  field_facility_locator_api_id:
+    plugin: skip_on_empty
+    method: row
+    source: id
+    message: 'Skipped: Source API ID is empty, must have it.'
+  field_administration:
+    plugin: default_value
+    default_value: 190
+  langcode:
+    plugin: default_value
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 0
+  promote:
+    plugin: default_value
+    default_value: 0
+  sticky:
+    plugin: default_value
+    default_value: 0
+  path/pathauto:
+    plugin: default_value
+    default_value: 1
+  published_status:
+    plugin: default_value
+    default_value: 0
+  moderation_state:
+    plugin: default_value
+    default_value: draft
+  uid:
+    plugin: default_value
+    default_value: 0
+  type:
+    plugin: default_value
+    default_value: vet_center
+destination:
+  plugin: 'entity:node'
+  default_bundle: vet_center
+  overwrite_properties:
+    - title
+migration_dependencies:
+  required: {  }
