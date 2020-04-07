@@ -260,16 +260,11 @@ function va_gov_db_update_8009(&$sandbox) {
 
   // Tell drupal we processed some nodes.
   Drupal::logger('va_gov_db')
-    ->log(LogLevel::INFO, '%current nodes processed', [
+    ->log(LogLevel::INFO, 'Page nodes %current nodes saved to populate the html intro field', [
       '%current' => $sandbox['current'],
     ]);
 
   // Determine when to stop batching.
-  if ($sandbox['total'] === 0) {
-    $sandbox['#finished'] = 1;
-  }
-  else {
-    $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
-  }
+  $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
 
 }
