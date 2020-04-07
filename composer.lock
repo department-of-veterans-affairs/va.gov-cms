@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c688b6c7d0789f59e821f6b681c7fa4f",
+    "content-hash": "d791e0fc2accba8adcad40705ba48fbd",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1627,6 +1627,52 @@
                 "web"
             ],
             "time": "2019-08-28T00:36:46+00:00"
+        },
+        {
+            "name": "devshop/github-api-cli",
+            "version": "1.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/devshop-packages/github-api-cli.git",
+                "reference": "73e0dc2a3e92bab4f40270035111f8a4c4f2c47d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/devshop-packages/github-api-cli/zipball/73e0dc2a3e92bab4f40270035111f8a4c4f2c47d",
+                "reference": "73e0dc2a3e92bab4f40270035111f8a4c4f2c47d",
+                "shasum": ""
+            },
+            "require": {
+                "consolidation/robo": "^1.0",
+                "knplabs/github-api": "^1.0",
+                "php": "^7.1"
+            },
+            "bin": [
+                "github"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DevShop\\Component\\GitHubApiCli\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Pugh",
+                    "email": "jon@thinkdrop.net"
+                },
+                {
+                    "name": "DevShop Community",
+                    "homepage": "https://github.com/opendevshop/devshop/graphs/contributors"
+                }
+            ],
+            "description": "Simple console wrapper for GitHub API",
+            "homepage": "https://getdevshop.com",
+            "time": "2020-04-06T23:48:17+00:00"
         },
         {
             "name": "devshop/power-process",
@@ -12328,6 +12374,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
+            "abandoned": "php-parallel-lint/php-console-color",
             "time": "2018-09-29T17:23:10+00:00"
         },
         {
@@ -12374,6 +12421,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
+            "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
@@ -18611,6 +18659,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "devshop/behat-drupal-extension": 20,
+        "devshop/github-api-cli": 20,
         "devshop/power-process": 20,
         "devshop/yaml-tasks": 20,
         "drupal/auto_entitylabel": 10,
