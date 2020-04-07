@@ -2,8 +2,8 @@
 name: UX writing
 about: Use this template for writing work on text that CMS users will see, as part of the development, design, or communications.
 title: "UX Writing for <insert issue name>"
-labels: 'UX writing,' 'Design'
-assignees: `rachel-kauff`
+labels: UX writing
+assignees: rachel-kauff
 
 ---
 
