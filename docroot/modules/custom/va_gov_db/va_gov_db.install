@@ -235,33 +235,35 @@ function va_gov_db_update_8008() {
 function va_gov_db_update_8009(&$sandbox) {
   // Grab our nodes and set the count.
   if (empty($sandbox['total'])) {
-    $nids = \Drupal::entityQuery('node')
+    $sandbox['nids_process'] = array_flip(\Drupal::entityQuery('node')
       ->condition('type', 'page')
-      ->execute();
-    $sandbox['total'] = count($nids);
-    $sandbox['current'] = 0;
+      ->execute());
+    $sandbox['total'] = count($sandbox['nids_process']);
+    $sandbox['current'] = 1;
   }
 
-  // Batch 25 at a time. Low number, but we have less than 300.
-  $nodes_per_batch = 25;
+  // Run through a batch of 25.
+  $i = 0;
+  $nids = '';
+  foreach ($sandbox['nids_process'] as $nid => $revision) {
+    if ($i > 25) {
+      break;
+    }
 
-  // Establish our place in the process.
-  $nids = \Drupal::entityQuery('node')
-    ->condition('type', 'page')
-    ->range($sandbox['current'], $sandbox['current'] + $nodes_per_batch)
-    ->execute();
-
-  // Save the nodes to update fields, and count where we are.
-  foreach ($nids as $nid) {
     $node = Node::load($nid);
     $node->save();
+    unset($sandbox['nids_process'][$nid]);
+    $i++;
+
+    $nids .= $nid . ', ';
     $sandbox['current']++;
   }
 
   // Tell drupal we processed some nodes.
   Drupal::logger('va_gov_db')
-    ->log(LogLevel::INFO, 'Page nodes %current nodes saved to populate the html intro field', [
+    ->log(LogLevel::INFO, 'Page nodes %current nodes saved to populate the html intro field. Nodes processed: %nids', [
       '%current' => $sandbox['current'],
+      '%nids' => $nids,
     ]);
 
   // Determine when to stop batching.
