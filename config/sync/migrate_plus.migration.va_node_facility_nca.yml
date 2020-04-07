@@ -40,6 +40,10 @@ source:
       name: name
       label: name
       selector: properties/name
+    -
+      name: classification
+      label: classification
+      selector: properties/classification
 process:
   non_field1:
     plugin: skip_on_value
@@ -48,6 +52,12 @@ process:
     method: row
     value:
       - va_cemetery
+  non_field2:
+    plugin: skip_on_value
+    source: classification
+    method: row
+    value:
+      - 'State Cemetery'
   title:
     plugin: skip_on_empty
     method: row
