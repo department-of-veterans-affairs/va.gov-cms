@@ -89,13 +89,15 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-
   $targets = [
     'field_office',
     'field_listing',
   ];
   _va_gov_backend_dropdown_field_access($form, $targets);
 
+  if ($form_id === 'node_page_form' || $form_id === 'node_page_edit_form') {
+    $form['field_intro_text_limited_html']['widget'][0]['#allowed_formats'] = ['rich_text_limited'];
+  }
   if ($form_id === 'workbench_access_assign_user') {
     $form['#submit'][] = 'va_gov_backend_workbench_assign_user_form_submit';
   }
@@ -368,7 +370,6 @@ function va_gov_backend_css_alter(&$css, AttachedAssetsInterface $assets) {
 
 /**
  * Implements hook_entity_presave().
- *
  */
 function va_gov_backend_entity_presave(EntityInterface $entity) {
   $bundle_types = ['event', 'news_story', 'press_release', 'outreach_asset'];
