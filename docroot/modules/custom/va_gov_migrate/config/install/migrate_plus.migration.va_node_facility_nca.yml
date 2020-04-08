@@ -46,6 +46,10 @@ source:
       name: name
       label: name
       selector: properties/name
+    -
+      name: classification
+      label: classification
+      selector: properties/classification
 # The destination fields mapped and processed from source fields.
 process:
   # We have no destination of facility type, but we need to skip the migration
@@ -57,6 +61,13 @@ process:
     method: row
     value:
       - va_cemetery
+    # We are skipping all State Cemeteries.  They should not be in CMS.
+  non_field2:
+    plugin: skip_on_value
+    source: classification
+    method: row
+    value:
+      - 'State Cemetery'
   title:
     plugin: skip_on_empty
     method: row
