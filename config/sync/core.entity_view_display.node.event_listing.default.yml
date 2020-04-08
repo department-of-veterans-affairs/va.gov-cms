@@ -167,6 +167,63 @@ third_party_settings:
               context_mapping: {  }
             additional: {  }
             weight: 8
+          16890bcd-e55d-4d69-a052-720bfec4711a:
+            uuid: 16890bcd-e55d-4d69-a052-720bfec4711a
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'extra_field_block:node:event_listing:content_moderation_control'
+            additional: {  }
+            weight: 9
+          d82911a7-ca6a-45da-aa61-c29036491263:
+            uuid: d82911a7-ca6a-45da-aa61-c29036491263
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:event_listing:field_description'
+              formatter:
+                type: string
+                label: above
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            additional: {  }
+            weight: 10
+          f4731cbd-47c9-408f-aae6-1bc17c9e7591:
+            uuid: f4731cbd-47c9-408f-aae6-1bc17c9e7591
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:event_listing:field_meta_title'
+              formatter:
+                type: string
+                label: above
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            additional: {  }
+            weight: 11
+          16abe72d-dd3e-4997-ac19-61f2db7bc28b:
+            uuid: 16abe72d-dd3e-4997-ac19-61f2db7bc28b
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:event_listing:field_intro_text'
+              formatter:
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+                type: basic_string
+            additional: {  }
+            weight: 12
         third_party_settings: {  }
 id: node.event_listing.default
 targetEntityType: node

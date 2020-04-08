@@ -286,3 +286,13 @@ function va_gov_backend_update_8006() {
     }
   }
 }
+
+/**
+ * Remove field_intro_text from benefits page.
+ */
+function va_gov_backend_update_8007() {
+  $field = FieldConfig::loadByName('node', 'page', 'field_intro_text');
+  if ($field) {
+    $field->delete();
+  }
+}
