@@ -16,15 +16,23 @@ va/deploy/0-composer:
 
 va/deploy/1-cache:
   description: Rebuild Drupal caches
-  command: drush $DRUSH_ALIAS cache:rebuild
+  command: |
+    github deployment:start --description='Rebuild Drupal caches...' --environment=$DEVSHOP_ENVIRONMENT.cms
+    github deployment:update --state=in_progress
+    drush $DRUSH_ALIAS cache:rebuild
 
 va/deploy/2-update:
   description: Run Drupal Update Hooks
-  command: drush $DRUSH_ALIAS updatedb --yes
+  command: |
+    drush $DRUSH_ALIAS updatedb --yes \
+      || ( github deployment:update --state=failure && exit 1 )
 
 va/deploy/3-config:
-  - drush $DRUSH_ALIAS config:import --yes
-  - drush $DRUSH_ALIAS cache:rebuild
+  command: |
+    drush $DRUSH_ALIAS config:import --yes \
+    && drush $DRUSH_ALIAS cache:rebuild \
+      && github deployment:update --state=success --environment-url=$DRUPAL_ADDRESS \
+      || ( github deployment:update --state=failure && exit 1 )
 
 va/tests/phpcs:
   description: PHP CodeSniffer
@@ -53,8 +61,11 @@ va/web/build:
   # So, we decided to keep the "grep" for the Metalsmith error message to ensure that we catch the situation where the
   # error is shown, but the command exits successfully (exit 0).
   command: |
-    github api deployment create department-of-veterans-affairs va.gov-cms --param ref=$(branch-or-tag) --param description='Building WEB from CMS...' --param environment=cms-ci --param required_contexts=
-    composer va:web:build | tee /dev/stderr | grep "Failed to pipe Drupal content into Metalsmith!" -B1000 -C8 && echo "tests.yml | composer va:web:build included the Drupal/Metalsmith error." && exit 1 || echo "tests.yml | Front end site was built! Check $DRUPAL_ADDRESS/static for raw output!"
+    github deployment:start --description='Building WEB from CMS...' --environment=$DEVSHOP_ENVIRONMENT.web
+    github deployment:update --state=in_progress --description='Running composer va:web:build ...' --log_url=$DEVSHOP_TASK_URL --environment_url=https://$DEVSHOP_ENVIRONMENT.web.ci.cms.va.gov
+    ( composer va:web:build | tee /dev/stderr | grep "Failed to pipe Drupal content into Metalsmith!" -B1000 -C8 && echo "tests.yml | composer va:web:build included the Drupal/Metalsmith error." && exit 1 || echo "tests.yml | Front end site was built! Check $DRUPAL_ADDRESS/static for raw output!" ) \
+      && github deployment:update --state=success --description='Running composer va:web:build ... Complete' --log_url=$DEVSHOP_TASK_URL --environment_url=https://$DEVSHOP_ENVIRONMENT.web.ci.cms.va.gov \
+      || github deployment:update --state=failure --description='Running composer va:web:build ... Failed' --log_url=$DEVSHOP_TASK_URL --environment_url=https://$DEVSHOP_ENVIRONMENT.web.ci.cms.va.gov \
 
 va/tests/behat:
   description: Behat Tests
