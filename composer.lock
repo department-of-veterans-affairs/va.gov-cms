@@ -1629,21 +1629,66 @@
             "time": "2019-08-28T00:36:46+00:00"
         },
         {
+            "name": "devshop/composer-common",
+            "version": "1.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/devshop-packages/composer-common.git",
+                "reference": "b6c36a61bf3e32cd4af5791d2427c3b180f2f40d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/devshop-packages/composer-common/zipball/b6c36a61bf3e32cd4af5791d2427c3b180f2f40d",
+                "reference": "b6c36a61bf3e32cd4af5791d2427c3b180f2f40d",
+                "shasum": ""
+            },
+            "require": {
+                "consolidation/robo": "^1.0",
+                "knplabs/github-api": "^1.0",
+                "php": "^7.1",
+                "teqneers/php-stream-wrapper-for-git": "^2.0@dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DevShop\\Component\\Common\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Pugh",
+                    "email": "jon@thinkdrop.net"
+                },
+                {
+                    "name": "DevShop Community",
+                    "homepage": "https://github.com/opendevshop/devshop/graphs/contributors"
+                }
+            ],
+            "description": "Tools useful for any composer-based project.",
+            "homepage": "https://getdevshop.com",
+            "time": "2020-04-08T00:58:08+00:00"
+        },
+        {
             "name": "devshop/github-api-cli",
             "version": "1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/devshop-packages/github-api-cli.git",
-                "reference": "73e0dc2a3e92bab4f40270035111f8a4c4f2c47d"
+                "reference": "cb75f072c52ac6c9402e1279a903dba4a5b056e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/devshop-packages/github-api-cli/zipball/73e0dc2a3e92bab4f40270035111f8a4c4f2c47d",
-                "reference": "73e0dc2a3e92bab4f40270035111f8a4c4f2c47d",
+                "url": "https://api.github.com/repos/devshop-packages/github-api-cli/zipball/cb75f072c52ac6c9402e1279a903dba4a5b056e7",
+                "reference": "cb75f072c52ac6c9402e1279a903dba4a5b056e7",
                 "shasum": ""
             },
             "require": {
                 "consolidation/robo": "^1.0",
+                "devshop/composer-common": "1.x-dev",
                 "knplabs/github-api": "^1.0",
                 "php": "^7.1"
             },
@@ -1672,7 +1717,7 @@
             ],
             "description": "Simple console wrapper for GitHub API",
             "homepage": "https://getdevshop.com",
-            "time": "2020-04-06T23:48:17+00:00"
+            "time": "2020-04-08T22:23:26+00:00"
         },
         {
             "name": "devshop/power-process",
@@ -1727,7 +1772,7 @@
             ],
             "description": "Enhanced Symfony Process component.",
             "homepage": "https://getdevshop.com",
-            "time": "2020-03-25T21:44:55+00:00"
+            "time": "2020-03-24T23:46:47+00:00"
         },
         {
             "name": "devshop/yaml-tasks",
