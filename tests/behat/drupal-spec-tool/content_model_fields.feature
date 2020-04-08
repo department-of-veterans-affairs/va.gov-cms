@@ -345,3 +345,4 @@ Feature: Content model fields
 | Content type | Vet Center | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
 | Content type | Vet Center | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
+
