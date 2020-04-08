@@ -400,13 +400,18 @@ function va_gov_backend_pathauto_alias_alter(&$alias, array &$context) {
 
 /**
  * Implements hook_entity_presave().
+ *
+ * @todo: Remove node page wysiwyg sync after VACMS-1163 is on prod.
  */
 function va_gov_backend_entity_presave(EntityInterface $entity) {
   $bundle_types = ['event', 'news_story', 'press_release', 'outreach_asset'];
 
-  if ($entity->getEntityTypeId() == 'node' && in_array($entity->bundle(), $bundle_types)) {
-    _va_gov_backend_sync_office_listing_fields($entity);
+  if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $bundle_types)) {
     _va_gov_backend_feature_bump($entity);
+  }
+
+  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'page') {
+    _va_gov_backend_sync_wysiwyg_fields($entity);
   }
 }
 
@@ -446,61 +451,16 @@ function _va_gov_backend_feature_bump(EntityInterface $entity) {
 }
 
 /**
- * Sync field_listing with field_office.
+ * Sync field_intro_text with field_intro_text_limited_html.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   Entity.
- *
- * @todo: Use this function in hook_update_n() - VACMS-1239 Phase 2.
  */
-function _va_gov_backend_sync_office_listing_fields(EntityInterface $entity) {
-  $entity_listing_mapping = [
-    'news_story' => 'story_listing',
-    'press_release' => 'press_releases_listing',
-    'outreach_asset' => 'publication_listing',
-  ];
-
-  // Deduct field_listing value from field_office.
-  // Assuming that there's only one Listing node for each office+content type.
-  // ^ confirmed in current DB.
-  $office = $entity->hasField('field_office') ? $entity->get('field_office')->target_id : NULL;
-
-  $entity_ref = $office ? Drupal::entityTypeManager()->getStorage('node')->load($office) : NULL;
-
-  switch ($entity->bundle()) {
-    case 'event':
-      // Check if the entity reference is an event_listing.
-      if ($entity_ref && $entity_ref->bundle() === 'event_listing') {
-        // Store reference in field_listing.
-        $entity->set('field_listing', NULL);
-        $entity->field_listing[] = ['target_id' => $office];
-      }
-      else {
-        // Find event_listing by office or health_care_region_page id.
-        $result = Drupal::entityQuery('node')
-          ->condition('type', 'event_listing')
-          ->condition('field_office', $office)
-          ->execute();
-
-        _va_gov_backend_set_field_listing_value($entity, $entity_listing_mapping, reset($result));
-      }
-      break;
-
-    // Story; News release; Publication.
-    case 'news_story':
-    case 'press_release':
-    case 'outreach_asset':
-      // Check if the entity reference is an office or health_care_region_page.
-      if ($entity_ref && in_array($entity_ref->bundle(), ['office', 'health_care_region_page'])) {
-        // Find *_listing node by office or health_care_region_page id.
-        $result = Drupal::entityQuery('node')
-          ->condition('type', $entity_listing_mapping[$entity->bundle()])
-          ->condition('field_office', $office)
-          ->execute();
-
-        _va_gov_backend_set_field_listing_value($entity, $entity_listing_mapping, reset($result));
-      }
-      break;
+function _va_gov_backend_sync_wysiwyg_fields(EntityInterface $entity) {
+  // Match the new intro field with the old intro field.
+  if ($entity->hasField('field_intro_text_limited_html')) {
+    $intro_text_field_data = $entity->field_intro_text->value;
+    $entity->set('field_intro_text_limited_html', $intro_text_field_data);
   }
 }
 
