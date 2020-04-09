@@ -1,0 +1,202 @@
+<?php
+
+namespace Drupal\va_gov_migrate\Plugin\migrate_plus\data_parser;
+
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\migrate_plus\DataParserPluginBase;
+use League\Csv\Reader;
+
+/**
+ * Obtain CSV data for migration.
+ *
+ * @DataParser(
+ *   id = "csv",
+ *   title = @Translation("CSV")
+ * )
+ */
+class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * Iterator over the CSV data.
+   *
+   * @var \Iterator
+   */
+  protected $iterator;
+
+  /**
+   * Retrieves the CSV data and returns it as an array.
+   *
+   * @param string $url
+   *   URL of a CSV feed.
+   *
+   * @return array
+   *   The selected data to be iterated.
+   *
+   * @throws \GuzzleHttp\Exception\RequestException
+   */
+  protected function getSourceData($url) {
+    $response = $this->getDataFetcherPlugin()->getResponseContent($url);
+    // Remove items.
+    $csv = $this->cleanSource($response->getContents());
+    $data = $this->parseRows($csv);
+
+    return $data;
+  }
+
+  /**
+   * Remove noise from the source and get rid of empty lines.
+   *
+   * @param string $source
+   *   The string from the fetcher.
+   *
+   * @return string
+   *   The contents that should be a csv, with items and extra lines removed.
+   */
+  protected function cleanSource($source = '') {
+    // Get any items from config that are called out to remove.
+    $replace = (!empty($this->configuration['replace'])) ? (array) $this->configuration['replace'] : [];
+    $csv = str_replace(array_keys($replace), array_values($replace), $source);
+    // Remove blank lines.
+    $csv = preg_replace("/\n\n+/s", "\n", $csv);
+    $csv = trim($csv, "\n\r");
+    $csv = trim($csv, " ");
+    $csv .= "\n";
+
+    return $csv;
+  }
+
+  /**
+   * Parse the csv string into rows.
+   *
+   * @param string $csv
+   *   The string of the contents of the csv file.
+   *
+   * @return array
+   *   An array of arrays of key value pairs that correspond to csv row data.
+   */
+  protected function parseRows($csv) {
+    $delimiter = (!empty($this->configuration['delimiter'])) ? $this->configuration['delimiter'] : ',';
+    $enclosure = (!empty($this->configuration['enclosure'])) ? $this->configuration['enclosure'] : '';
+    $escape = (!empty($this->configuration['escape'])) ? $this->configuration['escape'] : '';
+    $header_offset = (!empty($this->configuration['header_offset'])) ? $this->configuration['header_offset'] : NULL;
+    $headers = $this->getHeaders();
+
+    // Create the League CSV reader object to handle parsing and reading.
+    $reader = Reader::createFromString($csv);
+    $reader->setDelimiter($delimiter);
+    // Set additional options if we have them.
+    if (!empty($enclosure)) {
+      $reader->setEnclosure($enclosure);
+    }
+    if (!empty($escape)) {
+      $reader->setEscape($escape);
+    }
+    if (!empty($header_offset) && is_numeric($header_offset)) {
+      $reader->setOffset($header_offset);
+    }
+
+    $data = [];
+    foreach ($reader->fetchAssoc($headers) as $row) {
+      $data[] = $this->expandRow($row);
+    }
+
+    return $data;
+  }
+
+  /**
+   * Explodes multiple, concatenated values for all cells in a row.
+   *
+   * @param array $row
+   *   The row of CSV cells.
+   *
+   * @return array
+   *   The same row of CSV cells, with each cell's contents exploded.
+   */
+  public function expandRow(array $row) {
+    // Just in case there are multiple values in a cell separated by |.
+    foreach ($row as $column_name => $cell_data) {
+      // See if we should be sub-parsing any multi-value cells.
+      $multi_value_delimiter = (!empty($this->configuration['multi_value_delimiter'])) ? $this->configuration['multi_value_delimiter'] : NULL;
+      if (!empty($multi_value_delimiter) && strpos($cell_data, $multi_value_delimiter) !== FALSE) {
+        // We have some multi-value delimited content in this cell.
+        // Turn it into an array.
+        $row[$column_name] = explode('|', $cell_data);
+      }
+    }
+
+    return $row;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function openSourceUrl($url) {
+    // (Re)open the provided URL.
+    $source_data = $this->getSourceData($url);
+    $this->iterator = new \ArrayIterator($source_data);
+    return TRUE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function fetchNextRow() {
+    $current = $this->iterator->current();
+
+    if ($current && is_array($current)) {
+      foreach ($current as $source_field => $value) {
+        $this->currentItem[$source_field] = $value;
+      }
+
+      if (!empty($this->configuration['include_raw_data'])) {
+        $this->currentItem['raw'] = $current;
+      }
+
+      $this->iterator->next();
+    }
+  }
+
+  /**
+   * Extracts the column headers from the migration configuration.
+   *
+   * @return array
+   *   A flat array of source field names/headings.
+   */
+  private function getHeaders() {
+    // These are essentially the column headers defined in the migration config.
+    // They have no connection to any header actually in the csv.
+    $fields = (!empty($this->configuration['fields'])) ? $this->configuration['fields'] : NULL;
+
+    if ($fields === NULL) {
+      // @TODO throw more proper error/exception.
+      exit("Must have 'fields' defined in the migration.");
+    }
+    else {
+      $headers = [];
+      foreach ($fields as $field => $data) {
+        if (is_array($data)) {
+          if (!empty($data['name'])) {
+            $headers[] = $data['name'];
+          }
+          else {
+            // This does not have the data needed.  Throw error.
+            exit("Each field entry ust have 'name' defined in the migration.");
+          }
+        }
+        else {
+          // $data is the field name, because $fields was a flat array
+          if (!empty($data)) {
+            $headers[] = $data;
+          }
+          else {
+            // This does not have the data needed.  Throw error.
+            exit("A field name can not be empty.");
+          }
+        }
+      }
+    }
+
+    return $headers;
+  }
+
+}
