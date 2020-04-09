@@ -460,7 +460,8 @@ function _va_gov_backend_sync_wysiwyg_fields(EntityInterface $entity) {
   // Match the new intro field with the old intro field.
   if ($entity->hasField('field_intro_text_limited_html')) {
     $intro_text_field_data = $entity->field_intro_text->value;
-    $entity->set('field_intro_text_limited_html', $intro_text_field_data);
+    $entity->field_intro_text_limited_html->value = $intro_text_field_data;
+    $entity->field_intro_text_limited_html->format = 'rich_text_limited';
   }
 }
 
