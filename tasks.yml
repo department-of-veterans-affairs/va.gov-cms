@@ -65,7 +65,7 @@ va/web/build:
     github deployment:update --state=in_progress --description='Running composer va:web:build ...' --log_url=$DEVSHOP_TASK_URL --environment_url=https://$DEVSHOP_ENVIRONMENT.web.ci.cms.va.gov
     ( composer va:web:build | tee /dev/stderr | grep "Failed to pipe Drupal content into Metalsmith!" -B1000 -C8 && echo "tests.yml | composer va:web:build included the Drupal/Metalsmith error." && exit 1 || echo "tests.yml | Front end site was built! Check $DRUPAL_ADDRESS/static for raw output!" ) \
       && github deployment:update --state=success --description='Running composer va:web:build ... Complete' --log_url=$DEVSHOP_TASK_URL --environment_url=https://$DEVSHOP_ENVIRONMENT.web.ci.cms.va.gov \
-      || ( github deployment:update --state=failure --description='Running composer va:web:build ... Failed' --log_url=$DEVSHOP_TASK_URL --environment_url=https://$DEVSHOP_ENVIRONMENT.web.ci.cms.va.gov && exit1 )
+      || ( github deployment:update --state=failure --description='Running composer va:web:build ... Failed' --log_url=$DEVSHOP_TASK_URL --environment_url=https://$DEVSHOP_ENVIRONMENT.web.ci.cms.va.gov && exit 1 )
 
 va/tests/behat:
   description: Behat Tests
