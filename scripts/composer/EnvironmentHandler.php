@@ -47,6 +47,11 @@ class EnvironmentHandler {
       $dotenv->overload();
       $dotenv->required('DRUPAL_ADDRESS')->notEmpty();
       $dotenv->required('BEHAT_PARAMS')->notEmpty();
+
+      // Hard code some variables here.
+      // Ignore SSL errors when interacting with the GitHub API.
+      putenv('DEVSHOP_GITHUB_API_IGNORE_SSL=1');
+
     }
     catch (\Exception $exception) {
       throw $exception;
