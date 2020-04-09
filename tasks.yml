@@ -18,21 +18,21 @@ va/deploy/1-cache:
   description: Rebuild Drupal caches
   command: |
     github deployment:start --description='Rebuild Drupal caches...' --environment=$DEVSHOP_ENVIRONMENT.cms
-    github deployment:update --state=in_progress --environment_url=$DRUPAL_ADDRESS
+    github deployment:update --state=in_progress --environment_url=https://$DRUPAL_ADDRESS
     drush $DRUSH_ALIAS cache:rebuild
 
 va/deploy/2-update:
   description: Run Drupal Update Hooks
   command: |
     drush $DRUSH_ALIAS updatedb --yes \
-      || ( github deployment:update --state=failure --environment_url=$DRUPAL_ADDRESS && exit 1 )
+      || ( github deployment:update --state=failure --environment_url=https://$DRUPAL_ADDRESS && exit 1 )
 
 va/deploy/3-config:
   command: |
     drush $DRUSH_ALIAS config:import --yes \
     && drush $DRUSH_ALIAS cache:rebuild \
-      && github deployment:update --state=success --environment_url=$DRUPAL_ADDRESS \
-      || ( github deployment:update --state=failure --environment_url=$DRUPAL_ADDRESS && exit 1 )
+      && github deployment:update --state=success --environment_url=https://$DRUPAL_ADDRESS \
+      || ( github deployment:update --state=failure --environment_url=https://$DRUPAL_ADDRESS && exit 1 )
 
 va/tests/phpcs:
   description: PHP CodeSniffer
@@ -62,10 +62,10 @@ va/web/build:
   # error is shown, but the command exits successfully (exit 0).
   command: |
     github deployment:start --description='Building WEB from CMS...' --environment=$DEVSHOP_ENVIRONMENT.web
-    github deployment:update --state=in_progress --description='Running composer va:web:build ...' --log_url=$DEVSHOP_TASK_URL --environment_url=$DEVSHOP_ENVIRONMENT.web.ci.cms.va.gov
+    github deployment:update --state=in_progress --description='Running composer va:web:build ...' --log_url=$DEVSHOP_TASK_URL --environment_url=https://$DEVSHOP_ENVIRONMENT.web.ci.cms.va.gov
     ( composer va:web:build | tee /dev/stderr | grep "Failed to pipe Drupal content into Metalsmith!" -B1000 -C8 && echo "tests.yml | composer va:web:build included the Drupal/Metalsmith error." && exit 1 || echo "tests.yml | Front end site was built! Check $DRUPAL_ADDRESS/static for raw output!" ) \
-      && github deployment:update --state=success --description='Running composer va:web:build ... Complete' --log_url=$DEVSHOP_TASK_URL --environment_url=$DEVSHOP_ENVIRONMENT.web.ci.cms.va.gov \
-      || ( github deployment:update --state=failure --description='Running composer va:web:build ... Failed' --log_url=$DEVSHOP_TASK_URL --environment_url=$DEVSHOP_ENVIRONMENT.web.ci.cms.va.gov && exit 1 )
+      && github deployment:update --state=success --description='Running composer va:web:build ... Complete' --log_url=$DEVSHOP_TASK_URL --environment_url=https://$DEVSHOP_ENVIRONMENT.web.ci.cms.va.gov \
+      || ( github deployment:update --state=failure --description='Running composer va:web:build ... Failed' --log_url=$DEVSHOP_TASK_URL --environment_url=https://$DEVSHOP_ENVIRONMENT.web.ci.cms.va.gov && exit 1 )
 
 va/tests/behat:
   description: Behat Tests
