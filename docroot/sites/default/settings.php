@@ -136,8 +136,8 @@ $config['govdelivery_bulletins.settings']['govdelivery_username'] = getenv('CMS_
 $config['govdelivery_bulletins.settings']['govdelivery_password'] = getenv('CMS_GOVDELIVERY_PASSWORD') ?: FALSE;
 
 // Set migration settings from environment variables.
-$facility_api_urls = [getenv('CMS_FACILITY_API_URL') . '/services/va_facilities/v0/facilities/all'];
-$facility_api_key = getenv('CMS_FACILITY_API_KEY');
+$facility_api_urls = [getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v0/facilities/all'];
+$facility_api_key = getenv('CMS_VAGOV_API_KEY');
 $facility_migrations = [
   'va_node_health_care_local_facility',
   'va_node_facility_vba',

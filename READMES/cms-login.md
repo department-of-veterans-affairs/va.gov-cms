@@ -12,7 +12,7 @@ Current State MVP
     2. Requested Role (editor, reviewer, publisher).
     3. Section(s) of the site to which you require access (ie Benefit Hub, VHA - specify which VAMC(s), NCA etc).
 2. A user administrator will verify the request is approved with the PO via email .
-3. Once approved, the user administrator will create your account and assign the requested role(s) and you will receive an email with your username and temporary password.
+3. Once approved, the user administrator will create your account and assign the requested role(s) and you will receive an email with instructions on how to access your account.
 4. You may then log into Drupal (https://prod.cms.va.gov) while on the VA Network using either your username/password or your PIV/Smartcard by clicking "Login with PIV or other Smartcard.". 
 
 Future State
