@@ -31,7 +31,7 @@ va/deploy/3-config:
   command: |
     drush $DRUSH_ALIAS config:import --yes \
     && drush $DRUSH_ALIAS cache:rebuild \
-      && github deployment:update --state=success --environment-url=$DRUPAL_ADDRESS \
+      && github deployment:update --state=success --environment_url=$DRUPAL_ADDRESS \
       || ( github deployment:update --state=failure && exit 1 )
 
 va/tests/phpcs:
