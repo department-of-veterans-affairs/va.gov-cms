@@ -18,21 +18,21 @@ va/deploy/1-cache:
   description: Rebuild Drupal caches
   command: |
     github deployment:start --description='Rebuild Drupal caches...' --environment=$DEVSHOP_ENVIRONMENT.cms
-    github deployment:update --state=in_progress
+    github deployment:update --state=in_progress --environment_url=$DRUPAL_ADDRESS
     drush $DRUSH_ALIAS cache:rebuild
 
 va/deploy/2-update:
   description: Run Drupal Update Hooks
   command: |
     drush $DRUSH_ALIAS updatedb --yes \
-      || ( github deployment:update --state=failure && exit 1 )
+      || ( github deployment:update --state=failure --environment_url=$DRUPAL_ADDRESS && exit 1 )
 
 va/deploy/3-config:
   command: |
     drush $DRUSH_ALIAS config:import --yes \
     && drush $DRUSH_ALIAS cache:rebuild \
       && github deployment:update --state=success --environment_url=$DRUPAL_ADDRESS \
-      || ( github deployment:update --state=failure && exit 1 )
+      || ( github deployment:update --state=failure --environment_url=$DRUPAL_ADDRESS && exit 1 )
 
 va/tests/phpcs:
   description: PHP CodeSniffer
