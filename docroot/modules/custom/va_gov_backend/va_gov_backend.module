@@ -353,8 +353,8 @@ function _va_gov_backend_gtm_settings() {
 
     $section_entity_id = $loaded_node->field_administration->getString();
     // Load up our section name.
-    $section_entity_load = Term::load($section_entity_id);
-    $sections['contentOwner'] = $section_entity_load->getName();
+    $section_entity_load = !empty($section_entity_load) ? Term::load($section_entity_id) : '';
+    $sections['contentOwner'] = !empty($section_entity_load) ? $section_entity_load->getName() : '';
   }
   return $sections;
 }
