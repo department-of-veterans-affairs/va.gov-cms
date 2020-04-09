@@ -62,15 +62,15 @@
         const editPageTypes = ['content-page', 'bulk-content-page'];
         // Push cms data into dataLayer.
         selector.forEach((el, i) => {
-          // Using jQuery - ES6 once method doesn't prevent multiple Drupal behavior fire records.
           $(el, context).once().click(function (e) {
             dataCollection['event'] = event;
 
             // Special handling for content admin pages.
             if (editPageTypes.includes(subtype)) {
-              dataCollection['contentTitle'] = document.querySelectorAll('.views-field-title a')[i + 1].textContent;
-              dataCollection['contentType'] = document.querySelectorAll('.views-field-type')[i + 1].textContent;
-              dataCollection['contentOwner'] = document.querySelectorAll('.views-field-field-administration')[i + 1].textContent;
+              console.log($(el).parent().siblings('.views-field-title').text());
+              dataCollection['contentTitle'] = $(el).parent().siblings('.views-field-title').text();
+              dataCollection['contentType'] = $(el).parent().siblings('.views-field-type').text();
+              dataCollection['contentOwner'] = $(el).parent().siblings('.views-field-field-administration').text();
             }
 
             // Special handling for menu nav items.
@@ -147,8 +147,7 @@
 
       // Three behaviors loaded on edit pages.
       // This causes function to fire three times on page load.
-      // I don't think complex limiting of behaviors can be done without jQuery.
-      // Google searches all point to jQuery to handle this issue.
+      // Once method used to resolve.
       $(window, context).once('vaGovTagTracker').on('load', function () {
         gtmPageLoadPush();
       });
