@@ -26,10 +26,11 @@ function content_push_api_entity_update(EntityInterface $entity) {
 }
 
 function _content_push_api_add_item_to_queue(EntityInterface $entity) {
-  if ($entity->getEntityTypeId() === 'node') {
-    // @todo: The content_moderation_state is an entity and it is also
-    // updated on entity save, so we need to figure out how to elegantly run
-    // queue item creation only for nodes.
+  // Hit on performance here.
+  $config = \Drupal::config('content_push_api.settings');
+  $bundles = $config->get('content_types');
+
+  if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $bundles)) {
     // If there's a need to compare updated vs. original fields values, use the
     // $entity->original in Payload Decorator.
     $payload = Drupal::service('content_push_api.payload');

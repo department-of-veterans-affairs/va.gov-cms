@@ -10,13 +10,6 @@ use Drupal\Core\Entity\EntityInterface;
 class Endpoint implements EndpointInterface {
 
   /**
-   * The config object for content_push_api.
-   *
-   * @var \Drupal\Core\Config\ImmutableConfig
-   */
-  private $config = NULL;
-
-  /**
    * The address of the endpoint host.
    *
    * @var string
@@ -24,12 +17,9 @@ class Endpoint implements EndpointInterface {
   private $endpointHost = NULL;
 
   /**
-   * Endpoint constructor.
+   * {@inheritDoc}
    */
-  public function __construct() {
-    $this->config = \Drupal::config('content_push_api.settings');
-    $this->endpointHost = $this->config->get('endpoint_host');
-  }
+  public function __construct() {}
 
   /**
    * {@inheritDoc}
