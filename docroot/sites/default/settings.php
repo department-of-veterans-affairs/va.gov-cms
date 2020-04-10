@@ -135,6 +135,13 @@ $config['govdelivery_bulletins.settings']['govdelivery_endpoint'] = getenv('CMS_
 $config['govdelivery_bulletins.settings']['govdelivery_username'] = getenv('CMS_GOVDELIVERY_USERNAME') ?: FALSE;
 $config['govdelivery_bulletins.settings']['govdelivery_password'] = getenv('CMS_GOVDELIVERY_PASSWORD') ?: FALSE;
 
+// Variables for content_push_api.
+$config['content_push_api.settings']['endpoint_host'] = getenv('CMS_VAGOV_API_URL') ?: FALSE;
+$config['content_push_api.settings']['apikey'] = getenv('CMS_VAGOV_API_KEY') ?: FALSE;
+
+// Slack Webhook URL.
+$config['slack.settings']['slack_webhook_url'] = getenv('CMS_VAGOV_SLACK_WEBHOOK_URL') ?: FALSE;
+
 // Set migration settings from environment variables.
 $facility_api_urls = [getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v0/facilities/all'];
 $facility_api_key = getenv('CMS_VAGOV_API_KEY');
