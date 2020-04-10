@@ -67,10 +67,9 @@
 
             // Special handling for content admin pages.
             if (editPageTypes.includes(subtype)) {
-              console.log($(el).parent().siblings('.views-field-title').text());
-              dataCollection['contentTitle'] = $(el).parent().siblings('.views-field-title').text();
-              dataCollection['contentType'] = $(el).parent().siblings('.views-field-type').text();
-              dataCollection['contentOwner'] = $(el).parent().siblings('.views-field-field-administration').text();
+              dataCollection['contentTitle'] = $(el).parent().siblings('.views-field-title').text().trim();
+              dataCollection['contentType'] = $(el).parent().siblings('.views-field-type').text().trim();
+              dataCollection['contentOwner'] = $(el).parent().siblings('.views-field-field-administration').text().trim();
             }
 
             // Special handling for menu nav items.
