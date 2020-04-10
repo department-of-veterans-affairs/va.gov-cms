@@ -267,7 +267,7 @@ function va_gov_db_update_8009(&$sandbox) {
     ]);
 
   // Determine when to stop batching.
-  $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
+  $sandbox['finished'] = ($sandbox['current'] / $sandbox['total']);
 
 }
 
@@ -309,6 +309,6 @@ function va_gov_db_update_8010(&$sandbox) {
     ]);
 
   // Determine when to stop batching.
-  $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
+  $sandbox['finished'] = ($sandbox['current'] / $sandbox['total']);
 
 }
