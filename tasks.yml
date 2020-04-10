@@ -9,6 +9,8 @@
 #  description: Debugging environment
 #  command: env
 
+va/deploy/0-notification: github deployment:start --description='YamlTasks has started.' --environment=$DEVSHOP_ENVIRONMENT.cms
+
 va/deploy/0-composer:
   description: Composer Install
   about: Using --dev is actually the default. Putting it here to make it clear this is the way composer should be run right now.
@@ -17,22 +19,23 @@ va/deploy/0-composer:
 va/deploy/1-cache:
   description: Rebuild Drupal caches
   command: |
-    github deployment:start --description='Rebuild Drupal caches...' --environment=$DEVSHOP_ENVIRONMENT.cms
     github deployment:update --state=in_progress --environment_url=https://$DRUPAL_ADDRESS
-    drush $DRUSH_ALIAS cache:rebuild
+    drush $DRUSH_ALIAS cache:rebuild \
+      || ( github deployment:update --state=failure --description="Drush cache:rebuild failed." --environment_url=https://$DRUPAL_ADDRESS && exit 1 )
+
 
 va/deploy/2-update:
   description: Run Drupal Update Hooks
   command: |
     drush $DRUSH_ALIAS updatedb --yes \
-      || ( github deployment:update --state=failure --environment_url=https://$DRUPAL_ADDRESS && exit 1 )
+      || ( github deployment:update --state=failure --description="Drush updatedb failed." --environment_url=https://$DRUPAL_ADDRESS && exit 1 )
 
 va/deploy/3-config:
   command: |
     drush $DRUSH_ALIAS config:import --yes \
     && drush $DRUSH_ALIAS cache:rebuild \
       && github deployment:update --state=success --environment_url=https://$DRUPAL_ADDRESS \
-      || ( github deployment:update --state=failure --environment_url=https://$DRUPAL_ADDRESS && exit 1 )
+      || ( github deployment:update --state=failure --description="Drush config:import (or cache:rebuild after config:import) failed."  --environment_url=https://$DRUPAL_ADDRESS && exit 1 )
 
 va/web/build:
   description: Build VA.gov Front-end
