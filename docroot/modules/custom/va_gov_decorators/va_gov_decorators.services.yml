@@ -1,0 +1,11 @@
+services:
+  va_gov_decorators.payload:
+    class: Drupal\va_gov_decorators\ContentPushApiPayloadDecorator
+    public: false
+    decorates: content_push_api.payload
+    decoration_priority: 10
+  va_gov_decorators.endpoint:
+    class: Drupal\va_gov_decorators\ContentPushApiEndpointDecorator
+    public: false
+    decorates: content_push_api.endpoint
+    decoration_priority: 10
