@@ -1,0 +1,65 @@
+<?php
+
+/**
+ * @file
+ * Contains content_push_api.module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_entity_insert().
+ *
+ * Queues new items for sync.
+ */
+function content_push_api_entity_insert(EntityInterface $entity) {
+  _content_push_api_add_item_to_queue($entity);
+}
+
+/**
+ * Implements hook_entity_update().
+ *
+ * Queues updated items for sync.
+ */
+function content_push_api_entity_update(EntityInterface $entity) {
+  _content_push_api_add_item_to_queue($entity);
+}
+
+function _content_push_api_add_item_to_queue(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() === 'node') {
+    // @todo: The content_moderation_state is an entity and it is also
+    // updated on entity save, so we need to figure out how to elegantly run
+    // queue item creation only for nodes.
+    // If there's a need to compare updated vs. original fields values, use the
+    // $entity->original in Payload Decorator.
+    $payload = Drupal::service('content_push_api.payload');
+    $queue_ops = Drupal::service('content_push_api.add_to_queue');
+    $endpoint = Drupal::service('content_push_api.endpoint');
+
+    $data['nid'] = $entity->id();
+
+    // Set a key based on which the endpoint will be
+    // defined during queue execution.
+    $data['endpoint_key'] = $endpoint->endpointKey($entity);
+
+    // Modifier that will be used in the endppoint url to target specific
+    // entity.
+    $data['modifier'] = $endpoint->endpointModifier($entity);
+
+    // Set payload. Default payload provided by this module is empty. You
+    // must set your own payload in custom Payload Decorator.
+    // See README.md
+    // Entity fields (updated and original) can be compared and processed in
+    // order to structure the payload array.
+    $data['payload'] = $payload->payload($entity);
+
+    // Only add to queue if payload is not empty.
+    // If its empty, it means that there is no new information to send to
+    // endpoint.
+    // We'll never know how many items are skipped due to not having new
+    // values to send to endpoint. No need for all the noise.
+    if (!empty($data['payload'])) {
+      $queue_ops->addToQueue($data);
+    }
+  }
+}

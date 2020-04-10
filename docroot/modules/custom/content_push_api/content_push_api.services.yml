@@ -1,0 +1,13 @@
+services:
+  content_push_api.add_to_queue:
+    class: Drupal\content_push_api\Service\AddToQueue
+    arguments: ['@queue']
+  content_push_api.payload:
+    class: Drupal\content_push_api\Service\Payload
+    arguments: []
+  content_push_api.endpoint:
+    class: Drupal\content_push_api\Service\Endpoint
+    arguments: []
+  content_push_api.request:
+    class: Drupal\content_push_api\Service\Request
+    arguments: ['@config.factory', '@http_client', '@logger.factory']

@@ -1,0 +1,20 @@
+# todo: Need to decide where these links should live exactly.
+# For now, placed them in Admin > Content menu right below, Facility Status dash link.
+content_push_api.admin_home:
+  title: Content Push API
+  description: 'Content Push API Administration.'
+  route_name: content_push_api.admin_home
+  parent: system.admin_content
+  weight: 101
+content_push_api.admin_queue:
+  title: Queue
+  description: 'Review and process Content Push Queue on demand.'
+  route_name: content_push_api.admin_queue
+  parent: content_push_api.admin_home
+  weight: 0
+content_push_api.admin_settings:
+  title: Settings
+  description: 'Configure Content Push API settings.'
+  route_name: content_push_api.admin_settings
+  parent: content_push_api.admin_home
+  weight: 1

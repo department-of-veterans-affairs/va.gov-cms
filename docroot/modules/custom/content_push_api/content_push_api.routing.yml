@@ -1,0 +1,27 @@
+content_push_api.admin_home:
+  path: '/admin/content/content-push-api'
+  defaults:
+    _title: 'Content Push API'
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
+content_push_api.admin_queue:
+  path: '/admin/content/content-push-api/queue'
+  defaults:
+    _form: '\Drupal\content_push_api\Form\ContentPushQueueForm'
+    _title: 'Queue'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
+content_push_api.admin_settings:
+  path: '/admin/content/content-push-api/config'
+  defaults:
+    _form: '\Drupal\content_push_api\Form\ContentPushSettingsForm'
+    _title: 'Settings'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
