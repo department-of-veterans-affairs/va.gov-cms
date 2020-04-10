@@ -12,7 +12,7 @@ Feature: Menus
 | Administration | admin | Administrative task links |
 | Burials and memorials benefits hub | burials-and-memorials-benef | For pages in the /burials-and-memorials benefits hub |
 | Careers & employment benefits hub | careers-employment-benefits | va.gov/careers-employment |
-| Decision reviews benefits hub | decision-reviews-benefits-h |  |
+| Decision reviews | decision-reviews-benefits-h |  |
 | Disability benefits hub | disability-benefits-hub | For pages in the /disability benefits hub |
 | VA.gov CMS documentation | documentation | How-to's for editing content in the VA.gov CMS |
 | Education benefits hub | education-benefits-hub | For pages in the /education benefits hub |
