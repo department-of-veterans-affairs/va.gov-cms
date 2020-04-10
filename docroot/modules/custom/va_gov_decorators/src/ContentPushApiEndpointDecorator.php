@@ -45,8 +45,8 @@ class ContentPushApiEndpointDecorator extends Endpoint {
    */
   public function endpointKey(EntityInterface $entity) {
     $endpoint_key = '';
-    $config = \Drupal::config('content_push_api.settings');
-    $bundles = $config->get('content_types');
+
+    $bundles = $this->getBundles();
 
     if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $bundles)) {
       // @todo: set this as a constant w/ decent description.
@@ -62,9 +62,13 @@ class ContentPushApiEndpointDecorator extends Endpoint {
   public function endpointModifier(EntityInterface $entity) {
     $modifier = '';
 
-    if ($entity->hasField('field_facility_locator_api_id')) {
-      $modifier = !empty($entity->field_facility_locator_api_id->value) ?
-        $entity->field_facility_locator_api_id->value : NULL;
+    $bundles = $this->getBundles();
+
+    if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $bundles)) {
+      if ($entity->hasField('field_facility_locator_api_id')) {
+        $modifier = !empty($entity->field_facility_locator_api_id->value) ?
+          $entity->field_facility_locator_api_id->value : NULL;
+      }
     }
 
     return $modifier;
@@ -84,6 +88,18 @@ class ContentPushApiEndpointDecorator extends Endpoint {
     }
 
     return $endpoint;
+  }
+
+  /**
+   * Returns bundle machine names.
+   *
+   * @return array
+   *   Bundles selected for push.
+   */
+  protected function getBundles() {
+    // @todo: use DI.
+    $config = \Drupal::config('content_push_api.settings');
+    return $config->get('content_types') ?: [];
   }
 
 }

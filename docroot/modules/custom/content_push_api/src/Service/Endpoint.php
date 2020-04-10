@@ -19,7 +19,11 @@ class Endpoint implements EndpointInterface {
   /**
    * {@inheritDoc}
    */
-  public function __construct() {}
+  public function __construct() {
+    // @todo: use DI.
+    $this->config = \Drupal::config('content_push_api.settings');
+    $this->endpointHost = $this->config->get('endpoint_host');
+  }
 
   /**
    * {@inheritDoc}

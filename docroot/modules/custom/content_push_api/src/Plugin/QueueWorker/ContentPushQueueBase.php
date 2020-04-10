@@ -173,7 +173,15 @@ abstract class ContentPushQueueBase extends QueueWorkerBase implements Container
     $message = sprintf('Content Push API has failed to process queued items. Total items in queue: %d.', $queue_total);
 
     if ($this->config->get('content_push_api.settings')->get('slack')) {
-      $this->slack->sendMessage(':triangular_flag_on_post: ' . $message);
+      // @todo: proceed w/ message send only if
+      $slack_config = $this->config->get('slack.settings');
+      if ($slack_config->get('slack_webhook_url')) {
+        $this->slack->sendMessage(':triangular_flag_on_post: ' . $message);
+      }
+      else {
+        // @todo: use DI.
+        \Drupal::messenger()->addWarning('Slack webhook is not set. Any error notifications will still be logged in dblog.');
+      }
     }
 
     $this->logger->get('content_push_api')->error($message);
