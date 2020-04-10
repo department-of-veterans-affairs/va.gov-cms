@@ -270,3 +270,45 @@ function va_gov_db_update_8009(&$sandbox) {
   $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
 
 }
+
+/**
+ * Set field_intro_text_limited_html field to new wysiwyg type.
+ */
+function va_gov_db_update_8010(&$sandbox) {
+  // Grab our nodes and set the count.
+  if (empty($sandbox['total'])) {
+    $sandbox['nids_process'] = array_flip(\Drupal::entityQuery('node')
+      ->condition('type', 'page')
+      ->execute());
+    $sandbox['total'] = count($sandbox['nids_process']);
+    $sandbox['current'] = 1;
+  }
+
+  // Run through a batch of 25.
+  $i = 0;
+  $nids = '';
+  foreach ($sandbox['nids_process'] as $nid => $revision) {
+    if ($i > 25) {
+      break;
+    }
+
+    $node = Node::load($nid);
+    $node->save();
+    unset($sandbox['nids_process'][$nid]);
+    $i++;
+
+    $nids .= $nid . ', ';
+    $sandbox['current']++;
+  }
+
+  // Tell drupal we processed some nodes.
+  Drupal::logger('va_gov_db')
+    ->log(LogLevel::INFO, 'Page nodes %current nodes saved to populate the html intro field. Nodes processed: %nids', [
+      '%current' => $sandbox['current'],
+      '%nids' => $nids,
+    ]);
+
+  // Determine when to stop batching.
+  $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
+
+}
