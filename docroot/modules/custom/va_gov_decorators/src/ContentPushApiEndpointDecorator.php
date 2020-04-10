@@ -45,14 +45,10 @@ class ContentPushApiEndpointDecorator extends Endpoint {
    */
   public function endpointKey(EntityInterface $entity) {
     $endpoint_key = '';
-    $facility_types = [
-      'health_care_local_facility',
-      'nca_facility',
-      'vba_facility',
-      'vet_center',
-    ];
+    $config = \Drupal::config('content_push_api.settings');
+    $bundles = $config->get('content_types');
 
-    if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $facility_types)) {
+    if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $bundles)) {
       // @todo: set this as a constant w/ decent description.
       $endpoint_key = 'CMS_FACILITY_WRITE';
     }

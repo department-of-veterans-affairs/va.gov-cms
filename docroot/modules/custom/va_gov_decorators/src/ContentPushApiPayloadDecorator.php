@@ -21,10 +21,18 @@ class ContentPushApiPayloadDecorator extends Payload {
    *   New or updated entity object used to process and extract only values
    *   that we need to send.
    *
-   * @return array
+   * @return array|bool
    *   The payload data array that will be added to the queue item.
    */
   public function payload(EntityInterface $entity) {
+
+    $config = \Drupal::config('content_push_api.settings');
+    $bundles = $config->get('content_types');
+
+    if ($entity->getEntityTypeId() !== 'node' && !in_array($entity->bundle(), $bundles)) {
+      return FALSE;
+    }
+
     // Default payload is an empty array.
     $data = [];
 
