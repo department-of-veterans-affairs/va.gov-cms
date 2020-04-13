@@ -3,6 +3,8 @@
 namespace Drupal\va_gov_migrate\Plugin\migrate_plus\data_parser;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\migrate\Exception\RequirementsException;
+use Drupal\migrate\MigrateException;
 use Drupal\migrate_plus\DataParserPluginBase;
 use League\Csv\Reader;
 
@@ -69,6 +71,9 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
 
   /**
    * Remove common characters that often lead to PDO exception.
+   *
+   * @param string $csv
+   *   The csv text to clean up by reference.
    */
   private function swapBreakingCharacters(&$csv) {
     // Map based on:
@@ -138,6 +143,9 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
     $headers = $this->getHeaders();
 
     // Create the League CSV reader object to handle parsing and reading.
+    if (!class_exists('League\Csv\Reader')) {
+      throw new RequirementsException('League CSV Reader is required to use the CSV dataparser.');
+    }
     $reader = Reader::createFromString($csv);
     $reader->setDelimiter($delimiter);
     // Set additional options if we have them.
@@ -224,8 +232,8 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
     $fields = (!empty($this->configuration['fields'])) ? $this->configuration['fields'] : NULL;
 
     if ($fields === NULL) {
-      // @TODO throw more proper error/exception.
-      exit("Must have 'fields' defined in the migration.");
+      // Fields have not been defined and are required.
+      throw new MigrateException("Must have 'fields' defined in the migration.");
     }
     else {
       $headers = [];
@@ -236,7 +244,7 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
           }
           else {
             // This does not have the data needed.  Throw error.
-            exit("Each field entry ust have 'name' defined in the migration.");
+            throw new MigrateException("Each field entry must have a 'name' defined in the migration.");
           }
         }
         else {
@@ -246,7 +254,7 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
           }
           else {
             // This does not have the data needed.  Throw error.
-            exit("A field name can not be empty.");
+            throw new MigrateException("A field name can not be empty.");
           }
         }
       }
