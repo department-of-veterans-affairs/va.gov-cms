@@ -25,6 +25,12 @@ function post_api_entity_update(EntityInterface $entity) {
   _post_api_add_facility_to_queue($entity);
 }
 
+/**
+ * Adds facility data to Post API queue.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Entity.
+ */
 function _post_api_add_facility_to_queue(EntityInterface $entity) {
   $facility_types = [
     'health_care_local_facility',
@@ -39,14 +45,13 @@ function _post_api_add_facility_to_queue(EntityInterface $entity) {
     $facility_id = $entity->hasField('field_facility_locator_api_id') ? $entity->field_facility_locator_api_id->value : NULL;
 
     // Queue item's Unique ID.
-    $data['uid'] = 'facility_status_' . $facility_id;
+    $data['uid'] = $facility_id ? 'facility_status_' . $facility_id : NULL;
 
     // Set a key based on which the endpoint will be
     // defined during queue execution.
-    $data['endpoint_path'] = '/services/va_facilities/v0/facilities/' . $facility_id . '/cms-overlay';
+    $data['endpoint_path'] = $facility_id ? '/services/va_facilities/v0/facilities/' . $facility_id . '/cms-overlay' : NULL;
 
-    // Set payload. Default payload provided by this module is empty. You
-    // must set your own payload in custom Payload Decorator.
+    // Set payload. Default payload provided by this module is empty.
     // See README.md
     // Entity fields (updated and original) can be compared and processed in
     // order to structure the payload array.
