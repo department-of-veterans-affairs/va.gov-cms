@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2551090edb61a472cf5d004537bb07fd",
+    "content-hash": "06790ccf863002434fedd5e6be426cfa",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -597,7 +597,7 @@
             "version": "v4.1.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:fengyuanchen/cropper.git",
+                "url": "https://github.com/fengyuanchen/cropper.git",
                 "reference": "617d9bdb8688cc4edb3b03bc49a04b83c7facbe7"
             },
             "dist": {
@@ -9005,6 +9005,48 @@
             }
         },
         {
+            "name": "drupal/post_api",
+            "version": "dev-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/post_api.git",
+                "reference": "b42db926d791135bd3c60944d3ca42a027542b9a"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.x-dev",
+                    "datestamp": "1586778386",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "oksana-c",
+                    "homepage": "https://www.drupal.org/user/2916547"
+                }
+            ],
+            "description": "Developer tools to support POST requests to external endpoints for any data queued via Queue API.",
+            "homepage": "https://www.drupal.org/project/post_api",
+            "support": {
+                "source": "https://git.drupalcode.org/project/post_api"
+            },
+            "time": "2020-04-13T16:05:12+00:00"
+        },
+        {
             "name": "drupal/redirect",
             "version": "1.5.0",
             "source": {
@@ -9861,6 +9903,65 @@
                 "source": "https://git.drupalcode.org/project/site_alert"
             },
             "time": "2020-03-09T08:06:36+00:00"
+        },
+        {
+            "name": "drupal/slack",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/slack.git",
+                "reference": "8.x-1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/slack-8.x-1.2.zip",
+                "reference": "8.x-1.2",
+                "shasum": "d978cdf635c0053881ad09c7679c323dfb248e6f"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.2",
+                    "datestamp": "1508381049",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Serge_Konst",
+                    "homepage": "https://www.drupal.org/user/3285403"
+                },
+                {
+                    "name": "adci_contributor",
+                    "homepage": "https://www.drupal.org/user/1830536"
+                },
+                {
+                    "name": "adcillc",
+                    "homepage": "https://www.drupal.org/user/366450"
+                },
+                {
+                    "name": "hxdef",
+                    "homepage": "https://www.drupal.org/user/2622115"
+                }
+            ],
+            "description": "Integration with Slack.com service.",
+            "homepage": "https://www.drupal.org/project/slack",
+            "support": {
+                "source": "https://git.drupalcode.org/project/slack"
+            }
         },
         {
             "name": "drupal/social_media_links",
@@ -18968,6 +19069,7 @@
         "drupal/password_strength": 15,
         "drupal/path_redirect_import": 10,
         "drupal/pathologic": 15,
+        "drupal/post_api": 20,
         "drupal/role_delegation": 15,
         "drupal/site_alert": 20,
         "drupal/tour_ui": 10,
@@ -18986,5 +19088,6 @@
     "platform-dev": [],
     "platform-overrides": {
         "php": "7.1.3"
-    }
+    },
+    "plugin-api-version": "1.1.0"
 }
