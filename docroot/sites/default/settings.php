@@ -156,6 +156,7 @@ $settings['post_api_apikey'] = getenv('CMS_VAGOV_API_KEY') ?: FALSE;
 
 // Slack Webhook URL for csm-notifications channel.
 $settings['slack_webhook_url'] = getenv('CMS_VAGOV_SLACK_WEBHOOK_URL') ?: FALSE;
+$config['slack.settings']['slack_webhook_url'] = $settings['slack_webhook_url'];
 
 // Environment specific settings
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php')) {
