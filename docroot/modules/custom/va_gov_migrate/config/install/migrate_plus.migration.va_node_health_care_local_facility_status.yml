@@ -17,6 +17,8 @@ source:
   plugin: url
   data_fetcher_plugin: http
   data_parser_plugin: csv
+  # Selector should not be needed for CSV but the DataParser requires it.
+  item_selector: ''
   urls:
     - https://www.alaska.va.gov/locations/facilities.asp
     - https://www.albany.va.gov/locations/facilities.asp
