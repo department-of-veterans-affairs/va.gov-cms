@@ -8,10 +8,10 @@ dependencies:
     - field.field.node.vet_center.field_operating_status_facility
     - field.field.node.vet_center.field_operating_status_more_info
     - node.type.vet_center
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - field_group
-    - hide_revision_field
     - textfield_counter
 third_party_settings:
   field_group:
@@ -113,14 +113,10 @@ content:
     region: content
     third_party_settings: {  }
   revision_log:
-    type: hide_revision_field_log_widget
+    type: string_textarea
     weight: 6
     region: content
     settings:
-      show: true
-      default: ''
-      permission_based: false
-      allow_user_settings: true
       rows: 5
       placeholder: ''
     third_party_settings: {  }

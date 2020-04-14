@@ -23,7 +23,6 @@ dependencies:
     - datetime
     - entity_browser
     - field_group
-    - hide_revision_field
     - metatag
     - paragraphs
     - paragraphs_browser
@@ -260,14 +259,10 @@ content:
     third_party_settings: {  }
     region: content
   revision_log:
-    type: hide_revision_field_log_widget
+    type: string_textarea
     weight: 22
     region: content
     settings:
-      show: true
-      default: ''
-      permission_based: false
-      allow_user_settings: true
       rows: 5
       placeholder: ''
     third_party_settings: {  }
