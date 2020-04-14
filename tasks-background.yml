@@ -1,0 +1,30 @@
+# These are tasks that are called by Jenkins similar to cron..
+
+# Run with:  composer yaml-tests --tests-file=tasks-background.yml nightly
+va/background/nightly:
+  description: These commands are to run nightly.
+  command:
+    - drush $DRUSH_ALIAS migrate-reset-status va_node_health_care_local_facility
+    - drush $DRUSH_ALIAS migrate-import va_node_health_care_local_facility --update
+    - drush $DRUSH_ALIAS migrate-reset-status va_node_facility_vet_centers
+    - drush $DRUSH_ALIAS migrate-import va_node_facility_vet_centers --update
+    - drush $DRUSH_ALIAS migrate-reset-status va_node_facility_vba
+    - drush $DRUSH_ALIAS migrate-import va_node_facility_vba --update
+    - drush $DRUSH_ALIAS migrate-reset-status va_node_facility_nca
+    - drush $DRUSH_ALIAS migrate-import va_node_facility_nca --update
+
+# Run with:  composer yaml-tests --tests-file=tasks-background.yml 15min
+va/background/15min/migrate_reset:
+  description: Run migrate facility status reset every 15 min as called by Jenkins.
+  command:
+    - drush $DRUSH_ALIAS migrate-reset-status va_node_health_care_local_facility_status
+
+va/background/15min/migrate_facility_status:
+  description: Run migrate facility status to run every 15 min as called by Jenkins.
+  command:
+    - drush $DRUSH_ALIAS migrate-import va_node_health_care_local_facility_status --update
+
+va/background/15min/cron:
+  description: Run cron every 15 min as called by Jenkins.
+  command:
+    - drush $DRUSH_ALIAS cron
