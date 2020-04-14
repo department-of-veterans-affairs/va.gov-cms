@@ -1,6 +1,6 @@
 uuid: c40c9321-10e8-4d5b-9bc4-329dcda09ec1
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
@@ -25,24 +25,36 @@ dependencies:
     - field.field.node.event.field_url_of_an_online_event
     - node.type.event
   module:
+    - datetime_range
+    - text
     - user
 id: node.event.teaser
 targetEntityType: node
 bundle: event
 mode: teaser
 content:
-  links:
-    weight: 100
+  field_body:
+    type: text_default
+    weight: 0
+    region: content
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+  field_date:
+    type: daterange_custom
+    weight: 1
     region: content
+    label: hidden
+    settings:
+      timezone_override: America/New_York
+      date_format: 'l, M d Y h:i a'
+      separator: '-'
+    third_party_settings: {  }
 hidden:
   content_moderation_control: true
   field_additional_information_abo: true
   field_address: true
   field_administration: true
-  field_body: true
-  field_date: true
   field_description: true
   field_event_cost: true
   field_event_cta: true
@@ -57,4 +69,5 @@ hidden:
   field_meta_tags: true
   field_order: true
   field_url_of_an_online_event: true
+  links: true
   search_api_excerpt: true

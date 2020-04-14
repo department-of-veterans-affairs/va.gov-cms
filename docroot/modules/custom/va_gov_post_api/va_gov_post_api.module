@@ -1,0 +1,111 @@
+<?php
+
+/**
+ * @file
+ * Contains post_api.module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_entity_insert().
+ *
+ * Queues new items for sync.
+ */
+function post_api_entity_insert(EntityInterface $entity) {
+  _post_api_add_facility_to_queue($entity);
+}
+
+/**
+ * Implements hook_entity_update().
+ *
+ * Queues updated items for sync.
+ */
+function post_api_entity_update(EntityInterface $entity) {
+  _post_api_add_facility_to_queue($entity);
+}
+
+/**
+ * Adds facility data to Post API queue.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Entity.
+ */
+function _post_api_add_facility_to_queue(EntityInterface $entity) {
+  $facility_types = [
+    'health_care_local_facility',
+    'nca_facility',
+    'vba_facility',
+    'vet_center',
+  ];
+
+  if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $facility_types)) {
+    $queue = Drupal::service('post_api.add_to_queue');
+
+    $facility_id = $entity->hasField('field_facility_locator_api_id') ? $entity->field_facility_locator_api_id->value : NULL;
+
+    // Queue item's Unique ID.
+    $data['uid'] = $facility_id ? 'facility_status_' . $facility_id : NULL;
+
+    // Set a key based on which the endpoint will be
+    // defined during queue execution.
+    $data['endpoint_path'] = $facility_id ? '/services/va_facilities/v0/facilities/' . $facility_id . '/cms-overlay' : NULL;
+
+    // Set payload. Default payload provided by this module is empty.
+    // See README.md
+    // Entity fields (updated and original) can be compared and processed in
+    // order to structure the payload array.
+    $data['payload'] = _post_api_get_facility_payload($entity);
+
+    // Only add to queue if payload is not empty.
+    // If its empty, it means that there is no new information to send to
+    // endpoint.
+    if (!empty($data['payload'])) {
+      $queue->addToQueue($data, TRUE);
+    }
+  }
+}
+
+/**
+ * Compose and return payload array.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *
+ * @return array
+ *   Payload array.
+ */
+function _post_api_get_facility_payload(EntityInterface $entity) {
+  // Default payload is an empty array.
+  $payload = [];
+
+  // Current field values.
+  $operating_status = $entity->field_operating_status_facility->value;
+  $additional_info = $entity->field_operating_status_more_info->value;
+
+  if (isset($entity->original) && $entity->original instanceof EntityInterface) {
+    // Entity is updated.
+    $original_operating_status = $entity->original->field_operating_status_facility->value;
+    $original_additional_info = $entity->original->field_operating_status_more_info->value;
+
+    if ($operating_status !== $original_operating_status || $additional_info !== $original_additional_info) {
+      // One of the status values changed. Form the payload.
+      $payload = [
+        'operating_status' => [
+          'code' => strtoupper($operating_status),
+          'additional_info' => $additional_info,
+        ],
+      ];
+    }
+  }
+  else {
+    // Entity is new. Form the payload.
+    $payload = [
+      'operating_status' => [
+        'code' => strtoupper($operating_status),
+        'additional_info' => $additional_info,
+      ],
+    ];
+  }
+
+  return $payload;
+}

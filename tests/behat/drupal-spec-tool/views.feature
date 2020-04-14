@@ -16,7 +16,6 @@ Feature: Views
 | Recent content | content_recent | Content | Disabled | Recent content. |
 | Content served from Drupal | content_served_from_drupal | Content | Enabled | An exportable list of all content served from Drupal |
 | Content Entity Reference Source | content_entity_reference_source | Content | Enabled |  |
-| Custom block entity browsers | custom_block_entity_browsers | Custom Block | Enabled | For placing on content forms |
 | Facility Governance | facility_governance | Content | Enabled | Provides facility management tools. |
 | Files | files | Files | Enabled | Find and manage files. |
 | Frontpage | frontpage | Content | Enabled | All content promoted to frontpage |
@@ -50,6 +49,8 @@ Feature: Views
 | User history | user_history | User history | Enabled |  |
 | User history list | user_history_list | User history | Enabled |  |
 | User email csv | user_email_csv | Users | Enabled |  |
+| Listing page dashboard | listing_page_dashboard | Content | Enabled |  |
+| Custom block entity browsers | custom_block_entity_browsers | Custom Block | Enabled | For placing on content forms |
 
   @dst @views_displays
      Scenario: Views displays
@@ -76,8 +77,6 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: Publication Listing | entity_reference_2 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Story Listing | entity_reference_3 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
-| Custom block entity browsers | Alert block entity browsers | entity_browser_1 | Entity browser |
-| Custom block entity browsers | Master                      | default          | Master         |
 | Custom block library | Master | default | Master |
 | Custom block library | Page | page_1 | Page |
 | Facility Governance | Master | default | Master |
@@ -166,3 +165,8 @@ Feature: Views
 | User email csv | Data export | data_export_1 | Data export |
 | User email csv | Master | default | Master |
 | User email csv | Page | page_1 | Page |
+| Listing page dashboard | Master | default | Master |
+| Listing page dashboard | Past events | block_2 | Block |
+| Listing page dashboard | Upcoming events | block_1 | Block |
+| Custom block entity browsers | Alert block entity browsers | entity_browser_1 | Entity browser |
+| Custom block entity browsers | Master | default | Master |

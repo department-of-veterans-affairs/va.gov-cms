@@ -136,8 +136,8 @@ $config['govdelivery_bulletins.settings']['govdelivery_username'] = getenv('CMS_
 $config['govdelivery_bulletins.settings']['govdelivery_password'] = getenv('CMS_GOVDELIVERY_PASSWORD') ?: FALSE;
 
 // Set migration settings from environment variables.
-$facility_api_urls = [getenv('CMS_FACILITY_API_URL') . '/services/va_facilities/v0/facilities/all'];
-$facility_api_key = getenv('CMS_FACILITY_API_KEY');
+$facility_api_urls = [getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v0/facilities/all'];
+$facility_api_key = getenv('CMS_VAGOV_API_KEY');
 $facility_migrations = [
   'va_node_health_care_local_facility',
   'va_node_facility_vba',
@@ -149,6 +149,14 @@ foreach ($facility_migrations as $facility_migration) {
   $config["migrate_plus.migration.{$facility_migration}"]['source']['urls'] = $facility_api_urls;
   $config["migrate_plus.migration.{$facility_migration}"]['source']['headers']['apikey'] = $facility_api_key;
 }
+
+// Variables for post_api.
+$settings['post_api_endpoint_host'] = getenv('CMS_VAGOV_API_URL') ?: FALSE;
+$settings['post_api_apikey'] = getenv('CMS_VAGOV_API_KEY') ?: FALSE;
+
+// Slack Webhook URL for csm-notifications channel.
+$settings['slack_webhook_url'] = getenv('CMS_VAGOV_SLACK_WEBHOOK_URL') ?: FALSE;
+$config['slack.settings']['slack_webhook_url'] = $settings['slack_webhook_url'];
 
 // Environment specific settings
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php')) {
