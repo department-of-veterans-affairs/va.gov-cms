@@ -44,6 +44,8 @@ function _post_api_add_facility_to_queue(EntityInterface $entity) {
 
     $facility_id = $entity->hasField('field_facility_locator_api_id') ? $entity->field_facility_locator_api_id->value : NULL;
 
+    $data['nid'] = $entity->id();
+
     // Queue item's Unique ID.
     $data['uid'] = $facility_id ? 'facility_status_' . $facility_id : NULL;
 
