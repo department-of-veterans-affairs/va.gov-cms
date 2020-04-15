@@ -62,8 +62,12 @@ function _post_api_add_facility_to_queue(EntityInterface $entity) {
     // Only add to queue if payload is not empty.
     // If its empty, it means that there is no new information to send to
     // endpoint.
-    if (!empty($data['payload'])) {
+    if (!empty($data['payload']) && $facility_id) {
       $queue->addToQueue($data, TRUE);
+    }
+    else {
+      $message = sprintf('Post API: attempted to add an item with NID %d to queue, but it had no Facility API ID.', $entity->id());
+      Drupal::logger('va_gov_post_api')->error($message);
     }
   }
 }
