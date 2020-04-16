@@ -29,7 +29,6 @@ dependencies:
     - content_moderation
     - datetime_range
     - field_group
-    - hide_revision_field
     - link
     - linkit
     - media_library
@@ -307,14 +306,10 @@ content:
     settings: {  }
     third_party_settings: {  }
   revision_log:
-    type: hide_revision_field_log_widget
+    type: string_textarea
     weight: 16
     region: content
     settings:
-      show: true
-      default: ''
-      permission_based: false
-      allow_user_settings: true
       rows: 5
       placeholder: ''
     third_party_settings: {  }

@@ -6,6 +6,8 @@ dependencies:
     - field.storage.node.field_administration
     - node.type.nca_facility
     - taxonomy.vocabulary.administration
+  content:
+    - 'taxonomy_term:administration:d2ebe609-99ab-4f4c-b7bb-b5fa754ef4b6'
 id: node.nca_facility.field_administration
 field_name: field_administration
 entity_type: node
@@ -14,7 +16,9 @@ label: Owner
 description: 'The health care system that manages this local facility.'
 required: true
 translatable: true
-default_value: {  }
+default_value:
+  -
+    target_uuid: d2ebe609-99ab-4f4c-b7bb-b5fa754ef4b6
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'

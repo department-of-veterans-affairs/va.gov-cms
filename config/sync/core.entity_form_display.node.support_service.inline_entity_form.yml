@@ -11,7 +11,6 @@ dependencies:
     - field.field.node.support_service.field_phone_number
     - node.type.support_service
   module:
-    - hide_revision_field
     - link
     - telephone
 id: node.support_service.inline_entity_form
@@ -47,17 +46,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
   revision_log:
-    type: hide_revision_field_log_widget
-    weight: 5
-    region: content
+    weight: 6
     settings:
-      show: true
-      default: ''
-      permission_based: false
-      allow_user_settings: true
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+    type: string_textarea
+    region: content
   title:
     type: string_textfield
     weight: 0

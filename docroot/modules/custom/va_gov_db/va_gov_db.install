@@ -312,3 +312,15 @@ function va_gov_db_update_8010(&$sandbox) {
   $sandbox['finished'] = ($sandbox['current'] / $sandbox['total']);
 
 }
+
+/**
+ * Uninstall hide_revision_field.
+ */
+function va_gov_db_update_8011(&$sandbox) {
+  $unistall_modules = [
+    'hide_revision_field',
+  ];
+  $messages = _va_gov_db_uninstall_modules($unistall_modules);
+
+  return $messages;
+}
