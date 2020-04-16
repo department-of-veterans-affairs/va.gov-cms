@@ -65,7 +65,8 @@ function _post_api_add_facility_to_queue(EntityInterface $entity) {
     if (!empty($data['payload']) && $facility_id) {
       $queue->addToQueue($data, TRUE);
     }
-    else {
+    elseif (empty($facility_id)) {
+      // Log error on empty Facility Locator API ID.
       $message = sprintf('Post API: attempted to add an item with NID %d to queue, but it had no Facility API ID.', $entity->id());
       Drupal::logger('va_gov_post_api')->error($message);
     }
