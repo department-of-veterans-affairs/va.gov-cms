@@ -1,38 +1,40 @@
 # These are tasks that are called by Jenkins similar to cron..
 
-# Run with:  composer yaml-tests --tests-file=tasks-background.yml nightly
-va/background/nightly/migrate/health_care_local_facility:
+# Run with:  composer yaml-tests --tests-file=tasks-background.yml daily
+# http://jenkins.vfs.va.gov/job/cms/job/cms-daily
+va/background/daily/migrate/health_care_local_facility:
   description: These commands are to run nightly.
   command:
     - drush $DRUSH_ALIAS migrate-reset-status va_node_health_care_local_facility
     - drush $DRUSH_ALIAS migrate-import va_node_health_care_local_facility --update
 
-va/background/nightly/migrate/vet_centers_facility:
+va/background/daily/migrate/vet_centers_facility:
   description: These commands are to run nightly.
   command:
     - drush $DRUSH_ALIAS migrate-reset-status va_node_facility_vet_centers
     - drush $DRUSH_ALIAS migrate-import va_node_facility_vet_centers --update
 
-va/background/nightly/migrate/vba_facility:
+va/background/daily/migrate/vba_facility:
   description: These commands are to run nightly.
   command:
     - drush $DRUSH_ALIAS migrate-reset-status va_node_facility_vba
     - drush $DRUSH_ALIAS migrate-import va_node_facility_vba --update
 
-va/background/nightly/migrate/nca_facility:
+va/background/daily/migrate/nca_facility:
   description: These commands are to run nightly.
   command:
     - drush $DRUSH_ALIAS migrate-reset-status va_node_facility_nca
     - drush $DRUSH_ALIAS migrate-import va_node_facility_nca --update
 
-# Run with:  composer yaml-tests --tests-file=tasks-background.yml 15min
-va/background/15min/migrate/facility_status:
+# Run with:  composer yaml-tests --tests-file=tasks-background.yml periodic
+# http://jenkins.vfs.va.gov/job/cms/job/cms-periodic
+va/background/periodic/migrate/facility_status:
   description: Run migrate facility status to run every 15 min as called by Jenkins.
   command:
     - drush $DRUSH_ALIAS migrate-reset-status va_node_health_care_local_facility_status
     - drush $DRUSH_ALIAS migrate-import va_node_health_care_local_facility_status --update
 
-va/background/15min/cron:
+va/background/periodic/cron:
   description: Run cron every 15 min as called by Jenkins.
   command:
     - drush $DRUSH_ALIAS cron
