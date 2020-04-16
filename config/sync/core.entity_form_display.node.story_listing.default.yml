@@ -10,10 +10,10 @@ dependencies:
     - field.field.node.story_listing.field_meta_title
     - field.field.node.story_listing.field_office
     - node.type.story_listing
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - field_group
-    - hide_revision_field
     - metatag
     - path
     - textfield_counter
@@ -149,14 +149,10 @@ content:
     settings: {  }
     third_party_settings: {  }
   revision_log:
-    type: hide_revision_field_log_widget
+    type: string_textarea
     weight: 6
     region: content
     settings:
-      show: true
-      default: ''
-      permission_based: false
-      allow_user_settings: true
       rows: 5
       placeholder: ''
     third_party_settings: {  }

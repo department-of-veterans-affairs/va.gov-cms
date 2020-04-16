@@ -18,11 +18,11 @@ dependencies:
     - field.field.node.person_profile.field_photo_allow_hires_download
     - field.field.node.person_profile.field_suffix
     - node.type.person_profile
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - field_group
     - file
-    - hide_revision_field
     - media_library
     - metatag
     - path
@@ -203,7 +203,8 @@ content:
   field_media:
     type: media_library_widget
     weight: 5
-    settings: {  }
+    settings:
+      media_types: {  }
     region: content
     third_party_settings: {  }
   field_meta_tags:
@@ -268,14 +269,10 @@ content:
     region: content
     third_party_settings: {  }
   revision_log:
-    type: hide_revision_field_log_widget
+    type: string_textarea
     weight: 17
     region: content
     settings:
-      show: true
-      default: ''
-      permission_based: false
-      allow_user_settings: true
       rows: 5
       placeholder: ''
     third_party_settings: {  }

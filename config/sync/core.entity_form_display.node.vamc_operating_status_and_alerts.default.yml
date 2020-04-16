@@ -14,7 +14,6 @@ dependencies:
     - node.type.vamc_operating_status_and_alerts
   module:
     - field_group
-    - hide_revision_field
     - ief_table_view_mode
     - link
     - text
@@ -87,6 +86,7 @@ content:
       collapsible: false
       collapsed: false
       allow_duplicate: false
+      revision: false
     third_party_settings: {  }
     type: inline_entity_form_complex_table_view_mode
     region: content
@@ -103,6 +103,7 @@ content:
       match_operator: CONTAINS
       allow_new: false
       allow_duplicate: false
+      revision: false
     third_party_settings: {  }
     type: inline_entity_form_complex_table_view_mode
     region: content
@@ -129,14 +130,10 @@ content:
     type: text_textarea
     region: content
   revision_log:
-    type: hide_revision_field_log_widget
+    type: string_textarea
     weight: 5
     region: content
     settings:
-      show: true
-      default: ''
-      permission_based: false
-      allow_user_settings: true
       rows: 5
       placeholder: ''
     third_party_settings: {  }
