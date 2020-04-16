@@ -9,10 +9,10 @@ dependencies:
     - field.field.node.office.field_meta_tags
     - field.field.node.office.field_meta_title
     - node.type.office
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - field_group
-    - hide_revision_field
     - metatag
     - path
     - text
@@ -108,14 +108,10 @@ content:
     settings: {  }
     third_party_settings: {  }
   revision_log:
-    type: hide_revision_field_log_widget
+    type: string_textarea
     weight: 9
     region: content
     settings:
-      show: true
-      default: ''
-      permission_based: false
-      allow_user_settings: true
       rows: 5
       placeholder: ''
     third_party_settings: {  }

@@ -28,11 +28,11 @@ dependencies:
     - field.field.node.health_care_local_facility.field_region_page
     - field.field.node.health_care_local_facility.field_twitter
     - node.type.health_care_local_facility
+    - workflows.workflow.editorial
   module:
     - address
     - content_moderation
     - field_group
-    - hide_revision_field
     - link
     - linkit
     - media_library
@@ -299,7 +299,8 @@ content:
   field_media:
     type: media_library_widget
     weight: 7
-    settings: {  }
+    settings:
+      media_types: {  }
     region: content
     third_party_settings: {  }
   field_mental_health_phone:
@@ -385,14 +386,10 @@ content:
     settings: {  }
     third_party_settings: {  }
   revision_log:
-    type: hide_revision_field_log_widget
+    type: string_textarea
     weight: 9
     region: content
     settings:
-      show: true
-      default: ''
-      permission_based: false
-      allow_user_settings: true
       rows: 5
       placeholder: ''
     third_party_settings: {  }

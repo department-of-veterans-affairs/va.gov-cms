@@ -15,10 +15,10 @@ dependencies:
     - field.field.node.health_care_region_detail_page.field_related_links
     - field.field.node.health_care_region_detail_page.field_table_of_contents_boolean
     - node.type.health_care_region_detail_page
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - field_group
-    - hide_revision_field
     - metatag
     - paragraphs
     - paragraphs_browser
@@ -266,14 +266,10 @@ content:
     settings: {  }
     third_party_settings: {  }
   revision_log:
-    type: hide_revision_field_log_widget
+    type: string_textarea
     weight: 9
     region: content
     settings:
-      show: true
-      default: ''
-      permission_based: false
-      allow_user_settings: true
       rows: 5
       placeholder: ''
     third_party_settings: {  }

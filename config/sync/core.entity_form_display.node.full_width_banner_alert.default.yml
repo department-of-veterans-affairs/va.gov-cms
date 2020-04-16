@@ -19,7 +19,6 @@ dependencies:
     - node.type.full_width_banner_alert
   module:
     - field_group
-    - hide_revision_field
     - paragraphs
     - text
 third_party_settings:
@@ -257,14 +256,10 @@ content:
     third_party_settings: {  }
     region: content
   revision_log:
-    type: hide_revision_field_log_widget
+    type: string_textarea
     weight: 7
     region: content
     settings:
-      show: true
-      default: ''
-      permission_based: false
-      allow_user_settings: true
       rows: 5
       placeholder: ''
     third_party_settings: {  }

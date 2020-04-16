@@ -9,11 +9,11 @@ dependencies:
     - field.field.node.support_service.field_page_last_built
     - field.field.node.support_service.field_phone_number
     - node.type.support_service
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - datetime
     - field_group
-    - hide_revision_field
     - link
     - path
     - telephone
@@ -100,14 +100,10 @@ content:
     settings: {  }
     third_party_settings: {  }
   revision_log:
-    type: hide_revision_field_log_widget
+    type: string_textarea
     weight: 9
     region: content
     settings:
-      show: true
-      default: ''
-      permission_based: false
-      allow_user_settings: true
       rows: 5
       placeholder: ''
     third_party_settings: {  }

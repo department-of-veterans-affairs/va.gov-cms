@@ -18,7 +18,6 @@ dependencies:
   module:
     - content_moderation
     - field_group
-    - hide_revision_field
     - media_library
     - metatag
     - path
@@ -218,14 +217,10 @@ content:
     settings: {  }
     third_party_settings: {  }
   revision_log:
-    type: hide_revision_field_log_widget
+    type: string_textarea
     weight: 23
     region: content
     settings:
-      show: true
-      default: ''
-      permission_based: false
-      allow_user_settings: true
       rows: 5
       placeholder: ''
     third_party_settings: {  }
