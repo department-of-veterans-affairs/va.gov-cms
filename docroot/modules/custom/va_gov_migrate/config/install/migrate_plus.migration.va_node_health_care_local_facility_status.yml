@@ -273,7 +273,13 @@ process:
     default_value: draft
   uid:
     plugin: default_value
-    default_value: 0
+    default_value: 1317
+  revision_uid:
+    plugin: default_value
+    default_value: 1317
+  revision_log:
+    plugin: default_value
+    default_value: "Update of status by migration."
   type:
     plugin: default_value
     default_value: health_care_local_facility
@@ -285,6 +291,8 @@ destination:
   overwrite_properties:
     - field_operating_status_facility
     - field_operating_status_more_info
+    - revision_log
+    - revision_uid
 # Dependency on other migrations.
 migration_dependencies:
   required: {  }
