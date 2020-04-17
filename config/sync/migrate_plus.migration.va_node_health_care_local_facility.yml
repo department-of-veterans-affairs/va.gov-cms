@@ -200,7 +200,13 @@ process:
     default_value: draft
   uid:
     plugin: default_value
-    default_value: 0
+    default_value: 1317
+  revision_uid:
+    plugin: default_value
+    default_value: 1317
+  revision_log:
+    plugin: default_value
+    default_value: 'Update of status by migration.'
   type:
     plugin: default_value
     default_value: health_care_local_facility
@@ -218,5 +224,7 @@ destination:
     - field_facility_hours/value
     - field_mental_health_phone
     - field_phone_number
+    - revision_log
+    - revision_uid
 migration_dependencies:
   required: {  }

@@ -1,4 +1,4 @@
-uuid: f5f06d7a-d57d-4f68-9a01-12c66c7cea97
+uuid: 4783ada3-ebf9-4b37-ba3f-bd4cc1ce3936
 langcode: en
 status: true
 dependencies: {  }
@@ -106,6 +106,12 @@ process:
   uid:
     plugin: default_value
     default_value: 1317
+  revision_uid:
+    plugin: default_value
+    default_value: 1317
+  revision_log:
+    plugin: default_value
+    default_value: 'Update of status by migration.'
   type:
     plugin: default_value
     default_value: vet_center
@@ -115,5 +121,7 @@ destination:
   overwrite_properties:
     - field_operating_status_facility
     - field_operating_status_more_info
+    - revision_log
+    - revision_uid
 migration_dependencies:
   required: {  }
