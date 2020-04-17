@@ -107,7 +107,13 @@ process:
     default_value: draft
   uid:
     plugin: default_value
-    default_value: 0
+    default_value: 1317
+  revision_uid:
+    plugin: default_value
+    default_value: 1317
+  revision_log:
+    plugin: default_value
+    default_value: "Update of status by migration."
   type:
     plugin: default_value
     default_value: nca_facility
@@ -117,6 +123,8 @@ destination:
   default_bundle: nca_facility
   # Only these fields will be overwritten if the content changes in the API.
   overwrite_properties:
+    - revision_log
+    - revision_uid
     - title
 # Dependency on other migrations.
 migration_dependencies:

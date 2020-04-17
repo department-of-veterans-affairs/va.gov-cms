@@ -6,8 +6,52 @@
  */
 
 use Drupal\Core\Database\Database;
+use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\StreamWrapper\PublicStream;
+use Drupal\Core\Utility\UpdateException;
 use Drupal\migrate\MigrateMessage;
 use Drupal\migrate_tools\MigrateExecutable;
+use Psr\Log\LogLevel;
+
+
+/**
+ * Move a migration data file to public file system.
+ *
+ * @param string $filename
+ *   The filename with extension residing in data directory.
+ *
+ * @return string
+ *   Message of what was moved where.
+ *
+ * @throws Drupal\Core\Utility\UpdateException
+ */
+function _va_gov_migrate_move_data_file($filename) {
+  // Copy the example file to example directory.
+  $module_path = drupal_get_path('module', 'va_gov_migrate');
+  $file_source = "{$module_path}/data/{$filename}";
+  $destination = PublicStream::basePath() . "/migrate_source";
+  \Drupal::service('file_system')->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY);
+  $destination .= "/$filename";
+
+
+  $new_location = \Drupal::service('file_system')->copy($file_source, $destination, FileSystemInterface::EXISTS_REPLACE);
+  if (empty($new_location)) {
+    // Something went wrong. Throw exception.
+    throw new UpdateException(
+      t("Failed to move data source file: @file", ['@file' => $file_source])
+    );
+  }
+  else {
+    // Tell watchdog we moved the file.
+    Drupal::logger('va_gov_migrate')
+      ->log(LogLevel::INFO, "The file `%source_file` was moved to `%destination`", [
+        '%source_file' => $file_source,
+        '%destination' => $new_location,
+      ]);
+  }
+
+  return "Moved '$file_source' to '$new_location'";
+}
 
 /**
  * Make migration think family and service member benefits pages were migrated.
@@ -124,4 +168,12 @@ function _va_gov_migrate_add_nodes_to_migrate_map(string $migration_name, array 
   // Report what was done.
   $total = count($nodes_to_be_migratized);
   return "Added {$count}/{$total} nodes to migrate map table {$migration_map_table}.";
+}
+
+/**
+ * Move migration source file.
+ */
+function va_gov_migrate_update_8009(&$sandbox) {
+
+  return _va_gov_migrate_move_data_file('vet-center-facility-status.csv');
 }

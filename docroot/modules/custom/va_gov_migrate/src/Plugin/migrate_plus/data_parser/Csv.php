@@ -37,9 +37,27 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
    * @throws \GuzzleHttp\Exception\RequestException
    */
   protected function getSourceData($url) {
+    $data_fetcher = !empty($this->configuration['data_fetcher_plugin']) ? $this->configuration['data_fetcher_plugin'] : NULL;
     $response = $this->getDataFetcherPlugin()->getResponseContent($url);
+
+    switch ($data_fetcher) {
+      case 'http':
+        // This fetcher returns an object.
+        $content = $response->getContents();
+        break;
+
+      case 'file':
+        // This fetcher returns a string.
+        $content = $response;
+        break;
+
+      default:
+        // A data fetcher is either not defined or is not supported.
+        throw new MigrateException("The 'data_fetcher_plugin' must be specified and only 'file' or 'http' are supported.");
+    }
+
     // Remove items.
-    $csv = $this->cleanSource($response->getContents());
+    $csv = $this->cleanSource($content);
     $data = $this->parseRows($csv);
 
     return $data;
