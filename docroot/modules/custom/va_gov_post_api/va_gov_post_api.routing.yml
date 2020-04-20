@@ -1,0 +1,9 @@
+va_gov_post_api.admin_settings:
+  path: '/admin/config/va-gov-post-api/config'
+  defaults:
+    _form: '\Drupal\va_gov_post_api\Form\VaGovPostApiSettingsForm'
+    _title: 'VA.gov Post API Settings'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
