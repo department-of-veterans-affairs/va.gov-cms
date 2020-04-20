@@ -31,7 +31,7 @@ class VaGovPostApiSettingsForm extends FormBase {
     $form['bypass_data_check'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Bypass data comparison'),
-      '#description' => $this->t('If checked, all created and saved nodes will be queued for syncing bypassing a requirement for updated data.'),
+      '#description' => $this->t('If checked, all saved nodes will be queued for syncing bypassing a requirement for updated data.'),
       '#default_value' => $config->get('bypass_data_check'),
     ];
 
