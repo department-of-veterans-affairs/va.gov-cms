@@ -89,6 +89,19 @@ function _post_api_get_facility_payload(EntityInterface $entity) {
   $operating_status = $entity->field_operating_status_facility->value;
   $additional_info = $entity->field_operating_status_more_info->value;
 
+  $config = \Drupal::config('va_gov_post_api.settings');
+
+  // If bypass_data_check setting is enabled, do not check for data change,
+  // return the payload for the item immediately.
+  if ($config->get('bypass_data_check')) {
+    return [
+      'operating_status' => [
+        'code' => strtoupper($operating_status),
+        'additional_info' => $additional_info,
+      ],
+    ];
+  }
+
   if (isset($entity->original) && $entity->original instanceof EntityInterface) {
     // Entity is updated.
     $original_operating_status = $entity->original->field_operating_status_facility->value;
