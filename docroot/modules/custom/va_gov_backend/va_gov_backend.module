@@ -339,10 +339,9 @@ function _va_gov_backend_gtm_settings() {
   }
   $node = \Drupal::routeMatch()->getParameter('node');
   if ($node instanceof NodeInterface) {
-    $loaded_node = \Drupal::entityTypeManager()->getStorage('node')->load($node->id());
-    $last_path_arg = end(explode('/', $current_path));
+    $route = \Drupal::routeMatch()->getRouteName();
     // If we are on node view, get the alias.
-    if (is_numeric($last_path_arg)) {
+    if ($route === 'entity.node.canonical') {
       $current_path = $node->toUrl()->toString();
     }
     $sections['nodeID'] = $node->id();
@@ -351,7 +350,7 @@ function _va_gov_backend_gtm_settings() {
     $sections['contentTitle'] = $node->getTitle();
     $sections['contentType'] = $node->bundle();
 
-    $section_entity_id = $loaded_node->field_administration->getString();
+    $section_entity_id = $node->field_administration->getString();
     // Load up our section name.
     $section_entity_load = !empty($section_entity_load) ? Term::load($section_entity_id) : '';
     $sections['contentOwner'] = !empty($section_entity_load) ? $section_entity_load->getName() : '';
