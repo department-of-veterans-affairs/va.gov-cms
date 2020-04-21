@@ -238,7 +238,15 @@ process:
   sticky:
     plugin: default_value
     default_value: 0
-  field_operating_status_more_info: status_info
+  field_operating_status_more_info:
+    -
+      plugin: callback
+      callable: strip_tags
+      source: status_info
+    -
+      plugin: substr
+      start: 0
+      length: 300
   status:
     plugin: default_value
     default_value: 0
