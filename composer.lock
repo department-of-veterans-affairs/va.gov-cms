@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "63ecc394512ea34dd1ce5bf483ede171",
+    "content-hash": "6c730e2a75ea3961b8c90d2bd980f827",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4049,9 +4049,10 @@
                     }
                 },
                 "patches_applied": {
-                    "2815221 - Add quickedit to the latest-revision route": "https://www.drupal.org/files/issues/2019-11-27/2815221-125.patch",
-                    "Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch",
+                    "2807629 - Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch",
+                    "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2020-01-07/2893933-34.patch",
                     "2869592 - Disabled update module shouldn't produce a status report warning": "https://www.drupal.org/files/issues/2869592-remove-update-warning-7.patch",
+                    "2815221 - Add quickedit to the latest-revision route": "https://www.drupal.org/files/issues/2019-11-27/2815221-125.patch",
                     "1356276 - Allow profiles to define a base/parent profile and load them in the correct order": "https://www.drupal.org/files/issues/2019-11-05/1356276-531-8.8.x-4.patch",
                     "2914389 - Allow profiles to exclude dependencies of their parent": "https://www.drupal.org/files/issues/2018-07-09/2914389-8-do-not-test.patch"
                 }
@@ -5698,6 +5699,9 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "Use default lease time in claimItem()": "https://www.drupal.org/files/issues/2020-04-16/default-claim-time-3128425-2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -8955,7 +8959,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/post_api.git",
-                "reference": "0967ac2ed7782ced2361437f780646e9e4f0f4e4"
+                "reference": "330f54ef421b710525fae922117a9450a56c9564"
             },
             "require": {
                 "drupal/core": "^8 || ^9"
@@ -8967,7 +8971,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.x-dev",
-                    "datestamp": "1586793938",
+                    "datestamp": "1586980893",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -8989,7 +8993,7 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/post_api"
             },
-            "time": "2020-04-15T20:01:09+00:00"
+            "time": "2020-04-16T21:15:38+00:00"
         },
         {
             "name": "drupal/redirect",
