@@ -63,7 +63,11 @@ function _post_api_add_facility_to_queue(EntityInterface $entity) {
     // If its empty, it means that there is no new information to send to
     // endpoint.
     if (!empty($data['payload']) && $facility_id) {
-      $queue->addToQueue($data, TRUE);
+      $config = \Drupal::config('va_gov_post_api.settings');
+
+      // If bypass_data_check setting is enabled, do not dedupe, just force.
+      $dedupe = !empty($config->get('bypass_data_check')) ? FALSE : TRUE;
+      $queue->addToQueue($data, $dedupe);
     }
     elseif (empty($facility_id)) {
       // Log error on empty Facility Locator API ID.
