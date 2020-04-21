@@ -63,7 +63,11 @@ function _post_api_add_facility_to_queue(EntityInterface $entity) {
     // If its empty, it means that there is no new information to send to
     // endpoint.
     if (!empty($data['payload']) && $facility_id) {
-      $queue->addToQueue($data, TRUE);
+      $config = \Drupal::config('va_gov_post_api.settings');
+
+      // If bypass_data_check setting is enabled, do not dedupe, just force.
+      $dedupe = !empty($config->get('bypass_data_check')) ? FALSE : TRUE;
+      $queue->addToQueue($data, $dedupe);
     }
     elseif (empty($facility_id)) {
       // Log error on empty Facility Locator API ID.
@@ -90,19 +94,9 @@ function _post_api_get_facility_payload(EntityInterface $entity) {
   $additional_info = $entity->field_operating_status_more_info->value;
 
   $config = \Drupal::config('va_gov_post_api.settings');
+  $bypass_data_check = $config->get('bypass_data_check');
 
-  // If bypass_data_check setting is enabled, do not check for data change,
-  // return the payload for the item immediately.
-  if ($config->get('bypass_data_check')) {
-    return [
-      'operating_status' => [
-        'code' => strtoupper($operating_status),
-        'additional_info' => $additional_info,
-      ],
-    ];
-  }
-
-  if (isset($entity->original) && $entity->original instanceof EntityInterface) {
+  if (isset($entity->original) && ($entity->original instanceof EntityInterface) && (!$bypass_data_check)) {
     // Entity is updated.
     $original_operating_status = $entity->original->field_operating_status_facility->value;
     $original_additional_info = $entity->original->field_operating_status_more_info->value;
