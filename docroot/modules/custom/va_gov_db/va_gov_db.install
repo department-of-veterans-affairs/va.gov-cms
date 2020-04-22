@@ -242,9 +242,9 @@ function va_gov_db_update_8011(&$sandbox) {
 }
 
 /**
- * Set field_intro_text_limited_html field to new wysiwyg type.
+ * Move field_intro_text to field_intro_text_limited_html wysiwyg field.
  */
-function va_gov_db_update_8012(&$sandbox) {
+function va_gov_db_update_8015(&$sandbox) {
   // Grab our nodes and set the count.
   if (empty($sandbox['total'])) {
     $sandbox['nids_process'] = \Drupal::entityQuery('node')
@@ -262,10 +262,14 @@ function va_gov_db_update_8012(&$sandbox) {
       break;
     }
     $node = Node::load($nid);
-    // Add revision log message here with uid 1317.
-    $node->setRevisionLogMessage('New revision created by uid 1317.');
+    // Make this change a new revision.
+    $node->setNewRevision(TRUE);
+    // Set revision author to uid 1317.
+    $node->setRevisionAuthorId(1317);
+    // Set revision log message.
+    $node->setRevisionLogMessage('Automated move of text from intro_text to intro_text_limited_html');
     $node->save();
-    unset($sandbox['nids_process'][$nid]);
+    unset($sandbox['nids_process'][$revision]);
     $i++;
 
     $nids .= $nid . ', ';
@@ -283,6 +287,6 @@ function va_gov_db_update_8012(&$sandbox) {
   $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
   // Log the all finsished notice.
   if ($sandbox['#finished'] == 1) {
-    Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Batch operation in va_gov_db_update_8012 completed.');
+    Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'RE-saving all page nodes completed by va_gov_db_update_8012.');
   }
 }
