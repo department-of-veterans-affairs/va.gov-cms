@@ -99,7 +99,7 @@ class QueueItemProcessedEventSubscriber implements EventSubscriberInterface, Con
       $facility_id = str_replace('facility_status_', '', $item_data['uid']);
       $message = sprintf('Post API: facility %s doesn\'t exist and was removed from queue. POST response code - %d. ENV: %s.', $facility_id, $response_code, getenv('CMS_ENVIRONMENT_TYPE'));
 
-      $this->logger->get('va_gov_post_api')->info($message);
+      $this->logger->get('va_gov_post_api')->warning($message);
 
       if ($this->moduleHandler->moduleExists('slack')) {
         $slack_config = $this->config->get('slack.settings');
