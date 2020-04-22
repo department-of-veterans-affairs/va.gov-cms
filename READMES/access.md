@@ -1,10 +1,15 @@
 # CMS Environment Access
 
-## SOCKS Proxy or CAG Access
+## Web & Shell access 
+
+1. **Web Access** to the CMS environments via web browser is restricted to users with SOCKS Proxy or CAG access.
+2. **Shell Access** is granted using the `sshuttle` tool. 
+
+### SOCKS Proxy or CAG Access
 
 To access any CMS or VA environment, you must connect with either CAG or SOCKS proxy.
 
-### SOCKS Proxy
+### SOCKS Proxy Setup
 
   1. Add the following to `~/.ssh/config`:
 
@@ -32,6 +37,14 @@ To access any CMS or VA environment, you must connect with either CAG or SOCKS p
             $ composer va:proxy:test
                   - or -
             $ composer v:p:t
+
+### SSH Access
+
+To SSH into the DevShop server and access CI environments, you must add an entry to your local hosts file:
+
+    10.247.104.242 devshop.cms.va.gov 
+
+This is because there is no DNS entry for the server. 
 
 ## CMS Production, Staging, Dev 
 
