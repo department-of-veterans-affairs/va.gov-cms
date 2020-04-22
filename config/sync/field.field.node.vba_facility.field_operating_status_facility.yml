@@ -1,0 +1,23 @@
+uuid: 562129c4-81ae-4f3d-aee5-98227fc9de62
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_operating_status_facility
+    - node.type.vba_facility
+  module:
+    - options
+id: node.vba_facility.field_operating_status_facility
+field_name: field_operating_status_facility
+entity_type: node
+bundle: vba_facility
+label: 'Operating status'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: normal
+default_value_callback: ''
+settings: {  }
+field_type: list_string

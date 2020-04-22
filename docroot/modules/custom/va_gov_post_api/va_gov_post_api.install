@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * @file
+ * Update functions for the va_gov_post_api module.
+ */
+
+use Drupal\Core\Utility\UpdateException;
+use Drupal\node\Entity\Node;
+use Psr\Log\LogLevel;
+
+/**
+ * Trigger save of ALL facility nodes to sync lighthouse with CMS.
+ */
+function va_gov_post_api_update_8001(&$sandbox) {
+  $config = \Drupal::service('config.factory')->getEditable('va_gov_post_api.settings');
+
+  // Grab our nodes and set the count.
+  if (empty($sandbox['total'])) {
+    // Enable force update
+    $config
+      ->set('bypass_data_check', 1)
+      ->save();
+    // Query and gather all facility nodes.
+    $facility_types = [
+      'health_care_local_facility',
+      'nca_facility',
+      'vba_facility',
+      'vet_center',
+    ];
+    $sandbox['nids_process'] = [];
+    foreach ($facility_types as $facility_type) {
+      $nids = \Drupal::entityQuery('node')
+        ->condition('type', $facility_type)
+        ->execute();
+      $sandbox['nids_process'] = array_merge($sandbox['nids_process'], $nids);
+    }
+    $sandbox['total'] = count($sandbox['nids_process']);
+    $sandbox['current'] = 0;
+  }
+
+  // Run through a batch of 50.
+  $nids = array_slice($sandbox['nids_process'], $sandbox['current'], 50, FALSE);
+
+  $nodes = Node::loadMultiple($nids);
+  foreach ($nodes as $node) {
+
+    _post_api_add_facility_to_queue($node);
+    $sandbox['current']++;
+  }
+  // Tell drupal we processed some nodes.
+  Drupal::logger('va_gov_post_api')
+    ->log(LogLevel::INFO, 'Facility nodes %current / %total nodes queued for Lighthouse. Nodes processed: %nids', [
+      '%current' => $sandbox['current'],
+      '%nids' => implode(', ', $nids),
+      '%total' => $sandbox['total'],
+    ]);
+
+  // Determine when to stop batching.
+  $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
+  if ($sandbox['#finished'] === 1) {
+    Drupal::logger('va_gov_post_api')
+    ->log(LogLevel::INFO, 'Completed all %total nodes queued for Lighthouse.', [
+      '%total' => $sandbox['total'],
+    ]);
+    $config
+      ->set('bypass_data_check', 0)
+      ->save();
+     return "Completed updating ALL facility nodes.";
+  }
+}

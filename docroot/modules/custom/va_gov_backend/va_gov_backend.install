@@ -5,6 +5,7 @@
  * Install file for Va Gov Backend.
  */
 
+use Drupal\field\Entity\FieldConfig;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\node\Entity\Node;
 use Drupal\pathauto\PathautoState;
@@ -181,5 +182,107 @@ function va_gov_backend_update_8003() {
       '%ct_count' => count($nodes),
       '%ct_updated' => $updated,
     ]);
+  }
+}
+
+/**
+ * Update the Owner for terms in health_care_service_taxonomy vocab.
+ */
+function va_gov_backend_update_8004() {
+  $updated = 0;
+  $failed = 0;
+
+  // "National health care service descriptions" term ID.
+  $tid = 46;
+
+  $storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $terms = $storage->loadByProperties(['vid' => 'health_care_service_taxonomy']);
+
+  foreach ($terms as $term) {
+    // Check if owner is already set to term tid 46.
+    $owner = intval($term->field_owner->target_id);
+    if ($owner !== $tid) {
+      $term->set('field_owner', NULL);
+      $term->field_owner[] = ['target_id' => $tid];
+      try {
+        $saved = $term->save();
+        $updated = (is_int($saved) && $saved > 0) ? $updated + 1 : $updated;
+        Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'VHA health service taxonomy: Updated owner for term "%term_name".', [
+          '%term_name' => $term->label(),
+        ]);
+      }
+      catch (\Exception $e) {
+        $failed = (is_int($saved) && $saved <= 0) ? $failed + 1 : $failed;
+        Drupal::logger('va_gov_backend')->log(LogLevel::ERROR, 'VHA health service taxonomy: Error updating owner for term "%term_name". Do it manually. Error message: %error_message.', [
+          '%term_name' => $term->label(),
+          '%error_message' => $e->getMessage(),
+        ]);
+      }
+    }
+  }
+
+  Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'VHA health service taxonomy: Successfully updated an owner for %updated out of %count terms. Failed to update %failed out of %count terms.', [
+    '%count' => count($terms),
+    '%updated' => $updated,
+    '%failed' => $failed,
+  ]);
+}
+
+/**
+ * Resave nodes of some content types to regenerate path alias.
+ */
+function va_gov_backend_update_8005() {
+
+  // Adding event ct here, to cover any aliases from VACMS-1328.
+  $bundles = [
+    'event',
+    'health_care_local_health_service',
+    'outreach_asset',
+    'regional_health_care_service_des',
+    'support_service',
+  ];
+
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+
+  foreach ($bundles as $bundle) {
+    $updated = 0;
+    $failed = 0;
+    $failed_nids = [];
+    $entities = $storage->loadByProperties(['type' => $bundle]);
+
+    foreach ($entities as $entity) {
+      // Save in order to update path alias without creating a new revision.
+      $saved = $entity->save();
+      $updated = (is_int($saved) && $saved > 0) ? $updated + 1 : $updated;
+      $failed = (is_int($saved) && $saved <= 0) ? $failed + 1 : $failed;
+      $failed_nids = (is_int($saved) && $saved <= 0) ? $failed_nids[$entity->id()] : $failed_nids;
+    }
+
+    Drupal::logger('va_gov_backend')
+      ->log(LogLevel::INFO, 'Path Alias for %bundle: Successfully updated path alias for %updated out of %count entities. %failed %failed_nids', [
+        '%bundle' => $bundle,
+        '%count' => count($entities),
+        '%updated' => $updated,
+        '%failed' => $failed ? 'Failed to update ' . $failed . ' out of %count.' : NULL,
+        '%failed_nids' => count($failed_nids) ? 'Failed nids: ' . implode(', ', $failed_nids) . '.' : NULL,
+      ]);
+  }
+}
+
+/**
+ * Remove field_office from four content types.
+ */
+function va_gov_backend_update_8006() {
+  $bundles = [
+    'event',
+    'news_story',
+    'press_release',
+    'publication',
+  ];
+  foreach ($bundles as $bundle) {
+    $field = FieldConfig::loadByName('node', $bundle, 'field_office');
+    if ($field) {
+      $field->delete();
+    }
   }
 }

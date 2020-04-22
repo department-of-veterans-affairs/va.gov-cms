@@ -9,9 +9,12 @@ use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
-use Drupal\node\NodeInterface;
+use Drupal\taxonomy\Entity\Term;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 
 /**
  * Implements hook_help().
@@ -130,6 +133,63 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     // @todo Consider disabling it instead of hiding it.
     $form['field_office']['#attributes']['class'] = 'hidden';
   }
+
+  if ($form_id === 'views_bulk_operations_configure_action') {
+    $build_info = $form_state->getBuildInfo();
+    // We need to target only the VBO "Modify field values" form from
+    // Facility Status tool.
+    if ($build_info['args'][0] === 'facility_governance' && $build_info['args'][1] === 'page_1') {
+      _va_gov_backend_vbo_facility_status_form_ui($form, $form_state);
+    }
+  }
+}
+
+/**
+ * Modifies UI of the Facility Status VBO Modify Field Values form.
+ *
+ * The form that allows the user to modify field values contains too many
+ * options that are irrelevant to the primary purpose of the tool. This
+ * function modifies the form to eliminate UI noise.
+ *
+ * @param array $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function _va_gov_backend_vbo_facility_status_form_ui(&$form, FormStateInterface $form_state) {
+  // This if Facility Status form.
+  // Clean up the UI.
+  $bundle_fields = [];
+  $entity_data = (isset($form['node']) && is_array($form['node'])) ? $form['node'] : NULL;
+
+  if (!empty($entity_data)) {
+    foreach ($entity_data as $bundle => $data) {
+      if (is_array($data)) {
+        $bundle_fields[$bundle] = $data;
+      }
+    }
+  }
+
+  foreach ($bundle_fields as $bundle => $fields) {
+    if (is_array($fields)) {
+      foreach ($fields as $field_name => $field_meta) {
+        $form['node'][$bundle]['#open'] = TRUE;
+        if (!in_array($field_name, ['field_operating_status_facility', 'field_operating_status_more_info']) && strpos($field_name, '#', 0) === FALSE) {
+          // Remove all facility content type fields that are not related
+          // to Operating status and Op info from field_selection form.
+          unset($form['node'][$bundle]['_field_selector'][$field_name]);
+
+          if (strpos($field_name, '_field_selector', 0) === FALSE) {
+            // Remove all facility content type fields that are not related
+            // to Operating status and Op info from vbo content type form.
+            unset($form['node'][$bundle][$field_name]);
+          }
+        }
+      }
+    }
+  }
+
+  // Remove multi-value field options, since none of the fields we're editing
+  // are multi-value.
+  unset($form['options']);
 }
 
 /**
@@ -244,15 +304,67 @@ function va_gov_backend_inline_entity_form_entity_form_alter(&$entity_form, $for
  * Implements hook_page_attachments().
  */
 function va_gov_backend_page_attachments(array &$attachments) {
-  $attachments['#attached']['library'][] = 'va_gov_backend/alert_form';
+  // Add GTM to cms theme.
+  $attachments['#attached']['library'][] = 'va_gov_backend/gtm_tag_push';
+  // Track GTM click events.
+  $attachments['#attached']['library'][] = 'va_gov_backend/gtm_tag_trackers';
 
-  // Add custom css for paragraph browser.
+  // Pass our relevant data to settings.
+  $attachments['#attached']['drupalSettings']['gtm_data'] = _va_gov_backend_gtm_settings();
+
+  $attachments['#attached']['library'][] = 'va_gov_backend/alert_form';
   $is_admin = \Drupal::service('router.admin_context')->isAdminRoute();
   if ($is_admin) {
+    // Add custom css for paragraph browser.
     $attachments['#attached']['library'][] = 'va_gov_backend/admin_styles';
-  }
 
-  $attachments['#attached']['library'][] = 'va_gov_backend/system_styles';
+    return;
+  }
+}
+
+/**
+ * Builds section associations for gtm push array.
+ *
+ * @return array
+ *   Keyed array of the section item names.
+ */
+function _va_gov_backend_gtm_settings() {
+  $sections = [];
+  $current_path = \Drupal::service('path.current')->getPath();
+  $request = \Drupal::request();
+  // Grab our page title.
+  if ($route = $request->attributes->get(RouteObjectInterface::ROUTE_OBJECT)) {
+    $page_title = \Drupal::service('title_resolver')->getTitle($request, $route);
+    $sections['pageTitle'] = $page_title;
+  }
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof NodeInterface) {
+    $route = \Drupal::routeMatch()->getRouteName();
+    // If we are on node view, get the alias.
+    if ($route === 'entity.node.canonical') {
+      $current_path = $node->toUrl()->toString();
+    }
+    $sections['nodeID'] = $node->id();
+    $sections['pageTitle'] = $node->getTitle();
+    $sections['pagePath'] = $current_path;
+    $sections['contentTitle'] = $node->getTitle();
+    $sections['contentType'] = $node->bundle();
+
+    $section_entity_id = $node->field_administration->getString();
+    // Load up our section name.
+    $section_entity_load = !empty($section_entity_load) ? Term::load($section_entity_id) : '';
+    $sections['contentOwner'] = !empty($section_entity_load) ? $section_entity_load->getName() : '';
+  }
+  return $sections;
+}
+
+/**
+ * Implements hook_page_bottom().
+ */
+function va_gov_backend_page_bottom(array &$page_bottom) {
+  // Add GTM noscript iframe to body.
+  $gtm_noscript = Markup::create('<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ3DLLB&gtm_auth=GDc7Zfyf8G-0S5j8FC1WXQ&gtm_preview=env-5&gtm_cookies_win=x" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>');
+  $page_bottom['va_gov_backend'] = ['#markup' => $gtm_noscript];
 }
 
 /**
@@ -343,71 +455,68 @@ function va_gov_backend_pathauto_alias_alter(&$alias, array &$context) {
 
 /**
  * Implements hook_entity_presave().
+ *
+ * @todo: Remove node page wysiwyg sync after VACMS-1163 is on prod.
  */
 function va_gov_backend_entity_presave(EntityInterface $entity) {
   $bundle_types = ['event', 'news_story', 'press_release', 'outreach_asset'];
 
-  if ($entity->getEntityTypeId() == 'node' && in_array($entity->bundle(), $bundle_types)) {
-    _va_gov_backend_sync_office_listing_fields($entity);
+  if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $bundle_types)) {
+    _va_gov_backend_feature_bump($entity);
+  }
+
+  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'page') {
+    _va_gov_backend_sync_wysiwyg_fields($entity);
   }
 }
 
 /**
- * Sync field_listing with field_office.
+ * Unfeature other items of same bundle in system.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   Entity.
- *
- * @todo: Use this function in hook_update_n() - VACMS-1239 Phase 2.
  */
-function _va_gov_backend_sync_office_listing_fields(EntityInterface $entity) {
-  $entity_listing_mapping = [
-    'news_story' => 'story_listing',
-    'press_release' => 'press_releases_listing',
-    'outreach_asset' => 'publication_listing',
-  ];
-
-  // Deduct field_listing value from field_office.
-  // Assuming that there's only one Listing node for each office+content type.
-  // ^ confirmed in current DB.
-  $office = $entity->hasField('field_office') ? $entity->get('field_office')->target_id : NULL;
-
-  $entity_ref = $office ? Drupal::entityTypeManager()->getStorage('node')->load($office) : NULL;
-
-  switch ($entity->bundle()) {
-    case 'event':
-      // Check if the entity reference is an event_listing.
-      if ($entity_ref && $entity_ref->bundle() === 'event_listing') {
-        // Store reference in field_listing.
-        $entity->set('field_listing', NULL);
-        $entity->field_listing[] = ['target_id' => $office];
+function _va_gov_backend_feature_bump(EntityInterface $entity) {
+  // Check to see if this entity has a featured option.
+  if (!empty($entity->field_featured)) {
+    $status = $entity->field_featured->value;
+    $bundle = $entity->bundle();
+    $target = $entity->field_listing->target_id;
+    // If this is our feature item, start the process.
+    if ($status === 1) {
+      // Look for all of same bundle in system that are also featured.
+      $select = \Drupal::database()->select('node__field_featured', 'nff');
+      $select->join('node__field_listing', 'nfl', 'nfl.entity_id = nff.entity_id');
+      $select->fields('nff', ['entity_id'])
+      // We don't want to operate on current node.
+        ->condition('nff.entity_id', $entity->id(), '!=')
+        ->condition('nff.field_featured_value', 1)
+        ->condition('nfl.field_listing_target_id', $target)
+        ->condition('nff.bundle', $bundle);
+      $results = $select->execute()->fetchAllKeyed();
+      // Better to use entity api than raw db query to get drupal magic.
+      $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple(array_keys($results));
+      foreach ($nodes as $node) {
+        // Set the others to unfeatured.
+        $node->field_featured->value = 0;
+        $node->save();
       }
-      else {
-        // Find event_listing by office or health_care_region_page id.
-        $result = Drupal::entityQuery('node')
-          ->condition('type', 'event_listing')
-          ->condition('field_office', $office)
-          ->execute();
+    }
+  }
+}
 
-        _va_gov_backend_set_field_listing_value($entity, $entity_listing_mapping, reset($result));
-      }
-      break;
-
-    // Story; News release; Publication.
-    case 'news_story':
-    case 'press_release':
-    case 'outreach_asset':
-      // Check if the entity reference is an office or health_care_region_page.
-      if ($entity_ref && in_array($entity_ref->bundle(), ['office', 'health_care_region_page'])) {
-        // Find *_listing node by office or health_care_region_page id.
-        $result = Drupal::entityQuery('node')
-          ->condition('type', $entity_listing_mapping[$entity->bundle()])
-          ->condition('field_office', $office)
-          ->execute();
-
-        _va_gov_backend_set_field_listing_value($entity, $entity_listing_mapping, reset($result));
-      }
-      break;
+/**
+ * Sync field_intro_text with field_intro_text_limited_html.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Entity.
+ */
+function _va_gov_backend_sync_wysiwyg_fields(EntityInterface $entity) {
+  // Match the new intro field with the old intro field.
+  if ($entity->hasField('field_intro_text_limited_html')) {
+    $intro_text_field_data = $entity->field_intro_text->value;
+    $entity->field_intro_text_limited_html->value = $intro_text_field_data;
+    $entity->field_intro_text_limited_html->format = 'rich_text_limited';
   }
 }
 

@@ -13,6 +13,8 @@ The following table lists all environments and CMS/WEB sites used in the develop
 | [CI / PR](1)  <br> Pull Requests & Automated Testing           | pr###.ci.cms.va.gov     |  pr###.web.ci.cms.va.gov <br>  pr###.ci.cms.va.gov/static <br> pr###.ci.cms.va.gov/$URL?_format=static_html  | [CMS-CI: DevShop](1)
 | [Demos](2) <br> Demos & Training       | NAME.demo.ci.cms.va.gov |  NAME.web.demo.ci.cms.va.gov  <br> NAME.demo.ci.cms.va.gov/static <br> NAME.demo.ci.cms.va.gov/$URL?_format=static_html | [CMS-CI: DevShop](1)
 
+For more information on how access these environments see [Access](./access.md)
+
 ## What is an Environment?
 
 *Environments* are copies of the production site that are running newer
@@ -58,7 +60,7 @@ Within the [CMS-CI](1) platform, in the "demo" project, users can "Create New En
 5. If you wish to copy [prod.cms.va.gov](http://prod.cms.va.gov) using the latest content, do not change any additional options.
 
     **For advanced users, such as those testing out new functionality:**
-
+s
     6. If you want to test out the CMS on a developer's branch, click the **Branch, Tag, or Pull Request** field, and start typing the name or pull request title you wish to use.
     7. If you wish to copy a existing demo environment, instead of prod, click **Advanced Options** and select *Clone Environment* under *Install Method*.
     8. If you wish to add additional *Domain Names* to this environment, click  **Advanced Options** and then *Domain Names*. Any extra domain names must be in the pattern "*.ci.cms.va.gov".

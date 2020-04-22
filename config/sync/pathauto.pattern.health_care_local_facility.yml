@@ -5,18 +5,18 @@ dependencies:
   module:
     - node
 id: health_care_local_facility
-label: 'Health Care Local Facility'
+label: 'VAMC Facility'
 type: 'canonical_entities:node'
 pattern: '[node:field_region_page:entity:url:path]/locations/[node:title]'
 selection_criteria:
-  f45524d9-5a02-49ca-97cf-2b3b37649c1b:
+  e76d80fc-b2d9-4db7-bb80-9109b58003ed:
     id: node_type
     bundles:
       health_care_local_facility: health_care_local_facility
     negate: false
     context_mapping:
       node: node
-    uuid: f45524d9-5a02-49ca-97cf-2b3b37649c1b
+    uuid: e76d80fc-b2d9-4db7-bb80-9109b58003ed
 selection_logic: and
 weight: -9
 relationships: {  }

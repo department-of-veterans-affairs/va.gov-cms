@@ -1,0 +1,24 @@
+uuid: b9e31b42-4af1-40a4-a334-3f009c1604f2
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: vba_facility_nca_facility_veterans_center
+label: 'VBA facility, NCA facility, Vet Center'
+type: 'canonical_entities:node'
+pattern: '[node:field_administration:entity:name]/locations/[node:title]'
+selection_criteria:
+  5de410e5-a60f-4b32-8a8a-47f36a209963:
+    id: node_type
+    bundles:
+      vet_center: vet_center
+      nca_facility: nca_facility
+      vba_facility: vba_facility
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 5de410e5-a60f-4b32-8a8a-47f36a209963
+selection_logic: and
+weight: -5
+relationships: {  }

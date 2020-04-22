@@ -1,0 +1,22 @@
+uuid: 3ea2e6bf-99a9-49b8-bbec-3b87d9bd3fa4
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.nca_facility
+id: node.nca_facility.status
+field_name: status
+entity_type: node
+bundle: nca_facility
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

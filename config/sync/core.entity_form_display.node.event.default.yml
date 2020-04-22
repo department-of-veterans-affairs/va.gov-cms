@@ -20,7 +20,6 @@ dependencies:
     - field.field.node.event.field_location_type
     - field.field.node.event.field_media
     - field.field.node.event.field_meta_tags
-    - field.field.node.event.field_office
     - field.field.node.event.field_order
     - field.field.node.event.field_url_of_an_online_event
     - node.type.event
@@ -30,7 +29,6 @@ dependencies:
     - content_moderation
     - datetime_range
     - field_group
-    - hide_revision_field
     - link
     - linkit
     - media_library
@@ -166,7 +164,7 @@ content:
     type: text_textarea
     region: content
   field_address:
-    weight: 16
+    weight: 17
     settings: {  }
     third_party_settings: {  }
     type: address_default
@@ -200,7 +198,7 @@ content:
     type: string_textfield
     region: content
   field_event_cost:
-    weight: 33
+    weight: 32
     settings:
       size: 60
       placeholder: ''
@@ -247,6 +245,12 @@ content:
     third_party_settings: {  }
     type: link_default
     region: content
+  field_listing:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_location_humanreadable:
     weight: 15
     settings:
@@ -273,12 +277,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
-    region: content
-  field_office:
-    weight: 2
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
     region: content
   field_order:
     weight: 11
@@ -307,18 +305,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  revision_log:
-    type: hide_revision_field_log_widget
-    weight: 16
-    region: content
-    settings:
-      show: true
-      default: ''
-      permission_based: false
-      allow_user_settings: true
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
@@ -343,7 +329,6 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
-  field_listing: true
   promote: true
   status: true
   sticky: true
