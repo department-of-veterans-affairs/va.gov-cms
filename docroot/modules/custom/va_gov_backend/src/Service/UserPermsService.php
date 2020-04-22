@@ -58,6 +58,24 @@ class UserPermsService {
   }
 
   /**
+   * Returns the section and parents to which an entity belongs.
+   *
+   * @param int $tid
+   *   The term id for the lookup.
+   *
+   * @return array
+   *   The ancestor terms going up the tree.
+   */
+  public function entitySections($tid) {
+    $ancestors = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")->loadAllParents($tid);
+    $list = [];
+    foreach ($ancestors as $term) {
+      $list[$term->id()] = $term->label();
+    }
+    return $list;
+  }
+
+  /**
    * Check which values are allowed and put into array.
    *
    * @param array $form
@@ -166,7 +184,7 @@ class UserPermsService {
     $query->condition('s.user_id_target_id', $account->id());
     $query->condition('s.entity_id', 4);
     $query->fields('s', ['entity_id']);
-    $results = $query->execute()->fetchAll();
+    $results = $query->execute()->fetchField();
 
     // Compare user sections against subject section to determine access.
     return array_reduce(\Drupal::entityTypeManager()->getStorage('access_scheme')->loadMultiple(), function (AccessResult $carry, AccessSchemeInterface $scheme) use ($entity, $op, $account, $results) {
