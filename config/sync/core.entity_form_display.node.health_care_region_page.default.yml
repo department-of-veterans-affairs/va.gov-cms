@@ -63,7 +63,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
       weight: 13
       format_type: fieldset
@@ -185,7 +184,6 @@ third_party_settings:
       children:
         - title
         - field_vamc_system_official_name
-        - field_nickname_for_this_facility
         - field_intro_text
       parent_name: ''
       weight: 0
@@ -451,14 +449,6 @@ content:
     third_party_settings: {  }
     type: string_textfield_with_counter
     region: content
-  field_nickname_for_this_facility:
-    weight: 3
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_operating_status:
     weight: 37
     settings:
@@ -563,6 +553,7 @@ hidden:
   field_link_facility_emerg_list: true
   field_link_facility_news_list: true
   field_links: true
+  field_nickname_for_this_facility: true
   field_sign_up_for_emergency_emai: true
   promote: true
   sticky: true
