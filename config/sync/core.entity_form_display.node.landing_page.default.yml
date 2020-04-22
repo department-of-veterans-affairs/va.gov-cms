@@ -28,7 +28,6 @@ dependencies:
     - datetime
     - entity_browser
     - field_group
-    - hide_revision_field
     - inline_entity_form
     - linkit
     - metatag
@@ -336,18 +335,6 @@ content:
     weight: 6
     region: content
     settings: {  }
-    third_party_settings: {  }
-  revision_log:
-    type: hide_revision_field_log_widget
-    weight: 21
-    region: content
-    settings:
-      show: true
-      default: ''
-      permission_based: false
-      allow_user_settings: true
-      rows: 5
-      placeholder: ''
     third_party_settings: {  }
   title:
     type: string_textfield

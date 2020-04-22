@@ -7,16 +7,16 @@ dependencies:
 id: news_story
 label: Story
 type: 'canonical_entities:node'
-pattern: '[node:field_office:entity:url:path]/stories/[node:title]'
+pattern: '[node:field_listing:entity:field_office:entity:url:path]/stories/[node:title]'
 selection_criteria:
-  17fd564a-497f-4b38-a619-8fbc653e9cfa:
+  a1e1f7f4-4eec-4273-b4ed-cb528c29027d:
     id: node_type
     bundles:
       news_story: news_story
     negate: false
     context_mapping:
       node: node
-    uuid: 17fd564a-497f-4b38-a619-8fbc653e9cfa
+    uuid: a1e1f7f4-4eec-4273-b4ed-cb528c29027d
 selection_logic: and
 weight: -5
 relationships: {  }
