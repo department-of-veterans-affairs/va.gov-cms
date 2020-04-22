@@ -22,11 +22,6 @@ $databases['default']['default'] = array(
   'host' => getenv('CMS_MARIADB_HOST') ?: 'database',
   'port' => 3306,
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
-  'init_commands' => [
-    'isolation' => "SET SESSION tx_isolation='READ-COMMITTED'",
-    'lock_wait_timeout' => 'SET SESSION innodb_lock_wait_timeout = 20',
-    'wait_timeout' => 'SET SESSION wait_timeout = 600'
-  ]
 );
 
 /**
