@@ -13,7 +13,8 @@ To access any CMS or VA environment, you must connect with either CAG or SOCKS p
               HostName 172.31.2.171
               ProxyCommand ssh -l dsva -A 52.222.32.121 -W %h:%p
               User socks
-              2. Run the following command: 
+              
+  2. Run the following command: 
   
             $  ssh socks -D 2001 -N
 
