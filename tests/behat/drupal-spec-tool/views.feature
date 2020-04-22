@@ -15,6 +15,8 @@ Feature: Views
 | Content | content | Content | Enabled | Find and manage content. |
 | Recent content | content_recent | Content | Disabled | Recent content. |
 | Content served from Drupal | content_served_from_drupal | Content | Enabled | An exportable list of all content served from Drupal |
+| Content Entity Reference Source | content_entity_reference_source | Content | Enabled |  |
+| Facility Governance | facility_governance | Content | Enabled | Provides facility management tools. |
 | Files | files | Files | Enabled | Find and manage files. |
 | Frontpage | frontpage | Content | Enabled | All content promoted to frontpage |
 | Glossary | glossary | Content | Disabled | All content, by letter. |
@@ -24,7 +26,7 @@ Feature: Views
 | Local facilities entity reference view | local_facilities_entity_reference_view | Content | Enabled | An entity reference view that determines options for the Local Health Service descriptions |
 | Locked content  | locked_content | Content | Enabled |  |
 | Media | media | Media | Enabled |  |
-| Media library widget | media_library | Media | Enabled |  |
+| Media library | media_library | Media | Enabled | Find and manage media. |
 | Moderated content | moderated_content | Content revisions | Enabled | Find and moderate content. |
 | Moderation history | moderation_history | Content revisions | Enabled |  |
 | My Workflow  | my_workflow | Content | Enabled | Content a user has access to that is ready for moderation  |
@@ -47,6 +49,8 @@ Feature: Views
 | User history | user_history | User history | Enabled |  |
 | User history list | user_history_list | User history | Enabled |  |
 | User email csv | user_email_csv | Users | Enabled |  |
+| Listing page dashboard | listing_page_dashboard | Content | Enabled |  |
+| Custom block entity browsers | custom_block_entity_browsers | Custom Block | Enabled | For placing on content forms |
 
   @dst @views_displays
      Scenario: Views displays
@@ -68,8 +72,15 @@ Feature: Views
 | Content served from Drupal | Page | page_1 | Page |
 | Content served from Drupal | Data export | data_export_1 | Data export |
 | Content served from Drupal | Master | default | Master |
+| Content Entity Reference Source | Master | default | Master |
+| Content Entity Reference Source | Entity Reference: Event Listing | entity_reference_1 | Entity Reference |
+| Content Entity Reference Source | Entity Reference: Publication Listing | entity_reference_2 | Entity Reference |
+| Content Entity Reference Source | Entity Reference: Story Listing | entity_reference_3 | Entity Reference |
+| Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
 | Custom block library | Master | default | Master |
 | Custom block library | Page | page_1 | Page |
+| Facility Governance | Master | default | Master |
+| Facility Governance | Page | page_1 | Page |
 | Files | Master | default | Master |
 | Files | Files overview | page_1 | Page |
 | Files | File usage | page_2 | Page |
@@ -95,9 +106,10 @@ Feature: Views
 | Media | Media | media_page_list | Page |
 | Media | Downloadable document browser | entity_browser_3 | Entity browser |
 | Media | Media bulk edit | page_1 | Page |
-| Media library widget | Master | default | Master |
-| Media library widget | Deprecated (to follow D8.7 approach) | page | Page |
-| Media library widget | Widget | widget | Page |
+| Media library | Master | default | Master |
+| Media library | Page | page | Page |
+| Media library | Widget | widget | Page |
+| Media library | Widget (table) | widget_table | Page |
 | Moderated content | Master | default | Master |
 | Moderated content | Moderated content | moderated_content | Page |
 | Moderation history | Master | default | Master |
@@ -153,3 +165,8 @@ Feature: Views
 | User email csv | Data export | data_export_1 | Data export |
 | User email csv | Master | default | Master |
 | User email csv | Page | page_1 | Page |
+| Listing page dashboard | Master | default | Master |
+| Listing page dashboard | Past events | block_2 | Block |
+| Listing page dashboard | Upcoming events | block_1 | Block |
+| Custom block entity browsers | Alert block entity browsers | entity_browser_1 | Entity browser |
+| Custom block entity browsers | Master | default | Master |

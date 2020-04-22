@@ -6,18 +6,18 @@ dependencies:
     - ctools
     - taxonomy
 id: health_care_service_taxonomy
-label: 'Health Care Service Taxonomy'
+label: 'VHA health service taxonomy'
 type: 'canonical_entities:taxonomy_term'
 pattern: 'health-care/[term:name]'
 selection_criteria:
-  587bb972-e837-4f50-9443-fd62413f3482:
+  19c04c0f-c79a-4f7a-b56e-636a3fe7650e:
     id: 'entity_bundle:taxonomy_term'
     bundles:
       health_care_service_taxonomy: health_care_service_taxonomy
     negate: false
     context_mapping:
       taxonomy_term: taxonomy_term
-    uuid: 587bb972-e837-4f50-9443-fd62413f3482
+    uuid: 19c04c0f-c79a-4f7a-b56e-636a3fe7650e
 selection_logic: and
 weight: 1
 relationships: {  }

@@ -1,0 +1,148 @@
+# Migration meta data.
+langcode: en
+status: true
+dependencies: {  }
+id: va_node_facility_vet_centers_status
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - Content
+  - Node
+migration_group: facility
+label: 'Node - Vet Center Facility Status'
+# Defines the source of the migration.
+source:
+  plugin: url
+  data_fetcher_plugin: file
+  data_parser_plugin: csv
+  # Selector should not be needed for CSV but the DataParser requires it.
+  item_selector: ''
+  urls:
+    - 'public://migrate_source/vet-center-facility-status.csv'
+  delimiter: ","
+  enclosure: '"'
+  escape: '\'
+  header_offset: 1
+  # The delimiter used to delimit multi-values in the cell. (optional)
+  multi_value_delimiter: ''
+  ## The order of these must match the columns in the csv.
+  fields:
+    -
+      name: id
+      label: "Facility id ex:vc_2231OS"
+    -
+      name: name
+      label: Facility name
+    -
+      name: station_id
+      label: "The station id for the facility without the prefix ex: 2231OS"
+    -
+      name: facility_type
+      label: The type of facility. (not used)
+    -
+      name: physical_city
+      label: The city (not used)
+    -
+      name: physical_state
+      label: The State (not used)
+    -
+      name: vet_center_status
+      label: Alpha, Charlie, Bravo (not used)
+    -
+      name: status
+      label: Facility status values.
+    -
+      name: status_info
+      label: Additional text about the current status.
+  keys:
+    - id
+  track_changes: true
+  # The unique identifiers that are used to map the source to the destination.
+  ids:
+    id:
+      type: string
+  # Define any constants that are needed to pass in as data.
+  constants:
+    idprefix: vc_
+  # All the fields that are used from the source.
+# The destination fields mapped and processed from source fields.
+process:
+  # If there is no id, this can not be migrated.
+  field_facility_locator_api_id:
+    -
+      plugin: skip_on_empty
+      method: row
+      source: id
+      message: 'Skipped: Source API ID is empty, must have it.'
+    -
+      plugin: get
+      source: id
+  # Need to have this update the same node as migrated in by the main migration.
+  nid:
+    plugin: migration_lookup
+    migration: va_node_facility_vet_centers
+    source: '@field_facility_locator_api_id'
+  field_operating_status_facility:
+    -
+      plugin: static_map
+      source: status
+      bypass: false
+      map:
+        'Normal services and hours': normal
+        'Facility notice': notice
+        'Limited services and hours': limited
+        'Facility closed': closed
+      default_value: normal
+  promote:
+    plugin: default_value
+    default_value: 0
+  sticky:
+    plugin: default_value
+    default_value: 0
+  field_operating_status_more_info: status_info
+  # Bring these in as unpublished.
+  status:
+    plugin: default_value
+    default_value: 0
+  promote:
+    plugin: default_value
+    default_value: 0
+  sticky:
+    plugin: default_value
+    default_value: 0
+  path/pathauto:
+    plugin: default_value
+    default_value: 1
+  # Bring these in as unpublished.
+  published_status:
+    plugin: default_value
+    default_value: 0
+  moderation_state:
+    plugin: default_value
+    default_value: draft
+  uid:
+    plugin: default_value
+    default_value: 1317
+  revision_uid:
+    plugin: default_value
+    default_value: 1317
+  revision_log:
+    plugin: default_value
+    default_value: "Update of status by migration."
+  type:
+    plugin: default_value
+    default_value: vet_center
+# Sets the destination for the migration.
+destination:
+  plugin: 'entity:node'
+  default_bundle: vet_center
+  # Only these fields will be overwritten if the content changes in the API.
+  overwrite_properties:
+    - field_operating_status_facility
+    - field_operating_status_more_info
+    - revision_log
+    - revision_uid
+# Dependency on other migrations.
+migration_dependencies:
+  required: {  }

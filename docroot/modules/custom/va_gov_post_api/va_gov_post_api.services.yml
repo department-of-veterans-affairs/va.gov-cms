@@ -1,0 +1,7 @@
+services:
+  # Subscriber to the event dispatched on queue processing in post_api.
+  va_gov_post_api.queue_processed_subsriber:
+    class: '\Drupal\va_gov_post_api\EventSubscriber\QueueProcessedEventSubscriber'
+    arguments: ['@config.factory', '@logger.factory', '@module_handler', '@slack.slack_service']
+    tags:
+      - { name: 'event_subscriber' }
