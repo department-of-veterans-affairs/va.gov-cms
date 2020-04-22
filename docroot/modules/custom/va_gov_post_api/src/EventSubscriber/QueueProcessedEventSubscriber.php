@@ -96,23 +96,26 @@ class QueueProcessedEventSubscriber implements EventSubscriberInterface, Contain
    *   Event object.
    */
   public function onQueueProcessed(QueueProcessingCompleteEvent $event) {
-    $message = NULL;
     $start = $event->getItemsInQueueStart();
     $finish = $event->getItemsInQueueFinish();
-    if ($start === $finish) {
-      $message = sprintf('Post API has failed to process queued items. Total items in queue: %d.', $finish);
-    }
 
-    if ($this->moduleHandler->moduleExists('slack')) {
-      $slack_config = $this->config->get('slack.settings');
-      if ($slack_config->get('slack_webhook_url')) {
-        $this->slack->sendMessage(':triangular_flag_on_post: ' . $message);
+    // We consider that queue failed when the number of items on input = number
+    // at the output and if I/O => 0.
+    if ((($start + $finish) > 0) && ($start === $finish)) {
+      $message = sprintf('Post API has failed to process queued items in %s. Total items in queue: %d.', getenv('CMS_ENVIRONMENT_TYPE'), $finish);
+
+      if ($this->moduleHandler->moduleExists('slack')) {
+        $slack_config = $this->config->get('slack.settings');
+        if ($slack_config->get('slack_webhook_url')) {
+          $this->slack->sendMessage(':triangular_flag_on_post: ' . $message);
+        }
+        else {
+          $slack_disabled_message = 'Slack webhook is not set. All notifications will still be logged in dblog.';
+          $this->messenger()->addWarning($slack_disabled_message);
+          $this->logger->get('va_gov_post_api')->info($slack_disabled_message);
+        }
       }
-      else {
-        $slack_disabled_message = 'Slack webhook is not set. All notifications will still be logged in dblog.';
-        $this->messenger()->addWarning($slack_disabled_message);
-        $this->logger->get('va_gov_post_api')->info($slack_disabled_message);
-      }
+
     }
 
   }
