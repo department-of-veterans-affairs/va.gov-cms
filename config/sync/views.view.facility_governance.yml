@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.storage.node.field_administration
+    - field.storage.node.field_facility_locator_api_id
     - field.storage.node.field_operating_status_facility
     - field.storage.node.field_operating_status_more_info
     - node.type.health_care_local_facility
@@ -103,6 +104,7 @@ display:
           columns:
             views_bulk_operations_bulk_form: views_bulk_operations_bulk_form
             title: title
+            field_facility_locator_api_id: field_facility_locator_api_id
             field_operating_status_facility: field_operating_status_facility
             field_operating_status_more_info: field_operating_status_more_info
             field_administration: field_administration
@@ -116,6 +118,13 @@ display:
               empty_column: false
               responsive: ''
             title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_facility_locator_api_id:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -144,7 +153,7 @@ display:
               empty_column: false
               responsive: ''
             moderation_state:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -312,6 +321,69 @@ display:
           field_api_classes: false
           entity_type: node
           entity_field: title
+          plugin_id: field
+        field_facility_locator_api_id:
+          id: field_facility_locator_api_id
+          table: node__field_facility_locator_api_id
+          field: field_facility_locator_api_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Facility Locator ID'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
           plugin_id: field
         field_operating_status_facility:
           id: field_operating_status_facility
@@ -780,6 +852,56 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: string
+        field_facility_locator_api_id_value:
+          id: field_facility_locator_api_id_value
+          table: node__field_facility_locator_api_id
+          field: field_facility_locator_api_id_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_facility_locator_api_id_value_op
+            label: 'Locator ID'
+            description: ''
+            use_operator: false
+            operator: field_facility_locator_api_id_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_facility_locator_api_id_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              vamc_content_creator: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
         field_operating_status_facility_value:
           id: field_operating_status_facility_value
           table: node__field_operating_status_facility
@@ -1028,6 +1150,10 @@ display:
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
     cache_metadata:
       max-age: 0
       contexts:
@@ -1040,6 +1166,7 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
+        - 'config:field.storage.node.field_facility_locator_api_id'
         - 'config:field.storage.node.field_operating_status_facility'
         - 'config:field.storage.node.field_operating_status_more_info'
         - 'config:workflow_list'
@@ -1072,6 +1199,7 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
+        - 'config:field.storage.node.field_facility_locator_api_id'
         - 'config:field.storage.node.field_operating_status_facility'
         - 'config:field.storage.node.field_operating_status_more_info'
         - 'config:workflow_list'
