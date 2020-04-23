@@ -313,6 +313,7 @@ function va_gov_backend_page_attachments(array &$attachments) {
   $attachments['#attached']['drupalSettings']['gtm_data'] = _va_gov_backend_gtm_settings();
 
   $attachments['#attached']['library'][] = 'va_gov_backend/alert_form';
+  $attachments['#attached']['library'][] = 'va_gov_backend/system_styles';
   $is_admin = \Drupal::service('router.admin_context')->isAdminRoute();
   if ($is_admin) {
     // Add custom css for paragraph browser.
