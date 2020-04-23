@@ -5,21 +5,18 @@ namespace Drupal\va_gov_post_api\EventSubscriber;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\post_api\Event\QueueProcessingCompleteEvent;
+use Drupal\post_api\Event\QueueItemProcessedEvent;
 use Drupal\slack\Slack;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class QueueProcessedEventSubscriber.
+ * Class QueueItemProcessedEventSubscriber.
  *
  * @package Drupal\va_gov_post_api\EventSubscriber
  */
-class QueueProcessedEventSubscriber implements EventSubscriberInterface, ContainerFactoryPluginInterface {
-
-  use MessengerTrait;
+class QueueItemProcessedEventSubscriber implements EventSubscriberInterface, ContainerFactoryPluginInterface {
 
   /**
    * Config factory.
@@ -50,7 +47,7 @@ class QueueProcessedEventSubscriber implements EventSubscriberInterface, Contain
   protected $slack;
 
   /**
-   * Creates a new QueueProcessedEventSubscriber object.
+   * Creates a new QueueItemProcessedEventSubscriber object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config
    *   Config.
@@ -85,37 +82,31 @@ class QueueProcessedEventSubscriber implements EventSubscriberInterface, Contain
    */
   public static function getSubscribedEvents() {
     return [
-      QueueProcessingCompleteEvent::EVENT_NAME => 'onQueueProcessed',
+      QueueItemProcessedEvent::EVENT_NAME => 'onQueueItemProcessed',
     ];
   }
 
   /**
-   * React to the queue event dispatched.
+   * React to the "queue item processed" event dispatched.
    *
-   * @param \Drupal\post_api\Event\QueueProcessingCompleteEvent $event
+   * @param \Drupal\post_api\Event\QueueItemProcessedEvent $event
    *   Event object.
    */
-  public function onQueueProcessed(QueueProcessingCompleteEvent $event) {
-    $start = $event->getItemsInQueueStart();
-    $finish = $event->getItemsInQueueFinish();
+  public function onQueueItemProcessed(QueueItemProcessedEvent $event) {
+    $response_code = $event->getResponseCode();
+    if (in_array($response_code, [201, 202])) {
+      $item_data = $event->getQueueItem();
+      $facility_id = str_replace('facility_status_', '', $item_data['uid']);
+      $message = sprintf('Post API: facility %s doesn\'t exist and was removed from queue. POST response code - %d. ENV: %s.', $facility_id, $response_code, getenv('CMS_ENVIRONMENT_TYPE'));
 
-    // We consider that queue failed when the number of items on input = number
-    // at the output and if I/O => 0.
-    if ((($start + $finish) > 0) && ($start === $finish)) {
-      $message = sprintf('Post API has failed to process queued items in %s. Total items in queue: %d.', getenv('CMS_ENVIRONMENT_TYPE'), $finish);
+      $this->logger->get('va_gov_post_api')->warning($message);
 
       if ($this->moduleHandler->moduleExists('slack')) {
         $slack_config = $this->config->get('slack.settings');
         if ($slack_config->get('slack_webhook_url')) {
-          $this->slack->sendMessage(':triangular_flag_on_post: ' . $message);
-        }
-        else {
-          $slack_disabled_message = 'Slack webhook is not set. All notifications will still be logged in dblog.';
-          $this->messenger()->addWarning($slack_disabled_message);
-          $this->logger->get('va_gov_post_api')->info($slack_disabled_message);
+          $this->slack->sendMessage(':warning: ' . $message);
         }
       }
-
     }
 
   }
