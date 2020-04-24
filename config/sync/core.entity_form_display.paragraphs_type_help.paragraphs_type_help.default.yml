@@ -1,0 +1,50 @@
+uuid: 0c60e406-038b-47a3-82a5-476cdf92d3ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraphs_type_help.paragraphs_type_help.help_image
+    - field.field.paragraphs_type_help.paragraphs_type_help.help_text
+    - image.style.thumbnail
+  module:
+    - image
+    - paragraphs_type_help
+    - text
+_core:
+  default_config_hash: 5sAAlIl7WKLiJUU04_evm6o4mYOkVJYGk7HiM9M_uZs
+id: paragraphs_type_help.paragraphs_type_help.default
+targetEntityType: paragraphs_type_help
+bundle: paragraphs_type_help
+mode: default
+content:
+  help_image:
+    type: image_image
+    weight: 1
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  help_text:
+    type: text_textarea
+    weight: 0
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 4
+    settings:
+      display_label: true
+    region: content
+    third_party_settings: {  }
+  weight:
+    type: number
+    weight: 3
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

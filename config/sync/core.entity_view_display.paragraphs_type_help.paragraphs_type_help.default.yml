@@ -1,0 +1,37 @@
+uuid: 02cf1975-a4c3-4aa5-889a-fdab96ee9135
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraphs_type_help.paragraphs_type_help.help_image
+    - field.field.paragraphs_type_help.paragraphs_type_help.help_text
+    - image.style.medium
+  module:
+    - image
+    - paragraphs_type_help
+    - text
+_core:
+  default_config_hash: 6aAi6kiDMfg-b63pBmVOydMzoJJaSc08IHFVXg0NTlU
+id: paragraphs_type_help.paragraphs_type_help.default
+targetEntityType: paragraphs_type_help
+bundle: paragraphs_type_help
+mode: default
+content:
+  help_image:
+    type: image
+    weight: 1
+    label: hidden
+    settings:
+      image_style: medium
+      image_link: ''
+    region: content
+    third_party_settings: {  }
+  help_text:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  search_api_excerpt: true
