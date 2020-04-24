@@ -70,16 +70,16 @@ content:
     weight: 2
     settings:
       form_mode: inline_entity_form
-      label_singular: ''
-      label_plural: ''
+      override_labels: true
+      label_singular: 'facility description'
+      label_plural: 'facility descriptions'
       collapsible: true
       allow_new: true
-      allow_existing: true
       match_operator: CONTAINS
       allow_duplicate: true
-      override_labels: false
+      revision: 0
       collapsed: false
-      revision: false
+      allow_existing: false
     third_party_settings: {  }
     type: inline_entity_form_complex_table_view_mode
     region: content
