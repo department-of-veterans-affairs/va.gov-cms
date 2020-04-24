@@ -103,8 +103,13 @@ content:
     settings:
       rows: 5
       placeholder: ''
+      maxlength: 300
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: string_textarea
+    type: string_textarea_with_counter
     region: content
   moderation_state:
     type: moderation_state_default
