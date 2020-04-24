@@ -67,7 +67,7 @@ Feature: Content model fields
 | Content type | Event | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Content type | Event | Event listing | field_listing | Entity reference | Required | 1 | Select list |  |
 | Content type | Event | Order | field_order | List (integer) |  | 1 | Select list |  |
-| Content type | Event | URL of an online event | field_url_of_an_online_event | Link |  | 1 | Linkit |  |
+| Content type | Event | URL of an online event | field_url_of_an_online_event | Link |  | 1 | Link |  |
 | Content type | Event listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Event listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Event listing | Intro text | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
