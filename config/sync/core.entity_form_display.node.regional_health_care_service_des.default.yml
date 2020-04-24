@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_form_mode.node.inline_entity_form
+    - entity_browser.browser.va_services
     - field.field.node.regional_health_care_service_des.field_administration
     - field.field.node.regional_health_care_service_des.field_body
     - field.field.node.regional_health_care_service_des.field_local_health_care_service_
@@ -11,6 +12,7 @@ dependencies:
     - field.field.node.regional_health_care_service_des.field_service_name_and_descripti
     - node.type.regional_health_care_service_des
   module:
+    - entity_browser
     - field_group
     - ief_table_view_mode
     - text
@@ -33,7 +35,6 @@ third_party_settings:
       region: content
     group_editorial_workflow:
       children:
-        - revision_log
         - moderation_state
       parent_name: ''
       weight: 12
@@ -78,6 +79,7 @@ content:
       allow_duplicate: true
       override_labels: false
       collapsed: false
+      revision: false
     third_party_settings: {  }
     type: inline_entity_form_complex_table_view_mode
     region: content
@@ -89,16 +91,24 @@ content:
     region: content
   field_service_name_and_descripti:
     weight: 0
-    settings: {  }
+    settings:
+      entity_browser: va_services
+      field_widget_display: rendered_entity
+      field_widget_display_settings:
+        view_mode: default
+      field_widget_remove: true
+      open: true
+      selection_mode: selection_append
+      field_widget_edit: false
+      field_widget_replace: false
     third_party_settings: {  }
-    type: options_select
+    type: entity_browser_entity_reference
     region: content
 hidden:
   created: true
   moderation_state: true
   path: true
   promote: true
-  revision_log: true
   status: true
   sticky: true
   title: true
