@@ -1,0 +1,31 @@
+uuid: c90c61f1-b316-4987-9294-900ae6535387
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.health_care_service_names_and_descriptions
+  module:
+    - views
+name: va_services
+label: 'VA services'
+display: modal
+display_configuration:
+  width: ''
+  height: ''
+  link_text: 'Select service'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: single
+widget_selector_configuration: {  }
+widgets:
+  d05c8615-b06b-4faf-ab8c-e275b43e1669:
+    settings:
+      view: health_care_service_names_and_descriptions
+      view_display: entity_browser_1
+      submit_text: 'Select service'
+      auto_select: false
+    uuid: d05c8615-b06b-4faf-ab8c-e275b43e1669
+    weight: 1
+    label: view
+    id: view
