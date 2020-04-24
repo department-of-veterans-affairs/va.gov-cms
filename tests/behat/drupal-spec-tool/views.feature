@@ -92,6 +92,7 @@ Feature: Views
 | Glossary | Page | page_1 | Page |
 | Health care service names and descriptions | Master | default | Master |
 | Health care service names and descriptions |  Entity Reference   | entity_reference_1 | Entity Reference |
+| Health care service names and descriptions | Health service entity browser | entity_browser_1 | Entity browser |
 | Health service offerings | Master | default | Master |
 | Health service offerings | Page | page_1 | Page |
 | Image Style Warmer Warmup Files | Files overview  | page_1 | Page |
