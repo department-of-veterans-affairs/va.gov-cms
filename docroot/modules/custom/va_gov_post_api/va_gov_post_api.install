@@ -5,14 +5,13 @@
  * Update functions for the va_gov_post_api module.
  */
 
-use Drupal\Core\Utility\UpdateException;
 use Drupal\node\Entity\Node;
 use Psr\Log\LogLevel;
 
 /**
  * Trigger save of ALL facility nodes to sync lighthouse with CMS.
  */
-function va_gov_post_api_update_8001(&$sandbox) {
+function va_gov_post_api_update_8002(&$sandbox) {
   $config = \Drupal::service('config.factory')->getEditable('va_gov_post_api.settings');
 
   // Grab our nodes and set the count.
