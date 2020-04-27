@@ -78,122 +78,121 @@
   background-color: #fffcf1;
 }
 
-.page-node-type-page {
-  .node--view-mode-full {
-    font-size: 1rem;
-    .node__content > .field {
-      margin-bottom: 1.5rem;
+.node--type-page.node--view-mode-full {
+  font-size: 1rem;
+  .node__content > .field {
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    line-height: 2.5rem;
+    margin: 0;
+
+    .field--name-title {
+      font-family: "Bitter", "Georgia", "Cambria", "Times New Roman", "Times", serif;
+      font-size: 2rem;
     }
+  }
 
-    h1 {
-      line-height: 2.5rem;
-      margin: 0;
-
-      .field--name-title {
-        font-family: "Bitter", "Georgia", "Cambria", "Times New Roman", "Times", serif;
-        font-size: 2rem;
-      }
+  .revision-wrapper {
+    display: flex;
+    .revision-details {
+      flex: 50%;
     }
-
-    .revision-wrapper {
-      display: flex;
-      .revision-details {
-        flex: 50%;
+    .revision-diff {
+      flex: 50%;
+      text-align: right;
+      margin-right: 1rem;
+      .button {
+        margin-top: 0.6rem;
+        margin-bottom: 0.2rem;
       }
-      .revision-diff {
-        flex: 50%;
-        text-align: right;
-        margin-right: 1rem;
-        .button {
-          margin-top: 0.6rem;
-          margin-bottom: 0.2rem;
-        }
-        .diff-message {
-          font-size: 0.8rem;
-          font-style: italic;
-        }
-      }
-      .revision-status {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #357070;
-        padding: 0.8rem 0 0.4rem ;
-      }
-      .revision-byline {
+      .diff-message {
         font-size: 0.8rem;
-        .revision-author {
-          font-style: italic;
-        }
+        font-style: italic;
       }
     }
-    .meta-content-wrapper {
-      .meta-content {
-        background-color: #eff6f6;
-        tbody {
-          tr {
-            border: none;
-            &:hover {
-              background-color: inherit;
-            }
-            td {
-              padding: 0;
-              font-size: 0.8rem;
-              margin-right: 0.8rem;
-            }
-            &.field--label-inline {
-              .field__label:after {
-                content: '';
-              }
+    .revision-status {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #357070;
+      padding: 0.8rem 0 0.4rem ;
+    }
+    .revision-byline {
+      font-size: 0.8rem;
+      .revision-author {
+        font-style: italic;
+      }
+    }
+  }
+  .meta-content-wrapper {
+    .meta-content {
+      background-color: #eff6f6;
+      tbody {
+        tr {
+          border: none;
+          &:hover {
+            background-color: inherit;
+          }
+          td {
+            padding: 0;
+            font-size: 0.8rem;
+            margin-right: 0.8rem;
+          }
+          &.field--label-inline {
+            .field__label:after {
+              content: '';
             }
           }
         }
       }
     }
-    fieldset:not(.fieldgroup) {
-      margin: 9px 0 10px 0;
-      padding: 10px 18px 0;
-      background-color: inherit;
+  }
+  fieldset:not(.fieldgroup) {
+    margin: 9px 0 10px 0;
+    padding: 10px 18px 0;
+    background-color: inherit;
 
-      > legend {
-        position: inherit;
-        display: none;
-      }
-    }
-
-    .field__item {
-      margin: 0.2rem 0.2rem 0.5rem 0.2rem;
-    }
-
-    .field--label-above {
-      .field__label {
-        font-size: 1rem;
-        color: #7b7b7b;
-        margin: 0;
-        padding: .2rem 0 0 0;
-        font-weight: normal;
-      }
-    }
-
-    .field--name-field-intro-text .field__item {
-      font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
-      font-size: 1.25rem;
-      font-weight: 400;
-      max-width: 77rem;
-      line-height: 2rem;
-      margin: 0;
-      *:first-child {
-        margin-top: 0;
-      }
-      *:last-child {
-        margin-bottom: 0;
-      }
-    }
-    .field--name-field-featured-content {
-      .field__items {
-        background-color: #e1f3f8;
-      }
+    > legend {
+      position: inherit;
+      display: none;
     }
   }
+
+  .field__item {
+    margin: 0.2rem 0.2rem 0.5rem 0.2rem;
+  }
+
+  .field--label-above {
+    .field__label {
+      font-size: 1rem;
+      color: #7b7b7b;
+      margin: 0;
+      padding: .2rem 0 0 0;
+      font-weight: normal;
+    }
+  }
+
+  .field--name-field-intro-text .field__item {
+    font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    max-width: 77rem;
+    line-height: 2rem;
+    margin: 0;
+    *:first-child {
+      margin-top: 0;
+    }
+    *:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .field--name-field-featured-content {
+    .field__items {
+      background-color: #e1f3f8;
+    }
+  }
+
   .field--name-field-related-links .field__item  {
     background: #f1f1f1;
   }
