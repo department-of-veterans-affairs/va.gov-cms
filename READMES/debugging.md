@@ -10,7 +10,10 @@
         * Configure PhpStorm: Go to Settings > Languages & Frameworks > PHP > Debug
         * Check "allow connections" and ensure max connections is 2 or more (more is useful for debugging requests in parallel, for side by side testing)
         * Enable "Start listening for PHP debug connections"
-        * If you have issues connecting see the bottem of this page where it talks about setting up a custom `php.ini`.
+        * If you have issues connecting see the bottom of this page where it talks about setting up a custom `php.ini`.
+        * Still having issues after adding custom `php.ini`? Verify that PHP CLI interpreter has successfully identified Debugger extention:
+            * Go to Settings > Languages & Frameworks > PHP. Press "..." button next to CLI interpreter to open interpreter settings.
+            * If "Additional > Debugger extension" field is empty, add a path to debugger extension manually. Press `i` (Show phpinfo) button next to PHP executable to find debugger extension path. Look for `extension_dir` variable. Add `xdebug.so` and save this value in "Debugger extension" field. E.g. `/usr/local/lib/php/extensions/no-debug-non-zts-20160303/xdebug.so`.
     * VS Code
         * Details are here on [lando docs](https://docs.lando.dev/guides/lando-with-vscode.html#getting-started), however, all the php.ini extras have already been added.  The only thing needed is to add the necessary config to .vscode/launch.json
 
