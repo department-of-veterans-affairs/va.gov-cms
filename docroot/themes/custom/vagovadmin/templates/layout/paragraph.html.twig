@@ -49,9 +49,11 @@
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {{ title_suffix }}
+    {% if paragraph_name %}
     <div class="proof-edit">
       <span class="proof-label">{{ paragraph_name }}</span>
     </div>
+    {% endif %}
     {% block content %}
       {{ content }}
     {% endblock %}
