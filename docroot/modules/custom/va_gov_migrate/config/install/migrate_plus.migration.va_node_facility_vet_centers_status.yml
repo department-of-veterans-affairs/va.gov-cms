@@ -9,7 +9,7 @@ cck_plugin_method: null
 migration_tags:
   - Content
   - Node
-migration_group: facility
+migration_group: facility_status
 label: 'Node - Vet Center Facility Status'
 # Defines the source of the migration.
 source:
@@ -58,6 +58,7 @@ source:
   keys:
     - id
   track_changes: true
+  cache_counts: true
   # The unique identifiers that are used to map the source to the destination.
   ids:
     id:
