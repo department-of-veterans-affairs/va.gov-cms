@@ -80,11 +80,6 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
-{% if demo_version %}
-  {% set versions = demo_version|split(',') %}
-  {% set classes = classes|merge(versions) %}
-{% endif %}
-
 {{ attach_library('classy/node') }}
 {{ attach_library('vagovadmin/proofing') }}
 <article{{ attributes.addClass(classes) }}>
