@@ -69,7 +69,9 @@ function vagovadmin_preprocess_paragraph(&$variables) {
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
 
-  $variables['paragraph_name'] = $paragraph->type->entity->label();
+  if (!empty($variables['elements']['#contextual_links'])) {
+    $variables['paragraph_name'] = $paragraph->type->entity->label();
+  }
 
   if ($paragraph->getType() === 'q_a') {
     $variables['as_accordion'] = FALSE;
