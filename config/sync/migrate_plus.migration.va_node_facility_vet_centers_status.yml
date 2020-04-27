@@ -9,7 +9,7 @@ cck_plugin_method: null
 migration_tags:
   - Content
   - Node
-migration_group: facility
+migration_group: facility_status
 label: 'Node - Vet Center Facility Status'
 source:
   plugin: url
@@ -54,6 +54,7 @@ source:
   keys:
     - id
   track_changes: true
+  cache_counts: true
   ids:
     id:
       type: string
