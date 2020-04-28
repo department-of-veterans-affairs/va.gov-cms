@@ -45,7 +45,7 @@ class ContentExport extends ControllerBase {
    *
    * @var string[]
    */
-  public CONST ALLOWED_EXPORT_TYPES = ['content', 'asset'];
+  public const ALLOWED_EXPORT_TYPES = ['content', 'asset'];
 
   /**
    * ContentExport constructor.
@@ -54,6 +54,8 @@ class ContentExport extends ControllerBase {
    *   The Archiver!
    * @param \Drupal\Core\PageCache\ResponsePolicy\KillSwitch $killSwitch
    *   Kill switch.
+   * @param \Drupal\va_gov_content_export\Archive\ArchiveArgsFactory $archiveArgsFactory
+   *   The Archive Args factory.
    */
   public function __construct(ArchiveDirectory $archiver, KillSwitch $killSwitch, ArchiveArgsFactory $archiveArgsFactory) {
     $this->archiver = $archiver;
@@ -87,7 +89,7 @@ class ContentExport extends ControllerBase {
    *   Response.
    */
   public function redirectToFile(string $export_type) : Response {
-    If (!$export_type || !in_array($export_type, static::ALLOWED_EXPORT_TYPES)) {
+    if (!$export_type || !in_array($export_type, static::ALLOWED_EXPORT_TYPES)) {
       throw new NotFoundHttpException();
     }
 
@@ -118,12 +120,14 @@ class ContentExport extends ControllerBase {
    *
    * @return \Drupal\va_gov_content_export\Archive\ArchiveArgs
    *   The ArchiveArgs object.
+   *
    * @throws \Exception
    */
   protected function getArchiveArgs(string $export_type) : ArchiveArgs {
     switch ($export_type) {
       case ArchiveArgsFactory::ASSET_EXPORT:
         return $this->archiveArgsFactory->createAssetArgs();
+
       case ArchiveArgsFactory::CONTENT_EXPORT:
         return $this->archiveArgsFactory->createContentArgs();
     }

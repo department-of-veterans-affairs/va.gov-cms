@@ -9,8 +9,8 @@ use Drupal\Core\Site\Settings;
  */
 class ArchiveArgsFactory {
 
-  public CONST CONTENT_EXPORT = 'content';
-  public CONST ASSET_EXPORT = 'asset';
+  public const CONTENT_EXPORT = 'content';
+  public const ASSET_EXPORT = 'asset';
 
   /**
    * A default list of files to exclude.
@@ -28,6 +28,12 @@ class ArchiveArgsFactory {
     'cms-asset-export-latest.tar',
   ];
 
+  /**
+   * Create ArchiveArgs for a content export.
+   *
+   * @return \Drupal\va_gov_content_export\Archive\ArchiveArgs
+   *   The ArchiveArgs object.
+   */
   public function createContentArgs() : ArchiveArgs {
     return new ArchiveArgs(
       $this->getExcludeList(),
@@ -37,6 +43,12 @@ class ArchiveArgsFactory {
     );
   }
 
+  /**
+   * Create ArchiveArgs for a asset export.
+   *
+   * @return \Drupal\va_gov_content_export\Archive\ArchiveArgs
+   *   The ArchiveArgs object.
+   */
   public function createAssetArgs() : ArchiveArgs {
     $excludes = $this->getExcludeList();
     // Exclude the directory where tome sync content goes.
@@ -89,7 +101,6 @@ class ArchiveArgsFactory {
    */
   protected function getAssetArchivePath() : string {
     return Settings::get('va_gov_content_export_asset_archive_directory', '.');
-
   }
 
   /**
@@ -102,4 +113,5 @@ class ArchiveArgsFactory {
     return Settings::get('va_gov_content_export_files_to_ignore', []) ?:
       static::$defaultExcludeList;
   }
+
 }

@@ -4,9 +4,7 @@ namespace Drupal\va_gov_content_export\Archive;
 
 use Alchemy\Zippy\Archive\ArchiveInterface;
 use Alchemy\Zippy\Zippy;
-use Drupal\Core\File\Exception\FileException;
 use Drupal\Core\File\FileSystemInterface;
-use Psr\Log\LoggerInterface;
 
 /**
  * Archive a file path for CMS Content Export.
@@ -45,8 +43,9 @@ class ArchiveDirectory {
    *
    * @param \Drupal\va_gov_content_export\Archive\ArchiveArgs $archiveArgs
    *   The arguments to use to create the archive.
+   *
    * @return \Alchemy\Zippy\Archive\ArchiveInterface
-   *  The Archive which was created.
+   *   The Archive which was created.
    */
   public function archive(ArchiveArgs $archiveArgs) : ArchiveInterface {
     // @TODO Add locking/queueing/waiting so only one archive is occurring at a time.
@@ -61,7 +60,7 @@ class ArchiveDirectory {
     ];
     $real_path = $this->fileSystem->realpath($archiveArgs->getOutputPath());
 
-    // Deleting the file before it's created improves performance
+    // Deleting the file before it's created improves performance.
     $this->fileSystem->delete($archiveArgs->getOutputPath());
     return $this->zippy->create($real_path, $files, TRUE);
   }

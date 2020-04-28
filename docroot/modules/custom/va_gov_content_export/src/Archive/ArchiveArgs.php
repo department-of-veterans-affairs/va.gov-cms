@@ -30,7 +30,7 @@ class ArchiveArgs {
    * The tar command will cd to this directory before making a call.
    * Can be a uri.
    *
-   * @string
+   * @var string
    */
   protected $currentWorkingDirectory;
 
@@ -40,7 +40,7 @@ class ArchiveArgs {
    * The location and name of the output file relative to the base path.
    * Can be a uri.
    *
-   * @string
+   * @var string
    */
   protected $outputPath;
 
@@ -64,71 +64,43 @@ class ArchiveArgs {
   }
 
   /**
+   * Get Excluded Files.
+   *
    * @return array
+   *   Array of excluded files.
    */
   public function getExcludes(): array {
     return $this->excludes;
   }
 
   /**
-   * @param array $excludes
+   * Get Directory to Archive.
    *
-   * @return ArchiveArgs
-   */
-  public function setExcludes(array $excludes): ArchiveArgs {
-    $this->excludes = $excludes;
-    return $this;
-  }
-
-  /**
    * @return string
+   *   Path to archive.
    */
   public function getArchiveDirectory(): string {
     return $this->archiveDirectory;
   }
 
   /**
-   * @param string $archiveDirectory
+   * Get the Current to use as the CWD for the tar command.
    *
-   * @return ArchiveArgs
+   * @return string
+   *   The CWD.
    */
-  public function setArchiveDirectory(string $archiveDirectory): ArchiveArgs {
-    $this->archiveDirectory = $archiveDirectory;
-    return $this;
-  }
-
-  /**
-   * @return mixed
-   */
-  public function getCurrentWorkingDirectory() {
+  public function getCurrentWorkingDirectory() : string {
     return $this->currentWorkingDirectory;
   }
 
   /**
-   * @param mixed $currentWorkingDirectory
+   * Get the Path of the final tar file.
    *
-   * @return ArchiveArgs
-   */
-  public function setCurrentWorkingDirectory($currentWorkingDirectory) {
-    $this->currentWorkingDirectory = $currentWorkingDirectory;
-    return $this;
-  }
-
-  /**
    * @return string
+   *   Path to tar file.  Can be URI.
    */
   public function getOutputPath(): string {
     return $this->outputPath;
-  }
-
-  /**
-   * @param string $outputPath
-   *
-   * @return ArchiveArgs
-   */
-  public function setOutputPath(string $outputPath): ArchiveArgs {
-    $this->outputPath = $outputPath;
-    return $this;
   }
 
 }
