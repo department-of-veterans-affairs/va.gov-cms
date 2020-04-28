@@ -83,15 +83,27 @@ process:
   moderation_state:
     plugin: default_value
     default_value: draft
-  uid:
+  changed:
+    plugin: callback
+    callable: time
+  new_revision:
     plugin: default_value
-    default_value: 1317
-  revision_uid:
+    default_value: true
+  revision_default:
     plugin: default_value
-    default_value: 1317
+    default_value: true
   revision_log:
     plugin: default_value
     default_value: 'Update of Facility API data by migration.'
+  revision_timestamp:
+    plugin: callback
+    callable: time
+  revision_uid:
+    plugin: default_value
+    default_value: 1317
+  uid:
+    plugin: default_value
+    default_value: 1317
   type:
     plugin: default_value
     default_value: vet_center
@@ -99,8 +111,13 @@ destination:
   plugin: 'entity:node'
   default_bundle: vet_center
   overwrite_properties:
+    - changed
+    - new_revision
+    - revision_default
     - revision_log
+    - revision_timestamp
     - revision_uid
     - title
+    - uid
 migration_dependencies:
   required: {  }
