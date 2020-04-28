@@ -213,15 +213,27 @@ process:
   moderation_state:
     plugin: default_value
     default_value: draft
-  uid:
+  changed:
+    plugin: callback
+    callable: time
+  new_revision:
     plugin: default_value
-    default_value: 1317
-  revision_uid:
+    default_value: true
+  revision_default:
     plugin: default_value
-    default_value: 1317
+    default_value: true
   revision_log:
     plugin: default_value
     default_value: "Update of Facility API data by migration."
+  revision_timestamp:
+    plugin: callback
+    callable: time
+  revision_uid:
+    plugin: default_value
+    default_value: 1317
+  uid:
+    plugin: default_value
+    default_value: 1317
   type:
     plugin: default_value
     default_value: health_care_local_facility
@@ -231,18 +243,23 @@ destination:
   default_bundle: health_care_local_facility
   # Only these fields will be overwritten if the content changes in the API.
   overwrite_properties:
-    - title
     - 'field_address/address_line1'
     - 'field_address/administrative_area'
     - 'field_address/country_code'
     - 'field_address/locality'
     - 'field_address/postal_code'
-    - field_facility_classification
     - 'field_facility_hours/value'
+    - changed
+    - field_facility_classification
     - field_mental_health_phone
     - field_phone_number
+    - new_revision
+    - revision_default
     - revision_log
+    - revision_timestamp
     - revision_uid
+    - title
+    - uid
 # Dependency on other migrations.
 migration_dependencies:
   required: {  }
