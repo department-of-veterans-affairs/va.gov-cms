@@ -67,7 +67,7 @@ Feature: Content model fields
 | Content type | Event | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Content type | Event | Event listing | field_listing | Entity reference | Required | 1 | Select list |  |
 | Content type | Event | Order | field_order | List (integer) |  | 1 | Select list |  |
-| Content type | Event | URL of an online event | field_url_of_an_online_event | Link |  | 1 | Linkit |  |
+| Content type | Event | URL of an online event | field_url_of_an_online_event | Link |  | 1 | Link |  |
 | Content type | Event listing | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Event listing | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Event listing | Intro text | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
@@ -151,7 +151,7 @@ Feature: Content model fields
 | Content type | VAMC facility | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | VAMC facility | Nickname for this facility | field_nickname_for_this_facility | Text (plain) | Required | 1 | Textfield |  |
 | Content type | VAMC facility | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list |  |
-| Content type | VAMC facility | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
+| Content type | VAMC facility | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC facility | Phone Number | field_phone_number  | Telephone number |  | 1 | Telephone number | Translatable |
 | Content type | VAMC facility | Region page | field_region_page | Entity reference | Required | 1 | Select list |  |
 | Content type | VAMC facility | Twitter | field_twitter | Link |  | 1 | Link | Translatable |
@@ -336,13 +336,12 @@ Feature: Content model fields
 | Content type | VBA facility | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | VBA facility | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VBA facility | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
-| Content type | VBA facility | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | VBA facility | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | NCA facility | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | NCA facility | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | NCA facility | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
-| Content type | NCA facility | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | NCA facility | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Vet Center | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Vet Center | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
-| Content type | Vet Center | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
-
+| Content type | Vet Center | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |

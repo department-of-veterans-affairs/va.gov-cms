@@ -54,7 +54,6 @@
         "drupal/graphql": "^3.0",
         "drupal/graphql_metatag": "1.x-dev",
         "drupal/health_check_url": "^2.1",
-        "drupal/hide_revision_field": "^2.1",
         "drupal/ief_table_view_mode": "^2.1",
         "drupal/image_style_warmer": "^1.0@beta",
         "drupal/image_widget_crop": "^2.2",
@@ -227,9 +226,11 @@
                 "Content lock causes redirect response preventing migration rollback.": "https://www.drupal.org/files/issues/2018-08-28/2951652-4.patch"
             },
             "drupal/core": {
-                "2815221 - Add quickedit to the latest-revision route": "https://www.drupal.org/files/issues/2019-03-05/2815221-116.patch",
-                "Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch",
-                "2775665 - MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "https://www.drupal.org/files/issues/updateLink-2775665-2.patch"
+                "2807629 - Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch",
+                "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2020-01-07/2893933-34.patch",
+                "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2019-09-11/3057267-maintenance-forced-logout-experimental.patch",
+                "2775665 - MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "https://www.drupal.org/files/issues/updateLink-2775665-2.patch",
+                "2815221 - Add quickedit to the latest-revision route": "https://www.drupal.org/files/issues/2019-03-05/2815221-116.patch"
             },
             "drupal/entity_browser": {
                 "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch"
@@ -240,6 +241,9 @@
             "drupal/field_group": {
                 "Allow to position the group in the advanced (sidebar) column": "https://www.drupal.org/files/issues/2018-07-26/2652642-59.patch",
                 "Incompatibility with inline entity form": "https://www.drupal.org/files/issues/2018-10-30/field_group-inline_entity_form_compatibility-2986704-3.patch"
+            },
+            "drupal/govdelivery_bulletins": {
+                "Use default lease time in claimItem()": "https://www.drupal.org/files/issues/2020-04-16/default-claim-time-3128425-2.patch"
             },
             "drupal/graphql": {
                 "PHP 7.4 Notices (https://github.com/drupal-graphql/graphql/pull/989)": "https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/989.patch"
@@ -320,7 +324,7 @@
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\""
         ],
         "nuke": [
-            "rm -rf bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor",
+            "rm -rf bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor /var/www/.cache/yarn",
             "composer clear-cache"
         ],
         "va:start": [

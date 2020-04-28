@@ -11,7 +11,6 @@ dependencies:
     - taxonomy.vocabulary.health_care_service_taxonomy
   module:
     - field_group
-    - hide_revision_field
     - path
     - text
 third_party_settings:
@@ -89,17 +88,13 @@ content:
     settings: {  }
     third_party_settings: {  }
   revision_log_message:
-    type: hide_revision_field_log_widget
-    weight: 7
-    region: content
+    weight: 10
     settings:
-      show: true
-      default: ''
-      permission_based: false
-      allow_user_settings: true
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+    type: string_textarea
+    region: content
   status:
     type: boolean_checkbox
     settings:

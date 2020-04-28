@@ -14,6 +14,7 @@ migration_group: facility
 label: 'Node - National Cemetary Administration Facility'
 source:
   track_changes: true
+  cache_counts: true
   plugin: url
   data_fetcher_plugin: http
   data_parser_plugin: json
@@ -94,7 +95,13 @@ process:
     default_value: draft
   uid:
     plugin: default_value
-    default_value: 0
+    default_value: 1317
+  revision_uid:
+    plugin: default_value
+    default_value: 1317
+  revision_log:
+    plugin: default_value
+    default_value: 'Update of Facility API data by migration.'
   type:
     plugin: default_value
     default_value: nca_facility
@@ -102,6 +109,8 @@ destination:
   plugin: 'entity:node'
   default_bundle: nca_facility
   overwrite_properties:
+    - revision_log
+    - revision_uid
     - title
 migration_dependencies:
   required: {  }

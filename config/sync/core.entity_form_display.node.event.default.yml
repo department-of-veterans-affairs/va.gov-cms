@@ -29,9 +29,7 @@ dependencies:
     - content_moderation
     - datetime_range
     - field_group
-    - hide_revision_field
     - link
-    - linkit
     - media_library
     - metatag
     - path
@@ -290,9 +288,8 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
-      linkit_profile: default
     third_party_settings: {  }
-    type: linkit
+    type: link_default
     region: content
   moderation_state:
     type: moderation_state_default
@@ -305,18 +302,6 @@ content:
     weight: 12
     region: content
     settings: {  }
-    third_party_settings: {  }
-  revision_log:
-    type: hide_revision_field_log_widget
-    weight: 16
-    region: content
-    settings:
-      show: true
-      default: ''
-      permission_based: false
-      allow_user_settings: true
-      rows: 5
-      placeholder: ''
     third_party_settings: {  }
   title:
     type: string_textfield

@@ -6,6 +6,8 @@ dependencies:
     - field.storage.node.field_administration
     - node.type.vba_facility
     - taxonomy.vocabulary.administration
+  content:
+    - 'taxonomy_term:administration:55a295b5-182a-4f4f-ba62-723bfe8df473'
 id: node.vba_facility.field_administration
 field_name: field_administration
 entity_type: node
@@ -14,7 +16,9 @@ label: Owner
 description: 'The health care system that manages this local facility.'
 required: true
 translatable: true
-default_value: {  }
+default_value:
+  -
+    target_uuid: 55a295b5-182a-4f4f-ba62-723bfe8df473
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'
