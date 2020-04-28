@@ -26,7 +26,7 @@ pipeline {
           commit = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
         }
 
-        build job: "builds/cms", parameters: [
+        build job: "builds/${params.app}", parameters: [
           booleanParam(name: 'release', value: false),
           booleanParam(name: 'notify_slack', value: true),
           stringParam(name: 'ref', value: commit),
@@ -43,7 +43,7 @@ pipeline {
       }
       steps {
         sh 'echo SUCCESS, we are in DEV step'
-        build job: "deploys/cms-vagov-dev", parameters: [
+        build job: "deploys/${params.app}-vagov-dev", parameters: [
           stringParam(name: 'app', value: 'cms'),
           booleanParam(name: 'notify_slack', value: true),
           stringParam(name: 'ref', value: commit),
@@ -59,7 +59,7 @@ pipeline {
         }
       }
       steps {
-        build job: "deploys/cms-vagov-staging", parameters: [
+        build job: "deploys/${params.app}-vagov-staging", parameters: [
           stringParam(name: 'app', value: 'cms'),
           booleanParam(name: 'notify_slack', value: true),
           stringParam(name: 'ref', value: commit),
