@@ -81,9 +81,14 @@ process:
       source: id
   # Need to have this update the same node as migrated in by the main migration.
   nid:
-    plugin: migration_lookup
-    migration: va_node_facility_vet_centers
-    source: '@field_facility_locator_api_id'
+    -
+      plugin: migration_lookup
+      migration: va_node_facility_vet_centers
+      source: '@field_facility_locator_api_id'
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Skipped: Node because it has not been initially migrated.'
   field_operating_status_facility:
     -
       plugin: static_map
@@ -122,15 +127,27 @@ process:
   moderation_state:
     plugin: default_value
     default_value: draft
-  uid:
+  changed:
+    plugin: callback
+    callable: time
+  new_revision:
     plugin: default_value
-    default_value: 1317
-  revision_uid:
+    default_value: true
+  revision_default:
     plugin: default_value
-    default_value: 1317
+    default_value: true
   revision_log:
     plugin: default_value
     default_value: "Update of status by migration."
+  revision_timestamp:
+    plugin: callback
+    callable: time
+  revision_uid:
+    plugin: default_value
+    default_value: 1317
+  uid:
+    plugin: default_value
+    default_value: 1317
   type:
     plugin: default_value
     default_value: vet_center
@@ -140,10 +157,15 @@ destination:
   default_bundle: vet_center
   # Only these fields will be overwritten if the content changes in the API.
   overwrite_properties:
+    - changed
     - field_operating_status_facility
     - field_operating_status_more_info
+    - new_revision
+    - revision_default
     - revision_log
+    - revision_timestamp
     - revision_uid
+    - uid
 # Dependency on other migrations.
 migration_dependencies:
   required: {  }
