@@ -2,16 +2,17 @@
 
 namespace Drupal\va_gov_content_export\Controller;
 
-use Alchemy\Zippy\Archive\ArchiveInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\File\Exception\FileException;
 use Drupal\Core\PageCache\ResponsePolicy\KillSwitch;
-use Drupal\Core\Site\Settings;
-use Drupal\va_gov_content_export\ArchiveDirectory;
+use Drupal\va_gov_content_export\Archive\ArchiveArgs;
+use Drupal\va_gov_content_export\Archive\ArchiveArgsFactory;
+use Drupal\va_gov_content_export\Archive\ArchiveDirectory;
 use Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Page Controller for Content Export.
@@ -19,23 +20,9 @@ use Symfony\Component\HttpFoundation\Response;
 class ContentExport extends ControllerBase {
 
   /**
-   * A default list of files to exclude.
-   *
-   * @var string[]
-   */
-  protected static $defaultExcludeList = [
-    '.htaccess',
-    'css',
-    'js',
-    'xmlsitemap',
-    'cms-export-files',
-    'php',
-  ];
-
-  /**
    * The Archiver.
    *
-   * @var \Drupal\va_gov_content_export\ArchiveDirectory
+   * @var \Drupal\va_gov_content_export\Archive\ArchiveDirectory
    */
   protected $archiver;
 
@@ -47,16 +34,31 @@ class ContentExport extends ControllerBase {
   protected $killSwitch;
 
   /**
+   * Archive Args Factory.
+   *
+   * @var \Drupal\va_gov_content_export\Archive\ArchiveArgsFactory
+   */
+  private $archiveArgsFactory;
+
+  /**
+   * The allowed export types.
+   *
+   * @var string[]
+   */
+  public CONST ALLOWED_EXPORT_TYPES = ['content', 'asset'];
+
+  /**
    * ContentExport constructor.
    *
-   * @param \Drupal\va_gov_content_export\ArchiveDirectory $archiver
+   * @param \Drupal\va_gov_content_export\Archive\ArchiveDirectory $archiver
    *   The Archiver!
    * @param \Drupal\Core\PageCache\ResponsePolicy\KillSwitch $killSwitch
    *   Kill switch.
    */
-  public function __construct(ArchiveDirectory $archiver, KillSwitch $killSwitch) {
+  public function __construct(ArchiveDirectory $archiver, KillSwitch $killSwitch, ArchiveArgsFactory $archiveArgsFactory) {
     $this->archiver = $archiver;
     $this->killSwitch = $killSwitch;
+    $this->archiveArgsFactory = $archiveArgsFactory;
   }
 
   /**
@@ -65,7 +67,8 @@ class ContentExport extends ControllerBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('va_gov.content_export.archive_directory'),
-      $container->get('page_cache_kill_switch')
+      $container->get('page_cache_kill_switch'),
+      $container->get('va_gov.content_export.archive_args_factory')
     );
   }
 
@@ -77,15 +80,24 @@ class ContentExport extends ControllerBase {
    * 2. Run tar update on the hash file
    * 3. Redirect to to the file.
    *
+   * @param string $export_type
+   *   The type of export to tar.
+   *
    * @return \Symfony\Component\HttpFoundation\Response
    *   Response.
    */
-  public function redirectToFile() : Response {
+  public function redirectToFile(string $export_type) : Response {
+    If (!$export_type || !in_array($export_type, static::ALLOWED_EXPORT_TYPES)) {
+      throw new NotFoundHttpException();
+    }
+
     // Disable anon page cache for this response.
     $this->killSwitch->trigger();
     try {
-      $this->archive();
-      $file_name = $this->getArchiveFileName();
+      $archive_args = $this->getArchiveArgs($export_type);
+      $this->archiver->archive($archive_args);
+      $file_name = $archive_args->getOutputPath();
+
       if (!file_exists($file_name)) {
         throw new FileException("Tar file does not exist at $file_name");
       }
@@ -99,48 +111,24 @@ class ContentExport extends ControllerBase {
   }
 
   /**
-   * Tar up a directory.
+   * Build the Archive Args for the export type.
    *
-   * @return string
-   *   The path to the tar.
+   * @param string $export_type
+   *   The type of export.  This can be content or asset.
+   *
+   * @return \Drupal\va_gov_content_export\Archive\ArchiveArgs
+   *   The ArchiveArgs object.
+   * @throws \Exception
    */
-  protected function archive() : ArchiveInterface {
-    return $this->archiver->archive(
-      $this->getDirectoryToArchive(),
-      $this->getArchiveFileName(),
-      $this->getExcludeList()
-    );
-  }
+  protected function getArchiveArgs(string $export_type) : ArchiveArgs {
+    switch ($export_type) {
+      case ArchiveArgsFactory::ASSET_EXPORT:
+        return $this->archiveArgsFactory->createAssetArgs();
+      case ArchiveArgsFactory::CONTENT_EXPORT:
+        return $this->archiveArgsFactory->createContentArgs();
+    }
 
-  /**
-   * Get the export directory.
-   *
-   * @return string
-   *   The uri of the directory to export.
-   */
-  protected function getArchiveFileName() : string {
-    return Settings::get('va_gov_content_export_archive_file_name', 'public://cms-content-export-latest.tar');
-  }
-
-  /**
-   * Get the directory to tar.
-   *
-   * @return string
-   *   The directory to archive.
-   */
-  protected function getDirectoryToArchive() : string {
-    return Settings::get('va_gov_content_export_directory', 'public://');
-  }
-
-  /**
-   * Get a list of file names to exclude.
-   *
-   * @return array
-   *   An array of string files names to exclude
-   */
-  protected function getExcludeList() : array {
-    return Settings::get('va_gov_content_export_files_to_ignore', []) ?:
-      static::$defaultExcludeList;
+    throw new Exception('Export Type ' . $export_type . ' does not exist');
   }
 
 }

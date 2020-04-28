@@ -60,7 +60,7 @@ class TarAdapter extends TarGNUTarAdapter {
       $builder->add('--no-recursion');
     }
 
-    $builder->add('--update');
+    $builder->add('--create');
 
     foreach ((array) $options as $option) {
       $builder->add((string) $option);

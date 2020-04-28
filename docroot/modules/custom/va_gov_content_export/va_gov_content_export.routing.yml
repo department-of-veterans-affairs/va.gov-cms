@@ -1,5 +1,5 @@
 va_gov_content_export.content_export:
-  path: "/content-export"
+  path: "/cms-export/{export_type}"
   defaults:
     _controller: 'Drupal\va_gov_content_export\Controller\ContentExport::redirectToFile'
   requirements:
