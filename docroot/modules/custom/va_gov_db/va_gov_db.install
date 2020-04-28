@@ -266,6 +266,9 @@ function va_gov_db_update_8015(&$sandbox) {
     $node->setNewRevision(TRUE);
     // Set revision author to uid 1317.
     $node->setRevisionAuthorId(1317);
+    $node->setChangedTime(time());
+    $node->setRevisionCreationTime(time());
+    $node->setOwnerId(1317);
     // Set revision log message.
     $node->setRevisionLogMessage('Automated move of text from intro_text to intro_text_limited_html');
     $node->save();
@@ -287,6 +290,11 @@ function va_gov_db_update_8015(&$sandbox) {
   $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
   // Log the all finsished notice.
   if ($sandbox['#finished'] == 1) {
-    Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'RE-saving all page nodes completed by va_gov_db_update_8012.');
+    Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'RE-saving all %count page nodes completed by va_gov_db_update_8015.', [
+      '%count' => $sandbox['total'],
+    ]);
+    return "Process complete.";
   }
+
+return "Processing page nodes...";
 }
