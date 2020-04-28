@@ -15,6 +15,7 @@ label: 'Node - Vet Centers Facility'
 # Defines the source of the migration.
 source:
   track_changes: true
+  cache_counts: true
   plugin: url
   data_fetcher_plugin: http
   data_parser_plugin: json
