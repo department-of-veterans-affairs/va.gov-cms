@@ -6,8 +6,11 @@ update_configs:
     allowed_updates:
       - match:
           update_type: "security"
-      - match:
-          dependency_name: "va-gov/web"
-    automerged_updates:
-      - match:
-          dependency_name: "va-gov/web"
+# va-gov/web fails because dependabot can't deal with composer git packages right now
+# Follow the trail starting here and fix https://github.com/department-of-veterans-affairs/va.gov-cms/issues/910
+# Then we can uncomment the below and get daily updates auto-merged on test passes. 
+#       - match:
+#           dependency_name: "va-gov/web"
+#     automerged_updates:
+#       - match:
+#           dependency_name: "va-gov/web"
