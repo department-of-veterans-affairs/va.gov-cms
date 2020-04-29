@@ -1,0 +1,29 @@
+id: import_health_service
+label: Import VAMC SYSTEM HEALTH SERVICE.
+source:
+  plugin: csv
+  path: modules⁩/custom⁩/va_gov_migrate/⁨data/wikes_import.csv⁩
+  delimiter: ';'
+  enclosure: '"'
+  header_row_count: 1
+  keys:
+    - id
+  column_names:
+    0:
+      field_service_name_and_descripti: Health Service
+    1:
+      field_body: Full Upload
+destination:
+  plugin: entity:node
+  default_bundle: regional_health_care_service_des
+
+process:
+  field_service_name_and_descripti: field_service_name_and_descripti
+  field_body: field_body
+  field_region_page: field_region_page
+  field_administration: field_administration
+
+
+migration_dependencies:
+  required: {  }
+  optional: {  }
