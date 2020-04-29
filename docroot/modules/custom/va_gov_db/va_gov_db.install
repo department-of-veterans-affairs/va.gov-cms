@@ -230,90 +230,6 @@ function va_gov_db_update_8008() {
 }
 
 /**
- * Save benefits page to migrate old intro text data to new intro text field.
- */
-function va_gov_db_update_8009(&$sandbox) {
-  // Grab our nodes and set the count.
-  if (empty($sandbox['total'])) {
-    $sandbox['nids_process'] = array_flip(\Drupal::entityQuery('node')
-      ->condition('type', 'page')
-      ->execute());
-    $sandbox['total'] = count($sandbox['nids_process']);
-    $sandbox['current'] = 1;
-  }
-
-  // Run through a batch of 25.
-  $i = 0;
-  $nids = '';
-  foreach ($sandbox['nids_process'] as $nid => $revision) {
-    if ($i > 25) {
-      break;
-    }
-
-    $node = Node::load($nid);
-    $node->save();
-    unset($sandbox['nids_process'][$nid]);
-    $i++;
-
-    $nids .= $nid . ', ';
-    $sandbox['current']++;
-  }
-
-  // Tell drupal we processed some nodes.
-  Drupal::logger('va_gov_db')
-    ->log(LogLevel::INFO, 'Page nodes %current nodes saved to populate the html intro field. Nodes processed: %nids', [
-      '%current' => $sandbox['current'],
-      '%nids' => $nids,
-    ]);
-
-  // Determine when to stop batching.
-  $sandbox['finished'] = ($sandbox['current'] / $sandbox['total']);
-
-}
-
-/**
- * Set field_intro_text_limited_html field to new wysiwyg type.
- */
-function va_gov_db_update_8010(&$sandbox) {
-  // Grab our nodes and set the count.
-  if (empty($sandbox['total'])) {
-    $sandbox['nids_process'] = array_flip(\Drupal::entityQuery('node')
-      ->condition('type', 'page')
-      ->execute());
-    $sandbox['total'] = count($sandbox['nids_process']);
-    $sandbox['current'] = 1;
-  }
-
-  // Run through a batch of 25.
-  $i = 0;
-  $nids = '';
-  foreach ($sandbox['nids_process'] as $nid => $revision) {
-    if ($i > 25) {
-      break;
-    }
-
-    $node = Node::load($nid);
-    $node->save();
-    unset($sandbox['nids_process'][$nid]);
-    $i++;
-
-    $nids .= $nid . ', ';
-    $sandbox['current']++;
-  }
-
-  // Tell drupal we processed some nodes.
-  Drupal::logger('va_gov_db')
-    ->log(LogLevel::INFO, 'Page nodes %current nodes saved to populate the html intro field. Nodes processed: %nids', [
-      '%current' => $sandbox['current'],
-      '%nids' => $nids,
-    ]);
-
-  // Determine when to stop batching.
-  $sandbox['finished'] = ($sandbox['current'] / $sandbox['total']);
-
-}
-
-/**
  * Uninstall hide_revision_field.
  */
 function va_gov_db_update_8011(&$sandbox) {
@@ -323,4 +239,62 @@ function va_gov_db_update_8011(&$sandbox) {
   $messages = _va_gov_db_uninstall_modules($unistall_modules);
 
   return $messages;
+}
+
+/**
+ * Move field_intro_text to field_intro_text_limited_html wysiwyg field.
+ */
+function va_gov_db_update_8015(&$sandbox) {
+  // Grab our nodes and set the count.
+  if (empty($sandbox['total'])) {
+    $sandbox['nids_process'] = \Drupal::entityQuery('node')
+      ->condition('type', 'page')
+      ->execute();
+    $sandbox['total'] = count($sandbox['nids_process']);
+    $sandbox['current'] = 0;
+  }
+
+  // Run through a batch of 25.
+  $i = 0;
+  $nids = '';
+  foreach ($sandbox['nids_process'] as $revision => $nid) {
+    if ($i == 25) {
+      break;
+    }
+    $node = Node::load($nid);
+    // Make this change a new revision.
+    $node->setNewRevision(TRUE);
+    // Set revision author to uid 1317.
+    $node->setRevisionAuthorId(1317);
+    $node->setChangedTime(time());
+    $node->setRevisionCreationTime(time());
+    $node->setOwnerId(1317);
+    // Set revision log message.
+    $node->setRevisionLogMessage('Automated move of text from intro_text to intro_text_limited_html');
+    $node->save();
+    unset($sandbox['nids_process'][$revision]);
+    $i++;
+
+    $nids .= $nid . ', ';
+    $sandbox['current']++;
+  }
+
+  // Tell drupal we processed some nodes.
+  Drupal::logger('va_gov_db')
+    ->log(LogLevel::INFO, 'Page nodes %current nodes saved to populate the html intro field. Nodes processed: %nids', [
+      '%current' => $sandbox['current'],
+      '%nids' => $nids,
+    ]);
+
+  // Determine when to stop batching.
+  $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
+  // Log the all finsished notice.
+  if ($sandbox['#finished'] == 1) {
+    Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'RE-saving all %count page nodes completed by va_gov_db_update_8015.', [
+      '%count' => $sandbox['total'],
+    ]);
+    return "Process complete.";
+  }
+
+return "Processing page nodes...";
 }
