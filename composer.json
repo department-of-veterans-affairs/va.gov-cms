@@ -225,7 +225,8 @@
             },
             "drupal/core": {
                 "2807629 - Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch",
-                "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2020-01-07/2893933-34.patch"
+                "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2020-01-07/2893933-34.patch",
+                "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2019-09-11/3057267-maintenance-forced-logout-experimental.patch"
             },
             "drupal/entity_browser": {
                 "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch"
@@ -273,7 +274,8 @@
             "drupal/site_alert": {
                 "Add drush commands https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-03-13/site_alert-add_drush_commands-3118800-6.patch",
                 "Add aria https://www.drupal.org/project/site_alert/issues/3120303": "https://www.drupal.org/files/issues/2020-03-17/site_alert-add-508-aria-3120303-3.patch",
-                "Make drush commands Drush 8 https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-03-13/site_alert-support_drush8_commands-3118800-7.patch"
+                "Make drush commands Drush 8 https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-03-13/site_alert-support_drush8_commands-3118800-7.patch",
+                "Allow access to /ajax/site_alert route in maintenance mode": "https://www.drupal.org/files/issues/2020-04-29/maintenance-access.patch"
             },
             "drupal/tablefield": {
                 "0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch"
@@ -313,7 +315,7 @@
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\""
         ],
         "nuke": [
-            "rm -rf bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor",
+            "rm -rf bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor /var/www/.cache/yarn",
             "composer clear-cache"
         ],
         "va:start": [

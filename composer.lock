@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6c730e2a75ea3961b8c90d2bd980f827",
+    "content-hash": "3e5ff9e2d041fda24c0cabe1669b60eb",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -597,7 +597,7 @@
             "version": "v4.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fengyuanchen/cropper.git",
+                "url": "git@github.com:fengyuanchen/cropper.git",
                 "reference": "617d9bdb8688cc4edb3b03bc49a04b83c7facbe7"
             },
             "dist": {
@@ -4051,6 +4051,7 @@
                 "patches_applied": {
                     "2807629 - Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch",
                     "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2020-01-07/2893933-34.patch",
+                    "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2019-09-11/3057267-maintenance-forced-logout-experimental.patch",
                     "2869592 - Disabled update module shouldn't produce a status report warning": "https://www.drupal.org/files/issues/2869592-remove-update-warning-7.patch",
                     "2815221 - Add quickedit to the latest-revision route": "https://www.drupal.org/files/issues/2019-11-27/2815221-125.patch",
                     "1356276 - Allow profiles to define a base/parent profile and load them in the correct order": "https://www.drupal.org/files/issues/2019-11-05/1356276-531-8.8.x-4.patch",
@@ -8959,7 +8960,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/post_api.git",
-                "reference": "ed3f8a9997cc0845b8178b770569decdfb63d448"
+                "reference": "575ae0b8183d5675c996e84157c2166ad03cf50e"
             },
             "require": {
                 "drupal/core": "^8 || ^9"
@@ -8971,7 +8972,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.x-dev",
-                    "datestamp": "1587495235",
+                    "datestamp": "1588087190",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -8993,7 +8994,7 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/post_api"
             },
-            "time": "2020-04-21T18:56:54+00:00"
+            "time": "2020-04-29T14:55:09+00:00"
         },
         {
             "name": "drupal/redirect",
@@ -9815,8 +9816,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0+15-dev",
-                    "datestamp": "1584812888",
+                    "version": "8.x-1.0+16-dev",
+                    "datestamp": "1585553695",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -9825,7 +9826,8 @@
                 "patches_applied": {
                     "Add drush commands https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-03-13/site_alert-add_drush_commands-3118800-6.patch",
                     "Add aria https://www.drupal.org/project/site_alert/issues/3120303": "https://www.drupal.org/files/issues/2020-03-17/site_alert-add-508-aria-3120303-3.patch",
-                    "Make drush commands Drush 8 https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-03-13/site_alert-support_drush8_commands-3118800-7.patch"
+                    "Make drush commands Drush 8 https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-03-13/site_alert-support_drush8_commands-3118800-7.patch",
+                    "Allow access to /ajax/site_alert route in maintenance mode": "https://www.drupal.org/files/issues/2020-04-29/maintenance-access.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
