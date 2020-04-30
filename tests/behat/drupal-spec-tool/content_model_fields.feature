@@ -13,13 +13,13 @@ Feature: Content model fields
 | Content type | Benefits detail page | Main content | field_content_block | Entity reference revisions | Required | Unlimited | Paragraphs Browser EXPERIMENTAL |  |
 | Content type | Benefits detail page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter |  |
 | Content type | Benefits detail page | Featured content | field_featured_content | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
-| Content type | Benefits detail page | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter |  |
 | Content type | Benefits detail page | Intro text | field_intro_text_limited_html | Text (formatted, long) | Required | 1 | -- Disabled -- |  |
 | Content type | Benefits detail page | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form |  |
 | Content type | Benefits detail page | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter |  |
 | Content type | Benefits detail page | Page last built | field_page_last_built | Date |  | 1 | -- Disabled -- |  |
 | Content type | Benefits detail page | Plain Language Certification Date | field_plainlanguage_date | Date |  | 1 | Date and time |  |
 | Content type | Benefits detail page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
+| Content type | Benefits detail page | Intro text | field_intro_text  | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter |  |
 | Content type | Benefits hub landing page | Owner | field_administration | Entity reference | Required | 1 | Select list |  |
 | Content type | Benefits hub landing page | Alert | field_alert | Entity reference |  | 1 | Entity browser | Translatable |
 | Content type | Benefits hub landing page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
@@ -149,12 +149,12 @@ Feature: Content model fields
 | Content type | VAMC facility | Mental Health Phone | field_mental_health_phone | Telephone number |  | 1 | Telephone number |  |
 | Content type | VAMC facility | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Content type | VAMC facility | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | VAMC facility | Nickname for this facility | field_nickname_for_this_facility | Text (plain) | Required | 1 | Textfield |  |
 | Content type | VAMC facility | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list |  |
 | Content type | VAMC facility | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC facility | Phone Number | field_phone_number  | Telephone number |  | 1 | Telephone number | Translatable |
 | Content type | VAMC facility | Region page | field_region_page | Entity reference | Required | 1 | Select list |  |
 | Content type | VAMC facility | Twitter | field_twitter | Link |  | 1 | Link | Translatable |
+| Content type | VAMC facility | Nickname for this facility | field_nickname_for_this_facility | Text (plain) | Required | 1 | -- Disabled -- |  |
 | Content type | VAMC facility health service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC facility health service | Facility description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | VAMC facility health service | Facility | field_facility_location | Entity reference | Required | 1 | Select list | Translatable |
@@ -178,13 +178,13 @@ Feature: Content model fields
 | Content type | VAMC system | Banner image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | VAMC system | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Content type | VAMC system | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | VAMC system | VAMC system short name | field_nickname_for_this_facility | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | VAMC system | VAMC system official name | field_vamc_system_official_name | Text (plain) |  | 1 | Textfield |  |
 | Content type | VAMC system | Operating status | field_operating_status | Link |  | 1 | Linkit |  |
 | Content type | VAMC system | Other VA Locations | field_other_va_locations | Text (plain) |  | Unlimited | Textfield |  |
 | Content type | VAMC system | Press Release Blurb | field_press_release_blurb | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC system | Common Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | VAMC system | Twitter | field_twitter | Link |  | 1 | Link | Translatable |
+| Content type | VAMC system | VAMC system short name | field_nickname_for_this_facility | Text (plain) |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC system banner alert with situation updates | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC system banner alert with situation updates | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC system banner alert with situation updates | Display "Subscribe to email updates" link? | field_alert_email_updates_button | Boolean |  | 1 | Single on/off checkbox |  |
