@@ -1,3 +1,8 @@
+// This file is called from ansible/deployment/config/jenkins-vetsgov/seed_job.groovy
+// and is used in the http://jenkins.vfs.va.gov/job/testing/job/cms-test job that
+// auto-triggers deploys to DEV & STAGING on commit and which is triggered
+// by a webhook.
+
 def shouldBail() {
   // abort the job if there's a newer build going now
   return currentBuild.nextBuild
@@ -44,7 +49,7 @@ pipeline {
       steps {
         sh 'echo SUCCESS, we are in DEV step'
         build job: "deploys/${params.app}-vagov-dev", parameters: [
-          stringParam(name: 'app', value: 'cms'),
+          stringParam(name: 'app', value: params.app),
           booleanParam(name: 'notify_slack', value: true),
           stringParam(name: 'ref', value: commit),
           booleanParam(name: 'migration_status', value: false)
@@ -60,7 +65,7 @@ pipeline {
       }
       steps {
         build job: "deploys/${params.app}-vagov-staging", parameters: [
-          stringParam(name: 'app', value: 'cms'),
+          stringParam(name: 'app', value: params.app),
           booleanParam(name: 'notify_slack', value: true),
           stringParam(name: 'ref', value: commit),
           booleanParam(name: 'migration_status', value: false)
