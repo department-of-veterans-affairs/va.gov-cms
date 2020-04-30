@@ -26,7 +26,7 @@ index ee8b03f..f8d5166 100644
 +    node: \d+
 diff --git a/src/Controller/ParagraphsContextualLinkController.php b/src/Controller/ParagraphsContextualLinkController.php
 new file mode 100644
-index 0000000..b2a9870
+index 0000000..97150e1
 --- /dev/null
 +++ b/src/Controller/ParagraphsContextualLinkController.php
 @@ -0,0 +1,58 @@
@@ -46,8 +46,8 @@ index 0000000..b2a9870
 +    $parents = [];
 +    $paragraph_object = $this->entityTypeManager()->getStorage('paragraph')->load($paragraph);
 +
-+    $node_id = self::get_parents($paragraph_object, $parents);
-+    if ($node_id) {
++    $ancestor = self::get_parents($paragraph_object, $parents);
++    if (!empty($ancestor)) {
 +      $options['query'] = [];
 +      $options['query']['edit_para'][] = $paragraph;
 +      $options['fragment'] = 'p' . $paragraph;
@@ -55,7 +55,7 @@ index 0000000..b2a9870
 +        $options['query']['edit_para'][] = $parent;
 +      }
 +
-+      return new IgnoreDestinationRedirectResponse(Url::fromRoute('entity.node.edit_form', ['node' => $node_id], $options)->setAbsolute()->toString());
++      return new IgnoreDestinationRedirectResponse(Url::fromRoute('entity.node.edit_form', $ancestor, $options)->setAbsolute()->toString());
 +    }
 +    else {
 +      throw new \Exception($this->t('Could not find edit screen for paragraph %id', ['%id' => $paragraph]));
@@ -63,28 +63,28 @@ index 0000000..b2a9870
 +  }
 +
 +  /**
-+   * Adds all of the paragraph's ancestor ids to parent_ids.
++   * Adds ids of any containing paragraphs to parent_ids and returns [type => id] of the entity that contains them.
 +   *
 +   * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
-+   *   The paragraph to find the parent's of.
-+   * @param array $parent_ids
-+   *   An array to hold parent ids.
++   *   The paragraph to find the parents of.
++   * @param array $paragraph_ids
++   *   An array to hold ancestor paragraph ids.
 +   *
-+   * @return int
-+   *   The paragraph's node id.
++   * @return array
++   *   The id of the non-paragraph entity where the paragraph lives keyed on entity type.
 +   */
-+  public static function get_parents(Paragraph $paragraph, array &$parent_ids=[]) {
-+    $node_id = 0;
++  public static function get_parents(Paragraph $paragraph, array &$paragraph_ids=[]) {
++    $ancestor = [];
 +
 +    $parent = $paragraph->getParentEntity();
 +    if ($parent->getEntityType()->id() === 'paragraph') {
-+      $parent_ids[] = $parent->id();
-+      $node_id = self::get_parents($parent, $parent_ids);
++      $paragraph_ids[] = $parent->id();
++      $node_id = self::get_parents($parent, $paragraph_ids);
 +    }
-+    elseif ($parent->getEntityType()->id() === 'node') {
-+      $node_id = $parent->id();
++    else {
++      $ancestor[$parent->getEntityType()->id()] = $parent->id();
 +    }
-+    return $node_id;
++    return $ancestor;
 +  }
 +
 +}
@@ -120,7 +120,7 @@ index 87b45eb..891fec7 100644
  
      return $build_list;
 diff --git a/src/Plugin/Field/FieldWidget/ParagraphsWidget.php b/src/Plugin/Field/FieldWidget/ParagraphsWidget.php
-index 7c2a707..354d848 100644
+index 001e9e0..1278089 100644
 --- a/src/Plugin/Field/FieldWidget/ParagraphsWidget.php
 +++ b/src/Plugin/Field/FieldWidget/ParagraphsWidget.php
 @@ -379,8 +379,12 @@ class ParagraphsWidget extends WidgetBase {
