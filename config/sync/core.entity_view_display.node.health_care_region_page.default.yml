@@ -57,7 +57,7 @@ third_party_settings:
       children:
         - field_intro_text
         - field_media
-        - field_nickname_for_this_facility
+        - field_vamc_system_official_name
         - field_other_va_locations
         - field_leadership
         - field_appointments_online
@@ -92,11 +92,6 @@ third_party_settings:
       region: content
     group_social_media_and_links:
       children:
-        - field_links
-        - field_sign_up_for_emergency_emai
-        - field_email_subscription_links
-        - field_link_facility_emerg_list
-        - field_link_facility_news_list
         - field_operating_status
         - field_facebook
         - field_flickr
@@ -131,7 +126,7 @@ content:
     type: entity_reference_label
     region: content
   field_appointments_online:
-    weight: 9
+    weight: 10
     label: above
     settings:
       format: default
@@ -148,7 +143,7 @@ content:
     type: text_default
     region: content
   field_clinical_health_services:
-    weight: 10
+    weight: 11
     label: above
     settings:
       link: true
@@ -197,7 +192,7 @@ content:
     type: link
     region: content
   field_govdelivery_id_emerg:
-    weight: 26
+    weight: 6
     label: above
     settings:
       link_to_entity: false
@@ -205,7 +200,7 @@ content:
     type: string
     region: content
   field_govdelivery_id_news:
-    weight: 27
+    weight: 7
     label: above
     settings:
       link_to_entity: false
@@ -232,35 +227,35 @@ content:
     type: basic_string
     region: content
   field_intro_text_events_page:
-    weight: 8
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
-    region: content
-  field_intro_text_leadership:
-    weight: 5
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-    region: content
-  field_intro_text_news_stories:
     weight: 9
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
-  field_intro_text_press_releases:
+  field_intro_text_leadership:
     weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
+  field_intro_text_news_stories:
+    weight: 10
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_intro_text_press_releases:
+    weight: 7
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
   field_leadership:
-    weight: 8
+    weight: 9
     label: above
     settings:
       link: true
@@ -290,14 +285,6 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_nickname_for_this_facility:
-    weight: 6
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
   field_operating_status:
     weight: 11
     label: above
@@ -311,7 +298,7 @@ content:
     type: link
     region: content
   field_other_va_locations:
-    weight: 7
+    weight: 8
     label: above
     settings:
       link_to_entity: false
@@ -319,7 +306,7 @@ content:
     type: string
     region: content
   field_press_release_blurb:
-    weight: 7
+    weight: 8
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -347,7 +334,7 @@ content:
     type: link
     region: content
   field_vamc_system_official_name:
-    weight: 28
+    weight: 6
     label: above
     settings:
       link_to_entity: false
@@ -356,5 +343,6 @@ content:
     region: content
 hidden:
   field_meta_tags: true
+  field_nickname_for_this_facility: true
   links: true
   search_api_excerpt: true

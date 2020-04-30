@@ -61,7 +61,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
       weight: 9
       format_type: fieldset
@@ -101,7 +100,6 @@ third_party_settings:
       region: content
     group_title_and_summary:
       children:
-        - field_nickname_for_this_facility
         - field_intro_text
         - field_media
       parent_name: ''
@@ -330,14 +328,6 @@ content:
     third_party_settings: {  }
     type: string_textfield_with_counter
     region: content
-  field_nickname_for_this_facility:
-    weight: 4
-    settings:
-      size: 120
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_operating_status_facility:
     weight: 5
     settings: {  }
@@ -407,6 +397,7 @@ content:
 hidden:
   created: true
   field_local_health_care_service_: true
+  field_nickname_for_this_facility: true
   promote: true
   status: true
   sticky: true
