@@ -41,7 +41,7 @@ class BuildTriggerForm extends FormBase {
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Release Content'),
+      '#value' => $this->t('Release content'),
       '#button_type' => 'primary',
       '#suffix' => ' ' . t('to %site', [
         '%site' => $target,
