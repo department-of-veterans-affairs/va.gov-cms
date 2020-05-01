@@ -75,9 +75,9 @@ content:
       allow_new: true
       match_operator: CONTAINS
       allow_duplicate: true
-      override_labels: false
       collapsed: false
       allow_existing: false
+      revision: false
     third_party_settings: {  }
     type: inline_entity_form_complex_table_view_mode
     region: content
@@ -89,18 +89,9 @@ content:
     region: content
   field_service_name_and_descripti:
     weight: 0
-    settings:
-      entity_browser: va_services
-      field_widget_display: rendered_entity
-      field_widget_display_settings:
-        view_mode: default
-      field_widget_remove: true
-      open: true
-      selection_mode: selection_append
-      field_widget_edit: false
-      field_widget_replace: false
+    settings: {  }
     third_party_settings: {  }
-    type: entity_browser_entity_reference
+    type: options_select
     region: content
 hidden:
   created: true
