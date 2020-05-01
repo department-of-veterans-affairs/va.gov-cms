@@ -219,9 +219,14 @@ process:
       plugin: concat
       delimiter: ''
   nid:
-    plugin: migration_lookup
-    migration: va_node_health_care_local_facility
-    source: '@field_facility_locator_api_id'
+    -
+      plugin: migration_lookup
+      migration: va_node_health_care_local_facility
+      source: '@field_facility_locator_api_id'
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Skipped: Node because it has not been initially migrated.'
   field_operating_status_facility:
     -
       plugin: static_map
@@ -263,12 +268,24 @@ process:
   uid:
     plugin: default_value
     default_value: 1317
-  revision_uid:
+  new_revision:
     plugin: default_value
-    default_value: 1317
+    default_value: true
+  revision_default:
+    plugin: default_value
+    default_value: true
   revision_log:
     plugin: default_value
     default_value: 'Update of status by migration.'
+  revision_timestamp:
+    plugin: callback
+    callable: time
+  revision_uid:
+    plugin: default_value
+    default_value: 1317
+  changed:
+    plugin: callback
+    callable: time
   type:
     plugin: default_value
     default_value: health_care_local_facility
@@ -276,9 +293,14 @@ destination:
   plugin: 'entity:node'
   default_bundle: health_care_local_facility
   overwrite_properties:
+    - changed
     - field_operating_status_facility
     - field_operating_status_more_info
+    - new_revision
+    - revision_default
     - revision_log
+    - revision_timestamp
     - revision_uid
+    - uid
 migration_dependencies:
   required: {  }
