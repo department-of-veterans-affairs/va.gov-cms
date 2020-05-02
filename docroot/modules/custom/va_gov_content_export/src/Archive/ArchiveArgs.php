@@ -84,7 +84,7 @@ class ArchiveArgs {
   }
 
   /**
-   * Get the Current to use as the CWD for the tar command.
+   * Get the current working directory to use as the CWD for the tar command.
    *
    * @return string
    *   The CWD.
