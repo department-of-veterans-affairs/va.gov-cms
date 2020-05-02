@@ -27,7 +27,7 @@ class ContentExport extends ControllerBase {
   protected $archiver;
 
   /**
-   * Kill switch so that Drupal won't serve a cached response for the archive request. 
+   * Kill switch so Drupal won't serve a cached response.
    *
    * @var \Drupal\Core\PageCache\ResponsePolicy\KillSwitch
    */

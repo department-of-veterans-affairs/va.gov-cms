@@ -52,7 +52,7 @@ class ArchiveArgs {
    * @param string $archive_path
    *   The Relative Archive Path.
    * @param string $basePath
-   *   The base path to archive, current working directory. 
+   *   The base path to archive, current working directory.
    * @param string $output_path
    *   The output path.
    */
