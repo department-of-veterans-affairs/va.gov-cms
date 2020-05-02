@@ -79,7 +79,7 @@ class ContentExport extends ControllerBase {
    *
    * The end point follows the following process:
    * 1. Get the directory to tar
-   * 2. Run tar update on the hash file
+   * 2. Run tar --create on the archive directory
    * 3. Redirect to to the file.
    *
    * @param string $export_type
