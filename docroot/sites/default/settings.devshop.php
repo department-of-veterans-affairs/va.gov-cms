@@ -23,7 +23,7 @@ if (file_exists($app_root . '/' . $site_path . '/../default/settings.php')) {
   include $app_root . '/' . $site_path . '/../default/settings.php';
 }
 
-// Add devshopt level service file for FileSystem overrides
+// Add devshop level service file for FileSystem overrides
 $settings['file_chmod_directory'] = 02775;
 
 // Restore DevShop's $databases settings.
