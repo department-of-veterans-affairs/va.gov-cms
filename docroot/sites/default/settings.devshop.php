@@ -23,6 +23,9 @@ if (file_exists($app_root . '/' . $site_path . '/../default/settings.php')) {
   include $app_root . '/' . $site_path . '/../default/settings.php';
 }
 
+// Add devshop level service file for FileSystem overrides
+$settings['file_chmod_directory'] = 02775;
+
 // Restore DevShop's $databases settings.
 $databases  = $devshop_db_settings;
 
@@ -31,7 +34,6 @@ $databases  = $devshop_db_settings;
 // DevShop shouldn't set this, maybe we can just unset this so services.yml is
 // authoritative source for the cookie_lifetime.
 ini_set('session.cookie_lifetime', 0);
-
 
 /**
  * GLOBAL SETTINGS.PHP OVERRIDES
