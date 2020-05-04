@@ -182,3 +182,6 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php'
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.local.php')) {
   include $app_root . '/' . $site_path . '/settings/settings.local.php';
 }
+
+$settings['tome_content_directory'] = 'public://cms-export-content';
+$settings['tome_files_directory'] = 'public://cms-export-files';

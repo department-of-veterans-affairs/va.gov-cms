@@ -10,6 +10,7 @@
         "acquia/drupal-spec-tool": "^2.0"
     },
     "require": {
+        "alchemy/zippy": "^0.4.9",
         "bower-asset/blazy": "^1.8",
         "bower-asset/cropper": "^4.1",
         "bower-asset/dropzone": "^5.5",
@@ -103,6 +104,7 @@
         "drupal/tablefield": "^2.1",
         "drupal/taxonomy_menu": "^3.4",
         "drupal/textfield_counter": "^1.6",
+        "drupal/tome": "1.3",
         "drupal/toolbar_menu": "^2.1",
         "drupal/toolbar_menu_clean": "^1.0",
         "drupal/tour_ui": "^1.0@beta",
@@ -267,6 +269,9 @@
             "drupal/hide_revision_field": {
                 "Fix whitescreen when editing your own user. https://www.drupal.org/project/hide_revision_field/issues/3018160": "https://www.drupal.org/files/issues/2019-05-15/hide-revision-field-3018160-5-8.x-2.1.patch"
             },
+            "drupal/schemata": {
+                "PHP 7.2 notice - \"Undefined offset: 1\" in JsonSchemaEncoder": "https://www.drupal.org/files/issues/2019-07-08/3063027-5-undefined-offset.patch"
+            },
             "drupal/simplesamlphp_auth": {
                 "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2019-08-14/2748731-23.patch",
                 "Bypass password requirement for password change if logged in with sso.": "https://www.drupal.org/files/issues/2018-05-01/simplesamlphp_auth-change-password-access-2968598-2.patch"
@@ -282,6 +287,9 @@
             },
             "drupal/textfield_counter": {
                 "Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch"
+            },
+            "drupal/tome":{
+                "Allow entity types to be excluded in tome sync":"https://www.drupal.org/files/issues/2020-02-20/tome_export_types-3114961-2.patch"
             },
             "drupal/user_history": {
                 "Invalid argument in foreach when saving a user": "https://www.drupal.org/files/issues/2019-12-11/invalid-argument-on-save_0.patch"
