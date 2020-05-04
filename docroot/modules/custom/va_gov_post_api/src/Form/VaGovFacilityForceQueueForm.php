@@ -94,24 +94,35 @@ class VaGovFacilityForceQueueForm extends FormBase {
       ->set('bypass_data_check', 1)
       ->save();
 
-    $nids = \Drupal::entityQuery('node')
+    $sandbox['nids'] = \Drupal::entityQuery('node')
       ->condition('type', $facility_type)
       ->execute();
 
-    if (!empty($nids)) {
+    if (!empty($sandbox['nids'])) {
       try {
-        $nodes = Node::loadMultiple($nids);
-        foreach ($nodes as $node) {
-          _post_api_add_facility_to_queue($node);
+        $sandbox['total'] = count($sandbox['nids']);
+        $sandbox['current'] = 0;
+
+        while ($sandbox['current'] < $sandbox['total']) {
+          // Run through a batch of 50.
+          $nids = array_slice($sandbox['nids'], $sandbox['current'], 50, FALSE);
+
+          $nodes = Node::loadMultiple($nids);
+          foreach ($nodes as $node) {
+            _post_api_add_facility_to_queue($node);
+          }
+
+          $sandbox['current'] = $sandbox['current'] + count($nids);
+
+          $this->logger('va_gov_post_api')
+            ->log(LogLevel::INFO, 'VA.gov Post API: %current of %total %type nodes queued for sync to Lighthouse.', [
+              '%type' => $facility_type,
+              '%current' => $sandbox['current'],
+              '%total' => count($sandbox['nids']),
+            ]);
         }
 
-        $this->logger('va_gov_post_api')
-          ->log(LogLevel::INFO, 'VA.gov Post API: %total %type nodes queued for sync to Lighthouse.', [
-            '%type' => $facility_type,
-            '%total' => count($nodes),
-          ]);
-
-        $this->messenger()->addStatus(sprintf('%d %s nodes queued for sync to Lighthouse.', count($nodes), $facility_type));
+        $this->messenger()->addStatus(sprintf('%d %s nodes queued for sync to Lighthouse.', count($sandbox['nids']), $facility_type));
       }
       catch (\Exception $e) {
         $this->logger('va_gov_post_api')
