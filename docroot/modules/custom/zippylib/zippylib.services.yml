@@ -1,0 +1,6 @@
+services:
+  zippy.factory:
+    class: Drupal\zippylib\ZippyFactory
+  zippy:
+    class: Alchemy\Zippy\Zippy
+    factory: zippy.factory:get
