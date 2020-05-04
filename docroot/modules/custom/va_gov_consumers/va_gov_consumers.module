@@ -70,9 +70,9 @@ function _vagov_consumers_disable_vha_api_form_fields(array &$form, $form_id) {
 
     // Disable the facility locator API field if it is populated because it
     // should not be altered, or it will deviate from the API.
-    if (!empty($form["field_facility_locator_api_id"]["widget"][0]["value"]["#default_value"])) {
-      $form["field_facility_locator_api_id"]["widget"][0]["value"]['#attributes']['disabled'] = TRUE;
-      $form["field_facility_locator_api_id"]["widget"][0]["value"]["#description"] =t('Synced to the Facility API.  If you need to change this, please contact CMS Support.');
+    if (!empty($form['field_facility_locator_api_id']['widget'][0]['value']['#default_value'])) {
+      $form['field_facility_locator_api_id']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
+      $form['field_facility_locator_api_id']['widget'][0]['value']['#description'] = t('Synced to the Facility API.  If you need to change this, please contact CMS Support.');
     }
     // Disable items that are populated by the Facility API migration.
     $form['title']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
@@ -119,9 +119,9 @@ function _vagov_consumers_disable_non_vha_facilities_api_form_fields(array &$for
     }
     // Disable the facility locator API field if it is populated because it
     // should not be altered, or it will deviate from the API.
-    if (!empty($form["field_facility_locator_api_id"]["widget"][0]["value"]["#default_value"])) {
-      $form["field_facility_locator_api_id"]["widget"][0]["value"]['#attributes']['disabled'] = TRUE;
-      $form["field_facility_locator_api_id"]["widget"][0]["value"]["#description"] =t('Synced to the Facility API.  If you need to change this, please contact CMS Support.');
+    if (!empty($form['field_facility_locator_api_id']['widget'][0]['value']['#default_value'])) {
+      $form['field_facility_locator_api_id']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
+      $form['field_facility_locator_api_id']['widget'][0]['value']['#description'] = t('Synced to the Facility API.  If you need to change this, please contact CMS Support.');
     }
   }
 }
