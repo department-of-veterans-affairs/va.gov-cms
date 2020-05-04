@@ -38,9 +38,41 @@ function _va_gov_consumers_content() {
  * Implements hook_form_alter().
  */
 function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  _vagov_consumers_disable_vha_api_form_fields($form, $form_id);
+  _vagov_consumers_disable_non_vha_facilities_api_form_fields($form, $form_id);
+}
+
+/**
+ * Callback for table field widget.
+ *
+ * @param object $element
+ *   The field object.
+ */
+function _va_gov_consumers_customize_table($element) {
+  unset($element['tablefield']['import']);
+  unset($element['tablefield']['rebuild']);
+  return $element;
+}
+
+/**
+ * Disable api sourced fields on vha local facility to prevent human editing.
+ *
+ * @param array $form
+ *   A drupal form array by reference.
+ * @param string $form_id
+ *   The machine name for the form.
+ */
+function _vagov_consumers_disable_vha_api_form_fields(array &$form, $form_id) {
   if ($form_id === 'node_health_care_local_facility_edit_form' || $form_id === 'node_health_care_local_facility_form') {
     if (empty($form['title']['widget'][0]['value']['#default_value'])) {
       $form['title']['widget'][0]['value']['#default_value'] = t('API Data');
+    }
+
+    // Disable the facility locator API field if it is populated because it
+    // should not be altered, or it will deviate from the API.
+    if (!empty($form['field_facility_locator_api_id']['widget'][0]['value']['#default_value'])) {
+      $form['field_facility_locator_api_id']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
+      $form['field_facility_locator_api_id']['widget'][0]['value']['#description'] = t('Synced to the Facility API.  If you need to change this, please contact CMS Support.');
     }
     // Disable items that are populated by the Facility API migration.
     $form['title']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
@@ -59,13 +91,37 @@ function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $fo
 }
 
 /**
- * Callback for table field widget.
+ * Disable api sourced fields on non vha facilities to prevent human editing.
  *
- * @param object $element
- *   The field object.
+ * @param array $form
+ *   A drupal form array by reference.
+ * @param string $form_id
+ *   The machine name for the form.
  */
-function _va_gov_consumers_customize_table($element) {
-  unset($element['tablefield']['import']);
-  unset($element['tablefield']['rebuild']);
-  return $element;
+function _vagov_consumers_disable_non_vha_facilities_api_form_fields(array &$form, $form_id) {
+  $target_forms = [
+    'node_nca_facility_edit_form',
+    'node_nca_facility_form',
+    'node_vba_facility_edit_form',
+    'node_vba_facility_form',
+    'node_vet_center_edit_form',
+    'node_vet_center_form',
+  ];
+
+  if (in_array($form_id, $target_forms)) {
+    if (empty($form['title']['widget'][0]['value']['#default_value'])) {
+      // Prepoulate the title to warn it will be overwritten by api data.
+      $form['title']['widget'][0]['value']['#default_value'] = t('May be overwritten by Facility API Data');
+    }
+    else {
+      // Disable the title, it has content already.
+      $form['title']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
+    }
+    // Disable the facility locator API field if it is populated because it
+    // should not be altered, or it will deviate from the API.
+    if (!empty($form['field_facility_locator_api_id']['widget'][0]['value']['#default_value'])) {
+      $form['field_facility_locator_api_id']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
+      $form['field_facility_locator_api_id']['widget'][0]['value']['#description'] = t('Synced to the Facility API.  If you need to change this, please contact CMS Support.');
+    }
+  }
 }
