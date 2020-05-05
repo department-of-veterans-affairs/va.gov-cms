@@ -398,8 +398,8 @@
         ],
         "va:web:build": [
             "drush config-set va_gov.build web.build.pending 1 -y",
-            "rm -rf vendor/va-gov/web/build/localhost/",
-            "cd web && npm run build -- --pull-drupal  --no-drupal-proxy",
+            "rm -rf vendor/va-gov/web/build/",
+            "cd web && NODE_ENV=production yarn run build:content --api https://dev-api.va.gov --pull-drupal  --no-drupal-proxy --buildtype vagovdev",
             "drush config-set va_gov.build web.build.pending 0 -y"
         ],
         "va:web:test": [
