@@ -7,3 +7,12 @@ va_gov_post_api.admin_settings:
     _permission: 'administer site configuration'
   options:
     _admin_route: TRUE
+va_gov_post_api.facility_force_queue_form:
+  path: '/admin/config/va-gov-post-api/facility-force-queue'
+  defaults:
+    _form: '\Drupal\va_gov_post_api\Form\VaGovFacilityForceQueueForm'
+    _title: 'Facility Force-Queue Form'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
