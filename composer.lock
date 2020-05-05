@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f43c3a6efff8e47dafea7baf76ad927",
+    "content-hash": "6b11db11943a6e7eada4739ae8bb9de1",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2721,7 +2721,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.7",
-                    "datestamp": "1582913039",
+                    "datestamp": "1559642884",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2744,10 +2744,6 @@
                 {
                     "name": "googletorp",
                     "homepage": "https://www.drupal.org/user/386230"
-                },
-                {
-                    "name": "jsacksick",
-                    "homepage": "https://www.drupal.org/user/972218"
                 },
                 {
                     "name": "mglaman",
@@ -3035,7 +3031,7 @@
                 },
                 "drupal": {
                     "version": "8.x-2.0-rc7",
-                    "datestamp": "1582995235",
+                    "datestamp": "1581756279",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "RC releases are not covered by Drupal security advisories."
@@ -3417,7 +3413,7 @@
                 "shasum": "81210684c378dab856b3c2bce5eeaa58992d2efc"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "~8.0"
             },
             "suggest": {
                 "drupal/config_split": "Split site configuration for different environments."
@@ -3884,20 +3880,16 @@
             ],
             "authors": [
                 {
+                    "name": "Joseph Zhao",
+                    "homepage": "https://www.drupal.org/user/1987218"
+                },
+                {
                     "name": "chr.fritsch",
                     "homepage": "https://www.drupal.org/user/2103716"
                 },
                 {
                     "name": "ergonlogic",
                     "homepage": "https://www.drupal.org/user/368613"
-                },
-                {
-                    "name": "mfb",
-                    "homepage": "https://www.drupal.org/user/12302"
-                },
-                {
-                    "name": "pandaski",
-                    "homepage": "https://www.drupal.org/user/1987218"
                 }
             ],
             "description": "Prevents multiple users from trying to edit a content entity simultaneously to prevent edit conflicts.",
@@ -4116,9 +4108,8 @@
                     "2807629 - Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch",
                     "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2020-01-07/2893933-34.patch",
                     "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2019-09-11/3057267-maintenance-forced-logout-experimental.patch",
-                    "2775665 - MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "https://www.drupal.org/files/issues/updateLink-2775665-2.patch",
-                    "2815221 - Add quickedit to the latest-revision route": "https://www.drupal.org/files/issues/2019-11-27/2815221-125.patch",
                     "2869592 - Disabled update module shouldn't produce a status report warning": "https://www.drupal.org/files/issues/2869592-remove-update-warning-7.patch",
+                    "2815221 - Add quickedit to the latest-revision route": "https://www.drupal.org/files/issues/2019-11-27/2815221-125.patch",
                     "1356276 - Allow profiles to define a base/parent profile and load them in the correct order": "https://www.drupal.org/files/issues/2019-11-05/1356276-531-8.8.x-4.patch",
                     "2914389 - Allow profiles to exclude dependencies of their parent": "https://www.drupal.org/files/issues/2018-07-09/2914389-8-do-not-test.patch"
                 }
@@ -4546,10 +4537,6 @@
                 {
                     "name": "See contributors",
                     "homepage": "https://www.drupal.org/node/3236/committers"
-                },
-                {
-                    "name": "pcambra",
-                    "homepage": "https://www.drupal.org/user/122101"
                 },
                 {
                     "name": "salvis",
@@ -5691,8 +5678,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-rc2+8-dev",
-                    "datestamp": "1580249379",
+                    "version": "8.x-3.0-rc1+15-dev",
+                    "datestamp": "1570894385",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -5721,12 +5708,12 @@
                     "homepage": "https://www.drupal.org/user/591438"
                 },
                 {
-                    "name": "nils.destoop",
-                    "homepage": "https://www.drupal.org/user/361625"
-                },
-                {
                     "name": "swentel",
                     "homepage": "https://www.drupal.org/user/107403"
+                },
+                {
+                    "name": "zuuperman",
+                    "homepage": "https://www.drupal.org/user/361625"
                 }
             ],
             "description": "Provides the field_group module.",
@@ -5735,6 +5722,54 @@
                 "source": "https://git.drupalcode.org/project/field_group"
             },
             "time": "2019-05-23T21:31:25+00:00"
+        },
+        {
+            "name": "drupal/fieldhelptext",
+            "version": "1.0.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/fieldhelptext.git",
+                "reference": "8.x-1.0-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/fieldhelptext-8.x-1.0-beta1.zip",
+                "reference": "8.x-1.0-beta1",
+                "shasum": "f40f6371a5c8a72cc944bac7230577d27978b09a"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-beta1",
+                    "datestamp": "1585151611",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Bec White",
+                    "homepage": "https://www.drupal.org/user/81067",
+                    "email": "white@palantir.net"
+                }
+            ],
+            "description": "Module to provide a bulk editing UI for field help text.",
+            "homepage": "https://github.com/palantirnet/fieldhelptext",
+            "support": {
+                "source": "https://git.drupalcode.org/project/fieldhelptext"
+            }
         },
         {
             "name": "drupal/govdelivery_bulletins",
@@ -5863,7 +5898,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-rc3",
-                    "datestamp": "1572538084",
+                    "datestamp": "1555138081",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "RC releases are not covered by Drupal security advisories."
@@ -6137,10 +6172,6 @@
                     "homepage": "https://www.drupal.org/user/3057985"
                 },
                 {
-                    "name": "phenaproxima",
-                    "homepage": "https://www.drupal.org/user/205645"
-                },
-                {
                     "name": "slashrsm",
                     "homepage": "https://www.drupal.org/user/744628"
                 },
@@ -6280,10 +6311,6 @@
                 {
                     "name": "catch",
                     "homepage": "https://www.drupal.org/user/35733"
-                },
-                {
-                    "name": "jonathan1055",
-                    "homepage": "https://www.drupal.org/user/92645"
                 },
                 {
                     "name": "juampynr",
@@ -7846,7 +7873,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.2",
-                    "datestamp": "1581285935",
+                    "datestamp": "1562866084",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -8004,7 +8031,7 @@
                     "datestamp": "1543085281",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "message": "Project has not opted into security advisory coverage!"
                     }
                 }
             },
@@ -8016,10 +8043,6 @@
                 {
                     "name": "Stéphane Le Merre",
                     "homepage": "https://www.drupal.org/u/oulalahakabu"
-                },
-                {
-                    "name": "adriancid",
-                    "homepage": "https://www.drupal.org/user/1962106"
                 }
             ],
             "description": "This module allows to manage node's revisions store : according to settings, revisions are automaticaly deleted.",
@@ -8119,7 +8142,7 @@
                     "datestamp": "1563908885",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "message": "Project has not opted into security advisory coverage!"
                     }
                 }
             },
@@ -8128,10 +8151,6 @@
                 "GPL-2.0+"
             ],
             "authors": [
-                {
-                    "name": "e0ipso",
-                    "homepage": "https://www.drupal.org/user/550110"
-                },
                 {
                     "name": "mrjmd",
                     "homepage": "https://www.drupal.org/user/1800446"
@@ -8552,7 +8571,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.10",
-                    "datestamp": "1581850829",
+                    "datestamp": "1572617586",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -8689,7 +8708,8 @@
                         "status": "not-covered",
                         "message": "Alpha releases are not covered by Drupal security advisories."
                     }
-                }
+                },
+                "patches_applied": []
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
@@ -9355,7 +9375,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0",
-                    "datestamp": "1580498751",
+                    "datestamp": "1560754985",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -9820,7 +9840,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.1",
-                    "datestamp": "1580423953",
+                    "datestamp": "1565118485",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10191,7 +10211,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.6",
-                    "datestamp": "1579988281",
+                    "datestamp": "1538436481",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10744,7 +10764,7 @@
                 "shasum": "660ea8fd108f73c6da87640863079e83005aefca"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "*"
             },
             "type": "drupal-module",
             "extra": {
@@ -10753,7 +10773,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-alpha3",
-                    "datestamp": "1580423785",
+                    "datestamp": "1574828585",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -11023,7 +11043,7 @@
                 },
                 "drupal": {
                     "version": "8.x-2.5",
-                    "datestamp": "1580924749",
+                    "datestamp": "1550740384",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -11094,7 +11114,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-beta3",
-                    "datestamp": "1580333468",
+                    "datestamp": "1569361684",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -11720,14 +11740,14 @@
             "authors": [
                 {
                     "name": "Nicholas Humfrey",
+                    "role": "Developer",
                     "email": "njh@aelius.com",
-                    "homepage": "http://www.aelius.com/njh/",
-                    "role": "Developer"
+                    "homepage": "http://www.aelius.com/njh/"
                 },
                 {
                     "name": "Alexey Zakhlestin",
-                    "email": "indeyets@gmail.com",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "indeyets@gmail.com"
                 }
             ],
             "description": "EasyRdf is a PHP library designed to make it easy to consume and produce RDF.",
@@ -12791,9 +12811,9 @@
             "authors": [
                 {
                     "name": "Phil Bennett",
+                    "role": "Developer",
                     "email": "philipobenito@gmail.com",
-                    "homepage": "http://www.philipobenito.com",
-                    "role": "Developer"
+                    "homepage": "http://www.philipobenito.com"
                 }
             ],
             "description": "A fast and intuitive dependency injection container.",
@@ -13706,18 +13726,18 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "email": "arne@blankerts.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "arne@blankerts.de"
                 },
                 {
                     "name": "Sebastian Heuer",
-                    "email": "sebastian@phpeople.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpeople.de"
                 },
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Component for reading phar.io manifest information from a PHP Archive (PHAR)",
@@ -13753,18 +13773,18 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "email": "arne@blankerts.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "arne@blankerts.de"
                 },
                 {
                     "name": "Sebastian Heuer",
-                    "email": "sebastian@phpeople.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpeople.de"
                 },
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library for handling version information and constraints",
@@ -14504,8 +14524,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",
@@ -14552,8 +14572,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sb@sebastian-bergmann.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sb@sebastian-bergmann.de"
                 }
             ],
             "description": "FilterIterator implementation that filters files based on a list of suffixes.",
@@ -14594,8 +14614,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Simple template engine.",
@@ -14643,8 +14663,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sb@sebastian-bergmann.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sb@sebastian-bergmann.de"
                 }
             ],
             "description": "Utility class for timing",
@@ -14774,8 +14794,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "The PHP Unit Testing framework.",
@@ -15873,8 +15893,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
@@ -19113,8 +19133,8 @@
             "authors": [
                 {
                     "name": "Acquia Engineering",
-                    "homepage": "https://www.acquia.com",
-                    "role": "Maintainer"
+                    "role": "Maintainer",
+                    "homepage": "https://www.acquia.com"
                 }
             ],
             "description": "A tool for specifying Drupal architecture details and generating automated tests for them",
@@ -19250,6 +19270,7 @@
         "drupal/entityqueue": 10,
         "drupal/fast_404": 15,
         "drupal/field_group": 20,
+        "drupal/fieldhelptext": 10,
         "drupal/graphql_metatag": 20,
         "drupal/image_style_warmer": 10,
         "drupal/libraries": 15,
