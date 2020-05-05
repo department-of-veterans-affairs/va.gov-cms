@@ -51,20 +51,6 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
   protected $userPerms;
 
   /**
-   * {@inheritdoc}
-   */
-  public function getCacheContexts() {
-    return ['url.path', 'user'];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getCacheTags() {
-    return ['user:' . $this->routeMatch->getParameter('user')->id()];
-  }
-
-  /**
    * {@inheritDoc}
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteMatchInterface $route_match, UserPermsService $user_perms) {
@@ -84,6 +70,20 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
       $container->get('current_route_match'),
       $container->get('va_gov_user.user_perms')
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheContexts() {
+    return ['url.path', 'user'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    return ['user:' . $this->routeMatch->getParameter('user')->id()];
   }
 
   /**
