@@ -83,6 +83,8 @@ class UserPermsService {
    * @return array
    *   Array of user sections where keys are term ids and values are term names.
    *   Special key 'administration' signifies user's assignment to ALL sections.
+   *   NOTE: consumers of this method will have to take care of array key
+   *   'administration' according to their use case.
    */
   public function getSections(AccountInterface $user) {
     $sections = [];
