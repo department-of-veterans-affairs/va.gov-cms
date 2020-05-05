@@ -82,7 +82,7 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
     // Get currently viewed profile.
     $user = $this->routeMatch->getParameter('user');
 
-    // Other users need to see only sections assigned to their profiles.
+    // Get ids of sections assigned to user profile.
     $query = $this->database->select('section_association__user_id', 'sau');
     $query->join('section_association', 'sa', 'sau.entity_id = sa.id');
     $query->condition('sau.user_id_target_id', $user->id());
@@ -102,6 +102,8 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
       return $view->buildRenderable();
     }
 
+    // Use has access only to some sections.
+    // Compose list.
     $entity_storage = $this->entityTypeManager->getStorage('taxonomy_term');
     $terms = $entity_storage->loadMultiple($results);
 
