@@ -4,12 +4,11 @@ namespace Drupal\va_gov_user\Plugin\Block;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Database\Connection;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
+use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\views\Views;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -45,20 +44,33 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
   protected $entityTypeManager;
 
   /**
+   * The user section permissions service.
+   *
+   * @var \Drupal\va_gov_user\Service\UserPermsService
+   */
+  protected $userPerms;
+
+  /**
    * {@inheritdoc}
    */
   public function getCacheContexts() {
-    return ['user'];
+    return ['url.path', 'user'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    return ['user:' . $this->routeMatch->getParameter('user')->id()];
   }
 
   /**
    * {@inheritDoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteMatchInterface $route_match, Connection $database, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteMatchInterface $route_match, UserPermsService $user_perms) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->routeMatch = $route_match;
-    $this->database = $database;
-    $this->entityTypeManager = $entity_type_manager;
+    $this->userPerms = $user_perms;
   }
 
   /**
@@ -70,8 +82,7 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
       $plugin_id,
       $plugin_definition,
       $container->get('current_route_match'),
-      $container->get('database'),
-      $container->get('entity_type.manager')
+      $container->get('va_gov_user.user_perms')
     );
   }
 
@@ -82,18 +93,14 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
     // Get currently viewed profile.
     $user = $this->routeMatch->getParameter('user');
 
-    // Get ids of sections assigned to user profile.
-    $query = $this->database->select('section_association__user_id', 'sau');
-    $query->join('section_association', 'sa', 'sau.entity_id = sa.id');
-    $query->condition('sau.user_id_target_id', $user->id());
-    $query->fields('sa', ['section_id']);
-    $results = $query->execute()->fetchCol();
+    // Get sections assigned to user profile.
+    $sections = $this->userPerms->getSections($user);
 
     // Viewed profile is content_admin or administrator
     // OR
     // user has access to ALL sections -
     // Render sections tree.
-    if ($user->hasRole('content_admin') || $user->hasRole('administrator') || in_array('administration', $results)) {
+    if ($user->hasRole('content_admin') || $user->hasRole('administrator') || in_array('All sections', $sections)) {
       $view = Views::getView('sections_tree');
       $view->setDisplay('block_1');
       $view->preExecute();
@@ -104,15 +111,12 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
 
     // Use has access only to some sections.
     // Compose list.
-    $entity_storage = $this->entityTypeManager->getStorage('taxonomy_term');
-    $terms = $entity_storage->loadMultiple($results);
-
     $links = [];
 
-    foreach ($terms as $term) {
-      $links[$term->id()] = [
-        'title' => $term->getName(),
-        'url' => Url::fromRoute('entity.taxonomy_term.canonical', ['taxonomy_term' => $term->id()]),
+    foreach ($sections as $tid => $term_name) {
+      $links[$tid] = [
+        'title' => $term_name,
+        'url' => Url::fromRoute('entity.taxonomy_term.canonical', ['taxonomy_term' => $tid]),
       ];
     }
 

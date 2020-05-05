@@ -1,9 +1,10 @@
 <?php
 
-namespace Drupal\va_gov_backend\Service;
+namespace Drupal\va_gov_user\Service;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Access\AccessResultForbidden;
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\user\Entity\User;
@@ -31,11 +32,27 @@ class UserPermsService {
   private $entityInterface;
 
   /**
-   * UserPermsService constructor.
+   * Database connection.
+   *
+   * @var \Drupal\Core\Database\Database
    */
-  public function __construct(AccountInterface $currentUser, EntityTypeManagerInterface $entityInterface) {
+  private $database;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * {@inheritDoc}
+   */
+  public function __construct(AccountInterface $currentUser, EntityTypeManagerInterface $entityInterface, Connection $database, EntityTypeManagerInterface $entity_type_manager) {
     $this->currentUser = $currentUser;
     $this->entityInterface = $entityInterface;
+    $this->database = $database;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -55,6 +72,43 @@ class UserPermsService {
     else {
       return $this->currentUser;
     }
+  }
+
+  /**
+   * Returns an array of user's sections.
+   *
+   * @param \Drupal\Core\Session\AccountInterface $user
+   *   User object.
+   *
+   * @return array
+   *   Array of user sections where keys are term ids and values are term names.
+   *   Special key 'administration' signifies user's assignment to ALL sections.
+   */
+  public function getSections(AccountInterface $user) {
+    $sections = [];
+
+    // Get ids of sections assigned to user profile.
+    $query = $this->database->select('section_association__user_id', 'sau');
+    $query->join('section_association', 'sa', 'sau.entity_id = sa.id');
+    $query->condition('sau.user_id_target_id', $user->id());
+    $query->fields('sa', ['section_id']);
+    $results = $query->execute()->fetchCol();
+
+    if (($key = array_search('administration', $results)) !== FALSE) {
+      unset($results[$key]);
+      $sections['administration'] = 'All sections';
+    }
+
+    // Use has access only to some sections.
+    // Compose list.
+    $entity_storage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $terms = $entity_storage->loadMultiple($results);
+
+    foreach ($terms as $term) {
+      $sections[$term->id()] = $term->getName();
+    }
+
+    return $sections;
   }
 
   /**
