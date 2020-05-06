@@ -20,6 +20,8 @@ To see what is set on a give environment use
 
 ## Facilities API
 
+[Ongoing facility migrations](../migrations-facility.md)
+
 The Facilities API provides data about VA facilities (hospitals and treatment
 centers).
 [Facilities API Documentation](https://developer.va.gov/explore/facilities/docs/facilities)
@@ -57,6 +59,6 @@ and common calls look like:
 
 * Since this is a React widget displaying dynamic data it’s not using Metalsmith templates. The .jsx component files to support rendering are located in https://github.com/department-of-veterans-affairs/vets-website/tree/master/src/applications/facility-locator/components
 
-* The scope of what we can do with facility locator in this MVP phase doesn’t even include changing the .jsx files, but, I assume we will need to make some changes pending forthcoming IA from the design team. Changes to the .jsx component files will require a PR to the vets-website repo. Changes to the facility locator API or React widgets themselves are definitely out of scope for this phase.
+
 
 [Table of Contents](../README.md)
