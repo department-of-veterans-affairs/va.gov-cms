@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f43c3a6efff8e47dafea7baf76ad927",
+    "content-hash": "8e833ad8919e55d0e45f78de49d4cc57",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -661,7 +661,7 @@
             "version": "v4.1.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:fengyuanchen/cropper.git",
+                "url": "https://github.com/fengyuanchen/cropper.git",
                 "reference": "617d9bdb8688cc4edb3b03bc49a04b83c7facbe7"
             },
             "dist": {
@@ -4116,9 +4116,9 @@
                     "2807629 - Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch",
                     "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2020-01-07/2893933-34.patch",
                     "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2019-09-11/3057267-maintenance-forced-logout-experimental.patch",
+                    "2869592 - Disabled update module shouldn't produce a status report warning": "https://www.drupal.org/files/issues/2869592-remove-update-warning-7.patch",
                     "2775665 - MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "https://www.drupal.org/files/issues/updateLink-2775665-2.patch",
                     "2815221 - Add quickedit to the latest-revision route": "https://www.drupal.org/files/issues/2019-11-27/2815221-125.patch",
-                    "2869592 - Disabled update module shouldn't produce a status report warning": "https://www.drupal.org/files/issues/2869592-remove-update-warning-7.patch",
                     "1356276 - Allow profiles to define a base/parent profile and load them in the correct order": "https://www.drupal.org/files/issues/2019-11-05/1356276-531-8.8.x-4.patch",
                     "2914389 - Allow profiles to exclude dependencies of their parent": "https://www.drupal.org/files/issues/2018-07-09/2914389-8-do-not-test.patch"
                 }
@@ -11253,20 +11253,20 @@
         },
         {
             "name": "drupal/webform",
-            "version": "5.8.0",
+            "version": "5.11.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/webform.git",
-                "reference": "8.x-5.8"
+                "reference": "8.x-5.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/webform-8.x-5.8.zip",
-                "reference": "8.x-5.8",
-                "shasum": "32317a9345abae343aa3b014529bbb91a67cc769"
+                "url": "https://ftp.drupal.org/files/projects/webform-8.x-5.11.zip",
+                "reference": "8.x-5.11",
+                "shasum": "2a8664687d2b0b6071bab011dbbb431e15c83710"
             },
             "require": {
-                "drupal/core": "^8"
+                "drupal/core": "^8.7.7 || ^9"
             },
             "require-dev": {
                 "drupal/address": "~1.4",
@@ -11274,17 +11274,17 @@
                 "drupal/captcha": "~1.0",
                 "drupal/chosen": "~2.6",
                 "drupal/devel": "*",
-                "drupal/entity_print": "^2.1",
+                "drupal/entity_print": "*",
                 "drupal/gnode": "*",
-                "drupal/group": "~1.0",
-                "drupal/jsonapi": "~2.0 || ~8.7",
-                "drupal/mailsystem": "4.1",
+                "drupal/group": "*",
+                "drupal/mailsystem": "~4.1",
                 "drupal/select2": "~1.1",
                 "drupal/smtp": "~1.0",
                 "drupal/telephone_validation": "^2.2",
-                "drupal/token": "~1.3",
+                "drupal/token": "*",
                 "drupal/webform_access": "*",
                 "drupal/webform_attachment": "*",
+                "drupal/webform_devel": "*",
                 "drupal/webform_entity_print": "*",
                 "drupal/webform_group": "*",
                 "drupal/webform_node": "*",
@@ -11294,12 +11294,9 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-5.x": "5.x-dev"
-                },
                 "drupal": {
-                    "version": "8.x-5.8",
-                    "datestamp": "1579637587",
+                    "version": "8.x-5.11",
+                    "datestamp": "1588785899",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -11313,7 +11310,7 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -11327,8 +11324,9 @@
                     "role": "Co-maintainer"
                 },
                 {
-                    "name": "bucefal91",
-                    "homepage": "https://www.drupal.org/user/504128"
+                    "name": "Contributors",
+                    "homepage": "https://www.drupal.org/node/7404/committers",
+                    "role": "Contributor"
                 },
                 {
                     "name": "fenstrat",
@@ -11362,7 +11360,7 @@
             "description": "Enables the creation of webforms and questionnaires.",
             "homepage": "https://drupal.org/project/webform",
             "support": {
-                "source": "http://cgit.drupalcode.org/webform",
+                "source": "https://git.drupalcode.org/project/webform",
                 "issues": "https://www.drupal.org/project/issues/webform?version=8.x",
                 "docs": "https://www.drupal.org/docs/8/modules/webform",
                 "forum": "https://drupal.stackexchange.com/questions/tagged/webform"
