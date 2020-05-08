@@ -296,5 +296,14 @@ function va_gov_db_update_8015(&$sandbox) {
     return "Process complete.";
   }
 
-return "Processing page nodes...";
+  return "Processing page nodes...";
+}
+
+/**
+ * Uninstall redirect_after_login modules.
+ */
+function va_gov_db_update_8016(&$sandbox) {
+  $messages = _va_gov_db_uninstall_modules(['redirect_after_login']);
+
+  return $messages;
 }
