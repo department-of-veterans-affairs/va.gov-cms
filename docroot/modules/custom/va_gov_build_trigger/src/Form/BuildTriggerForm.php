@@ -34,14 +34,14 @@ class BuildTriggerForm extends FormBase {
     $form['actions']['#type'] = 'actions';
     $form['help_1'] = [
       '#prefix' => '<p>',
-      '#markup' => t('This is a decoupled Drupal website. Content will not be visible in the front-end website until you run a "rebuild" and deploy it to an environment.'),
+      '#markup' => t('This is a decoupled Drupal website. Content will not be visible on the Front End until a "Content Release" to an environment.'),
       '#suffix' => '</p>',
       '#weight' => -10,
     ];
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Rebuild & Deploy Content'),
+      '#value' => $this->t('Release content'),
       '#button_type' => 'primary',
       '#suffix' => ' ' . t('to %site', [
         '%site' => $target,
@@ -53,7 +53,7 @@ class BuildTriggerForm extends FormBase {
     if ($config->get('web.build.pending', 0)) {
       // A build is pending so set a display.
       $form['tip']['#prefix'] = '<em>';
-      $form['tip']['#markup'] = t('A site rebuild is queued.');
+      $form['tip']['#markup'] = t('A content release has been queued.');
       $form['tip']['#suffix'] = '</em>';
       $form['tip']['#weight'] = 100;
     }
@@ -63,19 +63,19 @@ class BuildTriggerForm extends FormBase {
       case $environment_type == 'prod':
       case $environment_type == 'staging':
       case $environment_type == 'dev':
-        $description = t('Rebuilds for this environment will be handled by VFS Jenkins.');
+        $description = t('A content release for this environment will be handled by VFS Jenkins.');
         break;
 
       case $environment_type == 'ci':
-        $description = t('Rebuilds for this environment are handled by CMS-CI. You may press this button to trigger a full site rebuild. It will take around 45 seconds.');
+        $description = t('A content release for this environment is handled by CMS-CI. You may press this button to trigger a content release. It will take around 45 seconds.');
         break;
 
       case $environment_type == 'lando':
-        $description = t('Rebuilds for Lando sites must be run manually. Run the following command to regenerate the static site: <pre>lando composer va:web:build</pre>  The button below is used in CMS and production environments. You can use it to emulate their behavior. You may change the CMS_ENVIRONMENT_TYPE environment behavior to develop.');
+        $description = t('Content releases within Lando sites must be run manually. Run the following command to regenerate the static site as a content release: <pre>lando composer va:web:build</pre>  The button below is used in CMS and production environments. You can use it to emulate their behavior. You may change the CMS_ENVIRONMENT_TYPE environment behavior to develop.');
         break;
 
       default:
-        $description = t('Environment not detected. Rebuild by running the <pre>composer va:web:build</pre> command.');
+        $description = t('Environment not detected. Perform a content release by running the <pre>composer va:web:build</pre> command.');
     }
 
     $form['environment_target'] = [
