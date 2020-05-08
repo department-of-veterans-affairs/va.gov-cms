@@ -1,0 +1,29 @@
+uuid: 1cf4cae7-aac0-4521-b4c3-fe586d5b62be
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - field.storage.node.field_alert
+    - node.type.vamc_top_task_page
+id: node.vamc_top_task_page.field_alert
+field_name: field_alert
+entity_type: node
+bundle: vamc_top_task_page
+label: Alert
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      alert: alert
+    sort:
+      field: info
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

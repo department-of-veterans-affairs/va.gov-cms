@@ -1,0 +1,22 @@
+uuid: b1cf3ba5-cfc5-4ef4-8e43-72942225081a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_national_content_editable
+id: node.vamc_national_content_editable.promote
+field_name: promote
+entity_type: node
+bundle: vamc_national_content_editable
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

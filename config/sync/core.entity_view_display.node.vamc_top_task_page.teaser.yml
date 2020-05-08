@@ -1,0 +1,45 @@
+uuid: ed7b5a88-ae19-4781-a802-516d6539f2be
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.vamc_top_task_page.field_administration
+    - field.field.node.vamc_top_task_page.field_alert
+    - field.field.node.vamc_top_task_page.field_content_block
+    - field.field.node.vamc_top_task_page.field_description
+    - field.field.node.vamc_top_task_page.field_intro_text
+    - field.field.node.vamc_top_task_page.field_meta_tags
+    - field.field.node.vamc_top_task_page.field_meta_title
+    - field.field.node.vamc_top_task_page.field_office
+    - field.field.node.vamc_top_task_page.field_related_links
+    - field.field.node.vamc_top_task_page.field_reusable_content
+    - field.field.node.vamc_top_task_page.field_table_of_contents_boolean
+    - node.type.vamc_top_task_page
+  module:
+    - user
+id: node.vamc_top_task_page.teaser
+targetEntityType: node
+bundle: vamc_top_task_page
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_alert: true
+  field_content_block: true
+  field_description: true
+  field_intro_text: true
+  field_media: true
+  field_meta_tags: true
+  field_meta_title: true
+  field_office: true
+  field_related_links: true
+  field_reusable_content: true
+  field_table_of_contents_boolean: true
+  search_api_excerpt: true

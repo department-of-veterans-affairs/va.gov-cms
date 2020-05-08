@@ -1,0 +1,25 @@
+uuid: c8f38938-4699-49ca-a334-99077f919e69
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.vamc_national_content.body
+    - node.type.vamc_national_content
+  module:
+    - text
+    - user
+id: node.vamc_national_content.default
+targetEntityType: node
+bundle: vamc_national_content
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  links: true
+  search_api_excerpt: true

@@ -1,0 +1,88 @@
+uuid: 8ce655d8-6ec2-4262-916e-5f6c20bec901
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_links
+    - node.type.vamc_top_task_page
+    - paragraphs.paragraphs_type.list_of_link_teasers
+  module:
+    - entity_reference_revisions
+id: node.vamc_top_task_page.field_related_links
+field_name: field_related_links
+entity_type: node
+bundle: vamc_top_task_page
+label: 'Related Links'
+description: "Include links to other closely-related programs or services in the VA that are likely to be helpful to visitors needing the information on this page.\r\n\r\nAvoid linking to high-level pages (like \"Learn more about VA benefits\" or \"Find your closest VA medical center\") as those are easily reached in the main site navigation."
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      list_of_link_teasers: list_of_link_teasers
+    target_bundles_drag_drop:
+      address:
+        weight: 17
+        enabled: false
+      alert:
+        weight: 18
+        enabled: false
+      collapsible_panel:
+        weight: 19
+        enabled: false
+      collapsible_panel_item:
+        weight: 20
+        enabled: false
+      expandable_text:
+        weight: 21
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 22
+        enabled: false
+      link_teaser:
+        weight: 23
+        enabled: false
+      list_of_link_teasers:
+        enabled: true
+        weight: 24
+      number_callout:
+        weight: 25
+        enabled: false
+      process:
+        weight: 26
+        enabled: false
+      q_a:
+        weight: 27
+        enabled: false
+      q_a_section:
+        weight: 28
+        enabled: false
+      media:
+        weight: 29
+        enabled: false
+      react_widget:
+        weight: 29
+        enabled: false
+      spanish_translation_summary:
+        weight: 30
+        enabled: false
+      megamenu_links_column:
+        weight: 30
+        enabled: false
+      megamenu_menu_item:
+        weight: 31
+        enabled: false
+      starred_horizontal_rule:
+        weight: 31
+        enabled: false
+      wysiwyg:
+        weight: 32
+        enabled: false
+      table:
+        weight: 39
+        enabled: false
+field_type: entity_reference_revisions

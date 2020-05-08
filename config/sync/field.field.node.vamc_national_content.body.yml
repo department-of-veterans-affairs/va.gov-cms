@@ -1,0 +1,23 @@
+uuid: f0680242-2bee-4d61-9911-41dbdc052425
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.vamc_national_content
+  module:
+    - text
+id: node.vamc_national_content.body
+field_name: body
+entity_type: node
+bundle: vamc_national_content
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+field_type: text_with_summary
