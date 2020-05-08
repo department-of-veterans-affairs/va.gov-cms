@@ -1,9 +1,10 @@
 <?php
 
-namespace Drupal\va_gov_backend\Service;
+namespace Drupal\va_gov_user\Service;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Access\AccessResultForbidden;
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\user\Entity\User;
@@ -23,19 +24,26 @@ class UserPermsService {
   private $currentUser;
 
   /**
-   * The entity interface.
+   * The entity type manager.
    *
-   * @var object
-   *  The entity interface object.
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  private $entityInterface;
+  protected $entityTypeManager;
 
   /**
-   * UserPermsService constructor.
+   * Database connection.
+   *
+   * @var \Drupal\Core\Database\Database
    */
-  public function __construct(AccountInterface $currentUser, EntityTypeManagerInterface $entityInterface) {
+  private $database;
+
+  /**
+   * {@inheritDoc}
+   */
+  public function __construct(AccountInterface $currentUser, EntityTypeManagerInterface $entityTypeManager, Connection $database) {
     $this->currentUser = $currentUser;
-    $this->entityInterface = $entityInterface;
+    $this->entityTypeManager = $entityTypeManager;
+    $this->database = $database;
   }
 
   /**
@@ -58,6 +66,45 @@ class UserPermsService {
   }
 
   /**
+   * Returns an array of user's sections.
+   *
+   * @param \Drupal\Core\Session\AccountInterface $user
+   *   User object.
+   *
+   * @return array
+   *   Array of user sections where keys are term ids and values are term names.
+   *   Special key 'administration' signifies user's assignment to ALL sections.
+   *   NOTE: consumers of this method will have to take care of array key
+   *   'administration' according to their use case.
+   */
+  public function getSections(AccountInterface $user) {
+    $sections = [];
+
+    // Get ids of sections assigned to user profile.
+    $query = $this->database->select('section_association__user_id', 'sau');
+    $query->join('section_association', 'sa', 'sau.entity_id = sa.id');
+    $query->condition('sau.user_id_target_id', $user->id());
+    $query->fields('sa', ['section_id']);
+    $results = $query->execute()->fetchCol();
+
+    if (($key = array_search('administration', $results)) !== FALSE) {
+      unset($results[$key]);
+      $sections['administration'] = 'All sections';
+    }
+
+    // Use has access only to some sections.
+    // Compose list.
+    $entity_storage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $terms = $entity_storage->loadMultiple($results);
+
+    foreach ($terms as $term) {
+      $sections[$term->id()] = $term->getName();
+    }
+
+    return $sections;
+  }
+
+  /**
    * Returns the section and parents to which an entity belongs.
    *
    * @param int $tid
@@ -67,7 +114,7 @@ class UserPermsService {
    *   The ancestor terms going up the tree.
    */
   public function entitySections($tid) {
-    $ancestors = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")->loadAllParents($tid);
+    $ancestors = $this->entityTypeManager->getStorage('taxonomy_term')->loadAllParents($tid);
     $list = [];
     foreach ($ancestors as $term) {
       $list[$term->id()] = $term->label();
@@ -170,13 +217,13 @@ class UserPermsService {
       return TRUE;
     }
 
-    $entity = $this->entityInterface->getStorage($entity_type)->load($entity_id);
+    $entity = $this->entityTypeManager->getStorage($entity_type)->load($entity_id);
 
     // When working with field_listing, we need to fetch an entity from a
     // parent entity's field_office.
     if ($target === 'field_listing') {
       $field_office_target_id = $entity->get('field_office')->target_id;
-      $entity = $this->entityInterface->getStorage($entity_type)->load($field_office_target_id);
+      $entity = $this->entityTypeManager->getStorage($entity_type)->load($field_office_target_id);
     }
 
     // We want create access perm for most cases. For occasional snowflake
@@ -188,15 +235,14 @@ class UserPermsService {
 
     // Special snowflake check for Outreach section - unique perms set beyond
     // scope of workbench_access.
-    $database = \Drupal::database();
-    $query = $database->select('section_association__user_id', 's');
+    $query = $this->database->select('section_association__user_id', 's');
     $query->condition('s.user_id_target_id', $account->id());
     $query->condition('s.entity_id', 4);
     $query->fields('s', ['entity_id']);
     $results = $query->execute()->fetchField();
 
     // Compare user sections against subject section to determine access.
-    return array_reduce(\Drupal::entityTypeManager()->getStorage('access_scheme')->loadMultiple(), function (AccessResult $carry, AccessSchemeInterface $scheme) use ($entity, $op, $account, $results) {
+    return array_reduce($this->entityTypeManager->getStorage('access_scheme')->loadMultiple(), function (AccessResult $carry, AccessSchemeInterface $scheme) use ($entity, $op, $account, $results) {
       $status_class_name = get_class($scheme->getAccessScheme()->checkEntityAccess($scheme, $entity, $op, $account));
       // Return true if we have our special snowflake Outreach listing node.
       if ((count($results) > 0) && ($entity->id() === '736')) {

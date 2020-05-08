@@ -218,7 +218,7 @@ function va_gov_backend_workbench_assign_user_form_submit(array $form, FormState
  */
 function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
   $user_id = \Drupal::currentUser()->id();
-  $perms_service = \Drupal::service('va_gov_backend.user_perms');
+  $perms_service = \Drupal::service('va_gov_user.user_perms');
   // Grabs items user can access per section associations.
   $allowed_options = $perms_service->userOptionsStorage($form, $targets, $user_id);
 
@@ -351,10 +351,13 @@ function _va_gov_backend_gtm_settings() {
     $sections['contentTitle'] = $node->getTitle();
     $sections['contentType'] = $node->bundle();
 
-    $section_entity_id = $node->field_administration->getString();
-    // Load up our section name.
-    $section_entity_load = !empty($section_entity_load) ? Term::load($section_entity_id) : '';
-    $sections['contentOwner'] = !empty($section_entity_load) ? $section_entity_load->getName() : '';
+    if (property_exists($node, 'field_administration')) {
+      $section_entity_id = $node->field_administration->getString();
+      // Load up our section name.
+      $section_entity_load = !empty($section_entity_load) ? Term::load($section_entity_id) : '';
+      $sections['contentOwner'] = !empty($section_entity_load) ? $section_entity_load->getName() : '';
+    }
+
   }
   return $sections;
 }
