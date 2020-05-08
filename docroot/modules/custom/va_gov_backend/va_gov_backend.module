@@ -351,10 +351,13 @@ function _va_gov_backend_gtm_settings() {
     $sections['contentTitle'] = $node->getTitle();
     $sections['contentType'] = $node->bundle();
 
-    $section_entity_id = $node->field_administration->getString();
-    // Load up our section name.
-    $section_entity_load = !empty($section_entity_load) ? Term::load($section_entity_id) : '';
-    $sections['contentOwner'] = !empty($section_entity_load) ? $section_entity_load->getName() : '';
+    if (property_exists($node, 'field_administration')) {
+      $section_entity_id = $node->field_administration->getString();
+      // Load up our section name.
+      $section_entity_load = !empty($section_entity_load) ? Term::load($section_entity_id) : '';
+      $sections['contentOwner'] = !empty($section_entity_load) ? $section_entity_load->getName() : '';
+    }
+
   }
   return $sections;
 }
