@@ -1,0 +1,32 @@
+uuid: 37f763d6-4d60-4d28-8f30-69242190082a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.reusable_national_content.field_content
+    - field.field.paragraph.reusable_national_content.field_national_content_templates
+    - paragraphs.paragraphs_type.reusable_national_content
+id: paragraph.reusable_national_content.default
+targetEntityType: paragraph
+bundle: reusable_national_content
+mode: default
+content:
+  field_content:
+    weight: 0
+    label: hidden
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+  field_national_content_templates:
+    weight: 1
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+hidden:
+  search_api_excerpt: true

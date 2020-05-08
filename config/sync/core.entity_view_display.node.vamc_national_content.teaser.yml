@@ -1,0 +1,31 @@
+uuid: b906b3a0-bbb9-4b6b-9cb1-8c52424f56f2
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.vamc_national_content.body
+    - node.type.vamc_national_content
+  module:
+    - text
+    - user
+id: node.vamc_national_content.teaser
+targetEntityType: node
+bundle: vamc_national_content
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  search_api_excerpt: true
