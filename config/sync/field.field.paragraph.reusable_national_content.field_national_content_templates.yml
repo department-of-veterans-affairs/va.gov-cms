@@ -1,0 +1,28 @@
+uuid: 62da1bc2-f24a-4b41-b557-09047a952527
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_national_content_templates
+    - node.type.vamc_national_content_editable
+    - paragraphs.paragraphs_type.reusable_national_content
+id: paragraph.reusable_national_content.field_national_content_templates
+field_name: field_national_content_templates
+entity_type: paragraph
+bundle: reusable_national_content
+label: 'National Content templates'
+description: 'Content that is copied from national level for system level customization'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      vamc_national_content_editable: vamc_national_content_editable
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,52 @@
+uuid: a870da35-cc0a-458d-9b96-d47283c8e7ff
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.reusable_national_content.field_content
+    - field.field.paragraph.reusable_national_content.field_national_content_templates
+    - paragraphs.paragraphs_type.reusable_national_content
+  module:
+    - inline_entity_form
+id: paragraph.reusable_national_content.default
+targetEntityType: paragraph
+bundle: reusable_national_content
+mode: default
+content:
+  field_content:
+    weight: 0
+    settings:
+      form_mode: inline_entity_form
+      label_singular: ''
+      label_plural: ''
+      allow_existing: true
+      match_operator: CONTAINS
+      revision: false
+      override_labels: false
+      collapsible: false
+      collapsed: false
+      allow_new: false
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+    region: content
+  field_national_content_templates:
+    weight: 1
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      allow_duplicate: true
+      revision: false
+      override_labels: false
+      collapsible: false
+      collapsed: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+    region: content
+hidden:
+  created: true
+  status: true

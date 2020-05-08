@@ -1,0 +1,23 @@
+uuid: 8bcee02f-db79-41e7-8016-167a5025f156
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.vamc_national_content_editable
+  module:
+    - text
+id: node.vamc_national_content_editable.body
+field_name: body
+entity_type: node
+bundle: vamc_national_content_editable
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+field_type: text_with_summary

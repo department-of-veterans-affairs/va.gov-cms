@@ -1,0 +1,28 @@
+uuid: d417ea38-54a5-4455-8df3-d57b05a4abe1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_content
+    - node.type.vamc_national_content
+    - paragraphs.paragraphs_type.reusable_national_content
+id: paragraph.reusable_national_content.field_content
+field_name: field_content
+entity_type: paragraph
+bundle: reusable_national_content
+label: 'National content'
+description: 'Content that is only editable on national level'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      vamc_national_content: vamc_national_content
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: vamc_national_content
+field_type: entity_reference

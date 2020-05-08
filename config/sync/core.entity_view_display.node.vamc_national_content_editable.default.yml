@@ -1,0 +1,29 @@
+uuid: 0d2bab3b-4ba1-4f22-8934-9731340a7ec2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.vamc_national_content_editable.body
+    - node.type.vamc_national_content_editable
+  module:
+    - text
+    - user
+id: node.vamc_national_content_editable.default
+targetEntityType: node
+bundle: vamc_national_content_editable
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  search_api_excerpt: true
