@@ -6,9 +6,11 @@
  */
 
 use Drupal\Core\Asset\AttachedAssetsInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -553,4 +555,52 @@ function _va_gov_backend_set_field_listing_value(EntityInterface &$entity, array
     // Assuming there's only one Event Listing per Office/VAMC System.
     $entity->field_listing[] = ['target_id' => $id];
   }
+}
+
+/**
+ * Implements hook_token_info().
+ */
+function va_gov_backend_token_info() {
+  $type = [
+    'name' => t('Wysiwyg replacements'),
+    'description' => t('Outputs current section, e.g.: system name.'),
+  ];
+
+  $system['name'] = [
+    'name' => t('System name'),
+    'description' => t('The system name'),
+  ];
+
+  return [
+    'types' => ['wysiwyg_custom' => $type],
+    'tokens' => ['wysiwyg_custom' => $system],
+  ];
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function va_gov_backend_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
+  $replacements = [];
+
+  if ($type === 'wysiwyg_custom') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'name':
+          $office_title = 'VA';
+          $node = \Drupal::routeMatch()->getParameter('node');
+          if ($node instanceof NodeInterface && !empty($node->field_office->getString())) {
+            $entity_id = $node->field_office->first()->getValue()['target_id'];
+            $office_entity = Node::load($entity_id);
+            $office_title = $office_entity->getTitle();
+          }
+          $replacements[$original] = $office_title;
+
+          break;
+      }
+    }
+
+  }
+  // Return the replacements.
+  return $replacements;
 }
