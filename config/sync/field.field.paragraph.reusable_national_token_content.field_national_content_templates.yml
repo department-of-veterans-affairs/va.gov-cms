@@ -1,19 +1,19 @@
-uuid: 62da1bc2-f24a-4b41-b557-09047a952527
+uuid: 87882ccc-5ab3-4a74-93ea-5ecc170a8b31
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.paragraph.field_national_content_templates
     - node.type.vamc_national_content_editable
-    - paragraphs.paragraphs_type.reusable_national_content
-id: paragraph.reusable_national_content.field_national_content_templates
+    - paragraphs.paragraphs_type.reusable_national_token_content
+id: paragraph.reusable_national_token_content.field_national_content_templates
 field_name: field_national_content_templates
 entity_type: paragraph
-bundle: reusable_national_content
+bundle: reusable_national_token_content
 label: 'National Content with system tokens'
 description: 'National level content that is tokenized to output system name in appropriate place(s).'
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

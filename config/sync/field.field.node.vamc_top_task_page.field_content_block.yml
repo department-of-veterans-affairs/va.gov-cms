@@ -5,19 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_content_block
     - node.type.vamc_top_task_page
-    - paragraphs.paragraphs_type.alert
-    - paragraphs.paragraphs_type.collapsible_panel
-    - paragraphs.paragraphs_type.downloadable_file
-    - paragraphs.paragraphs_type.list_of_link_teasers
-    - paragraphs.paragraphs_type.media
-    - paragraphs.paragraphs_type.number_callout
-    - paragraphs.paragraphs_type.process
-    - paragraphs.paragraphs_type.q_a_section
-    - paragraphs.paragraphs_type.react_widget
-    - paragraphs.paragraphs_type.spanish_translation_summary
-    - paragraphs.paragraphs_type.staff_profile
-    - paragraphs.paragraphs_type.table
-    - paragraphs.paragraphs_type.wysiwyg
+    - paragraphs.paragraphs_type.reusable_national_content
   module:
     - entity_reference_revisions
 id: node.vamc_top_task_page.field_content_block
@@ -25,7 +13,7 @@ field_name: field_content_block
 entity_type: node
 bundle: vamc_top_task_page
 label: 'Main content'
-description: 'The main body of the page, which appears below the featured content.'
+description: 'Used to mix national, non-editable content (some of which is tokenized to display current system name) with custom, system level content.'
 required: false
 translatable: true
 default_value: {  }
@@ -35,53 +23,41 @@ settings:
   handler_settings:
     negate: 0
     target_bundles:
-      wysiwyg: wysiwyg
-      number_callout: number_callout
-      collapsible_panel: collapsible_panel
-      q_a_section: q_a_section
-      process: process
-      react_widget: react_widget
-      list_of_link_teasers: list_of_link_teasers
-      spanish_translation_summary: spanish_translation_summary
-      alert: alert
-      staff_profile: staff_profile
-      table: table
-      media: media
-      downloadable_file: downloadable_file
+      reusable_national_content: reusable_national_content
     target_bundles_drag_drop:
       wysiwyg:
-        enabled: true
         weight: -43
+        enabled: false
       number_callout:
-        enabled: true
         weight: -42
+        enabled: false
       collapsible_panel:
-        enabled: true
         weight: -41
+        enabled: false
       q_a_section:
-        enabled: true
         weight: -40
+        enabled: false
       process:
-        enabled: true
         weight: -39
+        enabled: false
       react_widget:
-        enabled: true
         weight: -38
+        enabled: false
       list_of_link_teasers:
-        enabled: true
         weight: -37
+        enabled: false
       spanish_translation_summary:
-        enabled: true
         weight: -36
+        enabled: false
       alert:
-        enabled: true
         weight: -35
+        enabled: false
       staff_profile:
-        enabled: true
         weight: -34
+        enabled: false
       table:
-        enabled: true
         weight: -33
+        enabled: false
       expandable_text:
         weight: -32
         enabled: false
@@ -104,15 +80,15 @@ settings:
         weight: -26
         enabled: false
       media:
-        enabled: true
         weight: -25
-      megamenu_links_column:
-        weight: -24
-        enabled: false
-      megamenu_menu_item:
-        weight: -23
         enabled: false
       downloadable_file:
-        enabled: true
         weight: 23
+        enabled: false
+      reusable_national_content:
+        enabled: true
+        weight: 38
+      situation_update:
+        weight: 39
+        enabled: false
 field_type: entity_reference_revisions

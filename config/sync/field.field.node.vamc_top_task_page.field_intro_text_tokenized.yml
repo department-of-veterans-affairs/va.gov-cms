@@ -1,20 +1,20 @@
-uuid: c28685ef-4e80-4f1d-978f-5b764f39db10
+uuid: 79864052-4a76-4b1a-94e0-254d9b69f1c7
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_reusable_content
+    - field.storage.node.field_intro_text_tokenized
     - node.type.vamc_top_task_page
-    - paragraphs.paragraphs_type.reusable_national_content
+    - paragraphs.paragraphs_type.reusable_national_token_content
   module:
     - entity_reference_revisions
-id: node.vamc_top_task_page.field_reusable_content
-field_name: field_reusable_content
+id: node.vamc_top_task_page.field_intro_text_tokenized
+field_name: field_intro_text_tokenized
 entity_type: node
 bundle: vamc_top_task_page
-label: 'Reusable content'
-description: ''
-required: false
+label: 'Intro text'
+description: 'This is displayed directly beneath the title as an introduction to the page.'
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
@@ -23,72 +23,75 @@ settings:
   handler_settings:
     negate: 0
     target_bundles:
-      reusable_national_content: reusable_national_content
+      reusable_national_token_content: reusable_national_token_content
     target_bundles_drag_drop:
       address:
-        weight: 23
-        enabled: false
-      alert:
         weight: 24
         enabled: false
-      collapsible_panel:
+      alert:
         weight: 25
         enabled: false
-      collapsible_panel_item:
+      collapsible_panel:
         weight: 26
         enabled: false
-      downloadable_file:
+      collapsible_panel_item:
         weight: 27
         enabled: false
-      expandable_text:
+      downloadable_file:
         weight: 28
         enabled: false
-      health_care_local_facility_servi:
+      expandable_text:
         weight: 29
         enabled: false
-      link_teaser:
+      health_care_local_facility_servi:
         weight: 30
         enabled: false
-      list_of_link_teasers:
+      link_teaser:
         weight: 31
         enabled: false
-      media:
+      list_of_link_teasers:
         weight: 32
         enabled: false
-      number_callout:
+      media:
         weight: 33
         enabled: false
-      process:
+      number_callout:
         weight: 34
         enabled: false
-      q_a:
+      process:
         weight: 35
         enabled: false
-      q_a_section:
+      q_a:
         weight: 36
         enabled: false
-      react_widget:
+      q_a_section:
         weight: 37
         enabled: false
-      reusable_national_content:
-        enabled: true
+      react_widget:
         weight: 38
-      situation_update:
+        enabled: false
+      reusable_national_content:
         weight: 39
         enabled: false
-      spanish_translation_summary:
+      reusable_national_token_content:
+        enabled: true
         weight: 40
-        enabled: false
-      staff_profile:
+      situation_update:
         weight: 41
         enabled: false
-      starred_horizontal_rule:
+      spanish_translation_summary:
         weight: 42
         enabled: false
-      table:
+      staff_profile:
         weight: 43
         enabled: false
-      wysiwyg:
+      starred_horizontal_rule:
         weight: 44
+        enabled: false
+      table:
+        weight: 45
+        enabled: false
+      wysiwyg:
+        weight: 46
         enabled: false
 field_type: entity_reference_revisions

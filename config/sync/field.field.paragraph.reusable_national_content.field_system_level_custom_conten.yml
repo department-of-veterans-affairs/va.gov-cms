@@ -1,0 +1,28 @@
+uuid: 854ce8f9-571d-45db-8c11-2ef1c6ccf3ec
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_system_level_custom_conten
+    - node.type.vamc_system_content_custom
+    - paragraphs.paragraphs_type.reusable_national_content
+id: paragraph.reusable_national_content.field_system_level_custom_conten
+field_name: field_system_level_custom_conten
+entity_type: paragraph
+bundle: reusable_national_content
+label: 'System level custom content'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      vamc_system_content_custom: vamc_system_content_custom
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference
