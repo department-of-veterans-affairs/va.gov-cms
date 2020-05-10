@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.reusable_national_content.field_content
     - field.field.paragraph.reusable_national_content.field_national_content_templates
+    - field.field.paragraph.reusable_national_content.field_system_level_custom_conten
     - paragraphs.paragraphs_type.reusable_national_content
 id: paragraph.reusable_national_content.default
 targetEntityType: paragraph
@@ -22,6 +23,15 @@ content:
     region: content
   field_national_content_templates:
     weight: 1
+    label: hidden
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+  field_system_level_custom_conten:
+    weight: 2
     label: hidden
     settings:
       link: true

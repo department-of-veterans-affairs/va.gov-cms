@@ -1,0 +1,23 @@
+uuid: f2d5ca3a-6fba-488c-a449-62edc0557753
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.vamc_system_content_custom
+  module:
+    - text
+id: node.vamc_system_content_custom.body
+field_name: body
+entity_type: node
+bundle: vamc_system_content_custom
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+field_type: text_with_summary

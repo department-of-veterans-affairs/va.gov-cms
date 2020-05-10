@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_form_mode.node.inline_entity_form
+    - entity_browser.browser.alert_blocks
     - field.field.node.landing_page.field_administration
     - field.field.node.landing_page.field_alert
     - field.field.node.landing_page.field_description
@@ -25,6 +26,7 @@ dependencies:
   module:
     - content_moderation
     - datetime
+    - entity_browser
     - field_group
     - inline_entity_form
     - linkit
@@ -161,6 +163,21 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
+  field_alert:
+    weight: 2
+    settings:
+      entity_browser: alert_blocks
+      field_widget_display: rendered_entity
+      field_widget_display_settings:
+        view_mode: default
+      field_widget_edit: true
+      field_widget_remove: true
+      open: true
+      selection_mode: selection_append
+      field_widget_replace: false
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
     region: content
   field_description:
     weight: 6
@@ -329,7 +346,6 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_alert: true
   promote: true
   status: true
   sticky: true

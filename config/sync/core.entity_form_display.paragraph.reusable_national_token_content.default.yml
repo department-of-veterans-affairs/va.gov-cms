@@ -1,0 +1,34 @@
+uuid: e434514d-2d14-4bf4-ac90-cb3edc5c9553
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.reusable_national_token_content.field_national_content_templates
+    - paragraphs.paragraphs_type.reusable_national_token_content
+  module:
+    - inline_entity_form
+id: paragraph.reusable_national_token_content.default
+targetEntityType: paragraph
+bundle: reusable_national_token_content
+mode: default
+content:
+  field_national_content_templates:
+    weight: 0
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_existing: true
+      match_operator: CONTAINS
+      revision: false
+      override_labels: false
+      collapsible: false
+      collapsed: false
+      allow_new: false
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+    region: content
+hidden:
+  created: true
+  status: true
