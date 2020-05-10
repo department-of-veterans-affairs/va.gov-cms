@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.reusable_national_content.field_content
     - field.field.paragraph.reusable_national_content.field_national_content_templates
+    - field.field.paragraph.reusable_national_content.field_system_level_custom_conten
     - paragraphs.paragraphs_type.reusable_national_content
   module:
     - inline_entity_form
@@ -32,6 +33,23 @@ content:
     region: content
   field_national_content_templates:
     weight: 1
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_existing: true
+      match_operator: CONTAINS
+      revision: false
+      override_labels: false
+      collapsible: false
+      collapsed: false
+      allow_new: false
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+    region: content
+  field_system_level_custom_conten:
+    weight: 2
     settings:
       form_mode: default
       label_singular: ''

@@ -1,0 +1,22 @@
+uuid: bf335b88-ae03-4f70-9d38-2877ec9ea002
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.reusable_national_token_content.field_national_content_templates
+    - paragraphs.paragraphs_type.reusable_national_token_content
+id: paragraph.reusable_national_token_content.default
+targetEntityType: paragraph
+bundle: reusable_national_token_content
+mode: default
+content:
+  field_national_content_templates:
+    weight: 0
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+hidden:
+  search_api_excerpt: true
