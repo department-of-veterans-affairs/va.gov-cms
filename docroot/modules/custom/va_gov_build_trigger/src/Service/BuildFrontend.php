@@ -262,7 +262,7 @@ class BuildFrontend {
    */
   private function changedStatus(NodeInterface $node) {
     // Check for change of workflow to published.
-    $mod_state = $node->get('moderation_state')->value;;
+    $mod_state = $node->get('moderation_state')->value;
     $mod_state_original = $this->getOriginalFieldValue($node, 'moderation_state');
     if (($mod_state === 'published') && ($mod_state !== $mod_state_original)) {
       // The status is published and was not before.
