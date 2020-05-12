@@ -33,7 +33,6 @@ third_party_settings:
       region: content
     group_editorial_workflow:
       children:
-        - revision_log
         - moderation_state
       parent_name: ''
       weight: 12
@@ -69,15 +68,16 @@ content:
     weight: 2
     settings:
       form_mode: inline_entity_form
-      label_singular: ''
-      label_plural: ''
+      override_labels: true
+      label_singular: 'facility description'
+      label_plural: 'facility descriptions'
       collapsible: true
       allow_new: true
-      allow_existing: true
       match_operator: CONTAINS
       allow_duplicate: true
-      override_labels: false
       collapsed: false
+      allow_existing: false
+      revision: false
     third_party_settings: {  }
     type: inline_entity_form_complex_table_view_mode
     region: content
@@ -98,7 +98,6 @@ hidden:
   moderation_state: true
   path: true
   promote: true
-  revision_log: true
   status: true
   sticky: true
   title: true

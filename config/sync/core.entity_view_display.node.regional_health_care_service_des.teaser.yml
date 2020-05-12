@@ -1,6 +1,6 @@
 uuid: 7bf66156-eb91-4c58-b9d6-9c7f4c1d1669
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
@@ -11,23 +11,61 @@ dependencies:
     - field.field.node.regional_health_care_service_des.field_service_name_and_descripti
     - node.type.regional_health_care_service_des
   module:
+    - field_group
+    - text
     - user
+third_party_settings:
+  field_group:
+    group_vha_health_service_name_an:
+      children:
+        - field_service_name_and_descripti
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'VHA health service name and description'
+      region: content
+    group_vamc_system_description_of:
+      children:
+        - field_body
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'VAMC system description of service'
+      region: content
 id: node.regional_health_care_service_des.teaser
 targetEntityType: node
 bundle: regional_health_care_service_des
 mode: teaser
 content:
-  links:
-    weight: 100
+  field_body:
+    type: text_default
+    weight: 2
+    region: content
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+  field_service_name_and_descripti:
+    type: entity_reference_entity_view
+    weight: 1
     region: content
+    label: hidden
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
 hidden:
   content_moderation_control: true
   field_administration: true
-  field_body: true
   field_health_services_local_info: true
   field_local_health_care_service_: true
   field_region_page: true
-  field_service_name_and_descripti: true
+  links: true
   search_api_excerpt: true
