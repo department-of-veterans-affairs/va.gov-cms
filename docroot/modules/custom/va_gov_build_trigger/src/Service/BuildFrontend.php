@@ -113,7 +113,7 @@ class BuildFrontend {
       // Save pending state.
       $this->setPendingState(1);
     }
-    elseif ((!empty($jenkins_build_environment)) && array_key_exists($jenkins_build_environment, self::WEB_ENVIRONMENTS)) {
+    elseif ((!empty($jenkins_build_environment)) && array_key_exists($jenkins_build_environment, self::WEB_ENVIRONMENTS) && (PHP_SAPI !== 'cli')) {
       // This is in a BRD environment.
       $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
       $va_cms_bot_github_auth_token = Settings::get('va_cms_bot_github_auth_token');
