@@ -1,0 +1,45 @@
+uuid: b2d66228-7ef7-48ae-8598-44b3f58d33e6
+langcode: en
+status: true
+dependencies: {  }
+id: import_health_service
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
+migration_group: migrate_system_health_services
+label: 'IMPORT VAMC SYSTEM HEALTH SERVICE WB'
+source:
+  plugin: csv
+  path: modules/custom/va_gov_migrate/data/wikes_import.csv
+  delimiter: ','
+  enclosure: '"'
+  header_row_count: 1
+  keys:
+    - id
+  column_names:
+    -
+      id: Id
+    -
+      field_description: 'Health Service'
+    -
+      field_full: 'Full Upload'
+    -
+      field_owner: Owner
+    -
+      field_health_system: 'Health System'
+process:
+  field_service_name_and_descripti: field_description
+  field_body: field_full
+  field_region_page:
+    plugin: default_value
+    default_value: 2361
+  field_administration:
+    plugin: default_value
+    default_value: 196
+destination:
+  plugin: 'entity:node'
+  default_bundle: regional_health_care_service_des
+migration_dependencies:
+  required: {  }
+  optional: {  }
