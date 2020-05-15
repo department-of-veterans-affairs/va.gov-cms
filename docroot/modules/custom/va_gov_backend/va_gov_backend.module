@@ -570,6 +570,10 @@ function va_gov_backend_token_info() {
     'name' => t('System name'),
     'description' => t('The system name'),
   ];
+  $system['url'] = [
+    'name' => t('System url'),
+    'description' => t('The system url'),
+  ];
 
   return [
     'types' => ['wysiwyg_custom' => $type],
@@ -584,19 +588,20 @@ function va_gov_backend_tokens($type, $tokens, array $data, array $options, Bubb
   $replacements = [];
 
   if ($type === 'wysiwyg_custom') {
+    $node = \Drupal::routeMatch()->getParameter('node');
     foreach ($tokens as $name => $original) {
-      switch ($name) {
-        case 'name':
-          $office_title = 'VA';
-          $node = \Drupal::routeMatch()->getParameter('node');
-          if ($node instanceof NodeInterface && !empty($node->field_office)) {
-            $entity_id = $node->field_office->first()->getValue()['target_id'];
-            $office_entity = Node::load($entity_id);
-            $office_title = $office_entity->getTitle();
-          }
-          $replacements[$original] = $office_title;
+      if ($node instanceof NodeInterface && !empty($node->field_office)) {
+        $entity_id = $node->field_office->first()->getValue()['target_id'];
+        $office_entity = Node::load($entity_id);
+        switch ($name) {
+          case 'name':
+            $replacements[$original] = $office_entity->getTitle();
+            break;
 
-          break;
+          case 'url':
+            $replacements[$original] = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $entity_id);
+            break;
+        }
       }
     }
 
