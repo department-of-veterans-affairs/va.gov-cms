@@ -10,5 +10,5 @@ curl --remote-name --remote-header-name https://dsva-vagov-prod-cms-backup-sanit
 rm -rf ../docroot/sites/default/files/*
 echo "Extracting files to sites/default/files."
 mkdir -p ../docroot/sites/default/files
-tar --extract --gunzip --verbose --file cms-prod-files-latest.tgz --directory ../docroot/sites/default/files
-echo "PROD file sync to LOCAL complete."
+tar --extract --gunzip --file cms-prod-files-latest.tgz --directory ../docroot/sites/default/files
+echo "File sync from cms-prod-files-latest.tgz is complete."
