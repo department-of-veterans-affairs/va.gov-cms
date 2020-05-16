@@ -89,6 +89,22 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
 }
 
 /**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function va_gov_backend_form_node_va_form_edit_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['field_benefit_categories']['#states'] = [
+    'visible' => [
+      ':input[id="edit-field-va-form-type"]' => ['value' => 'benefit'],
+    ],
+  ];
+  $form['field_va_form_tool_intro']['#states'] = [
+    'visible' => [
+      ':input[id="edit-field-va-form-tool-url-0-uri"]' => ['filled' => true],
+    ],
+  ];
+}
+
+/**
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
