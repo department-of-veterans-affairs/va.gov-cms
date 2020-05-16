@@ -1,0 +1,21 @@
+uuid: 1a67dd4e-e2a5-4917-8754-cf8af1bb9853
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_va_form_usage
+    - node.type.va_form
+  module:
+    - text
+id: node.va_form.field_va_form_usage
+field_name: field_va_form_usage
+entity_type: node
+bundle: va_form
+label: 'When to use'
+description: 'Enter a brief description that helps visitors understand who and what this form is intended for.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

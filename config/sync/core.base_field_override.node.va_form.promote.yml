@@ -1,0 +1,22 @@
+uuid: 5b495374-4c35-4748-8932-6af9beae4eef
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.va_form
+id: node.va_form.promote
+field_name: promote
+entity_type: node
+bundle: va_form
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

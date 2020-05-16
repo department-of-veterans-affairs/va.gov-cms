@@ -1,0 +1,20 @@
+uuid: 74438380-d583-4b3e-a016-20e923fae3c3
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_va_form_administration
+field_name: field_va_form_administration
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
