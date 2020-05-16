@@ -1,0 +1,39 @@
+uuid: 95f50a0d-256f-40fe-9346-f2bff3c5f8a6
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.va_form_migrated_content
+  module:
+    - ctools
+    - system
+    - views
+  theme:
+    - vagovadmin
+id: views_block__va_form_migrated_content_block_1
+theme: vagovadmin
+region: content
+weight: -14
+provider: null
+plugin: 'views_block:va_form_migrated_content-block_1'
+settings:
+  id: 'views_block:va_form_migrated_content-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  request_path:
+    id: request_path
+    pages: "/node/*\r\n/node/*/edit"
+    negate: false
+    context_mapping: {  }
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      va_form: va_form
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

@@ -1,0 +1,23 @@
+uuid: e5e3c7ad-af37-4eb3-8563-3a4da96949f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_va_form_tool_url
+    - node.type.va_form
+  module:
+    - link
+id: node.va_form.field_va_form_tool_url
+field_name: field_va_form_tool_url
+entity_type: node
+bundle: va_form
+label: 'Link to online tool'
+description: 'Enter the full URL of the online tool that visitors can use in place of this form.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+field_type: link

@@ -1,0 +1,56 @@
+uuid: 75eedce0-5c08-406a-8283-03b371ddfb09
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.va_form.field_administration
+    - field.field.node.va_form.field_benefit_categories
+    - field.field.node.va_form.field_meta_tags
+    - field.field.node.va_form.field_va_form_administration
+    - field.field.node.va_form.field_va_form_issue_date
+    - field.field.node.va_form.field_va_form_link_teasers
+    - field.field.node.va_form.field_va_form_name
+    - field.field.node.va_form.field_va_form_num_pages
+    - field.field.node.va_form.field_va_form_number
+    - field.field.node.va_form.field_va_form_related_forms
+    - field.field.node.va_form.field_va_form_revision_date
+    - field.field.node.va_form.field_va_form_title
+    - field.field.node.va_form.field_va_form_tool_intro
+    - field.field.node.va_form.field_va_form_tool_url
+    - field.field.node.va_form.field_va_form_type
+    - field.field.node.va_form.field_va_form_url
+    - field.field.node.va_form.field_va_form_usage
+    - node.type.va_form
+  module:
+    - user
+id: node.va_form.teaser
+targetEntityType: node
+bundle: va_form
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_benefit_categories: true
+  field_meta_tags: true
+  field_va_form_administration: true
+  field_va_form_issue_date: true
+  field_va_form_link_teasers: true
+  field_va_form_name: true
+  field_va_form_num_pages: true
+  field_va_form_number: true
+  field_va_form_related_forms: true
+  field_va_form_revision_date: true
+  field_va_form_title: true
+  field_va_form_tool_intro: true
+  field_va_form_tool_url: true
+  field_va_form_type: true
+  field_va_form_url: true
+  field_va_form_usage: true
+  search_api_excerpt: true
