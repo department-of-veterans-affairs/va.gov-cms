@@ -20,17 +20,26 @@ source:
   keys:
     - id
   column_names:
-    -
-      id : 'The unique identifier for the service'
-    -
-      field_service_name_and_descripti: 'Health Service'
-    -
-      field_body: 'Full Upload'
+    0:
+      id: Id
+    1:
+      field_service_name_and_descripti: Health Service
+    2:
+      field_body: Full Upload
+    3:
+      field_region_page: Health System
+    4:
+      field_administration: Owner
+
 process:
   field_service_name_and_descripti: field_service_name_and_descripti
   field_body: field_body
-  field_region_page: field_region_page
-  field_administration: field_administration
+  field_region_page:
+    plugin: default_value
+    default_value: 2361
+  field_administration:
+    plugin: default_value
+    default_value: 186
 destination:
   plugin: 'entity:node'
   default_bundle: regional_health_care_service_des
