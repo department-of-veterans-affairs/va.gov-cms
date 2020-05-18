@@ -1,0 +1,48 @@
+.form-item.form-item-title-0-value .description,
+.form-item.form-item-field-intro-text-0-value .description,
+.form-item.form-item-field-meta-title-0-value .description,
+.form-item.form-item-field-description-0-value .description {
+  margin-bottom: 0.5em;
+}
+
+.learn-more {
+  border-bottom: 2px dotted #0071bb;
+}
+
+.learn-more:active,
+.learn-more:focus,
+.learn-more:hover {
+  text-decoration: none;
+}
+
+.learn-more:active,
+.learn-more:hover {
+  color: #212121;
+}
+
+.learn-more:after {
+  content: '';
+  display: inline-block;
+  width: 1em;
+  height: 0.8em;
+  padding: 0 2px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('../../images/icons/arrow-down.png');
+}
+
+.learn-more.open:after {
+  background-image: url('../../images/icons/arrow-up.png');
+}
+
+.learn-more__info {
+  border-left: 4px solid #a8d8ed;
+  display: none;
+  padding: 0 1em;
+  margin: 1em 0;
+}
+
+.show {
+  display: block;
+}

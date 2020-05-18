@@ -1,0 +1,12 @@
+diff --git a/themable_forms.module b/themable_forms.module
+index 69445fa..02e2de8 100644
+--- a/themable_forms.module
++++ b/themable_forms.module
+@@ -49,6 +49,7 @@ function themable_forms_preprocess_form_element(array &$variables) {
+ 
+   if (isset($variables['element']['#form_id'])) {
+     $variables['label']['#form_id'] = $variables['element']['#form_id'];
++    $variables['form_id'] = $variables['element']['#form_id'];
+   }
+   if (isset($variables['element']['#type'])) {
+     $variables['label']['#form_element_type'] = $variables['element']['#type'];

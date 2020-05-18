@@ -98,6 +98,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     'field_listing',
   ];
   _va_gov_backend_dropdown_field_access($form, $targets);
+  _va_gov_backend_learn_more_pattern_mvp($form, $form_state, $form_id);
 
   if ($form_id === 'workbench_access_assign_user') {
     $form['#submit'][] = 'va_gov_backend_workbench_assign_user_form_submit';
@@ -142,6 +143,15 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
       _va_gov_backend_vbo_facility_status_form_ui($form, $form_state);
     }
   }
+}
+
+function _va_gov_backend_learn_more_pattern_mvp(&$form, $form_state, $form_id) {
+  if (!in_array($form_id, ['node_page_form', 'node_health_care_region_detail_page_form'])) {
+    return;
+  }
+
+  // Attach learn more pattern JS.
+  $form['#attached']['library'][] = 'vagovadmin/learn_more_pattern';
 }
 
 /**
