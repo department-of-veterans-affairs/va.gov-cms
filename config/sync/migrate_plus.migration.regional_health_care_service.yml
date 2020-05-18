@@ -20,29 +20,62 @@ source:
   keys:
     - id
   column_names:
-    0:
-      id: Id
-    1:
-      field_service_name_and_descripti: Health Service
-    2:
-      field_body: Full Upload
-    3:
-      field_region_page: Health System
-    4:
-      field_administration: Owner
-
+    -
+      id: 'The unique identifier for the service'
+    -
+      field_service_name_and_descripti: 'Health Service'
+    -
+      field_body: 'Full Upload'
+    -
+      field_owner: 'Owner'
+    -
+      field_health_system: 'Health System'
+    -
+      uid: 'uid'
 process:
   field_service_name_and_descripti: field_service_name_and_descripti
-  field_body: field_body
+  'body/format':
+    plugin: default_value
+    default_value: full_html
+  'body/value': field_body
   field_region_page:
     plugin: default_value
-    default_value: 2361
+    default_value: field_health_system
   field_administration:
     plugin: default_value
-    default_value: 186
+    default_value: field_owner
+  changed:
+    plugin: callback
+    callable: time
+  new_revision:
+    plugin: default_value
+    default_value: true
+  revision_default:
+    plugin: default_value
+    default_value: true
+  revision_log:
+    plugin: default_value
+    default_value: "Update of status by migrations."
+  revision_timestamp:
+    plugin: callback
+    callable: time
+  revision_uid:
+    plugin: default_value
+    default_value: uid
+  uid:
+    plugin: default_value
+    default_value: uid
 destination:
   plugin: 'entity:node'
   default_bundle: regional_health_care_service_des
+ overwrite_properties:
+  - changed
+  - new_revision
+  - revision_default
+  - revision_log
+  - revision_timestamp
+  - revision_uid
+  - uid
 migration_dependencies:
   required: {  }
   optional: {  }
