@@ -30,8 +30,6 @@ source:
       field_owner: 'Owner'
     -
       field_health_system: 'Health System'
-    -
-      uid: 'uid'
 process:
   field_service_name_and_descripti: field_service_name_and_descripti
   'body/format':
@@ -61,10 +59,10 @@ process:
     callable: time
   revision_uid:
     plugin: default_value
-    default_value: uid
+    default_value: 1317
   uid:
     plugin: default_value
-    default_value: uid
+    default_value: 1317
 destination:
   plugin: 'entity:node'
   default_bundle: regional_health_care_service_des
