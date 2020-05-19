@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "337398a5702d4e92f4450d842baaa249",
+    "content-hash": "70af3754d9bf398e8235cced6cb2f8db",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5734,6 +5734,54 @@
                 "source": "https://git.drupalcode.org/project/field_group"
             },
             "time": "2019-05-23T21:31:25+00:00"
+        },
+        {
+            "name": "drupal/fieldhelptext",
+            "version": "1.0.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/fieldhelptext.git",
+                "reference": "8.x-1.0-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/fieldhelptext-8.x-1.0-beta1.zip",
+                "reference": "8.x-1.0-beta1",
+                "shasum": "f40f6371a5c8a72cc944bac7230577d27978b09a"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-beta1",
+                    "datestamp": "1585151611",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Bec White",
+                    "homepage": "https://www.drupal.org/user/81067",
+                    "email": "white@palantir.net"
+                }
+            ],
+            "description": "Module to provide a bulk editing UI for field help text.",
+            "homepage": "https://github.com/palantirnet/fieldhelptext",
+            "support": {
+                "source": "https://git.drupalcode.org/project/fieldhelptext"
+            }
         },
         {
             "name": "drupal/govdelivery_bulletins",
@@ -19195,6 +19243,7 @@
         "drupal/entityqueue": 10,
         "drupal/fast_404": 15,
         "drupal/field_group": 20,
+        "drupal/fieldhelptext": 10,
         "drupal/graphql_metatag": 20,
         "drupal/image_style_warmer": 10,
         "drupal/libraries": 15,
