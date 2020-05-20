@@ -106,12 +106,12 @@ tooling:
 
   phpunit:
     service: appserver
-    description: "Run VA PHP Unit tests found in va/tests/phpunit: lando phpunit. Syntax: lando phpunit"
+    description: "Run VA PHPUnit tests found in va/tests/phpunit: lando phpunit. Syntax: lando phpunit"
     cmd: "composer yaml-tests va/tests/phpunit"
 
   phpunit-run:
     service: appserver
-    description: "Run specific PHP Unit tests: lando phpunit-run {docroot/MODULE/PATH/TO/TESTS} --filter {testName}"
+    description: "Run specific PHPUnit tests: lando phpunit-run {docroot/MODULE/PATH/TO/TESTS} --filter {testName}"
     cmd: "/app/bin/phpunit --debug --exclude-group disabled --verbose --colors=always"
 
   behat:
