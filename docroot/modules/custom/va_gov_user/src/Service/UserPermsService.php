@@ -237,15 +237,21 @@ class UserPermsService {
     // scope of workbench_access.
     $query = $this->database->select('section_association__user_id', 's');
     $query->condition('s.user_id_target_id', $account->id());
-    $query->condition('s.entity_id', 4);
+    $query->condition('s.entity_id', [4, 7, 9], 'IN');
     $query->fields('s', ['entity_id']);
-    $results = $query->execute()->fetchField();
+    $results = $query->execute()->fetchAssoc();
 
     // Compare user sections against subject section to determine access.
     return array_reduce($this->entityTypeManager->getStorage('access_scheme')->loadMultiple(), function (AccessResult $carry, AccessSchemeInterface $scheme) use ($entity, $op, $account, $results) {
       $status_class_name = get_class($scheme->getAccessScheme()->checkEntityAccess($scheme, $entity, $op, $account));
       // Return true if we have our special snowflake Outreach listing node.
-      if ((count($results) > 0) && ($entity->id() === '736')) {
+      // 735 = "Outreach and events" Office node id.
+      // User who are assigned to the following sections are able to access
+      // Outreach Listing node "Outreach and events: Outreach Events" (nid:736):
+      // - Veterans Affairs (tid:5 | section_id:7)
+      // -- Office of Public & Intergovernmental Affairs (tid:6 | section_id:9)
+      // --- Outreach Hub (tid:7 | section_id:4)
+      if (is_array($results) && count($results) > 0 && ($entity->id() === '735')) {
         return TRUE;
       }
       if ($status_class_name === AccessResultForbidden::class) {
