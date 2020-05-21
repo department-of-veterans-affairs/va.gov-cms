@@ -53,13 +53,15 @@ class LoginPerformance extends ExistingSiteBase {
   /**
    * Returns benchmark time to beat in order for test to succeed.
    *
+   * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1657#issuecomment-631755887
+   *
    * @return array
    *   Array containing entity type as string and expected count as int
    */
   public function benchmarkTime() {
-    return array(
-      array(2),
-    );
+    return [
+      [3],
+    ];
   }
 
 }
