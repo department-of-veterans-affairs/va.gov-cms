@@ -10,7 +10,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 class CreateNodePerformance extends ExistingSiteBase {
 
   /**
-   * A test method to deterine the amount of time it takes to create a node.
+   * A test method to determine the amount of time it takes to create a node.
    *
    * @group performance
    * @group all
@@ -43,9 +43,9 @@ class CreateNodePerformance extends ExistingSiteBase {
 
     // Test assertion.
     $secs = number_format($microsecs, 3);
-    $this->assertLessThan($benchmark, $secs, "\nOperation took " . $secs . " seconds which is longer than the benchmark of " . $benchmark . " seconds.\n");
+    $this->assertLessThan($benchmark, $secs, __METHOD__  . "\nOperation took " . $secs . " seconds which is longer than the benchmark of " . $benchmark . " seconds.\n");
 
-    $message = "\nOperation took " . $secs . " seconds compared to the benchmark of " . $benchmark . " seconds.\n";
+    $message = __METHOD__  . "\nOperation took " . $secs . " seconds compared to the benchmark of " . $benchmark . " seconds.\n";
     fwrite(STDERR, print_r($message, TRUE));
   }
 
