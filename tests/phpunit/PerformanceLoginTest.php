@@ -19,12 +19,16 @@ class LoginPerformance extends ExistingSiteBase {
    */
   public function testLoginPerformance($benchmark) {
 
+    // Creates a user. Will be automatically cleaned up at the end of the test.
     $author = $this->createUser();
     $author->addRole('content_editor');
     $author->save();
 
-    // Warm some cache before testing so login test will be more realistic.
+    // Warm cache before testing so login test will be realistic.
     $this->drupalLogin($author);
+    // Logout here because if we don't then drupalLogin() automatically calls
+    // drupalLogout() on the next drupalLogin() invocation, which is unrealistic.
+    $this->drupalLogout();
 
     // Start timer.
     $mtime = microtime();
@@ -32,7 +36,6 @@ class LoginPerformance extends ExistingSiteBase {
     $mtime = $mtime[1] + $mtime[0];
     $starttime = $mtime;
 
-    // Creates a user. Will be automatically cleaned up at the end of the test.
     $this->drupalLogin($author);
 
     // End timer.
