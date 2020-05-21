@@ -1,0 +1,114 @@
+uuid: 96d3b4e1-e4dc-450a-ae3c-452218d9d92f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.make_an_appointment.field_administration
+    - field.field.node.make_an_appointment.field_alert
+    - field.field.node.make_an_appointment.field_content_block
+    - field.field.node.make_an_appointment.field_description
+    - field.field.node.make_an_appointment.field_featured_content_blocks
+    - field.field.node.make_an_appointment.field_main_content_blocks
+    - field.field.node.make_an_appointment.field_meta_tags
+    - field.field.node.make_an_appointment.field_meta_title
+    - field.field.node.make_an_appointment.field_national_intro_text
+    - field.field.node.make_an_appointment.field_office
+    - node.type.make_an_appointment
+  module:
+    - entity_reference_revisions
+    - field_group
+    - user
+third_party_settings:
+  field_group:
+    group_meta:
+      children:
+        - field_description
+        - field_meta_title
+      parent_name: ''
+      weight: 10
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: false
+      label: Meta
+      region: hidden
+    group_cone:
+      children:
+        - field_alert
+        - field_main_content_blocks
+        - field_content_block
+        - field_related_links
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Content
+      region: content
+id: node.make_an_appointment.default
+targetEntityType: node
+bundle: make_an_appointment
+mode: default
+content:
+  content_moderation_control:
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_alert:
+    weight: 7
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_content_block:
+    weight: 9
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  field_featured_content_blocks:
+    weight: 1
+    label: above
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+  field_main_content_blocks:
+    weight: 8
+    label: above
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+  field_national_intro_text:
+    weight: 0
+    label: above
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+hidden:
+  field_administration: true
+  field_description: true
+  field_meta_tags: true
+  field_meta_title: true
+  field_office: true
+  links: true
+  search_api_excerpt: true

@@ -1,0 +1,33 @@
+uuid: e5b48b38-58a2-45c0-8851-824c32b14635
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:facility_content:ca9acc11-50ac-40d0-90b0-f067de868a4f'
+  module:
+    - block_content
+    - ctools
+  theme:
+    - vagovadmin
+id: beforeyoumakeanappointment
+theme: vagovadmin
+region: content
+weight: 0
+provider: null
+plugin: 'block_content:ca9acc11-50ac-40d0-90b0-f067de868a4f'
+settings:
+  id: 'block_content:ca9acc11-50ac-40d0-90b0-f067de868a4f'
+  label: 'Before you make an appointment'
+  provider: block_content
+  label_display: visible
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      make_an_appointment: make_an_appointment
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

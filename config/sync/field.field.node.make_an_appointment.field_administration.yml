@@ -1,0 +1,29 @@
+uuid: ad758463-7b76-435e-8011-0f0be48dd08f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.make_an_appointment
+    - taxonomy.vocabulary.administration
+id: node.make_an_appointment.field_administration
+field_name: field_administration
+entity_type: node
+bundle: make_an_appointment
+label: Owner
+description: 'The health care system that manages this local page.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

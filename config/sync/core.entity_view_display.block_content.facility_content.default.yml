@@ -1,0 +1,23 @@
+uuid: 4d533cd6-218e-4132-ba3a-74cd3ffc6dc7
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.facility_content
+    - field.field.block_content.facility_content.body
+  module:
+    - text
+id: block_content.facility_content.default
+targetEntityType: block_content
+bundle: facility_content
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  search_api_excerpt: true

@@ -1,0 +1,23 @@
+uuid: 0a515d01-e14a-4a67-8c88-12420bcc35fa
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.facility_intro_text
+    - field.field.block_content.facility_intro_text.body
+  module:
+    - text
+id: block_content.facility_intro_text.default
+targetEntityType: block_content
+bundle: facility_intro_text
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  search_api_excerpt: true

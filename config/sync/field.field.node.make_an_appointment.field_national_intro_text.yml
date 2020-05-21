@@ -1,0 +1,32 @@
+uuid: 52c8d82d-fd85-4b11-9883-ceb27a35f224
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.facility_intro_text
+    - field.storage.node.field_national_intro_text
+    - node.type.make_an_appointment
+  content:
+    - 'block_content:facility_intro_text:64b91eac-e6da-43e2-810f-41185190c600'
+id: node.make_an_appointment.field_national_intro_text
+field_name: field_national_intro_text
+entity_type: node
+bundle: make_an_appointment
+label: 'National Intro text'
+description: 'Intro text block with local facility name token.'
+required: true
+translatable: false
+default_value:
+  -
+    target_uuid: 64b91eac-e6da-43e2-810f-41185190c600
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      facility_intro_text: facility_intro_text
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

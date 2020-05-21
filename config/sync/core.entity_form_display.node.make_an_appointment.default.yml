@@ -1,0 +1,310 @@
+uuid: f522ffbd-2d5a-454c-abe6-07b594164162
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_browser.browser.facility_intro_text
+    - field.field.node.make_an_appointment.field_administration
+    - field.field.node.make_an_appointment.field_alert
+    - field.field.node.make_an_appointment.field_content_block
+    - field.field.node.make_an_appointment.field_description
+    - field.field.node.make_an_appointment.field_featured_content_blocks
+    - field.field.node.make_an_appointment.field_main_content_blocks
+    - field.field.node.make_an_appointment.field_meta_tags
+    - field.field.node.make_an_appointment.field_meta_title
+    - field.field.node.make_an_appointment.field_national_intro_text
+    - field.field.node.make_an_appointment.field_office
+    - node.type.make_an_appointment
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - entity_browser
+    - field_group
+    - metatag
+    - paragraphs_browser
+    - path
+    - textfield_counter
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_office
+        - field_administration
+      parent_name: ''
+      weight: 9
+      format_type: details_sidebar
+      format_settings:
+        id: ''
+        classes: ''
+        open: 1
+        required_fields: 1
+        weight: '-10'
+      label: Governance
+      region: content
+    group_editorial_workflow:
+      children:
+        - moderation_state
+      parent_name: ''
+      weight: 10
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+      region: content
+    group_page_introduction:
+      children:
+        - title
+        - field_national_intro_text
+        - group_meta_tags
+        - group_includes
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        description: ''
+        id: ''
+        classes: ''
+        required_fields: false
+      label: 'Title, metatags, and includes'
+      region: content
+    group_include_alert:
+      children:
+        - field_alert
+      parent_name: group_includes
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver. You can <a href="/block/add/alert?destination=/admin/content/alerts">create a new alert</a>, or reuse an existing one.'
+        id: ''
+        classes: ''
+        required_fields: false
+      label: 'Include alert'
+      region: content
+    group_meta_tags:
+      children:
+        - field_meta_title
+        - field_description
+      parent_name: group_page_introduction
+      weight: 3
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+        open: false
+      label: 'Meta Tags'
+      region: content
+    group_includes:
+      children:
+        - group_include_alert
+      parent_name: group_page_introduction
+      weight: 4
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: Includes
+      region: content
+    group_main_content:
+      children:
+        - field_main_content_blocks
+        - field_content_block
+      parent_name: ''
+      weight: 3
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'Main content'
+      region: content
+id: node.make_an_appointment.default
+targetEntityType: node
+bundle: make_an_appointment
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_administration:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_alert:
+    weight: 15
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_content_block:
+    weight: 4
+    settings:
+      title: 'Content block'
+      title_plural: 'Content blocks'
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: '0'
+      add_mode: paragraphs_browser
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
+        add_above: 0
+      paragraphs_browser: content
+      modal_width: 80%
+      modal_height: auto
+    third_party_settings: {  }
+    type: paragraphs_browser
+    region: content
+  field_description:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+      maxlength: 160
+      counter_position: after
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
+      js_prevent_submit: false
+      count_html_characters: false
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_featured_content_blocks:
+    weight: 1
+    settings:
+      entity_browser: facility_content
+      field_widget_display: rendered_entity
+      field_widget_display_settings:
+        view_mode: default
+      field_widget_remove: true
+      field_widget_replace: true
+      selection_mode: selection_append
+      field_widget_edit: false
+      open: false
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+    region: content
+  field_main_content_blocks:
+    weight: 3
+    settings:
+      entity_browser: facility_content
+      field_widget_display: rendered_entity
+      field_widget_display_settings:
+        view_mode: default
+      field_widget_remove: true
+      field_widget_replace: true
+      selection_mode: selection_append
+      field_widget_edit: false
+      open: false
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+    region: content
+  field_meta_tags:
+    weight: 11
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_firehose
+    region: content
+  field_meta_title:
+    weight: 2
+    settings:
+      size: 70
+      placeholder: ''
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_national_intro_text:
+    weight: 2
+    settings:
+      entity_browser: facility_intro_text
+      field_widget_display: rendered_entity
+      field_widget_display_settings:
+        view_mode: default
+      field_widget_replace: true
+      selection_mode: selection_append
+      field_widget_edit: false
+      field_widget_remove: false
+      open: false
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+    region: content
+  field_office:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 8
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 8
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield_with_counter
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      maxlength: 150
+      counter_position: after
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
+      js_prevent_submit: false
+      count_html_characters: false
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 4
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    region: content
+    third_party_settings: {  }
+  url_redirects:
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  promote: true
+  sticky: true

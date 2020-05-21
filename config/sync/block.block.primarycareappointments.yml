@@ -1,0 +1,33 @@
+uuid: 7f639327-7790-42d9-b108-7e7bdb643282
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:facility_content:9e1ce725-6422-4a0a-a920-522cfc5d09d1'
+  module:
+    - block_content
+    - ctools
+  theme:
+    - vagovadmin
+id: primarycareappointments
+theme: vagovadmin
+region: content
+weight: 0
+provider: null
+plugin: 'block_content:9e1ce725-6422-4a0a-a920-522cfc5d09d1'
+settings:
+  id: 'block_content:9e1ce725-6422-4a0a-a920-522cfc5d09d1'
+  label: 'Primary care appointments'
+  provider: block_content
+  label_display: visible
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      make_an_appointment: make_an_appointment
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

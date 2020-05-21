@@ -1,0 +1,33 @@
+uuid: a7b8b443-9b9d-4226-9c83-f9065b4a0a38
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:facility_intro_text:64b91eac-e6da-43e2-810f-41185190c600'
+  module:
+    - block_content
+    - ctools
+  theme:
+    - vagovadmin
+id: makeanappointmentintrotext
+theme: vagovadmin
+region: content
+weight: -14
+provider: null
+plugin: 'block_content:64b91eac-e6da-43e2-810f-41185190c600'
+settings:
+  id: 'block_content:64b91eac-e6da-43e2-810f-41185190c600'
+  label: 'Make an appointment intro text'
+  provider: block_content
+  label_display: visible
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      make_an_appointment: make_an_appointment
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

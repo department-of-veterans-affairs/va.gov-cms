@@ -1,0 +1,23 @@
+uuid: 691d493a-f67f-4ff6-b516-c157f48b868c
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.facility_intro_text
+    - field.storage.block_content.body
+  module:
+    - text
+id: block_content.facility_intro_text.body
+field_name: body
+entity_type: block_content
+bundle: facility_intro_text
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+field_type: text_with_summary

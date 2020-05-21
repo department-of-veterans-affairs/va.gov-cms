@@ -1,0 +1,29 @@
+uuid: c91e18b4-644b-48d5-8214-64dab42204df
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - field.storage.node.field_alert
+    - node.type.make_an_appointment
+id: node.make_an_appointment.field_alert
+field_name: field_alert
+entity_type: node
+bundle: make_an_appointment
+label: Alert
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      alert: alert
+    sort:
+      field: info
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

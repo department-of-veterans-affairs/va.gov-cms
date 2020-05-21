@@ -1,0 +1,43 @@
+uuid: a864bc1c-f17b-4afb-b14a-a741002e5efd
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.make_an_appointment.field_administration
+    - field.field.node.make_an_appointment.field_alert
+    - field.field.node.make_an_appointment.field_content_block
+    - field.field.node.make_an_appointment.field_description
+    - field.field.node.make_an_appointment.field_featured_content_blocks
+    - field.field.node.make_an_appointment.field_main_content_blocks
+    - field.field.node.make_an_appointment.field_meta_tags
+    - field.field.node.make_an_appointment.field_meta_title
+    - field.field.node.make_an_appointment.field_national_intro_text
+    - field.field.node.make_an_appointment.field_office
+    - node.type.make_an_appointment
+  module:
+    - user
+id: node.make_an_appointment.teaser
+targetEntityType: node
+bundle: make_an_appointment
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_alert: true
+  field_content_block: true
+  field_description: true
+  field_featured_content_blocks: true
+  field_main_content_blocks: true
+  field_media: true
+  field_meta_tags: true
+  field_meta_title: true
+  field_national_intro_text: true
+  field_office: true
+  search_api_excerpt: true

@@ -1,0 +1,31 @@
+uuid: 16900b66-e4cb-4915-89f8-3c4855d0f2da
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.custom_block_entity_browsers
+  module:
+    - views
+name: facility_content
+label: 'Facility content'
+display: modal
+display_configuration:
+  width: '650'
+  height: '500'
+  link_text: 'Select entities'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  5dba37f0-056f-438d-a536-9af1f7a01534:
+    settings:
+      view: custom_block_entity_browsers
+      view_display: entity_browser_2
+      submit_text: 'Select blocks'
+      auto_select: false
+    uuid: 5dba37f0-056f-438d-a536-9af1f7a01534
+    weight: 1
+    label: view
+    id: view

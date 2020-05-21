@@ -1,0 +1,121 @@
+uuid: 77b9693e-82dd-495c-ae6f-1a47b65d6e51
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_block
+    - node.type.make_an_appointment
+    - paragraphs.paragraphs_type.alert
+    - paragraphs.paragraphs_type.collapsible_panel
+    - paragraphs.paragraphs_type.downloadable_file
+    - paragraphs.paragraphs_type.list_of_link_teasers
+    - paragraphs.paragraphs_type.media
+    - paragraphs.paragraphs_type.number_callout
+    - paragraphs.paragraphs_type.process
+    - paragraphs.paragraphs_type.q_a_section
+    - paragraphs.paragraphs_type.react_widget
+    - paragraphs.paragraphs_type.spanish_translation_summary
+    - paragraphs.paragraphs_type.staff_profile
+    - paragraphs.paragraphs_type.table
+    - paragraphs.paragraphs_type.wysiwyg
+  module:
+    - entity_reference_revisions
+id: node.make_an_appointment.field_content_block
+field_name: field_content_block
+entity_type: node
+bundle: make_an_appointment
+label: 'Facility Main content'
+description: 'Content set by facility.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      wysiwyg: wysiwyg
+      number_callout: number_callout
+      collapsible_panel: collapsible_panel
+      q_a_section: q_a_section
+      process: process
+      react_widget: react_widget
+      list_of_link_teasers: list_of_link_teasers
+      spanish_translation_summary: spanish_translation_summary
+      alert: alert
+      staff_profile: staff_profile
+      table: table
+      media: media
+      downloadable_file: downloadable_file
+    target_bundles_drag_drop:
+      wysiwyg:
+        enabled: true
+        weight: -43
+      number_callout:
+        enabled: true
+        weight: -42
+      collapsible_panel:
+        enabled: true
+        weight: -41
+      q_a_section:
+        enabled: true
+        weight: -40
+      process:
+        enabled: true
+        weight: -39
+      react_widget:
+        enabled: true
+        weight: -38
+      list_of_link_teasers:
+        enabled: true
+        weight: -37
+      spanish_translation_summary:
+        enabled: true
+        weight: -36
+      alert:
+        enabled: true
+        weight: -35
+      staff_profile:
+        enabled: true
+        weight: -34
+      table:
+        enabled: true
+        weight: -33
+      expandable_text:
+        weight: -32
+        enabled: false
+      address:
+        weight: -31
+        enabled: false
+      collapsible_panel_item:
+        weight: -30
+        enabled: false
+      health_care_local_facility_servi:
+        weight: -29
+        enabled: false
+      link_teaser:
+        weight: -28
+        enabled: false
+      q_a:
+        weight: -27
+        enabled: false
+      starred_horizontal_rule:
+        weight: -26
+        enabled: false
+      media:
+        enabled: true
+        weight: -25
+      downloadable_file:
+        enabled: true
+        weight: 23
+      reusable_national_content:
+        weight: 39
+        enabled: false
+      reusable_national_token_content:
+        weight: 40
+        enabled: false
+      situation_update:
+        weight: 41
+        enabled: false
+field_type: entity_reference_revisions

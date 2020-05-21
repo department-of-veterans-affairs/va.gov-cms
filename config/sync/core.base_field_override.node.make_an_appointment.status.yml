@@ -1,0 +1,22 @@
+uuid: a25759f0-d3a1-4757-be3e-8a9210e1b90b
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.make_an_appointment
+id: node.make_an_appointment.status
+field_name: status
+entity_type: node
+bundle: make_an_appointment
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

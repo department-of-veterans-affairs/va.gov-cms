@@ -1,0 +1,40 @@
+uuid: c708d2e1-e5f3-452b-9423-c83d983f19b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.facility_content
+    - field.field.block_content.facility_content.body
+  module:
+    - content_moderation
+    - text
+id: block_content.facility_content.default
+targetEntityType: block_content
+bundle: facility_content
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 1
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+    region: content
+  info:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 2
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+hidden: {  }

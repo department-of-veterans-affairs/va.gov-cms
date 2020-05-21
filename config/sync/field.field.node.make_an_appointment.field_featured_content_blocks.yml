@@ -1,0 +1,28 @@
+uuid: 134b7cac-a493-4c8f-8783-0cb0031bb45e
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.facility_content
+    - field.storage.node.field_featured_content_blocks
+    - node.type.make_an_appointment
+id: node.make_an_appointment.field_featured_content_blocks
+field_name: field_featured_content_blocks
+entity_type: node
+bundle: make_an_appointment
+label: 'National Featured content'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      facility_content: facility_content
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: facility_content
+field_type: entity_reference

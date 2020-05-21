@@ -1,0 +1,28 @@
+uuid: 1df1fb91-ee79-4ea3-bede-c7786889b2ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.facility_content
+    - field.storage.node.field_main_content_blocks
+    - node.type.make_an_appointment
+id: node.make_an_appointment.field_main_content_blocks
+field_name: field_main_content_blocks
+entity_type: node
+bundle: make_an_appointment
+label: 'National Main content'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      facility_content: facility_content
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
