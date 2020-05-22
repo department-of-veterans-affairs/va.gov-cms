@@ -22,7 +22,6 @@ dependencies:
     - field.field.node.va_form.field_va_form_usage
     - node.type.va_form
   module:
-    - datetime
     - entity_reference_revisions
     - field_group
     - link
@@ -37,7 +36,7 @@ third_party_settings:
         - field_va_form_type
         - field_benefit_categories
       parent_name: ''
-      weight: 11
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -50,7 +49,7 @@ third_party_settings:
         - field_va_form_tool_intro
         - field_va_form_tool_url
       parent_name: ''
-      weight: 13
+      weight: 5
       format_type: fieldset
       format_settings:
         id: ''
@@ -68,7 +67,7 @@ third_party_settings:
         - field_va_form_num_pages
         - field_va_form_url
       parent_name: ''
-      weight: 1
+      weight: 8
       format_type: fieldset
       format_settings:
         id: ''
@@ -90,32 +89,15 @@ content:
     type: entity_reference_label
     region: content
   field_meta_tags:
-    weight: 9
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
     type: metatag_empty_formatter
     region: content
-  field_va_form_administration:
-    weight: 4
-    label: inline
-    settings:
-      link: false
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_va_form_issue_date:
-    weight: 5
-    label: inline
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    type: datetime_default
-    region: content
   field_va_form_link_teasers:
     type: entity_reference_revisions_entity_view
-    weight: 15
+    weight: 7
     label: above
     settings:
       view_mode: default
@@ -123,24 +105,7 @@ content:
     third_party_settings: {  }
     region: content
   field_va_form_name:
-    weight: 10
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_va_form_num_pages:
-    weight: 7
-    label: inline
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    type: number_integer
-    region: content
-  field_va_form_number:
-    weight: 3
+    weight: 2
     label: inline
     settings:
       link_to_entity: false
@@ -148,29 +113,12 @@ content:
     type: string
     region: content
   field_va_form_related_forms:
-    weight: 14
+    weight: 6
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
-  field_va_form_revision_date:
-    weight: 6
-    label: inline
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    type: datetime_default
-    region: content
-  field_va_form_title:
-    weight: 2
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
     region: content
   field_va_form_tool_intro:
     weight: 12
@@ -198,20 +146,8 @@ content:
     third_party_settings: {  }
     type: list_default
     region: content
-  field_va_form_url:
-    weight: 8
-    label: inline
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-    region: content
   field_va_form_usage:
-    weight: 12
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -225,4 +161,11 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_va_form_administration: true
+  field_va_form_issue_date: true
+  field_va_form_num_pages: true
+  field_va_form_number: true
+  field_va_form_revision_date: true
+  field_va_form_title: true
+  field_va_form_url: true
   search_api_excerpt: true
