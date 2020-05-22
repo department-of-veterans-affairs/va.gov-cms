@@ -173,3 +173,7 @@ parameters:
     maxAge: false
     # Sets the Access-Control-Allow-Credentials header.
     supportsCredentials: false
+
+services:
+  cache.backend.null:
+    class: Drupal\Core\Cache\NullBackendFactory
