@@ -169,6 +169,40 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php'
   include $app_root . '/' . $site_path . '/settings/settings.fast_404.php';
 }
 
+// Adjust cache settings if we are on a site alert
+if ($_SERVER['REQUEST_URI'] === 'ajax/site_alert') {
+  // No cache
+  $settings['cache']['default'] = 'cache.backend.null';
+  $settings['class_loader_auto_detect'] = FALSE;
+  // Override bootstrap cache container from DrupalKernal::defaultBootstrapContainerDefinition
+  $settings['bootstrap_container_definition'] = [
+    'parameters' => [
+      'cache_default_bin_backends' => 'cache.backend.null'
+    ],
+    'services' => [
+      'database' => [
+        'class' => 'Drupal\Core\Database\Connection',
+        'factory' => 'Drupal\Core\Database\Database::getConnection',
+        'arguments' => ['default'],
+      ],
+      'cache.container' => [
+        'class' => 'Drupal\Core\Cache\NullBackend',
+        'arguments' => ['container'],
+      ],
+      'cache_tags_provider.container' => [
+        'class' => 'Drupal\Core\Cache\DatabaseCacheTagsChecksum',
+        'arguments' => ['@database'],
+      ],
+    ],
+  ];
+
+  if (!empty($settings['cache']['bins'])) {
+    foreach (array_keys($settings['cache']['bins']) as $cache_bin) {
+      $settings['cache']['bins'][$cache_bin] = 'cache.backend.null';
+    }
+  }
+}
+
 /**
  * Load local development override configuration, if available.
  *
