@@ -113,15 +113,26 @@
         <div class="learn-more__info">
           <p><strong>Where it appears:</strong> At the top of the page above intro text.</p>
           <p><strong>Best practices:</strong> <a href="https://design.va.gov/content-style-guide/page-titles-and-section-titles" target="_blank">Write in sentence case</a>, <a href="https://design.va.gov/content-style-guide/page-titles-and-section-titles" target="_blank">Follow VA.gov content style for page titles</a></p>
-          <p><strong>Example:</strong><img src="/{{ active_theme_path() }}/images/learn-more-demo-screenshots/title-intro.png" alt="Intro field placement example"/></p>
         </div>
       {% endif %}
       {% if name == 'field_intro_text[0][value]' %}
         <a class="learn-more" href="#">Learn more about intro text</a>
         <div class="learn-more__info">
           <p><strong>Where it appears:</strong> Directly under the title.</p>
-          <p><strong>Best practices:</strong> <a href="https://design.va.gov/content-style-guide/we-us-you" target="_blank">Write in the second person ("you")</a>. Default to using plain text formatting except in special cases that may require bold, italics, links, paragraph breaks, and line breaks.</p>
-          <p><strong>Example:</strong><img src="/{{ active_theme_path() }}/images/learn-more-demo-screenshots/title-intro.png" alt="Intro field placement example"/></p>
+          <p><strong>Best practices:</strong> <a href="https://design.va.gov/content-style-guide/we-us-you" target="_blank">Write in the second person ("you")</a>.</p>
+        </div>
+      {% endif %}
+      {% if name == 'field_meta_title[0][value]' %}
+        <a class="learn-more" href="#">Learn more about Meta title</a>
+        <div class="learn-more__info">
+          <p><strong>Best practices:</strong> Follow <a href="https://design.va.gov/content-style-guide/seo" target="_blank">VA.gov content style guidelines for meta titles</a>.</p>
+        </div>
+      {% endif %}
+      {% if name == 'field_description[0][value]' %}
+        <a class="learn-more" href="#">Learn more about Meta description</a>
+        <div class="learn-more__info">
+          <p><strong>Best practices:</strong> Keep it short — one sentence is ideal — and follow <a href="https://design.va.gov/content-style-guide/seo" target="_blank">VA.gov content style guidelines for meta descriptions</a>.</p>
+          <p><strong>Example:</strong><img src="/{{ active_theme_path() }}/images/learn-more-demo-screenshots/learn-more-screenshot-meta-description.png" alt="Meta tags example"/></p>
         </div>
       {% endif %}
     </div>
