@@ -74,7 +74,8 @@
 
             // Special handling for menu nav items.
             menuTraverser(el);
-
+            // Unset old Unique ID.
+            dataCollection['gtm.uniqueEventId'] = '';
             // Now send it to the dataLayer.
             dataLayer.push(dataCollection);
           });
