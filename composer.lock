@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "559e829260431104553c0cf31dad0560",
+    "content-hash": "3615b150b90e4fd188c1de661f76a4f9",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3284,9 +3284,6 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
                     "version": "8.x-1.1",
                     "datestamp": "1556870881",
@@ -4201,9 +4198,6 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
                     "version": "8.x-1.0-beta4",
                     "datestamp": "1497737343",
@@ -7807,9 +7801,6 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
                     "version": "8.x-1.2",
                     "datestamp": "1585919601",
@@ -8920,7 +8911,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/post_api.git",
-                "reference": "9a821479f7be5ef7afb1464c8eb10ad9fe0ff644"
+                "reference": "9dbd687f3655f0ed38e4f03232c585f700b72cdd"
             },
             "require": {
                 "drupal/core": "^8 || ^9"
@@ -8932,7 +8923,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.x-dev",
-                    "datestamp": "1589294242",
+                    "datestamp": "1589457667",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -8954,7 +8945,7 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/post_api"
             },
-            "time": "2020-05-14T12:00:42+00:00"
+            "time": "2020-05-21T11:48:58+00:00"
         },
         {
             "name": "drupal/redirect",
@@ -10116,20 +10107,20 @@
         },
         {
             "name": "drupal/tome",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/tome.git",
-                "reference": "8.x-1.3"
+                "reference": "8.x-1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/tome-8.x-1.3.zip",
-                "reference": "8.x-1.3",
-                "shasum": "666e644dd2263b4a8565fff3a662b5bea8a316aa"
+                "url": "https://ftp.drupal.org/files/projects/tome-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "c7c265dd7e92045411931a15585413d6d97e0ada"
             },
             "require": {
-                "drupal/core": "~8.0",
+                "drupal/core": "^8 || ^9",
                 "drupal/tome_static": "*",
                 "drupal/tome_sync": "*"
             },
@@ -10143,12 +10134,9 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
-                    "version": "8.x-1.3",
-                    "datestamp": "1580961561",
+                    "version": "8.x-1.4",
+                    "datestamp": "1590331615",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10176,19 +10164,16 @@
         },
         {
             "name": "drupal/tome_base",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "require": {
-                "drupal/core": "~8.0",
+                "drupal/core": "^8 || ^9",
                 "drupal/tome": "self.version"
             },
             "type": "metapackage",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
-                    "version": "8.x-1.3",
-                    "datestamp": "1580961561",
+                    "version": "8.x-1.4",
+                    "datestamp": "1590331615",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10213,20 +10198,17 @@
         },
         {
             "name": "drupal/tome_static",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "require": {
-                "drupal/core": "^8.6",
+                "drupal/core": "^8 || ^9",
                 "drupal/tome": "self.version",
                 "drupal/tome_base": "*"
             },
             "type": "metapackage",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
-                    "version": "8.x-1.3",
-                    "datestamp": "1580961561",
+                    "version": "8.x-1.4",
+                    "datestamp": "1590331615",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10251,20 +10233,17 @@
         },
         {
             "name": "drupal/tome_sync",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "require": {
-                "drupal/core": "*",
+                "drupal/core": "^8 || ^9",
                 "drupal/tome": "self.version",
                 "drupal/tome_base": "*"
             },
             "type": "metapackage",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
-                    "version": "8.x-1.3",
-                    "datestamp": "1580961561",
+                    "version": "8.x-1.4",
+                    "datestamp": "1590331615",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10398,9 +10377,6 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
                     "version": "8.x-1.0-beta2",
                     "datestamp": "1541254684",
@@ -19082,6 +19058,5 @@
     "platform-dev": [],
     "platform-overrides": {
         "php": "7.1.3"
-    },
-    "plugin-api-version": "1.1.0"
+    }
 }
