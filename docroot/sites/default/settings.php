@@ -1,6 +1,9 @@
 <?php
 
 // @codingStandardsIgnoreFile
+use Drupal\Core\Cache\NullBackend;
+use Drupal\Core\Cache\DatabaseCacheTagsChecksum;
+use Drupal\Core\Database\Connection;
 
 /**
  * For documentation and more options
@@ -169,7 +172,10 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php'
 }
 
 // Adjust cache settings if we are on a site alert
-if ($_SERVER['REQUEST_URI'] === 'ajax/site_alert') {
+if (defined('MAINTENANCE_MODE') &&
+  (MAINTENANCE_MODE === 'install' || MAINTENANCE_MODE === 'update') &&
+  ($_SERVER['REQUEST_URI'] === 'ajax/site_alert')) {
+
   // No cache
   $settings['cache']['default'] = 'cache.backend.null';
   $settings['class_loader_auto_detect'] = FALSE;
@@ -180,16 +186,16 @@ if ($_SERVER['REQUEST_URI'] === 'ajax/site_alert') {
     ],
     'services' => [
       'database' => [
-        'class' => 'Drupal\Core\Database\Connection',
+        'class' => Connection::class,
         'factory' => 'Drupal\Core\Database\Database::getConnection',
         'arguments' => ['default'],
       ],
       'cache.container' => [
-        'class' => 'Drupal\Core\Cache\NullBackend',
+        'class' => NullBackend::class,
         'arguments' => ['container'],
       ],
       'cache_tags_provider.container' => [
-        'class' => 'Drupal\Core\Cache\DatabaseCacheTagsChecksum',
+        'class' => DatabaseCacheTagsChecksum::class,
         'arguments' => ['@database'],
       ],
     ],
