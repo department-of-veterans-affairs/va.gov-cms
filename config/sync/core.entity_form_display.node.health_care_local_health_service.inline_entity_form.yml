@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_form_mode.node.inline_entity_form
+    - field.field.node.health_care_local_health_service.field_about
     - field.field.node.health_care_local_health_service.field_administration
     - field.field.node.health_care_local_health_service.field_body
     - field.field.node.health_care_local_health_service.field_facility_location
@@ -55,11 +56,11 @@ content:
     region: content
 hidden:
   created: true
+  field_about: true
   field_regional_health_service: true
   moderation_state: true
   path: true
   promote: true
-  revision_log: true
   status: true
   sticky: true
   title: true

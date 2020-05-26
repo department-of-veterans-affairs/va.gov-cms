@@ -1,0 +1,23 @@
+uuid: 16104986-a9c0-4b8a-bfa6-04630b2bb2a0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_operating_status
+    - paragraphs.paragraphs_type.location_info
+  module:
+    - options
+id: paragraph.location_info.field_operating_status
+field_name: field_operating_status
+entity_type: paragraph
+bundle: location_info
+label: 'Operating status'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: normal
+default_value_callback: ''
+settings: {  }
+field_type: list_string

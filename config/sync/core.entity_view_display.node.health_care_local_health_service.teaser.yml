@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.health_care_local_health_service.field_about
     - field.field.node.health_care_local_health_service.field_administration
     - field.field.node.health_care_local_health_service.field_body
     - field.field.node.health_care_local_health_service.field_facility_location
@@ -26,6 +27,7 @@ content:
     third_party_settings: {  }
 hidden:
   content_moderation_control: true
+  field_about: true
   field_administration: true
   field_clinical_health_services: true
   field_facility_location: true

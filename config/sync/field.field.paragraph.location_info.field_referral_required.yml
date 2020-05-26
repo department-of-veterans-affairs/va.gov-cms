@@ -1,0 +1,23 @@
+uuid: ed3d4d1c-0882-4db4-98ef-5dd008e05e55
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_referral_required
+    - paragraphs.paragraphs_type.location_info
+  module:
+    - options
+id: paragraph.location_info.field_referral_required
+field_name: field_referral_required
+entity_type: paragraph
+bundle: location_info
+label: 'Referral required'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 'yes'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

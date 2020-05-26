@@ -1,0 +1,21 @@
+uuid: af17cb41-6641-47e8-9fd2-63f634bf0fa0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_appointment_phone
+    - paragraphs.paragraphs_type.location_info
+  module:
+    - telephone
+id: paragraph.location_info.field_appointment_phone
+field_name: field_appointment_phone
+entity_type: paragraph
+bundle: location_info
+label: 'Appointment phone'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

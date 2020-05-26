@@ -1,0 +1,23 @@
+uuid: a29dbfd7-a5a0-41a3-bf0b-d3a85e3b7d6e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_online_scheduling_availabl
+    - paragraphs.paragraphs_type.location_info
+  module:
+    - options
+id: paragraph.location_info.field_online_scheduling_availabl
+field_name: field_online_scheduling_availabl
+entity_type: paragraph
+bundle: location_info
+label: 'Online scheduling available'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 'yes'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

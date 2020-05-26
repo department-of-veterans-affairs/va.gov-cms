@@ -1,0 +1,21 @@
+uuid: e48d6c6b-63b3-41d4-b41d-5debd1845d02
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_wysiwyg
+    - paragraphs.paragraphs_type.location_info
+  module:
+    - text
+id: paragraph.location_info.field_wysiwyg
+field_name: field_wysiwyg
+entity_type: paragraph
+bundle: location_info
+label: 'Facility description of service'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

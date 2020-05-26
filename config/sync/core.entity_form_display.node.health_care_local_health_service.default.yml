@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.health_care_local_health_service.field_about
     - field.field.node.health_care_local_health_service.field_administration
     - field.field.node.health_care_local_health_service.field_body
     - field.field.node.health_care_local_health_service.field_facility_location
@@ -10,7 +11,7 @@ dependencies:
     - node.type.health_care_local_health_service
   module:
     - field_group
-    - text
+    - inline_entity_form
 third_party_settings:
   field_group:
     group_governance:
@@ -33,19 +34,24 @@ targetEntityType: node
 bundle: health_care_local_health_service
 mode: default
 content:
+  field_about:
+    type: inline_entity_form_simple
+    weight: 2
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      revision: false
+      override_labels: false
+      collapsible: false
+      collapsed: false
+    third_party_settings: {  }
+    region: content
   field_administration:
     weight: 4
     settings: {  }
     third_party_settings: {  }
     type: options_select
-    region: content
-  field_body:
-    weight: 2
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: text_textarea
     region: content
   field_facility_location:
     weight: 0
@@ -61,10 +67,10 @@ content:
     region: content
 hidden:
   created: true
+  field_body: true
   moderation_state: true
   path: true
   promote: true
-  revision_log: true
   status: true
   sticky: true
   title: true

@@ -1,0 +1,23 @@
+uuid: 493d552b-aa6d-4ffe-ad9c-498a53061e44
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_walk_ins_accepted
+    - paragraphs.paragraphs_type.location_info
+  module:
+    - options
+id: paragraph.location_info.field_walk_ins_accepted
+field_name: field_walk_ins_accepted
+entity_type: paragraph
+bundle: location_info
+label: 'Walk-ins accepted'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 'yes'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

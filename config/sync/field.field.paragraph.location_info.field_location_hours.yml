@@ -1,0 +1,21 @@
+uuid: 26fe6b69-3b1b-4e5f-9a69-753dabfc4a82
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_location_hours
+    - paragraphs.paragraphs_type.location_info
+  module:
+    - office_hours
+id: paragraph.location_info.field_location_hours
+field_name: field_location_hours
+entity_type: paragraph
+bundle: location_info
+label: Hours
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: office_hours

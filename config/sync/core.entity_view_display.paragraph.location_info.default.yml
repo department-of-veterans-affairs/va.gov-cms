@@ -1,0 +1,240 @@
+uuid: 81d7af2c-008a-49f0-aa82-c8a04583b3f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.location_info.field_additional_ph_num_1_title
+    - field.field.paragraph.location_info.field_additional_ph_num_2_title
+    - field.field.paragraph.location_info.field_additional_phone_number_2
+    - field.field.paragraph.location_info.field_additional_phone_numbers
+    - field.field.paragraph.location_info.field_address
+    - field.field.paragraph.location_info.field_appointment_phone
+    - field.field.paragraph.location_info.field_extension
+    - field.field.paragraph.location_info.field_link
+    - field.field.paragraph.location_info.field_location_hours
+    - field.field.paragraph.location_info.field_main_phone
+    - field.field.paragraph.location_info.field_online_scheduling_availabl
+    - field.field.paragraph.location_info.field_operating_status
+    - field.field.paragraph.location_info.field_operating_status_notes
+    - field.field.paragraph.location_info.field_referral_required
+    - field.field.paragraph.location_info.field_title
+    - field.field.paragraph.location_info.field_use_facility_address
+    - field.field.paragraph.location_info.field_walk_ins_accepted
+    - field.field.paragraph.location_info.field_wysiwyg
+    - paragraphs.paragraphs_type.location_info
+  module:
+    - address
+    - field_group
+    - link
+    - office_hours
+    - options
+    - telephone
+    - text
+third_party_settings:
+  field_group:
+    group_location_and_contact_infor:
+      children:
+        - field_title
+        - field_address
+        - field_link
+        - field_main_phone
+        - field_extension
+        - field_additional_ph_num_1_title
+        - field_additional_phone_numbers
+        - field_additional_ph_num_2_title
+        - field_additional_phone_number_2
+        - field_location_hours
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Location and contact information'
+      region: content
+    group_appointments:
+      children:
+        - field_wysiwyg
+        - field_referral_required
+        - field_walk_ins_accepted
+        - field_online_scheduling_availabl
+        - field_appointment_phone
+        - field_operating_status
+        - field_operating_status_notes
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Appointments
+      region: content
+id: paragraph.location_info.default
+targetEntityType: paragraph
+bundle: location_info
+mode: default
+content:
+  field_additional_ph_num_1_title:
+    weight: 12
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_additional_ph_num_2_title:
+    weight: 14
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_additional_phone_number_2:
+    weight: 15
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
+    region: content
+  field_additional_phone_numbers:
+    weight: 13
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
+    region: content
+  field_address:
+    weight: 7
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+    region: content
+  field_appointment_phone:
+    weight: 13
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
+    region: content
+  field_extension:
+    weight: 10
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  field_link:
+    weight: 8
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_location_hours:
+    weight: 16
+    label: above
+    settings:
+      day_format: long
+      time_format: G
+      compress: false
+      grouped: false
+      show_closed: all
+      closed_format: Closed
+      separator:
+        days: '<br />'
+        grouped_days: ' - '
+        day_hours: ': '
+        hours_hours: '-'
+        more_hours: ', '
+      current_status:
+        position: ''
+        open_text: 'Currently open!'
+        closed_text: 'Currently closed'
+      schema:
+        enabled: false
+      timezone_field: ''
+      office_hours_first_day: ''
+    third_party_settings: {  }
+    type: office_hours
+    region: content
+  field_main_phone:
+    weight: 9
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
+    region: content
+  field_online_scheduling_availabl:
+    weight: 12
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_operating_status:
+    weight: 14
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_operating_status_notes:
+    weight: 15
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_referral_required:
+    weight: 10
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_title:
+    weight: 6
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_use_facility_address:
+    weight: 17
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_walk_ins_accepted:
+    weight: 11
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_wysiwyg:
+    weight: 9
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden:
+  search_api_excerpt: true

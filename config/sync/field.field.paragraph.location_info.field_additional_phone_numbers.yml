@@ -1,0 +1,27 @@
+uuid: 9621bccc-c8fd-49b5-8779-fab3ff7923f0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_additional_phone_numbers
+    - paragraphs.paragraphs_type.location_info
+  module:
+    - telephone
+    - telephone_validation
+third_party_settings:
+  telephone_validation:
+    format: 2
+    country:
+      - US
+id: paragraph.location_info.field_additional_phone_numbers
+field_name: field_additional_phone_numbers
+entity_type: paragraph
+bundle: location_info
+label: 'Additional phone number 1'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

@@ -1,0 +1,23 @@
+uuid: 4ab52951-0cab-4fe7-8a5a-d8d0459ff566
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_link
+    - paragraphs.paragraphs_type.location_info
+  module:
+    - link
+id: paragraph.location_info.field_link
+field_name: field_link
+entity_type: paragraph
+bundle: location_info
+label: 'Map Link'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 1
+  title: 1
+field_type: link

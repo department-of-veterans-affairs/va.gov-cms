@@ -97,6 +97,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     'field_office',
     'field_listing',
   ];
+
   _va_gov_backend_dropdown_field_access($form, $targets);
 
   if ($form_id === 'workbench_access_assign_user') {
@@ -287,17 +288,45 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
       ];
     }
   }
+
 }
 
 /**
  * Implements hook_inline_entity_form_alter().
  */
-function va_gov_backend_inline_entity_form_entity_form_alter(&$entity_form, $form_state) {
+function va_gov_backend_inline_entity_form_entity_form_alter(&$entity_form, $form_state, $context) {
   // Show the facility name so that the editor knows what they're editing,
   // but don't let the editor change it. It's driven by Facility API.
   if ($entity_form['#bundle'] === 'health_care_local_facility') {
     $entity_form['title']['widget'][0]['value']['#attributes']['disabled'] = 'disabled';
   }
+
+  // If facility address is chosen, don't show the address field.
+  if ($entity_form['#bundle'] === 'location_info') {
+    $toggle_fields = [
+      'field_title',
+      'field_address',
+    ];
+    foreach ($toggle_fields as $toggle) {
+      $entity_form[$toggle]['#states'] = [
+        'invisible' => [
+          ':input[name="field_about[0][inline_entity_form][field_use_facility_address]"]' => ['value' => 'yes'],
+        ],
+      ];
+    }
+    $entity_form['field_address']['widget'][0]['#after_build'][] = 'va_gov_backend_customize_address';
+  }
+}
+
+/**
+ *
+ */
+function va_gov_backend_customize_address($element, $form_state) {
+  $element['address']['organization']['#title'] = t('Floor/Wing/Room');
+  $element['address']['organization']['#size'] = 30;
+  $element['address']['organization']['#weight'] = .005;
+
+  return $element;
 }
 
 /**
