@@ -233,27 +233,14 @@ class UserPermsService {
       $op = 'create';
     }
 
-    // Special snowflake check for Outreach section - unique perms set beyond
-    // scope of workbench_access.
-    $query = $this->database->select('section_association__user_id', 's');
-    $query->condition('s.user_id_target_id', $account->id());
-    $query->condition('s.entity_id', 4);
-    $query->fields('s', ['entity_id']);
-    $results = $query->execute()->fetchField();
-
     // Compare user sections against subject section to determine access.
-    return array_reduce($this->entityTypeManager->getStorage('access_scheme')->loadMultiple(), function (AccessResult $carry, AccessSchemeInterface $scheme) use ($entity, $op, $account, $results) {
+    return array_reduce($this->entityTypeManager->getStorage('access_scheme')->loadMultiple(), function (AccessResult $carry, AccessSchemeInterface $scheme) use ($entity, $op, $account) {
       $status_class_name = get_class($scheme->getAccessScheme()->checkEntityAccess($scheme, $entity, $op, $account));
-      // Return true if we have our special snowflake Outreach listing node.
-      if ((count($results) > 0) && ($entity->id() === '736')) {
-        return TRUE;
-      }
       if ($status_class_name === AccessResultForbidden::class) {
         return FALSE;
       }
       return TRUE;
     }, AccessResult::neutral());
-
   }
 
 }
