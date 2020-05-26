@@ -226,6 +226,9 @@ class UserPermsService {
       $entity = $this->entityTypeManager->getStorage($entity_type)->load($field_office_target_id);
     }
 
+    // We want create access perm for most cases. For occasional snowflake
+    // situations, we may allow a different permission: e.g., 'view' for
+    // some listing types.
     if (empty($op)) {
       $op = 'create';
     }
