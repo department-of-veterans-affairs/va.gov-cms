@@ -3284,9 +3284,6 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
                     "version": "8.x-1.1",
                     "datestamp": "1556870881",
@@ -4201,9 +4198,6 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
                     "version": "8.x-1.0-beta4",
                     "datestamp": "1497737343",
@@ -6251,6 +6245,10 @@
             ],
             "authors": [
                 {
+                    "name": "jonathan1055",
+                    "homepage": "https://www.drupal.org/user/92645"
+                },
+                {
                     "name": "moshe weitzman",
                     "homepage": "https://www.drupal.org/user/23"
                 },
@@ -7807,9 +7805,6 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
                     "version": "8.x-1.2",
                     "datestamp": "1585919601",
@@ -8920,7 +8915,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/post_api.git",
-                "reference": "9a821479f7be5ef7afb1464c8eb10ad9fe0ff644"
+                "reference": "9dbd687f3655f0ed38e4f03232c585f700b72cdd"
             },
             "require": {
                 "drupal/core": "^8 || ^9"
@@ -8932,7 +8927,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.x-dev",
-                    "datestamp": "1589294242",
+                    "datestamp": "1589457667",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -8954,7 +8949,7 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/post_api"
             },
-            "time": "2020-05-14T12:00:42+00:00"
+            "time": "2020-05-21T11:48:58+00:00"
         },
         {
             "name": "drupal/redirect",
@@ -10143,9 +10138,6 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
                     "version": "8.x-1.3",
                     "datestamp": "1580961561",
@@ -10183,9 +10175,6 @@
             },
             "type": "metapackage",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
                     "version": "8.x-1.3",
                     "datestamp": "1580961561",
@@ -10221,9 +10210,6 @@
             },
             "type": "metapackage",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
                     "version": "8.x-1.3",
                     "datestamp": "1580961561",
@@ -10259,9 +10245,6 @@
             },
             "type": "metapackage",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
                     "version": "8.x-1.3",
                     "datestamp": "1580961561",
@@ -10398,9 +10381,6 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
                     "version": "8.x-1.0-beta2",
                     "datestamp": "1541254684",
@@ -10878,30 +10858,34 @@
         },
         {
             "name": "drupal/views_data_export",
-            "version": "1.0.0-beta3",
+            "version": "1.0.0-rc1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/views_data_export.git",
-                "reference": "8.x-1.0-beta3"
+                "reference": "8.x-1.0-rc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/views_data_export-8.x-1.0-beta3.zip",
-                "reference": "8.x-1.0-beta3",
-                "shasum": "4a6f5660e6d6258edee61b59c89d8dee01c9fcca"
+                "url": "https://ftp.drupal.org/files/projects/views_data_export-8.x-1.0-rc1.zip",
+                "reference": "8.x-1.0-rc1",
+                "shasum": "ba49a11ce7273c0f1e6978484dd4263b03372934"
             },
             "require": {
                 "drupal/core": "*",
-                "drupal/csv_serialization": "*"
+                "drupal/csv_serialization": "~1.4 || ~2.0"
+            },
+            "require-dev": {
+                "drupal/search_api": "~1.12",
+                "drupal/xls_serialization": "~1.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta3",
-                    "datestamp": "1580333468",
+                    "version": "8.x-1.0-rc1",
+                    "datestamp": "1588275953",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "message": "RC releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -19069,7 +19053,6 @@
         "drupal/tour_ui": 10,
         "drupal/user_history": 15,
         "drupal/uswds": 10,
-        "drupal/views_data_export": 10,
         "drupal/views_tree": 15,
         "drupal/workbench_access": 10,
         "guzzlehttp/guzzle": 20,
@@ -19082,6 +19065,5 @@
     "platform-dev": [],
     "platform-overrides": {
         "php": "7.1.3"
-    },
-    "plugin-api-version": "1.1.0"
+    }
 }
