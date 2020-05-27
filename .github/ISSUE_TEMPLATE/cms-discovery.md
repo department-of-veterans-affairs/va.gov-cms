@@ -7,24 +7,37 @@ assignees: kevwalsh
 
 ---
 
+## *About this form*
+
+*If you don't have the answer yet to some of the questions, that's fine!*
+
+*A CMS team member will be in touch to schedule a meeting to review, within a few days of receiving it.*
+
+*Questions? Go to #cms-support in Slack.*
+
+----
+
 ## Your product team
 
 **Who’s who on your product team? Provide a link to your team’s page on the CMS, or a general sense of the product owner and those responsible for it.**
 
 **Who are the primary stakeholders for the product?**
 
-**What slack channel on DSVA slack do you use to coordinate?**
+**Which Slack channel on DSVA slack do you use to coordinate?**
 
 ## Content audit / inventory
 
 **Describe the purpose of the content you want to manage from the CMS.**
 
-**Does it already exist on another platform? Provide some links, to the source platform (like a mardown file) and to the front end)**
+**Does it already exist on another platform? Provide some links, to the source platform (like a mardown file) and/or to the front end.**
 
 **How many pages do you expect to manage from the CMS for your product?**
 
 ## Migration
-**Do you expect to see some automated migration of content as part of your adoption of the CMS? If yes, what content do you expect to migrate?**
+
+**Do you expect to see some automated migration of content as part of your adoption of the CMS? 
+
+**If yes, what content do you expect to migrate?**
 
 ## Content ops & governance
 
