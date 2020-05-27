@@ -53,8 +53,8 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
-          reset_button: false
+          submit_button: Filter
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -93,14 +93,29 @@ display:
           summary: ''
           description: ''
           columns:
+            views_bulk_operations_bulk_form: views_bulk_operations_bulk_form
             title: title
+            field_va_form_title: field_va_form_title
             edit_node: title
             changed: changed
+            field_va_form_administration: field_va_form_administration
             moderation_state: moderation_state
             is_locked: is_locked
             break: is_locked
           info:
+            views_bulk_operations_bulk_form:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_va_form_title:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -117,6 +132,13 @@ display:
             changed:
               sortable: true
               default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_va_form_administration:
+              sortable: false
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
@@ -709,19 +731,6 @@ display:
           hide_alter_empty: true
           plugin_id: content_lock_break_link
       filters:
-        status:
-          value: '1'
-          table: node_field_data
-          field: status
-          plugin_id: boolean
-          entity_type: node
-          entity_field: status
-          id: status
-          expose:
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-          group: 1
         type:
           id: type
           table: node_field_data
@@ -1000,7 +1009,18 @@ display:
             label: ''
           granularity: second
       title: 'VA Forms'
-      header: {  }
+      header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content: '<a href="/node/add/va_form" class="button button-action button--primary button--small" data-drupal-link-system-path="node/add/va_form">Add content</a>'
+          plugin_id: text_custom
       footer: {  }
       empty: {  }
       relationships: {  }
