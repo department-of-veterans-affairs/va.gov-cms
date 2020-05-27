@@ -35,7 +35,7 @@ assignees: kevwalsh
 
 ## Migration
 
-**Do you expect to see some automated migration of content as part of your adoption of the CMS? 
+**Do you expect to see some automated migration of content as part of your adoption of the CMS?** 
 
 **If yes, what content do you expect to migrate?**
 
@@ -67,4 +67,7 @@ assignees: kevwalsh
 - **Months (you may know this)**
 - **Years (you probably don’t know this, but if you had to guess…)**
 
+## Next steps
+
+**Provide some general times for the initial CMS discovery meeting.**
 
