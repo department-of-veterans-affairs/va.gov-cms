@@ -81,11 +81,11 @@ class PostApiQueueTest extends ExistingSiteBase {
 
     $response = $this->processItem(NULL);
     // Payload is empty. Request should fail.
-    $this->assertEqual($response, 404, 'POST request is expected to fail with 404 due to incomplete endpoint URL.');
+    $this->assertEquals(404, $response, 'POST request is expected to fail with 404 due to incomplete endpoint URL.');
 
     $response = $this->processItem(self::$mockData);
     // Payload and credentials are available. POSt should return 200 OK.
-    $this->assertEqual($response, 200, 'POST request is successful.');
+    $this->assertEquals(200, $response,'POST request is successful.');
 
     $queue->deleteQueue();
   }
@@ -114,7 +114,7 @@ class PostApiQueueTest extends ExistingSiteBase {
   /**
    * Create Queue.
    *
-   * @return DatabaseQueue
+   * @return \Drupal\core\Queue\DatabaseQueue
    *   Queue.
    */
   protected function createQueue() {
@@ -122,21 +122,6 @@ class PostApiQueueTest extends ExistingSiteBase {
     $queue = new DatabaseQueue('post_api_queue', Database::getConnection());
     $queue->createQueue();
     return $queue;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function processItem($data) {
-    $apikey = Settings::get('post_api_apikey');
-    $endpoint_path = isset($data['endpoint_path']) ? $data['endpoint_path'] : NULL;
-    $endpoint = Settings::get('post_api_endpoint_host') . $endpoint_path;
-    $payload = isset($data['payload']) ? $data['payload'] : [];
-
-    $request_service = \Drupal::service('post_api.request');
-
-    // Send POST request and return the response.
-    return $request_service->sendRequest($endpoint, $apikey, $payload);
   }
 
   /**
@@ -159,4 +144,20 @@ class PostApiQueueTest extends ExistingSiteBase {
     }
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  protected function processItem($data) {
+    $apikey = Settings::get('post_api_apikey');
+    $endpoint_path = isset($data['endpoint_path']) ? $data['endpoint_path'] : NULL;
+    $endpoint = Settings::get('post_api_endpoint_host') . $endpoint_path;
+    $payload = isset($data['payload']) ? $data['payload'] : [];
+
+    $request_service = \Drupal::service('post_api.request');
+
+    // Send POST request and return the response.
+    return $request_service->sendRequest($endpoint, $apikey, $payload);
+  }
+
 }
+
