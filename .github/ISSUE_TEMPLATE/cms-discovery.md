@@ -43,13 +43,13 @@ assignees: kevwalsh
 
 **Who is responsible for writing and reviewing the content now?**
 
-**Are there external reviewers ofthe content?**
+**Are there external reviewers of the content?**
 
 **Who will own this content in the future?**
 
 **What is your existing editorial workflow, if any?**
 
-**Will some of the content continue to have a “source of truth” outside the CMS? If yes, what aspect of it (for example: a dataset living in another database).**
+**Will some of the content continue to have a “source of truth” outside the CMS? If yes, what aspect of it (for example: a dataset living in another database)?**
 
 ## Training and access to CMS
 
