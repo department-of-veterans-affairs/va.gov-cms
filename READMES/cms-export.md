@@ -67,7 +67,12 @@ The way we achieved this is by using the Drupal 8 module, Tome Sync. With Tome S
 
 In order to make this performant on the CMS we had to transition from an AWS EFS network disk volume to a native AWS EBS disk volume. 
 
-The deployments were modified to backup the state of the content export folder before deployment, the site put into a mode where editors were not allowed to upload any more files for about 10 minutes and then the new deployment instance pulls down the state and restores it, then the editors can upload files again.
+The deployments were modified to the following sequence of events:
+
+* the state of the content export folder before deployment is backed up
+* the site is put into a mode where editors are not allowed to upload any more files for about 10 minutes
+* the new deployment instance pulls down the state and restores it
+* the editors can upload files again
 
 ## Caveats
 
