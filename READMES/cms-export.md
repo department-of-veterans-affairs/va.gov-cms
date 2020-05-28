@@ -16,7 +16,7 @@ Files: 22,688  \
 Response time: ~0.5s 
 
 2. Endpoint: [https://prod.cms.va.gov/cms-export/asset](https://prod.cms.va.gov/cms-export/asset) \
-Filename: cms-content-export-latest.tar \
+Filename: cms-asset-export-latest.tar \
 Size: 879MB \
 File: 5,934 \
 Response time: ~1.5s
