@@ -31,13 +31,8 @@ assignees: kevwalsh
 
 **Does it already exist on another platform? Provide some links, to the source platform (like a mardown file) and/or to the front end.**
 
-**How many pages do you expect to manage from the CMS for your product?**
+**How many pages or pieces of content do you expect to manage from the CMS for your product?**
 
-## Migration
-
-**Do you expect to see some automated migration of content as part of your adoption of the CMS?** 
-
-**If yes, what content do you expect to migrate?**
 
 ## Content ops & governance
 
@@ -51,6 +46,7 @@ assignees: kevwalsh
 
 **Will some of the content continue to have a “source of truth” outside the CMS? If yes, what aspect of it (for example: a dataset living in another database)?**
 
+
 ## Training and access to CMS
 
 **Who will need access to CMS to edit?** 
@@ -59,7 +55,7 @@ assignees: kevwalsh
 
 ## Product roadmap
 
-**What’s your timeline for giving live OR for releasing the next iteration?**
+**What’s your timeline for going live OR for releasing the next iteration?**
 
 **How do you expect the product to evolve, if at all, in the next:** 
 
