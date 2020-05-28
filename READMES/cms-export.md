@@ -24,7 +24,7 @@ Response time: ~1.5s
 
 ### Motivation
 
-The motivation of this system was to come up with a system that built and deployed content from prod.cms.va.gov to [www.va.gov](www.va.gov) within a minute of when it was published. There are editors who are migrating to the CMS and are used to publishing content in under a minute with the Teamsite CMS they were using. 
+A system that builds and deploys content from prod.cms.va.gov to [www.va.gov](www.va.gov) within a minute of being published is paramount to providing modern editorial experience within a decoupled CMS architecture. There are editors who are migrating to the CMS and are expecting to publish content in under a minute based on experiences with the Teamsite CMS. 
 
 There are three main components that were taking up time in the content build & deploy process. The build script, the content request from CMS and the deployment itself. If we were to use traditional API methods and better caching management it is estimated that maybe we could get the entire process down to 30 seconds and the build script would also have to be refactored to make many hundreds and eventually thousands of requests. The requests would be made faster because of better caching but there would have been thousands _per build_, and multiplying that by a multitude of PRs that build off of PROD, would have been quite large.  \
  \
