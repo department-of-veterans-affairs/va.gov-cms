@@ -1,6 +1,6 @@
 # VA.gov CMS
 
-This is the public/open documentation for the VA.gov Content Management System (CMS). The private/sensitive documentation is at [here](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/platform/cms). Follow [sensitive-guidance.md](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/sensitive-guidance.md) to know what should be public vs private ([default to open/public](https://playbook.cio.gov/#play13)). 
+This is the public/open documentation for the VA.gov Content Management System (CMS). The private/sensitive documentation is [here](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/platform/cms). Follow [sensitive-guidance.md](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/sensitive-guidance.md) to know what should be public vs private ([default to open/public](https://playbook.cio.gov/#play13)). 
 
 The VA.gov CMS is the backend for www.va.gov. Frontend repo is at https://github.com/department-of-veterans-affairs/vets-website/.
 
