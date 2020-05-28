@@ -34,10 +34,9 @@ As this is a 100% static build process, the usual instant publishing aspect of D
 
 We discussed incremental build approaches and decided against it for 3 reasons:
 
-*   Timeline, we initially had a short timeline of just a month or two
-*   Complexity, incremental build approaches introduce complexity which introduces risk, and given the timeline the extra risk was not something we wanted to explore, given that we had experimented with a full content build system using the CMS Export (Tome Sync) approach and it was very fast. We could achieve our sub-1 minute total build and deploy goal without the extra risk that came with incremental build approaches. 
-*   We still needed fresh, non-incremental builds on occasion, and those would still need a full content request. The way around that would have been to manage a base content state in a central content store, and incrementally update that state and have everything fetch from that state store. 
-
+*   **Timeline**. We initially had a short timeline of 1-2 months.
+*   **Complexity**. Incremental build approaches introduce complexity and risk. Given the timeline, the extra risk was not something we wanted to explore. We had experimented with a full content build system using the CMS Export (Tome Sync) approach and it was very fast. We could achieve our sub-1 minute total build and deploy goal without the extra risk that came with incremental build approaches.
+*   **Full Export Still Needed**. We would have still needed fresh, non-incremental builds on occasion, and those would still need a full content request. The way around that would have been to manage a base content state in a central content store, and incrementally update that state and have everything fetch from that state store, which would have added complexity. 
 
 ## How does it work
 
