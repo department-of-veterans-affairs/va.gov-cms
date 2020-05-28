@@ -76,7 +76,7 @@ The deployments were modified to the following sequence of events:
 
 ## Caveats
 
-This only works with a single instance, and not in a multiple instance High Availability setup (HA) which we had not upgraded to yet anyways and have plans to do so. 
+The approach only works with a single instance and not in a multiple instance High Availability (HA) setup. HA is on our roadmap, however has yet to be implemented.
 
 ## Future work
 
