@@ -5,7 +5,7 @@
 
 The CMS Export system is a term for an unconventional approach to make all published content and file assets in the CMS available as two TAR archive files. The TAR files are generated on demand and always up to date with the most recently published content. 
 
-This system was chosen for performance and scalability and it was chosen over a traditional Restful, JSON API or continuing with the existing GraphQL approach because the primary use case for the build system is to always request a full content export. 
+This system was chosen for performance and scalability, but also found to be superior over traditional Restful, JSON API or existing GraphQL approach since the primary use case for the build system is to always request a full content export. 
 
 The content and file assets are made available for the consumption of the Content Build process at the following two endpoints (metrics are as of this writing):
 
