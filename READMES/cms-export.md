@@ -42,7 +42,7 @@ We discussed incremental build approaches and decided against it for 3 reasons:
 
 A key part of the CMS Export architecture is based on the fact that we have very fast, high IOPS SSDs and high bandwidth connections. This allowed us to use TAR for on demand archiving/tarring of the file folders, instead of using compression such gzip. As gzip would take 10+ seconds for the same sub-second TAR operation, and the savings from gzip were not enough to save time on network transfer as we have 3Gbps network links now and can achieve up to 10Gbps with the use of AWS EC2 placement groups, and the future shows that high bandwidth network links will only continue to increase.
 
-**@todo <link to diagram showing how it is consumed by the build system>**
+TODO: Link to diagram showing how it is consumed by the build system
 
 
 ## Implementation Notes
@@ -53,15 +53,15 @@ The way we achieved this is by using the Drupal 8 module, [Tome Sync](https://gi
 
 ### Modifications to Tome Sync
 
-4 modifications were necessary to Tome Sync's output which we did with the [va_gov_content_export.module](https://github.com/department-of-veterans-affairs/va.gov-cms/tree/master/docroot/modules/custom/va_gov_content_export):
+4 modifications were necessary to Tome Sync's output which we did with the [va_gov_content_export.module](https://github.com/department-of-veterans-affairs/va.gov-cms/tree/master/docroot/modules/custom/va_gov_content_export). These changes were not contributed back upstream because the use case for Tome was different than ours and the maintainer specifically made Tome for exporting a site, so that the entire state could be saved in a git repository and re-imported back up. The intent was to _only_ store information that could not be regenerated, and breadcrumbs, metatags, and the "processed" field are all generated items.
 
-1. Add breadcrumbs
-1. Add Entity ID
-1. Add “processed” field (computed WYSIWYG field)
+1. Add breadcrumbs - [#3092559](https://www.drupal.org/project/tome/issues/3092559)
+1. Add Entity ID - [#3089524](https://www.drupal.org/project/tome/issues/3089524)
+1. Add “processed” field (computed WYSIWYG field) - [#3096687](https://www.drupal.org/project/tome/issues/3096687)
 1. Add Metatags
 1. Do not export config
 1. Changed how Tome Sync interacted with the file system
-1. Add the ability to exclude entity types from exporting
+1. Add the ability to exclude entity types from exporting [#3114961](https://www.drupal.org/project/tome/issues/3114961)
 
 ### Modifications to the CMS deployments/server infrastructure
 
@@ -74,7 +74,7 @@ The deployments were modified to the following sequence of events:
 * the new deployment instance pulls down the state and restores it
 * the editors can upload files again
 
-**@todo <diagram showing the deployment state backup/restoration> **
+TODO: Create a diagram showing the deployment state backup/restoration
 
 ## Caveats
 
