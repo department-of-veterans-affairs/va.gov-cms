@@ -5,7 +5,7 @@
 
 The CMS Export system is a term for an unconventional approach to make all published content and file assets in the CMS available as two TAR archive files. The TAR files are generated on demand and always up to date with the most recently published content. 
 
-This system was chosen for performance and scalability, but also found to be superior over traditional Restful, JSON API or existing GraphQL approach since the primary use case for the build system is to always request a full content export. 
+This architecture was chosen for performance and scalability, but also found to be superior over traditional Restful, JSON API or GraphQL approaches since the primary use case for the build system is to always request a full content export
 
 The content and file assets are made available for the consumption of the Content Build process at the following two endpoints (metrics are as of this writing):
 
@@ -41,27 +41,28 @@ We discussed incremental build approaches and decided against it for 3 reasons:
 
 ## How does it work
 
-A key part of the approach was based on the fact that we have very fast, high IOPS SSDs and high bandwidth connections. This allowed us to use just TAR for on demand archiving/tarring of the file folders, instead of using compression e.g. gzip. As gzip would take 10+ seconds for the same sub-second operation, and the savings from gzip were not enough to save time on network transfer as we have 3Gbps network links now and can achieve up to 10Gbps with the use of AWS EC2 placement groups, and the future shows that high bandwidth network links will only continue to increase. 
+A key part of the CMS Export architecture is based on the fact that we have very fast, high IOPS SSDs and high bandwidth connections. This allowed us to use TAR for on demand archiving/tarring of the file folders, instead of using compression such gzip. As gzip would take 10+ seconds for the same sub-second TAR operation, and the savings from gzip were not enough to save time on network transfer as we have 3Gbps network links now and can achieve up to 10Gbps with the use of AWS EC2 placement groups, and the future shows that high bandwidth network links will only continue to increase.
 
-**@todo &lt;diagram showing how it is consumed by the build system>**
-
-**@todo &lt;diagram showing the deployment state backup/restoration>**
+**@todo <link to diagram showing how it is consumed by the build system>**
 
 
 ## Implementation Notes
 
 Every piece of published content in the CMS is exported starting at the Node level, which is made up of fields and sub-entities that are embedded inside the Node. For example a regular piece of content is made up of about 10 JSON files total exported per piece of content (a node). The top level JSON file references the entity UUID of the sub-entities, and the frontend build script stitches together all of these references (very quickly).
 
-The way we achieved this is by using the Drupal 8 module, Tome Sync. With Tome Sync there was an initial, one-time export on prod.cms.va.gov to the sites/default/files/cms-content-export folder which initially exported about ~22,000 JSON files. Then, upon every publish operation it updates just the files that changed, on disk.
+The way we achieved this is by using the Drupal 8 module, [Tome Sync](https://git.drupalcode.org/project/tome/-/tree/8.x-1.x/modules/tome_sync). With Tome Sync there was an initial, one-time export on prod.cms.va.gov to the sites/default/files/cms-content-export folder which initially exported about ~22,000 JSON files. Then, upon every publish operation it updates just the files that changed, on disk.
 
 ### Modifications to Tome Sync
 
-4 modifications were necessary to the va_gov_content_export.module:
+4 modifications were necessary to Tome Sync's output which we did with the [va_gov_content_export.module](https://github.com/department-of-veterans-affairs/va.gov-cms/tree/master/docroot/modules/custom/va_gov_content_export):
 
-1. Breadcrumbs
-2. Entity ID
-3. “processed” field
-4. Metatags
+1. Add breadcrumbs
+1. Add Entity ID
+1. Add “processed” field (computed WYSIWYG field)
+1. Add Metatags
+1. Do not export config
+1. Changed how Tome Sync interacted with the file system
+1. Add the ability to exclude entity types from exporting
 
 ### Modifications to the CMS deployments/server infrastructure
 
@@ -74,12 +75,16 @@ The deployments were modified to the following sequence of events:
 * the new deployment instance pulls down the state and restores it
 * the editors can upload files again
 
+**@todo <diagram showing the deployment state backup/restoration> **
+
 ## Caveats
 
-The approach only works with a single instance and not in a multiple instance High Availability (HA) setup. HA is on our roadmap, however has yet to be implemented.
+1. This architecture only works with a single instance, and not in a multiple instance High Availability setup (HA) which we had not upgraded to yet anyways but have plans to do so in https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1716.
+1. Content model changes require a new full export on deploy, manual process in progress with https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1850 until the process is automated with https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1851.
 
 ## Future work
 
-1. Work is in progress to come up with a solution to allow the CMS Export to work in a High Availability setup (HA) which we will need in the months to come so that we can scale the CMS load over multiple instances and availability zones to increase redundancy. 
-2. Work is in progress to decrease this deployment window to less than 5 minutes. 
-3. The GraphQL system is still being used for a part of the build process, specifically the sidebar menus. The time for that request is minimal, 1-2 seconds. Moving that into the export system should be considered for maintainability and to reduce complexity, but the lift on that was not worth the 2 seconds in savings right now. 
+1. https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1716 - Work is in progress to come up with a solution to allow the CMS Export to work in a High Availability setup (HA) which we will need in the months to come so that we can scale the CMS load over multiple instances and availability zones to increase redundancy. This solution requires a high performance networked filesystem of which EFS is _not_ high performance. 
+1. https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1713 - Work is in progress to decrease this deployment window to less than 5 minutes. 
+1. https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1849 - Automate the export based on content model changes by looking for changes to the [/tests/behat/drupal-spec-tool](https://github.com/department-of-veterans-affairs/va.gov-cms/tree/master/tests/behat/drupal-spec-tool) folder. 
+1. The GraphQL system is still being used for a part of the build process, specifically the sidebar menus. The time for that request is minimal, 1-2 seconds. Moving that into the export system should be considered for maintainability and to reduce complexity, but the lift on that was not worth the 2 seconds in savings right now. 
