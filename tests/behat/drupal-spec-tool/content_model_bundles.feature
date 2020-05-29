@@ -13,11 +13,11 @@ Feature: Content model bundles
 | Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
 | Documentation page | documentation_page | Content type | Help pages VA.gov CMS editors. |
 | Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
-| Event listing | event_listing | Content type | A listing of events. |
+| Event listing page | event_listing | Content type | A listing of events. |
 | News release | press_release | Content type | Announcements directed at members of the media for the purpose of publicizing newsworthy events/happenings/programs at specific facilities or healthcare systems. |
 | Office | office | Content type | An office at the VA, which may have contact info, events, news, and a leadership page in some cases. |
 | Publication | outreach_asset | Content type | Contains a document, image, or video, for publication within a Publication library. |
-| Publication listing | publication_listing | Content type | This allows the listing of publication materials such as documents, videos, and images all in one place. |
+| Publication listing page | publication_listing | Content type | This allows the listing of publication materials such as documents, videos, and images all in one place. |
 | Staff profile | person_profile | Content type | Profiles of staff members for display in various places around the site. |
 | Story | news_story | Content type | Community stories highlight the role of a VA facility, program, or healthcare system in a Veteran's journey. They may be a case study of a specific patient, a description of a new or successful program, or a community-interest story. |
 | Support Service | support_service | Content type | Help desks, hotlines, etc, to be contextually placed alongside relevant content. |
@@ -56,11 +56,11 @@ Feature: Content model bundles
 | Sections | administration | Vocabulary | Represents a hierarchy of the VA, partly for governance purposes. |
 | Type of Redirect | type_of_redirect | Vocabulary |  |
 | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
-| Health services listing | health_services_listing | Content type | A listing of health services. |
-| Locations listing | locations_listing | Content type | A listing of locations. |
-| News releases listing | press_releases_listing | Content type | A listing of press releases. |
-| Story listing | story_listing | Content type | A listing of stories. |
-| Leadership listing | leadership_listing | Content type | A listing of staff members. |
+| Health services listing page | health_services_listing | Content type | A listing of health services. |
+| Locations listing page | locations_listing | Content type | A listing of locations. |
+| News release listing page | press_releases_listing | Content type | A listing of news releases. |
+| Story listing page | story_listing | Content type | A listing of stories. |
+| Leadership listing page | leadership_listing | Content type | A listing of staff members. |
 | VBA facility | vba_facility | Content type | A facility within Veterans Benefits Administration system. |
 | NCA facility | nca_facility | Content type | A facility within National Cemetery Administration system. |
 | Vet Center | vet_center | Content type | A facility within Vet Centers system. |
