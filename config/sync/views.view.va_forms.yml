@@ -8,6 +8,11 @@ dependencies:
     - field.storage.node.field_va_form_title
     - node.type.va_form
     - taxonomy.vocabulary.administration
+    - user.role.administrator
+    - user.role.content_admin
+    - user.role.content_editor
+    - user.role.content_publisher
+    - user.role.content_reviewer
     - workflows.workflow.editorial
   content:
     - 'taxonomy_term:administration:2c331a6d-b525-4f0c-8bea-4ecde41c7ef0'
@@ -20,7 +25,6 @@ dependencies:
     - node
     - taxonomy
     - user
-    - views_bulk_operations
 id: va_forms
 label: 'VA Forms'
 module: views
@@ -36,9 +40,14 @@ display:
     position: 0
     display_options:
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access content'
+          role:
+            content_editor: content_editor
+            content_reviewer: content_reviewer
+            content_publisher: content_publisher
+            content_admin: content_admin
+            administrator: administrator
       cache:
         type: tag
         options: {  }
@@ -171,89 +180,6 @@ display:
         options:
           view_mode: teaser
       fields:
-        views_bulk_operations_bulk_form:
-          id: views_bulk_operations_bulk_form
-          table: views
-          field: views_bulk_operations_bulk_form
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Views bulk operations'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          batch: true
-          batch_size: 10
-          form_step: true
-          buttons: false
-          clear_on_exposed: false
-          action_title: Action
-          selected_actions:
-            'entity:break_lock:node': 0
-            node_unpromote_action: 0
-            node_unpublish_action: node_unpublish_action
-            node_publish_action: node_publish_action
-            node_unpublish_by_keyword_action: 0
-            node_assign_owner_action: 0
-            node_promote_action: 0
-            node_save_action: 0
-            node_make_sticky_action: 0
-            node_make_unsticky_action: 0
-            publish_latest_revision_action: 0
-            unpublish_current_revision_action: 0
-            views_bulk_edit: views_bulk_edit
-            views_bulk_operations_delete_entity: 0
-            pathauto_update_alias: 0
-            'entity:save_action:node': 0
-            'entity:unpublish_action:node': 0
-            'entity:publish_action:node': 0
-            'entity:delete_action:node': 0
-          preconfiguration:
-            node_unpublish_action:
-              label_override: Unpublish
-            node_publish_action:
-              label_override: Publish
-            views_bulk_edit:
-              label_override: ''
-              get_bundles_from_results: 0
-          plugin_id: views_bulk_operations_bulk_form
         title:
           id: title
           table: node_field_data
@@ -392,8 +318,8 @@ display:
           label: ''
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: '<a href="/node/{{ nid }}/edit" class="button">Edit</a>'
             make_link: false
             path: ''
             absolute: false
@@ -628,15 +554,15 @@ display:
           field_api_classes: false
           entity_type: node
           plugin_id: moderation_state_field
-        is_locked:
-          id: is_locked
+        timestamp:
+          id: timestamp
           table: content_lock
-          field: is_locked
+          field: timestamp
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Is Locked'
-          exclude: false
+          label: 'Lock Date/Time'
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -676,7 +602,124 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          type: yes-no
+          date_format: 'raw time ago'
+          custom_date_format: '1'
+          timezone: ''
+          plugin_id: date
+        name:
+          id: name
+          table: users_field_data
+          field: name
+          relationship: uid
+          group_type: group
+          admin_label: ''
+          label: Name
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: user_name
+          settings:
+            link_to_entity: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: user
+          entity_field: name
+          plugin_id: field
+        is_locked:
+          id: is_locked
+          table: content_lock
+          field: is_locked
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Is Locked'
+          exclude: false
+          alter:
+            alter_text: true
+            text: "{% if is_locked == true %}\r\n Locked for editing {{ timestamp }} by {{ name }} | {{ break }}\r\n{% endif %} "
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          type: boolean
           type_custom_true: ''
           type_custom_false: ''
           not: false
@@ -1023,7 +1066,16 @@ display:
           plugin_id: text_custom
       footer: {  }
       empty: {  }
-      relationships: {  }
+      relationships:
+        uid:
+          id: uid
+          table: content_lock
+          field: uid
+          relationship: none
+          group_type: group
+          admin_label: 'Lock owner'
+          required: false
+          plugin_id: standard
       arguments: {  }
       display_extenders: {  }
       filter_groups:
@@ -1031,7 +1083,7 @@ display:
         groups:
           1: AND
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
@@ -1039,7 +1091,7 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_va_form_administration'
         - 'config:field.storage.node.field_va_form_title'
@@ -1062,7 +1114,7 @@ display:
         context: '0'
         menu_name: admin
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
@@ -1070,7 +1122,7 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_va_form_administration'
         - 'config:field.storage.node.field_va_form_title'
