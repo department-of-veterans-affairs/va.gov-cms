@@ -38,7 +38,6 @@ $settings['skip_all_cache_bins'] = [
   'toolbar',
 ];
 
-include $app_root . '/' . $site_path . '/settings/skip_all_caches.inc';
 include_once $app_root . '/modules/contrib/skip_all_caches/inc/skip_all_caches.inc';
 
 // Create a request object so we have something to pass Fast404.
