@@ -11,7 +11,7 @@ assignees: kevwalsh
 
 *If you don't have the answer yet to some of the questions, that's fine!*
 
-*A CMS team member will be in touch to schedule a meeting to review, within a few days of receiving it.*
+*A CMS team member will be in touch to schedule a meeting to review, within a few days of receiving it, although the timing of that depends on our sprint capacity in the current and upcoming sprints. We allocate a set number of story points to each sprint to support VFS product teams.*
 
 *Questions? Go to #cms-support in Slack.*
 
@@ -65,5 +65,5 @@ assignees: kevwalsh
 
 ## Next steps
 
-**Provide some general times for the initial CMS discovery meeting.**
+**Propose some general time windows for the initial CMS discovery meeting.**
 
