@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "559e829260431104553c0cf31dad0560",
+    "content-hash": "a0c66cb242b9ae369fb75f82be5d3f85",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3188,9 +3188,6 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-4.x": "4.x-dev"
-                },
                 "drupal": {
                     "version": "8.x-4.0-alpha2",
                     "datestamp": "1493956089",
@@ -3216,6 +3213,10 @@
                 {
                     "name": "gregcube",
                     "homepage": "https://www.drupal.org/user/336930"
+                },
+                {
+                    "name": "jrglasgow",
+                    "homepage": "https://www.drupal.org/user/36590"
                 },
                 {
                     "name": "phenaproxima",
@@ -16882,23 +16883,23 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v4.4.3",
+            "version": "v5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "901b0c06134b4b7c7e6dea152256b944a152117b"
+                "reference": "7a05a59154053d62674def66a5c99896113632f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/901b0c06134b4b7c7e6dea152256b944a152117b",
-                "reference": "901b0c06134b4b7c7e6dea152256b944a152117b",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/7a05a59154053d62674def66a5c99896113632f2",
+                "reference": "7a05a59154053d62674def66a5c99896113632f2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5.9"
             },
             "conflict": {
-                "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0"
+                "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0|<6.4,>=6.0|9.1.2"
             },
             "suggest": {
                 "symfony/error-handler": "For tracking deprecated interfaces usages at runtime with DebugClassLoader"
@@ -16909,7 +16910,7 @@
             "type": "symfony-bridge",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.4-dev"
+                    "dev-master": "5.1-dev"
                 },
                 "thanks": {
                     "name": "phpunit/phpunit",
@@ -16943,7 +16944,7 @@
             ],
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
-            "time": "2020-01-21T08:20:44+00:00"
+            "time": "2020-05-23T13:08:13+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -19028,6 +19029,7 @@
         "drupal/cshs": 10,
         "drupal/entity_block": 10,
         "drupal/entity_clone": 10,
+        "drupal/entityqueue": 10,
         "drupal/fast_404": 15,
         "drupal/field_group": 20,
         "drupal/fieldhelptext": 10,
