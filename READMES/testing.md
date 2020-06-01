@@ -93,16 +93,34 @@ There are 4 main types of tests:
       layer provided by Gherkin. PHPUnit is the preferred tool to write tests
       due to its speed of execution.
 
+      Run the tests specific to VA
+
+      ```
+      lando phpunit
+      ```
+
         Run a specific PHPUnit test with the "path" argument:
+        The path can be to a specific test file, or a directory with tests.
 
         ```
-        lando phpunit {Path-to-test}
+        lando phpunit-run {Path-to-test}
+
+        lando phpunit-run docroot/modules/contrib/config_split/tests/src/Kernel/ConfigSplitCliServiceTest.php
         ```
+
+        Run a specific test:
+
+        ```
+        lando phpunit-run {Path-to-test} --filter {test-function-name}
+
+       lando phpunit-run docroot/modules/contrib/config_split/tests/src/Kernel/ConfigSplitCliServiceTest.php --filter testGrayAndBlackListExport
+        ```
+
 
         Run a group of PHPUnit tests:
 
         ```sh
-        lando phpunit . --group security
+        lando phpunit-run . --group security
         ```
 
     1. `va/tests/behat` - The Behat test suite includes:
