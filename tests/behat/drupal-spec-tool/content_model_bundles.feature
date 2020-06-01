@@ -14,19 +14,27 @@ Feature: Content model bundles
 | Documentation page | documentation_page | Content type | Help pages VA.gov CMS editors. |
 | Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
 | Event listing page | event_listing | Content type | A listing of events. |
+| Health services listing page | health_services_listing | Content type | A listing of health services. |
+| Leadership listing page | leadership_listing | Content type | A listing of staff members. |
+| Locations listing page | locations_listing | Content type | A listing of locations. |
+| NCA facility | nca_facility | Content type | A facility within National Cemetery Administration system. |
 | News release | press_release | Content type | Announcements directed at members of the media for the purpose of publicizing newsworthy events/happenings/programs at specific facilities or healthcare systems. |
+| News release listing page | press_releases_listing | Content type | A listing of news releases. |
 | Office | office | Content type | An office at the VA, which may have contact info, events, news, and a leadership page in some cases. |
 | Publication | outreach_asset | Content type | Contains a document, image, or video, for publication within a Publication library. |
 | Publication listing page | publication_listing | Content type | This allows the listing of publication materials such as documents, videos, and images all in one place. |
 | Staff profile | person_profile | Content type | Profiles of staff members for display in various places around the site. |
 | Story | news_story | Content type | Community stories highlight the role of a VA facility, program, or healthcare system in a Veteran's journey. They may be a case study of a specific patient, a description of a new or successful program, or a community-interest story. |
+| Story listing page | story_listing | Content type | A listing of stories. |
 | Support Service | support_service | Content type | Help desks, hotlines, etc, to be contextually placed alongside relevant content. |
-| VAMC system | health_care_region_page | Content type | A VAMC system contains multiple VHA health facilities, including usually at least one VAMC, sometimes more. |
-| VAMC system banner alert with situation updates | full_width_banner_alert | Content type | A full-width alert that will be added to a VAMC system, or multiple VAMC systems. |
 | VAMC facility | health_care_local_facility | Content type | A clinic or hospital within a VAMC system. |
 | VAMC facility health service | health_care_local_health_service | Content type | A facility specific description of a health care service, always embedded within a VAMC system description. |
+| VAMC system | health_care_region_page | Content type | A VAMC system contains multiple VHA health facilities, including usually at least one VAMC, sometimes more. |
+| VAMC system banner alert with situation updates | full_width_banner_alert | Content type | A full-width alert that will be added to a VAMC system, or multiple VAMC systems. |
 | VAMC system health service | regional_health_care_service_des | Content type | A description of a health service specific to a VAMC system. |
 | VAMC system operating status | vamc_operating_status_and_alerts | Content type | Create one of these pages for each VAMC system. Then you can add banner alerts and update facilities' operating status, all from one place. |
+| VBA facility | vba_facility | Content type | A facility within Veterans Benefits Administration system. |
+| Vet Center | vet_center | Content type | A facility within Vet Centers system. |
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
 | Promo | promo | Custom block type | Promote a link with an image, title, and description. |
 | Document | document | Media type | A locally hosted document, such as a PDF. |
@@ -47,20 +55,12 @@ Feature: Content model bundles
 | Q&A | q_a | Paragraph type | Question and Answer |
 | Q&A Section | q_a_section | Paragraph type | For content formatted as a series of questions and answers. Use this (instead of WYSIWYG) for better accessibility and easy rearranging. |
 | React Widget | react_widget | Paragraph type | Advanced editors can use this to place react widgets (like a form) on the page. |
+| Situation update | situation_update | Paragraph type | A time-sensitive, added to a banner alert, and displayed on VAMC operating status pages. |
 | Staff profile | staff_profile | Paragraph type | Add a profile of a staff person. |
 | Starred Horizontal Rule | starred_horizontal_rule | Paragraph type | Current an inactive paragraph type, not enabled within any fields. |
 | Table | table | Paragraph type | Add an HTML table with rows and columns. |
 | VAMC facility service (non-healthcare service) | health_care_local_facility_servi | Paragraph type | A service available at a specific health care facility, like Parking, or Chaplaincy. |
 | WYSIWYG | wysiwyg | Paragraph type | An open-ended text field. |
-| Situation update | situation_update | Paragraph type | A time-sensitive, added to a banner alert, and displayed on VAMC operating status pages. |
 | Sections | administration | Vocabulary | Represents a hierarchy of the VA, partly for governance purposes. |
 | Type of Redirect | type_of_redirect | Vocabulary |  |
 | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
-| Health services listing page | health_services_listing | Content type | A listing of health services. |
-| Locations listing page | locations_listing | Content type | A listing of locations. |
-| News release listing page | press_releases_listing | Content type | A listing of news releases. |
-| Story listing page | story_listing | Content type | A listing of stories. |
-| Leadership listing page | leadership_listing | Content type | A listing of staff members. |
-| VBA facility | vba_facility | Content type | A facility within Veterans Benefits Administration system. |
-| NCA facility | nca_facility | Content type | A facility within National Cemetery Administration system. |
-| Vet Center | vet_center | Content type | A facility within Vet Centers system. |
