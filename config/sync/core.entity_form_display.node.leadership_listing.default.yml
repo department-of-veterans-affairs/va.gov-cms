@@ -38,7 +38,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
       weight: 5
       format_type: fieldset
@@ -53,6 +52,7 @@ third_party_settings:
     group_meta:
       children:
         - title
+        - field_intro_text
       parent_name: ''
       weight: 1
       format_type: fieldset
@@ -61,7 +61,7 @@ third_party_settings:
         required_fields: true
         id: ''
         classes: ''
-      label: 'Title and summary'
+      label: 'Title and introduction'
       region: content
     group_meta_tags:
       children:
@@ -79,7 +79,6 @@ third_party_settings:
       region: content
     group_leadership:
       children:
-        - field_intro_text
         - field_leadership
       parent_name: ''
       weight: 3
@@ -117,7 +116,7 @@ content:
     type: string_textfield_with_counter
     region: content
   field_intro_text:
-    weight: 3
+    weight: 1
     settings:
       rows: 5
       placeholder: ''
