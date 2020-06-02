@@ -6057,20 +6057,20 @@
         },
         {
             "name": "drupal/image_widget_crop",
-            "version": "2.2.0",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/image_widget_crop.git",
-                "reference": "8.x-2.2"
+                "reference": "8.x-2.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/image_widget_crop-8.x-2.2.zip",
-                "reference": "8.x-2.2",
-                "shasum": "0a61cfedc409c5ef448174f26060cd6c291d6a11"
+                "url": "https://ftp.drupal.org/files/projects/image_widget_crop-8.x-2.3.zip",
+                "reference": "8.x-2.3",
+                "shasum": "20f9e98bd6503699576ada6f4fd4c9fd06686361"
             },
             "require": {
-                "drupal/core": "*",
+                "drupal/core": "^8 || ^9",
                 "drupal/crop": "^1.0 || ^2.0"
             },
             "require-dev": {
@@ -6078,14 +6078,13 @@
                 "drupal/ctools": "3.x-dev",
                 "drupal/entity_browser": "1.x-dev",
                 "drupal/file_entity": "*",
-                "drupal/inline_entity_form": "*",
-                "drupal/media": "*"
+                "drupal/inline_entity_form": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.2",
-                    "datestamp": "1530698921",
+                    "version": "8.x-2.3",
+                    "datestamp": "1585408029",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
