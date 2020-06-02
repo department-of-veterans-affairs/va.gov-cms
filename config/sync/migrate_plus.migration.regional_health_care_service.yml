@@ -21,7 +21,7 @@ source:
     - id
   column_names:
     -
-      id: 'The unique identifier for the service'
+      id: 'Id'
     -
       field_service_name_and_descripti: 'Health Service'
     -
@@ -31,17 +31,26 @@ source:
     -
       field_health_system: 'Health System'
 process:
-  field_service_name_and_descripti: field_service_name_and_descripti
-  'body/format':
-    plugin: default_value
-    default_value: full_html
-  'body/value': field_body
+  field_service_name_and_descripti:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    bundle_key: vid
+    bundle: health_care_service_taxonomy
+    source: field_service_name_and_descripti
   field_region_page:
-    plugin: default_value
-    default_value: field_health_system
+    plugin: entity_lookup
+    entity_type: node
+    bundle: health_care_region_page
+    property: field_nickname_for_this_facility
+    source: 'field_health_system'
   field_administration:
-    plugin: default_value
-    default_value: field_owner
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    bundle_key: vid
+    bundle: sections
+    source: field_owner
   changed:
     plugin: callback
     callable: time
