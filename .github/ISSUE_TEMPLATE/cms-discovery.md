@@ -19,6 +19,10 @@ assignees: kevwalsh
 
 ## Your product team
 
+**What's your product called?
+
+**Provide a link to your [product outline](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/product-management/product-outline-template.md)**
+
 **Who’s who on your product team? Provide a link to your team’s page on the CMS, or a general sense of the product owner and those responsible for the product.**
 
 **Who are the primary stakeholders for the product?**
