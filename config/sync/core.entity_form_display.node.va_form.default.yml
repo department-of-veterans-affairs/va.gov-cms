@@ -37,7 +37,6 @@ third_party_settings:
       children:
         - title
         - field_va_form_issue_date
-        - field_form_administration
         - field_va_form_administration
         - field_va_form_num_pages
         - field_va_form_number
@@ -45,7 +44,7 @@ third_party_settings:
         - field_va_form_title
         - field_va_form_url
       parent_name: ''
-      weight: 16
+      weight: 10
       format_type: details
       format_settings:
         id: ''
@@ -59,15 +58,15 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 8
+      weight: 11
       format_type: details_sidebar
       format_settings:
+        description: ''
+        open: '1'
+        weight: '-10'
+        required_fields: '1'
         id: ''
         classes: ''
-        description: ''
-        open: 0
-        required_fields: 1
-        weight: '0'
       label: Governance
       region: content
     group_online_tool:
@@ -75,7 +74,7 @@ third_party_settings:
         - field_va_form_tool_url
         - field_va_form_tool_intro
       parent_name: ''
-      weight: 13
+      weight: 7
       format_type: fieldset
       format_settings:
         id: ''
@@ -89,7 +88,7 @@ third_party_settings:
         - field_va_form_type
         - field_benefit_categories
       parent_name: ''
-      weight: 11
+      weight: 5
       format_type: fieldset
       format_settings:
         id: ''
@@ -98,6 +97,19 @@ third_party_settings:
         required_fields: false
       label: 'Related to'
       region: content
+    group_editorial_workflow:
+      children:
+        - moderation_state
+      parent_name: ''
+      weight: 12
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+      region: content
 id: node.va_form.default
 targetEntityType: node
 bundle: va_form
@@ -105,7 +117,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 1
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -122,13 +134,13 @@ content:
     type: options_buttons
     region: content
   field_meta_tags:
-    weight: 9
+    weight: 15
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
     region: content
   field_va_form_administration:
-    weight: 3
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -141,7 +153,7 @@ content:
     third_party_settings: {  }
   field_va_form_link_teasers:
     type: entity_reference_paragraphs
-    weight: 15
+    weight: 9
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -152,7 +164,7 @@ content:
     third_party_settings: {  }
     region: content
   field_va_form_name:
-    weight: 10
+    weight: 4
     settings:
       size: 60
       placeholder: ''
@@ -161,21 +173,21 @@ content:
     region: content
   field_va_form_num_pages:
     type: number
-    weight: 4
+    weight: 3
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_va_form_number:
     type: string_textfield
-    weight: 5
+    weight: 4
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   field_va_form_related_forms:
-    weight: 14
+    weight: 8
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -186,13 +198,13 @@ content:
     region: content
   field_va_form_revision_date:
     type: datetime_default
-    weight: 6
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
   field_va_form_title:
     type: string_textfield
-    weight: 7
+    weight: 6
     region: content
     settings:
       size: 60
@@ -222,14 +234,14 @@ content:
     region: content
   field_va_form_url:
     type: link_default
-    weight: 8
+    weight: 7
     region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
   field_va_form_usage:
-    weight: 12
+    weight: 6
     settings:
       rows: 5
       placeholder: ''
@@ -244,7 +256,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 4
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -252,21 +264,21 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 2
+    weight: 1
     region: content
     third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 7
+    weight: 3
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 3
+    weight: 2
     region: content
     third_party_settings: {  }
   title:
@@ -288,7 +300,7 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 5
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
