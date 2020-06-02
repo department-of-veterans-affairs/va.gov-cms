@@ -19,7 +19,7 @@ assignees: kevwalsh
 
 ## Your product team
 
-**What's your product called?
+**What's your product called?**
 
 **Provide a link to your [product outline](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/product-management/product-outline-template.md)**
 
