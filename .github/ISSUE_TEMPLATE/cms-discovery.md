@@ -19,7 +19,7 @@ assignees: kevwalsh
 
 ## Your product team
 
-**Who’s who on your product team? Provide a link to your team’s page on the CMS, or a general sense of the product owner and those responsible for it.**
+**Who’s who on your product team? Provide a link to your team’s page on the CMS, or a general sense of the product owner and those responsible for the product.**
 
 **Who are the primary stakeholders for the product?**
 
@@ -29,10 +29,11 @@ assignees: kevwalsh
 
 **Describe the purpose of the content you want to manage from the CMS.**
 
-**Does it already exist on another platform? Provide some links, to the source platform (like a mardown file) and/or to the front end.**
+**Does it already exist on another platform? If yes, provide links to the source platform (e.g. markdown file) and/or to the front end.**
 
 **How many pages or pieces of content do you expect to manage from the CMS for your product?**
 
+**Will any of the content need to be served as a part of authenticated experience?**
 
 ## Content ops & governance
 
@@ -45,7 +46,6 @@ assignees: kevwalsh
 **What is your existing editorial workflow, if any?**
 
 **Will some of the content continue to have a “source of truth” outside the CMS? If yes, what aspect of it (for example: a dataset living in another database)?**
-
 
 ## Training and access to CMS
 
