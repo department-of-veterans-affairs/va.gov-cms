@@ -154,7 +154,7 @@ SOCKS proxy or PIV+GFE hardware is required for accessing VA internal network.
         - The "servers" that actually run the apps are activated AMI images, placed into the desired "environment".
 
 
-###CMS-CI: DevShop
+### CMS-CI: DevShop
 
 > Open Source Drupal CI Platform
 
@@ -182,22 +182,19 @@ SOCKS proxy or PIV+GFE hardware is required for accessing VA internal network.
   * Runs on a single EC2 instance.
 
 
-####ssh access to CI environments
-To access a ci environment via ssh you will need to do an initial setup
+#### SSH access to CI environments
 
-Intial setup.
+To access a CI environment via ssh you will need to do an initial setup:
 1. Get socks access
 1. Install sshuttle
 1. Login to devshop.cms.va.gov, click on "My Account" and an then "SSH keys" and add your public ssh key.
 1. Edit your /etc/host file and add `10.247.104.242 devshop.cms.va.gov`
 
-To connect
+To connect:
 1. In terminal run `composer va:proxy:sshuttle`, should result in `client: Connected`
 1. Open a new tab in your terminal and run `ssh aegir@devshop.cms.va.gov`
-1.  To get to a specific pr environment run `cdd @pr1234`.  This will take you to
+1.  To get to a specific pr environment run `cd @pr1234`.  This will take you to
     the docroot of that environment.  Proceed to run drush commands.
-
-
 
 # Resources
 
