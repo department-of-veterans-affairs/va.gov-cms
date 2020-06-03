@@ -193,7 +193,7 @@ To access a CI environment via ssh you will need to do an initial setup:
 To connect:
 1. In terminal run `composer va:proxy:sshuttle`, should result in `client: Connected`
 1. Open a new tab in your terminal and run `ssh aegir@devshop.cms.va.gov`
-1.  To get to a specific pr environment run `cd @pr1234`.  This will take you to
+1.  To get to a specific pr environment run `cdd @pr1234`.  This will take you to
     the docroot of that environment.  Proceed to run drush commands.
 
 # Resources
