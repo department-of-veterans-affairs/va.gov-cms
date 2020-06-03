@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.page.field_page_last_built
     - field.field.node.page.field_plainlanguage_date
     - field.field.node.page.field_related_links
+    - field.field.node.page.field_table_of_contents_boolean
     - node.type.page
   module:
     - entity_reference_revisions
@@ -114,6 +115,16 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
+  field_table_of_contents_boolean:
+    weight: 8
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
 hidden:
   field_administration: true
