@@ -6,7 +6,7 @@ namespace Drupal\va_gov_backend\Exception;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class SiteAlertException extends HttpException {
+class SuccessHTTPException extends HttpException {
   /**
    * @param string     $message  The internal exception message
    * @param \Exception $previous The previous exception
