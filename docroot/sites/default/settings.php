@@ -162,6 +162,16 @@ $settings['post_api_apikey'] = getenv('CMS_VAGOV_API_KEY') ?: FALSE;
 $settings['slack_webhook_url'] = getenv('CMS_VAGOV_SLACK_WEBHOOK_URL') ?: FALSE;
 $config['slack.settings']['slack_webhook_url'] = $settings['slack_webhook_url'];
 
+// Site Alert settings
+$settings['va_gov_site_alert_html'] = <<<EOF
+<div class="severity-high">
+  <div class="text">
+    <p><strong>System update in progress</strong><br><br>Sit tight! Stay on this page to avoid losing unsaved changes. <br>Updates generally take up to 15 minutes. We will let you know when it is ok to resume working again.</p>
+  </div>
+</div>
+EOF;
+
+
 // Environment specific settings
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php')) {
   include $app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php';
@@ -170,6 +180,11 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_type
 // Fast 404 settings
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php')) {
   include $app_root . '/' . $site_path . '/settings/settings.fast_404.php';
+}
+
+// Deploy Settings
+if (file_exists($app_root . '/' . $site_path . '/settings/settings.deploy.php')) {
+  include $app_root . '/' . $site_path . '/settings/settings.deploy.php';
 }
 
 /**
@@ -187,9 +202,18 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.local.php')) 
   include $app_root . '/' . $site_path . '/settings/settings.local.php';
 }
 
-// Should Skip Patches
-if (file_exists($app_root . '/' . $site_path . '/settings/settings.skip_cache_check.php')) {
-  include $app_root . '/' . $site_path . '/settings/settings.skip_cache_check.php';
+// If in maintenance mode then process site alert
+if (!empty(getenv('VA_GOV_IN_MAINTENANCE_MODE'))) {
+  $html = $settings['va_gov_site_alert_html'] ?? '';
+  $site_alert_paths = $settings['va_gov_site_alert_paths'] ?? ['ajax/site_alert'];
+  $current_path = $GLOBALS['request']->getPathInfo();
+  $trimmed_path = ltrim($current_path, '/');
+
+  if (in_array($trimmed_path, $site_alert_paths)) {
+    // Throw a Custom except to skip the rest of the bootstrap process and avoid cache.
+    include_once $app_root . '/modules/custom/va_gov_backend/src/Exception/SiteAlertException.php';
+    throw new Drupal\va_gov_backend\Exception\SiteAlertException($html);
+  }
 }
 
 $settings['tome_content_directory'] = 'public://cms-export-content';

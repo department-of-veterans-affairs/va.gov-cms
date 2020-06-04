@@ -1,0 +1,3 @@
+<?php
+
+putenv('VA_GOV_IN_MAINTENANCE_MODE=TRUE');
