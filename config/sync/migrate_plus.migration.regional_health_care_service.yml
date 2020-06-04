@@ -14,20 +14,20 @@ label: 'Node - VAMC System Health Service.'
 source:
   plugin: csv
   path: modules/custom/va_gov_migrate/data/regional-health-care-service.csv
-  delimiter: ','
-  enclosure: '"'
+  delimiter: ;
+  enclosure: ''''
   header_row_count: 1
   keys:
     - id
   column_names:
     -
-      id: 'Id'
+      id: Id
     -
       field_service_name_and_descripti: 'Health Service'
     -
       field_body: 'Full Upload'
     -
-      field_owner: 'Owner'
+      field_owner: Owner
     -
       field_health_system: 'Health System'
 process:
@@ -38,19 +38,22 @@ process:
     bundle_key: vid
     bundle: health_care_service_taxonomy
     source: field_service_name_and_descripti
-  field_region_page:
-    plugin: entity_lookup
-    entity_type: node
-    bundle: health_care_region_page
-    property: field_nickname_for_this_facility
-    source: 'field_health_system'
+  field_body: field_body
   field_administration:
     plugin: entity_lookup
     entity_type: taxonomy_term
     value_key: name
     bundle_key: vid
-    bundle: sections
+    bundle: administration
     source: field_owner
+  field_region_page:
+    plugin: entity_lookup
+    ignore_case: true
+    value_key: title
+    entity_type: node
+    bundle_key: type
+    bundle: health_care_region_page
+    source: field_health_system
   changed:
     plugin: callback
     callable: time
@@ -62,7 +65,7 @@ process:
     default_value: true
   revision_log:
     plugin: default_value
-    default_value: "Update of status by migrations."
+    default_value: 'Update of status by migrations.'
   revision_timestamp:
     plugin: callback
     callable: time
@@ -75,14 +78,6 @@ process:
 destination:
   plugin: 'entity:node'
   default_bundle: regional_health_care_service_des
- overwrite_properties:
-  - changed
-  - new_revision
-  - revision_default
-  - revision_log
-  - revision_timestamp
-  - revision_uid
-  - uid
 migration_dependencies:
   required: {  }
   optional: {  }
