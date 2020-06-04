@@ -10,7 +10,7 @@ va/deploy/0-composer:
   description: Composer Install
   about: Using --dev is actually the default. Putting it here to make it clear this is the way composer should be run right now.
   # Removing va-gov/web here because composer won't update it, we think... needs more testing.
-  command: rm -rf ./docroot/vendor/va-gov/web && composer install --dev --no-interaction --no-progress --ansi | tee /dev/stderr | grep 'Could not apply patch' && exit 1 || true
+  command: rm -rf ./docroot/vendor/va-gov/web && composer install --dev --no-interaction --no-progress --ansi
 
 va/deploy/1-cache:
   description: Rebuild Drupal caches

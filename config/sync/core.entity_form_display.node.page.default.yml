@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.page.field_page_last_built
     - field.field.node.page.field_plainlanguage_date
     - field.field.node.page.field_related_links
+    - field.field.node.page.field_table_of_contents_boolean
     - node.type.page
     - workflows.workflow.editorial
   module:
@@ -35,7 +36,7 @@ third_party_settings:
         - field_administration
         - field_plainlanguage_date
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details_sidebar
       format_settings:
         open: true
@@ -49,7 +50,7 @@ third_party_settings:
       children:
         - field_alert
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver. You can <a href="/block/add/alert?destination=/admin/content/alerts">create a new alert</a>, or reuse an existing one.'
@@ -62,7 +63,7 @@ third_party_settings:
       children:
         - moderation_state
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: fieldset
       format_settings:
         open: true
@@ -100,6 +101,20 @@ third_party_settings:
         required_fields: true
       label: 'Meta Tags'
       region: content
+    group_include_table_of_contents_:
+      children:
+        - field_table_of_contents_boolean
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'Include table of contents?'
+      region: content
 _core:
   default_config_hash: 7fm6IQg6gNfLHHQlwMKSUqMSbPhM8O91P6nqQkjtH80
 id: node.page.default
@@ -109,7 +124,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 8
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -136,7 +151,7 @@ content:
     region: content
   field_content_block:
     type: paragraphs_browser
-    weight: 4
+    weight: 5
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -172,7 +187,7 @@ content:
     region: content
   field_featured_content:
     type: paragraphs
-    weight: 3
+    weight: 4
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -204,7 +219,7 @@ content:
   field_meta_tags:
     type: metatag_firehose
     region: content
-    weight: 10
+    weight: 11
     settings: {  }
     third_party_settings: {  }
   field_meta_title:
@@ -229,7 +244,7 @@ content:
     region: content
   field_related_links:
     type: paragraphs
-    weight: 5
+    weight: 6
     settings:
       title: 'Related links'
       title_plural: 'Related links'
@@ -245,6 +260,13 @@ content:
         collapse_edit_all: collapse_edit_all
     third_party_settings: {  }
     region: content
+  field_table_of_contents_boolean:
+    weight: 13
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
   moderation_state:
     type: moderation_state_default
     weight: 21
@@ -253,7 +275,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 9
+    weight: 10
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -272,7 +294,7 @@ content:
     third_party_settings: {  }
     region: content
   url_redirects:
-    weight: 11
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
