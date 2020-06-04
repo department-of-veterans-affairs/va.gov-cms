@@ -96,7 +96,21 @@ function va_gov_backend_form_node_va_form_edit_form_alter(&$form, \Drupal\Core\F
   $node = \Drupal\node\Entity\Node::load($nid);
   $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
   $readonly_content = $viewBuilder->view($node, 'external_content');
-  $form = ['external_content' => ['#markup' => render($readonly_content)]] + $form;
+  $title = "<h1>{$node->getTitle()}</h1>";
+  $form_name = $form['field_va_form_name'];
+  unset($form['field_va_form_name']);
+
+  $header = [
+    'title' => [
+      '#markup' => $title . '<div class="description">This non-editable page title is automatically set by the VA forms database.</div>',
+    ],
+    'field_va_form_name' => $form_name,
+    'external_content' => [
+      '#markup' => render($readonly_content),
+      '#weight' => 4,
+    ],
+  ];
+  $form = $header + $form;
 
   $form['field_benefit_categories']['#states'] = [
     'visible' => [
