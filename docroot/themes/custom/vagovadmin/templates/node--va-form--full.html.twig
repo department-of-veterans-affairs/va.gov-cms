@@ -70,19 +70,40 @@
  *   in different view modes.
  */
 #}
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+{{ attach_library('classy/node') }}
+<article{{ attributes.addClass(classes) }}>
 
-<details class="external-content js-form-wrapper form-wrapper seven-details" data-drupal-selector="edit-group-from-db" id="edit-group-from-db">
-  <summary role="button" aria-controls="edit-group-from-db" aria-expanded="false" aria-pressed="false" class="seven-details__summary">
-    {{ external_content_label }}
-  </summary>
-  <div class="seven-details__wrapper details-wrapper">
-    {% if external_content_message %}
-      <div class="external-content--message">{{ external_content_message }}</div>
-    {% endif %}
-    {% block content %}
-    <div{{ content_attributes.addClass('node__content') }}>
-      {{ content }}
-    </div>
-    {% endblock %}
+  {{ title_prefix }}
+  {% if label and not page %}
+    <h2{{ title_attributes }}>
+      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+    </h2>
+  {% endif %}
+  {{ title_suffix }}
+
+  {{ external_content }}
+  {% if display_submitted %}
+    <footer class="node__meta">
+      {{ author_picture }}
+      <div{{ author_attributes.addClass('node__submitted') }}>
+        {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
+        {{ metadata }}
+      </div>
+    </footer>
+  {% endif %}
+
+  <div{{ content_attributes.addClass('node__content') }}>
+    {{ content }}
   </div>
-</details>
+
+</article>
