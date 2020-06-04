@@ -1,9 +1,6 @@
 <?php
 
 // @codingStandardsIgnoreFile
-use Drupal\Core\Cache\NullBackend;
-use Drupal\Core\Cache\DatabaseCacheTagsChecksum;
-use Drupal\Core\Database\Connection;
 
 /**
  * For documentation and more options
