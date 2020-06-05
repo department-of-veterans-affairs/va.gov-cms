@@ -1,0 +1,51 @@
+.item-list ul.sections li {
+  list-style: none;
+  margin: 0.25rem 0.2rem 0.5rem 0;
+}
+
+.item-list > ul.sections {
+  margin-left: 0;
+  max-width: 400px;
+}
+
+.item-list > ul.sections > li {
+  margin: 0;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+.item-list > ul.sections > li > a {
+  display: block;
+  border-bottom: 1px dotted #0071bb;
+  padding: 0 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.item-list > ul.sections > li > a:active,
+.item-list > ul.sections > li > a:focus,
+.item-list > ul.sections > li > a:hover {
+  text-decoration: none;
+}
+
+.sections li .toggle {
+  background-image: url('../images/arrow-down.png');
+  background-size: contain;
+  cursor: pointer;
+  display: block;
+  height: 15px;
+  position: absolute;
+  right: 0;
+  width: 15px;
+}
+
+.sections li .toggle.open {
+  background-image: url('../images/arrow-up.png');
+}
+
+.sections .item-list {
+  display: none;
+}
+
+.sections .item-list.show {
+  display: block;
+}
