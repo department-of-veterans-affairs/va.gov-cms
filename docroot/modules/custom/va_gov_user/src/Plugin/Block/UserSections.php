@@ -6,6 +6,7 @@ use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
@@ -105,7 +106,7 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
     $links = [];
 
     foreach ($tree as $term) {
-      $parent_path = $this->getArrayKeyPath($links, $term->parents[0]);
+      $parent_path = $term->parents[0] ? $this->getArrayKeyPath($links, $term->parents[0]) : NULL;
 
       // Compose render array of section links while preserving hierarchy.
       // This switch accounts for taxonomy terms that are 5 levels deep.
@@ -114,6 +115,10 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
       $count = count($parent_path);
       switch ($count) {
         case 1:
+          $links[$parent_path[0]]['items']['#attributes'] = [
+            'id' => 'section-' . $parent_path[0],
+            'class' => 'subsections',
+          ];
           $links[$parent_path[0]]['items'][$term->tid] = [
             '#type' => 'link',
             '#weight' => $term->weight,
@@ -141,12 +146,12 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
           break;
 
         default:
+          $title = $sections[$term->tid]['hasChildren'] ? Markup::create($term->name . '<button class="usa-accordion-button" aria-label="Toggle" aria-pressed="false" aria-expanded="false" aria-controls="section-' . $term->tid . '"></button>') : $term->name;
           $links[$term->tid] = [
             '#type' => 'link',
             '#weight' => $term->weight,
-            '#title' => $term->name,
+            '#title' => $title,
             '#url' => Url::fromRoute('entity.taxonomy_term.canonical', ['taxonomy_term' => $term->tid]),
-            '#prefix' => $sections[$term->tid]['hasChildren'] ? '<span class="toggle"></span>' : NULL,
           ];
           break;
       }

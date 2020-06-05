@@ -95,7 +95,7 @@ class UserPermsService {
     $query->fields('sa', ['section_id']);
     $results = $query->execute()->fetchCol();
 
-    if (($key = array_search('administration', $results)) !== FALSE) {
+    if (($key = array_search('administration', $results)) !== FALSE || $user->hasPermission('bypass-workbench-access')) {
       unset($results[$key]);
       $tree = $entity_storage->loadTree('administration');
       foreach ($tree as $term) {
