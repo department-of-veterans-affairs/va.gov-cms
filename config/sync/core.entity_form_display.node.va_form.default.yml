@@ -24,7 +24,6 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - content_moderation
-    - datetime
     - field_group
     - link
     - metatag
@@ -33,32 +32,11 @@ dependencies:
     - text
 third_party_settings:
   field_group:
-    group_from_forms_db:
-      children:
-        - title
-        - field_va_form_issue_date
-        - field_va_form_administration
-        - field_va_form_num_pages
-        - field_va_form_number
-        - field_va_form_revision_date
-        - field_va_form_title
-        - field_va_form_url
-      parent_name: ''
-      weight: 10
-      format_type: details
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        open: false
-        required_fields: true
-      label: 'From forms DB'
-      region: content
     group_governance:
       children:
         - field_administration
       parent_name: ''
-      weight: 11
+      weight: 10
       format_type: details_sidebar
       format_settings:
         description: ''
@@ -101,7 +79,7 @@ third_party_settings:
       children:
         - moderation_state
       parent_name: ''
-      weight: 12
+      weight: 11
       format_type: fieldset
       format_settings:
         id: ''
@@ -117,7 +95,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 13
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -134,23 +112,11 @@ content:
     type: options_buttons
     region: content
   field_meta_tags:
-    weight: 15
+    weight: 14
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
     region: content
-  field_va_form_administration:
-    weight: 2
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: content
-  field_va_form_issue_date:
-    type: datetime_default
-    weight: 1
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_va_form_link_teasers:
     type: entity_reference_paragraphs
     weight: 9
@@ -171,21 +137,6 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_va_form_num_pages:
-    type: number
-    weight: 3
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_va_form_number:
-    type: string_textfield
-    weight: 4
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   field_va_form_related_forms:
     weight: 8
     settings:
@@ -196,20 +147,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
-  field_va_form_revision_date:
-    type: datetime_default
-    weight: 5
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_va_form_title:
-    type: string_textfield
-    weight: 6
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   field_va_form_tool_intro:
     weight: 11
     settings:
@@ -232,14 +169,6 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
-  field_va_form_url:
-    type: link_default
-    weight: 7
-    region: content
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
   field_va_form_usage:
     weight: 6
     settings:
@@ -256,7 +185,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 14
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -281,14 +210,6 @@ content:
     weight: 2
     region: content
     third_party_settings: {  }
-  title:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
     weight: 0
@@ -300,8 +221,16 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 16
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_va_form_administration: true
+  field_va_form_issue_date: true
+  field_va_form_num_pages: true
+  field_va_form_number: true
+  field_va_form_revision_date: true
+  field_va_form_title: true
+  field_va_form_url: true
+  title: true
