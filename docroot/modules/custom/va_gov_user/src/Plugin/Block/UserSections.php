@@ -146,7 +146,7 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
           break;
 
         default:
-          $expand_button = $sections[$term->tid]['hasChildren'] ? Markup::create('<button class="usa-accordion-button" aria-label="Toggle" aria-pressed="false" aria-expanded="false" aria-controls="section-' . $term->tid . '"></button>') : NULL;
+          $expand_button = $sections[$term->tid]['hasChildren'] ? Markup::create('<button class="toggle" aria-label="Toggle ' . $term->name . ' section" aria-pressed="false" aria-expanded="false" aria-controls="section-' . $term->tid . '"></button>') : NULL;
           $links[$term->tid] = [
             '#type' => 'link',
             '#weight' => $term->weight,
