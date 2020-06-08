@@ -152,7 +152,7 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
             '#weight' => $term->weight,
             '#title' => $term->name,
             '#url' => Url::fromRoute('entity.taxonomy_term.canonical', ['taxonomy_term' => $term->tid]),
-            '#prefix' => $expand_button,
+            '#suffix' => $expand_button,
           ];
           break;
       }
