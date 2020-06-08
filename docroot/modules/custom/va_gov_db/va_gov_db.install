@@ -307,3 +307,12 @@ function va_gov_db_update_8016(&$sandbox) {
 
   return $messages;
 }
+
+/**
+ * Uninstall workflow_participants modules.
+ */
+function va_gov_db_update_8017(&$sandbox) {
+  $messages = _va_gov_db_uninstall_modules(['workflow_participants']);
+
+  return $messages;
+}
