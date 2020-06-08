@@ -5,6 +5,7 @@ namespace Drupal\va_gov_user\Plugin\Block;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -146,13 +147,15 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
           break;
 
         default:
+          $section_link = Link::fromTextAndUrl($term->name, Url::fromRoute('entity.taxonomy_term.canonical', ['taxonomy_term' => $term->tid]))->toString();
           $expand_button = $sections[$term->tid]['hasChildren'] ? Markup::create('<button class="toggle" aria-label="Toggle ' . $term->name . ' section" aria-pressed="false" aria-expanded="false" aria-controls="section-' . $term->tid . '"></button>') : NULL;
           $links[$term->tid] = [
-            '#type' => 'link',
-            '#weight' => $term->weight,
-            '#title' => $term->name,
-            '#url' => Url::fromRoute('entity.taxonomy_term.canonical', ['taxonomy_term' => $term->tid]),
-            '#suffix' => $expand_button,
+            '#type' => 'markup',
+            '#markup' => $section_link . $expand_button,
+            '#allowed_tags' => [
+              'a',
+              'button',
+            ],
           ];
           break;
       }
@@ -202,7 +205,7 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
     }
     else {
       foreach ($array as $key => $subarray) {
-        if (is_array($subarray)) {
+        if (is_array($subarray) && (is_int($key) || $key === 'items')) {
           $path = $this->getArrayKeyPath($subarray, $lookup);
           if ($path) {
             $path[] = $key;
