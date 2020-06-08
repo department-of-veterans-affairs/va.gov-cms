@@ -146,12 +146,13 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
           break;
 
         default:
-          $title = $sections[$term->tid]['hasChildren'] ? Markup::create($term->name . '<button class="usa-accordion-button" aria-label="Toggle" aria-pressed="false" aria-expanded="false" aria-controls="section-' . $term->tid . '"></button>') : $term->name;
+          $expand_button = $sections[$term->tid]['hasChildren'] ? Markup::create('<button class="usa-accordion-button" aria-label="Toggle" aria-pressed="false" aria-expanded="false" aria-controls="section-' . $term->tid . '"></button>') : NULL;
           $links[$term->tid] = [
             '#type' => 'link',
             '#weight' => $term->weight,
-            '#title' => $title,
+            '#title' => $term->name,
             '#url' => Url::fromRoute('entity.taxonomy_term.canonical', ['taxonomy_term' => $term->tid]),
+            '#prefix' => $expand_button,
           ];
           break;
       }
@@ -166,7 +167,7 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
           '#attributes' => ['class' => 'sections'],
           '#attached' => [
             'library' => [
-              'va_gov_user/collapsible_sections',
+              'va_gov_user/sections_accordion',
             ],
           ],
           '#prefix' => $this->t('You can edit content in the following VA.gov sections.'),
@@ -190,7 +191,7 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
    * @param array $array
    *   Array.
    * @param string $lookup
-   *   Array key to looku up.
+   *   Array key to look up.
    *
    * @return array|null
    *   Array of elements that compose a path to searched key.

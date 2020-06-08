@@ -3,9 +3,8 @@
  */
 
 (function ($, Drupal) {
-  Drupal.behaviors.vaGovCollapsibleSections = {
+  Drupal.behaviors.vaGovSectionsAccordion = {
     attach: function (context, settings) {
-      // @todo: add accessibility features: make sections navigable by keyboard.
       // Add aria-hidden attribute to all collapsed areas.
       $('.sections').find('.subsections').attr('aria-hidden', true).addClass('hidden');
 
