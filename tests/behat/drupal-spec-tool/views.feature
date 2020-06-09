@@ -29,7 +29,6 @@ Feature: Views
 | Media library | media_library | Media | Enabled | Find and manage media. |
 | Moderated content | moderated_content | Content revisions | Enabled | Find and moderate content. |
 | Moderation history | moderation_history | Content revisions | Enabled |  |
-| My Workflow  | my_workflow | Content | Enabled | Content a user has access to that is ready for moderation  |
 | Redirect | redirect | Redirect | Enabled | List of redirects |
 | Right sidebar latest revision | right_sidebar_latest_revision | Content revisions | Enabled |  |
 | Search | search | Index Content | Disabled |  |
@@ -114,8 +113,6 @@ Feature: Views
 | Moderated content | Moderated content | moderated_content | Page |
 | Moderation history | Master | default | Master |
 | Moderation history | Page | page | Page |
-| My Workflow  | Master | default | Master |
-| My Workflow  | My workflow | my_workflow_page | Page |
 | People | Master | default | Master |
 | People | Page | page_1 | Page |
 | Recent content | Block | block_1 | Block |
