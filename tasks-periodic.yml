@@ -3,7 +3,7 @@
 # Run with:  composer yaml-tests --tests-file=tasks-periodic.yml daily
 # http://jenkins.vfs.va.gov/job/cms/job/cms-daily
 va/background/daily/migrate_copy/va_forms_csv_source:
-  description: These commands are to run nightly.
+  description: This is because we cannot access the server on the SOCKS proxy right now.
   command:
     - cd docroot/sites/default/files/migrate_source
     - curl http://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt --output va_forms_data.csv
