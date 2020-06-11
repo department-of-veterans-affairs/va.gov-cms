@@ -1,0 +1,81 @@
+.item-list ul.sections li {
+  list-style: none;
+  margin: 0;
+  padding: 0.1rem;
+}
+
+.item-list ul.sections .item-list ul {
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0 0 0 2em;
+}
+
+.item-list ul.sections .item-list ul.subsections {
+  padding: 0.5rem 0 0.5rem 2rem;
+}
+
+.item-list > ul.sections > li {
+  border: 1px solid #aeb0b5;
+  border-bottom: none;
+  padding: 0;
+  position: relative;
+}
+
+.item-list > ul.sections > li:last-child {
+  border-bottom: 1px solid #aeb0b5;
+}
+
+.item-list > ul.sections > li ul li {
+  list-style: disc;
+}
+
+.item-list > ul.sections {
+  margin-left: 0;
+  max-width: 400px;
+}
+
+.item-list > ul.sections > li > a {
+  display: block;
+  padding: 0.5rem;
+}
+
+ul.sections li .toggle {
+  background-image: url('../images/chevron-disc-down.svg');
+  background-size: 1rem;
+  background-position: 0.75rem .75rem;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  display: block;
+  height: 100%;
+  margin: 0;
+  padding: 0 1.15rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1rem;
+}
+
+ul.sections li .toggle:active,
+ul.sections li .toggle:focus,
+ul.sections li .toggle:hover {
+  background-color: #f1f1f1;
+}
+
+.sections > li > a.open {
+  border-bottom: 1px solid #d6d7d9;
+}
+
+.sections li .toggle.open {
+  background-color: #f1f1f1;
+  background-image: url('../images/chevron-disc-up.svg');
+}
+
+.sections .subsections {
+  display: block;
+}
+
+.sections .subsections.hidden {
+  display: none;
+}
