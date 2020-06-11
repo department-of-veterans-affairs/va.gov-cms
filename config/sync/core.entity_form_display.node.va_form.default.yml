@@ -92,9 +92,9 @@ third_party_settings:
     group_editable_forms_data:
       children:
         - title
+        - field_va_form_url
         - field_va_form_number
         - field_va_form_title
-        - field_va_form_url
         - field_va_form_issue_date
         - field_va_form_revision_date
         - field_va_form_administration
@@ -103,11 +103,11 @@ third_party_settings:
       weight: 5
       format_type: details
       format_settings:
+        description: ''
+        open: true
+        required_fields: true
         id: ''
         classes: ''
-        description: ''
-        open: false
-        required_fields: true
       label: 'Editable forms data'
       region: content
 id: node.va_form.default
@@ -180,7 +180,7 @@ content:
     third_party_settings: {  }
   field_va_form_number:
     type: string_textfield
-    weight: 18
+    weight: 19
     region: content
     settings:
       size: 60
@@ -204,7 +204,7 @@ content:
     third_party_settings: {  }
   field_va_form_title:
     type: string_textfield
-    weight: 19
+    weight: 20
     region: content
     settings:
       size: 60
@@ -234,7 +234,7 @@ content:
     region: content
   field_va_form_url:
     type: link_default
-    weight: 20
+    weight: 18
     region: content
     settings:
       placeholder_url: ''
