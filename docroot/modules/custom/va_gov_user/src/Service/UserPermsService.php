@@ -38,6 +38,13 @@ class UserPermsService {
   private $database;
 
   /**
+   * Scheme.
+   *
+   * @var \Drupal\workbench_access\Entity\AccessSchemeInterface
+   */
+  protected $scheme;
+
+  /**
    * {@inheritDoc}
    */
   public function __construct(AccountInterface $currentUser, EntityTypeManagerInterface $entityTypeManager, Connection $database) {
@@ -79,6 +86,7 @@ class UserPermsService {
    */
   public function getSections(AccountInterface $user) {
     $sections = [];
+    $entity_storage = $this->entityTypeManager->getStorage('taxonomy_term');
 
     // Get ids of sections assigned to user profile.
     $query = $this->database->select('section_association__user_id', 'sau');
@@ -87,21 +95,43 @@ class UserPermsService {
     $query->fields('sa', ['section_id']);
     $results = $query->execute()->fetchCol();
 
-    if (($key = array_search('administration', $results)) !== FALSE) {
+    // @todo: figure out why $user->hasPermission('bypass workbench access')
+    // returns FALSE even though the user has this permission granted.
+    // Temporary workaround is to check for Administrator and Content Admin
+    // roles to indicate that user has access to all sections.
+    if (($key = array_search('administration', $results)) !== FALSE || ($user->hasRole('administrator') || $user->hasRole('content_admin'))) {
       unset($results[$key]);
-      $sections['administration'] = 'All sections';
+      $tree = $entity_storage->loadTree('administration');
+      foreach ($tree as $term) {
+        $results[] = $term->tid;
+      }
     }
 
     // Use has access only to some sections.
     // Compose list.
-    $entity_storage = $this->entityTypeManager->getStorage('taxonomy_term');
     $terms = $entity_storage->loadMultiple($results);
-
-    foreach ($terms as $term) {
-      $sections[$term->id()] = $term->getName();
-    }
+    $this->addSections($sections, $terms);
 
     return $sections;
+  }
+
+  /**
+   * Add parent and child sections to getSections() results.
+   *
+   * @param array $sections
+   *   Array of section tids/names.
+   * @param array $terms
+   *   Taxonomy terms.
+   */
+  protected function addSections(array &$sections, array $terms) {
+    $entity_storage = $this->entityTypeManager->getStorage('taxonomy_term');
+    foreach ($terms as $term) {
+      $sections[$term->id()] = [
+        'name' => $term->getName(),
+        'hasChildren' => empty($entity_storage->loadChildren($term->id())) ? FALSE : TRUE,
+      ];
+      $this->addSections($sections, $entity_storage->loadChildren($term->id()));
+    }
   }
 
   /**
