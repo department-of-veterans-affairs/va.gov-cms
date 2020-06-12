@@ -172,13 +172,13 @@ Feature: Content model fields
       | Content type | Support Service | Related office | field_office | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | VA Form | Benefits hub | field_benefit_categories | Entity reference |  | Unlimited | Check boxes/radio buttons |  |
       | Content type | VA Form | Category | field_va_form_type | List (text) |  | 1 | Select list |  |
-      | Content type | VA Form | Form administration | field_va_form_administration | Entity reference | Required | 1 | Select list |  |
-      | Content type | VA Form | Form name | field_va_form_name | Text (plain) | Required | 1 | Textfield |  |
-      | Content type | VA Form | Form number | field_va_form_number | Text (plain) | Required | 1 | Textfield |  |
-      | Content type | VA Form | Form title | field_va_form_title | Text (plain) | Required | 1 | Textfield |  |
+      | Content type | VA Form | Form administration | field_va_form_administration | Entity reference |  | 1 | Select list |  |
+      | Content type | VA Form | Form name | field_va_form_name | Text (plain) |  | 1 | Textfield |  |
+      | Content type | VA Form | Form number | field_va_form_number | Text (plain) |  | 1 | Textfield |  |
+      | Content type | VA Form | Form title | field_va_form_title | Text (plain) |  | 1 | Textfield |  |
       | Content type | VA Form | Helpful links | field_va_form_link_teasers | Entity reference revisions |  | Unlimited | Paragraphs Classic |  |
-      | Content type | VA Form | Issue date | field_va_form_issue_date | Date | Required | 1 | Date and time |  |
-      | Content type | VA Form | Link to form | field_va_form_url | Link | Required | 1 | Link |  |
+      | Content type | VA Form | Issue date | field_va_form_issue_date | Date |  | 1 | Date and time |  |
+      | Content type | VA Form | Link to form | field_va_form_url | Link |  | 1 | Link |  |
       | Content type | VA Form | Link to online tool | field_va_form_tool_url | Link |  | 1 | Link |  |
       | Content type | VA Form | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
       | Content type | VA Form | Number of pages | field_va_form_num_pages | Number (integer) |  | 1 | Number field |  |
