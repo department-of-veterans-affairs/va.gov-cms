@@ -125,3 +125,74 @@ function _vagov_consumers_disable_non_vha_facilities_api_form_fields(array &$for
     }
   }
 }
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function va_gov_consumers_form_node_va_form_edit_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $nid = $form_state->getformObject()->getEntity()->id();
+  $node = \Drupal\node\Entity\Node::load($nid);
+  $title = "<h1>{$node->getTitle()}</h1>";
+
+  $form_name = $form['field_va_form_name'];
+  unset($form['field_va_form_name']);
+
+  $form['header'] = [
+    '#type' => 'fieldset',
+    '#weight' => 0,
+    '#collapsible' => FALSE,
+  ];
+  $form['header']['title'] = [
+    '#markup' => $title . '<div class="description">This non-editable page title is automatically set by the VA forms database.</div>',
+  ];
+  $form['header']['field_va_form_name'] = $form_name;
+
+  _va_gov_consumers_external_content($form, $form_state);
+
+  $form['field_benefit_categories']['#states'] = [
+    'visible' => [
+      ':input[id="edit-field-va-form-type"]' => ['value' => 'benefit'],
+    ],
+  ];
+  $form['field_va_form_tool_intro']['#states'] = [
+    'visible' => [
+      ':input[id="edit-field-va-form-tool-url-0-uri"]' => ['filled' => true],
+    ],
+  ];
+}
+
+/**
+ * Displays selected content as text, not form fields.
+ *
+ * Adds node rendered as 'external_content' to form and removes the first
+ * fieldgroup with id of 'external-content'.
+ *
+ * @param $form
+ *   The form content.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ */
+function _va_gov_consumers_external_content(&$form, FormStateInterface $form_state) {
+  $nid = $form_state->getformObject()->getEntity()->id();
+  $node = \Drupal\node\Entity\Node::load($nid);
+
+  $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
+  $readonly_content = $viewBuilder->view($node, 'external_content');
+
+  $form['external_content'] = [
+    '#markup' => render($readonly_content),
+    '#weight' => 1,
+  ];
+
+  if (!empty($form) && !empty($form['#fieldgroups'])) {
+    foreach ($form['#fieldgroups'] as &$fieldgroup) {
+      if ($fieldgroup->format_settings['id'] === 'external-content') {
+        foreach ($fieldgroup->children as $field) {
+          unset($form[$field]);
+          unset($fieldgroup);
+        }
+        break;
+      }
+    }
+  }
+}
