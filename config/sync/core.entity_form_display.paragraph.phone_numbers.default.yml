@@ -1,0 +1,100 @@
+uuid: 9f1326f4-9729-4a4e-ac5e-c418460633f6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.phone_numbers.field_fax
+    - field.field.paragraph.phone_numbers.field_number_type
+    - field.field.paragraph.phone_numbers.field_optional_phone_label
+    - field.field.paragraph.phone_numbers.field_phone_extension
+    - field.field.paragraph.phone_numbers.field_phone_number
+    - field.field.paragraph.phone_numbers.field_sms_number
+    - field.field.paragraph.phone_numbers.field_tty_number
+    - paragraphs.paragraphs_type.phone_numbers
+  module:
+    - field_group
+    - textfield_counter
+third_party_settings:
+  field_group:
+    group_phone:
+      children:
+        - field_phone_number
+        - field_phone_extension
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        description: ''
+        required_fields: true
+        id: ''
+        classes: inline-form-elements
+      label: ''
+      region: content
+id: paragraph.phone_numbers.default
+targetEntityType: paragraph
+bundle: phone_numbers
+mode: default
+content:
+  field_fax:
+    weight: 4
+    settings:
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_number_type:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_optional_phone_label:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+      maxlength: 100
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_phone_extension:
+    weight: 3
+    settings:
+      size: 10
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_phone_number:
+    weight: 2
+    settings:
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_sms_number:
+    weight: 5
+    settings:
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_tty_number:
+    weight: 6
+    settings:
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  status: true

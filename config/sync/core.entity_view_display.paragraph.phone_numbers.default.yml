@@ -1,0 +1,77 @@
+uuid: d5bb79f2-c801-4eee-aced-21026bc86e70
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.phone_numbers.field_fax
+    - field.field.paragraph.phone_numbers.field_number_type
+    - field.field.paragraph.phone_numbers.field_optional_phone_label
+    - field.field.paragraph.phone_numbers.field_phone_extension
+    - field.field.paragraph.phone_numbers.field_phone_number
+    - field.field.paragraph.phone_numbers.field_sms_number
+    - field.field.paragraph.phone_numbers.field_tty_number
+    - paragraphs.paragraphs_type.phone_numbers
+  module:
+    - options
+id: paragraph.phone_numbers.default
+targetEntityType: paragraph
+bundle: phone_numbers
+mode: default
+content:
+  field_fax:
+    weight: 4
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_number_type:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_optional_phone_label:
+    weight: 6
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_phone_extension:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_phone_number:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_sms_number:
+    weight: 3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_tty_number:
+    weight: 5
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  search_api_excerpt: true

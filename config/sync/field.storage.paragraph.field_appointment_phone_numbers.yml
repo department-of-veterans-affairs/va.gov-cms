@@ -1,20 +1,19 @@
-uuid: ef09be6d-2133-4c86-b418-643e6803fa20
+uuid: fbe37f13-ddff-4423-9d55-01024d77f289
 langcode: en
 status: true
 dependencies:
   module:
     - entity_reference_revisions
-    - node
     - paragraphs
-id: node.field_about
-field_name: field_about
-entity_type: node
+id: paragraph.field_appointment_phone_numbers
+field_name: field_appointment_phone_numbers
+entity_type: paragraph
 type: entity_reference_revisions
 settings:
   target_type: paragraph
 module: entity_reference_revisions
 locked: false
-cardinality: 3
+cardinality: -1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

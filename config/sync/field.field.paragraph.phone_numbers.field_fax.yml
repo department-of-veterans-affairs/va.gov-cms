@@ -1,0 +1,19 @@
+uuid: ee0e0841-a9d1-479a-8cff-d8f838654e13
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_fax
+    - paragraphs.paragraphs_type.phone_numbers
+id: paragraph.phone_numbers.field_fax
+field_name: field_fax
+entity_type: paragraph
+bundle: phone_numbers
+label: 'Fax number'
+description: 'Format: 202-123-1234'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

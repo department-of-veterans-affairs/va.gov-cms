@@ -1,0 +1,33 @@
+uuid: 44b9a699-71cf-4d98-8df6-c8a48f4bab0f
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_number_type
+field_name: field_number_type
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: phone
+      label: Phone
+    -
+      value: fax
+      label: Fax
+    -
+      value: sms
+      label: SMS
+    -
+      value: tty
+      label: TTY
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
