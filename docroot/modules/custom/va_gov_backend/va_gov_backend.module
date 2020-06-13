@@ -300,28 +300,70 @@ function va_gov_backend_inline_entity_form_entity_form_alter(&$entity_form, $for
   if ($entity_form['#bundle'] === 'health_care_local_facility') {
     $entity_form['title']['widget'][0]['value']['#attributes']['disabled'] = 'disabled';
   }
+  _va_gov_backend_inline_form_facility_service($entity_form);
+}
 
+/**
+ * Facility service inline form widget alterations.
+ *
+ * @param array $entity_form
+ *   The address form widget element target.
+ */
+function _va_gov_backend_inline_form_facility_service(array &$entity_form) {
   // If facility address is chosen, don't show the address field.
   if ($entity_form['#bundle'] === 'location_info') {
     $toggle_fields = [
       'field_title',
       'field_address',
     ];
+
+    // Show address if field widget if not using facility address.
     foreach ($toggle_fields as $toggle) {
       $entity_form[$toggle]['#states'] = [
         'invisible' => [
-          ':input[name="field_about[0][inline_entity_form][field_use_facility_address]"]' => ['value' => 'yes'],
+          [':input[name="field_about[form][inline_entity_form][field_use_facility_address]"]' => ['value' => 'yes']],
+          'or',
+          [':input[name="field_about[form][inline_entity_form][entities][0][form][field_use_facility_address]"]' => ['value' => 'yes']],
         ],
       ];
     }
+
     $entity_form['field_address']['widget'][0]['#after_build'][] = 'va_gov_backend_customize_address';
+  }
+
+  if ($entity_form['#bundle'] === 'phone_numbers') {
+    $edit_selector = ':input[name="field_about[form][inline_entity_form][entities][0][form][field_phone_numbers_paragraph][form][inline_entity_form][entities][0][form][field_number_type]"]';
+    $selector = ':input[name="field_about[form][inline_entity_form][entities][0][form][field_phone_numbers_paragraph][form][inline_entity_form][field_number_type]"]';
+
+    // Toggle phone entry field per type selection.
+    $selections = [
+      'field_phone_number' => 'phone',
+      'field_phone_extension' => 'phone',
+      'field_fax' => 'fax',
+      'field_sms_number' => 'sms',
+      'field_tty_number' => 'tty',
+    ];
+
+    foreach ($selections as $key => $selection) {
+      $entity_form[$key]['#states'] = [
+        'visible' => [
+          [$selector => ['value' => $selection]],
+          'or',
+          [$edit_selector => ['value' => $selection]],
+
+        ],
+      ];
+    }
   }
 }
 
 /**
+ * Change organization field label text to specify organization floor/room/wing.
  *
+ * @param array $element
+ *   The address form widget element target.
  */
-function va_gov_backend_customize_address($element, $form_state) {
+function va_gov_backend_customize_address(array $element) {
   $element['address']['organization']['#title'] = t('Floor/Wing/Room');
   $element['address']['organization']['#size'] = 30;
   $element['address']['organization']['#weight'] = .005;
