@@ -332,8 +332,10 @@ function _va_gov_backend_inline_form_facility_service(array &$entity_form) {
   }
 
   if ($entity_form['#bundle'] === 'phone_numbers') {
-    $edit_selector = ':input[name="field_about[form][inline_entity_form][entities][0][form][field_phone_numbers_paragraph][form][inline_entity_form][entities][0][form][field_number_type]"]';
     $selector = ':input[name="field_about[form][inline_entity_form][entities][0][form][field_phone_numbers_paragraph][form][inline_entity_form][field_number_type]"]';
+    $edit_selector = ':input[name="field_about[form][inline_entity_form][entities][0][form][field_phone_numbers_paragraph][form][inline_entity_form][entities][0][form][field_number_type]"]';
+    $appt_selector = ':input[name="field_about[form][inline_entity_form][entities][0][form][field_appointment_phone_numbers][form][inline_entity_form][field_number_type]"]';
+    $appt_edit_selector = ':input[name="field_about[form][inline_entity_form][entities][0][form][field_appointment_phone_numbers][form][inline_entity_form][entities][0][form][field_number_type]"]';
 
     // Toggle phone entry field per type selection.
     $selections = [
@@ -350,7 +352,10 @@ function _va_gov_backend_inline_form_facility_service(array &$entity_form) {
           [$selector => ['value' => $selection]],
           'or',
           [$edit_selector => ['value' => $selection]],
-
+          'or',
+          [$appt_selector => ['value' => $selection]],
+          'or',
+          [$appt_edit_selector => ['value' => $selection]],
         ],
       ];
     }
