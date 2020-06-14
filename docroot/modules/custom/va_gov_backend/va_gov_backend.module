@@ -294,13 +294,13 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
 /**
  * Implements hook_inline_entity_form_alter().
  */
-function va_gov_backend_inline_entity_form_entity_form_alter(&$entity_form, $form_state, $context) {
+function va_gov_backend_inline_entity_form_entity_form_alter(&$entity_form, FormStateInterface $form_state) {
   // Show the facility name so that the editor knows what they're editing,
   // but don't let the editor change it. It's driven by Facility API.
   if ($entity_form['#bundle'] === 'health_care_local_facility') {
     $entity_form['title']['widget'][0]['value']['#attributes']['disabled'] = 'disabled';
   }
-  _va_gov_backend_inline_form_facility_service($entity_form);
+  _va_gov_backend_inline_form_facility_service($entity_form, $form_state);
 }
 
 /**
@@ -309,7 +309,7 @@ function va_gov_backend_inline_entity_form_entity_form_alter(&$entity_form, $for
  * @param array $entity_form
  *   The address form widget element target.
  */
-function _va_gov_backend_inline_form_facility_service(array &$entity_form) {
+function _va_gov_backend_inline_form_facility_service(array &$entity_form, &$form_state) {
   // If facility address is chosen, don't show the address field.
   if ($entity_form['#bundle'] === 'location_info') {
     $toggle_fields = [
@@ -332,33 +332,61 @@ function _va_gov_backend_inline_form_facility_service(array &$entity_form) {
   }
 
   if ($entity_form['#bundle'] === 'phone_numbers') {
+
+    /* @TODO
+     * Figure out why looping through these items doesn't trigger state changes.
+     * For now, assigning each possible selector to a variable.
+     */
     $selector = ':input[name="field_about[form][inline_entity_form][entities][0][form][field_phone_numbers_paragraph][form][inline_entity_form][field_number_type]"]';
     $edit_selector = ':input[name="field_about[form][inline_entity_form][entities][0][form][field_phone_numbers_paragraph][form][inline_entity_form][entities][0][form][field_number_type]"]';
-    $appt_selector = ':input[name="field_about[form][inline_entity_form][entities][0][form][field_appointment_phone_numbers][form][inline_entity_form][field_number_type]"]';
+    $appt_selector = ':input[name="field_about[form][inline_entity_form][entties][0][form][field_appointment_phone_numbers][form][inline_entity_form][field_number_type]"]';
     $appt_edit_selector = ':input[name="field_about[form][inline_entity_form][entities][0][form][field_appointment_phone_numbers][form][inline_entity_form][entities][0][form][field_number_type]"]';
 
-    // Toggle phone entry field per type selection.
+    $selector1 = ':input[name="field_about[form][inline_entity_form][entities][1][form][field_phone_numbers_paragraph][form][inline_entity_form][field_number_type]"]';
+    $edit_selector1 = ':input[name="field_about[form][inline_entity_form][entities][1][form][field_phone_numbers_paragraph][form][inline_entity_form][entities][0][form][field_number_type]"]';
+    $appt_selector1 = ':input[name="field_about[form][inline_entity_form][entities][1][form][field_appointment_phone_numbers][form][inline_entity_form][field_number_type]"]';
+    $appt_edit_selector1 = ':input[name="field_about[form][inline_entity_form][entities][1][form][field_appointment_phone_numbers][form][inline_entity_form][entities][0][form][field_number_type]"]';
+
+    $selector2 = ':input[name="field_about[form][inline_entity_form][entities][2][form][field_phone_numbers_paragraph][form][inline_entity_form][field_number_type]"]';
+    $edit_selector2 = ':input[name="field_about[form][inline_entity_form][entities][2][form][field_phone_numbers_paragraph][form][inline_entity_form][entities][0][form][field_number_type]"]';
+    $appt_selector2 = ':input[name="field_about[form][inline_entity_form][entities][2][form][field_appointment_phone_numbers][form][inline_entity_form][field_number_type]"]';
+    $appt_edit_selector2 = ':input[name="field_about[form][inline_entity_form][entities][2][form][field_appointment_phone_numbers][form][inline_entity_form][entities][0][form][field_number_type]"]';
+
+    // Toggle phone extension field per type selection.
     $selections = [
-      'field_phone_number' => 'phone',
       'field_phone_extension' => 'phone',
-      'field_fax' => 'fax',
-      'field_sms_number' => 'sms',
-      'field_tty_number' => 'tty',
     ];
 
     foreach ($selections as $key => $selection) {
       $entity_form[$key]['#states'] = [
         'visible' => [
-          [$selector => ['value' => $selection]],
+        [$selector => ['value' => $selection]],
           'or',
-          [$edit_selector => ['value' => $selection]],
+        [$edit_selector => ['value' => $selection]],
           'or',
-          [$appt_selector => ['value' => $selection]],
+        [$appt_selector => ['value' => $selection]],
           'or',
-          [$appt_edit_selector => ['value' => $selection]],
+        [$appt_edit_selector => ['value' => $selection]],
+          'or',
+        [$selector1 => ['value' => $selection]],
+          'or',
+        [$edit_selector1 => ['value' => $selection]],
+          'or',
+        [$appt_selector1 => ['value' => $selection]],
+          'or',
+        [$appt_edit_selector1 => ['value' => $selection]],
+          'or',
+        [$selector2 => ['value' => $selection]],
+          'or',
+        [$edit_selector2 => ['value' => $selection]],
+          'or',
+        [$appt_selector2 => ['value' => $selection]],
+          'or',
+        [$appt_edit_selector2 => ['value' => $selection]],
         ],
       ];
     }
+
   }
 }
 

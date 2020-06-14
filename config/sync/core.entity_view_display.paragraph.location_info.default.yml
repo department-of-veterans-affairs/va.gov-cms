@@ -3,28 +3,19 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.location_info.field_additional_ph_num_1_title
-    - field.field.paragraph.location_info.field_additional_ph_num_2_title
-    - field.field.paragraph.location_info.field_additional_phone_number_2
-    - field.field.paragraph.location_info.field_additional_phone_numbers
     - field.field.paragraph.location_info.field_address
-    - field.field.paragraph.location_info.field_appointment_phone
     - field.field.paragraph.location_info.field_appointment_phone_numbers
-    - field.field.paragraph.location_info.field_extension
     - field.field.paragraph.location_info.field_facility_description
     - field.field.paragraph.location_info.field_link
     - field.field.paragraph.location_info.field_location_hours
-    - field.field.paragraph.location_info.field_main_phone
     - field.field.paragraph.location_info.field_online_scheduling_availabl
     - field.field.paragraph.location_info.field_operating_status
     - field.field.paragraph.location_info.field_operating_status_info
-    - field.field.paragraph.location_info.field_operating_status_notes
     - field.field.paragraph.location_info.field_phone_numbers_paragraph
     - field.field.paragraph.location_info.field_referral_required
     - field.field.paragraph.location_info.field_title
     - field.field.paragraph.location_info.field_use_facility_address
     - field.field.paragraph.location_info.field_walk_ins_accepted
-    - field.field.paragraph.location_info.field_wysiwyg
     - paragraphs.paragraphs_type.location_info
   module:
     - address
@@ -33,8 +24,6 @@ dependencies:
     - link
     - office_hours
     - options
-    - telephone
-    - text
 third_party_settings:
   field_group:
     group_location_and_contact_infor:
@@ -81,52 +70,12 @@ targetEntityType: paragraph
 bundle: location_info
 mode: default
 content:
-  field_additional_ph_num_1_title:
-    weight: 12
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_additional_ph_num_2_title:
-    weight: 14
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_additional_phone_number_2:
-    weight: 15
-    label: above
-    settings:
-      title: ''
-    third_party_settings: {  }
-    type: telephone_link
-    region: content
-  field_additional_phone_numbers:
-    weight: 13
-    label: above
-    settings:
-      title: ''
-    third_party_settings: {  }
-    type: telephone_link
-    region: content
   field_address:
     weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
-    region: content
-  field_appointment_phone:
-    weight: 13
-    label: above
-    settings:
-      title: ''
-    third_party_settings: {  }
-    type: telephone_link
     region: content
   field_appointment_phone_numbers:
     type: entity_reference_revisions_entity_view
@@ -136,15 +85,6 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    region: content
-  field_extension:
-    weight: 10
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    type: number_integer
     region: content
   field_facility_description:
     weight: 19
@@ -192,14 +132,6 @@ content:
     third_party_settings: {  }
     type: office_hours
     region: content
-  field_main_phone:
-    weight: 9
-    label: above
-    settings:
-      title: ''
-    third_party_settings: {  }
-    type: telephone_link
-    region: content
   field_online_scheduling_availabl:
     weight: 12
     label: above
@@ -220,13 +152,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
-    region: content
-  field_operating_status_notes:
-    weight: 15
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
     region: content
   field_phone_numbers_paragraph:
     type: entity_reference_revisions_entity_view
@@ -265,13 +190,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: list_default
-    region: content
-  field_wysiwyg:
-    weight: 9
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
     region: content
 hidden:
   search_api_excerpt: true
