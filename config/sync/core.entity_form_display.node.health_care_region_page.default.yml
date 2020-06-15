@@ -63,6 +63,7 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
+        - revision_log
       parent_name: ''
       weight: 13
       format_type: fieldset
@@ -492,9 +493,9 @@ content:
       form_display_mode: default
       default_paragraph_type: list_of_link_teasers
       features:
+        add_above: '0'
         collapse_edit_all: collapse_edit_all
         duplicate: '0'
-        add_above: '0'
     third_party_settings: {  }
     type: paragraphs
     region: content
