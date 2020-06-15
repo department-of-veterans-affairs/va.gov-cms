@@ -269,7 +269,9 @@ function va_gov_backend_form_alter_redirect_submit($form, FormStateInterface $fo
 function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
   // Hide Trigger Text in Alert paragraph form unless Alert Type is "Expanding".
   $field_definition = $context['items']->getFieldDefinition();
-  /** @var \Drupal\field\Entity\FieldConfig $field_definition */
+
+  /**
+   * @var \Drupal\field\Entity\FieldConfig $field_definition */
   $paragraph_entity_reference_field_name = $field_definition->getName();
 
   if ($paragraph_entity_reference_field_name == 'field_content_block') {
@@ -289,6 +291,22 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
     }
   }
 
+  if (in_array($paragraph_entity_reference_field_name, ['field_phone_numbers_paragraph', 'field_appointment_phone_numbers'])) {
+    $widget_state = WidgetBase::getWidgetState($element['#field_parents'], $paragraph_entity_reference_field_name, $form_state);
+
+    $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'];
+    $paragraph_type = $paragraph_instance->bundle();
+
+    if ($paragraph_type === 'phone_numbers') {
+
+      $selector = sprintf(':input[name="field_about[form][inline_entity_form][entities][%4$d][form][%1$s][%2$d][subform][%3$s]"]', $paragraph_entity_reference_field_name, $element['#delta'], 'field_number_type', $context['form']['#ief_row_delta']);
+      $element['subform']['field_phone_extension']['#states'] = [
+        'visible' => [
+          $selector => ['value' => 'phone'],
+        ],
+      ];
+    }
+  }
 }
 
 /**
@@ -329,64 +347,6 @@ function _va_gov_backend_inline_form_facility_service(array &$entity_form, &$for
     }
 
     $entity_form['field_address']['widget'][0]['#after_build'][] = 'va_gov_backend_customize_address';
-  }
-
-  if ($entity_form['#bundle'] === 'phone_numbers') {
-
-    /* @TODO
-     * Figure out why looping through these items doesn't trigger state changes.
-     * For now, assigning each possible selector to a variable.
-     */
-    $selector = ':input[name="field_about[form][inline_entity_form][entities][0][form][field_phone_numbers_paragraph][form][inline_entity_form][field_number_type]"]';
-    $edit_selector = ':input[name="field_about[form][inline_entity_form][entities][0][form][field_phone_numbers_paragraph][form][inline_entity_form][entities][0][form][field_number_type]"]';
-    $appt_selector = ':input[name="field_about[form][inline_entity_form][entties][0][form][field_appointment_phone_numbers][form][inline_entity_form][field_number_type]"]';
-    $appt_edit_selector = ':input[name="field_about[form][inline_entity_form][entities][0][form][field_appointment_phone_numbers][form][inline_entity_form][entities][0][form][field_number_type]"]';
-
-    $selector1 = ':input[name="field_about[form][inline_entity_form][entities][1][form][field_phone_numbers_paragraph][form][inline_entity_form][field_number_type]"]';
-    $edit_selector1 = ':input[name="field_about[form][inline_entity_form][entities][1][form][field_phone_numbers_paragraph][form][inline_entity_form][entities][0][form][field_number_type]"]';
-    $appt_selector1 = ':input[name="field_about[form][inline_entity_form][entities][1][form][field_appointment_phone_numbers][form][inline_entity_form][field_number_type]"]';
-    $appt_edit_selector1 = ':input[name="field_about[form][inline_entity_form][entities][1][form][field_appointment_phone_numbers][form][inline_entity_form][entities][0][form][field_number_type]"]';
-
-    $selector2 = ':input[name="field_about[form][inline_entity_form][entities][2][form][field_phone_numbers_paragraph][form][inline_entity_form][field_number_type]"]';
-    $edit_selector2 = ':input[name="field_about[form][inline_entity_form][entities][2][form][field_phone_numbers_paragraph][form][inline_entity_form][entities][0][form][field_number_type]"]';
-    $appt_selector2 = ':input[name="field_about[form][inline_entity_form][entities][2][form][field_appointment_phone_numbers][form][inline_entity_form][field_number_type]"]';
-    $appt_edit_selector2 = ':input[name="field_about[form][inline_entity_form][entities][2][form][field_appointment_phone_numbers][form][inline_entity_form][entities][0][form][field_number_type]"]';
-
-    // Toggle phone extension field per type selection.
-    $selections = [
-      'field_phone_extension' => 'phone',
-    ];
-
-    foreach ($selections as $key => $selection) {
-      $entity_form[$key]['#states'] = [
-        'visible' => [
-        [$selector => ['value' => $selection]],
-          'or',
-        [$edit_selector => ['value' => $selection]],
-          'or',
-        [$appt_selector => ['value' => $selection]],
-          'or',
-        [$appt_edit_selector => ['value' => $selection]],
-          'or',
-        [$selector1 => ['value' => $selection]],
-          'or',
-        [$edit_selector1 => ['value' => $selection]],
-          'or',
-        [$appt_selector1 => ['value' => $selection]],
-          'or',
-        [$appt_edit_selector1 => ['value' => $selection]],
-          'or',
-        [$selector2 => ['value' => $selection]],
-          'or',
-        [$edit_selector2 => ['value' => $selection]],
-          'or',
-        [$appt_selector2 => ['value' => $selection]],
-          'or',
-        [$appt_edit_selector2 => ['value' => $selection]],
-        ],
-      ];
-    }
-
   }
 }
 

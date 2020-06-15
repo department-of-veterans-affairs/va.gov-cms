@@ -20,19 +20,13 @@ dependencies:
   module:
     - address
     - field_group
-    - inline_entity_form
     - link
     - office_hours
+    - paragraphs
 third_party_settings:
   field_group:
     group_contact_info:
-      children:
-        - field_additional_phone_numbers
-        - field_additional_phone_number_2
-        - field_additional_ph_num_1_title
-        - field_additional_ph_num_2_title
-        - field_extension
-        - field_main_phone
+      children: {  }
       parent_name: ''
       weight: 8
       format_type: details
@@ -108,20 +102,22 @@ content:
     type: address_default
     region: content
   field_appointment_phone_numbers:
-    type: inline_entity_form_complex
+    type: paragraphs
     weight: 23
     settings:
-      form_mode: default
-      override_labels: true
-      label_singular: 'Phone number'
-      label_plural: 'Phone numbers'
-      collapsible: true
-      collapsed: true
-      allow_new: true
-      match_operator: CONTAINS
-      revision: false
-      allow_existing: false
-      allow_duplicate: false
+      title: 'Phone number'
+      title_plural: 'Phone numbers'
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: all
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: phone_numbers
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
     third_party_settings: {  }
     region: content
   field_facility_description:
@@ -167,20 +163,22 @@ content:
     type: string_textarea
     region: content
   field_phone_numbers_paragraph:
-    type: inline_entity_form_complex
+    type: paragraphs
     weight: 4
     settings:
-      form_mode: default
-      override_labels: true
-      label_singular: 'Phone number'
-      label_plural: 'Phone numbers'
-      collapsible: true
-      collapsed: true
-      revision: false
-      allow_new: true
-      allow_existing: false
-      match_operator: CONTAINS
-      allow_duplicate: false
+      title: 'Phone number'
+      title_plural: 'Phone numbers'
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: all
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: phone_numbers
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
     third_party_settings: {  }
     region: content
   field_referral_required:

@@ -14,19 +14,17 @@ dependencies:
 third_party_settings:
   field_group:
     group_phone:
-      children:
-        - field_phone_number
-        - field_phone_extension
+      children: {  }
       parent_name: ''
-      weight: 1
+      weight: 4
       format_type: fieldset
       format_settings:
         description: ''
         required_fields: true
         id: ''
         classes: inline-form-elements
-      label: ''
-      region: content
+      label: 'Phone Numbers'
+      region: hidden
 id: paragraph.phone_numbers.default
 targetEntityType: paragraph
 bundle: phone_numbers
@@ -39,7 +37,7 @@ content:
     type: options_select
     region: content
   field_optional_phone_label:
-    weight: 7
+    weight: 3
     settings:
       size: 60
       placeholder: ''
@@ -53,7 +51,7 @@ content:
     type: string_textfield_with_counter
     region: content
   field_phone_extension:
-    weight: 3
+    weight: 2
     settings:
       size: 10
       placeholder: ''
@@ -61,7 +59,7 @@ content:
     type: string_textfield
     region: content
   field_phone_number:
-    weight: 2
+    weight: 1
     settings:
       size: 25
       placeholder: ''
