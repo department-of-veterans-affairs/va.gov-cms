@@ -27,7 +27,7 @@ source:
     -
       field_body: 'Full Upload'
     -
-      field_owner: 'Owner'
+      field_owner: Owner
     -
       field_health_system: 'Health System'
 process:
@@ -38,7 +38,10 @@ process:
     bundle_key: vid
     bundle: health_care_service_taxonomy
     source: field_service_name_and_descripti
-  field_body: field_body
+  field_body/format:
+    plugin: default_value
+    default_value: rich_text
+  field_body/value: field_body
   field_administration:
     plugin: entity_lookup
     entity_type: taxonomy_term
@@ -65,7 +68,7 @@ process:
     default_value: true
   revision_log:
     plugin: default_value
-    default_value: 'Update of status by migrations.'
+    default_value: 'Imported system health services'
   revision_timestamp:
     plugin: callback
     callable: time
