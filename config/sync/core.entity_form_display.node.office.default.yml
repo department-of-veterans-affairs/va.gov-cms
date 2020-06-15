@@ -23,7 +23,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 7
+      weight: 5
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -39,7 +39,7 @@ third_party_settings:
         - field_meta_title
         - field_description
       parent_name: ''
-      weight: 6
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -47,6 +47,21 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Meta Tags'
+      region: content
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 8
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: true
+        required_fields: true
+      label: 'Editorial workflow'
       region: content
 id: node.office.default
 targetEntityType: node
@@ -61,7 +76,7 @@ content:
     region: content
   field_body:
     type: text_textarea
-    weight: 3
+    weight: 1
     region: content
     settings:
       rows: 5
@@ -76,7 +91,7 @@ content:
     type: string_textfield
     region: content
   field_meta_tags:
-    weight: 10
+    weight: 7
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -97,13 +112,13 @@ content:
     region: content
   moderation_state:
     type: moderation_state_default
-    weight: 8
+    weight: 6
     settings: {  }
     region: content
     third_party_settings: {  }
   path:
     type: path
-    weight: 4
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -116,7 +131,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 5
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
