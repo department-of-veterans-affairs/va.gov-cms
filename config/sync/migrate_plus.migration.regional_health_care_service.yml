@@ -32,12 +32,18 @@ source:
       field_health_system: 'Health System'
 process:
   field_service_name_and_descripti:
-    plugin: entity_lookup
-    entity_type: taxonomy_term
-    value_key: name
-    bundle_key: vid
-    bundle: health_care_service_taxonomy
-    source: field_service_name_and_descripti
+    -
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: name
+      bundle_key: vid
+      bundle: health_care_service_taxonomy
+      source: field_service_name_and_descripti
+    -
+      plugin: static_map
+      map:
+        155: 37
+      bypass: true
   field_body/format:
     plugin: default_value
     default_value: rich_text
@@ -68,7 +74,7 @@ process:
     default_value: true
   revision_log:
     plugin: default_value
-    default_value: 'Imported system health services'
+    default_value: 'Auto loaded'
   revision_timestamp:
     plugin: callback
     callable: time
