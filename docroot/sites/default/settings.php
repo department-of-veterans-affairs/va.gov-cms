@@ -109,6 +109,7 @@ $settings['jenkins_build_job_host'] = 'http://jenkins.vfs.va.gov';
 // Authorized to the Jenkins API via GitHub login.
 $settings['va_cms_bot_github_username'] = 'va-cms-bot';
 $settings['va_cms_bot_github_auth_token'] = getenv('CMS_GITHUB_VA_CMS_BOT_TOKEN') ?: FALSE;
+$settings['va_cms_bot_jenkins_auth_token'] = getenv('CMS_JENKINS_VA_CMS_BOT_TOKEN') ?: FALSE;
 
 // Defaults (should only be local that doesn't set these), default to dev for config_split
 $config['config_split.config_split.dev']['status'] = TRUE;
