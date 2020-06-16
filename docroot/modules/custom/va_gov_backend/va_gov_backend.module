@@ -5,6 +5,7 @@
  * Contains va_gov_backend.module.
  */
 
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\WidgetBase;
@@ -143,6 +144,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
       _va_gov_backend_vbo_facility_status_form_ui($form, $form_state);
     }
   }
+
 }
 
 /**
@@ -298,7 +300,6 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
     $paragraph_type = $paragraph_instance->bundle();
 
     if ($paragraph_type === 'phone_numbers') {
-
       $selector = sprintf(':input[name="field_about[form][inline_entity_form][entities][%4$d][form][%1$s][%2$d][subform][%3$s]"]', $paragraph_entity_reference_field_name, $element['#delta'], 'field_number_type', $context['form']['#ief_row_delta']);
       $element['subform']['field_phone_extension']['#states'] = [
         'visible' => [
@@ -319,6 +320,15 @@ function va_gov_backend_inline_entity_form_entity_form_alter(&$entity_form, Form
     $entity_form['title']['widget'][0]['value']['#attributes']['disabled'] = 'disabled';
   }
   _va_gov_backend_inline_form_facility_service($entity_form, $form_state);
+}
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  if ($entity_type->id() === 'paragraph' && $bundle === 'phone_numbers' && isset($fields['field_phone_number'])) {
+    $fields['field_phone_number']->addConstraint('ValidNumber');
+  }
 }
 
 /**
