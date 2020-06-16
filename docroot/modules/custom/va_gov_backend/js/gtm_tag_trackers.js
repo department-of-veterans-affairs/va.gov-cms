@@ -7,7 +7,7 @@
     attach: function (context, settings) {
 
       // Handle different title data scenarios.
-      const titleResolver = (data) => {
+      function titleResolver(data) {
         let title = null;
         if (data) {
           title = data;
@@ -19,7 +19,7 @@
       }
 
       // Walk the main nav tree from point of click.
-      const menuTraverser = (item) => {
+      function menuTraverser(item) {
         parentClasses = item.parentNode.className;
         let level4, level3, level2, level1 = null;
 
@@ -58,10 +58,10 @@
       }
 
       // For processing our click events.
-      const pushGTM = (selector, event, subtype) => {
+      function pushGTM(selector, event, subtype) {
         const editPageTypes = ['content-page', 'bulk-content-page'];
         // Push cms data into dataLayer.
-        selector.forEach((el, i) => {
+        selector.forEach(function (el, i) {
           $(el, context).once().click(function (e) {
             dataCollection['event'] = event;
 
@@ -135,12 +135,12 @@
       ];
 
       // Send it off to GTM on click.
-      targets.forEach(e => {
+      targets.forEach(function (e) {
         pushGTM(e.selector, e.event, e.subtype);
       });
 
       // Send data to GTM onLoad.
-      const gtmPageLoadPush = () => {
+      function gtmPageLoadPush() {
         dataCollection['event'] = 'pageLoad';
         dataLayer.push(dataCollection);
       }
