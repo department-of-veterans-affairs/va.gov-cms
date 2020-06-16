@@ -14,23 +14,76 @@ label: 'Node - VAMC System Health Service.'
 source:
   plugin: csv
   path: modules/custom/va_gov_migrate/data/regional-health-care-service.csv
-  delimiter: ','
-  enclosure: '"'
+  delimiter: ;
+  enclosure: ''''
   header_row_count: 1
   keys:
     - id
   column_names:
     -
-      id: 'The unique identifier for the service'
+      id: Id
     -
       field_service_name_and_descripti: 'Health Service'
     -
       field_body: 'Full Upload'
+    -
+      field_owner: Owner
+    -
+      field_health_system: 'Health System'
 process:
-  field_service_name_and_descripti: field_service_name_and_descripti
-  field_body: field_body
-  field_region_page: field_region_page
-  field_administration: field_administration
+  field_service_name_and_descripti:
+    -
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: name
+      bundle_key: vid
+      bundle: health_care_service_taxonomy
+      source: field_service_name_and_descripti
+    -
+      plugin: static_map
+      map:
+        155: 37
+      bypass: true
+  field_body/format:
+    plugin: default_value
+    default_value: rich_text
+  field_body/value: field_body
+  field_administration:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    bundle_key: vid
+    bundle: administration
+    source: field_owner
+  field_region_page:
+    plugin: entity_lookup
+    ignore_case: true
+    value_key: title
+    entity_type: node
+    bundle_key: type
+    bundle: health_care_region_page
+    source: field_health_system
+  changed:
+    plugin: callback
+    callable: time
+  new_revision:
+    plugin: default_value
+    default_value: true
+  revision_default:
+    plugin: default_value
+    default_value: true
+  revision_log:
+    plugin: default_value
+    default_value: 'Imported system health services'
+  revision_timestamp:
+    plugin: callback
+    callable: time
+  revision_uid:
+    plugin: default_value
+    default_value: 1317
+  uid:
+    plugin: default_value
+    default_value: 1317
 destination:
   plugin: 'entity:node'
   default_bundle: regional_health_care_service_des
