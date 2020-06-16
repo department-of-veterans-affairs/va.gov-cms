@@ -116,7 +116,7 @@ class BuildFrontend {
     elseif ((!empty($jenkins_build_environment)) && array_key_exists($jenkins_build_environment, self::WEB_ENVIRONMENTS) && (PHP_SAPI !== 'cli')) {
       // This is in a BRD environment.
       $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
-      $va_cms_bot_github_auth_token = Settings::get('va_cms_bot_github_auth_token');
+      $va_cms_bot_jenkins_auth_token = Settings::get('va_cms_bot_jenkins_auth_token');
       $jenkins_build_job_host = Settings::get('jenkins_build_job_host');
       $jenkins_build_job_path = Settings::get('jenkins_build_job_path');
       $jenkins_build_job_url = Settings::get('jenkins_build_job_url');
@@ -136,7 +136,7 @@ class BuildFrontend {
             CURLOPT_POST => 1,
             // Authorize to the Jenkins API via GitHub login.
             CURLOPT_USERNAME => $va_cms_bot_github_username,
-            CURLOPT_PASSWORD => $va_cms_bot_github_auth_token,
+            CURLOPT_PASSWORD => $va_cms_bot_jenkins_auth_token,
             CURLOPT_FOLLOWLOCATION => 1,
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_HEADER => 1,
