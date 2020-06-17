@@ -8,69 +8,20 @@
 /**
  * Implements hook_preprocess_HOOK().
  */
-function vagovadmin_preprocess_node(&$variables) {
-  /** @var \Drupal\node\Entity\Node $node */
-  $node = $variables['node'];
-  /** @var \Drupal\user\UserInterface $author */
-  $author = $node->getRevisionAuthor();
-  $variables['revision_id'] = $node->getRevisionId();
-  $variables['revision_author'] = $author->getAccountName();
-
-  $node_storage = \Drupal::entityTypeManager()->getStorage('node');
-  $query = $node_storage->getQuery()
-    ->condition($node->getEntityType()->getKey('id'), $node->id())
-    ->allRevisions()
-    ->sort($node->getEntityType()->getKey('revision'), 'DESC')
-    ->accessCheck(FALSE)
-    ->execute();
-  $vids = array_keys($query);
-
-  $variables['status'] = 'Unpublished Content';
-  $previous_revision_status = 'published';
-  if ($node->isDefaultRevision() && $node->isPublished()) {
-    $variables['status'] = 'Published Content';
-    foreach ($vids as $vid) {
-      if ($vid != $variables['revision_id']) {
-        /** @var \Drupal\Core\Entity\ContentEntityInterface $revision */
-        if ($revision = $node_storage->loadRevision($vid)) {
-          if ($revision->wasDefaultRevision() && $revision->get('status')->value) {
-            $variables['previous_revision_id'] = $vid;
-            break;
-          }
-        }
-      }
-    }
-  }
-  else {
-    foreach ($vids as $vid) {
-      if ($vid != $variables['revision_id']) {
-        /** @var \Drupal\Core\Entity\ContentEntityInterface $revision */
-        if ($revision = $node_storage->loadRevision($vid)) {
-          if ($revision->isDefaultRevision() && $revision->get('status')->value) {
-            $variables['status'] = 'Draft of Published Content';
-            $variables['previous_revision_id'] = $vid;
-            break;
-          }
-        }
-      }
-    }
-  }
-  if (!isset($variables['previous_revision_id']) && count($vids) > 1) {
-    $variables['previous_revision_id'] = $vids[1];
-    $previous_revision_status = '';
-  }
-  $variables['revision_diff_label'] = "Compare with previous $previous_revision_status version";
-}
-
-/**
- * Implements hook_preprocess_HOOK().
- */
 function vagovadmin_preprocess_paragraph(&$variables) {
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
 
-  if (!empty($variables['elements']['#contextual_links'])) {
-    $variables['paragraph_name'] = $paragraph->type->entity->label();
+  // Don't provide edit links for individual items in 'group' paragraphs.
+  $child_paragraphs = ['collapsible_panel_item', 'link_teaser'];
+
+  if (!empty($variables['title_suffix']['contextual_links'])) {
+    if (in_array($paragraph->getType(), $child_paragraphs)) {
+      unset($variables['title_suffix']['contextual_links']);
+    }
+    else {
+      $variables['paragraph_name'] = $paragraph->type->entity->label();
+    }
   }
 
   if ($paragraph->getType() === 'q_a') {
@@ -78,6 +29,10 @@ function vagovadmin_preprocess_paragraph(&$variables) {
     $parent = $paragraph->getParentEntity();
     if ($parent->bundle() === 'q_a_section') {
       $variables['as_accordion'] = $parent->field_accordion_display->value;
+      if ($parent->{$paragraph->parent_field_name->value}->count() === 1) {
+        unset($variables['title_suffix']['contextual_links']);
+        unset($variables['paragraph_name']);
+      }
     }
   }
 }
