@@ -147,7 +147,7 @@ source:
   # All the fields that are used from the source.
 # The destination fields mapped and processed from source fields.
 process:
-  // Migrate namespaced data that can be accessed in hook_entity_presave().
+  # Migrate namespaced data that can be accessed in hook_entity_presave().
   migrate/flags/deleted: Deleted
   migrate/deleted_date: DeletedDate
   # If it is an intranet form, it should not be migrated.
@@ -177,7 +177,7 @@ process:
       source:
         - constants/title_prefix
         - displayName
-#  field_benefit_categories:
+  # field_benefit_categories:
   field_va_form_administration:
     plugin: static_map
     source: OwnerId
@@ -191,7 +191,7 @@ process:
   field_va_form_title: FormTitle
   # @TODO this is not mapping correctly yet.
   field_va_form_type: FormType
-#  field_va_form_link_teasers:
+  # field_va_form_link_teasers:
   field_va_form_issue_date:
     -
       plugin: skip_on_empty
@@ -225,8 +225,6 @@ process:
       replace: ["Jan/", "Nov/", "Dec/", "Jan/", "Feb/", "Feb/", "Mar/", "Mar/", "Apr/", "Apr/", "May/", "May/", "Jun/", "Jun/", "Jul/", "Jul/", "Aug/", "Aug/", "Sep/", "Sep/", "Oct/"]
     -
       plugin: format_date
-      # mm/yyyy
-      # @TODO THIS is not working or single digit months with no leading 0.
       from_format: M/Y
       to_format: Y-m-d
 #  field_va_form_tool_intro:
@@ -238,7 +236,6 @@ process:
     plugin: default_value
     default_value: 0
   # Bring these in as unpublished.
-  # @TODO work out how to un-publish if deleted flag is set.
   status:
     plugin: default_value
     default_value: 0
@@ -289,14 +286,23 @@ destination:
   # Only these fields will be overwritten if the content changes in the API.
   overwrite_properties:
     - changed
-    - field_operating_status_facility
-    - field_operating_status_more_info
     - new_revision
     - revision_default
     - revision_log
     - revision_timestamp
     - revision_uid
     - uid
+    - field_administration
+    - field_va_form_administration
+    - field_va_form_issue_date
+    - field_va_form_issue_date
+    - field_va_form_name
+    - field_va_form_num_pages
+    - field_va_form_number
+    - field_va_form_title
+    - field_va_form_type
+    - field_va_form_url
+    - title
 # Dependency on other migrations.
 migration_dependencies:
   required: {  }

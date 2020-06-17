@@ -135,19 +135,180 @@ source:
     administration_section: 196
     idprefix: vha_
     title_prefix: 'Va Form '
-process: '// Migrate namespaced data that can be accessed in hook_entity_presave(). migrate/flags/deleted: Deleted migrate/deleted_date: DeletedDate non_field1: plugin: skip_on_value source: IntranetOnly method: row value: - 1 non_field_path: plugin: static_map source: FormType map: VHA: ''https://www.va.gov/vaforms/medical/pdf/'' VA: ''https://www.va.gov/vaforms/va/pdf/'' VBA: ''http://www.vba.va.gov/pubs/forms/'' bypass: FALSE non_field_url: plugin: concat source: - ''@non_field_path'' - FileName title: - plugin: concat source: - constants/title_prefix - displayName field_va_form_administration: plugin: static_map source: OwnerId map: 0: 3 1: 1 2: 5 bypass: FALSE field_va_form_name: FormTitle field_va_form_number: displayName field_va_form_title: FormTitle field_va_form_type: FormType field_va_form_issue_date: - plugin: skip_on_empty method: process source: issue_date - plugin: format_date from_format: ''Y-m-d H:i:s'' to_format: ''Y-m-d'' field_va_form_url: plugin: get source: - link_name - ''@non_field_url'' field_va_form_num_pages: Pages field_administration: constants/administration_section field_va_form_revision_date: - plugin: skip_on_empty method: process source: revision_date - plugin: str_replace search: ["01/", "11/", "12/", "1/", "02/", "2/", "03/", "3/", "04/", "4/", "05/", "5/", "06/", "6/", "07/", "7/", "08/", "8/", "09/", "9/", "10/"] replace: ["Jan/", "Nov/", "Dec/", "Jan/", "Feb/", "Feb/", "Mar/", "Mar/", "Apr/", "Apr/", "May/", "May/", "Jun/", "Jun/", "Jul/", "Jul/", "Aug/", "Aug/", "Sep/", "Sep/", "Oct/"] - plugin: format_date from_format: M/Y to_format: Y-m-d promote: plugin: default_value default_value: 0 sticky: plugin: default_value default_value: 0 status: plugin: default_value default_value: 0 promote: plugin: default_value default_value: 0 sticky: plugin: default_value default_value: 0 path/pathauto: plugin: default_value default_value: 1 published_status: plugin: default_value default_value: 0 moderation_state: plugin: default_value default_value: draft uid: plugin: default_value default_value: 1317 new_revision: plugin: default_value default_value: true revision_default: plugin: default_value default_value: true revision_log: plugin: default_value default_value: "Update of form metadata from Forms DB." revision_timestamp: plugin: callback callable: time revision_uid: plugin: default_value default_value: 1317 changed: plugin: callback callable: time type: plugin: default_value default_value: va_form'
+process:
+  migrate/flags/deleted: Deleted
+  migrate/deleted_date: DeletedDate
+  non_field1:
+    plugin: skip_on_value
+    source: IntranetOnly
+    method: row
+    value:
+      - 1
+  non_field_path:
+    plugin: static_map
+    source: FormType
+    map:
+      VHA: 'https://www.va.gov/vaforms/medical/pdf/'
+      VA: 'https://www.va.gov/vaforms/va/pdf/'
+      VBA: 'http://www.vba.va.gov/pubs/forms/'
+    bypass: false
+  non_field_url:
+    plugin: concat
+    source:
+      - '@non_field_path'
+      - FileName
+  title:
+    -
+      plugin: concat
+      source:
+        - constants/title_prefix
+        - displayName
+  field_va_form_administration:
+    plugin: static_map
+    source: OwnerId
+    map:
+      - 3
+      - 1
+      - 5
+    bypass: false
+  field_va_form_name: FormTitle
+  field_va_form_number: displayName
+  field_va_form_title: FormTitle
+  field_va_form_type: FormType
+  field_va_form_issue_date:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: issue_date
+    -
+      plugin: format_date
+      from_format: 'Y-m-d H:i:s'
+      to_format: Y-m-d
+  field_va_form_url:
+    plugin: get
+    source:
+      - link_name
+      - '@non_field_url'
+  field_va_form_num_pages: Pages
+  field_administration: constants/administration_section
+  field_va_form_revision_date:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: revision_date
+    -
+      plugin: str_replace
+      search:
+        - 01/
+        - 11/
+        - 12/
+        - 1/
+        - 02/
+        - 2/
+        - 03/
+        - 3/
+        - 04/
+        - 4/
+        - 05/
+        - 5/
+        - 06/
+        - 6/
+        - 07/
+        - 7/
+        - 08/
+        - 8/
+        - 09/
+        - 9/
+        - 10/
+      replace:
+        - Jan/
+        - Nov/
+        - Dec/
+        - Jan/
+        - Feb/
+        - Feb/
+        - Mar/
+        - Mar/
+        - Apr/
+        - Apr/
+        - May/
+        - May/
+        - Jun/
+        - Jun/
+        - Jul/
+        - Jul/
+        - Aug/
+        - Aug/
+        - Sep/
+        - Sep/
+        - Oct/
+    -
+      plugin: format_date
+      from_format: M/Y
+      to_format: Y-m-d
+  promote:
+    plugin: default_value
+    default_value: 0
+  sticky:
+    plugin: default_value
+    default_value: 0
+  status:
+    plugin: default_value
+    default_value: 0
+  path/pathauto:
+    plugin: default_value
+    default_value: 1
+  published_status:
+    plugin: default_value
+    default_value: 0
+  moderation_state:
+    plugin: default_value
+    default_value: draft
+  uid:
+    plugin: default_value
+    default_value: 1317
+  new_revision:
+    plugin: default_value
+    default_value: true
+  revision_default:
+    plugin: default_value
+    default_value: true
+  revision_log:
+    plugin: default_value
+    default_value: 'Update of form metadata from Forms DB.'
+  revision_timestamp:
+    plugin: callback
+    callable: time
+  revision_uid:
+    plugin: default_value
+    default_value: 1317
+  changed:
+    plugin: callback
+    callable: time
+  type:
+    plugin: default_value
+    default_value: va_form
 destination:
   plugin: 'entity:node'
   default_bundle: va_form
   overwrite_properties:
     - changed
-    - field_operating_status_facility
-    - field_operating_status_more_info
     - new_revision
     - revision_default
     - revision_log
     - revision_timestamp
     - revision_uid
     - uid
+    - field_administration
+    - field_va_form_administration
+    - field_va_form_issue_date
+    - field_va_form_issue_date
+    - field_va_form_name
+    - field_va_form_num_pages
+    - field_va_form_number
+    - field_va_form_title
+    - field_va_form_type
+    - field_va_form_url
+    - title
 migration_dependencies:
   required: {  }
