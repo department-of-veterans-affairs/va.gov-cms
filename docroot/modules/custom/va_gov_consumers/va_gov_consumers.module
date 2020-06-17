@@ -38,6 +38,7 @@ function _va_gov_consumers_content() {
  * Implements hook_form_alter().
  */
 function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  _vagov_consumers_modify_va_form_fields($form, $form_id, $form_state);
   _vagov_consumers_disable_vha_api_form_fields($form, $form_id);
   _vagov_consumers_disable_non_vha_facilities_api_form_fields($form, $form_id);
 }
@@ -127,38 +128,48 @@ function _vagov_consumers_disable_non_vha_facilities_api_form_fields(array &$for
 }
 
 /**
- * Implements hook_form_BASE_FORM_ID_alter().
+ * Modify the display of the fields on va_form.
+ *
+ * @param array $form
+ *   A drupal form array by reference.
+ * @param string $form_id
+ *   The machine name for the form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state by reference.
  */
-function va_gov_consumers_form_node_va_form_edit_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  $nid = $form_state->getformObject()->getEntity()->id();
-  $node = \Drupal\node\Entity\Node::load($nid);
-  $title = "<h1>{$node->getTitle()}</h1>";
+function _vagov_consumers_modify_va_form_fields(&$form, $form_id, \Drupal\Core\Form\FormStateInterface &$form_state) {
+  if ($form_id === 'node_va_form_edit_form' || $form_id === 'node_va_form_form') {
+    $node = $form_state->getformObject()->getEntity();
+    $title = "<h1>{$node->getTitle()}</h1>";
 
-  $form_name = $form['field_va_form_name'];
-  unset($form['field_va_form_name']);
+    $form_name = $form['field_va_form_name'];
+    // We want the form name in a different location, so remove it from here.
+    unset($form['field_va_form_name']);
 
-  $form['header'] = [
-    '#type' => 'fieldset',
-    '#weight' => 0,
-    '#collapsible' => FALSE,
-  ];
-  $form['header']['title'] = [
-    '#markup' => $title . '<div class="description">This non-editable page title is automatically set by the VA forms database.</div>',
-  ];
-  $form['header']['field_va_form_name'] = $form_name;
+    $form['header'] = [
+      '#type' => 'fieldset',
+      '#weight' => 0,
+      '#collapsible' => FALSE,
+      'title' => [
+        '#markup' => $title . '<div class="description">This non-editable page title is automatically set by the VA forms database.</div>',
+      ],
+      'field_va_form_name' => $form_name,
+    ];
 
-  _va_gov_consumers_external_content($form, $form_state);
+    _va_gov_consumers_disable_external_content_editing($form, $form_state);
 
-  $form['field_benefit_categories']['#states'] = [
-    'visible' => [
-      ':input[id="edit-field-va-form-type"]' => ['value' => 'benefit'],
-    ],
-  ];
-  $form['field_va_form_tool_intro']['#states'] = [
-    'visible' => [
-      ':input[id="edit-field-va-form-tool-url-0-uri"]' => ['filled' => true],
-    ],
-  ];
+    // Show benefit categories only if benefit is selected.
+    $form['field_benefit_categories']['#states'] = [
+      'visible' => [
+        ':input[id="edit-field-va-form-type"]' => ['value' => 'benefit'],
+      ],
+    ];
+    $form['field_va_form_tool_intro']['#states'] = [
+      'visible' => [
+        ':input[id="edit-field-va-form-tool-url-0-uri"]' => ['filled' => true],
+      ],
+    ];
+  }
 }
 
 /**
@@ -172,9 +183,8 @@ function va_gov_consumers_form_node_va_form_edit_form_alter(&$form, \Drupal\Core
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state.
  */
-function _va_gov_consumers_external_content(&$form, FormStateInterface $form_state) {
-  $nid = $form_state->getformObject()->getEntity()->id();
-  $node = \Drupal\node\Entity\Node::load($nid);
+function _va_gov_consumers_disable_external_content_editing(&$form, FormStateInterface $form_state) {
+  $node = $form_state->getformObject()->getEntity();
 
   $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
   $readonly_content = $viewBuilder->view($node, 'external_content');
@@ -184,15 +194,23 @@ function _va_gov_consumers_external_content(&$form, FormStateInterface $form_sta
     '#weight' => 1,
   ];
 
-  if (!empty($form) && !empty($form['#fieldgroups'])) {
+  $is_admin = in_array('administrator', \Drupal::currentUser()->getRoles());
+  $has_va_form_number = !empty($node->get('field_va_form_number')->value);
+
+  // If the user is not admin or and there is migrated data, hide the fields.
+  // We want admis to have access to the fields in case they have to temporarily
+  // fix bad data from the forms db.  It will get wiped out each night.
+  if ((!$is_admin) && ($has_va_form_number) && (!empty($form) && !empty($form['#fieldgroups']))) {
     foreach ($form['#fieldgroups'] as &$fieldgroup) {
-      if ($fieldgroup->format_settings['id'] === 'external-content') {
+      if (!empty($fieldgroup->format_settings['id']) && $fieldgroup->format_settings['id'] === 'external-content') {
         foreach ($fieldgroup->children as $field) {
           unset($form[$field]);
-          unset($fieldgroup);
         }
+
         break;
       }
+      // Break the reference from the foreach.
+      unset($fieldgroup);
     }
   }
 }
