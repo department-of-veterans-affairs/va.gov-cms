@@ -51,6 +51,7 @@ function run_test(int $start_time, string $cmd, int $id) {
   }
 
   if (!$process->isSuccessful()) {
+    echo $id . ' ######################' . PHP_EOL;
     echo sprintf(
       'Unable to execute the following command %s {output: %s}',
       $process->getCommandLine(),
@@ -58,11 +59,9 @@ function run_test(int $start_time, string $cmd, int $id) {
     );
   }
 
-  echo $id . ' ######################' . PHP_EOL;
-  echo$process->getErrorOutput();
-  echo $process->getOutput();
+  if ($process->isSuccessful()) {
+
+    echo$process->getErrorOutput();
+    echo $process->getOutput();
+  }
 }
-
-
-
-
