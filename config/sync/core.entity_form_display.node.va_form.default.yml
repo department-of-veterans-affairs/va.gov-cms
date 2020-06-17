@@ -103,12 +103,12 @@ third_party_settings:
       weight: 5
       format_type: details
       format_settings:
-        description: ''
-        open: true
+        description: 'These fields are populated by migration from the Forms DB.  WARNING: Any changes made to these fields will be overwritten on the next migration.  These should be used only for temporary data adjustments.'
         required_fields: true
         id: external-content
         classes: ''
-      label: 'Editable forms data'
+        open: false
+      label: 'Forms DB data'
       region: content
 id: node.va_form.default
 targetEntityType: node
