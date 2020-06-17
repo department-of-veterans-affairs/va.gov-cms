@@ -346,12 +346,13 @@ function _va_gov_backend_inline_form_facility_service(array &$entity_form, &$for
     ];
 
     // Show address if field widget if not using facility address.
+    $selector = sprintf(':input[name="field_about[form][inline_entity_form][entities][%d][form][field_use_facility_address]"]', $entity_form['#ief_row_delta']);
     foreach ($toggle_fields as $toggle) {
       $entity_form[$toggle]['#states'] = [
         'invisible' => [
-          [':input[name="field_about[form][inline_entity_form][field_use_facility_address]"]' => ['value' => 'yes']],
+          [$selector => ['value' => 'yes']],
           'or',
-          [':input[name="field_about[form][inline_entity_form][entities][0][form][field_use_facility_address]"]' => ['value' => 'yes']],
+          [':input[name="field_about[form][inline_entity_form][field_use_facility_address]"]' => ['value' => 'yes']],
         ],
       ];
     }
