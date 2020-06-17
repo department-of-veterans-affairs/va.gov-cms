@@ -51,17 +51,20 @@ function run_test(int $start_time, string $cmd, int $id) {
   }
 
   if (!$process->isSuccessful()) {
-    echo $id . ' ######################' . PHP_EOL;
+    echo $id . ' ERROR ######################' . PHP_EOL;
+
     echo sprintf(
       'Unable to execute the following command %s {output: %s}',
       $process->getCommandLine(),
       $process->getErrorOutput()
     );
+
+    echo $process->getOutput();
   }
 
   if ($process->isSuccessful()) {
-
-    echo$process->getErrorOutput();
+    echo $id . ' SUCCESS ######################' . PHP_EOL;
+    echo $process->getErrorOutput();
     echo $process->getOutput();
   }
 }
