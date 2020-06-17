@@ -147,6 +147,9 @@ source:
   # All the fields that are used from the source.
 # The destination fields mapped and processed from source fields.
 process:
+  // Migrate namespaced data that can be accessed in hook_entity_presave().
+  migrate/flags/deleted: Deleted
+  migrate/deleted_date: DeletedDate
   # If it is an intranet form, it should not be migrated.
   non_field1:
     plugin: skip_on_value
