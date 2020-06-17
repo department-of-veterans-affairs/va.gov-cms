@@ -15,11 +15,10 @@ class ValidNumberValidator extends ConstraintValidator {
    */
   public function validate($items, Constraint $constraint) {
     foreach ($items as $item) {
-      if (!preg_match("/^\d{3}-\d{3}-\d{4}$/", $item->value)) {
-        // Not a valid phone number.
+      // Check for phone number, then short codes, then tty. No match = proceed.
+      if (!preg_match("/^\d{3}-\d{3}-\d{4}$/", $item->value) && !preg_match("/^\d{3}$/", $item->value) && !preg_match("/^\d{5}$/", $item->value) && !preg_match("/^\d{6}$/", $item->value)) {
         $this->context->addViolation($constraint->notValid, ['%value' => $item->value]);
       }
-
     }
   }
 
