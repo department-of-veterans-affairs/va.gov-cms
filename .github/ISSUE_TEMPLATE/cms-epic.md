@@ -3,7 +3,7 @@ name: Epic
 about: A epic for the CMS team.
 title: "<Insert summary of epic>"
 labels: Epic
-assignees: kevwalsh
+assignees: 
 
 ---
 
@@ -72,7 +72,8 @@ This is particularly relevant for feature launches, or for making changes to the
 
 
 ## Labels for  this issue
-- [/] Issue type (red) (defaults to Epic)
+(You can delete this section once it's complete)
+- [x] Issue type (red) (defaults to Epic)
 - [ ] CMS subsystem (green)
 - [ ] CMS practice area (blue)
 - [ ] CMS objective (orange)
