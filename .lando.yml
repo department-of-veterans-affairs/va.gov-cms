@@ -125,6 +125,10 @@ tooling:
     description: "Run this command to see the strange problem where `lando test behat` does not work."
     cmd: "composer yaml-tests va/tests/behat"
 
+  test_performance:
+    service: appserver
+    cmd: "php scale.php"
+
   # NPM and NODE are now installed via composer install: this ensures version consistency.
   npm:
     service: appserver

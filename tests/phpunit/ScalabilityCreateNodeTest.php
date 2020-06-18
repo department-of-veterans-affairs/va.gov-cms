@@ -48,7 +48,7 @@ class ScalabilityCreateNodeTest extends ExistingSiteBase {
     while ($cur_time < $endtime) {
       $cur_time = Timer::read(static::TIMER_NAME);
       $node = $this->createNode([
-        'title' => 'Llama',
+        'title' => $this->randomString(),
         'type' => 'page',
         'uid' => $author->id(),
       ]);
