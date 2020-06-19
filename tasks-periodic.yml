@@ -8,7 +8,7 @@ va/background/daily/migrate_copy/va_forms_csv_source:
     - cd docroot/sites/default/files/migrate_source
     - curl http://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt --output va_forms_data.csv
 
-va/background/daily/migrate/health_care_local_facility:
+va/background/daily/migrate/va_forms:
   description: Migrate va forms.
   command:
     - drush $DRUSH_ALIAS migrate-reset-status va_node_form
