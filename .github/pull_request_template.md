@@ -19,6 +19,5 @@ As user _uid_ with _user_role_
 - [ ] The other thing
 
 ## Definition of Done
-- [ ] Product release notes 
-- [ ] Documentation has been updated, if applicable
-- [ ] A link has been provided to the originating GitHub issue (or connected to it via ZenHub)
+- [ ] Product release are written (or in progress), if required.
+- [ ] Documentation has been updated, if applicable.

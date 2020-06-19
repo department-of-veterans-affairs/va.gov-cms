@@ -33,8 +33,9 @@ Add any other context about the problem here.
 
 
 ## Labels
-- [/] Issue type (red) (defaults to "Defect")
+(You can delete this section once it's complete)
+- [x] Issue type (red) (defaults to "Defect")
 - [ ] CMS subsystem (green)
 - [ ] CMS practice area (blue)
-- [/] CMS objective (orange) (not needed for bug tickets)
+- [x] CMS objective (orange) (not needed for bug tickets)
 - [ ] CMS-supported product (black)

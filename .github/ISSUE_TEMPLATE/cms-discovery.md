@@ -9,6 +9,8 @@ assignees: kevwalsh
 
 ## *About this form*
 
+*Have you looked at the [Public Websites intake form](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=lunascoop&labels=vsa-public-websites%2C+vsa%2C+vsa-public-websites-intake%2C+needs-grooming%2C+Epic&template=public-websites-intake.md&title=%3CType+of+Request%3E+from+%3CTeam%3E)? If the "Why you're here" section fits your product's needs, please use that form instead!* 
+
 *If you don't have the answer yet to some of the questions, that's fine!*
 
 *A CMS team member will be in touch to schedule a meeting to review, within a few days of receiving it, although the timing of that depends on our sprint capacity in the current and upcoming sprints. We allocate a set number of story points to each sprint to support VFS product teams.*
