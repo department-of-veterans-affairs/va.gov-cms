@@ -10,7 +10,7 @@ assignees: howardbrande
 [template in progress]
 
 ## Labels
-- [/] Issue type (red) - should default to support request
-- [/] CMS practice area (blue) - should default to
-- [/] CMS Objective (orange) - should default to O4:
+- [ ] Issue type (red) - should default to support request
+- [ ] CMS practice area (blue) - should default to
+- [ ] CMS Objective (orange) - 
 - [ ] CMS-supported product (black)

@@ -2,7 +2,7 @@
 name: CMS access request
 about: Includes instructions for requesting access within the CMS itself.
 title: Requesting CMS access for <insert name or team>.
-labels: ''
+labels: 'Helpdesk & support & training'
 assignees: howardbrande
 
 ---
