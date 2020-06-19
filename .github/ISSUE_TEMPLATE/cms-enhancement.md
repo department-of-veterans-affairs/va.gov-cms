@@ -25,7 +25,8 @@ Problem description. How might we _____________ ?
 <optional>
 
 ## Labels
-- [/] Issue type (red) (defaults to Enhancement)
+(You can delete this section once it's complete)
+- [x] Issue type (red) (defaults to Enhancement)
 - [ ] CMS subsystem (green)
 - [ ] CMS practice area (blue)
 - [ ] CMS Objective (orange)
