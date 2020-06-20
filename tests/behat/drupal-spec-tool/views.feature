@@ -8,7 +8,10 @@ Feature: Views
      Scenario: Views
        Then exactly the following views should exist
        | Name | Machine name | Base table | Status | Description |
+| Administration section | administration_section | Taxonomy terms | Enabled | Top-level items in the Section taxonomy |
 | Archive | archive | Content | Disabled | All content, by month. |
+| Benefits hub list | benefits_hub_list | Content | Enabled |  |
+| VA Forms | va_forms | Content | Enabled | VA forms dashboard |
 | Custom block library | block_content | Custom Block | Enabled | Find and manage custom blocks. |
 | Build info | build_info | Content | Enabled |  |
 | Child terms | child_terms | Taxonomy terms | Enabled |  |
@@ -55,9 +58,13 @@ Feature: Views
      Scenario: Views displays
        Then exactly the following views displays should exist
        | View | Title | Machine name | Display plugin |
+| Administration section | Entity Reference | entity_reference_1 | Entity Reference |
+| Administration section | Master | default | Master |
 | Archive | Block | block_1 | Block |
 | Archive | Master | default | Master |
 | Archive | Page | page_1 | Page |
+| Benefits hub list | Entity Reference | entity_reference_1 | Entity Reference |
+| Benefits hub list | Master | default | Master |
 | Blocks listing | Master | default | Master |
 | Blocks listing | Promo blocks | page_1 | Page |
 | Blocks listing | Alert Blocks | page_2 | Page |
@@ -134,6 +141,8 @@ Feature: Views
 | Taxonomy term | Master | default | Master |
 | Taxonomy term | Feed | feed_1 | Feed |
 | Taxonomy term | Page | page_1 | Page |
+| VA Forms | Master | default | Master |
+| VA Forms | Page | page_1 | Page |
 | VAMC alerts and operating statuses | Master | default | Master |
 | VAMC alerts and operating statuses | Page | page_1 | Page |
 | VAMC operating statuses | Master | default | Master |

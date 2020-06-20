@@ -1,0 +1,22 @@
+uuid: a73b094a-9733-43e9-a060-3c66448459f2
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: va_form
+label: 'VA Form'
+type: 'canonical_entities:node'
+pattern: 'find-forms/about-form-[node:field_va_form_number]'
+selection_criteria:
+  276371fd-d970-41d6-8fb3-31e96bd700a5:
+    id: node_type
+    bundles:
+      va_form: va_form
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 276371fd-d970-41d6-8fb3-31e96bd700a5
+selection_logic: and
+weight: -5
+relationships: {  }

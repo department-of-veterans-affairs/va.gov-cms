@@ -1,0 +1,314 @@
+uuid: 3e53c582-e360-4118-9cb5-a9c6f7a6e3fc
+langcode: en
+status: true
+dependencies: {  }
+id: va_node_form
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - Continuous
+  - Content
+  - Node
+migration_group: forms
+label: 'Node - Forms DB migration.'
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: csv
+  item_selector: ''
+  urls:
+    - 'https://prod.cms.va.gov/sites/default/files/migrate_source/va_forms_data.csv'
+  delimiter: ','
+  enclosure: '"'
+  escape: ''
+  header_offset: 1
+  multi_value_delimiter: ','
+  fields:
+    -
+      name: FormNum
+      label: 'The identifying number of the form. Not really a number.'
+    -
+      name: FormTitle
+      label: 'The friendly name of the form.'
+    -
+      name: FileName
+      label: 'The filename of the form.'
+    -
+      name: Orientation
+      label: 'Page orientation (portrait or landscape).'
+    -
+      name: PageSize
+      label: 'Code for size of printed form (0 = 8.5 x 11).'
+    -
+      name: Pages
+      label: 'Number of pages.'
+    -
+      name: IntranetOnly
+      label: 'Flag for intranet use (0 = public).'
+    -
+      name: SignatureRequired
+      label: 'Flag for needing signature.'
+    -
+      name: WebPrint
+      label: 'Flag for printing.'
+    -
+      name: WebFilledPrint
+      label: 'Flag for fillable print.'
+    -
+      name: ElectronicSubmit
+      label: 'Flag for electronic submission.'
+    -
+      name: OwnerId
+      label: 'Number representing the form owner (0=VHA, 1=VBA, 2=VA).'
+    -
+      name: Comments
+      label: 'Notes about the form.'
+    -
+      name: InstallationDate
+      label: 'Sometimes corresponds to issue_date (2016-09-20 08:07:10).'
+    -
+      name: Deleted
+      label: 'Flag for the form being deleted (should trigger unpublish).'
+    -
+      name: DeletedDate
+      label: 'The date it was deleted (no data, format uncertain).'
+    -
+      name: Usage
+      label: unknown/unused.
+    -
+      name: ReasonCode
+      label: unknown/unused.
+    -
+      name: PackagingCode
+      label: unknown/unused.
+    -
+      name: SupplierCode
+      label: unknown/unused.
+    -
+      name: SubmitParameters
+      label: unknown/unused.
+    -
+      name: SubmitType
+      label: unknown/unused.
+    -
+      name: FormType
+      label: 'They type of form (VA, VHA, VBA).'
+    -
+      name: OnlineFormURL
+      label: 'The URL for an online tool (uncertain).'
+    -
+      name: filename_accelio
+      label: unknown/unused.
+    -
+      name: link_name
+      label: 'The url to any externally hosted form. Misleading field.'
+    -
+      name: revision_date
+      label: 'The date the entry was revised. (inconsistent empty or mm/yyyy)'
+    -
+      name: issue_date
+      label: 'Date with midnight time (2019-02-20 00:00:00)'
+    -
+      name: displayName
+      label: 'The formNum with prefix.'
+    -
+      name: rowid
+      label: 'The unique id (key) in the forms DB.'
+    -
+      name: prefix
+      label: 'The prefix on the form name.'
+    -
+      name: formkeywords
+      label: 'Additional text about the current status.'
+  replace:
+    '  ': ' - '
+    : ':'
+  keys:
+    - rowid
+  track_changes: true
+  skip_count: false
+  ids:
+    rowid:
+      type: integer
+  constants:
+    administration_section: 196
+    idprefix: vha_
+    title_prefix: 'Va Form '
+process:
+  migrate/flags/deleted: Deleted
+  migrate/deleted_date: DeletedDate
+  non_field1:
+    plugin: skip_on_value
+    source: IntranetOnly
+    method: row
+    value:
+      - 1
+  non_field_path:
+    plugin: static_map
+    source: FormType
+    map:
+      VHA: 'https://www.va.gov/vaforms/medical/pdf/'
+      VA: 'https://www.va.gov/vaforms/va/pdf/'
+      VBA: 'http://www.vba.va.gov/pubs/forms/'
+    bypass: false
+  non_field_url:
+    plugin: concat
+    source:
+      - '@non_field_path'
+      - FileName
+  title:
+    -
+      plugin: concat
+      source:
+        - constants/title_prefix
+        - displayName
+  field_va_form_administration:
+    plugin: static_map
+    source: OwnerId
+    map:
+      - 3
+      - 1
+      - 5
+    bypass: false
+  field_va_form_name: FormTitle
+  field_va_form_number: displayName
+  field_va_form_title: FormTitle
+  field_va_form_type: FormType
+  field_va_form_issue_date:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: issue_date
+    -
+      plugin: format_date
+      from_format: 'Y-m-d H:i:s'
+      to_format: Y-m-d
+  field_va_form_url:
+    plugin: get
+    source:
+      - link_name
+      - '@non_field_url'
+  field_va_form_num_pages: Pages
+  field_administration: constants/administration_section
+  field_va_form_revision_date:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: revision_date
+    -
+      plugin: str_replace
+      search:
+        - 01/
+        - 11/
+        - 12/
+        - 1/
+        - 02/
+        - 2/
+        - 03/
+        - 3/
+        - 04/
+        - 4/
+        - 05/
+        - 5/
+        - 06/
+        - 6/
+        - 07/
+        - 7/
+        - 08/
+        - 8/
+        - 09/
+        - 9/
+        - 10/
+      replace:
+        - Jan/
+        - Nov/
+        - Dec/
+        - Jan/
+        - Feb/
+        - Feb/
+        - Mar/
+        - Mar/
+        - Apr/
+        - Apr/
+        - May/
+        - May/
+        - Jun/
+        - Jun/
+        - Jul/
+        - Jul/
+        - Aug/
+        - Aug/
+        - Sep/
+        - Sep/
+        - Oct/
+    -
+      plugin: format_date
+      from_format: M/Y
+      to_format: Y-m-d
+  promote:
+    plugin: default_value
+    default_value: 0
+  sticky:
+    plugin: default_value
+    default_value: 0
+  status:
+    plugin: default_value
+    default_value: 0
+  path/pathauto:
+    plugin: default_value
+    default_value: 1
+  published_status:
+    plugin: default_value
+    default_value: 0
+  moderation_state:
+    plugin: default_value
+    default_value: draft
+  uid:
+    plugin: default_value
+    default_value: 1317
+  new_revision:
+    plugin: default_value
+    default_value: true
+  revision_default:
+    plugin: default_value
+    default_value: true
+  revision_log:
+    plugin: default_value
+    default_value: 'Update of form metadata from Forms DB.'
+  revision_timestamp:
+    plugin: callback
+    callable: time
+  revision_uid:
+    plugin: default_value
+    default_value: 1317
+  changed:
+    plugin: callback
+    callable: time
+  type:
+    plugin: default_value
+    default_value: va_form
+destination:
+  plugin: 'entity:node'
+  default_bundle: va_form
+  overwrite_properties:
+    - changed
+    - new_revision
+    - revision_default
+    - revision_log
+    - revision_timestamp
+    - revision_uid
+    - uid
+    - field_administration
+    - field_va_form_administration
+    - field_va_form_issue_date
+    - field_va_form_issue_date
+    - field_va_form_name
+    - field_va_form_num_pages
+    - field_va_form_number
+    - field_va_form_title
+    - field_va_form_type
+    - field_va_form_url
+    - title
+migration_dependencies:
+  required: {  }

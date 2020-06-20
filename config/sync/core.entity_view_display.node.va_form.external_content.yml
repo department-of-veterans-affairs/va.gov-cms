@@ -1,0 +1,143 @@
+uuid: 15582280-a74a-48fc-9666-32a46b6a2208
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.external_content
+    - field.field.node.va_form.field_administration
+    - field.field.node.va_form.field_benefit_categories
+    - field.field.node.va_form.field_meta_tags
+    - field.field.node.va_form.field_va_form_administration
+    - field.field.node.va_form.field_va_form_issue_date
+    - field.field.node.va_form.field_va_form_link_teasers
+    - field.field.node.va_form.field_va_form_name
+    - field.field.node.va_form.field_va_form_num_pages
+    - field.field.node.va_form.field_va_form_number
+    - field.field.node.va_form.field_va_form_related_forms
+    - field.field.node.va_form.field_va_form_revision_date
+    - field.field.node.va_form.field_va_form_title
+    - field.field.node.va_form.field_va_form_tool_intro
+    - field.field.node.va_form.field_va_form_tool_url
+    - field.field.node.va_form.field_va_form_type
+    - field.field.node.va_form.field_va_form_url
+    - field.field.node.va_form.field_va_form_usage
+    - node.type.va_form
+  module:
+    - datetime
+    - field_group
+    - layout_builder
+    - link
+    - user
+third_party_settings:
+  field_group:
+    group_related_to:
+      children:
+        - field_benefit_categories
+        - field_va_form_type
+      parent_name: ''
+      weight: 16
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Related to'
+      region: hidden
+    group_online_tool:
+      children:
+        - field_va_form_tool_intro
+        - field_va_form_tool_url
+      parent_name: ''
+      weight: 17
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Online tool'
+      region: hidden
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: node.va_form.external_content
+targetEntityType: node
+bundle: va_form
+mode: external_content
+content:
+  field_va_form_administration:
+    type: entity_reference_label
+    weight: 5
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+  field_va_form_issue_date:
+    type: datetime_default
+    weight: 3
+    region: content
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: short_date_no_time
+    third_party_settings: {  }
+  field_va_form_num_pages:
+    type: number_integer
+    weight: 6
+    region: content
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+  field_va_form_number:
+    type: string
+    weight: 1
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_va_form_revision_date:
+    type: datetime_default
+    weight: 4
+    region: content
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: short_date_no_time
+    third_party_settings: {  }
+  field_va_form_title:
+    type: string
+    weight: 2
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_va_form_url:
+    type: link
+    weight: 0
+    region: content
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_benefit_categories: true
+  field_meta_tags: true
+  field_va_form_link_teasers: true
+  field_va_form_name: true
+  field_va_form_related_forms: true
+  field_va_form_tool_intro: true
+  field_va_form_tool_url: true
+  field_va_form_type: true
+  field_va_form_usage: true
+  links: true
+  search_api_excerpt: true
