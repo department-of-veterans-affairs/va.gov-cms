@@ -4216,29 +4216,29 @@
         },
         {
             "name": "drupal/cshs",
-            "version": "1.0.0-beta4",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/cshs.git",
-                "reference": "8.x-1.0-beta4"
+                "reference": "8.x-1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/cshs-8.x-1.0-beta4.zip",
-                "reference": "8.x-1.0-beta4",
-                "shasum": "332c4cf5b70644ab65b338706186e390256a034e"
+                "url": "https://ftp.drupal.org/files/projects/cshs-8.x-1.1.zip",
+                "reference": "8.x-1.1",
+                "shasum": "81897bfd620997b73f0c80601cb622d9be4e967c"
             },
             "require": {
-                "drupal/core": "^8"
+                "drupal/core": "^8 || ^9"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta4",
-                    "datestamp": "1497737343",
+                    "version": "8.x-1.1",
+                    "datestamp": "1590339253",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -4248,22 +4248,35 @@
             ],
             "authors": [
                 {
-                    "name": "BR0kEN",
-                    "homepage": "https://www.drupal.org/user/2802285"
+                    "name": "Walter Jenner",
+                    "homepage": "https://drupal.org/u/valderama"
                 },
                 {
-                    "name": "purushotam.rai",
-                    "homepage": "https://www.drupal.org/user/3193859"
+                    "name": "Sergii Bondarenko",
+                    "homepage": "https://drupal.org/u/BR0kEN",
+                    "email": "sb@firstvector.org"
                 },
                 {
-                    "name": "valderama",
-                    "homepage": "https://www.drupal.org/user/103634"
+                    "name": "Daneel Cruz",
+                    "homepage": "https://drupal.org/u/daneelcm"
+                },
+                {
+                    "name": "Purushotam Rai",
+                    "homepage": "https://drupal.org/u/purushotam.rai"
                 }
             ],
             "description": "A simple client-side hierarchical select widget for taxonomy terms.",
             "homepage": "https://www.drupal.org/project/cshs",
+            "keywords": [
+                "client-side-select",
+                "hierarchical-select",
+                "module",
+                "select",
+                "taxonomy"
+            ],
             "support": {
-                "source": "https://git.drupalcode.org/project/cshs"
+                "source": "https://git.drupalcode.org/project/cshs",
+                "issues": "https://www.drupal.org/project/issues/cshs"
             }
         },
         {
@@ -19235,7 +19248,6 @@
         "drupal/blazy": 5,
         "drupal/cer": 15,
         "drupal/content_lock": 15,
-        "drupal/cshs": 10,
         "drupal/entity_block": 10,
         "drupal/entity_clone": 10,
         "drupal/entityqueue": 10,
@@ -19258,6 +19270,7 @@
         "drupal/tour_ui": 10,
         "drupal/user_history": 15,
         "drupal/uswds": 10,
+        "drupal/views_data_export": 10,
         "drupal/views_tree": 15,
         "drupal/workbench_access": 10,
         "guzzlehttp/guzzle": 20,
