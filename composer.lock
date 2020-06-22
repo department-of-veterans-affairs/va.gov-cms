@@ -5304,26 +5304,26 @@
         },
         {
             "name": "drupal/entity_reference_unpublished",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/entity_reference_unpublished.git",
-                "reference": "8.x-1.1"
+                "reference": "8.x-1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity_reference_unpublished-8.x-1.1.zip",
-                "reference": "8.x-1.1",
-                "shasum": "864124a181f587d243fd891d36f86f4494d0432f"
+                "url": "https://ftp.drupal.org/files/projects/entity_reference_unpublished-8.x-1.2.zip",
+                "reference": "8.x-1.2",
+                "shasum": "a0685c19126506cda83cb2becb7cfa6c51b2bd1c"
             },
             "require": {
-                "drupal/core": "~8.0"
+                "drupal/core": "^8 || ^9"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.1",
-                    "datestamp": "1508332743",
+                    "version": "8.x-1.2",
+                    "datestamp": "1589564667",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -18731,10 +18731,10 @@
                 "behat/mink-selenium2-driver": "1.4.0 | 1.3.1 | 1.3.x-dev",
                 "composer/installers": "^1.2",
                 "dmore/chrome-mink-driver": "^2.6",
-                "drupal-composer/drupal-scaffold": "2.3.0",
-                "drupal/core": "^8.8@alpha",
-                "drupal/core-dev": "^8.8",
-                "drush/drush": "^9",
+                "drupal/core-composer-scaffold": "^9",
+                "drupal/core-dev": "^9",
+                "drupal/core-recommended": "^9",
+                "drush/drush": "^10",
                 "jakub-onderka/php-parallel-lint": "^1.0",
                 "squizlabs/php_codesniffer": "^3.2",
                 "zaporylie/composer-drupal-optimizations": "^1.0"
@@ -18745,6 +18745,16 @@
                     "web/core": [
                         "type:drupal-core"
                     ]
+                },
+                "drupal-scaffold": {
+                    "locations": {
+                        "web-root": "web/"
+                    },
+                    "file-mapping": {
+                        "[project-root]/.editorconfig": false,
+                        "[project-root]/.gitattributes": false,
+                        "[project-root]/.gitignore": false
+                    }
                 }
             },
             "autoload": {
@@ -19258,6 +19268,7 @@
         "drupal/tour_ui": 10,
         "drupal/user_history": 15,
         "drupal/uswds": 10,
+        "drupal/views_data_export": 10,
         "drupal/views_tree": 15,
         "drupal/workbench_access": 10,
         "guzzlehttp/guzzle": 20,
