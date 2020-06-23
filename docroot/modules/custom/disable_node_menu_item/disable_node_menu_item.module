@@ -78,7 +78,6 @@ function disable_node_menu_item_submit(array $form, FormStateInterface $form_sta
     $menu_links = $menu_link_manager->loadLinksByRoute('entity.node.canonical', ['node' => $node->id()]);
     if (count($menu_links)) {
       foreach ($menu_links as $menu_link) {
-        $definition = $menu_link->getPluginDefinition();
         $definition['enabled'] = $form_state->getValue(['menu', 'link_enabled']);
         $menu_link_manager->updateDefinition($menu_link->getPluginId(), $definition);
       }
