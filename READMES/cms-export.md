@@ -3,7 +3,7 @@
 
 ## Overview
 
-The CMS Export system is a term for an unconventional approach to make all published content and file assets in the CMS available as two TAR archive files. The TAR files are generated on demand and always up to date with the most recently published content. 
+The CMS Export system is a term for an unconventional approach to make all published content and file assets in the CMS available as two TAR archive files. The TAR files are generated on demand and always up to date with the most recently published content.
 
 This architecture was chosen for performance and scalability, but also found to be superior over traditional Restful, JSON API or GraphQL approaches since the primary use case for the build system is to always request a full content export
 
@@ -13,7 +13,7 @@ The content and file assets are made available for the consumption of the Conten
 Filename: cms-content-export-latest.tar \
 Size: 64MB \
 Files: 22,688  \
-Response time: ~0.5s 
+Response time: ~0.5s
 
 2. Endpoint: [https://prod.cms.va.gov/cms-export/asset](https://prod.cms.va.gov/cms-export/asset) \
 Filename: cms-asset-export-latest.tar \
@@ -24,11 +24,11 @@ Response time: ~1.5s
 
 ### Motivation
 
-A system that builds and deploys content from prod.cms.va.gov to [www.va.gov](www.va.gov) within a minute of being published is paramount to providing modern editorial experience within a decoupled CMS architecture. There are editors who are migrating to the CMS and are expecting to publish content in under a minute based on experiences with the Teamsite CMS. 
+A system that builds and deploys content from prod.cms.va.gov to [www.va.gov](www.va.gov) within a minute of being published is paramount to providing modern editorial experience within a decoupled CMS architecture. There are editors who are migrating to the CMS and are expecting to publish content in under a minute based on experiences with the Teamsite CMS.
 
 There are three main components that were taking up time in the content build & deploy process. The build script, the content request from CMS and the deployment itself. If we were to use traditional API methods and better caching management it is estimated that maybe we could get the entire process down to 30 seconds and the build script would also have to be refactored to make many hundreds and eventually thousands of requests. The requests would be made faster because of better caching but there would have been thousands _per build_, and multiplying that by a multitude of PRs that build off of PROD, would have been quite large.
 
-The approach to export all content as JSON has moved the cache to disk and solved the issue mentioned above. 
+The approach to export all content as JSON has moved the cache to disk and solved the issue mentioned above.
 
 As this is a 100% static build process, the usual instant publishing aspect of Drupal is not applicable in this case and outside the box thinking was required as the CMS was already taking up 90+ seconds for PROD builds (and 3-4 minutes on DEV/STAGING builds) just to serve the existing ~1,000 items of content and would only slow more as content increased, while also pushing memory consumption higher and higher on both the CMS server and Jenkins build server.
 
@@ -36,7 +36,7 @@ We discussed incremental build approaches and decided against it for 3 reasons:
 
 *   **Timeline**. We initially had a short timeline of 1-2 months.
 *   **Complexity**. Incremental build approaches introduce complexity and risk. Given the timeline, the extra risk was not something we wanted to explore. We had experimented with a full content build system using the CMS Export (Tome Sync) approach and it was very fast. We could achieve our sub-1 minute total build and deploy goal without the extra risk that came with incremental build approaches.
-*   **Full Export Still Needed**. We would have still needed fresh, non-incremental builds on occasion, and those would still need a full content request. The way around that would have been to manage a base content state in a central content store, and incrementally update that state and have everything fetch from that state store, which would have added complexity. 
+*   **Full Export Still Needed**. We would have still needed fresh, non-incremental builds on occasion, and those would still need a full content request. The way around that would have been to manage a base content state in a central content store, and incrementally update that state and have everything fetch from that state store, which would have added complexity.
 
 ## How does it work
 
@@ -47,7 +47,7 @@ TODO: Link to diagram showing how it is consumed by the build system
 
 ## Implementation Notes
 
-Every piece of published content in the CMS is exported starting at the Node level, which is made up of fields and sub-entities that are embedded inside the Node. For example a regular piece of content is made up of about 10 JSON files total exported per piece of content (a node). The top level JSON file references the entity UUID of the sub-entities, and the frontend build script stitches together all of these references (very quickly).
+Every piece of published content in the CMS is exported starting at the Node level, which is made up of fields and sub-entities that are embedded inside the Node. For example a regular piece of content is made up of about 10 JSON files total exported per piece of content (a node). The top-level JSON file references the entity UUID of the sub-entities, and the frontend build script stitches together all of these references (very quickly).
 
 The way we achieved this is by using the Drupal 8 module, [Tome Sync](https://git.drupalcode.org/project/tome/-/tree/8.x-1.x/modules/tome_sync). With Tome Sync there was an initial, one-time export on prod.cms.va.gov to the sites/default/files/cms-content-export folder which initially exported about ~22,000 JSON files. Then, upon every publish operation it updates just the files that changed, on disk.
 
@@ -65,7 +65,7 @@ The way we achieved this is by using the Drupal 8 module, [Tome Sync](https://gi
 
 ### Modifications to the CMS deployments/server infrastructure
 
-In order to make this performant on the CMS we had to transition from an AWS EFS network disk volume to a native AWS EBS disk volume. 
+In order to make this performant on the CMS we had to transition from an AWS EFS network disk volume to a native AWS EBS disk volume.
 
 The deployments were modified to the following sequence of events:
 
@@ -78,12 +78,22 @@ TODO: Create a diagram showing the deployment state backup/restoration
 
 ## Caveats
 
-1. This architecture only works with a single instance, and not in a multiple instance High Availability setup (HA) which we had not upgraded to yet anyways but have plans to do so in https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1716.
-1. Content model changes require a new full export on deploy, manual process in progress with https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1850 until the process is automated with https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1851.
+1. This architecture only works with a single instance right now, and not in a multiple instance High Availability setup (HA) which we had not upgraded to yet anyways but have plans to do so in https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1716.
+1. Content model changes require a new, full export on deploy otherwise only newly published content would get the content model updates. Until the automation export on content model change story is complete in https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1851. Ideally the new export steps below would be just after the `drush config:import` Ansible task in the deploy but we cannot pause a deploy so it needs to be after the deploy. Here are the manual steps for a fresh export that captures the content model changes:
+    1. Login to server then `cd /var/www/cms`
+    1. Temporarily stop new content from being published or else it won't make the export: `sudo -u apache bash -c "source /etc/sysconfig/httpd; /usr/local/bin/drush site_alert:create 'deploy-alert' 'Site maintenance in progress, CMS will be available in 10 minutes' --severity=low --duration='20'"`
+    1. Temporarily install Drush 10: `source /etc/sysconfig/httpd; PATH=$PATH:/usr/local/bin composer require drush/drush:~10`
+    1. Confirm Drush version: `bin/drush --version` = "Drush Commandline Tool 10.3.0"
+    1. Restart Apache to pick up new opcache changes: `sudo service httpd restart`
+    1. Run the export (this takes too long right now, ~10m, because Tome Sync exports asset files too, which we don't want for our use case): `bin/drush tome:export --process-count=7 --entity-count=500`, then "yes"
+    1. Downgrade back to Drush 8: `source /etc/sysconfig/httpd; PATH=$PATH:/usr/local/bin composer require drush/drush:~8`
+    1. Re-enable new content to be published: `sudo -u apache bash -c "source /etc/sysconfig/httpd; /usr/local/bin/drush site_alert:delete 'deploy-alert'"`
+    1. TODO: Figure out how to keep the existing export working while the export is in progress, so that there is zero downtime for the request.
+
 
 ## Roadmap
 
-1. [WIP] https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1716 - Explore a solution to allow the CMS Export to work in a High Availability setup (HA) which we will need in the months to come so that we can scale the CMS load over multiple instances and availability zones to increase redundancy. This solution requires a high performance networked filesystem of which EFS is _not_ high performance. 
-1. [WIP] https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1713 - Decrease deployment window to less than 5 minutes. 
-1. [WIP] https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1849 - Automate the export based on content model changes by looking for changes to the [/tests/behat/drupal-spec-tool](https://github.com/department-of-veterans-affairs/va.gov-cms/tree/master/tests/behat/drupal-spec-tool) folder. 
-1. The GraphQL system is still being used for a part of the build process, specifically the sidebar menus. The time for that request is minimal, 1-2 seconds. Moving that into the export system should be considered for maintainability and to reduce complexity. The effort required to implement was not worth the 2 seconds in savings at this time.  
+1. [WIP] https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1716 - Explore a solution to allow the CMS Export to work in a High Availability setup (HA) which we will need in the months to come so that we can scale the CMS load over multiple instances and availability zones to increase redundancy. This solution requires a high performance networked filesystem of which EFS is _not_ high performance.
+1. [WIP] https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1713 - Decrease deployment window to less than 5 minutes.
+1. [WIP] https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1849 - Automate the export based on content model changes by looking for changes to the [/tests/behat/drupal-spec-tool](https://github.com/department-of-veterans-affairs/va.gov-cms/tree/master/tests/behat/drupal-spec-tool) folder.
+1. The GraphQL system is still being used for a part of the build process, specifically the sidebar menus. The time for that request is minimal, 1-2 seconds. Moving that into the export system should be considered for maintainability and to reduce complexity. The effort required to implement was not worth the 2 seconds in savings at this time.
