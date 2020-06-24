@@ -26,58 +26,65 @@
       }
     }
 
-    .contextual-region, &.contextual-region {
-      .contextual {
-        .trigger {
-          display: none;
+     .contextual-region, &.contextual-region {
+       .paragraph--metadata > .contextual {
+         button.trigger {
+           display: none;
+         }
+
+         .contextual-links {
+           display: block;
+           border: none;
+           top: -0.4rem;
+           background-color: inherit;
+
+           li.paragraphsedit-paragraph {
+             background-color: inherit;
+
+             a {
+               position: relative; /* 1 */
+               display: inline-block;
+               box-sizing: border-box;
+               cursor: pointer;
+               -webkit-transition: all 0.1s;
+               transition: all 0.1s;
+               text-align: center;
+               text-decoration: none;
+               color: #333;
+               border: 1px solid #a6a6a6;
+               background-color: #f2f1eb;
+               background-image: -webkit-linear-gradient(top, #f6f6f3, #e7e7df);
+               background-image: linear-gradient(to bottom, #f6f6f3, #e7e7df);
+               text-shadow: 0 1px hsla(0, 0%, 100%, 0.6);
+               font-size: 0.875rem; /* 5 */
+               font-weight: 600;
+               -webkit-appearance: none; /* 3 */
+               -moz-appearance: none; /* 3 */
+               -webkit-font-smoothing: antialiased; /* 6 */
+               padding: 0.5rem;
+               border-radius: .8rem;
+               line-height: .4;
+             }
+           }
+         }
+       }
+
+      .proof-edit {
+        position: absolute;
+        top: 0.25rem;
+        right: 3.5rem;
+        font-size: .875rem;
+
+        &:only-child {
+          font-size: .7rem;
+          right: 0.4rem;
         }
 
-        .contextual-links {
-          display: block;
-          border: none;
-          top: -0.4rem;
-          background-color: inherit;
-
-          li.paragraphsedit-paragraph {
-            background-color: inherit;
-            a {
-              position: relative; /* 1 */
-              display: inline-block;
-              box-sizing: border-box;
-              cursor: pointer;
-              -webkit-transition: all 0.1s;
-              transition: all 0.1s;
-              text-align: center;
-              text-decoration: none;
-              color: #333;
-              border: 1px solid #a6a6a6;
-              background-color: #f2f1eb;
-              background-image: -webkit-linear-gradient(top, #f6f6f3, #e7e7df);
-              background-image: linear-gradient(to bottom, #f6f6f3, #e7e7df);
-              text-shadow: 0 1px hsla(0, 0%, 100%, 0.6);
-              font-size: 0.875rem; /* 5 */
-              font-weight: 600;
-              -webkit-appearance: none; /* 3 */
-              -moz-appearance: none; /* 3 */
-              -webkit-font-smoothing: antialiased; /* 6 */
-              padding: 0.5rem;
-              border-radius: .8rem;
-              line-height: .4;
-            }
-          }
+        .proof-label {
+          color: #336633;
+          line-height: 1;
+          font-weight: 700;
         }
-      }
-    }
-    .proof-edit {
-      position: absolute;
-      top: 0.25rem;
-      right: 3.5rem;
-      font-size: .875rem;
-
-      .proof-label {
-        color: #336633;
-        line-height: 1;
-        font-weight: 700;
       }
     }
 
@@ -98,11 +105,6 @@
     .paragraph--type--link-teaser {
       padding-top: 0.4rem;
       padding-bottom: 0.4rem;
-
-      .paragraphsedit-paragraph,
-      .proof-edit {
-        display: none;
-      }
     }
   }
 
@@ -129,21 +131,5 @@
   .paragraph.paragraph--type--spanish-translation-summary {
     padding-left: calc(2rem - 7px);
     border-left: 7px solid #9bdaf1;
-  }
-
-  &[about="/health-care/about-va-health-benefits/your-care-team"] {
-    .paragraph {
-      .contextual {
-        display: block;
-      }
-
-      .proof-edit {
-        right: 2.2rem;
-
-        .paragraph-button {
-          display: none;
-        }
-      }
-    }
   }
 }
