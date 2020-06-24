@@ -49,12 +49,10 @@
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     <div class="paragraph--metadata">
-      {{ title_suffix }}
       {% if paragraph_name %}
-      <div class="proof-edit">
-        <span class="proof-label">{{ paragraph_name }}</span>
-      </div>
+      <div class="proof-label">{{ paragraph_name }}</div>
       {% endif %}
+      {{ title_suffix }}
     </div>
     {% block content %}
       {{ content }}
