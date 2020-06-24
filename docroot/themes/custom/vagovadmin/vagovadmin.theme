@@ -11,6 +11,7 @@
 function vagovadmin_preprocess_paragraph(&$variables) {
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
+  $variables['paragraph_name'] = $paragraph->type->entity->label();
 
   // Don't provide edit links for individual items in 'group' paragraphs.
   $child_paragraphs = ['collapsible_panel_item', 'link_teaser'];
@@ -18,9 +19,6 @@ function vagovadmin_preprocess_paragraph(&$variables) {
   if (!empty($variables['title_suffix']['contextual_links'])) {
     if (in_array($paragraph->getType(), $child_paragraphs)) {
       unset($variables['title_suffix']['contextual_links']);
-    }
-    else {
-      $variables['paragraph_name'] = $paragraph->type->entity->label();
     }
   }
 
@@ -31,7 +29,6 @@ function vagovadmin_preprocess_paragraph(&$variables) {
       $variables['as_accordion'] = $parent->field_accordion_display->value;
       if ($parent->{$paragraph->parent_field_name->value}->count() === 1) {
         unset($variables['title_suffix']['contextual_links']);
-        unset($variables['paragraph_name']);
       }
     }
   }
