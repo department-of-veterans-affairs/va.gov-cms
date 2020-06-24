@@ -2,7 +2,7 @@
   .field--name-field-steps .field__item,
   .paragraph {
     border: #e0eaef solid 0.1rem;
-    padding: 1.8rem 0.6rem 0.2rem;
+    padding: 0.2rem 0.6rem;
     position: relative;
 
     &:hover {
@@ -27,66 +27,69 @@
     }
 
      .contextual-region, &.contextual-region {
-       .paragraph--metadata > .contextual {
-         button.trigger {
-           display: none;
-         }
+       .paragraph--metadata {
+         display: flex;
+         justify-content: flex-end;
 
-         .contextual-links {
+         & > .contextual {
            display: block;
-           border: none;
-           top: -0.4rem;
-           background-color: inherit;
+           position: static;
+           margin-left: 1rem;
 
-           li.paragraphsedit-paragraph {
+           button.trigger {
+             display: none;
+           }
+
+           .contextual-links {
+             display: block;
+             border: none;
+             top: -0.4rem;
              background-color: inherit;
 
-             a {
-               position: relative; /* 1 */
-               display: inline-block;
-               box-sizing: border-box;
-               cursor: pointer;
-               -webkit-transition: all 0.1s;
-               transition: all 0.1s;
-               text-align: center;
-               text-decoration: none;
-               color: #333;
-               border: 1px solid #a6a6a6;
-               background-color: #f2f1eb;
-               background-image: -webkit-linear-gradient(top, #f6f6f3, #e7e7df);
-               background-image: linear-gradient(to bottom, #f6f6f3, #e7e7df);
-               text-shadow: 0 1px hsla(0, 0%, 100%, 0.6);
-               font-size: 0.875rem; /* 5 */
-               font-weight: 600;
-               -webkit-appearance: none; /* 3 */
-               -moz-appearance: none; /* 3 */
-               -webkit-font-smoothing: antialiased; /* 6 */
-               padding: 0.5rem;
-               border-radius: .8rem;
-               line-height: .4;
+             li.paragraphsedit-paragraph {
+               background-color: inherit;
+
+               a {
+                 position: relative; /* 1 */
+                 display: inline-block;
+                 box-sizing: border-box;
+                 cursor: pointer;
+                 -webkit-transition: all 0.1s;
+                 transition: all 0.1s;
+                 text-align: center;
+                 text-decoration: none;
+                 color: #333;
+                 border: 1px solid #a6a6a6;
+                 background-color: #f2f1eb;
+                 background-image: -webkit-linear-gradient(top, #f6f6f3, #e7e7df);
+                 background-image: linear-gradient(to bottom, #f6f6f3, #e7e7df);
+                 text-shadow: 0 1px hsla(0, 0%, 100%, 0.6);
+                 font-size: 0.875rem; /* 5 */
+                 font-weight: 600;
+                 -webkit-appearance: none; /* 3 */
+                 -moz-appearance: none; /* 3 */
+                 -webkit-font-smoothing: antialiased; /* 6 */
+                 padding: 0.5rem;
+                 border-radius: .8rem;
+                 line-height: .4;
+               }
              }
            }
          }
+
+         & *:only-child {
+           font-size: .7rem;
+           right: 0.4rem;
+         }
+
+         .proof-label {
+           display: block;
+           color: #336633;
+           line-height: 1;
+           font-weight: 700;
+         }
        }
-
-      .proof-edit {
-        position: absolute;
-        top: 0.25rem;
-        right: 3.5rem;
-        font-size: .875rem;
-
-        &:only-child {
-          font-size: .7rem;
-          right: 0.4rem;
-        }
-
-        .proof-label {
-          color: #336633;
-          line-height: 1;
-          font-weight: 700;
-        }
-      }
-    }
+     }
 
     .field--name-field-answer {
       .field__item:only-child {
