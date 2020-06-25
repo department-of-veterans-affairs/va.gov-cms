@@ -26,24 +26,27 @@ index ee8b03f..f8d5166 100644
 +    node: \d+
 diff --git a/src/Controller/ParagraphsContextualLinkController.php b/src/Controller/ParagraphsContextualLinkController.php
 new file mode 100644
-index 0000000..97150e1
+index 0000000..900ad43
 --- /dev/null
 +++ b/src/Controller/ParagraphsContextualLinkController.php
-@@ -0,0 +1,58 @@
+@@ -0,0 +1,62 @@
 +<?php
 +
-+
 +namespace Drupal\paragraphs\Controller;
-+
 +
 +use Drupal\Core\Controller\ControllerBase;
 +use Drupal\Core\Routing\IgnoreDestinationRedirectResponse;
 +use Drupal\paragraphs\Entity\Paragraph;
 +use Drupal\Core\Url;
++use Exception;
 +
++/**
++ * Provides a contextual link for editing paragraphs.
++ */
 +class ParagraphsContextualLinkController extends ControllerBase {
 +  public function goToEdit($paragraph) {
 +    $parents = [];
++    /** @var Paragraph $paragraph_object */
 +    $paragraph_object = $this->entityTypeManager()->getStorage('paragraph')->load($paragraph);
 +
 +    $ancestor = self::get_parents($paragraph_object, $parents);
@@ -55,10 +58,11 @@ index 0000000..97150e1
 +        $options['query']['edit_para'][] = $parent;
 +      }
 +
-+      return new IgnoreDestinationRedirectResponse(Url::fromRoute('entity.node.edit_form', $ancestor, $options)->setAbsolute()->toString());
++      $entity_type = $ancestor->getEntityType()->id();
++      return new IgnoreDestinationRedirectResponse(Url::fromRoute("entity.$entity_type.edit_form", [$entity_type => $ancestor->id()], $options)->setAbsolute()->toString());
 +    }
 +    else {
-+      throw new \Exception($this->t('Could not find edit screen for paragraph %id', ['%id' => $paragraph]));
++      throw new Exception($this->t('Could not find edit screen for paragraph %id', ['%id' => $paragraph]));
 +    }
 +  }
 +
@@ -68,28 +72,28 @@ index 0000000..97150e1
 +   * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
 +   *   The paragraph to find the parents of.
 +   * @param array $paragraph_ids
-+   *   An array to hold ancestor paragraph ids.
++   *   An array to hold ids of paragraphs that contain this paragraph.
 +   *
-+   * @return array
-+   *   The id of the non-paragraph entity where the paragraph lives keyed on entity type.
++   * @return \Drupal\node\Entity\Node|null
++   *   The node where the paragraph lives.
 +   */
 +  public static function get_parents(Paragraph $paragraph, array &$paragraph_ids=[]) {
-+    $ancestor = [];
-+
++    $parent_node = NULL;
++    /** @var Paragraph $parent */
 +    $parent = $paragraph->getParentEntity();
 +    if ($parent->getEntityType()->id() === 'paragraph') {
 +      $paragraph_ids[] = $parent->id();
-+      $node_id = self::get_parents($parent, $paragraph_ids);
++      $parent_node = self::get_parents($parent, $paragraph_ids);
 +    }
-+    else {
-+      $ancestor[$parent->getEntityType()->id()] = $parent->id();
++    elseif ($parent->getEntityType()->id() === 'node') {
++      $parent_node = $parent;
 +    }
-+    return $ancestor;
++    return $parent_node;
 +  }
 +
 +}
 diff --git a/src/ParagraphViewBuilder.php b/src/ParagraphViewBuilder.php
-index 87b45eb..891fec7 100644
+index bca9b71..a6a62e9 100644
 --- a/src/ParagraphViewBuilder.php
 +++ b/src/ParagraphViewBuilder.php
 @@ -5,6 +5,8 @@ namespace Drupal\paragraphs;
@@ -101,29 +105,67 @@ index 87b45eb..891fec7 100644
  
  /**
   * Render controller for paragraphs.
-@@ -38,6 +40,17 @@ class ParagraphViewBuilder extends EntityViewBuilder {
+@@ -27,10 +29,10 @@ class ParagraphViewBuilder extends EntityViewBuilder {
+       // might not be available yet.
+       if (!$display) {
+         $display = EntityViewDisplay::create([
+-          'targetEntityType' => 'paragraph',
+-          'bundle' => $build['#paragraph']->bundle(),
+-          'mode' => 'default',
+-          'status' => TRUE,
++            'targetEntityType' => 'paragraph',
++            'bundle' => $build['#paragraph']->bundle(),
++            'mode' => 'default',
++            'status' => TRUE,
+         ]);
+       }
+ 
+@@ -38,9 +40,38 @@ class ParagraphViewBuilder extends EntityViewBuilder {
          $plugin_value->view($build_list[$key], $build['#paragraph'], $display, $build['#view_mode']);
        }
        $build_list[$key]['#attached']['library'][] = 'paragraphs/drupal.paragraphs.unpublished';
-+
+-    }
+ 
 +      /** @var Paragraph $paragraph */
 +      $paragraph = $build_list[$key]['#paragraph'];
-+      $parent = $paragraph->getParentEntity();
-+      if (ParagraphsContextualLinkController::get_parents($paragraph)) {
-+        $build_list[$key]['#contextual_links']['paragraph'] = [
-+            'route_parameters' => [
-+                'paragraph' => $paragraph->id(),
-+            ]
-+        ];
++
++      // If the latest version isn't the current version, don't display edit links on current version.
++      $latest = TRUE;
++      $ancestor = ParagraphsContextualLinkController::get_parents($paragraph);
++      if ($ancestor) {
++        $vids = \Drupal::entityTypeManager()
++            ->getStorage('node')
++            ->revisionIds($ancestor);
++        if ($ancestor->getRevisionId() !== end($vids)) {
++          if (($parent = $paragraph->getParentEntity()) && $parent->hasField($paragraph->get('parent_field_name')->value)) {
++            $parent_field = $paragraph->get('parent_field_name')->value;
++            $field = $parent->get($parent_field);
++            foreach ($field as $value) {
++              if ($value->entity && $value->entity->getRevisionId() == $paragraph->getRevisionId()) {
++                $latest = FALSE;
++                break;
++              }
++            }
++          }
++        }
++        if ($latest) {
++          $build_list[$key]['#contextual_links']['paragraph'] = [
++              'route_parameters' => [
++                  'paragraph' => $paragraph->id(),
++              ]
++          ];
++        }
 +      }
-     }
- 
++    }
      return $build_list;
+   }
+-
+ }
 diff --git a/src/Plugin/Field/FieldWidget/ParagraphsWidget.php b/src/Plugin/Field/FieldWidget/ParagraphsWidget.php
-index 001e9e0..1278089 100644
+index e6decde..740aa6a 100644
 --- a/src/Plugin/Field/FieldWidget/ParagraphsWidget.php
 +++ b/src/Plugin/Field/FieldWidget/ParagraphsWidget.php
-@@ -379,8 +379,12 @@ class ParagraphsWidget extends WidgetBase {
+@@ -380,8 +380,12 @@ class ParagraphsWidget extends WidgetBase {
      elseif (isset($items[$delta]->entity)) {
        $paragraphs_entity = $items[$delta]->entity;
  
@@ -137,7 +179,7 @@ index 001e9e0..1278089 100644
  
          if ($default_edit_mode == 'open' || $widget_state['items_count'] < $this->getSetting('closed_mode_threshold')) {
            $item_mode = 'edit';
-@@ -518,7 +522,8 @@ class ParagraphsWidget extends WidgetBase {
+@@ -519,7 +523,8 @@ class ParagraphsWidget extends WidgetBase {
          ),
        );
  
