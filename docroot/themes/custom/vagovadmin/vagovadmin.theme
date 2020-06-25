@@ -13,22 +13,13 @@ function vagovadmin_preprocess_paragraph(&$variables) {
   $paragraph = $variables['paragraph'];
   $variables['paragraph_name'] = $paragraph->type->entity->label();
 
-  // Don't provide edit links for individual items in 'group' paragraphs.
-  $child_paragraphs = ['collapsible_panel_item', 'link_teaser'];
-
-  if (!empty($variables['title_suffix']['contextual_links'])) {
-    if (in_array($paragraph->getType(), $child_paragraphs)) {
-      unset($variables['title_suffix']['contextual_links']);
-    }
-  }
+  _vagovadmin_filter_contextual_links($variables);
 
   if ($paragraph->getType() === 'q_a') {
     $variables['as_accordion'] = FALSE;
-    $parent = $paragraph->getParentEntity();
-    if ($parent->bundle() === 'q_a_section') {
-      $variables['as_accordion'] = $parent->field_accordion_display->value;
-      if ($parent->{$paragraph->parent_field_name->value}->count() === 1) {
-        unset($variables['title_suffix']['contextual_links']);
+    if ($parent = $paragraph->getParentEntity()) {
+      if ($parent->bundle() === 'q_a_section') {
+        $variables['as_accordion'] = $parent->field_accordion_display->value;
       }
     }
   }
@@ -44,4 +35,30 @@ function vagovadmin_preprocess_field(&$variables) {
   /** @var \Drupal\Core\Field\BaseFieldDefinition $field_def */
   $field_def = $field_defs[$element['#field_name']];
   $variables['description'] = str_replace('"', "'", $field_def->getDescription());
+}
+
+/**
+ * Removes paragraph contextual link if appropriate.
+ *
+ * @param $variables
+ *   The template variables.
+ */
+function _vagovadmin_filter_contextual_links(&$variables) {
+  if (!empty($variables['title_suffix']['contextual_links'])) {
+    /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+    $paragraph = $variables['paragraph'];
+    $parent = $paragraph->getParentEntity();
+
+    // Don't provide edit links for individual items in 'grouped' paragraphs.
+    $grouped_paragraphs = ['collapsible_panel_item', 'link_teaser'];
+
+    if (in_array($paragraph->getType(), $grouped_paragraphs)) {
+      unset($variables['title_suffix']['contextual_links']);
+    }
+    if ($parent->bundle() === 'q_a' || $parent->bundle() === 'q_a_section') {
+      if ($parent->{$paragraph->parent_field_name->value}->count() === 1) {
+        unset($variables['title_suffix']['contextual_links']);
+      }
+    }
+  }
 }
