@@ -2,7 +2,7 @@
   .field--name-field-steps .field__item,
   .paragraph {
     border: #e0eaef solid 0.1rem;
-    padding: 0.2rem 0.6rem;
+    padding: 0.4rem 0.6rem 0.2rem;
     position: relative;
 
     &:hover {
@@ -77,9 +77,9 @@
            }
          }
 
-         & *:only-child {
+         & > *:only-child {
            font-size: .7rem;
-           right: 0.4rem;
+           margin-top: -0.2rem;
          }
 
          .proof-label {
@@ -90,20 +90,6 @@
          }
        }
      }
-
-    .field--name-field-answer {
-      .field__item:only-child {
-        .paragraph {
-          padding-top: 0.4rem;
-          padding-bottom: 0.4rem;
-
-          .paragraphsedit-paragraph,
-          .proof-edit {
-            display: none;
-          }
-        }
-      }
-    }
 
     .paragraph--type--link-teaser {
       padding-top: 0.4rem;
