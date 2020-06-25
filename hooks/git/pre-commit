@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 branch_name=$(git rev-parse --abbrev-ref HEAD)
-error_msg="Aborting commit. Your branch must start start with a VAGOV-* or VACMS-* Jira issue number format, e.g. 'VAGOV-123 or VAGOV-123-issue-name. Use \`git branch --move <VACMS-0000-new-name>\` to rename."
+error_msg="Aborting commit. Your branch must start with a VAGOV-TEAM-* or VACMS-* Github issue number format, e.g. 'VAGOV-TEAM-123-issue-name or VACMS-123-issue-name. Use \`git branch --move <VACMS-0000-new-name>\` to rename."
 # Regular expression to validate that the branch name starts with Jira story ID, e.g. VAGOV-000 or VACMS-000.
-no_match_vagov=1; [[ $branch_name =~ VAGOV-[0-9]+ ]] && no_match_vagov=0
+no_match_vagov=1; [[ $branch_name =~ VAGOV-TEAM-[0-9]+ ]] && no_match_vagov=0
 no_match_vacms=1; [[ $branch_name =~ VACMS-[0-9]+ ]] && no_match_vacms=0
 
 if [ $no_match_vagov == 1 ] && [ $no_match_vacms == 1 ]; then
