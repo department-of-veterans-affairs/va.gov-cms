@@ -1,0 +1,29 @@
+uuid: c1153782-5449-4d44-851a-647c14877ebc
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - field.storage.node.field_alert
+    - node.type.va_form
+id: node.va_form.field_alert
+field_name: field_alert
+entity_type: node
+bundle: va_form
+label: Alert
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      alert: alert
+    sort:
+      field: field_alert_title
+      direction: DESC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
