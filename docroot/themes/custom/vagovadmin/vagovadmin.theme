@@ -45,20 +45,33 @@ function vagovadmin_preprocess_field(&$variables) {
  */
 function _vagovadmin_filter_contextual_links(&$variables) {
   if (!empty($variables['title_suffix']['contextual_links'])) {
+    $remove_link = FALSE;
     /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
     $paragraph = $variables['paragraph'];
     $parent = $paragraph->getParentEntity();
 
     // Don't provide edit links for individual items in 'grouped' paragraphs.
     $grouped_paragraphs = ['collapsible_panel_item', 'link_teaser'];
-
     if (in_array($paragraph->getType(), $grouped_paragraphs)) {
-      unset($variables['title_suffix']['contextual_links']);
+      $remove_link = TRUE;
     }
-    if ($parent->bundle() === 'q_a' || $parent->bundle() === 'q_a_section') {
+    elseif (in_array($parent->bundle(), $grouped_paragraphs)) {
+      $remove_link = TRUE;
+    }
+    elseif ($parent->bundle() === 'alert') {
+      $remove_link = TRUE;
+    }
+    elseif ($parent->bundle() === 'q_a') {
+      $remove_link = TRUE;
+    }
+    elseif ($parent->bundle() === 'q_a_section') {
       if ($parent->{$paragraph->parent_field_name->value}->count() === 1) {
-        unset($variables['title_suffix']['contextual_links']);
+        $remove_link = TRUE;
       }
+    }
+
+    if ($remove_link) {
+      unset($variables['title_suffix']['contextual_links']);
     }
   }
 }
