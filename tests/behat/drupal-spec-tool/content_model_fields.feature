@@ -170,6 +170,7 @@ Feature: Content model fields
 | Content type | Support Service | Page last built | field_page_last_built | Date |  | 1 | Date and time | Translatable |
 | Content type | Support Service | Phone Number | field_phone_number | Telephone number |  | 1 | Telephone number |  |
 | Content type | Support Service | Related office | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VA form | Alert | field_alert | Entity reference |  | 1 | Entity browser | Translatable |
 | Content type | VA form | Benefits hub | field_benefit_categories | Entity reference |  | Unlimited | Check boxes/radio buttons |  |
 | Content type | VA form | Category | field_va_form_type | List (text) |  | 1 | Select list |  |
 | Content type | VA form | Form administration | field_va_form_administration | Entity reference |  | 1 | Select list |  |
