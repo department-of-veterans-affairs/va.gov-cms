@@ -14,8 +14,8 @@
   Drupal.vagovadminTheme.elementHelpIcon = Drupal.vagovadminTheme.elementHelpIcon || {};
   Drupal.vagovadminTheme.elementHelpIcon.options = Drupal.vagovadminTheme.elementHelpIcon.options || {
     trigger: 'click',
-    placement: 'top right',
-    delay: 50
+    placement: 'top auto',
+    delay: 100
   };
 
   /**
@@ -29,7 +29,6 @@
         var $link = $(this);
 
         var options = $.extend({
-          position: {my: 'left top', at: 'left bottom', collision: 'flipfit'},
           content: $link.attr('data-proofing-help'),
           items: '[data-proofing-help]',
           title: $link.attr('data-proofing-help-title'),

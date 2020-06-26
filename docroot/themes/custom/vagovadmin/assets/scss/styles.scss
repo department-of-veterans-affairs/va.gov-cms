@@ -148,22 +148,31 @@
       }
     }
   }
+
   fieldset:not(.fieldgroup) {
     margin: 9px 0 10px 0;
     padding: 10px 18px 0;
 
     > legend {
-      position: inherit;
-      display: none;
+      position: static;
+      padding: 0 4px;
+      letter-spacing: 0.06em;
+      text-transform: none;
+      font-size: .8em;
     }
+  }
+  details.form-wrapper > summary {
+    text-transform: none;
+    font-size: .8em;
   }
 
   .field__item {
-    margin: 0.2rem 0.2rem 0.5rem 0.2rem;
+    margin: 0 0.2rem 0.5rem 0.2rem;
   }
 
   .field--label-above {
     .field__label {
+      position: relative;
       font-size: 1rem;
       color: #7b7b7b;
       margin: 0;
