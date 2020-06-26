@@ -5,28 +5,26 @@
 
 .proofing-element-help {
   display: inline-block;
+  position: absolute;
+  top: 0;
+  margin-left: 4px;
   box-sizing: content-box;
-  border: 2px solid #bbb;
-  background: #bbb;
-  line-height: 14px;
-  height: 14px;
-  width: 14px;
+  background-color: #0074bd;
+  line-height: 16px;
+  height: 16px;
+  width: 16px;
   font-size: 12px;
   color: #fff;
   border-radius: 50%;
   font-weight: bold;
   text-align: center;
-  vertical-align: baseline;
-  margin: 0 0.3em;
-}
+  font-family: "Bitter", "Georgia", "Cambria", "Times New Roman", "Times", serif;
 
-.proofing-element-help:focus,
-.proofing-element-help:active,
-.proofing-element-help:hover {
-  border: 2px solid #0074bd;
-  background: #0074bd;
-  color: #fff;
-  cursor: help;
+  &:focus,
+  &:hover,
+  &:active {
+    cursor: pointer;
+  }
 }
 
 .proofing-element-help--title {
@@ -36,12 +34,13 @@
 }
 
 .ui-tooltip.proofing-element-help--tooltip {
-  max-width: 480px;
+  max-width: 680px;
 }
 .ui-tooltip-content {
   border: 0.1rem solid #cccccc;
   background-color: #ffffff;
   max-width: 600px;
+  min-width: 400px;
   -moz-box-shadow:    3px 2px 2px #ccc;
   -webkit-box-shadow: 3px 2px 2px #ccc;
   box-shadow:         3px 2px 2px #ccc;
