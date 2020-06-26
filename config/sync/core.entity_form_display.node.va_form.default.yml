@@ -3,7 +3,9 @@ langcode: en
 status: true
 dependencies:
   config:
+    - entity_browser.browser.alert_blocks
     - field.field.node.va_form.field_administration
+    - field.field.node.va_form.field_alert
     - field.field.node.va_form.field_benefit_categories
     - field.field.node.va_form.field_meta_tags
     - field.field.node.va_form.field_va_form_administration
@@ -25,6 +27,7 @@ dependencies:
   module:
     - content_moderation
     - datetime
+    - entity_browser
     - field_group
     - link
     - metatag
@@ -37,7 +40,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 11
+      weight: 8
       format_type: details_sidebar
       format_settings:
         description: ''
@@ -53,7 +56,7 @@ third_party_settings:
         - field_va_form_tool_url
         - field_va_form_tool_intro
       parent_name: ''
-      weight: 8
+      weight: 5
       format_type: fieldset
       format_settings:
         id: ''
@@ -67,7 +70,7 @@ third_party_settings:
         - field_va_form_type
         - field_benefit_categories
       parent_name: ''
-      weight: 6
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -79,8 +82,9 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
+        - revision_log
       parent_name: ''
-      weight: 12
+      weight: 9
       format_type: fieldset
       format_settings:
         id: ''
@@ -100,7 +104,7 @@ third_party_settings:
         - field_va_form_administration
         - field_va_form_num_pages
       parent_name: ''
-      weight: 5
+      weight: 1
       format_type: details
       format_settings:
         description: 'These fields are populated by migration from the Forms DB.  WARNING: Any changes made to these fields will be overwritten on the next migration.  These should be used only for temporary data adjustments.'
@@ -110,6 +114,19 @@ third_party_settings:
         open: false
       label: 'Forms DB data'
       region: content
+    group_include_alert:
+      children:
+        - field_alert
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver. You can <a href="/block/add/alert?destination=/admin/content/alerts">create a new alert</a>, or reuse an existing one.'
+        required_fields: true
+      label: 'Include alert'
+      region: content
 id: node.va_form.default
 targetEntityType: node
 bundle: va_form
@@ -117,7 +134,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 13
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -127,6 +144,21 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  field_alert:
+    weight: 7
+    settings:
+      entity_browser: alert_blocks
+      field_widget_display: rendered_entity
+      field_widget_display_settings:
+        view_mode: default
+      field_widget_edit: true
+      field_widget_remove: true
+      open: true
+      selection_mode: selection_append
+      field_widget_replace: false
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+    region: content
   field_benefit_categories:
     weight: 14
     settings: {  }
@@ -134,7 +166,7 @@ content:
     type: options_buttons
     region: content
   field_meta_tags:
-    weight: 15
+    weight: 12
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -153,7 +185,7 @@ content:
     third_party_settings: {  }
   field_va_form_link_teasers:
     type: entity_reference_paragraphs
-    weight: 10
+    weight: 7
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -164,7 +196,7 @@ content:
     third_party_settings: {  }
     region: content
   field_va_form_name:
-    weight: 4
+    weight: 0
     settings:
       size: 60
       placeholder: ''
@@ -187,7 +219,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_va_form_related_forms:
-    weight: 9
+    weight: 6
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -241,7 +273,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
   field_va_form_usage:
-    weight: 7
+    weight: 4
     settings:
       rows: 5
       placeholder: ''
@@ -256,30 +288,9 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 14
+    weight: 11
     region: content
     settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 1
-    region: content
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 3
-    region: content
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 2
-    region: content
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -289,19 +300,13 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 0
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-      match_limit: 10
-    region: content
-    third_party_settings: {  }
   url_redirects:
-    weight: 16
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  promote: true
+  status: true
+  sticky: true
+  uid: true
