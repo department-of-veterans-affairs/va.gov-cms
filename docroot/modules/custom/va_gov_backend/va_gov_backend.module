@@ -294,19 +294,42 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
   }
 
   if (in_array($paragraph_entity_reference_field_name, ['field_phone_numbers_paragraph', 'field_appointment_phone_numbers'])) {
-    $widget_state = WidgetBase::getWidgetState($element['#field_parents'], $paragraph_entity_reference_field_name, $form_state);
+    _va_gov_backend_phone_paragraph_states($element, $form_state, $context);
+  }
+}
 
-    $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'];
-    $paragraph_type = $paragraph_instance->bundle();
+/**
+ * Toggles extension field on and off depending on type selection.
+ *
+ * @param array $element
+ *   The widget.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ * @param array $context
+ *   The context.
+ */
+function _va_gov_backend_phone_paragraph_states(array &$element, FormStateInterface &$form_state, array &$context) {
+  $field_definition = $context['items']->getFieldDefinition();
 
-    if ($paragraph_type === 'phone_number') {
-      $selector = sprintf(':input[name="field_phone_numbers_paragraph[%d][subform][field_phone_number_type]"]', $element['#delta']);
-      $element['subform']['field_phone_extension']['#states'] = [
-        'visible' => [
-          $selector => ['value' => 'phone'],
-        ],
-      ];
-    }
+  /**
+   * @var \Drupal\field\Entity\FieldConfig $field_definition */
+  $paragraph_entity_reference_field_name = $field_definition->getName();
+  $widget_state = WidgetBase::getWidgetState($element['#field_parents'], $paragraph_entity_reference_field_name, $form_state);
+
+  $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'];
+  $paragraph_type = $paragraph_instance->bundle();
+
+  // This interaction hides the extension field if phone option is not selected.
+  if ($paragraph_type === 'phone_number') {
+    // Each paragraph has an incrementing delta.
+    // This allows for controlling state for each unique widget delta.
+    // Otherwise, states management will toggle all elements.
+    $selector = sprintf(':input[name="field_phone_numbers_paragraph[%d][subform][field_phone_number_type]"]', $element['#delta']);
+    $element['subform']['field_phone_extension']['#states'] = [
+      'visible' => [
+        $selector => ['value' => 'phone'],
+      ],
+    ];
   }
 }
 
@@ -325,8 +348,11 @@ function va_gov_backend_inline_entity_form_entity_form_alter(&$entity_form, Form
  * Implements hook_entity_bundle_field_info_alter().
  */
 function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  // Add phone number validation to our phone number field.
+  // Preg matches check for length and format.
+  // If not TTY, Shortcode, or 10 digit dashed format = error thrown.
   if ($entity_type->id() === 'paragraph' && $bundle === 'phone_number' && isset($fields['field_phone_number'])) {
-    $fields['field_phone_number']->addConstraint('ValidNumber');
+    $fields['field_phone_number']->addConstraint('ValidPhoneNumber');
   }
 }
 
