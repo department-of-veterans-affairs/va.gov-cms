@@ -12,8 +12,28 @@ dependencies:
     - field.field.paragraph.react_widget.field_widget_type
     - paragraphs.paragraphs_type.react_widget
   module:
+    - field_group
     - link
     - text
+third_party_settings:
+  field_group:
+    group_optional_sett:
+      children:
+        - field_default_link
+        - field_button_format
+        - field_error_message
+        - field_loading_message
+        - field_timeout
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        description: ''
+        open: true
+        id: ''
+        classes: ''
+      label: 'Optional settings'
+      region: content
 id: paragraph.react_widget.default
 targetEntityType: paragraph
 bundle: react_widget
@@ -21,7 +41,7 @@ mode: default
 content:
   field_button_format:
     type: boolean
-    weight: 2
+    weight: 4
     region: content
     label: above
     settings:
@@ -31,7 +51,7 @@ content:
     third_party_settings: {  }
   field_cta_widget:
     type: boolean
-    weight: 1
+    weight: 0
     region: content
     label: above
     settings:
@@ -53,14 +73,14 @@ content:
     third_party_settings: {  }
   field_error_message:
     type: text_default
-    weight: 4
+    weight: 5
     region: content
     label: above
     settings: {  }
     third_party_settings: {  }
   field_loading_message:
     type: string
-    weight: 5
+    weight: 6
     region: content
     label: above
     settings:
@@ -68,7 +88,7 @@ content:
     third_party_settings: {  }
   field_timeout:
     type: number_integer
-    weight: 6
+    weight: 7
     region: content
     label: above
     settings:
@@ -76,11 +96,12 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
   field_widget_type:
-    weight: 0
+    weight: 1
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
     region: content
-hidden: {  }
+hidden:
+  search_api_excerpt: true
