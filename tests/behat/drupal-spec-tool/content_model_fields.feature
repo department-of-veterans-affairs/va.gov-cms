@@ -371,6 +371,6 @@ Feature: Content model fields
 | Content type | VAMC facility health service | Walk-ins accepted? | field_walk_ins_accepted | List (text) | Required | 1 | Select list |  |
 | Paragraph type | Phone number | Extension number | field_phone_extension | Text (plain) |  | 1 | Textfield | Translatable |
 | Paragraph type | Phone number | Optional note | field_phone_label | Text (plain) |  | 1 | Textfield with counter | Translatable |
-| Paragraph type | Phone number | Phone number | field_phone_number | Text (plain) |  | 1 | Textfield | Translatable |
+| Paragraph type | Phone number | Phone number | field_phone_number | Text (plain) | Required | 1 | Textfield | Translatable |
 | Paragraph type | Phone number | Type | field_phone_number_type | List (text) | Required | 1 | Select list | Translatable |
 
