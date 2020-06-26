@@ -20,7 +20,7 @@ class ValidPhoneNumber extends Constraint {
    *
    * @var \Drupal\va_gov_backend\Plugin\Validation\Constraint
    */
-  public $notValidPhone = '%value is not a valid phone number';
+  public $notValidTel = '%value is not a valid phone number';
 
   /**
    * The message that will be shown if the value is not a valid shortcode.

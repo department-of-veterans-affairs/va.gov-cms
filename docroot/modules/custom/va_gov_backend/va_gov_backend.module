@@ -294,7 +294,7 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
   }
 
   if (in_array($paragraph_entity_reference_field_name, ['field_phone_numbers_paragraph', 'field_appointment_phone_numbers'])) {
-    _va_gov_backend_phone_paragraph_states($element, $form_state, $context);
+    _va_gov_backend_toggle_phone_paragraph_states($element, $form_state, $context);
   }
 }
 
@@ -308,7 +308,7 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
  * @param array $context
  *   The context.
  */
-function _va_gov_backend_phone_paragraph_states(array &$element, FormStateInterface &$form_state, array &$context) {
+function _va_gov_backend_toggle_phone_paragraph_states(array &$element, FormStateInterface &$form_state, array &$context) {
   $field_definition = $context['items']->getFieldDefinition();
 
   /**
@@ -327,7 +327,7 @@ function _va_gov_backend_phone_paragraph_states(array &$element, FormStateInterf
     $selector = sprintf(':input[name="field_phone_numbers_paragraph[%d][subform][field_phone_number_type]"]', $element['#delta']);
     $element['subform']['field_phone_extension']['#states'] = [
       'visible' => [
-        $selector => ['value' => 'phone'],
+        $selector => ['value' => 'tel'],
       ],
     ];
   }
@@ -349,8 +349,6 @@ function va_gov_backend_inline_entity_form_entity_form_alter(&$entity_form, Form
  */
 function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
   // Add phone number validation to our phone number field.
-  // Preg matches check for length and format.
-  // If not TTY, Shortcode, or 10 digit dashed format = error thrown.
   if ($entity_type->id() === 'paragraph' && $bundle === 'phone_number' && isset($fields['field_phone_number'])) {
     $fields['field_phone_number']->addConstraint('ValidPhoneNumber');
   }

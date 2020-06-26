@@ -17,7 +17,7 @@ class ValidPhoneNumberValidator extends ConstraintValidator {
     foreach ($items as $item) {
       // Greater than 9 numbers, so we do a phone number check.
       if (!preg_match("/^\d{3}-\d{3}-\d{4}$/", $item->value) && strlen($item->value) > 9) {
-        $this->context->addViolation($constraint->notValidPhone, ['%value' => $item->value]);
+        $this->context->addViolation($constraint->notValidTel, ['%value' => $item->value]);
       }
       // Length is 5 or 6, so do a shortcode check.
       elseif ((!preg_match("/^\d{5}$/", $item->value) && strlen($item->value) === 5) || (!preg_match("/^\d{6}$/", $item->value)&&strlen($item->value) === 6)) {
