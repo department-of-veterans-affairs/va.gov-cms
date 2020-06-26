@@ -14,7 +14,11 @@
   Drupal.vagovadminTheme.elementHelpIcon = Drupal.vagovadminTheme.elementHelpIcon || {};
   Drupal.vagovadminTheme.elementHelpIcon.options = Drupal.vagovadminTheme.elementHelpIcon.options || {
     trigger: 'click',
-    placement: 'top auto',
+    position: {
+      my: "left bottom",
+      at: "left center",
+      collision: "flipfit flip"
+    },
     delay: 100
   };
 
