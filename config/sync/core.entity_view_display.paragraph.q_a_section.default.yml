@@ -16,11 +16,11 @@ bundle: q_a_section
 mode: default
 content:
   field_accordion_display:
-    weight: 0
+    weight: 2
     label: hidden
     settings:
       format: custom
-      format_custom_true: 'This Q&A section will display as accordions'
+      format_custom_true: 'Q&A''s in this section will display as accordions'
       format_custom_false: ''
     third_party_settings: {  }
     type: boolean
@@ -35,7 +35,7 @@ content:
     third_party_settings: {  }
     region: content
   field_section_header:
-    weight: 1
+    weight: 0
     label: visually_hidden
     settings:
       link_to_entity: false
@@ -43,7 +43,7 @@ content:
     type: string
     region: content
   field_section_intro:
-    weight: 2
+    weight: 1
     label: visually_hidden
     settings: {  }
     third_party_settings: {  }
