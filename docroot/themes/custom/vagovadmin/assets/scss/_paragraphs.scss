@@ -86,15 +86,33 @@
     }
   }
 
-  .field--name-field-steps .field__item {
-    border: #e0eaef solid 1px;
-    padding: 0.4rem 0.6rem 0.2rem;
-  }
   .field--name-field-accordion-display.field__item {
     font-style: italic;
     font-size: .9rem;
     margin: 1rem 0 .5rem;
     color: #555;
+  }
+
+  ol.process-steps {
+    list-style: none;
+    counter-reset: process-counter;
+
+    li {
+      counter-increment: process-counter;
+
+      &::before {
+        content: counter(process-counter);
+        border: 1px solid #999;
+        float: left;
+        margin-right: 1rem;
+        border-radius: 50%;
+        padding: .1rem .5rem;
+      }
+
+      .process-item {
+        margin-left: 3rem;
+      }
+    }
   }
 
   .paragraph--type--list-of-link-teasers .field--name-field-title {
