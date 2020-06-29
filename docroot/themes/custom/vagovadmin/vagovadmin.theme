@@ -1,4 +1,5 @@
 <?php
+use Drupal\paragraphs\Controller\ParagraphsContextualLinkController;
 
 /**
  * @file
@@ -11,7 +12,10 @@
 function vagovadmin_preprocess_paragraph(&$variables) {
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
-  $variables['paragraph_name'] = $paragraph->type->entity->label();
+  $node_parent = ParagraphsContextualLinkController::get_parents($paragraph);
+  if (!empty($node_parent) && $node_parent->bundle() === 'page') {
+    $variables['paragraph_name'] = $paragraph->type->entity->label();
+  }
 
   _vagovadmin_filter_contextual_links($variables);
 
@@ -45,28 +49,33 @@ function vagovadmin_preprocess_field(&$variables) {
  */
 function _vagovadmin_filter_contextual_links(&$variables) {
   if (!empty($variables['title_suffix']['contextual_links'])) {
-    $remove_link = FALSE;
-    /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
-    $paragraph = $variables['paragraph'];
-    $parent = $paragraph->getParentEntity();
+    $remove_link = TRUE;
 
-    // Don't provide edit links for individual items in 'grouped' paragraphs.
-    $grouped_paragraphs = ['collapsible_panel_item', 'link_teaser'];
-    if (in_array($paragraph->getType(), $grouped_paragraphs)) {
-      $remove_link = TRUE;
-    }
-    elseif (in_array($parent->bundle(), $grouped_paragraphs)) {
-      $remove_link = TRUE;
-    }
-    elseif ($parent->bundle() === 'alert') {
-      $remove_link = TRUE;
-    }
-    elseif ($parent->bundle() === 'q_a') {
-      $remove_link = TRUE;
-    }
-    elseif ($parent->bundle() === 'q_a_section') {
-      if ($parent->{$paragraph->parent_field_name->value}->count() === 1) {
+    if (!empty($variables['paragraph_name'] )) {
+      $remove_link = FALSE;
+
+      /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+      $paragraph = $variables['paragraph'];
+      $parent = $paragraph->getParentEntity();
+
+      // Don't provide edit links for individual items in 'grouped' paragraphs.
+      $grouped_paragraphs = ['collapsible_panel_item', 'link_teaser'];
+      if (in_array($paragraph->getType(), $grouped_paragraphs)) {
         $remove_link = TRUE;
+      }
+      elseif (in_array($parent->bundle(), $grouped_paragraphs)) {
+        $remove_link = TRUE;
+      }
+      elseif ($parent->bundle() === 'alert') {
+        $remove_link = TRUE;
+      }
+      elseif ($parent->bundle() === 'q_a') {
+        $remove_link = TRUE;
+      }
+      elseif ($parent->bundle() === 'q_a_section') {
+        if ($parent->{$paragraph->parent_field_name->value}->count() === 1) {
+          $remove_link = TRUE;
+        }
       }
     }
 
