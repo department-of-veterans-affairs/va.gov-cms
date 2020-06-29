@@ -294,12 +294,12 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
   }
 
   if (in_array($paragraph_entity_reference_field_name, ['field_phone_numbers_paragraph', 'field_appointment_phone_numbers'])) {
-    _va_gov_backend_toggle_phone_paragraph_states($element, $form_state, $context);
+    _va_gov_backend_modify_phone_paragraph_interactions($element, $form_state, $context);
   }
 }
 
 /**
- * Toggles extension field on and off depending on type selection.
+ * Toggles extension field, adds Validation constraint error id match to html.
  *
  * @param array $element
  *   The widget.
@@ -308,7 +308,7 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
  * @param array $context
  *   The context.
  */
-function _va_gov_backend_toggle_phone_paragraph_states(array &$element, FormStateInterface &$form_state, array &$context) {
+function _va_gov_backend_modify_phone_paragraph_interactions(array &$element, FormStateInterface &$form_state, array &$context) {
   $field_definition = $context['items']->getFieldDefinition();
 
   /**
@@ -319,11 +319,13 @@ function _va_gov_backend_toggle_phone_paragraph_states(array &$element, FormStat
   $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'];
   $paragraph_type = $paragraph_instance->bundle();
 
-  // This interaction hides the extension field if phone option is not selected.
+  // 1. Hide the extension field if phone option is not selected.
+  // 2. Add constraint error message jumplink to phone field.
   if ($paragraph_type === 'phone_number') {
     // Each paragraph has an incrementing delta.
-    // This allows for controlling state for each unique widget delta.
-    // Otherwise, states management will toggle all elements.
+    // Allows for controlling state / adding id for each unique widget delta.
+    // Otherwise, all elements will be affected.
+    $element['subform']['field_phone_number']['#attributes']['id'] = sprintf('edit-field-phone-numbers-paragraph-%d-subform-field-phone-number', $element['#delta']);
     $selector = sprintf(':input[name="field_phone_numbers_paragraph[%d][subform][field_phone_number_type]"]', $element['#delta']);
     $element['subform']['field_phone_extension']['#states'] = [
       'visible' => [
