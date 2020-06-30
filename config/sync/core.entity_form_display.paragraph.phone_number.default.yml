@@ -1,0 +1,56 @@
+uuid: b8cb0d1a-18ab-4fb8-9475-d3708c9007e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.phone_number.field_phone_extension
+    - field.field.paragraph.phone_number.field_phone_label
+    - field.field.paragraph.phone_number.field_phone_number
+    - field.field.paragraph.phone_number.field_phone_number_type
+    - paragraphs.paragraphs_type.phone_number
+  module:
+    - textfield_counter
+id: paragraph.phone_number.default
+targetEntityType: paragraph
+bundle: phone_number
+mode: default
+content:
+  field_phone_extension:
+    weight: 2
+    settings:
+      size: 10
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_phone_label:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+      maxlength: 100
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: "<p>Add a note to differentiate when there are multiple numbers of the same type. This will display next to the number. (e.g. Phone: 123-456-7890 - Inpatient surgery, Phone: 321-654-0987 - Outpatient surgery)</p>\r\nCharacters remaining: <span class=\"remaining_count\">@remaining_count</span>"
+      use_field_maxlength: false
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_phone_number:
+    weight: 1
+    settings:
+      size: 25
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_phone_number_type:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+hidden:
+  created: true
+  status: true

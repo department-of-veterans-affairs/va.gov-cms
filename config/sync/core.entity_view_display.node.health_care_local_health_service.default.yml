@@ -6,10 +6,16 @@ dependencies:
     - field.field.node.health_care_local_health_service.field_administration
     - field.field.node.health_care_local_health_service.field_body
     - field.field.node.health_care_local_health_service.field_facility_location
+    - field.field.node.health_care_local_health_service.field_online_scheduling_availabl
+    - field.field.node.health_care_local_health_service.field_phone_numbers_paragraph
+    - field.field.node.health_care_local_health_service.field_referral_required
     - field.field.node.health_care_local_health_service.field_regional_health_service
+    - field.field.node.health_care_local_health_service.field_walk_ins_accepted
     - node.type.health_care_local_health_service
   module:
+    - entity_reference_revisions
     - field_group
+    - options
     - text
     - user
 third_party_settings:
@@ -17,7 +23,7 @@ third_party_settings:
     group_vha_health_service_name_an:
       children: {  }
       parent_name: ''
-      weight: 7
+      weight: 11
       format_type: fieldset
       format_settings:
         description: ''
@@ -49,6 +55,29 @@ content:
     third_party_settings: {  }
     type: text_default
     region: content
+  field_online_scheduling_availabl:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_phone_numbers_paragraph:
+    type: entity_reference_revisions_entity_view
+    weight: 5
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_referral_required:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
   field_regional_health_service:
     type: entity_reference_entity_view
     weight: 0
@@ -58,6 +87,13 @@ content:
       view_mode: teaser
       link: false
     third_party_settings: {  }
+  field_walk_ins_accepted:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
 hidden:
   content_moderation_control: true
   field_administration: true
