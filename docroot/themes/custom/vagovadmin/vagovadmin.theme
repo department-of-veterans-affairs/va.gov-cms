@@ -1,5 +1,5 @@
 <?php
-use Drupal\paragraphs\Controller\ParagraphsContextualLinkController;
+use Drupal\paragraphs\Entity\Paragraph;
 
 /**
  * @file
@@ -12,7 +12,7 @@ use Drupal\paragraphs\Controller\ParagraphsContextualLinkController;
 function vagovadmin_preprocess_paragraph(&$variables) {
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
-  $node_parent = ParagraphsContextualLinkController::get_parents($paragraph);
+  $node_parent = _vagovadmin_get_node_parent($paragraph);
   if (!empty($node_parent) && $node_parent->bundle() === 'page') {
     $variables['paragraph_name'] = $paragraph->type->entity->label();
   }
@@ -83,4 +83,17 @@ function _vagovadmin_filter_contextual_links(&$variables) {
       unset($variables['title_suffix']['contextual_links']);
     }
   }
+}
+
+function _vagovadmin_get_node_parent(Paragraph $paragraph) {
+  $parent_node = NULL;
+  /** @var Paragraph $parent */
+  $parent = $paragraph->getParentEntity();
+  if ($parent->getEntityType()->id() === 'paragraph') {
+    $parent_node = _vagovadmin_get_node_parent($parent);
+  }
+  elseif ($parent->getEntityType()->id() === 'node') {
+    $parent_node = $parent;
+  }
+  return $parent_node;
 }
