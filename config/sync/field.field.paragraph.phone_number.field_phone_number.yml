@@ -1,0 +1,19 @@
+uuid: d7180f60-212b-4a58-968a-638b5faf3f2c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_phone_number
+    - paragraphs.paragraphs_type.phone_number
+id: paragraph.phone_number.field_phone_number
+field_name: field_phone_number
+entity_type: paragraph
+bundle: phone_number
+label: 'Phone number'
+description: 'Use format: 123-456-7890'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

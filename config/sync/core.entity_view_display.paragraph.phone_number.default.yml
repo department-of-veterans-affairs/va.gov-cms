@@ -1,0 +1,68 @@
+uuid: 7c45d154-2905-4a12-ad45-9c3040ad1a10
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.phone_number.field_phone_extension
+    - field.field.paragraph.phone_number.field_phone_label
+    - field.field.paragraph.phone_number.field_phone_number
+    - field.field.paragraph.phone_number.field_phone_number_type
+    - paragraphs.paragraphs_type.phone_number
+  module:
+    - field_group
+    - options
+third_party_settings:
+  field_group:
+    group_phone:
+      children:
+        - field_phone_number_type
+        - field_phone_number
+        - field_phone_extension
+        - field_phone_label
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Phone
+      region: content
+id: paragraph.phone_number.default
+targetEntityType: paragraph
+bundle: phone_number
+mode: default
+content:
+  field_phone_extension:
+    weight: 3
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_phone_label:
+    weight: 4
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_phone_number:
+    weight: 2
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_phone_number_type:
+    weight: 1
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+hidden:
+  search_api_excerpt: true

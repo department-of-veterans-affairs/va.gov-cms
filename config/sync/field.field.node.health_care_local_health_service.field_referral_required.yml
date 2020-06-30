@@ -1,0 +1,23 @@
+uuid: 49dfe404-2663-470e-bd56-f8802baf873c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_referral_required
+    - node.type.health_care_local_health_service
+  module:
+    - options
+id: node.health_care_local_health_service.field_referral_required
+field_name: field_referral_required
+entity_type: node
+bundle: health_care_local_health_service
+label: 'Referral required?'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 'yes'
+default_value_callback: ''
+settings: {  }
+field_type: list_string
