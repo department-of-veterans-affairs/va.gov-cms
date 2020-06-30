@@ -1,0 +1,23 @@
+uuid: ecbb1cb3-4fef-47db-8b2e-06b692aa0205
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_phone_number_type
+    - paragraphs.paragraphs_type.phone_number
+  module:
+    - options
+id: paragraph.phone_number.field_phone_number_type
+field_name: field_phone_number_type
+entity_type: paragraph
+bundle: phone_number
+label: Type
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: phone
+default_value_callback: ''
+settings: {  }
+field_type: list_string

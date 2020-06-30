@@ -1,0 +1,25 @@
+uuid: 1e87d446-c242-431e-9234-b2ed3a3a7ff1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_va_form_administration
+    - node.type.va_form
+id: node.va_form.field_va_form_administration
+field_name: field_va_form_administration
+entity_type: node
+bundle: va_form
+label: 'Form administration'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: administration_section
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

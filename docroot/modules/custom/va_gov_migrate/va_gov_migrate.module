@@ -8,6 +8,28 @@
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
+ * Implements hook_entity_presave().
+ */
+function va_gov_migrate_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+  _va_gov_migrate_process_va_form($entity);
+}
+
+function _va_gov_migrate_process_va_form(Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->bundle() !== 'va_form') {
+    return;
+  }
+  // Grab any values set in the migration.
+  $migrate = (!empty($entity->migrate)) ? $entity->migrate : [];
+  if (!empty($migrate['flags']['deleted'])) {
+    // This should be set to unpublished because the migration is intentionally,
+    // not overriding status.
+    $entity->setPublished(FALSE);
+    $entity->set('moderation_state', 'archived');
+    $entity->set('revision_log', 'Archived because it was marked as deleted in the Forms DB.');
+  }
+}
+
+/**
  * Implements hook_help().
  */
 function va_gov_migrate_help($route_name, RouteMatchInterface $route_match) {

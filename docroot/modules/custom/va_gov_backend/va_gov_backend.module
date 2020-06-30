@@ -5,6 +5,7 @@
  * Contains va_gov_backend.module.
  */
 
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\WidgetBase;
@@ -97,6 +98,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     'field_office',
     'field_listing',
   ];
+
   _va_gov_backend_dropdown_field_access($form, $targets);
 
   if ($form_id === 'workbench_access_assign_user') {
@@ -142,6 +144,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
       _va_gov_backend_vbo_facility_status_form_ui($form, $form_state);
     }
   }
+
 }
 
 /**
@@ -268,7 +271,9 @@ function va_gov_backend_form_alter_redirect_submit($form, FormStateInterface $fo
 function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
   // Hide Trigger Text in Alert paragraph form unless Alert Type is "Expanding".
   $field_definition = $context['items']->getFieldDefinition();
-  /** @var \Drupal\field\Entity\FieldConfig $field_definition */
+
+  /**
+   * @var \Drupal\field\Entity\FieldConfig $field_definition */
   $paragraph_entity_reference_field_name = $field_definition->getName();
 
   if ($paragraph_entity_reference_field_name == 'field_content_block') {
@@ -287,16 +292,67 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
       ];
     }
   }
+
+  if (in_array($paragraph_entity_reference_field_name, ['field_phone_numbers_paragraph', 'field_appointment_phone_numbers'])) {
+    _va_gov_backend_modify_phone_paragraph_interactions($element, $form_state, $context);
+  }
+}
+
+/**
+ * Toggles extension field, adds Validation constraint error id match to html.
+ *
+ * @param array $element
+ *   The widget.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ * @param array $context
+ *   The context.
+ */
+function _va_gov_backend_modify_phone_paragraph_interactions(array &$element, FormStateInterface &$form_state, array &$context) {
+  $field_definition = $context['items']->getFieldDefinition();
+
+  /**
+   * @var \Drupal\field\Entity\FieldConfig $field_definition */
+  $paragraph_entity_reference_field_name = $field_definition->getName();
+  $widget_state = WidgetBase::getWidgetState($element['#field_parents'], $paragraph_entity_reference_field_name, $form_state);
+
+  $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'];
+  $paragraph_type = $paragraph_instance->bundle();
+
+  // 1. Hide the extension field if phone option is not selected.
+  // 2. Add constraint error message jumplink to phone field.
+  if ($paragraph_type === 'phone_number') {
+    // Each paragraph has an incrementing delta.
+    // Allows for controlling state / adding id for each unique widget delta.
+    // Otherwise, all elements will be affected.
+    $element['subform']['field_phone_number']['#attributes']['id'] = sprintf('edit-field-phone-numbers-paragraph-%d-subform-field-phone-number', $element['#delta']);
+    $selector = sprintf(':input[name="field_phone_numbers_paragraph[%d][subform][field_phone_number_type]"]', $element['#delta']);
+    $element['subform']['field_phone_extension']['#states'] = [
+      'visible' => [
+        $selector => ['value' => 'tel'],
+      ],
+    ];
+  }
 }
 
 /**
  * Implements hook_inline_entity_form_alter().
  */
-function va_gov_backend_inline_entity_form_entity_form_alter(&$entity_form, $form_state) {
+function va_gov_backend_inline_entity_form_entity_form_alter(&$entity_form, FormStateInterface $form_state) {
   // Show the facility name so that the editor knows what they're editing,
   // but don't let the editor change it. It's driven by Facility API.
   if ($entity_form['#bundle'] === 'health_care_local_facility') {
     $entity_form['title']['widget'][0]['value']['#attributes']['disabled'] = 'disabled';
+  }
+}
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  // Add phone number validation to our phone number field.
+  if ($entity_type->id() === 'paragraph' && $bundle === 'phone_number' && isset($fields['field_phone_number'])) {
+    $fields['field_phone_number']->addConstraint('ValidPhoneNumber');
   }
 }
 

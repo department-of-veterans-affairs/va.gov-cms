@@ -8,6 +8,12 @@ va/background/daily/migrate_copy/va_forms_csv_source:
     - cd docroot/sites/default/files/migrate_source
     - curl http://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt --output va_forms_data.csv
 
+va/background/daily/migrate/va_forms:
+  description: Migrate va forms.
+  command:
+    - drush $DRUSH_ALIAS migrate-reset-status va_node_form
+    - drush $DRUSH_ALIAS migrate-import va_node_form
+
 va/background/daily/migrate/health_care_local_facility:
   description: These commands are to run nightly.
   command:
@@ -31,6 +37,12 @@ va/background/daily/migrate/nca_facility:
   command:
     - drush $DRUSH_ALIAS migrate-reset-status va_node_facility_nca
     - drush $DRUSH_ALIAS migrate-import va_node_facility_nca
+
+va/background/daily/migrate/va_form:
+  description: Run migrate va_forms nightly.
+  command:
+    - drush $DRUSH_ALIAS migrate-reset-status va_node_form
+    - drush $DRUSH_ALIAS migrate-import va_node_form
 
 # Run with:  composer yaml-tests --tests-file=tasks-periodic.yml periodic
 # http://jenkins.vfs.va.gov/job/cms/job/cms-periodic
