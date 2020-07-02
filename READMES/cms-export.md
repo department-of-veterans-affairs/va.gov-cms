@@ -7,20 +7,26 @@ The CMS Export system is a term for an unconventional approach to make all publi
 
 This architecture was chosen for performance and scalability, but also found to be superior over traditional Restful, JSON API or GraphQL approaches since the primary use case for the build system is to always request a full content export
 
-The content and file assets are made available for the consumption of the Content Build process at the following two endpoints (metrics are as of this writing):
+The content, file assets, and content schema are made available for the consumption of the Content Build process at the following three endpoints (metrics are as of this writing):
+### Endpoints
 
-1. Endpoint: [https://prod.cms.va.gov/cms-export/content](https://prod.cms.va.gov/cms-export/content) \
+1. Content Endpoint: [https://prod.cms.va.gov/cms-export/content](https://prod.cms.va.gov/cms-export/content) \
 Filename: cms-content-export-latest.tar \
 Size: 64MB \
 Files: 22,688  \
 Response time: ~0.5s
 
-2. Endpoint: [https://prod.cms.va.gov/cms-export/asset](https://prod.cms.va.gov/cms-export/asset) \
+2. Asset Endpoint: [https://prod.cms.va.gov/cms-export/asset](https://prod.cms.va.gov/cms-export/asset) \
 Filename: cms-asset-export-latest.tar \
 Size: 879MB \
-File: 5,934 \
+Files: 5,934 \
 Response time: ~1.5s
 
+3. Schema Endpoint: [https://prod.cms.va.gov/openapi/jsonapi?_format=json](https://prod.cms.va.gov/openapi/jsonapi?_format=json) \
+Description:  The is an OpenApi schema that describes the data structure of the CMS content. Provided by the
+[openapi module](https://www.drupal.org/project/openapi). This same data is included as a file in the content export TAR as '/cms-export-content/meta/schema.json' at the instant the TAR is requested. \
+Authorization: basic_auth for api_consumer role. (same as GraphQL endpoint) \
+Size: ~4MB \
 
 ### Motivation
 
