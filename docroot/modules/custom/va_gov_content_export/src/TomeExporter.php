@@ -10,6 +10,7 @@ use Drupal\tome_sync\Exporter;
 use Drupal\tome_sync\FileSyncInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Serializer\Serializer;
+use Drupal\Core\Entity\ContentEntityInterface;
 
 /**
  * Exporter class for Tome.
@@ -38,6 +39,13 @@ class TomeExporter extends Exporter {
   ];
 
   /**
+   * Add breadcrumb to Entity.
+   *
+   * @var \Drupal\va_gov_content_export\AddBreadcrumbToEntity
+   */
+  protected $addBreadcrumbToEntity;
+
+  /**
    * Creates an Exporter object.
    *
    * This was overridden to allow the file system to be injected.
@@ -56,6 +64,8 @@ class TomeExporter extends Exporter {
    *   The file sync service.
    * @param \Drupal\Core\File\FileSystemInterface $file_system
    *   The file system interface.
+   * @param \Drupal\va_gov_content_export\AddBreadcrumbToEntity $addBreadcrumbToEntity
+   *   The BreadcrumbEntity Manager.
    */
   public function __construct(
     StorageInterface $content_storage,
@@ -64,12 +74,26 @@ class TomeExporter extends Exporter {
     EventDispatcherInterface $event_dispatcher,
     AccountSwitcherInterface $account_switcher,
     FileSyncInterface $file_sync,
-    FileSystemInterface $file_system
+    FileSystemInterface $file_system,
+    AddBreadcrumbToEntity $addBreadcrumbToEntity
   ) {
     parent::__construct($content_storage, $serializer, $entity_type_manager,
       $event_dispatcher, $account_switcher, $file_sync);
 
     $this->fileSystem = $file_system;
+    $this->addBreadcrumbToEntity = $addBreadcrumbToEntity;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function exportContent(ContentEntityInterface $entity) {
+    if (in_array($entity->getEntityTypeId(), static::$excludedTypes, TRUE)) {
+      return;
+    }
+
+    $this->addBreadcrumbToEntity->alterEntity($entity);
+    parent::exportContent($entity);
   }
 
   /**
