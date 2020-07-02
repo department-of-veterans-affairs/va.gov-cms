@@ -179,6 +179,7 @@ class SecurityRolesPermissions extends ExistingSiteBase {
         'content_api_consumer',
         [
           'access bulletin queue trigger api',
+          'access openapi api docs',
           'administer menu',
           'use graphql explorer',
           'use graphql voyager',

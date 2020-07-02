@@ -1,0 +1,5 @@
+services:
+  va_gov_consumers.route_subscriber:
+    class: Drupal\va_gov_consumers\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
