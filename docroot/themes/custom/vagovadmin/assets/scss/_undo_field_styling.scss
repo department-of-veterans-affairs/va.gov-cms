@@ -1,0 +1,29 @@
+#block-vagovadmin-content {
+  .field__label {
+    text-transform: none;
+  }
+
+  .field--name-field-intro-text,
+  .field--name-field-alert,
+  .field--name-field-featured-content,
+  .field--name-field-content-block,
+  .field--name-field-related-links {
+    margin: unset;
+
+    > .field__item,
+    > .field__items {
+      padding: unset;
+      background: unset;
+    }
+
+    > .field__label {
+      text-transform: inherit;
+    }
+  }
+  .field--name-field-related-links {
+    > .field__item,
+    > .field__items {
+      background: #eee;
+    }
+  }
+}
