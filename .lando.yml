@@ -16,6 +16,9 @@ events:
   # Runs composer install after app starts
   post-start:
     - appserver: cd $LANDO_MOUNT && composer install
+    # Pulled from https://github.com/AaronFeledy/lando-examples/tree/master/landofile-changed-alert.
+    # Alert user if landofile and current environment are out of sync.
+    - appserver: cd /app && sha1sum --status -c ~/.lando.yml.sha1 || echo $(echo $($TXT_ALERT)Your Lando environment is outdated! Please run \"lando rebuild\" to update.$($TXT_RESET))
 
   # After code changes
   post-update:
@@ -30,6 +33,10 @@ services:
     xdebug: false
     config:
       php: .lando/zzz-lando-my-custom.ini
+    build:
+      # Pulled from https://github.com/AaronFeledy/lando-examples/tree/master/landofile-changed-alert.
+      # Save a hash of our lando config for future integrity checking.
+      - sha1sum /app/.lando.yml > ~/.lando.yml.sha1
     overrides:
       environment:
         # You must manually `export` these ENV vars before uncommenting, then run `lando rebuild`
@@ -40,6 +47,13 @@ services:
         #        JENKINS_BUILD_ENV: ${JENKINS_BUILD_ENV}
         # Support debugging Drush with XDEBUG. Listen in PHPStorm then `lando drush` to trigger xdebug.
         PHP_IDE_CONFIG: "serverName=appserver"
+        # These add colors https://github.com/AaronFeledy/lando-examples/tree/master/colorful-messages
+        TXT_RESET: tput sgr 0
+        TXT_RED: tput setaf 1
+        TXT_GREEN: tput setaf 2
+        TXT_YELLOW: tput setaf 3
+        TXT_CYAN: tput setaf 6
+        TXT_ALERT: tput setab 1 && tput setaf 7
 
   # Uncomment this to work on site build triggers, then export ENV vars below, then `lando rebuild`.
   # Must use lando 3.0.0-rc9+
