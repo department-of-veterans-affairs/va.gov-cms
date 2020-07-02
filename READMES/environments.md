@@ -13,6 +13,8 @@ The following table lists all environments and CMS/WEB sites used in the develop
 | [CI / PR](1)  <br> Pull Requests & Automated Testing           | pr###.ci.cms.va.gov     |  pr###.web.ci.cms.va.gov <br>  pr###.ci.cms.va.gov/static <br> pr###.ci.cms.va.gov/$URL?_format=static_html  | [CMS-CI: DevShop](1)
 | [Demos](2) <br> Demos & Training       | NAME.demo.ci.cms.va.gov |  NAME.web.demo.ci.cms.va.gov  <br> NAME.demo.ci.cms.va.gov/static <br> NAME.demo.ci.cms.va.gov/$URL?_format=static_html | [CMS-CI: DevShop](1)
 
+For more information on how access these environments see [Access](./access.md)
+
 ## What is an Environment?
 
 *Environments* are copies of the production site that are running newer
@@ -58,7 +60,6 @@ Within the [CMS-CI](1) platform, in the "demo" project, users can "Create New En
 5. If you wish to copy [prod.cms.va.gov](http://prod.cms.va.gov) using the latest content, do not change any additional options.
 
     **For advanced users, such as those testing out new functionality:**
-
     6. If you want to test out the CMS on a developer's branch, click the **Branch, Tag, or Pull Request** field, and start typing the name or pull request title you wish to use.
     7. If you wish to copy a existing demo environment, instead of prod, click **Advanced Options** and select *Clone Environment* under *Install Method*.
     8. If you wish to add additional *Domain Names* to this environment, click  **Advanced Options** and then *Domain Names*. Any extra domain names must be in the pattern "*.ci.cms.va.gov".
@@ -123,6 +124,116 @@ out different code.
 6. That's it! If the process completed, you should see a site that looks like VA.gov.
 
 
+## What is an Environment?
+
+*Environments* are copies of the production site that are running newer
+ code or have different content that needs to be tested before going live. 
+ 
+*Environments* can also be used for demonstrations or training, without worrying 
+about disrupting production content.
+ 
+Each *Environment* has both a *CMS* and a *WEB* site. The *CMS* is a content management 
+system built with Drupal, and the *WEB* site is a static HTML site, built with Metalsmith.
+
+The *WEB* build process consumes the content from the *CMS* in the same environment. 
+
+## Important Concepts
+
+- Each *WEB* site is made up of generated "static" files. This means that the *WEB* site reflects the content from the CMS *at the time the WEB Build process was run*.
+- *CMS* Editors will not see changes in the *WEB* site until a "WEB Build" is triggered and the process completes successfully.
+- The *WEB* site will not be accessible until at least one "WEB Build" has run successfully. This happens automatically for CI environments, but not yet for Demo environments. If you get an error such as "Forbidden" when visiting the *WEB* site, try running the *Rebuild WEB* process again.
+
+## Creating new Environments
+
+Within the [CMS-CI](1) platform, in the "demo" project, users can "Create New Environments" using the big green button.
+
+### Step-by-step Instructions
+
+1. Visit [http://devshop.cms.va.gov/](http://devshop.cms.va.gov/) and click "G" icon to log in with GitHub.
+
+    ![CMS-CI Homepage](images/devshop-home.png)
+
+
+2. Click [demo](http://devshop.cms.va.gov/project/demo) link to visit the "Demos Dashboard".
+
+    ![Demo Project and all environments](images/devshop-demos.png)
+ 
+3. Scroll down if needed and press the "Create New Environment" button.
+
+    ![Add new Environment button](images/devshop-add-environment.png)
+
+4. Enter a "name" for your environment, using only letters and numbers, all lowercase.
+
+    ![Add new Environment Form](images/devshop-add-environment-form.png)
+
+5. If you wish to copy [prod.cms.va.gov](http://prod.cms.va.gov) using the latest content, do not change any additional options. 
+
+    **For advanced users, such as those testing out new functionality:**
+
+    6. If you want to test out the CMS on a developer's branch, click the **Branch, Tag, or Pull Request** field, and start typing the name or pull request title you wish to use.
+    7. If you wish to copy a existing demo environment, instead of prod, click **Advanced Options** and select *Clone Environment* under *Install Method*.
+    8. If you wish to add additional *Domain Names* to this environment, click  **Advanced Options** and then *Domain Names*. Any extra domain names must be in the pattern "*.ci.cms.va.gov".
+
+9. Finally, Press the "Create New Environment" button. After about 10-15 minutes, you will have a running site!
+10. Click the URLs for your environment to visit, once "install" step is complete.
+
+    ![Installing DevShop Environment](images/devshop-install.png)
+
+**NOTE:** The WEB site for this environment will not work until you trigger a WEB Build process.
+
+## WEB Build Process
+
+Within each environment, the static HTML for the *WEB* site is occasionally 
+"rebuilt" so that the latest content from that environment's *CMS* is used.
+
+The *WEB* build process is tested in the CI system to ensure compatiblity with the
+ CMS content schema.
+ 
+The *WEB* build process is triggered automatically by certain actions in the CMS 
+or manually via the [command line](#cli-build) or the [DevShop Dashboard](1).
+ 
+### Build Triggers
+
+The *WEB* instance of an environment is rebuilt when any of the following actions take place in the *CMS*:
+
+- Facility Alert or Individual Facility Operating Status is created or updated.
+- The "Rebuild WEB" button is pressed.
+- @TODO: Document all current build triggers.
+
+*Note to Developers:* Keep this list up to date to help content editors understand the process. 
+
+### Rebuilding Environments Manually
+
+There is a special button and form for rebuilding VA.gov environments. Use this 
+to manually trigger either a WEB or CMS rebuild (or both), and optionally check 
+out different code.
+
+#### Step-by-step Instructions
+
+1. Find the environment you would like to build in the [CMS-CI](1) site.
+2. Click the "Hamburger Menu" button, then the "Rebuild Environment" button.
+
+    ![Environment Rebuild Button](images/devshop-rebuild.png)
+
+3. If you wish to just trigger a WEB rebuild with the existing content, do not change any other options.
+
+    ![Environment Rebuild Form](images/devshop-rebuild-form.png)
+
+    **For advanced users and developers:**
+    
+    1. If you wish to change the branch of the CMS or WEB, click "Change Code Versions".
+    2. If you wish to reset your environment's Content or Configuration, click "Advanced Options".
+
+    ![Environment Advanced Options](images/devshop-rebuild-form-advanced.png)
+
+4. Press the "Rebuild Environment" button.
+5. Once the REBUILD process is complete, you can click the "WEB" site link for the environment in the DevShop UI.
+
+    ![WEB & CMS Links](images/devshop-web-links.png)
+
+6. That's it! If the process completed, you should see a site that looks like VA.gov.
+   
+  
 
 ## Hosting Architecture
 
