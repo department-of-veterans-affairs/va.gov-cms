@@ -5,6 +5,7 @@ namespace Drupal\va_gov_content_export\Archive;
 use Alchemy\Zippy\Archive\ArchiveInterface;
 use Alchemy\Zippy\Zippy;
 use Drupal\Core\File\FileSystemInterface;
+use Drupal\va_gov_content_export\Event\ContentExportPreTarEvent;
 
 /**
  * Archive a file path for CMS Content Export.
@@ -62,6 +63,9 @@ class ArchiveDirectory {
 
     // Deleting the file before it's created improves performance.
     $this->fileSystem->delete($archiveArgs->getOutputPath());
+    // Dispatch the Pre Tar event so that subscribers can use it.
+    \Drupal::service('event_dispatcher')->dispatch(ContentExportPreTarEvent::CONTENT_EXPORT_PRE_TAR_EVENT, new ContentExportPreTarEvent("{$archiveArgs->getCurrentWorkingDirectory()}{$archiveArgs->getArchiveDirectory()}", $this->fileSystem));
+
     return $this->zippy->create($real_path, $files, TRUE);
   }
 
