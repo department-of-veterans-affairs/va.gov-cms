@@ -47,8 +47,12 @@ services:
         #        JENKINS_BUILD_ENV: ${JENKINS_BUILD_ENV}
         # Support debugging Drush with XDEBUG. Listen in PHPStorm then `lando drush` to trigger xdebug.
         PHP_IDE_CONFIG: "serverName=appserver"
-        # These are used in post-start command. Pulled from https://github.com/AaronFeledy/lando-examples/tree/master/landofile-changed-alert.
+        # These add colors https://github.com/AaronFeledy/lando-examples/tree/master/colorful-messages
         TXT_RESET: tput sgr 0
+        TXT_RED: tput setaf 1
+        TXT_GREEN: tput setaf 2
+        TXT_YELLOW: tput setaf 3
+        TXT_CYAN: tput setaf 6
         TXT_ALERT: tput setab 1 && tput setaf 7
 
   # Uncomment this to work on site build triggers, then export ENV vars below, then `lando rebuild`.
