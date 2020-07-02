@@ -41,9 +41,11 @@
  */
 #}
 {% block content %}
-  {% if content.field_alert_block_reference.target_id %}
+  {% if content.field_alert_block_reference|render|striptags|trim %}
     {{ content.field_alert_block_reference }}
   {% else %}
-    {{ content | without('field_alert_block_reference') }}
+    <div class="custom-alert">
+      {{ content | without('field_alert_block_reference') }}
+    </div>
   {% endif %}
 {% endblock %}
