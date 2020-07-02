@@ -1,0 +1,21 @@
+uuid: b316e6ca-e033-4a25-992e-0300505fc5e2
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+    - node_title_help_text
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+  node_title_help_text:
+    title_help: 'This non-editable page title is automatically set by the VA forms database. '
+name: 'VA form'
+type: va_form
+description: 'VA forms available for download. Used to populate search results and also generate form landing pages'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

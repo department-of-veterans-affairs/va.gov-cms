@@ -1,16 +1,14 @@
 # VA.gov CMS
 
-VA.gov Content Management System (CMS) documentation that powers [www.va.gov](https://www.va.gov).
+This is the public/open documentation for the VA.gov Content Management System (CMS). The private/sensitive documentation is [here](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/platform/cms). Follow [sensitive-guidance.md](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/sensitive-guidance.md) to know what should be public vs private (we follow the U.S. Digital Services Playbook and [default to open/public](https://playbook.cio.gov/#play13)).
 
-The private/sensitive documentation is at https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/platform/cms and you should follow https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/sensitive-guidance.md to know what should be public vs private. 
+The VA.gov CMS is the backend for www.va.gov. Frontend repo is at https://github.com/department-of-veterans-affairs/vets-website/.
 
-If you find any errors in this documentation, please feel free to [make an edit and submit a Pull Request](https://github.com/department-of-veterans-affairs/va.gov-cms/edit/master/README.md)!
+If you find any errors in this documentation, please feel free to [make an edit and submit a Pull Request](https://github.com/department-of-veterans-affairs/va.gov-cms/edit/master/README.md).
 
 Thanks,
 
 The VA.gov CMS Team
-
-
 
 ## Table of Contents
 1. **Introduction**
@@ -22,6 +20,7 @@ The VA.gov CMS Team
     1. [Getting Started](READMES/getting-started.md)
     1. [WEB & CMS Integration](READMES/unity.md)
     1. [Workflow](READMES/workflow.md)
+    1. [CMS Export](READMES/cms-export.md)
     1. [Project Conventions](READMES/project-conventions.md)
     1. [Environments](READMES/environments.md)
         1. [CI Environments](READMES/cms-ci.md)
@@ -40,7 +39,10 @@ The VA.gov CMS Team
     1. Overview
     1. Drupal
     1. MetalSmith
-    1. [Interfaces](READMES/interfaces.md) - APIs and Feature Flags
+    1. [Interfaces](READMES/interfaces.md) - APIs and Feature Flag
+    1. Migrations (data imports)
+       1. [Facility](READMES/migrations-facility.md)
+       1. [Form](READMES/migrations-forms.md)
     1. [Security](READMES/security.md)
 1. **CMS Users**
     1. [Login / SSOi](READMES/cms-login.md)

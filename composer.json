@@ -10,6 +10,7 @@
         "acquia/drupal-spec-tool": "^2.0"
     },
     "require": {
+        "alchemy/zippy": "^0.4.9",
         "bower-asset/blazy": "^1.8",
         "bower-asset/cropper": "^4.1",
         "bower-asset/dropzone": "^5.5",
@@ -30,13 +31,13 @@
         "drupal/config_ignore": "^2.1",
         "drupal/config_override_warn": "^1.0",
         "drupal/config_split": "^1.4",
-        "drupal/content_lock": "^1.0@alpha",
-        "drupal/core": "^8.8",
+        "drupal/content_lock": "^2.0@alpha",
+        "drupal/core": "^8.8.8",
         "drupal/crop": "^2.0",
-        "drupal/cshs": "^1.0@beta",
         "drupal/ctools_block": "^3.2",
         "drupal/devel": "^2.1",
         "drupal/dropzonejs": "^2.0",
+        "drupal/dynamic_entity_reference": "^2.0",
         "drupal/embed": "^1.3",
         "drupal/entity_block": "^1.0@beta",
         "drupal/entity_browser": "^2.4",
@@ -45,10 +46,11 @@
         "drupal/entity_reference_revisions": "^1.7",
         "drupal/entity_reference_unpublished": "^1.1",
         "drupal/entityqueue": "^1.0@beta",
-        "drupal/environment_indicator": "^3.5",
-        "drupal/fast_404": "^1.0@alpha",
+        "drupal/environment_indicator": "^4.0",
+        "drupal/fast_404": "^2.0@alpha",
         "drupal/feature_toggle": "^1.2",
         "drupal/field_group": "dev-3.x#b245b85f99c48221edf5fb60344dfe53737ae0f9",
+        "drupal/fieldhelptext": "^1.0@beta",
         "drupal/govdelivery_bulletins": "^1.2",
         "drupal/graphql": "^3.0",
         "drupal/graphql_metatag": "1.x-dev",
@@ -76,7 +78,7 @@
         "drupal/migrate_tools": "^4.0",
         "drupal/migration_tools": "^2.1",
         "drupal/module_missing_message_fixer": "^1.1",
-        "drupal/node_link_report": "^1.13",
+        "drupal/node_link_report": "^1.14",
         "drupal/node_revisions_autoclean": "^1.0@beta",
         "drupal/node_title_help_text": "^1.0",
         "drupal/override_node_options": "^2.4",
@@ -88,25 +90,24 @@
         "drupal/pathauto": "^1.6",
         "drupal/pathologic": "^1.0@alpha",
         "drupal/pfm": "^1.1",
-        "drupal/post_api": "1.x-dev",
+        "drupal/post_api": "^2.0.1",
         "drupal/redirect": "^1.3",
-        "drupal/redirect_after_login": "^2.5",
         "drupal/redirect_options": "^1.2",
         "drupal/rest_menu_tree": "^1.1",
         "drupal/restui": "^1.16",
         "drupal/role_delegation": "^1.0@alpha",
         "drupal/seckit": "^1.1",
         "drupal/simplesamlphp_auth": "^3.0",
-        "drupal/site_alert": "1.x-dev#7e8a229292ec6cf85cb5e22d8a58afac098c3bd1",
+        "drupal/site_alert": "1.x-dev#d3700174bdddeca1f33c6995fde86e436b034270",
         "drupal/slack": "^1.2",
         "drupal/social_media_links": "^2.6",
         "drupal/tablefield": "^2.1",
         "drupal/taxonomy_menu": "^3.4",
         "drupal/textfield_counter": "^1.6",
+        "drupal/tome": "1.3",
         "drupal/toolbar_menu": "^2.1",
         "drupal/toolbar_menu_clean": "^1.0",
         "drupal/tour_ui": "^1.0@beta",
-        "drupal/ui_patterns": "^1.0",
         "drupal/user_history": "^1.0@alpha",
         "drupal/uswds": "^1.0@beta",
         "drupal/video_embed_media": "^2.2",
@@ -118,23 +119,22 @@
         "drupal/webform": "^5.5",
         "drupal/workbench_access": "^1.0@beta",
         "drupal/workbench_menu_access": "^1.0",
-        "drupal/workflow_participants": "^2.4",
         "drush-ops/behat-drush-endpoint": "^0.0.4",
         "drush/drush": "~8",
         "guzzlehttp/guzzle": "^6.0@dev",
         "michelf/php-markdown": "^1.8",
         "mouf/nodejs-installer": "^1.0",
         "npm-asset/yarn": "1.12.3",
-        "phpunit/phpunit": "^6",
+        "phpunit/phpunit": "^7",
         "provision-ops/yaml-tests": "~1.9",
         "querypath/querypath": "^3.0",
         "simplesamlphp/simplesamlphp": "^1.17",
         "squizlabs/php_codesniffer": "^3.5",
         "symfony/config": "^3.4",
         "symfony/finder": "^3",
-        "symfony/phpunit-bridge": "^4.3",
+        "symfony/phpunit-bridge": "^5.1",
         "twig/twig": "^1.38.2",
-        "va-gov/web": "dev-master",
+        "va-gov/web": "dev-master#^0.1",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
         "weitzman/drupal-test-traits": "dev-master",
@@ -218,6 +218,7 @@
             ]
         },
         "enable-patching": true,
+        "composer-exit-on-patch-failure": true,
         "patches-ignore": {},
         "patches": {
             "drupal/content_lock": {
@@ -225,7 +226,9 @@
             },
             "drupal/core": {
                 "2807629 - Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch",
-                "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2020-01-07/2893933-34.patch"
+                "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2020-01-07/2893933-34.patch",
+                "2894449 - Indirect modification of overloaded element with Views responsive table": "https://www.drupal.org/files/issues/2018-10-05/core-indirect-modification-of-overloaded-element-2894449-18.patch",
+                "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2019-09-11/3057267-maintenance-forced-logout-experimental.patch"
             },
             "drupal/entity_browser": {
                 "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch"
@@ -266,14 +269,17 @@
             "drupal/hide_revision_field": {
                 "Fix whitescreen when editing your own user. https://www.drupal.org/project/hide_revision_field/issues/3018160": "https://www.drupal.org/files/issues/2019-05-15/hide-revision-field-3018160-5-8.x-2.1.patch"
             },
+            "drupal/schemata": {
+                "PHP 7.2 notice - \"Undefined offset: 1\" in JsonSchemaEncoder": "https://www.drupal.org/files/issues/2019-07-08/3063027-5-undefined-offset.patch"
+            },
             "drupal/simplesamlphp_auth": {
                 "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2019-08-14/2748731-23.patch",
                 "Bypass password requirement for password change if logged in with sso.": "https://www.drupal.org/files/issues/2018-05-01/simplesamlphp_auth-change-password-access-2968598-2.patch"
             },
             "drupal/site_alert": {
-                "Add drush commands https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-03-13/site_alert-add_drush_commands-3118800-6.patch",
-                "Add aria https://www.drupal.org/project/site_alert/issues/3120303": "https://www.drupal.org/files/issues/2020-03-17/site_alert-add-508-aria-3120303-3.patch",
-                "Make drush commands Drush 8 https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-03-13/site_alert-support_drush8_commands-3118800-7.patch"
+                "Add drush commands https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-05-20/site_alert-add_drush_commands-3118800-12.patch",
+                "Make drush commands Drush 8 https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-05-20/site_alert-add_drush_commands_for_drush8-3118800-14.patch",
+                "Allow access to /ajax/site_alert route in maintenance mode": "https://www.drupal.org/files/issues/2020-04-29/maintenance-access.patch"
             },
             "drupal/tablefield": {
                 "0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch"
@@ -281,8 +287,8 @@
             "drupal/textfield_counter": {
                 "Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch"
             },
-            "drupal/user_history": {
-                "Invalid argument in foreach when saving a user": "https://www.drupal.org/files/issues/2019-12-11/invalid-argument-on-save_0.patch"
+            "drupal/tome":{
+                "Allow entity types to be excluded in tome sync":"https://www.drupal.org/files/issues/2020-02-20/tome_export_types-3114961-2.patch"
             },
             "drupal/workflow_participants": {
                 "Fix revision uncaught type error by extending class.": "https://www.drupal.org/files/issues/2019-08-16/workflow_participants-revision-error-3075426-1.patch"
@@ -313,7 +319,7 @@
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\""
         ],
         "nuke": [
-            "rm -rf bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor",
+            "rm -rf bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor /var/www/.cache/yarn",
             "composer clear-cache"
         ],
         "va:start": [
@@ -388,8 +394,11 @@
         ],
         "va:web:build": [
             "drush config-set va_gov.build web.build.pending 1 -y",
-            "rm -rf vendor/va-gov/web/build/localhost/",
-            "cd web && npm run build -- --pull-drupal  --no-drupal-proxy",
+            "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
+            "echo \"Downloading assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
+            "cd web && NODE_ENV=production yarn build:content --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov --asset-source=$(git rev-parse --verify HEAD)",
+            "echo 'Replace s3 address with local in generated files'",
+            "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -print0 | xargs -0 sed -i \"s/https:\\/\\/dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com//g\" ",
             "drush config-set va_gov.build web.build.pending 0 -y"
         ],
         "va:web:test": [

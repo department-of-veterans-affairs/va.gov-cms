@@ -1,0 +1,21 @@
+uuid: 888dc658-e74d-4c7f-9fbf-d5f7b0993c22
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_va_form_type
+    - node.type.va_form
+  module:
+    - options
+id: node.va_form.field_va_form_type
+field_name: field_va_form_type
+entity_type: node
+bundle: va_form
+label: Category
+description: 'Select which part of VA this form is related to. Use ''Non-VA'' for forms belonging to other agencies.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

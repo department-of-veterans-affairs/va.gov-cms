@@ -10,8 +10,49 @@ dependencies:
     - field.field.node.regional_health_care_service_des.field_service_name_and_descripti
     - node.type.regional_health_care_service_des
   module:
+    - field_group
     - text
     - user
+third_party_settings:
+  field_group:
+    group_vha_health_service_name_an:
+      children:
+        - field_service_name_and_descripti
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: false
+      label: 'VHA health service name and description'
+      region: content
+    group_facility_descriptions_of_s:
+      children:
+        - field_local_health_care_service_
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        description: ''
+        id: ''
+        classes: ''
+      label: 'Facility descriptions'
+      region: content
+    group_vamc_system_:
+      children:
+        - field_body
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        description: ''
+        id: ''
+        classes: ''
+      label: 'VAMC system description'
+      region: content
 id: node.regional_health_care_service_des.default
 targetEntityType: node
 bundle: regional_health_care_service_des
@@ -22,48 +63,33 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_administration:
-    weight: 5
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_body:
-    weight: 2
-    label: above
+    weight: 4
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_local_health_care_service_:
-    weight: 4
-    label: above
+    weight: 5
+    label: hidden
     settings:
-      link: true
+      view_mode: teaser
+      link: false
     third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_region_page:
-    weight: 3
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
+    type: entity_reference_entity_view
     region: content
   field_service_name_and_descripti:
-    weight: 1
-    label: above
+    weight: 2
+    label: hidden
     settings:
-      link: true
+      view_mode: default
+      link: false
     third_party_settings: {  }
-    type: entity_reference_label
+    type: entity_reference_entity_view
     region: content
-  links:
-    weight: 6
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_administration: true
+  field_region_page: true
+  links: true
+  search_api_excerpt: true

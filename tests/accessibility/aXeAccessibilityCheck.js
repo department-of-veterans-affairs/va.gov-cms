@@ -36,6 +36,7 @@ const paths = [
     '/node/add/regional_health_care_service_des',
     '/node/add/news_story',
     '/node/add/support_service',
+    '/user',
 ];
 
 driver.get(URL)

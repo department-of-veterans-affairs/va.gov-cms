@@ -22,11 +22,6 @@ $databases['default']['default'] = array(
   'host' => getenv('CMS_MARIADB_HOST') ?: 'database',
   'port' => 3306,
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
-  'init_commands' => [
-    'isolation' => "SET SESSION tx_isolation='READ-COMMITTED'",
-    'lock_wait_timeout' => 'SET SESSION innodb_lock_wait_timeout = 20',
-    'wait_timeout' => 'SET SESSION wait_timeout = 600'
-  ]
 );
 
 /**
@@ -114,6 +109,7 @@ $settings['jenkins_build_job_host'] = 'http://jenkins.vfs.va.gov';
 // Authorized to the Jenkins API via GitHub login.
 $settings['va_cms_bot_github_username'] = 'va-cms-bot';
 $settings['va_cms_bot_github_auth_token'] = getenv('CMS_GITHUB_VA_CMS_BOT_TOKEN') ?: FALSE;
+$settings['va_cms_bot_jenkins_auth_token'] = getenv('CMS_JENKINS_VA_CMS_BOT_TOKEN') ?: FALSE;
 
 // Defaults (should only be local that doesn't set these), default to dev for config_split
 $config['config_split.config_split.dev']['status'] = TRUE;
@@ -187,3 +183,6 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php'
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.local.php')) {
   include $app_root . '/' . $site_path . '/settings/settings.local.php';
 }
+
+$settings['tome_content_directory'] = 'public://cms-export-content';
+$settings['tome_files_directory'] = 'public://cms-export-files';

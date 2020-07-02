@@ -1,4 +1,5 @@
 @import "mixins";
+@import "external_content";
 
 .node-form textarea {
   max-width: 750px;
@@ -98,4 +99,17 @@
 
 .views-field-rendered-entity h2 {
   font-size: 20px;
+}
+
+.paragraphs-subform {
+  .field--name-field-phone-number,
+  .field--name-field-phone-extension {
+    float: left;
+  }
+  .field--name-field-phone-extension {
+    margin-left: 20px;
+  }
+  .field--name-field-phone-label {
+    clear: both;
+  }
 }

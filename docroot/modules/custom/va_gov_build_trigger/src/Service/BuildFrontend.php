@@ -113,10 +113,10 @@ class BuildFrontend {
       // Save pending state.
       $this->setPendingState(1);
     }
-    elseif ((!empty($jenkins_build_environment)) && array_key_exists($jenkins_build_environment, self::WEB_ENVIRONMENTS)) {
+    elseif ((!empty($jenkins_build_environment)) && array_key_exists($jenkins_build_environment, self::WEB_ENVIRONMENTS) && (PHP_SAPI !== 'cli')) {
       // This is in a BRD environment.
       $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
-      $va_cms_bot_github_auth_token = Settings::get('va_cms_bot_github_auth_token');
+      $va_cms_bot_jenkins_auth_token = Settings::get('va_cms_bot_jenkins_auth_token');
       $jenkins_build_job_host = Settings::get('jenkins_build_job_host');
       $jenkins_build_job_path = Settings::get('jenkins_build_job_path');
       $jenkins_build_job_url = Settings::get('jenkins_build_job_url');
@@ -136,7 +136,7 @@ class BuildFrontend {
             CURLOPT_POST => 1,
             // Authorize to the Jenkins API via GitHub login.
             CURLOPT_USERNAME => $va_cms_bot_github_username,
-            CURLOPT_PASSWORD => $va_cms_bot_github_auth_token,
+            CURLOPT_PASSWORD => $va_cms_bot_jenkins_auth_token,
             CURLOPT_FOLLOWLOCATION => 1,
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_HEADER => 1,
@@ -252,6 +252,68 @@ class BuildFrontend {
   }
 
   /**
+   * Check to see if this had a status or status info change.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node object of a node just updated or saved.
+   *
+   * @return bool
+   *   TRUE if there was a status related change, FALSE if there was not.
+   */
+  private function changedStatus(NodeInterface $node) {
+    // Check for change of workflow to published.
+    $mod_state = $node->get('moderation_state')->value;
+    $mod_state_original = $this->getOriginalFieldValue($node, 'moderation_state');
+    if (($mod_state === 'published') && ($mod_state !== $mod_state_original)) {
+      // The status is published and was not before.
+      return TRUE;
+    }
+
+    // Check for change of operating status.
+    $status_field = 'field_operating_status_facility';
+    if ($node->hasField($status_field)) {
+      $operating_status = $node->get($status_field)->value;
+      $original_operating_status = $this->getOriginalFieldValue($node, $status_field);
+      if ($operating_status !== $original_operating_status) {
+        return TRUE;
+      }
+    }
+
+    // Check for change of operating status more info.
+    $status_info_field = 'field_operating_status_more_info';
+    if ($node->hasField($status_info_field)) {
+      $additional_info = $node->get($status_info_field)->value;
+      $original_additional_info = $this->getOriginalFieldValue($node, $status_info_field);
+      if ($additional_info !== $original_additional_info) {
+        return TRUE;
+      }
+    }
+    // Made it this far, nothing changed.
+    return FALSE;
+  }
+
+  /**
+   * Gets the previously saved value of a field.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node object of a node just updated or saved.
+   * @param string $fieldname
+   *   The machine name of the field to get.
+   *
+   * @return string
+   *   The value of the field, or '' if not found.
+   */
+  private function getOriginalFieldValue(NodeInterface $node, $fieldname) {
+    $value = '';
+    if (isset($node->original) && ($node->original instanceof NodeInterface)) {
+      // There was a previous save.
+      $value = $node->original->get($fieldname)->value;
+    }
+
+    return $value;
+  }
+
+  /**
    * Method to trigger a frontend build as the result of a save.
    *
    * @param \Drupal\node\NodeInterface $node
@@ -265,8 +327,17 @@ class BuildFrontend {
     if (in_array($node->getType(), $allowed_content_types)) {
       // This is the right content type to trigger a build. Is it published?
       if ($node->isPublished()) {
-        // It is published, trigger the build.
-        $this->triggerFrontendBuild();
+        // It is published.
+        if ($node->getType() === 'health_care_local_facility') {
+          // This is a facility, check if the status or status info changed.
+          if ($this->changedStatus($node)) {
+            // The status changed so trigger a build.
+            $this->triggerFrontendBuild();
+          }
+        }
+        else {
+          $this->triggerFrontendBuild();
+        }
       }
     }
   }

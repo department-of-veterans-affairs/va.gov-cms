@@ -1,0 +1,23 @@
+uuid: 1c4bad75-aecb-45cd-83e5-f38c5f928a8a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_walk_ins_accepted
+    - node.type.health_care_local_health_service
+  module:
+    - options
+id: node.health_care_local_health_service.field_walk_ins_accepted
+field_name: field_walk_ins_accepted
+entity_type: node
+bundle: health_care_local_health_service
+label: 'Walk-ins accepted?'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 'yes'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

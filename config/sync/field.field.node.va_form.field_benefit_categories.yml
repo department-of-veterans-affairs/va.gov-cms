@@ -1,0 +1,25 @@
+uuid: b467786f-e763-4c51-bc74-e33f4fc1cfec
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_benefit_categories
+    - node.type.va_form
+id: node.va_form.field_benefit_categories
+field_name: field_benefit_categories
+entity_type: node
+bundle: va_form
+label: 'Benefits hub'
+description: 'Select one or more benefit hub related to this VA form.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: benefits_hub_list
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

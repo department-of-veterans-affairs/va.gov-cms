@@ -45,7 +45,7 @@ third_party_settings:
         - field_meta_title
         - field_description
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         id: ''
@@ -64,7 +64,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_address:
-    weight: 7
+    weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -72,7 +72,7 @@ content:
     region: content
   field_administration:
     type: entity_reference_rss_category
-    weight: 22
+    weight: 21
     region: content
     label: above
     settings: {  }
@@ -86,7 +86,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
   field_email_subscription:
-    weight: 15
+    weight: 14
     label: above
     settings:
       trim_length: 80
@@ -98,7 +98,7 @@ content:
     type: link
     region: content
   field_facebook:
-    weight: 11
+    weight: 10
     label: above
     settings:
       trim_length: 80
@@ -110,14 +110,14 @@ content:
     type: link
     region: content
   field_facility_classification:
-    weight: 20
+    weight: 19
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
     region: content
   field_facility_hours:
-    weight: 18
+    weight: 17
     label: above
     settings:
       row_header: 1
@@ -126,7 +126,7 @@ content:
     type: tablefield
     region: content
   field_facility_locator_api_id:
-    weight: 5
+    weight: 4
     label: above
     settings:
       link_to_entity: false
@@ -134,7 +134,7 @@ content:
     type: string
     region: content
   field_flickr:
-    weight: 12
+    weight: 11
     label: above
     settings:
       trim_length: 80
@@ -146,7 +146,7 @@ content:
     type: link
     region: content
   field_instagram:
-    weight: 13
+    weight: 12
     label: above
     settings:
       trim_length: 80
@@ -158,14 +158,14 @@ content:
     type: link
     region: content
   field_intro_text:
-    weight: 3
+    weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_local_health_care_service_:
-    weight: 9
+    weight: 8
     label: above
     settings:
       link: true
@@ -174,7 +174,7 @@ content:
     region: content
   field_location_services:
     type: entity_reference_revisions_entity_view
-    weight: 10
+    weight: 9
     label: above
     settings:
       view_mode: default
@@ -182,7 +182,7 @@ content:
     third_party_settings: {  }
     region: content
   field_main_location:
-    weight: 6
+    weight: 5
     label: above
     settings:
       format: default
@@ -192,7 +192,7 @@ content:
     type: boolean
     region: content
   field_media:
-    weight: 4
+    weight: 3
     label: above
     settings:
       link: true
@@ -200,7 +200,7 @@ content:
     type: entity_reference_label
     region: content
   field_mental_health_phone:
-    weight: 19
+    weight: 18
     label: above
     settings:
       title: ''
@@ -215,30 +215,22 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  field_nickname_for_this_facility:
-    weight: 1
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
   field_operating_status_facility:
-    weight: 16
+    weight: 15
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
     region: content
   field_operating_status_more_info:
-    weight: 17
+    weight: 16
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_phone_number:
-    weight: 8
+    weight: 7
     label: above
     settings:
       title: ''
@@ -247,14 +239,14 @@ content:
     region: content
   field_region_page:
     type: entity_reference_label
-    weight: 21
+    weight: 20
     region: content
     label: above
     settings:
       link: true
     third_party_settings: {  }
   field_twitter:
-    weight: 14
+    weight: 13
     label: above
     settings:
       trim_length: 80
@@ -267,5 +259,6 @@ content:
     region: content
 hidden:
   field_meta_tags: true
+  field_nickname_for_this_facility: true
   links: true
   search_api_excerpt: true

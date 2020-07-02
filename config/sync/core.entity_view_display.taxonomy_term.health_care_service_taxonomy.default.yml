@@ -17,14 +17,14 @@ bundle: health_care_service_taxonomy
 mode: default
 content:
   description:
-    label: hidden
+    label: above
     type: text_default
-    weight: 0
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
   field_also_known_as:
-    weight: 1
+    weight: 0
     label: above
     settings:
       link_to_entity: false
@@ -32,7 +32,7 @@ content:
     type: string
     region: content
   field_commonly_treated_condition:
-    weight: 2
+    weight: 1
     label: above
     settings:
       link_to_entity: false

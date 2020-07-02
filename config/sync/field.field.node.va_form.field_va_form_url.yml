@@ -1,0 +1,23 @@
+uuid: 05574930-921f-4f18-9d60-2fb93e5aea47
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_va_form_url
+    - node.type.va_form
+  module:
+    - link
+id: node.va_form.field_va_form_url
+field_name: field_va_form_url
+entity_type: node
+bundle: va_form
+label: 'Link to form'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+field_type: link

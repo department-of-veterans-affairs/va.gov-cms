@@ -39,3 +39,7 @@ Feature: Menus
 | VA Philadelphia health care | va-philadelphia-health-care | va.gov/philadelphia-health-care |
 | VA Wilkes-Barre health care | va-wilkes-barre-health-care | va.gov/wilkes-barre-health-care |
 | VA Wilmington health care | va-wilmington-health-care | va.gov/wilmington-health-care |
+| VA Western Colorado health care | va-western-colorado-health-care |  |
+| VA Montana health care | va-montana-health-care |  |
+| VA Eastern Colorado health care | va-eastern-colorado-health-care |  |
+| VA Cheyenne health care | va-cheyenne-health-care |  |
