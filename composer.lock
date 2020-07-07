@@ -9640,8 +9640,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0+18-dev",
-                    "datestamp": "1591770447",
+                    "version": "8.x-1.2+0-dev",
+                    "datestamp": "1594058302",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -18135,30 +18135,30 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.42.5",
+            "version": "v1.43.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "87b2ea9d8f6fd014d0621ca089bb1b3769ea3f8e"
+                "reference": "597a03e85a60af6feee4f5127f3ef4279a1694c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/87b2ea9d8f6fd014d0621ca089bb1b3769ea3f8e",
-                "reference": "87b2ea9d8f6fd014d0621ca089bb1b3769ea3f8e",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/597a03e85a60af6feee4f5127f3ef4279a1694c3",
+                "reference": "597a03e85a60af6feee4f5127f3ef4279a1694c3",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.0",
+                "php": ">=7.1.3",
                 "symfony/polyfill-ctype": "^1.8"
             },
             "require-dev": {
                 "psr/container": "^1.0",
-                "symfony/phpunit-bridge": "^4.4|^5.0"
+                "symfony/phpunit-bridge": "^4.4.9|^5.0.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.42-dev"
+                    "dev-master": "1.43-dev"
                 }
             },
             "autoload": {
@@ -18195,7 +18195,29 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2020-02-11T05:59:23+00:00"
+            "funding": [
+                {
+                    "url": "https://certification.symfony.com/",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://live.symfony.com/",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://symfony.com/cloud/",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/twig/twig",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-07-05T13:00:49+00:00"
         },
         {
             "name": "typo3/phar-stream-wrapper",
@@ -18253,12 +18275,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
-                "reference": "559a2968d9abba96bfad911ea4d85477eaa24e8d"
+                "reference": "00e6682a78ac698a3a1c19b6efe1e5fccf48f484"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/559a2968d9abba96bfad911ea4d85477eaa24e8d",
-                "reference": "559a2968d9abba96bfad911ea4d85477eaa24e8d",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/00e6682a78ac698a3a1c19b6efe1e5fccf48f484",
+                "reference": "00e6682a78ac698a3a1c19b6efe1e5fccf48f484",
                 "shasum": ""
             },
             "type": "node-project",
@@ -18283,7 +18305,7 @@
                 }
             ],
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
-            "time": "2020-07-02T13:00:49+00:00"
+            "time": "2020-07-07T12:57:43+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
