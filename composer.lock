@@ -3135,26 +3135,29 @@
         },
         {
             "name": "drupal/block_content_permissions",
-            "version": "1.9.0",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/block_content_permissions.git",
-                "reference": "8.x-1.9"
+                "reference": "8.x-1.10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/block_content_permissions-8.x-1.9.zip",
-                "reference": "8.x-1.9",
-                "shasum": "7cf72698825c6f78114efc5f1729dce1fdaf47ab"
+                "url": "https://ftp.drupal.org/files/projects/block_content_permissions-8.x-1.10.zip",
+                "reference": "8.x-1.10",
+                "shasum": "03cfd1ff8edb05ea0f953916b23ef7b3aed82ab4"
             },
             "require": {
                 "drupal/core": "^8 || ^9"
             },
+            "suggest": {
+                "drupal/block_region_permissions": "Block Region Permissions adds permissions for administering 'blocks' based on each theme's regions."
+            },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.9",
-                    "datestamp": "1592351910",
+                    "version": "8.x-1.10",
+                    "datestamp": "1593975004",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3167,14 +3170,16 @@
             ],
             "authors": [
                 {
-                    "name": "joshua.roberson",
-                    "homepage": "https://www.drupal.org/user/2999235"
+                    "name": "Joshua Roberson",
+                    "homepage": "https://www.drupal.org/u/joshuaroberson",
+                    "role": "Maintainer"
                 }
             ],
-            "description": "Adds specific permissions for administering block content and block content types.",
+            "description": "Block Content Permissions adds permissions for administering 'block content types' and 'block content'.",
             "homepage": "https://www.drupal.org/project/block_content_permissions",
             "support": {
-                "source": "https://git.drupalcode.org/project/block_content_permissions"
+                "source": "https://git.drupalcode.org/project/block_content_permissions",
+                "issues": "https://www.drupal.org/project/issues/block_content_permissions"
             }
         },
         {
