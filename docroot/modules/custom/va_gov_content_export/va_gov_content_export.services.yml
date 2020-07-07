@@ -16,6 +16,10 @@ services:
     decorates: tome_sync.file_sync
   va_gov.content_export.archive_directory:
     class: Drupal\va_gov_content_export\Archive\ArchiveDirectory
-    arguments: ['@zippy', '@file_system', '@logger.channel.file']
+    arguments: ['@zippy', '@file_system', '@event_dispatcher']
   va_gov.content_export.archive_args_factory:
     class: Drupal\va_gov_content_export\Archive\ArchiveArgsFactory
+  va_gov_content_export.pre.tar:
+    class: Drupal\va_gov_content_export\EventSubscriber\ContentExportPreTarSubscriber
+    tags:
+    - { name: 'event_subscriber' }
