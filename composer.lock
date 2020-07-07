@@ -3135,26 +3135,29 @@
         },
         {
             "name": "drupal/block_content_permissions",
-            "version": "1.9.0",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/block_content_permissions.git",
-                "reference": "8.x-1.9"
+                "reference": "8.x-1.10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/block_content_permissions-8.x-1.9.zip",
-                "reference": "8.x-1.9",
-                "shasum": "7cf72698825c6f78114efc5f1729dce1fdaf47ab"
+                "url": "https://ftp.drupal.org/files/projects/block_content_permissions-8.x-1.10.zip",
+                "reference": "8.x-1.10",
+                "shasum": "03cfd1ff8edb05ea0f953916b23ef7b3aed82ab4"
             },
             "require": {
                 "drupal/core": "^8 || ^9"
             },
+            "suggest": {
+                "drupal/block_region_permissions": "Block Region Permissions adds permissions for administering 'blocks' based on each theme's regions."
+            },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.9",
-                    "datestamp": "1592351910",
+                    "version": "8.x-1.10",
+                    "datestamp": "1593975004",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3167,14 +3170,16 @@
             ],
             "authors": [
                 {
-                    "name": "joshua.roberson",
-                    "homepage": "https://www.drupal.org/user/2999235"
+                    "name": "Joshua Roberson",
+                    "homepage": "https://www.drupal.org/u/joshuaroberson",
+                    "role": "Maintainer"
                 }
             ],
-            "description": "Adds specific permissions for administering block content and block content types.",
+            "description": "Block Content Permissions adds permissions for administering 'block content types' and 'block content'.",
             "homepage": "https://www.drupal.org/project/block_content_permissions",
             "support": {
-                "source": "https://git.drupalcode.org/project/block_content_permissions"
+                "source": "https://git.drupalcode.org/project/block_content_permissions",
+                "issues": "https://www.drupal.org/project/issues/block_content_permissions"
             }
         },
         {
@@ -9640,8 +9645,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0+18-dev",
-                    "datestamp": "1591770447",
+                    "version": "8.x-1.2+0-dev",
+                    "datestamp": "1594058302",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -18253,12 +18258,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
-                "reference": "559a2968d9abba96bfad911ea4d85477eaa24e8d"
+                "reference": "09ec40f11d440016979e8cb71c79c892f6d463d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/559a2968d9abba96bfad911ea4d85477eaa24e8d",
-                "reference": "559a2968d9abba96bfad911ea4d85477eaa24e8d",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/09ec40f11d440016979e8cb71c79c892f6d463d0",
+                "reference": "09ec40f11d440016979e8cb71c79c892f6d463d0",
                 "shasum": ""
             },
             "type": "node-project",
@@ -18283,7 +18288,7 @@
                 }
             ],
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
-            "time": "2020-07-02T13:00:49+00:00"
+            "time": "2020-07-06T23:43:03+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
