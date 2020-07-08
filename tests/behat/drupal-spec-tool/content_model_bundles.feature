@@ -43,7 +43,7 @@ Feature: Content model bundles
 | Video | video | Media type | A video hosted by YouTube, Vimeo, or some other provider. |
 | Accordion group | collapsible_panel | Paragraph type | A group of accordions. |
 | Accordion Item | collapsible_panel_item | Paragraph type | An individual accordion. |
-| Additional information | spanish_translation_summary | Paragraph type | Spanish summary to include a brief spanish-language summary of the content. |
+| Additional information | spanish_translation_summary | Paragraph type | Text that expands to display additional information upon click. |
 | Address | address | Paragraph type | An address block. |
 | Alert | alert | Paragraph type | A reusable or non-reusable alert, either "information status" or "warning status". |
 | Embedded image | media | Paragraph type | For adding an image inline |
