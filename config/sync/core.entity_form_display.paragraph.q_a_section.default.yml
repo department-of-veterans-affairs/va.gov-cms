@@ -15,23 +15,30 @@ targetEntityType: paragraph
 bundle: q_a_section
 mode: default
 content:
+  field_accordion_display:
+    type: boolean_checkbox
+    weight: 2
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_questions:
     type: paragraphs
-    weight: 2
+    weight: 3
     settings:
       title: 'Question & Answer'
       title_plural: 'Questions & Answers'
       edit_mode: closed
-      closed_mode: summary
-      autocollapse: all
+      closed_mode: preview
+      autocollapse: none
       closed_mode_threshold: 0
       add_mode: button
       form_display_mode: default
       default_paragraph_type: q_a
       features:
+        add_above: '0'
         collapse_edit_all: collapse_edit_all
         duplicate: '0'
-        add_above: '0'
     third_party_settings: {  }
     region: content
   field_section_header:
@@ -52,6 +59,5 @@ content:
     region: content
 hidden:
   created: true
-  field_accordion_display: true
   status: true
   uid: true
