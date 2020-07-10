@@ -365,10 +365,10 @@ Feature: Content model fields
 | Vocabulary | VHA health service taxonomy | Owner | field_owner | Entity reference | Required | 1 | -- Disabled -- |  |
 | Vocabulary | VHA health service taxonomy | Patient-friendly name | field_also_known_as | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VHA health service taxonomy | VHA Stop code | field_vha_healthservice_stopcode | Number (integer) |  | 1 | Number field |  |
-| Content type | VAMC facility health service | Online scheduling available? | field_online_scheduling_availabl | List (text) | Required | 1 | Select list |  |
+| Content type | VAMC facility health service | Online scheduling available? | field_online_scheduling_availabl | List (text) |  | 1 | Select list |  |
 | Content type | VAMC facility health service | Phone number | field_phone_numbers_paragraph | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
-| Content type | VAMC facility health service | Referral required? | field_referral_required | List (text) | Required | 1 | Select list |  |
-| Content type | VAMC facility health service | Walk-ins accepted? | field_walk_ins_accepted | List (text) | Required | 1 | Select list |  |
+| Content type | VAMC facility health service | Referral required? | field_referral_required | List (text) |  | 1 | Select list |  |
+| Content type | VAMC facility health service | Walk-ins accepted? | field_walk_ins_accepted | List (text) |  | 1 | Select list |  |
 | Paragraph type | Phone number | Extension number | field_phone_extension | Text (plain) |  | 1 | Textfield | Translatable |
 | Paragraph type | Phone number | Optional note | field_phone_label | Text (plain) |  | 1 | Textfield with counter | Translatable |
 | Paragraph type | Phone number | Phone number | field_phone_number | Text (plain) | Required | 1 | Textfield | Translatable |
