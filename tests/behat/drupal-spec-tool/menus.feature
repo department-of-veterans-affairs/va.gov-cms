@@ -33,13 +33,17 @@ Feature: Menus
 | Tools | tools | User tool links, often added by modules |
 | VA Altoona health care | va-altoona-health-care | va.gov/altoona-health-care |
 | VA Butler health care | va-butler-health-care | va.gov/butler-health-care |
+| VA Cheyenne health care | va-cheyenne-health-care |  |
 | VA Coatesville health care | va-coatesville-health-care | va.gov/coatesville-health-care |
+| VA Eastern Colorado health care | va-eastern-colorado-health-care |  |
+| VA Eastern Oklahoma health care | va-eastern-oklahoma-health-care |  |
 | VA Erie health care | va-erie-health-care | va.gov/erie-health-care |
 | VA Lebanon health care | va-lebanon | va.gov/lebanon-health-care |
+| VA Montana health care | va-montana-health-care |  |
+| VA Oklahoma health care | va-oklahoma-health-care |  |
 | VA Philadelphia health care | va-philadelphia-health-care | va.gov/philadelphia-health-care |
+| VA Salt Lake City health care | va-salt-lake-city-health-care |  |
+| VA Sheridan health care | va-sheridan-health-care |  |
+| VA Western Colorado health care | va-western-colorado-health-care |  |
 | VA Wilkes-Barre health care | va-wilkes-barre-health-care | va.gov/wilkes-barre-health-care |
 | VA Wilmington health care | va-wilmington-health-care | va.gov/wilmington-health-care |
-| VA Western Colorado health care | va-western-colorado-health-care |  |
-| VA Montana health care | va-montana-health-care |  |
-| VA Eastern Colorado health care | va-eastern-colorado-health-care |  |
-| VA Cheyenne health care | va-cheyenne-health-care |  |
