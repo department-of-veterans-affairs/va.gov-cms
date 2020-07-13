@@ -13,7 +13,6 @@ use Drupal\migrate\MigrateMessage;
 use Drupal\migrate_tools\MigrateExecutable;
 use Psr\Log\LogLevel;
 
-
 /**
  * Move a migration data file to public file system.
  *
@@ -32,7 +31,6 @@ function _va_gov_migrate_move_data_file($filename) {
   $destination = PublicStream::basePath() . "/migrate_source";
   \Drupal::service('file_system')->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY);
   $destination .= "/$filename";
-
 
   $new_location = \Drupal::service('file_system')->copy($file_source, $destination, FileSystemInterface::EXISTS_REPLACE);
   if (empty($new_location)) {

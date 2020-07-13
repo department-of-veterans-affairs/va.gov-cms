@@ -138,7 +138,7 @@ function _vagov_consumers_disable_non_vha_facilities_api_form_fields(array &$for
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state by reference.
  */
-function _vagov_consumers_modify_va_form_fields(&$form, $form_id, \Drupal\Core\Form\FormStateInterface &$form_state) {
+function _vagov_consumers_modify_va_form_fields(array &$form, $form_id, FormStateInterface &$form_state) {
   if ($form_id === 'node_va_form_edit_form' || $form_id === 'node_va_form_form') {
     $node = $form_state->getformObject()->getEntity();
     $title = "<h1>{$node->getTitle()}</h1>";
@@ -167,7 +167,7 @@ function _vagov_consumers_modify_va_form_fields(&$form, $form_id, \Drupal\Core\F
     ];
     $form['field_va_form_tool_intro']['#states'] = [
       'visible' => [
-        ':input[id="edit-field-va-form-tool-url-0-uri"]' => ['filled' => true],
+        ':input[id="edit-field-va-form-tool-url-0-uri"]' => ['filled' => TRUE],
       ],
     ];
   }
@@ -179,14 +179,14 @@ function _vagov_consumers_modify_va_form_fields(&$form, $form_id, \Drupal\Core\F
  * Adds node rendered as 'external_content' to form and removes the first
  * fieldgroup with id of 'external-content'.
  *
- * @param $form
+ * @param array $form
  *   The form content.
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state.
  * @param string $display_if_empty_field
  *   The field to check for empty.  If empty, external content fields appear.
  */
-function _va_gov_consumers_disable_external_content_editing(&$form, FormStateInterface $form_state, $display_if_empty_field) {
+function _va_gov_consumers_disable_external_content_editing(array &$form, FormStateInterface $form_state, $display_if_empty_field) {
   $node = $form_state->getformObject()->getEntity();
 
   $is_admin = in_array('administrator', \Drupal::currentUser()->getRoles());
@@ -234,11 +234,15 @@ function va_gov_consumers_preprocess_node(&$variables) {
 
     if ($node->getType() === 'va_form') {
       $label = 'Forms DB Data';
-      $message = 'The following information about this VA form comes from the VA forms database, and any changes are updated here nightly.  Contact the form administration for further information.';
+      $message = 'The following information about this VA form comes from the VA forms database, and any changes are updated here nightly. Contact the form administration for further information.';
     }
 
+    // phpcs:disable
+    // Disabling phpcs here due to the warning
+    // "Only string literals should be passed to t() where possible".
     $variables['external_content_label'] = new TranslatableMarkup($label);
     $variables['external_content_message'] = new TranslatableMarkup($message);
+    // phpcs:enable
   }
   elseif ($variables['view_mode'] === 'full' && $node->getType() === "va_form") {
     $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
