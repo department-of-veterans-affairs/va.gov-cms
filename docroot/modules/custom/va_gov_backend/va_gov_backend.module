@@ -155,9 +155,11 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
  * function modifies the form to eliminate UI noise.
  *
  * @param array $form
+ *   Form object.
  * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   Form state.
  */
-function _va_gov_backend_vbo_facility_status_form_ui(&$form, FormStateInterface $form_state) {
+function _va_gov_backend_vbo_facility_status_form_ui(array &$form, FormStateInterface $form_state) {
   // This if Facility Status form.
   // Clean up the UI.
   $bundle_fields = [];
