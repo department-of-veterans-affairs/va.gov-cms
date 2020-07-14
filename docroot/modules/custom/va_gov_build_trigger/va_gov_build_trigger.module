@@ -42,19 +42,26 @@ function va_gov_build_trigger_form_alter(&$form, FormStateInterface $form_state,
   if (in_array('node_form', (array) $form['#theme'])) {
 
     $form['actions']['preview'] = [
+      '#ief_submit_trigger' => TRUE,
+      '#ief_submit_trigger_all' => TRUE,
       '#type' => 'submit',
       '#weight' => 10,
       '#value' => 'Save and continue editing',
       '#submit' => ['::submitForm', 'va_gov_build_trigger_form_alter_submit'],
     ];
-  }
 
+  }
 }
 
 /**
- * Implements hook_form_alter().
+ * Submit function for va_gov_build_trigger_form_alter.
+ *
+ * @param array $form
+ *   The form array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state array.
  */
-function va_gov_build_trigger_form_alter_submit(&$form, FormStateInterface $form_state) {
+function va_gov_build_trigger_form_alter_submit(array &$form, FormStateInterface $form_state) {
 
   // We want to associate our user with the revision.
   $uid = Drupal::currentUser()->id();
@@ -63,7 +70,7 @@ function va_gov_build_trigger_form_alter_submit(&$form, FormStateInterface $form
   $node = $form_state->getFormObject()->getEntity();
   $node->setNewRevision(TRUE);
   $node->revision_log = 'Created revision for node in preview';
-  $node->setRevisionCreationTime(REQUEST_TIME);
+  $node->setRevisionCreationTime(\Drupal::time()->getRequestTime());
 
   // Save it as unpublished and associate with user.
   $node->setRevisionUserId($uid);
