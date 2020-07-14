@@ -21,26 +21,30 @@ mode: default
 content:
   field_image:
     type: media_library_widget
-    weight: 4
+    weight: 1
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_instructions:
-    weight: 2
-    settings: {  }
-    third_party_settings: {  }
     type: markup
+    weight: 3
     region: content
-  field_owner:
-    weight: 5
     settings: {  }
     third_party_settings: {  }
-    type: options_select
+  field_owner:
+    type: entity_reference_autocomplete
+    weight: 5
     region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_promo_link:
     type: entity_reference_paragraphs
-    weight: 1
+    weight: 2
     settings:
       title: Link
       title_plural: Links
@@ -60,7 +64,7 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
