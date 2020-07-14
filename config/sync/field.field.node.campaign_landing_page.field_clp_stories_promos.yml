@@ -1,0 +1,28 @@
+uuid: 3265a5d6-fe06-4067-b79f-d522002f4fd4
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.promo
+    - field.storage.node.field_clp_stories_promos
+    - node.type.campaign_landing_page
+id: node.campaign_landing_page.field_clp_stories_promos
+field_name: field_clp_stories_promos
+entity_type: node
+bundle: campaign_landing_page
+label: 'Stories promos'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      promo: promo
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

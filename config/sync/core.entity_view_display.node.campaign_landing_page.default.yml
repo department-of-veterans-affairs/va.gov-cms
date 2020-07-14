@@ -1,0 +1,287 @@
+uuid: bc74c30c-dbdf-41f3-b3d2-dbb0d66c7c1f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.campaign_landing_page.field_administration
+    - field.field.node.campaign_landing_page.field_audience
+    - field.field.node.campaign_landing_page.field_benefit_categories
+    - field.field.node.campaign_landing_page.field_clp_downloadables_cta
+    - field.field.node.campaign_landing_page.field_clp_downloads_header
+    - field.field.node.campaign_landing_page.field_clp_downloads_intro_text
+    - field.field.node.campaign_landing_page.field_clp_events_header
+    - field.field.node.campaign_landing_page.field_clp_expiration_date
+    - field.field.node.campaign_landing_page.field_clp_faq
+    - field.field.node.campaign_landing_page.field_clp_spotlight_header
+    - field.field.node.campaign_landing_page.field_clp_spotlight_intro_text
+    - field.field.node.campaign_landing_page.field_clp_spotlight_link_teasers
+    - field.field.node.campaign_landing_page.field_clp_stories_header
+    - field.field.node.campaign_landing_page.field_clp_stories_intro_text
+    - field.field.node.campaign_landing_page.field_clp_stories_promos
+    - field.field.node.campaign_landing_page.field_clp_what_you_can_do_header
+    - field.field.node.campaign_landing_page.field_clp_what_you_can_do_intro
+    - field.field.node.campaign_landing_page.field_clp_what_you_can_do_promos
+    - field.field.node.campaign_landing_page.field_clp_why_this_matters
+    - field.field.node.campaign_landing_page.field_description
+    - field.field.node.campaign_landing_page.field_events
+    - field.field.node.campaign_landing_page.field_hero_blurb
+    - field.field.node.campaign_landing_page.field_hero_image
+    - field.field.node.campaign_landing_page.field_media
+    - field.field.node.campaign_landing_page.field_meta_tags
+    - field.field.node.campaign_landing_page.field_meta_title
+    - field.field.node.campaign_landing_page.field_primary_call_to_action
+    - field.field.node.campaign_landing_page.field_secondary_call_to_action
+    - field.field.node.campaign_landing_page.field_see_more_videos_button
+    - node.type.campaign_landing_page
+  module:
+    - datetime
+    - entity_reference_revisions
+    - metatag
+    - user
+id: node.campaign_landing_page.default
+targetEntityType: node
+bundle: campaign_landing_page
+mode: default
+content:
+  field_administration:
+    weight: 110
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_audience:
+    weight: 104
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_benefit_categories:
+    weight: 124
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_clp_downloadables_cta:
+    type: entity_reference_revisions_entity_view
+    weight: 120
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_clp_downloads_header:
+    weight: 118
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_clp_downloads_intro_text:
+    weight: 119
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_clp_events_header:
+    weight: 122
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_clp_expiration_date:
+    weight: 127
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_clp_faq:
+    type: entity_reference_revisions_entity_view
+    weight: 123
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_clp_spotlight_header:
+    weight: 114
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_clp_spotlight_intro_text:
+    weight: 115
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_clp_spotlight_link_teasers:
+    type: entity_reference_revisions_entity_view
+    weight: 117
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_clp_stories_header:
+    weight: 111
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_clp_stories_intro_text:
+    weight: 112
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_clp_stories_promos:
+    weight: 126
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_clp_what_you_can_do_header:
+    weight: 106
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_clp_what_you_can_do_intro:
+    weight: 107
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_clp_what_you_can_do_promos:
+    weight: 108
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_clp_why_this_matters:
+    weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_description:
+    weight: 129
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_events:
+    weight: 121
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_hero_blurb:
+    weight: 101
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_hero_image:
+    type: entity_reference_entity_view
+    weight: 130
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+  field_media:
+    weight: 109
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_meta_tags:
+    weight: 125
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+    region: content
+  field_meta_title:
+    weight: 128
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_primary_call_to_action:
+    type: entity_reference_revisions_entity_view
+    weight: 103
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_secondary_call_to_action:
+    type: entity_reference_revisions_entity_view
+    weight: 105
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_see_more_videos_button:
+    type: entity_reference_revisions_entity_view
+    weight: 131
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  search_api_excerpt: true

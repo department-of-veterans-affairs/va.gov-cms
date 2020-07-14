@@ -1,0 +1,21 @@
+uuid: 17169554-18f9-4184-b5bd-5213847c7f57
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_clp_expiration_date
+    - node.type.campaign_landing_page
+  module:
+    - datetime
+id: node.campaign_landing_page.field_clp_expiration_date
+field_name: field_clp_expiration_date
+entity_type: node
+bundle: campaign_landing_page
+label: 'Expiration date'
+description: 'You must specify the date at which this campaign page will be sunsetted. Typically, this is six to twelve months from the date of publishing. '
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

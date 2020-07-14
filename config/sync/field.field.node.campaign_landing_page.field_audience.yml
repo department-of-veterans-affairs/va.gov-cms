@@ -1,0 +1,29 @@
+uuid: 31aff84a-aade-4232-861c-7a5c6112bbbd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_audience
+    - node.type.campaign_landing_page
+    - taxonomy.vocabulary.audience
+id: node.campaign_landing_page.field_audience
+field_name: field_audience
+entity_type: node
+bundle: campaign_landing_page
+label: Audience
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      audience: audience
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

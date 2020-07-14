@@ -1,0 +1,97 @@
+uuid: 22a8764b-8125-4c66-a535-a4cbc3b981da
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_see_more_videos_button
+    - node.type.campaign_landing_page
+    - paragraphs.paragraphs_type.button
+  module:
+    - entity_reference_revisions
+id: node.campaign_landing_page.field_see_more_videos_button
+field_name: field_see_more_videos_button
+entity_type: node
+bundle: campaign_landing_page
+label: 'See more videos button'
+description: 'Link to a Youtube channel or playlist.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      button: button
+    target_bundles_drag_drop:
+      address:
+        weight: 24
+        enabled: false
+      alert:
+        weight: 25
+        enabled: false
+      button:
+        enabled: true
+        weight: 26
+      collapsible_panel:
+        weight: 27
+        enabled: false
+      collapsible_panel_item:
+        weight: 28
+        enabled: false
+      downloadable_file:
+        weight: 29
+        enabled: false
+      expandable_text:
+        weight: 30
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 31
+        enabled: false
+      link_teaser:
+        weight: 32
+        enabled: false
+      list_of_link_teasers:
+        weight: 33
+        enabled: false
+      media:
+        weight: 34
+        enabled: false
+      number_callout:
+        weight: 35
+        enabled: false
+      phone_number:
+        weight: 36
+        enabled: false
+      process:
+        weight: 37
+        enabled: false
+      q_a:
+        weight: 38
+        enabled: false
+      q_a_section:
+        weight: 39
+        enabled: false
+      react_widget:
+        weight: 40
+        enabled: false
+      situation_update:
+        weight: 41
+        enabled: false
+      spanish_translation_summary:
+        weight: 42
+        enabled: false
+      staff_profile:
+        weight: 43
+        enabled: false
+      starred_horizontal_rule:
+        weight: 44
+        enabled: false
+      table:
+        weight: 45
+        enabled: false
+      wysiwyg:
+        weight: 46
+        enabled: false
+field_type: entity_reference_revisions

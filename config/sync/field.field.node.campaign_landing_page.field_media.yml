@@ -1,0 +1,28 @@
+uuid: dc421e44-15d9-4096-96e5-5ac9350a5306
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media
+    - media.type.video
+    - node.type.campaign_landing_page
+id: node.campaign_landing_page.field_media
+field_name: field_media
+entity_type: node
+bundle: campaign_landing_page
+label: Video
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      video: video
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

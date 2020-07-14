@@ -1,0 +1,80 @@
+uuid: ac677a68-f6e3-4b5e-96c5-4b213a243aa0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.campaign_landing_page.field_administration
+    - field.field.node.campaign_landing_page.field_audience
+    - field.field.node.campaign_landing_page.field_benefit_categories
+    - field.field.node.campaign_landing_page.field_clp_downloadables_cta
+    - field.field.node.campaign_landing_page.field_clp_downloads_header
+    - field.field.node.campaign_landing_page.field_clp_downloads_intro_text
+    - field.field.node.campaign_landing_page.field_clp_events_header
+    - field.field.node.campaign_landing_page.field_clp_expiration_date
+    - field.field.node.campaign_landing_page.field_clp_faq
+    - field.field.node.campaign_landing_page.field_clp_spotlight_header
+    - field.field.node.campaign_landing_page.field_clp_spotlight_intro_text
+    - field.field.node.campaign_landing_page.field_clp_spotlight_link_teasers
+    - field.field.node.campaign_landing_page.field_clp_stories_header
+    - field.field.node.campaign_landing_page.field_clp_stories_intro_text
+    - field.field.node.campaign_landing_page.field_clp_stories_promos
+    - field.field.node.campaign_landing_page.field_clp_what_you_can_do_header
+    - field.field.node.campaign_landing_page.field_clp_what_you_can_do_intro
+    - field.field.node.campaign_landing_page.field_clp_what_you_can_do_promos
+    - field.field.node.campaign_landing_page.field_clp_why_this_matters
+    - field.field.node.campaign_landing_page.field_description
+    - field.field.node.campaign_landing_page.field_events
+    - field.field.node.campaign_landing_page.field_hero_blurb
+    - field.field.node.campaign_landing_page.field_hero_image
+    - field.field.node.campaign_landing_page.field_media
+    - field.field.node.campaign_landing_page.field_meta_tags
+    - field.field.node.campaign_landing_page.field_meta_title
+    - field.field.node.campaign_landing_page.field_primary_call_to_action
+    - field.field.node.campaign_landing_page.field_secondary_call_to_action
+    - field.field.node.campaign_landing_page.field_see_more_videos_button
+    - node.type.campaign_landing_page
+  module:
+    - user
+id: node.campaign_landing_page.teaser
+targetEntityType: node
+bundle: campaign_landing_page
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_audience: true
+  field_benefit_categories: true
+  field_clp_downloadables_cta: true
+  field_clp_downloads_header: true
+  field_clp_downloads_intro_text: true
+  field_clp_events_header: true
+  field_clp_expiration_date: true
+  field_clp_faq: true
+  field_clp_spotlight_header: true
+  field_clp_spotlight_intro_text: true
+  field_clp_spotlight_link_teasers: true
+  field_clp_stories_header: true
+  field_clp_stories_intro_text: true
+  field_clp_stories_promos: true
+  field_clp_what_you_can_do_header: true
+  field_clp_what_you_can_do_intro: true
+  field_clp_what_you_can_do_promos: true
+  field_clp_why_this_matters: true
+  field_description: true
+  field_events: true
+  field_hero_blurb: true
+  field_hero_image: true
+  field_media: true
+  field_meta_tags: true
+  field_meta_title: true
+  field_primary_call_to_action: true
+  field_secondary_call_to_action: true
+  field_see_more_videos_button: true
+  search_api_excerpt: true

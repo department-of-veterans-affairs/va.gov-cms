@@ -1,0 +1,29 @@
+uuid: e2fca9f7-747e-40c6-9b1d-80122d6cf680
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.campaign_landing_page
+    - taxonomy.vocabulary.administration
+id: node.campaign_landing_page.field_administration
+field_name: field_administration
+entity_type: node
+bundle: campaign_landing_page
+label: Owner
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

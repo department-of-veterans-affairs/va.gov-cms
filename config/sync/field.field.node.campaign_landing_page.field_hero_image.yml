@@ -1,0 +1,28 @@
+uuid: 3b5857e4-bb2f-45d6-8d23-28a66691d152
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hero_image
+    - media.type.image
+    - node.type.campaign_landing_page
+id: node.campaign_landing_page.field_hero_image
+field_name: field_hero_image
+entity_type: node
+bundle: campaign_landing_page
+label: 'Hero image (optional)'
+description: "<p>Provide an image to display in the hero. You will be prompted to crop the image to a Y x Z aspect ratio. Original images must be 1000 pixels or greater. </p>\r\n<p>If you do not add a hero image, the hero banner will display as with a gradient background color.</p>"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference
