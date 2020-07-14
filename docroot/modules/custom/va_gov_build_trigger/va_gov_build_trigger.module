@@ -69,7 +69,6 @@ function va_gov_build_trigger_form_alter_submit(array &$form, FormStateInterface
   // Build the revision info.
   $node = $form_state->getFormObject()->getEntity();
   $node->setNewRevision(TRUE);
-  $node->revision_log = 'Created revision for node in preview';
   $node->setRevisionCreationTime(\Drupal::time()->getRequestTime());
 
   // Save it as unpublished and associate with user.
