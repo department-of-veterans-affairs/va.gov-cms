@@ -5,16 +5,23 @@
  * Contains va_gov_migrate.module.
  */
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
  * Implements hook_entity_presave().
  */
-function va_gov_migrate_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+function va_gov_migrate_entity_presave(EntityInterface $entity) {
   _va_gov_migrate_process_va_form($entity);
 }
 
-function _va_gov_migrate_process_va_form(Drupal\Core\Entity\EntityInterface $entity) {
+/**
+ * Process VA Form.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Entity.
+ */
+function _va_gov_migrate_process_va_form(EntityInterface $entity) {
   if ($entity->bundle() !== 'va_form') {
     return;
   }

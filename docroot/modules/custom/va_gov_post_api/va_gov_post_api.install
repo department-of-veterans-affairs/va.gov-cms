@@ -16,7 +16,7 @@ function va_gov_post_api_update_8002(&$sandbox) {
 
   // Grab our nodes and set the count.
   if (empty($sandbox['total'])) {
-    // Enable force update
+    // Enable force update.
     $config
       ->set('bypass_data_check', 1)
       ->save();
@@ -59,12 +59,10 @@ function va_gov_post_api_update_8002(&$sandbox) {
   $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
   if ($sandbox['#finished'] === 1) {
     Drupal::logger('va_gov_post_api')
-    ->log(LogLevel::INFO, 'Completed all %total nodes queued for Lighthouse.', [
-      '%total' => $sandbox['total'],
-    ]);
+      ->log(LogLevel::INFO, 'Completed all %total nodes queued for Lighthouse.', ['%total' => $sandbox['total']]);
     $config
       ->set('bypass_data_check', 0)
       ->save();
-     return "Completed updating ALL facility nodes.";
+    return "Completed updating ALL facility nodes.";
   }
 }
