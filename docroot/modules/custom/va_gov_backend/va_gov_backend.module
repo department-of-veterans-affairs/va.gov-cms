@@ -155,9 +155,11 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
  * function modifies the form to eliminate UI noise.
  *
  * @param array $form
+ *   Form object.
  * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   Form state.
  */
-function _va_gov_backend_vbo_facility_status_form_ui(&$form, FormStateInterface $form_state) {
+function _va_gov_backend_vbo_facility_status_form_ui(array &$form, FormStateInterface $form_state) {
   // This if Facility Status form.
   // Clean up the UI.
   $bundle_fields = [];
@@ -423,7 +425,7 @@ function _va_gov_backend_gtm_settings() {
  */
 function va_gov_backend_page_bottom(array &$page_bottom) {
   // Add GTM noscript iframe to body.
-  $gtm_noscript = Markup::create('<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ3DLLB&gtm_auth=GDc7Zfyf8G-0S5j8FC1WXQ&gtm_preview=env-5&gtm_cookies_win=x" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>');
+  $gtm_noscript = Markup::create('<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ3DLLB&gtm_auth=GDc7Zfyf8G-0S5j8FC1WXQ&gtm_preview=env-2&gtm_cookies_win=x" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>');
   $page_bottom['va_gov_backend'] = ['#markup' => $gtm_noscript];
 }
 
