@@ -12,6 +12,6 @@
     j = d.createElement(s),
     dl = l != 'dataLayer' ? '&l=' + l : '';
   j.async = true;
-  j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl + '&gtm_auth=GDc7Zfyf8G-0S5j8FC1WXQ&gtm_preview=env-5&gtm_cookies_win=x';
+  j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl + '&gtm_auth=GDc7Zfyf8G-0S5j8FC1WXQ&gtm_preview=env-2&gtm_cookies_win=x';
   f.parentNode.insertBefore(j, f);
 })(window, document, 'script', 'dataLayer', 'GTM-WQ3DLLB');
