@@ -61,7 +61,7 @@ function va_gov_build_trigger_form_alter(&$form, FormStateInterface $form_state,
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state array.
  */
-function va_gov_build_trigger_form_alter_submit(array &$form, FormStateInterface &$form_state) {
+function va_gov_build_trigger_form_alter_submit(array &$form, FormStateInterface $form_state) {
 
   // We want to associate our user with the revision.
   $uid = Drupal::currentUser()->id();
