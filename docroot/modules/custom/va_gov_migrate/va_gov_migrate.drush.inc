@@ -1,8 +1,16 @@
 <?php
 
+/**
+ * @file
+ * Drush jobs to clean up old revisions.
+ */
+
 use Drupal\Core\Entity\EntityStorageException;
 use Drush\Log\LogLevel;
 
+/**
+ * Implements hook_drush_command().
+ */
 function va_gov_migrate_drush_command() {
   $items = [];
 
@@ -14,15 +22,21 @@ function va_gov_migrate_drush_command() {
   return $items;
 }
 
+/**
+ * Command for cleaning up revisions.
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ */
 function drush_va_gov_migrate_va_gov_clean_revs() {
   $time = 1572551719;
 
-  $query =  \Drupal::database()->select('node_revision', 'nr');
+  $query = \Drupal::database()->select('node_revision', 'nr');
   $query->condition('revision_timestamp', $time);
   $query->fields('nr', ['vid']);
   $vids = $query->execute()->fetchCol();
 
-  $query =  \Drupal::database()->select('node_revision', 'nr');
+  $query = \Drupal::database()->select('node_revision', 'nr');
   $query->condition('revision_log', 'Update of status by migration.');
   $query->fields('nr', ['vid']);
   $more_vids = $query->execute()->fetchCol();
@@ -35,7 +49,8 @@ function drush_va_gov_migrate_va_gov_clean_revs() {
     try {
       drush_log('Deleting: ' . $vid, LogLevel::INFO);
       \Drupal::entityTypeManager()->getStorage('node')->deleteRevision($vid);
-    } catch (EntityStorageException $e) {
+    }
+    catch (EntityStorageException $e) {
       drush_log('Vid ' . $vid . ' could not be deleted: ' . $e->getMessage(), LogLevel::WARNING);
       $missed_vids[] = $vid;
     }
