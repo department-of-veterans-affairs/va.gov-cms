@@ -38,6 +38,7 @@ function drush_va_gov_migrate_va_gov_clean_revs() {
 
   $query = \Drupal::database()->select('node_revision', 'nr');
   $query->condition('revision_log', 'Update of status by migration.');
+  $query->condition('nid', 1884);
   $query->fields('nr', ['vid']);
   $more_vids = $query->execute()->fetchCol();
 
@@ -55,7 +56,6 @@ function drush_va_gov_migrate_va_gov_clean_revs() {
       $missed_vids[] = $vid;
     }
   }
-
 
   $count = count($vids) - count($missed_vids);
   drush_log('Deleted ' . $count . ' revision', LogLevel::OK);
