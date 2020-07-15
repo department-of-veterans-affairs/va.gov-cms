@@ -4,6 +4,7 @@ status: true
 dependencies:
   module:
     - menu_ui
+    - node_revision_delete
     - node_title_help_text
 third_party_settings:
   menu_ui:
@@ -12,6 +13,10 @@ third_party_settings:
     parent: 'documentation:menu_link_content:578ef4b0-9054-4675-8105-bd1f2ed51469'
   node_title_help_text:
     title_help: 'Use sentence case.'
+  node_revision_delete:
+    minimum_revisions_to_keep: 50
+    minimum_age_to_delete: 0
+    when_to_delete: 0
 name: 'Documentation page'
 type: documentation_page
 description: 'Help pages VA.gov CMS editors.'
