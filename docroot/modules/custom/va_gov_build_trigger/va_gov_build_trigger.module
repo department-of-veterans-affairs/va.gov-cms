@@ -46,7 +46,7 @@ function va_gov_build_trigger_form_alter(&$form, FormStateInterface $form_state,
       '#ief_submit_trigger_all' => TRUE,
       '#type' => 'submit',
       '#weight' => 10,
-      '#value' => 'Save and continue editing',
+      '#value' => 'Save draft and continue editing',
       '#submit' => ['::submitForm', 'va_gov_build_trigger_form_alter_submit'],
     ];
 
@@ -71,9 +71,8 @@ function va_gov_build_trigger_form_alter_submit(array &$form, FormStateInterface
   $node->setNewRevision(TRUE);
   $node->setRevisionCreationTime(\Drupal::time()->getRequestTime());
 
-  // Save it as unpublished and associate with user.
+  // Save it and associate with user.
   $node->setRevisionUserId($uid);
-  $node->set('moderation_state', 'draft');
   $node->save();
 
   $nid = $node->id();
