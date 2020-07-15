@@ -56,7 +56,6 @@ function drush_va_gov_migrate_va_gov_clean_revs() {
     }
   }
 
-  drush_log('Migration revisions from node 1884', LogLevel::OK);
 
   $count = count($vids) - count($missed_vids);
   drush_log('Deleted ' . $count . ' revision', LogLevel::OK);
