@@ -43,54 +43,6 @@ function vagovadmin_preprocess_field(&$variables) {
 }
 
 /**
- * Removes paragraph contextual link if appropriate.
- *
- * @param array $variables
- *   The template variables.
- */
-function _vagovadmin_filter_contextual_links(array &$variables) {
-  if (!empty($variables['title_suffix']['contextual_links'])) {
-    $remove_link = TRUE;
-
-    if (!empty($variables['paragraph_name'])) {
-      $remove_link = FALSE;
-
-      /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
-      $paragraph = $variables['paragraph'];
-      $parent = $paragraph->getParentEntity();
-
-      // Don't provide edit links for individual items in 'grouped' paragraphs.
-      $grouped_paragraphs = ['collapsible_panel_item', 'link_teaser'];
-      if (in_array($paragraph->getType(), $grouped_paragraphs)) {
-        $remove_link = TRUE;
-      }
-      // Don't provide edit links for children of 'grouped' paragraphs either.
-      elseif (in_array($parent->bundle(), $grouped_paragraphs)) {
-        $remove_link = TRUE;
-      }
-      // Don't provide edit links for paragraphs within alerts.
-      elseif ($parent->bundle() === 'alert') {
-        $remove_link = TRUE;
-      }
-      // Don't provide edit links for paragraphs within Q&A paragraphs.
-      elseif ($parent->bundle() === 'q_a') {
-        $remove_link = TRUE;
-      }
-      // Remove edit links for children of Q&A Sections if there's only 1.
-      elseif ($parent->bundle() === 'q_a_section') {
-        if ($parent->{$paragraph->parent_field_name->value}->count() === 1) {
-          $remove_link = TRUE;
-        }
-      }
-    }
-
-    if ($remove_link) {
-      unset($variables['title_suffix']['contextual_links']);
-    }
-  }
-}
-
-/**
  * Return the node that the paragraph belongs to.
  *
  * If the paragraph's parent is a paragraph, recurse up the tree until you
