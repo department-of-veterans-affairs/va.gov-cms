@@ -136,7 +136,7 @@
         "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^5.1",
         "twig/twig": "^1.38.2",
-        "va-gov/web": "dev-master#^0.1",
+        "va-gov/web": "^0.1",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
         "weitzman/drupal-test-traits": "dev-master",
@@ -176,7 +176,8 @@
             "php": "7.1.3"
         },
         "preferred-install": {
-            "drupal/core": "source"
+            "drupal/core": "source",
+            "va-gov/web": "source"
         }
     },
     "extra": {
@@ -403,7 +404,7 @@
         "va:web:build": [
             "drush config-set va_gov.build web.build.pending 1 -y",
             "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
-            "echo \"Downloading assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
+            "cd web && echo \"Downloading assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
             "cd web && NODE_ENV=production yarn build:content --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov --asset-source=$(git rev-parse --verify HEAD)",
             "echo 'Replace s3 address with local in generated files'",
             "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -print0 | xargs -0 sed -i \"s/https:\\/\\/dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com//g\" ",
