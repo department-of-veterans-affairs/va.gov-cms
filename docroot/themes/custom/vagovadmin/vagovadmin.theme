@@ -19,6 +19,7 @@ function vagovadmin_preprocess_paragraph(&$variables) {
     // Set the paragraph name.
     $variables['paragraph_name'] = $paragraph->type->entity->label();
   }
+  _vagovadmin_filter_contextual_links($variables);
 
   if ($paragraph->getType() === 'q_a') {
     $variables['as_accordion'] = FALSE;
