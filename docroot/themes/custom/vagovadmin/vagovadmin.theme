@@ -1,10 +1,11 @@
 <?php
-use Drupal\paragraphs\Entity\Paragraph;
 
 /**
  * @file
  * Vagovadmin.theme.
  */
+
+use Drupal\paragraphs\Entity\Paragraph;
 
 /**
  * Implements hook_preprocess_HOOK().
@@ -13,7 +14,9 @@ function vagovadmin_preprocess_paragraph(&$variables) {
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
   $node_parent = _vagovadmin_get_node_parent($paragraph);
+  // If this paragraph belongs to a 'benefits detail page'.
   if (!empty($node_parent) && $node_parent->bundle() === 'page') {
+    // Set the paragraph name.
     $variables['paragraph_name'] = $paragraph->type->entity->label();
   }
 
@@ -32,7 +35,7 @@ function vagovadmin_preprocess_paragraph(&$variables) {
  */
 function vagovadmin_preprocess_field(&$variables) {
   $element = $variables['element'];
-  $field_defs = \Drupal::service('entity_field.manager')
+  $field_defs = Drupal::service('entity_field.manager')
     ->getFieldDefinitions($element['#entity_type'], $element['#bundle']);
   /** @var \Drupal\Core\Field\BaseFieldDefinition $field_def */
   $field_def = $field_defs[$element['#field_name']];
@@ -42,14 +45,14 @@ function vagovadmin_preprocess_field(&$variables) {
 /**
  * Removes paragraph contextual link if appropriate.
  *
- * @param $variables
+ * @param array $variables
  *   The template variables.
  */
-function _vagovadmin_filter_contextual_links(&$variables) {
+function _vagovadmin_filter_contextual_links(array &$variables) {
   if (!empty($variables['title_suffix']['contextual_links'])) {
     $remove_link = TRUE;
 
-    if (!empty($variables['paragraph_name'] )) {
+    if (!empty($variables['paragraph_name'])) {
       $remove_link = FALSE;
 
       /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
@@ -61,15 +64,19 @@ function _vagovadmin_filter_contextual_links(&$variables) {
       if (in_array($paragraph->getType(), $grouped_paragraphs)) {
         $remove_link = TRUE;
       }
+      // Don't provide edit links for children of 'grouped' paragraphs either.
       elseif (in_array($parent->bundle(), $grouped_paragraphs)) {
         $remove_link = TRUE;
       }
+      // Don't provide edit links for paragraphs within alerts.
       elseif ($parent->bundle() === 'alert') {
         $remove_link = TRUE;
       }
+      // Don't provide edit links for paragraphs within Q&A paragraphs.
       elseif ($parent->bundle() === 'q_a') {
         $remove_link = TRUE;
       }
+      // Remove edit links for children of Q&A Sections if there's only 1.
       elseif ($parent->bundle() === 'q_a_section') {
         if ($parent->{$paragraph->parent_field_name->value}->count() === 1) {
           $remove_link = TRUE;
@@ -83,9 +90,21 @@ function _vagovadmin_filter_contextual_links(&$variables) {
   }
 }
 
+/**
+ * Return the node that the paragraph belongs to.
+ *
+ * If the paragraph's parent is a paragraph, recurse up the tree until you
+ * reach a non-paragraph entity.
+ *
+ * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
+ *   The paragraph to find the parent of.
+ *
+ * @return \Drupal\node\Entity\Node|null
+ *   If the paragraph is attached to a node, return the node, otherwise NULL.
+ */
 function _vagovadmin_get_node_parent(Paragraph $paragraph) {
   $parent_node = NULL;
-  /** @var Paragraph $parent */
+  /** @var Drupal\paragraphs\Entity\Paragraph $parent */
   $parent = $paragraph->getParentEntity();
   if ($parent->getEntityType()->id() === 'paragraph') {
     $parent_node = _vagovadmin_get_node_parent($parent);

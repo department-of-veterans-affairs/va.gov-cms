@@ -1,22 +1,15 @@
 {#
 /**
  * @file
- * Theme override for a field.
+ * Theme override for text expander field to correctly display html and line breaks
  *
- * To override output, copy the "field.html.twig" from the templates directory
- * to your theme's directory and customize it, just like customizing other
- * Drupal templates such as page.html.twig or node.html.twig.
- *
- * Instead of overriding the theming for all fields, you can also just override
- * theming for a subset of fields using
  * @link themeable Theme hook suggestions. @endlink For example,
- * here are some theme hook suggestions that can be used for a field_foo field
+ * here are some theme hook suggestions that can be used for a field_text_expander field
  * on an article node type:
- * - field--node--field-foo--article.html.twig
- * - field--node--field-foo.html.twig
+ * - field--node--field-intro-text--article.html.twig
+ * - field--node--field-intro-text.html.twig
  * - field--node--article.html.twig
- * - field--field-foo.html.twig
- * - field--text-with-summary.html.twig
+ * - field--field-intro-text.html.twig
  * - field.html.twig
  *
  * Available variables:
@@ -51,17 +44,16 @@
     label_display == 'visually_hidden' ? 'visually-hidden',
   ]
 %}
-
 {% if label_hidden %}
   {% if multiple %}
     <div{{ attributes.addClass(classes, 'field__items') }}>
       {% for item in items %}
-        <div{{ item.attributes.addClass('field__item') }}>{{ item.content|raw }}</div>
+        <div{{ item.attributes.addClass('field__item') }}>{{ item.content['#context'].value|raw|nl2br }}</div>
       {% endfor %}
     </div>
   {% else %}
     {% for item in items %}
-      <div{{ attributes.addClass(classes, 'field__item') }}>{{ item.content|raw }}</div>
+      <div{{ attributes.addClass(classes, 'field__item') }}>{{ item.content['#context'].value|raw|nl2br }}</div>
     {% endfor %}
   {% endif %}
 {% else %}
