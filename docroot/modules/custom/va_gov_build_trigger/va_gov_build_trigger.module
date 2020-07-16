@@ -38,8 +38,7 @@ function va_gov_build_trigger_node_insert(NodeInterface $node) {
  * Implements hook_form_alter().
  */
 function va_gov_build_trigger_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Add to node forms, but not to banners.
-  $banner_forms = ['node_full_width_banner_alert_edit_form', 'node_full_width_banner_alert_form'];
+  // Add to node forms in workflow.
   if (in_array('node_form', (array) $form['#theme'])) {
     $form['actions']['preview'] = [
       '#ief_submit_trigger' => TRUE,
@@ -49,10 +48,12 @@ function va_gov_build_trigger_form_alter(&$form, FormStateInterface $form_state,
       '#value' => 'Save draft and continue editing',
       '#submit' => ['::submitForm', 'va_gov_build_trigger_form_alter_submit'],
     ];
-  }
-  // Remove the default preview button from banners.
-  if (in_array($form_id, $banner_forms)) {
-    unset($form['actions']['preview']);
+    // Remove the default preview button from types not in workflow.
+    $node_type = $form_state->getFormObject()->getEntity()->getType();
+    $types_in_workflow = \Drupal::entityTypeManager()->getStorage('workflow')->load('editorial')->get('type_settings')['entity_types']['node'];
+    if (!in_array($node_type, $types_in_workflow)) {
+      unset($form['actions']['preview']);
+    }
   }
 }
 
@@ -76,6 +77,7 @@ function va_gov_build_trigger_form_alter_submit(array &$form, FormStateInterface
 
   // Save it and associate with user.
   $node->setRevisionUserId($uid);
+  $node->set('moderation_state', 'draft');
   $node->save();
 
   $nid = $node->id();
