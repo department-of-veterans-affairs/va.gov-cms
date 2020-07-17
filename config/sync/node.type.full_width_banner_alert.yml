@@ -4,6 +4,7 @@ status: true
 dependencies:
   module:
     - menu_ui
+    - node_revision_delete
     - node_title_help_text
 third_party_settings:
   menu_ui:
@@ -11,6 +12,10 @@ third_party_settings:
     parent: ''
   node_title_help_text:
     title_help: 'This will be displayed as the header on the alert.'
+  node_revision_delete:
+    minimum_revisions_to_keep: 50
+    minimum_age_to_delete: 0
+    when_to_delete: 0
 name: 'VAMC system banner alert with situation updates'
 type: full_width_banner_alert
 description: 'A full-width alert that will be added to a VAMC system, or multiple VAMC systems.'
