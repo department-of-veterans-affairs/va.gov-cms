@@ -17,15 +17,16 @@ bundle: alert
 mode: default
 content:
   field_alert_block_reference:
-    weight: 2
+    weight: 0
     label: above
     settings:
       link: true
+      view_mode: default
     third_party_settings: {  }
-    type: entity_reference_label
+    type: entity_reference_entity_view
     region: content
   field_alert_heading:
-    weight: 1
+    weight: 2
     label: above
     settings:
       link_to_entity: false
@@ -33,7 +34,7 @@ content:
     type: string
     region: content
   field_alert_type:
-    weight: 0
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -48,4 +49,5 @@ content:
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
     region: content
-hidden: {  }
+hidden:
+  search_api_excerpt: true
