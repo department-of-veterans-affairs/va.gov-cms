@@ -41,6 +41,11 @@ label: 'Editorial workflow'
 type: content_moderation
 type_settings:
   states:
+    approved:
+      published: false
+      default_revision: false
+      label: Approved
+      weight: -1
     archived:
       label: Archived
       weight: 1
@@ -62,6 +67,12 @@ type_settings:
       published: false
       default_revision: false
   transitions:
+    approve:
+      label: Approve
+      from:
+        - review
+      to: approved
+      weight: -1
     archive:
       label: Archive
       from:
@@ -75,7 +86,7 @@ type_settings:
       to: published
       weight: 2
     create_new_draft:
-      label: 'Create New Draft'
+      label: Edit
       to: draft
       weight: -3
       from:
@@ -92,7 +103,7 @@ type_settings:
         - published
         - review
     review:
-      label: 'Send to review'
+      label: Review
       to: review
       weight: -2
       from:
