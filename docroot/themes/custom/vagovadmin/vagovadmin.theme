@@ -1,0 +1,68 @@
+<?php
+
+/**
+ * @file
+ * Vagovadmin.theme.
+ */
+
+use Drupal\paragraphs\Entity\Paragraph;
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function vagovadmin_preprocess_paragraph(&$variables) {
+  /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+  $paragraph = $variables['paragraph'];
+  $node_parent = _vagovadmin_get_node_parent($paragraph);
+  // If this paragraph belongs to a 'benefits detail page'.
+  if (!empty($node_parent) && $node_parent->bundle() === 'page') {
+    // Set the paragraph name.
+    $variables['paragraph_name'] = $paragraph->type->entity->label();
+  }
+
+  if ($paragraph->getType() === 'q_a') {
+    $variables['as_accordion'] = FALSE;
+    if ($parent = $paragraph->getParentEntity()) {
+      if ($parent->bundle() === 'q_a_section') {
+        $variables['as_accordion'] = $parent->field_accordion_display->value;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function vagovadmin_preprocess_field(&$variables) {
+  $element = $variables['element'];
+  $field_defs = Drupal::service('entity_field.manager')
+    ->getFieldDefinitions($element['#entity_type'], $element['#bundle']);
+  /** @var \Drupal\Core\Field\BaseFieldDefinition $field_def */
+  $field_def = $field_defs[$element['#field_name']];
+  $variables['description'] = str_replace('"', "'", $field_def->getDescription());
+}
+
+/**
+ * Return the node that the paragraph belongs to.
+ *
+ * If the paragraph's parent is a paragraph, recurse up the tree until you
+ * reach a non-paragraph entity.
+ *
+ * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
+ *   The paragraph to find the parent of.
+ *
+ * @return \Drupal\node\Entity\Node|null
+ *   If the paragraph is attached to a node, return the node, otherwise NULL.
+ */
+function _vagovadmin_get_node_parent(Paragraph $paragraph) {
+  $parent_node = NULL;
+  /** @var Drupal\paragraphs\Entity\Paragraph $parent */
+  $parent = $paragraph->getParentEntity();
+  if ($parent->getEntityType()->id() === 'paragraph') {
+    $parent_node = _vagovadmin_get_node_parent($parent);
+  }
+  elseif ($parent->getEntityType()->id() === 'node') {
+    $parent_node = $parent;
+  }
+  return $parent_node;
+}

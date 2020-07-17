@@ -32,7 +32,7 @@
   /* Three column layout on larger devices. */
   @media all and (min-width: 800px) {
     main {
-      flex: 3 0px;
+      flex: 3 0;
     }
 
     .layout-sidebar-first {
@@ -94,6 +94,17 @@
   .layout-region-node-footer {
     display: grid;
     overflow: auto;
+  }
+}
+
+.page-content {
+  h1 {
+    margin: 0;
+    font-weight: 700;
+    font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
+    line-height: 1.3;
+    margin-bottom: .5em;
+    font-size: 2.5rem;
   }
 }
 
