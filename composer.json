@@ -121,6 +121,7 @@
         "drupal/webform": "^5.5",
         "drupal/workbench_access": "^1.0@beta",
         "drupal/workbench_menu_access": "^1.0",
+        "drupal/workflow_assignments": "1.x-dev",
         "drush-ops/behat-drush-endpoint": "^0.0.4",
         "drush/drush": "~8",
         "guzzlehttp/guzzle": "^6.0@dev",
@@ -164,6 +165,10 @@
             "type": "github",
             "url": "https://github.com/acquia/lightning-dev",
             "no-api": true
+        },
+        "ewa": {
+            "type": "git",
+            "url": "https://github.com/agilesix/workflow_assignments.git"
         }
     },
     "config": {
@@ -379,7 +384,7 @@
             "find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l > /dev/null"
         ],
         "va:test:cs": [
-            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,*/node_modules/*,*/simplesaml*/* --extensions=php,module,inc,install,profile,engine,theme,js,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors"
+            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,*/node_modules/*,*/simplesaml*/* --extensions=php,module,inc,install,profile,engine,theme,js,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/modules/contrib/workflow_assignments docroot/themes/custom --colors"
         ],
         "va:test:unit": "phpunit tests/phpunit --colors=always --exclude-group=disabled",
         "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors",
