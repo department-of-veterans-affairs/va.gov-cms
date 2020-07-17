@@ -16,12 +16,12 @@ bundle: q_a_section
 mode: default
 content:
   field_accordion_display:
+    type: boolean_checkbox
     weight: 2
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_questions:
     type: paragraphs
     weight: 3
@@ -36,9 +36,9 @@ content:
       form_display_mode: default
       default_paragraph_type: q_a
       features:
+        add_above: '0'
         collapse_edit_all: collapse_edit_all
         duplicate: '0'
-        add_above: '0'
     third_party_settings: {  }
     region: content
   field_section_header:

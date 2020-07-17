@@ -1,17 +1,18 @@
-uuid: 4892e742-2645-440b-ae25-a3838e923143
+uuid: 0910c3fe-57f3-47a5-89f2-7ff36b2a1141
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.paragraph.preview
     - field.field.paragraph.q_a.field_answer
     - field.field.paragraph.q_a.field_question
     - paragraphs.paragraphs_type.q_a
   module:
     - entity_reference_revisions
-id: paragraph.q_a.default
+id: paragraph.q_a.preview
 targetEntityType: paragraph
 bundle: q_a
-mode: default
+mode: preview
 content:
   field_answer:
     type: entity_reference_revisions_entity_view
