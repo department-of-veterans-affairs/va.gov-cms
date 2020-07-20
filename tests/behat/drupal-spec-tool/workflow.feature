@@ -16,6 +16,7 @@ Feature: Workflow
       | Workflow           | Label     | Machine name         |
       | Editorial workflow | Draft     | draft                |
       | Editorial workflow | In review | review               |
+      | Editorial workflow | Approved  | approved             |
       | Editorial workflow | Published | published            |
       | Editorial workflow | Archived  | archived             |
 
@@ -23,12 +24,13 @@ Feature: Workflow
   Scenario: Workflow transitions
     Then exactly the following workflow transitions should exist
       | Workflow           | Label                | Machine name         | From state | To state  |
-      | Editorial workflow | Create New Draft     | create_new_draft     | Draft      | Draft     |
-      | Editorial workflow | Create New Draft     | create_new_draft     | In review  | Draft     |
-      | Editorial workflow | Create New Draft     | create_new_draft     | Published  | Draft     |
-      | Editorial workflow | Create New Draft     | create_new_draft     | Archived   | Draft     |
-      | Editorial workflow | Send to review       | review               | Draft      | In review |
-      | Editorial workflow | Send to review       | review               | In review  | In review |
+      | Editorial workflow | Edit                 | create_new_draft     | Draft      | Draft     |
+      | Editorial workflow | Edit                 | create_new_draft     | In review  | Draft     |
+      | Editorial workflow | Edit                 | create_new_draft     | Published  | Draft     |
+      | Editorial workflow | Edit                 | create_new_draft     | Archived   | Draft     |
+      | Editorial workflow | Review               | review               | Draft      | In review |
+      | Editorial workflow | Review               | review               | In review  | In review |
+      | Editorial workflow | Approve              | approve              | In review  | Approved  |
       | Editorial workflow | Publish              | publish              | Draft      | Published |
       | Editorial workflow | Publish              | publish              | In review  | Published |
       | Editorial workflow | Publish              | publish              | Published  | Published |

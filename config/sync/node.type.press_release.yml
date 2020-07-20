@@ -4,6 +4,7 @@ status: true
 dependencies:
   module:
     - menu_ui
+    - node_revision_delete
     - node_title_help_text
 third_party_settings:
   menu_ui:
@@ -28,6 +29,10 @@ third_party_settings:
     parent: 'pittsburgh-health-care:'
   node_title_help_text:
     title_help: "The topic of this news release, in sentence case.<br/>\r\n<em>Maximum characters: 150</em>"
+  node_revision_delete:
+    minimum_revisions_to_keep: 50
+    minimum_age_to_delete: 0
+    when_to_delete: 0
 name: 'News release'
 type: press_release
 description: 'Announcements directed at members of the media for the purpose of publicizing newsworthy events/happenings/programs at specific facilities or healthcare systems.'

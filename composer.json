@@ -80,7 +80,7 @@
         "drupal/migration_tools": "^2.1",
         "drupal/module_missing_message_fixer": "^1.1",
         "drupal/node_link_report": "^1.14",
-        "drupal/node_revisions_autoclean": "^1.0@beta",
+        "drupal/node_revision_delete": "^1.0",
         "drupal/node_title_help_text": "^1.0",
         "drupal/openapi": "^1.0@beta",
         "drupal/override_node_options": "^2.4",
@@ -121,6 +121,7 @@
         "drupal/webform": "^5.5",
         "drupal/workbench_access": "^1.0@beta",
         "drupal/workbench_menu_access": "^1.0",
+        "drupal/workflow_assignments": "1.x-dev",
         "drush-ops/behat-drush-endpoint": "^0.0.4",
         "drush/drush": "~8",
         "guzzlehttp/guzzle": "^6.0@dev",
@@ -136,7 +137,7 @@
         "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^5.1",
         "twig/twig": "^1.38.2",
-        "va-gov/web": "dev-master#^0.1",
+        "va-gov/web": "^0.1",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
         "weitzman/drupal-test-traits": "dev-master",
@@ -164,6 +165,10 @@
             "type": "github",
             "url": "https://github.com/acquia/lightning-dev",
             "no-api": true
+        },
+        "ewa": {
+            "type": "git",
+            "url": "https://github.com/agilesix/workflow_assignments.git"
         }
     },
     "config": {
@@ -176,7 +181,8 @@
             "php": "7.1.3"
         },
         "preferred-install": {
-            "drupal/core": "source"
+            "drupal/core": "source",
+            "va-gov/web": "source"
         }
     },
     "extra": {
@@ -230,7 +236,8 @@
                 "2807629 - Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch",
                 "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2020-01-07/2893933-34.patch",
                 "2894449 - Indirect modification of overloaded element with Views responsive table": "https://www.drupal.org/files/issues/2018-10-05/core-indirect-modification-of-overloaded-element-2894449-18.patch",
-                "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2019-09-11/3057267-maintenance-forced-logout-experimental.patch"
+                "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2019-09-11/3057267-maintenance-forced-logout-experimental.patch",
+                "2859042 - Entity original revision": "https://www.drupal.org/files/issues/2018-07-30/entity_original_revision-2859042-26.patch"
             },
             "drupal/entity_browser": {
                 "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch"
@@ -377,7 +384,7 @@
             "find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l > /dev/null"
         ],
         "va:test:cs": [
-            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,*/node_modules/*,*/simplesaml*/* --extensions=php,module,inc,install,profile,engine,theme,js,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors"
+            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,*/node_modules/*,*/simplesaml*/* --extensions=php,module,inc,install,profile,engine,theme,js,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/modules/contrib/workflow_assignments docroot/themes/custom --colors"
         ],
         "va:test:unit": "phpunit tests/phpunit --colors=always --exclude-group=disabled",
         "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors",
@@ -403,7 +410,7 @@
         "va:web:build": [
             "drush config-set va_gov.build web.build.pending 1 -y",
             "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
-            "echo \"Downloading assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
+            "cd web && echo \"Downloading assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
             "cd web && NODE_ENV=production yarn build:content --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov --asset-source=$(git rev-parse --verify HEAD)",
             "echo 'Replace s3 address with local in generated files'",
             "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -print0 | xargs -0 sed -i \"s/https:\\/\\/dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com//g\" ",
