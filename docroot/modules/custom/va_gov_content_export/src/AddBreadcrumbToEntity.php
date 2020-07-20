@@ -11,7 +11,6 @@ use Drupal\Core\ParamConverter\ParamConverterManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Routing\RouteProviderInterface;
 use Drupal\graphql\GraphQL\Buffers\SubRequestBuffer;
-use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 
 /**
  * Class AddBreadcrumbToEntity.
