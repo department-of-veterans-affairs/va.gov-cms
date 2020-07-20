@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.health_care_local_health_service.field_phone_numbers_paragraph
     - field.field.node.health_care_local_health_service.field_referral_required
     - field.field.node.health_care_local_health_service.field_regional_health_service
+    - field.field.node.health_care_local_health_service.field_service_location
     - field.field.node.health_care_local_health_service.field_walk_ins_accepted
     - node.type.health_care_local_health_service
   module:
@@ -87,6 +88,15 @@ content:
       view_mode: teaser
       link: false
     third_party_settings: {  }
+  field_service_location:
+    type: entity_reference_revisions_entity_view
+    weight: 12
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
   field_walk_ins_accepted:
     weight: 3
     label: above

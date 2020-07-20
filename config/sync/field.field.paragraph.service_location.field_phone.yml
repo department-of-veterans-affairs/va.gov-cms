@@ -1,0 +1,97 @@
+uuid: 2cba7966-ce1d-44bd-ac6d-e56bc06acae5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_phone
+    - paragraphs.paragraphs_type.phone_number
+    - paragraphs.paragraphs_type.service_location
+  module:
+    - entity_reference_revisions
+id: paragraph.service_location.field_phone
+field_name: field_phone
+entity_type: paragraph
+bundle: service_location
+label: Phone
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      phone_number: phone_number
+    target_bundles_drag_drop:
+      address:
+        weight: 24
+        enabled: false
+      alert:
+        weight: 25
+        enabled: false
+      collapsible_panel:
+        weight: 26
+        enabled: false
+      collapsible_panel_item:
+        weight: 27
+        enabled: false
+      downloadable_file:
+        weight: 28
+        enabled: false
+      expandable_text:
+        weight: 29
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 30
+        enabled: false
+      link_teaser:
+        weight: 31
+        enabled: false
+      list_of_link_teasers:
+        weight: 32
+        enabled: false
+      media:
+        weight: 33
+        enabled: false
+      number_callout:
+        weight: 34
+        enabled: false
+      phone_number:
+        enabled: true
+        weight: 35
+      process:
+        weight: 36
+        enabled: false
+      q_a:
+        weight: 37
+        enabled: false
+      q_a_section:
+        weight: 38
+        enabled: false
+      react_widget:
+        weight: 39
+        enabled: false
+      service_location:
+        weight: 40
+        enabled: false
+      situation_update:
+        weight: 41
+        enabled: false
+      spanish_translation_summary:
+        weight: 42
+        enabled: false
+      staff_profile:
+        weight: 43
+        enabled: false
+      starred_horizontal_rule:
+        weight: 44
+        enabled: false
+      table:
+        weight: 45
+        enabled: false
+      wysiwyg:
+        weight: 46
+        enabled: false
+field_type: entity_reference_revisions

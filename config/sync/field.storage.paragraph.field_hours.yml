@@ -1,0 +1,30 @@
+uuid: d179b389-a294-4bed-835d-93ab14bdb535
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_hours
+field_name: field_hours
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '0'
+      label: 'Use facility hours'
+    -
+      value: '1'
+      label: 'Do not specify hours'
+    -
+      value: '2'
+      label: 'Provide specific hours for this service'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

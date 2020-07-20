@@ -253,6 +253,9 @@ process:
   sticky:
     plugin: default_value
     default_value: 0
+  status:
+    plugin: default_value
+    default_value: 0
   path/pathauto:
     plugin: default_value
     default_value: 1
@@ -315,9 +318,9 @@ destination:
     - revision_uid
     - uid
     - field_administration
-    - field_va_form_administration
     - field_va_form_deleted
     - field_va_form_deleted_date
+    - field_va_form_administration
     - field_va_form_issue_date
     - field_va_form_issue_date
     - field_va_form_num_pages
