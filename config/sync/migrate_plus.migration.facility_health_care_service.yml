@@ -1,5 +1,4 @@
 uuid: d6f0d43f-2e80-4224-9013-982136c095c8
-langcode: en
 status: true
 dependencies: {  }
 id: facility_health_care_service
@@ -13,7 +12,7 @@ migration_group: vamc
 label: 'Node - VAMC Facility Health Service.'
 source:
   plugin: csv
-  path: modules/custom/va_gov_migrate/data/VAMC_Facility_Health_Services_Wilkes-Barre.csv
+  path: modules/custom/va_gov_migrate/data/VAMC_Facility_Health_Services.csv
   delimiter: ;
   enclosure: ''''
   header_row_count: 1
@@ -69,13 +68,16 @@ process:
     default_value: true
   revision_log:
     plugin: default_value
-    default_value: 'Imported facility health services.'
+    default_value: 'Imported by facility_health_care_service migration.'
   revision_timestamp:
     plugin: callback
     callable: time
   revision_uid:
     plugin: default_value
     default_value: 1317
+  langcode:
+    plugin: default_value
+    default_value: en
   uid:
     plugin: default_value
     default_value: 1317
@@ -83,5 +85,6 @@ destination:
   plugin: 'entity:node'
   default_bundle: health_care_local_health_service
 migration_dependencies:
-  required: {  }
+  required:
+    - regional_health_care_service
   optional: {  }
