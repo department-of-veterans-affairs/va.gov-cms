@@ -155,7 +155,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
       '#type' => 'submit',
       '#weight' => 10,
       '#value' => 'Save draft and continue editing',
-      '#submit' => ['::submitForm', 'va_gov_build_trigger_form_alter_submit'],
+      '#submit' => ['::submitForm', 'va_gov_backend_form_alter_submit'],
     ];
     // Remove the default preview button from types not in workflow.
     $node_type = $form_state->getFormObject()->getEntity()->getType();
