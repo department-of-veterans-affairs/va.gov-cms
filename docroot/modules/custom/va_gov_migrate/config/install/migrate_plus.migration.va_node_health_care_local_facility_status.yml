@@ -1,5 +1,4 @@
 # Migration meta data.
-langcode: en
 status: true
 dependencies: {  }
 id: va_node_health_care_local_facility_status
@@ -306,6 +305,9 @@ process:
   changed:
     plugin: callback
     callable: time
+  langcode:
+    plugin: default_value
+    default_value: en
   type:
     plugin: default_value
     default_value: health_care_local_facility

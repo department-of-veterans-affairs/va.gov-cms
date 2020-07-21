@@ -246,6 +246,9 @@ process:
       plugin: format_date
       from_format: M/Y
       to_format: Y-m-d
+  langcode:
+    plugin: default_value
+    default_value: en
   promote:
     plugin: default_value
     default_value: 0

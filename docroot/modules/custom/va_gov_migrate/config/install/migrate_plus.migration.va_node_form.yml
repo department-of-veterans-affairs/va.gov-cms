@@ -1,5 +1,4 @@
 # Migration meta data.
-langcode: en
 status: true
 dependencies: {  }
 id: va_node_form
@@ -189,7 +188,6 @@ process:
   field_va_form_name: FormTitle
   field_va_form_number: displayName
   field_va_form_title: FormTitle
-  # @TODO this is not mapping correctly yet.
   field_va_form_type: FormType
   # field_va_form_link_teasers:
   field_va_form_issue_date:
@@ -229,6 +227,9 @@ process:
       to_format: Y-m-d
 #  field_va_form_tool_intro:
 #  field_va_form_usage:
+  langcode:
+    plugin: default_value
+    default_value: en
   promote:
     plugin: default_value
     default_value: 0
