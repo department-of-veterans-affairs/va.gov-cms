@@ -9,6 +9,8 @@ dependencies:
     - field.field.node.va_form.field_benefit_categories
     - field.field.node.va_form.field_meta_tags
     - field.field.node.va_form.field_va_form_administration
+    - field.field.node.va_form.field_va_form_deleted
+    - field.field.node.va_form.field_va_form_deleted_date
     - field.field.node.va_form.field_va_form_issue_date
     - field.field.node.va_form.field_va_form_link_teasers
     - field.field.node.va_form.field_va_form_name
@@ -36,7 +38,7 @@ third_party_settings:
         - field_benefit_categories
         - field_va_form_type
       parent_name: ''
-      weight: 16
+      weight: 19
       format_type: fieldset
       format_settings:
         id: ''
@@ -49,7 +51,7 @@ third_party_settings:
         - field_va_form_tool_intro
         - field_va_form_tool_url
       parent_name: ''
-      weight: 17
+      weight: 20
       format_type: fieldset
       format_settings:
         id: ''
@@ -72,6 +74,25 @@ content:
     label: above
     settings:
       link: true
+    third_party_settings: {  }
+  field_va_form_deleted:
+    type: boolean
+    weight: 7
+    region: content
+    label: inline
+    settings:
+      format: true-false
+      format_custom_true: ''
+      format_custom_false: ''
+    third_party_settings: {  }
+  field_va_form_deleted_date:
+    type: datetime_default
+    weight: 8
+    region: content
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: short_date_no_time
     third_party_settings: {  }
   field_va_form_issue_date:
     type: datetime_default

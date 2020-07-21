@@ -173,6 +173,8 @@ Feature: Content model fields
 | Content type | VA form | Alert | field_alert | Entity reference |  | 1 | Entity browser | Translatable |
 | Content type | VA form | Benefits hub | field_benefit_categories | Entity reference |  | Unlimited | Check boxes/radio buttons |  |
 | Content type | VA form | Category | field_va_form_type | List (text) |  | 1 | Select list |  |
+| Content type | VA form | Deleted | field_va_form_deleted | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | VA form | Deleted date | field_va_form_deleted_date | Date |  | 1 | Date and time |  |
 | Content type | VA form | Form administration | field_va_form_administration | Entity reference |  | 1 | Select list |  |
 | Content type | VA form | Form name | field_va_form_name | Text (plain) |  | 1 | Textfield |  |
 | Content type | VA form | Form number | field_va_form_number | Text (plain) |  | 1 | Textfield |  |
@@ -373,4 +375,3 @@ Feature: Content model fields
 | Paragraph type | Phone number | Optional note | field_phone_label | Text (plain) |  | 1 | Textfield with counter | Translatable |
 | Paragraph type | Phone number | Phone number | field_phone_number | Text (plain) | Required | 1 | Textfield | Translatable |
 | Paragraph type | Phone number | Type | field_phone_number_type | List (text) | Required | 1 | Select list | Translatable |
-
