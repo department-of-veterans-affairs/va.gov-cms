@@ -508,7 +508,7 @@ function _va_gov_backend_gtm_settings() {
  */
 function va_gov_backend_page_bottom(array &$page_bottom) {
   // Add GTM noscript iframe to body.
-  $gtm_noscript = Markup::create('<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ3DLLB&gtm_auth=GDc7Zfyf8G-0S5j8FC1WXQ&gtm_preview=env-2&gtm_cookies_win=x" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>');
+  $gtm_noscript = Markup::create('<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ3DLLB&gtm_auth=hHvHnY1eIx1IOSJMAnOBLA&gtm_preview=env-2&gtm_cookies_win=x" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>');
   $page_bottom['va_gov_backend'] = ['#markup' => $gtm_noscript];
 }
 
