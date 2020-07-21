@@ -118,8 +118,10 @@ class AddBreadcrumbToEntity {
       return;
     }
 
-    $breadcrumbs = $this->getBreadCrumbForEntity($entity, $routeName);
-    $this->addBreadCrumbToEntity($entity, $breadcrumbs);
+    $breadcrumbs = $this->getBreadCrumbForEntity($entity);
+    if ($breadcrumbs) {
+      $this->addBreadCrumbToEntity($entity, $breadcrumbs);
+    }
   }
 
   /**
@@ -167,23 +169,33 @@ class AddBreadcrumbToEntity {
    *
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *   The entity to get breadcrumbs for.
-   * @param string $route_name
-   *   The route name to lookup breadcrumbs for.
    *
-   * @return array
-   *   Array of breadcrumbs.
+   * @return Breadcrumb|NULL
+   *   Breadcrumb object or NULL.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\ParamConverter\ParamNotConvertedException
    */
-  protected function getBreadCrumbForEntity(ContentEntityInterface $entity, string $route_name) : Breadcrumb {
+  protected function getBreadCrumbForEntity(ContentEntityInterface $entity) : ?Breadcrumb {
     // Use a subrequest so the route context is set correctly.
     $url = $entity->toUrl();
     $resolve = $this->subRequestBuffer->add($url, function () {
       return $this->breadcrumbBuilder->build($this->routeMatch);
     });
 
-    return $resolve()->getValue();
+    try {
+      $response = $resolve();
+      if ($response) {
+        return $response->getvalue();
+      }
+    }
+    catch (\Exception $e) {
+      watchdog_exception('VA-EXPORT', $e);
+    }
+
+    Drupal::logger('VA-EXPORT')->warning('Error building breadcrumb for url ' . $url->toString());
+
+    return NULL;
   }
 
   /**
