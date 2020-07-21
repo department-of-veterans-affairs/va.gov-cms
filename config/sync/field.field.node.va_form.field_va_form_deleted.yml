@@ -1,0 +1,23 @@
+uuid: 6a477b0f-fe1f-4144-ab10-382edaa605f4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_va_form_deleted
+    - node.type.va_form
+id: node.va_form.field_va_form_deleted
+field_name: field_va_form_deleted
+entity_type: node
+bundle: va_form
+label: Deleted
+description: 'This field is set to True when the form  record has been deleted and should not be surfaced by the API.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: '1'
+  off_label: '0'
+field_type: boolean

@@ -112,6 +112,9 @@ process:
   changed:
     plugin: callback
     callable: time
+  langcode:
+    plugin: default_value
+    default_value: en
   new_revision:
     plugin: default_value
     default_value: true

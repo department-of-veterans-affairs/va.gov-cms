@@ -1,5 +1,4 @@
 # Migration meta data.
-langcode: en
 status: true
 dependencies: {  }
 id: va_node_form
@@ -147,9 +146,6 @@ source:
   # All the fields that are used from the source.
 # The destination fields mapped and processed from source fields.
 process:
-  # Migrate namespaced data that can be accessed in hook_entity_presave().
-  migrate/flags/deleted: Deleted
-  migrate/deleted_date: DeletedDate
   # If it is an intranet form, it should not be migrated.
   non_field1:
     plugin: skip_on_value
@@ -189,7 +185,6 @@ process:
   field_va_form_name: FormTitle
   field_va_form_number: displayName
   field_va_form_title: FormTitle
-  # @TODO this is not mapping correctly yet.
   field_va_form_type: FormType
   # field_va_form_link_teasers:
   field_va_form_issue_date:
@@ -229,14 +224,13 @@ process:
       to_format: Y-m-d
 #  field_va_form_tool_intro:
 #  field_va_form_usage:
+  langcode:
+    plugin: default_value
+    default_value: en
   promote:
     plugin: default_value
     default_value: 0
   sticky:
-    plugin: default_value
-    default_value: 0
-  # Bring these in as unpublished.
-  status:
     plugin: default_value
     default_value: 0
   promote:
@@ -248,10 +242,29 @@ process:
   path/pathauto:
     plugin: default_value
     default_value: 1
+  field_va_form_deleted:
+    -
+      plugin: get
+      source: Deleted
+    -
+      plugin: default_value
+      default_value: 0
+  field_va_form_deleted_date:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: DeletedDate
+    -
+      plugin: format_date
+      # 2019-02-20 00:00:00
+      from_format: 'Y-m-d H:i:s'
+      to_format: 'Y-m-d'
   # Bring these in as unpublished.
-  published_status:
+  status:
     plugin: default_value
     default_value: 0
+  # Follow the same logic as status.
+  published_status: '@status'
   moderation_state:
     plugin: default_value
     default_value: draft
@@ -294,6 +307,8 @@ destination:
     - uid
     - field_administration
     - field_va_form_administration
+    - field_va_form_deleted
+    - field_va_form_deleted_date
     - field_va_form_issue_date
     - field_va_form_issue_date
     - field_va_form_name
