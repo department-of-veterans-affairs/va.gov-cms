@@ -170,7 +170,7 @@ class AddBreadcrumbToEntity {
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *   The entity to get breadcrumbs for.
    *
-   * @return Breadcrumb|NULL
+   * @return \Drupal\Core\Breadcrumb\Breadcrumb|null
    *   Breadcrumb object or NULL.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
