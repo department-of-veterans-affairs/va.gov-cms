@@ -9,6 +9,8 @@ dependencies:
     - field.field.node.va_form.field_benefit_categories
     - field.field.node.va_form.field_meta_tags
     - field.field.node.va_form.field_va_form_administration
+    - field.field.node.va_form.field_va_form_deleted
+    - field.field.node.va_form.field_va_form_deleted_date
     - field.field.node.va_form.field_va_form_issue_date
     - field.field.node.va_form.field_va_form_link_teasers
     - field.field.node.va_form.field_va_form_name
@@ -40,7 +42,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: details_sidebar
       format_settings:
         description: ''
@@ -56,7 +58,7 @@ third_party_settings:
         - field_va_form_tool_url
         - field_va_form_tool_intro
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: fieldset
       format_settings:
         id: ''
@@ -82,9 +84,8 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: fieldset
       format_settings:
         id: ''
@@ -103,6 +104,8 @@ third_party_settings:
         - field_va_form_revision_date
         - field_va_form_administration
         - field_va_form_num_pages
+        - field_va_form_deleted
+        - field_va_form_deleted_date
       parent_name: ''
       weight: 1
       format_type: details
@@ -134,7 +137,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -166,8 +169,9 @@ content:
     type: options_buttons
     region: content
   field_meta_tags:
-    weight: 12
-    settings: {  }
+    weight: 13
+    settings:
+      sidebar: true
     third_party_settings: {  }
     type: metatag_firehose
     region: content
@@ -177,6 +181,19 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_va_form_deleted:
+    weight: 25
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_va_form_deleted_date:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
   field_va_form_issue_date:
     type: datetime_default
     weight: 21
@@ -185,7 +202,7 @@ content:
     third_party_settings: {  }
   field_va_form_link_teasers:
     type: entity_reference_paragraphs
-    weight: 7
+    weight: 8
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -219,7 +236,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_va_form_related_forms:
-    weight: 6
+    weight: 7
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -288,7 +305,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 11
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -301,7 +318,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 13
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
