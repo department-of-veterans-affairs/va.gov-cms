@@ -10,7 +10,7 @@ services:
     arguments: ['@tome_sync.storage.content', '@serializer', '@entity_type.manager', '@event_dispatcher', '@account_switcher', '@tome_sync.file_sync', '@file_system', '@va_gov.content_export.breadcrumb_update']
   va_gov.content_export.breadcrumb_update:
     class: Drupal\va_gov_content_export\AddBreadcrumbToEntity
-    arguments: ['@breadcrumb', '@router.route_provider', '@paramconverter_manager']
+    arguments: ['@breadcrumb', '@router.route_provider', '@paramconverter_manager', '@graphql.buffer.subrequest', '@current_route_match']
   tome_sync.file_sync.va_gov_content_export:
     class: Drupal\va_gov_content_export\TomeFileSync
     decorates: tome_sync.file_sync
