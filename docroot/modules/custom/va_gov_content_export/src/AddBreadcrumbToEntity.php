@@ -8,9 +8,11 @@ use Drupal\Core\Breadcrumb\ChainBreadcrumbBuilderInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\Exception\UndefinedLinkTemplateException;
 use Drupal\Core\ParamConverter\ParamConverterManagerInterface;
+use Drupal\Core\Routing\RouteMatch;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Routing\RouteProviderInterface;
 use Drupal\graphql\GraphQL\Buffers\SubRequestBuffer;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 
 /**
  * Class AddBreadcrumbToEntity.
@@ -170,13 +172,13 @@ class AddBreadcrumbToEntity {
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *   The entity to get breadcrumbs for.
    *
-   * @return \Drupal\Core\Breadcrumb\Breadcrumb|null
-   *   Breadcrumb object or NULL.
+   * @return \Drupal\Core\Breadcrumb\Breadcrumb
+   *   Breadcrumb object.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Drupal\Core\ParamConverter\ParamNotConvertedException
    */
-  protected function getBreadCrumbForEntity(ContentEntityInterface $entity) : ?Breadcrumb {
+  protected function getBreadCrumbForEntity(ContentEntityInterface $entity) : Breadcrumb {
     // Use a subrequest so the route context is set correctly.
     $url = $entity->toUrl();
     $resolve = $this->subRequestBuffer->add($url, function () {
@@ -193,9 +195,32 @@ class AddBreadcrumbToEntity {
       watchdog_exception('VA-EXPORT', $e);
     }
 
-    Drupal::logger('VA-EXPORT')->warning('Error building breadcrumb for url ' . $url->toString());
+    return $this->buildGenericBreadcrumb($entity);
+  }
 
-    return NULL;
+  /**
+   * Builds a generic breadcrumb for the entity.
+   *
+   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   *   The content entity.
+   *
+   * @return \Drupal\Core\Breadcrumb\Breadcrumb
+   *   The breadcrumb object.
+   *
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Core\ParamConverter\ParamNotConvertedException
+   */
+  protected function buildGenericBreadcrumb(ContentEntityInterface $entity) : Breadcrumb {
+    $routeParameters = $entity->toUrl()->getRouteParameters();
+    $route_name = $entity->toUrl()->getRouteName();
+    $route = $this->routeProvider->getRouteByName($route_name);
+    $routeParameters[RouteObjectInterface::ROUTE_NAME] = $route_name;
+    $routeParameters[RouteObjectInterface::ROUTE_OBJECT] = $route;
+    $routeParameters += $route->getDefaults();
+    $upcasted_parameters = $this->paramConverterManager->convert($routeParameters);
+
+    $routeMatch = new RouteMatch($route_name, $route, $upcasted_parameters, $routeParameters);
+    return $this->breadcrumbBuilder->build($routeMatch);
   }
 
   /**
