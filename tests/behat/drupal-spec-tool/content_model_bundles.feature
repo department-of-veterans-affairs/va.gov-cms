@@ -5,6 +5,7 @@ Feature: Content model bundles
   I want to have content entity bundles that reflect my content model.
 
   @dst @content_type @dstbundles
+<<<<<<< HEAD
   Scenario: Bundles
     Then exactly the following content entity type bundles should exist
       | Name | Machine name | Type | Description |
@@ -16,7 +17,7 @@ Feature: Content model bundles
       | Alert | alert | Paragraph type | A reusable or non-reusable alert, either "information status" or "warning status". |
       | Benefits detail page | page | Content type | These pages hold all of the benefits overview content, such the detail pages linked to from va.gov/disability, va.gov/health-care, and va.gov/education. |
       | Benefits hub landing page | landing_page | Content type | A special page for top-level Benefits content with its own one-off layout and content. |
-      | Documentation page | documentation_page | Content type | Help pages VA.gov CMS editors. |
+      | CMS help page | documentation_page | Content type | Help pages for VA.gov CMS editors. |
       | Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
       | Document | document | Media type | A locally hosted document, such as a PDF. |
       | Embedded image | media | Paragraph type | For adding an image inline |
