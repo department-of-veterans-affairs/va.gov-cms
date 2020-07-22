@@ -24,7 +24,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 8
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -50,21 +50,22 @@ third_party_settings:
     group_title:
       children:
         - title
+        - field_answer
       parent_name: ''
       weight: 0
       format_type: fieldset
       format_settings:
-        id: ''
-        classes: ''
         description: ''
         required_fields: true
-      label: Title
+        id: ''
+        classes: ''
+      label: 'Question & Answer'
       region: content
     group_governance:
       children:
         - field_administration
       parent_name: ''
-      weight: 7
+      weight: 3
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -82,7 +83,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 4
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -94,7 +95,7 @@ content:
     region: content
   field_answer:
     type: paragraphs
-    weight: 2
+    weight: 3
     settings:
       title: 'Answer Section'
       title_plural: 'Answer Sections'
@@ -126,7 +127,7 @@ content:
     type: string_textfield_with_counter
     region: content
   field_meta_tags:
-    weight: 9
+    weight: 8
     settings:
       sidebar: true
     third_party_settings: {  }
@@ -154,7 +155,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -168,7 +169,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 3
+    weight: 4
     settings:
       match_operator: CONTAINS
       size: 60
@@ -177,7 +178,7 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
