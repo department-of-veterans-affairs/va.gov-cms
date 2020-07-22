@@ -1,0 +1,32 @@
+uuid: 04d59c0a-21c9-4379-8309-d77acff2caee
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.q_a.field_administration
+    - field.field.node.q_a.field_answer
+    - field.field.node.q_a.field_description
+    - field.field.node.q_a.field_meta_tags
+    - field.field.node.q_a.field_meta_title
+    - node.type.q_a
+  module:
+    - user
+id: node.q_a.teaser
+targetEntityType: node
+bundle: q_a
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_answer: true
+  field_description: true
+  field_meta_tags: true
+  field_meta_title: true
+  search_api_excerpt: true
