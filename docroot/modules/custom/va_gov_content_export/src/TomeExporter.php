@@ -6,8 +6,12 @@ use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Session\AccountSwitcherInterface;
+use Drupal\file\FileInterface;
+use Drupal\tome_sync\Event\ContentCrudEvent;
+use Drupal\tome_sync\Event\TomeSyncEvents;
 use Drupal\tome_sync\Exporter;
 use Drupal\tome_sync\FileSyncInterface;
+use Drupal\tome_sync\TomeSyncHelper;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Serializer\Serializer;
 use Drupal\Core\Entity\ContentEntityInterface;
@@ -92,8 +96,18 @@ class TomeExporter extends Exporter {
       return;
     }
 
+    // We override all of the parent export to not create the index file.
+    $this->switchToAdmin();
     $this->addBreadcrumbToEntity->alterEntity($entity);
-    parent::exportContent($entity);
+    $data = $this->serializer->normalize($entity, 'json');
+    $this->contentStorage->write(TomeSyncHelper::getContentName($entity), $data);
+
+    if ($entity instanceof FileInterface) {
+      $this->fileSync->exportFile($entity);
+    }
+    $event = new ContentCrudEvent($entity);
+    $this->eventDispatcher->dispatch(TomeSyncEvents::EXPORT_CONTENT, $event);
+    $this->switchBack();
   }
 
   /**
