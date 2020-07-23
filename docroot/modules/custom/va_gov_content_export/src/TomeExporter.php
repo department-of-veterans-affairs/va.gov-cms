@@ -33,9 +33,10 @@ class TomeExporter extends Exporter {
    */
   protected static $excludedTypes = [
     'content_moderation_state',
-    'user',
-    'user_role',
+    'node.documentation_page',
     'user_history',
+    'user_role',
+    'user',
   ];
 
   /**
@@ -88,7 +89,10 @@ class TomeExporter extends Exporter {
    * {@inheritDoc}
    */
   public function exportContent(ContentEntityInterface $entity) {
-    if (in_array($entity->getEntityTypeId(), static::$excludedTypes, TRUE)) {
+    $type = $entity->getEntityTypeId();
+    // If it's a node, attach the bundle.
+    $type = ($type === 'node') ? "{$type}.{$entity->bundle()}" : $type;
+    if (in_array($type, static::$excludedTypes, TRUE)) {
       return;
     }
 
