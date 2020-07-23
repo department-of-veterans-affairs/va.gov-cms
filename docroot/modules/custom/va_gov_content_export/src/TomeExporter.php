@@ -4,7 +4,6 @@ namespace Drupal\va_gov_content_export;
 
 use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Session\AccountSwitcherInterface;
 use Drupal\file\FileInterface;
 use Drupal\tome_sync\Event\ContentCrudEvent;
@@ -59,8 +58,6 @@ class TomeExporter extends Exporter {
    *   The account switcher.
    * @param \Drupal\tome_sync\FileSyncInterface $file_sync
    *   The file sync service.
-   * @param \Drupal\Core\File\FileSystemInterface $file_system
-   *   The file system interface.
    * @param \Drupal\va_gov_content_export\AddBreadcrumbToEntity $addBreadcrumbToEntity
    *   The BreadcrumbEntity Manager.
    */
