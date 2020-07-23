@@ -24,13 +24,6 @@ use Drupal\Core\Entity\ContentEntityInterface;
 class TomeExporter extends Exporter {
 
   /**
-   * File System.
-   *
-   * @var \Drupal\Core\File\FileSystemInterface
-   */
-  protected $fileSystem;
-
-  /**
    * An array of excluded entity types.
    *
    * @var string[]
@@ -78,13 +71,11 @@ class TomeExporter extends Exporter {
     EventDispatcherInterface $event_dispatcher,
     AccountSwitcherInterface $account_switcher,
     FileSyncInterface $file_sync,
-    FileSystemInterface $file_system,
     AddBreadcrumbToEntity $addBreadcrumbToEntity
   ) {
     parent::__construct($content_storage, $serializer, $entity_type_manager,
       $event_dispatcher, $account_switcher, $file_sync);
 
-    $this->fileSystem = $file_system;
     $this->addBreadcrumbToEntity = $addBreadcrumbToEntity;
   }
 
@@ -111,26 +102,21 @@ class TomeExporter extends Exporter {
   }
 
   /**
-   * Acquires a lock for writing to the index.
+   * {@inheritdoc}
    *
-   * @return resource
-   *   A file pointer resource on success.
-   *
-   * @throws \Exception
-   *   Throws an exception when the index file cannot be written to.
-   *
-   * @TODO rework this error logic since this can cause a node not to save.
+   * Overriding to remove the updating of the index file.
    */
-  protected function acquireContentIndexLock() {
-    $destination = $this->getContentIndexFilePath();
-    $directory = dirname($destination);
-    // Overridden to allow the drupal file system to create the directory.
-    $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
-    $handle = fopen($destination, 'c+');
-    if (!flock($handle, LOCK_EX)) {
-      throw new \Exception('Unable to acquire lock for the index file.');
+  public function deleteContentExport(ContentEntityInterface $entity) {
+    // It would be cool if hook_entity_translation_delete() is invoked for
+    // every translation of an entity when it's deleted. But it isn't. :-(.
+    foreach (array_keys($entity->getTranslationLanguages()) as $langcode) {
+      $this->contentStorage->delete(TomeSyncHelper::getContentName($entity->getTranslation($langcode)));
     }
-    return $handle;
+    if ($entity instanceof FileInterface) {
+      $this->fileSync->deleteFileExport($entity);
+    }
+    $event = new ContentCrudEvent($entity);
+    $this->eventDispatcher->dispatch(TomeSyncEvents::DELETE_CONTENT, $event);
   }
 
 }
