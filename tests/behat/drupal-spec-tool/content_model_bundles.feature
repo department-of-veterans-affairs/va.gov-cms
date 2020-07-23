@@ -46,6 +46,8 @@ Feature: Content model bundles
       | Q&A Section | q_a_section | Paragraph type | For content formatted as a series of questions and answers. Use this (instead of WYSIWYG) for better accessibility and easy rearranging. |
       | React Widget | react_widget | Paragraph type | Advanced editors can use this to place react widgets (like a form) on the page. |
       | Sections | administration | Vocabulary | Represents a hierarchy of the VA, partly for governance purposes. |
+      | Service location | service_location | Paragraph type |  |
+      | Service location address | service_location_address | Paragraph type |  |
       | Situation update | situation_update | Paragraph type | A time-sensitive, added to a banner alert, and displayed on VAMC operating status pages. |
       | Staff profile | person_profile | Content type | Profiles of staff members for display in various places around the site. |
       | Staff profile | staff_profile | Paragraph type | Add a profile of a staff person. |
