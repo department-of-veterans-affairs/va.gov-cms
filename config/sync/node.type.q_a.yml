@@ -1,0 +1,25 @@
+uuid: e1c04503-bcc8-4285-b2be-fa27af3634e4
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+    - node_revision_delete
+    - node_title_help_text
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+  node_revision_delete:
+    minimum_revisions_to_keep: 50
+    minimum_age_to_delete: 0
+    when_to_delete: 0
+  node_title_help_text:
+    title_help: 'Add a page title in a form of a question with sentence case capitalization. (<a href="https://design.va.gov/content-style-guide/capitalization" target="_blank">See further guidelines</a>)'
+name: 'Q&A'
+type: q_a
+description: 'Single Question and Answer.'
+help: 'Single Question and Answer.'
+new_revision: true
+preview_mode: 1
+display_submitted: false

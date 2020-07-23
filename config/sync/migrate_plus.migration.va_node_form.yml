@@ -136,9 +136,6 @@ source:
     idprefix: vha_
     title_prefix: 'About VA Form '
 process:
-  migrate/flags/deleted: Deleted
-  migrate/deleted_date: DeletedDate
-  BOOGA: FormNum
   non_field1:
     plugin: skip_on_value
     source: IntranetOnly
@@ -323,7 +320,6 @@ destination:
     - field_va_form_deleted_date
     - field_va_form_issue_date
     - field_va_form_issue_date
-    - field_va_form_name
     - field_va_form_num_pages
     - field_va_form_number
     - field_va_form_title

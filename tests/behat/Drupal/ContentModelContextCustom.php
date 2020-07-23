@@ -96,54 +96,60 @@ class ContentModelContextCustom extends ContextBase {
   /**
    * Asserts the configuration of fields on select content entity types.
    *
-   * @Then exactly the following fields should exist
+   * @Then exactly the following fields should exist for entity type :entity_type_id
    *
    * @throws \Exception
    *
    * @see ContentModelContext::getContentEntityTypes
    */
-  public function assertFields(TableNode $expected) {
+  public function assertFields(TableNode $expected, $entity_type_id) {
     $fields = [];
-    foreach ($this->getContentEntityTypes() as $entity_type) {
-      $bundles = $this->entityTypeManager()
-        ->getStorage($entity_type->getBundleEntityType())
-        ->loadMultiple();
-      foreach ($bundles as $bundle) {
-        /** @var string[] $ids */
-        $ids = \Drupal::entityQuery('field_config')
-          ->condition('bundle', $bundle->id())
-          ->condition('entity_type', $entity_type->id())
-          ->execute();
+    try {
+      $entity_type = $this->entityTypeManager()->getDefinition($entity_type_id);
+    }
+    catch (PluginNotFoundException $e) {
+      // A PluginNotFoundException here just means that the module providing
+      // the entity type in question isn't installed. Continue.
+    }
+    $bundles = $this->entityTypeManager()
+      ->getStorage($entity_type->getBundleEntityType())
+      ->loadMultiple();
+    foreach ($bundles as $bundle) {
+      /** @var string[] $ids */
+      $ids = \Drupal::entityQuery('field_config')
+        ->condition('bundle', $bundle->id())
+        ->condition('entity_type', $entity_type->id())
+        ->execute();
 
-        if (!$ids) {
-          continue;
-        }
+      if (!$ids) {
+        continue;
+      }
 
-        $display_id = "{$entity_type->id()}.{$bundle->id()}.default";
-        $form_display = EntityFormDisplay::load($display_id);
-        if (is_null($form_display)) {
-          throw new \Exception(sprintf('No such form display: %s. Try saving the "Manage form display" form for the "%s" %s.', $display_id, $bundle->label(), strtolower($entity_type->getBundleLabel())));
-        }
-        $form_components = $form_display->getComponents();
+      $display_id = "{$entity_type->id()}.{$bundle->id()}.default";
+      $form_display = EntityFormDisplay::load($display_id);
+      if (is_null($form_display)) {
+        throw new \Exception(sprintf('No such form display: %s. Try saving the "Manage form display" form for the "%s" %s.', $display_id, $bundle->label(), strtolower($entity_type->getBundleLabel())));
+      }
+      $form_components = $form_display->getComponents();
 
-        /** @var \Drupal\field\FieldConfigInterface $field_config */
-        foreach (FieldConfig::loadMultiple($ids) as $id => $field_config) {
-          $machine_name = $this->getFieldMachineNameFromConfigId($id);
-          $field_storage = $field_config->getFieldStorageDefinition();
-          $fields[] = [
-            $entity_type->getBundleLabel(),
-            $bundle->label(),
-            $field_config->getLabel(),
-            $machine_name,
-            (string) $this->fieldTypeManager->getDefinition($field_config->getType())['label'],
-            $field_config->isRequired() ? 'Required' : '',
-            $field_storage->getCardinality() === -1 ? 'Unlimited' : $field_storage->getCardinality(),
-            isset($form_components[$machine_name]['type']) ? (string) $this->fieldWidgetManager->getDefinition($form_components[$machine_name]['type'])['label'] : '-- Disabled --',
-            $field_config->isTranslatable() ? 'Translatable' : '',
-          ];
-        }
+      /** @var \Drupal\field\FieldConfigInterface $field_config */
+      foreach (FieldConfig::loadMultiple($ids) as $id => $field_config) {
+        $machine_name = $this->getFieldMachineNameFromConfigId($id);
+        $field_storage = $field_config->getFieldStorageDefinition();
+        $fields[] = [
+          $entity_type->getBundleLabel(),
+          $bundle->label(),
+          $field_config->getLabel(),
+          $machine_name,
+          (string) $this->fieldTypeManager->getDefinition($field_config->getType())['label'],
+          $field_config->isRequired() ? 'Required' : '',
+          $field_storage->getCardinality() === -1 ? 'Unlimited' : $field_storage->getCardinality(),
+          isset($form_components[$machine_name]['type']) ? (string) $this->fieldWidgetManager->getDefinition($form_components[$machine_name]['type'])['label'] : '-- Disabled --',
+          $field_config->isTranslatable() ? 'Translatable' : '',
+        ];
       }
     }
+
     $actual = new TableNode($fields);
 
     (new TableEqualityAssertion($expected, $actual))

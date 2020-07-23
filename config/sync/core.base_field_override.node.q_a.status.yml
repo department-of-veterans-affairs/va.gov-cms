@@ -1,0 +1,22 @@
+uuid: ef73fc78-e858-4d16-a504-ee2ebf5831a6
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.q_a
+id: node.q_a.status
+field_name: status
+entity_type: node
+bundle: q_a
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
