@@ -55,16 +55,19 @@
 {% set classes = classes|merge(['seo-alert']) %}
 {% endif %}
 
-
-<tr{{ attributes.addClass(classes) }}>
-  <td{{ title_attributes.addClass(title_classes) }}>{{ label }}</td>
-    <td class="meta-field">
-    {% if items %}
-      {% for item in items %}
-        <div{{ item.attributes.addClass('field__item') }}>{{ item.content }}</div>
-      {% endfor %}
-    {% else %}
-      <div{{ item.attributes.addClass('field__item') }}>-------</div>
-    {% endif %}
-    </td>
-</tr>
+<table>
+  <tbody>
+    <tr{{ attributes.addClass(classes) }}>
+      <td{{ title_attributes.addClass(title_classes) }}><div>{{ label }}</div></td>
+      <td class="meta-field">
+        {% if items %}
+          {% for item in items %}
+            <div{{ item.attributes.addClass('field__item') }}>{{ item.content }}</div>
+          {% endfor %}
+        {% else %}
+          <div{{ item.attributes.addClass('field__item') }}>-------</div>
+        {% endif %}
+      </td>
+    </tr>
+  </tbody>
+</table>
