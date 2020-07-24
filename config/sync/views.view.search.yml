@@ -96,6 +96,7 @@ display:
               press_release: default
               press_releases_listing: default
               publication_listing: default
+              q_a: default
               regional_health_care_service_des: default
               shareable: default
               story_listing: default
@@ -250,7 +251,9 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-      tags: {  }
+        - 'user.node_grants:view'
+      tags:
+        - 'config:search_api.index.content'
   page:
     display_plugin: page
     id: page
@@ -266,4 +269,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-      tags: {  }
+        - 'user.node_grants:view'
+      tags:
+        - 'config:search_api.index.content'

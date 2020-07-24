@@ -15,6 +15,7 @@
   .meta-content-wrapper {
     tr {
       border: none;
+      display: block;
 
       &:hover {
         background-color: inherit;
@@ -24,11 +25,31 @@
         padding: 0;
         font-size: 0.8rem;
         margin-right: 0.8rem;
+        vertical-align: top;
+
+        @media all and (max-width: 48em) { /* 768px */
+          display: block;
+          width: 100%;
+        }
+
+        &:first-child {
+          padding-right: 1rem;
+        }
+
+        &.field__label {
+          div {
+            width: 100px;
+          }
+        }
       }
 
       &.field--label-inline {
-        .field__label:after {
-          content: '';
+        .field__label {
+          float: none;
+
+          &:after {
+            content: '';
+          }
         }
       }
     }
