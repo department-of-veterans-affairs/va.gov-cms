@@ -33,7 +33,10 @@ class TomeExporter extends Exporter {
    */
   protected static $excludedTypes = [
     'content_moderation_state',
+    'crop',
     'node.documentation_page',
+    'path_alias';
+    'site_alert',
     'user_history',
     'user_role',
     'user',
