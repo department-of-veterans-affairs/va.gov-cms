@@ -4,10 +4,13 @@ namespace Drupal\va_gov_content_export;
 
 use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Session\AccountSwitcherInterface;
+use Drupal\file\FileInterface;
+use Drupal\tome_sync\Event\ContentCrudEvent;
+use Drupal\tome_sync\Event\TomeSyncEvents;
 use Drupal\tome_sync\Exporter;
 use Drupal\tome_sync\FileSyncInterface;
+use Drupal\tome_sync\TomeSyncHelper;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Serializer\Serializer;
 use Drupal\Core\Entity\ContentEntityInterface;
@@ -20,22 +23,19 @@ use Drupal\Core\Entity\ContentEntityInterface;
 class TomeExporter extends Exporter {
 
   /**
-   * File System.
-   *
-   * @var \Drupal\Core\File\FileSystemInterface
-   */
-  protected $fileSystem;
-
-  /**
    * An array of excluded entity types.
    *
    * @var string[]
    */
   protected static $excludedTypes = [
     'content_moderation_state',
-    'user',
-    'user_role',
+    'crop',
+    'node.documentation_page',
+    'path_alias',
+    'site_alert',
     'user_history',
+    'user_role',
+    'user',
   ];
 
   /**
@@ -62,8 +62,6 @@ class TomeExporter extends Exporter {
    *   The account switcher.
    * @param \Drupal\tome_sync\FileSyncInterface $file_sync
    *   The file sync service.
-   * @param \Drupal\Core\File\FileSystemInterface $file_system
-   *   The file system interface.
    * @param \Drupal\va_gov_content_export\AddBreadcrumbToEntity $addBreadcrumbToEntity
    *   The BreadcrumbEntity Manager.
    */
@@ -74,13 +72,11 @@ class TomeExporter extends Exporter {
     EventDispatcherInterface $event_dispatcher,
     AccountSwitcherInterface $account_switcher,
     FileSyncInterface $file_sync,
-    FileSystemInterface $file_system,
     AddBreadcrumbToEntity $addBreadcrumbToEntity
   ) {
     parent::__construct($content_storage, $serializer, $entity_type_manager,
       $event_dispatcher, $account_switcher, $file_sync);
 
-    $this->fileSystem = $file_system;
     $this->addBreadcrumbToEntity = $addBreadcrumbToEntity;
   }
 
@@ -88,35 +84,43 @@ class TomeExporter extends Exporter {
    * {@inheritDoc}
    */
   public function exportContent(ContentEntityInterface $entity) {
-    if (in_array($entity->getEntityTypeId(), static::$excludedTypes, TRUE)) {
+    $type = $entity->getEntityTypeId();
+    // If it's a node, attach the bundle.
+    $type = ($type === 'node') ? "{$type}.{$entity->bundle()}" : $type;
+    if (in_array($type, static::$excludedTypes, TRUE)) {
       return;
     }
 
+    // We override all of the parent export to not create the index file.
+    $this->switchToAdmin();
     $this->addBreadcrumbToEntity->alterEntity($entity);
-    parent::exportContent($entity);
+    $data = $this->serializer->normalize($entity, 'json');
+    $this->contentStorage->write(TomeSyncHelper::getContentName($entity), $data);
+
+    if ($entity instanceof FileInterface) {
+      $this->fileSync->exportFile($entity);
+    }
+    $event = new ContentCrudEvent($entity);
+    $this->eventDispatcher->dispatch(TomeSyncEvents::EXPORT_CONTENT, $event);
+    $this->switchBack();
   }
 
   /**
-   * Acquires a lock for writing to the index.
+   * {@inheritdoc}
    *
-   * @return resource
-   *   A file pointer resource on success.
-   *
-   * @throws \Exception
-   *   Throws an exception when the index file cannot be written to.
-   *
-   * @TODO rework this error logic since this can cause a node not to save.
+   * Overriding to remove the updating of the index file.
    */
-  protected function acquireContentIndexLock() {
-    $destination = $this->getContentIndexFilePath();
-    $directory = dirname($destination);
-    // Overridden to allow the drupal file system to create the directory.
-    $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
-    $handle = fopen($destination, 'c+');
-    if (!flock($handle, LOCK_EX)) {
-      throw new \Exception('Unable to acquire lock for the index file.');
+  public function deleteContentExport(ContentEntityInterface $entity) {
+    // It would be cool if hook_entity_translation_delete() is invoked for
+    // every translation of an entity when it's deleted. But it isn't. :-(.
+    foreach (array_keys($entity->getTranslationLanguages()) as $langcode) {
+      $this->contentStorage->delete(TomeSyncHelper::getContentName($entity->getTranslation($langcode)));
     }
-    return $handle;
+    if ($entity instanceof FileInterface) {
+      $this->fileSync->deleteFileExport($entity);
+    }
+    $event = new ContentCrudEvent($entity);
+    $this->eventDispatcher->dispatch(TomeSyncEvents::DELETE_CONTENT, $event);
   }
 
 }

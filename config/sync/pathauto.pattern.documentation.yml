@@ -5,18 +5,18 @@ dependencies:
   module:
     - node
 id: documentation
-label: Documentation
+label: 'CMS help page'
 type: 'canonical_entities:node'
-pattern: 'documentation/[node:title]'
+pattern: 'help/[node:title]'
 selection_criteria:
-  4a02b501-6f93-4294-ac33-9175a78ff4ce:
+  ac2cc100-dda6-4fd5-ac68-ccf18fe3b469:
     id: node_type
     bundles:
       documentation_page: documentation_page
     negate: false
     context_mapping:
       node: node
-    uuid: 4a02b501-6f93-4294-ac33-9175a78ff4ce
+    uuid: ac2cc100-dda6-4fd5-ac68-ccf18fe3b469
 selection_logic: and
 weight: -5
 relationships: {  }
