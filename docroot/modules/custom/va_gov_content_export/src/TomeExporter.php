@@ -35,7 +35,7 @@ class TomeExporter extends Exporter {
     'content_moderation_state',
     'crop',
     'node.documentation_page',
-    'path_alias';
+    'path_alias',
     'site_alert',
     'user_history',
     'user_role',
