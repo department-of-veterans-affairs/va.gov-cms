@@ -4,6 +4,7 @@ status: true
 dependencies:
   module:
     - node_link_report
+    - system
   theme:
     - vagovadmin
 id: node_link_report
@@ -15,6 +16,11 @@ plugin: node_link_report_block
 settings:
   id: null
   label: 'Node Link Report'
-  provider: null
+  provider: node_link_report
   label_display: '0'
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    pages: "/help\r\n/help/*"
+    negate: true
+    context_mapping: {  }
