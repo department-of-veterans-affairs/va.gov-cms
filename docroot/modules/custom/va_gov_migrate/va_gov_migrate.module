@@ -21,13 +21,14 @@ function va_gov_migrate_entity_presave(EntityInterface $entity) {
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   Entity.
  */
-function _va_gov_migrate_process_va_form(EntityInterface $entity) {
+function _va_gov_migrate_process_va_form(EntityInterface &$entity) {
   if ($entity->bundle() !== 'va_form') {
     return;
   }
+
   // Grab any values set in the migration.
-  $migrate = (!empty($entity->migrate)) ? $entity->migrate : [];
-  if (!empty($migrate['flags']['deleted'])) {
+  $deleted = $entity->get('field_va_form_deleted')->value;
+  if (!empty($deleted)) {
     // This should be set to unpublished because the migration is intentionally,
     // not overriding status.
     $entity->setPublished(FALSE);

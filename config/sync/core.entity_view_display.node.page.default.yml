@@ -25,16 +25,16 @@ third_party_settings:
   field_group:
     group_meta:
       children:
-        - field_description
         - field_meta_title
+        - field_description
       parent_name: ''
       weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
-        classes: ''
         description: ''
-      label: Meta
+        id: ''
+        classes: meta-content
+      label: Metadata
       region: content
 _core:
   default_config_hash: Kfxnq5Imio9VFBoNa_PIkzXoTmjz_T-EY3mOrwDTddU
@@ -59,7 +59,7 @@ content:
     region: content
   field_content_block:
     type: entity_reference_revisions_entity_view
-    weight: 5
+    weight: 6
     label: above
     settings:
       view_mode: default
@@ -68,9 +68,9 @@ content:
     region: content
   field_description:
     type: string
-    weight: 0
+    weight: 2
     region: content
-    label: above
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -101,15 +101,15 @@ content:
     region: content
   field_meta_title:
     type: string
-    weight: 0
+    weight: 1
     region: content
-    label: above
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
   field_related_links:
     type: entity_reference_revisions_entity_view
-    weight: 6
+    weight: 7
     label: above
     settings:
       view_mode: default
@@ -117,7 +117,7 @@ content:
     third_party_settings: {  }
     region: content
   field_table_of_contents_boolean:
-    weight: 8
+    weight: 5
     label: above
     settings:
       format: default

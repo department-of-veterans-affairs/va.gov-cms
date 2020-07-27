@@ -316,3 +316,12 @@ function va_gov_db_update_8017(&$sandbox) {
 
   return $messages;
 }
+
+/**
+ * Uninstall node_revisions_autoclean modules.
+ */
+function va_gov_db_update_8018(&$sandbox) {
+  $messages = _va_gov_db_uninstall_modules(['node_revisions_autoclean']);
+
+  return $messages;
+}

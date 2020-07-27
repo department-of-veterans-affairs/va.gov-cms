@@ -4,6 +4,7 @@ status: true
 dependencies:
   module:
     - menu_ui
+    - node_revision_delete
     - node_title_help_text
 third_party_settings:
   menu_ui:
@@ -28,6 +29,10 @@ third_party_settings:
     parent: 'pittsburgh-health-care:menu_link_content:b8d97bd0-2308-4a52-aa5d-8dda031ac239'
   node_title_help_text:
     title_help: 'This field is automatically populated.'
+  node_revision_delete:
+    minimum_revisions_to_keep: 50
+    minimum_age_to_delete: 0
+    when_to_delete: 0
 name: 'VAMC system operating status'
 type: vamc_operating_status_and_alerts
 description: 'Create one of these pages for each VAMC system. Then you can add banner alerts and update facilities'' operating status, all from one place.'

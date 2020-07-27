@@ -1,5 +1,4 @@
 uuid: 55dba893-8d75-4a3b-af27-6bc8e293b931
-langcode: en
 status: true
 dependencies:
   enforced:
@@ -32,6 +31,9 @@ process:
   moderation_state:
     plugin: default_value
     default_value: published
+  langcode:
+    plugin: default_value
+    default_value: en
   type:
     plugin: default_value
     default_value: support_service

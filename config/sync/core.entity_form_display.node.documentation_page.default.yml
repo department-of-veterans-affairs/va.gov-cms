@@ -5,6 +5,9 @@ dependencies:
   config:
     - field.field.node.documentation_page.field_administration
     - field.field.node.documentation_page.field_content_block
+    - field.field.node.documentation_page.field_intro_text
+    - field.field.node.documentation_page.field_related_user_guides
+    - field.field.node.documentation_page.field_table_of_contents_boolean
     - node.type.documentation_page
     - workflows.workflow.editorial
   module:
@@ -19,7 +22,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 3
+      weight: 5
       format_type: fieldset
       format_settings:
         id: ''
@@ -32,7 +35,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 2
+      weight: 4
       format_type: details_sidebar
       format_settings:
         description: ''
@@ -55,7 +58,7 @@ content:
     type: options_select
     region: content
   field_content_block:
-    weight: 1
+    weight: 2
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -75,6 +78,24 @@ content:
     third_party_settings: {  }
     type: paragraphs_browser
     region: content
+  field_intro_text:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_related_user_guides:
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   moderation_state:
     type: moderation_state_default
     weight: 10
@@ -83,7 +104,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 4
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -97,6 +118,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_table_of_contents_boolean: true
   promote: true
   status: true
   sticky: true

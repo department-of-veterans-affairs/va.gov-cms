@@ -5,10 +5,7 @@
  * Contains va_gov_build_trigger.module.
  */
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\node\NodeInterface;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\va_gov_build_trigger\Form\PreviewForm;
 
 /**
  * Trigger a web rebuild whenever a node is updated.
@@ -32,87 +29,4 @@ function va_gov_build_trigger_node_insert(NodeInterface $node) {
   // Trigger a frontend build for certain content types.
   $frontend_service = \Drupal::service('va_gov_build_trigger.build_frontend');
   $frontend_service->triggerFrontendBuildFromContentSave($node);
-}
-
-/**
- * Implements hook_form_alter().
- */
-function va_gov_build_trigger_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-
-  if (in_array('node_form', (array) $form['#theme'])) {
-
-    $form['actions']['preview'] = [
-      '#ief_submit_trigger' => TRUE,
-      '#ief_submit_trigger_all' => TRUE,
-      '#type' => 'submit',
-      '#weight' => 10,
-      '#value' => 'Save and continue editing',
-      '#submit' => ['::submitForm', 'va_gov_build_trigger_form_alter_submit'],
-    ];
-
-  }
-}
-
-/**
- * Submit function for va_gov_build_trigger_form_alter.
- *
- * @param array $form
- *   The form array.
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state array.
- */
-function va_gov_build_trigger_form_alter_submit(array &$form, FormStateInterface $form_state) {
-
-  // We want to associate our user with the revision.
-  $uid = Drupal::currentUser()->id();
-
-  // Build the revision info.
-  $node = $form_state->getFormObject()->getEntity();
-  $node->setNewRevision(TRUE);
-  $node->setRevisionCreationTime(\Drupal::time()->getRequestTime());
-
-  // Save it as unpublished and associate with user.
-  $node->setRevisionUserId($uid);
-  $node->set('moderation_state', 'draft');
-  $node->save();
-
-  $nid = $node->id();
-  $url = 'http' . ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 's' : '') . '://' . \Drupal::request()->getHost() . '/node/' . $nid . '/edit';
-
-  // Send them to the edit node.
-  $response = new RedirectResponse($url);
-  $response->send();
-}
-
-/**
- * Add preview button to node view.
- */
-function va_gov_build_trigger_preprocess_page(&$variables) {
-  $node = \Drupal::routeMatch()->getParameter('node');
-  if ($node instanceof NodeInterface) {
-    // It's a node.
-    $exclusion_types = [
-      'full_width_banner_alert',
-      'health_care_local_health_service',
-      'outreach_asset',
-      'regional_health_care_service_des',
-      'support_service',
-    ];
-    // Make sure we aren't on the node form or an excluded type.
-    $route_name = \Drupal::routeMatch()->getRouteName();
-    if (($route_name !== 'entity.node.edit_form') &&
-      (!in_array($node->bundle(), $exclusion_types))) {
-      // Make sure we aren't on /training-guide.
-      $current_uri = \Drupal::request()->getRequestUri();
-      if ($current_uri !== '/training-guide') {
-        $node = \Drupal::routeMatch()->getParameter('node');
-        $nid = $node->id();
-        $host = \Drupal::request()->getHost();
-        $preview_form = new PreviewForm();
-        $url = $preview_form->getEnvironment($host, $nid);
-        $button = '<a class="button button--primary js-form-submit form-submit node-preview-button" target="_blank" href="' . $url . '">Preview</a>';
-        $variables['page']['sidebar_second']['#markup'] = $button;
-      }
-    }
-  }
 }
