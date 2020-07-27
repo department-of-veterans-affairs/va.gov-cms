@@ -92,7 +92,8 @@ TODO: Create a diagram showing the deployment state backup/restoration
     1. Confirm Drush version: `sudo -u apache bash -c "bin/drush --version"` = "Drush Commandline Tool 10.3.0"
     1. Restart Apache to pick up new opcache changes: `sudo service httpd restart`
     1. Run the export (this takes too long right now, ~10m, because Tome Sync exports asset files too, which we don't want for our use case): `sudo -u apache bash -c "source /etc/sysconfig/httpd; bin/drush tome:export --process-count=7 --entity-count=500"`, then "yes"
-    1. Downgrade back to Drush 8: `source /etc/sysconfig/httpd; PATH=$PATH:/usr/local/bin composer require drush/drush:~8`
+    1. Downgrade back to Drush 8: `sudo -u apache bash -c "source /etc/sysconfig/httpd; PATH=$PATH:/usr/local/bin composer require drush/drush:~8"`
+    1. Clear Drush Cache: `sudo -u apache bash -c "source /etc/sysconfig/httpd; PATH=$PATH:/usr/local/bin drush cr"`
     1. Re-enable new content to be published: `sudo -u apache bash -c "source /etc/sysconfig/httpd; /usr/local/bin/drush site_alert:delete 'deploy-alert'"`
     1. TODO: Figure out how to keep the existing export working while the export is in progress, so that there is zero downtime for the request.
 
