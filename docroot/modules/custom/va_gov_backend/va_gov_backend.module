@@ -205,11 +205,18 @@ function va_gov_backend_preprocess_page(&$variables) {
   if ($node instanceof NodeInterface) {
     // It's a node.
     $exclusion_types = [
+      'documentation_page',
+      'event_listing',
       'full_width_banner_alert',
       'health_care_local_health_service',
+      'health_services_listing,',
+      'leadership_listing',
+      'locations_listing',
       'outreach_asset',
+      'press_releases_listing',
       'regional_health_care_service_des',
       'support_service',
+      'story_listing',
     ];
     // Make sure we aren't on the node form or an excluded type.
     $route_name = \Drupal::routeMatch()->getRouteName();
