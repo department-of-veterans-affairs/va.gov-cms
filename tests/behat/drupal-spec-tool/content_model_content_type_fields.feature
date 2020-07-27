@@ -48,9 +48,11 @@ Feature: Content model: Content Type fields
       | Content type | Detail Page | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
       | Content type | Detail Page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL | Translatable |
       | Content type | Detail Page | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
-      | Content type | Documentation page | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | -- Disabled -- | Translatable |
-      | Content type | Documentation page | Main content | field_content_block | Entity reference revisions |  | Unlimited | Paragraphs Browser EXPERIMENTAL | Translatable |
-      | Content type | Documentation page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+      | Content type | CMS help page | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
+      | Content type | CMS help page | Related user guides | field_related_user_guides | Entity reference |  | 5 | Autocomplete |  |
+      | Content type | CMS help page | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | -- Disabled -- | Translatable |
+      | Content type | CMS help page | Main content | field_content_block | Entity reference revisions |  | Unlimited | Paragraphs Browser EXPERIMENTAL | Translatable |
+      | Content type | CMS help page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | Event | A human-readable label for the event location. | field_location_humanreadable | Text (plain) |  | 1 | Textfield |  |
       | Content type | Event | Additional information about registration | field_additional_information_abo | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
       | Content type | Event | Address | field_address | Address |  | 1 | Address |  |
