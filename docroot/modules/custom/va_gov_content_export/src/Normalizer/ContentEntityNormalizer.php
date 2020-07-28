@@ -28,6 +28,10 @@ class ContentEntityNormalizer extends BaseContentEntityNormalizer {
       $values['entityUrl']['breadcrumb'] = $breadcrumb_values;
       $values['entityUrl']['path'] = $entity->url();
     }
+    if (isset($entity->values['reverse_field_list'])) {
+      // This pseudo field exists, so add its data.
+      $values['reverse_field_list'] = $entity->values['reverse_field_list'];
+    }
 
     return $values;
   }
