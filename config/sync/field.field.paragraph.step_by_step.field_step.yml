@@ -1,21 +1,21 @@
-uuid: fbf2b82c-4a7c-45c2-90f3-ed387cdf103d
+uuid: 396c51eb-75c8-4f10-b75a-95fd9d7aee09
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_add_step
+    - field.storage.paragraph.field_step
     - paragraphs.paragraphs_type.step
     - paragraphs.paragraphs_type.step_by_step
   module:
     - entity_reference_revisions
-id: paragraph.step_by_step.field_add_step
-field_name: field_add_step
+id: paragraph.step_by_step.field_step
+field_name: field_step
 entity_type: paragraph
 bundle: step_by_step
 label: 'Add Step'
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.step_by_step.field_add_step
+    - field.field.paragraph.step_by_step.field_step
     - paragraphs.paragraphs_type.step_by_step
   module:
     - paragraphs
@@ -12,8 +12,7 @@ targetEntityType: paragraph
 bundle: step_by_step
 mode: default
 content:
-  field_add_step:
-    type: entity_reference_paragraphs
+  field_step:
     weight: 0
     settings:
       title: Step
@@ -23,6 +22,7 @@ content:
       form_display_mode: default
       default_paragraph_type: step
     third_party_settings: {  }
+    type: entity_reference_paragraphs
     region: content
 hidden:
   created: true
