@@ -49,9 +49,9 @@ Feature: Menus
 | VA Wilmington health care | va-wilmington-health-care | va.gov/wilmington-health-care |
 | VA Bedford health care | va-bedford-health-care |  |
 | VA Boston health care | va-boston-health-care |  |
-| VA Central Western Massuchesetts health care | va-central-western-massuchesetts-health-care |  |
+| VA Central Western Massuchesetts health care | va-central-western-massuchesetts |  |
 | VA Connecticut health care | va-connecticut-health-care |  |
 | VA Maine health care | va-maine-health-care |  |
 | VA Manchester health care | va-manchester-health-care |  |
 | VA Providence health care | va-providence-health-care |  |
-| VA White River Junction health care | va-white-river-junction-health-care |  |
+| VA White River Junction health care | va-white-river-junction-health-c |  |
