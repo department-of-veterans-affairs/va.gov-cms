@@ -1,0 +1,23 @@
+@import "mixins";
+
+.field--name-field-intro-text {
+  @include intro-text;
+}
+
+.paragraph--type--three-column-layout {
+  margin: 1em 0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  > .field {
+    width: 350px;
+  }
+}
+
+.field--name-field-links {
+  .field__item {
+    margin: 1em 0;
+  }
+}
+
