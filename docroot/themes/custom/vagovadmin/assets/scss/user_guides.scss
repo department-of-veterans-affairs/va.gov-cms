@@ -1,7 +1,9 @@
 @import "mixins";
 
 .field--name-field-intro-text {
-  @include intro-text;
+  &.field__item {
+    @include intro-text;
+  }
 }
 
 .paragraph--type--three-column-layout {
