@@ -4,7 +4,7 @@ Feature: Content model bundles
   As a content editor
   I want to have content entity bundles that reflect my content model.
 
-  @dst @content_type @dstbundles                                                                                                                                                                   
+  @dst @content_type @dstbundles
   Scenario: Bundles
     Then exactly the following content entity type bundles should exist
       | Name | Machine name | Type | Description |
