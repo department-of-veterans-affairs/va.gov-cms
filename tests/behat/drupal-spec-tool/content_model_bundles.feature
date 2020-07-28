@@ -29,6 +29,7 @@ Feature: Content model bundles
       | Link teaser | link_teaser | Paragraph type | A link followed by a description. For building inline "menus" of content. |
       | Link to file or video | downloadable_file | Paragraph type | For image or document downloads. |
       | List of link teasers | list_of_link_teasers | Paragraph type | A paragraph that contains only one type of paragraph: Link teaser. |
+      | List of links | list_of_links | Paragraph type | A set of links, with link text and URL required, and an optional header. |
       | Locations listing page | locations_listing | Content type | A listing of locations. |
       | NCA facility | nca_facility | Content type | A facility within National Cemetery Administration system. |
       | News release | press_release | Content type | Announcements directed at members of the media for the purpose of publicizing newsworthy events/happenings/programs at specific facilities or healthcare systems. |
@@ -53,6 +54,7 @@ Feature: Content model bundles
       | Story listing page | story_listing | Content type | A listing of stories. |
       | Support Service | support_service | Content type | Help desks, hotlines, etc, to be contextually placed alongside relevant content. |
       | Table | table | Paragraph type | Add an HTML table with rows and columns. |
+      | Three column layout | three_column_layout | Paragraph type | Three column layout for use on user guide pages. |
       | Type of Redirect | type_of_redirect | Vocabulary |  |
       | VA form | va_form | Content type | VA forms available for download. Used to populate search results and also generate form landing pages |
       | VAMC facility | health_care_local_facility | Content type | A clinic or hospital within a VAMC system. |

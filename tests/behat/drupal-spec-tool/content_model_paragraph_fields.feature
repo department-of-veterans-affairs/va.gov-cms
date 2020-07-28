@@ -34,6 +34,8 @@ Feature: Content model: Paragraph fields
       | Paragraph type | Link to file or video | Markup | field_markup | Markup |  | 1 | Markup | Translatable |
       | Paragraph type | List of link teasers | Link teasers | field_va_paragraphs | Entity reference revisions | Required | Unlimited | Paragraphs Classic | Translatable |
       | Paragraph type | List of link teasers | Title | field_title | Text (plain) |  | 1 | Textfield | Translatable |
+      | Paragraph type | List of links | Section Header | field_section_header | Text (plain) |  | 1 | Textfield |  |
+      | Paragraph type | List of links | Links | field_links | Link |  | Unlimited | Linkit |  |
       | Paragraph type | Number callout | Additional information | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
       | Paragraph type | Number callout | Short phrase with a number, or time element | field_short_phrase_with_a_number | Text (plain) | Required | 1 | Textfield with counter |  |
       | Paragraph type | Process list | Steps | field_steps | Text (formatted, long) | Required | Unlimited | Text area (multiple rows) |  |
@@ -55,6 +57,9 @@ Feature: Content model: Paragraph fields
       | Paragraph type | Situation update | Update | field_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
       | Paragraph type | Staff profile | Staff profile | field_staff_profile | Entity reference | Required | 1 | Select list |  |
       | Paragraph type | Table | Table | field_table | Table Field |  | 1 | Table Field |  |
+      | Paragraph type | Three column layout | Column 1 | field_content_blocks_column1 | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
+      | Paragraph type | Three column layout | Column 2 | field_content_blocks_column2 | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
+      | Paragraph type | Three column layout | column 3 | field_content_blocks_column3 | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
       | Paragraph type | VAMC facility service (non-healthcare service) | Service name | field_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
       | Paragraph type | VAMC facility service (non-healthcare service) | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
       | Paragraph type | WYSIWYG | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
