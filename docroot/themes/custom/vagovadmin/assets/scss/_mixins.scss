@@ -31,12 +31,20 @@
  */
 
 @mixin va-basic-styling {
-  font-family: 'Source Sans Pro', Sans-Serif;
-  font-size: 16px;
-  line-height: 1.5;
 
-  p {
+
+  .field__item {
     margin-bottom: 1em;
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: 'Source Sans Pro', Sans-Serif;
+
+    /* Reset field labels for nested fields */
+    .field__label {
+      font-family: "Lucida Grande", "Lucida Sans Unicode", "DejaVu Sans", "Lucida Sans", sans-serif;
+      font-size: 81.3%;
+      text-transform: uppercase;
+    }
   }
 
   h2,
@@ -157,7 +165,7 @@
   font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
   font-size: 1.25rem;
   font-weight: 400;
-  width: 60rem;
+  max-width: 60rem;
   line-height: 2rem;
   margin: 0;
 }
