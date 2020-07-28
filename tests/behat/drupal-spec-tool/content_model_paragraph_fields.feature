@@ -22,6 +22,8 @@ Feature: Content model: Paragraph fields
       | Paragraph type | Alert | Alert Heading | field_alert_heading | Text (plain) |  | 1 | Textfield with counter |  |
       | Paragraph type | Alert | Alert Type | field_alert_type | List (text) |  | 1 | Select list |  |
       | Paragraph type | Alert | Reusable alert | field_alert_block_reference | Entity reference |  | 1 | Entity browser |  |
+      | Paragraph type | Button | Button Label | field_button_label | Text (plain) |  | 1 | Textfield with counter |  |
+      | Paragraph type | Button | Button Link | field_button_link | Link |  | 1 | Link |  |
       | Paragraph type | Embedded image | Allow clicks on this image to open it in new tab | field_allow_clicks_on_this_image | Boolean |  | 1 | Single on/off checkbox |  |
       | Paragraph type | Embedded image | Markup | field_markup | Markup |  | 1 | Markup |  |
       | Paragraph type | Embedded image | Select an image | field_media | Entity reference |  | 1 | Media library |  |
