@@ -1,0 +1,41 @@
+uuid: eb11e2be-7776-49f6-8314-1ae805cee9f0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.button.field_button_label
+    - field.field.paragraph.button.field_button_link
+    - paragraphs.paragraphs_type.button
+  module:
+    - link
+    - textfield_counter
+id: paragraph.button.default
+targetEntityType: paragraph
+bundle: button
+mode: default
+content:
+  field_button_label:
+    weight: 0
+    settings:
+      size: 30
+      placeholder: ''
+      maxlength: 30
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_button_link:
+    weight: 1
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+hidden:
+  created: true
+  status: true
