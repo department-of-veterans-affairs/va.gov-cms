@@ -1,0 +1,110 @@
+uuid: e3e4bf33-7f8d-47e8-ba61-e0d81a2d4da0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_content_blocks_column3
+    - paragraphs.paragraphs_type.downloadable_file
+    - paragraphs.paragraphs_type.link_teaser
+    - paragraphs.paragraphs_type.list_of_links
+    - paragraphs.paragraphs_type.process
+    - paragraphs.paragraphs_type.table
+    - paragraphs.paragraphs_type.three_column_layout
+    - paragraphs.paragraphs_type.wysiwyg
+  module:
+    - entity_reference_revisions
+id: paragraph.three_column_layout.field_content_blocks_column3
+field_name: field_content_blocks_column3
+entity_type: paragraph
+bundle: three_column_layout
+label: 'Column 3'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      downloadable_file: downloadable_file
+      link_teaser: link_teaser
+      list_of_links: list_of_links
+      process: process
+      table: table
+      wysiwyg: wysiwyg
+    target_bundles_drag_drop:
+      address:
+        weight: 25
+        enabled: false
+      alert:
+        weight: 26
+        enabled: false
+      collapsible_panel:
+        weight: 27
+        enabled: false
+      collapsible_panel_item:
+        weight: 28
+        enabled: false
+      downloadable_file:
+        enabled: true
+        weight: 29
+      expandable_text:
+        weight: 30
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 31
+        enabled: false
+      link_teaser:
+        enabled: true
+        weight: 32
+      list_of_link_teasers:
+        weight: 33
+        enabled: false
+      list_of_links:
+        enabled: true
+        weight: 34
+      media:
+        weight: 35
+        enabled: false
+      number_callout:
+        weight: 36
+        enabled: false
+      phone_number:
+        weight: 37
+        enabled: false
+      process:
+        enabled: true
+        weight: 38
+      q_a:
+        weight: 39
+        enabled: false
+      q_a_section:
+        weight: 40
+        enabled: false
+      react_widget:
+        weight: 41
+        enabled: false
+      situation_update:
+        weight: 42
+        enabled: false
+      spanish_translation_summary:
+        weight: 43
+        enabled: false
+      staff_profile:
+        weight: 44
+        enabled: false
+      starred_horizontal_rule:
+        weight: 45
+        enabled: false
+      table:
+        enabled: true
+        weight: 46
+      three_column_layout:
+        weight: 47
+        enabled: false
+      wysiwyg:
+        enabled: true
+        weight: 48
+field_type: entity_reference_revisions
