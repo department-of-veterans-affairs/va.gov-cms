@@ -1,0 +1,40 @@
+uuid: c1a8a610-826e-43f9-b16c-700b948fa6fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.user_guides
+    - field.field.paragraph.lists_of_links.field_section_header
+    - field.field.paragraph.lists_of_links.field_va_paragraphs
+    - paragraphs.paragraphs_type.lists_of_links
+  module:
+    - entity_reference_revisions
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: paragraph.lists_of_links.user_guides
+targetEntityType: paragraph
+bundle: lists_of_links
+mode: user_guides
+content:
+  field_section_header:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_va_paragraphs:
+    weight: 1
+    label: hidden
+    settings:
+      view_mode: user_guides
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+hidden:
+  search_api_excerpt: true
