@@ -1,0 +1,29 @@
+uuid: c7c5b950-b518-447a-b93a-f0326da1a669
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_q_a
+    - node.type.q_a
+    - paragraphs.paragraphs_type.q_a_section_faq_multiple
+id: paragraph.q_a_section_faq_multiple.field_q_a
+field_name: field_q_a
+entity_type: paragraph
+bundle: q_a_section_faq_multiple
+label: 'Q&A'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      q_a: q_a
+    sort:
+      field: revision_timestamp
+      direction: DESC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

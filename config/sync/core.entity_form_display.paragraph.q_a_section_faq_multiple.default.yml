@@ -1,0 +1,44 @@
+uuid: c5e0760a-bb94-4069-8a84-e479a38de3ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.inline_entity_form
+    - field.field.paragraph.q_a_section_faq_multiple.field_q_a
+    - field.field.paragraph.q_a_section_faq_multiple.field_section_header
+    - paragraphs.paragraphs_type.q_a_section_faq_multiple
+  module:
+    - inline_entity_form
+id: paragraph.q_a_section_faq_multiple.default
+targetEntityType: paragraph
+bundle: q_a_section_faq_multiple
+mode: default
+content:
+  field_q_a:
+    weight: 1
+    settings:
+      form_mode: inline_entity_form
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      revision: false
+      override_labels: false
+      collapsible: false
+      collapsed: false
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+    region: content
+  field_section_header:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  status: true

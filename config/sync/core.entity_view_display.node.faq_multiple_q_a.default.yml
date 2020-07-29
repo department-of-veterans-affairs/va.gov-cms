@@ -1,0 +1,49 @@
+uuid: 305182d2-762c-4568-b849-b72aa8fedaee
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.faq_multiple_q_a.field_intro_text_limited_html
+    - field.field.node.faq_multiple_q_a.field_meta_title
+    - field.field.node.faq_multiple_q_a.field_q_a_group
+    - node.type.faq_multiple_q_a
+  module:
+    - entity_reference_revisions
+    - text
+    - user
+id: node.faq_multiple_q_a.default
+targetEntityType: node
+bundle: faq_multiple_q_a
+mode: default
+content:
+  field_intro_text_limited_html:
+    weight: 101
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_meta_title:
+    weight: 103
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_q_a_group:
+    type: entity_reference_revisions_entity_view
+    weight: 102
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  search_api_excerpt: true
