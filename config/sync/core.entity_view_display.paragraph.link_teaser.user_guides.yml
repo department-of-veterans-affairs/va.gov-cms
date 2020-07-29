@@ -1,17 +1,23 @@
-uuid: 3a9e961d-eb8b-44df-89be-ed49bcaffe54
+uuid: 62d8e14b-5ae6-458d-906e-f9b4b4d4019b
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.paragraph.user_guides
     - field.field.paragraph.link_teaser.field_link
     - field.field.paragraph.link_teaser.field_link_summary
     - paragraphs.paragraphs_type.link_teaser
   module:
+    - layout_builder
     - link
-id: paragraph.link_teaser.default
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: paragraph.link_teaser.user_guides
 targetEntityType: paragraph
 bundle: link_teaser
-mode: default
+mode: user_guides
 content:
   field_link:
     weight: 0
