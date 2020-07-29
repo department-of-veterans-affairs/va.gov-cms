@@ -69,9 +69,9 @@ class TomeExporter extends Exporter {
    *   The account switcher.
    * @param \Drupal\tome_sync\FileSyncInterface $file_sync
    *   The file sync service.
-   * @param \Drupal\va_gov_content_export\AddBreadcrumbToEntity $addBreadcrumbToEntity
+   * @param \Drupal\va_gov_content_export\AddBreadcrumbToEntity $add_breadcrumb_to_entity
    *   The BreadcrumbEntity Manager.
-   * @param \Drupal\va_gov_content_export\ListDataCompiler $listDataCompiler
+   * @param \Drupal\va_gov_content_export\ListDataCompiler $list_data_compiler
    *   The list data compiler service.
    */
   public function __construct(
@@ -81,14 +81,14 @@ class TomeExporter extends Exporter {
     EventDispatcherInterface $event_dispatcher,
     AccountSwitcherInterface $account_switcher,
     FileSyncInterface $file_sync,
-    AddBreadcrumbToEntity $addBreadcrumbToEntity,
-    ListDataCompiler $listDataCompiler
+    AddBreadcrumbToEntity $add_breadcrumb_to_entity,
+    ListDataCompiler $list_data_compiler
   ) {
     parent::__construct($content_storage, $serializer, $entity_type_manager,
       $event_dispatcher, $account_switcher, $file_sync);
 
-    $this->addBreadcrumbToEntity = $addBreadcrumbToEntity;
-    $this->listDataCompiler = $listDataCompiler;
+    $this->addBreadcrumbToEntity = $add_breadcrumb_to_entity;
+    $this->listDataCompiler = $list_data_compiler;
   }
 
   /**
