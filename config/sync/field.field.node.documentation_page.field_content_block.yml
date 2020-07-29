@@ -10,12 +10,11 @@ dependencies:
     - paragraphs.paragraphs_type.downloadable_file
     - paragraphs.paragraphs_type.expandable_text
     - paragraphs.paragraphs_type.list_of_link_teasers
-    - paragraphs.paragraphs_type.list_of_links
+    - paragraphs.paragraphs_type.lists_of_links
     - paragraphs.paragraphs_type.media
     - paragraphs.paragraphs_type.process
     - paragraphs.paragraphs_type.q_a_section
     - paragraphs.paragraphs_type.table
-    - paragraphs.paragraphs_type.three_column_layout
     - paragraphs.paragraphs_type.wysiwyg
   module:
     - entity_reference_revisions
@@ -43,9 +42,8 @@ settings:
       expandable_text: expandable_text
       list_of_link_teasers: list_of_link_teasers
       downloadable_file: downloadable_file
-      list_of_links: list_of_links
+      lists_of_links: lists_of_links
       table: table
-      three_column_layout: three_column_layout
     target_bundles_drag_drop:
       address:
         weight: -32
@@ -75,6 +73,9 @@ settings:
         enabled: true
         weight: -26
       list_of_links:
+        weight: 34
+        enabled: false
+      lists_of_links:
         enabled: true
         weight: 34
       media:
