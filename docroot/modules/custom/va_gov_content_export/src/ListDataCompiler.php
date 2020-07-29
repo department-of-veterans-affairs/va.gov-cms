@@ -65,6 +65,7 @@ class ListDataCompiler {
    * @todo This implementation creates one risk of failure in that, any list
    * item that has been moved from one list to another, will not know to remove
    * it from the original list.
+   * https://github.com/department-of-veterans-affairs/va.gov-cms/issues/2464 .
    */
   public function updateLists(ContentEntityInterface $entity, TomeExporter $tomeExporter) {
     $listNids = $this->getListNids($entity);
@@ -78,6 +79,8 @@ class ListDataCompiler {
       $listNidsToUpdateLater = array_filter($listNidsToUpdateLater);
     }
     if (!empty($listNidsToUpdateLater)) {
+      // @todo Add a check to bypass this if the bulk export is running.
+      // https://github.com/ ... /va.gov-cms/issues/2481.
       // Load the list entities that need to be exported.
       $listEntitiesToUpdateLater = $this->entityTypeManager->getStorage('node')
         ->loadMultiple($listNidsToUpdateLater);
