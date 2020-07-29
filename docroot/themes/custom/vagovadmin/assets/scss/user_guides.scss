@@ -1,20 +1,25 @@
 @import "mixins";
 
+// User guide pages should be narrow for readability.
+.region-breadcrumb,
+.node-columns {
+  max-width: 1280px;
+  @media (min-width: 1320px) {
+      margin: 0 auto;
+  }
+}
+
 .field--name-field-intro-text {
   &.field__item {
     @include intro-text;
   }
 }
 
-.paragraph--type--three-column-layout {
-  margin: 1em 0;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-
-  > .field {
-    width: 350px;
-  }
+// Define a grid for lists of teasers and link teasers.
+@mixin user-guide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-gap: 1rem 2rem;
 }
 
 .field--name-field-links {
@@ -23,3 +28,23 @@
   }
 }
 
+.paragraph--type--list-of-link-teasers {
+  .field__items {
+    @include user-guide-grid;
+  }
+
+  .field--name-field-link {
+    margin-bottom: 0;
+    font-weight: bold;
+  }
+}
+
+.paragraph--type--lists-of-links {
+  > .field__items {
+    @include user-guide-grid;
+  }
+}
+
+h2.section-header {
+  margin-top: 2rem;
+}
