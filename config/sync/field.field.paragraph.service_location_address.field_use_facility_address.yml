@@ -1,0 +1,23 @@
+uuid: e70af7a5-1d99-46f6-a999-f05f15282c2c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_use_facility_address
+    - paragraphs.paragraphs_type.service_location_address
+id: paragraph.service_location_address.field_use_facility_address
+field_name: field_use_facility_address
+entity_type: paragraph
+bundle: service_location_address
+label: 'Use facility address?'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

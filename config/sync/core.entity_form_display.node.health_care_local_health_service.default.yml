@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.health_care_local_health_service.field_phone_numbers_paragraph
     - field.field.node.health_care_local_health_service.field_referral_required
     - field.field.node.health_care_local_health_service.field_regional_health_service
+    - field.field.node.health_care_local_health_service.field_service_location
     - field.field.node.health_care_local_health_service.field_walk_ins_accepted
     - node.type.health_care_local_health_service
   module:
@@ -22,22 +23,22 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 8
+      weight: 5
       format_type: details_sidebar
       format_settings:
         id: ''
         classes: ''
         description: ''
-        open: 1
-        required_fields: 1
-        weight: '0'
+        open: true
+        required_fields: true
+        weight: 0
       label: Governance
       region: content
     group_appointments:
       children:
+        - field_online_scheduling_availabl
         - field_referral_required
         - field_walk_ins_accepted
-        - field_online_scheduling_availabl
       parent_name: ''
       weight: 3
       format_type: details
@@ -75,36 +76,35 @@ content:
     type: options_select
     region: content
   field_online_scheduling_availabl:
-    weight: 6
+    type: options_select
+    weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_phone_numbers_paragraph:
     type: paragraphs
-    weight: 7
+    weight: 4
+    region: content
     settings:
-      title: 'phone number'
-      title_plural: 'phone number'
+      title: Paragraph
+      title_plural: Paragraphs
       edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
       closed_mode: summary
       autocollapse: none
       closed_mode_threshold: 0
-      add_mode: button
-      form_display_mode: default
-      default_paragraph_type: _none
       features:
-        add_above: '0'
         collapse_edit_all: collapse_edit_all
-        duplicate: '0'
+        duplicate: duplicate
     third_party_settings: {  }
-    region: content
   field_referral_required:
-    weight: 4
+    type: options_select
+    weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_regional_health_service:
     weight: 1
     settings: {  }
@@ -112,13 +112,14 @@ content:
     type: options_select
     region: content
   field_walk_ins_accepted:
-    weight: 5
+    type: options_select
+    weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
 hidden:
   created: true
+  field_service_location: true
   moderation_state: true
   path: true
   promote: true
