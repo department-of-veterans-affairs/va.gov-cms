@@ -3,12 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.step.field_markup
     - field.field.paragraph.step.field_media
     - field.field.paragraph.step.field_wysiwyg
     - paragraphs.paragraphs_type.step
   module:
-    - markup
     - media_library
     - text
 id: paragraph.step.default
@@ -16,12 +14,6 @@ targetEntityType: paragraph
 bundle: step
 mode: default
 content:
-  field_markup:
-    weight: 1
-    settings: {  }
-    third_party_settings: {  }
-    type: markup
-    region: content
   field_media:
     weight: 2
     settings:
