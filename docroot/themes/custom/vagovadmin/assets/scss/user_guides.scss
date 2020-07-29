@@ -22,11 +22,7 @@
   grid-gap: 1rem 2rem;
 }
 
-.field--name-field-links {
-  .field__item {
-    margin: 1em 0;
-  }
-}
+
 
 .paragraph--type--list-of-link-teasers {
   .field__items {
@@ -42,6 +38,16 @@
 .paragraph--type--lists-of-links {
   > .field__items {
     @include user-guide-grid;
+  }
+
+  .field--name-field-links {
+    .field__item {
+      margin: 1em 0;
+    }
+  }
+
+  .field--name-field-link {
+    font-weight: bold;
   }
 }
 

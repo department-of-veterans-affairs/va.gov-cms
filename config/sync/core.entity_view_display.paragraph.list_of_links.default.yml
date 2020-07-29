@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.list_of_links.field_link
     - field.field.paragraph.list_of_links.field_links
     - field.field.paragraph.list_of_links.field_section_header
     - paragraphs.paragraphs_type.list_of_links
@@ -13,6 +14,18 @@ targetEntityType: paragraph
 bundle: list_of_links
 mode: default
 content:
+  field_link:
+    weight: 3
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
   field_links:
     weight: 2
     label: hidden
