@@ -1,0 +1,61 @@
+uuid: b9bc6ecf-5c30-45fd-a366-c9e4fe6b9221
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.service_location_address.field_address
+    - field.field.paragraph.service_location_address.field_building_name_number
+    - field.field.paragraph.service_location_address.field_clinic_name
+    - field.field.paragraph.service_location_address.field_use_facility_address
+    - field.field.paragraph.service_location_address.field_wing_floor_or_room_number
+    - paragraphs.paragraphs_type.service_location_address
+  module:
+    - address
+id: paragraph.service_location_address.default
+targetEntityType: paragraph
+bundle: service_location_address
+mode: default
+content:
+  field_address:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+    region: content
+  field_building_name_number:
+    weight: 3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_clinic_name:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_use_facility_address:
+    weight: 0
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_wing_floor_or_room_number:
+    weight: 4
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  search_api_excerpt: true

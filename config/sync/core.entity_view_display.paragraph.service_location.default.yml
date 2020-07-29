@@ -1,0 +1,75 @@
+uuid: c83a2da7-4304-473f-bdf0-65bd52258887
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.service_location.field_additional_hours_info
+    - field.field.paragraph.service_location.field_facility_service_hours
+    - field.field.paragraph.service_location.field_hours
+    - field.field.paragraph.service_location.field_phone
+    - field.field.paragraph.service_location.field_service_location_address
+    - field.field.paragraph.service_location.field_use_main_facility_phone
+    - paragraphs.paragraphs_type.service_location
+  module:
+    - entity_reference_revisions
+    - options
+    - tablefield
+id: paragraph.service_location.default
+targetEntityType: paragraph
+bundle: service_location
+mode: default
+content:
+  field_additional_hours_info:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_facility_service_hours:
+    weight: 1
+    label: above
+    settings:
+      row_header: 1
+      column_header: 0
+    third_party_settings: {  }
+    type: tablefield
+    region: content
+  field_hours:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_phone:
+    type: entity_reference_revisions_entity_view
+    weight: 4
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_service_location_address:
+    type: entity_reference_revisions_entity_view
+    weight: 5
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_use_main_facility_phone:
+    weight: 3
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+hidden:
+  search_api_excerpt: true
