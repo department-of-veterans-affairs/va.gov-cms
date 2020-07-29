@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_content_export;
 
 use Drupal\Core\Config\StorageInterface;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountSwitcherInterface;
 use Drupal\file\FileInterface;
@@ -13,7 +14,6 @@ use Drupal\tome_sync\FileSyncInterface;
 use Drupal\tome_sync\TomeSyncHelper;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Serializer\Serializer;
-use Drupal\Core\Entity\ContentEntityInterface;
 
 /**
  * Exporter class for Tome.
@@ -39,11 +39,18 @@ class TomeExporter extends Exporter {
   ];
 
   /**
-   * Add breadcrumb to Entity.
+   * The BreadcrumbEntity Manager.
    *
    * @var \Drupal\va_gov_content_export\AddBreadcrumbToEntity
    */
   protected $addBreadcrumbToEntity;
+
+  /**
+   * The ListDataCompiler Service.
+   *
+   * @var \Drupal\va_gov_content_export\ListDataCompiler
+   */
+  protected $listDataCompiler;
 
   /**
    * Creates an Exporter object.
@@ -62,8 +69,10 @@ class TomeExporter extends Exporter {
    *   The account switcher.
    * @param \Drupal\tome_sync\FileSyncInterface $file_sync
    *   The file sync service.
-   * @param \Drupal\va_gov_content_export\AddBreadcrumbToEntity $addBreadcrumbToEntity
+   * @param \Drupal\va_gov_content_export\AddBreadcrumbToEntity $add_breadcrumb_to_entity
    *   The BreadcrumbEntity Manager.
+   * @param \Drupal\va_gov_content_export\ListDataCompiler $list_data_compiler
+   *   The list data compiler service.
    */
   public function __construct(
     StorageInterface $content_storage,
@@ -72,12 +81,14 @@ class TomeExporter extends Exporter {
     EventDispatcherInterface $event_dispatcher,
     AccountSwitcherInterface $account_switcher,
     FileSyncInterface $file_sync,
-    AddBreadcrumbToEntity $addBreadcrumbToEntity
+    AddBreadcrumbToEntity $add_breadcrumb_to_entity,
+    ListDataCompiler $list_data_compiler
   ) {
     parent::__construct($content_storage, $serializer, $entity_type_manager,
       $event_dispatcher, $account_switcher, $file_sync);
 
-    $this->addBreadcrumbToEntity = $addBreadcrumbToEntity;
+    $this->addBreadcrumbToEntity = $add_breadcrumb_to_entity;
+    $this->listDataCompiler = $list_data_compiler;
   }
 
   /**
@@ -94,6 +105,7 @@ class TomeExporter extends Exporter {
     // We override all of the parent export to not create the index file.
     $this->switchToAdmin();
     $this->addBreadcrumbToEntity->alterEntity($entity);
+    $this->listDataCompiler->updateLists($entity, $this);
     $data = $this->serializer->normalize($entity, 'json');
     $this->contentStorage->write(TomeSyncHelper::getContentName($entity), $data);
 
