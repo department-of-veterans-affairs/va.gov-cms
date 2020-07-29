@@ -1,0 +1,33 @@
+uuid: 888c319c-22a9-43f7-b4f4-e1362ec7d916
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.step.field_media
+    - field.field.paragraph.step.field_wysiwyg
+    - paragraphs.paragraphs_type.step
+  module:
+    - text
+id: paragraph.step.default
+targetEntityType: paragraph
+bundle: step
+mode: default
+content:
+  field_media:
+    weight: 1
+    label: hidden
+    settings:
+      view_mode: embedded
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+  field_wysiwyg:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden:
+  search_api_excerpt: true

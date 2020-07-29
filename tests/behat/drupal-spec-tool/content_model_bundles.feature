@@ -52,6 +52,8 @@ Feature: Content model bundles
       | Starred Horizontal Rule | starred_horizontal_rule | Paragraph type | Current an inactive paragraph type, not enabled within any fields. |
       | Story | news_story | Content type | Community stories highlight the role of a VA facility, program, or healthcare system in a Veteran's journey. They may be a case study of a specific patient, a description of a new or successful program, or a community-interest story. |
       | Story listing page | story_listing | Content type | A listing of stories. |
+      | Step | step | Paragraph type | Single step. |
+      | Step by step | step_by_step | Paragraph type | An ordered list (1, 2, 3, 4, N) of steps. |
       | Support Service | support_service | Content type | Help desks, hotlines, etc, to be contextually placed alongside relevant content. |
       | Table | table | Paragraph type | Add an HTML table with rows and columns. |
       | Type of Redirect | type_of_redirect | Vocabulary |  |
