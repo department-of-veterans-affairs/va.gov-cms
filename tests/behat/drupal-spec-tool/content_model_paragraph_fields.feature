@@ -56,6 +56,9 @@ Feature: Content model: Paragraph fields
       | Paragraph type | Situation update | Send email to subscribers via GovDelivery? | field_send_email_to_subscribers | Boolean |  | 1 | Single on/off checkbox |  |
       | Paragraph type | Situation update | Update | field_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
       | Paragraph type | Staff profile | Staff profile | field_staff_profile | Entity reference | Required | 1 | Select list |  |
+      | Paragraph type | Step | Select an image | field_media | Entity reference |  | 1 | Media library | Translatable |
+      | Paragraph type | Step | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
+      | Paragraph type | Step by step | Add Step | field_step | Entity reference revisions |  | Unlimited | Paragraphs Classic | Translatable |
       | Paragraph type | Table | Table | field_table | Table Field |  | 1 | Table Field |  |
       | Paragraph type | VAMC facility service (non-healthcare service) | Service name | field_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
       | Paragraph type | VAMC facility service (non-healthcare service) | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |

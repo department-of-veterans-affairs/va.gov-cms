@@ -1,0 +1,29 @@
+uuid: 78bfec92-049e-40da-b618-50efd309ece5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_media
+    - media.type.image
+    - paragraphs.paragraphs_type.step
+id: paragraph.step.field_media
+field_name: field_media
+entity_type: paragraph
+bundle: step
+label: 'Select an image'
+description: 'This image will be displayed at its full width, with no upscaling, without being cropped.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: revision_created
+      direction: DESC
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference
