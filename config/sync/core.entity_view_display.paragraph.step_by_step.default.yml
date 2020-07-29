@@ -1,0 +1,25 @@
+uuid: 3b361f19-17e4-46a0-b7a1-c9ad9994c597
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.step_by_step.field_step
+    - paragraphs.paragraphs_type.step_by_step
+  module:
+    - entity_reference_revisions
+id: paragraph.step_by_step.default
+targetEntityType: paragraph
+bundle: step_by_step
+mode: default
+content:
+  field_step:
+    weight: 0
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+hidden:
+  search_api_excerpt: true

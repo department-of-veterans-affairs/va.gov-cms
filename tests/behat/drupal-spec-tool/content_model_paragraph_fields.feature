@@ -67,6 +67,9 @@ Feature: Content model: Paragraph fields
       | Paragraph type | Service location address | Use facility address? | field_use_facility_address | Boolean |  | 1 | Single on/off checkbox |  |
       | Paragraph type | Service location address | Wing, Floor, or Room Number | field_wing_floor_or_room_number | Text (plain) |  | 1 | Textfield with counter |  |
       | Paragraph type | Staff profile | Staff profile | field_staff_profile | Entity reference | Required | 1 | Select list |  |
+      | Paragraph type | Step | Select an image | field_media | Entity reference |  | 1 | Media library | Translatable |
+      | Paragraph type | Step | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
+      | Paragraph type | Step by step | Add Step | field_step | Entity reference revisions |  | Unlimited | Paragraphs Classic | Translatable |
       | Paragraph type | Table | Table | field_table | Table Field |  | 1 | Table Field |  |
       | Paragraph type | VAMC facility service (non-healthcare service) | Service name | field_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
       | Paragraph type | VAMC facility service (non-healthcare service) | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |

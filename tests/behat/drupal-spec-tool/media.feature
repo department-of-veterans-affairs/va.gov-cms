@@ -25,6 +25,7 @@ Feature: Media
 | Cropped: Square    | crop_square  |
 | Full content width with no upscaling | full_content_width |
 | Linkit result thumbnail  | linkit_result_thumbnail  |
+| Original | original |
 | 2:3 medium thumbnail  | 2_3_medium_thumbnail  |
 
   @dst @image_effects
@@ -54,4 +55,5 @@ Feature: Media
 | Large (480×480) | Scale | 480×480  |
 | Linkit result thumbnail  | Scale and crop | 50×50  |
 | Medium (220×220) | Scale | 220×220   |
+| Original | Manual crop | uses Original crop type |
 | Thumbnail (100×100) | Scale | 100×100 |
