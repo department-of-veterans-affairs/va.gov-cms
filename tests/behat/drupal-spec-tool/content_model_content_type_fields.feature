@@ -224,6 +224,7 @@ Feature: Content model: Content Type fields
       | Content type | VAMC facility health service | Facility | field_facility_location | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | VAMC facility health service | Facility description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
       | Content type | VAMC facility health service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+      | Content type | VAMC facility health service | Service location | field_service_location | Entity reference revisions |  | 3 | -- Disabled -- |  |
       | Content type | VAMC facility health service | VAMC system health service | field_regional_health_service | Entity reference | Required | 1 | Select list |  |
       | Content type | VAMC system | Appointments can be scheduled and viewed online | field_appointments_online | Boolean |  | 1 | Single on/off checkbox |  |
       | Content type | VAMC system | Banner image | field_media | Entity reference |  | 1 | Media library | Translatable |
