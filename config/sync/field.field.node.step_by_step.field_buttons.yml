@@ -1,0 +1,103 @@
+uuid: 7f27f3b7-f35c-4fa9-87a2-96687fbf1627
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_buttons
+    - node.type.step_by_step
+    - paragraphs.paragraphs_type.button
+  module:
+    - entity_reference_revisions
+id: node.step_by_step.field_buttons
+field_name: field_buttons
+entity_type: node
+bundle: step_by_step
+label: 'CTA buttons'
+description: 'Add a Call to Action button. At least 1 required. Up to 2 max.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      button: button
+    target_bundles_drag_drop:
+      address:
+        weight: 26
+        enabled: false
+      alert:
+        weight: 27
+        enabled: false
+      button:
+        enabled: true
+        weight: 28
+      collapsible_panel:
+        weight: 29
+        enabled: false
+      collapsible_panel_item:
+        weight: 30
+        enabled: false
+      downloadable_file:
+        weight: 31
+        enabled: false
+      expandable_text:
+        weight: 32
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 33
+        enabled: false
+      link_teaser:
+        weight: 34
+        enabled: false
+      list_of_link_teasers:
+        weight: 35
+        enabled: false
+      media:
+        weight: 36
+        enabled: false
+      number_callout:
+        weight: 37
+        enabled: false
+      phone_number:
+        weight: 38
+        enabled: false
+      process:
+        weight: 39
+        enabled: false
+      q_a:
+        weight: 40
+        enabled: false
+      q_a_section:
+        weight: 41
+        enabled: false
+      react_widget:
+        weight: 42
+        enabled: false
+      situation_update:
+        weight: 43
+        enabled: false
+      spanish_translation_summary:
+        weight: 44
+        enabled: false
+      staff_profile:
+        weight: 45
+        enabled: false
+      starred_horizontal_rule:
+        weight: 46
+        enabled: false
+      step:
+        weight: 47
+        enabled: false
+      step_by_step:
+        weight: 48
+        enabled: false
+      table:
+        weight: 49
+        enabled: false
+      wysiwyg:
+        weight: 50
+        enabled: false
+field_type: entity_reference_revisions

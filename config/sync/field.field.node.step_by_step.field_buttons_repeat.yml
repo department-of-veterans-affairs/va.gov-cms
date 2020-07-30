@@ -1,0 +1,23 @@
+uuid: 9e420381-1498-4dce-b5c5-1ce9a39f10ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_buttons_repeat
+    - node.type.step_by_step
+id: node.step_by_step.field_buttons_repeat
+field_name: field_buttons_repeat
+entity_type: node
+bundle: step_by_step
+label: 'Repeat CTA buttons'
+description: 'Repeat Call to Action buttons.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
