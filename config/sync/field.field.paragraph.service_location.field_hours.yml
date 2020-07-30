@@ -1,0 +1,23 @@
+uuid: b8975f3a-4257-434e-84c5-b086a6c65dca
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_hours
+    - paragraphs.paragraphs_type.service_location
+  module:
+    - options
+id: paragraph.service_location.field_hours
+field_name: field_hours
+entity_type: paragraph
+bundle: service_location
+label: Hours
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: '0'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

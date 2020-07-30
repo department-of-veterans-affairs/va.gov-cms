@@ -1,0 +1,77 @@
+uuid: 3fe7a9e9-a978-428f-8c23-d5f82817775d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.service_location_address.field_address
+    - field.field.paragraph.service_location_address.field_building_name_number
+    - field.field.paragraph.service_location_address.field_clinic_name
+    - field.field.paragraph.service_location_address.field_use_facility_address
+    - field.field.paragraph.service_location_address.field_wing_floor_or_room_number
+    - paragraphs.paragraphs_type.service_location_address
+  module:
+    - address
+    - textfield_counter
+id: paragraph.service_location_address.default
+targetEntityType: paragraph
+bundle: service_location_address
+mode: default
+content:
+  field_address:
+    type: address_default
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_building_name_number:
+    weight: 3
+    settings:
+      size: 70
+      placeholder: ''
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_clinic_name:
+    weight: 2
+    settings:
+      size: 70
+      placeholder: ''
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_use_facility_address:
+    weight: 0
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_wing_floor_or_room_number:
+    weight: 4
+    settings:
+      size: 70
+      placeholder: ''
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+hidden:
+  created: true
+  status: true

@@ -1,0 +1,133 @@
+uuid: 39dd954d-3f9b-46b5-b386-dc5556bc5947
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.service_location.field_additional_hours_info
+    - field.field.paragraph.service_location.field_facility_service_hours
+    - field.field.paragraph.service_location.field_hours
+    - field.field.paragraph.service_location.field_phone
+    - field.field.paragraph.service_location.field_service_location_address
+    - field.field.paragraph.service_location.field_use_main_facility_phone
+    - paragraphs.paragraphs_type.service_location
+  module:
+    - field_group
+    - paragraphs
+    - tablefield
+third_party_settings:
+  field_group:
+    group_service_hours:
+      children:
+        - field_hours
+        - field_facility_service_hours
+        - field_additional_hours_info
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Service Hours'
+      region: content
+    group_address:
+      children:
+        - field_service_location_address
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Address
+      region: content
+    group_phone:
+      children:
+        - field_use_main_facility_phone
+        - field_phone
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Phone
+      region: content
+id: paragraph.service_location.default
+targetEntityType: paragraph
+bundle: service_location
+mode: default
+content:
+  field_additional_hours_info:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_facility_service_hours:
+    type: tablefield
+    weight: 1
+    region: content
+    settings:
+      input_type: textfield
+    third_party_settings: {  }
+  field_hours:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_phone:
+    type: paragraphs
+    weight: 1
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+  field_service_location_address:
+    type: paragraphs
+    weight: 0
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: service_location_address
+      features:
+        add_above: '0'
+        collapse_edit_all: '0'
+        duplicate: '0'
+    third_party_settings: {  }
+  field_use_main_facility_phone:
+    type: boolean_checkbox
+    weight: 0
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

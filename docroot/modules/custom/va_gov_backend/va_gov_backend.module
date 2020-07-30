@@ -363,7 +363,6 @@ function va_gov_backend_form_alter_redirect_submit($form, FormStateInterface $fo
 function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
   // Hide Trigger Text in Alert paragraph form unless Alert Type is "Expanding".
   $field_definition = $context['items']->getFieldDefinition();
-
   /**
    * @var \Drupal\field\Entity\FieldConfig $field_definition */
   $paragraph_entity_reference_field_name = $field_definition->getName();
@@ -385,13 +384,22 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
     }
   }
 
-  if (in_array($paragraph_entity_reference_field_name, ['field_phone_numbers_paragraph', 'field_appointment_phone_numbers'])) {
-    _va_gov_backend_modify_phone_paragraph_interactions($element, $form_state, $context);
+  // If we have a field ref'ing service location paragraphs, fire function.
+  $vha_paragraphs = [
+    'field_service_location',
+    'field_service_location_address',
+    'field_phone_numbers_paragraph',
+    'field_phone',
+  ];
+  if (in_array($paragraph_entity_reference_field_name, $vha_paragraphs)) {
+    _va_gov_backend_modify_paragraph_interactions($element, $form_state, $context, $paragraph_entity_reference_field_name);
   }
 }
 
 /**
- * Toggles extension field, adds Validation constraint error id match to html.
+ * Toggles service_location fields depending on parent selector.
+ *
+ * Adds Validation constraint error id match to html.
  *
  * @param array $element
  *   The widget.
@@ -399,8 +407,10 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
  *   The form state.
  * @param array $context
  *   The context.
+ * @param string $paragraph_entity_reference_field_name
+ *   The reference field name.
  */
-function _va_gov_backend_modify_phone_paragraph_interactions(array &$element, FormStateInterface &$form_state, array &$context) {
+function _va_gov_backend_modify_paragraph_interactions(array &$element, FormStateInterface &$form_state, array &$context, $paragraph_entity_reference_field_name) {
   $field_definition = $context['items']->getFieldDefinition();
 
   /**
@@ -411,20 +421,58 @@ function _va_gov_backend_modify_phone_paragraph_interactions(array &$element, Fo
   $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'];
   $paragraph_type = $paragraph_instance->bundle();
 
+  // Toggle hours fields depending on "Use facility hours" select.
+  // field_service_location[0][subform][field_service_location_address][0][subform][field_use_facility_address][value].
+  if ($paragraph_type === 'service_location') {
+    // If use facility hours option is not selected, show address entry fields.
+    $toggle_fields = [
+      'field_facility_service_hours',
+    ];
+    $selector = sprintf(':input[name="field_service_location[%1$d][subform][field_hours]"]', $element['#delta']);
+    foreach ($toggle_fields as $field) {
+      $element['subform'][$field]['#states'] = [
+        'visible' => [
+          $selector => ['value' => "2"],
+        ],
+      ];
+    }
+  }
+
+  // Toggle address field depending on "Use facility address?" boolean.
+  if ($paragraph_type === 'service_location_address') {
+    $toggle_fields = [
+      'field_address',
+      'field_building_name_number',
+      'field_clinic_name',
+      'field_wing_floor_or_room_number',
+    ];
+    $selector = sprintf(':input[name="field_service_location[%1$d][subform][field_service_location_address][%1$d][subform][field_use_facility_address][value]"]', $element['#delta']);
+    foreach ($toggle_fields as $field) {
+      $element['subform'][$field]['#states'] = [
+        'invisible' => [
+          $selector => ['checked' => TRUE],
+        ],
+      ];
+    }
+  }
+
   // 1. Hide the extension field if phone option is not selected.
   // 2. Add constraint error message jumplink to phone field.
   if ($paragraph_type === 'phone_number') {
     // Each paragraph has an incrementing delta.
     // Allows for controlling state / adding id for each unique widget delta.
     // Otherwise, all elements will be affected.
-    $element['subform']['field_phone_number']['#attributes']['id'] = sprintf('edit-field-phone-numbers-paragraph-%d-subform-field-phone-number', $element['#delta']);
     $selector = sprintf(':input[name="field_phone_numbers_paragraph[%d][subform][field_phone_number_type]"]', $element['#delta']);
+    if ($paragraph_entity_reference_field_name === 'field_phone') {
+      $selector = sprintf(':input[name="field_service_location[%1$d][subform][field_phone][%1$d][subform][field_phone_number_type]"]', $element['#delta']);
+    }
     $element['subform']['field_phone_extension']['#states'] = [
       'visible' => [
         $selector => ['value' => 'tel'],
       ],
     ];
   }
+
 }
 
 /**
