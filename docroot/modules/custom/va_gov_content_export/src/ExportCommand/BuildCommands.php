@@ -73,7 +73,7 @@ class BuildCommands {
   }
 
   /**
-   * Run an array fo commands
+   * Run an array fo commands.
    *
    * @param array $commands
    *   Array of Commands to run.
@@ -83,6 +83,7 @@ class BuildCommands {
    *   The number of times to retry.
    *
    * @return array
+   *   Array of errors.
    */
   public function run(array $commands, int $concurrency = 1, int $retry_count = 0) : array {
     $errors = $this->runCommands($commands, $concurrency, $retry_count);

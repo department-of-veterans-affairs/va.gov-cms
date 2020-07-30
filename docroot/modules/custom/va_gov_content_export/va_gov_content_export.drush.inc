@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * CMS Export commands.
@@ -36,14 +37,15 @@ function va_gov_content_export_drush_command() {
 /**
  * Drush command for exporting content.
  *
- * @param $chunk
+ * @param string $chunk
  *   An string if id pairs as "entity_type:entity_id" separated by ','.
  */
 function drush_va_gov_content_export_va_gov_cms_export_content($chunk) {
   $id_pairs = explode(',', $chunk);
   try {
     \Drupal::service('va_gov.content_export.export_command')->exportPairs($id_pairs);
-  } catch (ExportCommandException $e) {
+  }
+  catch (ExportCommandException $e) {
     drush_log($e->getMessage(), LogLevel::ERROR);
   }
 
