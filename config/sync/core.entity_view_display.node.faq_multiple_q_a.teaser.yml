@@ -4,9 +4,11 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.faq_multiple_q_a.field_administration
+    - field.field.node.faq_multiple_q_a.field_description
     - field.field.node.faq_multiple_q_a.field_intro_text_limited_html
     - field.field.node.faq_multiple_q_a.field_meta_title
-    - field.field.node.faq_multiple_q_a.field_q_a_group
+    - field.field.node.faq_multiple_q_a.field_q_a_groups
     - node.type.faq_multiple_q_a
   module:
     - user
@@ -21,7 +23,10 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_description: true
   field_intro_text_limited_html: true
   field_meta_title: true
-  field_q_a_group: true
+  field_q_a_groups: true
   search_api_excerpt: true

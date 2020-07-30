@@ -1,18 +1,18 @@
-uuid: 1e1ffaee-78da-41ef-b5c6-4836925709d3
+uuid: be090c96-54ed-468a-bc48-365012434e56
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_q_a_group
+    - field.storage.node.field_q_a_groups
     - node.type.faq_multiple_q_a
-    - paragraphs.paragraphs_type.q_a_section_faq_multiple
+    - paragraphs.paragraphs_type.q_a_group
   module:
     - entity_reference_revisions
-id: node.faq_multiple_q_a.field_q_a_group
-field_name: field_q_a_group
+id: node.faq_multiple_q_a.field_q_a_groups
+field_name: field_q_a_groups
 entity_type: node
 bundle: faq_multiple_q_a
-label: 'Q&A Group'
+label: 'Q&A groups'
 description: ''
 required: true
 translatable: false
@@ -23,75 +23,93 @@ settings:
   handler_settings:
     negate: 0
     target_bundles:
-      q_a_section_faq_multiple: q_a_section_faq_multiple
+      q_a_group: q_a_group
     target_bundles_drag_drop:
       address:
-        weight: 24
-        enabled: false
-      alert:
-        weight: 25
-        enabled: false
-      collapsible_panel:
-        weight: 26
-        enabled: false
-      collapsible_panel_item:
-        weight: 27
-        enabled: false
-      downloadable_file:
-        weight: 28
-        enabled: false
-      expandable_text:
         weight: 29
         enabled: false
-      health_care_local_facility_servi:
+      alert:
         weight: 30
         enabled: false
-      link_teaser:
+      button:
         weight: 31
         enabled: false
-      list_of_link_teasers:
+      collapsible_panel:
         weight: 32
         enabled: false
-      media:
+      collapsible_panel_item:
         weight: 33
         enabled: false
-      number_callout:
+      downloadable_file:
         weight: 34
         enabled: false
-      phone_number:
+      expandable_text:
         weight: 35
         enabled: false
-      process:
+      health_care_local_facility_servi:
         weight: 36
         enabled: false
-      q_a:
+      link_teaser:
         weight: 37
         enabled: false
-      q_a_section:
+      list_of_link_teasers:
         weight: 38
         enabled: false
-      q_a_section_faq_multiple:
-        enabled: true
+      media:
         weight: 39
-      react_widget:
+        enabled: false
+      number_callout:
         weight: 40
         enabled: false
-      situation_update:
+      phone_number:
         weight: 41
         enabled: false
-      spanish_translation_summary:
+      process:
         weight: 42
         enabled: false
-      staff_profile:
+      q_a:
         weight: 43
         enabled: false
-      starred_horizontal_rule:
+      q_a_group:
+        enabled: true
+        weight: 46
+      q_a_section:
         weight: 44
         enabled: false
-      table:
+      q_a_section_faq_multiple:
         weight: 45
         enabled: false
-      wysiwyg:
+      react_widget:
         weight: 46
+        enabled: false
+      service_location:
+        weight: 47
+        enabled: false
+      service_location_address:
+        weight: 48
+        enabled: false
+      situation_update:
+        weight: 49
+        enabled: false
+      spanish_translation_summary:
+        weight: 50
+        enabled: false
+      staff_profile:
+        weight: 51
+        enabled: false
+      starred_horizontal_rule:
+        weight: 52
+        enabled: false
+      step:
+        weight: 53
+        enabled: false
+      step_by_step:
+        weight: 54
+        enabled: false
+      table:
+        weight: 55
+        enabled: false
+      wysiwyg:
+        weight: 56
         enabled: false
 field_type: entity_reference_revisions

@@ -1,0 +1,29 @@
+uuid: 5f5e1d63-b03a-480c-9dad-f7b9f051e2ca
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.faq_multiple_q_a
+    - taxonomy.vocabulary.administration
+id: node.faq_multiple_q_a.field_administration
+field_name: field_administration
+entity_type: node
+bundle: faq_multiple_q_a
+label: Owner
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
