@@ -38,15 +38,17 @@
 
     .layout-sidebar-first {
       order: 1;
+      padding-right: 2em;
     }
 
     main {
       order: 2;
-      padding: 0 2em;
+      padding-right: 1em;
     }
 
     .layout-sidebar-second {
       order: 3;
+      padding-left: 1em;
     }
   }
 }
@@ -57,21 +59,12 @@
     text-transform: uppercase;
   }
 
-  .field--name-field-intro-text,
-  .field--name-field-alert,
-  .field--name-field-featured-content,
-  .field--name-field-content-block,
   .field--name-field-related-links {
-    margin: 1em 0;
 
     > .field__item,
     > .field__items {
       padding: 1em;
       background: #eee;
-    }
-
-    > .field__label {
-      text-transform: uppercase;
     }
   }
 }

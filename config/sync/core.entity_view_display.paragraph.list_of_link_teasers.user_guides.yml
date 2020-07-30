@@ -1,17 +1,23 @@
-uuid: f356aa1c-3af6-4aa7-ad5b-ab33d6afb079
+uuid: c0c4b52a-6f9b-4ffb-9ddd-0145ae25b68f
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.paragraph.user_guides
     - field.field.paragraph.list_of_link_teasers.field_title
     - field.field.paragraph.list_of_link_teasers.field_va_paragraphs
     - paragraphs.paragraphs_type.list_of_link_teasers
   module:
     - entity_reference_revisions
-id: paragraph.list_of_link_teasers.default
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: paragraph.list_of_link_teasers.user_guides
 targetEntityType: paragraph
 bundle: list_of_link_teasers
-mode: default
+mode: user_guides
 content:
   field_title:
     weight: 0
@@ -25,7 +31,7 @@ content:
     weight: 1
     label: hidden
     settings:
-      view_mode: default
+      view_mode: user_guides
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view

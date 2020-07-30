@@ -1,0 +1,23 @@
+uuid: 788acc6d-58d2-40e6-86c7-a9399d645d3d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_link
+    - paragraphs.paragraphs_type.list_of_links
+  module:
+    - link
+id: paragraph.list_of_links.field_link
+field_name: field_link
+entity_type: paragraph
+bundle: list_of_links
+label: 'Final link'
+description: 'This optional last link on the list will appear in bold.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 2
+field_type: link

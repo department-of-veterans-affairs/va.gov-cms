@@ -44,7 +44,7 @@
   {% if as_accordion %}
   <div class="usa-accordion-button">{{ content.field_question }}</div>
   {% else %}
-  <h3>{{ content.field_question }}</h3>
+  <h3>{{ content.field_question.0 }}</h3>
   {% endif %}
   {{ content.field_answer }}
 {% endblock %}
