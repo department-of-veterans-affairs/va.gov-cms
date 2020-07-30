@@ -15,7 +15,7 @@ dependencies:
     - field_group
     - paragraphs
     - path
-    - text
+    - textfield_counter
 third_party_settings:
   field_group:
     group_meta_tags:
@@ -89,26 +89,43 @@ content:
   field_description:
     weight: 12
     settings:
-      size: 60
+      size: 120
       placeholder: ''
+      maxlength: 300
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
     third_party_settings: {  }
-    type: string_textfield
+    type: string_textfield_with_counter
     region: content
   field_intro_text_limited_html:
     weight: 2
     settings:
       rows: 5
       placeholder: ''
+      maxlength: 600
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: text_textarea
+    type: text_textarea_with_counter
     region: content
   field_meta_title:
     weight: 11
     settings:
-      size: 60
+      size: 70
       placeholder: ''
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: string_textfield
+    type: string_textfield_with_counter
     region: content
   field_q_a_groups:
     type: entity_reference_paragraphs
@@ -135,12 +152,18 @@ content:
     settings: {  }
     third_party_settings: {  }
   title:
-    type: string_textfield
+    type: string_textfield_with_counter
     weight: 1
     region: content
     settings:
       size: 60
       placeholder: ''
+      maxlength: 150
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
     third_party_settings: {  }
   url_redirects:
     weight: 6
