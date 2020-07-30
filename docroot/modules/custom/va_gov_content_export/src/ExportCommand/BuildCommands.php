@@ -14,13 +14,6 @@ use Symfony\Component\Process\Process;
 class BuildCommands {
 
   /**
-   * The executable to call.
-   *
-   * @var string
-   */
-  protected $executable = 'drush';
-
-  /**
    * Tome Exporter.
    *
    * @var \Drupal\tome_sync\ExporterInterface
@@ -35,16 +28,26 @@ class BuildCommands {
   private $eventDispatcher;
 
   /**
+   * Execuitable Finder.
+   *
+   * @var \Drupal\va_gov_content_export\ExportCommand\ExecutableFinder
+   */
+  protected $executableFinder;
+
+  /**
    * BuildCommands constructor.
    *
    * @param \Drupal\tome_sync\ExporterInterface $exporter
    *   The exporter.
    * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
    *   Event dispatcher.
+   * @param \Drupal\va_gov_content_export\ExportCommand\ExecutableFinder $executableFinder
+   *   Executable Finder.
    */
-  public function __construct(ExporterInterface $exporter, EventDispatcherInterface $eventDispatcher) {
+  public function __construct(ExporterInterface $exporter, EventDispatcherInterface $eventDispatcher, ExecutableFinder $executableFinder) {
     $this->exporter = $exporter;
     $this->eventDispatcher = $eventDispatcher;
+    $this->executableFinder = $executableFinder;
   }
 
   /**
@@ -65,8 +68,10 @@ class BuildCommands {
         $id_pairs[] = "$entity_type_id:$id";
       }
     }
+
+    $executable = $this->executableFinder->findExecutable('va-gov-cms-export-content');
     foreach (array_chunk($id_pairs, $entity_count) as $chunk) {
-      $commands[] = $this->executable . ' va-gov-cms-export-content ' . escapeshellarg(implode(',', $chunk));
+      $commands[] = $executable . ' va-gov-cms-export-content ' . escapeshellarg(implode(',', $chunk));
     }
 
     return $commands;
