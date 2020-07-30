@@ -30,6 +30,8 @@ Feature: Content model bundles
       | Link teaser | link_teaser | Paragraph type | A link followed by a description. For building inline "menus" of content. |
       | Link to file or video | downloadable_file | Paragraph type | For image or document downloads. |
       | List of link teasers | list_of_link_teasers | Paragraph type | A paragraph that contains only one type of paragraph: Link teaser. |
+      | List of links | list_of_links | Paragraph type | A set of links, with link text and URL required, and an optional header. |
+      | Lists of links | lists_of_links | Paragraph type | A list of links, or several lists of links, with an optional section header. |
       | Locations listing page | locations_listing | Content type | A listing of locations. |
       | NCA facility | nca_facility | Content type | A facility within National Cemetery Administration system. |
       | News release | press_release | Content type | Announcements directed at members of the media for the purpose of publicizing newsworthy events/happenings/programs at specific facilities or healthcare systems. |

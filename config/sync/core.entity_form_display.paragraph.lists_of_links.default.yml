@@ -1,0 +1,45 @@
+uuid: dcd26a1e-1a88-4b94-a8da-40abec6a4da2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.lists_of_links.field_section_header
+    - field.field.paragraph.lists_of_links.field_va_paragraphs
+    - paragraphs.paragraphs_type.lists_of_links
+  module:
+    - paragraphs
+id: paragraph.lists_of_links.default
+targetEntityType: paragraph
+bundle: lists_of_links
+mode: default
+content:
+  field_section_header:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_va_paragraphs:
+    weight: 1
+    settings:
+      title: 'List of links'
+      title_plural: 'Lists of links'
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: list_of_links
+      features:
+        add_above: '0'
+        collapse_edit_all: '0'
+        duplicate: '0'
+    third_party_settings: {  }
+    type: paragraphs
+    region: content
+hidden:
+  created: true
+  status: true

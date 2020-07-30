@@ -36,6 +36,11 @@ Feature: Content model: Paragraph fields
       | Paragraph type | Link to file or video | Markup | field_markup | Markup |  | 1 | Markup | Translatable |
       | Paragraph type | List of link teasers | Link teasers | field_va_paragraphs | Entity reference revisions | Required | Unlimited | Paragraphs Classic | Translatable |
       | Paragraph type | List of link teasers | Title | field_title | Text (plain) |  | 1 | Textfield | Translatable |
+      | Paragraph type | List of links | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
+      | Paragraph type | List of links | Links | field_links | Link |  | Unlimited | Linkit |  |
+      | Paragraph type | List of links | Final link | field_link | Link |  | 1 | Linkit | Translatable |
+      | Paragraph type | Lists of links | List of links | field_va_paragraphs | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
+      | Paragraph type | Lists of links | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
       | Paragraph type | Number callout | Additional information | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
       | Paragraph type | Number callout | Short phrase with a number, or time element | field_short_phrase_with_a_number | Text (plain) | Required | 1 | Textfield with counter |  |
       | Paragraph type | Process list | Steps | field_steps | Text (formatted, long) | Required | Unlimited | Text area (multiple rows) |  |
