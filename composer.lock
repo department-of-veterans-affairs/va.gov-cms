@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8c0bfc56b323d95964d969c0e4f38e12",
+    "content-hash": "69d5a578b21c39301dc08dd75dfd885f",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -667,7 +667,7 @@
             "version": "v4.1.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:fengyuanchen/cropper.git",
+                "url": "https://github.com/fengyuanchen/cropper.git",
                 "reference": "617d9bdb8688cc4edb3b03bc49a04b83c7facbe7"
             },
             "dist": {
@@ -682,7 +682,7 @@
             "version": "v5.5.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:enyo/dropzone.git",
+                "url": "https://github.com/enyo/dropzone.git",
                 "reference": "08b9e0a763b54a685404dea523a9c54242fbe1b9"
             },
             "dist": {
@@ -7485,31 +7485,32 @@
         },
         {
             "name": "drupal/migrate_source_csv",
-            "version": "2.2.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/migrate_source_csv.git",
-                "reference": "8.x-2.2"
+                "reference": "8.x-3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/migrate_source_csv-8.x-2.2.zip",
-                "reference": "8.x-2.2",
-                "shasum": "c5ea6fffdfcf9d000279e0524b0a6a04ae78cce4"
+                "url": "https://ftp.drupal.org/files/projects/migrate_source_csv-8.x-3.0.zip",
+                "reference": "8.x-3.0",
+                "shasum": "a1f45f4beebba5d7135938b4679f03aeb321bc77"
             },
             "require": {
-                "drupal/core": "~8.1"
+                "drupal/core": "^8.7",
+                "league/csv": "^8.2|^9.1"
             },
             "require-dev": {
-                "drupal/migrate_plus": "^4",
-                "mikey179/vfsstream": "~1",
-                "phpunit/phpunit": "~4"
+                "drupal/migrate_plus": "4.x-dev",
+                "mikey179/vfsstream": "^1",
+                "phpunit/phpunit": "^4.8.35 || ^6.5"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.2",
-                    "datestamp": "1527712680",
+                    "version": "8.x-3.0",
+                    "datestamp": "1566225488",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -7518,7 +7519,7 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
