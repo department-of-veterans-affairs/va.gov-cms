@@ -68,10 +68,10 @@ function _vagovadmin_get_node_parent(Paragraph $paragraph) {
   $parent_node = NULL;
   /** @var Drupal\paragraphs\Entity\Paragraph $parent */
   $parent = $paragraph->getParentEntity();
-  if ($parent->getEntityType()->id() === 'paragraph') {
+  if ($parent !== NULL && $parent->getEntityType()->id() === 'paragraph') {
     $parent_node = _vagovadmin_get_node_parent($parent);
   }
-  elseif ($parent->getEntityType()->id() === 'node') {
+  elseif ($parent !== NULL && $parent->getEntityType()->id() === 'node') {
     $parent_node = $parent;
   }
   return $parent_node;
