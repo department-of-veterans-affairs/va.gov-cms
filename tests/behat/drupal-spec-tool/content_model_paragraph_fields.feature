@@ -50,6 +50,9 @@ Feature: Content model: Paragraph fields
       | Paragraph type | Q&A Section | Questions | field_questions | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
       | Paragraph type | Q&A Section | Section Header | field_section_header | Text (plain) |  | 1 | Textfield |  |
       | Paragraph type | Q&A Section | Section Intro | field_section_intro | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
+      | Paragraph type | Q&A group | Section Header | field_section_header | Text (plain) | Required | 1 | Textfield | Translatable |
+      | Paragraph type | Q&A group | Q&As | field_q_as | Entity reference | Required | Unlimited | Entity browser |  |
+      | Paragraph type | Q&A Section | Section Header | field_section_header | Text (plain) |  | 1 | Textfield |  |
       | Paragraph type | React Widget | Call To Action Widget | field_cta_widget | Boolean |  | 1 | Single on/off checkbox |  |
       | Paragraph type | React Widget | Default Link | field_default_link | Link |  | 1 | Linkit |  |
       | Paragraph type | React Widget | Display default link as button | field_button_format | Boolean |  | 1 | Single on/off checkbox |  |

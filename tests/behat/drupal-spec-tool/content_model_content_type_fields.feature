@@ -78,6 +78,11 @@ Feature: Content model: Content Type fields
       | Content type | Event listing page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | Event listing page | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
       | Content type | Event listing page | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+      | Content type | FAQ - multiple Q&As | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+      | Content type | FAQ - multiple Q&As | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+      | Content type | FAQ - multiple Q&As | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+      | Content type | FAQ - multiple Q&As | Page introduction | field_intro_text_limited_html  | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+      | Content type | FAQ - multiple Q&As | Q&A groups | field_q_a_groups | Entity reference revisions | Required | Unlimited | Paragraphs Classic |  |
       | Content type | Health services listing page | Featured content on health-services page | field_featured_content_healthser | Entity reference revisions |  | 3 | Paragraphs Classic | Translatable |
       | Content type | Health services listing page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
       | Content type | Health services listing page | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
@@ -137,7 +142,7 @@ Feature: Content model: Content Type fields
       | Content type | Publication listing page | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
       | Content type | Publication listing page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | Publication listing page | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
-      | Content type | Q&A | Answer | field_answer | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL | |
+      | Content type | Q&A | Answer | field_answer | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
       | Content type | Q&A | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
       | Content type | Q&A | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
       | Content type | Q&A | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
