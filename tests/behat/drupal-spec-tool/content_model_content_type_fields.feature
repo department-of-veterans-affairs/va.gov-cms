@@ -144,7 +144,6 @@ Feature: Content model: Content Type fields
       | Content type | Publication listing page | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | Q&A | Answer | field_answer | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
       | Content type | Q&A | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-      | Content type | Q&A | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
       | Content type | Q&A | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
       | Content type | Q&A | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | Staff profile | Bio | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
