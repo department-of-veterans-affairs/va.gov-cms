@@ -31,9 +31,18 @@
  */
 
 @mixin va-basic-styling {
-  p {
-    line-height: 1.5;
+  .field__item {
     margin-bottom: 1em;
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: 'Source Sans Pro', Sans-Serif;
+
+    /* Reset field labels for nested fields */
+    .field__label {
+      font-family: "Lucida Grande", "Lucida Sans Unicode", "DejaVu Sans", "Lucida Sans", sans-serif;
+      font-size: 81.3%;
+      text-transform: uppercase;
+    }
   }
 
   h2,
@@ -48,27 +57,27 @@
   }
 
   h2 {
-   font-size: 30px;
+   font-size: 1.6rem;
   }
 
   h3 {
-    font-size: 24px;
+    font-size: 1.2rem;
   }
 
   h4 {
-    font-size: 20px;
+    font-size: 1rem;
   }
 
   /* Lists */
 
   ul {
-    padding: 0 0 0 1.5em;
-    list-style: square;
+    padding: 0em;
   }
 
   li {
     line-height: 1.5;
     margin-bottom: .5em;
+    list-style: square;
   }
 
   ol {
@@ -90,6 +99,11 @@
   a:hover {
     background-color: rgba(0,0,0,.05);
     color: inherit;
+  }
+
+  .field--type-text-long,
+  .field--type-string-long {
+    max-width: 700px;
   }
 
   /* Block styles */
@@ -143,4 +157,12 @@
       color: #003e73;
     }
   }
+}
+
+@mixin intro-text {
+  font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 2rem;
+  margin: 0;
 }

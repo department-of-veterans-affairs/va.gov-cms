@@ -43,6 +43,16 @@ function vagovadmin_preprocess_field(&$variables) {
 }
 
 /**
+ * Implements hook_theme_suggestions_page_alter().
+ */
+function vagovadmin_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  // Add content type suggestions.
+  if ($node = \Drupal::request()->attributes->get('node')) {
+    array_splice($suggestions, 1, 0, 'page__node__' . $node->getType());
+  }
+}
+
+/**
  * Return the node that the paragraph belongs to.
  *
  * If the paragraph's parent is a paragraph, recurse up the tree until you

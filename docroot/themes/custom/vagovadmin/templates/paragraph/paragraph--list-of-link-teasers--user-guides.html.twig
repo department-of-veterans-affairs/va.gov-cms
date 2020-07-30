@@ -41,8 +41,9 @@
 {% extends "paragraph.html.twig" %}
 
 {% block content %}
-  {% if content.field_section_header %}
-    <h2>{{ content.field_section_header.0 }}</h2>
+  {% if content.field_title %}
+    <h2 class="section-header">{{ content.field_title.0 }}</h2>
   {% endif %}
-  {{ content|without('field_section_header') }}
+
+  {{ content|without('field_title') }}
 {% endblock %}

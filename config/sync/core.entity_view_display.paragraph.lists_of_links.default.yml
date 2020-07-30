@@ -1,19 +1,19 @@
-uuid: f356aa1c-3af6-4aa7-ad5b-ab33d6afb079
+uuid: 6533e579-a77c-4e2a-b46c-1ee8ec200c2e
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.list_of_link_teasers.field_title
-    - field.field.paragraph.list_of_link_teasers.field_va_paragraphs
-    - paragraphs.paragraphs_type.list_of_link_teasers
+    - field.field.paragraph.lists_of_links.field_section_header
+    - field.field.paragraph.lists_of_links.field_va_paragraphs
+    - paragraphs.paragraphs_type.lists_of_links
   module:
     - entity_reference_revisions
-id: paragraph.list_of_link_teasers.default
+id: paragraph.lists_of_links.default
 targetEntityType: paragraph
-bundle: list_of_link_teasers
+bundle: lists_of_links
 mode: default
 content:
-  field_title:
+  field_section_header:
     weight: 0
     label: hidden
     settings:

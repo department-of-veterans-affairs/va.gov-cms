@@ -42,7 +42,7 @@
 
 {% block content %}
   {% if content.field_section_header %}
-    <h2>{{ content.field_section_header.0 }}</h2>
+    <h2 class="section-header">{{ content.field_section_header.0 }}</h2>
   {% endif %}
   {{ content|without('field_section_header') }}
 {% endblock %}

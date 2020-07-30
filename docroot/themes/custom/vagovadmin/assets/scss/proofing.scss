@@ -1,6 +1,7 @@
 @import "undo_field_styling";
 @import "paragraphs";
 @import "tooltip";
+@import "mixins";
 
 .node--unpublished {
   background-color: #fff;
@@ -90,12 +91,7 @@
   }
 
   .field--name-field-intro-text .field__item {
-    font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
-    font-size: 1.25rem;
-    font-weight: 400;
-    max-width: 77rem;
-    line-height: 2rem;
-    margin: 0;
+    @include intro-text;
 
     *:first-child {
       margin-top: 0;
