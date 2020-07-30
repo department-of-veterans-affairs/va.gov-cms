@@ -47,3 +47,24 @@ Feature: Menus
 | VA Western Colorado health care | va-western-colorado-health-care |  |
 | VA Wilkes-Barre health care | va-wilkes-barre-health-care | va.gov/wilkes-barre-health-care |
 | VA Wilmington health care | va-wilmington-health-care | va.gov/wilmington-health-care |
+| VA Bedford health care | va-bedford-health-care |  |
+| VA Boston health care | va-boston-health-care |  |
+| VA Central Western Massachusetts health care | va-central-western-massachusetts |  |
+| VA Connecticut health care | va-connecticut-health-care |  |
+| VA Maine health care | va-maine-health-care |  |
+| VA Manchester health care | va-manchester-health-care |  |
+| VA Providence health care | va-providence-health-care |  |
+| VA White River Junction health care | va-white-river-junction-health-c |  |
+| VA Clarksburg health care | va-clarksburg-health-care |  |
+| VA Martinsburg health care | va-martinsburg-health-care |  |
+| VA Maryland health care | va-maryland-health-care |  |
+| VA Washington DC health care | va-washington-dc-health-care |  |
+| VA Beckley health care | va-beckley-health-care |  |
+| VA Huntington health care | va-huntington-health-care |  |
+| VA Asheville health care | va-asheville-health-care |  |
+| VA Durham health care | va-durham-health-care |  |
+| VA Fayetteville Coastal health care | va-fayetteville-coastal-health-c |  |
+| VA Hampton health care | va-hampton-health-care |  |
+| VA Richmond health care | va-richmond-health-care |  |
+| VA Salem health care | va-salem-health-care |  |
+| VA Salisbury health care | va-salisbury-health-care |  |
