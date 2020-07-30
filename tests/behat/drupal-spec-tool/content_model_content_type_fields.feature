@@ -157,10 +157,10 @@ Feature: Content model: Content Type fields
       | Content type | Staff profile | Related office or health care region | field_office | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | Staff profile | Suffix | field_suffix | Text (plain) |  | 1 | Textfield |  |
       | Content type | Step-by-Step | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs Classic |  |
-      | Content type | Step-by-Step | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+      | Content type | Step-by-Step | Page introduction | field_intro_text_limited_html | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
       | Content type | Step-by-Step | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-      | Content type | Step-by-Step | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
       | Content type | Step-by-Step | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+      | Content type | Step-by-Step | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
       | Content type | Step-by-Step | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox |  |
       | Content type | Step-by-Step | Step-by-step | field_steps | Entity reference revisions | Required | 1 | Paragraphs Classic |  |
       | Content type | Story | Author byline | field_author | Entity reference |  | 1 | Autocomplete |  |
