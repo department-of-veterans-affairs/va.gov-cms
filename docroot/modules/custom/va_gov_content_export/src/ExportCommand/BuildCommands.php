@@ -69,7 +69,7 @@ class BuildCommands {
       }
     }
 
-    $executable = $this->executableFinder->findExecutable('va-gov-cms-export-content');
+    $executable = $this->executableFinder->findExecutable('va-gov-cms-export-all-content');
     foreach (array_chunk($id_pairs, $entity_count) as $chunk) {
       $commands[] = $executable . ' va-gov-cms-export-content ' . escapeshellarg(implode(',', $chunk));
     }

@@ -58,7 +58,7 @@ function drush_va_gov_content_export_va_gov_cms_export_content($chunk) {
 function drush_va_gov_content_export_va_gov_cms_export_all_content() {
   $process_count = drush_get_option('process-count', 1);
   $entity_count = drush_get_option('entity-count', 'all');
-  $delete_existing = drush_get_option('delete-existing', 'yes');
+  $delete_existing = drush_get_option('delete-existing', FALSE);
 
   $command = \Drupal::service('va_gov.content_export.export_all_command');
   if ($delete_existing) {
@@ -73,6 +73,6 @@ function drush_va_gov_content_export_va_gov_cms_export_all_content() {
   }
 
   if (!$errors) {
-    drush_log('Exported config, content, and files.', LogLevel::OK);
+    drush_log('Exported config, content, and files.', LogLevel::SUCCESS);
   }
 }
