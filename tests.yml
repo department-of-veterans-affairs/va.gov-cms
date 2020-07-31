@@ -54,6 +54,7 @@ va/web/build:
 
 va/tests/behat:
   description: Behat Tests
+  # todo: Temporarily excluding @paragraph_fields test from execution.
   command: |
     cd tests/behat
-    behat --colors
+    behat --colors --tags=~@paragraph_fields
