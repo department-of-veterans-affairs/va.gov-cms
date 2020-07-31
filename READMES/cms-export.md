@@ -87,16 +87,7 @@ TODO: Create a diagram showing the deployment state backup/restoration
 1. This architecture only works with a single instance right now, and not in a multiple instance High Availability setup (HA) which we had not upgraded to yet anyways but have plans to do so in https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1716.
 1. Content model changes require a new, full export on deploy otherwise only newly published content would get the content model updates. Until the automation export on content model change story is complete in https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1851. Ideally the new export steps below would be just after the `drush config:import` Ansible task in the deploy but we cannot pause a deploy so it needs to be after the deploy. Here are the manual steps for a fresh export that captures the content model changes:
     1. Login to server then `cd /var/www/cms`
-    1. Temporarily stop new content from being published or else it won't make the export: `sudo -u apache bash -c "source /etc/sysconfig/httpd; /usr/local/bin/drush site_alert:create 'deploy-alert' 'Site maintenance in progress, CMS will be available in 10 minutes' --severity=low --duration='20'"`
-    1. Temporarily install Drush 10: `sudo -u apache bash -c "source /etc/sysconfig/httpd; PATH=$PATH:/usr/local/bin composer require drush/drush:~10"`
-    1. Confirm Drush version: `sudo -u apache bash -c "bin/drush --version"` = "Drush Commandline Tool 10.3.0"
-    1. Restart Apache to pick up new opcache changes: `sudo service httpd restart`
-    1. Run the export (this takes too long right now, ~10m, because Tome Sync exports asset files too, which we don't want for our use case): `sudo -u apache bash -c "source /etc/sysconfig/httpd; bin/drush tome:export --process-count=7 --entity-count=500"`, then "yes"
-    1. Downgrade back to Drush 8: `sudo -u apache bash -c "source /etc/sysconfig/httpd; PATH=$PATH:/usr/local/bin composer require drush/drush:~8"`
-    1. Clear Drush Cache: `sudo -u apache bash -c "source /etc/sysconfig/httpd; PATH=$PATH:/usr/local/bin drush cr"`
-    1. Re-enable new content to be published: `sudo -u apache bash -c "source /etc/sysconfig/httpd; /usr/local/bin/drush site_alert:delete 'deploy-alert'"`
-    1. TODO: Figure out how to keep the existing export working while the export is in progress, so that there is zero downtime for the request.
-
+    1. Run the export (Should take about 3 minutes): `sudo -u apache bash -c 'source /etc/sysconfig/httpd; /usr/local/bin/drush va-gov-cms-export-all-content  --process-count=8 --entity-count=500 --delete-existing'`
 
 ## Roadmap
 
