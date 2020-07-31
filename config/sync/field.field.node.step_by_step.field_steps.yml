@@ -1,0 +1,103 @@
+uuid: b1760c0f-1851-4195-8473-735caec4d0f4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_steps
+    - node.type.step_by_step
+    - paragraphs.paragraphs_type.step_by_step
+  module:
+    - entity_reference_revisions
+id: node.step_by_step.field_steps
+field_name: field_steps
+entity_type: node
+bundle: step_by_step
+label: Step-by-step
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      step_by_step: step_by_step
+    target_bundles_drag_drop:
+      address:
+        weight: 26
+        enabled: false
+      alert:
+        weight: 27
+        enabled: false
+      button:
+        weight: 28
+        enabled: false
+      collapsible_panel:
+        weight: 29
+        enabled: false
+      collapsible_panel_item:
+        weight: 30
+        enabled: false
+      downloadable_file:
+        weight: 31
+        enabled: false
+      expandable_text:
+        weight: 32
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 33
+        enabled: false
+      link_teaser:
+        weight: 34
+        enabled: false
+      list_of_link_teasers:
+        weight: 35
+        enabled: false
+      media:
+        weight: 36
+        enabled: false
+      number_callout:
+        weight: 37
+        enabled: false
+      phone_number:
+        weight: 38
+        enabled: false
+      process:
+        weight: 39
+        enabled: false
+      q_a:
+        weight: 40
+        enabled: false
+      q_a_section:
+        weight: 41
+        enabled: false
+      react_widget:
+        weight: 42
+        enabled: false
+      situation_update:
+        weight: 43
+        enabled: false
+      spanish_translation_summary:
+        weight: 44
+        enabled: false
+      staff_profile:
+        weight: 45
+        enabled: false
+      starred_horizontal_rule:
+        weight: 46
+        enabled: false
+      step:
+        weight: 47
+        enabled: false
+      step_by_step:
+        enabled: true
+        weight: 48
+      table:
+        weight: 49
+        enabled: false
+      wysiwyg:
+        weight: 50
+        enabled: false
+field_type: entity_reference_revisions

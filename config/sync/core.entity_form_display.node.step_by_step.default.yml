@@ -1,0 +1,203 @@
+uuid: 7fbfa08f-c8b0-4e43-86ad-91883f019a6c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.step_by_step.field_administration
+    - field.field.node.step_by_step.field_buttons
+    - field.field.node.step_by_step.field_buttons_repeat
+    - field.field.node.step_by_step.field_description
+    - field.field.node.step_by_step.field_intro_text_limited_html
+    - field.field.node.step_by_step.field_meta_title
+    - field.field.node.step_by_step.field_steps
+    - node.type.step_by_step
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - field_group
+    - paragraphs
+    - path
+    - textfield_counter
+third_party_settings:
+  field_group:
+    group_title_and_summary:
+      children:
+        - title
+        - field_intro_text_limited_html
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        description: ''
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Title and summary'
+      region: content
+    group_meta_tags:
+      children:
+        - field_meta_title
+        - field_description
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Meta Tags'
+      region: content
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 6
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: true
+        required_fields: true
+      label: 'Editorial Workflow'
+      region: content
+    group_step_by_step:
+      children:
+        - field_steps
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Step by step'
+      region: content
+    group_governance:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 7
+      format_type: details_sidebar
+      format_settings:
+        description: ''
+        open: '1'
+        weight: '-10'
+        required_fields: '1'
+        id: ''
+        classes: ''
+      label: Governance
+      region: content
+id: node.step_by_step.default
+targetEntityType: node
+bundle: step_by_step
+mode: default
+content:
+  field_administration:
+    weight: 8
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_buttons:
+    type: entity_reference_paragraphs
+    weight: 2
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    region: content
+  field_buttons_repeat:
+    weight: 4
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_description:
+    weight: 8
+    settings:
+      size: 300
+      placeholder: ''
+      maxlength: 300
+      counter_position: after
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
+      js_prevent_submit: false
+      count_html_characters: false
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_intro_text_limited_html:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 1000
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+    type: text_textarea_with_counter
+    region: content
+  field_meta_title:
+    weight: 6
+    settings:
+      size: 70
+      placeholder: ''
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_steps:
+    type: entity_reference_paragraphs
+    weight: 8
+    settings:
+      title: 'Step by step'
+      title_plural: 'Step by step'
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: step_by_step
+    third_party_settings: {  }
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 3
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true

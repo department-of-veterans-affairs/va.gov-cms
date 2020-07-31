@@ -1,0 +1,22 @@
+uuid: 0ba94855-2ea8-47f6-a763-a0359be0cb7a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.step_by_step
+id: node.step_by_step.status
+field_name: status
+entity_type: node
+bundle: step_by_step
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

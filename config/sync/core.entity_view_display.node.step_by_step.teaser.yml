@@ -1,0 +1,36 @@
+uuid: 54c08fe4-259f-45e2-85ae-8622655f9e3f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.step_by_step.field_administration
+    - field.field.node.step_by_step.field_buttons
+    - field.field.node.step_by_step.field_buttons_repeat
+    - field.field.node.step_by_step.field_description
+    - field.field.node.step_by_step.field_intro_text_limited_html
+    - field.field.node.step_by_step.field_meta_title
+    - field.field.node.step_by_step.field_steps
+    - node.type.step_by_step
+  module:
+    - user
+id: node.step_by_step.teaser
+targetEntityType: node
+bundle: step_by_step
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_buttons: true
+  field_buttons_repeat: true
+  field_description: true
+  field_intro_text_limited_html: true
+  field_meta_title: true
+  field_steps: true
+  search_api_excerpt: true
