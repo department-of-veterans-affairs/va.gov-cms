@@ -1,0 +1,28 @@
+uuid: 9abd6142-f822-425d-95ff-67beb020657d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_q_as
+    - node.type.q_a
+    - paragraphs.paragraphs_type.q_a_group
+id: paragraph.q_a_group.field_q_as
+field_name: field_q_as
+entity_type: paragraph
+bundle: q_a_group
+label: 'Q&As'
+description: 'Add single or multiple Q&As. Reordering of Q&A is available via drag and drop.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      q_a: q_a
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

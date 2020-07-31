@@ -9,6 +9,8 @@ dependencies:
     - paragraphs.paragraphs_type.collapsible_panel
     - paragraphs.paragraphs_type.downloadable_file
     - paragraphs.paragraphs_type.expandable_text
+    - paragraphs.paragraphs_type.list_of_link_teasers
+    - paragraphs.paragraphs_type.lists_of_links
     - paragraphs.paragraphs_type.media
     - paragraphs.paragraphs_type.process
     - paragraphs.paragraphs_type.q_a_section
@@ -38,33 +40,26 @@ settings:
       collapsible_panel: collapsible_panel
       alert: alert
       expandable_text: expandable_text
+      list_of_link_teasers: list_of_link_teasers
       downloadable_file: downloadable_file
+      lists_of_links: lists_of_links
       table: table
     target_bundles_drag_drop:
-      wysiwyg:
-        enabled: true
-        weight: -37
-      q_a_section:
-        enabled: true
-        weight: -36
-      media:
-        enabled: true
-        weight: -35
-      process:
-        enabled: true
-        weight: -34
-      collapsible_panel:
-        enabled: true
-        weight: -33
       address:
         weight: -32
         enabled: false
       alert:
         enabled: true
         weight: -31
+      collapsible_panel:
+        enabled: true
+        weight: -33
       collapsible_panel_item:
         weight: -30
         enabled: false
+      downloadable_file:
+        enabled: true
+        weight: 26
       expandable_text:
         enabled: true
         weight: -29
@@ -75,33 +70,54 @@ settings:
         weight: -27
         enabled: false
       list_of_link_teasers:
+        enabled: true
         weight: -26
+      list_of_links:
+        weight: 34
         enabled: false
+      lists_of_links:
+        enabled: true
+        weight: 34
+      media:
+        enabled: true
+        weight: -35
       number_callout:
         weight: -24
         enabled: false
+      phone_number:
+        weight: 34
+        enabled: false
+      process:
+        enabled: true
+        weight: -34
       q_a:
         weight: -23
         enabled: false
+      q_a_section:
+        enabled: true
+        weight: -36
       react_widget:
         weight: -22
+        enabled: false
+      situation_update:
+        weight: 37
         enabled: false
       spanish_translation_summary:
         weight: -21
         enabled: false
-      starred_horizontal_rule:
-        weight: -20
-        enabled: false
-      downloadable_file:
-        enabled: true
-        weight: 26
-      situation_update:
-        weight: 37
-        enabled: false
       staff_profile:
         weight: 39
+        enabled: false
+      starred_horizontal_rule:
+        weight: -20
         enabled: false
       table:
         enabled: true
         weight: 41
+      three_column_layout:
+        enabled: true
+        weight: 47
+      wysiwyg:
+        enabled: true
+        weight: -37
 field_type: entity_reference_revisions

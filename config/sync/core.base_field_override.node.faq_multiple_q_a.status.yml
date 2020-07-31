@@ -1,0 +1,22 @@
+uuid: dfdd5e06-a2a8-4183-8139-3ba62bcaf11c
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.faq_multiple_q_a
+id: node.faq_multiple_q_a.status
+field_name: status
+entity_type: node
+bundle: faq_multiple_q_a
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

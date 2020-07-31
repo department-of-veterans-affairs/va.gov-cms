@@ -6,11 +6,6 @@ dependencies:
     - field.storage.node.field_answer
     - node.type.q_a
     - paragraphs.paragraphs_type.alert
-    - paragraphs.paragraphs_type.collapsible_panel
-    - paragraphs.paragraphs_type.number_callout
-    - paragraphs.paragraphs_type.process
-    - paragraphs.paragraphs_type.react_widget
-    - paragraphs.paragraphs_type.table
     - paragraphs.paragraphs_type.wysiwyg
   module:
     - entity_reference_revisions
@@ -30,12 +25,7 @@ settings:
     negate: 0
     target_bundles:
       wysiwyg: wysiwyg
-      collapsible_panel: collapsible_panel
-      process: process
-      number_callout: number_callout
       alert: alert
-      react_widget: react_widget
-      table: table
     target_bundles_drag_drop:
       address:
         weight: -38
@@ -43,9 +33,12 @@ settings:
       alert:
         enabled: true
         weight: -41
+      button:
+        weight: 31
+        enabled: false
       collapsible_panel:
-        enabled: true
         weight: -44
+        enabled: false
       collapsible_panel_item:
         weight: -37
         enabled: false
@@ -68,23 +61,32 @@ settings:
         weight: -31
         enabled: false
       number_callout:
-        enabled: true
         weight: -42
+        enabled: false
       phone_number:
         weight: -30
         enabled: false
       process:
-        enabled: true
         weight: -43
+        enabled: false
       q_a:
         weight: -29
         enabled: false
       q_a_section:
         weight: -28
         enabled: false
+      q_a_section_faq_multiple:
+        weight: 45
+        enabled: false
       react_widget:
-        enabled: true
         weight: -40
+        enabled: false
+      service_location:
+        weight: 47
+        enabled: false
+      service_location_address:
+        weight: 48
+        enabled: false
       situation_update:
         weight: -27
         enabled: false
@@ -97,9 +99,15 @@ settings:
       starred_horizontal_rule:
         weight: -24
         enabled: false
+      step:
+        weight: 53
+        enabled: false
+      step_by_step:
+        weight: 54
+        enabled: false
       table:
-        enabled: true
         weight: -39
+        enabled: false
       wysiwyg:
         enabled: true
         weight: -45

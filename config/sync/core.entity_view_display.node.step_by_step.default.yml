@@ -1,0 +1,89 @@
+uuid: cc5836ab-1dd6-4d68-bbf1-6b571a4bf23f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.step_by_step.field_administration
+    - field.field.node.step_by_step.field_buttons
+    - field.field.node.step_by_step.field_buttons_repeat
+    - field.field.node.step_by_step.field_description
+    - field.field.node.step_by_step.field_intro_text_limited_html
+    - field.field.node.step_by_step.field_meta_title
+    - field.field.node.step_by_step.field_steps
+    - node.type.step_by_step
+  module:
+    - entity_reference_revisions
+    - text
+    - user
+id: node.step_by_step.default
+targetEntityType: node
+bundle: step_by_step
+mode: default
+content:
+  field_administration:
+    weight: 113
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_buttons:
+    type: entity_reference_revisions_entity_view
+    weight: 109
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_buttons_repeat:
+    weight: 110
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_description:
+    weight: 111
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_intro_text_limited_html:
+    weight: 112
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_meta_title:
+    weight: 108
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_steps:
+    type: entity_reference_revisions_entity_view
+    weight: 106
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  search_api_excerpt: true

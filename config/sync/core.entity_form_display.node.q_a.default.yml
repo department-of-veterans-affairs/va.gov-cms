@@ -5,15 +5,14 @@ dependencies:
   config:
     - field.field.node.q_a.field_administration
     - field.field.node.q_a.field_answer
+    - field.field.node.q_a.field_buttons
     - field.field.node.q_a.field_description
-    - field.field.node.q_a.field_meta_tags
     - field.field.node.q_a.field_meta_title
     - node.type.q_a
     - workflows.workflow.editorial
   module:
     - content_moderation
     - field_group
-    - metatag
     - paragraphs
     - path
     - textfield_counter
@@ -24,7 +23,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -65,15 +64,15 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: details_sidebar
       format_settings:
+        description: ''
+        open: '1'
+        weight: '-10'
+        required_fields: '1'
         id: ''
         classes: ''
-        description: ''
-        open: 0
-        required_fields: 1
-        weight: '-10'
       label: Governance
       region: content
 id: node.q_a.default
@@ -81,12 +80,6 @@ targetEntityType: node
 bundle: q_a
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 5
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_administration:
     weight: 10
     settings: {  }
@@ -112,12 +105,24 @@ content:
         duplicate: '0'
     third_party_settings: {  }
     region: content
+  field_buttons:
+    weight: 2
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: button
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+    region: content
   field_description:
     weight: 5
     settings:
-      size: 60
+      size: 120
       placeholder: ''
-      maxlength: 160
+      maxlength: 300
       counter_position: after
       textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
       use_field_maxlength: false
@@ -125,13 +130,6 @@ content:
       count_html_characters: false
     third_party_settings: {  }
     type: string_textfield_with_counter
-    region: content
-  field_meta_tags:
-    weight: 8
-    settings:
-      sidebar: true
-    third_party_settings: {  }
-    type: metatag_firehose
     region: content
   field_meta_title:
     weight: 3
@@ -155,7 +153,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -167,22 +165,14 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 4
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-      match_limit: 10
-    region: content
-    third_party_settings: {  }
   url_redirects:
-    weight: 7
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  created: true
   promote: true
   status: true
   sticky: true
+  uid: true

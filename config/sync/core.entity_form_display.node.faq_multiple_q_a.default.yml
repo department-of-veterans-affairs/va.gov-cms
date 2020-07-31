@@ -1,0 +1,221 @@
+uuid: 90058442-af20-4427-a2af-1979d7afe407
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.faq_multiple_q_a.field_administration
+    - field.field.node.faq_multiple_q_a.field_buttons
+    - field.field.node.faq_multiple_q_a.field_buttons_repeat
+    - field.field.node.faq_multiple_q_a.field_description
+    - field.field.node.faq_multiple_q_a.field_intro_text_limited_html
+    - field.field.node.faq_multiple_q_a.field_meta_title
+    - field.field.node.faq_multiple_q_a.field_q_a_groups
+    - field.field.node.faq_multiple_q_a.field_table_of_contents_boolean
+    - node.type.faq_multiple_q_a
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - field_group
+    - paragraphs
+    - path
+    - textfield_counter
+third_party_settings:
+  field_group:
+    group_meta_tags:
+      children:
+        - field_meta_title
+        - field_description
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Meta tags'
+      region: content
+    group_title_and_introduction:
+      children:
+        - title
+        - field_intro_text_limited_html
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Title and introduction'
+      region: content
+    group_governance:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 7
+      format_type: details_sidebar
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: 1
+        required_fields: 1
+        weight: '-10'
+      label: Governance
+      region: content
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 6
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+      region: content
+    group_table_of_contents:
+      children:
+        - field_table_of_contents_boolean
+      parent_name: ''
+      weight: 3
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'Include table of contents?'
+      region: content
+id: node.faq_multiple_q_a.default
+targetEntityType: node
+bundle: faq_multiple_q_a
+mode: default
+content:
+  field_administration:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_buttons:
+    weight: 2
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: button
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+    region: content
+  field_buttons_repeat:
+    weight: 5
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_description:
+    weight: 12
+    settings:
+      size: 120
+      placeholder: ''
+      maxlength: 300
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_intro_text_limited_html:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 600
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+    type: text_textarea_with_counter
+    region: content
+  field_meta_title:
+    weight: 11
+    settings:
+      size: 70
+      placeholder: ''
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_q_a_groups:
+    type: entity_reference_paragraphs
+    weight: 4
+    settings:
+      title: 'Q&A Group'
+      title_plural: 'Q&A Groups'
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: q_a_section_faq_multiple
+    third_party_settings: {  }
+    region: content
+  field_table_of_contents_boolean:
+    weight: 10
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 10
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield_with_counter
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      maxlength: 150
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
+    third_party_settings: {  }
+  url_redirects:
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true

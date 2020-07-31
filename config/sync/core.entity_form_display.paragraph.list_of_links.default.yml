@@ -1,0 +1,45 @@
+uuid: cc44b26f-ddba-4489-a41a-ebf7e83376b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.list_of_links.field_link
+    - field.field.paragraph.list_of_links.field_links
+    - field.field.paragraph.list_of_links.field_section_header
+    - paragraphs.paragraphs_type.list_of_links
+  module:
+    - linkit
+id: paragraph.list_of_links.default
+targetEntityType: paragraph
+bundle: list_of_links
+mode: default
+content:
+  field_link:
+    weight: 2
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+      linkit_profile: default
+    third_party_settings: {  }
+    type: linkit
+    region: content
+  field_links:
+    weight: 1
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+      linkit_profile: default
+    third_party_settings: {  }
+    type: linkit
+    region: content
+  field_section_header:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  status: true
