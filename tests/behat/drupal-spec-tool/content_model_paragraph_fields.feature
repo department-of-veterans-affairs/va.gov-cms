@@ -43,13 +43,20 @@ Feature: Content model: Paragraph fields
       | Paragraph type | Lists of links | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
       | Paragraph type | Number callout | Additional information | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
       | Paragraph type | Number callout | Short phrase with a number, or time element | field_short_phrase_with_a_number | Text (plain) | Required | 1 | Textfield with counter |  |
+      | Paragraph type | Phone number | Extension number | field_phone_extension | Text (plain) |  | 1 | Textfield | Translatable |
+      | Paragraph type | Phone number | Optional note | field_phone_label | Text (plain) |  | 1 | Textfield with counter | Translatable |
+      | Paragraph type | Phone number | Phone number | field_phone_number | Text (plain) | Required | 1 | Textfield | Translatable |
+      | Paragraph type | Phone number | Type | field_phone_number_type | List (text) | Required | 1 | Select list | Translatable |
       | Paragraph type | Process list | Steps | field_steps | Text (formatted, long) | Required | Unlimited | Text area (multiple rows) |  |
       | Paragraph type | Q&A | Answer | field_answer | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
       | Paragraph type | Q&A | Question | field_question | Text (plain) | Required | 1 | Textfield with counter |  |
+      | Paragraph type | Q&A group | Section Header | field_section_header | Text (plain) | Required | 1 | Textfield | Translatable |
+      | Paragraph type | Q&A group | Q&As | field_q_as | Entity reference | Required | Unlimited | Entity browser |  |
       | Paragraph type | Q&A Section | Display this set of Q&As as a group of accordions. | field_accordion_display | Boolean |  | 1 | Single on/off checkbox |  |
       | Paragraph type | Q&A Section | Questions | field_questions | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
       | Paragraph type | Q&A Section | Section Header | field_section_header | Text (plain) |  | 1 | Textfield |  |
       | Paragraph type | Q&A Section | Section Intro | field_section_intro | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
+      | Paragraph type | Q&A Section | Section Header | field_section_header | Text (plain) |  | 1 | Textfield |  |
       | Paragraph type | React Widget | Call To Action Widget | field_cta_widget | Boolean |  | 1 | Single on/off checkbox |  |
       | Paragraph type | React Widget | Default Link | field_default_link | Link |  | 1 | Linkit |  |
       | Paragraph type | React Widget | Display default link as button | field_button_format | Boolean |  | 1 | Single on/off checkbox |  |
@@ -63,14 +70,14 @@ Feature: Content model: Paragraph fields
       | Paragraph type | Service location | Hours | field_hours | List (text) | Required | 1 | Select list |  |
       | Paragraph type | Service location | Phone | field_phone | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL |  |
       | Paragraph type | Service location | Use main facility phone number? | field_use_main_facility_phone | Boolean | Required | 1 | Single on/off checkbox |  |
-      | Paragraph type | Situation update | Date and time | field_date_and_time | Date | Required | 1 | Date and time |  |
-      | Paragraph type | Situation update | Send email to subscribers via GovDelivery? | field_send_email_to_subscribers | Boolean |  | 1 | Single on/off checkbox |  |
-      | Paragraph type | Situation update | Update | field_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
       | Paragraph type | Service location address | Address | field_address | Address |  | 1 | Address | Translatable |
       | Paragraph type | Service location address | Building name/number | field_building_name_number | Text (plain) |  | 1 | Textfield with counter |  |
       | Paragraph type | Service location address | Clinic name | field_clinic_name | Text (plain) |  | 1 | Textfield with counter |  |
       | Paragraph type | Service location address | Use facility address? | field_use_facility_address | Boolean |  | 1 | Single on/off checkbox |  |
       | Paragraph type | Service location address | Wing, Floor, or Room Number | field_wing_floor_or_room_number | Text (plain) |  | 1 | Textfield with counter |  |
+      | Paragraph type | Situation update | Date and time | field_date_and_time | Date | Required | 1 | Date and time |  |
+      | Paragraph type | Situation update | Send email to subscribers via GovDelivery? | field_send_email_to_subscribers | Boolean |  | 1 | Single on/off checkbox |  |
+      | Paragraph type | Situation update | Update | field_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
       | Paragraph type | Staff profile | Staff profile | field_staff_profile | Entity reference | Required | 1 | Select list |  |
       | Paragraph type | Step | Select an image | field_media | Entity reference |  | 1 | Media library | Translatable |
       | Paragraph type | Step | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
@@ -79,7 +86,3 @@ Feature: Content model: Paragraph fields
       | Paragraph type | VAMC facility service (non-healthcare service) | Service name | field_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
       | Paragraph type | VAMC facility service (non-healthcare service) | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
       | Paragraph type | WYSIWYG | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
-      | Paragraph type | Phone number | Extension number | field_phone_extension | Text (plain) |  | 1 | Textfield | Translatable |
-      | Paragraph type | Phone number | Optional note | field_phone_label | Text (plain) |  | 1 | Textfield with counter | Translatable |
-      | Paragraph type | Phone number | Phone number | field_phone_number | Text (plain) | Required | 1 | Textfield | Translatable |
-      | Paragraph type | Phone number | Type | field_phone_number_type | List (text) | Required | 1 | Select list | Translatable |

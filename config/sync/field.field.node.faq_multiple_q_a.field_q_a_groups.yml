@@ -1,19 +1,18 @@
-uuid: 2eb459de-bd1f-49fb-9044-89798edae4d4
+uuid: be090c96-54ed-468a-bc48-365012434e56
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_answer
-    - node.type.q_a
-    - paragraphs.paragraphs_type.alert
-    - paragraphs.paragraphs_type.wysiwyg
+    - field.storage.node.field_q_a_groups
+    - node.type.faq_multiple_q_a
+    - paragraphs.paragraphs_type.q_a_group
   module:
     - entity_reference_revisions
-id: node.q_a.field_answer
-field_name: field_answer
+id: node.faq_multiple_q_a.field_q_a_groups
+field_name: field_q_a_groups
 entity_type: node
-bundle: q_a
-label: Answer
+bundle: faq_multiple_q_a
+label: 'Q&A groups'
 description: ''
 required: true
 translatable: false
@@ -24,62 +23,64 @@ settings:
   handler_settings:
     negate: 0
     target_bundles:
-      wysiwyg: wysiwyg
-      alert: alert
+      q_a_group: q_a_group
     target_bundles_drag_drop:
       address:
-        weight: -38
+        weight: 29
         enabled: false
       alert:
-        enabled: true
-        weight: -41
+        weight: 30
+        enabled: false
       button:
         weight: 31
         enabled: false
       collapsible_panel:
-        weight: -44
+        weight: 32
         enabled: false
       collapsible_panel_item:
-        weight: -37
+        weight: 33
         enabled: false
       downloadable_file:
-        weight: -36
+        weight: 34
         enabled: false
       expandable_text:
-        weight: -35
+        weight: 35
         enabled: false
       health_care_local_facility_servi:
-        weight: -34
+        weight: 36
         enabled: false
       link_teaser:
-        weight: -33
+        weight: 37
         enabled: false
       list_of_link_teasers:
-        weight: -32
+        weight: 38
         enabled: false
       media:
-        weight: -31
+        weight: 39
         enabled: false
       number_callout:
-        weight: -42
+        weight: 40
         enabled: false
       phone_number:
-        weight: -30
+        weight: 41
         enabled: false
       process:
-        weight: -43
+        weight: 42
         enabled: false
       q_a:
-        weight: -29
+        weight: 43
         enabled: false
+      q_a_group:
+        enabled: true
+        weight: 46
       q_a_section:
-        weight: -28
+        weight: 44
         enabled: false
       q_a_section_faq_multiple:
         weight: 45
         enabled: false
       react_widget:
-        weight: -40
+        weight: 46
         enabled: false
       service_location:
         weight: 47
@@ -88,16 +89,16 @@ settings:
         weight: 48
         enabled: false
       situation_update:
-        weight: -27
+        weight: 49
         enabled: false
       spanish_translation_summary:
-        weight: -26
+        weight: 50
         enabled: false
       staff_profile:
-        weight: -25
+        weight: 51
         enabled: false
       starred_horizontal_rule:
-        weight: -24
+        weight: 52
         enabled: false
       step:
         weight: 53
@@ -106,9 +107,9 @@ settings:
         weight: 54
         enabled: false
       table:
-        weight: -39
+        weight: 55
         enabled: false
       wysiwyg:
-        enabled: true
-        weight: -45
+        weight: 56
+        enabled: false
 field_type: entity_reference_revisions

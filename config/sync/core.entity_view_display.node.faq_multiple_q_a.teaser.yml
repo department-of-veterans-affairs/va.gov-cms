@@ -1,0 +1,38 @@
+uuid: 612ceeee-a073-4de0-a7d3-294f08acfdf3
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.faq_multiple_q_a.field_administration
+    - field.field.node.faq_multiple_q_a.field_buttons
+    - field.field.node.faq_multiple_q_a.field_buttons_repeat
+    - field.field.node.faq_multiple_q_a.field_description
+    - field.field.node.faq_multiple_q_a.field_intro_text_limited_html
+    - field.field.node.faq_multiple_q_a.field_meta_title
+    - field.field.node.faq_multiple_q_a.field_q_a_groups
+    - field.field.node.faq_multiple_q_a.field_table_of_contents_boolean
+    - node.type.faq_multiple_q_a
+  module:
+    - user
+id: node.faq_multiple_q_a.teaser
+targetEntityType: node
+bundle: faq_multiple_q_a
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_buttons: true
+  field_buttons_repeat: true
+  field_description: true
+  field_intro_text_limited_html: true
+  field_meta_title: true
+  field_q_a_groups: true
+  field_table_of_contents_boolean: true
+  search_api_excerpt: true

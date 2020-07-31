@@ -1,22 +1,21 @@
-uuid: 2eb459de-bd1f-49fb-9044-89798edae4d4
+uuid: 9a96527a-7e56-4bd1-94e6-8f32fa7c484d
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_answer
+    - field.storage.node.field_buttons
     - node.type.q_a
-    - paragraphs.paragraphs_type.alert
-    - paragraphs.paragraphs_type.wysiwyg
+    - paragraphs.paragraphs_type.button
   module:
     - entity_reference_revisions
-id: node.q_a.field_answer
-field_name: field_answer
+id: node.q_a.field_buttons
+field_name: field_buttons
 entity_type: node
 bundle: q_a
-label: Answer
-description: ''
+label: 'CTA buttons'
+description: 'Add a Call to Action button. At least 1 required. Up to 2 max.'
 required: true
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
@@ -24,91 +23,96 @@ settings:
   handler_settings:
     negate: 0
     target_bundles:
-      wysiwyg: wysiwyg
-      alert: alert
+      button: button
     target_bundles_drag_drop:
       address:
-        weight: -38
-        enabled: false
-      alert:
-        enabled: true
-        weight: -41
-      button:
         weight: 31
         enabled: false
+      alert:
+        weight: 32
+        enabled: false
+      button:
+        enabled: true
+        weight: 33
       collapsible_panel:
-        weight: -44
+        weight: 34
         enabled: false
       collapsible_panel_item:
-        weight: -37
+        weight: 35
         enabled: false
       downloadable_file:
-        weight: -36
+        weight: 36
         enabled: false
       expandable_text:
-        weight: -35
+        weight: 37
         enabled: false
       health_care_local_facility_servi:
-        weight: -34
+        weight: 38
         enabled: false
       link_teaser:
-        weight: -33
+        weight: 39
         enabled: false
       list_of_link_teasers:
-        weight: -32
+        weight: 42
+        enabled: false
+      list_of_links:
+        weight: 41
+        enabled: false
+      lists_of_links:
+        weight: 40
         enabled: false
       media:
-        weight: -31
+        weight: 43
         enabled: false
       number_callout:
-        weight: -42
+        weight: 44
         enabled: false
       phone_number:
-        weight: -30
-        enabled: false
-      process:
-        weight: -43
-        enabled: false
-      q_a:
-        weight: -29
-        enabled: false
-      q_a_section:
-        weight: -28
-        enabled: false
-      q_a_section_faq_multiple:
         weight: 45
         enabled: false
-      react_widget:
-        weight: -40
+      process:
+        weight: 46
         enabled: false
-      service_location:
+      q_a:
         weight: 47
         enabled: false
-      service_location_address:
+      q_a_group:
         weight: 48
         enabled: false
+      q_a_section:
+        weight: 49
+        enabled: false
+      react_widget:
+        weight: 50
+        enabled: false
+      service_location:
+        weight: 51
+        enabled: false
+      service_location_address:
+        weight: 52
+        enabled: false
       situation_update:
-        weight: -27
-        enabled: false
-      spanish_translation_summary:
-        weight: -26
-        enabled: false
-      staff_profile:
-        weight: -25
-        enabled: false
-      starred_horizontal_rule:
-        weight: -24
-        enabled: false
-      step:
         weight: 53
         enabled: false
-      step_by_step:
+      spanish_translation_summary:
         weight: 54
         enabled: false
+      staff_profile:
+        weight: 55
+        enabled: false
+      starred_horizontal_rule:
+        weight: 56
+        enabled: false
+      step:
+        weight: 57
+        enabled: false
+      step_by_step:
+        weight: 58
+        enabled: false
       table:
-        weight: -39
+        weight: 59
         enabled: false
       wysiwyg:
-        enabled: true
-        weight: -45
+        weight: 60
+        enabled: false
 field_type: entity_reference_revisions
