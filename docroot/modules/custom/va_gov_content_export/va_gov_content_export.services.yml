@@ -26,3 +26,11 @@ services:
   va_gov.content_export.list_data_compiler:
     class: Drupal\va_gov_content_export\ListDataCompiler
     arguments: ['@entity_type.manager']
+  va_gov.content_export.export_command:
+    class: Drupal\va_gov_content_export\ExportCommand\ExportContentCommand
+    arguments: ['@entity_type.manager', '@tome_sync.exporter']
+  va_gov.content_export.export_all_command:
+    class:  Drupal\va_gov_content_export\ExportCommand\BuildCommands
+    arguments: ['@tome_sync.exporter', '@event_dispatcher', '@va_gov.content_export.executable_finder']
+  va_gov.content_export.executable_finder:
+    class: Drupal\va_gov_content_export\ExportCommand\ExecutableFinder
