@@ -78,7 +78,7 @@ class BuildCommands {
   }
 
   /**
-   * Run an array fo commands.
+   * Run an array of commands.
    *
    * @param array $commands
    *   Array of Commands to run.
