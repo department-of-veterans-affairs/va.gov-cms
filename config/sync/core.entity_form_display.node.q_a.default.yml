@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.q_a.field_administration
     - field.field.node.q_a.field_answer
+    - field.field.node.q_a.field_buttons
     - field.field.node.q_a.field_description
     - field.field.node.q_a.field_meta_title
     - node.type.q_a
@@ -22,7 +23,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -63,7 +64,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: details_sidebar
       format_settings:
         description: ''
@@ -104,6 +105,18 @@ content:
         duplicate: '0'
     third_party_settings: {  }
     region: content
+  field_buttons:
+    weight: 2
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: button
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+    region: content
   field_description:
     weight: 5
     settings:
@@ -140,7 +153,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 4
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -153,7 +166,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
