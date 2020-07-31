@@ -5,13 +5,12 @@ dependencies:
   config:
     - field.field.node.q_a.field_administration
     - field.field.node.q_a.field_answer
+    - field.field.node.q_a.field_buttons
     - field.field.node.q_a.field_description
-    - field.field.node.q_a.field_meta_tags
     - field.field.node.q_a.field_meta_title
     - node.type.q_a
   module:
     - entity_reference_revisions
-    - metatag
     - user
 id: node.q_a.default
 targetEntityType: node
@@ -35,6 +34,15 @@ content:
       link: ''
     third_party_settings: {  }
     region: content
+  field_buttons:
+    weight: 106
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
   field_description:
     weight: 104
     label: above
@@ -42,13 +50,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-    region: content
-  field_meta_tags:
-    weight: 103
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_empty_formatter
     region: content
   field_meta_title:
     weight: 102

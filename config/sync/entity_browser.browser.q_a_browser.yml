@@ -1,0 +1,31 @@
+uuid: 55ed593e-a201-48cd-a1ae-3070ad93a303
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.content_entity_browsers
+  module:
+    - views
+name: q_a_browser
+label: 'Q&A'
+display: modal
+display_configuration:
+  width: ''
+  height: ''
+  link_text: 'Place Q&As'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: single
+widget_selector_configuration: {  }
+widgets:
+  d97c6488-037b-41ec-ba4c-6c115507226e:
+    settings:
+      view: content_entity_browsers
+      view_display: entity_browser_1
+      submit_text: 'Select Q&As'
+      auto_select: false
+    uuid: d97c6488-037b-41ec-ba4c-6c115507226e
+    weight: 1
+    label: ''
+    id: view

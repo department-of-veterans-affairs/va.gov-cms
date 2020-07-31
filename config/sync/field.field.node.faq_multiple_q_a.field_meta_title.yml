@@ -1,0 +1,19 @@
+uuid: e12a47a7-45f6-47d2-a07a-94419e0e12fe
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_meta_title
+    - node.type.faq_multiple_q_a
+id: node.faq_multiple_q_a.field_meta_title
+field_name: field_meta_title
+entity_type: node
+bundle: faq_multiple_q_a
+label: 'Meta title tag'
+description: 'Add a meta title to be used in search results and the browser tab. Use title case capitalization and include " | Veterans Affairs" at the end. (<a href="https://design.va.gov/content-style-guide/seo#meta-properties" target=“_blank”>See further guidelines</a>)'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

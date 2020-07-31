@@ -1,0 +1,41 @@
+uuid: 41b638d4-20b6-4a6e-a7a3-549774192be0
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_browser.browser.q_a_browser
+    - field.field.paragraph.q_a_group.field_q_as
+    - field.field.paragraph.q_a_group.field_section_header
+    - paragraphs.paragraphs_type.q_a_group
+  module:
+    - entity_browser
+id: paragraph.q_a_group.default
+targetEntityType: paragraph
+bundle: q_a_group
+mode: default
+content:
+  field_q_as:
+    weight: 1
+    settings:
+      entity_browser: q_a_browser
+      field_widget_display: label
+      field_widget_edit: true
+      field_widget_remove: true
+      open: true
+      selection_mode: selection_append
+      field_widget_replace: false
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+    region: content
+  field_section_header:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  status: true

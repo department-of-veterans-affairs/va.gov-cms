@@ -24,6 +24,7 @@ Feature: Content model bundles
       | Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
       | Event listing page | event_listing | Content type | A listing of events. |
       | Expandable Text | expandable_text | Paragraph type | Text that expands upon click. |
+      | FAQ - multiple Q&As | faq_multiple_q_a | Content type | Curated collection of Q&As. |
       | Health services listing page | health_services_listing | Content type | A listing of health services. |
       | Image | image | Media type | Locally hosted images. |
       | Leadership listing page | leadership_listing | Content type | A listing of staff members. |
@@ -45,6 +46,7 @@ Feature: Content model bundles
       | Publication listing page | publication_listing | Content type | This allows the listing of publication materials such as documents, videos, and images all in one place. |
       | Q&A | q_a | Content type | Single Question and Answer. |
       | Q&A | q_a | Paragraph type | Question and Answer |
+      | Q&A group | q_a_group | Paragraph type | For content formatted as a series of questions and answers in "FAQ - multiple Q&A" content type. Use this (instead of WYSIWYG) for better accessibility and easy rearranging. |
       | Q&A Section | q_a_section | Paragraph type | For content formatted as a series of questions and answers. Use this (instead of WYSIWYG) for better accessibility and easy rearranging. |
       | React Widget | react_widget | Paragraph type | Advanced editors can use this to place react widgets (like a form) on the page. |
       | Sections | administration | Vocabulary | Represents a hierarchy of the VA, partly for governance purposes. |
@@ -54,11 +56,11 @@ Feature: Content model bundles
       | Staff profile | person_profile | Content type | Profiles of staff members for display in various places around the site. |
       | Staff profile | staff_profile | Paragraph type | Add a profile of a staff person. |
       | Starred Horizontal Rule | starred_horizontal_rule | Paragraph type | Current an inactive paragraph type, not enabled within any fields. |
-      | Story | news_story | Content type | Community stories highlight the role of a VA facility, program, or healthcare system in a Veteran's journey. They may be a case study of a specific patient, a description of a new or successful program, or a community-interest story. |
-      | Story listing page | story_listing | Content type | A listing of stories. |
       | Step | step | Paragraph type | Single step. |
       | Step by step | step_by_step | Paragraph type | An ordered list (1, 2, 3, 4, N) of steps. |
       | Step-by-Step | step_by_step | Content type | An ordered list (1, 2, 3, 4, N) of steps with Call to Action buttons. |
+      | Story | news_story | Content type | Community stories highlight the role of a VA facility, program, or healthcare system in a Veteran's journey. They may be a case study of a specific patient, a description of a new or successful program, or a community-interest story. |
+      | Story listing page | story_listing | Content type | A listing of stories. |
       | Support Service | support_service | Content type | Help desks, hotlines, etc, to be contextually placed alongside relevant content. |
       | Table | table | Paragraph type | Add an HTML table with rows and columns. |
       | Type of Redirect | type_of_redirect | Vocabulary |  |
