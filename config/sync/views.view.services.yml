@@ -80,11 +80,7 @@ display:
       style:
         type: table
         options:
-          grouping:
-            -
-              field: parent_target_id
-              rendered: true
-              rendered_strip: false
+          grouping: {  }
           row_class: ''
           default_row_class: true
           override: true
@@ -93,16 +89,27 @@ display:
           summary: ''
           description: ''
           columns:
-            name: name
+            view_node: view_node
+            field_regional_health_service: field_regional_health_service
             nid: nid
             moderation_state: moderation_state
             changed: changed
             revision_uid: changed
-            field_region_page: field_region_page
-            field_facility_location: field_facility_location
-            parent_target_id: parent_target_id
+            field_service_location: field_service_location
+            field_appointments_online: field_appointments_online
+            field_online_scheduling_availabl: field_appointments_online
+            field_phone_numbers_paragraph: field_appointments_online
+            field_referral_required: field_appointments_online
+            field_walk_ins_accepted: field_appointments_online
           info:
-            name:
+            view_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_regional_health_service:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -137,21 +144,40 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_region_page:
+            field_service_location:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_appointments_online:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_facility_location:
+            field_online_scheduling_availabl:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            parent_target_id:
+            field_phone_numbers_paragraph:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_referral_required:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_walk_ins_accepted:
+              sortable: false
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
