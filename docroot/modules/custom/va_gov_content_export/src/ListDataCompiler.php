@@ -208,12 +208,18 @@ class ListDataCompiler {
    *   An array of node objects that reference the list.
    *
    * @return array
-   *   An array of list items in nid -> uuid pairs.
+   *   An array of list item objects containing target node data.
    */
   protected function buildList(array $listNodes) : array {
     $list = [];
     foreach ($listNodes as $listNode) {
-      $list[$listNode->id()] = $listNode->uuid();
+      $list_item = new \stdClass();
+      $list_item->target_type = $listNode->getEntityTypeId();
+      $list_item->target_bundle = $listNode->getType();
+      $list_item->target_id = $listNode->id();
+      $list_item->target_uuid = $listNode->uuid();
+
+      $list[] = $list_item;
     }
 
     return $list;
