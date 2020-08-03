@@ -10,7 +10,7 @@ id: node.health_care_local_facility.field_local_health_care_service_
 field_name: field_local_health_care_service_
 entity_type: node
 bundle: health_care_local_facility
-label: 'Local health care service offerings'
+label: 'Health services'
 description: ''
 required: false
 translatable: true
@@ -22,7 +22,8 @@ settings:
     target_bundles:
       health_care_local_health_service: health_care_local_health_service
     sort:
-      field: _none
+      field: title
+      direction: ASC
     auto_create: 0
     auto_create_bundle: ''
 field_type: entity_reference
