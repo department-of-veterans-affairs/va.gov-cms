@@ -6,6 +6,7 @@ dependencies:
     - views.view.services
   module:
     - ctools
+    - system
     - views
   theme:
     - vagovadmin
@@ -31,3 +32,8 @@ visibility:
     negate: false
     context_mapping:
       node: '@node.node_route_context:node'
+  request_path:
+    id: request_path
+    pages: '/node/*/*'
+    negate: true
+    context_mapping: {  }
