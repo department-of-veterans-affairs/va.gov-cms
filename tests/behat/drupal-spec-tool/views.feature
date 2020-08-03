@@ -124,8 +124,6 @@ Feature: Views
       | Moderated content | Moderated content | moderated_content | Page |
       | Moderation history | Master | default | Master |
       | Moderation history | Page | page | Page |
-      | My Workflow  | Master | default | Master |
-      | My Workflow  | My workflow | my_workflow_page | Page |
       | People | Master | default | Master |
       | People | Page | page_1 | Page |
       | Recent content | Block | block_1 | Block |
