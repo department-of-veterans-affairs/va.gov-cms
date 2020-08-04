@@ -22,21 +22,21 @@ Feature: Content model bundles
       | Document | document | Media type | A locally hosted document, such as a PDF. |
       | Embedded image | media | Paragraph type | For adding an image inline |
       | Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
-      | Event listing page | event_listing | Content type | A listing of events. |
+      | Events list | event_listing | Content type | A listing of events. |
       | Expandable Text | expandable_text | Paragraph type | Text that expands upon click. |
       | FAQ - multiple Q&As | faq_multiple_q_a | Content type | Curated collection of Q&As. |
-      | Health services listing page | health_services_listing | Content type | A listing of health services. |
+      | Health services list | health_services_listing | Content type | A listing of health services. |
       | Image | image | Media type | Locally hosted images. |
-      | Leadership listing page | leadership_listing | Content type | A listing of staff members. |
+      | Leadership list | leadership_listing | Content type | A listing of staff members. |
       | Link teaser | link_teaser | Paragraph type | A link followed by a description. For building inline "menus" of content. |
       | Link to file or video | downloadable_file | Paragraph type | For image or document downloads. |
       | List of link teasers | list_of_link_teasers | Paragraph type | A paragraph that contains only one type of paragraph: Link teaser. |
       | List of links | list_of_links | Paragraph type | A set of links, with link text and URL required, and an optional header. |
       | Lists of links | lists_of_links | Paragraph type | A list of links, or several lists of links, with an optional section header. |
-      | Locations listing page | locations_listing | Content type | A listing of locations. |
+      | Locations list | locations_listing | Content type | A listing of locations. |
       | NCA facility | nca_facility | Content type | A facility within National Cemetery Administration system. |
       | News release | press_release | Content type | Announcements directed at members of the media for the purpose of publicizing newsworthy events/happenings/programs at specific facilities or healthcare systems. |
-      | News release listing page | press_releases_listing | Content type | A listing of news releases. |
+      | News releases list | press_releases_listing | Content type | A listing of news releases. |
       | Number callout | number_callout | Paragraph type | Number callouts can be used in the context of a question & answer, where the answer can be summarized in a short phrase that is number-oriented. |
       | Office | office | Content type | An office at the VA, which may have contact info, events, news, and a leadership page in some cases. |
       | Phone number | phone_number | Paragraph type |  |
@@ -60,7 +60,7 @@ Feature: Content model bundles
       | Step by step | step_by_step | Paragraph type | An ordered list (1, 2, 3, 4, N) of steps. |
       | Step-by-Step | step_by_step | Content type | An ordered list (1, 2, 3, 4, N) of steps with Call to Action buttons. |
       | Story | news_story | Content type | Community stories highlight the role of a VA facility, program, or healthcare system in a Veteran's journey. They may be a case study of a specific patient, a description of a new or successful program, or a community-interest story. |
-      | Story listing page | story_listing | Content type | A listing of stories. |
+      | Stories list | story_listing | Content type | A listing of stories. |
       | Support Service | support_service | Content type | Help desks, hotlines, etc, to be contextually placed alongside relevant content. |
       | Table | table | Paragraph type | Add an HTML table with rows and columns. |
       | Type of Redirect | type_of_redirect | Vocabulary |  |
