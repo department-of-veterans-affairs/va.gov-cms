@@ -54,6 +54,7 @@ Feature: Views
       | User email csv | user_email_csv | Users | Enabled |  |
       | Listing page dashboard | listing_page_dashboard | Content | Enabled |  |
       | Custom block entity browsers | custom_block_entity_browsers | Custom Block | Enabled | For placing on content forms |
+      | Services | services | Content | Enabled | Lists of services for facility pages, health services lists, etc |
 
   @dst @views_displays
   Scenario: Views displays
@@ -179,3 +180,6 @@ Feature: Views
       | Listing page dashboard | Upcoming events | block_1 | Block |
       | Custom block entity browsers | Alert block entity browsers | entity_browser_1 | Entity browser |
       | Custom block entity browsers | Master | default | Master |
+      | Services | Facility health services | block_1 | Block |
+      | Services | VAMC system health services | block_2 | Block |
+      | Services | Master | default | Master |

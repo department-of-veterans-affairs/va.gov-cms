@@ -7,25 +7,44 @@ dependencies:
     - field.field.paragraph.health_care_local_facility_servi.field_wysiwyg
     - paragraphs.paragraphs_type.health_care_local_facility_servi
   module:
+    - field_group
     - text
+third_party_settings:
+  field_group:
+    group_service:
+      children:
+        - field_title
+        - field_wysiwyg
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: false
+      label: ''
+      region: content
 id: paragraph.health_care_local_facility_servi.default
 targetEntityType: paragraph
 bundle: health_care_local_facility_servi
 mode: default
 content:
   field_title:
-    weight: 0
-    label: above
+    weight: 1
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
     region: content
   field_wysiwyg:
-    weight: 1
-    label: above
+    weight: 2
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
-hidden: {  }
+hidden:
+  search_api_excerpt: true

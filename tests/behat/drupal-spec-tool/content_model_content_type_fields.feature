@@ -222,7 +222,7 @@ Feature: Content model: Content Type fields
       | Content type | VAMC facility | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
       | Content type | VAMC facility | Instagram | field_instagram | Link |  | 1 | Link | Translatable |
       | Content type | VAMC facility | Intro text | field_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
-      | Content type | VAMC facility | Local health care service offerings | field_local_health_care_service_ | Entity reference |  | Unlimited | -- Disabled -- | Translatable |
+      | Content type | VAMC facility | Health services | field_local_health_care_service_ | Entity reference |  | Unlimited | -- Disabled -- | Translatable |
       | Content type | VAMC facility | Location services | field_location_services | Entity reference revisions |  | Unlimited | Paragraphs Classic |  |
       | Content type | VAMC facility | Main location | field_main_location | Boolean |  | 1 | Single on/off checkbox |  |
       | Content type | VAMC facility | Mental Health Phone | field_mental_health_phone | Telephone number |  | 1 | Telephone number |  |
