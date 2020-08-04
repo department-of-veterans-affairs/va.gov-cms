@@ -465,7 +465,7 @@ function _va_gov_backend_modify_paragraph_interactions(array &$element, FormStat
     $parent_field = array_shift($element_path);
     $element_path_string = implode('][', $element_path);
 
-    if (!empty($element_path_string)) {
+    if (!empty($parent_field) && !empty($element_path_string)) {
       $selector = ':input[name="' . $parent_field . '[' . $element_path_string . '][field_phone_number_type]"]';
 
       $element['subform']['field_phone_extension']['#states'] = [
