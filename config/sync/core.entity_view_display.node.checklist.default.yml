@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.checklist.field_administration
+    - field.field.node.checklist.field_alert
     - field.field.node.checklist.field_buttons
     - field.field.node.checklist.field_buttons_repeat
     - field.field.node.checklist.field_checklist
@@ -24,6 +25,14 @@ mode: default
 content:
   field_administration:
     weight: 109
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_alert:
+    weight: 110
     label: above
     settings:
       link: true
@@ -94,4 +103,5 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  content_moderation_control: true
   search_api_excerpt: true

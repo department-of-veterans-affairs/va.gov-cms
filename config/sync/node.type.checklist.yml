@@ -4,6 +4,7 @@ status: true
 dependencies:
   module:
     - menu_ui
+    - node_revision_delete
     - node_title_help_text
 third_party_settings:
   menu_ui:
@@ -11,11 +12,15 @@ third_party_settings:
       - main
     parent: 'main:'
   node_title_help_text:
-    title_help: ''
+    title_help: 'Add a page title with sentence case capitalization. (<a href="https://design.va.gov/content-style-guide/capitalization" target="_blank">See further guidelines</a>) '
+  node_revision_delete:
+    minimum_revisions_to_keep: 200
+    minimum_age_to_delete: 0
+    when_to_delete: 0
 name: Checklist
 type: checklist
 description: ''
 help: ''
 new_revision: true
-preview_mode: 1
-display_submitted: true
+preview_mode: 0
+display_submitted: false

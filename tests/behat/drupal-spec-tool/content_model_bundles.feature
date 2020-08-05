@@ -19,7 +19,7 @@ Feature: Content model bundles
       | Button | button | Paragraph type | Button with a label and link field. |
       | Checklist | checklist | Content type |  |
       | Checklist | checklist | Paragraph type |  |
-      | Checklist item | checklist_item | Paragraph type |  |
+      | Checklist section | checklist_item | Paragraph type |  |
       | CMS help page | documentation_page | Content type | Help pages for VA.gov CMS editors. |
       | Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
       | Document | document | Media type | A locally hosted document, such as a PDF. |
