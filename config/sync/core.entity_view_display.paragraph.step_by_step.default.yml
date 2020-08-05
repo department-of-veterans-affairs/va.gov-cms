@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.step_by_step.field_section_header
     - field.field.paragraph.step_by_step.field_step
     - paragraphs.paragraphs_type.step_by_step
   module:
@@ -12,8 +13,16 @@ targetEntityType: paragraph
 bundle: step_by_step
 mode: default
 content:
-  field_step:
+  field_section_header:
     weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_step:
+    weight: 1
     label: above
     settings:
       view_mode: default
