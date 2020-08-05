@@ -8,7 +8,7 @@ use Drupal\Core\PageCache\ResponsePolicy\KillSwitch;
 use Drupal\va_gov_content_export\Archive\ArchiveArgs;
 use Drupal\va_gov_content_export\Archive\ArchiveArgsFactory;
 use Drupal\va_gov_content_export\Archive\ArchiveDirectory;
-use Drupal\va_gov_content_export\SiteStatusInterface;
+use Drupal\va_gov_content_export\SiteStatus\SiteStatusInterface;
 use Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -51,7 +51,7 @@ class ContentExport extends ControllerBase {
   /**
    * Site Status.
    *
-   * @var \Drupal\va_gov_content_export\SiteStatus
+   * @var \Drupal\va_gov_content_export\SiteStatus\SiteStatusInterface
    */
   private $siteStatus;
 
@@ -64,7 +64,7 @@ class ContentExport extends ControllerBase {
    *   Kill switch.
    * @param \Drupal\va_gov_content_export\Archive\ArchiveArgsFactory $archiveArgsFactory
    *   The Archive Args factory.
-   * @param \Drupal\va_gov_content_export\SiteStatusInterface $siteStatus
+   * @param \Drupal\va_gov_content_export\SiteStatus\SiteStatusInterface $siteStatus
    *   The Site Status Service.
    */
   public function __construct(ArchiveDirectory $archiver, KillSwitch $killSwitch, ArchiveArgsFactory $archiveArgsFactory, SiteStatusInterface $siteStatus) {

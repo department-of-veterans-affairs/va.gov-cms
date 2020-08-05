@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_content_export;
+namespace Drupal\va_gov_content_export\SiteStatus;
 
 /**
  * Interface SiteStatusInterface.
