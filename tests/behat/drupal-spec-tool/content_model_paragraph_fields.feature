@@ -65,7 +65,7 @@ Feature: Content model: Paragraph fields
       | Paragraph type | React Widget | Timeout | field_timeout | Number (integer) |  | 1 | Number field |  |
       | Paragraph type | React Widget | Widget Type | field_widget_type | Text (plain) | Required | 1 | Textfield |  |
       | Paragraph type | Service location | Additional Hours options (e.g. On-Call, Appointments may be available outside these hours, please call.) | field_additional_hours_info | Text (plain) |  | 1 | Textfield |  |
-      | Paragraph type | Service location | Address | field_service_location_address | Entity reference revisions | Required | 1 | Paragraphs EXPERIMENTAL |  |
+      | Paragraph type | Service location | Address | field_service_location_address | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
       | Paragraph type | Service location | Hours | field_facility_service_hours | Table Field |  | 1 | Table Field |  |
       | Paragraph type | Service location | Hours | field_hours | List (text) | Required | 1 | Select list |  |
       | Paragraph type | Service location | Phone | field_phone | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL |  |

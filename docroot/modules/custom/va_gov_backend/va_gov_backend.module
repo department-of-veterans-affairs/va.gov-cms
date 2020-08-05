@@ -436,41 +436,44 @@ function _va_gov_backend_modify_paragraph_interactions(array &$element, FormStat
         ],
       ];
     }
+    // Remove catpion, rows, and import fields from address tablefield.
+    unset($element['subform']['field_facility_service_hours']['widget'][0]['caption']);
+    $element['subform']['field_facility_service_hours']['widget'][0]['#import'] = FALSE;
+    $element['subform']['field_facility_service_hours']['widget'][0]['#addrow'] = FALSE;
+    $element['subform']['field_facility_service_hours']['widget'][0]['#rebuild'] = FALSE;
   }
 
   // Toggle address field depending on "Use facility address?" boolean.
   if ($paragraph_type === 'service_location_address') {
-    $toggle_fields = [
-      'field_address',
-      'field_building_name_number',
-      'field_clinic_name',
-      'field_wing_floor_or_room_number',
-    ];
+
     $selector = sprintf(':input[name="field_service_location[%1$d][subform][field_service_location_address][%1$d][subform][field_use_facility_address][value]"]', $element['#delta']);
-    foreach ($toggle_fields as $field) {
-      $element['subform'][$field]['#states'] = [
-        'invisible' => [
-          $selector => ['checked' => TRUE],
-        ],
-      ];
-    }
+    $element['subform']['field_address']['#states'] = [
+      'invisible' => [
+        $selector => ['checked' => TRUE],
+      ],
+    ];
   }
 
   // 1. Hide the extension field if phone option is not selected.
   // 2. Add constraint error message jumplink to phone field.
   if ($paragraph_type === 'phone_number') {
-    // Each paragraph has an incrementing delta.
-    // Allows for controlling state / adding id for each unique widget delta.
-    // Otherwise, all elements will be affected.
-    $selector = sprintf(':input[name="field_phone_numbers_paragraph[%d][subform][field_phone_number_type]"]', $element['#delta']);
-    if ($paragraph_entity_reference_field_name === 'field_phone') {
-      $selector = sprintf(':input[name="field_service_location[%1$d][subform][field_phone][%1$d][subform][field_phone_number_type]"]', $element['#delta']);
+    // Instead of searching for delta and composing an element path piece by
+    // piece, we take the parent path of a field and process/transform it into
+    // a string that will point to a form element which affects the state of
+    // the field we're trying to target.
+    $element_path = $element['subform']['#parents'];
+    $parent_field = array_shift($element_path);
+    $element_path_string = implode('][', $element_path);
+
+    if (!empty($parent_field) && !empty($element_path_string)) {
+      $selector = ':input[name="' . $parent_field . '[' . $element_path_string . '][field_phone_number_type]"]';
+
+      $element['subform']['field_phone_extension']['#states'] = [
+        'visible' => [
+          [$selector => ['value' => 'tel']],
+        ],
+      ];
     }
-    $element['subform']['field_phone_extension']['#states'] = [
-      'visible' => [
-        $selector => ['value' => 'tel'],
-      ],
-    ];
   }
 
 }
