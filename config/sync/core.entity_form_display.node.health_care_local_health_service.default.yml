@@ -23,7 +23,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -40,7 +40,7 @@ third_party_settings:
         - field_referral_required
         - field_walk_ins_accepted
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: details
       format_settings:
         description: ''
@@ -83,19 +83,20 @@ content:
     third_party_settings: {  }
   field_phone_numbers_paragraph:
     type: paragraphs
-    weight: 4
+    weight: 5
     region: content
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: 'Phone number'
+      title_plural: 'Phone numbers'
       edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: ''
       closed_mode: summary
       autocollapse: none
       closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: phone_number
       features:
+        add_above: '0'
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
     third_party_settings: {  }
@@ -111,6 +112,25 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  field_service_location:
+    type: paragraphs
+    weight: 3
+    region: content
+    settings:
+      title: 'Service location'
+      title_plural: 'Service locations'
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: service_location
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
   field_walk_ins_accepted:
     type: options_select
     weight: 0
@@ -119,7 +139,6 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_service_location: true
   moderation_state: true
   path: true
   promote: true
