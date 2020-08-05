@@ -82,6 +82,7 @@ Feature: Content model: Paragraph fields
       | Paragraph type | Step | Select an image | field_media | Entity reference |  | 1 | Media library | Translatable |
       | Paragraph type | Step | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
       | Paragraph type | Step by step | Add Step | field_step | Entity reference revisions |  | Unlimited | Paragraphs Classic | Translatable |
+      | Paragraph type | Step by step | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
       | Paragraph type | Table | Table | field_table | Table Field |  | 1 | Table Field |  |
       | Paragraph type | VAMC facility service (non-healthcare service) | Service name | field_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
       | Paragraph type | VAMC facility service (non-healthcare service) | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
