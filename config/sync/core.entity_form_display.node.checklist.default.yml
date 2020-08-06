@@ -1,0 +1,237 @@
+uuid: a85fb55e-fade-40b0-9991-9564b72a2d74
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_browser.browser.alert_blocks
+    - field.field.node.checklist.field_administration
+    - field.field.node.checklist.field_alert
+    - field.field.node.checklist.field_buttons
+    - field.field.node.checklist.field_buttons_repeat
+    - field.field.node.checklist.field_checklist
+    - field.field.node.checklist.field_description
+    - field.field.node.checklist.field_intro_text_limited_html
+    - field.field.node.checklist.field_meta_title
+    - node.type.checklist
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - entity_browser
+    - field_group
+    - paragraphs
+    - path
+    - textfield_counter
+third_party_settings:
+  field_group:
+    group_meta_tags:
+      children:
+        - field_meta_title
+        - field_description
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Meta Tags'
+      region: content
+    group_title_and_introduction:
+      children:
+        - title
+        - field_intro_text_limited_html
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Title and introduction'
+      region: content
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 6
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+      region: content
+    group_governance:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 7
+      format_type: details_sidebar
+      format_settings:
+        description: ''
+        open: '1'
+        weight: '-10'
+        required_fields: '1'
+        id: ''
+        classes: ''
+      label: Governance
+      region: content
+    group_include_alert:
+      children:
+        - field_alert
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver. You can <a href="/block/add/alert?destination=/admin/content/alerts">create a new alert</a>, or reuse an existing one.'
+        required_fields: false
+      label: 'Include alert'
+      region: content
+id: node.checklist.default
+targetEntityType: node
+bundle: checklist
+mode: default
+content:
+  field_administration:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_alert:
+    weight: 2
+    settings:
+      entity_browser: alert_blocks
+      field_widget_display: rendered_entity
+      field_widget_display_settings:
+        view_mode: default
+      field_widget_edit: true
+      field_widget_remove: true
+      open: true
+      selection_mode: selection_append
+      field_widget_replace: false
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+    region: content
+  field_buttons:
+    weight: 3
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    type: paragraphs
+    region: content
+  field_buttons_repeat:
+    weight: 5
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_checklist:
+    type: paragraphs
+    weight: 4
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: checklist
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    region: content
+  field_description:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_intro_text_limited_html:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 1000
+      counter_position: after
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      js_prevent_submit: false
+      count_html_characters: false
+    third_party_settings: {  }
+    type: text_textarea_with_counter
+    region: content
+  field_meta_title:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 4
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 10
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield_with_counter
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      maxlength: 150
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
+    third_party_settings: {  }
+  url_redirects:
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  promote: true
+  sticky: true
+  uid: true

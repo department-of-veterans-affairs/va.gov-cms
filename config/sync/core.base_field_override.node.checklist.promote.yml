@@ -1,0 +1,22 @@
+uuid: c1466e93-a6dc-43a1-850d-dc85515fc9ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.checklist
+id: node.checklist.promote
+field_name: promote
+entity_type: node
+bundle: checklist
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

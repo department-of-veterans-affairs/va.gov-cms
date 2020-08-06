@@ -37,6 +37,14 @@ Feature: Content model: Content Type fields
       | Content type | Benefits hub landing page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
       | Content type | Benefits hub landing page | Spokes | field_spokes | Entity reference revisions | Required | 4 | Paragraphs EXPERIMENTAL |  |
       | Content type | Benefits hub landing page | Support Services | field_support_services | Entity reference |  | Unlimited | Inline entity form - Complex |  |
+      | Content type | Checklist | Alert | field_alert | Entity reference |  | 1 | Entity browser | Translatable |
+      | Content type | Checklist | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs EXPERIMENTAL | Translatable |
+      | Content type | Checklist | Checklist | field_checklist | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
+      | Content type | Checklist | Page introduction | field_intro_text_limited_html | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
+      | Content type | Checklist | Meta description | field_description | Text (plain) | Required | 1 | Textfield | Translatable |
+      | Content type | Checklist | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield | Translatable |
+      | Content type | Checklist | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+      | Content type | Checklist | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
       | Content type | Detail Page | Alert | field_alert | Entity reference |  | 1 | Select list | Translatable |
       | Content type | Detail Page | Featured content | field_featured_content | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
       | Content type | Detail Page | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox |  |

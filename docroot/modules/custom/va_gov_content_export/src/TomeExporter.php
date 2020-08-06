@@ -105,7 +105,7 @@ class TomeExporter extends Exporter {
     // We override all of the parent export to not create the index file.
     $this->switchToAdmin();
     $this->addBreadcrumbToEntity->alterEntity($entity);
-    $this->listDataCompiler->updateLists($entity, $this);
+    $this->listDataCompiler->updateReverseEntityReferenceLists($entity, $this);
     $data = $this->serializer->normalize($entity, 'json');
     $this->contentStorage->write(TomeSyncHelper::getContentName($entity), $data);
 
