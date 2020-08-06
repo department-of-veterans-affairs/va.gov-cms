@@ -1,0 +1,31 @@
+uuid: 6f168f02-c702-455a-8bd1-5499ef131e96
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.checklist_item.field_checklist_items
+    - field.field.paragraph.checklist_item.field_section_header
+    - paragraphs.paragraphs_type.checklist_item
+id: paragraph.checklist_item.default
+targetEntityType: paragraph
+bundle: checklist_item
+mode: default
+content:
+  field_checklist_items:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_section_header:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  search_api_excerpt: true

@@ -1,0 +1,34 @@
+uuid: 2b1bc47c-a005-4f21-b66f-4c206589d6d6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.checklist.field_checklist_sections
+    - field.field.paragraph.checklist.field_section_header
+    - paragraphs.paragraphs_type.checklist
+  module:
+    - entity_reference_revisions
+id: paragraph.checklist.default
+targetEntityType: paragraph
+bundle: checklist
+mode: default
+content:
+  field_checklist_sections:
+    type: entity_reference_revisions_entity_view
+    weight: 1
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_section_header:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  search_api_excerpt: true

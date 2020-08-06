@@ -1,0 +1,29 @@
+uuid: 45e47191-66ea-463f-a8b3-8c1952cf87c0
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - field.storage.node.field_alert
+    - node.type.checklist
+id: node.checklist.field_alert
+field_name: field_alert
+entity_type: node
+bundle: checklist
+label: Alert
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      alert: alert
+    sort:
+      field: info
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

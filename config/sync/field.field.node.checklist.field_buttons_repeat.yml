@@ -1,0 +1,23 @@
+uuid: 391f3c3b-2162-4f8d-b3d3-e21d33bdad6e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_buttons_repeat
+    - node.type.checklist
+id: node.checklist.field_buttons_repeat
+field_name: field_buttons_repeat
+entity_type: node
+bundle: checklist
+label: 'Repeat CTA buttons'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

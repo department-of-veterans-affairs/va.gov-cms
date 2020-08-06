@@ -1,0 +1,38 @@
+uuid: 6081a51c-fd37-4c9d-abbd-7191c86439ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.checklist.field_administration
+    - field.field.node.checklist.field_alert
+    - field.field.node.checklist.field_buttons
+    - field.field.node.checklist.field_buttons_repeat
+    - field.field.node.checklist.field_checklist
+    - field.field.node.checklist.field_description
+    - field.field.node.checklist.field_intro_text_limited_html
+    - field.field.node.checklist.field_meta_title
+    - node.type.checklist
+  module:
+    - user
+id: node.checklist.teaser
+targetEntityType: node
+bundle: checklist
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_alert: true
+  field_buttons: true
+  field_buttons_repeat: true
+  field_checklist: true
+  field_description: true
+  field_intro_text_limited_html: true
+  field_meta_title: true
+  search_api_excerpt: true
