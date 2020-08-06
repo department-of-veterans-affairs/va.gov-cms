@@ -4,7 +4,7 @@ Feature: Content model bundles
   As a content editor
   I want to have content entity bundles that reflect my content model.
 
-  @dst @content_type @dstbundles
+  @dst @content_type @dstbundles                                                                                                                                                                   
      Scenario: Bundles
        Then exactly the following content entity type bundles should exist
        | Name | Machine name | Type | Description |
@@ -80,4 +80,3 @@ Feature: Content model bundles
 | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
 | Video | video | Media type | A video hosted by YouTube, Vimeo, or some other provider. |
 | WYSIWYG | wysiwyg | Paragraph type | An open-ended text field. |
-
