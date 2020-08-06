@@ -131,7 +131,7 @@ class ListDataCompiler {
    * @return int
    *   The node id of a list to be updated.
    */
-  public function updateList(ContentEntityInterface $entity, $listNid, array $listFieldNames) {
+  public function updateList(ContentEntityInterface $entity, $listNid, array $listFieldNames) : int {
     // Check if $entity is the list, or if we need to get the list.
     if ($this->isList($entity) && ((int) $entity->id() === $listNid)) {
       // Add the lists to the list entity.
