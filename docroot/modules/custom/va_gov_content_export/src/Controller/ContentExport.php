@@ -8,6 +8,7 @@ use Drupal\Core\PageCache\ResponsePolicy\KillSwitch;
 use Drupal\va_gov_content_export\Archive\ArchiveArgs;
 use Drupal\va_gov_content_export\Archive\ArchiveArgsFactory;
 use Drupal\va_gov_content_export\Archive\ArchiveDirectory;
+use Drupal\va_gov_content_export\SiteStatus\SiteStatusInterface;
 use Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -48,6 +49,13 @@ class ContentExport extends ControllerBase {
   public const ALLOWED_EXPORT_TYPES = ['content', 'asset'];
 
   /**
+   * Site Status.
+   *
+   * @var \Drupal\va_gov_content_export\SiteStatus\SiteStatusInterface
+   */
+  private $siteStatus;
+
+  /**
    * ContentExport constructor.
    *
    * @param \Drupal\va_gov_content_export\Archive\ArchiveDirectory $archiver
@@ -56,11 +64,14 @@ class ContentExport extends ControllerBase {
    *   Kill switch.
    * @param \Drupal\va_gov_content_export\Archive\ArchiveArgsFactory $archiveArgsFactory
    *   The Archive Args factory.
+   * @param \Drupal\va_gov_content_export\SiteStatus\SiteStatusInterface $siteStatus
+   *   The Site Status Service.
    */
-  public function __construct(ArchiveDirectory $archiver, KillSwitch $killSwitch, ArchiveArgsFactory $archiveArgsFactory) {
+  public function __construct(ArchiveDirectory $archiver, KillSwitch $killSwitch, ArchiveArgsFactory $archiveArgsFactory, SiteStatusInterface $siteStatus) {
     $this->archiver = $archiver;
     $this->killSwitch = $killSwitch;
     $this->archiveArgsFactory = $archiveArgsFactory;
+    $this->siteStatus = $siteStatus;
   }
 
   /**
@@ -70,7 +81,8 @@ class ContentExport extends ControllerBase {
     return new static(
       $container->get('va_gov.content_export.archive_directory'),
       $container->get('page_cache_kill_switch'),
-      $container->get('va_gov.content_export.archive_args_factory')
+      $container->get('va_gov.content_export.archive_args_factory'),
+      $container->get('va_gov.site_status')
     );
   }
 
@@ -97,7 +109,9 @@ class ContentExport extends ControllerBase {
     $this->killSwitch->trigger();
     try {
       $archive_args = $this->getArchiveArgs($export_type);
-      $this->archiver->archive($archive_args);
+      if (!$this->siteStatus->inDeployMode()) {
+        $this->archiver->archive($archive_args);
+      }
       $file_name = $archive_args->getOutputPath();
 
       if (!file_exists($file_name)) {
