@@ -11,7 +11,6 @@ dependencies:
     - field.field.node.checklist.field_checklist
     - field.field.node.checklist.field_description
     - field.field.node.checklist.field_intro_text_limited_html
-    - field.field.node.checklist.field_meta_tags
     - field.field.node.checklist.field_meta_title
     - node.type.checklist
     - workflows.workflow.editorial
@@ -19,7 +18,6 @@ dependencies:
     - content_moderation
     - entity_browser
     - field_group
-    - metatag
     - paragraphs
     - path
     - textfield_counter
@@ -100,12 +98,6 @@ targetEntityType: node
 bundle: checklist
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 11
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_administration:
     weight: 26
     settings: {  }
@@ -184,20 +176,13 @@ content:
     settings:
       rows: 5
       placeholder: ''
-      maxlength: 600
+      maxlength: 1000
       counter_position: after
       textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
       js_prevent_submit: false
       count_html_characters: false
     third_party_settings: {  }
     type: text_textarea_with_counter
-    region: content
-  field_meta_tags:
-    weight: 8
-    settings:
-      sidebar: true
-    third_party_settings: {  }
-    type: metatag_firehose
     region: content
   field_meta_title:
     weight: 2
@@ -215,7 +200,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 9
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -223,7 +208,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 13
+    weight: 10
     region: content
     third_party_settings: {  }
   title:
@@ -240,21 +225,13 @@ content:
       textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
       use_field_maxlength: false
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 12
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-      match_limit: 10
-    region: content
-    third_party_settings: {  }
   url_redirects:
-    weight: 10
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  created: true
   promote: true
   sticky: true
+  uid: true
