@@ -1,0 +1,124 @@
+uuid: 188e5dbf-6731-49f6-9317-93fe949ac4ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_checklist
+    - node.type.checklist
+    - paragraphs.paragraphs_type.checklist
+  module:
+    - entity_reference_revisions
+id: node.checklist.field_checklist
+field_name: field_checklist
+entity_type: node
+bundle: checklist
+label: Checklist
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      checklist: checklist
+    target_bundles_drag_drop:
+      address:
+        weight: 33
+        enabled: false
+      alert:
+        weight: 34
+        enabled: false
+      button:
+        weight: 35
+        enabled: false
+      checklist:
+        enabled: true
+        weight: 36
+      checklist_item:
+        weight: 37
+        enabled: false
+      collapsible_panel:
+        weight: 38
+        enabled: false
+      collapsible_panel_item:
+        weight: 39
+        enabled: false
+      downloadable_file:
+        weight: 40
+        enabled: false
+      expandable_text:
+        weight: 41
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 42
+        enabled: false
+      link_teaser:
+        weight: 43
+        enabled: false
+      list_of_link_teasers:
+        weight: 44
+        enabled: false
+      list_of_links:
+        weight: 45
+        enabled: false
+      lists_of_links:
+        weight: 46
+        enabled: false
+      media:
+        weight: 47
+        enabled: false
+      number_callout:
+        weight: 48
+        enabled: false
+      phone_number:
+        weight: 49
+        enabled: false
+      process:
+        weight: 50
+        enabled: false
+      q_a:
+        weight: 51
+        enabled: false
+      q_a_group:
+        weight: 52
+        enabled: false
+      q_a_section:
+        weight: 53
+        enabled: false
+      react_widget:
+        weight: 54
+        enabled: false
+      service_location:
+        weight: 55
+        enabled: false
+      service_location_address:
+        weight: 56
+        enabled: false
+      situation_update:
+        weight: 57
+        enabled: false
+      spanish_translation_summary:
+        weight: 58
+        enabled: false
+      staff_profile:
+        weight: 59
+        enabled: false
+      starred_horizontal_rule:
+        weight: 60
+        enabled: false
+      step:
+        weight: 61
+        enabled: false
+      step_by_step:
+        weight: 62
+        enabled: false
+      table:
+        weight: 63
+        enabled: false
+      wysiwyg:
+        weight: 64
+        enabled: false
+field_type: entity_reference_revisions

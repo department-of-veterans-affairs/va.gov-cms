@@ -17,6 +17,9 @@ Feature: Content model bundles
       | Benefits detail page | page | Content type | These pages hold all of the benefits overview content, such the detail pages linked to from va.gov/disability, va.gov/health-care, and va.gov/education. |
       | Benefits hub landing page | landing_page | Content type | A special page for top-level Benefits content with its own one-off layout and content. |
       | Button | button | Paragraph type | Button with a label and link field. |
+      | Checklist | checklist | Content type |  |
+      | Checklist | checklist | Paragraph type |  |
+      | Checklist section | checklist_item | Paragraph type |  |
       | CMS help page | documentation_page | Content type | Help pages for VA.gov CMS editors. |
       | Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
       | Document | document | Media type | A locally hosted document, such as a PDF. |
@@ -77,3 +80,4 @@ Feature: Content model bundles
       | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
       | Video | video | Media type | A video hosted by YouTube, Vimeo, or some other provider. |
       | WYSIWYG | wysiwyg | Paragraph type | An open-ended text field. |
+
