@@ -10,12 +10,10 @@ dependencies:
     - field.field.node.checklist.field_checklist
     - field.field.node.checklist.field_description
     - field.field.node.checklist.field_intro_text_limited_html
-    - field.field.node.checklist.field_meta_tags
     - field.field.node.checklist.field_meta_title
     - node.type.checklist
   module:
     - entity_reference_revisions
-    - metatag
     - text
     - user
 id: node.checklist.default
@@ -81,13 +79,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
-    region: content
-  field_meta_tags:
-    weight: 105
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_empty_formatter
     region: content
   field_meta_title:
     weight: 103
