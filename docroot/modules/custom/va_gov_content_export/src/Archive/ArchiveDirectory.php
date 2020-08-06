@@ -61,7 +61,7 @@ class ArchiveDirectory {
    */
   public function archive(ArchiveArgs $archiveArgs) : ArchiveInterface {
     // @TODO Add locking/queueing/waiting so only one archive is occurring at a time.
-    $output_dir = dirname($archiveArgs->getOutputPath());
+    $output_dir = $this->fileSystem->dirname($archiveArgs->getOutputPath());
     $this->fileSystem->prepareDirectory($output_dir, FileSystemInterface::CREATE_DIRECTORY);
 
     $input_path = $this->fileSystem->realpath($archiveArgs->getCurrentWorkingDirectory());

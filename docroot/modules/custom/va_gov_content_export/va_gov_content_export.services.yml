@@ -34,3 +34,5 @@ services:
     arguments: ['@tome_sync.exporter', '@event_dispatcher', '@va_gov.content_export.executable_finder']
   va_gov.content_export.executable_finder:
     class: Drupal\va_gov_content_export\ExportCommand\ExecutableFinder
+  va_gov.site_status:
+    class: Drupal\va_gov_content_export\SiteStatus\SiteStatus
