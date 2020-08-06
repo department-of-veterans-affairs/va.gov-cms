@@ -23,16 +23,29 @@ class ListDataCompiler {
   /**
    * An array of entity types that should be treated as lists.
    *
-   * @var string[]
+   * Keyed by content type, values: array of fields pointing to content type.
+   *
+   * @var array
+   *
+   * @todo It would be nice to pull these dynamically rather than hard code.
+   * However that would need to be cached in order to make this faster.
    */
   protected static $listEntityTypes = [
-    'event_listing',
-    'health_services_listing',
-    'leadership_listing',
-    'locations_listing',
-    'press_releases_listing',
-    'publication_listing',
-    'story_listing',
+    'event_listing' => ['field_listing'],
+    'health_care_local_facility_servi' => ['field_location_services'],
+    'health_care_local_facility' => ['field_facility_location'],
+    'health_care_local_health_service' => ['field_local_health_care_service_'],
+    'health_care_region_page' => ['field_region_page'],
+    'leadership_listing' => ['field_office'],
+    'office' => ['field_office'],
+    'person_profile' => ['field_leadership'],
+    'press_releases_listing' => ['field_listing'],
+    'publication_listing' => ['field_listing'],
+    'regional_health_care_service_des' => ['field_regional_health_service', 'field_clinical_health_services'],
+    'story_listing' => ['field_listing'],
+    // Should be a list, but can not find anything that points to this.
+    // 'health_services_listing',
+    // 'locations_listing',.
   ];
 
   /**
@@ -40,9 +53,7 @@ class ListDataCompiler {
    *
    * @var array
    */
-  protected static $listingFields = [
-    'field_listing',
-  ];
+  protected $listingFields = [];
 
   /**
    * ListDataCompiler constructor.
@@ -52,10 +63,25 @@ class ListDataCompiler {
    */
   public function __construct(EntityTypeManagerInterface $entityTypeManager) {
     $this->entityTypeManager = $entityTypeManager;
+    $this->extractListingFields();
   }
 
   /**
-   * Update related lists.
+   * Extract field names from $this->listEntityTypes into $this->listingFields.
+   */
+  protected function extractListingFields() {
+    foreach (self::$listEntityTypes as $entityType => $listingFieldNames) {
+      foreach ($listingFieldNames as $listingFieldName) {
+        if (!in_array($listingFieldName, $this->listingFields)) {
+          $this->listingFields[] = $listingFieldName;
+        }
+      }
+
+    }
+  }
+
+  /**
+   * Update related reverse entity reference lists.
    *
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *   The entity which may reference lists.
@@ -67,52 +93,54 @@ class ListDataCompiler {
    * it from the original list.
    * https://github.com/department-of-veterans-affairs/va.gov-cms/issues/2464 .
    */
-  public function updateLists(ContentEntityInterface $entity, TomeExporter $tomeExporter) {
-    $listNids = $this->getListNids($entity);
-    $listNidsToUpdateLater = [];
-    $listEntitiesToUpdateLater = [];
-    if (!empty($listNids)) {
+  public function updateReverseEntityReferenceLists(ContentEntityInterface $entity, TomeExporter $tomeExporter) {
+    $entityReferenceTargetNids = $this->getListNids($entity);
+    $entityReferenceTargetNidsToUpdateLater = [];
+    $targetNodesToUpdateLater = [];
+    if (!empty($entityReferenceTargetNids)) {
       // Process each list this entity should appear in.
-      foreach ($listNids as $listNid => $listFieldName) {
-        $listNidsToUpdateLater[] = $this->updateList($entity, $listNid, $listFieldName);
+      foreach ($entityReferenceTargetNids as $listNid => $listFieldNames) {
+        $entityReferenceTargetNidsToUpdateLater[] = $this->updateList($entity, $listNid, $listFieldNames);
       }
-      $listNidsToUpdateLater = array_filter($listNidsToUpdateLater);
+      $entityReferenceTargetNidsToUpdateLater = array_filter($entityReferenceTargetNidsToUpdateLater);
     }
-    if (!empty($listNidsToUpdateLater)) {
+    if (!empty($entityReferenceTargetNidsToUpdateLater)) {
       // @todo Add a check to bypass this if the bulk export is running.
       // https://github.com/ ... /va.gov-cms/issues/2481.
       // Load the list entities that need to be exported.
-      $listEntitiesToUpdateLater = $this->entityTypeManager->getStorage('node')
-        ->loadMultiple($listNidsToUpdateLater);
+      $targetNodesToUpdateLater = $this->entityTypeManager->getStorage('node')
+        ->loadMultiple($entityReferenceTargetNidsToUpdateLater);
       // Export the lists to have their reverse field list updated.
-      foreach ($listEntitiesToUpdateLater as $listEntityToUpdate) {
+      foreach ($targetNodesToUpdateLater as $targetNodeToUpdateLater) {
         // Update the list export json.
-        $tomeExporter->exportContent($listEntityToUpdate);
+        $tomeExporter->exportContent($targetNodeToUpdateLater);
       }
     }
   }
 
   /**
-   * Update a list to add the list data as ->reverse_field_list.
+   * Update a list to add the list data as ->reverse_fieldname.
    *
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *   The entity is a list or in a list.
    * @param int $listNid
    *   The node id of ths list this entity belongs in.
-   * @param string $listFieldName
-   *   The field machine name to use as the reverse entity reference.
+   * @param array $listFieldNames
+   *   The field machine names to use as the reverse entity reference.
    *
    * @return int
    *   The node id of a list to be updated.
    */
-  public function updateList(ContentEntityInterface $entity, $listNid, $listFieldName) {
+  public function updateList(ContentEntityInterface $entity, $listNid, array $listFieldNames) : int {
     // Check if $entity is the list, or if we need to get the list.
-    $current_nid = $entity->id();
     if ($this->isList($entity) && ((int) $entity->id() === $listNid)) {
-      // Add the list to the list entity.
-      $listNodes = $this->queryListItemNodes($listNid, $listFieldName);
-      $list = $this->buildList($listNodes);
-      $entity->values['reverse_field_list'] = $list;
+      // Add the lists to the list entity.
+      $entity->values['reverse_entity_references'] = [];
+      foreach ($listFieldNames as $listFieldName) {
+        $listNodes = $this->queryListItemNodes($listNid, $listFieldName);
+        $list = $this->buildReverseEntityReferenceList($listNodes);
+        $entity->values['reverse_entity_references']["reverse_{$listFieldName}"] = $list;
+      }
     }
     else {
       return $listNid;
@@ -133,7 +161,7 @@ class ListDataCompiler {
    */
   protected function isList(ContentEntityInterface $entity) : bool {
     if (($entity instanceof NodeInterface) && $entity->getEntityTypeId() === 'node') {
-      if (in_array($entity->bundle(), static::$listEntityTypes)) {
+      if (array_key_exists($entity->bundle(), static::$listEntityTypes)) {
         return TRUE;
       }
     }
@@ -153,16 +181,16 @@ class ListDataCompiler {
     $listNids = [];
     if ($this->isList($entity)) {
       // This is a list so just return the nid.
-      $listNids[$entity->id()] = 'field_listing';
+      $listNids[$entity->id()] = static::$listEntityTypes[$entity->bundle()];
     }
     else {
       // Look to see if it has any listing fields.
-      foreach (static::$listingFields as $listingField) {
+      foreach ($this->listingFields as $listingField) {
         if ($entity->hasField($listingField)) {
           // It has a field that is a reference to a list.
           $lists = $entity->$listingField;
           foreach ($lists as $list) {
-            $listNids[$list->target_id] = $listingField;
+            $listNids[$list->target_id][] = $listingField;
           }
         }
       }
@@ -202,7 +230,7 @@ class ListDataCompiler {
   }
 
   /**
-   * Build the list of nodes to add to the list.
+   * Build the list of nodes to add to the reverse entity reference.
    *
    * @param array $listNodes
    *   An array of node objects that reference the list.
@@ -210,7 +238,7 @@ class ListDataCompiler {
    * @return array
    *   An array of list item objects containing target node data.
    */
-  protected function buildList(array $listNodes) : array {
+  protected function buildReverseEntityReferenceList(array $listNodes) : array {
     $list = [];
     foreach ($listNodes as $listNode) {
       $list_item = new \stdClass();
@@ -218,7 +246,7 @@ class ListDataCompiler {
       $list_item->target_bundle = $listNode->getType();
       $list_item->target_id = $listNode->id();
       $list_item->target_uuid = $listNode->uuid();
-
+      // Add the reverse entitity reference to the array.
       $list[] = $list_item;
     }
 
