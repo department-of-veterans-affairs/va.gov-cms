@@ -82,3 +82,12 @@ Feature: Menus
 | VA Palo Alto health care | va-palo-alto-health-care |  |
 | VA San Francisco health care | va-san-francisco-health-care |  |
 | VA Sierra Nevada health care | va-sierra-nevada-health-care |  |
+| VA Southern Nevada health care | va-southern-nevada-health-care |  |
+| VA Black Hills health care | va-black-hills-health-care |  |
+| VA Central Iowa health care | va-central-iowa-health-care |  |
+| VA Fargo health care | va-fargo-health-care |  |
+| VA Iowa City health care | va-iowa-city-health-care |  |
+| VA Minneapolis health care | va-minneapolis-health-care |  |
+| VA Nebraska-Western Iowa health care | va-nebraska-western-iowa-health- |  |
+| VA Sioux Falls health care | va-sioux-falls-health-care |  |
+| VA St Cloud health care | va-st-cloud-health-care |  |
