@@ -19,7 +19,7 @@
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "drupal/address": "^1.4",
         "drupal/admin_toolbar": "^1.24",
-        "drupal/auto_entitylabel": "^2.1@beta",
+        "drupal/auto_entitylabel": "3.0-beta3",
         "drupal/better_field_descriptions": "^1.4",
         "drupal/blazy": "^2.0@RC",
         "drupal/block_content_permissions": "^1.6",
@@ -308,6 +308,9 @@
             },
             "drupal/workflow_participants": {
                 "Fix revision uncaught type error by extending class.": "https://www.drupal.org/files/issues/2019-08-16/workflow_participants-revision-error-3075426-1.patch"
+            },
+            "traviscarden/behat-table-comparison": {
+                "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
             }
         }
     },

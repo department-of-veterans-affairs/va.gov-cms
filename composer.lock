@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b92c5614fb1324ed4723df7d0d1ff540",
+    "content-hash": "0a4f5a3150007967452e8dc6f118f0b1",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -667,7 +667,7 @@
             "version": "v4.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fengyuanchen/cropper.git",
+                "url": "git@github.com:fengyuanchen/cropper.git",
                 "reference": "617d9bdb8688cc4edb3b03bc49a04b83c7facbe7"
             },
             "dist": {
@@ -682,7 +682,7 @@
             "version": "v5.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/enyo/dropzone.git",
+                "url": "git@github.com:enyo/dropzone.git",
                 "reference": "08b9e0a763b54a685404dea523a9c54242fbe1b9"
             },
             "dist": {
@@ -10011,10 +10011,6 @@
                     "homepage": "https://www.drupal.org/user/3145389"
                 },
                 {
-                    "name": "ashrafabed",
-                    "homepage": "https://www.drupal.org/user/1875528"
-                },
-                {
                     "name": "bmack",
                     "homepage": "https://www.drupal.org/user/3594520"
                 },
@@ -11005,7 +11001,7 @@
             "extra": {
                 "drupal": {
                     "version": "8.x-5.19",
-                    "datestamp": "1596102131",
+                    "datestamp": "1593681136",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -19291,6 +19287,11 @@
                 "squizlabs/php_codesniffer": "^2.7"
             },
             "type": "library",
+            "extra": {
+                "patches_applied": {
+                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "TravisCarden\\BehatTableComparison\\": "src/BehatTableComparison/"
