@@ -211,6 +211,7 @@ Feature: Content model: Content Type fields
 | Content type | VA form | Form title | field_va_form_title | Text (plain) |  | 1 | Textfield |  |
 | Content type | VA form | Helpful links | field_va_form_link_teasers | Entity reference revisions |  | Unlimited | Paragraphs Classic |  |
 | Content type | VA form | Issue date | field_va_form_issue_date | Date |  | 1 | Date and time |  |
+| Content type | VA form | Form Language | field_va_form_language | List (text) | Required | 1 | Select list |  |
 | Content type | VA form | Link to form | field_va_form_url | Link |  | 1 | Link |  |
 | Content type | VA form | Link to online tool | field_va_form_tool_url | Link |  | 1 | Link |  |
 | Content type | VA form | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
@@ -218,6 +219,7 @@ Feature: Content model: Content Type fields
 | Content type | VA form | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VA form | Related forms | field_va_form_related_forms | Entity reference |  | Unlimited | Autocomplete |  |
 | Content type | VA form | Revision date | field_va_form_revision_date | Date |  | 1 | Date and time |  |
+| Content type | VA form | Row ID | field_va_form_row_id | Number (integer) |  | 1 | Number field |  |
 | Content type | VA form | Tool intro | field_va_form_tool_intro | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | VA form | When to use | field_va_form_usage | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | VAMC facility | Address | field_address | Address |  | 1 | Address | Translatable |
@@ -314,4 +316,3 @@ Feature: Content model: Content Type fields
 | Content type | VAMC facility health service | Appointment phone number(s) | field_phone_numbers_paragraph | Entity reference revisions |  | Unlimited | -- Disabled -- |  |
 | Content type | VAMC facility health service | Referral required? | field_referral_required | List (text) |  | 1 | -- Disabled -- |  |
 | Content type | VAMC facility health service | Walk-ins accepted? | field_walk_ins_accepted | List (text) |  | 1 | -- Disabled -- |  |
-

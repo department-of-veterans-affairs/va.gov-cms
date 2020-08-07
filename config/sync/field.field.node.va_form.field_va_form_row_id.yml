@@ -1,0 +1,23 @@
+uuid: 1d2d15be-027d-4eed-bbc0-c8ee263abf85
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_va_form_row_id
+    - node.type.va_form
+id: node.va_form.field_va_form_row_id
+field_name: field_va_form_row_id
+entity_type: node
+bundle: va_form
+label: 'Row ID'
+description: 'The Row ID from the Forms Database.  This is the only unique identifier in the Forms database.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
