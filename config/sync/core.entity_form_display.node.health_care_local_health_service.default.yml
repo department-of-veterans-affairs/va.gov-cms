@@ -23,7 +23,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 6
+      weight: 4
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -39,8 +39,9 @@ third_party_settings:
         - field_online_scheduling_availabl
         - field_referral_required
         - field_walk_ins_accepted
+        - field_phone_numbers_paragraph
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: details
       format_settings:
         description: ''
@@ -49,7 +50,7 @@ third_party_settings:
         id: ''
         classes: ''
       label: Appointments
-      region: content
+      region: hidden
 id: node.health_care_local_health_service.default
 targetEntityType: node
 bundle: health_care_local_health_service
@@ -75,37 +76,6 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
-  field_online_scheduling_availabl:
-    type: options_select
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_phone_numbers_paragraph:
-    type: paragraphs
-    weight: 5
-    region: content
-    settings:
-      title: 'Phone number'
-      title_plural: 'Phone numbers'
-      edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: phone_number
-      features:
-        add_above: '0'
-        collapse_edit_all: collapse_edit_all
-        duplicate: duplicate
-    third_party_settings: {  }
-  field_referral_required:
-    type: options_select
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_regional_health_service:
     weight: 1
     settings: {  }
@@ -131,14 +101,12 @@ content:
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
     third_party_settings: {  }
-  field_walk_ins_accepted:
-    type: options_select
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   created: true
+  field_online_scheduling_availabl: true
+  field_phone_numbers_paragraph: true
+  field_referral_required: true
+  field_walk_ins_accepted: true
   moderation_state: true
   path: true
   promote: true
