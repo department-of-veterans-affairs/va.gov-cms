@@ -90,4 +90,3 @@ Feature: Menus
 | VA Minneapolis health care | va-minneapolis-health-care |  |
 | VA Nebraska-Western Iowa health care | va-nebraska-western-iowa-health- |  |
 | VA Sioux Falls health care | va-sioux-falls-health-care |  |
-| VA St Cloud health care | va-st-cloud-health-care |  |
