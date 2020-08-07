@@ -12,12 +12,14 @@ dependencies:
     - field.field.node.va_form.field_va_form_deleted
     - field.field.node.va_form.field_va_form_deleted_date
     - field.field.node.va_form.field_va_form_issue_date
+    - field.field.node.va_form.field_va_form_language
     - field.field.node.va_form.field_va_form_link_teasers
     - field.field.node.va_form.field_va_form_name
     - field.field.node.va_form.field_va_form_num_pages
     - field.field.node.va_form.field_va_form_number
     - field.field.node.va_form.field_va_form_related_forms
     - field.field.node.va_form.field_va_form_revision_date
+    - field.field.node.va_form.field_va_form_row_id
     - field.field.node.va_form.field_va_form_title
     - field.field.node.va_form.field_va_form_tool_intro
     - field.field.node.va_form.field_va_form_tool_url
@@ -38,7 +40,7 @@ third_party_settings:
         - field_benefit_categories
         - field_va_form_type
       parent_name: ''
-      weight: 19
+      weight: 20
       format_type: fieldset
       format_settings:
         id: ''
@@ -51,7 +53,7 @@ third_party_settings:
         - field_va_form_tool_intro
         - field_va_form_tool_url
       parent_name: ''
-      weight: 20
+      weight: 21
       format_type: fieldset
       format_settings:
         id: ''
@@ -69,7 +71,7 @@ mode: external_content
 content:
   field_va_form_administration:
     type: entity_reference_label
-    weight: 5
+    weight: 6
     region: content
     label: above
     settings:
@@ -77,9 +79,9 @@ content:
     third_party_settings: {  }
   field_va_form_deleted:
     type: boolean
-    weight: 7
+    weight: 8
     region: content
-    label: inline
+    label: above
     settings:
       format: true-false
       format_custom_true: ''
@@ -87,7 +89,7 @@ content:
     third_party_settings: {  }
   field_va_form_deleted_date:
     type: datetime_default
-    weight: 8
+    weight: 9
     region: content
     label: above
     settings:
@@ -96,7 +98,7 @@ content:
     third_party_settings: {  }
   field_va_form_issue_date:
     type: datetime_default
-    weight: 3
+    weight: 4
     region: content
     label: above
     settings:
@@ -105,7 +107,7 @@ content:
     third_party_settings: {  }
   field_va_form_num_pages:
     type: number_integer
-    weight: 6
+    weight: 7
     region: content
     label: above
     settings:
@@ -122,16 +124,25 @@ content:
     third_party_settings: {  }
   field_va_form_revision_date:
     type: datetime_default
-    weight: 4
+    weight: 5
     region: content
     label: above
     settings:
       timezone_override: ''
       format_type: short_date_no_time
     third_party_settings: {  }
+  field_va_form_row_id:
+    type: number_integer
+    weight: 2
+    region: content
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
   field_va_form_title:
     type: string
-    weight: 2
+    weight: 3
     region: content
     label: above
     settings:
@@ -155,6 +166,7 @@ hidden:
   field_alert: true
   field_benefit_categories: true
   field_meta_tags: true
+  field_va_form_language: true
   field_va_form_link_teasers: true
   field_va_form_name: true
   field_va_form_related_forms: true
