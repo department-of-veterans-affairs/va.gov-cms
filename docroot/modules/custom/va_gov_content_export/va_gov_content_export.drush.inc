@@ -43,6 +43,10 @@ function va_gov_content_export_drush_command() {
     'description' => 'Disable the deploy mode.',
   ];
 
+  $items['va-gov-cms-export-generate-tar'] = [
+    'description' => 'Generate a fresh cms export tar file',
+  ];
+
   return $items;
 }
 
@@ -114,4 +118,13 @@ function drush_va_gov_content_export_va_gov_disable_deploy_mode() {
   $site_state = \Drupal::getContainer()->get('va_gov.site_status');
   $site_state->disableDeployMode();
   drush_log('Deploy mode has been disabled', LogLevel::OK);
+}
+
+/**
+ * Drush command to create a new cms export tar file.
+ */
+function drush_va_gov_content_export_va_gov_cms_export_generate_tar() {
+  $archiveArgs = \Drupal::getContainer()->get('va_gov.content_export.archive_args_factory')->createContentArgs();
+  \Drupal::getContainer()->get('va_gov.content_export.archive_directory')->archive($archiveArgs);
+  drush_log('Export Tar regenerated', LogLevel::OK);
 }
