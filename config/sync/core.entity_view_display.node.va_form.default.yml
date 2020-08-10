@@ -11,12 +11,14 @@ dependencies:
     - field.field.node.va_form.field_va_form_deleted
     - field.field.node.va_form.field_va_form_deleted_date
     - field.field.node.va_form.field_va_form_issue_date
+    - field.field.node.va_form.field_va_form_language
     - field.field.node.va_form.field_va_form_link_teasers
     - field.field.node.va_form.field_va_form_name
     - field.field.node.va_form.field_va_form_num_pages
     - field.field.node.va_form.field_va_form_number
     - field.field.node.va_form.field_va_form_related_forms
     - field.field.node.va_form.field_va_form_revision_date
+    - field.field.node.va_form.field_va_form_row_id
     - field.field.node.va_form.field_va_form_title
     - field.field.node.va_form.field_va_form_tool_intro
     - field.field.node.va_form.field_va_form_tool_url
@@ -39,7 +41,7 @@ third_party_settings:
         - field_va_form_type
         - field_benefit_categories
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: fieldset
       format_settings:
         id: ''
@@ -52,7 +54,7 @@ third_party_settings:
         - field_va_form_tool_intro
         - field_va_form_tool_url
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: fieldset
       format_settings:
         id: ''
@@ -69,10 +71,11 @@ third_party_settings:
         - field_va_form_num_pages
         - field_va_form_number
         - field_va_form_revision_date
+        - field_va_form_row_id
         - field_va_form_title
         - field_va_form_url
       parent_name: ''
-      weight: 12
+      weight: 13
       format_type: fieldset
       format_settings:
         description: 'This content is maintained in the VA Forms DB and updated nightly.'
@@ -86,7 +89,7 @@ bundle: va_form
 mode: default
 content:
   field_alert:
-    weight: 3
+    weight: 4
     label: above
     settings:
       view_mode: default
@@ -109,9 +112,16 @@ content:
     third_party_settings: {  }
     type: metatag_empty_formatter
     region: content
+  field_va_form_language:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
   field_va_form_link_teasers:
     type: entity_reference_revisions_entity_view
-    weight: 8
+    weight: 9
     label: above
     settings:
       view_mode: default
@@ -127,7 +137,7 @@ content:
     type: string
     region: content
   field_va_form_related_forms:
-    weight: 7
+    weight: 8
     label: above
     settings:
       link: true
@@ -161,7 +171,7 @@ content:
     type: list_default
     region: content
   field_va_form_usage:
-    weight: 5
+    weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -182,6 +192,7 @@ hidden:
   field_va_form_num_pages: true
   field_va_form_number: true
   field_va_form_revision_date: true
+  field_va_form_row_id: true
   field_va_form_title: true
   field_va_form_url: true
   search_api_excerpt: true
