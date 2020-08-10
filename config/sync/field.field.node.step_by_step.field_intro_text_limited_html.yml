@@ -6,7 +6,13 @@ dependencies:
     - field.storage.node.field_intro_text_limited_html
     - node.type.step_by_step
   module:
+    - allowed_formats
     - text
+third_party_settings:
+  allowed_formats:
+    rich_text_limited: rich_text_limited
+    rich_text: '0'
+    plain_text: '0'
 id: node.step_by_step.field_intro_text_limited_html
 field_name: field_intro_text_limited_html
 entity_type: node
