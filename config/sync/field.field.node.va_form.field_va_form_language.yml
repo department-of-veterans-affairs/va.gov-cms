@@ -1,0 +1,23 @@
+uuid: f35818b9-aa85-40f1-996c-766e66353454
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_va_form_language
+    - node.type.va_form
+  module:
+    - options
+id: node.va_form.field_va_form_language
+field_name: field_va_form_language
+entity_type: node
+bundle: va_form
+label: 'Form Language'
+description: 'The language of the form, not the language of this page.'
+required: true
+translatable: false
+default_value:
+  -
+    value: en
+default_value_callback: ''
+settings: {  }
+field_type: list_string

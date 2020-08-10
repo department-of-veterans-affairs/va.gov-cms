@@ -184,6 +184,7 @@ process:
     bypass: FALSE
   field_va_form_name: FormTitle
   field_va_form_number: displayName
+  field_va_form_row_id: rowid
   field_va_form_title: FormTitle
   field_va_form_type: FormType
   # field_va_form_link_teasers:
@@ -299,22 +300,23 @@ destination:
   # Only these fields will be overwritten if the content changes in the API.
   overwrite_properties:
     - changed
+    - field_va_form_administration
+    - field_va_form_deleted
+    - field_va_form_deleted_date
+    - field_va_form_issue_date
+    - field_va_form_num_pages
+    - field_va_form_number
+    - field_va_form_revision_date
+    - field_va_form_row_id
+    - field_va_form_title
+    - field_va_form_url
     - new_revision
     - revision_default
     - revision_log
     - revision_timestamp
     - revision_uid
-    - uid
-    - field_va_form_administration
-    - field_va_form_deleted
-    - field_va_form_deleted_date
-    - field_va_form_issue_date
-    - field_va_form_revision_date
-    - field_va_form_num_pages
-    - field_va_form_number
-    - field_va_form_title
-    - field_va_form_url
     - title
+    - uid
 # Dependency on other migrations.
 migration_dependencies:
   required: {  }
