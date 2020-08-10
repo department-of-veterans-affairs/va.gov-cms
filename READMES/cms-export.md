@@ -79,6 +79,7 @@ The deployments were modified to the following sequence of events:
 * the site is put into a mode where editors are not allowed to upload any more files for about 10 minutes
 * the new deployment instance pulls down the state and restores it
 * the editors can upload files again
+* A full CMS content export is run on every code deploy.
 
 TODO: Create a diagram showing the deployment state backup/restoration
 
@@ -93,5 +94,4 @@ TODO: Create a diagram showing the deployment state backup/restoration
 
 1. [WIP] https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1716 - Explore a solution to allow the CMS Export to work in a High Availability setup (HA) which we will need in the months to come so that we can scale the CMS load over multiple instances and availability zones to increase redundancy. This solution requires a high performance networked filesystem of which EFS is _not_ high performance.
 1. [WIP] https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1713 - Decrease deployment window to less than 5 minutes.
-1. [WIP] https://github.com/department-of-veterans-affairs/va.gov-cms/issues/1849 - Automate the export based on content model changes by looking for changes to the [/tests/behat/drupal-spec-tool](https://github.com/department-of-veterans-affairs/va.gov-cms/tree/master/tests/behat/drupal-spec-tool) folder.
 1. The GraphQL system is still being used for a part of the build process, specifically the sidebar menus. The time for that request is minimal, 1-2 seconds. Moving that into the export system should be considered for maintainability and to reduce complexity. The effort required to implement was not worth the 2 seconds in savings at this time.
