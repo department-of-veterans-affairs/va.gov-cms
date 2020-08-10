@@ -2,7 +2,7 @@
 
 namespace Drupal\va_gov_content_export\Event;
 
-use Drupal\Core\File\FileSystemInterface;
+use Drupal\va_gov_content_export\Archive\ArchiveArgs;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -13,40 +13,30 @@ class ContentExportPreTarEvent extends Event {
   const CONTENT_EXPORT_PRE_TAR_EVENT = 'va_gov_content_export.pre.tar';
 
   /**
-   * The path of files to be tarred.
+   * Archive Args.
    *
-   * @var string
+   * @var \Drupal\va_gov_content_export\Archive\ArchiveArgs
    */
-  protected $tarPath;
-
-  /**
-   * A Drupal file system object.
-   *
-   * @var Drupal\Core\File\FileSystemInterface
-   */
-  public $fileSystem;
+  protected $archiveArgs;
 
   /**
    * Constructs a va_gov_content_export event object.
    *
-   * @param string $tar_path
-   *   The directory that will be tarred.
-   * @param \Drupal\Core\File\FileSystemInterface $file_system
-   *   Drupal FileSystem.
+   * @param \Drupal\va_gov_content_export\Archive\ArchiveArgs $archiveArgs
+   *   The Archive Args.
    */
-  public function __construct($tar_path, FileSystemInterface $file_system) {
-    $this->tarPath = $tar_path;
-    $this->fileSystem = $file_system;
+  public function __construct(ArchiveArgs $archiveArgs) {
+    $this->archiveArgs = $archiveArgs;
   }
 
   /**
    * Getter for tarPath.
    *
-   * @return string
-   *   The path of files to be tarred.
+   * @return \Drupal\va_gov_content_export\Archive\ArchiveArgs
+   *   Archive Arguments.
    */
-  public function getTarPath() {
-    return $this->tarPath;
+  public function getArchieArgs() {
+    return $this->archiveArgs;
   }
 
 }

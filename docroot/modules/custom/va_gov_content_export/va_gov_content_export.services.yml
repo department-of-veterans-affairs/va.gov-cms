@@ -21,6 +21,7 @@ services:
     class: Drupal\va_gov_content_export\Archive\ArchiveArgsFactory
   va_gov_content_export.pre.tar:
     class: Drupal\va_gov_content_export\EventSubscriber\ContentExportPreTarSubscriber
+    arguments: ['@file_system', '@router.no_access_checks']
     tags:
     - { name: 'event_subscriber' }
   va_gov.content_export.list_data_compiler:
@@ -36,3 +37,4 @@ services:
     class: Drupal\va_gov_content_export\ExportCommand\ExecutableFinder
   va_gov.site_status:
     class: Drupal\va_gov_content_export\SiteStatus\SiteStatus
+    arguments: ['@state']

@@ -75,7 +75,7 @@ class ArchiveDirectory {
     // Deleting the file before it's created improves performance.
     $this->fileSystem->delete($archiveArgs->getOutputPath());
     // Dispatch the Pre Tar event so that subscribers can use it.
-    $this->eventDispatcher->dispatch(ContentExportPreTarEvent::CONTENT_EXPORT_PRE_TAR_EVENT, new ContentExportPreTarEvent("{$archiveArgs->getCurrentWorkingDirectory()}{$archiveArgs->getArchiveDirectory()}", $this->fileSystem));
+    $this->eventDispatcher->dispatch(ContentExportPreTarEvent::CONTENT_EXPORT_PRE_TAR_EVENT, new ContentExportPreTarEvent($archiveArgs));
 
     return $this->zippy->create($real_path, $files, TRUE);
   }
