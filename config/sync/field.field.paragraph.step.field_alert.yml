@@ -1,0 +1,118 @@
+uuid: 57bbacd8-0bd2-4ec7-a7da-027ec7cccece
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_alert
+    - paragraphs.paragraphs_type.alert
+    - paragraphs.paragraphs_type.step
+  module:
+    - entity_reference_revisions
+id: paragraph.step.field_alert
+field_name: field_alert
+entity_type: paragraph
+bundle: step
+label: Alert
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      alert: alert
+    target_bundles_drag_drop:
+      address:
+        weight: 31
+        enabled: false
+      alert:
+        enabled: true
+        weight: 32
+      button:
+        weight: 33
+        enabled: false
+      collapsible_panel:
+        weight: 34
+        enabled: false
+      collapsible_panel_item:
+        weight: 35
+        enabled: false
+      downloadable_file:
+        weight: 36
+        enabled: false
+      expandable_text:
+        weight: 37
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 38
+        enabled: false
+      link_teaser:
+        weight: 39
+        enabled: false
+      list_of_link_teasers:
+        weight: 42
+        enabled: false
+      list_of_links:
+        weight: 41
+        enabled: false
+      lists_of_links:
+        weight: 40
+        enabled: false
+      media:
+        weight: 43
+        enabled: false
+      number_callout:
+        weight: 44
+        enabled: false
+      phone_number:
+        weight: 45
+        enabled: false
+      process:
+        weight: 46
+        enabled: false
+      q_a:
+        weight: 47
+        enabled: false
+      q_a_group:
+        weight: 48
+        enabled: false
+      q_a_section:
+        weight: 49
+        enabled: false
+      react_widget:
+        weight: 50
+        enabled: false
+      service_location:
+        weight: 51
+        enabled: false
+      service_location_address:
+        weight: 52
+        enabled: false
+      situation_update:
+        weight: 53
+        enabled: false
+      spanish_translation_summary:
+        weight: 54
+        enabled: false
+      staff_profile:
+        weight: 55
+        enabled: false
+      starred_horizontal_rule:
+        weight: 56
+        enabled: false
+      step:
+        weight: 57
+        enabled: false
+      step_by_step:
+        weight: 58
+        enabled: false
+      table:
+        weight: 59
+        enabled: false
+      wysiwyg:
+        weight: 60
+        enabled: false
+field_type: entity_reference_revisions

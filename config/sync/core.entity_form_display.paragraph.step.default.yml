@@ -3,19 +3,33 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.step.field_alert
     - field.field.paragraph.step.field_media
     - field.field.paragraph.step.field_wysiwyg
     - paragraphs.paragraphs_type.step
   module:
     - media_library
+    - paragraphs
     - text
 id: paragraph.step.default
 targetEntityType: paragraph
 bundle: step
 mode: default
 content:
-  field_media:
+  field_alert:
+    type: entity_reference_paragraphs
     weight: 2
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    region: content
+  field_media:
+    weight: 3
     settings:
       media_types: {  }
     third_party_settings: {  }

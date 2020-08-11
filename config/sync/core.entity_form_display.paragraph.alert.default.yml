@@ -6,6 +6,7 @@ dependencies:
     - entity_browser.browser.alert_blocks
     - field.field.paragraph.alert.field_alert_block_reference
     - field.field.paragraph.alert.field_alert_heading
+    - field.field.paragraph.alert.field_alert_selection
     - field.field.paragraph.alert.field_alert_type
     - field.field.paragraph.alert.field_va_paragraphs
     - paragraphs.paragraphs_type.alert
@@ -19,14 +20,15 @@ third_party_settings:
     group_reusable_alert:
       children:
         - field_alert_block_reference
-      parent_name: ''
-      weight: 0
+      parent_name: group_alert
+      weight: 2
       format_type: fieldset
       format_settings:
         description: 'Some alerts are reusable. If you select an existing alert, do not complete the rest of the form. '
         required_fields: true
         id: reusable-alert
         classes: ''
+        formatter: closed
       label: 'Reusable alert'
       region: content
     group_non_reusable_alert:
@@ -34,15 +36,31 @@ third_party_settings:
         - field_alert_heading
         - field_va_paragraphs
         - field_alert_type
-      parent_name: ''
-      weight: 1
+      parent_name: group_alert
+      weight: 3
       format_type: fieldset
       format_settings:
         description: ''
         required_fields: true
         id: non-reusable-alert
         classes: ''
+        formatter: closed
       label: 'Non-reusable alert'
+      region: content
+    group_alert:
+      children:
+        - field_alert_selection
+        - group_reusable_alert
+        - group_non_reusable_alert
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Alert
       region: content
 id: paragraph.alert.default
 targetEntityType: paragraph
@@ -78,6 +96,12 @@ content:
     third_party_settings: {  }
     type: string_textfield_with_counter
     region: content
+  field_alert_selection:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
   field_alert_type:
     weight: 6
     settings: {  }
@@ -97,8 +121,8 @@ content:
       autocollapse: none
       closed_mode_threshold: 0
       features:
-        duplicate: duplicate
         collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
     third_party_settings: {  }
     type: paragraphs
     region: content

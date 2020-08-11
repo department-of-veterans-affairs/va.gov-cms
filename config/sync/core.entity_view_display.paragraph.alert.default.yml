@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.alert.field_alert_block_reference
     - field.field.paragraph.alert.field_alert_heading
+    - field.field.paragraph.alert.field_alert_selection
     - field.field.paragraph.alert.field_alert_type
     - field.field.paragraph.alert.field_va_paragraphs
     - paragraphs.paragraphs_type.alert
@@ -32,6 +33,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_alert_selection:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
     region: content
   field_alert_type:
     weight: 1
