@@ -79,7 +79,9 @@ function _vagov_consumers_disable_vha_api_form_fields(array &$form, $form_id) {
     // Disable items that are populated by the Facility API migration.
     $form['title']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
     $form['field_facility_classification']['widget']['#attributes']['disabled'] = TRUE;
-    unset($form['field_facility_hours']['widget'][0]['caption']);
+    if (isset($form['field_facility_hours']['widget'][0]['caption'])) {
+      unset($form['field_facility_hours']['widget'][0]['caption']);
+    }
     $form['field_facility_hours']['widget'][0]['#addrow'] = FALSE;
     $form['field_facility_hours']['widget'][0]['#attributes']['disabled'] = TRUE;
     $form['field_phone_number']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
