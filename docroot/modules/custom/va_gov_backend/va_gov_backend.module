@@ -437,7 +437,9 @@ function _va_gov_backend_modify_paragraph_interactions(array &$element, FormStat
       ];
     }
     // Remove catpion, rows, and import fields from address tablefield.
-    unset($element['subform']['field_facility_service_hours']['widget'][0]['caption']);
+    if (isset($element['subform']['field_facility_service_hours']['widget'][0]['caption'])) {
+      unset($element['subform']['field_facility_service_hours']['widget'][0]['caption']);
+    }
     $element['subform']['field_facility_service_hours']['widget'][0]['#import'] = FALSE;
     $element['subform']['field_facility_service_hours']['widget'][0]['#addrow'] = FALSE;
     $element['subform']['field_facility_service_hours']['widget'][0]['#rebuild'] = FALSE;
