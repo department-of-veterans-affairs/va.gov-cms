@@ -4,7 +4,7 @@ Feature: Content model bundles
   As a content editor
   I want to have content entity bundles that reflect my content model.
 
-  @dst @content_type @dstbundles                                                                                                                                                                   
+  @dst @content_type @dstbundles
      Scenario: Bundles
        Then exactly the following content entity type bundles should exist
        | Name | Machine name | Type | Description |
@@ -35,7 +35,7 @@ Feature: Content model bundles
 | Link to file or video | downloadable_file | Paragraph type | For image or document downloads. |
 | List of link teasers | list_of_link_teasers | Paragraph type | A paragraph that contains only one type of paragraph: Link teaser. |
 | List of links | list_of_links | Paragraph type | A set of links, with link text and URL required, and an optional header. |
-| Lists of links | lists_of_links | Paragraph type | A list of links, or several lists of links, with an optional section header. |
+| Lists of links | lists_of_links | Paragraph type | WARNING: Learning Center and User Guides only! A list of links, or several lists of links, with an optional section header. |
 | Locations list | locations_listing | Content type | A listing of locations. |
 | NCA facility | nca_facility | Content type | A facility within National Cemetery Administration system. |
 | News release | press_release | Content type | Announcements directed at members of the media for the purpose of publicizing newsworthy events/happenings/programs at specific facilities or healthcare systems. |
@@ -80,3 +80,4 @@ Feature: Content model bundles
 | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
 | Video | video | Media type | A video hosted by YouTube, Vimeo, or some other provider. |
 | WYSIWYG | wysiwyg | Paragraph type | An open-ended text field. |
+
