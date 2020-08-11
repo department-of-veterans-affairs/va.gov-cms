@@ -42,7 +42,6 @@ third_party_settings:
     group_editor:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
       weight: 4
       format_type: fieldset
@@ -61,10 +60,10 @@ third_party_settings:
       weight: 3
       format_type: fieldset
       format_settings:
+        description: 'Featured stories appear in the "featured" section of a VA product page, such as an Office or VAMC home page. You can feature up to 2.'
+        required_fields: true
         id: ''
         classes: ''
-        description: 'Featured news stories appear in a "featured story" section of an office or Health Care System landing page.'
-        required_fields: true
       label: 'Feature this story'
       region: content
     group_image:
@@ -89,11 +88,11 @@ third_party_settings:
       weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
-        classes: ''
         description: ''
         required_fields: true
-      label: Text
+        id: ''
+        classes: ''
+      label: 'Story text'
       region: content
     group_basic_info:
       children:
@@ -193,7 +192,8 @@ content:
     third_party_settings: {  }
   field_meta_tags:
     weight: 10
-    settings: {  }
+    settings:
+      sidebar: true
     third_party_settings: {  }
     type: metatag_firehose
     region: content

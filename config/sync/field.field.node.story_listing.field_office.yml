@@ -11,7 +11,7 @@ id: node.story_listing.field_office
 field_name: field_office
 entity_type: node
 bundle: story_listing
-label: 'Related office or health care system'
+label: 'Office or health care system'
 description: ''
 required: true
 translatable: true
@@ -21,8 +21,8 @@ settings:
   handler: unpublished
   handler_settings:
     target_bundles:
-      health_care_region_page: health_care_region_page
       office: office
+      health_care_region_page: health_care_region_page
     sort:
       field: title
       direction: ASC

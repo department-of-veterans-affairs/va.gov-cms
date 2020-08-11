@@ -4,7 +4,7 @@ Feature: Content model bundles
   As a content editor
   I want to have content entity bundles that reflect my content model.
 
-  @dst @content_type @dstbundles                                                                                                                                                                   
+  @dst @content_type @dstbundles
      Scenario: Bundles
        Then exactly the following content entity type bundles should exist
        | Name | Machine name | Type | Description |
@@ -63,7 +63,7 @@ Feature: Content model bundles
 | Step by step | step_by_step | Paragraph type | An ordered list (1, 2, 3, 4, N) of steps. |
 | Step-by-Step | step_by_step | Content type | An ordered list (1, 2, 3, 4, N) of steps with Call to Action buttons. |
 | Story | news_story | Content type | Community stories highlight the role of a VA facility, program, or healthcare system in a Veteran's journey. They may be a case study of a specific patient, a description of a new or successful program, or a community-interest story. |
-| Stories list | story_listing | Content type | A listing of stories. |
+| Story listing page | story_listing | Content type | A listing of stories. |
 | Support Service | support_service | Content type | Help desks, hotlines, etc, to be contextually placed alongside relevant content. |
 | Table | table | Paragraph type | Add an HTML table with rows and columns. |
 | Type of Redirect | type_of_redirect | Vocabulary |  |
@@ -80,3 +80,4 @@ Feature: Content model bundles
 | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
 | Video | video | Media type | A video hosted by YouTube, Vimeo, or some other provider. |
 | WYSIWYG | wysiwyg | Paragraph type | An open-ended text field. |
+

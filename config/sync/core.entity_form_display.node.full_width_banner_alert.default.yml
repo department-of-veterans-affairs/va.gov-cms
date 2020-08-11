@@ -45,16 +45,14 @@ third_party_settings:
       weight: 6
       format_type: fieldset
       format_settings:
-        description: "<p>To help streamline the process of publishing time-sensitive alerts, and to clarify the email sending behavior, VAMC banner alerts do not follow the typical editorial workflow of content elsewhere in the VA.gov CMS, where content moves from Draft to In review to Published. </p>\r\n\r\n<p>Instead, banner alerts are either published or not. There is no \"archived\" state.</p>\r\n\r\n<p>To publish a banner, check this this box. When it's time to remove the banner, uncheck it.</p>\r\n\r\n"
+        description: "<p>Check the box to publish and send notifications (if selected). </p>\r\n\r\n<p>Uncheck this box once the situation has passed to remove the banner and associated operating status page content.</p>\r\n\r\n"
         required_fields: true
         id: ''
         classes: ''
-        open: false
       label: 'Editorial workflow'
       region: content
     group_alert_display_and_behavior:
-      children:
-        - revision_log
+      children: {  }
       parent_name: ''
       weight: 7
       format_type: fieldset
@@ -78,11 +76,10 @@ third_party_settings:
       format_type: fieldset
       format_settings:
         description: ''
-        open: true
         required_fields: true
         id: ''
         classes: ''
-      label: 'Content and format'
+      label: 'Banner alert'
       region: content
     group_type:
       children:
@@ -120,12 +117,11 @@ third_party_settings:
       weight: 5
       format_type: fieldset
       format_settings:
-        description: 'For "static" situation information that is additional to any situation updates.'
-        open: true
+        description: 'Add additional information that would help people navigate an ongoing situation, such as the names of evacuation centers in a hurricane. Information you add here won''t be sent out in email notifications.'
         id: ''
         classes: ''
         required_fields: false
-      label: 'Situation information'
+      label: 'Associated resources and other information'
       region: content
     group_calls_to_action:
       children:
@@ -136,11 +132,11 @@ third_party_settings:
       weight: 8
       format_type: fieldset
       format_settings:
-        description: 'These buttons will be displayed at the bottom of an alert, as well as in the emails sent out via GovDelivery'
+        description: 'Choose calls to action to be displayed at the bottom of the alert, and in any associated GovDelivery email notifications.'
         id: ''
         classes: ''
         required_fields: false
-      label: 'Calls to action'
+      label: 'Include calls to action'
       region: content
     group_email_bulletin:
       children:
@@ -149,12 +145,11 @@ third_party_settings:
       weight: 2
       format_type: fieldset
       format_settings:
+        description: ''
+        required_fields: true
         id: ''
         classes: ''
-        description: ''
-        open: true
-        required_fields: true
-      label: 'Email bulletin'
+      label: Notifications
       region: content
 id: node.full_width_banner_alert.default
 targetEntityType: node
@@ -251,8 +246,8 @@ content:
       autocollapse: none
       closed_mode_threshold: 0
       features:
-        duplicate: duplicate
         collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
     third_party_settings: {  }
     region: content
   status:

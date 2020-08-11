@@ -13,7 +13,7 @@ field_name: field_situation_updates
 entity_type: node
 bundle: full_width_banner_alert
 label: 'Situation updates'
-description: 'Situation updates appear on each VAMCs'' Operating status page, and optionally send out emails to subscribers of emergency emails for that VAMC. '
+description: 'Add updates to the operating status page as the situation evolves, with the option to inform subscribers to emergency emails for your VAMC. '
 required: false
 translatable: false
 default_value: {  }
@@ -55,14 +55,11 @@ settings:
       media:
         weight: 33
         enabled: false
-      megamenu_links_column:
-        weight: 34
-        enabled: false
-      megamenu_menu_item:
-        weight: 35
-        enabled: false
       number_callout:
         weight: 36
+        enabled: false
+      phone_number:
+        weight: 34
         enabled: false
       process:
         weight: 37
