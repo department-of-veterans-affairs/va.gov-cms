@@ -96,6 +96,11 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
+/*   //Remove if statement below when ready
+  if ($form_id == 'node_step_by_step_form'){
+    _va_gov_backend_alert_options($form, $form_state, $form_id);
+  } */
+
   $targets = [
     'field_office',
     'field_listing',
@@ -393,6 +398,80 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
   ];
   if (in_array($paragraph_entity_reference_field_name, $vha_paragraphs)) {
     _va_gov_backend_modify_paragraph_interactions($element, $form_state, $context, $paragraph_entity_reference_field_name);
+  }
+}
+
+
+function va_gov_backend_field_widget_entity_reference_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
+  $field_definition = $context['items']->getFieldDefinition();
+  /**
+   * @var \Drupal\field\Entity\FieldConfig $field_definition */
+  $paragraph_entity_reference_field_name = $field_definition->getName();
+
+    if ($element['#paragraph_type'] == 'alert') {
+      $element_path = $element['subform']['#parents'];
+      $parent_field = array_shift($element_path);
+      $element_path_string = implode('][', $element_path);
+  
+      if (!empty($parent_field) && !empty($element_path_string)) {
+        $selector = ':input[name="' . $parent_field . '[' . $element_path_string . '][field_alert_selection]"]';
+
+
+        $element['subform']['field_alert_block_reference']['#states'] = [         
+          'visible' => [
+            [$selector => ['value' => 'R']],
+          ],
+        ];
+
+        $element['subform']['field_alert_heading']['#states'] = [
+          'visible' => [
+            [$selector => ['value' => 'NR']],
+          ],
+        ];
+
+        $element['subform']['field_alert_type']['#states'] = [
+          'visible' => [
+            [$selector => ['value' => 'NR']],
+          ],
+        ];
+
+        $element['subform']['field_va_paragraphs']['#states'] = [
+          'visible' => [
+            [$selector => ['value' => 'NR']],
+          ],
+        ];
+
+        $x = $element['subform']['field_alert_block_reference'];
+        //dpm($x);
+
+        $element['subform']['field_alert_block_reference']['#ajax'] = [
+          'callback' => '_myajaxcall',
+          'event' => 'change',
+        ];
+
+      }
+    } 
+}
+
+/* function _myajaxcall(array $form, FormStateInterface &$form_state) {
+  dpm('ajaxcallworked');
+  return $form;
+} */
+
+/**
+ * Check to see if another announcement is already sticky.
+ *
+ * @param array $form
+ * @param FormStateInterface $form_state
+ */
+function _va_gov_backend_alert_options(array $form, FormStateInterface &$form_state) {
+
+  $form_values = $form_state->getValues();
+
+  $alert_type = $alert[0]['value'];
+  
+  if ($alert_type == 'NR') {
+    unset($form_state['values']['field_alert_block_reference']);
   }
 }
 
