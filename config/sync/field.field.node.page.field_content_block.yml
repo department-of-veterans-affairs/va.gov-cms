@@ -9,6 +9,7 @@ dependencies:
     - paragraphs.paragraphs_type.collapsible_panel
     - paragraphs.paragraphs_type.downloadable_file
     - paragraphs.paragraphs_type.list_of_link_teasers
+    - paragraphs.paragraphs_type.lists_of_links
     - paragraphs.paragraphs_type.media
     - paragraphs.paragraphs_type.number_callout
     - paragraphs.paragraphs_type.process
@@ -46,39 +47,34 @@ settings:
       number_callout: number_callout
       media: media
       downloadable_file: downloadable_file
+      lists_of_links: lists_of_links
     target_bundles_drag_drop:
-      table:
-        enabled: true
-        weight: -35
-      react_widget:
-        enabled: true
-        weight: -32
-      wysiwyg:
-        enabled: true
-        weight: -31
-      list_of_link_teasers:
-        enabled: true
-        weight: -31
-      q_a_section:
-        enabled: true
-        weight: -30
+      address:
+        weight: -22
+        enabled: false
       alert:
         enabled: true
         weight: -30
-      process:
-        enabled: true
-        weight: -29
-      spanish_translation_summary:
-        enabled: true
-        weight: -28
+      button:
+        weight: 35
+        enabled: false
+      checklist:
+        weight: 36
+        enabled: false
+      checklist_item:
+        weight: 37
+        enabled: false
       collapsible_panel:
         enabled: true
         weight: -27
-      number_callout:
-        enabled: true
-        weight: -26
       collapsible_panel_item:
         weight: -25
+        enabled: false
+      downloadable_file:
+        enabled: true
+        weight: 23
+      expandable_text:
+        weight: -20
         enabled: false
       health_care_local_facility_servi:
         weight: -25
@@ -86,31 +82,67 @@ settings:
       link_teaser:
         weight: -24
         enabled: false
+      list_of_link_teasers:
+        enabled: true
+        weight: -31
+      list_of_links:
+        weight: 45
+        enabled: false
+      lists_of_links:
+        enabled: true
+        weight: 44
       media:
         enabled: true
         weight: -24
-      megamenu_links_column:
-        weight: -23
+      number_callout:
+        enabled: true
+        weight: -26
+      phone_number:
+        weight: 49
         enabled: false
-      megamenu_menu_item:
-        weight: -22
+      process:
+        enabled: true
+        weight: -29
+      q_a:
+        weight: -18
         enabled: false
-      address:
-        weight: -22
+      q_a_group:
+        weight: 52
         enabled: false
-      expandable_text:
-        weight: -20
+      q_a_section:
+        enabled: true
+        weight: -30
+      react_widget:
+        enabled: true
+        weight: -32
+      service_location:
+        weight: 55
+        enabled: false
+      service_location_address:
+        weight: 56
+        enabled: false
+      situation_update:
+        weight: 57
+        enabled: false
+      spanish_translation_summary:
+        enabled: true
+        weight: -28
+      staff_profile:
+        weight: 39
         enabled: false
       starred_horizontal_rule:
         weight: -19
         enabled: false
-      q_a:
-        weight: -18
+      step:
+        weight: 61
         enabled: false
-      downloadable_file:
+      step_by_step:
+        weight: 62
+        enabled: false
+      table:
         enabled: true
-        weight: 23
-      staff_profile:
-        weight: 39
-        enabled: false
+        weight: -35
+      wysiwyg:
+        enabled: true
+        weight: -31
 field_type: entity_reference_revisions
