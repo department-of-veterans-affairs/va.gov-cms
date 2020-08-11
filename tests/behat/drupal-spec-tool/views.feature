@@ -16,7 +16,6 @@ Feature: Views
 | Build info | build_info | Content | Enabled |  |
 | Child terms | child_terms | Taxonomy terms | Enabled |  |
 | Content | content | Content | Enabled | Find and manage content. |
-| Recent content | content_recent | Content | Disabled | Recent content. |
 | Content served from Drupal | content_served_from_drupal | Content | Enabled | An exportable list of all content served from Drupal |
 | Content entity browsers | content_entity_browsers | Content | Enabled | Collection of Entity Browsers to use for field widgets configuration in form displays. |
 | Content Entity Reference Source | content_entity_reference_source | Content | Enabled |  |
@@ -55,6 +54,7 @@ Feature: Views
 | Listing page dashboard | listing_page_dashboard | Content | Enabled |  |
 | Custom block entity browsers | custom_block_entity_browsers | Custom Block | Enabled | For placing on content forms |
 | Services | services | Content | Enabled | Lists of services for facility pages, health services lists, etc |
+| Recent content activity | recent_content_activity | Content | Enabled | Recent content. |
 
   @dst @views_displays
      Scenario: Views displays
@@ -127,8 +127,6 @@ Feature: Views
 | Moderation history | Page | page | Page |
 | People | Master | default | Master |
 | People | Page | page_1 | Page |
-| Recent content | Block | block_1 | Block |
-| Recent content | Master | default | Master |
 | Redirect | Master | default | Master |
 | Redirect | Page | page_1 | Page |
 | Redirect | Non admin Page | page_2 | Page |
@@ -184,3 +182,5 @@ Feature: Views
 | Services | Facility health services | block_1 | Block |
 | Services | VAMC system health services | block_2 | Block |
 | Services | Master | default | Master |
+| Recent content activity | Master | default | Master |
+| Recent content activity | User recent content | block_user_recent_content | Block |

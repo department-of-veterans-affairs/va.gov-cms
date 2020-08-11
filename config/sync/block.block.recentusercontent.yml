@@ -1,0 +1,35 @@
+uuid: 9b60bf8b-2746-4f77-9499-80bdfeed865d
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+    - user
+    - va_gov_user
+  theme:
+    - vagovadmin
+id: recentusercontent
+theme: vagovadmin
+region: content
+weight: -12
+provider: null
+plugin: va_gov_recent_user_content
+settings:
+  id: va_gov_recent_user_content
+  label: Content
+  provider: va_gov_user
+  label_display: visible
+  my_block_settings: null
+visibility:
+  request_path:
+    id: request_path
+    pages: "/user/*\r\n!/user/*/**"
+    negate: false
+    context_mapping: {  }
+  user_role:
+    id: user_role
+    roles:
+      authenticated: authenticated
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
