@@ -11,7 +11,7 @@ field_name: field_facility_location
 entity_type: node
 bundle: event
 label: 'Facility location'
-description: 'If your event takes place in a VA facility, select it here. '
+description: 'If the event takes place at a VA facility, select it here. You''ll still need to add the address below.'
 required: false
 translatable: false
 default_value: {  }
@@ -24,6 +24,6 @@ settings:
     sort:
       field: title
       direction: ASC
-    auto_create: false
+    auto_create: 0
     auto_create_bundle: health_care_local_facility
 field_type: entity_reference
