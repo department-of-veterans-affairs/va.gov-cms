@@ -22,4 +22,33 @@
     }
   };
 
+  Drupal.behaviors.vaGovAlertSingleComponent = {
+    attach: function () {
+      $(document).ajaxStart(function () {
+        if ($("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-r").is(':checked') && $('input[id^="edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-block-reference-entity-browser-entity-browser-open-modal"]').not(":visible")) {
+          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-nr").prop('disabled', true);
+          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-na").prop('disabled', true);
+        };
+        if ($("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-nr").is(':checked') && $('input[id^="edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-non-reusable-ref-add-more-add-more-button-non-reusable-alert"]').not(":visible")) {
+          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-na").prop('disabled', true);
+          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-r").prop('disabled', true);
+        };
+      });
+      $(document).ajaxComplete(function () {
+        if ($("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-na").is(':checked')) {
+          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-nr").prop('disabled', false);
+          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-r").prop('disabled', false);
+          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-na").prop('disabled', false);
+        };
+        if ($("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-r").is(':checked') && $('input[id^="edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-block-reference-entity-browser-entity-browser-open-modal"]').is(":visible")) {
+          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-nr").prop('disabled', false);
+          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-na").prop('disabled', false);
+        };
+        if ($("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-nr").is(':checked') && $('input[id^="edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-non-reusable-ref-add-more-add-more-button-non-reusable-alert"]').is(":visible")) {
+          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-r").prop('disabled', false);
+          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-na").prop('disabled', false);
+        };
+      });
+    }
+  };
 })(jQuery, window.Drupal);
