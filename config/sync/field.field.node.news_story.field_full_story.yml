@@ -6,13 +6,19 @@ dependencies:
     - field.storage.node.field_full_story
     - node.type.news_story
   module:
+    - allowed_formats
     - text
+third_party_settings:
+  allowed_formats:
+    rich_text: '0'
+    rich_text_limited: '0'
+    plain_text: '0'
 id: node.news_story.field_full_story
 field_name: field_full_story
 entity_type: node
 bundle: news_story
-label: 'Full text of Story'
-description: 'Do not include the author or introduction sentence in this field.'
+label: 'Body text'
+description: 'Add everything else from the second sentence on. Don''t include the author or the story''s first sentence / lede in this field.'
 required: false
 translatable: false
 default_value: {  }
