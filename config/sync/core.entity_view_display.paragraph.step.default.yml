@@ -3,16 +3,27 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.step.field_alert
     - field.field.paragraph.step.field_media
     - field.field.paragraph.step.field_wysiwyg
     - paragraphs.paragraphs_type.step
   module:
+    - entity_reference_revisions
     - text
 id: paragraph.step.default
 targetEntityType: paragraph
 bundle: step
 mode: default
 content:
+  field_alert:
+    type: entity_reference_revisions_entity_view
+    weight: 2
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
   field_media:
     weight: 1
     label: hidden

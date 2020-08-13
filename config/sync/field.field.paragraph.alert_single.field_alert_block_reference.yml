@@ -1,0 +1,28 @@
+uuid: 9a793548-1428-4aa1-b359-2aa82dd2911d
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+    - field.storage.paragraph.field_alert_block_reference
+    - paragraphs.paragraphs_type.alert_single
+id: paragraph.alert_single.field_alert_block_reference
+field_name: field_alert_block_reference
+entity_type: paragraph
+bundle: alert_single
+label: 'Reusable alert'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      alert: alert
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,43 @@
+uuid: abc6e1bc-4df8-4da3-b889-0e1449ea30ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.non_reusable_alert.field_alert_heading
+    - field.field.paragraph.non_reusable_alert.field_alert_type
+    - field.field.paragraph.non_reusable_alert.field_va_paragraphs
+    - paragraphs.paragraphs_type.non_reusable_alert
+  module:
+    - entity_reference_revisions
+    - options
+id: paragraph.non_reusable_alert.default
+targetEntityType: paragraph
+bundle: non_reusable_alert
+mode: default
+content:
+  field_alert_heading:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_alert_type:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_va_paragraphs:
+    weight: 1
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+hidden:
+  search_api_excerpt: true
