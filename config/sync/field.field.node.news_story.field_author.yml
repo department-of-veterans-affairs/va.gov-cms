@@ -10,8 +10,8 @@ id: node.news_story.field_author
 field_name: field_author
 entity_type: node
 bundle: news_story
-label: 'Author byline'
-description: 'An optional byline for news entries. If you''re adding a brand new person, <a href="/node/add/person_profile" target="_blank">create a new profile</a> before you choose them as the Author.'
+label: Author
+description: 'Start typing to find the author profile to be added to the story byline. If they don''t already have a profile in the CMS, you''ll need to <a href="/node/add/person_profile" target="_blank">create one first</a>.'
 required: false
 translatable: false
 default_value: {  }
@@ -23,6 +23,6 @@ settings:
       person_profile: person_profile
     sort:
       field: _none
-    auto_create: false
+    auto_create: 0
     auto_create_bundle: ''
 field_type: entity_reference
