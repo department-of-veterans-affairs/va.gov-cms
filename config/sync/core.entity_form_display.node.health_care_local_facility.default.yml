@@ -79,32 +79,33 @@ third_party_settings:
       weight: 6
       format_type: details
       format_settings:
+        description: 'Add location services available at this facility such as transportation, parking, visiting hours, lodging options, food options, etc. Do not use this for health services.'
         id: ''
         classes: ''
         open: false
         required_fields: false
-      label: 'Location services "Prepare for your visit"'
+      label: '"Prepare for your visit"'
       region: content
     group_region:
       children:
         - field_region_page
         - field_main_location
       parent_name: ''
-      weight: 4
+      weight: 2
       format_type: fieldset
       format_settings:
+        description: ''
         id: ''
         classes: ''
-        description: ''
         required_fields: false
-      label: Region
+      label: 'VAMC system'
       region: content
     group_title_and_summary:
       children:
         - field_intro_text
         - field_media
       parent_name: ''
-      weight: 1
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -143,25 +144,25 @@ third_party_settings:
       weight: 0
       format_type: details
       format_settings:
-        description: ''
+        description: 'The following is automatically populated by the Facility API with location info from a national database of VA facilities. If you need to request a change, <a href="https://vaww.va.gov/WEBCOM/VAMC_Facility_Location_Updates.asp">contact an administrator</a>.'
         open: true
         id: ''
         classes: ''
         required_fields: false
-      label: 'Facility API'
+      label: 'Basic location data'
       region: content
     group_operating_status:
       children:
         - field_operating_status_facility
         - field_operating_status_more_info
       parent_name: ''
-      weight: 3
+      weight: 1
       format_type: fieldset
       format_settings:
+        description: 'Use this to communicate critical information about potential closures or other situations on the facility''s location page and on the operating status page.'
+        required_fields: true
         id: ''
         classes: ''
-        description: ''
-        required_fields: true
       label: 'Operating status'
       region: content
     group_meta_tags:
@@ -169,7 +170,7 @@ third_party_settings:
         - field_meta_title
         - field_description
       parent_name: ''
-      weight: 2
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -202,7 +203,7 @@ content:
       placeholder: ''
       maxlength: 300
       counter_position: after
-      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
       use_field_maxlength: false
       js_prevent_submit: false
       count_html_characters: false
@@ -270,7 +271,7 @@ content:
       placeholder: ''
       maxlength: 600
       counter_position: after
-      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
       js_prevent_submit: false
       count_html_characters: false
     third_party_settings: {  }
@@ -311,7 +312,8 @@ content:
     region: content
   field_meta_tags:
     weight: 10
-    settings: {  }
+    settings:
+      sidebar: true
     third_party_settings: {  }
     type: metatag_firehose
     region: content
@@ -324,7 +326,7 @@ content:
       maxlength: null
       counter_position: after
       js_prevent_submit: true
-      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
       count_html_characters: false
     third_party_settings: {  }
     type: string_textfield_with_counter
@@ -344,7 +346,7 @@ content:
       counter_position: after
       js_prevent_submit: true
       count_html_characters: true
-      textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
     type: string_textarea_with_counter
     region: content
