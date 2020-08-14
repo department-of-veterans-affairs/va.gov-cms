@@ -13,7 +13,7 @@ field_name: field_location_services
 entity_type: node
 bundle: health_care_local_facility
 label: 'Location services'
-description: "<p>Location services include things like transportation, parking, visiting hours information, lodging options for families and caregivers, food & cafeteria options, etc.<p>\r\n\r\n<p><em>Do not</em> include Health Services, that content belongs at the Region Page level.</p> "
+description: ''
 required: false
 translatable: false
 default_value: {  }
@@ -31,11 +31,23 @@ settings:
       alert:
         weight: 18
         enabled: false
+      button:
+        weight: 35
+        enabled: false
+      checklist:
+        weight: 36
+        enabled: false
+      checklist_item:
+        weight: 37
+        enabled: false
       collapsible_panel:
         weight: 19
         enabled: false
       collapsible_panel_item:
         weight: 20
+        enabled: false
+      downloadable_file:
+        weight: 40
         enabled: false
       expandable_text:
         weight: 21
@@ -49,8 +61,20 @@ settings:
       list_of_link_teasers:
         weight: 24
         enabled: false
+      list_of_links:
+        weight: 45
+        enabled: false
+      lists_of_links:
+        weight: 44
+        enabled: false
+      media:
+        weight: 28
+        enabled: false
       number_callout:
         weight: 25
+        enabled: false
+      phone_number:
+        weight: 49
         enabled: false
       process:
         weight: 26
@@ -58,11 +82,8 @@ settings:
       q_a:
         weight: 27
         enabled: false
-      local_facility_health_service:
-        weight: 27
-        enabled: false
-      media:
-        weight: 28
+      q_a_group:
+        weight: 52
         enabled: false
       q_a_section:
         weight: 28
@@ -70,11 +91,32 @@ settings:
       react_widget:
         weight: 29
         enabled: false
+      service_location:
+        weight: 55
+        enabled: false
+      service_location_address:
+        weight: 56
+        enabled: false
+      situation_update:
+        weight: 57
+        enabled: false
       spanish_translation_summary:
         weight: 30
         enabled: false
+      staff_profile:
+        weight: 59
+        enabled: false
       starred_horizontal_rule:
         weight: 31
+        enabled: false
+      step:
+        weight: 61
+        enabled: false
+      step_by_step:
+        weight: 62
+        enabled: false
+      table:
+        weight: 63
         enabled: false
       wysiwyg:
         weight: 32
