@@ -417,11 +417,11 @@ function va_gov_backend_field_widget_entity_reference_paragraphs_form_alter(&$el
  */
 function _va_gov_backend_modify_alert_single_states(array &$element, FormStateInterface &$form_state, array &$context) {
   // Toggle Reusable & Non-reusable Alert_Single subform field on alert select.
-  if ($element['#paragraph_type'] == 'alert_single') {
+  if ($element['#paragraph_type'] === 'alert_single') {
     $element_path = $element['subform']['#parents'];
     $parent_field = array_shift($element_path);
     $element_path_string = implode('][', $element_path);
-
+    // Confirming element path exists before applying states logic to fields.
     if (!empty($parent_field) && !empty($element_path_string)) {
       $selector = ':input[name="' . $parent_field . '[' . $element_path_string . '][field_alert_selection]"]';
 
