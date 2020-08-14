@@ -231,7 +231,7 @@ Feature: Content model: Content Type fields
 | Content type | VAMC facility | Hours | field_facility_hours  | Table Field |  | 1 | Table Field |  |
 | Content type | VAMC facility | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | VAMC facility | Instagram | field_instagram | Link |  | 1 | Link | Translatable |
-| Content type | VAMC facility | Intro text | field_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
+| Content type | VAMC facility | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | VAMC facility | Health services | field_local_health_care_service_ | Entity reference |  | Unlimited | -- Disabled -- | Translatable |
 | Content type | VAMC facility | Location services | field_location_services | Entity reference revisions |  | Unlimited | Paragraphs Classic |  |
 | Content type | VAMC facility | Main location | field_main_location | Boolean |  | 1 | Single on/off checkbox |  |
@@ -240,11 +240,11 @@ Feature: Content model: Content Type fields
 | Content type | VAMC facility | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Content type | VAMC facility | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | VAMC facility | Nickname for this facility | field_nickname_for_this_facility | Text (plain) | Required | 1 | -- Disabled -- |  |
-| Content type | VAMC facility | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list |  |
-| Content type | VAMC facility | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
+| Content type | VAMC facility | Status | field_operating_status_facility | List (text) | Required | 1 | Select list |  |
+| Content type | VAMC facility | Details | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC facility | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC facility | Phone Number | field_phone_number  | Telephone number |  | 1 | Telephone number | Translatable |
-| Content type | VAMC facility | Region page | field_region_page | Entity reference | Required | 1 | Select list |  |
+| Content type | VAMC facility | What health care system does the facility belong to? | field_region_page | Entity reference | Required | 1 | Select list |  |
 | Content type | VAMC facility | Twitter | field_twitter | Link |  | 1 | Link | Translatable |
 | Content type | VAMC facility health service | Facility | field_facility_location | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC facility health service | Facility description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
