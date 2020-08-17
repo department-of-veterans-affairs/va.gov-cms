@@ -24,30 +24,48 @@
 
   Drupal.behaviors.vaGovAlertSingleComponent = {
     attach: function () {
-      $(document).ajaxStart(function () {
-        if ($("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-r").is(':checked') && $('input[id^="edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-block-reference-entity-browser-entity-browser-open-modal"]').not(":visible")) {
-          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-nr").prop('disabled', true);
-          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-na").prop('disabled', true);
-        };
-        if ($("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-nr").is(':checked') && $('input[id^="edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-non-reusable-ref-add-more-add-more-button-non-reusable-alert"]').not(":visible")) {
-          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-na").prop('disabled', true);
-          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-r").prop('disabled', true);
-        };
-      });
       $(document).ajaxComplete(function () {
-        if ($("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-na").is(':checked')) {
-          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-nr").prop('disabled', false);
-          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-r").prop('disabled', false);
-          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-na").prop('disabled', false);
-        };
-        if ($("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-r").is(':checked') && $('input[id^="edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-block-reference-entity-browser-entity-browser-open-modal"]').is(":visible")) {
-          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-nr").prop('disabled', false);
-          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-na").prop('disabled', false);
-        };
-        if ($("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-nr").is(':checked') && $('input[id^="edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-non-reusable-ref-add-more-add-more-button-non-reusable-alert"]').is(":visible")) {
-          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-r").prop('disabled', false);
-          $("#edit-field-steps-0-subform-field-step-0-subform-field-alert-0-subform-field-alert-selection-na").prop('disabled', false);
-        };
+
+        var reusableAlertRemovedIds = [];
+        var reusableAlertAddedIds = [];
+        var nonReusableAlertAddedIds = [];
+        var nonReusableAlertSelectionIds = [];
+
+        $('input[id*="subform-field-alert-block-reference-entity-browser-entity-browser-open-modal"]').each(function () {
+          reusableAlertRemovedIds.push($(this).attr('id'));
+        });
+
+        $('div[id*="field-alert-block-reference-current-items-0"]').each(function () {
+          reusableAlertAddedIds.push($(this).attr('id'));
+        });
+
+        $('fieldset[id*="subform-group-n"]').each(function () {
+          nonReusableAlertAddedIds.push($(this).attr('id'));
+        });
+
+        $.each(reusableAlertRemovedIds,function(key, value) {
+          var y = $("#" + value).parent().parent().parent().parent().parent().children('.field--name-field-alert-selection').children().children('.fieldset-wrapper').children().attr('id');
+          $('#' + y + '> div > input').each(function () {
+            $(this).prop('disabled', false);
+          });
+        });
+
+        $.each(reusableAlertAddedIds,function(key, value) {
+          var x = $("#" + value).parent().parent().parent().parent().parent().children('.field--name-field-alert-selection').children().children('.fieldset-wrapper').children().attr('id');
+          $('#' + x + '> div > input').each(function () {
+            $(this).prop('disabled', true);
+          });
+        });
+
+        $.each(nonReusableAlertAddedIds,function(key, value) {
+          nonReusableAlertSelectionIds.push($('#' + value).closest('div[id*="subform-field-alert-wrapper"]').children().children().children().children(".paragraphs-subform").children(".field--name-field-alert-selection").children().children(".fieldset-wrapper").children().attr("id"));
+          $.each(nonReusableAlertSelectionIds,function(key, value) {
+            $('#' + value + '> div > input').each(function () {
+              $(this).prop('disabled', true);
+            });
+          });
+        });
+
       });
     }
   };
