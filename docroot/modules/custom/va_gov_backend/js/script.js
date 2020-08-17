@@ -31,35 +31,41 @@
         var nonReusableAlertAddedIds = [];
         var nonReusableAlertSelectionIds = [];
 
+        // Collects element id of reusable alert - place alert button.
         $('input[id*="subform-field-alert-block-reference-entity-browser-entity-browser-open-modal"]').each(function () {
           reusableAlertRemovedIds.push($(this).attr('id'));
         });
 
+        // Collects element id of a reusable alert entity reference.
         $('div[id*="field-alert-block-reference-current-items-0"]').each(function () {
           reusableAlertAddedIds.push($(this).attr('id'));
         });
 
+        // Collects element id of a non reusable alert fieldset.
         $('fieldset[id*="subform-group-n"]').each(function () {
           nonReusableAlertAddedIds.push($(this).attr('id'));
         });
 
-        $.each(reusableAlertRemovedIds,function(key, value) {
+        // Loops through alerts that have place alert buttons and enables alert selection field.
+        $.each(reusableAlertRemovedIds,function (key, value) {
           var y = $("#" + value).parent().parent().parent().parent().parent().children('.field--name-field-alert-selection').children().children('.fieldset-wrapper').children().attr('id');
           $('#' + y + '> div > input').each(function () {
             $(this).prop('disabled', false);
           });
         });
 
-        $.each(reusableAlertAddedIds,function(key, value) {
+        // Loops through alerts that have reusable alert entity references and disables alert selection field.
+        $.each(reusableAlertAddedIds,function (key, value) {
           var x = $("#" + value).parent().parent().parent().parent().parent().children('.field--name-field-alert-selection').children().children('.fieldset-wrapper').children().attr('id');
           $('#' + x + '> div > input').each(function () {
             $(this).prop('disabled', true);
           });
         });
 
-        $.each(nonReusableAlertAddedIds,function(key, value) {
+        // Loops through alerts that have non reusable alert fielsets present and disables alert selection field.
+        $.each(nonReusableAlertAddedIds,function (key, value) {
           nonReusableAlertSelectionIds.push($('#' + value).closest('div[id*="subform-field-alert-wrapper"]').children().children().children().children(".paragraphs-subform").children(".field--name-field-alert-selection").children().children(".fieldset-wrapper").children().attr("id"));
-          $.each(nonReusableAlertSelectionIds,function(key, value) {
+          $.each(nonReusableAlertSelectionIds,function (key, value) {
             $('#' + value + '> div > input').each(function () {
               $(this).prop('disabled', true);
             });
