@@ -22,6 +22,10 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Alert | Alert Heading | field_alert_heading | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Alert | Alert Type | field_alert_type | List (text) |  | 1 | Select list |  |
 | Paragraph type | Alert | Reusable alert | field_alert_block_reference | Entity reference |  | 1 | Entity browser |  |
+| Paragraph type | Alert (single) | Which Alert would you like to add? | field_alert_selection | List (text) | Required | 1 | Check boxes/radio buttons |  |
+| Paragraph type | Alert (single) | Markup | field_markup | Markup |  | 1 | Markup | Translatable |
+| Paragraph type | Alert (single) | Non-reusable Alert | field_alert_non_reusable_ref | Entity reference revisions |  | 1 | Paragraphs Classic |  |
+| Paragraph type | Alert (single) | Reusable alert | field_alert_block_reference | Entity reference |  | 1 | Entity browser | Translatable |
 | Paragraph type | Button | Button Label | field_button_label | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Button | Button Link | field_button_link | Link |  | 1 | Link |  |
 | Paragraph type | Checklist | Checklist sections | field_checklist_sections | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
@@ -47,6 +51,9 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Lists of links | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
 | Paragraph type | Number callout | Additional information | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Number callout | Short phrase with a number, or time element | field_short_phrase_with_a_number | Text (plain) | Required | 1 | Textfield with counter |  |
+| Paragraph type | Non-reusable Alert | Alert Content | field_va_paragraphs | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
+| Paragraph type | Non-reusable Alert | Alert Heading | field_alert_heading | Text (plain) |  | 1 | Textfield with counter | Translatable |
+| Paragraph type | Non-reusable Alert | Alert Type | field_alert_type | List (text) |  | 1 | Select list | Translatable |
 | Paragraph type | Phone number | Extension number | field_phone_extension | Text (plain) |  | 1 | Textfield | Translatable |
 | Paragraph type | Phone number | Optional note | field_phone_label | Text (plain) |  | 1 | Textfield with counter | Translatable |
 | Paragraph type | Phone number | Phone number | field_phone_number | Text (plain) | Required | 1 | Textfield | Translatable |
@@ -82,6 +89,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Situation update | Send email to subscribers via GovDelivery? | field_send_email_to_subscribers | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Situation update | Update | field_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Paragraph type | Staff profile | Staff profile | field_staff_profile | Entity reference | Required | 1 | Select list |  |
+| Paragraph type | Step | Alert | field_alert | Entity reference revisions |  | 1 | Paragraphs Classic |  |
 | Paragraph type | Step | Select an image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Paragraph type | Step | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Paragraph type | Step by step | Add Step | field_step | Entity reference revisions |  | Unlimited | Paragraphs Classic | Translatable |

@@ -14,6 +14,7 @@ Feature: Content model bundles
 | Address | address | Paragraph type | An address block. |
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
 | Alert | alert | Paragraph type | A reusable or non-reusable alert, either "information status" or "warning status". |
+| Alert (single) | alert_single | Paragraph type |  |
 | Benefits detail page | page | Content type | These pages hold all of the benefits overview content, such the detail pages linked to from va.gov/disability, va.gov/health-care, and va.gov/education. |
 | Benefits hub landing page | landing_page | Content type | A special page for top-level Benefits content with its own one-off layout and content. |
 | Button | button | Paragraph type | Button with a label and link field. |
@@ -40,6 +41,7 @@ Feature: Content model bundles
 | NCA facility | nca_facility | Content type | A facility within National Cemetery Administration system. |
 | News release | press_release | Content type | Announcements directed at members of the media for the purpose of publicizing newsworthy events/happenings/programs at specific facilities or healthcare systems. |
 | News releases list | press_releases_listing | Content type | A listing of news releases. |
+| Non-reusable Alert | non_reusable_alert | Paragraph type |  |
 | Number callout | number_callout | Paragraph type | Number callouts can be used in the context of a question & answer, where the answer can be summarized in a short phrase that is number-oriented. |
 | Office | office | Content type | An office at the VA, which may have contact info, events, news, and a leadership page in some cases. |
 | Phone number | phone_number | Paragraph type |  |
