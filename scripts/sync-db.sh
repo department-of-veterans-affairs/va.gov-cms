@@ -13,10 +13,11 @@ if [ -z "$CMS_APP_NAME" ]; then
 fi
 
 
-# Setup
-# @todo check if Lando stack is running, if not return error message or just start it
-echo "Downloading latest PROD database"
-curl --remote-name --remote-header-name https://dsva-vagov-prod-${CMS_APP_NAME}-backup-sanitized.s3-us-gov-west-1.amazonaws.com/database/cms-prod-db-sanitized-latest.sql.gz
+# Download and unzip the sanitized database snapshot.
+HOSTNAME="https://dsva-vagov-prod-${CMS_APP_NAME}-backup-sanitized.s3-us-gov-west-1.amazonaws.com"
+FILEPATH="database/cms-prod-db-sanitized-latest.sql.gz"
+echo "Downloading latest PROD database from: ${HOSTNAME}/${FILEPATH}"
+curl --remote-name "${HOSTNAME}/${FILEPATH}"
 gunzip --force cms-prod-db-sanitized-latest.sql.gz 2> /dev/null || true &&
 
 echo "Downloaded PROD Database to .dumps/cms-prod-db-sanitized-latest.sql"
