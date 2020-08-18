@@ -397,6 +397,50 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
 }
 
 /**
+ * Implements hook_field_widget_entity_reference_paragraphs_form_alter().
+ */
+function va_gov_backend_field_widget_entity_reference_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
+  _va_gov_backend_modify_alert_single_states($element, $form_state, $context);
+}
+
+/**
+ * Toggle Reusable and Non-reusable Alert_Single subform fields.
+ *
+ * Adds Validation constraint error id match to html.
+ *
+ * @param array $element
+ *   The widget.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ * @param array $context
+ *   The context.
+ */
+function _va_gov_backend_modify_alert_single_states(array &$element, FormStateInterface &$form_state, array &$context) {
+  // Toggle Reusable & Non-reusable Alert_Single subform field on alert select.
+  if ($element['#paragraph_type'] === 'alert_single') {
+    $element_path = $element['subform']['#parents'];
+    $parent_field = array_shift($element_path);
+    $element_path_string = implode('][', $element_path);
+    // Confirming element path exists before applying states logic to fields.
+    if (!empty($parent_field) && !empty($element_path_string)) {
+      $selector = ':input[name="' . $parent_field . '[' . $element_path_string . '][field_alert_selection]"]';
+
+      $element['subform']['field_alert_block_reference']['#states'] = [
+        'visible' => [
+          [$selector => ['value' => 'R']],
+        ],
+      ];
+
+      $element['subform']['field_alert_non_reusable_ref']['#states'] = [
+        'visible' => [
+          [$selector => ['value' => 'NR']],
+        ],
+      ];
+    }
+  }
+}
+
+/**
  * Toggles service_location fields depending on parent selector.
  *
  * Adds Validation constraint error id match to html.

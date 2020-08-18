@@ -1,0 +1,25 @@
+uuid: 4149f3b8-93dd-41b7-bb4a-35ac23282cb2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_markup
+    - paragraphs.paragraphs_type.alert_single
+  module:
+    - markup
+id: paragraph.alert_single.field_markup
+field_name: field_markup
+entity_type: paragraph
+bundle: alert_single
+label: Markup
+description: ''
+required: false
+translatable: true
+default_value:
+  - {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: "<p>An Alert is optional. Only one Alert can be added. Once an alert has been added, the Alert type options will become disabled. To change the Alert type - remove added Alert first.</p>\r\n"
+    format: rich_text
+field_type: markup

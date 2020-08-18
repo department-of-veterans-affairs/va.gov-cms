@@ -1,0 +1,23 @@
+uuid: 9614ba93-48d7-4bc2-a630-0161cbe6eb38
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_alert_selection
+    - paragraphs.paragraphs_type.alert_single
+  module:
+    - options
+id: paragraph.alert_single.field_alert_selection
+field_name: field_alert_selection
+entity_type: paragraph
+bundle: alert_single
+label: 'Which Alert would you like to add?'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: NA
+default_value_callback: ''
+settings: {  }
+field_type: list_string

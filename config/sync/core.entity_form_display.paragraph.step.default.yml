@@ -3,19 +3,50 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.step.field_alert
     - field.field.paragraph.step.field_media
     - field.field.paragraph.step.field_wysiwyg
     - paragraphs.paragraphs_type.step
   module:
+    - field_group
     - media_library
+    - paragraphs
     - text
+third_party_settings:
+  field_group:
+    group_alert_single_:
+      children:
+        - field_alert
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        description: ''
+        open: true
+        id: ''
+        classes: ''
+        required_fields: false
+      label: 'Add an Alert'
+      region: content
 id: paragraph.step.default
 targetEntityType: paragraph
 bundle: step
 mode: default
 content:
-  field_media:
+  field_alert:
+    type: entity_reference_paragraphs
     weight: 2
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: alert_single
+    third_party_settings: {  }
+    region: content
+  field_media:
+    weight: 3
     settings:
       media_types: {  }
     third_party_settings: {  }
