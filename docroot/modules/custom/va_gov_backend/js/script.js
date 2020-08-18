@@ -48,7 +48,7 @@
 
         // Loops through alerts that have place alert buttons and enables alert selection field.
         $.each(reusableAlertRemovedIds,function (key, value) {
-          var y = $("#" + value).parent().parent().parent().parent().parent().children('.field--name-field-alert-selection').children().children('.fieldset-wrapper').children().attr('id');
+          var y = $("#" + value).parents(".paragraphs-subform").children('.field--name-field-alert-selection').find('.fieldset-wrapper').children().attr('id');
           $('#' + y + '> div > input').each(function () {
             $(this).prop('disabled', false);
           });
@@ -56,7 +56,7 @@
 
         // Loops through alerts that have reusable alert entity references and disables alert selection field.
         $.each(reusableAlertAddedIds,function (key, value) {
-          var x = $("#" + value).parent().parent().parent().parent().parent().children('.field--name-field-alert-selection').children().children('.fieldset-wrapper').children().attr('id');
+          var x = $("#" + value).parents(".paragraphs-subform").children('.field--name-field-alert-selection').find('.fieldset-wrapper').children().attr('id');
           $('#' + x + '> div > input').each(function () {
             $(this).prop('disabled', true);
           });
@@ -64,7 +64,7 @@
 
         // Loops through alerts that have non reusable alert fielsets present and disables alert selection field.
         $.each(nonReusableAlertAddedIds,function (key, value) {
-          nonReusableAlertSelectionIds.push($('#' + value).closest('div[id*="subform-field-alert-wrapper"]').children().children().children().children(".paragraphs-subform").children(".field--name-field-alert-selection").children().children(".fieldset-wrapper").children().attr("id"));
+          nonReusableAlertSelectionIds.push($('#' + value).closest('div[id*="subform-field-alert-wrapper"]').find(".paragraphs-subform").first().children(".field--name-field-alert-selection").children().children(".fieldset-wrapper").children().attr("id"));
           $.each(nonReusableAlertSelectionIds,function (key, value) {
             $('#' + value + '> div > input').each(function () {
               $(this).prop('disabled', true);
