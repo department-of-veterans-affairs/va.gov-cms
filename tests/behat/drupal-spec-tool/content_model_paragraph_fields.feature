@@ -79,7 +79,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Service location | Hours | field_facility_service_hours | Table Field |  | 1 | Table Field |  |
 | Paragraph type | Service location | Hours | field_hours | List (text) | Required | 1 | Select list |  |
 | Paragraph type | Service location | Phone | field_phone | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL |  |
-| Paragraph type | Service location | Use main facility phone number? | field_use_main_facility_phone | Boolean | Required | 1 | Single on/off checkbox |  |
+| Paragraph type | Service location | Use main facility phone number? | field_use_main_facility_phone | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Service location address | Address | field_address | Address |  | 1 | Address | Translatable |
 | Paragraph type | Service location address | Building name/number | field_building_name_number | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Service location address | Clinic name | field_clinic_name | Text (plain) |  | 1 | Textfield with counter |  |
