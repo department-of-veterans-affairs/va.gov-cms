@@ -11,14 +11,35 @@ dependencies:
     - node.type.q_a
   module:
     - entity_reference_revisions
+    - field_group
     - user
+third_party_settings:
+  field_group:
+    group_meta_tags:
+      children:
+        - field_meta_title
+        - field_description
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Meta tags'
+      region: content
 id: node.q_a.default
 targetEntityType: node
 bundle: q_a
 mode: default
 content:
+  content_moderation_control:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_administration:
-    weight: 105
+    weight: 4
     label: above
     settings:
       link: true
@@ -27,7 +48,7 @@ content:
     region: content
   field_answer:
     type: entity_reference_revisions_entity_view
-    weight: 101
+    weight: 1
     label: above
     settings:
       view_mode: default
@@ -35,7 +56,7 @@ content:
     third_party_settings: {  }
     region: content
   field_buttons:
-    weight: 106
+    weight: 2
     label: above
     settings:
       view_mode: default
@@ -44,7 +65,7 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   field_description:
-    weight: 104
+    weight: 3
     label: above
     settings:
       link_to_entity: false
@@ -52,7 +73,7 @@ content:
     type: string
     region: content
   field_meta_title:
-    weight: 102
+    weight: 2
     label: above
     settings:
       link_to_entity: false
@@ -60,10 +81,9 @@ content:
     type: string
     region: content
   links:
-    weight: 100
+    weight: 5
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
-  content_moderation_control: true
   search_api_excerpt: true

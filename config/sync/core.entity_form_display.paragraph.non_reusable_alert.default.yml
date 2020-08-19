@@ -1,0 +1,77 @@
+uuid: 23f430b6-205c-4c67-b68f-bb7301d56ac7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.non_reusable_alert.field_alert_heading
+    - field.field.paragraph.non_reusable_alert.field_alert_type
+    - field.field.paragraph.non_reusable_alert.field_va_paragraphs
+    - paragraphs.paragraphs_type.non_reusable_alert
+  module:
+    - field_group
+    - paragraphs
+    - textfield_counter
+third_party_settings:
+  field_group:
+    group_n:
+      children:
+        - field_alert_heading
+        - field_va_paragraphs
+        - field_alert_type
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: false
+      label: 'Non-reusable Alert'
+      region: content
+id: paragraph.non_reusable_alert.default
+targetEntityType: paragraph
+bundle: non_reusable_alert
+mode: default
+content:
+  field_alert_heading:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_alert_type:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_va_paragraphs:
+    weight: 2
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    type: paragraphs
+    region: content
+hidden:
+  created: true
+  status: true

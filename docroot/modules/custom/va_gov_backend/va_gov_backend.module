@@ -397,6 +397,50 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
 }
 
 /**
+ * Implements hook_field_widget_entity_reference_paragraphs_form_alter().
+ */
+function va_gov_backend_field_widget_entity_reference_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
+  _va_gov_backend_modify_alert_single_states($element, $form_state, $context);
+}
+
+/**
+ * Toggle Reusable and Non-reusable Alert_Single subform fields.
+ *
+ * Adds Validation constraint error id match to html.
+ *
+ * @param array $element
+ *   The widget.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ * @param array $context
+ *   The context.
+ */
+function _va_gov_backend_modify_alert_single_states(array &$element, FormStateInterface &$form_state, array &$context) {
+  // Toggle Reusable & Non-reusable Alert_Single subform field on alert select.
+  if ($element['#paragraph_type'] === 'alert_single') {
+    $element_path = $element['subform']['#parents'];
+    $parent_field = array_shift($element_path);
+    $element_path_string = implode('][', $element_path);
+    // Confirming element path exists before applying states logic to fields.
+    if (!empty($parent_field) && !empty($element_path_string)) {
+      $selector = ':input[name="' . $parent_field . '[' . $element_path_string . '][field_alert_selection]"]';
+
+      $element['subform']['field_alert_block_reference']['#states'] = [
+        'visible' => [
+          [$selector => ['value' => 'R']],
+        ],
+      ];
+
+      $element['subform']['field_alert_non_reusable_ref']['#states'] = [
+        'visible' => [
+          [$selector => ['value' => 'NR']],
+        ],
+      ];
+    }
+  }
+}
+
+/**
  * Toggles service_location fields depending on parent selector.
  *
  * Adds Validation constraint error id match to html.
@@ -437,7 +481,9 @@ function _va_gov_backend_modify_paragraph_interactions(array &$element, FormStat
       ];
     }
     // Remove catpion, rows, and import fields from address tablefield.
-    unset($element['subform']['field_facility_service_hours']['widget'][0]['caption']);
+    if (isset($element['subform']['field_facility_service_hours']['widget'][0]['caption'])) {
+      unset($element['subform']['field_facility_service_hours']['widget'][0]['caption']);
+    }
     $element['subform']['field_facility_service_hours']['widget'][0]['#import'] = FALSE;
     $element['subform']['field_facility_service_hours']['widget'][0]['#addrow'] = FALSE;
     $element['subform']['field_facility_service_hours']['widget'][0]['#rebuild'] = FALSE;
@@ -566,7 +612,9 @@ function _va_gov_backend_gtm_settings() {
  */
 function va_gov_backend_page_bottom(array &$page_bottom) {
   // Add GTM noscript iframe to body.
-  $gtm_noscript = Markup::create('<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ3DLLB&gtm_auth=hHvHnY1eIx1IOSJMAnOBLA&gtm_preview=env-2&gtm_cookies_win=x" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>');
+  $env_name = \Drupal::config('environment_indicator.indicator')->get('name');
+  $env_num = $env_name === 'Production' ? '2' : '5';
+  $gtm_noscript = Markup::create('<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ3DLLB&gtm_auth=hHvHnY1eIx1IOSJMAnOBLA&gtm_preview=env-' . $env_num . '&gtm_cookies_win=x" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>');
   $page_bottom['va_gov_backend'] = ['#markup' => $gtm_noscript];
 }
 

@@ -61,31 +61,31 @@ Feature: Content model: Content Type fields
 | Content type | CMS help page | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | -- Disabled -- | Translatable |
 | Content type | CMS help page | Main content | field_content_block | Entity reference revisions |  | Unlimited | Paragraphs Browser EXPERIMENTAL | Translatable |
 | Content type | CMS help page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Event | A human-readable label for the event location. | field_location_humanreadable | Text (plain) |  | 1 | Textfield |  |
-| Content type | Event | Additional information about registration | field_additional_information_abo | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
+| Content type | Event | Building, floor, or room | field_location_humanreadable | Text (plain) |  | 1 | Textfield |  |
+| Content type | Event | Additional registration  information | field_additional_information_abo | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | Event | Address | field_address | Address |  | 1 | Address |  |
 | Content type | Event | Cost | field_event_cost | Text (plain) |  | 1 | Textfield with counter |  |
 | Content type | Event | Date and time | field_date | Date range |  | 1 | Date and time range |  |
-| Content type | Event | Event listing | field_listing | Entity reference | Required | 1 | Select list |  |
+| Content type | Event | Where should the event be listed? | field_listing | Entity reference | Required | 1 | Select list |  |
 | Content type | Event | Facility location | field_facility_location | Entity reference |  | 1 | Select list |  |
 | Content type | Event | Featured | field_featured | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | Event | Full event description | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
-| Content type | Event | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
+| Content type | Event | Event image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Event | Location type | field_location_type | List (text) |  | 1 | Select list |  |
-| Content type | Event | Meta description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
+| Content type | Event | Teaser description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Event | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Content type | Event | Order | field_order | List (integer) |  | 1 | Select list |  |
 | Content type | Event | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Event | Registration required | field_event_registrationrequired | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | Event | URL Link Label | field_event_cta | List (text) |  | 1 | Select list |  |
-| Content type | Event | URL of an external page or registration link for this event | field_link | Link |  | 1 | Link | Translatable |
-| Content type | Event | URL of an online event | field_url_of_an_online_event | Link |  | 1 | Link |  |
+| Content type | Event | Label | field_event_cta | List (text) |  | 1 | Select list |  |
+| Content type | Event | URL | field_link | Link |  | 1 | Link | Translatable |
+| Content type | Event | Online event link | field_url_of_an_online_event | Link |  | 1 | Link |  |
 | Content type | Events list | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Events list | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Content type | Events list | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Events list | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Events list | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
-| Content type | Events list | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Events list | Office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | FAQ - multiple Q&As | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs Classic | Translatable |
 | Content type | FAQ - multiple Q&As | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | FAQ - multiple Q&As | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
@@ -179,22 +179,22 @@ Feature: Content model: Content Type fields
 | Content type | Step-by-Step | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Step-by-Step | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Step-by-Step | Step-by-step | field_steps | Entity reference revisions | Required | 1 | Paragraphs Classic |  |
-| Content type | Story | Author byline | field_author | Entity reference |  | 1 | Autocomplete |  |
+| Content type | Story | Author | field_author | Entity reference |  | 1 | Autocomplete |  |
 | Content type | Story | Featured | field_featured | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | Story | Full text of Story | field_full_story | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
+| Content type | Story | Body text | field_full_story | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | Story | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
-| Content type | Story | Image caption | field_image_caption | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
-| Content type | Story | Intro text | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+| Content type | Story | Caption | field_image_caption | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
+| Content type | Story | First sentence (lede) | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Story | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Content type | Story | Order | field_order | List (integer) |  | 1 | Select list | Translatable |
 | Content type | Story | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Story | Story listing | field_listing | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Stories list | Intro text | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | Story | Where should the story be listed? | field_listing | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Stories list | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Stories list | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Stories list | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Content type | Stories list | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Stories list | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Stories list | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Stories list | Office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Support Service | Link | field_link | Link |  | 1 | Link |  |
 | Content type | Support Service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Support Service | Page last built | field_page_last_built | Date |  | 1 | Date and time | Translatable |
@@ -231,7 +231,7 @@ Feature: Content model: Content Type fields
 | Content type | VAMC facility | Hours | field_facility_hours  | Table Field |  | 1 | Table Field |  |
 | Content type | VAMC facility | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | VAMC facility | Instagram | field_instagram | Link |  | 1 | Link | Translatable |
-| Content type | VAMC facility | Intro text | field_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
+| Content type | VAMC facility | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | VAMC facility | Health services | field_local_health_care_service_ | Entity reference |  | Unlimited | -- Disabled -- | Translatable |
 | Content type | VAMC facility | Location services | field_location_services | Entity reference revisions |  | Unlimited | Paragraphs Classic |  |
 | Content type | VAMC facility | Main location | field_main_location | Boolean |  | 1 | Single on/off checkbox |  |
@@ -240,11 +240,11 @@ Feature: Content model: Content Type fields
 | Content type | VAMC facility | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Content type | VAMC facility | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | VAMC facility | Nickname for this facility | field_nickname_for_this_facility | Text (plain) | Required | 1 | -- Disabled -- |  |
-| Content type | VAMC facility | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list |  |
-| Content type | VAMC facility | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
+| Content type | VAMC facility | Status | field_operating_status_facility | List (text) | Required | 1 | Select list |  |
+| Content type | VAMC facility | Details | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC facility | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC facility | Phone Number | field_phone_number  | Telephone number |  | 1 | Telephone number | Translatable |
-| Content type | VAMC facility | Region page | field_region_page | Entity reference | Required | 1 | Select list |  |
+| Content type | VAMC facility | What health care system does the facility belong to? | field_region_page | Entity reference | Required | 1 | Select list |  |
 | Content type | VAMC facility | Twitter | field_twitter | Link |  | 1 | Link | Translatable |
 | Content type | VAMC facility health service | Facility | field_facility_location | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC facility health service | Facility description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |

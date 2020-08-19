@@ -4,7 +4,7 @@ Feature: Content model bundles
   As a content editor
   I want to have content entity bundles that reflect my content model.
 
-  @dst @content_type @dstbundles                                                                                                                                                                   
+  @dst @content_type @dstbundles
      Scenario: Bundles
        Then exactly the following content entity type bundles should exist
        | Name | Machine name | Type | Description |
@@ -14,6 +14,7 @@ Feature: Content model bundles
 | Address | address | Paragraph type | An address block. |
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
 | Alert | alert | Paragraph type | A reusable or non-reusable alert, either "information status" or "warning status". |
+| Alert (single) | alert_single | Paragraph type |  |
 | Benefits detail page | page | Content type | These pages hold all of the benefits overview content, such the detail pages linked to from va.gov/disability, va.gov/health-care, and va.gov/education. |
 | Benefits hub landing page | landing_page | Content type | A special page for top-level Benefits content with its own one-off layout and content. |
 | Button | button | Paragraph type | Button with a label and link field. |
@@ -35,11 +36,12 @@ Feature: Content model bundles
 | Link to file or video | downloadable_file | Paragraph type | For image or document downloads. |
 | List of link teasers | list_of_link_teasers | Paragraph type | A paragraph that contains only one type of paragraph: Link teaser. |
 | List of links | list_of_links | Paragraph type | A set of links, with link text and URL required, and an optional header. |
-| Lists of links | lists_of_links | Paragraph type | A list of links, or several lists of links, with an optional section header. |
+| Lists of links | lists_of_links | Paragraph type | WARNING: Learning Center and User Guides only! A list of links, or several lists of links, with an optional section header. |
 | Locations list | locations_listing | Content type | A listing of locations. |
 | NCA facility | nca_facility | Content type | A facility within National Cemetery Administration system. |
 | News release | press_release | Content type | Announcements directed at members of the media for the purpose of publicizing newsworthy events/happenings/programs at specific facilities or healthcare systems. |
 | News releases list | press_releases_listing | Content type | A listing of news releases. |
+| Non-reusable Alert | non_reusable_alert | Paragraph type |  |
 | Number callout | number_callout | Paragraph type | Number callouts can be used in the context of a question & answer, where the answer can be summarized in a short phrase that is number-oriented. |
 | Office | office | Content type | An office at the VA, which may have contact info, events, news, and a leadership page in some cases. |
 | Phone number | phone_number | Paragraph type |  |
@@ -80,3 +82,4 @@ Feature: Content model bundles
 | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
 | Video | video | Media type | A video hosted by YouTube, Vimeo, or some other provider. |
 | WYSIWYG | wysiwyg | Paragraph type | An open-ended text field. |
+

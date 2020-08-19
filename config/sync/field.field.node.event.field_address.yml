@@ -12,24 +12,24 @@ field_name: field_address
 entity_type: node
 bundle: event
 label: Address
-description: 'If there is no physical address for this event, change the country to "- None -"'
+description: 'Add the street address for the event. For online events, change the country to "- None -."'
 required: false
 translatable: false
 default_value:
   -
+    langcode: ''
     country_code: US
-    langcode: null
     administrative_area: ''
     locality: ''
-    dependent_locality: ''
-    postal_code: ''
-    sorting_code: ''
+    dependent_locality: null
+    postal_code: null
+    sorting_code: null
     address_line1: ''
     address_line2: ''
-    organization: ''
-    given_name: ''
-    additional_name: ''
-    family_name: ''
+    organization: null
+    given_name: null
+    additional_name: null
+    family_name: null
 default_value_callback: ''
 settings:
   available_countries:

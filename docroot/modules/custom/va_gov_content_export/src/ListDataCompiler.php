@@ -32,19 +32,21 @@ class ListDataCompiler {
    */
   protected static $listEntityTypes = [
     'event_listing' => ['field_listing'],
+    'full_width_banner_alert' => ['field_banner_alert'],
     'health_care_local_facility_servi' => ['field_location_services'],
-    'health_care_local_facility' => ['field_facility_location'],
+    'health_care_local_facility' => ['field_facility_location', 'field_facility_operating_status'],
     'health_care_local_health_service' => ['field_local_health_care_service_'],
-    'health_care_region_page' => ['field_region_page'],
-    'leadership_listing' => ['field_office'],
+    'health_care_region_page' => ['field_office', 'field_region_page'],
     'office' => ['field_office'],
-    'person_profile' => ['field_leadership'],
+    'person_profile' => ['field_author', 'field_leadership'],
     'press_releases_listing' => ['field_listing'],
     'publication_listing' => ['field_listing'],
     'regional_health_care_service_des' => ['field_regional_health_service', 'field_clinical_health_services'],
     'story_listing' => ['field_listing'],
-    // Should be a list, but can not find anything that points to this.
-    // 'health_services_listing',
+    // Should be lists, but can not find anything that points to these as a
+    // reverse entity reference.
+    // 'health_services_listing', Connected through Taxonomy
+    // 'leadership_listing'  - points to profiles directly.
     // 'locations_listing',.
   ];
 

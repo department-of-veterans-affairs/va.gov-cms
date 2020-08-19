@@ -13,15 +13,51 @@ dependencies:
     - node.type.step_by_step
   module:
     - entity_reference_revisions
+    - field_group
     - text
     - user
+third_party_settings:
+  field_group:
+    group_metadata:
+      children:
+        - field_meta_title
+        - field_description
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        description: ''
+        id: ''
+        classes: ''
+      label: 'Meta tags'
+      region: content
+    group_content:
+      children:
+        - field_intro_text_limited_html
+        - field_buttons
+        - field_steps
+        - field_buttons_repeat
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Content
+      region: content
 id: node.step_by_step.default
 targetEntityType: node
 bundle: step_by_step
 mode: default
 content:
+  content_moderation_control:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_administration:
-    weight: 113
+    weight: 3
     label: above
     settings:
       link: true
@@ -30,7 +66,7 @@ content:
     region: content
   field_buttons:
     type: entity_reference_revisions_entity_view
-    weight: 109
+    weight: 6
     label: above
     settings:
       view_mode: default
@@ -38,7 +74,7 @@ content:
     third_party_settings: {  }
     region: content
   field_buttons_repeat:
-    weight: 110
+    weight: 8
     label: above
     settings:
       format: default
@@ -48,7 +84,7 @@ content:
     type: boolean
     region: content
   field_description:
-    weight: 111
+    weight: 4
     label: above
     settings:
       link_to_entity: false
@@ -56,14 +92,14 @@ content:
     type: string
     region: content
   field_intro_text_limited_html:
-    weight: 112
+    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_meta_title:
-    weight: 108
+    weight: 3
     label: above
     settings:
       link_to_entity: false
@@ -72,7 +108,7 @@ content:
     region: content
   field_steps:
     type: entity_reference_revisions_entity_view
-    weight: 106
+    weight: 7
     label: above
     settings:
       view_mode: default
@@ -80,10 +116,9 @@ content:
     third_party_settings: {  }
     region: content
   links:
-    weight: 100
+    weight: 4
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
-  content_moderation_control: true
   search_api_excerpt: true

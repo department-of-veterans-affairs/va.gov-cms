@@ -296,14 +296,18 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
    * @Then the :option option from :select should be selected
    */
   public function theOptionFromShouldBeSelected($option, $select) {
-    $session = $this->getSession();
-    $select_element = $session->getPage()->find('css', $select);
-    if (empty($select_element)) {
-      throw new \Exception('The select field ' . $select_element . ' does not exist.');
+    $select_field = $this->getSession()->getPage()->find('css', $select);
+    if (NULL === $select_field) {
+      throw new \Exception(sprintf('The select "%s" was not found in the page %s', $select, $this->getSession()->getCurrentUrl()));
     }
-    $option_field_val = $select_element->getText();
-    if ($option !== $option_field_val) {
-      throw new \Exception('Current selection value is ' . $option_field_val . '. The option ' . $option . ' is not selected.');
+
+    $option_field = $select_field->find('xpath', "//option[@selected='selected']");
+    if (NULL === $option_field) {
+      throw new \Exception(sprintf('No option is selected in the %s select in the page %s', $select, $this->getSession()->getCurrentUrl()));
+    }
+
+    if ($option_field->getValue() !== $option) {
+      throw new \Exception(sprintf('The option "%s" was not selected in the page %s, %s was selected', $option, $this->getSession()->getCurrentUrl(), $option_field->getValue()));
     }
   }
 

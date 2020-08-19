@@ -13,7 +13,7 @@ In order to fully test and stabilize the **WEB** building process as it consumes
 There a number of components that allow us to build the **WEB** project inside
 the **CMS** build process:
 
-- Add **WEB** as a composer "package", with it's version defined in the **CMS** composer.json's "repositories" section.
+- Add **WEB** as a composer "package", with its version defined in the **CMS** composer.json's "repositories" section.
 - Require the [mouf/nodejs-installer](https://packagist.org/packages/mouf/nodejs-installer) package.
   This tool automatically installs executable versions of Node and NPM at the specific version we set in `composer.json`.
 - Add to `composer.json`'s "scripts" section (post-install-cmd), to kick off "yarn build" and "npm build" commands after `composer install`.
@@ -23,7 +23,7 @@ the **CMS** build process:
 
 ### Using Composer to install WEB
 
-The CMS codebase leverages a composer feature called "repositories" that let's us define
+The CMS codebase leverages a composer feature called "repositories" that lets us define
 our own "pseudo-package" inside `composer.json`:
 
 ```json
@@ -80,7 +80,7 @@ the "reference" under "va-gov-web" repository:
     }
 }
 ```
-Then followup with a `composer update --lock` and `lando test` will build the FE with the new hash.
+Then followup with a `composer update --lock` and `lando test` will build the front-end with the new hash.
 
 #### Rebuild WEB from a local CMS
 
