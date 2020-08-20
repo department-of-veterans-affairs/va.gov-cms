@@ -161,6 +161,7 @@ $config['slack.settings']['slack_webhook_url'] = $settings['slack_webhook_url'];
 
 // Site Alert settings.
 // If you update this text also update the site alert in the devops repo.
+// @TODO: Move this to a separate file and include it. 
 $settings['va_gov_bybass_message_html'] = <<<EOF
 <div class="severity-high">
   <div class="text">
