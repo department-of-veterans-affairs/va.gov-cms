@@ -5,7 +5,7 @@ namespace Drupal\va_gov_backend\Exception;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
- * An excpetion which returns a 200.
+ * An exception which returns a 200.
  *
  * This allows for stopping a HTTP request and returning a 200 and static HTML.
  */
