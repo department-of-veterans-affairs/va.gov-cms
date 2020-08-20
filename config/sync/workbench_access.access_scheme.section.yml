@@ -8,24 +8,38 @@ dependencies:
     - field.field.media.document.field_owner
     - field.field.media.image.field_owner
     - field.field.media.video.field_owner
+    - field.field.node.checklist.field_administration
+    - field.field.node.documentation_page.field_administration
     - field.field.node.event.field_administration
     - field.field.node.event_listing.field_administration
+    - field.field.node.faq_multiple_q_a.field_administration
     - field.field.node.full_width_banner_alert.field_administration
     - field.field.node.health_care_local_facility.field_administration
     - field.field.node.health_care_local_health_service.field_administration
     - field.field.node.health_care_region_detail_page.field_administration
     - field.field.node.health_care_region_page.field_administration
+    - field.field.node.health_services_listing.field_administration
     - field.field.node.landing_page.field_administration
+    - field.field.node.leadership_listing.field_administration
+    - field.field.node.locations_listing.field_administration
+    - field.field.node.nca_facility.field_administration
     - field.field.node.news_story.field_administration
     - field.field.node.office.field_administration
     - field.field.node.outreach_asset.field_administration
     - field.field.node.page.field_administration
     - field.field.node.person_profile.field_administration
     - field.field.node.press_release.field_administration
+    - field.field.node.press_releases_listing.field_administration
     - field.field.node.publication_listing.field_administration
+    - field.field.node.q_a.field_administration
     - field.field.node.regional_health_care_service_des.field_administration
+    - field.field.node.step_by_step.field_administration
+    - field.field.node.story_listing.field_administration
     - field.field.node.support_service.field_administration
+    - field.field.node.va_form.field_administration
     - field.field.node.vamc_operating_status_and_alerts.field_administration
+    - field.field.node.vba_facility.field_administration
+    - field.field.node.vet_center.field_administration
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
     - taxonomy.vocabulary.administration
 id: section
@@ -127,6 +141,62 @@ scheme_settings:
     -
       entity_type: node
       bundle: full_width_banner_alert
+      field: field_administration
+    -
+      entity_type: node
+      bundle: documentation_page
+      field: field_administration
+    -
+      entity_type: node
+      bundle: story_listing
+      field: field_administration
+    -
+      entity_type: node
+      bundle: press_releases_listing
+      field: field_administration
+    -
+      entity_type: node
+      bundle: locations_listing
+      field: field_administration
+    -
+      entity_type: node
+      bundle: health_services_listing
+      field: field_administration
+    -
+      entity_type: node
+      bundle: leadership_listing
+      field: field_administration
+    -
+      entity_type: node
+      bundle: vet_center
+      field: field_administration
+    -
+      entity_type: node
+      bundle: vba_facility
+      field: field_administration
+    -
+      entity_type: node
+      bundle: nca_facility
+      field: field_administration
+    -
+      entity_type: node
+      bundle: va_form
+      field: field_administration
+    -
+      entity_type: node
+      bundle: q_a
+      field: field_administration
+    -
+      entity_type: node
+      bundle: step_by_step
+      field: field_administration
+    -
+      entity_type: node
+      bundle: faq_multiple_q_a
+      field: field_administration
+    -
+      entity_type: node
+      bundle: checklist
       field: field_administration
     -
       entity_type: taxonomy_term
