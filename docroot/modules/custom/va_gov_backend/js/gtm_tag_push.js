@@ -8,7 +8,10 @@
     'gtm.start': new Date().getTime(),
     event: 'gtm.js'
   });
-  const env = drupalSettings.environmentIndicator.name === "Production" ? "2" : "5";
+  let env = "5";
+  if (drupalSettings.environmentIndicator) {
+    env = drupalSettings.environmentIndicator.name === "Production" ? "2" : "5";
+  }
   var f = d.getElementsByTagName(s)[0],
     j = d.createElement(s),
     dl = l != 'dataLayer' ? '&l=' + l : '';
