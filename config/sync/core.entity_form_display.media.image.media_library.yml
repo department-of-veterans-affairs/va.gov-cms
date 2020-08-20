@@ -40,18 +40,17 @@ bundle: image
 mode: media_library
 content:
   field_description:
-    type: string_textfield_with_counter
+    type: string_textarea_with_counter
     weight: 2
     region: content
     settings:
-      size: 70
+      rows: 5
       placeholder: ''
-      use_field_maxlength: true
-      maxlength: 0
+      maxlength: 300
       counter_position: after
       js_prevent_submit: true
       count_html_characters: true
-      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
   field_media_in_library:
     type: boolean_checkbox
