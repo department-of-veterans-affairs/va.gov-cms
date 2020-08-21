@@ -22,6 +22,7 @@ dependencies:
     - field.field.node.landing_page.field_administration
     - field.field.node.leadership_listing.field_administration
     - field.field.node.locations_listing.field_administration
+    - field.field.node.media_list_videos.field_administration
     - field.field.node.nca_facility.field_administration
     - field.field.node.news_story.field_administration
     - field.field.node.office.field_administration
@@ -197,6 +198,10 @@ scheme_settings:
     -
       entity_type: node
       bundle: checklist
+      field: field_administration
+    -
+      entity_type: node
+      bundle: media_list_videos
       field: field_administration
     -
       entity_type: taxonomy_term
