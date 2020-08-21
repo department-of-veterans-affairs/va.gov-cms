@@ -489,17 +489,6 @@ function _va_gov_backend_modify_paragraph_interactions(array &$element, FormStat
     $element['subform']['field_facility_service_hours']['widget'][0]['#rebuild'] = FALSE;
   }
 
-  // Toggle address field depending on "Use facility address?" boolean.
-  if ($paragraph_type === 'service_location_address') {
-
-    $selector = sprintf(':input[name="field_service_location[%1$d][subform][field_service_location_address][%1$d][subform][field_use_facility_address][value]"]', $element['#delta']);
-    $element['subform']['field_address']['#states'] = [
-      'invisible' => [
-        $selector => ['checked' => TRUE],
-      ],
-    ];
-  }
-
   // 1. Hide the extension field if phone option is not selected.
   // 2. Add constraint error message jumplink to phone field.
   if ($paragraph_type === 'phone_number') {
@@ -559,6 +548,10 @@ function va_gov_backend_page_attachments(array &$attachments) {
 
   $attachments['#attached']['library'][] = 'va_gov_backend/alert_form';
   $attachments['#attached']['library'][] = 'va_gov_backend/system_styles';
+  // Nested address in service location paragraphs result in multiple deltas.
+  // Tracking this with states api gets messy.
+  // Bypass and use behaviors directly.
+  $attachments['#attached']['library'][] = 'va_gov_backend/service_location_address';
   $is_admin = \Drupal::service('router.admin_context')->isAdminRoute();
   if ($is_admin) {
     // Add custom css for paragraph browser.
