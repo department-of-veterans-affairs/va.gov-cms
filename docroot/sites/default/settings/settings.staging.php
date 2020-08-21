@@ -30,5 +30,6 @@ $settings['trusted_host_patterns'] = [
     'va-gov-cms.lndo.site',
     'stg.cms.va.gov',
     'staging.cms.va.gov',
+    'test.staging.cms.va.gov',
     '.*\.us-gov-west-1\.elb\.amazonaws\.com',
 ];
