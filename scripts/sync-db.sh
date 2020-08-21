@@ -40,6 +40,6 @@ echo "Purging devel configuration files."
     rm -f "$(git rev-parse --show-toplevel)"/config/dev/devel.settings.yml
     rm -f "$(git rev-parse --show-toplevel)"/config/dev/devel.toolbar.settings.yml
     rm -f "$(git rev-parse --show-toplevel)"/config/dev/system.menu.devel.yml
-echo "Importing database."
+    echo "Importing database."
     lando db-import cms-prod-db-sanitized-latest.sql
 fi
