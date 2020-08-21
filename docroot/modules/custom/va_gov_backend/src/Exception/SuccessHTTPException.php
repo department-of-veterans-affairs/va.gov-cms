@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 /**
  * An exception which returns a 200.
  *
- * This allows for stopping a HTTP request from bootstrapping Drupal, 
+ * This allows for stopping a HTTP request from bootstrapping Drupal,
  * then returning a 200 with static HTML.
  */
 class SuccessHTTPException extends HttpException {
