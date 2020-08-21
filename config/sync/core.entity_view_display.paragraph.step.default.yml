@@ -3,18 +3,46 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.step.field_alert
     - field.field.paragraph.step.field_media
     - field.field.paragraph.step.field_wysiwyg
     - paragraphs.paragraphs_type.step
   module:
+    - entity_reference_revisions
+    - field_group
     - text
+third_party_settings:
+  field_group:
+    group_step:
+      children:
+        - field_wysiwyg
+        - field_alert
+        - field_media
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Step
+      region: content
 id: paragraph.step.default
 targetEntityType: paragraph
 bundle: step
 mode: default
 content:
+  field_alert:
+    type: entity_reference_revisions_entity_view
+    weight: 2
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
   field_media:
-    weight: 1
+    weight: 3
     label: hidden
     settings:
       view_mode: embedded
@@ -23,7 +51,7 @@ content:
     type: entity_reference_entity_view
     region: content
   field_wysiwyg:
-    weight: 0
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }

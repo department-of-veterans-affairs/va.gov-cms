@@ -1,0 +1,129 @@
+uuid: 0023b852-4a36-47d7-97a9-bbeb77b8699a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_va_paragraphs
+    - paragraphs.paragraphs_type.expandable_text
+    - paragraphs.paragraphs_type.non_reusable_alert
+    - paragraphs.paragraphs_type.wysiwyg
+  module:
+    - entity_reference_revisions
+id: paragraph.non_reusable_alert.field_va_paragraphs
+field_name: field_va_paragraphs
+entity_type: paragraph
+bundle: non_reusable_alert
+label: 'Alert Content'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      expandable_text: expandable_text
+      wysiwyg: wysiwyg
+    target_bundles_drag_drop:
+      address:
+        weight: -65
+        enabled: false
+      alert:
+        weight: -64
+        enabled: false
+      button:
+        weight: -63
+        enabled: false
+      checklist:
+        weight: -62
+        enabled: false
+      checklist_item:
+        weight: -61
+        enabled: false
+      collapsible_panel:
+        weight: -60
+        enabled: false
+      collapsible_panel_item:
+        weight: -59
+        enabled: false
+      downloadable_file:
+        weight: -58
+        enabled: false
+      expandable_text:
+        enabled: true
+        weight: -67
+      health_care_local_facility_servi:
+        weight: -57
+        enabled: false
+      link_teaser:
+        weight: -56
+        enabled: false
+      list_of_link_teasers:
+        weight: -55
+        enabled: false
+      list_of_links:
+        weight: -54
+        enabled: false
+      lists_of_links:
+        weight: -53
+        enabled: false
+      media:
+        weight: -52
+        enabled: false
+      non_reusable_alert:
+        weight: -51
+        enabled: false
+      number_callout:
+        weight: -50
+        enabled: false
+      phone_number:
+        weight: -49
+        enabled: false
+      process:
+        weight: -48
+        enabled: false
+      q_a:
+        weight: -47
+        enabled: false
+      q_a_group:
+        weight: -46
+        enabled: false
+      q_a_section:
+        weight: -45
+        enabled: false
+      react_widget:
+        weight: -44
+        enabled: false
+      service_location:
+        weight: -43
+        enabled: false
+      service_location_address:
+        weight: -42
+        enabled: false
+      situation_update:
+        weight: -41
+        enabled: false
+      spanish_translation_summary:
+        weight: -40
+        enabled: false
+      staff_profile:
+        weight: -39
+        enabled: false
+      starred_horizontal_rule:
+        weight: -38
+        enabled: false
+      step:
+        weight: -37
+        enabled: false
+      step_by_step:
+        weight: -36
+        enabled: false
+      table:
+        weight: -35
+        enabled: false
+      wysiwyg:
+        enabled: true
+        weight: -66
+field_type: entity_reference_revisions

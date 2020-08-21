@@ -397,6 +397,50 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
 }
 
 /**
+ * Implements hook_field_widget_entity_reference_paragraphs_form_alter().
+ */
+function va_gov_backend_field_widget_entity_reference_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
+  _va_gov_backend_modify_alert_single_states($element, $form_state, $context);
+}
+
+/**
+ * Toggle Reusable and Non-reusable Alert_Single subform fields.
+ *
+ * Adds Validation constraint error id match to html.
+ *
+ * @param array $element
+ *   The widget.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ * @param array $context
+ *   The context.
+ */
+function _va_gov_backend_modify_alert_single_states(array &$element, FormStateInterface &$form_state, array &$context) {
+  // Toggle Reusable & Non-reusable Alert_Single subform field on alert select.
+  if ($element['#paragraph_type'] === 'alert_single') {
+    $element_path = $element['subform']['#parents'];
+    $parent_field = array_shift($element_path);
+    $element_path_string = implode('][', $element_path);
+    // Confirming element path exists before applying states logic to fields.
+    if (!empty($parent_field) && !empty($element_path_string)) {
+      $selector = ':input[name="' . $parent_field . '[' . $element_path_string . '][field_alert_selection]"]';
+
+      $element['subform']['field_alert_block_reference']['#states'] = [
+        'visible' => [
+          [$selector => ['value' => 'R']],
+        ],
+      ];
+
+      $element['subform']['field_alert_non_reusable_ref']['#states'] = [
+        'visible' => [
+          [$selector => ['value' => 'NR']],
+        ],
+      ];
+    }
+  }
+}
+
+/**
  * Toggles service_location fields depending on parent selector.
  *
  * Adds Validation constraint error id match to html.
@@ -443,17 +487,6 @@ function _va_gov_backend_modify_paragraph_interactions(array &$element, FormStat
     $element['subform']['field_facility_service_hours']['widget'][0]['#import'] = FALSE;
     $element['subform']['field_facility_service_hours']['widget'][0]['#addrow'] = FALSE;
     $element['subform']['field_facility_service_hours']['widget'][0]['#rebuild'] = FALSE;
-  }
-
-  // Toggle address field depending on "Use facility address?" boolean.
-  if ($paragraph_type === 'service_location_address') {
-
-    $selector = sprintf(':input[name="field_service_location[%1$d][subform][field_service_location_address][%1$d][subform][field_use_facility_address][value]"]', $element['#delta']);
-    $element['subform']['field_address']['#states'] = [
-      'invisible' => [
-        $selector => ['checked' => TRUE],
-      ],
-    ];
   }
 
   // 1. Hide the extension field if phone option is not selected.
@@ -515,6 +548,10 @@ function va_gov_backend_page_attachments(array &$attachments) {
 
   $attachments['#attached']['library'][] = 'va_gov_backend/alert_form';
   $attachments['#attached']['library'][] = 'va_gov_backend/system_styles';
+  // Nested address in service location paragraphs result in multiple deltas.
+  // Tracking this with states api gets messy.
+  // Bypass and use behaviors directly.
+  $attachments['#attached']['library'][] = 'va_gov_backend/service_location_address';
   $is_admin = \Drupal::service('router.admin_context')->isAdminRoute();
   if ($is_admin) {
     // Add custom css for paragraph browser.
