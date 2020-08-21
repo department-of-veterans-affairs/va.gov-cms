@@ -6,7 +6,6 @@ Feature: Permissions
       | "page"                             |
       | "landing_page"                     |
       | "health_care_region_detail_page"   |
-      | "documentation_page"               |
       | "event"                            |
       | "event_listing"                    |
       | "health_care_local_facility"       |
@@ -51,7 +50,6 @@ Feature: Permissions
       | "content_editor" | "page"                             |
       | "content_editor" | "landing_page"                     |
       | "content_editor" | "health_care_region_detail_page"   |
-      | "content_editor" | "documentation_page"               |
       | "content_editor" | "event"                            |
       | "content_editor" | "event_listing"                    |
       | "content_editor" | "health_care_local_facility"       |
@@ -93,7 +91,6 @@ Feature: Permissions
       | "page"                           | "page page"                           |
       | "landing_page"                   | "landing_page page"                   |
       | "health_care_region_detail_page" | "health_care_region_detail_page page" |
-      | "documentation_page"             | "documentation_page page"             |
       | "event"                          | "event page"                          |
       | "event_listing"                  | "event_listing page"                  |
       | "health_care_local_facility"     | "health_care_local_facility page"     |
@@ -157,7 +154,6 @@ Feature: Permissions
       | "page"                           | "page page3"                           |
       | "landing_page"                   | "landing_page page3"                   |
       | "health_care_region_detail_page" | "health_care_region_detail_page page3" |
-      | "documentation_page"             | "documentation_page page3"             |
       | "event"                          | "event page3"                          |
       | "event_listing"                  | "event_listing page3"                  |
       | "health_care_local_facility"     | "health_care_local_facility page3"     |
