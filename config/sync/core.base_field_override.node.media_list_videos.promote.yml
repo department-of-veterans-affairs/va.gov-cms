@@ -1,0 +1,22 @@
+uuid: 56b269ba-50bf-4c77-9e29-b6e2b127b4e8
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.media_list_videos
+id: node.media_list_videos.promote
+field_name: promote
+entity_type: node
+bundle: media_list_videos
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

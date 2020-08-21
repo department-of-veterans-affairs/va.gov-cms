@@ -1,0 +1,133 @@
+uuid: 4431fcaa-b3a9-49ff-87d4-536d19bdaa17
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media_list_videos
+    - node.type.media_list_videos
+    - paragraphs.paragraphs_type.media_list_videos
+  module:
+    - entity_reference_revisions
+id: node.media_list_videos.field_media_list_videos
+field_name: field_media_list_videos
+entity_type: node
+bundle: media_list_videos
+label: Videos
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      media_list_videos: media_list_videos
+    target_bundles_drag_drop:
+      address:
+        weight: 36
+        enabled: false
+      alert:
+        weight: 37
+        enabled: false
+      alert_single:
+        weight: 38
+        enabled: false
+      button:
+        weight: 39
+        enabled: false
+      checklist:
+        weight: 40
+        enabled: false
+      checklist_item:
+        weight: 41
+        enabled: false
+      collapsible_panel:
+        weight: 42
+        enabled: false
+      collapsible_panel_item:
+        weight: 43
+        enabled: false
+      downloadable_file:
+        weight: 44
+        enabled: false
+      expandable_text:
+        weight: 45
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 46
+        enabled: false
+      link_teaser:
+        weight: 47
+        enabled: false
+      list_of_link_teasers:
+        weight: 48
+        enabled: false
+      list_of_links:
+        weight: 49
+        enabled: false
+      lists_of_links:
+        weight: 50
+        enabled: false
+      media:
+        weight: 51
+        enabled: false
+      media_list_videos:
+        enabled: true
+        weight: 52
+      non_reusable_alert:
+        weight: 53
+        enabled: false
+      number_callout:
+        weight: 54
+        enabled: false
+      phone_number:
+        weight: 55
+        enabled: false
+      process:
+        weight: 56
+        enabled: false
+      q_a:
+        weight: 57
+        enabled: false
+      q_a_group:
+        weight: 58
+        enabled: false
+      q_a_section:
+        weight: 59
+        enabled: false
+      react_widget:
+        weight: 60
+        enabled: false
+      service_location:
+        weight: 61
+        enabled: false
+      service_location_address:
+        weight: 62
+        enabled: false
+      situation_update:
+        weight: 63
+        enabled: false
+      spanish_translation_summary:
+        weight: 64
+        enabled: false
+      staff_profile:
+        weight: 65
+        enabled: false
+      starred_horizontal_rule:
+        weight: 66
+        enabled: false
+      step:
+        weight: 67
+        enabled: false
+      step_by_step:
+        weight: 68
+        enabled: false
+      table:
+        weight: 69
+        enabled: false
+      wysiwyg:
+        weight: 70
+        enabled: false
+field_type: entity_reference_revisions

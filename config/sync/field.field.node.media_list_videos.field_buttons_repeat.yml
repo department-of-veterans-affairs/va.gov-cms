@@ -1,0 +1,23 @@
+uuid: acf4e5b8-f7da-447e-bd72-9bd587c424f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_buttons_repeat
+    - node.type.media_list_videos
+id: node.media_list_videos.field_buttons_repeat
+field_name: field_buttons_repeat
+entity_type: node
+bundle: media_list_videos
+label: 'Repeat CTA buttons'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
