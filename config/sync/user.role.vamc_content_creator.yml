@@ -3,10 +3,10 @@ langcode: en
 status: true
 dependencies:
   module:
-    - lightning_core
+    - va_gov_backend
 third_party_settings:
-  lightning_core:
-    description: "Can create content types related to VAMC (except for the parent \"VAMC\" and \"VAMC Operating Status\" content types, which are created by content admins). <br/>\r\nUsers with this role should also be editors, reviewers, or publishers."
+  va_gov_backend:
+    vgb_description: "Can create content types related to VAMC (except for the parent \"VAMC\" and \"VAMC Operating Status\" content types, which are created by content admins). <br/>\r\nUsers with this role should also be editors, reviewers, or publishers."
 id: vamc_content_creator
 label: 'Content creator - VAMC'
 weight: -5
