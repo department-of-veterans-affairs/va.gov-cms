@@ -1,0 +1,37 @@
+.toolbar-bar {
+  // Environment indicator is always last, float it right.
+  .toolbar-tab:last-child {
+    float: right;
+  }
+
+  .toolbar-icon {
+    // Help center icon.
+    &-toolbar-menu-cms_help_center {
+      &:before {
+        background-image: url(/core/misc/icons/bebebe/questionmark-disc.svg)
+      }
+      &.is-active:before {
+        background-image: url(/core/misc/icons/ffffff/questionmark-disc.svg)
+      }
+    }
+
+    // Sections icon.
+    &-toolbar-menu-sections {
+      &:before {
+        background-image: url(../../images/icons/sections-bebebe.svg)
+      }
+
+      &.is-active:before {
+        background-image: url(../../images/icons/sections-ffffff.svg)
+      }
+    }
+
+    // Remove environment indicator icon.
+    &-environment {
+      &:before,
+      &.is-active:before {
+        background-image: none;
+      }
+    }
+  }
+}
