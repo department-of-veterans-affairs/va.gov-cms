@@ -785,16 +785,8 @@ function va_gov_backend_mail_alter(&$message) {
  */
 function va_gov_backend_rebuild() {
   // Update the drupal state to display git info in admin toolbar.
-  $branch = mb_strimwidth(exec('git rev-parse --abbrev-ref HEAD'), 0, 20, '...') ?? 'git unknown';
-  $tag_hash = trim(exec('git describe --tags')) ?? '--';
-  if ($branch === 'HEAD') {
-    // In BRD environment or checked out a tag/commit directly, show no branch.
-    $indicator = $tag_hash;
-  }
-  else {
-    // We are in not in BRD environment, so display branch.
-    $indicator = "Branch: {$branch}  Tag-SHA: {$tag_hash}";
-  }
+  $tag_hash = str_replace('cms/', 'VACMS ', (trim(exec('git describe --tags')))) ?? '--';
+  $indicator = substr($tag_hash, 0, strpos($tag_hash, "-"));
 
   \Drupal::state()->set("environment_indicator.current_release", $indicator);
 }
@@ -937,5 +929,14 @@ function _va_gov_backend_set_field_listing_value(EntityInterface &$entity, array
     $entity->set('field_listing', NULL);
     // Assuming there's only one Event Listing per Office/VAMC System.
     $entity->field_listing[] = ['target_id' => $id];
+  }
+}
+
+/**
+ * Disable the search tool in the toolbar menu.
+ */
+function va_gov_backend_toolbar_alter(&$items) {
+  if (!empty($items['administration_search'])) {
+    unset($items['administration_search']);
   }
 }
