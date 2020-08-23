@@ -42,7 +42,7 @@ Feature: Content model bundles
 | Media list - Videos | media_list_videos | Paragraph type |  |
 | NCA Facility | nca_facility | Content type | A facility within National Cemetery Administration system. |
 | News Release | press_release | Content type | Announcements directed at members of the media for the purpose of publicizing newsworthy events/happenings/programs at specific facilities or healthcare systems. |
-| News Releases list | press_releases_listing | Content type | A listing of news releases. |
+| News Releases List | press_releases_listing | Content type | A listing of news releases. |
 | Non-reusable Alert | non_reusable_alert | Paragraph type |  |
 | Number callout | number_callout | Paragraph type | Number callouts can be used in the context of a question & answer, where the answer can be summarized in a short phrase that is number-oriented. |
 | Office | office | Content type | An office at the VA, which may have contact info, events, news, and a leadership page in some cases. |
