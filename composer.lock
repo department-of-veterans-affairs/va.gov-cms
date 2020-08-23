@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75860fc3e8fea50b521825a0d670bf15",
+    "content-hash": "c942c308869204836332fe9c830ad313",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5193,7 +5193,7 @@
                     }
                 },
                 "patches_applied": {
-                    "Table drag doesn't work on new entity form": "https://www.drupal.org/files/issues/2020-08-21/entity_browser_table_broken_drag.patch"
+                    "Table drag doesn't work on new entity form, and sort is lost on ajax": "https://www.drupal.org/files/issues/2020-08-23/fix-sort-loss-and-add-form-3166733-1.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -19654,6 +19654,7 @@
         "drupal/content_lock": 15,
         "drupal/entity_block": 10,
         "drupal/entity_clone": 10,
+        "drupal/entityqueue": 10,
         "drupal/fast_404": 15,
         "drupal/field_group": 20,
         "drupal/fieldhelptext": 10,
