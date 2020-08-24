@@ -11,6 +11,7 @@ Feature: Menus
 | Administration | admin | Administrative task links |
 | Burials and memorials benefits hub | burials-and-memorials-benef | For pages in the /burials-and-memorials benefits hub |
 | Careers & employment benefits hub | careers-employment-benefits | va.gov/careers-employment |
+| CMS user guides | documentation | How-to's for editing content in the VA.gov CMS |
 | Decision reviews | decision-reviews-benefits-h |  |
 | Disability benefits hub | disability-benefits-hub | For pages in the /disability benefits hub |
 | Education benefits hub | education-benefits-hub | For pages in the /education benefits hub |
@@ -99,4 +100,3 @@ Feature: Menus
 | VA White River Junction health care | va-white-river-junction-health-c |  |
 | VA Wilkes-Barre health care | va-wilkes-barre-health-care | va.gov/wilkes-barre-health-care |
 | VA Wilmington health care | va-wilmington-health-care | va.gov/wilmington-health-care |
-| VA.gov CMS documentation | documentation | How-to's for editing content in the VA.gov CMS |
