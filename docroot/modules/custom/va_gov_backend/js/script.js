@@ -64,7 +64,7 @@
 
         // Loops through alerts that have non reusable alert fielsets present and disables alert selection field.
         $.each(nonReusableAlertAddedIds,function (key, value) {
-          nonReusableAlertSelectionIds.push($('#' + value).closest('div[id*="subform-field-alert-wrapper"]').find(".paragraphs-subform").first().children(".field--name-field-alert-selection").children().children(".fieldset-wrapper").children().attr("id"));
+          nonReusableAlertSelectionIds.push($('#' + value).closest("div[id*='subform-field-alert-wrapper'],div[id*='alert-single-wrapper']").find(".paragraphs-subform").first().children(".field--name-field-alert-selection").children().children(".fieldset-wrapper").children().attr("id"));
           $.each(nonReusableAlertSelectionIds,function (key, value) {
             $('#' + value + '> div > input').each(function () {
               $(this).prop('disabled', true);
