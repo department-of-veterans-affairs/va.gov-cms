@@ -4,7 +4,10 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.media.media_library
+    - field.field.media.image.field_description
     - field.field.media.image.field_media_in_library
+    - field.field.media.image.field_media_submission_guideline
+    - field.field.media.image.field_owner
     - field.field.media.image.image
     - image.style.large
     - media.type.image
@@ -36,6 +39,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_description: true
   field_media_in_library: true
   field_media_submission_guideline: true
   field_owner: true

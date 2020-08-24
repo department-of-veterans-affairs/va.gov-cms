@@ -38,6 +38,7 @@ Feature: Content model bundles
 | List of links | list_of_links | Paragraph type | A set of links, with link text and URL required, and an optional header. |
 | Lists of links | lists_of_links | Paragraph type | WARNING: Learning Center and User Guides only! A list of links, or several lists of links, with an optional section header. |
 | Locations List | locations_listing | Content type | A listing of VA facilities. |
+| Media list - Images | media_list_images | Paragraph type |  |
 | Media list - Videos | media_list_videos | Paragraph type |  |
 | NCA Facility | nca_facility | Content type | A facility within National Cemetery Administration system. |
 | News Release | press_release | Content type | Announcements directed at members of the media for the purpose of publicizing newsworthy events/happenings/programs at specific facilities or healthcare systems. |
