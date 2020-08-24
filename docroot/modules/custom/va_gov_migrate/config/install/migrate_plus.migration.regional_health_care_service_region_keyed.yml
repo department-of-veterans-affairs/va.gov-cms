@@ -56,6 +56,7 @@ process:
     source: field_owner
   field_region_page:
     plugin: entity_lookup
+    access_check: false
     ignore_case: true
     value_key: title
     entity_type: node
