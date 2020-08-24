@@ -43,21 +43,21 @@ Within the CMS we have put in a lot of [safeguards to detect broken links](https
 Three parts of the system work together:
 
 #### I. CMS
-At the highest level, the CMS manages redirects already.  It tracks them, sorts out and prevents circular references (infinite redirects), and can handle query parameters, if needed for legacy handling. The CMS even provides a nice user interface for adding, deleting, and editing source, destination and status codes.  The CMS currently makes redirects available to both GraphQL and the static file content exports.  Only one minor change is need on the CMS side to translate node/# paths to the proper alias.  We simply need a way for the Front-End to act on the redirects in the CMS.  The CMS treats them like content, and the Front-End should too.  When a title changes, in most cases, the URL changes, so a redirect is needed.  Any Front-End system that does not account for that is a 404 factory.
+At the highest level, the CMS manages redirects already.  It tracks them, sorts out and prevents circular references (infinite redirects), creates new redirects for moved pages and can handle query parameters, if needed for legacy handling. The CMS even provides a nice user interface for adding, deleting, and editing source, destination and status codes.  The CMS currently makes redirects available to both GraphQL and the static file content exports.  Only one minor change is needed on the CMS side to translate node/# paths to the proper alias.  We simply need a way for the Front-End to act on the redirects in the CMS. The CMS treats redirects like content, and the Front-End should too.  When a title changes, in most cases, the URL changes, so a redirect is needed.  Any Front-End system that does not account for that is a 404 factory, which is our current condition.
 
 #### II. Vets-website content creation.
 Local environments that are not AWS based would need to function correctly with automated tests and human users.  So one part of this strategy is to create client side redirects by creating an html file with a meta refresh tag
 `<meta http-equiv="refresh" content="0; URL='/new/path/destination'" />` for each redirect object found in the content export.  This will happen at the same time that content html pages are built.
 
 #### III. Vets-website deploy to AWS
-During the vets-website deploy to AWS, the system currently generates an AWS Object for each static page of the VA.gov website.  Via the same object creation process we can add an [AWS Object with redirect metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/how-to-page-redirect.html) that describes both the destination and the return code for each html page that contains a meta refresh tag. These AWS Objects get discarded and rebuilt on each content release, so they would **always** be in sync with the content from the CMS.  By adding these, the website when running in an AWS environment would have the more desireable server side redirects.
+During the vets-website deploy to AWS S3, the system currently generates an object for each static page of the VA.gov website.  Via the same object creation process we can add an [S3 object with redirect metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/how-to-page-redirect.html) that describes both the destination and the return code for each HTML page that contains a meta-refresh tag. These S3 objects get discarded and rebuilt on each content release, so they would **always** be in sync with the content from the CMS.  By adding these, the website when running in an AWS environment would have the more desireable server side redirects instead of the browser-based `meta-refresh` redirects.
 
 ## Specifics
 
 ### Detailed Design
 
 #### I. CMS
-The redirects are output in the content export like this
+The redirects are output in the content export like this:
 ```
 {
     "rid": [
@@ -159,9 +159,9 @@ This would be a trivial to add.
 
 Step I: Addition of relative path for destination would be added to the [CMS repo here](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/docroot/modules/custom/va_gov_content_export/src/TomeExporter.php#L97)
 
-Step II: Build the html files with meta refresh during content file generation in the [vets-website repo here](https://github.com/kevwalsh/vets-website/blob/1d6a53cd9b53ec71b69ae2bce78bd5694eaf1d7f/src/site/stages/build/drupal/metalsmith-drupal.js#L51).
+Step II: Build the HTML files with meta refresh during content file generation in the [vets-website repo here](https://github.com/kevwalsh/vets-website/blob/1d6a53cd9b53ec71b69ae2bce78bd5694eaf1d7f/src/site/stages/build/drupal/metalsmith-drupal.js#L51).
 
-Step III:  Building the AWS objects with redirect metadata would happen in the [Devops repo here](https://github.com/department-of-veterans-affairs/devops/blob/a58dfbc762466905d5727cb4cd626d5e6dad9c3f/ansible/deployment/roles/deploy-vets-website/files/vets-website-deploy.sh)
+Step III:  Building the AWS S3 objects with redirect metadata would happen in the [Devops repo here](https://github.com/department-of-veterans-affairs/devops/blob/a58dfbc762466905d5727cb4cd626d5e6dad9c3f/ansible/deployment/roles/deploy-vets-website/files/vets-website-deploy.sh)
 which is called from [here](https://github.com/department-of-veterans-affairs/devops/blob/6fd9fc8f5ebcb2b685e4e0a20450c472655fcef2/ansible/deployment/roles/deploy-vets-website/tasks/main.yml#L2-L7)
 
 
@@ -171,7 +171,7 @@ The current content release method already does link checking.  This method woul
 Additional testing could be added on the Vets-website deployment tests to verify that a set of redirects work properly on the server side redirects in AWS.
 
 ### Logging
-Logging would not be required.  There may be some statistics that could be tracked within AWS, but that may not be necessary.  Google Analytics may also be used to track instances of displaying the 404 page that may in some cases include referral data.  Server logs track http requests and are likely already used to track requests ending in 404 errors.
+Logging would not be required.  There may be some statistics that could be tracked within AWS, but that may not be necessary.  Google Analytics may also be used to track instances of displaying the 404 page that may in some cases include referral data.  Server logs track HTTP requests and are likely already used to track requests ending in 404 errors.
 
 ### Debugging
 CURL would be the simplest and most useful debugging method of looking at and debugging redirects on any of the BRD environments as well as local environments.  On local environments simply inspecting a page's meta refresh tag would provide debug specific data.
@@ -191,8 +191,8 @@ None at this time.
 
 ### Work Estimates
 1. CMS: Add destination path to CMS content export. (~3 story points)
-2. PWS: Add build of html pages that have meta-refresh along side the current html page builds for each content export redirect.*.json file.  These create the client side redirects for use in non-AWS environments. (~3 story points)
-3. PWS Devops : Add processing to vets-website deploy to create an AWS Object with redirect metadata for any html page that contains a meta-refresh tag. This would create server side redirects for any AWS environments. (~10 story points)
+2. PWS: Add build of HTML pages that have meta-refresh along side the current HTML page builds for each content export redirect.*.json file.  These create the client side redirects for use in non-AWS environments. (~3 story points)
+3. PWS Devops : Add processing to vets-website deploy to create an AWS Object with redirect metadata for any HTML page that contains a meta-refresh tag. This would create server side redirects for any AWS environments. (~10 story points)
 
 ### Alternatives
 
@@ -200,7 +200,7 @@ None at this time.
 This [epic was planned and then dropped](https://github.com/department-of-veterans-affairs/va.gov-team/issues/503).
 This is another option that could be carried out, however in order to be effective it would have to:
 a) occur on every Content Release from the CMS.
-b) nginX or F5 would have to be able to remove old or altered redirects to keep them from conflicting with new or updated redirects  In other words it would have to support full CrUD operations and not just import.
+b) Nginx or F5 would have to be able to remove old or altered redirects to keep them from conflicting with new or updated redirects. In other words it would have to support full CRUD operations and not just import.
 
 **Pros/Cons**
 * +All redirects would be handled in one technical layer.
