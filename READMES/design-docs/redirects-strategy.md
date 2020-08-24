@@ -31,6 +31,8 @@ Within the CMS we have put in a lot of [safeguards to detect broken links](https
 | Link from external site to page in CMS that has been moved | 404 | 200 |
 | Browser bookmark / email link to page in CMS that has been moved | 404 | 200 |
 
+The current state of managing redirects for content, involves content editors and a developer coordinating and choreographing the release of the contnet with the addition of the redirect(s).  It is time intensive and risk prone.  VA needs a redirect system that is easier to manage and less reliant on developers timing releases perfectly to match.
+
 ### Guiding Principles
 1. Veterans should not get 404 errors.
 2. Content on VA.gov should not have broken links to content also on VA.gov.
