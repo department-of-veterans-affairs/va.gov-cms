@@ -27,7 +27,6 @@ $config['environment_indicator.indicator']['name'] = 'Lando';
 $config['migrate_plus.migration.va_node_form']['source']['urls'] = ['http://va-gov-cms.lndo.site/sites/default/files/migrate_source/va_forms_data.csv'];
 $settings['file_public_base_url'] = 'http://va-gov-cms.lndo.site/sites/default/files';
 
-
 $settings['trusted_host_patterns'] = [
     // For ALB/ELB Healthchecks.
     'localhost',
