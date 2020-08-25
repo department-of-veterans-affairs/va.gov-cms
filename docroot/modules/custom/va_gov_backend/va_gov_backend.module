@@ -831,8 +831,8 @@ function va_gov_backend_mail_alter(&$message) {
 function va_gov_backend_rebuild() {
   // Update the drupal state to display git info in admin toolbar.
   $branch = mb_strimwidth(exec('git rev-parse --abbrev-ref HEAD'), 0, 20, '...') ?? 'git unknown';
-  $tag_hash = str_replace('cms/', 'VACMS ', (trim(exec('git describe --tags')))) ?? '--';
-  $git_tag = substr($tag_hash, 0, strpos($tag_hash, "-"));
+  $tag_hash = (trim(exec('git describe --tags'))) ?? '--';
+  $git_tag = str_replace('cms/', 'VACMS ', substr($tag_hash, 0, strpos($tag_hash, "-")));
   if ($branch === 'HEAD') {
     // In BRD environment or checked out a tag/commit directly, show no branch.
     $indicator = $git_tag;
@@ -843,6 +843,48 @@ function va_gov_backend_rebuild() {
   }
 
   \Drupal::state()->set("environment_indicator.current_release", $indicator);
+}
+
+/**
+ * Implements hook_toolbar().
+ *
+ * Defines Branch component in Admin Toolbar Menu.
+ */
+function va_gov_backend_toolbar() {
+  $items = [];
+  $items['branch'] = [
+    '#cache' => [
+      'contexts' => ['user.permissions'],
+    ],
+    '#type' => 'toolbar_item',
+    'tab' => [
+      '#type' => 'html_tag',
+      '#tag' => 'div',
+      '#value' => \Drupal::state()->get("environment_indicator.current_release"),
+      '#attributes' => [
+        'title' => 'See https://github.com/department-of-veterans-affairs/va.gov-cms for more info.',
+        'class' => ['toolbar-icon', 'toolbar-icon-branch'],
+      ],
+    ],
+    '#wrapper_attributes' => [
+      'class' => ['toolbar-tab', 'branch-toolbar-tab'],
+    ],
+    '#weight' => 100,
+  ];
+
+  return $items;
+}
+
+/**
+ * Disable the search tool in the toolbar menu.
+ */
+function va_gov_backend_toolbar_alter(&$items) {
+  if (!empty($items['administration_search'])) {
+    unset($items['administration_search']);
+  }
+  if (!empty($items['environment_indicator'])) {
+    unset($items['environment_indicator']);
+  }
 }
 
 /**
@@ -983,14 +1025,5 @@ function _va_gov_backend_set_field_listing_value(EntityInterface &$entity, array
     $entity->set('field_listing', NULL);
     // Assuming there's only one Event Listing per Office/VAMC System.
     $entity->field_listing[] = ['target_id' => $id];
-  }
-}
-
-/**
- * Disable the search tool in the toolbar menu.
- */
-function va_gov_backend_toolbar_alter(&$items) {
-  if (!empty($items['administration_search'])) {
-    unset($items['administration_search']);
   }
 }
