@@ -8,7 +8,7 @@ dependencies:
     - field.field.paragraph.q_a_group.field_section_header
     - paragraphs.paragraphs_type.q_a_group
   module:
-    - entity_browser
+    - entity_browser_table
 id: paragraph.q_a_group.default
 targetEntityType: paragraph
 bundle: q_a_group
@@ -19,14 +19,14 @@ content:
     settings:
       entity_browser: q_a_browser
       field_widget_display: label
-      field_widget_edit: true
-      field_widget_remove: true
-      open: true
+      field_widget_remove: '1'
       selection_mode: selection_append
-      field_widget_replace: false
+      field_widget_edit: 0
+      field_widget_replace: 0
+      open: 0
       field_widget_display_settings: {  }
     third_party_settings: {  }
-    type: entity_browser_entity_reference
+    type: entity_reference_browser_table_widget
     region: content
   field_section_header:
     weight: 0
