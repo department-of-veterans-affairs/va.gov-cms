@@ -1,9 +1,4 @@
 .toolbar-bar {
-  // Environment indicator is always last, float it right.
-  .toolbar-tab:last-child {
-    float: right;
-  }
-
   .toolbar-icon {
     // Help center icon.
     &-toolbar-menu-cms_help_center {
@@ -25,12 +20,23 @@
         background-image: url(../../images/icons/sections-ffffff.svg)
       }
     }
+  }
 
-    // Remove environment indicator icon.
-    &-environment {
-      &:before,
-      &.is-active:before {
-        background-image: none;
+  .toolbar-tab {
+
+    // Special treatment for the tab showing the indicator.
+    &.branch-toolbar-tab {
+      float: right;
+
+      .toolbar-item {
+        padding-left: 1.333em; // No icon.
+        cursor: auto; // Remove the pointer cursor.
+
+        // Remove hover behaviors.
+        &:hover {
+          text-decoration: none;
+          background-image: none;
+        }
       }
     }
   }
