@@ -1,0 +1,29 @@
+uuid: da6cd3d4-ffd5-46ef-9449-3f7e91a44362
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_workflow
+    - menu_ui
+    - node_revision_delete
+    - node_title_help_text
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+  node_title_help_text:
+    title_help: 'Add a page title with sentence case capitalization. (<a href="https://design.va.gov/content-style-guide/capitalization" target="_blank">See further guidelines</a>) '
+  lightning_workflow:
+    workflow: editorial
+  node_revision_delete:
+    minimum_revisions_to_keep: 200
+    minimum_age_to_delete: 0
+    when_to_delete: 0
+name: 'Media list - Videos'
+type: media_list_videos
+description: ''
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false
