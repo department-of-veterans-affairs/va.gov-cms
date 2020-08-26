@@ -49,10 +49,6 @@ Feature: Content model: Paragraph fields
 | Paragraph type | List of links | Final link | field_link | Link |  | 1 | Linkit | Translatable |
 | Paragraph type | Lists of links | List of links | field_va_paragraphs | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
 | Paragraph type | Lists of links | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
-| Paragraph type | Media list - Videos | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
-| Paragraph type | Media list - Videos | Videos | field_videos | Entity reference | Required | Unlimited | Media library |  |
-| Paragraph type | Media list - Images | Images | field_images | Entity reference | Required | Unlimited | Media library |  |
-| Paragraph type | Media list - Images | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
 | Paragraph type | Number callout | Additional information | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Number callout | Short phrase with a number, or time element | field_short_phrase_with_a_number | Text (plain) | Required | 1 | Textfield with counter |  |
 | Paragraph type | Non-reusable Alert | Alert Content | field_va_paragraphs | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
@@ -102,4 +98,8 @@ Feature: Content model: Paragraph fields
 | Paragraph type | VAMC facility service (non-healthcare service) | Service name | field_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Paragraph type | VAMC facility service (non-healthcare service) | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | WYSIWYG | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+| Paragraph type | Media list - Videos | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
+| Paragraph type | Media list - Videos | Videos | field_videos | Entity reference | Required | Unlimited | Media library |  |
+| Paragraph type | Media list - Images | Images | field_images | Entity reference | Required | Unlimited | Media library |  |
+| Paragraph type | Media list - Images | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
 
