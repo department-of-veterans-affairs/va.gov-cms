@@ -43,6 +43,7 @@ class ListDataCompiler {
     'publication_listing' => ['field_listing'],
     'regional_health_care_service_des' => ['field_regional_health_service', 'field_clinical_health_services'],
     'story_listing' => ['field_listing'],
+    'vamc_operating_status_and_alerts' => ['field_banner_alert_vamcs'],
     // Should be lists, but can not find anything that points to these as a
     // reverse entity reference.
     // 'health_services_listing', Connected through Taxonomy
