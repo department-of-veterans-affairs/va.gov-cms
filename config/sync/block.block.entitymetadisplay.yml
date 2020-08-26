@@ -1,0 +1,36 @@
+uuid: d63b47a2-67ed-4651-a8c6-671ede7354e2
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+    - user
+    - va_gov_workflow_assignments
+  theme:
+    - vagovadmin
+id: entitymetadisplay
+theme: vagovadmin
+region: sidebar_second
+weight: 0
+provider: null
+plugin: va_gov_workflow_assignments_meta
+settings:
+  id: va_gov_workflow_assignments_meta
+  label: 'Entity Meta Display'
+  provider: va_gov_workflow_assignments
+  label_display: '0'
+  context_mapping:
+    node: '@node.node_route_context:node'
+visibility:
+  request_path:
+    id: request_path
+    pages: "/node/*/edit\r\n/node/*/delete\r\n/node/add/*\r\n"
+    negate: true
+    context_mapping: {  }
+  user_role:
+    id: user_role
+    roles:
+      authenticated: authenticated
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'

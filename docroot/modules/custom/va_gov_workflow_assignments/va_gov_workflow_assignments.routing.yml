@@ -1,0 +1,9 @@
+va_gov_workflow_assignments.workflow_assignments_admin_form:
+  path: '/admin/config/content/workflow-assignments-form'
+  defaults:
+    _form: '\Drupal\va_gov_workflow_assignments\Form\WorkflowAssignmentsAdminForm'
+    _title: 'VA.gov Workflow Assignments form'
+  requirements:
+    _permission: 'administer content'
+  options:
+    _admin_route: TRUE
