@@ -21,7 +21,6 @@ $config['system.logging']['error_level'] = 'none';
 $config['environment_indicator.indicator']['bg_color'] = '#ff2301';
 $config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'Production';
-$settings['file_public_base_url'] = 'https://prod.cms.va.gov/sites/default/files';
 
 $settings['trusted_host_patterns'] = [
     // For ALB/ELB Healthchecks.
