@@ -21,6 +21,7 @@ $config['system.logging']['error_level'] = 'none';
 $config['environment_indicator.indicator']['bg_color'] = '#fffb03';
 $config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'Staging';
+$settings['file_public_base_url'] = 'https://staging.cms.va.gov/sites/default/files';
 
 $settings['trusted_host_patterns'] = [
     // For ALB/ELB Healthchecks.
