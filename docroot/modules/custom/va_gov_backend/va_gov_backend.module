@@ -5,19 +5,21 @@
  * Contains va_gov_backend.module.
  */
 
-use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\node\NodeInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
+use Drupal\va_gov_build_trigger\Form\PreviewForm;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Drupal\va_gov_build_trigger\Form\PreviewForm;
 
 /**
  * Implements hook_help().
@@ -36,6 +38,63 @@ function va_gov_backend_help($route_name, RouteMatchInterface $route_match) {
 
     default:
   }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Get our role descriptions.
+ */
+function va_gov_backend_form_user_form_alter(array &$form) {
+  if (isset($form['account']['roles'])) {
+    foreach (Role::loadMultiple() as $id => $role) {
+      if ($role instanceof RoleInterface) {
+        $form['account']['roles'][$id]['#description'] = $role->getThirdPartySetting('va_gov_backend', 'vgb_description');
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Set our role descriptions.
+ */
+function va_gov_backend_form_user_role_form_alter(array &$form, FormStateInterface $form_state) {
+  $role = $form_state->getFormObject()->getEntity();
+  $form['vgb_description'] = [
+    '#type' => 'textfield',
+    '#title' => t('Description'),
+    '#description' => t('Additional relevant information about this role, such as where it is used and what it is for.'),
+    '#default_value' => $role->getThirdPartySetting('va_gov_backend', 'vgb_description'),
+    '#weight' => 1,
+  ];
+
+  $form['#entity_builders'][] = 'va_gov_backend_form_user_role_form_builder';
+
+}
+
+/**
+ * Entity builder for the role configuration entity.
+ *
+ * @param string $entity_type
+ *   The name of the entity_type.
+ * @param Drupal\user\Entity\Role $role
+ *   Instance of Role class.
+ * @param array $form
+ *   The node form array.
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   Instance of FormStateInterface.
+ *
+ *   Saves our description field input.
+ */
+function va_gov_backend_form_user_role_form_builder($entity_type, Role $role, array &$form, FormStateInterface $form_state) {
+  if ($form_state->getValue('vgb_description')) {
+    $role->setThirdPartySetting('va_gov_backend', 'vgb_description', $form_state->getValue('vgb_description'));
+    return;
+  }
+
+  $role->unsetThirdPartySetting('va_gov_backend', 'vgb_description');
 }
 
 /**
