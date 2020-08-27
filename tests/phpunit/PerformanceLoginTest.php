@@ -63,7 +63,7 @@ class LoginPerformance extends ExistingSiteBase {
    */
   public function benchmarkTime() {
     return [
-      [3],
+      [4],
     ];
   }
 
