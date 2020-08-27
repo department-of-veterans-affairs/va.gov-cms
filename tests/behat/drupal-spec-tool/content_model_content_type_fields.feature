@@ -114,6 +114,14 @@ Feature: Content model: Content Type fields
 | Content type | Locations List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Locations List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Locations List | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Media list - Videos | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic |  |
+| Content type | Media list - Videos | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs EXPERIMENTAL | Translatable |
+| Content type | Media list - Videos | Meta description | field_description | Text (plain) | Required | 1 | Textfield | Translatable |
+| Content type | Media list - Videos | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield | Translatable |
+| Content type | Media list - Videos | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Media list - Videos | Page introduction | field_intro_text_limited_html | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
+| Content type | Media list - Videos | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
+| Content type | Media list - Videos | Videos | field_media_list_videos | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | NCA Facility | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | NCA Facility | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
 | Content type | NCA Facility | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
@@ -287,11 +295,11 @@ Feature: Content model: Content Type fields
 | Content type | VAMC System Banner Alert with Situation Updates | Display "Find other VA facilities near you" link? | field_alert_find_facilities_cta | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System Banner Alert with Situation Updates | Display "Get updates on affected services and facilities" link | field_alert_operating_status_cta | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System Banner Alert with Situation Updates | Display "Subscribe to email updates" link? | field_alert_email_updates_button | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | VAMC System Banner Alert with Situation Updates | Only show on VAMC System page & Operating status page | field_alert_inheritance_subpages | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | VAMC System Banner Alert with Situation Updates | Limit banner display to the home and the Operating Status page(s) | field_alert_inheritance_subpages | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System Banner Alert with Situation Updates | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC System Banner Alert with Situation Updates | Send email to subscribers via GovDelivery? | field_operating_status_sendemail | Boolean |  | 1 | Single on/off checkbox | Translatable |
+| Content type | VAMC System Banner Alert with Situation Updates | Send email update on this situation | field_operating_status_sendemail | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | VAMC System Banner Alert with Situation Updates | Situation updates | field_situation_updates | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
-| Content type | VAMC System Banner Alert with Situation Updates | VAMC system(s) | field_banner_alert_vamcs | Entity reference | Required | Unlimited | Check boxes/radio buttons |  |
+| Content type | VAMC System Banner Alert with Situation Updates | Pages for the following VAMC systems | field_banner_alert_vamcs | Entity reference | Required | Unlimited | Check boxes/radio buttons |  |
 | Content type | VAMC System Health Service | Facility-specific descriptions of this service | field_local_health_care_service_ | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | VAMC System Health Service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Health Service | VAMC system | field_region_page | Entity reference | Required | 1 | Select list | Translatable |
@@ -316,11 +324,3 @@ Feature: Content model: Content Type fields
 | Content type | VAMC Facility Health Service | Appointment phone number(s) | field_phone_numbers_paragraph | Entity reference revisions |  | Unlimited | -- Disabled -- |  |
 | Content type | VAMC Facility Health Service | Referral required? | field_referral_required | List (text) |  | 1 | -- Disabled -- |  |
 | Content type | VAMC Facility Health Service | Walk-ins accepted? | field_walk_ins_accepted | List (text) |  | 1 | -- Disabled -- |  |
-| Content type | Media list - Videos | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic |  |
-| Content type | Media list - Videos | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs EXPERIMENTAL | Translatable |
-| Content type | Media list - Videos | Meta description | field_description | Text (plain) | Required | 1 | Textfield | Translatable |
-| Content type | Media list - Videos | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield | Translatable |
-| Content type | Media list - Videos | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Media list - Videos | Page introduction | field_intro_text_limited_html | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
-| Content type | Media list - Videos | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
-| Content type | Media list - Videos | Videos | field_media_list_videos | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
