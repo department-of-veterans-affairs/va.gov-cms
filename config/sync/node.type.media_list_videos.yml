@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   module:
-    - lightning_workflow
     - menu_ui
     - node_revision_delete
     - node_title_help_text
@@ -14,8 +13,6 @@ third_party_settings:
     parent: 'main:'
   node_title_help_text:
     title_help: 'Add a page title with sentence case capitalization. (<a href="https://design.va.gov/content-style-guide/capitalization" target="_blank">See further guidelines</a>) '
-  lightning_workflow:
-    workflow: editorial
   node_revision_delete:
     minimum_revisions_to_keep: 200
     minimum_age_to_delete: 0
