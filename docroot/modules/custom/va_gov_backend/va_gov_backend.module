@@ -100,8 +100,10 @@ function va_gov_backend_form_user_role_form_builder($entity_type, Role $role, ar
 /**
  * Implements hook_element_info_alter().
  */
-function va_gov_backend_element_info_alter(array &$types) {
-  $types['datetime']['#process'][] = 'va_gov_backend_datetime_set_format';
+function va_gov_backend_element_info_alter(array &$info) {
+  if (isset($info['datetime'])) {
+    $info['datetime']['#process'][] = 'va_gov_backend_datetime_set_format';
+  }
 }
 
 /**
