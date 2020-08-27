@@ -1,0 +1,27 @@
+uuid: a83c13e1-ea9f-4e53-bd19-6a9291f2fb8f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_intro_text_limited_html
+    - node.type.media_list_images
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    rich_text_limited: rich_text_limited
+    rich_text: '0'
+    plain_text: '0'
+id: node.media_list_images.field_intro_text_limited_html
+field_name: field_intro_text_limited_html
+entity_type: node
+bundle: media_list_images
+label: 'Page introduction'
+description: 'Add an introduction that helps visitors understand if information on the page is relevant to them.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
