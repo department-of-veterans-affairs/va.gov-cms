@@ -1,0 +1,29 @@
+uuid: 83ae9e52-e294-4fcf-94b8-4f5d6fe05945
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.media_list_images
+    - taxonomy.vocabulary.administration
+id: node.media_list_images.field_administration
+field_name: field_administration
+entity_type: node
+bundle: media_list_images
+label: Owner
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
