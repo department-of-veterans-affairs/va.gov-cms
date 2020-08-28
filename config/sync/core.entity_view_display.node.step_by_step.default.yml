@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.step_by_step.field_administration
+    - field.field.node.step_by_step.field_alert_single
     - field.field.node.step_by_step.field_buttons
     - field.field.node.step_by_step.field_buttons_repeat
     - field.field.node.step_by_step.field_description
@@ -34,6 +35,7 @@ third_party_settings:
     group_content:
       children:
         - field_intro_text_limited_html
+        - field_alert_single
         - field_buttons
         - field_steps
         - field_buttons_repeat
@@ -64,9 +66,18 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
+  field_alert_single:
+    weight: 6
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
   field_buttons:
     type: entity_reference_revisions_entity_view
-    weight: 6
+    weight: 7
     label: above
     settings:
       view_mode: default
@@ -74,7 +85,7 @@ content:
     third_party_settings: {  }
     region: content
   field_buttons_repeat:
-    weight: 8
+    weight: 9
     label: above
     settings:
       format: default
@@ -108,7 +119,7 @@ content:
     region: content
   field_steps:
     type: entity_reference_revisions_entity_view
-    weight: 7
+    weight: 8
     label: above
     settings:
       view_mode: default

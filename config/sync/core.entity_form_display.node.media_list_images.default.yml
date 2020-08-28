@@ -1,18 +1,17 @@
-uuid: 90058442-af20-4427-a2af-1979d7afe407
+uuid: 0a4d0fd4-6199-4bfe-bfe3-c0396cafadca
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.faq_multiple_q_a.field_administration
-    - field.field.node.faq_multiple_q_a.field_alert_single
-    - field.field.node.faq_multiple_q_a.field_buttons
-    - field.field.node.faq_multiple_q_a.field_buttons_repeat
-    - field.field.node.faq_multiple_q_a.field_description
-    - field.field.node.faq_multiple_q_a.field_intro_text_limited_html
-    - field.field.node.faq_multiple_q_a.field_meta_title
-    - field.field.node.faq_multiple_q_a.field_q_a_groups
-    - field.field.node.faq_multiple_q_a.field_table_of_contents_boolean
-    - node.type.faq_multiple_q_a
+    - field.field.node.media_list_images.field_administration
+    - field.field.node.media_list_images.field_alert_single
+    - field.field.node.media_list_images.field_buttons
+    - field.field.node.media_list_images.field_buttons_repeat
+    - field.field.node.media_list_images.field_description
+    - field.field.node.media_list_images.field_intro_text_limited_html
+    - field.field.node.media_list_images.field_media_list_images
+    - field.field.node.media_list_images.field_meta_title
+    - node.type.media_list_images
     - workflows.workflow.editorial
   module:
     - allowed_formats
@@ -23,20 +22,6 @@ dependencies:
     - textfield_counter
 third_party_settings:
   field_group:
-    group_meta_tags:
-      children:
-        - field_meta_title
-        - field_description
-      parent_name: ''
-      weight: 3
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        required_fields: true
-      label: 'Meta tags'
-      region: content
     group_title_and_introduction:
       children:
         - title
@@ -51,11 +36,52 @@ third_party_settings:
         required_fields: true
       label: 'Title and introduction'
       region: content
+    group_include_alert:
+      children:
+        - field_alert_single
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: false
+      label: 'Include Alert'
+      region: content
+    group_meta_tags:
+      children:
+        - field_meta_title
+        - field_description
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Meta Tags'
+      region: content
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 6
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+      region: content
     group_governance:
       children:
         - field_administration
       parent_name: ''
-      weight: 9
+      weight: 7
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -66,60 +92,31 @@ third_party_settings:
         weight: '-10'
       label: Governance
       region: content
-    group_editorial_workflow:
-      children:
-        - moderation_state
-        - revision_log
-      parent_name: ''
-      weight: 8
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        required_fields: true
-      label: 'Editorial workflow'
-      region: content
-    group_table_of_contents:
-      children:
-        - field_table_of_contents_boolean
-      parent_name: ''
-      weight: 5
-      format_type: details
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        open: false
-        required_fields: true
-      label: 'Include table of contents?'
-      region: content
-    group_include_alert:
-      children:
-        - field_alert_single
-      parent_name: ''
-      weight: 1
-      format_type: fieldset
-      format_settings:
-        description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver. You can <a href="/block/add/alert?destination=/admin/content/alerts">create a new alert</a>, or reuse an existing one.'
-        id: ''
-        classes: ''
-        required_fields: false
-      label: 'Include Alert'
-      region: content
-id: node.faq_multiple_q_a.default
+id: node.media_list_images.default
 targetEntityType: node
-bundle: faq_multiple_q_a
+bundle: media_list_images
 mode: default
 content:
   field_administration:
-    weight: 12
+    weight: 14
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_alert_single:
-    weight: 2
+    weight: 10
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: alert_single
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+    region: content
+  field_buttons:
+    weight: 3
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -127,41 +124,29 @@ content:
       add_mode: dropdown
       form_display_mode: default
       default_paragraph_type: ''
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
     third_party_settings: {  }
-    type: entity_reference_paragraphs
-    region: content
-  field_buttons:
-    weight: 4
-    settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: button
-    third_party_settings: {  }
-    type: entity_reference_paragraphs
+    type: paragraphs
     region: content
   field_buttons_repeat:
-    weight: 7
+    weight: 5
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
   field_description:
-    weight: 12
+    weight: 4
     settings:
-      size: 120
+      size: 60
       placeholder: ''
-      maxlength: 300
-      counter_position: after
-      js_prevent_submit: true
-      count_html_characters: true
-      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
-      use_field_maxlength: false
     third_party_settings: {  }
-    type: string_textfield_with_counter
+    type: string_textfield
     region: content
   field_intro_text_limited_html:
     weight: 2
@@ -170,59 +155,59 @@ content:
       placeholder: ''
       maxlength: 1000
       counter_position: after
-      js_prevent_submit: true
-      count_html_characters: true
       textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      js_prevent_submit: false
+      count_html_characters: false
     third_party_settings:
       allowed_formats:
         hide_help: '0'
         hide_guidelines: '0'
     type: text_textarea_with_counter
     region: content
-  field_meta_title:
-    weight: 11
+  field_media_list_images:
+    type: paragraphs
+    weight: 4
     settings:
-      size: 70
-      placeholder: ''
-      use_field_maxlength: true
-      maxlength: 0
-      counter_position: after
-      js_prevent_submit: true
-      count_html_characters: true
-      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
-    third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
-  field_q_a_groups:
-    type: entity_reference_paragraphs
-    weight: 6
-    settings:
-      title: 'Q&A Group'
-      title_plural: 'Q&A Groups'
+      title: Paragraph
+      title_plural: Paragraphs
       edit_mode: open
-      add_mode: button
+      add_mode: dropdown
       form_display_mode: default
-      default_paragraph_type: q_a_section_faq_multiple
+      default_paragraph_type: ''
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
     third_party_settings: {  }
     region: content
-  field_table_of_contents_boolean:
-    weight: 10
+  field_meta_title:
+    weight: 3
     settings:
-      display_label: true
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: boolean_checkbox
+    type: string_textfield
     region: content
   moderation_state:
     type: moderation_state_default
-    weight: 10
+    weight: 12
     settings: {  }
     region: content
     third_party_settings: {  }
   path:
     type: path
-    weight: 10
+    weight: 8
     region: content
     settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 10
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield_with_counter
@@ -239,13 +224,12 @@ content:
       use_field_maxlength: false
     third_party_settings: {  }
   url_redirects:
-    weight: 11
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   created: true
   promote: true
-  status: true
   sticky: true
   uid: true
