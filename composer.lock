@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d29a1f0af276a238cdcd55bc0c6cc964",
+    "content-hash": "9562dbde9d8921e45be32a8ca499204e",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3068,6 +3068,9 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "3109317 - Run tests against Drupal 9": "https://www.drupal.org/files/issues/2020-05-15/autosave_form-1.1-core-version-requirement.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5156,6 +5159,59 @@
                 "source": "https://git.drupalcode.org/project/entity_browser",
                 "issues": "https://www.drupal.org/project/issues/entity_browser",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
+            }
+        },
+        {
+            "name": "drupal/entity_browser_table",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/entity_browser_table.git",
+                "reference": "8.x-1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/entity_browser_table-8.x-1.2.zip",
+                "reference": "8.x-1.2",
+                "shasum": "2bc170671d784e881f8efc1287acfb247838a17e"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9",
+                "drupal/entity_browser": "*"
+            },
+            "require-dev": {
+                "drupal/media": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.2",
+                    "datestamp": "1590913837",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "patches_applied": {
+                    "Table drag doesn't work on new entity form, and sort is lost on ajax": "https://www.drupal.org/files/issues/2020-08-25/fix-sort-loss-and-add-form-3166733-2.patch",
+                    "Add moderation status column": "https://www.drupal.org/files/issues/2020-08-24/add-moderation-status-3166953-5.patch"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "James Byng",
+                    "homepage": "https://www.drupal.org/user/3071193"
+                }
+            ],
+            "description": "Creates a new Entity Browser display widget to display referenced content as a table.",
+            "homepage": "https://www.drupal.org/project/entity_browser_table",
+            "support": {
+                "source": "https://git.drupalcode.org/project/entity_browser_table",
+                "error": "name : invalid value (entity_browser_table), must match [A-Za-z0-9][A-Za-z0-9_.-]*/[A-Za-z0-9][A-Za-z0-9_.-]*"
             }
         },
         {
@@ -10126,7 +10182,7 @@
                 },
                 "patches_applied": {
                     "0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch",
-                    "Fix Undefined index: caption notice": "https://www.drupal.org/files/issues/2020-08-06/tablefield-empty-caption-notice-1.patch"
+                    "Fix Undefined index: caption notice": "https://www.drupal.org/files/issues/2020-08-10/tablefield-empty-caption-notice-2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -18788,16 +18844,16 @@
         },
         {
             "name": "va-gov/web",
-            "version": "v0.1.1025",
+            "version": "v0.1.1028",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
-                "reference": "eab2867338d7762ae3ce9454926d2c3f2a1597db"
+                "reference": "73bba52abcfca41472409f01bcb9485e1e8a2b27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/eab2867338d7762ae3ce9454926d2c3f2a1597db",
-                "reference": "eab2867338d7762ae3ce9454926d2c3f2a1597db",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/73bba52abcfca41472409f01bcb9485e1e8a2b27",
+                "reference": "73bba52abcfca41472409f01bcb9485e1e8a2b27",
                 "shasum": ""
             },
             "type": "node-project",
@@ -18822,7 +18878,7 @@
                 }
             ],
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
-            "time": "2020-08-21T17:58:27+00:00"
+            "time": "2020-08-25T17:45:49+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -19600,6 +19656,7 @@
         "drupal/content_lock": 15,
         "drupal/entity_block": 10,
         "drupal/entity_clone": 10,
+        "drupal/entityqueue": 10,
         "drupal/fast_404": 15,
         "drupal/field_group": 20,
         "drupal/fieldhelptext": 10,

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.q_a.field_administration
+    - field.field.node.q_a.field_alert_single
     - field.field.node.q_a.field_answer
     - field.field.node.q_a.field_buttons
     - field.field.node.q_a.field_description
@@ -23,7 +24,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -37,7 +38,7 @@ third_party_settings:
         - field_meta_title
         - field_description
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -64,7 +65,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: details_sidebar
       format_settings:
         description: ''
@@ -74,6 +75,19 @@ third_party_settings:
         id: ''
         classes: ''
       label: Governance
+      region: content
+    group_in:
+      children:
+        - field_alert_single
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver. You can <a href="/block/add/alert?destination=/admin/content/alerts">create a new alert</a>, or reuse an existing one.'
+        required_fields: false
+      label: 'Include Alert'
       region: content
 id: node.q_a.default
 targetEntityType: node
@@ -85,6 +99,18 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
+  field_alert_single:
+    weight: 8
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
     region: content
   field_answer:
     type: paragraphs
@@ -106,7 +132,7 @@ content:
     third_party_settings: {  }
     region: content
   field_buttons:
-    weight: 2
+    weight: 3
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -153,7 +179,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -166,7 +192,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }

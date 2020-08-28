@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.image.field_description
     - field.field.media.image.field_media_in_library
     - field.field.media.image.field_media_submission_guideline
     - field.field.media.image.field_owner
@@ -18,6 +19,13 @@ targetEntityType: media
 bundle: image
 mode: default
 content:
+  field_description:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
   field_media_in_library:
     type: boolean
     weight: 2
@@ -56,5 +64,6 @@ content:
 hidden:
   created: true
   field_media_submission_guideline: true
+  search_api_excerpt: true
   thumbnail: true
   uid: true

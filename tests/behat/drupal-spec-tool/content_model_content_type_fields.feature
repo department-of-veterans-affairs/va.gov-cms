@@ -37,7 +37,7 @@ Feature: Content model: Content Type fields
 | Content type | Benefits Hub Landing Page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Benefits Hub Landing Page | Spokes | field_spokes | Entity reference revisions | Required | 4 | Paragraphs EXPERIMENTAL |  |
 | Content type | Benefits Hub Landing Page | Support Services | field_support_services | Entity reference |  | Unlimited | Inline entity form - Complex |  |
-| Content type | Checklist | Alert | field_alert | Entity reference |  | 1 | Entity browser | Translatable |
+| Content type | Checklist | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Checklist | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Checklist | Checklist | field_checklist | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | Checklist | Page introduction | field_intro_text_limited_html | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
@@ -86,6 +86,7 @@ Feature: Content model: Content Type fields
 | Content type | Events List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Events List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Events List | Office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | FAQ - multiple Q&As | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | FAQ - multiple Q&As | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs Classic | Translatable |
 | Content type | FAQ - multiple Q&As | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | FAQ - multiple Q&As | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
@@ -114,6 +115,22 @@ Feature: Content model: Content Type fields
 | Content type | Locations List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Locations List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Locations List | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Media list - Images | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
+| Content type | Media list - Images | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs EXPERIMENTAL | Translatable |
+| Content type | Media list - Images | Media list - Images | field_media_list_images | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
+| Content type | Media list - Images | Meta description | field_description | Text (plain) | Required | 1 | Textfield | Translatable |
+| Content type | Media list - Images | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield | Translatable |
+| Content type | Media list - Images | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Media list - Images | Page introduction | field_intro_text_limited_html | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
+| Content type | Media list - Images | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
+| Content type | Media list - Videos | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic |  |
+| Content type | Media list - Videos | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs EXPERIMENTAL | Translatable |
+| Content type | Media list - Videos | Meta description | field_description | Text (plain) | Required | 1 | Textfield | Translatable |
+| Content type | Media list - Videos | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield | Translatable |
+| Content type | Media list - Videos | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Media list - Videos | Page introduction | field_intro_text_limited_html | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
+| Content type | Media list - Videos | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
+| Content type | Media list - Videos | Videos | field_media_list_videos | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | NCA Facility | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | NCA Facility | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
 | Content type | NCA Facility | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
@@ -153,6 +170,7 @@ Feature: Content model: Content Type fields
 | Content type | Publication Listing Page | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Publication Listing Page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Publication Listing Page | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Q&A | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Q&A | Answer | field_answer | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Content type | Q&A | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Q&A | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
@@ -172,6 +190,7 @@ Feature: Content model: Content Type fields
 | Content type | Staff Profile | Photo | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Staff Profile | Related office or health care region | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Staff Profile | Suffix | field_suffix | Text (plain) |  | 1 | Textfield |  |
+| Content type | Step-by-Step | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Step-by-Step | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs Classic |  |
 | Content type | Step-by-Step | Page introduction | field_intro_text_limited_html | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Step-by-Step | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
@@ -287,22 +306,22 @@ Feature: Content model: Content Type fields
 | Content type | VAMC System Banner Alert with Situation Updates | Display "Find other VA facilities near you" link? | field_alert_find_facilities_cta | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System Banner Alert with Situation Updates | Display "Get updates on affected services and facilities" link | field_alert_operating_status_cta | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System Banner Alert with Situation Updates | Display "Subscribe to email updates" link? | field_alert_email_updates_button | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | VAMC System Banner Alert with Situation Updates | Only show on VAMC System page & Operating status page | field_alert_inheritance_subpages | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | VAMC System Banner Alert with Situation Updates | Limit banner display to the home and the Operating Status page(s) | field_alert_inheritance_subpages | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System Banner Alert with Situation Updates | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC System Banner Alert with Situation Updates | Send email to subscribers via GovDelivery? | field_operating_status_sendemail | Boolean |  | 1 | Single on/off checkbox | Translatable |
+| Content type | VAMC System Banner Alert with Situation Updates | Send email update on this situation | field_operating_status_sendemail | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | VAMC System Banner Alert with Situation Updates | Situation updates | field_situation_updates | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
-| Content type | VAMC System Banner Alert with Situation Updates | VAMC system(s) | field_banner_alert_vamcs | Entity reference | Required | Unlimited | Check boxes/radio buttons |  |
+| Content type | VAMC System Banner Alert with Situation Updates | Pages for the following VAMC systems | field_banner_alert_vamcs | Entity reference | Required | Unlimited | Check boxes/radio buttons |  |
 | Content type | VAMC System Health Service | Facility-specific descriptions of this service | field_local_health_care_service_ | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | VAMC System Health Service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Health Service | VAMC system | field_region_page | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Health Service | VAMC system description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | VAMC System Health Service | VHA service name and description | field_service_name_and_descripti | Entity reference | Required | 1 | Select list |  |
-| Content type | VAMC System Operating Status | Banner alert and situation updates | field_banner_alert | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
-| Content type | VAMC System Operating Status | Emergency information | field_operating_status_emerg_inf | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
-| Content type | VAMC System Operating Status | Links | field_links | Link |  | Unlimited | Link | Translatable |
+| Content type | VAMC System Operating Status | System-wide alerts | field_banner_alert | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
+| Content type | VAMC System Operating Status | Patient resources | field_operating_status_emerg_inf | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
+| Content type | VAMC System Operating Status | Local emergency resources | field_links | Link |  | Unlimited | Link | Translatable |
 | Content type | VAMC System Operating Status | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC System Operating Status | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC System Operating Status | Update individual facility statuses | field_facility_operating_status | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
+| Content type | VAMC System Operating Status | Facility operating statuses | field_facility_operating_status | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | VAMC System Operating Status | VAMC system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VBA Facility | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | VBA Facility | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
@@ -316,3 +335,4 @@ Feature: Content model: Content Type fields
 | Content type | VAMC Facility Health Service | Appointment phone number(s) | field_phone_numbers_paragraph | Entity reference revisions |  | Unlimited | -- Disabled -- |  |
 | Content type | VAMC Facility Health Service | Referral required? | field_referral_required | List (text) |  | 1 | -- Disabled -- |  |
 | Content type | VAMC Facility Health Service | Walk-ins accepted? | field_walk_ins_accepted | List (text) |  | 1 | -- Disabled -- |  |
+

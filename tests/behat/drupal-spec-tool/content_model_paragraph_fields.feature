@@ -49,8 +49,6 @@ Feature: Content model: Paragraph fields
 | Paragraph type | List of links | Final link | field_link | Link |  | 1 | Linkit | Translatable |
 | Paragraph type | Lists of links | List of links | field_va_paragraphs | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
 | Paragraph type | Lists of links | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
-| Paragraph type | Media list - Videos | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
-| Paragraph type | Media list - Videos | Videos | field_videos | Entity reference | Required | Unlimited | Media library |  |
 | Paragraph type | Number callout | Additional information | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Number callout | Short phrase with a number, or time element | field_short_phrase_with_a_number | Text (plain) | Required | 1 | Textfield with counter |  |
 | Paragraph type | Non-reusable Alert | Alert Content | field_va_paragraphs | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
@@ -64,7 +62,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Q&A | Answer | field_answer | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Paragraph type | Q&A | Question | field_question | Text (plain) | Required | 1 | Textfield with counter |  |
 | Paragraph type | Q&A group | Section Header | field_section_header | Text (plain) | Required | 1 | Textfield | Translatable |
-| Paragraph type | Q&A group | Q&As | field_q_as | Entity reference | Required | Unlimited | Entity browser |  |
+| Paragraph type | Q&A group | Q&As | field_q_as | Entity reference | Required | Unlimited | Entity Browser - Table |  |
 | Paragraph type | Q&A Section | Display this set of Q&As as a group of accordions. | field_accordion_display | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Q&A Section | Questions | field_questions | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Paragraph type | Q&A Section | Section Intro | field_section_intro | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
@@ -100,4 +98,8 @@ Feature: Content model: Paragraph fields
 | Paragraph type | VAMC facility service (non-healthcare service) | Service name | field_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Paragraph type | VAMC facility service (non-healthcare service) | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | WYSIWYG | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+| Paragraph type | Media list - Videos | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
+| Paragraph type | Media list - Videos | Videos | field_videos | Entity reference | Required | Unlimited | Media library |  |
+| Paragraph type | Media list - Images | Images | field_images | Entity reference | Required | Unlimited | Media library |  |
+| Paragraph type | Media list - Images | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
 

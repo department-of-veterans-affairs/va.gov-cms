@@ -3,9 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - entity_browser.browser.alert_blocks
     - field.field.node.checklist.field_administration
-    - field.field.node.checklist.field_alert
+    - field.field.node.checklist.field_alert_single
     - field.field.node.checklist.field_buttons
     - field.field.node.checklist.field_buttons_repeat
     - field.field.node.checklist.field_checklist
@@ -16,7 +15,6 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - content_moderation
-    - entity_browser
     - field_group
     - paragraphs
     - path
@@ -82,16 +80,16 @@ third_party_settings:
       region: content
     group_include_alert:
       children:
-        - field_alert
+        - field_alert_single
       parent_name: ''
       weight: 1
       format_type: fieldset
       format_settings:
+        description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver. You can <a href="/block/add/alert?destination=/admin/content/alerts">create a new alert</a>, or reuse an existing one.'
         id: ''
         classes: ''
-        description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver. You can <a href="/block/add/alert?destination=/admin/content/alerts">create a new alert</a>, or reuse an existing one.'
         required_fields: false
-      label: 'Include alert'
+      label: 'Include Alert'
       region: content
 id: node.checklist.default
 targetEntityType: node
@@ -104,20 +102,17 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
-  field_alert:
-    weight: 2
+  field_alert_single:
+    weight: 27
     settings:
-      entity_browser: alert_blocks
-      field_widget_display: rendered_entity
-      field_widget_display_settings:
-        view_mode: default
-      field_widget_edit: true
-      field_widget_remove: true
-      open: true
-      selection_mode: selection_append
-      field_widget_replace: false
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
-    type: entity_browser_entity_reference
+    type: entity_reference_paragraphs
     region: content
   field_buttons:
     weight: 3
