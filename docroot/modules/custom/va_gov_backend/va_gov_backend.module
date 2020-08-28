@@ -98,6 +98,26 @@ function va_gov_backend_form_user_role_form_builder($entity_type, Role $role, ar
 }
 
 /**
+ * Implements hook_element_info_alter().
+ */
+function va_gov_backend_element_info_alter(array &$info) {
+  if (isset($info['datetime'])) {
+    $info['datetime']['#process'][] = 'va_gov_backend_datetime_set_format';
+  }
+}
+
+/**
+ * Element process callback for datetime fields.
+ */
+function va_gov_backend_datetime_set_format($element) {
+  // Remove seconds in browsers that support HTML5 type=date.
+  // Safe to use in all contexts - does not change timestamp storage.
+  // Does not result in form validation errors.
+  $element['time']['#attributes']['step'] = 60;
+  return $element;
+}
+
+/**
  * Implements hook_form_FORMID_alter().
  */
 function va_gov_backend_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
