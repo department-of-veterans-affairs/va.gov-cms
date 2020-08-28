@@ -1,0 +1,23 @@
+uuid: f20be290-74ea-4122-90a7-ed26cce7b921
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_buttons_repeat
+    - node.type.media_list_images
+id: node.media_list_images.field_buttons_repeat
+field_name: field_buttons_repeat
+entity_type: node
+bundle: media_list_images
+label: 'Repeat CTA buttons'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
