@@ -16,9 +16,10 @@ class UniqueTitleValidator extends ConstraintValidator {
   public function validate($item, Constraint $constraint) {
 
     // We will use this for comparison against results.
-    $original_comparator = $this->format($item->value);
-    // Grab first word to use in search query.
-    $first_word_comparator = strtok($original_comparator, ' ');
+    $original_comparator = $this->stripPunctuation($item->value);
+    // Grab last word to use in search query.
+    $last_word_comparator_raw = explode(' ', $original_comparator);
+    $last_word_comparator = array_pop($last_word_comparator_raw);
 
     // Per internal dev meeting, dependency injection doesn't
     // work well with constraints.
@@ -27,7 +28,7 @@ class UniqueTitleValidator extends ConstraintValidator {
     $node_storage = \Drupal::entityTypeManager()->getStorage('node');
     $query = $node_storage->getQuery();
     $query->condition('type', 'q_a');
-    $query->condition('title', $first_word_comparator . '%', 'LIKE');
+    $query->condition('title', '%' . $last_word_comparator . '%', 'LIKE');
     // Exclude the current entity.
     if (!empty($id = $this->context->getRoot()->getEntity()->id())) {
       $query->condition('nid', $id, '!=');
@@ -39,7 +40,7 @@ class UniqueTitleValidator extends ConstraintValidator {
       // See if we have any that match our field value.
       foreach ($nodes as $node) {
         // Compare our input title against db first word match.
-        if ($this->compare($original_comparator, $node->get('title')->value)) {
+        if ($this->isSame($original_comparator, $node->get('title')->value)) {
           // Identical, so throw violation.
           $this->context->addViolation($constraint->notUniqueTitle, ['%title' => $node->get('title')->value, ':nid' => $node->id()]);
         }
@@ -53,10 +54,19 @@ class UniqueTitleValidator extends ConstraintValidator {
    * @return string
    *   Returns a formatted string.
    */
-  public function format($string) {
-    // Strip punctuation.
-    $strip_punctuation = trim(preg_replace('/[^a-z0-9]+/i', ' ', $string));
-    return strtolower($strip_punctuation);
+  public function stripPunctuation($string) {
+    // Strip targeted punctuation items.
+    // We want to keep quotes and some other things,
+    // So limit what we strip.
+    $remove_no_space = ['?', '!', '.', '-'];
+    $remove_with_space = ['-', '  '];
+
+    // Some targeted replacements.
+    // Exclamation points, etc. are replaced with no space.
+    // Underscores and double spaces are replaced with single space.
+    $strip_punctuation_symbols = str_replace($remove_no_space, '', $string);
+    $strip_final = str_replace($remove_with_space, ' ', $strip_punctuation_symbols);
+    return $strip_final;
   }
 
   /**
@@ -70,10 +80,10 @@ class UniqueTitleValidator extends ConstraintValidator {
    * @return bool
    *   Returns TRUE is strings identical.
    */
-  public function compare($a, $b) {
-    $b_formatted = $this->format($b);
+  public function isSame($a, $b) {
+    $b_formatted = $this->stripPunctuation($b);
     // Loose comparison just to be safe.
-    if ($a == $b_formatted) {
+    if (strcasecmp($a, $b_formatted) == 0) {
       return TRUE;
     }
 

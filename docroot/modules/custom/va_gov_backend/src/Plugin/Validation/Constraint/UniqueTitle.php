@@ -20,6 +20,6 @@ class UniqueTitle extends Constraint {
    *
    * @var \Drupal\va_gov_backend\Plugin\Validation\Constraint
    */
-  public $notUniqueTitle = 'Q&amp;A with title "%title" already exists. <a href="/node/:nid">Check the existing Q&A before creating a new one.</a>';
+  public $notUniqueTitle = 'Q&amp;A with title "%title" already exists. <a target="_blank" href="/node/:nid">Check the existing "%title" before creating a new one.</a>';
 
 }
