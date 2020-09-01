@@ -9,6 +9,7 @@ dependencies:
     - content_moderation
     - node
     - user
+    - views_custom_cache_tag
 _core:
   default_config_hash: sqwEJaSgef4rCaRMf-JdNAdV_kCICU1SfQh5Wl2sUrc
 id: recent_content_activity
@@ -30,8 +31,9 @@ display:
         options:
           perm: 'access content'
       cache:
-        type: none
-        options: {  }
+        type: custom_tag
+        options:
+          custom_tag: '{{ arguments.uid_revision }}'
       query:
         type: views_query
         options:

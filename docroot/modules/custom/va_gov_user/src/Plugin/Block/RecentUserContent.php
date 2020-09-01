@@ -124,13 +124,6 @@ class RecentUserContent extends BlockBase implements ContainerFactoryPluginInter
   /**
    * {@inheritdoc}
    */
-  public function getCacheMaxAge() {
-    return 0;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   protected function blockAccess(AccountInterface $account) {
     return AccessResult::allowedIfHasPermission($account, 'access content');
   }
