@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.checklist.field_checklist_sections
     - field.field.paragraph.checklist.field_section_header
+    - field.field.paragraph.checklist.field_section_intro
     - paragraphs.paragraphs_type.checklist
   module:
     - entity_reference_revisions
@@ -15,7 +16,7 @@ mode: default
 content:
   field_checklist_sections:
     type: entity_reference_revisions_entity_view
-    weight: 1
+    weight: 2
     label: above
     settings:
       view_mode: default
@@ -29,6 +30,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_section_intro:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
     region: content
 hidden:
   search_api_excerpt: true
