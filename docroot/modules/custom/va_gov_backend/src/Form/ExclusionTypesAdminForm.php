@@ -1,32 +1,32 @@
 <?php
 
-namespace Drupal\va_gov_workflow_assignments\Form;
+namespace Drupal\va_gov_backend\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class WorkflowAssignmentsAdminForm.
+ * Class ExclusionTypesAdminForm.
  */
-class WorkflowAssignmentsAdminForm extends FormBase {
+class ExclusionTypesAdminForm extends FormBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'workflow_assignments_admin_form';
+    return 'exclusion_types_admin_form';
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('workflow_assignments_admin.settings');
+    $config = $this->config('exclusion_types_admin.settings');
 
     $form['types_to_exclude'] = [
       '#type' => 'textarea',
-      '#title' => $this->t('Content types that are not on va.gov.'),
-      '#description' => $this->t('Machine names of content types, one per line, that are not available to va.gov'),
+      '#title' => $this->t('Content types that are not individual pages on va.gov.'),
+      '#description' => $this->t('Machine names of content types, one per line, that are not separate pages va.gov'),
       '#weight' => '10',
       '#default_value' => $config->get('types_to_exclude'),
       '#rows' => 10,
@@ -47,7 +47,7 @@ class WorkflowAssignmentsAdminForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $config = $this->configFactory()->getEditable('workflow_assignments_admin.settings');
+    $config = $this->configFactory()->getEditable('exclusion_types_admin.settings');
     $config
       ->set('types_to_exclude', $this->convertSort($form_state->getValue('types_to_exclude')))
       ->save();
