@@ -59,13 +59,12 @@ class UniqueTitleValidator extends ConstraintValidator {
     // We want to keep quotes and some other things,
     // So limit what we strip.
     $remove_no_space = ['?', '!', '.', '-'];
-    $remove_with_space = ['-', '  '];
 
     // Some targeted replacements.
     // Exclamation points, etc. are replaced with no space.
     // Underscores and double spaces are replaced with single space.
     $strip_punctuation_symbols = str_replace($remove_no_space, '', $string);
-    $strip_final = str_replace($remove_with_space, ' ', $strip_punctuation_symbols);
+    $strip_final = str_replace('  ', ' ', $strip_punctuation_symbols);
     return $strip_final;
   }
 
