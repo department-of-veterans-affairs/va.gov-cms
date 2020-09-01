@@ -29,9 +29,11 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Button | Button Label | field_button_label | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Button | Button Link | field_button_link | Link |  | 1 | Link |  |
 | Paragraph type | Checklist | Checklist sections | field_checklist_sections | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
-| Paragraph type | Checklist | Section Header | field_section_header | Text (plain) | Required | 1 | Textfield | Translatable |
+| Paragraph type | Checklist | Section Header | field_section_header | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Paragraph type | Checklist | Section Intro | field_section_intro | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Checklist section | Checklist items | field_checklist_items | Text (plain) |  | Unlimited | Textfield |  |
-| Paragraph type | Checklist section | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
+| Paragraph type | Checklist section | Section Header | field_section_header | Text (plain) |  | 1 | Textfield with counter | Translatable |
+| Paragraph type | Checklist section | Section Intro | field_section_intro | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Embedded image | Allow clicks on this image to open it in new tab | field_allow_clicks_on_this_image | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Embedded image | Markup | field_markup | Markup |  | 1 | Markup |  |
 | Paragraph type | Embedded image | Select an image | field_media | Entity reference |  | 1 | Media library |  |
@@ -49,6 +51,10 @@ Feature: Content model: Paragraph fields
 | Paragraph type | List of links | Final link | field_link | Link |  | 1 | Linkit | Translatable |
 | Paragraph type | Lists of links | List of links | field_va_paragraphs | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
 | Paragraph type | Lists of links | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
+| Paragraph type | Media list - Videos | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
+| Paragraph type | Media list - Videos | Videos | field_videos | Entity reference | Required | Unlimited | Media library |  |
+| Paragraph type | Media list - Images | Images | field_images | Entity reference | Required | Unlimited | Media library |  |
+| Paragraph type | Media list - Images | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
 | Paragraph type | Number callout | Additional information | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Number callout | Short phrase with a number, or time element | field_short_phrase_with_a_number | Text (plain) | Required | 1 | Textfield with counter |  |
 | Paragraph type | Non-reusable Alert | Alert Content | field_va_paragraphs | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
@@ -98,8 +104,4 @@ Feature: Content model: Paragraph fields
 | Paragraph type | VAMC facility service (non-healthcare service) | Service name | field_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Paragraph type | VAMC facility service (non-healthcare service) | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | WYSIWYG | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
-| Paragraph type | Media list - Videos | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
-| Paragraph type | Media list - Videos | Videos | field_videos | Entity reference | Required | Unlimited | Media library |  |
-| Paragraph type | Media list - Images | Images | field_images | Entity reference | Required | Unlimited | Media library |  |
-| Paragraph type | Media list - Images | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
 
