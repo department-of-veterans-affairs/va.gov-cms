@@ -62,9 +62,9 @@ class UniqueTitleValidator extends ConstraintValidator {
 
     // Some targeted replacements.
     // Exclamation points, etc. are replaced with no space.
-    // Underscores and double spaces are replaced with single space.
-    $strip_punctuation_symbols = str_replace($remove_no_space, '', $string);
-    $strip_final = trim(str_replace('  ', ' ', $strip_punctuation_symbols));
+    // Double spaces are replaced with single space.
+    $string_without_symbols = str_replace($remove_no_space, '', $string);
+    $strip_final = trim(str_replace('  ', ' ', $string_without_symbols));
     return $strip_final;
   }
 
