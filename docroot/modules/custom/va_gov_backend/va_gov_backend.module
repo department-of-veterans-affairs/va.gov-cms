@@ -611,6 +611,10 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
   if ($entity_type->id() === 'paragraph' && $bundle === 'phone_number' && isset($fields['field_phone_number'])) {
     $fields['field_phone_number']->addConstraint('ValidPhoneNumber');
   }
+  // Add title duplication prevention validation to q_a nodes.
+  if ($entity_type->id() === 'node' && $bundle === 'q_a' && isset($fields['title'])) {
+    $fields['title']->addConstraint('UniqueTitle');
+  }
 }
 
 /**
