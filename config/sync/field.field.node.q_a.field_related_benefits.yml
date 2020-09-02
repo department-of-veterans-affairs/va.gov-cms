@@ -1,0 +1,32 @@
+uuid: b0e33a30-8b49-44f4-a269-4bd729d01f83
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_benefits
+    - node.type.landing_page
+    - node.type.q_a
+  content:
+    - 'node:landing_page:fd822f25-788f-489c-a0fc-b1f7ad6c20d5'
+id: node.q_a.field_related_benefits
+field_name: field_related_benefits
+entity_type: node
+bundle: q_a
+label: 'Related Benefits'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: fd822f25-788f-489c-a0fc-b1f7ad6c20d5
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      landing_page: landing_page
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
