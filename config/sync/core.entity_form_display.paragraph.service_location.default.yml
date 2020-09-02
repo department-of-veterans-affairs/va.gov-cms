@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.service_location.field_additional_hours_info
+    - field.field.paragraph.service_location.field_email_contacts
     - field.field.paragraph.service_location.field_facility_service_hours
     - field.field.paragraph.service_location.field_hours
     - field.field.paragraph.service_location.field_phone
@@ -22,7 +23,7 @@ third_party_settings:
         - field_facility_service_hours
         - field_additional_hours_info
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: details
       format_settings:
         id: ''
@@ -61,6 +62,20 @@ third_party_settings:
         open: false
       label: Phone
       region: content
+    group_email:
+      children:
+        - field_email_contacts
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        description: ''
+        required_fields: true
+        id: ''
+        classes: ''
+        open: false
+      label: Email
+      region: content
 id: paragraph.service_location.default
 targetEntityType: paragraph
 bundle: service_location
@@ -74,6 +89,25 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_email_contacts:
+    type: paragraphs
+    weight: 4
+    settings:
+      title: 'Email contact'
+      title_plural: 'Email contacts'
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: '0'
+    third_party_settings: {  }
+    region: content
   field_facility_service_hours:
     type: tablefield
     weight: 1

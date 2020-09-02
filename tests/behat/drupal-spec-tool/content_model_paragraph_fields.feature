@@ -34,6 +34,9 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Checklist section | Checklist items | field_checklist_items | Text (plain) |  | Unlimited | Textfield |  |
 | Paragraph type | Checklist section | Section Header | field_section_header | Text (plain) |  | 1 | Textfield with counter | Translatable |
 | Paragraph type | Checklist section | Section Intro | field_section_intro | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
+| Paragraph type | Email contact | Email address | field_email_address | Email | Required | 1 | Email |  |
+| Paragraph type | Email contact | Optional note | field_email_label | Text (plain) |  | 1 | Textfield |  |
+| Paragraph type | Service location | Email contacts | field_email_contacts | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Paragraph type | Embedded image | Allow clicks on this image to open it in new tab | field_allow_clicks_on_this_image | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Embedded image | Markup | field_markup | Markup |  | 1 | Markup |  |
 | Paragraph type | Embedded image | Select an image | field_media | Entity reference |  | 1 | Media library |  |
