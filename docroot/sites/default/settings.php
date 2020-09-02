@@ -162,7 +162,7 @@ $config['slack.settings']['slack_webhook_url'] = $settings['slack_webhook_url'];
 // Site Alert settings.
 // If you update this text also update the site alert in the devops repo.
 // @TODO: Move this to a separate file and include it. 
-$settings['va_gov_bybass_message_html'] = <<<EOF
+$settings['va_gov_site_alert_bybass_message_html'] = <<<EOF
 <div class="severity-high">
   <div class="text">
     <p><strong>System update in progress</strong><br><br>Sit tight! Stay on this page to avoid losing unsaved changes. <br>Updates generally take up to 15 minutes. We will let you know when it is ok to resume working again.</p>
