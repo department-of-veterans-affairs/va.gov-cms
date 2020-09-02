@@ -204,7 +204,7 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.local.php')) 
 // The VA_GOV_IN_DEPLOY_MODE is set in settings.deploy.active.php.
 // Ths file is copied from settings.deploy.inactive.php. by ansible during deploys.
 if (!empty(getenv('VA_GOV_IN_DEPLOY_MODE'))) {
-  $html = $settings['va_gov_bybass_message_html'] ?? '';
+  $html = $settings['va_gov_site_alert_bybass_message_html'] ?? '';
   $skip_paths = $settings['va_gov_bypass_paths'] ?? ['ajax/site_alert'];
   $current_path = $GLOBALS['request']->getPathInfo();
   $trimmed_path = ltrim($current_path, '/');
