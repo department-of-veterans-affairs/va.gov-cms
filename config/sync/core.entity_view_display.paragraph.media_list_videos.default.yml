@@ -4,8 +4,11 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.media_list_videos.field_section_header
+    - field.field.paragraph.media_list_videos.field_upload_videos
     - field.field.paragraph.media_list_videos.field_videos
     - paragraphs.paragraphs_type.media_list_videos
+  module:
+    - entity_reference_revisions
 id: paragraph.media_list_videos.default
 targetEntityType: paragraph
 bundle: media_list_videos
@@ -18,6 +21,15 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_upload_videos:
+    weight: 4
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
     region: content
   field_videos:
     type: entity_reference_entity_view

@@ -3,10 +3,14 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.media.media_library
     - field.field.paragraph.media_list_videos.field_section_header
+    - field.field.paragraph.media_list_videos.field_upload_videos
     - field.field.paragraph.media_list_videos.field_videos
     - paragraphs.paragraphs_type.media_list_videos
   module:
+    - entity_browser_entity_form
+    - ief_table_view_mode
     - media_library
 id: paragraph.media_list_videos.default
 targetEntityType: paragraph
@@ -20,6 +24,25 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
+  field_upload_videos:
+    weight: 4
+    settings:
+      form_mode: media_library
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      match_operator: CONTAINS
+      revision: false
+      override_labels: false
+      collapsible: false
+      collapsed: false
+      allow_existing: false
+      allow_duplicate: false
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: media
+    type: inline_entity_form_complex_table_view_mode
     region: content
   field_videos:
     type: media_library_widget

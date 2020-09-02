@@ -53,6 +53,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Lists of links | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
 | Paragraph type | Media list - Videos | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
 | Paragraph type | Media list - Videos | Videos | field_videos | Entity reference | Required | Unlimited | Media library |  |
+| Paragraph type | Media list - Videos | Upload videos | field_upload_videos | Entity reference revisions |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Paragraph type | Media list - Images | Images | field_images | Entity reference | Required | Unlimited | Media library |  |
 | Paragraph type | Media list - Images | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
 | Paragraph type | Number callout | Additional information | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
