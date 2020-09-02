@@ -176,15 +176,15 @@ Feature: Content model: Content Type fields
 | Content type | Q&A | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Q&A | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs Classic | Translatable |
 | Content type | Q&A | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Staff Profile | Bio | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | Staff Profile | Body text | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Staff Profile | Complete Biography | field_complete_biography | File |  | 1 | File |  |
 | Content type | Staff Profile | Email address | field_email_address | Email |  | 1 | Email |  |
 | Content type | Staff Profile | First name | field_name_first | Text (plain) |  | 1 | Textfield |  |
 | Content type | Staff Profile | High-resolution photo should be available for download by site visitors | field_photo_allow_hires_download | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | Staff Profile | Introduction | field_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
+| Content type | Staff Profile | First sentence | field_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Staff Profile | Last name | field_last_name | Text (plain) |  | 1 | Textfield |  |
-| Content type | Staff Profile | Meta description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
-| Content type | Staff Profile | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | Staff Profile | Job title | field_description | Text (plain) |  | 1 | Textfield | Translatable |
+| Content type | Staff Profile | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Staff Profile | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Staff Profile | Phone Number | field_phone_number | Telephone number |  | 1 | Telephone number | Translatable |
 | Content type | Staff Profile | Photo | field_media | Entity reference |  | 1 | Media library | Translatable |
