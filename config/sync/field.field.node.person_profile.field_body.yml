@@ -6,13 +6,19 @@ dependencies:
     - field.storage.node.field_body
     - node.type.person_profile
   module:
+    - allowed_formats
     - text
+third_party_settings:
+  allowed_formats:
+    rich_text: '0'
+    rich_text_limited: '0'
+    plain_text: '0'
 id: node.person_profile.field_body
 field_name: field_body
 entity_type: node
 bundle: person_profile
-label: Bio
-description: 'The full text of the bio, which flows from the Introduction. '
+label: 'Body text'
+description: 'Add everything else from the second sentence on. Don''t include the first sentence in this field.'
 required: false
 translatable: true
 default_value: {  }

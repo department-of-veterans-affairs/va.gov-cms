@@ -24,7 +24,6 @@ dependencies:
     - field_group
     - file
     - media_library
-    - metatag
     - path
     - telephone
     - text
@@ -35,7 +34,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 15
+      weight: 8
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -48,9 +47,8 @@ third_party_settings:
     group_e:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
-      weight: 16
+      weight: 9
       format_type: fieldset
       format_settings:
         id: ''
@@ -64,6 +62,7 @@ third_party_settings:
         - field_name_first
         - field_last_name
         - field_suffix
+        - field_description
       parent_name: ''
       weight: 2
       format_type: fieldset
@@ -79,7 +78,7 @@ third_party_settings:
         - field_email_address
         - field_phone_number
       parent_name: ''
-      weight: 6
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -93,7 +92,7 @@ third_party_settings:
         - field_media
         - field_photo_allow_hires_download
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: fieldset
       format_settings:
         open: '1'
@@ -109,7 +108,7 @@ third_party_settings:
         - field_body
         - field_complete_biography
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: fieldset
       format_settings:
         id: ''
@@ -119,10 +118,9 @@ third_party_settings:
       label: Bio
       region: content
     group_meta_tags:
-      children:
-        - field_description
+      children: {  }
       parent_name: ''
-      weight: 3
+      weight: 16
       format_type: fieldset
       format_settings:
         id: ''
@@ -130,18 +128,12 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Meta Tags'
-      region: content
+      region: hidden
 id: node.person_profile.default
 targetEntityType: node
 bundle: person_profile
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 8
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_administration:
     weight: 17
     settings: {  }
@@ -149,7 +141,7 @@ content:
     type: options_select
     region: content
   field_body:
-    weight: 6
+    weight: 2
     settings:
       rows: 5
       placeholder: ''
@@ -157,20 +149,20 @@ content:
     type: text_textarea
     region: content
   field_complete_biography:
-    weight: 7
+    weight: 3
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
     type: file_generic
     region: content
   field_description:
+    type: string_textfield
     weight: 6
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_email_address:
     weight: 5
     settings:
@@ -180,13 +172,13 @@ content:
     type: email_default
     region: content
   field_intro_text:
-    weight: 5
+    weight: 1
     settings:
       rows: 5
       placeholder: ''
       maxlength: 160
       counter_position: after
-      textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      textcount_status_message: '@remaining_count characters remaining'
       js_prevent_submit: false
       count_html_characters: false
     third_party_settings: {  }
@@ -207,12 +199,6 @@ content:
       media_types: {  }
     region: content
     third_party_settings: {  }
-  field_meta_tags:
-    weight: 14
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_firehose
-    region: content
   field_name_first:
     weight: 3
     settings:
@@ -257,30 +243,9 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 11
+    weight: 6
     region: content
     settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 9
-    region: content
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 13
-    region: content
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 10
-    region: content
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -290,19 +255,15 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 7
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-      match_limit: 10
-    region: content
-    third_party_settings: {  }
   url_redirects:
-    weight: 12
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  created: true
+  field_meta_tags: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
