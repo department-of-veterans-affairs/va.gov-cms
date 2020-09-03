@@ -84,8 +84,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       $block_items['Content Type'] = $node->type->entity->label();
 
       // Make sure this bundle is okay to display on va.gov.
-      $exclude_types_string = $this->configFactory->getEditable('exclusion_types_admin.settings')->get('types_to_exclude');
-      $exclude_types = explode("\n", $exclude_types_string);
+      $exclude_types = $this->configFactory->getEditable('exclusion_types_admin.settings')->get('types_to_exclude');
       // If active revision is not published, it doesn't get included in build.
       // Sufficient to check moderation state on node = active revision.
       if (!in_array($node->bundle(), $exclude_types) && $node->get('moderation_state')->getString() === 'published') {

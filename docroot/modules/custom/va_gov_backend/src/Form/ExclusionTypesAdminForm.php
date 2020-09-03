@@ -2,6 +2,8 @@
 
 namespace Drupal\va_gov_backend\Form;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
@@ -9,6 +11,29 @@ use Drupal\Core\Form\FormStateInterface;
  * Class ExclusionTypesAdminForm.
  */
 class ExclusionTypesAdminForm extends FormBase {
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * {@inheritDoc}
+   */
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+    $this->entityTypeManager = $entity_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity_type.manager')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -22,16 +47,20 @@ class ExclusionTypesAdminForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('exclusion_types_admin.settings');
-
+    $options = [];
+    $types = $this->entityTypeManager
+      ->getStorage('node_type')
+      ->loadMultiple();
+    foreach ($types as $type) {
+      $options[$type->get('type')] = $this->t(':name', [':name' => $type->get('name')]);
+    }
     $form['types_to_exclude'] = [
-      '#type' => 'textarea',
+      '#type' => 'checkboxes',
+      '#options' => $options,
       '#title' => $this->t('Content types that are not individual pages on va.gov.'),
-      '#description' => $this->t('Machine names of content types, one per line, that are not separate pages va.gov'),
+      '#description' => $this->t('Names of content types, that are not separate pages on va.gov'),
       '#weight' => '10',
       '#default_value' => $config->get('types_to_exclude'),
-      '#rows' => 10,
-      '#cols' => 60,
-      '#resizeable' => 'both',
     ];
 
     $form['submit'] = [
@@ -47,30 +76,16 @@ class ExclusionTypesAdminForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $values = [];
+    foreach ($form_state->getValue('types_to_exclude') as $key => $item) {
+      if ($item !== 0) {
+        $values[$key] = $item;
+      }
+    }
     $config = $this->configFactory()->getEditable('exclusion_types_admin.settings');
     $config
-      ->set('types_to_exclude', $this->convertSort($form_state->getValue('types_to_exclude')))
+      ->set('types_to_exclude', $values)
       ->save();
-  }
-
-  /**
-   * Dedupe, sort and convert to one per line.
-   *
-   * @param string $multivalues_raw
-   *   A comma or new line separated string of multiple values.
-   *
-   * @return string
-   *   A new-line separated string that has been deduped and sorted.
-   */
-  private function convertSort($multivalues_raw) {
-    // Clean up any bad data by converting all separators into ','.
-    $multivalues = str_replace(["\r\n", "\n", "\r", ', ', ' ,', " "], ',', strtolower($multivalues_raw));
-    // Store the types array as property.
-    $values = explode(',', $multivalues);
-    $values = array_unique($values);
-    natcasesort($values);
-    $multivalues_sorted = implode("\n", $values);
-    return $multivalues_sorted;
   }
 
 }
