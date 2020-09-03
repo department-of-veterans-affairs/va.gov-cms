@@ -1,31 +1,31 @@
-uuid: 3fe7ed39-be2a-4e61-b29b-13360b8719e6
+uuid: 0fb6df17-550a-4f69-9193-caf8d23f373b
 langcode: en
 status: true
 dependencies:
   config:
-    - views.view.benefits_hub_list
+    - views.view.benefits_hub_categories
   module:
     - views
-name: related_benefits
-label: 'Related Benefits'
+name: lc_benefit_hubs
+label: 'VA Benefit Hubs'
 display: modal
 display_configuration:
   width: '650'
   height: '500'
-  link_text: 'Add Related Benefits'
+  link_text: 'Select entities'
   auto_open: false
 selection_display: no_display
 selection_display_configuration: {  }
 widget_selector: drop_down
 widget_selector_configuration: {  }
 widgets:
-  99c6e116-3113-4793-bc5c-794ba91066a0:
+  f157424d-9a30-44ff-8a67-0da34f669dcd:
     settings:
-      view: benefits_hub_list
+      view: benefits_hub_categories
       view_display: entity_browser_1
-      submit_text: 'Add Related Benefits'
+      submit_text: 'Add Benefit Hubs'
       auto_select: false
-    uuid: 99c6e116-3113-4793-bc5c-794ba91066a0
+    uuid: f157424d-9a30-44ff-8a67-0da34f669dcd
     weight: 1
     label: view
     id: view
