@@ -1,0 +1,9 @@
+va_gov_backend.exclusion_types_admin_form:
+  path: '/admin/config/content/exclusion-types-form'
+  defaults:
+    _form: '\Drupal\va_gov_backend\Form\ExclusionTypesAdminForm'
+    _title: 'VA.gov Exclusion Types form'
+  requirements:
+    _permission: 'administer content'
+  options:
+    _admin_route: TRUE
