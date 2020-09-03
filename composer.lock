@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "460ed2e9c5e4f789d8a77ff2255f15f2",
+    "content-hash": "e2338991981ce216160315c2a89ee394",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -7966,26 +7966,26 @@
         },
         {
             "name": "drupal/seckit",
-            "version": "1.2.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/seckit.git",
-                "reference": "8.x-1.2"
+                "reference": "2.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/seckit-8.x-1.2.zip",
-                "reference": "8.x-1.2",
-                "shasum": "5bd6730e54b7bfae3c68dbfac3ccbb6f12129a65"
+                "url": "https://ftp.drupal.org/files/projects/seckit-2.0.0.zip",
+                "reference": "2.0.0",
+                "shasum": "d5356230b2de7d1e8a2e68eb81e70619a2e36c1e"
             },
             "require": {
-                "drupal/core": "~8.0"
+                "drupal/core": "^8.8 || ^9"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.2",
-                    "datestamp": "1561463889",
+                    "version": "2.0.0",
+                    "datestamp": "1598609351",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -8112,8 +8112,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.2+0-dev",
-                    "datestamp": "1594058302",
+                    "version": "8.x-1.2+1-dev",
+                    "datestamp": "1598516956",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -16806,12 +16806,12 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/weitzman/drupal-test-traits.git",
-                "reference": "5992285e54e98e22cf1071242dea3c1da81d2b78"
+                "reference": "9234dcceff424180f013b66a9f0a430c985966d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/weitzman%2Fdrupal-test-traits/repository/archive.zip?sha=5992285e54e98e22cf1071242dea3c1da81d2b78",
-                "reference": "5992285e54e98e22cf1071242dea3c1da81d2b78",
+                "url": "https://gitlab.com/api/v4/projects/weitzman%2Fdrupal-test-traits/repository/archive.zip?sha=9234dcceff424180f013b66a9f0a430c985966d0",
+                "reference": "9234dcceff424180f013b66a9f0a430c985966d0",
                 "shasum": ""
             },
             "require": {
@@ -16867,7 +16867,7 @@
                 }
             ],
             "description": "Traits for testing Drupal sites that have user content (versus unpopulated sites).",
-            "time": "2020-04-29T23:52:16+00:00"
+            "time": "2020-07-18T02:52:40+00:00"
         },
         {
             "name": "whitehat101/apr1-md5",
@@ -18667,11 +18667,6 @@
                 "squizlabs/php_codesniffer": "^2.7"
             },
             "type": "library",
-            "extra": {
-                "patches_applied": {
-                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "TravisCarden\\BehatTableComparison\\": "src/BehatTableComparison/"
