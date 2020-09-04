@@ -24,6 +24,7 @@ Feature: Content model bundles
 | CMS Help Page | documentation_page | Content type | Help guide pages on how to use the CMS to edit content on VA.gov. |
 | Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
 | Document | document | Media type | A locally hosted document, such as a PDF. |
+| Email contact | email_contact | Paragraph type |  |
 | Embedded image | media | Paragraph type | For adding an image inline |
 | Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
 | Events List | event_listing | Content type | A listing of events. |
