@@ -186,7 +186,7 @@ Feature: Content model: Content Type fields
 | Content type | Q&A | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Q&A | Related Links | field_related_links | Entity reference revisions |  | 5 | Paragraphs Classic | Translatable |
 | Content type | Q&A | VA Benefit Hubs | field_lc_benefit_hubs | Entity reference |  | 3 | Entity Browser - Table |  |
-| Content type | Staff Profile | Bio | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | Staff Profile | Body text | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Staff Profile | Complete Biography | field_complete_biography | File |  | 1 | File |  |
 | Content type | Staff Profile | Email address | field_email_address | Email |  | 1 | Email |  |
 | Content type | Staff Profile | First name | field_name_first | Text (plain) |  | 1 | Textfield |  |

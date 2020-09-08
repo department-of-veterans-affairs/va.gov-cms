@@ -68,7 +68,7 @@ Feature: Views
 | Archive | Page | page_1 | Page |
 | Benefits hub list | Entity Reference | entity_reference_1 | Entity Reference |
 | Benefits hub list | Master | default | Master |
-| Benefit Hubs Categories | Entity browser | entity_browser_1 | Entity browser |
+| Benefit Hubs Categories | Entity browser | benefits_hub_categories | Entity browser |
 | Benefit Hubs Categories | Master | default | Master |
 | Blocks listing | Master | default | Master |
 | Blocks listing | Promo blocks | page_1 | Page |
