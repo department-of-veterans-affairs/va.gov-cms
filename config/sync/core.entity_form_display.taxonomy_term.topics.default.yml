@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.topics.field_lc_homepage_topic
+    - field.field.taxonomy_term.topics.field_lc_category
     - taxonomy.vocabulary.topics
   module:
     - path
@@ -21,7 +21,7 @@ content:
       placeholder: ''
       rows: 5
     third_party_settings: {  }
-  field_lc_homepage_topic:
+  field_lc_category:
     weight: 1
     settings:
       display_label: true
