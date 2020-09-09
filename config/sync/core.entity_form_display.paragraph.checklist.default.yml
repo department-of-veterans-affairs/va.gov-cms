@@ -5,9 +5,11 @@ dependencies:
   config:
     - field.field.paragraph.checklist.field_checklist_sections
     - field.field.paragraph.checklist.field_section_header
+    - field.field.paragraph.checklist.field_section_intro
     - paragraphs.paragraphs_type.checklist
   module:
     - paragraphs
+    - textfield_counter
 id: paragraph.checklist.default
 targetEntityType: paragraph
 bundle: checklist
@@ -15,7 +17,7 @@ mode: default
 content:
   field_checklist_sections:
     type: paragraphs
-    weight: 1
+    weight: 2
     settings:
       title: 'Checklist section'
       title_plural: 'Checklist sections'
@@ -37,8 +39,27 @@ content:
     settings:
       size: 60
       placeholder: ''
+      maxlength: 70
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
     third_party_settings: {  }
-    type: string_textfield
+    type: string_textfield_with_counter
+    region: content
+  field_section_intro:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 300
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+    type: string_textarea_with_counter
     region: content
 hidden:
   created: true

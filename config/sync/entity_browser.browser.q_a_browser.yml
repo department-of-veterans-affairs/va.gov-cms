@@ -5,6 +5,7 @@ dependencies:
   config:
     - views.view.content_entity_browsers
   module:
+    - entity_browser_entity_form
     - views
 name: q_a_browser
 label: 'Q&A'
@@ -29,3 +30,13 @@ widgets:
     weight: 1
     label: ''
     id: view
+  72d0ffb9-db92-4f24-ba64-ad72dd2b3bb1:
+    settings:
+      entity_type: node
+      bundle: q_a
+      form_mode: inline_entity_form
+      submit_text: 'Select Q&As'
+    uuid: 72d0ffb9-db92-4f24-ba64-ad72dd2b3bb1
+    weight: 2
+    label: entity_form
+    id: entity_form

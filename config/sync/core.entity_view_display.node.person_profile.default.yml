@@ -17,36 +17,28 @@ dependencies:
     - field.field.node.person_profile.field_phone_number
     - field.field.node.person_profile.field_photo_allow_hires_download
     - field.field.node.person_profile.field_suffix
+    - image.style.2_3_medium_thumbnail
     - node.type.person_profile
   module:
     - field_group
     - file
+    - media
     - telephone
     - text
     - user
 third_party_settings:
   field_group:
     group_meta:
-      children:
-        - field_media
-        - field_name_first
-        - field_last_name
-        - field_suffix
-        - field_description
-        - field_intro_text
-        - field_body
-        - field_phone_number
-        - field_email_address
-        - field_photo_allow_hires_download
+      children: {  }
       parent_name: ''
-      weight: 1
+      weight: 11
       format_type: fieldset
       format_settings:
         description: ''
         id: ''
         classes: ''
-      label: Content
-      region: content
+      label: ''
+      region: hidden
 id: node.person_profile.default
 targetEntityType: node
 bundle: person_profile
@@ -58,14 +50,14 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_body:
-    weight: 10
+    weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_complete_biography:
-    weight: 2
+    weight: 10
     label: above
     settings:
       use_description_as_link_text: true
@@ -73,29 +65,29 @@ content:
     type: file_default
     region: content
   field_description:
-    weight: 8
+    type: string
+    weight: 5
+    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
-    region: content
   field_email_address:
-    weight: 12
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-    region: content
-  field_intro_text:
     weight: 9
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
-  field_last_name:
+  field_intro_text:
     weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_last_name:
+    weight: 3
     label: above
     settings:
       link_to_entity: false
@@ -103,15 +95,16 @@ content:
     type: string
     region: content
   field_media:
-    weight: 4
+    weight: 1
     label: above
     settings:
-      link: true
+      image_style: 2_3_medium_thumbnail
+      image_link: ''
     third_party_settings: {  }
-    type: entity_reference_label
+    type: media_thumbnail
     region: content
   field_name_first:
-    weight: 5
+    weight: 2
     label: above
     settings:
       link_to_entity: false
@@ -119,25 +112,15 @@ content:
     type: string
     region: content
   field_phone_number:
-    weight: 11
+    weight: 8
     label: above
     settings:
       title: ''
     third_party_settings: {  }
     type: telephone_link
     region: content
-  field_photo_allow_hires_download:
-    weight: 13
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
-    region: content
   field_suffix:
-    weight: 7
+    weight: 4
     label: above
     settings:
       link_to_entity: false
@@ -148,5 +131,6 @@ hidden:
   field_administration: true
   field_meta_tags: true
   field_office: true
+  field_photo_allow_hires_download: true
   links: true
   search_api_excerpt: true

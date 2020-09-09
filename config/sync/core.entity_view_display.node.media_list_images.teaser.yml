@@ -1,0 +1,38 @@
+uuid: e4297cf4-b3da-4864-94f5-d8c43b5e10fd
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.media_list_images.field_administration
+    - field.field.node.media_list_images.field_alert_single
+    - field.field.node.media_list_images.field_buttons
+    - field.field.node.media_list_images.field_buttons_repeat
+    - field.field.node.media_list_images.field_description
+    - field.field.node.media_list_images.field_intro_text_limited_html
+    - field.field.node.media_list_images.field_media_list_images
+    - field.field.node.media_list_images.field_meta_title
+    - node.type.media_list_images
+  module:
+    - user
+id: node.media_list_images.teaser
+targetEntityType: node
+bundle: media_list_images
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_alert_single: true
+  field_buttons: true
+  field_buttons_repeat: true
+  field_description: true
+  field_intro_text_limited_html: true
+  field_media_list_images: true
+  field_meta_title: true
+  search_api_excerpt: true

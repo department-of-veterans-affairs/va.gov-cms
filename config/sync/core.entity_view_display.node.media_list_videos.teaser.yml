@@ -1,0 +1,38 @@
+uuid: 697bc86a-d165-421c-888c-11e13cab26e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.media_list_videos.field_administration
+    - field.field.node.media_list_videos.field_alert_single
+    - field.field.node.media_list_videos.field_buttons
+    - field.field.node.media_list_videos.field_buttons_repeat
+    - field.field.node.media_list_videos.field_description
+    - field.field.node.media_list_videos.field_intro_text_limited_html
+    - field.field.node.media_list_videos.field_media_list_videos
+    - field.field.node.media_list_videos.field_meta_title
+    - node.type.media_list_videos
+  module:
+    - user
+id: node.media_list_videos.teaser
+targetEntityType: node
+bundle: media_list_videos
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_alert_single: true
+  field_buttons: true
+  field_buttons_repeat: true
+  field_description: true
+  field_intro_text_limited_html: true
+  field_media_list_videos: true
+  field_meta_title: true
+  search_api_excerpt: true

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.service_location.field_additional_hours_info
+    - field.field.paragraph.service_location.field_email_contacts
     - field.field.paragraph.service_location.field_facility_service_hours
     - field.field.paragraph.service_location.field_hours
     - field.field.paragraph.service_location.field_phone
@@ -26,6 +27,15 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_email_contacts:
+    type: entity_reference_revisions_entity_view
+    weight: 6
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
     region: content
   field_facility_service_hours:
     weight: 1

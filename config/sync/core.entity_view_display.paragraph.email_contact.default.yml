@@ -1,0 +1,30 @@
+uuid: 5dbf7043-f5bd-4fbe-bc5d-9f07348e1408
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.email_contact.field_email_address
+    - field.field.paragraph.email_contact.field_email_label
+    - paragraphs.paragraphs_type.email_contact
+id: paragraph.email_contact.default
+targetEntityType: paragraph
+bundle: email_contact
+mode: default
+content:
+  field_email_address:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_email_label:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  search_api_excerpt: true

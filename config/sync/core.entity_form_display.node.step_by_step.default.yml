@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.step_by_step.field_administration
+    - field.field.node.step_by_step.field_alert_single
     - field.field.node.step_by_step.field_buttons
     - field.field.node.step_by_step.field_buttons_repeat
     - field.field.node.step_by_step.field_description
@@ -39,7 +40,7 @@ third_party_settings:
         - field_meta_title
         - field_description
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -53,7 +54,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details
       format_settings:
         id: ''
@@ -67,7 +68,7 @@ third_party_settings:
       children:
         - field_steps
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -80,7 +81,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: details_sidebar
       format_settings:
         description: ''
@@ -90,6 +91,19 @@ third_party_settings:
         id: ''
         classes: ''
       label: Governance
+      region: content
+    group_inc:
+      children:
+        - field_alert_single
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver. You can <a href="/block/add/alert?destination=/admin/content/alerts">create a new alert</a>, or reuse an existing one.'
+        required_fields: false
+      label: 'Include Alert'
       region: content
 id: node.step_by_step.default
 targetEntityType: node
@@ -102,9 +116,21 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  field_alert_single:
+    weight: 9
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+    region: content
   field_buttons:
     type: entity_reference_paragraphs
-    weight: 2
+    weight: 3
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -115,7 +141,7 @@ content:
     third_party_settings: {  }
     region: content
   field_buttons_repeat:
-    weight: 4
+    weight: 5
     settings:
       display_label: true
     third_party_settings: {  }
@@ -182,7 +208,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }

@@ -4,6 +4,7 @@ status: false
 dependencies:
   config:
     - core.entity_form_mode.media.media_browser
+    - field.field.media.image.field_description
     - field.field.media.image.field_media_in_library
     - field.field.media.image.field_media_submission_guideline
     - field.field.media.image.field_owner
@@ -43,11 +44,11 @@ content:
     region: content
 hidden:
   created: true
+  field_description: true
   field_media_in_library: true
   field_media_submission_guideline: true
   field_owner: true
   moderation_state: true
   path: true
-  revision_log_message: true
   status: true
   uid: true

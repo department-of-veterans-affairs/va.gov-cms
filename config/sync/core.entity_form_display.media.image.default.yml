@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.image.field_description
     - field.field.media.image.field_media_in_library
     - field.field.media.image.field_media_submission_guideline
     - field.field.media.image.field_owner
@@ -13,13 +14,14 @@ dependencies:
     - field_group
     - image_widget_crop
     - markup
+    - textfield_counter
 third_party_settings:
   field_group:
     group_governance:
       children:
         - field_owner
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -35,6 +37,19 @@ targetEntityType: media
 bundle: image
 mode: default
 content:
+  field_description:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 300
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+    type: string_textarea_with_counter
+    region: content
   field_media_submission_guideline:
     weight: 0
     settings: {  }
@@ -49,7 +64,7 @@ content:
     region: content
   image:
     type: image_widget_crop
-    weight: 2
+    weight: 3
     settings:
       show_crop_area: true
       show_default_crop: true
@@ -74,6 +89,5 @@ hidden:
   field_media_in_library: true
   moderation_state: true
   path: true
-  revision_log_message: true
   status: true
   uid: true
