@@ -8,7 +8,9 @@ dependencies:
     - field.field.node.q_a.field_answer
     - field.field.node.q_a.field_buttons
     - field.field.node.q_a.field_description
+    - field.field.node.q_a.field_lc_benefit_hubs
     - field.field.node.q_a.field_meta_title
+    - field.field.node.q_a.field_related_links
     - node.type.q_a
   module:
     - entity_reference_revisions
@@ -21,7 +23,7 @@ third_party_settings:
         - field_meta_title
         - field_description
       parent_name: ''
-      weight: 4
+      weight: 6
       format_type: fieldset
       format_settings:
         id: ''
@@ -40,7 +42,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_administration:
-    weight: 5
+    weight: 7
     label: above
     settings:
       link: true
@@ -82,6 +84,14 @@ content:
     third_party_settings: {  }
     type: string
     region: content
+  field_lc_benefit_hubs:
+    weight: 4
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
   field_meta_title:
     weight: 2
     label: above
@@ -90,8 +100,17 @@ content:
     third_party_settings: {  }
     type: string
     region: content
+  field_related_links:
+    weight: 5
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
   links:
-    weight: 6
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }

@@ -1,0 +1,31 @@
+uuid: 0fb6df17-550a-4f69-9193-caf8d23f373b
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.benefits_hub_categories
+  module:
+    - views
+name: lc_benefit_hubs
+label: 'VA Benefit Hubs'
+display: modal
+display_configuration:
+  width: '650'
+  height: '500'
+  link_text: 'Select Benefit Hub(s)'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: single
+widget_selector_configuration: {  }
+widgets:
+  f157424d-9a30-44ff-8a67-0da34f669dcd:
+    settings:
+      view: benefits_hub_categories
+      view_display: benefits_hub_categories
+      submit_text: 'Select Benefit Hub(s)'
+      auto_select: false
+    uuid: f157424d-9a30-44ff-8a67-0da34f669dcd
+    weight: 1
+    label: 'Select Benefit Hub(s)'
+    id: view
