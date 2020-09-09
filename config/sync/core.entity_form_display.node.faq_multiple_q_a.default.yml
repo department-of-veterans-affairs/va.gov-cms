@@ -3,20 +3,24 @@ langcode: en
 status: true
 dependencies:
   config:
+    - entity_browser.browser.lc_benefit_hubs
     - field.field.node.faq_multiple_q_a.field_administration
     - field.field.node.faq_multiple_q_a.field_alert_single
     - field.field.node.faq_multiple_q_a.field_buttons
     - field.field.node.faq_multiple_q_a.field_buttons_repeat
     - field.field.node.faq_multiple_q_a.field_description
     - field.field.node.faq_multiple_q_a.field_intro_text_limited_html
+    - field.field.node.faq_multiple_q_a.field_lc_benefit_hubs
     - field.field.node.faq_multiple_q_a.field_meta_title
     - field.field.node.faq_multiple_q_a.field_q_a_groups
+    - field.field.node.faq_multiple_q_a.field_related_links
     - field.field.node.faq_multiple_q_a.field_table_of_contents_boolean
     - node.type.faq_multiple_q_a
     - workflows.workflow.editorial
   module:
     - allowed_formats
     - content_moderation
+    - entity_browser_table
     - field_group
     - paragraphs
     - path
@@ -28,7 +32,7 @@ third_party_settings:
         - field_meta_title
         - field_description
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -55,7 +59,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -71,7 +75,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: fieldset
       format_settings:
         id: ''
@@ -84,7 +88,7 @@ third_party_settings:
       children:
         - field_table_of_contents_boolean
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: details
       format_settings:
         id: ''
@@ -131,7 +135,7 @@ content:
     type: entity_reference_paragraphs
     region: content
   field_buttons:
-    weight: 4
+    weight: 3
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -143,7 +147,7 @@ content:
     type: entity_reference_paragraphs
     region: content
   field_buttons_repeat:
-    weight: 7
+    weight: 6
     settings:
       display_label: true
     third_party_settings: {  }
@@ -179,6 +183,20 @@ content:
         hide_guidelines: '0'
     type: text_textarea_with_counter
     region: content
+  field_lc_benefit_hubs:
+    weight: 7
+    settings:
+      entity_browser: lc_benefit_hubs
+      field_widget_display: label
+      field_widget_remove: '1'
+      selection_mode: selection_append
+      field_widget_edit: 0
+      field_widget_replace: 0
+      open: 0
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_reference_browser_table_widget
+    region: content
   field_meta_title:
     weight: 11
     settings:
@@ -195,7 +213,7 @@ content:
     region: content
   field_q_a_groups:
     type: entity_reference_paragraphs
-    weight: 6
+    weight: 5
     settings:
       title: 'Q&A Group'
       title_plural: 'Q&A Groups'
@@ -204,6 +222,18 @@ content:
       form_display_mode: default
       default_paragraph_type: q_a_section_faq_multiple
     third_party_settings: {  }
+    region: content
+  field_related_links:
+    weight: 8
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
     region: content
   field_table_of_contents_boolean:
     weight: 10
@@ -220,7 +250,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -239,7 +269,7 @@ content:
       use_field_maxlength: false
     third_party_settings: {  }
   url_redirects:
-    weight: 11
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }

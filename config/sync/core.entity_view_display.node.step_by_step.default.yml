@@ -9,7 +9,9 @@ dependencies:
     - field.field.node.step_by_step.field_buttons_repeat
     - field.field.node.step_by_step.field_description
     - field.field.node.step_by_step.field_intro_text_limited_html
+    - field.field.node.step_by_step.field_lc_benefit_hubs
     - field.field.node.step_by_step.field_meta_title
+    - field.field.node.step_by_step.field_related_links
     - field.field.node.step_by_step.field_steps
     - node.type.step_by_step
   module:
@@ -39,6 +41,8 @@ third_party_settings:
         - field_buttons
         - field_steps
         - field_buttons_repeat
+        - field_lc_benefit_hubs
+        - field_related_links
       parent_name: ''
       weight: 2
       format_type: fieldset
@@ -109,6 +113,14 @@ content:
     third_party_settings: {  }
     type: text_default
     region: content
+  field_lc_benefit_hubs:
+    weight: 10
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
   field_meta_title:
     weight: 3
     label: above
@@ -116,6 +128,15 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_related_links:
+    weight: 11
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
     region: content
   field_steps:
     type: entity_reference_revisions_entity_view
