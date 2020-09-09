@@ -6882,34 +6882,32 @@
         },
         {
             "name": "drupal/openapi",
-            "version": "1.0.0-beta7",
+            "version": "2.0.0-rc3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/openapi.git",
-                "reference": "8.x-1.0-beta7"
+                "reference": "8.x-2.0-rc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/openapi-8.x-1.0-beta7.zip",
-                "reference": "8.x-1.0-beta7",
-                "shasum": "375fb8f2f883d9bd52746ebdca9fc4de4a39eac5"
+                "url": "https://ftp.drupal.org/files/projects/openapi-8.x-2.0-rc3.zip",
+                "reference": "8.x-2.0-rc3",
+                "shasum": "146d53e8cc4f732fe27aaf702852813f91629349"
             },
             "require": {
-                "drupal/core": "~8.0",
-                "drupal/schemata": "^1.0",
-                "drupal/schemata_json_schema": "*"
+                "drupal/core": "^8.7.0 || ^9"
             },
             "require-dev": {
-                "drupal/core": "^8.7.0"
+                "vijaycs85/drupal-quality-checker": "^1.2"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta7",
-                    "datestamp": "1585778030",
+                    "version": "8.x-2.0-rc3",
+                    "datestamp": "1587845666",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "message": "RC releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -6943,7 +6941,7 @@
                     "homepage": "https://www.drupal.org/user/240860"
                 }
             ],
-            "description": "Creates OpenAPI specification for Drupal REST resources.",
+            "description": "Creates OpenAPI specification for Drupal resources.",
             "homepage": "https://www.drupal.org/project/openapi",
             "keywords": [
                 "Drupal"
@@ -7797,171 +7795,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/role_delegation",
                 "issues": "http://drupal.org/project/role_delegation"
-            }
-        },
-        {
-            "name": "drupal/schemata",
-            "version": "1.0.0-beta1",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/schemata.git",
-                "reference": "8.x-1.0-beta1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/schemata-8.x-1.0-beta1.zip",
-                "reference": "8.x-1.0-beta1",
-                "shasum": "01766a4dc44e1b2a0ce7baae4d67e0f572c0f72f"
-            },
-            "require": {
-                "drupal/core": "^8"
-            },
-            "require-dev": {
-                "drupal/coder": "^8.2",
-                "jakub-onderka/php-parallel-lint": "^0.9.2",
-                "league/json-guard": "^1.0",
-                "league/json-reference": "^1.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-1.0-beta1",
-                    "datestamp": "1560865981",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
-                    }
-                },
-                "patches_applied": {
-                    "PHP 7.2 notice - \"Undefined offset: 1\" in JsonSchemaEncoder": "https://www.drupal.org/files/issues/2019-07-08/3063027-5-undefined-offset.patch"
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "scripts": {
-                "phpcs": [
-                    "phpcs --standard=tests/phpcs.xml"
-                ],
-                "phpcbf": [
-                    "phpcbf --standard=tests/phpcs.xml"
-                ],
-                "lint": [
-                    "parallel-lint -e php,module,install,profile,theme,inc --exclude vendor/ --blame ."
-                ],
-                "quality": [
-                    "@lint",
-                    "@phpcs"
-                ]
-            },
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Adam Ross",
-                    "homepage": "https://www.drupal.org/user/346868",
-                    "email": "grayside@gmail.com"
-                },
-                {
-                    "name": "HalfChem",
-                    "homepage": "https://www.drupal.org/user/1608382"
-                },
-                {
-                    "name": "e0ipso",
-                    "homepage": "https://www.drupal.org/user/550110"
-                },
-                {
-                    "name": "febbraro",
-                    "homepage": "https://www.drupal.org/user/43670"
-                },
-                {
-                    "name": "jhedstrom",
-                    "homepage": "https://www.drupal.org/user/208732"
-                },
-                {
-                    "name": "mpotter",
-                    "homepage": "https://www.drupal.org/user/616192"
-                },
-                {
-                    "name": "richgerdes",
-                    "homepage": "https://www.drupal.org/user/3437973"
-                },
-                {
-                    "name": "tekante",
-                    "homepage": "https://www.drupal.org/user/640024"
-                }
-            ],
-            "description": "Facilitate generation of schema definitions of Drupal 8 data models.",
-            "homepage": "https://drupal.org/project/schemata",
-            "keywords": [
-                "Drupal",
-                "json",
-                "schema"
-            ],
-            "support": {
-                "source": "https://cgit.drupalcode.org/schemata",
-                "issues": "https://drupal.org/project/issues/schemata"
-            }
-        },
-        {
-            "name": "drupal/schemata_json_schema",
-            "version": "1.0.0-beta1",
-            "require": {
-                "drupal/core": "~8.0",
-                "drupal/schemata": "self.version"
-            },
-            "type": "metapackage",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-1.0-beta1",
-                    "datestamp": "1560865981",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Grayside",
-                    "homepage": "https://www.drupal.org/user/346868"
-                },
-                {
-                    "name": "HalfChem",
-                    "homepage": "https://www.drupal.org/user/1608382"
-                },
-                {
-                    "name": "e0ipso",
-                    "homepage": "https://www.drupal.org/user/550110"
-                },
-                {
-                    "name": "febbraro",
-                    "homepage": "https://www.drupal.org/user/43670"
-                },
-                {
-                    "name": "jhedstrom",
-                    "homepage": "https://www.drupal.org/user/208732"
-                },
-                {
-                    "name": "mpotter",
-                    "homepage": "https://www.drupal.org/user/616192"
-                },
-                {
-                    "name": "richgerdes",
-                    "homepage": "https://www.drupal.org/user/3437973"
-                },
-                {
-                    "name": "tekante",
-                    "homepage": "https://www.drupal.org/user/640024"
-                }
-            ],
-            "description": "Provides a data models for entity types and bundles in JSON schema format.",
-            "homepage": "https://www.drupal.org/project/schemata",
-            "support": {
-                "source": "https://git.drupalcode.org/project/schemata"
             }
         },
         {
@@ -18708,7 +18541,6 @@
         "drupal/libraries": 15,
         "drupal/markup": 10,
         "drupal/mass_pwreset": 15,
-        "drupal/openapi": 10,
         "drupal/paragraphs_browser": 15,
         "drupal/password_policy": 15,
         "drupal/password_strength": 15,
