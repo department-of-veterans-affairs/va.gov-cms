@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - entity_browser.browser.lc_benefit_hubs
+    - entity_browser.browser.categories
     - field.field.node.faq_multiple_q_a.field_administration
     - field.field.node.faq_multiple_q_a.field_alert_single
     - field.field.node.faq_multiple_q_a.field_buttons
@@ -11,6 +12,8 @@ dependencies:
     - field.field.node.faq_multiple_q_a.field_description
     - field.field.node.faq_multiple_q_a.field_intro_text_limited_html
     - field.field.node.faq_multiple_q_a.field_lc_benefit_hubs
+    - field.field.node.faq_multiple_q_a.field_other_categories
+    - field.field.node.faq_multiple_q_a.field_primary_category
     - field.field.node.faq_multiple_q_a.field_meta_title
     - field.field.node.faq_multiple_q_a.field_q_a_groups
     - field.field.node.faq_multiple_q_a.field_related_links
@@ -21,6 +24,7 @@ dependencies:
     - allowed_formats
     - content_moderation
     - entity_browser_table
+    - entity_browser
     - field_group
     - paragraphs
     - path
@@ -111,6 +115,21 @@ third_party_settings:
         required_fields: false
       label: 'Include Alert'
       region: content
+    group_categories:
+      children:
+        - field_primary_category
+        - field_other_categories
+      parent_name: ''
+      weight: 3
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'Learning Center categories'
+      region: content
 id: node.faq_multiple_q_a.default
 targetEntityType: node
 bundle: faq_multiple_q_a
@@ -196,6 +215,26 @@ content:
       field_widget_display_settings: {  }
     third_party_settings: {  }
     type: entity_reference_browser_table_widget
+    region: content
+  field_other_categories:
+    weight: 13
+    settings:
+      entity_browser: topics
+      field_widget_display: label
+      field_widget_edit: true
+      field_widget_remove: true
+      selection_mode: selection_append
+      field_widget_replace: false
+      open: false
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+    region: content
+  field_primary_category:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
     region: content
   field_meta_title:
     weight: 11

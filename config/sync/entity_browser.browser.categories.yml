@@ -1,0 +1,31 @@
+uuid: 3483f30e-c910-4c67-a5e5-405be5dd31cc
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.taxonomy_entity_browsers
+  module:
+    - views
+name: categories
+label: Categories
+display: modal
+display_configuration:
+  width: '650'
+  height: '500'
+  link_text: 'Add categories'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: single
+widget_selector_configuration: {  }
+widgets:
+  f420a116-e8ea-4b1d-8c9b-1e115605b11b:
+    settings:
+      view: taxonomy_entity_browsers
+      view_display: entity_browser_1
+      submit_text: 'Select categories'
+      auto_select: false
+    uuid: f420a116-e8ea-4b1d-8c9b-1e115605b11b
+    weight: 2
+    label: view
+    id: view

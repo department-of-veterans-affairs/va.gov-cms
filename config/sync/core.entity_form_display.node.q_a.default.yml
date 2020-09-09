@@ -4,18 +4,22 @@ status: true
 dependencies:
   config:
     - entity_browser.browser.lc_benefit_hubs
+    - entity_browser.browser.categories
     - field.field.node.q_a.field_administration
     - field.field.node.q_a.field_alert_single
     - field.field.node.q_a.field_answer
     - field.field.node.q_a.field_buttons
     - field.field.node.q_a.field_description
     - field.field.node.q_a.field_lc_benefit_hubs
+    - field.field.node.q_a.field_other_categories
+    - field.field.node.q_a.field_primary_category
     - field.field.node.q_a.field_meta_title
     - field.field.node.q_a.field_related_links
     - node.type.q_a
     - workflows.workflow.editorial
   module:
     - content_moderation
+    - entity_browser
     - entity_browser_table
     - field_group
     - paragraphs
@@ -93,6 +97,21 @@ third_party_settings:
         required_fields: false
       label: 'Include Alert'
       region: content
+    group_categories:
+      children:
+        - field_primary_category
+        - field_other_categories
+      parent_name: ''
+      weight: 3
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'Learning Center categories'
+      region: content
 id: node.q_a.default
 targetEntityType: node
 bundle: q_a
@@ -136,7 +155,7 @@ content:
     third_party_settings: {  }
     region: content
   field_buttons:
-    weight: 3
+    weight: 4
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -175,6 +194,26 @@ content:
       open: 0
       field_widget_display_settings: {  }
     third_party_settings: {  }
+  field_other_categories:
+    weight: 11
+    settings:
+      entity_browser: topics
+      field_widget_display: label
+      field_widget_edit: true
+      field_widget_remove: true
+      selection_mode: selection_append
+      field_widget_replace: false
+      open: false
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+    region: content
+  field_primary_category:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   field_meta_title:
     weight: 3
     settings:
