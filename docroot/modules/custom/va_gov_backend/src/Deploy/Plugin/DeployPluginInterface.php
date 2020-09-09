@@ -34,6 +34,6 @@ interface DeployPluginInterface {
    *
    * @throws \Symfony\Component\HttpKernel\Exception\HttpExceptionInterface
    */
-  public function run(Request $request, string $app_root, string $site_path) : void;
+  public function run(Request $request, string $app_root, string $site_path) : ?bool;
 
 }

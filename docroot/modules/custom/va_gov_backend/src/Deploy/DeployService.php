@@ -2,7 +2,6 @@
 
 namespace Drupal\va_gov_backend\Deploy;
 
-use Drupal\va_gov_backend\Deploy\Plugin\DeployPluginInterface;
 use Drupal\va_gov_backend\Deploy\Plugin\HealthCheck;
 use Drupal\va_gov_backend\Deploy\Plugin\MaintenanceMode;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,32 +39,13 @@ class DeployService {
    *   The Drupal site path.
    */
   public function run(Request $request, string $app_root, string $site_path) : void {
-    $deploy_plugin = $this->match($request);
-    if (!$deploy_plugin) {
-      return;
-    }
-
-    $deploy_plugin->run($request, $app_root, $site_path);
-  }
-
-  /**
-   * Look for a plugin match.  First match wins.
-   *
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   The drupal request object.
-   *
-   * @return \Drupal\va_gov_backend\Deploy\Plugin\DeployPluginInterface|null
-   *   The deploy plugin or NULL if none match.
-   */
-  protected function match(Request $request) : ?DeployPluginInterface {
     foreach (static::deployPlugins() as $plugin) {
+      /** @var \Drupal\va_gov_backend\Deploy\Plugin\DeployPluginInterface $deploy_plugin */
       $deploy_plugin = new $plugin();
       if ($deploy_plugin->match($request)) {
-        return $deploy_plugin;
+        $deploy_plugin->run($request, $app_root, $site_path);
       }
     }
-
-    return NULL;
   }
 
 }
