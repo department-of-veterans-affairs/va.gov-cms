@@ -15,7 +15,8 @@ interface DeployPluginInterface {
    * Matach on a request object.
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
-   *  The request object.
+   *   The request object.
+   *
    * @return bool
    *   Should this plugin run?
    */
@@ -34,4 +35,5 @@ interface DeployPluginInterface {
    * @throws \Symfony\Component\HttpKernel\Exception\HttpExceptionInterface
    */
   public function run(Request $request, string $app_root, string $site_path) : void;
+
 }

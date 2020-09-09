@@ -169,6 +169,11 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php'
   include $app_root . '/' . $site_path . '/settings/settings.fast_404.php';
 }
 
+// Deploy Settings
+if (file_exists($app_root . '/' . $site_path . '/settings/settings.deploy.active.php')) {
+  include $app_root . '/' . $site_path . '/settings/settings.deploy.active.php';
+}
+
 /**
  * Load local development override configuration, if available.
  *

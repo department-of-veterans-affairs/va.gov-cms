@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_backend\Deploy;
 
 use Drupal\va_gov_backend\Deploy\Plugin\DeployPluginInterface;
+use Drupal\va_gov_backend\Deploy\Plugin\HealthCheck;
 use Drupal\va_gov_backend\Deploy\Plugin\MaintenanceMode;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -18,12 +19,13 @@ class DeployService {
    *
    * This are loaded and process in order.  The first match wins.
    *
-   * @return DeployPluginInterface[]
+   * @return \Drupal\va_gov_backend\Deploy\Plugin\DeployPluginInterface[]
    *   Array of plugins class names.
    */
   public static function deployPlugins() : array {
     return [
-      MaintenanceMode::class
+      HealthCheck::class,
+      MaintenanceMode::class,
     ];
   }
 
@@ -50,6 +52,7 @@ class DeployService {
    * Look for a plugin match.  First match wins.
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The drupal request object.
    *
    * @return \Drupal\va_gov_backend\Deploy\Plugin\DeployPluginInterface|null
    *   The deploy plugin or NULL if none match.
@@ -64,4 +67,5 @@ class DeployService {
 
     return NULL;
   }
+
 }
