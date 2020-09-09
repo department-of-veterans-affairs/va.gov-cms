@@ -9,8 +9,10 @@ dependencies:
     - field.field.node.media_list_videos.field_buttons_repeat
     - field.field.node.media_list_videos.field_description
     - field.field.node.media_list_videos.field_intro_text_limited_html
+    - field.field.node.media_list_videos.field_lc_benefit_hubs
     - field.field.node.media_list_videos.field_media_list_videos
     - field.field.node.media_list_videos.field_meta_title
+    - field.field.node.media_list_videos.field_related_links
     - node.type.media_list_videos
   module:
     - entity_reference_revisions
@@ -39,6 +41,8 @@ third_party_settings:
         - field_buttons
         - field_media_list_videos
         - field_buttons_repeat
+        - field_lc_benefit_hubs
+        - field_related_links
       parent_name: ''
       weight: 2
       format_type: fieldset
@@ -109,6 +113,14 @@ content:
     third_party_settings: {  }
     type: text_default
     region: content
+  field_lc_benefit_hubs:
+    weight: 11
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
   field_media_list_videos:
     type: entity_reference_revisions_entity_view
     weight: 9
@@ -125,6 +137,15 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_related_links:
+    weight: 12
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
     region: content
   links:
     weight: 9
