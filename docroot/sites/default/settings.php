@@ -191,7 +191,10 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.local.php')) 
 
 // The VA_GOV_IN_DEPLOY_MODE is set in settings.deploy.active.php.
 // Ths file is copied from settings.deploy.inactive.php. by ansible during deploys.
-if (!empty(getenv('VA_GOV_IN_DEPLOY_MODE'))) {
+if (!empty($GLOBALS['request']) &&
+  is_a($GLOBALS['request'], \Symfony\Component\HttpFoundation\Request::class) &&
+  !empty(getenv('VA_GOV_IN_DEPLOY_MODE'))) {
+
   $deploy_service = new \Drupal\va_gov_backend\Deploy\DeployService();
   $deploy_service->run($GLOBALS['request'], $app_root, $site_path);
 }
