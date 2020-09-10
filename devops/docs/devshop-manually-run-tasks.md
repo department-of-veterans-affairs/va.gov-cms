@@ -9,7 +9,7 @@
 1. Do this for the remaining tasks
 
 ## To delete existing tasks
-1. Go to the UI of the task and hit "cancel", especially useful if more commits are pushed and old tasks are queued that you don't want anymore
+1. Go to the UI of the task and hit "cancel", this is especially useful if more commits are pushed and old tasks are queued that you don't want anymore
 
 ### Notes
 1. The "Run tests" task is created at the end of the "Deploy" task.
