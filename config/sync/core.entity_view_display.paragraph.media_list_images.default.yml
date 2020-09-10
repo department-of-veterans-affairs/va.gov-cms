@@ -1,0 +1,32 @@
+uuid: 942d7c80-fefd-4936-ad2d-4bf53d0746f7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.media_list_images.field_images
+    - field.field.paragraph.media_list_images.field_section_header
+    - paragraphs.paragraphs_type.media_list_images
+id: paragraph.media_list_images.default
+targetEntityType: paragraph
+bundle: media_list_images
+mode: default
+content:
+  field_images:
+    type: entity_reference_entity_view
+    weight: 1
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+  field_section_header:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  search_api_excerpt: true

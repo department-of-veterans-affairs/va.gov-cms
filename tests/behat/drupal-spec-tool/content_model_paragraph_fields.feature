@@ -22,12 +22,21 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Alert | Alert Heading | field_alert_heading | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Alert | Alert Type | field_alert_type | List (text) |  | 1 | Select list |  |
 | Paragraph type | Alert | Reusable alert | field_alert_block_reference | Entity reference |  | 1 | Entity browser |  |
+| Paragraph type | Alert (single) | Which Alert would you like to add? | field_alert_selection | List (text) | Required | 1 | Check boxes/radio buttons |  |
+| Paragraph type | Alert (single) | Markup | field_markup | Markup |  | 1 | Markup | Translatable |
+| Paragraph type | Alert (single) | Non-reusable Alert | field_alert_non_reusable_ref | Entity reference revisions |  | 1 | Paragraphs Classic |  |
+| Paragraph type | Alert (single) | Reusable alert | field_alert_block_reference | Entity reference |  | 1 | Entity browser | Translatable |
 | Paragraph type | Button | Button Label | field_button_label | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Button | Button Link | field_button_link | Link |  | 1 | Link |  |
 | Paragraph type | Checklist | Checklist sections | field_checklist_sections | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
-| Paragraph type | Checklist | Section Header | field_section_header | Text (plain) | Required | 1 | Textfield | Translatable |
+| Paragraph type | Checklist | Section Header | field_section_header | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Paragraph type | Checklist | Section Intro | field_section_intro | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Checklist section | Checklist items | field_checklist_items | Text (plain) |  | Unlimited | Textfield |  |
-| Paragraph type | Checklist section | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
+| Paragraph type | Checklist section | Section Header | field_section_header | Text (plain) |  | 1 | Textfield with counter | Translatable |
+| Paragraph type | Checklist section | Section Intro | field_section_intro | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
+| Paragraph type | Email contact | Email address | field_email_address | Email | Required | 1 | Email |  |
+| Paragraph type | Email contact | Optional note | field_email_label | Text (plain) |  | 1 | Textfield |  |
+| Paragraph type | Service location | Email contacts | field_email_contacts | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Paragraph type | Embedded image | Allow clicks on this image to open it in new tab | field_allow_clicks_on_this_image | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Embedded image | Markup | field_markup | Markup |  | 1 | Markup |  |
 | Paragraph type | Embedded image | Select an image | field_media | Entity reference |  | 1 | Media library |  |
@@ -45,8 +54,15 @@ Feature: Content model: Paragraph fields
 | Paragraph type | List of links | Final link | field_link | Link |  | 1 | Linkit | Translatable |
 | Paragraph type | Lists of links | List of links | field_va_paragraphs | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
 | Paragraph type | Lists of links | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
+| Paragraph type | Media list - Videos | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
+| Paragraph type | Media list - Videos | Videos | field_videos | Entity reference | Required | Unlimited | Media library |  |
+| Paragraph type | Media list - Images | Images | field_images | Entity reference | Required | Unlimited | Media library |  |
+| Paragraph type | Media list - Images | Section Header | field_section_header | Text (plain) |  | 1 | Textfield | Translatable |
 | Paragraph type | Number callout | Additional information | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Number callout | Short phrase with a number, or time element | field_short_phrase_with_a_number | Text (plain) | Required | 1 | Textfield with counter |  |
+| Paragraph type | Non-reusable Alert | Alert Content | field_va_paragraphs | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
+| Paragraph type | Non-reusable Alert | Alert Heading | field_alert_heading | Text (plain) |  | 1 | Textfield with counter | Translatable |
+| Paragraph type | Non-reusable Alert | Alert Type | field_alert_type | List (text) |  | 1 | Select list | Translatable |
 | Paragraph type | Phone number | Extension number | field_phone_extension | Text (plain) |  | 1 | Textfield | Translatable |
 | Paragraph type | Phone number | Optional note | field_phone_label | Text (plain) |  | 1 | Textfield with counter | Translatable |
 | Paragraph type | Phone number | Phone number | field_phone_number | Text (plain) | Required | 1 | Textfield | Translatable |
@@ -55,7 +71,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Q&A | Answer | field_answer | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Paragraph type | Q&A | Question | field_question | Text (plain) | Required | 1 | Textfield with counter |  |
 | Paragraph type | Q&A group | Section Header | field_section_header | Text (plain) | Required | 1 | Textfield | Translatable |
-| Paragraph type | Q&A group | Q&As | field_q_as | Entity reference | Required | Unlimited | Entity browser |  |
+| Paragraph type | Q&A group | Q&As | field_q_as | Entity reference | Required | Unlimited | Entity Browser - Table |  |
 | Paragraph type | Q&A Section | Display this set of Q&As as a group of accordions. | field_accordion_display | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Q&A Section | Questions | field_questions | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Paragraph type | Q&A Section | Section Intro | field_section_intro | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
@@ -72,7 +88,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Service location | Hours | field_facility_service_hours | Table Field |  | 1 | Table Field |  |
 | Paragraph type | Service location | Hours | field_hours | List (text) | Required | 1 | Select list |  |
 | Paragraph type | Service location | Phone | field_phone | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL |  |
-| Paragraph type | Service location | Use main facility phone number? | field_use_main_facility_phone | Boolean | Required | 1 | Single on/off checkbox |  |
+| Paragraph type | Service location | Use main facility phone number? | field_use_main_facility_phone | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Service location address | Address | field_address | Address |  | 1 | Address | Translatable |
 | Paragraph type | Service location address | Building name/number | field_building_name_number | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Service location address | Clinic name | field_clinic_name | Text (plain) |  | 1 | Textfield with counter |  |
@@ -82,6 +98,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Situation update | Send email to subscribers via GovDelivery? | field_send_email_to_subscribers | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Situation update | Update | field_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Paragraph type | Staff profile | Staff profile | field_staff_profile | Entity reference | Required | 1 | Select list |  |
+| Paragraph type | Step | Alert | field_alert | Entity reference revisions |  | 1 | Paragraphs Classic |  |
 | Paragraph type | Step | Select an image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Paragraph type | Step | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Paragraph type | Step by step | Add Step | field_step | Entity reference revisions |  | Unlimited | Paragraphs Classic | Translatable |

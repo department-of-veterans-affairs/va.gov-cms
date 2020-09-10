@@ -1,0 +1,30 @@
+uuid: 59d18d06-a1be-4d23-a592-1dcc662fcae1
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_alert_selection
+field_name: field_alert_selection
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: NA
+      label: None
+    -
+      value: R
+      label: Reusable
+    -
+      value: NR
+      label: Non-reusable
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

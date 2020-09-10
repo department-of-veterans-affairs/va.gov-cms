@@ -61,10 +61,10 @@ third_party_settings:
       weight: 3
       format_type: fieldset
       format_settings:
+        description: ''
+        required_fields: true
         id: ''
         classes: ''
-        description: 'Featured news stories appear in a "featured story" section of an office or Health Care System landing page.'
-        required_fields: true
       label: 'Feature this story'
       region: content
     group_image:
@@ -89,11 +89,11 @@ third_party_settings:
       weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
-        classes: ''
         description: ''
         required_fields: true
-      label: Text
+        id: ''
+        classes: ''
+      label: 'Story text'
       region: content
     group_basic_info:
       children:
@@ -159,7 +159,7 @@ content:
       placeholder: ''
       maxlength: 600
       counter_position: after
-      textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
       js_prevent_submit: false
       count_html_characters: false
     third_party_settings: {  }
@@ -172,7 +172,7 @@ content:
       placeholder: ''
       maxlength: 300
       counter_position: after
-      textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
       js_prevent_submit: false
       count_html_characters: false
     third_party_settings: {  }
@@ -193,7 +193,8 @@ content:
     third_party_settings: {  }
   field_meta_tags:
     weight: 10
-    settings: {  }
+    settings:
+      sidebar: true
     third_party_settings: {  }
     type: metatag_firehose
     region: content
@@ -224,7 +225,7 @@ content:
       placeholder: ''
       maxlength: 150
       counter_position: after
-      textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
       use_field_maxlength: false
       js_prevent_submit: false
       count_html_characters: false

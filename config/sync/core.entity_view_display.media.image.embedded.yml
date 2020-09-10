@@ -4,7 +4,10 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.media.embedded
+    - field.field.media.image.field_description
     - field.field.media.image.field_media_in_library
+    - field.field.media.image.field_media_submission_guideline
+    - field.field.media.image.field_owner
     - field.field.media.image.image
     - image.style.full_content_width
     - media.type.image
@@ -28,6 +31,7 @@ content:
     region: content
 hidden:
   created: true
+  field_description: true
   field_media_in_library: true
   field_media_submission_guideline: true
   field_owner: true

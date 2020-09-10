@@ -3,10 +3,10 @@ langcode: en
 status: true
 dependencies:
   module:
-    - lightning_core
+    - va_gov_backend
 third_party_settings:
-  lightning_core:
-    description: 'Can create and edit content, but can''t review or publish it. '
+  va_gov_backend:
+    vgb_description: 'Can create and edit content, but can''t review or publish it. '
 id: content_editor
 label: 'Content editor'
 weight: -4
@@ -20,6 +20,7 @@ permissions:
   - 'access media entity browser pages'
   - 'access media overview'
   - 'access media_browser entity browser pages'
+  - 'access q_a_browser entity browser pages'
   - 'access shortcuts'
   - 'access toolbar'
   - 'access user profiles'

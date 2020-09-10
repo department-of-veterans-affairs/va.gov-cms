@@ -5,19 +5,21 @@
  * Contains va_gov_backend.module.
  */
 
-use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\node\NodeInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
+use Drupal\va_gov_build_trigger\Form\PreviewForm;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Drupal\va_gov_build_trigger\Form\PreviewForm;
 
 /**
  * Implements hook_help().
@@ -36,6 +38,83 @@ function va_gov_backend_help($route_name, RouteMatchInterface $route_match) {
 
     default:
   }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Get our role descriptions.
+ */
+function va_gov_backend_form_user_form_alter(array &$form) {
+  if (isset($form['account']['roles'])) {
+    foreach (Role::loadMultiple() as $id => $role) {
+      if ($role instanceof RoleInterface) {
+        $form['account']['roles'][$id]['#description'] = $role->getThirdPartySetting('va_gov_backend', 'vgb_description');
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Set our role descriptions.
+ */
+function va_gov_backend_form_user_role_form_alter(array &$form, FormStateInterface $form_state) {
+  $role = $form_state->getFormObject()->getEntity();
+  $form['vgb_description'] = [
+    '#type' => 'textfield',
+    '#title' => t('Description'),
+    '#description' => t('Additional relevant information about this role, such as where it is used and what it is for.'),
+    '#default_value' => $role->getThirdPartySetting('va_gov_backend', 'vgb_description'),
+    '#weight' => 1,
+  ];
+
+  $form['#entity_builders'][] = 'va_gov_backend_form_user_role_form_builder';
+
+}
+
+/**
+ * Entity builder for the role configuration entity.
+ *
+ * @param string $entity_type
+ *   The name of the entity_type.
+ * @param Drupal\user\Entity\Role $role
+ *   Instance of Role class.
+ * @param array $form
+ *   The node form array.
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   Instance of FormStateInterface.
+ *
+ *   Saves our description field input.
+ */
+function va_gov_backend_form_user_role_form_builder($entity_type, Role $role, array &$form, FormStateInterface $form_state) {
+  if ($form_state->getValue('vgb_description')) {
+    $role->setThirdPartySetting('va_gov_backend', 'vgb_description', $form_state->getValue('vgb_description'));
+    return;
+  }
+
+  $role->unsetThirdPartySetting('va_gov_backend', 'vgb_description');
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function va_gov_backend_element_info_alter(array &$info) {
+  if (isset($info['datetime'])) {
+    $info['datetime']['#process'][] = 'va_gov_backend_datetime_set_format';
+  }
+}
+
+/**
+ * Element process callback for datetime fields.
+ */
+function va_gov_backend_datetime_set_format($element) {
+  // Remove seconds in browsers that support HTML5 type=date.
+  // Safe to use in all contexts - does not change timestamp storage.
+  // Does not result in form validation errors.
+  $element['time']['#attributes']['step'] = 60;
+  return $element;
 }
 
 /**
@@ -397,6 +476,50 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
 }
 
 /**
+ * Implements hook_field_widget_entity_reference_paragraphs_form_alter().
+ */
+function va_gov_backend_field_widget_entity_reference_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
+  _va_gov_backend_modify_alert_single_states($element, $form_state, $context);
+}
+
+/**
+ * Toggle Reusable and Non-reusable Alert_Single subform fields.
+ *
+ * Adds Validation constraint error id match to html.
+ *
+ * @param array $element
+ *   The widget.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ * @param array $context
+ *   The context.
+ */
+function _va_gov_backend_modify_alert_single_states(array &$element, FormStateInterface &$form_state, array &$context) {
+  // Toggle Reusable & Non-reusable Alert_Single subform field on alert select.
+  if ($element['#paragraph_type'] === 'alert_single') {
+    $element_path = $element['subform']['#parents'];
+    $parent_field = array_shift($element_path);
+    $element_path_string = implode('][', $element_path);
+    // Confirming element path exists before applying states logic to fields.
+    if (!empty($parent_field) && !empty($element_path_string)) {
+      $selector = ':input[name="' . $parent_field . '[' . $element_path_string . '][field_alert_selection]"]';
+
+      $element['subform']['field_alert_block_reference']['#states'] = [
+        'visible' => [
+          [$selector => ['value' => 'R']],
+        ],
+      ];
+
+      $element['subform']['field_alert_non_reusable_ref']['#states'] = [
+        'visible' => [
+          [$selector => ['value' => 'NR']],
+        ],
+      ];
+    }
+  }
+}
+
+/**
  * Toggles service_location fields depending on parent selector.
  *
  * Adds Validation constraint error id match to html.
@@ -445,17 +568,6 @@ function _va_gov_backend_modify_paragraph_interactions(array &$element, FormStat
     $element['subform']['field_facility_service_hours']['widget'][0]['#rebuild'] = FALSE;
   }
 
-  // Toggle address field depending on "Use facility address?" boolean.
-  if ($paragraph_type === 'service_location_address') {
-
-    $selector = sprintf(':input[name="field_service_location[%1$d][subform][field_service_location_address][%1$d][subform][field_use_facility_address][value]"]', $element['#delta']);
-    $element['subform']['field_address']['#states'] = [
-      'invisible' => [
-        $selector => ['checked' => TRUE],
-      ],
-    ];
-  }
-
   // 1. Hide the extension field if phone option is not selected.
   // 2. Add constraint error message jumplink to phone field.
   if ($paragraph_type === 'phone_number') {
@@ -499,6 +611,10 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
   if ($entity_type->id() === 'paragraph' && $bundle === 'phone_number' && isset($fields['field_phone_number'])) {
     $fields['field_phone_number']->addConstraint('ValidPhoneNumber');
   }
+  // Add title duplication prevention validation to q_a nodes.
+  if ($entity_type->id() === 'node' && $bundle === 'q_a' && isset($fields['title'])) {
+    $fields['title']->addConstraint('UniqueTitle');
+  }
 }
 
 /**
@@ -515,6 +631,10 @@ function va_gov_backend_page_attachments(array &$attachments) {
 
   $attachments['#attached']['library'][] = 'va_gov_backend/alert_form';
   $attachments['#attached']['library'][] = 'va_gov_backend/system_styles';
+  // Nested address in service location paragraphs result in multiple deltas.
+  // Tracking this with states api gets messy.
+  // Bypass and use behaviors directly.
+  $attachments['#attached']['library'][] = 'va_gov_backend/service_location_address';
   $is_admin = \Drupal::service('router.admin_context')->isAdminRoute();
   if ($is_admin) {
     // Add custom css for paragraph browser.
@@ -568,7 +688,9 @@ function _va_gov_backend_gtm_settings() {
  */
 function va_gov_backend_page_bottom(array &$page_bottom) {
   // Add GTM noscript iframe to body.
-  $gtm_noscript = Markup::create('<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ3DLLB&gtm_auth=hHvHnY1eIx1IOSJMAnOBLA&gtm_preview=env-2&gtm_cookies_win=x" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>');
+  $env_name = \Drupal::config('environment_indicator.indicator')->get('name');
+  $env_num = $env_name === 'Production' ? '2' : '5';
+  $gtm_noscript = Markup::create('<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ3DLLB&gtm_auth=hHvHnY1eIx1IOSJMAnOBLA&gtm_preview=env-' . $env_num . '&gtm_cookies_win=x" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>');
   $page_bottom['va_gov_backend'] = ['#markup' => $gtm_noscript];
 }
 

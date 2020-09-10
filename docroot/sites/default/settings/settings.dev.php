@@ -30,5 +30,6 @@ $settings['trusted_host_patterns'] = [
     '10\.247.*',
     'localhost',
     'dev.cms.va.gov',
+    'test.dev.cms.va.gov',
     '.*\.us-gov-west-1\.elb\.amazonaws\.com',
 ];

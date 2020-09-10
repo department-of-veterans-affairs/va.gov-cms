@@ -4,33 +4,85 @@ status: true
 dependencies:
   config:
     - field.field.node.faq_multiple_q_a.field_administration
+    - field.field.node.faq_multiple_q_a.field_alert_single
     - field.field.node.faq_multiple_q_a.field_buttons
     - field.field.node.faq_multiple_q_a.field_buttons_repeat
     - field.field.node.faq_multiple_q_a.field_description
     - field.field.node.faq_multiple_q_a.field_intro_text_limited_html
+    - field.field.node.faq_multiple_q_a.field_lc_benefit_hubs
     - field.field.node.faq_multiple_q_a.field_meta_title
     - field.field.node.faq_multiple_q_a.field_q_a_groups
+    - field.field.node.faq_multiple_q_a.field_related_links
     - field.field.node.faq_multiple_q_a.field_table_of_contents_boolean
     - node.type.faq_multiple_q_a
   module:
     - entity_reference_revisions
+    - field_group
     - text
     - user
+third_party_settings:
+  field_group:
+    group_metadata:
+      children:
+        - field_meta_title
+        - field_description
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Meta tags'
+      region: content
+    group_content:
+      children:
+        - field_intro_text_limited_html
+        - field_alert_single
+        - field_table_of_contents_boolean
+        - field_buttons
+        - field_q_a_groups
+        - field_buttons_repeat
+        - field_lc_benefit_hubs
+        - field_related_links
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Content
+      region: content
 id: node.faq_multiple_q_a.default
 targetEntityType: node
 bundle: faq_multiple_q_a
 mode: default
 content:
+  content_moderation_control:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_administration:
-    weight: 107
+    weight: 5
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: content
+  field_alert_single:
+    weight: 4
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
   field_buttons:
-    weight: 109
+    weight: 6
     label: above
     settings:
       view_mode: default
@@ -39,7 +91,7 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   field_buttons_repeat:
-    weight: 110
+    weight: 8
     label: above
     settings:
       format: default
@@ -49,7 +101,7 @@ content:
     type: boolean
     region: content
   field_description:
-    weight: 106
+    weight: 4
     label: above
     settings:
       link_to_entity: false
@@ -57,14 +109,22 @@ content:
     type: string
     region: content
   field_intro_text_limited_html:
-    weight: 101
+    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
+  field_lc_benefit_hubs:
+    weight: 9
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
   field_meta_title:
-    weight: 103
+    weight: 3
     label: above
     settings:
       link_to_entity: false
@@ -73,15 +133,24 @@ content:
     region: content
   field_q_a_groups:
     type: entity_reference_revisions_entity_view
-    weight: 108
+    weight: 7
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
     region: content
+  field_related_links:
+    weight: 10
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
   field_table_of_contents_boolean:
-    weight: 111
+    weight: 5
     label: above
     settings:
       format: default
@@ -91,10 +160,9 @@ content:
     type: boolean
     region: content
   links:
-    weight: 100
+    weight: 6
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
-  content_moderation_control: true
   search_api_excerpt: true

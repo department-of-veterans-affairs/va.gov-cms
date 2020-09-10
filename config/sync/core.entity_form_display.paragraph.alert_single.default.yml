@@ -1,0 +1,62 @@
+uuid: 9535e748-2f2d-4e13-8518-81341a051a85
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_browser.browser.alert_blocks
+    - field.field.paragraph.alert_single.field_alert_block_reference
+    - field.field.paragraph.alert_single.field_alert_non_reusable_ref
+    - field.field.paragraph.alert_single.field_alert_selection
+    - field.field.paragraph.alert_single.field_markup
+    - paragraphs.paragraphs_type.alert_single
+  module:
+    - entity_browser
+    - markup
+    - paragraphs
+id: paragraph.alert_single.default
+targetEntityType: paragraph
+bundle: alert_single
+mode: default
+content:
+  field_alert_block_reference:
+    weight: 2
+    settings:
+      entity_browser: alert_blocks
+      field_widget_display: rendered_entity
+      field_widget_display_settings:
+        view_mode: default
+      field_widget_edit: true
+      field_widget_remove: true
+      open: true
+      selection_mode: selection_append
+      field_widget_replace: false
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+    region: content
+  field_alert_non_reusable_ref:
+    type: entity_reference_paragraphs
+    weight: 3
+    settings:
+      title: Alert
+      title_plural: Alerts
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
+    region: content
+  field_alert_selection:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_markup:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
+    region: content
+hidden:
+  created: true
+  status: true

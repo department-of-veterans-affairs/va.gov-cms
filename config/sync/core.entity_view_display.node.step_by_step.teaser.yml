@@ -5,11 +5,14 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.step_by_step.field_administration
+    - field.field.node.step_by_step.field_alert_single
     - field.field.node.step_by_step.field_buttons
     - field.field.node.step_by_step.field_buttons_repeat
     - field.field.node.step_by_step.field_description
     - field.field.node.step_by_step.field_intro_text_limited_html
+    - field.field.node.step_by_step.field_lc_benefit_hubs
     - field.field.node.step_by_step.field_meta_title
+    - field.field.node.step_by_step.field_related_links
     - field.field.node.step_by_step.field_steps
     - node.type.step_by_step
   module:
@@ -27,10 +30,13 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_alert_single: true
   field_buttons: true
   field_buttons_repeat: true
   field_description: true
   field_intro_text_limited_html: true
+  field_lc_benefit_hubs: true
   field_meta_title: true
+  field_related_links: true
   field_steps: true
   search_api_excerpt: true

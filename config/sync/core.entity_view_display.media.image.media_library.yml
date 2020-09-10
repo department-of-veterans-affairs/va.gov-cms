@@ -4,7 +4,10 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.media.media_library
+    - field.field.media.image.field_description
     - field.field.media.image.field_media_in_library
+    - field.field.media.image.field_media_submission_guideline
+    - field.field.media.image.field_owner
     - field.field.media.image.image
     - image.style.large
     - media.type.image
@@ -17,6 +20,13 @@ targetEntityType: media
 bundle: image
 mode: media_library
 content:
+  field_description:
+    type: basic_string
+    weight: 2
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
   image:
     type: image
     weight: 1
