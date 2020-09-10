@@ -1,0 +1,32 @@
+uuid: 95dca0af-48d6-4aa5-90a6-cc6cf06fd323
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_lc_benefit_hubs
+    - node.type.landing_page
+    - node.type.media_list_videos
+  content:
+    - 'node:landing_page:fd822f25-788f-489c-a0fc-b1f7ad6c20d5'
+id: node.media_list_videos.field_lc_benefit_hubs
+field_name: field_lc_benefit_hubs
+entity_type: node
+bundle: media_list_videos
+label: 'VA Benefit Hubs'
+description: 'Select up to 3 Benefit hubs.<br><br>'
+required: false
+translatable: true
+default_value:
+  -
+    target_uuid: fd822f25-788f-489c-a0fc-b1f7ad6c20d5
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      landing_page: landing_page
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
