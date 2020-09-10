@@ -121,7 +121,7 @@ class ContentExport extends ControllerBase {
       return RedirectResponse::create($url);
     }
     catch (Exception $e) {
-      watchdog_exception('VA-EXPORT', $e);
+      watchdog_exception('VA-CMS-EXPORT', $e);
       return Response::create('Error creating tar file', Response::HTTP_INTERNAL_SERVER_ERROR);
     }
   }
