@@ -1,0 +1,28 @@
+uuid: 9fa65e58-b7e1-47a0-839e-288a68c8d820
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_lc_benefit_hub_contacts
+    - node.type.landing_page
+    - paragraphs.paragraphs_type.contact_information
+id: paragraph.contact_information.field_lc_benefit_hub_contacts
+field_name: field_lc_benefit_hub_contacts
+entity_type: paragraph
+bundle: contact_information
+label: 'Benefit Hub contacts'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      landing_page: landing_page
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

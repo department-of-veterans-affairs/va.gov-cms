@@ -1,0 +1,50 @@
+uuid: 09336198-5b1a-4c82-960b-b587808fd4e5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.contact_information.field_contact_default
+    - field.field.paragraph.contact_information.field_contact_info_switch
+    - field.field.paragraph.contact_information.field_lc_benefit_hub_contacts
+    - field.field.paragraph.contact_information.field_markup
+    - paragraphs.paragraphs_type.contact_information
+  module:
+    - markup
+    - options
+id: paragraph.contact_information.default
+targetEntityType: paragraph
+bundle: contact_information
+mode: default
+content:
+  field_contact_default:
+    weight: 1
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_contact_info_switch:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_lc_benefit_hub_contacts:
+    weight: 2
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_markup:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
+    region: content
+hidden:
+  search_api_excerpt: true
