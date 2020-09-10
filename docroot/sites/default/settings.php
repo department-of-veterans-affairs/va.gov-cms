@@ -169,7 +169,7 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php'
   include $app_root . '/' . $site_path . '/settings/settings.fast_404.php';
 }
 
-// Deploy Settings
+// Ansible moves this file into place during deploy, so if it is present we are in deploy mode.
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.deploy.active.php')) {
   include $app_root . '/' . $site_path . '/settings/settings.deploy.active.php';
 }
