@@ -1,0 +1,40 @@
+uuid: cfcc021d-8811-406b-99cd-a621adf8bdf5
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.support_services_listing
+    - field.field.node.support_service.field_administration
+    - field.field.node.support_service.field_link
+    - field.field.node.support_service.field_office
+    - field.field.node.support_service.field_page_last_built
+    - field.field.node.support_service.field_phone_number
+    - node.type.support_service
+  module:
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: node.support_service.support_services_listing
+targetEntityType: node
+bundle: support_service
+mode: support_services_listing
+content:
+  field_phone_number:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_link: true
+  field_office: true
+  field_page_last_built: true
+  links: true
+  search_api_excerpt: true

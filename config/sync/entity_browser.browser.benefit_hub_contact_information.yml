@@ -1,0 +1,31 @@
+uuid: fdb8bfbb-d4a1-4d69-86ea-b76f99a2d5e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.benefit_hub_contact_information
+  module:
+    - views
+name: benefit_hub_contact_information
+label: 'Benefit Hub Contact Information'
+display: modal
+display_configuration:
+  width: '800'
+  height: '500'
+  link_text: 'Add Benefit Hub Contacts'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: single
+widget_selector_configuration: {  }
+widgets:
+  1bfaf579-cb43-4284-bfb1-3d4679e16589:
+    settings:
+      view: benefit_hub_contact_information
+      view_display: benefit_hub_contact_information
+      submit_text: 'Add Benefit Hub Contacts'
+      auto_select: false
+    uuid: 1bfaf579-cb43-4284-bfb1-3d4679e16589
+    weight: 1
+    label: 'Add Benefit Hub Contacts'
+    id: view
