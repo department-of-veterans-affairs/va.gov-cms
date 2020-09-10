@@ -1,6 +1,6 @@
 uuid: 5b024062-e347-4324-ac66-8a0c92955f9f
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - core.entity_view_mode.node.support_services_listing
@@ -22,38 +22,17 @@ dependencies:
     - field.field.node.landing_page.field_title_icon
     - node.type.landing_page
   module:
-    - entity_reference_revisions
     - field_group
     - layout_builder
-    - link
-    - options
     - user
 third_party_settings:
   field_group:
-    group_right_rail:
-      children:
-        - field_promo
-        - field_support_services
-        - field_links
-        - field_administration
-      parent_name: ''
-      weight: 2
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        open: true
-        required_fields: false
-        weight: 0
-      label: 'Right rail'
-      region: content
     group_meta:
       children:
         - field_description
         - field_meta_title
       parent_name: ''
-      weight: 0
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -62,29 +41,29 @@ third_party_settings:
         open: true
         required_fields: false
       label: Meta
-      region: content
+      region: hidden
     group_body:
       children:
-        - field_intro_text
         - field_alert
-        - field_spokes
+        - field_intro_text
         - field_related_links
+        - field_spokes
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
         classes: ''
         description: ''
       label: Body
-      region: content
+      region: hidden
     group_other:
       children:
-        - field_title_icon
-        - field_teaser_text
         - field_home_page_hub_label
+        - field_teaser_text
+        - field_title_icon
       parent_name: ''
-      weight: 3
+      weight: 1
       format_type: fieldset
       format_settings:
         id: ''
@@ -93,7 +72,7 @@ third_party_settings:
         open: false
         required_fields: false
       label: Other
-      region: content
+      region: hidden
   layout_builder:
     allow_custom: false
     enabled: false
@@ -102,121 +81,31 @@ targetEntityType: node
 bundle: landing_page
 mode: support_services_listing
 content:
-  field_administration:
-    weight: 15
-    label: above
+  field_support_services:
+    weight: 3
+    label: hidden
     settings:
-      link: true
-      view_mode: default
-    third_party_settings: {  }
-    type: entity_reference_entity_view
-    region: content
-  field_alert:
-    weight: 5
-    label: above
-    settings:
-      view_mode: default
+      view_mode: support_services_listing
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
     region: content
-  field_description:
-    type: string
-    weight: 0
-    region: content
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-  field_home_page_hub_label:
-    weight: 5
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_intro_text:
-    weight: 4
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-    region: content
-  field_links:
-    type: link
-    weight: 14
-    region: content
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-  field_meta_title:
-    type: string
-    weight: 0
-    region: content
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-  field_promo:
-    weight: 12
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_related_links:
-    weight: 7
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
-    region: content
-  field_spokes:
-    weight: 6
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
-    region: content
-  field_support_services:
-    weight: 13
-    label: hidden
-    settings:
-      link: true
-      view_mode: default
-    third_party_settings: {  }
-    type: entity_reference_entity_view
-    region: content
-  field_teaser_text:
-    weight: 4
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_title_icon:
-    weight: 3
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
-    region: content
 hidden:
   content_moderation_control: true
+  field_administration: true
+  field_alert: true
+  field_description: true
+  field_home_page_hub_label: true
+  field_intro_text: true
+  field_links: true
   field_meta_tags: true
+  field_meta_title: true
   field_page_last_built: true
   field_plainlanguage_date: true
+  field_promo: true
+  field_related_links: true
+  field_spokes: true
+  field_teaser_text: true
+  field_title_icon: true
   links: true
   search_api_excerpt: true
