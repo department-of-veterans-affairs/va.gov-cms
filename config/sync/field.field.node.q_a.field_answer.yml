@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.storage.node.field_answer
     - node.type.q_a
-    - paragraphs.paragraphs_type.alert
     - paragraphs.paragraphs_type.wysiwyg
   module:
     - entity_reference_revisions
@@ -25,16 +24,24 @@ settings:
     negate: 0
     target_bundles:
       wysiwyg: wysiwyg
-      alert: alert
     target_bundles_drag_drop:
       address:
         weight: -38
         enabled: false
       alert:
-        enabled: true
         weight: -41
+        enabled: false
+      alert_single:
+        weight: 40
+        enabled: false
       button:
         weight: 31
+        enabled: false
+      checklist:
+        weight: 42
+        enabled: false
+      checklist_item:
+        weight: 43
         enabled: false
       collapsible_panel:
         weight: -44
@@ -44,6 +51,9 @@ settings:
         enabled: false
       downloadable_file:
         weight: -36
+        enabled: false
+      email_contact:
+        weight: 47
         enabled: false
       expandable_text:
         weight: -35
@@ -57,8 +67,23 @@ settings:
       list_of_link_teasers:
         weight: -32
         enabled: false
+      list_of_links:
+        weight: 52
+        enabled: false
+      lists_of_links:
+        weight: 51
+        enabled: false
       media:
         weight: -31
+        enabled: false
+      media_list_images:
+        weight: 55
+        enabled: false
+      media_list_videos:
+        weight: 56
+        enabled: false
+      non_reusable_alert:
+        weight: 57
         enabled: false
       number_callout:
         weight: -42
@@ -72,11 +97,11 @@ settings:
       q_a:
         weight: -29
         enabled: false
+      q_a_group:
+        weight: 62
+        enabled: false
       q_a_section:
         weight: -28
-        enabled: false
-      q_a_section_faq_multiple:
-        weight: 45
         enabled: false
       react_widget:
         weight: -40
