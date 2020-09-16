@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.media_list_videos.field_alert_single
     - field.field.node.media_list_videos.field_buttons
     - field.field.node.media_list_videos.field_buttons_repeat
+    - field.field.node.media_list_videos.field_contact_information
     - field.field.node.media_list_videos.field_description
     - field.field.node.media_list_videos.field_intro_text_limited_html
     - field.field.node.media_list_videos.field_media_list_videos
@@ -73,7 +74,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
       weight: 9
       format_type: fieldset
@@ -175,6 +175,18 @@ content:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
+    region: content
+  field_contact_information:
+    weight: 12
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
     region: content
   field_description:
     weight: 6
