@@ -175,7 +175,7 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
-  if ($form_id === 'node_q_a_edit_form') {
+  if ($form_id === 'node_q_a_edit_form' || $form_id === 'node_q_a_form') {
     $form['#validate'][] = '_va_gov_backend_contact_information_validation';
   }
 
