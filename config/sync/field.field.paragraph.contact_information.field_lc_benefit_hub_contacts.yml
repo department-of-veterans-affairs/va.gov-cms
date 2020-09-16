@@ -6,6 +6,12 @@ dependencies:
     - field.storage.paragraph.field_lc_benefit_hub_contacts
     - node.type.landing_page
     - paragraphs.paragraphs_type.contact_information
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: false
 id: paragraph.contact_information.field_lc_benefit_hub_contacts
 field_name: field_lc_benefit_hub_contacts
 entity_type: paragraph
