@@ -176,7 +176,7 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
   $content_type_forms = [
-    'node_q_a_edit_form', 
+    'node_q_a_edit_form',
     'node_q_a_form',
     'node_faq_multiple_q_a_form',
     'node_faq_multiple_q_a_edit_form',
@@ -264,14 +264,22 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   }
 }
 
-function _va_gov_backend_contact_information_validation($form, FormStateInterface &$form_state) {
+/**
+ * Adds Validation to check for an empty entity reference field.
+ *
+ * @param array $form
+ *   The exposed widget form array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ */
+function _va_gov_backend_contact_information_validation(array $form, FormStateInterface &$form_state) {
   $contact_type = $form_state->getValue('field_contact_information')[0]['subform']['field_contact_info_switch'];
   $benefit_hub = $form_state->getValue('field_contact_information')[0]['subform']['field_lc_benefit_hub_contacts'];
   $benefit_hub_contact = array_shift($benefit_hub);
 
-  //if the checkbox is checked
+  // If the checkbox is checked.
   if ($contact_type[0]['value'] === 'BHC') {
-    if (empty($benefit_hub_contact)){
+    if (empty($benefit_hub_contact)) {
       $form_state->setErrorByName("field_contact_information][0][subform][field_lc_benefit_hub_contacts", t('At least one benefit hub contact is required'));
     }
   }
@@ -536,7 +544,6 @@ function _va_gov_backend_modify_alert_single_states(array &$element, FormStateIn
     // Confirming element path exists before applying states logic to fields.
     if (!empty($parent_field) && !empty($element_path_string)) {
       $selector = ':input[name="' . $parent_field . '[' . $element_path_string . '][field_alert_selection]"]';
-      //dpm($selector);
 
       $element['subform']['field_alert_block_reference']['#states'] = [
         'visible' => [
