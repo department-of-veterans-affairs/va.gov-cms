@@ -87,6 +87,7 @@ Feature: Content model bundles
 | WYSIWYG | wysiwyg | Paragraph type | An open-ended text field. |
 | Audience - Beneficiaries | audience_beneficiaries | Vocabulary |  |
 | Audience - Non-beneficiaries | audience_non_beneficiaries | Vocabulary |  |
+| Learning Center Categories | lc_categories | Vocabulary |  |
 | Products | products | Vocabulary | |
 | Sections | administration | Vocabulary | Represents a hierarchy of the VA, partly for governance purposes. |
 | Type of Redirect | type_of_redirect | Vocabulary |  |
