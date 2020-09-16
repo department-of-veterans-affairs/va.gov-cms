@@ -175,7 +175,22 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
-  if ($form_id === 'node_q_a_edit_form' || $form_id === 'node_q_a_form') {
+  $content_type_forms = [
+    'node_q_a_edit_form', 
+    'node_q_a_form',
+    'node_faq_multiple_q_a_form',
+    'node_faq_multiple_q_a_edit_form',
+    'node_checklist_form',
+    'node_checklist_edit_form',
+    'node_step_by_step_form',
+    'node_step_by_step_edit_form',
+    'node_media_list_images_form',
+    'node_media_list_images_edit_form',
+    'node_media_list_videos_form',
+    'node_media_list_videos_edit_form',
+  ];
+
+  if (in_array($form_id, $content_type_forms)) {
     $form['#validate'][] = '_va_gov_backend_contact_information_validation';
   }
 
@@ -255,7 +270,7 @@ function _va_gov_backend_contact_information_validation($form, FormStateInterfac
   $benefit_hub_contact = array_shift($benefit_hub);
 
   //if the checkbox is checked
-  if ($contact_type[0]['value'] == 'BHC') {
+  if ($contact_type[0]['value'] === 'BHC') {
     if (empty($benefit_hub_contact)){
       $form_state->setErrorByName("field_contact_information][0][subform][field_lc_benefit_hub_contacts", t('At least one benefit hub contact is required'));
     }
