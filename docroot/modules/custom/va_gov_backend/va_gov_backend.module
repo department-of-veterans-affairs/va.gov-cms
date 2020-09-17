@@ -573,7 +573,7 @@ function _va_gov_backend_modify_alert_single_states(array &$element, FormStateIn
  *   The context.
  */
 function _va_gov_backend_modify_contact_information_states(array &$element, FormStateInterface &$form_state, array &$context) {
-  // Toggle Default Contact and Benefit Hub Contacts subform fields on contacts select.
+  // Toggle Default Contact and Benefit Hub Contacts subform fields.
   if ($element['#paragraph_type'] === 'contact_information') {
     $element_path = $element['subform']['#parents'];
     $parent_field = array_shift($element_path);
