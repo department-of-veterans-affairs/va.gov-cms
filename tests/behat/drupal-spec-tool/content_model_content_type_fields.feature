@@ -20,7 +20,7 @@ Feature: Content model: Content Type fields
 | Content type | Benefits Detail Page | Page introduction | field_intro_text  | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter |  |
 | Content type | Benefits Detail Page | Page last built | field_page_last_built | Date |  | 1 | -- Disabled -- |  |
 | Content type | Benefits Detail Page | Plain Language Certification Date | field_plainlanguage_date | Date |  | 1 | Date and time |  |
-| Content type | Benefits Detail Page | Related Links | field_related_links | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL |  |
+| Content type | Benefits Detail Page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | Benefits Hub Landing Page | Alert | field_alert | Entity reference |  | 1 | Entity browser | Translatable |
 | Content type | Benefits Hub Landing Page | Hub Icon | field_title_icon | List (text) |  | 1 | Select list |  |
 | Content type | Benefits Hub Landing Page | Hub label | field_home_page_hub_label | Text (plain) |  | 1 | Textfield |  |
@@ -34,7 +34,7 @@ Feature: Content model: Content Type fields
 | Content type | Benefits Hub Landing Page | Page last built | field_page_last_built | Date |  | 1 | Date and time | Translatable |
 | Content type | Benefits Hub Landing Page | Plain language Certified Date | field_plainlanguage_date | Date |  | 1 | Date and time | Translatable |
 | Content type | Benefits Hub Landing Page | Promo | field_promo | Entity reference |  | 1 | Select list |  |
-| Content type | Benefits Hub Landing Page | Related Links | field_related_links | Entity reference revisions |  | 5 | Paragraphs Classic | Translatable |
+| Content type | Benefits Hub Landing Page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Benefits Hub Landing Page | Spokes | field_spokes | Entity reference revisions | Required | 4 | Paragraphs EXPERIMENTAL |  |
 | Content type | Benefits Hub Landing Page | Support Services | field_support_services | Entity reference |  | Unlimited | Inline entity form - Complex |  |
 | Content type | Checklist | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
@@ -45,7 +45,7 @@ Feature: Content model: Content Type fields
 | Content type | Checklist | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield | Translatable |
 | Content type | Checklist | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Checklist | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
-| Content type | Checklist | Related Links | field_related_links | Entity reference revisions |  | 5 | Paragraphs Classic | Translatable |
+| Content type | Checklist | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Checklist | VA Benefit Hubs | field_lc_benefit_hubs | Entity reference |  | 3 | Entity Browser - Table | Translatable |
 | Content type | Detail Page | Alert | field_alert | Entity reference |  | 1 | Select list | Translatable |
 | Content type | Detail Page | Featured content | field_featured_content | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
@@ -56,7 +56,7 @@ Feature: Content model: Content Type fields
 | Content type | Detail Page | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Detail Page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Detail Page | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
-| Content type | Detail Page | Related Links | field_related_links | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL | Translatable |
+| Content type | Detail Page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Detail Page | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | CMS Help Page | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Content type | CMS Help Page | Related user guides | field_related_user_guides | Entity reference |  | 5 | Autocomplete |  |
@@ -97,7 +97,7 @@ Feature: Content model: Content Type fields
 | Content type | FAQ - multiple Q&As | Page introduction | field_intro_text_limited_html  | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | FAQ - multiple Q&As | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | FAQ - multiple Q&As | Q&A groups | field_q_a_groups | Entity reference revisions | Required | Unlimited | Paragraphs Classic |  |
-| Content type | FAQ - multiple Q&As | Related Links | field_related_links | Entity reference revisions |  | 5 | Paragraphs Classic | Translatable |
+| Content type | FAQ - multiple Q&As | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | FAQ - multiple Q&As | VA Benefit Hubs | field_lc_benefit_hubs | Entity reference |  | 3 | Entity Browser - Table | Translatable |
 | Content type | Health Services List | Featured content on health-services page | field_featured_content_healthser | Entity reference revisions |  | 3 | Paragraphs Classic | Translatable |
 | Content type | Health Services List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
@@ -127,9 +127,9 @@ Feature: Content model: Content Type fields
 | Content type | Media list - Images | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Media list - Images | Page introduction | field_intro_text_limited_html | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Media list - Images | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
-| Content type | Media list - Images | Related Links | field_related_links | Entity reference revisions |  | 5 | Paragraphs Classic | Translatable |
+| Content type | Media list - Images | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Media list - Images | VA Benefit Hubs | field_lc_benefit_hubs | Entity reference |  | 3 | Entity Browser - Table | Translatable |
-| Content type | Media list - Videos | Related Links | field_related_links | Entity reference revisions |  | 5 | Paragraphs Classic | Translatable |
+| Content type | Media list - Videos | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Media list - Videos | VA Benefit Hubs | field_lc_benefit_hubs | Entity reference |  | 3 | Entity Browser - Table | Translatable |
 | Content type | Media list - Videos | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic |  |
 | Content type | Media list - Videos | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs EXPERIMENTAL | Translatable |
@@ -184,7 +184,7 @@ Feature: Content model: Content Type fields
 | Content type | Q&A | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Q&A | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs Classic | Translatable |
 | Content type | Q&A | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Q&A | Related Links | field_related_links | Entity reference revisions |  | 5 | Paragraphs Classic | Translatable |
+| Content type | Q&A | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Q&A | VA Benefit Hubs | field_lc_benefit_hubs | Entity reference |  | 3 | Entity Browser - Table |  |
 | Content type | Staff Profile | Body text | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Staff Profile | Complete Biography | field_complete_biography | File |  | 1 | File |  |
@@ -208,7 +208,7 @@ Feature: Content model: Content Type fields
 | Content type | Step-by-Step | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Step-by-Step | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Step-by-Step | Step-by-step | field_steps | Entity reference revisions | Required | 1 | Paragraphs Classic |  |
-| Content type | Step-by-Step | Related Links | field_related_links | Entity reference revisions |  | 5 | Paragraphs Classic | Translatable |
+| Content type | Step-by-Step | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Step-by-Step | VA Benefit Hubs | field_lc_benefit_hubs | Entity reference |  | 3 | Entity Browser - Table | Translatable |
 | Content type | Story | Author | field_author | Entity reference |  | 1 | Autocomplete |  |
 | Content type | Story | Featured | field_featured | Boolean |  | 1 | Single on/off checkbox |  |
@@ -284,7 +284,7 @@ Feature: Content model: Content Type fields
 | Content type | VAMC Facility Health Service | VAMC system health service | field_regional_health_service | Entity reference | Required | 1 | Select list |  |
 | Content type | VAMC System | Appointments can be scheduled and viewed online | field_appointments_online | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System | Banner image | field_media | Entity reference |  | 1 | Media library | Translatable |
-| Content type | VAMC System | Common Links | field_related_links | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL | Translatable |
+| Content type | VAMC System | Common Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | VAMC System | Community stories intro text | field_intro_text_news_stories | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC System | Events page intro text | field_intro_text_events_page | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC System | Facebook | field_facebook | Link |  | 1 | Link | Translatable |
