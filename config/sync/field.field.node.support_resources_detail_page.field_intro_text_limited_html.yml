@@ -1,0 +1,27 @@
+uuid: 45e0e42d-25f2-4d6d-9090-36558d32a786
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_intro_text_limited_html
+    - node.type.support_resources_detail_page
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    rich_text_limited: rich_text_limited
+    rich_text: '0'
+    plain_text: '0'
+id: node.support_resources_detail_page.field_intro_text_limited_html
+field_name: field_intro_text_limited_html
+entity_type: node
+bundle: support_resources_detail_page
+label: 'Page introduction'
+description: 'This is displayed directly beneath the title as an introduction to the page. This text should help a user figure out whether the information on this page is relevant to them, and should be written in the 2nd person. It will never be shown alongside the Description, so it''s ok for it to be duplicative of that information. This field supports the following HTML tags: <em> <strong> <br> <p> <a>'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
