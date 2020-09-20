@@ -16,15 +16,36 @@ dependencies:
     - node.type.support_resources_detail_page
   module:
     - entity_reference_revisions
+    - field_group
     - text
     - user
+third_party_settings:
+  field_group:
+    group_metadata:
+      children:
+        - field_description
+        - field_meta_title
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: meta-content
+        description: ''
+      label: Metadata
+      region: content
 id: node.support_resources_detail_page.default
 targetEntityType: node
 bundle: support_resources_detail_page
 mode: default
 content:
+  content_moderation_control:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_administration:
-    weight: 107
+    weight: 10
     label: above
     settings:
       link: true
@@ -32,7 +53,7 @@ content:
     type: entity_reference_label
     region: content
   field_alert_single:
-    weight: 102
+    weight: 4
     label: above
     settings:
       view_mode: default
@@ -41,7 +62,7 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   field_buttons:
-    weight: 103
+    weight: 5
     label: above
     settings:
       view_mode: default
@@ -50,7 +71,7 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   field_buttons_repeat:
-    weight: 104
+    weight: 7
     label: above
     settings:
       format: default
@@ -60,7 +81,7 @@ content:
     type: boolean
     region: content
   field_content_block:
-    weight: 110
+    weight: 6
     label: above
     settings:
       view_mode: default
@@ -69,7 +90,7 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   field_description:
-    weight: 105
+    weight: 4
     label: above
     settings:
       link_to_entity: false
@@ -77,14 +98,14 @@ content:
     type: string
     region: content
   field_intro_text_limited_html:
-    weight: 101
+    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_meta_title:
-    weight: 106
+    weight: 5
     label: above
     settings:
       link_to_entity: false
@@ -92,16 +113,17 @@ content:
     type: string
     region: content
   field_related_benefit_hubs:
-    weight: 108
+    weight: 8
     label: above
     settings:
-      link: true
+      view_mode: default
+      link: false
     third_party_settings: {  }
-    type: entity_reference_label
+    type: entity_reference_entity_view
     region: content
   field_related_information:
     type: entity_reference_revisions_entity_view
-    weight: 109
+    weight: 9
     label: above
     settings:
       view_mode: default
@@ -109,9 +131,9 @@ content:
     third_party_settings: {  }
     region: content
   links:
-    weight: 100
+    weight: 1
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
   search_api_excerpt: true

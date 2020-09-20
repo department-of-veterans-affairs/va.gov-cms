@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.support_resources_detail_page.field_related_benefit_hubs
     - field.field.node.support_resources_detail_page.field_related_information
     - node.type.support_resources_detail_page
+    - workflows.workflow.editorial
   module:
     - allowed_formats
     - content_moderation
@@ -169,10 +170,16 @@ content:
   field_description:
     weight: 3
     settings:
-      size: 60
+      size: 70
       placeholder: ''
+      maxlength: 70
+      counter_position: after
+      js_prevent_submit: true
+      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
+      count_html_characters: false
     third_party_settings: {  }
-    type: string_textfield
+    type: string_textfield_with_counter
     region: content
   field_intro_text_limited_html:
     weight: 2
@@ -193,10 +200,16 @@ content:
   field_meta_title:
     weight: 4
     settings:
-      size: 60
+      size: 120
       placeholder: ''
+      maxlength: 120
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
     third_party_settings: {  }
-    type: string_textfield
+    type: string_textfield_with_counter
     region: content
   field_related_benefit_hubs:
     weight: 8
