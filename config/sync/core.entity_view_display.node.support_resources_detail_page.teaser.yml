@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.support_resources_detail_page.field_meta_title
     - field.field.node.support_resources_detail_page.field_related_benefit_hubs
     - field.field.node.support_resources_detail_page.field_related_information
+    - field.field.node.support_resources_detail_page.field_table_of_contents_boolean
     - node.type.support_resources_detail_page
   module:
     - user
@@ -22,6 +23,11 @@ targetEntityType: node
 bundle: support_resources_detail_page
 mode: teaser
 content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   links:
     weight: 100
     settings: {  }
@@ -38,4 +44,5 @@ hidden:
   field_meta_title: true
   field_related_benefit_hubs: true
   field_related_information: true
+  field_table_of_contents_boolean: true
   search_api_excerpt: true

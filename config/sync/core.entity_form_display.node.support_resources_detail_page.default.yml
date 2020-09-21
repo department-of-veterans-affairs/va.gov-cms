@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.support_resources_detail_page.field_meta_title
     - field.field.node.support_resources_detail_page.field_related_benefit_hubs
     - field.field.node.support_resources_detail_page.field_related_information
+    - field.field.node.support_resources_detail_page.field_table_of_contents_boolean
     - node.type.support_resources_detail_page
     - workflows.workflow.editorial
   module:
@@ -72,7 +73,7 @@ third_party_settings:
       children:
         - moderation_state
       parent_name: ''
-      weight: 10
+      weight: 9
       format_type: fieldset
       format_settings:
         id: ''
@@ -85,7 +86,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 11
+      weight: 10
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -95,6 +96,20 @@ third_party_settings:
         required_fields: 1
         weight: '-10'
       label: Governance
+      region: content
+    group_include_toc:
+      children:
+        - field_table_of_contents_boolean
+      parent_name: ''
+      weight: 3
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: false
+        open: false
+      label: 'Include table of contents?'
       region: content
 id: node.support_resources_detail_page.default
 targetEntityType: node
@@ -120,7 +135,7 @@ content:
     type: entity_reference_paragraphs
     region: content
   field_buttons:
-    weight: 5
+    weight: 4
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -139,14 +154,14 @@ content:
     type: paragraphs
     region: content
   field_buttons_repeat:
-    weight: 7
+    weight: 6
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
   field_content_block:
-    weight: 6
+    weight: 5
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -212,7 +227,7 @@ content:
     type: string_textfield_with_counter
     region: content
   field_related_benefit_hubs:
-    weight: 8
+    weight: 7
     settings:
       entity_browser: lc_benefit_hubs
       field_widget_display: label
@@ -227,7 +242,7 @@ content:
     region: content
   field_related_information:
     type: paragraphs
-    weight: 9
+    weight: 8
     settings:
       title: 'Link teaser'
       title_plural: 'Link teasers'
@@ -244,6 +259,13 @@ content:
         duplicate: '0'
     third_party_settings: {  }
     region: content
+  field_table_of_contents_boolean:
+    weight: 14
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
   moderation_state:
     type: moderation_state_default
     weight: 16
@@ -252,7 +274,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 12
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -260,7 +282,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 14
+    weight: 13
     region: content
     third_party_settings: {  }
   title:
@@ -278,7 +300,7 @@ content:
       count_html_characters: false
     third_party_settings: {  }
   url_redirects:
-    weight: 13
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }

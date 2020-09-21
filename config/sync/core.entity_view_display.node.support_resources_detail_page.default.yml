@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.support_resources_detail_page.field_meta_title
     - field.field.node.support_resources_detail_page.field_related_benefit_hubs
     - field.field.node.support_resources_detail_page.field_related_information
+    - field.field.node.support_resources_detail_page.field_table_of_contents_boolean
     - node.type.support_resources_detail_page
   module:
     - entity_reference_revisions
@@ -129,6 +130,16 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
+  field_table_of_contents_boolean:
+    weight: 11
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   links:
     weight: 1
