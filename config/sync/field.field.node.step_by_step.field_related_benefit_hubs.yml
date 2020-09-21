@@ -1,9 +1,9 @@
-uuid: 634b4851-0aaa-48f8-91cf-2f75f06da2dc
+uuid: e76259d4-88b7-47b6-a1fe-d26740532b3d
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_lc_benefit_hubs
+    - field.storage.node.field_related_benefit_hubs
     - node.type.landing_page
     - node.type.step_by_step
   content:
@@ -14,12 +14,12 @@ third_party_settings:
   entity_reference_validators:
     circular_reference: false
     duplicate_reference: true
-id: node.step_by_step.field_lc_benefit_hubs
-field_name: field_lc_benefit_hubs
+id: node.step_by_step.field_related_benefit_hubs
+field_name: field_related_benefit_hubs
 entity_type: node
 bundle: step_by_step
 label: 'VA Benefit Hubs'
-description: 'Select up to 3 Benefit hubs.<br><br>'
+description: ''
 required: true
 translatable: true
 default_value:
