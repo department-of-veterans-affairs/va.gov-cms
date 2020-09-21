@@ -10,8 +10,8 @@ dependencies:
     - field.field.node.checklist.field_checklist
     - field.field.node.checklist.field_description
     - field.field.node.checklist.field_intro_text_limited_html
-    - field.field.node.checklist.field_lc_benefit_hubs
     - field.field.node.checklist.field_meta_title
+    - field.field.node.checklist.field_related_benefit_hubs
     - field.field.node.checklist.field_related_links
     - node.type.checklist
   module:
@@ -41,7 +41,7 @@ third_party_settings:
         - field_buttons
         - field_checklist
         - field_buttons_repeat
-        - field_lc_benefit_hubs
+        - field_related_benefit_hubs
         - field_related_links
       parent_name: ''
       weight: 2
@@ -122,14 +122,6 @@ content:
     third_party_settings: {  }
     type: text_default
     region: content
-  field_lc_benefit_hubs:
-    weight: 8
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_meta_title:
     weight: 3
     label: above
@@ -137,6 +129,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_related_benefit_hubs:
+    weight: 8
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
     region: content
   field_related_links:
     weight: 9

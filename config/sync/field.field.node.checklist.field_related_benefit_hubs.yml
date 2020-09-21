@@ -1,9 +1,9 @@
-uuid: f4ce8597-75da-4a8f-9cab-5e4d0beef07e
+uuid: 109e5c89-394e-472b-bb29-cb93a3878756
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_lc_benefit_hubs
+    - field.storage.node.field_related_benefit_hubs
     - node.type.checklist
     - node.type.landing_page
   content:
@@ -14,8 +14,8 @@ third_party_settings:
   entity_reference_validators:
     circular_reference: false
     duplicate_reference: true
-id: node.checklist.field_lc_benefit_hubs
-field_name: field_lc_benefit_hubs
+id: node.checklist.field_related_benefit_hubs
+field_name: field_related_benefit_hubs
 entity_type: node
 bundle: checklist
 label: 'VA Benefit Hubs'
