@@ -1,0 +1,145 @@
+uuid: 8b48d912-05d6-4a61-8af9-5720b57d11e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_block
+    - node.type.support_resources_detail_page
+    - paragraphs.paragraphs_type.collapsible_panel
+    - paragraphs.paragraphs_type.react_widget
+    - paragraphs.paragraphs_type.table
+    - paragraphs.paragraphs_type.wysiwyg
+  module:
+    - entity_reference_revisions
+id: node.support_resources_detail_page.field_content_block
+field_name: field_content_block
+entity_type: node
+bundle: support_resources_detail_page
+label: 'Main content'
+description: 'The main body of the page, which appears below the CTAs.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      wysiwyg: wysiwyg
+      table: table
+      collapsible_panel: collapsible_panel
+      react_widget: react_widget
+    target_bundles_drag_drop:
+      address:
+        weight: -71
+        enabled: false
+      alert:
+        weight: -70
+        enabled: false
+      alert_single:
+        weight: -69
+        enabled: false
+      button:
+        weight: -68
+        enabled: false
+      checklist:
+        weight: -67
+        enabled: false
+      checklist_item:
+        weight: -66
+        enabled: false
+      collapsible_panel:
+        enabled: true
+        weight: -73
+      collapsible_panel_item:
+        weight: -65
+        enabled: false
+      downloadable_file:
+        weight: -64
+        enabled: false
+      email_contact:
+        weight: -63
+        enabled: false
+      expandable_text:
+        weight: -62
+        enabled: false
+      health_care_local_facility_servi:
+        weight: -61
+        enabled: false
+      link_teaser:
+        weight: -60
+        enabled: false
+      list_of_link_teasers:
+        weight: -59
+        enabled: false
+      list_of_links:
+        weight: -58
+        enabled: false
+      lists_of_links:
+        weight: -57
+        enabled: false
+      media:
+        weight: -56
+        enabled: false
+      media_list_images:
+        weight: -55
+        enabled: false
+      media_list_videos:
+        weight: -54
+        enabled: false
+      non_reusable_alert:
+        weight: -53
+        enabled: false
+      number_callout:
+        weight: -52
+        enabled: false
+      phone_number:
+        weight: -51
+        enabled: false
+      process:
+        weight: -50
+        enabled: false
+      q_a:
+        weight: -49
+        enabled: false
+      q_a_group:
+        weight: -48
+        enabled: false
+      q_a_section:
+        weight: -47
+        enabled: false
+      react_widget:
+        enabled: true
+        weight: -72
+      service_location:
+        weight: -46
+        enabled: false
+      service_location_address:
+        weight: -45
+        enabled: false
+      situation_update:
+        weight: -44
+        enabled: false
+      spanish_translation_summary:
+        weight: -43
+        enabled: false
+      staff_profile:
+        weight: -42
+        enabled: false
+      starred_horizontal_rule:
+        weight: -41
+        enabled: false
+      step:
+        weight: -40
+        enabled: false
+      step_by_step:
+        weight: -39
+        enabled: false
+      table:
+        enabled: true
+        weight: -74
+      wysiwyg:
+        enabled: true
+        weight: -75
+field_type: entity_reference_revisions
