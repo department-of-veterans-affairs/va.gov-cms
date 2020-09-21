@@ -123,17 +123,19 @@ Feature: Content model: Content Type fields
 | Content type | Leadership List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Leadership List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Leadership List | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Learning Center Detail Page | Additional categories (optional) | field_other_categories | Entity reference |  | 7 | Check boxes/radio buttons | Translatable |
+| Content type | Learning Center Detail Page | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Learning Center Detail Page | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Learning Center Detail Page | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox | Translatable |
+| Content type | Learning Center Detail Page | Main content | field_content_block | Entity reference revisions | Required | Unlimited | Paragraphs Browser EXPERIMENTAL | Translatable |
 | Content type | Learning Center Detail Page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Learning Center Detail Page | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Learning Center Detail Page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Learning Center Detail Page | Page introduction | field_intro_text_limited_html  | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
-| Content type | Learning Center Detail Page | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
-| Content type | Learning Center Detail Page | Main content | field_content_block | Entity reference revisions | Required | Unlimited | Paragraphs Browser EXPERIMENTAL | Translatable |
-| Content type | Learning Center Detail Page | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | |
+| Content type | Learning Center Detail Page | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Learning Center Detail Page | Related Information | field_related_information | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL | |
-| Content type | Learning Center Detail Page | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
+| Content type | Learning Center Detail Page | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
+| Content type | Learning Center Detail Page | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | |
 | Content type | Locations List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Locations List | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
 | Content type | Locations List | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
