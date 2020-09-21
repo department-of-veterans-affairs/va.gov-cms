@@ -10,8 +10,8 @@ dependencies:
     - field.field.node.step_by_step.field_buttons_repeat
     - field.field.node.step_by_step.field_description
     - field.field.node.step_by_step.field_intro_text_limited_html
-    - field.field.node.step_by_step.field_lc_benefit_hubs
     - field.field.node.step_by_step.field_meta_title
+    - field.field.node.step_by_step.field_related_benefit_hubs
     - field.field.node.step_by_step.field_related_links
     - field.field.node.step_by_step.field_steps
     - node.type.step_by_step
@@ -178,20 +178,6 @@ content:
     third_party_settings: {  }
     type: text_textarea_with_counter
     region: content
-  field_lc_benefit_hubs:
-    weight: 7
-    settings:
-      entity_browser: lc_benefit_hubs
-      field_widget_display: label
-      field_widget_remove: '1'
-      selection_mode: selection_append
-      field_widget_edit: 0
-      field_widget_replace: 0
-      open: 0
-      field_widget_display_settings: {  }
-    third_party_settings: {  }
-    type: entity_reference_browser_table_widget
-    region: content
   field_meta_title:
     weight: 6
     settings:
@@ -205,6 +191,20 @@ content:
       textcount_status_message: 'Remaining characters: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
     type: string_textfield_with_counter
+    region: content
+  field_related_benefit_hubs:
+    weight: 7
+    settings:
+      entity_browser: lc_benefit_hubs
+      field_widget_display: label
+      field_widget_remove: '1'
+      selection_mode: selection_append
+      field_widget_edit: 0
+      field_widget_replace: 0
+      open: 0
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_reference_browser_table_widget
     region: content
   field_related_links:
     weight: 8
