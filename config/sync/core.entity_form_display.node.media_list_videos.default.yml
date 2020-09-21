@@ -10,9 +10,9 @@ dependencies:
     - field.field.node.media_list_videos.field_buttons_repeat
     - field.field.node.media_list_videos.field_description
     - field.field.node.media_list_videos.field_intro_text_limited_html
-    - field.field.node.media_list_videos.field_lc_benefit_hubs
     - field.field.node.media_list_videos.field_media_list_videos
     - field.field.node.media_list_videos.field_meta_title
+    - field.field.node.media_list_videos.field_related_benefit_hubs
     - field.field.node.media_list_videos.field_related_links
     - node.type.media_list_videos
     - workflows.workflow.editorial
@@ -169,20 +169,6 @@ content:
         hide_guidelines: '0'
     type: text_textarea_with_counter
     region: content
-  field_lc_benefit_hubs:
-    weight: 6
-    settings:
-      entity_browser: lc_benefit_hubs
-      field_widget_display: label
-      field_widget_edit: '1'
-      field_widget_remove: '1'
-      selection_mode: selection_append
-      field_widget_replace: 0
-      open: 0
-      field_widget_display_settings: {  }
-    third_party_settings: {  }
-    type: entity_reference_browser_table_widget
-    region: content
   field_media_list_videos:
     type: paragraphs
     weight: 4
@@ -209,6 +195,20 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
+  field_related_benefit_hubs:
+    weight: 6
+    settings:
+      entity_browser: lc_benefit_hubs
+      field_widget_display: label
+      field_widget_remove: '1'
+      selection_mode: selection_append
+      field_widget_edit: 0
+      field_widget_replace: 0
+      open: 0
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_reference_browser_table_widget
     region: content
   field_related_links:
     weight: 7
