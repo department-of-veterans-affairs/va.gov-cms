@@ -10,10 +10,10 @@ dependencies:
     - field.field.node.media_list_images.field_description
     - field.field.node.media_list_images.field_intro_text_limited_html
     - field.field.node.media_list_images.field_lc_benefit_hubs
-    - field.field.node.media_list_images.field_other_categories
-    - field.field.node.media_list_images.field_primary_category
     - field.field.node.media_list_images.field_media_list_images
     - field.field.node.media_list_images.field_meta_title
+    - field.field.node.media_list_images.field_other_categories
+    - field.field.node.media_list_images.field_primary_category
     - field.field.node.media_list_images.field_related_links
     - node.type.media_list_images
   module:
@@ -46,7 +46,7 @@ third_party_settings:
         - field_lc_benefit_hubs
         - field_related_links
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -59,7 +59,7 @@ third_party_settings:
         - field_primary_category
         - field_other_categories
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -131,22 +131,11 @@ content:
   field_lc_benefit_hubs:
     weight: 12
     region: content
-  field_other_categories:
-    weight: 7
+    type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_primary_category:
-    weight: 6
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_media_list_images:
     type: entity_reference_revisions_entity_view
     weight: 10
@@ -163,6 +152,22 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_other_categories:
+    weight: 7
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_primary_category:
+    weight: 6
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
     region: content
   field_related_links:
     weight: 13
