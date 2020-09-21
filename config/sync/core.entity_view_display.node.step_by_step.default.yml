@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.step_by_step.field_description
     - field.field.node.step_by_step.field_intro_text_limited_html
     - field.field.node.step_by_step.field_lc_benefit_hubs
+    - field.field.node.step_by_step.field_meta_title
     - field.field.node.step_by_step.field_other_categories
     - field.field.node.step_by_step.field_primary_category
     - field.field.node.step_by_step.field_meta_title
@@ -47,7 +48,7 @@ third_party_settings:
         - field_related_benefit_hubs
         - field_related_links
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -60,7 +61,7 @@ third_party_settings:
         - field_primary_category
         - field_other_categories
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -131,6 +132,19 @@ content:
     region: content
   field_lc_benefit_hubs:
     weight: 10
+    region: content
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+  field_meta_title:
+    weight: 3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
     region: content
   field_other_categories:
     weight: 7

@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - entity_browser.browser.lc_benefit_hubs
-    - entity_browser.browser.categories
     - field.field.node.media_list_videos.field_administration
     - field.field.node.media_list_videos.field_alert_single
     - field.field.node.media_list_videos.field_buttons
@@ -12,11 +11,11 @@ dependencies:
     - field.field.node.media_list_videos.field_description
     - field.field.node.media_list_videos.field_intro_text_limited_html
     - field.field.node.media_list_videos.field_lc_benefit_hubs
-    - field.field.node.media_list_videos.field_other_categories
-    - field.field.node.media_list_videos.field_primary_category
     - field.field.node.media_list_videos.field_media_list_videos
     - field.field.node.media_list_videos.field_meta_title
     - field.field.node.media_list_videos.field_related_benefit_hubs
+    - field.field.node.media_list_videos.field_other_categories
+    - field.field.node.media_list_videos.field_primary_category
     - field.field.node.media_list_videos.field_related_links
     - node.type.media_list_videos
     - workflows.workflow.editorial
@@ -24,7 +23,6 @@ dependencies:
     - allowed_formats
     - content_moderation
     - entity_browser_table
-    - entity_browser
     - field_group
     - paragraphs
     - path
@@ -62,7 +60,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -78,7 +76,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: fieldset
       format_settings:
         id: ''
@@ -104,17 +102,31 @@ third_party_settings:
     group_categories:
       children:
         - field_primary_category
-        - field_other_categories
+        - group_other_categories
       parent_name: ''
-      weight: 3
+      weight: 8
+      format_type: details
+      format_settings:
+        description: ''
+        open: true
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Learning Center categories'
+      region: content
+    group_other_categories:
+      children:
+        - field_other_categories
+      parent_name: group_categories
+      weight: 13
       format_type: details
       format_settings:
         id: ''
         classes: ''
-        description: ''
+        description: 'You can add up to 7 additional categories.'
         open: false
         required_fields: true
-      label: 'Learning Center categories'
+      label: 'Other categories where people may look for this article'
       region: content
 id: node.media_list_videos.default
 targetEntityType: node
@@ -140,7 +152,7 @@ content:
     third_party_settings: {  }
     region: content
   field_buttons:
-    weight: 4
+    weight: 3
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -159,7 +171,7 @@ content:
     type: paragraphs
     region: content
   field_buttons_repeat:
-    weight: 6
+    weight: 5
     settings:
       display_label: true
     third_party_settings: {  }
@@ -203,29 +215,9 @@ content:
     third_party_settings: {  }
     type: entity_reference_browser_table_widget
     region: content
-  field_other_categories:
-    weight: 13
-    settings:
-      entity_browser: topics
-      field_widget_display: label
-      field_widget_edit: true
-      field_widget_remove: true
-      selection_mode: selection_append
-      field_widget_replace: false
-      open: false
-      field_widget_display_settings: {  }
-    third_party_settings: {  }
-    type: entity_browser_entity_reference
-    region: content
-  field_primary_category:
-    weight: 12
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: content
   field_media_list_videos:
     type: paragraphs
-    weight: 5
+    weight: 4
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -263,6 +255,17 @@ content:
       field_widget_display_settings: {  }
     third_party_settings: {  }
     type: entity_reference_browser_table_widget
+  field_other_categories:
+    weight: 14
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_primary_category:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
     region: content
   field_related_links:
     weight: 7
@@ -284,7 +287,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -292,7 +295,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 12
+    weight: 13
     region: content
     third_party_settings: {  }
   title:
@@ -310,7 +313,7 @@ content:
       use_field_maxlength: false
     third_party_settings: {  }
   url_redirects:
-    weight: 11
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
