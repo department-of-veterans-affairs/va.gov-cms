@@ -10,9 +10,9 @@ dependencies:
     - field.field.node.faq_multiple_q_a.field_buttons_repeat
     - field.field.node.faq_multiple_q_a.field_description
     - field.field.node.faq_multiple_q_a.field_intro_text_limited_html
-    - field.field.node.faq_multiple_q_a.field_lc_benefit_hubs
     - field.field.node.faq_multiple_q_a.field_meta_title
     - field.field.node.faq_multiple_q_a.field_q_a_groups
+    - field.field.node.faq_multiple_q_a.field_related_benefit_hubs
     - field.field.node.faq_multiple_q_a.field_related_links
     - field.field.node.faq_multiple_q_a.field_table_of_contents_boolean
     - node.type.faq_multiple_q_a
@@ -183,20 +183,6 @@ content:
         hide_guidelines: '0'
     type: text_textarea_with_counter
     region: content
-  field_lc_benefit_hubs:
-    weight: 7
-    settings:
-      entity_browser: lc_benefit_hubs
-      field_widget_display: label
-      field_widget_remove: '1'
-      selection_mode: selection_append
-      field_widget_edit: 0
-      field_widget_replace: 0
-      open: 0
-      field_widget_display_settings: {  }
-    third_party_settings: {  }
-    type: entity_reference_browser_table_widget
-    region: content
   field_meta_title:
     weight: 11
     settings:
@@ -222,6 +208,20 @@ content:
       form_display_mode: default
       default_paragraph_type: q_a_section_faq_multiple
     third_party_settings: {  }
+    region: content
+  field_related_benefit_hubs:
+    weight: 7
+    settings:
+      entity_browser: lc_benefit_hubs
+      field_widget_display: label
+      field_widget_remove: '1'
+      selection_mode: selection_append
+      field_widget_edit: 0
+      field_widget_replace: 0
+      open: 0
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_reference_browser_table_widget
     region: content
   field_related_links:
     weight: 8
