@@ -9,8 +9,8 @@ dependencies:
     - field.field.node.q_a.field_answer
     - field.field.node.q_a.field_buttons
     - field.field.node.q_a.field_description
-    - field.field.node.q_a.field_lc_benefit_hubs
     - field.field.node.q_a.field_meta_title
+    - field.field.node.q_a.field_related_benefit_hubs
     - field.field.node.q_a.field_related_links
     - node.type.q_a
     - workflows.workflow.editorial
@@ -161,20 +161,6 @@ content:
     third_party_settings: {  }
     type: string_textfield_with_counter
     region: content
-  field_lc_benefit_hubs:
-    type: entity_reference_browser_table_widget
-    weight: 4
-    region: content
-    settings:
-      entity_browser: lc_benefit_hubs
-      field_widget_display: label
-      field_widget_remove: '1'
-      selection_mode: selection_append
-      field_widget_edit: 0
-      field_widget_replace: 0
-      open: 0
-      field_widget_display_settings: {  }
-    third_party_settings: {  }
   field_meta_title:
     weight: 3
     settings:
@@ -188,6 +174,20 @@ content:
       textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
     type: string_textfield_with_counter
+    region: content
+  field_related_benefit_hubs:
+    weight: 4
+    settings:
+      entity_browser: lc_benefit_hubs
+      field_widget_display: label
+      field_widget_remove: '1'
+      selection_mode: selection_append
+      field_widget_edit: 0
+      field_widget_replace: 0
+      open: 0
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_reference_browser_table_widget
     region: content
   field_related_links:
     weight: 5
