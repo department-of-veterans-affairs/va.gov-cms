@@ -8,6 +8,7 @@ dependencies:
     - paragraphs.paragraphs_type.step_by_step
   module:
     - paragraphs
+    - textfield_counter
 id: paragraph.step_by_step.default
 targetEntityType: paragraph
 bundle: step_by_step
@@ -16,10 +17,16 @@ content:
   field_section_header:
     weight: 0
     settings:
-      size: 60
+      size: 70
       placeholder: ''
+      maxlength: 70
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
     third_party_settings: {  }
-    type: string_textfield
+    type: string_textfield_with_counter
     region: content
   field_step:
     weight: 1

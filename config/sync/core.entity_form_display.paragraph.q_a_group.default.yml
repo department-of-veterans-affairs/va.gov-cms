@@ -9,6 +9,7 @@ dependencies:
     - paragraphs.paragraphs_type.q_a_group
   module:
     - entity_browser_table
+    - textfield_counter
 id: paragraph.q_a_group.default
 targetEntityType: paragraph
 bundle: q_a_group
@@ -31,10 +32,16 @@ content:
   field_section_header:
     weight: 0
     settings:
-      size: 60
+      size: 70
       placeholder: ''
+      maxlength: 70
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
     third_party_settings: {  }
-    type: string_textfield
+    type: string_textfield_with_counter
     region: content
 hidden:
   created: true
