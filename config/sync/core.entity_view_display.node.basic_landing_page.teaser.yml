@@ -1,0 +1,38 @@
+uuid: c0a5948e-51b1-4319-81fd-a7794b4f2dac
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.basic_landing_page.field_administration
+    - field.field.node.basic_landing_page.field_content_block
+    - field.field.node.basic_landing_page.field_description
+    - field.field.node.basic_landing_page.field_intro_text_limited_html
+    - field.field.node.basic_landing_page.field_meta_title
+    - field.field.node.basic_landing_page.field_product
+    - node.type.basic_landing_page
+  module:
+    - user
+id: node.basic_landing_page.teaser
+targetEntityType: node
+bundle: basic_landing_page
+mode: teaser
+content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_administration: true
+  field_content_block: true
+  field_description: true
+  field_intro_text_limited_html: true
+  field_meta_title: true
+  field_product: true
+  search_api_excerpt: true
