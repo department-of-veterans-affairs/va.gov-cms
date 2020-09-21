@@ -17,6 +17,8 @@ Feature: Content model bundles
 | Events List | event_listing | Content type | A listing of events. |
 | FAQ - multiple Q&As | faq_multiple_q_a | Content type | Curated collection of Q&As. |
 | Health Services List | health_services_listing | Content type | A listing of health services. |
+| Landing Page | basic_landing_page | Content type | Basic Landing Page can be used to build one-off pages for various products. E.g. a homepage for a specific product. |
+| Learning Center Detail Page | support_resources_detail_page | Content type |  |
 | Leadership List | leadership_listing | Content type | A listing of staff profiles. |
 | Locations List | locations_listing | Content type | A listing of VA facilities. |
 | Media list - Images | media_list_images | Content type |  |

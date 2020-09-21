@@ -1,0 +1,29 @@
+uuid: 869c500e-f250-484c-8531-bd3b93eaaba6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.basic_landing_page
+    - taxonomy.vocabulary.administration
+id: node.basic_landing_page.field_administration
+field_name: field_administration
+entity_type: node
+bundle: basic_landing_page
+label: Owner
+description: 'The VA office or program that owns this content.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
