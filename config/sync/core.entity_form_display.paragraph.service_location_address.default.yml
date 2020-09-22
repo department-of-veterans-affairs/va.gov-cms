@@ -11,7 +11,30 @@ dependencies:
     - paragraphs.paragraphs_type.service_location_address
   module:
     - address
+    - field_group
     - textfield_counter
+third_party_settings:
+  field_group:
+    group_street_addrees:
+      children:
+        - field_use_facility_address
+        - field_address
+      parent_name: ''
+      weight: 3
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: ''
+        element: div
+        show_label: true
+        label_element: label
+        label_element_classes: ''
+        required_fields: true
+        attributes: ''
+        effect: none
+        speed: fast
+      label: 'Street address'
+      region: content
 id: paragraph.service_location_address.default
 targetEntityType: paragraph
 bundle: service_location_address
@@ -19,12 +42,12 @@ mode: default
 content:
   field_address:
     type: address_default
-    weight: 1
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
   field_building_name_number:
-    weight: 3
+    weight: 1
     settings:
       size: 70
       placeholder: ''
@@ -38,7 +61,7 @@ content:
     type: string_textfield_with_counter
     region: content
   field_clinic_name:
-    weight: 2
+    weight: 0
     settings:
       size: 70
       placeholder: ''
@@ -52,14 +75,14 @@ content:
     type: string_textfield_with_counter
     region: content
   field_use_facility_address:
-    weight: 0
+    weight: 4
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
   field_wing_floor_or_room_number:
-    weight: 4
+    weight: 2
     settings:
       size: 70
       placeholder: ''
