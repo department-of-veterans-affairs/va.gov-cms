@@ -274,13 +274,13 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
  */
 function _va_gov_backend_contact_information_validation(array $form, FormStateInterface &$form_state) {
   $contact_type = $form_state->getValue('field_contact_information')[0]['subform']['field_contact_info_switch'];
-  $benefit_hub = $form_state->getValue('field_contact_information')[0]['subform']['field_lc_benefit_hub_contacts'];
+  $benefit_hub = $form_state->getValue('field_contact_information')[0]['subform']['field_benefit_hub_contacts'];
   $benefit_hub_contact = array_shift($benefit_hub);
 
   // If the checkbox is checked.
   if ($contact_type[0]['value'] === 'BHC') {
     if (empty($benefit_hub_contact)) {
-      $form_state->setErrorByName("field_contact_information][0][subform][field_lc_benefit_hub_contacts", t('At least one benefit hub contact is required'));
+      $form_state->setErrorByName("field_contact_information][0][subform][field_benefit_hub_contacts", t('At least one benefit hub contact is required'));
     }
   }
 }
@@ -588,7 +588,7 @@ function _va_gov_backend_modify_contact_information_states(array &$element, Form
         ],
       ];
 
-      $element['subform']['field_lc_benefit_hub_contacts']['#states'] = [
+      $element['subform']['field_benefit_hub_contacts']['#states'] = [
         'visible' => [
           [$selector => ['value' => 'BHC']],
         ],
