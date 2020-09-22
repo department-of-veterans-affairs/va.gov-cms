@@ -156,7 +156,7 @@ Feature: Content model: Content Type fields
 | Content type | Media list - Images | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Media list - Images | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | Translatable |
 | Content type | Media list - Videos | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
-| Content type | Media list - Videos | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | Translatable |
+| Content type | Media list - Videos | Additional categories (optional) | field_other_categories | Entity reference |  | 7 | Check boxes/radio buttons | Translatable |
 | Content type | Media list - Videos | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic |  |
 | Content type | Media list - Videos | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Media list - Videos | Meta description | field_description | Text (plain) | Required | 1 | Textfield | Translatable |
@@ -164,8 +164,8 @@ Feature: Content model: Content Type fields
 | Content type | Media list - Videos | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Media list - Videos | Page introduction | field_intro_text_limited_html | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Media list - Videos | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
+| Content type | Media list - Videos | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | Translatable |
 | Content type | Media list - Videos | Videos | field_media_list_videos | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
-| Content type | Media list - Videos | VA Benefit Hubs | field_lc_benefit_hubs | Entity reference |  | 3 | Entity Browser - Table | Translatable |
 | Content type | NCA Facility | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | NCA Facility | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
 | Content type | NCA Facility | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
