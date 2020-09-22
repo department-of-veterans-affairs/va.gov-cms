@@ -4,9 +4,9 @@ status: true
 dependencies:
   config:
     - entity_browser.browser.benefit_hub_contact_information
+    - field.field.paragraph.contact_information.field_benefit_hub_contacts
     - field.field.paragraph.contact_information.field_contact_default
     - field.field.paragraph.contact_information.field_contact_info_switch
-    - field.field.paragraph.contact_information.field_lc_benefit_hub_contacts
     - field.field.paragraph.contact_information.field_markup
     - paragraphs.paragraphs_type.contact_information
   module:
@@ -18,6 +18,20 @@ targetEntityType: paragraph
 bundle: contact_information
 mode: default
 content:
+  field_benefit_hub_contacts:
+    weight: 4
+    settings:
+      entity_browser: benefit_hub_contact_information
+      field_widget_display: label
+      field_widget_remove: '1'
+      open: '1'
+      selection_mode: selection_append
+      field_widget_edit: 0
+      field_widget_replace: 0
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_reference_browser_table_widget
+    region: content
   field_contact_default:
     weight: 2
     settings:
@@ -38,20 +52,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
-    region: content
-  field_lc_benefit_hub_contacts:
-    weight: 3
-    settings:
-      entity_browser: benefit_hub_contact_information
-      field_widget_display: label
-      field_widget_remove: '1'
-      open: '1'
-      selection_mode: selection_append
-      field_widget_edit: 0
-      field_widget_replace: 0
-      field_widget_display_settings: {  }
-    third_party_settings: {  }
-    type: entity_reference_browser_table_widget
     region: content
   field_markup:
     weight: 0
