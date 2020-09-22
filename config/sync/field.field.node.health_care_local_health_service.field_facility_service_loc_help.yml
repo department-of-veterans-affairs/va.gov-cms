@@ -1,0 +1,25 @@
+uuid: 5088a6b3-ea3f-4c13-8a9f-9991d27a43b2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_facility_service_loc_help
+    - node.type.health_care_local_health_service
+  module:
+    - markup
+id: node.health_care_local_health_service.field_facility_service_loc_help
+field_name: field_facility_service_loc_help
+entity_type: node
+bundle: health_care_local_health_service
+label: 'Service locations help text'
+description: ''
+required: false
+translatable: false
+default_value:
+  - {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: "<p>Add each location where the service is offered at this facility. &nbsp;For example, You may include multiple clinics in different departments, floors, or buildings, or \"offsite\" locations, such as helplines or other phone-based services.&nbsp;</p>\r\n"
+    format: rich_text
+field_type: markup
