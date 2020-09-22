@@ -8,8 +8,8 @@ dependencies:
     - field.field.node.q_a.field_answer
     - field.field.node.q_a.field_buttons
     - field.field.node.q_a.field_description
-    - field.field.node.q_a.field_lc_benefit_hubs
     - field.field.node.q_a.field_meta_title
+    - field.field.node.q_a.field_related_benefit_hubs
     - field.field.node.q_a.field_related_links
     - node.type.q_a
   module:
@@ -84,14 +84,6 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_lc_benefit_hubs:
-    weight: 4
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_meta_title:
     weight: 2
     label: above
@@ -99,6 +91,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_related_benefit_hubs:
+    weight: 4
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
     region: content
   field_related_links:
     weight: 5

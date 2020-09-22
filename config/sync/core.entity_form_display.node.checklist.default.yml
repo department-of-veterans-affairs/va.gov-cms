@@ -11,8 +11,8 @@ dependencies:
     - field.field.node.checklist.field_checklist
     - field.field.node.checklist.field_description
     - field.field.node.checklist.field_intro_text_limited_html
-    - field.field.node.checklist.field_lc_benefit_hubs
     - field.field.node.checklist.field_meta_title
+    - field.field.node.checklist.field_related_benefit_hubs
     - field.field.node.checklist.field_related_links
     - node.type.checklist
     - workflows.workflow.editorial
@@ -183,7 +183,15 @@ content:
     third_party_settings: {  }
     type: text_textarea_with_counter
     region: content
-  field_lc_benefit_hubs:
+  field_meta_title:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_related_benefit_hubs:
     weight: 6
     settings:
       entity_browser: lc_benefit_hubs
@@ -196,14 +204,6 @@ content:
       field_widget_display_settings: {  }
     third_party_settings: {  }
     type: entity_reference_browser_table_widget
-    region: content
-  field_meta_title:
-    weight: 2
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
     region: content
   field_related_links:
     weight: 7
