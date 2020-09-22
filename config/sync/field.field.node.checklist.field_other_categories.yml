@@ -1,0 +1,29 @@
+uuid: 7eb25eff-8e48-4757-98dd-84c0bf0ba7dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_other_categories
+    - node.type.checklist
+    - taxonomy.vocabulary.lc_categories
+id: node.checklist.field_other_categories
+field_name: field_other_categories
+entity_type: node
+bundle: checklist
+label: 'Additional categories (optional)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      lc_categories: lc_categories
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

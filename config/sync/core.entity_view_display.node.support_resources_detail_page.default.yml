@@ -11,6 +11,8 @@ dependencies:
     - field.field.node.support_resources_detail_page.field_description
     - field.field.node.support_resources_detail_page.field_intro_text_limited_html
     - field.field.node.support_resources_detail_page.field_meta_title
+    - field.field.node.support_resources_detail_page.field_other_categories
+    - field.field.node.support_resources_detail_page.field_primary_category
     - field.field.node.support_resources_detail_page.field_related_benefit_hubs
     - field.field.node.support_resources_detail_page.field_related_information
     - field.field.node.support_resources_detail_page.field_table_of_contents_boolean
@@ -35,6 +37,38 @@ third_party_settings:
         description: ''
       label: Metadata
       region: content
+    group_categories:
+      children:
+        - field_primary_category
+        - field_other_categories
+      parent_name: ''
+      weight: 12
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Learning Center categories'
+      region: content
+    group_content:
+      children:
+        - field_intro_text_limited_html
+        - field_alert_single
+        - field_buttons
+        - field_table_of_contents_boolean
+        - field_content_block
+        - field_buttons_repeat
+        - field_related_benefit_hubs
+        - field_related_information
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Content
+      region: content
 id: node.support_resources_detail_page.default
 targetEntityType: node
 bundle: support_resources_detail_page
@@ -46,7 +80,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_administration:
-    weight: 10
+    weight: 13
     label: above
     settings:
       link: true
@@ -54,15 +88,6 @@ content:
     type: entity_reference_label
     region: content
   field_alert_single:
-    weight: 4
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
-    region: content
-  field_buttons:
     weight: 5
     label: above
     settings:
@@ -71,8 +96,17 @@ content:
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
     region: content
+  field_buttons:
+    weight: 6
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
   field_buttons_repeat:
-    weight: 7
+    weight: 9
     label: above
     settings:
       format: default
@@ -82,7 +116,7 @@ content:
     type: boolean
     region: content
   field_content_block:
-    weight: 6
+    weight: 8
     label: above
     settings:
       view_mode: default
@@ -99,7 +133,7 @@ content:
     type: string
     region: content
   field_intro_text_limited_html:
-    weight: 3
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -113,8 +147,24 @@ content:
     third_party_settings: {  }
     type: string
     region: content
+  field_other_categories:
+    type: entity_reference_label
+    weight: 14
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+  field_primary_category:
+    weight: 13
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
   field_related_benefit_hubs:
-    weight: 8
+    weight: 10
     label: above
     settings:
       view_mode: default
@@ -124,7 +174,7 @@ content:
     region: content
   field_related_information:
     type: entity_reference_revisions_entity_view
-    weight: 9
+    weight: 11
     label: above
     settings:
       view_mode: default
@@ -132,7 +182,7 @@ content:
     third_party_settings: {  }
     region: content
   field_table_of_contents_boolean:
-    weight: 11
+    weight: 7
     label: above
     settings:
       format: default

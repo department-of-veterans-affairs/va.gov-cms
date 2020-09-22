@@ -1,0 +1,29 @@
+uuid: ef05b19d-845a-4ea0-b3c1-7208cf232649
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_other_categories
+    - node.type.step_by_step
+    - taxonomy.vocabulary.lc_categories
+id: node.step_by_step.field_other_categories
+field_name: field_other_categories
+entity_type: node
+bundle: step_by_step
+label: 'Additional categories (optional)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      lc_categories: lc_categories
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: lc_categories
+field_type: entity_reference

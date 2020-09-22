@@ -10,6 +10,8 @@ dependencies:
     - field.field.node.step_by_step.field_description
     - field.field.node.step_by_step.field_intro_text_limited_html
     - field.field.node.step_by_step.field_meta_title
+    - field.field.node.step_by_step.field_other_categories
+    - field.field.node.step_by_step.field_primary_category
     - field.field.node.step_by_step.field_related_benefit_hubs
     - field.field.node.step_by_step.field_related_links
     - field.field.node.step_by_step.field_steps
@@ -52,6 +54,19 @@ third_party_settings:
         description: ''
       label: Content
       region: content
+    group_categories:
+      children:
+        - field_primary_category
+        - field_other_categories
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Learning Center categories'
+      region: content
 id: node.step_by_step.default
 targetEntityType: node
 bundle: step_by_step
@@ -63,7 +78,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_administration:
-    weight: 3
+    weight: 4
     label: above
     settings:
       link: true
@@ -121,6 +136,22 @@ content:
     third_party_settings: {  }
     type: string
     region: content
+  field_other_categories:
+    weight: 7
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_primary_category:
+    weight: 6
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
   field_related_benefit_hubs:
     weight: 10
     label: above
@@ -148,7 +179,7 @@ content:
     third_party_settings: {  }
     region: content
   links:
-    weight: 4
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }

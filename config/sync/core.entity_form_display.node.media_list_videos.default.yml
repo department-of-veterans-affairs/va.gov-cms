@@ -12,6 +12,8 @@ dependencies:
     - field.field.node.media_list_videos.field_intro_text_limited_html
     - field.field.node.media_list_videos.field_media_list_videos
     - field.field.node.media_list_videos.field_meta_title
+    - field.field.node.media_list_videos.field_other_categories
+    - field.field.node.media_list_videos.field_primary_category
     - field.field.node.media_list_videos.field_related_benefit_hubs
     - field.field.node.media_list_videos.field_related_links
     - node.type.media_list_videos
@@ -57,7 +59,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -73,7 +75,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: fieldset
       format_settings:
         id: ''
@@ -95,6 +97,35 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Meta Tags'
+      region: content
+    group_categories:
+      children:
+        - field_primary_category
+        - group_other_categories
+      parent_name: ''
+      weight: 8
+      format_type: details
+      format_settings:
+        description: ''
+        open: true
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Learning Center categories'
+      region: content
+    group_other_categories:
+      children:
+        - field_other_categories
+      parent_name: group_categories
+      weight: 13
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: 'You can add up to 7 additional categories.'
+        open: false
+        required_fields: true
+      label: 'Other categories where people may look for this article'
       region: content
 id: node.media_list_videos.default
 targetEntityType: node
@@ -196,6 +227,18 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_other_categories:
+    weight: 14
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_primary_category:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   field_related_benefit_hubs:
     weight: 6
     settings:
@@ -230,7 +273,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -238,7 +281,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 12
+    weight: 13
     region: content
     third_party_settings: {  }
   title:
@@ -256,7 +299,7 @@ content:
       use_field_maxlength: false
     third_party_settings: {  }
   url_redirects:
-    weight: 11
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }

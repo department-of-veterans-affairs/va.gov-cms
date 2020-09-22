@@ -1,0 +1,29 @@
+uuid: 11db252e-090d-4ff3-a867-e91c8e487cc6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_other_categories
+    - node.type.media_list_images
+    - taxonomy.vocabulary.lc_categories
+id: node.media_list_images.field_other_categories
+field_name: field_other_categories
+entity_type: node
+bundle: media_list_images
+label: 'Additional categories (optional)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      lc_categories: lc_categories
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
