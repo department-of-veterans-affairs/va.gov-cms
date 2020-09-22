@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_backend\Deploy\Plugin;
 
+use Drupal\Core\DependencyInjection\ContainerNotInitializedException;
 use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\Core\StreamWrapper\StreamWrapperInterface;
 use Drupal\va_gov_content_export\Archive\ArchiveArgs;
@@ -38,10 +39,15 @@ class CMSExport implements DeployPluginInterface {
    */
   public function run(Request $request, string $app_root, string $site_path) {
     $this->registerStreamWrapper();
-    if ($this->fileExists()) {
-      $url = $this->getUrl();
+    try {
+      if ($this->fileExists()) {
+        $url = $this->getUrl();
 
-      return RedirectResponse::create($url);
+        return RedirectResponse::create($url);
+      }
+    }
+    catch (ContainerNotInitializedException $e) {
+      // This error can occur if the file doesn't exist.
     }
   }
 
