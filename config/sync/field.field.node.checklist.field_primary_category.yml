@@ -1,0 +1,29 @@
+uuid: 9dfcfa44-4296-4b1a-a0e3-51b74682a282
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_primary_category
+    - node.type.checklist
+    - taxonomy.vocabulary.lc_categories
+id: node.checklist.field_primary_category
+field_name: field_primary_category
+entity_type: node
+bundle: checklist
+label: 'Primary category'
+description: 'Select a primary Learning Center category for your article.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      lc_categories: lc_categories
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
