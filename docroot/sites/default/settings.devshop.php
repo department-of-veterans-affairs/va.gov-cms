@@ -57,6 +57,8 @@ $config['environment_indicator.indicator']['bg_color'] = '#0071B8';
 $config['environment_indicator.indicator']['fg_color'] = '#FFFFFF';
 $config['environment_indicator.indicator']['name'] = 'CI';
 
+$webhost_on_cli = $_SERVER['DRUPAL_ADDRESS'];
+
 $settings['trusted_host_patterns'] = [
   // For ALB/ELB Healthchecks.
   '10\.199.*',
