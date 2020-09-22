@@ -10,7 +10,6 @@ dependencies:
     - field.field.node.checklist.field_checklist
     - field.field.node.checklist.field_description
     - field.field.node.checklist.field_intro_text_limited_html
-    - field.field.node.checklist.field_lc_benefit_hubs
     - field.field.node.checklist.field_meta_title
     - field.field.node.checklist.field_other_categories
     - field.field.node.checklist.field_primary_category
@@ -141,14 +140,6 @@ content:
     third_party_settings: {  }
     type: text_default
     region: content
-  field_lc_benefit_hubs:
-    weight: 9
-    region: content
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
   field_meta_title:
     weight: 3
     label: above

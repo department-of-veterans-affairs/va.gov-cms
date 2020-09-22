@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.media_list_images.field_buttons_repeat
     - field.field.node.media_list_images.field_description
     - field.field.node.media_list_images.field_intro_text_limited_html
-    - field.field.node.media_list_images.field_lc_benefit_hubs
     - field.field.node.media_list_images.field_media_list_images
     - field.field.node.media_list_images.field_meta_title
     - field.field.node.media_list_images.field_related_benefit_hubs
@@ -129,14 +128,6 @@ content:
     third_party_settings: {  }
     type: text_default
     region: content
-  field_lc_benefit_hubs:
-    weight: 12
-    region: content
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
   field_media_list_images:
     type: entity_reference_revisions_entity_view
     weight: 10
