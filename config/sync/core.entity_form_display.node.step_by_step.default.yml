@@ -11,6 +11,8 @@ dependencies:
     - field.field.node.step_by_step.field_description
     - field.field.node.step_by_step.field_intro_text_limited_html
     - field.field.node.step_by_step.field_meta_title
+    - field.field.node.step_by_step.field_other_categories
+    - field.field.node.step_by_step.field_primary_category
     - field.field.node.step_by_step.field_related_benefit_hubs
     - field.field.node.step_by_step.field_related_links
     - field.field.node.step_by_step.field_steps
@@ -109,6 +111,35 @@ third_party_settings:
         required_fields: false
       label: 'Include Alert'
       region: content
+    group_categories:
+      children:
+        - field_primary_category
+        - group_other_categories
+      parent_name: ''
+      weight: 8
+      format_type: details
+      format_settings:
+        description: ''
+        open: true
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Learning Center categories'
+      region: content
+    group_other_categories:
+      children:
+        - field_other_categories
+      parent_name: group_categories
+      weight: 11
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: 'You can add up to 7 additional categories.'
+        open: false
+        required_fields: true
+      label: 'Other categories where people may look for this article'
+      region: content
 id: node.step_by_step.default
 targetEntityType: node
 bundle: step_by_step
@@ -192,6 +223,18 @@ content:
     third_party_settings: {  }
     type: string_textfield_with_counter
     region: content
+  field_other_categories:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_primary_category:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   field_related_benefit_hubs:
     weight: 7
     settings:
@@ -207,7 +250,7 @@ content:
     type: entity_reference_browser_table_widget
     region: content
   field_related_links:
-    weight: 8
+    weight: 7
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -238,7 +281,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -256,10 +299,14 @@ content:
       textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
       use_field_maxlength: false
     third_party_settings: {  }
+  url_redirects:
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   created: true
   promote: true
   status: true
   sticky: true
   uid: true
-  url_redirects: true

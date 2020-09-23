@@ -10,6 +10,8 @@ dependencies:
     - field.field.node.q_a.field_buttons
     - field.field.node.q_a.field_description
     - field.field.node.q_a.field_meta_title
+    - field.field.node.q_a.field_other_categories
+    - field.field.node.q_a.field_primary_category
     - field.field.node.q_a.field_related_benefit_hubs
     - field.field.node.q_a.field_related_links
     - node.type.q_a
@@ -28,7 +30,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: fieldset
       format_settings:
         id: ''
@@ -69,7 +71,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: details_sidebar
       format_settings:
         description: ''
@@ -92,6 +94,35 @@ third_party_settings:
         description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver. You can <a href="/block/add/alert?destination=/admin/content/alerts">create a new alert</a>, or reuse an existing one.'
         required_fields: false
       label: 'Include Alert'
+      region: content
+    group_categories:
+      children:
+        - field_primary_category
+        - group_other_categories
+      parent_name: ''
+      weight: 6
+      format_type: details
+      format_settings:
+        description: ''
+        open: true
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Learning Center categories'
+      region: content
+    group_other_categories:
+      children:
+        - field_other_categories
+      parent_name: group_categories
+      weight: 11
+      format_type: details
+      format_settings:
+        description: 'You can add up to 7 additional categories.'
+        required_fields: true
+        id: ''
+        classes: ''
+        open: false
+      label: 'Other categories where people may look for this article'
       region: content
 id: node.q_a.default
 targetEntityType: node
@@ -175,6 +206,18 @@ content:
     third_party_settings: {  }
     type: string_textfield_with_counter
     region: content
+  field_other_categories:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_primary_category:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   field_related_benefit_hubs:
     weight: 4
     settings:
@@ -209,7 +252,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 8
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -228,7 +271,7 @@ content:
       use_field_maxlength: false
     third_party_settings: {  }
   url_redirects:
-    weight: 9
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
