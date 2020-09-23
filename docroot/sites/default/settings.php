@@ -209,7 +209,7 @@ if (PHP_SAPI === 'cli') {
   $webhost = $webhost_on_cli;
 }
 else {
-  //This is running from a web request.
+  // This is running from a web request.
   $webhost = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}";
 
 }

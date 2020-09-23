@@ -23,7 +23,7 @@ $config['environment_indicator.indicator']['bg_color'] = '#05F901';
 $config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'Lando';
 
-$webhost_on_cliq = 'http://va-gov-cms.lndo.site';
+$webhost_on_cli = 'http://va-gov-cms.lndo.site';
 
 // Link to this file locally since lando can not access prod where the real
 // file exists.  You will need to copy the file from the same path on prod.
