@@ -41,6 +41,10 @@ class CMSExport implements DeployPluginInterface {
     $this->registerStreamWrapper();
     try {
       if ($this->fileExists()) {
+        // The cms export tar file will exist if either
+        // a previous call created the file
+        // or the drush job va-gov-cms-export-generate-tar was call.
+        // The va-gov-cms-export-generate-tar drush job is called during deploy.
         $url = $this->getUrl();
 
         return RedirectResponse::create($url);
