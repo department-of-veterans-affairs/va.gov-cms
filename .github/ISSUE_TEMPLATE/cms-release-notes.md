@@ -6,6 +6,7 @@ labels: Release notes
 assignees: rachel-kauff
 
 ---
+
 _Use this template to make a ticket for an entire release note. To flag individual release note items, add the "release notes" label to the relevant ticket. Flagged items will be groomed weekly by Rachel and Kev._
 
 ## Items included
@@ -39,5 +40,3 @@ mm/dd/yyyy, after 3:30pm ET
 
 ## User Story
 As a CMS user, I need product release notes that help me understand what changed and how it might affect my work. And because I expect these changes are boring at best and annoying at worst, I need extra encouragement to read them. Entertain me, dangit.
-
-

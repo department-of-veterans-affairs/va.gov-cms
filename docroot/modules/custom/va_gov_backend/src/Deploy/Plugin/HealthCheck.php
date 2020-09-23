@@ -25,7 +25,7 @@ class HealthCheck implements DeployPluginInterface {
   /**
    * {@inheritDoc}
    */
-  public function run(Request $request, string $app_root, string $site_path): ?bool {
+  public function run(Request $request, string $app_root, string $site_path) {
     throw new SuccessHTTPException('Everything is awesome');
   }
 
