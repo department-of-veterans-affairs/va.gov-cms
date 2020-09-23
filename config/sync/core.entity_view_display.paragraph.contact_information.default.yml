@@ -3,12 +3,14 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.contact_information.field_additional_contact
     - field.field.paragraph.contact_information.field_benefit_hub_contacts
     - field.field.paragraph.contact_information.field_contact_default
     - field.field.paragraph.contact_information.field_contact_info_switch
     - field.field.paragraph.contact_information.field_markup
     - paragraphs.paragraphs_type.contact_information
   module:
+    - entity_reference_revisions
     - field_group
     - options
 third_party_settings:
@@ -17,6 +19,7 @@ third_party_settings:
       children:
         - field_contact_default
         - field_benefit_hub_contacts
+        - field_additional_contact
       parent_name: ''
       weight: 1
       format_type: fieldset
@@ -31,8 +34,17 @@ targetEntityType: paragraph
 bundle: contact_information
 mode: default
 content:
-  field_benefit_hub_contacts:
+  field_additional_contact:
+    type: entity_reference_revisions_entity_view
     weight: 4
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_benefit_hub_contacts:
+    weight: 3
     label: hidden
     settings:
       view_mode: support_services_listing

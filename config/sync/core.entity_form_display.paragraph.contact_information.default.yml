@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - entity_browser.browser.benefit_hub_contact_information
+    - field.field.paragraph.contact_information.field_additional_contact
     - field.field.paragraph.contact_information.field_benefit_hub_contacts
     - field.field.paragraph.contact_information.field_contact_default
     - field.field.paragraph.contact_information.field_contact_info_switch
@@ -13,11 +14,24 @@ dependencies:
     - entity_browser
     - entity_browser_table
     - markup
+    - paragraphs
 id: paragraph.contact_information.default
 targetEntityType: paragraph
 bundle: contact_information
 mode: default
 content:
+  field_additional_contact:
+    type: entity_reference_paragraphs
+    weight: 5
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
+    region: content
   field_benefit_hub_contacts:
     weight: 4
     settings:

@@ -46,10 +46,12 @@
     {{ content.field_contact_info_switch }}
     <h3> {{ 'Contact Information'|upper }} </h3>
     {{ content.group_contact_information.field_contact_default }}
+    {{ content.group_contact_information.field_additional_contact }}
   {% else %}
     {{ content.field_contact_info_switch }}
     <h3> {{ 'Contact Information'|upper }} </h3>
     {{ content.group_contact_information.field_benefit_hub_contacts }}
+    {{ content.group_contact_information.field_additional_contact }}
   {% endif %}
 
 {% endblock %}
