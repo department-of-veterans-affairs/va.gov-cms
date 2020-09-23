@@ -9,3 +9,8 @@ assignees: MaggieBrazeau, sandyisland1
 ---
 
 Sprint <insert sprint number> Tier 2 Helpdesk Support
+
+- [ ] Rename the issue title and text above to the appropriate sprint
+- [ ] Set the milestone to the appropriate sprint
+- [ ] Change the pipeline to "In progress"
+- [ ] Set the estimate to 3
