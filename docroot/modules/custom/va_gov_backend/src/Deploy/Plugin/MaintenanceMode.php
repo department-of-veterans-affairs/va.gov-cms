@@ -24,7 +24,7 @@ class MaintenanceMode implements DeployPluginInterface {
   /**
    * {@inheritDoc}
    */
-  public function run(Request $request, string $app_root, string $site_path): ?bool {
+  public function run(Request $request, string $app_root, string $site_path) {
     $html = $this->loadMaintenanceHtml($app_root, $site_path);
     // @TODO make time configurable.
     throw new ServiceUnavailableHttpException(120, $html);

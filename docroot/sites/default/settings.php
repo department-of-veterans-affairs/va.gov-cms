@@ -195,7 +195,7 @@ if (!empty($GLOBALS['request']) &&
   is_a($GLOBALS['request'], \Symfony\Component\HttpFoundation\Request::class) &&
   !empty(getenv('VA_GOV_IN_DEPLOY_MODE'))) {
 
-  $deploy_service = new \Drupal\va_gov_backend\Deploy\DeployService();
+  $deploy_service = \Drupal\va_gov_backend\Deploy\DeployService::create();
   $deploy_service->run($GLOBALS['request'], $app_root, $site_path);
 }
 
