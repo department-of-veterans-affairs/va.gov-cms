@@ -174,23 +174,8 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-
-  $content_type_forms = [
-    'node_q_a_edit_form',
-    'node_q_a_form',
-    'node_faq_multiple_q_a_form',
-    'node_faq_multiple_q_a_edit_form',
-    'node_checklist_form',
-    'node_checklist_edit_form',
-    'node_step_by_step_form',
-    'node_step_by_step_edit_form',
-    'node_media_list_images_form',
-    'node_media_list_images_edit_form',
-    'node_media_list_videos_form',
-    'node_media_list_videos_edit_form',
-  ];
-
-  if (in_array($form_id, $content_type_forms)) {
+  // If Contact Information paragraph component.
+  if (isset($form['field_contact_information'])) {
     $form['#validate'][] = '_va_gov_backend_contact_information_validation';
   }
 
@@ -273,9 +258,12 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
  *   The form state.
  */
 function _va_gov_backend_contact_information_validation(array $form, FormStateInterface &$form_state) {
-  $contact_type = $form_state->getValue('field_contact_information')[0]['subform']['field_contact_info_switch'];
-  $benefit_hub = $form_state->getValue('field_contact_information')[0]['subform']['field_benefit_hub_contacts'];
-  $benefit_hub_contact = array_shift($benefit_hub);
+  // If contact information array exists.
+  if ($form_state->getValue('field_contact_information')[0]['subform']['field_contact_info_switch'] && $form_state->getValue('field_contact_information')[0]['subform']['field_benefit_hub_contacts']) {
+    $contact_type = $form_state->getValue('field_contact_information')[0]['subform']['field_contact_info_switch'];
+    $benefit_hub = $form_state->getValue('field_contact_information')[0]['subform']['field_benefit_hub_contacts'];
+    $benefit_hub_contact = array_shift($benefit_hub);
+  }
 
   // If the checkbox is checked.
   if ($contact_type[0]['value'] === 'BHC') {
