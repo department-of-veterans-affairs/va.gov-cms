@@ -60,7 +60,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -76,7 +76,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: fieldset
       format_settings:
         id: ''
@@ -104,7 +104,7 @@ third_party_settings:
         - field_primary_category
         - group_other_categories
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: details
       format_settings:
         description: ''
@@ -127,6 +127,19 @@ third_party_settings:
         open: false
         required_fields: true
       label: 'Other categories where people may look for this article'
+      region: content
+    group_contact_information:
+      children:
+        - field_contact_information
+      parent_name: ''
+      weight: 8
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: false
+      label: 'Contact information'
       region: content
 id: node.media_list_videos.default
 targetEntityType: node
@@ -178,7 +191,7 @@ content:
     type: boolean_checkbox
     region: content
   field_contact_information:
-    weight: 12
+    weight: 13
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -286,7 +299,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 11
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -294,7 +307,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 13
+    weight: 15
     region: content
     third_party_settings: {  }
   title:
@@ -312,7 +325,7 @@ content:
       use_field_maxlength: false
     third_party_settings: {  }
   url_redirects:
-    weight: 12
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
