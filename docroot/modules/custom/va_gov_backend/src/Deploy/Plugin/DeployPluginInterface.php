@@ -32,8 +32,13 @@ interface DeployPluginInterface {
    * @param string $site_path
    *   The Drupal site path.
    *
+   * @reutrn mixed
+   *   Normally a plugin would throw an exception to stop the bootstrap process
+   *   but if a Symfony Response object is returned, this is sent and the php
+   *   request stopped.
+   *
    * @throws \Symfony\Component\HttpKernel\Exception\HttpExceptionInterface
    */
-  public function run(Request $request, string $app_root, string $site_path) : ?bool;
+  public function run(Request $request, string $app_root, string $site_path);
 
 }

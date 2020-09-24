@@ -128,6 +128,8 @@ class TomeExporter extends Exporter {
     foreach (array_keys($entity->getTranslationLanguages()) as $langcode) {
       $this->contentStorage->delete(TomeSyncHelper::getContentName($entity->getTranslation($langcode)));
     }
+    // There may have been reverse entity references that need to be updated.
+    $this->listDataCompiler->updateReverseEntityReferenceLists($entity, $this);
     if ($entity instanceof FileInterface) {
       $this->fileSync->deleteFileExport($entity);
     }

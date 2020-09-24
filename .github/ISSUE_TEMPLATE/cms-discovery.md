@@ -72,4 +72,3 @@ assignees: kevwalsh
 ## Next steps
 
 **Propose some general time windows for the initial CMS discovery meeting.**
-
