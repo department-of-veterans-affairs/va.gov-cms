@@ -258,8 +258,8 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
  *   The form state.
  */
 function _va_gov_backend_contact_information_validation(array $form, FormStateInterface &$form_state) {
-  // If contact information array exists.
-  if ($form_state->getValue('field_contact_information')[0]['subform']['field_contact_info_switch'] && $form_state->getValue('field_contact_information')[0]['subform']['field_benefit_hub_contacts']) {
+  // If contact information array and fields exist.
+  if (!empty($form_state->getValue('field_contact_information')) && !empty($form_state->getValue('field_contact_information')[0]['subform']['field_contact_info_switch']) && !empty($form_state->getValue('field_contact_information')[0]['subform']['field_benefit_hub_contacts'])) {
     $contact_type = $form_state->getValue('field_contact_information')[0]['subform']['field_contact_info_switch'];
     $benefit_hub = $form_state->getValue('field_contact_information')[0]['subform']['field_benefit_hub_contacts'];
     $benefit_hub_contact = array_shift($benefit_hub);
