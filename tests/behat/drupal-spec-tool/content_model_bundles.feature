@@ -17,6 +17,8 @@ Feature: Content model bundles
 | Events List | event_listing | Content type | A listing of events. |
 | FAQ - multiple Q&As | faq_multiple_q_a | Content type | Curated collection of Q&As. |
 | Health Services List | health_services_listing | Content type | A listing of health services. |
+| Landing Page | basic_landing_page | Content type | Basic Landing Page can be used to build one-off pages for various products. E.g. a homepage for a specific product. |
+| Learning Center Detail Page | support_resources_detail_page | Content type |  |
 | Leadership List | leadership_listing | Content type | A listing of staff profiles. |
 | Locations List | locations_listing | Content type | A listing of VA facilities. |
 | Media list - Images | media_list_images | Content type |  |
@@ -87,6 +89,8 @@ Feature: Content model bundles
 | WYSIWYG | wysiwyg | Paragraph type | An open-ended text field. |
 | Audience - Beneficiaries | audience_beneficiaries | Vocabulary |  |
 | Audience - Non-beneficiaries | audience_non_beneficiaries | Vocabulary |  |
+| Learning Center Categories | lc_categories | Vocabulary |  |
+| Products | products | Vocabulary | |
 | Sections | administration | Vocabulary | Represents a hierarchy of the VA, partly for governance purposes. |
 | Type of Redirect | type_of_redirect | Vocabulary |  |
 | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |

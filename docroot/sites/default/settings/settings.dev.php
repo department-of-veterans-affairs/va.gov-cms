@@ -23,6 +23,7 @@ $config['environment_indicator.indicator']['bg_color'] = '#05F901';
 $config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'Development';
 
+$webhost_on_cli = 'https://dev.cms.va.gov';
 
 $settings['trusted_host_patterns'] = [
     // For ALB/ELB Healthchecks.

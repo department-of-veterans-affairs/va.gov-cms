@@ -1,0 +1,29 @@
+uuid: 1fab706d-deac-4813-b67b-18bdb59deb4e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_primary_category
+    - node.type.faq_multiple_q_a
+    - taxonomy.vocabulary.lc_categories
+id: node.faq_multiple_q_a.field_primary_category
+field_name: field_primary_category
+entity_type: node
+bundle: faq_multiple_q_a
+label: 'Primary category'
+description: 'Select a primary Learning Center category for your article.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      lc_categories: lc_categories
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

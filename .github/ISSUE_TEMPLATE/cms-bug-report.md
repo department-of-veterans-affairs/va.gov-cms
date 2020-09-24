@@ -29,7 +29,7 @@ If applicable, add screenshots to help explain your problem.
  - Version [e.g. 22]
 
 **Additional context**
-Add any other context about the problem here.
+Add any other context about the problem here. Reach out to the Product Managers to determine if it should be escalated as critical (prevents users from accomplishing their work with no known workaround and needs to be addressed within 2 business days).
 
 
 ## Labels

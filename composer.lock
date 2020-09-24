@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e7be9ebbff2735f4ab7a9b0495e8e00",
+    "content-hash": "21c36050ee578aac3c7bb6ff965bae28",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -667,7 +667,7 @@
             "version": "v4.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fengyuanchen/cropper.git",
+                "url": "git@github.com:fengyuanchen/cropper.git",
                 "reference": "617d9bdb8688cc4edb3b03bc49a04b83c7facbe7"
             },
             "dist": {
@@ -2556,6 +2556,7 @@
                 "GPL-2.0-or-later"
             ],
             "description": "Composer Plugin for updating the Drupal scaffold files when using drupal/core",
+            "abandoned": "drupal/core-composer-scaffold",
             "time": "2019-03-30T10:41:38+00:00"
         },
         {
@@ -3605,16 +3606,16 @@
         },
         {
             "name": "drupal/core",
-            "version": "8.8.8",
+            "version": "8.8.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core.git",
-                "reference": "c067109fcdf86184a7c75081fd8f1d81e4e23f56"
+                "reference": "3df0c753d18bc8982d819f43b47759ae50be94bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core/zipball/c067109fcdf86184a7c75081fd8f1d81e4e23f56",
-                "reference": "c067109fcdf86184a7c75081fd8f1d81e4e23f56",
+                "url": "https://api.github.com/repos/drupal/core/zipball/3df0c753d18bc8982d819f43b47759ae50be94bc",
+                "reference": "3df0c753d18bc8982d819f43b47759ae50be94bc",
                 "shasum": ""
             },
             "require": {
@@ -3838,7 +3839,7 @@
                 "GPL-2.0-or-later"
             ],
             "description": "Drupal is an open source content management platform powering millions of websites and applications.",
-            "time": "2020-06-17T17:58:48+00:00"
+            "time": "2020-09-16T11:22:50+00:00"
         },
         {
             "name": "drupal/crop",
@@ -4037,7 +4038,7 @@
             "version": "3.4.0",
             "require": {
                 "drupal/core": "^8 || ^9",
-                "drupal/ctools": "self.version"
+                "drupal/ctools": "*"
             },
             "type": "metapackage",
             "extra": {
@@ -4951,6 +4952,50 @@
             }
         },
         {
+            "name": "drupal/entity_reference_validators",
+            "version": "1.0.0-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/entity_reference_validators.git",
+                "reference": "8.x-1.0-alpha1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/entity_reference_validators-8.x-1.0-alpha1.zip",
+                "reference": "8.x-1.0-alpha1",
+                "shasum": "16dd8c5b78fc4fe0874fb410e1b1a67ee2d7e2e1"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.0-alpha1",
+                    "datestamp": "1533031984",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "alexpott",
+                    "homepage": "https://www.drupal.org/user/157725"
+                }
+            ],
+            "description": "Provides additional validators for entity reference fields.",
+            "homepage": "https://www.drupal.org/project/entity_reference_validators",
+            "support": {
+                "source": "https://git.drupalcode.org/project/entity_reference_validators"
+            }
+        },
+        {
             "name": "drupal/entityqueue",
             "version": "1.1.0",
             "source": {
@@ -5444,7 +5489,7 @@
             "version": "3.0.0-rc3",
             "require": {
                 "drupal/core": "~8.0",
-                "drupal/graphql": "self.version"
+                "drupal/graphql": "*"
             },
             "type": "metapackage",
             "extra": {
@@ -5768,7 +5813,7 @@
             "extra": {
                 "drupal": {
                     "version": "8.x-1.0-rc7",
-                    "datestamp": "1595545223",
+                    "datestamp": "1596396104",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "RC releases are not covered by Drupal security advisories."
@@ -7962,7 +8007,7 @@
             "version": "1.0.0-beta1",
             "require": {
                 "drupal/core": "~8.0",
-                "drupal/schemata": "self.version"
+                "drupal/schemata": "*"
             },
             "type": "metapackage",
             "extra": {
@@ -8167,8 +8212,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.2+1-dev",
-                    "datestamp": "1598516956",
+                    "version": "8.x-1.2+2-dev",
+                    "datestamp": "1598957449",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -8282,7 +8327,7 @@
             "extra": {
                 "drupal": {
                     "version": "8.x-2.7",
-                    "datestamp": "1595616928",
+                    "datestamp": "1598506938",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -8393,17 +8438,17 @@
         },
         {
             "name": "drupal/taxonomy_entity_index",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/taxonomy_entity_index.git",
-                "reference": "8.x-1.2"
+                "reference": "8.x-1.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/taxonomy_entity_index-8.x-1.2.zip",
-                "reference": "8.x-1.2",
-                "shasum": "02e3fbc3d931bcd77ae6bfef63ac23c7ee75579d"
+                "url": "https://ftp.drupal.org/files/projects/taxonomy_entity_index-8.x-1.3.zip",
+                "reference": "8.x-1.3",
+                "shasum": "2581ac651f283e0df8dde55520b1ba93db5bf137"
             },
             "require": {
                 "drupal/core": "^8 || ^9"
@@ -8411,8 +8456,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.2",
-                    "datestamp": "1596850630",
+                    "version": "8.x-1.3",
+                    "datestamp": "1600647144",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -8429,16 +8474,16 @@
                     "homepage": "https://www.drupal.org/user/53892"
                 },
                 {
-                    "name": "brantwynn",
-                    "homepage": "https://www.drupal.org/user/252788"
-                },
-                {
                     "name": "cameronprince",
                     "homepage": "https://www.drupal.org/user/1765640"
                 },
                 {
                     "name": "larowlan",
                     "homepage": "https://www.drupal.org/user/395439"
+                },
+                {
+                    "name": "saltednut",
+                    "homepage": "https://www.drupal.org/user/252788"
                 }
             ],
             "description": "Taxonomy Entity Index",
@@ -8581,7 +8626,7 @@
                 "shasum": "c7e3a3757282e4c94e3c1fff08d01e22155cb853"
             },
             "require": {
-                "drupal/core": "^8.8 || ^9"
+                "drupal/core": "^8.7.7 || ^9"
             },
             "type": "drupal-module",
             "extra": {
@@ -9100,7 +9145,7 @@
             "version": "2.4.0",
             "require": {
                 "drupal/core": "^8.8 || ^9",
-                "drupal/video_embed_field": "self.version"
+                "drupal/video_embed_field": "*"
             },
             "type": "metapackage",
             "extra": {
@@ -16630,16 +16675,16 @@
         },
         {
             "name": "va-gov/web",
-            "version": "v0.1.1040",
+            "version": "v0.1.1075",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
-                "reference": "fbaafe2b4b034cf163ab0cf32c76728802989e75"
+                "reference": "a07693637ba989b5ff30b654bcea8df633ddfaf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/fbaafe2b4b034cf163ab0cf32c76728802989e75",
-                "reference": "fbaafe2b4b034cf163ab0cf32c76728802989e75",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/a07693637ba989b5ff30b654bcea8df633ddfaf5",
+                "reference": "a07693637ba989b5ff30b654bcea8df633ddfaf5",
                 "shasum": ""
             },
             "type": "node-project",
@@ -16664,7 +16709,7 @@
                 }
             ],
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
-            "time": "2020-09-03T17:49:52+00:00"
+            "time": "2020-09-23T18:50:50+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -18235,7 +18280,7 @@
             "version": "3.16.0",
             "require": {
                 "drupal/core": "~8.0",
-                "drupal/simple_oauth": "self.version"
+                "drupal/simple_oauth": "*"
             },
             "type": "metapackage",
             "extra": {
@@ -18694,7 +18739,12 @@
                 "Behat",
                 "gherkin"
             ],
-            "time": "2018-07-03T17:42:23+00:00"
+            "time": "2018-07-03T17:42:23+00:00",
+            "extra": {
+                "patches_applied": {
+                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
+                }
+            }
         }
     ],
     "aliases": [],

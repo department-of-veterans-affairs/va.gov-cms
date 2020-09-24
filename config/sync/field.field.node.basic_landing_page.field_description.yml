@@ -1,0 +1,19 @@
+uuid: ba4b2909-cee5-46c6-aaf9-be29eb83ed9d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description
+    - node.type.basic_landing_page
+id: node.basic_landing_page.field_description
+field_name: field_description
+entity_type: node
+bundle: basic_landing_page
+label: 'Meta description'
+description: 'Add a description to be used in search results, social media shares, and teaser listings. (<a href="https://design.va.gov/content-style-guide/seo#meta-properties" target=“_blank”>See further guidelines</a>)'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

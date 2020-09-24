@@ -1,0 +1,29 @@
+uuid: 73c72198-1317-4e1a-a6fd-b22da50ad916
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_other_categories
+    - node.type.faq_multiple_q_a
+    - taxonomy.vocabulary.lc_categories
+id: node.faq_multiple_q_a.field_other_categories
+field_name: field_other_categories
+entity_type: node
+bundle: faq_multiple_q_a
+label: 'Additional categories (optional)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      lc_categories: lc_categories
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

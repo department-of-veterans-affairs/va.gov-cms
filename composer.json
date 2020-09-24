@@ -35,7 +35,7 @@
         "drupal/config_split": "^1.4",
         "drupal/consumers": "1.11.0",
         "drupal/content_lock": "^2.0@alpha",
-        "drupal/core": "^8.8.8",
+        "drupal/core": "8.8.10",
         "drupal/crop": "^2.0",
         "drupal/ctools_block": "^3.2",
         "drupal/devel": "^2.1",
@@ -49,6 +49,7 @@
         "drupal/entity_embed": "^1.0",
         "drupal/entity_reference_revisions": "^1.7",
         "drupal/entity_reference_unpublished": "^1.1",
+        "drupal/entity_reference_validators": "^1.0",
         "drupal/entityqueue": "^1.0@beta",
         "drupal/environment_indicator": "^4.0",
         "drupal/fast_404": "^2.0@alpha",
@@ -147,7 +148,8 @@
         "psr-4": {
             "Traits\\": "tests/traits",
             "CustomDrupal\\": "tests/behat/Drupal",
-            "Drupal\\va_gov_backend\\": "docroot/modules/custom/va_gov_backend/src"
+            "Drupal\\va_gov_backend\\": "docroot/modules/custom/va_gov_backend/src",
+            "Drupal\\va_gov_content_export\\": "docroot/modules/custom/va_gov_content_export/src"
         },
         "files": [
             "scripts/composer/EnvironmentHandler.php"

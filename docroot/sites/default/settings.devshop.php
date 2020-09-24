@@ -18,6 +18,9 @@
 // We copy it so we can restore it after we import our global settings.php file.
 $devshop_db_settings = $databases;
 
+// This gets references in settings.php, so has to be defined here.
+$webhost_on_cli = $_SERVER['DRUPAL_ADDRESS'];
+
 // This brings back in our defaults but wipes DevShop's DB settings.
 if (file_exists($app_root . '/' . $site_path . '/../default/settings.php')) {
   include $app_root . '/' . $site_path . '/../default/settings.php';
