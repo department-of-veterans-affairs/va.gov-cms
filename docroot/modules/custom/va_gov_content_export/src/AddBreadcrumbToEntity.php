@@ -64,6 +64,7 @@ class AddBreadcrumbToEntity {
     'content_moderation_state',
     'paragraph',
     'file',
+    'section_association',
   ];
 
   /**
