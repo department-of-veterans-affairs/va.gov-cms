@@ -4031,7 +4031,7 @@
             "version": "3.4.0",
             "require": {
                 "drupal/core": "^8 || ^9",
-                "drupal/ctools": "self.version"
+                "drupal/ctools": "*"
             },
             "type": "metapackage",
             "extra": {
@@ -5482,7 +5482,7 @@
             "version": "3.0.0-rc3",
             "require": {
                 "drupal/core": "~8.0",
-                "drupal/graphql": "self.version"
+                "drupal/graphql": "*"
             },
             "type": "metapackage",
             "extra": {
@@ -5806,7 +5806,7 @@
             "extra": {
                 "drupal": {
                     "version": "8.x-1.0-rc7",
-                    "datestamp": "1595545223",
+                    "datestamp": "1596396104",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "RC releases are not covered by Drupal security advisories."
@@ -8000,7 +8000,7 @@
             "version": "1.0.0-beta1",
             "require": {
                 "drupal/core": "~8.0",
-                "drupal/schemata": "self.version"
+                "drupal/schemata": "*"
             },
             "type": "metapackage",
             "extra": {
@@ -8205,8 +8205,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.2+1-dev",
-                    "datestamp": "1598516956",
+                    "version": "8.x-1.2+2-dev",
+                    "datestamp": "1598957449",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -8467,16 +8467,16 @@
                     "homepage": "https://www.drupal.org/user/53892"
                 },
                 {
-                    "name": "brantwynn",
-                    "homepage": "https://www.drupal.org/user/252788"
-                },
-                {
                     "name": "cameronprince",
                     "homepage": "https://www.drupal.org/user/1765640"
                 },
                 {
                     "name": "larowlan",
                     "homepage": "https://www.drupal.org/user/395439"
+                },
+                {
+                    "name": "saltednut",
+                    "homepage": "https://www.drupal.org/user/252788"
                 }
             ],
             "description": "Taxonomy Entity Index",
@@ -8619,7 +8619,7 @@
                 "shasum": "c7e3a3757282e4c94e3c1fff08d01e22155cb853"
             },
             "require": {
-                "drupal/core": "^8.8 || ^9"
+                "drupal/core": "^8.7.7 || ^9"
             },
             "type": "drupal-module",
             "extra": {
@@ -9138,7 +9138,7 @@
             "version": "2.4.0",
             "require": {
                 "drupal/core": "^8.8 || ^9",
-                "drupal/video_embed_field": "self.version"
+                "drupal/video_embed_field": "*"
             },
             "type": "metapackage",
             "extra": {
@@ -16668,16 +16668,16 @@
         },
         {
             "name": "va-gov/web",
-            "version": "v0.1.1068",
+            "version": "v0.1.1075",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
-                "reference": "a5c099bce3ed146194ee9c0725dbbc66829de073"
+                "reference": "a07693637ba989b5ff30b654bcea8df633ddfaf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/a5c099bce3ed146194ee9c0725dbbc66829de073",
-                "reference": "a5c099bce3ed146194ee9c0725dbbc66829de073",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/a07693637ba989b5ff30b654bcea8df633ddfaf5",
+                "reference": "a07693637ba989b5ff30b654bcea8df633ddfaf5",
                 "shasum": ""
             },
             "type": "node-project",
@@ -16702,7 +16702,7 @@
                 }
             ],
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
-            "time": "2020-09-17T22:03:57+00:00"
+            "time": "2020-09-23T18:50:50+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -18273,7 +18273,7 @@
             "version": "3.16.0",
             "require": {
                 "drupal/core": "~8.0",
-                "drupal/simple_oauth": "self.version"
+                "drupal/simple_oauth": "*"
             },
             "type": "metapackage",
             "extra": {
@@ -18712,11 +18712,6 @@
                 "squizlabs/php_codesniffer": "^2.7"
             },
             "type": "library",
-            "extra": {
-                "patches_applied": {
-                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "TravisCarden\\BehatTableComparison\\": "src/BehatTableComparison/"
@@ -18737,7 +18732,12 @@
                 "Behat",
                 "gherkin"
             ],
-            "time": "2018-07-03T17:42:23+00:00"
+            "time": "2018-07-03T17:42:23+00:00",
+            "extra": {
+                "patches_applied": {
+                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
+                }
+            }
         }
     ],
     "aliases": [],
