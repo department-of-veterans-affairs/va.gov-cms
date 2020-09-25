@@ -1,0 +1,73 @@
+uuid: 09336198-5b1a-4c82-960b-b587808fd4e5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.contact_information.field_additional_contact
+    - field.field.paragraph.contact_information.field_benefit_hub_contacts
+    - field.field.paragraph.contact_information.field_contact_default
+    - field.field.paragraph.contact_information.field_contact_info_switch
+    - field.field.paragraph.contact_information.field_markup
+    - paragraphs.paragraphs_type.contact_information
+  module:
+    - entity_reference_revisions
+    - field_group
+    - options
+third_party_settings:
+  field_group:
+    group_contact_information:
+      children:
+        - field_contact_default
+        - field_benefit_hub_contacts
+        - field_additional_contact
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Contact information'
+      region: content
+id: paragraph.contact_information.default
+targetEntityType: paragraph
+bundle: contact_information
+mode: default
+content:
+  field_additional_contact:
+    type: entity_reference_revisions_entity_view
+    weight: 4
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_benefit_hub_contacts:
+    weight: 3
+    label: hidden
+    settings:
+      view_mode: support_services_listing
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+  field_contact_default:
+    weight: 2
+    label: hidden
+    settings:
+      view_mode: support_services_listing
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+  field_contact_info_switch:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+hidden:
+  field_markup: true
+  search_api_excerpt: true

@@ -1,0 +1,23 @@
+uuid: 34033092-811f-4709-bbc7-7534c103df33
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_contact_info_switch
+    - paragraphs.paragraphs_type.contact_information
+  module:
+    - options
+id: paragraph.contact_information.field_contact_info_switch
+field_name: field_contact_info_switch
+entity_type: paragraph
+bundle: contact_information
+label: 'Select contacts'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: DC
+default_value_callback: ''
+settings: {  }
+field_type: list_string

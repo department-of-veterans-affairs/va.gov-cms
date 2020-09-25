@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.faq_multiple_q_a.field_alert_single
     - field.field.node.faq_multiple_q_a.field_buttons
     - field.field.node.faq_multiple_q_a.field_buttons_repeat
+    - field.field.node.faq_multiple_q_a.field_contact_information
     - field.field.node.faq_multiple_q_a.field_description
     - field.field.node.faq_multiple_q_a.field_intro_text_limited_html
     - field.field.node.faq_multiple_q_a.field_meta_title
@@ -47,6 +48,7 @@ third_party_settings:
         - field_buttons_repeat
         - field_related_benefit_hubs
         - field_related_links
+        - field_contact_information
       parent_name: ''
       weight: 2
       format_type: fieldset
@@ -114,6 +116,15 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     type: boolean
+    region: content
+  field_contact_information:
+    weight: 11
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
     region: content
   field_description:
     weight: 4

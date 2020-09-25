@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.media_list_images.field_alert_single
     - field.field.node.media_list_images.field_buttons
     - field.field.node.media_list_images.field_buttons_repeat
+    - field.field.node.media_list_images.field_contact_information
     - field.field.node.media_list_images.field_description
     - field.field.node.media_list_images.field_intro_text_limited_html
     - field.field.node.media_list_images.field_media_list_images
@@ -45,6 +46,7 @@ third_party_settings:
         - field_buttons_repeat
         - field_related_benefit_hubs
         - field_related_links
+        - field_contact_information
       parent_name: ''
       weight: 2
       format_type: fieldset
@@ -112,6 +114,15 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     type: boolean
+    region: content
+  field_contact_information:
+    weight: 14
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
     region: content
   field_description:
     weight: 7

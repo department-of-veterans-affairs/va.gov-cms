@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.q_a.field_alert_single
     - field.field.node.q_a.field_answer
     - field.field.node.q_a.field_buttons
+    - field.field.node.q_a.field_contact_information
     - field.field.node.q_a.field_description
     - field.field.node.q_a.field_meta_title
     - field.field.node.q_a.field_other_categories
@@ -30,7 +31,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: fieldset
       format_settings:
         id: ''
@@ -71,7 +72,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: details_sidebar
       format_settings:
         description: ''
@@ -100,7 +101,7 @@ third_party_settings:
         - field_primary_category
         - group_other_categories
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details
       format_settings:
         description: ''
@@ -123,6 +124,19 @@ third_party_settings:
         classes: ''
         open: false
       label: 'Other categories where people may look for this article'
+      region: content
+    group_contact_information:
+      children:
+        - field_contact_information
+      parent_name: ''
+      weight: 6
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: false
+      label: 'Contact information'
       region: content
 id: node.q_a.default
 targetEntityType: node
@@ -177,6 +191,18 @@ content:
       default_paragraph_type: button
     third_party_settings: {  }
     type: entity_reference_paragraphs
+    region: content
+  field_contact_information:
+    type: entity_reference_paragraphs
+    weight: 9
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
     region: content
   field_description:
     weight: 5
@@ -252,7 +278,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 9
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -271,7 +297,7 @@ content:
       use_field_maxlength: false
     third_party_settings: {  }
   url_redirects:
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }

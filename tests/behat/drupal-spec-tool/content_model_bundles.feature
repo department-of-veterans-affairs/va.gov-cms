@@ -12,6 +12,7 @@ Feature: Content model bundles
 | Benefits Hub Landing Page | landing_page | Content type | A special page for top-level Benefits content with its own one-off layout and content. |
 | Checklist | checklist | Content type |  |
 | CMS Help Page | documentation_page | Content type | Help guide pages on how to use the CMS to edit content on VA.gov. |
+| Contact information | contact_information | Paragraph type |  |
 | Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
 | Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
 | Events List | event_listing | Content type | A listing of events. |

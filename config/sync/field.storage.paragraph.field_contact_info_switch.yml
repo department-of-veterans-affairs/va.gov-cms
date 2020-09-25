@@ -1,0 +1,27 @@
+uuid: 7bd800c9-092c-428b-912f-7a212ad46b04
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_contact_info_switch
+field_name: field_contact_info_switch
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: DC
+      label: 'Default contact'
+    -
+      value: BHC
+      label: 'Benefit Hub contacts'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

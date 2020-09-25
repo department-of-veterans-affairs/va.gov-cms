@@ -1,0 +1,144 @@
+uuid: 358d6e13-004b-4c1f-a89d-79b59cfe48d6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_additional_contact
+    - paragraphs.paragraphs_type.contact_information
+    - paragraphs.paragraphs_type.email_contact
+    - paragraphs.paragraphs_type.phone_number
+  module:
+    - entity_reference_revisions
+id: paragraph.contact_information.field_additional_contact
+field_name: field_additional_contact
+entity_type: paragraph
+bundle: contact_information
+label: 'Additional contact'
+description: 'Add one additional Phone or Email contact.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      email_contact: email_contact
+      phone_number: phone_number
+    target_bundles_drag_drop:
+      address:
+        weight: 39
+        enabled: false
+      alert:
+        weight: 40
+        enabled: false
+      alert_single:
+        weight: 41
+        enabled: false
+      button:
+        weight: 42
+        enabled: false
+      checklist:
+        weight: 43
+        enabled: false
+      checklist_item:
+        weight: 44
+        enabled: false
+      collapsible_panel:
+        weight: 45
+        enabled: false
+      collapsible_panel_item:
+        weight: 46
+        enabled: false
+      contact_information:
+        weight: 47
+        enabled: false
+      downloadable_file:
+        weight: 48
+        enabled: false
+      email_contact:
+        enabled: true
+        weight: 49
+      expandable_text:
+        weight: 50
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 51
+        enabled: false
+      link_teaser:
+        weight: 52
+        enabled: false
+      list_of_link_teasers:
+        weight: 55
+        enabled: false
+      list_of_links:
+        weight: 54
+        enabled: false
+      lists_of_links:
+        weight: 53
+        enabled: false
+      media:
+        weight: 56
+        enabled: false
+      media_list_images:
+        weight: 57
+        enabled: false
+      media_list_videos:
+        weight: 58
+        enabled: false
+      non_reusable_alert:
+        weight: 59
+        enabled: false
+      number_callout:
+        weight: 60
+        enabled: false
+      phone_number:
+        enabled: true
+        weight: 61
+      process:
+        weight: 62
+        enabled: false
+      q_a:
+        weight: 63
+        enabled: false
+      q_a_group:
+        weight: 64
+        enabled: false
+      q_a_section:
+        weight: 65
+        enabled: false
+      react_widget:
+        weight: 66
+        enabled: false
+      service_location:
+        weight: 67
+        enabled: false
+      service_location_address:
+        weight: 68
+        enabled: false
+      situation_update:
+        weight: 69
+        enabled: false
+      spanish_translation_summary:
+        weight: 70
+        enabled: false
+      staff_profile:
+        weight: 71
+        enabled: false
+      starred_horizontal_rule:
+        weight: 72
+        enabled: false
+      step:
+        weight: 73
+        enabled: false
+      step_by_step:
+        weight: 74
+        enabled: false
+      table:
+        weight: 75
+        enabled: false
+      wysiwyg:
+        weight: 76
+        enabled: false
+field_type: entity_reference_revisions
