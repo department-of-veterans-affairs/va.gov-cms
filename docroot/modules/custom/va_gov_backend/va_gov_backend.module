@@ -630,6 +630,7 @@ function _va_gov_backend_modify_paragraph_interactions(array &$element, FormStat
     // If use facility hours option is not selected, show address entry fields.
     $toggle_fields = [
       'field_facility_service_hours',
+      'field_additional_hours_info',
     ];
     $selector = sprintf(':input[name="field_service_location[%1$d][subform][field_hours]"]', $element['#delta']);
     foreach ($toggle_fields as $field) {
