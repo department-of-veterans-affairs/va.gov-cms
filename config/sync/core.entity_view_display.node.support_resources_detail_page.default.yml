@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.support_resources_detail_page.field_alert_single
     - field.field.node.support_resources_detail_page.field_buttons
     - field.field.node.support_resources_detail_page.field_buttons_repeat
+    - field.field.node.support_resources_detail_page.field_contact_information
     - field.field.node.support_resources_detail_page.field_content_block
     - field.field.node.support_resources_detail_page.field_description
     - field.field.node.support_resources_detail_page.field_intro_text_limited_html
@@ -60,6 +61,7 @@ third_party_settings:
         - field_buttons_repeat
         - field_related_benefit_hubs
         - field_related_information
+        - field_contact_information
       parent_name: ''
       weight: 3
       format_type: fieldset
@@ -114,6 +116,15 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     type: boolean
+    region: content
+  field_contact_information:
+    weight: 12
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
     region: content
   field_content_block:
     weight: 8

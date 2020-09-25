@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.support_resources_detail_page.field_alert_single
     - field.field.node.support_resources_detail_page.field_buttons
     - field.field.node.support_resources_detail_page.field_buttons_repeat
+    - field.field.node.support_resources_detail_page.field_contact_information
     - field.field.node.support_resources_detail_page.field_content_block
     - field.field.node.support_resources_detail_page.field_description
     - field.field.node.support_resources_detail_page.field_intro_text_limited_html
@@ -76,7 +77,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: fieldset
       format_settings:
         id: ''
@@ -89,7 +90,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -133,7 +134,7 @@ third_party_settings:
         - field_primary_category
         - group_other_categories
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details
       format_settings:
         id: ''
@@ -142,6 +143,19 @@ third_party_settings:
         open: true
         required_fields: true
       label: 'Learning Center categories'
+      region: content
+    group_contact_information:
+      children:
+        - field_contact_information
+      parent_name: ''
+      weight: 9
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: false
+      label: 'Contact information'
       region: content
 id: node.support_resources_detail_page.default
 targetEntityType: node
@@ -191,6 +205,18 @@ content:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
+    region: content
+  field_contact_information:
+    weight: 16
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: contact_information
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
     region: content
   field_content_block:
     weight: 5
@@ -318,7 +344,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 12
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -326,7 +352,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 14
+    weight: 15
     region: content
     third_party_settings: {  }
   title:
@@ -344,7 +370,7 @@ content:
       count_html_characters: false
     third_party_settings: {  }
   url_redirects:
-    weight: 13
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
