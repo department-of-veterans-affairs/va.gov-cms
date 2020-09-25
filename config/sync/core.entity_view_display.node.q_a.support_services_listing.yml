@@ -1,8 +1,9 @@
-uuid: c4fbc551-f671-445f-888e-095a600b759f
+uuid: 1f9f810a-e803-43f6-a270-a7698741cfce
 langcode: en
-status: true
+status: false
 dependencies:
   config:
+    - core.entity_view_mode.node.support_services_listing
     - field.field.node.q_a.field_administration
     - field.field.node.q_a.field_alert_single
     - field.field.node.q_a.field_answer
@@ -10,14 +11,11 @@ dependencies:
     - field.field.node.q_a.field_contact_information
     - field.field.node.q_a.field_description
     - field.field.node.q_a.field_meta_title
-    - field.field.node.q_a.field_other_categories
-    - field.field.node.q_a.field_primary_category
-    - field.field.node.q_a.field_related_benefit_hubs
-    - field.field.node.q_a.field_related_links
     - node.type.q_a
   module:
     - entity_reference_revisions
     - field_group
+    - layout_builder
     - user
 third_party_settings:
   field_group:
@@ -26,7 +24,7 @@ third_party_settings:
         - field_meta_title
         - field_description
       parent_name: ''
-      weight: 8
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -34,23 +32,13 @@ third_party_settings:
         description: ''
       label: 'Meta tags'
       region: content
-    group_categories:
-      children:
-        - field_primary_category
-        - field_other_categories
-      parent_name: ''
-      weight: 7
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-      label: 'Learning Center categories'
-      region: content
-id: node.q_a.default
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: node.q_a.support_services_listing
 targetEntityType: node
 bundle: q_a
-mode: default
+mode: support_services_listing
 content:
   content_moderation_control:
     weight: 0
@@ -58,7 +46,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_administration:
-    weight: 9
+    weight: 5
     label: above
     settings:
       link: true
@@ -94,7 +82,7 @@ content:
     region: content
   field_contact_information:
     type: entity_reference_revisions_entity_view
-    weight: 6
+    weight: 7
     label: above
     settings:
       view_mode: default
@@ -117,43 +105,14 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_other_categories:
-    weight: 10
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_primary_category:
-    weight: 9
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_related_benefit_hubs:
-    weight: 4
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_related_links:
-    weight: 5
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
-    region: content
   links:
-    weight: 10
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_other_categories: true
+  field_primary_category: true
+  field_related_benefit_hubs: true
+  field_related_links: true
   search_api_excerpt: true

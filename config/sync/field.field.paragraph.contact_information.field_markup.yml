@@ -1,0 +1,25 @@
+uuid: 0219e6a3-8f11-4f4f-9f7e-a8dd8d4b2fb8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_markup
+    - paragraphs.paragraphs_type.contact_information
+  module:
+    - markup
+id: paragraph.contact_information.field_markup
+field_name: field_markup
+entity_type: paragraph
+bundle: contact_information
+label: Markup
+description: ''
+required: false
+translatable: true
+default_value:
+  - {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: "<p>Select contact information that will be displayed in the \"Need more help?\" section for this page.<br />\r\nYou may keep the default VA311 number or select Benefit Hub contacts.</p>\r\n"
+    format: rich_text
+field_type: markup

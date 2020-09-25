@@ -14,6 +14,7 @@ Feature: Views
 | Benefits hub list | benefits_hub_list | Content | Enabled |  |
 | VA Forms | va_forms | Content | Enabled | VA forms dashboard |
 | Custom block library | block_content | Custom Block | Enabled | Find and manage custom blocks. |
+| Benefit Hub Contact Information | benefit_hub_contact_information | Content | Enabled |  |
 | Build info | build_info | Content | Enabled |  |
 | Child terms | child_terms | Taxonomy terms | Enabled |  |
 | Content | content | Content | Enabled | Find and manage content. |
@@ -71,6 +72,8 @@ Feature: Views
 | Benefits hub list | Master | default | Master |
 | Benefit Hubs Categories | Entity browser | benefits_hub_categories | Entity browser |
 | Benefit Hubs Categories | Master | default | Master |
+| Benefit Hub Contact Information | Entity browser | benefit_hub_contact_information | Entity browser |
+| Benefit Hub Contact Information | Master | default | Master |
 | Blocks listing | Master | default | Master |
 | Blocks listing | Promo blocks | page_1 | Page |
 | Blocks listing | Alert Blocks | page_2 | Page |
