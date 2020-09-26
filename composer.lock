@@ -4687,7 +4687,7 @@
             },
             "require": {
                 "drupal/core": "^8 || ^9",
-                "drupal/entity_browser": "*"
+                "drupal/entity_browser": "~2.2"
             },
             "require-dev": {
                 "drupal/media": "*"
@@ -4720,8 +4720,8 @@
             "description": "Creates a new Entity Browser display widget to display referenced content as a table.",
             "homepage": "https://www.drupal.org/project/entity_browser_table",
             "support": {
-                "source": "https://git.drupalcode.org/project/entity_browser_table",
-                "error": "name : invalid value (entity_browser_table), must match [A-Za-z0-9][A-Za-z0-9_.-]*/[A-Za-z0-9][A-Za-z0-9_.-]*"
+                "source": "http://cgit.drupalcode.org/entity_browser_table",
+                "issues": "https://www.drupal.org/project/issues/entity_browser_table"
             }
         },
         {
@@ -9028,8 +9028,8 @@
             "description": "Track changes to user records by recording details in a custom user_history entity.",
             "homepage": "https://www.drupal.org/project/user_history",
             "support": {
-                "source": "https://git.drupalcode.org/project/user_history",
-                "error": "name : invalid value (user_history), must match [A-Za-z0-9][A-Za-z0-9_.-]*/[A-Za-z0-9][A-Za-z0-9_.-]*"
+                "source": "http://cgit.drupalcode.org/user_history",
+                "issues": "https://www.drupal.org/project/issues/user_history"
             }
         },
         {
@@ -9503,12 +9503,12 @@
                 "drupal/bootstrap": "~3.0",
                 "drupal/captcha": "~1.0",
                 "drupal/chosen": "~2.0",
-                "drupal/clientside_validation": "~3.0",
+                "drupal/clientside_validation": "*",
                 "drupal/clientside_validation_jquery": "*",
-                "drupal/devel": "~3.0",
-                "drupal/entity_print": "~2.0",
+                "drupal/devel": "*",
+                "drupal/entity_print": "*",
                 "drupal/gnode": "*",
-                "drupal/group": "~1.0",
+                "drupal/group": "*",
                 "drupal/lingotek": "~3.0",
                 "drupal/mailsystem": "~4.0",
                 "drupal/paragraphs": "~1.0",
@@ -9516,7 +9516,7 @@
                 "drupal/smtp": "~1.0",
                 "drupal/styleguide": "~1.0",
                 "drupal/telephone_validation": "~2.0",
-                "drupal/token": "~1.0",
+                "drupal/token": "*",
                 "drupal/webform_access": "*",
                 "drupal/webform_attachment": "*",
                 "drupal/webform_clientside_validation": "*",
@@ -16676,16 +16676,16 @@
         },
         {
             "name": "va-gov/web",
-            "version": "v0.1.1075",
+            "version": "v0.1.1077",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
-                "reference": "a07693637ba989b5ff30b654bcea8df633ddfaf5"
+                "reference": "be6fba326130195a1fe6d447205148baaa2ed420"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/a07693637ba989b5ff30b654bcea8df633ddfaf5",
-                "reference": "a07693637ba989b5ff30b654bcea8df633ddfaf5",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/be6fba326130195a1fe6d447205148baaa2ed420",
+                "reference": "be6fba326130195a1fe6d447205148baaa2ed420",
                 "shasum": ""
             },
             "type": "node-project",
@@ -16710,7 +16710,7 @@
                 }
             ],
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
-            "time": "2020-09-23T18:50:50+00:00"
+            "time": "2020-09-25T18:59:04+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
