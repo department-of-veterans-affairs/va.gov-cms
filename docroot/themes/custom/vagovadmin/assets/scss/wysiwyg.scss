@@ -9,5 +9,13 @@
   background: #fff;
 
   @include va-basic-styling;
+
+  /* Override list styling to consistenly show bullets in the editor. */
+  ol {
+    margin: revert;
+  }
+  ul {
+    padding: revert;
+  }
 }
 
