@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.q_a.field_alert_single
     - field.field.node.q_a.field_answer
     - field.field.node.q_a.field_buttons
+    - field.field.node.q_a.field_contact_information
     - field.field.node.q_a.field_description
     - field.field.node.q_a.field_meta_title
     - field.field.node.q_a.field_other_categories
@@ -25,7 +26,7 @@ third_party_settings:
         - field_meta_title
         - field_description
       parent_name: ''
-      weight: 6
+      weight: 8
       format_type: fieldset
       format_settings:
         id: ''
@@ -38,7 +39,7 @@ third_party_settings:
         - field_primary_category
         - field_other_categories
       parent_name: ''
-      weight: 5
+      weight: 7
       format_type: fieldset
       format_settings:
         id: ''
@@ -57,7 +58,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_administration:
-    weight: 7
+    weight: 9
     label: above
     settings:
       link: true
@@ -90,6 +91,15 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
+  field_contact_information:
+    type: entity_reference_revisions_entity_view
+    weight: 6
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
     region: content
   field_description:
     weight: 3
@@ -141,7 +151,7 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   links:
-    weight: 8
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }

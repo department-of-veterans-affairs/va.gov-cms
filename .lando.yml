@@ -132,7 +132,8 @@ tooling:
   behat:
     service: appserver
     description: "Run behat tests located in ./tests/behat"
-    cmd: cd /app/tests/behat && /app/bin/behat
+    cmd:
+      - .lando/scripts/behat.sh
 
   test_filter_test:
     service: appserver

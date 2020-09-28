@@ -12,6 +12,7 @@ Feature: Content model bundles
 | Benefits Hub Landing Page | landing_page | Content type | A special page for top-level Benefits content with its own one-off layout and content. |
 | Checklist | checklist | Content type |  |
 | CMS Help Page | documentation_page | Content type | Help guide pages on how to use the CMS to edit content on VA.gov. |
+| Contact information | contact_information | Paragraph type |  |
 | Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
 | Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
 | Events List | event_listing | Content type | A listing of events. |
@@ -73,8 +74,8 @@ Feature: Content model bundles
 | Phone number | phone_number | Paragraph type |  |
 | Process list | process | Paragraph type | An ordered list (1, 2, 3, 4, N) of steps in a process. |
 | Q&A | q_a | Paragraph type | Question and Answer |
-| Q&A group | q_a_group | Paragraph type | For content formatted as a series of questions and answers in "FAQ - multiple Q&A" content type. Use this (instead of WYSIWYG) for better accessibility and easy rearranging. |
-| Q&A Section | q_a_section | Paragraph type | For content formatted as a series of questions and answers. Use this (instead of WYSIWYG) for better accessibility and easy rearranging. |
+| Q&A group | q_a_group | Paragraph type | For content formatted as a series of questions and answers in "FAQ - multiple Q&A" content type. Use this (instead of Rich text) for better accessibility and easy rearranging. |
+| Q&A Section | q_a_section | Paragraph type | For content formatted as a series of questions and answers. Use this (instead of Rich text) for better accessibility and easy rearranging. |
 | React Widget | react_widget | Paragraph type | Advanced editors can use this to place react widgets (like a form) on the page. |
 | Service location | service_location | Paragraph type |  |
 | Service location address | service_location_address | Paragraph type |  |
@@ -86,7 +87,7 @@ Feature: Content model bundles
 | Table | table | Paragraph type | Add an HTML table with rows and columns. |
 | Topics | topics | Vocabulary |  |
 | VAMC facility service (non-healthcare service) | health_care_local_facility_servi | Paragraph type | A service available at a specific health care facility, like Parking, or Chaplaincy. |
-| WYSIWYG | wysiwyg | Paragraph type | An open-ended text field. |
+| Rich text | wysiwyg | Paragraph type | An open-ended text field. |
 | Audience - Beneficiaries | audience_beneficiaries | Vocabulary |  |
 | Audience - Non-beneficiaries | audience_non_beneficiaries | Vocabulary |  |
 | Learning Center Categories | lc_categories | Vocabulary |  |

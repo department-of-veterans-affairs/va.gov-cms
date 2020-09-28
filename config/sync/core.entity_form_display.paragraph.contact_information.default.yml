@@ -1,0 +1,78 @@
+uuid: 6eba99c9-091c-4560-ba9d-0e08756c1965
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_browser.browser.benefit_hub_contact_information
+    - field.field.paragraph.contact_information.field_additional_contact
+    - field.field.paragraph.contact_information.field_benefit_hub_contacts
+    - field.field.paragraph.contact_information.field_contact_default
+    - field.field.paragraph.contact_information.field_contact_info_switch
+    - field.field.paragraph.contact_information.field_markup
+    - paragraphs.paragraphs_type.contact_information
+  module:
+    - entity_browser
+    - entity_browser_table
+    - markup
+    - paragraphs
+id: paragraph.contact_information.default
+targetEntityType: paragraph
+bundle: contact_information
+mode: default
+content:
+  field_additional_contact:
+    type: entity_reference_paragraphs
+    weight: 5
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
+    region: content
+  field_benefit_hub_contacts:
+    weight: 4
+    settings:
+      entity_browser: benefit_hub_contact_information
+      field_widget_display: label
+      field_widget_remove: '1'
+      open: '1'
+      selection_mode: selection_append
+      field_widget_edit: 0
+      field_widget_replace: 0
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_reference_browser_table_widget
+    region: content
+  field_contact_default:
+    weight: 2
+    settings:
+      entity_browser: benefit_hub_contact_information
+      field_widget_display: rendered_entity
+      field_widget_display_settings:
+        view_mode: support_services_listing
+      open: true
+      selection_mode: selection_append
+      field_widget_edit: false
+      field_widget_remove: false
+      field_widget_replace: false
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+    region: content
+  field_contact_info_switch:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_markup:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
+    region: content
+hidden:
+  created: true
+  status: true

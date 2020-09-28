@@ -1,0 +1,111 @@
+uuid: 5b024062-e347-4324-ac66-8a0c92955f9f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.support_services_listing
+    - field.field.node.landing_page.field_administration
+    - field.field.node.landing_page.field_alert
+    - field.field.node.landing_page.field_description
+    - field.field.node.landing_page.field_home_page_hub_label
+    - field.field.node.landing_page.field_intro_text
+    - field.field.node.landing_page.field_links
+    - field.field.node.landing_page.field_meta_tags
+    - field.field.node.landing_page.field_meta_title
+    - field.field.node.landing_page.field_page_last_built
+    - field.field.node.landing_page.field_plainlanguage_date
+    - field.field.node.landing_page.field_promo
+    - field.field.node.landing_page.field_related_links
+    - field.field.node.landing_page.field_spokes
+    - field.field.node.landing_page.field_support_services
+    - field.field.node.landing_page.field_teaser_text
+    - field.field.node.landing_page.field_title_icon
+    - node.type.landing_page
+  module:
+    - field_group
+    - layout_builder
+    - user
+third_party_settings:
+  field_group:
+    group_meta:
+      children:
+        - field_description
+        - field_meta_title
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: true
+        required_fields: false
+      label: Meta
+      region: hidden
+    group_body:
+      children:
+        - field_alert
+        - field_intro_text
+        - field_related_links
+        - field_spokes
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Body
+      region: hidden
+    group_other:
+      children:
+        - field_home_page_hub_label
+        - field_teaser_text
+        - field_title_icon
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: false
+      label: Other
+      region: hidden
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: node.landing_page.support_services_listing
+targetEntityType: node
+bundle: landing_page
+mode: support_services_listing
+content:
+  field_support_services:
+    weight: 3
+    label: hidden
+    settings:
+      view_mode: support_services_listing
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_alert: true
+  field_description: true
+  field_home_page_hub_label: true
+  field_intro_text: true
+  field_links: true
+  field_meta_tags: true
+  field_meta_title: true
+  field_page_last_built: true
+  field_plainlanguage_date: true
+  field_promo: true
+  field_related_links: true
+  field_spokes: true
+  field_teaser_text: true
+  field_title_icon: true
+  links: true
+  search_api_excerpt: true
