@@ -16,7 +16,6 @@ dependencies:
     - field.field.node.media_list_videos.field_primary_category
     - field.field.node.media_list_videos.field_related_benefit_hubs
     - field.field.node.media_list_videos.field_related_information
-    - field.field.node.media_list_videos.field_related_links
     - node.type.media_list_videos
   module:
     - entity_reference_revisions
@@ -184,15 +183,6 @@ content:
     region: content
   field_related_information:
     weight: 13
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
-    region: content
-  field_related_links:
-    weight: 12
     label: above
     settings:
       view_mode: default
