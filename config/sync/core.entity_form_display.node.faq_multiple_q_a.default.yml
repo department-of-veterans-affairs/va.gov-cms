@@ -16,7 +16,7 @@ dependencies:
     - field.field.node.faq_multiple_q_a.field_primary_category
     - field.field.node.faq_multiple_q_a.field_q_a_groups
     - field.field.node.faq_multiple_q_a.field_related_benefit_hubs
-    - field.field.node.faq_multiple_q_a.field_related_links
+    - field.field.node.faq_multiple_q_a.field_related_information
     - field.field.node.faq_multiple_q_a.field_table_of_contents_boolean
     - node.type.faq_multiple_q_a
     - workflows.workflow.editorial
@@ -62,7 +62,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 12
+      weight: 13
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -78,7 +78,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: fieldset
       format_settings:
         id: ''
@@ -119,7 +119,7 @@ third_party_settings:
         - field_primary_category
         - group_other_categories
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: details
       format_settings:
         description: ''
@@ -147,7 +147,7 @@ third_party_settings:
       children:
         - field_contact_information
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: fieldset
       format_settings:
         id: ''
@@ -292,17 +292,24 @@ content:
     third_party_settings: {  }
     type: entity_reference_browser_table_widget
     region: content
-  field_related_links:
-    weight: 8
+  field_related_information:
+    weight: 9
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: 'Link teaser'
+      title_plural: 'Link teaser'
       edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
       add_mode: dropdown
       form_display_mode: default
-      default_paragraph_type: ''
+      default_paragraph_type: link_teaser
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: '0'
     third_party_settings: {  }
-    type: entity_reference_paragraphs
+    type: paragraphs
     region: content
   field_table_of_contents_boolean:
     weight: 10
@@ -319,7 +326,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 13
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }

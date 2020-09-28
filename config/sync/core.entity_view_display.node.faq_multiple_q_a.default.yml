@@ -15,7 +15,7 @@ dependencies:
     - field.field.node.faq_multiple_q_a.field_primary_category
     - field.field.node.faq_multiple_q_a.field_q_a_groups
     - field.field.node.faq_multiple_q_a.field_related_benefit_hubs
-    - field.field.node.faq_multiple_q_a.field_related_links
+    - field.field.node.faq_multiple_q_a.field_related_information
     - field.field.node.faq_multiple_q_a.field_table_of_contents_boolean
     - node.type.faq_multiple_q_a
   module:
@@ -48,6 +48,7 @@ third_party_settings:
         - field_buttons_repeat
         - field_related_benefit_hubs
         - field_related_links
+        - field_related_information
         - field_contact_information
       parent_name: ''
       weight: 2
@@ -118,7 +119,7 @@ content:
     type: boolean
     region: content
   field_contact_information:
-    weight: 11
+    weight: 12
     label: above
     settings:
       view_mode: default
@@ -182,8 +183,8 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_related_links:
-    weight: 10
+  field_related_information:
+    weight: 11
     label: above
     settings:
       view_mode: default
