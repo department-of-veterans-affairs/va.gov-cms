@@ -7,16 +7,16 @@ dependencies:
 id: vamc_facility_health_service
 label: 'VAMC facility health service'
 type: 'canonical_entities:node'
-pattern: 'facility-health-services/[node:title]'
+pattern: '[node:field_facility_location:entity:url:path]/[node:field_regional_health_service:entity:field_service_name_and_descripti]'
 selection_criteria:
-  c6d8d5a7-41a7-44ac-941f-bface61164f5:
+  683c5513-276e-4095-b64e-db56a62a28fb:
     id: node_type
     bundles:
       health_care_local_health_service: health_care_local_health_service
     negate: false
     context_mapping:
       node: node
-    uuid: c6d8d5a7-41a7-44ac-941f-bface61164f5
+    uuid: 683c5513-276e-4095-b64e-db56a62a28fb
 selection_logic: and
 weight: -5
 relationships: {  }
