@@ -215,5 +215,8 @@ else {
 }
 $settings['file_public_base_url'] = "{$webhost}/sites/default/files";
 
+// Extend the limit of the tome cache table beyond 5000 rows.
+// See https://www.drupal.org/node/3162499.
+$settings['database_cache_max_rows']['bins']['tome_static'] = -1;
 $settings['tome_content_directory'] = 'public://cms-export-content';
 $settings['tome_files_directory'] = 'public://cms-export-files';

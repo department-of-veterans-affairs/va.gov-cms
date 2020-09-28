@@ -5,6 +5,7 @@
  * CMS Export commands.
  */
 
+use Drupal\Core\Site\Settings;
 use Drupal\va_gov_content_export\ExportCommand\ExportCommandException;
 use Drush\Log\LogLevel;
 
@@ -19,6 +20,9 @@ function va_gov_content_export_drush_command() {
     'arguments' => [
       'chunk' => 'A comma separated list of ID pairs in the format entity_type_id:id.',
     ],
+    'options' => [
+      'export-dir' => 'Override the default content export directory',
+    ],
     'required-arguments' => TRUE,
   ];
 
@@ -28,6 +32,7 @@ function va_gov_content_export_drush_command() {
       'process-count' => 'Limits the number of processes to run concurrently.',
       'entity-count' => 'The number of entities to export per process.',
       'delete-existing' => 'Delete the exiting CMS Export folder.',
+      'export-dir' => 'Override the default content export directory',
     ],
   ];
 
@@ -58,8 +63,19 @@ function va_gov_content_export_drush_command() {
  */
 function drush_va_gov_content_export_va_gov_cms_export_content($chunk) {
   $id_pairs = explode(',', $chunk);
+  $export_dir = drush_get_option('export-dir', '');
+
   try {
-    \Drupal::service('va_gov.content_export.export_command')->exportPairs($id_pairs);
+    // Update the export directory before calling the service since the path is
+    // injected into the JSON service which is injected into this service.
+    if ($export_dir) {
+      $settings = Settings::getAll();
+      $settings['tome_content_directory'] = $export_dir;
+      new Settings($settings);
+    }
+
+    $export_service = \Drupal::service('va_gov.content_export.export_command');
+    $export_service->exportPairs($id_pairs);
   }
   catch (ExportCommandException $e) {
     drush_log($e->getMessage(), LogLevel::ERROR);
@@ -75,10 +91,15 @@ function drush_va_gov_content_export_va_gov_cms_export_all_content() {
   $process_count = drush_get_option('process-count', 1);
   $entity_count = drush_get_option('entity-count', 'all');
   $delete_existing = drush_get_option('delete-existing', FALSE);
+  $export_dir = drush_get_option('export-dir', '');
 
   $command = \Drupal::service('va_gov.content_export.export_all_command');
   if ($delete_existing) {
     $command->deleteExportDirectories();
+  }
+
+  if ($export_dir) {
+    $command->setExportDir($export_dir);
   }
 
   $commands = $command->buildCommands($entity_count);
