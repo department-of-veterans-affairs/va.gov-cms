@@ -187,3 +187,10 @@ Feature: Permissions
       | page                   | code |
       | "/admin/people"        | 200  |
       | "/admin/people/create" | 200  |
+
+  @perms @content_admin
+  Scenario: Content Admins should be able to browse sections from their profile even if none have been specifically assigned to them
+    Given I am logged in as a user with the "content_admin" role
+    And I am on "/user"
+    Then I should see the text "You can edit content in the following VA.gov sections"
+    And I should not see the text "You don't have permission to access content in any VA.gov sections yet"
