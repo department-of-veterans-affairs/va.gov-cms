@@ -95,11 +95,7 @@ class UserPermsService {
     $query->fields('sa', ['section_id']);
     $results = $query->execute()->fetchCol();
 
-    // @todo: figure out why $user->hasPermission('bypass workbench access')
-    // returns FALSE even though the user has this permission granted.
-    // Temporary workaround is to check for Administrator and Content Admin
-    // roles to indicate that user has access to all sections.
-    if (($key = array_search('administration', $results)) !== FALSE || ($user->hasRole('administrator') || $user->hasRole('content_admin'))) {
+    if (($key = array_search('administration', $results)) !== FALSE || $user->hasPermission('bypass workbench access')) {
       unset($results[$key]);
       $tree = $entity_storage->loadTree('administration');
       foreach ($tree as $term) {
