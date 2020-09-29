@@ -13,16 +13,76 @@ dependencies:
     - paragraphs.paragraphs_type.service_location
   module:
     - entity_reference_revisions
+    - field_group
     - options
     - tablefield
+third_party_settings:
+  field_group:
+    group_hours:
+      children:
+        - field_hours
+        - field_facility_service_hours
+        - field_additional_hours_info
+      parent_name: group_service_location
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        description: ''
+        open: true
+        id: ''
+        classes: ''
+      label: Hours
+      region: content
+    group_contact_info:
+      children:
+        - field_use_main_facility_phone
+        - field_phone
+        - field_email_contacts
+      parent_name: group_service_location
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        description: ''
+        open: true
+        id: ''
+        classes: ''
+      label: 'Contact info'
+      region: content
+    group_address:
+      children:
+        - field_service_location_address
+      parent_name: group_service_location
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        description: ''
+        open: true
+        id: ''
+        classes: ''
+      label: Address
+      region: content
+    group_service_location:
+      children:
+        - group_address
+        - group_hours
+        - group_contact_info
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Service location'
+      region: content
 id: paragraph.service_location.default
 targetEntityType: paragraph
 bundle: service_location
 mode: default
 content:
   field_additional_hours_info:
-    weight: 2
-    label: above
+    weight: 4
+    label: visually_hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -30,24 +90,24 @@ content:
     region: content
   field_email_contacts:
     type: entity_reference_revisions_entity_view
-    weight: 6
-    label: above
+    weight: 5
+    label: visually_hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
     region: content
   field_facility_service_hours:
-    weight: 1
-    label: above
+    weight: 3
+    label: visually_hidden
     settings:
-      row_header: 1
+      row_header: 0
       column_header: 0
     third_party_settings: {  }
     type: tablefield
     region: content
   field_hours:
-    weight: 0
+    weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -56,7 +116,7 @@ content:
   field_phone:
     type: entity_reference_revisions_entity_view
     weight: 4
-    label: above
+    label: visually_hidden
     settings:
       view_mode: default
       link: ''
@@ -64,8 +124,8 @@ content:
     region: content
   field_service_location_address:
     type: entity_reference_revisions_entity_view
-    weight: 5
-    label: above
+    weight: 1
+    label: visually_hidden
     settings:
       view_mode: default
       link: ''
@@ -75,9 +135,9 @@ content:
     weight: 3
     label: above
     settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
+      format: custom
+      format_custom_true: 'Yes, display the general facility phone number'
+      format_custom_false: 'No, do not display the general facility phone number'
     third_party_settings: {  }
     type: boolean
     region: content

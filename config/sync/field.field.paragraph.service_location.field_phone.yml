@@ -12,8 +12,8 @@ id: paragraph.service_location.field_phone
 field_name: field_phone
 entity_type: paragraph
 bundle: service_location
-label: Phone
-description: 'Do not add an appointments-specific number, that’s lower on the screen.'
+label: 'Other phone numbers'
+description: ''
 required: false
 translatable: false
 default_value: {  }
@@ -31,8 +31,17 @@ settings:
       alert:
         weight: 25
         enabled: false
+      alert_single:
+        weight: 40
+        enabled: false
       button:
         weight: 33
+        enabled: false
+      checklist:
+        weight: 42
+        enabled: false
+      checklist_item:
+        weight: 43
         enabled: false
       collapsible_panel:
         weight: 26
@@ -42,6 +51,9 @@ settings:
         enabled: false
       downloadable_file:
         weight: 28
+        enabled: false
+      email_contact:
+        weight: 47
         enabled: false
       expandable_text:
         weight: 29
@@ -63,6 +75,15 @@ settings:
         enabled: false
       media:
         weight: 33
+        enabled: false
+      media_list_images:
+        weight: 55
+        enabled: false
+      media_list_videos:
+        weight: 56
+        enabled: false
+      non_reusable_alert:
+        weight: 57
         enabled: false
       number_callout:
         weight: 34
