@@ -59,7 +59,7 @@ Feature: Content model bundles
 | Button | button | Paragraph type | Button with a label and link field. |
 | Checklist | checklist | Paragraph type |  |
 | Checklist section | checklist_item | Paragraph type |  |
-| Email contact | email_contact | Paragraph type |  |
+| Email address | email_contact | Paragraph type |  |
 | Embedded image | media | Paragraph type | For adding an image inline |
 | Expandable Text | expandable_text | Paragraph type | Text that expands upon click. |
 | Link teaser | link_teaser | Paragraph type | A link followed by a description. For building inline "menus" of content. |
