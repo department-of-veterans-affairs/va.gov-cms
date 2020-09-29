@@ -11,20 +11,36 @@ dependencies:
     - paragraphs.paragraphs_type.service_location_address
   module:
     - address
+    - field_group
+third_party_settings:
+  field_group:
+    group_street_address:
+      children:
+        - field_use_facility_address
+        - field_address
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Street address'
+      region: content
 id: paragraph.service_location_address.default
 targetEntityType: paragraph
 bundle: service_location_address
 mode: default
 content:
   field_address:
-    weight: 1
+    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
     region: content
   field_building_name_number:
-    weight: 3
+    weight: 1
     label: above
     settings:
       link_to_entity: false
@@ -32,7 +48,7 @@ content:
     type: string
     region: content
   field_clinic_name:
-    weight: 2
+    weight: 0
     label: above
     settings:
       link_to_entity: false
@@ -40,7 +56,7 @@ content:
     type: string
     region: content
   field_use_facility_address:
-    weight: 0
+    weight: 4
     label: above
     settings:
       format: default
@@ -50,7 +66,7 @@ content:
     type: boolean
     region: content
   field_wing_floor_or_room_number:
-    weight: 4
+    weight: 2
     label: above
     settings:
       link_to_entity: false

@@ -6,6 +6,8 @@ dependencies:
     - field.field.paragraph.email_contact.field_email_address
     - field.field.paragraph.email_contact.field_email_label
     - paragraphs.paragraphs_type.email_contact
+  module:
+    - textfield_counter
 id: paragraph.email_contact.default
 targetEntityType: paragraph
 bundle: email_contact
@@ -24,8 +26,14 @@ content:
     settings:
       size: 60
       placeholder: ''
+      maxlength: 100
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: "Use a label to indicate what office, department, person, or program can be reached here. A label is required when adding more than one email address. @remaining_count characters remaining.\r\n"
+      use_field_maxlength: false
     third_party_settings: {  }
-    type: string_textfield
+    type: string_textfield_with_counter
     region: content
 hidden:
   created: true
