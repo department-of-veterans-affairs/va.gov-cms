@@ -91,7 +91,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Service location | Additional Hours options (e.g. On-Call, Appointments may be available outside these hours, please call.) | field_additional_hours_info | Text (plain) |  | 1 | Textfield |  |
 | Paragraph type | Service location | Address | field_service_location_address | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
 | Paragraph type | Service location | Hours | field_facility_service_hours | Table Field |  | 1 | Table Field |  |
-| Paragraph type | Service location | Use the facility's hours | field_hours | List (text) | Required | 1 | Select list |  |
+| Paragraph type | Service location | Do not specify hours | field_hours | List (text) | Required | 1 | Select list |  |
 | Paragraph type | Service location | Other phone numbers | field_phone | Entity reference revisions |  | 5 | Inline entity form - Complex - Table View Mode |  |
 | Paragraph type | Service location | Use the general facility phone number | field_use_main_facility_phone | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Service location address | Address | field_address | Address |  | 1 | Address | Translatable |
