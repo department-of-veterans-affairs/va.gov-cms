@@ -39,8 +39,8 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Contact information | Default contact | field_contact_default | Entity reference |  | 1 | Entity browser |  |
 | Paragraph type | Contact information | Markup | field_markup | Markup |  | 1 | Markup | Translatable |
 | Paragraph type | Contact information | Select contacts | field_contact_info_switch | List (text) | Required | 1 | Check boxes/radio buttons |  |
-| Paragraph type | Email contact | Email address | field_email_address | Email | Required | 1 | Email |  |
-| Paragraph type | Email contact | Label | field_email_label | Text (plain) |  | 1 | Textfield |  |
+| Paragraph type | Email address | Email address | field_email_address | Email | Required | 1 | Email |  |
+| Paragraph type | Email address | Label | field_email_label | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Service location | Email contacts | field_email_contacts | Entity reference revisions |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Paragraph type | Embedded image | Allow clicks on this image to open it in new tab | field_allow_clicks_on_this_image | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Embedded image | Markup | field_markup | Markup |  | 1 | Markup |  |
@@ -112,5 +112,4 @@ Feature: Content model: Paragraph fields
 | Paragraph type | VAMC facility service (non-healthcare service) | Service name | field_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Paragraph type | VAMC facility service (non-healthcare service) | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Rich text | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
-
 
