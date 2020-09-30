@@ -11,11 +11,13 @@ id: node.health_care_local_health_service.field_online_scheduling_availabl
 field_name: field_online_scheduling_availabl
 entity_type: node
 bundle: health_care_local_health_service
-label: 'Online scheduling available?'
+label: 'Is online scheduling available for this service?'
 description: ''
-required: false
+required: true
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: '2'
 default_value_callback: ''
 settings: {  }
 field_type: list_string

@@ -318,7 +318,7 @@ Feature: Content model: Content Type fields
 | Content type | VAMC Facility Health Service | Facility | field_facility_location | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC Facility Health Service | Facility description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | VAMC Facility Health Service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC Facility Health Service | Service location | field_service_location | Entity reference revisions |  | 3 | Paragraphs EXPERIMENTAL |  |
+| Content type | VAMC Facility Health Service | Service locations | field_service_location | Entity reference revisions |  | 3 | Paragraphs EXPERIMENTAL |  |
 | Content type | VAMC Facility Health Service | VAMC system health service | field_regional_health_service | Entity reference | Required | 1 | Select list |  |
 | Content type | VAMC System | Appointments can be scheduled and viewed online | field_appointments_online | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System | Banner image | field_media | Entity reference |  | 1 | Media library | Translatable |
@@ -361,7 +361,7 @@ Feature: Content model: Content Type fields
 | Content type | VAMC System Banner Alert with Situation Updates | Send email update on this situation | field_operating_status_sendemail | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | VAMC System Banner Alert with Situation Updates | Situation updates | field_situation_updates | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Content type | VAMC System Banner Alert with Situation Updates | Pages for the following VAMC systems | field_banner_alert_vamcs | Entity reference | Required | Unlimited | Check boxes/radio buttons |  |
-| Content type | VAMC System Health Service | Facility-specific descriptions of this service | field_local_health_care_service_ | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
+| Content type | VAMC System Health Service | Facility services | field_local_health_care_service_ | Entity reference |  | Unlimited | -- Disabled -- |  |
 | Content type | VAMC System Health Service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Health Service | VAMC system | field_region_page | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Health Service | VAMC system description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
@@ -381,7 +381,9 @@ Feature: Content model: Content Type fields
 | Content type | Vet Center | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
 | Content type | Vet Center | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Vet Center | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC Facility Health Service | Online scheduling available? | field_online_scheduling_availabl | List (text) |  | 1 | -- Disabled -- |  |
-| Content type | VAMC Facility Health Service | Appointment phone number(s) | field_phone_numbers_paragraph | Entity reference revisions |  | Unlimited | -- Disabled -- |  |
-| Content type | VAMC Facility Health Service | Referral required? | field_referral_required | List (text) |  | 1 | -- Disabled -- |  |
-| Content type | VAMC Facility Health Service | Walk-ins accepted? | field_walk_ins_accepted | List (text) |  | 1 | -- Disabled -- |  |
+| Content type | VAMC Facility Health Service | Is online scheduling available for this service? | field_online_scheduling_availabl | List (text) | Required | 1 | Select list |  |
+| Content type | VAMC Facility Health Service | Appointment phone number(s) | field_phone_numbers_paragraph | Entity reference revisions |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
+| Content type | VAMC Facility Health Service | Appointments help text | field_appointments_help_text | Markup |  | 1 | Markup |  |
+| Content type | VAMC Facility Health Service | Is a referral required? | field_referral_required | List (text) | Required | 1 | Select list |  |
+| Content type | VAMC Facility Health Service | Are walkins accepted? | field_walk_ins_accepted | List (text) | Required | 1 | Select list |  |
+| Content type | VAMC Facility Health Service | Service locations help text | field_facility_service_loc_help | Markup |  | 1 | Markup |  |

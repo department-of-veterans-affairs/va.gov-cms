@@ -41,7 +41,7 @@ Feature: Content model bundles
 | VAMC Facility Health Service | health_care_local_health_service | Content type | A facility specific description of a health care service, always embedded within a VAMC system description. |
 | VAMC System | health_care_region_page | Content type | A VAMC system contains multiple VHA health facilities, including usually at least one VAMC, sometimes more. |
 | VAMC System Banner Alert with Situation Updates | full_width_banner_alert | Content type | A full-width alert that will be added to a VAMC system, or multiple VAMC systems. |
-| VAMC System Health Service | regional_health_care_service_des | Content type | A description of a health service specific to a VAMC system. |
+| VAMC System Health Service | regional_health_care_service_des | Content type | A description of a health service specific to a VAMC system, which appears on a VAMC's health services page and on facility pages, within accordions. |
 | VAMC System Operating Status | vamc_operating_status_and_alerts | Content type | Create one of these pages for each VAMC system. Then you can add banner alerts and update facilities' operating status, all from one place. |
 | VBA Facility | vba_facility | Content type | A facility within Veterans Benefits Administration system. |
 | Vet Center | vet_center | Content type | A facility within Vet Centers system. |
@@ -59,7 +59,7 @@ Feature: Content model bundles
 | Button | button | Paragraph type | Button with a label and link field. |
 | Checklist | checklist | Paragraph type |  |
 | Checklist section | checklist_item | Paragraph type |  |
-| Email contact | email_contact | Paragraph type |  |
+| Email address | email_contact | Paragraph type |  |
 | Embedded image | media | Paragraph type | For adding an image inline |
 | Expandable Text | expandable_text | Paragraph type | Text that expands upon click. |
 | Link teaser | link_teaser | Paragraph type | A link followed by a description. For building inline "menus" of content. |

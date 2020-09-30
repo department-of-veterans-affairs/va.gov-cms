@@ -474,7 +474,7 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
    * @var \Drupal\field\Entity\FieldConfig $field_definition */
   $paragraph_entity_reference_field_name = $field_definition->getName();
 
-  if ($paragraph_entity_reference_field_name == 'field_content_block') {
+  if ($paragraph_entity_reference_field_name === 'field_content_block' || $paragraph_entity_reference_field_name === 'field_service_location') {
     $widget_state = WidgetBase::getWidgetState($element['#field_parents'], $paragraph_entity_reference_field_name, $form_state);
 
     $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'];
@@ -488,6 +488,20 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
           $selector => ['value' => 'expanding'],
         ],
       ];
+    }
+    if ($paragraph_type === 'service_location') {
+      if (!empty($element['subform']['field_facility_service_hours'])) {
+        // Clean up the hours form and remove redundant labels.
+        unset($element['subform']['field_facility_service_hours']['widget'][0]['#title']);
+        unset($element['subform']['field_facility_service_hours']['widget'][0]['#description']);
+        // Don't show additional hours field unless custom hours are input.
+        $selector = sprintf(':input[name="field_service_location[%d][subform][field_hours]"]', $element['#delta']);
+        $element['subform']['field_additional_hours_info']['#states'] = [
+          'visible' => [
+            $selector => ['value' => '2'],
+          ],
+        ];
+      }
     }
   }
 
@@ -616,6 +630,7 @@ function _va_gov_backend_modify_paragraph_interactions(array &$element, FormStat
     // If use facility hours option is not selected, show address entry fields.
     $toggle_fields = [
       'field_facility_service_hours',
+      'field_additional_hours_info',
     ];
     $selector = sprintf(':input[name="field_service_location[%1$d][subform][field_hours]"]', $element['#delta']);
     foreach ($toggle_fields as $field) {

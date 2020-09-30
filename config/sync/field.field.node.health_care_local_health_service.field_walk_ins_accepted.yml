@@ -11,11 +11,13 @@ id: node.health_care_local_health_service.field_walk_ins_accepted
 field_name: field_walk_ins_accepted
 entity_type: node
 bundle: health_care_local_health_service
-label: 'Walk-ins accepted?'
+label: 'Are walkins accepted?'
 description: ''
-required: false
+required: true
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: '2'
 default_value_callback: ''
 settings: {  }
 field_type: list_string
