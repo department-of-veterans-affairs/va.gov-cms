@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.media_list_videos.field_primary_category
     - field.field.node.media_list_videos.field_related_benefit_hubs
     - field.field.node.media_list_videos.field_related_information
+    - field.field.node.media_list_videos.field_related_links
     - node.type.media_list_videos
   module:
     - entity_reference_revisions
@@ -45,7 +46,6 @@ third_party_settings:
         - field_media_list_videos
         - field_buttons_repeat
         - field_related_benefit_hubs
-        - field_related_links
         - field_related_information
         - field_contact_information
       parent_name: ''
@@ -196,4 +196,5 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_related_links: true
   search_api_excerpt: true
