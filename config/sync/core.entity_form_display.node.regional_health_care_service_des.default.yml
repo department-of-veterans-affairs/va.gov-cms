@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_form_mode.node.inline_entity_form
     - field.field.node.regional_health_care_service_des.field_administration
     - field.field.node.regional_health_care_service_des.field_body
     - field.field.node.regional_health_care_service_des.field_local_health_care_service_
@@ -12,7 +11,6 @@ dependencies:
     - node.type.regional_health_care_service_des
   module:
     - field_group
-    - ief_table_view_mode
     - text
 third_party_settings:
   field_group:
@@ -21,7 +19,7 @@ third_party_settings:
         - field_region_page
         - field_administration
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: details_sidebar
       format_settings:
         open: '1'
@@ -65,23 +63,6 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
-  field_local_health_care_service_:
-    weight: 2
-    settings:
-      form_mode: inline_entity_form
-      override_labels: true
-      label_singular: 'facility description'
-      label_plural: 'facility descriptions'
-      collapsible: true
-      allow_new: true
-      match_operator: CONTAINS
-      allow_duplicate: true
-      collapsed: false
-      allow_existing: false
-      revision: false
-    third_party_settings: {  }
-    type: inline_entity_form_complex_table_view_mode
-    region: content
   field_region_page:
     weight: 1
     settings: {  }
@@ -96,6 +77,7 @@ content:
     region: content
 hidden:
   created: true
+  field_local_health_care_service_: true
   moderation_state: true
   path: true
   promote: true

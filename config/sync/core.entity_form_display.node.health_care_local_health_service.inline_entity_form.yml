@@ -5,8 +5,10 @@ dependencies:
   config:
     - core.entity_form_mode.node.inline_entity_form
     - field.field.node.health_care_local_health_service.field_administration
+    - field.field.node.health_care_local_health_service.field_appointments_help_text
     - field.field.node.health_care_local_health_service.field_body
     - field.field.node.health_care_local_health_service.field_facility_location
+    - field.field.node.health_care_local_health_service.field_facility_service_loc_help
     - field.field.node.health_care_local_health_service.field_online_scheduling_availabl
     - field.field.node.health_care_local_health_service.field_phone_numbers_paragraph
     - field.field.node.health_care_local_health_service.field_referral_required
@@ -60,6 +62,8 @@ content:
     region: content
 hidden:
   created: true
+  field_appointments_help_text: true
+  field_facility_service_loc_help: true
   field_online_scheduling_availabl: true
   field_phone_numbers_paragraph: true
   field_referral_required: true

@@ -39,7 +39,7 @@ class BuildCommands {
    *
    * @var string
    */
-  protected $exportDir;
+  protected $exportDir = '';
 
   /**
    * BuildCommands constructor.

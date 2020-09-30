@@ -1,47 +1,38 @@
-uuid: 5dbf7043-f5bd-4fbe-bc5d-9f07348e1408
+uuid: 6c81c37c-c6e8-4ae8-8c86-161f9b33a0b5
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.paragraph.ief_table
     - field.field.paragraph.email_contact.field_email_address
     - field.field.paragraph.email_contact.field_email_label
     - paragraphs.paragraphs_type.email_contact
   module:
-    - field_group
+    - layout_builder
 third_party_settings:
-  field_group:
-    group_email_contact:
-      children:
-        - field_email_address
-        - field_email_label
-      parent_name: ''
-      weight: 0
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-      label: 'Email contact'
-      region: content
-id: paragraph.email_contact.default
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: paragraph.email_contact.ief_table
 targetEntityType: paragraph
 bundle: email_contact
-mode: default
+mode: ief_table
 content:
   field_email_address:
-    weight: 1
-    label: above
+    weight: 0
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_email_label:
-    weight: 2
-    label: above
+    weight: 1
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
     region: content
 hidden:
+  label: true
   search_api_excerpt: true
