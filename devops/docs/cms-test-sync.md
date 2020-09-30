@@ -1,5 +1,6 @@
 To sync the CMS to CMS-TEST environment, follow these steps:
 1. Run the job here http://jenkins.vfs.va.gov/job/cms-test/job/cms-to-cms-test-prod-db-sync
+1. Run the database backup job here http://jenkins.vfs.va.gov/job/cms-test/job/cms-test-db-backup-prod/
 1. Enable, then run the sanitize DB job here > http://jenkins.vfs.va.gov/job/cms-test/job/cms-test-db-sanitize/, then disable it again. This will sanitize the newly synced PROD DB in CMS-TEST (not CMS) and make available for downstream CMS-TEST environments. 
 1. Enable the http://jenkins.vfs.va.gov/job/testing/job/cms-test/ job so that webhooks trigger the build and deploy to DEV and STAGING.
 1. (BE VERY CAREFUL HERE)   
