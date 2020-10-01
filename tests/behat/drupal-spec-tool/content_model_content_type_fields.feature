@@ -92,7 +92,7 @@ Feature: Content model: Content Type fields
 | Content type | Events List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Events List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Events List | Office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | FAQ - multiple Q&As | Additional categories (optional) | field_other_categories | Entity reference |  | 7 | Check boxes/radio buttons | Translatable |
+| Content type | FAQ - multiple Q&As | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
 | Content type | FAQ - multiple Q&As | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | FAQ - multiple Q&As | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs Classic | Translatable |
 | Content type | FAQ - multiple Q&As | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox | Translatable |
@@ -147,7 +147,7 @@ Feature: Content model: Content Type fields
 | Content type | Locations List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Locations List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Locations List | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Media list - Images | Additional categories (optional) | field_other_categories | Entity reference |  | 7 | Check boxes/radio buttons | Translatable |
+| Content type | Media list - Images | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
 | Content type | Media list - Images | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Media list - Images | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Media list - Images | Media list - Images | field_media_list_images | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
@@ -161,7 +161,7 @@ Feature: Content model: Content Type fields
 | Content type | Media list - Images | Related Information | field_related_information | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Media list - Images | Related Links | field_related_links | Entity reference revisions |  | 1 | -- Disabled -- | Translatable |
 | Content type | Media list - Images | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | Translatable |
-| Content type | Media list - Videos | Additional categories (optional) | field_other_categories | Entity reference |  | 7 | Check boxes/radio buttons | Translatable |
+| Content type | Media list - Videos | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
 | Content type | Media list - Videos | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic |  |
 | Content type | Media list - Videos | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Media list - Videos | Meta description | field_description | Text (plain) | Required | 1 | Textfield | Translatable |
@@ -214,7 +214,7 @@ Feature: Content model: Content Type fields
 | Content type | Publication Listing Page | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Publication Listing Page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Publication Listing Page | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Q&A | Additional categories (optional) | field_other_categories | Entity reference |  | 7 | Check boxes/radio buttons | Translatable |
+| Content type | Q&A | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
 | Content type | Q&A | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Q&A | Answer | field_answer | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Content type | Q&A | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs Classic | Translatable |
@@ -240,7 +240,7 @@ Feature: Content model: Content Type fields
 | Content type | Staff Profile | Photo | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Staff Profile | Related office or health care region | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Staff Profile | Suffix | field_suffix | Text (plain) |  | 1 | Textfield |  |
-| Content type | Step-by-Step | Additional categories (optional) | field_other_categories | Entity reference |  | 7 | Check boxes/radio buttons | Translatable |
+| Content type | Step-by-Step | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
 | Content type | Step-by-Step | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Step-by-Step | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs Classic |  |
 | Content type | Step-by-Step | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
