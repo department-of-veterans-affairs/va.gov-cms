@@ -37,7 +37,7 @@ Feature: Content model: Content Type fields
 | Content type | Benefits Hub Landing Page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Benefits Hub Landing Page | Spokes | field_spokes | Entity reference revisions | Required | 4 | Paragraphs EXPERIMENTAL |  |
 | Content type | Benefits Hub Landing Page | Support Services | field_support_services | Entity reference |  | Unlimited | Inline entity form - Complex |  |
-| Content type | Checklist | Additional categories (optional) | field_other_categories | Entity reference |  | 7 | Check boxes/radio buttons |  |
+| Content type | Checklist | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons |  |
 | Content type | Checklist | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Checklist | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Checklist | Checklist | field_checklist | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
@@ -100,7 +100,7 @@ Feature: Content model: Content Type fields
 | Content type | FAQ - multiple Q&As | Page introduction | field_intro_text_limited_html  | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | FAQ - multiple Q&As | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | FAQ - multiple Q&As | Q&A groups | field_q_a_groups | Entity reference revisions | Required | Unlimited | Paragraphs Classic |  |
-| Content type | FAQ - multiple Q&As | Additional categories (optional) | field_other_categories | Entity reference |  | 7 | Check boxes/radio buttons | Translatable |
+| Content type | FAQ - multiple Q&As | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
 | Content type | FAQ - multiple Q&As | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | FAQ - multiple Q&As | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | FAQ - multiple Q&As | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
@@ -125,7 +125,7 @@ Feature: Content model: Content Type fields
 | Content type | Leadership List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Leadership List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Leadership List | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Learning Center Detail Page | Additional categories (optional) | field_other_categories | Entity reference |  | 7 | Check boxes/radio buttons | Translatable |
+| Content type | Learning Center Detail Page | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
 | Content type | Learning Center Detail Page | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Learning Center Detail Page | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Learning Center Detail Page | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox | Translatable |
@@ -146,7 +146,7 @@ Feature: Content model: Content Type fields
 | Content type | Locations List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Locations List | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Media list - Images | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Media list - Images | Additional categories (optional) | field_other_categories | Entity reference |  | 7 | Check boxes/radio buttons | Translatable |
+| Content type | Media list - Images | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
 | Content type | Media list - Images | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Media list - Images | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Media list - Images | Media list - Images | field_media_list_images | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
@@ -160,7 +160,7 @@ Feature: Content model: Content Type fields
 | Content type | Media list - Images | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Media list - Images | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | Translatable |
 | Content type | Media list - Videos | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
-| Content type | Media list - Videos | Additional categories (optional) | field_other_categories | Entity reference |  | 7 | Check boxes/radio buttons | Translatable |
+| Content type | Media list - Videos | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
 | Content type | Media list - Videos | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic |  |
 | Content type | Media list - Videos | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Media list - Videos | Meta description | field_description | Text (plain) | Required | 1 | Textfield | Translatable |
@@ -210,7 +210,7 @@ Feature: Content model: Content Type fields
 | Content type | Publication Listing Page | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Publication Listing Page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Publication Listing Page | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Q&A | Additional categories (optional) | field_other_categories | Entity reference |  | 7 | Check boxes/radio buttons | Translatable |
+| Content type | Q&A | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
 | Content type | Q&A | Answer | field_answer | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Content type | Q&A | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Q&A | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
@@ -245,7 +245,7 @@ Feature: Content model: Content Type fields
 | Content type | Step-by-Step | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Step-by-Step | Step-by-step | field_steps | Entity reference revisions | Required | 1 | Paragraphs Classic |  |
 | Content type | Step-by-Step | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Step-by-Step | Additional categories (optional) | field_other_categories | Entity reference |  | 7 | Check boxes/radio buttons | Translatable |
+| Content type | Step-by-Step | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
 | Content type | Step-by-Step | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Step-by-Step | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | Translatable |
 | Content type | Story | Author | field_author | Entity reference |  | 1 | Autocomplete |  |
