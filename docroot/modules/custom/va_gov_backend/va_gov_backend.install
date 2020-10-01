@@ -286,3 +286,26 @@ function va_gov_backend_update_8006() {
     }
   }
 }
+
+/**
+ * Remove metatag title & description fields from LC content types.
+ */
+function va_gov_backend_update_8007() {
+  $lc_bundles = [
+    'checklist',
+    'faq_multiple_q_a',
+    'media_list_images',
+    'media_list_videos',
+    'q_a',
+    'step_by_step',
+    'support_resources_detail_page',
+  ];
+  foreach ($lc_bundles as $bundle) {
+    if ($field = FieldConfig::loadByName('node', $bundle, 'field_description')) {
+      $field->delete();
+    }
+    if ($field = FieldConfig::loadByName('node', $bundle, 'field_meta_title')) {
+      $field->delete();
+    }
+  }
+}
