@@ -13,15 +13,19 @@ Feature: The VA Website is generated inside the Drupal CMS code.
   @errors @cms_in_static @frontend
   Scenario: Log in, edit, publish, unpublish, and save nodes and see changes in the CMS and the front end website. Confirm cms menu items are in static site build.
     When I am logged in as a user with the "administrator" role
+    # Test content editing.
     And I am at "/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services"
     Then I should see "VA blind and low vision rehabilitation services"
     And I am at "node/2/edit"
     And I fill in "Page title" with "VA blind and low vision rehabilitation services - EDITED"
     And I press "Save"
     Then I should see "Benefits detail page VA blind and low vision rehabilitation services - EDITED has been updated."
+    # Test content publishing.
     Then I set the node with title "VA blind and low vision rehabilitation services - EDITED" to "published"
+    # Test content unpublishing.
     Then I set the node with title "VA health care" to "unpublished"
     Then print current URL
+    # Build the static site.
     When I run "cd .. && composer va:web:build"
     And I am at "/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services"
     Then I should see "VA blind and low vision rehabilitation services - EDITED"
@@ -30,3 +34,7 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     Then print current URL
     And I am on "/static/health-care"
     Then the response status code should be 403
+    # Re-publish the VA health care page to prevent broken link warnings.
+    Then I set the node with title "VA health care" to "published"
+    And I am on "/health-care"
+    Then I should see "Published" in the ".view-id-right_sidebar_latest_revision" element
