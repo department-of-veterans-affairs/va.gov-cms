@@ -8,10 +8,8 @@ dependencies:
     - field.field.node.media_list_videos.field_buttons
     - field.field.node.media_list_videos.field_buttons_repeat
     - field.field.node.media_list_videos.field_contact_information
-    - field.field.node.media_list_videos.field_description
     - field.field.node.media_list_videos.field_intro_text_limited_html
     - field.field.node.media_list_videos.field_media_list_videos
-    - field.field.node.media_list_videos.field_meta_title
     - field.field.node.media_list_videos.field_other_categories
     - field.field.node.media_list_videos.field_primary_category
     - field.field.node.media_list_videos.field_related_benefit_hubs
@@ -124,14 +122,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
     region: content
-  field_description:
-    weight: 9
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
   field_intro_text_limited_html:
     weight: 6
     label: above
@@ -147,14 +137,6 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    region: content
-  field_meta_title:
-    weight: 8
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
     region: content
   field_other_categories:
     weight: 7

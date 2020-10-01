@@ -288,7 +288,7 @@ function va_gov_backend_update_8006() {
 }
 
 /**
- * Remove metatag title & description fields from LC content types.
+ * Remove metatag fieldgroup, title & description fields from LC content types.
  */
 function va_gov_backend_update_8007() {
   $lc_bundles = [
@@ -306,6 +306,9 @@ function va_gov_backend_update_8007() {
     }
     if ($field = FieldConfig::loadByName('node', $bundle, 'field_meta_title')) {
       $field->delete();
+    }
+    if ($metatag_fg = field_group_load_field_group('group_meta_tags', 'node', $bundle, 'form', 'default')) {
+      field_group_group_delete($metatag_fg);
     }
   }
 }
