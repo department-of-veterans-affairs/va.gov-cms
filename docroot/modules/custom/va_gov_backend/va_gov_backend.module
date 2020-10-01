@@ -644,6 +644,7 @@ function _va_gov_backend_modify_paragraph_interactions(array &$element, FormStat
     if (isset($element['subform']['field_facility_service_hours']['widget'][0]['caption'])) {
       unset($element['subform']['field_facility_service_hours']['widget'][0]['caption']);
     }
+    $element['subform']['field_facility_service_hours']['widget'][0]['prefix']['#markup'] = t('<div class="description">Format: "8:00 a.m. to 5:30 p.m. ET" or "24/7"</div>');
     $element['subform']['field_facility_service_hours']['widget'][0]['#import'] = FALSE;
     $element['subform']['field_facility_service_hours']['widget'][0]['#addrow'] = FALSE;
     $element['subform']['field_facility_service_hours']['widget'][0]['#rebuild'] = FALSE;
