@@ -252,7 +252,7 @@ Feature: Content model: Content Type fields
 | Content type | Step-by-Step | Related Information | field_related_information | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Step-by-Step | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Step-by-Step | Related Links | field_related_links | Entity reference revisions |  | 1 | -- Disabled -- | Translatable |
-| Content type | Step-by-Step | Step-by-step | field_steps | Entity reference revisions | Required | 1 | Paragraphs Classic |  |
+| Content type | Step-by-Step | Step-by-step | field_steps | Entity reference revisions | Required | Unlimited | Paragraphs Classic |  |
 | Content type | Step-by-Step | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | Translatable |
 | Content type | Story | Author | field_author | Entity reference |  | 1 | Autocomplete |  |
 | Content type | Story | Featured | field_featured | Boolean |  | 1 | Single on/off checkbox |  |
