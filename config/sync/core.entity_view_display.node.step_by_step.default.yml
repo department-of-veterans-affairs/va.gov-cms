@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.step_by_step.field_other_categories
     - field.field.node.step_by_step.field_primary_category
     - field.field.node.step_by_step.field_related_benefit_hubs
+    - field.field.node.step_by_step.field_related_information
     - field.field.node.step_by_step.field_related_links
     - field.field.node.step_by_step.field_steps
     - node.type.step_by_step
@@ -45,7 +46,7 @@ third_party_settings:
         - field_steps
         - field_buttons_repeat
         - field_related_benefit_hubs
-        - field_related_links
+        - field_related_information
         - field_contact_information
       parent_name: ''
       weight: 2
@@ -116,7 +117,7 @@ content:
     type: boolean
     region: content
   field_contact_information:
-    weight: 12
+    weight: 13
     label: above
     settings:
       view_mode: default
@@ -171,8 +172,8 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_related_links:
-    weight: 11
+  field_related_information:
+    weight: 12
     label: above
     settings:
       view_mode: default
@@ -195,4 +196,5 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_related_links: true
   search_api_excerpt: true
