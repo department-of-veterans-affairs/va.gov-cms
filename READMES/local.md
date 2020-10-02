@@ -16,6 +16,61 @@
     ### Troubleshooting:
     * Sometimes after initial setup or `lando start`, Drush is not found. Running `lando rebuild -y` once or twice usually cures, if not, see: https://github.com/lando/lando/issues/580#issuecomment-354490298
 
+    ### EXPERIMENTAL: Mac OS performance improvements
+    * The osxfs file system server has known performance issues. ([ref](https://docs.docker.com/docker-for-mac/osxfs/#performance-issues-solutions-and-roadmap), [ref](https://www.jeffgeerling.com/blog/2020/revisiting-docker-macs-performance-nfs-volumes)) These issues are exacerbated by the very large number of files present in the application. One workaround is to use an [nfs](https://en.wikipedia.org/wiki/Network_File_System) mount instead. To use nfs in your local environment:
+      * First, obtain your user account's uid:
+
+        ```
+        id -u
+        ```
+
+      * Then, edit the ```/etc/exports``` file (requires root access) and add the following line, replacing '{uid}' with your numeric uid:
+
+        ```
+        /System/Volumes/Data -alldirs -mapall={uid}:20 localhost
+        ```
+
+      * Then, edit the ```/etc/nfs.conf``` file (requires root access) and add the following line:
+
+        ```
+        nfs.server.mount.require_resv_port = 0
+        ```
+
+      * Next, restart the nfs server:
+
+        ```
+        sudo nfsd restart
+        ```
+
+      * Now, you will need to update your lando configuration. Edit your ```.lando.local.yml``` file (create it if it doesn't exist) and add the following lines:
+
+        ```
+        services:
+          appserver:
+            overrides:
+              volumes:
+                - "${LANDO_VOLUME}:/app"
+
+        compose:
+          - .lando.compose.yml
+        ```
+
+      * Now, you will need to create your local docker compose file. Create the ```.lando.compose.yml``` file and add these lines:
+
+        ```
+        version: '3'
+        volumes:
+          nfsmount:
+            driver: local
+            driver_opts:
+              type: nfs
+              o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+              device: ":${PWD}"
+        ```
+
+      * Finally, rebuild the app: ```export LANDO_VOLUME='nfsmount' && lando rebuild``` (It's worth adding the variable export to your shell config so that you don't have to remember to use it in the future)
+      * If there are no errors, verify that your app is using nfs: run ```lando ssh``` and then ```df -h /app```. You should see something like ```:/Users/username/src/va.gov-cms``` in the Filesystem column instead of ```osxfs```.
+
 ## Scripts
 There are some scripts created to help with managing the Drupal site locally.
 
