@@ -1,18 +1,19 @@
-uuid: f649674b-4fe6-4363-ac1e-9ed316e82f87
+uuid: 577d8c6c-5992-4f4a-b8f9-227d630cb24f
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_related_links
+    - field.storage.node.field_related_information
     - node.type.faq_multiple_q_a
+    - paragraphs.paragraphs_type.link_teaser
   module:
     - entity_reference_revisions
-id: node.faq_multiple_q_a.field_related_links
-field_name: field_related_links
+id: node.faq_multiple_q_a.field_related_information
+field_name: field_related_information
 entity_type: node
 bundle: faq_multiple_q_a
-label: 'Related Links'
-description: ''
+label: 'Related Information'
+description: 'Add up to 5 link teasers.'
 required: false
 translatable: true
 default_value: {  }
@@ -21,7 +22,8 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     negate: 0
-    target_bundles: null
+    target_bundles:
+      link_teaser: link_teaser
     target_bundles_drag_drop:
       address:
         weight: 39
@@ -63,8 +65,8 @@ settings:
         weight: 51
         enabled: false
       link_teaser:
+        enabled: true
         weight: 52
-        enabled: false
       list_of_link_teasers:
         weight: 55
         enabled: false
