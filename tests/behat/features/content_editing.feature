@@ -10,9 +10,14 @@ Feature: CMS Users may effectively create & edit content
     And I am at "node/add/step_by_step"
     Then I should see "Create Step-by-Step"
     And I should see "Add Step"
+
     # Confirm that the wysiwyg is present for the "Step" paragraph type.
     And the "#edit-field-steps-0-subform-field-step-0-subform-field-wysiwyg-wrapper" element should exist
+
     # Confirm that text format selection is not allowed for the "Step" paragraph type.
     And I should not see "Rich Text" in the "#edit-field-steps-0-subform-field-step-0-subform" element
     And I should not see "Plain text" in the "#edit-field-steps-0-subform-field-step-0-subform" element
     And the "#edit-field-steps-0-subform-field-step-0-subform-field-wysiwyg-0-format--2" element should not exist
+
+    # Confirm that a user may add unlimited Step-by-step fields.
+    And the "#edit-field-steps-add-more-add-more-button-step-by-step" element should exist
