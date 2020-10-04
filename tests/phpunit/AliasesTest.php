@@ -69,6 +69,11 @@ class Aliases extends ExistingSiteBase {
       'uid' => $author->id(),
     ]);
     $service_node->setPublished()->save();
+
+    // Check the auto-generated title.
+    $this->assertEquals('Test Service at VA Test health care', $service_node->getTitle());
+
+    // Check the auto-generated URL alias.
     $url_alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $service_node->id());
     $this->assertEquals('/va-test-health-care/health-services/test-service-at-va-test-health-care', $url_alias);
 
@@ -81,6 +86,9 @@ class Aliases extends ExistingSiteBase {
       'uid' => $author->id(),
     ]);
     $local_service_node->setPublished()->save();
+
+    // Check the auto-generated title.
+    $this->assertEquals('Test Service at VA Test health care - Test VA Medical Center', $local_service_node->getTitle());
 
     // Assert that the path follows the pattern [node:field_facility_location:entity:url:path]/[node:field_regional_health_service:entity:field_service_name_and_descripti]
     $url_alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $local_service_node->id());
