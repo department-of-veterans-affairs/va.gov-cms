@@ -1,0 +1,23 @@
+uuid: 4b9d69e4-3d3f-4892-88bc-1efdd5741030
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tags
+    - node.type.support_resources_detail_page
+  module:
+    - entity_reference_revisions
+id: node.support_resources_detail_page.field_tags
+field_name: field_tags
+entity_type: node
+bundle: support_resources_detail_page
+label: Tags
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings: {  }
+field_type: entity_reference_revisions

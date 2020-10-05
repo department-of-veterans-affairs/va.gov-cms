@@ -1,0 +1,23 @@
+uuid: d908055a-892e-4274-9310-201ec9a04752
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tags
+    - node.type.step_by_step
+  module:
+    - entity_reference_revisions
+id: node.step_by_step.field_tags
+field_name: field_tags
+entity_type: node
+bundle: step_by_step
+label: Tags
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings: {  }
+field_type: entity_reference_revisions
