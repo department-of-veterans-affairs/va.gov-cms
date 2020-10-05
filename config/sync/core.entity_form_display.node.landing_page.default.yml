@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.landing_page.field_related_links
     - field.field.node.landing_page.field_spokes
     - field.field.node.landing_page.field_support_services
+    - field.field.node.landing_page.field_table_of_contents_boolean
     - field.field.node.landing_page.field_teaser_text
     - field.field.node.landing_page.field_title_icon
     - node.type.landing_page
@@ -41,7 +42,7 @@ third_party_settings:
         - field_administration
         - field_plainlanguage_date
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details_sidebar
       format_settings:
         open: '1'
@@ -57,7 +58,7 @@ third_party_settings:
         - field_links
         - field_support_services
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -73,7 +74,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: details
       format_settings:
         id: ''
@@ -86,7 +87,7 @@ third_party_settings:
       children:
         - field_page_last_built
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -115,7 +116,7 @@ third_party_settings:
       children:
         - field_alert
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         description: 'Crisis alerts draw attention to information that will be useful to veterans experiencing an active crisis. You can <a href="/block/add/alert?destination=/admin/content/alerts">create a new crisis alert</a>, or reuse an existing one.'
@@ -128,7 +129,7 @@ third_party_settings:
       children:
         - field_related_links
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: fieldset
       format_settings:
         description: ''
@@ -164,6 +165,20 @@ third_party_settings:
         id: ''
         classes: ''
       label: 'Home page listing'
+      region: content
+    group_inc:
+      children:
+        - field_table_of_contents_boolean
+      parent_name: ''
+      weight: 3
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'Include table of contents?'
       region: content
 id: node.landing_page.default
 targetEntityType: node
@@ -231,8 +246,9 @@ content:
       linkit_profile: default
     third_party_settings: {  }
   field_meta_tags:
-    weight: 8
-    settings: {  }
+    weight: 9
+    settings:
+      sidebar: true
     third_party_settings: {  }
     type: metatag_firehose
     region: content
@@ -281,7 +297,7 @@ content:
     type: entity_reference_paragraphs
     region: content
   field_spokes:
-    weight: 4
+    weight: 5
     settings:
       title: Spoke
       title_plural: Spokes
@@ -316,6 +332,13 @@ content:
     third_party_settings: {  }
     type: inline_entity_form_complex
     region: content
+  field_table_of_contents_boolean:
+    weight: 13
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
   field_teaser_text:
     weight: 5
     settings:
@@ -344,7 +367,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }

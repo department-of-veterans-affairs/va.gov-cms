@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.landing_page.field_related_links
     - field.field.node.landing_page.field_spokes
     - field.field.node.landing_page.field_support_services
+    - field.field.node.landing_page.field_table_of_contents_boolean
     - field.field.node.landing_page.field_teaser_text
     - field.field.node.landing_page.field_title_icon
     - node.type.landing_page
@@ -64,6 +65,7 @@ third_party_settings:
     group_body:
       children:
         - field_intro_text
+        - field_table_of_contents_boolean
         - field_alert
         - field_spokes
         - field_related_links
@@ -107,7 +109,7 @@ content:
     type: entity_reference_entity_view
     region: content
   field_alert:
-    weight: 5
+    weight: 6
     label: above
     settings:
       view_mode: default
@@ -167,7 +169,7 @@ content:
     type: entity_reference_label
     region: content
   field_related_links:
-    weight: 7
+    weight: 8
     label: above
     settings:
       view_mode: default
@@ -176,7 +178,7 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   field_spokes:
-    weight: 6
+    weight: 7
     label: above
     settings:
       view_mode: default
@@ -191,6 +193,16 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_table_of_contents_boolean:
+    weight: 5
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_teaser_text:
     weight: 4
