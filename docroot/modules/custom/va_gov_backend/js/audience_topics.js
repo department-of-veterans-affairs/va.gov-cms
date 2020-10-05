@@ -9,6 +9,15 @@
   function enforceMaximumNumberOfTags() {
     // Get the total number of tags selected between in the Topics and Beneficiaries fields.
     let total = $('div[id^="edit-field-tags-0-subform-field-topics"]').find('input:checked').length;
+
+    if (total >= 4) {
+      $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').attr('disabled', true);
+      $('div.form-item-field-tags-0-subform-field-audience-selection').addClass('form-disabled');
+    } else {
+      $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').attr('disabled', false);
+      $('div.form-item-field-tags-0-subform-field-audience-selection').removeClass('form-disabled');
+    }
+
     const audienceSelected = $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]')
       .find('input:not([id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]):checked').length;
     total += audienceSelected;
@@ -16,13 +25,9 @@
     if (total >= 4) {
       // If a total of four or more tags have been selected, prevent the user from selecting more.
       $('div[id^="edit-field-tags-0-subform-field-topics"]').find('input[type=checkbox]:not(:checked)').attr('disabled', true);
-      $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]')
-        .find('input:not([id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]):checked').attr('disabled', true);
     } else {
       // Otherwise, ensure that more may be selected.
       $('div[id^="edit-field-tags-0-subform-field-topics"]').find('input[type=checkbox]').attr('disabled', false);
-      $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]')
-        .find('input').attr('disabled', false);
     }
   }
 
