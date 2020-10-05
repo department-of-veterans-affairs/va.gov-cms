@@ -1086,7 +1086,7 @@ $config = [
      * See http://www.php.net/manual/en/pdo.drivers.php for the various
      * syntaxes.
      */
-    'store.sql.dsn'                 => "sqlite:{$_SERVER['DOCUMENT_ROOT']}/../samlsessiondb.sq3",
+    'store.sql.dsn'                 => "sqlite:" . getcwd() . "/samlsessiondb.sq3",
 
     /*
      * The username and password to use when connecting to the database.
