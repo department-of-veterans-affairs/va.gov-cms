@@ -85,13 +85,15 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
 
       // Make sure this bundle is okay to display on va.gov.
       $exclude_types = $this->configFactory->getEditable('exclusion_types_admin.settings')->get('types_to_exclude');
-      // If active revision is not published, it doesn't get included in build.
-      // Sufficient to check moderation state on node = active revision.
-      if (!in_array($node->bundle(), $exclude_types) && $node->get('moderation_state')->getString() === 'published') {
-        $nid = $node->id();
-        $url = 'https://va.gov' . Url::fromRoute('entity.node.canonical', ['node' => $nid])->toString();
-        $block_items['VA.gov URL'] = Link::fromTextAndUrl($url, Url::fromUri($url))->toString();
-
+      // If exclude types in not empty then continue.
+      if (!empty($exclude_types)) {
+        // If active revision isn't published, it doesn't get included in build.
+        // Sufficient to check moderation state on node = active revision.
+        if (!in_array($node->bundle(), $exclude_types) && $node->get('moderation_state')->getString() === 'published') {
+          $nid = $node->id();
+          $url = 'https://va.gov' . Url::fromRoute('entity.node.canonical', ['node' => $nid])->toString();
+          $block_items['VA.gov URL'] = Link::fromTextAndUrl($url, Url::fromUri($url))->toString();
+        }
       }
 
     }

@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.checklist.field_other_categories
     - field.field.node.checklist.field_primary_category
     - field.field.node.checklist.field_related_benefit_hubs
+    - field.field.node.checklist.field_related_information
     - field.field.node.checklist.field_related_links
     - node.type.checklist
   module:
@@ -45,7 +46,7 @@ third_party_settings:
         - field_checklist
         - field_buttons_repeat
         - field_related_benefit_hubs
-        - field_related_links
+        - field_related_information
         - field_contact_information
       parent_name: ''
       weight: 2
@@ -127,7 +128,7 @@ content:
     third_party_settings: {  }
     region: content
   field_contact_information:
-    weight: 10
+    weight: 11
     label: above
     settings:
       view_mode: default
@@ -182,8 +183,8 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_related_links:
-    weight: 9
+  field_related_information:
+    weight: 10
     label: above
     settings:
       view_mode: default
@@ -197,4 +198,5 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_related_links: true
   search_api_excerpt: true
