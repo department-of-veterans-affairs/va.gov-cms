@@ -252,7 +252,7 @@ Feature: Content model: Content Type fields
 | Content type | Step-by-Step | Related Information | field_related_information | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Step-by-Step | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Step-by-Step | Related Links | field_related_links | Entity reference revisions |  | 1 | -- Disabled -- | Translatable |
-| Content type | Step-by-Step | Step-by-step | field_steps | Entity reference revisions | Required | 1 | Paragraphs Classic |  |
+| Content type | Step-by-Step | Step-by-step | field_steps | Entity reference revisions | Required | Unlimited | Paragraphs Classic |  |
 | Content type | Step-by-Step | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | Translatable |
 | Content type | Story | Author | field_author | Entity reference |  | 1 | Autocomplete |  |
 | Content type | Story | Featured | field_featured | Boolean |  | 1 | Single on/off checkbox |  |
@@ -388,7 +388,7 @@ Feature: Content model: Content Type fields
 | Content type | Vet Center | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Vet Center | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC Facility Health Service | Is online scheduling available for this service? | field_online_scheduling_availabl | List (text) | Required | 1 | Select list |  |
-| Content type | VAMC Facility Health Service | Appointment phone number(s) | field_phone_numbers_paragraph | Entity reference revisions |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
+| Content type | VAMC Facility Health Service | Phone number for appointments | field_phone_numbers_paragraph | Entity reference revisions |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | VAMC Facility Health Service | Appointments help text | field_appointments_help_text | Markup |  | 1 | Markup |  |
 | Content type | VAMC Facility Health Service | Is a referral required? | field_referral_required | List (text) | Required | 1 | Select list |  |
 | Content type | VAMC Facility Health Service | Are walkins accepted? | field_walk_ins_accepted | List (text) | Required | 1 | Select list |  |
