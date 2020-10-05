@@ -47,6 +47,7 @@ Feature: Content model: Content Type fields
 | Content type | Checklist | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Checklist | Page introduction | field_intro_text_limited_html | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Checklist | Primary category | field_primary_category | Entity reference | Required | 1 | Select list |  |
+| Content type | Checklist | Tags | field_tags | Entity reference revisions | | 1 | Paragraphs Classic |  |
 | Content type | Checklist | Related Information | field_related_information | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Checklist | Related Links | field_related_links | Entity reference revisions |  | 1 | -- Disabled -- | Translatable |
 | Content type | Checklist | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
@@ -102,6 +103,7 @@ Feature: Content model: Content Type fields
 | Content type | FAQ - multiple Q&As | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | FAQ - multiple Q&As | Page introduction | field_intro_text_limited_html  | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | FAQ - multiple Q&As | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | FAQ - multiple Q&As | Tags | field_tags | Entity reference revisions | | 1 | Paragraphs Classic |  |
 | Content type | FAQ - multiple Q&As | Q&A groups | field_q_a_groups | Entity reference revisions | Required | Unlimited | Paragraphs Classic |  |
 | Content type | FAQ - multiple Q&As | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | FAQ - multiple Q&As | Related Information | field_related_information | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL | Translatable |
@@ -138,6 +140,7 @@ Feature: Content model: Content Type fields
 | Content type | Learning Center Detail Page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Learning Center Detail Page | Page introduction | field_intro_text_limited_html  | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Learning Center Detail Page | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Learning Center Detail Page | Tags | field_tags | Entity reference revisions | | 1 | Paragraphs Classic |  |
 | Content type | Learning Center Detail Page | Related Information | field_related_information | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL | |
 | Content type | Learning Center Detail Page | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | Learning Center Detail Page | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | |
@@ -157,6 +160,7 @@ Feature: Content model: Content Type fields
 | Content type | Media list - Images | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Media list - Images | Page introduction | field_intro_text_limited_html | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Media list - Images | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Media list - Images | Tags | field_tags | Entity reference revisions | | 1 | Paragraphs Classic |  |
 | Content type | Media list - Images | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | Media list - Images | Related Information | field_related_information | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Media list - Images | Related Links | field_related_links | Entity reference revisions |  | 1 | -- Disabled -- | Translatable |
@@ -170,6 +174,7 @@ Feature: Content model: Content Type fields
 | Content type | Media list - Videos | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Media list - Videos | Page introduction | field_intro_text_limited_html | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Media list - Videos | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Media list - Videos | Tags | field_tags | Entity reference revisions | | 1 | Paragraphs Classic |  |
 | Content type | Media list - Videos | Related Information | field_related_information | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Media list - Videos | Related Links | field_related_links | Entity reference revisions |  | 1 | -- Disabled -- | Translatable |
 | Content type | Media list - Videos | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
@@ -223,6 +228,7 @@ Feature: Content model: Content Type fields
 | Content type | Q&A | Need more help? | field_contact_information | Entity reference revisions |  | 1 | Paragraphs Classic |  |
 | Content type | Q&A | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Q&A | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Q&A | Tags | field_tags | Entity reference revisions | | 1 | Paragraphs Classic |  |
 | Content type | Q&A | Related Information | field_related_information | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Q&A | Related Links | field_related_links | Entity reference revisions |  | 1 | -- Disabled -- | Translatable |
 | Content type | Q&A | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | Translatable |
@@ -248,6 +254,7 @@ Feature: Content model: Content Type fields
 | Content type | Step-by-Step | Need more help? | field_contact_information | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Step-by-Step | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Step-by-Step | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Step-by-Step | Tags | field_tags | Entity reference revisions | | 1 | Paragraphs Classic |  |
 | Content type | Step-by-Step | Page introduction | field_intro_text_limited_html | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Step-by-Step | Related Information | field_related_information | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Step-by-Step | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox |  |
