@@ -837,8 +837,8 @@ function va_gov_backend_toolbar_alter(&$items) {
   if (!empty($items['administration_search'])) {
     unset($items['administration_search']);
   }
-  if (!empty($items['environment_indicator'])) {
-    unset($items['environment_indicator']);
+  if (!empty($items['environment_indicator']['tab'])) {
+    unset($items['environment_indicator']['tab']);
   }
 }
 
