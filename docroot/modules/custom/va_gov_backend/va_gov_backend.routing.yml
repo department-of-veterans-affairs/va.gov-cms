@@ -7,3 +7,11 @@ va_gov_backend.exclusion_types_admin_form:
     _permission: 'administer content'
   options:
     _admin_route: TRUE
+va_gov_backend.json_api:
+  path: 'systems_menus_list'
+  defaults:
+    _controller: 'Drupal\va_gov_backend\Controller\VaGovSideNavController::renderApi'
+    _title: 'Systems menus'
+  methods:  [GET]
+  requirements:
+    _access: 'TRUE'
