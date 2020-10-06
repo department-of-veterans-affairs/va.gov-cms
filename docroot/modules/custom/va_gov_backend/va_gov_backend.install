@@ -303,18 +303,33 @@ function va_gov_backend_update_8007() {
   foreach ($lc_bundles as $bundle) {
     if ($field = FieldConfig::loadByName('node', $bundle, 'field_description')) {
       $field->delete();
+      Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'Deleted field_description from content type "%bundle".', [
+        '%bundle' => $bundle,
+      ]);
     }
     if ($field = FieldConfig::loadByName('node', $bundle, 'field_meta_title')) {
       $field->delete();
+      Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'Deleted field_meta_title from content type "%bundle".', [
+        '%bundle' => $bundle,
+      ]);
     }
     if ($metatag_fg = field_group_load_field_group('group_metadata', 'node', $bundle, 'view', 'default')) {
       field_group_group_delete($metatag_fg);
+      Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'Deleted group_metadata view fieldgroup from content type "%bundle".', [
+        '%bundle' => $bundle,
+      ]);
     }
     if ($metatag_fg = field_group_load_field_group('group_meta_tags', 'node', $bundle, 'view', 'default')) {
       field_group_group_delete($metatag_fg);
+      Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'Deleted group_meta_tags view fieldgroup from content type "%bundle".', [
+        '%bundle' => $bundle,
+      ]);
     }
     if ($metatag_fg = field_group_load_field_group('group_meta_tags', 'node', $bundle, 'form', 'default')) {
       field_group_group_delete($metatag_fg);
+      Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'Deleted group_meta_tags form fieldgroup from content type "%bundle".', [
+        '%bundle' => $bundle,
+      ]);
     }
   }
 }
