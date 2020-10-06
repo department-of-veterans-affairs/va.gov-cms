@@ -18,7 +18,7 @@ $config['system.performance']['response']['gzip'] = TRUE;
 $config['views.settings']['ui']['show']['sql_query']['enabled'] = FALSE;
 $config['views.settings']['ui']['show']['performance_statistics'] = FALSE;
 $config['system.logging']['error_level'] = 'none';
-$config['environment_indicator.indicator']['bg_color'] = '#112E51'; // $color-primary-darkest.
+$config['environment_indicator.indicator']['bg_color'] = '#082142'; // Dark blue.
 $config['environment_indicator.indicator']['fg_color'] = '#ffffff';
 $config['environment_indicator.indicator']['name'] = '';
 
