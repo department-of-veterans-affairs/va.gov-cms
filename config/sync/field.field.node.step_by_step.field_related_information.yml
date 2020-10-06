@@ -1,21 +1,21 @@
-uuid: f9e8fbba-1a80-4d17-899f-f7be0220a1e8
+uuid: 7f70860d-a154-4d4d-9374-08c0422eb282
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_phone_numbers_paragraph
-    - node.type.health_care_local_health_service
-    - paragraphs.paragraphs_type.phone_number
+    - field.storage.node.field_related_information
+    - node.type.step_by_step
+    - paragraphs.paragraphs_type.link_teaser
   module:
     - entity_reference_revisions
-id: node.health_care_local_health_service.field_phone_numbers_paragraph
-field_name: field_phone_numbers_paragraph
+id: node.step_by_step.field_related_information
+field_name: field_related_information
 entity_type: node
-bundle: health_care_local_health_service
-label: 'Phone number for appointments'
-description: 'If you don''t provide a phone number, the main Facility phone number will be displayed.'
+bundle: step_by_step
+label: 'Related Information'
+description: 'Add up to 5 link teasers.'
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
@@ -23,61 +23,61 @@ settings:
   handler_settings:
     negate: 0
     target_bundles:
-      phone_number: phone_number
+      link_teaser: link_teaser
     target_bundles_drag_drop:
       address:
-        weight: 23
+        weight: 39
         enabled: false
       alert:
-        weight: 24
+        weight: 40
         enabled: false
       alert_single:
         weight: 41
         enabled: false
       button:
-        weight: 33
+        weight: 42
         enabled: false
       checklist:
-        weight: 36
+        weight: 43
         enabled: false
       checklist_item:
-        weight: 37
+        weight: 44
         enabled: false
       collapsible_panel:
-        weight: 25
+        weight: 45
         enabled: false
       collapsible_panel_item:
-        weight: 26
+        weight: 46
         enabled: false
       contact_information:
         weight: 47
         enabled: false
       downloadable_file:
-        weight: 27
+        weight: 48
         enabled: false
       email_contact:
         weight: 49
         enabled: false
       expandable_text:
-        weight: 28
+        weight: 50
         enabled: false
       health_care_local_facility_servi:
-        weight: 29
+        weight: 51
         enabled: false
       link_teaser:
-        weight: 30
-        enabled: false
+        enabled: true
+        weight: 52
       list_of_link_teasers:
-        weight: 31
+        weight: 55
         enabled: false
       list_of_links:
-        weight: 41
+        weight: 54
         enabled: false
       lists_of_links:
-        weight: 42
+        weight: 53
         enabled: false
       media:
-        weight: 32
+        weight: 56
         enabled: false
       media_list_images:
         weight: 57
@@ -89,54 +89,54 @@ settings:
         weight: 59
         enabled: false
       number_callout:
-        weight: 33
+        weight: 60
         enabled: false
       phone_number:
-        enabled: true
-        weight: 35
+        weight: 61
+        enabled: false
       process:
-        weight: 35
+        weight: 62
         enabled: false
       q_a:
-        weight: 36
+        weight: 63
         enabled: false
       q_a_group:
-        weight: 48
+        weight: 64
         enabled: false
       q_a_section:
-        weight: 37
+        weight: 65
         enabled: false
       react_widget:
-        weight: 38
+        weight: 66
         enabled: false
       service_location:
-        weight: 51
+        weight: 67
         enabled: false
       service_location_address:
-        weight: 52
+        weight: 68
         enabled: false
       situation_update:
-        weight: 39
+        weight: 69
         enabled: false
       spanish_translation_summary:
-        weight: 40
+        weight: 70
         enabled: false
       staff_profile:
-        weight: 41
+        weight: 71
         enabled: false
       starred_horizontal_rule:
-        weight: 42
+        weight: 72
         enabled: false
       step:
-        weight: 57
+        weight: 73
         enabled: false
       step_by_step:
-        weight: 58
+        weight: 74
         enabled: false
       table:
-        weight: 43
+        weight: 75
         enabled: false
       wysiwyg:
-        weight: 44
+        weight: 76
         enabled: false
 field_type: entity_reference_revisions
