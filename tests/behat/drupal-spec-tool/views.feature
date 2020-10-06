@@ -98,7 +98,7 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
 | Custom block library | Master | default | Master |
 | Custom block library | Page | page_1 | Page |
-| Date fields | Master | master | Master |
+| Date fields | Master | default | Master |
 | Date fields | Page | page_1 | Page |
 | Facility Governance | Master | default | Master |
 | Facility Governance | Page | page_1 | Page |
