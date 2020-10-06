@@ -1,0 +1,26 @@
+uuid: 1bf04b3f-a654-436f-b956-7774bc888a26
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_datetime_range_timezone
+    - node.type.event
+  module:
+    - smart_date
+id: node.event.field_datetime_range_timezone
+field_name: field_datetime_range_timezone
+entity_type: node
+bundle: event
+label: 'Date and time'
+description: 'Set a start and end date.'
+required: false
+translatable: false
+default_value:
+  -
+    default_date_type: ''
+    default_date: ''
+    default_duration_increments: "30\r\n60|1 hour\r\n90\r\n120|2 hours\r\ncustom"
+    default_duration: 60
+default_value_callback: ''
+settings: {  }
+field_type: smartdate
