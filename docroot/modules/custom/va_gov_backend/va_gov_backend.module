@@ -644,31 +644,10 @@ function _va_gov_backend_modify_paragraph_interactions(array &$element, FormStat
     if (isset($element['subform']['field_facility_service_hours']['widget'][0]['caption'])) {
       unset($element['subform']['field_facility_service_hours']['widget'][0]['caption']);
     }
+    $element['subform']['field_facility_service_hours']['widget'][0]['prefix']['#markup'] = t('<div class="description">Format: "8:00 a.m. to 5:30 p.m. ET" or "24/7"</div>');
     $element['subform']['field_facility_service_hours']['widget'][0]['#import'] = FALSE;
     $element['subform']['field_facility_service_hours']['widget'][0]['#addrow'] = FALSE;
     $element['subform']['field_facility_service_hours']['widget'][0]['#rebuild'] = FALSE;
-  }
-
-  // 1. Hide the extension field if phone option is not selected.
-  // 2. Add constraint error message jumplink to phone field.
-  if ($paragraph_type === 'phone_number') {
-    // Instead of searching for delta and composing an element path piece by
-    // piece, we take the parent path of a field and process/transform it into
-    // a string that will point to a form element which affects the state of
-    // the field we're trying to target.
-    $element_path = $element['subform']['#parents'];
-    $parent_field = array_shift($element_path);
-    $element_path_string = implode('][', $element_path);
-
-    if (!empty($parent_field) && !empty($element_path_string)) {
-      $selector = ':input[name="' . $parent_field . '[' . $element_path_string . '][field_phone_number_type]"]';
-
-      $element['subform']['field_phone_extension']['#states'] = [
-        'visible' => [
-          [$selector => ['value' => 'tel']],
-        ],
-      ];
-    }
   }
 
 }
@@ -712,10 +691,12 @@ function va_gov_backend_page_attachments(array &$attachments) {
 
   $attachments['#attached']['library'][] = 'va_gov_backend/alert_form';
   $attachments['#attached']['library'][] = 'va_gov_backend/system_styles';
-  // Nested address in service location paragraphs result in multiple deltas.
+  // Nested address, phone and email paragraphs result in multiple deltas.
   // Tracking this with states api gets messy.
   // Bypass and use behaviors directly.
   $attachments['#attached']['library'][] = 'va_gov_backend/service_location_address';
+  $attachments['#attached']['library'][] = 'va_gov_backend/contact_paragraphs_interactions';
+
   $is_admin = \Drupal::service('router.admin_context')->isAdminRoute();
   if ($is_admin) {
     // Add custom css for paragraph browser.
