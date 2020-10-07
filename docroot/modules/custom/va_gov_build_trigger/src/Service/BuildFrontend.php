@@ -189,7 +189,7 @@ class BuildFrontend {
         }
       }
       catch (RequestException $exception) {
-        $message = t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify in #cms-engineering Slack and please email vacmssupport@va.gov immediately with the error message you see here.', [':url' => $jenkins_build_job_url]);
+        $message = t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify in #cms-support Slack and please email vacmssupport@va.gov immediately with the error message you see here.', [':url' => $jenkins_build_job_url]);
         $this->messenger->addError($message);
         $this->logger->error($message);
         $this->setPendingState(0);
