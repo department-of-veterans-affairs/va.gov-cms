@@ -40,7 +40,7 @@ The Lockable Resources Plugin provides a page to view what resources are locked 
 
 http://jenkins.vfs.va.gov/lockable-resources/
 
-![Jenkins Lockable Resource Page](images/jenkins-lockable-resources.jpg)
+![Jenkins Lockable Resource Page](../images/jenkins-lockable-resources.jpg)
 
 ## How does Job Locking Work ?
 
