@@ -325,3 +325,12 @@ function va_gov_db_update_8018(&$sandbox) {
 
   return $messages;
 }
+
+/**
+ * Uninstall moderation_sidebar module.
+ */
+function va_gov_db_update_8019(&$sandbox) {
+  $messages = _va_gov_db_uninstall_modules(['moderation_sidebar']);
+
+  return $messages;
+}
