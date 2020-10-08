@@ -1,6 +1,6 @@
 uuid: c933e114-c59a-449a-8917-db92b32f61ef
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
@@ -28,17 +28,27 @@ targetEntityType: node
 bundle: landing_page
 mode: teaser
 content:
-  links:
-    weight: 100
-    settings: {  }
-    third_party_settings: {  }
+  field_home_page_hub_label:
+    type: string
+    weight: 0
     region: content
+    label: hidden
+    settings:
+      link_to_entity: true
+    third_party_settings: {  }
+  field_teaser_text:
+    type: string
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
 hidden:
   content_moderation_control: true
   field_administration: true
   field_alert: true
   field_description: true
-  field_home_page_hub_label: true
   field_intro_text: true
   field_links: true
   field_meta_tags: true
@@ -49,6 +59,6 @@ hidden:
   field_related_links: true
   field_spokes: true
   field_support_services: true
-  field_teaser_text: true
   field_title_icon: true
+  links: true
   search_api_excerpt: true
