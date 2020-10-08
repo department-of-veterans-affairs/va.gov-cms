@@ -36,6 +36,7 @@ This applies to CMS Infrastructure across all environments (Dev,Staging,Prod) as
 The above numerated list consists of partial URLs that can be added at the end of http://jenkins.vfs.va.gov/job/ replacing the desired environment for [ENV]. Additionally swaping `cms-test` for `cms` will open test infrastructure jobs.
 
 For Example:
+
 http://jenkins.vfs.va.gov/job/deploys/job/cms-vagov-dev/
 
 http://jenkins.vfs.va.gov/job/*deploys/job/cms-test-vagov-dev/
