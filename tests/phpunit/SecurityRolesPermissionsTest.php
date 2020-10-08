@@ -425,7 +425,6 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'update any promo block content',
           'update media',
           'use editorial transition approve',
-          'use editorial transition archived_published',
           'use editorial transition create_new_draft',
           'use editorial transition review',
           'use editorial transition stage_for_publishing',
