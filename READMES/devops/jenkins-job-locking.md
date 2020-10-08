@@ -62,7 +62,7 @@ The key to understanding job locking is **1. Resource Name that is locked.** The
 
 `partial/path/to/job Block partial/path/to/job`
 
-For example:
+### For example:
 
 `deploys/job/cms-vagov-dev/ Block cms/job/cms-test-periodic-dev/`
 
