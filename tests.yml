@@ -57,3 +57,13 @@ va/tests/behat:
   command: |
     cd tests/behat
     behat --colors
+
+va/tests/php-warning:
+  description: Post test run to check for any new PHP warnings
+  command: |
+    drush $DRUSH_ALIAS watchdog:show --type=php --severity=warning 2>&1 | tee /dev/tty | grep --quiet "No log messages available";
+
+va/tests/php-error:
+  description: Post test run to check for any new PHP errors
+  command: |
+    drush $DRUSH_ALIAS watchdog:show --type=php --severity=error 2>&1 | tee /dev/tty | grep --quiet "No log messages available"
