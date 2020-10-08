@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.support_resources_detail_page.field_related_benefit_hubs
     - field.field.node.support_resources_detail_page.field_related_information
     - field.field.node.support_resources_detail_page.field_table_of_contents_boolean
+    - field.field.node.support_resources_detail_page.field_tags
     - node.type.support_resources_detail_page
     - workflows.workflow.editorial
   module:
@@ -61,7 +62,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: fieldset
       format_settings:
         id: ''
@@ -74,7 +75,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 12
+      weight: 13
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -126,7 +127,7 @@ third_party_settings:
         description: ''
         open: true
         required_fields: true
-      label: 'Learning Center categories'
+      label: 'Article categories'
       region: content
     group_contact_information:
       children:
@@ -140,6 +141,19 @@ third_party_settings:
         description: ''
         required_fields: false
       label: 'Contact information'
+      region: content
+    group_tags:
+      children:
+        - field_tags
+      parent_name: ''
+      weight: 11
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Tags
       region: content
 id: node.support_resources_detail_page.default
 targetEntityType: node
@@ -292,6 +306,18 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
+  field_tags:
+    weight: 17
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+    region: content
   moderation_state:
     type: moderation_state_default
     weight: 16
@@ -300,7 +326,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 13
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -308,7 +334,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 15
+    weight: 16
     region: content
     third_party_settings: {  }
   title:
@@ -326,7 +352,7 @@ content:
       count_html_characters: false
     third_party_settings: {  }
   url_redirects:
-    weight: 14
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }

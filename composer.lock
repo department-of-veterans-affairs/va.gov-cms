@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "943c9296fe614814888aa39fba9f20c8",
+    "content-hash": "2a0ac70bef5fc739a1aebb74401f4e9f",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -682,7 +682,7 @@
             "version": "v5.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/enyo/dropzone.git",
+                "url": "git@github.com:enyo/dropzone.git",
                 "reference": "08b9e0a763b54a685404dea523a9c54242fbe1b9"
             },
             "dist": {
@@ -4038,7 +4038,7 @@
             "version": "3.4.0",
             "require": {
                 "drupal/core": "^8 || ^9",
-                "drupal/ctools": "self.version"
+                "drupal/ctools": "*"
             },
             "type": "metapackage",
             "extra": {
@@ -5490,7 +5490,7 @@
             "version": "3.0.0-rc3",
             "require": {
                 "drupal/core": "~8.0",
-                "drupal/graphql": "self.version"
+                "drupal/graphql": "*"
             },
             "type": "metapackage",
             "extra": {
@@ -6409,6 +6409,54 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/menu_item_extras",
                 "issues": "https://www.drupal.org/project/issues/menu_item_extras"
+            }
+        },
+        {
+            "name": "drupal/menu_link_attributes",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/menu_link_attributes.git",
+                "reference": "8.x-1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/menu_link_attributes-8.x-1.1.zip",
+                "reference": "8.x-1.1",
+                "shasum": "d0207acb0cf253bea6204d1de99ea67b5aa1f5a2"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.1",
+                    "datestamp": "1593424626",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "yannickoo",
+                    "homepage": "https://www.drupal.org/user/531118"
+                }
+            ],
+            "description": "Allows you to add attributes to menu links.",
+            "homepage": "http://drupal.org/project/menu_link_attributes",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/menu_link_attributes",
+                "issues": "http://drupal.org/project/issues/menu_link_attributes"
             }
         },
         {
@@ -8008,7 +8056,7 @@
             "version": "1.0.0-beta1",
             "require": {
                 "drupal/core": "~8.0",
-                "drupal/schemata": "self.version"
+                "drupal/schemata": "*"
             },
             "type": "metapackage",
             "extra": {
@@ -9146,7 +9194,7 @@
             "version": "2.4.0",
             "require": {
                 "drupal/core": "^8.8 || ^9",
-                "drupal/video_embed_field": "self.version"
+                "drupal/video_embed_field": "*"
             },
             "type": "metapackage",
             "extra": {
@@ -18727,7 +18775,7 @@
             "version": "3.16.0",
             "require": {
                 "drupal/core": "~8.0",
-                "drupal/simple_oauth": "self.version"
+                "drupal/simple_oauth": "*"
             },
             "type": "metapackage",
             "extra": {
