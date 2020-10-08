@@ -70,4 +70,33 @@ For example:
 
 **cms/job/cms-periodic-dev/** is the CMS Periodic Tasks job run on servers.
 
+**Generated Resource Name:** deploys/job/cms-vagov-dev/ Block cms/job/cms-periodic-dev/
+
 Each of these jobs generates the same resource lock name and attempts to place a lock on that resource. If one of these two (2) jobs has already placed a lock on the shared resource name, it will wait for the lock to be removed before continuing.
+
+CMS Deploy job code snippet:
+
+```
+  options {
+    ansiColor('xterm')
+    // View resource locks in Jenkins here http://jenkins.vfs.va.gov/lockable-resources/
+    // View documentation on job locking system here:
+    // https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/devops/jenkins-job-locking.md
+    lock(extra: [[resource: "deploys/job/cms-vagov-" + ENV_MAPPING["${environment}"] + "/ Block cms/job/cms-periodic-" + ENV_MAPPING["${environment}"] + "/"],
+                 [resource: "deploys/job/cms-vagov-" + ENV_MAPPING["${environment}"] + "/ Block cms/job/cms-db-backup-" + ENV_MAPPING["${environment}"] + "/"],
+                 [resource: "deploys/job/cms-vagov-" + ENV_MAPPING["${environment}"] + "/ Block testing/job/cms-post-deploy-tests-" + ENV_MAPPING["${environment}"] + "/"]
+    ])
+  }
+```
+
+CMS Periodic job code snippet:
+
+```
+    options {
+        ansiColor('xterm')
+        // View resource locks in Jenkins here http://jenkins.vfs.va.gov/lockable-resources/
+        // View documentation on job locking system here:
+        // https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/devops/jenkins-job-locking.md
+        lock(extra: [[resource: "deploys/job/cms-vagov-${env_mapping}/ Block cms/job/cms-periodic-${env_mapping}/"]])
+    }
+```
