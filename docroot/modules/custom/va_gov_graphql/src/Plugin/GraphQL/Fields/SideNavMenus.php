@@ -7,7 +7,7 @@ use Drupal\graphql\Plugin\GraphQL\Fields\FieldPluginBase;
 use GraphQL\Type\Definition\ResolveInfo;
 
 /**
- * Returns a list of the machine names of all the system menus on the site.
+ * Returns a list of machine names of all health system menus on the site.
  *
  * @GraphQLField(
  *   id = "side_nav_menus",
@@ -28,6 +28,8 @@ class SideNavMenus extends FieldPluginBase {
     $systems_menus = [];
     // Returns an array of drupal menu machine names.
     foreach ($menus_array as $key => $value) {
+      // Pittsburgh health care was added before we had an established
+      // "va-" prefixed menu name pattern, so it's an outlier.
       if (strpos($key, 'va') !== FALSE || strpos($key, 'pittsburgh-health-care') !== FALSE) {
         yield $key;
       }
