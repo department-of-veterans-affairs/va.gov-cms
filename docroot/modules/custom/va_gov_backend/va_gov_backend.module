@@ -844,15 +844,15 @@ function va_gov_backend_rebuild() {
   ];
 
   if (($environment === 'Production') && !empty($git_tag)) {
-    $indicator = "v: $git_tag";
+    $indicator = "v{$git_tag}";
   }
   elseif (in_array($environment, $brd)) {
     // We are in a BRD environment but with no tag.
-    $indicator = "v: $commit_hash";
+    $indicator = "v{$commit_hash}";
   }
   else {
     // We are in not in a BRD environment, so display branch and SHA.
-    $indicator = "Branch: $branch  SHA: $commit_hash";
+    $indicator = "Branch: {$branch}  v{$commit_hash}";
   }
 
   \Drupal::state()->set("environment_indicator.current_release", $indicator);
