@@ -20,7 +20,7 @@ $config['views.settings']['ui']['show']['performance_statistics'] = FALSE;
 $config['system.logging']['error_level'] = 'none';
 $config['environment_indicator.indicator']['bg_color'] = '#082142'; // Dark blue.
 $config['environment_indicator.indicator']['fg_color'] = '#ffffff';
-$config['environment_indicator.indicator']['name'] = '';
+$config['environment_indicator.indicator']['name'] = 'Production';
 
 $webhost_on_cli = 'https://prod.cms.va.gov';
 
