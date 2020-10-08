@@ -1,10 +1,10 @@
 
 ## Purpose
-The purpose of this diagram is to show the steps the deploy process follows and what the end user experiences.
+The purpose of this table is to show the steps the deploy process follows and what the end user experiences.
 
 ## Process
 
-Task | Accessible Server | Task fun from Server | Available to Users | CMS tar version
+Task | Accessible Server | Task run from Server | CMS Available to Users | CMS tar version
 ---- | ----------------- | -------------------- | ------------------ | ---------------
 Deploy Process Kicked off | Current | Current| Yes | Current
 Notification in Slack | Current | Jenkins | Yes | Current
