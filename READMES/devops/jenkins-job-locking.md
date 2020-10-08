@@ -39,7 +39,7 @@ For Example:
 
 http://jenkins.vfs.va.gov/job/deploys/job/cms-vagov-dev/
 
-http://jenkins.vfs.va.gov/job/*deploys/job/cms-test-vagov-dev/
+http://jenkins.vfs.va.gov/job/deploys/job/cms-test-vagov-dev/
 
 
 ## How to View Job Resource Lock Status ?
