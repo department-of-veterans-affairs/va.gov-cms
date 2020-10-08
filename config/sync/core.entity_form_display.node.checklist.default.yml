@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.checklist.field_related_benefit_hubs
     - field.field.node.checklist.field_related_information
     - field.field.node.checklist.field_related_links
+    - field.field.node.checklist.field_table_of_contents_boolean
     - field.field.node.checklist.field_tags
     - node.type.checklist
     - workflows.workflow.editorial
@@ -105,7 +106,7 @@ third_party_settings:
         - field_primary_category
         - group_other_categories
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details
       format_settings:
         description: ''
@@ -133,7 +134,7 @@ third_party_settings:
       children:
         - field_contact_information
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: fieldset
       format_settings:
         id: ''
@@ -146,7 +147,7 @@ third_party_settings:
       children:
         - field_tags
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: fieldset
       format_settings:
         description: ''
@@ -154,6 +155,20 @@ third_party_settings:
         id: ''
         classes: ''
       label: Tags
+      region: content
+    group_inc:
+      children:
+        - field_table_of_contents_boolean
+      parent_name: ''
+      weight: 3
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'Include table of contents?'
       region: content
 id: node.checklist.default
 targetEntityType: node
@@ -179,7 +194,7 @@ content:
     type: entity_reference_paragraphs
     region: content
   field_buttons:
-    weight: 3
+    weight: 4
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -197,7 +212,7 @@ content:
     type: paragraphs
     region: content
   field_buttons_repeat:
-    weight: 5
+    weight: 6
     settings:
       display_label: true
     third_party_settings: {  }
@@ -205,7 +220,7 @@ content:
     region: content
   field_checklist:
     type: paragraphs
-    weight: 4
+    weight: 5
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -276,7 +291,7 @@ content:
     type: options_select
     region: content
   field_related_benefit_hubs:
-    weight: 6
+    weight: 7
     settings:
       entity_browser: lc_benefit_hubs
       field_widget_display: label
@@ -290,7 +305,7 @@ content:
     type: entity_reference_browser_table_widget
     region: content
   field_related_information:
-    weight: 7
+    weight: 8
     settings:
       title: 'Link teaser'
       title_plural: 'Link teaser'
@@ -307,6 +322,13 @@ content:
         duplicate: '0'
     third_party_settings: {  }
     type: paragraphs
+    region: content
+  field_table_of_contents_boolean:
+    weight: 17
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   field_tags:
     type: entity_reference_paragraphs
