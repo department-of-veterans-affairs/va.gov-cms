@@ -24,7 +24,7 @@ https://github.com/jenkinsci/lockable-resources-plugin
 
 https://github.com/department-of-veterans-affairs/va.gov-cms/issues/2890
 
-## Jobs That Implement Lockable Resources
+## Jobs that Implement Lockable Resources
 
 This applies to CMS Infrastructure across all environments (Dev,Staging,Prod) as well as CMS-TEST Infrastructure and environments:
 
