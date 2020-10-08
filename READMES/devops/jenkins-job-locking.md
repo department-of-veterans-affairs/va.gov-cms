@@ -67,6 +67,6 @@ For example:
 `deploys/job/cms-vagov-dev/ Block cms/job/cms-test-periodic-dev/`
 
 **deploys/job/cms-vagov-dev/** is the CMS Dev deployment job.
-**cms/job/cms-test-periodic-dev/** is the CMS Periodic Tasks job run on servers.
+**cms/job/cms-periodic-dev/** is the CMS Periodic Tasks job run on servers.
 
 Each of these jobs generates the same resource lock name and attempts to place a lock on that resource. If one of these two (2) jobs has already placed a lock on the shared resource name, it will wait for the lock to be removed before continuing.
