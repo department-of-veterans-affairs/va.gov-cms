@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.checklist.field_related_benefit_hubs
     - field.field.node.checklist.field_related_information
     - field.field.node.checklist.field_related_links
+    - field.field.node.checklist.field_tags
     - node.type.checklist
   module:
     - entity_reference_revisions
@@ -70,8 +71,19 @@ third_party_settings:
         description: ''
         open: true
         required_fields: false
-      label: 'Learning Center categories'
+      label: 'Article categories'
       region: content
+    group_tags:
+      children: {  }
+      parent_name: ''
+      weight: 9
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Tags
+      region: hidden
 id: node.checklist.default
 targetEntityType: node
 bundle: checklist
@@ -83,7 +95,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_administration:
-    weight: 4
+    weight: 5
     label: above
     settings:
       link: true
@@ -192,8 +204,17 @@ content:
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
     region: content
+  field_tags:
+    type: entity_reference_revisions_entity_view
+    weight: 4
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
   links:
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }

@@ -1,0 +1,25 @@
+uuid: 03316060-1026-480c-a819-828c48e89125
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_markup
+    - paragraphs.paragraphs_type.audience_topics
+  module:
+    - markup
+id: paragraph.audience_topics.field_markup
+field_name: field_markup
+entity_type: paragraph
+bundle: audience_topics
+label: Markup
+description: ''
+required: false
+translatable: true
+default_value:
+  - {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: "<p>Select tags for your article (minimum of 1, max of 4).<br />\r\nTags allow users to see more articles for that tag.<br />\r\nSelect one to four tags that are most relevant for this article.<br />\r\nYou can select a combination of Topics and Audiences.</p>\r\n"
+    format: rich_text
+field_type: markup
