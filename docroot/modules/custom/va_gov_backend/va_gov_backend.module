@@ -830,18 +830,74 @@ function va_gov_backend_mail_alter(&$message) {
  */
 function va_gov_backend_rebuild() {
   // Update the drupal state to display git info in admin toolbar.
+  $environment = \Drupal::config('environment_indicator.indicator')->get('name');
   $branch = mb_strimwidth(exec('git rev-parse --abbrev-ref HEAD'), 0, 20, '...') ?? 'git unknown';
-  $tag_hash = trim(exec('git describe --tags')) ?? '--';
-  if ($branch === 'HEAD') {
-    // In BRD environment or checked out a tag/commit directly, show no branch.
-    $indicator = $tag_hash;
+  $commit_hash = trim(exec('git rev-parse --short HEAD'));
+  $git_tag = exec("git tag --points-at $commit_hash");
+  // Remove the 'cms/' from the tag that looks like 'cms/v0.0.190'.
+  $git_tag = str_replace('cms/v', '', $git_tag);
+
+  $brd = [
+    'Development',
+    'Staging',
+    'Production',
+  ];
+
+  if (($environment === 'Production') && !empty($git_tag)) {
+    $indicator = "v{$git_tag}";
+  }
+  elseif (in_array($environment, $brd)) {
+    // We are in a BRD environment but with no tag.
+    $indicator = "v{$commit_hash}";
   }
   else {
-    // We are in not in BRD environment, so display branch.
-    $indicator = "Branch: {$branch}  Tag-SHA: {$tag_hash}";
+    // We are in not in a BRD environment, so display branch and SHA.
+    $indicator = "Branch: {$branch}  v{$commit_hash}";
   }
 
   \Drupal::state()->set("environment_indicator.current_release", $indicator);
+}
+
+/**
+ * Implements hook_toolbar().
+ *
+ * Defines Branch component in Admin Toolbar Menu.
+ */
+function va_gov_backend_toolbar() {
+  $items = [];
+  $items['branch'] = [
+    '#cache' => [
+      'contexts' => ['user.permissions'],
+    ],
+    '#type' => 'toolbar_item',
+    'tab' => [
+      '#type' => 'html_tag',
+      '#tag' => 'div',
+      '#value' => \Drupal::state()->get("environment_indicator.current_release"),
+      '#attributes' => [
+        'title' => 'See https://github.com/department-of-veterans-affairs/va.gov-cms for more info.',
+        'class' => ['toolbar-icon', 'toolbar-icon-branch'],
+      ],
+    ],
+    '#wrapper_attributes' => [
+      'class' => ['toolbar-tab', 'branch-toolbar-tab'],
+    ],
+    '#weight' => 100,
+  ];
+
+  return $items;
+}
+
+/**
+ * Disable the search tool in the toolbar menu.
+ */
+function va_gov_backend_toolbar_alter(&$items) {
+  if (!empty($items['administration_search'])) {
+    unset($items['administration_search']);
+  }
+  if (!empty($items['environment_indicator']['tab'])) {
+    unset($items['environment_indicator']['tab']);
+  }
 }
 
 /**

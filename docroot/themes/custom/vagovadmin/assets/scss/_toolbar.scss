@@ -1,0 +1,69 @@
+.toolbar-bar {
+  .toolbar-icon {
+    // Help center icon.
+    &-toolbar-menu-cms_help_center {
+      &:before {
+        background-image: url(/core/misc/icons/bebebe/questionmark-disc.svg)
+      }
+
+      &.is-active:before {
+        background-image: url(/core/misc/icons/ffffff/questionmark-disc.svg)
+      }
+    }
+
+    // Sections icon.
+    &-toolbar-menu-sections {
+      &:before {
+        background-image: url(../../images/icons/sections-bebebe.svg)
+      }
+
+      &.is-active:before {
+        background-image: url(../../images/icons/sections-ffffff.svg)
+      }
+    }
+
+    // Report a bug.
+    &-link-toolbar-menu-menu-link-content-34a97e62-ff2e-4595-979f-29667167a8a0:before {
+      background-image: url(/core/misc/icons/000000/questionmark-disc.svg)
+    }
+
+    // Access a training.
+    &-link-toolbar-menu-menu-link-content-a3b58900-3cc0-4bf1-a8df-5c976d37315b:before {
+      background-image: url(../../images/icons/video-000000.svg)
+    }
+
+    // Report a bug.
+    &-link-toolbar-menu-menu-link-content-1d2e86ad-54f3-4616-ad8f-7b755a0729a7:before {
+      background-image: url(../../images/icons/bug-000000.svg)
+    }
+
+    // Contact Help Desk.
+    &-link-toolbar-menu-menu-link-content-35df8a6e-b85e-46ff-85b8-e9fdcb9db102:before {
+      background-image: url(../../images/icons/headset-000000.svg)
+    }
+
+    // News & announcements.
+    &-link-toolbar-menu-menu-link-content-0fd9f3c9-2f80-461f-b2d2-9465319649f0:before {
+      background-image: url(../../images/icons/megaphone-000000.svg)
+    }
+  }
+
+  .toolbar-tab {
+
+      // Special treatment for the tab showing the indicator.
+      &.branch-toolbar-tab {
+        float: right;
+
+        .toolbar-item {
+          padding-left: 1.333em; // No icon.
+          cursor: auto; // Remove the pointer cursor.
+
+          // Remove hover behaviors.
+          &:hover {
+            text-decoration: none;
+            background-image: none;
+          }
+        }
+      }
+    }
+}
