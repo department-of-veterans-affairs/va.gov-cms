@@ -26,6 +26,10 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Alert (single) | Markup | field_markup | Markup |  | 1 | Markup | Translatable |
 | Paragraph type | Alert (single) | Non-reusable Alert | field_alert_non_reusable_ref | Entity reference revisions |  | 1 | Paragraphs Classic |  |
 | Paragraph type | Alert (single) | Reusable alert | field_alert_block_reference | Entity reference |  | 1 | Entity browser | Translatable |
+| Paragraph type | Audience & Topics | Audience | field_audience_selection | List (text) |  | 1 | Select list |  |
+| Paragraph type | Audience & Topics | Beneficiares | field_audience_beneficiares | Entity reference |  | 1 | Check boxes/radio buttons |  |
+| Paragraph type | Audience & Topics | Markup | field_markup | Markup |  | 1 | Markup | Translatable  |
+| Paragraph type | Audience & Topics | Topics | field_topics | Entity reference |  | 4 | Check boxes/radio buttons |  |
 | Paragraph type | Button | Button Label | field_button_label | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Button | Button Link | field_button_link | Link |  | 1 | Link |  |
 | Paragraph type | Checklist | Checklist sections | field_checklist_sections | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |

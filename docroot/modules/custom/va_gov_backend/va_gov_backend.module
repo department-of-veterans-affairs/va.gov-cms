@@ -71,7 +71,6 @@ function va_gov_backend_form_user_role_form_alter(array &$form, FormStateInterfa
   ];
 
   $form['#entity_builders'][] = 'va_gov_backend_form_user_role_form_builder';
-
 }
 
 /**
@@ -179,6 +178,15 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     $form['#validate'][] = '_va_gov_backend_contact_information_validation';
   }
 
+  // Add custom behavior for Audience & Topics paragraph form.
+  if (isset($form['field_tags'])) {
+    // Add custom validation.
+    $form['#validate'][] = '_va_gov_backend_audience_topics_validation';
+
+    // Add the helper JS library.
+    $form['field_tags']['widget']['#attached']['library'][] = 'va_gov_backend/audience_topics';
+  }
+
   $targets = [
     'field_office',
     'field_listing',
@@ -240,11 +248,48 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
       '#value' => 'Save draft and continue editing',
       '#submit' => ['::submitForm', 'va_gov_backend_form_alter_submit'],
     ];
+
     // Remove the default preview button from types not in workflow.
     $node_type = $form_state->getFormObject()->getEntity()->getType();
     $types_in_workflow = \Drupal::entityTypeManager()->getStorage('workflow')->load('editorial')->get('type_settings')['entity_types']['node'];
     if (!in_array($node_type, $types_in_workflow)) {
       unset($form['actions']['preview']);
+    }
+  }
+}
+
+/**
+ * Custom validation callback for the audience_topics paragraph type.
+ *
+ * @param array $form
+ *   The exposed widget form array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ */
+function _va_gov_backend_audience_topics_validation(array $form, FormStateInterface &$form_state) {
+  if (!empty($form_state->getValue('field_tags'))) {
+    // Ensure that at least 1 and no more than 4 tags are selected
+    // between the Topic and Audience fields.
+    $tag_count = 0;
+
+    if (isset($form_state->getValue('field_tags')[0])) {
+      $tags_paragraph_values = $form_state->getValue('field_tags')[0];
+
+      // Account for the fact that it's possible to select 'N/A'
+      // for the beneficiary value.
+      if (!empty($tags_paragraph_values['subform']['field_audience_beneficiares'][0]['target_id'])) {
+        $tag_count += 1;
+      }
+      if (!empty($tags_paragraph_values['subform']['field_topics'])) {
+        $tag_count += count($tags_paragraph_values['subform']['field_topics']);
+      }
+    }
+
+    if ($tag_count == 0) {
+      $form_state->setErrorByName('field_tags][0][subform][field_topics', t('Please select at least one Topic or Audience tag.'));
+    }
+    elseif ($tag_count > 4) {
+      $form_state->setErrorByName('field_tags][0][subform][field_topics', t('No more than 4 Topic/Audience tags may be selected.'));
     }
   }
 }
