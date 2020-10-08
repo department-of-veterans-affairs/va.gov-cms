@@ -19,7 +19,9 @@ This has been extended to all environments (Prod,Staging,Dev) and CMS-TEST Infra
 ### References
 
 https://plugins.jenkins.io/lockable-resources/
+
 https://github.com/jenkinsci/lockable-resources-plugin
+
 https://github.com/department-of-veterans-affairs/va.gov-cms/issues/2890
 
 ## Jobs That Implement Lockable Resources
