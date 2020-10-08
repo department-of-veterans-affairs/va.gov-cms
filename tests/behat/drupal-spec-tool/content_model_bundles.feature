@@ -56,6 +56,7 @@ Feature: Content model bundles
 | Address | address | Paragraph type | An address block. |
 | Alert | alert | Paragraph type | A reusable or non-reusable alert, either "information status" or "warning status". |
 | Alert (single) | alert_single | Paragraph type |  |
+| Audience & Topics | audience_topics | Paragraph type | Audience & Topic selection for "Resources and Support" articles. |
 | Button | button | Paragraph type | Button with a label and link field. |
 | Checklist | checklist | Paragraph type |  |
 | Checklist section | checklist_item | Paragraph type |  |

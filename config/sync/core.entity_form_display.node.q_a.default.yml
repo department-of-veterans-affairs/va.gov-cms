@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.q_a.field_related_benefit_hubs
     - field.field.node.q_a.field_related_information
     - field.field.node.q_a.field_related_links
+    - field.field.node.q_a.field_tags
     - node.type.q_a
     - workflows.workflow.editorial
   module:
@@ -32,7 +33,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: fieldset
       format_settings:
         id: ''
@@ -73,7 +74,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details_sidebar
       format_settings:
         description: ''
@@ -110,7 +111,7 @@ third_party_settings:
         required_fields: true
         id: ''
         classes: ''
-      label: 'Learning Center categories'
+      label: 'Article categories'
       region: content
     group_other_categories:
       children:
@@ -138,6 +139,19 @@ third_party_settings:
         description: ''
         required_fields: false
       label: 'Contact information'
+      region: content
+    group_tags:
+      children:
+        - field_tags
+      parent_name: ''
+      weight: 8
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Tags
       region: content
 id: node.q_a.default
 targetEntityType: node
@@ -278,6 +292,18 @@ content:
     third_party_settings: {  }
     type: paragraphs
     region: content
+  field_tags:
+    weight: 13
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+    region: content
   moderation_state:
     type: moderation_state_default
     weight: 9
@@ -286,7 +312,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -305,7 +331,7 @@ content:
       use_field_maxlength: false
     third_party_settings: {  }
   url_redirects:
-    weight: 11
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }

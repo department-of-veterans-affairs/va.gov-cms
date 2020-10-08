@@ -9,6 +9,13 @@
   }
 }
 
+// Main column should be 4/5 of width on user guide pages instead of default 3/4.
+@media (min-width: 800px) {
+  .node-columns main {
+    flex: 4 0;
+  }
+}
+
 .field--name-field-intro-text {
   &.field__item {
     @include intro-text;
@@ -18,7 +25,7 @@
 // Define a grid for lists of teasers and link teasers.
 @mixin user-guide-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-gap: 1rem 2rem;
 }
 
@@ -68,3 +75,77 @@ h2.section-header {
     padding: 0 0 .4rem;
   }
 }
+
+#block-vagovcmsdocumentation {
+  * {
+    box-shadow: border-box;
+  }
+
+  background: rgb(217, 238, 251); // Light blue.
+  padding: 1rem;
+
+  li {
+    list-style: none;
+    margin: 1rem 0;
+  }
+
+  a,
+  a.is-active {
+    color: #0a0a0a;
+    font-size: 1rem;
+    font-weight: bold;
+    padding-left: 2.75em;
+
+    &:hover,
+    &:active {
+      color: #2a2a2a;
+    }
+
+    &:before {
+      //background-size: 100% auto;
+      //left: 0.6667em;
+      //width: 30px;
+    }
+
+    &.icon {
+      position: relative;
+
+      &:before {
+        position: absolute;
+        top: -9px;
+        //left: 0.6667em;
+        display: block;
+        width: 30px;
+        height: 30px;
+        //height: 100%;
+        content: "";
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+        background-position: center center;
+        background-size: 100% auto;
+      }
+
+      &.cms-help-center:before {
+        background-image: url(/core/misc/icons/000000/questionmark-disc.svg);
+      }
+
+      &.helpdesk:before {
+        background-image: url(../../images/icons/headset-000000.svg);
+      }
+
+      &.bug:before {
+        background-image: url(../../images/icons/bug-000000.svg);
+      }
+
+      &.training:before {
+        background-image: url(../../images/icons/video-000000.svg);
+      }
+
+      &.megaphone:before {
+        background-image: url(../../images/icons/megaphone-000000.svg);
+      }
+    }
+  }
+}
+
