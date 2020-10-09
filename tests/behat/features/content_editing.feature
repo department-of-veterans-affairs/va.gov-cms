@@ -21,3 +21,32 @@ Feature: CMS Users may effectively create & edit content
 
     # Confirm that a user may add unlimited Step-by-step fields.
     And the "#edit-field-steps-add-more-add-more-button-step-by-step" element should exist
+
+@content_editing
+  Scenario: Log in and confirm that "Checklist" node edit has the correct field settings
+    When I am logged in as a user with the "administrator" role
+    And I am at "node/add/checklist"
+    # Create our initial draft
+    And I fill in "Page title" with "Behat save and continue new test"
+    And I fill in "#edit-field-meta-title-0-value" with the text "test meta title"
+    And I fill in "#edit-field-description-0-value" with the text "test meta description"
+    And I fill in "#edit-field-primary-category" with the text "282"
+    And I fill in "#edit-field-buttons-0-subform-field-button-label-0-value" with the text "test button label"
+    And I fill in "#edit-field-buttons-0-subform-field-button-link-0-uri" with the text "<nolink>"
+    And I fill in "#edit-field-checklist-0-subform-field-section-header-0-value" with the text "Behat save and continue new test section header 1"
+    And I fill in "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-section-header-0-value" with the text "Behat save and continue new test section header 2"
+    And I fill in "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-checklist-items-0-value" with the text "Behat save and continue new test checklist item 1"
+    And I fill in "#edit-field-administration" with the text "5"
+
+    # Select four topics.
+    And I check "Burials and memorials"
+    And I check "Careers and employment"
+    And I check "Decision reviews and appeals"
+    And I check "Disability"
+
+    # Also select an audience.
+    And I select "268" from "field_tags[0][subform][field_audience_beneficiares]"
+    And I press "Save draft and continue editing"
+
+    # Confirm that our custom validation for Audiences & Topics is working.
+    Then I should see "No more than 4 Topic/Audience tags may be selected"

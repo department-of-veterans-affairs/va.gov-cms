@@ -1,0 +1,21 @@
+uuid: abe5b09e-6157-44dd-b9c6-ce7225ca3220
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_audience_selection
+    - paragraphs.paragraphs_type.audience_topics
+  module:
+    - options
+id: paragraph.audience_topics.field_audience_selection
+field_name: field_audience_selection
+entity_type: paragraph
+bundle: audience_topics
+label: Audience
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

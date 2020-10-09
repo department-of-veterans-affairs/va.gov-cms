@@ -21,6 +21,7 @@ Feature: Views
 | Content served from Drupal | content_served_from_drupal | Content | Enabled | An exportable list of all content served from Drupal |
 | Content entity browsers | content_entity_browsers | Content | Enabled | Collection of Entity Browsers to use for field widgets configuration in form displays. |
 | Content Entity Reference Source | content_entity_reference_source | Content | Enabled |  |
+| Date fields | date_fields | Content | Enabled |  |
 | Facility Governance | facility_governance | Content | Enabled | Provides facility management tools. |
 | Files | files | Files | Enabled | Find and manage files. |
 | Frontpage | frontpage | Content | Enabled | All content promoted to frontpage |
@@ -58,6 +59,7 @@ Feature: Views
 | Services | services | Content | Enabled | Lists of services for facility pages, health services lists, etc |
 | Recent content | content_recent | Content | Disabled | Recent content. |
 | Taxonomy entity browsers | taxonomy_entity_browsers | Taxonomy terms | Enabled |  |
+| VAMC top task pages | vamc_top_task_pages | Content | Enabled |  |
 
   @dst @views_displays
      Scenario: Views displays
@@ -97,6 +99,8 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
 | Custom block library | Master | default | Master |
 | Custom block library | Page | page_1 | Page |
+| Date fields | Master | default | Master |
+| Date fields | Page | page_1 | Page |
 | Facility Governance | Master | default | Master |
 | Facility Governance | Page | page_1 | Page |
 | Files | Master | default | Master |
@@ -157,6 +161,9 @@ Feature: Views
 | VAMC alerts and operating statuses | Page | page_1 | Page |
 | VAMC operating statuses | Master | default | Master |
 | VAMC operating statuses | Entity Reference | entity_reference_1 | Entity Reference |
+| VAMC top task pages | Master | default | Master |
+| VAMC top task pages | Page | page_1 | Page |
+| VAMC top task pages | Data export | data_export_1 | Data export |
 | VAMCs | Master | default | Master |
 | VHA Health service taxonomy | Page | page_1 | Page |
 | VHA Health service taxonomy | Data export | data_export_1 | Data export |

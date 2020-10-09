@@ -5,34 +5,26 @@ dependencies:
   config:
     - system.menu.documentation
   module:
-    - node
     - system
   theme:
     - vagovadmin
 id: va.govcmsdocumentation
 theme: vagovadmin
-region: sidebar_first
-weight: 0
+region: sidebar_second
+weight: -15
 provider: null
 plugin: 'system_menu_block:documentation'
 settings:
   id: 'system_menu_block:documentation'
-  label: 'VA.gov CMS documentation'
+  label: 'CMS Help center CTAs'
   provider: system
-  label_display: visible
+  label_display: '0'
   level: 1
-  depth: 0
+  depth: 1
   expand_all_items: false
 visibility:
-  node_type:
-    id: node_type
-    bundles:
-      documentation_page: documentation_page
-    negate: false
-    context_mapping:
-      node: '@node.node_route_context:node'
   request_path:
     id: request_path
-    pages: '/documentatio*'
+    pages: '/help/*'
     negate: false
     context_mapping: {  }
