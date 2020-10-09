@@ -4,6 +4,21 @@
  *
  */
 
+// We have 3 different environments: Lando, DevShop and BRD and this file gets
+// called in 2 different scenarios and 2 different paths (it is copied to
+// '/docroot/vendor/...' and sometimes called from there too) so it is hard to
+// determine the absolute path dynamically. So just hardcoding here for now:
+if (getenv('LANDO_INFO')) {
+  $samlsessiondb_path = '/app/samlsessiondb.sq3';
+}
+elseif (getenv('HOSTNAME') && getenv('HOSTNAME') === 'devshop.cms.va.gov') {
+  // This doesn't work right now, not sure how to get this path on DevShop yet.
+  $samlsessiondb_path = $app_root . '/' . $site_path . '/samlsessiondb.sq3';
+}
+elseif (getenv('IS_BRD')) {
+  $samlsessiondb_path = '/var/www/cms/samlsessiondb.sq3';
+}
+
 $config = [
 
     /*******************************
@@ -1086,7 +1101,7 @@ $config = [
      * See http://www.php.net/manual/en/pdo.drivers.php for the various
      * syntaxes.
      */
-    'store.sql.dsn'                 => "sqlite:" . getcwd() . "/samlsessiondb.sq3",
+    'store.sql.dsn'                 => 'sqlite:' . $samlsessiondb_path,
 
     /*
      * The username and password to use when connecting to the database.
