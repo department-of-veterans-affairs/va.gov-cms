@@ -40,15 +40,22 @@ Feature: Save and continue button works as expected.
     And I fill in "#edit-field-buttons-0-subform-field-button-label-0-value" with the text "test button label - edited"
     And I fill in "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-section-header-0-value" with the text "Behat save and continue new test section header 2 - edited"
     And I press "Save draft and continue editing"
+
+    # Confirm that the correct values are shown on preview.
     Then I visit the "" page for a node with the title "Behat save and continue new test - edited"
     Then I should see "Behat save and continue new test - edited"
-    Then I should see "test meta title"
-    Then I should see "test meta description - edited"
-    Then I should see "test button label - edited"
-    Then I should see "Behat save and continue new test section header 1"
-    Then I should see "Behat save and continue new test section header 2 - edited"
-    Then I should see "Behat save and continue new test checklist item 1"
-    Then I visit the "edit" page for a node with the title "Behat save and continue new test - edited"
+    And I should see "test meta title"
+    And I should see "test meta description - edited"
+    And I should see "test button label - edited"
+    And I should see "Behat save and continue new test section header 1"
+    And I should see "Behat save and continue new test section header 2 - edited"
+    And I should see "Behat save and continue new test checklist item 1"
+
+    # Confirm that the moderation history and state are shown correctly.
+    And I should see "Draft" in the ".views-field-moderation-state" element
+    Then I visit the "Moderation History" page for a node with the title "Behat save and continue new test - edited"
+    And I should see "Set to Draft on " in the ".views-field-moderation-state" element
 
     # Make sure we are in draft state
-    Then the "draft" option from "#edit-moderation-state-0-state" should be selected
+    Then I visit the "edit" page for a node with the title "Behat save and continue new test - edited"
+    And the "draft" option from "#edit-moderation-state-0-state" should be selected
