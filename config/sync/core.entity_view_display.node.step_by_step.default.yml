@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.step_by_step.field_related_information
     - field.field.node.step_by_step.field_related_links
     - field.field.node.step_by_step.field_steps
+    - field.field.node.step_by_step.field_table_of_contents_boolean
     - field.field.node.step_by_step.field_tags
     - node.type.step_by_step
   module:
@@ -42,6 +43,7 @@ third_party_settings:
     group_content:
       children:
         - field_intro_text_limited_html
+        - field_table_of_contents_boolean
         - field_alert_single
         - field_buttons
         - field_steps
@@ -90,7 +92,7 @@ content:
     type: entity_reference_label
     region: content
   field_alert_single:
-    weight: 6
+    weight: 7
     label: above
     settings:
       view_mode: default
@@ -100,7 +102,7 @@ content:
     region: content
   field_buttons:
     type: entity_reference_revisions_entity_view
-    weight: 7
+    weight: 8
     label: above
     settings:
       view_mode: default
@@ -108,7 +110,7 @@ content:
     third_party_settings: {  }
     region: content
   field_buttons_repeat:
-    weight: 9
+    weight: 10
     label: above
     settings:
       format: default
@@ -166,7 +168,7 @@ content:
     type: entity_reference_label
     region: content
   field_related_benefit_hubs:
-    weight: 10
+    weight: 11
     label: above
     settings:
       view_mode: teaser
@@ -185,12 +187,22 @@ content:
     region: content
   field_steps:
     type: entity_reference_revisions_entity_view
-    weight: 8
+    weight: 9
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
+  field_table_of_contents_boolean:
+    weight: 6
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_tags:
     weight: 4
