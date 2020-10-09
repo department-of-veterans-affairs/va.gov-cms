@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.media_list_videos.field_related_benefit_hubs
     - field.field.node.media_list_videos.field_related_information
     - field.field.node.media_list_videos.field_related_links
+    - field.field.node.media_list_videos.field_table_of_contents_boolean
     - field.field.node.media_list_videos.field_tags
     - node.type.media_list_videos
   module:
@@ -42,6 +43,7 @@ third_party_settings:
     group_content:
       children:
         - field_intro_text_limited_html
+        - field_table_of_contents_boolean
         - field_alert_single
         - field_buttons
         - field_media_list_videos
@@ -91,7 +93,7 @@ content:
     region: content
   field_alert_single:
     type: entity_reference_revisions_entity_view
-    weight: 7
+    weight: 8
     label: above
     settings:
       view_mode: default
@@ -99,7 +101,7 @@ content:
     third_party_settings: {  }
     region: content
   field_buttons:
-    weight: 8
+    weight: 9
     label: above
     settings:
       view_mode: default
@@ -108,7 +110,7 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   field_buttons_repeat:
-    weight: 10
+    weight: 11
     label: above
     settings:
       format: default
@@ -143,7 +145,7 @@ content:
     region: content
   field_media_list_videos:
     type: entity_reference_revisions_entity_view
-    weight: 9
+    weight: 10
     label: above
     settings:
       view_mode: default
@@ -175,7 +177,7 @@ content:
     type: entity_reference_label
     region: content
   field_related_benefit_hubs:
-    weight: 11
+    weight: 12
     label: above
     settings:
       view_mode: teaser
@@ -191,6 +193,16 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
+  field_table_of_contents_boolean:
+    weight: 7
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_tags:
     weight: 4

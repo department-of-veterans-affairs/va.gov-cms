@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.basic_landing_page.field_intro_text_limited_html
     - field.field.node.basic_landing_page.field_meta_title
     - field.field.node.basic_landing_page.field_product
+    - field.field.node.basic_landing_page.field_table_of_contents_boolean
     - node.type.basic_landing_page
     - workflows.workflow.editorial
   module:
@@ -53,7 +54,7 @@ third_party_settings:
         - field_product
         - field_administration
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -70,7 +71,7 @@ third_party_settings:
         - revision_log
         - status
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: fieldset
       format_settings:
         id: ''
@@ -78,6 +79,20 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Editorial workflow'
+      region: content
+    group_in:
+      children:
+        - field_table_of_contents_boolean
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'Include table of contents?'
       region: content
 id: node.basic_landing_page.default
 targetEntityType: node
@@ -91,7 +106,7 @@ content:
     type: options_select
     region: content
   field_content_block:
-    weight: 2
+    weight: 3
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -162,6 +177,13 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  field_table_of_contents_boolean:
+    weight: 8
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
   moderation_state:
     type: moderation_state_default
     weight: 12
@@ -170,7 +192,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -196,7 +218,7 @@ content:
       count_html_characters: false
     third_party_settings: {  }
   url_redirects:
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }

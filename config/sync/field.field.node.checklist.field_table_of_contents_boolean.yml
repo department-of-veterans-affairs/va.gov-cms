@@ -1,0 +1,23 @@
+uuid: 39d73884-ec4f-4a8e-867b-16e9cb68ae11
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_table_of_contents_boolean
+    - node.type.checklist
+id: node.checklist.field_table_of_contents_boolean
+field_name: field_table_of_contents_boolean
+entity_type: node
+bundle: checklist
+label: 'Generate a table of contents from major headings'
+description: 'By checking this box, all &lt;h2&gt;''s below this point on the page will be linked with with anchor links. This helps users navigate content on very long pages. Do not check this box unless there is at least 2 h2''s on the page.'
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Include table of contents'
+  off_label: 'No table contents'
+field_type: boolean
