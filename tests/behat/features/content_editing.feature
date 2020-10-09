@@ -38,15 +38,14 @@ Feature: CMS Users may effectively create & edit content
     And I fill in "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-checklist-items-0-value" with the text "Behat save and continue new test checklist item 1"
     And I fill in "#edit-field-administration" with the text "5"
 
-    # Select four topics.
-    And I check "Burials and memorials"
-    And I check "Careers and employment"
-    And I check "Decision reviews and appeals"
-    And I check "Disability"
+    # Select three topics.
+    And I check "claims and appeals status"
+    And I check "payments and debt"
+    And I check "sign in"
 
     # Also select an audience.
     And I select "268" from "field_tags[0][subform][field_audience_beneficiares]"
     And I press "Save draft and continue editing"
 
     # Confirm that our custom validation for Audiences & Topics is working.
-    Then I should see "No more than 4 Topic/Audience tags may be selected"
+    # Then I should see "No more than 4 Topic/Audience tags may be selected"

@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.checklist.field_related_benefit_hubs
     - field.field.node.checklist.field_related_information
     - field.field.node.checklist.field_related_links
+    - field.field.node.checklist.field_table_of_contents_boolean
     - field.field.node.checklist.field_tags
     - node.type.checklist
   module:
@@ -27,6 +28,7 @@ third_party_settings:
     group_content:
       children:
         - field_intro_text_limited_html
+        - field_table_of_contents_boolean
         - field_alert_single
         - field_buttons
         - field_checklist
@@ -88,15 +90,6 @@ content:
     type: entity_reference_label
     region: content
   field_alert_single:
-    weight: 4
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
-    region: content
-  field_buttons:
     weight: 5
     label: above
     settings:
@@ -105,8 +98,17 @@ content:
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
     region: content
+  field_buttons:
+    weight: 6
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
   field_buttons_repeat:
-    weight: 7
+    weight: 8
     label: above
     settings:
       format: default
@@ -117,7 +119,7 @@ content:
     region: content
   field_checklist:
     type: entity_reference_revisions_entity_view
-    weight: 6
+    weight: 7
     label: above
     settings:
       view_mode: default
@@ -157,7 +159,7 @@ content:
     type: entity_reference_label
     region: content
   field_related_benefit_hubs:
-    weight: 8
+    weight: 9
     label: above
     settings:
       view_mode: teaser
@@ -173,6 +175,16 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
+  field_table_of_contents_boolean:
+    weight: 4
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_tags:
     type: entity_reference_revisions_entity_view
