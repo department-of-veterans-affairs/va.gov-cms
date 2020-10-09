@@ -262,6 +262,22 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 }
 
 /**
+ * Implements hook_field_group_build_pre_render_alter().
+ */
+function va_gov_backend_field_group_build_pre_render_alter(&$element) {
+  if ($form_id === 'node_q_a_form' && isset($element['group_q_a_page_components'])) {
+    // Add form states to the field group.
+    $element[$key]['#attributes']['class'][] = 'form-wrapper';
+    $element[$key]['#attributes']['class'][] = 'js-form-wrapper';
+    $element['group_q_a_page_components']['#states'] = [
+      'visible' => [
+        ':input[name="field_standalone_page"]' => ['checked' => TRUE],
+      ],
+    ];
+  }
+}
+
+/**
  * Custom validation callback for the audience_topics paragraph type.
  *
  * @param array $form
