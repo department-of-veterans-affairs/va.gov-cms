@@ -19,7 +19,7 @@ Feature: Save and continue button works as expected.
     And I fill in "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-section-header-0-value" with the text "Behat save and continue new test section header 2"
     And I fill in "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-checklist-items-0-value" with the text "Behat save and continue new test checklist item 1"
     And I fill in "#edit-field-administration" with the text "5"
-    And I check "Decision reviews and appeals"
+    And I check "claims and appeals status"
     And I press "Save draft and continue editing"
 
     # Confirm our values
