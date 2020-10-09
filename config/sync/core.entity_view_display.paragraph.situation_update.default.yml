@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.situation_update.field_date_and_time
+    - field.field.paragraph.situation_update.field_datetime_range_timezone
     - field.field.paragraph.situation_update.field_send_email_to_subscribers
     - field.field.paragraph.situation_update.field_wysiwyg
     - paragraphs.paragraphs_type.situation_update
@@ -42,4 +43,5 @@ content:
     type: text_default
     region: content
 hidden:
+  field_datetime_range_timezone: true
   search_api_excerpt: true

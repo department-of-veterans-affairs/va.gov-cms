@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.event.field_administration
     - field.field.node.event.field_body
     - field.field.node.event.field_date
+    - field.field.node.event.field_datetime_range_timezone
     - field.field.node.event.field_description
     - field.field.node.event.field_event_cost
     - field.field.node.event.field_event_cta
@@ -273,7 +274,8 @@ content:
     third_party_settings: {  }
   field_meta_tags:
     weight: 14
-    settings: {  }
+    settings:
+      sidebar: true
     third_party_settings: {  }
     type: metatag_firehose
     region: content
@@ -327,6 +329,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_datetime_range_timezone: true
   promote: true
   status: true
   sticky: true
