@@ -186,6 +186,9 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     // Add the helper JS library.
     $form['field_tags']['widget']['#attached']['library'][] = 'va_gov_backend/audience_topics';
   }
+  if (isset($form['field_datetime_range_timezone'])) {
+    _va_gov_backend_smart_date_formatting($form, $form_state);
+  };
 
   $targets = [
     'field_office',
@@ -291,6 +294,33 @@ function _va_gov_backend_audience_topics_validation(array $form, FormStateInterf
     elseif ($tag_count > 4) {
       $form_state->setErrorByName('field_tags][0][subform][field_topics', t('No more than 4 Topic/Audience tags may be selected.'));
     }
+  }
+}
+
+/**
+ * For formatting smart_date widget treatment.
+ *
+ * @param array $form
+ *   The node form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The node form state.
+ */
+function _va_gov_backend_smart_date_formatting(array &$form, FormStateInterface $form_state) {
+  $form_object = $form_state->getFormObject();
+  $type = $form_object->getEntity()->getEntityType()->id();
+  $bundle = $form_object->getEntity()->bundle();
+  // Move the help text from the bottom of the widget to the top.
+  $definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions($type, $bundle);
+  $description = $definitions['field_datetime_range_timezone']->get('description');
+  $form['field_datetime_range_timezone']['widget'][0]['value']['#prefix'] = '<div class="description">' . $description . '</div>';
+  unset($form['field_datetime_range_timezone']['widget'][0]['#description']);
+  // Only show start time unless event.
+  if ($bundle !== 'event') {
+    $form['field_datetime_range_timezone']['widget'][0]['end_value']['#attributes']['class'][] = 'hidden';
+    $form['field_datetime_range_timezone']['widget'][0]['duration']['#attributes']['class'][] = 'hidden';
+    unset($form['field_datetime_range_timezone']['widget'][0]['duration']['#title']);
+    unset($form['field_datetime_range_timezone']['widget'][0]['end_value']['#title']);
+    unset($form['field_datetime_range_timezone']['widget'][0]['value']['#title']);
   }
 }
 
@@ -741,6 +771,9 @@ function va_gov_backend_page_attachments(array &$attachments) {
   // Bypass and use behaviors directly.
   $attachments['#attached']['library'][] = 'va_gov_backend/service_location_address';
   $attachments['#attached']['library'][] = 'va_gov_backend/contact_paragraphs_interactions';
+
+  // Handle smart_date widget treatments.
+  $attachments['#attached']['library'][] = 'va_gov_backend/smart_date_interactions';
 
   $is_admin = \Drupal::service('router.admin_context')->isAdminRoute();
   if ($is_admin) {
