@@ -56,8 +56,8 @@ $config['system.performance']['response']['gzip'] = FALSE;
 $config['views.settings']['ui']['show']['sql_query']['enabled'] = TRUE;
 $config['views.settings']['ui']['show']['performance_statistics'] = TRUE;
 $config['system.logging']['error_level'] = 'all';
-$config['environment_indicator.indicator']['bg_color'] = '#0071B8';
-$config['environment_indicator.indicator']['fg_color'] = '#FFFFFF';
+$config['environment_indicator.indicator']['bg_color'] = '#79D4F0'; // light blue.
+$config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'CI';
 
 $settings['trusted_host_patterns'] = [

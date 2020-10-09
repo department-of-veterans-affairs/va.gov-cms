@@ -1,0 +1,27 @@
+uuid: 292438b3-eb03-4224-a89a-ab95475d377a
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_audience_selection
+field_name: field_audience_selection
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: beneficiaries
+      label: Beneficiaries
+    -
+      value: non-beneficiaries
+      label: Non-beneficiaries
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

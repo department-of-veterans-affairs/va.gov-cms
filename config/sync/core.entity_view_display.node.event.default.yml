@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.event.field_administration
     - field.field.node.event.field_body
     - field.field.node.event.field_date
+    - field.field.node.event.field_datetime_range_timezone
     - field.field.node.event.field_description
     - field.field.node.event.field_event_cost
     - field.field.node.event.field_event_cta
@@ -35,7 +36,6 @@ third_party_settings:
   field_group:
     group_meta:
       children:
-        - field_office
         - field_description
       parent_name: ''
       weight: 1
@@ -257,6 +257,7 @@ content:
     region: content
 hidden:
   field_administration: true
+  field_datetime_range_timezone: true
   field_listing: true
   field_meta_tags: true
   links: true

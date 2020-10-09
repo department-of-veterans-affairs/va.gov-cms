@@ -71,7 +71,6 @@ function va_gov_backend_form_user_role_form_alter(array &$form, FormStateInterfa
   ];
 
   $form['#entity_builders'][] = 'va_gov_backend_form_user_role_form_builder';
-
 }
 
 /**
@@ -179,6 +178,18 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     $form['#validate'][] = '_va_gov_backend_contact_information_validation';
   }
 
+  // Add custom behavior for Audience & Topics paragraph form.
+  if (isset($form['field_tags'])) {
+    // Add custom validation.
+    $form['#validate'][] = '_va_gov_backend_audience_topics_validation';
+
+    // Add the helper JS library.
+    $form['field_tags']['widget']['#attached']['library'][] = 'va_gov_backend/audience_topics';
+  }
+  if (isset($form['field_datetime_range_timezone'])) {
+    _va_gov_backend_smart_date_formatting($form, $form_state);
+  };
+
   $targets = [
     'field_office',
     'field_listing',
@@ -240,12 +251,76 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
       '#value' => 'Save draft and continue editing',
       '#submit' => ['::submitForm', 'va_gov_backend_form_alter_submit'],
     ];
+
     // Remove the default preview button from types not in workflow.
     $node_type = $form_state->getFormObject()->getEntity()->getType();
     $types_in_workflow = \Drupal::entityTypeManager()->getStorage('workflow')->load('editorial')->get('type_settings')['entity_types']['node'];
     if (!in_array($node_type, $types_in_workflow)) {
       unset($form['actions']['preview']);
     }
+  }
+}
+
+/**
+ * Custom validation callback for the audience_topics paragraph type.
+ *
+ * @param array $form
+ *   The exposed widget form array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ */
+function _va_gov_backend_audience_topics_validation(array $form, FormStateInterface &$form_state) {
+  if (!empty($form_state->getValue('field_tags'))) {
+    // Ensure that at least 1 and no more than 4 tags are selected
+    // between the Topic and Audience fields.
+    $tag_count = 0;
+
+    if (isset($form_state->getValue('field_tags')[0])) {
+      $tags_paragraph_values = $form_state->getValue('field_tags')[0];
+
+      // Account for the fact that it's possible to select 'N/A'
+      // for the beneficiary value.
+      if (!empty($tags_paragraph_values['subform']['field_audience_beneficiares'][0]['target_id'])) {
+        $tag_count += 1;
+      }
+      if (!empty($tags_paragraph_values['subform']['field_topics'])) {
+        $tag_count += count($tags_paragraph_values['subform']['field_topics']);
+      }
+    }
+
+    if ($tag_count == 0) {
+      $form_state->setErrorByName('field_tags][0][subform][field_topics', t('Please select at least one Topic or Audience tag.'));
+    }
+    elseif ($tag_count > 4) {
+      $form_state->setErrorByName('field_tags][0][subform][field_topics', t('No more than 4 Topic/Audience tags may be selected.'));
+    }
+  }
+}
+
+/**
+ * For formatting smart_date widget treatment.
+ *
+ * @param array $form
+ *   The node form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The node form state.
+ */
+function _va_gov_backend_smart_date_formatting(array &$form, FormStateInterface $form_state) {
+  $form_object = $form_state->getFormObject();
+  $type = $form_object->getEntity()->getEntityType()->id();
+  $bundle = $form_object->getEntity()->bundle();
+  // Move the help text from the bottom of the widget to the top.
+  $definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions($type, $bundle);
+  $description = $definitions['field_datetime_range_timezone']->get('description');
+  $form['field_datetime_range_timezone']['widget'][0]['value']['#prefix'] = '<div class="description">' . $description . '</div>';
+  unset($form['field_datetime_range_timezone']['widget'][0]['#description']);
+  // Only show start time unless event.
+  if ($bundle !== 'event') {
+    $form['field_datetime_range_timezone']['widget'][0]['end_value']['#attributes']['class'][] = 'hidden';
+    $form['field_datetime_range_timezone']['widget'][0]['duration']['#attributes']['class'][] = 'hidden';
+    unset($form['field_datetime_range_timezone']['widget'][0]['duration']['#title']);
+    unset($form['field_datetime_range_timezone']['widget'][0]['end_value']['#title']);
+    unset($form['field_datetime_range_timezone']['widget'][0]['value']['#title']);
   }
 }
 
@@ -697,6 +772,9 @@ function va_gov_backend_page_attachments(array &$attachments) {
   $attachments['#attached']['library'][] = 'va_gov_backend/service_location_address';
   $attachments['#attached']['library'][] = 'va_gov_backend/contact_paragraphs_interactions';
 
+  // Handle smart_date widget treatments.
+  $attachments['#attached']['library'][] = 'va_gov_backend/smart_date_interactions';
+
   $is_admin = \Drupal::service('router.admin_context')->isAdminRoute();
   if ($is_admin) {
     // Add custom css for paragraph browser.
@@ -785,18 +863,74 @@ function va_gov_backend_mail_alter(&$message) {
  */
 function va_gov_backend_rebuild() {
   // Update the drupal state to display git info in admin toolbar.
+  $environment = \Drupal::config('environment_indicator.indicator')->get('name');
   $branch = mb_strimwidth(exec('git rev-parse --abbrev-ref HEAD'), 0, 20, '...') ?? 'git unknown';
-  $tag_hash = trim(exec('git describe --tags')) ?? '--';
-  if ($branch === 'HEAD') {
-    // In BRD environment or checked out a tag/commit directly, show no branch.
-    $indicator = $tag_hash;
+  $commit_hash = trim(exec('git rev-parse --short HEAD'));
+  $git_tag = exec("git tag --points-at $commit_hash");
+  // Remove the 'cms/' from the tag that looks like 'cms/v0.0.190'.
+  $git_tag = str_replace('cms/v', '', $git_tag);
+
+  $brd = [
+    'Development',
+    'Staging',
+    'Production',
+  ];
+
+  if (($environment === 'Production') && !empty($git_tag)) {
+    $indicator = "v{$git_tag}";
+  }
+  elseif (in_array($environment, $brd)) {
+    // We are in a BRD environment but with no tag.
+    $indicator = "v{$commit_hash}";
   }
   else {
-    // We are in not in BRD environment, so display branch.
-    $indicator = "Branch: {$branch}  Tag-SHA: {$tag_hash}";
+    // We are in not in a BRD environment, so display branch and SHA.
+    $indicator = "Branch: {$branch}  v{$commit_hash}";
   }
 
   \Drupal::state()->set("environment_indicator.current_release", $indicator);
+}
+
+/**
+ * Implements hook_toolbar().
+ *
+ * Defines Branch component in Admin Toolbar Menu.
+ */
+function va_gov_backend_toolbar() {
+  $items = [];
+  $items['branch'] = [
+    '#cache' => [
+      'contexts' => ['user.permissions'],
+    ],
+    '#type' => 'toolbar_item',
+    'tab' => [
+      '#type' => 'html_tag',
+      '#tag' => 'div',
+      '#value' => \Drupal::state()->get("environment_indicator.current_release"),
+      '#attributes' => [
+        'title' => 'See https://github.com/department-of-veterans-affairs/va.gov-cms for more info.',
+        'class' => ['toolbar-icon', 'toolbar-icon-branch'],
+      ],
+    ],
+    '#wrapper_attributes' => [
+      'class' => ['toolbar-tab', 'branch-toolbar-tab'],
+    ],
+    '#weight' => 100,
+  ];
+
+  return $items;
+}
+
+/**
+ * Disable the search tool in the toolbar menu.
+ */
+function va_gov_backend_toolbar_alter(&$items) {
+  if (!empty($items['administration_search'])) {
+    unset($items['administration_search']);
+  }
+  if (!empty($items['environment_indicator']['tab'])) {
+    unset($items['environment_indicator']['tab']);
+  }
 }
 
 /**
