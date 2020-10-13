@@ -44,7 +44,8 @@ driver.get(URL)
         AXE_BUILDER
             .analyze((err, results) => {
                 if (err) {
-                    return done(err);
+                    console.error(err);
+                    return;
                 }
 
                 totalViolations = totalViolations + results.violations.length;
