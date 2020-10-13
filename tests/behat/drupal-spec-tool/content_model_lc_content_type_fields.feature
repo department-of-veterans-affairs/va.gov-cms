@@ -12,6 +12,7 @@ Feature: Content model: LC Content Type fields
 | Content type | Checklist | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Checklist | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Checklist | Checklist | field_checklist | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
+| Content type | Checklist | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | Checklist | Page introduction | field_intro_text_limited_html | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Checklist | Need more help? | field_contact_information | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Checklist | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
@@ -53,6 +54,7 @@ Feature: Content model: LC Content Type fields
 | Content type | Media list - Images | Tags | field_tags | Entity reference revisions |  | 1 | Paragraphs Classic |  |
 | Content type | Media list - Images | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Media list - Images | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs EXPERIMENTAL | Translatable |
+| Content type | Media list - Images | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | Media list - Images | Need more help? | field_contact_information | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Media list - Images | Media list - Images | field_media_list_images | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | Media list - Images | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
@@ -66,6 +68,7 @@ Feature: Content model: LC Content Type fields
 | Content type | Media list - Videos | Tags | field_tags | Entity reference revisions |  | 1 | Paragraphs Classic |  |
 | Content type | Media list - Videos | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic |  |
 | Content type | Media list - Videos | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs EXPERIMENTAL | Translatable |
+| Content type | Media list - Videos | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | Media list - Videos | Need more help? | field_contact_information | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Media list - Videos | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Media list - Videos | Page introduction | field_intro_text_limited_html | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
@@ -87,6 +90,7 @@ Feature: Content model: LC Content Type fields
 | Content type | Q&A | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | Translatable |
 | Content type | Step-by-Step | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
 | Content type | Step-by-Step | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs Classic |  |
+| Content type | Step-by-Step | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | Step-by-Step | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Step-by-Step | Page introduction | field_intro_text_limited_html | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Step-by-Step | Need more help? | field_contact_information | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
