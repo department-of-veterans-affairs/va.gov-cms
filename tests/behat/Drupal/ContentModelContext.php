@@ -2,9 +2,10 @@
 
 namespace CustomDrupal;
 
-use Drupal\DrupalExtension\Context\RawDrupalContext;
+use Behat\Behat\Exception\BehaviorException;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\TableNode;
+use Drupal\DrupalExtension\Context\RawDrupalContext;
 use TravisCarden\BehatTableComparison\TableEqualityAssertion;
 
 /**
@@ -57,6 +58,22 @@ class ContentModelContext extends RawDrupalContext implements SnippetAcceptingCo
       ->setMissingRowsLabel('Missing patterns')
       ->setUnexpectedRowsLabel('Unexpected patterns')
       ->assert();
+  }
+
+  /**
+   * @Then /^I select the "([^"]*)" radio button$/
+   *
+   * @param $radioLabel
+   * @throws Behat\Behat\Exception\BehaviorException
+   */
+  public function iSelectTheRadioButton($radioLabel) {
+    $radioButton = $this->getSession()->getPage()->findField($radioLabel);
+
+    if (null === $radioButton) {
+      throw new BehaviorException("Element not found");
+    }
+
+    $this->getSession()->getDriver()->selectOption($radioButton->getXPath(), $radioButton->getAttribute('value'));
   }
 
 }

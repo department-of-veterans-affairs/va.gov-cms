@@ -25,8 +25,30 @@ Feature: CMS Users may effectively create & edit content
 @content_editing
   Scenario: Log in and confirm that "Checklist" node edit has the correct field settings
     When I am logged in as a user with the "administrator" role
-    And I am at "node/add/checklist"
+
+    # Create topics terms.
+    And I am at "admin/structure/taxonomy/manage/topics/add"
+    And I fill in "Name" with "Topic 1"
+    And I press "Save"
+    And I am at "admin/structure/taxonomy/manage/topics/add"
+    And I fill in "Name" with "Topic 2"
+    And I press "Save"
+    And I am at "admin/structure/taxonomy/manage/topics/add"
+    And I fill in "Name" with "Topic 3"
+    And I press "Save"
+    And I am at "admin/structure/taxonomy/manage/topics/add"
+    And I fill in "Name" with "Topic 4"
+    And I press "Save"
+    And I am at "admin/structure/taxonomy/manage/topics/add"
+    And I fill in "Name" with "Topic 4"
+    And I press "Save"
+    # Create beneficiaries term.
+    And I am at "admin/structure/taxonomy/manage/audience_beneficiaries/add"
+    And I fill in "Name" with "Awesome Veterans"
+    And I press "Save"
+
     # Create our initial draft
+    Then I am at "node/add/checklist"
     And I fill in "Page title" with "Behat save and continue new test"
     And I fill in "#edit-field-meta-title-0-value" with the text "test meta title"
     And I fill in "#edit-field-description-0-value" with the text "test meta description"
@@ -38,17 +60,18 @@ Feature: CMS Users may effectively create & edit content
     And I fill in "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-checklist-items-0-value" with the text "Behat save and continue new test checklist item 1"
     And I fill in "#edit-field-administration" with the text "5"
 
-    # Select three topics.
-    And I check "claims and appeals status"
-    And I check "payments and debt"
-    And I check "sign in"
+    # Select four topics.
+    And I check "Topic 1"
+    And I check "Topic 2"
+    And I check "Topic 3"
+    And I check "Topic 4"
 
     # Also select an audience.
-    And I select "268" from "field_tags[0][subform][field_audience_beneficiares]"
+    And I select the "Awesome Veterans" radio button
     And I press "Save draft and continue editing"
 
     # Confirm that our custom validation for Audiences & Topics is working.
-    # Then I should see "No more than 4 Topic/Audience tags may be selected"
+    Then I should see "No more than 4 Topic/Audience tags may be selected"
 
 @content_editing
   Scenario: Confirm that menu link functionality works correctly
