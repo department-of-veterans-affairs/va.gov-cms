@@ -28,23 +28,20 @@ Feature: CMS Users may effectively create & edit content
 
     # Create topics terms.
     And I am at "admin/structure/taxonomy/manage/topics/add"
-    And I fill in "Name" with "Topic 1"
+    And I fill in "Name" with "BeHat - Topic 1"
     And I press "Save"
     And I am at "admin/structure/taxonomy/manage/topics/add"
-    And I fill in "Name" with "Topic 2"
+    And I fill in "Name" with "BeHat - Topic 2"
     And I press "Save"
     And I am at "admin/structure/taxonomy/manage/topics/add"
-    And I fill in "Name" with "Topic 3"
+    And I fill in "Name" with "BeHat - Topic 3"
     And I press "Save"
     And I am at "admin/structure/taxonomy/manage/topics/add"
-    And I fill in "Name" with "Topic 4"
-    And I press "Save"
-    And I am at "admin/structure/taxonomy/manage/topics/add"
-    And I fill in "Name" with "Topic 4"
+    And I fill in "Name" with "BeHat - Topic 4"
     And I press "Save"
     # Create beneficiaries term.
     And I am at "admin/structure/taxonomy/manage/audience_beneficiaries/add"
-    And I fill in "Name" with "Awesome Veterans"
+    And I fill in "Name" with "BeHat - Awesome Veterans"
     And I press "Save"
 
     # Create our initial draft
@@ -61,13 +58,13 @@ Feature: CMS Users may effectively create & edit content
     And I fill in "#edit-field-administration" with the text "5"
 
     # Select four topics.
-    And I check "Topic 1"
-    And I check "Topic 2"
-    And I check "Topic 3"
-    And I check "Topic 4"
+    And I check "BeHat - Topic 1"
+    And I check "BeHat - Topic 2"
+    And I check "BeHat - Topic 3"
+    And I check "BeHat - Topic 4"
 
     # Also select an audience.
-    And I select the "Awesome Veterans" radio button
+    And I select the "BeHat - Awesome Veterans" radio button
     And I press "Save draft and continue editing"
 
     # Confirm that our custom validation for Audiences & Topics is working.
