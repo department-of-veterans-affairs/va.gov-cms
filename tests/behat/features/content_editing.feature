@@ -28,8 +28,6 @@ Feature: CMS Users may effectively create & edit content
     And I am at "node/add/checklist"
     # Create our initial draft
     And I fill in "Page title" with "Behat save and continue new test"
-    And I fill in "#edit-field-meta-title-0-value" with the text "test meta title"
-    And I fill in "#edit-field-description-0-value" with the text "test meta description"
     And I fill in "#edit-field-primary-category" with the text "282"
     And I fill in "#edit-field-buttons-0-subform-field-button-label-0-value" with the text "test button label"
     And I fill in "#edit-field-buttons-0-subform-field-button-link-0-uri" with the text "<nolink>"
