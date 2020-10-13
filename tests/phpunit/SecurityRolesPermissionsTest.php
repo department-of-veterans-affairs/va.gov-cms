@@ -225,7 +225,6 @@ class SecurityRolesPermissions extends ExistingSiteBase {
           'create q_a content',
           'create step_by_step content',
           'create support_resources_detail_page content',
-          'create va_form content',
           'create video media',
           'delete media',
           'edit any checklist content',
