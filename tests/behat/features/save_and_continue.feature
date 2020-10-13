@@ -10,7 +10,7 @@ Feature: Save and continue button works as expected.
 
     # Create beneficiaries term.
     And I am at "admin/structure/taxonomy/manage/audience_beneficiaries/add"
-    And I fill in "Name" with "Awesome Veterans"
+    And I fill in "Name" with "BeHaT - Awesome Veterans"
     And I press "Save"
 
     # Create our initial draft
@@ -25,7 +25,7 @@ Feature: Save and continue button works as expected.
     And I fill in "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-section-header-0-value" with the text "Behat save and continue new test section header 2"
     And I fill in "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-checklist-items-0-value" with the text "Behat save and continue new test checklist item 1"
     And I fill in "#edit-field-administration" with the text "5"
-    And I select the "Awesome Veterans" radio button
+    And I select the "BeHaT - Awesome Veterans" radio button
     And I press "Save draft and continue editing"
 
     # Confirm our values
