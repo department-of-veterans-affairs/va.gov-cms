@@ -9,9 +9,7 @@ dependencies:
     - field.field.node.faq_multiple_q_a.field_buttons
     - field.field.node.faq_multiple_q_a.field_buttons_repeat
     - field.field.node.faq_multiple_q_a.field_contact_information
-    - field.field.node.faq_multiple_q_a.field_description
     - field.field.node.faq_multiple_q_a.field_intro_text_limited_html
-    - field.field.node.faq_multiple_q_a.field_meta_title
     - field.field.node.faq_multiple_q_a.field_other_categories
     - field.field.node.faq_multiple_q_a.field_primary_category
     - field.field.node.faq_multiple_q_a.field_q_a_groups
@@ -32,20 +30,6 @@ dependencies:
     - textfield_counter
 third_party_settings:
   field_group:
-    group_meta_tags:
-      children:
-        - field_meta_title
-        - field_description
-      parent_name: ''
-      weight: 2
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        required_fields: true
-      label: 'Meta tags'
-      region: content
     group_title_and_introduction:
       children:
         - title
@@ -225,20 +209,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_paragraphs
     region: content
-  field_description:
-    weight: 12
-    settings:
-      size: 120
-      placeholder: ''
-      maxlength: 300
-      counter_position: after
-      js_prevent_submit: true
-      count_html_characters: true
-      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
-      use_field_maxlength: false
-    third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_intro_text_limited_html:
     weight: 2
     settings:
@@ -254,20 +224,6 @@ content:
         hide_help: '0'
         hide_guidelines: '0'
     type: text_textarea_with_counter
-    region: content
-  field_meta_title:
-    weight: 11
-    settings:
-      size: 70
-      placeholder: ''
-      use_field_maxlength: true
-      maxlength: 0
-      counter_position: after
-      js_prevent_submit: true
-      count_html_characters: true
-      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
-    third_party_settings: {  }
-    type: string_textfield_with_counter
     region: content
   field_other_categories:
     weight: 14

@@ -9,8 +9,6 @@ dependencies:
     - field.field.node.q_a.field_answer
     - field.field.node.q_a.field_buttons
     - field.field.node.q_a.field_contact_information
-    - field.field.node.q_a.field_description
-    - field.field.node.q_a.field_meta_title
     - field.field.node.q_a.field_other_categories
     - field.field.node.q_a.field_primary_category
     - field.field.node.q_a.field_related_benefit_hubs
@@ -41,20 +39,6 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Editorial Workflow'
-      region: content
-    group_meta_tags:
-      children:
-        - field_meta_title
-        - field_description
-      parent_name: ''
-      weight: 2
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        required_fields: true
-      label: 'Meta tags'
       region: content
     group_title:
       children:
@@ -218,34 +202,6 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
-    region: content
-  field_description:
-    weight: 5
-    settings:
-      size: 120
-      placeholder: ''
-      maxlength: 300
-      counter_position: after
-      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
-      use_field_maxlength: false
-      js_prevent_submit: false
-      count_html_characters: false
-    third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
-  field_meta_title:
-    weight: 3
-    settings:
-      size: 70
-      placeholder: ''
-      use_field_maxlength: true
-      maxlength: 0
-      counter_position: after
-      js_prevent_submit: true
-      count_html_characters: true
-      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
-    third_party_settings: {  }
-    type: string_textfield_with_counter
     region: content
   field_other_categories:
     weight: 12

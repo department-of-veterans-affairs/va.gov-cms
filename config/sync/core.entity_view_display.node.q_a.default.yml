@@ -8,8 +8,6 @@ dependencies:
     - field.field.node.q_a.field_answer
     - field.field.node.q_a.field_buttons
     - field.field.node.q_a.field_contact_information
-    - field.field.node.q_a.field_description
-    - field.field.node.q_a.field_meta_title
     - field.field.node.q_a.field_other_categories
     - field.field.node.q_a.field_primary_category
     - field.field.node.q_a.field_related_benefit_hubs
@@ -23,19 +21,6 @@ dependencies:
     - user
 third_party_settings:
   field_group:
-    group_meta_tags:
-      children:
-        - field_meta_title
-        - field_description
-      parent_name: ''
-      weight: 8
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-      label: 'Meta tags'
-      region: content
     group_categories:
       children:
         - field_primary_category
@@ -102,22 +87,6 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    region: content
-  field_description:
-    weight: 3
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_meta_title:
-    weight: 2
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
     region: content
   field_other_categories:
     weight: 10

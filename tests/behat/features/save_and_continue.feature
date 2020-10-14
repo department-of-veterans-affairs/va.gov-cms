@@ -16,8 +16,6 @@ Feature: Save and continue button works as expected.
     # Create our initial draft
     Then I am at "node/add/checklist"
     And I fill in "Page title" with "Behat save and continue new test"
-    And I fill in "#edit-field-meta-title-0-value" with the text "test meta title"
-    And I fill in "#edit-field-description-0-value" with the text "test meta description"
     And I fill in "#edit-field-primary-category" with the text "282"
     And I fill in "#edit-field-buttons-0-subform-field-button-label-0-value" with the text "test button label"
     And I fill in "#edit-field-buttons-0-subform-field-button-link-0-uri" with the text "<nolink>"
@@ -31,8 +29,6 @@ Feature: Save and continue button works as expected.
     # Confirm our values
     Then I should not see "error has been found:"
     And I should see "Behat save and continue new test"
-    And "#edit-field-meta-title-0-value" should have the "value" with "test meta title"
-    And "#edit-field-description-0-value" should have the "value" with "test meta description"
     And "#edit-field-buttons-0-subform-field-button-label-0-value" should have the "value" with "test button label"
     And "#edit-field-buttons-0-subform-field-button-link-0-uri" should have the "value" with "<nolink>"
     And "#edit-field-checklist-0-subform-field-section-header-0-value" should have the "value" with "Behat save and continue new test section header 1"
@@ -42,7 +38,6 @@ Feature: Save and continue button works as expected.
 
     # Make sure additional edits are saved
     And I fill in "Page title" with "Behat save and continue new test - edited"
-    And I fill in "#edit-field-description-0-value" with the text "test meta description - edited"
     And I fill in "#edit-field-buttons-0-subform-field-button-label-0-value" with the text "test button label - edited"
     And I fill in "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-section-header-0-value" with the text "Behat save and continue new test section header 2 - edited"
     And I press "Save draft and continue editing"
@@ -50,12 +45,13 @@ Feature: Save and continue button works as expected.
     # Confirm that the correct values are shown on preview.
     Then I visit the "" page for a node with the title "Behat save and continue new test - edited"
     Then I should see "Behat save and continue new test - edited"
-    And I should see "test meta title"
-    And I should see "test meta description - edited"
     And I should see "test button label - edited"
     And I should see "Behat save and continue new test section header 1"
     And I should see "Behat save and continue new test section header 2 - edited"
     And I should see "Behat save and continue new test checklist item 1"
+
+    # Confirm meta tag title is generated correctly.
+    Then the page title should be "Behat save and continue new test - edited | Veterans Affairs"
 
     # Confirm that the moderation history and state are shown correctly.
     And I should see "Draft" in the ".views-field-moderation-state" element
