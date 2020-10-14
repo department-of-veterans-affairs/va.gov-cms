@@ -928,8 +928,14 @@ function va_gov_backend_toolbar_alter(&$items) {
   if (!empty($items['administration_search'])) {
     unset($items['administration_search']);
   }
+
+  // Hide environment indicator tab.
+  //
+  // We are adding the 'visually-hidden' class rather than removing the 'tab'
+  // array element in order to prevent outputting empty links which cause the
+  // accessibility tests to fail.
   if (!empty($items['environment_indicator']['tab'])) {
-    unset($items['environment_indicator']['tab']);
+    $items['environment_indicator']['tab']['#attributes']['class'][] = 'visually-hidden';
   }
 }
 

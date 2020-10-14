@@ -42,7 +42,12 @@ const paths = [
 driver.get(URL)
     .then(() => {
         AXE_BUILDER
-            .analyze((results) => {
+            .analyze((err, results) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+
                 totalViolations = totalViolations + results.violations.length;
                 AxeReports.processResults(results, 'csv', './tests/accessibility/axeReport/aXeAccessibilityCheckReport', true);
                 console.log('!!!  NUMBER OF NEW VIOLATIONS on ' + URL + ' ' + results.violations.length);
@@ -54,11 +59,25 @@ driver.get(URL)
                             driver.get(URL + paths[i])
                                 .then(() => {
                                     return AXE_BUILDER
-                                        .analyze(results => {
+                                        .analyze((err, results) => {
+                                            if (err) {
+                                                console.error(err);
+                                                return;
+                                            }
+
                                             totalViolations = totalViolations + results.violations.length;
                                             AxeReports.processResults(results, 'csv', './tests/accessibility/axeReport/aXeAccessibilityCheckReport');
-                                            console.log('!!!  NUMBER OF NEW VIOLATIONS on ' + URL + paths[i] + '  = ' + results.violations.length);
-                                            return console.log(results.violations);
+                                            if (results.violations.length) {
+                                                console.log('!!!  NUMBER OF NEW VIOLATIONS on ' + URL + paths[i] + '  = ' + results.violations.length);
+                                                results.violations.forEach((violation) => {
+                                                    console.log(violation.nodes);
+                                                });
+                                                return console.log(results.violations);
+                                            } else {
+                                                console.log('No new violations on ' + URL + paths[i]);
+                                            }
+
+                                            return;
                                         });
                                 });
                         }
