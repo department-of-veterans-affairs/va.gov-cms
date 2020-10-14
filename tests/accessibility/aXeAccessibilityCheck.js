@@ -1,4 +1,4 @@
-const axeBuilder = require('axe-webdriverjs');
+const axeBuilder = require('@axe-core/webdriverjs');
 const webDriver = require('selenium-webdriver');
 const {By} = require('selenium-webdriver');
 const AxeReports = require('axe-reports');
@@ -16,7 +16,7 @@ const driver = new webDriver.Builder()
     .build();
 
 // initiate axe-webdriverjs
-const AXE_BUILDER = axeBuilder(driver)
+const AXE_BUILDER = new axeBuilder(driver)
     .withTags(['wcag2a', 'wcag2aa']);
 
 // this is the array list of page paths after login. More pages can be added inside array at any time
