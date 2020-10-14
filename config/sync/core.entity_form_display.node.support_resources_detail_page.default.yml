@@ -10,9 +10,7 @@ dependencies:
     - field.field.node.support_resources_detail_page.field_buttons_repeat
     - field.field.node.support_resources_detail_page.field_contact_information
     - field.field.node.support_resources_detail_page.field_content_block
-    - field.field.node.support_resources_detail_page.field_description
     - field.field.node.support_resources_detail_page.field_intro_text_limited_html
-    - field.field.node.support_resources_detail_page.field_meta_title
     - field.field.node.support_resources_detail_page.field_other_categories
     - field.field.node.support_resources_detail_page.field_primary_category
     - field.field.node.support_resources_detail_page.field_related_benefit_hubs
@@ -58,20 +56,6 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Include Alert'
-      region: content
-    group_meta_tags:
-      children:
-        - field_description
-        - field_meta_title
-      parent_name: ''
-      weight: 2
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        required_fields: true
-      label: 'Meta Tags'
       region: content
     group_editorial_workflow:
       children:
@@ -254,20 +238,6 @@ content:
     third_party_settings: {  }
     type: paragraphs_browser
     region: content
-  field_description:
-    weight: 3
-    settings:
-      size: 70
-      placeholder: ''
-      maxlength: 70
-      counter_position: after
-      js_prevent_submit: true
-      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
-      use_field_maxlength: false
-      count_html_characters: false
-    third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_intro_text_limited_html:
     weight: 2
     settings:
@@ -283,20 +253,6 @@ content:
         hide_help: '0'
         hide_guidelines: '0'
     type: text_textarea_with_counter
-    region: content
-  field_meta_title:
-    weight: 4
-    settings:
-      size: 120
-      placeholder: ''
-      maxlength: 120
-      counter_position: after
-      js_prevent_submit: true
-      count_html_characters: true
-      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
-      use_field_maxlength: false
-    third_party_settings: {  }
-    type: string_textfield_with_counter
     region: content
   field_other_categories:
     weight: 16

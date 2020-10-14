@@ -9,10 +9,8 @@ dependencies:
     - field.field.node.media_list_images.field_buttons
     - field.field.node.media_list_images.field_buttons_repeat
     - field.field.node.media_list_images.field_contact_information
-    - field.field.node.media_list_images.field_description
     - field.field.node.media_list_images.field_intro_text_limited_html
     - field.field.node.media_list_images.field_media_list_images
-    - field.field.node.media_list_images.field_meta_title
     - field.field.node.media_list_images.field_other_categories
     - field.field.node.media_list_images.field_primary_category
     - field.field.node.media_list_images.field_related_benefit_hubs
@@ -58,20 +56,6 @@ third_party_settings:
         description: ''
         required_fields: false
       label: 'Include Alert'
-      region: content
-    group_meta_tags:
-      children:
-        - field_meta_title
-        - field_description
-      parent_name: ''
-      weight: 2
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        required_fields: true
-      label: 'Meta Tags'
       region: content
     group_editorial_workflow:
       children:
@@ -231,14 +215,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_paragraphs
     region: content
-  field_description:
-    weight: 4
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_intro_text_limited_html:
     weight: 2
     settings:
@@ -272,14 +248,6 @@ content:
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
     third_party_settings: {  }
-    region: content
-  field_meta_title:
-    weight: 3
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
     region: content
   field_other_categories:
     weight: 14
