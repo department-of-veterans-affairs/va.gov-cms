@@ -6,13 +6,19 @@ dependencies:
     - field.storage.node.field_primary_category
     - node.type.q_a
     - taxonomy.vocabulary.lc_categories
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: false
 id: node.q_a.field_primary_category
 field_name: field_primary_category
 entity_type: node
 bundle: q_a
 label: 'Primary category'
 description: 'Select a primary category for your article.'
-required: true
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
