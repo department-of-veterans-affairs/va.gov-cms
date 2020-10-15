@@ -39,8 +39,6 @@ va/tests/phpunit:
 va/tests/accessibility:
   description: accessibility test with axe-webdriverjs for 508 compliance
   command: composer va:test:accessibility
-  # ignore failures until 508 issues are resoled
-  ignore-failure: true
 
 va/web/build:
   description: Build VA.gov Front-end
