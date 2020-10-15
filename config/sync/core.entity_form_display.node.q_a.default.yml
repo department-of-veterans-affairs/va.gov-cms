@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.q_a.field_related_benefit_hubs
     - field.field.node.q_a.field_related_information
     - field.field.node.q_a.field_related_links
+    - field.field.node.q_a.field_standalone_page
     - field.field.node.q_a.field_tags
     - node.type.q_a
     - workflows.workflow.editorial
@@ -31,7 +32,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 9
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -58,7 +59,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 10
+      weight: 4
       format_type: details_sidebar
       format_settings:
         description: ''
@@ -72,8 +73,8 @@ third_party_settings:
     group_in:
       children:
         - field_alert_single
-      parent_name: ''
-      weight: 1
+      parent_name: group_q_a_page_components
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -86,8 +87,8 @@ third_party_settings:
       children:
         - field_primary_category
         - group_other_categories
-      parent_name: ''
-      weight: 7
+      parent_name: group_q_a_page_components
+      weight: 9
       format_type: details
       format_settings:
         description: ''
@@ -114,8 +115,8 @@ third_party_settings:
     group_contact_information:
       children:
         - field_contact_information
-      parent_name: ''
-      weight: 6
+      parent_name: group_q_a_page_components
+      weight: 8
       format_type: fieldset
       format_settings:
         id: ''
@@ -127,8 +128,8 @@ third_party_settings:
     group_tags:
       children:
         - field_tags
-      parent_name: ''
-      weight: 8
+      parent_name: group_q_a_page_components
+      weight: 10
       format_type: fieldset
       format_settings:
         id: ''
@@ -136,6 +137,25 @@ third_party_settings:
         description: ''
         required_fields: true
       label: Tags
+      region: content
+    group_q_a_page_components:
+      children:
+        - group_in
+        - field_buttons
+        - field_related_benefit_hubs
+        - field_related_information
+        - group_contact_information
+        - group_categories
+        - group_tags
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: false
+      label: 'Q&A page components'
       region: content
 id: node.q_a.default
 targetEntityType: node
@@ -180,7 +200,7 @@ content:
     third_party_settings: {  }
     region: content
   field_buttons:
-    weight: 3
+    weight: 5
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -216,7 +236,7 @@ content:
     type: options_select
     region: content
   field_related_benefit_hubs:
-    weight: 4
+    weight: 6
     settings:
       entity_browser: lc_benefit_hubs
       field_widget_display: label
@@ -230,7 +250,7 @@ content:
     type: entity_reference_browser_table_widget
     region: content
   field_related_information:
-    weight: 5
+    weight: 7
     settings:
       title: 'Link teaser'
       title_plural: 'Link teasers'
@@ -247,6 +267,13 @@ content:
         duplicate: '0'
     third_party_settings: {  }
     type: paragraphs
+    region: content
+  field_standalone_page:
+    weight: 1
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   field_tags:
     weight: 13
@@ -268,7 +295,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 11
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -287,7 +314,7 @@ content:
       use_field_maxlength: false
     third_party_settings: {  }
   url_redirects:
-    weight: 12
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }

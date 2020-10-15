@@ -81,11 +81,12 @@ Feature: Content model: LC Content Type fields
 | Content type | Q&A | Answer | field_answer | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Content type | Q&A | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Q&A | Need more help? | field_contact_information | Entity reference revisions |  | 1 | Paragraphs Classic |  |
+| Content type | Q&A | Enable standalone page | field_standalone_page | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Q&A | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs Classic | Translatable |
 | Content type | Q&A | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Q&A | Related Information | field_related_information | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | Q&A | Related Links | field_related_links | Entity reference revisions |  | 1 | -- Disabled -- | Translatable |
-| Content type | Q&A | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Q&A | Primary category | field_primary_category | Entity reference |  | 1 | Select list | Translatable |
 | Content type | Q&A | Tags | field_tags | Entity reference revisions |  | 1 | Paragraphs Classic |  |
 | Content type | Q&A | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | Translatable |
 | Content type | Step-by-Step | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |

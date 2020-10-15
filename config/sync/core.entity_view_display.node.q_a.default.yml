@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.q_a.field_related_benefit_hubs
     - field.field.node.q_a.field_related_information
     - field.field.node.q_a.field_related_links
+    - field.field.node.q_a.field_standalone_page
     - field.field.node.q_a.field_tags
     - node.type.q_a
   module:
@@ -121,6 +122,16 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
+  field_standalone_page:
+    weight: 12
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_tags:
     weight: 9

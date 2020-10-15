@@ -1,0 +1,23 @@
+uuid: 2864a9c7-d109-41d4-895e-be6755eeff36
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_standalone_page
+    - node.type.q_a
+id: node.q_a.field_standalone_page
+field_name: field_standalone_page
+entity_type: node
+bundle: q_a
+label: 'Enable standalone page'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Standalone page'
+  off_label: 'No standalone page'
+field_type: boolean
