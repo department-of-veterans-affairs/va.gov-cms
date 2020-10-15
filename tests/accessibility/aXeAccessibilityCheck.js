@@ -50,7 +50,16 @@ driver.get(URL)
 
                 totalViolations = totalViolations + results.violations.length;
                 AxeReports.processResults(results, 'csv', './tests/accessibility/axeReport/aXeAccessibilityCheckReport', true);
-                console.log('!!!  NUMBER OF NEW VIOLATIONS on ' + URL + ' ' + results.violations.length);
+                if (results.violations.length) {
+                    console.log('!!!  NUMBER OF NEW VIOLATIONS on ' + URL + ' = ' + results.violations.length);
+                    results.violations.forEach((violation) => {
+                        console.log(violation.nodes);
+                    });
+                    return console.log(results.violations);
+                } else {
+                    console.log('No new violations on ' + URL);
+                }
+
                 driver.findElement(By.name('name')).sendKeys(userName);
                 driver.findElement(By.name('pass')).sendKeys(password);
                 driver.findElement(By.name('op')).click()
@@ -68,7 +77,7 @@ driver.get(URL)
                                             totalViolations = totalViolations + results.violations.length;
                                             AxeReports.processResults(results, 'csv', './tests/accessibility/axeReport/aXeAccessibilityCheckReport');
                                             if (results.violations.length) {
-                                                console.log('!!!  NUMBER OF NEW VIOLATIONS on ' + URL + paths[i] + '  = ' + results.violations.length);
+                                                console.log('!!!  NUMBER OF NEW VIOLATIONS on ' + URL + paths[i] + ' = ' + results.violations.length);
                                                 results.violations.forEach((violation) => {
                                                     console.log(violation.nodes);
                                                 });
