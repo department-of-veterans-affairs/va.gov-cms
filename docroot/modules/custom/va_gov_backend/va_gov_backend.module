@@ -341,19 +341,7 @@ function _va_gov_backend_standalone_page_validation(array &$form, FormStateInter
   if (!empty($form_state->getValue('field_standalone_page')['value'])) {
     if (empty($form_state->getValue('field_primary_category'))) {
       $form['field_primary_category']['#required'] = TRUE;
-      $form_state->setErrorByName('field_primary_category', t('Please select a Primary Category.'));
-    }
-
-    foreach ($form_state->getValue('field_buttons') as $idx => $val) {
-      if (is_numeric($idx)) {
-        if (empty($form_state->getValue('field_buttons')[$idx]['subform']['field_button_label'][0]['value'])) {
-          $form_state->setErrorByName("field_buttons][{$idx}][subform][field_button_label", t('Button Label field is required.'));
-        }
-
-        if (empty($form_state->getValue('field_buttons')[$idx]['subform']['field_button_link'][0]['uri'])) {
-          $form_state->setErrorByName("field_buttons][{$idx}][subform][field_button_link", t('Button Link field is required.'));
-        }
-      }
+      $form_state->setErrorByName('field_primary_category', t('Primary category field is required.'));
     }
   }
 }
