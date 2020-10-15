@@ -182,7 +182,8 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 
     // Add custom validation.
     array_unshift($form['#validate'], '_va_gov_backend_standalone_page_validation');
-  } else {
+  }
+  else {
     // Mark CTA button fields as required.
     if (!empty($form['field_buttons'])) {
       $form['field_buttons']['widget'][0]['subform']['field_button_label']['widget'][0]['value']['#required'] = TRUE;
