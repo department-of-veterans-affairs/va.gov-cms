@@ -68,7 +68,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | News Release | Release date | field_datetime_range_timezone | Smart date range |  | 1 | -- Disabled -- | Translatable |
 | Content type | News Release | Full text of the Press Release | field_press_release_fulltext | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
 | Content type | News Release | Introduction | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
-| Content type | News Release | Location | field_address | Address | Required | 1 | Address | Translatable |
+| Content type | News Release | Location | field_address | Address |  | 1 | Address | Translatable |
 | Content type | News Release | Media assets | field_press_release_downloads | Entity reference |  | Unlimited | Media library |  |
 | Content type | News Release | Media Contact(s) | field_press_release_contact | Entity reference |  | Unlimited | Autocomplete | Translatable |
 | Content type | News Release | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
