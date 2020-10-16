@@ -20,7 +20,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   id = "va_gov_workflow_assignments_meta",
  *   admin_label = @Translation("Entity Meta Display"),
  *   context = {
- *     "node" = @ContextDefinition("entity:node", label = @Translation("Node"))
+ *     "node" = @ContextDefinition(
+ *       "entity:node",
+ *       label = @Translation("Node"),
+ *       required = FALSE,
+ *     ),
+ *     "node_revision" = @ContextDefinition(
+ *       "entity:node_revision",
+ *       label = @Translation("Node Revision"),
+ *       required = FALSE,
+ *     ),
  *   }
  * )
  */
@@ -79,23 +88,86 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     $sections = $this->getSections()['links'];
     $block_items['Owner'] = $sections;
     $nid = '';
+    $node = NULL;
+    $node_revision = NULL;
+    $display_url = TRUE;
+
+    // Drupal sometimes hands us a nid and sometimes an upcasted node object.
+    // This code should be future-proof, cf:
+    // https://www.drupal.org/project/drupal/issues/2730631
     if ($this->routeMatch->getParameter('node') instanceof NodeInterface) {
       $node = $this->routeMatch->getParameter('node');
+    }
+    elseif (is_numeric($this->routeMatch->getParameter('node'))) {
+      $node = \Drupal::entityTypeManager()->getStorage('node')->load($this->routeMatch->getParameter('node'));
+    }
+    if ($this->routeMatch->getParameter('node_revision') instanceof NodeInterface) {
+      $node_revision = $this->routeMatch->getParameter('node_revision');
+    }
+    elseif (is_numeric($this->routeMatch->getParameter('node_revision'))) {
+      $node_revision = \Drupal::entityTypeManager()->getStorage('node')->loadRevision($this->routeMatch->getParameter('node_revision'));
+    }
+
+    if ($node) {
       $block_items['Content Type'] = $node->type->entity->label();
 
-      // Make sure this bundle is okay to display on va.gov.
-      $exclude_types = $this->configFactory->getEditable('exclusion_types_admin.settings')->get('types_to_exclude');
-      // If exclude types in not empty then continue.
-      if (!empty($exclude_types)) {
-        // If active revision isn't published, it doesn't get included in build.
-        // Sufficient to check moderation state on node = active revision.
-        if (!in_array($node->bundle(), $exclude_types) && $node->get('moderation_state')->getString() === 'published') {
-          $nid = $node->id();
-          $url = 'https://va.gov' . Url::fromRoute('entity.node.canonical', ['node' => $nid])->toString();
-          $block_items['VA.gov URL'] = Link::fromTextAndUrl($url, Url::fromUri($url))->toString();
-        }
+      // If this is not the production environment,
+      // do not attempt to show the URL.
+      $environment = \Drupal::config('environment_indicator.indicator')->get('name');
+      if ($environment != 'Production') {
+        $display_url = FALSE;
       }
 
+      // If exclude types are empty, do not attempt to show the URL.
+      $exclude_types = $this->configFactory->getEditable('exclusion_types_admin.settings')->get('types_to_exclude');
+      if ($display_url && empty($exclude_types)) {
+        $display_url = FALSE;
+      }
+
+      // If there is an archived revision with an ID higher than the latest
+      // published revision ID, do not attempt to show the URL.
+      //
+      // First, get the latest published revision ID.
+      $query = \Drupal::database()->select('content_moderation_state_field_revision', 'cmr')
+        ->condition('content_entity_id', $node->id(), '=')
+        ->condition('moderation_state', 'published', '=')
+        ->fields('cmr', ['content_entity_revision_id'])
+        ->orderBy('content_entity_revision_id', 'DESC')
+        ->range(0, 1);
+      $result = $query->execute();
+      $latest_published_revision_id = $result->fetchField();
+
+      // Next, get the latest archived revision ID.
+      $query = \Drupal::database()->select('content_moderation_state_field_revision', 'cmr')
+        ->condition('content_entity_id', $node->id(), '=')
+        ->condition('moderation_state', 'archived', '=')
+        ->fields('cmr', ['content_entity_revision_id'])
+        ->orderBy('content_entity_revision_id', 'DESC')
+        ->range(0, 1);
+      $result = $query->execute();
+      $latest_archived_revision_id = $result->fetchField();
+
+      // Compare the revision IDs.
+      if ($latest_published_revision_id && $latest_archived_revision_id && ($latest_archived_revision_id > $latest_published_revision_id)) {
+        $display_url = FALSE;
+      }
+
+      // If the latest published revision is newer than this revision and
+      // its URL alias does not match this revision's URL alias,
+      // do not attempt to show the URL.
+      if ($node_revision && $latest_published_revision_id && ($latest_published_revision_id > $node_revision->id())) {
+        // The latest published revision is newer than this revision,
+        // check if the aliases match.
+        // FIXME.
+        $display_url = FALSE;
+      }
+
+      // The va.gov URL should be taken from the most recent published revision.
+      if ($display_url) {
+        $nid = $node->id();
+        $url = 'https://va.gov' . Url::fromRoute('entity.node.canonical', ['node' => $nid])->toString();
+        $block_items['VA.gov URL'] = Link::fromTextAndUrl($url, Url::fromUri($url))->toString();
+      }
     }
     $output = '';
 
