@@ -51,7 +51,7 @@ foreach ($qas as $qa) {
       $qa->set('field_answer', $new_answer);
       $qa->setNewRevision(TRUE);
       $qa->setRevisionCreationTime(\Drupal::time()->getRequestTime());
-      $qa->setRevisionUserId(1);
+      $qa->setRevisionUserId(1317);
       $qa->setRevisionLogMessage('Migration from the old answer to a new answer field with limited characters.');
       $qa->set('moderation_state', 'draft');
       $saved = $qa->save();
