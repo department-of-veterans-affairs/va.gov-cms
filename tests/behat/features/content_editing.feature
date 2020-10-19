@@ -123,3 +123,19 @@ Feature: CMS Users may effectively create & edit content
     # Confirm that paragraph can be edited inline
     And I press "edit-field-banner-alert-entities-0-actions-ief-entity-edit"
     Then I should see "BeHat Alert Body"
+
+@content_editing
+  Scenario: Confirm that content cannot be published directly from the node edit form.
+    Given I am logged in as a user with the "administrator" role
+    And I am at "node/add/press_release"
+    Then I should see "Create News Release"
+
+    # Confirm that the workflow state selector is present for the "press release" content type.
+    And the "#edit-moderation-state-0-state" element should exist
+
+    # Verify that the workflow state selector contains the "Draft" and "In review" options.
+    And I should see "Draft" in the "#edit-moderation-state-0-state" element
+    And I should see "In review" in the "#edit-moderation-state-0-state" element
+
+    # Verify that the workflow state selector does not contain the "published" option.
+    And I should not see "Published" in the "#edit-moderation-state-0-state" element
