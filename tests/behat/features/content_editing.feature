@@ -24,25 +24,19 @@ Feature: CMS Users may effectively create & edit content
 
 @content_editing
   Scenario: Log in and confirm that "Checklist" node edit has the correct field settings
-    When I am logged in as a user with the "administrator" role
+    When I am logged in as a user with the "content_admin" role
 
-    # Create topics terms.
-    And I am at "admin/structure/taxonomy/manage/topics/add"
-    And I fill in "Name" with "BeHat - Topic 1"
-    And I press "Save"
-    And I am at "admin/structure/taxonomy/manage/topics/add"
-    And I fill in "Name" with "BeHat - Topic 2"
-    And I press "Save"
-    And I am at "admin/structure/taxonomy/manage/topics/add"
-    And I fill in "Name" with "BeHat - Topic 3"
-    And I press "Save"
-    And I am at "admin/structure/taxonomy/manage/topics/add"
-    And I fill in "Name" with "BeHat - Topic 4"
-    And I press "Save"
+    Given "topics" terms:
+    | name            | parent | description | format     | language |
+    | BeHat - Topic 1 |        |             | plain_text | UND      |
+    | BeHat - Topic 2 |        |             | plain_text | UND      |
+    | BeHat - Topic 3 |        |             | plain_text | UND      |
+    | BeHat - Topic 4 |        |             | plain_text | UND      |
+
     # Create beneficiaries term.
-    And I am at "admin/structure/taxonomy/manage/audience_beneficiaries/add"
-    And I fill in "Name" with "BeHat - Awesome Veterans"
-    And I press "Save"
+    Given "audience_beneficiaries" terms:
+    | name                     | parent | description | format     | language |
+    | BeHat - Awesome Veterans |        |             | plain_text | UND      |
 
     # Create our initial draft
     Then I am at "node/add/checklist"
