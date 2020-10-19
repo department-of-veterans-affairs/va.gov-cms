@@ -294,6 +294,18 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     if (!in_array($node_type, $types_in_workflow)) {
       unset($form['actions']['preview']);
     }
+
+  }
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter() for moderation_state widgets.
+ */
+function va_gov_backend_field_widget_moderation_state_default_form_alter(&$element, FormStateInterface $form_state, $context) {
+  // Remove "Published" from available moderation states.
+  $baseFormId = $form_state->getBuildInfo()['base_form_id'];
+  if ($baseFormId === 'node_form') {
+    unset($element['state']['#options']['published']);
   }
 
   // Add after_build callback for Press Release node forms.
