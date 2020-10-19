@@ -89,6 +89,7 @@ Feature: Content model bundles
 | Topics | topics | Vocabulary |  |
 | VAMC facility service (non-healthcare service) | health_care_local_facility_servi | Paragraph type | A service available at a specific health care facility, like Parking, or Chaplaincy. |
 | Rich text | wysiwyg | Paragraph type | An open-ended text field. |
+| Rich text - char limit 1000 | rich_text_char_limit_1000 | Paragraph type | |
 | Audience - Beneficiaries | audience_beneficiaries | Vocabulary |  |
 | Audience - Non-beneficiaries | audience_non_beneficiaries | Vocabulary |  |
 | Learning Center Categories | lc_categories | Vocabulary |  |
