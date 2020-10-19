@@ -6,6 +6,12 @@ dependencies:
     - field.storage.paragraph.field_q_as
     - node.type.q_a
     - paragraphs.paragraphs_type.q_a_group
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: false
 id: paragraph.q_a_group.field_q_as
 field_name: field_q_as
 entity_type: paragraph
@@ -17,12 +23,12 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: unpublished
   handler_settings:
     target_bundles:
       q_a: q_a
     sort:
       field: _none
-    auto_create: false
+    auto_create: 0
     auto_create_bundle: ''
 field_type: entity_reference
