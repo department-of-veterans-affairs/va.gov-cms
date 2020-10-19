@@ -38,13 +38,18 @@ process:
     bundle: health_care_local_facility
     source: field_facility_location
   field_regional_health_service:
-    plugin: entity_lookup
-    ignore_case: true
-    value_key: title
-    entity_type: node
-    bundle_key: type
-    bundle: regional_health_care_service_des
-    source: field_regional_health_service
+    -
+      plugin: entity_lookup
+      ignore_case: true
+      value_key: title
+      entity_type: node
+      bundle_key: type
+      bundle: regional_health_care_service_des
+      source: field_regional_health_service
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Entity lookup for field_regional_health_service found nothing.'
   field_body/format:
     plugin: default_value
     default_value: rich_text
