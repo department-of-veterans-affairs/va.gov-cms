@@ -1,0 +1,14 @@
+uuid: 661c93a4-f776-4d9f-b808-2437e49228ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.content_creator_resources_and_support
+  module:
+    - user
+id: user_add_role_action.content_creator_resources_and_support
+label: 'Add the Content Creator - Resources and support role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: content_creator_resources_and_support
