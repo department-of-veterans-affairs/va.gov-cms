@@ -78,7 +78,7 @@ Feature: Content model: LC Content Type fields
 | Content type | Media list - Videos | Videos | field_media_list_videos | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | Media list - Videos | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | Translatable |
 | Content type | Q&A | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
-| Content type | Q&A | Answer | field_answer | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
+| Content type | Q&A | Answer | field_answer | Entity reference revisions | Required | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | Q&A | Alert | field_alert_single | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Q&A | Need more help? | field_contact_information | Entity reference revisions |  | 1 | Paragraphs Classic |  |
 | Content type | Q&A | Enable standalone page | field_standalone_page | Boolean |  | 1 | Single on/off checkbox |  |
