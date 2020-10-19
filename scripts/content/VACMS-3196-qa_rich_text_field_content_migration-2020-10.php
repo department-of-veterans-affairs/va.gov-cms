@@ -1,13 +1,14 @@
 <?php
+
 /**
- * @file VACMS-3196-qa_rich_text_field_content_migration-2020-10.php
- *
+ * @file
  * One-time migration for Q&A content type Answer field paragraphs.
+ *
+ *  VACMS-3196-qa_rich_text_field_content_migration-2020-10.php.
  */
 
 use Drupal\paragraphs\Entity\Paragraph;
 use Psr\Log\LogLevel;
-
 
 // Ensure that the new configuration is present.
 $field_answer_target = \Drupal::config('field.field.node.q_a.field_answer')->get('settings.handler_settings.target_bundles');
@@ -79,10 +80,9 @@ Drupal::logger('va_gov_backend')
 
 print(
   t('Answer values for Q&A nodes were successfully migrated for @updated out of @count entities. @failed @failed_nids', [
-      '@count' => count($qas),
-      '@updated' => $updated,
-      '@failed' => $failed ? 'Failed to update ' . $failed . ' out of %count.' : NULL,
-      '@failed_nids' => count($failed_nids) ? 'Failed nids: ' . implode(', ', $failed_nids) . '.' : NULL,
-    ]
-  )
+    '@count' => count($qas),
+    '@updated' => $updated,
+    '@failed' => $failed ? 'Failed to update ' . $failed . ' out of %count.' : NULL,
+    '@failed_nids' => count($failed_nids) ? 'Failed nids: ' . implode(', ', $failed_nids) . '.' : NULL,
+  ])
 );
