@@ -139,3 +139,18 @@ Feature: CMS Users may effectively create & edit content
 
     # Verify that the workflow state selector does not contain the "Published" option.
     And I should not see "Published" in the "#edit-moderation-state-0-state" element
+
+    # Save the content.
+    And I fill in "Press Release Title" with "Test Press Release - BeHaT"
+    And I fill in "News releases listing" with "3054"
+    And I fill in "Owner" with "5"
+    And I fill in "City" with "Altoona"
+    And I fill in "State" with "PA"
+    And I fill in "Introduction" with "Test press release introduction."
+    And I fill in "Full text of the Press Release" with "Test full text of the press release."
+    And I press "Save"
+    Then I should see "Test Press Release - BeHaT"
+
+    # Verify that the proofing page offers the correct options.
+    And the "#edit-new-state" element should exist
+    And I should see "Published" in the "#edit-new-state" element
