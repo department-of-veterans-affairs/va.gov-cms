@@ -126,7 +126,7 @@ Feature: CMS Users may effectively create & edit content
 
 @content_editing
   Scenario: Confirm that content cannot be published directly from the node edit form.
-    Given I am logged in as a user with the "administrator" role
+    Given I am logged in as a user with the "content_admin" role
     And I am at "node/add/press_release"
     Then I should see "Create News Release"
 
@@ -137,5 +137,5 @@ Feature: CMS Users may effectively create & edit content
     And I should see "Draft" in the "#edit-moderation-state-0-state" element
     And I should see "In review" in the "#edit-moderation-state-0-state" element
 
-    # Verify that the workflow state selector does not contain the "published" option.
+    # Verify that the workflow state selector does not contain the "Published" option.
     And I should not see "Published" in the "#edit-moderation-state-0-state" element
