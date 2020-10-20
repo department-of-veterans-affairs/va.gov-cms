@@ -1,0 +1,27 @@
+uuid: 2cee68e2-55e2-4895-9fa6-2e6ccc3b4fa1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_wysiwyg
+    - paragraphs.paragraphs_type.rich_text_char_limit_1000
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    rich_text_limited: rich_text_limited
+    rich_text: '0'
+    plain_text: '0'
+id: paragraph.rich_text_char_limit_1000.field_wysiwyg
+field_name: field_wysiwyg
+entity_type: paragraph
+bundle: rich_text_char_limit_1000
+label: Text
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -84,6 +84,7 @@ type_settings:
     archive:
       label: Archive
       from:
+        - approved
         - published
       to: archived
       weight: 1
@@ -107,6 +108,7 @@ type_settings:
       to: published
       weight: 0
       from:
+        - approved
         - draft
         - published
         - review
