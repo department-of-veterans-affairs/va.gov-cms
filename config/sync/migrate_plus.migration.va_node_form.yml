@@ -21,7 +21,7 @@ source:
     - 'https://prod.cms.va.gov/sites/default/files/migrate_source/va_forms_data.csv'
   delimiter: ','
   enclosure: '"'
-  escape: ''
+  escape: '\'
   header_offset: 1
   multi_value_delimiter: ','
   fields:
@@ -150,6 +150,10 @@ process:
       VA: 'https://www.va.gov/vaforms/va/pdf/'
       VBA: 'http://www.vba.va.gov/pubs/forms/'
     bypass: false
+  non_field_link_name:
+    plugin: callback
+    callable: trim
+    source: link_name
   non_field_url:
     plugin: concat
     source:
@@ -186,7 +190,7 @@ process:
   field_va_form_url:
     plugin: get
     source:
-      - link_name
+      - '@non_field_link_name'
       - '@non_field_url'
   field_va_form_num_pages: Pages
   field_administration: constants/administration_section
