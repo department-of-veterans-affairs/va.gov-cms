@@ -64,7 +64,7 @@ Feature: CMS Users may effectively create & edit content
 
 @content_editing
   Scenario: Confirm that menu link functionality works correctly
-    Given I am logged in as a user with the "administrator" role
+    Given I am logged in as a user with the "content_admin" role
     And I am at "node/add/office"
     Then I should see "Create Office"
 
@@ -97,3 +97,37 @@ Feature: CMS Users may effectively create & edit content
     Then I visit the "edit" page for a node with the title "Test Office - BeHaT"
     And the "menu[link_enabled]" checkbox should be checked
 
+@content_editing
+  Scenario: Confirm that the EWA block URL is shown correctly.
+    Given I am logged in as a user with the "content_admin" role
+    And I am at "node/add/office"
+    Then I should see "Create Office"
+
+    # Create an office node.
+    And I fill in "Name" with "Test Office - BeHaT"
+    And I fill in "Meta title tag" with "Test Office - BeHaT | Veterans Affairs"
+    And I fill in "Owner" with "5"
+    And I press "Save"
+
+    # Confirm that the va.gov url is not shown for nodes without a published revision.
+    Then I should see "Content Type: Office" in the "#block-entitymetadisplay" element
+    And I should not see "VA.gov URL" in the "#block-entitymetadisplay" element
+
+    # Publish the node.
+    And I select "Published" from "Change to"
+    And I fill in "Log message" with "Test publishing"
+    And I press "Apply"
+
+    # Confirm that the va.gov url is shown for nodes with a published revision.
+    Then I should see "The moderation state has been updated"
+    And I should see "VA.gov URL" in the "#block-entitymetadisplay" element
+    And I should see "(pending)" in the "#block-entitymetadisplay" element
+
+    # Archive the node.
+    Then I visit the "edit" page for a node with the title "Test Office - BeHaT"
+    And I select "Archived" from "Change to"
+    And I fill in "Revision log message" with "Test archiving"
+    And I press "Save"
+    Then I should see "Office Test Office - BeHaT has been updated."
+    And I should see "Content Type: Office" in the "#block-entitymetadisplay" element
+    And I should not see "VA.gov URL" in the "#block-entitymetadisplay" element
