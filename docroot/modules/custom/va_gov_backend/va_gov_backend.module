@@ -173,6 +173,33 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add states + custom validation if the Standalone Page field is present.
+  if (isset($form['field_standalone_page'])) {
+    $form['field_primary_category']['widget']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
+    $form['field_tags']['widget'][0]['subform']['field_topics']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
+
+    foreach ($form['field_buttons']['widget'] as $idx => $val) {
+      if (is_numeric($idx)) {
+        $form['field_buttons']['widget'][$idx]['subform']['field_button_label']['widget'][0]['value']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
+        $form['field_buttons']['widget'][$idx]['subform']['field_button_link']['widget'][0]['uri']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
+      }
+    }
+
+    // Add custom validation.
+    array_unshift($form['#validate'], '_va_gov_backend_standalone_page_validation');
+  }
+  else {
+    // Mark CTA button fields as required.
+    if (!empty($form['field_buttons'])) {
+      foreach ($form['field_buttons']['widget'] as $idx => $val) {
+        if (is_numeric($idx)) {
+          $form['field_buttons']['widget'][$idx]['subform']['field_button_label']['widget'][0]['value']['#required'] = TRUE;
+          $form['field_buttons']['widget'][$idx]['subform']['field_button_link']['widget'][0]['uri']['#required'] = TRUE;
+        }
+      }
+    }
+  }
+
   // If Contact Information paragraph component.
   if (isset($form['field_contact_information'])) {
     $form['#validate'][] = '_va_gov_backend_contact_information_validation';
@@ -182,10 +209,12 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   if (isset($form['field_tags'])) {
     // Add custom validation.
     $form['#validate'][] = '_va_gov_backend_audience_topics_validation';
-
     // Add the helper JS library.
     $form['field_tags']['widget']['#attached']['library'][] = 'va_gov_backend/audience_topics';
   }
+  if (isset($form['field_datetime_range_timezone'])) {
+    _va_gov_backend_smart_date_formatting($form, $form_state);
+  };
 
   $targets = [
     'field_office',
@@ -259,6 +288,14 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 }
 
 /**
+ * Implements hook_field_group_build_pre_render_alter().
+ */
+function va_gov_backend_field_group_form_process_build_alter(array $form, FormStateInterface $form_state, &$element) {
+  // Toggle group Q&A component visibility.
+  $form['group_q_a_page_components']['#states']['visible']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
+}
+
+/**
  * Custom validation callback for the audience_topics paragraph type.
  *
  * @param array $form
@@ -268,6 +305,13 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
  */
 function _va_gov_backend_audience_topics_validation(array $form, FormStateInterface &$form_state) {
   if (!empty($form_state->getValue('field_tags'))) {
+
+    // The tags field is not required if the Standalone Page field
+    // is present and not checked.
+    if (!empty($form['field_standalone_page']) && empty($form_state->getValue('field_standalone_page')['value'])) {
+      return;
+    }
+
     // Ensure that at least 1 and no more than 4 tags are selected
     // between the Topic and Audience fields.
     $tag_count = 0;
@@ -291,6 +335,50 @@ function _va_gov_backend_audience_topics_validation(array $form, FormStateInterf
     elseif ($tag_count > 4) {
       $form_state->setErrorByName('field_tags][0][subform][field_topics', t('No more than 4 Topic/Audience tags may be selected.'));
     }
+  }
+}
+
+/**
+ * Custom validation callback for the primary category field.
+ *
+ * @param array $form
+ *   The exposed widget form array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ */
+function _va_gov_backend_standalone_page_validation(array &$form, FormStateInterface &$form_state) {
+  if (!empty($form_state->getValue('field_standalone_page')['value'])) {
+    if (empty($form_state->getValue('field_primary_category'))) {
+      $form['field_primary_category']['#required'] = TRUE;
+      $form_state->setErrorByName('field_primary_category', t('Primary category field is required.'));
+    }
+  }
+}
+
+/**
+ * For formatting smart_date widget treatment.
+ *
+ * @param array $form
+ *   The node form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The node form state.
+ */
+function _va_gov_backend_smart_date_formatting(array &$form, FormStateInterface $form_state) {
+  $form_object = $form_state->getFormObject();
+  $type = $form_object->getEntity()->getEntityType()->id();
+  $bundle = $form_object->getEntity()->bundle();
+  // Move the help text from the bottom of the widget to the top.
+  $definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions($type, $bundle);
+  $description = $definitions['field_datetime_range_timezone']->get('description');
+  $form['field_datetime_range_timezone']['widget'][0]['value']['#prefix'] = '<div class="description">' . $description . '</div>';
+  unset($form['field_datetime_range_timezone']['widget'][0]['#description']);
+  // Only show start time unless event.
+  if ($bundle !== 'event') {
+    $form['field_datetime_range_timezone']['widget'][0]['end_value']['#attributes']['class'][] = 'hidden';
+    $form['field_datetime_range_timezone']['widget'][0]['duration']['#attributes']['class'][] = 'hidden';
+    unset($form['field_datetime_range_timezone']['widget'][0]['duration']['#title']);
+    unset($form['field_datetime_range_timezone']['widget'][0]['end_value']['#title']);
+    unset($form['field_datetime_range_timezone']['widget'][0]['value']['#title']);
   }
 }
 
@@ -742,6 +830,9 @@ function va_gov_backend_page_attachments(array &$attachments) {
   $attachments['#attached']['library'][] = 'va_gov_backend/service_location_address';
   $attachments['#attached']['library'][] = 'va_gov_backend/contact_paragraphs_interactions';
 
+  // Handle smart_date widget treatments.
+  $attachments['#attached']['library'][] = 'va_gov_backend/smart_date_interactions';
+
   $is_admin = \Drupal::service('router.admin_context')->isAdminRoute();
   if ($is_admin) {
     // Add custom css for paragraph browser.
@@ -895,8 +986,14 @@ function va_gov_backend_toolbar_alter(&$items) {
   if (!empty($items['administration_search'])) {
     unset($items['administration_search']);
   }
+
+  // Hide environment indicator tab.
+  //
+  // We are adding the 'visually-hidden' class rather than removing the 'tab'
+  // array element in order to prevent outputting empty links which cause the
+  // accessibility tests to fail.
   if (!empty($items['environment_indicator']['tab'])) {
-    unset($items['environment_indicator']['tab']);
+    $items['environment_indicator']['tab']['#attributes']['class'][] = 'visually-hidden';
   }
 }
 

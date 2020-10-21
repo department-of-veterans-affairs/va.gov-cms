@@ -343,17 +343,7 @@ display:
       header: {  }
       footer: {  }
       empty: {  }
-      relationships:
-        moderation_state:
-          id: moderation_state
-          table: node_field_revision
-          field: moderation_state
-          relationship: none
-          group_type: group
-          admin_label: 'Content moderation state'
-          required: false
-          entity_type: node
-          plugin_id: standard
+      relationships: {  }
       arguments:
         nid:
           id: nid
@@ -1310,3 +1300,4 @@ display:
         - url
         - 'user.node_grants:view'
       tags: {  }
+

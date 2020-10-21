@@ -4,7 +4,7 @@ Feature: Content model: VAMC Content Type fields
   As a content editor
   I want to have content type fields that reflect my content model.
 
-  @dst @field_type @content_type_fields @dstfields                                                                                                                                                               
+  @dst @field_type @content_type_fields @dstfields
      Scenario: Fields
        Then exactly the following fields should exist for bundles "health_care_region_detail_page,event,event_listing,health_services_listing,leadership_listing,locations_listing,press_release,press_releases_listing,person_profile,story_listing,news_story,health_care_local_facility,health_care_local_health_service,health_care_region_page,full_width_banner_alert,regional_health_care_service_des,vamc_operating_status_and_alerts" of entity type node
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
@@ -23,6 +23,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Event | Additional registration  information | field_additional_information_abo | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | Event | Address | field_address | Address |  | 1 | Address |  |
 | Content type | Event | Cost | field_event_cost | Text (plain) |  | 1 | Textfield with counter |  |
+| Content type | Event | Date and time | field_datetime_range_timezone | Smart date range |  | 1 | -- Disabled -- |  |
 | Content type | Event | Date and time | field_date | Date range |  | 1 | Date and time range |  |
 | Content type | Event | Where should the event be listed? | field_listing | Entity reference | Required | 1 | Select list |  |
 | Content type | Event | Facility location | field_facility_location | Entity reference |  | 1 | Select list |  |
@@ -64,6 +65,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Locations List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Locations List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Locations List | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | News Release | Release date | field_datetime_range_timezone | Smart date range |  | 1 | -- Disabled -- | Translatable |
 | Content type | News Release | Full text of the Press Release | field_press_release_fulltext | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
 | Content type | News Release | Introduction | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | News Release | Location | field_address | Address | Required | 1 | Address | Translatable |
