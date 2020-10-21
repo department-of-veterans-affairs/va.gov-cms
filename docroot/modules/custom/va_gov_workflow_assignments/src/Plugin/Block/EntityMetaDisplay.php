@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_workflow_assignments\Plugin\Block;
 
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -84,10 +85,10 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function build() {
+    $block = [];
     $block_items = [];
     $sections = $this->getSections()['links'];
     $block_items['Owner'] = $sections;
-    $nid = '';
     $node = NULL;
     $node_revision = NULL;
     $display_url = TRUE;
@@ -111,64 +112,78 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     if ($node) {
       $block_items['Content Type'] = $node->type->entity->label();
 
-      // If this is not the production environment,
-      // do not attempt to show the URL.
-      $environment = \Drupal::config('environment_indicator.indicator')->get('name');
-      if ($environment != 'Production') {
-        $display_url = FALSE;
-      }
-
-      // If exclude types are empty, do not attempt to show the URL.
-      $exclude_types = $this->configFactory->getEditable('exclusion_types_admin.settings')->get('types_to_exclude');
-      if ($display_url && empty($exclude_types)) {
-        $display_url = FALSE;
+      // If this node type is excluded, do not attempt to show the URL.
+      if (!empty($this->configFactory->getEditable('exclusion_types_admin.settings')->get('types_to_exclude'))) {
+        $exclude_types = $this->configFactory->getEditable('exclusion_types_admin.settings')->get('types_to_exclude');
+        if (in_array($node->bundle(), $exclude_types)) {
+          $display_url = FALSE;
+        }
       }
 
       // If there is an archived revision with an ID higher than the latest
       // published revision ID, do not attempt to show the URL.
       //
       // First, get the latest published revision ID.
-      $query = \Drupal::database()->select('content_moderation_state_field_revision', 'cmr')
-        ->condition('content_entity_id', $node->id(), '=')
-        ->condition('moderation_state', 'published', '=')
-        ->fields('cmr', ['content_entity_revision_id'])
-        ->orderBy('content_entity_revision_id', 'DESC')
-        ->range(0, 1);
-      $result = $query->execute();
-      $latest_published_revision_id = $result->fetchField();
+      if ($display_url) {
+        $query = \Drupal::database()->select('content_moderation_state_field_revision', 'cmr')
+          ->condition('content_entity_id', $node->id(), '=')
+          ->condition('moderation_state', 'published', '=')
+          ->fields('cmr', ['content_entity_revision_id'])
+          ->orderBy('content_entity_revision_id', 'DESC')
+          ->range(0, 1);
+        $result = $query->execute();
+        $latest_published_revision_id = $result->fetchField();
 
-      // Next, get the latest archived revision ID.
-      $query = \Drupal::database()->select('content_moderation_state_field_revision', 'cmr')
-        ->condition('content_entity_id', $node->id(), '=')
-        ->condition('moderation_state', 'archived', '=')
-        ->fields('cmr', ['content_entity_revision_id'])
-        ->orderBy('content_entity_revision_id', 'DESC')
-        ->range(0, 1);
-      $result = $query->execute();
-      $latest_archived_revision_id = $result->fetchField();
+        // Next, get the latest archived revision ID.
+        $query = \Drupal::database()->select('content_moderation_state_field_revision', 'cmr')
+          ->condition('content_entity_id', $node->id(), '=')
+          ->condition('moderation_state', 'archived', '=')
+          ->fields('cmr', ['content_entity_revision_id'])
+          ->orderBy('content_entity_revision_id', 'DESC')
+          ->range(0, 1);
+        $result = $query->execute();
+        $latest_archived_revision_id = $result->fetchField();
 
-      // Compare the revision IDs.
-      if ($latest_published_revision_id && $latest_archived_revision_id && ($latest_archived_revision_id > $latest_published_revision_id)) {
-        $display_url = FALSE;
-      }
-
-      // If the latest published revision is newer than this revision and
-      // its URL alias does not match this revision's URL alias,
-      // do not attempt to show the URL.
-      if ($node_revision && $latest_published_revision_id && ($latest_published_revision_id > $node_revision->id())) {
-        // The latest published revision is newer than this revision,
-        // check if the aliases match.
-        // FIXME.
-        $display_url = FALSE;
+        // Compare the revision IDs.
+        if ($latest_published_revision_id && $latest_archived_revision_id && ($latest_archived_revision_id > $latest_published_revision_id)) {
+          $display_url = FALSE;
+        }
       }
 
       // The va.gov URL should be taken from the most recent published revision.
       if ($display_url) {
-        $nid = $node->id();
-        $url = 'https://va.gov' . Url::fromRoute('entity.node.canonical', ['node' => $nid])->toString();
-        $block_items['VA.gov URL'] = Link::fromTextAndUrl($url, Url::fromUri($url))->toString();
+        // Generate the va.gov URL.
+        $url = 'https://va.gov' . $node->toUrl()->toString();
+
+        // See if the URL is live.
+        $client = \Drupal::httpClient();
+        $response = $client->head($url, ['http_errors' => FALSE]);
+
+        switch ($response->getStatusCode()) {
+          // If we get a 200, the URL is live - display it as normal.
+          case 200:
+            $link = Link::fromTextAndUrl($url, Url::fromUri($url))->toRenderable();
+            $link['#attributes'] = ['class' => 'va-gov-url'];
+            $block_items['VA.gov URL'] = render($link);
+            break;
+
+          // If we get a 404, the URL is not yet live - display it without
+          // linking and add (pending) text.
+          case 404:
+            $block_items['VA.gov URL'] = new FormattableMarkup('<span class="va-gov-url-pending">' . $url . '</span> (pending)', []);
+            $block['#attached']['library'][] = 'va_gov_workflow_assignments/ewa_style';
+            break;
+
+          // If we get some other response, cache the response for 5 minutes to
+          // avoid long page loads if va.gov is not responding and do not
+          // display anything.
+          default:
+            $block['#cache']['max-age'] = 300;
+            break;
+        }
       }
     }
+
     $output = '';
 
     foreach ($block_items as $block_key => $block_item) {
@@ -185,10 +200,9 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
         ]);
       }
     }
-    return [
-      '#markup' => $output,
-    ];
+    $block['#markup'] = $output;
 
+    return $block;
   }
 
   /**
