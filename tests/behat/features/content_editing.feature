@@ -107,6 +107,7 @@ Feature: CMS Users may effectively create & edit content
     And I should see "State" in the "#edit-field-address-0" element
 
 @content_editing
+<<<<<<< HEAD
   Scenario: Log in and confirm that System-wide alerts can be created and edited
     When I am logged in as a user with the "content_admin" role
 
@@ -125,32 +126,23 @@ Feature: CMS Users may effectively create & edit content
     Then I should see "BeHat Alert Body"
 
 @content_editing
-  Scenario: Confirm that content cannot be published directly from the node edit form.
+  Scenario Outline: Confirm that content cannot be published directly from the node edit form but can from the node view.
     Given I am logged in as a user with the "content_admin" role
-    And I am at "node/add/press_release"
-    Then I should see "Create News Release"
-
-    # Confirm that the workflow state selector is present for the "press release" content type.
-    And the "#edit-moderation-state-0-state" element should exist
-
-    # Verify that the workflow state selector contains the "Draft" and "In review" options.
-    And I should see "Draft" in the "#edit-moderation-state-0-state" element
-    And I should see "In review" in the "#edit-moderation-state-0-state" element
-
-    # Verify that the workflow state selector does not contain the "Published" option.
-    And I should not see "Published" in the "#edit-moderation-state-0-state" element
-
-    # Save the content.
-    And I fill in "Press Release Title" with "Test Press Release - BeHaT"
-    And I fill in "News releases listing" with "3054"
-    And I fill in "Owner" with "5"
-    And I fill in "City" with "Altoona"
-    And I fill in "State" with "PA"
-    And I fill in "Introduction" with "Test press release introduction."
-    And I fill in "Full text of the Press Release" with "Test full text of the press release."
-    And I press "Save"
-    Then I should see "Test Press Release - BeHaT"
-
-    # Verify that the proofing page offers the correct options.
-    And the "#edit-new-state" element should exist
-    And I should see "Published" in the "#edit-new-state" element
+    And I am viewing an <type> with the title <title>
+    Then the "#edit-new-state" element should exist
+    Then I should see "published" in the "#edit-new-state" element    
+    And I visit the "edit" page for a node with the title <title>
+    Then "#edit-moderation-state-0-state" should not contain "published"
+    Examples:
+      | type                             | title                                 |
+      | "page"                           | "page page"                           |
+      | "landing_page"                   | "landing_page page"                   |
+      | "health_care_region_detail_page" | "health_care_region_detail_page page" |
+      | "event"                          | "event page"                          |
+      | "event_listing"                  | "event_listing page"                  |
+      | "health_care_local_facility"     | "health_care_local_facility page"     |
+      | "health_care_region_page"        | "health_care_region_page page"        |
+      | "press_release"                  | "press_release page"                  |
+      | "outreach_asset"                 | "outreach_asset page"                 |
+      | "publication_listing"            | "publication_listing page"            |
+      | "news_story"                     | "news_story page"                     |
