@@ -144,7 +144,13 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
         $result = $query->execute();
         $latest_archived_revision_id = $result->fetchField();
 
-        // Compare the revision IDs.
+        // Do not show the URL if no revision has been published.
+        if (!$latest_published_revision_id) {
+          $display_url = FALSE;
+        }
+
+        // Do not show the URL if there is an archived revision that is newer
+        // than the most recent published revision.
         if ($latest_published_revision_id && $latest_archived_revision_id && ($latest_archived_revision_id > $latest_published_revision_id)) {
           $display_url = FALSE;
         }
