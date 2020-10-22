@@ -16,7 +16,6 @@ Feature: Content model: Vocabulary fields
 | Vocabulary | Sections | Metatags | field_metatags | Meta tags |  | 1 | Advanced meta tags form |  |
 | Vocabulary | Sections | Social media links | field_social_media_links | Social Media Links Field  |  | 1 | List with all available platforms |  |
 | Vocabulary | Sections | URL | field_email_updates_url | Text (plain) |  | 1 | Textfield |  |
-| Vocabulary | Topics | Learning Center Category | field_lc_category | Boolean |  | 1 | Single on/off checkbox |  |
 | Vocabulary | VHA health service taxonomy | Common conditions | field_commonly_treated_condition | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VHA health service taxonomy | Health Service API ID | field_health_service_api_id | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VHA health service taxonomy | Owner | field_owner | Entity reference | Required | 1 | -- Disabled -- |  |
