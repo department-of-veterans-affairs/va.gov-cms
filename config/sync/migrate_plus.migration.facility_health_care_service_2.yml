@@ -1,4 +1,4 @@
-uuid: 96df6bb4-25d1-486b-8309-a8e3e66df54c
+uuid: 77ffac03-723c-4011-9304-697254ac1a99
 langcode: en
 status: true
 dependencies: {  }
@@ -90,7 +90,8 @@ process:
 destination:
   plugin: 'entity:node'
   default_bundle: health_care_local_health_service
+  validate: false
 migration_dependencies:
   required:
-    - regional_health_care_service
+    - regional_health_care_service_region_keyed
   optional: {  }

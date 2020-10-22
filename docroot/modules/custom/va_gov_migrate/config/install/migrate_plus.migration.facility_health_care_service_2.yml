@@ -88,7 +88,9 @@ process:
 destination:
   plugin: 'entity:node'
   default_bundle: health_care_local_health_service
+  # We are not populating all required fields so do not validate.
+  validate: false
 migration_dependencies:
   required:
-    - regional_health_care_service
+    - regional_health_care_service_region_keyed
   optional: {  }
