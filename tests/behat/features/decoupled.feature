@@ -24,7 +24,11 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     And I should see "Recent changes" in the ".view-right-sidebar-latest-revision" element
 
     # Test content publishing.
-    Then I set the node with title "VA blind and low vision rehabilitation services - EDITED" to "published"
+    And I am at "/node/2/latest"
+    And the "#edit-new-state" element should exist
+    And I should see "published" in the "#edit-new-state" element
+    And I fill in "Change to" with "published"
+    Then I press "Apply"
 
     # Test content unpublishing.
     Then I set the node with title "VA health care" to "unpublished"
