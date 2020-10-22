@@ -117,6 +117,16 @@ function va_gov_backend_datetime_set_format($element) {
 }
 
 /**
+ * After-build callback for press release address field.
+ */
+function va_gov_backend_press_release_address_after_build(array $element, FormStateInterface $form_state) {
+  // Require the country to be selected.
+  $element[0]['address']['country_code']['country_code']['#required'] = TRUE;
+  unset($element[0]['address']['country_code']['country_code']['#options']['']);
+  return $element;
+}
+
+/**
  * Implements hook_form_FORMID_alter().
  */
 function va_gov_backend_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
@@ -284,6 +294,11 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     if (!in_array($node_type, $types_in_workflow)) {
       unset($form['actions']['preview']);
     }
+  }
+
+  // Add after_build callback for Press Release node forms.
+  if ($form_id === 'node_press_release_form' || $form_id === 'node_press_release_edit_form') {
+    $form['field_address']['widget']['#after_build'][] = 'va_gov_backend_press_release_address_after_build';
   }
 }
 
