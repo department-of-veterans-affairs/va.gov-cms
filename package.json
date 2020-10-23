@@ -4,7 +4,7 @@
   "description": "This is an Aquia Lightning based implementation of Drupal 8 that uses [Lando](https://docs.devwithlando.io/) for local container management.",
   "main": "index.js",
   "scripts": {
-    "test": "node ./tests/accessibility/aXeAccessibilityCheck.js"
+    "test": "cd tests && cypress"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,8 @@
     "@axe-core/webdriverjs": "^4.0.0",
     "axe-core": "^4.0.2",
     "axe-reports": "^1.1.11",
+    "cypress": "^5.4.0",
+    "cypress-axe": "^0.8.1",
     "phantomjs-prebuilt": "^2.1.16",
     "require": "^2.4.20",
     "selenium-webdriver": "^3.6.0"
