@@ -2,18 +2,33 @@
 
 /**
  * @file
- * Post update file for VA Gov DB.
+ * Re-save all VAMC system & facility health service nodes.
+ *
+ *  VACMS-2975-update-vamc-service-nodes-2020-10.php.
  */
 
 use Psr\Log\LogLevel;
 
+$sandbox = ['#finished' => 0];
+do {
+  print(va_gov_resave_facility_service_nodes($sandbox));
+} while ($sandbox['#finished'] < 1);
+// Node processing complete.  Call this done.
+return;
+
 /**
  * Re-save all VAMC system & facility health service nodes.
+ *
+ * @param array $sandbox
+ *  Modeling the structure of hook_update_n sandbox.
+ *
+ * @return string
+ *  Status message.
  */
-function va_gov_db_post_update_resave_facility_nodes(&$sandbox) {
+function va_gov_resave_facility_service_nodes(&$sandbox) {
   $node_storage = \Drupal::entityTypeManager()->getStorage('node');
 
-  // Get the node count for system/facility health service nodes.
+  // Get the node count for system and facility health service nodes.
   // This runs only once.
   if (!isset($sandbox['total'])) {
     $query = $node_storage->getQuery();
@@ -21,22 +36,23 @@ function va_gov_db_post_update_resave_facility_nodes(&$sandbox) {
       ->orConditionGroup()
       ->condition('type', 'health_care_local_health_service')
       ->condition('type', 'regional_health_care_service_des');
-
     $nids_to_update = $query
-      ->condition($group)->execute();
+      ->condition($group)
+      ->execute();
     $result_count = count($nids_to_update);
     $sandbox['total'] = $result_count;
     $sandbox['current'] = 0;
     $prefix = 'node_';
+    // Create non-numeric keys to accurately remove each nid when processed.
     $sandbox['nids_to_update'] = array_combine(
-            array_map('_va_gov_stringifynid', array_values($nids_to_update)),
-            array_values($nids_to_update));
+      array_map('_va_gov_stringifynid', array_values($nids_to_update)),
+      array_values($nids_to_update));
   }
 
   // Do not continue if no nodes are found.
   if (empty($sandbox['total'])) {
     $sandbox['#finished'] = 1;
-    return t('No health service nodes were found to be processed.');
+    return "No health service nodes were found to be processed.\n";
   }
 
   $limit = 25;
@@ -77,10 +93,10 @@ function va_gov_db_post_update_resave_facility_nodes(&$sandbox) {
     Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'RE-saving all %count health service nodes completed by va_gov_db_post_update_resave_facility_nodes.', [
       '%count' => $sandbox['total'],
     ]);
-    return "Health service node re-saving complete. {$sandbox['current']} / {$sandbox['total']}";
+    return "Health service node re-saving complete. {$sandbox['current']} / {$sandbox['total']}\n";
   }
 
-  return "Processing health service nodes...{$sandbox['current']} / {$sandbox['total']}";
+  return "Processing health service nodes...{$sandbox['current']} / {$sandbox['total']}\n";
 }
 
 /**
