@@ -1,4 +1,4 @@
-uuid: bbd2be72-5d09-4e7d-94c8-ddecbcc1f481
+uuid: 011213c4-3954-48fa-af6a-b02cebaeae2c
 langcode: en
 status: true
 dependencies:
@@ -6,10 +6,10 @@ dependencies:
     - va_gov_backend
 third_party_settings:
   va_gov_backend:
-    vgb_description: "Can create benefits hub content (hub landing pages and detail pages).<br/>\r\nUsers with this role should also be editors, reviewers, or publishers."
-id: content_creator_benefits_hubs
-label: 'Content creator - Benefits hubs'
-weight: -7
+    vgb_description: 'Can create content types related to resources and support products'
+id: content_creator_resources_and_support
+label: 'Content creator - Resources and support'
+weight: -6
 is_admin: null
 permissions:
   - 'access alert_blocks entity browser pages'
@@ -27,8 +27,12 @@ permissions:
   - 'clone node entity'
   - 'clone paragraph entity'
   - 'create alert block content'
-  - 'create landing_page content'
-  - 'create page content'
+  - 'create checklist content'
+  - 'create faq_multiple_q_a content'
+  - 'create media_list_images content'
+  - 'create media_list_videos content'
   - 'create promo block content'
-  - 'create support_service content'
+  - 'create q_a content'
+  - 'create step_by_step content'
+  - 'create support_resources_detail_page content'
   - 'view node link report'
