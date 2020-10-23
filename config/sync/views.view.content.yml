@@ -15,6 +15,7 @@ dependencies:
     - user.role.administrator
     - user.role.admnistrator_users
     - user.role.content_admin
+    - user.role.content_creator_resources_and_support
     - user.role.content_editor
     - user.role.content_publisher
     - user.role.content_reviewer
@@ -46,6 +47,8 @@ display:
         type: role
         options:
           role:
+            content_creator_resources_and_support: content_creator_resources_and_support
+            content_admin: content_admin
             administrator: administrator
       cache:
         type: tag
@@ -2328,6 +2331,7 @@ display:
         type: role
         options:
           role:
+            content_creator_resources_and_support: content_creator_resources_and_support
             content_admin: content_admin
             administrator: administrator
       exposed_block: true
