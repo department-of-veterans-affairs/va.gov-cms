@@ -151,7 +151,7 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
    * @param string $selector
    *   The css selector.
    *
-   * @Then the :element element should exist
+   * @Then the :selector element should exist
    */
   public function theElementShouldExist($selector) {
     $session = $this->getSession();
