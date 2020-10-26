@@ -1,0 +1,96 @@
+status: true
+dependencies: {  }
+id: facility_health_care_service_2
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - Content
+  - Node
+migration_group: vamc
+label: 'Node - VAMC Facility Health Service.'
+source:
+  plugin: csv
+  path: modules/custom/va_gov_migrate/data/facility-health-care-service-2.csv
+  delimiter: ;
+  enclosure: "'"
+  header_row_count: 1
+  keys:
+    - id
+  column_names:
+    -
+      id: Id
+    -
+      field_facility_location: Facility Name
+    -
+      field_regional_health_service: 'VAMC System Health Service'
+    -
+      field_body: 'Facility description of services'
+    -
+      field_administration: Owner
+process:
+  field_facility_location:
+    plugin: entity_lookup
+    ignore_case: true
+    value_key: title
+    entity_type: node
+    bundle_key: type
+    bundle: health_care_local_facility
+    source: field_facility_location
+  field_regional_health_service:
+    -
+      plugin: entity_lookup
+      ignore_case: true
+      value_key: title
+      entity_type: node
+      bundle_key: type
+      bundle: regional_health_care_service_des
+      source: field_regional_health_service
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Entity lookup for field_regional_health_service found nothing.'
+  field_body/format:
+    plugin: default_value
+    default_value: rich_text
+  field_body/value: field_body
+  field_administration:
+    plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: name
+    bundle_key: vid
+    bundle: administration
+    source: field_administration
+  changed:
+    plugin: callback
+    callable: time
+  new_revision:
+    plugin: default_value
+    default_value: true
+  revision_default:
+    plugin: default_value
+    default_value: true
+  revision_log:
+    plugin: default_value
+    default_value: 'Imported by facility_health_care_service_2 migration.'
+  revision_timestamp:
+    plugin: callback
+    callable: time
+  revision_uid:
+    plugin: default_value
+    default_value: 1317
+  langcode:
+    plugin: default_value
+    default_value: en
+  uid:
+    plugin: default_value
+    default_value: 1317
+destination:
+  plugin: 'entity:node'
+  default_bundle: health_care_local_health_service
+  # We are not populating all required fields so do not validate.
+  validate: false
+migration_dependencies:
+  required:
+    - regional_health_care_service_region_keyed
+  optional: {  }
