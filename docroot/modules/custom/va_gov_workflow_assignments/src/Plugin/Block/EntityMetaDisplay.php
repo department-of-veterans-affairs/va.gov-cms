@@ -4,7 +4,6 @@ namespace Drupal\va_gov_workflow_assignments\Plugin\Block;
 
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Link;
@@ -13,6 +12,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\va_gov_backend\ExclusionTypesInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -52,13 +52,6 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
   protected $entityTypeManager;
 
   /**
-   * Configuration Factory.
-   *
-   * @var \Drupal\Core\Config\ConfigFactory
-   */
-  protected $configFactory;
-
-  /**
    * The database.
    *
    * @var \Drupal\Core\Database\Connection
@@ -66,14 +59,21 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
   protected $database;
 
   /**
+   * Exclusion Types service.
+   *
+   * @var \Drupal\va_gov_backend\ExclusionTypesInterface
+   */
+  protected $exclusionTypes;
+
+  /**
    * {@inheritDoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteMatchInterface $route_match, EntityTypeManagerInterface $entity_type_manager, ConfigFactory $configFactory, Connection $database) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteMatchInterface $route_match, EntityTypeManagerInterface $entity_type_manager, Connection $database, ExclusionTypesInterface $exclusionTypes) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->routeMatch = $route_match;
     $this->entityTypeManager = $entity_type_manager;
-    $this->configFactory = $configFactory;
     $this->database = $database;
+    $this->exclusionTypes = $exclusionTypes;
   }
 
   /**
@@ -86,8 +86,8 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       $plugin_definition,
       $container->get('current_route_match'),
       $container->get('entity_type.manager'),
-      $container->get('config.factory'),
-      $container->get('database')
+      $container->get('database'),
+      $container->get('va_gov_backend.exclusion_types')
     );
   }
 
@@ -284,12 +284,8 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    *   Boolean value.
    */
   private function vaGovUrlShouldBeDisplayed($node) {
-    // If this node type is excluded, do not attempt to show the URL.
-    if (!empty($this->configFactory->getEditable('exclusion_types_admin.settings')->get('types_to_exclude'))) {
-      $exclude_types = $this->configFactory->getEditable('exclusion_types_admin.settings')->get('types_to_exclude');
-      if (in_array($node->bundle(), $exclude_types)) {
-        return FALSE;
-      }
+    if ($this->exclusionTypes->typeIsExcluded($node->bundle())) {
+      return FALSE;
     }
 
     $query = $this->database->select('content_moderation_state_field_revision', 'cmr')
