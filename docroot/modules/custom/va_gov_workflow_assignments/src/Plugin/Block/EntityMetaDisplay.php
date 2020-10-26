@@ -104,7 +104,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     $block = [];
     $block_items = [];
 
-    $block_items['Owner'] = $this->getSections()['links'];
+    $block_items['Owner'] = $this->getSections($node, $node_revision)['links'];
     $block_items['Content Type'] = $node->type->entity->label();
 
     if ($this->vaGovUrlShouldBeDisplayed($node)) {
@@ -112,12 +112,12 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
 
       // See if the URL is live.
       $client = \Drupal::httpClient();
-      $response = $client->head($url, ['http_errors' => FALSE]);
+      $response = $client->head($va_gov_url, ['http_errors' => FALSE]);
 
       switch ($response->getStatusCode()) {
         // If we get a 200, the URL is live - display it as normal.
         case 200:
-          $link = Link::fromTextAndUrl($url, Url::fromUri($url))->toRenderable();
+          $link = Link::fromTextAndUrl($va_gov_url, Url::fromUri($va_gov_url))->toRenderable();
           $link['#attributes'] = ['class' => 'va-gov-url'];
           $block_items['VA.gov URL'] = render($link);
           break;
@@ -125,7 +125,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
         // If we get a 404, the URL is not yet live - display it without
         // linking and add (pending) text.
         case 404:
-          $block_items['VA.gov URL'] = new FormattableMarkup('<span class="va-gov-url-pending">' . $url . '</span> (pending)', []);
+          $block_items['VA.gov URL'] = new FormattableMarkup('<span class="va-gov-url-pending">' . $va_gov_url . '</span> (pending)', []);
           $block['#attached']['library'][] = 'va_gov_workflow_assignments/ewa_style';
           break;
 
@@ -174,7 +174,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       return $this->routeMatch->getParameter('node');
     }
     elseif (is_numeric($this->routeMatch->getParameter('node'))) {
-      return $this->entityTypeManager()
+      return $this->entityTypeManager
         ->getStorage('node')
         ->load($this->routeMatch->getParameter('node'));
     }
@@ -197,7 +197,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       return $this->routeMatch->getParameter('node_revision');
     }
     elseif (is_numeric($this->routeMatch->getParameter('node_revision'))) {
-      return $this->entityTypeManager()
+      return $this->entityTypeManager
         ->getStorage('node')
         ->loadRevision($this->routeMatch->getParameter('node_revision'));
     }
@@ -211,50 +211,47 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    * @return array
    *   All section breadcrumbs in hierarchy and term ids.
    */
-  public function getSections() {
-    if ($this->getContextValue('node') instanceof NodeInterface) {
-      $sections = [];
-      $tids = [];
-      $node = $this->getContextValue('node');
+  public function getSections($node, $node_revision) {
+    $sections = [];
+    $tids = [];
 
-      // Grab our current section.
-      $tid = $node->get('field_administration')->getString();
-      if (!empty($tid)) {
-        $tids[] = $tid;
-        $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
-        $loaded_tid = $term_storage->load($tid);
+    // Grab our current section.
+    $tid = $node_revision ? $node_revision->get('field_administration')->getString() : $node->get('field_administration')->getString();
+    if (!empty($tid)) {
+      $tids[] = $tid;
+      $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
+      $loaded_tid = $term_storage->load($tid);
+
+      // Feed it to our link builder.
+      $sections[] = $this->getLink($loaded_tid);
+
+      $tid_parent_raw = $term_storage->loadParents($tid);
+      // If we have a parent, process.
+      if (!empty($tid_parent_raw)) {
+        $tid_parent = reset($tid_parent_raw);
+        $tid_parent_id = $tid_parent->id();
+        $tids[] = $tid_parent_id;
 
         // Feed it to our link builder.
-        $sections[] = $this->getLink($loaded_tid);
+        $sections[] = $this->getLink($tid_parent);
 
-        $tid_parent_raw = $term_storage->loadParents($tid);
-        // If we have a parent, process.
-        if (!empty($tid_parent_raw)) {
-          $tid_parent = reset($tid_parent_raw);
-          $tid_parent_id = $tid_parent->id();
-          $tids[] = $tid_parent_id;
+        $tid_grandparent_raw = $term_storage->loadParents($tid_parent_id);
+        // If we have a grandparent, process.
+        if (!empty($tid_grandparent_raw)) {
+          $tid_grandparent = reset($tid_grandparent_raw);
+          $tid_grandparent_id = $tid_grandparent->id();
+          $tids[] = $tid_grandparent_id;
 
           // Feed it to our link builder.
-          $sections[] = $this->getLink($tid_parent);
-
-          $tid_grandparent_raw = $term_storage->loadParents($tid_parent_id);
-          // If we have a grandparent, process.
-          if (!empty($tid_grandparent_raw)) {
-            $tid_grandparent = reset($tid_grandparent_raw);
-            $tid_grandparent_id = $tid_grandparent->id();
-            $tids[] = $tid_grandparent_id;
-
-            // Feed it to our link builder.
-            $sections[] = $this->getLink($tid_grandparent, TRUE);
-          }
+          $sections[] = $this->getLink($tid_grandparent, TRUE);
         }
       }
-
-      return [
-        'links' => implode(' ', array_reverse($sections)),
-        'tids' => $tids,
-      ];
     }
+
+    return [
+      'links' => implode(' ', array_reverse($sections)),
+      'tids' => $tids,
+    ];
   }
 
   /**
@@ -303,7 +300,6 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       ->range(0, 1);
     $result = $query->execute();
     $latest_published_revision_id = $result->fetchField();
-    kint($latest_published_revision_id);
 
     $query = $this->database->select('content_moderation_state_field_revision', 'cmr')
       ->condition('content_entity_id', $node->id(), '=')
