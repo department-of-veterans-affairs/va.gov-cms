@@ -96,7 +96,7 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: Publication Listing | entity_reference_2 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Story Listing | entity_reference_3 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
-| Content | Resources and support | page_3 | Page |
+| Content | Resources and support | resources_support_dashboard | Page |
 | Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
 | Custom block library | Master | default | Master |
 | Custom block library | Page | page_1 | Page |
