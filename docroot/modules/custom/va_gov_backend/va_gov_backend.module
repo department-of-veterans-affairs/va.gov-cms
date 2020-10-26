@@ -941,6 +941,7 @@ function _va_gov_backend_gtm_settings() {
     }
 
   }
+  $sections['currentUserRoles'] = implode(',', \Drupal::currentUser()->getRoles());
   return $sections;
 }
 
