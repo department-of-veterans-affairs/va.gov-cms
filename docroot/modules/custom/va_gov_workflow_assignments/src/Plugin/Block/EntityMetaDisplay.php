@@ -89,25 +89,9 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     $block_items = [];
     $sections = $this->getSections()['links'];
     $block_items['Owner'] = $sections;
-    $node = NULL;
-    $node_revision = NULL;
+    $node = $this->getNode();
+    $node_revision = $this->getNodeRevision();
     $display_url = TRUE;
-
-    // Drupal sometimes hands us a nid and sometimes an upcasted node object.
-    // This code should be future-proof, cf:
-    // https://www.drupal.org/project/drupal/issues/2730631
-    if ($this->routeMatch->getParameter('node') instanceof NodeInterface) {
-      $node = $this->routeMatch->getParameter('node');
-    }
-    elseif (is_numeric($this->routeMatch->getParameter('node'))) {
-      $node = \Drupal::entityTypeManager()->getStorage('node')->load($this->routeMatch->getParameter('node'));
-    }
-    if ($this->routeMatch->getParameter('node_revision') instanceof NodeInterface) {
-      $node_revision = $this->routeMatch->getParameter('node_revision');
-    }
-    elseif (is_numeric($this->routeMatch->getParameter('node_revision'))) {
-      $node_revision = \Drupal::entityTypeManager()->getStorage('node')->loadRevision($this->routeMatch->getParameter('node_revision'));
-    }
 
     if ($node) {
       $block_items['Content Type'] = $node->type->entity->label();
@@ -209,6 +193,52 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     $block['#markup'] = $output;
 
     return $block;
+  }
+
+  /**
+   * Get the node from context if available.
+   *
+   * @return mixed
+   *   Node if available, NULL if not.
+   */
+  public function getNode() {
+    // Drupal sometimes hands us a nid and sometimes an upcasted node object.
+    // @TODO remove type checks when the patch at
+    // https://www.drupal.org/project/drupal/issues/2730631
+    // is committed. (Should be in 9.2)
+    if ($this->routeMatch->getParameter('node') instanceof NodeInterface) {
+      return $this->routeMatch->getParameter('node');
+    }
+    elseif (is_numeric($this->routeMatch->getParameter('node'))) {
+      return $this->entityTypeManager()
+               ->getStorage('node')
+               ->load($this->routeMatch->getParameter('node'));
+    }
+
+    return NULL;
+  }
+
+  /**
+   * Get the node revision in context if available.
+   *
+   * @return mixed
+   *   Node if available, NULL if not.
+   */
+  public function getNodeRevision() {
+    // Drupal sometimes hands us a nid and sometimes an upcasted node object.
+    // @TODO remove type checks when the patch at
+    // https://www.drupal.org/project/drupal/issues/2730631
+    // is committed. (Should be in 9.2)
+    if ($this->routeMatch->getParameter('node_revision') instanceof NodeInterface) {
+      return $this->routeMatch->getParameter('node_revision');
+    }
+    elseif (is_numeric($this->routeMatch->getParameter('node_revision'))) {
+      return $this->entityTypeManager()
+               ->getStorage('node')
+               ->loadRevision($this->routeMatch->getParameter('node_revision'));
+    }
+
+    return NULL;
   }
 
   /**
