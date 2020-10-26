@@ -1,5 +1,7 @@
 README
-# CMS Product Release Notes Log
+# CMS Product Release Notes Log (deprecated)
+*We're no longer using this repo as a channel for release notes. Check out the latest CMS release notes in #cms-support, or in the [CMS help center](https://prod.cms.va.gov/help/support/release-notes). 
+
 Learn about the latest changes to the VA.gov CMS. The CMS team will log product release notes here with each significant release so CMS users can understand what's new, and get support.
 
 ## For CMS users and product teams
