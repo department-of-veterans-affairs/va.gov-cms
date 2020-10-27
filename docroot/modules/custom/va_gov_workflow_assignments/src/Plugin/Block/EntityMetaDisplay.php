@@ -4,7 +4,6 @@ namespace Drupal\va_gov_workflow_assignments\Plugin\Block;
 
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -14,6 +13,7 @@ use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\va_gov_backend\Service\ExclusionTypesInterface;
 use Drupal\va_gov_backend\Service\VaGovUrl;
+use Drupal\va_gov_workflow_assignments\Service\EditorialWorkflow;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -53,13 +53,6 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
   protected $entityTypeManager;
 
   /**
-   * The database.
-   *
-   * @var \Drupal\Core\Database\Connection
-   */
-  protected $database;
-
-  /**
    * Exclusion Types service.
    *
    * @var \Drupal\va_gov_backend\ExclusionTypesInterface
@@ -74,6 +67,13 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
   protected $vaGovUrl;
 
   /**
+   * The Editorial Workflow service.
+   *
+   * @var \Drupal\va_gov_workflow_assignments\Service\EditorialWorkflow
+   */
+  protected $editorialWorkflow;
+
+  /**
    * {@inheritDoc}
    */
   public function __construct(
@@ -82,16 +82,16 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     $plugin_definition,
     RouteMatchInterface $route_match,
     EntityTypeManagerInterface $entity_type_manager,
-    Connection $database,
     ExclusionTypesInterface $exclusionTypes,
-    VaGovUrl $vaGovUrl
+    VaGovUrl $vaGovUrl,
+    EditorialWorkflow $editorialWorkflow
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->routeMatch = $route_match;
     $this->entityTypeManager = $entity_type_manager;
-    $this->database = $database;
     $this->exclusionTypes = $exclusionTypes;
     $this->vaGovUrl = $vaGovUrl;
+    $this->editorialWorkflow = $editorialWorkflow;
   }
 
   /**
@@ -106,7 +106,8 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       $container->get('entity_type.manager'),
       $container->get('database'),
       $container->get('va_gov_backend.exclusion_types'),
-      $container->get('va_gov_backend.va_gov_url')
+      $container->get('va_gov_backend.va_gov_url'),
+      $container->get('va_gov_workflow_assignments.editorial_workflow')
     );
   }
 
@@ -294,30 +295,14 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       return FALSE;
     }
 
-    $query = $this->database->select('content_moderation_state_field_revision', 'cmr')
-      ->condition('content_entity_id', $node->id(), '=')
-      ->condition('moderation_state', 'published', '=')
-      ->fields('cmr', ['content_entity_revision_id'])
-      ->orderBy('content_entity_revision_id', 'DESC')
-      ->range(0, 1);
-    $result = $query->execute();
-    $latest_published_revision_id = $result->fetchField();
-
-    $query = $this->database->select('content_moderation_state_field_revision', 'cmr')
-      ->condition('content_entity_id', $node->id(), '=')
-      ->condition('moderation_state', 'archived', '=')
-      ->fields('cmr', ['content_entity_revision_id'])
-      ->orderBy('content_entity_revision_id', 'DESC')
-      ->range(0, 1);
-    $result = $query->execute();
-    $latest_archived_revision_id = $result->fetchField();
-
+    $latest_published_revision_id = $this->editorialWorkflow->getLatestPublishedRevisionId($node);
     if (!$latest_published_revision_id) {
       return FALSE;
     }
 
     // Do not show the URL if there is an archived revision that is newer
     // than the most recent published revision.
+    $latest_archived_revision_id = $this->editorialWorkflow->getLatestArchivedRevisionId($node);
     if ($latest_published_revision_id && $latest_archived_revision_id &&
          ($latest_archived_revision_id > $latest_published_revision_id)) {
       return FALSE;

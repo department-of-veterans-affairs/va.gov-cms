@@ -36,10 +36,7 @@ class VaGovUrl implements VaGovUrlInterface {
   }
 
   /**
-   * Get the va.gov URL for an environment.
-   *
-   * @return string
-   *   va.gov URL.
+   * {@inheritDoc}
    */
   public function getVaGovUrlForEnvironment(String $environment) : string {
     return !empty(self::WEB_ENVIRONMENTS[$environment]) ? self::WEB_ENVIRONMENTS[$environment] : '';
