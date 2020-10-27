@@ -22,7 +22,7 @@ class ExclusionTypesTest extends UnitTestCase {
   /**
    * The tested ExclusionTypes service.
    *
-   * @var \Drupal\va_gov_backend\ExclusionTypes|\PHPUnit\Framework\MockObject\MockObject
+   * @var \Drupal\va_gov_backend\Service\ExclusionTypes|\PHPUnit\Framework\MockObject\MockObject
    */
   protected $exclusionTypes;
 
