@@ -86,7 +86,6 @@ Feature: Views
 | Content | Master | default | Master |
 | Content | All content | page_1 | Page |
 | Content | Bulk edit content | page_2 | Page |
-| Content | Learning Center | page_3 | Page |
 | Content served from Drupal | Page | page_1 | Page |
 | Content served from Drupal | Data export | data_export_1 | Data export |
 | Content served from Drupal | Master | default | Master |
@@ -97,6 +96,8 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: Publication Listing | entity_reference_2 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Story Listing | entity_reference_3 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
+| Content | Resources and support | resources_support_dashboard | Page |
+| Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
 | Custom block library | Master | default | Master |
 | Custom block library | Page | page_1 | Page |
 | Date fields | Master | default | Master |

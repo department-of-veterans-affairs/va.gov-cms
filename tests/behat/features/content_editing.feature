@@ -97,3 +97,11 @@ Feature: CMS Users may effectively create & edit content
     Then I visit the "edit" page for a node with the title "Test Office - BeHaT"
     And the "menu[link_enabled]" checkbox should be checked
 
+@content_editing
+  Scenario: Confirm that press release country fields are shown correctly
+    Given I am logged in as a user with the "content_admin" role
+    And I am at "node/add/press_release"
+    Then I should see "Create News Release"
+    And I should see "Country" in the "#edit-field-address-0" element
+    And I should see "City" in the "#edit-field-address-0" element
+    And I should see "State" in the "#edit-field-address-0" element
