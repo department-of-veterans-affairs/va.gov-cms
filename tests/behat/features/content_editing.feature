@@ -123,3 +123,32 @@ Feature: CMS Users may effectively create & edit content
     # Confirm that paragraph can be edited inline
     And I press "edit-field-banner-alert-entities-0-actions-ief-entity-edit"
     Then I should see "BeHat Alert Body"
+
+@content_editing
+  Scenario Outline: Confirm that the metatag field is not visible on these content types.
+    Given I am logged in as a user with the "administrator" role
+    And I am at <add_page>
+    Then I should see <create_label>
+    And I should not see "Basic tags"
+    And I should not see "Configure the meta tags below."
+    Examples:
+      | type                                | label                         | add_page                                     | create_label                         |
+      | "page"                              | "Benefits Detail Page"        | "node/add/page"                              | "Create Benefits Detail Page"        |
+      | "landing_page"                      | "Benefits Hub Landing Page"   | "node/add/landing_page"                      | "Create Benefits Hub Landing Page"   |
+      | "checklist"                         | "Checklist"                   | "node/add/checklist"                         | "Create Checklist"                   |
+      | "documentation_page"                | "CMS Help Page"               | "node/add/documentation_page"                | "Create CMS Help Page"               |
+      | "health_care_region_detail_page"    | "Detail Page"                 | "node/add/health_care_region_detail_page"    | "Create Detail Page"                 |
+      | "event"                             | "Event"                       | "node/add/event"                             | "Create Event"                       |
+      | "event_listing"                     | "Events List"                 | "node/add/event_listing"                     | "Create Events List"                 |
+      | "faq_multiple_q_a"                  | "FAQ - multiple Q&As"         | "node/add/faq_multiple_q_a"                  | "Create FAQ - multiple Q&As"         |
+      | "health_services_listing"           | "Health Services List"        | "node/add/health_services_listing"           | "Create Health Services List"        |
+      | "basic_landing_page"                | "Landing Page"                | "node/add/basic_landing_page"                | "Create Landing Page"                |
+      | "leadership_listing"                | "Leadership List"             | "node/add/leadership_listing"                | "Create Leadership List"             |
+      | "support_resources_detail_page"     | "Learning Center Detail Page" | "node/add/support_resources_detail_page"     | "Create Learning Center Detail Page" |
+      | "locations_listing"                 | "Locations List"              | "node/add/locations_listing"                 | "Create Locations List"              |
+      | "health_care_local_facility"        | "VAMC Facility"               | "node/add/health_care_local_facility"        | "Create VAMC Facility"               |
+      | "health_care_region_page"           | "VAMC System"                 | "node/add/health_care_region_page"           | "Create VAMC System"                 |
+      | "press_release"                     | "News Release"                | "node/add/press_release"                     | "Create News Release"                |
+      | "outreach_asset"                    | "Publication"                 | "node/add/outreach_asset"                    | "Create Publication"                 |
+      | "publication_listing"               | "Publication Listing Page"    | "node/add/publication_listing"               | "Create Publication Listing Page"    |
+      | "news_story"                        | "Story"                       | "node/add/news_story"                        | "Create Story"                       |
