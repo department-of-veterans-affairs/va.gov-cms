@@ -9,6 +9,7 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
+use Drupal\va_gov_backend\Service\VaGovUrl;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
@@ -33,11 +34,12 @@ class BuildFrontend {
    */
   protected $messenger;
 
-  const WEB_ENVIRONMENTS = [
-    'prod' => 'https://www.va.gov',
-    'staging' => 'https://staging.va.gov',
-    'dev' => 'https://dev.va.gov',
-  ];
+  /**
+   * The va.gov URL service.
+   *
+   * @var \Drupal\va_gov_backend\Service\VaGovUrl
+   */
+  protected $vaGovUrl;
 
   /**
    * BuildFrontend constructor.
@@ -46,10 +48,13 @@ class BuildFrontend {
    *   The messenger interface.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   The logger factory service.
+   * @param \Drupal\va_gov_backend\Service\VaGovUrl $va_gov_url
+   *   The va.gov URL service.
    */
-  public function __construct(MessengerInterface $messenger, LoggerChannelFactoryInterface $logger_factory) {
+  public function __construct(MessengerInterface $messenger, LoggerChannelFactoryInterface $logger_factory, VaGovUrl $va_gov_url) {
     $this->messenger = $messenger;
     $this->logger = $logger_factory->get('va_gov_build_trigger');
+    $this->va_gov_url = $va_gov_url;
   }
 
   /**
@@ -58,18 +63,18 @@ class BuildFrontend {
    * @param string $environment_type
    *   The environment type.
    *
-   * @retrurn string
+   * @return string
    *   The location of the frontend web for the environment.
    */
   public function getWebUrl($environment_type = NULL) {
     // Get the environment_type if not provided.
     $environment_type = (!empty($environment_type)) ? $environment_type : $this->getEnvironment();
-    $cms_url = !empty(self::WEB_ENVIRONMENTS[$environment_type]) ?
-      self::WEB_ENVIRONMENTS[$environment_type] :
+    $cms_url = !empty($this->va_gov_url->getVaGovUrlForEnvironment($environment_type)) ?
+      $this->va_gov_url->getVaGovUrlForEnvironment($environment_type) :
       getenv('HTTP_HOST');
 
     // If this is not a Prod environment, link to /static site.
-    if (empty(self::WEB_ENVIRONMENTS[$environment_type])) {
+    if (empty($cms_url)) {
       $cms_url .= "/static";
     }
 
@@ -113,7 +118,7 @@ class BuildFrontend {
       // Save pending state.
       $this->setPendingState(1);
     }
-    elseif ((!empty($jenkins_build_environment)) && array_key_exists($jenkins_build_environment, self::WEB_ENVIRONMENTS) && (PHP_SAPI !== 'cli')) {
+    elseif ((!empty($jenkins_build_environment)) && array_key_exists($jenkins_build_environment, $this->va_gov_url::WEB_ENVIRONMENTS) && (PHP_SAPI !== 'cli')) {
       // This is in a BRD environment.
       $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
       $va_cms_bot_jenkins_auth_token = Settings::get('va_cms_bot_jenkins_auth_token');
