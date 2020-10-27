@@ -14,7 +14,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * Test the VaGovUrl Service.
  */
-class VaGovUrlTest extends ExistingSiteBase {
+class VaGovUrlServiceTest extends ExistingSiteBase {
 
   /**
    * History of requests/responses.

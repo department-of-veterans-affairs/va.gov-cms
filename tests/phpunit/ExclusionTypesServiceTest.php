@@ -3,14 +3,13 @@
 namespace tests\phpunit;
 
 use Composer\Autoload\ClassLoader;
-use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Tests\UnitTestCase;
 use Drupal\va_gov_backend\Service\ExclusionTypes;
 
 /**
  * Test the ExclusionTypes service.
  */
-class ExclusionTypesTest extends UnitTestCase {
+class ExclusionTypesServiceTest extends UnitTestCase {
 
   /**
    * The mocked config factory.
