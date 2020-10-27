@@ -104,7 +104,6 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       $plugin_definition,
       $container->get('current_route_match'),
       $container->get('entity_type.manager'),
-      $container->get('database'),
       $container->get('va_gov_backend.exclusion_types'),
       $container->get('va_gov_backend.va_gov_url'),
       $container->get('va_gov_workflow_assignments.editorial_workflow')
