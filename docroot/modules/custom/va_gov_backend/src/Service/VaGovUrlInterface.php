@@ -25,4 +25,12 @@ interface VaGovUrlInterface {
    */
   public function getVaGovUrlForEntity(EntityInterface $entity, String $environment) : string;
 
+  /**
+   * Get the va.gov URL status for an entity and optional environment.
+   *
+   * @return int
+   *   va.gov URL status code.
+   */
+  public function getVaGovUrlStatusForEntity(EntityInterface $entity, String $environment) : int;
+
 }

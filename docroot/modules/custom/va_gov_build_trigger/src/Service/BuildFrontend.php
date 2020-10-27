@@ -48,13 +48,13 @@ class BuildFrontend {
    *   The messenger interface.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   The logger factory service.
-   * @param \Drupal\va_gov_backend\Service\VaGovUrl $va_gov_url
+   * @param \Drupal\va_gov_backend\Service\VaGovUrl $vaGovUrl
    *   The va.gov URL service.
    */
-  public function __construct(MessengerInterface $messenger, LoggerChannelFactoryInterface $logger_factory, VaGovUrl $va_gov_url) {
+  public function __construct(MessengerInterface $messenger, LoggerChannelFactoryInterface $logger_factory, VaGovUrl $vaGovUrl) {
     $this->messenger = $messenger;
     $this->logger = $logger_factory->get('va_gov_build_trigger');
-    $this->va_gov_url = $va_gov_url;
+    $this->vaGovUrl = $vaGovUrl;
   }
 
   /**
@@ -69,8 +69,8 @@ class BuildFrontend {
   public function getWebUrl($environment_type = NULL) {
     // Get the environment_type if not provided.
     $environment_type = (!empty($environment_type)) ? $environment_type : $this->getEnvironment();
-    $cms_url = !empty($this->va_gov_url->getVaGovUrlForEnvironment($environment_type)) ?
-      $this->va_gov_url->getVaGovUrlForEnvironment($environment_type) :
+    $cms_url = !empty($this->vaGovUrl->getVaGovUrlForEnvironment($environment_type)) ?
+      $this->vaGovUrl->getVaGovUrlForEnvironment($environment_type) :
       getenv('HTTP_HOST');
 
     // If this is not a Prod environment, link to /static site.
@@ -118,7 +118,7 @@ class BuildFrontend {
       // Save pending state.
       $this->setPendingState(1);
     }
-    elseif ((!empty($jenkins_build_environment)) && array_key_exists($jenkins_build_environment, $this->va_gov_url::WEB_ENVIRONMENTS) && (PHP_SAPI !== 'cli')) {
+    elseif ((!empty($jenkins_build_environment)) && array_key_exists($jenkins_build_environment, $this->vaGovUrl::WEB_ENVIRONMENTS) && (PHP_SAPI !== 'cli')) {
       // This is in a BRD environment.
       $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
       $va_cms_bot_jenkins_auth_token = Settings::get('va_cms_bot_jenkins_auth_token');

@@ -13,6 +13,7 @@ use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\va_gov_backend\Service\ExclusionTypesInterface;
+use Drupal\va_gov_backend\Service\VaGovUrl;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -66,14 +67,31 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
   protected $exclusionTypes;
 
   /**
+   * The va.gov URL service.
+   *
+   * @var \Drupal\va_gov_backend\Service\VaGovUrl
+   */
+  protected $vaGovUrl;
+
+  /**
    * {@inheritDoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteMatchInterface $route_match, EntityTypeManagerInterface $entity_type_manager, Connection $database, ExclusionTypesInterface $exclusionTypes) {
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    RouteMatchInterface $route_match,
+    EntityTypeManagerInterface $entity_type_manager,
+    Connection $database,
+    ExclusionTypesInterface $exclusionTypes,
+    VaGovUrl $vaGovUrl
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->routeMatch = $route_match;
     $this->entityTypeManager = $entity_type_manager;
     $this->database = $database;
     $this->exclusionTypes = $exclusionTypes;
+    $this->vaGovUrl = $vaGovUrl;
   }
 
   /**
@@ -87,7 +105,8 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       $container->get('current_route_match'),
       $container->get('entity_type.manager'),
       $container->get('database'),
-      $container->get('va_gov_backend.exclusion_types')
+      $container->get('va_gov_backend.exclusion_types'),
+      $container->get('va_gov_backend.va_gov_url')
     );
   }
 
@@ -108,33 +127,20 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     $block_items['Content Type'] = $node->type->entity->label();
 
     if ($this->vaGovUrlShouldBeDisplayed($node)) {
-      $va_gov_url = 'https://va.gov' . $node->toUrl()->toString();
+      $va_gov_url = $this->vaGovUrl->getVaGovUrlForEntity($node);
 
-      // See if the URL is live.
-      $client = \Drupal::httpClient();
-      $response = $client->head($va_gov_url, ['http_errors' => FALSE]);
+      if ($this->vaGovUrl->getVaGovUrlStatusForEntity($node) === 200) {
+        $link = Link::fromTextAndUrl($va_gov_url, Url::fromUri($va_gov_url))->toRenderable();
+        $link['#attributes'] = ['class' => 'va-gov-url'];
+        $block_items['VA.gov URL'] = render($link);
+      }
+      else {
+        $block_items['VA.gov URL'] = new FormattableMarkup('<span class="va-gov-url-pending">' . $va_gov_url . '</span> (pending)', []);
+        $block['#attached']['library'][] = 'va_gov_workflow_assignments/ewa_style';
 
-      switch ($response->getStatusCode()) {
-        // If we get a 200, the URL is live - display it as normal.
-        case 200:
-          $link = Link::fromTextAndUrl($va_gov_url, Url::fromUri($va_gov_url))->toRenderable();
-          $link['#attributes'] = ['class' => 'va-gov-url'];
-          $block_items['VA.gov URL'] = render($link);
-          break;
-
-        // If we get a 404, the URL is not yet live - display it without
-        // linking and add (pending) text.
-        case 404:
-          $block_items['VA.gov URL'] = new FormattableMarkup('<span class="va-gov-url-pending">' . $va_gov_url . '</span> (pending)', []);
-          $block['#attached']['library'][] = 'va_gov_workflow_assignments/ewa_style';
-          break;
-
-        // If we get some other response, cache the response for 5 minutes to
-        // avoid long page loads if va.gov is not responding and do not
-        // display anything.
-        default:
-          $block['#cache']['max-age'] = 300;
-          break;
+        // Cache the response for 5 minutes to avoid long page loads if va.gov
+        // is not responding.
+        $block['#cache']['max-age'] = 300;
       }
     }
 
