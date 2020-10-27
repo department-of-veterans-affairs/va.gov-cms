@@ -19,5 +19,11 @@ As user _uid_ with _user_role_
 - [ ] The other thing
 
 ## Definition of Done
-- [ ] Product release are written (or in progress), if required.
 - [ ] Documentation has been updated, if applicable.
+
+### CMS user-facing release note
+
+Is an announcement needed to let editors know of this change? 
+- [ ] Yes, and it's written and queued for publication.
+- [ ] Yes, but it hasn't yet been written (this code is not ready to merge!).
+- [ ] No announcement is needed for this code change. 
