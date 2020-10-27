@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
- * A test to confirm ability to create media.
+ * Test the VaGovUrl Service.
  */
 class VaGovUrlTest extends ExistingSiteBase {
 

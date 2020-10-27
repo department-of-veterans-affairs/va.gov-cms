@@ -8,7 +8,7 @@ use Drupal\Tests\UnitTestCase;
 use Drupal\va_gov_backend\Service\ExclusionTypes;
 
 /**
- * A test to confirm ability to create media.
+ * Test the ExclusionTypes service.
  */
 class ExclusionTypesTest extends UnitTestCase {
 
