@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - entity_browser.browser.q_a_browser
+    - field.field.paragraph.q_a_group.field_accordion_display
     - field.field.paragraph.q_a_group.field_q_as
     - field.field.paragraph.q_a_group.field_section_header
     - paragraphs.paragraphs_type.q_a_group
@@ -15,8 +16,15 @@ targetEntityType: paragraph
 bundle: q_a_group
 mode: default
 content:
-  field_q_as:
+  field_accordion_display:
     weight: 1
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_q_as:
+    weight: 2
     settings:
       entity_browser: q_a_browser
       field_widget_display: label
