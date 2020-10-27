@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_backend;
+namespace Drupal\va_gov_backend\Service;
 
 /**
  * Interface ExclusionTypesInterface.

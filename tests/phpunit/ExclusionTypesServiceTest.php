@@ -5,7 +5,7 @@ namespace tests\phpunit;
 use Composer\Autoload\ClassLoader;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Tests\UnitTestCase;
-use Drupal\va_gov_backend\ExclusionTypes;
+use Drupal\va_gov_backend\Service\ExclusionTypes;
 
 /**
  * A test to confirm ability to create media.

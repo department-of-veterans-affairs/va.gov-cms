@@ -12,7 +12,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
-use Drupal\va_gov_backend\ExclusionTypesInterface;
+use Drupal\va_gov_backend\Service\ExclusionTypesInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
