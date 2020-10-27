@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_backend;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class ExclusionTypes.
@@ -25,15 +24,6 @@ class ExclusionTypes implements ExclusionTypesInterface {
    */
   public function __construct(ConfigFactoryInterface $configFactory) {
     $this->configFactory = $configFactory;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('config.factory')
-    );
   }
 
   /**
