@@ -1,4 +1,4 @@
-@api
+@api @mock_va_gov_urls
 Feature: The VA Website is generated inside the Drupal CMS code.
   In order to confirm cms items are being included in static build
   As anyone involved in the project

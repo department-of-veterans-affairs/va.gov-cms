@@ -1,4 +1,4 @@
-@api
+@api @mock_va_gov_urls
 Feature: CMS Users may effectively create & edit content
   In order to confirm that cms users have access to the necessary functionality
   As anyone involved in the project
@@ -121,14 +121,21 @@ Feature: CMS Users may effectively create & edit content
     # Confirm that the va.gov url is shown for nodes with a published revision.
     Then I should see "The moderation state has been updated"
     And I should see "VA.gov URL" in the "#block-entitymetadisplay" element
+    And I should not see "(pending)" in the "#block-entitymetadisplay" element
+
+    # Confirm that the va.gov url is not clickable when updating a node.
+    Then I visit the "edit" page for a node with the title "Test Office - BeHaT"
+    And I fill in "Name" with "Test Office - BeHaT 404"
+    And I press "Save"
+    Then I should see "VA.gov URL" in the "#block-entitymetadisplay" element
     And I should see "(pending)" in the "#block-entitymetadisplay" element
 
     # Archive the node.
-    Then I visit the "edit" page for a node with the title "Test Office - BeHaT"
+    Then I visit the "edit" page for a node with the title "Test Office - BeHaT 404"
     And I select "Archived" from "Change to"
     And I fill in "Revision log message" with "Test archiving"
     And I press "Save"
-    Then I should see "Office Test Office - BeHaT has been updated."
+    Then I should see "Office Test Office - BeHaT 404 has been updated."
     And I should see "Content Type: Office" in the "#block-entitymetadisplay" element
     And I should not see "VA.gov URL" in the "#block-entitymetadisplay" element
 
