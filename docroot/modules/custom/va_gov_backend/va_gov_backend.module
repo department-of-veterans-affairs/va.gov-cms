@@ -328,10 +328,11 @@ function _va_gov_disable_alias_widget(array &$form, FormStateInterface $form_sta
     ];
     $bundle = $form_state->getformObject()->getEntity()->bundle();
     if (in_array($bundle, $bundles_with_hidden_alias_widget)) {
-      $status = $form_state->getformObject()->getEntity()->get('moderation_state')->getString();
+      $entity_id = $form_state->getformObject()->getEntity()->id();
+      $entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity_id);
       // If it's published the alias widget is unchecked
       // to disallow auto path updating.
-      if ($status === 'published') {
+      if ($entity->isPublished() === TRUE) {
         $form['path']['#attached'] = [
           'drupalSettings' => ['disable_path_auto_choice' => TRUE],
         ];
