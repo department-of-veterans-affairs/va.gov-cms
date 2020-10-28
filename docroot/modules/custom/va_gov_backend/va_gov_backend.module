@@ -332,7 +332,7 @@ function _va_gov_disable_alias_widget(array &$form, FormStateInterface $form_sta
       // If it's published the alias widget is unchecked
       // to disallow auto path updating.
       if ($status === 'published') {
-        $form['#attached'] = [
+        $form['path']['#attached'] = [
           'drupalSettings' => ['disable_path_auto_choice' => TRUE],
         ];
       }
