@@ -468,8 +468,7 @@ function va_gov_backend_preprocess_page_title(&$variables) {
     $vocab = $term->get('vid')->getString();
     if (in_array($vocab, $vocabs)) {
 
-      $variables['title']['#markup'] = t('All articles in:')
-      . ' ' . $variables['title']['#markup'];
+      $variables['title']['#markup'] = t('All articles in:') . ' ' . $variables['title']['#markup'];
     }
   }
 }
