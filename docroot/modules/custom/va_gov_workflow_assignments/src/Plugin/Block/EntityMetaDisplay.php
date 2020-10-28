@@ -138,8 +138,8 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
         $block_items['VA.gov URL'] = new FormattableMarkup('<span class="va-gov-url-pending">' . $va_gov_url . '</span> (pending)', []);
         $block['#attached']['library'][] = 'va_gov_workflow_assignments/ewa_style';
 
-        // Cache the response for 5 minutes to avoid long page loads if va.gov
-        // is not responding.
+        // Cache the response for 5 minutes to avoid repeated longer
+        // page loads if va.gov is not responding.
         $block['#cache']['max-age'] = 300;
       }
     }
@@ -299,11 +299,8 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       return FALSE;
     }
 
-    // Do not show the URL if there is an archived revision that is newer
-    // than the most recent published revision.
     $latest_archived_revision_id = $this->editorialWorkflow->getLatestArchivedRevisionId($node);
-    if ($latest_published_revision_id && $latest_archived_revision_id &&
-         ($latest_archived_revision_id > $latest_published_revision_id)) {
+    if ($latest_archived_revision_id > $latest_published_revision_id) {
       return FALSE;
     }
 
