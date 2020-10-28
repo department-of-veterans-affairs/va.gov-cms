@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_administration
+    - user.role.anonymous
     - user.role.authenticated
     - views.view.child_terms
     - workflows.workflow.editorial
@@ -44,6 +45,7 @@ display:
         type: role
         options:
           role:
+            anonymous: anonymous
             authenticated: authenticated
       cache:
         type: none
