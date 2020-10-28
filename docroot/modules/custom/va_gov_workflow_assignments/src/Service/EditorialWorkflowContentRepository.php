@@ -6,9 +6,9 @@ use Drupal\Core\Database\Connection;
 use Drupal\node\NodeInterface;
 
 /**
- * Class EditorialWorkflow.
+ * Class EditorialWorkflowContentRepository.
  */
-class EditorialWorkflow implements EditorialWorkflowInterface {
+class EditorialWorkflowContentRepository implements EditorialWorkflowContentRepositoryInterface {
 
   /**
    * The database.
@@ -18,7 +18,7 @@ class EditorialWorkflow implements EditorialWorkflowInterface {
   protected $database;
 
   /**
-   * Constructs a new EditorialWorkflow object.
+   * Constructs a new EditorialWorkflowContentRepository object.
    *
    * @param \Drupal\Core\Database\Connection $database
    *   Drupal database connection.

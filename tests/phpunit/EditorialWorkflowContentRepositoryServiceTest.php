@@ -2,27 +2,27 @@
 
 namespace tests\phpunit;
 
-use Drupal\va_gov_workflow_assignments\Service\EditorialWorkflow;
+use Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepository;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
- * Test the EditorialWorkflow service.
+ * Test the EditorialWorkflowContentRepository service.
  */
-class EditorialWorkflowServiceTest extends ExistingSiteBase {
+class EditorialWorkflowContentRepositoryServiceTest extends ExistingSiteBase {
 
   /**
-   * The tested EditorialWorkflow service.
+   * The tested EditorialWorkflowContentRepository service.
    *
-   * @var \Drupal\va_gov_workflow_assignments\Service\EditorialWorkflow|\PHPUnit\Framework\MockObject\MockObject
+   * @var \Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepository|\PHPUnit\Framework\MockObject\MockObject
    */
-  protected $editorialWorkflow;
+  protected $editorialWorkflowContentRepository;
 
   /**
    * {@inheritdoc}
    */
   public function setUp() {
     parent::setUp();
-    $this->editorialWorkflow = new EditorialWorkflow(\Drupal::database());
+    $this->editorialWorkflowContentRepository = new EditorialWorkflowContentRepository(\Drupal::database());
   }
 
   /**
@@ -39,10 +39,10 @@ class EditorialWorkflowServiceTest extends ExistingSiteBase {
       'uid' => $author->id(),
     ]);
     $node->setPublished()->save();
-    $this->assertEquals(0, $this->editorialWorkflow->getLatestArchivedRevisionId($node));
+    $this->assertEquals(0, $this->editorialWorkflowContentRepository->getLatestArchivedRevisionId($node));
 
     $node->set('moderation_state', 'archived')->save();
-    $this->assertEquals($node->getRevisionId(), $this->editorialWorkflow->getLatestArchivedRevisionId($node));
+    $this->assertEquals($node->getRevisionId(), $this->editorialWorkflowContentRepository->getLatestArchivedRevisionId($node));
   }
 
   /**
@@ -59,14 +59,14 @@ class EditorialWorkflowServiceTest extends ExistingSiteBase {
       'uid' => $author->id(),
     ]);
     $node->save();
-    $this->assertEquals(0, $this->editorialWorkflow->getLatestPublishedRevisionId($node));
+    $this->assertEquals(0, $this->editorialWorkflowContentRepository->getLatestPublishedRevisionId($node));
 
     $node->set('moderation_state', 'published')->save();
     $revision_id = $node->getRevisionId();
-    $this->assertEquals($revision_id, $this->editorialWorkflow->getLatestPublishedRevisionId($node));
+    $this->assertEquals($revision_id, $this->editorialWorkflowContentRepository->getLatestPublishedRevisionId($node));
 
     $node->set('moderation_state', 'archived')->save();
-    $this->assertEquals($revision_id, $this->editorialWorkflow->getLatestPublishedRevisionId($node));
+    $this->assertEquals($revision_id, $this->editorialWorkflowContentRepository->getLatestPublishedRevisionId($node));
   }
 
 }

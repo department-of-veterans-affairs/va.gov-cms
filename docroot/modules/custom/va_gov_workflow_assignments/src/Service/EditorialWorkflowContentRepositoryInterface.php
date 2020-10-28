@@ -5,9 +5,9 @@ namespace Drupal\va_gov_workflow_assignments\Service;
 use Drupal\node\NodeInterface;
 
 /**
- * Interface EditorialWorkflowInterface.
+ * Interface EditorialWorkflowContentRepositoryInterface.
  */
-interface EditorialWorkflowInterface {
+interface EditorialWorkflowContentRepositoryInterface {
 
   /**
    * Get the latest archived revision ID for a node.

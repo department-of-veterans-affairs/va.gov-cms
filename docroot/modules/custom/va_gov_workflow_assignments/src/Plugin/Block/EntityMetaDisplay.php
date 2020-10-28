@@ -13,7 +13,7 @@ use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\va_gov_backend\Service\ExclusionTypesInterface;
 use Drupal\va_gov_backend\Service\VaGovUrl;
-use Drupal\va_gov_workflow_assignments\Service\EditorialWorkflow;
+use Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -69,9 +69,9 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
   /**
    * The Editorial Workflow service.
    *
-   * @var \Drupal\va_gov_workflow_assignments\Service\EditorialWorkflow
+   * @var \Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepository
    */
-  protected $editorialWorkflow;
+  protected $editorialWorkflowContentRepository;
 
   /**
    * {@inheritDoc}
@@ -84,14 +84,14 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     EntityTypeManagerInterface $entity_type_manager,
     ExclusionTypesInterface $exclusionTypes,
     VaGovUrl $vaGovUrl,
-    EditorialWorkflow $editorialWorkflow
+    EditorialWorkflowContentRepository $editorialWorkflowContentRepository
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->routeMatch = $route_match;
     $this->entityTypeManager = $entity_type_manager;
     $this->exclusionTypes = $exclusionTypes;
     $this->vaGovUrl = $vaGovUrl;
-    $this->editorialWorkflow = $editorialWorkflow;
+    $this->editorialWorkflowContentRepository = $editorialWorkflowContentRepository;
   }
 
   /**
@@ -129,7 +129,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     if ($this->vaGovUrlShouldBeDisplayed($node)) {
       $va_gov_url = $this->vaGovUrl->getVaGovUrlForEntity($node);
 
-      if ($this->vaGovUrl->getVaGovUrlStatusForEntity($node) === 200) {
+      if ($this->vaGovUrl->vaGovUrlForEntityIsLive($node)) {
         $link = Link::fromTextAndUrl($va_gov_url, Url::fromUri($va_gov_url))->toRenderable();
         $link['#attributes'] = ['class' => 'va-gov-url'];
         $block_items['VA.gov URL'] = render($link);
@@ -294,12 +294,12 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       return FALSE;
     }
 
-    $latest_published_revision_id = $this->editorialWorkflow->getLatestPublishedRevisionId($node);
+    $latest_published_revision_id = $this->editorialWorkflowContentRepository->getLatestPublishedRevisionId($node);
     if (!$latest_published_revision_id) {
       return FALSE;
     }
 
-    $latest_archived_revision_id = $this->editorialWorkflow->getLatestArchivedRevisionId($node);
+    $latest_archived_revision_id = $this->editorialWorkflowContentRepository->getLatestArchivedRevisionId($node);
     if ($latest_archived_revision_id > $latest_published_revision_id) {
       return FALSE;
     }

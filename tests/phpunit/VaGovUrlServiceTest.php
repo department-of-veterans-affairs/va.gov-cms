@@ -81,7 +81,7 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
    * @group functional
    * @group all
    */
-  public function testGetVaGovUrlStatusForEntity() {
+  public function testVaGovUrlForEntityIsLive() {
     $this->mockClient(new Response('200'), new Response('404'));
     $vaGovUrl = new VaGovUrl($this->mockClient);
 
@@ -93,8 +93,8 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
     ]);
     $system_node->setPublished()->save();
 
-    $this->assertEquals(200, $vaGovUrl->getVaGovUrlStatusForEntity($system_node));
-    $this->assertEquals(404, $vaGovUrl->getVaGovUrlStatusForEntity($system_node));
+    $this->assertTrue($vaGovUrl->vaGovUrlForEntityIsLive($system_node));
+    $this->assertFalse($vaGovUrl->vaGovUrlForEntityIsLive($system_node));
   }
 
   /**
