@@ -62,7 +62,7 @@ class ExclusionTypesAdminForm extends FormBase {
       '#title' => $this->t('Content types that are not individual pages on va.gov.'),
       '#description' => $this->t('Names of content types, that are not separate pages on va.gov'),
       '#weight' => '10',
-      '#default_value' => $config->get('types_to_exclude') ? $config->get('types_to_exclude') : [],
+      '#default_value' => $config->get('types_to_exclude') ?? [],
     ];
 
     $form['submit'] = [

@@ -289,7 +289,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    * @return bool
    *   Boolean value.
    */
-  private function vaGovUrlShouldBeDisplayed($node) {
+  private function vaGovUrlShouldBeDisplayed($node) : bool {
     if ($this->exclusionTypes->typeIsExcluded($node->bundle())) {
       return FALSE;
     }
