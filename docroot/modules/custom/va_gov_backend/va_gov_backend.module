@@ -453,9 +453,31 @@ function va_gov_backend_form_alter_submit(array &$form, FormStateInterface $form
 }
 
 /**
+ * Prefix R&S vocabulary term page titles.
+ */
+function va_gov_backend_preprocess_page_title(&$variables) {
+  $current_route_name = \Drupal::service('current_route_match')->getRouteName();
+  if ($current_route_name === 'entity.taxonomy_term.canonical') {
+    $term = \Drupal::request()->attributes->get('taxonomy_term');
+    $vocabs = [
+      'audience_beneficiaries',
+      'audience_non_beneficiaries',
+      'lc_categories',
+      'topics',
+    ];
+    $vocab = $term->get('vid')->getString();
+    if (in_array($vocab, $vocabs)) {
+
+      $variables['title']['#markup'] = t('All articles in:') . ' ' . $variables['title']['#markup'];
+    }
+  }
+}
+
+/**
  * Add preview button to node view.
  */
 function va_gov_backend_preprocess_page(&$variables) {
+
   $node = \Drupal::routeMatch()->getParameter('node');
   if ($node instanceof NodeInterface) {
     // It's a node.
