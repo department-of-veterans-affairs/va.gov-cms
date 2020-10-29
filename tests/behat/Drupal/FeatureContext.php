@@ -16,11 +16,15 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   use \Traits\GroupTrait;
 
   /**
+   * Private storage.
+   *
    * @var array
    */
   private $privateStorage = [];
 
   /**
+   * Timestamp property.
+   *
    * @var int
    *   Useful to have different timestamp even if nodes created at same time.
    */
@@ -38,6 +42,8 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   }
 
   /**
+   * Clean up private storage.
+   *
    * @AfterScenario
    */
   public function cleanUp() {
