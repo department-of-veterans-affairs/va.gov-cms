@@ -3,6 +3,8 @@
 namespace Drupal\va_gov_backend_http_client;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 
 /**
@@ -18,7 +20,7 @@ class VaGovBackendHttpClient extends Client {
       return new Response(200);
     }
     elseif (preg_match('/-404$/', $uri)) {
-      return new Response(404);
+      throw RequestException::create(new Request('HEAD', $uri), new Response(404));
     }
     return new Response(200);
   }
