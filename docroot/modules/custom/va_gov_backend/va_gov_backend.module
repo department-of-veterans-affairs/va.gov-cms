@@ -384,7 +384,7 @@ function _va_gov_backend_smart_date_formatting(array &$form, FormStateInterface 
   $bundle = $form_object->getEntity()->bundle();
   // Move the help text from the bottom of the widget to the top.
   $definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions($type, $bundle);
-  $description = $definitions['field_datetime_range_timezone']->get('description');
+  $description = !empty($definitions['field_datetime_range_timezone']) ? $definitions['field_datetime_range_timezone']->get('description') : '';
   $form['field_datetime_range_timezone']['widget'][0]['value']['#prefix'] = '<div class="description">' . $description . '</div>';
   unset($form['field_datetime_range_timezone']['widget'][0]['#description']);
   // Only show start time unless event.
@@ -635,6 +635,23 @@ function va_gov_backend_form_alter_redirect_submit($form, FormStateInterface $fo
 }
 
 /**
+ * For formatting smart_date paragraph field widget treatment.
+ *
+ * @param array $element
+ *   The paragraph form.
+ *
+ *   Removes date range end field elements not relevant to situation updates.
+ */
+function _va_gov_backend_smart_date_paragraph_formatting(array &$element) {
+  unset($element['subform']['field_datetime_range_timezone']['widget'][0]['#description']);
+  $element['subform']['field_datetime_range_timezone']['widget'][0]['end_value']['#attributes']['class'][] = 'hidden';
+  $element['subform']['field_datetime_range_timezone']['widget'][0]['duration']['#attributes']['class'][] = 'hidden';
+  unset($element['subform']['field_datetime_range_timezone']['widget'][0]['duration']['#title']);
+  unset($element['subform']['field_datetime_range_timezone']['widget'][0]['end_value']['#title']);
+  unset($element['subform']['field_datetime_range_timezone']['widget'][0]['value']['#title']);
+}
+
+/**
  * Implements hook_field_widget_WIDGET_TYPE_form_alter().
  */
 function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
@@ -644,12 +661,21 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
    * @var \Drupal\field\Entity\FieldConfig $field_definition */
   $paragraph_entity_reference_field_name = $field_definition->getName();
 
-  if ($paragraph_entity_reference_field_name === 'field_content_block' || $paragraph_entity_reference_field_name === 'field_service_location') {
+  $target_paragraph_ref_fields = [
+    'field_content_block',
+    'field_service_location',
+    'field_situation_updates',
+  ];
+
+  if (in_array($paragraph_entity_reference_field_name, $target_paragraph_ref_fields)) {
     $widget_state = WidgetBase::getWidgetState($element['#field_parents'], $paragraph_entity_reference_field_name, $form_state);
 
     $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'];
     $paragraph_type = $paragraph_instance->bundle();
 
+    if ($paragraph_type === 'situation_update') {
+      _va_gov_backend_smart_date_paragraph_formatting($element);
+    }
     if ($paragraph_type == 'alert') {
       $selector = sprintf(':input[name="%s[%d][subform][%s]"]', $paragraph_entity_reference_field_name, $element['#delta'], 'field_alert_type');
 
