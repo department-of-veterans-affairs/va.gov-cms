@@ -308,6 +308,24 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 }
 
 /**
+ * Returns the R&S content types.
+ *
+ * Return an array of R&S node types.
+ */
+function _va_gov_backend_r_and_s_types() {
+
+  return [
+    'basic_landing_page',
+    'checklist',
+    'faq_multiple_q_a',
+    'media_list_images',
+    'media_list_videos',
+    'q_a',
+    'step_by_step',
+  ];
+}
+
+/**
  * Disable url alias widget after publish.
  *
  * @param array $form
@@ -317,15 +335,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
  */
 function _va_gov_disable_alias_widget(array &$form, FormStateInterface $form_state) {
   if ($form_state->getFormObject() instanceof EntityFormInterface) {
-    $bundles_with_hidden_alias_widget = [
-      'basic_landing_page',
-      'checklist',
-      'faq_multiple_q_a',
-      'media_list_images',
-      'media_list_videos',
-      'q_a',
-      'step_by_step',
-    ];
+    $bundles_with_hidden_alias_widget = _va_gov_backend_r_and_s_types();
     $bundle = $form_state->getformObject()->getEntity()->bundle();
     if (in_array($bundle, $bundles_with_hidden_alias_widget)) {
       $entity_id = $form_state->getformObject()->getEntity()->id();
@@ -334,13 +344,26 @@ function _va_gov_disable_alias_widget(array &$form, FormStateInterface $form_sta
         // If it's published the alias widget is unchecked
         // to disallow auto path updating.
         if ($entity->isPublished() === TRUE) {
-          $form['path']['#attached'] = [
-            'drupalSettings' => ['disable_path_auto_choice' => TRUE],
-          ];
+          $form['#after_build'][] = '_va_gov_backend_node_after_build_uncheck_auto_alias';
         }
       }
     }
   }
+}
+
+/**
+ * Uncheck the auto pathalias checkbox.
+ *
+ * @param array $form
+ *   The node form array.
+ *
+ *   return array $form.
+ */
+function _va_gov_backend_node_after_build_uncheck_auto_alias(array $form) {
+  // Unchecks the checkbox for pathauto.
+  $form['path']['widget'][0]['pathauto']['#checked'] = FALSE;
+
+  return $form;
 }
 
 /**
@@ -1144,12 +1167,33 @@ function va_gov_backend_pathauto_alias_alter(&$alias, array &$context) {
 function va_gov_backend_entity_presave(EntityInterface $entity) {
   $bundle_types = ['event', 'news_story', 'press_release', 'outreach_asset'];
 
+  $r_and_s_types = _va_gov_backend_r_and_s_types();
+
   if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $bundle_types)) {
     _va_gov_backend_feature_bump($entity);
   }
 
   if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'page') {
     _va_gov_backend_sync_wysiwyg_fields($entity);
+  }
+
+  if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $r_and_s_types)) {
+    _va_gov_backend_disable_autopath_alias($entity);
+  }
+}
+
+/**
+ * Determine if pathauto alias should be set on R&S node.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The R&S node.
+ */
+function _va_gov_backend_disable_autopath_alias(EntityInterface $entity) {
+  // Current entity object represents revision, so we need to load the
+  // entity to get the default revision state.
+  $active_entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity->nid->value);
+  if ($active_entity->isPublished() === TRUE) {
+    $entity->path->pathauto = 0;
   }
 }
 
