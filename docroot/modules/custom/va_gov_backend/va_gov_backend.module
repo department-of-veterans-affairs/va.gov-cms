@@ -1168,8 +1168,6 @@ function va_gov_backend_pathauto_alias_alter(&$alias, array &$context) {
 function va_gov_backend_entity_presave(EntityInterface $entity) {
   $bundle_types = ['event', 'news_story', 'press_release', 'outreach_asset'];
 
-  $r_and_s_types = _va_gov_backend_r_and_s_types();
-
   if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $bundle_types)) {
     _va_gov_backend_feature_bump($entity);
   }
