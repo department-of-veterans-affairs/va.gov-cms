@@ -2,6 +2,7 @@
 
 namespace tests\phpunit;
 
+use Drupal\Core\Site\Settings;
 use Drupal\va_gov_backend\Service\VaGovUrl;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
@@ -31,12 +32,28 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
   protected $mockClient;
 
   /**
+   * Settings array.
+   *
+   * @var array
+   */
+  protected $config = array();
+
+  /**
+   * Settings Service
+   *
+   * @var \Drupal\Core\Site\Settings
+   */
+  protected $settings;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp() {
     parent::setUp();
 
     $this->container = new ContainerBuilder();
+    $this->config = [];
+    $this->settings = new Settings($this->config);
   }
 
   /**
@@ -47,8 +64,23 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
    */
   public function testGetVaGovUrlForEnvironment() {
     $this->mockClient();
-    $vaGovUrl = new VaGovUrl($this->mockClient);
+    $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings);
     $this->assertEquals('https://www.va.gov', $vaGovUrl->getVaGovUrlForEnvironment('prod'));
+  }
+
+  /**
+   * Verify that the prod URL may be over-ridden with settings.
+   *
+   * @group functional
+   * @group all
+   */
+  public function testOverrideVaGovProdUrlForEnvironment() {
+    $this->mockClient();
+    $this->config = ['va_gov_prod_url' => 'https://other.va.gov'];
+    $this->settings = new Settings($this->config);
+    $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings);
+    $this->assertNotEquals('https://www.va.gov', $vaGovUrl->getVaGovUrlForEnvironment('prod'));
+    $this->assertEquals('https://other.va.gov', $vaGovUrl->getVaGovUrlForEnvironment('prod'));
   }
 
   /**
@@ -59,7 +91,7 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
    */
   public function testGetVaGovUrlForEntity() {
     $this->mockClient();
-    $vaGovUrl = new VaGovUrl($this->mockClient);
+    $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings);
 
     $author = $this->createUser();
     $system_node = $this->createNode([
@@ -83,7 +115,7 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
    */
   public function testVaGovUrlForEntityIsLive() {
     $this->mockClient(new Response('200'), new Response('404'));
-    $vaGovUrl = new VaGovUrl($this->mockClient);
+    $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings);
 
     $author = $this->createUser();
     $system_node = $this->createNode([
