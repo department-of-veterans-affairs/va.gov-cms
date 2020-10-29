@@ -7,7 +7,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * A test to confirm amount of nodes by type.
  */
-class CreateNodeSecurity extends ExistingSiteBase {
+class SecurityCreateNodeTest extends ExistingSiteBase {
 
   /**
    * A test method to deterine the amount of time it takes to create a node.

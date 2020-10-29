@@ -135,4 +135,5 @@ class BulletinQueueTest extends ExistingSiteBase {
     ];
     $node->set('field_situation_updates', $current);
   }
+
 }

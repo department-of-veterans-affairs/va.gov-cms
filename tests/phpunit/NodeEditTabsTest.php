@@ -7,7 +7,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * A test to confirm access to node edit form tabs.
  */
-class AccessNodeEditTabs extends ExistingSiteBase {
+class NodeEditTabsTest extends ExistingSiteBase {
 
   /**
    * A test method to determine whether users can access node edit form tabs.

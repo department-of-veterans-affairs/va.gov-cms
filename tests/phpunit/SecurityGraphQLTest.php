@@ -8,7 +8,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * A class to check access to graphql data.
  */
-class ServiceSecure extends ExistingSiteBase {
+class SecurityGraphQLTest extends ExistingSiteBase {
 
   /**
    * A test method to check access to GraphQL service.

@@ -7,7 +7,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * A test to confirm amount of nodes by type.
  */
-class MigrationCount extends ExistingSiteBase {
+class MigrationCountTest extends ExistingSiteBase {
 
   /**
    * A test method to deterine the amount of entities in the systems by type.
@@ -36,10 +36,10 @@ class MigrationCount extends ExistingSiteBase {
    *   Array containing entity type as string and expected count as int
    */
   public function validCounts() {
-    return array(
-      array("page", 56),
-      array("landing_page", 9),
-    );
+    return [
+      ["page", 56],
+      ["landing_page", 9],
+    ];
   }
 
 }

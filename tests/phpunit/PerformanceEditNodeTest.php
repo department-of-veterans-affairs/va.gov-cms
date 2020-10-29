@@ -7,7 +7,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * A test to confirm amount of nodes by type.
  */
-class EditNodePerformance extends ExistingSiteBase {
+class PerformanceEditNodeTest extends ExistingSiteBase {
 
   /**
    * A test method to deterine the amount of time to edit a node page.
@@ -48,7 +48,7 @@ class EditNodePerformance extends ExistingSiteBase {
     $secs = number_format($microsecs, 3);
     $this->assertLessThan($benchmark, $secs, __METHOD__ . "\nOperation took " . $secs . " seconds which is longer than the benchmark of " . $benchmark . " seconds for type " . $type . ".\n");
 
-    $message = __METHOD__  . "\nOperation took " . $secs . " seconds compared to the benchmark of " . $benchmark . " seconds for type " . $type . ".\n";
+    $message = __METHOD__ . "\nOperation took " . $secs . " seconds compared to the benchmark of " . $benchmark . " seconds for type " . $type . ".\n";
     fwrite(STDERR, print_r($message, TRUE));
   }
 

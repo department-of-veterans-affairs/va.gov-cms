@@ -8,10 +8,10 @@ use Drupal\user\Entity\Role;
 /**
  * A test to confirm that roles are associated with the correct permissions.
  */
-class SecurityRolesPermissions extends ExistingSiteBase {
+class SecurityRolesPermissionsTest extends ExistingSiteBase {
 
   /**
-   * Test method to determine if each role is associated with its expected permissions.
+   * Determine if each role is associated with its expected permissions.
    *
    * @group security
    * @group all

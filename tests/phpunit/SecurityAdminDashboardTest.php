@@ -7,7 +7,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * A test to confirm amount of nodes by type.
  */
-class AdminDashboardSecurity extends ExistingSiteBase {
+class SecurityAdminDashboardTest extends ExistingSiteBase {
 
   /**
    * A test method to check permissions to access the admin dashboard.

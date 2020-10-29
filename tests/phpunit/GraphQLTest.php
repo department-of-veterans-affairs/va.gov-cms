@@ -7,7 +7,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * A test to confirm amount of nodes by type.
  */
-class ServiceAvailable extends ExistingSiteBase {
+class GraphQLTest extends ExistingSiteBase {
 
   /**
    * A test method to check data returned by GraphQL service.

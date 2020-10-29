@@ -7,7 +7,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * A test to confirm amount of nodes by type.
  */
-class CreateNodePerformance extends ExistingSiteBase {
+class PerformanceCreateNodeTest extends ExistingSiteBase {
 
   /**
    * A test method to determine the amount of time it takes to create a node.
@@ -43,9 +43,9 @@ class CreateNodePerformance extends ExistingSiteBase {
 
     // Test assertion.
     $secs = number_format($microsecs, 3);
-    $this->assertLessThan($benchmark, $secs, __METHOD__  . "\nOperation took " . $secs . " seconds which is longer than the benchmark of " . $benchmark . " seconds.\n");
+    $this->assertLessThan($benchmark, $secs, __METHOD__ . "\nOperation took " . $secs . " seconds which is longer than the benchmark of " . $benchmark . " seconds.\n");
 
-    $message = __METHOD__  . "\nOperation took " . $secs . " seconds compared to the benchmark of " . $benchmark . " seconds.\n";
+    $message = __METHOD__ . "\nOperation took " . $secs . " seconds compared to the benchmark of " . $benchmark . " seconds.\n";
     fwrite(STDERR, print_r($message, TRUE));
   }
 
@@ -56,9 +56,9 @@ class CreateNodePerformance extends ExistingSiteBase {
    *   Array containing entity type as string and expected count as int
    */
   public function benchmarkTime() {
-    return array(
-      array(5),
-    );
+    return [
+      [5],
+    ];
   }
 
 }

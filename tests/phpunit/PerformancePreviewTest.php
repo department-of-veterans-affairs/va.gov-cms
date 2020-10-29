@@ -7,7 +7,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * A test to assure the performance of edit preview.
  */
-class PreviewPerformance extends ExistingSiteBase {
+class PerformancePreviewTest extends ExistingSiteBase {
 
   /**
    * A test method to deterine the amount of time it takes to load preview.

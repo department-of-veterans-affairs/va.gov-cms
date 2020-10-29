@@ -7,7 +7,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * A test to confirm access to workflow moderation.
  */
-class AccessWorkflow extends ExistingSiteBase {
+class WorkflowTest extends ExistingSiteBase {
 
   /**
    * A test method to determine whether users can access workflow moderation.
