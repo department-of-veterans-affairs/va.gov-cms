@@ -339,7 +339,7 @@ function _va_gov_disable_alias_widget(array &$form, FormStateInterface $form_sta
   if ($form_state->getFormObject() instanceof EntityFormInterface) {
     $bundles_with_hidden_alias_widget = _va_gov_backend_r_and_s_types();
     $bundle = $form_state->getformObject()->getEntity()->bundle();
-    if (in_array($bundle, $bundles_with_hidden_alias_widget)) {
+    if (in_array($bundle, _va_gov_backend_get_locked_alias_bundles())) {
       $entity_id = $form_state->getformObject()->getEntity()->id();
       if (!empty($entity_id)) {
         $entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity_id);
