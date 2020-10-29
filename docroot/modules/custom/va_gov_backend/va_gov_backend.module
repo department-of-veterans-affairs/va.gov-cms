@@ -1178,7 +1178,7 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
     _va_gov_backend_sync_wysiwyg_fields($entity);
   }
 
-  if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $r_and_s_types)) {
+  if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), _va_gov_backend_get_locked_alias_bundles())) {
     _va_gov_backend_disable_autopath_alias($entity);
   }
 }
