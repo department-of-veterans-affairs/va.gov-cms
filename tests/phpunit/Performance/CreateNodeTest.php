@@ -5,7 +5,7 @@ namespace tests\phpunit\Performance;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
- * A test to node creation performance.
+ * A test to confirm node creation performance.
  */
 class CreateNodeTest extends ExistingSiteBase {
 
@@ -56,9 +56,7 @@ class CreateNodeTest extends ExistingSiteBase {
    *   Array containing entity type as string and expected count as int
    */
   public function benchmarkTime() {
-    return [
-      [5],
-    ];
+    return [[5]];
   }
 
 }

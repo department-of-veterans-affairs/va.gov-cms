@@ -5,7 +5,7 @@ namespace tests\phpunit\Performance;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
- * A test to confirm ability to create taxonomy.
+ * A test to confirm taxonomy creation and performance.
  */
 class CreateTaxonomyTermTest extends ExistingSiteBase {
 
@@ -53,9 +53,7 @@ class CreateTaxonomyTermTest extends ExistingSiteBase {
    *   Array containing entity type as string and expected count as int
    */
   public function benchmarkTime() {
-    return [
-      [2],
-    ];
+    return [[2]];
   }
 
 }

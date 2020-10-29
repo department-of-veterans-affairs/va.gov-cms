@@ -11,7 +11,7 @@ use Drupal\user\Entity\Role;
 class RolesPermissionsTest extends ExistingSiteBase {
 
   /**
-   * Determine if each role is associated with its expected permissions.
+   * Determine if each role has the expected permissions.
    *
    * @group security
    * @group all
