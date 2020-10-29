@@ -308,7 +308,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 }
 
 /**
- * Returns the R&S content types.
+ * Returns the content types that need alias locked upon publish.
  *
  * @return array
  *   Node types that should have their alias locked upon publishing.
@@ -1183,17 +1183,19 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
 }
 
 /**
- * Determine if pathauto alias should be set on R&S node.
+ * Determine if pathauto alias should be set on node.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
- *   The R&S node.
+ *   The node to check for disabling pathauto alias pattern.
  */
 function _va_gov_backend_disable_autopath_alias(EntityInterface $entity) {
   // Current entity object represents revision, so we need to load the
   // entity to get the default revision state.
-  $active_entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity->nid->value);
-  if ($active_entity->isPublished() === TRUE) {
-    $entity->path->pathauto = 0;
+  if (!$entity->isNew()) {
+    $active_entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity->id());
+    if (($active_entity instanceof NodeInterface) && $active_entity->isPublished() === TRUE) {
+      $entity->path->pathauto = 0;
+    }
   }
 }
 
