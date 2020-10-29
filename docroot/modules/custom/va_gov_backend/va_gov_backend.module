@@ -310,7 +310,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 /**
  * Returns the R&S content types.
  *
- * @return array 
+ * @return array
  *   Node types that should have their alias locked upon publishing.
  */
 function _va_gov_backend_get_locked_alias_bundles() {
@@ -358,8 +358,8 @@ function _va_gov_disable_alias_widget(array &$form, FormStateInterface $form_sta
  * @param array $form
  *   The node form array.
  *
- *   @return array 
-  *   The $form.
+ * @return array
+ *   The $form.
  */
 function _va_gov_backend_node_after_build_uncheck_auto_alias(array $form) {
   // Unchecks the checkbox for pathauto.
