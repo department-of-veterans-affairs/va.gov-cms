@@ -26,6 +26,8 @@ if (file_exists($app_root . '/' . $site_path . '/../default/settings.php')) {
   include $app_root . '/' . $site_path . '/../default/settings.php';
 }
 
+$settings['file_public_base_url'] = $_SERVER['DRUPAL_ADDRESS'] . '/' . $site_path . '/files';
+
 // Add devshop level service file for FileSystem overrides
 $settings['file_chmod_directory'] = 02775;
 
