@@ -64,16 +64,13 @@ class VaGovUrl implements VaGovUrlInterface {
     if (!empty($va_gov_url)) {
       try {
         // Keep the timeout low so that we don't block page loads for too long.
-        $response = $this->httpClient->head($va_gov_url, ['connect_timeout' => 2, 'http_errors' => FALSE]);
-        if ($response->getStatusCode() == 200) {
-          return TRUE;
-        }
+        $response = $this->httpClient->head($va_gov_url, ['connect_timeout' => 2]);
+
+        // Guzzle follows redirects and throws exceptions for 4xx/5xx
+        // responses, so we can assume the request was successful.
+        return TRUE;
       }
       catch (RequestException $e) {
-        if ($e->hasResponse()) {
-          return FALSE;
-        }
-
         return FALSE;
       }
       catch (Exception $e) {
