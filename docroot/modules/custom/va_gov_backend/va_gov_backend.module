@@ -310,7 +310,8 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 /**
  * Returns the R&S content types.
  *
- * Return an array of R&S node types.
+ * @return array 
+ *   Node types that should have their alias locked upon publishing.
  */
 function _va_gov_backend_get_locked_alias_bundles() {
 
