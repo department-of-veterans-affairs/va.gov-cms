@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\API;
 
 use Drupal\Core\Database\Database;
 use Drupal\Core\Queue\DatabaseQueue;

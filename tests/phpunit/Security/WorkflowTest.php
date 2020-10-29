@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Security;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
@@ -34,7 +34,6 @@ class WorkflowTest extends ExistingSiteBase {
 
     // Test assertion.
     $this->assertEquals($node->get('moderation_state')->getValue()[0]['value'], 'review', $message);
-
   }
 
 }

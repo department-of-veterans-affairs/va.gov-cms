@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Content;
 
 use Drupal\taxonomy\Entity\Vocabulary;
 use weitzman\DrupalTestTraits\ExistingSiteBase;

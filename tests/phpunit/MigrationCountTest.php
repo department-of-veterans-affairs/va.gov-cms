@@ -10,7 +10,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 class MigrationCountTest extends ExistingSiteBase {
 
   /**
-   * A test method to deterine the amount of entities in the systems by type.
+   * A test method to determine the amount of entities in the system by type.
    *
    * @group migration
    * @group all

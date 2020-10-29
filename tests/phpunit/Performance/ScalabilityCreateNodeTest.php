@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Performance;
 
 use Drupal\Component\Utility\Timer;
 use weitzman\DrupalTestTraits\ExistingSiteBase;

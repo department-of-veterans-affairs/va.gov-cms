@@ -1,13 +1,13 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Performance;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
- * A test to confirm amount of nodes by type.
+ * A test to node creation performance.
  */
-class PerformanceCreateNodeTest extends ExistingSiteBase {
+class CreateNodeTest extends ExistingSiteBase {
 
   /**
    * A test method to determine the amount of time it takes to create a node.

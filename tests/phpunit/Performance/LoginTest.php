@@ -1,13 +1,13 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Performance;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
- * A test to confirm amount of nodes by type.
+ * A test to confirm login performance.
  */
-class PerformanceLoginTest extends ExistingSiteBase {
+class LoginTest extends ExistingSiteBase {
 
   /**
    * A test method to determine the amount of time to load the Login page.

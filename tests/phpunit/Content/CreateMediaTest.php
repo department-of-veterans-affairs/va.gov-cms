@@ -1,16 +1,17 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Content;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Drupal\media\Entity\Media;
 
 /**
- * A test to confirm ability to create taxonomy.
+ * A test to confirm ability to create media.
  */
-class CreateTaxonomyTermTest extends ExistingSiteBase {
+class CreateMediaTest extends ExistingSiteBase {
 
   /**
-   * A test method to determine the ability and time to create a node.
+   * A test method to determine the ability and time to create media.
    *
    * @group performance
    * @group functional
@@ -18,8 +19,7 @@ class CreateTaxonomyTermTest extends ExistingSiteBase {
    *
    * @dataProvider benchmarkTime
    */
-  public function testCreateTaxonomyTerm($benchmark) {
-    $vocab = \Drupal::entityTypeManager()->getStorage('taxonomy_vocabulary')->load('health_care_service_taxonomy');
+  public function testCreateMedia($benchmark) {
 
     // Start timer.
     $mtime = microtime();
@@ -27,9 +27,25 @@ class CreateTaxonomyTermTest extends ExistingSiteBase {
     $mtime = $mtime[1] + $mtime[0];
     $starttime = $mtime;
 
-    // Creates a term. Will be automatically cleaned up at the end of the test.
-    $term = $this->createTerm($vocab);
-    $this->assertNotEmpty($term->getName(), 'Failed to create term');
+    // Creates media. Will be automatically cleaned up at the end of the test.
+    $file = file_save_data(uniqid(), 'public://test' . uniqid() . '.txt');
+
+    $media_document = Media::create([
+      'bundle' => 'document',
+      'name' => 'test',
+      'uid' => '1',
+      'field_media_file' => [
+        'target_id' => $file->id(),
+      ],
+    ]);
+    $media_document->setPublished(TRUE)
+      ->save();
+
+    $media_document->setName(uniqid())
+      ->setPublished(TRUE)
+      ->save();
+
+    $this->assertNotEmpty($media_document->getName(), 'Failed to create media');
 
     // End timer.
     $mtime = microtime();
@@ -37,6 +53,9 @@ class CreateTaxonomyTermTest extends ExistingSiteBase {
     $mtime = $mtime[1] + $mtime[0];
     $endtime = $mtime;
     $microsecs = ($endtime - $starttime);
+
+    // Cleanup the file.
+    $file->delete();
 
     // Test assertion.
     $secs = number_format($microsecs, 3);

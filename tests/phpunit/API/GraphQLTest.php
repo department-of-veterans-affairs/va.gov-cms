@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\graphql;
+namespace tests\phpunit\API;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Security;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
@@ -31,7 +31,6 @@ class NodeEditTabsTest extends ExistingSiteBase {
     $message = "\nUnable to change value in node edit form tab.\n" . $node->get('field_administration')->getValue()[0]['target_id'] . "\n";
     // Test assertion.
     $this->assertEquals($node->get('field_administration')->getValue()[0]['target_id'], '4', $message);
-
   }
 
 }

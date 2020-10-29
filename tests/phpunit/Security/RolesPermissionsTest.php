@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Security;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 use Drupal\user\Entity\Role;
@@ -8,7 +8,7 @@ use Drupal\user\Entity\Role;
 /**
  * A test to confirm that roles are associated with the correct permissions.
  */
-class SecurityRolesPermissionsTest extends ExistingSiteBase {
+class RolesPermissionsTest extends ExistingSiteBase {
 
   /**
    * Determine if each role is associated with its expected permissions.

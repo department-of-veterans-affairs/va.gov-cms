@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\roleChecks;
+namespace tests\phpunit\Security;
 
 use Drupal\user\Entity\Role;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
