@@ -52,7 +52,7 @@ class EditorialWorkflowContentRepository implements EditorialWorkflowContentRepo
       ->orderBy('content_entity_revision_id', 'DESC')
       ->range(0, 1);
     $result = $query->execute()->fetchField();
-    return $result ? $result : 0;
+    return $result ?? 0;
   }
 
 }

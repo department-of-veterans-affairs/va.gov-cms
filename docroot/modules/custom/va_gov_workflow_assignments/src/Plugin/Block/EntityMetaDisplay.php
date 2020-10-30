@@ -119,12 +119,16 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       return;
     }
 
-    $node_revision = $this->getNodeRevision();
-    $block = [];
-    $block_items = [];
-
-    $block_items['Owner'] = $this->getSections($node, $node_revision)['links'];
+    $block = $block_items = [];
     $block_items['Content Type'] = $node->type->entity->label();
+
+    $node_revision = $this->getNodeRevision();
+    if ($node_revision) {
+      $block_items['Owner'] = $this->getSectionHierarchyBreadcrumbLinks($node_revision);
+    }
+    else {
+      $block_items['Owner'] = $this->getSectionHierarchyBreadcrumbLinks($node);
+    }
 
     if ($this->vaGovUrlShouldBeDisplayed($node)) {
       $va_gov_url = $this->vaGovUrl->getVaGovUrlForEntity($node);
@@ -212,75 +216,46 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
   }
 
   /**
-   * Returns max of 3 section hierarchy of breadcrumbs and section term ids.
+   * Returns a maximum of 3 section hierarchy breadcrumb links.
    *
-   * @return array
-   *   All section breadcrumbs in hierarchy and term ids.
+   * @return string
+   *   Section breadcrumb links in hierarchy.
    */
-  public function getSections($node, $node_revision) {
-    $sections = [];
-    $tids = [];
+  public function getSectionHierarchyBreadcrumbLinks(NodeInterface $node) : string {
+    $links = [];
+    $owner_term = $node->get('field_administration')->referencedEntities()[0];
 
-    // Grab our current section.
-    $tid = $node_revision ? $node_revision->get('field_administration')->getString() : $node->get('field_administration')->getString();
-    if (!empty($tid)) {
-      $tids[] = $tid;
-      $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
-      $loaded_tid = $term_storage->load($tid);
+    if (!empty($owner_term)) {
+      $links[] = $this->getTermLink($owner_term);
+      $parents = array_values($this->entityTypeManager
+        ->getStorage('taxonomy_term')
+        ->loadAllParents($owner_term->id())
+      );
 
-      // Feed it to our link builder.
-      $sections[] = $this->getLink($loaded_tid);
-
-      $tid_parent_raw = $term_storage->loadParents($tid);
-      // If we have a parent, process.
-      if (!empty($tid_parent_raw)) {
-        $tid_parent = reset($tid_parent_raw);
-        $tid_parent_id = $tid_parent->id();
-        $tids[] = $tid_parent_id;
-
-        // Feed it to our link builder.
-        $sections[] = $this->getLink($tid_parent);
-
-        $tid_grandparent_raw = $term_storage->loadParents($tid_parent_id);
-        // If we have a grandparent, process.
-        if (!empty($tid_grandparent_raw)) {
-          $tid_grandparent = reset($tid_grandparent_raw);
-          $tid_grandparent_id = $tid_grandparent->id();
-          $tids[] = $tid_grandparent_id;
-
-          // Feed it to our link builder.
-          $sections[] = $this->getLink($tid_grandparent, TRUE);
+      for ($i = 1; $i < 3; $i++) {
+        if (!empty($parents[$i])) {
+          array_unshift($links, $this->getTermLink($parents[$i]));
         }
       }
     }
 
-    return [
-      'links' => implode(' ', array_reverse($sections)),
-      'tids' => $tids,
-    ];
+    return implode(' » ', $links);
   }
 
   /**
-   * Returns a section breadcrumb.
+   * Returns a section link.
    *
    * @param \Drupal\taxonomy\Entity\Term $term
-   *   A loaded taxonomy term.
-   * @param bool $first
-   *   Bool to determine if first item in Section breadcrumb.
+   *   A taxonomy term.
    *
    * @return string
-   *   A Section breadcrumb.
+   *   A section link.
    */
-  private function getLink(Term $term, bool $first = FALSE) {
-    $term_url = Url::fromRoute('entity.taxonomy_term.canonical', [
-      'taxonomy_term' => $term->id(),
-    ]);
-    $caret = $first == TRUE ? '' : ' » ';
-
-    return Link::fromTextAndUrl($this->t(':caret:name', [
-      ':caret' => $caret,
-      ':name' => $term->get('name')->getString(),
-    ]), $term_url)->toString();
+  private function getTermLink(Term $term) {
+    return Link::fromTextAndUrl(
+      $this->t(':name', [':name' => $term->get('name')->getString()]),
+      $term->toUrl()
+    )->toString();
   }
 
   /**
@@ -289,7 +264,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    * @return bool
    *   Boolean value.
    */
-  private function vaGovUrlShouldBeDisplayed($node) : bool {
+  private function vaGovUrlShouldBeDisplayed(NodeInterface $node) : bool {
     if ($this->exclusionTypes->typeIsExcluded($node->bundle())) {
       return FALSE;
     }
