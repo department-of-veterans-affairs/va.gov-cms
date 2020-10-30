@@ -1183,17 +1183,24 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
 }
 
 /**
- * Determine if pathauto alias should be set on node.
+ * Determine if pathauto alias should be enable on node.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   The node to check for disabling pathauto alias pattern.
  */
 function _va_gov_backend_disable_autopath_alias(EntityInterface $entity) {
-  // Current entity object represents revision, so we need to load the
-  // entity to get the default revision state.
   if (!$entity->isNew()) {
+    // Get original values of the node for comparison.
+    $original_use_alias_pattern = $entity->original->get('path')->pathauto;
+    $current_use_alias_pattern = $entity->get('path')->pathauto;
+    // Decide if this was an intentional toggle on of using the alias pattern.
+    $toggled_on_this_save = $current_use_alias_pattern && !$original_use_alias_pattern;
     $active_entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity->id());
-    if (($active_entity instanceof NodeInterface) && $active_entity->isPublished() === TRUE) {
+    $published_previously = ($active_entity instanceof NodeInterface) ? $active_entity->isPublished() : FALSE;
+
+    if ($published_previously && !$toggled_on_this_save) {
+      // This was published and this was not an intentional toggle on.
+      // Disable the pathauto pattern.
       $entity->path->pathauto = 0;
     }
   }
