@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Source from https://gist.github.com/tylerssn/8923149702d4a796c5e103412c2370c3
+
 if [ ! -z "${BLACKFIRE_CLIENT_ID}" ]; then 
 
     # Configure Blackfire Repository
