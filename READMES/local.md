@@ -71,6 +71,20 @@
       * Finally, rebuild the app: ```export LANDO_VOLUME='nfsmount' && lando rebuild``` (It's worth adding the variable export to your shell config so that you don't have to remember to use it in the future)
       * If there are no errors, verify that your app is using nfs: run ```lando ssh``` and then ```df -h /app```. You should see something like ```:/Users/username/src/va.gov-cms``` in the Filesystem column instead of ```osxfs```.
 
+## Git
+
+### Troubleshooting
+
+#### File permission errors on git pull
+
+Sometimes, you will see this output when running git pull:
+
+```error: unable to unlink old 'docroot/sites/default/settings.php': Permission denied```
+
+This occurs because Drupal checks and hardens file permissions under the settings directory in [system_requirements()](https://api.drupal.org/api/drupal/core%21modules%21system%21system.install/function/system_requirements/8.8.x). To override this default behavior, create (or edit) `docroot/sites/default/settings/settings.local.php` and add this line:
+
+```$settings['skip_permissions_hardening'] = TRUE;```
+
 ## Scripts
 There are some scripts created to help with managing the Drupal site locally.
 
