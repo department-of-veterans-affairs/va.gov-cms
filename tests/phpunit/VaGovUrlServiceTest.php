@@ -52,20 +52,20 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
     parent::setUp();
 
     $this->container = new ContainerBuilder();
-    $this->config = [];
+    $this->config = ['hash_salt' => 'SCVSPZNSKKK5XCRJ1WLE'];
     $this->settings = new Settings($this->config);
   }
 
   /**
-   * Verify getVaGovUrlForEnvironment method.
+   * Verify getVaGovFrontEndUrl method.
    *
    * @group functional
    * @group all
    */
-  public function testGetVaGovUrlForEnvironment() {
+  public function testGetVaGovFrontEndUrl() {
     $this->mockClient();
     $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings);
-    $this->assertEquals('https://www.va.gov', $vaGovUrl->getVaGovUrlForEnvironment('prod'));
+    $this->assertEquals('https://www.va.gov', $vaGovUrl->getVaGovFrontEndUrl());
   }
 
   /**
@@ -74,22 +74,22 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
    * @group functional
    * @group all
    */
-  public function testOverrideVaGovProdUrlForEnvironment() {
+  public function testOverrideVaGovFrontEndUrl() {
     $this->mockClient();
-    $this->config = ['va_gov_prod_url' => 'https://other.va.gov'];
+    $this->config = ['va_gov_frontend_url' => 'https://other.va.gov'];
     $this->settings = new Settings($this->config);
     $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings);
-    $this->assertNotEquals('https://www.va.gov', $vaGovUrl->getVaGovUrlForEnvironment('prod'));
-    $this->assertEquals('https://other.va.gov', $vaGovUrl->getVaGovUrlForEnvironment('prod'));
+    $this->assertNotEquals('https://www.va.gov', $vaGovUrl->getVaGovFrontEndUrl());
+    $this->assertEquals('https://other.va.gov', $vaGovUrl->getVaGovFrontEndUrl());
   }
 
   /**
-   * Verify getVaGovUrlForEntity method.
+   * Verify getVaGovFrontEndUrlForEntity method.
    *
    * @group functional
    * @group all
    */
-  public function testGetVaGovUrlForEntity() {
+  public function testGetVaGovFrontEndUrlForEntity() {
     $this->mockClient();
     $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings);
 
@@ -103,17 +103,16 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
     $url_alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $system_node->id());
     $this->assertEquals('/va-test-health-care', $url_alias);
 
-    $this->assertEquals('https://www.va.gov/va-test-health-care', $vaGovUrl->getVaGovUrlForEntity($system_node));
-    $this->assertEquals('https://staging.va.gov/va-test-health-care', $vaGovUrl->getVaGovUrlForEntity($system_node, 'staging'));
+    $this->assertEquals('https://www.va.gov/va-test-health-care', $vaGovUrl->getVaGovFrontEndUrlForEntity($system_node));
   }
 
   /**
-   * Verify getVaGovUrlStatusForEntity method.
+   * Verify getVaGovFrontEndUrlForEntityIsLive method.
    *
    * @group functional
    * @group all
    */
-  public function testVaGovUrlForEntityIsLive() {
+  public function testVaGovFrontEndUrlForEntityIsLive() {
     $this->mockClient(new Response('200'), new Response('404'));
     $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings);
 
@@ -125,8 +124,8 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
     ]);
     $system_node->setPublished()->save();
 
-    $this->assertTrue($vaGovUrl->vaGovUrlForEntityIsLive($system_node));
-    $this->assertFalse($vaGovUrl->vaGovUrlForEntityIsLive($system_node));
+    $this->assertTrue($vaGovUrl->vaGovFrontEndUrlForEntityIsLive($system_node));
+    $this->assertFalse($vaGovUrl->vaGovFrontEndUrlForEntityIsLive($system_node));
   }
 
   /**

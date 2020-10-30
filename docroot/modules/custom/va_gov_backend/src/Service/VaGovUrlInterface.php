@@ -10,27 +10,27 @@ use Drupal\Core\Entity\EntityInterface;
 interface VaGovUrlInterface {
 
   /**
-   * Get the va.gov URL for an environment.
+   * Get the va.gov front-end URL.
    *
    * @return string
-   *   va.gov URL.
+   *   va.gov front-end URL.
    */
-  public function getVaGovUrlForEnvironment(String $environment) : string;
+  public function getVaGovFrontEndUrl() : string;
 
   /**
-   * Get the va.gov URL for an entity and optional environment.
+   * Get the va.gov front-end URL for an entity.
    *
    * @return string
-   *   va.gov URL.
+   *   va.gov front-end URL for entity.
    */
-  public function getVaGovUrlForEntity(EntityInterface $entity, String $environment) : string;
+  public function getVaGovFrontEndUrlForEntity(EntityInterface $entity) : string;
 
   /**
-   * Get the va.gov URL status for an entity and optional environment.
+   * Get the va.gov URL status for an entity.
    *
    * @return bool
    *   va.gov URL status.
    */
-  public function vaGovUrlForEntityIsLive(EntityInterface $entity, String $environment) : bool;
+  public function vaGovFrontEndUrlForEntityIsLive(EntityInterface $entity) : bool;
 
 }

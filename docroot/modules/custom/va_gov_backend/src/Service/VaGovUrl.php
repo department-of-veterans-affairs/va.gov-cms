@@ -13,12 +13,6 @@ use GuzzleHttp\Exception\RequestException;
  */
 class VaGovUrl implements VaGovUrlInterface {
 
-  const WEB_ENVIRONMENTS = [
-    'prod' => 'https://www.va.gov',
-    'staging' => 'https://staging.va.gov',
-    'dev' => 'https://dev.va.gov',
-  ];
-
   /**
    * Http Client.
    *
@@ -49,21 +43,16 @@ class VaGovUrl implements VaGovUrlInterface {
   /**
    * {@inheritDoc}
    */
-  public function getVaGovUrlForEnvironment(String $environment) : string {
-    // Allow prod URL to be overridden by settings.php.
-    if ($environment === 'prod' && $this->settings->get('va_gov_prod_url', '')) {
-      return $this->settings->get('va_gov_prod_url', '');
-    }
-
-    return !empty(static::WEB_ENVIRONMENTS[$environment]) ? static::WEB_ENVIRONMENTS[$environment] : '';
+  public function getVaGovFrontEndUrl() : string {
+    return $this->settings->get('va_gov_frontend_url', 'https://www.va.gov');
   }
 
   /**
    * {@inheritDoc}
    */
-  public function getVaGovUrlForEntity(EntityInterface $entity, String $environment = 'prod') : string {
+  public function getVaGovFrontEndUrlForEntity(EntityInterface $entity) : string {
     try {
-      $va_gov_url = $this->getVaGovUrlForEnvironment($environment) . $entity->toUrl()->toString();
+      $va_gov_url = $this->getVaGovFrontEndUrl() . $entity->toUrl()->toString();
       return $va_gov_url;
     }
     catch (Exception $e) {
@@ -74,8 +63,8 @@ class VaGovUrl implements VaGovUrlInterface {
   /**
    * {@inheritDoc}
    */
-  public function vaGovUrlForEntityIsLive(EntityInterface $entity, String $environment = 'prod') : bool {
-    $va_gov_url = $this->getVaGovUrlForEntity($entity, $environment);
+  public function vaGovFrontEndUrlForEntityIsLive(EntityInterface $entity) : bool {
+    $va_gov_url = $this->getVaGovFrontEndUrlForEntity($entity);
 
     if (!empty($va_gov_url)) {
       try {
