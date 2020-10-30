@@ -180,13 +180,14 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     // @TODO remove type checks when the patch at
     // https://www.drupal.org/project/drupal/issues/2730631
     // is committed. (Should be in 9.2)
-    if ($this->routeMatch->getParameter('node') instanceof NodeInterface) {
-      return $this->routeMatch->getParameter('node');
+    $route_parameter = $this->routeMatch->getParameter('node');
+    if ($route_parameter instanceof NodeInterface) {
+      return $route_parameter;
     }
-    elseif (is_numeric($this->routeMatch->getParameter('node'))) {
+    elseif (is_numeric($route_parameter)) {
       return $this->entityTypeManager
         ->getStorage('node')
-        ->load($this->routeMatch->getParameter('node'));
+        ->load($route_parameter);
     }
 
     return NULL;
@@ -203,13 +204,14 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     // @TODO remove type checks when the patch at
     // https://www.drupal.org/project/drupal/issues/2730631
     // is committed. (Should be in 9.2)
-    if ($this->routeMatch->getParameter('node_revision') instanceof NodeInterface) {
-      return $this->routeMatch->getParameter('node_revision');
+    $route_parameter = $this->routeMatch->getParameter('node_revision');
+    if ($route_parameter instanceof NodeInterface) {
+      return $route_parameter;
     }
-    elseif (is_numeric($this->routeMatch->getParameter('node_revision'))) {
+    elseif (is_numeric($route_parameter)) {
       return $this->entityTypeManager
         ->getStorage('node')
-        ->loadRevision($this->routeMatch->getParameter('node_revision'));
+        ->loadRevision($route_parameter);
     }
 
     return NULL;
