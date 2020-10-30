@@ -10,7 +10,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
-use Drupal\taxonomy\Entity\Term;
+use Drupal\taxonomy\TermInterface;
 use Drupal\va_gov_backend\Service\ExclusionTypesInterface;
 use Drupal\va_gov_backend\Service\VaGovUrl;
 use Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepository;
@@ -245,13 +245,13 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
   /**
    * Returns a section link.
    *
-   * @param \Drupal\taxonomy\Entity\Term $term
+   * @param \Drupal\taxonomy\TermInterface $term
    *   A taxonomy term.
    *
    * @return string
    *   A section link.
    */
-  private function getTermLink(Term $term) {
+  private function getTermLink(TermInterface $term) {
     return Link::fromTextAndUrl(
       $this->t(':name', [':name' => $term->get('name')->getString()]),
       $term->toUrl()
