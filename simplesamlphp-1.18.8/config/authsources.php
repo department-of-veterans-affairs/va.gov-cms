@@ -18,15 +18,28 @@ $config = [
 
         // The entity ID of this SP.
         // Can be NULL/unset, in which case an entity ID is generated based on the metadata URL.
-        'entityID' => null,
+        'entityID' => "https://{$_SERVER['SERVER_NAME']}/simplesaml/module.php/saml/sp/metadata.php/default-sp",
 
         // The entity ID of the IdP this SP should contact.
         // Can be NULL/unset, in which case the user will be shown a list of available IdPs.
-        'idp' => null,
+        'idp' => 'VA_SSOi_IDP',
 
         // The URL to the discovery service.
         // Can be NULL/unset, in which case a builtin discovery service will be used.
         'discoURL' => null,
+
+        'NameIDPolicy'         => [
+            'Format' => 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified',
+            'allowcreate' => 'true',
+        ],
+        'redirect.sign'        => true,
+        'assertion.encryption' => true,
+        'sign.logout'          => true,
+
+        'privatekey'           => 'cms.va.gov.private.key',
+        'certificate'          => 'cms.va.gov.public.crt',
+        // Defaults to SHA1 (http://www.w3.org/2000/09/xmldsig#rsa-sha1)
+        'signature.algorithm'  => 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256',
 
         /*
          * The attributes parameter must contain an array of desired attributes by the SP.
@@ -178,6 +191,7 @@ $config = [
     // Example of a LDAP authentication source.
     'example-ldap' => [
         'ldap:LDAP',
+        //'entityID' => null,
 
         // Give the user an option to save their username for future login attempts
         // And when enabled, what should the default be, to save the username or not

@@ -27,7 +27,7 @@ $config = [
      * external url, no matter where you come from (direct access or via the
      * reverse proxy).
      */
-    'baseurlpath' => 'simplesaml/',
+    'baseurlpath' => 'https://'. $_SERVER['HTTP_HOST'] .'/simplesaml/',
 
     /*
      * The 'application' configuration array groups a set configuration options
@@ -62,7 +62,7 @@ $config = [
      * When specified as a relative path, this is relative to the SimpleSAMLphp
      * root directory.
      */
-    'certdir' => 'cert/',
+    'certdir' => '/certs/',
     'loggingdir' => 'log/',
     'datadir' => 'data/',
     'tempdir' => '/tmp/simplesaml',
@@ -72,8 +72,8 @@ $config = [
      * The email address will be used as the recipient address for error reports, and
      * also as the technical contact in generated metadata.
      */
-    'technicalcontact_name' => 'Administrator',
-    'technicalcontact_email' => 'na@example.org',
+    'technicalcontact_name' => 'VA.gov Administrator',
+    'technicalcontact_email' => 'vacmssupport@va.gov',
 
     /*
      * (Optional) The method by which email is delivered.  Defaults to mail which utilizes the
@@ -130,7 +130,7 @@ $config = [
      * A possible way to generate a random salt is by running the following command from a unix shell:
      * LC_CTYPE=C tr -c -d '0123456789abcdefghijklmnopqrstuvwxyz' </dev/urandom | dd bs=32 count=1 2>/dev/null;echo
      */
-    'secretsalt' => 'defaultsecretsalt',
+    'secretsalt' => 'p97p6wmkz8flefjij0v4q1z643gxpa5j',
 
     /*
      * This password must be kept secret, and modified from the default value 123.
@@ -138,14 +138,14 @@ $config = [
      * metadata listing and diagnostics pages.
      * You can also put a hash here; run "bin/pwgen.php" to generate one.
      */
-    'auth.adminpassword' => '123',
+    'auth.adminpassword' => 'drupal8',
 
     /*
      * Set this options to true if you want to require administrator password to access the web interface
      * or the metadata pages, respectively.
      */
-    'admin.protectindexpage' => false,
-    'admin.protectmetadata' => false,
+    'admin.protectindexpage' => true,
+    'admin.protectmetadata' => true,
 
     /*
      * Set this option to false if you don't want SimpleSAMLphp to check for new stable releases when
@@ -1174,7 +1174,7 @@ $config = [
      *
      * The default datastore is 'phpsession'.
      */
-    'store.type'                    => 'phpsession',
+    'store.type'                    => 'sql',
 
     /*
      * The DSN the sql datastore should connect to.
@@ -1182,7 +1182,7 @@ $config = [
      * See http://www.php.net/manual/en/pdo.drivers.php for the various
      * syntaxes.
      */
-    'store.sql.dsn'                 => 'sqlite:/path/to/sqlitedatabase.sq3',
+    'store.sql.dsn'                 => "sqlite:{$_SERVER['DOCUMENT_ROOT']}/../samlsessiondb.sq3",
 
     /*
      * The username and password to use when connecting to the database.
