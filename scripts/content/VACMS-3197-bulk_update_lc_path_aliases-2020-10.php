@@ -31,29 +31,34 @@ $entities = \Drupal::entityTypeManager()
 
 // Loop through them and add aliases.
 foreach ($entities as $entity) {
+  // This is needed to do a force override of all that had opted out.
+  // None are published so they should not be opted out.
+  $entity->path->pathauto = 1;
   $result = \Drupal::service('pathauto.generator')->updateEntityAlias($entity, 'bulkupdate', ['force' => TRUE]);
   if ($result) {
-    // Write the nid to our log.
-    Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Updated alias for nid %nid completed by va_gov_db_update_8020.', [
+    Drupal::logger('drush scr')->log(LogLevel::INFO, 'Updated alias for nid %nid completed by VACMS-3197-bulk_update_lc_path_aliases-2020-10.', [
       '%nid' => $entity->id(),
     ]);
-    $updated = $updated++;
+    $updated++;
   }
   else {
-    $failed = $failed++;
+    Drupal::logger('drush scr')->log(LogLevel::WARNING, 'Skipped or failed updating alias for nid %nid VACMS-3197-bulk_update_lc_path_aliases-2020-10.', [
+      '%nid' => $entity->id(),
+    ]);
+    $failed++;
   }
 }
-
-Drupal::logger('va_gov_db')
-  ->log(LogLevel::INFO, 'Path aliases were successfully updated for %updated out of %count entities. %failed', [
-    '%count' => count($entities),
+$count = count($entities);
+Drupal::logger('drush scr')
+  ->log(LogLevel::INFO, 'Path aliases updated %updated out of %count entities. Skipped or failed to update: %failed.', [
+    '%count' => $count,
     '%updated' => $updated,
-    '%failed' => $failed ? 'Failed to update ' . $failed . ' out of %count.' : NULL,
+    '%failed' => $failed,
   ]);
 
 print(
-  t('Path aliases were successfully updated for @updated out of %count entities. @failed', [
-    '@count' => count($entities),
+  t('Path aliases updated @updated out of @count entities.  Skipped or failed to update: @failed.', [
+    '@count' => $count,
     '@updated' => $updated,
-    '@failed' => $failed ? 'Failed to update ' . $failed . ' out of %count.' : NULL,
+    '@failed' => $failed,
   ]));
