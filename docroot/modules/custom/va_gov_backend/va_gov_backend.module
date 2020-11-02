@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Asset\AttachedAssetsInterface;
+use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\WidgetBase;
@@ -183,6 +184,10 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // Disable path alias modification after lc node is published.
+  _va_gov_disable_alias_widget($form, $form_state);
+
   // Add states + custom validation if the Standalone Page field is present.
   if (isset($form['field_standalone_page'])) {
     $form['field_primary_category']['widget']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
@@ -303,11 +308,64 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 }
 
 /**
- * Implements hook_field_group_build_pre_render_alter().
+ * Returns the content types that need alias locked upon publish.
+ *
+ * @return array
+ *   Node types that should have their alias locked upon publishing.
  */
-function va_gov_backend_field_group_form_process_build_alter(array $form, FormStateInterface $form_state, &$element) {
-  // Toggle group Q&A component visibility.
-  $form['group_q_a_page_components']['#states']['visible']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
+function _va_gov_backend_get_locked_alias_bundles() {
+
+  return [
+    'basic_landing_page',
+    'checklist',
+    'faq_multiple_q_a',
+    'media_list_images',
+    'media_list_videos',
+    'q_a',
+    'step_by_step',
+    'va_form',
+  ];
+}
+
+/**
+ * Disable url alias widget after publish.
+ *
+ * @param array $form
+ *   The node form array.
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   Instance of FormStateInterface.
+ */
+function _va_gov_disable_alias_widget(array &$form, FormStateInterface $form_state) {
+  if ($form_state->getFormObject() instanceof EntityFormInterface) {
+    $bundle = $form_state->getformObject()->getEntity()->bundle();
+    if (in_array($bundle, _va_gov_backend_get_locked_alias_bundles())) {
+      $entity_id = $form_state->getformObject()->getEntity()->id();
+      if (!empty($entity_id)) {
+        $entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity_id);
+        // If it's published the alias widget is unchecked
+        // to disallow auto path updating.
+        if ($entity->isPublished() === TRUE) {
+          $form['#after_build'][] = '_va_gov_backend_node_after_build_uncheck_auto_alias';
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Uncheck the auto pathalias checkbox.
+ *
+ * @param array $form
+ *   The node form array.
+ *
+ * @return array
+ *   The $form.
+ */
+function _va_gov_backend_node_after_build_uncheck_auto_alias(array $form) {
+  // Unchecks the checkbox for pathauto.
+  $form['path']['widget'][0]['pathauto']['#checked'] = FALSE;
+
+  return $form;
 }
 
 /**
@@ -1117,6 +1175,34 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
 
   if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'page') {
     _va_gov_backend_sync_wysiwyg_fields($entity);
+  }
+
+  if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), _va_gov_backend_get_locked_alias_bundles())) {
+    _va_gov_backend_disable_autopath_alias($entity);
+  }
+}
+
+/**
+ * Determine if pathauto alias should be enable on node.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The node to check for disabling pathauto alias pattern.
+ */
+function _va_gov_backend_disable_autopath_alias(EntityInterface $entity) {
+  if (!$entity->isNew()) {
+    // Get original values of the node for comparison.
+    $original_use_alias_pattern = $entity->original->get('path')->pathauto;
+    $current_use_alias_pattern = $entity->get('path')->pathauto;
+    // Decide if this was an intentional toggle on of using the alias pattern.
+    $toggled_on_this_save = $current_use_alias_pattern && !$original_use_alias_pattern;
+    $active_entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity->id());
+    $published_previously = ($active_entity instanceof NodeInterface) ? $active_entity->isPublished() : FALSE;
+
+    if ($published_previously && !$toggled_on_this_save) {
+      // This was published and this was not an intentional toggle on.
+      // Disable the pathauto pattern.
+      $entity->path->pathauto = 0;
+    }
   }
 }
 
