@@ -364,15 +364,6 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   }
 
   /**
-   * Check that the Google Tag Manager ID is present in the page.
-   *
-   * @Given google tag manager id is :arg1
-   */
-  public function googleTagManagerIdIs($id) {
-    $this->assertSession()->responseContains("www.googletagmanager.com/ns.html?id=$id");
-  }
-
-  /**
    * Check that the Google Tag Manager dataLayer value is set correctly.
    *
    * @Given google tag manager data layer value for :arg1 should be :arg2

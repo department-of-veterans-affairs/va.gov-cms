@@ -5,10 +5,9 @@ Feature: Google Tag Manager dataLayer values are correct
   I need to see the correct dataLayer values
 
   @user
-  Scenario Outline: Users should see an appropriate list of roles in the dataLayer.
+  Scenario Outline: Google Tag Manager should be provided with an appropriate list of roles for the current user.
     Given I am logged in as a user with the <role> role
     And I am on "/user"
-    Then google tag manager id is "GTM-WQ3DLLB"
     Then google tag manager data layer value for "currentUserRoles" should be <roles>
     Examples:
     | role                | roles                             |
