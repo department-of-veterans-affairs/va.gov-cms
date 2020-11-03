@@ -10,6 +10,7 @@ dependencies:
     - node.type.media_list_videos
     - node.type.q_a
     - node.type.step_by_step
+    - node.type.support_resources_detail_page
     - taxonomy.vocabulary.administration
     - taxonomy.vocabulary.products
     - user.role.administrator
@@ -1469,29 +1470,17 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: type_op
-            label: 'Content type'
-            description: ''
             use_operator: false
             operator: type_op
-            identifier: type
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-              redirect_administrator: '0'
-            reduce: false
-            argument: ''
             operator_limit_selection: false
             operator_list: {  }
+            identifier: type
+            label: 'Content type'
+            description: null
+            remember: false
+            multiple: false
+            required: false
+            reduce: false
           is_grouped: false
           group_info:
             label: ''
@@ -2342,12 +2331,13 @@ display:
           value:
             checklist: checklist
             faq_multiple_q_a: faq_multiple_q_a
+            support_resources_detail_page: support_resources_detail_page
             media_list_images: media_list_images
             media_list_videos: media_list_videos
             q_a: q_a
             step_by_step: step_by_step
           group: 1
-          exposed: false
+          exposed: true
           expose:
             operator_id: type_op
             label: 'Content type'
@@ -2365,6 +2355,7 @@ display:
               anonymous: '0'
               content_api_consumer: '0'
               content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
               vamc_content_creator: '0'
               content_editor: '0'
               content_reviewer: '0'
@@ -2373,8 +2364,7 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: false
-            argument: ''
+            reduce: true
           is_grouped: false
           group_info:
             label: ''
@@ -2390,6 +2380,54 @@ display:
           plugin_id: bundle
           entity_type: node
           entity_field: type
+        type_1:
+          id: type_1
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: in
+          value:
+            checklist: checklist
+            faq_multiple_q_a: faq_multiple_q_a
+            support_resources_detail_page: support_resources_detail_page
+            media_list_images: media_list_images
+            media_list_videos: media_list_videos
+            q_a: q_a
+            step_by_step: step_by_step
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
         moderation_state:
           id: moderation_state
           table: node_field_data
@@ -2874,7 +2912,7 @@ display:
             content_creator_resources_and_support: content_creator_resources_and_support
             content_admin: content_admin
             administrator: administrator
-      exposed_block: true
+      exposed_block: false
       footer: {  }
     display_plugin: page
     display_title: 'Resources and support'
