@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.field.node.health_care_region_page.field_administration
     - field.field.node.health_care_region_page.field_appointments_online
-    - field.field.node.health_care_region_page.field_clinical_health_care_servi
     - field.field.node.health_care_region_page.field_clinical_health_services
     - field.field.node.health_care_region_page.field_description
     - field.field.node.health_care_region_page.field_facebook
@@ -15,12 +14,6 @@ dependencies:
     - field.field.node.health_care_region_page.field_govdelivery_id_news
     - field.field.node.health_care_region_page.field_instagram
     - field.field.node.health_care_region_page.field_intro_text
-    - field.field.node.health_care_region_page.field_intro_text_events_page
-    - field.field.node.health_care_region_page.field_intro_text_leadership
-    - field.field.node.health_care_region_page.field_intro_text_news_stories
-    - field.field.node.health_care_region_page.field_intro_text_press_releases
-    - field.field.node.health_care_region_page.field_leadership
-    - field.field.node.health_care_region_page.field_locations_intro_blurb
     - field.field.node.health_care_region_page.field_media
     - field.field.node.health_care_region_page.field_meta_tags
     - field.field.node.health_care_region_page.field_meta_title
@@ -41,7 +34,6 @@ dependencies:
     - media_library
     - paragraphs
     - path
-    - text
     - textfield_counter
 third_party_settings:
   field_group:
@@ -54,9 +46,9 @@ third_party_settings:
       format_settings:
         id: ''
         classes: ''
-        open: 1
-        required_fields: 1
-        weight: '-10'
+        open: true
+        required_fields: true
+        weight: -10
       label: Governance
       region: content
     group_editorial_workflow:
@@ -269,14 +261,6 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
-  field_clinical_health_care_servi:
-    weight: 30
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: text_textarea
-    region: content
   field_clinical_health_services:
     weight: 32
     settings: {  }
@@ -361,66 +345,6 @@ content:
       count_html_characters: false
     third_party_settings: {  }
     type: string_textarea_with_counter
-    region: content
-  field_intro_text_events_page:
-    weight: 16
-    settings:
-      rows: 5
-      placeholder: ''
-      maxlength: 300
-      counter_position: after
-      js_prevent_submit: true
-      count_html_characters: true
-      textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
-    third_party_settings: {  }
-    type: text_textarea_with_counter
-    region: content
-  field_intro_text_leadership:
-    weight: 21
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textarea
-    region: content
-  field_intro_text_news_stories:
-    weight: 15
-    settings:
-      rows: 5
-      placeholder: ''
-      maxlength: 300
-      counter_position: after
-      js_prevent_submit: true
-      count_html_characters: true
-      textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
-    third_party_settings: {  }
-    type: text_textarea_with_counter
-    region: content
-  field_intro_text_press_releases:
-    weight: 17
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textarea
-    region: content
-  field_leadership:
-    weight: 23
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-      match_limit: 10
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
-  field_locations_intro_blurb:
-    weight: 10
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: text_textarea
     region: content
   field_media:
     type: media_library_widget
