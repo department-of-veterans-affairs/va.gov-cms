@@ -1,0 +1,7 @@
+services:
+  va_gov_backend.exclusion_types:
+    class: Drupal\va_gov_backend\Service\ExclusionTypes
+    arguments: ['@config.factory']
+  va_gov_backend.va_gov_url:
+    class: Drupal\va_gov_backend\Service\VaGovUrl
+    arguments: ['@http_client', '@settings']
