@@ -35,7 +35,7 @@ third_party_settings:
         - field_links
         - field_administration
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -51,7 +51,7 @@ third_party_settings:
         - field_description
         - field_meta_title
       parent_name: ''
-      weight: 0
+      weight: 1
       format_type: fieldset
       format_settings:
         id: ''
@@ -68,7 +68,7 @@ third_party_settings:
         - field_spokes
         - field_related_links
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -82,7 +82,7 @@ third_party_settings:
         - field_teaser_text
         - field_home_page_hub_label
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -97,6 +97,11 @@ targetEntityType: node
 bundle: landing_page
 mode: default
 content:
+  content_moderation_control:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_administration:
     weight: 15
     label: above
@@ -208,7 +213,6 @@ content:
     type: list_default
     region: content
 hidden:
-  content_moderation_control: true
   field_meta_tags: true
   field_page_last_built: true
   field_plainlanguage_date: true
