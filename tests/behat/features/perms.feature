@@ -89,6 +89,12 @@ Feature: Permissions
     And I am viewing an <type> with the title <title>
     And the "#edit-new-state" element should exist
     And I should see "published" in the "#edit-new-state" element
+
+    And I select "Published" from "Change to"
+    And I fill in "Log message" with "Test publishing"
+    And I press "Apply"
+    Then I should see " has been updated."
+
     Examples:
       | type                             | title                                 |
       | "page"                           | "page page"                           |

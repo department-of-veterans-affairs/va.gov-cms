@@ -128,6 +128,11 @@ Feature: CMS Users may effectively create & edit content
     And I fill in "Name" with "Test Office - BeHaT 404"
     And I press "Save"
     Then I should see "VA.gov URL" in the "#block-entitymetadisplay" element
+
+    # (Re-)Publish the node.
+    And I select "Published" from "Change to"
+    And I fill in "Log message" with "Test publishing"
+    And I press "Apply"
     And I should see "(pending)" in the "#block-entitymetadisplay" element
 
     # Archive the node.
@@ -149,7 +154,6 @@ Feature: CMS Users may effectively create & edit content
     And I should see "State" in the "#edit-field-address-0" element
 
 @content_editing
-<<<<<<< HEAD
   Scenario: Log in and confirm that System-wide alerts can be created and edited
     When I am logged in as a user with the "content_admin" role
 
