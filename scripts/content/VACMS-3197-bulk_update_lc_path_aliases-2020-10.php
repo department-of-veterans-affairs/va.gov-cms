@@ -14,13 +14,15 @@ $failed = 0;
 
 // These are lc bundles.
 $types = [
-  'type' => ['basic_landing_page',
+  'type' => [
+    'basic_landing_page',
     'checklist',
     'faq_multiple_q_a',
     'media_list_images',
     'media_list_videos',
     'q_a',
     'step_by_step',
+    'support_resources_detail_page',
   ],
 ];
 

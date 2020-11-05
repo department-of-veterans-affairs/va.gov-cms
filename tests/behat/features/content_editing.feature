@@ -1,4 +1,4 @@
-@api
+@api @mock_va_gov_urls
 Feature: CMS Users may effectively create & edit content
   In order to confirm that cms users have access to the necessary functionality
   As anyone involved in the project
@@ -64,7 +64,7 @@ Feature: CMS Users may effectively create & edit content
 
 @content_editing
   Scenario: Confirm that menu link functionality works correctly
-    Given I am logged in as a user with the "administrator" role
+    Given I am logged in as a user with the "content_admin" role
     And I am at "node/add/office"
     Then I should see "Create Office"
 
@@ -98,6 +98,53 @@ Feature: CMS Users may effectively create & edit content
     And the "menu[link_enabled]" checkbox should be checked
 
 @content_editing
+  Scenario: Confirm that the EWA block URL is shown correctly.
+    Given I am logged in as a user with the "content_admin" role
+    And I am at "node/add/office"
+    Then I should see "Create Office"
+
+    # Create an office node.
+    And I fill in "Name" with "Test Office - BeHaT"
+    And I fill in "Meta title tag" with "Test Office - BeHaT | Veterans Affairs"
+    And I fill in "Owner" with "5"
+    And I press "Save"
+
+    # Confirm that the va.gov url is not shown for nodes without a published revision.
+    Then I should see "Content Type: Office" in the "#block-entitymetadisplay" element
+    And I should not see "VA.gov URL" in the "#block-entitymetadisplay" element
+
+    # Publish the node.
+    And I select "Published" from "Change to"
+    And I fill in "Log message" with "Test publishing"
+    And I press "Apply"
+
+    # Confirm that the va.gov url is shown for nodes with a published revision.
+    Then I should see "The moderation state has been updated"
+    And I should see "VA.gov URL" in the "#block-entitymetadisplay" element
+    And I should not see "(pending)" in the "#block-entitymetadisplay" element
+
+    # Confirm that the va.gov url is not clickable when updating a node.
+    Then I visit the "edit" page for a node with the title "Test Office - BeHaT"
+    And I fill in "Name" with "Test Office - BeHaT 404"
+    And I press "Save"
+    Then I should see "VA.gov URL" in the "#block-entitymetadisplay" element
+
+    # (Re-)Publish the node.
+    And I select "Published" from "Change to"
+    And I fill in "Log message" with "Test publishing"
+    And I press "Apply"
+    And I should see "(pending)" in the "#block-entitymetadisplay" element
+
+    # Archive the node.
+    Then I visit the "edit" page for a node with the title "Test Office - BeHaT 404"
+    And I select "Archived" from "Change to"
+    And I fill in "Revision log message" with "Test archiving"
+    And I press "Save"
+    Then I should see "Office Test Office - BeHaT 404 has been updated."
+    And I should see "Content Type: Office" in the "#block-entitymetadisplay" element
+    And I should not see "VA.gov URL" in the "#block-entitymetadisplay" element
+
+@content_editing
   Scenario: Confirm that press release country fields are shown correctly
     Given I am logged in as a user with the "content_admin" role
     And I am at "node/add/press_release"
@@ -123,3 +170,25 @@ Feature: CMS Users may effectively create & edit content
     # Confirm that paragraph can be edited inline
     And I press "edit-field-banner-alert-entities-0-actions-ief-entity-edit"
     Then I should see "BeHat Alert Body"
+
+@content_editing
+  Scenario Outline: Confirm that content cannot be published directly from the node edit form but can from the node view.
+    Given I am logged in as a user with the "content_admin" role
+    And I am viewing an <type> with the title <title>
+    Then the "#edit-new-state" element should exist
+    Then I should see "published" in the "#edit-new-state" element    
+    And I visit the "edit" page for a node with the title <title>
+    Then "#edit-moderation-state-0-state" should not contain "published"
+    Examples:
+      | type                             | title                                 |
+      | "page"                           | "page page"                           |
+      | "landing_page"                   | "landing_page page"                   |
+      | "health_care_region_detail_page" | "health_care_region_detail_page page" |
+      | "event"                          | "event page"                          |
+      | "event_listing"                  | "event_listing page"                  |
+      | "health_care_local_facility"     | "health_care_local_facility page"     |
+      | "health_care_region_page"        | "health_care_region_page page"        |
+      | "press_release"                  | "press_release page"                  |
+      | "outreach_asset"                 | "outreach_asset page"                 |
+      | "publication_listing"            | "publication_listing page"            |
+      | "news_story"                     | "news_story page"                     |
