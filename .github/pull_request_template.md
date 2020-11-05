@@ -20,11 +20,13 @@ As user _uid_ with _user_role_
 
 ## Definition of Done
 - [ ] Documentation has been updated, if applicable.
-- [ ] If there is an associated CMS annoucement, ping @rachel-kauff to let her know you plan to merge so she can queue up annoucement content
 
 ### CMS user-facing annoucement
 
 Is an announcement needed to let editors know of this change? 
-- [ ] Yes, and it's written in issue ____ and queued for publication.
-- [ ] Yes, but it hasn't yet been written (this code is not ready to merge!).
+- [ ] Yes, and it's written in issue ____ and queued for publication. 
+  - [ ] Merge and ping @rachel-kauff so she's ready to publish after deployment
+- [ ] Yes, but it hasn't yet been written 
+  - [ ] Don't merge yet -- ping @rachel-kauff to prompt her to write and queue content
 - [ ] No announcement is needed for this code change. 
+  - [ ] Merge & carry on unburdened by annoucements 
