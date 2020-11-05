@@ -8,64 +8,58 @@
  * so
  */
 
-$sandbox = ['#finished' => 0];
-do {
-  print(run($sandbox));
-} while ($sandbox['#finished'] < 1);
+//$paragraph_ids = [3784, 3805, 3807, 3809, 5510];
+//$new_nids = runRange($paragraph_ids);
+//updateNodes($new_nids);
+run();
 
-function run(&$sandbox) {
-  if (!isset($sandbox['total'])) {
-    $sandbox['total'] = getParagraphCount();
-    $sandbox['paragraph_ids'] = getAllParagraphIds();
-    $sandbox['current'] = 0;
-  }
+function run() {
+  print('Finding Nodes which need to be updated...' . PHP_EOL);
+  $sandbox = ['#finished' => 0, 'nids' => [], 'current' => 0];
+  $sandbox['paragraph_ids'] = getAllParagraphIds();
+  $sandbox['total'] = count($sandbox['paragraph_ids']);
+  print('.');
 
-  $limit = 25;
-  $paragraph_ids = array_slice($sandbox['paragraph_ids'], $sandbox['current'], $limit, TRUE);
-  runRange($paragraph_ids);
+  do {
+    getVidsToUpdate($sandbox);
+    print('.');
+  } while ($sandbox['current'] / $sandbox['total'] >= 1);
 
-  $sandbox['current'] += count($paragraph_ids);
+  print('Re-saving nodes');
 
-  // Log the processed nodes.
-  Drupal::logger('va_gov_db')
-    ->info('Paragraph %current saved to fix revision ids. Paragraphs processed: %paragraph_ids', [
-      '%current' => $sandbox['current'],
-      '%paragraph_ids' => implode(', ', $paragraph_ids),
-    ]);
-
-  $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
-
-  // Log the all-finished notice.
-  if ($sandbox['#finished'] == 1) {
-    Drupal::logger('va_gov_db')->info('RE-saving all %count paragraphs completed.', [
-      '%count' => $sandbox['total'],
-    ]);
-    return "Paragraph revision fix complete. {$sandbox['current']} / {$sandbox['total']}\n";
-  }
-
-  return "Processing paragraphs...{$sandbox['current']} / {$sandbox['total']}\n";
+  updateNodes($sandbox['nids']);
 }
 
-function runRange($paragraph_ids) {
-  $connection = \Drupal::database();
-  $transaction = $connection->startTransaction();
+function getVidsToUpdate(&$sandbox) {
+  $limit = 25;
+  $paragraph_ids = array_slice($sandbox['paragraph_ids'], $sandbox['current'], $limit, TRUE);
 
+  $new_nids = runRange($paragraph_ids);
+  if ($new_nids) {
+    $sandbox['nids'] += $new_nids;
+  }
+
+  $sandbox['current'] += count($paragraph_ids);
+}
+
+function runRange($paragraph_ids) : array {
+  $nids = [];
   try {
     $paragraphs = getParagraphData($paragraph_ids);
     foreach ($paragraphs as $paragraph) {
-
       if (shouldWeUpdateThisParagraph($paragraph)) {
-        updateNodeForNewParagraph($paragraph->getParentEntity());
+        $nids[$paragraph->parent_id->value] = $paragraph->parent_id->value;
       }
     }
   }
   catch (\Exception $e) {
-    $transaction->rollBack();
     \Drupal::logger('va_gov_db')
       ->error('Exception during paragraph migration');
 
     watchdog_exception('va_gov_db', $e);
   }
+
+  return $nids;
 }
 
 function getParagraphCount() : int {
@@ -96,13 +90,22 @@ function shouldWeUpdateThisParagraph(\Drupal\paragraphs\Entity\Paragraph $paragr
     return FALSE;
   }
 
-  // Get the data for the field
-  $paragraph_field_items = $parent->get($field_name->value);
-  $paragraph_field_item = $paragraph_field_items->filter(function($item) use ($paragraph) {
+  $paragraph_field_items = clone $parent->get($field_name->value);
+  $paragraph_field_items->filter(function($item) use ($paragraph) {
     return $item->target_id === $paragraph->id() && $paragraph->getRevisionId() !== $item->target_revision_id;
   });
 
-  return count($paragraph_field_item) > 0;
+  return count($paragraph_field_items) > 0;
+}
+
+function updateNodes($nids) {
+  /** @var \Drupal\node\NodeStorage $node_storage */
+  $node_storage = Drupal::entityTypeManager()->getStorage('node');
+  foreach ($nids as $nid) {
+    print($nid . PHP_EOL);
+    $vid = $node_storage->getLatestRevisionId($nid);
+    updateNodeForNewParagraph(node_revision_load($vid));
+  }
 }
 
 function updateNodeForNewParagraph(\Drupal\node\Entity\Node $node) {
