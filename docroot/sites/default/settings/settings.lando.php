@@ -5,7 +5,7 @@
 $settings['jenkins_build_job_path'] = '/job/builds/job/vets-website-content-vagov' . $settings['jenkins_build_env'];
 $settings['jenkins_build_job_params'] = '/buildWithParameters?deploy=true';
 $settings['jenkins_build_job_url'] = $settings['jenkins_build_job_host'] . $settings['jenkins_build_job_path'] . $settings['jenkins_build_job_params'];
-
+$settings['skip_permissions_hardening'] = TRUE;
 
 $config['config_split.config_split.dev']['status'] = TRUE;
 $config['config_split.config_split.stg']['status'] = FALSE;
