@@ -128,11 +128,6 @@ Feature: CMS Users may effectively create & edit content
     And I fill in "Name" with "Test Office - BeHaT 404"
     And I press "Save"
     Then I should see "VA.gov URL" in the "#block-entitymetadisplay" element
-
-    # (Re-)Publish the node.
-    And I select "Published" from "Change to"
-    And I fill in "Log message" with "Test publishing"
-    And I press "Apply"
     And I should see "(pending)" in the "#block-entitymetadisplay" element
 
     # Archive the node.
@@ -176,7 +171,7 @@ Feature: CMS Users may effectively create & edit content
     Given I am logged in as a user with the "content_admin" role
     And I am viewing an <type> with the title <title>
     Then the "#edit-new-state" element should exist
-    Then I should see "published" in the "#edit-new-state" element    
+    Then I should see "published" in the "#edit-new-state" element
     And I visit the "edit" page for a node with the title <title>
     Then "#edit-moderation-state-0-state" should not contain "published"
     Examples:

@@ -154,17 +154,17 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   /**
    * Check that an html element exists.
    *
-   * @param string $selector
+   * @param string $element
    *   The css selector.
    *
-   * @Then the :selector element should exist
+   * @Then the :element element should exist
    */
-  public function theElementShouldExist($selector) {
+  public function theElementShouldExist($element) {
     $session = $this->getSession();
-    $element = $session->getPage()->find('css', $selector);
+    $element = $session->getPage()->find('css', $element);
 
     if (NULL === $element) {
-      throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $selector));
+      throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $element));
     }
   }
 
