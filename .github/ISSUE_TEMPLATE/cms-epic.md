@@ -9,7 +9,7 @@ assignees: ''
 
 Once merged, will this work cause changes that CMS users will notice?
   - [ ] Y: Add the annoucements label to this issue for the PM and UX writer to review
-  - [ ] N
+  - [ ] N: No futher action needed
 
 ## Background
 
