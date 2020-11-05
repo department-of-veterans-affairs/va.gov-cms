@@ -180,15 +180,35 @@ Feature: CMS Users may effectively create & edit content
     And I visit the "edit" page for a node with the title <title>
     Then "#edit-moderation-state-0-state" should not contain "published"
     Examples:
-      | type                             | title                                 |
-      | "page"                           | "page page"                           |
-      | "landing_page"                   | "landing_page page"                   |
-      | "health_care_region_detail_page" | "health_care_region_detail_page page" |
-      | "event"                          | "event page"                          |
-      | "event_listing"                  | "event_listing page"                  |
-      | "health_care_local_facility"     | "health_care_local_facility page"     |
-      | "health_care_region_page"        | "health_care_region_page page"        |
-      | "press_release"                  | "press_release page"                  |
-      | "outreach_asset"                 | "outreach_asset page"                 |
-      | "publication_listing"            | "publication_listing page"            |
-      | "news_story"                     | "news_story page"                     |
+      | type                                | title                                     |
+      | "page"                              | "page page"                               |
+      | "landing_page"                      | "landing_page page"                       |
+      | "basic_landing_page"                | "basic_landing_page page"                 |
+      | "checklist"                         | "checklist page"                          |
+      | "documentation_page"                | "documentation_page page"                 |
+      | "faq_multiple_q_a"                  | "faq_multiple_q_a page"                   |
+      | "health_services_listing"           | "health_services_listing page"            |
+      | "health_care_region_detail_page"    | "health_care_region_detail_page page"     |
+      | "event"                             | "event page"                              |
+      | "event_listing"                     | "event_listing page"                      |
+      | "health_care_local_facility"        | "health_care_local_facility page"         |
+      | "health_care_region_page"           | "health_care_region_page page"            |
+      | "press_release"                     | "press_release page"                      |
+      | "outreach_asset"                    | "outreach_asset page"                     |
+      | "publication_listing"               | "publication_listing page"                |
+      | "news_story"                        | "news_story page"                         |
+      | "leadership_listing"                | "leadership_listing page"                 |
+      | "locations_listing"                 | "locations_listing page"                  |
+      | "media_list_images"                 | "media_list_images page"                  |
+      | "media_list_videos"                 | "media_list_videos page"                  |
+      | "nca_facility"                      | "nca_facility page"                       |
+      | "office"                            | "office page"                             |
+      | "press_releases_listing"            | "press_releases_listing page"             |
+      | "q_a"                               | "q_a page"                                |
+      | "step_by_step"                      | "step_by_step page"                       |
+      | "story_listing"                     | "story_listing page"                      |
+      | "support_resources_detail_page"     | "support_resources_detail_page page"      |
+      | "support_service"                   | "support_service page"                    |
+      | "va_form"                           | "va_form page"                            |
+      | "vba_facility"                      | "vba_facility page"                       |
+      | "vet_center"                        | "vet_center page"                         |
