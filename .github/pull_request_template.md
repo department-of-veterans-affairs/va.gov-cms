@@ -20,8 +20,9 @@ As user _uid_ with _user_role_
 
 ## Definition of Done
 - [ ] Documentation has been updated, if applicable.
+- [ ] If there is an associated CMS annoucement, ping @rachel-kauff to let her know you plan to merge so she can queue up annoucement content
 
-### CMS user-facing release note
+### CMS user-facing annoucement
 
 Is an announcement needed to let editors know of this change? 
 - [ ] Yes, and it's written in issue ____ and queued for publication.
