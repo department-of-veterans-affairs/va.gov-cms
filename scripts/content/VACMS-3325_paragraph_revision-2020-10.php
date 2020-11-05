@@ -23,9 +23,9 @@ function run() {
   do {
     getVidsToUpdate($sandbox);
     print('.');
-  } while ($sandbox['current'] / $sandbox['total'] >= 1);
+  } while ($sandbox['total'] - $sandbox['current'] > 0);
 
-  print('Re-saving nodes');
+  print(PHP_EOL . 'Re-saving nodes' . PHP_EOL);
 
   updateNodes($sandbox['nids']);
 }
