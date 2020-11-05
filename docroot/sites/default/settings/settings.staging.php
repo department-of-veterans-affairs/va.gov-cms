@@ -35,3 +35,5 @@ $settings['trusted_host_patterns'] = [
     'test.staging.cms.va.gov',
     '.*\.us-gov-west-1\.elb\.amazonaws\.com',
 ];
+
+$settings['va_gov_frontend_url'] = 'https://staging.va.gov';
