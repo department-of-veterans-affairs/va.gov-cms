@@ -328,7 +328,7 @@ function va_gov_backend_field_widget_moderation_state_default_form_alter(&$eleme
  */
 function _va_gov_backend_get_locked_alias_bundles() {
 
-  return [
+  $bundles_to_lock = [
     'basic_landing_page',
     'checklist',
     'faq_multiple_q_a',
@@ -339,6 +339,10 @@ function _va_gov_backend_get_locked_alias_bundles() {
     'support_resources_detail_page',
     'va_form',
   ];
+
+  // @TODO restore return of $bundles_to_lock when ready to engage locking.
+  // Returning empty for now as this is preventing alias updating.
+  return [];
 }
 
 /**
