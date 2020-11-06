@@ -4,18 +4,15 @@
  * @file
  * One-time migration for fixing the default revision for paragraphs.
  *
- * We are accessing the database tables directly instead of using the Field Storage API
- * so
+ * We are accessing the database tables directly instead of using the Field
+ *   Storage API so
  */
 
-//$paragraph_ids = [3784, 3805, 3807, 3809, 5510];
-//$new_nids = runRange($paragraph_ids);
-//updateNodes($new_nids);
 run();
 
 function run() {
   print('Finding Nodes which need to be updated...' . PHP_EOL);
-  $sandbox = ['#finished' => 0, 'nids' => [], 'current' => 0];
+  $sandbox = ['#finished' => 0, 'pids' => [], 'current' => 0];
   $sandbox['paragraph_ids'] = getAllParagraphIds();
   $sandbox['total'] = count($sandbox['paragraph_ids']);
   print('.');
@@ -25,30 +22,30 @@ function run() {
     print('.');
   } while ($sandbox['total'] - $sandbox['current'] > 0);
 
-  print(PHP_EOL . 'Re-saving nodes' . PHP_EOL);
+  print(PHP_EOL . 'Updating Paragraphs' . PHP_EOL);
 
-  updateNodes($sandbox['nids']);
+  updateParagraphs($sandbox['pids']);
 }
 
 function getVidsToUpdate(&$sandbox) {
   $limit = 25;
   $paragraph_ids = array_slice($sandbox['paragraph_ids'], $sandbox['current'], $limit, TRUE);
 
-  $new_nids = runRange($paragraph_ids);
-  if ($new_nids) {
-    $sandbox['nids'] += $new_nids;
+  $new_pids = runRange($paragraph_ids);
+  if ($new_pids) {
+    $sandbox['pids'] += $new_pids;
   }
 
   $sandbox['current'] += count($paragraph_ids);
 }
 
 function runRange($paragraph_ids) : array {
-  $nids = [];
+  $pids = [];
   try {
     $paragraphs = getParagraphData($paragraph_ids);
     foreach ($paragraphs as $paragraph) {
       if (shouldWeUpdateThisParagraph($paragraph)) {
-        $nids[$paragraph->parent_id->value] = $paragraph->parent_id->value;
+        $pids[$paragraph->id()] = $paragraph;
       }
     }
   }
@@ -59,7 +56,7 @@ function runRange($paragraph_ids) : array {
     watchdog_exception('va_gov_db', $e);
   }
 
-  return $nids;
+  return $pids;
 }
 
 function getParagraphCount() : int {
@@ -105,6 +102,34 @@ function updateNodes($nids) {
     print($nid . PHP_EOL);
     $vid = $node_storage->getLatestRevisionId($nid);
     updateNodeForNewParagraph(node_revision_load($vid));
+  }
+}
+
+function updateParagraphs($paragraphs) {
+  /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+  foreach ($paragraphs as $paragraph) {
+    $node = $paragraph->getParentEntity();
+
+    $nid = $node->id();
+    $paragraph_field_items = clone $node->get($paragraph->parent_field_name->value);
+    $paragraph_field_items->filter(function($item) use ($paragraph) {
+      return $item->target_id === $paragraph->id();
+    });
+
+    $paragraph_field_item = $paragraph_field_items->first();
+    $vid = $paragraph_field_item->target_revision_id;
+    $vid = $paragraph_field_item->target_revision_id;
+
+    print('Updating paragraph ' . $paragraph->id() . ' on node ' . $nid . ' to use vid ' . $vid . PHP_EOL);
+    $query = \Drupal::database()->update('paragraphs_item');
+    $query->fields(['revision_id' => $vid]);
+    $query->condition('id', $paragraph->id());
+    $query->execute();
+
+    $query = \Drupal::database()->update('paragraphs_item_field_data');
+    $query->fields(['revision_id' => $vid]);
+    $query->condition('id', $paragraph->id());
+    $query->execute();
   }
 }
 
