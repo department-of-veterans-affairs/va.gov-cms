@@ -1,13 +1,13 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Security;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm access to workflow moderation.
  */
-class AccessWorkflow extends ExistingSiteBase {
+class WorkflowTest extends ExistingSiteBase {
 
   /**
    * A test method to determine whether users can access workflow moderation.
@@ -34,7 +34,6 @@ class AccessWorkflow extends ExistingSiteBase {
 
     // Test assertion.
     $this->assertEquals($node->get('moderation_state')->getValue()[0]['value'], 'review', $message);
-
   }
 
 }

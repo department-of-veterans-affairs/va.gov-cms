@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\API;
 
 use Drupal\Core\Database\Database;
 use Drupal\Core\Queue\DatabaseQueue;
@@ -38,6 +38,9 @@ class PostApiQueueTest extends ExistingSiteBase {
     ],
   ];
 
+  /**
+   * Setup.
+   */
   public function setUp() {
     parent::setUp();
     $queue = new DatabaseQueue('post_api_queue', Database::getConnection());
@@ -85,7 +88,7 @@ class PostApiQueueTest extends ExistingSiteBase {
 
     $response = $this->processItem(self::$mockData);
     // Payload and credentials are available. POSt should return 200 OK.
-    $this->assertEquals(200, $response,'POST request is successful.');
+    $this->assertEquals(200, $response, 'POST request is successful.');
 
     $queue->deleteQueue();
   }
@@ -160,4 +163,3 @@ class PostApiQueueTest extends ExistingSiteBase {
   }
 
 }
-

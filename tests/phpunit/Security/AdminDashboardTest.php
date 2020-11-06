@@ -1,13 +1,13 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Security;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
- * A test to confirm amount of nodes by type.
+ * A test to confirm admin dashboard security.
  */
-class AdminDashboardSecurity extends ExistingSiteBase {
+class AdminDashboardTest extends ExistingSiteBase {
 
   /**
    * A test method to check permissions to access the admin dashboard.

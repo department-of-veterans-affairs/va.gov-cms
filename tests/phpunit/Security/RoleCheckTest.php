@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\roleChecks;
+namespace tests\phpunit\Security;
 
 use Drupal\user\Entity\Role;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
@@ -8,7 +8,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * A test to confirm role names.
  */
-class RoleChecks extends ExistingSiteBase {
+class RoleCheckTest extends ExistingSiteBase {
 
   /**
    * A test method to deterine if the role exists.

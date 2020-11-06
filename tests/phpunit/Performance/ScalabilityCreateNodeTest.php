@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Performance;
 
 use Drupal\Component\Utility\Timer;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
@@ -10,7 +10,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  */
 class ScalabilityCreateNodeTest extends ExistingSiteBase {
 
-  public CONST TIMER_NAME = 'php-unit-scalable-page-test';
+  public const TIMER_NAME = 'php-unit-scalable-page-test';
 
   /**
    * A test method to determine the amount of time it takes to create a node.
