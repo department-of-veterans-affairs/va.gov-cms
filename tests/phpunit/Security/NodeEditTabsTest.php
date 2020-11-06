@@ -1,13 +1,13 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Security;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm access to node edit form tabs.
  */
-class AccessNodeEditTabs extends ExistingSiteBase {
+class NodeEditTabsTest extends ExistingSiteBase {
 
   /**
    * A test method to determine whether users can access node edit form tabs.
@@ -31,7 +31,6 @@ class AccessNodeEditTabs extends ExistingSiteBase {
     $message = "\nUnable to change value in node edit form tab.\n" . $node->get('field_administration')->getValue()[0]['target_id'] . "\n";
     // Test assertion.
     $this->assertEquals($node->get('field_administration')->getValue()[0]['target_id'], '4', $message);
-
   }
 
 }

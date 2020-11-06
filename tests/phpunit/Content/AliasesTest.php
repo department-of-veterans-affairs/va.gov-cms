@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Content;
 
 use Drupal\taxonomy\Entity\Vocabulary;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
@@ -8,7 +8,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * A test to confirm correct alias settings.
  */
-class Aliases extends ExistingSiteBase {
+class AliasesTest extends ExistingSiteBase {
 
   /**
    * A test method to test VAMC System & Facility Health Services Aliases.
@@ -16,7 +16,7 @@ class Aliases extends ExistingSiteBase {
    * @group aliases
    * @group all
    */
-  public function testVAMCFacilityHealthServiceAlias() {
+  public function testVamcFacilityHealthServiceAlias() {
     // Creates a user. Will be automatically cleaned up at the end of the test.
     $author = $this->createUser();
 
@@ -90,7 +90,7 @@ class Aliases extends ExistingSiteBase {
     // Check the auto-generated title.
     $this->assertEquals('Test Service - Test VA Medical Center', $local_service_node->getTitle());
 
-    // Assert that the path follows the pattern [node:field_facility_location:entity:url:path]/[node:field_regional_health_service:entity:field_service_name_and_descripti]
+    // Assert that the path follows the pattern [node:field_facility_location:entity:url:path]/[node:field_regional_health_service:entity:field_service_name_and_descripti].
     $url_alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $local_service_node->id());
     $this->assertEquals('/va-test-health-care/locations/test-va-medical-center/test-service', $url_alias);
   }

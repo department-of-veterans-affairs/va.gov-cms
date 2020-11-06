@@ -1,13 +1,13 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Security;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
- * A test to confirm amount of nodes by type.
+ * A test to confirm node creation permissions.
  */
-class CreateNodeSecurity extends ExistingSiteBase {
+class CreateNodeTest extends ExistingSiteBase {
 
   /**
    * A test method to deterine the amount of time it takes to create a node.
