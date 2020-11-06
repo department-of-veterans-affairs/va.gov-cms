@@ -39,7 +39,6 @@ dependencies:
     - link
     - linkit
     - media_library
-    - metatag
     - paragraphs
     - path
     - text
@@ -63,7 +62,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
       weight: 13
       format_type: fieldset
@@ -430,12 +428,6 @@ content:
       media_types: {  }
     region: content
     third_party_settings: {  }
-  field_meta_tags:
-    weight: 14
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_firehose
-    region: content
   field_meta_title:
     weight: 4
     settings:
@@ -554,6 +546,7 @@ hidden:
   field_link_facility_emerg_list: true
   field_link_facility_news_list: true
   field_links: true
+  field_meta_tags: true
   field_nickname_for_this_facility: true
   field_sign_up_for_emergency_emai: true
   promote: true

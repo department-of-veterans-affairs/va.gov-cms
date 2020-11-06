@@ -36,10 +36,10 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
    *
    * @var array
    */
-  protected $config = array();
+  protected $config = [];
 
   /**
-   * Settings Service
+   * Settings Service.
    *
    * @var \Drupal\Core\Site\Settings
    */

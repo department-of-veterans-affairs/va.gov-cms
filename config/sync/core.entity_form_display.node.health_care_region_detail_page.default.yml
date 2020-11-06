@@ -19,7 +19,6 @@ dependencies:
   module:
     - content_moderation
     - field_group
-    - metatag
     - paragraphs
     - paragraphs_browser
     - path
@@ -44,7 +43,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
       weight: 13
       format_type: fieldset
@@ -201,12 +199,6 @@ content:
     third_party_settings: {  }
     type: string_textarea_with_counter
     region: content
-  field_meta_tags:
-    weight: 14
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_firehose
-    region: content
   field_meta_title:
     weight: 2
     settings:
@@ -302,5 +294,6 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_meta_tags: true
   promote: true
   sticky: true

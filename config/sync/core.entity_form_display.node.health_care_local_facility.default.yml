@@ -36,7 +36,6 @@ dependencies:
     - link
     - linkit
     - media_library
-    - metatag
     - paragraphs
     - path
     - tablefield
@@ -61,7 +60,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
       weight: 9
       format_type: fieldset
@@ -310,13 +308,6 @@ content:
     third_party_settings: {  }
     type: telephone_default
     region: content
-  field_meta_tags:
-    weight: 10
-    settings:
-      sidebar: true
-    third_party_settings: {  }
-    type: metatag_firehose
-    region: content
   field_meta_title:
     weight: 2
     settings:
@@ -400,6 +391,7 @@ content:
 hidden:
   created: true
   field_local_health_care_service_: true
+  field_meta_tags: true
   field_nickname_for_this_facility: true
   promote: true
   status: true

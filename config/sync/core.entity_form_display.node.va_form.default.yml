@@ -34,7 +34,6 @@ dependencies:
     - entity_browser
     - field_group
     - link
-    - metatag
     - paragraphs
     - path
     - text
@@ -170,13 +169,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
-    region: content
-  field_meta_tags:
-    weight: 13
-    settings:
-      sidebar: true
-    third_party_settings: {  }
-    type: metatag_firehose
     region: content
   field_va_form_administration:
     type: options_select
@@ -334,11 +326,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 14
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_meta_tags: true
   promote: true
   status: true
   sticky: true
