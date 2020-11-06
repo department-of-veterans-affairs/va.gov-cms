@@ -10,22 +10,24 @@ dependencies:
     - field.field.paragraph.situation_update.field_wysiwyg
     - paragraphs.paragraphs_type.situation_update
   module:
-    - datetime
+    - smart_date
     - text
 id: paragraph.situation_update.preview
 targetEntityType: paragraph
 bundle: situation_update
 mode: preview
 content:
-  field_date_and_time:
+  field_datetime_range_timezone:
+    type: smartdate_default
     weight: 0
+    region: content
     label: inline
     settings:
-      timezone_override: America/New_York
-      format_type: long
+      format: default
+      force_chronological: false
+      format_type: medium
+      timezone_override: ''
     third_party_settings: {  }
-    type: datetime_default
-    region: content
   field_send_email_to_subscribers:
     weight: 1
     label: inline
@@ -44,5 +46,5 @@ content:
     type: text_default
     region: content
 hidden:
-  field_datetime_range_timezone: true
+  field_date_and_time: true
   search_api_excerpt: true
