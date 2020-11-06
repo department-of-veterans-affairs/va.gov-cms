@@ -24,7 +24,6 @@ dependencies:
     - datetime
     - entity_browser
     - field_group
-    - metatag
     - paragraphs
     - paragraphs_browser
     - path
@@ -62,7 +61,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
       weight: 8
       format_type: fieldset
@@ -217,12 +215,6 @@ content:
     third_party_settings: {  }
     type: string_textarea_with_counter
     region: content
-  field_meta_tags:
-    type: metatag_firehose
-    region: content
-    weight: 11
-    settings: {  }
-    third_party_settings: {  }
   field_meta_title:
     weight: 1
     settings:
@@ -295,12 +287,13 @@ content:
     third_party_settings: {  }
     region: content
   url_redirects:
-    weight: 12
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   field_intro_text_limited_html: true
+  field_meta_tags: true
   field_page_last_built: true
   panelizer: true
   promote: true

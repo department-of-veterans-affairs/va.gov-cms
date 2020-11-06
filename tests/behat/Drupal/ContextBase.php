@@ -24,18 +24,20 @@ abstract class ContextBase extends RawDrupalContext {
   }
 
   /**
+   * Enables the mock HTTP client.
+   *
    * @BeforeFeature @mock_va_gov_urls
    */
-  static function enableVaGovBackendHttpClient()
-  {
+  public static function enableVaGovBackendHttpClient() {
     \Drupal::service('module_installer')->install(['va_gov_backend_http_client']);
   }
 
   /**
+   * Disables the mock HTTP client.
+   *
    * @AfterFeature @mock_va_gov_urls
    */
-  static function disableVaGovBackendHttpClient()
-  {
+  public static function disableVaGovBackendHttpClient() {
     \Drupal::service('module_installer')->uninstall(['va_gov_backend_http_client']);
   }
 
