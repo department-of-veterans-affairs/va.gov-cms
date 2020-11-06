@@ -68,22 +68,27 @@
     font-size: 1rem;
   }
 
+
   /* Lists */
 
-  ul {
+  ol {
+    margin: 0 0 0 1.25em;
     padding: 0em;
+    list-style-position: outside;
+  }
+
+  ul {
+    margin: 0 0 0 1.25em;
+    padding: 0em;
+    list-style: square;
+    list-style-position: outside;
   }
 
   li {
     line-height: 1.5;
     margin-bottom: .5em;
-    list-style: square;
   }
 
-  ol {
-    margin: 0 0 0 1.25em;
-    list-style-position: outside;
-  }
 
   /* Links */
 
@@ -106,6 +111,7 @@
     max-width: 700px;
   }
 
+
   /* Block styles */
 
   .va-address-block {
@@ -113,6 +119,7 @@
     border-left: 3px solid #0071bb;
     padding-left: 1rem;
   }
+
 
   /* Buttons */
   a.usa-button,
@@ -126,6 +133,7 @@
     }
   }
 
+
   /* Default button (blue) */
   .usa-button,
   .usa-button-primary {
@@ -136,6 +144,7 @@
     }
   }
 
+
   /* Primary button (green) */
   .va-button-primary {
     @include va-buttons;
@@ -144,6 +153,7 @@
       background: #195c27;
     }
   }
+
 
   /* Secondary button (blue "ghost") */
   a.usa-button-secondary {

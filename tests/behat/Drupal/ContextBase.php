@@ -24,6 +24,22 @@ abstract class ContextBase extends RawDrupalContext {
   }
 
   /**
+   * @BeforeFeature @mock_va_gov_urls
+   */
+  static function enableVaGovBackendHttpClient()
+  {
+    \Drupal::service('module_installer')->install(['va_gov_backend_http_client']);
+  }
+
+  /**
+   * @AfterFeature @mock_va_gov_urls
+   */
+  static function disableVaGovBackendHttpClient()
+  {
+    \Drupal::service('module_installer')->uninstall(['va_gov_backend_http_client']);
+  }
+
+  /**
    * Gets the entity type manager.
    *
    * @return \Drupal\Core\Entity\EntityTypeManagerInterface
