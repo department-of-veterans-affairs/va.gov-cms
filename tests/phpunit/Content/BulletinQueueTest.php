@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Content;
 
 use Drupal\paragraphs\Entity\Paragraph;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
@@ -135,4 +135,5 @@ class BulletinQueueTest extends ExistingSiteBase {
     ];
     $node->set('field_situation_updates', $current);
   }
+
 }

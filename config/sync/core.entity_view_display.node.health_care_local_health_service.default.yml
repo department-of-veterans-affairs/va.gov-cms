@@ -27,7 +27,7 @@ third_party_settings:
     group_vha_health_service_name_an:
       children: {  }
       parent_name: ''
-      weight: 15
+      weight: 10
       format_type: fieldset
       format_settings:
         description: ''
@@ -39,7 +39,7 @@ third_party_settings:
       children:
         - field_body
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         description: ''
@@ -55,7 +55,7 @@ third_party_settings:
         - field_online_scheduling_availabl
         - field_phone_numbers_paragraph
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -68,6 +68,11 @@ targetEntityType: node
 bundle: health_care_local_health_service
 mode: default
 content:
+  content_moderation_control:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_appointments_help_text:
     type: markup
     weight: 9
@@ -107,7 +112,7 @@ content:
     region: content
   field_regional_health_service:
     type: entity_reference_entity_view
-    weight: 0
+    weight: 1
     region: content
     label: hidden
     settings:
@@ -116,7 +121,7 @@ content:
     third_party_settings: {  }
   field_service_location:
     type: entity_reference_revisions_entity_view
-    weight: 7
+    weight: 4
     label: hidden
     settings:
       view_mode: default
@@ -131,7 +136,6 @@ content:
     type: list_default
     region: content
 hidden:
-  content_moderation_control: true
   field_administration: true
   field_facility_location: true
   field_facility_service_loc_help: true

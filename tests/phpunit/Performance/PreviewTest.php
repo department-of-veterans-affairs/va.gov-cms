@@ -1,13 +1,13 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Performance;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
- * A test to assure the performance of edit preview.
+ * A test to confirm the performance of edit preview.
  */
-class PreviewPerformance extends ExistingSiteBase {
+class PreviewTest extends ExistingSiteBase {
 
   /**
    * A test method to deterine the amount of time it takes to load preview.

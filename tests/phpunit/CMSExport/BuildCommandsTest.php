@@ -2,9 +2,11 @@
 
 namespace test\phpunit\CMSExport;
 
-use Drupal\Core\Logger\RfcLoggerTrait;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
+/**
+ * Test the BuildCommands class.
+ */
 class BuildCommandsTest extends ExistingSiteBase {
 
   /**
@@ -24,4 +26,5 @@ class BuildCommandsTest extends ExistingSiteBase {
     $command = reset($commands);
     self::assertStringContainsString("--export-dir='bob'", $command);
   }
+
 }

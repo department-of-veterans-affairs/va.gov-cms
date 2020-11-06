@@ -16,11 +16,15 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   use \Traits\GroupTrait;
 
   /**
+   * Private storage.
+   *
    * @var array
    */
   private $privateStorage = [];
 
   /**
+   * Timestamp property.
+   *
    * @var int
    *   Useful to have different timestamp even if nodes created at same time.
    */
@@ -38,6 +42,8 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   }
 
   /**
+   * Clean up private storage.
+   *
    * @AfterScenario
    */
   public function cleanUp() {
@@ -148,17 +154,17 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   /**
    * Check that an html element exists.
    *
-   * @param string $element
+   * @param string $selector
    *   The css selector.
    *
-   * @Then the :element element should exist
+   * @Then the :selector element should exist
    */
-  public function theElementShouldExist($element) {
+  public function theElementShouldExist($selector) {
     $session = $this->getSession();
-    $element = $session->getPage()->find('css', $element);
+    $element = $session->getPage()->find('css', $selector);
 
     if (NULL === $element) {
-      throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $element));
+      throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $selector));
     }
   }
 

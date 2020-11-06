@@ -1,13 +1,13 @@
 <?php
 
-namespace tests\phpunit\graphql;
+namespace tests\phpunit\API;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm amount of nodes by type.
  */
-class ServiceAvailable extends ExistingSiteBase {
+class GraphQLTest extends ExistingSiteBase {
 
   /**
    * A test method to check data returned by GraphQL service.

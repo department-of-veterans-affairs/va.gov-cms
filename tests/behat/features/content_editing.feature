@@ -128,6 +128,11 @@ Feature: CMS Users may effectively create & edit content
     And I fill in "Name" with "Test Office - BeHaT 404"
     And I press "Save"
     Then I should see "VA.gov URL" in the "#block-entitymetadisplay" element
+
+    # (Re-)Publish the node.
+    And I select "Published" from "Change to"
+    And I fill in "Log message" with "Test publishing"
+    And I press "Apply"
     And I should see "(pending)" in the "#block-entitymetadisplay" element
 
     # Archive the node.
@@ -165,3 +170,45 @@ Feature: CMS Users may effectively create & edit content
     # Confirm that paragraph can be edited inline
     And I press "edit-field-banner-alert-entities-0-actions-ief-entity-edit"
     Then I should see "BeHat Alert Body"
+
+@content_editing
+  Scenario Outline: Confirm that content cannot be published directly from the node edit form but can from the node view.
+    Given I am logged in as a user with the "content_admin" role
+    And I am viewing an <type> with the title <title>
+    Then the "#edit-new-state" element should exist
+    Then I should see "published" in the "#edit-new-state" element    
+    And I visit the "edit" page for a node with the title <title>
+    Then "#edit-moderation-state-0-state" should not contain "published"
+    Examples:
+      | type                                | title                                     |
+      | "page"                              | "page page"                               |
+      | "landing_page"                      | "landing_page page"                       |
+      | "basic_landing_page"                | "basic_landing_page page"                 |
+      | "checklist"                         | "checklist page"                          |
+      | "documentation_page"                | "documentation_page page"                 |
+      | "faq_multiple_q_a"                  | "faq_multiple_q_a page"                   |
+      | "health_services_listing"           | "health_services_listing page"            |
+      | "health_care_region_detail_page"    | "health_care_region_detail_page page"     |
+      | "event"                             | "event page"                              |
+      | "event_listing"                     | "event_listing page"                      |
+      | "health_care_local_facility"        | "health_care_local_facility page"         |
+      | "health_care_region_page"           | "health_care_region_page page"            |
+      | "press_release"                     | "press_release page"                      |
+      | "outreach_asset"                    | "outreach_asset page"                     |
+      | "publication_listing"               | "publication_listing page"                |
+      | "news_story"                        | "news_story page"                         |
+      | "leadership_listing"                | "leadership_listing page"                 |
+      | "locations_listing"                 | "locations_listing page"                  |
+      | "media_list_images"                 | "media_list_images page"                  |
+      | "media_list_videos"                 | "media_list_videos page"                  |
+      | "nca_facility"                      | "nca_facility page"                       |
+      | "office"                            | "office page"                             |
+      | "press_releases_listing"            | "press_releases_listing page"             |
+      | "q_a"                               | "q_a page"                                |
+      | "step_by_step"                      | "step_by_step page"                       |
+      | "story_listing"                     | "story_listing page"                      |
+      | "support_resources_detail_page"     | "support_resources_detail_page page"      |
+      | "support_service"                   | "support_service page"                    |
+      | "va_form"                           | "va_form page"                            |
+      | "vba_facility"                      | "vba_facility page"                       |
+      | "vet_center"                        | "vet_center page"                         |

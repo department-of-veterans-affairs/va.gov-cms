@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Content;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 use Drupal\media\Entity\Media;

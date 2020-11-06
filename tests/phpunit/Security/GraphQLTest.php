@@ -1,14 +1,14 @@
 <?php
 
-namespace tests\phpunit\graphql;
+namespace tests\phpunit\Security;
 
 use GuzzleHttp\Exception\ClientException;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
- * A class to check access to graphql data.
+ * A test to check access to graphql data.
  */
-class ServiceSecure extends ExistingSiteBase {
+class GraphQLTest extends ExistingSiteBase {
 
   /**
    * A test method to check access to GraphQL service.
