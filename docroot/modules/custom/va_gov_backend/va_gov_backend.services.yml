@@ -2,6 +2,10 @@ services:
   va_gov_backend.exclusion_types:
     class: Drupal\va_gov_backend\Service\ExclusionTypes
     arguments: ['@config.factory']
+  va_gov_backend.route_subscriber:
+    class: Drupal\va_gov_backend\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
   va_gov_backend.va_gov_url:
     class: Drupal\va_gov_backend\Service\VaGovUrl
     arguments: ['@http_client', '@settings']
