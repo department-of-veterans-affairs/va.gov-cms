@@ -7,7 +7,7 @@
     attach: function (context, settings) {
       const timeEnd = document.querySelector('.time-end');
 
-      if (timeEnd !== null && typeof timeEnd === 'object' && timeEnd.classList.contains('hidden')) {
+      if (timeEnd !== null && typeof timeEnd === 'object') {
         const alldayLabels = document.querySelectorAll('.allday-label');
 
         alldayLabels.forEach(label => {
