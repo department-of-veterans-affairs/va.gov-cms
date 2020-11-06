@@ -1,6 +1,7 @@
 @import "mixins";
 @import "services";
 @import "external_content";
+@import "toolbar";
 
 .node-form textarea {
   max-width: 750px;
@@ -105,17 +106,15 @@
   font-size: 20px;
 }
 
-.paragraphs-subform {
-  .field--name-field-phone-number,
-  .field--name-field-phone-extension {
-    float: left;
-  }
-  .field--name-field-phone-extension {
-    margin-left: 20px;
-  }
-  .field--name-field-phone-label {
-    clear: both;
-  }
+.field--name-field-phone-number,
+.field--name-field-phone-extension {
+  float: left;
+}
+.field--name-field-phone-extension {
+  margin-left: 20px;
+}
+.field--name-field-phone-label {
+  clear: both;
 }
 
 .paragraph-type--service-location-address {
@@ -139,5 +138,24 @@
   border-radius: 2px;
   div {
     padding: 2px 0;
+  }
+}
+
+.ief-entity-table {
+  th:last-child {
+    font-size: 0;
+  }
+}
+
+.field--type-smartdate {
+  .smartdate--widget {
+    .allday-label {
+      float: none;
+      display: block;
+      clear: both;
+      input.allday {
+        margin: 0.65em 0.5em 0 6em;
+      }
+    }
   }
 }

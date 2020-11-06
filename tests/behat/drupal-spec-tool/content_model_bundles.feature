@@ -12,11 +12,14 @@ Feature: Content model bundles
 | Benefits Hub Landing Page | landing_page | Content type | A special page for top-level Benefits content with its own one-off layout and content. |
 | Checklist | checklist | Content type |  |
 | CMS Help Page | documentation_page | Content type | Help guide pages on how to use the CMS to edit content on VA.gov. |
+| Contact information | contact_information | Paragraph type |  |
 | Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
 | Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
 | Events List | event_listing | Content type | A listing of events. |
 | FAQ - multiple Q&As | faq_multiple_q_a | Content type | Curated collection of Q&As. |
 | Health Services List | health_services_listing | Content type | A listing of health services. |
+| Landing Page | basic_landing_page | Content type | Basic Landing Page can be used to build one-off pages for various products. E.g. a homepage for a specific product. |
+| Learning Center Detail Page | support_resources_detail_page | Content type |  |
 | Leadership List | leadership_listing | Content type | A listing of staff profiles. |
 | Locations List | locations_listing | Content type | A listing of VA facilities. |
 | Media list - Images | media_list_images | Content type |  |
@@ -38,7 +41,7 @@ Feature: Content model bundles
 | VAMC Facility Health Service | health_care_local_health_service | Content type | A facility specific description of a health care service, always embedded within a VAMC system description. |
 | VAMC System | health_care_region_page | Content type | A VAMC system contains multiple VHA health facilities, including usually at least one VAMC, sometimes more. |
 | VAMC System Banner Alert with Situation Updates | full_width_banner_alert | Content type | A full-width alert that will be added to a VAMC system, or multiple VAMC systems. |
-| VAMC System Health Service | regional_health_care_service_des | Content type | A description of a health service specific to a VAMC system. |
+| VAMC System Health Service | regional_health_care_service_des | Content type | A description of a health service specific to a VAMC system, which appears on a VAMC's health services page and on facility pages, within accordions. |
 | VAMC System Operating Status | vamc_operating_status_and_alerts | Content type | Create one of these pages for each VAMC system. Then you can add banner alerts and update facilities' operating status, all from one place. |
 | VBA Facility | vba_facility | Content type | A facility within Veterans Benefits Administration system. |
 | Vet Center | vet_center | Content type | A facility within Vet Centers system. |
@@ -53,10 +56,11 @@ Feature: Content model bundles
 | Address | address | Paragraph type | An address block. |
 | Alert | alert | Paragraph type | A reusable or non-reusable alert, either "information status" or "warning status". |
 | Alert (single) | alert_single | Paragraph type |  |
+| Audience & Topics | audience_topics | Paragraph type | Audience & Topic selection for "Resources and Support" articles. |
 | Button | button | Paragraph type | Button with a label and link field. |
 | Checklist | checklist | Paragraph type |  |
 | Checklist section | checklist_item | Paragraph type |  |
-| Email contact | email_contact | Paragraph type |  |
+| Email address | email_contact | Paragraph type |  |
 | Embedded image | media | Paragraph type | For adding an image inline |
 | Expandable Text | expandable_text | Paragraph type | Text that expands upon click. |
 | Link teaser | link_teaser | Paragraph type | A link followed by a description. For building inline "menus" of content. |
@@ -71,8 +75,8 @@ Feature: Content model bundles
 | Phone number | phone_number | Paragraph type |  |
 | Process list | process | Paragraph type | An ordered list (1, 2, 3, 4, N) of steps in a process. |
 | Q&A | q_a | Paragraph type | Question and Answer |
-| Q&A group | q_a_group | Paragraph type | For content formatted as a series of questions and answers in "FAQ - multiple Q&A" content type. Use this (instead of WYSIWYG) for better accessibility and easy rearranging. |
-| Q&A Section | q_a_section | Paragraph type | For content formatted as a series of questions and answers. Use this (instead of WYSIWYG) for better accessibility and easy rearranging. |
+| Q&A group | q_a_group | Paragraph type | For content formatted as a series of questions and answers in "FAQ - multiple Q&A" content type. Use this (instead of Rich text) for better accessibility and easy rearranging. |
+| Q&A Section | q_a_section | Paragraph type | For content formatted as a series of questions and answers. Use this (instead of Rich text) for better accessibility and easy rearranging. |
 | React Widget | react_widget | Paragraph type | Advanced editors can use this to place react widgets (like a form) on the page. |
 | Service location | service_location | Paragraph type |  |
 | Service location address | service_location_address | Paragraph type |  |
@@ -84,9 +88,12 @@ Feature: Content model bundles
 | Table | table | Paragraph type | Add an HTML table with rows and columns. |
 | Topics | topics | Vocabulary |  |
 | VAMC facility service (non-healthcare service) | health_care_local_facility_servi | Paragraph type | A service available at a specific health care facility, like Parking, or Chaplaincy. |
-| WYSIWYG | wysiwyg | Paragraph type | An open-ended text field. |
+| Rich text | wysiwyg | Paragraph type | An open-ended text field. |
+| Rich text - char limit 1000 | rich_text_char_limit_1000 | Paragraph type | |
 | Audience - Beneficiaries | audience_beneficiaries | Vocabulary |  |
 | Audience - Non-beneficiaries | audience_non_beneficiaries | Vocabulary |  |
+| Learning Center Categories | lc_categories | Vocabulary |  |
+| Products | products | Vocabulary | |
 | Sections | administration | Vocabulary | Represents a hierarchy of the VA, partly for governance purposes. |
 | Type of Redirect | type_of_redirect | Vocabulary |  |
 | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |

@@ -10,17 +10,18 @@ Feature: Views
        | Name | Machine name | Base table | Status | Description |
 | Administration section | administration_section | Taxonomy terms | Enabled | Top-level items in the Section taxonomy |
 | Archive | archive | Content | Disabled | All content, by month. |
-| Benefits hub list | benefits_hub_list | Content | Enabled |  |
 | Benefit Hubs Categories | benefits_hub_categories | Content | Enabled |  |
+| Benefits hub list | benefits_hub_list | Content | Enabled |  |
+| Benefit Hub Contact Information | benefit_hub_contact_information | Content | Enabled |  |
 | VA Forms | va_forms | Content | Enabled | VA forms dashboard |
 | Custom block library | block_content | Custom Block | Enabled | Find and manage custom blocks. |
 | Build info | build_info | Content | Enabled |  |
 | Child terms | child_terms | Taxonomy terms | Enabled |  |
 | Content | content | Content | Enabled | Find and manage content. |
-| Recent content | content_recent | Content | Disabled | Recent content. |
 | Content served from Drupal | content_served_from_drupal | Content | Enabled | An exportable list of all content served from Drupal |
 | Content entity browsers | content_entity_browsers | Content | Enabled | Collection of Entity Browsers to use for field widgets configuration in form displays. |
 | Content Entity Reference Source | content_entity_reference_source | Content | Enabled |  |
+| Date fields | date_fields | Content | Enabled |  |
 | Facility Governance | facility_governance | Content | Enabled | Provides facility management tools. |
 | Files | files | Files | Enabled | Find and manage files. |
 | Frontpage | frontpage | Content | Enabled | All content promoted to frontpage |
@@ -56,6 +57,9 @@ Feature: Views
 | Listing page dashboard | listing_page_dashboard | Content | Enabled |  |
 | Custom block entity browsers | custom_block_entity_browsers | Custom Block | Enabled | For placing on content forms |
 | Services | services | Content | Enabled | Lists of services for facility pages, health services lists, etc |
+| Recent content | content_recent | Content | Disabled | Recent content. |
+| Taxonomy entity browsers | taxonomy_entity_browsers | Taxonomy terms | Enabled |  |
+| VAMC top task pages | vamc_top_task_pages | Content | Enabled |  |
 
   @dst @views_displays
      Scenario: Views displays
@@ -70,6 +74,8 @@ Feature: Views
 | Benefits hub list | Master | default | Master |
 | Benefit Hubs Categories | Entity browser | benefits_hub_categories | Entity browser |
 | Benefit Hubs Categories | Master | default | Master |
+| Benefit Hub Contact Information | Entity browser | benefit_hub_contact_information | Entity browser |
+| Benefit Hub Contact Information | Master | default | Master |
 | Blocks listing | Master | default | Master |
 | Blocks listing | Promo blocks | page_1 | Page |
 | Blocks listing | Alert Blocks | page_2 | Page |
@@ -80,7 +86,8 @@ Feature: Views
 | Content | Master | default | Master |
 | Content | All content | page_1 | Page |
 | Content | Bulk edit content | page_2 | Page |
-| Content | Learning Center | page_3 | Page |
+| Content | Resources and support | resources_support_dashboard | Page |
+| Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
 | Content served from Drupal | Page | page_1 | Page |
 | Content served from Drupal | Data export | data_export_1 | Data export |
 | Content served from Drupal | Master | default | Master |
@@ -93,6 +100,8 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
 | Custom block library | Master | default | Master |
 | Custom block library | Page | page_1 | Page |
+| Date fields | Master | default | Master |
+| Date fields | Page | page_1 | Page |
 | Facility Governance | Master | default | Master |
 | Facility Governance | Page | page_1 | Page |
 | Files | Master | default | Master |
@@ -130,8 +139,6 @@ Feature: Views
 | Moderation history | Page | page | Page |
 | People | Master | default | Master |
 | People | Page | page_1 | Page |
-| Recent content | Block | block_1 | Block |
-| Recent content | Master | default | Master |
 | Redirect | Master | default | Master |
 | Redirect | Page | page_1 | Page |
 | Redirect | Non admin Page | page_2 | Page |
@@ -149,12 +156,16 @@ Feature: Views
 | Taxonomy term | Master | default | Master |
 | Taxonomy term | Feed | feed_1 | Feed |
 | Taxonomy term | Page | page_1 | Page |
+| Taxonomy term | Attachment | attachment_1 | Attachment |
 | VA Forms | Master | default | Master |
 | VA Forms | Page | page_1 | Page |
 | VAMC alerts and operating statuses | Master | default | Master |
 | VAMC alerts and operating statuses | Page | page_1 | Page |
 | VAMC operating statuses | Master | default | Master |
 | VAMC operating statuses | Entity Reference | entity_reference_1 | Entity Reference |
+| VAMC top task pages | Master | default | Master |
+| VAMC top task pages | Page | page_1 | Page |
+| VAMC top task pages | Data export | data_export_1 | Data export |
 | VAMCs | Master | default | Master |
 | VHA Health service taxonomy | Page | page_1 | Page |
 | VHA Health service taxonomy | Data export | data_export_1 | Data export |
@@ -187,3 +198,8 @@ Feature: Views
 | Services | Facility health services | block_1 | Block |
 | Services | VAMC system health services | block_2 | Block |
 | Services | Master | default | Master |
+| Recent content | Master | default | Master |
+| Recent content | Block | block_1 | Block |
+| Taxonomy entity browsers | Block | block_1 | Block |
+| Taxonomy entity browsers | Entity browser | entity_browser_1 | Entity browser |
+| Taxonomy entity browsers | Master | default | Master |

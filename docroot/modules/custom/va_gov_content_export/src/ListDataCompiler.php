@@ -43,6 +43,7 @@ class ListDataCompiler {
     'publication_listing' => ['field_listing'],
     'regional_health_care_service_des' => ['field_regional_health_service', 'field_clinical_health_services'],
     'story_listing' => ['field_listing'],
+    'vamc_operating_status_and_alerts' => ['field_banner_alert_vamcs'],
     // Should be lists, but can not find anything that points to these as a
     // reverse entity reference.
     // 'health_services_listing', Connected through Taxonomy
@@ -89,14 +90,17 @@ class ListDataCompiler {
    *   The entity which may reference lists.
    * @param \Drupal\va_gov_content_export\TomeExporter $tomeExporter
    *   The tome exporter.
-   *
-   * @todo This implementation creates one risk of failure in that, any list
-   * item that has been moved from one list to another, will not know to remove
-   * it from the original list.
-   * https://github.com/department-of-veterans-affairs/va.gov-cms/issues/2464 .
    */
   public function updateReverseEntityReferenceLists(ContentEntityInterface $entity, TomeExporter $tomeExporter) {
     $entityReferenceTargetNids = $this->getListNids($entity);
+    // Check to see if we have to update any removals from reverse fields.
+    $original = !empty($entity->original) ? $entity->original : NULL;
+    if (!empty($original)) {
+      $entityReferenceTargetNidsRemovals = $this->getListNids($original);
+      // Merge any removals with other reverse entity refrerences to update.
+      $entityReferenceTargetNids = $entityReferenceTargetNids + $entityReferenceTargetNidsRemovals;
+    }
+
     $entityReferenceTargetNidsToUpdateLater = [];
     $targetNodesToUpdateLater = [];
     if (!empty($entityReferenceTargetNids)) {

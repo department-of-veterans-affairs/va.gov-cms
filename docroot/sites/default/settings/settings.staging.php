@@ -18,9 +18,11 @@ $config['system.performance']['response']['gzip'] = TRUE;
 $config['views.settings']['ui']['show']['sql_query']['enabled'] = FALSE;
 $config['views.settings']['ui']['show']['performance_statistics'] = FALSE;
 $config['system.logging']['error_level'] = 'none';
-$config['environment_indicator.indicator']['bg_color'] = '#fffb03';
+$config['environment_indicator.indicator']['bg_color'] = '#FEBB08'; // $color-gold-light.
 $config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'Staging';
+
+$webhost_on_cli = 'https://staging.cms.va.gov';
 
 $settings['trusted_host_patterns'] = [
     // For ALB/ELB Healthchecks.
@@ -33,3 +35,5 @@ $settings['trusted_host_patterns'] = [
     'test.staging.cms.va.gov',
     '.*\.us-gov-west-1\.elb\.amazonaws\.com',
 ];
+
+$settings['va_gov_frontend_url'] = 'https://staging.va.gov';

@@ -7,12 +7,16 @@ dependencies:
     - field.field.node.media_list_images.field_alert_single
     - field.field.node.media_list_images.field_buttons
     - field.field.node.media_list_images.field_buttons_repeat
-    - field.field.node.media_list_images.field_description
+    - field.field.node.media_list_images.field_contact_information
     - field.field.node.media_list_images.field_intro_text_limited_html
-    - field.field.node.media_list_images.field_lc_benefit_hubs
     - field.field.node.media_list_images.field_media_list_images
-    - field.field.node.media_list_images.field_meta_title
+    - field.field.node.media_list_images.field_other_categories
+    - field.field.node.media_list_images.field_primary_category
+    - field.field.node.media_list_images.field_related_benefit_hubs
+    - field.field.node.media_list_images.field_related_information
     - field.field.node.media_list_images.field_related_links
+    - field.field.node.media_list_images.field_table_of_contents_boolean
+    - field.field.node.media_list_images.field_tags
     - node.type.media_list_images
   module:
     - entity_reference_revisions
@@ -21,28 +25,17 @@ dependencies:
     - user
 third_party_settings:
   field_group:
-    group_meta_tags:
-      children:
-        - field_meta_title
-        - field_description
-      parent_name: ''
-      weight: 1
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-      label: 'Meta tags'
-      region: content
     group_content:
       children:
         - field_intro_text_limited_html
+        - field_table_of_contents_boolean
         - field_alert_single
         - field_buttons
         - field_media_list_images
         - field_buttons_repeat
-        - field_lc_benefit_hubs
-        - field_related_links
+        - field_related_benefit_hubs
+        - field_related_information
+        - field_contact_information
       parent_name: ''
       weight: 2
       format_type: fieldset
@@ -51,6 +44,19 @@ third_party_settings:
         classes: ''
         description: ''
       label: Content
+      region: content
+    group_categories:
+      children:
+        - field_primary_category
+        - field_other_categories
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Article categories'
       region: content
 id: node.media_list_images.default
 targetEntityType: node
@@ -63,7 +69,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_administration:
-    weight: 3
+    weight: 5
     label: above
     settings:
       link: true
@@ -71,15 +77,6 @@ content:
     type: entity_reference_label
     region: content
   field_alert_single:
-    weight: 8
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
-    region: content
-  field_buttons:
     weight: 9
     label: above
     settings:
@@ -88,8 +85,17 @@ content:
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
     region: content
+  field_buttons:
+    weight: 10
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
   field_buttons_repeat:
-    weight: 11
+    weight: 12
     label: above
     settings:
       format: default
@@ -98,13 +104,14 @@ content:
     third_party_settings: {  }
     type: boolean
     region: content
-  field_description:
-    weight: 7
+  field_contact_information:
+    weight: 15
     label: above
     settings:
-      link_to_entity: false
+      view_mode: default
+      link: ''
     third_party_settings: {  }
-    type: string
+    type: entity_reference_revisions_entity_view
     region: content
   field_intro_text_limited_html:
     weight: 7
@@ -113,34 +120,62 @@ content:
     third_party_settings: {  }
     type: text_default
     region: content
-  field_lc_benefit_hubs:
-    weight: 12
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_media_list_images:
     type: entity_reference_revisions_entity_view
-    weight: 10
+    weight: 11
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
     region: content
-  field_meta_title:
+  field_other_categories:
+    weight: 7
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_primary_category:
     weight: 6
     label: above
     settings:
-      link_to_entity: false
+      link: true
     third_party_settings: {  }
-    type: string
+    type: entity_reference_label
     region: content
-  field_related_links:
+  field_related_benefit_hubs:
     weight: 13
     label: above
+    settings:
+      view_mode: teaser
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+  field_related_information:
+    weight: 14
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  field_table_of_contents_boolean:
+    weight: 8
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_tags:
+    weight: 4
+    label: hidden
     settings:
       view_mode: default
       link: ''
@@ -148,9 +183,10 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   links:
-    weight: 4
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_related_links: true
   search_api_excerpt: true

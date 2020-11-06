@@ -85,7 +85,16 @@ Feature: Permissions
 
     Then I am logged in as a user with the "content_publisher" role
     And I visit the "edit" page for a node with the title <title>
-    Then "#edit-moderation-state-0-state" should contain "published"
+    Then "#edit-moderation-state-0-state" should not contain "published"
+    And I am viewing an <type> with the title <title>
+    And the "#edit-new-state" element should exist
+    And I should see "published" in the "#edit-new-state" element
+
+    And I select "Published" from "Change to"
+    And I fill in "Log message" with "Test publishing"
+    And I press "Apply"
+    Then I should see " has been updated."
+
     Examples:
       | type                             | title                                 |
       | "page"                           | "page page"                           |
@@ -187,3 +196,10 @@ Feature: Permissions
       | page                   | code |
       | "/admin/people"        | 200  |
       | "/admin/people/create" | 200  |
+
+  @perms @content_admin
+  Scenario: Content Admins should be able to browse sections from their profile even if none have been specifically assigned to them
+    Given I am logged in as a user with the "content_admin" role
+    And I am on "/user"
+    Then I should see the text "You can edit content in the following VA.gov sections"
+    And I should not see the text "You don't have permission to access content in any VA.gov sections yet"

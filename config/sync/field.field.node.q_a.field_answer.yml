@@ -5,8 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_answer
     - node.type.q_a
-    - paragraphs.paragraphs_type.alert
-    - paragraphs.paragraphs_type.wysiwyg
+    - paragraphs.paragraphs_type.rich_text_char_limit_1000
   module:
     - entity_reference_revisions
 id: node.q_a.field_answer
@@ -24,91 +23,126 @@ settings:
   handler_settings:
     negate: 0
     target_bundles:
-      wysiwyg: wysiwyg
-      alert: alert
+      rich_text_char_limit_1000: rich_text_char_limit_1000
     target_bundles_drag_drop:
       address:
-        weight: -38
+        weight: -73
         enabled: false
       alert:
-        enabled: true
-        weight: -41
+        weight: -76
+        enabled: false
+      alert_single:
+        weight: -57
+        enabled: false
+      audience_topics:
+        weight: -54
+        enabled: false
       button:
-        weight: 31
+        weight: -58
+        enabled: false
+      checklist:
+        weight: -56
+        enabled: false
+      checklist_item:
+        weight: -55
         enabled: false
       collapsible_panel:
-        weight: -44
+        weight: -79
         enabled: false
       collapsible_panel_item:
-        weight: -37
+        weight: -72
+        enabled: false
+      contact_information:
+        weight: -50
         enabled: false
       downloadable_file:
-        weight: -36
+        weight: -71
+        enabled: false
+      email_contact:
+        weight: -52
         enabled: false
       expandable_text:
-        weight: -35
+        weight: -70
         enabled: false
       health_care_local_facility_servi:
-        weight: -34
+        weight: -69
         enabled: false
       link_teaser:
-        weight: -33
+        weight: -68
         enabled: false
       list_of_link_teasers:
-        weight: -32
+        weight: -67
+        enabled: false
+      list_of_links:
+        weight: -48
+        enabled: false
+      lists_of_links:
+        weight: -49
         enabled: false
       media:
-        weight: -31
+        weight: -66
         enabled: false
-      number_callout:
-        weight: -42
+      media_list_images:
+        weight: -45
         enabled: false
-      phone_number:
-        weight: -30
+      media_list_videos:
+        weight: -44
         enabled: false
-      process:
+      non_reusable_alert:
         weight: -43
         enabled: false
+      number_callout:
+        weight: -77
+        enabled: false
+      phone_number:
+        weight: -65
+        enabled: false
+      process:
+        weight: -78
+        enabled: false
       q_a:
-        weight: -29
+        weight: -64
+        enabled: false
+      q_a_group:
+        weight: -42
         enabled: false
       q_a_section:
-        weight: -28
-        enabled: false
-      q_a_section_faq_multiple:
-        weight: 45
+        weight: -63
         enabled: false
       react_widget:
-        weight: -40
+        weight: -75
         enabled: false
+      rich_text_char_limit_1000:
+        enabled: true
+        weight: -81
       service_location:
-        weight: 47
+        weight: -53
         enabled: false
       service_location_address:
-        weight: 48
+        weight: -51
         enabled: false
       situation_update:
-        weight: -27
+        weight: -62
         enabled: false
       spanish_translation_summary:
-        weight: -26
+        weight: -61
         enabled: false
       staff_profile:
-        weight: -25
+        weight: -60
         enabled: false
       starred_horizontal_rule:
-        weight: -24
+        weight: -59
         enabled: false
       step:
-        weight: 53
+        weight: -47
         enabled: false
       step_by_step:
-        weight: 54
+        weight: -46
         enabled: false
       table:
-        weight: -39
+        weight: -74
         enabled: false
       wysiwyg:
-        enabled: true
-        weight: -45
+        weight: -80
+        enabled: false
 field_type: entity_reference_revisions

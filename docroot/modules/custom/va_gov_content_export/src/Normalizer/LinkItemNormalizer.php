@@ -24,7 +24,15 @@ class LinkItemNormalizer extends FieldItemNormalizer {
     $attributes = parent::normalize($object, $format, $context);
     /** @var \Drupal\link\LinkItemInterface $object */
     if ($format === Json::getFileExtension()) {
-      $attributes[LinkItem::mainPropertyName()] = $object->getUrl()->toString();
+      try {
+        $attributes[LinkItem::mainPropertyName()] = $object->getUrl()->toString();
+      }
+      catch (\InvalidArgumentException $e) {
+        // Do nothing as the url format is already in a non-uri format.
+        // For example it can be a relative URL for absolute URL.
+        // And not a Drupal/PHP File URI.
+      }
+
     }
     return $attributes;
   }

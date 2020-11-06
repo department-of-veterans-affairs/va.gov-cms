@@ -1,0 +1,23 @@
+uuid: 9672dbe2-9354-4708-a7a3-267c34b799ed
+langcode: en
+status: true
+dependencies:
+  module:
+    - ctools
+    - taxonomy
+id: resources_support_category
+label: 'Resources and support category terms'
+type: 'canonical_entities:taxonomy_term'
+pattern: 'resources/[term:name]'
+selection_criteria:
+  7298f32b-f791-450d-ba47-63851ba715c7:
+    id: 'entity_bundle:taxonomy_term'
+    bundles:
+      lc_categories: lc_categories
+    negate: false
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    uuid: 7298f32b-f791-450d-ba47-63851ba715c7
+selection_logic: and
+weight: -5
+relationships: {  }

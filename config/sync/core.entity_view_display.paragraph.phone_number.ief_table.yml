@@ -1,0 +1,57 @@
+uuid: 349b1eed-f2df-470a-b68c-ea7d78b4a91d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.ief_table
+    - field.field.paragraph.phone_number.field_phone_extension
+    - field.field.paragraph.phone_number.field_phone_label
+    - field.field.paragraph.phone_number.field_phone_number
+    - field.field.paragraph.phone_number.field_phone_number_type
+    - paragraphs.paragraphs_type.phone_number
+  module:
+    - layout_builder
+    - options
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: paragraph.phone_number.ief_table
+targetEntityType: paragraph
+bundle: phone_number
+mode: ief_table
+content:
+  field_phone_extension:
+    weight: 2
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_phone_label:
+    weight: 3
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_phone_number:
+    weight: 1
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_phone_number_type:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+hidden:
+  label: true
+  search_api_excerpt: true

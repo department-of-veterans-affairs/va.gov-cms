@@ -35,6 +35,13 @@ class BuildCommands {
   protected $executableFinder;
 
   /**
+   * Set the tome export directory.
+   *
+   * @var string
+   */
+  protected $exportDir = '';
+
+  /**
    * BuildCommands constructor.
    *
    * @param \Drupal\tome_sync\ExporterInterface $exporter
@@ -71,7 +78,11 @@ class BuildCommands {
 
     $executable = $this->executableFinder->findExecutable('va-gov-cms-export-all-content');
     foreach (array_chunk($id_pairs, $entity_count) as $chunk) {
-      $commands[] = $executable . ' va-gov-cms-export-content ' . escapeshellarg(implode(',', $chunk));
+      $cmd = $executable . ' va-gov-cms-export-content ' . escapeshellarg(implode(',', $chunk));
+      if ($this->getExportDir()) {
+        $cmd .= ' --export-dir=' . escapeshellarg($this->getExportDir());
+      }
+      $commands[] = $cmd;
     }
 
     return $commands;
@@ -171,6 +182,26 @@ class BuildCommands {
     }
 
     return $collected_errors;
+  }
+
+  /**
+   * Get the export Directory.
+   *
+   * @return string
+   *   The export directory.
+   */
+  public function getExportDir(): string {
+    return $this->exportDir;
+  }
+
+  /**
+   * Set the export directory.
+   *
+   * @param string $exportDir
+   *   The directory to use for the export.
+   */
+  public function setExportDir(string $exportDir): void {
+    $this->exportDir = $exportDir;
   }
 
 }

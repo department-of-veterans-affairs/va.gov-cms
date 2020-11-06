@@ -1,4 +1,4 @@
-const axeBuilder = require('axe-webdriverjs');
+const axeBuilder = require('@axe-core/webdriverjs');
 const webDriver = require('selenium-webdriver');
 const {By} = require('selenium-webdriver');
 const AxeReports = require('axe-reports');
@@ -8,7 +8,7 @@ const URL = process.env.DRUPAL_ADDRESS;
 const userName = 'axcsd452ksey';
 const password = 'drupal8';
 
-let totalViolations =0;
+let totalViolations = 0;
 
 // create a phantomjs or chrome WebDriver instance
 const driver = new webDriver.Builder()
@@ -16,7 +16,7 @@ const driver = new webDriver.Builder()
     .build();
 
 // initiate axe-webdriverjs
-const AXE_BUILDER = axeBuilder(driver)
+const AXE_BUILDER = new axeBuilder(driver)
     .withTags(['wcag2a', 'wcag2aa']);
 
 // this is the array list of page paths after login. More pages can be added inside array at any time
@@ -42,10 +42,24 @@ const paths = [
 driver.get(URL)
     .then(() => {
         AXE_BUILDER
-            .analyze((results) => {
+            .analyze((err, results) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+
                 totalViolations = totalViolations + results.violations.length;
                 AxeReports.processResults(results, 'csv', './tests/accessibility/axeReport/aXeAccessibilityCheckReport', true);
-                console.log('!!!  NUMBER OF NEW VIOLATIONS on ' + URL + ' ' + results.violations.length);
+                if (results.violations.length) {
+                    console.log('!!!  NUMBER OF NEW VIOLATIONS on ' + URL + ' = ' + results.violations.length);
+                    results.violations.forEach((violation) => {
+                        console.log(violation.nodes);
+                    });
+                    return console.log(results.violations);
+                } else {
+                    console.log('No new violations on ' + URL);
+                }
+
                 driver.findElement(By.name('name')).sendKeys(userName);
                 driver.findElement(By.name('pass')).sendKeys(password);
                 driver.findElement(By.name('op')).click()
@@ -54,11 +68,25 @@ driver.get(URL)
                             driver.get(URL + paths[i])
                                 .then(() => {
                                     return AXE_BUILDER
-                                        .analyze(results => {
+                                        .analyze((err, results) => {
+                                            if (err) {
+                                                console.error(err);
+                                                return;
+                                            }
+
                                             totalViolations = totalViolations + results.violations.length;
                                             AxeReports.processResults(results, 'csv', './tests/accessibility/axeReport/aXeAccessibilityCheckReport');
-                                            console.log('!!!  NUMBER OF NEW VIOLATIONS on ' + URL + paths[i] + '  = ' + results.violations.length);
-                                            return console.log(results.violations);
+                                            if (results.violations.length) {
+                                                console.log('!!!  NUMBER OF NEW VIOLATIONS on ' + URL + paths[i] + ' = ' + results.violations.length);
+                                                results.violations.forEach((violation) => {
+                                                    console.log(violation.nodes);
+                                                });
+                                                return console.log(results.violations);
+                                            } else {
+                                                console.log('No new violations on ' + URL + paths[i]);
+                                            }
+
+                                            return;
                                         });
                                 });
                         }

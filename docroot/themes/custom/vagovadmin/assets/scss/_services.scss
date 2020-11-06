@@ -1,10 +1,18 @@
+// For service locations, such as Facility health services.
+
 #edit-field-service-location-wrapper {
   border-bottom: 2 px solid #c0c0c0;
   padding-bottom: 15px;
   margin-bottom: 15px;
-  .paragraph-type-label {
-    padding-left: 18px;
+
+  // Hide Collapse, label, and info buttons.
+  .paragraphs-icon-button-collapse,
+  .paragraph-type-label,
+  .paragraph-info,
+  .paragraphs-dropdown-toggle {
+    display: none;
   }
+
   .field-multiple-drag,
   .field-multiple-drag.paragraph-bullet {
     display: none;
@@ -14,12 +22,30 @@
   }
   fieldset {
     border: none;
-    border-bottom: 1px dashed #c0c0c0;
     th.field-label {
       display: none;
     }
     &.form-tablefield {
       padding-top: 0;
+    }
+  }
+
+  // Hide redundant Service Location thead
+  thead {
+    display: none;
+  }
+
+  // Hide row weights (shouldn't be draggable)
+  .tabledrag-toggle-weight-wrapper {
+    display: none;
+  }
+
+  .field--name-field-service-location-address {
+    .paragraphs-actions {
+      display: none;
+    }
+    tr {
+      border-bottom: none;
     }
   }
 }

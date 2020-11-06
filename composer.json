@@ -6,8 +6,10 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
+        "acquia/drupal-spec-tool": "^2.0",
+        "drupal/console": "~1.0",
         "drupal/media_entity_generic": "^1.0",
-        "acquia/drupal-spec-tool": "^2.0"
+        "marcortola/behat-seo-contexts": "^3.1"
     },
     "require": {
         "alchemy/zippy": "^0.4.9",
@@ -33,9 +35,9 @@
         "drupal/config_ignore": "^2.1",
         "drupal/config_override_warn": "^1.0",
         "drupal/config_split": "^1.4",
-        "drupal/consumers": "1.9",
+        "drupal/consumers": "1.11.0",
         "drupal/content_lock": "^2.0@alpha",
-        "drupal/core": "^8.8.8",
+        "drupal/core": "8.8.10",
         "drupal/crop": "^2.0",
         "drupal/ctools_block": "^3.2",
         "drupal/devel": "^2.1",
@@ -49,11 +51,12 @@
         "drupal/entity_embed": "^1.0",
         "drupal/entity_reference_revisions": "^1.7",
         "drupal/entity_reference_unpublished": "^1.1",
+        "drupal/entity_reference_validators": "^1.0",
         "drupal/entityqueue": "^1.0@beta",
         "drupal/environment_indicator": "^4.0",
         "drupal/fast_404": "^2.0@alpha",
         "drupal/feature_toggle": "^1.2",
-        "drupal/field_group": "dev-3.x#b245b85f99c48221edf5fb60344dfe53737ae0f9",
+        "drupal/field_group": "^3.1",
         "drupal/fieldhelptext": "^1.0@beta",
         "drupal/govdelivery_bulletins": "^1.2",
         "drupal/graphql": "^3.0",
@@ -71,6 +74,7 @@
         "drupal/menu_breadcrumb": "^1.8",
         "drupal/menu_export": "^1.2",
         "drupal/menu_item_extras": "^2.7",
+        "drupal/menu_link_attributes": "^1.1",
         "drupal/metatag": "^1.13",
         "drupal/migrate_plus": "^4.0",
         "drupal/migrate_source_csv": "^2.2",
@@ -100,6 +104,7 @@
         "drupal/simplesamlphp_auth": "^3.0",
         "drupal/site_alert": "1.x-dev#d3700174bdddeca1f33c6995fde86e436b034270",
         "drupal/slack": "^1.2",
+        "drupal/smart_date": "3.0.3",
         "drupal/social_media_links": "^2.6",
         "drupal/tablefield": "^2.1",
         "drupal/taxonomy_entity_index": "^1.1",
@@ -146,7 +151,9 @@
     "autoload": {
         "psr-4": {
             "Traits\\": "tests/traits",
-            "CustomDrupal\\": "tests/behat/Drupal"
+            "CustomDrupal\\": "tests/behat/Drupal",
+            "Drupal\\va_gov_backend\\": "docroot/modules/custom/va_gov_backend/src",
+            "Drupal\\va_gov_content_export\\": "docroot/modules/custom/va_gov_content_export/src"
         },
         "files": [
             "scripts/composer/EnvironmentHandler.php"
@@ -232,7 +239,9 @@
                 "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2020-01-07/2893933-34.patch",
                 "2894449 - Indirect modification of overloaded element with Views responsive table": "https://www.drupal.org/files/issues/2018-10-05/core-indirect-modification-of-overloaded-element-2894449-18.patch",
                 "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2019-09-11/3057267-maintenance-forced-logout-experimental.patch",
-                "2859042 - Entity original revision": "https://www.drupal.org/files/issues/2018-07-30/entity_original_revision-2859042-26.patch"
+                "1091852 - Display Bug when using #states (Forms API) with Ajax Request": "https://www.drupal.org/files/issues/2019-11-19/1091852-104.patch",
+                "2859042 - Entity original revision": "https://www.drupal.org/files/issues/2018-07-30/entity_original_revision-2859042-26.patch",
+                "2930508 - Seven inactive tabs do not meet WCAG AA 1.4.3 for contrast": "https://www.drupal.org/files/issues/2020-10-15/drupal-seven_inactive_tabs_do_not_meet_wcag_aa-2930508-36.patch"
             },
             "drupal/entity_browser": {
                 "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch"
@@ -243,10 +252,6 @@
             },
             "drupal/entity_clone": {
                 "Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch"
-            },
-            "drupal/field_group": {
-                "Allow to position the group in the advanced (sidebar) column": "https://www.drupal.org/files/issues/2018-07-26/2652642-59.patch",
-                "Incompatibility with inline entity form": "https://www.drupal.org/files/issues/2018-10-30/field_group-inline_entity_form_compatibility-2986704-3.patch"
             },
             "drupal/govdelivery_bulletins": {
                 "Use default lease time in claimItem()": "https://www.drupal.org/files/issues/2020-04-16/default-claim-time-3128425-2.patch"
@@ -271,6 +276,7 @@
                 "3129863 - Fix incompatibility with graphQL": "https://www.drupal.org/files/issues/2020-04-22/metatag-n3129863-3.patch"
             },
             "drupal/paragraphs": {
+                "Content & Behavior tabs use fixed IDs": "https://www.drupal.org/files/issues/2020-10-14/paragraphs-fix_duplicate_content_behavior_tab_ids-3176946-3.patch",
                 "Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch"
             },
             "drupal/paragraphs_browser": {
@@ -297,7 +303,8 @@
             },
             "drupal/tablefield": {
                 "0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch",
-                "Fix Undefined index: caption notice": "https://www.drupal.org/files/issues/2020-08-10/tablefield-empty-caption-notice-2.patch"
+                "Fix Undefined index: caption notice": "https://www.drupal.org/files/issues/2020-08-10/tablefield-empty-caption-notice-2.patch",
+                "Tablefield input elements have no title or label": "https://www.drupal.org/files/issues/2020-10-14/tablefield-add_title_to_input_elements-3176982-2.patch"
             },
             "drupal/textfield_counter": {
                 "Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch"
@@ -387,7 +394,7 @@
             "find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l > /dev/null"
         ],
         "va:test:cs": [
-            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,*/node_modules/*,*/simplesaml*/* --extensions=php,module,inc,install,profile,engine,theme,js,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/modules/contrib/workflow_assignments docroot/themes/custom --colors"
+            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,*/node_modules/*,*/simplesaml*/* --extensions=php,module,inc,install,profile,engine,theme,js,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/modules/contrib/workflow_assignments docroot/themes/custom tests --colors"
         ],
         "va:test:unit": "phpunit tests/phpunit --colors=always --exclude-group=disabled",
         "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors",

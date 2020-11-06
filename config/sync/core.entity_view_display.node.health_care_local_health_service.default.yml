@@ -4,8 +4,10 @@ status: true
 dependencies:
   config:
     - field.field.node.health_care_local_health_service.field_administration
+    - field.field.node.health_care_local_health_service.field_appointments_help_text
     - field.field.node.health_care_local_health_service.field_body
     - field.field.node.health_care_local_health_service.field_facility_location
+    - field.field.node.health_care_local_health_service.field_facility_service_loc_help
     - field.field.node.health_care_local_health_service.field_online_scheduling_availabl
     - field.field.node.health_care_local_health_service.field_phone_numbers_paragraph
     - field.field.node.health_care_local_health_service.field_referral_required
@@ -16,6 +18,7 @@ dependencies:
   module:
     - entity_reference_revisions
     - field_group
+    - markup
     - options
     - text
     - user
@@ -24,7 +27,7 @@ third_party_settings:
     group_vha_health_service_name_an:
       children: {  }
       parent_name: ''
-      weight: 11
+      weight: 10
       format_type: fieldset
       format_settings:
         description: ''
@@ -36,19 +39,47 @@ third_party_settings:
       children:
         - field_body
       parent_name: ''
-      weight: 1
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        description: ''
+        id: ''
+        classes: ''
+      label: 'Facility description of service (this field will be no longer be used in 2021)'
+      region: content
+    group_appointments:
+      children:
+        - field_appointments_help_text
+        - field_referral_required
+        - field_walk_ins_accepted
+        - field_online_scheduling_availabl
+        - field_phone_numbers_paragraph
+      parent_name: ''
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
         classes: ''
         description: ''
-      label: 'Facility description of service'
+      label: Appointments
       region: content
 id: node.health_care_local_health_service.default
 targetEntityType: node
 bundle: health_care_local_health_service
 mode: default
 content:
+  content_moderation_control:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_appointments_help_text:
+    type: markup
+    weight: 9
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
   field_body:
     weight: 2
     label: hidden
@@ -57,7 +88,7 @@ content:
     type: text_default
     region: content
   field_online_scheduling_availabl:
-    weight: 4
+    weight: 12
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -65,7 +96,7 @@ content:
     region: content
   field_phone_numbers_paragraph:
     type: entity_reference_revisions_entity_view
-    weight: 5
+    weight: 13
     label: above
     settings:
       view_mode: default
@@ -73,7 +104,7 @@ content:
     third_party_settings: {  }
     region: content
   field_referral_required:
-    weight: 2
+    weight: 10
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -81,7 +112,7 @@ content:
     region: content
   field_regional_health_service:
     type: entity_reference_entity_view
-    weight: 0
+    weight: 1
     region: content
     label: hidden
     settings:
@@ -90,23 +121,23 @@ content:
     third_party_settings: {  }
   field_service_location:
     type: entity_reference_revisions_entity_view
-    weight: 12
-    label: above
+    weight: 4
+    label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
     region: content
   field_walk_ins_accepted:
-    weight: 3
+    weight: 11
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
     region: content
 hidden:
-  content_moderation_control: true
   field_administration: true
   field_facility_location: true
+  field_facility_service_loc_help: true
   links: true
   search_api_excerpt: true

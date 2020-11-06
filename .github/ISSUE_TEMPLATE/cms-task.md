@@ -3,7 +3,7 @@ name: Task
 about: A task for the CMS team.
 title: "<Insert summary of task>"
 labels: ''
-assignees: 
+assignees: ''
 
 ---
 
@@ -11,9 +11,9 @@ assignees:
 
 
 ## Acceptance Criteria
-* Testable_Outcome_X
-* Testable_Outcome_Y
-* Testable_Outcome_Z
+- [ ] Testable_Outcome_X
+- [ ] Testable_Outcome_Y
+- [ ] Testable_Outcome_Z
 
 ## Labels
 

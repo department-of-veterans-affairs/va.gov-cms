@@ -1,0 +1,23 @@
+uuid: e7ee829b-59a1-45af-99ee-bdb6f334d552
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_table_of_contents_boolean
+    - node.type.support_resources_detail_page
+id: node.support_resources_detail_page.field_table_of_contents_boolean
+field_name: field_table_of_contents_boolean
+entity_type: node
+bundle: support_resources_detail_page
+label: 'Generate a table of contents from major headings'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

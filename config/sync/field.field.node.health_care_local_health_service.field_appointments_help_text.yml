@@ -1,0 +1,25 @@
+uuid: 2ffa83e4-c624-4901-922c-9dc8c9fdea8f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_appointments_help_text
+    - node.type.health_care_local_health_service
+  module:
+    - markup
+id: node.health_care_local_health_service.field_appointments_help_text
+field_name: field_appointments_help_text
+entity_type: node
+bundle: health_care_local_health_service
+label: 'Appointments help text'
+description: ''
+required: false
+translatable: false
+default_value:
+  - {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: "<p>Provide information that helps site visitors make an appointment for this service.</p>\r\n"
+    format: rich_text
+field_type: markup

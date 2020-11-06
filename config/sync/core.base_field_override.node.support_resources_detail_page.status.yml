@@ -1,0 +1,22 @@
+uuid: 5e0e05e2-ad17-4c7a-91c2-543fbd5147cc
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.support_resources_detail_page
+id: node.support_resources_detail_page.status
+field_name: status
+entity_type: node
+bundle: support_resources_detail_page
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

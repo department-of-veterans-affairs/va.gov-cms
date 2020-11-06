@@ -2,9 +2,10 @@
 
 namespace CustomDrupal;
 
-use Drupal\DrupalExtension\Context\RawDrupalContext;
+use Behat\Behat\Exception\BehaviorException;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\TableNode;
+use Drupal\DrupalExtension\Context\RawDrupalContext;
 use TravisCarden\BehatTableComparison\TableEqualityAssertion;
 
 /**
@@ -13,6 +14,8 @@ use TravisCarden\BehatTableComparison\TableEqualityAssertion;
 class ContentModelContext extends RawDrupalContext implements SnippetAcceptingContext {
 
   /**
+   * Test automatic table labels.
+   *
    * @Then exactly the following auto labels should be configured
    * @throws \Exception
    */
@@ -57,6 +60,26 @@ class ContentModelContext extends RawDrupalContext implements SnippetAcceptingCo
       ->setMissingRowsLabel('Missing patterns')
       ->setUnexpectedRowsLabel('Unexpected patterns')
       ->assert();
+  }
+
+  /**
+   * Select a radio button with the given label.
+   *
+   * @param string $radioLabel
+   *   Radio button label.
+   *
+   * @Then /^I select the "([^"]*)" radio button$/
+   *
+   * @throws Behat\Behat\Exception\BehaviorException
+   */
+  public function iSelectTheRadioButton($radioLabel) {
+    $radioButton = $this->getSession()->getPage()->findField($radioLabel);
+
+    if (NULL === $radioButton) {
+      throw new BehaviorException("Element not found");
+    }
+
+    $this->getSession()->getDriver()->selectOption($radioButton->getXPath(), $radioButton->getAttribute('value'));
   }
 
 }

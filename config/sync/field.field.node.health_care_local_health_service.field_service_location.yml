@@ -12,7 +12,7 @@ id: node.health_care_local_health_service.field_service_location
 field_name: field_service_location
 entity_type: node
 bundle: health_care_local_health_service
-label: 'Service location'
+label: 'Service locations'
 description: ''
 required: false
 translatable: false
@@ -31,6 +31,18 @@ settings:
       alert:
         weight: 26
         enabled: false
+      alert_single:
+        weight: 40
+        enabled: false
+      button:
+        weight: 41
+        enabled: false
+      checklist:
+        weight: 42
+        enabled: false
+      checklist_item:
+        weight: 43
+        enabled: false
       collapsible_panel:
         weight: 27
         enabled: false
@@ -39,6 +51,9 @@ settings:
         enabled: false
       downloadable_file:
         weight: 29
+        enabled: false
+      email_contact:
+        weight: 47
         enabled: false
       expandable_text:
         weight: 30
@@ -52,8 +67,23 @@ settings:
       list_of_link_teasers:
         weight: 33
         enabled: false
+      list_of_links:
+        weight: 52
+        enabled: false
+      lists_of_links:
+        weight: 51
+        enabled: false
       media:
         weight: 34
+        enabled: false
+      media_list_images:
+        weight: 55
+        enabled: false
+      media_list_videos:
+        weight: 56
+        enabled: false
+      non_reusable_alert:
+        weight: 57
         enabled: false
       number_callout:
         weight: 35
@@ -66,6 +96,9 @@ settings:
         enabled: false
       q_a:
         weight: 38
+        enabled: false
+      q_a_group:
+        weight: 62
         enabled: false
       q_a_section:
         weight: 39
@@ -90,6 +123,12 @@ settings:
         enabled: false
       starred_horizontal_rule:
         weight: 46
+        enabled: false
+      step:
+        weight: 71
+        enabled: false
+      step_by_step:
+        weight: 72
         enabled: false
       table:
         weight: 47

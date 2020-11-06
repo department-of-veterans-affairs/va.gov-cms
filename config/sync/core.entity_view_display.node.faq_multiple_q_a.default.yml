@@ -7,13 +7,16 @@ dependencies:
     - field.field.node.faq_multiple_q_a.field_alert_single
     - field.field.node.faq_multiple_q_a.field_buttons
     - field.field.node.faq_multiple_q_a.field_buttons_repeat
-    - field.field.node.faq_multiple_q_a.field_description
+    - field.field.node.faq_multiple_q_a.field_contact_information
     - field.field.node.faq_multiple_q_a.field_intro_text_limited_html
-    - field.field.node.faq_multiple_q_a.field_lc_benefit_hubs
-    - field.field.node.faq_multiple_q_a.field_meta_title
+    - field.field.node.faq_multiple_q_a.field_other_categories
+    - field.field.node.faq_multiple_q_a.field_primary_category
     - field.field.node.faq_multiple_q_a.field_q_a_groups
+    - field.field.node.faq_multiple_q_a.field_related_benefit_hubs
+    - field.field.node.faq_multiple_q_a.field_related_information
     - field.field.node.faq_multiple_q_a.field_related_links
     - field.field.node.faq_multiple_q_a.field_table_of_contents_boolean
+    - field.field.node.faq_multiple_q_a.field_tags
     - node.type.faq_multiple_q_a
   module:
     - entity_reference_revisions
@@ -22,19 +25,6 @@ dependencies:
     - user
 third_party_settings:
   field_group:
-    group_metadata:
-      children:
-        - field_meta_title
-        - field_description
-      parent_name: ''
-      weight: 1
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-      label: 'Meta tags'
-      region: content
     group_content:
       children:
         - field_intro_text_limited_html
@@ -43,8 +33,9 @@ third_party_settings:
         - field_buttons
         - field_q_a_groups
         - field_buttons_repeat
-        - field_lc_benefit_hubs
-        - field_related_links
+        - field_related_benefit_hubs
+        - field_related_information
+        - field_contact_information
       parent_name: ''
       weight: 2
       format_type: fieldset
@@ -53,6 +44,19 @@ third_party_settings:
         classes: ''
         description: ''
       label: Content
+      region: content
+    group_categories:
+      children:
+        - field_primary_category
+        - field_other_categories
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Article categories'
       region: content
 id: node.faq_multiple_q_a.default
 targetEntityType: node
@@ -100,13 +104,14 @@ content:
     third_party_settings: {  }
     type: boolean
     region: content
-  field_description:
-    weight: 4
+  field_contact_information:
+    weight: 12
     label: above
     settings:
-      link_to_entity: false
+      view_mode: default
+      link: ''
     third_party_settings: {  }
-    type: string
+    type: entity_reference_revisions_entity_view
     region: content
   field_intro_text_limited_html:
     weight: 3
@@ -115,21 +120,21 @@ content:
     third_party_settings: {  }
     type: text_default
     region: content
-  field_lc_benefit_hubs:
-    weight: 9
+  field_other_categories:
+    weight: 7
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_meta_title:
-    weight: 3
+  field_primary_category:
+    weight: 6
     label: above
     settings:
-      link_to_entity: false
+      link: true
     third_party_settings: {  }
-    type: string
+    type: entity_reference_label
     region: content
   field_q_a_groups:
     type: entity_reference_revisions_entity_view
@@ -140,8 +145,17 @@ content:
       link: ''
     third_party_settings: {  }
     region: content
-  field_related_links:
-    weight: 10
+  field_related_benefit_hubs:
+    weight: 9
+    label: above
+    settings:
+      view_mode: teaser
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+  field_related_information:
+    weight: 11
     label: above
     settings:
       view_mode: default
@@ -159,10 +173,20 @@ content:
     third_party_settings: {  }
     type: boolean
     region: content
+  field_tags:
+    weight: 4
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
   links:
     weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_related_links: true
   search_api_excerpt: true

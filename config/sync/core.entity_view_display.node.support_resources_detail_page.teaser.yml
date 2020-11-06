@@ -1,0 +1,52 @@
+uuid: 9bfe86a3-8330-46ff-b53c-dec634ac3bb2
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.support_resources_detail_page.field_administration
+    - field.field.node.support_resources_detail_page.field_alert_single
+    - field.field.node.support_resources_detail_page.field_buttons
+    - field.field.node.support_resources_detail_page.field_buttons_repeat
+    - field.field.node.support_resources_detail_page.field_contact_information
+    - field.field.node.support_resources_detail_page.field_content_block
+    - field.field.node.support_resources_detail_page.field_intro_text_limited_html
+    - field.field.node.support_resources_detail_page.field_other_categories
+    - field.field.node.support_resources_detail_page.field_primary_category
+    - field.field.node.support_resources_detail_page.field_related_benefit_hubs
+    - field.field.node.support_resources_detail_page.field_related_information
+    - field.field.node.support_resources_detail_page.field_table_of_contents_boolean
+    - field.field.node.support_resources_detail_page.field_tags
+    - node.type.support_resources_detail_page
+  module:
+    - user
+id: node.support_resources_detail_page.teaser
+targetEntityType: node
+bundle: support_resources_detail_page
+mode: teaser
+content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_administration: true
+  field_alert_single: true
+  field_buttons: true
+  field_buttons_repeat: true
+  field_contact_information: true
+  field_content_block: true
+  field_intro_text_limited_html: true
+  field_other_categories: true
+  field_primary_category: true
+  field_related_benefit_hubs: true
+  field_related_information: true
+  field_table_of_contents_boolean: true
+  field_tags: true
+  search_api_excerpt: true

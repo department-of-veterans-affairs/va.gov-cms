@@ -1,11 +1,10 @@
-uuid: a41a76fb-4225-4c9b-aa07-9695e7673b64
+uuid: db7d9e75-88ee-4a65-834d-d7f0c622f7b1
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_related_links
     - node.type.step_by_step
-    - paragraphs.paragraphs_type.link_teaser
   module:
     - entity_reference_revisions
 id: node.step_by_step.field_related_links
@@ -13,7 +12,7 @@ field_name: field_related_links
 entity_type: node
 bundle: step_by_step
 label: 'Related Links'
-description: 'Add up to 5 link teasers.'
+description: ''
 required: false
 translatable: true
 default_value: {  }
@@ -22,115 +21,120 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     negate: 0
-    target_bundles:
-      link_teaser: link_teaser
+    target_bundles: null
     target_bundles_drag_drop:
       address:
-        weight: 37
-        enabled: false
-      alert:
-        weight: 38
-        enabled: false
-      alert_single:
         weight: 39
         enabled: false
-      button:
+      alert:
         weight: 40
         enabled: false
-      checklist:
+      alert_single:
         weight: 41
         enabled: false
-      checklist_item:
+      button:
         weight: 42
         enabled: false
-      collapsible_panel:
+      checklist:
         weight: 43
         enabled: false
-      collapsible_panel_item:
+      checklist_item:
         weight: 44
         enabled: false
-      downloadable_file:
+      collapsible_panel:
         weight: 45
         enabled: false
-      expandable_text:
+      collapsible_panel_item:
         weight: 46
         enabled: false
-      health_care_local_facility_servi:
+      contact_information:
         weight: 47
         enabled: false
-      link_teaser:
-        enabled: true
+      downloadable_file:
         weight: 48
-      list_of_link_teasers:
-        weight: 51
         enabled: false
-      list_of_links:
-        weight: 50
-        enabled: false
-      lists_of_links:
+      email_contact:
         weight: 49
         enabled: false
-      media:
+      expandable_text:
+        weight: 50
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 51
+        enabled: false
+      link_teaser:
         weight: 52
         enabled: false
-      media_list_images:
-        weight: 53
-        enabled: false
-      media_list_videos:
-        weight: 54
-        enabled: false
-      non_reusable_alert:
+      list_of_link_teasers:
         weight: 55
         enabled: false
-      number_callout:
+      list_of_links:
+        weight: 54
+        enabled: false
+      lists_of_links:
+        weight: 53
+        enabled: false
+      media:
         weight: 56
         enabled: false
-      phone_number:
+      media_list_images:
         weight: 57
         enabled: false
-      process:
+      media_list_videos:
         weight: 58
         enabled: false
-      q_a:
+      non_reusable_alert:
         weight: 59
         enabled: false
-      q_a_group:
+      number_callout:
         weight: 60
         enabled: false
-      q_a_section:
+      phone_number:
         weight: 61
         enabled: false
-      react_widget:
+      process:
         weight: 62
         enabled: false
-      service_location:
+      q_a:
         weight: 63
         enabled: false
-      service_location_address:
+      q_a_group:
         weight: 64
         enabled: false
-      situation_update:
+      q_a_section:
         weight: 65
         enabled: false
-      spanish_translation_summary:
+      react_widget:
         weight: 66
         enabled: false
-      staff_profile:
+      service_location:
         weight: 67
         enabled: false
-      starred_horizontal_rule:
+      service_location_address:
         weight: 68
         enabled: false
-      step:
+      situation_update:
         weight: 69
         enabled: false
-      step_by_step:
+      spanish_translation_summary:
         weight: 70
         enabled: false
-      table:
+      staff_profile:
         weight: 71
         enabled: false
-      wysiwyg:
+      starred_horizontal_rule:
         weight: 72
+        enabled: false
+      step:
+        weight: 73
+        enabled: false
+      step_by_step:
+        weight: 74
+        enabled: false
+      table:
+        weight: 75
+        enabled: false
+      wysiwyg:
+        weight: 76
         enabled: false
 field_type: entity_reference_revisions

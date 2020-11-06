@@ -1,43 +1,22 @@
 ---
-name: Product release note
-about: Writing a product release note to be published
-title: "[datetime or release note number]"
+name: CMS annoucement
+about: Writing a CMS annoucement to be published
+title: "[annoucement-title]"
 labels: Release notes
 assignees: rachel-kauff
 
 ---
-_Use this template to make a ticket for an entire release note. To flag individual release note items, add the "release notes" label to the relevant ticket. Flagged items will be groomed weekly by Rachel and Kev._
+_Add an issue for each item for which we've decided to put out an announcements._
 
-## Items included
-*[(managed in this Airtable)](https://airtable.com/tblulo3XrMLuh4N0l/viwL2poNtFAZMeS6Z?blocks=hide)*
-
-- an item
-- another item
-
-## Publicaiton date for release note
-mm/dd/yyyy, after 3:30pm ET
+## Writer / assignee
+Defaults to @rachel-kauff unless she's not available.
 
 ## Checklist
-- [ ] Drafted
-- [ ] Reviewed by those who did the work
-- [ ] Approved by Product Manager
-- [ ] Publish as md file in the vagov-cms repo
-- [ ] Publish in Slack after 3:30 pm ET (12pm PT)
-- [ ] Update in the editorial calendar
-
----
-
-## Process
-1. Team and product manager identifies items for release notes during grooming and demo by adding the maroon “release notes” label to tickets
-2. UX Writer tracks the status of individual release note items in the Editorial calendar
-3. Gather background information on each item using the background list
-4. Draft the release note in the [AT release note log](https://airtable.com/tblulo3XrMLuh4N0l/viwL2poNtFAZMeS6Z?blocks=hide)
-5. Ask the person who did the work to review their item by adding the text to their ticket and @ing them.
-6. Review entire release note with product manager and get approval 
-7. Migrate content into markdown file in va.gov-cms/product-release-notes using a correct naming convention
-8. Post in Slack: @here in #cms-support
-
-## User Story
-As a CMS user, I need product release notes that help me understand what changed and how it might affect my work. And because I expect these changes are boring at best and annoying at worst, I need extra encouragement to read them. Entertain me, dangit.
-
-
+- [ ] Add this issue as a dependency to the work that will get released
+- [ ] Draft announcement content
+  -  If you're new to writing announcements, [review this guide](https://airtable.com/tblulo3XrMLuh4N0l/viwSVSkpseM78xmgw?blocks=hide) 
+  - Use the template to draft the announcement content in the [AT annoucement log](https://airtable.com/tblulo3XrMLuh4N0l/viwSVSkpseM78xmgw?blocks=hide).
+- [ ]  Get review: post the drafted release note in #cms-team. Tag the product manager and teammate who worked on it. Work out any clarifications/edits in the thread, and then get 👍🏻 from PM.
+- [ ] Publish: Once you get the ping that the dev has merged the changes, publish immediately after the deploy (~3:30/4:00 ET)
+  - [ ] Post in #cms-support (can schedule this in advance using the workflow builder)
+  - [ ] Post in [CMS Annoucements](https://prod.cms.va.gov/help/support/release-notes)

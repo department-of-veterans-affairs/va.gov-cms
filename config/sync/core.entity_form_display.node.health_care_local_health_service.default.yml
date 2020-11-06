@@ -4,8 +4,10 @@ status: true
 dependencies:
   config:
     - field.field.node.health_care_local_health_service.field_administration
+    - field.field.node.health_care_local_health_service.field_appointments_help_text
     - field.field.node.health_care_local_health_service.field_body
     - field.field.node.health_care_local_health_service.field_facility_location
+    - field.field.node.health_care_local_health_service.field_facility_service_loc_help
     - field.field.node.health_care_local_health_service.field_online_scheduling_availabl
     - field.field.node.health_care_local_health_service.field_phone_numbers_paragraph
     - field.field.node.health_care_local_health_service.field_referral_required
@@ -14,7 +16,10 @@ dependencies:
     - field.field.node.health_care_local_health_service.field_walk_ins_accepted
     - node.type.health_care_local_health_service
   module:
+    - entity_browser_entity_form
     - field_group
+    - ief_table_view_mode
+    - markup
     - paragraphs
     - text
 third_party_settings:
@@ -23,7 +28,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 4
+      weight: 6
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -36,21 +41,103 @@ third_party_settings:
       region: content
     group_appointments:
       children:
-        - field_online_scheduling_availabl
-        - field_phone_numbers_paragraph
         - field_referral_required
         - field_walk_ins_accepted
-      parent_name: ''
-      weight: 6
-      format_type: details
+      parent_name: group_a
+      weight: 8
+      format_type: fieldset
       format_settings:
         description: ''
         open: true
         required_fields: true
         id: ''
         classes: ''
+      label: Requirements
+      region: content
+    group_a:
+      children:
+        - field_appointments_help_text
+        - group_appointments
+        - group_scheduling
+      parent_name: ''
+      weight: 4
+      format_type: html_element
+      format_settings:
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        required_fields: true
+        attributes: ''
+        effect: none
+        speed: fast
+        id: appointments
+        classes: ''
       label: Appointments
-      region: hidden
+      region: content
+    group_scheduling:
+      children:
+        - field_online_scheduling_availabl
+        - field_phone_numbers_paragraph
+      parent_name: group_a
+      weight: 10
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: true
+        required_fields: true
+      label: Scheduling
+      region: content
+    group_service_locations:
+      children:
+        - field_facility_service_loc_help
+        - field_service_location
+      parent_name: ''
+      weight: 5
+      format_type: html_element
+      format_settings:
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+        id: service-locations
+        classes: ''
+        required_fields: false
+      label: 'Service Locations'
+      region: content
+    group_this_field_will_soon_be_re:
+      children:
+        - field_body
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        description: ''
+        id: ''
+        classes: ''
+        required_fields: false
+      label: 'This field will soon be replaced by Appointments and Service Locations fields below'
+      region: content
+    group_health_service_and_facilit:
+      children:
+        - field_facility_location
+        - field_regional_health_service
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        description: 'This should generally not be changed after the content is created.'
+        required_fields: true
+        id: ''
+        classes: ''
+        open: false
+      label: 'Health service and facility basic info'
+      region: content
 id: node.health_care_local_health_service.default
 targetEntityType: node
 bundle: health_care_local_health_service
@@ -62,8 +149,14 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  field_appointments_help_text:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
+    region: content
   field_body:
-    weight: 2
+    weight: 3
     settings:
       rows: 5
       placeholder: ''
@@ -76,6 +169,43 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  field_facility_service_loc_help:
+    weight: 8
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
+    region: content
+  field_online_scheduling_availabl:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_phone_numbers_paragraph:
+    type: inline_entity_form_complex_table_view_mode
+    weight: 1
+    region: content
+    settings:
+      form_mode: default
+      override_labels: true
+      label_singular: 'phone number'
+      label_plural: 'phone numbers'
+      allow_new: true
+      match_operator: CONTAINS
+      revision: false
+      collapsible: false
+      collapsed: false
+      allow_existing: false
+      allow_duplicate: false
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: _none
+  field_referral_required:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_regional_health_service:
     weight: 1
     settings: {  }
@@ -84,7 +214,7 @@ content:
     region: content
   field_service_location:
     type: paragraphs
-    weight: 3
+    weight: 9
     region: content
     settings:
       title: 'Service location'
@@ -101,12 +231,14 @@ content:
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
     third_party_settings: {  }
+  field_walk_ins_accepted:
+    type: options_select
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   created: true
-  field_online_scheduling_availabl: true
-  field_phone_numbers_paragraph: true
-  field_referral_required: true
-  field_walk_ins_accepted: true
   moderation_state: true
   path: true
   promote: true

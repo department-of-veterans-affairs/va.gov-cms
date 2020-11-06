@@ -200,7 +200,7 @@ display:
           id: moderation_state
           table: content_moderation_state_field_revision
           field: moderation_state
-          relationship: moderation_state
+          relationship: none
           group_type: group
           admin_label: 'Moderation state'
           label: ''
@@ -246,7 +246,8 @@ display:
           hide_alter_empty: true
           click_sort_column: value
           type: content_moderation_state
-          settings: {  }
+          settings:
+            link_to_entity: 0
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -281,17 +282,7 @@ display:
       header: {  }
       footer: {  }
       empty: {  }
-      relationships:
-        moderation_state:
-          id: moderation_state
-          table: node_field_revision
-          field: moderation_state
-          relationship: none
-          group_type: group
-          admin_label: 'Moderation state'
-          required: true
-          entity_type: node
-          plugin_id: standard
+      relationships: {  }
       arguments:
         nid:
           id: nid

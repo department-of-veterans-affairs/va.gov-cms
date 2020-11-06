@@ -6,7 +6,13 @@ dependencies:
     - field.storage.node.field_body
     - node.type.health_care_local_health_service
   module:
+    - allowed_formats
     - text
+third_party_settings:
+  allowed_formats:
+    rich_text: '0'
+    rich_text_limited: '0'
+    plain_text: '0'
 id: node.health_care_local_health_service.field_body
 field_name: field_body
 entity_type: node

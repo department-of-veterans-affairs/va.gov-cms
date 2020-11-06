@@ -1,0 +1,44 @@
+uuid: e901599f-ebdc-4452-ac01-cd37e7fd1240
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.audience_topics.field_audience_beneficiares
+    - field.field.paragraph.audience_topics.field_audience_selection
+    - field.field.paragraph.audience_topics.field_markup
+    - field.field.paragraph.audience_topics.field_topics
+    - paragraphs.paragraphs_type.audience_topics
+  module:
+    - markup
+id: paragraph.audience_topics.default
+targetEntityType: paragraph
+bundle: audience_topics
+mode: default
+content:
+  field_audience_beneficiares:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_audience_selection:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_markup:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
+    region: content
+  field_topics:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+hidden:
+  created: true
+  status: true

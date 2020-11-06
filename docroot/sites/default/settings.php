@@ -169,6 +169,11 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php'
   include $app_root . '/' . $site_path . '/settings/settings.fast_404.php';
 }
 
+// Ansible moves this file into place during deploy, so if it is present we are in deploy mode.
+if (file_exists($app_root . '/' . $site_path . '/settings/settings.deploy.active.php')) {
+  include $app_root . '/' . $site_path . '/settings/settings.deploy.active.php';
+}
+
 /**
  * Load local development override configuration, if available.
  *
@@ -184,5 +189,36 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.local.php')) 
   include $app_root . '/' . $site_path . '/settings/settings.local.php';
 }
 
+// The VA_GOV_IN_DEPLOY_MODE is set in settings.deploy.active.php.
+// The file is copied from settings.deploy.inactive.php by Ansible during deploys.
+if (!empty($GLOBALS['request']) &&
+  is_a($GLOBALS['request'], \Symfony\Component\HttpFoundation\Request::class) &&
+  !empty(getenv('VA_GOV_IN_DEPLOY_MODE'))) {
+
+  $deploy_service = \Drupal\va_gov_backend\Deploy\DeployService::create();
+  $deploy_service->run($GLOBALS['request'], $app_root, $site_path);
+}
+
+// Because Jenkins can't resolve e.g. prod.cms.va.gov DNS, and only the
+// internal*elb addresses. And sometimes the host would return data with
+// "http://default/..." hostnames for files so we set the host here and pass it
+// to the `file_public_base_url` setting to fix that.
+if (!empty($webhost_on_cli)) {
+  if (PHP_SAPI === 'cli') {
+    // This is running from drush so set the webhost.
+    // Var $webhost_on_cli is set in <settings.<environment>.php.
+    $webhost = $webhost_on_cli;
+  }
+  else {
+    // This is running from an HTTP request.
+    $webhost = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}";
+  }
+  // DevShop sets this in settings.devshop.php
+  $settings['file_public_base_url'] = "{$webhost}/sites/default/files";
+}
+
+// Extend the limit of the tome cache table beyond 5000 rows.
+// See https://www.drupal.org/node/3162499.
+$settings['database_cache_max_rows']['bins']['tome_static'] = -1;
 $settings['tome_content_directory'] = 'public://cms-export-content';
 $settings['tome_files_directory'] = 'public://cms-export-files';

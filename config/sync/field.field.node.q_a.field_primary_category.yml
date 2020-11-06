@@ -1,0 +1,35 @@
+uuid: f090f768-cd9a-45ff-a534-0f75a0556f2e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_primary_category
+    - node.type.q_a
+    - taxonomy.vocabulary.lc_categories
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: false
+id: node.q_a.field_primary_category
+field_name: field_primary_category
+entity_type: node
+bundle: q_a
+label: 'Primary category'
+description: 'Select a primary category for your article.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      lc_categories: lc_categories
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

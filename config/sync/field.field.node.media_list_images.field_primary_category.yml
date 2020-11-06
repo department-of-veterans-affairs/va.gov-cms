@@ -1,0 +1,29 @@
+uuid: ded10e08-c2d8-421b-859e-d6019a477b57
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_primary_category
+    - node.type.media_list_images
+    - taxonomy.vocabulary.lc_categories
+id: node.media_list_images.field_primary_category
+field_name: field_primary_category
+entity_type: node
+bundle: media_list_images
+label: 'Primary category'
+description: 'Select a primary category for your article.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      lc_categories: lc_categories
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

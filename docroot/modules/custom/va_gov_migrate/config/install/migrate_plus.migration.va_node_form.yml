@@ -23,7 +23,7 @@ source:
     - https://prod.cms.va.gov/sites/default/files/migrate_source/va_forms_data.csv
   delimiter: ","
   enclosure: '"'
-  escape: ''
+  escape: '\'
   header_offset: 1
   # The delimiter used to delimit multi-values in the cell. (optional)
   multi_value_delimiter: ','
@@ -153,6 +153,11 @@ process:
     method: row
     value:
       - 1
+  # Sometimes link_name has a space that confounds the get farther down.
+  non_field_link_name:
+    plugin: callback
+    callable: trim
+    source: link_name
   # A pseudo field to map out paths for different types of forms.
   non_field_path:
     plugin: static_map
@@ -202,7 +207,7 @@ process:
   field_va_form_url:
     plugin: get
     source:
-      - link_name
+      - '@non_field_link_name'
       - '@non_field_url'
 #  field_va_form_tool_url:
 #  field_meta_tags:

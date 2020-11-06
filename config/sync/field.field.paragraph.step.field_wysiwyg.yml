@@ -6,7 +6,13 @@ dependencies:
     - field.storage.paragraph.field_wysiwyg
     - paragraphs.paragraphs_type.step
   module:
+    - allowed_formats
     - text
+third_party_settings:
+  allowed_formats:
+    rich_text_limited: rich_text_limited
+    rich_text: '0'
+    plain_text: '0'
 id: paragraph.step.field_wysiwyg
 field_name: field_wysiwyg
 entity_type: paragraph

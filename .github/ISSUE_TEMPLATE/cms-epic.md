@@ -3,9 +3,13 @@ name: Epic
 about: A epic for the CMS team.
 title: "<Insert summary of epic>"
 labels: Epic
-assignees: 
+assignees: ''
 
 ---
+
+Once merged, will this work cause changes that CMS users will notice?
+  - [ ] Y: Add the annoucements label to this issue for the PM and UX writer to review
+  - [ ] N: No futher action needed
 
 ## Background
 

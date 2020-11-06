@@ -12,7 +12,9 @@ dependencies:
     - field.field.paragraph.service_location.field_use_main_facility_phone
     - paragraphs.paragraphs_type.service_location
   module:
+    - entity_browser_entity_form
     - field_group
+    - ief_table_view_mode
     - paragraphs
     - tablefield
 third_party_settings:
@@ -23,15 +25,15 @@ third_party_settings:
         - field_facility_service_hours
         - field_additional_hours_info
       parent_name: ''
-      weight: 3
+      weight: 1
       format_type: details
       format_settings:
+        description: ''
         id: ''
         classes: ''
-        description: ''
-        required_fields: true
         open: false
-      label: 'Service Hours'
+        required_fields: false
+      label: Hours
       region: content
     group_address:
       children:
@@ -49,22 +51,8 @@ third_party_settings:
       region: content
     group_phone:
       children:
-        - field_use_main_facility_phone
-        - field_phone
-      parent_name: ''
-      weight: 1
-      format_type: details
-      format_settings:
-        description: ''
-        required_fields: true
-        id: ''
-        classes: ''
-        open: false
-      label: Phone
-      region: content
-    group_email:
-      children:
-        - field_email_contacts
+        - group_phone_numbers
+        - group_email
       parent_name: ''
       weight: 2
       format_type: details
@@ -74,7 +62,36 @@ third_party_settings:
         id: ''
         classes: ''
         open: false
+      label: 'Contact info'
+      region: content
+    group_email:
+      children:
+        - field_email_contacts
+      parent_name: group_phone
+      weight: 23
+      format_type: details
+      format_settings:
+        description: ''
+        open: true
+        id: ''
+        classes: ''
+        required_fields: false
       label: Email
+      region: content
+    group_phone_numbers:
+      children:
+        - field_use_main_facility_phone
+        - field_phone
+      parent_name: group_phone
+      weight: 20
+      format_type: details
+      format_settings:
+        description: ''
+        open: true
+        id: ''
+        classes: phone-numbers-wrapper
+        required_fields: false
+      label: Phone
       region: content
 id: paragraph.service_location.default
 targetEntityType: paragraph
@@ -90,23 +107,23 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_email_contacts:
-    type: paragraphs
-    weight: 4
+    type: inline_entity_form_complex_table_view_mode
+    weight: 3
     settings:
-      title: 'Email contact'
-      title_plural: 'Email contacts'
-      edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: _none
-      features:
-        add_above: '0'
-        collapse_edit_all: collapse_edit_all
-        duplicate: '0'
-    third_party_settings: {  }
+      form_mode: default
+      override_labels: true
+      label_singular: 'email address'
+      label_plural: 'email addresses'
+      allow_new: true
+      match_operator: CONTAINS
+      revision: false
+      collapsible: false
+      collapsed: false
+      allow_existing: false
+      allow_duplicate: false
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: _none
     region: content
   field_facility_service_hours:
     type: tablefield
@@ -122,31 +139,31 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_phone:
-    type: paragraphs
-    weight: 1
+    type: inline_entity_form_complex_table_view_mode
+    weight: 22
     region: content
     settings:
-      title: 'Phone number'
-      title_plural: 'Phone numbers'
-      edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: _none
-      features:
-        add_above: '0'
-        collapse_edit_all: collapse_edit_all
-        duplicate: '0'
-    third_party_settings: {  }
+      form_mode: default
+      override_labels: true
+      label_singular: 'phone number'
+      label_plural: 'phone numbers'
+      allow_new: true
+      match_operator: CONTAINS
+      revision: false
+      collapsible: false
+      collapsed: false
+      allow_existing: false
+      allow_duplicate: false
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: _none
   field_service_location_address:
     type: paragraphs
     weight: 0
     region: content
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Address
+      title_plural: addresses
       edit_mode: open
       closed_mode: summary
       autocollapse: none
@@ -161,7 +178,7 @@ content:
     third_party_settings: {  }
   field_use_main_facility_phone:
     type: boolean_checkbox
-    weight: 0
+    weight: 21
     region: content
     settings:
       display_label: true

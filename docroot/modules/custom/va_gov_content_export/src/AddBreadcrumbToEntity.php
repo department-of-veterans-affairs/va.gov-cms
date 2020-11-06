@@ -64,6 +64,7 @@ class AddBreadcrumbToEntity {
     'content_moderation_state',
     'paragraph',
     'file',
+    'section_association',
   ];
 
   /**
@@ -112,7 +113,7 @@ class AddBreadcrumbToEntity {
       $routeName = $entity->toUrl()->getRouteName();
     }
     catch (UndefinedLinkTemplateException $e) {
-      Drupal::logger('VA-EXPORT')->notice('URL not supported for %entity_type', ['%entity_type' => $entity->getEntityTypeId()]);
+      Drupal::logger('VA-CMS-EXPORT')->notice('URL not supported for %entity_type', ['%entity_type' => $entity->getEntityTypeId()]);
       return;
     }
 
@@ -192,7 +193,7 @@ class AddBreadcrumbToEntity {
       }
     }
     catch (\Exception $e) {
-      watchdog_exception('VA-EXPORT', $e);
+      watchdog_exception('VA-CMS-EXPORT', $e);
     }
 
     return $this->buildGenericBreadcrumb($entity);

@@ -8,12 +8,16 @@ dependencies:
     - field.field.node.media_list_videos.field_alert_single
     - field.field.node.media_list_videos.field_buttons
     - field.field.node.media_list_videos.field_buttons_repeat
-    - field.field.node.media_list_videos.field_description
+    - field.field.node.media_list_videos.field_contact_information
     - field.field.node.media_list_videos.field_intro_text_limited_html
-    - field.field.node.media_list_videos.field_lc_benefit_hubs
     - field.field.node.media_list_videos.field_media_list_videos
-    - field.field.node.media_list_videos.field_meta_title
+    - field.field.node.media_list_videos.field_other_categories
+    - field.field.node.media_list_videos.field_primary_category
+    - field.field.node.media_list_videos.field_related_benefit_hubs
+    - field.field.node.media_list_videos.field_related_information
     - field.field.node.media_list_videos.field_related_links
+    - field.field.node.media_list_videos.field_table_of_contents_boolean
+    - field.field.node.media_list_videos.field_tags
     - node.type.media_list_videos
     - workflows.workflow.editorial
   module:
@@ -57,7 +61,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 9
+      weight: 13
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -73,7 +77,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 8
+      weight: 12
       format_type: fieldset
       format_settings:
         id: ''
@@ -82,19 +86,74 @@ third_party_settings:
         required_fields: true
       label: 'Editorial workflow'
       region: content
-    group_meta_tags:
+    group_categories:
       children:
-        - field_meta_title
-        - field_description
+        - field_primary_category
+        - group_other_categories
       parent_name: ''
-      weight: 2
+      weight: 10
+      format_type: details
+      format_settings:
+        description: ''
+        open: true
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Article categories'
+      region: content
+    group_other_categories:
+      children:
+        - field_other_categories
+      parent_name: group_categories
+      weight: 13
+      format_type: details
+      format_settings:
+        description: 'You can add up to 6 additional categories.'
+        required_fields: true
+        id: ''
+        classes: ''
+        open: false
+      label: 'Other categories where people may look for this article'
+      region: content
+    group_contact_information:
+      children:
+        - field_contact_information
+      parent_name: ''
+      weight: 9
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: false
+      label: 'Contact information'
+      region: content
+    group_tags:
+      children:
+        - field_tags
+      parent_name: ''
+      weight: 11
       format_type: fieldset
       format_settings:
         id: ''
         classes: ''
         description: ''
         required_fields: true
-      label: 'Meta Tags'
+      label: Tags
+      region: content
+    group_in:
+      children:
+        - field_table_of_contents_boolean
+      parent_name: ''
+      weight: 3
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'Include table of contents?'
       region: content
 id: node.media_list_videos.default
 targetEntityType: node
@@ -120,7 +179,7 @@ content:
     third_party_settings: {  }
     region: content
   field_buttons:
-    weight: 3
+    weight: 4
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -139,19 +198,23 @@ content:
     type: paragraphs
     region: content
   field_buttons_repeat:
-    weight: 5
+    weight: 6
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
-  field_description:
-    weight: 6
+  field_contact_information:
+    weight: 13
     settings:
-      size: 60
-      placeholder: ''
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
-    type: string_textfield
+    type: entity_reference_paragraphs
     region: content
   field_intro_text_limited_html:
     weight: 2
@@ -169,23 +232,9 @@ content:
         hide_guidelines: '0'
     type: text_textarea_with_counter
     region: content
-  field_lc_benefit_hubs:
-    weight: 6
-    settings:
-      entity_browser: lc_benefit_hubs
-      field_widget_display: label
-      field_widget_edit: '1'
-      field_widget_remove: '1'
-      selection_mode: selection_append
-      field_widget_replace: 0
-      open: 0
-      field_widget_display_settings: {  }
-    third_party_settings: {  }
-    type: entity_reference_browser_table_widget
-    region: content
   field_media_list_videos:
     type: paragraphs
-    weight: 4
+    weight: 5
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -202,16 +251,60 @@ content:
         duplicate: duplicate
     third_party_settings: {  }
     region: content
-  field_meta_title:
-    weight: 5
-    settings:
-      size: 60
-      placeholder: ''
+  field_other_categories:
+    weight: 14
+    settings: {  }
     third_party_settings: {  }
-    type: string_textfield
+    type: options_buttons
     region: content
-  field_related_links:
+  field_primary_category:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_related_benefit_hubs:
     weight: 7
+    settings:
+      entity_browser: lc_benefit_hubs
+      field_widget_display: label
+      field_widget_remove: '1'
+      selection_mode: selection_append
+      field_widget_edit: 0
+      field_widget_replace: 0
+      open: 0
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_reference_browser_table_widget
+    region: content
+  field_related_information:
+    weight: 8
+    settings:
+      title: 'Link teaser'
+      title_plural: 'Link teaser'
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: link_teaser
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: '0'
+    third_party_settings: {  }
+    type: paragraphs
+    region: content
+  field_table_of_contents_boolean:
+    weight: 17
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_tags:
+    weight: 16
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -230,7 +323,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 10
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -238,7 +331,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 12
+    weight: 16
     region: content
     third_party_settings: {  }
   title:
@@ -246,22 +339,23 @@ content:
     weight: 1
     region: content
     settings:
-      size: 60
+      size: 70
       placeholder: ''
-      maxlength: 150
+      maxlength: 70
       counter_position: after
       js_prevent_submit: true
       count_html_characters: true
-      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
       use_field_maxlength: false
     third_party_settings: {  }
   url_redirects:
-    weight: 11
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   created: true
+  field_related_links: true
   promote: true
   sticky: true
   uid: true

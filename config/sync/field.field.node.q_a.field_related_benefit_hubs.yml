@@ -1,0 +1,38 @@
+uuid: f1d1a7af-46a9-4dee-bc7b-b7c7af81fb1b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_benefit_hubs
+    - node.type.landing_page
+    - node.type.q_a
+  content:
+    - 'node:landing_page:fd822f25-788f-489c-a0fc-b1f7ad6c20d5'
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: true
+id: node.q_a.field_related_benefit_hubs
+field_name: field_related_benefit_hubs
+entity_type: node
+bundle: q_a
+label: 'VA Benefit Hubs'
+description: 'Select up to 3 Benefit hubs.<br><br>'
+required: true
+translatable: true
+default_value:
+  -
+    target_uuid: fd822f25-788f-489c-a0fc-b1f7ad6c20d5
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      landing_page: landing_page
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

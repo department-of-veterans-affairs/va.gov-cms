@@ -1,0 +1,38 @@
+uuid: c3f54506-e7be-4643-bde1-b578638fe0be
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_contact_default
+    - node.type.support_service
+    - paragraphs.paragraphs_type.contact_information
+  content:
+    - 'node:support_service:79938f13-7be8-4ce6-92ea-35671532c645'
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: false
+id: paragraph.contact_information.field_contact_default
+field_name: field_contact_default
+entity_type: paragraph
+bundle: contact_information
+label: 'Default contact'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: 79938f13-7be8-4ce6-92ea-35671532c645
+default_value_callback: ''
+settings:
+  handler: unpublished
+  handler_settings:
+    target_bundles:
+      support_service: support_service
+    sort:
+      field: _none
+    auto_create: 0
+    auto_create_bundle: ''
+field_type: entity_reference
