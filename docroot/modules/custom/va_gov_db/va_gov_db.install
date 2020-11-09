@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Utility\UpdateException;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
 use Psr\Log\LogLevel;
 
@@ -87,6 +88,33 @@ function _va_gov_db_change_text_field_max_length($field_name, $new_length) {
   }
   return "Updated field $field_name to the new size of $new_length Be sure to update vagov/config/sync/field.storage.node.{$field_name}.yml to match.";
 }
+
+/**
+ * Install a config entity type.
+ *
+ * @param string $missing_entity_type
+ *   Config entity machine name.
+ */
+function _va_gov_db_install_missing_entity_type($missing_entity_type) {
+  $type_manager = \Drupal::entityTypeManager();
+  $entity_type = $type_manager->getDefinition($missing_entity_type);
+  \Drupal::entityDefinitionUpdateManager()->installEntityType($entity_type);
+  return "Installed missing entity type {$missing_entity_type}.";
+}
+
+/**
+ * Re-save field storage configuration to clear error.
+ *
+ * @param string $field_name
+ *   Node field machine name.
+ */
+function _va_gov_db_update_node_field_storage_config($field_name) {
+  if ($field_storage = FieldStorageConfig::loadByName('node', $field_name)) {
+    $field_storage->save();
+    return "Updated field storage configuration for {$field_name}.";
+  }
+}
+
 
 /**
  * Modify field_facility_locator_api_id field to be longer.
@@ -333,4 +361,37 @@ function va_gov_db_update_8019(&$sandbox) {
   $messages = _va_gov_db_uninstall_modules(['moderation_sidebar']);
 
   return $messages;
+}
+
+/**
+ * Clear Drupal status report mis-matched entity/field errors.
+ */
+function va_gov_db_update_8020(&$sandbox) {
+  $messages = [];
+
+  $missing_entity_types = [
+    'environment_indicator',
+    'migration',
+    'migration_group',
+  ];
+  foreach ($missing_entity_types as $missing_entity_type) {
+    $messages[] = _va_gov_db_install_missing_entity_type($missing_entity_type);
+  }
+
+  $out_of_date_fields = ['field_benefits', 'field_facility_locator_api_id'];
+  foreach ($out_of_date_fields as $out_of_date_field) {
+    $messages[] = _va_gov_db_update_node_field_storage_config($out_of_date_field);
+  }
+
+  $entity_manager = \Drupal::entityManager();
+  $previous_storage_definitions = $entity_manager->getLastInstalledFieldStorageDefinitions('node');
+  if (!empty($previous_storage_definitions['field_health_services_local_info'])) {
+    $definition_update_manager = \Drupal::entityDefinitionUpdateManager();
+    $definition_update_manager->uninstallFieldStorageDefinition(
+      $previous_storage_definitions['field_health_services_local_info']
+    );
+    $messages[] = "Deleted field storage configuration for field_health_services_local_info.";
+  }
+
+  return implode(PHP_EOL, $messages);
 }
