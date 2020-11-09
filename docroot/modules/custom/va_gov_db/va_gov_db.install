@@ -99,7 +99,9 @@ function _va_gov_db_install_missing_entity_type($missing_entity_type) {
   $type_manager = \Drupal::entityTypeManager();
   $entity_type = $type_manager->getDefinition($missing_entity_type);
   \Drupal::entityDefinitionUpdateManager()->installEntityType($entity_type);
-  return "Installed missing entity type {$missing_entity_type}.";
+  \Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Installed missing entity type %missing_entity_type.', [
+    '%missing_entity_type' => $missing_entity_type,
+  ]);
 }
 
 /**
@@ -111,7 +113,9 @@ function _va_gov_db_install_missing_entity_type($missing_entity_type) {
 function _va_gov_db_update_node_field_storage_config($field_name) {
   if ($field_storage = FieldStorageConfig::loadByName('node', $field_name)) {
     $field_storage->save();
-    return "Updated field storage configuration for {$field_name}.";
+    \Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Updated field storage configuration for %field_name.', [
+      '%field_name' => $field_name,
+    ]);
   }
 }
 
@@ -374,12 +378,12 @@ function va_gov_db_update_8020(&$sandbox) {
     'migration_group',
   ];
   foreach ($missing_entity_types as $missing_entity_type) {
-    $messages[] = _va_gov_db_install_missing_entity_type($missing_entity_type);
+    _va_gov_db_install_missing_entity_type($missing_entity_type);
   }
 
   $out_of_date_fields = ['field_benefits', 'field_facility_locator_api_id'];
   foreach ($out_of_date_fields as $out_of_date_field) {
-    $messages[] = _va_gov_db_update_node_field_storage_config($out_of_date_field);
+    _va_gov_db_update_node_field_storage_config($out_of_date_field);
   }
 
   $entity_manager = \Drupal::entityManager();
@@ -389,8 +393,8 @@ function va_gov_db_update_8020(&$sandbox) {
     $definition_update_manager->uninstallFieldStorageDefinition(
       $previous_storage_definitions['field_health_services_local_info']
     );
-    $messages[] = "Deleted field storage configuration for field_health_services_local_info.";
+    \Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Deleted field storage configuration for field_health_services_local_info.');
   }
 
-  return implode(PHP_EOL, $messages);
+  return "Cleared mis-matched entity/field errors.";
 }
