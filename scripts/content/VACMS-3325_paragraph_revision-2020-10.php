@@ -95,16 +95,6 @@ function shouldWeUpdateThisParagraph(\Drupal\paragraphs\Entity\Paragraph $paragr
   return count($paragraph_field_items) > 0;
 }
 
-function updateNodes($nids) {
-  /** @var \Drupal\node\NodeStorage $node_storage */
-  $node_storage = Drupal::entityTypeManager()->getStorage('node');
-  foreach ($nids as $nid) {
-    print($nid . PHP_EOL);
-    $vid = $node_storage->getLatestRevisionId($nid);
-    updateNodeForNewParagraph(node_revision_load($vid));
-  }
-}
-
 function updateParagraphs($paragraphs) {
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   foreach ($paragraphs as $paragraph) {
@@ -117,7 +107,6 @@ function updateParagraphs($paragraphs) {
     });
 
     $paragraph_field_item = $paragraph_field_items->first();
-    $vid = $paragraph_field_item->target_revision_id;
     $vid = $paragraph_field_item->target_revision_id;
 
     print('Updating paragraph ' . $paragraph->id() . ' on node ' . $nid . ' to use vid ' . $vid . PHP_EOL);
