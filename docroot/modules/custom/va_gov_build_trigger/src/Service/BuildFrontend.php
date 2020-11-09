@@ -116,7 +116,7 @@ class BuildFrontend {
     elseif ((!empty($jenkins_build_environment)) && array_key_exists($jenkins_build_environment, self::WEB_ENVIRONMENTS) && (PHP_SAPI !== 'cli')) {
       // This is in a BRD environment.
       $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
-      $va_cms_bot_jenkins_auth_token = this->getJenkinsApiToken();
+      $va_cms_bot_jenkins_auth_token = $this->getJenkinsApiToken();
       $jenkins_build_job_host = Settings::get('jenkins_build_job_host');
       $jenkins_build_job_path = Settings::get('jenkins_build_job_path');
       $jenkins_build_job_url = Settings::get('jenkins_build_job_url');
@@ -349,8 +349,9 @@ class BuildFrontend {
    *   The value of the value of ssm param named '/cms/va-cms-bot/jenkins-api-token', or '' if not found.
    */
   private function getJenkinsApiToken() {
-    $value = exec('aws ssm get-parameter --name "/cms/va-cms-bot/jenkins-api-token" --with-decryption --filter Parameter.Value', $output, $status);
-    if ($status != 0) {
+    $cmd = 'aws ssm get-parameter --name "/cms/va-cms-bot/jenkins-api-token" --with-decryption --filter Parameter.Value';
+    $value = exec($cmd, $output, $status);
+    if ($status !== 0) {
       $this->logger->error($output);
       return '';
     }
