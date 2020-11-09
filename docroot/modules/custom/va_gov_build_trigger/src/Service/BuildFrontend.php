@@ -346,7 +346,8 @@ class BuildFrontend {
    * Gets the current Jenkins API token.
    *
    * @return string
-   *   The value of the value of ssm param named '/cms/va-cms-bot/jenkins-api-token', or '' if not found.
+   *   The value of the value of ssm param named
+   *   '/cms/va-cms-bot/jenkins-api-token', or '' if not found.
    */
   private function getJenkinsApiToken() {
     $cmd = 'aws ssm get-parameter --name "/cms/va-cms-bot/jenkins-api-token" --with-decryption --filter Parameter.Value';
@@ -356,5 +357,7 @@ class BuildFrontend {
       return '';
     }
     return $value;
+
   }
+
 }
