@@ -132,18 +132,3 @@ function updateParagraphs($paragraphs) {
     $query->execute();
   }
 }
-
-function updateNodeForNewParagraph(\Drupal\node\Entity\Node $node) {
-  // Make this change a new revision.
-  $node->setNewRevision(TRUE);
-
-  // Set revision author to uid 1317 (CMS Migrator user).
-  $node->setRevisionAuthorId(1317);
-  $node->setChangedTime(time());
-  $node->setRevisionCreationTime(time());
-  $node->setOwnerId(1317);
-
-  // Set revision log message.
-  $node->setRevisionLogMessage('Resaved to fix out of sync data.');
-  $node->save();
-}
