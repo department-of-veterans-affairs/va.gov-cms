@@ -90,36 +90,6 @@ function _va_gov_db_change_text_field_max_length($field_name, $new_length) {
 }
 
 /**
- * Install a config entity type.
- *
- * @param string $missing_entity_type
- *   Config entity machine name.
- */
-function _va_gov_db_install_missing_entity_type($missing_entity_type) {
-  $type_manager = \Drupal::entityTypeManager();
-  $entity_type = $type_manager->getDefinition($missing_entity_type);
-  \Drupal::entityDefinitionUpdateManager()->installEntityType($entity_type);
-  \Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Installed missing entity type %missing_entity_type.', [
-    '%missing_entity_type' => $missing_entity_type,
-  ]);
-}
-
-/**
- * Re-save field storage configuration to clear error.
- *
- * @param string $field_name
- *   Node field machine name.
- */
-function _va_gov_db_update_node_field_storage_config($field_name) {
-  if ($field_storage = FieldStorageConfig::loadByName('node', $field_name)) {
-    $field_storage->save();
-    \Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Updated field storage configuration for %field_name.', [
-      '%field_name' => $field_name,
-    ]);
-  }
-}
-
-/**
  * Modify field_facility_locator_api_id field to be longer.
  */
 function va_gov_db_update_8001(&$sandbox) {
@@ -378,12 +348,23 @@ function va_gov_db_update_8020() {
     'migration_group',
   ];
   foreach ($missing_entity_types as $missing_entity_type) {
-    _va_gov_db_install_missing_entity_type($missing_entity_type);
+    $type_manager = \Drupal::entityTypeManager();
+    $entity_type = $type_manager->getDefinition($missing_entity_type);
+    \Drupal::entityDefinitionUpdateManager()->installEntityType($entity_type);
+    \Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Installed missing entity type %missing_entity_type.', [
+      '%missing_entity_type' => $missing_entity_type,
+    ]);
   }
 
   $out_of_date_fields = ['field_benefits', 'field_facility_locator_api_id'];
   foreach ($out_of_date_fields as $out_of_date_field) {
-    _va_gov_db_update_node_field_storage_config($out_of_date_field);
+    // Load and re-save field storage config to clear error.
+    if ($field_storage = FieldStorageConfig::loadByName('node', $out_of_date_field)) {
+      $field_storage->save();
+      \Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Updated field storage configuration for %field_name.', [
+        '%field_name' => $out_of_date_field,
+      ]);
+    }
   }
 
   $entity_manager = \Drupal::entityManager();
