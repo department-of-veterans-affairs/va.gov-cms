@@ -47,7 +47,6 @@ A PR Review is one or more people responsible for reviewing all the changes a Pu
 
 * A PR Reviewer will self assign or be assigned by the PR Owner as a Reviewer on the Pull Request.
 * PR Reviewer Responsibilities
-* Review code for quality passed upon Insert Spec Here?
 * Test Code changes on CI
 * Document what was tested providing screenshots if necessary.
 * Follow up with questions/feedback PR Code Owner in a timely manner
