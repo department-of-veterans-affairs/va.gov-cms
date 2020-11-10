@@ -82,7 +82,7 @@ The Product Manager is a person on the CMS team who works with the Product Owner
 1. When PR Reviewer is satisfied the changes introduced by the Pull Request are of high quality, address the related issue and will not introduce new regressions, the Pull Request is approved.
 1. The PR Owner merges the Pull Request.
 
-## Automated Code Qualtiy Review Tools
+## Automated Code Quality Review Tools
 
 The following automated code tools must pass before a Pull Request can be merged.
 
