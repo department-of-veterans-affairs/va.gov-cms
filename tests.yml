@@ -58,6 +58,6 @@ va/tests/behat:
     cd tests/behat
     behat --colors
 
-va/tests/status-errors:
+va/tests/status-error:
   description: Check for Drupal status errors
   command: drush $DRUSH_ALIAS core-requirements --severity=2 | grep . && exit 1 || echo "No Drupal status requirement errors were found."
