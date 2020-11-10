@@ -1,8 +1,7 @@
 #!/bin/bash
 
 export FAILURE=0
-cd config/sync
-for filename in core.entity_form_display.node.*.default.yml
+for filename in config/sync/core.entity_form_display.node.*.default.yml
 do
   if grep -q -A1 '\- moderation_state' ${filename}
   then
