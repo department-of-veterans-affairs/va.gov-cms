@@ -315,7 +315,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 function va_gov_backend_form_field_config_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $widget_type = $form['default_value']['widget'][0]['#type'] ?? NULL;
   if ($widget_type === 'tablefield') {
-    $form['default_value']['widget'][0]['caption']['#description'] = 'This brief caption will be associated with the table, rendered as a table heading in bold and will help screen reader better describe the content within.';
+    $form['default_value']['widget'][0]['caption']['#description'] = t('This brief caption will be associated with the table, rendered as a table heading in bold and will help screen reader better describe the content within.');
   }
 }
 
