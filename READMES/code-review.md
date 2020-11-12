@@ -43,13 +43,13 @@ The PR Owner will be the person `assigned` to the pull request.
 
 ### PR Reviewer
 
-A PR Review is one or more people responsible for reviewing all the changes a Pull Request introduces. There can be multiple PR Reviewers per PR. A PR Reviewer can be anyone that is part of the department-of-veterans-affairs/va.gov-cms group. If a change introduced by a Pull Request introduces an architectural change or a significant new feature, a Tech Lead and a Product Manager (as needed) should be the PR Reviewer.
+A PR Reviewer is one or more person(s) responsible for reviewing all the changes a Pull Request introduces. There can be multiple PR Reviewers per PR. A PR Reviewer can be anyone that is part of the department-of-veterans-affairs/va.gov-cms group. If a change introduced by a Pull Request introduces an architectural change or a significant new feature, a Tech Lead and a Product Manager (as needed) should be the PR Reviewer.
 
 * A PR Reviewer will self assign or be assigned by the PR Owner as a Reviewer on the Pull Request.
 * PR Reviewer Responsibilities
 * Test Code changes on CI
 * Document what was tested providing screenshots if necessary.
-* Follow up with questions/feedback PR Code Owner in a timely manner
+* Follow up with questions/feedback for the PR Code Owner in a timely manner
 * Approve Pull Request or provide detailed feedback on why the Pull Request was not approved.
 * Request a review from a Tech Lead if necessary.
 * Request a review from a Product Manager if necessary.
@@ -61,7 +61,7 @@ The Tech Lead is accountable for the code quality and architecture practices of 
 
 ### Product Owner
 
-The Product Owner is a person who makes and prioritizes feature requests. This person is normally a part of VA/DEPO organization. The Product Owner is not directly involved in the PR Review process. The Product Manager makes a decision of whether the Product Owner should be brought in to review changes on the CI environment.
+The Product Owner is a person who makes and prioritizes feature requests. This person is normally a part of VA/DEPO organization. The Product Owner is not directly involved in the PR Review process. The Product Manager decides whether the Product Owner should be brought in to review changes on the CI environment.
 
 ### Product Manager
 
