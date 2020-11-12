@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "063c29cc55d9a4547e72fcf126fb80cd",
+    "content-hash": "0ba870dea989f41268316b75a4e0cc2e",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3804,7 +3804,8 @@
                     "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2019-09-11/3057267-maintenance-forced-logout-experimental.patch",
                     "1091852 - Display Bug when using #states (Forms API) with Ajax Request": "https://www.drupal.org/files/issues/2019-11-19/1091852-104.patch",
                     "2859042 - Entity original revision": "https://www.drupal.org/files/issues/2018-07-30/entity_original_revision-2859042-26.patch",
-                    "2930508 - Seven inactive tabs do not meet WCAG AA 1.4.3 for contrast": "https://www.drupal.org/files/issues/2020-10-15/drupal-seven_inactive_tabs_do_not_meet_wcag_aa-2930508-36.patch"
+                    "2930508 - Seven inactive tabs do not meet WCAG AA 1.4.3 for contrast": "https://www.drupal.org/files/issues/2020-10-15/drupal-seven_inactive_tabs_do_not_meet_wcag_aa-2930508-36.patch",
+                    "3092181 - Nested Paragraphs create multiple drag handles": "https://www.drupal.org/files/issues/2020-04-27/claro-nested_paragraphs_multiple_drag_handles-3092181-75-8.8.x-backport.patch"
                 }
             },
             "autoload": {
@@ -4867,6 +4868,9 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "2984027 Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4977,10 +4981,6 @@
                 {
                     "name": "alexpott",
                     "homepage": "https://www.drupal.org/user/157725"
-                },
-                {
-                    "name": "pcambra",
-                    "homepage": "https://www.drupal.org/user/122101"
                 }
             ],
             "description": "Provides additional validators for entity reference fields.",
@@ -5681,7 +5681,7 @@
                     "datestamp": "1552142584",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "message": "Project has not opted into security advisory coverage!"
                     }
                 }
             },
@@ -19518,6 +19518,11 @@
                 "squizlabs/php_codesniffer": "^2.7"
             },
             "type": "library",
+            "extra": {
+                "patches_applied": {
+                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "TravisCarden\\BehatTableComparison\\": "src/BehatTableComparison/"
@@ -19538,12 +19543,7 @@
                 "Behat",
                 "gherkin"
             ],
-            "time": "2018-07-03T17:42:23+00:00",
-            "extra": {
-                "patches_applied": {
-                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
-                }
-            }
+            "time": "2018-07-03T17:42:23+00:00"
         },
         {
             "name": "vipnytt/robotstxtparser",
