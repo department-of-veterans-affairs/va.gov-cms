@@ -57,3 +57,7 @@ va/tests/behat:
   command: |
     cd tests/behat
     behat --colors
+
+va/tests/revision-log:
+  description: Ensure revision log field is present
+  command: ./tests/scripts/check-revision-logs.sh
