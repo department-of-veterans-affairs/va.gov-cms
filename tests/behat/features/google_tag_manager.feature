@@ -10,7 +10,14 @@ Feature: Google Tag Manager dataLayer values are correct
     And I am on "/user"
     Then google tag manager data layer value for "currentUserRoles" should be <roles>
     Examples:
-    | role                | roles                             |
-    | "authenticated"     | "authenticated"                   |
-    | "content_admin"     | "authenticated,content_admin"     | 
-    | "content_publisher" | "authenticated,content_publisher" |
+    | role                | roles                                   |
+    | "authenticated"     | '["authenticated"]'                     | 
+    | "content_admin"     | '["authenticated","content_admin"]'     | 
+    | "content_publisher" | '["authenticated","content_publisher"]' |
+    | "administrator"     | '["authenticated","administrator"]'     |
+
+  @user
+  Scenario: Google Tag Manager should indicate anonymous users.
+    Given I am an anonymous user
+    And I am on "/node/2"
+    Then google tag manager data layer value for "currentUserRoles" should be '["anonymous"]'

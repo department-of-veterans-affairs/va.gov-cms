@@ -386,8 +386,10 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
    *
    * @param string $key
    *   The dataLayer key.
+   *
    * @return mixed
    *   Some value.
+   *
    * @throws \Exception
    */
   protected function getGoogleTagManagerValue($key) {
@@ -401,6 +403,9 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
 
   /**
    * Get Drupal Settings object.
+   *
+   * @return array
+   *   The Drupal settings.
    */
   protected function getDrupalSettings() {
     $session = $this->getSession();
