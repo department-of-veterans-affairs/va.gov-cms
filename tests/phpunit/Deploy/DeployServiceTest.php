@@ -51,7 +51,7 @@ class DeployServiceTest extends UnitTestCase {
   }
 
   /**
-   * Test do make sure DeployPluginInterfaces are returned.
+   * Test to make sure DeployPluginInterfaces are returned.
    *
    * @covers \Drupal\va_gov_backend\Deploy\DeployService::deployPlugins
    */
