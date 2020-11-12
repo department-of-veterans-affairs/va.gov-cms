@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 export FAILURE=0
 for filename in config/sync/core.entity_form_display.node.*.default.yml
 do
-  if grep --quiet -A1 '\- moderation_state' ${filename}
+  if grep --quiet --after-context=1 '\- moderation_state' ${filename}
   then
-    if ! grep -A1 '\- moderation_state' ${filename}|grep -q '\- revision_log'
+    if ! grep --after-context=1 '\- moderation_state' ${filename}|grep --quiet '\- revision_log'
     then
       export FAILURE=1
       echo "The revision_log field was not found in ${filename}."
