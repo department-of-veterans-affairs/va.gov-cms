@@ -10,12 +10,19 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class HealthCheck implements DeployPluginInterface {
 
+  public const USER_AGENT = 'curl-prometheus-check';
+
   /**
    * {@inheritDoc}
    */
   public function match(Request $request): bool {
     $current_path = $request->getPathInfo();
     if ($current_path === '/health') {
+      return TRUE;
+    }
+
+    $user_agent = $request->headers->get('User-Agent');
+    if ($user_agent === static::USER_AGENT) {
       return TRUE;
     }
 
