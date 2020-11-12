@@ -30,7 +30,7 @@ class HealthCheckTest extends UnitTestCase {
     );
 
     static::assertFalse(
-      $bad_request,
+      $plugin->match($bad_request),
       'non /user path does not trigger plugin.'
     );
 
@@ -57,7 +57,7 @@ class HealthCheckTest extends UnitTestCase {
     );
 
     static::assertFalse(
-      $bad_request,
+      $plugin->match($bad_request),
       'default request objects should not trigger the plugin.'
     );
 

@@ -20,14 +20,7 @@ class DeployServiceTest extends UnitTestCase {
    * @covers \Drupal\va_gov_backend\Deploy\DeployService::run
    */
   public function testRun() {
-    $mock_deploy_service = $this->createPartialMock(
-      DeployService::class,
-      ['deployPlugins']
-    );
-
-    $mock_deploy_service
-      ->method('deployPlugins')
-      ->willReturn([DeployPluginInterface::class]);
+    $mock_deploy_service = DeployServiceMock::create();
 
     $exception = new SuccessHTTPException('new error');
     $this->expectExceptionObject($exception);
@@ -66,9 +59,10 @@ class DeployServiceTest extends UnitTestCase {
     $plugins = DeployService::deployPlugins();
 
     foreach ($plugins as $plugin) {
+      $plugin_obj = new $plugin();
       static::assertInstanceOf(
         DeployPluginInterface::class,
-        $plugin
+        $plugin_obj
       );
     }
   }
