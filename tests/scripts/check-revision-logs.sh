@@ -3,7 +3,7 @@
 export FAILURE=0
 for filename in config/sync/core.entity_form_display.node.*.default.yml
 do
-  if grep -q -A1 '\- moderation_state' ${filename}
+  if grep --quiet -A1 '\- moderation_state' ${filename}
   then
     if ! grep -A1 '\- moderation_state' ${filename}|grep -q '\- revision_log'
     then
