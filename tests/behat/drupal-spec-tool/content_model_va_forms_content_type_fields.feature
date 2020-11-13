@@ -22,7 +22,7 @@ Feature: Content model: VA Forms Content Type fields
 | Content type | VA Form | Form Language | field_va_form_language | List (text) | Required | 1 | Select list |  |
 | Content type | VA Form | Link to form | field_va_form_url | Link |  | 1 | Link |  |
 | Content type | VA Form | Link to online tool | field_va_form_tool_url | Link |  | 1 | Link |  |
-| Content type | VA Form | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | VA Form | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | VA Form | Number of pages | field_va_form_num_pages | Number (integer) |  | 1 | Number field |  |
 | Content type | VA Form | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VA Form | Related forms | field_va_form_related_forms | Entity reference |  | Unlimited | Autocomplete |  |

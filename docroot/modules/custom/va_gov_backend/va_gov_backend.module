@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Asset\AttachedAssetsInterface;
+use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\WidgetBase;
@@ -183,6 +184,10 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // Disable path alias modification after lc node is published.
+  _va_gov_disable_alias_widget($form, $form_state);
+
   // Add states + custom validation if the Standalone Page field is present.
   if (isset($form['field_standalone_page'])) {
     $form['field_primary_category']['widget']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
@@ -294,20 +299,97 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     if (!in_array($node_type, $types_in_workflow)) {
       unset($form['actions']['preview']);
     }
+
   }
 
   // Add after_build callback for Press Release node forms.
   if ($form_id === 'node_press_release_form' || $form_id === 'node_press_release_edit_form') {
     $form['field_address']['widget']['#after_build'][] = 'va_gov_backend_press_release_address_after_build';
   }
+
 }
 
 /**
- * Implements hook_field_group_build_pre_render_alter().
+ * Implements hook_form_FORM_ID_alter() for field_config_edit_form.
  */
-function va_gov_backend_field_group_form_process_build_alter(array $form, FormStateInterface $form_state, &$element) {
-  // Toggle group Q&A component visibility.
-  $form['group_q_a_page_components']['#states']['visible']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
+function va_gov_backend_form_field_config_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $widget_type = $form['default_value']['widget'][0]['#type'] ?? NULL;
+  if ($widget_type === 'tablefield') {
+    $form['default_value']['widget'][0]['caption']['#description'] = t('This brief caption will be associated with the table, rendered as a table heading in bold and will help screen reader better describe the content within.');
+  }
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter() for moderation_state widgets.
+ */
+function va_gov_backend_field_widget_moderation_state_default_form_alter(&$element, FormStateInterface $form_state, $context) {
+  // Permit publication only from the proofing page, not the edit form.
+  $base_form_id = $form_state->getBuildInfo()['base_form_id'];
+  if ($base_form_id === 'node_form') {
+    unset($element['state']['#options']['published']);
+  }
+}
+
+/**
+ * Returns the content types that need alias locked upon publish.
+ *
+ * @return array
+ *   Node types that should have their alias locked upon publishing.
+ */
+function _va_gov_backend_get_locked_alias_bundles() {
+
+  return [
+    'basic_landing_page',
+    'checklist',
+    'faq_multiple_q_a',
+    'media_list_images',
+    'media_list_videos',
+    'q_a',
+    'step_by_step',
+    'support_resources_detail_page',
+    'va_form',
+  ];
+}
+
+/**
+ * Disable url alias widget after publish.
+ *
+ * @param array $form
+ *   The node form array.
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   Instance of FormStateInterface.
+ */
+function _va_gov_disable_alias_widget(array &$form, FormStateInterface $form_state) {
+  if ($form_state->getFormObject() instanceof EntityFormInterface) {
+    $bundle = $form_state->getformObject()->getEntity()->bundle();
+    if (in_array($bundle, _va_gov_backend_get_locked_alias_bundles())) {
+      $entity_id = $form_state->getformObject()->getEntity()->id();
+      if (!empty($entity_id)) {
+        $entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity_id);
+        // If it's published the alias widget is unchecked
+        // to disallow auto path updating.
+        if ($entity->isPublished() === TRUE) {
+          $form['#after_build'][] = '_va_gov_backend_node_after_build_uncheck_auto_alias';
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Uncheck the auto pathalias checkbox.
+ *
+ * @param array $form
+ *   The node form array.
+ *
+ * @return array
+ *   The $form.
+ */
+function _va_gov_backend_node_after_build_uncheck_auto_alias(array $form) {
+  // Unchecks the checkbox for pathauto.
+  $form['path']['widget'][0]['pathauto']['#checked'] = FALSE;
+
+  return $form;
 }
 
 /**
@@ -384,7 +466,7 @@ function _va_gov_backend_smart_date_formatting(array &$form, FormStateInterface 
   $bundle = $form_object->getEntity()->bundle();
   // Move the help text from the bottom of the widget to the top.
   $definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions($type, $bundle);
-  $description = $definitions['field_datetime_range_timezone']->get('description');
+  $description = !empty($definitions['field_datetime_range_timezone']) ? $definitions['field_datetime_range_timezone']->get('description') : '';
   $form['field_datetime_range_timezone']['widget'][0]['value']['#prefix'] = '<div class="description">' . $description . '</div>';
   unset($form['field_datetime_range_timezone']['widget'][0]['#description']);
   // Only show start time unless event.
@@ -453,9 +535,31 @@ function va_gov_backend_form_alter_submit(array &$form, FormStateInterface $form
 }
 
 /**
+ * Prefix R&S vocabulary term page titles.
+ */
+function va_gov_backend_preprocess_page_title(&$variables) {
+  $current_route_name = \Drupal::service('current_route_match')->getRouteName();
+  if ($current_route_name === 'entity.taxonomy_term.canonical') {
+    $term = \Drupal::request()->attributes->get('taxonomy_term');
+    $vocabs = [
+      'audience_beneficiaries',
+      'audience_non_beneficiaries',
+      'lc_categories',
+      'topics',
+    ];
+    $vocab = $term->get('vid')->getString();
+    if (in_array($vocab, $vocabs)) {
+
+      $variables['title']['#markup'] = t('All articles in:') . ' ' . $variables['title']['#markup'];
+    }
+  }
+}
+
+/**
  * Add preview button to node view.
  */
 function va_gov_backend_preprocess_page(&$variables) {
+
   $node = \Drupal::routeMatch()->getParameter('node');
   if ($node instanceof NodeInterface) {
     // It's a node.
@@ -613,6 +717,23 @@ function va_gov_backend_form_alter_redirect_submit($form, FormStateInterface $fo
 }
 
 /**
+ * For formatting smart_date paragraph field widget treatment.
+ *
+ * @param array $element
+ *   The paragraph form.
+ *
+ *   Removes date range end field elements not relevant to situation updates.
+ */
+function _va_gov_backend_smart_date_paragraph_formatting(array &$element) {
+  unset($element['subform']['field_datetime_range_timezone']['widget'][0]['#description']);
+  $element['subform']['field_datetime_range_timezone']['widget'][0]['end_value']['#attributes']['class'][] = 'hidden';
+  $element['subform']['field_datetime_range_timezone']['widget'][0]['duration']['#attributes']['class'][] = 'hidden';
+  unset($element['subform']['field_datetime_range_timezone']['widget'][0]['duration']['#title']);
+  unset($element['subform']['field_datetime_range_timezone']['widget'][0]['end_value']['#title']);
+  unset($element['subform']['field_datetime_range_timezone']['widget'][0]['value']['#title']);
+}
+
+/**
  * Implements hook_field_widget_WIDGET_TYPE_form_alter().
  */
 function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
@@ -622,12 +743,21 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
    * @var \Drupal\field\Entity\FieldConfig $field_definition */
   $paragraph_entity_reference_field_name = $field_definition->getName();
 
-  if ($paragraph_entity_reference_field_name === 'field_content_block' || $paragraph_entity_reference_field_name === 'field_service_location') {
+  $target_paragraph_ref_fields = [
+    'field_content_block',
+    'field_service_location',
+    'field_situation_updates',
+  ];
+
+  if (in_array($paragraph_entity_reference_field_name, $target_paragraph_ref_fields)) {
     $widget_state = WidgetBase::getWidgetState($element['#field_parents'], $paragraph_entity_reference_field_name, $form_state);
 
     $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'];
     $paragraph_type = $paragraph_instance->bundle();
 
+    if ($paragraph_type === 'situation_update') {
+      _va_gov_backend_smart_date_paragraph_formatting($element);
+    }
     if ($paragraph_type == 'alert') {
       $selector = sprintf(':input[name="%s[%d][subform][%s]"]', $paragraph_entity_reference_field_name, $element['#delta'], 'field_alert_type');
 
@@ -1069,6 +1199,34 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
 
   if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'page') {
     _va_gov_backend_sync_wysiwyg_fields($entity);
+  }
+
+  if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), _va_gov_backend_get_locked_alias_bundles())) {
+    _va_gov_backend_disable_autopath_alias($entity);
+  }
+}
+
+/**
+ * Determine if pathauto alias should be enable on node.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The node to check for disabling pathauto alias pattern.
+ */
+function _va_gov_backend_disable_autopath_alias(EntityInterface $entity) {
+  if (!$entity->isNew()) {
+    // Get original values of the node for comparison.
+    $original_use_alias_pattern = $entity->original->get('path')->pathauto;
+    $current_use_alias_pattern = $entity->get('path')->pathauto;
+    // Decide if this was an intentional toggle on of using the alias pattern.
+    $toggled_on_this_save = $current_use_alias_pattern && !$original_use_alias_pattern;
+    $active_entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity->id());
+    $published_previously = ($active_entity instanceof NodeInterface) ? $active_entity->isPublished() : FALSE;
+
+    if ($published_previously && !$toggled_on_this_save) {
+      // This was published and this was not an intentional toggle on.
+      // Disable the pathauto pattern.
+      $entity->path->pathauto = 0;
+    }
   }
 }
 

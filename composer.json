@@ -56,7 +56,7 @@
         "drupal/environment_indicator": "^4.0",
         "drupal/fast_404": "^2.0@alpha",
         "drupal/feature_toggle": "^1.2",
-        "drupal/field_group": "dev-3.x#b245b85f99c48221edf5fb60344dfe53737ae0f9",
+        "drupal/field_group": "^3.1",
         "drupal/fieldhelptext": "^1.0@beta",
         "drupal/govdelivery_bulletins": "^1.2",
         "drupal/graphql": "^3.0",
@@ -104,7 +104,7 @@
         "drupal/simplesamlphp_auth": "^3.2",
         "drupal/site_alert": "1.x-dev#d3700174bdddeca1f33c6995fde86e436b034270",
         "drupal/slack": "^1.2",
-        "drupal/smart_date": "3.0.3",
+        "drupal/smart_date": "3.0.4",
         "drupal/social_media_links": "^2.6",
         "drupal/tablefield": "^2.1",
         "drupal/taxonomy_entity_index": "^1.1",
@@ -253,9 +253,8 @@
             "drupal/entity_clone": {
                 "Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch"
             },
-            "drupal/field_group": {
-                "Allow to position the group in the advanced (sidebar) column": "https://www.drupal.org/files/issues/2018-07-26/2652642-59.patch",
-                "Incompatibility with inline entity form": "https://www.drupal.org/files/issues/2018-10-30/field_group-inline_entity_form_compatibility-2986704-3.patch"
+            "drupal/entity_reference_revisions": {
+                "2984027 Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch"
             },
             "drupal/govdelivery_bulletins": {
                 "Use default lease time in claimItem()": "https://www.drupal.org/files/issues/2020-04-16/default-claim-time-3128425-2.patch"
@@ -398,7 +397,7 @@
             "find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l > /dev/null"
         ],
         "va:test:cs": [
-            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,*/node_modules/*,*/simplesaml*/* --extensions=php,module,inc,install,profile,engine,theme,js,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/modules/contrib/workflow_assignments docroot/themes/custom --colors"
+            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,*/node_modules/*,*/simplesaml*/* --extensions=php,module,inc,install,profile,engine,theme,js,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/modules/contrib/workflow_assignments docroot/themes/custom tests --colors"
         ],
         "va:test:unit": "phpunit tests/phpunit --colors=always --exclude-group=disabled",
         "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors",

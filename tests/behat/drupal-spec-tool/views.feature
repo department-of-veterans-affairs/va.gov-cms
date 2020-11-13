@@ -12,9 +12,9 @@ Feature: Views
 | Archive | archive | Content | Disabled | All content, by month. |
 | Benefit Hubs Categories | benefits_hub_categories | Content | Enabled |  |
 | Benefits hub list | benefits_hub_list | Content | Enabled |  |
+| Benefit Hub Contact Information | benefit_hub_contact_information | Content | Enabled |  |
 | VA Forms | va_forms | Content | Enabled | VA forms dashboard |
 | Custom block library | block_content | Custom Block | Enabled | Find and manage custom blocks. |
-| Benefit Hub Contact Information | benefit_hub_contact_information | Content | Enabled |  |
 | Build info | build_info | Content | Enabled |  |
 | Child terms | child_terms | Taxonomy terms | Enabled |  |
 | Content | content | Content | Enabled | Find and manage content. |
@@ -86,6 +86,8 @@ Feature: Views
 | Content | Master | default | Master |
 | Content | All content | page_1 | Page |
 | Content | Bulk edit content | page_2 | Page |
+| Content | Resources and support | resources_support_dashboard | Page |
+| Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
 | Content served from Drupal | Page | page_1 | Page |
 | Content served from Drupal | Data export | data_export_1 | Data export |
 | Content served from Drupal | Master | default | Master |
@@ -96,8 +98,6 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: Publication Listing | entity_reference_2 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Story Listing | entity_reference_3 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
-| Content | Resources and support | resources_support_dashboard | Page |
-| Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
 | Custom block library | Master | default | Master |
 | Custom block library | Page | page_1 | Page |
 | Date fields | Master | default | Master |
@@ -156,6 +156,7 @@ Feature: Views
 | Taxonomy term | Master | default | Master |
 | Taxonomy term | Feed | feed_1 | Feed |
 | Taxonomy term | Page | page_1 | Page |
+| Taxonomy term | Attachment | attachment_1 | Attachment |
 | VA Forms | Master | default | Master |
 | VA Forms | Page | page_1 | Page |
 | VAMC alerts and operating statuses | Master | default | Master |

@@ -30,6 +30,7 @@ services:
     run_as_root:
       - "apt-get update -y"
       - "apt-get install build-essential chrpath libssl-dev libxft-dev libfreetype6-dev libfreetype6 libfontconfig1-dev libfontconfig1 -y"
+      - .lando/scripts/blackfire-init.sh
     xdebug: false
     config:
       php: .lando/zzz-lando-my-custom.ini
@@ -54,6 +55,10 @@ services:
         TXT_YELLOW: tput setaf 3
         TXT_CYAN: tput setaf 6
         TXT_ALERT: tput setab 1 && tput setaf 7
+        BLACKFIRE_CLIENT_ID: ~
+        BLACKFIRE_CLIENT_TOKEN: ~
+        BLACKFIRE_SERVER_ID: ~
+        BLACKFIRE_SERVER_TOKEN: ~
 
   # Uncomment this to work on site build triggers, then export ENV vars below, then `lando rebuild`.
   # Must use lando 3.0.0-rc9+
@@ -165,3 +170,14 @@ tooling:
     service: appserver
     description: This command has moved to a non-lando command, from app root run like this `scripts/sync-files.sh`.
     cmd: 'echo "This command has moved to a non-lando command, from app root run like this `scripts/sync-files.sh`."'
+
+  blackfire:
+    service: appserver
+    user: root
+
+  blackfire-agent:
+    description: Start/Stop/Restart Blackfire agent service
+    cmd:
+      - /etc/init.d/blackfire-agent
+    service: appserver
+    user: root

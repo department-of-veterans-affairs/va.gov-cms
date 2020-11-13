@@ -19,7 +19,6 @@ dependencies:
   module:
     - content_moderation
     - field_group
-    - metatag
     - paragraphs
     - paragraphs_browser
     - path
@@ -201,12 +200,6 @@ content:
     third_party_settings: {  }
     type: string_textarea_with_counter
     region: content
-  field_meta_tags:
-    weight: 14
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_firehose
-    region: content
   field_meta_title:
     weight: 2
     settings:
@@ -302,5 +295,6 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_meta_tags: true
   promote: true
   sticky: true

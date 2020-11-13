@@ -13,7 +13,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Detail Page | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Detail Page | Main content | field_content_block | Entity reference revisions |  | Unlimited | Paragraphs Browser EXPERIMENTAL | Translatable |
 | Content type | Detail Page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | Detail Page | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | Detail Page | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Detail Page | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Detail Page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Detail Page | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
@@ -32,7 +32,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Event | Event image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Event | Location type | field_location_type | List (text) |  | 1 | Select list |  |
 | Content type | Event | Teaser description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
-| Content type | Event | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | Event | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Event | Order | field_order | List (integer) |  | 1 | Select list |  |
 | Content type | Event | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Event | Registration required | field_event_registrationrequired | Boolean |  | 1 | Single on/off checkbox |  |
@@ -40,27 +40,27 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Event | URL | field_link | Link |  | 1 | Link | Translatable |
 | Content type | Event | Online event link | field_url_of_an_online_event | Link |  | 1 | Link |  |
 | Content type | Events List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | Events List | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | Events List | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Events List | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Events List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Events List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Events List | Office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Health Services List | Featured content on health-services page | field_featured_content_healthser | Entity reference revisions |  | 3 | Paragraphs Classic | Translatable |
 | Content type | Health Services List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | Health Services List | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | Health Services List | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Health Services List | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Health Services List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Health Services List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Health Services List | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Leadership List | Leadership team | field_leadership | Entity reference |  | Unlimited | Autocomplete | Translatable |
 | Content type | Leadership List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | Leadership List | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | Leadership List | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Leadership List | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Leadership List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Leadership List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Leadership List | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Locations List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | Locations List | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | Locations List | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Locations List | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Locations List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Locations List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
@@ -71,13 +71,13 @@ Feature: Content model: VAMC Content Type fields
 | Content type | News Release | Location | field_address | Address |  | 1 | Address | Translatable |
 | Content type | News Release | Media assets | field_press_release_downloads | Entity reference |  | Unlimited | Media library |  |
 | Content type | News Release | Media Contact(s) | field_press_release_contact | Entity reference |  | Unlimited | Autocomplete | Translatable |
-| Content type | News Release | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | News Release | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | News Release | News releases listing | field_listing | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | News Release | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | News Release | PDF of Press Release | field_pdf_version | Entity reference |  | 1 | Media library |  |
 | Content type | News Release | Release date | field_release_date | Date |  | 1 | Date and time |  |
 | Content type | News Releases List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | News Releases List | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | News Releases List | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | News Releases List | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | News Releases List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | News Releases List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
@@ -103,13 +103,13 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Story | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Story | Caption | field_image_caption | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | Story | First sentence (lede) | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
-| Content type | Story | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | Story | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Story | Order | field_order | List (integer) |  | 1 | Select list | Translatable |
 | Content type | Story | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Story | Where should the story be listed? | field_listing | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Stories List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Stories List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | Stories List | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | Stories List | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Stories List | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Stories List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Stories List | Office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
@@ -128,7 +128,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC Facility | Main location | field_main_location | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC Facility | Mental Health Phone | field_mental_health_phone | Telephone number |  | 1 | Telephone number |  |
 | Content type | VAMC Facility | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | VAMC Facility | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | VAMC Facility | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC Facility | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | VAMC Facility | Nickname for this facility | field_nickname_for_this_facility | Text (plain) | Required | 1 | -- Disabled -- |  |
 | Content type | VAMC Facility | Status | field_operating_status_facility | List (text) | Required | 1 | Select list |  |
@@ -157,7 +157,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System | Leadership page intro text | field_intro_text_leadership | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | VAMC System | Leadership team | field_leadership | Entity reference |  | Unlimited | Autocomplete |  |
 | Content type | VAMC System | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | VAMC System | Meta tags | field_meta_tags | Meta tags |  | 1 | Advanced meta tags form | Translatable |
+| Content type | VAMC System | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC System | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | VAMC System | Operating status | field_operating_status | Link |  | 1 | Linkit |  |
 | Content type | VAMC System | Other VA Locations | field_other_va_locations | Text (plain) |  | Unlimited | Textfield |  |
