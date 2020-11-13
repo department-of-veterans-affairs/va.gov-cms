@@ -2,13 +2,17 @@
 
 namespace Drupal\va_gov_bulk\Plugin\Action;
 
-use Drupal\node\NodeInterface;
 use Drupal\Core\Action\ActionBase;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\va_gov_bulk\AdminModeration;
+use Drupal\node\NodeInterface;
+use Drupal\va_gov_bulk\Service\ModerationActionsInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * An example action covering most of the possible options.
+ * Unpublish current node revision action.
  *
  * If type is left empty, action will be selectable for all
  * entity types.
@@ -20,37 +24,83 @@ use Drupal\va_gov_bulk\AdminModeration;
  *   confirm = TRUE,
  * )
  */
-class UnpublishCurrentRevisionAction extends ActionBase {
+class UnpublishCurrentRevisionAction extends ActionBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * Drupal\Core\Logger\LoggerChannelFactoryInterface definition.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+   */
+  protected $loggerFactory;
+
+  /**
+   * Drupal\Core\Messenger\MessengerInterface definition.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
+
+  /**
+   * Drupal\va_gov_bulk\Service\ModerationActionsInterface definition.
+   *
+   * @var Drupal\va_gov_bulk\Service\ModerationActionsInterface
+   */
+  protected $moderationActions;
+
+  /**
+   * Constructs a new UnpublishCurrentRevisionAction object.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin ID for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
+   *   The logger factory.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger.
+   * @param Drupal\va_gov_bulk\Service\ModerationActionsInterface $moderationActions
+   *   The moderation actions service.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, LoggerChannelFactoryInterface $loggerFactory, MessengerInterface $messenger, ModerationActionsInterface $moderationActions) {
+    $this->loggerFactory = $loggerFactory;
+    $this->messenger = $messenger;
+    $this->moderationActions = $moderationActions;
+
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+  }
 
   /**
    * {@inheritdoc}
    */
-  public function execute($entity = NULL) {
-    /*
-     * All config resides in $this->configuration.
-     * Passed view rows will be available in $this->context.
-     * Data about the view used to select results and optionally
-     * the batch context are available in $this->context or externally
-     * through the public getContext() method.
-     * The entire ViewExecutable object  with selected result
-     * rows is available in $this->view or externally through
-     * the public getView() method.
-     */
-    \Drupal::Messenger()->addStatus(utf8_encode('Begin unpublish bulk operation by va_gov_bulk module plugin'));
-    \Drupal::logger('ADMIN_MODERATION')->notice("EXECUTING PUBLISH LATEST REVISION OF " . $entity->label());
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('logger.factory'),
+      $container->get('messenger'),
+      $container->get('va_gov_bulk.moderation_actions')
+    );
+  }
 
-    $adminModeration = new AdminModeration($entity, NodeInterface::NOT_PUBLISHED);
-    $entity = $adminModeration->unpublish();
+  /**
+   * {@inheritdoc}
+   */
+  public function execute(NodeInterface $node = NULL) {
+    $node = $this->moderationActions->unpublishCurrentRevision($node);
 
-    // Check if published.
-    if ($entity->isPublished()) {
-      $msg = "Something went wrong, the entity must be unpublished by this point.  Review your content moderation configuration make sure you have archive state which sets current revision and a draft state and try again.";
-      \Drupal::Messenger()->addError(utf8_encode($msg));
-      \Drupal::logger('ADMIN_MODERATION')->warning($msg);
-      return $msg;
+    if ($node->isPublished()) {
+      $message = 'Something went wrong, the node should have been unpublished. Review your content moderation configuration and ensure that you have an "archived" state which sets the current revision and a draft state and try again.';
+      $this->messenger->addError($message);
+      $this->loggerFactory->get('va_gov_bulk')->warning($message);
     }
-
-    return sprintf('Example action (configuration: %s)', print_r($this->configuration, TRUE));
+    else {
+      $this->loggerFactory->get('va_gov_bulk')->info('Unpublished current revision of %title (id %id)',
+        ['%title' => $node->label(), '%id' => $node->id()]
+      );
+    }
   }
 
   /**
