@@ -100,10 +100,20 @@ class AdminModeration {
    * Publish Latest Revision.
    */
   public function publish() {
-
     \Drupal::logger('AdminModeration-log')->notice(utf8_encode('Publish latest revision bulk operation'));
     \Drupal::Messenger()->addStatus(utf8_encode('Publish latest revision bulk operation'));
     $entity_manager = \Drupal::entityTypeManager();
+
+    $latest_revision_id = (string) $entity_manager
+      ->getStorage('node')
+      ->getLatestRevisionId($this->entity->id());
+
+    if ($this->entity->vid->getString() !== $latest_revision_id) {
+      $this->entity = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->loadRevision($latest_revision_id);
+    }
+
     $this->entity->set('moderation_state', 'published');
 
     if ($this->entity instanceof RevisionLogInterface) {
