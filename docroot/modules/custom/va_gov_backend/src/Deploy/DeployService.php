@@ -38,7 +38,7 @@ class DeployService {
    *
    * This are loaded and process in order.  The first match wins.
    *
-   * @return \Drupal\va_gov_backend\Deploy\Plugin\DeployPluginInterface[]
+   * @return string[]
    *   Array of plugins class names.
    */
   public static function deployPlugins() : array {
