@@ -1024,7 +1024,7 @@ function _va_gov_backend_gtm_settings() {
 
   }
   $user_roles = \Drupal::currentUser()->getRoles() ?? ['anonymous'];
-  $sections['currentUserRoles'] = json_encode($user_roles);
+  $sections['userRoles'] = json_encode($user_roles);
   return $sections;
 }
 
