@@ -14,7 +14,7 @@ entity_type: node
 bundle: support_resources_detail_page
 label: Alert
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -34,6 +34,9 @@ settings:
       alert_single:
         enabled: true
         weight: 40
+      audience_topics:
+        weight: 44
+        enabled: false
       button:
         weight: 41
         enabled: false
@@ -48,6 +51,9 @@ settings:
         enabled: false
       collapsible_panel_item:
         weight: 45
+        enabled: false
+      contact_information:
+        weight: 50
         enabled: false
       downloadable_file:
         weight: 46
@@ -105,6 +111,9 @@ settings:
         enabled: false
       react_widget:
         weight: 64
+        enabled: false
+      rich_text_char_limit_1000:
+        weight: 70
         enabled: false
       service_location:
         weight: 65
