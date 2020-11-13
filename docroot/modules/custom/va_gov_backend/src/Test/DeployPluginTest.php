@@ -1,6 +1,6 @@
 <?php
 
-namespace test\phpunit\Deploy;
+namespace Drupal\va_gov_backend\Test;
 
 use Drupal\va_gov_backend\Deploy\Plugin\DeployPluginInterface;
 use Drupal\va_gov_backend\Deploy\SuccessHTTPException;

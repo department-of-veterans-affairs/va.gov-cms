@@ -7,6 +7,7 @@ use Drupal\Tests\UnitTestCase;
 use Drupal\va_gov_backend\Deploy\DeployService;
 use Drupal\va_gov_backend\Deploy\Plugin\DeployPluginInterface;
 use Drupal\va_gov_backend\Deploy\SuccessHTTPException;
+use Drupal\va_gov_backend\Test\DeployServiceMock;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
