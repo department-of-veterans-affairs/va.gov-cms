@@ -101,7 +101,7 @@
         "drupal/restui": "^1.16",
         "drupal/role_delegation": "^1.0@alpha",
         "drupal/seckit": "^2.0",
-        "drupal/simplesamlphp_auth": "^3.0",
+        "drupal/simplesamlphp_auth": "^3.2",
         "drupal/site_alert": "1.x-dev#d3700174bdddeca1f33c6995fde86e436b034270",
         "drupal/slack": "^1.2",
         "drupal/smart_date": "3.0.4",
@@ -136,7 +136,7 @@
         "phpunit/phpunit": "^7",
         "provision-ops/yaml-tests": "~1.9",
         "querypath/querypath": "^3.0",
-        "simplesamlphp/simplesamlphp": "^1.17",
+        "simplesamlphp/simplesamlphp": "^1.18",
         "squizlabs/php_codesniffer": "^3.5",
         "symfony/config": "^3.4",
         "symfony/finder": "^3",
@@ -296,8 +296,7 @@
                 "PHP 7.2 notice - \"Undefined offset: 1\" in JsonSchemaEncoder": "https://www.drupal.org/files/issues/2019-07-08/3063027-5-undefined-offset.patch"
             },
             "drupal/simplesamlphp_auth": {
-                "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2019-08-14/2748731-23.patch",
-                "Bypass password requirement for password change if logged in with sso.": "https://www.drupal.org/files/issues/2018-05-01/simplesamlphp_auth-change-password-access-2968598-2.patch"
+                "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2020-07-31/reroll-existing-test-and-logging-fix-2748731-29.patch"
             },
             "drupal/site_alert": {
                 "Add drush commands https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-05-20/site_alert-add_drush_commands-3118800-12.patch",
@@ -334,8 +333,9 @@
             "mkdir --parents docroot/profiles",
             "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
-            "cp -r 'simplesamlphp-1.17.2/config/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
-            "cp -r 'simplesamlphp-1.17.2/metadata/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
+            "ln -snf 'docroot/vendor/simplesamlphp/simplesamlphp/' 'simplesamlphp'",
+            "ln -snf 'docroot/vendor/simplesamlphp/saml2/' 'saml2'",
+            "cp -r 'simplesamlphp-config-metadata/config' 'simplesamlphp-config-metadata/metadata' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
             "echo 'Removing deleted .git/hooks/commit-msg file, no longer used.'",
             "rm -f .git/hooks/commit-msg",
             "git update-index --skip-worktree samlsessiondb.sq3",
