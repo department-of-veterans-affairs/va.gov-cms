@@ -1,14 +1,9 @@
-when:
-  - author:
-      teamIs:
-        - vfs-cms-team-core
-    assign:
-      teams:
-        - vfs-cms-team-core
+reviewers:
+  groups:
+    vfs-cms-team-core:
+      - vfs-cms-team-core
 
-  - author:
-      teamIs:
-        - vfs-cms-team-product
-    assign:
-      teams:
-        - vfs-cms-team-product
+    vfs-cms-team-product:
+      - vfs-cms-team-product
+options:
+  ignore_draft: true
