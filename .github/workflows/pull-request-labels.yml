@@ -16,14 +16,5 @@ jobs:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
       - uses: harupy/auto-labeling@master
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
           label-pattern: '- \[(.*?)\] ?`(.+?)`' # matches '- [x] `label`'
-
-  add-reviewers:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Add reviewers based upon the author
-        uses: necojackarc/auto-request-review@v0.3.0
-        with:
-          config: ".github/workflows/config/request-review-for-team.yml"
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
