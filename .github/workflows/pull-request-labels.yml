@@ -18,12 +18,3 @@ jobs:
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
           label-pattern: '- \[(.*?)\] ?`(.+?)`' # matches '- [x] `label`'
-
-  add-reviewers:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Add reviewers based upon the author
-        uses: necojackarc/auto-request-review@v0.3.0
-        with:
-          config: ".github/config/request-review-for-team.yml"
-          token: "${{ secrets.GITHUB_TOKEN }}"
