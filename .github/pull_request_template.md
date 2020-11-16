@@ -30,7 +30,7 @@ As user _uid_ with _user_role_
 ### Select Team for PR review
 
 - [ ] `Core Application Team`
-- [ ] `Product Team Support`
+- [ ] `Product Support Team`
 
 ### Does this PR need review from a Product Owner
 
