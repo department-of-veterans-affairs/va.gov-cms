@@ -1,8 +1,6 @@
 name: Apply Labels, owners and reviewers to pull request.
 
 on:
-  pull_request:
-    types: [opened, ready_for_review, reopened, edited]
 
   schedule:
     - cron: '5 * * * *'
