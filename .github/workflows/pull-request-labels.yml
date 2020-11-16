@@ -13,10 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          token: "${{ secrets.token }}"
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
       - uses: harupy/auto-labeling@master
         with:
-          token: "${{ secrets.token }}"
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
           label-pattern: '- \[(.*?)\] ?`(.+?)`' # matches '- [x] `label`'
 
   add-reviewers:
@@ -26,4 +26,4 @@ jobs:
         uses: necojackarc/auto-request-review@v0.3.0
         with:
           config: ".github/workflows/config/request-review-for-team.yml"
-          token: "${{ secrets.token }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
