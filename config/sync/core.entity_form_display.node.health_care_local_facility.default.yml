@@ -6,13 +6,9 @@ dependencies:
     - field.field.node.health_care_local_facility.field_address
     - field.field.node.health_care_local_facility.field_administration
     - field.field.node.health_care_local_facility.field_description
-    - field.field.node.health_care_local_facility.field_email_subscription
-    - field.field.node.health_care_local_facility.field_facebook
     - field.field.node.health_care_local_facility.field_facility_classification
     - field.field.node.health_care_local_facility.field_facility_hours
     - field.field.node.health_care_local_facility.field_facility_locator_api_id
-    - field.field.node.health_care_local_facility.field_flickr
-    - field.field.node.health_care_local_facility.field_instagram
     - field.field.node.health_care_local_facility.field_intro_text
     - field.field.node.health_care_local_facility.field_local_health_care_service_
     - field.field.node.health_care_local_facility.field_location_services
@@ -26,15 +22,12 @@ dependencies:
     - field.field.node.health_care_local_facility.field_operating_status_more_info
     - field.field.node.health_care_local_facility.field_phone_number
     - field.field.node.health_care_local_facility.field_region_page
-    - field.field.node.health_care_local_facility.field_twitter
     - node.type.health_care_local_facility
     - workflows.workflow.editorial
   module:
     - address
     - content_moderation
     - field_group
-    - link
-    - linkit
     - media_library
     - paragraphs
     - path
@@ -52,9 +45,9 @@ third_party_settings:
       format_settings:
         id: ''
         classes: ''
-        open: 1
-        required_fields: 1
-        weight: '-10'
+        open: true
+        required_fields: true
+        weight: -10
       label: Governance
       region: content
     group_editorial_workflow:
@@ -209,23 +202,6 @@ content:
     third_party_settings: {  }
     type: string_textfield_with_counter
     region: content
-  field_email_subscription:
-    weight: 24
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-      linkit_profile: default
-    third_party_settings: {  }
-    type: linkit
-    region: content
-  field_facebook:
-    weight: 19
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
-    type: link_default
-    region: content
   field_facility_classification:
     weight: 13
     settings: {  }
@@ -246,22 +222,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
-    region: content
-  field_flickr:
-    weight: 22
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
-    type: link_default
-    region: content
-  field_instagram:
-    weight: 21
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
-    type: link_default
     region: content
   field_intro_text:
     weight: 6
@@ -354,14 +314,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
-    region: content
-  field_twitter:
-    weight: 20
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
-    type: link_default
     region: content
   moderation_state:
     type: moderation_state_default
