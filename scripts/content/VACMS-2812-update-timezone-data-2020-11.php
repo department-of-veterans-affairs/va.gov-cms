@@ -71,6 +71,7 @@ function va_gov_event_field_date_migration(&$database) {
   // Build the select query.
   $rev_result = $database->select('node_revision__field_date', 'r');
   $rev_result->fields('r', ['bundle', 'deleted', 'entity_id', 'revision_id', 'langcode', 'delta', 'field_date_value', 'field_date_end_value']);
+  $rev_result->addExpression("TIMESTAMPDIFF(MINUTE, field_date_value, field_date_end_value)", 'field_datetime_range');
   $rev_result->addExpression("UNIX_TIMESTAMP(field_date_value)", 'field_date_value');
   $rev_result->addExpression("UNIX_TIMESTAMP(field_date_end_value)", 'field_date_end_value');
   $record = $rev_result->execute();
@@ -78,7 +79,7 @@ function va_gov_event_field_date_migration(&$database) {
   $rev_record_array = _objToArray($rev_record);
 
   // Build the insert query.
-  $rev_insert = $database->insert('node_revision__field_datetime_range_timezone')->fields(['bundle', 'deleted', 'entity_id', 'revision_id', 'langcode', 'delta', 'field_datetime_range_timezone_value', 'field_datetime_range_timezone_end_value', 'field_datetime_range_timezone_timezone']);
+  $rev_insert = $database->insert('node_revision__field_datetime_range_timezone')->fields(['bundle', 'deleted', 'entity_id', 'revision_id', 'langcode', 'delta', 'field_datetime_range_timezone_value', 'field_datetime_range_timezone_end_value', 'field_datetime_range_timezone_duration', 'field_datetime_range_timezone_timezone']);
 
   foreach ($rev_record_array as $rev) {
     $rev_insert->values(
@@ -91,6 +92,7 @@ function va_gov_event_field_date_migration(&$database) {
       'delta' => $rev['delta'],
       'field_datetime_range_timezone_value' => $rev['field_date_value'],
       'field_datetime_range_timezone_end_value' => $rev['field_date_end_value'],
+      'field_datetime_range_timezone_duration' => $rev['field_datetime_range'],
       'field_datetime_range_timezone_timezone' => ""
       ])
     );
@@ -116,6 +118,7 @@ function va_gov_event_field_date_migration(&$database) {
   // Build the select query.
   $node_result = $database->select('node__field_date', 'n');
   $node_result->fields('n', ['bundle', 'deleted', 'entity_id', 'revision_id', 'langcode', 'delta', 'field_date_value', 'field_date_end_value']);
+  $node_result->addExpression("TIMESTAMPDIFF(MINUTE, field_date_value, field_date_end_value)", 'field_datetime_range');
   $node_result->addExpression("UNIX_TIMESTAMP(field_date_value)", 'field_date_value');
   $node_result->addExpression("UNIX_TIMESTAMP(field_date_end_value)", 'field_date_end_value');
   $node_record = $node_result->execute();
@@ -123,7 +126,7 @@ function va_gov_event_field_date_migration(&$database) {
   $node_records_array = _objToArray($node_records);
 
   // Build the insert query.
-  $node_insert = $database->insert('node__field_datetime_range_timezone')->fields(['bundle', 'deleted', 'entity_id', 'revision_id', 'langcode', 'delta', 'field_datetime_range_timezone_value', 'field_datetime_range_timezone_end_value', 'field_datetime_range_timezone_timezone']);
+  $node_insert = $database->insert('node__field_datetime_range_timezone')->fields(['bundle', 'deleted', 'entity_id', 'revision_id', 'langcode', 'delta', 'field_datetime_range_timezone_value', 'field_datetime_range_timezone_end_value', 'field_datetime_range_timezone_duration', 'field_datetime_range_timezone_timezone']);
 
   foreach ($node_records_array as $node_update) {
     $node_insert->values(
@@ -136,6 +139,7 @@ function va_gov_event_field_date_migration(&$database) {
       'delta' => $node_update['delta'],
       'field_datetime_range_timezone_value' => $node_update['field_date_value'],
       'field_datetime_range_timezone_end_value' => $node_update['field_date_end_value'],
+      'field_datetime_range_timezone_duration' => $node_update['field_datetime_range'],
       'field_datetime_range_timezone_timezone' => ""
       ])
     );
