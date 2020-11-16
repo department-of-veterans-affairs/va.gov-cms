@@ -9,7 +9,7 @@ on:
     - cron: '*/10 * * * *'
 
 jobs:
-  label: Add team labels to PR
+  pr-team-labels:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -19,3 +19,11 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           label-pattern: '- \[(.*?)\] ?`(.+?)`' # matches '- [x] `label`'
+
+  add-reviewers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: acq688/request-reviewer-for-team-action@1.0
+        with:
+          config: ".github/workflows/config/request-review-for-team.yml"
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"`
