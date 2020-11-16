@@ -18,8 +18,23 @@ As user _uid_ with _user_role_
 - [ ] That
 - [ ] The other thing
 
-## Definition of Done
+### Definition of Done
+
 - [ ] Documentation has been updated, if applicable.
+- [ ] Tests have been added if necessary.
+- [ ] Automated tests have passed.
+- [ ] Code Quality Tests have passed.
+- [ ] Acceptance Criteria in related issue are met.
+- [ ] Manual Code Review Approved.
+
+### Select Team for PR review
+
+- [ ] `Core Application Team`
+- [ ] `Product Team Support`
+
+### Does this PR need review from a Product Owner
+
+- [ ] `Needs PO review`
 
 ### CMS user-facing annoucement
 
