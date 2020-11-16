@@ -4,25 +4,25 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.ief_table
+    - field.field.node.health_care_local_facility.field_address
     - field.field.node.health_care_local_facility.field_administration
     - field.field.node.health_care_local_facility.field_description
-    - field.field.node.health_care_local_facility.field_email_subscription
-    - field.field.node.health_care_local_facility.field_facebook
+    - field.field.node.health_care_local_facility.field_facility_classification
+    - field.field.node.health_care_local_facility.field_facility_hours
     - field.field.node.health_care_local_facility.field_facility_locator_api_id
-    - field.field.node.health_care_local_facility.field_flickr
-    - field.field.node.health_care_local_facility.field_instagram
     - field.field.node.health_care_local_facility.field_intro_text
     - field.field.node.health_care_local_facility.field_local_health_care_service_
     - field.field.node.health_care_local_facility.field_location_services
     - field.field.node.health_care_local_facility.field_main_location
     - field.field.node.health_care_local_facility.field_media
+    - field.field.node.health_care_local_facility.field_mental_health_phone
     - field.field.node.health_care_local_facility.field_meta_tags
     - field.field.node.health_care_local_facility.field_meta_title
     - field.field.node.health_care_local_facility.field_nickname_for_this_facility
     - field.field.node.health_care_local_facility.field_operating_status_facility
     - field.field.node.health_care_local_facility.field_operating_status_more_info
+    - field.field.node.health_care_local_facility.field_phone_number
     - field.field.node.health_care_local_facility.field_region_page
-    - field.field.node.health_care_local_facility.field_twitter
     - image.style.thumbnail
     - node.type.health_care_local_facility
   module:
@@ -95,13 +95,9 @@ hidden:
   content_moderation_control: true
   field_address: true
   field_description: true
-  field_email_subscription: true
-  field_facebook: true
   field_facility_classification: true
   field_facility_hours: true
   field_facility_locator_api_id: true
-  field_flickr: true
-  field_instagram: true
   field_intro_text: true
   field_local_health_care_service_: true
   field_location_services: true
@@ -112,6 +108,5 @@ hidden:
   field_nickname_for_this_facility: true
   field_phone_number: true
   field_region_page: true
-  field_twitter: true
   links: true
   search_api_excerpt: true
