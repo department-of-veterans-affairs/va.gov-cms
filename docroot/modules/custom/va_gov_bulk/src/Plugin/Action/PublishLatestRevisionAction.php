@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @Action(
  *   id = "publish_latest_revision_action",
- *   label = @Translation("Publish Latest Revision"),
+ *   label = @Translation("Publish latest revision"),
  *   type = "node",
  *   confirm = TRUE,
  * )

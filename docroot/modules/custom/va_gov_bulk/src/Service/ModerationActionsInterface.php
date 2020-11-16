@@ -10,12 +10,12 @@ use Drupal\node\NodeInterface;
 interface ModerationActionsInterface {
 
   /**
-   * Unpublish the current revision of the given node.
+   * Archive the given node.
    *
    * @return Drupal\node\NodeInterface
    *   The node.
    */
-  public function unpublishCurrentRevision(NodeInterface $node) : NodeInterface;
+  public function archiveNode(NodeInterface $node) : NodeInterface;
 
   /**
    * Publish the latest revision of the given node.

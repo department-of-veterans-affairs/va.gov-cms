@@ -43,29 +43,16 @@ class ModerationActions implements ModerationActionsInterface {
   }
 
   /**
-   * Unpublish the current revision of the given node.
+   * Archive the given node.
    *
    * @return Drupal\node\NodeInterface
    *   The node.
    */
-  public function unpublishCurrentRevision(NodeInterface $node) : NodeInterface {
+  public function archiveNode(NodeInterface $node) : NodeInterface {
     $node->set('moderation_state', 'archived');
-
-    if ($node instanceof RevisionLogInterface) {
-      $node->setRevisionCreationTime($this->datetimeTime->getRequestTime());
-      $node->setRevisionLogMessage('Bulk operation create archived revision');
-      $node->setRevisionUserId($this->currentUser->id());
-    }
-    $node->save();
-
-    $node = $this->entityTypeManager->getStorage('node')->load($node->id());
-    $node->set('moderation_state', 'draft');
-
-    if ($node instanceof RevisionLogInterface) {
-      $node->setRevisionCreationTime($this->datetimeTime->getRequestTime());
-      $node->setRevisionLogMessage('Bulk operation create draft revision');
-      $node->setRevisionUserId($this->currentUser->id());
-    }
+    $node->setRevisionCreationTime($this->datetimeTime->getRequestTime());
+    $node->setRevisionLogMessage('Bulk operation create archived revision');
+    $node->setRevisionUserId($this->currentUser->id());
     $node->save();
 
     return $this->entityTypeManager->getStorage('node')->load($node->id());
@@ -89,12 +76,9 @@ class ModerationActions implements ModerationActionsInterface {
     }
 
     $node->set('moderation_state', 'published');
-
-    if ($node instanceof RevisionLogInterface) {
-      $node->setRevisionCreationTime($this->datetimeTime->getRequestTime());
-      $node->setRevisionLogMessage('Bulk operation publish revision');
-      $node->setRevisionUserId($this->currentUser->id());
-    }
+    $node->setRevisionCreationTime($this->datetimeTime->getRequestTime());
+    $node->setRevisionLogMessage('Bulk operation publish revision');
+    $node->setRevisionUserId($this->currentUser->id());
     $node->save();
 
     return $this->entityTypeManager->getStorage('node')->load($node->id());

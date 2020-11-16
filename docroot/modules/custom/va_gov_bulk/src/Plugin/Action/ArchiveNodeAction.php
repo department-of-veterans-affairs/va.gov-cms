@@ -12,19 +12,16 @@ use Drupal\va_gov_bulk\Service\ModerationActionsInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Unpublish current node revision action.
- *
- * If type is left empty, action will be selectable for all
- * entity types.
+ * Archive node action.
  *
  * @Action(
- *   id = "unpublish_current_revision_action",
- *   label = @Translation("Unpublish Current Revision"),
+ *   id = "archive_node_action",
+ *   label = @Translation("Archive selected content (Unpublish)"),
  *   type = "node",
  *   confirm = TRUE,
  * )
  */
-class UnpublishCurrentRevisionAction extends ActionBase implements ContainerFactoryPluginInterface {
+class ArchiveNodeAction extends ActionBase implements ContainerFactoryPluginInterface {
 
   /**
    * Drupal\Core\Logger\LoggerChannelFactoryInterface definition.
@@ -48,7 +45,7 @@ class UnpublishCurrentRevisionAction extends ActionBase implements ContainerFact
   protected $moderationActions;
 
   /**
-   * Constructs a new UnpublishCurrentRevisionAction object.
+   * Constructs a new ArchiveNodeAction object.
    *
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.
@@ -89,15 +86,15 @@ class UnpublishCurrentRevisionAction extends ActionBase implements ContainerFact
    * {@inheritdoc}
    */
   public function execute(NodeInterface $node = NULL) {
-    $node = $this->moderationActions->unpublishCurrentRevision($node);
+    $node = $this->moderationActions->archiveNode($node);
 
     if ($node->isPublished()) {
-      $message = 'Something went wrong, the node should have been unpublished. Review your content moderation configuration and ensure that you have an "archived" state which sets the current revision and a draft state and try again.';
+      $message = 'Something went wrong, the node should have been archived. Review your content moderation configuration and ensure that you have an "archived" state which sets the current revision and try again.';
       $this->messenger->addError($message);
       $this->loggerFactory->get('va_gov_bulk')->warning($message);
     }
     else {
-      $this->loggerFactory->get('va_gov_bulk')->info('Unpublished current revision of %title (id %id)',
+      $this->loggerFactory->get('va_gov_bulk')->info('Archived %title (id %id)',
         ['%title' => $node->label(), '%id' => $node->id()]
       );
     }

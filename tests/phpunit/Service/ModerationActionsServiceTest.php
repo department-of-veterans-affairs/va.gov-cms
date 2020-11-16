@@ -26,12 +26,12 @@ class ModerationActionsServiceTest extends ExistingSiteBase {
   }
 
   /**
-   * Verify unpublishCurrentRevision method.
+   * Verify archiveNode method.
    *
    * @group functional
    * @group all
    */
-  public function testUnpublishCurrentRevision() {
+  public function testArchiveNode() {
     $author = $this->createUser();
     $node = $this->createNode([
       'title' => 'Test Office',
@@ -45,7 +45,7 @@ class ModerationActionsServiceTest extends ExistingSiteBase {
     $node->save();
     $this->assertEquals('published', $node->moderation_state->value);
 
-    $this->moderationActions->unpublishCurrentRevision($node);
+    $this->moderationActions->archiveNode($node);
     $this->assertEquals('archived', $node->moderation_state->value);
   }
 
