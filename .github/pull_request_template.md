@@ -27,10 +27,14 @@ As user _uid_ with _user_role_
 - [ ] Acceptance Criteria in related issue are met.
 - [ ] Manual Code Review Approved.
 
-### Labels
+### Select Team for PR review
 
-* Add `Core Application Team` or `Product Team Support` label.
-* Add `Needs PO review` if a Product Owner review is required.
+- [ ] `Core Application Team`
+- [ ] `Product Team Support`
+
+### Does this PR need review from a Product Owner
+
+- [ ] `Needs PO review`
 
 ### CMS user-facing annoucement
 
