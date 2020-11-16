@@ -97,20 +97,7 @@ downloaded to the `./web` folder during `composer install`.
 
 #### Build and Release Process
 
-When the content and code updates are ready for release, the **WEB** Build process is kicked off, it reads
-content from the [CMS](https://cms.va.gov) via GraphQL (and other locations), and outputs HTML, CSS, JavaScript and images.
-
-See [WEB & CMS Integration](READMES/unity.md) for full details on how the WEB and CMS projects work together.
-
-### Infrastructure
-
-This section outlines only the systems utilized by the CMS. For information on the **WEB** project's infrastucture, see
-[]().
-
-#### CMS-CI: Pull Request and Ad-hoc Environments
-
- - Running OpenDevShop at [devshop.cms.va.gov](http://devshop.cms.va.gov). Access restricted to CAG, sign in with GitHub.
- - A single "mirror" environment is regularly populated with a sanitized production database copy.
+When the content and code updates are ready for release, the **WEB** Build process is kicked off, it rection database copy.
  - Open Pull Requests get environments created automatically, cloned from the "mirror" environment, with URLS like
  [pr123.ci.cms.va.gov](http://pr123.ci.cms.va.gov) and
    a **WEB** instance built from that PR environment's content, like [pr123.web.ci.cms.va.gov](http://pr123.web.ci.cms.va.gov).
