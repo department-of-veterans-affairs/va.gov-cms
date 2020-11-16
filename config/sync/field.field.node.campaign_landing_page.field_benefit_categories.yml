@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.storage.node.field_benefit_categories
     - node.type.campaign_landing_page
-    - node.type.landing_page
   module:
     - entity_reference_validators
 third_party_settings:
@@ -17,18 +16,16 @@ field_name: field_benefit_categories
 entity_type: node
 bundle: campaign_landing_page
 label: 'Related benefits'
-description: ''
+description: 'Select one or two benefits that are related to this campaign.'
 required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: views
   handler_settings:
-    target_bundles:
-      landing_page: landing_page
-    sort:
-      field: _none
-    auto_create: false
-    auto_create_bundle: ''
+    view:
+      view_name: benefits_hub_list
+      display_name: entity_reference_1
+      arguments: {  }
 field_type: entity_reference
