@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Service;
 
 use Drupal\Core\Site\Settings;
 use Drupal\va_gov_backend\Service\VaGovUrl;
