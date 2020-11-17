@@ -6,13 +6,9 @@ dependencies:
     - field.field.node.health_care_local_facility.field_address
     - field.field.node.health_care_local_facility.field_administration
     - field.field.node.health_care_local_facility.field_description
-    - field.field.node.health_care_local_facility.field_email_subscription
-    - field.field.node.health_care_local_facility.field_facebook
     - field.field.node.health_care_local_facility.field_facility_classification
     - field.field.node.health_care_local_facility.field_facility_hours
     - field.field.node.health_care_local_facility.field_facility_locator_api_id
-    - field.field.node.health_care_local_facility.field_flickr
-    - field.field.node.health_care_local_facility.field_instagram
     - field.field.node.health_care_local_facility.field_intro_text
     - field.field.node.health_care_local_facility.field_local_health_care_service_
     - field.field.node.health_care_local_facility.field_location_services
@@ -26,13 +22,11 @@ dependencies:
     - field.field.node.health_care_local_facility.field_operating_status_more_info
     - field.field.node.health_care_local_facility.field_phone_number
     - field.field.node.health_care_local_facility.field_region_page
-    - field.field.node.health_care_local_facility.field_twitter
     - image.style.crop_3_2
     - node.type.health_care_local_facility
   module:
     - address
     - field_group
-    - link
     - media
     - options
     - paragraphs
@@ -142,30 +136,6 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  field_email_subscription:
-    weight: 13
-    label: inline
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-    region: content
-  field_facebook:
-    weight: 9
-    label: inline
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-    region: content
   field_facility_hours:
     weight: 11
     label: above
@@ -182,30 +152,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-    region: content
-  field_flickr:
-    weight: 10
-    label: inline
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-    region: content
-  field_instagram:
-    weight: 11
-    label: inline
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
     region: content
   field_intro_text:
     weight: 2
@@ -267,18 +213,6 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
-    region: content
-  field_twitter:
-    weight: 12
-    label: inline
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
     region: content
 hidden:
   field_administration: true
