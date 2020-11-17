@@ -19,7 +19,6 @@ Feature: Save and continue button works as expected.
     And I fill in "#edit-field-primary-category" with the text "282"
     And I fill in "#edit-field-buttons-0-subform-field-button-label-0-value" with the text "test button label"
     And I fill in "#edit-field-buttons-0-subform-field-button-link-0-uri" with the text "<nolink>"
-    And I fill in "#edit-field-checklist-0-subform-field-section-header-0-value" with the text "Behat save and continue new test section header 1"
     And I fill in "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-section-header-0-value" with the text "Behat save and continue new test section header 2"
     And I fill in "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-checklist-items-0-value" with the text "Behat save and continue new test checklist item 1"
     And I fill in "#edit-field-administration" with the text "5"
@@ -31,7 +30,6 @@ Feature: Save and continue button works as expected.
     And I should see "Behat save and continue new test"
     And "#edit-field-buttons-0-subform-field-button-label-0-value" should have the "value" with "test button label"
     And "#edit-field-buttons-0-subform-field-button-link-0-uri" should have the "value" with "<nolink>"
-    And "#edit-field-checklist-0-subform-field-section-header-0-value" should have the "value" with "Behat save and continue new test section header 1"
     And "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-section-header-0-value" should have the "value" with "Behat save and continue new test section header 2"
     And "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-checklist-items-0-value" should have the "value" with "Behat save and continue new test checklist item 1"
     And the "5" option from "#edit-field-administration" should be selected
@@ -46,8 +44,6 @@ Feature: Save and continue button works as expected.
     Then I visit the "" page for a node with the title "Behat save and continue new test - edited"
     Then I should see "Behat save and continue new test - edited"
     And I should see "test button label - edited"
-    And I should see "Behat save and continue new test section header 1"
-    And I should see "Behat save and continue new test section header 2 - edited"
     And I should see "Behat save and continue new test checklist item 1"
 
     # Confirm meta tag title is generated correctly.
