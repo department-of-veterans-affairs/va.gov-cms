@@ -203,7 +203,7 @@ function cloneParagraph(EntityCloneInterface $cloner, ParagraphInterface $paragr
  * @param array& $already_cloned
  *  A list of entities already cloned, for use by entity_clone.
  */
-function supplantParagraph(EntityCloneInterface $cloner, ContentEntityInterface $entity, string $field_name, int $pid, array $properties, array &$already_cloned): void {
+function replaceParagraph(EntityCloneInterface $cloner, ContentEntityInterface $entity, string $field_name, int $pid, array $properties, array &$already_cloned): void {
   $field_value = $entity->get($field_name);
   $field_items = $field_value->getValue();
   $referenced_entities = $field_value->referencedEntities();
@@ -245,7 +245,7 @@ function processParagraph(string $parent_type, string $parent_field_name, int $t
     'children' => [],
   ];
   foreach ($parents as $parent_id => $parent) {
-    supplantParagraph($cloner, $parent, $parent_field_name, $target_id, $properties, $already_cloned);
+    replaceParagraph($cloner, $parent, $parent_field_name, $target_id, $properties, $already_cloned);
   }
 }
 
