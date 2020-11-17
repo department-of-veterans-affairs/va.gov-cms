@@ -19,7 +19,11 @@
  * 3. Confirm that no paragraphs exist in the original condition.
  *
  */
+
+use Drupal\entity_clone\EntityClone\EntityCloneInterface;
 use Drupal\entity_clone\EntityClone\Content\ContentEntityCloneBase;
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\paragraphs\ParagraphInterface;
 
 /**
  * Log a message both to stdout and the Drupal logger.
@@ -42,10 +46,12 @@ function logMessage(string $message): void {
  */
 function getParagraphsFields(): array {
   $database = \Drupal::database();
+
   $query = $database->select('paragraphs_item_field_data', 'p');
   $query->addField('p', 'parent_type', 'parent_type');
   $query->addField('p', 'parent_field_name', 'parent_field_name');
   $result = $query->distinct()->execute()->fetchAll();
+
   return $result;
 }
 
@@ -73,12 +79,14 @@ function getParagraphsFields(): array {
  */
 function getMisparentedParagraphFieldRows(string $parent_type, string $parent_field_name): array {
   $database = \Drupal::database();
+
   $query = $database->select("{$parent_type}__{$parent_field_name}", 'parent');
   $query->join('paragraphs_item_field_data', 'paragraph', "parent.{$parent_field_name}_target_id = paragraph.id AND parent.{$parent_field_name}_target_revision_id = paragraph.revision_id AND parent.entity_id <> paragraph.parent_id");
   $query->addField('parent', 'entity_id', 'parent_id');
   $query->addField('parent', "{$parent_field_name}_target_id", 'target_id');
   $query->addField('parent', "{$parent_field_name}_target_revision_id", 'revision_id');
   $statement = $query->execute();
+
   $result = [];
   foreach ($statement as $item) {
     $result[] = (object)[
@@ -89,8 +97,10 @@ function getMisparentedParagraphFieldRows(string $parent_type, string $parent_fi
       'parent_field_name' => $parent_field_name,
     ];
   }
+
   $count = count($result);
   logMessage("{$parent_type}: {$parent_field_name}... {$count} misparented field rows found.");
+
   return $result;
 }
 
@@ -117,12 +127,14 @@ function getMisparentedParagraphFieldRows(string $parent_type, string $parent_fi
  */
 function getMultiplyParentedParagraphFieldRows(string $parent_type, string $parent_field_name): array {
   $database = \Drupal::database();
+
   $query = $database->select('paragraphs_item_revision_field_data', 'revision');
   $query->condition('parent_type', $parent_type);
   $query->condition('parent_field_name', $parent_field_name);
   $query->addField('revision', 'id', 'target_id');
   $query->addField('revision', 'parent_id', 'parent_id');
   $statement = $query->distinct()->execute();
+
   $result = [];
   foreach ($statement as $item) {
     $target_id = $item->target_id;
@@ -141,12 +153,73 @@ function getMultiplyParentedParagraphFieldRows(string $parent_type, string $pare
       sort($result[$target_id]->parent_ids);
     }
   }
+
   $result = array_filter($result, function ($row) {
     return count($row->parent_ids) > 1;
   });
+
   $count = count($result);
   logMessage("{$parent_type}: {$parent_field_name}... {$count} multiply-parented field rows found.");
+
   return $result;
+}
+
+/**
+ * Clone a paragraph and prepare it for insertion into the original node.
+ *
+ * @param \Drupal\entity_clone\EntityClone\EntityCloneInterface $cloner
+ *  A cloner object.
+ * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+ *   The paragraph to clone.
+ * @param int $parent_id
+ *   The parent ID, used to strip unwanted revisions.
+ * @param array $properties
+ *  Properties used to create the clone paragraph.
+ * @param array& $already_cloned
+ *  A list of entities already cloned, for use by entity_clone.
+ *
+ * @return \Drupal\paragraphs\ParagraphInterface
+ *   The cloned paragraph.
+ */
+function cloneParagraph(EntityCloneInterface $cloner, ParagraphInterface $paragraph, int $parent_id, array $properties, array &$already_cloned): ParagraphInterface {
+  $clone = $paragraph->createDuplicate();
+  $result = $cloner->cloneEntity($paragraph, $clone, $properties, $already_cloned);
+  return $result;
+}
+
+/**
+ * Replace a paragraph with its clone.
+ *
+ * @param \Drupal\entity_clone\EntityClone\EntityCloneInterface $cloner
+ *  A cloner object.
+ * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+ *  The host entity.
+ * @param string $field_name
+ *  The name of the paragraph field.
+ * @param int $pid
+ *  The paragraph entity ID to clone and replace.
+ * @param array $properties
+ *  Properties used to create the clone paragraph.
+ * @param array& $already_cloned
+ *  A list of entities already cloned, for use by entity_clone.
+ */
+function supplantParagraph(EntityCloneInterface $cloner, ContentEntityInterface $entity, string $field_name, int $pid, array $properties, array &$already_cloned): void {
+  $field_value = $entity->get($field_name);
+  $field_items = $field_value->getValue();
+  $referenced_entities = $field_value->referencedEntities();
+
+  foreach ($field_items as $key => $field_item) {
+    if (intval($field_item['target_id']) === $pid) {
+      $referenced_entity = $referenced_entities[$key];
+      $clone = cloneParagraph($cloner, $referenced_entity, $entity->id(), $properties, $already_cloned);
+      $field_items[$key] = $clone;
+      $field_value->setValue($field_items);
+      $entity->save();
+      logMessage("Updated node #{$entity->id()} \"{$entity->getTitle()}\" value #{$key} with new paragraph (was {$pid}, now {$clone->id()}).");
+      break;
+    }
+  }
+
 }
 
 /**
@@ -163,30 +236,16 @@ function getMultiplyParentedParagraphFieldRows(string $parent_type, string $pare
  */
 function processParagraph(string $parent_type, string $parent_field_name, int $target_id, array $parent_ids): void {
   $entity_type_manager = \Drupal::entityTypeManager();
+  $cloner = new ContentEntitycloneBase($entity_type_manager, $parent_type);
   $paragraph_storage = $entity_type_manager->getStorage('paragraph');
   $parent_storage = $entity_type_manager->getStorage($parent_type);
-  $paragraph = $paragraph_storage->load($target_id);
   $parents = $parent_storage->loadMultiple($parent_ids);
-  $cloner = new ContentEntityCloneBase($entity_type_manager, $parent_type);
   $already_cloned = [];
   $properties = [
     'children' => [],
   ];
   foreach ($parents as $parent_id => $parent) {
-    $field_value = $parent->get($parent_field_name);
-    $field_items = $field_value->getValue();
-    $field_referenced_entities = $field_value->referencedEntities();
-    foreach ($field_items as $key => $field_item) {
-      if (intval($field_item['target_id']) === $target_id) {
-        $referenced_entity = $field_referenced_entities[$key];
-        $clone = $referenced_entity->createDuplicate();
-        $field_items[$key] = $cloner->cloneEntity($referenced_entity, $clone, $properties, $already_cloned);
-        $field_value->setValue($field_items);
-        $parent->save();
-        logMessage("Updated node #{$parent->id()} \"{$parent->getTitle()}\" value #{$key} with new paragraph (was {$target_id}, now {$clone->id()}).");
-        break;
-      }
-    }
+    supplantParagraph($cloner, $parent, $parent_field_name, $target_id, $properties, $already_cloned);
   }
 }
 
@@ -202,19 +261,23 @@ function processParagraph(string $parent_type, string $parent_field_name, int $t
  */
 function run() {
   $paragraph_fields = getParagraphsFields();
+
   foreach ($paragraph_fields as $paragraph_field) {
     $parent_type = $paragraph_field->parent_type;
     $parent_field_name = $paragraph_field->parent_field_name;
+
     // We only care about cloned nodes right now, because nested paragraphs
     // should clone cleanly by default.
     if ($parent_type !== 'node') {
       logMessage("Not processing parent_type $parent_type, field $parent_field_name...");
       continue;
     }
+
     $rows = getMultiplyParentedParagraphFieldRows($parent_type, $parent_field_name);
     foreach ($rows as $target_id => $row) {
       $parent_ids = $row->parent_ids;
       $parent_count = count($parent_ids);
+
       if ($parent_count > 0) {
         $parent_list = implode(', ', $parent_ids);
         logMessage("Paragraph #{$target_id} has {$parent_count} parents: {$parent_list}");
@@ -224,6 +287,7 @@ function run() {
         processParagraph($parent_type, $parent_field_name, $target_id, $cloned_parent_ids);
       }
     }
+
   }
 }
 
