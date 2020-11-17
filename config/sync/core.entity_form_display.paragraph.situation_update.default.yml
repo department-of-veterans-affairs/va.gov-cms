@@ -9,19 +9,26 @@ dependencies:
     - field.field.paragraph.situation_update.field_wysiwyg
     - paragraphs.paragraphs_type.situation_update
   module:
-    - datetime
+    - smart_date
     - text
 id: paragraph.situation_update.default
 targetEntityType: paragraph
 bundle: situation_update
 mode: default
 content:
-  field_date_and_time:
+  field_datetime_range_timezone:
+    type: smartdate_timezone
     weight: 1
-    settings: {  }
-    third_party_settings: {  }
-    type: datetime_default
     region: content
+    settings:
+      modal: false
+      default_duration: 60
+      default_duration_increments: "30\n60|1 hour\n90\n120|2 hours\ncustom"
+      show_extra: true
+      default_tz: ''
+      custom_tz: ''
+      allowed_timezones: {  }
+    third_party_settings: {  }
   field_send_email_to_subscribers:
     weight: 0
     settings:
@@ -39,5 +46,5 @@ content:
     region: content
 hidden:
   created: true
-  field_datetime_range_timezone: true
+  field_date_and_time: true
   status: true
