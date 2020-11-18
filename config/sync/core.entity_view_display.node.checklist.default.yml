@@ -37,7 +37,7 @@ third_party_settings:
         - field_related_information
         - field_contact_information
       parent_name: ''
-      weight: 2
+      weight: 0
       format_type: fieldset
       format_settings:
         id: ''
@@ -50,7 +50,7 @@ third_party_settings:
         - field_primary_category
         - field_other_categories
       parent_name: ''
-      weight: 3
+      weight: 1
       format_type: fieldset
       format_settings:
         id: ''
@@ -63,7 +63,7 @@ third_party_settings:
     group_tags:
       children: {  }
       parent_name: ''
-      weight: 9
+      weight: 8
       format_type: fieldset
       format_settings:
         id: ''
@@ -76,13 +76,8 @@ targetEntityType: node
 bundle: checklist
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_administration:
-    weight: 5
+    weight: 3
     label: above
     settings:
       link: true
@@ -188,7 +183,7 @@ content:
     region: content
   field_tags:
     type: entity_reference_revisions_entity_view
-    weight: 4
+    weight: 2
     label: hidden
     settings:
       view_mode: default
@@ -196,10 +191,11 @@ content:
     third_party_settings: {  }
     region: content
   links:
-    weight: 6
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  content_moderation_control: true
   field_related_links: true
   search_api_excerpt: true

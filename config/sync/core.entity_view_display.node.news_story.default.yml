@@ -28,7 +28,7 @@ third_party_settings:
         - field_intro_text
         - field_full_story
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         description: ''
@@ -41,11 +41,6 @@ targetEntityType: node
 bundle: news_story
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_author:
     weight: 3
     label: above
@@ -55,7 +50,7 @@ content:
     type: entity_reference_label
     region: content
   field_featured:
-    weight: 1
+    weight: 0
     label: above
     settings:
       format: default
@@ -94,6 +89,7 @@ content:
     type: entity_reference_label
     region: content
 hidden:
+  content_moderation_control: true
   field_administration: true
   field_listing: true
   field_meta_tags: true

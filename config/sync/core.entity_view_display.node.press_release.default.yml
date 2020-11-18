@@ -25,20 +25,15 @@ targetEntityType: node
 bundle: press_release
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_address:
-    weight: 4
+    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
     region: content
   field_intro_text:
-    weight: 5
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -46,7 +41,7 @@ content:
     region: content
   field_pdf_version:
     type: entity_reference_entity_view
-    weight: 6
+    weight: 5
     label: above
     settings:
       view_mode: default
@@ -54,7 +49,7 @@ content:
     third_party_settings: {  }
     region: content
   field_press_release_contact:
-    weight: 2
+    weight: 1
     label: above
     settings:
       link: true
@@ -63,7 +58,7 @@ content:
     region: content
   field_press_release_downloads:
     type: entity_reference_entity_view
-    weight: 3
+    weight: 2
     label: above
     settings:
       view_mode: default
@@ -71,14 +66,14 @@ content:
     third_party_settings: {  }
     region: content
   field_press_release_fulltext:
-    weight: 7
+    weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_release_date:
-    weight: 1
+    weight: 0
     label: above
     settings:
       format_type: medium
@@ -87,6 +82,7 @@ content:
     type: datetime_default
     region: content
 hidden:
+  content_moderation_control: true
   field_administration: true
   field_datetime_range_timezone: true
   field_listing: true
