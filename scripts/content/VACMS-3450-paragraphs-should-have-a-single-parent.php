@@ -207,14 +207,44 @@ function replaceParagraph(EntityCloneInterface $cloner, ContentEntityInterface $
   $field_value = $entity->get($field_name);
   $field_items = $field_value->getValue();
   $referenced_entities = $field_value->referencedEntities();
+  $database = \Drupal::database();
+  $entity_storage = \Drupal::entityManager()->getStorage($entity->getEntityTypeId());
 
   foreach ($field_items as $key => $field_item) {
     if (intval($field_item['target_id']) === $pid) {
       $referenced_entity = $referenced_entities[$key];
       $clone = cloneParagraph($cloner, $referenced_entity, $entity->id(), $properties, $already_cloned);
-      $field_items[$key] = $clone;
-      $field_value->setValue($field_items);
-      $entity->save();
+
+      if ($entity_storage instanceof NodeStorageInterface) {
+        $revision_ids = $entity_storage->revisionIds($entity);
+        foreach ($revision_ids as $revision_id) {
+          if ($revision_id !== $entity->getRevisionId()) {
+            $entity_storage->deleteRevisionId($revision_id);
+          }
+        }
+      }
+
+      $query = $database->update("{$entity->getEntityTypeId()}__{$field_name}");
+      $query->fields([
+        "{$field_name}_target_id" => $clone->id(),
+        "{$field_name}_target_revision_id" => $clone->getRevisionId(),
+      ]);
+      $query->condition('entity_id', $entity->id());
+      $query->condition('revision_id', $entity->getRevisionId());
+      $query->condition('delta', $key);
+      $query->execute();
+
+      $query = $database->update("{$entity->getEntityTypeId()}_revision__{$field_name}");
+      $query->fields([
+        "{$field_name}_target_id" => $clone->id(),
+        "{$field_name}_target_revision_id" => $clone->getRevisionId(),
+      ]);
+      $query->condition('entity_id', $entity->id());
+      $query->condition('revision_id', $entity->getRevisionId());
+      $query->condition('delta', $key);
+      $query->execute();
+
+      // $entity->save();
       logMessage("Updated node #{$entity->id()} \"{$entity->getTitle()}\" value #{$key} with new paragraph (was {$pid}, now {$clone->id()}).");
       break;
     }
@@ -256,8 +286,9 @@ function processParagraph(string $parent_type, string $parent_field_name, int $t
  *
  * After retrieving a list of these paragraphs, we iterate through them, and:
  *   - Skip the first parent; it will keep its paragraph.
- *   -
- *
+ *   - For each remaining parent:
+ *     - Clone the paragraph, and
+ *     - Update the parent accordingly.
  */
 function run() {
   $paragraph_fields = getParagraphsFields();
