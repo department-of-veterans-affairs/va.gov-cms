@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Service;
 
 use Composer\Autoload\ClassLoader;
 use Drupal\Tests\UnitTestCase;
