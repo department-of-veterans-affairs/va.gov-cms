@@ -1,0 +1,46 @@
+uuid: 21858074-d338-4227-aa87-87a09c8b0c1e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.campaign_landing_page.field_administration
+    - field.field.node.campaign_landing_page.field_benefit_categories
+    - field.field.node.campaign_landing_page.field_clp_what_you_can_do_header
+    - field.field.node.campaign_landing_page.field_clp_what_you_can_do_intro
+    - field.field.node.campaign_landing_page.field_clp_what_you_can_do_promos
+    - field.field.node.campaign_landing_page.field_clp_why_this_matters
+    - field.field.node.campaign_landing_page.field_hero_blurb
+    - field.field.node.campaign_landing_page.field_hero_image
+    - field.field.node.campaign_landing_page.field_primary_call_to_action
+    - field.field.node.campaign_landing_page.field_secondary_call_to_action
+    - node.type.campaign_landing_page
+  module:
+    - user
+id: node.campaign_landing_page.teaser
+targetEntityType: node
+bundle: campaign_landing_page
+mode: teaser
+content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_administration: true
+  field_benefit_categories: true
+  field_clp_what_you_can_do_header: true
+  field_clp_what_you_can_do_intro: true
+  field_clp_what_you_can_do_promos: true
+  field_clp_why_this_matters: true
+  field_hero_blurb: true
+  field_hero_image: true
+  field_primary_call_to_action: true
+  field_secondary_call_to_action: true
+  search_api_excerpt: true
