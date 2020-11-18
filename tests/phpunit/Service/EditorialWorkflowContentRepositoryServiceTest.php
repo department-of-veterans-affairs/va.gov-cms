@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit;
+namespace tests\phpunit\Service;
 
 use Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepository;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
