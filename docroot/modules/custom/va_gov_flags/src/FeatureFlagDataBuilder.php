@@ -41,7 +41,7 @@ class FeatureFlagDataBuilder implements FeatureFlagDataBuilderInterface {
    */
   public function buildData() : array {
     return [
-      'data' => $this->featureManager->getFeatures(),
+      'data' => $this->getFeatures(),
       'method' => 'GET',
     ];
   }
@@ -52,7 +52,7 @@ class FeatureFlagDataBuilder implements FeatureFlagDataBuilderInterface {
   public function getFeatures() : array {
     $flag_toggle = [];
     foreach ($this->featureManager->getFeatures() as $feature) {
-      $flag_toggle[$feature->name()] = $this->featureStatus->getStatus($feature->name()) ?? FALSE;
+      $flag_toggle[$feature->label()] = $this->featureStatus->getStatus($feature->name()) ?? FALSE;
     }
 
     return $flag_toggle;
