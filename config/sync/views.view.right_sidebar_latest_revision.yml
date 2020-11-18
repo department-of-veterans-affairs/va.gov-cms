@@ -63,10 +63,10 @@ display:
       row:
         type: fields
       fields:
-        changed:
-          id: changed
-          table: node_field_revision
-          field: changed
+        revision_timestamp:
+          id: revision_timestamp
+          table: node_revision
+          field: revision_timestamp
           relationship: none
           group_type: group
           admin_label: ''
@@ -128,7 +128,7 @@ display:
           separator: ', '
           field_api_classes: false
           entity_type: node
-          entity_field: changed
+          entity_field: revision_timestamp
           plugin_id: field
         revision_uid:
           id: revision_uid

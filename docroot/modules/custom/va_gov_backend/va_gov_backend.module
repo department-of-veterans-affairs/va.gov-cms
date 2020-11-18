@@ -310,6 +310,14 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 }
 
 /**
+ * Implements hook_field_group_build_pre_render_alter().
+ */
+function va_gov_backend_field_group_form_process_build_alter(array $form, FormStateInterface $form_state, &$element) {
+  // Toggle group Q&A component visibility.
+  $form['group_q_a_page_components']['#states']['visible']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
+}
+
+/**
  * Implements hook_form_FORM_ID_alter() for field_config_edit_form.
  */
 function va_gov_backend_form_field_config_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {

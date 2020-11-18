@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.field.node.health_care_region_page.field_administration
     - field.field.node.health_care_region_page.field_appointments_online
-    - field.field.node.health_care_region_page.field_clinical_health_care_servi
     - field.field.node.health_care_region_page.field_clinical_health_services
     - field.field.node.health_care_region_page.field_description
     - field.field.node.health_care_region_page.field_facebook
@@ -15,12 +14,6 @@ dependencies:
     - field.field.node.health_care_region_page.field_govdelivery_id_news
     - field.field.node.health_care_region_page.field_instagram
     - field.field.node.health_care_region_page.field_intro_text
-    - field.field.node.health_care_region_page.field_intro_text_events_page
-    - field.field.node.health_care_region_page.field_intro_text_leadership
-    - field.field.node.health_care_region_page.field_intro_text_news_stories
-    - field.field.node.health_care_region_page.field_intro_text_press_releases
-    - field.field.node.health_care_region_page.field_leadership
-    - field.field.node.health_care_region_page.field_locations_intro_blurb
     - field.field.node.health_care_region_page.field_media
     - field.field.node.health_care_region_page.field_meta_tags
     - field.field.node.health_care_region_page.field_meta_title
@@ -135,13 +128,6 @@ content:
     third_party_settings: {  }
     type: boolean
     region: content
-  field_clinical_health_care_servi:
-    weight: 3
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
-    region: content
   field_clinical_health_services:
     weight: 11
     label: above
@@ -225,49 +211,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
-    region: content
-  field_intro_text_events_page:
-    weight: 9
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
-    region: content
-  field_intro_text_leadership:
-    weight: 6
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-    region: content
-  field_intro_text_news_stories:
-    weight: 10
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
-    region: content
-  field_intro_text_press_releases:
-    weight: 7
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-    region: content
-  field_leadership:
-    weight: 9
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_locations_intro_blurb:
-    weight: 2
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
     region: content
   field_media:
     weight: 5
