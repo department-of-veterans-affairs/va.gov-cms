@@ -7,5 +7,6 @@ services:
     arguments: [ '@va_gov.gov_flags.feature_flag_builder', '@file_system', '@serialization.json']
   va_gov.gov_flags.event.subscriber:
     class: Drupal\va_gov_flags\EventSubscriber\FeatureToggleSubscriber
+    arguments: [ '@va_gov.gov_flags.export_feature']
     tags:
       - { name: 'event_subscriber' }

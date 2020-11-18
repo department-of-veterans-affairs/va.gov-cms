@@ -42,7 +42,7 @@ class FeatureFlag implements DeployPluginInterface {
     try {
       if ($this->fileExists()) {
         $file_content = $this->readFile();
-        return JsonResponse::create($file_content);
+        return JsonResponse::fromJsonString($file_content);
       }
     }
     catch (ContainerNotInitializedException $e) {

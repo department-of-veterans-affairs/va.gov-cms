@@ -67,7 +67,7 @@ class ExportFeature implements ExportFeatureInterface {
    * {@inheritDoc}
    */
   public static function getPath() : string {
-    Settings::get('va_gov_flags_export_path', 'public://va_gov_flags.json');
+    return Settings::get('va_gov_flags_export_path', 'public://va_gov_flags.json');
   }
 
 }
