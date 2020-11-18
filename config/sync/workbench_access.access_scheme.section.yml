@@ -9,6 +9,7 @@ dependencies:
     - field.field.media.image.field_owner
     - field.field.media.video.field_owner
     - field.field.node.basic_landing_page.field_administration
+    - field.field.node.campaign_landing_page.field_administration
     - field.field.node.checklist.field_administration
     - field.field.node.documentation_page.field_administration
     - field.field.node.event.field_administration
@@ -217,6 +218,10 @@ scheme_settings:
     -
       entity_type: node
       bundle: basic_landing_page
+      field: field_administration
+    -
+      entity_type: node
+      bundle: campaign_landing_page
       field: field_administration
     -
       entity_type: taxonomy_term

@@ -121,6 +121,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'clone node entity',
           'clone paragraph entity',
           'create alert block content',
+          'create campaign_landing_page content',
           'create document media',
           'create image media',
           'create media',

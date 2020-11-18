@@ -1,0 +1,307 @@
+uuid: d9364202-8734-472b-8afa-2e44f3d04514
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_browser.browser.promo_blocks_browser
+    - field.field.node.campaign_landing_page.field_administration
+    - field.field.node.campaign_landing_page.field_benefit_categories
+    - field.field.node.campaign_landing_page.field_clp_what_you_can_do_header
+    - field.field.node.campaign_landing_page.field_clp_what_you_can_do_intro
+    - field.field.node.campaign_landing_page.field_clp_what_you_can_do_promos
+    - field.field.node.campaign_landing_page.field_clp_why_this_matters
+    - field.field.node.campaign_landing_page.field_hero_blurb
+    - field.field.node.campaign_landing_page.field_hero_image
+    - field.field.node.campaign_landing_page.field_primary_call_to_action
+    - field.field.node.campaign_landing_page.field_secondary_call_to_action
+    - node.type.campaign_landing_page
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - entity_browser_table
+    - field_group
+    - media_library
+    - paragraphs
+    - path
+    - textfield_counter
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 4
+      format_type: details_sidebar
+      region: content
+      format_settings:
+        description: ''
+        open: true
+        weight: -10
+        required_fields: true
+        id: ''
+        classes: ''
+      label: Governance
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 12
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+      region: content
+    group_hero_banner:
+      children:
+        - title
+        - field_hero_blurb
+        - field_primary_call_to_action
+        - field_hero_image
+      parent_name: group_set_of_vertical_tabs
+      weight: 1
+      format_type: tab
+      region: content
+      format_settings:
+        description: ''
+        formatter: open
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Hero banner'
+    group_why_this_matters:
+      children:
+        - field_clp_why_this_matters
+        - field_secondary_call_to_action
+      parent_name: group_set_of_vertical_tabs
+      weight: 2
+      format_type: tab
+      region: content
+      format_settings:
+        description: ''
+        formatter: closed
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Why this matters'
+    group_what_you_can_do:
+      children:
+        - field_clp_what_you_can_do_header
+        - field_clp_what_you_can_do_intro
+        - field_clp_what_you_can_do_promos
+      parent_name: group_set_of_vertical_tabs
+      weight: 3
+      format_type: tab
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+        formatter: closed
+      label: 'What you can do'
+    group_set_of_vertical_tabs:
+      children:
+        - group_hero_banner
+        - group_why_this_matters
+        - group_what_you_can_do
+        - group_va_benefits
+      parent_name: ''
+      weight: 0
+      format_type: tabs
+      region: content
+      format_settings:
+        direction: vertical
+        id: ''
+        classes: ''
+      label: 'Set of vertical tabs'
+    group_va_benefits:
+      children:
+        - field_benefit_categories
+      parent_name: group_set_of_vertical_tabs
+      weight: 4
+      format_type: tab
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: 'VA Benefits'
+id: node.campaign_landing_page.default
+targetEntityType: node
+bundle: campaign_landing_page
+mode: default
+content:
+  field_administration:
+    weight: 11
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_benefit_categories:
+    weight: 11
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_clp_what_you_can_do_header:
+    weight: 4
+    settings:
+      size: 70
+      placeholder: ''
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_clp_what_you_can_do_intro:
+    weight: 5
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 300
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+    type: string_textarea_with_counter
+    region: content
+  field_clp_what_you_can_do_promos:
+    weight: 6
+    settings:
+      entity_browser: promo_blocks_browser
+      field_widget_display: label
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      selection_mode: selection_append
+      field_widget_replace: 0
+      open: 0
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_reference_browser_table_widget
+    region: content
+  field_clp_why_this_matters:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 350
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+    type: string_textarea_with_counter
+    region: content
+  field_hero_blurb:
+    weight: 2
+    settings:
+      size: 70
+      placeholder: ''
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_hero_image:
+    type: media_library_widget
+    weight: 4
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+    region: content
+  field_primary_call_to_action:
+    type: paragraphs
+    weight: 3
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    region: content
+  field_secondary_call_to_action:
+    type: paragraphs
+    weight: 3
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 7
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 3
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield_with_counter
+    weight: 0
+    region: content
+    settings:
+      size: 70
+      placeholder: ''
+      maxlength: 70
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+      use_field_maxlength: false
+    third_party_settings: {  }
+  url_redirects:
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  promote: true
+  sticky: true
+  uid: true
