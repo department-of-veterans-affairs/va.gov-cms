@@ -43,26 +43,40 @@ process:
       map:
         155: 37
       bypass: true
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Entity lookup for field_service_name_and_descripti found nothing.'
   field_body/format:
     plugin: default_value
     default_value: rich_text
   field_body/value: field_body
   field_administration:
-    plugin: entity_lookup
-    entity_type: taxonomy_term
-    value_key: name
-    bundle_key: vid
-    bundle: administration
-    source: field_owner
+    -
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: name
+      bundle_key: vid
+      bundle: administration
+      source: field_owner
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Entity lookup for field_administration found nothing.'
   field_region_page:
-    plugin: entity_lookup
-    access_check: false
-    ignore_case: true
-    value_key: title
-    entity_type: node
-    bundle_key: type
-    bundle: health_care_region_page
-    source: field_health_system
+    -
+      plugin: entity_lookup
+      access_check: false
+      ignore_case: true
+      value_key: title
+      entity_type: node
+      bundle_key: type
+      bundle: health_care_region_page
+      source: field_health_system
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Entity lookup for field_region_page found nothing.'
   changed:
     plugin: callback
     callable: time
