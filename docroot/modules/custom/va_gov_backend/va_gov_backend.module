@@ -339,6 +339,32 @@ function va_gov_backend_field_widget_moderation_state_default_form_alter(&$eleme
 }
 
 /**
+ * Implements hook_entity_view_alter().
+ *
+ * Changes qa entity view display when standalone page option is selected.
+ */
+function va_gov_backend_entity_view_alter(array &$build, EntityInterface $entity) {
+  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'q_a') {
+    if ($entity->get('field_standalone_page')->getString() !== '1') {
+      $standalone_only_fields = [
+        'field_alert_single',
+        'field_buttons',
+        'field_related_benefit_hubs',
+        'field_related_information',
+        'field_contact_information',
+        'field_primary_category',
+        'field_other_categories',
+        'field_tags',
+      ];
+      foreach ($standalone_only_fields as $standalone_only_field) {
+        unset($entity->$standalone_only_field);
+        unset($build[$standalone_only_field]);
+      }
+    }
+  }
+}
+
+/**
  * Returns the content types that need alias locked upon publish.
  *
  * @return array
