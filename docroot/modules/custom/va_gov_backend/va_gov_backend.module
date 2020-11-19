@@ -1240,6 +1240,54 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
   if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), _va_gov_backend_get_locked_alias_bundles())) {
     _va_gov_backend_disable_autopath_alias($entity);
   }
+
+  _va_gov_backend_apply_filter_to_tablefield_cells($entity);
+}
+
+/**
+ * Apply html filter to tablefield on save to properly format on the way in.
+ *
+ * This is needed because the field data of table fields does not have a
+ * 'processed' property in graphQL or CMS Export.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The table paragraph.
+ */
+function _va_gov_backend_apply_filter_to_tablefield_cells(EntityInterface $entity) {
+  // We need to make sure this entity is fieldable before we start digging.
+  $entity_type = $entity->getEntityTypeId();
+  $class = Drupal::service('entity_type.manager')->getDefinition($entity_type)->getOriginalClass();
+  $interface = 'Drupal\Core\Entity\FieldableEntityInterface';
+  if (in_array($interface, class_implements($class))) {
+    $sanitized_items = [];
+    $field_definitions = Drupal::service('entity_field.manager')->getFieldDefinitions($entity_type, $entity->bundle());
+
+    foreach ($field_definitions as $field) {
+      if ($field->getType() === 'tablefield') {
+        $field_name = $field->getName();
+        $raw_table = $entity->get($field_name)->value;
+        $format = $entity->get($field_name)->format;
+        if (!empty($raw_table) && is_array($raw_table)) {
+          foreach ($raw_table as $row_key => $row_item) {
+            if ($row_key === 'caption') {
+              // Tablefield caption does not support html.
+              $sanitized_items['caption'] = strip_tags($row_item);
+            }
+            else {
+              if (is_array($row_item)) {
+                foreach ($row_item as $cell_key => $cell_item) {
+                  $clean_html = check_markup($cell_item, $format);
+                  $sanitized_items['value'][$row_key][$cell_key] = (string) $clean_html;
+                }
+              }
+            }
+          }
+        }
+        $sanitized_items['format'] = $format;
+        $entity->$field_name->setValue($sanitized_items);
+      }
+    }
+  }
 }
 
 /**
