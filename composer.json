@@ -37,7 +37,7 @@
         "drupal/config_split": "^1.4",
         "drupal/consumers": "1.11.0",
         "drupal/content_lock": "^2.0@alpha",
-        "drupal/core": "8.8.10",
+        "drupal/core": "8.8.11",
         "drupal/crop": "^2.0",
         "drupal/ctools_block": "^3.2",
         "drupal/devel": "^2.1",
@@ -153,7 +153,8 @@
             "Traits\\": "tests/traits",
             "CustomDrupal\\": "tests/behat/Drupal",
             "Drupal\\va_gov_backend\\": "docroot/modules/custom/va_gov_backend/src",
-            "Drupal\\va_gov_content_export\\": "docroot/modules/custom/va_gov_content_export/src"
+            "Drupal\\va_gov_content_export\\": "docroot/modules/custom/va_gov_content_export/src",
+            "Drupal\\va_gov_flags\\": "docroot/modules/custom/va_gov_flags/src"
         },
         "files": [
             "scripts/composer/EnvironmentHandler.php"
@@ -277,7 +278,8 @@
             },
             "drupal/paragraphs": {
                 "Content & Behavior tabs use fixed IDs": "https://www.drupal.org/files/issues/2020-10-14/paragraphs-fix_duplicate_content_behavior_tab_ids-3176946-3.patch",
-                "Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch"
+                "Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch",
+                "Remove button should not be shown on required field": "https://www.drupal.org/files/issues/2020-05-13/hide_field_required_paragraphs_remove_button_1.patch"
             },
             "drupal/paragraphs_browser": {
                 "#3057621: Notice: Undefined index: paragraph_type_title": "https://www.drupal.org/files/issues/2019-07-18/undefined-index-paragraph_type_title-trait-3057621-7.patch",

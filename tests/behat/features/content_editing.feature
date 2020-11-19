@@ -44,7 +44,6 @@ Feature: CMS Users may effectively create & edit content
     And I fill in "#edit-field-primary-category" with the text "282"
     And I fill in "#edit-field-buttons-0-subform-field-button-label-0-value" with the text "test button label"
     And I fill in "#edit-field-buttons-0-subform-field-button-link-0-uri" with the text "<nolink>"
-    And I fill in "#edit-field-checklist-0-subform-field-section-header-0-value" with the text "Behat save and continue new test section header 1"
     And I fill in "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-section-header-0-value" with the text "Behat save and continue new test section header 2"
     And I fill in "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-checklist-items-0-value" with the text "Behat save and continue new test checklist item 1"
     And I fill in "#edit-field-administration" with the text "5"
