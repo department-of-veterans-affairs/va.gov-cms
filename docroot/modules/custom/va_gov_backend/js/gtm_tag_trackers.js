@@ -55,6 +55,7 @@
         'contentTitle': settings.gtm_data.contentTitle ? settings.gtm_data.contentTitle : null,
         'contentType': settings.gtm_data.contentType ? settings.gtm_data.contentType : null,
         'contentOwner': settings.gtm_data.contentOwner ? settings.gtm_data.contentOwner : null,
+        'userRoles': settings.gtm_data.userRoles ? settings.gtm_data.userRoles : null,
       }
 
       // For processing our click events.

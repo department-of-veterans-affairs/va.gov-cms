@@ -369,4 +369,52 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
     }
   }
 
+  /**
+   * Check that the Google Tag Manager dataLayer value is set correctly.
+   *
+   * @Given google tag manager data layer value for :arg1 should be :arg2
+   */
+  public function googleTagManagerValueShouldBe($key, $value) {
+    $property_value = $this->getGoogleTagManagerValue($key);
+    if ($value != $property_value) {
+      throw new \Exception($value . ' is not the same as ' . $property_value);
+    }
+  }
+
+  /**
+   * Get Google Tag Manager dataLayer value for specified key.
+   *
+   * @param string $key
+   *   The dataLayer key.
+   *
+   * @return mixed
+   *   Some value.
+   *
+   * @throws \Exception
+   */
+  protected function getGoogleTagManagerValue($key) {
+    $drupal_settings = $this->getDrupalSettings();
+    $gtm_data = $drupal_settings['gtm_data'];
+    if (isset($gtm_data[$key])) {
+      return $gtm_data[$key];
+    }
+    throw new \Exception($key . ' not found.');
+  }
+
+  /**
+   * Get Drupal Settings object.
+   *
+   * @return array
+   *   The Drupal settings.
+   */
+  protected function getDrupalSettings() {
+    $session = $this->getSession();
+    $element = $session->getPage()->find('xpath', "//script[@data-drupal-selector='drupal-settings-json']");
+    if (NULL === $element) {
+      throw new \Exception('The Drupal Settings JSON could not be retrieved.');
+    }
+    $json = $element->getText();
+    return json_decode($json, TRUE);
+  }
+
 }
