@@ -1,140 +1,148 @@
-uuid: f649674b-4fe6-4363-ac1e-9ed316e82f87
+uuid: 79808f77-da09-475c-910c-75eb5dadda73
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_related_links
-    - node.type.faq_multiple_q_a
+    - field.storage.node.field_primary_call_to_action
+    - node.type.campaign_landing_page
+    - paragraphs.paragraphs_type.button
   module:
     - entity_reference_revisions
-id: node.faq_multiple_q_a.field_related_links
-field_name: field_related_links
+id: node.campaign_landing_page.field_primary_call_to_action
+field_name: field_primary_call_to_action
 entity_type: node
-bundle: faq_multiple_q_a
-label: 'Related Links'
+bundle: campaign_landing_page
+label: 'Primary call to action'
 description: ''
-required: false
-translatable: true
+required: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
     negate: 0
-    target_bundles: null
+    target_bundles:
+      button: button
     target_bundles_drag_drop:
       address:
-        weight: 39
-        enabled: false
-      alert:
-        weight: 40
-        enabled: false
-      alert_single:
         weight: 41
         enabled: false
-      button:
+      alert:
         weight: 42
         enabled: false
-      checklist:
+      alert_single:
         weight: 43
         enabled: false
-      checklist_item:
+      audience_topics:
         weight: 44
         enabled: false
-      collapsible_panel:
+      button:
+        enabled: true
         weight: 45
-        enabled: false
-      collapsible_panel_item:
+      checklist:
         weight: 46
         enabled: false
-      contact_information:
+      checklist_item:
         weight: 47
         enabled: false
-      downloadable_file:
+      collapsible_panel:
         weight: 48
         enabled: false
-      email_contact:
+      collapsible_panel_item:
         weight: 49
         enabled: false
-      expandable_text:
+      contact_information:
         weight: 50
         enabled: false
-      health_care_local_facility_servi:
+      downloadable_file:
         weight: 51
         enabled: false
-      link_teaser:
+      email_contact:
         weight: 52
         enabled: false
-      list_of_link_teasers:
-        weight: 55
-        enabled: false
-      list_of_links:
-        weight: 54
-        enabled: false
-      lists_of_links:
+      expandable_text:
         weight: 53
         enabled: false
-      media:
+      health_care_local_facility_servi:
+        weight: 54
+        enabled: false
+      link_teaser:
+        weight: 55
+        enabled: false
+      list_of_link_teasers:
         weight: 56
         enabled: false
-      media_list_images:
+      list_of_links:
         weight: 57
         enabled: false
-      media_list_videos:
+      lists_of_links:
         weight: 58
         enabled: false
-      non_reusable_alert:
+      media:
         weight: 59
         enabled: false
-      number_callout:
+      media_list_images:
         weight: 60
         enabled: false
-      phone_number:
+      media_list_videos:
         weight: 61
         enabled: false
-      process:
+      non_reusable_alert:
         weight: 62
         enabled: false
-      q_a:
+      number_callout:
         weight: 63
         enabled: false
-      q_a_group:
+      phone_number:
         weight: 64
         enabled: false
-      q_a_section:
+      process:
         weight: 65
         enabled: false
-      react_widget:
+      q_a:
         weight: 66
         enabled: false
-      service_location:
+      q_a_group:
         weight: 67
         enabled: false
-      service_location_address:
+      q_a_section:
         weight: 68
         enabled: false
-      situation_update:
+      react_widget:
         weight: 69
         enabled: false
-      spanish_translation_summary:
+      rich_text_char_limit_1000:
         weight: 70
         enabled: false
-      staff_profile:
+      service_location:
         weight: 71
         enabled: false
-      starred_horizontal_rule:
+      service_location_address:
         weight: 72
         enabled: false
-      step:
+      situation_update:
         weight: 73
         enabled: false
-      step_by_step:
+      spanish_translation_summary:
         weight: 74
         enabled: false
-      table:
+      staff_profile:
         weight: 75
         enabled: false
-      wysiwyg:
+      starred_horizontal_rule:
         weight: 76
+        enabled: false
+      step:
+        weight: 77
+        enabled: false
+      step_by_step:
+        weight: 78
+        enabled: false
+      table:
+        weight: 79
+        enabled: false
+      wysiwyg:
+        weight: 80
         enabled: false
 field_type: entity_reference_revisions
