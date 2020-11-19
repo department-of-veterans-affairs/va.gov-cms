@@ -13,13 +13,11 @@ dependencies:
     - field.field.node.q_a.field_primary_category
     - field.field.node.q_a.field_related_benefit_hubs
     - field.field.node.q_a.field_related_information
-    - field.field.node.q_a.field_related_links
     - field.field.node.q_a.field_standalone_page
     - field.field.node.q_a.field_tags
     - node.type.q_a
   module:
     - entity_reference_revisions
-    - field_group
     - layout_builder
     - user
 third_party_settings:
@@ -90,7 +88,6 @@ hidden:
   field_primary_category: true
   field_related_benefit_hubs: true
   field_related_information: true
-  field_related_links: true
   field_standalone_page: true
   field_tags: true
   search_api_excerpt: true
