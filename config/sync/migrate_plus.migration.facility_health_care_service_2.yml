@@ -32,13 +32,18 @@ source:
       field_administration: Owner
 process:
   field_facility_location:
-    plugin: entity_lookup
-    ignore_case: true
-    value_key: title
-    entity_type: node
-    bundle_key: type
-    bundle: health_care_local_facility
-    source: field_facility_location
+    -
+      plugin: entity_lookup
+      ignore_case: true
+      value_key: title
+      entity_type: node
+      bundle_key: type
+      bundle: health_care_local_facility
+      source: field_facility_location
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Entity lookup for field_facility_location found nothing.'
   field_regional_health_service:
     -
       plugin: entity_lookup
@@ -57,12 +62,17 @@ process:
     default_value: rich_text
   field_body/value: field_body
   field_administration:
-    plugin: entity_lookup
-    entity_type: taxonomy_term
-    value_key: name
-    bundle_key: vid
-    bundle: administration
-    source: field_administration
+    -
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: name
+      bundle_key: vid
+      bundle: administration
+      source: field_administration
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Entity lookup for field_administration found nothing.'
   changed:
     plugin: callback
     callable: time
