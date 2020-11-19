@@ -4,6 +4,7 @@ namespace Drupal\va_gov_backend\Deploy;
 
 use Drupal\Core\Site\Settings;
 use Drupal\va_gov_backend\Deploy\Plugin\CMSExport;
+use Drupal\va_gov_backend\Deploy\Plugin\FeatureFlag;
 use Drupal\va_gov_backend\Deploy\Plugin\HealthCheck;
 use Drupal\va_gov_backend\Deploy\Plugin\MaintenanceMode;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,6 +45,7 @@ class DeployService {
   public static function deployPlugins() : array {
     return [
       CMSExport::class,
+      FeatureFlag::class,
       HealthCheck::class,
       MaintenanceMode::class,
     ];
