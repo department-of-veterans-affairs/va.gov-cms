@@ -5,15 +5,14 @@ namespace Drupal\va_gov_backend\Deploy\Plugin;
 use Drupal\Core\DependencyInjection\ContainerNotInitializedException;
 use Drupal\Core\StreamWrapper\StreamWrapperInterface;
 use Drupal\va_gov_backend\Deploy\FileOperationsTrait;
-use Drupal\va_gov_content_export\Archive\ArchiveArgs;
-use Drupal\va_gov_content_export\Archive\ArchiveArgsFactory;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\va_gov_flags\Export\ExportFeature;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * CMS Export plugin.
+ * Deploy Plugin for feature flags.
  */
-class CMSExport implements DeployPluginInterface {
+class FeatureFlag implements DeployPluginInterface {
   use FileOperationsTrait;
 
   /**
@@ -28,7 +27,7 @@ class CMSExport implements DeployPluginInterface {
    */
   public function match(Request $request): bool {
     $current_path = $request->getPathInfo();
-    if ($current_path === '/cms-export/content') {
+    if ($current_path === '/flags_list') {
       return TRUE;
     }
 
@@ -42,29 +41,13 @@ class CMSExport implements DeployPluginInterface {
     $this->registerStreamWrapper();
     try {
       if ($this->fileExists()) {
-        // The cms export tar file will exist if either
-        // a previous call created the file
-        // or the drush job va-gov-cms-export-generate-tar was call.
-        // The va-gov-cms-export-generate-tar drush job is called during deploy.
-        $url = $this->getUrl();
-
-        return RedirectResponse::create($url);
+        $file_content = $this->readFile();
+        return JsonResponse::fromJsonString($file_content);
       }
     }
     catch (ContainerNotInitializedException $e) {
       // This error can occur if the file doesn't exist.
     }
-  }
-
-  /**
-   * Get the Arguments used to find the tar archive.
-   *
-   * @return \Drupal\va_gov_content_export\Archive\ArchiveArgs
-   *   The arguments used to find the tar archive.
-   */
-  protected function getArchiveArgs() : ArchiveArgs {
-    $archiveArgsFactory = new ArchiveArgsFactory();
-    return $archiveArgsFactory->createContentArgs();
   }
 
   /**
@@ -84,9 +67,8 @@ class CMSExport implements DeployPluginInterface {
   /**
    * {@inheritDoc}
    */
-  protected function getOutputUri(): string {
-    $archiveArgs = $this->getArchiveArgs();
-    return $archiveArgs->getOutputPath();
+  protected function getOutputUri() : string {
+    return ExportFeature::getPath();
   }
 
 }

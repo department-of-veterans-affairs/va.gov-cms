@@ -28,13 +28,11 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Alert (single) | Reusable alert | field_alert_block_reference | Entity reference |  | 1 | Entity browser | Translatable |
 | Paragraph type | Audience & Topics | Audience | field_audience_selection | List (text) |  | 1 | Select list |  |
 | Paragraph type | Audience & Topics | Beneficiares | field_audience_beneficiares | Entity reference |  | 1 | Check boxes/radio buttons |  |
-| Paragraph type | Audience & Topics | Markup | field_markup | Markup |  | 1 | Markup | Translatable  |
+| Paragraph type | Audience & Topics | Markup | field_markup | Markup |  | 1 | Markup | Translatable |
 | Paragraph type | Audience & Topics | Topics | field_topics | Entity reference |  | 4 | Check boxes/radio buttons |  |
 | Paragraph type | Button | Button Label | field_button_label | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Button | Button Link | field_button_link | Link |  | 1 | Link |  |
 | Paragraph type | Checklist | Checklist sections | field_checklist_sections | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
-| Paragraph type | Checklist | Section Header | field_section_header | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Paragraph type | Checklist | Section Intro | field_section_intro | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Checklist section | Checklist items | field_checklist_items | Text (plain) |  | Unlimited | Textfield |  |
 | Paragraph type | Checklist section | Section Header | field_section_header | Text (plain) |  | 1 | Textfield with counter | Translatable |
 | Paragraph type | Checklist section | Section Intro | field_section_intro | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
@@ -119,3 +117,4 @@ Feature: Content model: Paragraph fields
 | Paragraph type | VAMC facility service (non-healthcare service) | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Rich text | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Rich text - char limit 1000 | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+
