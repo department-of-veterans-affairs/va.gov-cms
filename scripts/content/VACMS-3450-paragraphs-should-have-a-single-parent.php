@@ -26,13 +26,13 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\paragraphs\ParagraphInterface;
 
 /**
- * Log a message both to stdout and the Drupal logger.
+ * Log a message both to stdout and the Drupal logger.  NOT.
  *
  * @param string $message
  *   The message to log.
  */
 function logMessage(string $message): void {
-  \Drupal::logger(__FILE__)->notice($message);
+  // \Drupal::logger(__FILE__)->notice($message);
   echo $message . PHP_EOL;
 }
 
@@ -208,21 +208,11 @@ function replaceParagraph(EntityCloneInterface $cloner, ContentEntityInterface $
   $field_items = $field_value->getValue();
   $referenced_entities = $field_value->referencedEntities();
   $database = \Drupal::database();
-  $entity_storage = \Drupal::entityManager()->getStorage($entity->getEntityTypeId());
 
   foreach ($field_items as $key => $field_item) {
     if (intval($field_item['target_id']) === $pid) {
       $referenced_entity = $referenced_entities[$key];
       $clone = cloneParagraph($cloner, $referenced_entity, $entity->id(), $properties, $already_cloned);
-
-      if ($entity_storage instanceof NodeStorageInterface) {
-        $revision_ids = $entity_storage->revisionIds($entity);
-        foreach ($revision_ids as $revision_id) {
-          if ($revision_id !== $entity->getRevisionId()) {
-            $entity_storage->deleteRevisionId($revision_id);
-          }
-        }
-      }
 
       $query = $database->update("{$entity->getEntityTypeId()}__{$field_name}");
       $query->fields([
@@ -244,7 +234,6 @@ function replaceParagraph(EntityCloneInterface $cloner, ContentEntityInterface $
       $query->condition('delta', $key);
       $query->execute();
 
-      // $entity->save();
       logMessage("Updated node #{$entity->id()} \"{$entity->getTitle()}\" value #{$key} with new paragraph (was {$pid}, now {$clone->id()}).");
       break;
     }
@@ -267,7 +256,6 @@ function replaceParagraph(EntityCloneInterface $cloner, ContentEntityInterface $
 function processParagraph(string $parent_type, string $parent_field_name, int $target_id, array $parent_ids): void {
   $entity_type_manager = \Drupal::entityTypeManager();
   $cloner = new ContentEntitycloneBase($entity_type_manager, $parent_type);
-  $paragraph_storage = $entity_type_manager->getStorage('paragraph');
   $parent_storage = $entity_type_manager->getStorage($parent_type);
   $parents = $parent_storage->loadMultiple($parent_ids);
   $already_cloned = [];
@@ -276,6 +264,25 @@ function processParagraph(string $parent_type, string $parent_field_name, int $t
   ];
   foreach ($parents as $parent_id => $parent) {
     replaceParagraph($cloner, $parent, $parent_field_name, $target_id, $properties, $already_cloned);
+  }
+}
+
+/**
+ * Delete non-default revisions of the specified nodes.
+ *
+ * @param int[] $nids
+ *   The nodes whose revision histories should be deleted.
+ */
+function deleteRevisionHistoryForNodes(array $nids) {
+  $node_storage = \Drupal::entityManager()->getStorage('node');
+  $nodes = $node_storage->loadMultiple($nids);
+  foreach ($nodes as $node) {
+    $default_revision_id = $node->getRevisionId();
+    $revision_ids = array_diff($node_storage->revisionIds($node), [ $default_revision_id ]);
+    foreach ($revision_ids as $revision_id) {
+      logMessage("Deleting old revision #$revision_id for node #{$node->id()}.");
+      $node_storage->deleteRevision($revision_id);
+    }
   }
 }
 
@@ -316,6 +323,9 @@ function run() {
         // but we wanna give clones to its other parents.
         $cloned_parent_ids = array_slice($parent_ids, 1);
         processParagraph($parent_type, $parent_field_name, $target_id, $cloned_parent_ids);
+        // Those improperly cloned nodes should also lose their revision histories to avoid
+        // reoccurrences of this very problem.
+        deleteRevisionHistoryForNodes($cloned_parent_ids);
       }
     }
 
