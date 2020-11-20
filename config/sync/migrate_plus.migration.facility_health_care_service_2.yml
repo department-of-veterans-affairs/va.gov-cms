@@ -17,6 +17,7 @@ source:
   delimiter: ;
   enclosure: ''''
   header_row_count: 1
+  track_changes: true
   keys:
     - id
   column_names:
@@ -101,6 +102,16 @@ destination:
   plugin: 'entity:node'
   default_bundle: health_care_local_health_service
   validate: false
+  overwrite_properties:
+    - changed
+    - field_administration
+    - field_facility_location
+    - field_regional_health_service
+    - new_revision
+    - revision_default
+    - revision_log
+    - revision_timestamp
+    - uid
 migration_dependencies:
   required:
     - regional_health_care_service_region_keyed
