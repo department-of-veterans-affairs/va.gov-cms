@@ -336,8 +336,8 @@ function va_gov_backend_field_widget_moderation_state_default_form_alter(&$eleme
 
     // Set default new state to "Draft" when node is in "Published" state
     // to help prevent accidentally publishing un-proofed edits.
-    if ($element['current']['#markup'] === 'Published') {
-      $element['state']['#default_value'] = 'Draft';
+    if ($form_state->getFormObject()->getEntity()->isPublished()) {
+      $element['state']['#default_value'] = 'draft';
     }
 
     $element['state']['#title'] = t('Save as');
