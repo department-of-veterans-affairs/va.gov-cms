@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 Once merged, will this work cause changes that CMS users will notice?
-  - [ ] Y: Add the annoucements label to this issue for the PM and UX writer to review
+  - [ ] Y: Add the annoucements label to this issue for the PM and UX writer to review and include a design review in the ACs.
   - [ ] N: No futher action needed
 
 ## Background
@@ -43,6 +43,8 @@ We believe that _this_solution_ will achieve _this_outcome_. We'll know that to 
 (How will these assumptions be validated?)
 
 ## Acceptance Criteria
+- [ ] 👀 Needs design review because the work involves changes to labels or other design elements
+- [ ] 🙈 Can be implemented without consulting design team members
 * Testable_Outcome_X
 * Testable_Outcome_Y
 * Testable_Outcome_Z
