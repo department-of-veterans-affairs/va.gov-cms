@@ -8,7 +8,7 @@ Feature: Google Tag Manager dataLayer values are correct
   Scenario Outline: Google Tag Manager should be provided with an appropriate list of roles for the current user.
     Given I am logged in as a user with the <role> role
     And I am on "/user"
-    Then google tag manager data layer value for "userRoles" should be <roles>
+    Then the GTM data layer value for "userRoles" should be set to <roles>
     Examples:
     | role                | roles                                   |
     | "authenticated"     | '["authenticated"]'                     |
@@ -20,7 +20,7 @@ Feature: Google Tag Manager dataLayer values are correct
   Scenario Outline: Google Tag Manager should be provided with an appropriate hashed UID for the current user.
     Given I am logged in as a user with the <role> role
     And I am on "/user"
-    Then google tag manager data layer user id should be correct
+    Then the GTM data layer user id should be correctly hashed
     Examples:
     | role                |
     | "authenticated"     |
@@ -32,5 +32,5 @@ Feature: Google Tag Manager dataLayer values are correct
   Scenario: Google Tag Manager should indicate anonymous users.
     Given I am an anonymous user
     And I am on "/node/2"
-    Then google tag manager data layer value for "userRoles" should be '["anonymous"]'
-    And google tag manager data layer value for "userId" should be "X-zrZv_IbzjZUnhsbWlsecLbwjndTpG0ZynXOif7V-k"
+    Then the GTM data layer value for "userRoles" should be set to '["anonymous"]'
+    And the GTM data layer value for "userId" should be unset

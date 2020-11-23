@@ -1061,7 +1061,10 @@ function _va_gov_backend_gtm_settings() {
   $user = \Drupal::currentUser();
   $user_roles = $user->getRoles() ?? ['anonymous'];
   $sections['userRoles'] = json_encode($user_roles);
-  $sections['userId'] = Crypt::hashBase64((string) $user->id());
+  $uid = $user->id();
+  if ($uid > 0) {
+    $sections['userId'] = Crypt::hashBase64((string) $uid);
+  }
   return $sections;
 }
 
