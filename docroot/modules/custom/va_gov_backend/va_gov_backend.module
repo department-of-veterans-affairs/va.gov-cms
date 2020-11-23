@@ -21,6 +21,7 @@ use Drupal\user\RoleInterface;
 use Drupal\va_gov_build_trigger\Form\PreviewForm;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Component\Utility\Crypt;
 
 /**
  * Implements hook_help().
@@ -1057,8 +1058,10 @@ function _va_gov_backend_gtm_settings() {
     }
 
   }
-  $user_roles = \Drupal::currentUser()->getRoles() ?? ['anonymous'];
+  $user = \Drupal::currentUser();
+  $user_roles = $user->getRoles() ?? ['anonymous'];
   $sections['userRoles'] = json_encode($user_roles);
+  $sections['userId'] = Crypt::hashBase64((string) $user->id());
   return $sections;
 }
 

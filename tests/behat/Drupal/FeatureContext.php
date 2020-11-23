@@ -4,6 +4,7 @@ namespace CustomDrupal;
 
 use Behat\Behat\Context\SnippetAcceptingContext;
 use DevShop\Behat\DrupalExtension\Context\DevShopDrupalContext;
+use Drupal\Component\Utility\Crypt;
 
 /**
  * FeatureContext class defines custom step definitions for Behat.
@@ -378,6 +379,19 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
     $property_value = $this->getGoogleTagManagerValue($key);
     if ($value != $property_value) {
       throw new \Exception($value . ' is not the same as ' . $property_value);
+    }
+  }
+
+  /**
+   * Check that the Google Tag Manager dataLayer value is set correctly.
+   *
+   * @Given google tag manager data layer user id should be correct
+   */
+  public function googleTagManagerUserIdShouldBeCorrect() {
+    $property_value = $this->getGoogleTagManagerValue('userId');
+    $hashed_value = Crypt::hashBase64((string) $this->getUserManager()->getCurrentUser()->uid);
+    if ($hashed_value != $property_value) {
+      throw new \Exception("The userId value was \"{$property_value}\" , but it should be \"{$hashed_value}\".");
     }
   }
 
