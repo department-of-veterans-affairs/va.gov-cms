@@ -8,6 +8,14 @@
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
+ * Implements hook_page_attachments_alter().
+ */
+function vagovadmin_page_attachments_alter(array &$page) {
+  // Attach the helpdesk widget library to every page.
+  $page['#attached']['library'][] = 'vagovadmin/helpdesk-widget';
+}
+
+/**
  * Implements hook_preprocess_HOOK().
  */
 function vagovadmin_preprocess_paragraph(&$variables) {
