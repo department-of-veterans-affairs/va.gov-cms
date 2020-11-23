@@ -1,0 +1,14 @@
+uuid: a362a35e-6ea7-4243-a888-7d2925c3e9e6
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.office_content_creator
+  module:
+    - user
+id: user_add_role_action.office_content_creator
+label: 'Add the Content creator - Office role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: office_content_creator
