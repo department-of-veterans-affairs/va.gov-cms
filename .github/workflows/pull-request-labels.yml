@@ -1,0 +1,18 @@
+name: Apply Labels, owners and reviewers to pull request.
+
+on:
+
+  schedule:
+    - cron: '5 * * * *'
+
+jobs:
+  pr-team-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+      - uses: harupy/auto-labeling@master
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          label-pattern: '- \[(.*?)\] ?`(.+?)`' # matches '- [x] `label`'
