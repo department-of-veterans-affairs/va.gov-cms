@@ -1,0 +1,23 @@
+uuid: d762309e-b83f-40a7-af2c-252e80f51e1e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_clp_video_panel_opt_in
+    - node.type.campaign_landing_page
+id: node.campaign_landing_page.field_clp_video_panel_opt_in
+field_name: field_clp_video_panel_opt_in
+entity_type: node
+bundle: campaign_landing_page
+label: 'Add a video panel'
+description: 'Displays a YouTube video and an optional link to more videos.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

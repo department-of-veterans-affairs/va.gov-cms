@@ -15,12 +15,16 @@ dependencies:
     - field.field.node.campaign_landing_page.field_clp_stories_intro
     - field.field.node.campaign_landing_page.field_clp_stories_panel
     - field.field.node.campaign_landing_page.field_clp_stories_teasers
+    - field.field.node.campaign_landing_page.field_clp_video_panel_header
+    - field.field.node.campaign_landing_page.field_clp_video_panel_more_video
+    - field.field.node.campaign_landing_page.field_clp_video_panel_opt_in
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_header
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_intro
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_promos
     - field.field.node.campaign_landing_page.field_clp_why_this_matters
     - field.field.node.campaign_landing_page.field_hero_blurb
     - field.field.node.campaign_landing_page.field_hero_image
+    - field.field.node.campaign_landing_page.field_media
     - field.field.node.campaign_landing_page.field_primary_call_to_action
     - field.field.node.campaign_landing_page.field_secondary_call_to_action
     - node.type.campaign_landing_page
@@ -34,7 +38,7 @@ bundle: campaign_landing_page
 mode: default
 content:
   content_moderation_control:
-    weight: 0
+    weight: -20
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -65,6 +69,8 @@ content:
     region: content
   field_clp_spotlight_header:
     weight: 12
+  field_clp_video_panel_header:
+    weight: 115
     label: above
     settings:
       link_to_entity: false
@@ -81,6 +87,9 @@ content:
   field_clp_spotlight_link_teasers:
     type: entity_reference_revisions_entity_view
     weight: 13
+  field_clp_video_panel_more_video:
+    type: entity_reference_revisions_entity_view
+    weight: 118
     label: above
     settings:
       view_mode: default
@@ -143,6 +152,16 @@ content:
       link: ''
     third_party_settings: {  }
     region: content
+  field_clp_video_panel_opt_in:
+    weight: 114
+    label: above
+    settings:
+      format: default
+      format_custom_true: ''
+      format_custom_false: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
   field_clp_what_you_can_do_header:
     weight: 9
     label: above
@@ -190,6 +209,15 @@ content:
       link: false
     third_party_settings: {  }
     region: content
+  field_media:
+    weight: 117
+    label: above
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
   field_primary_call_to_action:
     type: entity_reference_revisions_entity_view
     weight: 4
@@ -209,7 +237,7 @@ content:
     third_party_settings: {  }
     region: content
   links:
-    weight: 1
+    weight: 100
     region: content
     settings: {  }
     third_party_settings: {  }
