@@ -71,7 +71,7 @@ Feature: Permissions
     And I visit the "edit" page for a node with the title <title>
     Then I should see "EDITORIAL WORKFLOW"
     And the "#edit-moderation-state-0-current" element should exist
-    And I should see "Change to"
+    And I should see "Save as"
     And the "#edit-moderation-state-0-state" element should exist
     And I should see "Revision log message"
 
@@ -85,15 +85,7 @@ Feature: Permissions
 
     Then I am logged in as a user with the "content_publisher" role
     And I visit the "edit" page for a node with the title <title>
-    Then "#edit-moderation-state-0-state" should not contain "published"
-    And I am viewing an <type> with the title <title>
-    And the "#edit-new-state" element should exist
-    And I should see "published" in the "#edit-new-state" element
-
-    And I select "Published" from "Change to"
-    And I fill in "Log message" with "Test publishing"
-    And I press "Apply"
-    Then I should see " has been updated."
+    Then "#edit-moderation-state-0-state" should contain "published"
 
     Examples:
       | type                             | title                                 |
