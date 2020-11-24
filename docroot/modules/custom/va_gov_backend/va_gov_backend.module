@@ -331,10 +331,16 @@ function va_gov_backend_form_field_config_edit_form_alter(&$form, FormStateInter
  * Implements hook_field_widget_WIDGET_TYPE_form_alter() for moderation_state widgets.
  */
 function va_gov_backend_field_widget_moderation_state_default_form_alter(&$element, FormStateInterface $form_state, $context) {
-  // Permit publication only from the proofing page, not the edit form.
   $base_form_id = $form_state->getBuildInfo()['base_form_id'];
   if ($base_form_id === 'node_form') {
-    unset($element['state']['#options']['published']);
+
+    // Set default new state to "Draft" when node is in "Published" state
+    // to help prevent accidentally publishing un-proofed edits.
+    if ($form_state->getFormObject()->getEntity()->isPublished()) {
+      $element['state']['#default_value'] = 'draft';
+    }
+
+    $element['state']['#title'] = t('Save as');
   }
 }
 

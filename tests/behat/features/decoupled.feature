@@ -14,21 +14,16 @@ Feature: The VA Website is generated inside the Drupal CMS code.
   Scenario: Log in, edit, publish, unpublish, and save nodes and see changes in the CMS and the front end website. Confirm cms menu items are in static site build.
     When I am logged in as a user with the "administrator" role
 
-    # Test content editing.
+    # Test content editing and publishing.
     And I am at "/health-care/about-va-health-benefits/vision-care/blind-low-vision-rehab-services"
     Then I should see "VA blind and low vision rehabilitation services"
     And I am at "node/2/edit"
     And I fill in "Page title" with "VA blind and low vision rehabilitation services - EDITED"
+    And I select "Published" from "edit-moderation-state-0-state"
+    And I fill in "Revision log message" with "Test publishing"
     And I press "Save"
     Then I should see "Benefits detail page VA blind and low vision rehabilitation services - EDITED has been updated."
     And I should see "Recent changes" in the ".view-right-sidebar-latest-revision" element
-
-    # Test content publishing.
-    And I am at "/node/2/latest"
-    And the "#edit-new-state" element should exist
-    And I should see "published" in the "#edit-new-state" element
-    And I fill in "Change to" with "published"
-    Then I press "Apply"
 
     # Test content unpublishing.
     Then I set the node with title "VA health care" to "unpublished"

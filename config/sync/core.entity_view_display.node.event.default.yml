@@ -38,7 +38,7 @@ third_party_settings:
       children:
         - field_description
       parent_name: ''
-      weight: 1
+      weight: 0
       format_type: fieldset
       format_settings:
         id: ''
@@ -56,7 +56,7 @@ third_party_settings:
         - group_location
         - group_registration_related
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         id: ''
@@ -99,7 +99,7 @@ third_party_settings:
         - field_featured
         - field_order
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -114,11 +114,6 @@ targetEntityType: node
 bundle: event
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_additional_information_abo:
     weight: 29
     label: above
@@ -150,6 +145,7 @@ content:
       force_chronological: false
       format_type: medium
       timezone_override: ''
+      add_classes: 0
     third_party_settings: {  }
   field_description:
     weight: 15
@@ -257,6 +253,7 @@ content:
     type: link
     region: content
 hidden:
+  content_moderation_control: true
   field_administration: true
   field_date: true
   field_listing: true

@@ -18,13 +18,8 @@ targetEntityType: node
 bundle: support_service
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_link:
-    weight: 1
+    weight: 0
     label: above
     settings:
       trim_length: 80
@@ -36,7 +31,7 @@ content:
     type: link
     region: content
   field_phone_number:
-    weight: 2
+    weight: 1
     label: above
     settings:
       title: ''
@@ -44,6 +39,7 @@ content:
     type: telephone_link
     region: content
 hidden:
+  content_moderation_control: true
   field_administration: true
   field_office: true
   field_page_last_built: true

@@ -22,13 +22,8 @@ targetEntityType: node
 bundle: campaign_landing_page
 mode: default
 content:
-  content_moderation_control:
-    weight: -20
-    settings: {  }
-    third_party_settings: {  }
-    region: content
   field_administration:
-    weight: 102
+    weight: 1
     label: above
     settings:
       link: true
@@ -36,7 +31,7 @@ content:
     type: entity_reference_label
     region: content
   field_benefit_categories:
-    weight: 113
+    weight: 10
     label: above
     settings:
       link: true
@@ -44,7 +39,7 @@ content:
     type: entity_reference_label
     region: content
   field_clp_what_you_can_do_header:
-    weight: 111
+    weight: 8
     label: above
     settings:
       link_to_entity: false
@@ -52,14 +47,14 @@ content:
     type: string
     region: content
   field_clp_what_you_can_do_intro:
-    weight: 110
+    weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_clp_what_you_can_do_promos:
-    weight: 112
+    weight: 9
     label: above
     settings:
       link: true
@@ -67,14 +62,14 @@ content:
     type: entity_reference_label
     region: content
   field_clp_why_this_matters:
-    weight: 106
+    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_hero_blurb:
-    weight: 103
+    weight: 2
     label: above
     settings:
       link_to_entity: false
@@ -83,7 +78,7 @@ content:
     region: content
   field_hero_image:
     type: entity_reference_entity_view
-    weight: 105
+    weight: 4
     label: above
     settings:
       view_mode: default
@@ -92,7 +87,7 @@ content:
     region: content
   field_primary_call_to_action:
     type: entity_reference_revisions_entity_view
-    weight: 104
+    weight: 3
     label: above
     settings:
       view_mode: default
@@ -101,7 +96,7 @@ content:
     region: content
   field_secondary_call_to_action:
     type: entity_reference_revisions_entity_view
-    weight: 107
+    weight: 6
     label: above
     settings:
       view_mode: default
@@ -109,9 +104,10 @@ content:
     third_party_settings: {  }
     region: content
   links:
-    weight: 100
+    weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
+  content_moderation_control: true
   search_api_excerpt: true
