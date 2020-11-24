@@ -17,6 +17,8 @@ Feature: Content model: Media fields
 | Media type | Image | Media submission guidelines | field_media_submission_guideline | Markup |  | 1 | Markup | Translatable |
 | Media type | Image | Owner | field_owner | Entity reference | Required | 1 | Select list | Translatable |
 | Media type | Image | Reusable | field_media_in_library | Boolean |  | 1 | -- Disabled -- |  |
+| Media type | Video | Description | field_description | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
+| Media type | Video | Duration | field_duration | Hours Minutes and Seconds |  | 1 | Hour Minutes and Seconds |  |
 | Media type | Video | Media submission guidelines | field_media_submission_guideline | Markup |  | 1 | Markup | Translatable |
 | Media type | Video | Owner | field_owner | Entity reference | Required | 1 | Select list | Translatable |
 | Media type | Video | Reusable | field_media_in_library | Boolean |  | 1 | -- Disabled -- | Translatable |
