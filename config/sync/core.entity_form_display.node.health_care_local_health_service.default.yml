@@ -15,7 +15,9 @@ dependencies:
     - field.field.node.health_care_local_health_service.field_service_location
     - field.field.node.health_care_local_health_service.field_walk_ins_accepted
     - node.type.health_care_local_health_service
+    - workflows.workflow.editorial
   module:
+    - content_moderation
     - entity_browser_entity_form
     - field_group
     - ief_table_view_mode
@@ -28,7 +30,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -60,7 +62,7 @@ third_party_settings:
         - group_appointments
         - group_scheduling
       parent_name: ''
-      weight: 4
+      weight: 2
       format_type: html_element
       format_settings:
         element: div
@@ -95,7 +97,7 @@ third_party_settings:
         - field_facility_service_loc_help
         - field_service_location
       parent_name: ''
-      weight: 5
+      weight: 3
       format_type: html_element
       format_settings:
         element: div
@@ -114,7 +116,7 @@ third_party_settings:
       children:
         - field_body
       parent_name: ''
-      weight: 3
+      weight: 1
       format_type: fieldset
       format_settings:
         description: ''
@@ -128,7 +130,7 @@ third_party_settings:
         - field_facility_location
         - field_regional_health_service
       parent_name: ''
-      weight: 1
+      weight: 0
       format_type: details
       format_settings:
         description: 'This should generally not be changed after the content is created.'
@@ -138,6 +140,20 @@ third_party_settings:
         open: false
       label: 'Health service and facility basic info'
       region: content
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
 id: node.health_care_local_health_service.default
 targetEntityType: node
 bundle: health_care_local_health_service
@@ -237,9 +253,14 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   created: true
-  moderation_state: true
   path: true
   promote: true
   status: true
