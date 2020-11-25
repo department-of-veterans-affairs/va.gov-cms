@@ -40,7 +40,7 @@ third_party_settings:
         - field_meta_title
         - field_description
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -56,7 +56,7 @@ third_party_settings:
         - field_mental_health_phone
         - field_facility_hours
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: details
       format_settings:
         id: ''
@@ -71,7 +71,7 @@ third_party_settings:
         - field_operating_status_facility
         - field_operating_status_more_info
       parent_name: ''
-      weight: 4
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -80,14 +80,9 @@ third_party_settings:
       label: 'Operating status'
       region: content
     group_social_media:
-      children:
-        - field_facebook
-        - field_flickr
-        - field_instagram
-        - field_twitter
-        - field_email_subscription
+      children: {  }
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: details
       format_settings:
         id: ''
@@ -101,7 +96,7 @@ third_party_settings:
       children:
         - field_location_services
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: details
       format_settings:
         id: ''
@@ -116,11 +111,6 @@ targetEntityType: node
 bundle: health_care_local_facility
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_address:
     weight: 8
     label: above
@@ -154,7 +144,7 @@ content:
     type: string
     region: content
   field_intro_text:
-    weight: 2
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -168,7 +158,7 @@ content:
     third_party_settings: {  }
     region: content
   field_media:
-    weight: 1
+    weight: 0
     label: hidden
     settings:
       image_style: crop_3_2
@@ -215,6 +205,7 @@ content:
     type: telephone_link
     region: content
 hidden:
+  content_moderation_control: true
   field_administration: true
   field_facility_classification: true
   field_local_health_care_service_: true

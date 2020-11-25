@@ -324,21 +324,21 @@ display:
           plugin_id: field
       filters: {  }
       sorts:
-        changed:
-          id: changed
-          table: node_field_revision
-          field: changed
-          order: DESC
-          entity_type: node
-          entity_field: changed
-          plugin_id: date
+        revision_timestamp:
+          id: revision_timestamp
+          table: node_revision
+          field: revision_timestamp
           relationship: none
           group_type: group
           admin_label: ''
+          order: DESC
           exposed: false
           expose:
             label: ''
           granularity: second
+          entity_type: node
+          entity_field: revision_timestamp
+          plugin_id: date
       title: ''
       header: {  }
       footer: {  }

@@ -31,7 +31,7 @@ third_party_settings:
     group_meta:
       children: {  }
       parent_name: ''
-      weight: 11
+      weight: 17
       format_type: fieldset
       format_settings:
         description: ''
@@ -44,20 +44,15 @@ targetEntityType: node
 bundle: person_profile
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_body:
-    weight: 7
+    weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_complete_biography:
-    weight: 10
+    weight: 9
     label: above
     settings:
       use_description_as_link_text: true
@@ -66,28 +61,28 @@ content:
     region: content
   field_description:
     type: string
-    weight: 5
+    weight: 4
     region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
   field_email_address:
-    weight: 9
+    weight: 8
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_intro_text:
-    weight: 6
+    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_last_name:
-    weight: 3
+    weight: 2
     label: above
     settings:
       link_to_entity: false
@@ -95,7 +90,7 @@ content:
     type: string
     region: content
   field_media:
-    weight: 1
+    weight: 0
     label: above
     settings:
       image_style: 2_3_medium_thumbnail
@@ -104,7 +99,7 @@ content:
     type: media_thumbnail
     region: content
   field_name_first:
-    weight: 2
+    weight: 1
     label: above
     settings:
       link_to_entity: false
@@ -112,7 +107,7 @@ content:
     type: string
     region: content
   field_phone_number:
-    weight: 8
+    weight: 7
     label: above
     settings:
       title: ''
@@ -120,7 +115,7 @@ content:
     type: telephone_link
     region: content
   field_suffix:
-    weight: 4
+    weight: 3
     label: above
     settings:
       link_to_entity: false
@@ -128,6 +123,7 @@ content:
     type: string
     region: content
 hidden:
+  content_moderation_control: true
   field_administration: true
   field_meta_tags: true
   field_office: true
