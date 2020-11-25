@@ -40,7 +40,7 @@ class StaticEncoder extends SerializationJsonEncoder {
   protected static $format = ['static_html'];
 
   /**
-   * MyModuleService constructor.
+   * StaticEncoder constructor.
    *
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger service.
