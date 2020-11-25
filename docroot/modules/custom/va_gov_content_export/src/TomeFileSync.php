@@ -16,6 +16,20 @@ use Drupal\tome_sync\FileSync;
 class TomeFileSync extends FileSync {
 
   /**
+   * The filesystem service.
+   *
+   * @var Drupal\Core\File\FileSystemInterface
+   */
+  protected $fileSystem;
+
+  /**
+   * Class constructor.
+   */
+  public function __construct(FileSystemInterface $fileSystem) {
+    $this->fileSystem = $fileSystem;
+  }
+
+  /**
    * {@inheritDoc}
    */
   protected function getFileDirectory() {
@@ -28,7 +42,7 @@ class TomeFileSync extends FileSync {
    */
   protected function ensureFileDirectory() {
     $file_directory = $this->getFileDirectory();
-    FileSystemInterface::prepareDirectory($file_directory, FileSystemInterface::CREATE_DIRECTORY);
+    $this->fileSystem->prepareDirectory($file_directory, FileSystemInterface::CREATE_DIRECTORY);
 
     // Here is the overridden line of code.  Added FALSE.
     // file_save_htaccess($file_directory, FALSE);.
