@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Show deploy status messages to the user.
  */
-class StaticSubscriber implements EventSubscriberInterface {
+class DeployStatusMessagesSubscriber implements EventSubscriberInterface {
   use StringTranslationTrait;
 
   /**
@@ -47,7 +47,7 @@ class StaticSubscriber implements EventSubscriberInterface {
   protected $stringTranslation;
 
   /**
-   * StaticSubscriber constructor.
+   * DeployStatusMessagesSubscriber constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The configuration factory service.

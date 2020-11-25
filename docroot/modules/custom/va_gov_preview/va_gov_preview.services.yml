@@ -5,7 +5,7 @@ services:
     tags:
       - { name: encoder, priority: 10, format: static_html }
   va_gov_preview_event_subscriber:
-    class: Drupal\va_gov_preview\EventSubscriber\StaticSubscriber
+    class: Drupal\va_gov_preview\EventSubscriber\DeployStatusMessagesSubscriber
     arguments: ['@config.factory', '@current_user', '@messenger', '@string_translation']
     tags:
       - { name: event_subscriber }
