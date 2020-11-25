@@ -2,7 +2,6 @@
 
 namespace Drupal\va_gov_build_trigger\Form;
 
-use Drupal;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
