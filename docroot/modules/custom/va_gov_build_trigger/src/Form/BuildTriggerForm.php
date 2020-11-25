@@ -2,10 +2,11 @@
 
 namespace Drupal\va_gov_build_trigger\Form;
 
-use Drupal\Core\Url;
 use Drupal;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 
 /**
  * Implements build trigger form.
@@ -78,14 +79,12 @@ class BuildTriggerForm extends FormBase {
         $description = t('Environment not detected. Perform a content release by running the <pre>composer va:web:build</pre> command.');
     }
 
+    $target_url = Url::fromUri('http://' . $target, ['attributes' => ['target' => '_blank']]);
+    $target_link = Link::fromTextAndUrl($target, $target_url);
     $form['environment_target'] = [
       '#type' => 'item',
       '#title' => t('Environment Target'),
-      '#markup' => Drupal::l($target, Url::fromUri('http://' . $target), [
-        'attributes' => [
-          'target' => '_blank',
-        ],
-      ]),
+      '#markup' => $target_link->toString(),
       '#description' => $description,
     ];
     return $form;
