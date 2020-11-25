@@ -3,10 +3,10 @@
 namespace Drupal\va_gov_resources_and_support\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\node\NodeInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -65,19 +65,29 @@ class WhereDoesThisAppear extends BlockBase implements ContainerFactoryPluginInt
    * {@inheritdoc}
    */
   public function build() {
-    $node_data = $this->getPlacements();
-    if (!$node_data) {
+    $links = $this->getPlacements();
+    if (!$links) {
       return;
     }
-    $links = $node_data['node_links'];
     $block = [];
-    $content['fieldset'] = [
+    $block = [
       '#type' => 'details',
       '#open' => FALSE,
       '#title' => $this->configuration['label'],
       '#prefix' => '<div id="names-fieldset-wrapper">',
       '#suffix' => '</div>',
-      'list' => [
+      '#cache' => [
+        // Using paragraph entity id tags won't update block
+        // when new paragraphs are added to QA group paragraphs.
+        // The only way to account for this is to use
+        // entity_type:bundle pattern, e.g.: ['paragraph_list:q_a_group'].
+        // This won't be available until we upgrade to drupal 8.9.
+        // See: https://www.drupal.org/project/drupal/issues/2145751
+        // For now, lightest approach is to update block when any paragraph
+        // is updated / created / deleted.
+        'tags' => ['paragraph_list'],
+      ],
+      'links' => [
         '#prefix' => $this->t('Before making significant changes, you may want to consider how it might affect other content.'),
         '#theme' => 'item_list',
         '#list_type' => 'ul',
@@ -85,12 +95,6 @@ class WhereDoesThisAppear extends BlockBase implements ContainerFactoryPluginInt
         '#items' => $links,
       ],
     ];
-
-    $block['#cache'] = [
-      'contexts' => ['paragraph_list'],
-    ];
-
-    $block['#markup'] = render($content);
 
     return $block;
   }
@@ -122,7 +126,7 @@ class WhereDoesThisAppear extends BlockBase implements ContainerFactoryPluginInt
    * Get the nodes where item appears.
    *
    * @return array
-   *   Node ids and node objects.
+   *   Links to the nodes where the qa item appears.
    */
   public function getPlacements() {
     $node = $this->getNode();
@@ -134,13 +138,17 @@ class WhereDoesThisAppear extends BlockBase implements ContainerFactoryPluginInt
     $qa_query = $this->entityTypeManager->getStorage('paragraph')->getQuery()
       ->condition('field_q_as', [$nid], 'IN');
     $qa_entities = $qa_query->execute();
+    if (!$qa_entities) {
+      return NULL;
+    }
 
     $node_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('field_q_a_groups', $qa_entities, 'IN');
     $nids = $node_query->execute();
-    foreach ($nids as $nid) {
-      $nodes['tag_nids'][] = 'node:' . $nid;
+    if (!$nids) {
+      return NULL;
     }
+
     $loaded_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
     $links = [];
 
@@ -148,8 +156,7 @@ class WhereDoesThisAppear extends BlockBase implements ContainerFactoryPluginInt
       $links[] = $loaded_node->toLink();
     }
 
-    $nodes['node_links'] = $links;
-    return $nodes;
+    return $links;
   }
 
 }
