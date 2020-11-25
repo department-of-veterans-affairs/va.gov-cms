@@ -1,6 +1,7 @@
 services:
   serializer.encoder.va_gov_preview:
     class: Drupal\va_gov_preview\Encoder\StaticEncoder
+    arguments: ['@messenger', '@string_translation']
     tags:
       - { name: encoder, priority: 10, format: static_html }
   va_gov_preview_event_subscriber:
