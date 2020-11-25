@@ -71,7 +71,7 @@ function _va_gov_govdelivery_build_alert_computed_field_data(NodeInterface $node
       $vamcs_op_status_ids[$key] = !empty($vamcs_op_status_id['target_id']) ? $vamcs_op_status_id['target_id'] : '';
     }
     // Get a node storage object.
-    $node_storage = \Drupal::entityManager()->getStorage('node');
+    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
 
     $vamc_office_nids = [];
     $computed_return = [];
