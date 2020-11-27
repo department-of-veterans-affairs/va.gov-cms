@@ -5050,17 +5050,17 @@
         },
         {
             "name": "drupal/environment_indicator",
-            "version": "4.0.1",
+            "version": "4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/environment_indicator.git",
-                "reference": "4.0.1"
+                "reference": "4.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/environment_indicator-4.0.1.zip",
-                "reference": "4.0.1",
-                "shasum": "a3c66dc5e703f35e1a0f8e91bd97fb11d04f03a6"
+                "url": "https://ftp.drupal.org/files/projects/environment_indicator-4.0.2.zip",
+                "reference": "4.0.2",
+                "shasum": "98fe90da64cf2417b3fd72bde0da20c8cfe75d62"
             },
             "require": {
                 "drupal/core": "^8.8 || ^9"
@@ -5068,8 +5068,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.0.1",
-                    "datestamp": "1602701107",
+                    "version": "4.0.2",
+                    "datestamp": "1605388690",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5526,11 +5526,11 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/graphql_metatag.git",
-                "reference": "48140c3f30c00ebd062e324d72b49ec985ea541f"
+                "reference": "b2c8303c31a4bf5e4e15e01b138ccfb8de47aaec"
             },
             "require": {
-                "drupal/core": "~8.0",
-                "drupal/graphql_core": "*",
+                "drupal/core": "^8 || ^9",
+                "drupal/graphql_core": "~3.0",
                 "drupal/metatag": "*"
             },
             "type": "drupal-module",
@@ -5539,30 +5539,42 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.x-dev",
-                    "datestamp": "1543855680",
+                    "version": "8.x-1.0-alpha2+2-dev",
+                    "datestamp": "1605979090",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
                     "name": "fubhy",
                     "homepage": "https://www.drupal.org/user/761344"
+                },
+                {
+                    "name": "klausi",
+                    "homepage": "https://www.drupal.org/user/262198"
+                },
+                {
+                    "name": "luigisa",
+                    "homepage": "https://www.drupal.org/user/1022312"
+                },
+                {
+                    "name": "pmelab",
+                    "homepage": "https://www.drupal.org/user/555322"
                 }
             ],
-            "description": "Exposes the Drupal Metatag data through a GraphQL schema.",
-            "homepage": "https://github.com/drupal-graphql/graphql-metatag",
+            "description": "Adds support for metatags.",
+            "homepage": "https://www.drupal.org/project/graphql_metatag",
             "support": {
                 "source": "https://git.drupalcode.org/project/graphql_metatag"
             },
-            "time": "2018-06-13T18:24:32+00:00"
+            "time": "2020-11-21T17:17:48+00:00"
         },
         {
             "name": "drupal/health_check_url",
@@ -21277,6 +21289,7 @@
         "drupal/fast_404": 15,
         "drupal/fieldhelptext": 10,
         "drupal/graphql_metatag": 20,
+        "drupal/image_style_warmer": 10,
         "drupal/libraries": 15,
         "drupal/markup": 10,
         "drupal/mass_pwreset": 15,
