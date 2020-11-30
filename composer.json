@@ -16,10 +16,9 @@
         "bower-asset/blazy": "^1.8",
         "bower-asset/cropper": "^4.1",
         "bower-asset/dropzone": "^5.5",
-        "composer/installers": "^1.2",
+        "composer/installers": "^1.7",
         "cweagans/composer-patches": "^1.6.4",
         "devshop/behat-drupal-extension": "dev-rewrite-last-page-output-links",
-        "drupal-composer/drupal-scaffold": "^2.0.0",
         "drupal/address": "^1.4",
         "drupal/admin_toolbar": "^1.24",
         "drupal/allowed_formats": "^1.3",
@@ -37,7 +36,8 @@
         "drupal/config_split": "^1.4",
         "drupal/consumers": "1.11.0",
         "drupal/content_lock": "^2.0@alpha",
-        "drupal/core": "8.8.11",
+        "drupal/core-composer-scaffold": "^8.8",
+        "drupal/core-recommended": "8.9.10",
         "drupal/crop": "^2.0",
         "drupal/ctools_block": "^3.2",
         "drupal/devel": "^2.1",
@@ -128,7 +128,6 @@
         "drupal/workflow_assignments": "1.x-dev",
         "drush-ops/behat-drush-endpoint": "^9.4.0",
         "drush/drush": "~8",
-        "guzzlehttp/guzzle": "^6.0@dev",
         "michelf/php-markdown": "^1.8",
         "mouf/nodejs-installer": "^1.0",
         "npm-asset/yarn": "1.12.3",
@@ -141,7 +140,6 @@
         "symfony/config": "^3.4",
         "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^5.1",
-        "twig/twig": "^1.38.2",
         "va-gov/web": "^0.1",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -190,9 +188,21 @@
     },
     "extra": {
         "drupal-scaffold": {
-            "excludes": [
-                ".htaccess"
-            ]
+            "file-mapping": {
+                "[web-root]/.editorconfig": false,
+                "[web-root]/.gitattributes": false,
+                "[web-root]/.htaccess": false,
+                "[web-root]/INSTALL.txt": false,
+                "[web-root]/README.txt": false,
+                "[web-root]/example.gitignore": false,
+                "[web-root]/modules/README.txt": false,
+                "[web-root]/profiles/README.txt": false,
+                "[web-root]/sites/README.txt": false,
+                "[web-root]/themes/README.txt": false
+            },
+            "locations": {
+                "web-root": "docroot/"
+            }
         },
         "mouf": {
             "nodejs": {
@@ -328,7 +338,6 @@
             "echo \"export PATH=${PATH}\""
         ],
         "post-install-cmd": [
-            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
             "mkdir --parents docroot/profiles",
             "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
@@ -341,7 +350,6 @@
             "@va:web:install"
         ],
         "post-update-cmd": [
-            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
             "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\""
         ],
