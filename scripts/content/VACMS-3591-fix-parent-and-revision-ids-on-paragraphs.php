@@ -28,6 +28,18 @@ use Drupal\entity_clone\EntityClone\Content\ContentEntityCloneBase;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\paragraphs\ParagraphInterface;
 
+global $updates;
+$updates = [
+  'node' => [],
+  'paragraphs_item' => [],
+  'paragraphs_item_field_data' => [],
+  'paragraphs_item_revision_field_data' => [],
+];
+foreach ($updates as $key => $value) {
+  $updates[$key]['items'] = [];
+  $updates[$key]['label'] = $key;
+}
+
 /**
  * Log a message both to stdout and the Drupal logger.  NOT.
  *
@@ -130,12 +142,14 @@ function getMultiplyParentedParagraphFieldRows(string $parent_type, string $pare
  *   The unique identifier of the paragraph to repair.
  */
 function repairParagraph(string $parent_type, string $parent_field_name, int $parent_id, int $paragraph_id) {
+  global $updates;
   $database = \Drupal::database();
   $entity_type_manager = \Drupal::entityTypeManager();
   $parent_storage = $entity_type_manager->getStorage($parent_type);
   $parent = $parent_storage->load($parent_id);
   $parent_field = $parent->get($parent_field_name);
   $parent_field_value = $parent_field->getValue();
+
   foreach ($parent_field_value as $delta => $value) {
     if ((int) $value['target_id'] === $paragraph_id) {
       $revision_id = (int) $value['target_revision_id'];
@@ -160,6 +174,8 @@ function repairParagraph(string $parent_type, string $parent_field_name, int $pa
         $query->condition('id', $paragraph_id);
         $query->condition('revision_id', $row_revision_id);
         $query->execute();
+        $updates['node']['items'][] = $parent_id;
+        $updates['paragraphs_item']['items'][] = $paragraph_id;
       }
 
       // Check the corresponding row in the paragraphs_item_field_data table.
@@ -190,6 +206,8 @@ function repairParagraph(string $parent_type, string $parent_field_name, int $pa
         $query->condition('revision_id', $row_revision_id);
         $query->condition('parent_id', $row_parent_id);
         $query->execute();
+        $updates['node']['items'][] = $parent_id;
+        $updates['paragraphs_item_field_data']['items'][] = $paragraph_id;
       }
 
       // Check the corresponding row in the paragraphs_item_revision_field_data table.
@@ -220,6 +238,8 @@ function repairParagraph(string $parent_type, string $parent_field_name, int $pa
         $query->condition('revision_id', $row_revision_id);
         $query->condition('parent_id', $row_parent_id);
         $query->execute();
+        $updates['node']['items'][] = $parent_id;
+        $updates['paragraphs_item_revision_field_data']['items'][] = $paragraph_id;
       }
 
     }
@@ -272,4 +292,18 @@ function run() {
   }
 }
 
+/**
+ * Print a summary.
+ */
+function printSummary() {
+  global $updates;
+  foreach ($updates as $key => $value) {
+    $updates[$key]['items'] = array_unique($updates[$key]['items']);
+    $updates[$key]['count'] = count($updates[$key]['items']);
+    $updates[$key]['list'] = implode(', ', $updates[$key]['items']);
+    logMessage($updates[$key]['count'] ? "{$updates[$key]['count']} {$updates[$key]['label']} items updated: {$updates[$key]['list']}" : "{$updates[$key]['count']} {$updates[$key]['label']} items updated.");
+  }
+}
+
 run();
+printSummary();
