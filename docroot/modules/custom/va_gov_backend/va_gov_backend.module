@@ -182,12 +182,91 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
 }
 
 /**
+ * Used to return clp panel fields and paragraphs.
+ *
+ * @return array
+ *   The clp panel field data.
+ */
+function _va_gov_backend_get_clp_panels() {
+  // Add clp panels data to this array to enable state management.
+  // Make sure required fields are not set to required in config when using
+  // this pattern.
+  return [
+    'trigger_groups' => [
+      [
+        'trigger' => 'field_clp_spotlight_opt_in',
+        'toggle_fields' => [
+          'field_clp_spotlight_header' => [
+            'required' => TRUE,
+          ],
+          'field_clp_spotlight_intro_text' => [
+            'required' => TRUE,
+          ],
+        ],
+        'toggle_paragraphs' => [
+          'field_clp_spotlight_cta' => [
+            'required' => FALSE,
+          ],
+          'field_clp_spotlight_link_teasers' => [
+            'required' => FALSE,
+          ],
+        ],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Toggles field states when selector element is toggled.
+ *
+ * @param array $form
+ *   The exposed widget form array.
+ * @param array $trigger_groups
+ *   The array containing the trigger and subject fields.
+ */
+function _va_gov_toggle_field_states(array &$form, array $trigger_groups) {
+  if (isset($form[$trigger_groups['trigger']])) {
+
+    foreach ($trigger_groups['toggle_fields'] as $key => $field) {
+      $form[$key]['widget']['0']['value']['#states'] = [
+        'required' => [
+          ['input[name="' . $trigger_groups['trigger'] . '[value]"]' => ['checked' => $field['required']]],
+        ],
+        'visible' => [
+          ['input[name="' . $trigger_groups['trigger'] . '[value]"]' => ['checked' => TRUE]],
+        ],
+
+      ];
+    }
+    foreach ($trigger_groups['toggle_paragraphs'] as $paragraph_key => $paragraph_field) {
+      $form[$paragraph_key]['#states'] = [
+        'required' => [
+          ['input[name="' . $trigger_groups['trigger'] . '[value]"]' => ['checked' => $paragraph_field['required']]],
+        ],
+        'visible' => [
+         ['input[name="' . $trigger_groups['trigger'] . '[value]"]' => ['checked' => TRUE]],
+        ],
+
+      ];
+    }
+  }
+}
+
+/**
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
   // Disable path alias modification after lc node is published.
   _va_gov_disable_alias_widget($form, $form_state);
+
+  // Gather the clp toggles.
+  $clp_toggles = _va_gov_backend_get_clp_panels();
+
+  foreach ($clp_toggles['trigger_groups'] as $clp_toggle) {
+    // Enable the fields.
+    _va_gov_toggle_field_states($form, $clp_toggle);
+  }
 
   // Add states + custom validation if the Standalone Page field is present.
   if (isset($form['field_standalone_page'])) {
