@@ -118,60 +118,6 @@ function getMultiplyParentedParagraphFieldRows(string $parent_type, string $pare
 }
 
 /**
- * Replace a paragraph with its clone.
- *
- * @param \Drupal\entity_clone\EntityClone\EntityCloneInterface $cloner
- *  A cloner object.
- * @param \Drupal\Core\Entity\ContentEntityInterface $entity
- *  The host entity.
- * @param string $field_name
- *  The name of the paragraph field.
- * @param int $pid
- *  The paragraph entity ID to clone and replace.
- * @param array $properties
- *  Properties used to create the clone paragraph.
- * @param array& $already_cloned
- *  A list of entities already cloned, for use by entity_clone.
- */
-function replaceParagraph(EntityCloneInterface $cloner, ContentEntityInterface $entity, string $field_name, int $pid, array $properties, array &$already_cloned): void {
-  $field_value = $entity->get($field_name);
-  $field_items = $field_value->getValue();
-  $referenced_entities = $field_value->referencedEntities();
-  $database = \Drupal::database();
-
-  foreach ($field_items as $key => $field_item) {
-    if (intval($field_item['target_id']) === $pid) {
-      $referenced_entity = $referenced_entities[$key];
-      $clone = cloneParagraph($cloner, $referenced_entity, $entity->id(), $properties, $already_cloned);
-
-      $query = $database->update("{$entity->getEntityTypeId()}__{$field_name}");
-      $query->fields([
-        "{$field_name}_target_id" => $clone->id(),
-        "{$field_name}_target_revision_id" => $clone->getRevisionId(),
-      ]);
-      $query->condition('entity_id', $entity->id());
-      $query->condition('revision_id', $entity->getRevisionId());
-      $query->condition('delta', $key);
-      $query->execute();
-
-      $query = $database->update("{$entity->getEntityTypeId()}_revision__{$field_name}");
-      $query->fields([
-        "{$field_name}_target_id" => $clone->id(),
-        "{$field_name}_target_revision_id" => $clone->getRevisionId(),
-      ]);
-      $query->condition('entity_id', $entity->id());
-      $query->condition('revision_id', $entity->getRevisionId());
-      $query->condition('delta', $key);
-      $query->execute();
-
-      logMessage("Updated node #{$entity->id()} \"{$entity->getTitle()}\" value #{$key} with new paragraph (was {$pid}, now {$clone->id()}).");
-      break;
-    }
-  }
-
-}
-
-/**
  * Repair a specific paragraph whose parent references are messed up.
  *
  * @param string $parent_type
