@@ -1,0 +1,23 @@
+uuid: 9ca65e53-4d76-4a80-a72d-4210eaa3e9b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_clp_spotlight_opt_in
+    - node.type.campaign_landing_page
+id: node.campaign_landing_page.field_clp_spotlight_opt_in
+field_name: field_clp_spotlight_opt_in
+entity_type: node
+bundle: campaign_landing_page
+label: 'Add a Spotlight panel'
+description: 'Highlight additional information for your audience.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
