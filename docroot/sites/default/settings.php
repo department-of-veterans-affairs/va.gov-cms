@@ -146,6 +146,9 @@ $facility_migrations = [
   'va_node_facility_vet_centers',
 ];
 
+// Use classic node migrations instead of complete.
+// cf. https://www.drupal.org/node/3105503
+$settings['migrate_node_migrate_type_classic'] = TRUE;
 foreach ($facility_migrations as $facility_migration) {
   $config["migrate_plus.migration.{$facility_migration}"]['source']['urls'] = $facility_api_urls;
   $config["migrate_plus.migration.{$facility_migration}"]['source']['headers']['apikey'] = $facility_api_key;
