@@ -5,6 +5,7 @@ dependencies:
   config:
     - entity_browser.browser.downloadable_resources
     - entity_browser.browser.promo_blocks_browser
+    - entity_browser.browser.events_browser
     - field.field.node.campaign_landing_page.field_administration
     - field.field.node.campaign_landing_page.field_benefit_categories
     - field.field.node.campaign_landing_page.field_clp_resources
@@ -12,6 +13,9 @@ dependencies:
     - field.field.node.campaign_landing_page.field_clp_resources_header
     - field.field.node.campaign_landing_page.field_clp_resources_intro_text
     - field.field.node.campaign_landing_page.field_clp_resources_panel
+    - field.field.node.campaign_landing_page.field_clp_events_header
+    - field.field.node.campaign_landing_page.field_clp_events_panel
+    - field.field.node.campaign_landing_page.field_clp_events_references
     - field.field.node.campaign_landing_page.field_clp_spotlight_cta
     - field.field.node.campaign_landing_page.field_clp_spotlight_header
     - field.field.node.campaign_landing_page.field_clp_spotlight_intro_text
@@ -135,6 +139,7 @@ third_party_settings:
         - group_stories
         - group_downloadable_resources
         - group_va_benefits
+        - group_events
       parent_name: ''
       weight: 0
       format_type: tabs
@@ -201,16 +206,6 @@ third_party_settings:
         - field_clp_stories_intro
         - field_clp_stories_teasers
         - field_clp_stories_cta
-      parent_name: group_set_of_vertical_tabs
-      weight: 6
-      format_type: tab
-      region: content
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        formatter: closed
-        required_fields: true
       label: Stories
     group_downloadable_resources:
       children:
@@ -230,6 +225,22 @@ third_party_settings:
         id: ''
         classes: ''
       label: 'Downloadable resources'
+    group_events:
+      children:
+        - field_clp_events_panel
+        - field_clp_events_header
+        - field_clp_events_references
+      parent_name: group_set_of_vertical_tabs
+      weight: 6
+      format_type: tab
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Events
 id: node.campaign_landing_page.default
 targetEntityType: node
 bundle: campaign_landing_page
@@ -280,6 +291,42 @@ content:
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
     third_party_settings: {  }
+    region: content
+  field_clp_events_header:
+    weight: 27
+    settings:
+      size: 70
+      placeholder: ''
+      maxlength: 70
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+      use_field_maxlength: false
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_clp_events_panel:
+    weight: 26
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_clp_events_references:
+    weight: 28
+    settings:
+      entity_browser: events_browser
+      field_widget_display: rendered_entity
+      field_widget_display_settings:
+        view_mode: default
+      field_widget_remove: true
+      selection_mode: selection_append
+      field_widget_edit: false
+      field_widget_replace: false
+      open: false
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
     region: content
   field_clp_resources_header:
     weight: 32

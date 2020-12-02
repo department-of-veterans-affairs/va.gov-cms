@@ -1,0 +1,27 @@
+uuid: ba14b114-491f-4b6b-b63d-e4783237c9cd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_clp_events_references
+    - node.type.campaign_landing_page
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: true
+id: node.campaign_landing_page.field_clp_events_references
+field_name: field_clp_events_references
+entity_type: node
+bundle: campaign_landing_page
+label: 'Add up to two events'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings: {  }
+field_type: entity_reference
