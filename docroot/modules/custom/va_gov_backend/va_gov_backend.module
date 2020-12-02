@@ -1358,7 +1358,7 @@ function _va_gov_backend_apply_filter_to_tablefield_cells(EntityInterface $entit
         $field_name = $field->getName();
         $raw_table = $entity->get($field_name)->value;
         $format = $entity->get($field_name)->format;
-        if (!empty($raw_table) && is_array($raw_table)) {
+        if (!empty($raw_table) && is_array($raw_table) && $format !== 'text_plain') {
           foreach ($raw_table as $row_key => $row_item) {
             if ($row_key === 'caption') {
               // Tablefield caption does not support html.
@@ -1373,9 +1373,9 @@ function _va_gov_backend_apply_filter_to_tablefield_cells(EntityInterface $entit
               }
             }
           }
+          $sanitized_items['format'] = $format;
+          $entity->$field_name->setValue($sanitized_items);
         }
-        $sanitized_items['format'] = $format;
-        $entity->$field_name->setValue($sanitized_items);
       }
     }
   }
