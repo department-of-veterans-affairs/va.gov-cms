@@ -1,22 +1,22 @@
-uuid: 2a68687e-a062-4f43-b7ef-d2ae723db8ba
+uuid: 079cb9bb-f4d1-419c-bab3-39f2b2dc2d4e
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_audience_beneficiares
+    - field.storage.paragraph.field_non_beneficiares
     - paragraphs.paragraphs_type.audience_topics
-    - taxonomy.vocabulary.audience_beneficiaries
+    - taxonomy.vocabulary.audience_non_beneficiaries
   module:
     - entity_reference_validators
 third_party_settings:
   entity_reference_validators:
     circular_reference: false
     duplicate_reference: false
-id: paragraph.audience_topics.field_audience_beneficiares
-field_name: field_audience_beneficiares
+id: paragraph.audience_topics.field_non_beneficiares
+field_name: field_non_beneficiares
 entity_type: paragraph
 bundle: audience_topics
-label: Beneficiares
+label: Non-Beneficiares
 description: ''
 required: false
 translatable: false
@@ -26,10 +26,10 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      audience_beneficiaries: audience_beneficiaries
+      audience_non_beneficiaries: audience_non_beneficiaries
     sort:
       field: name
       direction: asc
     auto_create: false
-    auto_create_bundle: audience_beneficiaries
+    auto_create_bundle: ''
 field_type: entity_reference
