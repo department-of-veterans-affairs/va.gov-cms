@@ -77,15 +77,7 @@ class WhereDoesThisAppear extends BlockBase implements ContainerFactoryPluginInt
       '#prefix' => '<div id="names-fieldset-wrapper">',
       '#suffix' => '</div>',
       '#cache' => [
-        // Using paragraph entity id tags won't update block
-        // when new paragraphs are added to QA group paragraphs.
-        // The only way to account for this is to use
-        // entity_type:bundle pattern, e.g.: ['paragraph_list:q_a_group'].
-        // This won't be available until we upgrade to drupal 8.9.
-        // See: https://www.drupal.org/project/drupal/issues/2145751
-        // For now, lightest approach is to update block when any paragraph
-        // is updated / created / deleted.
-        'tags' => ['paragraph_list'],
+        'tags' => ['paragraph_list:q_a_group'],
       ],
       'links' => [
         '#prefix' => $this->t('Before making significant changes, you may want to consider how it might affect other content.'),
