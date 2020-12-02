@@ -5,6 +5,11 @@ dependencies:
   config:
     - field.field.node.campaign_landing_page.field_administration
     - field.field.node.campaign_landing_page.field_benefit_categories
+    - field.field.node.campaign_landing_page.field_clp_spotlight_cta
+    - field.field.node.campaign_landing_page.field_clp_spotlight_header
+    - field.field.node.campaign_landing_page.field_clp_spotlight_intro_text
+    - field.field.node.campaign_landing_page.field_clp_spotlight_link_teasers
+    - field.field.node.campaign_landing_page.field_clp_spotlight_opt_in
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_header
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_intro
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_promos
@@ -22,8 +27,13 @@ targetEntityType: node
 bundle: campaign_landing_page
 mode: default
 content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   field_administration:
-    weight: 1
+    weight: 102
     label: above
     settings:
       link: true
@@ -31,15 +41,58 @@ content:
     type: entity_reference_label
     region: content
   field_benefit_categories:
-    weight: 10
+    weight: 113
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: content
+  field_clp_spotlight_cta:
+    type: entity_reference_revisions_entity_view
+    weight: 120
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_clp_spotlight_header:
+    weight: 114
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_clp_spotlight_intro_text:
+    weight: 118
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_clp_spotlight_link_teasers:
+    type: entity_reference_revisions_entity_view
+    weight: 116
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_clp_spotlight_opt_in:
+    weight: 117
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
   field_clp_what_you_can_do_header:
-    weight: 8
+    weight: 111
     label: above
     settings:
       link_to_entity: false
@@ -47,14 +100,14 @@ content:
     type: string
     region: content
   field_clp_what_you_can_do_intro:
-    weight: 7
+    weight: 110
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_clp_what_you_can_do_promos:
-    weight: 9
+    weight: 112
     label: above
     settings:
       link: true
@@ -62,14 +115,14 @@ content:
     type: entity_reference_label
     region: content
   field_clp_why_this_matters:
-    weight: 5
+    weight: 106
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_hero_blurb:
-    weight: 2
+    weight: 103
     label: above
     settings:
       link_to_entity: false
@@ -78,7 +131,7 @@ content:
     region: content
   field_hero_image:
     type: entity_reference_entity_view
-    weight: 4
+    weight: 105
     label: above
     settings:
       view_mode: default
@@ -87,7 +140,7 @@ content:
     region: content
   field_primary_call_to_action:
     type: entity_reference_revisions_entity_view
-    weight: 3
+    weight: 104
     label: above
     settings:
       view_mode: default
@@ -96,7 +149,7 @@ content:
     region: content
   field_secondary_call_to_action:
     type: entity_reference_revisions_entity_view
-    weight: 6
+    weight: 107
     label: above
     settings:
       view_mode: default
@@ -104,10 +157,9 @@ content:
     third_party_settings: {  }
     region: content
   links:
-    weight: 0
-    region: content
+    weight: 100
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
-  content_moderation_control: true
   search_api_excerpt: true
