@@ -93,6 +93,7 @@ Feature: Views
 | Content served from Drupal | Data export | data_export_1 | Data export |
 | Content served from Drupal | Master | default | Master |
 | Content entity browsers | Master | default | Master |
+| Content entity browsers | Event entity browser | entity_browser_2 | Entity browser |
 | Content entity browsers | Q&A entity browser | entity_browser_1 | Entity browser |
 | Content Entity Reference Source | Master | default | Master |
 | Content Entity Reference Source | Entity Reference: Event Listing | entity_reference_1 | Entity Reference |
