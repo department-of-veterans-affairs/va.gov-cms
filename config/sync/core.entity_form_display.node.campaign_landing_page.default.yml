@@ -125,8 +125,8 @@ third_party_settings:
         - group_what_you_can_do
         - group_spotlight
         - group_va_benefits
-        - group_stories
         - group_video
+        - group_stories
       parent_name: ''
       weight: 0
       format_type: tabs
@@ -242,20 +242,18 @@ content:
     region: content
   field_clp_spotlight_header:
     weight: 6
-  field_clp_video_panel_header:
-    weight: 27
+    region: content
+    type: string_textfield_with_counter
     settings:
-      size: 70
-      placeholder: ''
-      use_field_maxlength: true
+      use_field_maxlength: false
       maxlength: 0
       counter_position: after
       js_prevent_submit: true
       count_html_characters: true
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_clp_spotlight_intro_text:
     weight: 7
     settings:
@@ -272,13 +270,6 @@ content:
   field_clp_spotlight_link_teasers:
     type: paragraphs
     weight: 10
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> Characters remaining'
-    third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
-  field_clp_video_panel_more_video:
-    type: paragraphs
-    weight: 29
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -286,17 +277,9 @@ content:
       closed_mode: summary
       autocollapse: none
       closed_mode_threshold: 0
-      add_mode: button
-      form_display_mode: default
-      default_paragraph_type: _none
-      features:
-        add_above: '0'
       add_mode: dropdown
       form_display_mode: default
       default_paragraph_type: ''
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
       features:
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
@@ -346,13 +329,11 @@ content:
     region: content
   field_clp_stories_panel:
     weight: 27
-  field_clp_video_panel_opt_in:
-    weight: 26
+    region: content
+    type: boolean_checkbox
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_clp_stories_teasers:
     type: entity_reference_paragraphs
     weight: 30
@@ -364,6 +345,44 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
+    region: content
+  field_clp_video_panel_header:
+    weight: 27
+    settings:
+      size: 70
+      placeholder: ''
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_clp_video_panel_more_video:
+    type: paragraphs
+    weight: 29
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+    third_party_settings: {  }
+    region: content
+  field_clp_video_panel_opt_in:
+    weight: 26
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   field_clp_what_you_can_do_header:
     weight: 4
@@ -420,7 +439,7 @@ content:
     type: string_textarea_with_counter
     region: content
   field_hero_blurb:
-    weight: 2
+    weight: 4
     settings:
       size: 70
       placeholder: ''
@@ -435,7 +454,7 @@ content:
     region: content
   field_hero_image:
     type: media_library_widget
-    weight: 4
+    weight: 6
     settings:
       media_types: {  }
     third_party_settings: {  }
@@ -449,7 +468,7 @@ content:
     region: content
   field_primary_call_to_action:
     type: paragraphs
-    weight: 3
+    weight: 5
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -506,7 +525,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield_with_counter
-    weight: 0
+    weight: 3
     region: content
     settings:
       size: 70
