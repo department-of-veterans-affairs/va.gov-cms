@@ -11,6 +11,11 @@ dependencies:
     - field.field.node.campaign_landing_page.field_clp_spotlight_intro_text
     - field.field.node.campaign_landing_page.field_clp_spotlight_link_teasers
     - field.field.node.campaign_landing_page.field_clp_spotlight_opt_in
+    - field.field.node.campaign_landing_page.field_clp_stories_cta
+    - field.field.node.campaign_landing_page.field_clp_stories_header
+    - field.field.node.campaign_landing_page.field_clp_stories_intro
+    - field.field.node.campaign_landing_page.field_clp_stories_panel
+    - field.field.node.campaign_landing_page.field_clp_stories_teasers
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_header
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_intro
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_promos
@@ -25,6 +30,7 @@ dependencies:
     - content_moderation
     - entity_browser_table
     - field_group
+    - link
     - media_library
     - paragraphs
     - path
@@ -115,6 +121,7 @@ third_party_settings:
         - group_what_you_can_do
         - group_spotlight
         - group_va_benefits
+        - group_stories
       parent_name: ''
       weight: 0
       format_type: tabs
@@ -128,7 +135,7 @@ third_party_settings:
       children:
         - field_benefit_categories
       parent_name: group_set_of_vertical_tabs
-      weight: 6
+      weight: 5
       format_type: tab
       region: content
       format_settings:
@@ -156,6 +163,24 @@ third_party_settings:
         classes: ''
         required_fields: false
       label: Spotlight
+    group_stories:
+      children:
+        - field_clp_stories_panel
+        - field_clp_stories_header
+        - field_clp_stories_intro
+        - field_clp_stories_teasers
+        - field_clp_stories_cta
+      parent_name: group_set_of_vertical_tabs
+      weight: 6
+      format_type: tab
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: Stories
 id: node.campaign_landing_page.default
 targetEntityType: node
 bundle: campaign_landing_page
@@ -244,6 +269,60 @@ content:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
+    region: content
+  field_clp_stories_cta:
+    weight: 31
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_clp_stories_header:
+    weight: 28
+    settings:
+      size: 70
+      placeholder: ''
+      maxlength: 70
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining.'
+      use_field_maxlength: false
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_clp_stories_intro:
+    weight: 29
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 350
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Maximum <span class="maxlength_count">@maxlength</span> characters, but 120 characters is recommended. <br /> <span class="current_count">@current_length</span> characters,<br /><span class="remaining_count">@remaining_count</span> characters remaining.'
+    third_party_settings: {  }
+    type: string_textarea_with_counter
+    region: content
+  field_clp_stories_panel:
+    weight: 27
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_clp_stories_teasers:
+    type: entity_reference_paragraphs
+    weight: 30
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
     region: content
   field_clp_what_you_can_do_header:
     weight: 4
