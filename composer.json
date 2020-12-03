@@ -346,8 +346,7 @@
             "cp -r 'simplesamlphp-config-metadata/config' 'simplesamlphp-config-metadata/metadata' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
             "echo 'Removing deleted .git/hooks/commit-msg file, no longer used.'",
             "rm -f .git/hooks/commit-msg",
-            "git update-index --skip-worktree samlsessiondb.sq3",
-            "@va:web:install"
+            "git update-index --skip-worktree samlsessiondb.sq3"
         ],
         "post-update-cmd": [
             "cp -r 'hooks/git/.' '.git/hooks/'",

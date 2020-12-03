@@ -30,7 +30,7 @@ services:
   appserver:
     run_as_root:
       - "apt-get update -y"
-      - "apt-get install build-essential chrpath libssl-dev libxft-dev libfreetype6-dev libfreetype6 libfontconfig1-dev libfontconfig1 -y"
+      - "apt-get install build-essential chrpath libssl-dev libxft-dev libfreetype6-dev libfreetype6 libfontconfig1-dev libfontconfig1 python -y"
       - .lando/scripts/blackfire-init.sh
     xdebug: false
     config:
