@@ -51,6 +51,8 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Expandable Text | Text Expander | field_text_expander | Text (plain) | Required | 1 | Textfield with counter |  |
 | Paragraph type | Link teaser | Link | field_link | Link |  | 1 | Linkit |  |
 | Paragraph type | Link teaser | Link summary | field_link_summary | Text (plain) |  | 1 | Textfield with counter |  |
+| Paragraph type | Link teaser with image | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
+| Paragraph type | Link teaser with image | Link teaser | field_link_teaser | Entity reference revisions |  | 1 | Paragraphs Classic |  |
 | Paragraph type | Link to file or video | Link text | field_title | Text (plain) | Required | 1 | Textfield | Translatable |
 | Paragraph type | Link to file or video | Link to a file or video | field_media | Entity reference | Required | 1 | Media library | Translatable |
 | Paragraph type | Link to file or video | Markup | field_markup | Markup |  | 1 | Markup | Translatable |
