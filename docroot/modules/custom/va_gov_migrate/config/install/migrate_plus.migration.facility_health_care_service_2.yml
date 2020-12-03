@@ -14,6 +14,7 @@ source:
   path: modules/custom/va_gov_migrate/data/facility-health-care-service-2.csv
   delimiter: ;
   enclosure: "'"
+  escape: '\'
   header_row_count: 1
   track_changes: true
   keys:
@@ -32,18 +33,25 @@ source:
 process:
   field_facility_location:
     -
+      plugin: callback
+      callable: trim
+      source: field_facility_location
+    -
       plugin: entity_lookup
       ignore_case: true
       value_key: title
       entity_type: node
       bundle_key: type
       bundle: health_care_local_facility
-      source: field_facility_location
     -
       plugin: skip_on_empty
       method: row
       message: 'Entity lookup for field_facility_location found nothing.'
   field_regional_health_service:
+    -
+      plugin: callback
+      callable: trim
+      source: field_regional_health_service
     -
       plugin: entity_lookup
       ignore_case: true
@@ -51,7 +59,6 @@ process:
       entity_type: node
       bundle_key: type
       bundle: regional_health_care_service_des
-      source: field_regional_health_service
     -
       plugin: skip_on_empty
       method: row
@@ -62,12 +69,15 @@ process:
   field_body/value: field_body
   field_administration:
     -
+      plugin: callback
+      callable: trim
+      source: field_administration
+    -
       plugin: entity_lookup
       entity_type: taxonomy_term
       value_key: name
       bundle_key: vid
       bundle: administration
-      source: field_administration
     -
       plugin: skip_on_empty
       method: row
