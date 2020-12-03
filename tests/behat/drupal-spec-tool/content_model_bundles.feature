@@ -65,6 +65,7 @@ Feature: Content model bundles
 | Embedded image | media | Paragraph type | For adding an image inline |
 | Expandable Text | expandable_text | Paragraph type | Text that expands upon click. |
 | Link teaser | link_teaser | Paragraph type | A link followed by a description. For building inline "menus" of content. |
+| Link teaser with image | link_teaser_with_image | Paragraph type |  |
 | Link to file or video | downloadable_file | Paragraph type | For image or document downloads. |
 | List of link teasers | list_of_link_teasers | Paragraph type | A paragraph that contains only one type of paragraph: Link teaser. |
 | List of links | list_of_links | Paragraph type | A set of links, with link text and URL required, and an optional header. |

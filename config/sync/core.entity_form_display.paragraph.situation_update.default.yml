@@ -21,13 +21,22 @@ content:
     weight: 1
     region: content
     settings:
+      default_tz: user
+      custom_tz: America/New_York
+      allowed_timezones:
+        - America/Anchorage
+        - America/Chicago
+        - America/Denver
+        - America/Los_Angeles
+        - America/New_York
+        - America/Phoenix
+        - Pacific/Guam
+        - Pacific/Honolulu
+        - Pacific/Saipan
       modal: false
       default_duration: 60
       default_duration_increments: "30\n60|1 hour\n90\n120|2 hours\ncustom"
       show_extra: true
-      default_tz: ''
-      custom_tz: ''
-      allowed_timezones: {  }
     third_party_settings: {  }
   field_send_email_to_subscribers:
     weight: 0
