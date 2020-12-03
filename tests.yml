@@ -42,6 +42,10 @@ va/tests/accessibility:
   # Ignore failures so that staging deploys can complete.
   ignore-failure: true
 
+va/web/install:
+  description: Install VA.gov node environment
+  command: composer va:web:install
+
 va/web/build:
   description: Build VA.gov Front-end
 
