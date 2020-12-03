@@ -108,8 +108,8 @@ Feature: Views
 | Files | Master | default | Master |
 | Files | Files overview | page_1 | Page |
 | Files | File usage | page_2 | Page |
-| File browsers | Block | block_1 | Block |
-| File browsers | Entity browser | entity_browser_1 | Entity browser |
+| File browsers | Block | file_browser_block | Block |
+| File browsers | Entity browser | file_entity_browser | Entity browser |
 | File browsers | Master | default | Master |
 | Frontpage | Master | default | Master |
 | Frontpage | Feed | feed_1 | Feed |

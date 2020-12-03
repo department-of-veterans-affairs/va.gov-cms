@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
  *
  * @Constraint(
  *   id = "PdfCheck",
- *   label = @Translation("UPDF Check", context = "Validation"),
+ *   label = @Translation("PDF Check", context = "Validation"),
  *   type = "string"
  * )
  */
