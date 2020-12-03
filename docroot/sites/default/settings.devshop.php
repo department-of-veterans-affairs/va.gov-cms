@@ -30,6 +30,7 @@ $settings['file_public_base_url'] = $_SERVER['DRUPAL_ADDRESS'] . '/' . $site_pat
 
 // Add devshop level service file for FileSystem overrides
 $settings['file_chmod_directory'] = 02775;
+$settings['skip_permissions_hardening'] = TRUE;
 
 // Restore DevShop's $databases settings.
 $databases  = $devshop_db_settings;
