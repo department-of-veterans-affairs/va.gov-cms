@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_content_export;
 
 use Drupal\Core\Config\StorageException;
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\tome_sync\FileSync;
 
@@ -13,6 +14,20 @@ use Drupal\tome_sync\FileSync;
  * permissions so we override the protected nature to allow it to be deleted.
  */
 class TomeFileSync extends FileSync {
+
+  /**
+   * The filesystem service.
+   *
+   * @var Drupal\Core\File\FileSystemInterface
+   */
+  protected $fileSystem;
+
+  /**
+   * Class constructor.
+   */
+  public function __construct(FileSystemInterface $fileSystem) {
+    $this->fileSystem = $fileSystem;
+  }
 
   /**
    * {@inheritDoc}
@@ -27,7 +42,8 @@ class TomeFileSync extends FileSync {
    */
   protected function ensureFileDirectory() {
     $file_directory = $this->getFileDirectory();
-    file_prepare_directory($file_directory, FILE_CREATE_DIRECTORY);
+    $this->fileSystem->prepareDirectory($file_directory, FileSystemInterface::CREATE_DIRECTORY);
+
     // Here is the overridden line of code.  Added FALSE.
     // file_save_htaccess($file_directory, FALSE);.
     if (!file_exists($file_directory)) {
