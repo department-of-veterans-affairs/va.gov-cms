@@ -31,6 +31,7 @@
     if (total >= 4) {
       // If a total of four or more tags have been selected, prevent the user from selecting more.
       $('div[id^="edit-field-tags-0-subform-field-topics"]').find('input[type=checkbox]:not(:checked)').attr('disabled', true);
+
     } else {
       // Otherwise, ensure that more tags may be selected.
       $('div[id^="edit-field-tags-0-subform-field-topics"]').find('input[type=checkbox]').attr('disabled', false);
@@ -57,9 +58,11 @@
         if (selection === 'beneficiaries') {
           $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').hide();
           $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').show();
+          $('input[id^="edit-field-tags-0-subform-field-non-beneficiares-none"]').prop('checked', true);
         } else if (selection === 'non-beneficiaries') {
           $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').hide();
           $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').show();
+          $('input[id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]').prop('checked', true);
         } else {
           $('input[id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]').prop('checked', true);
           $('input[id^="edit-field-tags-0-subform-field-non-beneficiares-none"]').prop('checked', true);
