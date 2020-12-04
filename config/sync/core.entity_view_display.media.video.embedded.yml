@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.media.embedded
+    - field.field.media.video.field_description
+    - field.field.media.video.field_duration
     - field.field.media.video.field_media_in_library
     - field.field.media.video.field_media_submission_guideline
     - field.field.media.video.field_media_video_embed_field
@@ -31,9 +33,12 @@ content:
     region: content
 hidden:
   created: true
+  field_description: true
+  field_duration: true
   field_media_in_library: true
   field_media_submission_guideline: true
   field_owner: true
   name: true
+  search_api_excerpt: true
   thumbnail: true
   uid: true

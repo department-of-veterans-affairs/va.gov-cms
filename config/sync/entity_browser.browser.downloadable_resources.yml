@@ -1,0 +1,31 @@
+uuid: 491548b2-306e-4134-9906-1304e2e10821
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.file_browsers
+  module:
+    - views
+name: downloadable_resources
+label: 'Downloadable resources'
+display: modal
+display_configuration:
+  width: ''
+  height: ''
+  link_text: 'Select files'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: single
+widget_selector_configuration: {  }
+widgets:
+  4fbfd56b-7317-4720-82ae-ad6521890bc2:
+    settings:
+      view: file_browsers
+      view_display: file_entity_browser
+      submit_text: 'Select files'
+      auto_select: false
+    uuid: 4fbfd56b-7317-4720-82ae-ad6521890bc2
+    weight: 1
+    label: view
+    id: view
