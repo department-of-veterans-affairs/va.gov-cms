@@ -354,7 +354,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   // Disable path alias modification after lc node is published.
   _va_gov_disable_alias_widget($form, $form_state);
 
-  if ($form_id === 'node_campaign_landing_page_form') {
+  if ($form_id === 'node_campaign_landing_page_form' || $form_id === 'node_campaign_landing_page_edit_form') {
     $clp_toggles = _va_gov_backend_get_clp_toggles();
     _va_gov_toggle_fields_states($form, $clp_toggles);
   }
