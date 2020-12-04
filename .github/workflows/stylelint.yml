@@ -19,7 +19,7 @@ jobs:
         run: npm install --global npm@latest
 
       - name: Install bzip2
-        run: apt-get update && apt-get --yes install bzip2
+        run: sudo apt-get update && sudo apt-get --yes install bzip2
 
       - name: Install npm packages
         run: npm install
