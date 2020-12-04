@@ -5,17 +5,16 @@ dependencies:
   config:
     - entity_browser.browser.downloadable_resources
     - entity_browser.browser.promo_blocks_browser
-    - entity_browser.browser.events_browser
     - field.field.node.campaign_landing_page.field_administration
     - field.field.node.campaign_landing_page.field_benefit_categories
+    - field.field.node.campaign_landing_page.field_clp_events_header
+    - field.field.node.campaign_landing_page.field_clp_events_panel
+    - field.field.node.campaign_landing_page.field_clp_events_references
     - field.field.node.campaign_landing_page.field_clp_resources
     - field.field.node.campaign_landing_page.field_clp_resources_cta
     - field.field.node.campaign_landing_page.field_clp_resources_header
     - field.field.node.campaign_landing_page.field_clp_resources_intro_text
     - field.field.node.campaign_landing_page.field_clp_resources_panel
-    - field.field.node.campaign_landing_page.field_clp_events_header
-    - field.field.node.campaign_landing_page.field_clp_events_panel
-    - field.field.node.campaign_landing_page.field_clp_events_references
     - field.field.node.campaign_landing_page.field_clp_spotlight_cta
     - field.field.node.campaign_landing_page.field_clp_spotlight_header
     - field.field.node.campaign_landing_page.field_clp_spotlight_intro_text
@@ -137,9 +136,9 @@ third_party_settings:
         - group_video
         - group_spotlight
         - group_stories
+        - group_events
         - group_downloadable_resources
         - group_va_benefits
-        - group_events
       parent_name: ''
       weight: 0
       format_type: tabs
