@@ -36,14 +36,6 @@ va/tests/phpunit:
   description: PHPUnit
   command: phpunit --exclude-group disabled tests/phpunit --colors=always
 
-va/tests/module-lint-css:
-  description: Lint Custom Module CSS
-  command: composer va:test:theme-lint-scss
-
-va/tests/theme-lint-scss:
-  description: Lint Custom Theme SCSS
-  command: composer va:test:theme-lint-scss
-
 va/tests/accessibility:
   description: accessibility test with axe-webdriverjs for 508 compliance
   command: composer va:test:accessibility
