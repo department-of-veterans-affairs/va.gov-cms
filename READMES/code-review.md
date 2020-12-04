@@ -88,6 +88,7 @@ The following automated code tools must pass before a Pull Request can be merged
 
 * PHPCS
 * PHPMD
+* stylelint
 
 ## Definition of Done
 
