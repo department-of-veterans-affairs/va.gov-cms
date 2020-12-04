@@ -6,13 +6,18 @@ dependencies:
     - field.storage.paragraph.field_media
     - media.type.document
     - media.type.image
-    - media.type.video
     - paragraphs.paragraphs_type.downloadable_file
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: false
 id: paragraph.downloadable_file.field_media
 field_name: field_media
 entity_type: paragraph
 bundle: downloadable_file
-label: 'Link to a file or video'
+label: 'Link to a file'
 description: ''
 required: true
 translatable: true
@@ -24,7 +29,6 @@ settings:
     target_bundles:
       document: document
       image: image
-      video: video
     sort:
       field: _none
     auto_create: false
