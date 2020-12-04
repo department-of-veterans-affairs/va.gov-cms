@@ -14,6 +14,12 @@
     if (total >= 4) {
       $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').attr('disabled', true);
       $('div.form-item-field-tags-0-subform-field-audience-selection').addClass('form-disabled');
+      $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]').attr('checked', true);
+      $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-none"]').attr('checked', true);
+      $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').hide();
+      $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').hide();
+      $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').val('_none');
+
     } else {
       $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').attr('disabled', false);
       $('div.form-item-field-tags-0-subform-field-audience-selection').removeClass('form-disabled');
@@ -31,7 +37,6 @@
     if (total >= 4) {
       // If a total of four or more tags have been selected, prevent the user from selecting more.
       $('div[id^="edit-field-tags-0-subform-field-topics"]').find('input[type=checkbox]:not(:checked)').attr('disabled', true);
-
     } else {
       // Otherwise, ensure that more tags may be selected.
       $('div[id^="edit-field-tags-0-subform-field-topics"]').find('input[type=checkbox]').attr('disabled', false);
@@ -40,6 +45,18 @@
 
   Drupal.behaviors.vaGovAudienceTopics = {
     attach: function () {
+
+      // Normalize select and taxonomy display on page load.
+      if ($('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]')
+        .find('input:not([id^="edit-field-tags-0-subform-field-non-beneficiares-none"]):checked').length) {
+        $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').val('non-beneficiaries')
+        $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').show();
+        $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').hide();
+      } else {
+        $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').val('beneficiaries')
+        $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').show();
+        $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').hide();
+      }
 
       // Add required marker to fieldset. This is necessary because we cannot mark
       // any of the child fields as required.
@@ -58,18 +75,23 @@
         if (selection === 'beneficiaries') {
           $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').hide();
           $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').show();
-          $('input[id^="edit-field-tags-0-subform-field-non-beneficiares-none"]').prop('checked', true);
         } else if (selection === 'non-beneficiaries') {
           $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').hide();
           $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').show();
-          $('input[id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]').prop('checked', true);
         } else {
-          $('input[id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]').prop('checked', true);
-          $('input[id^="edit-field-tags-0-subform-field-non-beneficiares-none"]').prop('checked', true);
           $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').hide();
           $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').hide();
+          $('input[id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]').attr('checked', true);
+          $('input[id^="edit-field-tags-0-subform-field-non-beneficiares-none"]').attr('checked', true);
         }
 
+        // Uncheck one vocab when the other has a selection.
+        if (!$('input[id^="edit-field-tags-0-subform-field-non-beneficiares-none"]').is(':checked')) {
+          $('input[id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]').attr('checked', true);
+        }
+        if (!$('input[id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]').is(':checked')) {
+          $('input[id^="edit-field-tags-0-subform-field-non-beneficiares-none"]').attr('checked', true);
+        }
         // Enforce tag selection rules.
         enforceMaximumNumberOfTags();
       });
