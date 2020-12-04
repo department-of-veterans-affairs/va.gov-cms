@@ -10,18 +10,22 @@ dependencies:
     - field.field.node.campaign_landing_page.field_clp_spotlight_header
     - field.field.node.campaign_landing_page.field_clp_spotlight_intro_text
     - field.field.node.campaign_landing_page.field_clp_spotlight_link_teasers
-    - field.field.node.campaign_landing_page.field_clp_spotlight_opt_in
+    - field.field.node.campaign_landing_page.field_clp_spotlight_panel
     - field.field.node.campaign_landing_page.field_clp_stories_cta
     - field.field.node.campaign_landing_page.field_clp_stories_header
     - field.field.node.campaign_landing_page.field_clp_stories_intro
     - field.field.node.campaign_landing_page.field_clp_stories_panel
     - field.field.node.campaign_landing_page.field_clp_stories_teasers
+    - field.field.node.campaign_landing_page.field_clp_video_panel
+    - field.field.node.campaign_landing_page.field_clp_video_panel_header
+    - field.field.node.campaign_landing_page.field_clp_video_panel_more_video
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_header
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_intro
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_promos
     - field.field.node.campaign_landing_page.field_clp_why_this_matters
     - field.field.node.campaign_landing_page.field_hero_blurb
     - field.field.node.campaign_landing_page.field_hero_image
+    - field.field.node.campaign_landing_page.field_media
     - field.field.node.campaign_landing_page.field_primary_call_to_action
     - field.field.node.campaign_landing_page.field_secondary_call_to_action
     - node.type.campaign_landing_page
@@ -121,6 +125,7 @@ third_party_settings:
         - group_what_you_can_do
         - group_spotlight
         - group_va_benefits
+        - group_video
         - group_stories
       parent_name: ''
       weight: 0
@@ -147,7 +152,7 @@ third_party_settings:
       label: 'VA Benefits'
     group_spotlight:
       children:
-        - field_clp_spotlight_opt_in
+        - field_clp_spotlight_panel
         - field_clp_spotlight_header
         - field_clp_spotlight_intro_text
         - field_clp_spotlight_cta
@@ -163,6 +168,24 @@ third_party_settings:
         classes: ''
         required_fields: false
       label: Spotlight
+    group_video:
+      children:
+        - field_clp_video_panel
+        - field_clp_video_panel_header
+        - field_media
+        - field_clp_video_panel_more_video
+      parent_name: group_set_of_vertical_tabs
+      weight: 5
+      format_type: tab
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        direction: vertical
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: Video
     group_stories:
       children:
         - field_clp_stories_panel
@@ -200,7 +223,7 @@ content:
     region: content
   field_clp_spotlight_cta:
     type: paragraphs
-    weight: 9
+    weight: 15
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -218,21 +241,21 @@ content:
     third_party_settings: {  }
     region: content
   field_clp_spotlight_header:
-    weight: 6
+    weight: 13
+    region: content
+    type: string_textfield_with_counter
     settings:
-      size: 70
-      placeholder: ''
-      use_field_maxlength: true
+      use_field_maxlength: false
       maxlength: 0
       counter_position: after
       js_prevent_submit: true
       count_html_characters: true
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_clp_spotlight_intro_text:
-    weight: 7
+    weight: 14
     settings:
       rows: 5
       placeholder: ''
@@ -246,7 +269,7 @@ content:
     region: content
   field_clp_spotlight_link_teasers:
     type: paragraphs
-    weight: 10
+    weight: 16
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -254,24 +277,23 @@ content:
       closed_mode: summary
       autocollapse: none
       closed_mode_threshold: 0
-      add_mode: button
+      add_mode: dropdown
       form_display_mode: default
-      default_paragraph_type: _none
+      default_paragraph_type: ''
       features:
-        add_above: '0'
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
     third_party_settings: {  }
     region: content
-  field_clp_spotlight_opt_in:
-    weight: 5
+  field_clp_spotlight_panel:
+    weight: 12
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
   field_clp_stories_cta:
-    weight: 31
+    weight: 7
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -279,7 +301,7 @@ content:
     type: link_default
     region: content
   field_clp_stories_header:
-    weight: 28
+    weight: 3
     settings:
       size: 70
       placeholder: ''
@@ -293,7 +315,7 @@ content:
     type: string_textfield_with_counter
     region: content
   field_clp_stories_intro:
-    weight: 29
+    weight: 5
     settings:
       rows: 5
       placeholder: ''
@@ -306,15 +328,15 @@ content:
     type: string_textarea_with_counter
     region: content
   field_clp_stories_panel:
-    weight: 27
+    weight: 2
+    region: content
+    type: boolean_checkbox
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_clp_stories_teasers:
     type: entity_reference_paragraphs
-    weight: 30
+    weight: 6
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -322,6 +344,44 @@ content:
       add_mode: dropdown
       form_display_mode: default
       default_paragraph_type: ''
+    third_party_settings: {  }
+    region: content
+  field_clp_video_panel:
+    weight: 4
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_clp_video_panel_header:
+    weight: 5
+    settings:
+      size: 70
+      placeholder: ''
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_clp_video_panel_more_video:
+    type: paragraphs
+    weight: 7
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
     third_party_settings: {  }
     region: content
   field_clp_what_you_can_do_header:
@@ -379,7 +439,7 @@ content:
     type: string_textarea_with_counter
     region: content
   field_hero_blurb:
-    weight: 2
+    weight: 4
     settings:
       size: 70
       placeholder: ''
@@ -394,14 +454,21 @@ content:
     region: content
   field_hero_image:
     type: media_library_widget
-    weight: 4
+    weight: 6
     settings:
       media_types: {  }
     third_party_settings: {  }
     region: content
+  field_media:
+    weight: 6
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+    type: media_library_widget
+    region: content
   field_primary_call_to_action:
     type: paragraphs
-    weight: 3
+    weight: 5
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -458,7 +525,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield_with_counter
-    weight: 0
+    weight: 3
     region: content
     settings:
       size: 70

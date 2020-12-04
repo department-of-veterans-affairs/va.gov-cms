@@ -9,37 +9,145 @@ dependencies:
     - field.field.node.campaign_landing_page.field_clp_spotlight_header
     - field.field.node.campaign_landing_page.field_clp_spotlight_intro_text
     - field.field.node.campaign_landing_page.field_clp_spotlight_link_teasers
-    - field.field.node.campaign_landing_page.field_clp_spotlight_opt_in
+    - field.field.node.campaign_landing_page.field_clp_spotlight_panel
     - field.field.node.campaign_landing_page.field_clp_stories_cta
     - field.field.node.campaign_landing_page.field_clp_stories_header
     - field.field.node.campaign_landing_page.field_clp_stories_intro
     - field.field.node.campaign_landing_page.field_clp_stories_panel
     - field.field.node.campaign_landing_page.field_clp_stories_teasers
+    - field.field.node.campaign_landing_page.field_clp_video_panel
+    - field.field.node.campaign_landing_page.field_clp_video_panel_header
+    - field.field.node.campaign_landing_page.field_clp_video_panel_more_video
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_header
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_intro
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_promos
     - field.field.node.campaign_landing_page.field_clp_why_this_matters
     - field.field.node.campaign_landing_page.field_hero_blurb
     - field.field.node.campaign_landing_page.field_hero_image
+    - field.field.node.campaign_landing_page.field_media
     - field.field.node.campaign_landing_page.field_primary_call_to_action
     - field.field.node.campaign_landing_page.field_secondary_call_to_action
     - node.type.campaign_landing_page
   module:
     - entity_reference_revisions
+    - field_group
     - link
     - user
+third_party_settings:
+  field_group:
+    group_spotlight:
+      children:
+        - field_clp_spotlight_panel
+        - field_clp_spotlight_header
+        - field_clp_spotlight_intro_text
+        - field_clp_spotlight_cta
+        - field_clp_spotlight_link_teasers
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        id: ''
+        classes: ''
+      label: Spotlight
+    group_video:
+      children:
+        - field_clp_video_panel
+        - field_clp_video_panel_header
+        - field_media
+        - field_clp_video_panel_more_video
+      parent_name: ''
+      weight: 5
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        id: ''
+        classes: ''
+      label: Video
+    group_stories:
+      children:
+        - field_clp_stories_panel
+        - field_clp_stories_header
+        - field_clp_stories_intro
+        - field_clp_stories_teasers
+        - links
+        - field_clp_stories_cta
+      parent_name: ''
+      weight: 6
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        id: ''
+        classes: ''
+      label: Stories
+    group_hero_banner:
+      children:
+        - field_hero_blurb
+        - field_primary_call_to_action
+        - field_hero_image
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        id: ''
+        classes: ''
+      label: 'Hero Banner'
+    group_why_this_matters:
+      children:
+        - field_clp_why_this_matters
+        - field_secondary_call_to_action
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Why this matters'
+    group_what_can_you_do:
+      children:
+        - field_clp_what_you_can_do_header
+        - field_clp_what_you_can_do_intro
+        - field_clp_what_you_can_do_promos
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'What can you do'
+    group_va_benefits:
+      children:
+        - field_benefit_categories
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'VA Benefits'
 id: node.campaign_landing_page.default
 targetEntityType: node
 bundle: campaign_landing_page
 mode: default
 content:
   content_moderation_control:
-    weight: 0
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   field_administration:
-    weight: 2
+    weight: 8
     label: above
     settings:
       link: true
@@ -47,7 +155,7 @@ content:
     type: entity_reference_label
     region: content
   field_benefit_categories:
-    weight: 11
+    weight: 7
     label: above
     settings:
       link: true
@@ -56,7 +164,7 @@ content:
     region: content
   field_clp_spotlight_cta:
     type: entity_reference_revisions_entity_view
-    weight: 16
+    weight: 24
     label: above
     settings:
       view_mode: default
@@ -64,7 +172,7 @@ content:
     third_party_settings: {  }
     region: content
   field_clp_spotlight_header:
-    weight: 12
+    weight: 22
     label: above
     settings:
       link_to_entity: false
@@ -72,7 +180,7 @@ content:
     type: string
     region: content
   field_clp_spotlight_intro_text:
-    weight: 15
+    weight: 23
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -80,16 +188,16 @@ content:
     region: content
   field_clp_spotlight_link_teasers:
     type: entity_reference_revisions_entity_view
-    weight: 13
+    weight: 25
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
     region: content
-  field_clp_spotlight_opt_in:
-    weight: 14
-    label: above
+  field_clp_spotlight_panel:
+    weight: 21
+    label: hidden
     settings:
       format: default
       format_custom_false: ''
@@ -98,7 +206,7 @@ content:
     type: boolean
     region: content
   field_clp_stories_cta:
-    weight: 21
+    weight: 14
     label: above
     settings:
       trim_length: 80
@@ -110,7 +218,7 @@ content:
     type: link
     region: content
   field_clp_stories_header:
-    weight: 18
+    weight: 10
     label: above
     settings:
       link_to_entity: false
@@ -118,15 +226,15 @@ content:
     type: string
     region: content
   field_clp_stories_intro:
-    weight: 19
+    weight: 11
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_clp_stories_panel:
-    weight: 17
-    label: above
+    weight: 9
+    label: hidden
     settings:
       format: default
       format_custom_false: ''
@@ -136,7 +244,34 @@ content:
     region: content
   field_clp_stories_teasers:
     type: entity_reference_revisions_entity_view
-    weight: 20
+    weight: 12
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_clp_video_panel:
+    weight: 18
+    label: hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_clp_video_panel_header:
+    weight: 19
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_clp_video_panel_more_video:
+    type: entity_reference_revisions_entity_view
+    weight: 21
     label: above
     settings:
       view_mode: default
@@ -144,7 +279,7 @@ content:
     third_party_settings: {  }
     region: content
   field_clp_what_you_can_do_header:
-    weight: 9
+    weight: 6
     label: above
     settings:
       link_to_entity: false
@@ -152,14 +287,14 @@ content:
     type: string
     region: content
   field_clp_what_you_can_do_intro:
-    weight: 8
+    weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_clp_what_you_can_do_promos:
-    weight: 10
+    weight: 8
     label: above
     settings:
       link: true
@@ -167,7 +302,7 @@ content:
     type: entity_reference_label
     region: content
   field_clp_why_this_matters:
-    weight: 6
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -190,6 +325,15 @@ content:
       link: false
     third_party_settings: {  }
     region: content
+  field_media:
+    weight: 20
+    label: above
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
   field_primary_call_to_action:
     type: entity_reference_revisions_entity_view
     weight: 4
@@ -201,7 +345,7 @@ content:
     region: content
   field_secondary_call_to_action:
     type: entity_reference_revisions_entity_view
-    weight: 7
+    weight: 5
     label: above
     settings:
       view_mode: default
@@ -209,7 +353,7 @@ content:
     third_party_settings: {  }
     region: content
   links:
-    weight: 1
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
