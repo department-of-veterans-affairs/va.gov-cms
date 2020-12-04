@@ -194,6 +194,19 @@ function _va_gov_backend_get_clp_toggles() {
   return [
     'toggle_groups' => [
       [
+        'trigger' => 'field_clp_events_panel',
+        'toggle_fields' => [
+          'field_clp_events_header' => [
+            'required' => TRUE,
+          ],
+        ],
+        'toggle_paragraphs' => [
+          'field_clp_events_references' => [
+            'required' => TRUE,
+          ],
+        ],
+      ],
+      [
         'trigger' => 'field_clp_resources_panel',
         'toggle_fields' => [
           'field_clp_resources_header' => [
