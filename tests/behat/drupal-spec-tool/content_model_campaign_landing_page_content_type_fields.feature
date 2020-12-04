@@ -4,15 +4,15 @@ Feature: Content model: Campaign Landing Page Content Type fields
   As a content editor
   I want to have content type fields that reflect my content model.
 
-  @dst @field_type @content_type_fields @dstfields @campaign_landing_page                                                                                                                                                           
+  @dst @field_type @content_type_fields @dstfields @campaign_landing_page
      Scenario: Fields
        Then exactly the following fields should exist for bundles "campaign_landing_page" of entity type node
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
-| Content type | Campaign Landing Page | Add a Spotlight panel | field_clp_spotlight_opt_in | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | Campaign Landing Page | Add a Spotlight panel | field_clp_spotlight_panel | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Campaign Landing Page | Add a Stories panel | field_clp_stories_panel | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Campaign Landing Page | Add a link to an external blog or other list of stories | field_clp_stories_cta | Link |  | 1 | Link |  |
 | Content type | Campaign Landing Page | Add a link to more videos | field_clp_video_panel_more_video | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
-| Content type | Campaign Landing Page | Add a video panel | field_clp_video_panel_opt_in | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | Campaign Landing Page | Add a video panel | field_clp_video_panel | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Campaign Landing Page | Add up to two stories | field_clp_stories_teasers | Entity reference revisions |  | 2 | Paragraphs Classic |  |
 | Content type | Campaign Landing Page | Additional links | field_clp_spotlight_link_teasers | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | Campaign Landing Page | Hero Image (Optional) | field_hero_image | Entity reference |  | 1 | Media library |  |

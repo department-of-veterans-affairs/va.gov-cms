@@ -10,15 +10,15 @@ dependencies:
     - field.field.node.campaign_landing_page.field_clp_spotlight_header
     - field.field.node.campaign_landing_page.field_clp_spotlight_intro_text
     - field.field.node.campaign_landing_page.field_clp_spotlight_link_teasers
-    - field.field.node.campaign_landing_page.field_clp_spotlight_opt_in
+    - field.field.node.campaign_landing_page.field_clp_spotlight_panel
     - field.field.node.campaign_landing_page.field_clp_stories_cta
     - field.field.node.campaign_landing_page.field_clp_stories_header
     - field.field.node.campaign_landing_page.field_clp_stories_intro
     - field.field.node.campaign_landing_page.field_clp_stories_panel
     - field.field.node.campaign_landing_page.field_clp_stories_teasers
+    - field.field.node.campaign_landing_page.field_clp_video_panel
     - field.field.node.campaign_landing_page.field_clp_video_panel_header
     - field.field.node.campaign_landing_page.field_clp_video_panel_more_video
-    - field.field.node.campaign_landing_page.field_clp_video_panel_opt_in
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_header
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_intro
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_promos
@@ -152,7 +152,7 @@ third_party_settings:
       label: 'VA Benefits'
     group_spotlight:
       children:
-        - field_clp_spotlight_opt_in
+        - field_clp_spotlight_panel
         - field_clp_spotlight_header
         - field_clp_spotlight_intro_text
         - field_clp_spotlight_cta
@@ -170,7 +170,7 @@ third_party_settings:
       label: Spotlight
     group_video:
       children:
-        - field_clp_video_panel_opt_in
+        - field_clp_video_panel
         - field_clp_video_panel_header
         - field_media
         - field_clp_video_panel_more_video
@@ -223,7 +223,7 @@ content:
     region: content
   field_clp_spotlight_cta:
     type: paragraphs
-    weight: 9
+    weight: 15
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -241,7 +241,7 @@ content:
     third_party_settings: {  }
     region: content
   field_clp_spotlight_header:
-    weight: 6
+    weight: 13
     region: content
     type: string_textfield_with_counter
     settings:
@@ -255,7 +255,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_clp_spotlight_intro_text:
-    weight: 7
+    weight: 14
     settings:
       rows: 5
       placeholder: ''
@@ -269,7 +269,7 @@ content:
     region: content
   field_clp_spotlight_link_teasers:
     type: paragraphs
-    weight: 10
+    weight: 16
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -285,15 +285,15 @@ content:
         duplicate: duplicate
     third_party_settings: {  }
     region: content
-  field_clp_spotlight_opt_in:
-    weight: 5
+  field_clp_spotlight_panel:
+    weight: 12
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
   field_clp_stories_cta:
-    weight: 31
+    weight: 7
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -301,7 +301,7 @@ content:
     type: link_default
     region: content
   field_clp_stories_header:
-    weight: 28
+    weight: 3
     settings:
       size: 70
       placeholder: ''
@@ -315,7 +315,7 @@ content:
     type: string_textfield_with_counter
     region: content
   field_clp_stories_intro:
-    weight: 29
+    weight: 5
     settings:
       rows: 5
       placeholder: ''
@@ -328,7 +328,7 @@ content:
     type: string_textarea_with_counter
     region: content
   field_clp_stories_panel:
-    weight: 27
+    weight: 2
     region: content
     type: boolean_checkbox
     settings:
@@ -336,7 +336,7 @@ content:
     third_party_settings: {  }
   field_clp_stories_teasers:
     type: entity_reference_paragraphs
-    weight: 30
+    weight: 6
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -346,8 +346,15 @@ content:
       default_paragraph_type: ''
     third_party_settings: {  }
     region: content
+  field_clp_video_panel:
+    weight: 4
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
   field_clp_video_panel_header:
-    weight: 27
+    weight: 5
     settings:
       size: 70
       placeholder: ''
@@ -362,7 +369,7 @@ content:
     region: content
   field_clp_video_panel_more_video:
     type: paragraphs
-    weight: 29
+    weight: 7
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -376,13 +383,6 @@ content:
       features:
         add_above: '0'
     third_party_settings: {  }
-    region: content
-  field_clp_video_panel_opt_in:
-    weight: 26
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
     region: content
   field_clp_what_you_can_do_header:
     weight: 4
@@ -460,7 +460,7 @@ content:
     third_party_settings: {  }
     region: content
   field_media:
-    weight: 28
+    weight: 6
     settings:
       media_types: {  }
     third_party_settings: {  }
