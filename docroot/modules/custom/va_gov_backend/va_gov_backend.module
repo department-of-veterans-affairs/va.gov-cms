@@ -323,6 +323,9 @@ function _va_gov_toggle_field_states(array &$form, array $toggle_group) {
         'visible' => [
           ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => TRUE]],
         ],
+        'disabled' => [
+          ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => FALSE]],
+        ],
 
       ];
     }
@@ -333,6 +336,9 @@ function _va_gov_toggle_field_states(array &$form, array $toggle_group) {
         ],
         'visible' => [
          ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => TRUE]],
+        ],
+        'disabled' => [
+         ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => FALSE]],
         ],
 
       ];
