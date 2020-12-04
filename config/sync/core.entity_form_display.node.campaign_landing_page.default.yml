@@ -206,6 +206,16 @@ third_party_settings:
         - field_clp_stories_intro
         - field_clp_stories_teasers
         - field_clp_stories_cta
+      parent_name: group_set_of_vertical_tabs
+      weight: 6
+      format_type: tab
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
       label: Stories
     group_downloadable_resources:
       children:
@@ -258,40 +268,6 @@ content:
     third_party_settings: {  }
     type: options_buttons
     region: content
-  field_clp_resources:
-    type: entity_browser_entity_reference
-    weight: 34
-    settings:
-      entity_browser: downloadable_resources
-      field_widget_display: rendered_entity
-      field_widget_display_settings:
-        view_mode: default
-      field_widget_edit: true
-      field_widget_remove: true
-      selection_mode: selection_append
-      field_widget_replace: false
-      open: false
-    third_party_settings: {  }
-    region: content
-  field_clp_resources_cta:
-    type: paragraphs
-    weight: 35
-    settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      add_mode: button
-      form_display_mode: default
-      default_paragraph_type: _none
-      features:
-        add_above: '0'
-        collapse_edit_all: collapse_edit_all
-        duplicate: duplicate
-    third_party_settings: {  }
-    region: content
   field_clp_events_header:
     weight: 27
     settings:
@@ -327,6 +303,40 @@ content:
       open: false
     third_party_settings: {  }
     type: entity_browser_entity_reference
+    region: content
+  field_clp_resources:
+    type: entity_browser_entity_reference
+    weight: 34
+    settings:
+      entity_browser: downloadable_resources
+      field_widget_display: rendered_entity
+      field_widget_display_settings:
+        view_mode: default
+      field_widget_edit: true
+      field_widget_remove: true
+      selection_mode: selection_append
+      field_widget_replace: false
+      open: false
+    third_party_settings: {  }
+    region: content
+  field_clp_resources_cta:
+    type: paragraphs
+    weight: 35
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
     region: content
   field_clp_resources_header:
     weight: 32
