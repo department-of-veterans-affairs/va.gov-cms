@@ -3,13 +3,14 @@ langcode: en
 status: true
 dependencies:
   config:
+    - entity_browser.browser.downloadable_resources
     - entity_browser.browser.promo_blocks_browser
     - field.field.node.campaign_landing_page.field_administration
     - field.field.node.campaign_landing_page.field_benefit_categories
+    - field.field.node.campaign_landing_page.field_clp_resources
     - field.field.node.campaign_landing_page.field_clp_resources_cta
     - field.field.node.campaign_landing_page.field_clp_resources_header
     - field.field.node.campaign_landing_page.field_clp_resources_intro_text
-    - field.field.node.campaign_landing_page.field_clp_resources
     - field.field.node.campaign_landing_page.field_clp_resources_panel
     - field.field.node.campaign_landing_page.field_clp_spotlight_cta
     - field.field.node.campaign_landing_page.field_clp_spotlight_header
@@ -129,11 +130,11 @@ third_party_settings:
         - group_hero_banner
         - group_why_this_matters
         - group_what_you_can_do
+        - group_video
         - group_spotlight
+        - group_stories
         - group_downloadable_resources
         - group_va_benefits
-        - group_video
-        - group_stories
       parent_name: ''
       weight: 0
       format_type: tabs
@@ -147,7 +148,7 @@ third_party_settings:
       children:
         - field_benefit_categories
       parent_name: group_set_of_vertical_tabs
-      weight: 5
+      weight: 8
       format_type: tab
       region: content
       format_settings:
@@ -165,7 +166,7 @@ third_party_settings:
         - field_clp_spotlight_cta
         - field_clp_spotlight_link_teasers
       parent_name: group_set_of_vertical_tabs
-      weight: 4
+      weight: 5
       format_type: tab
       region: content
       format_settings:
@@ -182,7 +183,7 @@ third_party_settings:
         - field_media
         - field_clp_video_panel_more_video
       parent_name: group_set_of_vertical_tabs
-      weight: 5
+      weight: 4
       format_type: tab
       region: content
       format_settings:
@@ -219,7 +220,7 @@ third_party_settings:
         - field_clp_resources
         - field_clp_resources_cta
       parent_name: group_set_of_vertical_tabs
-      weight: 5
+      weight: 7
       format_type: tab
       region: content
       format_settings:
@@ -505,7 +506,7 @@ content:
     type: string_textarea_with_counter
     region: content
   field_clp_what_you_can_do_promos:
-    weight: 6
+    weight: 7
     settings:
       entity_browser: promo_blocks_browser
       field_widget_display: label

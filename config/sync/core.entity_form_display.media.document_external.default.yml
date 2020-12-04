@@ -9,9 +9,7 @@ dependencies:
     - field.field.media.document_external.field_mime_type
     - field.field.media.document_external.field_owner
     - media.type.document_external
-    - workflows.workflow.editorial
   module:
-    - content_moderation
     - field_group
     - link
     - textfield_counter
@@ -21,7 +19,7 @@ third_party_settings:
       children:
         - field_owner
       parent_name: ''
-      weight: 4
+      weight: 3
       format_type: details_sidebar
       region: content
       format_settings:
@@ -33,10 +31,9 @@ third_party_settings:
         classes: ''
       label: Governance
     group_edi:
-      children:
-        - moderation_state
+      children: {  }
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: fieldset
       region: content
       format_settings:
@@ -71,14 +68,6 @@ content:
     third_party_settings: {  }
     type: link_default
     region: content
-  field_mime_type:
-    weight: 3
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_owner:
     weight: 7
     settings: {  }
@@ -102,6 +91,7 @@ content:
 hidden:
   created: true
   field_media_in_library: true
+  field_mime_type: true
   path: true
   status: true
   uid: true
