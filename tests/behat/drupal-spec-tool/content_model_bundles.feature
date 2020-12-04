@@ -48,6 +48,7 @@ Feature: Content model bundles
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
 | Promo | promo | Custom block type | Promote a link with an image, title, and description. |
 | Document | document | Media type | A locally hosted document, such as a PDF. |
+| Document - External | document_external | Media type |  |
 | Image | image | Media type | Locally hosted images. |
 | Video | video | Media type | A video hosted by YouTube, Vimeo, or some other provider. |
 | Accordion group | collapsible_panel | Paragraph type | A group of accordions. |
