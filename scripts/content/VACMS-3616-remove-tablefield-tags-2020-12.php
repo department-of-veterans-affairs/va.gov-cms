@@ -69,8 +69,10 @@ function va_gov_table_field_tag_removal(&$database) {
         ])
         ->condition('bundle', $bundle)
         ->condition('revision_id', $hour_result->revision_id);
-      $query->execute();
-      $revisions['processed'] = $revisions['processed'] + 1;
+       $updated_count = $query->execute();
+      if (!empty($updated_count)){
+        $revisions['processed'] = $revisions['processed'] + $updated_count;
+      }
     }
 
     // Log the number of updates.
