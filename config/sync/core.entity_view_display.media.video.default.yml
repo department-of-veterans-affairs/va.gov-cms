@@ -3,6 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.video.field_description
+    - field.field.media.video.field_duration
     - field.field.media.video.field_media_in_library
     - field.field.media.video.field_media_submission_guideline
     - field.field.media.video.field_media_video_embed_field
@@ -10,6 +12,7 @@ dependencies:
     - image.style.large
     - media.type.video
   module:
+    - hms_field
     - image
     - video_embed_field
 _core:
@@ -22,16 +25,32 @@ content:
   created:
     label: hidden
     type: timestamp_ago
-    weight: 4
+    weight: 6
     settings:
       future_format: '@interval hence'
       past_format: '@interval ago'
       granularity: 1
     third_party_settings: {  }
     region: content
+  field_description:
+    weight: 3
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_duration:
+    weight: 2
+    label: inline
+    settings:
+      format: 'h:mm:ss'
+      leading_zero: 0
+    third_party_settings: {  }
+    type: hms_default_formatter
+    region: content
   field_media_in_library:
     type: boolean
-    weight: 6
+    weight: 8
     region: content
     label: hidden
     settings:
@@ -41,7 +60,7 @@ content:
     third_party_settings: {  }
   field_media_video_embed_field:
     type: video_embed_field_video
-    weight: 1
+    weight: 0
     label: hidden
     settings:
       responsive: true
@@ -51,7 +70,7 @@ content:
     third_party_settings: {  }
     region: content
   field_owner:
-    weight: 5
+    weight: 7
     label: above
     settings:
       link: true
@@ -61,14 +80,14 @@ content:
   name:
     label: hidden
     type: string
-    weight: 0
+    weight: 1
     settings:
       link_to_entity: false
     third_party_settings: {  }
     region: content
   thumbnail:
     type: image
-    weight: 2
+    weight: 4
     region: content
     label: hidden
     settings:
@@ -77,7 +96,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_label
-    weight: 3
+    weight: 5
     region: content
     label: inline
     settings:
@@ -85,3 +104,4 @@ content:
     third_party_settings: {  }
 hidden:
   field_media_submission_guideline: true
+  search_api_excerpt: true
