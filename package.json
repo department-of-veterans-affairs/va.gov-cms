@@ -4,6 +4,8 @@
   "description": "This is an Aquia Lightning based implementation of Drupal 8 that uses [Lando](https://docs.devwithlando.io/) for local container management.",
   "main": "index.js",
   "scripts": {
+    "stylelint-modules": "npx stylelint 'docroot/modules/custom/**/*.css'",
+    "stylelint-themes": "npx stylelint 'docroot/themes/custom/**/*.scss'",
     "test": "node ./tests/accessibility/aXeAccessibilityCheck.js"
   },
   "repository": {
@@ -30,5 +32,34 @@
   "keywords": [
     "axe",
     "tests"
-  ]
+  ],
+  "devDependencies": {
+    "stylelint": "^13.8.0",
+    "stylelint-config-sass-guidelines": "^7.1.0",
+    "stylelint-order": "^4.1.0"
+  },
+  "stylelint": {
+    "extends": "stylelint-config-sass-guidelines",
+    "plugins": [
+      "stylelint-order"
+    ],
+    "rules": {
+      "order/order": [
+        "custom-properties",
+        "declarations"
+      ],
+      "order/properties-alphabetical-order": true,
+      "max-nesting-depth": 5,
+      "property-no-vendor-prefix": null,
+      "selector-class-pattern": null,
+      "selector-max-compound-selectors": 7,
+      "selector-max-id": 1,
+      "selector-no-qualifying-type": [
+        true,
+        {
+          "ignore": ["class"]
+        }
+      ]
+    }
+  }
 }
