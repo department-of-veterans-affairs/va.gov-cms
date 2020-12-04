@@ -359,11 +359,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     _va_gov_toggle_fields_states($form, $clp_toggles);
   }
 
-  // Prevent manual altering of file type on media form.
-  if (isset($form['field_mime_type'])) {
-    $form['field_mime_type']['widget'][0]['value']['#attributes']['readonly'] = 'readonly';
-  }
-
   // Add states + custom validation if the Standalone Page field is present.
   if (isset($form['field_standalone_page'])) {
     $form['field_primary_category']['widget']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
