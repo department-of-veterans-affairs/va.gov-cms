@@ -194,6 +194,25 @@ function _va_gov_backend_get_clp_toggles() {
   return [
     'toggle_groups' => [
       [
+        'trigger' => 'field_clp_resources_panel',
+        'toggle_fields' => [
+          'field_clp_resources_header' => [
+            'required' => FALSE,
+          ],
+          'field_clp_resources_intro_text' => [
+            'required' => FALSE,
+          ],
+        ],
+        'toggle_paragraphs' => [
+          'field_clp_resources_cta' => [
+            'required' => FALSE,
+          ],
+          'field_clp_resources' => [
+            'required' => FALSE,
+          ],
+        ],
+      ],
+      [
         'trigger' => 'field_clp_spotlight_panel',
         'toggle_fields' => [
           'field_clp_spotlight_header' => [
@@ -304,6 +323,9 @@ function _va_gov_toggle_field_states(array &$form, array $toggle_group) {
         'visible' => [
           ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => TRUE]],
         ],
+        'disabled' => [
+          ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => FALSE]],
+        ],
 
       ];
     }
@@ -314,6 +336,9 @@ function _va_gov_toggle_field_states(array &$form, array $toggle_group) {
         ],
         'visible' => [
          ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => TRUE]],
+        ],
+        'disabled' => [
+         ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => FALSE]],
         ],
 
       ];
@@ -1139,6 +1164,10 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
   if ($entity_type->id() === 'node' && $bundle === 'q_a' && isset($fields['title'])) {
     $fields['title']->addConstraint('UniqueTitle');
   }
+  // Add pdf file to check to external document file type.
+  if ($entity_type->id() === 'media' && $bundle === 'document_external' && isset($fields['field_media_external_file'])) {
+    $fields['field_media_external_file']->addConstraint('PdfCheck');
+  }
 }
 
 /**
@@ -1386,6 +1415,10 @@ function va_gov_backend_pathauto_alias_alter(&$alias, array &$context) {
 function va_gov_backend_entity_presave(EntityInterface $entity) {
   $bundle_types = ['event', 'news_story', 'press_release', 'outreach_asset'];
 
+  if ($entity->getEntityTypeId() === 'media' && $entity->bundle() === 'document_external') {
+    _va_gov_backend_set_file_type($entity);
+  }
+
   if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $bundle_types)) {
     _va_gov_backend_feature_bump($entity);
   }
@@ -1399,6 +1432,18 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
   }
 
   _va_gov_backend_apply_filter_to_tablefield_cells($entity);
+}
+
+/**
+ * Set the file type field value for external file.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The external file media entity.
+ */
+function _va_gov_backend_set_file_type(EntityInterface $entity) {
+  $uri = $entity->get('field_media_external_file')->getValue()[0]['uri'];
+  $mime = \Drupal::service('file.mime_type.guesser')->guess($uri);
+  $entity->set('field_mime_type', $mime);
 }
 
 /**

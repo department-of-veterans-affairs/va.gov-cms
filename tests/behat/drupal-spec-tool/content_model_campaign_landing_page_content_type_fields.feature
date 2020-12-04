@@ -32,3 +32,8 @@ Feature: Content model: Campaign Landing Page Content Type fields
 | Content type | Campaign Landing Page | What you can do intro text | field_clp_what_you_can_do_intro | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter |  |
 | Content type | Campaign Landing Page | What you can do promos | field_clp_what_you_can_do_promos | Entity reference |  | 3 | Entity Browser - Table |  |
 | Content type | Campaign Landing Page | Why this matters to you | field_clp_why_this_matters | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter |  |
+| Content type | Campaign Landing Page | Add a Resources panel | field_clp_resources_panel | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | Campaign Landing Page | Downloadable resources cta | field_clp_resources_cta | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
+| Content type | Campaign Landing Page | Downloadable resources header | field_clp_resources_header | Text (plain) |  | 1 | Textfield with counter |  |
+| Content type | Campaign Landing Page | Downloadable resources intro text | field_clp_resources_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
+| Content type | Campaign Landing Page | Media resources | field_clp_resources | Entity reference |  | 3 | Entity browser |  |
