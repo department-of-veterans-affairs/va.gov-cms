@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "532f219897616d27df64e2bdfafb49a1",
+    "content-hash": "800e7de190a99957d3dd2d1ff04cee22",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5385,6 +5385,58 @@
             "homepage": "https://www.drupal.org/project/health_check_url",
             "support": {
                 "source": "https://git.drupalcode.org/project/health_check_url"
+            }
+        },
+        {
+            "name": "drupal/hms_field",
+            "version": "1.0.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/hms_field.git",
+                "reference": "8.x-1.0-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/hms_field-8.x-1.0-beta1.zip",
+                "reference": "8.x-1.0-beta1",
+                "shasum": "5197931b75dced4eea3c355995ef8ad4fc2b890c"
+            },
+            "require": {
+                "drupal/core": "^8"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.0-beta1",
+                    "datestamp": "1474456739",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Frans",
+                    "homepage": "https://www.drupal.org/user/514222"
+                },
+                {
+                    "name": "jeroen.b",
+                    "homepage": "https://www.drupal.org/user/1853532"
+                },
+                {
+                    "name": "ws.agency",
+                    "homepage": "https://www.drupal.org/user/2851415"
+                }
+            ],
+            "description": "Provides a field for Hours, Minutes and Seconds stored as seconds.",
+            "homepage": "https://www.drupal.org/project/hms_field",
+            "support": {
+                "source": "https://git.drupalcode.org/project/hms_field"
             }
         },
         {
@@ -21074,6 +21126,7 @@
         "drupal/fast_404": 15,
         "drupal/fieldhelptext": 10,
         "drupal/graphql_metatag": 20,
+        "drupal/hms_field": 10,
         "drupal/image_style_warmer": 10,
         "drupal/libraries": 15,
         "drupal/markup": 10,
