@@ -40,5 +40,9 @@
 #}
 {% extends "paragraph.html.twig" %}
 {% block content %}
-  {{ field_media }}
+  {% for media_object in field_media %}
+    <span {{ media_object.attributes }}>
+      <a target="_blank" href="{{ media_object.link_url }}" download="{{ media_object.link_url }}" aria-label="Download">{{ media_object.link_title }}</a>
+    </span>
+  {% endfor %}
 {% endblock %}
