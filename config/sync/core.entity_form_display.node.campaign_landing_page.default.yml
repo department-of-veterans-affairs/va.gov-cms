@@ -3,9 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
+    - entity_browser.browser.downloadable_resources
     - entity_browser.browser.promo_blocks_browser
     - field.field.node.campaign_landing_page.field_administration
     - field.field.node.campaign_landing_page.field_benefit_categories
+    - field.field.node.campaign_landing_page.field_clp_resources
+    - field.field.node.campaign_landing_page.field_clp_resources_cta
+    - field.field.node.campaign_landing_page.field_clp_resources_header
+    - field.field.node.campaign_landing_page.field_clp_resources_intro_text
+    - field.field.node.campaign_landing_page.field_clp_resources_panel
     - field.field.node.campaign_landing_page.field_clp_spotlight_cta
     - field.field.node.campaign_landing_page.field_clp_spotlight_header
     - field.field.node.campaign_landing_page.field_clp_spotlight_intro_text
@@ -32,6 +38,7 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - content_moderation
+    - entity_browser
     - entity_browser_table
     - field_group
     - link
@@ -45,7 +52,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: details_sidebar
       region: content
       format_settings:
@@ -61,7 +68,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: fieldset
       format_settings:
         id: ''
@@ -123,10 +130,11 @@ third_party_settings:
         - group_hero_banner
         - group_why_this_matters
         - group_what_you_can_do
-        - group_spotlight
-        - group_va_benefits
         - group_video
+        - group_spotlight
         - group_stories
+        - group_downloadable_resources
+        - group_va_benefits
       parent_name: ''
       weight: 0
       format_type: tabs
@@ -140,7 +148,7 @@ third_party_settings:
       children:
         - field_benefit_categories
       parent_name: group_set_of_vertical_tabs
-      weight: 5
+      weight: 8
       format_type: tab
       region: content
       format_settings:
@@ -158,7 +166,7 @@ third_party_settings:
         - field_clp_spotlight_cta
         - field_clp_spotlight_link_teasers
       parent_name: group_set_of_vertical_tabs
-      weight: 4
+      weight: 5
       format_type: tab
       region: content
       format_settings:
@@ -175,7 +183,7 @@ third_party_settings:
         - field_media
         - field_clp_video_panel_more_video
       parent_name: group_set_of_vertical_tabs
-      weight: 5
+      weight: 4
       format_type: tab
       region: content
       format_settings:
@@ -204,6 +212,24 @@ third_party_settings:
         formatter: closed
         required_fields: true
       label: Stories
+    group_downloadable_resources:
+      children:
+        - field_clp_resources_panel
+        - field_clp_resources_header
+        - field_clp_resources_intro_text
+        - field_clp_resources
+        - field_clp_resources_cta
+      parent_name: group_set_of_vertical_tabs
+      weight: 7
+      format_type: tab
+      region: content
+      format_settings:
+        description: ''
+        formatter: closed
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Downloadable resources'
 id: node.campaign_landing_page.default
 targetEntityType: node
 bundle: campaign_landing_page
@@ -220,6 +246,74 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
+    region: content
+  field_clp_resources:
+    type: entity_browser_entity_reference
+    weight: 34
+    settings:
+      entity_browser: downloadable_resources
+      field_widget_display: rendered_entity
+      field_widget_display_settings:
+        view_mode: default
+      field_widget_edit: true
+      field_widget_remove: true
+      selection_mode: selection_append
+      field_widget_replace: false
+      open: false
+    third_party_settings: {  }
+    region: content
+  field_clp_resources_cta:
+    type: paragraphs
+    weight: 35
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    region: content
+  field_clp_resources_header:
+    weight: 32
+    settings:
+      size: 70
+      placeholder: ''
+      maxlength: 70
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+      use_field_maxlength: false
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_clp_resources_intro_text:
+    weight: 33
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 350
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: "Maximum <span class=\"maxlength_count\">@maxlength</span> characters, but 120 characters is recommended. <span class=\"current_count\">@current_length</span> characters, <span class=\"remaining_count\">@remaining_count</span> characters remaining\r\n"
+    third_party_settings: {  }
+    type: string_textarea_with_counter
+    region: content
+  field_clp_resources_panel:
+    weight: 30
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   field_clp_spotlight_cta:
     type: paragraphs
@@ -412,15 +506,15 @@ content:
     type: string_textarea_with_counter
     region: content
   field_clp_what_you_can_do_promos:
-    weight: 6
+    weight: 7
     settings:
       entity_browser: promo_blocks_browser
       field_widget_display: label
-      field_widget_edit: '1'
-      field_widget_remove: '1'
+      field_widget_edit: true
+      field_widget_remove: true
       selection_mode: selection_append
-      field_widget_replace: 0
-      open: 0
+      field_widget_replace: false
+      open: false
       field_widget_display_settings: {  }
     third_party_settings: {  }
     type: entity_reference_browser_table_widget
@@ -512,7 +606,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 2
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -520,7 +614,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 4
+    weight: 3
     region: content
     third_party_settings: {  }
   title:
@@ -538,7 +632,7 @@ content:
       use_field_maxlength: false
     third_party_settings: {  }
   url_redirects:
-    weight: 3
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }

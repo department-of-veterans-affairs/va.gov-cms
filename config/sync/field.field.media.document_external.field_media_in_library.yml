@@ -1,16 +1,14 @@
-uuid: 62a406d5-b263-47bf-98bf-ee98ecd6ec0b
+uuid: 8c63b2db-31b6-4934-9e09-75d465368b01
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.media.field_media_in_library
-    - media.type.document
-_core:
-  default_config_hash: nijv8bDazgr_PiMXXtFSeYpUzoXL6pHjGwIMXY0-k5c
-id: media.document.field_media_in_library
+    - media.type.document_external
+id: media.document_external.field_media_in_library
 field_name: field_media_in_library
 entity_type: media
-bundle: document
+bundle: document_external
 label: Reusable
 description: 'By default, documents you upload to the CMS can be reused by other VA.gov CMS editors. Uncheck this box to prevent reuse by other CMS editors.'
 required: false
@@ -20,6 +18,6 @@ default_value:
     value: 1
 default_value_callback: ''
 settings:
-  on_label: 'Shown in media library'
-  off_label: 'Hidden in media library'
+  on_label: 'On'
+  off_label: 'Off'
 field_type: boolean
