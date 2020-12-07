@@ -1355,7 +1355,7 @@ function va_gov_backend_theme_suggestions_paragraph_alter(&$suggestions, $variab
   $paragraph = $variables['elements']['#paragraph'];
   $parent = $paragraph->getParentEntity();
   if ($parent) {
-    $suggestions[] = 'paragraph__' . $paragraph->bundle() . '__' .  $parent->bundle();
+    $suggestions[] = 'paragraph__' . $paragraph->bundle() . '__' . $parent->bundle();
   }
 }
 
@@ -1387,7 +1387,7 @@ function va_gov_backend_preprocess_paragraph(&$variables) {
           $media_object['link_url'] = $file->url();
         }
       }
-      else if ($media_bundle === 'video') {
+      elseif ($media_bundle === 'video') {
         $media_object['link_url'] = $media_entity->get('field_media_video_embed_field')->getValue()[0]['value'];
       }
       $variables['field_media'][] = $media_object;
