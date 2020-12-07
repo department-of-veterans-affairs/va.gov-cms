@@ -48,6 +48,7 @@ Feature: Content model bundles
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
 | Promo | promo | Custom block type | Promote a link with an image, title, and description. |
 | Document | document | Media type | A locally hosted document, such as a PDF. |
+| Document - External | document_external | Media type |  |
 | Image | image | Media type | Locally hosted images. |
 | Video | video | Media type | A video hosted by YouTube, Vimeo, or some other provider. |
 | Accordion group | collapsible_panel | Paragraph type | A group of accordions. |
@@ -65,6 +66,7 @@ Feature: Content model bundles
 | Embedded image | media | Paragraph type | For adding an image inline |
 | Expandable Text | expandable_text | Paragraph type | Text that expands upon click. |
 | Link teaser | link_teaser | Paragraph type | A link followed by a description. For building inline "menus" of content. |
+| Link teaser with image | link_teaser_with_image | Paragraph type |  |
 | Link to file or video | downloadable_file | Paragraph type | For image or document downloads. |
 | List of link teasers | list_of_link_teasers | Paragraph type | A paragraph that contains only one type of paragraph: Link teaser. |
 | List of links | list_of_links | Paragraph type | A set of links, with link text and URL required, and an optional header. |

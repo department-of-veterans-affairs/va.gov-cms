@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "70578a870d5f91de97b4eda07d106e36",
+    "content-hash": "800e7de190a99957d3dd2d1ff04cee22",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5385,6 +5385,58 @@
             "homepage": "https://www.drupal.org/project/health_check_url",
             "support": {
                 "source": "https://git.drupalcode.org/project/health_check_url"
+            }
+        },
+        {
+            "name": "drupal/hms_field",
+            "version": "1.0.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/hms_field.git",
+                "reference": "8.x-1.0-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/hms_field-8.x-1.0-beta1.zip",
+                "reference": "8.x-1.0-beta1",
+                "shasum": "5197931b75dced4eea3c355995ef8ad4fc2b890c"
+            },
+            "require": {
+                "drupal/core": "^8"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.0-beta1",
+                    "datestamp": "1474456739",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Frans",
+                    "homepage": "https://www.drupal.org/user/514222"
+                },
+                {
+                    "name": "jeroen.b",
+                    "homepage": "https://www.drupal.org/user/1853532"
+                },
+                {
+                    "name": "ws.agency",
+                    "homepage": "https://www.drupal.org/user/2851415"
+                }
+            ],
+            "description": "Provides a field for Hours, Minutes and Seconds stored as seconds.",
+            "homepage": "https://www.drupal.org/project/hms_field",
+            "support": {
+                "source": "https://git.drupalcode.org/project/hms_field"
             }
         },
         {
@@ -18389,16 +18441,16 @@
         },
         {
             "name": "va-gov/web",
-            "version": "dev-master",
+            "version": "v0.1.1174",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
-                "reference": "4749648bd8506c6e2432f27d395fa5cfd75c19a1"
+                "reference": "e32b2e277350bad6c8acf82868b7c79dad4636e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/4749648bd8506c6e2432f27d395fa5cfd75c19a1",
-                "reference": "4749648bd8506c6e2432f27d395fa5cfd75c19a1",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/e32b2e277350bad6c8acf82868b7c79dad4636e2",
+                "reference": "e32b2e277350bad6c8acf82868b7c79dad4636e2",
                 "shasum": ""
             },
             "type": "node-project",
@@ -18423,7 +18475,7 @@
                 }
             ],
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
-            "time": "2020-12-01T17:24:02+00:00"
+            "time": "2020-12-01T18:38:26+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -21074,6 +21126,7 @@
         "drupal/fast_404": 15,
         "drupal/fieldhelptext": 10,
         "drupal/graphql_metatag": 20,
+        "drupal/hms_field": 10,
         "drupal/image_style_warmer": 10,
         "drupal/libraries": 15,
         "drupal/markup": 10,
@@ -21093,7 +21146,6 @@
         "drupal/views_tree": 15,
         "drupal/workbench_access": 10,
         "drupal/workflow_assignments": 20,
-        "va-gov/web": 20,
         "weitzman/drupal-test-traits": 20
     },
     "prefer-stable": true,

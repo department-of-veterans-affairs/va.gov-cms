@@ -4,7 +4,7 @@ Feature: Content model: LC Content Type fields
   As a content editor
   I want to have content type fields that reflect my content model.
 
-  @dst @field_type @content_type_fields @dstfields                                                                                                                                                               
+  @dst @field_type @content_type_fields @dstfields
      Scenario: Fields
        Then exactly the following fields should exist for bundles "checklist,faq_multiple_q_a,support_resources_detail_page,media_list_images,media_list_videos,q_a,step_by_step" of entity type node
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
@@ -77,7 +77,7 @@ Feature: Content model: LC Content Type fields
 | Content type | Q&A | Answer | field_answer | Entity reference revisions | Required | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | Q&A | Alert | field_alert_single | Entity reference revisions | Required | 1 | Paragraphs Classic | Translatable |
 | Content type | Q&A | Need more help? | field_contact_information | Entity reference revisions |  | 1 | Paragraphs Classic |  |
-| Content type | Q&A | Enable standalone page | field_standalone_page | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | Q&A | Enable standalone Resources and support page for this Q&A. | field_standalone_page | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Q&A | CTA buttons | field_buttons | Entity reference revisions | Required | 2 | Paragraphs Classic | Translatable |
 | Content type | Q&A | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Q&A | Related Information | field_related_information | Entity reference revisions |  | 5 | Paragraphs EXPERIMENTAL | Translatable |

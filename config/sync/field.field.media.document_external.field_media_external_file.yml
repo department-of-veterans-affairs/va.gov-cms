@@ -1,0 +1,23 @@
+uuid: 6b24cc73-9685-4b30-9b21-692e72fcc9b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_media_external_file
+    - media.type.document_external
+  module:
+    - link
+id: media.document_external.field_media_external_file
+field_name: field_media_external_file
+entity_type: media
+bundle: document_external
+label: 'External File URL'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+field_type: link
