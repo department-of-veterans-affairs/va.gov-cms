@@ -76,36 +76,27 @@
       // React when the tags fieldset changes.
       $('fieldset#edit-group-tags').change(function () {
         const selection = $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').val();
-
+        // Reset our selections and hide our vocabs by default.
+        $('fieldset#edit-group-tags input[type="radio"]').attr('checked', false);
+        $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').hide();
+        $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').hide();
         if (selection === 'beneficiaries') {
-          $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').hide();
+          // Show beneficiares.
           $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').show();
-          // Reset them all.
-          $('fieldset#edit-group-tags input[type="radio"]').attr('checked', false);
-          $('#edit-field-tags-0-subform-field-non-beneficiares-none').attr('checked', true);
-          // Now set none-beneficiaries to none.
+          // Set non-beneficiaries to none.
           $('#edit-field-tags-0-subform-field-non-beneficiares-none').attr('checked', true);
         }
-        else if (selection === 'non-beneficiaries') {
-          $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').hide();
+        if (selection === 'non-beneficiaries') {
+          // Show non-beneficiares.
           $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').show();
-          // Reset them all.
-          $('fieldset#edit-group-tags input[type="radio"]').attr('checked', false);
-          $('#edit-field-tags-0-subform-field-audience-beneficiares-none').attr('checked', true);
-          // Now set the beneficiaries to none.
+          // Set beneficiaries to none.
           $('#edit-field-tags-0-subform-field-audience-beneficiares-none').attr('checked', true);
         }
-        else {
-          $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').hide();
-          $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').hide();
-          // Reset them all.
-          $('fieldset#edit-group-tags input[type="radio"]').attr('checked', false);
+        if (selection === '_none') {
+          // Set both vocabs to none.
           $('#edit-field-tags-0-subform-field-non-beneficiares-none').attr('checked', true);
-          // Now set the vocabs to none.
           $('#edit-field-tags-0-subform-field-audience-beneficiares-none').attr('checked', true);
-          $('#edit-field-tags-0-subform-field-non-beneficiares-none').attr('checked', true);
         }
-
         // Enforce tag selection rules.
         enforceMaximumNumberOfTags();
       });
