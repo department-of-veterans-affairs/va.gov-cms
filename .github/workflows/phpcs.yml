@@ -11,6 +11,15 @@ jobs:
         # run: |
           # composer global require drupal/coder
 
+      - name: Test run
+        run: |
+          phpcs --report=json ${INPUT_PHPCS_FLAGS:-'.'}
+
+      - name: Test run with jq
+        run: |
+          phpcs --report=json ${INPUT_PHPCS_FLAGS:-'.'} | jq -r ' .files | to_entries[] | .key as $path | .value.messages[] as $msg | "\($path):\($msg.line):\($msg.column):`\($msg.source)`<br>\($msg.message)" '
+
+
       - name: phpcs
         uses: shirobrak/action-phpcs@v1.0.0
         with:
