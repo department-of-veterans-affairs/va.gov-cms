@@ -2,7 +2,8 @@ name: Lint (s)css style
 
 on:
   push:
-    branches: [ master ]
+    branches-ignore:
+      - master
   pull_request:
     branches: [ master ]
 
