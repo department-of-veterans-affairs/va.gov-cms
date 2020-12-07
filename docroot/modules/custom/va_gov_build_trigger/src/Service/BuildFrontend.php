@@ -89,12 +89,9 @@ class BuildFrontend {
         $vars = [
           '@link' => Link::fromTextAndUrl(t('Deploy Log'), Url::fromUri('http://' . $_SERVER['DEVSHOP_HOSTNAME'] . '/node/' . $task->nid))->toString(),
         ];
-        $message = t('VA Web Rebuild & Deploy has been queued. The process should complete in around 1 minute. @link', $vars);
+        $message = t('VA Web Rebuild & Deploy has been queued. Please see the devshop deploy log for status. @link', $vars);
         $this->messenger->addStatus($message);
         $this->logger->info($message);
-
-        // Save pending state.
-        $this->setPendingState(1);
       }
       else {
         // This has failed due to bad devshop setting.
@@ -110,8 +107,6 @@ class BuildFrontend {
       $message = t('Frontend build would have been triggered. To build with Lando, run the command: @command', $vars);
       $this->messenger->addStatus($message);
       $this->logger->info($message);
-      // Save pending state.
-      $this->setPendingState(1);
     }
     elseif ((!empty($jenkins_build_environment)) && array_key_exists($jenkins_build_environment, self::WEB_ENVIRONMENTS) && (PHP_SAPI !== 'cli')) {
       // This is in a BRD environment.
