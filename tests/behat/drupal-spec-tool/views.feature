@@ -118,8 +118,6 @@ Feature: Views
 | Glossary | Page | page_1 | Page |
 | Health care service names and descriptions | Master | default | Master |
 | Health care service names and descriptions |  Entity Reference   | entity_reference_1 | Entity Reference |
-| Health service offerings | Master | default | Master |
-| Health service offerings | Page | page_1 | Page |
 | Image Style Warmer Warmup Files | Files overview  | page_1 | Page |
 | Image Style Warmer Warmup Files | Master | default | Master |
 | Local facilities entity reference view | Master | default | Master |
