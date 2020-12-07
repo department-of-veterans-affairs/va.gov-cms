@@ -19,6 +19,10 @@ jobs:
         run: |
           ~/.composer/vendor/bin/phpcs --report=json --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,*/node_modules/*,*/simplesaml*/* --extensions=php,module,inc,install,profile,engine,theme,js,css --standard=~/.composer/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/modules/contrib/workflow_assignments docroot/themes/custom tests
 
+      - name: Test output
+        run: |
+          pwd && ls -la
+
       - name: phpcs
         uses: shirobrak/action-phpcs@v1.0.0
         with:
@@ -26,5 +30,5 @@ jobs:
           filter_mode: nofilter
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
-          phpcs_flags: '--ignore="*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,*/node_modules/*,*/simplesaml*/*" --extensions=php,module,inc,install,profile,engine,theme,js,css --standard=~/.composer/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/modules/contrib/workflow_assignments docroot/themes/custom tests'
+          phpcs_flags: '--ignore="*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,*/node_modules/*,*/simplesaml*/*" --extensions=php,module,inc,install,profile,engine,theme,js,css --standard=~/.composer/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml "${GITHUB_WORKSPACE}/docroot/modules/custom" "${GITHUB_WORKSPACE}/docroot/modules/contrib/workflow_assignments "${GITHUB_WORKSPACE}/docroot/themes/custom" "${GITHUB_WORKSPACE}/tests"'
 
