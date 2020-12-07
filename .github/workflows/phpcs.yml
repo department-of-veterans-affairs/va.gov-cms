@@ -6,6 +6,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - name: Install PHPCS with Drupal Coding Standards
+        run: |
+          composer global require drupal/coder
+
       - name: phpcs
         uses: shirobrak/action-phpcs@v1.0.0
         with:
@@ -13,5 +18,5 @@ jobs:
           filter_mode: nofilter
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
-          phpcs_flags: '--ignore="*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,*/node_modules/*,*/simplesaml*/*" --extensions=php,module,inc,install,profile,engine,theme,js,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/modules/contrib/workflow_assignments docroot/themes/custom tests'
+          phpcs_flags: '--ignore="*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,*/node_modules/*,*/simplesaml*/*" --extensions=php,module,inc,install,profile,engine,theme,js,css --standard=~/.composer/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/modules/contrib/workflow_assignments docroot/themes/custom tests'
 
