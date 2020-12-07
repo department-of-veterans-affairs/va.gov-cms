@@ -7,9 +7,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install PHPCS with Drupal Coding Standards
-        run: |
-          composer global require drupal/coder
+      # - name: Install PHPCS with Drupal Coding Standards
+        # run: |
+          # composer global require drupal/coder
 
       - name: phpcs
         uses: shirobrak/action-phpcs@v1.0.0
