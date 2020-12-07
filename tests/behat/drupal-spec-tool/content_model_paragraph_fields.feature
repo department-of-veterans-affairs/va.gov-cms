@@ -49,7 +49,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Embedded image | Select an image | field_media | Entity reference |  | 1 | Media library |  |
 | Paragraph type | Expandable Text | Full Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Expandable Text | Text Expander | field_text_expander | Text (plain) | Required | 1 | Textfield with counter |  |
-| Paragraph type | Link teaser | Link | field_link | Link |  | 1 | Linkit |  |
+| Paragraph type | Link teaser | Link | field_link | Link | Required | 1 | Linkit |  |
 | Paragraph type | Link teaser | Link summary | field_link_summary | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Link teaser with image | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Paragraph type | Link teaser with image | Link teaser | field_link_teaser | Entity reference revisions |  | 1 | Paragraphs Classic |  |
