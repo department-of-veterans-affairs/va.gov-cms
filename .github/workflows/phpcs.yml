@@ -1,0 +1,17 @@
+name: phpcs
+on: [pull_request]
+jobs:
+  phpcs:
+    name: runner / phpcs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: phpcs
+        uses: shirobrak/action-phpcs@v1.0.0
+        with:
+          fail_on_error: true
+          filter_mode: nofilter
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          phpcs_flags: '--ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,*/node_modules/*,*/simplesaml*/* --extensions=php,module,inc,install,profile,engine,theme,js,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/modules/contrib/workflow_assignments docroot/themes/custom tests --colors'
+
