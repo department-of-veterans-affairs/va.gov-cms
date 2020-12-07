@@ -11,6 +11,14 @@ jobs:
         run: |
           composer global require drupal/coder
 
+      - name: Verify standards file location
+        run: |
+          cat ~/.composer/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml
+
+      - name: Test phpcs run
+        run: |
+          phpcs --report=json --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,*/node_modules/*,*/simplesaml*/* --extensions=php,module,inc,install,profile,engine,theme,js,css --standard=~/.composer/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/modules/contrib/workflow_assignments docroot/themes/custom tests
+
       - name: phpcs
         uses: shirobrak/action-phpcs@v1.0.0
         with:
