@@ -7,6 +7,7 @@ dependencies:
     - entity_browser.browser.promo_blocks_browser
     - field.field.node.campaign_landing_page.field_administration
     - field.field.node.campaign_landing_page.field_benefit_categories
+    - field.field.node.campaign_landing_page.field_clp_connect_with_us
     - field.field.node.campaign_landing_page.field_clp_faq_cta
     - field.field.node.campaign_landing_page.field_clp_faq_panel
     - field.field.node.campaign_landing_page.field_clp_faq_paragraphs
@@ -138,6 +139,7 @@ third_party_settings:
         - group_stories
         - group_downloadable_resources
         - group_faqs
+        - group_connect_with_us
         - group_va_benefits
       parent_name: ''
       weight: 0
@@ -250,6 +252,20 @@ third_party_settings:
         formatter: closed
         required_fields: true
       label: FAQs
+    group_connect_with_us:
+      children:
+        - field_clp_connect_with_us
+      parent_name: group_set_of_vertical_tabs
+      weight: 9
+      format_type: tab
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: 'Connect with us'
 id: node.campaign_landing_page.default
 targetEntityType: node
 bundle: campaign_landing_page
@@ -267,13 +283,30 @@ content:
     third_party_settings: {  }
     type: options_buttons
     region: content
-  field_clp_faq_cta:
-    weight: 38
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
+  field_clp_connect_with_us:
+    weight: 39
+    settings: {  }
     third_party_settings: {  }
-    type: link_default
+    type: options_buttons
+    region: content
+  field_clp_faq_cta:
+    type: paragraphs
+    weight: 40
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
     region: content
   field_clp_faq_panel:
     weight: 36

@@ -68,6 +68,7 @@ Feature: Views
        | View | Title | Machine name | Display plugin |
 | Administration section | Entity Reference | entity_reference_1 | Entity Reference |
 | Administration section | Master | default | Master |
+| Administration section | CLP Entity Reference | clp_entity_reference | Entity Reference |
 | Archive | Block | block_1 | Block |
 | Archive | Master | default | Master |
 | Archive | Page | page_1 | Page |
