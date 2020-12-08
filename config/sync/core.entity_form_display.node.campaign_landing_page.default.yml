@@ -294,14 +294,14 @@ content:
       entity_browser: events_browser
       field_widget_display: rendered_entity
       field_widget_display_settings:
-        view_mode: default
-      field_widget_remove: true
+        view_mode: teaser
+      field_widget_remove: '1'
+      open: '1'
       selection_mode: selection_append
-      field_widget_edit: false
-      field_widget_replace: false
-      open: false
+      field_widget_edit: 0
+      field_widget_replace: 0
     third_party_settings: {  }
-    type: entity_browser_entity_reference
+    type: entity_reference_browser_table_widget
     region: content
   field_clp_resources:
     type: entity_browser_entity_reference
@@ -313,9 +313,9 @@ content:
         view_mode: default
       field_widget_edit: true
       field_widget_remove: true
+      open: true
       selection_mode: selection_append
       field_widget_replace: false
-      open: false
     third_party_settings: {  }
     region: content
   field_clp_resources_cta:
@@ -566,11 +566,11 @@ content:
     settings:
       entity_browser: promo_blocks_browser
       field_widget_display: label
-      field_widget_edit: true
-      field_widget_remove: true
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      open: '1'
       selection_mode: selection_append
-      field_widget_replace: false
-      open: false
+      field_widget_replace: 0
       field_widget_display_settings: {  }
     third_party_settings: {  }
     type: entity_reference_browser_table_widget
