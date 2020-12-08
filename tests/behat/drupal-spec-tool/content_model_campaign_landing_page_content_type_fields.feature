@@ -15,7 +15,7 @@ Feature: Content model: Campaign Landing Page Content Type fields
 | Content type | Campaign Landing Page | Add a link to more videos | field_clp_video_panel_more_video | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Content type | Campaign Landing Page | Add a video panel | field_clp_video_panel | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Campaign Landing Page | Add an Events panel  | field_clp_events_panel | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | Campaign Landing Page | Add up to two events | field_clp_events_references | Entity reference |  | 2 | Entity browser |  |
+| Content type | Campaign Landing Page | Add up to two events | field_clp_events_references | Entity reference |  | 2 | Entity Browser - Table |  |
 | Content type | Campaign Landing Page | Add up to two stories | field_clp_stories_teasers | Entity reference revisions |  | 2 | Paragraphs Classic |  |
 | Content type | Campaign Landing Page | Additional links | field_clp_spotlight_link_teasers | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | Campaign Landing Page | Downloadable resources cta | field_clp_resources_cta | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
