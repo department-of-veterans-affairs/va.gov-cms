@@ -66,8 +66,7 @@ class UserPermsService {
     if (!empty($user_id)) {
       // Not available, so load it.
       return User::load($user_id);
-    }
-    else {
+    } else {
       return $this->currentUser;
     }
   }
