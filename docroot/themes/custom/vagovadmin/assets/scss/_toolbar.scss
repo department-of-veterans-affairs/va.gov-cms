@@ -1,3 +1,19 @@
+/* Workarounds for toolbar flickering issues on longer page loads. */
+body.toolbar-fixed {
+  /* Set top padding to avoid content "jumping" down. */
+  padding-top: 79px;
+}
+#toolbar-bar {
+  /* Set fixed position on toolbar avoid flicker. */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  /* Set toolbar background color to avoid flicker on prod. */
+  background-color: #082142;
+}
+
 .toolbar-bar {
   .toolbar-icon {
     // Help center icon.
