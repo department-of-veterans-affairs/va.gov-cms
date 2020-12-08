@@ -37,6 +37,7 @@ Feature: Content model: Campaign Landing Page Content Type fields
 | Content type | Campaign Landing Page | What you can do intro text | field_clp_what_you_can_do_intro | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter |  |
 | Content type | Campaign Landing Page | What you can do promos | field_clp_what_you_can_do_promos | Entity reference |  | 3 | Entity Browser - Table |  |
 | Content type | Campaign Landing Page | Why this matters to you | field_clp_why_this_matters | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter |  |
-| Content type | Campaign Landing Page | Add a link to more FAQs | field_clp_faq_cta | Link |  | 1 | Link |  |
+| Content type | Campaign Landing Page | Add a link to more FAQs | field_clp_faq_cta | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | Campaign Landing Page | Add an FAQ panel | field_clp_faq_panel | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Campaign Landing Page | Add between 3 and 10 Q&As | field_clp_faq_paragraphs | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
+| Content type | Campaign Landing Page | Add a "Connect with us" panel | field_clp_connect_with_us | Entity reference |  | 4 | Check boxes/radio buttons |  |

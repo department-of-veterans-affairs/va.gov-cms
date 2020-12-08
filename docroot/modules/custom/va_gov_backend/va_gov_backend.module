@@ -1040,6 +1040,8 @@ function _va_gov_backend_restrict_qa_answer_types(array &$element) {
     'add_more_button_react_widget',
     'add_more_button_table',
   ];
+  // Just allow rich_text_limited format on clp.
+  $element['subform']['field_answer']['widget'][0]['subform']['field_wysiwyg']['widget'][0]['#allowed_formats'] = ['rich_text_limited'];
   foreach ($disallowed_types as $disallowed_type) {
     unset($element['subform']['field_answer']['widget']['add_more'][$disallowed_type]);
   }
