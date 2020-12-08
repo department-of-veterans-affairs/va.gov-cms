@@ -5,6 +5,9 @@ dependencies:
   config:
     - field.field.node.campaign_landing_page.field_administration
     - field.field.node.campaign_landing_page.field_benefit_categories
+    - field.field.node.campaign_landing_page.field_clp_faq_cta
+    - field.field.node.campaign_landing_page.field_clp_faq_panel
+    - field.field.node.campaign_landing_page.field_clp_faq_paragraphs
     - field.field.node.campaign_landing_page.field_clp_resources
     - field.field.node.campaign_landing_page.field_clp_resources_cta
     - field.field.node.campaign_landing_page.field_clp_resources_header
@@ -182,6 +185,37 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_clp_faq_cta:
+    weight: 28
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_clp_faq_panel:
+    weight: 26
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_clp_faq_paragraphs:
+    type: entity_reference_revisions_entity_view
+    weight: 27
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
     region: content
   field_clp_resources:
     type: entity_reference_entity_view

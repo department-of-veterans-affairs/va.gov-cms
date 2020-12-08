@@ -1,0 +1,23 @@
+uuid: 0ee7ec5f-7687-406c-b090-27384186c8f6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_clp_faq_cta
+    - node.type.campaign_landing_page
+  module:
+    - link
+id: node.campaign_landing_page.field_clp_faq_cta
+field_name: field_clp_faq_cta
+entity_type: node
+bundle: campaign_landing_page
+label: 'Add a link to more FAQs'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 2
+field_type: link

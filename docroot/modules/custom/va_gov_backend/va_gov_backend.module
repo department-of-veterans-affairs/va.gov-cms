@@ -266,6 +266,18 @@ function _va_gov_backend_get_clp_toggles() {
           ],
         ],
       ],
+      [
+        'trigger' => 'field_clp_faq_panel',
+        'toggle_fields' => [],
+        'toggle_paragraphs' => [
+          'field_clp_faq_paragraphs' => [
+            'required' => FALSE,
+          ],
+          'field_clp_faq_cta' => [
+            'required' => FALSE,
+          ],
+        ],
+      ],
     ],
   ];
 }
@@ -958,6 +970,7 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
     'field_content_block',
     'field_service_location',
     'field_situation_updates',
+    'field_clp_faq_paragraphs',
   ];
 
   if (in_array($paragraph_entity_reference_field_name, $target_paragraph_ref_fields)) {
@@ -966,6 +979,9 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
     $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'];
     $paragraph_type = $paragraph_instance->bundle();
 
+    if ($paragraph_type === 'q_a') {
+      _va_gov_backend_restrict_qa_answer_types($element);
+    }
     if ($paragraph_type === 'situation_update') {
       _va_gov_backend_smart_date_paragraph_formatting($element);
     }
@@ -1003,6 +1019,29 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
   ];
   if (in_array($paragraph_entity_reference_field_name, $vha_paragraphs)) {
     _va_gov_backend_modify_paragraph_interactions($element, $form_state, $context, $paragraph_entity_reference_field_name);
+  }
+}
+
+/**
+ * Used in clp context.
+ *
+ * Remove all buttons to only allow for one answer instance.
+ *
+ * @param array $element
+ *   The widget.
+ */
+function _va_gov_backend_restrict_qa_answer_types(array &$element) {
+  $disallowed_types = [
+    'add_more_button_wysiwyg',
+    'add_more_button_collapsible_panel',
+    'add_more_button_process',
+    'add_more_button_number_callout',
+    'add_more_button_alert',
+    'add_more_button_react_widget',
+    'add_more_button_table',
+  ];
+  foreach ($disallowed_types as $disallowed_type) {
+    unset($element['subform']['field_answer']['widget']['add_more'][$disallowed_type]);
   }
 }
 
@@ -1167,6 +1206,10 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
   // Add pdf file to check to external document file type.
   if ($entity_type->id() === 'media' && $bundle === 'document_external' && isset($fields['field_media_external_file'])) {
     $fields['field_media_external_file']->addConstraint('PdfCheck');
+  }
+  // Add qa range check on clp faq panel.
+  if ($entity_type->id() === 'node' && $bundle === 'campaign_landing_page' && isset($fields['field_clp_faq_paragraphs'])) {
+    $fields['field_clp_faq_paragraphs']->addConstraint('QaLimit');
   }
 }
 
