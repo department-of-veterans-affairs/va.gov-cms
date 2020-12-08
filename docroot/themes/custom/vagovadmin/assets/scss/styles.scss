@@ -160,25 +160,26 @@
   }
 }
 
-.downloadable-file-link {
+.downloadable-file-link::before {
   display: inline-block;
-  min-height: 16px;
-  padding-left: 32px; /* LTR */
+  background-size: 16px 16px;
   background-repeat: no-repeat;
-  background-position: left center; /* LTR */
-  background-size: contain;
+  height: 16px;
+  width: 16px;
+  content: "";
+  padding-right: 4px;
 }
 
-.downloadable-file-link--image {
+.downloadable-file-link--document::before {
   background-image: url(../../../vagovadmin/images/icons/download-000000.svg);
 }
 
-.downloadable-file-link--document {
-  background-image: url(../../../vagovadmin/images/icons/download-000000.svg);
-}
-
-.downloadable-file-link--video {
+.downloadable-file-link--video::before {
   background-image: url(../../../vagovadmin/images/icons/play-000000.svg);
+}
+
+.downloadable-file-link--image::before {
+  background-image: url(../../../vagovadmin/images/icons/download-000000.svg);
 }
 
 .item-list {
