@@ -9,7 +9,6 @@ jobs:
       - uses: acrollet/action-phpcs-drupal@v1
         with:
           fail_on_error: true
-          filter_mode: nofilter
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
           phpcs_args: 'docroot/modules/custom docroot/themes/custom tests'
