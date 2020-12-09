@@ -16,10 +16,9 @@
         "bower-asset/blazy": "^1.8",
         "bower-asset/cropper": "^4.1",
         "bower-asset/dropzone": "^5.5",
-        "composer/installers": "^1.2",
+        "composer/installers": "^1.7",
         "cweagans/composer-patches": "^1.6.4",
         "devshop/behat-drupal-extension": "dev-rewrite-last-page-output-links",
-        "drupal-composer/drupal-scaffold": "^2.0.0",
         "drupal/address": "^1.4",
         "drupal/admin_toolbar": "^1.24",
         "drupal/allowed_formats": "^1.3",
@@ -37,7 +36,8 @@
         "drupal/config_split": "^1.4",
         "drupal/consumers": "1.11.0",
         "drupal/content_lock": "^2.0@alpha",
-        "drupal/core": "8.8.10",
+        "drupal/core-composer-scaffold": "^8.8",
+        "drupal/core-recommended": "8.9.10",
         "drupal/crop": "^2.0",
         "drupal/ctools_block": "^3.2",
         "drupal/devel": "^2.1",
@@ -56,12 +56,13 @@
         "drupal/environment_indicator": "^4.0",
         "drupal/fast_404": "^2.0@alpha",
         "drupal/feature_toggle": "^1.2",
-        "drupal/field_group": "dev-3.x#b245b85f99c48221edf5fb60344dfe53737ae0f9",
+        "drupal/field_group": "^3.1",
         "drupal/fieldhelptext": "^1.0@beta",
         "drupal/govdelivery_bulletins": "^1.2",
         "drupal/graphql": "^3.0",
         "drupal/graphql_metatag": "1.x-dev",
         "drupal/health_check_url": "^2.1",
+        "drupal/hms_field": "^1.0@beta",
         "drupal/ief_table_view_mode": "^2.1",
         "drupal/image_style_warmer": "^1.0@beta",
         "drupal/image_widget_crop": "^2.2",
@@ -101,15 +102,15 @@
         "drupal/restui": "^1.16",
         "drupal/role_delegation": "^1.0@alpha",
         "drupal/seckit": "^2.0",
-        "drupal/simplesamlphp_auth": "^3.0",
+        "drupal/simplesamlphp_auth": "^3.2",
         "drupal/site_alert": "1.x-dev#d3700174bdddeca1f33c6995fde86e436b034270",
         "drupal/slack": "^1.2",
-        "drupal/smart_date": "3.0.3",
+        "drupal/smart_date": "3.0.4",
         "drupal/social_media_links": "^2.6",
         "drupal/tablefield": "^2.1",
         "drupal/taxonomy_entity_index": "^1.1",
         "drupal/taxonomy_menu": "^3.4",
-        "drupal/textfield_counter": "^1.6",
+        "drupal/textfield_counter": "^2.0",
         "drupal/tome": "1.3",
         "drupal/toolbar_menu": "^2.1",
         "drupal/toolbar_menu_clean": "^1.0",
@@ -128,7 +129,6 @@
         "drupal/workflow_assignments": "1.x-dev",
         "drush-ops/behat-drush-endpoint": "^9.4.0",
         "drush/drush": "~8",
-        "guzzlehttp/guzzle": "^6.0@dev",
         "michelf/php-markdown": "^1.8",
         "mouf/nodejs-installer": "^1.0",
         "npm-asset/yarn": "1.12.3",
@@ -136,12 +136,11 @@
         "phpunit/phpunit": "^7",
         "provision-ops/yaml-tests": "~1.9",
         "querypath/querypath": "^3.0",
-        "simplesamlphp/simplesamlphp": "^1.17",
+        "simplesamlphp/simplesamlphp": "^1.18",
         "squizlabs/php_codesniffer": "^3.5",
         "symfony/config": "^3.4",
         "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^5.1",
-        "twig/twig": "^1.38.2",
         "va-gov/web": "^0.1",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -153,7 +152,8 @@
             "Traits\\": "tests/traits",
             "CustomDrupal\\": "tests/behat/Drupal",
             "Drupal\\va_gov_backend\\": "docroot/modules/custom/va_gov_backend/src",
-            "Drupal\\va_gov_content_export\\": "docroot/modules/custom/va_gov_content_export/src"
+            "Drupal\\va_gov_content_export\\": "docroot/modules/custom/va_gov_content_export/src",
+            "Drupal\\va_gov_flags\\": "docroot/modules/custom/va_gov_flags/src"
         },
         "files": [
             "scripts/composer/EnvironmentHandler.php"
@@ -189,13 +189,25 @@
     },
     "extra": {
         "drupal-scaffold": {
-            "excludes": [
-                ".htaccess"
-            ]
+            "file-mapping": {
+                "[web-root]/.editorconfig": false,
+                "[web-root]/.gitattributes": false,
+                "[web-root]/.htaccess": false,
+                "[web-root]/INSTALL.txt": false,
+                "[web-root]/README.txt": false,
+                "[web-root]/example.gitignore": false,
+                "[web-root]/modules/README.txt": false,
+                "[web-root]/profiles/README.txt": false,
+                "[web-root]/sites/README.txt": false,
+                "[web-root]/themes/README.txt": false
+            },
+            "locations": {
+                "web-root": "docroot/"
+            }
         },
         "mouf": {
             "nodejs": {
-                "version": "10.15.3",
+                "version": "14.15.0",
                 "targetDir": "vendor/nodejs/nodejs",
                 "forceLocal": true
             }
@@ -241,7 +253,8 @@
                 "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2019-09-11/3057267-maintenance-forced-logout-experimental.patch",
                 "1091852 - Display Bug when using #states (Forms API) with Ajax Request": "https://www.drupal.org/files/issues/2019-11-19/1091852-104.patch",
                 "2859042 - Entity original revision": "https://www.drupal.org/files/issues/2018-07-30/entity_original_revision-2859042-26.patch",
-                "2930508 - Seven inactive tabs do not meet WCAG AA 1.4.3 for contrast": "https://www.drupal.org/files/issues/2020-10-15/drupal-seven_inactive_tabs_do_not_meet_wcag_aa-2930508-36.patch"
+                "2930508 - Seven inactive tabs do not meet WCAG AA 1.4.3 for contrast": "https://www.drupal.org/files/issues/2020-10-15/drupal-seven_inactive_tabs_do_not_meet_wcag_aa-2930508-36.patch",
+                "2632750 - Interface previews/skeleton screens through optional preview or placeholder templates": "https://www.drupal.org/files/issues/2020-11-18/2632750-76-do-not-test_0.patch"
             },
             "drupal/entity_browser": {
                 "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch"
@@ -253,12 +266,8 @@
             "drupal/entity_clone": {
                 "Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch"
             },
-            "drupal/field_group": {
-                "Allow to position the group in the advanced (sidebar) column": "https://www.drupal.org/files/issues/2018-07-26/2652642-59.patch",
-                "Incompatibility with inline entity form": "https://www.drupal.org/files/issues/2018-10-30/field_group-inline_entity_form_compatibility-2986704-3.patch"
-            },
-            "drupal/govdelivery_bulletins": {
-                "Use default lease time in claimItem()": "https://www.drupal.org/files/issues/2020-04-16/default-claim-time-3128425-2.patch"
+            "drupal/entity_reference_revisions": {
+                "2984027 Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch"
             },
             "drupal/graphql": {
                 "PHP 7.4 Notices (https://github.com/drupal-graphql/graphql/pull/989)": "https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/989.patch"
@@ -281,7 +290,8 @@
             },
             "drupal/paragraphs": {
                 "Content & Behavior tabs use fixed IDs": "https://www.drupal.org/files/issues/2020-10-14/paragraphs-fix_duplicate_content_behavior_tab_ids-3176946-3.patch",
-                "Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch"
+                "Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch",
+                "Remove button should not be shown on required field": "https://www.drupal.org/files/issues/2020-05-13/hide_field_required_paragraphs_remove_button_1.patch"
             },
             "drupal/paragraphs_browser": {
                 "#3057621: Notice: Undefined index: paragraph_type_title": "https://www.drupal.org/files/issues/2019-07-18/undefined-index-paragraph_type_title-trait-3057621-7.patch",
@@ -297,8 +307,7 @@
                 "PHP 7.2 notice - \"Undefined offset: 1\" in JsonSchemaEncoder": "https://www.drupal.org/files/issues/2019-07-08/3063027-5-undefined-offset.patch"
             },
             "drupal/simplesamlphp_auth": {
-                "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2019-08-14/2748731-23.patch",
-                "Bypass password requirement for password change if logged in with sso.": "https://www.drupal.org/files/issues/2018-05-01/simplesamlphp_auth-change-password-access-2968598-2.patch"
+                "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2020-07-31/reroll-existing-test-and-logging-fix-2748731-29.patch"
             },
             "drupal/site_alert": {
                 "Add drush commands https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-05-20/site_alert-add_drush_commands-3118800-12.patch",
@@ -331,19 +340,17 @@
             "echo \"export PATH=${PATH}\""
         ],
         "post-install-cmd": [
-            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
             "mkdir --parents docroot/profiles",
             "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
-            "cp -r 'simplesamlphp-1.17.2/config/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
-            "cp -r 'simplesamlphp-1.17.2/metadata/' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
+            "ln -snf 'docroot/vendor/simplesamlphp/simplesamlphp/' 'simplesamlphp'",
+            "ln -snf 'docroot/vendor/simplesamlphp/saml2/' 'saml2'",
+            "cp -r 'simplesamlphp-config-metadata/config' 'simplesamlphp-config-metadata/metadata' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
             "echo 'Removing deleted .git/hooks/commit-msg file, no longer used.'",
             "rm -f .git/hooks/commit-msg",
-            "git update-index --skip-worktree samlsessiondb.sq3",
-            "@va:web:install"
+            "git update-index --skip-worktree samlsessiondb.sq3"
         ],
         "post-update-cmd": [
-            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
             "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\""
         ],
@@ -388,6 +395,18 @@
         "va:proxy:sshuttle": [
             "sudo -E sshuttle -r dsva@52.222.32.121 -e 'ssh -A ' 10.0.0.0/8"
         ],
+        "va:test:lint-css-all": [
+            "npm install",
+            "npm run stylelint-modules && npm run stylelint-themes"
+        ],
+        "va:test:module-lint-css": [
+            "npm install",
+            "npm run stylelint-modules"
+        ],
+        "va:test:theme-lint-scss": [
+            "npm install",
+            "npm run stylelint-themes"
+        ],
         "va:test:accessibility": [
             "npm install --only=production",
             "npm test"
@@ -398,7 +417,7 @@
             "find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l > /dev/null"
         ],
         "va:test:cs": [
-            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,*/node_modules/*,*/simplesaml*/* --extensions=php,module,inc,install,profile,engine,theme,js,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/modules/contrib/workflow_assignments docroot/themes/custom --colors"
+            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,*/node_modules/*,*/simplesaml*/* --extensions=php,module,inc,install,profile,engine,theme,js,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/modules/contrib/workflow_assignments docroot/themes/custom tests --colors"
         ],
         "va:test:unit": "phpunit tests/phpunit --colors=always --exclude-group=disabled",
         "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors",

@@ -2,15 +2,18 @@
 
 namespace Drupal\va_gov_workflow_assignments\Plugin\Block;
 
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
-use Drupal\taxonomy\Entity\Term;
+use Drupal\taxonomy\TermInterface;
+use Drupal\va_gov_backend\Service\ExclusionTypesInterface;
+use Drupal\va_gov_backend\Service\VaGovUrl;
+use Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -20,7 +23,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   id = "va_gov_workflow_assignments_meta",
  *   admin_label = @Translation("Entity Meta Display"),
  *   context = {
- *     "node" = @ContextDefinition("entity:node", label = @Translation("Node"))
+ *     "node" = @ContextDefinition(
+ *       "entity:node",
+ *       label = @Translation("Node"),
+ *       required = FALSE,
+ *     ),
+ *     "node_revision" = @ContextDefinition(
+ *       "entity:node_revision",
+ *       label = @Translation("Node Revision"),
+ *       required = FALSE,
+ *     ),
  *   }
  * )
  */
@@ -41,20 +53,45 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
   protected $entityTypeManager;
 
   /**
-   * Configuration Factory.
+   * Exclusion Types service.
    *
-   * @var \Drupal\Core\Config\ConfigFactory
+   * @var \Drupal\va_gov_backend\ExclusionTypesInterface
    */
-  protected $configFactory;
+  protected $exclusionTypes;
+
+  /**
+   * The va.gov URL service.
+   *
+   * @var \Drupal\va_gov_backend\Service\VaGovUrl
+   */
+  protected $vaGovUrl;
+
+  /**
+   * The Editorial Workflow service.
+   *
+   * @var \Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepository
+   */
+  protected $editorialWorkflowContentRepository;
 
   /**
    * {@inheritDoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteMatchInterface $route_match, EntityTypeManagerInterface $entity_type_manager, ConfigFactory $configFactory) {
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    RouteMatchInterface $route_match,
+    EntityTypeManagerInterface $entity_type_manager,
+    ExclusionTypesInterface $exclusionTypes,
+    VaGovUrl $vaGovUrl,
+    EditorialWorkflowContentRepository $editorialWorkflowContentRepository
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->routeMatch = $route_match;
     $this->entityTypeManager = $entity_type_manager;
-    $this->configFactory = $configFactory;
+    $this->exclusionTypes = $exclusionTypes;
+    $this->vaGovUrl = $vaGovUrl;
+    $this->editorialWorkflowContentRepository = $editorialWorkflowContentRepository;
   }
 
   /**
@@ -67,7 +104,9 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       $plugin_definition,
       $container->get('current_route_match'),
       $container->get('entity_type.manager'),
-      $container->get('config.factory')
+      $container->get('va_gov_backend.exclusion_types'),
+      $container->get('va_gov_backend.va_gov_url'),
+      $container->get('va_gov_workflow_assignments.editorial_workflow')
     );
   }
 
@@ -75,28 +114,40 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function build() {
-    $block_items = [];
-    $sections = $this->getSections()['links'];
-    $block_items['Owner'] = $sections;
-    $nid = '';
-    if ($this->routeMatch->getParameter('node') instanceof NodeInterface) {
-      $node = $this->routeMatch->getParameter('node');
-      $block_items['Content Type'] = $node->type->entity->label();
-
-      // Make sure this bundle is okay to display on va.gov.
-      $exclude_types = $this->configFactory->getEditable('exclusion_types_admin.settings')->get('types_to_exclude');
-      // If exclude types in not empty then continue.
-      if (!empty($exclude_types)) {
-        // If active revision isn't published, it doesn't get included in build.
-        // Sufficient to check moderation state on node = active revision.
-        if (!in_array($node->bundle(), $exclude_types) && $node->get('moderation_state')->getString() === 'published') {
-          $nid = $node->id();
-          $url = 'https://va.gov' . Url::fromRoute('entity.node.canonical', ['node' => $nid])->toString();
-          $block_items['VA.gov URL'] = Link::fromTextAndUrl($url, Url::fromUri($url))->toString();
-        }
-      }
-
+    $node = $this->getNode();
+    if (!$node) {
+      return;
     }
+
+    $block = $block_items = [];
+    $block_items['Content Type'] = $node->type->entity->label();
+
+    $node_revision = $this->getNodeRevision();
+    if ($node_revision) {
+      $block_items['Owner'] = $this->getSectionHierarchyBreadcrumbLinks($node_revision);
+    }
+    else {
+      $block_items['Owner'] = $this->getSectionHierarchyBreadcrumbLinks($node);
+    }
+
+    if ($this->vaGovUrlShouldBeDisplayed($node)) {
+      $va_gov_url = $this->vaGovUrl->getVaGovFrontEndUrlForEntity($node);
+
+      if ($this->vaGovUrl->vaGovFrontEndUrlForEntityIsLive($node)) {
+        $link = Link::fromTextAndUrl($va_gov_url, Url::fromUri($va_gov_url))->toRenderable();
+        $link['#attributes'] = ['class' => 'va-gov-url'];
+        $block_items['VA.gov URL'] = render($link);
+      }
+      else {
+        $block_items['VA.gov URL'] = new FormattableMarkup('<span class="va-gov-url-pending">' . $va_gov_url . '</span> (pending)', []);
+        $block['#attached']['library'][] = 'va_gov_workflow_assignments/ewa_style';
+
+        // Cache the response for 5 minutes to avoid repeated longer
+        // page loads if va.gov is not responding.
+        $block['#cache']['max-age'] = 300;
+      }
+    }
+
     $output = '';
 
     foreach ($block_items as $block_key => $block_item) {
@@ -113,85 +164,124 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
         ]);
       }
     }
-    return [
-      '#markup' => $output,
-    ];
+    $block['#markup'] = $output;
 
+    return $block;
   }
 
   /**
-   * Returns max of 3 section hierarchy of breadcrumbs and section term ids.
+   * Get the node from context if available.
    *
-   * @return array
-   *   All section breadcrumbs in hierarchy and term ids.
+   * @return mixed
+   *   Node if available, NULL if not.
    */
-  public function getSections() {
-    if ($this->getContextValue('node') instanceof NodeInterface) {
-      $sections = [];
-      $tids = [];
-      $node = $this->getContextValue('node');
-
-      // Grab our current section.
-      $tid = $node->get('field_administration')->getString();
-      if (!empty($tid)) {
-        $tids[] = $tid;
-        $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
-        $loaded_tid = $term_storage->load($tid);
-
-        // Feed it to our link builder.
-        $sections[] = $this->getLink($loaded_tid);
-
-        $tid_parent_raw = $term_storage->loadParents($tid);
-        // If we have a parent, process.
-        if (!empty($tid_parent_raw)) {
-          $tid_parent = reset($tid_parent_raw);
-          $tid_parent_id = $tid_parent->id();
-          $tids[] = $tid_parent_id;
-
-          // Feed it to our link builder.
-          $sections[] = $this->getLink($tid_parent);
-
-          $tid_grandparent_raw = $term_storage->loadParents($tid_parent_id);
-          // If we have a grandparent, process.
-          if (!empty($tid_grandparent_raw)) {
-            $tid_grandparent = reset($tid_grandparent_raw);
-            $tid_grandparent_id = $tid_grandparent->id();
-            $tids[] = $tid_grandparent_id;
-
-            // Feed it to our link builder.
-            $sections[] = $this->getLink($tid_grandparent, TRUE);
-          }
-        }
-      }
-
-      return [
-        'links' => implode(' ', array_reverse($sections)),
-        'tids' => $tids,
-      ];
+  private function getNode() {
+    // Drupal sometimes hands us a nid and sometimes an upcasted node object.
+    // @TODO remove type checks when the patch at
+    // https://www.drupal.org/project/drupal/issues/2730631
+    // is committed. (Should be in 9.2)
+    $route_parameter = $this->routeMatch->getParameter('node');
+    if ($route_parameter instanceof NodeInterface) {
+      return $route_parameter;
     }
+    elseif (is_numeric($route_parameter)) {
+      return $this->entityTypeManager
+        ->getStorage('node')
+        ->load($route_parameter);
+    }
+
+    return NULL;
   }
 
   /**
-   * Returns a section breadcrumb.
+   * Get the node revision in context if available.
    *
-   * @param \Drupal\taxonomy\Entity\Term $term
-   *   A loaded taxonomy term.
-   * @param bool $first
-   *   Bool to determine if first item in Section breadcrumb.
+   * @return mixed
+   *   Node if available, NULL if not.
+   */
+  private function getNodeRevision() {
+    // Drupal sometimes hands us a nid and sometimes an upcasted node object.
+    // @TODO remove type checks when the patch at
+    // https://www.drupal.org/project/drupal/issues/2730631
+    // is committed. (Should be in 9.2)
+    $route_parameter = $this->routeMatch->getParameter('node_revision');
+    if ($route_parameter instanceof NodeInterface) {
+      return $route_parameter;
+    }
+    elseif (is_numeric($route_parameter)) {
+      return $this->entityTypeManager
+        ->getStorage('node')
+        ->loadRevision($route_parameter);
+    }
+
+    return NULL;
+  }
+
+  /**
+   * Returns a maximum of 3 section hierarchy breadcrumb links.
    *
    * @return string
-   *   A Section breadcrumb.
+   *   Section breadcrumb links in hierarchy.
    */
-  private function getLink(Term $term, bool $first = FALSE) {
-    $term_url = Url::fromRoute('entity.taxonomy_term.canonical', [
-      'taxonomy_term' => $term->id(),
-    ]);
-    $caret = $first == TRUE ? '' : ' » ';
-    return Link::fromTextAndUrl($this->t(':caret:name', [
-      ':caret' => $caret,
-      ':name' => $term->get('name')->getString(),
-    ]), $term_url)->toString();
+  public function getSectionHierarchyBreadcrumbLinks(NodeInterface $node) : string {
+    $links = [];
+    $owner_term = $node->get('field_administration')->referencedEntities()[0];
 
+    if (!empty($owner_term)) {
+      $links[] = $this->getTermLink($owner_term);
+      $parents = array_values($this->entityTypeManager
+        ->getStorage('taxonomy_term')
+        ->loadAllParents($owner_term->id())
+      );
+
+      for ($i = 1; $i < 3; $i++) {
+        if (!empty($parents[$i])) {
+          array_unshift($links, $this->getTermLink($parents[$i]));
+        }
+      }
+    }
+
+    return implode(' » ', $links);
+  }
+
+  /**
+   * Returns a section link.
+   *
+   * @param \Drupal\taxonomy\TermInterface $term
+   *   A taxonomy term.
+   *
+   * @return string
+   *   A section link.
+   */
+  private function getTermLink(TermInterface $term) {
+    return Link::fromTextAndUrl(
+      $this->t(':name', [':name' => $term->get('name')->getString()]),
+      $term->toUrl()
+    )->toString();
+  }
+
+  /**
+   * Determine whether the va.gov URL should be displayed.
+   *
+   * @return bool
+   *   Boolean value.
+   */
+  private function vaGovUrlShouldBeDisplayed(NodeInterface $node) : bool {
+    if ($this->exclusionTypes->typeIsExcluded($node->bundle())) {
+      return FALSE;
+    }
+
+    $latest_published_revision_id = $this->editorialWorkflowContentRepository->getLatestPublishedRevisionId($node);
+    if (!$latest_published_revision_id) {
+      return FALSE;
+    }
+
+    $latest_archived_revision_id = $this->editorialWorkflowContentRepository->getLatestArchivedRevisionId($node);
+    if ($latest_archived_revision_id > $latest_published_revision_id) {
+      return FALSE;
+    }
+
+    return TRUE;
   }
 
 }

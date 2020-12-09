@@ -4,8 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.checklist.field_checklist_sections
-    - field.field.paragraph.checklist.field_section_header
-    - field.field.paragraph.checklist.field_section_intro
     - paragraphs.paragraphs_type.checklist
   module:
     - entity_reference_revisions
@@ -22,21 +20,6 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    region: content
-  field_section_header:
-    weight: 0
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_section_intro:
-    weight: 1
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
     region: content
 hidden:
   search_api_excerpt: true

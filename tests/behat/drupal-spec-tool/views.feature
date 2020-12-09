@@ -12,9 +12,9 @@ Feature: Views
 | Archive | archive | Content | Disabled | All content, by month. |
 | Benefit Hubs Categories | benefits_hub_categories | Content | Enabled |  |
 | Benefits hub list | benefits_hub_list | Content | Enabled |  |
+| Benefit Hub Contact Information | benefit_hub_contact_information | Content | Enabled |  |
 | VA Forms | va_forms | Content | Enabled | VA forms dashboard |
 | Custom block library | block_content | Custom Block | Enabled | Find and manage custom blocks. |
-| Benefit Hub Contact Information | benefit_hub_contact_information | Content | Enabled |  |
 | Build info | build_info | Content | Enabled |  |
 | Child terms | child_terms | Taxonomy terms | Enabled |  |
 | Content | content | Content | Enabled | Find and manage content. |
@@ -24,6 +24,7 @@ Feature: Views
 | Date fields | date_fields | Content | Enabled |  |
 | Facility Governance | facility_governance | Content | Enabled | Provides facility management tools. |
 | Files | files | Files | Enabled | Find and manage files. |
+| File browsers | file_browsers | Media | Enabled |  |
 | Frontpage | frontpage | Content | Enabled | All content promoted to frontpage |
 | Glossary | glossary | Content | Disabled | All content, by letter. |
 | Health care service names and descriptions | health_care_service_names_and_descriptions | Taxonomy terms | Enabled | A list of nationally-controlled health care service names and descriptions |
@@ -86,7 +87,8 @@ Feature: Views
 | Content | Master | default | Master |
 | Content | All content | page_1 | Page |
 | Content | Bulk edit content | page_2 | Page |
-| Content | Learning Center | page_3 | Page |
+| Content | Resources and support | resources_support_dashboard | Page |
+| Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
 | Content served from Drupal | Page | page_1 | Page |
 | Content served from Drupal | Data export | data_export_1 | Data export |
 | Content served from Drupal | Master | default | Master |
@@ -106,6 +108,9 @@ Feature: Views
 | Files | Master | default | Master |
 | Files | Files overview | page_1 | Page |
 | Files | File usage | page_2 | Page |
+| File browsers | Block | file_browser_block | Block |
+| File browsers | Entity browser | file_entity_browser | Entity browser |
+| File browsers | Master | default | Master |
 | Frontpage | Master | default | Master |
 | Frontpage | Feed | feed_1 | Feed |
 | Frontpage | Page | page_1 | Page |
@@ -155,6 +160,7 @@ Feature: Views
 | Taxonomy term | Master | default | Master |
 | Taxonomy term | Feed | feed_1 | Feed |
 | Taxonomy term | Page | page_1 | Page |
+| Taxonomy term | Attachment | attachment_1 | Attachment |
 | VA Forms | Master | default | Master |
 | VA Forms | Page | page_1 | Page |
 | VAMC alerts and operating statuses | Master | default | Master |
@@ -192,6 +198,7 @@ Feature: Views
 | Listing page dashboard | Past events | block_2 | Block |
 | Listing page dashboard | Upcoming events | block_1 | Block |
 | Custom block entity browsers | Alert block entity browsers | entity_browser_1 | Entity browser |
+| Custom block entity browsers | Promo block entity browsers | entity_browser_2 | Entity browser |
 | Custom block entity browsers | Master | default | Master |
 | Services | Facility health services | block_1 | Block |
 | Services | VAMC system health services | block_2 | Block |

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_administration
+    - user.role.anonymous
     - user.role.authenticated
     - views.view.child_terms
     - workflows.workflow.editorial
@@ -11,6 +12,7 @@ dependencies:
     - content_lock
     - content_moderation
     - node
+    - paragraphs
     - taxonomy
     - taxonomy_entity_index
     - user
@@ -43,6 +45,7 @@ display:
         type: role
         options:
           role:
+            anonymous: anonymous
             authenticated: authenticated
       cache:
         type: none
@@ -60,7 +63,7 @@ display:
       pager:
         type: full
         options:
-          items_per_page: 50
+          items_per_page: 25
           offset: 0
           id: 0
           total_pages: 0
@@ -289,15 +292,17 @@ display:
           columns:
             views_bulk_operations_bulk_form: views_bulk_operations_bulk_form
             title: title
+            nid: nid
+            edit_node: edit_node
             type: type
             moderation_state: moderation_state
             field_administration: field_administration
             changed: changed
-            operations: operations
             name: name
-            break: break
             timestamp: timestamp
+            break: break
             is_locked: is_locked
+            vid: vid
           info:
             views_bulk_operations_bulk_form:
               align: ''
@@ -305,6 +310,20 @@ display:
               empty_column: false
               responsive: ''
             title:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nid:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -339,19 +358,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            operations:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             name:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            break:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -365,6 +372,13 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
+            break:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             is_locked:
               sortable: false
               default_sort_order: asc
@@ -372,7 +386,14 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-          default: changed
+            vid:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          default: title
           empty_table: false
       row:
         type: fields
@@ -424,7 +445,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          empty: true
+          empty: false
           content: '<p>Displaying @start - @end of @total</p>'
           plugin_id: result
       footer: {  }
@@ -525,7 +546,7 @@ display:
             node_unpublish_action: 0
             node_make_unsticky_action: 0
             publish_latest_revision_action: publish_latest_revision_action
-            unpublish_current_revision_action: unpublish_current_revision_action
+            archive_node_action: archive_node_action
             views_bulk_operations_delete_entity: 0
             pathauto_update_alias: pathauto_update_alias
             'entity:delete_action:node': 0
@@ -543,7 +564,7 @@ display:
               label_override: ''
             publish_latest_revision_action:
               label_override: ''
-            unpublish_current_revision_action:
+            archive_node_action:
               label_override: ''
             pathauto_update_alias:
               label_override: ''
@@ -1294,6 +1315,206 @@ display:
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:workflow_list'
+  attachment_1:
+    display_plugin: attachment
+    id: attachment_1
+    display_title: Attachment
+    position: 3
+    display_options:
+      display_extenders: {  }
+      displays:
+        page_1: page_1
+      arguments:
+        taxonomy_entity_index_tid_depth:
+          id: taxonomy_entity_index_tid_depth
+          table: paragraphs_item
+          field: taxonomy_entity_index_tid_depth
+          relationship: field_tags
+          group_type: group
+          admin_label: ''
+          default_action: default
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: taxonomy_tid
+          default_argument_options:
+            term_page: '1'
+            anyall: ','
+            node: false
+            limit: false
+            vids: {  }
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            items_per_page: 25
+            override: false
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          depth: 4
+          break_phrase: false
+          use_taxonomy_term_path: false
+          entity_type: paragraph
+          plugin_id: taxonomy_entity_index_tid_depth
+      defaults:
+        arguments: false
+        relationships: false
+        header: false
+        use_ajax: false
+        sorts: false
+      relationships:
+        field_administration:
+          id: field_administration
+          table: node__field_administration
+          field: field_administration
+          relationship: none
+          group_type: group
+          admin_label: 'field_administration: Taxonomy term'
+          required: false
+          plugin_id: standard
+        uid:
+          id: uid
+          table: node_field_revision
+          field: uid
+          relationship: none
+          group_type: group
+          admin_label: User
+          required: false
+          entity_type: node
+          entity_field: uid
+          plugin_id: standard
+        uid_1:
+          id: uid_1
+          table: content_lock
+          field: uid
+          relationship: none
+          group_type: group
+          admin_label: 'Lock owner'
+          required: false
+          plugin_id: standard
+        field_tags:
+          id: field_tags
+          table: node__field_tags
+          field: field_tags
+          relationship: none
+          group_type: group
+          admin_label: 'field_tags: Paragraph'
+          required: false
+          plugin_id: standard
+        field_topics:
+          id: field_topics
+          table: paragraph__field_topics
+          field: field_topics
+          relationship: field_tags
+          group_type: group
+          admin_label: 'field_topics: Taxonomy term'
+          required: false
+          plugin_id: standard
+        field_audience_beneficiares:
+          id: field_audience_beneficiares
+          table: paragraph__field_audience_beneficiares
+          field: field_audience_beneficiares
+          relationship: field_tags
+          group_type: group
+          admin_label: 'field_audience_beneficiares: Taxonomy term'
+          required: false
+          plugin_id: standard
+      pager:
+        type: full
+        options:
+          items_per_page: 100
+          offset: 0
+          id: 0
+          total_pages: null
+          tags:
+            previous: '‹ Previous'
+            next: 'Next ›'
+            first: '« First'
+            last: 'Last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
+      header:
+        view:
+          id: view
+          table: views
+          field: view
+          relationship: none
+          group_type: group
+          admin_label: 'Child terms'
+          empty: false
+          view_to_insert: 'child_terms:block_1'
+          inherit_arguments: false
+          plugin_id: view
+        entity_section_association:
+          id: entity_section_association
+          table: views
+          field: entity_section_association
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: true
+          target: '{{ raw_arguments.tid }}'
+          view_mode: default
+          bypass_access: false
+          plugin_id: entity
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: true
+          content: "\r\n{% if vid == 'administration' %}\r\n<hr>\r\n<h2>Content owned by {{ arguments.taxonomy_entity_index_tid_depth }}</h2>\r\n{% endif %}"
+          plugin_id: text_custom
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          content: '<p>Displaying @start - @end of @total</p>'
+          plugin_id: result
+      render_pager: false
+      inherit_pager: false
+      inherit_exposed_filters: true
+      use_ajax: false
+      inherit_arguments: true
+      attachment_position: after
+      sorts: {  }
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.roles
+      tags:
+        - 'config:field.storage.node.field_administration'
+        - 'config:workflow_list'
   feed_1:
     id: feed_1
     display_title: Feed
@@ -1310,8 +1531,8 @@ display:
           offset: 0
       path: taxonomy/term/%/feed
       displays:
-        page_1: page_1
         default: '0'
+        page_1: '0'
       style:
         type: rss
         options:
@@ -1360,6 +1581,31 @@ display:
         title: ''
         description: ''
         weight: 0
+      pager:
+        type: full
+        options:
+          items_per_page: 50
+          offset: 0
+          id: 0
+          total_pages: 0
+          tags:
+            previous: ‹‹
+            next: ››
+            first: '« First'
+            last: 'Last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
+      defaults:
+        pager: false
+        use_ajax: false
+      use_ajax: false
     cache_metadata:
       contexts:
         - 'languages:language_content'

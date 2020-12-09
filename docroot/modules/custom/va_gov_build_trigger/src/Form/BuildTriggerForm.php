@@ -2,10 +2,13 @@
 
 namespace Drupal\va_gov_build_trigger\Form;
 
-use Drupal\Core\Url;
-use Drupal;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+use Drupal\va_gov_build_trigger\Service\BuildFrontend;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Implements build trigger form.
@@ -19,6 +22,38 @@ use Drupal\Core\Form\FormStateInterface;
 class BuildTriggerForm extends FormBase {
 
   /**
+   * The front-end build service.
+   *
+   * @var Drupal\va_gov_build_trigger\Service\BuildFrontend
+   */
+  protected $buildFrontend;
+
+  /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
+   * Class constructor.
+   */
+  public function __construct(BuildFrontend $buildFrontend, ConfigFactoryInterface $configFactory) {
+    $this->buildFrontend = $buildFrontend;
+    $this->configFactory = $configFactory;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('va_gov_build_trigger.build_frontend'),
+      $container->get('config.factory')
+    );
+  }
+
+  /**
    * Build the build trigger form.
    *
    * @param array $form
@@ -27,9 +62,8 @@ class BuildTriggerForm extends FormBase {
    *   Object containing current form state.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $frontend_service = \Drupal::service('va_gov_build_trigger.build_frontend');
-    $environment_type = $frontend_service->getEnvironment();
-    $target = $frontend_service->getWebUrl($environment_type);
+    $environment_type = $this->buildFrontend->getEnvironment();
+    $target = $this->buildFrontend->getWebUrl($environment_type);
 
     $form['actions']['#type'] = 'actions';
     $form['help_1'] = [
@@ -49,7 +83,7 @@ class BuildTriggerForm extends FormBase {
     ];
 
     // Get pending state.
-    $config = \Drupal::service('config.factory')->getEditable('va_gov.build');
+    $config = $this->configFactory->getEditable('va_gov.build');
     if ($config->get('web.build.pending', 0)) {
       // A build is pending so set a display.
       $form['tip']['#prefix'] = '<em>';
@@ -67,7 +101,7 @@ class BuildTriggerForm extends FormBase {
         break;
 
       case $environment_type == 'ci':
-        $description = t('A content release for this environment is handled by CMS-CI. You may press this button to trigger a content release. It will take around 45 seconds.');
+        $description = t('A content release for this environment is handled by CMS-CI. You may press this button to trigger a content release.');
         break;
 
       case $environment_type == 'lando':
@@ -78,14 +112,12 @@ class BuildTriggerForm extends FormBase {
         $description = t('Environment not detected. Perform a content release by running the <pre>composer va:web:build</pre> command.');
     }
 
+    $target_url = Url::fromUri('http://' . $target, ['attributes' => ['target' => '_blank']]);
+    $target_link = Link::fromTextAndUrl($target, $target_url);
     $form['environment_target'] = [
       '#type' => 'item',
       '#title' => t('Environment Target'),
-      '#markup' => Drupal::l($target, Url::fromUri('http://' . $target), [
-        'attributes' => [
-          'target' => '_blank',
-        ],
-      ]),
+      '#markup' => $target_link->toString(),
       '#description' => $description,
     ];
     return $form;
@@ -114,8 +146,7 @@ class BuildTriggerForm extends FormBase {
    *   Object containing current form state.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $frontend_service = \Drupal::service('va_gov_build_trigger.build_frontend');
-    $frontend_service->triggerFrontendBuild();
+    $this->buildFrontend->triggerFrontendBuild();
   }
 
 }
