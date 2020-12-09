@@ -34,3 +34,5 @@ $settings['trusted_host_patterns'] = [
     'localhost',
     'va-gov-cms.lndo.site',
 ];
+
+$settings['va_gov_frontend_build_type'] = 'lando';
