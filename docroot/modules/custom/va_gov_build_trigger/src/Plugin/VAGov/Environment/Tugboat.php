@@ -20,7 +20,6 @@ class Tugboat extends EnvironmentPluginBase {
    * {@inheritDoc}
    */
   public function getWebUrl(): string {
-    // @TODO figure this out...
     return \Drupal::request()->getBasePath() . '/static';
   }
 
