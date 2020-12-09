@@ -1,3 +1,4 @@
+const terminalLog = require('../util').terminalLog;
 const routes = ['/node/add/page', '/node/add/q_a'];
 
 describe('Component accessibility test', () => {
@@ -11,7 +12,7 @@ describe('Component accessibility test', () => {
 
       cy.visit(route);
       cy.injectAxe();
-      
+
       cy.get('body').each((element, index) => {
         cy.checkA11y(null, null, terminalLog);
       });
