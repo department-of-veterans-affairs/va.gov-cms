@@ -1,18 +1,18 @@
 #block-sitealert {
+  bottom: 0;
+  box-sizing: border-box;
+  left: 0;
   position: fixed;
-  bottom: 0px;
-  left: 0px;
   width: 100%;
   z-index: 500;
-  box-sizing: border-box;
 }
 
 #block-sitealert div.site-alert div.severity-low,
 #block-sitealert div.site-alert div.severity-medium,
 #block-sitealert div.site-alert div.severity-high {
-  margin-bottom: 0;
   background-image: none;
-  color: black;
+  color: #000;
+  margin-bottom: 0;
 }
 
 #block-sitealert div.site-alert div.severity-low {
@@ -24,19 +24,19 @@
 }
 
 #block-sitealert div.site-alert div.severity-high {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 100vh;
   background-color: rgb(255, 241, 210);
   background-color: rgba(255, 241, 210, 0.9);
+  bottom: 0;
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  right: 0;
   z-index: 800;
 }
 
-#block-sitealert div.site-alert div.severity-high div.text {
+#block-sitealert div.severity-high div.text {
   background-color: rgb(255, 241, 210);
-  margin-top: 50vh;
   margin-left: 25%;
   margin-right: 25%;
+  margin-top: 50vh;
 }

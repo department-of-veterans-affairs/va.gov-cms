@@ -3,6 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.video.field_description
+    - field.field.media.video.field_duration
     - field.field.media.video.field_media_in_library
     - field.field.media.video.field_media_submission_guideline
     - field.field.media.video.field_media_video_embed_field
@@ -10,7 +12,9 @@ dependencies:
     - media.type.video
   module:
     - field_group
+    - hms_field
     - markup
+    - textfield_counter
     - video_embed_field
 third_party_settings:
   field_group:
@@ -18,7 +22,7 @@ third_party_settings:
       children:
         - field_owner
       parent_name: ''
-      weight: 3
+      weight: 5
       format_type: fieldset
       format_settings:
         id: ''
@@ -34,15 +38,37 @@ targetEntityType: media
 bundle: video
 mode: default
 content:
+  field_description:
+    weight: 4
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 5000
+      counter_position: after
+      js_prevent_submit: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+      count_html_characters: false
+    third_party_settings: {  }
+    type: string_textarea_with_counter
+    region: content
+  field_duration:
+    weight: 3
+    settings:
+      format: 'h:mm:ss'
+      default_placeholder: '1'
+      placeholder: ''
+    third_party_settings: {  }
+    type: hms_default
+    region: content
   field_media_submission_guideline:
-    weight: 0
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: markup
     region: content
   field_media_video_embed_field:
     type: video_embed_field_textfield
-    weight: 2
+    weight: 0
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -66,6 +92,5 @@ hidden:
   moderation_state: true
   path: true
   preview: true
-  revision_log_message: true
   status: true
   uid: true

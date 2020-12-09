@@ -101,7 +101,7 @@ class BuildTriggerForm extends FormBase {
         break;
 
       case $environment_type == 'ci':
-        $description = t('A content release for this environment is handled by CMS-CI. You may press this button to trigger a content release. It will take around 45 seconds.');
+        $description = t('A content release for this environment is handled by CMS-CI. You may press this button to trigger a content release.');
         break;
 
       case $environment_type == 'lando':
