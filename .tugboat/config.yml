@@ -70,10 +70,10 @@ services:
       # from the base preview.
       build:
         - composer install --optimize-autoloader
-        # - drush cache:rebuild
-        # - drush config:import -y
-        # - drush updatedb -y
-        # - drush cache:rebuild
+        - drush cache:rebuild
+        - drush config:import -y
+        - drush updatedb --cache-clear=0 -y
+        - drush cache:rebuild
 
   # What to call the service hosting MySQL. This name also acts as the
   # hostname to access the service by from the php service.
