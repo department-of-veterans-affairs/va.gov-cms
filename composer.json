@@ -395,6 +395,18 @@
         "va:proxy:sshuttle": [
             "sudo -E sshuttle -r dsva@52.222.32.121 -e 'ssh -A ' 10.0.0.0/8"
         ],
+        "va:test:lint-css-all": [
+            "npm install",
+            "npm run stylelint-modules && npm run stylelint-themes"
+        ],
+        "va:test:module-lint-css": [
+            "npm install",
+            "npm run stylelint-modules"
+        ],
+        "va:test:theme-lint-scss": [
+            "npm install",
+            "npm run stylelint-themes"
+        ],
         "va:test:accessibility": [
             "npm install --only=production",
             "npm test"

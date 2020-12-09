@@ -85,6 +85,17 @@ This occurs because Drupal checks and hardens file permissions under the setting
 
 ```$settings['skip_permissions_hardening'] = TRUE;```
 
+## IDE plugins
+There are plugins available to provide in-line style checking according to project standards.
+
+### PHPCS
+- [PhpStorm](https://www.jetbrains.com/help/phpstorm/using-php-code-sniffer.html)
+- [VS Code](https://marketplace.visualstudio.com/items?itemName=ikappas.phpcs)
+
+### Stylelint
+- [PhpStorm](https://www.jetbrains.com/help/phpstorm/using-stylelint-code-quality-tool.html)
+- [VS Code](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint)
+
 ## Scripts
 There are some scripts created to help with managing the Drupal site locally.
 
