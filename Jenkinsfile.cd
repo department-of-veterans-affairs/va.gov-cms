@@ -75,6 +75,7 @@ pipeline {
   }
   post {
     // Intentionally do not cleanWs() here so that we can use previous commit to ignore certain polling paths.
+
     failure {
       slackSend(channel: params.slack_channel, color: 'danger', message: "Deployment for ${env.JOB_NAME} failed ${env.BUILD_URL}, please leave a checkmark emoji here to indicate ownership of failure. ")
     }
