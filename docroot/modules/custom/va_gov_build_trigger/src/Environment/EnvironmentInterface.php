@@ -10,7 +10,7 @@ use Drupal\Component\Plugin\PluginInspectionInterface;
 interface EnvironmentInterface extends PluginInspectionInterface {
 
   /**
-   * The URL the the front end.
+   * The URL for the front end.
    *
    * @return string
    *   The web site url.
@@ -23,12 +23,12 @@ interface EnvironmentInterface extends PluginInspectionInterface {
   public function triggerFrontendBuild() : void;
 
   /**
-   * Should this environment trigger an front content deploy?
+   * Should this environment trigger a frontend content deploy?
    *
-   * This controls if content updates shoudl trigger the
-   * front end deploy?
+   * This controls whether content updates should trigger the
+   * front end deploy.
    *
-   * @reutrn bool
+   * @return bool
    *  Should we trigger a front end deploy
    */
   public function shouldTriggerFrontendBuild() : bool;

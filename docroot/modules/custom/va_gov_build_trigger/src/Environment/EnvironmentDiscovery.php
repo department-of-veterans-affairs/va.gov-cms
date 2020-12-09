@@ -73,10 +73,10 @@ class EnvironmentDiscovery {
   }
 
   /**
-   * Is this on Tugboat?
+   * Is this on Local?
    *
    * @return bool
-   *   Is this on Tugboat?
+   *   Is this on Local?
    */
   public function isLocal() : bool {
     return $this->getBuildTypeKey() === 'lando';
@@ -132,10 +132,10 @@ class EnvironmentDiscovery {
   }
 
   /**
-   * Should the front end be triggered?
+   * Should the front end build be triggered?
    *
    * @return bool
-   *   Should the front end be triggered?
+   *   Whether the front end build should be triggered.
    *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
@@ -156,7 +156,7 @@ class EnvironmentDiscovery {
    * Returns whether the current PHP process runs on CLI.
    *
    * @return bool
-   *   Is this CLI.
+   *   Current process is CLI.
    */
   protected function isCli() : bool {
     return PHP_SAPI === 'cli';
