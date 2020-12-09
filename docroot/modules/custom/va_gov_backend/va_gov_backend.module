@@ -197,10 +197,10 @@ function _va_gov_backend_get_clp_toggles() {
         'trigger' => 'field_clp_resources_panel',
         'toggle_fields' => [
           'field_clp_resources_header' => [
-            'required' => FALSE,
+            'required' => TRUE,
           ],
           'field_clp_resources_intro_text' => [
-            'required' => FALSE,
+            'required' => TRUE,
           ],
         ],
         'toggle_paragraphs' => [
@@ -208,7 +208,7 @@ function _va_gov_backend_get_clp_toggles() {
             'required' => FALSE,
           ],
           'field_clp_resources' => [
-            'required' => FALSE,
+            'required' => TRUE,
           ],
         ],
       ],
@@ -246,7 +246,7 @@ function _va_gov_backend_get_clp_toggles() {
             'required' => TRUE,
           ],
           'field_clp_stories_teasers' => [
-            'required' => FALSE,
+            'required' => TRUE,
           ],
         ],
       ],
@@ -369,6 +369,10 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   if ($form_id === 'node_campaign_landing_page_form' || $form_id === 'node_campaign_landing_page_edit_form') {
     $clp_toggles = _va_gov_backend_get_clp_toggles();
     _va_gov_toggle_fields_states($form, $clp_toggles);
+    // Change story link teaser with image add button on clp form.
+    if (!empty($form['field_clp_stories_teasers']['widget']['add_more']['add_more_button_link_teaser_with_image'])) {
+      $form['field_clp_stories_teasers']['widget']['add_more']['add_more_button_link_teaser_with_image']['#value'] = t('Add story');
+    }
   }
 
   // Add states + custom validation if the Standalone Page field is present.

@@ -5,7 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_clp_spotlight_link_teasers
     - node.type.campaign_landing_page
-    - paragraphs.paragraphs_type.list_of_link_teasers
+    - paragraphs.paragraphs_type.link_teaser
   module:
     - entity_reference_revisions
 id: node.campaign_landing_page.field_clp_spotlight_link_teasers
@@ -23,7 +23,7 @@ settings:
   handler_settings:
     negate: 0
     target_bundles:
-      list_of_link_teasers: list_of_link_teasers
+      link_teaser: link_teaser
     target_bundles_drag_drop:
       address:
         weight: 41
@@ -68,11 +68,14 @@ settings:
         weight: 54
         enabled: false
       link_teaser:
+        enabled: true
         weight: 55
+      link_teaser_with_image:
+        weight: 57
         enabled: false
       list_of_link_teasers:
-        enabled: true
         weight: 58
+        enabled: false
       list_of_links:
         weight: 57
         enabled: false
