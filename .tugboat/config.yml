@@ -1,0 +1,94 @@
+services:
+  # What to call the service hosting the site.
+  php:
+    # Use PHP 7.x with Apache; this syntax pulls in the latest version of PHP 7
+    image: tugboatqa/php:7.1-apache
+    
+    aliases: 
+      - web
+
+    # Set this as the default service. This does a few things
+    #   1. Clones the git repository into the service container
+    #   2. Exposes port 80 to the Tugboat HTTP proxy
+    #   3. Routes requests to the preview URL to this service
+    default: true
+
+    # Wait until the mysql service is done building
+    depends: mysql
+
+    # A set of commands to run while building this service
+    commands:
+      # Commands that set up the basic preview infrastructure
+      init:
+        # Install opcache and mod-rewrite.
+        - docker-php-ext-install opcache
+        - a2enmod headers rewrite
+
+        # Install drush-launcher, if desired.
+        - wget -O /usr/local/bin/drush https://github.com/drush-ops/drush-launcher/releases/download/0.6.0/drush.phar
+        - chmod +x /usr/local/bin/drush
+
+        # Link the document root to the expected path. This example links /docroot
+        # to the docroot.
+        - ln -snf "${TUGBOAT_ROOT}/docroot" "${DOCROOT}"
+        - mkdir -p "${TUGBOAT_ROOT}/docroot/sites/default/files" "${TUGBOAT_ROOT}/files-private"
+
+        # A common practice in many Drupal projects is to store the config and
+        # private files outside of the Drupal root. If that's the case for your
+        # project, you can either specify the absolute paths to those
+        # directories in your settings.local.php, or you can symlink them in
+        # here. Here is an example of the latter option:
+        - ln -snf "${TUGBOAT_ROOT}/config" "${DOCROOT}/../config"
+        - ln -snf "${TUGBOAT_ROOT}/files-private" "${DOCROOT}/../files-private"
+
+      # Commands that import files, databases,  or other assets. When an
+      # existing preview is refreshed, the build workflow starts here,
+      # skipping the init step, because the results of that step will
+      # already be present.
+      update:
+        # Install/update packages managed by composer, including drush.
+        - composer install --optimize-autoloader
+
+        # Set file permissions such that Drupal will not complain
+        - chgrp -R www-data "${DOCROOT}/sites/default/files"
+        - find "${DOCROOT}/sites/default/files" -type d -exec chmod 2775 {} \;
+        - find "${DOCROOT}/sites/default/files" -type f -exec chmod 0664 {} \;
+
+      # Commands that build the site. This is where you would add things
+      # like feature reverts or any other drush commands required to
+      # set up or configure the site. When a preview is built from a
+      # base preview, the build workflow starts here, skipping the init
+      # and update steps, because the results of those are inherited
+      # from the base preview.
+      build:
+        - composer install --optimize-autoloader
+        # - drush cache:rebuild
+        # - drush config:import -y
+        # - drush updatedb -y
+        # - drush cache:rebuild
+
+  # What to call the service hosting MySQL. This name also acts as the
+  # hostname to access the service by from the php service.
+  mysql:
+    # Use the latest available 5.x version of MySQL
+    image: tugboatqa/mysql:5
+
+    # A set of commands to run while building this service
+    commands:
+      init:
+        - printf '[mysqld]\ninnodb_log_file_size = 50331648\nmax_allowed_packet = 128M\n' > /etc/mysql/conf.d/zzz.cnf
+        - sv restart mysql
+        # Give MySQL some time to restart.
+        - sleep 5
+      # Commands that import files, databases,  or other assets. When an
+      # existing preview is refreshed, the build workflow starts here,
+      # skipping the init step, because the results of that step will
+      # already be present.
+      update:
+        # Copy a database dump from an external server. The public
+        # SSH key found in the Tugboat Repository configuration must be
+        # copied to the external server in order to use scp.
+        - curl --remote-name --remote-header-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/database/cms-prod-db-sanitized-latest.sql.gz
+        - mysql -e "DROP DATABASE IF EXISTS tugboat; CREATE DATABASE tugboat";
+        - zcat cms-prod-db-sanitized-latest.sql.gz | mysql tugboat
+        - rm cms-prod-db-sanitized-latest.sql.gz

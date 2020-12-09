@@ -132,3 +132,6 @@ images for release along with the source code of CMS.
 The VFS team then deploys those images to the *dev*, *staging* and *production* environments inside the VAEC when the release is ready.
 
 See [The BRD System: Build, Release, Deploy](READMES/brd.md) for more information.
+
+should build
+trigger build
