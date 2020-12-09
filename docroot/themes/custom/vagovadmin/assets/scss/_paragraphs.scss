@@ -3,106 +3,105 @@
 #block-vagovadmin-content {
   .paragraph {
     border: #e0eaef solid 1px;
+    margin-bottom: 1rem;
     padding: 0.4rem 0.6rem 0.2rem;
     position: relative;
-    margin-bottom: 1rem;
 
     .field--label-above {
       .field__label {
-        font-size: .8rem;
+        font-size: 0.8rem;
         padding: 0;
       }
     }
 
     .paragraph--metadata {
+      align-items: center;
       display: flex;
       justify-content: flex-end;
-      align-items: center;
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
 
       + * {
         margin-top: 0;
       }
 
-      & > .contextual {
+      > .contextual {
         display: block;
-        position: static;
         margin-left: 0.5rem;
+        position: static;
 
         button.trigger {
           display: none;
         }
 
         .contextual-links {
-          display: block;
-          border: none;
           background-color: inherit;
+          border: hidden;
+          display: block;
           position: static;
 
           li.paragraphsedit-paragraph {
             background-color: inherit;
+          }
 
-            a {
-              position: relative; /* 1 */
-              display: inline-block;
-              box-sizing: border-box;
-              cursor: pointer;
-              -webkit-transition: all 0.1s;
-              transition: all 0.1s;
-              text-align: center;
-              text-decoration: none;
-              color: #333;
-              border: 1px solid #a6a6a6;
-              background-color: #f2f1eb;
-              background-image: -webkit-linear-gradient(top, #f6f6f3, #e7e7df);
-              background-image: linear-gradient(to bottom, #f6f6f3, #e7e7df);
-              text-shadow: 0 1px hsla(0, 0%, 100%, 0.6);
-              font-size: 0.75rem; /* 5 */
-              font-weight: 600;
-              -webkit-appearance: none; /* 3 */
-              -moz-appearance: none; /* 3 */
-              -webkit-font-smoothing: antialiased; /* 6 */
-              padding: 0.5rem;
-              border-radius: .8rem;
-            }
+          li.paragraphsedit-paragraph a {
+            -webkit-appearance: none; /* 3 */
+            -moz-appearance: none; /* 3 */
+            background-color: #f2f1eb;
+            background-image: linear-gradient(to bottom, #f6f6f3, #e7e7df);
+            border: 1px solid #a6a6a6;
+            border-radius: 0.8rem;
+            box-sizing: border-box;
+            color: #333;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 0.75rem; /* 5 */
+            -webkit-font-smoothing: antialiased; /* 6 */
+            font-weight: 600;
+            padding: 0.5rem;
+            position: relative; /* 1 */
+            text-align: center;
+            text-decoration: none;
+            text-shadow: 0 1px hsla(0, 0%, 100%, 0.6);
+            -webkit-transition: all 0.1s;
+            transition: all 0.1s;
           }
         }
       }
 
       .proof-label {
-        display: block;
         color: #6b6b6b;
-        line-height: 1;
+        display: block;
         font-weight: 700;
+        line-height: 1;
       }
 
-      & + .contextual {
+      + .contextual {
         margin-top: 2px;
       }
     }
   }
 
   .field--name-field-accordion-display.field__item {
-    font-style: italic;
-    font-size: .9rem;
-    margin: 1rem 0 0;
     color: #555;
+    font-size: 0.9rem;
+    font-style: italic;
+    margin: 1rem 0 0;
   }
 
   ol.process-steps {
-    list-style: none;
     counter-reset: process-counter;
+    list-style: none;
 
     li {
       counter-increment: process-counter;
 
       &::before {
-        content: counter(process-counter);
         border: 1px solid #999;
+        border-radius: 50%;
+        content: counter(process-counter);
         float: left;
         margin-right: 1rem;
-        border-radius: 50%;
-        padding: .1rem .5rem;
+        padding: 0.1rem 0.5rem;
       }
 
       .process-item {
@@ -112,18 +111,18 @@
   }
 
   .paragraph--type--list-of-link-teasers .field--name-field-title {
+    font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
     font-size: 20px;
     font-weight: 700;
-    font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
     line-height: 1.3;
-    margin-bottom: .5em;
+    margin-bottom: 0.5em;
   }
 
   .usa-accordion-button .field__item,
   .paragraph--type--collapsible-panel-item .field--name-field-title {
     background-color: #ddd;
-    padding: .8rem;
     font-weight: 700;
+    padding: 0.8rem;
   }
 
   .additional-info-title {
@@ -132,8 +131,8 @@
   }
 
   .paragraph.paragraph--type--spanish-translation-summary {
-    padding-left: calc(2rem - 7px);
     border-left: 7px solid #9bdaf1;
+    padding-left: calc(2rem - 7px);
   }
 
   .custom-alert,
@@ -143,22 +142,24 @@
     padding: 1rem;
 
     .field--name-field-alert-title > .field__item {
-      font-weight: 700;
       font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
-      line-height: 1.3;
-      margin-bottom: .5em;
       font-size: 24px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 0.5em;
     }
   }
+
   .paragraph--type--number-callout {
-    background: rgba(0,0,0,.05);
+    background: rgba(0, 0, 0, 0.05);
     padding: 1em;
+
     .field--name-field-short-phrase-with-a-number > .field__item {
-      font-weight: 700;
       font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
-      line-height: 1.3;
-      margin-bottom: .5em;
       font-size: 24px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 0.5em;
     }
   }
 

@@ -24,10 +24,6 @@ va/deploy/3-config:
   - drush $DRUSH_ALIAS cim --yes
   - drush $DRUSH_ALIAS cr
 
-va/tests/phpcs:
-  description: PHP CodeSniffer
-  command: composer va:test:cs
-
 va/tests/phplint:
   description: PHP Lint
   command: composer va:test:lint

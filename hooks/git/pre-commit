@@ -13,3 +13,8 @@ fi
 
 # Run PHP Codesniffer as pre-commit check.
 composer va:test:cs
+
+# Run stylelint as pre-commit check if lando is available.
+if [ -x "$(command -v lando)" ]; then
+  lando composer va:test:lint-css-all
+fi

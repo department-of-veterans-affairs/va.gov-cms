@@ -1,0 +1,20 @@
+name: stylelint-modules
+on: [pull_request]
+jobs:
+  stylelint:
+    name: runner / stylelint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: stylelint
+
+        # TODO: update to use reviewdog/action-stylelint@v1 when possible.
+        uses: acrollet/action-stylelint@master
+        with:
+          fail_on_error: true
+          github_token: ${{ secrets.github_token }}
+          packages: 'stylelint-config-sass-guidelines stylelint-order'
+          reporter: github-pr-review
+          stylelint_config: '.stylelintrc'
+          stylelint_input: 'docroot/modules/custom/**/*.css'
+

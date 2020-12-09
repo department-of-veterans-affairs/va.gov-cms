@@ -1,0 +1,26 @@
+{
+  "extends": "stylelint-config-sass-guidelines",
+  "plugins": [
+    "stylelint-order"
+  ],
+  "rules": {
+    "order/order": [
+      "custom-properties",
+      "declarations"
+    ],
+    "order/properties-alphabetical-order": true,
+    "max-nesting-depth": 5,
+    "property-no-vendor-prefix": null,
+    "selector-class-pattern": null,
+    "selector-max-compound-selectors": 7,
+    "selector-max-id": 1,
+    "selector-no-qualifying-type": [
+      true,
+      {
+        "ignore": [
+          "class"
+        ]
+      }
+    ]
+  }
+}
