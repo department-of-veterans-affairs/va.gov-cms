@@ -8,6 +8,7 @@ use Symfony\Component\Process\Process;
  * Shared code to run commands on the command line in an async manner.
  */
 trait CommandRunner {
+
   /**
    * Runs commands with concurrency.
    *
