@@ -21,7 +21,7 @@ class Tugboat extends EnvironmentPluginBase {
    */
   public function getWebUrl(): string {
     // @TODO figure this out...
-    return getenv('HTTP_HOST') . '/static';
+    return \Drupal::request()->getBasePath() . '/static';
   }
 
   /**

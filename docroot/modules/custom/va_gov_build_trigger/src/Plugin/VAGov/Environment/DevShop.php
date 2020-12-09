@@ -20,7 +20,7 @@ class DevShop extends EnvironmentPluginBase {
    * {@inheritDoc}
    */
   public function getWebUrl(): string {
-    return getenv('HTTP_HOST') . '/static';
+    return \Drupal::request()->getBasePath() . '/static';
   }
 
   /**
