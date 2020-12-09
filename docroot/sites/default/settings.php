@@ -188,6 +188,7 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.deploy.active
  * Keep this code block at the end of this file to take full effect.
  */
 // Local settings, must stay at bottom of file, this file is ignored by git.
+// Tugboat also copies this file over from .tugboat/settings.local.php.
 if (file_exists($app_root . '/' . $site_path . '/settings/settings.local.php')) {
   include $app_root . '/' . $site_path . '/settings/settings.local.php';
 }

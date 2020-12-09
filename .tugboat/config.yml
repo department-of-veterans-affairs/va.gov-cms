@@ -3,8 +3,9 @@ services:
   php:
     # Use PHP 7.x with Apache; this syntax pulls in the latest version of PHP 7
     image: tugboatqa/php:7.1-apache
-    
-    aliases: 
+
+    aliases:
+      - cms
       - web
 
     # Set this as the default service. This does a few things
@@ -23,6 +24,8 @@ services:
         # Install opcache and mod-rewrite.
         - docker-php-ext-install opcache
         - a2enmod headers rewrite
+        # BRD Environments are set to 1G, DevShop and Lando are -1 (unlimited).
+        - echo "memory_limit = 1G" >> /usr/local/etc/php/conf.d/my-php.ini
 
         # Install drush-launcher, if desired.
         - wget -O /usr/local/bin/drush https://github.com/drush-ops/drush-launcher/releases/download/0.6.0/drush.phar
@@ -46,8 +49,13 @@ services:
       # skipping the init step, because the results of that step will
       # already be present.
       update:
+        - cp "${TUGBOAT_ROOT}/.tugboat/settings.local.php" "${DOCROOT}/sites/default/settings/"
         # Install/update packages managed by composer, including drush.
         - composer install --optimize-autoloader
+
+#        - curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/files/cms-prod-files-latest.tgz
+#        - tar --extract --gunzip --file cms-prod-files-latest.tgz --directory "${DOCROOT}/sites/default/files/"
+#        - rm cms-prod-files-latest.tgz
 
         # Set file permissions such that Drupal will not complain
         - chgrp -R www-data "${DOCROOT}/sites/default/files"
@@ -88,7 +96,7 @@ services:
         # Copy a database dump from an external server. The public
         # SSH key found in the Tugboat Repository configuration must be
         # copied to the external server in order to use scp.
-        - curl --remote-name --remote-header-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/database/cms-prod-db-sanitized-latest.sql.gz
+        - curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/database/cms-prod-db-sanitized-latest.sql.gz
         - mysql -e "DROP DATABASE IF EXISTS tugboat; CREATE DATABASE tugboat";
         - zcat cms-prod-db-sanitized-latest.sql.gz | mysql tugboat
         - rm cms-prod-db-sanitized-latest.sql.gz
