@@ -3,15 +3,15 @@ body.toolbar-fixed {
   /* Set top padding to avoid content "jumping" down. */
   padding-top: 79px;
 }
-#toolbar-bar {
-  /* Set fixed position on toolbar avoid flicker. */
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
 
+#toolbar-bar {
   /* Set toolbar background color to avoid flicker on prod. */
   background-color: #082142;
+  left: 0;
+  /* Set fixed position on toolbar avoid flicker. */
+  position: fixed;
+  right: 0;
+  top: 0;
 }
 
 .toolbar-bar {
