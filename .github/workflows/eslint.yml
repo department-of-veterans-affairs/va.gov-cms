@@ -1,0 +1,14 @@
+name: reviewdog
+on: [pull_request]
+jobs:
+  eslint:
+    name: runner / eslint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: eslint
+        uses: reviewdog/action-eslint@v1
+        with:
+          reporter: github-pr-review
+          eslint_flags: '-c docroot/core/.eslintrc.json docroot/modules/custom docroot/themes/custom'
+
