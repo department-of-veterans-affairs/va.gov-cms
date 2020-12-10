@@ -18,3 +18,23 @@ composer va:test:cs
 if [ -x "$(command -v lando)" ]; then
   lando composer va:test:lint-css-all
 fi
+
+# Run PHPStan, but only on staged files in certain directories.
+git diff --diff-filter=d --cached --name-only -z -- \
+  ':(exclude)docroot/core' \
+  ':(exclude)docroot/sites/default' \
+  ':(exclude)docroot/modules/contrib' \
+  ':(exclude)docroot/vendor' \
+  ':(exclude)drush' \
+  ':(exclude)node_modules' \
+  ':(exclude)*Test.php' \
+  ':(exclude)*/tests/*' \
+  '*.php' \
+  '*.inc' \
+  '*.module' \
+  | xargs -0 -I % sh -c 'export my_file="$0"; ./docroot/vendor/bin/phpstan analyze "${my_file}" -n -l 2 --memory-limit=4000M --error-format=raw --no-progress -c phpstan.neon;' "%";
+phpstan_exit=$?;
+if [ ${phpstan_exit} -eq 0 ]; then
+  echo -e "PHPStan failed!" 1>&2;
+  exit ${phpstan_exit};
+fi

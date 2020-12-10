@@ -1,0 +1,14 @@
+parameters:
+  excludes_analyse:
+    - *Test.php
+    - *TestBase.php
+  level: 2
+  ignoreErrors:
+    - '#Plugin manager has cache backend specified but does not declare cache tags.#'
+    - '#Missing cache backend declaration for performance.#'
+    - '#Plugin definitions cannot be altered.#'
+  reportUnmatchedIgnoredErrors: false
+  bootstrapFiles:
+    - phpstan_bootstrap.php
+includes:
+  - docroot/vendor/mglaman/phpstan-drupal/extension.neon
