@@ -171,11 +171,12 @@
 
   &::before {
     background-repeat: no-repeat;
-    background-size: 16px 16px;
+    background-size: contain;
     content: '';
-    display: inline-block;
+    display: block;
     height: 16px;
-    padding-right: 4px;
+    position: absolute;
+    top: 2px;
     width: 16px;
   }
 }
