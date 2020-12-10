@@ -29,7 +29,7 @@ interface EnvironmentInterface extends PluginInspectionInterface {
    * front end deploy.
    *
    * @return bool
-   *  Should we trigger a front end deploy
+   *   Should we trigger a front end deploy
    */
   public function shouldTriggerFrontendBuild() : bool;
 
