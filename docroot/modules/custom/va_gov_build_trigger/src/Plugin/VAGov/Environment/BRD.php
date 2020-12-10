@@ -126,11 +126,11 @@ class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterfa
           ':url' => $jenkins_build_job_url,
         ];
         $message = $this->t('Site rebuild failed with status code {:status_code} {:reason_phrase} and URL {:url}.', $vars);
-        $this->messenger->addError($message);
+        $this->messenger()->addError($message);
         $this->logger->error($message);
 
         $message = $this->t('Site rebuild request has failed for :url, check log for more information.', [':url' => $jenkins_build_job_url]);
-        $this->messenger->addError($message);
+        $this->messenger()->addError($message);
         $this->logger->error($message);
       }
       else {
@@ -140,13 +140,13 @@ class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterfa
           '@job_link' => $jenkins_build_job_host . $jenkins_build_job_path,
         ];
         $message = $this->t('Site rebuild request has been triggered with :url. Please visit <a href="@job_link">@job_link</a> to see status.', $vars);
-        $this->messenger->addStatus($message);
+        $this->messenger()->addStatus($message);
         $this->logger->info($message);
       }
     }
     catch (RequestException $exception) {
       $message = $this->t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify in #cms-support Slack and please email vacmssupport@va.gov immediately with the error message you see here.', [':url' => $jenkins_build_job_url]);
-      $this->messenger->addError($message);
+      $this->messenger()->addError($message);
       $this->logger->error($message);
       $this->webBuildStatus->disableWebBuildStatus();
       watchdog_exception('va_gov_build_trigger', $exception);
