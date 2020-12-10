@@ -6,14 +6,6 @@
  */
 
 module.exports = function (gulp, plugins, options) {
-  'use strict';
-
   // Watch.
-  gulp.task('default', [
-    'sass-lint',
-    'sass',
-    'patternlab:watch',
-    'watch'
-  ]);
-
+  gulp.task("default", ["sass-lint", "sass", "patternlab:watch", "watch"]);
 };

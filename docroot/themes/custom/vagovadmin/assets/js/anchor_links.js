@@ -4,9 +4,6 @@
  */
 
 (function ($, Drupal) {
-
-  'use strict';
-
   /**
    * Return the combined height of the admin toolbar & tray.
    *
@@ -14,8 +11,10 @@
    *   Height in pixels.
    */
   Drupal.getAdminToolbarHeight = function () {
-    const toolbarHeight = $('#toolbar-bar').height() || 0;
-    const tooltrayHeight = $('#toolbar-item-administration-tray.toolbar-tray-horizontal').height() || 0;
+    const toolbarHeight = $("#toolbar-bar").height() || 0;
+    const tooltrayHeight =
+      $("#toolbar-item-administration-tray.toolbar-tray-horizontal").height() ||
+      0;
     return toolbarHeight + tooltrayHeight;
   };
 
@@ -25,19 +24,19 @@
    * @type {Drupal~behavior}
    */
   Drupal.behaviors.vagovadminAnchorLinks = {
-    attach: function (context) {
+    attach(context) {
       $('a[href^="#"]').click(function (e) {
         e.preventDefault();
 
-        var target = $(this).attr('href');
-        var scrollToPosition = $(target).offset().top - (Drupal.getAdminToolbarHeight() + 10);
+        const target = $(this).attr("href");
+        const scrollToPosition =
+          $(target).offset().top - (Drupal.getAdminToolbarHeight() + 10);
 
-        $('html').animate({'scrollTop': scrollToPosition}, 500, function () {
-          window.location.hash = '' + target;
-          $('html').animate({'scrollTop': scrollToPosition}, 0);
+        $("html").animate({ scrollTop: scrollToPosition }, 500, function () {
+          window.location.hash = `${target}`;
+          $("html").animate({ scrollTop: scrollToPosition }, 0);
         });
       });
-    }
+    },
   };
-
 })(jQuery, Drupal);

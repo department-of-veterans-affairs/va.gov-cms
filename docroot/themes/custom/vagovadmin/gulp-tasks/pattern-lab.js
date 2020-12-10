@@ -4,38 +4,50 @@
  */
 
 module.exports = function (gulp, options, plugins) {
-  'use strict';
-
   // Start the Patternlab server and watch for changes.
-  gulp.task('patternlab:watch', function () {
-    var options = {
+  gulp.task("patternlab:watch", function () {
+    const options = {
       continueOnError: false, // Default = false, true means don't emit error event.
-      pipeStdout: false // Default = false, true means stdout is written to file.contents.
+      pipeStdout: false, // Default = false, true means stdout is written to file.contents.
     };
-    var reportOptions = {
+    const reportOptions = {
       err: true, // Default = true, false means don't write err.
       stderr: true, // Default = true, false means don't write stderr.
-      stdout: true // Default = true, false means don't write stdout.
+      stdout: true, // Default = true, false means don't write stdout.
     };
-    console.log('server started on http://localhost:8080 - use ctrl+c to exit...');
-    return gulp.src('./pattern-lab')
-      .pipe(plugins.exec('cd <%= file.path %> && php core/console --server --with-watch', options))
+    console.log(
+      "server started on http://localhost:8080 - use ctrl+c to exit..."
+    );
+    return gulp
+      .src("./pattern-lab")
+      .pipe(
+        plugins.exec(
+          "cd <%= file.path %> && php core/console --server --with-watch",
+          options
+        )
+      )
       .pipe(plugins.exec.reporter(reportOptions));
   });
 
   // Export Pattern lab.
-  gulp.task('patternlab:generate', function () {
-    var options = {
+  gulp.task("patternlab:generate", function () {
+    const options = {
       continueOnError: false, // Default = false, true means don't emit error event.
-      pipeStdout: false // Default = false, true means stdout is written to file.contents.
+      pipeStdout: false, // Default = false, true means stdout is written to file.contents.
     };
-    var reportOptions = {
+    const reportOptions = {
       err: true, // Default = true, false means don't write err.
       stderr: true, // Default = true, false means don't write stderr.
-      stdout: true // Default = true, false means don't write stdout.
+      stdout: true, // Default = true, false means don't write stdout.
     };
-    return gulp.src('./pattern-lab')
-      .pipe(plugins.exec('cd <%= file.path %> && php core/console --generate', options))
+    return gulp
+      .src("./pattern-lab")
+      .pipe(
+        plugins.exec(
+          "cd <%= file.path %> && php core/console --generate",
+          options
+        )
+      )
       .pipe(plugins.exec.reporter(reportOptions));
   });
 };

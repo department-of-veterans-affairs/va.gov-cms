@@ -8,14 +8,11 @@
  */
 
 module.exports = function (gulp, plugins, options) {
-  'use strict';
-
   // Frontend build.
-  gulp.task('build', [
-    'js-lint',
-    'sass-lint',
-    'sass-for-build',
-    'patternlab:generate'
+  gulp.task("build", [
+    "js-lint",
+    "sass-lint",
+    "sass-for-build",
+    "patternlab:generate",
   ]);
-
 };
