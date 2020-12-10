@@ -1364,7 +1364,6 @@ function va_gov_backend_theme_suggestions_paragraph_alter(&$suggestions, $variab
  */
 function va_gov_backend_preprocess_paragraph(&$variables) {
   $paragraph = $variables['paragraph'];
-  $parent_bundle = $paragraph->getParentEntity()->bundle();
   if ($paragraph->bundle() === 'downloadable_file') {
     $media_entities = $paragraph->get('field_media')->referencedEntities();
     $title = $paragraph->get('field_title')->getValue()[0]['value'];
