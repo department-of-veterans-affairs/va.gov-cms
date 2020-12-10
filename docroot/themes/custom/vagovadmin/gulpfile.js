@@ -4,22 +4,10 @@
 
 /* jshint esversion: 6 */
 
-let gulp;
-let sass;
-let autoprefixer;
-let sourcemaps;
-let concat;
-let uglify;
-let babel;
-let browsersync;
-gulp = require("gulp");
-sass = require("gulp-sass");
-autoprefixer = require("gulp-autoprefixer");
-sourcemaps = require("gulp-sourcemaps");
-concat = require("gulp-concat");
-uglify = require("gulp-uglify");
-babel = require("gulp-babel");
-browsersync = require("browser-sync").create();
+const gulp = require("gulp");
+const sass = require("gulp-sass");
+const autoprefixer = require("gulp-autoprefixer");
+const sourcemaps = require("gulp-sourcemaps");
 
 const { spawn } = require("child_process");
 
@@ -27,7 +15,7 @@ const { spawn } = require("child_process");
  * @task sass
  * Compile and compress files from scss, add browser prefixes, create a source map, and save in assets folder.
  */
-gulp.task("sass", function () {
+gulp.task("sass", () => {
   return gulp
     .src(["assets/scss/**/*.scss"])
     .pipe(sourcemaps.init())
@@ -43,7 +31,7 @@ gulp.task("sass").description =
  * @task clearcache
  * Clear all drupal caches
  */
-gulp.task("clearcache", function (done) {
+gulp.task("clearcache", (done) => {
   const child = spawn("lando drush cache-rebuild", {
     stdio: "inherit",
     shell: "true",
@@ -55,9 +43,8 @@ gulp.task("clearcache").description = "clear all Drupal caches";
 /**
  * @task watch
  * Watch scss, JS, and twig files for changes & recompile
- * Reload browser with browsersync to show changes
  */
-gulp.task("watch", function () {
+gulp.task("watch", () => {
   gulp.watch(["scss/**/*.scss"], gulp.series("sass"));
 });
 gulp.task("watch").description = "watch SCSS";

@@ -3,9 +3,10 @@
  * Task: Generate PatternLab, Watch PatternLab.
  */
 
-module.exports = function (gulp, options, plugins) {
+module.exports = (gulp, options, plugins) => {
   // Start the Patternlab server and watch for changes.
-  gulp.task("patternlab:watch", function () {
+  gulp.task("patternlab:watch", () => {
+    // eslint-disable-next-line no-shadow
     const options = {
       continueOnError: false, // Default = false, true means don't emit error event.
       pipeStdout: false, // Default = false, true means stdout is written to file.contents.
@@ -15,6 +16,7 @@ module.exports = function (gulp, options, plugins) {
       stderr: true, // Default = true, false means don't write stderr.
       stdout: true, // Default = true, false means don't write stdout.
     };
+    // eslint-disable-next-line no-console
     console.log(
       "server started on http://localhost:8080 - use ctrl+c to exit..."
     );
@@ -30,7 +32,8 @@ module.exports = function (gulp, options, plugins) {
   });
 
   // Export Pattern lab.
-  gulp.task("patternlab:generate", function () {
+  gulp.task("patternlab:generate", () => {
+    // eslint-disable-next-line no-shadow
     const options = {
       continueOnError: false, // Default = false, true means don't emit error event.
       pipeStdout: false, // Default = false, true means stdout is written to file.contents.

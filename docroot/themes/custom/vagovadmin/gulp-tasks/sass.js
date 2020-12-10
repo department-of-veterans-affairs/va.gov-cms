@@ -3,8 +3,8 @@
  * Task: Compile: Sass.
  */
 
-module.exports = function (gulp, options, plugins) {
-  gulp.task("sass", function () {
+module.exports = (gulp, options, plugins) => {
+  gulp.task("sass", () => {
     return gulp
       .src([options.sass.sassFiles, options.sass.plFiles])
 

@@ -5,7 +5,7 @@
  * @see js/webform.element.help.js
  */
 
-(function ($, Drupal) {
+(($, Drupal) => {
   // @see http://bootstrapdocs.com/v3.0.3/docs/javascript/#tooltips-usage
   Drupal.vagovadminTheme = Drupal.vagovadminTheme || {};
   Drupal.vagovadminTheme.elementHelpIcon =
@@ -31,7 +31,7 @@
       $(context)
         .find(".proofing-element-help")
         .once("proofing-element-help")
-        .each(function () {
+        .each(() => {
           const $link = $(this);
 
           const options = $.extend(
@@ -44,7 +44,7 @@
             Drupal.vagovadminTheme.elementHelpIcon.options
           );
 
-          $link.tooltip(options).on("click", function (event) {
+          $link.tooltip(options).on("click", (event) => {
             // Prevent click from toggling <label>s wrapped around help.
             event.preventDefault();
           });

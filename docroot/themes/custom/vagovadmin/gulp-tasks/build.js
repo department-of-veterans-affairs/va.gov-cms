@@ -7,7 +7,8 @@
  * Usage: gulp build.
  */
 
-module.exports = function (gulp, plugins, options) {
+// eslint-disable-next-line no-unused-vars
+module.exports = (gulp, plugins, options) => {
   // Frontend build.
   gulp.task("build", [
     "js-lint",

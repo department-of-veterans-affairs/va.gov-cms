@@ -3,9 +3,9 @@
  * Task: Lint JS.
  */
 
-module.exports = function (gulp, options, plugins) {
+module.exports = (gulp, options, plugins) => {
   // Set up JS lint.
-  gulp.task("js-lint", function () {
+  gulp.task("js-lint", () => {
     return (
       gulp
         .src([options.js.jsFiles, "!node_modules/**"])

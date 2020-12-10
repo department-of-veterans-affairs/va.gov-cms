@@ -3,9 +3,9 @@
  * Task: Lint: Sass.
  */
 
-module.exports = function (gulp, options, plugins) {
+module.exports = (gulp, options, plugins) => {
   // Sass linting task.
-  gulp.task("sass-lint", function () {
+  gulp.task("sass-lint", () => {
     return gulp
       .src([options.sass.sassFiles, options.sass.plFiles])
 
