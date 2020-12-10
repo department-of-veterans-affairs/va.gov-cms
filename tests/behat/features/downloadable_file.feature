@@ -25,10 +25,3 @@ Feature: Downloadable File paragraphs are displayed correctly corresponding to t
     Then I should see "Go to video" in the "a.downloadable-file-link--video" element
     Then "a.downloadable-file-link--video" should have the attribute "target" with value "_blank"
     Then "a.downloadable-file-link--video" should have the attribute "href" with value "https://www.youtube.com/watch?v=6TKRU0nm8qo&feature=youtu.be"
-
-  Scenario: Video files should, on the documentation_page content type, contain a specially formatted link.
-    Given I am logged in as a user with the "content_admin" role
-    And I am on "/node/9422"
-    Then I should see "This is a test video." in the "a.downloadable-file-link--video" element
-    Then "a.downloadable-file-link--video" should have the attribute "target" with value "_blank"
-    Then "a.downloadable-file-link--video" should have the attribute "href" with value "https://youtu.be/9bSkspOd_uo"
