@@ -75,4 +75,4 @@ $settings['trusted_host_patterns'] = [
 $settings['va_cms_bot_github_auth_token'] = getenv('GITHUB_TOKEN') ?: FALSE;
 
 $settings['va_gov_frontend_build_type'] = 'devshop';
-$settings['va_gov_frontend_url'] = $webhost_on_cli;
+$settings['va_gov_frontend_url'] = $webhost_on_cli . '/static';
