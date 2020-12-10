@@ -170,6 +170,25 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   }
 
   /**
+   * Check that an XPath expression does not find any matches.
+   *
+   * @param string $expression
+   *   The XPath expression.
+   *
+   * @Then the xpath :expression should have no matches
+   */
+  public function theXpathExpressionShouldHaveNoMatches($expression) {
+    $session = $this->getSession();
+    $element = $session->getPage()->find(
+      'xpath',
+      $session->getSelectorsHandler()->selectorToXpath('xpath', $expression)
+    );
+    if ($element) {
+      throw new \InvalidArgumentException(sprintf('This XPath expression should have no matches: "%s"', $expression));
+    }
+  }
+
+  /**
    * Check value of html attribute.
    *
    * @param string $element
