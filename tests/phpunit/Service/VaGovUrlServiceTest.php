@@ -46,11 +46,19 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
   protected $settings;
 
   /**
+   * The original container object.
+   *
+   * @var \Symfony\Component\DependencyInjection\ContainerInterface
+   */
+  protected $orgContainer;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp() {
     parent::setUp();
 
+    $this->orgContainer = clone $this->container;
     $this->container = new ContainerBuilder();
     $this->config = ['hash_salt' => 'SCVSPZNSKKK5XCRJ1WLE'];
     $this->settings = new Settings($this->config);
@@ -64,7 +72,7 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
    */
   public function testGetVaGovFrontEndUrl() {
     $this->mockClient();
-    $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings, $this->container->get('va_gov.build_trigger.environment_discovery'));
+    $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings, $this->orgContainer->get('va_gov.build_trigger.environment_discovery'));
     $this->assertEquals('https://www.va.gov', $vaGovUrl->getVaGovFrontEndUrl());
   }
 
@@ -78,7 +86,7 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
     $this->mockClient();
     $this->config = ['va_gov_frontend_url' => 'https://other.va.gov'];
     $this->settings = new Settings($this->config);
-    $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings, $this->container->get('va_gov.build_trigger.environment_discovery'));
+    $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings, $this->orgContainer->get('va_gov.build_trigger.environment_discovery'));
     $this->assertNotEquals('https://www.va.gov', $vaGovUrl->getVaGovFrontEndUrl());
     $this->assertEquals('https://other.va.gov', $vaGovUrl->getVaGovFrontEndUrl());
   }
@@ -91,7 +99,7 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
    */
   public function testGetVaGovFrontEndUrlForEntity() {
     $this->mockClient();
-    $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings, $this->container->get('va_gov.build_trigger.environment_discovery'));
+    $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings, $this->orgContainer->get('va_gov.build_trigger.environment_discovery'));
 
     $author = $this->createUser();
     $system_node = $this->createNode([
@@ -114,7 +122,7 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
    */
   public function testVaGovFrontEndUrlForEntityIsLive() {
     $this->mockClient(new Response('200'), new Response('404'));
-    $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings, $this->container->get('va_gov.build_trigger.environment_discovery'));
+    $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings, $this->orgContainer->get('va_gov.build_trigger.environment_discovery'));
 
     $author = $this->createUser();
     $system_node = $this->createNode([
