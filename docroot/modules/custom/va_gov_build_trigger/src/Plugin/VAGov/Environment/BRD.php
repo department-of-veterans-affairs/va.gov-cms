@@ -2,12 +2,15 @@
 
 namespace Drupal\va_gov_build_trigger\Plugin\VAGov\Environment;
 
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Site\Settings;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * BRD Plugin for Environment.
@@ -17,13 +20,51 @@ use GuzzleHttp\Middleware;
  *   label = @Translation("BRD")
  * )
  */
-class BRD extends EnvironmentPluginBase {
+class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterface {
+
+  use StringTranslationTrait;
+
+  /**
+   * Date Formatter Service..
+   *
+   * @var \Drupal\Core\Datetime\DateFormatterInterface
+   */
+  protected $dateFormatter;
+
+  /**
+   * Database Connection.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $database;
 
   /**
    * {@inheritDoc}
    */
-  public function getWebUrl(): string {
-    return Settings::get('va_gov_frontend_url');
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    $dateFormatter,
+    $database
+  ) {
+
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->dateFormatter = $dateFormatter;
+    $this->database = $database;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('date.formatter'),
+      $container->get('database')
+    );
   }
 
   /**
@@ -84,11 +125,11 @@ class BRD extends EnvironmentPluginBase {
           ':reason_phrase' => $response->getReasonPhrase(),
           ':url' => $jenkins_build_job_url,
         ];
-        $message = t('Site rebuild failed with status code {:status_code} {:reason_phrase} and URL {:url}.', $vars);
+        $message = $this->t('Site rebuild failed with status code {:status_code} {:reason_phrase} and URL {:url}.', $vars);
         $this->messenger->addError($message);
         $this->logger->error($message);
 
-        $message = t('Site rebuild request has failed for :url, check log for more information.', [':url' => $jenkins_build_job_url]);
+        $message = $this->t('Site rebuild request has failed for :url, check log for more information.', [':url' => $jenkins_build_job_url]);
         $this->messenger->addError($message);
         $this->logger->error($message);
       }
@@ -98,13 +139,13 @@ class BRD extends EnvironmentPluginBase {
           ':url' => $jenkins_build_job_url,
           '@job_link' => $jenkins_build_job_host . $jenkins_build_job_path,
         ];
-        $message = t('Site rebuild request has been triggered with :url. Please visit <a href="@job_link">@job_link</a> to see status.', $vars);
+        $message = $this->t('Site rebuild request has been triggered with :url. Please visit <a href="@job_link">@job_link</a> to see status.', $vars);
         $this->messenger->addStatus($message);
         $this->logger->info($message);
       }
     }
     catch (RequestException $exception) {
-      $message = t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify in #cms-support Slack and please email vacmssupport@va.gov immediately with the error message you see here.', [':url' => $jenkins_build_job_url]);
+      $message = $this->t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify in #cms-support Slack and please email vacmssupport@va.gov immediately with the error message you see here.', [':url' => $jenkins_build_job_url]);
       $this->messenger->addError($message);
       $this->logger->error($message);
       $this->webBuildStatus->disableWebBuildStatus();
@@ -118,18 +159,18 @@ class BRD extends EnvironmentPluginBase {
    */
   private function recordBuildTime() {
     // Get our SQL formatted date.
-    $time_raw = \Drupal::service('date.formatter')
+    $time_raw = $this->dateFormatter
       ->format(time(), 'html_datetime', '', 'UTC');
     $time = strtok($time_raw, '+');
 
     // We only need to update field table - field is set on node import.
-    $query = \Drupal::database()
+    $query = $this->database
       ->update('node__field_page_last_built')
       ->fields(['field_page_last_built_value' => $time]);
     $query->execute();
 
     // We only need to update - revision field is set on node import.
-    $query_revision = \Drupal::database()
+    $query_revision = $this->database
       ->update('node_revision__field_page_last_built')
       ->fields(['field_page_last_built_value' => $time]);
     $query_revision->execute();

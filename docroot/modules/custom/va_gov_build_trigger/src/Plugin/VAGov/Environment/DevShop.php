@@ -19,13 +19,6 @@ class DevShop extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function getWebUrl(): string {
-    return getenv('DRUPAL_ADDRESS') . '/static';
-  }
-
-  /**
-   * {@inheritDoc}
-   */
   public function triggerFrontendBuild(): void {
     // Running in CMS-CI and DevShopTaskApiClient has been loaded, use it.
     $task_json = \DevShopTaskApiClient::create('vabuild');

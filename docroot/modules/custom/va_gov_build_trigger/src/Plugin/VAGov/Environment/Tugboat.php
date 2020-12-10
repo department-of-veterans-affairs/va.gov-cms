@@ -19,13 +19,6 @@ class Tugboat extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function getWebUrl(): string {
-    return \Drupal::request()->getBasePath() . '/static';
-  }
-
-  /**
-   * {@inheritDoc}
-   */
   public function triggerFrontendBuild(): void {
     $commands = [
       'cd /app && COMPOSER_HOME=/var/www/.composer /usr/local/bin/composer va:web:build',
