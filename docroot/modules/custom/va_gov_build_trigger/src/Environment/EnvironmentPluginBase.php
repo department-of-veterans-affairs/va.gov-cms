@@ -36,7 +36,7 @@ abstract class EnvironmentPluginBase extends PluginBase implements EnvironmentIn
    * {@inheritDoc}
    */
   public function getWebUrl(): string {
-    return Settings::get('va_gov_frontend_url');
+    return Settings::get('va_gov_frontend_url') ?? 'https://www.va.gov';
   }
 
 }

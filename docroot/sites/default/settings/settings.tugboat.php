@@ -58,4 +58,4 @@ $webhost_on_cli = getenv('DRUPAL_ADDRESS');
 // Link to this file locally since lando can not access prod where the real
 // file exists.  You will need to copy the file from the same path on prod.
 $config['migrate_plus.migration.va_node_form']['source']['urls'] = [$webhost_on_cli . '/sites/default/files/migrate_source/va_forms_data.csv'];
-$settings['va_gov_frontend_url'] = $webhost_on_cli;
+$settings['va_gov_frontend_url'] = $webhost_on_cli . '/static';

@@ -35,4 +35,4 @@ $settings['trusted_host_patterns'] = [
 ];
 
 $settings['va_gov_frontend_build_type'] = 'lando';
-$settings['va_gov_frontend_url'] = $webhost_on_cli;
+$settings['va_gov_frontend_url'] = $webhost_on_cli . '/static';
