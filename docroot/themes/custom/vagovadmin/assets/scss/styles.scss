@@ -165,14 +165,19 @@
   }
 }
 
-.downloadable-file-link::before {
-  background-repeat: no-repeat;
-  background-size: 16px 16px;
-  content: '';
-  display: inline-block;
-  height: 16px;
-  padding-right: 4px;
-  width: 16px;
+.downloadable-file-link {
+  padding-left: 20px;
+  position: relative;
+
+  &::before {
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    content: '';
+    display: inline-block;
+    height: 16px;
+    padding-right: 4px;
+    width: 16px;
+  }
 }
 
 .downloadable-file-link--document::before {
