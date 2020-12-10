@@ -209,6 +209,7 @@ function _va_gov_backend_get_clp_toggles() {
           ],
           'field_clp_resources' => [
             'required' => TRUE,
+            'show-indicator' => TRUE,
           ],
         ],
       ],
@@ -227,7 +228,8 @@ function _va_gov_backend_get_clp_toggles() {
             'required' => FALSE,
           ],
           'field_clp_spotlight_link_teasers' => [
-            'required' => FALSE,
+            'required' => TRUE,
+            'show-indicator' => TRUE,
           ],
         ],
       ],
@@ -244,9 +246,11 @@ function _va_gov_backend_get_clp_toggles() {
         'toggle_paragraphs' => [
           'field_clp_stories_cta' => [
             'required' => TRUE,
+            'show-indicator' => TRUE,
           ],
           'field_clp_stories_teasers' => [
             'required' => TRUE,
+            'show-indicator' => TRUE,
           ],
         ],
       ],
@@ -263,6 +267,7 @@ function _va_gov_backend_get_clp_toggles() {
           ],
           'field_media' => [
             'required' => TRUE,
+            'show-indicator' => TRUE,
           ],
         ],
       ],
@@ -271,7 +276,8 @@ function _va_gov_backend_get_clp_toggles() {
         'toggle_fields' => [],
         'toggle_paragraphs' => [
           'field_clp_faq_paragraphs' => [
-            'required' => FALSE,
+            'required' => TRUE,
+            'show-indicator' => TRUE,
           ],
           'field_clp_faq_cta' => [
             'required' => FALSE,
@@ -341,6 +347,7 @@ function _va_gov_toggle_field_states(array &$form, array $toggle_group) {
 
       ];
     }
+    $blah = '';
     foreach ($toggle_group['toggle_paragraphs'] as $paragraph_key => $paragraph_field) {
       $form[$paragraph_key]['#states'] = [
         'required' => [
@@ -352,8 +359,12 @@ function _va_gov_toggle_field_states(array &$form, array $toggle_group) {
         'disabled' => [
          ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => FALSE]],
         ],
-
       ];
+      if (!empty($paragraph_field['show-indicator'])) {
+        $form[$paragraph_key]['#states']['show-indicator'] = [
+         ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => TRUE]],
+        ];
+      }
     }
   }
 }
@@ -1213,9 +1224,45 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
   if ($entity_type->id() === 'media' && $bundle === 'document_external' && isset($fields['field_media_external_file'])) {
     $fields['field_media_external_file']->addConstraint('PdfCheck');
   }
-  // Add qa range check on clp faq panel.
-  if ($entity_type->id() === 'node' && $bundle === 'campaign_landing_page' && isset($fields['field_clp_faq_paragraphs'])) {
-    $fields['field_clp_faq_paragraphs']->addConstraint('QaLimit');
+  // Add paragraph checks on clp panels.
+  if ($entity_type->id() === 'node' && $bundle === 'campaign_landing_page') {
+    // Add range check on faq panel.
+    if (isset($fields['field_clp_faq_paragraphs'])) {
+      $fields['field_clp_faq_paragraphs']->addConstraint('RequiredParagraph', [
+        'toggle' => 'field_clp_faq_panel',
+        'readable' => 'Q&A',
+        'min' => 3,
+        'max' => 10,
+      ]);
+    }
+    // Add range check on stories panel.
+    if (isset($fields['field_clp_stories_teasers'])) {
+      $fields['field_clp_stories_teasers']->addConstraint('RequiredParagraph', [
+        'toggle' => 'field_clp_stories_panel',
+        'readable' => 'Stories',
+        'min' => 1,
+        'max' => 2,
+      ]);
+    }
+    // Add range check on spotlight panel.
+    if (isset($fields['field_clp_spotlight_link_teasers'])) {
+      $fields['field_clp_spotlight_link_teasers']->addConstraint('RequiredParagraph', [
+        'toggle' => 'field_clp_spotlight_panel',
+        'readable' => 'Additional links',
+        'min' => 1,
+        'max' => 1,
+      ]);
+    }
+    // Add range check on resources panel.
+    if (isset($fields['field_clp_resources'])) {
+      $fields['field_clp_resources']->addConstraint('RequiredParagraph', [
+        'toggle' => 'field_clp_resources_panel',
+        'readable' => 'Media resources',
+        'min' => 1,
+        'max' => 3,
+      ]);
+    }
+
   }
 }
 

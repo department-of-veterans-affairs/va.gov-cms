@@ -25,9 +25,9 @@
   Drupal.behaviors.vaGovClpLimitListOfLinks = {
     attach: function () {
       // Don't allow more than 3 link teasers in clp spotlight panel.
-        if ($('#field-clp-spotlight-link-teasers-add-more-wrapper .paragraphs-dropbutton-wrapper').length > 3) {
-          $('#field-clp-spotlight-link-teasers-add-more-wrapper .field-add-more-submit.button--small.button').css('display', 'none');
-        }
+      if ($('#field-clp-spotlight-link-teasers-add-more-wrapper .paragraphs-dropbutton-wrapper').length > 3) {
+        $('#field-clp-spotlight-link-teasers-add-more-wrapper .field-add-more-submit.button--small.button').css('display', 'none');
+      }
     }
   };
 
@@ -84,4 +84,15 @@
       });
     }
   };
+  Drupal.behaviors.vaGovRequiredParagraphs = {
+    attach: function () {
+      $('h4.label').each(function (item) {
+        let container = $(this).closest('.field--type-entity-reference-revisions');
+        if (container?.attr('data-drupal-states')?.includes('"show-indicator":')) {
+          $(this).addClass('js-form-required form-required')
+        }
+      })
+
+    }
+  }
 })(jQuery, window.Drupal);
