@@ -34,3 +34,8 @@ Feature: Google Tag Manager dataLayer values are correct
     And I am on "/node/2"
     Then the GTM data layer value for "userRoles" should be set to '["anonymous"]'
     And the GTM data layer value for "userId" should be unset
+
+  Scenario: Google Tag Manager should be provided with an appropriate content owner for a given node.
+    Given I am logged in as a user with the "content_admin" role
+    And I am on "/node/7166"
+    Then the GTM data layer value for "contentOwner" should be set to "VA Salem health care"
