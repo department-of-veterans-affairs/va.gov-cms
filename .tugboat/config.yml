@@ -1,0 +1,140 @@
+services:
+  # What to call the service hosting the site.
+  php:
+    # Use PHP 7.x with Apache; this syntax pulls in the latest version of PHP 7
+    image: tugboatqa/php:7.1-apache
+
+    aliases:
+      - cms
+      - web
+
+    # Set this as the default service. This does a few things
+    #   1. Clones the git repository into the service container
+    #   2. Exposes port 80 to the Tugboat HTTP proxy
+    #   3. Routes requests to the preview URL to this service
+    default: true
+
+    # Wait until the mysql service is done building
+    depends: mysql
+
+    # A set of commands to run while building this service
+    commands:
+      # Commands that set up the basic preview infrastructure
+      init:
+        # Install Python
+        # TODO: Add "Why" comment for Python, was this for the FE dependencies `yarn install`, if so which dependencies
+        # so we can remove if they are removed in the future.
+        - apt-get update
+        - apt-get install python
+        # Install opcache, and Apache modules
+        - docker-php-ext-install opcache
+        - a2enmod headers rewrite vhost_alias
+
+        # Setup web-*. vhost to serve static website.
+        - cp "${TUGBOAT_ROOT}"/.tugboat/web-vhost.conf /etc/apache2/sites-enabled/
+
+        # BRD Environments are set to 1G, DevShop and Lando are -1 (unlimited).
+        - echo "memory_limit = 1G" >> /usr/local/etc/php/conf.d/my-php.ini
+        # Set unlimited memory limit for PHP CLI to allow Composer to run.
+        - echo "memory_limit = -1" >> /usr/local/etc/php/conf.d/php-cli.ini
+        - echo "max_execution_time = 1200" >> /usr/local/etc/php/conf.d/my-php.ini
+
+        # .tugboat/.env.j2 Jinja2 template file support
+        - apt-get install python3-apt python3-distutils python3
+        - curl -O https://bootstrap.pypa.io/get-pip.py
+        - python3 get-pip.py
+        - echo "export PATH=~/.local/bin:$PATH" >> ~/.bashrc
+        - pip3 install j2cli
+
+        # Install VA Root CA
+        - cp "${TUGBOAT_ROOT}"/.tugboat/VA-Internal-S2-RCA1-v1.crt /usr/local/share/ca-certificates
+        - update-ca-certificates
+
+        # Install drush-launcher, if desired.
+        - wget -O /usr/local/bin/drush https://github.com/drush-ops/drush-launcher/releases/download/0.6.0/drush.phar
+        - chmod +x /usr/local/bin/drush
+
+        # Link the document root to the expected path. This example links /docroot
+        # to the docroot.
+        - ln -snf "${TUGBOAT_ROOT}/docroot" "${DOCROOT}"
+        - mkdir -p "${TUGBOAT_ROOT}/docroot/sites/default/files" "${TUGBOAT_ROOT}/files-private"
+
+        # A common practice in many Drupal projects is to store the config and
+        # private files outside of the Drupal root. If that's the case for your
+        # project, you can either specify the absolute paths to those
+        # directories in your settings.local.php, or you can symlink them in
+        # here. Here is an example of the latter option:
+        - ln -snf "${TUGBOAT_ROOT}/config" "${DOCROOT}/../config"
+        - ln -snf "${TUGBOAT_ROOT}/files-private" "${DOCROOT}/../files-private"
+
+      # Commands that import files, databases,  or other assets. When an
+      # existing preview is refreshed, the build workflow starts here,
+      # skipping the init step, because the results of that step will
+      # already be present.
+      update:
+        # Install/update packages managed by composer, including drush.
+        - composer install --optimize-autoloader --apcu-autoloader
+        - composer va:web:install
+
+        - curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/files/cms-prod-files-latest.tgz
+        - tar --extract --gunzip --file cms-prod-files-latest.tgz --directory "${DOCROOT}/sites/default/files/"
+        - rm cms-prod-files-latest.tgz
+
+        # Set file permissions such that Drupal will not complain
+        - chgrp -R www-data "${DOCROOT}/sites/default/files"
+        - find "${DOCROOT}/sites/default/files" -type d -exec chmod 2775 {} \;
+        - find "${DOCROOT}/sites/default/files" -type f -exec chmod 0664 {} \;
+
+      # Commands that build the site. This is where you would add things
+      # like feature reverts or any other drush commands required to
+      # set up or configure the site. When a preview is built from a
+      # base preview, the build workflow starts here, skipping the init
+      # and update steps, because the results of those are inherited
+      # from the base preview.
+      build:
+        # Currently resetting to the remote branch/PR SHA since yaml-tasks runs tests status against this commit.
+        # Tugboat currently merges the branch into master and we don't need that because we have a GitHub branch rule
+        # setup to ensure branch is up to date.
+        - git reset --hard $TUGBOAT_PREVIEW_SHA
+        - j2 "${TUGBOAT_ROOT}/.tugboat/.env.j2" -o "${TUGBOAT_ROOT}/.env"
+        - composer install --optimize-autoloader --apcu-autoloader
+        - composer va:web:install
+        - drush cache:rebuild
+        - drush config:import -y
+        - drush updatedb --cache-clear=0 -y
+        - drush cache:rebuild
+
+      online:
+        # We only want tests running on PRs, not branches like the base preview build of master.
+        # This sets the commit status checks to pending all at once.
+        - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then composer yaml-test va/web/build va/tests; fi
+
+        # Do run the WEB build if on a branch, tag or commit so the `web-*` prefix works.
+        - if [ "$TUGBOAT_PREVIEW_TYPE" != "pullrequest" ]; then composer yaml-test va/web/build; fi
+
+
+  # What to call the service hosting MySQL. This name also acts as the
+  # hostname to access the service by from the php service.
+  mysql:
+    # Use the latest available 5.x version of MySQL
+    image: tugboatqa/mysql:5
+
+    # A set of commands to run while building this service
+    commands:
+      init:
+        - printf '[mysqld]\ninnodb_log_file_size = 50331648\nmax_allowed_packet = 128M\n' > /etc/mysql/conf.d/zzz.cnf
+        - sv restart mysql
+        # Give MySQL some time to restart.
+        - sleep 5
+      # Commands that import files, databases,  or other assets. When an
+      # existing preview is refreshed, the build workflow starts here,
+      # skipping the init step, because the results of that step will
+      # already be present.
+      update:
+        # Copy a database dump from an external server. The public
+        # SSH key found in the Tugboat Repository configuration must be
+        # copied to the external server in order to use scp.
+        - curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/database/cms-prod-db-sanitized-latest.sql.gz
+        - mysql -e "DROP DATABASE IF EXISTS tugboat; CREATE DATABASE tugboat";
+        - zcat cms-prod-db-sanitized-latest.sql.gz | mysql tugboat
+        - rm cms-prod-db-sanitized-latest.sql.gz
