@@ -35,3 +35,6 @@ $settings['trusted_host_patterns'] = [
     'cms.va.gov',
     '.*\.us-gov-west-1\.elb\.amazonaws\.com',
 ];
+
+$settings['va_gov_frontend_build_type'] = 'brd';
+$settings['va_gov_frontend_url'] = 'https://www.va.gov';
