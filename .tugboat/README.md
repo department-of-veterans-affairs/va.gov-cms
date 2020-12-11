@@ -35,7 +35,7 @@ Tugboat is a pull request environment builder. It creates "Previews" which are i
 | I want to... | Then you should... |
 | :--- | :--- |
 | Know why the logs are showing a previous build | Change from "current" to the latest timestamp
-| Run more advanced commands with the `tugboat` tool on the proxy| We are working on figuring this out |
+| Run more advanced commands with the `tugboat` tool on the proxy | We are working on figuring this out |
 | Want to get the latest .env file | Run a "Refresh" to run the "Build" stage which re-generates the .env file
 
 ## Tugboat setup operations
