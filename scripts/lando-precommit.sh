@@ -7,7 +7,7 @@ bail_if_test_failed () {
   fi
 }
 
-CHANGES=$( git diff --diff-filter=d --name-only )
+CHANGES=$( git diff --diff-filter=d --name-only HEAD )
 
 PHP_FILES=$( echo "${CHANGES}" | grep -E '\.(php|module|inc|install|profile|engine|theme|css)$' )
 if [ ${#PHP_FILES} -gt 0 ]; then
@@ -23,7 +23,7 @@ fi
 
 JS_FILES=$( echo "${CHANGES}" | grep -E '\.js$' )
 if [ ${#JS_FILES} -gt 0 ]; then
-  ./node_modules/.bin/eslint --max-warnings 0 -c .eslintrc.json --no-eslintrc ${JS_FILES[*]}
+  npm run eslint ${JS_FILES[*]}
   bail_if_test_failed 
 fi
 
