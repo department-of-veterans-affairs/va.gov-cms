@@ -2,7 +2,7 @@
  * @file
  */
 
-(function ($, Drupal) {
+(($, Drupal) => {
   /**
    * Ensure that a maximum of 4 tags + audiences may be selected.
    */
@@ -85,8 +85,8 @@
       // React when the Audience dropdown is changed.
       $(
         'select[id^="edit-field-tags-0-subform-field-audience-selection"]'
-      ).change(function () {
-        const selection = $(this).val();
+      ).change((event) => {
+        const selection = $(event.currentTarget).val();
 
         if (selection === "beneficiaries") {
           // Show beneficiaries field when selected.
@@ -112,7 +112,7 @@
         'div[id^="edit-field-tags-0-subform-field-topics"], div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]'
       )
         .find("input")
-        .change(function () {
+        .change(() => {
           // Enforce tag selection rules.
           enforceMaximumNumberOfTags();
         });

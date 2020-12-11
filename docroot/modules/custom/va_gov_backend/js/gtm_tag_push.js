@@ -2,7 +2,7 @@
  * @file
  */
 
-(function (w, d, s, l, i) {
+((w, d, s, l, i) => {
   w[l] = w[l] || [];
   w[l].push({
     "gtm.start": new Date().getTime(),
@@ -14,7 +14,7 @@
   }
   const f = d.getElementsByTagName(s)[0];
   const j = d.createElement(s);
-  const dl = l != "dataLayer" ? `&l=${l}` : "";
+  const dl = l !== "dataLayer" ? `&l=${l}` : "";
   j.async = true;
   j.src = `https://www.googletagmanager.com/gtm.js?id=${i}${dl}&gtm_auth=hHvHnY1eIx1IOSJMAnOBLA&gtm_preview=env-${env}&gtm_cookies_win=x`;
   f.parentNode.insertBefore(j, f);

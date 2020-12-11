@@ -2,9 +2,9 @@
  * @file
  */
 
-(function ($, Drupal) {
+(($, Drupal) => {
   Drupal.behaviors.vaGovSectionsAccordion = {
-    attach(context, settings) {
+    attach(context) {
       // Add aria-hidden attribute to all collapsed areas.
       $(".sections")
         .find(".subsections")

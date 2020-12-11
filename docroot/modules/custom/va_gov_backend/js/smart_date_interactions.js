@@ -2,9 +2,9 @@
  * @file
  */
 
-(function (Drupal) {
+((Drupal) => {
   Drupal.behaviors.smartDateInteractions = {
-    attach(context, settings) {
+    attach() {
       const timeEnd = document.querySelector(".time-end");
 
       if (timeEnd !== null && typeof timeEnd === "object") {

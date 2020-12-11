@@ -2,7 +2,7 @@
  * @file
  */
 
-(function ($, Drupal) {
+(($, Drupal) => {
   Drupal.behaviors.vaGovTagTracker = {
     attach(context, settings) {
       // Handle different title data scenarios.
@@ -17,9 +17,31 @@
         return title;
       }
 
+      // Build our gtm settings push object.
+      const dataCollection = {
+        pagePath: settings.gtm_data.pagePath
+          ? settings.gtm_data.pagePath
+          : null,
+        pageTitle: titleResolver(settings.gtm_data.pageTitle),
+        nodeID: settings.gtm_data.nodeID ? settings.gtm_data.nodeID : null,
+        contentTitle: settings.gtm_data.contentTitle
+          ? settings.gtm_data.contentTitle
+          : null,
+        contentType: settings.gtm_data.contentType
+          ? settings.gtm_data.contentType
+          : null,
+        contentOwner: settings.gtm_data.contentOwner
+          ? settings.gtm_data.contentOwner
+          : null,
+        userRoles: settings.gtm_data.userRoles
+          ? settings.gtm_data.userRoles
+          : null,
+        userId: settings.gtm_data.userId ? settings.gtm_data.userId : null,
+      };
+
       // Walk the main nav tree from point of click.
       function menuTraverser(item) {
-        parentClasses = item.parentNode.className;
+        const parentClasses = item.parentNode.className;
         let level4 = null;
         let level3 = null;
         let level2 = null;
@@ -55,36 +77,14 @@
         dataCollection.fourthSectionLevel = level4 ? level4.textContent : "";
       }
 
-      // Build our gtm settings push object.
-      const dataCollection = {
-        pagePath: settings.gtm_data.pagePath
-          ? settings.gtm_data.pagePath
-          : null,
-        pageTitle: titleResolver(settings.gtm_data.pageTitle),
-        nodeID: settings.gtm_data.nodeID ? settings.gtm_data.nodeID : null,
-        contentTitle: settings.gtm_data.contentTitle
-          ? settings.gtm_data.contentTitle
-          : null,
-        contentType: settings.gtm_data.contentType
-          ? settings.gtm_data.contentType
-          : null,
-        contentOwner: settings.gtm_data.contentOwner
-          ? settings.gtm_data.contentOwner
-          : null,
-        userRoles: settings.gtm_data.userRoles
-          ? settings.gtm_data.userRoles
-          : null,
-        userId: settings.gtm_data.userId ? settings.gtm_data.userId : null,
-      };
-
       // For processing our click events.
       function pushGTM(selector, event, subtype) {
         const editPageTypes = ["content-page", "bulk-content-page"];
         // Push cms data into dataLayer.
-        selector.forEach(function (el, i) {
+        selector.forEach((el) => {
           $(el, context)
             .once()
-            .click(function (e) {
+            .click(() => {
               dataCollection.event = event;
 
               // Special handling for content admin pages.
@@ -111,7 +111,7 @@
               // Unset old Unique ID.
               dataCollection["gtm.uniqueEventId"] = "";
               // Now send it to the dataLayer.
-              dataLayer.push(dataCollection);
+              window.dataLayer.push(dataCollection);
             });
         });
       }
@@ -185,14 +185,14 @@
       ];
 
       // Send it off to GTM on click.
-      targets.forEach(function (e) {
+      targets.forEach((e) => {
         pushGTM(e.selector, e.event, e.subtype);
       });
 
       // Send data to GTM onLoad.
       function gtmPageLoadPush() {
         dataCollection.event = "pageLoad";
-        dataLayer.push(dataCollection);
+        window.dataLayer.push(dataCollection);
       }
 
       // Three behaviors loaded on edit pages.
@@ -200,7 +200,7 @@
       // Once method used to resolve.
       $(window, context)
         .once("vaGovTagTracker")
-        .on("load", function () {
+        .on("load", () => {
           gtmPageLoadPush();
         });
     },

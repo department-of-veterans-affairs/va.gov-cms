@@ -2,9 +2,9 @@
  * @file
  */
 
-(function (Drupal) {
+((Drupal) => {
   Drupal.behaviors.vaGovContactParagraphsInteractions = {
-    attach(context, settings) {
+    attach(context) {
       // Grab our phone extension toggles.
       const extensionFieldsSelects = context.querySelectorAll(
         ".field--name-field-phone-number-type select"
