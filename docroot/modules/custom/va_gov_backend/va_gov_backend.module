@@ -1307,6 +1307,15 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
         'max' => 2,
       ]);
     }
+    // Add range check on video panel.
+    if (isset($fields['field_media'])) {
+      $fields['field_media']->addConstraint('RequiredParagraph', [
+        'toggle' => 'field_clp_video_panel',
+        'readable' => 'Video',
+        'min' => 1,
+        'max' => 1,
+      ]);
+    }
 
   }
 }

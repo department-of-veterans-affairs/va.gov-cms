@@ -4,7 +4,7 @@ Feature: Content model: Campaign Landing Page Content Type fields
   As a content editor
   I want to have content type fields that reflect my content model.
 
-  @dst @field_type @content_type_fields @dstfields
+  @dst @field_type @content_type_fields @dstfields @clp
      Scenario: Fields
        Then exactly the following fields should exist for bundles "campaign_landing_page" of entity type node
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
@@ -38,7 +38,7 @@ Feature: Content model: Campaign Landing Page Content Type fields
 | Content type | Campaign Landing Page | Video | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Campaign Landing Page | What you can do header | field_clp_what_you_can_do_header | Text (plain) | Required | 1 | Textfield with counter |  |
 | Content type | Campaign Landing Page | What you can do intro text | field_clp_what_you_can_do_intro | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter |  |
-| Content type | Campaign Landing Page | What you can do promos | field_clp_what_you_can_do_promos | Entity reference |  | 3 | Entity Browser - Table |  |
+| Content type | Campaign Landing Page | What you can do promos | field_clp_what_you_can_do_promos | Entity reference | Required | 3 | Entity Browser - Table |  |
 | Content type | Campaign Landing Page | Why this matters to you | field_clp_why_this_matters | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter |  |
 | Content type | Campaign Landing Page | Add a link to more FAQs | field_clp_faq_cta | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | Campaign Landing Page | Add an FAQ panel | field_clp_faq_panel | Boolean |  | 1 | Single on/off checkbox |  |

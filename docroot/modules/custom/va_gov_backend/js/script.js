@@ -95,9 +95,12 @@
         }
         // @codingStandardsIgnoreEnd
       })
-      // Snowflake cases for entity browsers.
+      // Snowflake cases for entity browsers. And classic paragraphs.
       $('details#edit-field-clp-resources summary').addClass('js-form-required form-required');
       $('details#edit-field-clp-events-references summary').addClass('js-form-required form-required');
+      $('details#edit-group-video .field--type-entity-reference.field--name-field-media span.fieldset-legend').addClass('js-form-required form-required');
+      $('#edit-field-clp-stories-teasers-wrapper').attr({ 'required': 'required', 'aria-required': 'true' });
+      $('#edit-field-clp-stories-teasers-wrapper strong').addClass('form-required');
     }
   }
 })(jQuery, window.Drupal);
