@@ -5907,7 +5907,7 @@
                     "homepage": "https://www.drupal.org/user/409554"
                 },
                 {
-                    "name": "markcarver",
+                    "name": "markhalliwell",
                     "homepage": "https://www.drupal.org/user/501638"
                 }
             ],
@@ -11201,25 +11201,26 @@
         },
         {
             "name": "mouf/nodejs-installer",
-            "version": "v1.0.13",
+            "version": "v1.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thecodingmachine/nodejs-installer.git",
-                "reference": "e9bc2e7c75665913dd73dc4765b40757e6796ee8"
+                "reference": "8b26f6893698f057b2c97b6bbf1a0cd12c2343e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thecodingmachine/nodejs-installer/zipball/e9bc2e7c75665913dd73dc4765b40757e6796ee8",
-                "reference": "e9bc2e7c75665913dd73dc4765b40757e6796ee8",
+                "url": "https://api.github.com/repos/thecodingmachine/nodejs-installer/zipball/8b26f6893698f057b2c97b6bbf1a0cd12c2343e9",
+                "reference": "8b26f6893698f057b2c97b6bbf1a0cd12c2343e9",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0.0",
+                "composer-plugin-api": "^1.0 || ^2.0",
                 "ext-openssl": "*",
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "composer/composer": "*"
+                "composer/composer": "^1.7",
+                "phpunit/phpunit": "^7.4"
             },
             "type": "composer-plugin",
             "extra": {
@@ -11253,7 +11254,7 @@
                 "nodejs",
                 "npm"
             ],
-            "time": "2018-04-16T16:03:09+00:00"
+            "time": "2020-11-04T08:03:55+00:00"
         },
         {
             "name": "myclabs/deep-copy",
