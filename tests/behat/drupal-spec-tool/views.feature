@@ -68,6 +68,7 @@ Feature: Views
        | View | Title | Machine name | Display plugin |
 | Administration section | Entity Reference | entity_reference_1 | Entity Reference |
 | Administration section | Master | default | Master |
+| Administration section | CLP Entity Reference | clp_entity_reference | Entity Reference |
 | Archive | Block | block_1 | Block |
 | Archive | Master | default | Master |
 | Archive | Page | page_1 | Page |
@@ -93,6 +94,7 @@ Feature: Views
 | Content served from Drupal | Data export | data_export_1 | Data export |
 | Content served from Drupal | Master | default | Master |
 | Content entity browsers | Master | default | Master |
+| Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
 | Content entity browsers | Q&A entity browser | entity_browser_1 | Entity browser |
 | Content Entity Reference Source | Master | default | Master |
 | Content Entity Reference Source | Entity Reference: Event Listing | entity_reference_1 | Entity Reference |
