@@ -42,10 +42,12 @@
             Drupal.vagovadminTheme.elementHelpIcon.options
           );
 
-          $(proofingElement).tooltip(options).on("click", (event) => {
-            // Prevent click from toggling <label>s wrapped around help.
-            event.preventDefault();
-          });
+          $(proofingElement)
+            .tooltip(options)
+            .on("click", (event) => {
+              // Prevent click from toggling <label>s wrapped around help.
+              event.preventDefault();
+            });
         });
     },
   };
