@@ -441,13 +441,13 @@
             "@va:web:watch"
         ],
         "va:web:build": [
-            "drush config-set va_gov.build web.build.pending 1 -y",
+            "drush state-set va_gov.build va.web_build_stats TRUE -y",
             "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
             "cd web && echo \"Downloading assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
             "cd web && NODE_ENV=production yarn build:content --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov --asset-source=$(git rev-parse --verify HEAD)",
             "echo 'Replace s3 address with local in generated files'",
             "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -print0 | xargs -0 sed -i \"s/https:\\/\\/dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com//g\" ",
-            "drush config-set va_gov.build web.build.pending 0 -y"
+            "drush state-set va_gov.build va.web_build_stats FALSE -y"
         ],
         "va:web:test": [
             "echo 'drupal address: ' $DRUPAL_ADDRESS"
