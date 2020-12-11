@@ -31,20 +31,18 @@
       $(context)
         .find(".proofing-element-help")
         .once("proofing-element-help")
-        .each(() => {
-          const $link = $(this);
-
+        .each((idx, proofingElement) => {
           const options = $.extend(
             {
-              content: $link.attr("data-proofing-help"),
+              content: $(proofingElement).attr("data-proofing-help"),
               items: "[data-proofing-help]",
-              title: $link.attr("data-proofing-help-title"),
+              title: $(proofingElement).attr("data-proofing-help-title"),
               html: true,
             },
             Drupal.vagovadminTheme.elementHelpIcon.options
           );
 
-          $link.tooltip(options).on("click", (event) => {
+          $(proofingElement).tooltip(options).on("click", (event) => {
             // Prevent click from toggling <label>s wrapped around help.
             event.preventDefault();
           });
