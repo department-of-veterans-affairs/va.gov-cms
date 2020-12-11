@@ -25,10 +25,10 @@
    */
   Drupal.behaviors.vagovadminAnchorLinks = {
     attach() {
-      $('a[href^="#"]').click((e) => {
-        e.preventDefault();
+      $('a[href^="#"]').click((event) => {
+        event.preventDefault();
 
-        const target = $(this).attr("href");
+        const target = $(event.target).attr("href");
         const scrollToPosition =
           $(target).offset().top - (Drupal.getAdminToolbarHeight() + 10);
 
