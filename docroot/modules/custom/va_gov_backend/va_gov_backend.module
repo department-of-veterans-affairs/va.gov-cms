@@ -1248,7 +1248,7 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
     if (isset($fields['field_clp_spotlight_link_teasers'])) {
       $fields['field_clp_spotlight_link_teasers']->addConstraint('RequiredParagraph', [
         'toggle' => 'field_clp_spotlight_panel',
-        'readable' => 'Additional links',
+        'readable' => 'Links with summaries',
         'min' => 1,
         'max' => 1,
       ]);

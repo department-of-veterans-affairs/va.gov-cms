@@ -86,13 +86,15 @@
   };
   Drupal.behaviors.vaGovRequiredParagraphs = {
     attach: function () {
+      // Show the required style for paragraphs required via constraint logic.
       $('h4.label').each(function (item) {
         let container = $(this).closest('.field--type-entity-reference-revisions');
         if (container?.attr('data-drupal-states')?.includes('"show-indicator":')) {
           $(this).addClass('js-form-required form-required')
         }
       })
-
+      // Snowflake case for media resources browser.
+      $('details#edit-field-clp-resources summary').addClass('js-form-required form-required');
     }
   }
 })(jQuery, window.Drupal);
