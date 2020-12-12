@@ -24,6 +24,7 @@ Feature: Views
 | Date fields | date_fields | Content | Enabled |  |
 | Facility Governance | facility_governance | Content | Enabled | Provides facility management tools. |
 | Files | files | Files | Enabled | Find and manage files. |
+| File browsers | file_browsers | Media | Enabled |  |
 | Frontpage | frontpage | Content | Enabled | All content promoted to frontpage |
 | Glossary | glossary | Content | Disabled | All content, by letter. |
 | Health care service names and descriptions | health_care_service_names_and_descriptions | Taxonomy terms | Enabled | A list of nationally-controlled health care service names and descriptions |
@@ -107,6 +108,9 @@ Feature: Views
 | Files | Master | default | Master |
 | Files | Files overview | page_1 | Page |
 | Files | File usage | page_2 | Page |
+| File browsers | Block | file_browser_block | Block |
+| File browsers | Entity browser | file_entity_browser | Entity browser |
+| File browsers | Master | default | Master |
 | Frontpage | Master | default | Master |
 | Frontpage | Feed | feed_1 | Feed |
 | Frontpage | Page | page_1 | Page |
@@ -194,6 +198,7 @@ Feature: Views
 | Listing page dashboard | Past events | block_2 | Block |
 | Listing page dashboard | Upcoming events | block_1 | Block |
 | Custom block entity browsers | Alert block entity browsers | entity_browser_1 | Entity browser |
+| Custom block entity browsers | Promo block entity browsers | entity_browser_2 | Entity browser |
 | Custom block entity browsers | Master | default | Master |
 | Services | Facility health services | block_1 | Block |
 | Services | VAMC system health services | block_2 | Block |

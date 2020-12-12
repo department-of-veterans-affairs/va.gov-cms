@@ -1,0 +1,21 @@
+uuid: a223c928-8a55-4ed0-9396-3d21d090fdb9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_duration
+    - media.type.video
+  module:
+    - hms_field
+id: media.video.field_duration
+field_name: field_duration
+entity_type: media
+bundle: video
+label: Duration
+description: 'Video duration in Hours:Minutes:Seconds'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: hms

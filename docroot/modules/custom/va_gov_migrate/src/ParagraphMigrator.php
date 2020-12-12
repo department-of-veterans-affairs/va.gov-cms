@@ -2,7 +2,7 @@
 
 namespace Drupal\va_gov_migrate;
 
-use Drupal\Core\Entity\Entity;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\migrate\Event\MigratePostRowSaveEvent;
 use Drupal\migrate\MigrateException;
 use Drupal\paragraphs\Entity\Paragraph;
@@ -207,14 +207,14 @@ class ParagraphMigrator {
    *
    * @param \QueryPath\DOMQuery $query_path
    *   The queryPath to search.
-   * @param \Drupal\Core\Entity\Entity $parent_entity
+   * @param \Drupal\Core\Entity\EntityInterface $parent_entity
    *   The parent entity.
    * @param string $parent_field
    *   The machine name of the paragraph field on the parent entity.
    *
    * @throws \Drupal\migrate\MigrateException
    */
-  public function addParagraphs(DOMQuery $query_path, Entity &$parent_entity, $parent_field) {
+  public function addParagraphs(DOMQuery $query_path, EntityInterface &$parent_entity, $parent_field) {
     try {
       $allowed_paragraphs = self::getAllowedParagraphs($parent_entity, $parent_field);
     }
@@ -312,14 +312,14 @@ class ParagraphMigrator {
   /**
    * Create wysiwyg paragraph from wysiwyg buffer and empty the buffer.
    *
-   * @param \Drupal\Core\Entity\Entity $entity
+   * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The parent entity.
    * @param string $parent_field
    *   The machine name of the paragraph field on the parent entity.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function addWysiwyg(Entity &$entity, $parent_field) {
+  public function addWysiwyg(EntityInterface &$entity, $parent_field) {
     if (self::hasContent($this->wysiwyg)) {
       try {
         list('allowed' => $allowed_paragraphs) = self::getAllowedParagraphs($entity, $parent_field);
@@ -413,7 +413,7 @@ class ParagraphMigrator {
   /**
    * Gets an array of paragraphs allowed in selected field of selected entity.
    *
-   * @param \Drupal\Core\Entity\Entity $entity
+   * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity that contains the field to check.
    * @param string $field
    *   The field to check.
@@ -423,7 +423,7 @@ class ParagraphMigrator {
    *
    * @throws \Drupal\migrate\MigrateException
    */
-  public static function getAllowedParagraphs(Entity $entity, $field) {
+  public static function getAllowedParagraphs(EntityInterface $entity, $field) {
     $field_defs = \Drupal::service('entity_field.manager')->getFieldDefinitions($entity->getEntityTypeId(), $entity->bundle());
 
     /** @var \Drupal\field\Entity\FieldConfig $field_config */
@@ -481,7 +481,7 @@ class ParagraphMigrator {
   /**
    * Removes existing paragraphs from the entity and deletes them.
    *
-   * @param \Drupal\Core\Entity\Entity $entity
+   * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity to remove paragraphs from.
    * @param string $paragraph_field
    *   The field that contains the paragraphs.
@@ -490,7 +490,7 @@ class ParagraphMigrator {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function deleteExistingParagraphs(Entity $entity, $paragraph_field) {
+  protected function deleteExistingParagraphs(EntityInterface $entity, $paragraph_field) {
     // Clear any existing paragraphs.
     $paragraph_targets = $entity->get($paragraph_field)->getValue();
     $entity->set($paragraph_field, []);

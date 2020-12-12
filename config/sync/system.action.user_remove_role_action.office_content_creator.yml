@@ -1,0 +1,14 @@
+uuid: e39d95c1-eaa0-41f6-9085-1221c711e4be
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.office_content_creator
+  module:
+    - user
+id: user_remove_role_action.office_content_creator
+label: 'Remove the Content creator - Office role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: office_content_creator

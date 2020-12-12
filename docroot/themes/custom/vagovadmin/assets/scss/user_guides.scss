@@ -1,11 +1,11 @@
-@import "mixins";
+@import 'mixins';
 
 // User guide pages should be narrow for readability.
 .region-breadcrumb,
 .node-columns {
   max-width: 1280px;
   @media (min-width: 1320px) {
-      margin: 0 auto;
+    margin: 0 auto;
   }
 }
 
@@ -25,11 +25,9 @@
 // Define a grid for lists of teasers and link teasers.
 @mixin user-guide-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-gap: 1rem 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
-
-
 
 .paragraph--type--list-of-link-teasers {
   .field__items {
@@ -37,8 +35,8 @@
   }
 
   .field--name-field-link {
-    margin-bottom: 0;
     font-weight: bold;
+    margin-bottom: 0;
   }
 }
 
@@ -63,16 +61,16 @@ h2.section-header {
 }
 
 .field--name-field-related-user-guides {
-  margin-top: 2rem;
   background: #f1f1f1;
+  margin-top: 2rem;
   max-width: 700px;
   padding: 1em;
 
   h2.field__label {
-    text-transform: none !important;
     border-bottom: 1px solid #aeb0b5;
     margin: 0.5rem 0 1rem;
-    padding: 0 0 .4rem;
+    padding: 0 0 0.4rem;
+    text-transform: none !important;
   }
 }
 
@@ -101,7 +99,7 @@ h2.section-header {
       color: #2a2a2a;
     }
 
-    &:before {
+    &::before {
       //background-size: 100% auto;
       //left: 0.6667em;
       //width: 30px;
@@ -110,40 +108,38 @@ h2.section-header {
     &.icon {
       position: relative;
 
-      &:before {
+      &::before {
+        background-attachment: scroll;
+        background-color: transparent;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        content: '';
+        display: block;
+        height: 30px;
         position: absolute;
         top: -9px;
-        //left: 0.6667em;
-        display: block;
         width: 30px;
-        height: 30px;
-        //height: 100%;
-        content: "";
-        background-color: transparent;
-        background-repeat: no-repeat;
-        background-attachment: scroll;
-        background-position: center center;
-        background-size: 100% auto;
       }
 
-      &.cms-help-center:before {
-        background-image: url(/core/misc/icons/000000/questionmark-disc.svg);
+      &.cms-help-center::before {
+        background-image: url('/core/misc/icons/000000/questionmark-disc.svg');
       }
 
-      &.helpdesk:before {
-        background-image: url(../../images/icons/headset-000000.svg);
+      &.helpdesk::before {
+        background-image: url('../../images/icons/headset-000000.svg');
       }
 
-      &.bug:before {
-        background-image: url(../../images/icons/bug-000000.svg);
+      &.bug::before {
+        background-image: url('../../images/icons/bug-000000.svg');
       }
 
-      &.training:before {
-        background-image: url(../../images/icons/video-000000.svg);
+      &.training::before {
+        background-image: url('../../images/icons/video-000000.svg');
       }
 
-      &.megaphone:before {
-        background-image: url(../../images/icons/megaphone-000000.svg);
+      &.megaphone::before {
+        background-image: url('../../images/icons/megaphone-000000.svg');
       }
     }
   }

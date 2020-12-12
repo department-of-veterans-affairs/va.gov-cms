@@ -1,0 +1,4 @@
+services:
+  va_gov_workflow_assignments.editorial_workflow:
+    class: Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepository
+    arguments: ['@database']

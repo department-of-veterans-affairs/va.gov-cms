@@ -3,7 +3,7 @@
 namespace Drupal\va_gov_migrate;
 
 use Drupal\paragraphs\Entity\Paragraph;
-use Drupal\Core\Entity\Entity;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\migration_tools\Message;
 use QueryPath\DOMQuery;
 
@@ -37,7 +37,7 @@ abstract class ParagraphType {
    *
    * @param \QueryPath\DOMQuery $query_path
    *   The query path to examine.
-   * @param \Drupal\Core\Entity\Entity $entity
+   * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The parent entity to attach the paragraph to.
    * @param string $parent_field
    *   The paragraph field on the parent entity.
@@ -49,7 +49,7 @@ abstract class ParagraphType {
    *
    * @throws \Drupal\migrate\MigrateException
    */
-  public function process(DOMQuery $query_path, Entity $entity, $parent_field, array $allowed_paragraphs) {
+  public function process(DOMQuery $query_path, EntityInterface $entity, $parent_field, array $allowed_paragraphs) {
     try {
       if ($this->isParagraph($query_path)) {
         if (!$this->allowedParagraph($allowed_paragraphs)) {
@@ -107,14 +107,14 @@ abstract class ParagraphType {
   /**
    * Create message for attempt to add a paragraph where it's not allowed.
    *
-   * @param \Drupal\Core\Entity\Entity $entity
+   * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity we tried to attach this paragraph to.
    * @param string $parent_field
    *   The name of the field we tried to attach this paragraph to.
    *
    * @throws \Drupal\migrate\MigrateException
    */
-  protected function makeNotAllowedMessage(Entity $entity, $parent_field) {
+  protected function makeNotAllowedMessage(EntityInterface $entity, $parent_field) {
     $anomaly = "{$this->paragraphLabel()} not allowed on {$this->paragraphLabel($entity->bundle())}";
     if (($this->getParagraphName() === 'q_a' && $entity->bundle() === 'q_a')) {
       $anomaly = AnomalyMessage::Q_A_NESTED;
@@ -162,7 +162,7 @@ abstract class ParagraphType {
    *
    * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
    *   The paragraph entity to attach.
-   * @param \Drupal\Core\Entity\Entity $entity
+   * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The parent entity.
    * @param string $parent_field
    *   The machine name of the paragraph field on the parent entity.
@@ -171,7 +171,7 @@ abstract class ParagraphType {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public static function attachParagraph(Paragraph $paragraph, Entity &$entity, $parent_field, DOMQuery $query_path = NULL) {
+  public static function attachParagraph(Paragraph $paragraph, EntityInterface &$entity, $parent_field, DOMQuery $query_path = NULL) {
     if (!\Drupal::state()->get('va_gov_migrate.dont_migrate_paragraphs')) {
       $current = $entity->get($parent_field)->getValue();
       $current[] = [

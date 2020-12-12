@@ -14,6 +14,8 @@ use TravisCarden\BehatTableComparison\TableEqualityAssertion;
 class ContentModelContext extends RawDrupalContext implements SnippetAcceptingContext {
 
   /**
+   * Test automatic table labels.
+   *
    * @Then exactly the following auto labels should be configured
    * @throws \Exception
    */
@@ -61,15 +63,19 @@ class ContentModelContext extends RawDrupalContext implements SnippetAcceptingCo
   }
 
   /**
+   * Select a radio button with the given label.
+   *
+   * @param string $radioLabel
+   *   Radio button label.
+   *
    * @Then /^I select the "([^"]*)" radio button$/
    *
-   * @param $radioLabel
    * @throws Behat\Behat\Exception\BehaviorException
    */
   public function iSelectTheRadioButton($radioLabel) {
     $radioButton = $this->getSession()->getPage()->findField($radioLabel);
 
-    if (null === $radioButton) {
+    if (NULL === $radioButton) {
       throw new BehaviorException("Element not found");
     }
 

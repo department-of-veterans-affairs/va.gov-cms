@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Asset\AttachedAssetsInterface;
+use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\WidgetBase;
@@ -20,6 +21,7 @@ use Drupal\user\RoleInterface;
 use Drupal\va_gov_build_trigger\Form\PreviewForm;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Component\Utility\Crypt;
 
 /**
  * Implements hook_help().
@@ -180,9 +182,183 @@ function _va_gov_backend_add_vamc_regions_select(array &$form) {
 }
 
 /**
+ * Used to return clp panel fields and paragraphs.
+ *
+ * @return array
+ *   The clp panel field data.
+ */
+function _va_gov_backend_get_clp_toggles() {
+  // Add clp panels data to this array to enable state management.
+  // Make sure required fields are not set to required in config when using
+  // this pattern.
+  return [
+    'toggle_groups' => [
+      [
+        'trigger' => 'field_clp_resources_panel',
+        'toggle_fields' => [
+          'field_clp_resources_header' => [
+            'required' => FALSE,
+          ],
+          'field_clp_resources_intro_text' => [
+            'required' => FALSE,
+          ],
+        ],
+        'toggle_paragraphs' => [
+          'field_clp_resources_cta' => [
+            'required' => FALSE,
+          ],
+          'field_clp_resources' => [
+            'required' => FALSE,
+          ],
+        ],
+      ],
+      [
+        'trigger' => 'field_clp_spotlight_panel',
+        'toggle_fields' => [
+          'field_clp_spotlight_header' => [
+            'required' => TRUE,
+          ],
+          'field_clp_spotlight_intro_text' => [
+            'required' => TRUE,
+          ],
+        ],
+        'toggle_paragraphs' => [
+          'field_clp_spotlight_cta' => [
+            'required' => FALSE,
+          ],
+          'field_clp_spotlight_link_teasers' => [
+            'required' => FALSE,
+          ],
+        ],
+      ],
+      [
+        'trigger' => 'field_clp_stories_panel',
+        'toggle_fields' => [
+          'field_clp_stories_header' => [
+            'required' => TRUE,
+          ],
+          'field_clp_stories_intro' => [
+            'required' => TRUE,
+          ],
+        ],
+        'toggle_paragraphs' => [
+          'field_clp_stories_cta' => [
+            'required' => TRUE,
+          ],
+          'field_clp_stories_teasers' => [
+            'required' => FALSE,
+          ],
+        ],
+      ],
+      [
+        'trigger' => 'field_clp_video_panel',
+        'toggle_fields' => [
+          'field_clp_video_panel_header' => [
+            'required' => TRUE,
+          ],
+        ],
+        'toggle_paragraphs' => [
+          'field_clp_video_panel_more_video' => [
+            'required' => FALSE,
+          ],
+          'field_media' => [
+            'required' => TRUE,
+          ],
+        ],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Processes multiple toggles of field states when trigger element is toggled.
+ *
+ * @param array $form
+ *   The exposed widget form array.
+ * @param array $toggles
+ *   The array containing arrays of trigger and toggle fields.
+ */
+function _va_gov_toggle_fields_states(array &$form, array $toggles) {
+  if (!empty($toggles['toggle_groups']) && is_array($toggles['toggle_groups'])) {
+    foreach ($toggles['toggle_groups'] as $toggle_group) {
+      // Toggle the fields.
+      _va_gov_toggle_field_states($form, $toggle_group);
+    }
+  }
+}
+
+/**
+ * Toggles field states when selector element is toggled.
+ *
+ * @param array $form
+ *   The exposed widget form array.
+ * @param array $toggle_group
+ *   The array containing the trigger and fields/paragraphs to toggle.
+ * @codingStandardsIgnoreStart
+ * @code
+ *  [
+ *    'trigger' => 'field_to_act_as_toggle_trigger',
+ *    'toggle_fields' => [
+ *       'field_to_hide_or_show' => [
+ *         'required' => TRUE,
+ *       ],
+ *     ],
+ *    'toggle_paragraphs' => [
+ *       'field_of_paragraph_to_hide_or_show' => [
+ *          'required' => TRUE,
+ *      ],
+ *    ],
+ *  ]
+ * @endcode
+ * @codingStandardsIgnoreEnd
+ */
+function _va_gov_toggle_field_states(array &$form, array $toggle_group) {
+  if (isset($form[$toggle_group['trigger']])) {
+    // The trigger is present so show/hide the associated fields.
+    foreach ($toggle_group['toggle_fields'] as $key => $field) {
+      $form[$key]['widget']['0']['value']['#states'] = [
+        'required' => [
+          ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => $field['required']]],
+        ],
+        'visible' => [
+          ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => TRUE]],
+        ],
+        'disabled' => [
+          ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => FALSE]],
+        ],
+
+      ];
+    }
+    foreach ($toggle_group['toggle_paragraphs'] as $paragraph_key => $paragraph_field) {
+      $form[$paragraph_key]['#states'] = [
+        'required' => [
+          ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => $paragraph_field['required']]],
+        ],
+        'visible' => [
+         ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => TRUE]],
+        ],
+        'disabled' => [
+         ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => FALSE]],
+        ],
+
+      ];
+    }
+  }
+}
+
+/**
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // Disable path alias modification after lc node is published.
+  _va_gov_disable_alias_widget($form, $form_state);
+
+  if ($form_id === 'node_campaign_landing_page_form' || $form_id === 'node_campaign_landing_page_edit_form') {
+    $clp_toggles = _va_gov_backend_get_clp_toggles();
+    _va_gov_toggle_fields_states($form, $clp_toggles);
+  }
+
   // Add states + custom validation if the Standalone Page field is present.
   if (isset($form['field_standalone_page'])) {
     $form['field_primary_category']['widget']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
@@ -294,12 +470,14 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     if (!in_array($node_type, $types_in_workflow)) {
       unset($form['actions']['preview']);
     }
+
   }
 
   // Add after_build callback for Press Release node forms.
   if ($form_id === 'node_press_release_form' || $form_id === 'node_press_release_edit_form') {
     $form['field_address']['widget']['#after_build'][] = 'va_gov_backend_press_release_address_after_build';
   }
+
 }
 
 /**
@@ -308,6 +486,121 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 function va_gov_backend_field_group_form_process_build_alter(array $form, FormStateInterface $form_state, &$element) {
   // Toggle group Q&A component visibility.
   $form['group_q_a_page_components']['#states']['visible']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for field_config_edit_form.
+ */
+function va_gov_backend_form_field_config_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $widget_type = $form['default_value']['widget'][0]['#type'] ?? NULL;
+  if ($widget_type === 'tablefield') {
+    $form['default_value']['widget'][0]['caption']['#description'] = t('This brief caption will be associated with the table, rendered as a table heading in bold and will help screen reader better describe the content within.');
+  }
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter() for moderation_state widgets.
+ */
+function va_gov_backend_field_widget_moderation_state_default_form_alter(&$element, FormStateInterface $form_state, $context) {
+  $base_form_id = $form_state->getBuildInfo()['base_form_id'];
+  if ($base_form_id === 'node_form') {
+
+    // Set default new state to "Draft" when node is in "Published" state
+    // to help prevent accidentally publishing un-proofed edits.
+    if ($form_state->getFormObject()->getEntity()->isPublished()) {
+      $element['state']['#default_value'] = 'draft';
+    }
+
+    $element['state']['#title'] = t('Save as');
+  }
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ *
+ * Changes qa entity view display when standalone page option is selected.
+ */
+function va_gov_backend_entity_view_alter(array &$build, EntityInterface $entity) {
+  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'q_a') {
+    if ($entity->get('field_standalone_page')->getString() !== '1') {
+      $standalone_only_fields = [
+        'field_alert_single',
+        'field_buttons',
+        'field_related_benefit_hubs',
+        'field_related_information',
+        'field_contact_information',
+        'field_primary_category',
+        'field_other_categories',
+        'field_tags',
+      ];
+      foreach ($standalone_only_fields as $standalone_only_field) {
+        unset($entity->$standalone_only_field);
+        unset($build[$standalone_only_field]);
+      }
+    }
+  }
+}
+
+/**
+ * Returns the content types that need alias locked upon publish.
+ *
+ * @return array
+ *   Node types that should have their alias locked upon publishing.
+ */
+function _va_gov_backend_get_locked_alias_bundles() {
+
+  return [
+    'basic_landing_page',
+    'checklist',
+    'faq_multiple_q_a',
+    'media_list_images',
+    'media_list_videos',
+    'q_a',
+    'step_by_step',
+    'support_resources_detail_page',
+    'va_form',
+  ];
+}
+
+/**
+ * Disable url alias widget after publish.
+ *
+ * @param array $form
+ *   The node form array.
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   Instance of FormStateInterface.
+ */
+function _va_gov_disable_alias_widget(array &$form, FormStateInterface $form_state) {
+  if ($form_state->getFormObject() instanceof EntityFormInterface) {
+    $bundle = $form_state->getformObject()->getEntity()->bundle();
+    if (in_array($bundle, _va_gov_backend_get_locked_alias_bundles())) {
+      $entity_id = $form_state->getformObject()->getEntity()->id();
+      if (!empty($entity_id)) {
+        $entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity_id);
+        // If it's published the alias widget is unchecked
+        // to disallow auto path updating.
+        if ($entity->isPublished() === TRUE) {
+          $form['#after_build'][] = '_va_gov_backend_node_after_build_uncheck_auto_alias';
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Uncheck the auto pathalias checkbox.
+ *
+ * @param array $form
+ *   The node form array.
+ *
+ * @return array
+ *   The $form.
+ */
+function _va_gov_backend_node_after_build_uncheck_auto_alias(array $form) {
+  // Unchecks the checkbox for pathauto.
+  $form['path']['widget'][0]['pathauto']['#checked'] = FALSE;
+
+  return $form;
 }
 
 /**
@@ -871,6 +1164,10 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
   if ($entity_type->id() === 'node' && $bundle === 'q_a' && isset($fields['title'])) {
     $fields['title']->addConstraint('UniqueTitle');
   }
+  // Add pdf file to check to external document file type.
+  if ($entity_type->id() === 'media' && $bundle === 'document_external' && isset($fields['field_media_external_file'])) {
+    $fields['field_media_external_file']->addConstraint('PdfCheck');
+  }
 }
 
 /**
@@ -940,6 +1237,13 @@ function _va_gov_backend_gtm_settings() {
       $sections['contentOwner'] = !empty($section_entity_load) ? $section_entity_load->getName() : '';
     }
 
+  }
+  $user = \Drupal::currentUser();
+  $user_roles = $user->getRoles() ?? ['anonymous'];
+  $sections['userRoles'] = json_encode($user_roles);
+  $uid = $user->id();
+  if ($uid > 0) {
+    $sections['userId'] = Crypt::hashBase64((string) $uid);
   }
   return $sections;
 }
@@ -1111,12 +1415,104 @@ function va_gov_backend_pathauto_alias_alter(&$alias, array &$context) {
 function va_gov_backend_entity_presave(EntityInterface $entity) {
   $bundle_types = ['event', 'news_story', 'press_release', 'outreach_asset'];
 
+  if ($entity->getEntityTypeId() === 'media' && $entity->bundle() === 'document_external') {
+    _va_gov_backend_set_file_type($entity);
+  }
+
   if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $bundle_types)) {
     _va_gov_backend_feature_bump($entity);
   }
 
   if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'page') {
     _va_gov_backend_sync_wysiwyg_fields($entity);
+  }
+
+  if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), _va_gov_backend_get_locked_alias_bundles())) {
+    _va_gov_backend_disable_autopath_alias($entity);
+  }
+
+  _va_gov_backend_apply_filter_to_tablefield_cells($entity);
+}
+
+/**
+ * Set the file type field value for external file.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The external file media entity.
+ */
+function _va_gov_backend_set_file_type(EntityInterface $entity) {
+  $uri = $entity->get('field_media_external_file')->getValue()[0]['uri'];
+  $mime = \Drupal::service('file.mime_type.guesser')->guess($uri);
+  $entity->set('field_mime_type', $mime);
+}
+
+/**
+ * Apply html filter to tablefield on save to properly format on the way in.
+ *
+ * This is needed because the field data of table fields does not have a
+ * 'processed' property in graphQL or CMS Export.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The table paragraph.
+ */
+function _va_gov_backend_apply_filter_to_tablefield_cells(EntityInterface $entity) {
+  // We need to make sure this entity is fieldable before we start digging.
+  $entity_type = $entity->getEntityTypeId();
+  $class = Drupal::service('entity_type.manager')->getDefinition($entity_type)->getOriginalClass();
+  $interface = 'Drupal\Core\Entity\FieldableEntityInterface';
+  if (in_array($interface, class_implements($class))) {
+    $sanitized_items = [];
+    $field_definitions = Drupal::service('entity_field.manager')->getFieldDefinitions($entity_type, $entity->bundle());
+
+    foreach ($field_definitions as $field) {
+      if ($field->getType() === 'tablefield') {
+        $field_name = $field->getName();
+        $raw_table = $entity->get($field_name)->value;
+        $format = $entity->get($field_name)->format ?? 'plain_text';
+        if (!empty($raw_table) && is_array($raw_table)) {
+          foreach ($raw_table as $row_key => $row_item) {
+            if ($row_key === 'caption') {
+              // Tablefield caption does not support html.
+              $sanitized_items['caption'] = strip_tags($row_item);
+            }
+            else {
+              if (is_array($row_item)) {
+                foreach ($row_item as $cell_key => $cell_item) {
+                  $clean_html = check_markup($cell_item, $format, '', ['autop']);
+                  $sanitized_items['value'][$row_key][$cell_key] = (string) $clean_html;
+                }
+              }
+            }
+          }
+          $sanitized_items['format'] = $format;
+          $entity->$field_name->setValue($sanitized_items);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Determine if pathauto alias should be enable on node.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The node to check for disabling pathauto alias pattern.
+ */
+function _va_gov_backend_disable_autopath_alias(EntityInterface $entity) {
+  if (!$entity->isNew()) {
+    // Get original values of the node for comparison.
+    $original_use_alias_pattern = $entity->original->get('path')->pathauto;
+    $current_use_alias_pattern = $entity->get('path')->pathauto;
+    // Decide if this was an intentional toggle on of using the alias pattern.
+    $toggled_on_this_save = $current_use_alias_pattern && !$original_use_alias_pattern;
+    $active_entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity->id());
+    $published_previously = ($active_entity instanceof NodeInterface) ? $active_entity->isPublished() : FALSE;
+
+    if ($published_previously && !$toggled_on_this_save) {
+      // This was published and this was not an intentional toggle on.
+      // Disable the pathauto pattern.
+      $entity->path->pathauto = 0;
+    }
   }
 }
 
