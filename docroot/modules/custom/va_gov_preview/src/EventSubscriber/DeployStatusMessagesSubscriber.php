@@ -8,6 +8,7 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -47,22 +48,38 @@ class DeployStatusMessagesSubscriber implements EventSubscriberInterface {
   protected $stringTranslation;
 
   /**
+   * The Web Status provider.
+   *
+   * @var \Drupal\va_gov_build_trigger\WebBuildStatusInterface
+   */
+  protected $webStatus;
+
+  /**
    * DeployStatusMessagesSubscriber constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The configuration factory service.
-   * @param Drupal\Core\Session\AccountProxyInterface $current_user
+   * @param \Drupal\Core\Session\AccountProxyInterface $current_user
    *   The current user service.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger service.
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
    *   The string translation service.
+   * @param \Drupal\va_gov_build_trigger\WebBuildStatusInterface $web_build_status
+   *   The Web Build Status service.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, AccountProxyInterface $current_user, MessengerInterface $messenger, TranslationInterface $string_translation) {
+  public function __construct(
+    ConfigFactoryInterface $config_factory,
+    AccountProxyInterface $current_user,
+    MessengerInterface $messenger,
+    TranslationInterface $string_translation,
+    WebBuildStatusInterface $web_build_status
+  ) {
     $this->configFactory = $config_factory;
     $this->currentUser = $current_user;
     $this->messenger = $messenger;
     $this->stringTranslation = $string_translation;
+    $this->webStatus = $web_build_status;
   }
 
   /**
@@ -74,10 +91,8 @@ class DeployStatusMessagesSubscriber implements EventSubscriberInterface {
    * @return bool
    *   TRUE if we should show deploy status messages, FALSE if not.
    */
-  protected function showDeployStatusMessages(GetResponseEvent $event) {
-    $config = $this->configFactory->getEditable('va_gov.build');
-
-    return $config->get('web.build.pending', 0) &&
+  protected function showDeployStatusMessages(GetResponseEvent $event) : bool {
+    return $this->webStatus->getWebBuildStatus() &&
       $this->currentUser->isAuthenticated() &&
       $this->currentUser->hasPermission('access content');
   }
