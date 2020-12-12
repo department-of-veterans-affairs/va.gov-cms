@@ -34,12 +34,14 @@ Feature: Menus
 | VA Alexandria health care | va-alexandria-health-care |  |
 | VA Altoona health care | va-altoona-health-care | va.gov/altoona-health-care |
 | VA Asheville health care | va-asheville-health-care |  |
+| VA Bay Pines health care | va-bay-pines-health-care |  |
 | VA Beckley health care | va-beckley-health-care |  |
 | VA Bedford health care | va-bedford-health-care |  |
 | VA Black Hills health care | va-black-hills-health-care |  |
 | VA Boston health care | va-boston-health-care |  |
 | VA Bronx health care | va-bronx-health-care | VISN 2 |
 | VA Butler health care | va-butler-health-care | va.gov/butler-health-care |
+| VA Caribbean health care | va-caribbean-health-care |  |
 | VA Central Arkansas health care | va-central-arkansas-health-care |  |
 | VA Central California health care | va-central-california-health-car |  |
 | VA Central Iowa health care | va-central-iowa-health-care |  |
@@ -68,14 +70,17 @@ Feature: Menus
 | VA Manchester health care | va-manchester-health-care |  |
 | VA Martinsburg health care | va-martinsburg-health-care |  |
 | VA Maryland health care | va-maryland-health-care |  |
+| VA Miami health care | va-miami-health-care |  |
 | VA Minneapolis health care | va-minneapolis-health-care |  |
 | VA Montana health care | va-montana-health-care |  |
 | VA Nebraska-Western Iowa health care | va-nebraska-western-iowa-health- |  |
 | VA New Jersey health care | va-new-jersey-health-care | VISN 2 |
 | VA New York Harbor health care | va-new-york-harbor-health-care | VISN 2 |
+| VA North Florida health care | va-north-florida-health-care |  |
 | VA Northern California health care | va-northern-california-health-ca |  |
 | VA Northport health care | va-northport-health-care | VISN 2 |
 | VA Oklahoma health care | va-oklahoma-health-care |  |
+| VA Orlando health care | va-orlando-health-care |  |
 | VA Pacific Islands health care | va-pacific-islands-health-care |  |
 | VA Palo Alto health care | va-palo-alto-health-care |  |
 | VA Philadelphia health care | va-philadelphia-health-care | va.gov/philadelphia-health-care |
@@ -94,7 +99,9 @@ Feature: Menus
 | VA Southern Nevada health care | va-southern-nevada-health-care |  |
 | VA St Cloud health care | va-st-cloud-health-care |  |
 | VA Syracuse health care | va-syracuse-health-care | VISN 2 |
+| VA Tampa health care | va-tampa-health-care |  |
 | VA Washington DC health care | va-washington-dc-health-care |  |
+| VA West Palm Beach health care | va-west-palm-beach-health-care |  |
 | VA Western Colorado health care | va-western-colorado-health-care |  |
 | VA Western New York health care | va-western-new-york-health-care | VISN 2 |
 | VA White River Junction health care | va-white-river-junction-health-c |  |
