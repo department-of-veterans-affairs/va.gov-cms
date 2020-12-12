@@ -5,7 +5,7 @@
 $settings['jenkins_build_job_path'] = '/job/builds/job/vets-website-content-vagov' . $settings['jenkins_build_env'];
 $settings['jenkins_build_job_params'] = '/buildWithParameters?deploy=true';
 $settings['jenkins_build_job_url'] = $settings['jenkins_build_job_host'] . $settings['jenkins_build_job_path'] . $settings['jenkins_build_job_params'];
-
+$settings['skip_permissions_hardening'] = TRUE;
 
 $config['config_split.config_split.dev']['status'] = TRUE;
 $config['config_split.config_split.stg']['status'] = FALSE;
@@ -30,7 +30,9 @@ $webhost_on_cli = 'http://va-gov-cms.lndo.site';
 $config['migrate_plus.migration.va_node_form']['source']['urls'] = ['http://va-gov-cms.lndo.site/sites/default/files/migrate_source/va_forms_data.csv'];
 
 $settings['trusted_host_patterns'] = [
-    // For ALB/ELB Healthchecks.
     'localhost',
     'va-gov-cms.lndo.site',
 ];
+
+$settings['va_gov_frontend_build_type'] = 'lando';
+$settings['va_gov_frontend_url'] = $webhost_on_cli . '/static';

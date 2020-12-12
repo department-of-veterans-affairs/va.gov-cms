@@ -1,4 +1,13 @@
 services:
   va_gov_build_trigger.build_frontend:
     class: Drupal\va_gov_build_trigger\Service\BuildFrontend
-    arguments: ['@messenger', '@logger.factory']
+    arguments: ['@messenger', '@logger.factory', '@va_gov.build_trigger.web_build_status', '@va_gov.build_trigger.environment_discovery']
+  va_gov.build_trigger.web_build_status:
+    class: Drupal\va_gov_build_trigger\WebBuildStatus
+    arguments: ['@state']
+  va_gov.build_trigger.environment_discovery:
+    class: Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery
+    arguments: [ '@plugin.manager.va_gov.environment' ]
+  plugin.manager.va_gov.environment:
+    class: Drupal\va_gov_build_trigger\Environment\EnvironmentManager
+    parent: default_plugin_manager

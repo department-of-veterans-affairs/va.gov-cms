@@ -28,13 +28,11 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Alert (single) | Reusable alert | field_alert_block_reference | Entity reference |  | 1 | Entity browser | Translatable |
 | Paragraph type | Audience & Topics | Audience | field_audience_selection | List (text) |  | 1 | Select list |  |
 | Paragraph type | Audience & Topics | Beneficiares | field_audience_beneficiares | Entity reference |  | 1 | Check boxes/radio buttons |  |
-| Paragraph type | Audience & Topics | Markup | field_markup | Markup |  | 1 | Markup | Translatable  |
+| Paragraph type | Audience & Topics | Markup | field_markup | Markup |  | 1 | Markup | Translatable |
 | Paragraph type | Audience & Topics | Topics | field_topics | Entity reference |  | 4 | Check boxes/radio buttons |  |
-| Paragraph type | Button | Button Label | field_button_label | Text (plain) |  | 1 | Textfield with counter |  |
-| Paragraph type | Button | Button Link | field_button_link | Link |  | 1 | Link |  |
+| Paragraph type | Call to action | Button Label | field_button_label | Text (plain) |  | 1 | Textfield with counter |  |
+| Paragraph type | Call to action | Button Link | field_button_link | Link |  | 1 | Link |  |
 | Paragraph type | Checklist | Checklist sections | field_checklist_sections | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
-| Paragraph type | Checklist | Section Header | field_section_header | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Paragraph type | Checklist | Section Intro | field_section_intro | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Checklist section | Checklist items | field_checklist_items | Text (plain) |  | Unlimited | Textfield |  |
 | Paragraph type | Checklist section | Section Header | field_section_header | Text (plain) |  | 1 | Textfield with counter | Translatable |
 | Paragraph type | Checklist section | Section Intro | field_section_intro | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
@@ -51,8 +49,10 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Embedded image | Select an image | field_media | Entity reference |  | 1 | Media library |  |
 | Paragraph type | Expandable Text | Full Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Expandable Text | Text Expander | field_text_expander | Text (plain) | Required | 1 | Textfield with counter |  |
-| Paragraph type | Link teaser | Link | field_link | Link |  | 1 | Linkit |  |
+| Paragraph type | Link teaser | Link | field_link | Link | Required | 1 | Linkit |  |
 | Paragraph type | Link teaser | Link summary | field_link_summary | Text (plain) |  | 1 | Textfield with counter |  |
+| Paragraph type | Link teaser with image | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
+| Paragraph type | Link teaser with image | Link teaser | field_link_teaser | Entity reference revisions |  | 1 | Paragraphs Classic |  |
 | Paragraph type | Link to file or video | Link text | field_title | Text (plain) | Required | 1 | Textfield | Translatable |
 | Paragraph type | Link to file or video | Link to a file or video | field_media | Entity reference | Required | 1 | Media library | Translatable |
 | Paragraph type | Link to file or video | Markup | field_markup | Markup |  | 1 | Markup | Translatable |
@@ -79,7 +79,8 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Process list | Steps | field_steps | Text (formatted, long) | Required | Unlimited | Text area (multiple rows) |  |
 | Paragraph type | Q&A | Answer | field_answer | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Paragraph type | Q&A | Question | field_question | Text (plain) | Required | 1 | Textfield with counter |  |
-| Paragraph type | Q&A group | Section Header | field_section_header | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Paragraph type | Q&A group | Display this set of Q&As as a group of accordions. | field_accordion_display | Boolean |  | 1 | Single on/off checkbox | Translatable |
+| Paragraph type | Q&A group | Section Header | field_section_header | Text (plain) |  | 1 | Textfield with counter | Translatable |
 | Paragraph type | Q&A group | Q&As | field_q_as | Entity reference | Required | Unlimited | Entity Browser - Table |  |
 | Paragraph type | Q&A Section | Display this set of Q&As as a group of accordions. | field_accordion_display | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Q&A Section | Questions | field_questions | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
@@ -103,8 +104,8 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Service location address | Clinic name | field_clinic_name | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Service location address | Use the facility's street address? | field_use_facility_address | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Service location address | Wing, Floor, or Room Number | field_wing_floor_or_room_number | Text (plain) |  | 1 | Textfield with counter |  |
-| Paragraph type | Situation update | Date and time | field_date_and_time | Date | Required | 1 | Date and time |  |
-| Paragraph type | Situation update | Date and time | field_datetime_range_timezone | Smart date range |  | 1 | -- Disabled -- |  |
+| Paragraph type | Situation update | Date and time | field_date_and_time | Date | Required | 1 | -- Disabled -- |  |
+| Paragraph type | Situation update | Date and time | field_datetime_range_timezone | Smart date range | Required | 1 | Date and time range with timezone |  |
 | Paragraph type | Situation update | Send email to subscribers via GovDelivery? | field_send_email_to_subscribers | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Situation update | Update | field_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Paragraph type | Staff profile | Staff profile | field_staff_profile | Entity reference | Required | 1 | Select list |  |
@@ -118,3 +119,4 @@ Feature: Content model: Paragraph fields
 | Paragraph type | VAMC facility service (non-healthcare service) | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Rich text | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Rich text - char limit 1000 | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+

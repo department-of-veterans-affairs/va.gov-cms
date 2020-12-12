@@ -5,12 +5,17 @@ dependencies:
   config:
     - block_content.type.alert
     - field.storage.block_content.field_node_reference
+    - node.type.basic_landing_page
+    - node.type.checklist
     - node.type.event
     - node.type.event_listing
+    - node.type.faq_multiple_q_a
     - node.type.health_care_local_facility
     - node.type.health_care_region_detail_page
     - node.type.health_care_region_page
     - node.type.landing_page
+    - node.type.media_list_images
+    - node.type.media_list_videos
     - node.type.news_story
     - node.type.office
     - node.type.outreach_asset
@@ -18,8 +23,17 @@ dependencies:
     - node.type.person_profile
     - node.type.press_release
     - node.type.publication_listing
+    - node.type.q_a
     - node.type.regional_health_care_service_des
+    - node.type.step_by_step
+    - node.type.support_resources_detail_page
     - node.type.support_service
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: false
 id: block_content.alert.field_node_reference
 field_name: field_node_reference
 entity_type: block_content
@@ -36,19 +50,27 @@ settings:
     target_bundles:
       page: page
       landing_page: landing_page
+      checklist: checklist
       health_care_region_detail_page: health_care_region_detail_page
       event: event
       event_listing: event_listing
-      health_care_local_facility: health_care_local_facility
-      health_care_region_page: health_care_region_page
+      faq_multiple_q_a: faq_multiple_q_a
+      basic_landing_page: basic_landing_page
+      support_resources_detail_page: support_resources_detail_page
+      media_list_images: media_list_images
+      media_list_videos: media_list_videos
       press_release: press_release
       office: office
       outreach_asset: outreach_asset
       publication_listing: publication_listing
-      regional_health_care_service_des: regional_health_care_service_des
+      q_a: q_a
       person_profile: person_profile
+      step_by_step: step_by_step
       news_story: news_story
       support_service: support_service
+      health_care_local_facility: health_care_local_facility
+      health_care_region_page: health_care_region_page
+      regional_health_care_service_des: regional_health_care_service_des
     sort:
       field: title
       direction: ASC

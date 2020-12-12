@@ -3,8 +3,8 @@
 namespace Drupal\va_gov_backend\Deploy\Plugin;
 
 use Drupal\Core\DependencyInjection\ContainerNotInitializedException;
-use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\Core\StreamWrapper\StreamWrapperInterface;
+use Drupal\va_gov_backend\Deploy\FileOperationsTrait;
 use Drupal\va_gov_content_export\Archive\ArchiveArgs;
 use Drupal\va_gov_content_export\Archive\ArchiveArgsFactory;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
  * CMS Export plugin.
  */
 class CMSExport implements DeployPluginInterface {
+  use FileOperationsTrait;
 
   /**
    * A stream wrapper.
@@ -56,16 +57,6 @@ class CMSExport implements DeployPluginInterface {
   }
 
   /**
-   * Register the stream wrapper to be used later.
-   */
-  protected function registerStreamWrapper() : void {
-    $archiveArgs = $this->getArchiveArgs();
-    $output_uri = $archiveArgs->getOutputPath();
-    $this->streamWrapperInstance = new PublicStream();
-    $this->streamWrapperInstance->setUri($output_uri);
-  }
-
-  /**
    * Get the Arguments used to find the tar archive.
    *
    * @return \Drupal\va_gov_content_export\Archive\ArchiveArgs
@@ -77,49 +68,25 @@ class CMSExport implements DeployPluginInterface {
   }
 
   /**
-   * Does the tar archive file exist?
-   *
-   * @return bool
-   *   Does the file exist.
-   */
-  protected function fileExists() : bool {
-    $file_name = $this->getFilePath();
-    return file_exists($file_name);
-  }
-
-  /**
-   * Get the file path to the tar archive.
-   *
-   * @return null|string
-   *   Either the local path to the file or null.
-   */
-  protected function getFilePath() : ?string {
-    $streamWrapper = $this->getStreamWrapper();
-    if ($streamWrapper) {
-      return $streamWrapper->realpath();
-    }
-
-    return NULL;
-  }
-
-  /**
-   * Get the stream wrapper instance.
-   *
-   * @reutrn Drupal\Core\StreamWrapper\StreamWrapperInterface
-   *  The stream wrapper.
+   * {@inheritDoc}
    */
   protected function getStreamWrapper() : ?StreamWrapperInterface {
     return $this->streamWrapperInstance;
   }
 
   /**
-   * Get the URl to the file.
-   *
-   * @return string
-   *   The url.
+   * {@inheritDoc}
    */
-  protected function getUrl() : string {
-    return $this->getStreamWrapper()->getExternalUrl();
+  protected function setStreamWrapper(StreamWrapperInterface $streamWrapper) {
+    $this->streamWrapperInstance = $streamWrapper;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  protected function getOutputUri(): string {
+    $archiveArgs = $this->getArchiveArgs();
+    return $archiveArgs->getOutputPath();
   }
 
 }
