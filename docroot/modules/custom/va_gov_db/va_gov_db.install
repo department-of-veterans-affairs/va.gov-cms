@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Utility\UpdateException;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
 use Psr\Log\LogLevel;
 
@@ -324,4 +325,57 @@ function va_gov_db_update_8018(&$sandbox) {
   $messages = _va_gov_db_uninstall_modules(['node_revisions_autoclean']);
 
   return $messages;
+}
+
+/**
+ * Uninstall moderation_sidebar module.
+ */
+function va_gov_db_update_8019(&$sandbox) {
+  $messages = _va_gov_db_uninstall_modules(['moderation_sidebar']);
+
+  return $messages;
+}
+
+/**
+ * Clear Drupal status report mis-matched entity/field errors.
+ */
+function va_gov_db_update_8020() {
+  $messages = [];
+
+  $missing_entity_types = [
+    'environment_indicator',
+    'migration',
+    'migration_group',
+  ];
+  foreach ($missing_entity_types as $missing_entity_type) {
+    $type_manager = \Drupal::entityTypeManager();
+    $entity_type = $type_manager->getDefinition($missing_entity_type);
+    \Drupal::entityDefinitionUpdateManager()->installEntityType($entity_type);
+    \Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Installed missing entity type %missing_entity_type.', [
+      '%missing_entity_type' => $missing_entity_type,
+    ]);
+  }
+
+  $out_of_date_fields = ['field_benefits', 'field_facility_locator_api_id'];
+  foreach ($out_of_date_fields as $out_of_date_field) {
+    // Load and re-save field storage config to clear error.
+    if ($field_storage = FieldStorageConfig::loadByName('node', $out_of_date_field)) {
+      $field_storage->save();
+      \Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Updated field storage configuration for %field_name.', [
+        '%field_name' => $out_of_date_field,
+      ]);
+    }
+  }
+
+  $entity_manager = \Drupal::entityManager();
+  $previous_storage_definitions = $entity_manager->getLastInstalledFieldStorageDefinitions('node');
+  if (!empty($previous_storage_definitions['field_health_services_local_info'])) {
+    $definition_update_manager = \Drupal::entityDefinitionUpdateManager();
+    $definition_update_manager->uninstallFieldStorageDefinition(
+      $previous_storage_definitions['field_health_services_local_info']
+    );
+    \Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Deleted field storage configuration for field_health_services_local_info.');
+  }
+
+  return "Cleared mis-matched entity/field errors.";
 }

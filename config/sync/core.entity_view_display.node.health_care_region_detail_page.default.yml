@@ -26,7 +26,7 @@ third_party_settings:
         - field_meta_title
         - field_description
       parent_name: ''
-      weight: 1
+      weight: 0
       format_type: fieldset
       format_settings:
         id: ''
@@ -41,10 +41,9 @@ third_party_settings:
         - field_alert
         - field_featured_content
         - field_content_block
-        - field_media
         - field_related_links
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         id: ''
@@ -57,11 +56,6 @@ targetEntityType: node
 bundle: health_care_region_detail_page
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_alert:
     weight: 7
     label: above
@@ -131,6 +125,7 @@ content:
     type: boolean
     region: content
 hidden:
+  content_moderation_control: true
   field_administration: true
   field_meta_tags: true
   field_office: true

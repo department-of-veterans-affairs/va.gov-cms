@@ -1,0 +1,23 @@
+uuid: 32b0cf17-7155-42e8-8d09-cac02fc9ebee
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.rich_text_char_limit_1000.field_wysiwyg
+    - paragraphs.paragraphs_type.rich_text_char_limit_1000
+  module:
+    - text
+id: paragraph.rich_text_char_limit_1000.default
+targetEntityType: paragraph
+bundle: rich_text_char_limit_1000
+mode: default
+content:
+  field_wysiwyg:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden:
+  search_api_excerpt: true

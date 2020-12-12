@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.event.field_administration
     - field.field.node.event.field_body
     - field.field.node.event.field_date
+    - field.field.node.event.field_datetime_range_timezone
     - field.field.node.event.field_description
     - field.field.node.event.field_event_cost
     - field.field.node.event.field_event_cta
@@ -27,12 +28,11 @@ dependencies:
   module:
     - address
     - content_moderation
-    - datetime_range
     - field_group
     - link
     - media_library
-    - metatag
     - path
+    - smart_date
     - text
     - textfield_counter
 third_party_settings:
@@ -44,9 +44,9 @@ third_party_settings:
       weight: 8
       format_type: details_sidebar
       format_settings:
-        open: '1'
-        weight: '-15'
-        required_fields: '1'
+        open: true
+        weight: -15
+        required_fields: true
         id: ''
         classes: ''
       label: Governance
@@ -89,7 +89,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 15
+      weight: 14
       format_type: fieldset
       format_settings:
         id: ''
@@ -125,9 +125,9 @@ third_party_settings:
         id: ''
         classes: ''
         description: ''
-        open: 0
-        required_fields: 1
-        weight: '0'
+        open: false
+        required_fields: true
+        weight: 0
       label: 'Feature This Content'
       region: content
     group_meta_tags:
@@ -182,12 +182,28 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
-  field_date:
+  field_datetime_range_timezone:
+    type: smartdate_timezone
     weight: 1
-    settings: {  }
-    third_party_settings: {  }
-    type: daterange_default
     region: content
+    settings:
+      default_tz: ''
+      custom_tz: America/New_York
+      allowed_timezones:
+        - America/Anchorage
+        - America/Chicago
+        - America/Denver
+        - America/Los_Angeles
+        - America/New_York
+        - America/Phoenix
+        - Pacific/Guam
+        - Pacific/Honolulu
+        - Pacific/Saipan
+      modal: false
+      default_duration: 60
+      default_duration_increments: "30\n60|1 hour\n90\n120|2 hours\ncustom"
+      show_extra: true
+    third_party_settings: {  }
   field_description:
     weight: 3
     settings:
@@ -271,12 +287,6 @@ content:
       media_types: {  }
     region: content
     third_party_settings: {  }
-  field_meta_tags:
-    weight: 14
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_firehose
-    region: content
   field_order:
     weight: 11
     settings: {  }
@@ -327,6 +337,8 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_date: true
+  field_meta_tags: true
   promote: true
   status: true
   sticky: true

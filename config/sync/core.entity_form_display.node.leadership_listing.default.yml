@@ -15,7 +15,6 @@ dependencies:
   module:
     - content_moderation
     - field_group
-    - metatag
     - path
     - textfield_counter
 third_party_settings:
@@ -24,15 +23,15 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: details_sidebar
       format_settings:
         id: ''
         classes: ''
         description: ''
-        open: 1
-        required_fields: 1
-        weight: '0'
+        open: true
+        required_fields: true
+        weight: 0
       label: Governance
       region: content
     group_editorial_workflow:
@@ -40,7 +39,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -69,7 +68,7 @@ third_party_settings:
         - field_meta_title
         - field_description
       parent_name: ''
-      weight: 4
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -82,7 +81,7 @@ third_party_settings:
       children:
         - field_leadership
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -134,12 +133,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
-  field_meta_tags:
-    weight: 8
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_firehose
-    region: content
   field_meta_title:
     weight: 1
     settings:
@@ -168,7 +161,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 7
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -182,6 +175,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_meta_tags: true
   promote: true
   status: true
   sticky: true

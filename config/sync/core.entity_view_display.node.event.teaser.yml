@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.event.field_administration
     - field.field.node.event.field_body
     - field.field.node.event.field_date
+    - field.field.node.event.field_datetime_range_timezone
     - field.field.node.event.field_description
     - field.field.node.event.field_event_cost
     - field.field.node.event.field_event_cta
@@ -25,7 +26,7 @@ dependencies:
     - field.field.node.event.field_url_of_an_online_event
     - node.type.event
   module:
-    - datetime_range
+    - smart_date
     - text
     - user
 id: node.event.teaser
@@ -40,21 +41,23 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-  field_date:
-    type: daterange_custom
+  field_datetime_range_timezone:
+    type: smartdate_default
     weight: 1
     region: content
     label: hidden
     settings:
-      timezone_override: America/New_York
-      date_format: 'l, M d Y h:i a'
-      separator: '-'
+      format: default
+      force_chronological: false
+      format_type: medium
+      timezone_override: ''
     third_party_settings: {  }
 hidden:
   content_moderation_control: true
   field_additional_information_abo: true
   field_address: true
   field_administration: true
+  field_date: true
   field_description: true
   field_event_cost: true
   field_event_cta: true

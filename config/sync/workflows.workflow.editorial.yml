@@ -6,6 +6,7 @@ dependencies:
     - block_content.type.alert
     - block_content.type.promo
     - node.type.basic_landing_page
+    - node.type.campaign_landing_page
     - node.type.checklist
     - node.type.documentation_page
     - node.type.event
@@ -84,7 +85,10 @@ type_settings:
     archive:
       label: Archive
       from:
+        - approved
+        - draft
         - published
+        - review
       to: archived
       weight: 1
     archived_published:
@@ -107,6 +111,7 @@ type_settings:
       to: published
       weight: 0
       from:
+        - approved
         - draft
         - published
         - review
@@ -123,6 +128,7 @@ type_settings:
       - promo
     node:
       - basic_landing_page
+      - campaign_landing_page
       - checklist
       - documentation_page
       - event

@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.basic_landing_page.field_intro_text_limited_html
     - field.field.node.basic_landing_page.field_meta_title
     - field.field.node.basic_landing_page.field_product
+    - field.field.node.basic_landing_page.field_table_of_contents_boolean
     - node.type.basic_landing_page
   module:
     - entity_reference_revisions
@@ -22,7 +23,7 @@ third_party_settings:
         - field_meta_title
         - field_description
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         id: ''
@@ -35,11 +36,6 @@ targetEntityType: node
 bundle: basic_landing_page
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_administration:
     weight: 6
     label: above
@@ -66,7 +62,7 @@ content:
     type: string
     region: content
   field_intro_text_limited_html:
-    weight: 3
+    weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -88,10 +84,21 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
+  field_table_of_contents_boolean:
+    weight: 3
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
   links:
-    weight: 1
+    weight: 0
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  content_moderation_control: true
   search_api_excerpt: true

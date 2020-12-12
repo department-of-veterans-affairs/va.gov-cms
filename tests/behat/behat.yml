@@ -15,10 +15,12 @@ default:
         - Drupal\DrupalExtension\Context\MinkContext
         - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\DrupalExtension\Context\DrushContext
+        - CustomDrupal\BigPipeContext
         - CustomDrupal\ContentModelContext
         - CustomDrupal\ContentModelContextCustom
         - CustomDrupal\FeatureContext
         - CustomDrupal\UserRolesAndPermissionsContext
+        - MarcOrtola\BehatSEOContexts\Context\MetaContext
 
   extensions:
     Behat\MinkExtension:

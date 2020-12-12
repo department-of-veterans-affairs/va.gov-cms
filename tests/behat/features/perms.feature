@@ -71,9 +71,10 @@ Feature: Permissions
     And I visit the "edit" page for a node with the title <title>
     Then I should see "EDITORIAL WORKFLOW"
     And the "#edit-moderation-state-0-current" element should exist
-    And I should see "Change to"
+    And I should see "Save as"
     And the "#edit-moderation-state-0-state" element should exist
-    And I should see "Revision log message"
+    And the "#edit-revision-information" element should exist
+    And the "#edit-revision-log-0-value" element should exist
 
     Then I am logged in as a user with the "authenticated" role
     And I visit the "edit" page for a node with the title <title>
@@ -82,10 +83,15 @@ Feature: Permissions
     Then I am logged in as a user with the "content_reviewer" role
     And I visit the "edit" page for a node with the title <title>
     Then "#edit-moderation-state-0-state" should contain "review"
+    And the "#edit-revision-information" element should exist
+    And the "#edit-revision-log-0-value" element should exist
 
     Then I am logged in as a user with the "content_publisher" role
     And I visit the "edit" page for a node with the title <title>
     Then "#edit-moderation-state-0-state" should contain "published"
+    And the "#edit-revision-information" element should exist
+    And the "#edit-revision-log-0-value" element should exist
+
     Examples:
       | type                             | title                                 |
       | "page"                           | "page page"                           |

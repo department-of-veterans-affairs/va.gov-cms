@@ -4,6 +4,7 @@ namespace CustomDrupal;
 
 use Behat\Behat\Context\SnippetAcceptingContext;
 use DevShop\Behat\DrupalExtension\Context\DevShopDrupalContext;
+use Drupal\Component\Utility\Crypt;
 
 /**
  * FeatureContext class defines custom step definitions for Behat.
@@ -16,11 +17,15 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   use \Traits\GroupTrait;
 
   /**
+   * Private storage.
+   *
    * @var array
    */
   private $privateStorage = [];
 
   /**
+   * Timestamp property.
+   *
    * @var int
    *   Useful to have different timestamp even if nodes created at same time.
    */
@@ -38,6 +43,8 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   }
 
   /**
+   * Clean up private storage.
+   *
    * @AfterScenario
    */
   public function cleanUp() {
@@ -148,17 +155,17 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   /**
    * Check that an html element exists.
    *
-   * @param string $element
+   * @param string $selector
    *   The css selector.
    *
-   * @Then the :element element should exist
+   * @Then the :selector element should exist
    */
-  public function theElementShouldExist($element) {
+  public function theElementShouldExist($selector) {
     $session = $this->getSession();
-    $element = $session->getPage()->find('css', $element);
+    $element = $session->getPage()->find('css', $selector);
 
     if (NULL === $element) {
-      throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $element));
+      throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $selector));
     }
   }
 
@@ -361,6 +368,96 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
     if ($match) {
       throw new \Exception('Current selection value ' . $item . ' is present.');
     }
+  }
+
+  /**
+   * Check that the Google Tag Manager dataLayer value is set correctly.
+   *
+   * @Given the GTM data layer value for :arg1 should be set to :arg2
+   */
+  public function googleTagManagerValueShouldBeSetTo($key, $value) {
+    $property_value = $this->getGoogleTagManagerValue($key);
+    if ($value != $property_value) {
+      throw new \Exception($value . ' is not the same as ' . $property_value);
+    }
+  }
+
+  /**
+   * Check that the dataLayer value is not set.
+   *
+   * @Given the GTM data layer value for :arg1 should be unset
+   * @Given the GTM data layer value for :arg1 should not be set
+   */
+  public function googleTagManagerValueShouldBeUnset($key) {
+    if ($this->hasGoogleTagManagerValue($key)) {
+      throw new \Exception("The data layer value for \"{$key}\" should not be set.");
+    }
+  }
+
+  /**
+   * Check that the dataLayer value is set correctly.
+   *
+   * @Given the GTM data layer user id should be correctly hashed
+   */
+  public function googleTagManagerUserIdShouldBeCorrectlyHashed() {
+    $property_value = $this->getGoogleTagManagerValue('userId');
+    $hashed_value = Crypt::hashBase64((string) $this->getUserManager()->getCurrentUser()->uid);
+    if ($hashed_value != $property_value) {
+      throw new \Exception("The userId value was \"{$property_value}\" , but it should be \"{$hashed_value}\".");
+    }
+  }
+
+  /**
+   * Indicate whether the dataLayer has a value for the specified key.
+   *
+   * @param string $key
+   *   The dataLayer key.
+   *
+   * @return mixed
+   *   Some value.
+   *
+   * @throws \Exception
+   */
+  protected function hasGoogleTagManagerValue($key) {
+    $drupal_settings = $this->getDrupalSettings();
+    $gtm_data = $drupal_settings['gtm_data'];
+    return isset($gtm_data[$key]);
+  }
+
+  /**
+   * Get Google Tag Manager dataLayer value for specified key.
+   *
+   * @param string $key
+   *   The dataLayer key.
+   *
+   * @return mixed
+   *   Some value.
+   *
+   * @throws \Exception
+   */
+  protected function getGoogleTagManagerValue($key) {
+    $drupal_settings = $this->getDrupalSettings();
+    $gtm_data = $drupal_settings['gtm_data'];
+    if (isset($gtm_data[$key])) {
+      return $gtm_data[$key];
+    }
+    throw new \Exception($key . ' not found.');
+  }
+
+  /**
+   * Get Drupal Settings object.
+   *
+   * @return array
+   *   The Drupal settings.
+   */
+  protected function getDrupalSettings() {
+    $session = $this->getSession();
+    $element = $session->getPage()->find('xpath', "//script[@data-drupal-selector='drupal-settings-json']");
+    if (NULL === $element) {
+      throw new \Exception('The Drupal Settings JSON could not be retrieved.');
+    }
+    $json = $element->getText();
+    return json_decode($json, TRUE);
   }
 
 }

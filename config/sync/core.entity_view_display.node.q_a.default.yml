@@ -8,12 +8,12 @@ dependencies:
     - field.field.node.q_a.field_answer
     - field.field.node.q_a.field_buttons
     - field.field.node.q_a.field_contact_information
-    - field.field.node.q_a.field_description
-    - field.field.node.q_a.field_meta_title
     - field.field.node.q_a.field_other_categories
     - field.field.node.q_a.field_primary_category
     - field.field.node.q_a.field_related_benefit_hubs
-    - field.field.node.q_a.field_related_links
+    - field.field.node.q_a.field_related_information
+    - field.field.node.q_a.field_standalone_page
+    - field.field.node.q_a.field_tags
     - node.type.q_a
   module:
     - entity_reference_revisions
@@ -21,44 +21,26 @@ dependencies:
     - user
 third_party_settings:
   field_group:
-    group_meta_tags:
-      children:
-        - field_meta_title
-        - field_description
-      parent_name: ''
-      weight: 8
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-      label: 'Meta tags'
-      region: content
     group_categories:
       children:
         - field_primary_category
         - field_other_categories
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: fieldset
       format_settings:
         id: ''
         classes: ''
         description: ''
-      label: 'Learning Center categories'
+      label: 'Article categories'
       region: content
 id: node.q_a.default
 targetEntityType: node
 bundle: q_a
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_administration:
-    weight: 9
+    weight: 8
     label: above
     settings:
       link: true
@@ -66,7 +48,7 @@ content:
     type: entity_reference_label
     region: content
   field_alert_single:
-    weight: 2
+    weight: 1
     label: above
     settings:
       view_mode: default
@@ -76,7 +58,7 @@ content:
     region: content
   field_answer:
     type: entity_reference_revisions_entity_view
-    weight: 1
+    weight: 0
     label: above
     settings:
       view_mode: default
@@ -84,7 +66,7 @@ content:
     third_party_settings: {  }
     region: content
   field_buttons:
-    weight: 3
+    weight: 2
     label: above
     settings:
       view_mode: default
@@ -94,28 +76,12 @@ content:
     region: content
   field_contact_information:
     type: entity_reference_revisions_entity_view
-    weight: 6
+    weight: 5
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    region: content
-  field_description:
-    weight: 3
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_meta_title:
-    weight: 2
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
     region: content
   field_other_categories:
     weight: 10
@@ -134,15 +100,16 @@ content:
     type: entity_reference_label
     region: content
   field_related_benefit_hubs:
-    weight: 4
+    weight: 3
     label: above
     settings:
-      link: true
+      view_mode: teaser
+      link: false
     third_party_settings: {  }
-    type: entity_reference_label
+    type: entity_reference_entity_view
     region: content
-  field_related_links:
-    weight: 5
+  field_related_information:
+    weight: 4
     label: above
     settings:
       view_mode: default
@@ -150,10 +117,30 @@ content:
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
     region: content
-  links:
+  field_standalone_page:
     weight: 10
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_tags:
+    weight: 7
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  links:
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  content_moderation_control: true
   search_api_excerpt: true

@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.event.field_administration
     - field.field.node.event.field_body
     - field.field.node.event.field_date
+    - field.field.node.event.field_datetime_range_timezone
     - field.field.node.event.field_description
     - field.field.node.event.field_event_cost
     - field.field.node.event.field_event_cta
@@ -25,20 +26,19 @@ dependencies:
     - node.type.event
   module:
     - address
-    - datetime_range
     - field_group
     - link
     - options
+    - smart_date
     - text
     - user
 third_party_settings:
   field_group:
     group_meta:
       children:
-        - field_office
         - field_description
       parent_name: ''
-      weight: 1
+      weight: 0
       format_type: fieldset
       format_settings:
         id: ''
@@ -48,7 +48,7 @@ third_party_settings:
       region: content
     group_c:
       children:
-        - field_date
+        - field_datetime_range_timezone
         - field_media
         - field_body
         - field_url_of_an_online_event
@@ -56,7 +56,7 @@ third_party_settings:
         - group_location
         - group_registration_related
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         id: ''
@@ -71,7 +71,7 @@ third_party_settings:
         - field_location_type
         - field_facility_location
       parent_name: group_c
-      weight: 27
+      weight: 28
       format_type: fieldset
       format_settings:
         id: ''
@@ -86,7 +86,7 @@ third_party_settings:
         - field_event_cost
         - field_additional_information_abo
       parent_name: group_c
-      weight: 28
+      weight: 29
       format_type: fieldset
       format_settings:
         id: ''
@@ -99,7 +99,7 @@ third_party_settings:
         - field_featured
         - field_order
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -114,11 +114,6 @@ targetEntityType: node
 bundle: event
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_additional_information_abo:
     weight: 29
     label: above
@@ -134,22 +129,24 @@ content:
     type: address_default
     region: content
   field_body:
-    weight: 24
+    weight: 25
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
-  field_date:
-    weight: 22
+  field_datetime_range_timezone:
+    type: smartdate_default
+    weight: 23
+    region: content
     label: above
     settings:
-      separator: '-'
+      format: default
+      force_chronological: false
       format_type: medium
       timezone_override: ''
+      add_classes: 0
     third_party_settings: {  }
-    type: daterange_default
-    region: content
   field_description:
     weight: 15
     label: above
@@ -167,7 +164,7 @@ content:
     type: string
     region: content
   field_event_cta:
-    weight: 26
+    weight: 27
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -229,7 +226,7 @@ content:
     type: list_default
     region: content
   field_media:
-    weight: 23
+    weight: 24
     label: above
     settings:
       link: true
@@ -244,7 +241,7 @@ content:
     type: list_default
     region: content
   field_url_of_an_online_event:
-    weight: 25
+    weight: 26
     label: above
     settings:
       trim_length: 80
@@ -256,7 +253,9 @@ content:
     type: link
     region: content
 hidden:
+  content_moderation_control: true
   field_administration: true
+  field_date: true
   field_listing: true
   field_meta_tags: true
   links: true

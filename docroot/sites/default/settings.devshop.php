@@ -26,8 +26,11 @@ if (file_exists($app_root . '/' . $site_path . '/../default/settings.php')) {
   include $app_root . '/' . $site_path . '/../default/settings.php';
 }
 
+$settings['file_public_base_url'] = $_SERVER['DRUPAL_ADDRESS'] . '/' . $site_path . '/files';
+
 // Add devshop level service file for FileSystem overrides
 $settings['file_chmod_directory'] = 02775;
+$settings['skip_permissions_hardening'] = TRUE;
 
 // Restore DevShop's $databases settings.
 $databases  = $devshop_db_settings;
@@ -56,8 +59,8 @@ $config['system.performance']['response']['gzip'] = FALSE;
 $config['views.settings']['ui']['show']['sql_query']['enabled'] = TRUE;
 $config['views.settings']['ui']['show']['performance_statistics'] = TRUE;
 $config['system.logging']['error_level'] = 'all';
-$config['environment_indicator.indicator']['bg_color'] = '#0071B8';
-$config['environment_indicator.indicator']['fg_color'] = '#FFFFFF';
+$config['environment_indicator.indicator']['bg_color'] = '#79D4F0'; // light blue.
+$config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'CI';
 
 $settings['trusted_host_patterns'] = [
@@ -70,3 +73,6 @@ $settings['trusted_host_patterns'] = [
 
 // Github token for migrations
 $settings['va_cms_bot_github_auth_token'] = getenv('GITHUB_TOKEN') ?: FALSE;
+
+$settings['va_gov_frontend_build_type'] = 'devshop';
+$settings['va_gov_frontend_url'] = $webhost_on_cli . '/static';

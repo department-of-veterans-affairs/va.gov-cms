@@ -24,10 +24,6 @@ va/deploy/3-config:
   - drush $DRUSH_ALIAS cim --yes
   - drush $DRUSH_ALIAS cr
 
-va/tests/phpcs:
-  description: PHP CodeSniffer
-  command: composer va:test:cs
-
 va/tests/phplint:
   description: PHP Lint
   command: composer va:test:lint
@@ -39,8 +35,12 @@ va/tests/phpunit:
 va/tests/accessibility:
   description: accessibility test with axe-webdriverjs for 508 compliance
   command: composer va:test:accessibility
-  # ignore failures until 508 issues are resoled
+  # Ignore failures so that staging deploys can complete.
   ignore-failure: true
+
+va/web/install:
+  description: Install VA.gov node environment
+  command: composer va:web:install
 
 va/web/build:
   description: Build VA.gov Front-end
@@ -57,3 +57,11 @@ va/tests/behat:
   command: |
     cd tests/behat
     behat --colors
+
+va/tests/revision-log:
+  description: Ensure revision log field is present
+  command: ./tests/scripts/check-revision-logs.sh
+
+va/tests/status-error:
+  description: Check for Drupal status errors
+  command: "drush $DRUSH_ALIAS core-requirements --severity=2 | grep . && exit 1 || echo 'Success: No Drupal status requirement errors were found.'"

@@ -94,6 +94,20 @@ class ContentModelContextCustom extends ContextBase {
   }
 
   /**
+   * Asserts the configuration of fields on select content entity types/bundles.
+   *
+   * @Then exactly the following fields should exist for bundles :bundles of entity type :entity_type_id
+   *
+   * @throws \Exception
+   *
+   * @see ContentModelContext::getContentEntityTypes
+   */
+  public function assertBundleFields(TableNode $expected, $bundles, $entity_type_id) {
+    $bundle_names = array_map('trim', explode(',', $bundles));
+    $this->assertFields($expected, $entity_type_id, $bundle_names);
+  }
+
+  /**
    * Asserts the configuration of fields on select content entity types.
    *
    * @Then exactly the following fields should exist for entity type :entity_type_id
@@ -102,7 +116,7 @@ class ContentModelContextCustom extends ContextBase {
    *
    * @see ContentModelContext::getContentEntityTypes
    */
-  public function assertFields(TableNode $expected, $entity_type_id) {
+  public function assertFields(TableNode $expected, $entity_type_id, $bundle_names = NULL) {
     $fields = [];
     try {
       $entity_type = $this->entityTypeManager()->getDefinition($entity_type_id);
@@ -111,9 +125,11 @@ class ContentModelContextCustom extends ContextBase {
       // A PluginNotFoundException here just means that the module providing
       // the entity type in question isn't installed. Continue.
     }
+
     $bundles = $this->entityTypeManager()
       ->getStorage($entity_type->getBundleEntityType())
-      ->loadMultiple();
+      ->loadMultiple($bundle_names);
+
     foreach ($bundles as $bundle) {
       /** @var string[] $ids */
       $ids = \Drupal::entityQuery('field_config')
