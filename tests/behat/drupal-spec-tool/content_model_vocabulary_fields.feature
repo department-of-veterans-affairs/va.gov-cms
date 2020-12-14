@@ -8,6 +8,8 @@ Feature: Content model: Vocabulary fields
      Scenario: Fields
        Then exactly the following fields should exist for entity type taxonomy_term
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
+| Vocabulary | Audience - Beneficiaries | Promoted to Resources and Support Homepage | field_audience_rs_homepage | Boolean |  | 1 | Single on/off checkbox |  |
+| Vocabulary | Audience - Non-beneficiaries | Promoted to Resources and Support Homepage | field_audience_rs_homepage | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Vocabulary | Sections | Acronym | field_acronym | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | Sections | Description | field_description | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | Sections | Intro text | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
