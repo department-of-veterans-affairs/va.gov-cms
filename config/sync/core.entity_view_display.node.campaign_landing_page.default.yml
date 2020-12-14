@@ -5,6 +5,13 @@ dependencies:
   config:
     - field.field.node.campaign_landing_page.field_administration
     - field.field.node.campaign_landing_page.field_benefit_categories
+    - field.field.node.campaign_landing_page.field_clp_events_header
+    - field.field.node.campaign_landing_page.field_clp_events_panel
+    - field.field.node.campaign_landing_page.field_clp_events_references
+    - field.field.node.campaign_landing_page.field_clp_connect_with_us
+    - field.field.node.campaign_landing_page.field_clp_faq_cta
+    - field.field.node.campaign_landing_page.field_clp_faq_panel
+    - field.field.node.campaign_landing_page.field_clp_faq_paragraphs
     - field.field.node.campaign_landing_page.field_clp_resources
     - field.field.node.campaign_landing_page.field_clp_resources_cta
     - field.field.node.campaign_landing_page.field_clp_resources_header
@@ -48,7 +55,7 @@ third_party_settings:
         - field_clp_spotlight_cta
         - field_clp_spotlight_link_teasers
       parent_name: ''
-      weight: 3
+      weight: 5
       format_type: fieldset
       region: content
       format_settings:
@@ -63,7 +70,7 @@ third_party_settings:
         - field_media
         - field_clp_video_panel_more_video
       parent_name: ''
-      weight: 6
+      weight: 4
       format_type: fieldset
       region: content
       format_settings:
@@ -77,10 +84,10 @@ third_party_settings:
         - field_clp_stories_header
         - field_clp_stories_intro
         - field_clp_stories_teasers
-        - links
         - field_clp_stories_cta
+        - links
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: fieldset
       region: content
       format_settings:
@@ -94,7 +101,7 @@ third_party_settings:
         - field_primary_call_to_action
         - field_hero_image
       parent_name: ''
-      weight: 0
+      weight: 1
       format_type: fieldset
       region: content
       format_settings:
@@ -107,7 +114,7 @@ third_party_settings:
         - field_clp_why_this_matters
         - field_secondary_call_to_action
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       region: content
       format_settings:
@@ -121,7 +128,7 @@ third_party_settings:
         - field_clp_what_you_can_do_intro
         - field_clp_what_you_can_do_promos
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       region: content
       format_settings:
@@ -133,7 +140,7 @@ third_party_settings:
       children:
         - field_benefit_categories
       parent_name: ''
-      weight: 5
+      weight: 9
       format_type: fieldset
       region: content
       format_settings:
@@ -149,7 +156,7 @@ third_party_settings:
         - field_clp_resources
         - field_clp_resources_cta
       parent_name: ''
-      weight: 4
+      weight: 8
       format_type: fieldset
       region: content
       format_settings:
@@ -157,18 +164,32 @@ third_party_settings:
         classes: ''
         description: ''
       label: 'Downloadable resources'
+    group_events:
+      children:
+        - field_clp_events_panel
+        - field_clp_events_header
+        - field_clp_events_references
+      parent_name: ''
+      weight: 7
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Events
 id: node.campaign_landing_page.default
 targetEntityType: node
 bundle: campaign_landing_page
 mode: default
 content:
   content_moderation_control:
-    weight: 8
+    weight: 0
     region: content
     settings: {  }
     third_party_settings: {  }
   field_administration:
-    weight: 9
+    weight: 10
     label: above
     settings:
       link: true
@@ -182,6 +203,62 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_clp_connect_with_us:
+    weight: 29
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_clp_events_header:
+    weight: 12
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_clp_events_panel:
+    weight: 11
+    region: content
+  field_clp_events_references:
+    weight: 13
+    label: above
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+  field_clp_faq_cta:
+    type: entity_reference_revisions_entity_view
+    weight: 30
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_clp_faq_panel:
+    weight: 26
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_clp_faq_paragraphs:
+    type: entity_reference_revisions_entity_view
+    weight: 27
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
     region: content
   field_clp_resources:
     type: entity_reference_entity_view
@@ -417,7 +494,7 @@ content:
     third_party_settings: {  }
     region: content
   links:
-    weight: 13
+    weight: 100
     region: content
     settings: {  }
     third_party_settings: {  }
