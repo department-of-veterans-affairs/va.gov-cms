@@ -9,6 +9,7 @@ use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\field\Entity\FieldConfig;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
@@ -512,6 +513,26 @@ function va_gov_backend_field_widget_moderation_state_default_form_alter(&$eleme
     }
 
     $element['state']['#title'] = t('Save as');
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for media_library_add_form_upload.
+ */
+function va_gov_backend_form_media_library_add_form_upload_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#attached']['library'][] = 'va_gov_backend/media_library_add_form_upload';
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter() for checkbox widgets.
+ */
+function va_gov_backend_field_widget_boolean_checkbox_form_alter(&$element, FormStateInterface $form_state, $context) {
+  $field_definition = $context['items']->getFieldDefinition();
+  if ($field_definition instanceof FieldConfig) {
+    list ($entity_type, $bundle, $field_name) = explode('.', $field_definition->id());
+    if ($entity_type === 'media' && $field_name === 'field_media_in_library') {
+      $element['value']['#attributes']['class'][] = 'field_media_in_library';
+    }
   }
 }
 
