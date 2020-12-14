@@ -27,7 +27,7 @@ before(() => {
   // before testing each page.
   const cookies = cy.getCookies();
   cookies.each((cookie) => {
-    if (cookie.name.startsWith('SESS')) {
+    if (cookie.name.match(/SS?ESS/)) {
       Cypress.Cookies.defaults({
         preserve: cookie.name
       });
