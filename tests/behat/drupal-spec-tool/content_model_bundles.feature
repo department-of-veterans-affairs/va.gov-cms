@@ -20,7 +20,7 @@ Feature: Content model bundles
 | Health Services List | health_services_listing | Content type | A listing of health services. |
 | Landing Page | basic_landing_page | Content type | Basic Landing Page can be used to build one-off pages for various products. E.g. a homepage for a specific product. |
 | Leadership List | leadership_listing | Content type | A listing of staff profiles. |
-| Learning Center Detail Page | support_resources_detail_page | Content type |  |
+| Resources and support Detail Page | support_resources_detail_page | Content type |  |
 | Locations List | locations_listing | Content type | A listing of VA facilities. |
 | Media list - Images | media_list_images | Content type |  |
 | Media list - Videos | media_list_videos | Content type |  |
@@ -70,7 +70,7 @@ Feature: Content model bundles
 | Link to file or video | downloadable_file | Paragraph type | For image or document downloads. |
 | List of link teasers | list_of_link_teasers | Paragraph type | A paragraph that contains only one type of paragraph: Link teaser. |
 | List of links | list_of_links | Paragraph type | A set of links, with link text and URL required, and an optional header. |
-| Lists of links | lists_of_links | Paragraph type | WARNING: Learning Center and User Guides only! A list of links, or several lists of links, with an optional section header. |
+| Lists of links | lists_of_links | Paragraph type | WARNING: Resources and support and User Guides only! A list of links, or several lists of links, with an optional section header. |
 | Media list - Images | media_list_images | Paragraph type |  |
 | Media list - Videos | media_list_videos | Paragraph type |  |
 | Non-reusable Alert | non_reusable_alert | Paragraph type |  |
@@ -94,7 +94,7 @@ Feature: Content model bundles
 | VAMC facility service (non-healthcare service) | health_care_local_facility_servi | Paragraph type | A service available at a specific health care facility, like Parking, or Chaplaincy. |
 | Audience - Beneficiaries | audience_beneficiaries | Vocabulary |  |
 | Audience - Non-beneficiaries | audience_non_beneficiaries | Vocabulary |  |
-| Learning Center Categories | lc_categories | Vocabulary |  |
+| Resources and support Categories | lc_categories | Vocabulary |  |
 | Products | products | Vocabulary |  |
 | Sections | administration | Vocabulary | Represents a hierarchy of the VA, partly for governance purposes. |
 | Topics | topics | Vocabulary |  |
