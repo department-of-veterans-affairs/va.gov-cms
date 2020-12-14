@@ -1,5 +1,4 @@
 Cypress.Commands.add('login', (user, password) => {
-  console.log(`in login for user ${user}`);
   return cy.request({
     method: 'POST',
     url: '/user/login',

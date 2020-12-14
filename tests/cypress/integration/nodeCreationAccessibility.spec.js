@@ -18,15 +18,28 @@ const routes = [
   '/user',
 ];
 
+before(() => {
+  // @TODO Use Cypress.env variables for user/pass.
+  // @TODO Use a content admin role.
+  cy.login('axcsd452ksey', 'drupal8');
+
+  // Preserve the Drupal session cookie to avoid having to login
+  // before testing each page.
+  const cookies = cy.getCookies();
+  cookies.each((cookie) => {
+    if (cookie.name.startsWith('SESS')) {
+      Cypress.Cookies.defaults({
+        preserve: cookie.name
+      });
+    }
+  })
+});
+
 describe('Component accessibility test', () => {
   routes.forEach((route) => {
 
     const testName = `${route} has no detectable accessibility violations on load.`;
     it(testName, () => {
-      // @TODO Use Cypress.env variables for user/pass.
-      // @TODO Use a content admin role.
-      cy.login('axcsd452ksey', 'drupal8');
-
       cy.visit(route);
       cy.injectAxe();
 
@@ -40,6 +53,7 @@ describe('Component accessibility test', () => {
       cy.get('body').each((element, index) => {
         cy.checkA11y(null, axeRuntimeOptions, cy.terminalLog);
       });
+
     });
   });
 });
