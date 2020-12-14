@@ -6,28 +6,40 @@ dependencies:
     - block_content.type.alert
     - field.storage.block_content.field_node_reference
     - node.type.basic_landing_page
+    - node.type.campaign_landing_page
     - node.type.checklist
+    - node.type.documentation_page
     - node.type.event
     - node.type.event_listing
     - node.type.faq_multiple_q_a
     - node.type.health_care_local_facility
     - node.type.health_care_region_detail_page
     - node.type.health_care_region_page
+    - node.type.health_services_listing
     - node.type.landing_page
+    - node.type.leadership_listing
+    - node.type.locations_listing
     - node.type.media_list_images
     - node.type.media_list_videos
+    - node.type.nca_facility
     - node.type.news_story
     - node.type.office
     - node.type.outreach_asset
     - node.type.page
     - node.type.person_profile
     - node.type.press_release
+    - node.type.press_releases_listing
     - node.type.publication_listing
     - node.type.q_a
     - node.type.regional_health_care_service_des
     - node.type.step_by_step
+    - node.type.story_listing
     - node.type.support_resources_detail_page
     - node.type.support_service
+    - node.type.va_form
+    - node.type.vamc_operating_status_and_alerts
+    - node.type.vba_facility
+    - node.type.vet_center
   module:
     - entity_reference_validators
 third_party_settings:
@@ -50,27 +62,39 @@ settings:
     target_bundles:
       page: page
       landing_page: landing_page
+      documentation_page: documentation_page
+      campaign_landing_page: campaign_landing_page
       checklist: checklist
       health_care_region_detail_page: health_care_region_detail_page
       event: event
       event_listing: event_listing
       faq_multiple_q_a: faq_multiple_q_a
+      health_services_listing: health_services_listing
       basic_landing_page: basic_landing_page
+      leadership_listing: leadership_listing
       support_resources_detail_page: support_resources_detail_page
+      locations_listing: locations_listing
       media_list_images: media_list_images
       media_list_videos: media_list_videos
+      nca_facility: nca_facility
       press_release: press_release
+      press_releases_listing: press_releases_listing
       office: office
       outreach_asset: outreach_asset
       publication_listing: publication_listing
       q_a: q_a
       person_profile: person_profile
       step_by_step: step_by_step
+      story_listing: story_listing
       news_story: news_story
       support_service: support_service
+      va_form: va_form
       health_care_local_facility: health_care_local_facility
       health_care_region_page: health_care_region_page
       regional_health_care_service_des: regional_health_care_service_des
+      vamc_operating_status_and_alerts: vamc_operating_status_and_alerts
+      vba_facility: vba_facility
+      vet_center: vet_center
     sort:
       field: title
       direction: ASC
