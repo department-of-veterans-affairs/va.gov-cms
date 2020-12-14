@@ -7,6 +7,13 @@ dependencies:
     - entity_browser.browser.promo_blocks_browser
     - field.field.node.campaign_landing_page.field_administration
     - field.field.node.campaign_landing_page.field_benefit_categories
+    - field.field.node.campaign_landing_page.field_clp_connect_with_us
+    - field.field.node.campaign_landing_page.field_clp_events_header
+    - field.field.node.campaign_landing_page.field_clp_events_panel
+    - field.field.node.campaign_landing_page.field_clp_events_references
+    - field.field.node.campaign_landing_page.field_clp_faq_cta
+    - field.field.node.campaign_landing_page.field_clp_faq_panel
+    - field.field.node.campaign_landing_page.field_clp_faq_paragraphs
     - field.field.node.campaign_landing_page.field_clp_resources
     - field.field.node.campaign_landing_page.field_clp_resources_cta
     - field.field.node.campaign_landing_page.field_clp_resources_header
@@ -52,7 +59,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 4
+      weight: 3
       format_type: details_sidebar
       region: content
       format_settings:
@@ -68,7 +75,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -89,7 +96,7 @@ third_party_settings:
       region: content
       format_settings:
         description: ''
-        formatter: open
+        formatter: closed
         required_fields: true
         id: ''
         classes: ''
@@ -134,6 +141,9 @@ third_party_settings:
         - group_spotlight
         - group_stories
         - group_downloadable_resources
+        - group_events
+        - group_faqs
+        - group_connect_with_us
         - group_va_benefits
       parent_name: ''
       weight: 0
@@ -148,7 +158,7 @@ third_party_settings:
       children:
         - field_benefit_categories
       parent_name: group_set_of_vertical_tabs
-      weight: 8
+      weight: 11
       format_type: tab
       region: content
       format_settings:
@@ -187,12 +197,11 @@ third_party_settings:
       format_type: tab
       region: content
       format_settings:
+        description: ''
+        formatter: closed
         id: ''
         classes: ''
-        direction: vertical
-        formatter: closed
-        description: ''
-        required_fields: true
+        required_fields: false
       label: Video
     group_stories:
       children:
@@ -206,11 +215,11 @@ third_party_settings:
       format_type: tab
       region: content
       format_settings:
-        id: ''
-        classes: ''
         description: ''
         formatter: closed
-        required_fields: true
+        id: ''
+        classes: ''
+        required_fields: false
       label: Stories
     group_downloadable_resources:
       children:
@@ -226,10 +235,56 @@ third_party_settings:
       format_settings:
         description: ''
         formatter: closed
-        required_fields: true
         id: ''
         classes: ''
+        required_fields: false
       label: 'Downloadable resources'
+    group_events:
+      children:
+        - field_clp_events_panel
+        - field_clp_events_header
+        - field_clp_events_references
+      parent_name: group_set_of_vertical_tabs
+      weight: 8
+      label: Events
+      region: content
+      format_type: tab
+      format_settings:
+        description: ''
+        formatter: closed
+        id: ''
+        classes: ''
+        required_fields: false
+    group_faqs:
+      children:
+        - field_clp_faq_panel
+        - field_clp_faq_paragraphs
+        - field_clp_faq_cta
+      parent_name: group_set_of_vertical_tabs
+      weight: 9
+      format_type: tab
+      region: content
+      format_settings:
+        description: ''
+        formatter: closed
+        id: ''
+        classes: ''
+        required_fields: false
+      label: FAQs
+    group_connect_with_us:
+      children:
+        - field_clp_connect_with_us
+      parent_name: group_set_of_vertical_tabs
+      weight: 10
+      format_type: tab
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: closed
+        required_fields: true
+      label: 'Connect with us'
 id: node.campaign_landing_page.default
 targetEntityType: node
 bundle: campaign_landing_page
@@ -247,6 +302,93 @@ content:
     third_party_settings: {  }
     type: options_buttons
     region: content
+  field_clp_connect_with_us:
+    weight: 39
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_clp_events_header:
+    weight: 27
+    settings:
+      size: 70
+      placeholder: ''
+      maxlength: 70
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+      use_field_maxlength: false
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+  field_clp_events_panel:
+    weight: 26
+    region: content
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_clp_events_references:
+    weight: 28
+    settings:
+      entity_browser: events_browser
+      field_widget_display: rendered_entity
+      field_widget_display_settings:
+        view_mode: teaser
+      field_widget_remove: '1'
+      open: '1'
+      selection_mode: selection_append
+      field_widget_edit: 0
+      field_widget_replace: 0
+    third_party_settings: {  }
+    type: entity_reference_browser_table_widget
+    region: content
+  field_clp_faq_cta:
+    type: paragraphs
+    weight: 40
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    region: content
+  field_clp_faq_panel:
+    weight: 36
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_clp_faq_paragraphs:
+    type: paragraphs
+    weight: 37
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+    region: content
   field_clp_resources:
     type: entity_browser_entity_reference
     weight: 34
@@ -257,9 +399,9 @@ content:
         view_mode: default
       field_widget_edit: true
       field_widget_remove: true
+      open: true
       selection_mode: selection_append
       field_widget_replace: false
-      open: false
     third_party_settings: {  }
     region: content
   field_clp_resources_cta:
@@ -319,17 +461,16 @@ content:
     type: paragraphs
     weight: 15
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Story
+      title_plural: Stories
       edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
       add_mode: button
       form_display_mode: default
       default_paragraph_type: _none
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
       features:
-        add_above: '0'
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
     third_party_settings: {  }
@@ -373,8 +514,9 @@ content:
       closed_mode_threshold: 0
       add_mode: dropdown
       form_display_mode: default
-      default_paragraph_type: ''
+      default_paragraph_type: _none
       features:
+        add_above: '0'
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
     third_party_settings: {  }
@@ -432,12 +574,12 @@ content:
     type: entity_reference_paragraphs
     weight: 6
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: stories
+      title_plural: stories
       edit_mode: open
-      add_mode: dropdown
+      add_mode: button
       form_display_mode: default
-      default_paragraph_type: ''
+      default_paragraph_type: _none
     third_party_settings: {  }
     region: content
   field_clp_video_panel:
@@ -510,11 +652,11 @@ content:
     settings:
       entity_browser: promo_blocks_browser
       field_widget_display: label
-      field_widget_edit: true
-      field_widget_remove: true
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      open: '1'
       selection_mode: selection_append
-      field_widget_replace: false
-      open: false
+      field_widget_replace: 0
       field_widget_display_settings: {  }
     third_party_settings: {  }
     type: entity_reference_browser_table_widget
@@ -614,7 +756,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 3
+    weight: 2
     region: content
     third_party_settings: {  }
   title:
@@ -631,13 +773,9 @@ content:
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
       use_field_maxlength: false
     third_party_settings: {  }
-  url_redirects:
-    weight: 2
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   created: true
   promote: true
   sticky: true
   uid: true
+  url_redirects: true

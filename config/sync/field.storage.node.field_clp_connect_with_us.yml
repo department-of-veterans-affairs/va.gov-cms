@@ -1,0 +1,20 @@
+uuid: 4e8316cb-c67e-4e96-b286-fd42d68e348e
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_clp_connect_with_us
+field_name: field_clp_connect_with_us
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
