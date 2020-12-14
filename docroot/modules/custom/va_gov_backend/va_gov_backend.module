@@ -5,6 +5,7 @@
  * Contains va_gov_backend.module.
  */
 
+use Drupal\Component\Utility\Crypt;
 use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -14,7 +15,9 @@ use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
+use Drupal\file\Entity\File;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\user\Entity\Role;
@@ -22,7 +25,6 @@ use Drupal\user\RoleInterface;
 use Drupal\va_gov_build_trigger\Form\PreviewForm;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Drupal\Component\Utility\Crypt;
 
 /**
  * Implements hook_help().
@@ -1365,6 +1367,52 @@ function va_gov_backend_toolbar() {
   ];
 
   return $items;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function va_gov_backend_theme_suggestions_paragraph_alter(&$suggestions, $variables) {
+  $paragraph = $variables['elements']['#paragraph'];
+  $parent = $paragraph->getParentEntity();
+  if ($parent) {
+    $suggestions[] = 'paragraph__' . $paragraph->bundle() . '__' . $parent->bundle();
+  }
+}
+
+/**
+ * Implements template_preprocess_paragraph().
+ */
+function va_gov_backend_preprocess_paragraph(&$variables) {
+  $paragraph = $variables['paragraph'];
+  if ($paragraph->bundle() === 'downloadable_file') {
+    $media_entities = $paragraph->get('field_media')->referencedEntities();
+    $title = $paragraph->get('field_title')->getValue()[0]['value'];
+    $variables['field_media'] = [];
+    $link_base_class = 'downloadable-file-link';
+    foreach ($media_entities as $media_entity) {
+      $media_object = [];
+      $media_object['link_title'] = $title;
+      $media_object['bundle'] = $media_bundle = $media_entity->bundle();
+      $classes = [
+        $link_base_class,
+        $link_base_class . '--' . $media_bundle,
+      ];
+      $media_object['attributes'] = new Attribute([]);
+      $media_object['attributes']->addClass($classes);
+      if ($media_bundle === 'document' || $media_bundle === 'image') {
+        $fid = $media_entity->getSource()->getSourceFieldValue($media_entity);
+        if (!empty($fid)) {
+          $file = File::load($fid);
+          $media_object['link_url'] = $file->url();
+        }
+      }
+      elseif ($media_bundle === 'video') {
+        $media_object['link_url'] = $media_entity->get('field_media_video_embed_field')->getValue()[0]['value'];
+      }
+      $variables['field_media'][] = $media_object;
+    }
+  }
 }
 
 /**
