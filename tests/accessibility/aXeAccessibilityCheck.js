@@ -8,7 +8,7 @@ const URL = process.env.DRUPAL_ADDRESS;
 const userName = 'axcsd452ksey';
 const password = 'drupal8';
 
-let totalViolations =0;
+let totalViolations = 0;
 
 // create a phantomjs or chrome WebDriver instance
 const driver = new webDriver.Builder()

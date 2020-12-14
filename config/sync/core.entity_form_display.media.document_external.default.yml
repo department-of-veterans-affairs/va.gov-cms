@@ -1,0 +1,97 @@
+uuid: 985b7484-92c3-46f2-ba67-97768a419ba0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.document_external.field_description
+    - field.field.media.document_external.field_media_external_file
+    - field.field.media.document_external.field_media_in_library
+    - field.field.media.document_external.field_mime_type
+    - field.field.media.document_external.field_owner
+    - media.type.document_external
+  module:
+    - field_group
+    - link
+    - textfield_counter
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_owner
+      parent_name: ''
+      weight: 3
+      format_type: details_sidebar
+      region: content
+      format_settings:
+        description: ''
+        open: true
+        weight: 0
+        required_fields: true
+        id: ''
+        classes: ''
+      label: Governance
+    group_edi:
+      children: {  }
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+id: media.document_external.default
+targetEntityType: media
+bundle: document_external
+mode: default
+content:
+  field_description:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 100
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+    type: string_textarea_with_counter
+    region: content
+  field_media_external_file:
+    weight: 1
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_owner:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 6
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_media_in_library: true
+  field_mime_type: true
+  path: true
+  status: true
+  uid: true

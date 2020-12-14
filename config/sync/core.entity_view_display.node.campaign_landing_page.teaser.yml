@@ -1,0 +1,98 @@
+uuid: 21858074-d338-4227-aa87-87a09c8b0c1e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.campaign_landing_page.field_administration
+    - field.field.node.campaign_landing_page.field_benefit_categories
+    - field.field.node.campaign_landing_page.field_clp_connect_with_us
+    - field.field.node.campaign_landing_page.field_clp_faq_cta
+    - field.field.node.campaign_landing_page.field_clp_faq_panel
+    - field.field.node.campaign_landing_page.field_clp_faq_paragraphs
+    - field.field.node.campaign_landing_page.field_clp_resources
+    - field.field.node.campaign_landing_page.field_clp_resources_cta
+    - field.field.node.campaign_landing_page.field_clp_resources_header
+    - field.field.node.campaign_landing_page.field_clp_resources_intro_text
+    - field.field.node.campaign_landing_page.field_clp_resources_panel
+    - field.field.node.campaign_landing_page.field_clp_events_header
+    - field.field.node.campaign_landing_page.field_clp_events_panel
+    - field.field.node.campaign_landing_page.field_clp_events_references
+    - field.field.node.campaign_landing_page.field_clp_spotlight_cta
+    - field.field.node.campaign_landing_page.field_clp_spotlight_header
+    - field.field.node.campaign_landing_page.field_clp_spotlight_intro_text
+    - field.field.node.campaign_landing_page.field_clp_spotlight_link_teasers
+    - field.field.node.campaign_landing_page.field_clp_spotlight_panel
+    - field.field.node.campaign_landing_page.field_clp_stories_cta
+    - field.field.node.campaign_landing_page.field_clp_stories_header
+    - field.field.node.campaign_landing_page.field_clp_stories_intro
+    - field.field.node.campaign_landing_page.field_clp_stories_panel
+    - field.field.node.campaign_landing_page.field_clp_stories_teasers
+    - field.field.node.campaign_landing_page.field_clp_video_panel
+    - field.field.node.campaign_landing_page.field_clp_video_panel_header
+    - field.field.node.campaign_landing_page.field_clp_video_panel_more_video
+    - field.field.node.campaign_landing_page.field_clp_what_you_can_do_header
+    - field.field.node.campaign_landing_page.field_clp_what_you_can_do_intro
+    - field.field.node.campaign_landing_page.field_clp_what_you_can_do_promos
+    - field.field.node.campaign_landing_page.field_clp_why_this_matters
+    - field.field.node.campaign_landing_page.field_hero_blurb
+    - field.field.node.campaign_landing_page.field_hero_image
+    - field.field.node.campaign_landing_page.field_media
+    - field.field.node.campaign_landing_page.field_primary_call_to_action
+    - field.field.node.campaign_landing_page.field_secondary_call_to_action
+    - node.type.campaign_landing_page
+  module:
+    - user
+id: node.campaign_landing_page.teaser
+targetEntityType: node
+bundle: campaign_landing_page
+mode: teaser
+content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_administration: true
+  field_benefit_categories: true
+  field_clp_connect_with_us: true
+  field_clp_events_header: true
+  field_clp_events_panel: true
+  field_clp_events_references: true
+  field_clp_faq_cta: true
+  field_clp_faq_panel: true
+  field_clp_faq_paragraphs: true
+  field_clp_resources: true
+  field_clp_resources_cta: true
+  field_clp_resources_header: true
+  field_clp_resources_intro_text: true
+  field_clp_resources_panel: true
+  field_clp_spotlight_cta: true
+  field_clp_spotlight_header: true
+  field_clp_spotlight_intro_text: true
+  field_clp_spotlight_link_teasers: true
+  field_clp_spotlight_panel: true
+  field_clp_stories_cta: true
+  field_clp_stories_header: true
+  field_clp_stories_intro: true
+  field_clp_stories_panel: true
+  field_clp_stories_teasers: true
+  field_clp_video_panel: true
+  field_clp_video_panel_header: true
+  field_clp_video_panel_more_video: true
+  field_clp_what_you_can_do_header: true
+  field_clp_what_you_can_do_intro: true
+  field_clp_what_you_can_do_promos: true
+  field_clp_why_this_matters: true
+  field_hero_blurb: true
+  field_hero_image: true
+  field_media: true
+  field_primary_call_to_action: true
+  field_secondary_call_to_action: true
+  search_api_excerpt: true

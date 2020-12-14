@@ -4,21 +4,21 @@
  */
 
 .proofing-element-help {
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  margin-left: 4px;
-  box-sizing: content-box;
   background-color: #0074bd;
-  line-height: 16px;
-  height: 16px;
-  width: 16px;
-  font-size: 12px;
-  color: #fff;
   border-radius: 50%;
+  box-sizing: content-box;
+  color: #fff;
+  display: inline-block;
+  font-family: 'Bitter', 'Georgia', 'Cambria', 'Times New Roman', 'Times', serif;
+  font-size: 12px;
   font-weight: bold;
+  height: 16px;
+  line-height: 16px;
+  margin-left: 4px;
+  position: absolute;
   text-align: center;
-  font-family: "Bitter", "Georgia", "Cambria", "Times New Roman", "Times", serif;
+  top: 0;
+  width: 16px;
 
   &:focus,
   &:hover,
@@ -28,23 +28,22 @@
 }
 
 .proofing-element-help--title {
-  font-weight: bold;
   font-size: 1.1em;
-  margin: 0 0 0.2em 0;
+  font-weight: bold;
+  margin: 0 0 0.2em;
 }
 
 .ui-tooltip.proofing-element-help--tooltip {
   max-width: 680px;
 }
+
 .ui-tooltip-content {
-  border: 0.1rem solid #cccccc;
-  background-color: #ffffff;
+  background-color: #fff;
+  border: 0.1rem solid #ccc;
+  border-radius: 5px;
+  box-shadow: 3px 2px 2px #ccc;
   max-width: 600px;
   min-width: 400px;
-  -moz-box-shadow:    3px 2px 2px #ccc;
-  -webkit-box-shadow: 3px 2px 2px #ccc;
-  box-shadow:         3px 2px 2px #ccc;
-  border-radius: 5px;
   padding: 0.6rem;
 }
 

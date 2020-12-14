@@ -71,9 +71,10 @@ Feature: Permissions
     And I visit the "edit" page for a node with the title <title>
     Then I should see "EDITORIAL WORKFLOW"
     And the "#edit-moderation-state-0-current" element should exist
-    And I should see "Change to"
+    And I should see "Save as"
     And the "#edit-moderation-state-0-state" element should exist
-    And I should see "Revision log message"
+    And the "#edit-revision-information" element should exist
+    And the "#edit-revision-log-0-value" element should exist
 
     Then I am logged in as a user with the "authenticated" role
     And I visit the "edit" page for a node with the title <title>
@@ -82,10 +83,15 @@ Feature: Permissions
     Then I am logged in as a user with the "content_reviewer" role
     And I visit the "edit" page for a node with the title <title>
     Then "#edit-moderation-state-0-state" should contain "review"
+    And the "#edit-revision-information" element should exist
+    And the "#edit-revision-log-0-value" element should exist
 
     Then I am logged in as a user with the "content_publisher" role
     And I visit the "edit" page for a node with the title <title>
     Then "#edit-moderation-state-0-state" should contain "published"
+    And the "#edit-revision-information" element should exist
+    And the "#edit-revision-log-0-value" element should exist
+
     Examples:
       | type                             | title                                 |
       | "page"                           | "page page"                           |
@@ -107,7 +113,7 @@ Feature: Permissions
     Then I am viewing an <type> with the title <title>
     Then I visit the "edit" page for a node with the title <title>
     And the "#edit-field-administration" element should exist
-    And "#edit-field-administration" should have the "required" with "required"
+    And "#edit-field-administration" should have the attribute "required" with value "required"
     Examples:
       | type                             | title                                  |
       | "page"                           | "page page2"                           |
@@ -127,11 +133,11 @@ Feature: Permissions
   Scenario: Check for field_owner on media types.
     Given I am logged in as a user with the "administrator" role
     Then I visit "/media/add/image"
-    And "#edit-field-owner" should have the "required" with "required"
+    And "#edit-field-owner" should have the attribute "required" with value "required"
     Then I visit "/media/add/document"
-    And "#edit-field-owner" should have the "required" with "required"
+    And "#edit-field-owner" should have the attribute "required" with value "required"
     Then I visit "/media/add/video"
-    And "#edit-field-owner" should have the "required" with "required"
+    And "#edit-field-owner" should have the attribute "required" with value "required"
 
 
   @perms @unnecessary_fields

@@ -46,6 +46,8 @@ The VA.gov CMS Team
     1. [Security](READMES/security.md)
 1. **CMS Users**
     1. [Login / SSOi](READMES/cms-login.md)
+1. **CMS Content**
+    1. [Workflow](READMES/cms-content-workflow.md)
 
 ## Introduction
 

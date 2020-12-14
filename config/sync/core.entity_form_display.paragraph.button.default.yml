@@ -7,7 +7,7 @@ dependencies:
     - field.field.paragraph.button.field_button_link
     - paragraphs.paragraphs_type.button
   module:
-    - link
+    - linkit
     - textfield_counter
 id: paragraph.button.default
 targetEntityType: paragraph
@@ -23,7 +23,7 @@ content:
       counter_position: after
       js_prevent_submit: true
       count_html_characters: true
-      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
       use_field_maxlength: false
     third_party_settings: {  }
     type: string_textfield_with_counter
@@ -33,8 +33,9 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      linkit_profile: default
     third_party_settings: {  }
-    type: link_default
+    type: linkit
     region: content
 hidden:
   created: true
