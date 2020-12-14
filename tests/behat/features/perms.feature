@@ -113,7 +113,7 @@ Feature: Permissions
     Then I am viewing an <type> with the title <title>
     Then I visit the "edit" page for a node with the title <title>
     And the "#edit-field-administration" element should exist
-    And "#edit-field-administration" should have the "required" with "required"
+    And "#edit-field-administration" should have the attribute "required" with value "required"
     Examples:
       | type                             | title                                  |
       | "page"                           | "page page2"                           |
@@ -133,11 +133,11 @@ Feature: Permissions
   Scenario: Check for field_owner on media types.
     Given I am logged in as a user with the "administrator" role
     Then I visit "/media/add/image"
-    And "#edit-field-owner" should have the "required" with "required"
+    And "#edit-field-owner" should have the attribute "required" with value "required"
     Then I visit "/media/add/document"
-    And "#edit-field-owner" should have the "required" with "required"
+    And "#edit-field-owner" should have the attribute "required" with value "required"
     Then I visit "/media/add/video"
-    And "#edit-field-owner" should have the "required" with "required"
+    And "#edit-field-owner" should have the attribute "required" with value "required"
 
 
   @perms @unnecessary_fields
