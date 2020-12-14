@@ -1,32 +1,32 @@
-uuid: 22ec383d-e2fd-497e-bf1e-5a89ee62868f
+uuid: ba14b114-491f-4b6b-b63d-e4783237c9cd
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_clp_resources
-    - media.type.document_external
+    - field.storage.node.field_clp_events_references
     - node.type.campaign_landing_page
+    - node.type.event
   module:
     - entity_reference_validators
 third_party_settings:
   entity_reference_validators:
     circular_reference: false
-    duplicate_reference: false
-id: node.campaign_landing_page.field_clp_resources
-field_name: field_clp_resources
+    duplicate_reference: true
+id: node.campaign_landing_page.field_clp_events_references
+field_name: field_clp_events_references
 entity_type: node
 bundle: campaign_landing_page
-label: 'Media resources'
-description: 'You must add resources to the <a href="/media/add/document_external">media library</a> before you will be able to select them here.'
+label: 'Add up to two events'
+description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:media'
+  handler: 'default:node'
   handler_settings:
     target_bundles:
-      document_external: document_external
+      event: event
     sort:
       field: _none
     auto_create: false
