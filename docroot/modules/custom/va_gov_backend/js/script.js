@@ -25,9 +25,9 @@
   Drupal.behaviors.vaGovClpLimitListOfLinks = {
     attach: function () {
       // Don't allow more than 3 link teasers in clp spotlight panel.
-        if ($('#field-clp-spotlight-link-teasers-add-more-wrapper .paragraphs-dropbutton-wrapper').length > 3) {
-          $('#field-clp-spotlight-link-teasers-add-more-wrapper .field-add-more-submit.button--small.button').css('display', 'none');
-        }
+      if ($('#field-clp-spotlight-link-teasers-add-more-wrapper .paragraphs-dropbutton-wrapper').length > 3) {
+        $('#field-clp-spotlight-link-teasers-add-more-wrapper .field-add-more-submit.button--small.button').css('display', 'none');
+      }
     }
   };
 
@@ -84,4 +84,23 @@
       });
     }
   };
+  Drupal.behaviors.vaGovRequiredParagraphs = {
+    attach: function () {
+      // Show the required style for paragraphs required via constraint logic.
+      $('h4.label').each(function (item) {
+        let container = $(this).closest('.field--type-entity-reference-revisions');
+        // @codingStandardsIgnoreStart
+        if (container?.attr('data-drupal-states')?.includes('"show-indicator":')) {
+          $(this).addClass('js-form-required form-required')
+        }
+        // @codingStandardsIgnoreEnd
+      })
+      // Snowflake cases for entity browsers. And classic paragraphs.
+      $('details#edit-field-clp-resources summary').addClass('js-form-required form-required');
+      $('details#edit-field-clp-events-references summary').addClass('js-form-required form-required');
+      $('details#edit-group-video .field--type-entity-reference.field--name-field-media span.fieldset-legend').addClass('js-form-required form-required');
+      $('#edit-field-clp-stories-teasers-wrapper').attr({ 'required': 'required', 'aria-required': 'true' });
+      $('#edit-field-clp-stories-teasers-wrapper strong').addClass('form-required');
+    }
+  }
 })(jQuery, window.Drupal);
