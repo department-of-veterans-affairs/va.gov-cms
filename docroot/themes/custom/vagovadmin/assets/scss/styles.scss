@@ -204,3 +204,21 @@
     }
   }
 }
+
+/* Views exposed form with inline action button */
+.exposed-filter-flex {
+  display: flex;
+
+  .form-actions {
+    align-self: flex-end;
+  }
+}
+
+#field-clp-spotlight-cta-add-more-wrapper,
+#field-clp-spotlight-cta-add-more-wrapper,
+.field--name-field-primary-call-to-action,
+.field--name-field-clp-faq-paragraphs {
+  .clearfix::after {
+    clear: none;
+  }
+}
