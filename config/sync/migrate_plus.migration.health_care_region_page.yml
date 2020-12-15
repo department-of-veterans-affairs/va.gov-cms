@@ -1,4 +1,4 @@
-uuid: 1a989b2e-0084-404c-9899-0b4e9875325b
+uuid: 8b3dd740-f7d0-4843-b07e-15b2105677ba
 langcode: en
 status: true
 dependencies: {  }
@@ -24,6 +24,10 @@ source:
   constants:
     cmsmigrator_id: 1317
     visnprefix: 'VISN '
+    introtextprefix: 'At '
+    introtextsuffix: ', our health care teams are deeply experienced and guided by the needs of Veterans, their families, and caregivers. Find a health facility near you, and manage your health online. Sign up for community events and updates.'
+    metadescprefix: 'Find a health facility near you at '
+    metadescsuffix: ', and manage your health online. Our health care teams are deeply experienced and guided by the needs of Veterans, their families, and caregivers.'
   column_names:
     -
       visn: visn
@@ -44,17 +48,19 @@ source:
     -
       field_facebook_title: 'Link text'
     -
-      field_twitter_uri: 'twitter URL'
+      field_twitter_uri: 'Twitter URL'
     -
       field_twitter_title: 'Link text'
     -
-      field_flickr_uri: 'flickr URL'
+      field_flickr_uri: 'Flickr URL'
     -
       field_flickr_title: 'Link text'
     -
-      field_instagram_uri: 'instagram URL'
+      field_instagram_uri: 'Instagram URL'
     -
       field_instagram_title: 'Link text'
+    -
+      path: 'URL alias'
 process:
   pseudo_field_parent:
     -
@@ -84,9 +90,11 @@ process:
       source: field_title
   field_intro_text:
     -
-      plugin: callback
-      callable: trim
-      source: field_intro_text
+      plugin: concat
+      source:
+        - constants/introtextprefix
+        - field_vamc_system_official_name
+        - constants/introtextsuffix
   field_meta_title:
     -
       plugin: callback
@@ -94,9 +102,11 @@ process:
       source: field_meta_title
   field_description:
     -
-      plugin: callback
-      callable: trim
-      source: field_description
+      plugin: concat
+      source:
+        - constants/metadescprefix
+        - field_vamc_system_official_name
+        - constants/metadescsuffix
   field_govdelivery_id_emerg:
     -
       plugin: callback
@@ -147,6 +157,11 @@ process:
       plugin: skip_on_empty
       method: process
       source: field_instagram_title
+  path/alias: path
+  path/pathauto:
+    -
+      plugin: default_value
+      default_value: 0
   field_administration:
     -
       plugin: callback
