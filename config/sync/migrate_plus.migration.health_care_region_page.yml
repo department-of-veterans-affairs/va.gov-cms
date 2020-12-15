@@ -22,6 +22,7 @@ source:
   keys:
     - field_vamc_system_official_name
   constants:
+    cmsmigrator_id: 1317
     visnprefix: 'VISN '
   column_names:
     -
@@ -150,13 +151,16 @@ process:
     -
       plugin: callback
       callable: trim
-      source: field_vamc_system_official_name
+      source: field_title
     -
-      plugin: entity_lookup
+      plugin: entity_generate
       entity_type: taxonomy_term
+      ignore_case: true
       value_key: name
       bundle_key: vid
       bundle: administration
+      values:
+        parent: '@pseudo_field_parent'
   changed:
     plugin: callback
     callable: time
@@ -172,15 +176,11 @@ process:
   revision_timestamp:
     plugin: callback
     callable: time
-  revision_uid:
-    plugin: default_value
-    default_value: 1317
+  revision_uid: constants/cmsmigrator_id
   langcode:
     plugin: default_value
     default_value: en
-  uid:
-    plugin: default_value
-    default_value: 1317
+  uid: constants/cmsmigrator_id
 destination:
   plugin: 'entity:node'
   default_bundle: health_care_region_page
