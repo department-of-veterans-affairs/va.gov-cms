@@ -19,6 +19,9 @@ source:
   track_changes: true
   keys:
     - field_vamc_system_official_name
+  # Define any constants that are needed to pass in as data.
+  constants:
+    visnprefix: 'VISN '
   column_names:
     -
       visn: visn
@@ -54,6 +57,22 @@ source:
     -
       field_instagram_title: 'Link text'
 process:
+  pseudo_field_parent:
+    -
+      plugin: concat
+      source:
+      - 'constants/visnprefix'
+      - visn
+    -
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: name
+      bundle_key: vid
+      bundle: administration
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Entity lookup for Parent VISN found nothing.'
   field_vamc_system_official_name:
     -
       plugin: callback
