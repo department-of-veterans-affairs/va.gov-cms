@@ -44,6 +44,14 @@ Tugboat is a pull request environment builder. It creates "Previews" which are i
 | Test out an 'init' stage change | |
 | Test out an 'update' stage change | |
 
+## Tugboat's CLI tool for software engineers
+1. Download at https://tugboat.vfs.va.gov/downloads and put in your $PATH
+1. cp .tugboat/.tugboat.yml $HOME/.tugboat.yml
+1. Generate API key at https://tugboat.vfs.va.gov/access-tokens
+1. Add token to $HOME/.tugboat.yml
+1. Start SOCKS connection
+1. Test with `tugboat help`, use `-v` for verboseness
+1. See more Tugboat CLI documentation here
 
 ## Known issues
 1. The generated URLs do change and are not constant/static, e.g. https://pr165-z82nl225gxrzbpcmfxt34th673gtwpmu.tugboat.vfs.va.gov/ will change on a new commit to e.g. https://pr165-a18cl225gxrzbpcmfxt34th673gtwpmu.tugboat.vfs.va.gov/. If this is not good please let us know, and we can come up with a solution
