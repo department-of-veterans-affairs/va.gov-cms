@@ -1,0 +1,23 @@
+uuid: 4d6d47bd-53b6-46e5-b4b9-c40b227f275c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_clp_events_panel
+    - node.type.campaign_landing_page
+id: node.campaign_landing_page.field_clp_events_panel
+field_name: field_clp_events_panel
+entity_type: node
+bundle: campaign_landing_page
+label: 'Add an Events panel'
+description: 'Add links to up to two events (these events must already be stored in the CMS).'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Events panel'
+  off_label: 'No events panel'
+field_type: boolean

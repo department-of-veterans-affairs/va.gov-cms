@@ -197,13 +197,27 @@ function _va_gov_backend_get_clp_toggles() {
   return [
     'toggle_groups' => [
       [
+        'trigger' => 'field_clp_events_panel',
+        'toggle_fields' => [
+          'field_clp_events_header' => [
+            'required' => TRUE,
+          ],
+        ],
+        'toggle_paragraphs' => [
+          'field_clp_events_references' => [
+            'required' => TRUE,
+            'show-indicator' => TRUE,
+          ],
+        ],
+      ],
+      [
         'trigger' => 'field_clp_resources_panel',
         'toggle_fields' => [
           'field_clp_resources_header' => [
-            'required' => FALSE,
+            'required' => TRUE,
           ],
           'field_clp_resources_intro_text' => [
-            'required' => FALSE,
+            'required' => TRUE,
           ],
         ],
         'toggle_paragraphs' => [
@@ -211,7 +225,8 @@ function _va_gov_backend_get_clp_toggles() {
             'required' => FALSE,
           ],
           'field_clp_resources' => [
-            'required' => FALSE,
+            'required' => TRUE,
+            'show-indicator' => TRUE,
           ],
         ],
       ],
@@ -230,7 +245,8 @@ function _va_gov_backend_get_clp_toggles() {
             'required' => FALSE,
           ],
           'field_clp_spotlight_link_teasers' => [
-            'required' => FALSE,
+            'required' => TRUE,
+            'show-indicator' => TRUE,
           ],
         ],
       ],
@@ -247,9 +263,11 @@ function _va_gov_backend_get_clp_toggles() {
         'toggle_paragraphs' => [
           'field_clp_stories_cta' => [
             'required' => TRUE,
+            'show-indicator' => TRUE,
           ],
           'field_clp_stories_teasers' => [
-            'required' => FALSE,
+            'required' => TRUE,
+            'show-indicator' => TRUE,
           ],
         ],
       ],
@@ -266,6 +284,20 @@ function _va_gov_backend_get_clp_toggles() {
           ],
           'field_media' => [
             'required' => TRUE,
+            'show-indicator' => TRUE,
+          ],
+        ],
+      ],
+      [
+        'trigger' => 'field_clp_faq_panel',
+        'toggle_fields' => [],
+        'toggle_paragraphs' => [
+          'field_clp_faq_paragraphs' => [
+            'required' => TRUE,
+            'show-indicator' => TRUE,
+          ],
+          'field_clp_faq_cta' => [
+            'required' => FALSE,
           ],
         ],
       ],
@@ -343,8 +375,12 @@ function _va_gov_toggle_field_states(array &$form, array $toggle_group) {
         'disabled' => [
          ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => FALSE]],
         ],
-
       ];
+      if (!empty($paragraph_field['show-indicator'])) {
+        $form[$paragraph_key]['#states']['show-indicator'] = [
+         ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => TRUE]],
+        ];
+      }
     }
   }
 }
@@ -360,6 +396,10 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   if ($form_id === 'node_campaign_landing_page_form' || $form_id === 'node_campaign_landing_page_edit_form') {
     $clp_toggles = _va_gov_backend_get_clp_toggles();
     _va_gov_toggle_fields_states($form, $clp_toggles);
+    // Change story link teaser with image add button on clp form.
+    if (!empty($form['field_clp_stories_teasers']['widget']['add_more']['add_more_button_link_teaser_with_image'])) {
+      $form['field_clp_stories_teasers']['widget']['add_more']['add_more_button_link_teaser_with_image']['#value'] = t('Add story');
+    }
   }
 
   // Add states + custom validation if the Standalone Page field is present.
@@ -981,6 +1021,7 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
     'field_content_block',
     'field_service_location',
     'field_situation_updates',
+    'field_clp_faq_paragraphs',
   ];
 
   if (in_array($paragraph_entity_reference_field_name, $target_paragraph_ref_fields)) {
@@ -989,6 +1030,9 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
     $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'];
     $paragraph_type = $paragraph_instance->bundle();
 
+    if ($paragraph_type === 'q_a') {
+      _va_gov_backend_restrict_qa_answer_types($element);
+    }
     if ($paragraph_type === 'situation_update') {
       _va_gov_backend_smart_date_paragraph_formatting($element);
     }
@@ -1026,6 +1070,31 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
   ];
   if (in_array($paragraph_entity_reference_field_name, $vha_paragraphs)) {
     _va_gov_backend_modify_paragraph_interactions($element, $form_state, $context, $paragraph_entity_reference_field_name);
+  }
+}
+
+/**
+ * Used in clp context.
+ *
+ * Remove all buttons to only allow for one answer instance.
+ *
+ * @param array $element
+ *   The widget.
+ */
+function _va_gov_backend_restrict_qa_answer_types(array &$element) {
+  $disallowed_types = [
+    'add_more_button_wysiwyg',
+    'add_more_button_collapsible_panel',
+    'add_more_button_process',
+    'add_more_button_number_callout',
+    'add_more_button_alert',
+    'add_more_button_react_widget',
+    'add_more_button_table',
+  ];
+  // Just allow rich_text_limited format on clp.
+  $element['subform']['field_answer']['widget'][0]['subform']['field_wysiwyg']['widget'][0]['#allowed_formats'] = ['rich_text_limited'];
+  foreach ($disallowed_types as $disallowed_type) {
+    unset($element['subform']['field_answer']['widget']['add_more'][$disallowed_type]);
   }
 }
 
@@ -1190,6 +1259,64 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
   // Add pdf file to check to external document file type.
   if ($entity_type->id() === 'media' && $bundle === 'document_external' && isset($fields['field_media_external_file'])) {
     $fields['field_media_external_file']->addConstraint('PdfCheck');
+  }
+  // Add paragraph checks on clp panels.
+  if ($entity_type->id() === 'node' && $bundle === 'campaign_landing_page') {
+    // Add range check on faq panel.
+    if (isset($fields['field_clp_faq_paragraphs'])) {
+      $fields['field_clp_faq_paragraphs']->addConstraint('RequiredParagraph', [
+        'toggle' => 'field_clp_faq_panel',
+        'readable' => 'Q&A',
+        'min' => 3,
+        'max' => 10,
+      ]);
+    }
+    // Add range check on stories panel.
+    if (isset($fields['field_clp_stories_teasers'])) {
+      $fields['field_clp_stories_teasers']->addConstraint('RequiredParagraph', [
+        'toggle' => 'field_clp_stories_panel',
+        'readable' => 'Stories',
+        'min' => 1,
+        'max' => 2,
+      ]);
+    }
+    // Add range check on spotlight panel.
+    if (isset($fields['field_clp_spotlight_link_teasers'])) {
+      $fields['field_clp_spotlight_link_teasers']->addConstraint('RequiredParagraph', [
+        'toggle' => 'field_clp_spotlight_panel',
+        'readable' => 'Links with summaries',
+        'min' => 1,
+        'max' => 1,
+      ]);
+    }
+    // Add range check on resources panel.
+    if (isset($fields['field_clp_resources'])) {
+      $fields['field_clp_resources']->addConstraint('RequiredParagraph', [
+        'toggle' => 'field_clp_resources_panel',
+        'readable' => 'Media resources',
+        'min' => 1,
+        'max' => 3,
+      ]);
+    }
+    // Add range check on events panel.
+    if (isset($fields['field_clp_events_references'])) {
+      $fields['field_clp_events_references']->addConstraint('RequiredParagraph', [
+        'toggle' => 'field_clp_events_panel',
+        'readable' => 'Events',
+        'min' => 1,
+        'max' => 2,
+      ]);
+    }
+    // Add range check on video panel.
+    if (isset($fields['field_media'])) {
+      $fields['field_media']->addConstraint('RequiredParagraph', [
+        'toggle' => 'field_clp_video_panel',
+        'readable' => 'Video',
+        'min' => 1,
+        'max' => 1,
+      ]);
+    }
+
   }
 }
 

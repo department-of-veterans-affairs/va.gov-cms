@@ -1,19 +1,19 @@
-uuid: 4d793828-6c33-4307-bd6b-421caa72d314
+uuid: 1c417e15-1c09-411b-8a69-dffbae71f9a7
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_clp_spotlight_link_teasers
+    - field.storage.node.field_clp_faq_cta
     - node.type.campaign_landing_page
-    - paragraphs.paragraphs_type.link_teaser
+    - paragraphs.paragraphs_type.button
   module:
     - entity_reference_revisions
-id: node.campaign_landing_page.field_clp_spotlight_link_teasers
-field_name: field_clp_spotlight_link_teasers
+id: node.campaign_landing_page.field_clp_faq_cta
+field_name: field_clp_faq_cta
 entity_type: node
 bundle: campaign_landing_page
-label: 'Links with summaries'
-description: 'Add between one and three links, with teasers.'
+label: 'Add a link to more FAQs'
+description: ''
 required: false
 translatable: false
 default_value: {  }
@@ -23,53 +23,53 @@ settings:
   handler_settings:
     negate: 0
     target_bundles:
-      link_teaser: link_teaser
+      button: button
     target_bundles_drag_drop:
       address:
-        weight: 41
-        enabled: false
-      alert:
         weight: 42
         enabled: false
-      alert_single:
+      alert:
         weight: 43
         enabled: false
-      audience_topics:
+      alert_single:
         weight: 44
         enabled: false
-      button:
+      audience_topics:
         weight: 45
         enabled: false
-      checklist:
+      button:
+        enabled: true
         weight: 46
-        enabled: false
-      checklist_item:
+      checklist:
         weight: 47
         enabled: false
-      collapsible_panel:
+      checklist_item:
         weight: 48
         enabled: false
-      collapsible_panel_item:
+      collapsible_panel:
         weight: 49
         enabled: false
-      contact_information:
+      collapsible_panel_item:
         weight: 50
         enabled: false
-      downloadable_file:
+      contact_information:
         weight: 51
         enabled: false
-      email_contact:
+      downloadable_file:
         weight: 52
         enabled: false
-      expandable_text:
+      email_contact:
         weight: 53
         enabled: false
-      health_care_local_facility_servi:
+      expandable_text:
         weight: 54
         enabled: false
-      link_teaser:
-        enabled: true
+      health_care_local_facility_servi:
         weight: 55
+        enabled: false
+      link_teaser:
+        weight: 56
+        enabled: false
       link_teaser_with_image:
         weight: 57
         enabled: false
@@ -77,75 +77,75 @@ settings:
         weight: 58
         enabled: false
       list_of_links:
-        weight: 57
-        enabled: false
-      lists_of_links:
-        weight: 56
-        enabled: false
-      media:
         weight: 59
         enabled: false
-      media_list_images:
+      lists_of_links:
         weight: 60
         enabled: false
-      media_list_videos:
+      media:
         weight: 61
         enabled: false
-      non_reusable_alert:
+      media_list_images:
         weight: 62
         enabled: false
-      number_callout:
+      media_list_videos:
         weight: 63
         enabled: false
-      phone_number:
+      non_reusable_alert:
         weight: 64
         enabled: false
-      process:
+      number_callout:
         weight: 65
         enabled: false
-      q_a:
+      phone_number:
         weight: 66
         enabled: false
-      q_a_group:
+      process:
         weight: 67
         enabled: false
-      q_a_section:
+      q_a:
         weight: 68
         enabled: false
-      react_widget:
+      q_a_group:
         weight: 69
         enabled: false
-      rich_text_char_limit_1000:
+      q_a_section:
         weight: 70
         enabled: false
-      service_location:
+      react_widget:
         weight: 71
         enabled: false
-      service_location_address:
+      rich_text_char_limit_1000:
         weight: 72
         enabled: false
-      situation_update:
+      service_location:
         weight: 73
         enabled: false
-      spanish_translation_summary:
+      service_location_address:
         weight: 74
         enabled: false
-      staff_profile:
+      situation_update:
         weight: 75
         enabled: false
-      starred_horizontal_rule:
+      spanish_translation_summary:
         weight: 76
         enabled: false
-      step:
+      staff_profile:
         weight: 77
         enabled: false
-      step_by_step:
+      starred_horizontal_rule:
         weight: 78
         enabled: false
-      table:
+      step:
         weight: 79
         enabled: false
-      wysiwyg:
+      step_by_step:
         weight: 80
+        enabled: false
+      table:
+        weight: 81
+        enabled: false
+      wysiwyg:
+        weight: 82
         enabled: false
 field_type: entity_reference_revisions
