@@ -5,7 +5,32 @@
  * Contains va_gov_help_center.module.
  */
 
+use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_toolbar().
+ */
+function va_gov_help_center_toolbar() {
+  $items = [];
+
+  // Adds a link to CMS help center to the top level of admin toolbar.
+  $items['help-center'] = [
+    '#type' => 'toolbar_item',
+    '#weight' => 1,
+    'tab' => [
+      '#type' => 'link',
+      '#url' => Url::fromRoute('entity.node.canonical', ['node' => 6454]),
+      '#title' => t('Help'),
+      '#attributes' => [
+        'class' => ['toolbar-icon', 'toolbar-icon-help'],
+        'target' => '_blank',
+      ],
+    ],
+  ];
+
+  return $items;
+}
 
 /**
  * Implements hook_page_attachments().
