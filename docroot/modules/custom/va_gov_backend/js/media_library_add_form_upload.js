@@ -5,14 +5,14 @@
 * @preserve
 **/
 
-(($, Drupal) => {
+(function ($, Drupal) {
   Drupal.behaviors.vaGovMediaLibraryReusableSaveAndSelect = {
-    attach: () => {
-      $(document).ajaxComplete(() => {
-        $("input.field_media_in_library[type=checkbox]:not(:checked)").each(() => {
+    attach: function attach() {
+      $(document).ajaxComplete(function () {
+        $("input.field_media_in_library[type=checkbox]:not(:checked)").each(function () {
           $(".ui-dialog-buttonpane button").first().hide();
         });
-        $("input.field_media_in_library").once().change(object => {
+        $("input.field_media_in_library").once().change(function (object) {
           if (object.checked) {
             $(".ui-dialog-buttonpane button").first().show();
           } else {

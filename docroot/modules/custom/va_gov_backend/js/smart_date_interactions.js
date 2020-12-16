@@ -4,16 +4,17 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-(Drupal => {
+(function (Drupal) {
   Drupal.behaviors.smartDateInteractions = {
-    attach() {
-      const timeEnd = document.querySelector(".time-end");
+    attach: function attach() {
+      var timeEnd = document.querySelector(".time-end");
 
-      if (timeEnd !== null && typeof timeEnd === "object") {
-        const alldayLabels = document.querySelectorAll(".allday-label");
+      if (timeEnd !== null && (typeof timeEnd === "undefined" ? "undefined" : _typeof(timeEnd)) === "object") {
+        var alldayLabels = document.querySelectorAll(".allday-label");
 
-        alldayLabels.forEach(label => {
+        alldayLabels.forEach(function (label) {
           label.style.display = "none";
           label.classList.add("hidden");
         });

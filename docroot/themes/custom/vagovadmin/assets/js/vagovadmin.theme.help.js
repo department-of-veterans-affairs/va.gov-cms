@@ -5,7 +5,7 @@
 * @preserve
 **/
 
-(($, Drupal) => {
+(function ($, Drupal) {
   Drupal.vagovadminTheme = Drupal.vagovadminTheme || {};
   Drupal.vagovadminTheme.elementHelpIcon = Drupal.vagovadminTheme.elementHelpIcon || {};
   Drupal.vagovadminTheme.elementHelpIcon.options = Drupal.vagovadminTheme.elementHelpIcon.options || {
@@ -19,16 +19,16 @@
   };
 
   Drupal.behaviors.vagovadminThemeElementHelpIcon = {
-    attach(context) {
-      $(context).find(".proofing-element-help").once("proofing-element-help").each((idx, proofingElement) => {
-        const options = $.extend({
+    attach: function attach(context) {
+      $(context).find(".proofing-element-help").once("proofing-element-help").each(function (idx, proofingElement) {
+        var options = $.extend({
           content: $(proofingElement).attr("data-proofing-help"),
           items: "[data-proofing-help]",
           title: $(proofingElement).attr("data-proofing-help-title"),
           html: true
         }, Drupal.vagovadminTheme.elementHelpIcon.options);
 
-        $(proofingElement).tooltip(options).on("click", event => {
+        $(proofingElement).tooltip(options).on("click", function (event) {
           event.preventDefault();
         });
       });

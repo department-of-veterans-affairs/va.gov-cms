@@ -5,23 +5,23 @@
 * @preserve
 **/
 
-(($, Drupal) => {
-  Drupal.getAdminToolbarHeight = () => {
-    const toolbarHeight = $("#toolbar-bar").height() || 0;
-    const tooltrayHeight = $("#toolbar-item-administration-tray.toolbar-tray-horizontal").height() || 0;
+(function ($, Drupal) {
+  Drupal.getAdminToolbarHeight = function () {
+    var toolbarHeight = $("#toolbar-bar").height() || 0;
+    var tooltrayHeight = $("#toolbar-item-administration-tray.toolbar-tray-horizontal").height() || 0;
     return toolbarHeight + tooltrayHeight;
   };
 
   Drupal.behaviors.vagovadminAnchorLinks = {
-    attach() {
-      $('a[href^="#"]').click(event => {
+    attach: function attach() {
+      $('a[href^="#"]').click(function (event) {
         event.preventDefault();
 
-        const target = $(event.target).attr("href");
-        const scrollToPosition = $(target).offset().top - (Drupal.getAdminToolbarHeight() + 10);
+        var target = $(event.target).attr("href");
+        var scrollToPosition = $(target).offset().top - (Drupal.getAdminToolbarHeight() + 10);
 
-        $("html").animate({ scrollTop: scrollToPosition }, 500, () => {
-          window.location.hash = `${target}`;
+        $("html").animate({ scrollTop: scrollToPosition }, 500, function () {
+          window.location.hash = "" + target;
           $("html").animate({ scrollTop: scrollToPosition }, 0);
         });
       });

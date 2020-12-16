@@ -5,13 +5,13 @@
 * @preserve
 **/
 
-(Drupal => {
+(function (Drupal) {
   Drupal.behaviors.vaGovServiceLocationAddress = {
-    attach() {
-      const checkboxes = document.querySelectorAll(".paragraph-type--service-location-address .form-checkbox");
-      checkboxes.forEach(check => {
-        const address = check.parentElement.parentElement.nextElementSibling;
-        check.addEventListener("click", () => {
+    attach: function attach() {
+      var checkboxes = document.querySelectorAll(".paragraph-type--service-location-address .form-checkbox");
+      checkboxes.forEach(function (check) {
+        var address = check.parentElement.parentElement.nextElementSibling;
+        check.addEventListener("click", function () {
           if (check.checked) {
             address.style.display = "none";
           } else {

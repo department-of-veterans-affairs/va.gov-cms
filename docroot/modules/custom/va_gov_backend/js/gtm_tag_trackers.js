@@ -5,11 +5,11 @@
 * @preserve
 **/
 
-(($, Drupal) => {
+(function ($, Drupal) {
   Drupal.behaviors.vaGovTagTracker = {
-    attach(context, settings) {
+    attach: function attach(context, settings) {
       function titleResolver(data) {
-        let title = null;
+        var title = null;
         if (data) {
           title = data;
           if (data["#markup"]) {
@@ -19,7 +19,7 @@
         return title;
       }
 
-      const dataCollection = {
+      var dataCollection = {
         pagePath: settings.gtm_data.pagePath ? settings.gtm_data.pagePath : null,
         pageTitle: titleResolver(settings.gtm_data.pageTitle),
         nodeID: settings.gtm_data.nodeID ? settings.gtm_data.nodeID : null,
@@ -31,11 +31,11 @@
       };
 
       function menuTraverser(item) {
-        const parentClasses = item.parentNode.className;
-        let level4 = null;
-        let level3 = null;
-        let level2 = null;
-        let level1 = null;
+        var parentClasses = item.parentNode.className;
+        var level4 = null;
+        var level3 = null;
+        var level2 = null;
+        var level1 = null;
 
         if (parentClasses.includes("menu-level-3")) {
           level4 = item;
@@ -62,10 +62,10 @@
       }
 
       function pushGTM(selector, event, subtype) {
-        const editPageTypes = ["content-page", "bulk-content-page"];
+        var editPageTypes = ["content-page", "bulk-content-page"];
 
-        selector.forEach(el => {
-          $(el, context).once().click(() => {
+        selector.forEach(function (el) {
+          $(el, context).once().click(function () {
             dataCollection.event = event;
 
             if (editPageTypes.includes(subtype)) {
@@ -83,7 +83,7 @@
         });
       }
 
-      const targets = [{
+      var targets = [{
         selector: document.querySelectorAll("ul.toolbar-menu.top-level-nav > li > a"),
         event: "top-level-nav",
         subtype: false
@@ -121,7 +121,7 @@
         subtype: false
       }];
 
-      targets.forEach(e => {
+      targets.forEach(function (e) {
         pushGTM(e.selector, e.event, e.subtype);
       });
 
@@ -130,7 +130,7 @@
         window.dataLayer.push(dataCollection);
       }
 
-      $(window, context).once("vaGovTagTracker").on("load", () => {
+      $(window, context).once("vaGovTagTracker").on("load", function () {
         gtmPageLoadPush();
       });
     }

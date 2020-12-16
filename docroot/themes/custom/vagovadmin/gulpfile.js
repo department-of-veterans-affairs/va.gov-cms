@@ -5,20 +5,21 @@
 * @preserve
 **/
 
-const gulp = require("gulp");
-const sass = require("gulp-sass");
-const autoprefixer = require("gulp-autoprefixer");
-const sourcemaps = require("gulp-sourcemaps");
+var gulp = require("gulp");
+var sass = require("gulp-sass");
+var autoprefixer = require("gulp-autoprefixer");
+var sourcemaps = require("gulp-sourcemaps");
 
-const { spawn } = require("child_process");
+var _require = require("child_process"),
+    spawn = _require.spawn;
 
-gulp.task("sass", () => {
+gulp.task("sass", function () {
   return gulp.src(["assets/scss/**/*.scss"]).pipe(sourcemaps.init()).pipe(sass({ outputStyle: "compressed" }).on("error", sass.logError)).pipe(autoprefixer("last 2 version")).pipe(sourcemaps.write("./")).pipe(gulp.dest("assets/css/"));
 });
 gulp.task("sass").description = "process SCSS files: compile to compressed css, add browser prefixes, create a source map, and save in assets folder";
 
-gulp.task("clearcache", done => {
-  const child = spawn("lando drush cache-rebuild", {
+gulp.task("clearcache", function (done) {
+  var child = spawn("lando drush cache-rebuild", {
     stdio: "inherit",
     shell: "true"
   });
@@ -26,7 +27,7 @@ gulp.task("clearcache", done => {
 });
 gulp.task("clearcache").description = "clear all Drupal caches";
 
-gulp.task("watch", () => {
+gulp.task("watch", function () {
   gulp.watch(["scss/**/*.scss"], gulp.series("sass"));
 });
 gulp.task("watch").description = "watch SCSS";

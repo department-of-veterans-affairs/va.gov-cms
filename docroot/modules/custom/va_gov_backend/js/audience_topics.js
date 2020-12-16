@@ -5,9 +5,9 @@
 * @preserve
 **/
 
-(($, Drupal) => {
+(function ($, Drupal) {
   function enforceMaximumNumberOfTags() {
-    let total = $('div[id^="edit-field-tags-0-subform-field-topics"]').find("input:checked").length;
+    var total = $('div[id^="edit-field-tags-0-subform-field-topics"]').find("input:checked").length;
 
     if (total >= 4) {
       $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').attr("disabled", true);
@@ -17,7 +17,7 @@
       $("div.form-item-field-tags-0-subform-field-audience-selection").removeClass("form-disabled");
     }
 
-    const audienceSelected = $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').find('input:not([id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]):checked').length;
+    var audienceSelected = $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').find('input:not([id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]):checked').length;
     total += audienceSelected;
 
     if (total >= 4) {
@@ -28,7 +28,7 @@
   }
 
   Drupal.behaviors.vaGovAudienceTopics = {
-    attach() {
+    attach: function attach() {
       $("#edit-group-tags > legend").addClass("form-required");
 
       if ($('select[id^="edit-field-tags-0-subform-field-audience-selection"]').val() !== "beneficiaries") {
@@ -41,8 +41,8 @@
 
       enforceMaximumNumberOfTags();
 
-      $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').change(event => {
-        const selection = $(event.currentTarget).val();
+      $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').change(function (event) {
+        var selection = $(event.currentTarget).val();
 
         if (selection === "beneficiaries") {
           $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').show();
@@ -54,7 +54,7 @@
         enforceMaximumNumberOfTags();
       });
 
-      $('div[id^="edit-field-tags-0-subform-field-topics"], div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').find("input").change(() => {
+      $('div[id^="edit-field-tags-0-subform-field-topics"], div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').find("input").change(function () {
         enforceMaximumNumberOfTags();
       });
     }
