@@ -7,9 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: stylelint
-
-        # TODO: update to use reviewdog/action-stylelint@v1 when possible.
-        uses: acrollet/action-stylelint@master
+        uses: reviewdog/action-stylelint@v1
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}
