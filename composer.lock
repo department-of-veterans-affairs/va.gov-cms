@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dee2c348556b7f0c4eb6b22cc7b880b2",
+    "content-hash": "ab56e4c1fc077fc4e77471f127f1eb66",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -4524,7 +4524,8 @@
                     }
                 },
                 "patches_applied": {
-                    "Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch"
+                    "Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch",
+                    "Improvements to Buttons on Confirmation Form": "https://www.drupal.org/files/issues/2019-07-18/entity-clone-form-button-style-changes-3068549-3.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -18457,16 +18458,16 @@
         },
         {
             "name": "va-gov/web",
-            "version": "dev-master",
+            "version": "v0.1.1191",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
-                "reference": "7b4c87257cfc9b5e684c4ba7ddca283efbc4329d"
+                "reference": "e06e81ebc6084117697abb3e0f698711bbb0e8b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/7b4c87257cfc9b5e684c4ba7ddca283efbc4329d",
-                "reference": "7b4c87257cfc9b5e684c4ba7ddca283efbc4329d",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/e06e81ebc6084117697abb3e0f698711bbb0e8b5",
+                "reference": "e06e81ebc6084117697abb3e0f698711bbb0e8b5",
                 "shasum": ""
             },
             "type": "node-project",
@@ -18491,7 +18492,7 @@
                 }
             ],
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
-            "time": "2020-12-12T00:50:19+00:00"
+            "time": "2020-12-15T18:35:36+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -21162,7 +21163,6 @@
         "drupal/views_tree": 15,
         "drupal/workbench_access": 10,
         "drupal/workflow_assignments": 20,
-        "va-gov/web": 20,
         "weitzman/drupal-test-traits": 20
     },
     "prefer-stable": true,
