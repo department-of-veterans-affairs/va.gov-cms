@@ -21,7 +21,7 @@ class Tugboat extends EnvironmentPluginBase {
    */
   public function triggerFrontendBuild(): void {
     $commands = [
-      'composer va:web:build',
+      'cd /var/lib/tugboat && COMPOSER_HOME=/root/.composer /usr/local/bin/composer va:web:build',
     ];
 
     $messages = $this->runCommands($commands);
