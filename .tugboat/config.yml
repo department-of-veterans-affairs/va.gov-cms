@@ -114,8 +114,8 @@ services:
 
         # Set file permissions so web based build calls work.  This must run after all web builds are done in tests.
         - chgrp -R www-data "${DOCROOT}/vendor/va-gov/web/build"
-        - find "${DOCROOT}/vendor/va-gov/web/build" -type d -exec chmod 2775 {} \;
-        - find "${DOCROOT}/vendor/va-gov/web/build" -type f -exec chmod 0664 {} \;
+        - find "${DOCROOT}/vendor/va-gov/web" -type d -exec chmod 2775 {} \;
+        - find "${DOCROOT}/vendor/va-gov/web" -type f -exec chmod 0664 {} \;
 
 
   # What to call the service hosting MySQL. This name also acts as the
