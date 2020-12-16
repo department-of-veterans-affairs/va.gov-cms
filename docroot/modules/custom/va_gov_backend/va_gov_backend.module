@@ -19,7 +19,6 @@ use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\node\NodeInterface;
-use Drupal\taxonomy\Entity\Term;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 use Drupal\va_gov_build_trigger\Form\PreviewForm;
@@ -1380,11 +1379,11 @@ function _va_gov_backend_gtm_settings() {
     $sections['contentTitle'] = $node->getTitle();
     $sections['contentType'] = $node->bundle();
 
-    if (property_exists($node, 'field_administration')) {
-      $section_entity_id = $node->field_administration->getString();
-      // Load up our section name.
-      $section_entity_load = !empty($section_entity_load) ? Term::load($section_entity_id) : '';
-      $sections['contentOwner'] = !empty($section_entity_load) ? $section_entity_load->getName() : '';
+    if ($node->hasField('field_administration')) {
+      $sections = $node->get('field_administration')->referencedEntities();
+      if (count($sections)) {
+        $sections['contentOwner'] = $sections[0]->getName();
+      }
     }
 
   }

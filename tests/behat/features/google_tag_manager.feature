@@ -34,3 +34,19 @@ Feature: Google Tag Manager dataLayer values are correct
     And I am on "/node/2"
     Then the GTM data layer value for "userRoles" should be set to '["anonymous"]'
     And the GTM data layer value for "userId" should be unset
+
+  Scenario: Google Tag Manager should be provided with an appropriate content owner for a given node.
+    Given I am logged in as a user with the "content_admin" role
+    And I am at "node/add/office"
+    Then I should see "Create Office"
+
+    # Create an office node with a menu link.
+    And I fill in "Name" with "Test Office - BeHaT"
+    And I fill in "Meta title tag" with "Test Office - BeHaT | Veterans Affairs"
+    And I fill in "Owner" with "7"
+    And I check "Provide a menu link"
+    And I fill in "Menu link title" with "Test Office - BeHat"
+    And I uncheck "Enable in menu"
+    And I press "Save"
+    Then I should see "Test Office - BeHaT"
+    And the GTM data layer value for "contentOwner" should be set to "Outreach Hub"

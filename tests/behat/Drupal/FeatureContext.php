@@ -475,7 +475,7 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   public function googleTagManagerValueShouldBeSetTo($key, $value) {
     $property_value = $this->getGoogleTagManagerValue($key);
     if ($value != $property_value) {
-      throw new \Exception($value . ' is not the same as ' . $property_value);
+      throw new \Exception("The data layer value for \"{$key}\" should be {$value}, but it is actually {$property_value}.");
     }
   }
 
