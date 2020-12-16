@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.health_care_region_page.field_clinical_health_services
     - field.field.node.health_care_region_page.field_description
     - field.field.node.health_care_region_page.field_facebook
-    - field.field.node.health_care_region_page.field_featured_content_healthser
     - field.field.node.health_care_region_page.field_flickr
     - field.field.node.health_care_region_page.field_govdelivery_id_emerg
     - field.field.node.health_care_region_page.field_govdelivery_id_news
@@ -20,7 +19,6 @@ dependencies:
     - field.field.node.health_care_region_page.field_nickname_for_this_facility
     - field.field.node.health_care_region_page.field_operating_status
     - field.field.node.health_care_region_page.field_other_va_locations
-    - field.field.node.health_care_region_page.field_press_release_blurb
     - field.field.node.health_care_region_page.field_related_links
     - field.field.node.health_care_region_page.field_twitter
     - field.field.node.health_care_region_page.field_vamc_system_official_name
@@ -29,7 +27,6 @@ dependencies:
     - entity_reference_revisions
     - field_group
     - link
-    - text
     - user
 third_party_settings:
   field_group:
@@ -144,15 +141,6 @@ content:
     third_party_settings: {  }
     type: link
     region: content
-  field_featured_content_healthser:
-    type: entity_reference_revisions_entity_view
-    weight: 4
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    region: content
   field_flickr:
     weight: 13
     label: above
@@ -235,13 +223,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-    region: content
-  field_press_release_blurb:
-    weight: 8
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
     region: content
   field_related_links:
     weight: 16
