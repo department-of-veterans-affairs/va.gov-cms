@@ -1560,7 +1560,9 @@ function va_gov_backend_toolbar_alter(&$items) {
   // array element in order to prevent outputting empty links which cause the
   // accessibility tests to fail.
   if (!empty($items['environment_indicator']['tab'])) {
-    $items['environment_indicator']['tab']['#attributes']['class'][] = 'visually-hidden';
+    // FIXME: next line is for testing, remove.
+    unset($items['environment_indicator']['tab']);
+    // $items['environment_indicator']['tab']['#attributes']['class'][] = 'visually-hidden';
   }
 }
 
