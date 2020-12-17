@@ -21,7 +21,7 @@ then
   npm install
 fi
 
-JS_FILES=$( echo "${CHANGES}" | grep -E '\.js$' )
+JS_FILES=$( echo "${CHANGES}" | grep -E '\.es6.js$' )
 if [ ${#JS_FILES} -gt 0 ]; then
   npm run eslint ${JS_FILES[*]}
   bail_if_test_failed 
