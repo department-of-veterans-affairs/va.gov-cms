@@ -694,6 +694,11 @@ function _va_gov_backend_audience_topics_validation(array $form, FormStateInterf
       if (!empty($tags_paragraph_values['subform']['field_audience_beneficiares'][0]['target_id'])) {
         $tag_count += 1;
       }
+      // Account for the fact that it's possible to select 'N/A'
+      // for the non-beneficiary value.
+      if (!empty($tags_paragraph_values['subform']['field_non_beneficiares'][0]['target_id'])) {
+        $tag_count += 1;
+      }
       if (!empty($tags_paragraph_values['subform']['field_topics'])) {
         $tag_count += count($tags_paragraph_values['subform']['field_topics']);
       }
