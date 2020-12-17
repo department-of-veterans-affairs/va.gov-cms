@@ -1385,9 +1385,9 @@ function _va_gov_backend_gtm_settings() {
     $sections['contentType'] = $node->bundle();
 
     if ($node->hasField('field_administration')) {
-      $sections = $node->get('field_administration')->referencedEntities();
-      if (count($sections)) {
-        $sections['contentOwner'] = $sections[0]->getName();
+      $owners = $node->get('field_administration')->referencedEntities();
+      if (count($owners)) {
+        $sections['contentOwner'] = $owners[0]->getName();
       }
     }
 
