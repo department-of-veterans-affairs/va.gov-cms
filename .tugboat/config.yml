@@ -112,6 +112,11 @@ services:
         # Do run the WEB build if on a branch, tag or commit so the `web-*` prefix works.
         - if [ "$TUGBOAT_PREVIEW_TYPE" != "pullrequest" ]; then composer yaml-test va/web/build --dry-run; fi
 
+        # Set file permissions so web based build calls work.  This must run after all web builds are done in tests.
+        - chown -R www-data:www-data "${DOCROOT}/vendor/va-gov/web"
+        - find "${DOCROOT}/vendor/va-gov/web" -type d -exec chmod 2775 {} \;
+        - find "${DOCROOT}/vendor/va-gov/web" -type f -exec chmod 0664 {} \;
+
 
   # What to call the service hosting MySQL. This name also acts as the
   # hostname to access the service by from the php service.
