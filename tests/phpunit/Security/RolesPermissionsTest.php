@@ -493,7 +493,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'view vamc_operating_status_and_alerts revisions',
           'view vba_facility revisions',
           'view vet_center revisions',
-          'view workbench access information'
+          'view workbench access information',
         ],
       ],
       [
