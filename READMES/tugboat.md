@@ -51,7 +51,7 @@ Tugboat is a fast, modern Preview environment creation tool based on containers 
 
 ## Tugboat's CLI tool for software engineers
 1. Download at https://tugboat.vfs.va.gov/downloads and put in your $PATH
-1. cp .tugboat/.tugboat.yml $HOME/.tugboat.yml
+1. Copy the file from this repo to your home directory `cp .tugboat/.tugboat.yml $HOME/.tugboat.yml`
 1. Generate API key at https://tugboat.vfs.va.gov/access-tokens
 1. Add token to $HOME/.tugboat.yml
 1. Start SOCKS connection

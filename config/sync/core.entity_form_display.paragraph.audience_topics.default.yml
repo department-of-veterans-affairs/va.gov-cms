@@ -6,6 +6,7 @@ dependencies:
     - field.field.paragraph.audience_topics.field_audience_beneficiares
     - field.field.paragraph.audience_topics.field_audience_selection
     - field.field.paragraph.audience_topics.field_markup
+    - field.field.paragraph.audience_topics.field_non_beneficiares
     - field.field.paragraph.audience_topics.field_topics
     - paragraphs.paragraphs_type.audience_topics
   module:
@@ -32,6 +33,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: markup
+    region: content
+  field_non_beneficiares:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
     region: content
   field_topics:
     weight: 1

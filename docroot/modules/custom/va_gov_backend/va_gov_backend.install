@@ -373,3 +373,22 @@ function va_gov_backend_update_8008() {
     }
   }
 }
+
+/**
+ * Remove fields from VAMC system.
+ */
+function va_gov_backend_update_8009() {
+  $vamc_system_fields = [
+    'field_featured_content_healthser',
+    'field_press_release_blurb',
+  ];
+
+  foreach ($vamc_system_fields as $system_field) {
+    if ($field = FieldConfig::loadByName('node', 'health_care_region_page', $system_field)) {
+      $field->delete();
+      Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'Deleted "%system_field" from health_care_region_page.', [
+        '%system_field' => $system_field,
+      ]);
+    }
+  }
+}
