@@ -4,6 +4,14 @@ describe('Component accessibility test', () => {
     cy.visit('/');
     cy.injectAxe();
 
+    const axeRuntimeOptions = {
+      includedImpacts: ['minor'],
+      runOnly: {
+        type: 'tag',
+        values: ['wcag2a', 'wcag2aa']
+      }
+    };
+
     cy.get('body').each((element, index) => {
       cy.checkA11y(null, null, cy.terminalLog);
     });

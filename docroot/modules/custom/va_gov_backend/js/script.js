@@ -89,7 +89,7 @@
       // Show the required style for paragraphs required via constraint logic.
       $('h4.label').each(function (item) {
         let container = $(this).closest('.field--type-entity-reference-revisions');
-        if (container && container.attr('data-drupal-states').includes('"show-indicator":')) {
+        if (container && container.attr('data-drupal-states') && container.attr('data-drupal-states').includes('"show-indicator":')) {
           $(this).addClass('js-form-required form-required')
         }
       })

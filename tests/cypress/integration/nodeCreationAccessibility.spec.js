@@ -44,6 +44,7 @@ describe('Component accessibility test', () => {
       cy.injectAxe();
 
       const axeRuntimeOptions = {
+        includedImpacts: ['minor'],
         runOnly: {
           type: 'tag',
           values: ['wcag2a', 'wcag2aa']
