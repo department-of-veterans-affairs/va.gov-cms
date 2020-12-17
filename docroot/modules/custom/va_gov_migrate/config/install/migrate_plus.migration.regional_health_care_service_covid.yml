@@ -15,6 +15,7 @@ source:
   delimiter: ;
   enclosure: ''''
   header_row_count: 1
+  track_changes: true
   keys:
     - field_health_care_system_name
   # Define any constants that are needed to pass in as data.
@@ -47,10 +48,10 @@ process:
   field_region_page:
     -
       plugin: entity_lookup
-      entity_type: taxonomy_term
-      value_key: name
-      bundle_key: vid
-      bundle: administration
+      entity_type: node
+      value_key: title
+      bundle_key: type
+      bundle: health_care_region_page
       source: field_health_care_system_name
     -
       plugin: skip_on_empty
@@ -93,6 +94,15 @@ process:
 destination:
   plugin: 'entity:node'
   default_bundle: regional_health_care_service_des
+  overwrite_properties:
+    - changed
+    - field_administration
+    - field_system_service_description
+    - new_revision
+    - revision_default
+    - revision_log
+    - revision_timestamp
+    - uid
 migration_dependencies:
   required:
     - health_care_region_page
