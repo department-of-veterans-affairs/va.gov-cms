@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.health_care_region_page.field_clinical_health_services
     - field.field.node.health_care_region_page.field_description
     - field.field.node.health_care_region_page.field_facebook
-    - field.field.node.health_care_region_page.field_featured_content_healthser
     - field.field.node.health_care_region_page.field_flickr
     - field.field.node.health_care_region_page.field_govdelivery_id_emerg
     - field.field.node.health_care_region_page.field_govdelivery_id_news
@@ -20,7 +19,6 @@ dependencies:
     - field.field.node.health_care_region_page.field_nickname_for_this_facility
     - field.field.node.health_care_region_page.field_operating_status
     - field.field.node.health_care_region_page.field_other_va_locations
-    - field.field.node.health_care_region_page.field_press_release_blurb
     - field.field.node.health_care_region_page.field_related_links
     - field.field.node.health_care_region_page.field_twitter
     - field.field.node.health_care_region_page.field_vamc_system_official_name
@@ -67,7 +65,6 @@ third_party_settings:
       region: content
     group_intro_text_for_secondary_p:
       children:
-        - field_locations_intro_blurb
         - field_other_va_locations
       parent_name: ''
       weight: 6
@@ -79,22 +76,6 @@ third_party_settings:
         classes: ''
         open: false
       label: 'Our Locations'
-      region: content
-    group_clinical_health_services:
-      children:
-        - group_featured_content
-        - field_clinical_health_care_servi
-        - field_clinical_health_services
-      parent_name: ''
-      weight: 8
-      format_type: details
-      format_settings:
-        description: 'This content will appear on the Health Services page, (eg va.gov/pittsburgh-health-care/health-services). '
-        required_fields: true
-        id: ''
-        classes: ''
-        open: false
-      label: 'Health services page'
       region: content
     group_additional_details_about_t:
       children:
@@ -122,22 +103,6 @@ third_party_settings:
         description: ''
         required_fields: false
       label: 'Online appointments'
-      region: content
-    group_intro_blurbs_for_subpages:
-      children:
-        - field_intro_text_news_stories
-        - field_intro_text_events_page
-        - field_intro_text_press_releases
-        - field_press_release_blurb
-      parent_name: ''
-      weight: 10
-      format_type: details
-      format_settings:
-        required_fields: true
-        id: ''
-        classes: ''
-        open: false
-      label: 'Stories, events, and press release blurbs'
       region: content
     group_get_updates_from_us:
       children:
@@ -187,34 +152,6 @@ third_party_settings:
         required_fields: false
       label: 'Title and summary'
       region: content
-    group_leadership:
-      children:
-        - field_intro_text_leadership
-        - field_leadership
-      parent_name: ''
-      weight: 9
-      format_type: details
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        required_fields: true
-        open: false
-      label: Leadership
-      region: content
-    group_featured_content:
-      children:
-        - field_featured_content_healthser
-      parent_name: group_clinical_health_services
-      weight: 29
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        required_fields: true
-      label: 'Featured content'
-      region: content
     group_govdelivery_email_lists:
       children:
         - field_govdelivery_id_emerg
@@ -261,12 +198,6 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
-  field_clinical_health_services:
-    weight: 32
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: content
   field_description:
     weight: 5
     settings:
@@ -288,18 +219,6 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
-    region: content
-  field_featured_content_healthser:
-    type: entity_reference_paragraphs
-    weight: 15
-    settings:
-      title: 'Featured content'
-      title_plural: 'Featured content'
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: link_teaser
-    third_party_settings: {  }
     region: content
   field_flickr:
     weight: 18
@@ -384,19 +303,6 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_press_release_blurb:
-    weight: 18
-    settings:
-      rows: 5
-      placeholder: ''
-      maxlength: 500
-      counter_position: after
-      js_prevent_submit: true
-      count_html_characters: true
-      textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
-    third_party_settings: {  }
-    type: text_textarea_with_counter
-    region: content
   field_related_links:
     weight: 22
     settings:
@@ -466,6 +372,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_clinical_health_services: true
   field_email_subscription: true
   field_email_subscription_links: true
   field_link_facility_emerg_list: true
