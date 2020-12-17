@@ -107,3 +107,55 @@ Feature: Menus
 | VA White River Junction health care | va-white-river-junction-health-c |  |
 | VA Wilkes-Barre health care | va-wilkes-barre-health-care | va.gov/wilkes-barre-health-care |
 | VA Wilmington health care | va-wilmington-health-care | va.gov/wilmington-health-care |
+| VA Alaska health care | va-alaska-health-care |  |
+| VA Amarillo health care | va-amarillo-health-care |  |
+| VA Atlanta health care | va-atlanta-health-care |  |
+| VA Augusta health care | va-augusta-health-care |  |
+| VA Birmingham health care | va-birmingham-health-care |  |
+| VA Boise health care | va-boise-health-care |  |
+| VA Central Alabama health care | va-central-alabama-health-care |  |
+| VA Central Texas health care | va-central-texas-health-care |  |
+| VA Charleston health care | va-charleston-health-care |  |
+| VA Chicago health care | va-chicago-health-care |  |
+| VA Columbia Missouri health care | va-columbia-missouri-health-care |  |
+| VA Columbia South Carolina health care | va-columbia-south-carolina-healt |  |
+| VA Dublin health care | va-dublin-health-care |  |
+| VA El Paso health care | va-el-paso-health-care |  |
+| VA Greater Los Angeles health care | va-greater-los-angeles-health-ca |  |
+| VA Hines health care | va-hines-health-care |  |
+| VA Illiana health care | va-illiana-health-care |  |
+| VA Iron Mountain health care | va-iron-mountain-health-care |  |
+| VA Kansas City health care | va-kansas-city-health-care |  |
+| VA Leavenworth health care | va-leavenworth-health-care |  |
+| VA Lexington health care | va-lexington-health-care |  |
+| VA Loma Linda health care | va-loma-linda-health-care |  |
+| VA Long Beach health care | va-long-beach-health-care |  |
+| VA Louisville health care | va-louisville-health-care |  |
+| VA Lovell FHCC health care | va-lovell-fhcc-health-care |  |
+| VA Madison health care | va-madison-health-care |  |
+| VA Marion health care | va-marion-health-care |  |
+| VA Memphis health care | va-memphis-health-care |  |
+| VA Milwaukee health care | va-milwaukee-health-care |  |
+| VA Mountain Home health care | va-mountain-home-health-care |  |
+| VA New Mexico health care | va-new-mexico-health-care |  |
+| VA North Texas health care | va-north-texas-health-care |  |
+| VA Northern Arizona health care | va-northern-arizona-health-care |  |
+| VA Phoenix health care | va-phoenix-health-care |  |
+| VA Poplar Bluff health care | va-poplar-bluff-health-care |  |
+| VA Portland health care | va-portland-health-care |  |
+| VA Puget Sound health care | va-puget-sound-health-care |  |
+| VA Roseburg health care | va-roseburg-health-care |  |
+| VA San Diego health care | va-san-diego-health-care |  |
+| VA South Texas health care | va-south-texas-health-care |  |
+| VA Southern Arizona health care | va-southern-arizona-health-care |  |
+| VA Southern Oregon health care | va-southern-oregon-health-care |  |
+| VA Spokane health care | va-spokane-health-care |  |
+| VA St Louis health care | va-st-louis-health-care |  |
+| VA Tennessee Valley health care | va-tennessee-valley-health-care |  |
+| VA Texas Valley health care | va-texas-valley-health-care |  |
+| VA Tomah health care | va-tomah-health-care |  |
+| VA Topeka health care | va-topeka-health-care |  |
+| VA Tuscaloosa health care | va-tuscaloosa-health-care |  |
+| VA Wallawalla health care | va-wallawalla-health-care |  |
+| VA West Texas health care | va-west-texas-health-care |  |
+| VA Wichita health care | va-wichita-health-care |  |
