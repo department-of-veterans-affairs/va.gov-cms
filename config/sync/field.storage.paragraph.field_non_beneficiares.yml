@@ -1,0 +1,20 @@
+uuid: ec445b76-7260-4575-ac3c-fb8523771675
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - taxonomy
+id: paragraph.field_non_beneficiares
+field_name: field_non_beneficiares
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

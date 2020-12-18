@@ -20,6 +20,23 @@
       $("div.form-item-field-tags-0-subform-field-audience-selection").addClass(
         "form-disabled"
       );
+
+      $(
+        'div[id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]'
+      ).attr("checked", true);
+      $(
+        'div[id^="edit-field-tags-0-subform-field-non-beneficiares-none"]'
+      ).attr("checked", true);
+
+      $(
+        'div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]'
+      ).hide();
+      $(
+        'div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]'
+      ).hide();
+      $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').val(
+        "_none"
+      );
     } else {
       $(
         'select[id^="edit-field-tags-0-subform-field-audience-selection"]'
@@ -28,13 +45,24 @@
         "div.form-item-field-tags-0-subform-field-audience-selection"
       ).removeClass("form-disabled");
     }
-
-    // Find out if there is a Beneficiary term selected and increase the total if so.
-    const audienceSelected = $(
+    // Find out if there is a Beneficiary/Non-beneficiary term selected and increase the total if so.
+    let audienceSelected = $(
       'div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]'
     ).find(
       'input:not([id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]):checked'
     ).length;
+    if (
+      $(
+        'select[id^="edit-field-tags-0-subform-field-audience-selection"]'
+      ).val() === "non-beneficiaries"
+    ) {
+      audienceSelected = $(
+        'div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]'
+      ).find(
+        'input:not([id^="edit-field-tags-0-subform-field-non-beneficiares-none"]):checked'
+      ).length;
+    }
+
     total += audienceSelected;
 
     if (total >= 4) {
@@ -52,70 +80,103 @@
 
   Drupal.behaviors.vaGovAudienceTopics = {
     attach() {
+      // Normalize select and taxonomy display on page load.
+      if (
+        $(
+          'div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]'
+        ).find(
+          'input:not([id^="edit-field-tags-0-subform-field-non-beneficiares-none"]):checked'
+        ).length
+      ) {
+        $(
+          'select[id^="edit-field-tags-0-subform-field-audience-selection"]'
+        ).val("non-beneficiaries");
+        $(
+          'div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]'
+        ).show();
+        $(
+          'div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]'
+        ).hide();
+      } else {
+        $(
+          'select[id^="edit-field-tags-0-subform-field-audience-selection"]'
+        ).val("beneficiaries");
+        $(
+          'div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]'
+        ).show();
+        $(
+          'div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]'
+        ).hide();
+      }
+
       // Add required marker to fieldset. This is necessary because we cannot mark
       // any of the child fields as required.
       $("#edit-group-tags > legend").addClass("form-required");
 
-      // Hide the beneficiaries field when the audience select does not have benficiaries selected.
-      if (
-        $(
-          'select[id^="edit-field-tags-0-subform-field-audience-selection"]'
-        ).val() !== "beneficiaries"
-      ) {
-        $(
-          'div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]'
-        ).hide();
-      }
-
-      // Hide the 'N/A' option for the Beneficiaries field.
+      // Hide 'N/A' options.
       $(
         'input[id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]'
       )
         .parent()
         .hide();
-
-      // Disable the "Non-beneficiaries" option in the field_audience_selection dropdown.
-      $(
-        'select[id^="edit-field-tags-0-subform-field-audience-selection"] option[value="non-beneficiaries"]'
-      ).attr("disabled", true);
+      $('input[id^="edit-field-tags-0-subform-field-non-beneficiares-none"]')
+        .parent()
+        .hide();
 
       // Enforce tag selection rules.
       enforceMaximumNumberOfTags();
-
-      // React when the Audience dropdown is changed.
-      $(
-        'select[id^="edit-field-tags-0-subform-field-audience-selection"]'
-      ).change((event) => {
-        const selection = $(event.currentTarget).val();
-
+      // React when the tags fieldset changes.
+      $("fieldset#edit-group-tags").change(() => {
+        const selection = $(
+          'select[id^="edit-field-tags-0-subform-field-audience-selection"]'
+        ).val();
+        // Reset our selections and hide our vocabs by default.
+        $('fieldset#edit-group-tags input[type="radio"]').attr(
+          "checked",
+          false
+        );
+        $(
+          'div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]'
+        ).hide();
+        $(
+          'div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]'
+        ).hide();
         if (selection === "beneficiaries") {
-          // Show beneficiaries field when selected.
+          // Show beneficiares.
           $(
             'div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]'
           ).show();
-        } else {
-          // Otherwise clear any selected value in the beneficiaries field and hide it.
-          $(
-            'input[id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]'
-          ).prop("checked", true);
-          $(
-            'div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]'
-          ).hide();
+          // Set non-beneficiaries to none.
+          $("#edit-field-tags-0-subform-field-non-beneficiares-none").attr(
+            "checked",
+            true
+          );
         }
-
+        if (selection === "non-beneficiaries") {
+          // Show non-beneficiares.
+          $(
+            'div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]'
+          ).show();
+          // Set beneficiaries to none.
+          $("#edit-field-tags-0-subform-field-audience-beneficiares-none").attr(
+            "checked",
+            true
+          );
+        }
+        if (selection === "_none") {
+          // Set both vocabs to none.
+          $("#edit-field-tags-0-subform-field-non-beneficiares-none").attr(
+            "checked",
+            true
+          );
+          $("#edit-field-tags-0-subform-field-audience-beneficiares-none").attr(
+            "checked",
+            true
+          );
+        }
         // Enforce tag selection rules.
         enforceMaximumNumberOfTags();
       });
-
-      // React when the tag/audience fields are changed.
-      $(
-        'div[id^="edit-field-tags-0-subform-field-topics"], div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]'
-      )
-        .find("input")
-        .change(() => {
-          // Enforce tag selection rules.
-          enforceMaximumNumberOfTags();
-        });
     },
   };
 })(jQuery, window.Drupal);

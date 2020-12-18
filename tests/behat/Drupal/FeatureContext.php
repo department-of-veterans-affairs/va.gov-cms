@@ -468,6 +468,18 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   }
 
   /**
+   * Check that the Google Tag Manager dataLayer value is set.
+   *
+   * @Given the GTM data layer value for :arg1 should be set
+   */
+  public function googleTagManagerValueShouldBeSet($key) {
+    $property_value = $this->getGoogleTagManagerValue($key);
+    if (empty($property_value)) {
+      throw new \Exception("The data layer value for \"{$key}\" should be set.");
+    }
+  }
+
+  /**
    * Check that the Google Tag Manager dataLayer value is set correctly.
    *
    * @Given the GTM data layer value for :arg1 should be set to :arg2

@@ -12,12 +12,23 @@
     if (total >= 4) {
       $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').attr("disabled", true);
       $("div.form-item-field-tags-0-subform-field-audience-selection").addClass("form-disabled");
+
+      $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]').attr("checked", true);
+      $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-none"]').attr("checked", true);
+
+      $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').hide();
+      $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').hide();
+      $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').val("_none");
     } else {
       $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').attr("disabled", false);
       $("div.form-item-field-tags-0-subform-field-audience-selection").removeClass("form-disabled");
     }
 
     var audienceSelected = $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').find('input:not([id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]):checked').length;
+    if ($('select[id^="edit-field-tags-0-subform-field-audience-selection"]').val() === "non-beneficiaries") {
+      audienceSelected = $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').find('input:not([id^="edit-field-tags-0-subform-field-non-beneficiares-none"]):checked').length;
+    }
+
     total += audienceSelected;
 
     if (total >= 4) {
@@ -29,32 +40,44 @@
 
   Drupal.behaviors.vaGovAudienceTopics = {
     attach: function attach() {
-      $("#edit-group-tags > legend").addClass("form-required");
-
-      if ($('select[id^="edit-field-tags-0-subform-field-audience-selection"]').val() !== "beneficiaries") {
+      if ($('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').find('input:not([id^="edit-field-tags-0-subform-field-non-beneficiares-none"]):checked').length) {
+        $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').val("non-beneficiaries");
+        $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').show();
         $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').hide();
+      } else {
+        $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').val("beneficiaries");
+        $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').show();
+        $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').hide();
       }
 
-      $('input[id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]').parent().hide();
+      $("#edit-group-tags > legend").addClass("form-required");
 
-      $('select[id^="edit-field-tags-0-subform-field-audience-selection"] option[value="non-beneficiaries"]').attr("disabled", true);
+      $('input[id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]').parent().hide();
+      $('input[id^="edit-field-tags-0-subform-field-non-beneficiares-none"]').parent().hide();
 
       enforceMaximumNumberOfTags();
 
-      $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').change(function (event) {
-        var selection = $(event.currentTarget).val();
+      $("fieldset#edit-group-tags").change(function () {
+        var selection = $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').val();
 
+        $('fieldset#edit-group-tags input[type="radio"]').attr("checked", false);
+        $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').hide();
+        $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').hide();
         if (selection === "beneficiaries") {
           $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').show();
-        } else {
-          $('input[id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]').prop("checked", true);
-          $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').hide();
+
+          $("#edit-field-tags-0-subform-field-non-beneficiares-none").attr("checked", true);
+        }
+        if (selection === "non-beneficiaries") {
+          $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').show();
+
+          $("#edit-field-tags-0-subform-field-audience-beneficiares-none").attr("checked", true);
+        }
+        if (selection === "_none") {
+          $("#edit-field-tags-0-subform-field-non-beneficiares-none").attr("checked", true);
+          $("#edit-field-tags-0-subform-field-audience-beneficiares-none").attr("checked", true);
         }
 
-        enforceMaximumNumberOfTags();
-      });
-
-      $('div[id^="edit-field-tags-0-subform-field-topics"], div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').find("input").change(function () {
         enforceMaximumNumberOfTags();
       });
     }
