@@ -17,13 +17,8 @@ targetEntityType: node
 bundle: documentation_page
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_content_block:
-    weight: 2
+    weight: 1
     label: hidden
     settings:
       view_mode: user_guides
@@ -32,14 +27,14 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   field_intro_text:
-    weight: 1
+    weight: 0
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_related_user_guides:
-    weight: 3
+    weight: 2
     label: above
     settings:
       link: true
@@ -47,6 +42,7 @@ content:
     type: entity_reference_label
     region: content
 hidden:
+  content_moderation_control: true
   field_administration: true
   field_table_of_contents_boolean: true
   links: true

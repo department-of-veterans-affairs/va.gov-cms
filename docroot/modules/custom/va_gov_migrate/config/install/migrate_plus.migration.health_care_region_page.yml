@@ -1,0 +1,216 @@
+status: true
+dependencies: {  }
+id: health_care_region_page
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - Content
+  - Node
+migration_group: vamc
+label: 'Node - VAMC Health System.'
+source:
+  plugin: csv
+  path: modules/custom/va_gov_migrate/data/health-care-region-page.csv
+  delimiter: ;
+  enclosure: "'"
+  escape: '\'
+  header_row_count: 1
+  track_changes: true
+  keys:
+    - field_vamc_system_official_name
+  # Define any constants that are needed to pass in as data.
+  constants:
+    cmsmigrator_id: 1317
+    visnprefix: 'VISN '
+    introtextprefix: 'At '
+    introtextsuffix: ', our health care teams are deeply experienced and guided by the needs of Veterans, their families, and caregivers. Find a health facility near you, and manage your health online. Sign up for community events and updates.'
+    metadescprefix: 'Find a health facility near you at '
+    metadescsuffix: ', and manage your health online. Our health care teams are deeply experienced and guided by the needs of Veterans, their families, and caregivers.'
+  column_names:
+    -
+      visn: visn
+    -
+      field_title: 'VAMC system plain language name'
+    -
+      field_vamc_system_official_name: 'VAMC system official name'
+    -
+      field_meta_title: 'Meta title tag'
+    -
+      field_description: 'Meta Description'
+    -
+      field_govdelivery_id_emerg: 'GovDelivery ID for Emergency Updates email'
+    -
+      field_govdelivery_id_news: 'GovDelivery ID for News and Announcements'
+    -
+      field_facebook_uri: 'Facebook URL'
+    -
+      field_facebook_title: 'Link text'
+    -
+      field_twitter_uri: 'Twitter URL'
+    -
+      field_twitter_title: 'Link text'
+    -
+      field_flickr_uri: 'Flickr URL'
+    -
+      field_flickr_title: 'Link text'
+    -
+      field_instagram_uri: 'Instagram URL'
+    -
+      field_instagram_title: 'Link text'
+    -
+      path: 'URL alias'
+process:
+  #
+  pseudo_field_parent:
+    -
+      plugin: concat
+      source:
+      - 'constants/visnprefix'
+      - visn
+    -
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: name
+      bundle_key: vid
+      bundle: administration
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Entity lookup for Parent VISN found nothing.'
+  field_vamc_system_official_name:
+    -
+      plugin: callback
+      callable: trim
+      source: field_vamc_system_official_name
+  title:
+    -
+      plugin: callback
+      callable: trim
+      source: field_title
+  field_intro_text:
+    -
+      plugin: concat
+      source:
+        - constants/introtextprefix
+        - field_vamc_system_official_name
+        - constants/introtextsuffix
+  field_meta_title:
+    -
+      plugin: callback
+      callable: trim
+      source: field_meta_title
+  field_description:
+    -
+      plugin: concat
+      source:
+        - constants/metadescprefix
+        - field_vamc_system_official_name
+        - constants/metadescsuffix
+  field_govdelivery_id_emerg:
+    -
+      plugin: callback
+      callable: trim
+      source: field_govdelivery_id_emerg
+  field_govdelivery_id_news:
+    -
+      plugin: callback
+      callable: trim
+      source: field_govdelivery_id_news
+  field_facebook/uri:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: field_facebook_uri
+  field_facebook/title:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: field_facebook_title
+  field_twitter/uri:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: field_twitter_uri
+  field_twitter/title:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: field_twitter_title
+  field_flickr/uri:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: field_flickr_uri
+  field_flickr/title:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: field_flickr_title
+  field_instagram/uri:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: field_instagram_uri
+  field_instagram/title:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: field_instagram_title
+  # Set URL Alias and turn off automatic URL alias creation
+  path/alias: path
+  path/pathauto:
+    -
+      plugin: default_value
+      default_value: 0
+  field_administration:
+    -
+      plugin: callback
+      callable: trim
+      source: field_title
+    -
+      plugin: entity_generate
+      entity_type: taxonomy_term
+      ignore_case: true
+      value_key: name
+      bundle_key: vid
+      bundle: administration
+      values:
+        parent: '@pseudo_field_parent'
+  changed:
+    plugin: callback
+    callable: time
+  new_revision:
+    plugin: default_value
+    default_value: true
+  revision_default:
+    plugin: default_value
+    default_value: true
+  revision_log:
+    plugin: default_value
+    default_value: Imported by health_care_region_page migration.
+  revision_timestamp:
+    plugin: callback
+    callable: time
+  revision_uid: 'constants/cmsmigrator_id'
+  langcode:
+    plugin: default_value
+    default_value: en
+  uid: 'constants/cmsmigrator_id'
+destination:
+  plugin: 'entity:node'
+  default_bundle: health_care_region_page
+  # We are not populating all required fields so do not validate.
+  validate: false
+  # Only these fields will be overwritten if the row content changes in the CSV.
+  overwrite_properties:
+    - changed
+    - field_administration
+    - new_revision
+    - revision_default
+    - revision_log
+    - revision_timestamp
+    - uid
+migration_dependencies:
+  required: { }
+  optional: {  }

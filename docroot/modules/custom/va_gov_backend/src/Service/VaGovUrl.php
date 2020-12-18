@@ -4,6 +4,7 @@ namespace Drupal\va_gov_backend\Service;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Site\Settings;
+use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 use Exception;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -28,23 +29,33 @@ class VaGovUrl implements VaGovUrlInterface {
   protected $settings;
 
   /**
+   * Environment Discovery Service.
+   *
+   * @var \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery
+   */
+  protected $environmentDiscovery;
+
+  /**
    * Constructs a new VaGovUrl object.
    *
    * @param \GuzzleHttp\ClientInterface $httpClient
    *   The http client.
    * @param \Drupal\Core\Site\Settings $settings
    *   The read-only settings container.
+   * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery $environmentDiscovery
+   *   The environment Discovery service.
    */
-  public function __construct(ClientInterface $httpClient, Settings $settings) {
+  public function __construct(ClientInterface $httpClient, Settings $settings, EnvironmentDiscovery $environmentDiscovery) {
     $this->httpClient = $httpClient;
     $this->settings = $settings;
+    $this->environmentDiscovery = $environmentDiscovery;
   }
 
   /**
    * {@inheritDoc}
    */
   public function getVaGovFrontEndUrl() : string {
-    return $this->settings->get('va_gov_frontend_url', 'https://www.va.gov');
+    return $this->environmentDiscovery->getWebUrl();
   }
 
   /**
@@ -52,8 +63,7 @@ class VaGovUrl implements VaGovUrlInterface {
    */
   public function getVaGovFrontEndUrlForEntity(EntityInterface $entity) : string {
     try {
-      $va_gov_url = $this->getVaGovFrontEndUrl() . $entity->toUrl()->toString();
-      return $va_gov_url;
+      return $this->getVaGovFrontEndUrl() . $entity->toUrl()->toString();
     }
     catch (Exception $e) {
       return '';

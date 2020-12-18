@@ -20,7 +20,7 @@ third_party_settings:
         - field_meta_title
         - field_meta_tags
       parent_name: ''
-      weight: 1
+      weight: 0
       format_type: fieldset
       format_settings:
         id: ''
@@ -33,13 +33,8 @@ targetEntityType: node
 bundle: office
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_description:
-    weight: 2
+    weight: 1
     label: above
     settings:
       link_to_entity: false
@@ -62,6 +57,7 @@ content:
     type: string
     region: content
 hidden:
+  content_moderation_control: true
   field_administration: true
   field_body: true
   links: true

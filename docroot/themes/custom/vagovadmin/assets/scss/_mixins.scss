@@ -2,11 +2,6 @@
 @import url('https://fonts.googleapis.com/css?family=Bitter:400,700&display=swap&subset=latin-ext');
 
 @mixin va-buttons {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  margin-top: .5em;
-  margin-right: .5em;
-  margin-bottom: .5em;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -16,8 +11,13 @@
   display: inline-block;
   font-family: Source Sans Pro,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif;
   font-size: 1em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   font-weight: 700;
   line-height: 1;
+  margin-bottom: 0.5em;
+  margin-right: 0.5em;
+  margin-top: 0.5em;
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
@@ -32,14 +32,14 @@
 
 @mixin va-basic-styling {
   .field__item {
-    margin-bottom: 1em;
+    font-family: 'Source Sans Pro', Sans-Serif;
     font-size: 16px;
     line-height: 1.5;
-    font-family: 'Source Sans Pro', Sans-Serif;
+    margin-bottom: 1em;
 
     /* Reset field labels for nested fields */
     .field__label {
-      font-family: "Lucida Grande", "Lucida Sans Unicode", "DejaVu Sans", "Lucida Sans", sans-serif;
+      font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'DejaVu Sans', 'Lucida Sans', sans-serif;
       font-size: 81.3%;
       text-transform: uppercase;
     }
@@ -50,14 +50,14 @@
   h4,
   h5,
   h6 {
-    font-weight: 700;
     font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
+    font-weight: 700;
     line-height: 1.3;
-    margin-bottom: .5em;
+    margin-bottom: 0.5em;
   }
 
   h2 {
-   font-size: 1.6rem;
+    font-size: 1.6rem;
   }
 
   h3 {
@@ -72,21 +72,21 @@
   /* Lists */
 
   ol {
-    margin: 0 0 0 1.25em;
-    padding: 0em;
     list-style-position: outside;
+    margin: 0 0 0 1.25em;
+    padding: 0;
   }
 
   ul {
-    margin: 0 0 0 1.25em;
-    padding: 0em;
     list-style: square;
     list-style-position: outside;
+    margin: 0 0 0 1.25em;
+    padding: 0;
   }
 
   li {
     line-height: 1.5;
-    margin-bottom: .5em;
+    margin-bottom: 0.5em;
   }
 
 
@@ -96,13 +96,13 @@
   a:hover {
     color: #004795;
     text-decoration: underline;
-    transition-duration: .3s;
-    transition-timing-function: ease-in-out;
+    transition-duration: 0.3s;
     transition-property: color,background-color,border-color;
+    transition-timing-function: ease-in-out;
   }
 
   a:hover {
-    background-color: rgba(0,0,0,.05);
+    background-color: rgba(0, 0, 0, 0.05);
     color: inherit;
   }
 
@@ -115,8 +115,8 @@
   /* Block styles */
 
   .va-address-block {
-    margin-left: 5rem;
     border-left: 3px solid #0071bb;
+    margin-left: 5rem;
     padding-left: 1rem;
   }
 
@@ -127,6 +127,7 @@
   a.va-button-primary,
   a.usa-secondary-button {
     @include va-buttons;
+
     &:hover {
       color: #fff;
       text-decoration: none;
@@ -139,6 +140,7 @@
   .usa-button-primary {
     @include va-buttons;
     background-color: #0071bb;
+
     &:hover {
       background-color: #003e73;
     }
@@ -149,21 +151,23 @@
   .va-button-primary {
     @include va-buttons;
     background: #2e8540;
+
     &:hover {
       background: #195c27;
     }
   }
 
 
-  /* Secondary button (blue "ghost") */
+  /* Secondary button (blue 'ghost') */
   a.usa-button-secondary {
     @include va-buttons;
     background: transparent;
     box-shadow: inset 0 0 0 2px #0071bb;
     color: #0071bb;
+
     &:hover {
-      box-shadow: inset 0 0 0 2px #003e73;
       background: transparent;
+      box-shadow: inset 0 0 0 2px #003e73;
       color: #003e73;
     }
   }

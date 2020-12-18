@@ -113,12 +113,13 @@ Feature: CMS Users may effectively create & edit content
     And I should not see "VA.gov URL" in the "#block-entitymetadisplay" element
 
     # Publish the node.
-    And I select "Published" from "Change to"
-    And I fill in "Log message" with "Test publishing"
-    And I press "Apply"
+    Then I visit the "edit" page for a node with the title "Test Office - BeHaT"
+    And I select "Published" from "edit-moderation-state-0-state"
+    And I fill in "Revision log message" with "Test publishing"
+    And I press "Save"
 
     # Confirm that the va.gov url is shown for nodes with a published revision.
-    Then I should see "The moderation state has been updated"
+    Then I should see "Published" in the ".view-right-sidebar-latest-revision" element
     And I should see "VA.gov URL" in the "#block-entitymetadisplay" element
     And I should not see "(pending)" in the "#block-entitymetadisplay" element
 
@@ -129,14 +130,15 @@ Feature: CMS Users may effectively create & edit content
     Then I should see "VA.gov URL" in the "#block-entitymetadisplay" element
 
     # (Re-)Publish the node.
-    And I select "Published" from "Change to"
-    And I fill in "Log message" with "Test publishing"
-    And I press "Apply"
+    Then I visit the "edit" page for a node with the title "Test Office - BeHaT"
+    And I select "Published" from "edit-moderation-state-0-state"
+    And I fill in "Revision log message" with "Test publishing"
+    And I press "Save"
     And I should see "(pending)" in the "#block-entitymetadisplay" element
 
     # Archive the node.
     Then I visit the "edit" page for a node with the title "Test Office - BeHaT 404"
-    And I select "Archived" from "Change to"
+    And I select "Archived" from "edit-moderation-state-0-state"
     And I fill in "Revision log message" with "Test archiving"
     And I press "Save"
     Then I should see "Office Test Office - BeHaT 404 has been updated."
@@ -171,13 +173,12 @@ Feature: CMS Users may effectively create & edit content
     Then I should see "BeHat Alert Body"
 
 @content_editing
-  Scenario Outline: Confirm that content cannot be published directly from the node edit form but can from the node view.
+  Scenario Outline: Confirm that content cannot be published directly from the node view but can from the node edit form.
     Given I am logged in as a user with the "content_admin" role
     And I am viewing an <type> with the title <title>
-    Then the "#edit-new-state" element should exist
-    Then I should see "published" in the "#edit-new-state" element
+    Then the "#edit-new-state" element should not exist
     And I visit the "edit" page for a node with the title <title>
-    Then "#edit-moderation-state-0-state" should not contain "published"
+    Then "#edit-moderation-state-0-state" should contain "published"
     Examples:
       | type                                | title                                     |
       | "page"                              | "page page"                               |

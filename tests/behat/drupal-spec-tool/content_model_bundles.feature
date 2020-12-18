@@ -20,7 +20,7 @@ Feature: Content model bundles
 | Health Services List | health_services_listing | Content type | A listing of health services. |
 | Landing Page | basic_landing_page | Content type | Basic Landing Page can be used to build one-off pages for various products. E.g. a homepage for a specific product. |
 | Leadership List | leadership_listing | Content type | A listing of staff profiles. |
-| Learning Center Detail Page | support_resources_detail_page | Content type |  |
+| Resources and support Detail Page | support_resources_detail_page | Content type |  |
 | Locations List | locations_listing | Content type | A listing of VA facilities. |
 | Media list - Images | media_list_images | Content type |  |
 | Media list - Videos | media_list_videos | Content type |  |
@@ -48,6 +48,7 @@ Feature: Content model bundles
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
 | Promo | promo | Custom block type | Promote a link with an image, title, and description. |
 | Document | document | Media type | A locally hosted document, such as a PDF. |
+| Document - External | document_external | Media type |  |
 | Image | image | Media type | Locally hosted images. |
 | Video | video | Media type | A video hosted by YouTube, Vimeo, or some other provider. |
 | Accordion group | collapsible_panel | Paragraph type | A group of accordions. |
@@ -57,7 +58,7 @@ Feature: Content model bundles
 | Alert | alert | Paragraph type | A reusable or non-reusable alert, either "information status" or "warning status". |
 | Alert (single) | alert_single | Paragraph type |  |
 | Audience & Topics | audience_topics | Paragraph type | Audience & Topic selection for "Resources and Support" articles. |
-| Button | button | Paragraph type | Button with a label and link field. |
+| Call to action | button | Paragraph type | Button with a label and link field. |
 | Checklist | checklist | Paragraph type |  |
 | Checklist section | checklist_item | Paragraph type |  |
 | Contact information | contact_information | Paragraph type |  |
@@ -65,10 +66,11 @@ Feature: Content model bundles
 | Embedded image | media | Paragraph type | For adding an image inline |
 | Expandable Text | expandable_text | Paragraph type | Text that expands upon click. |
 | Link teaser | link_teaser | Paragraph type | A link followed by a description. For building inline "menus" of content. |
+| Link teaser with image | link_teaser_with_image | Paragraph type |  |
 | Link to file or video | downloadable_file | Paragraph type | For image or document downloads. |
 | List of link teasers | list_of_link_teasers | Paragraph type | A paragraph that contains only one type of paragraph: Link teaser. |
 | List of links | list_of_links | Paragraph type | A set of links, with link text and URL required, and an optional header. |
-| Lists of links | lists_of_links | Paragraph type | WARNING: Learning Center and User Guides only! A list of links, or several lists of links, with an optional section header. |
+| Lists of links | lists_of_links | Paragraph type | WARNING: Resources and support and User Guides only! A list of links, or several lists of links, with an optional section header. |
 | Media list - Images | media_list_images | Paragraph type |  |
 | Media list - Videos | media_list_videos | Paragraph type |  |
 | Non-reusable Alert | non_reusable_alert | Paragraph type |  |
@@ -92,7 +94,7 @@ Feature: Content model bundles
 | VAMC facility service (non-healthcare service) | health_care_local_facility_servi | Paragraph type | A service available at a specific health care facility, like Parking, or Chaplaincy. |
 | Audience - Beneficiaries | audience_beneficiaries | Vocabulary |  |
 | Audience - Non-beneficiaries | audience_non_beneficiaries | Vocabulary |  |
-| Learning Center Categories | lc_categories | Vocabulary |  |
+| Resources and support Categories | lc_categories | Vocabulary |  |
 | Products | products | Vocabulary |  |
 | Sections | administration | Vocabulary | Represents a hierarchy of the VA, partly for governance purposes. |
 | Topics | topics | Vocabulary |  |

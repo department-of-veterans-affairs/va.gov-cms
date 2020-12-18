@@ -24,10 +24,6 @@ va/deploy/3-config:
   - drush $DRUSH_ALIAS cim --yes
   - drush $DRUSH_ALIAS cr
 
-va/tests/phpcs:
-  description: PHP CodeSniffer
-  command: composer va:test:cs
-
 va/tests/phplint:
   description: PHP Lint
   command: composer va:test:lint
@@ -41,6 +37,10 @@ va/tests/accessibility:
   command: composer va:test:accessibility
   # Ignore failures so that staging deploys can complete.
   ignore-failure: true
+
+va/web/install:
+  description: Install VA.gov node environment
+  command: composer va:web:install
 
 va/web/build:
   description: Build VA.gov Front-end

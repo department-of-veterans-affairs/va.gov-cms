@@ -2,10 +2,14 @@
 
 namespace Drupal\va_gov_build_trigger\Form;
 
-use Drupal\Core\Url;
-use Drupal;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+use Drupal\va_gov_build_trigger\Service\BuildFrontend;
+use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
+use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Implements build trigger form.
@@ -19,6 +23,58 @@ use Drupal\Core\Form\FormStateInterface;
 class BuildTriggerForm extends FormBase {
 
   /**
+   * The front-end build service.
+   *
+   * @var \Drupal\va_gov_build_trigger\Service\BuildFrontend
+   */
+  protected $buildFrontend;
+
+  /**
+   * The state provider.
+   *
+   * @var \Drupal\va_gov_build_trigger\WebBuildStatusInterface
+   */
+  protected $webBuildStatus;
+
+  /**
+   * EnvironmentDiscovery Service.
+   *
+   * @var \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery
+   */
+  protected $environmentDiscovery;
+
+  /**
+   * Class constructor.
+   *
+   * @param \Drupal\va_gov_build_trigger\Service\BuildFrontend $buildFrontend
+   *   Build the front end service.
+   * @param \Drupal\va_gov_build_trigger\WebBuildStatusInterface $webBuildStatus
+   *   Webbuild status provider.
+   * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery $environmentDiscovery
+   *   EnvironmentDiscovery service.
+   */
+  public function __construct(
+    BuildFrontend $buildFrontend,
+    WebBuildStatusInterface $webBuildStatus,
+    EnvironmentDiscovery $environmentDiscovery) {
+
+    $this->buildFrontend = $buildFrontend;
+    $this->webBuildStatus = $webBuildStatus;
+    $this->environmentDiscovery = $environmentDiscovery;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('va_gov_build_trigger.build_frontend'),
+      $container->get('va_gov.build_trigger.web_build_status'),
+      $container->get('va_gov.build_trigger.environment_discovery')
+    );
+  }
+
+  /**
    * Build the build trigger form.
    *
    * @param array $form
@@ -27,9 +83,7 @@ class BuildTriggerForm extends FormBase {
    *   Object containing current form state.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $frontend_service = \Drupal::service('va_gov_build_trigger.build_frontend');
-    $environment_type = $frontend_service->getEnvironment();
-    $target = $frontend_service->getWebUrl($environment_type);
+    $target = $this->environmentDiscovery->getWebUrl();
 
     $form['actions']['#type'] = 'actions';
     $form['help_1'] = [
@@ -48,9 +102,7 @@ class BuildTriggerForm extends FormBase {
       ]),
     ];
 
-    // Get pending state.
-    $config = \Drupal::service('config.factory')->getEditable('va_gov.build');
-    if ($config->get('web.build.pending', 0)) {
+    if ($this->webBuildStatus->getWebBuildStatus()) {
       // A build is pending so set a display.
       $form['tip']['#prefix'] = '<em>';
       $form['tip']['#markup'] = t('A content release has been queued.');
@@ -60,32 +112,28 @@ class BuildTriggerForm extends FormBase {
 
     // Case race, first to evaluate TRUE wins.
     switch (TRUE) {
-      case $environment_type == 'prod':
-      case $environment_type == 'staging':
-      case $environment_type == 'dev':
+      case $this->environmentDiscovery->isBRD():
         $description = t('A content release for this environment will be handled by VFS Jenkins.');
         break;
 
-      case $environment_type == 'ci':
-        $description = t('A content release for this environment is handled by CMS-CI. You may press this button to trigger a content release. It will take around 45 seconds.');
+      case $this->environmentDiscovery->isTugboat() || $this->environmentDiscovery->isDevShop():
+        $description = t('A content release for this environment is handled by CMS-CI. You may press this button to trigger a content release.  Please note this could take several minutes to run.');
         break;
 
-      case $environment_type == 'lando':
-        $description = t('Content releases within Lando sites must be run manually. Run the following command to regenerate the static site as a content release: <pre>lando composer va:web:build</pre>  The button below is used in CMS and production environments. You can use it to emulate their behavior. You may change the CMS_ENVIRONMENT_TYPE environment behavior to develop.');
+      case $this->environmentDiscovery->isLocal():
+        $description = t('Content releases within Lando. You may press this button to trigger a content release. Please note this could take several minutes to run.');
         break;
 
       default:
         $description = t('Environment not detected. Perform a content release by running the <pre>composer va:web:build</pre> command.');
     }
 
+    $target_url = Url::fromUri($target, ['attributes' => ['target' => '_blank']]);
+    $target_link = Link::fromTextAndUrl($target, $target_url);
     $form['environment_target'] = [
       '#type' => 'item',
       '#title' => t('Environment Target'),
-      '#markup' => Drupal::l($target, Url::fromUri('http://' . $target), [
-        'attributes' => [
-          'target' => '_blank',
-        ],
-      ]),
+      '#markup' => $target_link->toString(),
       '#description' => $description,
     ];
     return $form;
@@ -114,8 +162,7 @@ class BuildTriggerForm extends FormBase {
    *   Object containing current form state.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $frontend_service = \Drupal::service('va_gov_build_trigger.build_frontend');
-    $frontend_service->triggerFrontendBuild();
+    $this->buildFrontend->triggerFrontendBuild();
   }
 
 }

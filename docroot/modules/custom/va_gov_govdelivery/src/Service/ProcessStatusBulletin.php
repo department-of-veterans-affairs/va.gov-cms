@@ -52,7 +52,7 @@ class ProcessStatusBulletin {
 
     // Set common Variables.
     $type = $node->get("field_alert_type")->getString();
-    $time_zone = drupal_get_user_timezone();
+    $time_zone = date_default_timezone_get();
     // Set common template variables.
     $template_variables = [
       // The type of alert 'information' or 'warning'.
