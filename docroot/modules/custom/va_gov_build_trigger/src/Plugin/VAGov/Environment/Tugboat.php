@@ -29,6 +29,8 @@ class Tugboat extends EnvironmentPluginBase {
       $this->messenger()->addMessage($message);
     }
 
+    $this->logger->info('Front end has been rebuilt');
+    $this->messenger()->addStatus('Front end site has been rebuilt');
   }
 
   /**
