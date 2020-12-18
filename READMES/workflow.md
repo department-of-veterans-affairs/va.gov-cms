@@ -99,6 +99,13 @@ If your composer.lock ends up with a conflict due to incoming changes, these ste
 * If needed, run tests again, correcting and updating the spreadsheet, and exporting accordingly until tests and spreadsheet are in sync.
 * Export config to code: `lando drush config:export` then commit test and config changes and make your Pull Request.   Your newly updated Behat tests will run along with the other tests and passing or failure will be indicated on your PR.   Please make sure they are passing locally before sending the PR for code review.
 
+## Javascript
+
+We follow the [Drupal core javascript workflow](https://www.drupal.org/node/2815083), writing code in `es6.js` files and transpiling to ES5 for backwards compatibility. Both the `es6.js` and transpiled `.js` files are committed to the repository. To follow this workflow:
+
+* Create or edit a `.es6.js` file under `docroot/modules/custom` or `docroot/themes/custom`
+* From the repository root, execute the command `lando npm run build:js` (To have changes automatically transpiled while you work, run `lando npm run watch:js`)
+* When you are finished, commit the changes to both files
 
 ## Patching
 

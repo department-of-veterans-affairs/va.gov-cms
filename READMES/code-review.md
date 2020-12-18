@@ -86,6 +86,7 @@ The Product Manager is a person on the CMS team who works with the Product Owner
 
 The following automated code tools must pass before a Pull Request can be merged.
 
+* eslint
 * PHPCS
 * PHPMD
 * stylelint
