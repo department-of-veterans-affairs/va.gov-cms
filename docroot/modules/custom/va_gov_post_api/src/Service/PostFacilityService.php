@@ -153,6 +153,7 @@ class PostFacilityService {
         'services' => [
           $this->serviceTerm->getName() => [
             'name' => $this->serviceTerm->getName(),
+            // @todo will need to align this value with shouldPush logic.
             'active' => ($this->facilityService->isPublished()) ? 1 : 0,
             'description_national' => $this->serviceTerm->getDescription(),
             'description_system' => $this->systemService->get('field_body')->value,
@@ -192,6 +193,11 @@ class PostFacilityService {
     && (TRUE == FALSE)
     && (!$this->shouldBypass())) {
       // Entity is updated. Check if the status changed and needs to be pushed.
+      // @todo this logic needs to be updated to account for sending:
+      // - published: should be pushed
+      // - draft revision on published node :should not be pushed, even w/bypass
+      // - draft on node that has not been published: should be pushed.
+      // - archived: should be pushed.
       if ($this->facilityService->status !== $this->facilityService->original->status) {
         // One of the status values changed. Send the payload.
         $push = TRUE;
