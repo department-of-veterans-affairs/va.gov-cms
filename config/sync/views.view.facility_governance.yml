@@ -12,10 +12,8 @@ dependencies:
     - node.type.nca_facility
     - node.type.vba_facility
     - node.type.vet_center
-    - system.menu.admin
     - taxonomy.vocabulary.administration
-    - user.role.administrator
-    - user.role.content_admin
+    - user.role.authenticated
   content:
     - 'taxonomy_term:administration:55a295b5-182a-4f4f-ba62-723bfe8df473'
     - 'taxonomy_term:administration:a8b1bb11-67a8-4489-a648-6d35c04be9cb'
@@ -46,8 +44,7 @@ display:
         type: role
         options:
           role:
-            content_admin: content_admin
-            administrator: administrator
+            authenticated: authenticated
       cache:
         type: tag
         options: {  }
@@ -1180,7 +1177,7 @@ display:
       display_extenders: {  }
       path: admin/content/facility-status
       menu:
-        type: normal
+        type: tab
         title: 'Facility Status'
         description: ''
         expanded: true
