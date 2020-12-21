@@ -149,19 +149,16 @@ class PostFacilityService {
     if (empty($this->errors) && $this->shouldPush()) {
       // @todo set the actual payload for facility service once Lighthouse
       // defines it for us.
+      $service = new \stdClass();
+      $service->name = $this->serviceTerm->getName();
+      $service->active = ($this->facilityService->isPublished()) ? 1 : 0;
+      $service->description_national = $this->serviceTerm->getDescription();
+      $service->description_system = $this->systemService->get('field_body')->value;
+      $service->description_facility = $this->facilityService->get('field_body')->value;
+      $service->health_service_api_id = $this->serviceTerm->get('field_health_service_api_id')->value;
+
       $payload = [
-        'services' => [
-          $this->serviceTerm->getName() => [
-            'name' => $this->serviceTerm->getName(),
-            // @todo will need to align this value with shouldPush logic.
-            'active' => ($this->facilityService->isPublished()) ? 1 : 0,
-            'description_national' => $this->serviceTerm->getDescription(),
-            'description_system' => $this->systemService->get('field_body')->value,
-            'description_facility' => $this->facilityService->get('field_body')->value,
-            // Not sure if we need this.
-            'health_service_api_id' => $this->serviceTerm->get('field_health_service_api_id')->value,
-          ],
-        ],
+        'detailed_services' => [$service],
       ];
     }
 
