@@ -141,7 +141,7 @@
         "symfony/config": "^3.4",
         "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^5.1",
-        "va-gov/web": "dev-master#7b4c87257cfc9b5e684c4ba7ddca283efbc4329d",
+        "va-gov/web": "^0.1",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
         "weitzman/drupal-test-traits": "dev-master",
@@ -254,17 +254,21 @@
                 "1091852 - Display Bug when using #states (Forms API) with Ajax Request": "https://www.drupal.org/files/issues/2019-11-19/1091852-104.patch",
                 "2859042 - Entity original revision": "https://www.drupal.org/files/issues/2018-07-30/entity_original_revision-2859042-26.patch",
                 "2930508 - Seven inactive tabs do not meet WCAG AA 1.4.3 for contrast": "https://www.drupal.org/files/issues/2020-10-15/drupal-seven_inactive_tabs_do_not_meet_wcag_aa-2930508-36.patch",
-                "2632750 - Interface previews/skeleton screens through optional preview or placeholder templates": "https://www.drupal.org/files/issues/2020-11-18/2632750-76-do-not-test_0.patch"
+                "2632750 - Interface previews/skeleton screens through optional preview or placeholder templates": "https://www.drupal.org/files/issues/2020-11-18/2632750-76-do-not-test_0.patch",
+                "2911932 - Correct vertical tab does not focus on form validation": "https://www.drupal.org/files/issues/2020-12-12/vertical-tabs--focus-on-onvalid-7b.patch",
+                "3188331 - Vertical tabs scroll behavior is buggy": "https://www.drupal.org/files/issues/2020-12-14/vertical-tab-scroll-frozen-2.patch"
             },
             "drupal/entity_browser": {
-                "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch"
+                "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch",
+                "Entity browser cardinality validation": "https://www.drupal.org/files/issues/0001-Issue-2856138-by-gordon-Error-messages-are-not-being.patch"
             },
             "drupal/entity_browser_table": {
                 "Table drag doesn't work on new entity form, and sort is lost on ajax": "https://www.drupal.org/files/issues/2020-08-25/fix-sort-loss-and-add-form-3166733-2.patch",
                 "Add moderation status column": "https://www.drupal.org/files/issues/2020-08-24/add-moderation-status-3166953-5.patch"
             },
             "drupal/entity_clone": {
-                "Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch"
+                "Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch",
+                "Improvements to Buttons on Confirmation Form": "https://www.drupal.org/files/issues/2019-07-18/entity-clone-form-button-style-changes-3068549-3.patch"
             },
             "drupal/entity_reference_revisions": {
                 "2984027 Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch"
@@ -292,10 +296,6 @@
                 "Content & Behavior tabs use fixed IDs": "https://www.drupal.org/files/issues/2020-10-14/paragraphs-fix_duplicate_content_behavior_tab_ids-3176946-3.patch",
                 "Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch",
                 "Remove button should not be shown on required field": "https://www.drupal.org/files/issues/2020-05-13/hide_field_required_paragraphs_remove_button_1.patch"
-            },
-            "drupal/paragraphs_browser": {
-                "#3057621: Notice: Undefined index: paragraph_type_title": "https://www.drupal.org/files/issues/2019-07-18/undefined-index-paragraph_type_title-trait-3057621-7.patch",
-                "Local version of https://www.drupal.org/project/paragraphs_browser/issues/3116501 to apply correctly": "./patches/paragraphs_browser/remove-paragraph-group-3116501-2.patch"
             },
             "drupal/path_redirect_import": {
                 "Add an option to import non-existent paths": "https://www.drupal.org/files/issues/2019-09-17/path_redirect_import-2995543-4.patch"
@@ -395,6 +395,10 @@
         "va:proxy:sshuttle": [
             "sudo -E sshuttle -r dsva@52.222.32.121 -e 'ssh -A ' 10.0.0.0/8"
         ],
+        "va:test:eslint": [
+            "npm install",
+            "npm run eslint-all"
+        ],
         "va:test:lint-css-all": [
             "npm install",
             "npm run stylelint-modules && npm run stylelint-themes"
@@ -417,7 +421,7 @@
             "find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l > /dev/null"
         ],
         "va:test:cs": [
-            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,*/node_modules/*,*/simplesaml*/* --extensions=php,module,inc,install,profile,engine,theme,js,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/modules/contrib/workflow_assignments docroot/themes/custom tests --colors"
+            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,*/node_modules/*,*/simplesaml*/* --extensions=php,module,inc,install,profile,engine,theme,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/modules/contrib/workflow_assignments docroot/themes/custom tests --colors"
         ],
         "va:test:unit": "phpunit tests/phpunit --colors=always --exclude-group=disabled",
         "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors",

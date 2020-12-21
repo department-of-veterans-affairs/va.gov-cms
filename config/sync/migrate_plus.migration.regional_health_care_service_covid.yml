@@ -1,0 +1,109 @@
+uuid: 22a3fd40-11b7-46dd-a80a-e7c9a13dbd63
+langcode: en
+status: true
+dependencies: {  }
+id: regional_health_care_service_covid
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - Content
+  - Node
+migration_group: vamc
+label: 'Node - VAMC System Health Service keyed by system.'
+source:
+  plugin: csv
+  path: modules/custom/va_gov_migrate/data/health-care-service-covid.csv
+  delimiter: ;
+  enclosure: ''''
+  header_row_count: 1
+  track_changes: true
+  keys:
+    - field_health_care_system_name
+  constants:
+    cmsmigrator_id: 1317
+  column_names:
+    -
+      station_id: 'Station ID'
+    -
+      field_health_care_facility_name: 'VAMC Facility Name'
+    -
+      field_health_care_system_name: 'VAMC System Name'
+    -
+      field_health_care_system_id: 'VAMC System ID'
+    -
+      field_system_service_description: 'VAMC System description of services'
+    -
+      field_facility_service_description: 'VAMC Facility description of services'
+process:
+  field_service_name_and_descripti:
+    -
+      plugin: default_value
+      default_value: 321
+  field_body/value:
+    -
+      plugin: callback
+      callable: trim
+      source: field_system_service_description
+  field_region_page:
+    -
+      plugin: entity_lookup
+      entity_type: node
+      value_key: title
+      bundle_key: type
+      bundle: health_care_region_page
+      source: field_health_care_system_name
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Entity lookup for field_health_care_system_name vamc system found nothing.'
+  field_administration:
+    -
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: name
+      bundle_key: vid
+      bundle: administration
+      source: field_health_care_system_name
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Entity lookup for field_health_care_system_name owner found nothing.'
+  changed:
+    plugin: callback
+    callable: time
+  new_revision:
+    plugin: default_value
+    default_value: true
+  revision_default:
+    plugin: default_value
+    default_value: true
+  revision_log:
+    plugin: default_value
+    default_value: 'Imported system health services'
+  revision_timestamp:
+    plugin: callback
+    callable: time
+  revision_uid:
+    plugin: default_value
+    default_value: constants/cmsmigrator_id
+  langcode:
+    plugin: default_value
+    default_value: en
+  uid: constants/cmsmigrator_id
+destination:
+  plugin: 'entity:node'
+  default_bundle: regional_health_care_service_des
+  overwrite_properties:
+    - changed
+    - field_administration
+    - field_system_service_description
+    - new_revision
+    - revision_default
+    - revision_log
+    - revision_timestamp
+    - uid
+migration_dependencies:
+  required:
+    - health_care_region_page
+  optional: {  }

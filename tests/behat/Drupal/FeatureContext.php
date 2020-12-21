@@ -170,6 +170,47 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   }
 
   /**
+   * Check that an XPath expression does not find any matches.
+   *
+   * @param string $expression
+   *   The XPath expression.
+   *
+   * @Then the xpath :expression should have no matches
+   */
+  public function theXpathExpressionShouldHaveNoMatches($expression) {
+    $session = $this->getSession();
+    $element = $session->getPage()->find(
+      'xpath',
+      $session->getSelectorsHandler()->selectorToXpath('xpath', $expression)
+    );
+    if ($element) {
+      throw new \InvalidArgumentException(sprintf('This XPath expression should have no matches: "%s"', $expression));
+    }
+  }
+
+  /**
+   * Check value of html attribute.
+   *
+   * @param string $element
+   *   The css selector.
+   * @param string $attribute
+   *   The attribute.
+   *
+   * @Then :element should have the attribute :attribute
+   */
+  public function theElementShouldHaveAttribute($element, $attribute) {
+    $session = $this->getSession();
+    $element = $session->getPage()->find('css', $element);
+    if (NULL === $element) {
+      throw new \InvalidArgumentException(sprintf('This element is not available: "%s"', $element));
+    }
+    $attribute_val = $element->getAttribute($attribute);
+    if (empty($attribute_val)) {
+      throw new \InvalidArgumentException(sprintf('This attribute is not available: "%s"', $attribute_val));
+    }
+  }
+
+  /**
    * Check value of html attribute.
    *
    * @param string $element
@@ -179,24 +220,60 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
    * @param string $value
    *   The attribute value.
    *
-   * @Then :element should have the :attribute with :value
+   * @Then :element should have the attribute :attribute with value :value
    */
   public function theElementShouldHaveAttributeValue($element, $attribute, $value) {
+    $this->theElementShouldHaveAttribute($element, $attribute);
     $session = $this->getSession();
     $element = $session->getPage()->find('css', $element);
-    if (NULL === $element) {
-      throw new \InvalidArgumentException(sprintf('This element is not available: "%s"', $element));
-    }
-
     $attribute_val = $element->getAttribute($attribute);
-    if (empty($attribute_val)) {
-      throw new \InvalidArgumentException(sprintf('This attribute is not available: "%s"', $attribute_val));
-    }
-
     if ($attribute_val !== $value) {
       throw new \InvalidArgumentException(sprintf('This attribute value is incorrect: "%s"', $attribute_val));
     }
+  }
 
+  /**
+   * Check value of html attribute.
+   *
+   * @param string $element
+   *   The css selector.
+   * @param string $attribute
+   *   The attribute.
+   * @param string $value
+   *   The attribute value.
+   *
+   * @Then :element should have the attribute :attribute containing value :value
+   */
+  public function theElementShouldHaveAttributeContainingValue($element, $attribute, $value) {
+    $this->theElementShouldHaveAttribute($element, $attribute);
+    $session = $this->getSession();
+    $element = $session->getPage()->find('css', $element);
+    $attribute_val = $element->getAttribute($attribute);
+    if (strpos($attribute_val, $value) === FALSE) {
+      throw new \InvalidArgumentException(sprintf('This attribute value "%s" does not contain value "%s"', $attribute_val, $value));
+    }
+  }
+
+  /**
+   * Check value of html attribute.
+   *
+   * @param string $element
+   *   The css selector.
+   * @param string $attribute
+   *   The attribute.
+   * @param string $pattern
+   *   A regular expression for matching the pattern..
+   *
+   * @Then :element should have the attribute :attribute matching pattern :pattern
+   */
+  public function theElementShouldHaveAttributeMatchingPattern($element, $attribute, $pattern) {
+    $this->theElementShouldHaveAttribute($element, $attribute);
+    $session = $this->getSession();
+    $element = $session->getPage()->find('css', $element);
+    $attribute_val = $element->getAttribute($attribute);
+    if (!preg_match($pattern, $attribute_val)) {
+      throw new \InvalidArgumentException(sprintf('The attribute value "%s" does not match the pattern "%s"', $attribute_val, $pattern));
+    }
   }
 
   /**
@@ -228,6 +305,26 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
     $node->setPublished($status['pub']);
     $node->set('moderation_state', $status['mod']);
     $node->save();
+  }
+
+  /**
+   * This permits clicking on any XPath expression.
+   *
+   * @param string $expression
+   *   An XPath expression describing at least one eleement.
+   *
+   * @When I click on the xpath :expression
+   */
+  public function iClickOnTheXpath($expression) {
+    $session = $this->getSession();
+    $element = $session->getPage()->find(
+      'xpath',
+      $session->getSelectorsHandler()->selectorToXpath('xpath', $expression)
+    );
+    if (NULL === $element) {
+      throw new \InvalidArgumentException(sprintf('Cannot find XPath expression: "%s"', $expression));
+    }
+    $element->click();
   }
 
   /**
@@ -371,6 +468,18 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   }
 
   /**
+   * Check that the Google Tag Manager dataLayer value is set.
+   *
+   * @Given the GTM data layer value for :arg1 should be set
+   */
+  public function googleTagManagerValueShouldBeSet($key) {
+    $property_value = $this->getGoogleTagManagerValue($key);
+    if (empty($property_value)) {
+      throw new \Exception("The data layer value for \"{$key}\" should be set.");
+    }
+  }
+
+  /**
    * Check that the Google Tag Manager dataLayer value is set correctly.
    *
    * @Given the GTM data layer value for :arg1 should be set to :arg2
@@ -378,7 +487,7 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   public function googleTagManagerValueShouldBeSetTo($key, $value) {
     $property_value = $this->getGoogleTagManagerValue($key);
     if ($value != $property_value) {
-      throw new \Exception($value . ' is not the same as ' . $property_value);
+      throw new \Exception("The data layer value for \"{$key}\" should be {$value}, but it is actually {$property_value}.");
     }
   }
 

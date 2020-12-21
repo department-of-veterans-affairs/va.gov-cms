@@ -88,6 +88,10 @@ This occurs because Drupal checks and hardens file permissions under the setting
 ## IDE plugins
 There are plugins available to provide in-line style checking according to project standards.
 
+### eslint
+- [PhpStorm](https://www.jetbrains.com/help/phpstorm/eslint.html)
+- [VS Code](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+
 ### PHPCS
 - [PhpStorm](https://www.jetbrains.com/help/phpstorm/using-php-code-sniffer.html)
 - [VS Code](https://marketplace.visualstudio.com/items?itemName=ikappas.phpcs)
