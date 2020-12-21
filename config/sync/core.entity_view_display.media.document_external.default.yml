@@ -22,7 +22,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_description:
-    weight: 3
+    weight: 1
     label: inline
     settings: {  }
     third_party_settings: {  }
@@ -30,7 +30,7 @@ content:
     region: content
   field_media_external_file:
     label: visually_hidden
-    weight: 1
+    weight: 3
     settings:
       trim_length: 80
       url_only: false
@@ -48,11 +48,18 @@ content:
     third_party_settings: {  }
     type: string
     region: content
+  name:
+    type: string
+    weight: 0
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
 hidden:
   created: true
   field_media_in_library: true
   field_owner: true
-  name: true
   search_api_excerpt: true
   thumbnail: true
   uid: true

@@ -96,6 +96,11 @@ tooling:
     service: appserver
     cmd: cp -r /app/docroot/modules/custom/va_gov_migrate/config/install/. /app/config/sync/  && /app/bin/drush config-import -y && /app/bin/drush config-export -y
 
+  pre-commit:
+    description: Run pre-commit checks
+    service: appserver
+    cmd: /app/scripts/lando-precommit.sh
+
   test:
     description: Run all VA.gov tests, as defined in tests.yml. Add arguments to run subsets of tests. For example. "lando test deploy" will run all of the "va/deploy/*" tests.
     service: appserver
