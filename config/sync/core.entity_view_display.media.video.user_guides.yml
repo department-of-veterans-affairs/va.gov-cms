@@ -1,0 +1,77 @@
+uuid: 69e4314c-abd5-4cd5-aca4-7582ae70d013
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.user_guides
+    - field.field.media.video.field_description
+    - field.field.media.video.field_duration
+    - field.field.media.video.field_media_in_library
+    - field.field.media.video.field_media_submission_guideline
+    - field.field.media.video.field_media_video_embed_field
+    - field.field.media.video.field_owner
+    - media.type.video
+  module:
+    - hms_field
+    - layout_builder
+    - video_embed_field
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+_core:
+  default_config_hash: ULSDSeb1LGUAS40ia_8qngabv0GTcJAaHGl67xDUNsA
+id: media.video.user_guides
+targetEntityType: media
+bundle: video
+mode: user_guides
+content:
+  field_description:
+    type: basic_string
+    weight: 3
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_duration:
+    type: hms_natural_language_formatter
+    weight: 2
+    region: content
+    label: inline
+    settings:
+      display_formats:
+        w: w
+        d: d
+        h: h
+        m: m
+        s: s
+      separator: ', '
+      last_separator: ''
+    third_party_settings: {  }
+  field_media_video_embed_field:
+    type: video_embed_field_video
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      responsive: true
+      width: 854
+      height: 480
+      autoplay: false
+    third_party_settings: {  }
+  name:
+    type: string
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_media_in_library: true
+  field_media_submission_guideline: true
+  field_owner: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true
