@@ -4,17 +4,18 @@ Feature: Content model: Campaign Landing Page Content Type fields
   As a content editor
   I want to have content type fields that reflect my content model.
 
-  @dst @field_type @content_type_fields @dstfields @clp
+  @dst @field_type @content_type_fields @dstfields
      Scenario: Fields
        Then exactly the following fields should exist for bundles "campaign_landing_page" of entity type node
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
+| Content type | Campaign Landing Page | Add between 1 and 3 audiences | field_clp_audience | Entity reference | Required | 3 | Autocomplete |  |
 | Content type | Campaign Landing Page | Add a Resources panel | field_clp_resources_panel | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Campaign Landing Page | Add a Spotlight panel | field_clp_spotlight_panel | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Campaign Landing Page | Add a Stories panel | field_clp_stories_panel | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Campaign Landing Page | Add a link to an external blog or other list of stories | field_clp_stories_cta | Link |  | 1 | Link |  |
 | Content type | Campaign Landing Page | Add a link to more videos | field_clp_video_panel_more_video | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | Campaign Landing Page | Add a video panel | field_clp_video_panel | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | Campaign Landing Page | Add an Events panel  | field_clp_events_panel | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | Campaign Landing Page | Add an Events panel | field_clp_events_panel | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Campaign Landing Page | Add up to two events | field_clp_events_references | Entity reference |  | 2 | Entity Browser - Table |  |
 | Content type | Campaign Landing Page | Add up to two stories | field_clp_stories_teasers | Entity reference revisions |  | 2 | Paragraphs Classic |  |
 | Content type | Campaign Landing Page | Links with summaries | field_clp_spotlight_link_teasers | Entity reference revisions |  | 3 | Paragraphs EXPERIMENTAL |  |
