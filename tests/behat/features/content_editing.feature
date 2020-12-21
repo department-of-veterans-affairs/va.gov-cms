@@ -212,3 +212,9 @@ Feature: CMS Users may effectively create & edit content
       | "va_form"                           | "va_form page"                            |
       | "vba_facility"                      | "vba_facility page"                       |
       | "vet_center"                        | "vet_center page"                         |
+
+@content_editing
+  Scenario: Confirm that the default time zone when creating an event is set explicitly to Eastern.
+    Given I am logged in as a user with the "content_admin" role
+    And I am at "node/add/event"
+    Then I should see "New York" in the "#edit-field-datetime-range-timezone-0-timezone" element
