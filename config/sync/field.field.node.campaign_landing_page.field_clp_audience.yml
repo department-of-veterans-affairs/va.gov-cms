@@ -1,0 +1,35 @@
+uuid: 868fb675-0325-445b-bafb-b589dffaae9a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_clp_audience
+    - node.type.campaign_landing_page
+    - taxonomy.vocabulary.audience_tags
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: true
+id: node.campaign_landing_page.field_clp_audience
+field_name: field_clp_audience
+entity_type: node
+bundle: campaign_landing_page
+label: 'Add between 1 and 3 audiences'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      audience_tags: audience_tags
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference
