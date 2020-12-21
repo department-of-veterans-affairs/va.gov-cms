@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.support_service.field_administration
+    - field.field.node.support_service.field_health_service_appt_leadin
     - field.field.node.support_service.field_link
     - field.field.node.support_service.field_office
     - field.field.node.support_service.field_page_last_built
@@ -17,6 +18,7 @@ dependencies:
     - link
     - path
     - telephone
+    - textfield_counter
 third_party_settings:
   field_group:
     group_editorial_workflow:
@@ -25,7 +27,7 @@ third_party_settings:
         - revision_log
         - field_page_last_built
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: fieldset
       format_settings:
         id: ''
@@ -39,14 +41,14 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details_sidebar
       format_settings:
         id: ''
         classes: ''
-        open: 1
-        required_fields: 1
-        weight: '-10'
+        open: true
+        required_fields: true
+        weight: -10
       label: Governance
       region: content
 id: node.support_service.default
@@ -59,6 +61,19 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
+  field_health_service_appt_leadin:
+    weight: 4
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 200
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining.'
+    third_party_settings: {  }
+    type: string_textarea_with_counter
     region: content
   field_link:
     weight: 3
@@ -81,7 +96,7 @@ content:
     type: datetime_default
     region: content
   field_phone_number:
-    weight: 4
+    weight: 5
     settings:
       placeholder: ''
     third_party_settings: {  }
