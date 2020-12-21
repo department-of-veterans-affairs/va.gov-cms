@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * VAGOVADMIN theme implementation to display a `downloadable_file` paragraph 
+ * VAGOVADMIN theme implementation to display a `downloadable_file` paragraph
  on `documentation_page` nodes.
  *
  * Available variables:
@@ -46,7 +46,7 @@
       {% set file_extension = media_object.link_url | split('.') | last | upper %}
       <a {{ media_object.attributes }} target="_blank" href="{{ media_object.link_url }}" download="{{ media_object.link_url }}" aria-label="{{ 'Download' | trans }}">{{ media_object.link_title }} ({{ file_extension }})</a>
     {% elseif media_object.bundle is same as("video") %}
-      <a {{ media_object.attributes }} target="_blank" href="{{ media_object.link_url }}">{{ media_object.link_title }}</a>
+      {{ content.field_media }}
     {% endif %}
   {% endfor %}
 {% endblock %}
