@@ -3179,30 +3179,30 @@
         },
         {
             "name": "drupal/content_lock",
-            "version": "2.1.0",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/content_lock.git",
-                "reference": "8.x-2.1"
+                "reference": "8.x-2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/content_lock-8.x-2.1.zip",
-                "reference": "8.x-2.1",
-                "shasum": "a83983c8deb697cf19863153b2b8c0e1a2452c2f"
+                "url": "https://ftp.drupal.org/files/projects/content_lock-8.x-2.2.zip",
+                "reference": "8.x-2.2",
+                "shasum": "9ea5810067c0df18879a16a19236e0cb46f9fba7"
             },
             "require": {
                 "drupal/core": "^8.8|^9.0"
             },
             "require-dev": {
-                "drupal/conflict": "dev-2.x",
+                "drupal/conflict": "^2.0@ALPHA",
                 "drupal/prefetch_cache": "dev-1.x"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.1",
-                    "datestamp": "1591342900",
+                    "version": "8.x-2.2",
+                    "datestamp": "1607936866",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4764,6 +4764,10 @@
                 {
                     "name": "alexpott",
                     "homepage": "https://www.drupal.org/user/157725"
+                },
+                {
+                    "name": "pcambra",
+                    "homepage": "https://www.drupal.org/user/122101"
                 }
             ],
             "description": "Provides additional validators for entity reference fields.",
@@ -5525,7 +5529,7 @@
                     "datestamp": "1552142584",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -5907,7 +5911,7 @@
                     "homepage": "https://www.drupal.org/user/409554"
                 },
                 {
-                    "name": "markcarver",
+                    "name": "markhalliwell",
                     "homepage": "https://www.drupal.org/user/501638"
                 }
             ],
@@ -6164,6 +6168,10 @@
             ],
             "authors": [
                 {
+                    "name": "joseph.olstad",
+                    "homepage": "https://www.drupal.org/user/1321830"
+                },
+                {
                     "name": "sandeepguntaka",
                     "homepage": "https://www.drupal.org/user/3397192"
                 }
@@ -6351,13 +6359,13 @@
                 "shasum": "c471d9982a6540fd7baccc94572947923634fb6b"
             },
             "require": {
-                "drupal/core": "^8 || ^9",
+                "drupal/core": "^8.7.7 || ^9",
                 "drupal/token": "^1.0"
             },
             "require-dev": {
                 "drupal/metatag_dc": "*",
                 "drupal/metatag_open_graph": "*",
-                "drupal/page_manager": "4.x-dev",
+                "drupal/page_manager": "*",
                 "drupal/redirect": "1.x-dev"
             },
             "type": "drupal-module",
@@ -7068,30 +7076,30 @@
         },
         {
             "name": "drupal/paragraphs_browser",
-            "version": "1.0.0-beta1",
+            "version": "1.0.0-rc1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/paragraphs_browser.git",
-                "reference": "8.x-1.0-beta1"
+                "reference": "8.x-1.0-rc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/paragraphs_browser-8.x-1.0-beta1.zip",
-                "reference": "8.x-1.0-beta1",
-                "shasum": "4bc0f948d07f3b5c77209794449acd708c493107"
+                "url": "https://ftp.drupal.org/files/projects/paragraphs_browser-8.x-1.0-rc1.zip",
+                "reference": "8.x-1.0-rc1",
+                "shasum": "a502ff44cdc709b306c2776a8aa96a9c1cb20a05"
             },
             "require": {
-                "drupal/core": "~8.0",
+                "drupal/core": "^8 || ^9",
                 "drupal/paragraphs": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta1",
-                    "datestamp": "1558728785",
+                    "version": "8.x-1.0-rc1",
+                    "datestamp": "1605564683",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "message": "RC releases are not covered by Drupal security advisories."
                     }
                 },
                 "patches_applied": {
@@ -8400,7 +8408,7 @@
             "extra": {
                 "drupal": {
                     "version": "8.x-1.6",
-                    "datestamp": "1604445381",
+                    "datestamp": "1604445424",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -9607,17 +9615,17 @@
         },
         {
             "name": "drupal/workbench_menu_access",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/workbench_menu_access.git",
-                "reference": "8.x-1.2"
+                "reference": "8.x-1.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/workbench_menu_access-8.x-1.2.zip",
-                "reference": "8.x-1.2",
-                "shasum": "6bd4dce34be4b4f115aafc3a6f4095f82955e72b"
+                "url": "https://ftp.drupal.org/files/projects/workbench_menu_access-8.x-1.3.zip",
+                "reference": "8.x-1.3",
+                "shasum": "c3c61bc17eb6b5a577d586a51f0c1607370f2a5f"
             },
             "require": {
                 "drupal/core": "^8 || ^9",
@@ -9626,8 +9634,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.2",
-                    "datestamp": "1591110039",
+                    "version": "8.x-1.3",
+                    "datestamp": "1594230465",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -18458,16 +18466,16 @@
         },
         {
             "name": "va-gov/web",
-            "version": "v0.1.1191",
+            "version": "v0.1.1192",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
-                "reference": "e06e81ebc6084117697abb3e0f698711bbb0e8b5"
+                "reference": "2b2b7663b39fb7ce54fb7c50ab3d5460ce390be9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/e06e81ebc6084117697abb3e0f698711bbb0e8b5",
-                "reference": "e06e81ebc6084117697abb3e0f698711bbb0e8b5",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/2b2b7663b39fb7ce54fb7c50ab3d5460ce390be9",
+                "reference": "2b2b7663b39fb7ce54fb7c50ab3d5460ce390be9",
                 "shasum": ""
             },
             "type": "node-project",
@@ -18492,7 +18500,7 @@
                 }
             ],
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
-            "time": "2020-12-15T18:35:36+00:00"
+            "time": "2020-12-16T18:06:16+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -20932,11 +20940,6 @@
                 "squizlabs/php_codesniffer": "^2.7"
             },
             "type": "library",
-            "extra": {
-                "patches_applied": {
-                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "TravisCarden\\BehatTableComparison\\": "src/BehatTableComparison/"
@@ -20957,7 +20960,12 @@
                 "Behat",
                 "gherkin"
             ],
-            "time": "2018-07-03T17:42:23+00:00"
+            "time": "2018-07-03T17:42:23+00:00",
+            "extra": {
+                "patches_applied": {
+                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
+                }
+            }
         },
         {
             "name": "vipnytt/robotstxtparser",
@@ -21136,7 +21144,6 @@
         "devshop/behat-drupal-extension": 20,
         "drupal/blazy": 5,
         "drupal/cer": 15,
-        "drupal/content_lock": 15,
         "drupal/entity_block": 10,
         "drupal/entity_clone": 10,
         "drupal/entityqueue": 10,
@@ -21149,7 +21156,6 @@
         "drupal/markup": 10,
         "drupal/mass_pwreset": 15,
         "drupal/openapi": 10,
-        "drupal/paragraphs_browser": 15,
         "drupal/password_policy": 15,
         "drupal/password_strength": 15,
         "drupal/path_redirect_import": 10,

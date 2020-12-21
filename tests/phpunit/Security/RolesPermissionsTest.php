@@ -63,6 +63,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'access site-wide contact form',
           'access taxonomy overview',
           'add user_history entities',
+          'create terms in audience_tags',
           'enter all revision log entry',
           'execute graphql requests',
           'execute persisted graphql requests',

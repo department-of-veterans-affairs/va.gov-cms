@@ -128,7 +128,7 @@ class BuildTriggerForm extends FormBase {
         $description = t('Environment not detected. Perform a content release by running the <pre>composer va:web:build</pre> command.');
     }
 
-    $target_url = Url::fromUri('http://' . $target, ['attributes' => ['target' => '_blank']]);
+    $target_url = Url::fromUri($target, ['attributes' => ['target' => '_blank']]);
     $target_link = Link::fromTextAndUrl($target, $target_url);
     $form['environment_target'] = [
       '#type' => 'item',
