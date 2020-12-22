@@ -145,3 +145,36 @@ h2.section-header {
   }
 }
 
+#block-vagovcmswhatsnewinthecms {
+  * {
+    box-shadow: border-box;
+  }
+
+  background: rgb(217, 238, 251); // Light blue.
+  font-size: 16px;
+  height: 96px;
+  min-width: 308px;
+  padding: 24px;
+
+  div {
+    margin-top: 10px;
+  }
+
+  h2 {
+    font-size: 17px;
+    font-weight: bold;
+
+    &::before {
+      background-image: url('../../../vagovadmin/images/icons/bullhorn-000000.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
+      content: '';
+      display: inline-block;
+      height: 23px;
+      padding-right: 5px;
+      vertical-align: -28%;
+      width: 27px;
+    }
+  }
+}
+
