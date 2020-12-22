@@ -4,7 +4,7 @@ Feature: Content model: Benefits hubs Content Type fields
   As a content editor
   I want to have content type fields that reflect my content model.
 
-  @dst @field_type @content_type_fields @dstfields                                                                                                                                                               
+  @dst @field_type @content_type_fields @dstfields
      Scenario: Fields
        Then exactly the following fields should exist for bundles "page,landing_page,basic_landing_page,support_service" of entity type node
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
@@ -44,6 +44,7 @@ Feature: Content model: Benefits hubs Content Type fields
 | Content type | Landing Page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Landing Page | Page introduction | field_intro_text_limited_html  | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Landing Page | Product | field_product | Entity reference | Required | 1 | Select list |  |
+| Content type | Support Service | Appointment lead-in text | field_health_service_appt_leadin | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | Support Service | Link | field_link | Link |  | 1 | Link |  |
 | Content type | Support Service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Support Service | Page last built | field_page_last_built | Date |  | 1 | Date and time | Translatable |
