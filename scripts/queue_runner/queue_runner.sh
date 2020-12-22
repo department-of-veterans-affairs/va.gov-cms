@@ -1,3 +1,3 @@
 #!/bin/sh
 
-php queue-runner.php
+php "${TUGBOAT_ROOT}/scripts/queue_runner/queue-runner.php"
