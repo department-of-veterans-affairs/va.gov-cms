@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ab56e4c1fc077fc4e77471f127f1eb66",
+    "content-hash": "abe1d6afa6c963270481e8b32c34a8c5",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -8389,17 +8389,17 @@
         },
         {
             "name": "drupal/taxonomy_entity_index",
-            "version": "1.6.0",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/taxonomy_entity_index.git",
-                "reference": "8.x-1.6"
+                "reference": "8.x-1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/taxonomy_entity_index-8.x-1.6.zip",
-                "reference": "8.x-1.6",
-                "shasum": "a34749caeb573d40d88347cf2cb6806274f118fb"
+                "url": "https://ftp.drupal.org/files/projects/taxonomy_entity_index-8.x-1.7.zip",
+                "reference": "8.x-1.7",
+                "shasum": "f9a36f4f66728137ea23abd771585da89aab24f7"
             },
             "require": {
                 "drupal/core": "^8 || ^9"
@@ -8407,11 +8407,16 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.6",
-                    "datestamp": "1604445424",
+                    "version": "8.x-1.7",
+                    "datestamp": "1608157880",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9"
                     }
                 }
             },
@@ -21144,6 +21149,7 @@
         "devshop/behat-drupal-extension": 20,
         "drupal/blazy": 5,
         "drupal/cer": 15,
+        "drupal/content_lock": 15,
         "drupal/entity_block": 10,
         "drupal/entity_clone": 10,
         "drupal/entityqueue": 10,
@@ -21156,6 +21162,7 @@
         "drupal/markup": 10,
         "drupal/mass_pwreset": 15,
         "drupal/openapi": 10,
+        "drupal/paragraphs_browser": 15,
         "drupal/password_policy": 15,
         "drupal/password_strength": 15,
         "drupal/path_redirect_import": 10,
