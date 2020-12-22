@@ -117,7 +117,7 @@ services:
         - find "${DOCROOT}/vendor/va-gov/web" -type d -exec chmod 2775 {} \;
         - find "${DOCROOT}/vendor/va-gov/web" -type f -exec chmod 0664 {} \;
 
-      run:
+      start:
         - php "${TUGBOAT_ROOT}/scripts/queue-runner.php"
 
   # What to call the service hosting MySQL. This name also acts as the
