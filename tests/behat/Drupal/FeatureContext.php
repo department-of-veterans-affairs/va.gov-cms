@@ -56,6 +56,18 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   }
 
   /**
+   * Wait a while, for JS loading or debugging.
+   *
+   * @param int $seconds
+   *   How long to wait.
+   *
+   * @When I wait :seconds second(s)
+   */
+  public function wait($seconds) {
+    sleep($seconds);
+  }
+
+  /**
    * Go to a view or edit page for a node.
    *
    * @param string $page
