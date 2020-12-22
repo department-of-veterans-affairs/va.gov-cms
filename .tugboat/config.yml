@@ -104,6 +104,11 @@ services:
         - drush updatedb --cache-clear=0 -y
         - drush cache:rebuild
 
+        # Setup background processing service
+        - mkdir -p /etc/service/drupal_events
+        - mv "${TUGBOAT_ROOT}/scripts/queue_runner/queue_runner.sh" /etc/service/drupal_events/run
+        - chmod +x /etc/service/drupal_events/run
+
       online:
         # We only want tests running on PRs, not branches like the base preview build of master.
         # This sets the commit status checks to pending all at once.

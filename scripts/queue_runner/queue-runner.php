@@ -10,7 +10,7 @@ DrupalKernel::createFromRequest($request, $autoloader, 'prod');
 
 $i = 0;
 while (1 == 1) {
-  echo $i;
+  error_log($i);
   $i++;
   sleep(2);
 }
