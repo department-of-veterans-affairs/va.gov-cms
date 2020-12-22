@@ -147,8 +147,6 @@ class PostFacilityService {
     $payload = [];
 
     if (empty($this->errors) && $this->shouldPush()) {
-      // @todo set the actual payload for facility service once Lighthouse
-      // defines it for us.
       $service = new \stdClass();
       $service->name = $this->serviceTerm->getName();
       $service->active = ($this->facilityService->isPublished()) ? 1 : 0;
@@ -182,27 +180,32 @@ class PostFacilityService {
    *   TRUE if should be pushed, FALSE otherwise.
    */
   protected function shouldPush() {
-    $push = FALSE;
+    // Moderation state of what is being saved.
+    $moderationState = $this->facilityService->moderation_state->value;
+    $isArchived = ($moderationState === 'archived') ? TRUE : FALSE;
+    $thisRevisionIsPublished = $this->facilityService->isPublished();
+    $defaultRevisionIsPublished = (isset($this->facilityService->original) && ($this->facilityService->original instanceof EntityInterface)) ? (bool) $this->facilityService->original->status->value : (bool) $this->facilityService->status->value;
+    $isNew = $this->facilityService->isNew();
 
-    if (isset($this->facilityService->original)
-    && ($this->facilityService->original instanceof EntityInterface)
-    // Temporarily, the need is to just always push, so circumventing here.
-    && (TRUE == FALSE)
-    && (!$this->shouldBypass())) {
-      // Entity is updated. Check if the status changed and needs to be pushed.
-      // @todo this logic needs to be updated to account for sending:
-      // - published: should be pushed
-      // - draft revision on published node :should not be pushed, even w/bypass
-      // - draft on node that has not been published: should be pushed.
-      // - archived: should be pushed.
-      if ($this->facilityService->status !== $this->facilityService->original->status) {
-        // One of the status values changed. Send the payload.
+    // Case race. First to evaluate to TRUE wins.
+    switch (TRUE) {
+      case $isNew:
+        // A new node, should be pushed to initiate the value.
+      case $thisRevisionIsPublished:
+        // This revision is published, should be pushed.
+      case $isArchived:
+        // This node has been archived, got to push to remove it.
+      case (!$defaultRevisionIsPublished && !$thisRevisionIsPublished):
+        // Draft on node that has not been published, should be pushed.
         $push = TRUE;
-      }
-    }
-    else {
-      // Entity is new or data bypassed. Send the payload.
-      $push = TRUE;
+        break;
+
+      case ($defaultRevisionIsPublished && !$thisRevisionIsPublished):
+        // Draft revision on published node, should not push, even w/bypass.
+      default:
+        // Anything that makes it this far should not be pushed.
+        $push = FALSE;
+        break;
     }
 
     return $push;
