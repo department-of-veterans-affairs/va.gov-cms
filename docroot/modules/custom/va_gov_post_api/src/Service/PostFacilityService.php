@@ -6,6 +6,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\post_api\Service\AddToQueue;
 
 /**
@@ -40,6 +41,13 @@ class PostFacilityService {
    * @var \Drupal\Core\Entity\EntityInterface
    */
   protected $facilityService;
+
+  /**
+   * The Messenger service.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
 
   /**
    * The Post queue add service.
@@ -84,11 +92,23 @@ class PostFacilityService {
 
   /**
    * Constructs a new PostFacilityService object.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger
+   *   The logger factory service.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger interface.
+   * @param \Drupal\post_api\Service\AddToQueue $post_queue
+   *   The PostAPI service.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger, AddToQueue $post_queue) {
+  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger, MessengerInterface $messenger, AddToQueue $post_queue) {
     $this->configFactory = $config_factory;
     $this->entityTypeManager = $entity_type_manager;
     $this->logger = $logger;
+    $this->messenger = $messenger;
     $this->postQueue = $post_queue;
   }
 
@@ -125,6 +145,10 @@ class PostFacilityService {
           // If bypass_data_check setting is enabled, do not dedupe, just force.
           $dedupe = !$this->shouldBypass();
           $this->postQueue->addToQueue($data, $dedupe);
+          // @todo When this is expanded to more than just COVID we may want
+          // to remove the messenger as it will be too noisy.
+          $message = t('The facility service data for %serice_name is being sent to the Facility Locator.', ['%serice_name' => $this->facilityService->getTitle()]);
+          $this->messenger->addStatus($message);
         }
       }
       elseif (!empty($this->errors) && ($this->isPushable())) {
