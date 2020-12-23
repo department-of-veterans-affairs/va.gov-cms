@@ -1,34 +1,29 @@
 <?php
 
-namespace Drupal\va_gov_build_trigger\Plugin\QueueWorker;
+namespace Drupal\va_gov_build_trigger\Plugin\AdvancedQueue\JobType;
 
+use Drupal\advancedqueue\Job;
+use Drupal\advancedqueue\JobResult;
+use Drupal\advancedqueue\Plugin\AdvancedQueue\JobType\JobTypeBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Queue\QueueWorkerBase;
-use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 use Drupal\va_gov_content_export\ExportCommand\CommandRunner;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * @QueueWorker(
- *   id = "va_gov_web_builder",
- *   title = @Translation("Frontend Build Worker")
+ * AdvancedQueue Queue Plugin for web build.
+ *
+ * @AdvancedQueueJobType(
+ *  id = "va_gov_web_builder",
+ *  label = @Translation("VA Web build queue"),
+ *  max_retries = 0,
+ *  retry_delay = 1
  * )
  */
-class WebBuildQueueWorker extends QueueWorkerBase implements ContainerFactoryPluginInterface {
-
-  use LoggerChannelTrait;
+class WebBuildQueue extends JobTypeBase implements ContainerFactoryPluginInterface {
   use CommandRunner;
-
-  public const QUEUE_NAME = 'va_gov_web_builder';
-
-  /**
-   * The Environment Discovery Service.
-   *
-   * @var \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery
-   */
-  protected $environmentDiscovery;
+  use LoggerChannelTrait;
 
   /**
    * Logger Channel.
@@ -46,17 +41,14 @@ class WebBuildQueueWorker extends QueueWorkerBase implements ContainerFactoryPlu
    *   The plugin_id for the plugin instance.
    * @param mixed $pluginDefinition
    *   The plugin implementation definition.
-   * @param EnvironmentDiscovery $environmentDiscovery
-   *   The Environment discovery service.
-   * @param LoggerChannelFactoryInterface $loggerFactory
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
    *   The logger factory.
    */
-  public function __construct(array $configuration, $pluginId, $pluginDefinition, EnvironmentDiscovery $environmentDiscovery, LoggerChannelFactoryInterface $loggerFactory) {
+  public function __construct(array $configuration, $pluginId, $pluginDefinition, LoggerChannelFactoryInterface $loggerFactory) {
     parent::__construct($configuration, $pluginId, $pluginDefinition);
 
-    $this->environmentDiscovery = $environmentDiscovery;
     $this->setLoggerFactory($loggerFactory);
-    $this->logger = $this->getLogger(static::QUEUE_NAME);
+    $this->logger = $this->getLogger($this->getPluginId());
   }
 
   /**
@@ -67,24 +59,30 @@ class WebBuildQueueWorker extends QueueWorkerBase implements ContainerFactoryPlu
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('va_gov.build_trigger.environment_discovery'),
       $container->get('logger.factory')
     );
   }
 
-
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
-  public function processItem($data) {
-    $commands = $data ?? [];
+  public function process(Job $job) {
+    $payload = $job->getPayload();
 
+    $commands = $payload['commands'] ?? [];
     $messages = $this->runCommands($commands);
-    foreach ($messages as $message) {
-      $this->logger->error($message);
+
+    if ($messages) {
+      foreach ($messages as $message) {
+        $this->logger->error($message);
+      }
+
+      return JobResult::failure();
     }
 
     $this->logger->info('Front end has been rebuilt');
+
+    return JobResult::success();
   }
 
 }
