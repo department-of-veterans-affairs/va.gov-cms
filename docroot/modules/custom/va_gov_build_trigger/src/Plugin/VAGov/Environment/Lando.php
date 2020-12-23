@@ -2,9 +2,14 @@
 
 namespace Drupal\va_gov_build_trigger\Plugin\VAGov\Environment;
 
+use Drupal\advancedqueue\Entity\QueueInterface;
+use Drupal\advancedqueue\Job;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
-use Drupal\va_gov_build_trigger\Plugin\QueueWorker\WebBuildQueueWorker;
+use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use Drupal\va_gov_content_export\ExportCommand\CommandRunner;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Lando Plugin for Environment.
@@ -18,28 +23,57 @@ class Lando extends EnvironmentPluginBase {
   use CommandRunner;
 
   /**
-   * @var \Drupal\Core\Queue\QueueInterface
+   * The queue storage manager.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
    */
-  protected $queue;
+  protected $queueLoader;
 
   /**
    * {@inheritDoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->queue = \Drupal::queue(WebBuildQueueWorker::QUEUE_NAME);
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    LoggerInterface $logger,
+    WebBuildStatusInterface $webBuildStatus,
+    EntityStorageInterface $queueLoader
+  ) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $logger, $webBuildStatus);
+    $this->queueLoader = $queueLoader;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('logger.factory')->get('va_gov_build_trigger'),
+      $container->get('va_gov.build_trigger.web_build_status'),
+      $container->get('entity_type.manager')->getStorage('advancedqueue_queue')
+    );
   }
 
   /**
    * {@inheritDoc}
    */
   public function triggerFrontendBuild(): void {
-    $commands = [
-      'cd /app && COMPOSER_HOME=/var/www/.composer /usr/local/bin/composer va:web:build',
+    $payload = [
+      'commands' =>
+        [
+          'cd /app && COMPOSER_HOME=/var/www/.composer /usr/local/bin/composer va:web:build',
+        ],
     ];
 
-    $this->queue->createQueue();
-    $this->queue->createItem($commands);
+    $job = Job::create('va_gov_web_builder', $payload);
+
+    /** @var QueueInterface $queue */
+    $queue = $this->queueLoader->load('command_runner');
+    $queue->enqueueJob($job);
 
     $this->messenger()->addStatus('A request to rebuild the front end has been submitted.');
   }

@@ -1,3 +1,5 @@
 #!/bin/sh
 
-php "${TUGBOAT_ROOT}/scripts/queue_runner/queue-runner.php"
+cd "${TUGBOAT_ROOT}"
+./bin/drupal advancedqueue:queue:process command_runner
+sleep 60s

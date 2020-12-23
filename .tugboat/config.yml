@@ -104,7 +104,8 @@ services:
         - drush updatedb --cache-clear=0 -y
         - drush cache:rebuild
 
-        # Setup background processing service
+        # Setup background processing service.  This uses runit to keep process up
+        # See https://docs.tugboat.qa/setting-up-services/how-to-set-up-services/running-a-background-process
         - mkdir -p /etc/service/drupal_events
         - mv "${TUGBOAT_ROOT}/scripts/queue_runner/queue_runner.sh" /etc/service/drupal_events/run
         - chmod +x /etc/service/drupal_events/run
