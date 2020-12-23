@@ -67,7 +67,7 @@ class WhatsNew extends BlockBase implements ContainerFactoryPluginInterface {
     $see_latest = $this->t('See latest announcements');
     $last_updated = $this->t('Last updated');
     $node = $this->nodeStorage->load(static::ANNOUNCEMENT_NODE_ID);
-    $last_revision_date = $this->dateFormatter->format($node->getChangedTime(), 'custom', 'm/d/Y H:i T');
+    $last_revision_date = $this->dateFormatter->format($node->getChangedTime(), 'standard');
     $link_url = $node->toUrl()->toString();
     $markup = <<<EOF
       <div id="block-vagovcmswhatsnewinthecms-see-latest">
