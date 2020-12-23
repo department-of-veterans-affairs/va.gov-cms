@@ -147,7 +147,7 @@ class PostFacilityService {
           $this->postQueue->addToQueue($data, $dedupe);
           // @todo When this is expanded to more than just COVID we may want
           // to remove the messenger as it will be too noisy.
-          $message = t('The facility service data for %serice_name is being sent to the Facility Locator.', ['%serice_name' => $this->facilityService->getTitle()]);
+          $message = t('The facility service data for %service_name is being sent to the Facility Locator.', ['%service_name' => $this->facilityService->getTitle()]);
           $this->messenger->addStatus($message);
         }
       }
@@ -194,7 +194,7 @@ class PostFacilityService {
    *   TRUE if bypass, FALSE if no bypass.
    */
   protected function shouldBypass() {
-    return empty($this->configFactory->get('va_gov_post_api.settings')->get('bypass_data_check')) ? FALSE : TRUE;
+    return !empty($this->configFactory->get('va_gov_post_api.settings')->get('bypass_data_check'));
   }
 
   /**
@@ -239,7 +239,7 @@ class PostFacilityService {
    * Checks to see if this service is slated for pushing.
    */
   private function isPushable() {
-    return (in_array($this->serviceTerm->id(), $this->servicesToPush)) ? TRUE : FALSE;
+    return in_array($this->serviceTerm->id(), $this->servicesToPush);
   }
 
   /**
