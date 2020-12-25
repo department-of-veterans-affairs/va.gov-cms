@@ -128,6 +128,18 @@ class BuildTriggerForm extends FormBase {
         $description = t('Environment not detected. Perform a content release by running the <pre>composer va:web:build</pre> command.');
     }
 
+    // Add branch selection.
+    if ($this->environmentDiscovery->isTugboat() || $this->environmentDiscovery->isLocal()) {
+      $form['front_end_branch'] = [
+        '#type' => 'textfield',
+        '#autocomplete_route_name' => 'va_gov_build_trigger.front_end_branches_autocomplete',
+        '#autocomplete_route_parameters' => [
+          'field_name' => 'front_end_branch',
+          'count' => 10,
+        ],
+      ];
+    }
+
     $target_url = Url::fromUri($target, ['attributes' => ['target' => '_blank']]);
     $target_link = Link::fromTextAndUrl($target, $target_url);
     $form['environment_target'] = [
@@ -151,6 +163,18 @@ class BuildTriggerForm extends FormBase {
    */
   public function getFormId() {
     return 'va_gov_build_trigger_build_trigger_form';
+  }
+
+  /**
+   * Re-build the build trigger form.
+   *
+   * @param array $form
+   *   Default form array structure.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Object containing current form state.
+   */
+  public function rebuildForm(array $form, FormStateInterface $form_state) {
+    kint('in rebuild');
   }
 
   /**
