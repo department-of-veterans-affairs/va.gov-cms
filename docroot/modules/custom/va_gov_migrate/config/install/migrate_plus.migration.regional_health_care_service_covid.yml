@@ -11,7 +11,7 @@ migration_group: vamc
 label: 'Node - VAMC System Health Service keyed by system.'
 source:
   plugin: csv
-  path: modules/custom/va_gov_migrate/data/health-care-service-covid.csv
+  path: modules/custom/va_gov_migrate/data/regional_health_care_service_covid.csv
   delimiter: ;
   enclosure: ''''
   header_row_count: 1
@@ -23,28 +23,26 @@ source:
     cmsmigrator_id: 1317
   column_names:
     -
-      station_id: 'Station ID'
-    -
-      field_health_care_facility_name: 'VAMC Facility Name'
-    -
       field_health_care_system_name: 'VAMC System Name'
     -
-      field_health_care_system_id: 'VAMC System ID'
-    -
       field_system_service_description: 'VAMC System description of services'
-    -
-      field_facility_service_description: 'VAMC Facility description of services'
 process:
-  #
+  # This is where we process the incoming row and assign to fields.
+  pseudo_facility_name: field_health_care_system_name
   field_service_name_and_descripti:
     -
       plugin: default_value
       default_value: 321
   field_body/value:
     -
-      plugin: callback
-      callable: trim
+      plugin: str_replace
+      properties: true
       source: field_system_service_description
+      search: '[System Name]'
+      replace: '@pseudo_facility_name'
+  field_body/format:
+    plugin: default_value
+    default_value: "rich_text"
   field_region_page:
     -
       plugin: entity_lookup
@@ -56,7 +54,7 @@ process:
     -
       plugin: skip_on_empty
       method: row
-      message: 'Entity lookup for field_health_care_system_name vamc system found nothing.'
+      message: 'Entity lookup for field_region_page vamc system found nothing.'
   field_administration:
     -
       plugin: entity_lookup
@@ -68,7 +66,7 @@ process:
     -
       plugin: skip_on_empty
       method: row
-      message: 'Entity lookup for field_health_care_system_name owner found nothing.'
+      message: 'Entity lookup for field_administration (owner) found nothing.'
   changed:
     plugin: callback
     callable: time
