@@ -2,8 +2,10 @@
 
 namespace Drupal\va_gov_build_trigger\Controller;
 
-use Drupal\Core\Controller\ControllerBase;
 use Drupal\Component\Utility\Unicode;
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Exception;
 use GuzzleHttp\Client;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,10 +24,18 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
   protected $httpClient;
 
   /**
+   * Logger.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+   */
+  protected $logger;
+
+  /**
    * {@inheritdoc}
    */
-  public function __construct(Client $http_client) {
+  public function __construct(Client $http_client, LoggerChannelFactoryInterface $logger) {
     $this->httpClient = $http_client;
+    $this->logger = $logger;
   }
 
   /**
@@ -33,7 +43,8 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('http_client')
+      $container->get('http_client'),
+      $container->get('logger.factory')
     );
   }
 
@@ -50,9 +61,10 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
 
       for ($i = 0; $i < $count; $i++) {
         if (!empty($frontEndPrs->items[$i])) {
+          $item = $frontEndPrs->items[$i];
           $results[] = [
-            'label' => 'PR ' . $frontEndPrs->items[$i]->number . ' (' . $frontEndPrs->items[$i]->title . ')',
-            'value' => 'PR ' . $frontEndPrs->items[$i]->number . ' (' . $frontEndPrs->items[$i]->title . ')',
+            'label' => "PR {$item->number} ({$item->title})",
+            'value' => "PR {$item->number} - {$item->title} ($item->number)",
           ];
         }
       }
@@ -73,23 +85,30 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
     $string = urlencode($string);
 
     try {
+      $request_options = [
+        'headers' => [
+          'Accept' => 'application/vnd.github.v3+json',
+        ],
+        'query' => [
+          'per_page' => $count,
+          'q' => "is:pr is:open repo:{$repo} {$string}",
+        ],
+      ];
+
+      if ($gh_token = getenv('GITHUB_TOKEN')) {
+        $request_options['headers']['Authorization'] = "token {$gh_token}";
+      }
+
       $request = $this->httpClient->get(
         'https://api.github.com/search/issues',
-        [
-          'headers' => [
-            'Accept:' => 'application/vnd.github.v3+json',
-          ],
-          'query' => [
-            'per_page' => $count,
-            'q' => "is:pr is:open repo:{$repo} {$string}",
-          ],
-        ]
+        $request_options
       );
 
       $results = json_decode($request->getBody());
     }
-    catch (\Exception $e) {
-      watchdog_exception('asdf', $e);
+    catch (Exception $e) {
+      $variables = Error::decodeException($exception);
+      $this->logger('va_gov_build_trigger')->error('%type: @message in %function (line %line of %file).', $variables);
     }
 
     return $results;
