@@ -19,7 +19,7 @@ class RouteSubscriber extends RouteSubscriberBase {
   protected $environmentDiscovery;
 
   /**
-   * Construct an example service instance.
+   * RouteSubscriber constructor.
    *
    * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery $environmentDiscovery
    *   EnvironmentDiscovery service.
