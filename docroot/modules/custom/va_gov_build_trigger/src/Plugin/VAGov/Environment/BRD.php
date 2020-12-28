@@ -5,12 +5,14 @@ namespace Drupal\va_gov_build_trigger\Plugin\VAGov\Environment;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\slack\Slack;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * BRD Plugin for Environment.
@@ -21,6 +23,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterface {
+
+  // Hosts we associate with the Prod BRD environment.
+  public const VAGOV_PRODUCTION_HOSTS = [
+    'cms.va.gov',
+    'prod.cms.va.gov',
+  ];
 
   use StringTranslationTrait;
 
@@ -39,6 +47,20 @@ class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterfa
   protected $database;
 
   /**
+   * The current request.
+   *
+   * @var \Symfony\Component\HttpFoundation\Request
+   */
+  protected $request;
+
+  /**
+   * Slack service.
+   *
+   * @var \Drupal\slack\Slack
+   */
+  protected $slack;
+
+  /**
    * {@inheritDoc}
    */
   public function __construct(
@@ -46,12 +68,16 @@ class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterfa
     $plugin_id,
     $plugin_definition,
     $dateFormatter,
-    $database
+    $database,
+    RequestStack $requestStack,
+    Slack $slack
   ) {
 
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->dateFormatter = $dateFormatter;
     $this->database = $database;
+    $this->request = $requestStack->getCurrentRequest();
+    $this->slack = $slack;
   }
 
   /**
@@ -63,7 +89,9 @@ class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterfa
       $plugin_id,
       $plugin_definition,
       $container->get('date.formatter'),
-      $container->get('database')
+      $container->get('database'),
+      $container->get('request_stack'),
+      $container->get('slack.slack_service')
     );
   }
 
@@ -145,11 +173,17 @@ class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterfa
       }
     }
     catch (RequestException $exception) {
-      $message = $this->t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify in #cms-support Slack and please email vacmssupport@va.gov immediately with the error message you see here.', [':url' => $jenkins_build_job_url]);
+      $message = $this->t('Site rebuild request has failed for :url with an Exception, check log for more information.', [':url' => $jenkins_build_job_url]);
       $this->messenger()->addError($message);
       $this->logger->error($message);
       $this->webBuildStatus->disableWebBuildStatus();
       watchdog_exception('va_gov_build_trigger', $exception);
+      if (in_array($this->request->getHost(), static::VAGOV_PRODUCTION_HOSTS)) {
+        $slackConfig = $this->config->get('slack.settings');
+        if ($slackConfig->get('slack_webhook_url')) {
+          $this->slack->sendMessage("@here :warning: $message");
+        }
+      }
     }
 
   }
