@@ -1,0 +1,26 @@
+uuid: 1b005933-2b6d-4820-80a0-621ae18ec325
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+    - va_gov_backend
+  theme:
+    - vagovadmin
+id: whatsnewinthecms
+theme: vagovadmin
+region: sidebar_second
+weight: -17
+provider: null
+plugin: va_gov_backend_whats_new
+settings:
+  id: va_gov_backend_whats_new
+  label: 'What''s New in the CMS'
+  provider: va_gov_backend
+  label_display: visible
+visibility:
+  request_path:
+    id: request_path
+    pages: '/help/*'
+    negate: false
+    context_mapping: {  }
