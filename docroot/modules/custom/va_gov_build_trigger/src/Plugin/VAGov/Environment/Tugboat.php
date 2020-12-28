@@ -61,13 +61,17 @@ class Tugboat extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild(): void {
-    $payload = [
-      'commands' =>
-        [
-          'cd /var/lib/tugboat && COMPOSER_HOME=/var/lib/tugboat /usr/local/bin/composer --no-cache va:web:build',
-        ],
-    ];
+  public function triggerFrontendBuild($web_pr = NULL): void {
+    $commands = [];
+
+    if (is_numeric($web_pr)) {
+      $build_date = time();
+      $web_pr_branch = "build-{$web_pr}-{$build_date}";
+      $commands[] = "cd /var/lib/tugboat/web && git fetch origin pull/{$web_pr}/head:{$web_pr_branch} && git checkout {$web_pr_branch}";
+    }
+
+    $commands[] = 'cd /var/lib/tugboat && COMPOSER_HOME=/var/lib/tugboat /usr/local/bin/composer --no-cache va:web:build';
+    $payload = ['commands' => $commands];
 
     $job = Job::create('va_gov_web_builder', $payload);
 

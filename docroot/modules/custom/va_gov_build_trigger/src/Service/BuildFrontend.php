@@ -69,9 +69,9 @@ class BuildFrontend {
   /**
    * Triggers the appropriate frontend Build based on the environment.
    */
-  public function triggerFrontendBuild() {
+  public function triggerFrontendBuild($web_pr = NULL) {
     try {
-      $this->environmentDiscovery->triggerFrontendBuild();
+      $this->environmentDiscovery->triggerFrontendBuild($web_pr);
     }
     catch (PluginException $e) {
       // In an unaccounted for environment without a plugin.

@@ -61,13 +61,17 @@ class Lando extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild(): void {
-    $payload = [
-      'commands' =>
-        [
-          'cd /app && COMPOSER_HOME=/var/www/.composer /usr/local/bin/composer va:web:build',
-        ],
-    ];
+  public function triggerFrontendBuild($web_pr = NULL): void {
+    $commands = [];
+
+    if (is_numeric($web_pr)) {
+      $build_date = time();
+      $web_pr_branch = "build-{$web_pr}-{$build_date}";
+      $commands[] = "cd /app/web && git fetch origin pull/{$web_pr}/head:{$web_pr_branch} && git checkout {$web_pr_branch}";
+    }
+
+    $commands[] = 'cd /app && COMPOSER_HOME=/var/www/.composer /usr/local/bin/composer va:web:build';
+    $payload = ['commands' => $commands];
 
     $job = Job::create('va_gov_web_builder', $payload);
 

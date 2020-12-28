@@ -138,7 +138,7 @@ class BuildTriggerForm extends FormBase {
 
       $form['advanced']['front_end_branch'] = [
         '#type' => 'textfield',
-        '#description' => $this->t('Enter text to search for a Front-end PR by number or title.'),
+        '#description' => $this->t('Enter text to search for an open Front-end PR by number or title.'),
         '#autocomplete_route_name' => 'va_gov_build_trigger.front_end_branches_autocomplete',
         '#autocomplete_route_parameters' => [
           'field_name' => 'front_end_branch',
@@ -181,7 +181,15 @@ class BuildTriggerForm extends FormBase {
    *   Object containing current form state.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->buildFrontend->triggerFrontendBuild();
+    $pr_number = NULL;
+    if (
+      $front_end_branch = $form_state->getValue('front_end_branch') &&
+      preg_match("/.+\\s\\(([^\\)]+)\\)/", $front_end_branch, $matches)
+    ) {
+      $pr_number = $matches[1];
+    }
+
+    $this->buildFrontend->triggerFrontendBuild($pr_number);
   }
 
 }
