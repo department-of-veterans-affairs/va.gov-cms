@@ -21,9 +21,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *  retry_delay = 1
  * )
  */
-class WebBuildQueue extends JobTypeBase implements ContainerFactoryPluginInterface {
+class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInterface {
   use CommandRunner;
   use LoggerChannelTrait;
+
+  public const QUEUE_ID = 'va_gov_web_builder';
 
   /**
    * Logger Channel.
