@@ -7,7 +7,7 @@ services:
     arguments: ['@state']
   va_gov.build_trigger.environment_discovery:
     class: Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery
-    arguments: [ '@plugin.manager.va_gov.environment' ]
+    arguments: [ '@plugin.manager.va_gov.environment', '@request_stack' ]
   plugin.manager.va_gov.environment:
     class: Drupal\va_gov_build_trigger\Environment\EnvironmentManager
     parent: default_plugin_manager

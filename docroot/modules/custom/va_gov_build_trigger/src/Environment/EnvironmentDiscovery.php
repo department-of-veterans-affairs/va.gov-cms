@@ -3,11 +3,18 @@
 namespace Drupal\va_gov_build_trigger\Environment;
 
 use Drupal\Core\Site\Settings;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * A class responsible for environment (dev/stage/prod) discovery.
  */
 class EnvironmentDiscovery {
+
+  // Hosts we associate with the Prod BRD environment.
+  public const VAGOV_PRODUCTION_HOSTS = [
+    'cms.va.gov',
+    'prod.cms.va.gov',
+  ];
 
   /**
    * The current environment object.
@@ -24,13 +31,23 @@ class EnvironmentDiscovery {
   protected $environmentManager;
 
   /**
+   * The current request.
+   *
+   * @var \Symfony\Component\HttpFoundation\Request|null
+   */
+  protected $request;
+
+  /**
    * EnvironmentDiscovery constructor.
    *
    * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentManager $environmentManager
    *   The environment manager class.
+   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+   *   The request stack.
    */
-  public function __construct(EnvironmentManager $environmentManager) {
+  public function __construct(EnvironmentManager $environmentManager, RequestStack $requestStack) {
     $this->environmentManager = $environmentManager;
+    $this->request = $requestStack->getCurrentRequest();
   }
 
   /**
@@ -83,6 +100,16 @@ class EnvironmentDiscovery {
   }
 
   /**
+   * Is this on Production?
+   *
+   * @return bool
+   *   Is this on Production?
+   */
+  public function isProd() : bool {
+    return !empty($this->request) && in_array($this->request->getHost(), static::VAGOV_PRODUCTION_HOSTS);
+  }
+
+  /**
    * Get the environment type.
    *
    * @return string
@@ -115,8 +142,10 @@ class EnvironmentDiscovery {
     if ($this->environment) {
       return $this->environment;
     }
-
     $build_type = $this->getBuildTypeKey();
+    if ($build_type === 'brd' && $this->isProd()) {
+      $build_type = 'production';
+    }
     $this->environment = $this->environmentManager->createInstance($build_type);
     return $this->environment;
   }
