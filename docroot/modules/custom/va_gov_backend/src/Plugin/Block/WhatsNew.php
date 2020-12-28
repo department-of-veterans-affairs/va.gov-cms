@@ -69,14 +69,13 @@ class WhatsNew extends BlockBase implements ContainerFactoryPluginInterface {
     $node = $this->nodeStorage->load(static::ANNOUNCEMENT_NODE_ID);
     $last_revision_date = $this->dateFormatter->format($node->getChangedTime(), 'standard');
     $link_url = $node->toUrl()->toString();
-    $markup = <<<EOF
-      <div id="block-vagovcmswhatsnewinthecms-see-latest">
-        <a target="_blank" id="block-vagovcmswhatsnewinthecms-anchor" href="$link_url">$see_latest</a>
-      </div>
-      <div id="block-vagovcmswhatsnewinthecms-last-updated">$last_updated $last_revision_date</span>
-EOF;
+    $markup = '<div><a href="' . $link_url . '">' . $see_latest . '</a></div><div>' . $last_updated . ' ' . $last_revision_date . '</div>';
+
     return [
       '#markup' => $markup,
+      '#attached' => [
+        'library' => ['vagovadmin/whatsnew'],
+      ],
     ];
   }
 
