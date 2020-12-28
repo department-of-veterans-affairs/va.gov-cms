@@ -88,7 +88,7 @@ class BuildTriggerForm extends FormBase {
     $form['actions']['#type'] = 'actions';
     $form['help_1'] = [
       '#prefix' => '<p>',
-      '#markup' => $this->t('This is a decoupled Drupal website. Content will not be visible on the Front End until a "Content Release" to an environment.'),
+      '#markup' => $this->t('This is a decoupled Drupal website. Content will not be visible on the Front End until a "Content Release" is made to an environment.'),
       '#suffix' => '</p>',
       '#weight' => -10,
     ];
@@ -103,58 +103,23 @@ class BuildTriggerForm extends FormBase {
     ];
 
     if ($this->webBuildStatus->getWebBuildStatus()) {
-      // A build is pending so set a display.
+      // A build is pending, so set a display.
       $form['tip']['#prefix'] = '<em>';
       $form['tip']['#markup'] = $this->t('A content release has been queued.');
       $form['tip']['#suffix'] = '</em>';
       $form['tip']['#weight'] = 100;
     }
 
-    // Case race, first to evaluate TRUE wins.
-    switch (TRUE) {
-      case $this->environmentDiscovery->isBRD():
-        $description = $this->t('A content release for this environment will be handled by VFS Jenkins.');
-        break;
-
-      case $this->environmentDiscovery->isTugboat() || $this->environmentDiscovery->isDevShop():
-        $description = $this->t('A content release for this environment is handled by CMS-CI. You may press this button to trigger a content release.  Please note this could take several minutes to run.');
-        break;
-
-      case $this->environmentDiscovery->isLocal():
-        $description = $this->t('Content releases within Lando. You may press this button to trigger a content release. Please note this could take several minutes to run.');
-        break;
-
-      default:
-        $description = $this->t('Environment not detected. Perform a content release by running the <pre>composer va:web:build</pre> command.');
-    }
-
-    // Add branch selection.
-    if ($this->environmentDiscovery->isTugboat() || $this->environmentDiscovery->isLocal()) {
-      $form['advanced'] = [
-        '#type' => 'details',
-        '#title' => $this->t('Advanced Options'),
-        '#weight' => 10,
-      ];
-
-      $form['advanced']['front_end_branch'] = [
-        '#type' => 'textfield',
-        '#description' => $this->t('Enter text to search for an open Front-end PR by number or title.'),
-        '#autocomplete_route_name' => 'va_gov_build_trigger.front_end_branches_autocomplete',
-        '#autocomplete_route_parameters' => [
-          'field_name' => 'front_end_branch',
-          'count' => 10,
-        ],
-      ];
-    }
-
     $target_url = Url::fromUri($target, ['attributes' => ['target' => '_blank']]);
     $target_link = Link::fromTextAndUrl($target, $target_url);
+    $description = $this->t('Environment not detected. Perform a content release by running the <pre>composer va:web:build</pre> command.');
     $form['environment_target'] = [
       '#type' => 'item',
       '#title' => $this->t('Environment Target'),
       '#markup' => $target_link->toString(),
       '#description' => $description,
     ];
+
     return $form;
   }
 

@@ -162,4 +162,14 @@ class EnvironmentDiscovery {
     return PHP_SAPI === 'cli';
   }
 
+  /**
+   * Returns the Build Trigger Form class for the current environment.
+   *
+   * @return string
+   *   Class name.
+   */
+  public function getBuildTriggerFormClass() : string {
+    return $this->getEnvironment()->getBuildTriggerFormClass();
+  }
+
 }

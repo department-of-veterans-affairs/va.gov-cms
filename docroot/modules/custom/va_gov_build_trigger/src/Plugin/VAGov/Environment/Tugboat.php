@@ -90,4 +90,11 @@ class Tugboat extends EnvironmentPluginBase {
     return FALSE;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  public function getBuildTriggerFormClass() : string {
+    return '\Drupal\va_gov_build_trigger\Form\TugboatBuildTriggerForm';
+  }
+
 }

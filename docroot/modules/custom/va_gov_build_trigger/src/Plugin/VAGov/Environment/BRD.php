@@ -183,4 +183,11 @@ class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterfa
     return TRUE;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  public function getBuildTriggerFormClass() : string {
+    return '\Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm';
+  }
+
 }

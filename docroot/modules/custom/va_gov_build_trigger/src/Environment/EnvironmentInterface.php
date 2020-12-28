@@ -33,4 +33,12 @@ interface EnvironmentInterface extends PluginInspectionInterface {
    */
   public function shouldTriggerFrontendBuild() : bool;
 
+  /**
+   * The Build Trigger Form Class.
+   *
+   * @return string
+   *   The build trigger form class
+   */
+  public function getBuildTriggerFormClass() : string;
+
 }
