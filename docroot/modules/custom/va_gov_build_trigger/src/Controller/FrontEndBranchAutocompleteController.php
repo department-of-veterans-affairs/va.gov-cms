@@ -4,7 +4,7 @@ namespace Drupal\va_gov_build_trigger\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use GuzzleHttp\Client;
+use Github\Client;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,13 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
  * Controller for front end branch autocomplete form element.
  */
 class FrontEndBranchAutocompleteController extends ControllerBase {
-
-  /**
-   * Guzzle\Client instance.
-   *
-   * @var \Guzzle\Client
-   */
-  protected $httpClient;
 
   /**
    * Logger.
@@ -31,8 +24,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public function __construct(Client $http_client, LoggerChannelFactoryInterface $logger) {
-    $this->httpClient = $http_client;
+  public function __construct(LoggerChannelFactoryInterface $logger) {
     $this->logger = $logger;
   }
 
@@ -41,7 +33,6 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('http_client'),
       $container->get('logger.factory')
     );
   }
@@ -78,11 +69,11 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
 
     $frontEndPrs = $this->searchFrontEndPrs($string, $individual_count);
     for ($i = 0; $i < $individual_count; $i++) {
-      if (!empty($frontEndPrs->items[$i])) {
-        $item = $frontEndPrs->items[$i];
+      if (!empty($frontEndPrs['items'][$i])) {
+        $item = $frontEndPrs['items'][$i];
         $results[] = [
-          'label' => "PR {$item->number} ({$item->title})",
-          'value' => "PR {$item->number} - {$item->title} ($item->number)",
+          'label' => "PR {$item['number']} ({$item['title']})",
+          'value' => "PR {$item['number']} - {$item['title']} ({$item['number']})",
         ];
       }
     }
@@ -113,26 +104,14 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
     $string = urlencode($string);
 
     try {
-      $request_options = [
-        'headers' => [
-          'Accept' => 'application/vnd.github.v3+json',
-        ],
-        'query' => [
-          'per_page' => $count,
-          'q' => "is:pr is:open repo:{$repo} {$string}",
-        ],
-      ];
+      $github_client = new Client();
 
       if ($gh_token = getenv('GITHUB_TOKEN')) {
-        $request_options['headers']['Authorization'] = "token {$gh_token}";
+        $github_client->authenticate($gh_token, NULL, Client::AUTH_HTTP_TOKEN);
       }
 
-      $request = $this->httpClient->get(
-        'https://api.github.com/search/issues',
-        $request_options
-      );
-
-      $results = json_decode($request->getBody());
+      // @todo add count parameter when/if KnpLabs/php-github-api supports it.
+      $results = $github_client->api('search')->issues("is:pr is:open repo:{$repo} {$string}");
     }
     catch (\Exception $e) {
       $variables = Error::decodeException($exception);

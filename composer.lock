@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8ecaf4f48c7c2e5d3ed384496052240a",
+    "content-hash": "ab523d77da0eb6740bd8964ab375c5fc",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -7908,8 +7908,7 @@
                     }
                 },
                 "patches_applied": {
-                    "PHP 7.2 notice - \"Undefined offset: 1\" in JsonSchemaEncoder": "https://www.drupal.org/files/issues/2019-07-08/3063027-5-undefined-offset.patch",
-                    "Possibly unnecessary logging in SchemaFactory::create(). https://www.drupal.org/project/schemata/issues/3190131": "https://www.drupal.org/files/issues/2020-12-28/schemata-remove-logging-statement-3190131-2.patch"
+                    "PHP 7.2 notice - \"Undefined offset: 1\" in JsonSchemaEncoder": "https://www.drupal.org/files/issues/2019-07-08/3063027-5-undefined-offset.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -10563,6 +10562,56 @@
             "time": "2019-07-01T23:21:34+00:00"
         },
         {
+            "name": "http-interop/http-factory-guzzle",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/http-interop/http-factory-guzzle.git",
+                "reference": "34861658efb9899a6618cef03de46e2a52c80fc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/http-interop/http-factory-guzzle/zipball/34861658efb9899a6618cef03de46e2a52c80fc0",
+                "reference": "34861658efb9899a6618cef03de46e2a52c80fc0",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/psr7": "^1.4.2",
+                "psr/http-factory": "^1.0"
+            },
+            "provide": {
+                "psr/http-factory-implementation": "^1.0"
+            },
+            "require-dev": {
+                "http-interop/http-factory-tests": "^0.5",
+                "phpunit/phpunit": "^6.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Http\\Factory\\Guzzle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "An HTTP Factory using Guzzle PSR7",
+            "keywords": [
+                "factory",
+                "http",
+                "psr-17",
+                "psr-7"
+            ],
+            "time": "2018-07-31T19:32:56+00:00"
+        },
+        {
             "name": "instaclick/php-webdriver",
             "version": "1.4.7",
             "source": {
@@ -10623,16 +10672,16 @@
         },
         {
             "name": "knplabs/github-api",
-            "version": "2.12.1",
+            "version": "v2.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/php-github-api.git",
-                "reference": "2665eb80831054d403464c922c9935741af90dc6"
+                "reference": "271b3ca6f7b315c3dae1fcf2be8bb2912a93587d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/php-github-api/zipball/2665eb80831054d403464c922c9935741af90dc6",
-                "reference": "2665eb80831054d403464c922c9935741af90dc6",
+                "url": "https://api.github.com/repos/KnpLabs/php-github-api/zipball/271b3ca6f7b315c3dae1fcf2be8bb2912a93587d",
+                "reference": "271b3ca6f7b315c3dae1fcf2be8bb2912a93587d",
                 "shasum": ""
             },
             "require": {
@@ -10650,12 +10699,14 @@
                 "guzzlehttp/psr7": "^1.2",
                 "php-http/guzzle6-adapter": "^1.0 || ^2.0",
                 "php-http/mock-client": "^1.2",
+                "phpstan/phpstan": "^0.12.23",
                 "phpunit/phpunit": "^7.0 || ^8.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.12.x-dev"
+                    "dev-2.x": "2.19.x-dev",
+                    "dev-master": "3.0.x-dev"
                 }
             },
             "autoload": {
@@ -10686,7 +10737,13 @@
                 "gist",
                 "github"
             ],
-            "time": "2019-11-07T17:18:26+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/acrobat",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-12-21T18:32:50+00:00"
         },
         {
             "name": "laminas/laminas-diactoros",
@@ -13258,6 +13315,58 @@
                 "psr"
             ],
             "time": "2017-02-14T16:28:37+00:00"
+        },
+        {
+            "name": "psr/http-factory",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-factory.git",
+                "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
+                "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0",
+                "psr/http-message": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interfaces for PSR-7 HTTP message factories",
+            "keywords": [
+                "factory",
+                "http",
+                "message",
+                "psr",
+                "psr-17",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "time": "2019-04-30T12:38:16+00:00"
         },
         {
             "name": "psr/http-message",
