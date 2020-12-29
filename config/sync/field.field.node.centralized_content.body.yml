@@ -1,0 +1,23 @@
+uuid: 3751cf9c-10cf-4dba-98a1-d98c759ef5b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.centralized_content
+  module:
+    - text
+id: node.centralized_content.body
+field_name: body
+entity_type: node
+bundle: centralized_content
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+field_type: text_with_summary
