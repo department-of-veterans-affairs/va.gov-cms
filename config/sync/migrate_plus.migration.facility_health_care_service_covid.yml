@@ -13,7 +13,7 @@ migration_group: vamc
 label: 'Node - VAMC Facility Health Service.'
 source:
   plugin: csv
-  path: modules/custom/va_gov_migrate/data/health-care-service-covid.csv
+  path: modules/custom/va_gov_migrate/data/facility_health_care_service_covid.csv
   delimiter: ;
   enclosure: ''''
   escape: \
@@ -34,8 +34,6 @@ source:
       field_health_care_system_name: 'VAMC System Name'
     -
       field_health_care_system_id: 'VAMC System ID'
-    -
-      field_system_service_description: 'VAMC System description of services'
     -
       field_facility_service_description: 'VAMC Facility description of services'
 process:
