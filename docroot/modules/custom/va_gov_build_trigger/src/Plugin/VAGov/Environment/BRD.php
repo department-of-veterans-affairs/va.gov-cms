@@ -6,6 +6,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
+use Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
@@ -187,7 +188,7 @@ class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterfa
    * {@inheritDoc}
    */
   public function getBuildTriggerFormClass() : string {
-    return '\Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm';
+    return BrdBuildTriggerForm::class;
   }
 
 }

@@ -6,6 +6,7 @@ use Drupal\advancedqueue\Entity\QueueInterface;
 use Drupal\advancedqueue\Job;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
+use Drupal\va_gov_build_trigger\Form\TugboatBuildTriggerForm;
 use Drupal\va_gov_build_trigger\Plugin\AdvancedQueue\JobType\WebBuildJobType;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use Drupal\va_gov_content_export\ExportCommand\CommandRunner;
@@ -94,7 +95,7 @@ class Tugboat extends EnvironmentPluginBase {
    * {@inheritDoc}
    */
   public function getBuildTriggerFormClass() : string {
-    return '\Drupal\va_gov_build_trigger\Form\TugboatBuildTriggerForm';
+    return TugboatBuildTriggerForm::class;
   }
 
 }
