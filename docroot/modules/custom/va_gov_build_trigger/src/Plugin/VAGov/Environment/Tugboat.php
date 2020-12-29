@@ -66,10 +66,8 @@ class Tugboat extends EnvironmentPluginBase {
   public function triggerFrontendBuild($front_end_git_ref = NULL): void {
     $commands = [];
 
-    if (is_numeric($web_pr)) {
-      $build_date = time();
-      $web_pr_branch = "build-{$web_pr}-{$build_date}";
-      $commands[] = "cd /var/lib/tugboat/web && git fetch origin pull/{$web_pr}/head:{$web_pr_branch} && git checkout {$web_pr_branch}";
+    if ($command = $this->getFrontEndGitReferenceCheckoutCommand($front_end_git_ref)) {
+      $commands[] = $command;
     }
 
     $commands[] = 'cd /var/lib/tugboat && COMPOSER_HOME=/var/lib/tugboat /usr/local/bin/composer --no-cache va:web:build';
