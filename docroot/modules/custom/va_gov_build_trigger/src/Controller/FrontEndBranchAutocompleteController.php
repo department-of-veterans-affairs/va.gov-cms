@@ -15,6 +15,13 @@ use Symfony\Component\HttpFoundation\Request;
 class FrontEndBranchAutocompleteController extends ControllerBase {
 
   /**
+   * Github Client.
+   *
+   * @var \Github\Client
+   */
+  protected $githubClient;
+
+  /**
    * Logger.
    *
    * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
@@ -24,7 +31,8 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public function __construct(LoggerChannelFactoryInterface $logger) {
+  public function __construct(Client $githubClient, LoggerChannelFactoryInterface $logger) {
+    $this->githubClient = $githubClient;
     $this->logger = $logger;
   }
 
@@ -33,6 +41,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
+      $container->get('github.client'),
       $container->get('logger.factory')
     );
   }
@@ -141,14 +150,12 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
     $string = urlencode($string);
 
     try {
-      $github_client = new Client();
-
       if ($gh_token = getenv('GITHUB_TOKEN')) {
-        $github_client->authenticate($gh_token, NULL, Client::AUTH_HTTP_TOKEN);
+        $this->githubClient->authenticate($gh_token, NULL, Client::AUTH_HTTP_TOKEN);
       }
 
       // @todo add per_page (count) parameter when/if KnpLabs/php-github-api supports it.
-      $results = $github_client->api('search')->issues("is:pr is:open repo:{$repo} {$string}");
+      $results = $this->githubClient->api('search')->issues("is:pr is:open repo:{$repo} {$string}");
     }
     catch (\Exception $e) {
       $variables = Error::decodeException($exception);

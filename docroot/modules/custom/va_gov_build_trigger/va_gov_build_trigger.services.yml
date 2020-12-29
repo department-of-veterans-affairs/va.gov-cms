@@ -1,4 +1,7 @@
 services:
+  github.client:
+    class: Github\Client
+    public: true
   va_gov_build_trigger.build_frontend:
     class: Drupal\va_gov_build_trigger\Service\BuildFrontend
     arguments: ['@messenger', '@logger.factory', '@va_gov.build_trigger.web_build_status', '@va_gov.build_trigger.environment_discovery']
