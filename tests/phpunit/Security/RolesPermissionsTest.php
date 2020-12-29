@@ -613,7 +613,6 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'edit terms in health_care_service_taxonomy',
           'execute entity:break_lock node',
           'execute publish_latest_revision_action node',
-          'execute views_bulk_edit all',
           'notify of path changes',
           'rebuild tablefield',
           'revert all revisions',
