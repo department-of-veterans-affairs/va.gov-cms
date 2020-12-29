@@ -146,10 +146,13 @@ class EnvironmentDiscovery {
   /**
    * Trigger a front end content build.
    *
+   * @param string $front_end_git_ref
+   *   Front end git reference to build (branch name or PR number)
+   *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
-  public function triggerFrontendBuild($web_pr = NULL) : void {
-    $this->getEnvironment()->triggerFrontendBuild($web_pr);
+  public function triggerFrontendBuild($front_end_git_ref = NULL) {
+    $this->getEnvironment()->triggerFrontendBuild($front_end_git_ref);
   }
 
   /**

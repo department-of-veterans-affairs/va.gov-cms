@@ -63,13 +63,11 @@ class Lando extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild($web_pr = NULL): void {
+  public function triggerFrontendBuild($front_end_git_ref = NULL): void {
     $commands = [];
 
-    if (is_numeric($web_pr)) {
-      $build_date = time();
-      $web_pr_branch = "build-{$web_pr}-{$build_date}";
-      $commands[] = "cd /app/web && git fetch origin pull/{$web_pr}/head:{$web_pr_branch} && git checkout {$web_pr_branch}";
+    if ($command = $this->getFrontEndGitReferenceCheckoutCommand($front_end_git_ref)) {
+      $commands[] = $command;
     }
 
     $commands[] = 'cd /app && COMPOSER_HOME=/var/www/.composer /usr/local/bin/composer va:web:build';

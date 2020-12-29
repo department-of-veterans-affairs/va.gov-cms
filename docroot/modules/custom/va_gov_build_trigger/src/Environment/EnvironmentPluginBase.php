@@ -52,6 +52,24 @@ abstract class EnvironmentPluginBase extends PluginBase implements EnvironmentIn
   /**
    * {@inheritDoc}
    */
+  public function getFrontEndGitReferenceCheckoutCommand($front_end_git_ref) : string {
+    $repo_root = dirname(DRUPAL_ROOT);
+    $build_date = time();
+    $web_branch = "build-{$front_end_git_ref}-{$build_date}";
+
+    if (is_numeric($front_end_git_ref)) {
+      return "cd {$repo_root}/web && git fetch origin pull/{$front_end_git_ref}/head:{$web_branch} && git checkout {$web_branch}";
+    }
+    elseif ($front_end_git_ref) {
+      return "cd {$repo_root}/web && git checkout -b {$web_branch} origin/{$front_end_git_ref}";
+    }
+
+    return '';
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public function getWebUrl(): string {
     return Settings::get('va_gov_frontend_url') ?? 'https://www.va.gov';
   }

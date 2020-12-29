@@ -63,7 +63,7 @@ class Tugboat extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild($web_pr = NULL): void {
+  public function triggerFrontendBuild($front_end_git_ref = NULL): void {
     $commands = [];
 
     if (is_numeric($web_pr)) {

@@ -19,8 +19,11 @@ interface EnvironmentInterface extends PluginInspectionInterface {
 
   /**
    * Trigger the frontend web build.
+   *
+   * @param string $front_end_git_ref
+   *   Front end git reference to build (branch name or PR number)
    */
-  public function triggerFrontendBuild($web_pr) : void;
+  public function triggerFrontendBuild($front_end_git_ref) : void;
 
   /**
    * Should this environment trigger a frontend content deploy?
