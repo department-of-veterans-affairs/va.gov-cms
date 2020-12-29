@@ -2,7 +2,6 @@
 
 namespace Drupal\va_gov_build_trigger\Controller;
 
-use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use GuzzleHttp\Client;
@@ -54,7 +53,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
     $results = [];
 
     if ($input = $request->query->get('q')) {
-      $string = Unicode::strtolower($input);
+      $string = mb_strtolower($input);
       $results = $this->getMatchingRefs($string, $count);
     }
 
