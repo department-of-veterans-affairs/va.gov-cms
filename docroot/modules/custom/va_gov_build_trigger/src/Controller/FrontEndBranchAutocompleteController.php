@@ -39,6 +39,16 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
 
   /**
    * Handler for autocomplete request.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current request.
+   * @param string $field_name
+   *   The field name.
+   * @param int $count
+   *   Number of results to return.
+   *
+   * @return array
+   *   Array of labeled git references
    */
   public function handleAutocomplete(Request $request, $field_name, $count) {
     $results = [];
@@ -51,7 +61,18 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
     return new JsonResponse($results);
   }
 
-  private function getMatchingRefs($string, $count) {
+  /**
+   * Get branch and PR git references matching the given search string.
+   *
+   * @param string $string
+   *   Search string.
+   * @param int $count
+   *   Number of references to return.
+   *
+   * @return array
+   *   Array of labeled git references
+   */
+  private function getMatchingRefs($string, $count) : array {
     // @todo parallelize with https://github.com/spatie/async?
     $results = [];
 
@@ -81,10 +102,21 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
     return $results;
   }
 
+  /**
+   * Return front end branch names matching the given string.
+   *
+   * @param string $string
+   *   Search string.
+   * @param int $count
+   *   Number of branch names to return.
+   *
+   * @return array
+   *   Array of branch names
+   */
   private function searchFrontEndBranches($string, $count) {
     // @todo Cache these results for a little while.
-    // @fixme get root dir.
-    $branches = explode(PHP_EOL, shell_exec('cd /app/web && git ls-remote --heads origin | cut -f2 | sed "s#refs/heads/##" '));
+    $repo_root = dirname(DRUPAL_ROOT);
+    $branches = explode(PHP_EOL, shell_exec("cd {$repo_root}/web && git ls-remote --heads origin | cut -f2 | sed 's#refs/heads/##'"));
     $matches = array_filter($branches, function ($branch_name) use ($string) {
       return stristr($branch_name, $string) !== FALSE;
     });
@@ -95,8 +127,13 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
   /**
    * Search Front End PRs.
    *
+   * @param string $string
+   *   Search string.
+   * @param int $count
+   *   Number of PRs to return.
+   *
    * @return array
-   *   Array of results
+   *   Array of PRs
    */
   private function searchFrontEndPrs($string, $count) {
     $results = [];
@@ -110,7 +147,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
         $github_client->authenticate($gh_token, NULL, Client::AUTH_HTTP_TOKEN);
       }
 
-      // @todo add count parameter when/if KnpLabs/php-github-api supports it.
+      // @todo add per_page (count) parameter when/if KnpLabs/php-github-api supports it.
       $results = $github_client->api('search')->issues("is:pr is:open repo:{$repo} {$string}");
     }
     catch (\Exception $e) {
