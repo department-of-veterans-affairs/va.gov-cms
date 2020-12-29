@@ -107,7 +107,7 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
     $links = [];
 
     foreach ($tree as $term) {
-      $parent_path = $term->parents[0] ? $this->getArrayKeyPath($links, $term->parents[0]) : NULL;
+      $parent_path = $term->parents[0] ? $this->getArrayKeyPath($links, $term->parents[0]) : [];
 
       // Compose render array of section links while preserving hierarchy.
       // This switch accounts for taxonomy terms that are 5 levels deep.
