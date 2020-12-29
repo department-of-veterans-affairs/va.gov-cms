@@ -5,7 +5,6 @@ namespace Drupal\va_gov_build_trigger\Controller;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Exception;
 use GuzzleHttp\Client;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -56,30 +55,60 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
 
     if ($input = $request->query->get('q')) {
       $string = Unicode::strtolower($input);
-
-      $frontEndPrs = $this->getFrontEndBranches($string, $count);
-
-      for ($i = 0; $i < $count; $i++) {
-        if (!empty($frontEndPrs->items[$i])) {
-          $item = $frontEndPrs->items[$i];
-          $results[] = [
-            'label' => "PR {$item->number} ({$item->title})",
-            'value' => "PR {$item->number} - {$item->title} ($item->number)",
-          ];
-        }
-      }
+      $results = $this->getMatchingRefs($string, $count);
     }
 
     return new JsonResponse($results);
   }
 
+  private function getMatchingRefs($string, $count) {
+    // @todo parallelize with https://github.com/spatie/async?
+    $results = [];
+
+    $individual_count = (int) ($count / 2);
+
+    $branches = $this->searchFrontEndBranches($string, $individual_count);
+    for ($i = 0; $i < $individual_count; $i++) {
+      if (!empty($branches[$i])) {
+        $results[] = [
+          'label' => "BRANCH {$branches[$i]}",
+          'value' => "BRANCH {$branches[$i]} ({$branches[$i]})",
+        ];
+      }
+    }
+
+    $frontEndPrs = $this->searchFrontEndPrs($string, $individual_count);
+    for ($i = 0; $i < $individual_count; $i++) {
+      if (!empty($frontEndPrs->items[$i])) {
+        $item = $frontEndPrs->items[$i];
+        $results[] = [
+          'label' => "PR {$item->number} ({$item->title})",
+          'value' => "PR {$item->number} - {$item->title} ($item->number)",
+        ];
+      }
+    }
+
+    return $results;
+  }
+
+  private function searchFrontEndBranches($string, $count) {
+    // @todo Cache these results for a little while.
+    // @fixme get root dir.
+    $branches = explode(PHP_EOL, shell_exec('cd /app/web && git ls-remote --heads origin | cut -f2 | sed "s#refs/heads/##" '));
+    $matches = array_filter($branches, function ($branch_name) use ($string) {
+      return stristr($branch_name, $string) !== FALSE;
+    });
+
+    return array_slice(array_values($matches), 0, $count);
+  }
+
   /**
-   * Search Front End Branches.
+   * Search Front End PRs.
    *
    * @return array
    *   Array of results
    */
-  private function getFrontEndBranches($string, $count) {
+  private function searchFrontEndPrs($string, $count) {
     $results = [];
     $repo = 'department-of-veterans-affairs/vets-website';
     $string = urlencode($string);
@@ -106,7 +135,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
 
       $results = json_decode($request->getBody());
     }
-    catch (Exception $e) {
+    catch (\Exception $e) {
       $variables = Error::decodeException($exception);
       $this->logger('va_gov_build_trigger')->error('%type: @message in %function (line %line of %file).', $variables);
     }
