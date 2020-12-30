@@ -1,0 +1,16 @@
+field.field_settings.entity_field_fetch:
+  type: mapping
+  label: 'Entity Field Fetch settings'
+  mapping:
+    target_entity_type:
+      type: string
+      label: 'Entity type (node, term...).'
+    target_entity_id:
+      type: int
+      label: 'Entity id (nid, or tid) where the field data lives.'
+    field_to_fetch:
+        type: string
+        label: 'Machine name of the field value to fetch.'
+    target_paragraph_uuid:
+      type: string
+      label: 'Optional UUID of the paragraph to fetch.'
