@@ -406,6 +406,9 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     $form['field_primary_category']['widget']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
     $form['field_tags']['widget'][0]['subform']['field_topics']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
 
+    // Change field uri widget to optional.
+    $form['field_related_information']['widget'][0]['subform']['field_link']['widget'][0]['uri']['#required'] = FALSE;
+
     foreach ($form['field_buttons']['widget'] as $idx => $val) {
       if (is_numeric($idx)) {
         $form['field_buttons']['widget'][$idx]['subform']['field_button_label']['widget'][0]['value']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
