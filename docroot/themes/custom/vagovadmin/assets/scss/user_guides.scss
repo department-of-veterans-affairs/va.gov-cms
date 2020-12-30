@@ -144,3 +144,29 @@ h2.section-header {
     }
   }
 }
+
+#block-vagovadmin-content {
+  .paragraph--type--media-list-videos {
+    &.paragraph--view-mode--user-guides {
+      article {
+        margin-bottom: 2rem;
+
+        .field__item {
+          margin-bottom: 0.25em;
+        }
+
+        .field--name-name {
+          font-weight: bold;
+        }
+
+        .field--name-field-duration {
+          .field__label {
+            font-size: 16px;
+            font-weight: normal;
+            text-transform: capitalize;
+          }
+        }
+      }
+    }
+  }
+}
