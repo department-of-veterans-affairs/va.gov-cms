@@ -4,12 +4,12 @@ repetitions=${1:-10}
 
 run_test() {
   lando drush cr;
-  lando behat --tags="content_editing";
+  lando composer va:test:unit;
 }
 
 test_script() {
   total_elapsed_time=0;
-  min_elapsed_time=100;
+  min_elapsed_time=100000;
   max_elapsed_time=0;
   for i in $(seq 1 $repetitions); do
     start_time=$(date +%s);
