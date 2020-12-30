@@ -44,13 +44,23 @@ class BuildTriggerFormTest extends ExistingSiteBase {
 
   /**
    * Test that the correct form is shown on BRD.
+   */
   public function testBrdBuildTriggerForm() {
     $this->setupEnvironment('brd');
     $this->visit('/admin/content/deploy');
     $this->assertSession()->pageTextContains('A content release for this environment will be handled by VFS Jenkins.');
     $this->assertSession()->fieldNotExists('front_end_branch');
   }
+
+  /**
+   * Test that the correct form is shown on Devshop.
    */
+  public function testDevshopBuildTriggerForm() {
+    $this->setupEnvironment('devshop');
+    $this->visit('/admin/content/deploy');
+    $this->assertSession()->pageTextContains('A content release for this environment is handled by CMS-CI');
+    $this->assertSession()->fieldNotExists('front_end_branch');
+  }
 
   /**
    * Fake the current environment.

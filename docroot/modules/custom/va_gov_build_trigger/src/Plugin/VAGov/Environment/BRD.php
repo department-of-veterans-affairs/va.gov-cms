@@ -46,11 +46,13 @@ class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterfa
     array $configuration,
     $plugin_id,
     $plugin_definition,
+    $logger,
+    $webBuildStatus,
     $dateFormatter,
     $database
   ) {
 
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $logger, $webBuildStatus);
     $this->dateFormatter = $dateFormatter;
     $this->database = $database;
   }
@@ -63,6 +65,8 @@ class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterfa
       $configuration,
       $plugin_id,
       $plugin_definition,
+      $container->get('logger.factory')->get('va_gov_build_trigger'),
+      $container->get('va_gov.build_trigger.web_build_status'),
       $container->get('date.formatter'),
       $container->get('database')
     );
