@@ -71,7 +71,7 @@ class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterfa
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild(): void {
+  public function triggerFrontendBuild($front_end_git_ref = NULL): void {
     $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
     $va_cms_bot_jenkins_auth_token = Settings::get('va_cms_bot_jenkins_auth_token');
     $jenkins_build_job_host = Settings::get('jenkins_build_job_host');

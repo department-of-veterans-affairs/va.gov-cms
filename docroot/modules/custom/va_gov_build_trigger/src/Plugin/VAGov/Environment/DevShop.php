@@ -20,7 +20,7 @@ class DevShop extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild(): void {
+  public function triggerFrontendBuild($front_end_git_ref = NULL): void {
     // Running in CMS-CI and DevShopTaskApiClient has been loaded, use it.
     $task_json = \DevShopTaskApiClient::create('vabuild');
     $task = json_decode($task_json);
