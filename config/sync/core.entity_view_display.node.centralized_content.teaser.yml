@@ -9,27 +9,28 @@ dependencies:
     - field.field.node.centralized_content.field_content_block
     - node.type.centralized_content
   module:
-    - text
+    - entity_reference_revisions
     - user
 id: node.centralized_content.teaser
 targetEntityType: node
 bundle: centralized_content
 mode: teaser
 content:
-  body:
-    label: hidden
-    type: text_summary_or_trimmed
-    weight: 101
-    settings:
-      trim_length: 600
-    third_party_settings: {  }
+  field_content_block:
+    type: entity_reference_revisions_entity_view
+    weight: 1
     region: content
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
   links:
-    weight: 100
+    weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
+  body: true
   field_administration: true
-  field_content_block: true
   search_api_excerpt: true

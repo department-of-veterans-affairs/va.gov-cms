@@ -9,30 +9,14 @@ dependencies:
     - node.type.centralized_content
   module:
     - entity_reference_revisions
-    - text
     - user
 id: node.centralized_content.default
 targetEntityType: node
 bundle: centralized_content
 mode: default
 content:
-  body:
-    label: hidden
-    type: text_default
-    weight: 101
-    settings: {  }
-    third_party_settings: {  }
-    region: content
-  field_administration:
-    weight: 102
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_content_block:
-    weight: 103
+    weight: 1
     label: above
     settings:
       view_mode: default
@@ -41,9 +25,11 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   links:
-    weight: 100
+    weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
+  body: true
+  field_administration: true
   search_api_excerpt: true
