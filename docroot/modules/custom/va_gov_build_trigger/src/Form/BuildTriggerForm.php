@@ -146,15 +146,16 @@ class BuildTriggerForm extends FormBase {
    *   Object containing current form state.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $pr_number = NULL;
+    $git_ref = NULL;
     if (
-      $front_end_branch = $form_state->getValue('front_end_branch') &&
-      preg_match("/.+\\s\\(([^\\)]+)\\)/", $front_end_branch, $matches)
+      $field_value = $form_state->getValue('front_end_branch') &&
+      // Extract the value in parentheses from the front end branch field value.
+      preg_match("/.+\\s\\(([^\\)]+)\\)/", $field_value, $matches)
     ) {
-      $pr_number = $matches[1];
+      $git_ref = $matches[1];
     }
 
-    $this->buildFrontend->triggerFrontendBuild($pr_number);
+    $this->buildFrontend->triggerFrontendBuild($git_ref);
   }
 
 }
