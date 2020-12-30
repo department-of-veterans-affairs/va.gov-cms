@@ -5240,6 +5240,10 @@
                     "homepage": "https://www.drupal.org/user/761344"
                 },
                 {
+                    "name": "hideaway",
+                    "homepage": "https://www.drupal.org/user/741876"
+                },
+                {
                     "name": "joaogarin",
                     "homepage": "https://www.drupal.org/user/612814"
                 },
@@ -5284,6 +5288,10 @@
                 {
                     "name": "fubhy",
                     "homepage": "https://www.drupal.org/user/761344"
+                },
+                {
+                    "name": "hideaway",
+                    "homepage": "https://www.drupal.org/user/741876"
                 },
                 {
                     "name": "joaogarin",
@@ -5753,26 +5761,26 @@
         },
         {
             "name": "drupal/libraries",
-            "version": "3.0.0-alpha1",
+            "version": "3.0.0-alpha6",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/libraries.git",
-                "reference": "8.x-3.0-alpha1"
+                "reference": "8.x-3.0-alpha6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/libraries-8.x-3.0-alpha1.zip",
-                "reference": "8.x-3.0-alpha1",
-                "shasum": "bb07036b1eaeea7d736fc7e72416238830cd8d67"
+                "url": "https://ftp.drupal.org/files/projects/libraries-8.x-3.0-alpha6.zip",
+                "reference": "8.x-3.0-alpha6",
+                "shasum": "d2aaf7f0968a1864457a7741b7e38ab11ef83e2c"
             },
             "require": {
-                "drupal/core": "~8.0"
+                "drupal/core": "^8 || ^9"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.0-alpha1",
-                    "datestamp": "1517046484",
+                    "version": "8.x-3.0-alpha6",
+                    "datestamp": "1608099124",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Alpha releases are not covered by Drupal security advisories."
@@ -5911,7 +5919,7 @@
                     "homepage": "https://www.drupal.org/user/409554"
                 },
                 {
-                    "name": "markcarver",
+                    "name": "markhalliwell",
                     "homepage": "https://www.drupal.org/user/501638"
                 }
             ],
@@ -20945,11 +20953,6 @@
                 "squizlabs/php_codesniffer": "^2.7"
             },
             "type": "library",
-            "extra": {
-                "patches_applied": {
-                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "TravisCarden\\BehatTableComparison\\": "src/BehatTableComparison/"
@@ -20970,7 +20973,12 @@
                 "Behat",
                 "gherkin"
             ],
-            "time": "2018-07-03T17:42:23+00:00"
+            "time": "2018-07-03T17:42:23+00:00",
+            "extra": {
+                "patches_applied": {
+                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
+                }
+            }
         },
         {
             "name": "vipnytt/robotstxtparser",
@@ -21158,7 +21166,6 @@
         "drupal/graphql_metatag": 20,
         "drupal/hms_field": 10,
         "drupal/image_style_warmer": 10,
-        "drupal/libraries": 15,
         "drupal/markup": 10,
         "drupal/mass_pwreset": 15,
         "drupal/openapi": 10,
