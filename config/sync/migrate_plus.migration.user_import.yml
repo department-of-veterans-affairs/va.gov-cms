@@ -21,6 +21,8 @@ source:
       email: email
     -
       roles: roles
+    -
+      sections: sections
 process:
   name: email
   mail: email
@@ -34,6 +36,14 @@ process:
     plugin: explode
     delimiter: ','
     source: roles
+  sections:
+    -
+      plugin: explode
+      delimiter: ','
+      source: sections
+    -
+      plugin: callback
+      callable: trim
 destination:
   plugin: 'entity:user'
 migration_dependencies:
