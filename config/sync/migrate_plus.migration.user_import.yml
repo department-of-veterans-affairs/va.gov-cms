@@ -13,19 +13,29 @@ label: 'User Import'
 source:
   plugin: csv
   path: modules/custom/va_gov_migrate/data/user_import.csv
-  delimiter: ;
-  enclosure: ''''
   header_row_count: 1
   keys:
     - email
   column_names:
     -
-      email: Email
+      email: email
+    -
+      roles: roles
 process:
+  name: email
+  mail: email
   langcode:
     plugin: default_value
     default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  roles:
+    plugin: explode
+    delimiter: ','
+    source: roles
 destination:
   plugin: 'entity:user'
 migration_dependencies:
   required: { }
+
