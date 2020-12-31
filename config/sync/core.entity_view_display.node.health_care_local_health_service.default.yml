@@ -8,6 +8,8 @@ dependencies:
     - field.field.node.health_care_local_health_service.field_body
     - field.field.node.health_care_local_health_service.field_facility_location
     - field.field.node.health_care_local_health_service.field_facility_service_loc_help
+    - field.field.node.health_care_local_health_service.field_hservice_appt_intro_select
+    - field.field.node.health_care_local_health_service.field_hservice_appt_leadin
     - field.field.node.health_care_local_health_service.field_online_scheduling_availabl
     - field.field.node.health_care_local_health_service.field_phone_numbers_paragraph
     - field.field.node.health_care_local_health_service.field_referral_required
@@ -81,6 +83,20 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
+  field_hservice_appt_intro_select:
+    weight: 14
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_hservice_appt_leadin:
+    weight: 15
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
     region: content
   field_online_scheduling_availabl:
     weight: 12
