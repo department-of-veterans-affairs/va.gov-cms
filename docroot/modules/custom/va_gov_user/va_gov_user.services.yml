@@ -1,4 +1,13 @@
 services:
+  va_gov_user.post_row_save:
+    class: Drupal\va_gov_user\EventSubscriber\PostRowSave
+    arguments: ['@entity_type.manager', '@messenger', '@string_translation', '@workbench_access.user_section_storage']
+    tags:
+      - { name: event_subscriber }
+  va_gov_user.route_subscriber:
+    class: Drupal\va_gov_user\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
   va_gov_user.user_perms:
     class: Drupal\va_gov_user\Service\UserPermsService
     arguments: ['@current_user', '@entity_type.manager', '@database']

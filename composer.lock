@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "83b00b07b1d571fe2961590b8b6408db",
+    "content-hash": "a35a321cc822310bf18627f8a95e68aa",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5324,10 +5324,6 @@
                     "homepage": "https://www.drupal.org/user/761344"
                 },
                 {
-                    "name": "hideaway",
-                    "homepage": "https://www.drupal.org/user/741876"
-                },
-                {
                     "name": "joaogarin",
                     "homepage": "https://www.drupal.org/user/612814"
                 },
@@ -5372,10 +5368,6 @@
                 {
                     "name": "fubhy",
                     "homepage": "https://www.drupal.org/user/761344"
-                },
-                {
-                    "name": "hideaway",
-                    "homepage": "https://www.drupal.org/user/741876"
                 },
                 {
                     "name": "joaogarin",
@@ -5845,26 +5837,26 @@
         },
         {
             "name": "drupal/libraries",
-            "version": "3.0.0-alpha6",
+            "version": "3.0.0-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/libraries.git",
-                "reference": "8.x-3.0-alpha6"
+                "reference": "8.x-3.0-alpha1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/libraries-8.x-3.0-alpha6.zip",
-                "reference": "8.x-3.0-alpha6",
-                "shasum": "d2aaf7f0968a1864457a7741b7e38ab11ef83e2c"
+                "url": "https://ftp.drupal.org/files/projects/libraries-8.x-3.0-alpha1.zip",
+                "reference": "8.x-3.0-alpha1",
+                "shasum": "bb07036b1eaeea7d736fc7e72416238830cd8d67"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "~8.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.0-alpha6",
-                    "datestamp": "1608099124",
+                    "version": "8.x-3.0-alpha1",
+                    "datestamp": "1517046484",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Alpha releases are not covered by Drupal security advisories."
@@ -6003,7 +5995,7 @@
                     "homepage": "https://www.drupal.org/user/409554"
                 },
                 {
-                    "name": "markhalliwell",
+                    "name": "markcarver",
                     "homepage": "https://www.drupal.org/user/501638"
                 }
             ],
@@ -6620,6 +6612,62 @@
                 "source": "https://cgit.drupalcode.org/migrate_source_csv",
                 "issues": "https://www.drupal.org/project/issues/migrate_source_csv",
                 "irc": "irc://irc.freenode.org/drupal-migrate"
+            }
+        },
+        {
+            "name": "drupal/migrate_source_ui",
+            "version": "1.0.0-rc1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/migrate_source_ui.git",
+                "reference": "8.x-1.0-rc1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/migrate_source_ui-8.x-1.0-rc1.zip",
+                "reference": "8.x-1.0-rc1",
+                "shasum": "f2bbf22bc78e6cb127c8a0570d985bf508a522d9"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "suggest": {
+                "drupal/migrate_plus": "Provides JSON and XML sources",
+                "drupal/migrate_source_csv": "Provides CSV source"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.0-rc1",
+                    "datestamp": "1586234658",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "RC releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "drupalspoons",
+                    "homepage": "https://www.drupal.org/user/3647684"
+                },
+                {
+                    "name": "hl17",
+                    "homepage": "https://www.drupal.org/user/3542612"
+                }
+            ],
+            "description": "UI for  csv, xml o json sources.",
+            "homepage": "https://www.drupal.org/project/migrate_source_ui",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/migrate_source_ui",
+                "issues": "https://www.drupal.org/project/issues/migrate_source_ui"
             }
         },
         {
@@ -21037,6 +21085,11 @@
                 "squizlabs/php_codesniffer": "^2.7"
             },
             "type": "library",
+            "extra": {
+                "patches_applied": {
+                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "TravisCarden\\BehatTableComparison\\": "src/BehatTableComparison/"
@@ -21057,12 +21110,7 @@
                 "Behat",
                 "gherkin"
             ],
-            "time": "2018-07-03T17:42:23+00:00",
-            "extra": {
-                "patches_applied": {
-                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
-                }
-            }
+            "time": "2018-07-03T17:42:23+00:00"
         },
         {
             "name": "vipnytt/robotstxtparser",
@@ -21251,8 +21299,10 @@
         "drupal/graphql_metatag": 20,
         "drupal/hms_field": 10,
         "drupal/image_style_warmer": 10,
+        "drupal/libraries": 15,
         "drupal/markup": 10,
         "drupal/mass_pwreset": 15,
+        "drupal/migrate_source_ui": 5,
         "drupal/openapi": 10,
         "drupal/paragraphs_browser": 15,
         "drupal/password_policy": 15,
