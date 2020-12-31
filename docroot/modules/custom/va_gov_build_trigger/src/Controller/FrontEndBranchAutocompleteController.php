@@ -4,10 +4,14 @@ namespace Drupal\va_gov_build_trigger\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Github\Client;
+use Drupal\Core\Utility\Error;
+use Drupal\va_gov_consumers\Git\Git;
+use Drupal\va_gov_consumers\Git\GithubInterface;
+use Drupal\va_gov_consumers\Git\GitInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Controller for front end branch autocomplete form element.
@@ -17,23 +21,31 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
   /**
    * Github Client.
    *
-   * @var \Github\Client
+   * @var \Drupal\va_gov_consumers\Git\GithubInterface
    */
   protected $githubClient;
 
   /**
    * Logger.
    *
-   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+   * @var \Psr\Log\LoggerInterface
    */
   protected $logger;
 
   /**
+   * Git repository class.
+   *
+   * @var \Drupal\va_gov_consumers\Git\GitInterface
+   */
+  private $git;
+
+  /**
    * {@inheritdoc}
    */
-  public function __construct(Client $githubClient, LoggerChannelFactoryInterface $logger) {
+  public function __construct(GithubInterface $githubClient, GitInterface $git, LoggerChannelFactoryInterface $logger) {
     $this->githubClient = $githubClient;
     $this->logger = $logger;
+    $this->git = $git;
   }
 
   /**
@@ -41,8 +53,9 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('github.client'),
-      $container->get('logger.factory')
+      $container->get('va_gov.consumers.github.vets_website'),
+      Git::get(DRUPAL_ROOT . '/web'),
+      $container->get('logger.factory')->get('va_gov_build_trigger')
     );
   }
 
@@ -51,15 +64,13 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
    *   The current request.
-   * @param string $field_name
-   *   The field name.
    * @param int $count
    *   Number of results to return.
    *
-   * @return array
-   *   Array of labeled git references
+   * @return Response
+   *   The json response object.
    */
-  public function handleAutocomplete(Request $request, $field_name, $count) {
+  public function handleAutocomplete(Request $request, $count) : Response {
     $results = [];
 
     if ($input = $request->query->get('q')) {
@@ -67,7 +78,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
       $results = $this->getMatchingRefs($string, $count);
     }
 
-    return new JsonResponse($results);
+    return JsonResponse::create($results);
   }
 
   /**
@@ -78,10 +89,10 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
    * @param int $count
    *   Number of references to return.
    *
-   * @return array
+   * @return string[]
    *   Array of labeled git references
    */
-  private function getMatchingRefs($string, $count) : array {
+  private function getMatchingRefs(string $string, int $count) : array {
     // @todo parallelize with https://github.com/spatie/async?
     $results = [];
 
@@ -119,18 +130,11 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
    * @param int $count
    *   Number of branch names to return.
    *
-   * @return array
-   *   Array of branch names
+   * @return string[]
+   *   Array of branch names.
    */
-  private function searchFrontEndBranches($string, $count) {
-    // @todo Cache these results for a little while.
-    $repo_root = dirname(DRUPAL_ROOT);
-    $branches = explode(PHP_EOL, shell_exec("cd {$repo_root}/web && git ls-remote --heads origin | cut -f2 | sed 's#refs/heads/##'"));
-    $matches = array_filter($branches, function ($branch_name) use ($string) {
-      return stristr($branch_name, $string) !== FALSE;
-    });
-
-    return array_slice(array_values($matches), 0, $count);
+  private function searchFrontEndBranches(string $string, int $count) : array {
+    return $this->git->searchBranches($string, $count);
   }
 
   /**
@@ -141,25 +145,18 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
    * @param int $count
    *   Number of PRs to return.
    *
-   * @return array
+   * @return string[]
    *   Array of PRs
    */
-  private function searchFrontEndPrs($string, $count) {
+  private function searchFrontEndPrs(string $string, int $count = 20) {
     $results = [];
-    $repo = 'department-of-veterans-affairs/vets-website';
-    $string = urlencode($string);
 
     try {
-      if ($gh_token = getenv('GITHUB_TOKEN')) {
-        $this->githubClient->authenticate($gh_token, NULL, Client::AUTH_HTTP_TOKEN);
-      }
-
-      // @todo add per_page (count) parameter when/if KnpLabs/php-github-api supports it.
-      $results = $this->githubClient->api('search')->issues("is:pr is:open repo:{$repo} {$string}");
+      $results = $this->githubClient->searchPullRequests($string, $count);
     }
     catch (\Exception $e) {
-      $variables = Error::decodeException($exception);
-      $this->logger('va_gov_build_trigger')->error('%type: @message in %function (line %line of %file).', $variables);
+      $variables = Error::decodeException($e);
+      $this->logger->error('%type: @message in %function (line %line of %file).', $variables);
     }
 
     return $results;

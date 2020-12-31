@@ -31,7 +31,6 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
       '#description' => $this->t('Enter text to search Front-end branches and open PRs.'),
       '#autocomplete_route_name' => 'va_gov_build_trigger.front_end_branches_autocomplete',
       '#autocomplete_route_parameters' => [
-        'field_name' => 'front_end_branch',
         'count' => 10,
       ],
       '#maxlength' => 1024,
