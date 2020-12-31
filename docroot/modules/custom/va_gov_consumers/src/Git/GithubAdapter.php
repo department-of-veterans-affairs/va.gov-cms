@@ -11,8 +11,9 @@ use Github\Exception\InvalidArgumentException;
  * Access to Github APIs.
  */
 class GithubAdapter implements GithubInterface {
+
   /**
-   * Github Client
+   * Github Client.
    *
    * @var \Github\Client
    */
@@ -35,7 +36,7 @@ class GithubAdapter implements GithubInterface {
   /**
    * Constructor for the GithubAdapter.
    *
-   * @param Client $githubClient
+   * @param \Github\Client $githubClient
    *   A github client which has been authenticated..
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerChannelFactory
    *   Channel Factory.
@@ -76,7 +77,7 @@ class GithubAdapter implements GithubInterface {
   }
 
   /**
-   * Get the set repository Path
+   * Get the repository path.
    *
    * @return string
    *   The repository path.
@@ -89,9 +90,10 @@ class GithubAdapter implements GithubInterface {
    * Set the repository path.
    *
    * @param string $repositoryPath
-   *   The repository path $org/$repo;
+   *   The repository path as $org/$repo .
    */
   public function setRepositoryPath(string $repositoryPath): void {
     $this->repositoryPath = $repositoryPath;
   }
+
 }

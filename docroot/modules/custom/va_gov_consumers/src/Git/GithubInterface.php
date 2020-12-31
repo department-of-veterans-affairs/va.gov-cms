@@ -6,10 +6,11 @@ namespace Drupal\va_gov_consumers\Git;
  * Access to the Github  API.
  */
 interface GithubInterface {
+
   /**
-   * Search branches.
+   * Search Pull Requests.
    *
-   * @param string $string_on
+   * @param string $search_on
    *   Search string.
    * @param int $count
    *   Number of pull requests to return.

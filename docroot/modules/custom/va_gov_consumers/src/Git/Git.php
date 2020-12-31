@@ -5,7 +5,7 @@ namespace Drupal\va_gov_consumers\Git;
 /**
  * Interact with Git.
  *
- * Possible us https://github.com/gitonomy/gitlib if our needs expand.
+ * Consider using https://github.com/gitonomy/gitlib if our needs expand.
  */
 class Git implements GitInterface {
 
@@ -43,7 +43,7 @@ class Git implements GitInterface {
    * {@inheritDoc}
    */
   public function searchBranches(string $search_string, int $count = 10) : array {
-    // If we expand usage of looking at git, we need to not use shell_exec
+    // If we expand usage of looking at git, we need to not use shell_exec.
     $branches = explode(PHP_EOL, shell_exec("cd {$this->repositoryRoot} && git ls-remote --heads origin | cut -f2 | sed 's#refs/heads/##'"));
     $matches = array_filter($branches, static function ($branch_name) use ($search_string) {
       return stristr($branch_name, $search_string) !== FALSE;
@@ -51,4 +51,5 @@ class Git implements GitInterface {
 
     return array_slice(array_values($matches), 0, $count);
   }
+
 }
