@@ -151,9 +151,6 @@ Feature: Views
 | Right sidebar latest revision | All revisions | block_1 | Block |
 | Right sidebar latest revision | Latest revision | attachment_1 | Attachment |
 | Right sidebar latest revision | Master | default | Master |
-| Right sidebar latest revision | Meta tags | attachment_2 | Attachment |
-| Right sidebar latest revision | Owner | attachment_0 | Attachment |
-| Right sidebar latest revision | Posted to | attachment_0b | Attachment |
 | Search | Master | default | Master |
 | Search | Page | page | Page |
 | Sections tree | Block | block_1 | Block |

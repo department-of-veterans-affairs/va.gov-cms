@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3da64871b1a2e6d9384ad59759af653b",
+    "content-hash": "589bbbbaceff30abefba52fb07d37e0c",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5837,26 +5837,26 @@
         },
         {
             "name": "drupal/libraries",
-            "version": "3.0.0-alpha6",
+            "version": "3.0.0-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/libraries.git",
-                "reference": "8.x-3.0-alpha6"
+                "reference": "8.x-3.0-alpha1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/libraries-8.x-3.0-alpha6.zip",
-                "reference": "8.x-3.0-alpha6",
-                "shasum": "d2aaf7f0968a1864457a7741b7e38ab11ef83e2c"
+                "url": "https://ftp.drupal.org/files/projects/libraries-8.x-3.0-alpha1.zip",
+                "reference": "8.x-3.0-alpha1",
+                "shasum": "bb07036b1eaeea7d736fc7e72416238830cd8d67"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "~8.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.0-alpha6",
-                    "datestamp": "1608099124",
+                    "version": "8.x-3.0-alpha1",
+                    "datestamp": "1517046484",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Alpha releases are not covered by Drupal security advisories."
@@ -6612,6 +6612,62 @@
                 "source": "https://cgit.drupalcode.org/migrate_source_csv",
                 "issues": "https://www.drupal.org/project/issues/migrate_source_csv",
                 "irc": "irc://irc.freenode.org/drupal-migrate"
+            }
+        },
+        {
+            "name": "drupal/migrate_source_ui",
+            "version": "1.0.0-rc1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/migrate_source_ui.git",
+                "reference": "8.x-1.0-rc1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/migrate_source_ui-8.x-1.0-rc1.zip",
+                "reference": "8.x-1.0-rc1",
+                "shasum": "f2bbf22bc78e6cb127c8a0570d985bf508a522d9"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "suggest": {
+                "drupal/migrate_plus": "Provides JSON and XML sources",
+                "drupal/migrate_source_csv": "Provides CSV source"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.0-rc1",
+                    "datestamp": "1586234658",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "RC releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "drupalspoons",
+                    "homepage": "https://www.drupal.org/user/3647684"
+                },
+                {
+                    "name": "hl17",
+                    "homepage": "https://www.drupal.org/user/3542612"
+                }
+            ],
+            "description": "UI for  csv, xml o json sources.",
+            "homepage": "https://www.drupal.org/project/migrate_source_ui",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/migrate_source_ui",
+                "issues": "https://www.drupal.org/project/issues/migrate_source_ui"
             }
         },
         {
@@ -21348,6 +21404,7 @@
         "drupal/libraries": 15,
         "drupal/markup": 10,
         "drupal/mass_pwreset": 15,
+        "drupal/migrate_source_ui": 5,
         "drupal/openapi": 10,
         "drupal/paragraphs_browser": 15,
         "drupal/password_policy": 15,
