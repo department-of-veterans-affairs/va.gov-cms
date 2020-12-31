@@ -9,6 +9,7 @@ Feature: Views
        Then exactly the following views should exist
        | Name | Machine name | Base table | Status | Description |
 | Administration section | administration_section | Taxonomy terms | Enabled | Top-level items in the Section taxonomy |
+| Advanced Queue jobs | advancedqueue_jobs | Jobs | Enabled |  |
 | Archive | archive | Content | Disabled | All content, by month. |
 | Benefit Hubs Categories | benefits_hub_categories | Content | Enabled |  |
 | Benefits hub list | benefits_hub_list | Content | Enabled |  |
@@ -68,6 +69,8 @@ Feature: Views
 | Administration section | Entity Reference | entity_reference_1 | Entity Reference |
 | Administration section | Master | default | Master |
 | Administration section | CLP Entity Reference | clp_entity_reference | Entity Reference |
+| Advanced Queue jobs | Master | default | Master |
+| Advanced Queue jobs | Page | page_1 | Page |
 | Archive | Block | block_1 | Block |
 | Archive | Master | default | Master |
 | Archive | Page | page_1 | Page |
