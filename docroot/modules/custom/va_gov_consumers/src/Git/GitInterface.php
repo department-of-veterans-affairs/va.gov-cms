@@ -19,4 +19,5 @@ interface GitInterface {
    *   An array of matching branch names.
    */
   public function searchBranches(string $search_string, int $count = 10) : array;
+
 }

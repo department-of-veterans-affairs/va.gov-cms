@@ -2,7 +2,6 @@
 
 namespace Drupal\va_gov_build_trigger\Plugin\VAGov\Environment;
 
-use Drupal\advancedqueue\Entity\QueueInterface;
 use Drupal\advancedqueue\Job;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;

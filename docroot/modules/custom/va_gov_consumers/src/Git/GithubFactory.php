@@ -8,14 +8,14 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
- * Class GithubFactory
+ * Factor class for GithubAdapter.
  */
 class GithubFactory implements ContainerAwareInterface {
 
   use ContainerAwareTrait;
 
   /**
-   * Get a new instance of \Drupal\va_gov_consumers\Github\GithubAdapter
+   * Get a new instance of \Drupal\va_gov_consumers\Github\GithubAdapter.
    *
    * @param string $repo_path
    *   The repository path $org/$repo.
@@ -45,4 +45,5 @@ class GithubFactory implements ContainerAwareInterface {
 
     return $githubAdapter;
   }
+
 }

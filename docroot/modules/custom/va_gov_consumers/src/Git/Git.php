@@ -3,7 +3,7 @@
 namespace Drupal\va_gov_consumers\Git;
 
 /**
- * Interact with Git
+ * Interact with Git.
  *
  * Possible us https://github.com/gitonomy/gitlib if our needs expand.
  */
@@ -33,6 +33,7 @@ class Git implements GitInterface {
    *   The repository root.
    *
    * @return \Drupal\va_gov_consumers\Git\Git
+   *   The git class.
    */
   public static function get(string $repositoryRoot) : Git {
     return new static($repositoryRoot);

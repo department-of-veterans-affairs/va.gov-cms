@@ -70,7 +70,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
    * @param int $count
    *   Number of results to return.
    *
-   * @return Response
+   * @return \Symfony\Component\HttpFoundation\Response
    *   The json response object.
    */
   public function handleAutocomplete(Request $request, $count) : Response {
