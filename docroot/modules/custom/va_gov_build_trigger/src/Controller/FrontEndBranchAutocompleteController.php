@@ -44,7 +44,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
    */
   public function __construct(GithubInterface $githubClient, GitInterface $git, LoggerChannelFactoryInterface $logger) {
     $this->githubClient = $githubClient;
-    $this->logger = $logger;
+    $this->logger = $logger->get('va_gov_build_trigger');
     $this->git = $git;
   }
 
@@ -53,9 +53,12 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('va_gov.consumers.github.vets_website'),
+      $container->get('va_gov.consumers.github.factory')->get(
+        'department-of-veterans-affairs/vets-website',
+        'va_cms_bot_github_auth_token'
+      ),
       Git::get(DRUPAL_ROOT . '/web'),
-      $container->get('logger.factory')->get('va_gov_build_trigger')
+      $container->get('logger.factory')
     );
   }
 

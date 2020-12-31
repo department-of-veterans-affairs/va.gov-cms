@@ -40,7 +40,7 @@ class GithubFactory implements ContainerAwareInterface {
       throw new \InvalidArgumentException('Invalid Github Token');
     }
 
-    $githubAdapter = new GithubAdapter($github, $this->container->get('@logger.factory'));
+    $githubAdapter = new GithubAdapter($github, $this->container->get('logger.factory'));
     $githubAdapter->setRepositoryPath($repo_path);
 
     return $githubAdapter;
