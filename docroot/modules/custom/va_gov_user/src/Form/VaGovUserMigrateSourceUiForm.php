@@ -2,8 +2,8 @@
 
 namespace Drupal\va_gov_user\Form;
 
-use Drupal\migrate_source_ui\Form\MigrateSourceUiForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\migrate_source_ui\Form\MigrateSourceUiForm;
 
 /**
  * Contribute form.
