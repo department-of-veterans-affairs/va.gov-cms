@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.health_care_local_health_service.field_facility_service_loc_help
     - field.field.node.health_care_local_health_service.field_hservice_appt_intro_select
     - field.field.node.health_care_local_health_service.field_hservice_appt_leadin
+    - field.field.node.health_care_local_health_service.field_hservices_lead_in_default
     - field.field.node.health_care_local_health_service.field_online_scheduling_availabl
     - field.field.node.health_care_local_health_service.field_phone_numbers_paragraph
     - field.field.node.health_care_local_health_service.field_referral_required
@@ -49,7 +50,7 @@ third_party_settings:
         - field_referral_required
         - field_walk_ins_accepted
       parent_name: group_a
-      weight: 7
+      weight: 8
       format_type: fieldset
       format_settings:
         description: ''
@@ -64,6 +65,7 @@ third_party_settings:
         - field_appointments_help_text
         - field_hservice_appt_intro_select
         - field_hservice_appt_leadin
+        - field_hservices_lead_in_default
         - group_appointments
         - group_scheduling
       parent_name: ''
@@ -74,12 +76,12 @@ third_party_settings:
         show_label: true
         label_element: h2
         label_element_classes: ''
-        required_fields: true
         attributes: ''
         effect: none
         speed: fast
         id: appointments
         classes: ''
+        required_fields: false
       label: Appointments
       region: content
     group_scheduling:
@@ -87,7 +89,7 @@ third_party_settings:
         - field_online_scheduling_availabl
         - field_phone_numbers_paragraph
       parent_name: group_a
-      weight: 8
+      weight: 9
       format_type: fieldset
       format_settings:
         id: ''
@@ -214,6 +216,12 @@ content:
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining.'
     third_party_settings: {  }
     type: string_textarea_with_counter
+    region: content
+  field_hservices_lead_in_default:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
     region: content
   field_online_scheduling_availabl:
     type: options_select
