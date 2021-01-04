@@ -65,6 +65,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
     ];
 
     $build['#theme'] = 'content_release_status_block';
+    $build['#attached']['library'][] = 'va_gov_build_trigger/content_release_status_block';
     $build['content_release_status_block'] = $table;
 
     return $build;
