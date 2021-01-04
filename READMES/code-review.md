@@ -72,6 +72,7 @@ The Product Manager is a person on the CMS team who works with the Product Owner
 1. A Pull Request is created in Github as a `Draft`.
 1. The PR Owner is set as the Assignee of the Pull Request.
 1. Add `Core Application Team` or `Product Team Support` label.
+1. If a PR is blocked by another PR add the `DO NOT MERGE` label and add `[DO NOT MERGE]` or `[WIP]` to the PR title.
 1. The PR Owner will test the changes in CI. When the PR Owner is confident the changes are ready for review, the PR Owner will set the Pull Request to `Ready for Review`.
 1. PR Owner will request one or multiple PR Reviewers for the Pull Request as needed.
 1. If a change introduced by a Pull Request introduces an architectural change or a significant new feature, the Tech Lead will take the role of the PR Reviewer on the Pull Request.

@@ -1,0 +1,39 @@
+uuid: 9fa288aa-baab-42ba-825a-a7675c94ea1e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.user_guides
+    - field.field.paragraph.media_list_videos.field_section_header
+    - field.field.paragraph.media_list_videos.field_videos
+    - paragraphs.paragraphs_type.media_list_videos
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: paragraph.media_list_videos.user_guides
+targetEntityType: paragraph
+bundle: media_list_videos
+mode: user_guides
+content:
+  field_section_header:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_videos:
+    type: entity_reference_entity_view
+    weight: 3
+    label: hidden
+    settings:
+      view_mode: user_guides
+      link: false
+    third_party_settings: {  }
+    region: content
+hidden:
+  search_api_excerpt: true
