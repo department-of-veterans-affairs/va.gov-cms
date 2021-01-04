@@ -44,16 +44,6 @@ class GithubAdapter implements GithubInterface {
   public function __construct(Client $githubClient, LoggerChannelFactoryInterface $loggerChannelFactory) {
     $this->githubClient = $githubClient;
     $this->logger = $loggerChannelFactory->get('github');
-
-    try {
-      if ($token) {
-        $this->githubClient->authenticate($token, NULL, Client::AUTH_HTTP_TOKEN);
-      }
-    }
-    catch (InvalidArgumentException $e) {
-      $this->logger->error('Invalid Github Token');
-      throw new \InvalidArgumentException('Invalid Github Token');
-    }
   }
 
   /**
