@@ -6,7 +6,7 @@ Feature: Downloadable File paragraphs are displayed correctly corresponding to t
   Scenario: Document files should, on any content type, contain a specially formatted link.
     Given I am logged in as a user with the "content_admin" role
     And I am on "/node/9421"
-    Then I should see "Download slide deck for Session 1 - CMS Orientation (PDF)" in the "a.downloadable-file-link--document" element
+    Then I should see "Slide deck - CMS training session 1 (PDF)" in the "a.downloadable-file-link--document" element
     Then "a.downloadable-file-link--document" should have the attribute "target" with value "_blank"
     Then "a.downloadable-file-link--document" should have the attribute "aria-label" with value "Download"
     Then "a.downloadable-file-link--document" should have the attribute "href" matching pattern "/(.*)\/files\/2020\-10\/CMS%20Orientation%20\-%20Session%201_0\.pdf$/"
