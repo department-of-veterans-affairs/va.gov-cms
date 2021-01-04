@@ -47,7 +47,6 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
     $build = [];
 
     $job = $this->getCommandRunnerJob();
-    kint($job);
     if (!$job) {
       return $build;
     }
@@ -55,6 +54,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
     $table = [
       '#type' => 'table',
       '#header' => [
+        '',
         $this->t('Status'),
         $this->t('Created'),
         $this->t('Processed'),
@@ -82,6 +82,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   private function buildTableRow(\stdClass $job) : array {
     $row = [];
 
+    $row[] = $this->getStatusIcon($job->state);
     $row[] = $this->getHumanReadableStatus($job->state);
     $row[] = $job->available ? $this->dateFormatter->format($job->available, 'standard') : '';
     $row[] = $job->processed ? $this->dateFormatter->format($job->processed, 'standard') : '';
@@ -90,7 +91,49 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   }
 
   /**
-   * Build a queue status table row array.
+   * Get the status icon for an advancedqueue job state.
+   *
+   * @param string $state
+   *   Advancedqueue job state.
+   *
+   * @return array
+   *   Table cell array with job status icon.
+   */
+  private function getStatusIcon(string $state) : array {
+    $class = '';
+    $icon = '';
+
+    switch ($state) {
+      case 'queued':
+        $icon = '🕐';
+        break;
+
+      case 'processing':
+        $class = 'status-animated';
+        $icon = '🔨';
+        break;
+
+      case 'success':
+        $icon = '✅';
+        break;
+
+      case 'failure':
+        $icon = '❌';
+        break;
+
+      default:
+        $icon = '❓';
+        break;
+    }
+
+    return [
+      'data' => $icon,
+      'class' => $class,
+    ];
+  }
+
+  /**
+   * Get the human readable status for an advancedqueue job state.
    *
    * @param string $state
    *   Advancedqueue job state.
@@ -124,7 +167,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
 
     return [
       'data' => $status,
-      'class' => "status-{$state}",
+      'class' => "status-{$state} ajax-progress-throbber",
     ];
   }
 
