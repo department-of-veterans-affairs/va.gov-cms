@@ -67,9 +67,12 @@ class Tugboat extends EnvironmentPluginBase {
 
     if ($command = $this->getFrontEndGitReferenceCheckoutCommand($front_end_git_ref)) {
       $commands[] = $command;
+      $commands[] = 'cd /var/lib/tugboat && COMPOSER_HOME=/var/lib/tugboat /usr/local/bin/composer --no-cache va:web:full-build';
+    }
+    else {
+      $commands[] = 'cd /var/lib/tugboat && COMPOSER_HOME=/var/lib/tugboat /usr/local/bin/composer --no-cache va:web:build';
     }
 
-    $commands[] = 'cd /var/lib/tugboat && COMPOSER_HOME=/var/lib/tugboat /usr/local/bin/composer --no-cache va:web:build';
     $payload = ['commands' => $commands];
 
     $job = Job::create(WebBuildJobType::QUEUE_ID, $payload);
