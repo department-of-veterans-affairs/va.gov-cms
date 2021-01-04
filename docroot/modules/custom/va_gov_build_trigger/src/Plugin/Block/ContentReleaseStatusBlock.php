@@ -183,6 +183,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
       ->condition('aq.queue_id', 'command_runner')
       ->fields('aq')
       ->range(0, 1)
+      ->orderBy('available', 'DESC')
       ->execute()
       ->fetchObject();
   }
