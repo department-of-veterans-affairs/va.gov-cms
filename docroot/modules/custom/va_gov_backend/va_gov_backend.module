@@ -1504,17 +1504,6 @@ function va_gov_backend_toolbar() {
 }
 
 /**
- * Implements hook_theme_suggestions_HOOK_alter().
- */
-function va_gov_backend_theme_suggestions_paragraph_alter(&$suggestions, $variables) {
-  $paragraph = $variables['elements']['#paragraph'];
-  $parent = $paragraph->getParentEntity();
-  if ($parent) {
-    $suggestions[] = 'paragraph__' . $paragraph->bundle() . '__' . $parent->bundle();
-  }
-}
-
-/**
  * Implements template_preprocess_paragraph().
  */
 function va_gov_backend_preprocess_paragraph(&$variables) {
