@@ -186,4 +186,11 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
       ->fetchObject();
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheMaxAge() {
+    return 0;
+  }
+
 }
