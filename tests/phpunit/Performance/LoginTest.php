@@ -65,7 +65,7 @@ class LoginTest extends ExistingSiteBase {
    */
   public function benchmarkTime() {
     return [
-      [10],
+      [3],
     ];
   }
 
