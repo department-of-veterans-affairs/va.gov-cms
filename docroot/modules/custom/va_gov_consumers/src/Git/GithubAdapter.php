@@ -5,7 +5,6 @@ namespace Drupal\va_gov_consumers\Git;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Utility\Error;
 use Github\Client;
-use Github\Exception\InvalidArgumentException;
 
 /**
  * Access to Github APIs.
