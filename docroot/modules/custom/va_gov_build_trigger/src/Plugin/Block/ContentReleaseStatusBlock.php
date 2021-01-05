@@ -139,7 +139,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
         "https://tugboat.vfs.va.gov/log/{$tugboat_environment_id}",
         [
           'attributes' => [
-            '_target' => 'blank',
+            'target' => '_blank',
           ],
         ]
       );
@@ -149,7 +149,9 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
       );
 
       $table['#header'][] = $this->t('Logs');
-      $table['#rows'][] = $log_url;
+      foreach ($table['#rows'] as &$row) {
+        $row[] = $log_link;
+      }
     }
 
     return $table;
