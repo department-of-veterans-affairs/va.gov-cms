@@ -4,6 +4,7 @@ namespace Drupal\va_gov_build_trigger\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -31,6 +32,20 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   protected $dateFormatter;
 
   /**
+   * EnvironmentDiscovery Service.
+   *
+   * @var \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery
+   */
+  protected $environmentDiscovery;
+
+  /**
+   * The link generator service.
+   *
+   * @var \Drupal\Core\Utility\LinkGeneratorInterface
+   */
+  protected $linkGenerator;
+
+  /**
    * The URL generator service.
    *
    * @var \Drupal\Core\Routing\UrlGeneratorInterface
@@ -44,6 +59,8 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
     $instance = new static($configuration, $plugin_id, $plugin_definition);
     $instance->database = $container->get('database');
     $instance->dateFormatter = $container->get('date.formatter');
+    $instance->environmentDiscovery = $container->get('va_gov.build_trigger.environment_discovery');
+    $instance->linkGenerator = $container->get('link_generator');
     $instance->urlGenerator = $container->get('url_generator');
     return $instance;
   }
@@ -77,6 +94,8 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
       'blockRefreshPath' => $this->urlGenerator->generateFromRoute('va_gov_build_trigger.content_release_status_block_controller_get_block'),
     ];
 
+    $table = $this->addLogLinks($table);
+
     $build['content_release_status_block'] = $table;
 
     return $build;
@@ -100,6 +119,40 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
     $row[] = $job->processed ? $this->dateFormatter->format($job->processed, 'standard') : '';
 
     return $row;
+  }
+
+  /**
+   * Add log links to table.
+   *
+   * @param array $table
+   *   Drupal table render array.
+   *
+   * @return array
+   *   Drupal table render array.
+   */
+  private function addLogLinks(array $table) : array {
+    if (
+      $this->environmentDiscovery->isTugboat() &&
+      $tugboat_environment_id = $this->environmentDiscovery->getTugboatBuildEnvironmentId()
+    ) {
+      $log_url = Url::fromUri(
+        "https://tugboat.vfs.va.gov/log/{$tugboat_environment_id}",
+        [
+          'attributes' => [
+            '_target' => 'blank',
+          ],
+        ]
+      );
+      $log_link = $this->linkGenerator->generate(
+        $this->t('View logs'),
+        $log_url
+      );
+
+      $table['#header'][] = $this->t('Logs');
+      $table['#rows'][] = $log_url;
+    }
+
+    return $table;
   }
 
   /**
