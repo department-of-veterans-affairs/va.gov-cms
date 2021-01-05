@@ -122,6 +122,8 @@ services:
         - chown -R www-data:www-data "${DOCROOT}/vendor/va-gov/web"
         - find "${DOCROOT}/vendor/va-gov/web" -type d -exec chmod 2775 {} \;
         - find "${DOCROOT}/vendor/va-gov/web" -type f -exec chmod 0664 {} \;
+        - find "${DOCROOT}/vendor/va-gov/web/node_modules/.bin" -type f -exec chmod +x {} \;
+        - find "${DOCROOT}/vendor/va-gov/web/script" -type f -exec chmod +x {} \;
 
   # What to call the service hosting MySQL. This name also acts as the
   # hostname to access the service by from the php service.

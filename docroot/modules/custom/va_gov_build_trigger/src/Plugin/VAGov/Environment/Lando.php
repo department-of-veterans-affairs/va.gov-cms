@@ -64,12 +64,14 @@ class Lando extends EnvironmentPluginBase {
    */
   public function triggerFrontendBuild($front_end_git_ref = NULL): void {
     $commands = [];
-
     if ($command = $this->getFrontEndGitReferenceCheckoutCommand($front_end_git_ref)) {
       $commands[] = $command;
+      $commands[] = 'cd /app && COMPOSER_HOME=/var/www/.composer /usr/local/bin/composer --no-cache va:web:full-build';
+    }
+    else {
+      $commands[] = 'cd /app && COMPOSER_HOME=/var/www/.composer /usr/local/bin/composer --no-cache va:web:build';
     }
 
-    $commands[] = 'cd /app && COMPOSER_HOME=/var/www/.composer /usr/local/bin/composer va:web:build';
     $payload = ['commands' => $commands];
 
     $job = Job::create(WebBuildJobType::QUEUE_ID, $payload);
