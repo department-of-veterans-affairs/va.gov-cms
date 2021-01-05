@@ -239,10 +239,10 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   /**
    * Get content release build job.
    *
-   * @return object
-   *   The job's database row object.
+   * @return object|bool
+   *   The job's database row object, or FALSE if none is found.
    */
-  private function getCommandRunnerJob() : \stdClass {
+  private function getCommandRunnerJob() {
     return $this->database->select('advancedqueue', 'aq')
       ->condition('aq.queue_id', 'command_runner')
       ->fields('aq')
