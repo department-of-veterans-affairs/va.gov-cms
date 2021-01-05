@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @Block(
  *  id = "content_release_status_block",
- *  admin_label = @Translation("Content release status block"),
+ *  admin_label = @Translation("Content release status"),
  * )
  */
 class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPluginInterface {
@@ -31,12 +31,20 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   protected $dateFormatter;
 
   /**
+   * The URL generator service.
+   *
+   * @var \Drupal\Core\Routing\UrlGeneratorInterface
+   */
+  protected $urlGenerator;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $instance = new static($configuration, $plugin_id, $plugin_definition);
     $instance->database = $container->get('database');
     $instance->dateFormatter = $container->get('date.formatter');
+    $instance->urlGenerator = $container->get('url_generator');
     return $instance;
   }
 
@@ -45,8 +53,8 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
    */
   public function build() {
     $build = [];
-
     $job = $this->getCommandRunnerJob();
+
     if (!$job) {
       return $build;
     }
@@ -64,8 +72,11 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
       ],
     ];
 
-    $build['#theme'] = 'content_release_status_block';
     $build['#attached']['library'][] = 'va_gov_build_trigger/content_release_status_block';
+    $build['#attached']['drupalSettings']['contentReleaseStatusBlock'] = [
+      'blockRefreshPath' => $this->urlGenerator->generateFromRoute('va_gov_build_trigger.content_release_status_block_controller_get_block'),
+    ];
+
     $build['content_release_status_block'] = $table;
 
     return $build;
