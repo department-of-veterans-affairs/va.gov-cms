@@ -36,7 +36,7 @@ class ContentReleaseStatusBlockController extends ControllerBase {
   public function getBlock() {
     $block = $this->pluginManagerBlock->createInstance('content_release_status_block');
     $output = render($block->build());
-    return new Response($output);
+    return Response::create($output);
   }
 
 }
