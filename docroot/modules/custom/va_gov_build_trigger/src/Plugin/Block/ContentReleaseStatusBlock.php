@@ -133,7 +133,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   private function addLogLinks(array $table) : array {
     if (
       $this->environmentDiscovery->isTugboat() &&
-      $tugboat_environment_id = $this->environmentDiscovery->getTugboatBuildEnvironmentId()
+      $tugboat_environment_id = $this->environmentDiscovery->getEnvironment()->getTugboatBuildEnvironmentId()
     ) {
       $log_url = Url::fromUri(
         "https://tugboat.vfs.va.gov/log/{$tugboat_environment_id}",
