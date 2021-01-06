@@ -14,7 +14,7 @@ use Drupal\Core\TypedData\DataDefinition;
  *   id = "entity_field_fetch",
  *   label = @Translation("Entity Field Fetch field"),
  *   description = @Translation("This field TYPE, not item, stores the target information needed to fetch field data from a single source."),
- *   default_formatter = "basic_string",
+ *   default_formatter = "entity_field_fetch",
  *   default_widget = "string_textarea",
  * )
  */
@@ -27,11 +27,22 @@ class EntityFieldFetchItem extends FieldItemBase {
     return [
       // Columns contains the values that the field will store.
       'columns' => [
-        // This field should store nothing on the node.  Lets see if it will
-        // let us define no columns.
-        'markup' => [
+        // This field should store nothing on the node.
+        'entity_type' => [
+          'type' => 'varchar',
+          'length' => 4,
+        ],
+        'entity_id' => [
+          'type' => 'varchar',
+          'length' => 32,
+        ],
+        'target_field' => [
           'type'   => 'varchar',
-          'length' => 10,
+          'length' => 32,
+        ],
+        'paragraph_uuid' => [
+          'type'   => 'varchar',
+          'length' => 36,
         ],
       ],
     ];
@@ -42,7 +53,18 @@ class EntityFieldFetchItem extends FieldItemBase {
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties = [];
-    $properties['value'] = DataDefinition::create('string');
+    $properties['entity_type'] = DataDefinition::create('string')
+      ->setLabel(t('Entity type'))
+      ->setDescription(t('Node or Term'));
+    $properties['entity_id'] = DataDefinition::create('string')
+      ->setLabel(t('Target entity ID'))
+      ->setDescription(t('The id of the target entity.'));
+    $properties['target_field'] = DataDefinition::create('string')
+      ->setLabel(t('Target field'))
+      ->setDescription(t('The machine name of the field to pull from'));
+    $properties['paragraph_uuid'] = DataDefinition::create('string')
+      ->setLabel(t('Paragraph UUID'))
+      ->setDescription(t('If the field contains a paragraph reference, this is the UUID for the specific paragraph.'));
 
     return $properties;
   }
@@ -51,7 +73,9 @@ class EntityFieldFetchItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public function isEmpty() {
-    $value = $this->get('value')->getValue();
+    // @todo Workout what should be treated as empty... its complicated.
+    // $value = $this->get('value')->getValue();
+    $value = "beeee";
     return $value === NULL || $value === '';
   }
 
@@ -80,7 +104,7 @@ class EntityFieldFetchItem extends FieldItemBase {
         'node' => $this->t('Node'),
         'term' => $this->t('Term'),
       ],
-      '#required' => TRUE,
+      '#required' => FALSE,
       '#default_value' => $this->getSetting('target_entity_type'),
     ];
 
@@ -107,7 +131,7 @@ class EntityFieldFetchItem extends FieldItemBase {
       '#type' => 'textfield',
       '#size' => 36,
       '#maxlength' => 36,
-      '#required' => TRUE,
+      '#required' => FALSE,
       '#default_value' => $this->getSetting('target_paragraph_uuid'),
     ];
 
