@@ -5,6 +5,7 @@ namespace Drupal\va_gov_build_trigger\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
+use Drupal\va_gov_build_trigger\Plugin\AdvancedQueue\JobType\WebBuildJobType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -39,20 +40,6 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   protected $environmentDiscovery;
 
   /**
-   * The link generator service.
-   *
-   * @var \Drupal\Core\Utility\LinkGeneratorInterface
-   */
-  protected $linkGenerator;
-
-  /**
-   * The URL generator service.
-   *
-   * @var \Drupal\Core\Routing\UrlGeneratorInterface
-   */
-  protected $urlGenerator;
-
-  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
@@ -60,8 +47,6 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
     $instance->database = $container->get('database');
     $instance->dateFormatter = $container->get('date.formatter');
     $instance->environmentDiscovery = $container->get('va_gov.build_trigger.environment_discovery');
-    $instance->linkGenerator = $container->get('link_generator');
-    $instance->urlGenerator = $container->get('url_generator');
     return $instance;
   }
 
@@ -83,6 +68,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
         $this->t('Status'),
         $this->t('Created'),
         $this->t('Processed'),
+        $this->t('Logs'),
       ],
       '#rows' => [
         $this->buildTableRow($job),
@@ -91,10 +77,10 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
 
     $build['#attached']['library'][] = 'va_gov_build_trigger/content_release_status_block';
     $build['#attached']['drupalSettings']['contentReleaseStatusBlock'] = [
-      'blockRefreshPath' => $this->urlGenerator->generateFromRoute('va_gov_build_trigger.content_release_status_block_controller_get_block'),
+      'blockRefreshPath' => Url::fromRoute(
+        'va_gov_build_trigger.content_release_status_block_controller_get_block'
+      ),
     ];
-
-    $table = $this->addLogLinks($table);
 
     $build['content_release_status_block'] = $table;
 
@@ -118,43 +104,40 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
     $row[] = $job->available ? $this->dateFormatter->format($job->available, 'standard') : '';
     $row[] = $job->processed ? $this->dateFormatter->format($job->processed, 'standard') : '';
 
+    // The log page will show an error if there are no log messages,
+    // so only show it once the job is being processed.
+    $row[] = $job->state !== 'queued' ? $this->getLogLink() : '';
+
     return $row;
   }
 
   /**
    * Add log links to table.
    *
-   * @param array $table
-   *   Drupal table render array.
-   *
    * @return array
-   *   Drupal table render array.
+   *   Link to dblog, filtered to web build messages.
    */
-  private function addLogLinks(array $table) : array {
-    if (
-      $this->environmentDiscovery->isTugboat() &&
-      $tugboat_environment_id = $this->environmentDiscovery->getEnvironment()->getTugboatBuildEnvironmentId()
-    ) {
-      $log_url = Url::fromUri(
-        "https://tugboat.vfs.va.gov/log/{$tugboat_environment_id}",
-        [
-          'attributes' => [
-            'target' => '_blank',
-          ],
-        ]
-      );
-      $log_link = $this->linkGenerator->generate(
-        $this->t('View logs'),
-        $log_url
-      );
+  private function getLogLink() : array {
+    $log_url = Url::fromRoute(
+      "dblog.overview",
+      [],
+      [
+        'attributes' => [
+          'target' => '_blank',
+        ],
+        'query' => [
+          'type[]' => WebBuildJobType::QUEUE_ID,
+        ],
+      ]
+    );
 
-      $table['#header'][] = $this->t('Logs');
-      foreach ($table['#rows'] as &$row) {
-        $row[] = $log_link;
-      }
-    }
-
-    return $table;
+    return [
+      'data' => [
+        '#title' => $this->t('View logs'),
+        '#type' => 'link',
+        '#url' => $log_url,
+      ],
+    ];
   }
 
   /**

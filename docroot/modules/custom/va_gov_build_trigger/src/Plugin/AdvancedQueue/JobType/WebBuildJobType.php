@@ -69,6 +69,8 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function process(Job $job) {
+    $this->logger->info('Starting front end rebuild.');
+
     $payload = $job->getPayload();
 
     $commands = $payload['commands'] ?? [];
@@ -82,7 +84,7 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
       return JobResult::failure();
     }
 
-    $this->logger->info('Front end has been rebuilt');
+    $this->logger->info('Front end has been successfully rebuilt.');
 
     return JobResult::success();
   }
