@@ -98,14 +98,4 @@ class Tugboat extends EnvironmentPluginBase {
     return TugboatBuildTriggerForm::class;
   }
 
-  /**
-   * Get the Tugboat build environment ID.
-   *
-   * @return string
-   *   Tugboat build environment ID.
-   */
-  public function getTugboatBuildEnvironmentId() : string {
-    return getenv('TUGBOAT_SERVICE_ID') ?? '';
-  }
-
 }
