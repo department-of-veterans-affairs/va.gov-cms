@@ -6,18 +6,19 @@ dependencies:
     - field.storage.taxonomy_term.field_also_known_as
     - field.storage.taxonomy_term.field_commonly_treated_condition
     - field.storage.taxonomy_term.field_health_service_api_id
+    - field.storage.taxonomy_term.field_service_type_of_care
     - field.storage.taxonomy_term.field_vha_healthservice_stopcode
     - system.menu.admin
     - taxonomy.vocabulary.health_care_service_taxonomy
   module:
     - csv_serialization
     - node
+    - options
     - rest
     - serialization
     - taxonomy
     - text
     - views_data_export
-    - views_tree
 id: vha_health_service_taxonomy
 label: 'VHA Health service taxonomy'
 module: views
@@ -62,79 +63,104 @@ display:
           items_per_page: 0
           offset: 0
       style:
-        type: tree_table
+        type: table
         options:
           grouping: {  }
           row_class: ''
           default_row_class: true
-          override: 1
-          sticky: 1
+          override: true
+          sticky: true
           caption: ''
           summary: ''
           description: ''
           columns:
             name: name
+            parent_target_id: parent_target_id
+            edit_taxonomy_term: edit_taxonomy_term
             tid: tid
             tid_1: tid_1
-            field_commonly_treated_condition: field_commonly_treated_condition
             field_also_known_as: field_also_known_as
-            edit_taxonomy_term: edit_taxonomy_term
+            field_commonly_treated_condition: field_commonly_treated_condition
+            description__value: description__value
+            field_vha_healthservice_stopcode: field_vha_healthservice_stopcode
+            field_health_service_api_id: field_health_service_api_id
             nid: nid
           info:
             name:
-              sortable: 0
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
-              empty_column: 0
+              empty_column: false
               responsive: ''
-            tid:
-              sortable: 0
-              default_sort_order: asc
+            parent_target_id:
               align: ''
               separator: ''
-              empty_column: 0
-              responsive: ''
-            tid_1:
-              sortable: 0
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: 0
-              responsive: ''
-            field_commonly_treated_condition:
-              sortable: 0
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: 0
-              responsive: ''
-            field_also_known_as:
-              sortable: 0
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: 0
+              empty_column: false
               responsive: ''
             edit_taxonomy_term:
-              sortable: 0
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
-              empty_column: 0
+              empty_column: false
+              responsive: ''
+            tid:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            tid_1:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_also_known_as:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_commonly_treated_condition:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            description__value:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_vha_healthservice_stopcode:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_health_service_api_id:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
               responsive: ''
             nid:
-              sortable: 0
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
-              empty_column: 0
+              empty_column: false
               responsive: ''
           default: '-1'
-          empty_table: 0
-          main_field: tid
-          parent_field: tid_1
-          display_hierarchy_column: name
+          empty_table: false
       row:
         type: fields
       fields:
@@ -186,71 +212,6 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
-        parent_target_id:
-          id: parent_target_id
-          table: taxonomy_term__parent
-          field: parent_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Parent
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: true
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: taxonomy_term
-          entity_field: parent
-          plugin_id: field
         edit_taxonomy_term:
           id: edit_taxonomy_term
           table: taxonomy_term_data
@@ -304,138 +265,6 @@ display:
           absolute: false
           entity_type: taxonomy_term
           plugin_id: entity_link_edit
-        tid:
-          id: tid
-          table: taxonomy_term_field_data
-          field: tid
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: taxonomy_term
-          entity_field: tid
-          plugin_id: field
-        tid_1:
-          id: tid_1
-          table: taxonomy_term_field_data
-          field: tid
-          relationship: parent_target_id
-          group_type: group
-          admin_label: ''
-          label: 'Term ID'
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: taxonomy_term
-          entity_field: tid
-          plugin_id: field
         field_also_known_as:
           id: field_also_known_as
           table: taxonomy_term__field_also_known_as
@@ -625,6 +454,68 @@ display:
           field_api_classes: false
           entity_type: taxonomy_term
           entity_field: description
+          plugin_id: field
+        field_service_type_of_care:
+          id: field_service_type_of_care
+          table: taxonomy_term__field_service_type_of_care
+          field: field_service_type_of_care
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Type of care'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
           plugin_id: field
         field_vha_healthservice_stopcode:
           id: field_vha_healthservice_stopcode
@@ -870,17 +761,6 @@ display:
       footer: {  }
       empty: {  }
       relationships:
-        parent_target_id:
-          id: parent_target_id
-          table: taxonomy_term__parent
-          field: parent_target_id
-          relationship: none
-          group_type: group
-          admin_label: Parent
-          required: false
-          entity_type: taxonomy_term
-          entity_field: parent
-          plugin_id: standard
         reverse__node__field_service_name_and_descripti:
           id: reverse__node__field_service_name_and_descripti
           table: taxonomy_term_field_data
@@ -903,6 +783,7 @@ display:
         - 'config:field.storage.taxonomy_term.field_also_known_as'
         - 'config:field.storage.taxonomy_term.field_commonly_treated_condition'
         - 'config:field.storage.taxonomy_term.field_health_service_api_id'
+        - 'config:field.storage.taxonomy_term.field_service_type_of_care'
         - 'config:field.storage.taxonomy_term.field_vha_healthservice_stopcode'
   data_export_1:
     display_plugin: data_export
@@ -993,71 +874,6 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
-        parent_target_id:
-          id: parent_target_id
-          table: taxonomy_term__parent
-          field: parent_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Parent
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: true
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: taxonomy_term
-          entity_field: parent
-          plugin_id: field
         tid:
           id: tid
           table: taxonomy_term_field_data
@@ -1099,72 +915,6 @@ display:
           element_label_type: ''
           element_label_class: ''
           element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: taxonomy_term
-          entity_field: tid
-          plugin_id: field
-        tid_1:
-          id: tid_1
-          table: taxonomy_term_field_data
-          field: tid
-          relationship: parent_target_id
-          group_type: group
-          admin_label: ''
-          label: 'Term ID'
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -1380,6 +1130,68 @@ display:
           entity_type: taxonomy_term
           entity_field: description
           plugin_id: field
+        field_service_type_of_care:
+          id: field_service_type_of_care
+          table: taxonomy_term__field_service_type_of_care
+          field: field_service_type_of_care
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Type of care'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
         field_vha_healthservice_stopcode:
           id: field_vha_healthservice_stopcode
           table: taxonomy_term__field_vha_healthservice_stopcode
@@ -1582,6 +1394,11 @@ display:
           plugin_id: field
       defaults:
         fields: false
+      automatic_download: false
+      store_in_public_file_directory: null
+      redirect_to_display: none
+      custom_redirect_path: false
+      include_query_params: false
     cache_metadata:
       max-age: -1
       contexts:
@@ -1592,6 +1409,7 @@ display:
         - 'config:field.storage.taxonomy_term.field_also_known_as'
         - 'config:field.storage.taxonomy_term.field_commonly_treated_condition'
         - 'config:field.storage.taxonomy_term.field_health_service_api_id'
+        - 'config:field.storage.taxonomy_term.field_service_type_of_care'
         - 'config:field.storage.taxonomy_term.field_vha_healthservice_stopcode'
   page_1:
     display_plugin: page
@@ -1616,4 +1434,5 @@ display:
         - 'config:field.storage.taxonomy_term.field_also_known_as'
         - 'config:field.storage.taxonomy_term.field_commonly_treated_condition'
         - 'config:field.storage.taxonomy_term.field_health_service_api_id'
+        - 'config:field.storage.taxonomy_term.field_service_type_of_care'
         - 'config:field.storage.taxonomy_term.field_vha_healthservice_stopcode'
