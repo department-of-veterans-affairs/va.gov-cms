@@ -5,3 +5,10 @@ va_gov_build_trigger.build_trigger_form:
     _form: '\Drupal\va_gov_build_trigger\Form\BuildTriggerForm'
   requirements:
     _permission: "va gov deploy content build"
+va_gov_build_trigger.front_end_branches_autocomplete:
+  path: '/admin/content/deploy/front_end_branches_autocomplete/{count}'
+  defaults:
+    _controller: '\Drupal\va_gov_build_trigger\Controller\FrontEndBranchAutocompleteController::handleAutocomplete'
+    _format: json
+  requirements:
+    _permission: "va gov deploy content build"

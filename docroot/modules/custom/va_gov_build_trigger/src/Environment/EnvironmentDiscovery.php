@@ -146,10 +146,13 @@ class EnvironmentDiscovery {
   /**
    * Trigger a front end content build.
    *
+   * @param string $front_end_git_ref
+   *   Front end git reference to build (branch name or PR number)
+   *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
-  public function triggerFrontendBuild() : void {
-    $this->getEnvironment()->triggerFrontendBuild();
+  public function triggerFrontendBuild($front_end_git_ref = NULL) {
+    $this->getEnvironment()->triggerFrontendBuild($front_end_git_ref);
   }
 
   /**
@@ -160,6 +163,16 @@ class EnvironmentDiscovery {
    */
   protected function isCli() : bool {
     return PHP_SAPI === 'cli';
+  }
+
+  /**
+   * Returns the Build Trigger Form class for the current environment.
+   *
+   * @return string
+   *   Class name.
+   */
+  public function getBuildTriggerFormClass() : string {
+    return $this->getEnvironment()->getBuildTriggerFormClass();
   }
 
 }
