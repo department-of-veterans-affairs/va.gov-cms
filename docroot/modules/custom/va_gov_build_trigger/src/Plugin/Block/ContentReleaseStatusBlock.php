@@ -79,7 +79,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
     $build['#attached']['drupalSettings']['contentReleaseStatusBlock'] = [
       'blockRefreshPath' => Url::fromRoute(
         'va_gov_build_trigger.content_release_status_block_controller_get_block'
-      ),
+      )->toString(),
     ];
 
     $build['content_release_status_block'] = $table;
