@@ -55,9 +55,9 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
    */
   public function build() {
     $build = [];
-    $job = $this->getCommandRunnerJob();
+    $jobs = $this->getCommandRunnerJobs();
 
-    if (!$job) {
+    if (count($jobs) === 0) {
       return $build;
     }
 
@@ -70,10 +70,11 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
         $this->t('Processed'),
         $this->t('Logs'),
       ],
-      '#rows' => [
-        $this->buildTableRow($job),
-      ],
     ];
+
+    foreach ($jobs as $job) {
+      $table['#rows'][] = $this->buildTableRow($job);
+    }
 
     $build['#attached']['library'][] = 'va_gov_build_trigger/content_release_status_block';
     $build['#attached']['drupalSettings']['contentReleaseStatusBlock'] = [
@@ -222,19 +223,19 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   }
 
   /**
-   * Get content release build job.
+   * Get content release build jobs.
    *
-   * @return object|null
-   *   The job's database row object, or NULL if none is found.
+   * @return array
+   *   Array of job database row objects.
    */
-  private function getCommandRunnerJob() : ?\stdClass {
+  private function getCommandRunnerJobs() : array {
     return $this->database->select('advancedqueue', 'aq')
       ->condition('aq.queue_id', 'command_runner')
       ->fields('aq')
-      ->range(0, 1)
+      ->range(0, 10)
       ->orderBy('available', 'DESC')
       ->execute()
-      ->fetchObject() ?: NULL;
+      ->fetchAll();
   }
 
   /**
