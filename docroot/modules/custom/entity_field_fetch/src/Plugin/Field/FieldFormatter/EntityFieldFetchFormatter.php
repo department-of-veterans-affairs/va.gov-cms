@@ -2,7 +2,8 @@
 
 namespace Drupal\entity_field_fetch\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
@@ -27,7 +28,14 @@ class EntityFieldFetchFormatter extends FormatterBase implements ContainerFactor
    *
    * @var \Drupal\Core\Entity\EntityManagerInterface
    */
-  protected $entityManager;
+  protected $entityTypeManager;
+
+  /**
+   * The entity repository service.
+   *
+   * @var \Drupal\Core\Entity\EntityRepositoryInterface
+   */
+  protected $entityRepository;
 
   /**
    * The field definition.
@@ -53,14 +61,16 @@ class EntityFieldFetchFormatter extends FormatterBase implements ContainerFactor
    *   The view mode.
    * @param array $third_party_settings
    *   Any third party settings.
-   * @param \Drupal\Core\Entity\EntityManagerInterface $entityManager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   Entity manager service.
+   * @param \Drupal\Core\Entity\EntityRepositoryInterface $entity_repository
+   *   Entity Repository.
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, EntityManagerInterface $entityManager) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, EntityTypeManagerInterface $entity_type_manager, EntityRepositoryInterface $entity_repository) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
-
     $this->fieldDefinition = $field_definition;
-    $this->entityManager = $entityManager;
+    $this->entityTypeManager = $entity_type_manager;
+    $this->entityRepository = $entity_repository;
   }
 
   /**
@@ -76,7 +86,8 @@ class EntityFieldFetchFormatter extends FormatterBase implements ContainerFactor
       $configuration['view_mode'],
       $configuration['third_party_settings'],
       // Add any services you want to inject here.
-      $container->get('entity.manager')
+      $container->get('entity_type.manager'),
+      $container->get('entity.repository')
     );
   }
 
@@ -93,6 +104,7 @@ class EntityFieldFetchFormatter extends FormatterBase implements ContainerFactor
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
+    $elements = [];
     foreach ($items as $delta => $item) {
       $elements[$delta] = $this->viewElement($item, $langcode);
     }
@@ -120,8 +132,8 @@ class EntityFieldFetchFormatter extends FormatterBase implements ContainerFactor
 
     if (!empty($target_paragraph_uuid)) {
       // Ignore the node, the data we want is all in the related paragraph.
-      $paragraph = $this->entityManager->loadEntityByUuid('paragraph', $target_paragraph_uuid);
-      $builder = \Drupal::entityTypeManager()->getViewBuilder('paragraph');
+      $paragraph = $this->entityRepository->loadEntityByUuid('paragraph', $target_paragraph_uuid);
+      $builder = $this->entityTypeManager->getViewBuilder('paragraph');
       $element = $builder->view($paragraph, $this->viewMode);
       $source = "{$target_entity_type} {$target_entity_id} paragraph {$target_paragraph_uuid}";
       // Paragraphs have no published state.
@@ -129,7 +141,7 @@ class EntityFieldFetchFormatter extends FormatterBase implements ContainerFactor
     }
     else {
       // We are looking for just the field to render.
-      $entity = $this->entityManager->getStorage($target_entity_type)->load($target_entity_id);
+      $entity = $this->entityTypeManager->getStorage($target_entity_type)->load($target_entity_id);
       $element = $entity->$target_fieldname->view($this->viewMode);
       $source = "{$target_entity_type} {$target_entity_id} field {$target_fieldname}";
       $targetIsPublished = $entity->isPublished();

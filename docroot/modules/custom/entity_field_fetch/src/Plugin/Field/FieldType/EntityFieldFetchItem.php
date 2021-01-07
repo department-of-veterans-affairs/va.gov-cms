@@ -15,7 +15,7 @@ use Drupal\Core\TypedData\DataDefinition;
  *   label = @Translation("Entity Field Fetch field"),
  *   description = @Translation("This field TYPE, not item, stores the target information needed to fetch field data from a single source."),
  *   default_formatter = "entity_field_fetch",
- *   default_widget = "string_textarea",
+ *   default_widget = "entity_field_fetch_widget",
  * )
  */
 class EntityFieldFetchItem extends FieldItemBase {
@@ -28,21 +28,17 @@ class EntityFieldFetchItem extends FieldItemBase {
       // Columns contains the values that the field will store.
       'columns' => [
         // This field should store nothing on the node.
-        'entity_type' => [
+        'target_type' => [
           'type' => 'varchar',
-          'length' => 4,
+          'length' => 36,
         ],
-        'entity_id' => [
+        'target_uuid' => [
           'type' => 'varchar',
-          'length' => 32,
+          'length' => 36,
         ],
         'target_field' => [
           'type'   => 'varchar',
           'length' => 32,
-        ],
-        'paragraph_uuid' => [
-          'type'   => 'varchar',
-          'length' => 36,
         ],
       ],
     ];
@@ -53,18 +49,15 @@ class EntityFieldFetchItem extends FieldItemBase {
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties = [];
-    $properties['entity_type'] = DataDefinition::create('string')
+    $properties['target_type'] = DataDefinition::create('string')
       ->setLabel(t('Entity type'))
       ->setDescription(t('Node or Term'));
-    $properties['entity_id'] = DataDefinition::create('string')
-      ->setLabel(t('Target entity ID'))
-      ->setDescription(t('The id of the target entity.'));
+    $properties['target_uuid'] = DataDefinition::create('string')
+      ->setLabel(t('Target entity UUID'))
+      ->setDescription(t('The uuid of the target entity.'));
     $properties['target_field'] = DataDefinition::create('string')
       ->setLabel(t('Target field'))
-      ->setDescription(t('The machine name of the field to pull from'));
-    $properties['paragraph_uuid'] = DataDefinition::create('string')
-      ->setLabel(t('Paragraph UUID'))
-      ->setDescription(t('If the field contains a paragraph reference, this is the UUID for the specific paragraph.'));
+      ->setDescription(t('The machine name of the field to pull from.'));
 
     return $properties;
   }
