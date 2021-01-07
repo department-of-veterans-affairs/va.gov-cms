@@ -239,11 +239,10 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
       ->fields('aq')
       ->range(0, 10)
       ->orderBy('available', 'DESC')
-      ->execute()
-      ->fetchAll();
+      ->execute();
 
-    foreach ($result as $record) {
-      $jobs[] = new Job((array) $record);
+    while ($record = $result->fetchAssoc()) {
+      $jobs[] = new Job($record);
     }
 
     return $jobs;
