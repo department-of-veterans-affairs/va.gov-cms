@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_build_trigger\Plugin\Block;
 
+use Drupal\advancedqueue\Job;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
@@ -91,23 +92,23 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   /**
    * Build a queue status table row array.
    *
-   * @param object $job
-   *   Advancedqueue job database row.
+   * @param \Drupal\advancedqueue\Job $job
+   *   Advancedqueue Job.
    *
    * @return array
    *   Drupal table row array.
    */
-  private function buildTableRow(\stdClass $job) : array {
+  private function buildTableRow(Job $job) : array {
     $row = [];
 
-    $row[] = $this->getStatusIcon($job->state);
-    $row[] = $this->getHumanReadableStatus($job->state);
-    $row[] = $job->available ? $this->dateFormatter->format($job->available, 'standard') : '';
-    $row[] = $job->processed ? $this->dateFormatter->format($job->processed, 'standard') : '';
+    $row[] = $this->getStatusIcon($job);
+    $row[] = $this->getHumanReadableStatus($job);
+    $row[] = $job->getAvailableTime() ? $this->dateFormatter->format($job->getAvailableTime(), 'standard') : '';
+    $row[] = $job->getProcessedTime() ? $this->dateFormatter->format($job->getProcessedTime(), 'standard') : '';
 
     // The log page will show an error if there are no log messages,
     // so only show it once the job is being processed.
-    $row[] = $job->state !== 'queued' ? $this->getLogLink() : '';
+    $row[] = $job->getState() !== Job::STATE_QUEUED ? $this->getLogLink() : '';
 
     return $row;
   }
@@ -144,31 +145,31 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   /**
    * Get the status icon for an advancedqueue job state.
    *
-   * @param string $state
-   *   Advancedqueue job state.
+   * @param \Drupal\advancedqueue\Job $job
+   *   Advancedqueue Job.
    *
    * @return array
    *   Table cell array with job status icon.
    */
-  private function getStatusIcon(string $state) : array {
+  private function getStatusIcon(Job $job) : array {
     $class = '';
     $icon = '';
 
-    switch ($state) {
-      case 'queued':
+    switch ($job->getState()) {
+      case Job::STATE_QUEUED:
         $icon = '🕐';
         break;
 
-      case 'processing':
+      case Job::STATE_PROCESSING:
         $class = 'status-animated';
         $icon = '🔨';
         break;
 
-      case 'success':
+      case Job::STATE_SUCCESS:
         $icon = '✅';
         break;
 
-      case 'failure':
+      case Job::STATE_FAILURE:
         $icon = '❌';
         break;
 
@@ -186,28 +187,30 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   /**
    * Get the human readable status for an advancedqueue job state.
    *
-   * @param string $state
-   *   Advancedqueue job state.
+   * @param \Drupal\advancedqueue\Job $job
+   *   Advancedqueue Job.
    *
    * @return array
    *   Table cell array with human-readable job status.
    */
-  private function getHumanReadableStatus(string $state) : array {
+  private function getHumanReadableStatus(Job $job) : array {
     $status = '';
+    $state = $job->getState();
+
     switch ($state) {
-      case 'queued':
+      case Job::STATE_QUEUED:
         $status = $this->t('Pending');
         break;
 
-      case 'processing':
+      case Job::STATE_PROCESSING:
         $status = $this->t('In Progress');
         break;
 
-      case 'success':
+      case Job::STATE_SUCCESS:
         $status = $this->t('Success');
         break;
 
-      case 'failure':
+      case Job::STATE_FAILURE:
         $status = $this->t('Error');
         break;
 
@@ -225,17 +228,25 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   /**
    * Get content release build jobs.
    *
-   * @return array
-   *   Array of job database row objects.
+   * @return array[\Drupal\advancedqueue\Job]
+   *   Array of Jobs.
    */
   private function getCommandRunnerJobs() : array {
-    return $this->database->select('advancedqueue', 'aq')
+    $jobs = [];
+
+    $result = $this->database->select('advancedqueue', 'aq')
       ->condition('aq.queue_id', 'command_runner')
       ->fields('aq')
       ->range(0, 10)
       ->orderBy('available', 'DESC')
       ->execute()
       ->fetchAll();
+
+    foreach ($result as $record) {
+      $jobs[] = new Job((array) $record);
+    }
+
+    return $jobs;
   }
 
   /**
