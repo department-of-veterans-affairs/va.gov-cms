@@ -1444,6 +1444,7 @@ function va_gov_backend_mail_alter(&$message) {
  * Implements hook_rebuild().
  */
 function va_gov_backend_rebuild() {
+  // @todo refactor this to use \Drupal\va_gov_consumers\Git\Git.
   // Update the drupal state to display git info in admin toolbar.
   $environment = \Drupal::config('environment_indicator.indicator')->get('name');
   $branch = mb_strimwidth(exec('git rev-parse --abbrev-ref HEAD'), 0, 20, '...') ?? 'git unknown';

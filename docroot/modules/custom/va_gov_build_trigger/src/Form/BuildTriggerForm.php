@@ -6,8 +6,8 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
-use Drupal\va_gov_build_trigger\Service\BuildFrontend;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
+use Drupal\va_gov_build_trigger\Service\BuildFrontend;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -88,7 +88,7 @@ class BuildTriggerForm extends FormBase {
     $form['actions']['#type'] = 'actions';
     $form['help_1'] = [
       '#prefix' => '<p>',
-      '#markup' => t('This is a decoupled Drupal website. Content will not be visible on the Front End until a "Content Release" to an environment.'),
+      '#markup' => $this->t('This is a decoupled Drupal website. Content will not be visible on the Front End until a "Content Release" is made to an environment.'),
       '#suffix' => '</p>',
       '#weight' => -10,
     ];
@@ -103,39 +103,23 @@ class BuildTriggerForm extends FormBase {
     ];
 
     if ($this->webBuildStatus->getWebBuildStatus()) {
-      // A build is pending so set a display.
+      // A build is pending, so set a display.
       $form['tip']['#prefix'] = '<em>';
-      $form['tip']['#markup'] = t('A content release has been queued.');
+      $form['tip']['#markup'] = $this->t('A content release has been queued.');
       $form['tip']['#suffix'] = '</em>';
       $form['tip']['#weight'] = 100;
     }
 
-    // Case race, first to evaluate TRUE wins.
-    switch (TRUE) {
-      case $this->environmentDiscovery->isBRD():
-        $description = t('A content release for this environment will be handled by VFS Jenkins.');
-        break;
-
-      case $this->environmentDiscovery->isTugboat() || $this->environmentDiscovery->isDevShop():
-        $description = t('A content release for this environment is handled by CMS-CI. You may press this button to trigger a content release.  Please note this could take several minutes to run.');
-        break;
-
-      case $this->environmentDiscovery->isLocal():
-        $description = t('Content releases within Lando. You may press this button to trigger a content release. Please note this could take several minutes to run.');
-        break;
-
-      default:
-        $description = t('Environment not detected. Perform a content release by running the <pre>composer va:web:build</pre> command.');
-    }
-
     $target_url = Url::fromUri($target, ['attributes' => ['target' => '_blank']]);
     $target_link = Link::fromTextAndUrl($target, $target_url);
+    $description = $this->t('Environment not detected. Perform a content release by running the <pre>composer va:web:build</pre> command.');
     $form['environment_target'] = [
       '#type' => 'item',
-      '#title' => t('Environment Target'),
+      '#title' => $this->t('Environment Target'),
       '#markup' => $target_link->toString(),
       '#description' => $description,
     ];
+
     return $form;
   }
 
@@ -162,7 +146,16 @@ class BuildTriggerForm extends FormBase {
    *   Object containing current form state.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->buildFrontend->triggerFrontendBuild();
+    $git_ref = NULL;
+    if (
+      $field_value = $form_state->getValue('front_end_branch') &&
+      // Extract the value in parentheses from the front end branch field value.
+      preg_match("/.+\\s\\(([^\\)]+)\\)/", $field_value, $matches)
+    ) {
+      $git_ref = $matches[1];
+    }
+
+    $this->buildFrontend->triggerFrontendBuild($git_ref);
   }
 
 }
