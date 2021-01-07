@@ -104,6 +104,12 @@ services:
         - drush updatedb --cache-clear=0 -y
         - drush cache:rebuild
 
+        # Setup background processing service.  This uses runit to keep process up
+        # See https://docs.tugboat.qa/setting-up-services/how-to-set-up-services/running-a-background-process
+        - mkdir -p /etc/service/drupal_events
+        - mv "${TUGBOAT_ROOT}/scripts/queue_runner/queue_runner.sh" /etc/service/drupal_events/run
+        - chmod +x /etc/service/drupal_events/run
+
       online:
         # We only want tests running on PRs, not branches like the base preview build of master.
         # This sets the commit status checks to pending all at once.
@@ -116,7 +122,8 @@ services:
         - chown -R www-data:www-data "${DOCROOT}/vendor/va-gov/web"
         - find "${DOCROOT}/vendor/va-gov/web" -type d -exec chmod 2775 {} \;
         - find "${DOCROOT}/vendor/va-gov/web" -type f -exec chmod 0664 {} \;
-
+        - find "${DOCROOT}/vendor/va-gov/web/node_modules/.bin" -type f -exec chmod +x {} \;
+        - find "${DOCROOT}/vendor/va-gov/web/script" -type f -exec chmod +x {} \;
 
   # What to call the service hosting MySQL. This name also acts as the
   # hostname to access the service by from the php service.
