@@ -17,7 +17,7 @@
       $(window, context).once("contentReleaseStatusBlock").on("load", function () {
         window.setInterval(function () {
           refreshStatusBlock(settings.contentReleaseStatusBlock.blockRefreshPath);
-        }, 1000);
+        }, 10000);
       });
     }
   };
