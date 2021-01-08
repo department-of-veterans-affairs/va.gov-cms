@@ -6,6 +6,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
+use Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
@@ -45,11 +46,13 @@ class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterfa
     array $configuration,
     $plugin_id,
     $plugin_definition,
+    $logger,
+    $webBuildStatus,
     $dateFormatter,
     $database
   ) {
 
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $logger, $webBuildStatus);
     $this->dateFormatter = $dateFormatter;
     $this->database = $database;
   }
@@ -62,6 +65,8 @@ class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterfa
       $configuration,
       $plugin_id,
       $plugin_definition,
+      $container->get('logger.factory')->get('va_gov_build_trigger'),
+      $container->get('va_gov.build_trigger.web_build_status'),
       $container->get('date.formatter'),
       $container->get('database')
     );
@@ -70,7 +75,7 @@ class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterfa
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild(): void {
+  public function triggerFrontendBuild($front_end_git_ref = NULL): void {
     $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
     $va_cms_bot_jenkins_auth_token = Settings::get('va_cms_bot_jenkins_auth_token');
     $jenkins_build_job_host = Settings::get('jenkins_build_job_host');
@@ -181,6 +186,13 @@ class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterfa
    */
   public function shouldTriggerFrontendBuild(): bool {
     return TRUE;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function getBuildTriggerFormClass() : string {
+    return BrdBuildTriggerForm::class;
   }
 
 }
