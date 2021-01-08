@@ -7,11 +7,14 @@ dependencies:
     - field.field.node.centralized_content.field_administration
     - field.field.node.centralized_content.field_content_block
     - node.type.centralized_content
+    - workflows.workflow.editorial
   module:
+    - allowed_formats
     - content_moderation
     - field_group
     - paragraphs_browser
     - path
+    - text
 third_party_settings:
   field_group:
     group_governance:
@@ -32,6 +35,8 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
+        - revision_log
+        - status
       parent_name: ''
       weight: 7
       format_type: fieldset
@@ -47,9 +52,22 @@ targetEntityType: node
 bundle: centralized_content
 mode: default
 content:
+  body:
+    type: text_textarea_with_summary
+    weight: 1
+    region: content
+    settings:
+      rows: 9
+      placeholder: ''
+      summary_rows: 3
+      show_summary: false
+    third_party_settings:
+      allowed_formats:
+        hide_help: '0'
+        hide_guidelines: '0'
   created:
     type: datetime_timestamp
-    weight: 2
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -60,25 +78,19 @@ content:
     type: options_select
     region: content
   field_content_block:
-    weight: 4
+    weight: 2
     settings:
       title: Paragraph
       title_plural: Paragraphs
       edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      add_mode: dropdown
+      add_mode: paragraphs_browser
       form_display_mode: default
-      default_paragraph_type: ''
-      features:
-        collapse_edit_all: collapse_edit_all
-        duplicate: duplicate
-      paragraphs_browser: _na
+      default_paragraph_type: _none
+      paragraphs_browser: content
       modal_width: 80%
       modal_height: auto
     third_party_settings: {  }
-    type: paragraphs_browser
+    type: entity_reference_paragraphs_browser
     region: content
   moderation_state:
     type: moderation_state_default
@@ -96,7 +108,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 3
+    weight: 4
     region: content
     third_party_settings: {  }
   title:
@@ -107,18 +119,8 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 1
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-      match_limit: 10
-    region: content
-    third_party_settings: {  }
 hidden:
-  body: true
   promote: true
   sticky: true
+  uid: true
   url_redirects: true

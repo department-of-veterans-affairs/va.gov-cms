@@ -1,6 +1,6 @@
 uuid: ce69d6ac-5c2f-48bc-9404-c6a145b828f2
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
@@ -16,6 +16,11 @@ targetEntityType: node
 bundle: centralized_content
 mode: teaser
 content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   field_content_block:
     type: entity_reference_revisions_entity_view
     weight: 1
