@@ -151,6 +151,7 @@ class EntityFieldFetchWidget extends WidgetBase implements WidgetInterface {
     $element['fetched_source'] = $target_render;
     $element['fetched_source']['#weight'] = 10;
 
+    // @todo Add a markup that shows the last updated date.
     return $element;
   }
 
