@@ -179,17 +179,20 @@
         }
     },
     "config": {
+        "apcu-autoloader": true,
         "discard-changes": true,
         "process-timeout": 0,
         "bin-dir": "bin",
         "vendor-dir": "docroot/vendor",
         "sort-packages": true,
+        "optimize-autoloader": true,
         "platform": {
             "php": "7.1.3"
         },
         "preferred-install": {
             "drupal/core": "source",
-            "va-gov/web": "source"
+            "va-gov/web": "source",
+            "*": "dist"
         }
     },
     "extra": {
