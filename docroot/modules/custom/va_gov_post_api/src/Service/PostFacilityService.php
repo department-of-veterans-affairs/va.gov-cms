@@ -127,7 +127,6 @@ class PostFacilityService {
       // and the health service taxonomy.
       $this->setFacility();
       $this->setSystemService();
-      $this->setServiceTerm();
 
       if (empty($this->errors) && ($this->isPushable())) {
         // There were no errors gathering data and it is pushable, so proceed.
@@ -239,14 +238,15 @@ class PostFacilityService {
    * Checks to see if this service is slated for pushing.
    */
   private function isPushable() {
-    return in_array($this->serviceTerm->id(), $this->servicesToPush);
+    return (!empty($this->serviceTerm) && in_array($this->serviceTerm->id(), $this->servicesToPush));
   }
 
   /**
    * Load and set the facility node that this service belongs to.
    */
   protected function setFacility() {
-    $facility = $this->facilityService->get('field_facility_location')->referencedEntities();
+    $field = $this->facilityService->get('field_facility_location');
+    $facility = (!empty($field)) ? $field->referencedEntities() : NULL;
     if (!empty($facility)) {
       $this->Facility = reset($facility);
     }
@@ -262,6 +262,7 @@ class PostFacilityService {
     $system_health_service = $this->facilityService->get('field_regional_health_service')->referencedEntities();
     if (!empty($system_health_service)) {
       $this->systemService = reset($system_health_service);
+      $this->setServiceTerm();
     }
     else {
       $this->errors[] = "Unable to load system service. Field 'field_regional_health_service' not set.";
@@ -272,7 +273,9 @@ class PostFacilityService {
    * Load and set the health service taxonomy term for this service.
    */
   protected function setServiceTerm() {
-    $health_service_term = $this->systemService->get('field_service_name_and_descripti')->referencedEntities();
+    $health_service_term_field = $this->systemService->get('field_service_name_and_descripti');
+    $health_service_term = (!empty($health_service_term_field)) ? $health_service_term_field->referencedEntities() : NULL;
+
     if (!empty($health_service_term)) {
       $this->serviceTerm = reset($health_service_term);
     }
