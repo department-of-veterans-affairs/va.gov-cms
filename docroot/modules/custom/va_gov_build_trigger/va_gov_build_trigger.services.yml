@@ -16,3 +16,6 @@ services:
     arguments: ['@va_gov.build_trigger.environment_discovery']
     tags:
       - { name: event_subscriber }
+  va_gov.build_trigger.web_build_command_builder:
+    class: Drupal\va_gov_build_trigger\WebBuildCommandBuilder
+    arguments: ['@app.root', '@settings']
