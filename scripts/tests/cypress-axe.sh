@@ -12,5 +12,5 @@ if [ -n "$CMS_IS_BRD" ]; then
   exit 0
 fi
 
-npm install --only=production
+npm install
 npm test
