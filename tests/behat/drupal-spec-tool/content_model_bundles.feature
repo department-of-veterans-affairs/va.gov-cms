@@ -11,6 +11,7 @@ Feature: Content model bundles
 | Benefits Detail Page | page | Content type | These pages hold all of the benefits overview content, such the detail pages linked to from va.gov/disability, va.gov/health-care, and va.gov/education. |
 | Benefits Hub Landing Page | landing_page | Content type | A special page for top-level Benefits content with its own one-off layout and content. |
 | Campaign Landing Page | campaign_landing_page | Content type |  |
+| Centralized Content | centralized_content | Content type | Common content for reuse on other content types. |
 | Checklist | checklist | Content type |  |
 | CMS Help Page | documentation_page | Content type | Help guide pages on how to use the CMS to edit content on VA.gov. |
 | Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
@@ -101,4 +102,3 @@ Feature: Content model bundles
 | Topics | topics | Vocabulary |  |
 | Type of Redirect | type_of_redirect | Vocabulary |  |
 | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
-

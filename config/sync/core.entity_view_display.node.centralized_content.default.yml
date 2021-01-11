@@ -1,0 +1,43 @@
+uuid: 3965c023-0014-43c5-aecc-35593801342d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.centralized_content.body
+    - field.field.node.centralized_content.field_administration
+    - field.field.node.centralized_content.field_content_block
+    - node.type.centralized_content
+  module:
+    - entity_reference_revisions
+    - text
+    - user
+id: node.centralized_content.default
+targetEntityType: node
+bundle: centralized_content
+mode: default
+content:
+  body:
+    type: text_default
+    weight: 0
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_content_block:
+    weight: 1
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  links:
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  search_api_excerpt: true
