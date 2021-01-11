@@ -1,0 +1,6 @@
+services:
+  danse_content_moderation.event_subscriber:
+    class: Drupal\danse_content_moderation\EventSubscriber\WorkflowSubscriber
+    arguments: ['@danse.plugin.manager']
+    tags:
+      - { name: event_subscriber }
