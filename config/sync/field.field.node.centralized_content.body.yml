@@ -1,0 +1,29 @@
+uuid: 3751cf9c-10cf-4dba-98a1-d98c759ef5b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.centralized_content
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    rich_text: rich_text
+    rich_text_limited: rich_text_limited
+    plain_text: plain_text
+id: node.centralized_content.body
+field_name: body
+entity_type: node
+bundle: centralized_content
+label: 'Purpose and Scope'
+description: 'This should describe the purpose of the information on this page and where it appears.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+field_type: text_with_summary
