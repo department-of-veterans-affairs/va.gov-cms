@@ -11,3 +11,8 @@ services:
   plugin.manager.va_gov.environment:
     class: Drupal\va_gov_build_trigger\Environment\EnvironmentManager
     parent: default_plugin_manager
+  va_gov_build_trigger.route_subscriber:
+    class: Drupal\va_gov_build_trigger\Routing\RouteSubscriber
+    arguments: ['@va_gov.build_trigger.environment_discovery']
+    tags:
+      - { name: event_subscriber }
