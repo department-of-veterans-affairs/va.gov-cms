@@ -96,7 +96,7 @@ third_party_settings:
       format_type: details
       region: content
       format_settings:
-        description: ''
+        description: 'The hero banner attracts attention, announces the campaign''s main message and adds visual interest.'
         open: true
         required_fields: true
         id: ''
@@ -112,7 +112,7 @@ third_party_settings:
       format_type: details
       region: content
       format_settings:
-        description: ''
+        description: 'Why this matters to you calls out the most impactful information about your campaign. If people read nothing else on the page, what should they know?'
         required_fields: true
         id: ''
         classes: ''
@@ -128,8 +128,7 @@ third_party_settings:
       format_type: details
       region: content
       format_settings:
-        description: ''
-        formatter: closed
+        description: 'What you can do focuses on actions or steps that site visitors can or should take. In this segment you''ll use "promos," content formatted as small image and text teasers that engage attention and inspire further action.'
         required_fields: true
         id: ''
         classes: ''
@@ -143,11 +142,10 @@ third_party_settings:
       format_type: details
       region: content
       format_settings:
+        description: 'Benefits connect site visitors with benefits information related to the campaign. Each block appears as a link to a benefits landing page with and teaser text.'
+        required_fields: true
         id: ''
         classes: ''
-        description: ''
-        formatter: closed
-        required_fields: true
         open: false
       label: 'VA Benefits'
     group_spotlight:
@@ -162,12 +160,11 @@ third_party_settings:
       format_type: details
       region: content
       format_settings:
-        description: ''
-        formatter: closed
+        description: 'This optional segment allows you to add additional content relevant to your campaign''s audience.'
         id: ''
         classes: ''
-        required_fields: false
         open: false
+        required_fields: false
       label: Spotlight
     group_video:
       children:
@@ -180,12 +177,11 @@ third_party_settings:
       format_type: details
       region: content
       format_settings:
-        description: ''
-        formatter: closed
+        description: 'This optional segment allows you to include video content related to the campaign''s message.'
         id: ''
         classes: ''
-        required_fields: false
         open: false
+        required_fields: false
       label: Video
     group_stories:
       children:
@@ -199,12 +195,11 @@ third_party_settings:
       format_type: details
       region: content
       format_settings:
-        description: ''
-        formatter: closed
+        description: 'This optional segment features a link and teaser text for up to two stories that support the campaign''s main message. You can feature existing stories, or create a new story.'
         id: ''
         classes: ''
-        required_fields: false
         open: false
+        required_fields: false
       label: Stories
     group_downloadable_resources:
       children:
@@ -218,12 +213,11 @@ third_party_settings:
       format_type: details
       region: content
       format_settings:
-        description: ''
-        formatter: closed
+        description: 'This optional segment allows you to provide downloadable PDF resources such as fact sheets, reports, studies, or white papers.'
         id: ''
         classes: ''
-        required_fields: false
         open: false
+        required_fields: false
       label: 'Downloadable resources'
     group_events:
       children:
@@ -236,12 +230,11 @@ third_party_settings:
       region: content
       format_type: details
       format_settings:
-        description: ''
-        formatter: closed
+        description: 'This optional segment allows you to feature events related to the campaign.'
         id: ''
         classes: ''
-        required_fields: false
         open: false
+        required_fields: false
     group_faqs:
       children:
         - field_clp_faq_panel
@@ -252,12 +245,11 @@ third_party_settings:
       format_type: details
       region: content
       format_settings:
-        description: ''
-        formatter: closed
+        description: 'This optional segment allows you to add reusable question and answer content related to the campaign''s message.'
         id: ''
         classes: ''
-        required_fields: false
         open: false
+        required_fields: false
       label: FAQs
     group_connect_with_us:
       children:
@@ -267,11 +259,10 @@ third_party_settings:
       format_type: details
       region: content
       format_settings:
+        description: 'This optional segment allows you to add a set of social media and contact links for the VA administration responsible for the campaign.'
+        required_fields: true
         id: ''
         classes: ''
-        description: ''
-        formatter: closed
-        required_fields: true
         open: false
       label: 'Connect with us'
 id: node.campaign_landing_page.default
