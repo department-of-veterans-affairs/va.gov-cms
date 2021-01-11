@@ -26,14 +26,6 @@ interface EnvironmentInterface extends PluginInspectionInterface {
   public function triggerFrontendBuild($front_end_git_ref) : void;
 
   /**
-   * Returns a shell command to check out a front end git reference.
-   *
-   * @param string $front_end_git_ref
-   *   Front end git reference (branch name or PR number)
-   */
-  public function getFrontEndGitReferenceCheckoutCommand($front_end_git_ref) : string;
-
-  /**
    * Should this environment trigger a frontend content deploy?
    *
    * This controls whether content updates should trigger the
