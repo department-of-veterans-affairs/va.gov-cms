@@ -46,15 +46,25 @@ class ContentModeration extends PluginBase {
    * {@inheritdoc}
    */
   public function getRedirectUrl(EventInterface $event): Url {
-    /** @var \Drupal\danse_content\Payload $payload */
+    /** @var \Drupal\danse_content_moderation\Payload $payload */
     $payload = $event->getPayload();
     try {
       return $payload->getEntity()->toUrl();
-    } catch (EntityMalformedException $e) {
+    }
+    catch (EntityMalformedException $e) {
       return Url::fromRoute('<front>');
     }
   }
 
+  /**
+   * Create Content Moderation DANSE event.
+   *
+   * @param \Drupal\danse_content_moderation\Payload $payload
+   *   The payload.
+   *
+   * @return \Drupal\danse\Entity\EventInterface
+   *   The DANSE event.
+   */
   public function createContentModerationEvent(Payload $payload) {
     /** @var \Drupal\content_moderation\Entity\ContentModerationState $entity */
     $entity = $payload->getEntity();
@@ -66,4 +76,5 @@ class ContentModeration extends PluginBase {
     $label = $revision->label() . ' transitioned to ' . $topic;
     return $this->createEvent($topic, $label, $payload);
   }
+
 }

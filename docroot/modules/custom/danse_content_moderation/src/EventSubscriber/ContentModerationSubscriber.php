@@ -14,7 +14,9 @@ use Drupal\danse\PluginManager;
 class ContentModerationSubscriber extends EntityEventUpdateSubscriber {
 
   /**
-   * @var \Drupal\danse_content_moderation\Plugin\Danse\Workflow
+   * The DANSE Content Moderation plugin.
+   *
+   * @var \Drupal\danse_content_moderation\Plugin\Danse\ContentModeration
    */
   protected $plugin;
 
@@ -22,9 +24,8 @@ class ContentModerationSubscriber extends EntityEventUpdateSubscriber {
    * Constructs a new WorkflowSubscriber object.
    */
   public function __construct(PluginManager $danse_plugin_manager) {
-    $this->plugin = $danse_plugin_manager->createInstance('workflow');
+    $this->plugin = $danse_plugin_manager->createInstance('content_moderation');
   }
-
 
   /**
    * {@inheritDoc}
@@ -37,4 +38,5 @@ class ContentModerationSubscriber extends EntityEventUpdateSubscriber {
       $this->plugin->createWorkflowEvent($payload);
     }
   }
+
 }
