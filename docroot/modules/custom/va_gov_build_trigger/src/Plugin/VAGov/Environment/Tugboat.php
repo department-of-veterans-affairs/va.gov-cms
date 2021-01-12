@@ -2,11 +2,9 @@
 
 namespace Drupal\va_gov_build_trigger\Plugin\VAGov\Environment;
 
-use Drupal\advancedqueue\Job;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
 use Drupal\va_gov_build_trigger\Form\TugboatBuildTriggerForm;
-use Drupal\va_gov_build_trigger\Plugin\AdvancedQueue\JobType\WebBuildJobType;
 use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use Drupal\va_gov_content_export\ExportCommand\CommandRunner;
@@ -23,6 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class Tugboat extends EnvironmentPluginBase {
   use CommandRunner;
+  use QueueHelper;
 
   /**
    * The queue storage manager.
@@ -68,18 +67,12 @@ class Tugboat extends EnvironmentPluginBase {
   public function triggerFrontendBuild($front_end_git_ref = NULL): void {
     $commands = $this->webBuildCommandBuilder->buildCommands(
       '/var/lib/tugboat',
-      '/var/lib/tugboat',
-      '/usr/local/bin/composer',
       $front_end_git_ref
     );
 
-    $payload = ['commands' => $commands];
-
-    $job = Job::create(WebBuildJobType::QUEUE_ID, $payload);
-
     /** @var \Drupal\advancedqueue\Entity\QueueInterface $queue */
     $queue = $this->queueLoader->load('command_runner');
-    $queue->enqueueJob($job);
+    $this->queueCommands($commands, $queue);
 
     $this->messenger()->addStatus('A request to rebuild the front end has been submitted.');
   }

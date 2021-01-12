@@ -494,6 +494,9 @@
             "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -print0 | xargs -0 sed -i \"s/https:\\/\\/dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com//g\" ",
             "drush state-set va_gov.build va.web_build_stats FALSE -y"
         ],
+        "va:web:build:export:content": [
+            "drush va-gov-cms-export-all-content --process-count=8 --entity-count=500 --delete-existing"
+        ],
         "va:web:test": [
             "echo 'drupal address: ' $DRUPAL_ADDRESS"
         ]

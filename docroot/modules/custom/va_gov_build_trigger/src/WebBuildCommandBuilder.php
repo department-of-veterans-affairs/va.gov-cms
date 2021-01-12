@@ -10,6 +10,8 @@ use Drupal\Core\Site\Settings;
 class WebBuildCommandBuilder {
 
   public const USE_CMS_EXPORT_SETTING = 'va_gov_use_cms_export';
+  public const COMPOSER_HOME = 'va_gov_composer_home';
+  public const PATH_TO_COMPOSER = 'va_gov_path_to_composer';
 
   /**
    * App Root.
@@ -23,7 +25,21 @@ class WebBuildCommandBuilder {
    *
    * @var bool
    */
-  protected $useCMSExport;
+  protected $useContentExport;
+
+  /**
+   * Composer Home Directory.
+   *
+   * @var string
+   */
+  protected $composerHome;
+
+  /**
+   * Path to composer executable.
+   *
+   * @var string
+   */
+  protected $pathToComposer;
 
   /**
    * WebBuildCommandBuilder constructor.
@@ -35,34 +51,32 @@ class WebBuildCommandBuilder {
    */
   public function __construct(string $appRoot, Settings $settings) {
     $this->appRoot = $appRoot;
-    $this->useCMSExport = $settings->get(static::USE_CMS_EXPORT_SETTING, FALSE);
+    $this->useContentExport = $settings->get(static::USE_CMS_EXPORT_SETTING, FALSE);
+    $this->composerHome = $settings->get(static::COMPOSER_HOME, '');
+    $this->pathToComposer = $settings->get(static::PATH_TO_COMPOSER, '');
   }
 
   /**
    * Build an array of commands to run for the web build.
    *
-   * @param string $base_path
+   * @param string $repo_root
    *   The path to the repository root.
-   * @param string $composer_home
-   *   THe composer home.
-   * @param string $composer_path
-   *   The path to composer.
    * @param string|null $front_end_git_ref
    *   Front end git reference to build (branch name or PR number)
    *
    * @return array
    *   An array of commands to run for a build.
    */
-  public function buildCommands(string $base_path, string $composer_home, string $composer_path, string $front_end_git_ref = NULL) : array {
+  public function buildCommands(string $repo_root, string $front_end_git_ref = NULL) : array {
     $commands = [];
 
     $composer_command = $this->commandName();
     if ($command = $this->getFrontEndGitReferenceCheckoutCommand(time(), $front_end_git_ref)) {
       $commands[] = $command;
-      $commands[] = $this->buildComposerCommand($base_path, $composer_home, $composer_path, 'va:web:install');
+      $commands[] = $this->buildComposerCommand($repo_root, 'va:web:install');
     }
 
-    $commands[] = $this->buildComposerCommand($base_path, $composer_home, $composer_path, $composer_command);
+    $commands[] = $this->buildComposerCommand($repo_root, $composer_command);
 
     return $commands;
   }
@@ -70,20 +84,16 @@ class WebBuildCommandBuilder {
   /**
    * Build a composer command.
    *
-   * @param string $base_path
+   * @param string $root_path
    *   The path to the repository root.
-   * @param string $composer_home
-   *   THe composer home.
-   * @param string $composer_path
-   *   The path to composer.
    * @param string $composer_command
    *   The composer command to run.
    *
    * @return string
    *   The composer command line.
    */
-  protected function buildComposerCommand(string $base_path, string $composer_home, string $composer_path, string $composer_command) : string {
-    return "cd $base_path && COMPOSER_HOME=$composer_home $composer_path --no-cache $composer_command";
+  public function buildComposerCommand(string $root_path, string $composer_command) : string {
+    return "cd $root_path && COMPOSER_HOME={$this->composerHome} {$this->pathToComposer} --no-cache $composer_command";
   }
 
   /**
@@ -98,7 +108,7 @@ class WebBuildCommandBuilder {
   protected function commandName(string $front_end_git_ref = NULL) : string {
     $command = 'va:web:build';
 
-    if ($this->useCMSExport) {
+    if ($this->useContentExport()) {
       $command .= ':export';
     }
 
@@ -124,6 +134,16 @@ class WebBuildCommandBuilder {
     }
 
     return '';
+  }
+
+  /**
+   * Use CMS export.
+   *
+   * @return bool
+   *   Should we use cms export?
+   */
+  public function useContentExport() : bool {
+    return $this->useContentExport;
   }
 
 }

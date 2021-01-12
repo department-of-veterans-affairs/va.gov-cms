@@ -2,11 +2,9 @@
 
 namespace Drupal\va_gov_build_trigger\Plugin\VAGov\Environment;
 
-use Drupal\advancedqueue\Job;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
 use Drupal\va_gov_build_trigger\Form\LandoBuildTriggerForm;
-use Drupal\va_gov_build_trigger\Plugin\AdvancedQueue\JobType\WebBuildJobType;
 use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use Drupal\va_gov_content_export\ExportCommand\CommandRunner;
@@ -23,6 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class Lando extends EnvironmentPluginBase {
   use CommandRunner;
+  use QueueHelper;
 
   /**
    * The queue storage manager.
@@ -65,21 +64,27 @@ class Lando extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild($front_end_git_ref = NULL): void {
+  public function triggerFrontendBuild($front_end_git_ref = NULL, bool $full_rebuild = FALSE): void {
+    /** @var \Drupal\advancedqueue\Entity\QueueInterface $queue */
+    $queue = $this->queueLoader->load('command_runner');
+
+    if ($full_rebuild && $this->webBuildCommandBuilder->useContentExport()) {
+      $commands = [
+        $this->webBuildCommandBuilder->buildComposerCommand(
+          '/app',
+          'va:web:export:content'
+        ),
+      ];
+
+      $this->queueCommands($commands, $queue);
+    }
+
     $commands = $this->webBuildCommandBuilder->buildCommands(
       '/app',
-      '/var/www/.composer',
-      '/usr/local/bin/composer',
       $front_end_git_ref
     );
 
-    $payload = ['commands' => $commands];
-
-    $job = Job::create(WebBuildJobType::QUEUE_ID, $payload);
-
-    /** @var \Drupal\advancedqueue\Entity\QueueInterface $queue */
-    $queue = $this->queueLoader->load('command_runner');
-    $queue->enqueueJob($job);
+    $this->queueCommands($commands, $queue);
 
     $this->messenger()->addStatus('A request to rebuild the front end has been submitted.');
   }
