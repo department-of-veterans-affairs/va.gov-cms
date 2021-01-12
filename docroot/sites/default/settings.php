@@ -228,3 +228,5 @@ $settings['tome_files_directory'] = 'public://cms-export-files';
 
 // Disable use of the Symfony autoloader, and use the Composer autoloader instead.
 $settings['class_loader_auto_detect'] = FALSE;
+$settings['va_gov_composer_home'] = getenv('COMPOSER_HOME');
+$settings['va_gov_path_to_composer'] = '/usr/local/bin/composer';
