@@ -45,9 +45,9 @@ We believe that _this_solution_ will achieve _this_outcome_. We'll know that to 
 ## Acceptance Criteria
 - [ ] 👀 Needs design review because the work involves changes to labels or other design elements
 - [ ] 🙈 Can be implemented without consulting design team members
-* Testable_Outcome_X
-* Testable_Outcome_Y
-* Testable_Outcome_Z
+- [ ] Testable_Outcome_X
+- [ ] Testable_Outcome_Y
+- [ ] Testable_Outcome_Z
 
 ## Runbook  
 This is particularly relevant for feature launches, or for making changes to the content model that require front end changes as well.
