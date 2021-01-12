@@ -627,13 +627,13 @@ function va_gov_backend_entity_view_alter(array &$build, EntityInterface $entity
  *   Fields that should be unset.
  */
 function _va_gov_backend_unset_fields(EntityInterface $entity) {
-  $appt_intro_select = $entity->get('field_hservice_appt_intro_select')->getValue();
-  if ($appt_intro_select[0]['value'] === 'default_intro_text') {
+  $appt_intro_select = $entity->field_hservice_appt_intro_select->value;
+  if ($appt_intro_select === 'default_intro_text') {
     return [
       'field_hservice_appt_leadin',
     ];
   }
-  elseif ($appt_intro_select[0]['value'] === 'custom_intro_text') {
+  elseif ($appt_intro_select === 'custom_intro_text') {
     return [
       'field_hservices_lead_in_default',
     ];
