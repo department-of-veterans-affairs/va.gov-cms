@@ -3,15 +3,15 @@
 namespace Drupal\danse_content_moderation\EventSubscriber;
 
 use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\entity_events\Event\EntityEvent;
-use Drupal\entity_events\EventSubscriber\EntityEventUpdateSubscriber;
+use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\danse_content_moderation\WorkflowPayload;
 use Drupal\danse\PluginManager;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Class WorkflowSubscriber.
  */
-class ContentModerationSubscriber extends EntityEventUpdateSubscriber {
+class ContentModerationEventSubscriber implements EventSubscriberInterface {
 
   /**
    * The DANSE Content Moderation plugin.
@@ -28,15 +28,27 @@ class ContentModerationSubscriber extends EntityEventUpdateSubscriber {
   }
 
   /**
-   * {@inheritDoc}
+   * React to entity updates.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   *   The event.
    */
-  public function onEntityUpdate(EntityEvent $event) {
+  public function onEntityUpdate(EntityUpdateEvent $event) {
     $entity = $event->getEntity();
     if ($entity instanceof ContentEntityInterface && $entity->getEntityTypeId() === 'content_moderation_state') {
       $payload = WorkflowPayload::createFromEntity($entity);
 
       $this->plugin->createWorkflowEvent($payload);
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getSubscribedEvents(): array {
+    return [
+      HookEventDispatcherInterface::ENTITY_UPDATE => 'onEntityUpdate',
+    ];
   }
 
 }
