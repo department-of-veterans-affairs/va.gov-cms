@@ -23,6 +23,14 @@
     }
   };
 
+  Drupal.behaviors.vaGovClpLimitQAs = {
+    attach: function attach() {
+      if ($("#edit-field-clp-faq-paragraphs-wrapper .draggable.paragraph-type--q-a").length > 9) {
+        $("#edit-field-clp-faq-paragraphs-wrapper .field-add-more-submit.button").css("display", "none");
+      }
+    }
+  };
+
   Drupal.behaviors.vaGovAlertSingleComponent = {
     attach: function attach() {
       var reusableAlertRemovedIds = [];
