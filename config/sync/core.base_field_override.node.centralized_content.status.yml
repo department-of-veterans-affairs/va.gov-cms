@@ -1,0 +1,22 @@
+uuid: 82ef24fb-41c9-437e-a686-2cfada9f53da
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.centralized_content
+id: node.centralized_content.status
+field_name: status
+entity_type: node
+bundle: centralized_content
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
