@@ -4,7 +4,7 @@ namespace Drupal\danse_content_moderation\EventSubscriber;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
-use Drupal\danse_content_moderation\WorkflowPayload;
+use Drupal\danse_content_moderation\Payload;
 use Drupal\danse\PluginManager;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -37,9 +37,9 @@ class ContentModerationEventSubscriber implements EventSubscriberInterface {
   public function onEntityUpdate(EntityUpdateEvent $event) {
     $entity = $event->getEntity();
     if ($entity instanceof ContentEntityInterface && $entity->getEntityTypeId() === 'content_moderation_state') {
-      $payload = WorkflowPayload::createFromEntity($entity);
+      $payload = Payload::createFromEntity($entity);
 
-      $this->plugin->createWorkflowEvent($payload);
+      $this->plugin->createContentModerationEvent($payload);
     }
   }
 
