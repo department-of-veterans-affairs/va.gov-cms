@@ -2,7 +2,7 @@
 name: Enhancement (user story or feature request)
 about: Suggest an idea for the CMS
 title: "<Summary of enhancement>"
-labels: 'Enhancement', 'Needs refinement'
+labels: 'Enhancement, Needs refining'
 assignees: ''
 
 ---
