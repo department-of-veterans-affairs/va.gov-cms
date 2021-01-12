@@ -6,6 +6,7 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\danse_content_moderation\WorkflowPayload;
 use Drupal\danse\PluginManager;
+use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
