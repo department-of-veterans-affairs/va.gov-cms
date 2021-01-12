@@ -1,0 +1,36 @@
+uuid: 25b4fb37-b73b-428c-9136-b26caf94865e
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - taxonomy
+id: taxonomy_term.field_service_type_of_care
+field_name: field_service_type_of_care
+entity_type: taxonomy_term
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'Primary care'
+      label: 'Primary care'
+    -
+      value: 'Mental health care'
+      label: 'Mental health care'
+    -
+      value: 'Specialty care'
+      label: 'Specialty care'
+    -
+      value: 'Social programs and services'
+      label: 'Social programs and services'
+    -
+      value: 'Other services'
+      label: 'Other services'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
