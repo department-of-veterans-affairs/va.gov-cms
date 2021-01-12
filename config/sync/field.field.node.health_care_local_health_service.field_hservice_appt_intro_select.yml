@@ -1,0 +1,23 @@
+uuid: f0a0c5bf-e106-4c82-b9f3-7bbb5eb68a1f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hservice_appt_intro_select
+    - node.type.health_care_local_health_service
+  module:
+    - options
+id: node.health_care_local_health_service.field_hservice_appt_intro_select
+field_name: field_hservice_appt_intro_select
+entity_type: node
+bundle: health_care_local_health_service
+label: 'Appointment intro text'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: default_intro_text
+default_value_callback: ''
+settings: {  }
+field_type: list_string

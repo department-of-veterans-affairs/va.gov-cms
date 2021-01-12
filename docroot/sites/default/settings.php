@@ -225,3 +225,6 @@ if (!empty($webhost_on_cli)) {
 $settings['database_cache_max_rows']['bins']['tome_static'] = -1;
 $settings['tome_content_directory'] = 'public://cms-export-content';
 $settings['tome_files_directory'] = 'public://cms-export-files';
+
+// Disable use of the Symfony autoloader, and use the Composer autoloader instead.
+$settings['class_loader_auto_detect'] = FALSE;

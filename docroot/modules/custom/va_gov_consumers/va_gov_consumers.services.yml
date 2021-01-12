@@ -1,5 +1,16 @@
 services:
+  github.client:
+    class: Github\Client
+    public: true
   va_gov_consumers.route_subscriber:
     class: Drupal\va_gov_consumers\Routing\RouteSubscriber
     tags:
       - { name: event_subscriber }
+  va_gov.consumers.github.factory:
+    class: Drupal\va_gov_consumers\Git\GithubFactory
+    calls:
+      - [ setContainer, [ '@service_container' ] ]
+  va_gov.consumers.github.vets_website:
+    class: Drupal\va_gov_consumers\Git\GithubAdapter
+    factory: va_gov.consumers.github.factory
+    arguments: ['deparva_cms_bot_github_auth_tokentment-of-veterans-affairs/vets-website', 'va_cms_bot_github_auth_token']
