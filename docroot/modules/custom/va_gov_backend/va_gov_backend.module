@@ -1350,6 +1350,10 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
   if ($entity_type->id() === 'media' && $bundle === 'document_external' && isset($fields['field_media_external_file'])) {
     $fields['field_media_external_file']->addConstraint('PdfCheck');
   }
+  // Limit benefit selections to two on CLP.
+  if ($entity_type->id() === 'node' && $bundle === 'campaign_landing_page' && isset($fields['field_benefit_categories'])) {
+    $fields['field_benefit_categories']->addConstraint('BenefitsSelectionLimit');
+  }
   // Add paragraph checks on clp panels.
   if ($entity_type->id() === 'node' && $bundle === 'campaign_landing_page') {
     // Add range check on faq panel.
