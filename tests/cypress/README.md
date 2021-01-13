@@ -3,6 +3,7 @@
 ## Overview 
 This Accessibility automation testing framework using `cypress-axe` with Cypress' built-in chromium-based electron browser as a primary 508 accessibility validator, and checks for `wcag2a` and `wcag2aa` standards./tests/accessibility/aXeAccessibilityCheck.js line:20` script).
 
+These tests only run in local Lando and on Tugboat for Pull Requests and they do not run on BRD (dev/staging) because there was an issue installing all the xorg-related dependencies on Amazon Linux 1 AMI. 
 ## Technology
 `axe-core` accessibility validator, more information can be found at - https://www.deque.com/axe/ 
 
@@ -46,4 +47,3 @@ Information about any errors found will be output on the console. After tests ha
 
 # To Do
 Add more URL paths to: `./tests/cypress/integration/nodeCreationAccessibility.spec.js line:2` for complete coverage.
-
