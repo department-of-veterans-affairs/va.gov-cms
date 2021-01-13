@@ -2,7 +2,7 @@
 name: CMS annoucement
 about: Writing a CMS annoucement to be published
 title: "[annoucement-title]"
-labels: Release notes
+labels: 'Release notes, Needs refining'
 assignees: rachel-kauff
 
 ---
