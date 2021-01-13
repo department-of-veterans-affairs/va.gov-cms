@@ -9,13 +9,13 @@ Feature: Content model: Campaign Landing Page Content Type fields
        Then exactly the following fields should exist for bundles "campaign_landing_page" of entity type node
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
 | Content type | Campaign Landing Page | Add between 1 and 3 audiences | field_clp_audience | Entity reference | Required | 3 | Autocomplete |  |
-| Content type | Campaign Landing Page | Add a Resources panel | field_clp_resources_panel | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | Campaign Landing Page | Add a Spotlight panel | field_clp_spotlight_panel | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | Campaign Landing Page | Add a Stories panel | field_clp_stories_panel | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | Campaign Landing Page | Enable this page segment | field_clp_resources_panel | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | Campaign Landing Page | Enable this page segment | field_clp_spotlight_panel | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | Campaign Landing Page | Enable this page segment | field_clp_stories_panel | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Campaign Landing Page | Add a link to an external blog or other list of stories | field_clp_stories_cta | Link |  | 1 | Link |  |
 | Content type | Campaign Landing Page | Add a link to more videos | field_clp_video_panel_more_video | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
-| Content type | Campaign Landing Page | Add a video panel | field_clp_video_panel | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | Campaign Landing Page | Add an Events panel | field_clp_events_panel | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | Campaign Landing Page | Enable this page segment | field_clp_video_panel | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | Campaign Landing Page | Enable this page segment | field_clp_events_panel | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Campaign Landing Page | Add up to two events | field_clp_events_references | Entity reference |  | 2 | Entity Browser - Table |  |
 | Content type | Campaign Landing Page | Add up to two stories | field_clp_stories_teasers | Entity reference revisions |  | 2 | Paragraphs Classic |  |
 | Content type | Campaign Landing Page | Links with summaries | field_clp_spotlight_link_teasers | Entity reference revisions |  | 3 | Paragraphs EXPERIMENTAL |  |
@@ -42,6 +42,6 @@ Feature: Content model: Campaign Landing Page Content Type fields
 | Content type | Campaign Landing Page | What you can do promos | field_clp_what_you_can_do_promos | Entity reference | Required | 3 | Entity Browser - Table |  |
 | Content type | Campaign Landing Page | Why this matters to you | field_clp_why_this_matters | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter |  |
 | Content type | Campaign Landing Page | Add a link to more FAQs | field_clp_faq_cta | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
-| Content type | Campaign Landing Page | Add an FAQ panel | field_clp_faq_panel | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | Campaign Landing Page | Enable this page segment | field_clp_faq_panel | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Campaign Landing Page | Add between 3 and 10 Q&As | field_clp_faq_paragraphs | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Content type | Campaign Landing Page | Add a "Connect with us" panel | field_clp_connect_with_us | Entity reference |  | 1 | Select list |  |

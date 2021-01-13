@@ -4,7 +4,7 @@ about: Use this template to produce a recurring tier <1 or 2> support placeholde
   for every sprint.
 title: Sprint <insert sprint number> tier <1 or 2> helpdesk support
 labels: Helpdesk & support, Ongoing work
-assignees: MaggieBrazeau
+assignees: VanessaLuxen
 
 ---
 
