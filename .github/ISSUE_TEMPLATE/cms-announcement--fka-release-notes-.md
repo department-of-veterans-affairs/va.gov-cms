@@ -1,7 +1,7 @@
 ---
 name: CMS Announcement (fka release notes)
 about: Writing + publishing messages to notify CMS editors of changes.
-title: "[Annoucement title]"
+title: "Announcement: [Announcement title]"
 labels: 'Release notes, Needs refining'
 assignees: rachel-kauff
 
@@ -16,7 +16,7 @@ Defaults to @rachel-kauff unless she's not available.
 - [ ] Add this issue as a dependency to the work that will get released
 - [ ] Draft announcement content
   -  If you're new to writing announcements, [review this guide](https://airtable.com/tblulo3XrMLuh4N0l/viwSVSkpseM78xmgw?blocks=hide) 
-  - Use the template to draft the announcement content in the [AT annoucement log](https://airtable.com/tblulo3XrMLuh4N0l/viwSVSkpseM78xmgw?blocks=hide).
+  - Use the template to draft the announcement content in the [AT announcement log](https://airtable.com/tblulo3XrMLuh4N0l/viwSVSkpseM78xmgw?blocks=hide).
 - [ ]  Get review: post the drafted release note in #cms-team. Tag the product manager and teammate who worked on it. Work out any clarifications/edits in the thread, and then get 👍🏻 from PM.
 - [ ] Publish: Once you get the ping that the dev has merged the changes, publish immediately after the deploy (~3:30/4:00 ET)
   - Post in #cms-support
