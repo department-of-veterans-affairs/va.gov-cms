@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ba013f9848c985d65b9fc198c56afb5",
+    "content-hash": "150a5495749b2473606a67a34d828ecf",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3697,6 +3697,44 @@
             "time": "2020-11-26T01:49:15+00:00"
         },
         {
+            "name": "drupal/core_event_dispatcher",
+            "version": "2.5.0",
+            "require": {
+                "drupal/core": "^8 || ^9",
+                "drupal/hook_event_dispatcher": "*"
+            },
+            "type": "metapackage",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.05",
+                    "datestamp": "1608409671",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "pdenooijer",
+                    "homepage": "https://www.drupal.org/user/3175437"
+                },
+                {
+                    "name": "robin.ingelbrecht",
+                    "homepage": "https://www.drupal.org/user/2339074"
+                }
+            ],
+            "description": "Registers event dispatchers for several core hooks",
+            "homepage": "https://www.drupal.org/project/hook_event_dispatcher",
+            "support": {
+                "source": "https://git.drupalcode.org/project/hook_event_dispatcher"
+            }
+        },
+        {
             "name": "drupal/crop",
             "version": "2.1.0",
             "source": {
@@ -4020,6 +4058,64 @@
             "support": {
                 "source": "https://drupal.org/project/danse",
                 "issues": "https://drupal.org/project/issues/danse"
+            }
+        },
+        {
+            "name": "drupal/danse_content_moderation",
+            "version": "2.0.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/danse_content_moderation.git",
+                "reference": "2.0.0-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/danse_content_moderation-2.0.0-beta1.zip",
+                "reference": "2.0.0-beta1",
+                "shasum": "6db50ed87bb007fd9a51e84f856d2efee5a6d555"
+            },
+            "require": {
+                "drupal/core": "^8.8 || ^9",
+                "drupal/core_event_dispatcher": "*",
+                "drupal/danse": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.0-beta1",
+                    "datestamp": "1610573128",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "acrollet",
+                    "homepage": "https://www.drupal.org/user/253909"
+                },
+                {
+                    "name": "indytechcook",
+                    "homepage": "https://www.drupal.org/user/245817"
+                },
+                {
+                    "name": "natedouglas",
+                    "homepage": "https://www.drupal.org/user/3518344"
+                },
+                {
+                    "name": "oksana-c",
+                    "homepage": "https://www.drupal.org/user/2916547"
+                }
+            ],
+            "description": "Creates DANSE events for Content Moderation transitions",
+            "homepage": "https://www.drupal.org/project/danse_content_moderation",
+            "support": {
+                "source": "https://git.drupalcode.org/project/danse_content_moderation"
             }
         },
         {
