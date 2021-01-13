@@ -2,7 +2,7 @@
 name: Epic
 about: A epic for the CMS team.
 title: "<Insert summary of epic>"
-labels: Epic
+labels: 'Epic, Needs refining'
 assignees: ''
 
 ---
@@ -45,9 +45,9 @@ We believe that _this_solution_ will achieve _this_outcome_. We'll know that to 
 ## Acceptance Criteria
 - [ ] 👀 Needs design review because the work involves changes to labels or other design elements
 - [ ] 🙈 Can be implemented without consulting design team members
-* Testable_Outcome_X
-* Testable_Outcome_Y
-* Testable_Outcome_Z
+- [ ] Testable_Outcome_X
+- [ ] Testable_Outcome_Y
+- [ ] Testable_Outcome_Z
 
 ## Runbook  
 This is particularly relevant for feature launches, or for making changes to the content model that require front end changes as well.
@@ -75,12 +75,3 @@ This is particularly relevant for feature launches, or for making changes to the
 - [ ] Product release notes (How will we describe this feature to CMS users?)
 - [ ] Training (Will any users require additional training?)
 - [ ] Metrics (How will we measure any improvements)
-
-
-## Labels for  this issue
-(You can delete this section once it's complete)
-- [x] Issue type (red) (defaults to Epic)
-- [ ] CMS subsystem (green)
-- [ ] CMS practice area (blue)
-- [ ] CMS objective (orange)
-- [ ] CMS-supported product (black)

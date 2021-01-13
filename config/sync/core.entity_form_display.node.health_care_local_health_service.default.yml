@@ -8,6 +8,9 @@ dependencies:
     - field.field.node.health_care_local_health_service.field_body
     - field.field.node.health_care_local_health_service.field_facility_location
     - field.field.node.health_care_local_health_service.field_facility_service_loc_help
+    - field.field.node.health_care_local_health_service.field_hservice_appt_intro_select
+    - field.field.node.health_care_local_health_service.field_hservice_appt_leadin
+    - field.field.node.health_care_local_health_service.field_hservices_lead_in_default
     - field.field.node.health_care_local_health_service.field_online_scheduling_availabl
     - field.field.node.health_care_local_health_service.field_phone_numbers_paragraph
     - field.field.node.health_care_local_health_service.field_referral_required
@@ -24,6 +27,7 @@ dependencies:
     - markup
     - paragraphs
     - text
+    - textfield_counter
 third_party_settings:
   field_group:
     group_governance:
@@ -59,6 +63,9 @@ third_party_settings:
     group_a:
       children:
         - field_appointments_help_text
+        - field_hservice_appt_intro_select
+        - field_hservice_appt_leadin
+        - field_hservices_lead_in_default
         - group_appointments
         - group_scheduling
       parent_name: ''
@@ -69,12 +76,12 @@ third_party_settings:
         show_label: true
         label_element: h2
         label_element_classes: ''
-        required_fields: true
         attributes: ''
         effect: none
         speed: fast
         id: appointments
         classes: ''
+        required_fields: false
       label: Appointments
       region: content
     group_scheduling:
@@ -82,7 +89,7 @@ third_party_settings:
         - field_online_scheduling_availabl
         - field_phone_numbers_paragraph
       parent_name: group_a
-      weight: 10
+      weight: 9
       format_type: fieldset
       format_settings:
         id: ''
@@ -166,7 +173,7 @@ content:
     type: options_select
     region: content
   field_appointments_help_text:
-    weight: 7
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: markup
@@ -187,6 +194,31 @@ content:
     region: content
   field_facility_service_loc_help:
     weight: 8
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
+    region: content
+  field_hservice_appt_intro_select:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_hservice_appt_leadin:
+    weight: 6
+    settings:
+      rows: 3
+      placeholder: ''
+      maxlength: 200
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining.'
+    third_party_settings: {  }
+    type: string_textarea_with_counter
+    region: content
+  field_hservices_lead_in_default:
+    weight: 7
     settings: {  }
     third_party_settings: {  }
     type: markup
@@ -218,7 +250,7 @@ content:
         entity_browser_id: _none
   field_referral_required:
     type: options_select
-    weight: 1
+    weight: 27
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -249,7 +281,7 @@ content:
     third_party_settings: {  }
   field_walk_ins_accepted:
     type: options_select
-    weight: 3
+    weight: 28
     region: content
     settings: {  }
     third_party_settings: {  }

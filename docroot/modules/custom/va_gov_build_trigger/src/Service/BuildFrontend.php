@@ -68,10 +68,13 @@ class BuildFrontend {
 
   /**
    * Triggers the appropriate frontend Build based on the environment.
+   *
+   * @param string $front_end_git_ref
+   *   Front end git reference to build (branch name or PR number)
    */
-  public function triggerFrontendBuild() {
+  public function triggerFrontendBuild($front_end_git_ref = NULL) {
     try {
-      $this->environmentDiscovery->triggerFrontendBuild();
+      $this->environmentDiscovery->triggerFrontendBuild($front_end_git_ref);
     }
     catch (PluginException $e) {
       // In an unaccounted for environment without a plugin.

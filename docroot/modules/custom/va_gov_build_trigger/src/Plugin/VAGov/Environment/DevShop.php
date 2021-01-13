@@ -5,6 +5,7 @@ namespace Drupal\va_gov_build_trigger\Plugin\VAGov\Environment;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
+use Drupal\va_gov_build_trigger\Form\DevShopBuildTriggerForm;
 
 /**
  * Devshop Environment Plugin.
@@ -19,7 +20,7 @@ class DevShop extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild(): void {
+  public function triggerFrontendBuild($front_end_git_ref = NULL): void {
     // Running in CMS-CI and DevShopTaskApiClient has been loaded, use it.
     $task_json = \DevShopTaskApiClient::create('vabuild');
     $task = json_decode($task_json);
@@ -45,6 +46,13 @@ class DevShop extends EnvironmentPluginBase {
    */
   public function shouldTriggerFrontendBuild(): bool {
     return FALSE;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function getBuildTriggerFormClass() : string {
+    return DevShopBuildTriggerForm::class;
   }
 
 }
