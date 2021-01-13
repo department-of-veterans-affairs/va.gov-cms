@@ -32,21 +32,6 @@
     },
   };
 
-  Drupal.behaviors.vaGovClpLimitQAs = {
-    attach() {
-      // Don't allow more than 10 QA's in clp FAQs panel.
-      if (
-        $(
-          "#edit-field-clp-faq-paragraphs-wrapper .draggable.paragraph-type--q-a"
-        ).length > 9
-      ) {
-        $(
-          "#edit-field-clp-faq-paragraphs-wrapper .field-add-more-submit.button"
-        ).css("display", "none");
-      }
-    },
-  };
-
   Drupal.behaviors.vaGovAlertSingleComponent = {
     attach() {
       const reusableAlertRemovedIds = [];
