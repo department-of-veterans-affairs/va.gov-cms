@@ -2,7 +2,6 @@
 
 namespace Drupal\danse_content_moderation;
 
-use Drupal;
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Entity\ContentEntityInterface;
@@ -101,7 +100,7 @@ final class Payload extends PayloadBase {
    */
   public static function createFromArray(array $payload): PayloadInterface {
     try {
-      $storage = Drupal::entityTypeManager()->getStorage($payload['entity']['type']);
+      $storage = \Drupal::entityTypeManager()->getStorage($payload['entity']['type']);
     }
     catch (InvalidPluginDefinitionException $e) {
     }
