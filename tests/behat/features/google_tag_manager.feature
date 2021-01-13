@@ -55,3 +55,29 @@ Feature: Google Tag Manager dataLayer values are correct
     And the GTM data layer value for "nodeID" should be set
     And the GTM data layer value for "contentOwner" should be set to "Outreach Hub"
     And the GTM data layer value for "pagePath" should be set
+
+  Scenario: An authenticated user should have no real GTM userSection value.
+    Given I am logged in as a user with the "content_creator_benefits_hubs" role
+    And I am on "/node/2"
+    Then the GTM data layer value for "userSection" should be unset
+
+  Scenario: A content_admin user should have a GTM userSection value of all.
+    Given I am logged in as a user with the "content_admin" role
+    And I am on "/node/2"
+    Then the GTM data layer value for "userSection" should be set to "all"
+
+  Scenario: A user should have GTM userSection values corresponding to their currently set sections.
+    Given I am logged in as a user with the "content_creator_benefits_hubs" role
+    And my workbench access sections are not set
+    And I am on "/node/2"
+    Then the GTM data layer value for "userSection" should be unset
+    Given I am logged in as a user with the "content_creator_benefits_hubs" role
+    And my workbench access sections are set to "administration"
+    And I am on "/"
+    Then the GTM data layer value for "userSection" should be set to "all"
+    And my workbench access sections are set to "165"
+    And I am on "/node/2"
+    Then the GTM data layer value for "userSection" should be set to "165"
+    And my workbench access sections are set to "165,176,177,212,246,374,375,376,377,378"
+    And I am on "/"
+    Then the GTM data layer value for "userSection" should be set to "165,176,177,212,246,374,375,376,377,378"
