@@ -71,13 +71,19 @@ Feature: Google Tag Manager dataLayer values are correct
     And my workbench access sections are not set
     And I am on "/node/2"
     Then the GTM data layer value for "userSection" should be unset
-    Given I am logged in as a user with the "content_creator_benefits_hubs" role
     And my workbench access sections are set to "administration"
-    And I am on "/"
+    And I am on "/node/2"
     Then the GTM data layer value for "userSection" should be set to "all"
     And my workbench access sections are set to "165"
     And I am on "/node/2"
     Then the GTM data layer value for "userSection" should be set to "165"
     And my workbench access sections are set to "165,176,177,212,246,374,375,376,377,378"
-    And I am on "/"
+    And I am on "/node/2"
     Then the GTM data layer value for "userSection" should be set to "165,176,177,212,246,374,375,376,377,378"
+    And my workbench access sections are set to "1,10,157,162,163,191,192,2,204,205,206,207,208,209,210,211,247,248,249,250,251,252,253,254,255,295,3,46,5,6,65,66,67,68,69,7,70,72,73,74,75,76,77,8"
+    And I am on "/node/2"
+    Then the GTM data layer value for "userSection" should be set to "1,10,157,162,163,191,192,2,204,205,206,207,208,209,210,211,247,248,249,250,251,252,253,254,255,295,3,46,5,6,65,66,67,68,69,7,70,72,73,74,75,76,77,8"
+    And my workbench access sections are set to "1,10,157,162,163,182,185,191,192,2,204,205,206,207,208,209,210,211,247,248,249,250,251,252,253,254,255,295,3,46,5,6,65,66,67,68,69,7,70,72,73,74,75,76,8"
+    And I am on "/node/2"
+    Then the GTM data layer value for "userSection" should be set to "1,10,157,162,163,182,185,191,192,2,204,205,206,207,208,209,210,211,247,248,249,250,251,252,253,254,255,295,3,46,5,6,65,66,67,68,69,7,70,72,73,74,75,76"
+
