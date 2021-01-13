@@ -90,6 +90,7 @@ final class Payload extends PayloadBase {
         'bundle' => $this->entity->bundle(),
         'id' => $this->entity->id(),
         'label' => $this->entity->label(),
+        'uid' => $this->entity->getOwnerId(),
       ],
       'label' => $this->generateLabel(),
     ];
