@@ -2,7 +2,7 @@
 name: CMS Announcement (fka release notes)
 about: Writing + publishing messages to notify CMS editors of changes.
 title: "[Annoucement title]"
-labels: Release notes
+labels: 'Release notes, Needs refining'
 assignees: rachel-kauff
 
 ---
