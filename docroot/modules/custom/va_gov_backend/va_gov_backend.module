@@ -647,62 +647,15 @@ function _va_gov_backend_unset_fields(EntityInterface $entity) {
 }
 
 /**
- * Returns the content types that need alias locked upon publish.
+ * Returns the content types that do not need alias locked upon publish.
  *
  * @return array
  *   Node types that should have their alias locked upon publishing.
  */
 function _va_gov_backend_get_locked_alias_bundles() {
 
-  return [
-    'page',
-    'landing_page',
-    'campaign_landing_page',
-    'centralized_content',
-    'checklist',
-    'documentation_page',
-    'health_care_region_detail_page',
-    'event',
-    'event_listing',
-    'faq_multiple_q_a',
-    'health_services_listing',
-    'basic_landing_page',
-    'leadership_listing',
-    'support_resources_detail_page',
-    'locations_listing',
-    'media_list_images',
-    'media_list_videos',
-    'nca_facility',
-    'press_release',
-    'press_releases_listing',
-    'office',
-    'outreach_asset',
-    'publication_listing',
-    'q_a',
-    'person_profile',
-    'step_by_step',
-    'story_listing',
-    'news_story',
-    'support_service',
-    'va_form',
-    'health_care_local_facility',
-    'health_care_local_health_service',
-    'health_care_region_page',
-    'full_width_banner_alert',
-    'regional_health_care_service_des',
-    'vamc_operating_status_and_alerts',
-    'vba_facility',
-    'vet_center',
-    'audience_tags',
-    'audience_beneficiaries',
-    'audience_non_beneficiaries',
-    'lc_categories',
-    'products',
-    'administration',
-    'topics',
-    'type_of_redirect',
-    'health_care_service_taxonomy',
-  ];
+  // Insert into array bundles that do not need alias locked upon publish.
+  return [];
 }
 
 /**
@@ -759,14 +712,24 @@ function _va_gov_backend_appt_intro_text_validation(array $form, FormStateInterf
 function _va_gov_disable_alias_widget(array &$form, FormStateInterface $form_state) {
   if ($form_state->getFormObject() instanceof EntityFormInterface) {
     $bundle = $form_state->getformObject()->getEntity()->bundle();
-    if (in_array($bundle, _va_gov_backend_get_locked_alias_bundles())) {
+    if (!in_array($bundle, _va_gov_backend_get_locked_alias_bundles())) {
       $entity_id = $form_state->getformObject()->getEntity()->id();
       if (!empty($entity_id)) {
-        $entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity_id);
-        // If it's published the alias widget is unchecked
+        $node_entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity_id);
+        $term_entity = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($entity_id);
+        // If it's a published node the alias widget is unchecked
         // to disallow auto path updating.
-        if ($entity->isPublished() === TRUE) {
-          $form['#after_build'][] = '_va_gov_backend_node_after_build_uncheck_auto_alias';
+        if (!empty($node_entity)) {
+          if ($node_entity->isPublished() === TRUE) {
+            $form['#after_build'][] = '_va_gov_backend_node_after_build_uncheck_auto_alias';
+          }
+        }
+        // If it's a published term the alias widget is unchecked
+        // to disallow auto path updating.
+        elseif (!empty($term_entity)) {
+          if ($term_entity->isPublished() === TRUE) {
+            $form['#after_build'][] = '_va_gov_backend_node_after_build_uncheck_auto_alias';
+          }
         }
       }
     }
@@ -1745,7 +1708,7 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
     _va_gov_backend_sync_wysiwyg_fields($entity);
   }
 
-  if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), _va_gov_backend_get_locked_alias_bundles())) {
+  if ($entity->getEntityTypeId() === 'node' && !in_array($entity->bundle(), _va_gov_backend_get_locked_alias_bundles())) {
     _va_gov_backend_disable_autopath_alias($entity);
   }
 
@@ -1811,7 +1774,7 @@ function _va_gov_backend_apply_filter_to_tablefield_cells(EntityInterface $entit
 }
 
 /**
- * Determine if pathauto alias should be enable on node.
+ * Determine if pathauto alias should be enabled on node.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   The node to check for disabling pathauto alias pattern.
