@@ -71,15 +71,6 @@
 
   Drupal.behaviors.vaGovRequiredParagraphs = {
     attach: function attach() {
-      var _this = this;
-
-      $("h4.label").each(function (item) {
-        var container = $(item).closest(".field--type-entity-reference-revisions");
-        if (container && container.attr("data-drupal-states").includes('"show-indicator":')) {
-          $(_this).addClass("js-form-required form-required");
-        }
-      });
-
       $("details#edit-field-clp-resources summary").addClass("js-form-required form-required");
       $("details#edit-field-clp-events-references summary").addClass("js-form-required form-required");
       $("details#edit-group-video .field--type-entity-reference.field--name-field-media span.fieldset-legend").addClass("js-form-required form-required");
