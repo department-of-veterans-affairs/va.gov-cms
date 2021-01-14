@@ -90,7 +90,7 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
 
     $commands = $webBuildCommandBuilder->buildCommands('/repo/root', NULL, $unique_key);
     self::assertEquals(
-      'cd /app/root && && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:export',
+      'cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:export',
       $commands[0],
       'Web Commands build with CMS Export'
     );
@@ -98,13 +98,13 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
     $commands = $webBuildCommandBuilder->buildCommands('/repo/root', '1234', $unique_key);
     $web_branch = "build-1234-222222-abcssss";
     self::assertEquals(
-      "cd /repo/root/web && git fetch origin pull/1234/head:{$web_branch} && git checkout {$web_branch}",
+      "cd /repo/root && git fetch origin pull/1234/head:{$web_branch} && git checkout {$web_branch}",
       $commands[0],
       'Web Command Build with commit and CMS Export git command'
     );
 
     self::assertEquals(
-      "cd /repo/root && && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:export:full",
+      "cd /app/root && && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:export:full",
       $commands[1],
       'Web Command Build with commit and CMS Export composer command'
     );
@@ -112,13 +112,13 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
     $commands = $webBuildCommandBuilder->buildCommands('/repo/root', 'abcd', $unique_key);
     $web_branch = "build-abcd-222222-abcssss";
     self::assertEquals(
-      "cd /repo/root/web && git checkout -b {$web_branch} origin/abcd",
+      "cd /repo/root && git checkout -b {$web_branch} origin/abcd",
       $commands[0],
       'Web command build with branch and CMS Export git command'
     );
 
     self::assertEquals(
-      "cd /repo/root && && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:export:full",
+      "cd /app/root && && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:export:full",
       $commands[1],
       'Web command build with branch and composer command'
     );
@@ -157,6 +157,7 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
 
     $settings = new Settings($settings_array);
     $app_root = '/app/root';
+    $webBuildStatus = new WebBuildStatus($state, $settings);
     $webBuildCommandBuilder = new WebBuildCommandBuilder($app_root, $settings, $webBuildStatus);
 
     self::assertTrue(
