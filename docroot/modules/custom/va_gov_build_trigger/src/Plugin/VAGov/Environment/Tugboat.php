@@ -71,7 +71,6 @@ class Tugboat extends EnvironmentPluginBase {
     if ($full_rebuild && $this->webBuildCommandBuilder->useContentExport()) {
       $commands = [
         $this->webBuildCommandBuilder->buildComposerCommand(
-          '/var/lib/tugboat',
           'va:web:export:content'
         ),
       ];

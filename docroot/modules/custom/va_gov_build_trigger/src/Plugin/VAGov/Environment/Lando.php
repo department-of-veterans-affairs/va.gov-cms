@@ -71,7 +71,6 @@ class Lando extends EnvironmentPluginBase {
     if ($full_rebuild && $this->webBuildCommandBuilder->useContentExport()) {
       $commands = [
         $this->webBuildCommandBuilder->buildComposerCommand(
-          '/app',
           'va:web:export:content'
         ),
       ];
