@@ -64,14 +64,26 @@ class Tugboat extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild($front_end_git_ref = NULL): void {
+  public function triggerFrontendBuild($front_end_git_ref = NULL, bool $full_rebuild = FALSE): void {
+    /** @var \Drupal\advancedqueue\Entity\QueueInterface $queue */
+    $queue = $this->queueLoader->load('command_runner');
+
+    if ($full_rebuild && $this->webBuildCommandBuilder->useContentExport()) {
+      $commands = [
+        $this->webBuildCommandBuilder->buildComposerCommand(
+          '/var/lib/tugboat',
+          'va:web:export:content'
+        ),
+      ];
+
+      $this->queueCommands($commands, $queue);
+    }
+
     $commands = $this->webBuildCommandBuilder->buildCommands(
       '/var/lib/tugboat',
       $front_end_git_ref
     );
 
-    /** @var \Drupal\advancedqueue\Entity\QueueInterface $queue */
-    $queue = $this->queueLoader->load('command_runner');
     $this->queueCommands($commands, $queue);
 
     $this->messenger()->addStatus('A request to rebuild the front end has been submitted.');

@@ -48,10 +48,12 @@ class WebBuildCommandBuilder {
    *   Drupal App Root.
    * @param \Drupal\Core\Site\Settings $settings
    *   Drupal settings.
+   * @param \Drupal\va_gov_build_trigger\WebBuildStatusInterface $webBuildStatus
+   *   WebBuild status.
    */
-  public function __construct(string $appRoot, Settings $settings) {
+  public function __construct(string $appRoot, Settings $settings, WebBuildStatusInterface $webBuildStatus) {
     $this->appRoot = $appRoot;
-    $this->useContentExport = $settings->get(static::USE_CMS_EXPORT_SETTING, FALSE);
+    $this->useContentExport = $webBuildStatus->useContentExport();
     $this->composerHome = $settings->get(static::COMPOSER_HOME, '');
     $this->pathToComposer = $settings->get(static::PATH_TO_COMPOSER, '');
   }
@@ -63,20 +65,23 @@ class WebBuildCommandBuilder {
    *   The path to the repository root.
    * @param string|null $front_end_git_ref
    *   Front end git reference to build (branch name or PR number)
+   * @param string|null $unique_key
+   *   A unique key to use in the branch name.  Defaults to time().
    *
    * @return array
    *   An array of commands to run for a build.
    */
-  public function buildCommands(string $repo_root, string $front_end_git_ref = NULL) : array {
+  public function buildCommands(string $repo_root, string $front_end_git_ref = NULL, string $unique_key = NULL) : array {
     $commands = [];
 
+    $unique_key = $unique_key ?? (string) time();
     $composer_command = $this->commandName();
-    if ($command = $this->getFrontEndGitReferenceCheckoutCommand(time(), $front_end_git_ref)) {
+    if ($command = $this->getFrontEndGitReferenceCheckoutCommand($repo_root, $unique_key, $front_end_git_ref)) {
       $commands[] = $command;
-      $commands[] = $this->buildComposerCommand($repo_root, 'va:web:install');
+      $commands[] = $this->buildComposerCommand('va:web:install');
     }
 
-    $commands[] = $this->buildComposerCommand($repo_root, $composer_command);
+    $commands[] = $this->buildComposerCommand($composer_command);
 
     return $commands;
   }
@@ -84,16 +89,14 @@ class WebBuildCommandBuilder {
   /**
    * Build a composer command.
    *
-   * @param string $root_path
-   *   The path to the repository root.
    * @param string $composer_command
    *   The composer command to run.
    *
    * @return string
    *   The composer command line.
    */
-  public function buildComposerCommand(string $root_path, string $composer_command) : string {
-    return "cd $root_path && COMPOSER_HOME={$this->composerHome} {$this->pathToComposer} --no-cache $composer_command";
+  public function buildComposerCommand(string $composer_command) : string {
+    return "cd {$this->appRoot} && COMPOSER_HOME={$this->composerHome} {$this->pathToComposer} --no-cache $composer_command";
   }
 
   /**
@@ -120,17 +123,27 @@ class WebBuildCommandBuilder {
   }
 
   /**
-   * {@inheritDoc}
+   * Build an array of commands to run for the web build.
+   *
+   * @param string $repo_root
+   *   The path to the repository root.
+   * @param string $unique_key
+   *   A unique key to use in the branch name.
+   * @param string|null $front_end_git_ref
+   *   Front end git reference to build (branch name or PR number)
+   *
+   * @return array
+   *   An array of commands to run for a build.
    */
-  protected function getFrontEndGitReferenceCheckoutCommand(string $build_date, string $front_end_git_ref = NULL) : string {
-    $web_branch = "build-{$front_end_git_ref}-{$build_date}";
+  protected function getFrontEndGitReferenceCheckoutCommand(string $repo_root, string $unique_key, string $front_end_git_ref = NULL) : string {
+    $web_branch = "build-{$front_end_git_ref}-{$unique_key}";
 
     if (is_numeric($front_end_git_ref)) {
-      return "cd {$this->appRoot}/web && git fetch origin pull/{$front_end_git_ref}/head:{$web_branch} && git checkout {$web_branch}";
+      return "cd {$repo_root} && git fetch origin pull/{$front_end_git_ref}/head:{$web_branch} && git checkout {$web_branch}";
     }
 
     if ($front_end_git_ref) {
-      return "cd {$this->appRoot}/web && git checkout -b {$web_branch} origin/{$front_end_git_ref}";
+      return "cd {$repo_root} && git checkout -b {$web_branch} origin/{$front_end_git_ref}";
     }
 
     return '';
