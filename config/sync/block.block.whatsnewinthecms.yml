@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - node
     - system
     - va_gov_backend
   theme:
@@ -15,12 +16,19 @@ provider: null
 plugin: va_gov_backend_whats_new
 settings:
   id: va_gov_backend_whats_new
-  label: 'What''s New in the CMS'
+  label: 'What''s new in the CMS'
   provider: va_gov_backend
   label_display: visible
 visibility:
   request_path:
     id: request_path
-    pages: '/help/*'
-    negate: false
+    pages: /help/support/release-notes
+    negate: true
     context_mapping: {  }
+  node_type:
+    id: node_type
+    bundles:
+      documentation_page: documentation_page
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
