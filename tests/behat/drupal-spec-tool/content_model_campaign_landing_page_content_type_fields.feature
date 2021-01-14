@@ -18,7 +18,7 @@ Feature: Content model: Campaign Landing Page Content Type fields
 | Content type | Campaign Landing Page | Enable this page segment | field_clp_events_panel | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Campaign Landing Page | Add up to two events | field_clp_events_references | Entity reference |  | 2 | Entity Browser - Table |  |
 | Content type | Campaign Landing Page | Add up to two stories | field_clp_stories_teasers | Entity reference revisions |  | 2 | Paragraphs Classic |  |
-| Content type | Campaign Landing Page | Links with summaries | field_clp_spotlight_link_teasers | Entity reference revisions |  | 3 | Paragraphs EXPERIMENTAL |  |
+| Content type | Campaign Landing Page | Links with summaries | field_clp_spotlight_link_teasers | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Content type | Campaign Landing Page | Downloadable resources cta | field_clp_resources_cta | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | Campaign Landing Page | Downloadable resources header | field_clp_resources_header | Text (plain) |  | 1 | Textfield with counter |  |
 | Content type | Campaign Landing Page | Downloadable resources intro text | field_clp_resources_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
