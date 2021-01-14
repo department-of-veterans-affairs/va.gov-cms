@@ -33,10 +33,8 @@ va/tests/phpunit:
   command: phpunit --exclude-group disabled tests/phpunit --colors=always
 
 va/tests/accessibility:
-  description: accessibility test with axe-webdriverjs for 508 compliance
+  description: accessibility test with cypress-axe for 508 compliance
   command: composer va:test:accessibility
-  # Ignore failures so that staging deploys can complete.
-  ignore-failure: true
 
 va/web/install:
   description: Install VA.gov node environment
