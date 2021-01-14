@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 export FAILURE=0
-for filename in config/sync/core.entity_form_display.*.*.default.yml
+for filename in config/sync/*.entity_form_display.*.*.default.yml
 do
   if grep --quiet "\- link\b" ${filename}
   then
