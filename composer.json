@@ -426,8 +426,7 @@
             "npm run stylelint-themes"
         ],
         "va:test:accessibility": [
-            "npm install --only=production",
-            "npm test"
+            "./scripts/tests/cypress-axe.sh"
         ],
         "va:test:lint": [
             "find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null",

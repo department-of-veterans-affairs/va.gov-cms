@@ -4,7 +4,7 @@ Feature: Content model: VA Forms Content Type fields
   As a content editor
   I want to have content type fields that reflect my content model.
 
-  @dst @field_type @content_type_fields @dstfields                                                                                                                                                               
+  @dst @field_type @content_type_fields @dstfields
      Scenario: Fields
        Then exactly the following fields should exist for bundles "va_form" of entity type node
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
@@ -20,8 +20,8 @@ Feature: Content model: VA Forms Content Type fields
 | Content type | VA Form | Helpful links | field_va_form_link_teasers | Entity reference revisions |  | Unlimited | Paragraphs Classic |  |
 | Content type | VA Form | Issue date | field_va_form_issue_date | Date |  | 1 | Date and time |  |
 | Content type | VA Form | Form Language | field_va_form_language | List (text) | Required | 1 | Select list |  |
-| Content type | VA Form | Link to form | field_va_form_url | Link |  | 1 | Link |  |
-| Content type | VA Form | Link to online tool | field_va_form_tool_url | Link |  | 1 | Link |  |
+| Content type | VA Form | Link to form | field_va_form_url | Link |  | 1 | Linkit |  |
+| Content type | VA Form | Link to online tool | field_va_form_tool_url | Link |  | 1 | Linkit |  |
 | Content type | VA Form | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | VA Form | Number of pages | field_va_form_num_pages | Number (integer) |  | 1 | Number field |  |
 | Content type | VA Form | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |

@@ -15,7 +15,7 @@
     "stylelint-modules": "npx stylelint 'docroot/modules/custom/**/*.css'",
     "stylelint-themes": "npx stylelint 'docroot/themes/custom/**/*.scss'",
     "stylelint": "npx stylelint",
-    "test": "node ./tests/accessibility/aXeAccessibilityCheck.js"
+    "test": "cd tests && cypress run"
   },
   "repository": {
     "type": "git",
@@ -31,9 +31,8 @@
     "@axe-core/webdriverjs": "^4.0.0",
     "axe-core": "^4.0.2",
     "axe-reports": "^1.1.11",
-    "phantomjs-prebuilt": "^2.1.16",
-    "require": "^2.4.20",
-    "selenium-webdriver": "^3.6.0"
+    "cypress": "^6.1.0",
+    "cypress-axe": "^0.12.0"
   },
   "directories": {
     "test": "tests"
