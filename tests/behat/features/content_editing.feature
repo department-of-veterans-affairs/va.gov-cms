@@ -260,4 +260,3 @@ Feature: CMS Users may effectively create & edit content
     Then I should see "BeHat URL Alias Term Title Published"
     Then I visit the "edit" page for a term with the title "BeHat URL Alias Term Title Published"
     And the "path[0][pathauto]" checkbox should not be checked
-    
