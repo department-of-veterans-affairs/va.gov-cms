@@ -12,11 +12,11 @@ dependencies:
     - field.field.node.vamc_system_policies_page.field_vamc_other_policies
     - field.field.node.vamc_system_policies_page.field_vamc_visitation_policy
     - node.type.vamc_system_policies_page
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - entity_field_fetch
     - field_group
-    - path
     - text
 third_party_settings:
   field_group:
@@ -24,24 +24,24 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 10
+      weight: 8
       format_type: details_sidebar
       region: content
       format_settings:
+        description: ''
+        open: true
+        weight: 10
+        required_fields: true
         id: ''
         classes: ''
-        description: ''
-        open: false
-        required_fields: true
-        weight: 10
       label: Governance
     group_editorial_workflow:
       children:
+        - status
         - moderation_state
         - revision_log
-        - status
       parent_name: ''
-      weight: 11
+      weight: 9
       format_type: fieldset
       region: content
       format_settings:
@@ -55,21 +55,11 @@ targetEntityType: node
 bundle: vamc_system_policies_page
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 8
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_administration:
     weight: 12
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: options_select
     region: content
   field_cc_bottom_of_page_content:
     weight: 6
@@ -123,12 +113,6 @@ content:
     settings: {  }
     region: content
     third_party_settings: {  }
-  path:
-    type: path
-    weight: 9
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   status:
     type: boolean_checkbox
     weight: 0
@@ -145,6 +129,8 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
+  created: true
+  path: true
   promote: true
   sticky: true
   uid: true
