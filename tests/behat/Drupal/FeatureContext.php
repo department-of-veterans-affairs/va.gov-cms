@@ -79,7 +79,7 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
    * Go to a view or edit page for a term.
    *
    * @param string $page
-   *   Either the view or form page.
+   *   Either the view or edit page.
    * @param string $title
    *   The term title.
    *

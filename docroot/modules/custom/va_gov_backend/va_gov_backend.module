@@ -710,29 +710,21 @@ function _va_gov_backend_appt_intro_text_validation(array $form, FormStateInterf
  *   Instance of FormStateInterface.
  */
 function _va_gov_disable_alias_widget(array &$form, FormStateInterface $form_state) {
-  if ($form_state->getFormObject() instanceof EntityFormInterface) {
-    $bundle = $form_state->getformObject()->getEntity()->bundle();
-    if (!in_array($bundle, _va_gov_backend_get_locked_alias_bundles())) {
-      $entity_id = $form_state->getformObject()->getEntity()->id();
-      if (!empty($entity_id)) {
-        $node_entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity_id);
-        $term_entity = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($entity_id);
-        // If it's a published node the alias widget is unchecked
-        // to disallow auto path updating.
-        if (!empty($node_entity)) {
-          if ($node_entity->isPublished() === TRUE) {
-            $form['#after_build'][] = '_va_gov_backend_node_after_build_uncheck_auto_alias';
-          }
-        }
-        // If it's a published term the alias widget is unchecked
-        // to disallow auto path updating.
-        elseif (!empty($term_entity)) {
-          if ($term_entity->isPublished() === TRUE) {
-            $form['#after_build'][] = '_va_gov_backend_node_after_build_uncheck_auto_alias';
-          }
-        }
-      }
-    }
+  if (!($form_state->getFormObject() instanceof EntityFormInterface)) {
+    return;
+  }
+
+  $entity = $form_state->getformObject()->getEntity();
+  if (!($entity instanceof EntityInterface)) {
+    return;
+  }
+
+  // If entity is not ignored and entity is published
+  // and entity is not new then unchecked the generate automatic URL alias
+  // to disallow auto path updating.
+  if (!in_array($entity->bundle(), _va_gov_backend_get_locked_alias_bundles()) &&
+    $entity->isPublished() && !$entity->isNew()) {
+    $form['#after_build'][] = '_va_gov_backend_node_after_build_uncheck_auto_alias';
   }
 }
 
