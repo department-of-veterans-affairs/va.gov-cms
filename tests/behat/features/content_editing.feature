@@ -133,6 +133,7 @@ Feature: CMS Users may effectively create & edit content
     Then I visit the "edit" page for a node with the title "Test Office - BeHaT"
     And I select "Published" from "edit-moderation-state-0-state"
     And I fill in "Revision log message" with "Test publishing"
+    And I fill in "URL alias" with "/test-office-behat-404"
     And I press "Save"
     And I should see "(pending)" in the "#block-entitymetadisplay" element
 
@@ -219,7 +220,7 @@ Feature: CMS Users may effectively create & edit content
     And I am at "node/add/event"
     Then I should see "New York" in the "#edit-field-datetime-range-timezone-0-timezone" element
 
-@content_editing1
+@content_editing
   Scenario: Confirm Generate automatic URL alias is unchecked after node publish.
     When I am logged in as a user with the "content_admin" role
     And I am at "node/add/basic_landing_page"
@@ -249,7 +250,7 @@ Feature: CMS Users may effectively create & edit content
     Then I visit the "edit" page for a node with the title "BeHat URL Alias Title Published"
     And the "path[0][pathauto]" checkbox should not be checked
 
-@content_editing2
+@content_editing
   Scenario: Confirm Generate automatic URL alias is unchecked after taxonomy term publish.
     Given I am logged in as a user with the "administrator" role
     And I am at "admin/structure/taxonomy/manage/health_care_service_taxonomy/add"
