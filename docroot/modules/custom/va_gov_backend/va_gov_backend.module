@@ -19,6 +19,7 @@ use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\node\NodeInterface;
+use Drupal\taxonomy\TermInterface;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 use Drupal\va_gov_build_trigger\Form\PreviewForm;
@@ -715,7 +716,8 @@ function _va_gov_disable_alias_widget(array &$form, FormStateInterface $form_sta
   }
 
   $entity = $form_state->getformObject()->getEntity();
-  if (!($entity instanceof EntityInterface)) {
+
+  if (!($entity instanceof TermInterface) && !($entity instanceof NodeInterface)) {
     return;
   }
 
