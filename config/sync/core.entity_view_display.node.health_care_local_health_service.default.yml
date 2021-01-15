@@ -8,6 +8,9 @@ dependencies:
     - field.field.node.health_care_local_health_service.field_body
     - field.field.node.health_care_local_health_service.field_facility_location
     - field.field.node.health_care_local_health_service.field_facility_service_loc_help
+    - field.field.node.health_care_local_health_service.field_hservice_appt_intro_select
+    - field.field.node.health_care_local_health_service.field_hservice_appt_leadin
+    - field.field.node.health_care_local_health_service.field_hservices_lead_in_default
     - field.field.node.health_care_local_health_service.field_online_scheduling_availabl
     - field.field.node.health_care_local_health_service.field_phone_numbers_paragraph
     - field.field.node.health_care_local_health_service.field_referral_required
@@ -27,7 +30,7 @@ third_party_settings:
     group_vha_health_service_name_an:
       children: {  }
       parent_name: ''
-      weight: 10
+      weight: 13
       format_type: fieldset
       format_settings:
         description: ''
@@ -49,7 +52,9 @@ third_party_settings:
       region: content
     group_appointments:
       children:
-        - field_appointments_help_text
+        - field_hservice_appt_intro_select
+        - field_hservice_appt_leadin
+        - field_hservices_lead_in_default
         - field_referral_required
         - field_walk_ins_accepted
         - field_online_scheduling_availabl
@@ -68,13 +73,6 @@ targetEntityType: node
 bundle: health_care_local_health_service
 mode: default
 content:
-  field_appointments_help_text:
-    type: markup
-    weight: 9
-    region: content
-    label: above
-    settings: {  }
-    third_party_settings: {  }
   field_body:
     weight: 2
     label: hidden
@@ -82,8 +80,29 @@ content:
     third_party_settings: {  }
     type: text_default
     region: content
+  field_hservice_appt_intro_select:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_hservice_appt_leadin:
+    weight: 5
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_hservices_lead_in_default:
+    weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
+    region: content
   field_online_scheduling_availabl:
-    weight: 12
+    weight: 9
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -91,7 +110,7 @@ content:
     region: content
   field_phone_numbers_paragraph:
     type: entity_reference_revisions_entity_view
-    weight: 13
+    weight: 10
     label: above
     settings:
       view_mode: default
@@ -99,7 +118,7 @@ content:
     third_party_settings: {  }
     region: content
   field_referral_required:
-    weight: 10
+    weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -124,7 +143,7 @@ content:
     third_party_settings: {  }
     region: content
   field_walk_ins_accepted:
-    weight: 11
+    weight: 8
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -133,6 +152,7 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_appointments_help_text: true
   field_facility_location: true
   field_facility_service_loc_help: true
   links: true

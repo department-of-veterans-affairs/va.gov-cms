@@ -37,8 +37,8 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Event | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Event | Registration required | field_event_registrationrequired | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Event | Label | field_event_cta | List (text) |  | 1 | Select list |  |
-| Content type | Event | URL | field_link | Link |  | 1 | Link | Translatable |
-| Content type | Event | Online event link | field_url_of_an_online_event | Link |  | 1 | Link |  |
+| Content type | Event | URL | field_link | Link |  | 1 | Linkit | Translatable |
+| Content type | Event | Online event link | field_url_of_an_online_event | Link |  | 1 | Linkit |  |
 | Content type | Events List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Events List | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Events List | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
@@ -137,14 +137,23 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC Facility Health Service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC Facility Health Service | Service locations | field_service_location | Entity reference revisions |  | 3 | Paragraphs EXPERIMENTAL |  |
 | Content type | VAMC Facility Health Service | VAMC system health service | field_regional_health_service | Entity reference | Required | 1 | Select list |  |
+| Content type | VAMC Facility Health Service | Is online scheduling available for this service? | field_online_scheduling_availabl | List (text) | Required | 1 | Select list |  |
+| Content type | VAMC Facility Health Service | Phone number for appointments | field_phone_numbers_paragraph | Entity reference revisions |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
+| Content type | VAMC Facility Health Service | Is a referral required? | field_referral_required | List (text) | Required | 1 | Select list |  |
+| Content type | VAMC Facility Health Service | Are walkins accepted? | field_walk_ins_accepted | List (text) | Required | 1 | Select list |  |
+| Content type | VAMC Facility Health Service | Appointments help text | field_appointments_help_text | Markup |  | 1 | Markup |  |
+| Content type | VAMC Facility Health Service | Service locations help text | field_facility_service_loc_help | Markup |  | 1 | Markup |  |
+| Content type | VAMC Facility Health Service | Appointment intro text | field_hservice_appt_intro_select | List (text) | Required | 1 | Check boxes/radio buttons |  |
+| Content type | VAMC Facility Health Service | Appointment lead-in default | field_hservices_lead_in_default | Markup |  | 1 | Markup |  |
+| Content type | VAMC Facility Health Service | Appointment lead-in text | field_hservice_appt_leadin | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC System | Appointments can be scheduled and viewed online | field_appointments_online | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System | Banner image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | VAMC System | Common Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL | Translatable |
-| Content type | VAMC System | Facebook | field_facebook | Link |  | 1 | Link | Translatable |
-| Content type | VAMC System | Flickr | field_flickr | Link |  | 1 | Link | Translatable |
+| Content type | VAMC System | Facebook | field_facebook | Link |  | 1 | Linkit | Translatable |
+| Content type | VAMC System | Flickr | field_flickr | Link |  | 1 | Linkit | Translatable |
 | Content type | VAMC System | GovDelivery ID for Emergency updates email | field_govdelivery_id_emerg | Text (plain) | Required | 1 | Textfield |  |
 | Content type | VAMC System | GovDelivery ID for News and Announcements | field_govdelivery_id_news | Text (plain) | Required | 1 | Textfield |  |
-| Content type | VAMC System | Instagram | field_instagram | Link |  | 1 | Link | Translatable |
+| Content type | VAMC System | Instagram | field_instagram | Link |  | 1 | Linkit | Translatable |
 | Content type | VAMC System | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | VAMC System | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC System | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
@@ -153,7 +162,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | VAMC System | Regional Health Service Offerings. | field_clinical_health_services | Entity reference |  | Unlimited | -- Disabled -- |  |
-| Content type | VAMC System | Twitter | field_twitter | Link |  | 1 | Link | Translatable |
+| Content type | VAMC System | Twitter | field_twitter | Link |  | 1 | Linkit | Translatable |
 | Content type | VAMC System | VAMC system official name | field_vamc_system_official_name | Text (plain) |  | 1 | Textfield |  |
 | Content type | VAMC System | VAMC system short name | field_nickname_for_this_facility | Text (plain) |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC System Banner Alert with Situation Updates | Alert body | field_body | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
@@ -176,14 +185,8 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Health Service | VHA service name and description | field_service_name_and_descripti | Entity reference | Required | 1 | Select list |  |
 | Content type | VAMC System Operating Status | System-wide alerts | field_banner_alert | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | VAMC System Operating Status | Patient resources | field_operating_status_emerg_inf | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
-| Content type | VAMC System Operating Status | Local emergency resources | field_links | Link |  | Unlimited | Link | Translatable |
+| Content type | VAMC System Operating Status | Local emergency resources | field_links | Link |  | Unlimited | Linkit | Translatable |
 | Content type | VAMC System Operating Status | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC System Operating Status | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Operating Status | Facility operating statuses | field_facility_operating_status | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | VAMC System Operating Status | VAMC system | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC Facility Health Service | Is online scheduling available for this service? | field_online_scheduling_availabl | List (text) | Required | 1 | Select list |  |
-| Content type | VAMC Facility Health Service | Phone number for appointments | field_phone_numbers_paragraph | Entity reference revisions |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
-| Content type | VAMC Facility Health Service | Is a referral required? | field_referral_required | List (text) | Required | 1 | Select list |  |
-| Content type | VAMC Facility Health Service | Are walkins accepted? | field_walk_ins_accepted | List (text) | Required | 1 | Select list |  |
-| Content type | VAMC Facility Health Service | Appointments help text | field_appointments_help_text | Markup |  | 1 | Markup |  |
-| Content type | VAMC Facility Health Service | Service locations help text | field_facility_service_loc_help | Markup |  | 1 | Markup |  |
