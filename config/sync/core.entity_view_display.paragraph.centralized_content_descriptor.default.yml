@@ -1,0 +1,48 @@
+uuid: 80636bd9-9b95-4af3-bfa6-8491bc617cf6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.centralized_content_descriptor.field_cc_documentor_description
+    - field.field.paragraph.centralized_content_descriptor.field_cc_documentor_title
+    - paragraphs.paragraphs_type.centralized_content_descriptor
+  module:
+    - field_group
+    - text
+third_party_settings:
+  field_group:
+    group_cc_documentor_scope:
+      children:
+        - field_cc_documentor_title
+        - field_cc_documentor_description
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Scope
+id: paragraph.centralized_content_descriptor.default
+targetEntityType: paragraph
+bundle: centralized_content_descriptor
+mode: default
+content:
+  field_cc_documentor_description:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_cc_documentor_title:
+    weight: 1
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  search_api_excerpt: true
