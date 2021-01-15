@@ -12,8 +12,5 @@ if [ -n "$CMS_IS_BRD" ]; then
   exit 0
 fi
 
-# Prime the login page cache
-curl http://localhost &> /dev/null
-
 npm install
 npm test
