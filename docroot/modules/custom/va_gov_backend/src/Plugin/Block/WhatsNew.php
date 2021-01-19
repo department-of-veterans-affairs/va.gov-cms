@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @Block(
  *   id = "va_gov_backend_whats_new",
- *   admin_label = @Translation("What's New in the CMS"),
+ *   admin_label = @Translation("What's new in the CMS"),
  * )
  */
 class WhatsNew extends BlockBase implements ContainerFactoryPluginInterface {
