@@ -54,6 +54,24 @@ trait ContentTrait {
   }
 
   /**
+   * Get test term (tid) by title.
+   *
+   * @param string $title
+   *   Term title.
+   */
+  public function getTestContentTidByTitle($title) {
+    $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => $title]);
+    $term = reset($term);
+    $tid = $term->id();
+
+    if (empty($tid)) {
+      throw new \Exception('The term "' . $title . '" does not exist.');
+    }
+
+    return $tid;
+  }
+
+  /**
    * Delete content created within a step.
    *
    * @param int $nid
