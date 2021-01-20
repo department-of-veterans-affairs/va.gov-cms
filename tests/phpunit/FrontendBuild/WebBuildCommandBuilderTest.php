@@ -22,46 +22,50 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
       'va_gov_use_cms_export' => FALSE,
       'va_gov_composer_home' => '/composer/home',
       'va_gov_path_to_composer' => '/composer/file/here',
+      'va_gov_app_root' => '/app/root',
+      'va_gov_web_root' => '/repo/root',
     ];
 
     $unique_key = 'abcssss';
 
     $settings = new Settings($settings_array);
-    $app_root = '/app/root';
 
-    $webBuildCommandBuilder = new WebBuildCommandBuilder($app_root, $settings);
+    /** @var \Drupal\Core\State\StateInterface $state */
+    $state = $this->createMock('Drupal\Core\State\StateInterface');
+    $webBuildStatus = new WebBuildStatus($state, $settings);
+    $webBuildCommandBuilder = new WebBuildCommandBuilder($settings, $webBuildStatus);
 
-    $commands = $webBuildCommandBuilder->buildCommands('/repo/root', NULL, $unique_key);
+    $commands = $webBuildCommandBuilder->buildCommands(NULL, $unique_key);
     self::assertEquals(
-      'cd /repo/root && && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build',
+      'cd /app/root && && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build',
       $commands[0],
       'Web Commands build with GraphQL'
     );
 
-    $commands = $webBuildCommandBuilder->buildCommands('/repo/root', '1234', $unique_key);
+    $commands = $webBuildCommandBuilder->buildCommands('1234', $unique_key);
     $web_branch = "build-1234-222222-abcssss";
     self::assertEquals(
-      "cd /repo/root/web && git fetch origin pull/1234/head:{$web_branch} && git checkout {$web_branch}",
+      "cd /repo/root && git fetch origin pull/1234/head:{$web_branch} && git checkout {$web_branch}",
       $commands[0],
       'Web Command Build with commit and GraphQL git command'
     );
 
     self::assertEquals(
-      "cd /repo/root && && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:full",
+      "cd /app/root && && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:full",
       $commands[1],
       'Web Command Build with commit and GraphQL composer command'
     );
 
-    $commands = $webBuildCommandBuilder->buildCommands('/repo/root', 'abcd', $unique_key);
+    $commands = $webBuildCommandBuilder->buildCommands('abcd', $unique_key);
     $web_branch = "build-abcd-222222-abcssss";
     self::assertEquals(
-      "cd /repo/root/web && git checkout -b {$web_branch} origin/abcd",
+      "cd /repo/root && git checkout -b {$web_branch} origin/abcd",
       $commands[0],
       'Web command build with branch and GraphQL git command'
     );
 
     self::assertEquals(
-      "cd /repo/root && && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:full",
+      "cd /app/root && && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:full",
       $commands[1],
       'Web command build with branch and composer command'
     );
@@ -78,24 +82,26 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
       'va_gov_use_cms_export' => TRUE,
       'va_gov_composer_home' => '/composer/home',
       'va_gov_path_to_composer' => '/composer/file/here',
+      'va_gov_app_root' => '/app/root',
+      'va_gov_web_root' => '/repo/root',
     ];
 
     $unique_key = 'abcssss';
     $settings = new Settings($settings_array);
-    $app_root = '/app/root';
+
     /** @var \Drupal\Core\State\StateInterface $state */
     $state = $this->createMock('Drupal\Core\State\StateInterface');
     $webBuildStatus = new WebBuildStatus($state, $settings);
-    $webBuildCommandBuilder = new WebBuildCommandBuilder($app_root, $settings, $webBuildStatus);
+    $webBuildCommandBuilder = new WebBuildCommandBuilder($settings, $webBuildStatus);
 
-    $commands = $webBuildCommandBuilder->buildCommands('/repo/root', NULL, $unique_key);
+    $commands = $webBuildCommandBuilder->buildCommands(NULL, $unique_key);
     self::assertEquals(
       'cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:export',
       $commands[0],
       'Web Commands build with CMS Export'
     );
 
-    $commands = $webBuildCommandBuilder->buildCommands('/repo/root', '1234', $unique_key);
+    $commands = $webBuildCommandBuilder->buildCommands('1234', $unique_key);
     $web_branch = "build-1234-abcssss";
     self::assertEquals(
       "cd /repo/root && git fetch origin pull/1234/head:{$web_branch} && git checkout {$web_branch}",
@@ -109,7 +115,7 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
       'Web Command Build with commit and CMS Export composer command'
     );
 
-    $commands = $webBuildCommandBuilder->buildCommands('/repo/root', 'abcd', $unique_key);
+    $commands = $webBuildCommandBuilder->buildCommands('abcd', $unique_key);
     $web_branch = "build-abcd-222222-abcssss";
     self::assertEquals(
       "cd /repo/root && git checkout -b {$web_branch} origin/abcd",
@@ -134,15 +140,16 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
       'va_gov_use_cms_export' => FALSE,
       'va_gov_composer_home' => '/composer/home',
       'va_gov_path_to_composer' => '/composer/file/here',
+      'va_gov_app_root' => '/app/root',
+      'va_gov_web_root' => '/repo/root',
     ];
 
     $settings = new Settings($settings_array);
-    $app_root = '/app/root';
 
     /** @var \Drupal\Core\State\StateInterface $state */
     $state = $this->createMock('Drupal\Core\State\StateInterface');
     $webBuildStatus = new WebBuildStatus($state, $settings);
-    $webBuildCommandBuilder = new WebBuildCommandBuilder($app_root, $settings, $webBuildStatus);
+    $webBuildCommandBuilder = new WebBuildCommandBuilder($settings, $webBuildStatus);
 
     self::assertFalse(
       $webBuildCommandBuilder->useContentExport(),
@@ -153,12 +160,13 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
       'va_gov_use_cms_export' => TRUE,
       'va_gov_composer_home' => '/composer/home',
       'va_gov_path_to_composer' => '/composer/file/here',
+      'va_gov_app_root' => '/app/root',
+      'va_gov_web_root' => '/repo/root',
     ];
 
     $settings = new Settings($settings_array);
-    $app_root = '/app/root';
     $webBuildStatus = new WebBuildStatus($state, $settings);
-    $webBuildCommandBuilder = new WebBuildCommandBuilder($app_root, $settings, $webBuildStatus);
+    $webBuildCommandBuilder = new WebBuildCommandBuilder($settings, $webBuildStatus);
 
     self::assertTrue(
       $webBuildCommandBuilder->useContentExport(),
