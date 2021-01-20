@@ -1,4 +1,20 @@
-# Bulk User Import Procedure
+# CMS User Management
+
+## Login Issues
+
+### Account temporarily blocked
+
+If a user makes too many attempts to log in with an incorrect password in a short time, their account will be temporarily blocked. The following message will be displayed:
+
+> There have been more than 5 failed login attempts for this account. It is temporarily blocked. Try again later or request a new password.
+
+To resolve this issue:
+1. Log in as an administrator.
+1. Visit **Home > Administration > People > Flood Unblock**.
+1. Check the box in each row next to the user's username/email address.
+1. Click the `Remove selected items from the flood table` button.
+
+## Bulk User Import Procedure
 
 To import users:
 
