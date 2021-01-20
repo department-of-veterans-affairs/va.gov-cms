@@ -13,7 +13,10 @@ use Drupal\Component\Render\FormattableMarkup;
  */
 function va_gov_login_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == "user_login_form") {
-    $form['pass']["#description"] = FieldFilteredMarkup::create(t('Enter the password that accompanies your username, if you have an issue with your password please email the @helpdesk.', ['@helpdesk' => new FormattableMarkup('<a href="mailto:vacmssupport@va.gov">helpdesk</a>', [])]));
+    $form['pass']['#description'] = FieldFilteredMarkup::create(t('Enter the password that accompanies your username. If you have an issue with your password please contact @helpdesk.',
+      [
+        '@helpdesk' => new FormattableMarkup('<a href="https://va-gov.atlassian.net/servicedesk/customer/portal/3/group/8/create/26" target="_blank">help desk</a>', []),
+      ]));
   }
 }
 
