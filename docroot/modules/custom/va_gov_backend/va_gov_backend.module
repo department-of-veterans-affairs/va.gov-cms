@@ -1095,30 +1095,30 @@ function _va_gov_backend_smart_date_paragraph_formatting(array &$element) {
 /**
  * Implements hook_ENTITY_TYPE_update() for nodes.
  */
-function va_gov_backend_node_update(EntityInterface $entity) {
-  _va_gov_backend_set_edited_flag($entity);
+function va_gov_backend_node_update(NodeInterface $node) {
+  _va_gov_backend_set_edited_flag($node);
 }
 
 /**
  * Implements hook_ENTITY_TYPE_insert() for nodes.
  */
-function va_gov_backend_node_insert(EntityInterface $entity) {
-  _va_gov_backend_set_edited_flag($entity);
+function va_gov_backend_node_insert(NodeInterface $node) {
+  _va_gov_backend_set_edited_flag($node);
 }
 
 /**
  * Sets `edited` flag for current user for default revision of specified node.
  *
- * @param \Drupal\Core\Entity\EntityInterface $entity
- *   The entity on which the flag should be set.
+ * @param \Drupal\node\NodeInterface $node
+ *   The node on which the flag should be set.
  */
-function _va_gov_backend_set_edited_flag(EntityInterface $entity) {
-  $account = $entity->getRevisionUser();
-  if (!$account->isAnonymous()) {
+function _va_gov_backend_set_edited_flag(NodeInterface $node) {
+  $account = $node->getRevisionUser();
+  if ($account && !$account->isAnonymous()) {
     $flag_service = \Drupal::service('flag');
     $flag = $flag_service->getFlagById('edited');
-    if (!$flag_service->getFlagging($flag, $entity, $account)) {
-      $flag_service->flag($flag, $entity, $account);
+    if (!$flag_service->getFlagging($flag, $node, $account)) {
+      $flag_service->flag($flag, $node, $account);
     }
   }
 }
