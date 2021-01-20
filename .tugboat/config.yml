@@ -21,11 +21,15 @@ services:
     commands:
       # Commands that set up the basic preview infrastructure
       init:
-        # Install Python
+        - apt-get update
+
         # TODO: Add "Why" comment for Python, was this for the FE dependencies `yarn install`, if so which dependencies
         # so we can remove if they are removed in the future.
-        - apt-get update
         - apt-get install python
+
+        # cypress-axe dependencies - https://docs.cypress.io/guides/getting-started/installing-cypress.html#System-requirements
+        - apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+
         # Install opcache, and Apache modules
         - docker-php-ext-install opcache
         - a2enmod headers rewrite vhost_alias
@@ -125,10 +129,10 @@ services:
       online:
         # We only want tests running on PRs, not branches like the base preview build of master.
         # This sets the commit status checks to pending all at once.
-        - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then composer yaml-test va/web/build va/tests; fi
+        - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then composer yaml-tests va/web/build va/tests; fi
 
         # Do run the WEB build if on a branch, tag or commit so the `web-*` prefix works.
-        - if [ "$TUGBOAT_PREVIEW_TYPE" != "pullrequest" ]; then composer yaml-test va/web/build --dry-run; fi
+        - if [ "$TUGBOAT_PREVIEW_TYPE" != "pullrequest" ]; then composer yaml-tests va/web/build --dry-run; fi
 
         # Set file permissions so web based build calls work.  This must run after all web builds are done in tests.
         - chown -R www-data:www-data "${DOCROOT}/vendor/va-gov/web"

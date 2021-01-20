@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_help_center.module.
+ */
+
+use Drupal\Core\Url;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_toolbar().
+ */
+function va_gov_help_center_toolbar() {
+  $items = [];
+
+  // Adds a link to CMS help center to the top level of admin toolbar.
+  $items['help-center'] = [
+    '#type' => 'toolbar_item',
+    '#weight' => 1,
+    'tab' => [
+      '#type' => 'link',
+      '#url' => Url::fromRoute('entity.node.canonical', ['node' => 6454]),
+      '#title' => t('Help'),
+      '#attributes' => [
+        'class' => ['toolbar-icon', 'toolbar-icon-help'],
+      ],
+    ],
+  ];
+
+  return $items;
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function va_gov_help_center_page_attachments(array &$attachments) {
+  $route_name = \Drupal::request()->attributes->get('_route');
+  if ($route_name === 'user.login') {
+    // Attach Jira Service Desk widget library to user login route.
+    $attachments['#attached']['library'][] = 'va_gov_help_center/helpdesk-widget';
+  }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function va_gov_help_center_preprocess_page(array &$variables) : void {
+  $node = $variables['node'] ?? NULL;
+
+  if ($node instanceof NodeInterface) {
+    $type = $node->getType();
+    if ($type === 'documentation_page' && $node->id() != 6454) {
+      // Attach Jira Service Desk widget library to all nodes of type
+      // `documentation_page` with an exception of CMS Help Center homepage -
+      // NID 6454.
+      $variables['#attached']['library'][] = 'va_gov_help_center/helpdesk-widget';
+    }
+  }
+}
