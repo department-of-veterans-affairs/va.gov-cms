@@ -1093,6 +1093,37 @@ function _va_gov_backend_smart_date_paragraph_formatting(array &$element) {
 }
 
 /**
+ * Implements hook_ENTITY_TYPE_update() for nodes.
+ */
+function va_gov_backend_node_update(EntityInterface $entity) {
+  _va_gov_backend_set_edited_flag($entity);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert() for nodes.
+ */
+function va_gov_backend_node_insert(EntityInterface $entity) {
+  _va_gov_backend_set_edited_flag($entity);
+}
+
+/**
+ * Sets `edited` flag for current user for default revision of specified node.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity on which the flag should be set.
+ */
+function _va_gov_backend_set_edited_flag(EntityInterface $entity) {
+  $account = $entity->getRevisionUser();
+  if (!$account->isAnonymous()) {
+    $flag_service = \Drupal::service('flag');
+    $flag = $flag_service->getFlagById('edited');
+    if (!$flag_service->getFlagging($flag, $entity, $account)) {
+      $flag_service->flag($flag, $entity, $account);
+    }
+  }
+}
+
+/**
  * Implements hook_field_widget_WIDGET_TYPE_form_alter().
  */
 function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
