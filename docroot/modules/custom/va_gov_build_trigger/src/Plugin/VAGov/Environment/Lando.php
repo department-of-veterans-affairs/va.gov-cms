@@ -66,7 +66,7 @@ class Lando extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild(string $front_end_git_ref = NULL, $full_rebuild = FALSE): void {
+  public function triggerFrontendBuild($front_end_git_ref = NULL, $full_rebuild = FALSE): void {
     /** @var \Drupal\advancedqueue\Entity\QueueInterface $queue */
     $queue = $this->queueLoader->load('command_runner');
 
