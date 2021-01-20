@@ -9,9 +9,9 @@ use Drupal\Core\Site\Settings;
  */
 class WebBuildCommandBuilder {
 
-  public const USE_CMS_EXPORT_SETTING = 'va_gov_use_cms_export';
   public const COMPOSER_HOME = 'va_gov_composer_home';
   public const PATH_TO_COMPOSER = 'va_gov_path_to_composer';
+  public const APP_ROOT = 'va_gov_app_root';
 
   /**
    * App Root.
@@ -44,16 +44,14 @@ class WebBuildCommandBuilder {
   /**
    * WebBuildCommandBuilder constructor.
    *
-   * @param string $appRoot
-   *   Drupal App Root.
    * @param \Drupal\Core\Site\Settings $settings
    *   Drupal settings.
    * @param \Drupal\va_gov_build_trigger\WebBuildStatusInterface $webBuildStatus
    *   WebBuild status.
    */
-  public function __construct(string $appRoot, Settings $settings, WebBuildStatusInterface $webBuildStatus) {
-    $this->appRoot = $appRoot;
+  public function __construct(Settings $settings, WebBuildStatusInterface $webBuildStatus) {
     $this->useContentExport = $webBuildStatus->useContentExport();
+    $this->appRoot = $settings->get(static::APP_ROOT, '');
     $this->composerHome = $settings->get(static::COMPOSER_HOME, '');
     $this->pathToComposer = $settings->get(static::PATH_TO_COMPOSER, '');
   }

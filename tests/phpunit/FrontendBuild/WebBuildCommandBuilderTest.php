@@ -96,7 +96,7 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
     );
 
     $commands = $webBuildCommandBuilder->buildCommands('/repo/root', '1234', $unique_key);
-    $web_branch = "build-1234-222222-abcssss";
+    $web_branch = "build-1234-abcssss";
     self::assertEquals(
       "cd /repo/root && git fetch origin pull/1234/head:{$web_branch} && git checkout {$web_branch}",
       $commands[0],

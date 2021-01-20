@@ -18,4 +18,4 @@ services:
       - { name: event_subscriber }
   va_gov.build_trigger.web_build_command_builder:
     class: Drupal\va_gov_build_trigger\WebBuildCommandBuilder
-    arguments: ['@app.root', '@settings', '@va_gov.build_trigger.web_build_status']
+    arguments: ['@settings', '@va_gov.build_trigger.web_build_status']
