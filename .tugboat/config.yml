@@ -105,6 +105,7 @@ services:
       # and update steps, because the results of those are inherited
       # from the base preview.
       build:
+        - echo "Beginning of build section."
         # Currently resetting to the remote branch/PR SHA since yaml-tasks runs tests status against this commit.
         # Tugboat currently merges the branch into master and we don't need that because we have a GitHub branch rule
         # setup to ensure branch is up to date.
