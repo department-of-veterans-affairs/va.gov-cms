@@ -84,6 +84,7 @@ services:
       # skipping the init step, because the results of that step will
       # already be present.
       update:
+        - echo "Beginning of update section."
         # Install/update packages managed by composer, including drush.
         - composer install --optimize-autoloader --apcu-autoloader
         - composer va:web:install
