@@ -37,7 +37,7 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
 
     $commands = $webBuildCommandBuilder->buildCommands(NULL, $unique_key);
     self::assertEquals(
-      'cd /app/root && && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build',
+      'cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build',
       $commands[0],
       'Web Commands build with GraphQL'
     );
@@ -51,7 +51,7 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
     );
 
     self::assertEquals(
-      "cd /app/root && && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:full",
+      "cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:full",
       $commands[1],
       'Web Command Build with commit and GraphQL composer command'
     );
