@@ -697,12 +697,12 @@
             "version": "v1.4.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/clue/php-stream-filter.git",
+                "url": "https://github.com/clue/stream-filter.git",
                 "reference": "5a58cc30a8bd6a4eb8f856adf61dd3e013f53f71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clue/php-stream-filter/zipball/5a58cc30a8bd6a4eb8f856adf61dd3e013f53f71",
+                "url": "https://api.github.com/repos/clue/stream-filter/zipball/5a58cc30a8bd6a4eb8f856adf61dd3e013f53f71",
                 "reference": "5a58cc30a8bd6a4eb8f856adf61dd3e013f53f71",
                 "shasum": ""
             },
@@ -18844,16 +18844,16 @@
         },
         {
             "name": "va-gov/web",
-            "version": "v0.1.1227",
+            "version": "v0.1.1234",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
-                "reference": "aa415acfd1bbde176ff723fc4c4c1cd2e6876efc"
+                "reference": "a18df6814aca6d86f3e94fadefcd6bf291e1b663"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/aa415acfd1bbde176ff723fc4c4c1cd2e6876efc",
-                "reference": "aa415acfd1bbde176ff723fc4c4c1cd2e6876efc",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/a18df6814aca6d86f3e94fadefcd6bf291e1b663",
+                "reference": "a18df6814aca6d86f3e94fadefcd6bf291e1b663",
                 "shasum": ""
             },
             "type": "node-project",
@@ -18878,7 +18878,7 @@
                 }
             ],
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
-            "time": "2021-01-13T17:26:43+00:00"
+            "time": "2021-01-19T21:00:55+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -21318,6 +21318,11 @@
                 "squizlabs/php_codesniffer": "^2.7"
             },
             "type": "library",
+            "extra": {
+                "patches_applied": {
+                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "TravisCarden\\BehatTableComparison\\": "src/BehatTableComparison/"
@@ -21338,12 +21343,7 @@
                 "Behat",
                 "gherkin"
             ],
-            "time": "2018-07-03T17:42:23+00:00",
-            "extra": {
-                "patches_applied": {
-                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
-                }
-            }
+            "time": "2018-07-03T17:42:23+00:00"
         },
         {
             "name": "vipnytt/robotstxtparser",
@@ -21537,6 +21537,7 @@
         "drupal/mass_pwreset": 15,
         "drupal/migrate_source_ui": 5,
         "drupal/openapi": 10,
+        "drupal/paragraphs_browser": 15,
         "drupal/password_policy": 15,
         "drupal/password_strength": 15,
         "drupal/path_redirect_import": 10,
