@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_build_trigger\Plugin\VAGov\Environment;
 
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\va_gov_build_trigger\CommandExportable;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
 use Drupal\va_gov_build_trigger\Form\LandoBuildTriggerForm;
 use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
@@ -22,6 +23,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class Lando extends EnvironmentPluginBase {
   use CommandRunner;
   use QueueHelper;
+  use CommandExportable;
 
   /**
    * The queue storage manager.
@@ -69,20 +71,12 @@ class Lando extends EnvironmentPluginBase {
     $queue = $this->queueLoader->load('command_runner');
 
     if ($full_rebuild && $this->webBuildCommandBuilder->useContentExport()) {
-      $commands = [
-        $this->webBuildCommandBuilder->buildComposerCommand(
-          'va:web:export:content'
-        ),
-      ];
-
+      $commands = [$this->getExportCommand()];
       $this->queueCommands($commands, $queue);
     }
 
-    $commands = $this->webBuildCommandBuilder->buildCommands(
-      '/app',
-      $front_end_git_ref
-    );
-
+    // A new command variable since the rebuild commands has been queued.
+    $commands = $this->webBuildCommandBuilder->buildCommands($front_end_git_ref);
     $this->queueCommands($commands, $queue);
 
     $this->messenger()->addStatus('A request to rebuild the front end has been submitted.');

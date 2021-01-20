@@ -64,5 +64,6 @@ $webhost_on_cli = getenv('DRUPAL_ADDRESS');
 // file exists.  You will need to copy the file from the same path on prod.
 $config['migrate_plus.migration.va_node_form']['source']['urls'] = [$webhost_on_cli . '/sites/default/files/migrate_source/va_forms_data.csv'];
 $settings['va_gov_frontend_url'] = getenv('FRONTEND_ADDRESS');
-
+$settings['va_gov_frontend_build_type'] = 'tugboat';
 $settings['va_gov_app_root'] = getenv('TUGBOAT_ROOT');
+$settings['va_gov_web_root'] = getenv('DOCROOT') . '/web';

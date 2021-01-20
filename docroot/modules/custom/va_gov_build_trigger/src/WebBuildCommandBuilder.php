@@ -12,6 +12,7 @@ class WebBuildCommandBuilder {
   public const COMPOSER_HOME = 'va_gov_composer_home';
   public const PATH_TO_COMPOSER = 'va_gov_path_to_composer';
   public const APP_ROOT = 'va_gov_app_root';
+  public const WEB_ROOT = 'va_gov_web_root';
 
   /**
    * App Root.
@@ -42,6 +43,13 @@ class WebBuildCommandBuilder {
   protected $pathToComposer;
 
   /**
+   * Path to Web root.
+   *
+   * @var string
+   */
+  protected $pathToWebRoot;
+
+  /**
    * WebBuildCommandBuilder constructor.
    *
    * @param \Drupal\Core\Site\Settings $settings
@@ -54,13 +62,12 @@ class WebBuildCommandBuilder {
     $this->appRoot = $settings->get(static::APP_ROOT, '');
     $this->composerHome = $settings->get(static::COMPOSER_HOME, '');
     $this->pathToComposer = $settings->get(static::PATH_TO_COMPOSER, '');
+    $this->pathToWebRoot = $settings->get(static::WEB_ROOT, '');
   }
 
   /**
    * Build an array of commands to run for the web build.
    *
-   * @param string $repo_root
-   *   The path to the repository root.
    * @param string|null $front_end_git_ref
    *   Front end git reference to build (branch name or PR number)
    * @param string|null $unique_key
@@ -69,12 +76,12 @@ class WebBuildCommandBuilder {
    * @return array
    *   An array of commands to run for a build.
    */
-  public function buildCommands(string $repo_root, string $front_end_git_ref = NULL, string $unique_key = NULL) : array {
+  public function buildCommands(string $front_end_git_ref = NULL, string $unique_key = NULL) : array {
     $commands = [];
 
     $unique_key = $unique_key ?? (string) time();
     $composer_command = $this->commandName();
-    if ($command = $this->getFrontEndGitReferenceCheckoutCommand($repo_root, $unique_key, $front_end_git_ref)) {
+    if ($command = $this->getFrontEndGitReferenceCheckoutCommand($this->getPathToWebRoot(), $unique_key, $front_end_git_ref)) {
       $commands[] = $command;
       $commands[] = $this->buildComposerCommand('va:web:install');
     }
@@ -130,8 +137,8 @@ class WebBuildCommandBuilder {
    * @param string|null $front_end_git_ref
    *   Front end git reference to build (branch name or PR number)
    *
-   * @return array
-   *   An array of commands to run for a build.
+   * @return string
+   *   The command to run to checkout the repo.
    */
   protected function getFrontEndGitReferenceCheckoutCommand(string $repo_root, string $unique_key, string $front_end_git_ref = NULL) : string {
     $web_branch = "build-{$front_end_git_ref}-{$unique_key}";
@@ -155,6 +162,46 @@ class WebBuildCommandBuilder {
    */
   public function useContentExport() : bool {
     return $this->useContentExport;
+  }
+
+  /**
+   * Path to App Root.
+   *
+   * @return string
+   *   Path to App Root.
+   */
+  public function getAppRoot(): string {
+    return $this->appRoot;
+  }
+
+  /**
+   * Path to Composer Home.
+   *
+   * @return string
+   *   Path to composer home.
+   */
+  public function getComposerHome(): string {
+    return $this->composerHome;
+  }
+
+  /**
+   * Path to composer executable.
+   *
+   * @return string
+   *   Path to composer executable.
+   */
+  public function getPathToComposer(): string {
+    return $this->pathToComposer;
+  }
+
+  /**
+   * Path to Web Root.
+   *
+   * @return string
+   *   Path to web root.
+   */
+  public function getPathToWebRoot(): string {
+    return $this->pathToWebRoot;
   }
 
 }

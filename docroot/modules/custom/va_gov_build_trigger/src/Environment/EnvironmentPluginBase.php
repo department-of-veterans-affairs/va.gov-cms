@@ -73,4 +73,11 @@ abstract class EnvironmentPluginBase extends PluginBase implements EnvironmentIn
     return Settings::get('va_gov_frontend_url') ?? 'https://www.va.gov';
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  protected function getWebBuildCommandBuilder(): WebBuildCommandBuilder {
+    return $this->webBuildCommandBuilder;
+  }
+
 }
