@@ -25,7 +25,7 @@ interface EnvironmentInterface extends PluginInspectionInterface {
    * @param bool $full_rebuild
    *   Trigger a full rebuild of the content.
    */
-  public function triggerFrontendBuild($front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void;
+  public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void;
 
   /**
    * Should this environment trigger a frontend content deploy?
