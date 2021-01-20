@@ -21,6 +21,7 @@ services:
     commands:
       # Commands that set up the basic preview infrastructure
       init:
+        - echo "Beginning of init stage."
         - apt-get update
 
         # TODO: Add "Why" comment for Python, was this for the FE dependencies `yarn install`, if so which dependencies
