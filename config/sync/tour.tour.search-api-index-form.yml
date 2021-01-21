@@ -1,0 +1,71 @@
+uuid: 98551ce9-bfe5-4535-8b4f-bb76f225e390
+langcode: en
+status: true
+dependencies:
+  module:
+    - search_api
+_core:
+  default_config_hash: TK3PjpP4I6WFh5JDY_L_c5XCiTyAZBBA9z0M9pcGjzo
+id: search-api-index-form
+label: 'Add or edit a Search API index'
+module: search_api
+routes:
+  -
+    route_name: entity.search_api_index.add_form
+  -
+    route_name: entity.search_api_index.edit_form
+tips:
+  search-api-index-form-introduction:
+    id: search-api-index-form-introduction
+    plugin: text
+    label: 'Adding or editing an index'
+    body: 'This form can be used to edit an existing index or add a new index to your site. Indexes define a set of data that will be indexed and can then be searched.'
+    weight: 1
+  search-api-index-form-name:
+    id: search-api-index-form-name
+    plugin: text
+    label: 'Index name'
+    body: 'Enter a name to identify this index. For example, "Content index". This will only be displayed in the admin user interface.'
+    weight: 2
+    attributes:
+      data-id: edit-name
+  search-api-index-form-datasources:
+    id: search-api-index-form-datasources
+    plugin: text
+    label: Datasources
+    body: 'Datasources define the types of items that will be indexed in this index. By default, all content entities (like content, comments and taxonomy terms) will be available here, but modules can also add their own.'
+    weight: 3
+    attributes:
+      data-id: edit-datasources
+  search-api-index-form-tracker:
+    id: search-api-index-form-tracker
+    plugin: text
+    label: Tracker
+    body: 'An index''s tracker is the system that keeps track of which items there are available for the index, and which of them still need to be indexed. Changing the tracker of an existing index will lead to reindexing of all items.'
+    weight: 4
+    attributes:
+      data-id: edit-tracker
+  search-api-index-form-server:
+    id: search-api-index-form-server
+    plugin: text
+    label: Server
+    body: 'The search server that the index should use for indexing and searching. If no server is selected here, the index cannot be enabled. An index can only have one server, but a server can have any number of indexes.'
+    weight: 5
+    attributes:
+      data-id: edit-server
+  search-api-index-form-description:
+    id: search-api-index-form-description
+    plugin: text
+    label: 'Index description'
+    body: 'Optionally, enter a description to explain the function of the index in more detail. This will only be displayed in the admin user interface.'
+    weight: 6
+    attributes:
+      data-id: edit-description
+  search-api-index-form-options:
+    id: search-api-index-form-options
+    plugin: text
+    label: 'Advanced options'
+    body: 'These options allow more detailed configuration of index behavior, but can usually safely be ignored by inexperienced users.'
+    weight: 7
+    attributes:
+      data-id: edit-options

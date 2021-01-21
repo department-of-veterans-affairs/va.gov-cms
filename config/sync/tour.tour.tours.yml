@@ -1,0 +1,49 @@
+uuid: d8bba251-d8ff-4cca-bc77-77ffd9880e8e
+langcode: en
+status: true
+dependencies:
+  module:
+    - tour_ui
+_core:
+  default_config_hash: gf2gD8a95uMUFNpgHV2uERiG22n9g6__okOkgFkvhTY
+id: tours
+label: Tours
+module: tour_ui
+routes:
+  -
+    route_name: entity.tour.collection
+tips:
+  getting-started:
+    id: getting-started
+    plugin: text
+    label: 'Getting started'
+    weight: -100
+    attributes: {  }
+    body: 'On this page you can manage tours.'
+    location: top
+  adding-tours:
+    id: adding-tours
+    plugin: text
+    label: 'Adding tours'
+    weight: -100
+    attributes:
+      data-class: 'action-links a[href="/admin/config/user-interface/tour/add"]'
+    body: "When adding Tours you need to know on what page(s) more specific route(s) they must be present.\r\n\r\n<h3>Routes</h3>\r\n\r\nYou can install the <a href=\"https://www.drupal.org/project/tour_ui\">Devel</a> module then visit <a href=\"/devel/routes\">/devel/routes</a> to find the Route by entering the URL path on that page."
+    location: top
+  edit-tour:
+    id: edit-tour
+    plugin: text
+    label: 'Edit tour'
+    weight: -100
+    attributes:
+      data-class: dropbutton-action
+    body: '<p>Here you can choose what actions to apply to your tour.</p><p>When installing <a href="https://www.drupal.org/project/tour_builder">Tour Builder</a> you can ie clone tours.</p>'
+    location: left
+  share-tours:
+    id: share-tours
+    plugin: text
+    label: 'Share Tours'
+    weight: -100
+    attributes: {  }
+    body: "After creating or updating a Tour you maybe want to share it.\r\n\r\n<h3>Configuration management</h3>\r\n\r\nYou can export a single item as a YAML file. Make sure not to share the <strong>uuid</strong> row and <strong>_core</strong> values\r\n\r\n<h3>Tour builder</h3>\r\n\r\nYou can also use the <a href=\"https://www.drupal.org/project/tour_builder\">Tour Builder</a> module which tries to ease the export and patch workflow."
+    location: top

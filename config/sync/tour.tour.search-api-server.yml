@@ -1,0 +1,53 @@
+uuid: 0a5f08bb-6b14-4c1a-b4fe-75139484b673
+langcode: en
+status: true
+dependencies:
+  module:
+    - search_api
+_core:
+  default_config_hash: j-YgGnx-C5I3OTFsDsNkTyPC8zH7ZQyBMvmZ6gUMH3Q
+id: search-api-server
+label: 'Information about a server'
+module: search_api
+routes:
+  -
+    route_name: entity.search_api_server.canonical
+tips:
+  search-api-server-introduction:
+    id: search-api-server-introduction
+    plugin: text
+    label: 'Information about a server'
+    body: 'This page shows a summary of a search server.'
+    weight: 1
+  search-api-server-status:
+    id: search-api-server-status
+    plugin: text
+    label: Status
+    body: 'Shows whether the server is currently enabled or disabled.'
+    weight: 2
+    attributes:
+      data-class: search-api-server-summary--status
+  search-api-server-backend:
+    id: search-api-server-backend
+    plugin: text
+    label: 'Backend class'
+    body: 'The backend plugin used for this server. The backend plugin determines how items are indexed and searched – for example, using the database or an Apache Solr server.'
+    weight: 3
+    attributes:
+      data-class: search-api-server-summary--backend
+  search-api-server-indexes:
+    id: search-api-server-indexes
+    plugin: text
+    label: 'Search indexes'
+    body: 'Lists all search indexes that are attached to this server.'
+    weight: 4
+    attributes:
+      data-class: search-api-server-summary--indexes
+  search-api-server-clear:
+    id: search-api-server-clear
+    plugin: text
+    label: 'Delete all indexed data'
+    body: 'This will permanently remove all data currently indexed on this server for indexes that aren''t read-only. Items are queued for reindexing. Until reindexing occurs, searches for the affected indexes will not return any results.'
+    weight: 5
+    attributes:
+      data-id: edit-clear

@@ -1,0 +1,30 @@
+uuid: 38418dad-36ee-4f8a-929b-43ec88626f1f
+langcode: en
+status: true
+dependencies:
+  module:
+    - tour_UI
+id: clp
+label: CLP
+module: tour_UI
+routes:
+  -
+    route_name: node.add
+tips:
+  getting-started:
+    id: getting-started
+    plugin: text
+    label: 'Getting started'
+    weight: -100
+    attributes: null
+    body: 'On this page you can create content'
+    location: top
+  governance:
+    id: governance
+    plugin: text
+    label: Governance
+    weight: -100
+    attributes:
+      data-id: edit-group-governance
+    body: 'This determines who can edit! This can have HTML and images too. <img src="https://i.guim.co.uk/img/media/8282695e7f658f7c8e708290c93f14b84f0c8a68/0_483_3600_2161/master/3600.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=acfcc7c8fb733c6a4a2185c337500247">'
+    location: top
