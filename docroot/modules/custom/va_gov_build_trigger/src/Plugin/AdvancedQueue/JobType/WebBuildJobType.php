@@ -73,7 +73,7 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
    *   The process object.
    */
   protected function processCallback(Process $process) : void {
-    $this->logger->info($process->getOutput());
+    $this->logger->info(nl2br($process->getOutput()));
   }
 
   /**
@@ -89,7 +89,7 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
 
     if ($messages) {
       foreach ($messages as $message) {
-        $this->logger->error($message);
+        $this->logger->error(nl2br($message));
       }
 
       return JobResult::failure();
