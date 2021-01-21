@@ -1115,10 +1115,12 @@ function va_gov_backend_node_insert(NodeInterface $node) {
 function _va_gov_backend_set_edited_flag(NodeInterface $node) {
   $account = $node->getRevisionUser();
   if ($account && !$account->isAnonymous()) {
-    $flag_service = \Drupal::service('flag');
-    $flag = $flag_service->getFlagById('edited');
-    if (!$flag_service->getFlagging($flag, $node, $account)) {
-      $flag_service->flag($flag, $node, $account);
+    if (\Drupal::hasService('flag')) {
+      $flag_service = \Drupal::service('flag');
+      $flag = $flag_service->getFlagById('edited');
+      if ($flag && !$flag_service->getFlagging($flag, $node, $account)) {
+        $flag_service->flag($flag, $node, $account);
+      }
     }
   }
 }
