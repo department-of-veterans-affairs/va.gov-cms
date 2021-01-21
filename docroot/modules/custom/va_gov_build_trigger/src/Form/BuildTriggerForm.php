@@ -4,8 +4,6 @@ namespace Drupal\va_gov_build_trigger\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Link;
-use Drupal\Core\Url;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 use Drupal\va_gov_build_trigger\Service\BuildFrontend;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
@@ -86,22 +84,34 @@ class BuildTriggerForm extends FormBase {
     $target = $this->environmentDiscovery->getWebUrl();
 
     $form['#title'] = $this->t('Manual content release');
+    $form['#attached']['library'][] = 'va_gov_build_trigger/build_trigger_form';
 
-    $form['actions']['#type'] = 'actions';
     $form['help_1'] = [
       '#prefix' => '<p>',
-      '#markup' => $this->t('This is a decoupled Drupal website. Content will not be visible on the Front End until a "Content Release" is made to an environment.'),
+      '#markup' => $this->t('Any content you set to Published will automatically go live on VA.gov during the daily content release. However, if you need your content to go live sooner, you can perform a manual content release here.'),
+      '#suffix' => '</p>',
+      '#weight' => -10,
+    ];
+    $form['help_2'] = [
+      '#prefix' => '<p>',
+      '#markup' => $this->t('Content release can take up to 15 minutes to finish.'),
       '#suffix' => '</p>',
       '#weight' => -10,
     ];
 
+    $form['actions']['#type'] = 'actions';
+    $form['actions']['confirm'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('I understand that all VA content set to Published will go live once the release is finished.'),
+    ];
     $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Release content'),
+      '#value' => $this->t('Release content now'),
       '#button_type' => 'primary',
-      '#suffix' => ' ' . t('to %site', [
-        '%site' => $target,
-      ]),
+      '#attributes' => ['class' => ['is-disabled']],
+      '#states' => [
+        'disabled' => [':input[name="confirm"]' => ['checked' => FALSE]],
+      ],
     ];
 
     if ($this->webBuildStatus->getWebBuildStatus()) {
@@ -111,16 +121,6 @@ class BuildTriggerForm extends FormBase {
       $form['tip']['#suffix'] = '</em>';
       $form['tip']['#weight'] = 100;
     }
-
-    $target_url = Url::fromUri($target, ['attributes' => ['target' => '_blank']]);
-    $target_link = Link::fromTextAndUrl($target, $target_url);
-    $description = $this->t('Environment not detected. Perform a content release by running the <pre>composer va:web:build</pre> command.');
-    $form['environment_target'] = [
-      '#type' => 'item',
-      '#title' => $this->t('Environment Target'),
-      '#markup' => $target_link->toString(),
-      '#description' => $description,
-    ];
 
     return $form;
   }
