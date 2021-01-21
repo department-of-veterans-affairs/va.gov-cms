@@ -85,6 +85,8 @@ class BuildTriggerForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $target = $this->environmentDiscovery->getWebUrl();
 
+    $form['#title'] = $this->t('Manual content release');
+
     $form['actions']['#type'] = 'actions';
     $form['help_1'] = [
       '#prefix' => '<p>',
