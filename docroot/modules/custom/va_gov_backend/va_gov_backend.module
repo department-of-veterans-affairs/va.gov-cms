@@ -19,6 +19,7 @@ use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\node\NodeInterface;
+use Drupal\taxonomy\TermInterface;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 use Drupal\va_gov_build_trigger\Form\PreviewForm;
@@ -647,24 +648,15 @@ function _va_gov_backend_unset_fields(EntityInterface $entity) {
 }
 
 /**
- * Returns the content types that need alias locked upon publish.
+ * Returns the content types that do not need alias locked upon publish.
  *
  * @return array
  *   Node types that should have their alias locked upon publishing.
  */
-function _va_gov_backend_get_locked_alias_bundles() {
+function _va_gov_backend_get_unlocked_alias_bundles() {
 
-  return [
-    'basic_landing_page',
-    'checklist',
-    'faq_multiple_q_a',
-    'media_list_images',
-    'media_list_videos',
-    'q_a',
-    'step_by_step',
-    'support_resources_detail_page',
-    'va_form',
-  ];
+  // Insert into array bundles that do not need alias locked upon publish.
+  return [];
 }
 
 /**
@@ -719,19 +711,22 @@ function _va_gov_backend_appt_intro_text_validation(array $form, FormStateInterf
  *   Instance of FormStateInterface.
  */
 function _va_gov_disable_alias_widget(array &$form, FormStateInterface $form_state) {
-  if ($form_state->getFormObject() instanceof EntityFormInterface) {
-    $bundle = $form_state->getformObject()->getEntity()->bundle();
-    if (in_array($bundle, _va_gov_backend_get_locked_alias_bundles())) {
-      $entity_id = $form_state->getformObject()->getEntity()->id();
-      if (!empty($entity_id)) {
-        $entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity_id);
-        // If it's published the alias widget is unchecked
-        // to disallow auto path updating.
-        if ($entity->isPublished() === TRUE) {
-          $form['#after_build'][] = '_va_gov_backend_node_after_build_uncheck_auto_alias';
-        }
-      }
-    }
+  if (!($form_state->getFormObject() instanceof EntityFormInterface)) {
+    return;
+  }
+
+  $entity = $form_state->getformObject()->getEntity();
+
+  if (!($entity instanceof TermInterface) && !($entity instanceof NodeInterface)) {
+    return;
+  }
+
+  // If entity is not ignored and entity is published
+  // and entity is not new then unchecked the generate automatic URL alias
+  // to disallow auto path updating.
+  if (!in_array($entity->bundle(), _va_gov_backend_get_unlocked_alias_bundles()) &&
+    $entity->isPublished() && !$entity->isNew()) {
+    $form['#after_build'][] = '_va_gov_backend_node_after_build_uncheck_auto_alias';
   }
 }
 
@@ -1707,7 +1702,7 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
     _va_gov_backend_sync_wysiwyg_fields($entity);
   }
 
-  if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), _va_gov_backend_get_locked_alias_bundles())) {
+  if ($entity->getEntityTypeId() === 'node' && !in_array($entity->bundle(), _va_gov_backend_get_unlocked_alias_bundles())) {
     _va_gov_backend_disable_autopath_alias($entity);
   }
 
@@ -1773,7 +1768,7 @@ function _va_gov_backend_apply_filter_to_tablefield_cells(EntityInterface $entit
 }
 
 /**
- * Determine if pathauto alias should be enable on node.
+ * Determine if pathauto alias should be enabled on node.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   The node to check for disabling pathauto alias pattern.
