@@ -80,7 +80,7 @@ class WebBuildCommandBuilder {
     $commands = [];
 
     $unique_key = $unique_key ?? (string) time();
-    $composer_command = $this->commandName();
+    $composer_command = $this->commandName($front_end_git_ref);
     if ($command = $this->getFrontEndGitReferenceCheckoutCommand($this->getPathToWebRoot(), $unique_key, $front_end_git_ref)) {
       $commands[] = $command;
       $commands[] = $this->buildComposerCommand('va:web:install');
