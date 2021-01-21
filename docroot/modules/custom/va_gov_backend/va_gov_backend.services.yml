@@ -9,3 +9,8 @@ services:
   va_gov_backend.va_gov_url:
     class: Drupal\va_gov_backend\Service\VaGovUrl
     arguments: ['@http_client', '@settings', '@va_gov.build_trigger.environment_discovery']
+  va_gov_backend.edited_flag_entity_event_subscriber:
+    class: Drupal\va_gov_backend\Event\Entity\EditedFlag
+    arguments: [ '@flag' ]
+    tags:
+      - { name: event_subscriber }
