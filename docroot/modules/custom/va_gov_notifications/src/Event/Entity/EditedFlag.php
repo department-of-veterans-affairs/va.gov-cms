@@ -1,12 +1,13 @@
 <?php
 
-namespace Drupal\va_gov_backend\Event\Entity;
+namespace Drupal\va_gov_notifications\Event\Entity;
 
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\flag\FlagServiceInterface;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\node\NodeInterface;
+use Drupal\va_gov_notifications\Service\FlagDecisionsInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -22,28 +23,34 @@ class EditedFlag implements EventSubscriberInterface {
   protected $flagService;
 
   /**
-   * Constructor.
+   * The flag decisions service.
    *
-   * @param \Drupal\flag\FlagServiceInterface $flagService
-   *   The flag service.
+   * @var \Drupal\va_gov_notifications\FlagDecisionsInterface
    */
-  public function __construct(FlagServiceInterface $flagService) {
+  protected $flagDecisions;
+
+  /**
+   * Constructor.
+   */
+  public function __construct(
+    FlagServiceInterface $flagService,
+    FlagDecisionsInterface $flagDecisions
+  ) {
     $this->flagService = $flagService;
+    $this->flagDecisions = $flagDecisions;
   }
 
   /**
-   * Sets `edited` flag for current user for default revision of specified node.
+   * Sets `edited` flag for the revision user for the specified node.
    *
    * @param \Drupal\node\NodeInterface $node
    *   The node on which the flag should be set.
    */
   public function setEditedFlag(NodeInterface $node): void {
-    $account = $node->getRevisionUser();
-    if ($account && !$account->isAnonymous()) {
+    $user = $node->getRevisionUser();
+    if ($this->flagDecisions->shouldSetEditedFlag($node, $user)) {
       $flag = $this->flagService->getFlagById('edited');
-      if ($flag && !$this->flagService->getFlagging($flag, $node, $account)) {
-        $this->flagService->flag($flag, $node, $account);
-      }
+      $this->flagService->flag($flag, $node, $user);
     }
   }
 
