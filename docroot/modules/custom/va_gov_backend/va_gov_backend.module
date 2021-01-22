@@ -1486,7 +1486,7 @@ function _va_gov_backend_gtm_settings() {
     $section_scheme = \Drupal::entityTypeManager()->getStorage('access_scheme')->load('section');
     $user_sections = \Drupal::service('workbench_access.user_section_storage')->getUserSections($section_scheme, $user);
     if (in_array('administration', $user_sections)) {
-      $sections['userSection'] = 'all';
+      $sections['userSections'] = 'all';
     }
     else {
       $joined_sections = implode(',', $user_sections);
