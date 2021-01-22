@@ -126,7 +126,7 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
    *   Object containing current form state.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $front_end_branch = $form_state->getValue('front_end_branch');
+    $front_end_branch = $form_state->getValue('branch');
     $full_rebuild = (bool) $form_state->getValue('full_rebuild');
     $git_ref = NULL;
     if ($front_end_branch && preg_match("/.+\\s\\(([^\\)]+)\\)/", $front_end_branch, $matches)) {
