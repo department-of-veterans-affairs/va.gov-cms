@@ -12,10 +12,31 @@ Tugboat is a fast, modern Preview Environment creation tool based on containers 
 1. After the GitHub comment is posted with your environment links, tests will start running and the checks in the GitHub status check section will switch from "Expected" to "Pending", this test run step will take closer to 30+ minutes to complete.
 
 **Getting started with CMS Demo Preview Environments **
-TODO ...
-    
+
 1. Demo Preview Environments that are inactive for 30 days are subject to deletion. Run the "Lock" operation to prevent this from happening. 
-1. Demo environments must follow this naming pattern: TODO
+1. Demo environments must follow this naming pattern:
+   1. For VAMC Systems - `<Geographic location> health care`. E.g. Alexandria health care.
+   1. For other CMS products - `<Product name>`. E.g. Resources and support
+   1. For personal sandboxes - `<First name Last name>'s Sandbox`. E.g. Dave Conlon's Sandbox.
+   1. Avoid creating environments with duplicate names. Check the list of existing environment while sorting by title to quickly scan the list to ensure an environment you're about to create doesn't already exist.
+
+To create a new CMS Demo Preview Environment:
+
+1. Login to Tugboat using GitHub - [Tugboat Projects](https://tugboat.vfs.va.gov/projects)
+1. Navigate to CMS > CMS Demo Environments repository OR use a direct link [Tugboat CMS Demo Environments repository](https://tugboat.vfs.va.gov/5ffe2f4dfa1ca136135134f6)
+1. Locate "Base Previews" section
+   1. Scroll down to locate **Base Previews** section.
+1. Clone base preview to create a new Demo Preview Environment.
+   1. Locate **master** base preview.
+   1. Click on **Actions > Clone**. You have created a clone of base preview environment.
+1. Rename the newly created clone.
+   1. Locate "master" environment in "Preview" section at the top of the page.
+   1. Click "Settings".
+   1. Enter new environment name .
+   1. Do not change any other settings.
+   1. Click "Save Configuration", then "Back to Preview".
+   
+You have created a new CMS Demo Preview Environment.
 
 ## Tips
 1. Refresh, Rebuild and Reset operations.   
