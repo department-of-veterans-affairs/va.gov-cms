@@ -11,7 +11,7 @@ Tugboat is a fast, modern Preview Environment creation tool based on containers 
 1. Within 3 minutes a your new preview environment should be created and a GitHub comment will be posted with links to your environment(s) for testing, this includes a WEB (web-\*) link that builds the static site for testing. The WEB environment will take a while to build and will only be stable after all tests pass.
 1. After the GitHub comment is posted with your environment links, tests will start running and the checks in the GitHub status check section will switch from "Expected" to "Pending", this test run step will take closer to 30+ minutes to complete.
 
-**Getting started with CMS Demo Preview Environments **
+**Getting started with CMS Demo Preview Environments**
 
 1. Demo Preview Environments that are inactive for 30 days are subject to deletion. Run the "Lock" operation to prevent this from happening. 
 1. Demo environments must follow this naming pattern:
