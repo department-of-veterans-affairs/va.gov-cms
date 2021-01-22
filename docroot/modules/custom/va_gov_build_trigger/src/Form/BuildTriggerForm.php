@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_build_trigger\Form;
 
+use Drupal\Core\Block\BlockManager;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
@@ -42,6 +43,13 @@ class BuildTriggerForm extends FormBase {
   protected $environmentDiscovery;
 
   /**
+   * Block Manager Service.
+   *
+   * @var \Drupal\Core\Block\BlockManager
+   */
+  protected $blockManager;
+
+  /**
    * Class constructor.
    *
    * @param \Drupal\va_gov_build_trigger\Service\BuildFrontend $buildFrontend
@@ -50,15 +58,19 @@ class BuildTriggerForm extends FormBase {
    *   Webbuild status provider.
    * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery $environmentDiscovery
    *   EnvironmentDiscovery service.
+   * @param \Drupal\Core\Block\BlockManager $blockManager
+   *   Block Manager service.
    */
   public function __construct(
     BuildFrontend $buildFrontend,
     WebBuildStatusInterface $webBuildStatus,
-    EnvironmentDiscovery $environmentDiscovery) {
+    EnvironmentDiscovery $environmentDiscovery,
+    BlockManager $blockManager) {
 
     $this->buildFrontend = $buildFrontend;
     $this->webBuildStatus = $webBuildStatus;
     $this->environmentDiscovery = $environmentDiscovery;
+    $this->blockManager = $blockManager;
   }
 
   /**
@@ -68,7 +80,8 @@ class BuildTriggerForm extends FormBase {
     return new static(
       $container->get('va_gov_build_trigger.build_frontend'),
       $container->get('va_gov.build_trigger.web_build_status'),
-      $container->get('va_gov.build_trigger.environment_discovery')
+      $container->get('va_gov.build_trigger.environment_discovery'),
+      $container->get('plugin.manager.block')
     );
   }
 
@@ -81,8 +94,6 @@ class BuildTriggerForm extends FormBase {
    *   Object containing current form state.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $target = $this->environmentDiscovery->getWebUrl();
-
     $form['#title'] = $this->t('Manual content release');
     $form['#attached']['library'][] = 'va_gov_build_trigger/build_trigger_form';
 
@@ -108,7 +119,6 @@ class BuildTriggerForm extends FormBase {
       '#type' => 'submit',
       '#value' => $this->t('Release content now'),
       '#button_type' => 'primary',
-      '#attributes' => ['class' => ['is-disabled']],
       '#states' => [
         'disabled' => [':input[name="confirm"]' => ['checked' => FALSE]],
       ],
@@ -158,6 +168,18 @@ class BuildTriggerForm extends FormBase {
     }
 
     $this->buildFrontend->triggerFrontendBuild($git_ref);
+  }
+
+  /**
+   * Get the rendered content release status block.
+   *
+   * @return array
+   *   Block render array.
+   */
+  protected function getContentReleaseStatusBlock() {
+    return $this->blockManager
+      ->createInstance('content_release_status_block', [])
+      ->build();
   }
 
 }

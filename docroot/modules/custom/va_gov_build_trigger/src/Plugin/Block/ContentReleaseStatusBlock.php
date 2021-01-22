@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @Block(
  *  id = "content_release_status_block",
- *  admin_label = @Translation("Content release status"),
+ *  admin_label = @Translation("Recent updates"),
  * )
  */
 class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPluginInterface {
@@ -56,22 +56,27 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
    */
   public function build() {
     $build = [];
-    $jobs = $this->getCommandRunnerJobs();
-
-    if (count($jobs) === 0) {
-      return $build;
-    }
-
     $table = [
       '#type' => 'table',
       '#header' => [
-        '',
         $this->t('Status'),
-        $this->t('Created'),
-        $this->t('Processed'),
+        $this->t('Front End Version'),
+        $this->t('Started'),
+        $this->t('Finished'),
         $this->t('Logs'),
       ],
     ];
+
+    $jobs = $this->getCommandRunnerJobs();
+
+    if (count($jobs) === 0) {
+      $table['#rows'] = [
+        [['data' => $this->t('No recent updates'), 'colspan' => 5]],
+      ];
+      $build['content_release_status_block'] = $table;
+
+      return $build;
+    }
 
     foreach ($jobs as $job) {
       $table['#rows'][] = $this->buildTableRow($job);
@@ -98,11 +103,11 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
    * @return array
    *   Drupal table row array.
    */
-  private function buildTableRow(Job $job) : array {
+  protected function buildTableRow(Job $job) : array {
     $row = [];
 
-    $row[] = $this->getStatusIcon($job);
-    $row[] = $this->getHumanReadableStatus($job);
+    $row[] = $this->getStatusCell($job);
+    $row[] = 'i udnno';
     $row[] = $job->getAvailableTime() ? $this->dateFormatter->format($job->getAvailableTime(), 'standard') : '';
     $row[] = $job->getProcessedTime() ? $this->dateFormatter->format($job->getProcessedTime(), 'standard') : '';
 
@@ -119,7 +124,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
    * @return array
    *   Link to dblog, filtered to web build messages.
    */
-  private function getLogLink() : array {
+  protected function getLogLink() : array {
     $log_url = Url::fromRoute(
       "dblog.overview",
       [],
@@ -143,16 +148,37 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   }
 
   /**
-   * Get the status icon for an advancedqueue job state.
+   * Get the status cell for an advancedqueue job state.
    *
    * @param \Drupal\advancedqueue\Job $job
    *   Advancedqueue Job.
    *
    * @return array
-   *   Table cell array with job status icon.
+   *   Table cell array.
    */
-  private function getStatusIcon(Job $job) : array {
-    $class = '';
+  protected function getStatusCell(Job $job) : array {
+    $icon = $this->getStatusIcon($job);
+    $icon_class = 'job-status-icon';
+    if ($job->getState() === Job::STATE_PROCESSING) {
+      $icon_class .= ' status-animated';
+    }
+    $icon_html = "<span class='{$icon_class}'>{$icon}</span>";
+
+    $status = $this->getHumanReadableStatus($job);
+
+    return ['data' => ['#markup' => "{$icon_html} {$status}"]];
+  }
+
+  /**
+   * Get the status icon for an advancedqueue job state.
+   *
+   * @param \Drupal\advancedqueue\Job $job
+   *   Advancedqueue Job.
+   *
+   * @return string
+   *   Job status icon.
+   */
+  protected function getStatusIcon(Job $job) : string {
     $icon = '';
 
     switch ($job->getState()) {
@@ -161,7 +187,6 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
         break;
 
       case Job::STATE_PROCESSING:
-        $class = 'status-animated';
         $icon = '🔨';
         break;
 
@@ -178,10 +203,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
         break;
     }
 
-    return [
-      'data' => $icon,
-      'class' => $class,
-    ];
+    return $icon;
   }
 
   /**
@@ -190,10 +212,10 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
    * @param \Drupal\advancedqueue\Job $job
    *   Advancedqueue Job.
    *
-   * @return array
-   *   Table cell array with human-readable job status.
+   * @return string
+   *   Human-readable job status.
    */
-  private function getHumanReadableStatus(Job $job) : array {
+  protected function getHumanReadableStatus(Job $job) : string {
     $status = '';
     $state = $job->getState();
 
@@ -219,10 +241,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
         break;
     }
 
-    return [
-      'data' => $status,
-      'class' => "status-{$state} ajax-progress-throbber",
-    ];
+    return $status;
   }
 
   /**
@@ -231,7 +250,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
    * @return array[\Drupal\advancedqueue\Job]
    *   Array of Jobs.
    */
-  private function getCommandRunnerJobs() : array {
+  protected function getCommandRunnerJobs() : array {
     $jobs = [];
 
     $result = $this->database->select('advancedqueue', 'aq')
