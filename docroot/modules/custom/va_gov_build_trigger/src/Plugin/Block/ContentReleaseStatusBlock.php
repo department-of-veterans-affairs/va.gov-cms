@@ -107,7 +107,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
     $row = [];
 
     $row[] = $this->getStatusCell($job);
-    $row[] = 'i udnno';
+    $row[] = $this->getFrontEndVersionCell($job);
     $row[] = $job->getAvailableTime() ? $this->dateFormatter->format($job->getAvailableTime(), 'standard') : '';
     $row[] = $job->getProcessedTime() ? $this->dateFormatter->format($job->getProcessedTime(), 'standard') : '';
 
@@ -167,6 +167,36 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
     $status = $this->getHumanReadableStatus($job);
 
     return ['data' => ['#markup' => "{$icon_html} {$status}"]];
+  }
+
+  /**
+   * Get the table cell for the front end version.
+   *
+   * @param \Drupal\advancedqueue\Job $job
+   *   Advancedqueue Job.
+   *
+   * @return array
+   *   Table cell array.
+   */
+  protected function getFrontEndVersionCell(Job $job) : array {
+    $payload = json_decode($job->getPayload());
+
+    // No branch checkout command is found, so this is building the default tag.
+    if (count($payload->commands) === 1) {
+      return ['data' => ['#markup' => '[default]']];
+    }
+
+    if (preg_match('/origin\/([^\/ ]*)$/', $payload->commands[0], $matches)) {
+      $branch = $matches[1];
+      return ['data' => ['#markup' => "Branch: {$branch}"]];
+    }
+
+    if (preg_match('/git fetch origin pull\/([0-9]*)\/head/', $payload->commands[0], $matches)) {
+      $pr = $matches[1];
+      return ['data' => ['#markup' => "Pull request: #{$pr}"]];
+    }
+
+    return [];
   }
 
   /**
