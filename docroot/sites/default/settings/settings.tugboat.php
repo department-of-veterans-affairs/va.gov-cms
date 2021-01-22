@@ -40,8 +40,8 @@ $config['system.performance']['response']['gzip'] = FALSE;
 $config['views.settings']['ui']['show']['sql_query']['enabled'] = TRUE;
 $config['views.settings']['ui']['show']['performance_statistics'] = TRUE;
 $config['system.logging']['error_level'] = 'all';
-$config['environment_indicator.indicator']['bg_color'] = '#533B03'; // dark brown.
-$config['environment_indicator.indicator']['fg_color'] = '#ffffff';
+$config['environment_indicator.indicator']['bg_color'] = '#79D4F0'; // light blue.
+$config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'Tugboat';
 
 $settings['trusted_host_patterns'] = [
@@ -61,3 +61,6 @@ $webhost_on_cli = getenv('DRUPAL_ADDRESS');
 // file exists.  You will need to copy the file from the same path on prod.
 $config['migrate_plus.migration.va_node_form']['source']['urls'] = [$webhost_on_cli . '/sites/default/files/migrate_source/va_forms_data.csv'];
 $settings['va_gov_frontend_url'] = getenv('FRONTEND_ADDRESS');
+$settings['va_gov_frontend_build_type'] = 'tugboat';
+$settings['va_gov_app_root'] = getenv('TUGBOAT_ROOT');
+$settings['va_gov_web_root'] = getenv('DOCROOT') . '/web';
