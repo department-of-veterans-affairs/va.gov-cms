@@ -10,6 +10,7 @@ use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\va_gov_content_export\ExportCommand\CommandRunner;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Process\Process;
 
 /**
  * AdvancedQueue Queue Plugin for web build.
@@ -66,6 +67,16 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
   }
 
   /**
+   * Callback for the symfony process.
+   *
+   * @param \Symfony\Component\Process\Process $process
+   *   The process object.
+   */
+  protected function processCallback(Process $process) : void {
+    $this->logger->info(nl2br($process->getOutput()));
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function process(Job $job) {
@@ -74,11 +85,11 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
     $payload = $job->getPayload();
 
     $commands = $payload['commands'] ?? [];
-    $messages = $this->runCommands($commands);
+    $messages = $this->runCommands($commands, 1, 0, [$this, 'processCallback']);
 
     if ($messages) {
       foreach ($messages as $message) {
-        $this->logger->error($message);
+        $this->logger->error(nl2br($message));
       }
 
       return JobResult::failure();

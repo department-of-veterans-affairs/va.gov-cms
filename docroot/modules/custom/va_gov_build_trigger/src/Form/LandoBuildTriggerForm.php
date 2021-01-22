@@ -59,6 +59,18 @@ class LandoBuildTriggerForm extends BuildTriggerForm {
         'visible' => [':input[name="selection"]' => ['value' => 'choose_branch']],
       ],
     ];
+
+    if ($this->webBuildStatus->useContentExport()) {
+      $form['section_1']['full_rebuild'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Trigger a full Content Export Rebuild.'),
+        '#states' => [
+          'visible' => [':input[name="selection"]' => ['value' => 'choose_branch']],
+        ],
+      ];
+    }
+
+    $description = $this->t('Content releases within Lando. You may press this button to trigger a content release. Please note this could take several minutes to run.');
     $form['section_1']['actions']['submit'] = $form['actions']['submit'];
     unset($form['actions']['submit']);
 
@@ -115,12 +127,13 @@ class LandoBuildTriggerForm extends BuildTriggerForm {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $front_end_branch = $form_state->getValue('branch');
+    $full_rebuild = (bool) $form_state->getValue('full_rebuild');
     $git_ref = NULL;
     if ($front_end_branch && preg_match("/.+\\s\\(([^\\)]+)\\)/", $front_end_branch, $matches)) {
       $git_ref = $matches[1];
     }
 
-    $this->buildFrontend->triggerFrontendBuild($git_ref);
+    $this->buildFrontend->triggerFrontendBuild($git_ref, $full_rebuild);
   }
 
 }
