@@ -38,7 +38,7 @@
           : null,
         userId: settings.gtm_data.userId ? settings.gtm_data.userId : null,
         userSections: settings.gtm_data.userSections
-          ? settings.gtm_data.userSection
+          ? settings.gtm_data.userSections
           : null,
       };
 
