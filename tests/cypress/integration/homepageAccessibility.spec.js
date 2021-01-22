@@ -12,7 +12,8 @@ describe('Component accessibility test', () => {
     };
 
     cy.get('body').each((element, index) => {
-      cy.checkA11y(null, null, cy.terminalLog);
+      // Excluding JSD widget from A11y scan, since we cannot control its code.
+      cy.checkA11y({ exclude: ['#jsd-widget']}, null, cy.terminalLog);
     });
   });
 });

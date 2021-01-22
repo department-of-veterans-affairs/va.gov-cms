@@ -76,6 +76,26 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   }
 
   /**
+   * Go to a view or edit page for a term.
+   *
+   * @param string $page
+   *   Either the view or edit page.
+   * @param string $title
+   *   The term title.
+   *
+   * @Then I visit the :arg1 page for a term with the title :arg2
+   */
+  public function iViewTerm($page, $title) {
+    $tid = $this->getTestContentTidByTitle($title);
+    if ($tid) {
+      $this->visitPath("taxonomy/term/$tid/$page");
+    }
+    else {
+      throw new \Exception("Cannot locate a valid term with the title '$title'");
+    }
+  }
+
+  /**
    * Check that the title exists in the main menu.
    *
    * @param string $item

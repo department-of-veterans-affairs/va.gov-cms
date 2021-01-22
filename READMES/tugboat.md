@@ -59,6 +59,6 @@ Tugboat is a fast, modern Preview environment creation tool based on containers 
 1. See more Tugboat CLI documentation [here](https://docs.tugboat.qa/tugboat-cli/)
 
 ## Known issues
-1. The generated URLs do change and are not constant/static, e.g. https://pr165-z82nl225gxrzbpcmfxt34th673gtwpmu.tugboat.vfs.va.gov/ will change on a new commit to e.g. https://pr165-a18cl225gxrzbpcmfxt34th673gtwpmu.tugboat.vfs.va.gov/. If this is not good please let us know, and we can come up with a solution
+1. The generated URLs have only been observed to change when the file .tugboat/config.yml is modified by changing the name of a defined service, or changes the default service.
 1. You cannot search logs with a browser right now, it is a known issue. The alternative is to use the `tugboat` CLI tool to view logs.
 1. You cannot scroll the logs while they are outputting, you can only scroll once they are done. If you want to see previous output then use the Tugboat CLI tool with `tugboat log <service id>` and scroll that way.
