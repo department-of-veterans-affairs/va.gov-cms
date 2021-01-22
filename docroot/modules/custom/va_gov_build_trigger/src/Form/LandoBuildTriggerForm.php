@@ -24,7 +24,7 @@ class LandoBuildTriggerForm extends BuildTriggerForm {
 
     $form['#title'] = $this->t('Release content');
 
-    $form['help_1']['#markup'] = $this->t('Release content to update the front end of this demo environment with the latest published content changes.');
+    $form['help_1']['#markup'] = $this->t('Release content to update the front end of this local environment with the latest published content changes.');
     unset($form['help_2']);
     unset($form['actions']['confirm']);
     $form['actions']['submit']['#value'] = $this->t('Update');
@@ -39,7 +39,7 @@ class LandoBuildTriggerForm extends BuildTriggerForm {
       '#title' => $this->t('Which version of the VA.gov front end would you like to use?'),
       '#type' => 'radios',
       '#options' => [
-        'default' => $this->t('Use default - the front end version from the time this demo environment was created.'),
+        'default' => $this->t('Use default - the front end version from the time this local environment was created.'),
         'choose_branch' => $this->t('Select a different front end branch/pull request - for example, to see your content in a newer front end design.'),
       ],
       '#default_value' => 'default',
@@ -104,7 +104,7 @@ class LandoBuildTriggerForm extends BuildTriggerForm {
     ];
     $target = $this->environmentDiscovery->getWebUrl();
     $target_url = Url::fromUri($target, ['attributes' => ['target' => '_blank']]);
-    $target_link = Link::fromTextAndUrl($this->t('front end URL for this demo environment'), $target_url);
+    $target_link = Link::fromTextAndUrl($this->t('front end URL for this local environment'), $target_url);
     $description = $this->t(
       'Once the release is completed successfully, use the @target_link to see how your content will appear to site visitors.',
       ['@target_link' => $target_link->toString()]

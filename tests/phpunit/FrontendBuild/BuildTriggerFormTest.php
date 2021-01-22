@@ -28,8 +28,8 @@ class BuildTriggerFormTest extends ExistingSiteBase {
   public function testLandoBuildTriggerForm() {
     $this->setupEnvironment('lando');
     $this->visit('/admin/content/deploy');
-    $this->assertSession()->pageTextContains('Content releases within Lando');
-    $this->assertSession()->fieldExists('front_end_branch');
+    $this->assertSession()->pageTextContains('Release content to update the front end of this local environment with the latest published content changes');
+    $this->assertSession()->fieldExists('branch');
   }
 
   /**
@@ -38,8 +38,8 @@ class BuildTriggerFormTest extends ExistingSiteBase {
   public function testTugboatBuildTriggerForm() {
     $this->setupEnvironment('tugboat');
     $this->visit('/admin/content/deploy');
-    $this->assertSession()->pageTextContains('A content release for this environment is handled by CMS-CI');
-    $this->assertSession()->fieldExists('front_end_branch');
+    $this->assertSession()->pageTextContains('Release content to update the front end of this demo environment with the latest published content changes');
+    $this->assertSession()->fieldExists('branch');
   }
 
   /**
@@ -48,8 +48,8 @@ class BuildTriggerFormTest extends ExistingSiteBase {
   public function testBrdBuildTriggerForm() {
     $this->setupEnvironment('brd');
     $this->visit('/admin/content/deploy');
-    $this->assertSession()->pageTextContains('A content release for this environment will be handled by VFS Jenkins.');
-    $this->assertSession()->fieldNotExists('front_end_branch');
+    $this->assertSession()->pageTextContains('you can perform a manual content release here');
+    $this->assertSession()->fieldNotExists('branch');
   }
 
   /**
@@ -59,7 +59,7 @@ class BuildTriggerFormTest extends ExistingSiteBase {
     $this->setupEnvironment('devshop');
     $this->visit('/admin/content/deploy');
     $this->assertSession()->pageTextContains('A content release for this environment is handled by CMS-CI');
-    $this->assertSession()->fieldNotExists('front_end_branch');
+    $this->assertSession()->fieldNotExists('branch');
   }
 
   /**
