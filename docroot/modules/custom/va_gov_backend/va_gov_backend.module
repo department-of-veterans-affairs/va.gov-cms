@@ -1483,6 +1483,19 @@ function _va_gov_backend_gtm_settings() {
   $uid = $user->id();
   if ($uid > 0) {
     $sections['userId'] = Crypt::hashBase64((string) $uid);
+    $section_scheme = \Drupal::entityTypeManager()->getStorage('access_scheme')->load('section');
+    $user_sections = \Drupal::service('workbench_access.user_section_storage')->getUserSections($section_scheme, $user);
+    if (in_array('administration', $user_sections)) {
+      $sections['userSections'] = 'all';
+    }
+    else {
+      $joined_sections = implode(',', $user_sections);
+      // 150 is the maximum length of a Google Analytics custom dimension value.
+      if (strlen($joined_sections) > 150) {
+        $joined_sections = substr($joined_sections, 0, strrpos($joined_sections, ',', 150 - strlen($joined_sections)));
+      }
+      $sections['userSections'] = $joined_sections;
+    }
   }
   return $sections;
 }
