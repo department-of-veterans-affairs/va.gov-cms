@@ -2,15 +2,17 @@
 
 namespace Drupal\va_gov_build_trigger\Plugin\VAGov\Environment;
 
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
 use Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm;
+use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
+use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -21,7 +23,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   label = @Translation("BRD")
  * )
  */
-class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterface {
+class BRD extends EnvironmentPluginBase {
 
   use StringTranslationTrait;
 
@@ -46,13 +48,14 @@ class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterfa
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    $logger,
-    $webBuildStatus,
+    LoggerInterface $logger,
+    WebBuildStatusInterface $webBuildStatus,
+    WebBuildCommandBuilder $webBuildCommandBuilder,
     $dateFormatter,
     $database
   ) {
 
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $logger, $webBuildStatus);
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $logger, $webBuildStatus, $webBuildCommandBuilder);
     $this->dateFormatter = $dateFormatter;
     $this->database = $database;
   }
@@ -67,6 +70,7 @@ class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterfa
       $plugin_definition,
       $container->get('logger.factory')->get('va_gov_build_trigger'),
       $container->get('va_gov.build_trigger.web_build_status'),
+      $container->get('va_gov.build_trigger.web_build_command_builder'),
       $container->get('date.formatter'),
       $container->get('database')
     );
@@ -75,7 +79,7 @@ class BRD extends EnvironmentPluginBase implements ContainerFactoryPluginInterfa
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild($front_end_git_ref = NULL): void {
+  public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE): void {
     $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
     $va_cms_bot_jenkins_auth_token = Settings::get('va_cms_bot_jenkins_auth_token');
     $jenkins_build_job_host = Settings::get('jenkins_build_job_host');
