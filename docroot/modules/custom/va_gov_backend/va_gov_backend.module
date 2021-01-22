@@ -1494,7 +1494,7 @@ function _va_gov_backend_gtm_settings() {
       if (strlen($joined_sections) > 150) {
         $joined_sections = substr($joined_sections, 0, strrpos($joined_sections, ',', 150 - strlen($joined_sections)));
       }
-      $sections['userSection'] = $joined_sections;
+      $sections['userSections'] = $joined_sections;
     }
   }
   return $sections;
