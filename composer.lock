@@ -667,7 +667,7 @@
             "version": "v4.1.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:fengyuanchen/cropper.git",
+                "url": "https://github.com/fengyuanchen/cropper.git",
                 "reference": "617d9bdb8688cc4edb3b03bc49a04b83c7facbe7"
             },
             "dist": {
@@ -741,6 +741,16 @@
                 "stream",
                 "stream_filter_append",
                 "stream_filter_register"
+            ],
+            "funding": [
+                {
+                    "url": "https://clue.engineering/support",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/clue",
+                    "type": "github"
+                }
             ],
             "time": "2019-04-09T12:31:48+00:00"
         },
@@ -5450,6 +5460,10 @@
                     "homepage": "https://www.drupal.org/user/761344"
                 },
                 {
+                    "name": "hideaway",
+                    "homepage": "https://www.drupal.org/user/741876"
+                },
+                {
                     "name": "joaogarin",
                     "homepage": "https://www.drupal.org/user/612814"
                 },
@@ -5494,6 +5508,10 @@
                 {
                     "name": "fubhy",
                     "homepage": "https://www.drupal.org/user/761344"
+                },
+                {
+                    "name": "hideaway",
+                    "homepage": "https://www.drupal.org/user/741876"
                 },
                 {
                     "name": "joaogarin",
@@ -6173,7 +6191,7 @@
                     "homepage": "https://www.drupal.org/user/409554"
                 },
                 {
-                    "name": "markcarver",
+                    "name": "markhalliwell",
                     "homepage": "https://www.drupal.org/user/501638"
                 }
             ],
@@ -18891,16 +18909,16 @@
         },
         {
             "name": "va-gov/web",
-            "version": "v0.1.1234",
+            "version": "v0.1.1242",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
-                "reference": "a18df6814aca6d86f3e94fadefcd6bf291e1b663"
+                "reference": "4cff04f0015065f517fee3c551add166ba94d962"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/a18df6814aca6d86f3e94fadefcd6bf291e1b663",
-                "reference": "a18df6814aca6d86f3e94fadefcd6bf291e1b663",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/4cff04f0015065f517fee3c551add166ba94d962",
+                "reference": "4cff04f0015065f517fee3c551add166ba94d962",
                 "shasum": ""
             },
             "type": "node-project",
@@ -18925,7 +18943,7 @@
                 }
             ],
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
-            "time": "2021-01-19T21:00:55+00:00"
+            "time": "2021-01-22T21:40:48+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -19023,12 +19041,12 @@
             "version": "1.9.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "9dc4f203e36f2b486149058bade43c851dd97451"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/9dc4f203e36f2b486149058bade43c851dd97451",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/9dc4f203e36f2b486149058bade43c851dd97451",
                 "reference": "9dc4f203e36f2b486149058bade43c851dd97451",
                 "shasum": ""
             },
@@ -21365,11 +21383,6 @@
                 "squizlabs/php_codesniffer": "^2.7"
             },
             "type": "library",
-            "extra": {
-                "patches_applied": {
-                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "TravisCarden\\BehatTableComparison\\": "src/BehatTableComparison/"
@@ -21390,7 +21403,12 @@
                 "Behat",
                 "gherkin"
             ],
-            "time": "2018-07-03T17:42:23+00:00"
+            "time": "2018-07-03T17:42:23+00:00",
+            "extra": {
+                "patches_applied": {
+                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
+                }
+            }
         },
         {
             "name": "vipnytt/robotstxtparser",
