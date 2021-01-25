@@ -1,16 +1,15 @@
-uuid: aa482800-aef3-48f1-8373-9c7796e73808
+uuid: b82992f9-e4a6-4075-b50f-9740384f4f80
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.audience_non_beneficiaries.field_audience_rs_homepage
-    - taxonomy.vocabulary.audience_non_beneficiaries
+    - taxonomy.vocabulary.type_of_redirect
   module:
     - path
     - text
-id: taxonomy_term.audience_non_beneficiaries.default
+id: taxonomy_term.type_of_redirect.default
 targetEntityType: taxonomy_term
-bundle: audience_non_beneficiaries
+bundle: type_of_redirect
 mode: default
 content:
   description:
@@ -21,13 +20,6 @@ content:
       placeholder: ''
       rows: 5
     third_party_settings: {  }
-  field_audience_rs_homepage:
-    weight: 3
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   name:
     type: string_textfield
     weight: 0
