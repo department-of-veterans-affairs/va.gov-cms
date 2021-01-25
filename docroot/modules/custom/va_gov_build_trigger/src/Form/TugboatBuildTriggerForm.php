@@ -65,6 +65,10 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
         '#title' => $this->t('Trigger a full Content Export Rebuild.'),
       ];
     }
+    $form['section_1']['help'] = [
+      '#type' => 'item',
+      '#description' => $this->t('You may trigger a new content release at any time. New updates will be added to the queue and will not override any current updates.'),
+    ];
     $form['section_1']['actions']['#type'] = 'actions';
     $form['section_1']['actions']['submit'] = [
       '#type' => 'submit',
@@ -100,16 +104,18 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
       '#markup' => $this->t('3. Access the front end environment'),
       '#suffix' => '</h2>',
     ];
-    $target = $this->environmentDiscovery->getWebUrl();
-    $target_url = Url::fromUri($target, ['attributes' => ['target' => '_blank']]);
-    $target_link = Link::fromTextAndUrl($this->t('front end URL for this demo environment'), $target_url);
-    $description = $this->t(
-      'Once the release is completed successfully, use the @target_link to see how your content will appear to site visitors.',
-      ['@target_link' => $target_link->toString()]
-    );
+    $description = $this->t('Once the release is completed successfully, see how your content will appear to site visitors.');
     $form['section_3']['environment_target'] = [
       '#type' => 'item',
       '#markup' => $description,
+    ];
+    $target = $this->environmentDiscovery->getWebUrl();
+    $target_url = Url::fromUri($target, ['attributes' => ['target' => '_blank']]);
+    $target_link = Link::fromTextAndUrl($this->t('Go to Front End'), $target_url);
+    $form['section_3']['cta'] = [
+      '#type' => 'item',
+      '#wrapper_attributes' => ['class' => ['button button--primary']],
+      '#markup' => $target_link->toString(),
     ];
 
     return $form;
