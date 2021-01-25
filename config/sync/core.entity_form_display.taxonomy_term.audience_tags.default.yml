@@ -1,16 +1,15 @@
-uuid: aa482800-aef3-48f1-8373-9c7796e73808
+uuid: f20786d8-7dbe-48a4-9cd8-7aaaae5ada05
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.audience_non_beneficiaries.field_audience_rs_homepage
-    - taxonomy.vocabulary.audience_non_beneficiaries
+    - taxonomy.vocabulary.audience_tags
   module:
     - path
     - text
-id: taxonomy_term.audience_non_beneficiaries.default
+id: taxonomy_term.audience_tags.default
 targetEntityType: taxonomy_term
-bundle: audience_non_beneficiaries
+bundle: audience_tags
 mode: default
 content:
   description:
@@ -21,13 +20,6 @@ content:
       placeholder: ''
       rows: 5
     third_party_settings: {  }
-  field_audience_rs_homepage:
-    weight: 3
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   name:
     type: string_textfield
     weight: 0
