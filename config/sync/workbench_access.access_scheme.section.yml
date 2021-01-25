@@ -10,6 +10,7 @@ dependencies:
     - field.field.media.video.field_owner
     - field.field.node.basic_landing_page.field_administration
     - field.field.node.campaign_landing_page.field_administration
+    - field.field.node.centralized_content.field_administration
     - field.field.node.checklist.field_administration
     - field.field.node.documentation_page.field_administration
     - field.field.node.event.field_administration
@@ -43,6 +44,7 @@ dependencies:
     - field.field.node.support_service.field_administration
     - field.field.node.va_form.field_administration
     - field.field.node.vamc_operating_status_and_alerts.field_administration
+    - field.field.node.vamc_system_policies_page.field_administration
     - field.field.node.vba_facility.field_administration
     - field.field.node.vet_center.field_administration
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
@@ -222,6 +224,14 @@ scheme_settings:
     -
       entity_type: node
       bundle: campaign_landing_page
+      field: field_administration
+    -
+      entity_type: node
+      bundle: centralized_content
+      field: field_administration
+    -
+      entity_type: node
+      bundle: vamc_system_policies_page
       field: field_administration
     -
       entity_type: taxonomy_term

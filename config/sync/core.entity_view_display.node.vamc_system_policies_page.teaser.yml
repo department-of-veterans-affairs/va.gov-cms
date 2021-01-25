@@ -1,0 +1,37 @@
+uuid: f0d981b3-0edf-4e06-9018-807242e2805e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.vamc_system_policies_page.field_administration
+    - field.field.node.vamc_system_policies_page.field_cc_bottom_of_page_content
+    - field.field.node.vamc_system_policies_page.field_cc_gen_visitation_policy
+    - field.field.node.vamc_system_policies_page.field_cc_intro_text
+    - field.field.node.vamc_system_policies_page.field_cc_top_of_page_content
+    - field.field.node.vamc_system_policies_page.field_office
+    - field.field.node.vamc_system_policies_page.field_vamc_other_policies
+    - field.field.node.vamc_system_policies_page.field_vamc_visitation_policy
+    - node.type.vamc_system_policies_page
+  module:
+    - user
+id: node.vamc_system_policies_page.teaser
+targetEntityType: node
+bundle: vamc_system_policies_page
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_administration: true
+  field_cc_bottom_of_page_content: true
+  field_cc_gen_visitation_policy: true
+  field_cc_intro_text: true
+  field_cc_top_of_page_content: true
+  field_office: true
+  field_vamc_other_policies: true
+  field_vamc_visitation_policy: true
+  search_api_excerpt: true

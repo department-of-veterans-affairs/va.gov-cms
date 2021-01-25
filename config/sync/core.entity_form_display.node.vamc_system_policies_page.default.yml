@@ -1,0 +1,179 @@
+uuid: abb6b723-af95-4b05-858a-dd5826b6884e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.vamc_system_policies_page.field_administration
+    - field.field.node.vamc_system_policies_page.field_cc_bottom_of_page_content
+    - field.field.node.vamc_system_policies_page.field_cc_gen_visitation_policy
+    - field.field.node.vamc_system_policies_page.field_cc_intro_text
+    - field.field.node.vamc_system_policies_page.field_cc_top_of_page_content
+    - field.field.node.vamc_system_policies_page.field_office
+    - field.field.node.vamc_system_policies_page.field_vamc_other_policies
+    - field.field.node.vamc_system_policies_page.field_vamc_visitation_policy
+    - node.type.vamc_system_policies_page
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - entity_field_fetch
+    - field_group
+    - text
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_office
+        - field_administration
+      parent_name: ''
+      weight: 6
+      format_type: details_sidebar
+      region: content
+      format_settings:
+        description: ''
+        open: true
+        weight: 10
+        required_fields: true
+        id: ''
+        classes: ''
+      label: Governance
+    group_editorial_workflow:
+      children:
+        - status
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 7
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+    group_policies:
+      children:
+        - title
+        - field_cc_intro_text
+        - field_cc_top_of_page_content
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
+        id: ''
+        classes: centralized
+        required_fields: false
+      label: Policies
+    group_visitation_policies:
+      children:
+        - field_cc_gen_visitation_policy
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
+        id: ''
+        classes: centralized
+        required_fields: false
+      label: ''
+    group_centralized_bottom:
+      children:
+        - field_cc_bottom_of_page_content
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: centralized
+        description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
+        required_fields: false
+      label: ''
+id: node.vamc_system_policies_page.default
+targetEntityType: node
+bundle: vamc_system_policies_page
+mode: default
+content:
+  field_administration:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_cc_bottom_of_page_content:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: entity_field_fetch_widget
+    region: content
+  field_cc_gen_visitation_policy:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: entity_field_fetch_widget
+    region: content
+  field_cc_intro_text:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: entity_field_fetch_widget
+    region: content
+  field_cc_top_of_page_content:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: entity_field_fetch_widget
+    region: content
+  field_office:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_vamc_other_policies:
+    weight: 5
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_vamc_visitation_policy:
+    weight: 3
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 1
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 0
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true
+  url_redirects: true
