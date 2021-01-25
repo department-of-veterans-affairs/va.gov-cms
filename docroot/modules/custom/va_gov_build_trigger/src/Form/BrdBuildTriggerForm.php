@@ -20,7 +20,6 @@ class BrdBuildTriggerForm extends BuildTriggerForm {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildForm($form, $form_state);
 
-    $form['#title'] = $this->t('Manual content release');
     $form['#attached']['library'][] = 'va_gov_build_trigger/build_trigger_form';
 
     $form['help_1'] = [

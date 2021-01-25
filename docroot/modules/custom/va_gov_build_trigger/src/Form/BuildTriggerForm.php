@@ -95,6 +95,7 @@ class BuildTriggerForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['#attached']['library'][] = 'va_gov_build_trigger/build_trigger_form';
+    $form['#title'] = $this->t('Release content');
     return $form;
   }
 

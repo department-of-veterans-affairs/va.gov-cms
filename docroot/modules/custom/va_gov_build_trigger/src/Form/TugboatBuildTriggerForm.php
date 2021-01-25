@@ -22,8 +22,6 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildForm($form, $form_state);
 
-    $form['#title'] = $this->t('Release content');
-
     $form['help_1'] = [
       '#prefix' => '<p>',
       '#markup' => $this->t('Release content to update the front end of this demo environment with the latest published content changes.'),
