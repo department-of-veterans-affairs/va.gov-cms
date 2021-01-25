@@ -1,0 +1,27 @@
+uuid: 70eabed8-b0c4-4630-9cae-01a8dbd96421
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_cc_documentor_description
+    - paragraphs.paragraphs_type.centralized_content_descriptor
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    plain_text: plain_text
+    rich_text: '0'
+    rich_text_limited: '0'
+id: paragraph.centralized_content_descriptor.field_cc_documentor_description
+field_name: field_cc_documentor_description
+entity_type: paragraph
+bundle: centralized_content_descriptor
+label: Description
+description: 'This should set any context for the paragraph that comes after this in the stack of paragraphs.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
