@@ -7,7 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Implements build trigger form overrides for the DevShop environment.
  */
-class DevShopBuildTriggerForm extends BuildTriggerForm {
+class DevShopBuildTriggerForm extends BrdBuildTriggerForm {
 
   /**
    * Build the build trigger form.

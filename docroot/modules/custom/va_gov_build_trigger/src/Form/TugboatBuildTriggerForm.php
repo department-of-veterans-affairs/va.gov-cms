@@ -24,10 +24,12 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
 
     $form['#title'] = $this->t('Release content');
 
-    $form['help_1']['#markup'] = $this->t('Release content to update the front end of this demo environment with the latest published content changes.');
-    unset($form['help_2']);
-    unset($form['actions']['confirm']);
-    $form['actions']['submit']['#value'] = $this->t('Update');
+    $form['help_1'] = [
+      '#prefix' => '<p>',
+      '#markup' => $this->t('Release content to update the front end of this demo environment with the latest published content changes.'),
+      '#suffix' => '</p>',
+      '#weight' => -10,
+    ];
 
     $form['section_1']['title'] = [
       '#type' => 'item',
@@ -40,11 +42,11 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
       '#type' => 'radios',
       '#options' => [
         'default' => $this->t('Use default - the front end version from the time this demo environment was created.'),
-        'choose_branch' => $this->t('Select a different front end branch/pull request - for example, to see your content in a newer front end design.'),
+        'choose' => $this->t('Select a different front end branch/pull request - for example, to see your content in a newer front end design.'),
       ],
       '#default_value' => 'default',
     ];
-    $form['section_1']['branch'] = [
+    $form['section_1']['git_ref'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Select branch/pull request'),
       '#description' => $this->t('Start typing to select a branch for the front end version you want to use.'),
@@ -56,23 +58,21 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
       '#maxlength' => 1024,
       '#hidden' => TRUE,
       '#states' => [
-        'visible' => [':input[name="selection"]' => ['value' => 'choose_branch']],
+        'visible' => [':input[name="selection"]' => ['value' => 'choose']],
       ],
     ];
-
     if ($this->webBuildStatus->useContentExport()) {
       $form['section_1']['full_rebuild'] = [
         '#type' => 'checkbox',
         '#title' => $this->t('Trigger a full Content Export Rebuild.'),
-        '#states' => [
-          'visible' => [':input[name="selection"]' => ['value' => 'choose_branch']],
-        ],
       ];
     }
-
-    $description = $this->t('Content releases within Lando. You may press this button to trigger a content release. Please note this could take several minutes to run.');
-    $form['section_1']['actions']['submit'] = $form['actions']['submit'];
-    unset($form['actions']['submit']);
+    $form['section_1']['actions']['#type'] = 'actions';
+    $form['section_1']['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Update'),
+      '#button_type' => 'primary',
+    ];
 
     $form['section_2']['title'] = [
       '#type' => 'item',
@@ -126,14 +126,26 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
    *   Object containing current form state.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $front_end_branch = $form_state->getValue('branch');
     $full_rebuild = (bool) $form_state->getValue('full_rebuild');
     $git_ref = NULL;
-    if ($front_end_branch && preg_match("/.+\\s\\(([^\\)]+)\\)/", $front_end_branch, $matches)) {
+    $git_ref_value = $form_state->getValue('git_ref');
+    if ($git_ref_value && preg_match("/.+\\s\\(([^\\)]+)\\)/", $git_ref_value, $matches)) {
       $git_ref = $matches[1];
     }
 
     $this->buildFrontend->triggerFrontendBuild($git_ref, $full_rebuild);
+  }
+
+  /**
+   * Get the rendered content release status block.
+   *
+   * @return array
+   *   Block render array.
+   */
+  protected function getContentReleaseStatusBlock() {
+    return $this->blockManager
+      ->createInstance('content_release_status_block', [])
+      ->build();
   }
 
 }
