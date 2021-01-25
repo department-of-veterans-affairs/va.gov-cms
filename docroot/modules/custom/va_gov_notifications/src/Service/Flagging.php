@@ -10,7 +10,7 @@ use Drupal\user\UserInterface;
 /**
  * Makes decisions about whether flags should be set, unset, etc.
  */
-class FlagDecisions implements FlagDecisionsInterface {
+class Flagging implements FlaggingInterface {
   /**
    * The flag service.
    *
@@ -39,15 +39,11 @@ class FlagDecisions implements FlagDecisionsInterface {
   /**
    * {@inheritdoc}
    */
-  public function shouldSetEditedFlag(NodeInterface $node, UserInterface $user) {
-    if ($user->isAnonymous()) {
-      return FALSE;
-    }
+  public function setEditedFlag(NodeInterface $node, UserInterface $user): void {
     $flag = $this->flagService->getFlagById('edited');
-    if ($this->flagService->getFlagging($flag, $node, $user)) {
-      return FALSE;
+    if (!$user->isAnonymous() && !$this->flagService->getFlagging($flag, $node, $user)) {
+      $this->flagService->flag($flag, $node, $user);
     }
-    return TRUE;
   }
 
 }

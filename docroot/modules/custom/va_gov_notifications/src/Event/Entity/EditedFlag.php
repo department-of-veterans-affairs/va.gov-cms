@@ -2,12 +2,12 @@
 
 namespace Drupal\va_gov_notifications\Event\Entity;
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
-use Drupal\flag\FlagServiceInterface;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\node\NodeInterface;
-use Drupal\va_gov_notifications\Service\FlagDecisionsInterface;
+use Drupal\va_gov_notifications\Service\FlaggingInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -16,41 +16,30 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class EditedFlag implements EventSubscriberInterface {
 
   /**
-   * The flag service.
-   *
-   * @var \Drupal\flag\FlagServiceInterface
-   */
-  protected $flagService;
-
-  /**
    * The flag decisions service.
    *
    * @var \Drupal\va_gov_notifications\FlagDecisionsInterface
    */
-  protected $flagDecisions;
+  protected $flaggingService;
 
   /**
    * Constructor.
    */
-  public function __construct(
-    FlagServiceInterface $flagService,
-    FlagDecisionsInterface $flagDecisions
-  ) {
-    $this->flagService = $flagService;
-    $this->flagDecisions = $flagDecisions;
+  public function __construct(FlaggingInterface $flaggingService) {
+    $this->flaggingService = $flaggingService;
   }
 
   /**
-   * Sets `edited` flag for the revision user for the specified node.
+   * Inspect the specified entity and set the edited flag if appropriate.
    *
-   * @param \Drupal\node\NodeInterface $node
-   *   The node on which the flag should be set.
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity on which the flag should be set, if appropriate.
    */
-  public function setEditedFlag(NodeInterface $node): void {
-    $user = $node->getRevisionUser();
-    if ($this->flagDecisions->shouldSetEditedFlag($node, $user)) {
-      $flag = $this->flagService->getFlagById('edited');
-      $this->flagService->flag($flag, $node, $user);
+  public function setEditedFlag(EntityInterface $entity): void {
+    if ($entity instanceof NodeInterface) {
+      /** @var \Drupal\node\NodeInterface $node */
+      $node = $entity;
+      $this->flaggingService->setEditedFlag($node, $node->getRevisionUser());
     }
   }
 
@@ -61,12 +50,7 @@ class EditedFlag implements EventSubscriberInterface {
    *   The event.
    */
   public function entityInsert(EntityInsertEvent $event): void {
-    $entity = $event->getEntity();
-    if ($entity instanceof NodeInterface) {
-      /** @var \Drupal\node\NodeInterface $node */
-      $node = $entity;
-      $this->setEditedFlag($node);
-    }
+    $this->setEditedFlag($event->getEntity());
   }
 
   /**
@@ -76,12 +60,7 @@ class EditedFlag implements EventSubscriberInterface {
    *   The event.
    */
   public function entityUpdate(EntityUpdateEvent $event): void {
-    $entity = $event->getEntity();
-    if ($entity instanceof NodeInterface) {
-      /** @var \Drupal\node\NodeInterface $node */
-      $node = $entity;
-      $this->setEditedFlag($node);
-    }
+    $this->setEditedFlag($event->getEntity());
   }
 
   /**
