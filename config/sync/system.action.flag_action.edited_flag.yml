@@ -1,0 +1,15 @@
+uuid: 655563ae-f3e3-4693-91a6-62dd11de0830
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.edited
+  module:
+    - flag
+id: flag_action.edited_flag
+label: 'Mark as edited'
+type: node
+plugin: 'flag_action:edited_flag'
+configuration:
+  flag_id: edited
+  flag_action: flag

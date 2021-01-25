@@ -1,0 +1,29 @@
+uuid: 63fae533-c992-4878-9860-f41ccfd724c0
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: edited
+label: Edited
+bundles: {  }
+entity_type: node
+global: false
+weight: 0
+flag_short: 'Mark as edited'
+flag_long: 'Should be set whenever the user has edited this content.'
+flag_message: 'Marked as edited'
+unflag_short: 'Unmark as edited'
+unflag_long: 'Should be unset whenever the user has not edited this content.'
+unflag_message: 'Unmarked as edited'
+unflag_denied_text: 'Marked as edited'
+flag_type: 'entity:node'
+link_type: ajax_link
+flagTypeConfig:
+  show_in_links: {  }
+  show_as_field: false
+  show_on_form: false
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }

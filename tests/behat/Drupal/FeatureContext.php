@@ -593,6 +593,30 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   }
 
   /**
+   * Is the personal flag set on the content for the current user?
+   *
+   * @Then the :arg1 flag for node :arg2 should be set for me
+   */
+  public function theFlagForNodeShouldBeSetForTheRevisionEditor(string $flagName, string $title) {
+    $account = user_load($this->getUserManager()->getCurrentUser()->uid);
+    $flag_service = \Drupal::service('flag');
+    $flag = $flag_service->getFlagById($flagName);
+    if (empty($flag)) {
+      throw new \InvalidArgumentException(sprintf('The flag "%s" does not exist', $flagName));
+    }
+    $nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties(['title' => $title]);
+    if (empty($nodes) || empty(reset($nodes))) {
+      throw new \InvalidArgumentException(sprintf('Node with title "%s" does not exist', $title));
+    }
+    $node = reset($nodes);
+    if (!$flag_service->getFlagging($flag, $node, $account)) {
+      throw new \InvalidArgumentException(sprintf('The flag with name "%s" was not set', $flagName));
+    }
+  }
+
+  /**
    * Ensure workbench access sections are empty.
    *
    * @Given my workbench access sections are not set
