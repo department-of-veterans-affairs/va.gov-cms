@@ -1,0 +1,27 @@
+uuid: 40a172c4-4763-4f28-95db-e4394dab8956
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_vamc_visitation_policy
+    - node.type.vamc_system_policies_page
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    rich_text: rich_text
+    rich_text_limited: '0'
+    plain_text: '0'
+id: node.vamc_system_policies_page.field_vamc_visitation_policy
+field_name: field_vamc_visitation_policy
+entity_type: node
+bundle: vamc_system_policies_page
+label: 'Visitation policy'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

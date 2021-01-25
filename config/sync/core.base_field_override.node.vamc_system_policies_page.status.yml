@@ -1,0 +1,22 @@
+uuid: 9df45f84-e321-49f0-b80e-661d0fb7b42d
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_system_policies_page
+id: node.vamc_system_policies_page.status
+field_name: status
+entity_type: node
+bundle: vamc_system_policies_page
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
