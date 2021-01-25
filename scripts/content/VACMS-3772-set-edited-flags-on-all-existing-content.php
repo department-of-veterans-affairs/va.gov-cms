@@ -35,7 +35,7 @@ function get_nid_uid_pairs(): array {
       'uid' => (int) $item->uid,
     ];
   }
-  logMessage(count($result) . ' results found.');
+  echo count($result) . " results found.\n";
   return $result;
 }
 
@@ -44,7 +44,7 @@ function get_nid_uid_pairs(): array {
  */
 function run(): void {
   $flag_service = \Drupal::service('flag');
-  $flag = $flag_service->getFlagById('edited');
+  $flagging_service = \Drupal::service('va_gov_notifications.flagging');
   $entity_type_manager = \Drupal::entityTypeManager();
   $user_storage = $entity_type_manager->getStorage('user');
   $node_storage = $entity_type_manager->getStorage('node');
@@ -55,9 +55,7 @@ function run(): void {
     $node = $node_storage->load($nid);
     $user = $user_storage->load($uid);
     echo "Flagging node {$node->id()} as edited by user {$user->getDisplayName()} ({$user->id()}).\n";
-    if (!empty($node) && !empty($user) && !$flag_service->getFlagging($flag, $node, $user)) {
-      $flag_service->flag($flag, $node, $user);
-    }
+    $flagging_service->setEditedFlag($node, $user);
   }
 }
 
