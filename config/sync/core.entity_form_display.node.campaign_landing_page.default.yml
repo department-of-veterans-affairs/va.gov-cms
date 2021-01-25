@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.campaign_landing_page.field_benefit_categories
     - field.field.node.campaign_landing_page.field_clp_audience
     - field.field.node.campaign_landing_page.field_clp_connect_with_us
-    - field.field.node.campaign_landing_page.field_clp_description
     - field.field.node.campaign_landing_page.field_clp_events_header
     - field.field.node.campaign_landing_page.field_clp_events_panel
     - field.field.node.campaign_landing_page.field_clp_events_references
@@ -51,7 +50,6 @@ dependencies:
     - entity_browser_table
     - field_group
     - linkit
-    - markup
     - media_library
     - paragraphs
     - path
@@ -100,6 +98,8 @@ third_party_settings:
       format_settings:
         description: 'The hero banner attracts attention, announces the campaign''s main message and adds visual interest.'
         open: '1'
+        visual_guide: {  }
+        visual_guide_alt_text: ''
         required_fields: '1'
         id: ''
         classes: ''
@@ -299,12 +299,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
-    region: content
-  field_clp_description:
-    weight: 0
-    settings: {  }
-    third_party_settings: {  }
-    type: markup
     region: content
   field_clp_events_header:
     weight: 27
