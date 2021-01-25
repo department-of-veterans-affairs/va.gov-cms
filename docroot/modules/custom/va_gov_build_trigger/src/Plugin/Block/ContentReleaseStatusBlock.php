@@ -20,6 +20,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
+   * The current user service.
+   *
+   * @var \Drupal\Core\Session\AccountProxy
+   */
+  protected $currentUser;
+
+  /**
    * The database service.
    *
    * @var \Drupal\Core\Database\Driver\mysql\Connection
@@ -45,6 +52,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $instance = new static($configuration, $plugin_id, $plugin_definition);
+    $instance->currentUser = $container->get('current_user');
     $instance->database = $container->get('database');
     $instance->dateFormatter = $container->get('date.formatter');
     $instance->environmentDiscovery = $container->get('va_gov.build_trigger.environment_discovery');
@@ -65,9 +73,12 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
         $this->t('Front End Version'),
         $this->t('Started'),
         $this->t('Finished'),
-        $this->t('Logs'),
       ],
     ];
+
+    if ($this->shouldDisplayLogColumn()) {
+      $table['#header'][] = $this->t('Logs');
+    }
 
     $jobs = $this->getCommandRunnerJobs();
 
@@ -115,9 +126,21 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
 
     // The log page will show an error if there are no log messages,
     // so only show it once the job is being processed.
-    $row[] = $job->getState() !== Job::STATE_QUEUED ? $this->getLogLink() : '';
+    if ($this->shouldDisplayLogColumn()) {
+      $row[] = $job->getState() !== Job::STATE_QUEUED ? $this->getLogLink() : '';
+    }
 
     return $row;
+  }
+
+  /**
+   * Determine whether the log column should be displayed.
+   *
+   * @return bool
+   *   Whether or not the log column should be displayed.
+   */
+  protected function shouldDisplayLogColumn() : bool {
+    return in_array('administrator', $this->currentUser->getRoles());
   }
 
   /**
