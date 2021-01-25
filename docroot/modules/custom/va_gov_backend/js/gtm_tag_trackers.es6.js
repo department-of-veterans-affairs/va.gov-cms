@@ -37,6 +37,9 @@
           ? settings.gtm_data.userRoles
           : null,
         userId: settings.gtm_data.userId ? settings.gtm_data.userId : null,
+        userSections: settings.gtm_data.userSections
+          ? settings.gtm_data.userSections
+          : null,
       };
 
       // Walk the main nav tree from point of click.
