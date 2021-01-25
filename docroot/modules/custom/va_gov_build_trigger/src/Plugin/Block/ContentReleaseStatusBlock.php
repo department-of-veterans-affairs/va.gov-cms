@@ -56,8 +56,10 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
    */
   public function build() {
     $build = [];
+
     $table = [
       '#type' => 'table',
+      '#attributes' => ['class' => ['content-release-status-block']],
       '#header' => [
         $this->t('Status'),
         $this->t('Front End Version'),
