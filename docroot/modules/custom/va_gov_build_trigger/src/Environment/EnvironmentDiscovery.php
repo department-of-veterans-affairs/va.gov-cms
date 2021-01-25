@@ -148,11 +148,13 @@ class EnvironmentDiscovery {
    *
    * @param string $front_end_git_ref
    *   Front end git reference to build (branch name or PR number)
+   * @param bool $full_rebuild
+   *   Trigger a full rebuild of the content.
    *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
-  public function triggerFrontendBuild($front_end_git_ref = NULL) {
-    $this->getEnvironment()->triggerFrontendBuild($front_end_git_ref);
+  public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
+    $this->getEnvironment()->triggerFrontendBuild($front_end_git_ref, $full_rebuild);
   }
 
   /**
