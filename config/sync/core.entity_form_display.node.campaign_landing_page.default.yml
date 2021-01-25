@@ -280,9 +280,19 @@ content:
     region: content
   field_benefit_categories:
     weight: 42
-    settings: {  }
-    third_party_settings: {  }
-    type: options_buttons
+    settings:
+      entity_browser: lc_benefit_hubs
+      field_widget_display: label
+      field_widget_remove: '1'
+      selection_mode: selection_append
+      field_widget_edit: 0
+      field_widget_replace: 0
+      open: 0
+      field_widget_display_settings: {  }
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '2'
+    type: entity_reference_browser_table_widget
     region: content
   field_clp_audience:
     weight: 3
