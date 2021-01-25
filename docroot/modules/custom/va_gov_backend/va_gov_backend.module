@@ -1130,20 +1130,6 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
         ],
       ];
     }
-    if ($paragraph_type === 'service_location') {
-      if (!empty($element['subform']['field_facility_service_hours'])) {
-        // Clean up the hours form and remove redundant labels.
-        unset($element['subform']['field_facility_service_hours']['widget'][0]['#title']);
-        unset($element['subform']['field_facility_service_hours']['widget'][0]['#description']);
-        // Don't show additional hours field unless custom hours are input.
-        $selector = sprintf(':input[name="field_service_location[%d][subform][field_hours]"]', $element['#delta']);
-        $element['subform']['field_additional_hours_info']['#states'] = [
-          'visible' => [
-            $selector => ['value' => '2'],
-          ],
-        ];
-      }
-    }
   }
 
   // If we have a field ref'ing service location paragraphs, fire function.
@@ -1423,10 +1409,11 @@ function va_gov_backend_page_attachments(array &$attachments) {
 
   $attachments['#attached']['library'][] = 'va_gov_backend/alert_form';
   $attachments['#attached']['library'][] = 'va_gov_backend/system_styles';
-  // Nested address, phone and email paragraphs result in multiple deltas.
+  // Nested address, phone, hours, email paragraphs result in multiple deltas.
   // Tracking this with states api gets messy.
   // Bypass and use behaviors directly.
   $attachments['#attached']['library'][] = 'va_gov_backend/service_location_address';
+  $attachments['#attached']['library'][] = 'va_gov_backend/service_location_hours';
   $attachments['#attached']['library'][] = 'va_gov_backend/contact_paragraphs_interactions';
 
   // Handle smart_date widget treatments.

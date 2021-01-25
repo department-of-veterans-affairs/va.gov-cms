@@ -14,7 +14,7 @@ mode: default
 content:
   description:
     type: text_textarea
-    weight: 2
+    weight: 1
     region: content
     settings:
       placeholder: ''
@@ -30,15 +30,9 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 3
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 4
-    region: content
-    third_party_settings: {  }
-hidden: {  }
+hidden:
+  status: true
