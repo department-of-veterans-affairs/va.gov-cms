@@ -16,6 +16,7 @@ dependencies:
     - node.type.news_story
   module:
     - field_group
+    - media
     - text
     - user
 third_party_settings:
@@ -68,7 +69,7 @@ content:
     region: content
   field_image_caption:
     weight: 5
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
@@ -82,11 +83,12 @@ content:
     region: content
   field_media:
     weight: 4
-    label: above
+    label: hidden
     settings:
-      link: true
+      image_style: ''
+      image_link: ''
     third_party_settings: {  }
-    type: entity_reference_label
+    type: media_thumbnail
     region: content
 hidden:
   content_moderation_control: true
