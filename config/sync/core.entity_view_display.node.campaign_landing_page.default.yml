@@ -40,59 +40,61 @@ dependencies:
     - field.field.node.campaign_landing_page.field_media
     - field.field.node.campaign_landing_page.field_primary_call_to_action
     - field.field.node.campaign_landing_page.field_secondary_call_to_action
+    - image.style.7_2_medium_thumbnail
     - node.type.campaign_landing_page
   module:
     - entity_reference_revisions
     - field_group
     - link
+    - media
+    - string_field_formatter
     - user
 third_party_settings:
   field_group:
     group_spotlight:
       children:
-        - field_clp_spotlight_panel
         - field_clp_spotlight_header
         - field_clp_spotlight_intro_text
         - field_clp_spotlight_cta
         - field_clp_spotlight_link_teasers
       parent_name: ''
       weight: 5
-      format_type: fieldset
+      format_type: details
       region: content
       format_settings:
         description: ''
+        open: true
         id: ''
         classes: ''
       label: Spotlight
     group_video:
       children:
-        - field_clp_video_panel
         - field_clp_video_panel_header
         - field_media
         - field_clp_video_panel_more_video
       parent_name: ''
       weight: 4
-      format_type: fieldset
+      format_type: details
       region: content
       format_settings:
         description: ''
+        open: true
         id: ''
         classes: ''
       label: Video
     group_stories:
       children:
-        - field_clp_stories_panel
         - field_clp_stories_header
         - field_clp_stories_intro
         - field_clp_stories_teasers
         - field_clp_stories_cta
-        - links
       parent_name: ''
       weight: 6
-      format_type: fieldset
+      format_type: details
       region: content
       format_settings:
         description: ''
+        open: true
         id: ''
         classes: ''
       label: Stories
@@ -103,25 +105,28 @@ third_party_settings:
         - field_hero_image
       parent_name: ''
       weight: 1
-      format_type: fieldset
+      format_type: details
       region: content
       format_settings:
         description: ''
+        open: true
         id: ''
         classes: ''
       label: 'Hero Banner'
     group_why_this_matters:
       children:
         - field_clp_why_this_matters
+        - field_clp_audience
         - field_secondary_call_to_action
       parent_name: ''
       weight: 2
-      format_type: fieldset
+      format_type: details
       region: content
       format_settings:
+        description: ''
+        open: true
         id: ''
         classes: ''
-        description: ''
       label: 'Why this matters'
     group_what_can_you_do:
       children:
@@ -130,55 +135,84 @@ third_party_settings:
         - field_clp_what_you_can_do_promos
       parent_name: ''
       weight: 3
-      format_type: fieldset
+      format_type: details
       region: content
       format_settings:
+        description: ''
+        open: true
         id: ''
         classes: ''
-        description: ''
       label: 'What can you do'
     group_va_benefits:
       children:
         - field_benefit_categories
       parent_name: ''
-      weight: 9
-      format_type: fieldset
+      weight: 11
+      format_type: details
       region: content
       format_settings:
+        description: ''
+        open: true
         id: ''
         classes: ''
-        description: ''
       label: 'VA Benefits'
     group_resources:
       children:
-        - field_clp_resources_panel
         - field_clp_resources_header
         - field_clp_resources_intro_text
         - field_clp_resources
         - field_clp_resources_cta
       parent_name: ''
       weight: 8
-      format_type: fieldset
+      format_type: details
       region: content
       format_settings:
+        description: ''
+        open: true
         id: ''
         classes: ''
-        description: ''
       label: 'Downloadable resources'
     group_events:
       children:
-        - field_clp_events_panel
         - field_clp_events_header
         - field_clp_events_references
       parent_name: ''
       weight: 7
-      format_type: fieldset
+      format_type: details
       region: content
       format_settings:
+        description: ''
+        open: true
         id: ''
         classes: ''
-        description: ''
       label: Events
+    group_q_a:
+      children:
+        - field_clp_faq_paragraphs
+        - field_clp_faq_cta
+      parent_name: ''
+      weight: 9
+      format_type: details
+      region: content
+      format_settings:
+        description: ''
+        open: true
+        id: ''
+        classes: ''
+      label: 'Q&As'
+    group_connect_with_us:
+      children:
+        - field_clp_connect_with_us
+      parent_name: ''
+      weight: 10
+      format_type: details
+      region: content
+      format_settings:
+        description: ''
+        open: true
+        id: ''
+        classes: ''
+      label: 'Connect with us'
 id: node.campaign_landing_page.default
 targetEntityType: node
 bundle: campaign_landing_page
@@ -189,24 +223,17 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_administration:
-    weight: 10
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_benefit_categories:
     weight: 7
-    label: above
+    label: hidden
     settings:
-      link: true
+      view_mode: teaser
+      link: false
     third_party_settings: {  }
-    type: entity_reference_label
+    type: entity_reference_entity_view
     region: content
   field_clp_audience:
-    weight: 15
+    weight: 5
     label: above
     settings:
       link: true
@@ -214,8 +241,8 @@ content:
     type: entity_reference_label
     region: content
   field_clp_connect_with_us:
-    weight: 13
-    label: above
+    weight: 12
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
@@ -223,54 +250,35 @@ content:
     region: content
   field_clp_events_header:
     weight: 12
-    label: above
+    label: hidden
     settings:
+      wrap_tag: h2
+      wrap_class: ''
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    type: plain_string_formatter
     region: content
-  field_clp_events_panel:
-    weight: 11
-    region: content
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
   field_clp_events_references:
     weight: 13
     label: above
     settings:
       link: true
-      view_mode: default
     third_party_settings: {  }
-    type: entity_reference_entity_view
+    type: entity_reference_label
     region: content
   field_clp_faq_cta:
     type: entity_reference_revisions_entity_view
-    weight: 14
+    weight: 12
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
     region: content
-  field_clp_faq_panel:
-    weight: 11
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
-    region: content
   field_clp_faq_paragraphs:
     type: entity_reference_revisions_entity_view
-    weight: 12
-    label: above
+    weight: 11
+    label: hidden
     settings:
       view_mode: default
       link: ''
@@ -296,28 +304,20 @@ content:
     region: content
   field_clp_resources_header:
     weight: 15
-    label: above
+    label: hidden
     settings:
+      wrap_tag: h2
+      wrap_class: ''
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    type: plain_string_formatter
     region: content
   field_clp_resources_intro_text:
     weight: 16
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
-    region: content
-  field_clp_resources_panel:
-    weight: 14
-    label: hidden
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
     region: content
   field_clp_spotlight_cta:
     type: entity_reference_revisions_entity_view
@@ -330,37 +330,29 @@ content:
     region: content
   field_clp_spotlight_header:
     weight: 22
-    label: above
+    label: hidden
     settings:
+      wrap_tag: h2
+      wrap_class: ''
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    type: plain_string_formatter
     region: content
   field_clp_spotlight_intro_text:
     weight: 23
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_clp_spotlight_link_teasers:
     type: entity_reference_revisions_entity_view
-    weight: 25
+    weight: 26
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    region: content
-  field_clp_spotlight_panel:
-    weight: 21
-    label: hidden
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
     region: content
   field_clp_stories_cta:
     weight: 14
@@ -376,11 +368,13 @@ content:
     region: content
   field_clp_stories_header:
     weight: 10
-    label: above
+    label: hidden
     settings:
+      wrap_tag: h2
+      wrap_class: ''
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    type: plain_string_formatter
     region: content
   field_clp_stories_intro:
     weight: 11
@@ -388,16 +382,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
-    region: content
-  field_clp_stories_panel:
-    weight: 9
-    label: hidden
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
     region: content
   field_clp_stories_teasers:
     type: entity_reference_revisions_entity_view
@@ -408,23 +392,15 @@ content:
       link: ''
     third_party_settings: {  }
     region: content
-  field_clp_video_panel:
-    weight: 18
-    label: hidden
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
-    region: content
   field_clp_video_panel_header:
     weight: 19
-    label: above
+    label: hidden
     settings:
+      wrap_tag: h2
+      wrap_class: ''
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    type: plain_string_formatter
     region: content
   field_clp_video_panel_more_video:
     type: entity_reference_revisions_entity_view
@@ -437,57 +413,62 @@ content:
     region: content
   field_clp_what_you_can_do_header:
     weight: 6
-    label: above
+    label: hidden
     settings:
+      wrap_tag: h2
+      wrap_class: ''
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    type: plain_string_formatter
     region: content
   field_clp_what_you_can_do_intro:
     weight: 7
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_clp_what_you_can_do_promos:
     weight: 8
-    label: above
+    label: hidden
     settings:
-      link: true
+      view_mode: default
+      link: false
     third_party_settings: {  }
-    type: entity_reference_label
+    type: entity_reference_entity_view
     region: content
   field_clp_why_this_matters:
     weight: 4
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_hero_blurb:
     weight: 3
-    label: above
+    label: hidden
     settings:
+      wrap_tag: h2
+      wrap_class: ''
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    type: plain_string_formatter
     region: content
   field_hero_image:
-    type: entity_reference_entity_view
+    type: media_thumbnail
     weight: 5
-    label: above
+    label: hidden
     settings:
-      view_mode: default
-      link: false
+      image_style: 7_2_medium_thumbnail
+      image_link: ''
     third_party_settings: {  }
     region: content
   field_media:
     weight: 20
-    label: above
+    label: hidden
     settings:
-      link: true
-      view_mode: default
+      view_mode: embedded
+      link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
     region: content
@@ -502,17 +483,20 @@ content:
     region: content
   field_secondary_call_to_action:
     type: entity_reference_revisions_entity_view
-    weight: 5
+    weight: 6
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
     region: content
-  links:
-    weight: 100
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
+  field_administration: true
+  field_clp_events_panel: true
+  field_clp_faq_panel: true
+  field_clp_resources_panel: true
+  field_clp_spotlight_panel: true
+  field_clp_stories_panel: true
+  field_clp_video_panel: true
+  links: true
   search_api_excerpt: true
