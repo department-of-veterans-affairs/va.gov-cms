@@ -30,4 +30,4 @@ another_user@example.com,"content_editor,content_publisher","VA Wilmington healt
 Notes:
 - The email address will be used for the user's name.
 - The role column uses role machine names - to find them, go to [the roles page](https://prod.cms.va.gov/admin/people/roles) and click the **Edit** link for a role. The machine name will be listed next to the Role name.
-- If a given section name can not be found or matches more than one section, a message will be displayed, and you'll need to fix the CSV or manually add the section.
+- To find section names, go to [the sections page](https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview) and click the **Edit** link for a section. If a given section name can not be found or matches more than one section, a message will be displayed, and you'll need to fix the CSV or manually add the section.
