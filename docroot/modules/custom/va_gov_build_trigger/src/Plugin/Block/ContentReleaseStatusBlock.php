@@ -70,7 +70,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
       '#attributes' => ['class' => ['content-release-status-block']],
       '#header' => [
         $this->t('Status'),
-        $this->t('Front End Version'),
+        $this->t('Frontend Version'),
         $this->t('Started'),
         $this->t('Finished'),
       ],

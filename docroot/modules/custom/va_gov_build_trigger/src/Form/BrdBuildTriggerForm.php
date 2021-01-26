@@ -42,7 +42,7 @@ class BrdBuildTriggerForm extends BuildTriggerForm {
     ];
     $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Release content now'),
+      '#value' => $this->t('Release content'),
       '#button_type' => 'primary',
       '#states' => [
         'disabled' => [':input[name="confirm"]' => ['checked' => FALSE]],

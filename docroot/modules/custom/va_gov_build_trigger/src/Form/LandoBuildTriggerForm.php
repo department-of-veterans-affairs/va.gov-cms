@@ -21,7 +21,7 @@ class LandoBuildTriggerForm extends TugboatBuildTriggerForm {
     $form = parent::buildForm($form, $form_state);
 
     $form['help_1']['#markup'] = $this->t('Release content to update the front end of this local environment with the latest published content changes.');
-    $form['section_1']['selection']['#options']['default'] = $this->t('Use default - the front end version from the time this local environment was created.');
+    $form['section_1']['selection']['#options']['default'] = $this->t('Use default - the frontend version from the time this local environment was created.');
 
     return $form;
   }

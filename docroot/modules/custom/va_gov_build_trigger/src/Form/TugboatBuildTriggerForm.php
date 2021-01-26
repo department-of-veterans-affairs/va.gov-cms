@@ -39,15 +39,15 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
       '#title' => $this->t('Which version of the VA.gov front end would you like to use?'),
       '#type' => 'radios',
       '#options' => [
-        'default' => $this->t('Use default - the front end version from the time this demo environment was created.'),
-        'choose' => $this->t('Select a different front end branch/pull request - for example, to see your content in a newer front end design.'),
+        'default' => $this->t('Use default - the frontend version from the time this demo environment was created.'),
+        'choose' => $this->t('Select a different frontend branch/pull request - for example, to see your content in a newer front end design.'),
       ],
       '#default_value' => 'default',
     ];
     $form['section_1']['git_ref'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Select branch/pull request'),
-      '#description' => $this->t('Start typing to select a branch for the front end version you want to use.'),
+      '#description' => $this->t('Start typing to select a branch for the frontend version you want to use.'),
       '#autocomplete_route_name' => 'va_gov_build_trigger.front_end_branches_autocomplete',
       '#autocomplete_route_parameters' => [
         'count' => 10,
@@ -65,14 +65,10 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
         '#title' => $this->t('Trigger a full Content Export Rebuild.'),
       ];
     }
-    $form['section_1']['help'] = [
-      '#type' => 'item',
-      '#description' => $this->t('You may trigger a new content release at any time. New updates will be added to the queue and will not override any current updates.'),
-    ];
     $form['section_1']['actions']['#type'] = 'actions';
     $form['section_1']['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Update'),
+      '#value' => $this->t('Release content'),
       '#button_type' => 'primary',
     ];
 
@@ -88,7 +84,7 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
     );
     $help_link = Link::fromTextAndUrl($this->t('contact the CMS help desk'), $help_url);
     $description = $this->t(
-      'It may take up to one minute for the status of new content releases to appear here. If you encounter an error, please @help_link.',
+      'It may take up to one minute for the status of new content releases to appear here in the queue. Content releases will complete in the order released. If you encounter an error, please @help_link.',
       ['@help_link' => $help_link->toString()]
     );
     $form['section_2']['help'] = [
@@ -101,17 +97,17 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
     $form['section_3']['title'] = [
       '#type' => 'item',
       '#prefix' => '<h2>',
-      '#markup' => $this->t('3. Access the front end environment'),
+      '#markup' => $this->t('3. Access the frontend environment'),
       '#suffix' => '</h2>',
     ];
-    $description = $this->t('Once the release is completed successfully, see how your content will appear to site visitors.');
+    $description = $this->t('Once the release is completed successfully, see how your content will appear to site visitors on the front end.');
     $form['section_3']['environment_target'] = [
       '#type' => 'item',
       '#markup' => $description,
     ];
     $target = $this->environmentDiscovery->getWebUrl();
     $target_url = Url::fromUri($target, ['attributes' => ['target' => '_blank']]);
-    $target_link = Link::fromTextAndUrl($this->t('Go to Front End'), $target_url);
+    $target_link = Link::fromTextAndUrl($this->t('Go to front end'), $target_url);
     $form['section_3']['cta'] = [
       '#type' => 'item',
       '#wrapper_attributes' => ['class' => ['button button--primary']],
