@@ -1,0 +1,29 @@
+uuid: e1f14ab5-ae2f-43d1-a95d-8a9359a9c7aa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cc_bottom_of_page_content
+    - node.type.vamc_system_policies_page
+  module:
+    - entity_field_fetch
+id: node.vamc_system_policies_page.field_cc_bottom_of_page_content
+field_name: field_cc_bottom_of_page_content
+entity_type: node
+bundle: vamc_system_policies_page
+label: 'National bottom of page content'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_type: paragraph
+    target_uuid: bdf77955-a825-4931-b9ee-cb0a067cf70d
+    target_field: null
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '15588'
+  field_to_fetch: field_content_block
+  target_paragraph_uuid: bdf77955-a825-4931-b9ee-cb0a067cf70d
+field_type: entity_field_fetch
