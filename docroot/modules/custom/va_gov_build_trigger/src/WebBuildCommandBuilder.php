@@ -80,8 +80,17 @@ class WebBuildCommandBuilder {
     $commands = [];
 
     $unique_key = $unique_key ?? (string) time();
+    $repo_root = $this->getPathToWebRoot();
+
+    // If no git reference is passed, reset va-gov/web to the default tag. We
+    // do this to ensure that the default tag is used even if a branch or PR
+    // was checked out earlier.
+    if (!$front_end_git_ref) {
+      $commands += $this->getFrontEndResetCommands($repo_root);
+    }
+
     $composer_command = $this->commandName($front_end_git_ref);
-    if ($command = $this->getFrontEndGitReferenceCheckoutCommand($this->getPathToWebRoot(), $unique_key, $front_end_git_ref)) {
+    if ($command = $this->getFrontEndGitReferenceCheckoutCommand($repo_root, $unique_key, $front_end_git_ref)) {
       $commands[] = $command;
       $commands[] = $this->buildComposerCommand('va:web:install');
     }
@@ -128,7 +137,7 @@ class WebBuildCommandBuilder {
   }
 
   /**
-   * Build an array of commands to run for the web build.
+   * Build the command to check out a git reference.
    *
    * @param string $repo_root
    *   The path to the repository root.
@@ -152,6 +161,22 @@ class WebBuildCommandBuilder {
     }
 
     return '';
+  }
+
+  /**
+   * Build the commands to reset va-gov/web to the default tag.
+   *
+   * @param string $repo_root
+   *   The path to the repository root.
+   *
+   * @return array
+   *   The commands to run to reset va-gov/web.
+   */
+  protected function getFrontEndResetCommands(string $repo_root) : array {
+    $commands = ["cd {$repo_root} && rm -fr docroot/vendor/va-gov"];
+    $commands[] = $this->buildComposerCommand('install');
+
+    return $commands;
   }
 
   /**
