@@ -40,7 +40,7 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
       '#type' => 'radios',
       '#options' => [
         'default' => $this->t('Use default - the frontend version from the time this demo environment was created.'),
-        'choose' => $this->t('Select a different frontend branch/pull request - for example, to see your content in a newer front end design.'),
+        'choose' => $this->t('Select a different frontend branch/pull request - for example, to see your content in a newer frontend design.'),
       ],
       '#default_value' => 'default',
     ];
