@@ -3,3 +3,12 @@ services:
     class: Drupal\va_gov_graphql\Routing\RouteSubscriber
     tags:
       - { name: event_subscriber }
+  va_gov_graphql.queue_processor:
+    decorates: graphql.query_processor
+    class: Drupal\va_gov_graphql\QueueProcessor
+    arguments:
+      - '@cache_contexts_manager'
+      - '@plugin.manager.graphql.schema'
+      - '@cache.graphql.results'
+      - '@request_stack'
+
