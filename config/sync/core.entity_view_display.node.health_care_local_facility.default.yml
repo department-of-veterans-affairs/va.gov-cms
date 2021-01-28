@@ -25,10 +25,10 @@ dependencies:
     - node.type.health_care_local_facility
   module:
     - address
+    - entity_reference_revisions
     - field_group
     - media
     - options
-    - paragraphs
     - tablefield
     - telephone
     - user
@@ -98,12 +98,11 @@ third_party_settings:
       weight: 5
       format_type: details
       format_settings:
+        description: ''
+        open: true
         id: ''
         classes: ''
-        description: ''
-        open: false
-        required_fields: false
-      label: 'Location services'
+      label: 'Prepare for your visit'
       region: content
 id: node.health_care_local_facility.default
 targetEntityType: node
@@ -150,10 +149,12 @@ content:
     type: basic_string
     region: content
   field_location_services:
-    type: paragraph_summary
+    type: entity_reference_revisions_entity_view
     weight: 8
     label: hidden
-    settings: {  }
+    settings:
+      view_mode: default
+      link: ''
     third_party_settings: {  }
     region: content
   field_media:
