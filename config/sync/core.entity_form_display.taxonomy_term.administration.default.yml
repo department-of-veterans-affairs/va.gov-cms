@@ -39,7 +39,7 @@ third_party_settings:
         - group_ask_questions
         - group_connect_with_us
       parent_name: ''
-      weight: 4
+      weight: 8
       format_type: details
       format_settings:
         required_fields: true
@@ -64,6 +64,7 @@ third_party_settings:
       children:
         - field_email_updates_link_text
         - field_email_updates_url
+        - status
       parent_name: group_connect_with_us
       weight: 11
       format_type: fieldset
@@ -129,8 +130,9 @@ content:
     type: linkit
     region: content
   field_metatags:
-    weight: 5
-    settings: {  }
+    weight: 4
+    settings:
+      sidebar: true
     third_party_settings: {  }
     type: metatag_firehose
     region: content
@@ -148,13 +150,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 100
-    region: content
-    third_party_settings: {  }
 hidden:
   description: true
   path: true
+  status: true

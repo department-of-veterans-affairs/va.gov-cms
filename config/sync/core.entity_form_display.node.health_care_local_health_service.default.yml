@@ -24,6 +24,7 @@ dependencies:
     - entity_browser_entity_form
     - field_group
     - ief_table_view_mode
+    - limited_field_widgets
     - markup
     - paragraphs
     - text
@@ -261,24 +262,19 @@ content:
     type: options_select
     region: content
   field_service_location:
-    type: paragraphs
+    type: entity_reference_paragraphs
     weight: 9
     region: content
     settings:
       title: 'Service location'
       title_plural: 'Service locations'
       edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      add_mode: dropdown
+      add_mode: button
       form_display_mode: default
       default_paragraph_type: service_location
-      features:
-        add_above: '0'
-        collapse_edit_all: collapse_edit_all
-        duplicate: duplicate
-    third_party_settings: {  }
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '3'
   field_walk_ins_accepted:
     type: options_select
     weight: 28
