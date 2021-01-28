@@ -163,7 +163,7 @@ class WebBuildCommandBuilder {
     }
 
     if ($front_end_git_ref) {
-      return "cd {$repo_root} && git checkout -b {$web_branch} origin/{$front_end_git_ref}";
+      return "cd {$repo_root} && git fetch origin && git checkout -b {$web_branch} origin/{$front_end_git_ref}";
     }
 
     return '';

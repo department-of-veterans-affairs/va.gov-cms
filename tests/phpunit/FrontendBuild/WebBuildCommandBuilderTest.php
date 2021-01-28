@@ -87,7 +87,7 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
     );
 
     self::assertEquals(
-      "cd /repo/root && git checkout -b {$web_branch} origin/abcd",
+      "cd /repo/root && git fetch origin && git checkout -b build-abcd-abcssss origin/abcd",
       $commands[1],
       'Web command build with branch and GraphQL git command'
     );
@@ -180,7 +180,7 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
     );
 
     self::assertEquals(
-      "cd /repo/root && git checkout -b {$web_branch} origin/abcd",
+      "cd /repo/root && git fetch origin && git checkout -b build-abcd-abcssss origin/abcd",
       $commands[1],
       'Web command build with branch and CMS Export git command'
     );
