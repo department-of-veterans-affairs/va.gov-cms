@@ -5,6 +5,7 @@
  * Install file for Va Gov Backend.
  */
 
+use Drupal\Core\Database\Database;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\node\Entity\Node;
@@ -390,5 +391,25 @@ function va_gov_backend_update_8009() {
         '%system_field' => $system_field,
       ]);
     }
+  }
+}
+
+/**
+ * Remove nickname tables from db.
+ */
+function va_gov_backend_update_8010() {
+
+  $tables = [
+    'node__field_nickname_for_this_facility',
+    'node_revision__field_nickname_for_this_facility',
+  ];
+
+  $schema = Database::getConnection()->schema();
+
+  foreach ($tables as $table) {
+    $schema->dropTable($table);
+    Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'Deleted "%table" from db', [
+      '%table' => $table,
+    ]);
   }
 }
