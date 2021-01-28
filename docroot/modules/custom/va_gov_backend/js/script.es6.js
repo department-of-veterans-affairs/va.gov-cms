@@ -12,8 +12,8 @@
         addTooltip.push($(element).attr("id"));
       });
 
-      // Loops through tooltips ids to apply hover and tab behaviour.
-      $.each(addTooltip, (key, value) => {
+      // Loops through tooltips ids and prepares unique div.
+      function prepareTooltip(value) {
         $(`#${value}`)
           .once("vaGovTooltip")
           .each(() => {
@@ -23,11 +23,22 @@
               )
             );
             $(`#${value}`).attr("class", "addTooltip");
-            // eslint-disable-next-line max-nested-callbacks
-            $(`.${value}`).on("focusin focusout mouseenter mouseleave", () => {
-              $(`#${value}`).toggle();
-            });
           });
+      }
+
+      // Loops through tooltips ids and engages tooltip description.
+      function engageTooltip(value) {
+        $(`.${value}`)
+          .once("vaGovTooltip")
+          .on("focusin focusout mouseenter mouseleave", () => {
+            $(`#${value}`).toggle();
+          });
+      }
+
+      // Prepare and engage each unique tooltip id
+      $.each(addTooltip, (key, value) => {
+        prepareTooltip(value);
+        engageTooltip(value);
       });
     },
   };

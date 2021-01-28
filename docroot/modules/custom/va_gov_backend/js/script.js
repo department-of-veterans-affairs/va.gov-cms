@@ -14,15 +14,22 @@
         addTooltip.push($(element).attr("id"));
       });
 
-      $.each(addTooltip, function (key, value) {
+      function prepareTooltip(value) {
         $("#" + value).once("vaGovTooltip").each(function () {
           $("#" + value).before($("<div class=\"tooltip-toggle " + value + " \"><button class=\"toggle-a\"></button></div>"));
           $("#" + value).attr("class", "addTooltip");
-
-          $("." + value).on("focusin focusout mouseenter mouseleave", function () {
-            $("#" + value).toggle();
-          });
         });
+      }
+
+      function engageTooltip(value) {
+        $("." + value).once("vaGovTooltip").on("focusin focusout mouseenter mouseleave", function () {
+          $("#" + value).toggle();
+        });
+      }
+
+      $.each(addTooltip, function (key, value) {
+        prepareTooltip(value);
+        engageTooltip(value);
       });
     }
   };
