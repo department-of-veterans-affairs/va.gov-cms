@@ -143,9 +143,6 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC Facility Health Service | Are walkins accepted? | field_walk_ins_accepted | List (text) | Required | 1 | Select list |  |
 | Content type | VAMC Facility Health Service | Appointments help text | field_appointments_help_text | Markup |  | 1 | Markup |  |
 | Content type | VAMC Facility Health Service | Service locations help text | field_facility_service_loc_help | Markup |  | 1 | Markup |  |
-| Content type | VAMC Facility Health Service | Appointment intro text | field_hservice_appt_intro_select | List (text) | Required | 1 | Check boxes/radio buttons |  |
-| Content type | VAMC Facility Health Service | Appointment lead-in default | field_hservices_lead_in_default | Markup |  | 1 | Markup |  |
-| Content type | VAMC Facility Health Service | Appointment lead-in text | field_hservice_appt_leadin | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC System | Appointments can be scheduled and viewed online | field_appointments_online | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System | Banner image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | VAMC System | Common Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL | Translatable |
@@ -183,6 +180,9 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Health Service | VAMC system | field_region_page | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Health Service | VAMC system description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | VAMC System Health Service | VHA service name and description | field_service_name_and_descripti | Entity reference | Required | 1 | Select list |  |
+| Content type | VAMC Facility Health Service | Appointment intro text | field_hservice_appt_intro_select | List (text) | Required | 1 | Check boxes/radio buttons |  |
+| Content type | VAMC Facility Health Service | Appointment lead-in default | field_hservices_lead_in_default | Markup |  | 1 | Markup |  |
+| Content type | VAMC Facility Health Service | Appointment lead-in text | field_hservice_appt_leadin | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC System Operating Status | System-wide alerts | field_banner_alert | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | VAMC System Operating Status | Patient resources | field_operating_status_emerg_inf | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
 | Content type | VAMC System Operating Status | Local emergency resources | field_links | Link |  | Unlimited | Linkit | Translatable |
