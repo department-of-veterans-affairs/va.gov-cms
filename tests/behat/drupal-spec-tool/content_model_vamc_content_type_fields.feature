@@ -126,7 +126,6 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC Facility | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | VAMC Facility | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC Facility | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | VAMC Facility | Nickname for this facility | field_nickname_for_this_facility | Text (plain) | Required | 1 | -- Disabled -- |  |
 | Content type | VAMC Facility | Status | field_operating_status_facility | List (text) | Required | 1 | Select list |  |
 | Content type | VAMC Facility | Details | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC Facility | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
@@ -161,7 +160,6 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System | Regional Health Service Offerings. | field_clinical_health_services | Entity reference |  | Unlimited | -- Disabled -- |  |
 | Content type | VAMC System | Twitter | field_twitter | Link |  | 1 | Linkit | Translatable |
 | Content type | VAMC System | VAMC system official name | field_vamc_system_official_name | Text (plain) |  | 1 | Textfield |  |
-| Content type | VAMC System | VAMC system short name | field_nickname_for_this_facility | Text (plain) |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC System Banner Alert with Situation Updates | Alert body | field_body | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Content type | VAMC System Banner Alert with Situation Updates | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System Banner Alert with Situation Updates | Alert type | field_alert_type | List (text) | Required | 1 | Select list |  |
