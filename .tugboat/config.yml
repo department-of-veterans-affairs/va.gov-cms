@@ -38,10 +38,10 @@ services:
         - cp "${TUGBOAT_ROOT}"/.tugboat/web-vhost.conf /etc/apache2/sites-enabled/
 
         # BRD Environments are set to 1G, DevShop and Lando are -1 (unlimited).
-        - echo "memory_limit = 1G" >> /usr/local/etc/php/conf.d/my-php.ini
+        - echo "memory_limit = 4G" >> /usr/local/etc/php/conf.d/my-php.ini
         # Set unlimited memory limit for PHP CLI to allow Composer to run.
         - echo "memory_limit = -1" >> /usr/local/etc/php/conf.d/php-cli.ini
-        - echo "max_execution_time = 1200" >> /usr/local/etc/php/conf.d/my-php.ini
+        - echo "max_execution_time = 1800" >> /usr/local/etc/php/conf.d/my-php.ini
 
         # .tugboat/.env.j2 Jinja2 template file support
         - apt-get install python3-apt python3-distutils python3
