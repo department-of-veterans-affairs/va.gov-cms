@@ -6,6 +6,27 @@
 **/
 
 (function ($, Drupal) {
+  Drupal.behaviors.vaGovTooltip = {
+    attach: function attach() {
+      var addTooltip = [];
+
+      $('div[id*="add-tooltip--"]').each(function (tt, element) {
+        addTooltip.push($(element).attr("id"));
+      });
+
+      $.each(addTooltip, function (key, value) {
+        $("#" + value).once("vaGovTooltip").each(function () {
+          $("#" + value).before($("<div class=\"tooltip-toggle " + value + " \"><button class=\"toggle-a\"></button></div>"));
+          $("#" + value).attr("class", "addTooltip");
+
+          $("." + value).on("focusin focusout mouseenter mouseleave", function () {
+            $("#" + value).toggle();
+          });
+        });
+      });
+    }
+  };
+
   Drupal.behaviors.vaGovClpLimitListOfLinks = {
     attach: function attach() {
       if ($("#field-clp-spotlight-link-teasers-add-more-wrapper .paragraphs-dropbutton-wrapper").length > 3) {

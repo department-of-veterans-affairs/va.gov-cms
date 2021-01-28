@@ -3,6 +3,35 @@
  */
 
 (($, Drupal) => {
+  Drupal.behaviors.vaGovTooltip = {
+    attach() {
+      // Stores tooltip ids to be referenced later.
+      const addTooltip = [];
+      // Gathers all unique tooltip ids.
+      $('div[id*="add-tooltip--"]').each((tt, element) => {
+        addTooltip.push($(element).attr("id"));
+      });
+
+      // Loops through tooltips ids to apply hover and tab behaviour.
+      $.each(addTooltip, (key, value) => {
+        $(`#${value}`)
+          .once("vaGovTooltip")
+          .each(() => {
+            $(`#${value}`).before(
+              $(
+                `<div class="tooltip-toggle ${value} "><button class="toggle-a"></button></div>`
+              )
+            );
+            $(`#${value}`).attr("class", "addTooltip");
+            // eslint-disable-next-line max-nested-callbacks
+            $(`.${value}`).on("focusin focusout mouseenter mouseleave", () => {
+              $(`#${value}`).toggle();
+            });
+          });
+      });
+    },
+  };
+
   Drupal.behaviors.vaGovClpLimitListOfLinks = {
     attach() {
       // Don't allow more than 3 link teasers in clp spotlight panel.

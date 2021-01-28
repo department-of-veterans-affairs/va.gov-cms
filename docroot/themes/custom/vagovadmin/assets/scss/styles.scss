@@ -251,3 +251,50 @@
     display: none;
   }
 }
+
+.tooltip-toggle {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.tooltip-toggle button {
+  background-image: url('../../images/icons/questionmark-disc-000000.svg');
+  background-size: cover;
+  border: 0;
+  height: 25px;
+  pointer-events: none;
+  width: 25px;
+}
+
+.addTooltip {
+  background-color: #fff;
+  border-radius: 3px;
+  display: none;
+  padding: 5px 10px;
+  position: absolute;
+  right: 60px;
+  text-align: left;
+  top: 5px;
+  width: 180px;
+  z-index: 1;
+}
+
+.centralized {
+  background-color: #edede8 !important;
+}
+
+.addTooltip::before {
+  border-color: transparent #fff;
+  border-style: solid;
+  border-width: 14px 0 14px 15px;
+  content: '';
+  display: block;
+  margin-top: -14px;
+  position: absolute;
+  right: -15px;
+  top: 15%;
+  width: 0;
+  z-index: 0;
+}
