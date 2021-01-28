@@ -96,10 +96,10 @@ third_party_settings:
       format_type: detailswithimage
       region: content
       format_settings:
-        description: 'The hero banner attracts attention, announces the campaign''s main message and adds visual interest.'
+        description: 'The hero banner attracts attention, announces the campaign''s main message, and adds visual interest.'
         open: '1'
-        visual_guide: {  }
-        visual_guide_alt_text: ''
+        visual_guide_file_name: hero-banner-guide.svg
+        visual_guide_alt_text: 'Basic visual layout of the hero banner page segment.'
         required_fields: '1'
         id: ''
         classes: ''
@@ -115,10 +115,12 @@ third_party_settings:
       region: content
       format_settings:
         description: 'Why this matters to you calls out the most impactful information about your campaign. If people read nothing else on the page, what should they know?'
-        required_fields: true
+        visual_guide_file_name: why-this-matters-guide.svg
+        visual_guide_alt_text: 'Basic visual layout of the why this matters page segment.'
+        required_fields: '1'
         id: ''
         classes: ''
-        open: false
+        open: 0
       label: 'Why this matters'
     group_what_you_can_do:
       children:
@@ -131,10 +133,12 @@ third_party_settings:
       region: content
       format_settings:
         description: 'What you can do focuses on actions or steps that site visitors can or should take. In this segment you''ll use "promos," content formatted as small image and text teasers that engage attention and inspire further action.'
-        required_fields: true
+        visual_guide_file_name: what-you-can-do-guide.svg
+        visual_guide_alt_text: 'Basic visual layout of the what you can do page segment.'
+        required_fields: '1'
         id: ''
         classes: ''
-        open: false
+        open: 0
       label: 'What you can do'
     group_va_benefits:
       children:
@@ -145,10 +149,12 @@ third_party_settings:
       region: content
       format_settings:
         description: 'Benefits connect site visitors with benefits information related to the campaign. Each block appears as a link to a benefits landing page with and teaser text.'
-        required_fields: true
+        visual_guide_file_name: related-benefits-guide.svg
+        visual_guide_alt_text: 'Basic visual layout of the related benefits page segment.'
+        required_fields: '1'
         id: ''
         classes: ''
-        open: false
+        open: 0
       label: 'VA Benefits'
     group_spotlight:
       children:
@@ -163,10 +169,12 @@ third_party_settings:
       region: content
       format_settings:
         description: 'This optional segment allows you to add additional content relevant to your campaign''s audience.'
+        visual_guide_file_name: spotlight-guide.svg
+        visual_guide_alt_text: 'Basic visual layout of the spotlight page segment.'
         id: ''
         classes: ''
-        open: false
-        required_fields: false
+        open: 0
+        required_fields: 0
       label: Spotlight
     group_video:
       children:
@@ -180,10 +188,12 @@ third_party_settings:
       region: content
       format_settings:
         description: 'This optional segment allows you to include video content related to the campaign''s message.'
+        visual_guide_file_name: video-guide.svg
+        visual_guide_alt_text: 'Basic visual layout of the video page segment.'
         id: ''
         classes: ''
-        open: false
-        required_fields: false
+        open: 0
+        required_fields: 0
       label: Video
     group_stories:
       children:
@@ -198,10 +208,12 @@ third_party_settings:
       region: content
       format_settings:
         description: 'This optional segment features a link and teaser text for up to two stories that support the campaign''s main message. You can feature existing stories, or create a new story.'
+        visual_guide_file_name: stories-guide.svg
+        visual_guide_alt_text: 'Basic visual layout of the stories page segment.'
         id: ''
         classes: ''
-        open: false
-        required_fields: false
+        open: 0
+        required_fields: 0
       label: Stories
     group_downloadable_resources:
       children:
@@ -216,10 +228,12 @@ third_party_settings:
       region: content
       format_settings:
         description: 'This optional segment allows you to provide downloadable PDF resources such as fact sheets, reports, studies, or white papers.'
+        visual_guide_file_name: downloadable-resources-guide.svg
+        visual_guide_alt_text: 'Basic visual layout of the downloadable resources page segment.'
         id: ''
         classes: ''
-        open: false
-        required_fields: false
+        open: 0
+        required_fields: 0
       label: 'Downloadable resources'
     group_events:
       children:
@@ -233,10 +247,12 @@ third_party_settings:
       format_type: detailswithimage
       format_settings:
         description: 'This optional segment allows you to feature events related to the campaign.'
+        visual_guide_file_name: events-guide.svg
+        visual_guide_alt_text: 'Basic visual layout of the events page segment.'
         id: ''
         classes: ''
-        open: false
-        required_fields: false
+        open: 0
+        required_fields: 0
     group_faqs:
       children:
         - field_clp_faq_panel
@@ -248,10 +264,12 @@ third_party_settings:
       region: content
       format_settings:
         description: 'This optional segment allows you to add reusable question and answer content related to the campaign''s message.'
+        visual_guide_file_name: faqs-guide.svg
+        visual_guide_alt_text: 'Basic visual layout of the faqs page segment.'
         id: ''
         classes: ''
-        open: false
-        required_fields: false
+        open: 0
+        required_fields: 0
       label: FAQs
     group_connect_with_us:
       children:
@@ -262,10 +280,12 @@ third_party_settings:
       region: content
       format_settings:
         description: 'This optional segment allows you to add a set of social media and contact links for the VA administration responsible for the campaign.'
-        required_fields: true
+        visual_guide_file_name: connect-guide.svg
+        visual_guide_alt_text: 'Basic visual layout of the connect with us page segment.'
+        required_fields: '1'
         id: ''
         classes: ''
-        open: false
+        open: 0
       label: 'Connect with us'
 id: node.campaign_landing_page.default
 targetEntityType: node
