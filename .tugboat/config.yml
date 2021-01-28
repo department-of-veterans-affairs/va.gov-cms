@@ -108,6 +108,8 @@ services:
         # setup to ensure branch is up to date.
         - git reset --hard $TUGBOAT_PREVIEW_SHA
         - j2 "${TUGBOAT_ROOT}/.tugboat/.env.j2" -o "${TUGBOAT_ROOT}/.env"
+        # This command is shared by the clone and build stages, make sure to update both stages.
+        - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
         - composer install --optimize-autoloader --apcu-autoloader
         - composer va:web:install
         - drush cache:rebuild
@@ -120,6 +122,10 @@ services:
         - mkdir -p /etc/service/drupal_events
         - mv "${TUGBOAT_ROOT}/scripts/queue_runner/queue_runner.sh" /etc/service/drupal_events/run
         - chmod +x /etc/service/drupal_events/run
+
+      clone:
+        # This command is shared by the clone and build stages, make sure to update both stages.
+        - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
 
       online:
         # We only want tests running on PRs, not branches like the base preview build of master.
