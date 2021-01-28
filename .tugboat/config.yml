@@ -124,10 +124,6 @@ services:
         - mv "${TUGBOAT_ROOT}/scripts/queue_runner/queue_runner.sh" /etc/service/drupal_events/run
         - chmod +x /etc/service/drupal_events/run
 
-        # Run the WEB build on the master base preview only, so that the database cache is primed and makes clones
-        # inherit an initial WEB build.
-        - if [ -z "$TUGBOAT_BASE_PREVIEW" ] && [ "$TUGBOAT_PREVIEW_REF" = "master" ] && [ "$TUGBOAT_PREVIEW_TYPE" = "branch" ]; then composer va:web:build; fi
-
       clone:
         # This j2 command is shared in both the build & clone stages. If modifying, change the other too.
         - j2 "${TUGBOAT_ROOT}/.tugboat/.env.j2" -o "${TUGBOAT_ROOT}/.env"
