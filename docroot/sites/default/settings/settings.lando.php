@@ -37,4 +37,4 @@ $settings['trusted_host_patterns'] = [
 $settings['va_gov_frontend_build_type'] = 'lando';
 $settings['va_gov_frontend_url'] = $webhost_on_cli . '/static';
 $settings['va_gov_app_root'] = getenv('LANDO_MOUNT');
-$settings['va_gov_web_root'] = getenv('LANDO_WEBROOT') . '/web';
+$settings['va_gov_web_root'] = getenv('LANDO_MOUNT') . '/web';
