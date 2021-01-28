@@ -206,17 +206,16 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   protected function getFrontEndVersionCell(Job $job) : array {
     $payload = json_decode($job->getPayload());
 
-    // No branch checkout command is found, so this is building the default tag.
-    if (count($payload->commands) === 1) {
+    if (preg_match('/rm -fr docroot/', $payload->commands[0], $matches)) {
       return ['data' => ['#markup' => '[default]']];
     }
 
-    if (preg_match('/origin\/([^\/ ]*)$/', $payload->commands[0], $matches)) {
+    if (preg_match('/origin\/([^\/ ]*)$/', $payload->commands[1], $matches)) {
       $branch = $matches[1];
       return ['data' => ['#markup' => "Branch: {$branch}"]];
     }
 
-    if (preg_match('/git fetch origin pull\/([0-9]*)\/head/', $payload->commands[0], $matches)) {
+    if (preg_match('/git fetch origin pull\/([0-9]*)\/head/', $payload->commands[1], $matches)) {
       $pr = $matches[1];
       return ['data' => ['#markup' => "Pull request: #{$pr}"]];
     }
