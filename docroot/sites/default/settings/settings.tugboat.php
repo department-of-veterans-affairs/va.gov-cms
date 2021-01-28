@@ -40,8 +40,8 @@ $config['system.performance']['response']['gzip'] = FALSE;
 $config['views.settings']['ui']['show']['sql_query']['enabled'] = TRUE;
 $config['views.settings']['ui']['show']['performance_statistics'] = TRUE;
 $config['system.logging']['error_level'] = 'all';
-$config['environment_indicator.indicator']['bg_color'] = '#79D4F0'; // light blue.
-$config['environment_indicator.indicator']['fg_color'] = '#000000';
+$config['environment_indicator.indicator']['bg_color'] = '#533B03'; // dark brown.
+$config['environment_indicator.indicator']['fg_color'] = '#ffffff';
 $config['environment_indicator.indicator']['name'] = 'Tugboat';
 
 $settings['trusted_host_patterns'] = [
@@ -63,4 +63,4 @@ $config['migrate_plus.migration.va_node_form']['source']['urls'] = [$webhost_on_
 $settings['va_gov_frontend_url'] = getenv('FRONTEND_ADDRESS');
 $settings['va_gov_frontend_build_type'] = 'tugboat';
 $settings['va_gov_app_root'] = getenv('TUGBOAT_ROOT');
-$settings['va_gov_web_root'] = getenv('DOCROOT') . '/web';
+$settings['va_gov_web_root'] = getenv('TUGBOAT_ROOT') . '/web';

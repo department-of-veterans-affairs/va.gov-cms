@@ -8,7 +8,7 @@
 (function ($, Drupal) {
   function refreshStatusBlock(url) {
     $.get(url, function (data) {
-      $("#block-content-release-status-block table").html(data);
+      $(".content-release-status-block").html(data);
     });
   }
 
