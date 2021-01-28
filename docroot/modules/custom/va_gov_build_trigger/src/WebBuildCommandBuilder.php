@@ -82,11 +82,17 @@ class WebBuildCommandBuilder {
     $unique_key = $unique_key ?? (string) time();
     $repo_root = $this->getPathToWebRoot();
 
-    // If no git reference is passed, reset va-gov/web to the default tag. We
-    // do this to ensure that the default tag is used even if a branch or PR
-    // was checked out earlier.
     if (!$front_end_git_ref) {
-      $commands += $this->getFrontEndResetCommands($repo_root);
+      // If no git reference is passed, reset va-gov/web to the default tag. We
+      // do this to ensure that the default tag is used even if a branch or PR
+      // was checked out earlier.
+      $commands += $this->getFrontEndReinstallCommands($repo_root);
+    }
+    else {
+      // If we are checking out a branch or PR, reset all files in va-gov/web
+      // to their default state. We do this to avoid having the checkout fail
+      // if there are modified files.
+      $commands[] = $this->getFrontEndResetCommand($repo_root);
     }
 
     $composer_command = $this->commandName($front_end_git_ref);
@@ -164,19 +170,32 @@ class WebBuildCommandBuilder {
   }
 
   /**
-   * Build the commands to reset va-gov/web to the default tag.
+   * Build the commands to reinstall va-gov/web.
    *
    * @param string $repo_root
    *   The path to the repository root.
    *
    * @return array
-   *   The commands to run to reset va-gov/web.
+   *   The commands to run to reinstall va-gov/web.
    */
-  protected function getFrontEndResetCommands(string $repo_root) : array {
+  protected function getFrontEndReinstallCommands(string $repo_root) : array {
     $commands = ["cd {$repo_root} && rm -fr docroot/vendor/va-gov"];
     $commands[] = $this->buildComposerCommand('install');
 
     return $commands;
+  }
+
+  /**
+   * Build the command to reset va-gov/web files to their default state.
+   *
+   * @param string $repo_root
+   *   The path to the repository root.
+   *
+   * @return array
+   *   The commands to run to reset va-gov/web files.
+   */
+  protected function getFrontEndResetCommand(string $repo_root) : string {
+    return "cd {$repo_root} && git reset --hard HEAD";
   }
 
   /**
