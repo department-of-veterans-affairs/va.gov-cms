@@ -107,6 +107,7 @@ services:
         # Tugboat currently merges the branch into master and we don't need that because we have a GitHub branch rule
         # setup to ensure branch is up to date.
         - git reset --hard $TUGBOAT_PREVIEW_SHA
+        # This j2 command is shared in both the build & clone stages. If modifying, change the other too.
         - j2 "${TUGBOAT_ROOT}/.tugboat/.env.j2" -o "${TUGBOAT_ROOT}/.env"
         - composer install --optimize-autoloader --apcu-autoloader
         - composer va:web:install
@@ -120,6 +121,14 @@ services:
         - mkdir -p /etc/service/drupal_events
         - mv "${TUGBOAT_ROOT}/scripts/queue_runner/queue_runner.sh" /etc/service/drupal_events/run
         - chmod +x /etc/service/drupal_events/run
+
+        # Run the WEB build on the master base preview only, so that the database cache is primed and makes clones
+        # inherit an initial WEB build.
+        - if [[ -z "$TUGBOAT_BASE_PREVIEW" && "$TUGBOAT_PREVIEW_REF" = "master" && "$TUGBOAT_PREVIEW_TYPE" = "branch" ]]; then composer va:web:build; fi
+
+      clone:
+        # This j2 command is shared in both the build & clone stages. If modifying, change the other too.
+        - j2 "${TUGBOAT_ROOT}/.tugboat/.env.j2" -o "${TUGBOAT_ROOT}/.env"
 
       online:
         # We only want tests running on PRs, not branches like the base preview build of master.
