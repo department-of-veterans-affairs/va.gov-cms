@@ -44,7 +44,7 @@ Feature: Content model bundles
 | VAMC System Banner Alert with Situation Updates | full_width_banner_alert | Content type | A full-width alert that will be added to a VAMC system, or multiple VAMC systems. |
 | VAMC System Health Service | regional_health_care_service_des | Content type | A description of a health service specific to a VAMC system, which appears on a VAMC's health services page and on facility pages, within accordions. |
 | VAMC System Operating Status | vamc_operating_status_and_alerts | Content type | Create one of these pages for each VAMC system. Then you can add banner alerts and update facilities' operating status, all from one place. |
-| VAMC System Policies Page | vamc_system_policies_page | Content type |  |
+| VAMC System Policies Page | vamc_system_policies_page | Content type | Add policies specific to this VA medical center to appear on the Policies page. Local policies will appear alongside national policies that apply to all VAMCs. |
 | VBA Facility | vba_facility | Content type | A facility within Veterans Benefits Administration system. |
 | Vet Center | vet_center | Content type | A facility within Vet Centers system. |
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
