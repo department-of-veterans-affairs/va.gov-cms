@@ -37,48 +37,70 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
 
     $commands = $webBuildCommandBuilder->buildCommands(NULL, $unique_key);
     self::assertEquals(
-      'cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build',
+      'cd /repo/root && rm -fr docroot/vendor/va-gov',
       $commands[0],
+      'Web Commands build with GraphQL'
+    );
+    self::assertEquals(
+      'cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache install',
+      $commands[1],
+      'Web Commands build with GraphQL'
+    );
+    self::assertEquals(
+      'cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build',
+      $commands[2],
       'Web Commands build with GraphQL'
     );
 
     $commands = $webBuildCommandBuilder->buildCommands('1234', $unique_key);
     $web_branch = "build-1234-abcssss";
     self::assertEquals(
-      "cd /repo/root && git fetch origin pull/1234/head:{$web_branch} && git checkout {$web_branch}",
+      "cd /repo/root && git reset --hard HEAD",
       $commands[0],
       'Web Command Build with commit and GraphQL git command'
     );
 
     self::assertEquals(
-      "cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:install",
+      "cd /repo/root && git fetch origin pull/1234/head:{$web_branch} && git checkout {$web_branch}",
       $commands[1],
+      'Web Command Build with commit and GraphQL git command'
+    );
+
+    self::assertEquals(
+      "cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:install",
+      $commands[2],
       'Web Command Build with commit and GraphQL npm install command'
     );
 
     self::assertEquals(
       "cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:full",
-      $commands[2],
+      $commands[3],
       'Web Command Build with commit and GraphQL composer command'
     );
 
     $commands = $webBuildCommandBuilder->buildCommands('abcd', $unique_key);
     $web_branch = "build-abcd-abcssss";
     self::assertEquals(
-      "cd /repo/root && git checkout -b {$web_branch} origin/abcd",
+      "cd /repo/root && git reset --hard HEAD",
       $commands[0],
       'Web command build with branch and GraphQL git command'
     );
 
     self::assertEquals(
-      "cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:install",
+      "cd /repo/root && git fetch origin && git checkout -b build-abcd-abcssss origin/abcd",
       $commands[1],
+      'Web command build with branch and GraphQL git command'
+    );
+
+    self::assertEquals(
+      "cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:install",
+      $commands[2],
       'Web Command Build with branch and GraphQL npm install command'
     );
 
     self::assertEquals(
       "cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:full",
-      $commands[2],
+      $commands[3],
       'Web command build with branch and GraphQL composer command'
     );
   }
@@ -108,48 +130,70 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
 
     $commands = $webBuildCommandBuilder->buildCommands(NULL, $unique_key);
     self::assertEquals(
-      'cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:export',
+      'cd /repo/root && rm -fr docroot/vendor/va-gov',
       $commands[0],
+      'Web Commands build with CMS Export'
+    );
+    self::assertEquals(
+      'cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache install',
+      $commands[1],
+      'Web Commands build with CMS Export'
+    );
+    self::assertEquals(
+      'cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:export',
+      $commands[2],
       'Web Commands build with CMS Export'
     );
 
     $commands = $webBuildCommandBuilder->buildCommands('1234', $unique_key);
     $web_branch = "build-1234-abcssss";
     self::assertEquals(
-      "cd /repo/root && git fetch origin pull/1234/head:{$web_branch} && git checkout {$web_branch}",
+      "cd /repo/root && git reset --hard HEAD",
       $commands[0],
       'Web Command Build with commit and CMS Export git command'
     );
 
     self::assertEquals(
-      "cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:install",
+      "cd /repo/root && git fetch origin pull/1234/head:{$web_branch} && git checkout {$web_branch}",
       $commands[1],
+      'Web Command Build with commit and CMS Export git command'
+    );
+
+    self::assertEquals(
+      "cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:install",
+      $commands[2],
       'Web Command Build with commit and CMS Export npm install command'
     );
 
     self::assertEquals(
       "cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:export:full",
-      $commands[2],
+      $commands[3],
       'Web Command Build with commit and CMS Export composer command'
     );
 
     $commands = $webBuildCommandBuilder->buildCommands('abcd', $unique_key);
     $web_branch = "build-abcd-abcssss";
     self::assertEquals(
-      "cd /repo/root && git checkout -b {$web_branch} origin/abcd",
+      "cd /repo/root && git reset --hard HEAD",
       $commands[0],
       'Web command build with branch and CMS Export git command'
     );
 
     self::assertEquals(
-      "cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:install",
+      "cd /repo/root && git fetch origin && git checkout -b build-abcd-abcssss origin/abcd",
       $commands[1],
+      'Web command build with branch and CMS Export git command'
+    );
+
+    self::assertEquals(
+      "cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:install",
+      $commands[2],
       'Web Command Build with branch and CMS Export npm install command'
     );
 
     self::assertEquals(
       "cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build:export:full",
-      $commands[2],
+      $commands[3],
       'Web command build with branch and CMS Export composer command'
     );
   }
