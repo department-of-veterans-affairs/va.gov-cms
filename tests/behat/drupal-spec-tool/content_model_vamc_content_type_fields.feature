@@ -188,6 +188,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Operating Status | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Operating Status | Facility operating statuses | field_facility_operating_status | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | VAMC System Operating Status | VAMC system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC System Policies Page | Fieldset Markup | field_fieldset_markup | Markup |  | 1 | Markup |  |
 | Content type | VAMC System Policies Page | National bottom of page content | field_cc_bottom_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | VAMC System Policies Page | National general visitation policy | field_cc_gen_visitation_policy | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | VAMC System Policies Page | National intro text | field_cc_intro_text | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |

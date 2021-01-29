@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.vamc_system_policies_page.field_cc_gen_visitation_policy
     - field.field.node.vamc_system_policies_page.field_cc_intro_text
     - field.field.node.vamc_system_policies_page.field_cc_top_of_page_content
+    - field.field.node.vamc_system_policies_page.field_fieldset_markup
     - field.field.node.vamc_system_policies_page.field_office
     - field.field.node.vamc_system_policies_page.field_vamc_other_policies
     - field.field.node.vamc_system_policies_page.field_vamc_visitation_policy
@@ -17,6 +18,7 @@ dependencies:
     - content_moderation
     - entity_field_fetch
     - field_group
+    - markup
     - text
 third_party_settings:
   field_group:
@@ -53,6 +55,7 @@ third_party_settings:
       label: 'Editorial workflow'
     group_policies:
       children:
+        - field_fieldset_markup
         - title
         - field_cc_intro_text
         - field_cc_top_of_page_content
@@ -62,10 +65,10 @@ third_party_settings:
       region: content
       format_settings:
         description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
-        id: ''
+        id: add-tooltip
         classes: centralized
         required_fields: false
-      label: Policies
+      label: ''
     group_visitation_policies:
       children:
         - field_cc_gen_visitation_policy
@@ -75,7 +78,7 @@ third_party_settings:
       region: content
       format_settings:
         description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
-        id: ''
+        id: add-tooltip
         classes: centralized
         required_fields: false
       label: ''
@@ -87,9 +90,9 @@ third_party_settings:
       format_type: fieldset
       region: content
       format_settings:
-        id: ''
-        classes: centralized
         description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
+        id: add-tooltip
+        classes: centralized
         required_fields: false
       label: ''
 id: node.vamc_system_policies_page.default
@@ -116,16 +119,22 @@ content:
     type: entity_field_fetch_widget
     region: content
   field_cc_intro_text:
-    weight: 2
+    weight: 28
     settings: {  }
     third_party_settings: {  }
     type: entity_field_fetch_widget
     region: content
   field_cc_top_of_page_content:
-    weight: 3
+    weight: 29
     settings: {  }
     third_party_settings: {  }
     type: entity_field_fetch_widget
+    region: content
+  field_fieldset_markup:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
     region: content
   field_office:
     weight: 0
@@ -164,7 +173,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 1
+    weight: 27
     region: content
     settings:
       size: 60
