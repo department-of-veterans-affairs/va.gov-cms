@@ -136,15 +136,12 @@ services:
         # This sets the commit status checks to pending all at once.
         - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then composer yaml-tests va/web/build va/tests; fi
 
-        # Do run the WEB build if on a branch, tag or commit so the `web-*` prefix works.
-        - if [ "$TUGBOAT_PREVIEW_TYPE" != "pullrequest" ]; then composer yaml-tests va/web/build --dry-run; fi
-
         # Set file permissions so web based build calls work.  This must run after all web builds are done in tests.
         - chown -R www-data:www-data "${DOCROOT}/vendor/va-gov/web"
-        - find "${DOCROOT}/vendor/va-gov/web" -type d -exec chmod 2775 {} \;
-        - find "${DOCROOT}/vendor/va-gov/web" -type f -exec chmod 0664 {} \;
-        - find "${DOCROOT}/vendor/va-gov/web/node_modules/.bin" -type f -exec chmod +x {} \;
-        - find "${DOCROOT}/vendor/va-gov/web/script" -type f -exec chmod +x {} \;
+        - find "${DOCROOT}/vendor/va-gov/web" -type d -exec chmod 2775 {} \+
+        - find "${DOCROOT}/vendor/va-gov/web" -type f -exec chmod 0664 {} \+
+        - find "${DOCROOT}/vendor/va-gov/web/node_modules/.bin" -type f -exec chmod +x {} \+
+        - find "${DOCROOT}/vendor/va-gov/web/script" -type f -exec chmod +x {} \+
 
   # What to call the service hosting MySQL. This name also acts as the
   # hostname to access the service by from the php service.
