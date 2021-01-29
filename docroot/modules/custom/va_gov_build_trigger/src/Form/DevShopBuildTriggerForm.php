@@ -7,7 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Implements build trigger form overrides for the DevShop environment.
  */
-class DevShopBuildTriggerForm extends BuildTriggerForm {
+class DevShopBuildTriggerForm extends BrdBuildTriggerForm {
 
   /**
    * Build the build trigger form.
@@ -20,8 +20,9 @@ class DevShopBuildTriggerForm extends BuildTriggerForm {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildForm($form, $form_state);
 
-    $description = $this->t('A content release for this environment is handled by CMS-CI. You may press this button to trigger a content release.  Please note this could take several minutes to run.');
-    $form['environment_target']['#description'] = $description;
+    $form['help_1']['#markup'] = $this->t('A content release for this environment is handled by CMS-CI. You may press this button to trigger a content release.  Please note this could take several minutes to run.');
+    unset($form['actions']['confirm']);
+    unset($form['actions']['submit']['#states']);
 
     return $form;
   }

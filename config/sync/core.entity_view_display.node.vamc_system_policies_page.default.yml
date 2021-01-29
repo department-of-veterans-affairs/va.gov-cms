@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.vamc_system_policies_page.field_cc_gen_visitation_policy
     - field.field.node.vamc_system_policies_page.field_cc_intro_text
     - field.field.node.vamc_system_policies_page.field_cc_top_of_page_content
+    - field.field.node.vamc_system_policies_page.field_fieldset_markup
     - field.field.node.vamc_system_policies_page.field_office
     - field.field.node.vamc_system_policies_page.field_vamc_other_policies
     - field.field.node.vamc_system_policies_page.field_vamc_visitation_policy
@@ -15,12 +16,14 @@ dependencies:
   module:
     - entity_field_fetch
     - field_group
+    - markup
     - text
     - user
 third_party_settings:
   field_group:
     group_policies:
       children:
+        - field_fieldset_markup
         - field_cc_intro_text
         - field_cc_top_of_page_content
       parent_name: ''
@@ -28,10 +31,10 @@ third_party_settings:
       format_type: fieldset
       region: content
       format_settings:
-        id: ''
-        classes: centralized
         description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
-      label: policies
+        id: add-tooltip
+        classes: centralized
+      label: ''
     group_national_visitation:
       children:
         - field_cc_gen_visitation_policy
@@ -41,7 +44,7 @@ third_party_settings:
       region: content
       format_settings:
         description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
-        id: ''
+        id: add-tooltip
         classes: centralized
       label: ''
     group_national_bottom:
@@ -53,7 +56,7 @@ third_party_settings:
       region: content
       format_settings:
         description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
-        id: ''
+        id: add-tooltip
         classes: centralized
       label: ''
 id: node.vamc_system_policies_page.default
@@ -76,18 +79,25 @@ content:
     type: entity_field_fetch
     region: content
   field_cc_intro_text:
-    weight: 2
+    weight: 9
     label: above
     settings: {  }
     third_party_settings: {  }
     type: entity_field_fetch
     region: content
   field_cc_top_of_page_content:
-    weight: 3
+    weight: 10
     label: above
     settings: {  }
     third_party_settings: {  }
     type: entity_field_fetch
+    region: content
+  field_fieldset_markup:
+    weight: 8
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
     region: content
   field_office:
     weight: 0

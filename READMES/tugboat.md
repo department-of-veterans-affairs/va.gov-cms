@@ -1,26 +1,54 @@
 ## Tugboat 101
 
 ### Summary of Tugboat
-Tugboat is a fast, modern Preview environment creation tool based on containers ([Docker Swarm](https://docs.docker.com/engine/swarm/)). Tugboat creates "Previews" which are instances you can test changes on, login with a web based CLI tool, and view logs in the UI. It uses a concept of a "Base Preview" which is a container with a production database snapshot baked into it and ready to put your new code onto and run post-deploy operations (updatedb, config:import). This base preview image is built every day just after the PROD CMS deploy and uses a database snapshot from that time. When you launch your PR, it launches from that state and doesn't have to sync the files or database. Therefore, it can run only your code updates and configuration import and then posts a comment to your pull request with links to your Preview environment.
+Tugboat is a fast, modern Preview Environment creation tool based on containers ([Docker Swarm](https://docs.docker.com/engine/swarm/)). Tugboat creates "Previews" which are environments that you can test proposed code changes on, login with a web shell, and view logs in the UI. It uses a concept of a "Base Preview" which is a container with a production database snapshot baked into it and ready to put your new code onto and run post-deploy operations (updatedb, config:import). This base preview image is built every day just after the PROD CMS deploy at 3:30pm ET and uses a database snapshot from just after that deployment time. Then, when you launch your PR it launches from that state and doesn't have to sync the file assets or database snapshot and will only run your code updates (`drush updatdb`) and configuration import (`drush config:import`) and then posts a GitHub comment to your pull request with links to your preview environment(s).
 
-**Getting started for Pull Requests (Demo coming soon)**
-1. Log in to the Tugboat dashboard (internal) https://tugboat.vfs.va.gov. When you first log in with GitHub, you need to wait up to 2 minutes for your user account to be granted access to project(s) by a cron script that runs every minute (we are working on making this instant eventually). After you have waited:
+**Getting started with CMS Pull Request Preview Environments**
+1. Log in to the Tugboat dashboard (internal) https://tugboat.vfs.va.gov. When you first log in with GitHub, you need to wait up to 2 minutes for your user account to be granted access to project(s) by a cron script that runs every minute (we are working on making this instant eventually). After you have waited the 2 minutes:
 1. Click the "CMS" project then click "CMS Pull Request Environments"
 1. Make a pull request
-1. A "Deployment in Progress" message will appear on your Pull Request, and you will see a new environment appear in the Tugboat Dashboard. Here you can view the logs or launch a "terminal" to modify code or run drush commands etc.
-1. Within 3 minutes a comment should be posted with links to your environment for testing, this includes a WEB (web-*) URL that builds the static site for testing. The WEB environment will take a while to build and only be stable after all tests pass.
-1. After the comment is posted with your environment links tests will start running and switch from "Expected" to "Pending", this will take closer to 30+ minutes.
+1. A "Deployment in Progress" message will appear on your GitHub Pull Request, and you will see a new environment appear simultaneiously in the Tugboat dashboard. With the dashboard you can view the preview environment system logs or launch a "terminal" to modify code and/or run drush commands etc.
+1. Within 3 minutes a your new preview environment should be created and a GitHub comment will be posted with links to your environment(s) for testing, this includes a WEB (web-\*) link that builds the static site for testing. The WEB environment will take a while to build and will only be stable after all tests pass.
+1. After the GitHub comment is posted with your environment links, tests will start running and the checks in the GitHub status check section will switch from "Expected" to "Pending", this test run step will take closer to 30+ minutes to complete.
+
+**Getting started with CMS Demo Preview Environments**
+
+1. Demo Preview Environments that are inactive for 30 days are subject to deletion. Run the "Lock" operation to prevent this from happening. 
+1. Demo environments must follow this naming pattern:
+   1. For VAMC Systems - `<Geographic location> health care`. E.g. Alexandria health care.
+   1. For other CMS products - `<Product name>`. E.g. Resources and support
+   1. For personal sandboxes - `<First name Last name>'s Sandbox`. E.g. Dave Conlon's Sandbox.
+   1. Avoid creating environments with duplicate names. Check the list of existing environment while sorting by title to quickly scan the list to ensure an environment you're about to create doesn't already exist.
+
+To create a new CMS Demo Preview Environment:
+
+1. Login to Tugboat using GitHub - [Tugboat Projects](https://tugboat.vfs.va.gov/projects)
+1. Navigate to CMS > CMS Demo Environments repository OR use a direct link [Tugboat CMS Demo Environments repository](https://tugboat.vfs.va.gov/5ffe2f4dfa1ca136135134f6)
+1. Locate "Base Previews" section
+   1. Scroll down to locate **Base Previews** section.
+1. Clone base preview to create a new Demo Preview Environment.
+   1. Locate **master** base preview.
+   1. Click on **Actions > Clone**. You have created a clone of base preview environment.
+1. Rename the newly created clone.
+   1. Locate "master" environment in "Preview" section at the top of the page.
+   1. Click "Settings".
+   1. Enter new environment name .
+   1. Do not change any other settings.
+   1. Click "Save Configuration", then "Back to Preview".
+   
+You have created a new CMS Demo Preview Environment.
 
 ## Tips
-1. Refresh, Rebuild and Reset operations. Learn more at https://docs.tugboat.qa/building-a-preview/preview-deep-dive/how-previews-work. Below is a quick summary that might help clarify
-    1. Refresh: Starts at the "Update" stage, see .tugboat/config.yml. This syncs your DB and files from recent PROD backups.
-    1. Rebuild: Rebuilds your Pull Request Preview environment from the "Build" stage, see .tugboat/config.yml.
-    1. Reset: Resets your database and code to the state it was when the Preview environment was created.
-1. Clone doesn't clone the current state of the DB, it clones the state of the Preview from when it was created.
-1. Environments are deleted on a PR merge/close by default, you can "Lock" the environment to prevent deletion.
+1. Refresh, Rebuild and Reset operations.   
+    Learn more at https://docs.tugboat.qa/building-a-preview/preview-deep-dive/how-previews-work. Below is a quick summary that might help clarify
+    1. Refresh: Starts at "update" stage, then "build" stage, then "online" stage, see .tugboat/config.yml. "Refresh" is what you want to run to just get a fresh database snapshot (think (re)fresh database) and file asset import from recent production backups. ~10 minutes
+    1. Rebuild: Starts at "build" stage, then "online" stage, see .tugboat/config.yml. "Rebuild" does not sync the latests database snapshot and file assets. ~3 minutes 
+    1. Reset: Resets your database and code to the state it was when the Preview environment was created. <1 minute 
+1. Clone: Clones the Preview Environment of the database and codebase/filesystem state at the time it was created, and not the current state. <1 minute
+1. Environments are deleted on a PR merge/close by default. "Lock" the environment to prevent deletion.
 1. There should only be one "Base Preview" built on master
     1. The base preview rebuilds daily at 4pm ET, just after our prod.cms.va.gov daily deployment
-1. You can change the prefix on any environment, all that matters is the token in the URL, e.g. https://pr165-z82nl225gxrzbpcmfxt34th673gtwpmu.tugboat.vfs.va.gov/ will go to the same place as https://rainboxes-z82nl225gxrzbpcmfxt34th673gtwpmu.tugboat.vfs.va.gov/, they are the same. The exception is that if any URL starts with `web-*` then it will be routed to the /docroot/static folder to serve out the static website (vets-website).
+1. You can change the prefix on any environment, all that matters is the token in the URL, e.g. https://pr165-z82nl225gxrzbpcmfxt34th673gtwpmu.tugboat.vfs.va.gov/ will go to the same place as https://rainboxes-z82nl225gxrzbpcmfxt34th673gtwpmu.tugboat.vfs.va.gov/, they are the same. The exception is that if any URL starts with `web-*` then it will be routed to the /docroot/static folder to serve out the static website (vets-website), see .htaccess).
 
 ## Common Tugboat operations
 

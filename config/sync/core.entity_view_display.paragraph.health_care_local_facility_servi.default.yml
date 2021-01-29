@@ -8,6 +8,7 @@ dependencies:
     - paragraphs.paragraphs_type.health_care_local_facility_servi
   module:
     - field_group
+    - string_field_formatter
     - text
 third_party_settings:
   field_group:
@@ -35,9 +36,11 @@ content:
     weight: 1
     label: hidden
     settings:
+      wrap_tag: h3
+      wrap_class: ''
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    type: plain_string_formatter
     region: content
   field_wysiwyg:
     weight: 2

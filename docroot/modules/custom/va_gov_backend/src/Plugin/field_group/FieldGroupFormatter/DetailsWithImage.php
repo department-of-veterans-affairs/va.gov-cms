@@ -4,7 +4,6 @@ namespace Drupal\va_gov_backend\Plugin\field_group\FieldGroupFormatter;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\file\Entity\File;
 use Drupal\field_group\Plugin\field_group\FieldGroupFormatter\Details;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -69,23 +68,25 @@ class DetailsWithImage extends Details implements ContainerFactoryPluginInterfac
    */
   public function process(&$element, $processed_object) {
     parent::process($element, $processed_object);
-    if (!empty($this->getSetting('visual_guide')[0])) {
-      $svg_uri = File::load($this->getSetting('visual_guide')[0]);
-      $svg_render = [
-        '#theme' => 'image',
-        '#uri' => file_create_url($svg_uri->getFileUri()),
-        '#attributes' => [
-          'alt' => !empty($this->getSetting('visual_guide_alt_text')) ? $this->getSetting('visual_guide_alt_text') : '',
-          'class' => [
-            'visual-layout-svg',
+    if (!empty($this->getSetting('visual_guide_file_name'))) {
+      $path = \Drupal::service('module_handler')->getModule('va_gov_backend')->getPath() . '/images/' . $this->getSetting('visual_guide_file_name');
+      if (file_exists($path)) {
+        $svg_render = [
+          '#theme' => 'image',
+          '#uri' => $path,
+          '#attributes' => [
+            'alt' => !empty($this->getSetting('visual_guide_alt_text')) ? $this->getSetting('visual_guide_alt_text') : '',
+            'class' => [
+              'visual-layout-svg',
+            ],
           ],
-        ],
-      ];
+        ];
 
-      $element += [
-        '#markup' => render($svg_render),
-      ];
+        $element += [
+          '#markup' => render($svg_render),
+        ];
 
+      }
     }
 
   }
@@ -104,16 +105,12 @@ class DetailsWithImage extends Details implements ContainerFactoryPluginInterfac
   public function settingsForm() {
     $form = parent::settingsForm();
 
-    $form['visual_guide'] = [
-      '#type' => 'managed_file',
-      '#title' => 'Visual guide',
-      '#name' => 'visual_guide',
+    $form['visual_guide_file_name'] = [
+      '#title' => $this->t('Visual guide file name'),
+      '#type' => 'textarea',
       '#description' => $this->t('SVG image to help users understand panel layout'),
-      '#default_value' => $this->getSetting('visual_guide'),
-      '#upload_location' => 'public://visual-guides',
-      '#upload_validators' => [
-        'file_validate_extensions' => ['svg'],
-      ],
+      '#rows' => 1,
+      '#default_value' => $this->getSetting('visual_guide_file_name'),
     ];
 
     $form['visual_guide_alt_text'] = [
