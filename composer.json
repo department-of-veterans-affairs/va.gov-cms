@@ -52,6 +52,7 @@
         "drupal/entity_browser_table": "^1.2",
         "drupal/entity_clone": "^1.0@beta",
         "drupal/entity_embed": "^1.0",
+        "drupal/entity_field_fetch": "1.0.0-alpha1",
         "drupal/entity_reference_revisions": "^1.7",
         "drupal/entity_reference_unpublished": "^1.1",
         "drupal/entity_reference_validators": "^1.0",
@@ -116,6 +117,7 @@
         "drupal/slack": "^1.2",
         "drupal/smart_date": "3.0.4",
         "drupal/social_media_links": "^2.6",
+        "drupal/string_field_formatter": "^2.0",
         "drupal/tablefield": "^2.1",
         "drupal/taxonomy_entity_index": "^1.1",
         "drupal/taxonomy_menu": "^3.4",
@@ -279,7 +281,8 @@
             },
             "drupal/entity_browser_table": {
                 "Table drag doesn't work on new entity form, and sort is lost on ajax": "https://www.drupal.org/files/issues/2020-08-25/fix-sort-loss-and-add-form-3166733-2.patch",
-                "Add moderation status column": "https://www.drupal.org/files/issues/2020-08-24/add-moderation-status-3166953-5.patch"
+                "Add moderation status column": "https://www.drupal.org/files/issues/2020-08-24/add-moderation-status-3166953-5.patch",
+                "Limit validation checks on remove": "https://www.drupal.org/files/issues/2021-01-25/limit-remove-button-validators.patch"
             },
             "drupal/entity_clone": {
                 "Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch",
@@ -345,7 +348,8 @@
             "drupal/tablefield": {
                 "0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch",
                 "Fix Undefined index: caption notice": "https://www.drupal.org/files/issues/2020-08-10/tablefield-empty-caption-notice-2.patch",
-                "Tablefield input elements have no title or label": "https://www.drupal.org/files/issues/2020-10-14/tablefield-add_title_to_input_elements-3176982-2.patch"
+                "Tablefield input elements have no title or label": "https://www.drupal.org/files/issues/2020-10-14/tablefield-add_title_to_input_elements-3176982-2.patch",
+                "Copying caption to value breaks some data exports https://www.drupal.org/project/tablefield/issues/3195203": "https://www.drupal.org/files/issues/2021-01-28/tablefield-caption-copied-to-value-3195203-2.patch"
             },
             "drupal/textfield_counter": {
                 "Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch"

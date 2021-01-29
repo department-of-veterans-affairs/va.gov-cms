@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "34a186c08e15f8ab3ebc76bb4259f1ed",
+    "content-hash": "063f701929201fb1d902c2ba5e421ced",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -667,7 +667,7 @@
             "version": "v4.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fengyuanchen/cropper.git",
+                "url": "git@github.com:fengyuanchen/cropper.git",
                 "reference": "617d9bdb8688cc4edb3b03bc49a04b83c7facbe7"
             },
             "dist": {
@@ -4733,7 +4733,8 @@
                 },
                 "patches_applied": {
                     "Table drag doesn't work on new entity form, and sort is lost on ajax": "https://www.drupal.org/files/issues/2020-08-25/fix-sort-loss-and-add-form-3166733-2.patch",
-                    "Add moderation status column": "https://www.drupal.org/files/issues/2020-08-24/add-moderation-status-3166953-5.patch"
+                    "Add moderation status column": "https://www.drupal.org/files/issues/2020-08-24/add-moderation-status-3166953-5.patch",
+                    "Limit validation checks on remove": "https://www.drupal.org/files/issues/2021-01-25/limit-remove-button-validators.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4877,6 +4878,50 @@
                 "source": "https://git.drupalcode.org/project/entity_embed",
                 "issues": "https://www.drupal.org/project/issues/entity_embed",
                 "irc": "irc://irc.freenode.org/drupal-media"
+            }
+        },
+        {
+            "name": "drupal/entity_field_fetch",
+            "version": "1.0.0-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/entity_field_fetch.git",
+                "reference": "1.0.0-alpha1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/entity_field_fetch-1.0.0-alpha1.zip",
+                "reference": "1.0.0-alpha1",
+                "shasum": "34ade8fb465488047ca0006da7b55a072aae59b2"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0-alpha1",
+                    "datestamp": "1611172233",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "swirt",
+                    "homepage": "https://www.drupal.org/user/138230"
+                }
+            ],
+            "description": "Creates a field that can reference fields on other entities.",
+            "homepage": "https://www.drupal.org/project/entity_field_fetch",
+            "support": {
+                "source": "https://git.drupalcode.org/project/entity_field_fetch"
             }
         },
         {
@@ -5390,6 +5435,9 @@
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "2787179 Visibility of invalid fields": "https://www.drupal.org/files/issues/2021-01-05/2787179-highlight-html5-validation-59.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5497,6 +5545,9 @@
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "2957019 Failed to start the session because headers have already been sent": "https://www.drupal.org/files/issues/2020-01-20/2957019-51.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -8280,17 +8331,17 @@
         },
         {
             "name": "drupal/redirect_options",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/redirect_options.git",
-                "reference": "8.x-1.3"
+                "reference": "8.x-1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/redirect_options-8.x-1.3.zip",
-                "reference": "8.x-1.3",
-                "shasum": "8d68aa2af209d37173f4c03fa8963d1e408fce2f"
+                "url": "https://ftp.drupal.org/files/projects/redirect_options-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "7a6acfbdd65547798ec3e5f4e7298dc825480d06"
             },
             "require": {
                 "drupal/core": "~8.0",
@@ -8299,8 +8350,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.3",
-                    "datestamp": "1553024284",
+                    "version": "8.x-1.4",
+                    "datestamp": "1611684367",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -8999,27 +9050,71 @@
             }
         },
         {
-            "name": "drupal/tablefield",
-            "version": "2.1.0",
+            "name": "drupal/string_field_formatter",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
-                "url": "https://git.drupalcode.org/project/tablefield.git",
-                "reference": "8.x-2.1"
+                "url": "https://git.drupalcode.org/project/string_field_formatter.git",
+                "reference": "2.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/tablefield-8.x-2.1.zip",
-                "reference": "8.x-2.1",
-                "shasum": "f31df87ad48c43484948414760da70afa1ced8af"
+                "url": "https://ftp.drupal.org/files/projects/string_field_formatter-2.0.0.zip",
+                "reference": "2.0.0",
+                "shasum": "deac34befbe9bc13977223da31058cbc66251a81"
             },
             "require": {
-                "drupal/core": "^8"
+                "drupal/core": "^8 || ^9"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.1",
-                    "datestamp": "1568823337",
+                    "version": "2.0.0",
+                    "datestamp": "1604697749",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Denes.Szabo",
+                    "homepage": "https://www.drupal.org/user/582668"
+                }
+            ],
+            "description": "Adds formatters to plain string type field.",
+            "homepage": "https://www.drupal.org/project/string_field_formatter",
+            "support": {
+                "source": "https://git.drupalcode.org/project/string_field_formatter"
+            }
+        },
+        {
+            "name": "drupal/tablefield",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/tablefield.git",
+                "reference": "8.x-2.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/tablefield-8.x-2.2.zip",
+                "reference": "8.x-2.2",
+                "shasum": "ea458b0ba1ee6cdfac319c176451fe50027f6bcd"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.2",
+                    "datestamp": "1603881752",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -9028,7 +9123,8 @@
                 "patches_applied": {
                     "0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch",
                     "Fix Undefined index: caption notice": "https://www.drupal.org/files/issues/2020-08-10/tablefield-empty-caption-notice-2.patch",
-                    "Tablefield input elements have no title or label": "https://www.drupal.org/files/issues/2020-10-14/tablefield-add_title_to_input_elements-3176982-2.patch"
+                    "Tablefield input elements have no title or label": "https://www.drupal.org/files/issues/2020-10-14/tablefield-add_title_to_input_elements-3176982-2.patch",
+                    "Copying caption to value breaks some data exports https://www.drupal.org/project/tablefield/issues/3195203": "https://www.drupal.org/files/issues/2021-01-28/tablefield-caption-copied-to-value-3195203-2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -9073,7 +9169,7 @@
                     "homepage": "https://www.drupal.org/user/175134"
                 }
             ],
-            "description": "Defines a generic tablular data field.",
+            "description": "Defines a generic tabular data field.",
             "homepage": "https://www.drupal.org/project/tablefield",
             "support": {
                 "source": "https://git.drupalcode.org/project/tablefield"
@@ -19265,16 +19361,16 @@
         },
         {
             "name": "va-gov/web",
-            "version": "v0.1.1242",
+            "version": "v0.1.1262",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
-                "reference": "4cff04f0015065f517fee3c551add166ba94d962"
+                "reference": "2a42b8b5156cbc7578efc8c429cd565ad96381bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/4cff04f0015065f517fee3c551add166ba94d962",
-                "reference": "4cff04f0015065f517fee3c551add166ba94d962",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/2a42b8b5156cbc7578efc8c429cd565ad96381bf",
+                "reference": "2a42b8b5156cbc7578efc8c429cd565ad96381bf",
                 "shasum": ""
             },
             "type": "node-project",
@@ -19299,7 +19395,7 @@
                 }
             ],
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
-            "time": "2021-01-22T21:40:48+00:00"
+            "time": "2021-01-27T17:33:00+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -21739,6 +21835,11 @@
                 "squizlabs/php_codesniffer": "^2.7"
             },
             "type": "library",
+            "extra": {
+                "patches_applied": {
+                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "TravisCarden\\BehatTableComparison\\": "src/BehatTableComparison/"
@@ -21759,12 +21860,7 @@
                 "Behat",
                 "gherkin"
             ],
-            "time": "2018-07-03T17:42:23+00:00",
-            "extra": {
-                "patches_applied": {
-                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
-                }
-            }
+            "time": "2018-07-03T17:42:23+00:00"
         },
         {
             "name": "vipnytt/robotstxtparser",

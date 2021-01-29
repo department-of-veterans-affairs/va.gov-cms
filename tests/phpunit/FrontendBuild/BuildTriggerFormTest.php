@@ -12,10 +12,20 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 class BuildTriggerFormTest extends ExistingSiteBase {
 
   /**
+   * Store the default environment.
+   *
+   * @var string
+   */
+  private $defaultEnvironment;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp() {
     parent::setUp();
+
+    // Store the default environment so that we may later revert to it.
+    $this->defaultEnvironment = $this->container->get('settings')->getAll()['va_gov_frontend_build_type'];
 
     $admin = User::load(1);
     $admin->passRaw = 'drupal8';
@@ -28,8 +38,8 @@ class BuildTriggerFormTest extends ExistingSiteBase {
   public function testLandoBuildTriggerForm() {
     $this->setupEnvironment('lando');
     $this->visit('/admin/content/deploy');
-    $this->assertSession()->pageTextContains('Content releases within Lando');
-    $this->assertSession()->fieldExists('front_end_branch');
+    $this->assertSession()->pageTextContains('Release content to update the front end of this local environment with the latest published content changes');
+    $this->assertSession()->fieldExists('branch');
   }
 
   /**
@@ -38,8 +48,8 @@ class BuildTriggerFormTest extends ExistingSiteBase {
   public function testTugboatBuildTriggerForm() {
     $this->setupEnvironment('tugboat');
     $this->visit('/admin/content/deploy');
-    $this->assertSession()->pageTextContains('A content release for this environment is handled by CMS-CI');
-    $this->assertSession()->fieldExists('front_end_branch');
+    $this->assertSession()->pageTextContains('Release content to update the front end of this demo environment with the latest published content changes');
+    $this->assertSession()->fieldExists('branch');
   }
 
   /**
@@ -48,8 +58,8 @@ class BuildTriggerFormTest extends ExistingSiteBase {
   public function testBrdBuildTriggerForm() {
     $this->setupEnvironment('brd');
     $this->visit('/admin/content/deploy');
-    $this->assertSession()->pageTextContains('A content release for this environment will be handled by VFS Jenkins.');
-    $this->assertSession()->fieldNotExists('front_end_branch');
+    $this->assertSession()->pageTextContains('you can perform a manual content release here');
+    $this->assertSession()->fieldNotExists('git_ref');
   }
 
   /**
@@ -59,7 +69,23 @@ class BuildTriggerFormTest extends ExistingSiteBase {
     $this->setupEnvironment('devshop');
     $this->visit('/admin/content/deploy');
     $this->assertSession()->pageTextContains('A content release for this environment is handled by CMS-CI');
-    $this->assertSession()->fieldNotExists('front_end_branch');
+    $this->assertSession()->fieldNotExists('git_ref');
+  }
+
+  /**
+   * Revert to the default environment when all test are complete.
+   *
+   * @depends testLandoBuildTriggerForm
+   * @depends testTugboatBuildTriggerForm
+   * @depends testBrdBuildTriggerForm
+   * @depends testDevshopBuildTriggerForm
+   */
+  public function testRevertToDefaultEnvironment() {
+    // This should more properly be run in a tearDown method,
+    // but will not work there.
+    $this->revertToDefaultEnvironment();
+    $this->visit('/admin/content/deploy');
+    $this->assertSession()->pageTextContains('Release content');
   }
 
   /**
@@ -76,6 +102,13 @@ class BuildTriggerFormTest extends ExistingSiteBase {
     // Rebuild the routing cache so that the correct
     // form class will be discovered.
     \Drupal::service("router.builder")->rebuild();
+  }
+
+  /**
+   * Revert to the default environment.
+   */
+  public function revertToDefaultEnvironment() {
+    $this->setupEnvironment($this->defaultEnvironment);
   }
 
 }

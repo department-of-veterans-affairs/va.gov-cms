@@ -1,0 +1,25 @@
+uuid: 46034be6-575b-48fe-8af1-6d4e99e11aeb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fieldset_markup
+    - node.type.vamc_system_policies_page
+  module:
+    - markup
+id: node.vamc_system_policies_page.field_fieldset_markup
+field_name: field_fieldset_markup
+entity_type: node
+bundle: vamc_system_policies_page
+label: 'Fieldset Markup'
+description: ''
+required: false
+translatable: false
+default_value:
+  - {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: "<h2>Policies</h2>\r\n"
+    format: rich_text
+field_type: markup
