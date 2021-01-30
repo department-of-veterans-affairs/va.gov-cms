@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "60ae13e21cbf26882d4cf38ebcf68a9f",
+    "content-hash": "54065b1a9cbe8866f7c2db22c7f8049a",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2868,26 +2868,26 @@
         },
         {
             "name": "drupal/components",
-            "version": "1.1.0",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/components.git",
-                "reference": "8.x-1.1"
+                "reference": "8.x-2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/components-8.x-1.1.zip",
-                "reference": "8.x-1.1",
-                "shasum": "72af8ff1ca842556ee4b95335595c24703acdb75"
+                "url": "https://ftp.drupal.org/files/projects/components-8.x-2.2.zip",
+                "reference": "8.x-2.2",
+                "shasum": "02a57b2274348c7b9c14800c1bc5f5954d64df88"
             },
             "require": {
-                "drupal/core": "~8.0"
+                "drupal/core": "^8.7.7 || ^9"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.1",
-                    "datestamp": "1556870881",
+                    "version": "8.x-2.2",
+                    "datestamp": "1611799702",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2901,15 +2901,16 @@
             "authors": [
                 {
                     "name": "JohnAlbin",
-                    "homepage": "https://www.drupal.org/user/32095"
+                    "homepage": "https://www.drupal.org/user/32095",
+                    "email": "virtually.johnalbin@gmail.com"
                 },
                 {
                     "name": "RobLoach",
                     "homepage": "https://www.drupal.org/user/61114"
                 }
             ],
-            "description": "Registers “component libraries” defined in modules and themes with the Twig system",
-            "homepage": "https://www.drupal.org/project/components",
+            "description": "Registers folders of components defined by your theme or module as Twig namespaces",
+            "homepage": "https://drupal.org/project/components",
             "support": {
                 "source": "https://git.drupalcode.org/project/components"
             }
@@ -21476,11 +21477,6 @@
                 "squizlabs/php_codesniffer": "^2.7"
             },
             "type": "library",
-            "extra": {
-                "patches_applied": {
-                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "TravisCarden\\BehatTableComparison\\": "src/BehatTableComparison/"
@@ -21501,7 +21497,12 @@
                 "Behat",
                 "gherkin"
             ],
-            "time": "2018-07-03T17:42:23+00:00"
+            "time": "2018-07-03T17:42:23+00:00",
+            "extra": {
+                "patches_applied": {
+                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
+                }
+            }
         },
         {
             "name": "vipnytt/robotstxtparser",
