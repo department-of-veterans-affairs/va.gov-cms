@@ -2,10 +2,11 @@
 name: CMS annoucement
 about: Writing a CMS annoucement to be published
 title: "[annoucement-title]"
-labels: 'Release notes, Needs refining'
+labels: Needs refining
 assignees: rachel-kauff
 
 ---
+
 _Add an issue for each item for which we've decided to put out an announcements._
 
 ## Writer / assignee

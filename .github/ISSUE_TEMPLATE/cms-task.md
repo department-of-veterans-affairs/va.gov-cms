@@ -2,7 +2,7 @@
 name: Task
 about: A task for the CMS team.
 title: "<Insert summary of task>"
-labels: 'Needs refining'
+labels: Needs refining
 assignees: ''
 
 ---
