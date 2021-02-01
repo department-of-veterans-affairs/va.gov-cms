@@ -4,7 +4,7 @@
 
 (($, Drupal) => {
   /**
-   * Behaviors for 'details with image' field group validation.
+   * Behaviors for 'details with image' field-group validation.
    * */
   Drupal.behaviors.fieldGroupDetailsWithImageValidation = {
     attach(context) {
