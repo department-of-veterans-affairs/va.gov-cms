@@ -2,7 +2,7 @@
 name: Defect report
 about: Create a report to help us improve
 title: "<Defect summary>"
-labels: 'Defect, Needs refining'
+labels: Defect, Needs refining
 assignees: ''
 
 ---
