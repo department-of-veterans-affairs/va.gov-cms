@@ -38,10 +38,10 @@ services:
         - cp "${TUGBOAT_ROOT}"/.tugboat/web-vhost.conf /etc/apache2/sites-enabled/
 
         # BRD Environments are set to 1G, DevShop and Lando are -1 (unlimited).
-        - echo "memory_limit = 1G" >> /usr/local/etc/php/conf.d/my-php.ini
+        - echo "memory_limit = 4G" >> /usr/local/etc/php/conf.d/my-php.ini
         # Set unlimited memory limit for PHP CLI to allow Composer to run.
         - echo "memory_limit = -1" >> /usr/local/etc/php/conf.d/php-cli.ini
-        - echo "max_execution_time = 1200" >> /usr/local/etc/php/conf.d/my-php.ini
+        - echo "max_execution_time = 1800" >> /usr/local/etc/php/conf.d/my-php.ini
 
         # .tugboat/.env.j2 Jinja2 template file support
         - apt-get install python3-apt python3-distutils python3
@@ -107,7 +107,10 @@ services:
         # Tugboat currently merges the branch into master and we don't need that because we have a GitHub branch rule
         # setup to ensure branch is up to date.
         - git reset --hard $TUGBOAT_PREVIEW_SHA
+        # This j2 command is shared in both the build & clone stages. If modifying, change the other too.
         - j2 "${TUGBOAT_ROOT}/.tugboat/.env.j2" -o "${TUGBOAT_ROOT}/.env"
+        # This command is shared by the clone and build stages, make sure to update both stages.
+        - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
         - composer install --optimize-autoloader --apcu-autoloader
         - composer va:web:install
         - drush cache:rebuild
@@ -121,20 +124,24 @@ services:
         - mv "${TUGBOAT_ROOT}/scripts/queue_runner/queue_runner.sh" /etc/service/drupal_events/run
         - chmod +x /etc/service/drupal_events/run
 
+      clone:
+        # This j2 command is shared in both the build & clone stages. If modifying, change the other too.
+        - j2 "${TUGBOAT_ROOT}/.tugboat/.env.j2" -o "${TUGBOAT_ROOT}/.env"
+
+        # This command is shared by the clone and build stages, make sure to update both stages.
+        - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
+
       online:
         # We only want tests running on PRs, not branches like the base preview build of master.
         # This sets the commit status checks to pending all at once.
         - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then composer yaml-tests va/web/build va/tests; fi
 
-        # Do run the WEB build if on a branch, tag or commit so the `web-*` prefix works.
-        - if [ "$TUGBOAT_PREVIEW_TYPE" != "pullrequest" ]; then composer yaml-tests va/web/build --dry-run; fi
-
         # Set file permissions so web based build calls work.  This must run after all web builds are done in tests.
         - chown -R www-data:www-data "${DOCROOT}/vendor/va-gov/web"
-        - find "${DOCROOT}/vendor/va-gov/web" -type d -exec chmod 2775 {} \;
-        - find "${DOCROOT}/vendor/va-gov/web" -type f -exec chmod 0664 {} \;
-        - find "${DOCROOT}/vendor/va-gov/web/node_modules/.bin" -type f -exec chmod +x {} \;
-        - find "${DOCROOT}/vendor/va-gov/web/script" -type f -exec chmod +x {} \;
+        - find "${DOCROOT}/vendor/va-gov/web" -type d -exec chmod 2775 {} \+
+        - find "${DOCROOT}/vendor/va-gov/web" -type f -exec chmod 0664 {} \+
+        - find "${DOCROOT}/vendor/va-gov/web/node_modules/.bin" -type f -exec chmod +x {} \+
+        - find "${DOCROOT}/vendor/va-gov/web/script" -type f -exec chmod +x {} \+
 
   # What to call the service hosting MySQL. This name also acts as the
   # hostname to access the service by from the php service.
