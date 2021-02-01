@@ -42,6 +42,20 @@
     }
   };
 
+  Drupal.behaviors.vaGovServiceLocationRemoveButton = {
+    attach: function attach() {
+      var removeButtons = document.querySelectorAll('.field--name-field-service-location .paragraphs-dropbutton-wrapper input[value="Remove"]');
+
+      if (removeButtons.length > 0) {
+        removeButtons.forEach(function (button, i) {
+          if (i < 1) {
+            button.style.display = "none";
+          }
+        });
+      }
+    }
+  };
+
   Drupal.behaviors.vaGovAlertSingleComponent = {
     attach: function attach() {
       var reusableAlertRemovedIds = [];
