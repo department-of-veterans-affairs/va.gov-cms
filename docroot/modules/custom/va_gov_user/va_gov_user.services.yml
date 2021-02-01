@@ -1,6 +1,6 @@
 services:
-  va_gov_user.post_row_save:
-    class: Drupal\va_gov_user\EventSubscriber\PostRowSave
+  va_gov_user.user_import:
+    class: Drupal\va_gov_user\EventSubscriber\UserImport
     arguments: ['@entity_type.manager', '@messenger', '@string_translation', '@workbench_access.user_section_storage']
     tags:
       - { name: event_subscriber }

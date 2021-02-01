@@ -7,16 +7,17 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\migrate\Event\MigratePostRowSaveEvent;
+use Drupal\migrate\Event\MigratePrepareRowEvent;
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\workbench_access\UserSectionStorageInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Post Row Save event subscriber.
+ * User import event subscriber.
  *
  * @package Drupal\va_gov_user\EventSubscriber
  */
-class PostRowSave implements EventSubscriberInterface {
+class UserImport implements EventSubscriberInterface {
   use StringTranslationTrait;
 
   /**
@@ -69,6 +70,7 @@ class PostRowSave implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     $events[MigrateEvents::POST_ROW_SAVE] = 'onMigratePostRowSave';
+    $events[MigrateEvents::PREPARE_ROW] = 'onMigratePrepareRow';
     return $events;
   }
 
@@ -88,6 +90,39 @@ class PostRowSave implements EventSubscriberInterface {
       return;
     }
 
+    /** @var \Drupal\migrate\Row $row */
+    $row = $event->getRow();
+
+    $this->addUserToSections($row);
+  }
+
+  /**
+   * Perform Prepare Row events.
+   *
+   * @param \Drupal\migrate\Event\MigratePrepareRowEvent $event
+   *   Information about the event that triggered this function.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\migrate\MigrateException
+   */
+  public function onMigratePrepareRow(MigratePrepareRowEvent $event) : void {
+    if ($event->getMigration()->label() !== 'User Import') {
+      return;
+    }
+
+    /** @var \Drupal\migrate\Row $row */
+    $row = $event->getRow();
+  }
+
+  /**
+   * Add user to specified sections.
+   *
+   * @param \Drupal\migrate\Row $row
+   *   The migration row.
+   */
+  private function addUserToSections(Row $row) {
     if ($section_ids = $this->getSectionIds($event->getRow()->getDestinationProperty('sections'))) {
       $users = $this->entityTypeManager
         ->getStorage('user')
