@@ -1,0 +1,12 @@
+services:
+  va_gov.gov_flags.feature_flag_builder:
+    class: Drupal\va_gov_flags\FeatureFlagDataBuilder
+    arguments: [ '@feature_toggle.feature_status', '@feature_toggle.feature_manager']
+  va_gov.gov_flags.export_feature:
+    class: Drupal\va_gov_flags\Export\ExportFeature
+    arguments: [ '@va_gov.gov_flags.feature_flag_builder', '@file_system', '@serialization.json']
+  va_gov.gov_flags.event.subscriber:
+    class: Drupal\va_gov_flags\EventSubscriber\FeatureToggleSubscriber
+    arguments: [ '@va_gov.gov_flags.export_feature']
+    tags:
+      - { name: 'event_subscriber' }

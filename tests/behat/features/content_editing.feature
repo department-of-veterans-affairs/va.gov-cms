@@ -44,7 +44,6 @@ Feature: CMS Users may effectively create & edit content
     And I fill in "#edit-field-primary-category" with the text "282"
     And I fill in "#edit-field-buttons-0-subform-field-button-label-0-value" with the text "test button label"
     And I fill in "#edit-field-buttons-0-subform-field-button-link-0-uri" with the text "<nolink>"
-    And I fill in "#edit-field-checklist-0-subform-field-section-header-0-value" with the text "Behat save and continue new test section header 1"
     And I fill in "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-section-header-0-value" with the text "Behat save and continue new test section header 2"
     And I fill in "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-checklist-items-0-value" with the text "Behat save and continue new test checklist item 1"
     And I fill in "#edit-field-administration" with the text "5"
@@ -114,12 +113,13 @@ Feature: CMS Users may effectively create & edit content
     And I should not see "VA.gov URL" in the "#block-entitymetadisplay" element
 
     # Publish the node.
-    And I select "Published" from "Change to"
-    And I fill in "Log message" with "Test publishing"
-    And I press "Apply"
+    Then I visit the "edit" page for a node with the title "Test Office - BeHaT"
+    And I select "Published" from "edit-moderation-state-0-state"
+    And I fill in "Revision log message" with "Test publishing"
+    And I press "Save"
 
     # Confirm that the va.gov url is shown for nodes with a published revision.
-    Then I should see "The moderation state has been updated"
+    Then I should see "Published" in the ".view-right-sidebar-latest-revision" element
     And I should see "VA.gov URL" in the "#block-entitymetadisplay" element
     And I should not see "(pending)" in the "#block-entitymetadisplay" element
 
@@ -130,14 +130,16 @@ Feature: CMS Users may effectively create & edit content
     Then I should see "VA.gov URL" in the "#block-entitymetadisplay" element
 
     # (Re-)Publish the node.
-    And I select "Published" from "Change to"
-    And I fill in "Log message" with "Test publishing"
-    And I press "Apply"
+    Then I visit the "edit" page for a node with the title "Test Office - BeHaT"
+    And I select "Published" from "edit-moderation-state-0-state"
+    And I fill in "Revision log message" with "Test publishing"
+    And I fill in "URL alias" with "/test-office-behat-404"
+    And I press "Save"
     And I should see "(pending)" in the "#block-entitymetadisplay" element
 
     # Archive the node.
     Then I visit the "edit" page for a node with the title "Test Office - BeHaT 404"
-    And I select "Archived" from "Change to"
+    And I select "Archived" from "edit-moderation-state-0-state"
     And I fill in "Revision log message" with "Test archiving"
     And I press "Save"
     Then I should see "Office Test Office - BeHaT 404 has been updated."
@@ -172,13 +174,12 @@ Feature: CMS Users may effectively create & edit content
     Then I should see "BeHat Alert Body"
 
 @content_editing
-  Scenario Outline: Confirm that content cannot be published directly from the node edit form but can from the node view.
+  Scenario Outline: Confirm that content cannot be published directly from the node view but can from the node edit form.
     Given I am logged in as a user with the "content_admin" role
     And I am viewing an <type> with the title <title>
-    Then the "#edit-new-state" element should exist
-    Then I should see "published" in the "#edit-new-state" element    
+    Then the "#edit-new-state" element should not exist
     And I visit the "edit" page for a node with the title <title>
-    Then "#edit-moderation-state-0-state" should not contain "published"
+    Then "#edit-moderation-state-0-state" should contain "published"
     Examples:
       | type                                | title                                     |
       | "page"                              | "page page"                               |
@@ -212,3 +213,50 @@ Feature: CMS Users may effectively create & edit content
       | "va_form"                           | "va_form page"                            |
       | "vba_facility"                      | "vba_facility page"                       |
       | "vet_center"                        | "vet_center page"                         |
+
+@content_editing
+  Scenario: Confirm that the default time zone when creating an event is set explicitly to Eastern.
+    Given I am logged in as a user with the "content_admin" role
+    And I am at "node/add/event"
+    Then I should see "New York" in the "#edit-field-datetime-range-timezone-0-timezone" element
+
+@content_editing
+  Scenario: Confirm Generate automatic URL alias is unchecked after node publish.
+    When I am logged in as a user with the "content_admin" role
+    And I am at "node/add/basic_landing_page"
+    Then the "path[0][pathauto]" checkbox should be checked
+
+    # Create our initial draft and confirm URL alias is created and Generate automatic URL alias is checked
+    And I fill in "Page title" with "BeHat URL Alias Title"
+    And I fill in "Page introduction" with "BeHat URL Alias introduction"
+    And I fill in "Meta title tag" with "BeHat URL Alias Meta title tag"
+    And I fill in "Meta description" with "BeHat URL Alias Meta description"
+    And I press "op"
+    And I press "Add"
+    And I fill in "Text" with "BeHat URL Alias Rich text content"
+    And I select "Benefit Hubs" from "edit-field-product"
+    And I select "Veterans Affairs" from "edit-field-administration"
+    And I press "Save draft and continue editing"
+    Then I should see "Edit Landing Page BeHat URL Alias Title"
+    And the "path[0][pathauto]" checkbox should be checked
+
+    # Publish our initial draft and confirm URL alias is created and Generate automatic URL alias is not checked
+    And I fill in "Page title" with "BeHat URL Alias Title Published"
+    And I select "Published" from "edit-moderation-state-0-state"
+    And I fill in "Revision log message" with "BeHat URL Alias Title Published"
+    And I press "Save"
+    Then I should see "BeHat URL Alias Title Published"
+    And the url should match "/behat-url-alias-title-published"
+    Then I visit the "edit" page for a node with the title "BeHat URL Alias Title Published"
+    And the "path[0][pathauto]" checkbox should not be checked
+
+@content_editing
+  Scenario: Confirm Generate automatic URL alias is unchecked after taxonomy term publish.
+    Given I am logged in as a user with the "administrator" role
+    And I am at "admin/structure/taxonomy/manage/health_care_service_taxonomy/add"
+    And the "path[0][pathauto]" checkbox should be checked
+    And I fill in "Name" with "BeHat URL Alias Term Title Published"
+    And I press "Save"
+    Then I should see "BeHat URL Alias Term Title Published"
+    Then I visit the "edit" page for a term with the title "BeHat URL Alias Term Title Published"
+    And the "path[0][pathauto]" checkbox should not be checked

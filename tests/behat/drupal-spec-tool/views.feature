@@ -9,6 +9,7 @@ Feature: Views
        Then exactly the following views should exist
        | Name | Machine name | Base table | Status | Description |
 | Administration section | administration_section | Taxonomy terms | Enabled | Top-level items in the Section taxonomy |
+| Advanced Queue jobs | advancedqueue_jobs | Jobs | Enabled |  |
 | Archive | archive | Content | Disabled | All content, by month. |
 | Benefit Hubs Categories | benefits_hub_categories | Content | Enabled |  |
 | Benefits hub list | benefits_hub_list | Content | Enabled |  |
@@ -24,10 +25,10 @@ Feature: Views
 | Date fields | date_fields | Content | Enabled |  |
 | Facility Governance | facility_governance | Content | Enabled | Provides facility management tools. |
 | Files | files | Files | Enabled | Find and manage files. |
+| File browsers | file_browsers | Media | Enabled |  |
 | Frontpage | frontpage | Content | Enabled | All content promoted to frontpage |
 | Glossary | glossary | Content | Disabled | All content, by letter. |
 | Health care service names and descriptions | health_care_service_names_and_descriptions | Taxonomy terms | Enabled | A list of nationally-controlled health care service names and descriptions |
-| Health service offerings | health_service_offerings | Content | Enabled |  |
 | Image Style Warmer Warmup Files | image_style_warmer_warmup_files | Files | Enabled | VBO for processing existing files with Image Style Warmer. |
 | Local facilities entity reference view | local_facilities_entity_reference_view | Content | Enabled | An entity reference view that determines options for the Local Health Service descriptions |
 | Locked content  | locked_content | Content | Enabled |  |
@@ -67,6 +68,9 @@ Feature: Views
        | View | Title | Machine name | Display plugin |
 | Administration section | Entity Reference | entity_reference_1 | Entity Reference |
 | Administration section | Master | default | Master |
+| Administration section | CLP Entity Reference | clp_entity_reference | Entity Reference |
+| Advanced Queue jobs | Master | default | Master |
+| Advanced Queue jobs | Page | page_1 | Page |
 | Archive | Block | block_1 | Block |
 | Archive | Master | default | Master |
 | Archive | Page | page_1 | Page |
@@ -92,6 +96,7 @@ Feature: Views
 | Content served from Drupal | Data export | data_export_1 | Data export |
 | Content served from Drupal | Master | default | Master |
 | Content entity browsers | Master | default | Master |
+| Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
 | Content entity browsers | Q&A entity browser | entity_browser_1 | Entity browser |
 | Content Entity Reference Source | Master | default | Master |
 | Content Entity Reference Source | Entity Reference: Event Listing | entity_reference_1 | Entity Reference |
@@ -107,6 +112,9 @@ Feature: Views
 | Files | Master | default | Master |
 | Files | Files overview | page_1 | Page |
 | Files | File usage | page_2 | Page |
+| File browsers | Block | file_browser_block | Block |
+| File browsers | Entity browser | file_entity_browser | Entity browser |
+| File browsers | Master | default | Master |
 | Frontpage | Master | default | Master |
 | Frontpage | Feed | feed_1 | Feed |
 | Frontpage | Page | page_1 | Page |
@@ -115,8 +123,6 @@ Feature: Views
 | Glossary | Page | page_1 | Page |
 | Health care service names and descriptions | Master | default | Master |
 | Health care service names and descriptions |  Entity Reference   | entity_reference_1 | Entity Reference |
-| Health service offerings | Master | default | Master |
-| Health service offerings | Page | page_1 | Page |
 | Image Style Warmer Warmup Files | Files overview  | page_1 | Page |
 | Image Style Warmer Warmup Files | Master | default | Master |
 | Local facilities entity reference view | Master | default | Master |
@@ -145,9 +151,6 @@ Feature: Views
 | Right sidebar latest revision | All revisions | block_1 | Block |
 | Right sidebar latest revision | Latest revision | attachment_1 | Attachment |
 | Right sidebar latest revision | Master | default | Master |
-| Right sidebar latest revision | Meta tags | attachment_2 | Attachment |
-| Right sidebar latest revision | Owner | attachment_0 | Attachment |
-| Right sidebar latest revision | Posted to | attachment_0b | Attachment |
 | Search | Master | default | Master |
 | Search | Page | page | Page |
 | Sections tree | Block | block_1 | Block |
@@ -194,6 +197,7 @@ Feature: Views
 | Listing page dashboard | Past events | block_2 | Block |
 | Listing page dashboard | Upcoming events | block_1 | Block |
 | Custom block entity browsers | Alert block entity browsers | entity_browser_1 | Entity browser |
+| Custom block entity browsers | Promo block entity browsers | entity_browser_2 | Entity browser |
 | Custom block entity browsers | Master | default | Master |
 | Services | Facility health services | block_1 | Block |
 | Services | VAMC system health services | block_2 | Block |

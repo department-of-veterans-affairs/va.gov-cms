@@ -5,6 +5,8 @@
 /drush/contrib/
 
 # Ignore non-custom parts of Drupal.
+.editorconfig
+.gitattributes
 /docroot/core
 /docroot/libraries
 /docroot/modules/contrib
@@ -63,6 +65,9 @@ node_modules/
 
 # Ignore accessibility test reports
 /tests/accessibility/axeReport/*.csv
+# Ignore accessibility test screenshots & videos
+/tests/cypress/screenshots
+/tests/cypress/videos
 
 # Ignore local lando config
 .lando.local.yml

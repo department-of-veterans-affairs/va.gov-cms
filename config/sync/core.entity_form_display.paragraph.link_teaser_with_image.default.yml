@@ -1,0 +1,38 @@
+uuid: f89cec17-eeeb-42ce-836f-46ae1e9f2899
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.link_teaser_with_image.field_link_teaser
+    - field.field.paragraph.link_teaser_with_image.field_media
+    - paragraphs.paragraphs_type.link_teaser_with_image
+  module:
+    - media_library
+    - paragraphs
+id: paragraph.link_teaser_with_image.default
+targetEntityType: paragraph
+bundle: link_teaser_with_image
+mode: default
+content:
+  field_link_teaser:
+    type: entity_reference_paragraphs
+    weight: 1
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    region: content
+  field_media:
+    weight: 0
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+    type: media_library_widget
+    region: content
+hidden:
+  created: true
+  status: true

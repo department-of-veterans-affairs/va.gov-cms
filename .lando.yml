@@ -3,6 +3,7 @@ recipe: drupal8
 config:
   webroot: docroot
   php: "7.1"
+  composer_version: '1.10.1'
 
 events:
   post-db-import:
@@ -29,7 +30,9 @@ services:
   appserver:
     run_as_root:
       - "apt-get update -y"
-      - "apt-get install build-essential chrpath libssl-dev libxft-dev libfreetype6-dev libfreetype6 libfontconfig1-dev libfontconfig1 -y"
+      - "apt-get install build-essential chrpath libssl-dev libxft-dev libfreetype6-dev libfreetype6 libfontconfig1-dev libfontconfig1 python -y"
+      # cypress-axe dependencies - https://docs.cypress.io/guides/getting-started/installing-cypress.html#System-requirements
+      - "apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb -y"
       - .lando/scripts/blackfire-init.sh
     xdebug: false
     config:
@@ -94,6 +97,11 @@ tooling:
     description: Copy migration ymls from va_gov_migrate to config/sync and run config import. Always edit in va_gov_migrate.
     service: appserver
     cmd: cp -r /app/docroot/modules/custom/va_gov_migrate/config/install/. /app/config/sync/  && /app/bin/drush config-import -y && /app/bin/drush config-export -y
+
+  pre-commit:
+    description: Run pre-commit checks
+    service: appserver
+    cmd: /app/scripts/lando-precommit.sh
 
   test:
     description: Run all VA.gov tests, as defined in tests.yml. Add arguments to run subsets of tests. For example. "lando test deploy" will run all of the "va/deploy/*" tests.

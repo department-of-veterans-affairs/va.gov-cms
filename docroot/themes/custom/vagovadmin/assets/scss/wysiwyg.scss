@@ -1,12 +1,12 @@
 @import 'mixins';
 
 .cke_editable {
-  font-family: 'Source Sans Pro', Sans-Serif;
-  margin: .5em; /* to provide padding within ckeditor */
-  max-width: 700px;
-  font-size: 15px;
-  color: #323a45;
   background: #fff;
+  color: #323a45;
+  font-family: 'Source Sans Pro', Sans-Serif;
+  font-size: 15px;
+  margin: 0.5em; /* to provide padding within ckeditor */
+  max-width: 700px;
 
   @include va-basic-styling;
 }

@@ -6,6 +6,8 @@ dependencies:
     - block_content.type.alert
     - block_content.type.promo
     - node.type.basic_landing_page
+    - node.type.campaign_landing_page
+    - node.type.centralized_content
     - node.type.checklist
     - node.type.documentation_page
     - node.type.event
@@ -38,6 +40,7 @@ dependencies:
     - node.type.support_service
     - node.type.va_form
     - node.type.vamc_operating_status_and_alerts
+    - node.type.vamc_system_policies_page
     - node.type.vba_facility
     - node.type.vet_center
   module:
@@ -85,7 +88,9 @@ type_settings:
       label: Archive
       from:
         - approved
+        - draft
         - published
+        - review
       to: archived
       weight: 1
     archived_published:
@@ -125,6 +130,8 @@ type_settings:
       - promo
     node:
       - basic_landing_page
+      - campaign_landing_page
+      - centralized_content
       - checklist
       - documentation_page
       - event
@@ -157,6 +164,7 @@ type_settings:
       - support_service
       - va_form
       - vamc_operating_status_and_alerts
+      - vamc_system_policies_page
       - vba_facility
       - vet_center
   default_moderation_state: draft

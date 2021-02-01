@@ -1,0 +1,22 @@
+uuid: 77b7e3c4-a560-4964-aaac-47538aa92ee9
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: centralized_content
+label: 'Centralized Content'
+type: 'canonical_entities:node'
+pattern: 'centralized-content/[node:title]'
+selection_criteria:
+  df261074-07a9-46c5-8190-69b17040a3da:
+    id: node_type
+    bundles:
+      centralized_content: centralized_content
+    negate: false
+    context_mapping:
+      node: node
+    uuid: df261074-07a9-46c5-8190-69b17040a3da
+selection_logic: and
+weight: -5
+relationships: {  }

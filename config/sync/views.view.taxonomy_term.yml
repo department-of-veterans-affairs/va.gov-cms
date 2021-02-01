@@ -36,10 +36,10 @@ display:
       query:
         type: views_query
         options:
-          query_comment: ''
           disable_sql_rewrite: false
-          distinct: false
+          distinct: true
           replica: false
+          query_comment: ''
           query_tags: {  }
       access:
         type: role
@@ -546,7 +546,7 @@ display:
             node_unpublish_action: 0
             node_make_unsticky_action: 0
             publish_latest_revision_action: publish_latest_revision_action
-            unpublish_current_revision_action: unpublish_current_revision_action
+            archive_node_action: archive_node_action
             views_bulk_operations_delete_entity: 0
             pathauto_update_alias: pathauto_update_alias
             'entity:delete_action:node': 0
@@ -564,7 +564,7 @@ display:
               label_override: ''
             publish_latest_revision_action:
               label_override: ''
-            unpublish_current_revision_action:
+            archive_node_action:
               label_override: ''
             pathauto_update_alias:
               label_override: ''
@@ -869,7 +869,7 @@ display:
           click_sort_column: value
           type: content_moderation_state
           settings: {  }
-          group_column: value
+          group_column: entity_id
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -1303,6 +1303,7 @@ display:
         groups:
           1: AND
       title: 'Content in sections'
+      group_by: true
     cache_metadata:
       contexts:
         - 'languages:language_content'

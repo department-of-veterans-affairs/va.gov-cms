@@ -19,7 +19,6 @@ dependencies:
     - content_moderation
     - field_group
     - media_library
-    - metatag
     - path
     - text
     - textfield_counter
@@ -34,9 +33,9 @@ third_party_settings:
       format_settings:
         id: ''
         classes: ''
-        open: 1
-        required_fields: 1
-        weight: '-10'
+        open: true
+        required_fields: true
+        weight: -10
       label: Governance
       region: content
     group_editor:
@@ -191,13 +190,6 @@ content:
       media_types: {  }
     region: content
     third_party_settings: {  }
-  field_meta_tags:
-    weight: 10
-    settings:
-      sidebar: true
-    third_party_settings: {  }
-    type: metatag_firehose
-    region: content
   field_order:
     weight: 22
     settings: {  }
@@ -246,6 +238,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_meta_tags: true
   promote: true
   status: true
   sticky: true

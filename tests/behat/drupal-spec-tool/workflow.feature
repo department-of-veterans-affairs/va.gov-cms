@@ -36,5 +36,7 @@ Feature: Workflow
 | Editorial workflow | Publish | publish | Approved | Published |
 | Editorial workflow | Publish | publish | Published | Published |
 | Editorial workflow | Archive | archive | Approved | Archived |
+| Editorial workflow | Archive | archive | Draft | Archived |
+| Editorial workflow | Archive | archive | In review | Archived |
 | Editorial workflow | Archive | archive | Published | Archived |
 | Editorial workflow | Restore from archive | archived_published | Archived | Published |

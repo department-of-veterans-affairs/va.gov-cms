@@ -71,7 +71,7 @@ function _va_gov_govdelivery_build_alert_computed_field_data(NodeInterface $node
       $vamcs_op_status_ids[$key] = !empty($vamcs_op_status_id['target_id']) ? $vamcs_op_status_id['target_id'] : '';
     }
     // Get a node storage object.
-    $node_storage = \Drupal::entityManager()->getStorage('node');
+    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
 
     $vamc_office_nids = [];
     $computed_return = [];
@@ -80,7 +80,7 @@ function _va_gov_govdelivery_build_alert_computed_field_data(NodeInterface $node
     // Get out op status page paths.
     foreach ($vamc_op_nodes as $key => $vamc_op_node) {
       $vamc_office_nid = $vamc_op_node->get('field_office')->getString();
-      $computed_return[$vamc_office_nid]['vamc_op_status_path'] = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $vamc_op_node->id());
+      $computed_return[$vamc_office_nid]['vamc_op_status_path'] = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $vamc_op_node->id());
       $vamc_office_nids[] = $vamc_office_nid;
     }
 

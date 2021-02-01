@@ -24,7 +24,7 @@ abstract class ContextBase extends RawDrupalContext {
   }
 
   /**
-   * Enable the mock for va.gov http calls.
+   * Enables the mock HTTP client.
    *
    * @BeforeFeature @mock_va_gov_urls
    */
@@ -33,7 +33,7 @@ abstract class ContextBase extends RawDrupalContext {
   }
 
   /**
-   * Disable the mock for va.gov http calls.
+   * Disables the mock HTTP client.
    *
    * @AfterFeature @mock_va_gov_urls
    */
