@@ -4,7 +4,7 @@ about: Use this template to produce a recurring tier <1 or 2> support placeholde
   for every sprint.
 title: Sprint <insert sprint number> tier <1 or 2> helpdesk support
 labels: Helpdesk & support, Ongoing work
-assignees: VanessaLuxen
+assignees: ''
 
 ---
 
@@ -14,3 +14,7 @@ Sprint <insert sprint number> tier <1 or 2> helpdesk support
 - [ ] Set the milestone to the appropriate sprint
 - [ ] Change the pipeline to "In progress"
 - [ ] Set the estimate to 3
+
+### Table to help track issues and approximate time spent
+| Date | Issue | Resolution | Time Spent |
+| -- | -- | -- | -- |
