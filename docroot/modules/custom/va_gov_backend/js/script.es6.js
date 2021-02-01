@@ -4,8 +4,8 @@
 
 (($, Drupal) => {
   /**
-  +   * Behaviors for details validation.
-  +   */
+   * Behaviors for 'details with image' field group validation.
+   * */
   Drupal.behaviors.fieldGroupDetailsWithImageValidation = {
     attach(context) {
       // Open any hidden parents.
