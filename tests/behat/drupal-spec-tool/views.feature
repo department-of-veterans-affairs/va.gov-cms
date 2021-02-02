@@ -22,6 +22,7 @@ Feature: Views
 | Content served from Drupal | content_served_from_drupal | Content | Enabled | An exportable list of all content served from Drupal |
 | Content entity browsers | content_entity_browsers | Content | Enabled | Collection of Entity Browsers to use for field widgets configuration in form displays. |
 | Content Entity Reference Source | content_entity_reference_source | Content | Enabled |  |
+| Content release logs | content_release_logs | Log entries | Enabled | Shows content release job log entries |
 | Date fields | date_fields | Content | Enabled |  |
 | Facility Governance | facility_governance | Content | Enabled | Provides facility management tools. |
 | Files | files | Files | Enabled | Find and manage files. |
@@ -92,9 +93,6 @@ Feature: Views
 | Content | Bulk edit content | page_2 | Page |
 | Content | Resources and support | resources_support_dashboard | Page |
 | Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
-| Content served from Drupal | Page | page_1 | Page |
-| Content served from Drupal | Data export | data_export_1 | Data export |
-| Content served from Drupal | Master | default | Master |
 | Content entity browsers | Master | default | Master |
 | Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
 | Content entity browsers | Q&A entity browser | entity_browser_1 | Entity browser |
@@ -105,6 +103,11 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
 | Custom block library | Master | default | Master |
 | Custom block library | Page | page_1 | Page |
+| Content release logs | Master | default | Master |
+| Content release logs | Page | page_1 | Page |
+| Content served from Drupal | Page | page_1 | Page |
+| Content served from Drupal | Data export | data_export_1 | Data export |
+| Content served from Drupal | Master | default | Master |
 | Date fields | Master | default | Master |
 | Date fields | Page | page_1 | Page |
 | Facility Governance | Master | default | Master |
