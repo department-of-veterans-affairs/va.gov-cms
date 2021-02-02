@@ -4,7 +4,7 @@ Feature: Content model: Benefits hubs Content Type fields
   As a content editor
   I want to have content type fields that reflect my content model.
 
-  @dst @field_type @content_type_fields @dstfields @boo
+  @dst @field_type @content_type_fields @dstfields
      Scenario: Fields
        Then exactly the following fields should exist for bundles "page,landing_page,basic_landing_page,support_service" of entity type node
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
@@ -16,8 +16,7 @@ Feature: Content model: Benefits hubs Content Type fields
 | Content type | Benefits Detail Page | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- |  |
 | Content type | Benefits Detail Page | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter |  |
 | Content type | Benefits Detail Page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Benefits Detail Page | Page introduction | field_intro_text_limited_html | Text (formatted, long) | Required | 1 | -- Disabled -- |  |
-| Content type | Benefits Detail Page | Page introduction | field_intro_text  | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter |  |
+| Content type | Benefits Detail Page | Page introduction | field_intro_text_limited_html | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
 | Content type | Benefits Detail Page | Page last built | field_page_last_built | Date |  | 1 | -- Disabled -- |  |
 | Content type | Benefits Detail Page | Plain Language Certification Date | field_plainlanguage_date | Date |  | 1 | Date and time |  |
 | Content type | Benefits Detail Page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
