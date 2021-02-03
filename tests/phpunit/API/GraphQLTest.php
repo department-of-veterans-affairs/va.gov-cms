@@ -28,7 +28,7 @@ class GraphQLTest extends ExistingSiteBase {
     foreach ($entities as $entity) {
       if (is_array($entity)) {
         $this->assertArrayHasKey('title', $entity, 'Returned GraphQL does not contain title');
-        $this->assertArrayHasKey('fieldIntroText', $entity, 'Returned GraphQL does not contain fieldIntroText');
+        $this->assertArrayHasKey('fieldIntroTextLimitedHtml', $entity, 'Returned GraphQL does not contain fieldIntroTextLimitedHtml');
         $this->assertArrayHasKey('fieldContentBlock', $entity, 'Returned GraphQL does not contain fieldContentBlock');
       }
     }
@@ -93,7 +93,9 @@ class GraphQLTest extends ExistingSiteBase {
                 entityBundle
                 entityPublished
                 title
-                fieldIntroText
+                fieldIntroTextLimitedHtml {
+                  processed
+                }
                 fieldContentBlock {
                   targetId
                   targetRevisionId
