@@ -3,12 +3,19 @@
 namespace Drupal\va_gov_user\EventSubscriber;
 
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Extension\ModuleHandler;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\externalauth\ExternalAuth;
+use Drupal\migrate\Event\MigrateImportEvent;
 use Drupal\migrate\Event\MigratePostRowSaveEvent;
-use Drupal\migrate\Event\MigratePrepareRowEvent;
+use Drupal\migrate\Event\MigratePreRowSaveEvent;
 use Drupal\migrate\Event\MigrateEvents;
+use Drupal\migrate\MigrateSkipRowException;
+use Drupal\migrate\Row;
+use Drupal\user\UserInterface;
+use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 use Drupal\workbench_access\UserSectionStorageInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -28,11 +35,32 @@ class UserImport implements EventSubscriberInterface {
   protected $entityTypeManager;
 
   /**
+   * EnvironmentDiscovery Service.
+   *
+   * @var \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery
+   */
+  protected $environmentDiscovery;
+
+  /**
+   * External Auth Service.
+   *
+   * @var \Drupal\externalauth\ExternalAuth
+   */
+  protected $externalAuth;
+
+  /**
    * The Messenger service.
    *
    * @var \Drupal\Core\Messenger\MessengerInterface
    */
   protected $messenger;
+
+  /**
+   * The module handler service.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandler
+   */
+  protected $moduleHandler;
 
   /**
    * The User Section Storage service.
@@ -46,8 +74,14 @@ class UserImport implements EventSubscriberInterface {
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
    *   The entity type manager service.
+   * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery $environmentDiscovery
+   *   Environment Discovery service.
+   * @param \Drupal\externalauth\ExternalAuth $externalAuth
+   *   External Authentication service.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger service.
+   * @param \Drupal\Core\Extension\ModuleHandler $moduleHandler
+   *   Module Handler service.
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
    *   The string translation service.
    * @param \Drupal\workbench_access\UserSectionStorageInterface $user_section_storage
@@ -55,12 +89,18 @@ class UserImport implements EventSubscriberInterface {
    */
   public function __construct(
     EntityTypeManager $entity_type_manager,
+    EnvironmentDiscovery $environmentDiscovery,
+    ExternalAuth $externalAuth,
     MessengerInterface $messenger,
+    ModuleHandler $moduleHandler,
     TranslationInterface $string_translation,
     UserSectionStorageInterface $user_section_storage
   ) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->environmentDiscovery = $environmentDiscovery;
+    $this->externalAuth = $externalAuth;
     $this->messenger = $messenger;
+    $this->moduleHandler = $moduleHandler;
     $this->string_translation = $string_translation;
     $this->userSectionStorage = $user_section_storage;
   }
@@ -70,8 +110,41 @@ class UserImport implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     $events[MigrateEvents::POST_ROW_SAVE] = 'onMigratePostRowSave';
-    $events[MigrateEvents::PREPARE_ROW] = 'onMigratePrepareRow';
+    $events[MigrateEvents::PRE_ROW_SAVE] = 'onMigratePreRowSave';
+    $events[MigrateEvents::POST_IMPORT] = 'onMigratePostImport';
     return $events;
+  }
+
+  /**
+   * Perform Post Import events.
+   *
+   * @param \Drupal\migrate\Event\MigrateImportEvent $event
+   *   Information about the event that triggered this function.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\migrate\MigrateException
+   */
+  public function onMigratePostImport(MigrateImportEvent $event) : void {
+    if ($event->getMigration()->label() !== 'User Import') {
+      return;
+    }
+
+    if ($this->environmentDiscovery->isBRD()) {
+      $this->messenger->addMessage(
+        $this->t('All accounts are created as blocked.')
+      );
+    }
+    else {
+      $this->messenger->addMessage(
+        $this->t('All accounts are created as active.')
+      );
+      $this->messenger->addMessage(
+        $this->t('Password was set to %password for all imported users', [
+          '%password' => 'drupal8',
+        ])
+      );
+    }
   }
 
   /**
@@ -93,13 +166,30 @@ class UserImport implements EventSubscriberInterface {
     /** @var \Drupal\migrate\Row $row */
     $row = $event->getRow();
 
-    $this->addUserToSections($row);
+    /** @var \Drupal\user\UserInterface $user */
+    $user = $this->getUserBeingImported($row);
+
+    if (!$user) {
+      return;
+    }
+
+    $this->addUserToSections($row, $user);
+
+    if ($this->environmentDiscovery->isBRD()) {
+      $this->enableSamlAuth($user);
+      $user->block();
+    }
+    else {
+      $user->setPassword('drupal8');
+    }
+
+    $user->save();
   }
 
   /**
-   * Perform Prepare Row events.
+   * Perform Pre Row Save events.
    *
-   * @param \Drupal\migrate\Event\MigratePrepareRowEvent $event
+   * @param \Drupal\migrate\Event\MigratePreRowSaveEvent $event
    *   Information about the event that triggered this function.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
@@ -107,13 +197,39 @@ class UserImport implements EventSubscriberInterface {
    * @throws \Drupal\Core\Entity\EntityStorageException
    * @throws \Drupal\migrate\MigrateException
    */
-  public function onMigratePrepareRow(MigratePrepareRowEvent $event) : void {
+  public function onMigratePreRowSave(MigratePreRowSaveEvent $event) : void {
     if ($event->getMigration()->label() !== 'User Import') {
       return;
     }
 
     /** @var \Drupal\migrate\Row $row */
     $row = $event->getRow();
+
+    $email = $row->getSourceProperty('email');
+    if (!$this->isVaGovEmail($email)) {
+      throw new MigrateSkipRowException($this->t(
+        'The user with email address @email was not created, since it is not a va.gov email address.',
+        ['@email' => $email]
+      ));
+    }
+  }
+
+  /**
+   * Get user being imported.
+   *
+   * @param \Drupal\migrate\Row $row
+   *   The migration row.
+   *
+   * @return \Drupal\user\UserInterface
+   *   The user object.
+   */
+  private function getUserBeingImported(Row $row) {
+    $users = $this->entityTypeManager
+      ->getStorage('user')
+      ->loadByProperties(['name' => $row->getDestination()['name']]);
+    $user = reset($users);
+
+    return $user;
   }
 
   /**
@@ -121,17 +237,26 @@ class UserImport implements EventSubscriberInterface {
    *
    * @param \Drupal\migrate\Row $row
    *   The migration row.
+   * @param \Drupal\user\UserInterface $user
+   *   The user object.
    */
-  private function addUserToSections(Row $row) {
-    if ($section_ids = $this->getSectionIds($event->getRow()->getDestinationProperty('sections'))) {
-      $users = $this->entityTypeManager
-        ->getStorage('user')
-        ->loadByProperties(['name' => $event->getRow()->getDestination()['name']]);
-      $user = reset($users);
+  private function addUserToSections(Row $row, UserInterface $user) {
+    if ($section_ids = $this->getSectionIds($row->getDestinationProperty('sections'))) {
       $user_section_scheme = $this->entityTypeManager->getStorage('access_scheme')->load('section');
-
       $this->userSectionStorage->addUser($user_section_scheme, $user, $section_ids);
     }
+  }
+
+  /**
+   * Enable SSO for a user.
+   *
+   * @param \Drupal\user\UserInterface $user
+   *   The user object.
+   */
+  private function enableSamlAuth(UserInterface $user) {
+    $authname = $user->getAccountName();
+    $this->moduleHandler->alter('simplesamlphp_auth_account_authname', $authname, $user);
+    $this->externalAuth->linkExistingAccount($authname, 'simplesamlphp_auth', $user);
   }
 
   /**
@@ -170,6 +295,26 @@ class UserImport implements EventSubscriberInterface {
     }
 
     return $section_ids;
+  }
+
+  /**
+   * Validate that the given email is a va.gov address.
+   *
+   * @param string $email
+   *   The email address.
+   *
+   * @return bool
+   *   Whether or not the email is a va.gov address.
+   */
+  private function isVaGovEmail(string $email) : bool {
+    $email_parsed = explode('@', $email);
+    $domain = strtolower($email_parsed[1]);
+
+    if ($domain !== 'va.gov') {
+      return FALSE;
+    }
+
+    return TRUE;
   }
 
 }
