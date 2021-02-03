@@ -40,6 +40,10 @@ function va_gov_help_center_page_attachments(array &$attachments) {
     // Attach Jira Service Desk widget library to user login route.
     $attachments['#attached']['library'][] = 'va_gov_help_center/helpdesk-widget';
   }
+  elseif ($route_name === 'system.403') {
+    // Attach Jira Service Desk widget library to access-denied pages.
+    $attachments['#attached']['library'][] = 'va_gov_help_center/helpdesk-widget';
+  }
 }
 
 /**
