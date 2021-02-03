@@ -76,6 +76,26 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   }
 
   /**
+   * Go to a view or edit page for a term.
+   *
+   * @param string $page
+   *   Either the view or edit page.
+   * @param string $title
+   *   The term title.
+   *
+   * @Then I visit the :arg1 page for a term with the title :arg2
+   */
+  public function iViewTerm($page, $title) {
+    $tid = $this->getTestContentTidByTitle($title);
+    if ($tid) {
+      $this->visitPath("taxonomy/term/$tid/$page");
+    }
+    else {
+      throw new \Exception("Cannot locate a valid term with the title '$title'");
+    }
+  }
+
+  /**
    * Check that the title exists in the main menu.
    *
    * @param string $item
@@ -499,7 +519,10 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
    */
   public function googleTagManagerValueShouldBeUnset($key) {
     if ($this->hasGoogleTagManagerValue($key)) {
-      throw new \Exception("The data layer value for \"{$key}\" should not be set.");
+      $value = $this->getGoogleTagManagerValue($key);
+      if (!empty($value)) {
+        throw new \Exception("The data layer value for \"{$key}\" should not be set, but it is set to \"{$value}\".");
+      }
     }
   }
 
@@ -567,6 +590,36 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
     }
     $json = $element->getText();
     return json_decode($json, TRUE);
+  }
+
+  /**
+   * Ensure workbench access sections are empty.
+   *
+   * @Given my workbench access sections are not set
+   */
+  public function myWorkbenchAccessSectionsAreNotSet() {
+    $user = user_load($this->getUserManager()->getCurrentUser()->uid);
+    $section_scheme = \Drupal::entityTypeManager()->getStorage('access_scheme')->load('section');
+    $section_storage = \Drupal::service('workbench_access.user_section_storage');
+    $current_sections = $section_storage->getUserSections($section_scheme, $user);
+    if (!empty($current_sections)) {
+      $section_storage->removeUser($section_scheme, $user, $current_sections);
+      drupal_flush_all_caches();
+    }
+  }
+
+  /**
+   * Sets workbench access sections explicitly.
+   *
+   * @Then my workbench access sections are set to :arg1
+   */
+  public function myWorkbenchAccessSectionsAreSetTo($new_sections) {
+    $this->myWorkbenchAccessSectionsAreNotSet();
+    $user = user_load($this->getUserManager()->getCurrentUser()->uid);
+    $section_scheme = \Drupal::entityTypeManager()->getStorage('access_scheme')->load('section');
+    $section_storage = \Drupal::service('workbench_access.user_section_storage');
+    $section_storage->addUser($section_scheme, $user, explode(',', $new_sections));
+    drupal_flush_all_caches();
   }
 
 }

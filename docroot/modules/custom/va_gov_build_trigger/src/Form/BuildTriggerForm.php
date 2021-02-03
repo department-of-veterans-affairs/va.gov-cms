@@ -2,10 +2,9 @@
 
 namespace Drupal\va_gov_build_trigger\Form;
 
+use Drupal\Core\Block\BlockManager;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Link;
-use Drupal\Core\Url;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 use Drupal\va_gov_build_trigger\Service\BuildFrontend;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
@@ -44,6 +43,13 @@ class BuildTriggerForm extends FormBase {
   protected $environmentDiscovery;
 
   /**
+   * Block Manager Service.
+   *
+   * @var \Drupal\Core\Block\BlockManager
+   */
+  protected $blockManager;
+
+  /**
    * Class constructor.
    *
    * @param \Drupal\va_gov_build_trigger\Service\BuildFrontend $buildFrontend
@@ -52,15 +58,19 @@ class BuildTriggerForm extends FormBase {
    *   Webbuild status provider.
    * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery $environmentDiscovery
    *   EnvironmentDiscovery service.
+   * @param \Drupal\Core\Block\BlockManager $blockManager
+   *   Block Manager service.
    */
   public function __construct(
     BuildFrontend $buildFrontend,
     WebBuildStatusInterface $webBuildStatus,
-    EnvironmentDiscovery $environmentDiscovery) {
+    EnvironmentDiscovery $environmentDiscovery,
+    BlockManager $blockManager) {
 
     $this->buildFrontend = $buildFrontend;
     $this->webBuildStatus = $webBuildStatus;
     $this->environmentDiscovery = $environmentDiscovery;
+    $this->blockManager = $blockManager;
   }
 
   /**
@@ -70,7 +80,8 @@ class BuildTriggerForm extends FormBase {
     return new static(
       $container->get('va_gov_build_trigger.build_frontend'),
       $container->get('va_gov.build_trigger.web_build_status'),
-      $container->get('va_gov.build_trigger.environment_discovery')
+      $container->get('va_gov.build_trigger.environment_discovery'),
+      $container->get('plugin.manager.block')
     );
   }
 
@@ -83,43 +94,8 @@ class BuildTriggerForm extends FormBase {
    *   Object containing current form state.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $target = $this->environmentDiscovery->getWebUrl();
-
-    $form['actions']['#type'] = 'actions';
-    $form['help_1'] = [
-      '#prefix' => '<p>',
-      '#markup' => $this->t('This is a decoupled Drupal website. Content will not be visible on the Front End until a "Content Release" is made to an environment.'),
-      '#suffix' => '</p>',
-      '#weight' => -10,
-    ];
-
-    $form['actions']['submit'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Release content'),
-      '#button_type' => 'primary',
-      '#suffix' => ' ' . t('to %site', [
-        '%site' => $target,
-      ]),
-    ];
-
-    if ($this->webBuildStatus->getWebBuildStatus()) {
-      // A build is pending, so set a display.
-      $form['tip']['#prefix'] = '<em>';
-      $form['tip']['#markup'] = $this->t('A content release has been queued.');
-      $form['tip']['#suffix'] = '</em>';
-      $form['tip']['#weight'] = 100;
-    }
-
-    $target_url = Url::fromUri($target, ['attributes' => ['target' => '_blank']]);
-    $target_link = Link::fromTextAndUrl($target, $target_url);
-    $description = $this->t('Environment not detected. Perform a content release by running the <pre>composer va:web:build</pre> command.');
-    $form['environment_target'] = [
-      '#type' => 'item',
-      '#title' => $this->t('Environment Target'),
-      '#markup' => $target_link->toString(),
-      '#description' => $description,
-    ];
-
+    $form['#attached']['library'][] = 'va_gov_build_trigger/build_trigger_form';
+    $form['#title'] = $this->t('Release content');
     return $form;
   }
 
@@ -146,16 +122,7 @@ class BuildTriggerForm extends FormBase {
    *   Object containing current form state.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $git_ref = NULL;
-    if (
-      $field_value = $form_state->getValue('front_end_branch') &&
-      // Extract the value in parentheses from the front end branch field value.
-      preg_match("/.+\\s\\(([^\\)]+)\\)/", $field_value, $matches)
-    ) {
-      $git_ref = $matches[1];
-    }
-
-    $this->buildFrontend->triggerFrontendBuild($git_ref);
+    $this->buildFrontend->triggerFrontendBuild();
   }
 
 }

@@ -1,0 +1,22 @@
+uuid: 28c4e204-873a-4b94-865d-9607fe70fec5
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_system_policies_page
+id: node.vamc_system_policies_page.promote
+field_name: promote
+entity_type: node
+bundle: vamc_system_policies_page
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

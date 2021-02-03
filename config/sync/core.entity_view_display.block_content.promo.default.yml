@@ -8,34 +8,28 @@ dependencies:
     - field.field.block_content.promo.field_instructions
     - field.field.block_content.promo.field_owner
     - field.field.block_content.promo.field_promo_link
+    - image.style.3_2_medium_thumbnail
   module:
     - entity_reference_revisions
+    - media
 id: block_content.promo.default
 targetEntityType: block_content
 bundle: promo
 mode: default
 content:
   field_image:
-    type: entity_reference_entity_view
+    type: media_thumbnail
     weight: 0
-    label: above
+    label: hidden
     settings:
-      view_mode: default
-      link: false
+      image_style: 3_2_medium_thumbnail
+      image_link: ''
     third_party_settings: {  }
-    region: content
-  field_owner:
-    weight: 2
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
     region: content
   field_promo_link:
     type: entity_reference_revisions_entity_view
     weight: 1
-    label: above
+    label: hidden
     settings:
       view_mode: default
       link: ''
@@ -44,4 +38,5 @@ content:
 hidden:
   content_moderation_control: true
   field_instructions: true
+  field_owner: true
   search_api_excerpt: true
