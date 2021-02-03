@@ -437,7 +437,10 @@
             "npm run stylelint-themes"
         ],
         "va:test:accessibility": [
-            "./scripts/tests/cypress-axe.sh"
+            "./scripts/tests/cypress.sh accessibility"
+        ],
+        "va:test:behavioral": [
+            "./scripts/tests/cypress.sh behavioral"
         ],
         "va:test:lint": [
             "find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null",

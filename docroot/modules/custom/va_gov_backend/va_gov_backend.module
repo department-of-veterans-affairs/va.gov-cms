@@ -1746,19 +1746,16 @@ function _va_gov_backend_apply_filter_to_tablefield_cells(EntityInterface $entit
         $format = $entity->get($field_name)->format ?? 'plain_text';
         if (!empty($raw_table) && is_array($raw_table)) {
           foreach ($raw_table as $row_key => $row_item) {
-            if ($row_key === 'caption') {
-              // Tablefield caption does not support html.
-              $sanitized_items['caption'] = strip_tags($row_item);
-            }
-            else {
-              if (is_array($row_item)) {
-                foreach ($row_item as $cell_key => $cell_item) {
-                  $clean_html = check_markup($cell_item, $format, '', ['autop']);
-                  $sanitized_items['value'][$row_key][$cell_key] = (string) $clean_html;
-                }
+            if (is_array($row_item)) {
+              foreach ($row_item as $cell_key => $cell_item) {
+                $clean_html = check_markup($cell_item, $format, '', ['autop']);
+                $sanitized_items['value'][$row_key][$cell_key] = (string) $clean_html;
               }
             }
           }
+
+          // Tablefield caption does not support html.
+          $sanitized_items['caption'] = strip_tags(trim($entity->get($field_name)->caption));
           $sanitized_items['format'] = $format;
           $entity->$field_name->setValue($sanitized_items);
         }
