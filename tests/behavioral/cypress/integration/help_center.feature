@@ -8,4 +8,4 @@ Feature: CMS Users are able to get help and/or training information in the CMS
     Given I am at "/user/login"
     Then I should see "contact help desk"
     Then the URL for the link with text "help desk" should contain "https://va-gov.atlassian.net"
-
+    And I should see element "iframe#jsd-widget"
