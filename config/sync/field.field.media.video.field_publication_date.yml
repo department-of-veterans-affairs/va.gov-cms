@@ -1,0 +1,24 @@
+uuid: f921d047-19ba-4c74-a7b9-b68337e8f4ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_publication_date
+    - media.type.video
+  module:
+    - datetime
+id: media.video.field_publication_date
+field_name: field_publication_date
+entity_type: media
+bundle: video
+label: 'Publication date'
+description: 'Add the date published on Youtube.'
+required: false
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime
