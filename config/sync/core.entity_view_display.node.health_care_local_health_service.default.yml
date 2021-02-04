@@ -23,14 +23,13 @@ dependencies:
     - field_group
     - markup
     - options
-    - text
     - user
 third_party_settings:
   field_group:
     group_vha_health_service_name_an:
       children: {  }
       parent_name: ''
-      weight: 13
+      weight: 12
       format_type: fieldset
       format_settings:
         description: ''
@@ -39,17 +38,16 @@ third_party_settings:
       label: 'VHA and VAMC health service description'
       region: hidden
     group_facility_description_of_se:
-      children:
-        - field_body
+      children: {  }
       parent_name: ''
-      weight: 1
+      weight: 3
       format_type: fieldset
       format_settings:
         description: ''
         id: ''
         classes: ''
       label: 'Facility description of service (this field will be no longer be used in 2021)'
-      region: content
+      region: hidden
     group_appointments:
       children:
         - field_hservice_appt_intro_select
@@ -60,7 +58,7 @@ third_party_settings:
         - field_online_scheduling_availabl
         - field_phone_numbers_paragraph
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         id: ''
@@ -73,13 +71,6 @@ targetEntityType: node
 bundle: health_care_local_health_service
 mode: default
 content:
-  field_body:
-    weight: 2
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
-    region: content
   field_hservice_appt_intro_select:
     weight: 4
     label: above
@@ -135,7 +126,7 @@ content:
     third_party_settings: {  }
   field_service_location:
     type: entity_reference_revisions_entity_view
-    weight: 3
+    weight: 2
     label: hidden
     settings:
       view_mode: default
@@ -153,6 +144,7 @@ hidden:
   content_moderation_control: true
   field_administration: true
   field_appointments_help_text: true
+  field_body: true
   field_facility_location: true
   field_facility_service_loc_help: true
   links: true

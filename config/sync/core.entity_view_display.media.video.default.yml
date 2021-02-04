@@ -9,9 +9,11 @@ dependencies:
     - field.field.media.video.field_media_submission_guideline
     - field.field.media.video.field_media_video_embed_field
     - field.field.media.video.field_owner
+    - field.field.media.video.field_publication_date
     - image.style.large
     - media.type.video
   module:
+    - datetime
     - hms_field
     - image
     - video_embed_field
@@ -76,6 +78,15 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_publication_date:
+    weight: 9
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: short_date_no_time
+    third_party_settings: {  }
+    type: datetime_default
     region: content
   name:
     label: hidden
