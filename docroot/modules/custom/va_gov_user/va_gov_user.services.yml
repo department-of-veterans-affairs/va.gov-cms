@@ -1,7 +1,14 @@
 services:
-  va_gov_user.post_row_save:
-    class: Drupal\va_gov_user\EventSubscriber\PostRowSave
-    arguments: ['@entity_type.manager', '@messenger', '@string_translation', '@workbench_access.user_section_storage']
+  va_gov_user.user_import:
+    class: Drupal\va_gov_user\EventSubscriber\UserImport
+    arguments:
+      - '@entity_type.manager'
+      - '@va_gov.build_trigger.environment_discovery'
+      - '@externalauth.externalauth'
+      - '@messenger'
+      - '@module_handler'
+      - '@string_translation'
+      - '@workbench_access.user_section_storage'
     tags:
       - { name: event_subscriber }
   va_gov_user.route_subscriber:
