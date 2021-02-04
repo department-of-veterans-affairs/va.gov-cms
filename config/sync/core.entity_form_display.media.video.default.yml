@@ -9,8 +9,10 @@ dependencies:
     - field.field.media.video.field_media_submission_guideline
     - field.field.media.video.field_media_video_embed_field
     - field.field.media.video.field_owner
+    - field.field.media.video.field_publication_date
     - media.type.video
   module:
+    - datetime
     - field_group
     - hms_field
     - markup
@@ -22,7 +24,7 @@ third_party_settings:
       children:
         - field_owner
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: fieldset
       format_settings:
         id: ''
@@ -39,7 +41,7 @@ bundle: video
 mode: default
 content:
   field_description:
-    weight: 4
+    weight: 5
     settings:
       rows: 5
       placeholder: ''
@@ -77,6 +79,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
+  field_publication_date:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
     region: content
   name:
     type: string_textfield

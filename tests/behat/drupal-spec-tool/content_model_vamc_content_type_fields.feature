@@ -132,7 +132,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC Facility | Phone Number | field_phone_number  | Telephone number |  | 1 | Telephone number | Translatable |
 | Content type | VAMC Facility | What health care system does the facility belong to? | field_region_page | Entity reference | Required | 1 | Select list |  |
 | Content type | VAMC Facility Health Service | Facility | field_facility_location | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC Facility Health Service | Facility description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | VAMC Facility Health Service | Facility description of service | field_body | Text (formatted, long) |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC Facility Health Service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC Facility Health Service | Service locations | field_service_location | Entity reference revisions |  | Unlimited | Paragraphs Classic |  |
 | Content type | VAMC Facility Health Service | VAMC system health service | field_regional_health_service | Entity reference | Required | 1 | Select list |  |
