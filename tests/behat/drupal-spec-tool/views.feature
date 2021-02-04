@@ -37,6 +37,7 @@ Feature: Views
 | Media library | media_library | Media | Enabled | Find and manage media. |
 | Moderated content | moderated_content | Content revisions | Enabled | Find and moderate content. |
 | Moderation history | moderation_history | Content revisions | Enabled |  |
+| Node counts by section | counting_nodes | Content | Enabled |  |
 | Redirect | redirect | Redirect | Enabled | List of redirects |
 | Right sidebar latest revision | right_sidebar_latest_revision | Content revisions | Enabled |  |
 | Search | search | Index Content | Disabled |  |
