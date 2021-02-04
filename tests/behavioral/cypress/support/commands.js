@@ -66,3 +66,9 @@ Cypress.Commands.add('drupalAddUserWithRole', (role, username, password) => {
   cy.drupalDrushUserCreate(username, password);
   cy.drupalDrushUserRoleAdd(username, role);
 });
+
+Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe) => {
+  return new Cypress.Promise(resolve => {
+    resolve($iframe.contents().find('body'));
+  });
+});

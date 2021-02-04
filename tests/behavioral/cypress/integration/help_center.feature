@@ -11,6 +11,6 @@ Feature: CMS Users are able to get help and/or training information in the CMS
   @jsd_widget
   Scenario: Users who are denied access to a page are able to submit a help desk request to JSD
     Given I am logged in as a user with role "content_publisher"
-    And I am at "/admin/reports/status"
+    And I attempt to visit "/admin/reports/status"
     Then I should see the JSD widget
 
