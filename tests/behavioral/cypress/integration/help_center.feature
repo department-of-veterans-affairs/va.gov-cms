@@ -6,6 +6,11 @@ Feature: CMS Users are able to get help and/or training information in the CMS
   @jsd_widget
   Scenario: Anonymous users, who may have issues logging in, are able to submit a help desk request to JSD
     Given I am at "/user/login"
-    Then I should see "contact help desk"
-    Then the URL for the link with text "help desk" should contain "https://va-gov.atlassian.net"
-    And I should see element "iframe#jsd-widget"
+    Then I should see the JSD widget
+
+  @jsd_widget
+  Scenario: Users who are denied access to a page are able to submit a help desk request to JSD
+    Given I am logged in as a user with role "content_publisher"
+    And I am at "/admin/reports/status"
+    Then I should see the JSD widget
+
