@@ -31,3 +31,6 @@ Notes:
 - The email address will be used for the user's name.
 - The role column uses role machine names - to find them, go to [the roles page](https://prod.cms.va.gov/admin/people/roles) and click the **Edit** link for a role. The machine name will be listed next to the Role name.
 - To find section names, go to [the sections page](https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview). If a given section name can not be found or matches more than one section, a message will be displayed, and you'll need to fix the CSV or manually add the section.
+- Only email addresses ending in `@va.gov` will be imported
+- If importing on BRD, (prod/staging/dev) all accounts will have SSO enabled and be blocked by default.
+- If not importing on BRD, all accounts will be enabled and have their password set to `drupal8`.
