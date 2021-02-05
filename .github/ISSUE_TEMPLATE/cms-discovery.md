@@ -3,7 +3,7 @@ name: CMS discovery
 about: A discovery request
 title: "<Insert summary>"
 labels: ''
-assignees: kevwalsh
+assignees: cmaeng, kevwalsh
 
 ---
 
