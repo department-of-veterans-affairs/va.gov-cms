@@ -27,7 +27,6 @@ dependencies:
     - limited_field_widgets
     - markup
     - paragraphs
-    - text
     - textfield_counter
 third_party_settings:
   field_group:
@@ -121,8 +120,7 @@ third_party_settings:
       label: 'Service Locations'
       region: content
     group_this_field_will_soon_be_re:
-      children:
-        - field_body
+      children: {  }
       parent_name: ''
       weight: 1
       format_type: fieldset
@@ -178,14 +176,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: markup
-    region: content
-  field_body:
-    weight: 3
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: text_textarea
     region: content
   field_facility_location:
     weight: 0
@@ -289,6 +279,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_body: true
   path: true
   promote: true
   status: true
