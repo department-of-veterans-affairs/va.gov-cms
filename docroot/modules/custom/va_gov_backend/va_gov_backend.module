@@ -804,6 +804,9 @@ function _va_gov_backend_audience_topics_validation(array $form, FormStateInterf
  */
 function _va_gov_backend_standalone_page_validation(array &$form, FormStateInterface &$form_state) {
   if ($form_state->getValue('field_standalone_page')['value'] === 0) {
+    // If we don't unset this field, validation prevents the form from
+    // submitting. This is undesirable when the standalone option is not
+    // toggle on.
     $form_state->unsetValue('field_related_information');
   }
   if (!empty($form_state->getValue('field_standalone_page')['value'])) {

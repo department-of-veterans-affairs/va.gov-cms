@@ -205,4 +205,17 @@
       );
     },
   };
+
+  Drupal.behaviors.vaGovStandaloneQABehaviors = {
+    attach() {
+      // Make sure we trigger the link paragraph to appear when
+      // empty form is on page.
+      const addMoreLinks = document.getElementById(
+        "field-related-information-link-teaser-add-more"
+      );
+      if (addMoreLinks) {
+        addMoreLinks.dispatchEvent(new MouseEvent("click"));
+      }
+    },
+  };
 })(jQuery, window.Drupal);
