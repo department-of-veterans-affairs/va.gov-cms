@@ -61,7 +61,7 @@ function _va_gov_help_center_should_attach_widget(string $route_name, array $rou
   if (in_array($route_name, $unconditional_routes)) {
     return TRUE;
   }
-  if (!empty($route_parameters['node']) && $node = $route_parameters['node']) {
+  if ($route_name === 'entity.node.canonical' && !empty($route_parameters['node']) && $node = $route_parameters['node']) {
     // Attach Jira Service Desk widget library to all nodes of type
     // `documentation_page` with an exception of CMS Help Center homepage -
     // NID 6454.
