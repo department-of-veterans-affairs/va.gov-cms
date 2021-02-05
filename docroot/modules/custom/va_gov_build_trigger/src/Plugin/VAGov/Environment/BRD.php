@@ -207,7 +207,7 @@ class BRD extends EnvironmentPluginBase {
    *   '/cms/va-cms-bot/jenkins-api-token', or '' if not found.
    */
   private function getJenkinsApiToken() {
-    $cmd = 'aws ssm get-parameter --name "/cms/va-cms-bot/jenkins-api-token" --with-decryption --filter Parameter.Value';
+    $cmd = 'aws ssm get-parameter --name "/cms/va-cms-bot/jenkins-api-token" --with-decryption --query Parameter.Value --output text';
     $value = exec($cmd, $output, $status);
     if ($status !== 0) {
       $this->logger->error($output);
