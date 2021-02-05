@@ -8,8 +8,10 @@
 (function ($, Drupal) {
   Drupal.behaviors.vaGovToolbar = {
     attach: function attach() {
-      $(".toolbar-icon-content-release").once("vaGovToolbar").click(function () {
-        $(".toolbar-icon-content-release").toggleClass("show-tooltip");
+      $(".toolbar-icon-content-release").once("vaGovToolbar").hover(function () {
+        $(".toolbar-icon-content-release").addClass("show-tooltip");
+      }, function () {
+        $(".toolbar-icon-content-release").removeClass("show-tooltip");
       });
     }
   };

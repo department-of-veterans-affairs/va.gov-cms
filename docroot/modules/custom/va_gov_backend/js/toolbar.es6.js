@@ -7,9 +7,14 @@
     attach() {
       $(".toolbar-icon-content-release")
         .once("vaGovToolbar")
-        .click(() => {
-          $(".toolbar-icon-content-release").toggleClass("show-tooltip");
-        });
+        .hover(
+          () => {
+            $(".toolbar-icon-content-release").addClass("show-tooltip");
+          },
+          () => {
+            $(".toolbar-icon-content-release").removeClass("show-tooltip");
+          }
+        );
     },
   };
 })(jQuery, window.Drupal);
