@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "159f83024de49a40e04e77dcd99eccfa",
+    "content-hash": "69a4abdc76d74dbc820a886d909b48ed",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -4748,7 +4748,7 @@
                     "datestamp": "1611172233",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Alpha releases are not covered by Drupal security advisories."
+                        "message": "Project has not opted into security advisory coverage!"
                     }
                 }
             },
@@ -11848,10 +11848,10 @@
         },
         {
             "name": "npm-asset/yarn",
-            "version": "1.12.3",
+            "version": "1.21.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/yarn/-/yarn-1.12.3.tgz"
+                "url": "https://registry.npmjs.org/yarn/-/yarn-1.21.1.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -21489,6 +21489,11 @@
                 "squizlabs/php_codesniffer": "^2.7"
             },
             "type": "library",
+            "extra": {
+                "patches_applied": {
+                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "TravisCarden\\BehatTableComparison\\": "src/BehatTableComparison/"
@@ -21509,12 +21514,7 @@
                 "Behat",
                 "gherkin"
             ],
-            "time": "2018-07-03T17:42:23+00:00",
-            "extra": {
-                "patches_applied": {
-                    "Throw meaningful message for duplicate entry.": "https://patch-diff.githubusercontent.com/raw/TravisCarden/behat-table-comparison/pull/7.patch"
-                }
-            }
+            "time": "2018-07-03T17:42:23+00:00"
         },
         {
             "name": "vipnytt/robotstxtparser",

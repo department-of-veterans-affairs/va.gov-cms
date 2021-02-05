@@ -140,7 +140,7 @@
         "knplabs/github-api": "^2.12.1",
         "michelf/php-markdown": "^1.8",
         "mouf/nodejs-installer": "^1.0",
-        "npm-asset/yarn": "1.12.3",
+        "npm-asset/yarn": "1.21.1",
         "oomphinc/composer-installers-extender": "1.1.2",
         "php-http/guzzle6-adapter": "^1.1",
         "phpunit/phpunit": "^7",
@@ -458,6 +458,7 @@
             "node -v",
             "npm -v",
             "yarn -v",
+            "./scripts/composer/check_yarn_version.sh",
             "cd web && yarn run install-repos",
             "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd web && yarn install"
         ],
