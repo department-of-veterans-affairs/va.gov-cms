@@ -111,7 +111,7 @@
         "drupal/simplesamlphp_auth": "^3.2",
         "drupal/site_alert": "1.x-dev#d3700174bdddeca1f33c6995fde86e436b034270",
         "drupal/slack": "^1.2",
-        "drupal/smart_date": "3.0.4",
+        "drupal/smart_date": "3.1.1",
         "drupal/social_media_links": "^2.6",
         "drupal/string_field_formatter": "^2.0",
         "drupal/tablefield": "^2.1",
@@ -140,7 +140,7 @@
         "knplabs/github-api": "^2.12.1",
         "michelf/php-markdown": "^1.8",
         "mouf/nodejs-installer": "^1.0",
-        "npm-asset/yarn": "1.12.3",
+        "npm-asset/yarn": "1.21.1",
         "oomphinc/composer-installers-extender": "1.1.2",
         "php-http/guzzle6-adapter": "^1.1",
         "phpunit/phpunit": "^7",
@@ -437,7 +437,10 @@
             "npm run stylelint-themes"
         ],
         "va:test:accessibility": [
-            "./scripts/tests/cypress-axe.sh"
+            "./scripts/tests/cypress.sh accessibility"
+        ],
+        "va:test:behavioral": [
+            "./scripts/tests/cypress.sh behavioral"
         ],
         "va:test:lint": [
             "find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null",
@@ -455,6 +458,7 @@
             "node -v",
             "npm -v",
             "yarn -v",
+            "./scripts/composer/check_yarn_version.sh",
             "cd web && yarn run install-repos",
             "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd web && yarn install"
         ],
