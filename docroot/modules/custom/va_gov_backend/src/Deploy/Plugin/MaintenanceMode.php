@@ -26,7 +26,8 @@ class MaintenanceMode implements DeployPluginInterface {
    */
   public function run(Request $request, string $app_root, string $site_path) {
     $html = $this->loadMaintenanceHtml($app_root, $site_path);
-    // @TODO make time configurable.
+    $expected_update_duration = '10';
+    $html = preg_replace('/\{\{\s*update_duration\s*\}\}/', $expected_update_duration, $html);
     throw new ServiceUnavailableHttpException(120, $html);
   }
 
