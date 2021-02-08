@@ -6,7 +6,9 @@
  */
 
 use Drupal\Core\Url;
-use Drupal\node\NodeInterface;
+
+// The NID of the CMS Help Center homepage.
+const CMS_HELP_CENTER_HOMEPAGE_NID = 6454;
 
 /**
  * Implements hook_toolbar().
@@ -20,7 +22,7 @@ function va_gov_help_center_toolbar() {
     '#weight' => 1,
     'tab' => [
       '#type' => 'link',
-      '#url' => Url::fromRoute('entity.node.canonical', ['node' => 6454]),
+      '#url' => Url::fromRoute('entity.node.canonical', ['node' => CMS_HELP_CENTER_HOMEPAGE_NID]),
       '#title' => t('Help'),
       '#attributes' => [
         'class' => ['toolbar-icon', 'toolbar-icon-help'],
@@ -35,26 +37,39 @@ function va_gov_help_center_toolbar() {
  * Implements hook_page_attachments().
  */
 function va_gov_help_center_page_attachments(array &$attachments) {
-  $route_name = \Drupal::request()->attributes->get('_route');
-  if ($route_name === 'user.login') {
-    // Attach Jira Service Desk widget library to user login route.
+  $route_match = \Drupal::routeMatch();
+  $route_name = $route_match->getRouteName();
+  $route_parameters = $route_match->getParameters()->all();
+  if (_va_gov_help_center_should_attach_widget($route_name, $route_parameters)) {
     $attachments['#attached']['library'][] = 'va_gov_help_center/helpdesk-widget';
   }
 }
 
 /**
- * Implements hook_preprocess_page().
+ * Should we attach the helpdesk widget?
+ *
+ * @param string $route_name
+ *   The current route name.
+ * @param array $route_parameters
+ *   The parameters passed with the route.
+ *
+ * @return bool
+ *   TRUE if we should attach the widget, otherwise FALSE.
  */
-function va_gov_help_center_preprocess_page(array &$variables) : void {
-  $node = $variables['node'] ?? NULL;
-
-  if ($node instanceof NodeInterface) {
-    $type = $node->getType();
-    if ($type === 'documentation_page' && $node->id() != 6454) {
-      // Attach Jira Service Desk widget library to all nodes of type
-      // `documentation_page` with an exception of CMS Help Center homepage -
-      // NID 6454.
-      $variables['#attached']['library'][] = 'va_gov_help_center/helpdesk-widget';
+function _va_gov_help_center_should_attach_widget(string $route_name, array $route_parameters): bool {
+  $unconditional_routes = [
+    'system.403',
+    'user.login',
+  ];
+  if (in_array($route_name, $unconditional_routes)) {
+    return TRUE;
+  }
+  if ($route_name === 'entity.node.canonical' && !empty($route_parameters['node']) && $node = $route_parameters['node']) {
+    // Attach Jira Service Desk widget library to all nodes of type
+    // `documentation_page` with an exception of CMS Help Center homepage.
+    if ($node->getType() === 'documentation_page' && $node->id() != CMS_HELP_CENTER_HOMEPAGE_NID) {
+      return TRUE;
     }
   }
+  return FALSE;
 }
