@@ -117,10 +117,10 @@ third_party_settings:
         description: 'Why this matters to you calls out the most impactful information about your campaign. If people read nothing else on the page, what should they know?'
         visual_guide_file_name: why-this-matters-guide.svg
         visual_guide_alt_text: 'Basic visual layout of the why this matters page segment.'
-        required_fields: '1'
+        required_fields: true
         id: ''
         classes: ''
-        open: 0
+        open: false
       label: 'Why this matters'
     group_what_you_can_do:
       children:
@@ -171,10 +171,10 @@ third_party_settings:
         description: 'This optional segment allows you to add additional content relevant to your campaign''s audience.'
         visual_guide_file_name: spotlight-guide.svg
         visual_guide_alt_text: 'Basic visual layout of the spotlight page segment.'
+        required_fields: '1'
         id: ''
         classes: ''
         open: 0
-        required_fields: 0
       label: Spotlight
     group_video:
       children:
@@ -190,10 +190,10 @@ third_party_settings:
         description: 'This optional segment allows you to include video content related to the campaign''s message.'
         visual_guide_file_name: video-guide.svg
         visual_guide_alt_text: 'Basic visual layout of the video page segment.'
+        required_fields: '1'
         id: ''
         classes: ''
         open: 0
-        required_fields: 0
       label: Video
     group_stories:
       children:
@@ -210,10 +210,10 @@ third_party_settings:
         description: 'This optional segment features a link and teaser text for up to two stories that support the campaign''s main message. You can feature existing stories, or create a new story.'
         visual_guide_file_name: stories-guide.svg
         visual_guide_alt_text: 'Basic visual layout of the stories page segment.'
+        required_fields: '1'
         id: ''
         classes: ''
         open: 0
-        required_fields: 0
       label: Stories
     group_downloadable_resources:
       children:
@@ -230,10 +230,10 @@ third_party_settings:
         description: 'This optional segment allows you to provide downloadable PDF resources such as fact sheets, reports, studies, or white papers.'
         visual_guide_file_name: downloadable-resources-guide.svg
         visual_guide_alt_text: 'Basic visual layout of the downloadable resources page segment.'
+        required_fields: '1'
         id: ''
         classes: ''
         open: 0
-        required_fields: 0
       label: 'Downloadable resources'
     group_events:
       children:
@@ -249,10 +249,10 @@ third_party_settings:
         description: 'This optional segment allows you to feature events related to the campaign.'
         visual_guide_file_name: events-guide.svg
         visual_guide_alt_text: 'Basic visual layout of the events page segment.'
+        required_fields: '1'
         id: ''
         classes: ''
         open: 0
-        required_fields: 0
     group_faqs:
       children:
         - field_clp_faq_panel
@@ -266,10 +266,10 @@ third_party_settings:
         description: 'This optional segment allows you to add reusable question and answer content related to the campaign''s message.'
         visual_guide_file_name: faqs-guide.svg
         visual_guide_alt_text: 'Basic visual layout of the faqs page segment.'
+        required_fields: '1'
         id: ''
         classes: ''
         open: 0
-        required_fields: 0
       label: FAQs
     group_connect_with_us:
       children:

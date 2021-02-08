@@ -260,3 +260,15 @@ Feature: CMS Users may effectively create & edit content
     Then I should see "BeHat URL Alias Term Title Published"
     Then I visit the "edit" page for a term with the title "BeHat URL Alias Term Title Published"
     And the "path[0][pathauto]" checkbox should not be checked
+
+@content_editing
+  Scenario: Confirm field group is opened and required field is presented to editor on CLP page.
+    Given I am logged in as a user with the "content_admin" role
+    And I am at "node/add/campaign_landing_page"
+    And I fill in "Page title" with "BeHat Required Field"
+    And I press "Add Call to action"
+    And I fill in "Button Link" with "/node/2418"
+    And I check "Enable this page segment"
+    And I press "Save"
+    Then I should see "Introduction field is required."
+    And I should see "0 Video entries created. Minimum of 1 required."
