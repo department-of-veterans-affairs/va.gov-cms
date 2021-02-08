@@ -7,6 +7,9 @@
 
 use Drupal\Core\Url;
 
+// The NID of the CMS Help Center homepage.
+const CMS_HELP_CENTER_HOMEPAGE_NID = 6454;
+
 /**
  * Implements hook_toolbar().
  */
@@ -19,7 +22,7 @@ function va_gov_help_center_toolbar() {
     '#weight' => 1,
     'tab' => [
       '#type' => 'link',
-      '#url' => Url::fromRoute('entity.node.canonical', ['node' => 6454]),
+      '#url' => Url::fromRoute('entity.node.canonical', ['node' => CMS_HELP_CENTER_HOMEPAGE_NID]),
       '#title' => t('Help'),
       '#attributes' => [
         'class' => ['toolbar-icon', 'toolbar-icon-help'],
@@ -63,9 +66,8 @@ function _va_gov_help_center_should_attach_widget(string $route_name, array $rou
   }
   if ($route_name === 'entity.node.canonical' && !empty($route_parameters['node']) && $node = $route_parameters['node']) {
     // Attach Jira Service Desk widget library to all nodes of type
-    // `documentation_page` with an exception of CMS Help Center homepage -
-    // NID 6454.
-    if ($node->getType() === 'documentation_page' && $node->id() != 6454) {
+    // `documentation_page` with an exception of CMS Help Center homepage.
+    if ($node->getType() === 'documentation_page' && $node->id() != CMS_HELP_CENTER_HOMEPAGE_NID) {
       return TRUE;
     }
   }
