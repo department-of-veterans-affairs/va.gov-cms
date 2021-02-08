@@ -5,7 +5,7 @@ const creators = {
   documentation_page: () => {
     cy.visit('/node/add/documentation_page');
     cy.scrollTo('top');
-    cy.findAllByLabelText('Page title').type(faker.lorem.sentence(), { force: true });
+    cy.findAllByLabelText('Page title').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Page introduction').type(faker.lorem.sentence(), { force: true });
     cy.get('form.node-form').find('input#edit-submit').click();
   }
