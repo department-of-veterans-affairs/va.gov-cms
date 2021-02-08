@@ -109,6 +109,7 @@ $settings['jenkins_build_job_host'] = 'http://jenkins.vfs.va.gov';
 // Authorized to the Jenkins API via GitHub login.
 $settings['va_cms_bot_github_username'] = 'va-cms-bot';
 $settings['va_cms_bot_github_auth_token'] = getenv('CMS_GITHUB_VA_CMS_BOT_TOKEN') ?: FALSE;
+$settings['va_cms_bot_jenkins_auth_token'] = getenv('CMS_JENKINS_VA_CMS_BOT_TOKEN') ?: FALSE;
 
 // Environment settings
 $settings['va_gov_composer_home'] = getenv('COMPOSER_HOME');
