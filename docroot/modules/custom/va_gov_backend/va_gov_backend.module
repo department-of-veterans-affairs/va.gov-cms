@@ -1576,7 +1576,8 @@ function va_gov_backend_toolbar() {
       '#value' => '&nbsp;',
       '#attributes' => [
         'class' => ['toolbar-icon', 'toolbar-icon-content-release'],
-        'aria-label' => 'Content last released to VA.gov ' . date('m/d/Y g:i a', strtotime('Yesterday 3pm')),
+        'title' => 'Mouse over to see last content release time',
+        'id' => 'ajax-tippy',
       ],
     ],
     '#wrapper_attributes' => [

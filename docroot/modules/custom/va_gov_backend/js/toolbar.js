@@ -5,14 +5,13 @@
 * @preserve
 **/
 
-(function ($, Drupal) {
+(function ($, Drupal, Tippy) {
   Drupal.behaviors.vaGovToolbar = {
     attach: function attach() {
-      $(".toolbar-icon-content-release").once("vaGovToolbar").hover(function () {
-        $(".toolbar-icon-content-release").addClass("show-tooltip");
-      }, function () {
-        $(".toolbar-icon-content-release").removeClass("show-tooltip");
+      Tippy("#ajax-tippy", {
+        content: "Loading...",
+        flipOnUpdate: true
       });
     }
   };
-})(jQuery, window.Drupal);
+})(jQuery, window.Drupal, window.tippy);

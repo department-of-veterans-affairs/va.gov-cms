@@ -2,19 +2,16 @@
  * @file
  */
 
-(($, Drupal) => {
+(($, Drupal, Tippy) => {
   Drupal.behaviors.vaGovToolbar = {
     attach() {
-      $(".toolbar-icon-content-release")
-        .once("vaGovToolbar")
-        .hover(
-          () => {
-            $(".toolbar-icon-content-release").addClass("show-tooltip");
-          },
-          () => {
-            $(".toolbar-icon-content-release").removeClass("show-tooltip");
-          }
-        );
+      Tippy(".ajax-tippy", {
+        content(reference) {
+          reference.removeAttribute("title");
+          return "Loading...";
+        },
+        flipOnUpdate: true,
+      });
     },
   };
-})(jQuery, window.Drupal);
+})(jQuery, window.Drupal, window.tippy);
