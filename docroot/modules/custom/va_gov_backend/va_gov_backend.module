@@ -1566,6 +1566,7 @@ function va_gov_backend_toolbar() {
   $items['content_release_icon'] = [
     '#attached' => [
       'library' => [
+        'va_gov_backend/tippy_popover_theme',
         'va_gov_backend/toolbar',
       ],
     ],
@@ -1577,7 +1578,7 @@ function va_gov_backend_toolbar() {
       '#attributes' => [
         'class' => ['toolbar-icon', 'toolbar-icon-content-release'],
         'title' => 'Mouse over to see last content release time',
-        'id' => 'ajax-tippy',
+        'id' => 'content-release-status-icon',
       ],
     ],
     '#wrapper_attributes' => [

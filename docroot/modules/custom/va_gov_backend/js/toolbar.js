@@ -8,9 +8,39 @@
 (function ($, Drupal, Tippy) {
   Drupal.behaviors.vaGovToolbar = {
     attach: function attach() {
-      Tippy("#ajax-tippy", {
-        content: "Loading...",
-        flipOnUpdate: true
+      var loadingText = "Loading...";
+      Tippy("#content-release-status-icon", {
+        content: function content(reference) {
+          reference.removeAttribute("title");
+          return loadingText;
+        },
+
+        flipOnUpdate: true,
+        onCreate: function onCreate(instance) {
+          instance._isFetching = false;
+          instance._src = null;
+          instance._error = null;
+        },
+        onHidden: function onHidden(instance) {
+          instance.setContent(loadingText);
+        },
+        onShow: function onShow(instance) {
+          if (instance._isFetching || instance._src || instance._error) {
+            return;
+          }
+
+          instance._isFetching = true;
+
+          $.get("/admin/content/deploy/status", function (data) {
+            instance.setContent(data);
+          }).fail(function (jqXHR, textStatus, errorThrown) {
+            instance.setContent("Request failed. " + errorThrown);
+          }).always(function () {
+            instance._isFetching = false;
+          });
+        },
+
+        theme: "tippy_popover"
       });
     }
   };
