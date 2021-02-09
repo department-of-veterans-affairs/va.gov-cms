@@ -21,7 +21,6 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - content_moderation
-    - datetime
     - entity_browser
     - field_group
     - paragraphs
@@ -33,7 +32,6 @@ third_party_settings:
     group_governance:
       children:
         - field_administration
-        - field_plainlanguage_date
       parent_name: ''
       weight: 7
       format_type: details_sidebar
@@ -230,12 +228,6 @@ content:
     third_party_settings: {  }
     type: string_textfield_with_counter
     region: content
-  field_plainlanguage_date:
-    weight: 22
-    settings: {  }
-    third_party_settings: {  }
-    type: datetime_default
-    region: content
   field_related_links:
     type: paragraphs
     weight: 6
@@ -296,6 +288,7 @@ hidden:
   field_intro_text_limited_html: true
   field_meta_tags: true
   field_page_last_built: true
+  field_plainlanguage_date: true
   panelizer: true
   promote: true
   status: true

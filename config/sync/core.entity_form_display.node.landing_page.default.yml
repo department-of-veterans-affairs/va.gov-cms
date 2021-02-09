@@ -38,7 +38,6 @@ third_party_settings:
     group_governance:
       children:
         - field_administration
-        - field_plainlanguage_date
       parent_name: ''
       weight: 8
       format_type: details_sidebar
@@ -249,12 +248,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_plainlanguage_date:
-    weight: 2
-    settings: {  }
-    third_party_settings: {  }
-    type: datetime_default
-    region: content
   field_promo:
     weight: 18
     settings: {  }
@@ -352,6 +345,7 @@ content:
 hidden:
   created: true
   field_meta_tags: true
+  field_plainlanguage_date: true
   promote: true
   status: true
   sticky: true
