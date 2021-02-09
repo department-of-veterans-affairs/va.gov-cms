@@ -8,7 +8,7 @@
 (function ($, Drupal, Tippy) {
   Drupal.behaviors.vaGovToolbar = {
     attach: function attach() {
-      var loadingText = "Loading...";
+      var loadingText = "Getting last release time...";
       Tippy("#content-release-status-icon", {
         content: function content(reference) {
           reference.removeAttribute("title");
@@ -40,7 +40,8 @@
           });
         },
 
-        theme: "tippy_popover"
+        theme: "tippy_popover",
+        offset: "0, -12"
       });
     }
   };

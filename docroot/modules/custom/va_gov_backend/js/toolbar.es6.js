@@ -5,7 +5,7 @@
 (($, Drupal, Tippy) => {
   Drupal.behaviors.vaGovToolbar = {
     attach() {
-      const loadingText = "Loading...";
+      const loadingText = "Getting last release time...";
       Tippy("#content-release-status-icon", {
         content(reference) {
           reference.removeAttribute("title");
@@ -38,6 +38,7 @@
             });
         },
         theme: "tippy_popover",
+        offset: "0, -12",
       });
     },
   };

@@ -13,21 +13,7 @@
   background-repeat: no-repeat;
 }
 
-.toolbar-icon-content-release.show-tooltip::after {
-  background: #fff;
-  border-radius: 3px;
-  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.3);
-  color: #000;
-  content: attr(aria-label);
-  font-size: 16px;
-  font-weight: 100;
-  left: 50%;
-  line-height: 1.3em;
-  margin-left: -120px;
-  margin-top: 0.5em;
-  padding: 10px;
-  position: absolute;
-  text-align: center;
-  top: 67%;
-  width: 240px;
+.toolbar .toolbar-icon-content-release.toolbar-item:hover,
+.toolbar .toolbar-icon-content-release.toolbar-item:focus {
+  text-decoration: none;
 }
