@@ -2,13 +2,16 @@
 
 namespace Drupal\va_gov_build_trigger\Plugin\VAGov\Environment;
 
-use Drupal\Core\Site\Settings;
+use Aws\Ssm\SsmClient;
+use Drupal\Core\Database\Connection;
+use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
 use Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm;
 use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
@@ -42,6 +45,13 @@ class BRD extends EnvironmentPluginBase {
   protected $database;
 
   /**
+   * Settings.
+   *
+   * @var \Drupal\Core\Site\SettingsInterface
+   */
+  protected $settings;
+
+  /**
    * {@inheritDoc}
    */
   public function __construct(
@@ -51,13 +61,14 @@ class BRD extends EnvironmentPluginBase {
     LoggerInterface $logger,
     WebBuildStatusInterface $webBuildStatus,
     WebBuildCommandBuilder $webBuildCommandBuilder,
-    $dateFormatter,
-    $database
+    DateFormatterInterface $dateFormatter,
+    Connection $database,
+    SettingsInterface $settings
   ) {
-
     parent::__construct($configuration, $plugin_id, $plugin_definition, $logger, $webBuildStatus, $webBuildCommandBuilder);
     $this->dateFormatter = $dateFormatter;
     $this->database = $database;
+    $this->settings = $settings;
   }
 
   /**
@@ -72,91 +83,168 @@ class BRD extends EnvironmentPluginBase {
       $container->get('va_gov.build_trigger.web_build_status'),
       $container->get('va_gov.build_trigger.web_build_command_builder'),
       $container->get('date.formatter'),
-      $container->get('database')
+      $container->get('database'),
+      $container->get('settings')
     );
+  }
+
+  /**
+   * Build the cURL request options.
+   *
+   * @param string $url
+   *   The request URL.
+   * @param string $username
+   *   The username.
+   * @param string $password
+   *   The password.
+   *
+   * @return array
+   *   Request options for the Jenkins build.
+   */
+  public function getRequestOptions(string $url, string $username, string $password): array {
+    return [
+      'verify' => TRUE,
+      'body' => '',
+      'headers' => [
+        'Accept' => 'text/plain',
+      ],
+      'curl' => [
+        CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2,
+        CURLOPT_VERBOSE => TRUE,
+        CURLOPT_URL => $url,
+        CURLOPT_POST => 1,
+        CURLOPT_USERNAME => $username,
+        CURLOPT_PASSWORD => $password,
+        CURLOPT_FOLLOWLOCATION => 1,
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_HEADER => 1,
+      ],
+    ];
+  }
+
+  /**
+   * Construct a middleware that retries failed requests.
+   *
+   * @param int $timeIncrement
+   *   Time added to successive retries in milliseconds.
+   * @param int $retryLimit
+   *   The maximum number of retries.
+   *
+   * @return \GuzzleHttp\Middleware
+   *   The retry middleware.
+   *
+   * @see http://dawehner.github.io/php,/guzzle/2017/05/19/guzzle-retry.html
+   */
+  public function getRetryMiddleware(int $timeIncrement = 1000, int $retryLimit = 3): Middleware {
+    return Middleware::retry(function ($retry, $request, $response, $reason) use ($retryLimit) {
+      // Must be a "201 Created" response code & message, if not then cont
+      // and retry.
+      if ($response && $response->getStatusCode() === 201) {
+        return FALSE;
+      }
+      $this->logger->warning('Retry site build - attempt #' . $retry);
+      return $retry < $retryLimit;
+    }, function ($retry) use ($timeIncrement) {
+      return $retry * $timeIncrement;
+    });
+  }
+
+  /**
+   * Construct a client to make the request to Jenkins.
+   *
+   * @param \GuzzleHttp\HandlerStack $handlerStack
+   *   The middleware used with this client.
+   *
+   * @return \GuzzleHttp\ClientInterface
+   *   An HTTP client.
+   */
+  public function getJenkinsClient(HandlerStack $handlerStack): ClientInterface {
+    return new Client([
+      'handler' => $handlerStack,
+    ]);
+  }
+
+  /**
+   * Request a front end build.
+   *
+   * @param string $githubUsername
+   *   The GitHub username used to integrate with Jenkins.
+   * @param string $jenkinsJobUrl
+   *   The build job URL.
+   * @param string $jenkinsAuthToken
+   *   The auth token used with Jenkins.
+   * @param string $jenkinsJobHost
+   *   The Jenkins build job host.
+   * @param string $jenkinsJobPath
+   *   The Jenkins build job path.
+   * @param string $frontendGitRef
+   *   The git ref of the frotnend.
+   * @param bool $fullRebuild
+   *   Whether or not a full rebuild should be requested.
+   */
+  public function requestFrontendBuild(
+    string $githubUsername,
+    string $jenkinsJobUrl,
+    string $jenkinsAuthToken,
+    string $jenkinsJobHost,
+    string $jenkinsJobPath,
+    string $frontendGitRef = NULL,
+    bool $fullRebuild = FALSE
+  ): void {
+    $handlerStack = HandlerStack::create();
+    $handlerStack->push($this->getRetryMiddleware());
+    $client = $this->getJenkinsClient($handlerStack);
+    $requestOptions = $this->getRequestOptions($githubUsername, $jenkinsJobUrl, $jenkinsAuthToken);
+    $response = $client->post($jenkinsJobHost, $requestOptions);
+    if ($response->getStatusCode() !== 201) {
+      $vars = [
+        ':status_code' => $response->getStatusCode(),
+        ':reason_phrase' => $response->getReasonPhrase(),
+        ':url' => $jenkinsJobUrl,
+      ];
+
+      $message = $this->t('Site rebuild failed with status code {:status_code} {:reason_phrase} and URL {:url}.', $vars);
+      $this->messenger()->addError($message);
+      $this->logger->error($message);
+
+      $message = $this->t('Site rebuild request has failed for :url, check log for more information.', [
+        ':url' => $jenkinsJobUrl,
+      ]);
+      $this->messenger()->addError($message);
+      $this->logger->error($message);
+    }
+    else {
+      $this->recordBuildTime();
+      $vars = [
+        ':url' => $jenkinsJobUrl,
+        '@job_link' => $jenkinsJobHost . $jenkinsJobPath,
+      ];
+
+      $message = $this->t('Site rebuild request has been triggered with :url. Please visit <a href="@job_link">@job_link</a> to see status.', $vars);
+      $this->messenger()->addStatus($message);
+      $this->logger->info($message);
+    }
   }
 
   /**
    * {@inheritDoc}
    */
   public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE): void {
-    $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
-    $va_cms_bot_jenkins_auth_token = Settings::get('va_cms_bot_jenkins_auth_token');
-    $jenkins_build_job_host = Settings::get('jenkins_build_job_host');
-    $jenkins_build_job_path = Settings::get('jenkins_build_job_path');
-    $jenkins_build_job_url = Settings::get('jenkins_build_job_url');
+    $githubUsername = $this->settings->get('va_cms_bot_github_username');
+    $jenkinsAuthToken = $this->getJenkinsApiToken();
+    $jenkinsJobUrl = $this->settings->get('jenkins_build_job_url');
+    $jenkinsJobHost = $this->settings->get('jenkins_build_job_host');
+    $jenkinsJobPath = $this->settings->get('jenkins_build_job_path');
 
     try {
-      // Setup the REQUEST options.
-      $request_options = [
-        'verify' => TRUE,
-        'body' => '',
-        'headers' => [
-          'Accept' => 'text/plain',
-        ],
-        'curl' => [
-          CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2,
-          CURLOPT_VERBOSE => TRUE,
-          CURLOPT_URL => $jenkins_build_job_url,
-          CURLOPT_POST => 1,
-          // Authorize to the Jenkins API via GitHub login.
-          CURLOPT_USERNAME => $va_cms_bot_github_username,
-          CURLOPT_PASSWORD => $va_cms_bot_jenkins_auth_token,
-          CURLOPT_FOLLOWLOCATION => 1,
-          CURLOPT_RETURNTRANSFER => 1,
-          CURLOPT_HEADER => 1,
-        ],
-      ];
-      // Setup the REQUEST retry logic w/lazy backoff.
-      // @see http://dawehner.github.io/php,/guzzle/2017/05/19/guzzle-retry.html
-      $handler_stack = HandlerStack::create();
-      $handler_stack->push(Middleware::retry(function ($retry, $request, $response, $reason) {
-        // Must be a "201 Created" response code & message, if not then cont
-        // and retry.
-        if ($response && $response->getStatusCode() === 201) {
-          return FALSE;
-        }
-        $this->logger->warning('Retry site build - attempt #' . $retry);
-        // Stop after 3 retries.
-        return $retry < 3;
-      }, function ($retry) {
-        $delay_ms = 1000;
-        return $retry * $delay_ms;
-      }));
-
-      // Handle the RESPONSE.
-      $client = new Client(['handler' => $handler_stack]);
-      $response = $client->post($jenkins_build_job_host, $request_options);
-
-      if ($response->getStatusCode() !== 201) {
-        $vars = [
-          ':status_code' => $response->getStatusCode(),
-          ':reason_phrase' => $response->getReasonPhrase(),
-          ':url' => $jenkins_build_job_url,
-        ];
-        $message = $this->t('Site rebuild failed with status code {:status_code} {:reason_phrase} and URL {:url}.', $vars);
-        $this->messenger()->addError($message);
-        $this->logger->error($message);
-
-        $message = $this->t('Site rebuild request has failed for :url, check log for more information.', [':url' => $jenkins_build_job_url]);
-        $this->messenger()->addError($message);
-        $this->logger->error($message);
-      }
-      else {
-        $this->recordBuildTime();
-        $vars = [
-          ':url' => $jenkins_build_job_url,
-          '@job_link' => $jenkins_build_job_host . $jenkins_build_job_path,
-        ];
-        $message = $this->t('Site rebuild request has been triggered with :url. Please visit <a href="@job_link">@job_link</a> to see status.', $vars);
-        $this->messenger()->addStatus($message);
-        $this->logger->info($message);
-      }
+      $this->requestFrontendBuild($githubUsername, $jenkinsJobUrl, $jenkinsJobAuthToken, $jenkinsJobHost, $jenkinsJobPath, $front_end_git_ref, $full_rebuild);
     }
     catch (RequestException $exception) {
-      $message = $this->t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify in #cms-support Slack and please email vacmssupport@va.gov immediately with the error message you see here.', [':url' => $jenkins_build_job_url]);
+
+      $message = $this->t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify in #cms-support Slack and please email vacmssupport@va.gov immediately with the error message you see here.', [':url' => $jenkinsJobUrl]);
       $this->messenger()->addError($message);
       $this->logger->error($message);
+
       $this->webBuildStatus->disableWebBuildStatus();
       watchdog_exception('va_gov_build_trigger', $exception);
     }
@@ -206,17 +294,26 @@ class BRD extends EnvironmentPluginBase {
    *   The value of the value of ssm param named
    *   '/cms/va-cms-bot/jenkins-api-token', or '' if not found.
    */
-  private function getJenkinsApiToken(): string {
-    $cmd = 'aws ssm get-parameter --name "/cms/va-cms-bot/jenkins-api-token" --with-decryption --query Parameter.Value --output text';
-    $value = exec($cmd, $output, $status);
-    if ($status !== 0) {
-      $message = $this->t('Failed to retrieve the Jenkins API token.  The output of the executed command was: :output.', [
-        ':output' => implode("\n", $output),
+  public function getJenkinsApiToken(): string {
+    try {
+      $client = new SsmClient([
+        'version' => 'latest',
+        'region' => 'us-gov-west-1',
       ]);
-      $this->logger->error($message);
-      throw new \Exception($message);
+      $result = $client->getParameter([
+        'Name' => '/cms/va-cms-bot/jenkins-api-token',
+        'WithDecryption' => TRUE,
+      ]);
+      return $result['Parameter']['Value'];
     }
-    return $value;
+    catch (\Exception $exception) {
+      $message = $this->t('Failed to retrieve the Jenkins API token.  The error encountered was @message', [
+        '@message' => $exception->getMessage(),
+      ]);
+      $exception = new \Exception($message);
+      watchdog_exception('va_gov_build_trigger', $exception);
+      throw $exception;
+    }
   }
 
 }
