@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.page.field_content_block
     - field.field.node.page.field_description
     - field.field.node.page.field_featured_content
-    - field.field.node.page.field_intro_text
     - field.field.node.page.field_intro_text_limited_html
     - field.field.node.page.field_meta_tags
     - field.field.node.page.field_meta_title
@@ -26,6 +25,7 @@ dependencies:
     - paragraphs
     - paragraphs_browser
     - path
+    - text
     - textfield_counter
 third_party_settings:
   field_group:
@@ -74,7 +74,7 @@ third_party_settings:
     group_title_and_summary:
       children:
         - title
-        - field_intro_text
+        - field_intro_text_limited_html
       parent_name: ''
       weight: 0
       format_type: fieldset
@@ -122,7 +122,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 9
+    weight: 10
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -201,19 +201,14 @@ content:
         duplicate: duplicate
     third_party_settings: {  }
     region: content
-  field_intro_text:
-    weight: 3
+  field_intro_text_limited_html:
+    type: text_textarea
+    weight: 2
+    region: content
     settings:
       rows: 5
       placeholder: ''
-      maxlength: 600
-      counter_position: after
-      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
-      js_prevent_submit: false
-      count_html_characters: false
     third_party_settings: {  }
-    type: string_textarea_with_counter
-    region: content
   field_meta_title:
     weight: 1
     settings:
@@ -261,7 +256,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 10
+    weight: 11
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -280,12 +275,11 @@ content:
     third_party_settings: {  }
     region: content
   url_redirects:
-    weight: 11
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
-  field_intro_text_limited_html: true
   field_meta_tags: true
   field_page_last_built: true
   field_plainlanguage_date: true
