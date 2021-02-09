@@ -1,9 +1,9 @@
-## Tugboat 101
+# Tugboat 101
 
-### Summary of Tugboat
+## Summary of Tugboat
 Tugboat is a fast, modern Preview Environment creation tool based on containers ([Docker Swarm](https://docs.docker.com/engine/swarm/)). Tugboat creates "Previews" which are environments that you can test proposed code changes on, login with a web shell, and view logs in the UI. It uses a concept of a "Base Preview" which is a container with a production database snapshot baked into it and ready to put your new code onto and run post-deploy operations (updatedb, config:import). This base preview image is built every day just after the PROD CMS deploy at 3:30pm ET and uses a database snapshot from just after that deployment time. Then, when you launch your PR it launches from that state and doesn't have to sync the file assets or database snapshot and will only run your code updates (`drush updatdb`) and configuration import (`drush config:import`) and then posts a GitHub comment to your pull request with links to your preview environment(s).
 
-**Getting started with CMS Pull Request Preview Environments**
+## Getting started with CMS Pull Request Preview Environments
 1. Log in to the Tugboat dashboard (internal) https://tugboat.vfs.va.gov. When you first log in with GitHub, you need to wait up to 2 minutes for your user account to be granted access to project(s) by a cron script that runs every minute (we are working on making this instant eventually). After you have waited the 2 minutes:
 1. Click the "CMS" project then click "CMS Pull Request Environments"
 1. Make a pull request
@@ -11,7 +11,9 @@ Tugboat is a fast, modern Preview Environment creation tool based on containers 
 1. Within 3 minutes a your new preview environment should be created and a GitHub comment will be posted with links to your environment(s) for testing, this includes a WEB (web-\*) link that builds the static site for testing. The WEB environment will take a while to build and will only be stable after all tests pass.
 1. After the GitHub comment is posted with your environment links, tests will start running and the checks in the GitHub status check section will switch from "Expected" to "Pending", this test run step will take closer to 30+ minutes to complete.
 
-**Getting started with CMS Demo Preview Environments**
+## Getting started with CMS Demo Preview Environments
+
+### Maintenance and retention policy
 
 1. Demo Preview Environments that are inactive for 30 days are subject to deletion. Run the "Lock" operation to prevent this from happening. 
 1. Demo environments must follow this naming pattern:
@@ -20,7 +22,8 @@ Tugboat is a fast, modern Preview Environment creation tool based on containers 
    1. For personal sandboxes - `<First name Last name>'s Sandbox`. E.g. Dave Conlon's Sandbox.
    1. Avoid creating environments with duplicate names. Check the list of existing environment while sorting by title to quickly scan the list to ensure an environment you're about to create doesn't already exist.
 
-To create a new CMS Demo Preview Environment:
+
+### Creating new CMS Demo Preview Environment:
 
 1. Login to Tugboat using GitHub - [Tugboat Projects](https://tugboat.vfs.va.gov/projects)
 1. Navigate to CMS > CMS Demo Environments repository OR use a direct link [Tugboat CMS Demo Environments repository](https://tugboat.vfs.va.gov/5ffe2f4dfa1ca136135134f6)
@@ -37,6 +40,25 @@ To create a new CMS Demo Preview Environment:
    1. Click "Save Configuration", then "Back to Preview".
    
 You have created a new CMS Demo Preview Environment.
+
+### Human-friendly URLs for CMS Demo Preview Environments
+
+Default URL aliases for CMS and WEB UI are not readable. Alias enhancement is tracked in [#4162](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/4162).
+
+Example:
+1. `https://cms-kewq6ooqnvg8hzjyzc1luyb4wm8bncmw.demo.cms.va.gov/`
+1. `https://web-kewq6ooqnvg8hzjyzc1luyb4wm8bncmw.demo.cms.va.gov/`
+
+Tugboat allows for manual URL customization if there is a need to share a human-redable URL with a stakeholder.
+
+The format is {preview_type}-{custom_name}-{environment_token}.demo.cms.va.gov.
+Any alphanumeric characters can be used for {custom_name}.
+
+For example, when creating the 'Wilmington health care' demo environment, these URLs could be modified as follows:
+
+1. `https://cms-wilmington-kewq6ooqnvg8hzjyzc1luyb4wm8bncmw.demo.cms.va.gov/`
+1. `https://web-wilmington-kewq6ooqnvg8hzjyzc1luyb4wm8bncmw.demo.cms.va.gov/`
+
 
 ## Tips
 1. Refresh, Rebuild and Reset operations.   

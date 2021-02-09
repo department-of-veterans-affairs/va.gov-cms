@@ -6,6 +6,25 @@
 **/
 
 (function ($, Drupal) {
+  Drupal.behaviors.fieldGroupDetailsWithImageValidation = {
+    attach: function attach(context) {
+      function fieldsetHandler() {
+        $(this).attr("open", "");
+      }
+
+      $(".field-group-detailswithimage :input", context).each(function invalidInput() {
+        var fieldGroupInput = $(this);
+        this.addEventListener("invalid", function c(e) {
+          $(e.target).parents("details:not([open])").each(fieldsetHandler);
+        }, false);
+
+        if (fieldGroupInput.hasClass("error")) {
+          fieldGroupInput.parents("details:not([open])").each(fieldsetHandler);
+        }
+      });
+    }
+  };
+
   Drupal.behaviors.vaGovTooltip = {
     attach: function attach() {
       var addTooltip = [];

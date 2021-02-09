@@ -3,6 +3,37 @@
  */
 
 (($, Drupal) => {
+  /**
+   * Behaviors for 'details with image' field-group validation.
+   * */
+  Drupal.behaviors.fieldGroupDetailsWithImageValidation = {
+    attach(context) {
+      // Open any hidden parents.
+      function fieldsetHandler() {
+        $(this).attr("open", "");
+      }
+      // Engage field groups that use detailswithimage.
+      $(".field-group-detailswithimage :input", context).each(
+        function invalidInput() {
+          const fieldGroupInput = $(this);
+          this.addEventListener(
+            "invalid",
+            function c(e) {
+              $(e.target).parents("details:not([open])").each(fieldsetHandler);
+            },
+            false
+          );
+
+          if (fieldGroupInput.hasClass("error")) {
+            fieldGroupInput
+              .parents("details:not([open])")
+              .each(fieldsetHandler);
+          }
+        }
+      );
+    },
+  };
+
   Drupal.behaviors.vaGovTooltip = {
     attach() {
       // Stores tooltip ids to be referenced later.
