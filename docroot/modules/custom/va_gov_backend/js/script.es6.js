@@ -213,7 +213,10 @@
       const addMoreLinks = document.getElementById(
         "field-related-information-link-teaser-add-more"
       );
-      if (addMoreLinks) {
+      const linkCount = document.querySelectorAll(
+        ".paragraph-type--link-teaser"
+      ).length;
+      if (addMoreLinks && linkCount < 1) {
         addMoreLinks.dispatchEvent(new MouseEvent("click"));
       }
     },
