@@ -81,7 +81,7 @@ class BRD extends EnvironmentPluginBase {
    */
   public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE): void {
     $va_cms_bot_github_username = Settings::get('va_cms_bot_github_username');
-    $va_cms_bot_jenkins_auth_token = $this->getJenkinsApiToken();
+    $va_cms_bot_jenkins_auth_token = Settings::get('va_cms_bot_jenkins_auth_token');
     $jenkins_build_job_host = Settings::get('jenkins_build_job_host');
     $jenkins_build_job_path = Settings::get('jenkins_build_job_path');
     $jenkins_build_job_url = Settings::get('jenkins_build_job_url');
@@ -206,7 +206,7 @@ class BRD extends EnvironmentPluginBase {
    *   The value of the value of ssm param named
    *   '/cms/va-cms-bot/jenkins-api-token', or '' if not found.
    */
-  private function getJenkinsApiToken() {
+  private function getJenkinsApiToken(): string {
     $cmd = 'aws ssm get-parameter --name "/cms/va-cms-bot/jenkins-api-token" --with-decryption --query Parameter.Value --output text';
     $value = exec($cmd, $output, $status);
     if ($status !== 0) {
