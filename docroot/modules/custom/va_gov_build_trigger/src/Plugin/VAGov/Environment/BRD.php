@@ -210,8 +210,11 @@ class BRD extends EnvironmentPluginBase {
     $cmd = 'aws ssm get-parameter --name "/cms/va-cms-bot/jenkins-api-token" --with-decryption --query Parameter.Value --output text';
     $value = exec($cmd, $output, $status);
     if ($status !== 0) {
-      $this->logger->error($output);
-      return '';
+      $message = $this->t('Failed to retrieve the Jenkins API token.  The output of the executed command was: :output.', [
+        ':output' => implode("\n", $output),
+      ]);
+      $this->logger->error($message);
+      throw new \Exception($message);
     }
     return $value;
   }
