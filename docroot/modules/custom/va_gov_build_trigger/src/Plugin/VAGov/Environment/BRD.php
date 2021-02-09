@@ -199,4 +199,21 @@ class BRD extends EnvironmentPluginBase {
     return BrdBuildTriggerForm::class;
   }
 
+  /**
+   * Gets the current Jenkins API token.
+   *
+   * @return string
+   *   The value of the value of ssm param named
+   *   '/cms/va-cms-bot/jenkins-api-token', or '' if not found.
+   */
+  private function getJenkinsApiToken(): string {
+    $cmd = 'aws ssm get-parameter --name "/cms/va-cms-bot/jenkins-api-token" --with-decryption --query Parameter.Value --output text';
+    $value = exec($cmd, $output, $status);
+    if ($status !== 0) {
+      $this->logger->error($output);
+      return '';
+    }
+    return $value;
+  }
+
 }
