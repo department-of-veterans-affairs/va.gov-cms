@@ -6,6 +6,9 @@ use Aws\Ssm\SsmClient;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\va_gov_build_trigger\Exception\JenkinsClientException;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\HandlerStack;
@@ -16,17 +19,19 @@ use GuzzleHttp\Middleware;
  */
 class JenkinsClient implements JenkinsClientInterface {
 
+  use StringTranslationTrait;
+
   /**
    * Settings.
    *
-   * @var \Drupal\Core\Site\SettingsInterface
+   * @var \Drupal\Core\Site\Settings
    */
   protected $settings;
 
   /**
    * The messenger service.
    *
-   * @var \Drupal\Core\Messenger\MessengerInterfac
+   * @var \Drupal\Core\Messenger\MessengerInterface
    */
   protected $messenger;
 
@@ -38,23 +43,34 @@ class JenkinsClient implements JenkinsClientInterface {
   protected $logger;
 
   /**
+   * The string translation service.
+   *
+   * @var \Drupal\Core\StringTranslation\TranslationInterface
+   */
+  protected $stringTranslation;
+
+  /**
    * Constructor.
    *
    * @param \Drupal\Core\Site\Settings $settings
    *   Drupal settings.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger interface.
-   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
    *   The logger factory service.
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $stringTranslation
+   *   The string translation service.
    */
   public function __construct(
     Settings $settings,
     MessengerInterface $messenger,
-    LoggerChannelFactoryInterface $logger_factory
+    LoggerChannelFactoryInterface $loggerFactory,
+    TranslationInterface $stringTranslation
   ) {
     $this->settings = $settings;
     $this->messenger = $messenger;
-    $this->logger = $logger_factory->get('va_gov_build_trigger');
+    $this->logger = $loggerFactory->get('va_gov_build_trigger');
+    $this->stringTranslation = $stringTranslation;
   }
 
   /**
@@ -138,10 +154,11 @@ class JenkinsClient implements JenkinsClientInterface {
   public function requestFrontendBuild(string $frontendGitRef = NULL, bool $fullRebuild = FALSE): void {
     $jenkinsBuildJobUrl = $this->settings->get('jenkins_build_job_url');
     $githubUsername = $this->settings->get('va_cms_bot_github_username');
+    $jenkinsJobHost = $this->settings->get('jenkins_build_job_host');
     $jenkinsAuthToken = $this->getJenkinsApiToken();
     $requestOptions = $this->getRequestOptions($jenkinsBuildJobUrl, $githubUsername, $jenkinsAuthToken);
 
-    $response = $client->post($jenkinsJobHost, $requestOptions);
+    $response = $this->getHttpClient()->request('POST', $jenkinsJobHost, $requestOptions);
     if ($response->getStatusCode() !== 201) {
       throw JenkinsClientException::createWithResponse($response, $jenkinsBuildJobUrl);
     }

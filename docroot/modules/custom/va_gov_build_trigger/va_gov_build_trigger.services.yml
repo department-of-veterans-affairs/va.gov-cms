@@ -4,7 +4,7 @@ services:
     arguments: ['@messenger', '@logger.factory', '@va_gov.build_trigger.web_build_status', '@va_gov.build_trigger.environment_discovery']
   va_gov_build_trigger.jenkins_client:
     class: Drupal\va_gov_build_trigger\Service\JenkinsClient
-    arguments: ['@settings', '@messenger', '@logger.factory']
+    arguments: ['@settings', '@messenger', '@logger.factory', '@string_translation']
   va_gov.build_trigger.web_build_status:
     class: Drupal\va_gov_build_trigger\WebBuildStatus
     arguments: ['@state', '@settings']
