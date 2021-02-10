@@ -16,8 +16,7 @@ Feature: Content model: Benefits hubs Content Type fields
 | Content type | Benefits Detail Page | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- |  |
 | Content type | Benefits Detail Page | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter |  |
 | Content type | Benefits Detail Page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Benefits Detail Page | Page introduction | field_intro_text_limited_html | Text (formatted, long) | Required | 1 | -- Disabled -- |  |
-| Content type | Benefits Detail Page | Page introduction | field_intro_text  | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter |  |
+| Content type | Benefits Detail Page | Page introduction | field_intro_text_limited_html | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
 | Content type | Benefits Detail Page | Page last built | field_page_last_built | Date |  | 1 | -- Disabled -- |  |
 | Content type | Benefits Detail Page | Plain Language Certification Date | field_plainlanguage_date | Date |  | 1 | -- Disabled -- |  |
 | Content type | Benefits Detail Page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
