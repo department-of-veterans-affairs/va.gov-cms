@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_backend\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -46,7 +47,7 @@ class ContentReleaseStatusController extends ControllerBase {
 
     $content = [
       '#type' => 'markup',
-      '#markup' => $this->t('Content last released to VA.gov<br />@release_time', [
+      '#markup' => $this->t('VA.gov last updated<br />@release_time', [
         '@release_time' => $release_time,
       ]),
     ];
@@ -76,10 +77,37 @@ class ContentReleaseStatusController extends ControllerBase {
     }
 
     if ($timestamp) {
-      return $this->dateFormatter->format($timestamp, 'standard');
+      $days = $this->getDaysAgo($timestamp);
+      $time = $this->dateFormatter->format($timestamp, 'custom', 'h:i a T');
+      return "{$days} at {$time}";
     }
 
     return '';
+  }
+
+  /**
+   * Get the number of days from the passed timestamp until today.
+   *
+   * @param int $timestamp
+   *   The UNIX timestamp to check.
+   *
+   * @return string
+   *   Human-friendly number of days ago.
+   */
+  protected function getDaysAgo($timestamp) {
+    $now = DrupalDateTime::createFromTimestamp(time())->setTime(0, 0, 0);
+    $release_date = DrupalDateTime::createFromTimestamp($timestamp)->setTime(0, 0, 0);
+    $difference_in_days = $now->diff($release_date)->d;
+
+    if ($difference_in_days === 0) {
+      return $this->t('today');
+    }
+
+    if ($difference_in_days === 1) {
+      return $this->t('yesterday');
+    }
+
+    return $this->t('@days days ago', ['@days' => $difference_in_days]);
   }
 
 }
