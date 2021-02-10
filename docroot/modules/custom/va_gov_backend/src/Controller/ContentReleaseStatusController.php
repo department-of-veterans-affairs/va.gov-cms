@@ -33,6 +33,7 @@ class ContentReleaseStatusController extends ControllerBase {
     $instance = parent::create($container);
     $instance->dateFormatter = $container->get('date.formatter');
     $instance->httpClient = $container->get('http_client');
+    $instance->renderer = $container->get('renderer');
     return $instance;
   }
 
@@ -51,7 +52,7 @@ class ContentReleaseStatusController extends ControllerBase {
         '@release_time' => $release_time,
       ]),
     ];
-    $output = render($content);
+    $output = $this->renderer->renderPlain($content);
 
     $response = Response::create($output);
     $response->setCache(['max_age' => 60]);

@@ -9,7 +9,6 @@
   Drupal.behaviors.vaGovToolbar = {
     attach: function attach() {
       var loadingText = "<div style='height: 20px; width: 40px;' class='claro-spinner'></div>";
-
       Tippy("#content-release-status-icon", {
         content: function content(reference) {
           reference.removeAttribute("title");
