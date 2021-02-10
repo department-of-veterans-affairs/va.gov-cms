@@ -29,7 +29,7 @@
     attach: function attach() {
       var addTooltip = [];
 
-      $('div[id*="add-tooltip--"]').each(function (tt, element) {
+      $('div[id*="add-tooltip-"]').each(function (tt, element) {
         addTooltip.push($(element).attr("id"));
       });
 

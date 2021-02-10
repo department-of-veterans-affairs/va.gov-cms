@@ -39,7 +39,7 @@
       // Stores tooltip ids to be referenced later.
       const addTooltip = [];
       // Gathers all unique tooltip ids.
-      $('div[id*="add-tooltip--"]').each((tt, element) => {
+      $('div[id*="add-tooltip-"]').each((tt, element) => {
         addTooltip.push($(element).attr("id"));
       });
 
