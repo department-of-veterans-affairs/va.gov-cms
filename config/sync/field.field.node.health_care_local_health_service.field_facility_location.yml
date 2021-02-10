@@ -4,8 +4,13 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_facility_location
-    - node.type.health_care_local_facility
     - node.type.health_care_local_health_service
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: false
 id: node.health_care_local_health_service.field_facility_location
 field_name: field_facility_location
 entity_type: node
@@ -17,13 +22,11 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: unpublished
+  handler: views
   handler_settings:
-    target_bundles:
-      health_care_local_facility: health_care_local_facility
-    sort:
-      field: title
-      direction: ASC
-    auto_create: 0
-    auto_create_bundle: ''
+    view:
+      view_name: local_facilities_entity_reference_view
+      display_name: entity_reference_1
+      arguments:
+        - all
 field_type: entity_reference
