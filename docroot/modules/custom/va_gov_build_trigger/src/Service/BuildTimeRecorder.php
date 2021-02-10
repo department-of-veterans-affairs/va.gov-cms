@@ -4,6 +4,7 @@ namespace Drupal\va_gov_build_trigger\Service;
 
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Datetime\DateFormatterInterface;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 
 /**
  * Updates last-built times on content.
@@ -44,8 +45,9 @@ class BuildTimeRecorder implements BuildTimeRecorderInterface {
     if (empty($timestamp)) {
       $timestamp = time();
     }
-    $rawTime = $this->dateFormatter
-      ->format($timestamp, 'html_datetime', '', 'UTC');
+    $format = DateTimeItemInterface::DATETIME_STORAGE_FORMAT;
+    $tz = DateTimeItemInterface::STORAGE_TIMEZONE;
+    $rawTime = $this->dateFormatter->format($timestamp, 'custom', $format, $tz);
     $sqlTime = strtok($rawTime, '+');
 
     // We only need to update field table - field is set on node import.
