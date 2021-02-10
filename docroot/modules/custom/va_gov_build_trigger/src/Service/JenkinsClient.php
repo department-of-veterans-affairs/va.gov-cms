@@ -2,12 +2,10 @@
 
 namespace Drupal\va_gov_build_trigger\Service;
 
-use Aws\Ssm\SsmClient;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\va_gov_build_trigger\Exception\JenkinsClientException;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
@@ -43,11 +41,11 @@ class JenkinsClient implements JenkinsClientInterface {
   protected $logger;
 
   /**
-   * The string translation service.
+   * The systems manager client.
    *
-   * @var \Drupal\Core\StringTranslation\TranslationInterface
+   * @var \Drupal\Core\va_gov_build_trigger\Service\SystemsManagerClientInterface
    */
-  protected $stringTranslation;
+  protected $systemsManagerClient;
 
   /**
    * Constructor.
@@ -58,19 +56,19 @@ class JenkinsClient implements JenkinsClientInterface {
    *   The messenger interface.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
    *   The logger factory service.
-   * @param \Drupal\Core\StringTranslation\TranslationInterface $stringTranslation
-   *   The string translation service.
+   * @param \Drupal\Core\va_gov_build_trigger\Service\SystemsManagerClientInterface $systemsManagerClient
+   *   The systems manager client.
    */
   public function __construct(
     Settings $settings,
     MessengerInterface $messenger,
     LoggerChannelFactoryInterface $loggerFactory,
-    TranslationInterface $stringTranslation
+    SystemsManagerClientInterface $systemsManagerClient
   ) {
     $this->settings = $settings;
     $this->messenger = $messenger;
     $this->logger = $loggerFactory->get('va_gov_build_trigger');
-    $this->stringTranslation = $stringTranslation;
+    $this->systemsManagerClient = $systemsManagerClient;
   }
 
   /**
@@ -101,12 +99,9 @@ class JenkinsClient implements JenkinsClientInterface {
   }
 
   /**
-   * Get an HTTP client.
-   *
-   * @return \GuzzleHttp\ClientInterface
-   *   A configured HTTP client.
+   * {@inheritdoc}
    */
-  protected function getHttpClient(): ClientInterface {
+  public function getHttpClient(): ClientInterface {
     $handlerStack = HandlerStack::create();
     $handlerStack->push($this->getRetryMiddleware());
     return new Client([
@@ -151,44 +146,18 @@ class JenkinsClient implements JenkinsClientInterface {
   /**
    * {@inheritdoc}
    */
-  public function requestFrontendBuild(string $frontendGitRef = NULL, bool $fullRebuild = FALSE): void {
-    $jenkinsBuildJobUrl = $this->settings->get('jenkins_build_job_url');
+  public function requestFrontendBuild(string $frontendGitRef = NULL, bool $fullRebuild = FALSE, ClientInterface $httpClient = NULL): void {
+    $jenkinsJobUrl = $this->settings->get('jenkins_build_job_url');
     $githubUsername = $this->settings->get('va_cms_bot_github_username');
     $jenkinsJobHost = $this->settings->get('jenkins_build_job_host');
-    $jenkinsAuthToken = $this->getJenkinsApiToken();
-    $requestOptions = $this->getRequestOptions($jenkinsBuildJobUrl, $githubUsername, $jenkinsAuthToken);
-
-    $response = $this->getHttpClient()->request('POST', $jenkinsJobHost, $requestOptions);
+    $jenkinsAuthToken = $this->systemsManagerClient->getJenkinsApiToken();
+    $requestOptions = $this->getRequestOptions($jenkinsJobUrl, $githubUsername, $jenkinsAuthToken);
+    if (empty($httpClient)) {
+      $httpClient = $this->getHttpClient();
+    }
+    $response = $httpClient->request('POST', $jenkinsJobHost, $requestOptions);
     if ($response->getStatusCode() !== 201) {
-      throw JenkinsClientException::createWithResponse($response, $jenkinsBuildJobUrl);
-    }
-  }
-
-  /**
-   * Gets the current Jenkins API token.
-   *
-   * @return string
-   *   The value of the value of ssm param.
-   */
-  public function getJenkinsApiToken(): string {
-    try {
-      $client = new SsmClient([
-        'version' => 'latest',
-        'region' => 'us-gov-west-1',
-      ]);
-      $result = $client->getParameter([
-        'Name' => '/cms/va-cms-bot/jenkins-api-token',
-        'WithDecryption' => TRUE,
-      ]);
-      return $result['Parameter']['Value'];
-    }
-    catch (\Exception $exception) {
-      $message = $this->t('Failed to retrieve the Jenkins API token.  The error encountered was @message', [
-        '@message' => $exception->getMessage(),
-      ]);
-      $exception = new \Exception($message);
-      watchdog_exception('va_gov_build_trigger', $exception);
-      throw $exception;
+      throw JenkinsClientException::createWithResponse($response, $jenkinsJobUrl);
     }
   }
 

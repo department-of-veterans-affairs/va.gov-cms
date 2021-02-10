@@ -30,7 +30,7 @@ class JenkinsClientException extends \Exception {
   public static function createWithResponse(Response $response, string $buildJobUrl): JenkinsClientException {
     $statusCode = $response->getStatusCode();
     $reasonPhrase = $response->getReasonPhrase();
-    $message = 'Site rebuild failed with status code {$statusCode} {$reasonPhrase} and URL {$buildJobUrl}.';
+    $message = "Site rebuild failed with status code {$statusCode} {$reasonPhrase} and URL {$buildJobUrl}.";
     $result = new static($message);
     $result->buildJobUrl = $buildJobUrl;
     return $result;
