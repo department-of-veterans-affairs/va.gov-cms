@@ -5,7 +5,9 @@
 (($, Drupal, Tippy) => {
   Drupal.behaviors.vaGovToolbar = {
     attach() {
-      const loadingText = "Getting last release time...";
+      const loadingText =
+        "<div style='height: 20px; width: 40px;' class='claro-spinner'></div>";
+
       Tippy("#content-release-status-icon", {
         content(reference) {
           reference.removeAttribute("title");
