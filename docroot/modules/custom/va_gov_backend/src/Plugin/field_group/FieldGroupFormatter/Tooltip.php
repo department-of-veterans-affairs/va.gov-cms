@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Component\Utility\Html;
 
 /**
- * Details with image field group formatter.
+ * Tooltip field group formatter.
  *
  * @FieldGroupFormatter(
  *   id = "Tooltip",
@@ -73,7 +73,6 @@ class Tooltip extends HtmlElement implements ContainerFactoryPluginInterface {
     $element['#attributes']['class'][] = 'tooltip-layout';
 
     if (!empty($this->getSetting('tooltip_description'))) {
-
       $element['tooltip_description'] = [
         '#type' => 'html_tag',
         '#tag' => 'div',
@@ -84,11 +83,9 @@ class Tooltip extends HtmlElement implements ContainerFactoryPluginInterface {
         ],
         '#value' => $this->getSetting('tooltip_description'),
       ];
-
     }
 
     if (!empty($this->getSetting('description'))) {
-
       $element['description'] = [
         '#type' => 'html_tag',
         '#tag' => 'div',
@@ -99,7 +96,6 @@ class Tooltip extends HtmlElement implements ContainerFactoryPluginInterface {
         ],
         '#value' => $this->getSetting('description'),
       ];
-
     }
 
   }
