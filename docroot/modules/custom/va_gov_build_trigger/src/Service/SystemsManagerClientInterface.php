@@ -3,7 +3,7 @@
 namespace Drupal\va_gov_build_trigger\Service;
 
 /**
- * A client for interfacing with Jenkins.
+ * A client for interfacing with AWS Systems Manager.
  */
 interface SystemsManagerClientInterface {
 

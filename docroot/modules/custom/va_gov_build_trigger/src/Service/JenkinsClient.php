@@ -43,7 +43,7 @@ class JenkinsClient implements JenkinsClientInterface {
   /**
    * The systems manager client.
    *
-   * @var \Drupal\Core\va_gov_build_trigger\Service\SystemsManagerClientInterface
+   * @var \Drupal\va_gov_build_trigger\Service\SystemsManagerClientInterface
    */
   protected $systemsManagerClient;
 
@@ -56,7 +56,7 @@ class JenkinsClient implements JenkinsClientInterface {
    *   The messenger interface.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
    *   The logger factory service.
-   * @param \Drupal\Core\va_gov_build_trigger\Service\SystemsManagerClientInterface $systemsManagerClient
+   * @param \Drupal\va_gov_build_trigger\Service\SystemsManagerClientInterface $systemsManagerClient
    *   The systems manager client.
    */
   public function __construct(
@@ -147,14 +147,14 @@ class JenkinsClient implements JenkinsClientInterface {
    * {@inheritdoc}
    */
   public function requestFrontendBuild(string $frontendGitRef = NULL, bool $fullRebuild = FALSE, ClientInterface $httpClient = NULL): void {
+    if (empty($httpClient)) {
+      $httpClient = $this->getHttpClient();
+    }
     $jenkinsJobUrl = $this->settings->get('jenkins_build_job_url');
     $githubUsername = $this->settings->get('va_cms_bot_github_username');
     $jenkinsJobHost = $this->settings->get('jenkins_build_job_host');
     $jenkinsAuthToken = $this->systemsManagerClient->getJenkinsApiToken();
     $requestOptions = $this->getRequestOptions($jenkinsJobUrl, $githubUsername, $jenkinsAuthToken);
-    if (empty($httpClient)) {
-      $httpClient = $this->getHttpClient();
-    }
     $response = $httpClient->request('POST', $jenkinsJobHost, $requestOptions);
     if ($response->getStatusCode() !== 201) {
       throw JenkinsClientException::createWithResponse($response, $jenkinsJobUrl);

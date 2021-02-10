@@ -5,6 +5,7 @@ namespace tests\phpunit\FrontendBuild;
 use Drupal\Core\Site\Settings;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\va_gov_build_trigger\Service\SystemsManagerClientInterface;
+use GuzzleHttp\ClientInterface as GuzzleHttpClientInterface;
 use GuzzleHttp\Psr7\Response;
 use Prophecy\Argument;
 
