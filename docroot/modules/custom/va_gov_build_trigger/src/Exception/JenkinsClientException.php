@@ -2,13 +2,12 @@
 
 namespace Drupal\va_gov_build_trigger\Exception;
 
-use Exception;
 use GuzzleHttp\Psr7\Response;
 
 /**
  * A wrapper for exceptions that occur in the Jenkins client.
  */
-class JenkinsClientException extends Exception {
+class JenkinsClientException extends \Exception {
 
   /**
    * The Jenkins build job URL.
