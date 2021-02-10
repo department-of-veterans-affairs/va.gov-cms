@@ -795,7 +795,7 @@ function _va_gov_backend_audience_topics_validation(array $form, FormStateInterf
 }
 
 /**
- * Custom validation callback for the primary category field.
+ * Custom validation callback for the primary category and related info fields.
  *
  * @param array $form
  *   The exposed widget form array.
@@ -803,6 +803,12 @@ function _va_gov_backend_audience_topics_validation(array $form, FormStateInterf
  *   The form state.
  */
 function _va_gov_backend_standalone_page_validation(array &$form, FormStateInterface &$form_state) {
+  if ($form_state->getValue('field_standalone_page')['value'] === 0) {
+    // If we don't unset this field, validation prevents the form from
+    // submitting. This is undesirable when the standalone option is not
+    // toggled on.
+    $form_state->unsetValue('field_related_information');
+  }
   if (!empty($form_state->getValue('field_standalone_page')['value'])) {
     if (empty($form_state->getValue('field_primary_category'))) {
       $form['field_primary_category']['#required'] = TRUE;
