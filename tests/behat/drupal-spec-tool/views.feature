@@ -91,6 +91,7 @@ Feature: Views
 | Content | Master | default | Master |
 | Content | All content | page_1 | Page |
 | Content | Bulk edit content | page_2 | Page |
+| Content | Bulk edit events | events_page | Page |
 | Content | Resources and support | resources_support_dashboard | Page |
 | Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
 | Content entity browsers | Master | default | Master |
