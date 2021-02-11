@@ -1569,7 +1569,36 @@ function va_gov_backend_rebuild() {
  */
 function va_gov_backend_toolbar() {
   $items = [];
+  $items['content_release_icon'] = [
+    '#attached' => [
+      'library' => [
+        'va_gov_backend/tippy_popover_theme',
+        'va_gov_backend/toolbar',
+      ],
+    ],
+    '#type' => 'toolbar_item',
+    'tab' => [
+      '#type' => 'html_tag',
+      '#tag' => 'div',
+      '#value' => '&nbsp;',
+      '#attributes' => [
+        'class' => ['toolbar-icon', 'toolbar-icon-content-release'],
+        'title' => 'Mouse over to see last content release time',
+        'id' => 'content-release-status-icon',
+        'tabindex' => '0',
+      ],
+    ],
+    '#wrapper_attributes' => [
+      'class' => ['toolbar-tab', 'content-release-toolbar-tab'],
+    ],
+    '#weight' => 101,
+  ];
   $items['branch'] = [
+    '#attached' => [
+      'library' => [
+        'va_gov_backend/toolbar',
+      ],
+    ],
     '#cache' => [
       'contexts' => ['user.permissions'],
     ],
