@@ -12,7 +12,7 @@ use Drupal\Component\Utility\Html;
  * Tooltip field group formatter.
  *
  * @FieldGroupFormatter(
- *   id = "Tooltip",
+ *   id = "tooltip",
  *   label = @Translation("Tooltip"),
  *   description = @Translation("Adds a tooltip field group"),
  *   supported_contexts = {
@@ -79,7 +79,7 @@ class Tooltip extends HtmlElement implements ContainerFactoryPluginInterface {
       $element['tooltip_description'] = [
         '#type' => 'html_tag',
         '#tag' => 'div',
-        '#prefix' => '<div class="tooltip-toggle" title="' . $this->getSetting('tooltip_description') . '"><button class="toggle-a"></button></div>',
+        '#prefix' => '<button class="tooltip-toggle" title="' . $this->getSetting('tooltip_description') . '" value="' . $this->getSetting('tooltip_description') . '"></button>',
         '#attributes' => [
           'id' => [
             Html::getUniqueId('add-tooltip-description'),
@@ -200,7 +200,7 @@ class Tooltip extends HtmlElement implements ContainerFactoryPluginInterface {
       'required_fields' => $context == 'form',
     ] + parent::defaultSettings($context);
 
-    if ($context == 'form') {
+    if ($context === 'form') {
       $defaults['required_fields'] = 1;
     }
 
