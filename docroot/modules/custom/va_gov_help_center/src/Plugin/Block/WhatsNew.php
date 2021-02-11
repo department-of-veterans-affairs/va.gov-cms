@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_backend\Plugin\Block;
+namespace Drupal\va_gov_help_center\Plugin\Block;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Provides information about what has recently changed in the CMS.
  *
  * @Block(
- *   id = "va_gov_backend_whats_new",
+ *   id = "va_gov_help_center__whats_new",
  *   admin_label = @Translation("What's new in the CMS"),
  * )
  */

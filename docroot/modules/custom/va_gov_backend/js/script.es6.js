@@ -3,6 +3,37 @@
  */
 
 (($, Drupal) => {
+  /**
+   * Behaviors for 'details with image' field-group validation.
+   * */
+  Drupal.behaviors.fieldGroupDetailsWithImageValidation = {
+    attach(context) {
+      // Open any hidden parents.
+      function fieldsetHandler() {
+        $(this).attr("open", "");
+      }
+      // Engage field groups that use detailswithimage.
+      $(".field-group-detailswithimage :input", context).each(
+        function invalidInput() {
+          const fieldGroupInput = $(this);
+          this.addEventListener(
+            "invalid",
+            function c(e) {
+              $(e.target).parents("details:not([open])").each(fieldsetHandler);
+            },
+            false
+          );
+
+          if (fieldGroupInput.hasClass("error")) {
+            fieldGroupInput
+              .parents("details:not([open])")
+              .each(fieldsetHandler);
+          }
+        }
+      );
+    },
+  };
+
   Drupal.behaviors.vaGovTooltip = {
     attach() {
       // Stores tooltip ids to be referenced later.
@@ -54,6 +85,23 @@
         $(
           "#field-clp-spotlight-link-teasers-add-more-wrapper .field-add-more-submit.button--small.button"
         ).css("display", "none");
+      }
+    },
+  };
+
+  Drupal.behaviors.vaGovServiceLocationRemoveButton = {
+    attach() {
+      // Don't show remove button on first instance.
+      const removeButtons = document.querySelectorAll(
+        '.field--name-field-service-location .paragraphs-dropbutton-wrapper input[value="Remove"]'
+      );
+
+      if (removeButtons.length > 0) {
+        removeButtons.forEach((button, i) => {
+          if (i < 1) {
+            button.style.display = "none";
+          }
+        });
       }
     },
   };
@@ -155,6 +203,22 @@
       $("#edit-field-clp-stories-teasers-wrapper strong").addClass(
         "form-required"
       );
+    },
+  };
+
+  Drupal.behaviors.vaGovStandaloneQABehaviors = {
+    attach() {
+      // Make sure we trigger the link paragraph to appear when
+      // empty form is on page.
+      const addMoreLinks = document.getElementById(
+        "field-related-information-link-teaser-add-more"
+      );
+      const linkCount = document.querySelectorAll(
+        ".paragraph-type--link-teaser"
+      ).length;
+      if (addMoreLinks && linkCount < 1) {
+        addMoreLinks.dispatchEvent(new MouseEvent("click"));
+      }
     },
   };
 })(jQuery, window.Drupal);

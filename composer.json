@@ -38,7 +38,7 @@
         "drupal/consumers": "1.11.0",
         "drupal/content_lock": "^2.0@alpha",
         "drupal/core-composer-scaffold": "^8.8",
-        "drupal/core-recommended": "8.9.10",
+        "drupal/core-recommended": "8.9.13",
         "drupal/crop": "^2.0",
         "drupal/ctools_block": "^3.2",
         "drupal/danse": "^2.1",
@@ -52,7 +52,7 @@
         "drupal/entity_browser_table": "^1.2",
         "drupal/entity_clone": "^1.0@beta",
         "drupal/entity_embed": "^1.0",
-        "drupal/entity_field_fetch": "1.0.0-alpha1",
+        "drupal/entity_field_fetch": "^1.0@beta",
         "drupal/entity_reference_revisions": "^1.7",
         "drupal/entity_reference_unpublished": "^1.1",
         "drupal/entity_reference_validators": "^1.0",
@@ -115,7 +115,7 @@
         "drupal/simplesamlphp_auth": "^3.2",
         "drupal/site_alert": "1.x-dev#d3700174bdddeca1f33c6995fde86e436b034270",
         "drupal/slack": "^1.2",
-        "drupal/smart_date": "3.0.4",
+        "drupal/smart_date": "3.1.1",
         "drupal/social_media_links": "^2.6",
         "drupal/string_field_formatter": "^2.0",
         "drupal/tablefield": "^2.1",
@@ -134,7 +134,7 @@
         "drupal/views_data_export": "^1.0@beta",
         "drupal/views_infinite_scroll": "^1.6",
         "drupal/views_tree": "^2.0@alpha",
-        "drupal/webform": "^5.5",
+        "drupal/webform": "^6",
         "drupal/workbench_access": "^1.0@beta",
         "drupal/workbench_menu_access": "^1.0",
         "drupal/workflow_assignments": "1.x-dev",
@@ -144,7 +144,7 @@
         "knplabs/github-api": "^2.12.1",
         "michelf/php-markdown": "^1.8",
         "mouf/nodejs-installer": "^1.0",
-        "npm-asset/yarn": "1.12.3",
+        "npm-asset/yarn": "1.21.1",
         "oomphinc/composer-installers-extender": "1.1.2",
         "php-http/guzzle6-adapter": "^1.1",
         "phpunit/phpunit": "^7",
@@ -265,7 +265,6 @@
             },
             "drupal/core": {
                 "2807629 - Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch",
-                "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2020-01-07/2893933-34.patch",
                 "2894449 - Indirect modification of overloaded element with Views responsive table": "https://www.drupal.org/files/issues/2018-10-05/core-indirect-modification-of-overloaded-element-2894449-18.patch",
                 "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2019-09-11/3057267-maintenance-forced-logout-experimental.patch",
                 "1091852 - Display Bug when using #states (Forms API) with Ajax Request": "https://www.drupal.org/files/issues/2019-11-19/1091852-104.patch",
@@ -273,7 +272,8 @@
                 "2930508 - Seven inactive tabs do not meet WCAG AA 1.4.3 for contrast": "https://www.drupal.org/files/issues/2020-10-15/drupal-seven_inactive_tabs_do_not_meet_wcag_aa-2930508-36.patch",
                 "2632750 - Interface previews/skeleton screens through optional preview or placeholder templates": "https://www.drupal.org/files/issues/2020-11-18/2632750-76-do-not-test_0.patch",
                 "2911932 - Correct vertical tab does not focus on form validation": "https://www.drupal.org/files/issues/2020-12-12/vertical-tabs--focus-on-onvalid-7b.patch",
-                "3188331 - Vertical tabs scroll behavior is buggy": "https://www.drupal.org/files/issues/2020-12-14/vertical-tab-scroll-frozen-2.patch"
+                "3188331 - Vertical tabs scroll behavior is buggy": "https://www.drupal.org/files/issues/2020-12-14/vertical-tab-scroll-frozen-2.patch",
+                "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2020-01-07/2893933-34.patch"
             },
             "drupal/entity_browser": {
                 "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch",
@@ -444,7 +444,10 @@
             "npm run stylelint-themes"
         ],
         "va:test:accessibility": [
-            "./scripts/tests/cypress-axe.sh"
+            "./scripts/tests/cypress.sh accessibility"
+        ],
+        "va:test:behavioral": [
+            "./scripts/tests/cypress.sh behavioral"
         ],
         "va:test:lint": [
             "find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null",
@@ -462,6 +465,7 @@
             "node -v",
             "npm -v",
             "yarn -v",
+            "./scripts/composer/check_yarn_version.sh",
             "cd web && yarn run install-repos",
             "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd web && yarn install"
         ],

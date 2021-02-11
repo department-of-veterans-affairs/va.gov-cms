@@ -6,7 +6,6 @@ use Drupal\advancedqueue\Job;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
-use Drupal\va_gov_build_trigger\Plugin\AdvancedQueue\JobType\WebBuildJobType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -73,12 +72,9 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
         $this->t('Frontend Version'),
         $this->t('Started'),
         $this->t('Finished'),
+        $this->t('Logs'),
       ],
     ];
-
-    if ($this->shouldDisplayLogColumn()) {
-      $table['#header'][] = $this->t('Logs');
-    }
 
     $jobs = $this->getCommandRunnerJobs();
 
@@ -126,21 +122,9 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
 
     // The log page will show an error if there are no log messages,
     // so only show it once the job is being processed.
-    if ($this->shouldDisplayLogColumn()) {
-      $row[] = $job->getState() !== Job::STATE_QUEUED ? $this->getLogLink() : '';
-    }
+    $row[] = $job->getState() !== Job::STATE_QUEUED ? $this->getLogLink() : '';
 
     return $row;
-  }
-
-  /**
-   * Determine whether the log column should be displayed.
-   *
-   * @return bool
-   *   Whether or not the log column should be displayed.
-   */
-  protected function shouldDisplayLogColumn() : bool {
-    return in_array('administrator', $this->currentUser->getRoles());
   }
 
   /**
@@ -151,14 +135,11 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
    */
   protected function getLogLink() : array {
     $log_url = Url::fromRoute(
-      "dblog.overview",
+      "view.content_release_logs.page_1",
       [],
       [
         'attributes' => [
           'target' => '_blank',
-        ],
-        'query' => [
-          'type[]' => WebBuildJobType::QUEUE_ID,
         ],
       ]
     );
