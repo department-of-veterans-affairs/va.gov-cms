@@ -1579,13 +1579,12 @@ function va_gov_backend_toolbar() {
     '#type' => 'toolbar_item',
     'tab' => [
       '#type' => 'html_tag',
-      '#tag' => 'div',
+      '#tag' => 'button',
       '#value' => '&nbsp;',
       '#attributes' => [
         'class' => ['toolbar-icon', 'toolbar-icon-content-release'],
         'title' => 'Mouse over to see last content release time',
         'id' => 'content-release-status-icon',
-        'tabindex' => '0',
       ],
     ],
     '#wrapper_attributes' => [
