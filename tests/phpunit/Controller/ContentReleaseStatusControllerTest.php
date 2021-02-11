@@ -3,7 +3,6 @@
 namespace tests\phpunit\Controller;
 
 use Drupal\va_gov_backend\Controller\ContentReleaseStatusController;
-use Generator;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -82,7 +81,7 @@ class ContentReleaseStatusControllerTest extends ExistingSiteBase {
    * @return \Generator
    *   Test assertion data.
    */
-  public function provideContentReleaseData() : Generator {
+  public function provideContentReleaseData() : \Generator {
     $today = strtotime('today 8am');
     yield 'Last content release happened today' => [
       $this->generateBodyForTime($today),
