@@ -38,7 +38,7 @@
               instance._isFetching = false;
             });
         },
-        theme: "tippy_popover",
+        theme: "tippy_popover tippy_popover_center",
         offset: "0, -12",
       });
     },
