@@ -82,6 +82,8 @@ class ContentReleaseStatusControllerTest extends ExistingSiteBase {
    *   Test assertion data.
    */
   public function provideContentReleaseData() : \Generator {
+    date_default_timezone_set('America/New_York');
+
     $today = strtotime('today 8am');
     yield 'Last content release happened today' => [
       $this->generateBodyForTime($today),
