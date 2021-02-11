@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class ContentReleaseStatusController.
+ * Gets and formats the last production content release time.
  */
 class ContentReleaseStatusController extends ControllerBase {
 
@@ -78,7 +78,7 @@ class ContentReleaseStatusController extends ControllerBase {
   protected function getLastReleaseTime() {
     $timestamp = 0;
 
-    /** @var $build_file \Psr\Http\Message\ResponseInterface */
+    /** @var \Psr\Http\Message\ResponseInterface $build_file */
     $build_file = $this->httpClient->request('GET', 'https://va.gov/BUILD.txt');
 
     $body = $build_file->getBody();
