@@ -11,8 +11,9 @@
           reference.removeAttribute("title");
           return title;
         },
-        theme: "tippy_popover tippy_popover_center",
-        offset: "0, -12",
+        theme: "tippy_popover",
+        placement: "left",
+        offset: "40, 0",
       });
     },
   };
