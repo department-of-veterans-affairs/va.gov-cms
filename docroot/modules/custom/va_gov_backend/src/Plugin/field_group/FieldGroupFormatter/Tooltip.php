@@ -70,12 +70,16 @@ class Tooltip extends HtmlElement implements ContainerFactoryPluginInterface {
   public function process(&$element, $processed_object) {
     parent::process($element, $processed_object);
 
+    $element['#attached']['library'][] = 'va_gov_backend/field_group_tooltip';
+    $element['#attached']['library'][] = 'va_gov_backend/tippy_popover_theme';
+
     $element['#attributes']['class'][] = 'tooltip-layout';
 
     if (!empty($this->getSetting('tooltip_description'))) {
       $element['tooltip_description'] = [
         '#type' => 'html_tag',
         '#tag' => 'div',
+        '#prefix' => '<div class="tooltip-toggle" title="' . $this->getSetting('tooltip_description') . '"><button class="toggle-a"></button></div>',
         '#attributes' => [
           'id' => [
             Html::getUniqueId('add-tooltip-description'),
