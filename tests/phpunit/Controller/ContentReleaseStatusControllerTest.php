@@ -3,6 +3,7 @@
 namespace tests\phpunit\Controller;
 
 use Drupal\va_gov_backend\Controller\ContentReleaseStatusController;
+use Generator;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -31,6 +32,13 @@ class ContentReleaseStatusControllerTest extends ExistingSiteBase {
   protected $mockClient;
 
   /**
+   * The container object.
+   *
+   * @var \Symfony\Component\DependencyInjection\ContainerInterface
+   */
+  protected $newContainer;
+
+  /**
    * {@inheritdoc}
    */
   public static function getInfo() {
@@ -44,8 +52,9 @@ class ContentReleaseStatusControllerTest extends ExistingSiteBase {
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  public function setUp() : void {
     parent::setUp();
+
     $this->newContainer = new ContainerBuilder();
     $this->newContainer->set('date.formatter', \Drupal::service('date.formatter'));
     $this->newContainer->set('renderer', \Drupal::service('renderer'));
@@ -53,28 +62,44 @@ class ContentReleaseStatusControllerTest extends ExistingSiteBase {
 
   /**
    * Tests content release status controller.
+   *
+   * @dataProvider provideContentReleaseData
    */
-  public function testContentReleaseStatusController() {
-    $today = strtotime('today 8am');
-    $yesterday = strtotime('yesterday 1405');
-    $four_days_ago = strtotime('-4 day 1038');
-    $this->mockClient(
-      new Response(200, [], $this->generateBodyForTime($today)),
-      new Response(200, [], $this->generateBodyForTime($yesterday)),
-      new Response(200, [], $this->generateBodyForTime($four_days_ago))
+  public function testContentReleaseStatusController(
+    string $responseBody,
+    string $expectedResult
+  ) : void {
+    $this->mockClient(new Response(200, [], $responseBody));
+    $this->assertStringContainsString(
+      $expectedResult,
+      ContentReleaseStatusController::create($this->newContainer)->getLastReleaseStatus()->getContent()
     );
+  }
 
-    $contentReleaseStatusController = ContentReleaseStatusController::create($this->newContainer);
+  /**
+   * Data provider for testContentReleaseStatusController.
+   *
+   * @return \Generator
+   *   Test assertion data.
+   */
+  public function provideContentReleaseData() : Generator {
+    $today = strtotime('today 8am');
+    yield 'Last content release happened today' => [
+      $this->generateBodyForTime($today),
+      'VA.gov last updated<br />today at 08:00 am',
+    ];
 
-    $response = $contentReleaseStatusController->getLastReleaseStatus();
+    $yesterday = strtotime('yesterday 1405');
+    yield 'Last content release happened yesterday' => [
+      $this->generateBodyForTime($yesterday),
+      'VA.gov last updated<br />yesterday at 02:05 pm',
+    ];
 
-    $this->assertStringContainsString('VA.gov last updated<br />today at 08:00 am', $response->getContent());
-
-    $response = $contentReleaseStatusController->getLastReleaseStatus();
-    $this->assertStringContainsString('VA.gov last updated<br />yesterday at 02:05 pm', $response->getContent());
-
-    $response = $contentReleaseStatusController->getLastReleaseStatus();
-    $this->assertStringContainsString('VA.gov last updated<br />4 days ago at 10:38 am', $response->getContent());
+    $four_days_ago = strtotime('-4 day 1038');
+    yield 'Last content release happened four days ago' => [
+      $this->generateBodyForTime($four_days_ago),
+      'VA.gov last updated<br />4 days ago at 10:38 am',
+    ];
   }
 
   /**
@@ -86,14 +111,17 @@ class ContentReleaseStatusControllerTest extends ExistingSiteBase {
    * @return string
    *   Response body text.
    */
-  protected function generateBodyForTime(int $timestamp) {
+  protected function generateBodyForTime(int $timestamp) : string {
     return "BUILDTYPE=vagovprod\nNODE_ENV=production\nBRANCH_NAME=null\nCHANGE_TARGET=null\nBUILD_ID=799\nBUILD_NUMBER=799\nREF=80ff0a2438f1a0d038ab8637f553a83792596bd4\nBUILDTIME={$timestamp}";
   }
 
   /**
    * Mock the http client.
+   *
+   * @param \GuzzleHttp\Psr7\Response $responses
+   *   Guzzle responses.
    */
-  protected function mockClient(Response ...$responses) {
+  protected function mockClient(Response ...$responses) : void {
     if (!isset($this->mockClient)) {
       // Create a mock and queue responses.
       $mock = new MockHandler($responses);
