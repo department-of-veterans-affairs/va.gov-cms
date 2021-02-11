@@ -68,13 +68,13 @@ class ContentReleaseStatusControllerTest extends ExistingSiteBase {
 
     $response = $contentReleaseStatusController->getLastReleaseStatus();
 
-    $this->assertEquals('VA.gov last updated<br />today at 08:00 am AEDT', $response->getContent());
+    $this->assertStringContainsString('VA.gov last updated<br />today at 08:00 am', $response->getContent());
 
     $response = $contentReleaseStatusController->getLastReleaseStatus();
-    $this->assertEquals('VA.gov last updated<br />yesterday at 02:05 pm AEDT', $response->getContent());
+    $this->assertStringContainsString('VA.gov last updated<br />yesterday at 02:05 pm', $response->getContent());
 
     $response = $contentReleaseStatusController->getLastReleaseStatus();
-    $this->assertEquals('VA.gov last updated<br />4 days ago at 10:38 am AEDT', $response->getContent());
+    $this->assertStringContainsString('VA.gov last updated<br />4 days ago at 10:38 am', $response->getContent());
   }
 
   /**
