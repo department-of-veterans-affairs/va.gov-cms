@@ -7,10 +7,7 @@ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\va_gov_build_trigger\Exception\JenkinsClientException;
-use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
 
 /**
  * A client for interfacing with Jenkins.
@@ -48,6 +45,13 @@ class JenkinsClient implements JenkinsClientInterface {
   protected $systemsManagerClient;
 
   /**
+   * The HTTP client.
+   *
+   * @var \GuzzleHttp\ClientInterface
+   */
+  protected $httpClient;
+
+  /**
    * Constructor.
    *
    * @param \Drupal\Core\Site\Settings $settings
@@ -58,55 +62,21 @@ class JenkinsClient implements JenkinsClientInterface {
    *   The logger factory service.
    * @param \Drupal\va_gov_build_trigger\Service\SystemsManagerClientInterface $systemsManagerClient
    *   The systems manager client.
+   * @param \GuzzleHttp\ClientInterface $httpClient
+   *   An HTTP client used to interact directly with Jenkins.
    */
   public function __construct(
     Settings $settings,
     MessengerInterface $messenger,
     LoggerChannelFactoryInterface $loggerFactory,
-    SystemsManagerClientInterface $systemsManagerClient
+    SystemsManagerClientInterface $systemsManagerClient,
+    ClientInterface $httpClient
   ) {
     $this->settings = $settings;
     $this->messenger = $messenger;
     $this->logger = $loggerFactory->get('va_gov_build_trigger');
     $this->systemsManagerClient = $systemsManagerClient;
-  }
-
-  /**
-   * Construct a middleware that retries failed requests.
-   *
-   * @param int $timeIncrement
-   *   Time added to successive retries in milliseconds.
-   * @param int $retryLimit
-   *   The maximum number of retries.
-   *
-   * @return \GuzzleHttp\Middleware
-   *   The retry middleware.
-   *
-   * @see http://dawehner.github.io/php,/guzzle/2017/05/19/guzzle-retry.html
-   */
-  protected function getRetryMiddleware(int $timeIncrement = 1000, int $retryLimit = 3): Middleware {
-    return Middleware::retry(function ($retry, $request, $response, $reason) use ($retryLimit) {
-      // Must be a "201 Created" response code & message, if not then cont
-      // and retry.
-      if ($response && $response->getStatusCode() === 201) {
-        return FALSE;
-      }
-      $this->logger->warning('Retry site build - attempt #' . $retry);
-      return $retry < $retryLimit;
-    }, function ($retry) use ($timeIncrement) {
-      return $retry * $timeIncrement;
-    });
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getHttpClient(): ClientInterface {
-    $handlerStack = HandlerStack::create();
-    $handlerStack->push($this->getRetryMiddleware());
-    return new Client([
-      'handler' => $handlerStack,
-    ]);
+    $this->httpClient = $httpClient;
   }
 
   /**
@@ -146,16 +116,13 @@ class JenkinsClient implements JenkinsClientInterface {
   /**
    * {@inheritdoc}
    */
-  public function requestFrontendBuild(string $frontendGitRef = NULL, bool $fullRebuild = FALSE, ClientInterface $httpClient = NULL): void {
-    if (empty($httpClient)) {
-      $httpClient = $this->getHttpClient();
-    }
+  public function requestFrontendBuild(string $frontendGitRef = NULL, bool $fullRebuild = FALSE): void {
     $jenkinsJobUrl = $this->settings->get('jenkins_build_job_url');
     $githubUsername = $this->settings->get('va_cms_bot_github_username');
     $jenkinsJobHost = $this->settings->get('jenkins_build_job_host');
     $jenkinsAuthToken = $this->systemsManagerClient->getJenkinsApiToken();
     $requestOptions = $this->getRequestOptions($jenkinsJobUrl, $githubUsername, $jenkinsAuthToken);
-    $response = $httpClient->request('POST', $jenkinsJobHost, $requestOptions);
+    $response = $this->httpClient->request('POST', $jenkinsJobHost, $requestOptions);
     if ($response->getStatusCode() !== 201) {
       throw JenkinsClientException::createWithResponse($response, $jenkinsJobUrl);
     }

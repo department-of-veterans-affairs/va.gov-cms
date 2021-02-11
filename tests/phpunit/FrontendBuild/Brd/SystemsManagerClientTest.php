@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\FrontendBuild;
+namespace tests\phpunit\FrontendBuild\Brd;
 
 use Aws\MockHandler;
 use Aws\Result;

@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\FrontendBuild;
+namespace tests\phpunit\FrontendBuild\Brd;
 
 use Drupal\Core\Site\Settings;
 use Drupal\KernelTests\KernelTestBase;
@@ -42,6 +42,7 @@ class JenkinsClientTest extends KernelTestBase {
       ->getJenkinsApiToken()
       ->willReturn('MY_PRETEND_JENKINS_API_TOKEN');
     $this->container->set('va_gov_build_trigger.systems_manager_client', $systemsManagerClientProphecy->reveal());
+
   }
 
   /**
@@ -59,6 +60,7 @@ class JenkinsClientTest extends KernelTestBase {
       ->willReturn(new Response(201))
       ->shouldBeCalled();
     $httpClient = $httpClientProphecy->reveal();
+    $this->container->set('va_gov_build_trigger.jenkins_http_client', $httpClient);
     $jenkinsClient = \Drupal::service('va_gov_build_trigger.jenkins_client');
     $jenkinsClient->requestFrontendBuild(NULL, FALSE, $httpClient);
   }

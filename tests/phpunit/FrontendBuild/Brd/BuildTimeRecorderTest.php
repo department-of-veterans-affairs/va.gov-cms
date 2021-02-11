@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\FrontendBuild;
+namespace tests\phpunit\FrontendBuild\Brd;
 
 use Drupal\KernelTests\Core\Entity\EntityKernelTestBase;
 use Drupal\field\Entity\FieldConfig;
