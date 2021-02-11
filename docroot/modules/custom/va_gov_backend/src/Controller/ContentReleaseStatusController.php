@@ -27,13 +27,22 @@ class ContentReleaseStatusController extends ControllerBase {
   protected $httpClient;
 
   /**
+   * Drupal\Core\Render\Renderer definition.
+   *
+   * @var \Drupal\Core\Render\Renderer
+   */
+  protected $renderer;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     $instance = parent::create($container);
+
     $instance->dateFormatter = $container->get('date.formatter');
     $instance->httpClient = $container->get('http_client');
     $instance->renderer = $container->get('renderer');
+
     return $instance;
   }
 
