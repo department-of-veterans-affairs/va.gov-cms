@@ -154,7 +154,7 @@ services:
     commands:
       init:
         - printf '[mysqld]\ninnodb_log_file_size = 50331648\nmax_allowed_packet = 128M\n' > /etc/mysql/conf.d/zzz.cnf
-        - sv restart mysql
+        - sv restart mariadb
         # Give MySQL some time to restart.
         - sleep 5
       # Commands that import files, databases,  or other assets. When an
