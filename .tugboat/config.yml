@@ -146,8 +146,9 @@ services:
   # What to call the service hosting MySQL. This name also acts as the
   # hostname to access the service by from the php service.
   mysql:
-    # Use the latest available 5.x version of MySQL
-    image: tugboatqa/mysql:5
+    # Match with terraform-aws-vsp-cms/rds.tf (another repo)
+    # Match with .lando.yml (this repo)
+    image: tugboatqa/mariadb:10.5
 
     # A set of commands to run while building this service
     commands:
