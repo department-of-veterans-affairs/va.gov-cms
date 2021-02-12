@@ -1,0 +1,64 @@
+/* For Tippy 5.x */
+.tippy-tooltip.tippy_popover-theme {
+  background-color: #fff;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.3);
+  color: #000;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.25em;
+  padding: 7px 3px;
+}
+
+.tippy-tooltip.tippy_popover_center-theme {
+  text-align: center;
+}
+
+.tippy-tooltip.tippy_popover-theme[data-placement^='top'] .tippy-arrow {
+  border-top-color: #fff;
+}
+
+.tippy-tooltip.tippy_popover-theme[data-placement^='bottom'] .tippy-arrow {
+  border-bottom-color: #fff;
+}
+
+.tippy-tooltip.tippy_popover-theme[data-placement^='left'] .tippy-arrow {
+  border-left-color: #fff;
+}
+
+.tippy-tooltip.tippy_popover-theme[data-placement^='right'] .tippy-arrow {
+  border-right-color: #fff;
+}
+
+
+/* For Tippy 6.x */
+.tippy-box[data-theme~='tippy_popover'] {
+  background-color: #fff;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.3);
+  color: #000;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.25em;
+  padding: 7px 3px;
+}
+
+.tippy-box[data-theme~='tippy_popover_center'] {
+  text-align: center;
+}
+
+.tippy-box[data-theme~='tippy_popover'][data-placement^='top'] > .tippy-arrow::before {
+  border-top-color: #fff;
+}
+
+.tippy-box[data-theme~='tippy_popover'][data-placement^='bottom'] > .tippy-arrow::before {
+  border-bottom-color: #fff;
+}
+
+.tippy-box[data-theme~='tippy_popover'][data-placement^='left'] > .tippy-arrow::before {
+  border-left-color: #fff;
+}
+
+.tippy-box[data-theme~='tippy_popover'][data-placement^='right'] > .tippy-arrow::before {
+  border-right-color: #fff;
+}

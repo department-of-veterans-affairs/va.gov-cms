@@ -133,4 +133,14 @@
       $("#edit-field-clp-stories-teasers-wrapper strong").addClass("form-required");
     }
   };
+
+  Drupal.behaviors.vaGovStandaloneQABehaviors = {
+    attach: function attach() {
+      var addMoreLinks = document.getElementById("field-related-information-link-teaser-add-more");
+      var linkCount = document.querySelectorAll(".paragraph-type--link-teaser").length;
+      if (addMoreLinks && linkCount < 1) {
+        addMoreLinks.dispatchEvent(new MouseEvent("click"));
+      }
+    }
+  };
 })(jQuery, window.Drupal);
