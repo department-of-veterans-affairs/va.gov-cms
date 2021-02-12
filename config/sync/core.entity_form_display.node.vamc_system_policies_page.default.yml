@@ -61,40 +61,55 @@ third_party_settings:
         - field_cc_top_of_page_content
       parent_name: ''
       weight: 0
-      format_type: fieldset
+      format_type: tooltip
       region: content
       format_settings:
-        description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
-        id: add-tooltip
+        show_label: '0'
+        tooltip_description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
+        description: ''
+        id: ''
         classes: centralized
-        required_fields: false
-      label: ''
+        element: div
+        label_element: h3
+        required_fields: 0
+        attributes: ''
+      label: 'National top of page content'
     group_visitation_policies:
       children:
         - field_cc_gen_visitation_policy
       parent_name: ''
       weight: 2
-      format_type: fieldset
+      format_type: tooltip
       region: content
       format_settings:
-        description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
-        id: add-tooltip
+        show_label: '0'
+        tooltip_description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
+        description: ''
+        id: ''
         classes: centralized
-        required_fields: false
-      label: ''
+        element: div
+        label_element: h3
+        required_fields: 0
+        attributes: ''
+      label: 'National general visitation policy'
     group_centralized_bottom:
       children:
         - field_cc_bottom_of_page_content
       parent_name: ''
       weight: 4
-      format_type: fieldset
+      format_type: tooltip
       region: content
       format_settings:
-        description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
-        id: add-tooltip
+        show_label: '0'
+        tooltip_description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
+        description: ''
+        id: ''
         classes: centralized
-        required_fields: false
-      label: ''
+        element: div
+        label_element: h3
+        required_fields: 0
+        attributes: ''
+      label: 'National bottom of page content'
 id: node.vamc_system_policies_page.default
 targetEntityType: node
 bundle: vamc_system_policies_page
