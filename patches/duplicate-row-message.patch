@@ -1,0 +1,29 @@
+From a5607ababaeabb10ef8258788caca5bcc548fff7 Mon Sep 17 00:00:00 2001
+From: Ethan Teague <metrowebz@gmail.com>
+Date: Wed, 5 Aug 2020 18:45:15 -0400
+Subject: [PATCH] Check for duplicate entries in feature file
+
+Throws Exception message indicating duplicate line in file.
+---
+ src/BehatTableComparison/TableEqualityAssertion.php | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/src/BehatTableComparison/TableEqualityAssertion.php b/src/BehatTableComparison/TableEqualityAssertion.php
+index 84310b2..32d198f 100644
+--- a/src/BehatTableComparison/TableEqualityAssertion.php
++++ b/src/BehatTableComparison/TableEqualityAssertion.php
+@@ -299,6 +299,14 @@ protected function generateMessageForPostSortDifferences(array $expected_rows, a
+      */
+     protected function addArrayDiffMessageLines(array &$message, array $left, array $right, $label)
+     {
++        $duplicates = array_diff_key($right, array_unique($right, SORT_REGULAR));
++        if (!empty($duplicates)) {
++            foreach ($duplicates as $duplicate) {
++                $dupe_str = implode(' | ', $duplicate);
++                $message = PHP_EOL . '~~~ Duplicate entry detected: ' . PHP_EOL . $dupe_str;
++                throw new \LogicException($message);
++            }
++        }
+         $differences = array_filter($right, function (array $row) use ($left) {
+             return !in_array($row, $left);
+         });
