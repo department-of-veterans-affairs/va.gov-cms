@@ -28,12 +28,19 @@ function _va_gov_migrate_process_va_form(EntityInterface &$entity) {
 
   // Grab any values set in the migration.
   $deleted = $entity->get('field_va_form_deleted')->value;
+  $was_deleted = (!empty($entity->original) && $entity->original->get('field_va_form_deleted')->value) ? TRUE : FALSE;
   if (!empty($deleted)) {
     // This should be set to unpublished because the migration is intentionally,
     // not overriding status.
     $entity->setPublished(FALSE);
     $entity->set('moderation_state', 'archived');
     $entity->set('revision_log', 'Archived because it was marked as deleted in the Forms DB.');
+  }
+  elseif (!$deleted && $was_deleted) {
+    // This was deleted in the forms DB but the flag has been removed, so change
+    // to draft, because we can't know what state it was in when it was flagged.
+    $entity->set('moderation_state', 'draft');
+    $entity->set('revision_log', 'Changed to Draft because deleted flag was removed in the Forms DB.');
   }
 }
 
