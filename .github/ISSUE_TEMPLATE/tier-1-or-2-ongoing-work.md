@@ -15,6 +15,8 @@ Sprint <insert sprint number> tier <1 or 2> helpdesk support
 - [ ] Change the pipeline to "In progress"
 - [ ] Set the estimate to 3
 
+Tier 2 expectations here: https://docs.google.com/document/d/15oe0wtGI_MdaScYpjJWOgPjBqQWUFURc19HheWswEe4/edit
+
 ### Table to help track issues and approximate time spent
 | Date | Issue | Resolution | Time Spent |
 | -- | -- | -- | -- |
