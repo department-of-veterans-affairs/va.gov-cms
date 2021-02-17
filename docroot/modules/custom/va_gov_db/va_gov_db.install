@@ -367,8 +367,8 @@ function va_gov_db_update_8020() {
     }
   }
 
-  $entity_manager = \Drupal::entityManager();
-  $previous_storage_definitions = $entity_manager->getLastInstalledFieldStorageDefinitions('node');
+  $schema_repository = \Drupal::service('entity.last_installed_schema.repository');
+  $previous_storage_definitions = $schema_repository->getLastInstalledFieldStorageDefinitions('node');
   if (!empty($previous_storage_definitions['field_health_services_local_info'])) {
     $definition_update_manager = \Drupal::entityDefinitionUpdateManager();
     $definition_update_manager->uninstallFieldStorageDefinition(
