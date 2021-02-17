@@ -120,10 +120,6 @@ class UserImport implements EventSubscriberInterface {
    *
    * @param \Drupal\migrate\Event\MigrateImportEvent $event
    *   Information about the event that triggered this function.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @throws \Drupal\migrate\MigrateException
    */
   public function onMigratePostImport(MigrateImportEvent $event) : void {
     if ($event->getMigration()->label() !== 'User Import') {
@@ -152,11 +148,6 @@ class UserImport implements EventSubscriberInterface {
    *
    * @param \Drupal\migrate\Event\MigratePostRowSaveEvent $event
    *   Information about the event that triggered this function.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   * @throws \Drupal\migrate\MigrateException
    */
   public function onMigratePostRowSave(MigratePostRowSaveEvent $event) : void {
     if ($event->getMigration()->label() !== 'User Import') {
@@ -191,10 +182,7 @@ class UserImport implements EventSubscriberInterface {
    * @param \Drupal\migrate\Event\MigratePreRowSaveEvent $event
    *   Information about the event that triggered this function.
    *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   * @throws \Drupal\migrate\MigrateException
+   * @throws \Drupal\migrate\MigrateSkipRowException;
    */
   public function onMigratePreRowSave(MigratePreRowSaveEvent $event) : void {
     if ($event->getMigration()->label() !== 'User Import') {
