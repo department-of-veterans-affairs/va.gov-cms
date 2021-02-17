@@ -1,4 +1,5 @@
 import '@testing-library/cypress/add-commands';
+import 'cypress-file-upload';
 
 const compareSnapshotCommand = require('cypress-visual-regression/dist/command');
 
