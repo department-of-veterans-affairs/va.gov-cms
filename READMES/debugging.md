@@ -25,7 +25,7 @@
                 "name": "Listen for Xdebug",
                 "type": "php",
                 "request": "launch",
-                "port": 9000
+                "port": 9000,
                 "log": true,
                 "pathMappings": {
                     "/app/": "${workspaceFolder}/",
