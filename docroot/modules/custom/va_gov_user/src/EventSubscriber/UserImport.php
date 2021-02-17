@@ -131,6 +131,7 @@ class UserImport implements EventSubscriberInterface {
     }
 
     if ($this->environmentDiscovery->isBRD()) {
+
       $this->messenger->addMessage(
         $this->t('All accounts are created as blocked.')
       );
@@ -177,7 +178,6 @@ class UserImport implements EventSubscriberInterface {
 
     if ($this->environmentDiscovery->isBRD()) {
       $this->enableSamlAuth($user);
-      $user->block();
     }
     else {
       $user->setPassword('drupal8');
@@ -212,6 +212,12 @@ class UserImport implements EventSubscriberInterface {
         ['@email' => $email]
       ));
     }
+
+    if ($this->environmentDiscovery->isBRD()) {
+      // Newly imported users are blocked on prod.
+      $row->setDestinationProperty('status', 0);
+    }
+
   }
 
   /**
