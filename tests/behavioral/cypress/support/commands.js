@@ -1,5 +1,7 @@
 import '@testing-library/cypress/add-commands';
 
+const compareSnapshotCommand = require('cypress-visual-regression/dist/command');
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -74,3 +76,5 @@ Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe) => {
     resolve($iframe.contents().find('body'));
   });
 });
+
+compareSnapshotCommand();
