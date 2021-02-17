@@ -131,7 +131,6 @@ class UserImport implements EventSubscriberInterface {
     }
 
     if ($this->environmentDiscovery->isBRD()) {
-
       $this->messenger->addMessage(
         $this->t('All accounts are created as blocked.')
       );
@@ -217,7 +216,6 @@ class UserImport implements EventSubscriberInterface {
       // Newly imported users are blocked on prod.
       $row->setDestinationProperty('status', 0);
     }
-
   }
 
   /**
