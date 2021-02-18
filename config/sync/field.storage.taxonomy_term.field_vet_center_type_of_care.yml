@@ -1,0 +1,30 @@
+uuid: a2009998-ce26-4d56-8ea3-534e40022ad4
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - taxonomy
+id: taxonomy_term.field_vet_center_type_of_care
+field_name: field_vet_center_type_of_care
+entity_type: taxonomy_term
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: counselling
+      label: 'Counselling services'
+    -
+      value: referral
+      label: 'Referral services'
+    -
+      value: other
+      label: 'Other services'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
