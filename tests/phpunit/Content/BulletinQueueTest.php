@@ -11,11 +11,18 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 class BulletinQueueTest extends ExistingSiteBase {
 
   /**
+   * Wipe the queue clean so we can get reliable counts.
+   */
+  protected function setUp() {
+    parent::setUp();
+
+    $this->deleteQueue();
+  }
+
+  /**
    * Runs the test to check that alerts and updates are queued.
    */
   public function testBulletinQueue() {
-    // Wipe the queue clean so we can get reliable counts.
-    $this->deleteQueue();
 
     // Save an unpublished node that should not create a bulletin.
     $node = $this->createNode(['type' => 'full_width_banner_alert']);
