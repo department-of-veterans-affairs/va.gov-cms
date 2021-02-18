@@ -70,6 +70,7 @@ function _va_gov_govdelivery_build_alert_computed_field_data(NodeInterface $node
     foreach ($vamcs_op_status_ids as $key => $vamcs_op_status_id) {
       $vamcs_op_status_ids[$key] = !empty($vamcs_op_status_id['target_id']) ? $vamcs_op_status_id['target_id'] : '';
     }
+
     // Get a node storage object.
     $node_storage = \Drupal::entityTypeManager()->getStorage('node');
 
@@ -91,6 +92,7 @@ function _va_gov_govdelivery_build_alert_computed_field_data(NodeInterface $node
       $computed_return[$key]['vamc_title'] = $vamc_system_node->getTitle();
       $computed_return[$key]['vamc_path'] = $vamc_system_node->toUrl()->toString();
     }
+
     // Convert to string for field storage.
     $storage = json_encode($computed_return);
     $node->field_banner_alert_computdvalues->setValue(['value' => $storage]);
