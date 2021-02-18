@@ -1,0 +1,22 @@
+uuid: f79f813d-7435-469b-973e-fad23769e587
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: vet_center_locations_list
+label: 'Vet Center Locations List'
+type: 'canonical_entities:node'
+pattern: '[node:field_vet_center:entity:title]/locations'
+selection_criteria:
+  cf6e13b9-5db9-4fde-b1a4-843f826b95fa:
+    id: node_type
+    bundles:
+      vet_center_locations_list: vet_center_locations_list
+    negate: false
+    context_mapping:
+      node: node
+    uuid: cf6e13b9-5db9-4fde-b1a4-843f826b95fa
+selection_logic: and
+weight: -5
+relationships: {  }
