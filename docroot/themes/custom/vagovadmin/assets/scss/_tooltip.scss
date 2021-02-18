@@ -5,6 +5,7 @@
 
 .proofing-element-help {
   background-color: #0074bd;
+  border: 0;
   border-radius: 50%;
   box-sizing: content-box;
   color: #fff;
@@ -15,6 +16,7 @@
   height: 16px;
   line-height: 16px;
   margin-left: 4px;
+  padding: 0;
   position: absolute;
   text-align: center;
   top: 0;
@@ -24,31 +26,5 @@
   &:hover,
   &:active {
     cursor: pointer;
-  }
-}
-
-.proofing-element-help--title {
-  font-size: 1.1em;
-  font-weight: bold;
-  margin: 0 0 0.2em;
-}
-
-.ui-tooltip.proofing-element-help--tooltip {
-  max-width: 680px;
-}
-
-.ui-tooltip-content {
-  background-color: #fff;
-  border: 0.1rem solid #ccc;
-  border-radius: 5px;
-  box-shadow: 3px 2px 2px #ccc;
-  max-width: 600px;
-  min-width: 400px;
-  padding: 0.6rem;
-}
-
-@media only screen and (max-width: 400px) {
-  .ui-tooltip.proofing-element-help--tooltip {
-    max-width: 300px;
   }
 }
