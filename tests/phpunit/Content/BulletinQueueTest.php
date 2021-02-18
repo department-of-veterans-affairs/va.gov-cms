@@ -41,8 +41,23 @@ class BulletinQueueTest extends ExistingSiteBase {
     $message = "\nThere should be no bulletin from unpublished situation updates in the govdelivery_bulletin queue.\n";
     $this->assertEquals(0, $number_of_queue, $message);
 
-    // Save a node that would created a bulletin.
-    unset($node);
+    // Save an published node that should not create a bulletin.
+    $node = $this->createNode(['type' => 'full_width_banner_alert']);
+    $node->set('title', 'PHPUnit Test Alert');
+    $node->set('uid', '1');
+    $node->set('field_operating_status_sendemail', '0');
+    $node->set('field_alert_type', 'warning');
+    $node->set('field_body', 'This is a test created by phpUnit.  Please disregard.');
+    $node->field_banner_alert_vamcs->target_id = 1010;
+    $node->setPublished();
+    $node->save();
+
+    // Validate that there is no bulletin in the queue.
+    $number_of_queue = $this->getQueueCount();
+    $message = "\nThere should be no bulletin from published nodes with the 'Send email update' field unchecked in the govdelivery_bulletin queue.\n";
+    $this->assertEquals(0, $number_of_queue, $message);
+
+    // Save a node that would have created a bulletin.
     $node = $this->createNode(['type' => 'full_width_banner_alert']);
     $node->set('title', 'PHPUnit Test Alert');
     $node->set('uid', '1');
