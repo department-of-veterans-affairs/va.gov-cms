@@ -21,76 +21,69 @@ class BulletinQueueTest extends ExistingSiteBase {
 
   /**
    * Runs the test to check that alerts and updates are queued.
+   *
+   * @dataProvider provideBulletinNodeData
    */
-  public function testBulletinQueue() {
+  public function testBulletinQueue(
+    array $node_data,
+    int $expected_queue_count,
+    int $expected_queue_count_after_situation_updates
+  ) {
 
-    // Save an unpublished node that should not create a bulletin.
-    $node = $this->createNode(['type' => 'full_width_banner_alert']);
-    $node->set('title', 'PHPUnit Test Alert');
-    $node->set('uid', '1');
-    $node->set('field_operating_status_sendemail', '1');
-    $node->set('field_alert_type', 'warning');
-    $node->set('field_body', 'This is a test created by phpUnit.  Please disregard.');
-    $node->field_banner_alert_vamcs->target_id = 1010;
-    $node->setUnpublished();
+    $node = $this->createNode($node_data);
     $node->save();
-
-    // Validate that there is no bulletin in the queue.
-    $number_of_queue = $this->getQueueCount();
-    $message = "\nThere should be no bulletin from unpublished nodes in the govdelivery_bulletin queue.\n";
-    $this->assertEquals(0, $number_of_queue, $message);
-    // Add a situation update to the unpublished node.
-    $this->createSituationUpdate($node);
-    $node->save();
-
-    // Validate that there is no bulletin in the queue.
-    $number_of_queue = $this->getQueueCount();
-    $message = "\nThere should be no bulletin from unpublished situation updates in the govdelivery_bulletin queue.\n";
-    $this->assertEquals(0, $number_of_queue, $message);
-
-    // Save an published node that should not create a bulletin.
-    $node = $this->createNode(['type' => 'full_width_banner_alert']);
-    $node->set('title', 'PHPUnit Test Alert');
-    $node->set('uid', '1');
-    $node->set('field_operating_status_sendemail', '0');
-    $node->set('field_alert_type', 'warning');
-    $node->set('field_body', 'This is a test created by phpUnit.  Please disregard.');
-    $node->field_banner_alert_vamcs->target_id = 1010;
-    $node->setPublished();
-    $node->save();
-
-    // Validate that there is no bulletin in the queue.
-    $number_of_queue = $this->getQueueCount();
-    $message = "\nThere should be no bulletin from published nodes with the 'Send email update' field unchecked in the govdelivery_bulletin queue.\n";
-    $this->assertEquals(0, $number_of_queue, $message);
-
-    // Save a node that would have created a bulletin.
-    $node = $this->createNode(['type' => 'full_width_banner_alert']);
-    $node->set('title', 'PHPUnit Test Alert');
-    $node->set('uid', '1');
-    $node->set('field_operating_status_sendemail', '1');
-    $node->set('field_alert_type', 'warning');
-    $node->set('field_body', 'This is a test created by phpUnit.  Please disregard.');
-    $node->field_banner_alert_vamcs->target_id = 1010;
-    $node->setPublished();
-    $node->save();
-
-    // Validate that there is a bulletin in the queue.
-    $number_of_queue = $this->getQueueCount();
-    $message = "\nThere should only be one alert item in the govdelivery_bulletin queue.\n";
-    $this->assertEquals(1, $number_of_queue, $message);
+    $this->assertEquals($expected_queue_count, $this->getQueueCount());
 
     // Edit the node, add several situation updates to field_situation_updates.
+    // This confirms that multiple situation updates are deduped.
     for ($x = 0; $x <= 5; $x++) {
       $this->createSituationUpdate($node);
       $node->save();
     }
+    $this->assertEquals($expected_queue_count_after_situation_updates, $this->getQueueCount());
+  }
 
-    // Validate that there are 1 items in the queue.
-    // Multiple situation updates are deduped.
-    $number_of_queue = $this->getQueueCount();
-    $message = "\nThere should only be one situation update per alert govdelivery_bulletin queue.\n";
-    $this->assertEquals(1, $number_of_queue, $message);
+  /**
+   * Data provider for testBulletinQueue.
+   *
+   * @return \Generator
+   *   Test assertion data.
+   */
+  public function provideBulletinNodeData() : \Generator {
+    $node_data_template = [
+      'type' => 'full_width_banner_alert',
+      'title' => 'PHPUnit Test Alert',
+      'uid' => '1',
+      'field_operating_status_sendemail' => '1',
+      'field_alert_type' => 'warning',
+      'field_body' => 'This is a test created by phpUnit.  Please disregard.',
+      'field_banner_alert_vamcs' => [
+        'target_id' => 1010,
+      ],
+      'status' => 1,
+    ];
+
+    $node_data = $node_data_template;
+    $node_data['status'] = 0;
+    yield 'There should be no bulletin from unpublished nodes in the govdelivery_bulletin queue.' => [
+      $node_data,
+      0,
+      0,
+    ];
+
+    $node_data = $node_data_template;
+    $node_data['field_operating_status_sendemail'] = 0;
+    yield 'There should be no bulletin from published nodes with the "Send update" field unchecked in the govdelivery_bulletin queue.' => [
+      $node_data,
+      0,
+      0,
+    ];
+
+    yield 'There should be a bulletin from published nodes with the "Send update" field checked in the govdelivery_bulletin queue.' => [
+      $node_data_template,
+      1,
+      1,
+    ];
   }
 
   /**
