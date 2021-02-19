@@ -10,7 +10,6 @@ const creators = {
     cy.findAllByLabelText('Owner').select('Veterans Affairs');
     cy.get('#edit-image-0-upload').attachFile('images/polygon_image.png').wait(1000);
     cy.findAllByLabelText('Alternative text').type(faker.lorem.sentence(), { force: true });
-
     const resizePoint = cy.get('span.cropper-face.cropper-move');
     resizePoint.scrollIntoView();
     cy.scrollToSelector('.image-widget-data');
@@ -36,7 +35,16 @@ const creators = {
         .trigger(POINTER_MOVE, 50, 50, { which: 1, force: true })
         .wait(100)
         .trigger(POINTER_UP, { which: 1, force: true });
+      const mediaImageUrl = jQuery('.image-widget-data').find('.file--image').find('a').attr('href');
+      cy.wrap(mediaImageUrl).as('mediaImageUrl');
       cy.get('form.media-form').find('input#edit-submit').click();
+      cy.window().then((window) => {
+        const mediaPath = window.jQuery('[role="contentinfo"]').find('a').attr('href');
+        const mediaId = mediaPath.split('/').pop();
+        cy.wrap(mediaPath).as('mediaPath');
+        cy.wrap(mediaId).as('mediaId');
+        cy.visit(mediaPath);
+      });
     });
   }
 };
