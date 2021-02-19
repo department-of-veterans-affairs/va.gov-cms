@@ -1,0 +1,32 @@
+uuid: 5696ee6a-b2ec-4a88-9a17-953a3639d515
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_facility_location
+    - node.type.vet_center_cap
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: false
+id: node.vet_center_cap.field_facility_location
+field_name: field_facility_location
+entity_type: node
+bundle: vet_center_cap
+label: Facility
+description: 'A clinic or hospital'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: local_facilities_entity_reference_view
+      display_name: entity_reference_1
+      arguments:
+        - all
+field_type: entity_reference

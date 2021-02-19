@@ -1,0 +1,35 @@
+uuid: e9911a24-2eb7-48e0-aa87-56087a8e5460
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_regional_health_service
+    - node.type.regional_health_care_service_des
+    - node.type.vet_center_cap
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: false
+id: node.vet_center_cap.field_regional_health_service
+field_name: field_regional_health_service
+entity_type: node
+bundle: vet_center_cap
+label: 'VAMC system health service'
+description: 'You may need to create this first.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      regional_health_care_service_des: regional_health_care_service_des
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

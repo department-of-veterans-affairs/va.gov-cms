@@ -1,15 +1,15 @@
-uuid: e8e406e4-6a1c-4b30-a4df-8f5d51981b3e
+uuid: c90c8541-b123-4f49-b447-d1c9390577b1
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_vet_center
-field_name: field_vet_center
+id: node.field_geographical_identifier
+field_name: field_geographical_identifier
 entity_type: node
-type: entity_reference
+type: string_long
 settings:
-  target_type: node
+  case_sensitive: false
 module: core
 locked: false
 cardinality: 1

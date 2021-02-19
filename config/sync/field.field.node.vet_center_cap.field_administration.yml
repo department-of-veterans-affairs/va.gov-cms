@@ -1,0 +1,35 @@
+uuid: 704760a7-89bf-42ea-82e4-4b156671be92
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.vet_center_cap
+    - taxonomy.vocabulary.administration
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: false
+id: node.vet_center_cap.field_administration
+field_name: field_administration
+entity_type: node
+bundle: vet_center_cap
+label: Owner
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
