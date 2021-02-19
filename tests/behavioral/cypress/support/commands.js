@@ -81,4 +81,15 @@ Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe) => {
   });
 });
 
+Cypress.Commands.add('scrollToSelector', (selector) => {
+  cy.document().then((document) => {
+    const htmlElement = document.querySelector('html');
+    if (htmlElement) {
+      htmlElement.style.scrollBehavior = 'inherit';
+    }
+  })
+  cy.get(selector).scrollIntoView({ offset: {top: 0}});
+  return cy.get(selector);
+})
+
 compareSnapshotCommand();
