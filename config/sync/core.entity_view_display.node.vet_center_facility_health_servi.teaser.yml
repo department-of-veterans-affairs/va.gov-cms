@@ -1,0 +1,34 @@
+uuid: 874cc48b-83de-4e51-a885-7f9b45f9f5a7
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.vet_center_facility_health_servi.field_administration
+    - field.field.node.vet_center_facility_health_servi.field_body
+    - field.field.node.vet_center_facility_health_servi.field_service_name_and_descripti
+    - field.field.node.vet_center_facility_health_servi.field_vet_center
+    - node.type.vet_center_facility_health_servi
+  module:
+    - user
+id: node.vet_center_facility_health_servi.teaser
+targetEntityType: node
+bundle: vet_center_facility_health_servi
+mode: teaser
+content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_administration: true
+  field_body: true
+  field_service_name_and_descripti: true
+  field_vet_center: true
+  search_api_excerpt: true
