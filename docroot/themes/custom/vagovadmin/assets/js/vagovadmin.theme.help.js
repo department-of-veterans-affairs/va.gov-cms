@@ -5,33 +5,16 @@
 * @preserve
 **/
 
-(function ($, Drupal) {
-  Drupal.vagovadminTheme = Drupal.vagovadminTheme || {};
-  Drupal.vagovadminTheme.elementHelpIcon = Drupal.vagovadminTheme.elementHelpIcon || {};
-  Drupal.vagovadminTheme.elementHelpIcon.options = Drupal.vagovadminTheme.elementHelpIcon.options || {
-    trigger: "click",
-    position: {
-      my: "left bottom",
-      at: "left center",
-      collision: "flipfit flip"
-    },
-    delay: 100
-  };
-
+(function ($, Drupal, Tippy) {
   Drupal.behaviors.vagovadminThemeElementHelpIcon = {
-    attach: function attach(context) {
-      $(context).find(".proofing-element-help").once("proofing-element-help").each(function (idx, proofingElement) {
-        var options = $.extend({
-          content: $(proofingElement).attr("data-proofing-help"),
-          items: "[data-proofing-help]",
-          title: $(proofingElement).attr("data-proofing-help-title"),
-          html: true
-        }, Drupal.vagovadminTheme.elementHelpIcon.options);
+    attach: function attach() {
+      Tippy(".proofing-element-help", {
+        content: function content(reference) {
+          return reference.getAttribute("data-proofing-help");
+        },
 
-        $(proofingElement).tooltip(options).on("click", function (event) {
-          event.preventDefault();
-        });
+        theme: "tippy_popover"
       });
     }
   };
-})(jQuery, Drupal);
+})(jQuery, Drupal, window.tippy);
