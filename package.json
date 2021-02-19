@@ -16,7 +16,8 @@
     "stylelint-themes": "npx stylelint 'docroot/themes/custom/**/*.scss'",
     "stylelint": "npx stylelint",
     "test:accessibility": "cd tests/accessibility && cypress run",
-    "test:behavioral": "cd tests/behavioral && cypress run"
+    "test:behavioral": "cd tests/behavioral && cypress run -e \"TAGS=not @ignore\"",
+    "test:interactive": "cd tests/behavioral && cypress open"
   },
   "repository": {
     "type": "git",
