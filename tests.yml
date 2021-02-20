@@ -5,25 +5,6 @@
 #  command: intentionalFailure
 #  description: Intentional Failure. Uncomment to test CI system failure behavior.
 
-# TODO: These can be removed once the DevShop deploy task runs the install task before it runs the deploy hooks.
-va/deploy/0-composer:
-  description: Composer Install
-  about: Using --dev is actually the default. Putting it here to make it clear this is the way composer should be run right now.
-  # Removing va-gov/web here because composer won't update it, we think... needs more testing.
-  command: rm -rf ./docroot/vendor/va-gov/web && composer install --dev --no-interaction --no-progress --ansi
-
-va/deploy/1-cache:
-  description: Rebuild Drupal caches
-  command: drush $DRUSH_ALIAS cr
-
-va/deploy/2-update:
-  description: Run Drupal Update Hooks
-  command: drush $DRUSH_ALIAS updatedb --yes
-
-va/deploy/3-config:
-  - drush $DRUSH_ALIAS cim --yes
-  - drush $DRUSH_ALIAS cr
-
 va/tests/phplint:
   description: PHP Lint
   command: composer va:test:lint
