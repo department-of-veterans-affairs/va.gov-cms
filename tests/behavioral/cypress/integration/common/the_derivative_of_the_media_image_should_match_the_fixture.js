@@ -1,6 +1,7 @@
 import { Then } from "cypress-cucumber-preprocessor/steps";
 const pixelmatch = require('pixelmatch');
 const { PNG } = require('pngjs');
+const { expect } = require('chai');
 
 Then(`the {string} derivative of the media image should match the fixture {string}`, (derivative, fixture) => {
   cy.window().then((window) => {
@@ -20,7 +21,9 @@ Then(`the {string} derivative of the media image should match the fixture {strin
           const diffData = PNG.sync.write(diff).toString('binary');
           const path = `cypress/screenshots/pixelmatch_diffs/${cy.state('ctx').test.title}.png`;
           cy.writeFile(path, diffData, 'binary');
-          console.log('Differences', differences);
+          // For right now, let's say that no more than 5% of pixels can be different.
+          const threshold = width * height * .05;
+          cy.wrap(differences).should('be.lessThan', threshold);
         });
       });
     });
