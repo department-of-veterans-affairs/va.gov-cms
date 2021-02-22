@@ -42,6 +42,7 @@ services:
       # Save a hash of our lando config for future integrity checking.
       - sha1sum /app/.lando.yml > ~/.lando.yml.sha1
     overrides:
+      ipc: host
       environment:
         # You must manually `export` these ENV vars before uncommenting, then run `lando rebuild`
         # @see /README.md Build Trigger section
