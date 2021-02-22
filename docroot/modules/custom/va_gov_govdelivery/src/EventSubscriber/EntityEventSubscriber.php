@@ -10,7 +10,7 @@ use Drupal\va_gov_govdelivery\Service\ProcessStatusBulletin;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class EntityEventSubscriber.
+ * Status Bulletin Event Subscriber.
  */
 class EntityEventSubscriber implements EventSubscriberInterface {
 
