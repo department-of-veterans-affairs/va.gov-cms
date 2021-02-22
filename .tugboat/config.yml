@@ -84,7 +84,8 @@ services:
       # already be present.
       update:
         # Install/update packages managed by composer, including drush.
-        - composer install --optimize-autoloader --apcu-autoloader
+        # Composer options are in composer.json, 'config' key.
+        - composer install
         - composer va:web:install
 
         - curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/files/cms-prod-files-latest.tgz
@@ -111,11 +112,14 @@ services:
         - j2 "${TUGBOAT_ROOT}/.tugboat/.env.j2" -o "${TUGBOAT_ROOT}/.env"
         # This command is shared by the clone and build stages, make sure to update both stages.
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
-        - composer install --optimize-autoloader --apcu-autoloader
+        - composer install
         - composer va:web:install
+        # Follows `drush deploy` sequence recommendations - https://www.drush.org/latest/deploycommand/
+        # Replace with `drush deploy` once Drush 10 is upgraded
+        # If updated, also update in devops:post-deploy-tasks.yml and .lando.yml
+        - drush updatedb --cache-clear=0 -y
         - drush cache:rebuild
         - drush config:import -y
-        - drush updatedb --cache-clear=0 -y
         - drush cache:rebuild
 
         # Setup background processing service.  This uses runit to keep process up
