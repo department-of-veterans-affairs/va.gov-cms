@@ -97,20 +97,21 @@ class ProcessStatusBulletin {
   public function processNode(NodeInterface $node) {
     $this->node = $node;
     $this->published = $node->isPublished();
-    $this->setSendType();
 
-    // Set common Variables.
-    $type = $node->get("field_alert_type")->getString();
-    $time_zone = date_default_timezone_get();
-    // Set common template variables.
-    // The type of alert 'information' or 'warning'.
+    $this->setSendType();
+    if (!$this->sendType) {
+      return;
+    }
+
     $template = [
+      '#alert_title' => $node->get('title')->getString(),
+      // The type of alert 'information' or 'warning'.
       '#alert_type' => $node->get("field_alert_type")->value,
+      '#theme' => 'va_gov_body_alert',
     ];
 
     if ($this->sendType === 'status alert') {
       $queue_id = "{$node->get('nid')->value}-alert";
-      // Pull the data from the alert fields.
       $template['#message'] = $node->get('field_body')->value;
       $subject_prefix = "Alert";
       $time = time();
@@ -119,43 +120,43 @@ class ProcessStatusBulletin {
     elseif ($this->sendType === 'situation update') {
       // Might be multiples, used to dedupe so that only the last one goes.
       $queue_id = "{$node->get('nid')->value}-update";
-      // Pull the data from the situation update fields $this->situationUpdate.
-      $template['#message'] = $this->situationUpdate->get('field_wysiwyg')->value;
+
       $template['#situation_update'] = TRUE;
-      $time = $this->situationUpdate->get('field_date_and_time')->date->getTimestamp();
+      $template['#message'] = $this
+        ->situationUpdate
+        ->get('field_wysiwyg')
+        ->value;
+      $time = $this
+        ->situationUpdate
+        ->get('field_date_and_time')
+        ->date
+        ->getTimestamp();
       $time = $this->dateFormatter->format($time, 'custom', 'n/j/Y h:i A T');
       $subject_prefix = "Situation Update";
     }
+    $template['#date_time'] = $time;
 
-    if (!empty($this->sendType)) {
-      $template['#date_time'] = $time;
-      $template['#alert_title'] = $node->get('title')->getString();
-      $vamcs = $this->getVamcs($node);
+    // Loop through the VAMCs since each title will be VAMC specific.
+    $vamcs = $this->getVamcs($node);
+    foreach ($vamcs as $vamc) {
+      $template['#vamc_name'] = $vamc['vamc_title'];
+      $template['#vamc_url'] = $vamc['vamc_path'];
+      $template['#ops_page_url'] = $vamc['vamc_op_status_path'];
 
-      // Loop through the VAMCs since each title will be VAMC specific.
-      foreach ($vamcs as $vamc) {
-        $template['#vamc_name'] = $vamc['vamc_title'];
-        $template['#vamc_url'] = $vamc['vamc_path'];
-        $template['#ops_page_url'] = $vamc['vamc_op_status_path'];
-        $template['#theme'] = 'va_gov_body_alert';
-
-        $body = (string) $this->renderer->renderPlain($template);
-
-        $this->addBulletinToQueue
-          ->setFlag('dedupe', TRUE)
-          ->setQueueUid("{$queue_id}-{$vamc['vamc_topic_id']}")
-          ->setBody($body)
-          ->setFooter(NULL)
-          ->setHeader(NULL)
-          ->setSubject("{$subject_prefix}: {$vamc['vamc_title']}")
-          ->addTopic($vamc['vamc_topic_id'])
-          ->setXmlBool('click_tracking', FALSE)
-          ->setXmlBool('open_tracking', FALSE)
-          ->setXmlBool('publish_rss', FALSE)
-          ->setXmlBool('share_content_enabled', TRUE)
-          ->setXmlBool('urgent', FALSE)
-          ->addToQueue();
-      }
+      $this->addBulletinToQueue
+        ->setFlag('dedupe', TRUE)
+        ->setQueueUid("{$queue_id}-{$vamc['vamc_topic_id']}")
+        ->setBody($this->renderer->renderPlain($template))
+        ->setFooter(NULL)
+        ->setHeader(NULL)
+        ->setSubject("{$subject_prefix}: {$vamc['vamc_title']}")
+        ->addTopic($vamc['vamc_topic_id'])
+        ->setXmlBool('click_tracking', FALSE)
+        ->setXmlBool('open_tracking', FALSE)
+        ->setXmlBool('publish_rss', FALSE)
+        ->setXmlBool('share_content_enabled', TRUE)
+        ->setXmlBool('urgent', FALSE)
+        ->addToQueue();
     }
   }
 
@@ -173,7 +174,7 @@ class ProcessStatusBulletin {
 
     $vamcs_op_status_ids = $node->get('field_banner_alert_vamcs')->getValue();
     foreach ($vamcs_op_status_ids as $key => $vamcs_op_status_id) {
-      $vamcs_op_status_ids[$key] = !empty($vamcs_op_status_id['target_id']) ? $vamcs_op_status_id['target_id'] : '';
+      $vamcs_op_status_ids[$key] = $vamcs_op_status_id['target_id'] ?: '';
     }
 
     // Get a node storage object.
@@ -186,14 +187,16 @@ class ProcessStatusBulletin {
     // Get out op status page paths.
     foreach ($vamc_op_nodes as $key => $vamc_op_node) {
       $vamc_office_nid = $vamc_op_node->get('field_office')->getString();
-      $vamcs[$vamc_office_nid]['vamc_op_status_path'] = $this->aliasManager->getAliasByPath('/node/' . $vamc_op_node->id());
+      $vamcs[$vamc_office_nid]['vamc_op_status_path'] =
+        $this->aliasManager->getAliasByPath('/node/' . $vamc_op_node->id());
       $vamc_office_nids[] = $vamc_office_nid;
     }
 
     // Grab what we need from our vamcs.
     $vamc_system_nodes = $node_storage->loadMultiple($vamc_office_nids);
     foreach ($vamc_system_nodes as $key => $vamc_system_node) {
-      $vamcs[$key]['vamc_topic_id'] = !empty($vamc_system_node->get('field_govdelivery_id_emerg')->getString()) ? $vamc_system_node->get('field_govdelivery_id_emerg')->getString() : '';
+      $vamcs[$key]['vamc_topic_id'] =
+        $vamc_system_node->get('field_govdelivery_id_emerg')->getString() ?: '';
       $vamcs[$key]['vamc_title'] = $vamc_system_node->getTitle();
       $vamcs[$key]['vamc_path'] = $vamc_system_node->toUrl()->toString();
     }
