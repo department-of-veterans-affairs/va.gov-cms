@@ -2,11 +2,12 @@
 
 namespace Drupal\va_gov_govdelivery\EventSubscriber;
 
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\core_event_dispatcher\Event\Entity\AbstractEntityEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_govdelivery\Service\ProcessStatusBulletin;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Class EntityEventSubscriber.
@@ -43,19 +44,20 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   /**
    * React to entity insert/update events.
    *
-   * @param \Symfony\Component\EventDispatcher\Event $event
+   * @param Drupal\core_event_dispatcher\Event\Entity\AbstractEntityEvent $event
    *   The dispatched event.
    */
-  public function processStatusBulletins(Event $event) : void {
-    if ($this->isStatusUpdateNode($event->entity)) {
-      $this->processStatusBulletin->processNode($event->entity);
+  public function processStatusBulletins(AbstractEntityEvent $event) : void {
+    $entity = $event->getEntity();
+    if ($this->isStatusUpdateNode($entity)) {
+      $this->processStatusBulletin->processNode($entity);
     }
   }
 
   /**
    * Determine if this is a status update node.
    *
-   * @param EntityInterface $entity
+   * @param Drupal\Core\Entity\EntityInterface $entity
    *   The entity being created or updated.
    *
    * @return bool
