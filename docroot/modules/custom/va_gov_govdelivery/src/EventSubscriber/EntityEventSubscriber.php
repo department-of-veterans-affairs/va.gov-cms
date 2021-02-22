@@ -2,10 +2,11 @@
 
 namespace Drupal\va_gov_govdelivery\EventSubscriber;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\EventDispatcher\Event;
+use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_govdelivery\Service\ProcessStatusBulletin;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Class EntityEventSubscriber.
@@ -21,6 +22,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
 
   /**
    * Constructs a new EventSubscriber object.
+   *
+   * @var \Drupal\va_gov_govdelivery\Service\ProcessStatusBulletin $process_status_bulletin
+   *   The bulletin processing service.
    */
   public function __construct(ProcessStatusBulletin $process_status_bulletin) {
     $this->processStatusBulletin = $process_status_bulletin;
@@ -30,14 +34,14 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() : array {
-    $events['HookEventDispatcherInterface::ENTITY_INSERT'] = ['processStatusBulletins'];
-    $events['HookEventDispatcherInterface::ENTITY_UPDATE'] = ['processStatusBulletins'];
-
-    return $events;
+    return [
+      HookEventDispatcherInterface::ENTITY_INSERT => 'processStatusBulletins',
+      HookEventDispatcherInterface::ENTITY_UPDATE => 'processStatusBulletins',
+    ];
   }
 
   /**
-   * React to entity inserts.
+   * React to entity insert/update events.
    *
    * @param \Symfony\Component\EventDispatcher\Event $event
    *   The dispatched event.
