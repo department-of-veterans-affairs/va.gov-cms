@@ -2,12 +2,37 @@
 
 namespace Drupal\va_gov_govdelivery\Service;
 
+use Drupal\Core\Datetime\DateFormatter;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\node\NodeInterface;
+use Drupal\path_alias\AliasManager;
+use Drupal\govdelivery_bulletins\Service\AddBulletinToQueue;
 
 /**
  * Class for processing facility status to GovDelivery Bulletin.
  */
 class ProcessStatusBulletin {
+
+  /**
+   * Drupal\govdelivery_bulletins\Service\AddBulletinToQueue definition.
+   *
+   * @var \Drupal\govdelivery_bulletins\Service\AddBulletinToQueue
+   */
+  protected $addBulletinToQueue;
+
+  /**
+   * Drupal\path_alias\AliasManager definition.
+   *
+   * @var \Drupal\path_alias\AliasManager
+   */
+  protected $aliasManager;
+
+  /**
+   * Drupal\Core\Datetime\DateFormatter definition.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatter
+   */
+  protected $dateFormatter;
 
   /**
    * Node.
@@ -17,11 +42,11 @@ class ProcessStatusBulletin {
   private $node;
 
   /**
-   * Situation Update.
+   * The Renderer Service.
    *
-   * @var mixed
+   * @var Drupal\Core\Render\RendererInterface
    */
-  private $situationUpdate = NULL;
+  protected $renderer;
 
   /**
    * Send Type.
@@ -31,10 +56,34 @@ class ProcessStatusBulletin {
   private $sendType;
 
   /**
-   * ProcessStatusBulletin constructor.
+   * Situation Update.
+   *
+   * @var mixed
    */
-  public function __construct() {
+  private $situationUpdate = NULL;
 
+  /**
+   * ProcessStatusBulletin constructor.
+   *
+   * @var \Drupal\govdelivery_bulletins\Service\AddBulletinToQueue $add_bulletin_to_queue
+   *   The add bulletin to queue service.
+   * @var Drupal\path_alias\AliasManager
+   *   The path alias manager service.
+   * @var \Drupal\Core\Datetime\DateFormatter $date_formatter
+   *   The date formatter service.
+   * @var Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer service.
+   */
+  public function __construct(
+    AddBulletinToQueue $add_bulletin_to_queue,
+    AliasManager $alias_manager,
+    DateFormatter $date_formatter,
+    RendererInterface $renderer
+  ) {
+    $this->addBulletinToQueue = $add_bulletin_to_queue;
+    $this->aliasManager = $alias_manager;
+    $this->dateFormatter = $date_formatter;
+    $this->renderer = $renderer;
   }
 
   /**
@@ -65,7 +114,7 @@ class ProcessStatusBulletin {
       $template['#message'] = $node->get('field_body')->value;
       $subject_prefix = "Alert";
       $time = time();
-      $time = \Drupal::service('date.formatter')->format($time, 'custom', 'n/j/Y h:i A T');
+      $time = $this->dateFormatter->format($time, 'custom', 'n/j/Y h:i A T');
     }
     elseif ($this->sendType === 'situation update') {
       // Might be multiples, used to dedupe so that only the last one goes.
@@ -74,7 +123,7 @@ class ProcessStatusBulletin {
       $template['#message'] = $this->situationUpdate->get('field_wysiwyg')->value;
       $template['#situation_update'] = TRUE;
       $time = $this->situationUpdate->get('field_date_and_time')->date->getTimestamp();
-      $time = \Drupal::service('date.formatter')->format($time, 'custom', 'n/j/Y h:i A T');
+      $time = $this->dateFormatter->format($time, 'custom', 'n/j/Y h:i A T');
       $subject_prefix = "Situation Update";
     }
 
@@ -90,10 +139,9 @@ class ProcessStatusBulletin {
         $template['#ops_page_url'] = $vamc['vamc_op_status_path'];
         $template['#theme'] = 'va_gov_body_alert';
 
-        $renderer = \Drupal::service('renderer');
-        $body = (string) $renderer->renderPlain($template);
+        $body = (string) $this->renderer->renderPlain($template);
 
-        \Drupal::service('govdelivery_bulletins.add_bulletin_to_queue')
+        $this->addBulletinToQueue
           ->setFlag('dedupe', TRUE)
           ->setQueueUid("{$queue_id}-{$vamc['vamc_topic_id']}")
           ->setBody($body)
@@ -138,7 +186,7 @@ class ProcessStatusBulletin {
     // Get out op status page paths.
     foreach ($vamc_op_nodes as $key => $vamc_op_node) {
       $vamc_office_nid = $vamc_op_node->get('field_office')->getString();
-      $vamcs[$vamc_office_nid]['vamc_op_status_path'] = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $vamc_op_node->id());
+      $vamcs[$vamc_office_nid]['vamc_op_status_path'] = $this->aliasManager->getAliasByPath('/node/' . $vamc_op_node->id());
       $vamc_office_nids[] = $vamc_office_nid;
     }
 
