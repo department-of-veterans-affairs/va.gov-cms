@@ -220,49 +220,72 @@ class ProcessStatusBulletin {
    * Set the value of sendType.  Will only be set if something should be sent.
    */
   private function setSendType() {
-    $sendType = FALSE;
     // If field_operating_status_sendemail is checked AND it is the first save
     // (no original) then it is a status alert.
     $original = $this->node->original;
 
     $first_save = (empty($this->node->original)) ? TRUE : FALSE;
-    $send_status_email = $this->node->get('field_operating_status_sendemail')->value;
+    $send_status_email =
+      $this->node->get('field_operating_status_sendemail')->value;
     $first_save_published = ($first_save && $this->published);
-    $just_updated_to_published = (!$first_save && $this->published && !$this->node->original->isPublished());
-    if ($this->published && $send_status_email) {
-      // The node is set to send email.
-      if ($first_save_published || $just_updated_to_published) {
-        // This is the first that the node has been published, should be queued
-        // as a status update.
-        $sendType = 'status alert';
-      }
-      else {
-        // Look for a new situation update that needs to be sent.
-        // Grab the last situation update from the array of updates.
-        // Risk: Assumes only the last one might need to be sent.
-        $situationUpdatesList = $this->node->get('field_situation_updates')->referencedEntities();
-        $situationUpdatesLast = end($situationUpdatesList);
+    $just_updated_to_published = (
+      !$first_save &&
+      $this->published &&
+      !$this->node->original->isPublished()
+    );
 
-        $situation_update_send = (!empty($situationUpdatesLast)) ? $situationUpdatesLast->get('field_send_email_to_subscribers')->value : FALSE;
-        if ($situation_update_send) {
-          // This should be sent or was already sent.
-          $situation_update_id = (!empty($situationUpdatesLast)) ? $situationUpdatesLast->get('id')->value : FALSE;
-          // Need to see if the original situation update is not a match.
-          // If it is NOT a match, this needs to be sent.
-          $situationUpdatesListOriginal = $this->node->original->get('field_situation_updates')->referencedEntities();
-          $situationUpdatesLastOriginal = end($situationUpdatesListOriginal);
-          $situation_update_id_original = (!empty($situationUpdatesLastOriginal)) ? $situationUpdatesLastOriginal->get('id')->value : FALSE;
-          if ($situation_update_id !== $situation_update_id_original) {
-            // This is a new situation update that needs to be sent.
-            $this->situationUpdate = $situationUpdatesLast;
-            $sendType = 'situation update';
-          }
-        }
-
-      }
+    if (!$this->published || !$send_status_email) {
+      $this->sendType = FALSE;
+      return;
     }
 
-    $this->sendType = $sendType;
+    // The node is set to send email.
+    if ($first_save_published || $just_updated_to_published) {
+      // This is the first that the node has been published, should be queued
+      // as a status update.
+      $this->sendType = 'status alert';
+    }
+    else {
+      // Look for a new situation update that needs to be sent.
+      // Grab the last situation update from the array of updates.
+      // Risk: Assumes only the last one might need to be sent.
+      $situationUpdatesList = $this->node
+        ->get('field_situation_updates')
+        ->referencedEntities();
+      $situationUpdatesLast = end($situationUpdatesList);
+
+      $situation_update_send =
+        !empty($situationUpdatesLast) ?
+        $situationUpdatesLast->get('field_send_email_to_subscribers')->value :
+        FALSE;
+
+      if (!$situation_update_send) {
+        return;
+      }
+
+      // This should be sent or was already sent.
+      $situation_update_id =
+        !empty($situationUpdatesLast) ?
+        $situationUpdatesLast->get('id')->value :
+        FALSE;
+
+      // We need to see if the original situation update is not a match.
+      // If it is NOT a match, this needs to be sent.
+      $situationUpdatesListOriginal = $this->node->original
+        ->get('field_situation_updates')
+        ->referencedEntities();
+      $situationUpdatesLastOriginal = end($situationUpdatesListOriginal);
+      $situation_update_id_original =
+        !empty($situationUpdatesLastOriginal) ?
+        $situationUpdatesLastOriginal->get('id')->value :
+        FALSE;
+
+      if ($situation_update_id !== $situation_update_id_original) {
+        // This is a new situation update that needs to be sent.
+        $this->situationUpdate = $situationUpdatesLast;
+        $this->sendType = 'situation update';
+      }
+    }
   }
 
 }
