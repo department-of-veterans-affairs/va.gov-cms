@@ -2,6 +2,7 @@
 
 namespace tests\phpunit\Content;
 
+use Drupal\node\NodeInterface;
 use Drupal\paragraphs\Entity\Paragraph;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
@@ -9,6 +10,20 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * A test to confirm that alerts and situation updates are queued.
  */
 class BulletinQueueTest extends ExistingSiteBase {
+
+  /**
+   * Govdelivery bulletins queue.
+   *
+   * @var Drupal\Core\Queue\QueueInterface
+   */
+  protected $queue;
+
+  /**
+   * Queue service.
+   *
+   * @var Drupal\Core\Queue\QueueFactory
+   */
+  protected $queueFactory;
 
   /**
    * Wipe the queue clean so we can get reliable counts.
@@ -28,8 +43,7 @@ class BulletinQueueTest extends ExistingSiteBase {
     array $node_data,
     int $expected_queue_count,
     int $expected_queue_count_after_situation_updates
-  ) {
-
+  ) : void {
     $node = $this->createNode($node_data);
     $node->save();
     $this->assertEquals($expected_queue_count, $this->getQueueCount());
@@ -92,10 +106,11 @@ class BulletinQueueTest extends ExistingSiteBase {
    * @return int
    *   The number of govdelivery bulletin items in the queue.
    */
-  private function getQueueCount() {
+  private function getQueueCount() : int {
     $this->refreshQueue();
-    // Get the number of items.
+
     $number_of_queue = $this->queue->numberOfItems();
+
     // Wipe things clean so tests are not sitting in the queue later.
     $this->deleteQueue();
     return $number_of_queue;
@@ -104,7 +119,7 @@ class BulletinQueueTest extends ExistingSiteBase {
   /**
    * Removes the old $this->queue and gathers a new queue.
    */
-  private function refreshQueue() {
+  private function refreshQueue() : void {
     if (!empty($this->queue)) {
       unset($this->queue);
     }
@@ -127,15 +142,18 @@ class BulletinQueueTest extends ExistingSiteBase {
   /**
    * Deletes any existing queue items.
    */
-  private function deleteQueue() {
+  private function deleteQueue() : void {
     $this->refreshQueue();
     $this->queue->deleteQueue();
   }
 
   /**
    * Create a situation update and add it to the node.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node to which to add a situation update paragraph.
    */
-  private function createSituationUpdate(&$node) {
+  private function createSituationUpdate(NodeInterface &$node) : void {
     $paragraph = Paragraph::create(['type' => 'situation_update']);
     $paragraph->set('field_date_and_time', date('Y-m-d\TH:i:s', time()));
     $paragraph->set('field_send_email_to_subscribers', 1);
