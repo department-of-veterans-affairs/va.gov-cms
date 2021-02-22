@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.vet_center_cap.field_vet_center
     - field.field.node.vet_center_cap.field_vet_center_cap_location
     - node.type.vet_center_cap
+    - workflows.workflow.editorial
   module:
     - address
     - content_moderation
@@ -38,6 +39,7 @@ third_party_settings:
     group_ed:
       children:
         - moderation_state
+        - status
       parent_name: ''
       weight: 6
       format_type: fieldset
@@ -107,12 +109,18 @@ content:
     settings: {  }
     region: content
     third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 2
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
 hidden:
   created: true
   field_body: true
   path: true
   promote: true
-  status: true
   sticky: true
   title: true
   uid: true
