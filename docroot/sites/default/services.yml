@@ -21,6 +21,9 @@ parameters:
     # Set session cookie lifetime (in seconds), i.e. the time from the session
     # is created to the cookie expires, i.e. when the browser is expected to
     # discard the cookie. The value 0 means "until the browser is closed".
+    #
+    # Must be 0 for VA SSO requirements, do not change without approval.:
+    #
     # @default 2000000
     cookie_lifetime: 0
     #
