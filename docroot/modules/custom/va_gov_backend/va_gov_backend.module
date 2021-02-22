@@ -10,13 +10,14 @@ use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\field\Entity\FieldConfig;
+use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
+use Drupal\field\Entity\FieldConfig;
 use Drupal\file\Entity\File;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\TermInterface;
@@ -63,6 +64,37 @@ function va_gov_backend_form_user_form_alter(array &$form) {
 /**
  * Implements hook_form_FORM_ID_alter().
  *
+ * Alter the image_style_warmer form to insert a third option.
+ */
+function va_gov_backend_form_image_style_warmer_settings_form_alter(array &$form, FormStateInterface $form_state) {
+  $image_styles_config = \Drupal::configFactory()->get('va_gov_backend.image_styles');
+  $image_styles = $image_styles_config->get('image_styles');
+  $form['vagov_image_styles'] = [
+    '#type' => 'checkboxes',
+    '#title' => t('Late-generated image styles'),
+    '#description' => t('Select image styles which will be created after cropping.'),
+    '#options' => image_style_options(FALSE),
+    '#default_value' => !empty($image_styles) ? $image_styles : [],
+    '#size' => 10,
+  ];
+  $form['vagov_image_styles']['#attributes']['class'][] = 'image-style-warmer';
+  $form['vagov_image_styles']['#attributes']['class'][] = 'image-styles';
+  $form['vagov_image_styles']['#attributes']['class'][] = 'vagov-image-styles';
+  $form['#submit'][] = '_va_gov_backend_form_image_style_warmer_settings_form_submit';
+}
+
+/**
+ * Store our hacked-in settings for the image_style_warmer.
+ */
+function _va_gov_backend_form_image_style_warmer_settings_form_submit(array $form, FormStateInterface $form_state) {
+  $image_styles_config = \Drupal::configFactory()->getEditable('va_gov_backend.image_styles');
+  $image_styles = $form_state->getValue('vagov_image_styles');
+  $image_styles_config->set('image_styles', $image_styles)->save(TRUE);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
  * Set our role descriptions.
  */
 function va_gov_backend_form_user_role_form_alter(array &$form, FormStateInterface $form_state) {
@@ -76,6 +108,40 @@ function va_gov_backend_form_user_role_form_alter(array &$form, FormStateInterfa
   ];
 
   $form['#entity_builders'][] = 'va_gov_backend_form_user_role_form_builder';
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function va_gov_backend_entity_insert(EntityInterface $entity) {
+  _va_gov_backend_image_style_warmer_warm_up($entity);
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function va_gov_backend_entity_update(EntityInterface $entity) {
+  _va_gov_backend_image_style_warmer_warm_up($entity);
+}
+
+/**
+ * Warm image styles during the request but after `image_widget_crop`.
+ */
+function _va_gov_backend_image_style_warmer_warm_up(EntityInterface $entity) {
+  $image_styles_config = \Drupal::configFactory()->get('va_gov_backend.image_styles');
+  $image_styles = $image_styles_config->get('image_styles');
+  $image_styles = array_filter($image_styles);
+  if (!empty($image_styles)) {
+    if (isset($entity) && $entity instanceof FieldableEntityInterface) {
+      foreach ($entity->getFields() as $entity_fields) {
+        if ($entity_fields instanceof FileFieldItemList) {
+          foreach ($entity_fields->getValue() as $entity_file_field_value) {
+            \Drupal::service('image_style_warmer.warmer')->doWarmUp($entity_file_field_value->entity, array_keys($image_styles));
+          }
+        }
+      }
+    }
+  }
 }
 
 /**
