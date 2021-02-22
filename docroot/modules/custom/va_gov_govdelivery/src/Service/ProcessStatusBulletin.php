@@ -5,9 +5,9 @@ namespace Drupal\va_gov_govdelivery\Service;
 use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\govdelivery_bulletins\Service\AddBulletinToQueue;
 use Drupal\node\NodeInterface;
 use Drupal\path_alias\AliasManager;
-use Drupal\govdelivery_bulletins\Service\AddBulletinToQueue;
 
 /**
  * Class for processing facility status to GovDelivery Bulletin.
