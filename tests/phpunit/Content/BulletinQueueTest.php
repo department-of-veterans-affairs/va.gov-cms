@@ -124,7 +124,10 @@ class BulletinQueueTest extends ExistingSiteBase {
   private function getQueueItemBody() : string {
     $this->refreshQueue();
 
+    /** @var \StdClass $item */
     $item = $this->queue->claimItem();
+
+    /** @var \SimpleXMLElement $data */
     $data = new \SimpleXMLElement($item->data->xml);
 
     $this->queue->deleteItem($item);

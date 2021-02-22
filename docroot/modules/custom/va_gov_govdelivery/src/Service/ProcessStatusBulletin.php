@@ -81,15 +81,13 @@ class ProcessStatusBulletin {
     if (!empty($this->sendType)) {
       $template['#date_time'] = $time;
       $template['#alert_title'] = $node->get('title')->getString();
-      $vmacs_data = $node->get('field_banner_alert_computdvalues')->getValue();
-      $vmacs_datum = reset($vmacs_data);
-      $vmacs = !empty($vmacs_datum['value']) ? json_decode($vmacs_datum['value']) : [];
+      $vamcs = $this->getVamcs($node);
 
       // Loop through the VAMCs since each title will be VAMC specific.
-      foreach ($vmacs as $vmac) {
-        $template['#vamc_name'] = $vmac->vamc_title;
-        $template['#vamc_url'] = $vmac->vamc_path;
-        $template['#ops_page_url'] = $vmac->vamc_op_status_path;
+      foreach ($vamcs as $vamc) {
+        $template['#vamc_name'] = $vamc['vamc_title'];
+        $template['#vamc_url'] = $vamc['vamc_path'];
+        $template['#ops_page_url'] = $vamc['vamc_op_status_path'];
         $template['#theme'] = 'va_gov_body_alert';
 
         $renderer = \Drupal::service('renderer');
@@ -97,12 +95,12 @@ class ProcessStatusBulletin {
 
         \Drupal::service('govdelivery_bulletins.add_bulletin_to_queue')
           ->setFlag('dedupe', TRUE)
-          ->setQueueUid("{$queue_id}-{$vmac->vamc_topic_id}")
+          ->setQueueUid("{$queue_id}-{$vamc['vamc_topic_id']}")
           ->setBody($body)
           ->setFooter(NULL)
           ->setHeader(NULL)
-          ->setSubject("{$subject_prefix}: {$vmac->vamc_title}")
-          ->addTopic($vmac->vamc_topic_id)
+          ->setSubject("{$subject_prefix}: {$vamc['vamc_title']}")
+          ->addTopic($vamc['vamc_topic_id'])
           ->setXmlBool('click_tracking', FALSE)
           ->setXmlBool('open_tracking', FALSE)
           ->setXmlBool('publish_rss', FALSE)
@@ -111,6 +109,48 @@ class ProcessStatusBulletin {
           ->addToQueue();
       }
     }
+  }
+
+  /**
+   * Get VAMCs referenced by this node.
+   *
+   * @param Drupal\node\NodeInterface $node
+   *   The status update node.
+   *
+   * @return array[vamcs]
+   *   Array of VAMCs for this node.
+   */
+  protected function getVamcs(NodeInterface $node) : array {
+    $vamcs = [];
+
+    $vamcs_op_status_ids = $node->get('field_banner_alert_vamcs')->getValue();
+    foreach ($vamcs_op_status_ids as $key => $vamcs_op_status_id) {
+      $vamcs_op_status_ids[$key] = !empty($vamcs_op_status_id['target_id']) ? $vamcs_op_status_id['target_id'] : '';
+    }
+
+    // Get a node storage object.
+    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+
+    $vamc_office_nids = [];
+    $computed_return = [];
+    $vamc_op_nodes = $node_storage->loadMultiple($vamcs_op_status_ids);
+
+    // Get out op status page paths.
+    foreach ($vamc_op_nodes as $key => $vamc_op_node) {
+      $vamc_office_nid = $vamc_op_node->get('field_office')->getString();
+      $vamcs[$vamc_office_nid]['vamc_op_status_path'] = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $vamc_op_node->id());
+      $vamc_office_nids[] = $vamc_office_nid;
+    }
+
+    // Grab what we need from our vamcs.
+    $vamc_system_nodes = $node_storage->loadMultiple($vamc_office_nids);
+    foreach ($vamc_system_nodes as $key => $vamc_system_node) {
+      $vamcs[$key]['vamc_topic_id'] = !empty($vamc_system_node->get('field_govdelivery_id_emerg')->getString()) ? $vamc_system_node->get('field_govdelivery_id_emerg')->getString() : '';
+      $vamcs[$key]['vamc_title'] = $vamc_system_node->getTitle();
+      $vamcs[$key]['vamc_path'] = $vamc_system_node->toUrl()->toString();
+    }
+
+    return $vamcs;
   }
 
   /**
