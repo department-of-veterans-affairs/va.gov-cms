@@ -49,6 +49,7 @@ Feature: Content model bundles
 | Vet Center | vet_center | Content type | A facility within Vet Centers system. |
 | Vet Center Facility Health Service | vet_center_facility_health_servi | Content type |  |
 | Vet Center Locations List | vet_center_locations_list | Content type |  |
+| Vet Center Satellite Facility | vet_center_satellite_facility | Content type |  |
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
 | Promo | promo | Custom block type | Promote a link with an image, title, and description. |
 | Document | document | Media type | A locally hosted document, such as a PDF. |

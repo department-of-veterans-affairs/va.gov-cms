@@ -1,0 +1,22 @@
+uuid: 34afd8d5-4372-4dc4-8371-285e5d2ba2ff
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: vet_center_satellite_facility
+label: 'Vet Center Satellite Facility'
+type: 'canonical_entities:node'
+pattern: '[node:field_vet_center:entity:title]/[node:title]'
+selection_criteria:
+  dc09d98c-9326-4ad5-bfc5-2b2c499ad1d9:
+    id: node_type
+    bundles:
+      vet_center_satellite_facility: vet_center_satellite_facility
+    negate: false
+    context_mapping:
+      node: node
+    uuid: dc09d98c-9326-4ad5-bfc5-2b2c499ad1d9
+selection_logic: and
+weight: -5
+relationships: {  }
