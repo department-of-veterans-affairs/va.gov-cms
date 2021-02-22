@@ -54,18 +54,15 @@ class ProcessStatusBulletin {
     $type = $node->get("field_alert_type")->getString();
     $time_zone = date_default_timezone_get();
     // Set common template variables.
-    $template_variables = [
-      // The type of alert 'information' or 'warning'.
-      'alert_type' => $node->get("field_alert_type")->value,
-      // Needed to prevent notices when Twig debugging is enabled.
-      'theme_hook_original' => 'not-applicable',
+    // The type of alert 'information' or 'warning'.
+    $template = [
+      '#alert_type' => $node->get("field_alert_type")->value,
     ];
 
     if ($this->sendType === 'status alert') {
       $queue_id = "{$node->get('nid')->value}-alert";
       // Pull the data from the alert fields.
-      $template_variables['message'] = $node->get('field_body')->value;
-      $template_variables['situation_update'] = FALSE;
+      $template['#message'] = $node->get('field_body')->value;
       $subject_prefix = "Alert";
       $time = time();
       $time = \Drupal::service('date.formatter')->format($time, 'custom', 'n/j/Y h:i A T');
@@ -74,35 +71,30 @@ class ProcessStatusBulletin {
       // Might be multiples, used to dedupe so that only the last one goes.
       $queue_id = "{$node->get('nid')->value}-update";
       // Pull the data from the situation update fields $this->situationUpdate.
-      $template_variables['message'] = $this->situationUpdate->get('field_wysiwyg')->value;
-      $template_variables['situation_update'] = TRUE;
+      $template['#message'] = $this->situationUpdate->get('field_wysiwyg')->value;
+      $template['#situation_update'] = TRUE;
       $time = $this->situationUpdate->get('field_date_and_time')->date->getTimestamp();
       $time = \Drupal::service('date.formatter')->format($time, 'custom', 'n/j/Y h:i A T');
       $subject_prefix = "Situation Update";
     }
 
     if (!empty($this->sendType)) {
-      $template_variables['date_time'] = $time;
-      $template_variables['alert_title'] = $node->get('title')->getString();
+      $template['#date_time'] = $time;
+      $template['#alert_title'] = $node->get('title')->getString();
       $vmacs_data = $node->get('field_banner_alert_computdvalues')->getValue();
       $vmacs_datum = reset($vmacs_data);
       $vmacs = !empty($vmacs_datum['value']) ? json_decode($vmacs_datum['value']) : [];
 
-      // Loop through the VMACs since each title will be VAMC specific.
+      // Loop through the VAMCs since each title will be VAMC specific.
       foreach ($vmacs as $vmac) {
-        $template_variables['vamc_name'] = $vmac->vamc_title;
-        $template_variables['vamc_url'] = $vmac->vamc_path;
-        $template_variables['ops_page_url'] = $vmac->vamc_op_status_path;
-        if (PHP_SAPI === 'cli') {
-          // The function twig_render_template throws a 'context not set'
-          // exception when run from CLI.
-          // Set a limited mock body for phpUnit Tests.
-          $body = "This is a phpUnit body that should never be sent to GovDelivery.";
-        }
-        else {
-          $body = (string) twig_render_template(drupal_get_path('module', 'va_gov_govdelivery') . '/templates/va-gov-body-alert.html.twig', $template_variables);
-        }
-        // Add the item to queue.
+        $template['#vamc_name'] = $vmac->vamc_title;
+        $template['#vamc_url'] = $vmac->vamc_path;
+        $template['#ops_page_url'] = $vmac->vamc_op_status_path;
+        $template['#theme'] = 'va_gov_body_alert';
+
+        $renderer = \Drupal::service('renderer');
+        $body = (string) $renderer->renderPlain($template);
+
         \Drupal::service('govdelivery_bulletins.add_bulletin_to_queue')
           ->setFlag('dedupe', TRUE)
           ->setQueueUid("{$queue_id}-{$vmac->vamc_topic_id}")

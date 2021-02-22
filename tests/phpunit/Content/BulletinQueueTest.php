@@ -42,19 +42,28 @@ class BulletinQueueTest extends ExistingSiteBase {
   public function testBulletinQueue(
     array $node_data,
     int $expected_queue_count,
-    int $expected_queue_count_after_situation_updates
+    string $expected_bulletin_message,
+    int $expected_queue_count_after_situation_updates,
+    string $expected_situation_update_message
   ) : void {
     $node = $this->createNode($node_data);
     $node->save();
     $this->assertEquals($expected_queue_count, $this->getQueueCount());
+    if ($expected_queue_count) {
+      $this->assertStringContainsString($expected_bulletin_message, $this->getQueueItemBody());
+    }
 
     // Edit the node, add several situation updates to field_situation_updates.
     // This confirms that multiple situation updates are deduped.
-    for ($x = 0; $x <= 5; $x++) {
-      $this->createSituationUpdate($node);
+    for ($i = 1; $i <= 5; $i++) {
+      $message = "This is test phpUnit situation update {$i} of 5.  Please disregard.";
+      $this->createSituationUpdate($node, $message);
       $node->save();
     }
     $this->assertEquals($expected_queue_count_after_situation_updates, $this->getQueueCount());
+    if ($expected_queue_count_after_situation_updates) {
+      $this->assertStringContainsString($expected_situation_update_message, $this->getQueueItemBody());
+    }
   }
 
   /**
@@ -82,7 +91,9 @@ class BulletinQueueTest extends ExistingSiteBase {
     yield 'There should be no bulletin from unpublished nodes in the govdelivery_bulletin queue.' => [
       $node_data,
       0,
+      "",
       0,
+      "",
     ];
 
     $node_data = $node_data_template;
@@ -90,14 +101,34 @@ class BulletinQueueTest extends ExistingSiteBase {
     yield 'There should be no bulletin from published nodes with the "Send update" field unchecked in the govdelivery_bulletin queue.' => [
       $node_data,
       0,
+      "",
       0,
+      "",
     ];
 
     yield 'There should be a bulletin from published nodes with the "Send update" field checked in the govdelivery_bulletin queue.' => [
       $node_data_template,
       1,
+      "This is a test created by phpUnit.  Please disregard.",
       1,
+      "This is test phpUnit situation update 5 of 5.  Please disregard.",
     ];
+  }
+
+  /**
+   * Get the freshest queue count and wipe the queue in case assertion fails.
+   *
+   * @return string
+   *   The message from the retrieved queue item.
+   */
+  private function getQueueItemBody() : string {
+    $this->refreshQueue();
+
+    $item = $this->queue->claimItem();
+    $data = new \SimpleXMLElement($item->data->xml);
+
+    $this->queue->deleteItem($item);
+    return $data->body;
   }
 
   /**
@@ -108,12 +139,7 @@ class BulletinQueueTest extends ExistingSiteBase {
    */
   private function getQueueCount() : int {
     $this->refreshQueue();
-
-    $number_of_queue = $this->queue->numberOfItems();
-
-    // Wipe things clean so tests are not sitting in the queue later.
-    $this->deleteQueue();
-    return $number_of_queue;
+    return $this->queue->numberOfItems();
   }
 
   /**
@@ -152,12 +178,14 @@ class BulletinQueueTest extends ExistingSiteBase {
    *
    * @param \Drupal\node\NodeInterface $node
    *   The node to which to add a situation update paragraph.
+   * @param string $message
+   *   The situation update message.
    */
-  private function createSituationUpdate(NodeInterface &$node) : void {
+  private function createSituationUpdate(NodeInterface &$node, string $message) : void {
     $paragraph = Paragraph::create(['type' => 'situation_update']);
     $paragraph->set('field_date_and_time', date('Y-m-d\TH:i:s', time()));
     $paragraph->set('field_send_email_to_subscribers', 1);
-    $paragraph->set('field_wysiwyg', 'This is a test phpUnit situation update.  Please disregard.');
+    $paragraph->set('field_wysiwyg', $message);
     $paragraph->save();
 
     // Grab any existing paragraphs from the node, and add this one.
