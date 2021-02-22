@@ -5,6 +5,7 @@ services:
       - '@govdelivery_bulletins.add_bulletin_to_queue'
       - '@path_alias.manager'
       - '@date.formatter'
+      - '@entity_type.manager'
       - '@renderer'
   va_gov_govdelivery.entity_event_subscriber:
     class: Drupal\va_gov_govdelivery\EventSubscriber\EntityEventSubscriber
