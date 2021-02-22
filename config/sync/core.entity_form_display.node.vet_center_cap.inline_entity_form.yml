@@ -8,12 +8,10 @@ dependencies:
     - field.field.node.vet_center_cap.field_administration
     - field.field.node.vet_center_cap.field_body
     - field.field.node.vet_center_cap.field_facility_hours
-    - field.field.node.vet_center_cap.field_facility_location
     - field.field.node.vet_center_cap.field_geographical_identifier
     - field.field.node.vet_center_cap.field_media
-    - field.field.node.vet_center_cap.field_regional_health_service
     - field.field.node.vet_center_cap.field_vet_center
-    - field.field.node.vet_center_cap.field_vet_center_cap_locatation
+    - field.field.node.vet_center_cap.field_vet_center_cap_location
     - node.type.vet_center_cap
   module:
     - field_group
@@ -97,21 +95,14 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_facility_location:
-    type: options_select
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   created: true
   field_address: true
   field_facility_hours: true
   field_geographical_identifier: true
   field_media: true
-  field_regional_health_service: true
   field_vet_center: true
-  field_vet_center_cap_locatation: true
+  field_vet_center_cap_location: true
   moderation_state: true
   path: true
   promote: true

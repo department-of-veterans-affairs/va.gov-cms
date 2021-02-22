@@ -1,4 +1,4 @@
-uuid: c90c8541-b123-4f49-b447-d1c9390577b1
+uuid: 3e1f9392-8d3e-4728-a682-77de3e0f36be
 langcode: en
 status: true
 dependencies:
@@ -7,8 +7,10 @@ dependencies:
 id: node.field_geographical_identifier
 field_name: field_geographical_identifier
 entity_type: node
-type: string_long
+type: string
 settings:
+  max_length: 255
+  is_ascii: false
   case_sensitive: false
 module: core
 locked: false
