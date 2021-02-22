@@ -48,6 +48,7 @@ Feature: Content model bundles
 | VBA Facility | vba_facility | Content type | A facility within Veterans Benefits Administration system. |
 | Vet Center | vet_center | Content type | A facility within Vet Centers system. |
 | Vet Center Locations List | vet_center_locations_list | Content type |  |
+| Vet Center Community Access Point | vet_center_cap | Content type |  |
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
 | Promo | promo | Custom block type | Promote a link with an image, title, and description. |
 | Document | document | Media type | A locally hosted document, such as a PDF. |
