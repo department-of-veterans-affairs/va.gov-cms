@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_govdelivery\Service;
 
 use Drupal\Core\Datetime\DateFormatter;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\node\NodeInterface;
 use Drupal\path_alias\AliasManager;
@@ -33,6 +34,13 @@ class ProcessStatusBulletin {
    * @var \Drupal\Core\Datetime\DateFormatter
    */
   protected $dateFormatter;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
 
   /**
    * Node.
@@ -71,6 +79,8 @@ class ProcessStatusBulletin {
    *   The path alias manager service.
    * @var \Drupal\Core\Datetime\DateFormatter $date_formatter
    *   The date formatter service.
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
    * @var Drupal\Core\Render\RendererInterface $renderer
    *   The renderer service.
    */
@@ -78,11 +88,13 @@ class ProcessStatusBulletin {
     AddBulletinToQueue $add_bulletin_to_queue,
     AliasManager $alias_manager,
     DateFormatter $date_formatter,
+    EntityTypeManagerInterface $entity_type_manager,
     RendererInterface $renderer
   ) {
     $this->addBulletinToQueue = $add_bulletin_to_queue;
     $this->aliasManager = $alias_manager;
     $this->dateFormatter = $date_formatter;
+    $this->entityTypeManager = $entity_type_manager;
     $this->renderer = $renderer;
   }
 
@@ -178,7 +190,7 @@ class ProcessStatusBulletin {
     }
 
     // Get a node storage object.
-    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+    $node_storage = $this->entityTypeManager->getStorage('node');
 
     $vamc_office_nids = [];
     $computed_return = [];
