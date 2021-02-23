@@ -10,7 +10,7 @@ use Drupal\va_gov_govdelivery\Service\ProcessStatusBulletin;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Status Bulletin Event Subscriber.
+ * GovDelivery Entity Event Subscriber.
  */
 class EntityEventSubscriber implements EventSubscriberInterface {
 
@@ -36,8 +36,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() : array {
     return [
-      HookEventDispatcherInterface::ENTITY_INSERT => 'processStatusBulletins',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'processStatusBulletins',
+      HookEventDispatcherInterface::ENTITY_INSERT => 'handleEntityUpsert',
+      HookEventDispatcherInterface::ENTITY_UPDATE => 'handleEntityUpsert',
     ];
   }
 
@@ -47,7 +47,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param Drupal\core_event_dispatcher\Event\Entity\AbstractEntityEvent $event
    *   The dispatched event.
    */
-  public function processStatusBulletins(AbstractEntityEvent $event) : void {
+  public function handleEntityUpsert(AbstractEntityEvent $event) : void {
     $entity = $event->getEntity();
     if ($this->isStatusUpdateNode($entity)) {
       $this->processStatusBulletin->processNode($entity);
