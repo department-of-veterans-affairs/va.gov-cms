@@ -5,20 +5,19 @@ dependencies:
   module:
     - node
 id: vba_facility_nca_facility_veterans_center
-label: 'VBA facility, NCA facility, Vet Center'
+label: 'VBA facility, NCA facility'
 type: 'canonical_entities:node'
 pattern: '[node:field_administration:entity:name]/locations/[node:title]'
 selection_criteria:
-  5de410e5-a60f-4b32-8a8a-47f36a209963:
+  8e28c303-e4c0-4c62-85da-8478aa60f497:
     id: node_type
     bundles:
-      vet_center: vet_center
       nca_facility: nca_facility
       vba_facility: vba_facility
     negate: false
     context_mapping:
       node: node
-    uuid: 5de410e5-a60f-4b32-8a8a-47f36a209963
+    uuid: 8e28c303-e4c0-4c62-85da-8478aa60f497
 selection_logic: and
 weight: -5
 relationships: {  }

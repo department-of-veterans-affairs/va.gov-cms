@@ -24,3 +24,8 @@ Feature: Content model: Vocabulary fields
 | Vocabulary | VHA health service taxonomy | Patient-friendly name | field_also_known_as | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VHA health service taxonomy | Type of care | field_service_type_of_care | List (text) |  | 1 | Select list |  |
 | Vocabulary | VHA health service taxonomy | VHA Stop code | field_vha_healthservice_stopcode | Number (integer) |  | 1 | Number field |  |
+| Vocabulary | VHA health service taxonomy | Common conditions | field_vet_center_com_conditions  | Text (plain) |  | 1 | Textfield |  |
+| Vocabulary | VHA health service taxonomy | Patient friendly name | field_vet_center_friendly_name | Text (plain) |  | 1 | Textfield |  |
+| Vocabulary | VHA health service taxonomy | Service description | field_vet_center_service_descrip | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
+| Vocabulary | VHA health service taxonomy | Type of Care | field_vet_center_type_of_care | List (text) |  | 1 | Select list |  |
+

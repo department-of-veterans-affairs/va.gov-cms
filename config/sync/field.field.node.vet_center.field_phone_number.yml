@@ -1,0 +1,21 @@
+uuid: 17c3b966-d31e-4b86-a696-2a94e313bf16
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_phone_number
+    - node.type.vet_center
+  module:
+    - telephone
+id: node.vet_center.field_phone_number
+field_name: field_phone_number
+entity_type: node
+bundle: vet_center
+label: 'Phone Number'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone
