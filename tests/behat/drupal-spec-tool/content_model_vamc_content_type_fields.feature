@@ -59,12 +59,12 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Leadership List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Leadership List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Leadership List | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Locations List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | Locations List | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
-| Content type | Locations List | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | Locations List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Locations List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
-| Content type | Locations List | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC System Locations List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | VAMC System Locations List | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
+| Content type | VAMC System Locations List | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | VAMC System Locations List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC System Locations List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | VAMC System Locations List | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | News Release | Full text of the Press Release | field_press_release_fulltext | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
 | Content type | News Release | Introduction | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | News Release | Location | field_address | Address |  | 1 | Address | Translatable |
