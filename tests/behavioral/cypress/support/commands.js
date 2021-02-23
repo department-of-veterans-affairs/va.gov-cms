@@ -74,3 +74,9 @@ Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe) => {
     resolve($iframe.contents().find('body'));
   });
 });
+
+Cypress.Commands.add("type_ckeditor", (element, content) => {
+  cy.window().then((win) => {
+    win.CKEDITOR.instances[element].setData(content);
+  });
+});
