@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\govdelivery_bulletins\Service\AddBulletinToQueue;
 use Drupal\node\NodeInterface;
+use Drupal\paragraphs\ParagraphInterface;
 use Drupal\path_alias\AliasManager;
 
 /**
@@ -43,32 +44,11 @@ class ProcessStatusBulletin {
   protected $entityTypeManager;
 
   /**
-   * Node.
-   *
-   * @var mixed
-   */
-  private $node;
-
-  /**
    * The Renderer Service.
    *
    * @var Drupal\Core\Render\RendererInterface
    */
   protected $renderer;
-
-  /**
-   * Send Type.
-   *
-   * @var mixed
-   */
-  private $sendType;
-
-  /**
-   * Situation Update.
-   *
-   * @var mixed
-   */
-  private $situationUpdate = NULL;
 
   /**
    * ProcessStatusBulletin constructor.
@@ -107,40 +87,131 @@ class ProcessStatusBulletin {
    * @throws \Twig_Error_Runtime
    */
   public function processNode(NodeInterface $node) {
-    $this->node = $node;
-    $this->published = $node->isPublished();
-
-    $this->setSendType();
-    if (!$this->sendType) {
+    if (!$this->bulletinsEnabled($node)) {
       return;
     }
 
+    $situation_update = $this->getLatestSituationUpdate($node);
+    $send_type = $this->getSendType($node, $situation_update);
+    if (empty($send_type)) {
+      return;
+    }
+
+    $template = $this->buildTemplate($node, $situation_update, $send_type);
+
+    // Loop through the VAMCs since each title will be VAMC specific.
+    $vamcs = $this->getVamcs($node);
+    foreach ($vamcs as $vamc) {
+      $this->queueBulletinForVamc($node, $vamc, $template, $send_type);
+    }
+  }
+
+  /**
+   * Build a situation update template.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node.
+   * @param array $vamc
+   *   The VAMC information.
+   * @param array $template
+   *   The populated template.
+   * @param string $send_type
+   *   The alert send type.
+   */
+  protected function queueBulletinForVamc(
+    NodeInterface $node,
+    array $vamc,
+    array $template,
+    string $send_type
+  ) : void {
+    $template['#vamc_name'] = $vamc['vamc_title'];
+    $template['#vamc_url'] = $vamc['vamc_path'];
+    $template['#ops_page_url'] = $vamc['vamc_op_status_path'];
+
+    if ($send_type === 'status alert') {
+      $subject_prefix = 'Alert';
+    }
+    elseif ($send_type === 'situation update') {
+      $subject_prefix = "Situation Update";
+    }
+    $subject = "{$subject_prefix}: {$vamc['vamc_title']}";
+
+    $queue_id = $this->getQueueId($node, $send_type);
+
+    $this->addBulletinToQueue
+      ->setFlag('dedupe', TRUE)
+      ->setQueueUid("{$queue_id}-{$vamc['vamc_topic_id']}")
+      ->setBody($this->renderer->renderPlain($template))
+      ->setFooter(NULL)
+      ->setHeader(NULL)
+      ->setSubject($subject)
+      ->addTopic($vamc['vamc_topic_id'])
+      ->setXmlBool('click_tracking', FALSE)
+      ->setXmlBool('open_tracking', FALSE)
+      ->setXmlBool('publish_rss', FALSE)
+      ->setXmlBool('share_content_enabled', TRUE)
+      ->setXmlBool('urgent', FALSE)
+      ->addToQueue();
+  }
+
+  /**
+   * Get queue ID.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node.
+   * @param string $send_type
+   *   The alert send type.
+   *
+   * @return string
+   *   The queue id.
+   */
+  protected function getQueueId(NodeInterface $node, $send_type) : string {
+    $queue_type = '';
+
+    if ($send_type === 'status alert') {
+      $queue_type = 'alert';
+    }
+
+    if ($send_type === 'situation update') {
+      $queue_type = 'update';
+    }
+
+    return "{$node->get('nid')->value}-{$queue_type}";
+  }
+
+  /**
+   * Build a situation update template.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node.
+   * @param mixed $latest_situation_update
+   *   The latest situation update if one exists.
+   * @param string $send_type
+   *   The alert send type.
+   *
+   * @return array
+   *   The populated template.
+   */
+  protected function buildTemplate(NodeInterface $node, $latest_situation_update, string $send_type) : array {
     $template = [
       '#alert_title' => $node->get('title')->getString(),
       // The type of alert 'information' or 'warning'.
-      '#alert_type' => $node->get("field_alert_type")->value,
+      '#alert_type' => $node->get('field_alert_type')->value,
       '#theme' => 'va_gov_body_alert',
     ];
 
-    if ($this->sendType === 'status alert') {
-      $queue_id = "{$node->get('nid')->value}-alert";
+    if ($send_type === 'status alert') {
       $template['#message'] = $node->get('field_body')->value;
       $template['#situation_update'] = FALSE;
-      $subject_prefix = "Alert";
       $time = time();
       $time = $this->dateFormatter->format($time, 'custom', 'n/j/Y h:i A T');
     }
-    elseif ($this->sendType === 'situation update') {
-      // Might be multiples, used to dedupe so that only the last one goes.
-      $queue_id = "{$node->get('nid')->value}-update";
-
+    elseif ($send_type === 'situation update') {
       $template['#situation_update'] = TRUE;
-      $template['#message'] = $this
-        ->situationUpdate
+      $template['#message'] = $latest_situation_update
         ->get('field_wysiwyg')
         ->value;
-      $time = (int) $this
-        ->situationUpdate
+      $time = (int) $latest_situation_update
         ->get('field_datetime_range_timezone')
         ->value;
       $time = $this->dateFormatter->format($time, 'custom', 'n/j/Y h:i A T');
@@ -148,28 +219,7 @@ class ProcessStatusBulletin {
     }
     $template['#date_time'] = $time;
 
-    // Loop through the VAMCs since each title will be VAMC specific.
-    $vamcs = $this->getVamcs($node);
-    foreach ($vamcs as $vamc) {
-      $template['#vamc_name'] = $vamc['vamc_title'];
-      $template['#vamc_url'] = $vamc['vamc_path'];
-      $template['#ops_page_url'] = $vamc['vamc_op_status_path'];
-
-      $this->addBulletinToQueue
-        ->setFlag('dedupe', TRUE)
-        ->setQueueUid("{$queue_id}-{$vamc['vamc_topic_id']}")
-        ->setBody($this->renderer->renderPlain($template))
-        ->setFooter(NULL)
-        ->setHeader(NULL)
-        ->setSubject("{$subject_prefix}: {$vamc['vamc_title']}")
-        ->addTopic($vamc['vamc_topic_id'])
-        ->setXmlBool('click_tracking', FALSE)
-        ->setXmlBool('open_tracking', FALSE)
-        ->setXmlBool('publish_rss', FALSE)
-        ->setXmlBool('share_content_enabled', TRUE)
-        ->setXmlBool('urgent', FALSE)
-        ->addToQueue();
-    }
+    return $template;
   }
 
   /**
@@ -189,14 +239,11 @@ class ProcessStatusBulletin {
       $vamcs_op_status_ids[$key] = $vamcs_op_status_id['target_id'] ?: '';
     }
 
-    // Get a node storage object.
     $node_storage = $this->entityTypeManager->getStorage('node');
-
-    $vamc_office_nids = [];
-    $computed_return = [];
     $vamc_op_nodes = $node_storage->loadMultiple($vamcs_op_status_ids);
 
     // Get out op status page paths.
+    $vamc_office_nids = [];
     foreach ($vamc_op_nodes as $key => $vamc_op_node) {
       $vamc_office_nid = $vamc_op_node->get('field_office')->getString();
       $vamcs[$vamc_office_nid]['vamc_op_status_path'] =
@@ -204,7 +251,7 @@ class ProcessStatusBulletin {
       $vamc_office_nids[] = $vamc_office_nid;
     }
 
-    // Grab what we need from our vamcs.
+    // Grab what we need from our VAMCs.
     $vamc_system_nodes = $node_storage->loadMultiple($vamc_office_nids);
     foreach ($vamc_system_nodes as $key => $vamc_system_node) {
       $vamcs[$key]['vamc_topic_id'] =
@@ -217,73 +264,94 @@ class ProcessStatusBulletin {
   }
 
   /**
-   * Set the value of sendType.  Will only be set if something should be sent.
+   * Determine whether update bulletins are enabled for the node.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node.
+   *
+   * @return bool
+   *   Whether or not update bulletins should be sent.
    */
-  private function setSendType() {
+  protected function bulletinsEnabled(NodeInterface $node) : bool {
+    return $node->isPublished() &&
+      $node->get('field_operating_status_sendemail')->value;
+  }
+
+  /**
+   * Retrieve the latest situation update paragraph, if any.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node.
+   *
+   * @return \Drupal\paragraphs\ParagraphInterface
+   *   Latest situation update paragraph or null.
+   */
+  protected function getLatestSituationUpdate(NodeInterface $node) : ?ParagraphInterface {
+    $situation_updates_list = $node
+      ->get('field_situation_updates')
+      ->referencedEntities();
+    return end($situation_updates_list) ?: NULL;
+  }
+
+  /**
+   * Get the sending type. Will only be set if something should be sent.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node.
+   * @param mixed $latest_situation_update
+   *   The latest situation update if one exists.
+   *
+   * @return string
+   *   Sending type (empty if none).
+   */
+  private function getSendType(NodeInterface $node, $latest_situation_update) : string {
     // If field_operating_status_sendemail is checked AND it is the first save
     // (no original) then it is a status alert.
-    $original = $this->node->original;
+    $original = $node->original;
 
-    $first_save = (empty($this->node->original)) ? TRUE : FALSE;
-    $send_status_email =
-      $this->node->get('field_operating_status_sendemail')->value;
-    $first_save_published = ($first_save && $this->published);
+    $first_save = empty($node->original) ? TRUE : FALSE;
+    $first_save_published = ($first_save && $node->isPublished());
     $just_updated_to_published = (
       !$first_save &&
-      $this->published &&
-      !$this->node->original->isPublished()
+      $node->isPublished() &&
+      !$node->original->isPublished()
     );
 
-    if (!$this->published || !$send_status_email) {
-      $this->sendType = FALSE;
-      return;
-    }
-
-    // The node is set to send email.
     if ($first_save_published || $just_updated_to_published) {
       // This is the first that the node has been published, should be queued
       // as a status update.
-      $this->sendType = 'status alert';
+      return 'status alert';
     }
     else {
-      // Look for a new situation update that needs to be sent.
-      // Grab the last situation update from the array of updates.
-      // Risk: Assumes only the last one might need to be sent.
-      $situationUpdatesList = $this->node
-        ->get('field_situation_updates')
-        ->referencedEntities();
-      $situationUpdatesLast = end($situationUpdatesList);
-
       $situation_update_send =
-        !empty($situationUpdatesLast) ?
-        $situationUpdatesLast->get('field_send_email_to_subscribers')->value :
+        !empty($latest_situation_update) ?
+        $latest_situation_update->get('field_send_email_to_subscribers')->value :
         FALSE;
 
       if (!$situation_update_send) {
-        return;
+        return '';
       }
 
       // This should be sent or was already sent.
       $situation_update_id =
-        !empty($situationUpdatesLast) ?
-        $situationUpdatesLast->get('id')->value :
+        !empty($latest_situation_update) ?
+        $latest_situation_update->get('id')->value :
         FALSE;
 
       // We need to see if the original situation update is not a match.
       // If it is NOT a match, this needs to be sent.
-      $situationUpdatesListOriginal = $this->node->original
+      $situation_updates_list_original = $node->original
         ->get('field_situation_updates')
         ->referencedEntities();
-      $situationUpdatesLastOriginal = end($situationUpdatesListOriginal);
+      $situation_updates_last_original = end($situation_updates_list_original);
       $situation_update_id_original =
-        !empty($situationUpdatesLastOriginal) ?
-        $situationUpdatesLastOriginal->get('id')->value :
+        !empty($situation_updates_last_original) ?
+        $situation_updates_last_original->get('id')->value :
         FALSE;
 
       if ($situation_update_id !== $situation_update_id_original) {
         // This is a new situation update that needs to be sent.
-        $this->situationUpdate = $situationUpdatesLast;
-        $this->sendType = 'situation update';
+        return 'situation update';
       }
     }
   }
