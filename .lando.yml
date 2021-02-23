@@ -7,15 +7,17 @@ config:
 
 events:
   post-db-import:
-    # @TODO: Change to `composer yaml-tests va/deploy` once the "filter argument" feature is in place.
-    - appserver: cd $LANDO_WEBROOT && /app/bin/drush cache-rebuild -y
-    - appserver: cd $LANDO_WEBROOT && /app/bin/drush updatedb -y
-    - appserver: cd $LANDO_WEBROOT && /app/bin/drush cache-rebuild -y
-    - appserver: cd $LANDO_WEBROOT && /app/bin/drush config:import -y
-    - appserver: cd $LANDO_WEBROOT && /app/bin/drush cache-rebuild -y
+    # Follows `drush deploy` sequence recommendations - https://www.drush.org/latest/deploycommand/
+    # Replace with `drush deploy` once Drush 10 is upgraded
+    # If updated, also update in devops:post-deploy-tasks.yml and .tugboat/config.yml
+    - appserver: cd $LANDO_WEBROOT && drush updatedb --cache-clear=0 -y
+    - appserver: cd $LANDO_WEBROOT && drush cache-rebuild -y
+    - appserver: cd $LANDO_WEBROOT && drush config:import -y
+    - appserver: cd $LANDO_WEBROOT && drush cache-rebuild -y
 
   # Runs composer install after app starts
   post-start:
+    # Composer options are in composer.json, 'config' key.
     - appserver: cd $LANDO_MOUNT && composer install
     # Pulled from https://github.com/AaronFeledy/lando-examples/tree/master/landofile-changed-alert.
     # Alert user if landofile and current environment are out of sync.
@@ -23,8 +25,10 @@ events:
 
   # After code changes
   post-update:
+    # Composer options are in composer.json, 'config' key.
     - appserver: cd $LANDO_MOUNT && composer install
-    - appserver: cd $LANDO_WEBROOT && drush updb -y &&  drush cr -y
+    - appserver: cd $LANDO_WEBROOT && drush updatedb --cache-clear=0 -y
+    - appserver: cd $LANDO_WEBROOT && drush cache:rebuild -y
 
 services:
   appserver:
@@ -109,7 +113,7 @@ tooling:
     cmd: /app/scripts/lando-precommit.sh
 
   test:
-    description: Run all VA.gov tests, as defined in tests.yml. Add arguments to run subsets of tests. For example. "lando test deploy" will run all of the "va/deploy/*" tests.
+    description: Run all VA.gov tests, as defined in tests.yml. Add arguments to run subsets of tests. For example. "lando test web" will run all of the "va/web/*" tests.
     service: appserver
     cmd: composer yaml-tests
 
