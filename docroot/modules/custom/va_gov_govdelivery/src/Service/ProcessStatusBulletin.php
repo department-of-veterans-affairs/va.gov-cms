@@ -138,11 +138,10 @@ class ProcessStatusBulletin {
         ->situationUpdate
         ->get('field_wysiwyg')
         ->value;
-      $time = $this
+      $time = (int) $this
         ->situationUpdate
-        ->get('field_date_and_time')
-        ->date
-        ->getTimestamp();
+        ->get('field_datetime_range_timezone')
+        ->value;
       $time = $this->dateFormatter->format($time, 'custom', 'n/j/Y h:i A T');
       $subject_prefix = "Situation Update";
     }

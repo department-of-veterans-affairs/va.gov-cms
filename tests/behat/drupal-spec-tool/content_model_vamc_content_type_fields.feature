@@ -23,7 +23,6 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Event | Additional registration  information | field_additional_information_abo | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | Event | Address | field_address | Address |  | 1 | Address |  |
 | Content type | Event | Cost | field_event_cost | Text (plain) |  | 1 | Textfield with counter |  |
-| Content type | Event | Date and time | field_date | Date range |  | 1 | -- Disabled -- |  |
 | Content type | Event | Date and time | field_datetime_range_timezone | Smart date range |  | 1 | Date and time range with timezone |  |
 | Content type | Event | Where should the event be listed? | field_listing | Entity reference | Required | 1 | Select list |  |
 | Content type | Event | Facility location | field_facility_location | Entity reference |  | 1 | Select list |  |
@@ -75,7 +74,6 @@ Feature: Content model: VAMC Content Type fields
 | Content type | News Release | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | News Release | PDF of Press Release | field_pdf_version | Entity reference |  | 1 | Media library |  |
 | Content type | News Release | Release date | field_release_date | Date |  | 1 | Date and time |  |
-| Content type | News Release | Release date | field_datetime_range_timezone | Smart date range |  | 1 | -- Disabled -- | Translatable |
 | Content type | News Releases List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | News Releases List | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | News Releases List | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |

@@ -186,7 +186,12 @@ class BulletinQueueTest extends ExistingSiteBase {
    */
   private function createSituationUpdate(NodeInterface &$node, string $message) : void {
     $paragraph = Paragraph::create(['type' => 'situation_update']);
-    $paragraph->set('field_date_and_time', date('Y-m-d\TH:i:s', time()));
+
+    $paragraph->set('field_datetime_range_timezone', [
+      'value' => time(),
+      'end_value' => time(),
+    ]);
+
     $paragraph->set('field_send_email_to_subscribers', 1);
     $paragraph->set('field_wysiwyg', $message);
     $paragraph->save();
