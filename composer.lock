@@ -5046,30 +5046,30 @@
         },
         {
             "name": "drupal/feature_toggle",
-            "version": "1.2.0",
+            "version": "dev-1.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/feature_toggle.git",
-                "reference": "8.x-1.2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/feature_toggle-8.x-1.2.zip",
-                "reference": "8.x-1.2",
-                "shasum": "7416f2f8327c5b3ed5eac70e709259e90c411137"
+                "reference": "8753ecb9a6a541fdea2de04a4640aa6b998a8df4"
             },
             "require": {
                 "drupal/core": "~8.0"
             },
             "type": "drupal-module",
             "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
                 "drupal": {
-                    "version": "8.x-1.2",
-                    "datestamp": "1508931847",
+                    "version": "8.x-1.1+1-dev",
+                    "datestamp": "1508931243",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
                     }
+                },
+                "patches_applied": {
+                    "Make compatible with d9": "https://www.drupal.org/files/issues/2020-06-06/feature_toggle.1.x-dev.rector.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5090,7 +5090,8 @@
             "homepage": "https://www.drupal.org/project/feature_toggle",
             "support": {
                 "source": "https://git.drupalcode.org/project/feature_toggle"
-            }
+            },
+            "time": "2017-10-25T11:31:01+00:00"
         },
         {
             "name": "drupal/field_formatter",
@@ -21546,6 +21547,7 @@
         "drupal/entity_reference_validators": 15,
         "drupal/entityqueue": 10,
         "drupal/fast_404": 15,
+        "drupal/feature_toggle": 20,
         "drupal/fieldhelptext": 10,
         "drupal/graphql_metatag": 20,
         "drupal/hms_field": 10,
