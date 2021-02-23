@@ -125,6 +125,7 @@ class ProcessStatusBulletin {
     if ($this->sendType === 'status alert') {
       $queue_id = "{$node->get('nid')->value}-alert";
       $template['#message'] = $node->get('field_body')->value;
+      $template['#situation_update'] = FALSE;
       $subject_prefix = "Alert";
       $time = time();
       $time = $this->dateFormatter->format($time, 'custom', 'n/j/Y h:i A T');
