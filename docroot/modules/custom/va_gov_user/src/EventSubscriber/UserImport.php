@@ -120,10 +120,6 @@ class UserImport implements EventSubscriberInterface {
    *
    * @param \Drupal\migrate\Event\MigrateImportEvent $event
    *   Information about the event that triggered this function.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @throws \Drupal\migrate\MigrateException
    */
   public function onMigratePostImport(MigrateImportEvent $event) : void {
     if ($event->getMigration()->label() !== 'User Import') {
@@ -152,11 +148,6 @@ class UserImport implements EventSubscriberInterface {
    *
    * @param \Drupal\migrate\Event\MigratePostRowSaveEvent $event
    *   Information about the event that triggered this function.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   * @throws \Drupal\migrate\MigrateException
    */
   public function onMigratePostRowSave(MigratePostRowSaveEvent $event) : void {
     if ($event->getMigration()->label() !== 'User Import') {
@@ -177,7 +168,6 @@ class UserImport implements EventSubscriberInterface {
 
     if ($this->environmentDiscovery->isBRD()) {
       $this->enableSamlAuth($user);
-      $user->block();
     }
     else {
       $user->setPassword('drupal8');
@@ -192,10 +182,7 @@ class UserImport implements EventSubscriberInterface {
    * @param \Drupal\migrate\Event\MigratePreRowSaveEvent $event
    *   Information about the event that triggered this function.
    *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   * @throws \Drupal\migrate\MigrateException
+   * @throws \Drupal\migrate\MigrateSkipRowException;
    */
   public function onMigratePreRowSave(MigratePreRowSaveEvent $event) : void {
     if ($event->getMigration()->label() !== 'User Import') {
@@ -211,6 +198,11 @@ class UserImport implements EventSubscriberInterface {
         'The user with email address @email was not created, since it is not a va.gov email address.',
         ['@email' => $email]
       ));
+    }
+
+    if ($this->environmentDiscovery->isBRD()) {
+      // Newly imported users are blocked on prod.
+      $row->setDestinationProperty('status', 0);
     }
   }
 

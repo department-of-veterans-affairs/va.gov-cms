@@ -7,11 +7,22 @@
 
 
     ### Lando Commands (commonly used ones.  See Lando docs for more.)
-    * `lando start -y`
-    * `lando rebuild -y`
-    * `lando composer nuke`  Destroy the vendor directory so it can be rebuilt
-        properly.
-    * `lando xdebug-on` | `lando xdebug-off` Turns [xdebug](debugging.md) on or off.
+    | Command | Description |
+    | --- | --- |
+    | `lando start -y` | Start the application |
+    | `lando rebuild -y` | Rebuild the application and re-run the setup commands |
+    | `lando composer nuke` | Destroy the vendor directory so it can be rebuilt properly. |
+    | `lando xdebug-on` / `lando xdebug-off` | Turns [xdebug](debugging.md) on or off. |
+    | `lando info` | View service URLs and ports |
+    
+    ### Mailhog
+    
+    [Mailhog](https://github.com/mailhog/MailHog) is an email testing tool that has two main functions:
+    
+    1. captures outgoing email from the application
+    2. provides a web UI for viewing outgoing emails
+
+    To access the UI, run `lando info` to see the mailhog URL and visit the service URL.
 
     ### Troubleshooting:
     * Sometimes after initial setup or `lando start`, Drush is not found. Running `lando rebuild -y` once or twice usually cures, if not, see: https://github.com/lando/lando/issues/580#issuecomment-354490298
