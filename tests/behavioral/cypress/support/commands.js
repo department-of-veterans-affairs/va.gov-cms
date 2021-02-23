@@ -69,10 +69,12 @@ Cypress.Commands.add('drupalAddUserWithRole', (role, username, password) => {
   cy.drupalDrushUserRoleAdd(username, role);
 });
 
-Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe) => {
-  return new Cypress.Promise(resolve => {
-    resolve($iframe.contents().find('body'));
-  });
+Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe, callback = () => { }) => {
+  return cy
+    .wrap($iframe)
+    .should(iframe => expect(iframe.contents().find('body')).to.exist)
+    .then(iframe => cy.wrap(iframe.contents().find('body')))
+    .within({}, callback)
 });
 
 Cypress.Commands.add("type_ckeditor", (element, content) => {

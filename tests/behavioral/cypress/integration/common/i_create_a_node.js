@@ -13,7 +13,7 @@ const creators = {
     cy.findAllByLabelText('Owner').select('Veterans Affairs', { force: true });
     cy.findAllByLabelText('Button Link').type('https://va.gov/', { force: true });
     cy.findAllByLabelText('Button Label').type('va.gov', { force: true });
-    cy.findAllByLabelText('Section Header').type(faker.lorem.sentence(), { force: true });
+    cy.findAllByLabelText('Section Header').type(faker.lorem.word(), { force: true });
     cy.findAllByLabelText('Text').type(faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('URL').type('https://va.gov/', { force: true });
     cy.findAllByLabelText('Link text').type('va.gov', { force: true });
