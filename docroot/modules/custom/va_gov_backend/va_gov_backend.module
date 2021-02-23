@@ -1891,8 +1891,8 @@ function _va_gov_backend_set_field_listing_value(EntityInterface &$entity, array
  * Alter the image_style_warmer form to insert a third option.
  */
 function va_gov_backend_form_image_style_warmer_settings_form_alter(array &$form, FormStateInterface $form_state) {
-  $image_styles_config = \Drupal::configFactory()->get('va_gov_backend.image_styles');
-  $image_styles = $image_styles_config->get('image_styles');
+  $image_styles_config = \Drupal::configFactory()->get('image_style_warmer.settings');
+  $image_styles = $image_styles_config->get('vagov_image_styles');
   $form['vagov_image_styles'] = [
     '#type' => 'checkboxes',
     '#title' => t('Late-generated image styles'),
@@ -1908,16 +1908,6 @@ function va_gov_backend_form_image_style_warmer_settings_form_alter(array &$form
       ],
     ],
   ];
-  $form['#submit'][] = '_va_gov_backend_form_image_style_warmer_settings_form_submit';
-}
-
-/**
- * Store our hacked-in settings for the image_style_warmer.
- */
-function _va_gov_backend_form_image_style_warmer_settings_form_submit(array $form, FormStateInterface $form_state) {
-  $image_styles_config = \Drupal::configFactory()->getEditable('va_gov_backend.image_styles');
-  $image_styles = $form_state->getValue('vagov_image_styles');
-  $image_styles_config->set('image_styles', $image_styles)->save(TRUE);
 }
 
 /**
@@ -1938,8 +1928,8 @@ function va_gov_backend_entity_update(EntityInterface $entity) {
  * Warm image styles during the request but after `image_widget_crop`.
  */
 function _va_gov_backend_image_style_warmer_warm_up(EntityInterface $entity) {
-  $image_styles_config = \Drupal::configFactory()->get('va_gov_backend.image_styles');
-  $image_styles = $image_styles_config->get('image_styles');
+  $image_styles_config = \Drupal::configFactory()->get('image_style_warmer.settings');
+  $image_styles = $image_styles_config->get('vagov_image_styles');
   $image_styles = array_filter($image_styles);
   if (!empty($image_styles)) {
     if (isset($entity) && $entity instanceof FieldableEntityInterface) {
