@@ -30,16 +30,19 @@ function va_gov_govdelivery_theme($existing, $type, $theme, $path) {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORMID_alter().
+ *
+ * Disable send email field for banner alerts so that the form will only
+ *  send initial email once.
  */
-function va_gov_govdelivery_form_alter(&$form, FormStateInterface $form_state, $form_id) : void {
-  if ($form_id !== 'node_full_width_banner_alert_edit_form') {
-    return;
-  }
-
+function va_gov_govdelivery_form_node_full_width_banner_alert_edit_form_alter(
+  &$form,
+  FormStateInterface $form_state
+) : void {
   $node = $form_state->getFormObject()->getEntity();
-  if ($node->isPublished() || ($node->moderation_state->value === 'published')) {
-    // Disable send email field, this form will only send initial email once.
+  if (
+    $node->isPublished() || ($node->moderation_state->value === 'published')
+  ) {
     // @todo Check node revisions in addition to current state, disable this
     // field if it was ever published.
     $form['field_operating_status_sendemail']['widget']['#disabled'] = TRUE;
