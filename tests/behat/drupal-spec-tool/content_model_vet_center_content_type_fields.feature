@@ -27,3 +27,5 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center Community Access Point | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center Community Access Point | Vet Center | field_vet_center | Entity reference | Required | 1 | Select list |  |
 | Content type | Vet Center Community Access Point | Vet center community access point description of service | field_body | Text (formatted, long) |  | 1 | -- Disabled -- | Translatable |
+| Content type | Vet Center Locations List | Owner | field_administration | Entity reference |  | 1 | Select list | Translatable |
+| Content type | Vet Center Locations List | Vet Center | field_vet_center | Entity reference |  | 1 | Select list |  |
