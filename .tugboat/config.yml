@@ -1,18 +1,26 @@
 services:
+  proxy:
+    image: tugboatqa/httpd
+    default: true
+    aliases:
+      - cms
+      - web
+    commands:
+      init:
+        - printf "\nInclude $TUGBOAT_ROOT/.tugboat/proxy-httpd.conf\n" >> /usr/local/apache2/conf/httpd.conf
+      build:
+        - printf 'SetEnvIf Request_URI ".*" QA_SUBDOMAIN=%s\n'
+          "$(echo "$TUGBOAT_PREVIEW_NAME" |
+          tr '[:upper:]' '[:lower:]' |
+          sed -e 's/[^a-z0-9]/-/g'
+          -e 's/-\+/-/g'
+          -e 's/\(^-\)\|\(-$\)//g')"
+          > $TUGBOAT_ROOT/qa_subdomain.conf
   # What to call the service hosting the site.
   php:
     # Use PHP 7.x with Apache; this syntax pulls in the latest version of PHP 7
     image: tugboatqa/php:7.1-apache
-
-    aliases:
-      - cms
-      - web
-
-    # Set this as the default service. This does a few things
-    #   1. Clones the git repository into the service container
-    #   2. Exposes port 80 to the Tugboat HTTP proxy
-    #   3. Routes requests to the preview URL to this service
-    default: true
+    checkout: true
 
     # Wait until the mysql service is done building
     depends: mysql
