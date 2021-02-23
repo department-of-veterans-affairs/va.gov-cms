@@ -1,0 +1,21 @@
+uuid: cd5a4729-c2fa-40e6-aaa4-92ced5f500f4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_vet_center_type_of_care
+    - taxonomy.vocabulary.health_care_service_taxonomy
+  module:
+    - options
+id: taxonomy_term.health_care_service_taxonomy.field_vet_center_type_of_care
+field_name: field_vet_center_type_of_care
+entity_type: taxonomy_term
+bundle: health_care_service_taxonomy
+label: 'Type of Care'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,29 @@
+uuid: b40e26c3-e87d-4a77-b3d0-e66fc34d5077
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_vet_center_call_center
+    - node.type.vet_center
+  module:
+    - entity_field_fetch
+id: node.vet_center.field_vet_center_call_center
+field_name: field_vet_center_call_center
+entity_type: node
+bundle: vet_center
+label: 'Vet Center call center'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_type: null
+    target_uuid: null
+    target_field: null
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '16142'
+  field_to_fetch: field_content_block
+  target_paragraph_uuid: 27feaa0b-6aff-4db8-bdbd-2a8c7ed8f91f
+field_type: entity_field_fetch

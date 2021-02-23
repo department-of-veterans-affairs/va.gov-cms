@@ -1,15 +1,13 @@
 uuid: 08beb486-3ff4-40de-874d-3f5b36b0b625
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.storage.node.field_date
     - node.type.event
   module:
     - content_moderation
     - datetime
-    - datetime_range
     - node
     - user
 id: listing_page_dashboard
@@ -185,71 +183,6 @@ display:
           view_mode: teaser
           entity_type: node
           plugin_id: rendered_entity
-        field_date:
-          id: field_date
-          table: node__field_date
-          field: field_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Date and time'
-          exclude: true
-          alter:
-            alter_text: false
-            text: '{{ field_date__value }}'
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: daterange_default
-          settings:
-            timezone_override: ''
-            format_type: long
-            separator: '-'
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
         moderation_state:
           id: moderation_state
           table: node_field_data
@@ -620,12 +553,18 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:core.entity_view_display.node.basic_landing_page.default'
+        - 'config:core.entity_view_display.node.basic_landing_page.teaser'
+        - 'config:core.entity_view_display.node.checklist.default'
+        - 'config:core.entity_view_display.node.checklist.teaser'
         - 'config:core.entity_view_display.node.documentation_page.default'
         - 'config:core.entity_view_display.node.documentation_page.teaser'
         - 'config:core.entity_view_display.node.event.default'
         - 'config:core.entity_view_display.node.event.teaser'
         - 'config:core.entity_view_display.node.event_listing.default'
         - 'config:core.entity_view_display.node.event_listing.teaser'
+        - 'config:core.entity_view_display.node.faq_multiple_q_a.default'
+        - 'config:core.entity_view_display.node.faq_multiple_q_a.teaser'
         - 'config:core.entity_view_display.node.full_width_banner_alert.default'
         - 'config:core.entity_view_display.node.full_width_banner_alert.ief_table'
         - 'config:core.entity_view_display.node.full_width_banner_alert.teaser'
@@ -642,11 +581,18 @@ display:
         - 'config:core.entity_view_display.node.health_services_listing.default'
         - 'config:core.entity_view_display.node.health_services_listing.teaser'
         - 'config:core.entity_view_display.node.landing_page.default'
+        - 'config:core.entity_view_display.node.landing_page.support_services_listing'
         - 'config:core.entity_view_display.node.landing_page.teaser'
         - 'config:core.entity_view_display.node.leadership_listing.default'
         - 'config:core.entity_view_display.node.leadership_listing.teaser'
         - 'config:core.entity_view_display.node.locations_listing.default'
         - 'config:core.entity_view_display.node.locations_listing.teaser'
+        - 'config:core.entity_view_display.node.media_list_images.default'
+        - 'config:core.entity_view_display.node.media_list_images.teaser'
+        - 'config:core.entity_view_display.node.media_list_videos.default'
+        - 'config:core.entity_view_display.node.media_list_videos.teaser'
+        - 'config:core.entity_view_display.node.nca_facility.default'
+        - 'config:core.entity_view_display.node.nca_facility.teaser'
         - 'config:core.entity_view_display.node.news_story.default'
         - 'config:core.entity_view_display.node.news_story.teaser'
         - 'config:core.entity_view_display.node.office.default'
@@ -663,15 +609,29 @@ display:
         - 'config:core.entity_view_display.node.press_releases_listing.teaser'
         - 'config:core.entity_view_display.node.publication_listing.default'
         - 'config:core.entity_view_display.node.publication_listing.teaser'
+        - 'config:core.entity_view_display.node.q_a.default'
+        - 'config:core.entity_view_display.node.q_a.support_services_listing'
+        - 'config:core.entity_view_display.node.q_a.teaser'
         - 'config:core.entity_view_display.node.regional_health_care_service_des.default'
         - 'config:core.entity_view_display.node.regional_health_care_service_des.teaser'
+        - 'config:core.entity_view_display.node.step_by_step.default'
+        - 'config:core.entity_view_display.node.step_by_step.teaser'
         - 'config:core.entity_view_display.node.story_listing.default'
         - 'config:core.entity_view_display.node.story_listing.teaser'
+        - 'config:core.entity_view_display.node.support_resources_detail_page.default'
+        - 'config:core.entity_view_display.node.support_resources_detail_page.teaser'
         - 'config:core.entity_view_display.node.support_service.default'
+        - 'config:core.entity_view_display.node.support_service.support_services_listing'
         - 'config:core.entity_view_display.node.support_service.teaser'
         - 'config:core.entity_view_display.node.vamc_operating_status_and_alerts.default'
         - 'config:core.entity_view_display.node.vamc_operating_status_and_alerts.teaser'
-        - 'config:field.storage.node.field_date'
+        - 'config:core.entity_view_display.node.va_form.default'
+        - 'config:core.entity_view_display.node.va_form.external_content'
+        - 'config:core.entity_view_display.node.va_form.teaser'
+        - 'config:core.entity_view_display.node.vba_facility.default'
+        - 'config:core.entity_view_display.node.vba_facility.teaser'
+        - 'config:core.entity_view_display.node.vet_center.default'
+        - 'config:core.entity_view_display.node.vet_center.teaser'
   block_1:
     display_plugin: block
     id: block_1
@@ -834,12 +794,18 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:core.entity_view_display.node.basic_landing_page.default'
+        - 'config:core.entity_view_display.node.basic_landing_page.teaser'
+        - 'config:core.entity_view_display.node.checklist.default'
+        - 'config:core.entity_view_display.node.checklist.teaser'
         - 'config:core.entity_view_display.node.documentation_page.default'
         - 'config:core.entity_view_display.node.documentation_page.teaser'
         - 'config:core.entity_view_display.node.event.default'
         - 'config:core.entity_view_display.node.event.teaser'
         - 'config:core.entity_view_display.node.event_listing.default'
         - 'config:core.entity_view_display.node.event_listing.teaser'
+        - 'config:core.entity_view_display.node.faq_multiple_q_a.default'
+        - 'config:core.entity_view_display.node.faq_multiple_q_a.teaser'
         - 'config:core.entity_view_display.node.full_width_banner_alert.default'
         - 'config:core.entity_view_display.node.full_width_banner_alert.ief_table'
         - 'config:core.entity_view_display.node.full_width_banner_alert.teaser'
@@ -856,11 +822,18 @@ display:
         - 'config:core.entity_view_display.node.health_services_listing.default'
         - 'config:core.entity_view_display.node.health_services_listing.teaser'
         - 'config:core.entity_view_display.node.landing_page.default'
+        - 'config:core.entity_view_display.node.landing_page.support_services_listing'
         - 'config:core.entity_view_display.node.landing_page.teaser'
         - 'config:core.entity_view_display.node.leadership_listing.default'
         - 'config:core.entity_view_display.node.leadership_listing.teaser'
         - 'config:core.entity_view_display.node.locations_listing.default'
         - 'config:core.entity_view_display.node.locations_listing.teaser'
+        - 'config:core.entity_view_display.node.media_list_images.default'
+        - 'config:core.entity_view_display.node.media_list_images.teaser'
+        - 'config:core.entity_view_display.node.media_list_videos.default'
+        - 'config:core.entity_view_display.node.media_list_videos.teaser'
+        - 'config:core.entity_view_display.node.nca_facility.default'
+        - 'config:core.entity_view_display.node.nca_facility.teaser'
         - 'config:core.entity_view_display.node.news_story.default'
         - 'config:core.entity_view_display.node.news_story.teaser'
         - 'config:core.entity_view_display.node.office.default'
@@ -877,15 +850,29 @@ display:
         - 'config:core.entity_view_display.node.press_releases_listing.teaser'
         - 'config:core.entity_view_display.node.publication_listing.default'
         - 'config:core.entity_view_display.node.publication_listing.teaser'
+        - 'config:core.entity_view_display.node.q_a.default'
+        - 'config:core.entity_view_display.node.q_a.support_services_listing'
+        - 'config:core.entity_view_display.node.q_a.teaser'
         - 'config:core.entity_view_display.node.regional_health_care_service_des.default'
         - 'config:core.entity_view_display.node.regional_health_care_service_des.teaser'
+        - 'config:core.entity_view_display.node.step_by_step.default'
+        - 'config:core.entity_view_display.node.step_by_step.teaser'
         - 'config:core.entity_view_display.node.story_listing.default'
         - 'config:core.entity_view_display.node.story_listing.teaser'
+        - 'config:core.entity_view_display.node.support_resources_detail_page.default'
+        - 'config:core.entity_view_display.node.support_resources_detail_page.teaser'
         - 'config:core.entity_view_display.node.support_service.default'
+        - 'config:core.entity_view_display.node.support_service.support_services_listing'
         - 'config:core.entity_view_display.node.support_service.teaser'
         - 'config:core.entity_view_display.node.vamc_operating_status_and_alerts.default'
         - 'config:core.entity_view_display.node.vamc_operating_status_and_alerts.teaser'
-        - 'config:field.storage.node.field_date'
+        - 'config:core.entity_view_display.node.va_form.default'
+        - 'config:core.entity_view_display.node.va_form.external_content'
+        - 'config:core.entity_view_display.node.va_form.teaser'
+        - 'config:core.entity_view_display.node.vba_facility.default'
+        - 'config:core.entity_view_display.node.vba_facility.teaser'
+        - 'config:core.entity_view_display.node.vet_center.default'
+        - 'config:core.entity_view_display.node.vet_center.teaser'
   block_2:
     display_plugin: block
     id: block_2
@@ -1041,12 +1028,18 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:core.entity_view_display.node.basic_landing_page.default'
+        - 'config:core.entity_view_display.node.basic_landing_page.teaser'
+        - 'config:core.entity_view_display.node.checklist.default'
+        - 'config:core.entity_view_display.node.checklist.teaser'
         - 'config:core.entity_view_display.node.documentation_page.default'
         - 'config:core.entity_view_display.node.documentation_page.teaser'
         - 'config:core.entity_view_display.node.event.default'
         - 'config:core.entity_view_display.node.event.teaser'
         - 'config:core.entity_view_display.node.event_listing.default'
         - 'config:core.entity_view_display.node.event_listing.teaser'
+        - 'config:core.entity_view_display.node.faq_multiple_q_a.default'
+        - 'config:core.entity_view_display.node.faq_multiple_q_a.teaser'
         - 'config:core.entity_view_display.node.full_width_banner_alert.default'
         - 'config:core.entity_view_display.node.full_width_banner_alert.ief_table'
         - 'config:core.entity_view_display.node.full_width_banner_alert.teaser'
@@ -1063,11 +1056,18 @@ display:
         - 'config:core.entity_view_display.node.health_services_listing.default'
         - 'config:core.entity_view_display.node.health_services_listing.teaser'
         - 'config:core.entity_view_display.node.landing_page.default'
+        - 'config:core.entity_view_display.node.landing_page.support_services_listing'
         - 'config:core.entity_view_display.node.landing_page.teaser'
         - 'config:core.entity_view_display.node.leadership_listing.default'
         - 'config:core.entity_view_display.node.leadership_listing.teaser'
         - 'config:core.entity_view_display.node.locations_listing.default'
         - 'config:core.entity_view_display.node.locations_listing.teaser'
+        - 'config:core.entity_view_display.node.media_list_images.default'
+        - 'config:core.entity_view_display.node.media_list_images.teaser'
+        - 'config:core.entity_view_display.node.media_list_videos.default'
+        - 'config:core.entity_view_display.node.media_list_videos.teaser'
+        - 'config:core.entity_view_display.node.nca_facility.default'
+        - 'config:core.entity_view_display.node.nca_facility.teaser'
         - 'config:core.entity_view_display.node.news_story.default'
         - 'config:core.entity_view_display.node.news_story.teaser'
         - 'config:core.entity_view_display.node.office.default'
@@ -1084,12 +1084,26 @@ display:
         - 'config:core.entity_view_display.node.press_releases_listing.teaser'
         - 'config:core.entity_view_display.node.publication_listing.default'
         - 'config:core.entity_view_display.node.publication_listing.teaser'
+        - 'config:core.entity_view_display.node.q_a.default'
+        - 'config:core.entity_view_display.node.q_a.support_services_listing'
+        - 'config:core.entity_view_display.node.q_a.teaser'
         - 'config:core.entity_view_display.node.regional_health_care_service_des.default'
         - 'config:core.entity_view_display.node.regional_health_care_service_des.teaser'
+        - 'config:core.entity_view_display.node.step_by_step.default'
+        - 'config:core.entity_view_display.node.step_by_step.teaser'
         - 'config:core.entity_view_display.node.story_listing.default'
         - 'config:core.entity_view_display.node.story_listing.teaser'
+        - 'config:core.entity_view_display.node.support_resources_detail_page.default'
+        - 'config:core.entity_view_display.node.support_resources_detail_page.teaser'
         - 'config:core.entity_view_display.node.support_service.default'
+        - 'config:core.entity_view_display.node.support_service.support_services_listing'
         - 'config:core.entity_view_display.node.support_service.teaser'
         - 'config:core.entity_view_display.node.vamc_operating_status_and_alerts.default'
         - 'config:core.entity_view_display.node.vamc_operating_status_and_alerts.teaser'
-        - 'config:field.storage.node.field_date'
+        - 'config:core.entity_view_display.node.va_form.default'
+        - 'config:core.entity_view_display.node.va_form.external_content'
+        - 'config:core.entity_view_display.node.va_form.teaser'
+        - 'config:core.entity_view_display.node.vba_facility.default'
+        - 'config:core.entity_view_display.node.vba_facility.teaser'
+        - 'config:core.entity_view_display.node.vet_center.default'
+        - 'config:core.entity_view_display.node.vet_center.teaser'
