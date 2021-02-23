@@ -69,6 +69,7 @@ source:
     - 'https://www.fargo.va.gov/locations/facilities.asp'
     - 'https://www.fayettevillear.va.gov/locations/facilities.asp'
     - 'https://www.fayettevillenc.va.gov/locations/facilities.asp'
+    - 'https://www.fingerlakes.va.gov/locations/facilities.asp'
     - 'https://www.fresno.va.gov/locations/facilities.asp'
     - 'https://www.grandjunction.va.gov/locations/facilities.asp'
     - 'https://www.hampton.va.gov/locations/facilities.asp'
@@ -156,11 +157,14 @@ source:
     - 'https://www.wichita.va.gov/locations/facilities.asp'
     - 'https://www.wilkes-barre.va.gov/locations/facilities.asp'
     - 'https://www.wilmington.va.gov/locations/facilities.asp'
+  request_options:
+    allow_redirects: false
   delimiter: "\t"
   enclosure: ''
   escape: ''
   header_offset: 0
   multi_value_delimiter: ''
+  enforce_row_column_count: true
   fields:
     -
       name: id
@@ -193,6 +197,7 @@ source:
   keys:
     - id
   track_changes: true
+  track_last_imported: true
   skip_count: true
   ids:
     id:
