@@ -64,8 +64,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   Whether or not this is an status update node.
    */
   protected function isStatusUpdateNode(EntityInterface $entity) : bool {
-    return $entity instanceof NodeInterface &&
-      $entity->getType() === 'full_width_banner_alert';
+    return ($entity instanceof NodeInterface) &&
+      ($entity->getType() === 'full_width_banner_alert');
   }
 
 }
