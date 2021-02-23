@@ -2,11 +2,13 @@
 
 namespace Drupal\va_gov_migrate\Plugin\migrate_plus\data_parser;
 
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\migrate\Exception\RequirementsException;
 use Drupal\migrate\MigrateException;
 use Drupal\migrate_plus\DataParserPluginBase;
 use League\Csv\Reader;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Obtain CSV data for migration.
@@ -26,6 +28,47 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
   protected $iterator;
 
   /**
+   * Logger.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
+  protected $logger;
+
+  /**
+   * The location of the current csv being processed.
+   *
+   * @var string
+   */
+  protected $currentUrl;
+
+  /**
+   * The index of the current row in the CSV being processed.
+   *
+   * @var int
+   */
+  protected $currentRowIndex;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, LoggerChannelFactoryInterface $logger) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->logger = $logger->get('migrate_plus');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('logger.factory')
+      );
+  }
+
+  /**
    * Retrieves the CSV data and returns it as an array.
    *
    * @param string $url
@@ -37,13 +80,36 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
    * @throws \GuzzleHttp\Exception\RequestException
    */
   protected function getSourceData($url) {
+    $this->currentUrl = $url;
     $data_fetcher = !empty($this->configuration['data_fetcher_plugin']) ? $this->configuration['data_fetcher_plugin'] : NULL;
-    $response = $this->getDataFetcherPlugin()->getResponseContent($url);
+    $response = $this->getDataFetcherPlugin()->getResponse($url);
 
     switch ($data_fetcher) {
       case 'http':
-        // This fetcher returns an object.
-        $content = $response->getContents();
+        $response_code = $response->getStatusCode();
+
+        if ($response_code === 200) {
+          // This fetcher returns an object.
+          $content = $response->getBody()->getContents();
+          $msg = "Migrating from `@url` ";
+          $variables = [
+            '@url' => $url,
+          ];
+          $this->logger->info($msg, $variables);
+        }
+        else {
+          // This request failed. Don't abort the entire migration just log an
+          // error and move on to next source.
+          $msg = "Could not process `@url` because it returned status @code : @phrase.";
+          $variables = [
+            '@url' => $url,
+            '@code' => $response_code,
+            '@phrase' => $response->getReasonPhrase(),
+          ];
+          $this->logger->error($msg, $variables);
+          // Curl was unsuccessful so provide empty content.
+          $content = '';
+        }
         break;
 
       case 'file':
@@ -141,7 +207,6 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
       chr(0xBB) => '&raquo;',
     ];
     $csv = html_entity_decode(mb_convert_encoding(strtr($csv, $map), 'UTF-8', 'ISO-8859-2'), ENT_QUOTES, 'UTF-8');
-
   }
 
   /**
@@ -176,10 +241,17 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
     if (!empty($header_offset) && is_numeric($header_offset)) {
       $reader->setOffset($header_offset);
     }
+    // These rows are not assigned their column headers.
+    $raw_rows = $reader->fetchAll();
 
     $data = [];
-    foreach ($reader->fetchAssoc($headers) as $row) {
-      $data[] = $this->expandRow($row);
+    foreach ($reader->fetchAssoc($headers) as $index => $row) {
+      $this->currentRowIndex = $index;
+      $raw_row = (isset($raw_rows[$index])) ? $raw_rows[$index] : [];
+      if ($this->rowGood($row, $raw_row)) {
+        // The number of columns is appropriate for the number of fields.
+        $data[] = $this->expandRow($row);
+      }
     }
 
     return $data;
@@ -217,6 +289,47 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
     $source_data = $this->getSourceData($url);
     $this->iterator = new \ArrayIterator($source_data);
     return TRUE;
+  }
+
+  /**
+   * Check to see if a row should be used.
+   *
+   * @param array $row
+   *   The array that represents the columns of the row.
+   * @param array $raw_row
+   *   The array that represents the non-header keyed row.
+   *
+   * @return bool
+   *   TRUE if the row should be used, FALSE if it should not.
+   */
+  protected function rowGood(array $row, array $raw_row) {
+    $enforce_row_column_count = (!empty($this->configuration['enforce_row_column_count'])) ? TRUE : FALSE;
+    if (empty($raw_row) || (empty(array_filter($raw_row)))) {
+      // The row is empty no need to process.
+      return FALSE;
+    }
+
+    if ($enforce_row_column_count) {
+      if (count($raw_row) === count($this->configuration['fields'])) {
+        // The row count is not suspicious.
+        return TRUE;
+      }
+      else {
+        // This row column counts don't match expected.
+        $msg = "Could not process row @row_num in '@csv' because it contained @count out of @expected columns.  Check the CSV for errors or set `enforce_row_column_count` to false in your migration.";
+        $variables = [
+          '@row_num' => $this->currentRowIndex,
+          '@csv' => $this->currentUrl,
+          '@count' => count($raw_row),
+          '@expected' => count($this->configuration['fields']),
+        ];
+        $this->logger->notice($msg, $variables);
+        return FALSE;
+      }
+    }
+    else {
+      return TRUE;
+    }
   }
 
   /**
