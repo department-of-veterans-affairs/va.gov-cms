@@ -18,7 +18,8 @@ Then(`the {string} derivative of the media image should match the fixture {strin
           const diff = new PNG({width, height});
           const differences = pixelmatch(fixtureImage.data, derivativeImage.data, diff.data, width, height);
           const diffData = PNG.sync.write(diff).toString('binary');
-          const path = `cypress/screenshots/pixelmatch_diffs/${cy.state('ctx').test.title}.png`;
+          const path =
+            `cypress/screenshots/pixelmatch_diffs/${cy.state('ctx').test.title}.png`;
           cy.writeFile(path, diffData, 'binary');
           // For right now, let's say that no more than 5% of pixels can be different.
           const threshold = width * height * .05;
