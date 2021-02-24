@@ -16,6 +16,20 @@ use Drupal\path_alias\AliasManager;
 class ProcessStatusBulletin {
 
   /**
+   * Send type for situation updates.
+   *
+   * @var string
+   */
+  const SEND_TYPE_SITUATION = 'situation update';
+
+  /**
+   * Send type for status alerts.
+   *
+   * @var string
+   */
+  const SEND_TYPE_STATUS = 'status alert';
+
+  /**
    * Drupal\govdelivery_bulletins\Service\AddBulletinToQueue definition.
    *
    * @var \Drupal\govdelivery_bulletins\Service\AddBulletinToQueue
@@ -128,10 +142,10 @@ class ProcessStatusBulletin {
     $template['#vamc_url'] = $vamc['vamc_path'];
     $template['#ops_page_url'] = $vamc['vamc_op_status_path'];
 
-    if ($send_type === 'status alert') {
+    if ($send_type === self::SEND_TYPE_STATUS) {
       $subject_prefix = 'Alert';
     }
-    elseif ($send_type === 'situation update') {
+    elseif ($send_type === self::SEND_TYPE_SITUATION) {
       $subject_prefix = 'Situation Update';
     }
     $subject = "{$subject_prefix}: {$vamc['vamc_title']}";
@@ -168,11 +182,11 @@ class ProcessStatusBulletin {
   protected function getQueueId(NodeInterface $node, $send_type) : string {
     $queue_type = '';
 
-    if ($send_type === 'status alert') {
+    if ($send_type === self::SEND_TYPE_STATUS) {
       $queue_type = 'alert';
     }
 
-    if ($send_type === 'situation update') {
+    if ($send_type === self::SEND_TYPE_SITUATION) {
       $queue_type = 'update';
     }
 
@@ -200,13 +214,13 @@ class ProcessStatusBulletin {
       '#theme' => 'va_gov_body_alert',
     ];
 
-    if ($send_type === 'status alert') {
+    if ($send_type === self::SEND_TYPE_STATUS) {
       $template['#message'] = $node->get('field_body')->value;
       $template['#situation_update'] = FALSE;
       $time = time();
       $time = $this->dateFormatter->format($time, 'custom', 'n/j/Y h:i A T');
     }
-    elseif ($send_type === 'situation update') {
+    elseif ($send_type === self::SEND_TYPE_SITUATION) {
       $template['#situation_update'] = TRUE;
       $template['#message'] = $latest_situation_update
         ->get('field_wysiwyg')
@@ -320,7 +334,7 @@ class ProcessStatusBulletin {
     if ($first_save_published || $just_updated_to_published) {
       // This is the first that the node has been published, should be queued
       // as a status update.
-      return 'status alert';
+      return self::SEND_TYPE_STATUS;
     }
     else {
       $situation_update_send =
@@ -351,7 +365,7 @@ class ProcessStatusBulletin {
 
       if ($situation_update_id !== $situation_update_id_original) {
         // This is a new situation update that needs to be sent.
-        return 'situation update';
+        return self::SEND_TYPE_SITUATION;
       }
     }
   }
