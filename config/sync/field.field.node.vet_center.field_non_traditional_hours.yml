@@ -1,0 +1,29 @@
+uuid: b5bcad92-e73c-443f-a5f9-83747b792c98
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_non_traditional_hours
+    - node.type.vet_center
+  module:
+    - entity_field_fetch
+id: node.vet_center.field_non_traditional_hours
+field_name: field_non_traditional_hours
+entity_type: node
+bundle: vet_center
+label: 'Non-traditional hours'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_type: null
+    target_uuid: null
+    target_field: null
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '16142'
+  field_to_fetch: field_content_block
+  target_paragraph_uuid: da491d60-a25f-4f08-b9de-db8b5ba42e0d
+field_type: entity_field_fetch

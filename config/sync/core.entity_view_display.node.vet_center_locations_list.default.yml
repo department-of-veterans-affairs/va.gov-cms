@@ -1,0 +1,32 @@
+uuid: 5a5a620c-8564-4ecd-9285-2057d9cdd822
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.vet_center_locations_list.field_administration
+    - field.field.node.vet_center_locations_list.field_vet_center
+    - node.type.vet_center_locations_list
+  module:
+    - user
+id: node.vet_center_locations_list.default
+targetEntityType: node
+bundle: vet_center_locations_list
+mode: default
+content:
+  field_vet_center:
+    weight: 1
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  search_api_excerpt: true

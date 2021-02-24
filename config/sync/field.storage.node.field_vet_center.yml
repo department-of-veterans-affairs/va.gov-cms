@@ -1,17 +1,16 @@
-uuid: 3b935a6a-1c8d-4b8c-9f94-e9585c7a44b0
+uuid: e8e406e4-6a1c-4b30-a4df-8f5d51981b3e
 langcode: en
 status: true
 dependencies:
   module:
-    - datetime_range
     - node
-id: node.field_date
-field_name: field_date
+id: node.field_vet_center
+field_name: field_vet_center
 entity_type: node
-type: daterange
+type: entity_reference
 settings:
-  datetime_type: datetime
-module: datetime_range
+  target_type: node
+module: core
 locked: false
 cardinality: 1
 translatable: true

@@ -76,7 +76,7 @@ class ProcessStatusBulletin {
       // Pull the data from the situation update fields $this->situationUpdate.
       $template_variables['message'] = $this->situationUpdate->get('field_wysiwyg')->value;
       $template_variables['situation_update'] = TRUE;
-      $time = $this->situationUpdate->get('field_date_and_time')->date->getTimestamp();
+      $time = (int) $this->situationUpdate->get('field_datetime_range_timezone')->value;
       $time = \Drupal::service('date.formatter')->format($time, 'custom', 'n/j/Y h:i A T');
       $subject_prefix = "Situation Update";
     }
