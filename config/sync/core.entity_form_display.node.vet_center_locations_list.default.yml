@@ -1,0 +1,92 @@
+uuid: 9fde8ad5-8fbb-4767-8118-5c065835aeff
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.vet_center_locations_list.field_administration
+    - field.field.node.vet_center_locations_list.field_vet_center
+    - node.type.vet_center_locations_list
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - field_group
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 3
+      format_type: details_sidebar
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: true
+        required_fields: true
+        weight: 0
+      label: Governance
+    group_ed:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+id: node.vet_center_locations_list.default
+targetEntityType: node
+bundle: vet_center_locations_list
+mode: default
+content:
+  field_administration:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_vet_center:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 7
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 5
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  url_redirects:
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true

@@ -79,7 +79,7 @@ class ContentReleaseStatusController extends ControllerBase {
     $timestamp = 0;
 
     /** @var \Psr\Http\Message\ResponseInterface $build_file */
-    $build_file = $this->httpClient->request('GET', 'https://va.gov/BUILD.txt');
+    $build_file = $this->httpClient->request('GET', 'https://www.va.gov/BUILD.txt');
 
     $body = $build_file->getBody();
     if (preg_match('/BUILDTIME=([0-9]*)/', $body, $matches)) {
