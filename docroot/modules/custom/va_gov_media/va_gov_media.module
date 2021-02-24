@@ -54,13 +54,13 @@ function va_gov_media_entity_update(EntityInterface $entity) {
  * Should be removed as part of va.gov-cms#4425 .
  */
 function _va_gov_media_image_style_warmer_warm_up(EntityInterface $entity) {
+  if (!isset($entity) || !($entity instanceof FieldableEntityInterface)) {
+    return;
+  }
   $image_styles_config = \Drupal::configFactory()->get('image_style_warmer.settings');
   $image_styles = $image_styles_config->get('vagov_image_styles');
   $image_styles = array_filter($image_styles);
   if (empty($image_styles)) {
-    return;
-  }
-  if (!isset($entity) || !($entity instanceof FieldableEntityInterface)) {
     return;
   }
   foreach ($entity->getFields() as $entity_fields) {
