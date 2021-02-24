@@ -1,5 +1,7 @@
 <?php
 
+// @codingStandardsIgnoreFile
+
 namespace Drupal\va_gov_content_export;
 
 use Drupal\Core\Config\StorageInterface;
