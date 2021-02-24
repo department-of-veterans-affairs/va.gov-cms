@@ -13,7 +13,6 @@ Then(`the {string} derivative of the media image should match the fixture {strin
         const derivativeImage = PNG.sync.read(new Buffer(response.body, 'binary'));
         const width = derivativeImage.width;
         const height = derivativeImage.height;
-        console.log(derivativeImage);
         cy.fixture(fixture, 'binary').then((fixtureBody) => {
           const fixtureImage = PNG.sync.read(new Buffer(fixtureBody, 'binary'));
           const diff = new PNG({width, height});
