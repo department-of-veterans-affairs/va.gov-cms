@@ -107,7 +107,6 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Service location address | Clinic name | field_clinic_name | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Service location address | Use the facility's street address? | field_use_facility_address | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Service location address | Wing, Floor, or Room Number | field_wing_floor_or_room_number | Text (plain) |  | 1 | Textfield with counter |  |
-| Paragraph type | Situation update | Date and time | field_date_and_time | Date | Required | 1 | -- Disabled -- |  |
 | Paragraph type | Situation update | Date and time | field_datetime_range_timezone | Smart date range | Required | 1 | Date and time range with timezone |  |
 | Paragraph type | Situation update | Send email to subscribers via GovDelivery? | field_send_email_to_subscribers | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Situation update | Update | field_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |

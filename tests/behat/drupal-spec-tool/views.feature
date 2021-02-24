@@ -23,7 +23,7 @@ Feature: Views
 | Content entity browsers | content_entity_browsers | Content | Enabled | Collection of Entity Browsers to use for field widgets configuration in form displays. |
 | Content Entity Reference Source | content_entity_reference_source | Content | Enabled |  |
 | Content release logs | content_release_logs | Log entries | Enabled | Shows content release job log entries |
-| Date fields | date_fields | Content | Enabled |  |
+| Date fields | date_fields | Content | Disabled |  |
 | Facility Governance | facility_governance | Content | Enabled | Provides facility management tools. |
 | Files | files | Files | Enabled | Find and manage files. |
 | File browsers | file_browsers | Media | Enabled |  |
@@ -56,7 +56,7 @@ Feature: Views
 | User history | user_history | User history | Enabled |  |
 | User history list | user_history_list | User history | Enabled |  |
 | User email csv | user_email_csv | Users | Enabled |  |
-| Listing page dashboard | listing_page_dashboard | Content | Enabled |  |
+| Listing page dashboard | listing_page_dashboard | Content | Disabled |  |
 | Custom block entity browsers | custom_block_entity_browsers | Custom Block | Enabled | For placing on content forms |
 | Services | services | Content | Enabled | Lists of services for facility pages, health services lists, etc |
 | Recent content | content_recent | Content | Disabled | Recent content. |
