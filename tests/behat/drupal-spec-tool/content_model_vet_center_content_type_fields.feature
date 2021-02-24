@@ -6,7 +6,7 @@ Feature: Content model: Vet Center Content Type fields
 
   @dst @field_type @content_type_fields @dstfields
      Scenario: Fields
-       Then exactly the following fields should exist for bundles "vet_center" of entity type node
+       Then exactly the following fields should exist for bundles "vet_center,vet_center_cap,vet_center_facility_health_servi,vet_center_locations_list,vet_center_satelite_facility" of entity type node
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
 | Content type | Vet Center | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Vet Center | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
@@ -19,3 +19,13 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Vet Center | Phone Number | field_phone_number | Telephone number |  | 1 | Telephone number | Translatable |
 | Content type | Vet Center | Vet Center call center | field_vet_center_call_center | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
+| Content type | Vet Center Community Access Point | Address | field_address | Address | Required | 1 | Address | Translatable |
+| Content type | Vet Center Community Access Point | Geographical identifier | field_geographical_identifier | Text (plain) | Required | 1 | Textfield |  |
+| Content type | Vet Center Community Access Point | Hours | field_facility_hours | Table Field |  | 1 | Table Field | Translatable |
+| Content type | Vet Center Community Access Point | Image | field_media | Entity reference |  | 1 | Media library  | Translatable |
+| Content type | Vet Center Community Access Point | Located at | field_vet_center_cap_location | Text (plain) | Required | 1 | Textfield |  |
+| Content type | Vet Center Community Access Point | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Vet Center Community Access Point | Vet Center | field_vet_center | Entity reference | Required | 1 | Select list |  |
+| Content type | Vet Center Community Access Point | Vet center community access point description of service | field_body | Text (formatted, long) |  | 1 | -- Disabled -- | Translatable |
+| Content type | Vet Center Locations List | Owner | field_administration | Entity reference |  | 1 | Select list | Translatable |
+| Content type | Vet Center Locations List | Vet Center | field_vet_center | Entity reference |  | 1 | Select list |  |
