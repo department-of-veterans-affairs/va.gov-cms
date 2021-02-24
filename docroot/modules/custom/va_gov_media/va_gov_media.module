@@ -57,19 +57,17 @@ function _va_gov_media_image_style_warmer_warm_up(EntityInterface $entity) {
   $image_styles_config = \Drupal::configFactory()->get('image_style_warmer.settings');
   $image_styles = $image_styles_config->get('vagov_image_styles');
   $image_styles = array_filter($image_styles);
-  if (
-    !empty($image_styles)
-    && isset($entity)
-    && $entity instanceof FieldableEntityInterface
-  ) {
-    foreach ($entity->getFields() as $entity_fields) {
-      if ($entity_fields instanceof FileFieldItemList) {
-        foreach ($entity_fields->getValue() as $entity_file_field_value) {
-          if (!empty($entity_file_field_value) && $entity_file_field_value->entity) {
-            \Drupal::service('image_style_warmer.warmer')
-              ->doWarmUp($entity_file_field_value->entity, array_keys($image_styles));
-          }
-        }
+  if (empty($image_styles)) {
+    return;
+  }
+  if (!isset($entity) || !($entity instanceof FieldableEntityInterface)) {
+    return;
+  }
+  foreach ($entity->getFields() as $entity_fields) {
+    if ($entity_fields instanceof FileFieldItemList) {
+      foreach ($entity_fields->referencedEntities as $file_entity) {
+        \Drupal::service('image_style_warmer.warmer')
+          ->doWarmUp($file_entity, array_keys($image_styles));
       }
     }
   }

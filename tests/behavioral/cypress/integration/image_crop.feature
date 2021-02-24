@@ -1,4 +1,4 @@
- Feature: CMS Users are able to manually crop images
+Feature: CMS Users are able to manually crop images
   In order to control the presentation of images
   As anyone involved in the project
   I need to be able to manually crop images
