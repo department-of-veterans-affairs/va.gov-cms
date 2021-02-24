@@ -1,4 +1,7 @@
 import '@testing-library/cypress/add-commands';
+import 'cypress-file-upload';
+
+const compareSnapshotCommand = require('cypress-visual-regression/dist/command');
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -39,12 +42,22 @@ Cypress.Commands.add('drupalLogout', () => {
 
 Cypress.Commands.add('drupalDrushCommand', (command) => {
   let cmd = 'drush %command';
+  if (Cypress.env('VAGOV_INTERACTIVE')) {
+    cmd = 'lando drush %command';
+  }
   if (typeof command === 'string') {
     command = [
       command,
     ];
   }
   return cy.exec(cmd.replace('%command', command.join(' ')));
+});
+
+Cypress.Commands.add('drupalDrushEval', (php) => {
+  return cy.drupalDrushCommand([
+    'eval',
+    `'${php.replace(/'/g, `'\\''`)}'`,
+  ]);
 });
 
 Cypress.Commands.add('drupalDrushUserCreate', (username, password) => {
@@ -73,8 +86,7 @@ Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe, callback = 
   return cy
     .wrap($iframe)
     .should(iframe => expect(iframe.contents().find('body')).to.exist)
-    .then(iframe => cy.wrap(iframe.contents().find('body')))
-    .within({}, callback)
+    .then(iframe => cy.wrap(iframe.contents().find('body')));
 });
 
 Cypress.Commands.add("type_ckeditor", (element, content) => {
@@ -82,3 +94,16 @@ Cypress.Commands.add("type_ckeditor", (element, content) => {
     win.CKEDITOR.instances[element].setData(content);
   });
 });
+
+Cypress.Commands.add('scrollToSelector', (selector) => {
+  cy.document().then((document) => {
+    const htmlElement = document.querySelector('html');
+    if (htmlElement) {
+      htmlElement.style.scrollBehavior = 'inherit';
+    }
+  })
+  cy.get(selector).scrollIntoView({ offset: {top: 0}});
+  return cy.get(selector);
+})
+
+compareSnapshotCommand();
