@@ -7,13 +7,11 @@ Then(`the {string} derivative of the media image should match the fixture {strin
   cy.window().then((window) => {
     cy.get('@mediaImageUrl').then((url) => {
       const derivativeUrl = url.replace('/files/', `/files/styles/${derivative}/public/`);
-      console.log('Derivative URL', derivativeUrl);
       cy.wrap(derivativeUrl).as('mediaImageDerivativeUrl');
       cy.request({ url: derivativeUrl, encoding: 'binary' }).then((response) => {
         const derivativeImage = PNG.sync.read(new Buffer(response.body, 'binary'));
         const width = derivativeImage.width;
         const height = derivativeImage.height;
-        console.log(derivativeImage);
         cy.fixture(fixture, 'binary').then((fixtureBody) => {
           const fixtureImage = PNG.sync.read(new Buffer(fixtureBody, 'binary'));
           const diff = new PNG({width, height});
