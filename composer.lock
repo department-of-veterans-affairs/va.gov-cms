@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "504fd1c4fbf298ce7130e16c744e80e9",
+    "content-hash": "3566d9bbe8e462b72ee94b9dfaf6369b",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2738,6 +2738,10 @@
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
                     }
+                },
+                "patches_applied": {
+                    "Make d9 compatible": "https://www.drupal.org/files/issues/2021-02-11/3197953.patch",
+                    "Remove delete hook": "https://www.drupal.org/files/issues/2021-02-24/delete-hook-added-in-dev-causes-test-failures.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
