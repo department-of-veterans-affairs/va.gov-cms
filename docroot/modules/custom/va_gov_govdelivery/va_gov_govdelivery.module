@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_theme().
@@ -36,15 +37,38 @@ function va_gov_govdelivery_theme($existing, $type, $theme, $path) {
  *  send initial email once.
  */
 function va_gov_govdelivery_form_node_full_width_banner_alert_edit_form_alter(
-  &$form,
+  array &$form,
   FormStateInterface $form_state
 ) : void {
   $node = $form_state->getFormObject()->getEntity();
-  if (
-    $node->isPublished() || ($node->moderation_state->value === 'published')
-  ) {
-    // @todo Check node revisions in addition to current state, disable this
-    // field if it was ever published.
+  if (va_gov_govdelivery_node_has_ever_been_published($node)) {
     $form['field_operating_status_sendemail']['widget']['#disabled'] = TRUE;
   }
+}
+
+/**
+ * Check if the node has ever been published.
+ *
+ * @param \Drupal\node\NodeInterface $node
+ *   The node to check.
+ *
+ * @return bool
+ *   Whether or not the node has ever been published.
+ */
+function va_gov_govdelivery_node_has_ever_been_published(NodeInterface $node) : bool {
+  $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+  $revision_ids = $node_storage->revisionIds($node);
+  sort($revision_ids);
+
+  foreach (array_reverse($revision_ids) as $revision_id) {
+    $node_revision = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadRevision($revision_id);
+
+    if ($node_revision->isPublished()) {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
 }
