@@ -18,4 +18,4 @@ if [ -n "$CMS_IS_BRD" ]; then
 fi
 
 npm install
-npm run test:${1}
+npm run test:${1} "${@:2}"

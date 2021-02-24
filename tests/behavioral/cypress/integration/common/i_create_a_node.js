@@ -31,8 +31,8 @@ const creators = {
   }
 };
 
-Given(`I create a {string} node`, (contentType) => {
+Given('I create a {string} node', (contentType) => {
   let creator = creators[contentType];
   assert.isNotNull(creator, `I do not know how to create ${contentType} nodes yet.  Please add a definition in ${__filename}.`);
-  creators[contentType]();
+  creator();
 });
