@@ -8,6 +8,10 @@ dependencies:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_health_service_api_id
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
     - field.field.taxonomy_term.health_care_service_taxonomy.field_service_type_of_care
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_com_conditions
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_friendly_name
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_service_descrip
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_type_of_care
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vha_healthservice_stopcode
     - taxonomy.vocabulary.health_care_service_taxonomy
   module:
@@ -51,6 +55,36 @@ content:
     region: content
   field_service_type_of_care:
     weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_vet_center_com_conditions:
+    weight: 8
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_vet_center_friendly_name:
+    weight: 7
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_vet_center_service_descrip:
+    weight: 9
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_vet_center_type_of_care:
+    weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }

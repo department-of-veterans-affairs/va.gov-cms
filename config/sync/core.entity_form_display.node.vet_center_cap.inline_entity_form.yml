@@ -1,0 +1,113 @@
+uuid: 421e86a8-974e-412e-b324-32808b7176ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.inline_entity_form
+    - field.field.node.vet_center_cap.field_address
+    - field.field.node.vet_center_cap.field_administration
+    - field.field.node.vet_center_cap.field_body
+    - field.field.node.vet_center_cap.field_facility_hours
+    - field.field.node.vet_center_cap.field_geographical_identifier
+    - field.field.node.vet_center_cap.field_media
+    - field.field.node.vet_center_cap.field_vet_center
+    - field.field.node.vet_center_cap.field_vet_center_cap_location
+    - node.type.vet_center_cap
+  module:
+    - field_group
+    - text
+third_party_settings:
+  field_group:
+    group_governance:
+      children: {  }
+      parent_name: ''
+      weight: 16
+      format_type: details_sidebar
+      region: hidden
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: true
+        required_fields: true
+        weight: 0
+      label: Governance
+    group_health_service_and_facilit:
+      children:
+        - field_regional_health_service
+      parent_name: ''
+      weight: 13
+      format_type: details
+      region: hidden
+      format_settings:
+        id: ''
+        classes: ''
+        description: 'This should generally not be changed after the content is created.'
+        open: false
+        required_fields: true
+      label: 'Health service and facility basic info'
+    group_ed:
+      children:
+        - moderation_state
+      parent_name: ''
+      weight: 15
+      format_type: fieldset
+      region: hidden
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+    group_basic_location_data:
+      children:
+        - field_address
+        - field_facility_hours
+        - field_media
+        - field_vet_center_cap_locatation
+      parent_name: ''
+      weight: 14
+      format_type: details
+      region: hidden
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: false
+        required_fields: true
+      label: 'Basic location data'
+id: node.vet_center_cap.inline_entity_form
+targetEntityType: node
+bundle: vet_center_cap
+mode: inline_entity_form
+content:
+  field_administration:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_body:
+    type: text_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_address: true
+  field_facility_hours: true
+  field_geographical_identifier: true
+  field_media: true
+  field_vet_center: true
+  field_vet_center_cap_location: true
+  moderation_state: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  title: true
+  uid: true
+  url_redirects: true
