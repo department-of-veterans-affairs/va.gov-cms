@@ -132,7 +132,7 @@ class ProcessStatusBulletin {
       $subject_prefix = 'Alert';
     }
     elseif ($send_type === 'situation update') {
-      $subject_prefix = "Situation Update";
+      $subject_prefix = 'Situation Update';
     }
     $subject = "{$subject_prefix}: {$vamc['vamc_title']}";
 
@@ -215,7 +215,7 @@ class ProcessStatusBulletin {
         ->get('field_datetime_range_timezone')
         ->value;
       $time = $this->dateFormatter->format($time, 'custom', 'n/j/Y h:i A T');
-      $subject_prefix = "Situation Update";
+      $subject_prefix = 'Situation Update';
     }
     $template['#date_time'] = $time;
 
