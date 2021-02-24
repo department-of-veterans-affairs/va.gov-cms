@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_media.module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\file\Plugin\Field\FieldType\FileFieldItemList;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Alter the image_style_warmer form to insert a third option.
+ *
+ * Should be removed as part of va.gov-cms#4425 .
+ */
+function va_gov_media_form_image_style_warmer_settings_form_alter(array &$form, FormStateInterface $form_state) {
+  $image_styles_config = \Drupal::configFactory()->get('image_style_warmer.settings');
+  $image_styles = $image_styles_config->get('vagov_image_styles');
+  $form['initial_image_styles']['#access'] = FALSE;
+  $form['queue_image_styles']['#access'] = FALSE;
+  $form['vagov_image_styles'] = [
+    '#type' => 'checkboxes',
+    '#title' => t('Late-generated image styles'),
+    '#description' => t('Select image styles which will be created after cropping.'),
+    '#options' => image_style_options(FALSE),
+    '#default_value' => !empty($image_styles) ? $image_styles : [],
+    '#size' => 10,
+  ];
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function va_gov_media_entity_insert(EntityInterface $entity) {
+  // Should be removed as part of va.gov-cms#4425 .
+  _va_gov_media_image_style_warmer_warm_up($entity);
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function va_gov_media_entity_update(EntityInterface $entity) {
+  // Should be removed as part of va.gov-cms#442 .
+  _va_gov_media_image_style_warmer_warm_up($entity);
+}
+
+/**
+ * Warm image styles during the request but after `image_widget_crop`.
+ *
+ * Should be removed as part of va.gov-cms#4425 .
+ */
+function _va_gov_media_image_style_warmer_warm_up(EntityInterface $entity) {
+  if (!isset($entity) || !($entity instanceof FieldableEntityInterface)) {
+    return;
+  }
+  $image_styles_config = \Drupal::configFactory()->get('image_style_warmer.settings');
+  $image_styles = $image_styles_config->get('vagov_image_styles');
+  $image_styles = array_filter($image_styles);
+  if (empty($image_styles)) {
+    return;
+  }
+  foreach ($entity->getFields() as $entity_fields) {
+    if ($entity_fields instanceof FileFieldItemList) {
+      foreach ($entity_fields->referencedEntities() as $file_entity) {
+        \Drupal::service('image_style_warmer.warmer')
+          ->doWarmUp($file_entity, array_keys($image_styles));
+      }
+    }
+  }
+}
