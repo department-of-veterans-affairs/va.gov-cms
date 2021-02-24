@@ -1,0 +1,34 @@
+uuid: dfd69bc9-f450-430c-b6df-7395c8ce153b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media
+    - media.type.image
+    - node.type.vet_center_cap
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: false
+id: node.vet_center_cap.field_media
+field_name: field_media
+entity_type: node
+bundle: vet_center_cap
+label: Image
+description: 'Provide a photo if possible of the Community Access Point. Take a photo (with your phone is OK!) showing the CAP. Avoid including photos of people, or cars with license plates. Mobile phone photos are OK. Your image will be cropped to 3:2 aspect ratio, so it''s best to upload a landscape photo.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
