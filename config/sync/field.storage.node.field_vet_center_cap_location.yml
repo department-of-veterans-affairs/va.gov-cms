@@ -1,15 +1,17 @@
-uuid: e8e406e4-6a1c-4b30-a4df-8f5d51981b3e
+uuid: dddb5717-3016-4613-8be3-32faf308b6bd
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_vet_center
-field_name: field_vet_center
+id: node.field_vet_center_cap_location
+field_name: field_vet_center_cap_location
 entity_type: node
-type: entity_reference
+type: string
 settings:
-  target_type: node
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
 module: core
 locked: false
 cardinality: 1

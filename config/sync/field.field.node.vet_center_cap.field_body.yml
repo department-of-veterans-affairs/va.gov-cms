@@ -1,0 +1,27 @@
+uuid: e93682ce-0db1-45a0-9b8f-688c336a79b3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_body
+    - node.type.vet_center_cap
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    rich_text: '0'
+    rich_text_limited: '0'
+    plain_text: '0'
+id: node.vet_center_cap.field_body
+field_name: field_body
+entity_type: node
+bundle: vet_center_cap
+label: 'Vet center community access point description of service'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
