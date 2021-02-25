@@ -379,3 +379,11 @@ function va_gov_db_update_8020() {
 
   return "Cleared mis-matched entity/field errors.";
 }
+
+/**
+ * Uninstall markdown module.
+ */
+function va_gov_db_update_8021(&$sandbox) {
+  $messages = _va_gov_db_uninstall_modules(['markdown']);
+  return $messages;
+}
