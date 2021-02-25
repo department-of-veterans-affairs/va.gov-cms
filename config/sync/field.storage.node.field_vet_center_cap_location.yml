@@ -1,17 +1,18 @@
-uuid: d07552a1-0e67-4bee-9171-da3a0265f6f8
+uuid: dddb5717-3016-4613-8be3-32faf308b6bd
 langcode: en
 status: true
 dependencies:
   module:
-    - computed_field
     - node
-id: node.field_banner_alert_computdvalues
-field_name: field_banner_alert_computdvalues
+id: node.field_vet_center_cap_location
+field_name: field_vet_center_cap_location
 entity_type: node
-type: computed_string_long
+type: string
 settings:
+  max_length: 255
+  is_ascii: false
   case_sensitive: false
-module: computed_field
+module: core
 locked: false
 cardinality: 1
 translatable: true

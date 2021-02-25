@@ -1,0 +1,47 @@
+uuid: 208ee532-530d-4e0e-be6a-2e8a2304d06f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.ief_table
+    - field.field.node.vet_center_cap.field_address
+    - field.field.node.vet_center_cap.field_administration
+    - field.field.node.vet_center_cap.field_body
+    - field.field.node.vet_center_cap.field_facility_hours
+    - field.field.node.vet_center_cap.field_geographical_identifier
+    - field.field.node.vet_center_cap.field_media
+    - field.field.node.vet_center_cap.field_vet_center
+    - field.field.node.vet_center_cap.field_vet_center_cap_location
+    - node.type.vet_center_cap
+  module:
+    - layout_builder
+    - text
+    - user
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: node.vet_center_cap.ief_table
+targetEntityType: node
+bundle: vet_center_cap
+mode: ief_table
+content:
+  field_body:
+    type: text_default
+    weight: 1
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_address: true
+  field_administration: true
+  field_facility_hours: true
+  field_geographical_identifier: true
+  field_media: true
+  field_vet_center: true
+  field_vet_center_cap_location: true
+  label: true
+  links: true
+  search_api_excerpt: true
+  status: true
