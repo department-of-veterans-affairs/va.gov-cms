@@ -22,10 +22,14 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center Community Access Point | Address | field_address | Address | Required | 1 | Address | Translatable |
 | Content type | Vet Center Community Access Point | Geographical identifier | field_geographical_identifier | Text (plain) | Required | 1 | Textfield |  |
 | Content type | Vet Center Community Access Point | Hours | field_facility_hours | Table Field |  | 1 | Table Field | Translatable |
-| Content type | Vet Center Community Access Point | Image | field_media | Entity reference |  | 1 | Media library  | Translatable |
+| Content type | Vet Center Community Access Point | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Vet Center Community Access Point | Located at | field_vet_center_cap_location | Text (plain) | Required | 1 | Textfield |  |
 | Content type | Vet Center Community Access Point | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center Community Access Point | Vet Center | field_vet_center | Entity reference | Required | 1 | Select list |  |
 | Content type | Vet Center Community Access Point | Vet center community access point description of service | field_body | Text (formatted, long) |  | 1 | -- Disabled -- | Translatable |
+| Content type | Vet Center Facility Health Service | Description | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | Vet Center Facility Health Service | Owner | field_administration | Entity reference |  | 1 | Select list | Translatable |
+| Content type | Vet Center Facility Health Service | Service | field_service_name_and_descripti | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Vet Center Facility Health Service | Vet Center | field_vet_center | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center Locations List | Owner | field_administration | Entity reference |  | 1 | Select list | Translatable |
 | Content type | Vet Center Locations List | Vet Center | field_vet_center | Entity reference |  | 1 | Select list |  |

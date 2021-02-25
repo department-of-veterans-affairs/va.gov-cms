@@ -1,0 +1,39 @@
+uuid: 41b2acd8-5d17-47b5-b869-3dc34c8edf3c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.vet_center_facility_health_servi
+    - taxonomy.vocabulary.administration
+  content:
+    - 'taxonomy_term:administration:a8b1bb11-67a8-4489-a648-6d35c04be9cb'
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: true
+id: node.vet_center_facility_health_servi.field_administration
+field_name: field_administration
+entity_type: node
+bundle: vet_center_facility_health_servi
+label: Owner
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    target_uuid: a8b1bb11-67a8-4489-a648-6d35c04be9cb
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
