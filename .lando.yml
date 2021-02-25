@@ -46,6 +46,9 @@ services:
       # Save a hash of our lando config for future integrity checking.
       - sha1sum /app/.lando.yml > ~/.lando.yml.sha1
     overrides:
+      # Reduces likelihood of Chromium running out of shared memory and crashing during longer or
+      # more complicated behavioral tests.
+      ipc: host
       environment:
         # You must manually `export` these ENV vars before uncommenting, then run `lando rebuild`
         # @see /README.md Build Trigger section

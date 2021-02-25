@@ -1,0 +1,81 @@
+uuid: 2fc0c6f0-fbd3-4d92-9b26-c80ef659fc42
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.vet_center_cap.field_address
+    - field.field.node.vet_center_cap.field_administration
+    - field.field.node.vet_center_cap.field_body
+    - field.field.node.vet_center_cap.field_facility_hours
+    - field.field.node.vet_center_cap.field_geographical_identifier
+    - field.field.node.vet_center_cap.field_media
+    - field.field.node.vet_center_cap.field_vet_center
+    - field.field.node.vet_center_cap.field_vet_center_cap_location
+    - image.style.crop_3_2
+    - node.type.vet_center_cap
+  module:
+    - address
+    - media
+    - tablefield
+    - user
+id: node.vet_center_cap.default
+targetEntityType: node
+bundle: vet_center_cap
+mode: default
+content:
+  field_address:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+    region: content
+  field_facility_hours:
+    weight: 5
+    label: above
+    settings:
+      row_header: true
+      column_header: false
+    third_party_settings: {  }
+    type: tablefield
+    region: content
+  field_geographical_identifier:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_media:
+    weight: 2
+    label: hidden
+    settings:
+      image_style: crop_3_2
+      image_link: ''
+    third_party_settings: {  }
+    type: media_thumbnail
+    region: content
+  field_vet_center:
+    weight: 1
+    label: above
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+  field_vet_center_cap_location:
+    weight: 3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_body: true
+  links: true
+  search_api_excerpt: true
