@@ -10,7 +10,6 @@ dependencies:
     - field.field.node.full_width_banner_alert.field_alert_inheritance_subpages
     - field.field.node.full_width_banner_alert.field_alert_operating_status_cta
     - field.field.node.full_width_banner_alert.field_alert_type
-    - field.field.node.full_width_banner_alert.field_banner_alert_computdvalues
     - field.field.node.full_width_banner_alert.field_banner_alert_situationinfo
     - field.field.node.full_width_banner_alert.field_banner_alert_vamcs
     - field.field.node.full_width_banner_alert.field_body
@@ -33,9 +32,9 @@ third_party_settings:
         id: ''
         classes: ''
         description: ''
-        open: 1
-        required_fields: 1
-        weight: '0'
+        open: true
+        required_fields: true
+        weight: 0
       label: Governance
       region: content
     group_edi:
@@ -251,8 +250,8 @@ content:
       autocollapse: none
       closed_mode_threshold: 0
       features:
-        duplicate: duplicate
         collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
     third_party_settings: {  }
     region: content
   status:
@@ -272,7 +271,6 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_banner_alert_computdvalues: true
   moderation_state: true
   path: true
   promote: true
