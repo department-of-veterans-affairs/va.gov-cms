@@ -24,11 +24,6 @@ targetEntityType: node
 bundle: vet_center_outstation
 mode: default
 content:
-  content_moderation_control:
-    weight: -20
-    settings: {  }
-    third_party_settings: {  }
-    region: content
   field_address:
     weight: 4
     label: above
@@ -97,5 +92,6 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  content_moderation_control: true
   field_administration: true
   search_api_excerpt: true
