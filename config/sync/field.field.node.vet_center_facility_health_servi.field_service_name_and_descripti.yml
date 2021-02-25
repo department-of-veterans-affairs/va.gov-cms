@@ -1,0 +1,35 @@
+uuid: c7be08f0-5a6f-49c9-90d6-63fb7ad79007
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_service_name_and_descripti
+    - node.type.vet_center_facility_health_servi
+    - taxonomy.vocabulary.health_care_service_taxonomy
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: true
+id: node.vet_center_facility_health_servi.field_service_name_and_descripti
+field_name: field_service_name_and_descripti
+entity_type: node
+bundle: vet_center_facility_health_servi
+label: Service
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      health_care_service_taxonomy: health_care_service_taxonomy
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,22 @@
+uuid: 0e6324c7-cbeb-44d5-9c0f-81c0e8a9e09c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: vet_center_facility_health_service
+label: 'Vet Center Facility Health Service'
+type: 'canonical_entities:node'
+pattern: '[node:field_vet_center:entity:title]/service/[node:title]'
+selection_criteria:
+  34f2d501-c302-44a1-adb4-7c58727516eb:
+    id: node_type
+    bundles:
+      vet_center_facility_health_servi: vet_center_facility_health_servi
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 34f2d501-c302-44a1-adb4-7c58727516eb
+selection_logic: and
+weight: -5
+relationships: {  }

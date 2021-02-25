@@ -39,10 +39,6 @@ va/tests/revision-log:
   description: Ensure revision log field is present
   command: ./tests/scripts/check-revision-logs.sh
 
-va/tests/linkit-log:
-  description: Ensure linkit widget is used in lieu of core link widget
-  command: ./tests/scripts/check-linkit-logs.sh
-
 va/tests/status-error:
   description: Check for Drupal status errors
   command: "drush $DRUSH_ALIAS core-requirements --severity=2 | grep . && exit 1 || echo 'Success: No Drupal status requirement errors were found.'"

@@ -1,4 +1,14 @@
 services:
   va_gov_govdelivery.process_status_bulletin:
     class: Drupal\va_gov_govdelivery\Service\ProcessStatusBulletin
-    arguments: []
+    arguments:
+      - '@govdelivery_bulletins.add_bulletin_to_queue'
+      - '@path_alias.manager'
+      - '@date.formatter'
+      - '@entity_type.manager'
+      - '@renderer'
+  va_gov_govdelivery.entity_event_subscriber:
+    class: Drupal\va_gov_govdelivery\EventSubscriber\EntityEventSubscriber
+    arguments: ['@va_gov_govdelivery.process_status_bulletin']
+    tags:
+      - { name: event_subscriber }
