@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "db2b27f73ed648b0c98bd4b6b5b70397",
+    "content-hash": "03fd3321950bb6937a91f0a239c9f5c9",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5632,6 +5632,130 @@
             "homepage": "https://www.drupal.org/project/hms_field",
             "support": {
                 "source": "https://git.drupalcode.org/project/hms_field"
+            }
+        },
+        {
+            "name": "drupal/hook_event_dispatcher",
+            "version": "2.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/hook_event_dispatcher.git",
+                "reference": "8.x-2.05"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/hook_event_dispatcher-8.x-2.05.zip",
+                "reference": "8.x-2.05",
+                "shasum": "6d61fad36738f4537eb68494da89bc7d8a1d1941"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "require-dev": {
+                "drupal/coder": "^8.3",
+                "drupal/core-recommended": "^9.0",
+                "drupal/eck": "^1.0@alpha",
+                "drupal/paragraphs": "^1.10",
+                "drupal/webform": "*",
+                "mockery/mockery": "^1.3",
+                "php-parallel-lint/php-parallel-lint": "^1.0",
+                "phpmd/phpmd": "^2.8",
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "^3.4"
+            },
+            "suggest": {
+                "drupal/paragraphs": "Enables the creation of paragraphs entities.",
+                "drupal/token": "Provides additional tokens not supported by core (most notably fields), as well as a UI for browsing tokens."
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.05",
+                    "datestamp": "1608409671",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Drupal\\hook_event_dispatcher\\": "src/",
+                    "Drupal\\core_event_dispatcher\\": "modules/core_event_dispatcher/src/",
+                    "Drupal\\field_event_dispatcher\\": "modules/field_event_dispatcher/src/",
+                    "Drupal\\media_event_dispatcher\\": "modules/media_event_dispatcher/src/",
+                    "Drupal\\path_event_dispatcher\\": "modules/path_event_dispatcher/src/",
+                    "Drupal\\preprocess_event_dispatcher\\": "modules/preprocess_event_dispatcher/src/",
+                    "Drupal\\toolbar_event_dispatcher\\": "modules/toolbar_event_dispatcher/src/",
+                    "Drupal\\user_event_dispatcher\\": "modules/user_event_dispatcher/src/",
+                    "Drupal\\views_event_dispatcher\\": "modules/views_event_dispatcher/src/",
+                    "Drupal\\webform_event_dispatcher\\": "modules/webform_event_dispatcher/src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Drupal\\Tests\\hook_event_dispatcher\\": "tests/src/",
+                    "Drupal\\Tests\\core_event_dispatcher\\": "modules/core_event_dispatcher/tests/src/",
+                    "Drupal\\Tests\\field_event_dispatcher\\": "modules/field_event_dispatcher/tests/src/",
+                    "Drupal\\Tests\\media_event_dispatcher\\": "modules/media_event_dispatcher/tests/src/",
+                    "Drupal\\Tests\\path_event_dispatcher\\": "modules/path_event_dispatcher/tests/src/",
+                    "Drupal\\Tests\\preprocess_event_dispatcher\\": "modules/preprocess_event_dispatcher/tests/src/",
+                    "Drupal\\Tests\\toolbar_event_dispatcher\\": "modules/toolbar_event_dispatcher/tests/src/",
+                    "Drupal\\Tests\\user_event_dispatcher\\": "modules/user_event_dispatcher/tests/src/",
+                    "Drupal\\Tests\\views_event_dispatcher\\": "modules/views_event_dispatcher/tests/src/",
+                    "Drupal\\Tests\\webform_event_dispatcher\\": "modules/webform_event_dispatcher/tests/src/",
+                    "Drupal\\Tests\\": "vendor/drupal/core/tests/Drupal/Tests",
+                    "Drupal\\TestTools\\": "vendor/drupal/core/tests/Drupal/TestTools",
+                    "Drupal\\media\\": "vendor/drupal/core/modules/media/src/",
+                    "Drupal\\views\\": "vendor/drupal/core/modules/views/src/"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "scripts": {
+                "test": [
+                    "@phpunit",
+                    "@phpcbf",
+                    "@phpmd"
+                ],
+                "ci": [
+                    "@phplint",
+                    "@phpunit",
+                    "@phpcs",
+                    "@phpmd"
+                ],
+                "phplint": [
+                    "vendor/bin/parallel-lint --exclude vendor/ --exclude .idea/ -e php,module,inc,install,profile,theme ."
+                ],
+                "phpunit": [
+                    "vendor/bin/phpunit --configuration=phpunit.xml"
+                ],
+                "phpcs": [
+                    "vendor/bin/phpcs --ignore=vendor/,.idea/ --standard=phpcs.xml --extensions=php,module,inc,install,profile,theme,css,info,txt,md,yml --report=full ."
+                ],
+                "phpcbf": [
+                    "vendor/bin/phpcbf --ignore=vendor/,.idea/ --standard=phpcs.xml --extensions=php,module,inc,install,profile,theme,css,info,txt,md,yml ."
+                ],
+                "phpmd": [
+                    "vendor/bin/phpmd --exclude vendor/,.idea/ --suffixes php,module,inc,install,profile,theme . text phpmd.xml"
+                ]
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "pdenooijer",
+                    "homepage": "https://www.drupal.org/user/3175437"
+                },
+                {
+                    "name": "robin.ingelbrecht",
+                    "homepage": "https://www.drupal.org/user/2339074"
+                }
+            ],
+            "description": "Dispatches events for several drupal core hooks.",
+            "homepage": "https://www.drupal.org/project/hook_event_dispatcher",
+            "support": {
+                "source": "https://git.drupalcode.org/project/hook_event_dispatcher"
             }
         },
         {
