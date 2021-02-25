@@ -9,13 +9,9 @@ services:
       init:
         - printf "\nInclude $TUGBOAT_ROOT/.tugboat/proxy-httpd.conf\n" >> /usr/local/apache2/conf/httpd.conf
       build:
-        - printf 'SetEnvIf Request_URI ".*" QA_SUBDOMAIN=%s\n'
-          "$(echo "$TUGBOAT_PREVIEW_NAME" |
-          tr '[:upper:]' '[:lower:]' |
-          sed -e 's/[^a-z0-9]/-/g'
-          -e 's/-\+/-/g'
-          -e 's/\(^-\)\|\(-$\)//g')"
-          > $TUGBOAT_ROOT/qa_subdomain.conf
+        - echo "$TUGBOAT_PREVIEW_NAME"
+            | awk -f .tugboat/qa-subdomain.awk
+            > $TUGBOAT_ROOT/qa_subdomain.conf
   # What to call the service hosting the site.
   php:
     # Use PHP 7.x with Apache; this syntax pulls in the latest version of PHP 7
