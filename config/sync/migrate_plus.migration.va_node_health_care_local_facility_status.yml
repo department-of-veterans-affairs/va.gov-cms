@@ -69,6 +69,7 @@ source:
     - 'https://www.fargo.va.gov/locations/facilities.asp'
     - 'https://www.fayettevillear.va.gov/locations/facilities.asp'
     - 'https://www.fayettevillenc.va.gov/locations/facilities.asp'
+    - 'https://www.fingerlakes.va.gov/locations/facilities.asp'
     - 'https://www.fresno.va.gov/locations/facilities.asp'
     - 'https://www.grandjunction.va.gov/locations/facilities.asp'
     - 'https://www.hampton.va.gov/locations/facilities.asp'
@@ -156,6 +157,8 @@ source:
     - 'https://www.wichita.va.gov/locations/facilities.asp'
     - 'https://www.wilkes-barre.va.gov/locations/facilities.asp'
     - 'https://www.wilmington.va.gov/locations/facilities.asp'
+  request_options:
+    allow_redirects: false
   delimiter: "\t"
   enclosure: ''
   escape: ''
@@ -193,6 +196,7 @@ source:
   keys:
     - id
   track_changes: true
+  track_last_imported: true
   skip_count: true
   ids:
     id:
@@ -201,11 +205,6 @@ source:
     idprefix: vha_
 process:
   field_facility_locator_api_id:
-    -
-      plugin: skip_on_empty
-      method: row
-      source: id
-      message: 'Skipped: Source API ID is empty, must have it.'
     -
       plugin: get
       source:
@@ -297,11 +296,11 @@ destination:
     - changed
     - field_operating_status_facility
     - field_operating_status_more_info
+    - langcode
     - new_revision
     - revision_default
     - revision_log
     - revision_timestamp
     - revision_uid
-    - uid
 migration_dependencies:
   required: {  }
