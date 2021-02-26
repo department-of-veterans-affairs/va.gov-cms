@@ -1,0 +1,23 @@
+uuid: 4875cbc5-5e3e-4f55-ab55-53ce7daf4a9b
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: vet_center_mobile_vet_center_outstations
+label: 'Vet Center Mobile Vet Center & Outstations'
+type: 'canonical_entities:node'
+pattern: '[node:field_vet_center:entity:title]/[node:title]'
+selection_criteria:
+  839b7414-fa22-4391-997b-edebf09a9b38:
+    id: node_type
+    bundles:
+      vet_center_mobile_vet_center: vet_center_mobile_vet_center
+      vet_center_outstation: vet_center_outstation
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 839b7414-fa22-4391-997b-edebf09a9b38
+selection_logic: and
+weight: -5
+relationships: {  }

@@ -1,0 +1,21 @@
+uuid: bb6ca910-c6dd-4e79-94ce-879136b3f75c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_operating_status_facility
+    - node.type.vet_center_outstation
+  module:
+    - options
+id: node.vet_center_outstation.field_operating_status_facility
+field_name: field_operating_status_facility
+entity_type: node
+bundle: vet_center_outstation
+label: 'Operating status'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
