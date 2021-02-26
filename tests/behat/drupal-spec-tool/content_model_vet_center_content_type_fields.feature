@@ -31,5 +31,7 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center Facility Health Service | Owner | field_administration | Entity reference |  | 1 | Select list | Translatable |
 | Content type | Vet Center Facility Health Service | Service | field_service_name_and_descripti | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center Facility Health Service | Vet Center | field_vet_center | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Vet Center Locations List | Owner | field_administration | Entity reference |  | 1 | Select list | Translatable |
-| Content type | Vet Center Locations List | Vet Center | field_vet_center | Entity reference |  | 1 | Select list |  |
+| Content type | Vet Center Locations List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Vet Center Locations List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | Vet Center Locations List | Select nearby Vet Centers | field_nearby_vet_centers | Entity reference |  | Unlimited | Autocomplete |  |
+| Content type | Vet Center Locations List | Vet Center | field_vet_center | Entity reference | Required | 1 | Select list |  |
