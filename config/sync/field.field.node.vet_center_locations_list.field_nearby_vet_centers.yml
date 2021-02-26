@@ -1,25 +1,25 @@
-uuid: 3a52239f-ba3f-4e04-8c33-0684ef5182bd
+uuid: 72043167-f480-46b8-9e95-6e13cdfbe84e
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_vet_center
+    - field.storage.node.field_nearby_vet_centers
     - node.type.vet_center
     - node.type.vet_center_locations_list
   module:
     - entity_reference_validators
 third_party_settings:
   entity_reference_validators:
-    circular_reference: true
+    circular_reference: false
     circular_reference_deep: false
     duplicate_reference: true
-id: node.vet_center_locations_list.field_vet_center
-field_name: field_vet_center
+id: node.vet_center_locations_list.field_nearby_vet_centers
+field_name: field_nearby_vet_centers
 entity_type: node
 bundle: vet_center_locations_list
-label: 'Vet Center'
+label: 'Select nearby Vet Centers'
 description: ''
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''

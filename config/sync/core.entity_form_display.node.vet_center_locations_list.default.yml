@@ -4,19 +4,22 @@ status: true
 dependencies:
   config:
     - field.field.node.vet_center_locations_list.field_administration
+    - field.field.node.vet_center_locations_list.field_intro_text
+    - field.field.node.vet_center_locations_list.field_nearby_vet_centers
     - field.field.node.vet_center_locations_list.field_vet_center
     - node.type.vet_center_locations_list
     - workflows.workflow.editorial
   module:
     - content_moderation
     - field_group
+    - limited_field_widgets
 third_party_settings:
   field_group:
     group_governance:
       children:
         - field_administration
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: details_sidebar
       region: content
       format_settings:
@@ -32,7 +35,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: fieldset
       region: content
       format_settings:
@@ -52,6 +55,26 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  field_intro_text:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_nearby_vet_centers:
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+    type: entity_reference_autocomplete
+    region: content
   field_vet_center:
     weight: 2
     settings: {  }
@@ -68,7 +91,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 5
+    weight: 6
     region: content
     third_party_settings: {  }
   title:
@@ -80,7 +103,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
