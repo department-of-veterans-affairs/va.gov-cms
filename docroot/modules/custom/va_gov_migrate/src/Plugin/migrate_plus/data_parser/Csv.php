@@ -6,6 +6,7 @@ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\migrate\Exception\RequirementsException;
 use Drupal\migrate\MigrateException;
+use Drupal\migrate\MigrateSkipRowException;
 use Drupal\migrate_plus\DataParserPluginBase;
 use League\Csv\Reader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -230,6 +231,7 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
       throw new RequirementsException('League CSV Reader is required to use the CSV dataparser.');
     }
     $reader = Reader::createFromString($csv);
+    $reader->skipEmptyRecords();
     $reader->setDelimiter($delimiter);
     // Set additional options if we have them.
     if (!empty($enclosure)) {
@@ -241,14 +243,11 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
     if (!empty($header_offset) && is_numeric($header_offset)) {
       $reader->setOffset($header_offset);
     }
-    // These rows are not assigned their column headers.
-    $raw_rows = $reader->fetchAll();
 
     $data = [];
-    foreach ($reader->fetchAssoc($headers) as $index => $row) {
+    foreach ($reader->getRecords($headers) as $index => $row) {
       $this->currentRowIndex = $index;
-      $raw_row = (isset($raw_rows[$index])) ? $raw_rows[$index] : [];
-      if ($this->rowGood($row, $raw_row)) {
+      if ($this->rowGood($row)) {
         // The number of columns is appropriate for the number of fields.
         $data[] = $this->expandRow($row);
       }
@@ -296,40 +295,31 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
    *
    * @param array $row
    *   The array that represents the columns of the row.
-   * @param array $raw_row
-   *   The array that represents the non-header keyed row.
    *
    * @return bool
    *   TRUE if the row should be used, FALSE if it should not.
    */
-  protected function rowGood(array $row, array $raw_row) {
-    $enforce_row_column_count = (!empty($this->configuration['enforce_row_column_count'])) ? TRUE : FALSE;
-    if (empty($raw_row) || (empty(array_filter($raw_row)))) {
-      // The row is empty no need to process.
-      return FALSE;
+  protected function rowGood(array $row) {
+    $keys = (array) $this->configuration['keys'];
+    $empty_keys = [];
+    foreach ($keys as $key) {
+      if (empty(trim($row[$key]))) {
+        // This key is empty.
+        $empty_keys[] = $key;
+      }
+    }
+    if (!empty($empty_keys)) {
+      $msg = "Could not process row @row_num in '@csv' because the keys '@keys' were empty.";
+      $variables = [
+        '@row_num' => $this->currentRowIndex,
+        '@csv' => $this->currentUrl,
+        '@keys' => implode(',', $empty_keys),
+      ];
+      $this->logger->notice($msg, $variables);
+      throw new MigrateSkipRowException(t("Could not process row @row_num in '@csv' because the keys '@keys' were empty.", $variables));
     }
 
-    if ($enforce_row_column_count) {
-      if (count($raw_row) === count($this->configuration['fields'])) {
-        // The row count is not suspicious.
-        return TRUE;
-      }
-      else {
-        // This row column counts don't match expected.
-        $msg = "Could not process row @row_num in '@csv' because it contained @count out of @expected columns.  Check the CSV for errors or set `enforce_row_column_count` to false in your migration.";
-        $variables = [
-          '@row_num' => $this->currentRowIndex,
-          '@csv' => $this->currentUrl,
-          '@count' => count($raw_row),
-          '@expected' => count($this->configuration['fields']),
-        ];
-        $this->logger->notice($msg, $variables);
-        return FALSE;
-      }
-    }
-    else {
-      return TRUE;
-    }
+    return TRUE;
   }
 
   /**
