@@ -1,0 +1,157 @@
+uuid: 0b7303f5-acef-48b1-9ef0-25b2640f7bac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.vet_center_mobile_vet_center.field_address
+    - field.field.node.vet_center_mobile_vet_center.field_administration
+    - field.field.node.vet_center_mobile_vet_center.field_facility_hours
+    - field.field.node.vet_center_mobile_vet_center.field_facility_locator_api_id
+    - field.field.node.vet_center_mobile_vet_center.field_media
+    - field.field.node.vet_center_mobile_vet_center.field_operating_status_facility
+    - field.field.node.vet_center_mobile_vet_center.field_operating_status_more_info
+    - field.field.node.vet_center_mobile_vet_center.field_phone_number
+    - field.field.node.vet_center_mobile_vet_center.field_vet_center
+    - node.type.vet_center_mobile_vet_center
+  module:
+    - address
+    - content_moderation
+    - field_group
+    - tablefield
+    - telephone
+third_party_settings:
+  field_group:
+    group_op:
+      children:
+        - field_operating_status_facility
+        - field_operating_status_more_info
+      parent_name: ''
+      weight: 7
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Operating status'
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 9
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+    group_governance:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 8
+      format_type: details_sidebar
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: true
+        required_fields: true
+        weight: 0
+      label: Governance
+id: node.vet_center_mobile_vet_center.default
+targetEntityType: node
+bundle: vet_center_mobile_vet_center
+mode: default
+content:
+  field_address:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+    region: content
+  field_administration:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_facility_hours:
+    weight: 5
+    settings:
+      input_type: textfield
+    third_party_settings: {  }
+    type: tablefield
+    region: content
+  field_facility_locator_api_id:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_media:
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_operating_status_facility:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_operating_status_more_info:
+    weight: 8
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_phone_number:
+    weight: 6
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+    region: content
+  field_vet_center:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 9
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true

@@ -47,6 +47,7 @@ Feature: Content model bundles
 | VAMC System Policies Page | vamc_system_policies_page | Content type | Add policies specific to this VA medical center to appear on the Policies page. Local policies will appear alongside national policies that apply to all VAMCs. |
 | VBA Facility | vba_facility | Content type | A facility within Veterans Benefits Administration system. |
 | Vet Center | vet_center | Content type | A facility within Vet Centers system. |
+| Vet Center Facility Health Service | vet_center_facility_health_servi | Content type |  |
 | Vet Center Locations List | vet_center_locations_list | Content type |  |
 | Vet Center Community Access Point | vet_center_cap | Content type |  |
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
@@ -106,3 +107,5 @@ Feature: Content model bundles
 | Topics | topics | Vocabulary |  |
 | Type of Redirect | type_of_redirect | Vocabulary |  |
 | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
+| Vet Center Mobile Vet Center | vet_center_mobile_vet_center | Content type |  |
+| Vet Center Outstation | vet_center_outstation | Content type |  |

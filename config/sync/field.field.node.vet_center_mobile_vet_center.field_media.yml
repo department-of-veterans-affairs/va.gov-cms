@@ -1,0 +1,35 @@
+uuid: c2830d08-2de7-43d6-80a8-d8ed1d997d49
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media
+    - media.type.image
+    - node.type.vet_center_mobile_vet_center
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+id: node.vet_center_mobile_vet_center.field_media
+field_name: field_media
+entity_type: node
+bundle: vet_center_mobile_vet_center
+label: Image
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,5 +1,10 @@
 {
   "baseUrl": "http://va-gov-cms.lndo.site",
   "defaultCommandTimeout": 10000,
-  "testFiles": "**/*.{feature,features}"
+  "screenshotsFolder": "cypress/screenshots/actual",
+  "testFiles": "**/*.{feature,features}",
+  "trashAssetsBeforeRuns": true,
+  "env": {
+    "failSilently": false
+  }
 }

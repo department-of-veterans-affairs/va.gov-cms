@@ -5,7 +5,7 @@ Given(`I select the {string} benefits hub`, (text) => {
   cy.get(".entity-browser-modal iframe").should("exist");
   cy.wait(2000);
 
-  cy.get(".entity-browser-modal iframe").iframe(() => {
+  cy.get(".entity-browser-modal iframe").iframe().within(() => {
     cy.get("tr").contains(text).should("exist");
     cy.get("tr")
       .contains(text)

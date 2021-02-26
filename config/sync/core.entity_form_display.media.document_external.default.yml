@@ -11,16 +11,15 @@ dependencies:
     - media.type.document_external
   module:
     - field_group
-    - linkit
+    - link
     - textfield_counter
 third_party_settings:
   field_group:
     group_governance:
-      children:
-        - field_owner
+      children: {  }
       parent_name: ''
       weight: 3
-      format_type: details_sidebar
+      format_type: details
       region: content
       format_settings:
         description: ''
@@ -33,9 +32,9 @@ third_party_settings:
     group_edi:
       children: {  }
       parent_name: ''
-      weight: 4
+      weight: 11
       format_type: fieldset
-      region: content
+      region: hidden
       format_settings:
         id: ''
         classes: ''
@@ -66,10 +65,10 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-    type: linkit
+    type: link_default
     region: content
   field_owner:
-    weight: 7
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: options_select
