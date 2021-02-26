@@ -1,0 +1,40 @@
+uuid: c9b7cc72-6986-462b-bcd9-b5344b9b8cd8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.vet_center_outstation
+    - taxonomy.vocabulary.administration
+  content:
+    - 'taxonomy_term:administration:a8b1bb11-67a8-4489-a648-6d35c04be9cb'
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+id: node.vet_center_outstation.field_administration
+field_name: field_administration
+entity_type: node
+bundle: vet_center_outstation
+label: Owner
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    target_uuid: a8b1bb11-67a8-4489-a648-6d35c04be9cb
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
