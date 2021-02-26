@@ -20,14 +20,14 @@
         "cweagans/composer-patches": "^1.6.4",
         "devshop/behat-drupal-extension": "dev-rewrite-last-page-output-links",
         "drupal/address": "^1.4",
-        "drupal/admin_toolbar": "^1.24",
+        "drupal/admin_toolbar": "^3.0",
         "drupal/advancedqueue": "^1.0@RC",
         "drupal/allowed_formats": "^1.3",
         "drupal/auto_entitylabel": "^3.0-beta3",
         "drupal/better_field_descriptions": "^1.4",
         "drupal/blazy": "^2.0@RC",
         "drupal/block_content_permissions": "^1.6",
-        "drupal/cer": "^4.0@alpha",
+        "drupal/cer": "4.x-dev#f2ff7d6bf2a3e41757b7621a8367ede974750a84",
         "drupal/coder": "^8.3",
         "drupal/computed_field": "^2.0",
         "drupal/config_ignore": "^2.1",
@@ -38,6 +38,7 @@
         "drupal/core-composer-scaffold": "^8.8",
         "drupal/core-recommended": "8.9.13",
         "drupal/crop": "^2.0",
+        "drupal/csv_serialization": "^2.0",
         "drupal/ctools_block": "^3.2",
         "drupal/devel": "^2.1",
         "drupal/dropzonejs": "^2.0",
@@ -54,8 +55,8 @@
         "drupal/entity_reference_validators": "^1.0@alpha",
         "drupal/entityqueue": "^1.0@beta",
         "drupal/environment_indicator": "^4.0",
-        "drupal/fast_404": "^2.0@alpha",
-        "drupal/feature_toggle": "^1.2",
+        "drupal/fast_404": "2.x-dev#5382a99335ee466f8261dc1774a3d56f1699da81",
+        "drupal/feature_toggle": "1.x-dev#8753ecb9a6a541fdea2de04a4640aa6b998a8df4",
         "drupal/field_formatter": "^1.2",
         "drupal/field_group": "^3.1",
         "drupal/fieldhelptext": "^1.0@beta",
@@ -63,11 +64,11 @@
         "drupal/govdelivery_bulletins": "^1.2",
         "drupal/graphql": "^3.0",
         "drupal/graphql_metatag": "1.x-dev",
-        "drupal/health_check_url": "^2.1",
-        "drupal/hms_field": "^1.0@beta",
+        "drupal/health_check_url": "2.x-dev#6eff12c076f6e0412b33e11201e33b1257431f4e",
+        "drupal/hms_field": "1.x-dev#f138860c7b18c6aab00f5860b29d15b9ab2197f5",
         "drupal/hook_event_dispatcher": "^2.05",
         "drupal/ief_table_view_mode": "^2.1",
-        "drupal/image_style_warmer": "^1.0@beta",
+        "drupal/image_style_warmer": "^1.0",
         "drupal/image_widget_crop": "^2.2",
         "drupal/kint": "^2.1",
         "drupal/libraries": "^3.0@alpha",
@@ -251,6 +252,10 @@
         "composer-exit-on-patch-failure": true,
         "patches-ignore": {},
         "patches": {
+            "drupal/cer": {
+                "3197953 - Make d9 compatible": "https://www.drupal.org/files/issues/2021-02-11/3197953.patch",
+                "3200122 - Remove delete hook": "https://www.drupal.org/files/issues/2021-02-24/delete-hook-added-in-dev-causes-test-failures.patch"
+            },
             "drupal/content_lock": {
                 "Content lock causes redirect response preventing migration rollback.": "https://www.drupal.org/files/issues/2018-08-28/2951652-4.patch"
             },
@@ -283,6 +288,9 @@
             "drupal/entity_reference_revisions": {
                 "2984027 Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch"
             },
+            "drupal/feature_toggle": {
+                "3147452 - Make compatible with d9": "https://www.drupal.org/files/issues/2020-06-06/feature_toggle.1.x-dev.rector.patch"
+            },
             "drupal/flood_control": {
                 "3191346 - Custom events not listed in getEvents() of floodUnblockManager caused undefined index error": "https://www.drupal.org/files/issues/2021-02-16/flood_control-prevent_notices_for_custom_events-3191346-9.patch",
                 "3192020 - Flood control admin form adds contact.settings when Contact module is not enabled": "https://www.drupal.org/files/issues/2021-01-10/3192020-2.patch"
@@ -292,6 +300,12 @@
             },
             "drupal/graphql": {
                 "PHP 7.4 Notices (https://github.com/drupal-graphql/graphql/pull/989)": "https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/989.patch"
+            },
+            "drupal/health_check_url": {
+                "3147740 - Make d9 compatible": "https://www.drupal.org/files/issues/2020-06-06/health_check_url.2.x-dev.rector.patch"
+            },
+            "drupal/hms_field": {
+                "3145496 - Make d9 compatible": "https://www.drupal.org/files/issues/2020-06-05/3145496-6.patch"
             },
             "drupal/inline_entity_form": {
                 "Collapsed by default complex widget closes when trying to edit reference.": "https://www.drupal.org/files/issues/2018-11-08/2994001-open-on-action.patch"
@@ -310,7 +324,7 @@
                 "3129863 - Fix incompatibility with graphQL": "https://www.drupal.org/files/issues/2020-04-22/metatag-n3129863-3.patch"
             },
             "drupal/migrate_plus": {
-              "3113461 - Allow properties in str_replace process plugin." : "https://www.drupal.org/files/issues/2020-03-16/migrate_plus-properties_str_replace-2.patch"
+                "3113461 - Allow properties in str_replace process plugin.": "https://www.drupal.org/files/issues/2020-03-16/migrate_plus-properties_str_replace-2.patch"
             },
             "drupal/paragraphs": {
                 "Content & Behavior tabs use fixed IDs": "https://www.drupal.org/files/issues/2020-10-14/paragraphs-fix_duplicate_content_behavior_tab_ids-3176946-3.patch",

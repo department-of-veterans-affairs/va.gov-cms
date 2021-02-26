@@ -1803,7 +1803,7 @@ function _va_gov_backend_apply_filter_to_tablefield_cells(EntityInterface $entit
 function _va_gov_backend_disable_autopath_alias(EntityInterface $entity) {
   if (!$entity->isNew()) {
     // Get original values of the node for comparison.
-    $original_use_alias_pattern = $entity->original->get('path')->pathauto;
+    $original_use_alias_pattern = !empty($entity->original) ? $entity->original->get('path')->pathauto : '';
     $current_use_alias_pattern = $entity->get('path')->pathauto;
     // Decide if this was an intentional toggle on of using the alias pattern.
     $toggled_on_this_save = $current_use_alias_pattern && !$original_use_alias_pattern;
