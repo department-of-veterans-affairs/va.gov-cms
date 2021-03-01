@@ -225,7 +225,8 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    */
   public function getSectionHierarchyBreadcrumbLinks(NodeInterface $node) : string {
     $links = [];
-    $owner_term = $node->get('field_administration')->referencedEntities()[0];
+    $owner_term = $node->get('field_administration')->referencedEntities() ?
+      $node->get('field_administration')->referencedEntities()[0] : [];
 
     if (!empty($owner_term)) {
       $links[] = $this->getTermLink($owner_term);
