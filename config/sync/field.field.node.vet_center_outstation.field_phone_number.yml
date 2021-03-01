@@ -1,0 +1,21 @@
+uuid: 947171c0-6893-4697-9809-21ef1144980b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_phone_number
+    - node.type.vet_center_outstation
+  module:
+    - telephone
+id: node.vet_center_outstation.field_phone_number
+field_name: field_phone_number
+entity_type: node
+bundle: vet_center_outstation
+label: 'Phone Number'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

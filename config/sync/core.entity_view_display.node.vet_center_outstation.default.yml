@@ -1,0 +1,97 @@
+uuid: 0d5bb9de-804e-4d7c-91dc-6f4f15b12537
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.vet_center_outstation.field_address
+    - field.field.node.vet_center_outstation.field_administration
+    - field.field.node.vet_center_outstation.field_facility_hours
+    - field.field.node.vet_center_outstation.field_facility_locator_api_id
+    - field.field.node.vet_center_outstation.field_media
+    - field.field.node.vet_center_outstation.field_operating_status_facility
+    - field.field.node.vet_center_outstation.field_operating_status_more_info
+    - field.field.node.vet_center_outstation.field_phone_number
+    - field.field.node.vet_center_outstation.field_vet_center
+    - node.type.vet_center_outstation
+  module:
+    - address
+    - options
+    - tablefield
+    - telephone
+    - user
+id: node.vet_center_outstation.default
+targetEntityType: node
+bundle: vet_center_outstation
+mode: default
+content:
+  field_address:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+    region: content
+  field_facility_hours:
+    weight: 5
+    label: above
+    settings:
+      row_header: true
+      column_header: false
+    third_party_settings: {  }
+    type: tablefield
+    region: content
+  field_facility_locator_api_id:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_media:
+    weight: 3
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_operating_status_facility:
+    weight: 7
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_operating_status_more_info:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_phone_number:
+    weight: 6
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
+    region: content
+  field_vet_center:
+    weight: 1
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  search_api_excerpt: true
