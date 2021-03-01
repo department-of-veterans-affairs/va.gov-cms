@@ -31,6 +31,8 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Audience & Topics | Non-Beneficiares | field_non_beneficiares | Entity reference |  | 1 | Check boxes/radio buttons |  |
 | Paragraph type | Audience & Topics | Markup | field_markup | Markup |  | 1 | Markup | Translatable |
 | Paragraph type | Audience & Topics | Topics | field_topics | Entity reference |  | 4 | Check boxes/radio buttons |  |
+| Paragraph type | Basic accordion | Header | field_header | Text (plain) | Required | 1 | Textfield |  |
+| Paragraph type | Basic accordion | Rich text | field_rich_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
 | Paragraph type | Call to action | Button Label | field_button_label | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Call to action | Button Link | field_button_link | Link |  | 1 | Linkit |  |
 | Paragraph type | Centralized content descriptor | Description | field_cc_documentor_description | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
@@ -121,3 +123,4 @@ Feature: Content model: Paragraph fields
 | Paragraph type | VAMC facility service (non-healthcare service) | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Rich text | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Rich text - char limit 1000 | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+

@@ -1,0 +1,32 @@
+uuid: 05e99e8d-eee9-40c5-bfaf-548e87a5cbfc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.basic_accordion.field_header
+    - field.field.paragraph.basic_accordion.field_rich_wysiwyg
+    - paragraphs.paragraphs_type.basic_accordion
+  module:
+    - text
+id: paragraph.basic_accordion.default
+targetEntityType: paragraph
+bundle: basic_accordion
+mode: default
+content:
+  field_header:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_rich_wysiwyg:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden:
+  search_api_excerpt: true

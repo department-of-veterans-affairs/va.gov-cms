@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.vet_center.field_operating_status_facility
     - field.field.node.vet_center.field_operating_status_more_info
     - field.field.node.vet_center.field_phone_number
+    - field.field.node.vet_center.field_prepare_for_visit
     - field.field.node.vet_center.field_vet_center_call_center
     - node.type.vet_center
     - workflows.workflow.editorial
@@ -21,6 +22,8 @@ dependencies:
     - content_moderation
     - entity_field_fetch
     - field_group
+    - limited_field_widgets
+    - paragraphs
     - tablefield
     - telephone
     - textfield_counter
@@ -38,7 +41,7 @@ third_party_settings:
         - field_non_traditional_hours
         - field_vet_center_call_center
       parent_name: ''
-      weight: 2
+      weight: 0
       format_type: details
       format_settings:
         id: ''
@@ -53,7 +56,7 @@ third_party_settings:
         - field_operating_status_facility
         - field_operating_status_more_info
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -66,7 +69,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 4
+      weight: 3
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -82,7 +85,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -175,6 +178,27 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
+    region: content
+  field_prepare_for_visit:
+    type: paragraphs
+    weight: 1
+    settings:
+      title: accordion
+      title_plural: accordions
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: '0'
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
     region: content
   field_vet_center_call_center:
     weight: 9
