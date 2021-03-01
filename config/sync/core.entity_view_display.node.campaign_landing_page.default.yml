@@ -58,7 +58,7 @@ third_party_settings:
         - field_clp_spotlight_cta
         - field_clp_spotlight_link_teasers
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: details
       region: content
       format_settings:
@@ -73,7 +73,7 @@ third_party_settings:
         - field_media
         - field_clp_video_panel_more_video
       parent_name: ''
-      weight: 4
+      weight: 3
       format_type: details
       region: content
       format_settings:
@@ -89,7 +89,7 @@ third_party_settings:
         - field_clp_stories_teasers
         - field_clp_stories_cta
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: details
       region: content
       format_settings:
@@ -104,7 +104,7 @@ third_party_settings:
         - field_primary_call_to_action
         - field_hero_image
       parent_name: ''
-      weight: 1
+      weight: 0
       format_type: details
       region: content
       format_settings:
@@ -119,7 +119,7 @@ third_party_settings:
         - field_clp_audience
         - field_secondary_call_to_action
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: details
       region: content
       format_settings:
@@ -134,7 +134,7 @@ third_party_settings:
         - field_clp_what_you_can_do_intro
         - field_clp_what_you_can_do_promos
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: details
       region: content
       format_settings:
@@ -147,7 +147,7 @@ third_party_settings:
       children:
         - field_benefit_categories
       parent_name: ''
-      weight: 11
+      weight: 10
       format_type: details
       region: content
       format_settings:
@@ -163,7 +163,7 @@ third_party_settings:
         - field_clp_resources
         - field_clp_resources_cta
       parent_name: ''
-      weight: 8
+      weight: 7
       format_type: details
       region: content
       format_settings:
@@ -177,7 +177,7 @@ third_party_settings:
         - field_clp_events_header
         - field_clp_events_references
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: details
       region: content
       format_settings:
@@ -191,7 +191,7 @@ third_party_settings:
         - field_clp_faq_paragraphs
         - field_clp_faq_cta
       parent_name: ''
-      weight: 9
+      weight: 8
       format_type: details
       region: content
       format_settings:
@@ -204,7 +204,7 @@ third_party_settings:
       children:
         - field_clp_connect_with_us
       parent_name: ''
-      weight: 10
+      weight: 9
       format_type: details
       region: content
       format_settings:
@@ -218,11 +218,6 @@ targetEntityType: node
 bundle: campaign_landing_page
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_benefit_categories:
     weight: 7
     label: hidden
@@ -491,6 +486,7 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  content_moderation_control: true
   field_administration: true
   field_clp_events_panel: true
   field_clp_faq_panel: true
