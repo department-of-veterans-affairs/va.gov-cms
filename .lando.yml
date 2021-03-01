@@ -2,7 +2,7 @@ name: va-gov-cms
 recipe: drupal8
 config:
   webroot: docroot
-  php: "7.1"
+  php: "7.2.32"
   composer_version: '1.10.1'
 
 events:
@@ -19,6 +19,7 @@ events:
   post-start:
     # Composer options are in composer.json, 'config' key.
     - appserver: cd $LANDO_MOUNT && composer install
+    - appserver: cd $LANDO_MOUNT && composer va:web:install
     # Pulled from https://github.com/AaronFeledy/lando-examples/tree/master/landofile-changed-alert.
     # Alert user if landofile and current environment are out of sync.
     - appserver: cd /app && sha1sum --status -c ~/.lando.yml.sha1 || echo $(echo $($TXT_ALERT)Your Lando environment is outdated! Please run \"lando rebuild\" to update.$($TXT_RESET))
