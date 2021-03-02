@@ -11,6 +11,8 @@ Feature: Password policies are enforced
     And I fill in "Current password" with "test"
     And I fill in "Password" with "1"
     And I fill in "Confirm password" with "1"
+    Then I should see "Fail - The password has a score"
+    Then I should see "but the policy requires a score"
+    And I wait "1" seconds
     And I save the user
-    Then I should see "The password does not satisfy the password policies"
     And I should not see "The changes have been saved."
