@@ -239,6 +239,13 @@ class RolesPermissionsTest extends ExistingSiteBase {
         ],
       ],
       [
+        'content_creator_vet_center',
+        [
+          'create vet_center_cap content',
+          'create vet_center_facility_health_servi content',
+        ],
+      ],
+      [
         'content_editor',
         [
           'access administration pages',

@@ -1,0 +1,14 @@
+uuid: 6ea876d7-2ab5-4c5c-95a6-dfe0b4ff3956
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.content_creator_vet_center
+  module:
+    - user
+id: user_add_role_action.content_creator_vet_center
+label: 'Add the Content creator - Vet Center role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: content_creator_vet_center
