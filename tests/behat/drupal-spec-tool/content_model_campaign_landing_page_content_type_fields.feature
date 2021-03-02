@@ -29,7 +29,7 @@ Feature: Content model: Campaign Landing Page Content Type fields
 | Content type | Campaign Landing Page | Heading | field_clp_stories_header | Text (plain) |  | 1 | Textfield with counter |  |
 | Content type | Campaign Landing Page | Heading | field_clp_video_panel_header | Text (plain) |  | 1 | Textfield with counter |  |
 | Content type | Campaign Landing Page | Heading | field_clp_what_you_can_do_header | Text (plain) | Required | 1 | Textfield with counter |  |
-| Content type | Campaign Landing Page | Hero Image (Optional) | field_hero_image | Entity reference |  | 1 | Media library |  |
+| Content type | Campaign Landing Page | Hero Image | field_hero_image | Entity reference | Required | 1 | Media library |  |
 | Content type | Campaign Landing Page | Introduction | field_clp_resources_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | Campaign Landing Page | Introduction | field_clp_spotlight_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | Campaign Landing Page | Introduction | field_clp_stories_intro | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |

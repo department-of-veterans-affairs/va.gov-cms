@@ -13,11 +13,13 @@ dependencies:
     - field.field.node.vet_center.field_operating_status_facility
     - field.field.node.vet_center.field_operating_status_more_info
     - field.field.node.vet_center.field_phone_number
+    - field.field.node.vet_center.field_prepare_for_visit
     - field.field.node.vet_center.field_vet_center_call_center
     - node.type.vet_center
   module:
     - address
     - entity_field_fetch
+    - entity_reference_revisions
     - options
     - tablefield
     - user
@@ -100,6 +102,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
+  field_prepare_for_visit:
+    type: entity_reference_revisions_entity_view
+    weight: 12
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
     region: content
   field_vet_center_call_center:
     weight: 6

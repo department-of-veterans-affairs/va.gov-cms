@@ -1,0 +1,44 @@
+uuid: eeb94e4e-a90a-4702-9a10-f96e7c1b5134
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.vet_center_outstation.field_address
+    - field.field.node.vet_center_outstation.field_administration
+    - field.field.node.vet_center_outstation.field_facility_hours
+    - field.field.node.vet_center_outstation.field_facility_locator_api_id
+    - field.field.node.vet_center_outstation.field_media
+    - field.field.node.vet_center_outstation.field_operating_status_facility
+    - field.field.node.vet_center_outstation.field_operating_status_more_info
+    - field.field.node.vet_center_outstation.field_phone_number
+    - field.field.node.vet_center_outstation.field_vet_center
+    - node.type.vet_center_outstation
+  module:
+    - user
+id: node.vet_center_outstation.teaser
+targetEntityType: node
+bundle: vet_center_outstation
+mode: teaser
+content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_address: true
+  field_administration: true
+  field_facility_hours: true
+  field_facility_locator_api_id: true
+  field_media: true
+  field_operating_status_facility: true
+  field_operating_status_more_info: true
+  field_phone_number: true
+  field_vet_center: true
+  search_api_excerpt: true
