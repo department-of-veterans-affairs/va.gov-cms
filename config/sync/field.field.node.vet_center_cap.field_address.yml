@@ -12,10 +12,24 @@ field_name: field_address
 entity_type: node
 bundle: vet_center_cap
 label: Address
-description: 'The physical address (populated by Facility API)'
+description: ''
 required: true
 translatable: true
-default_value: {  }
+default_value:
+  -
+    langcode: ''
+    country_code: US
+    administrative_area: ''
+    locality: ''
+    dependent_locality: null
+    postal_code: ''
+    sorting_code: null
+    address_line1: ''
+    address_line2: null
+    organization: ''
+    given_name: null
+    additional_name: null
+    family_name: null
 default_value_callback: ''
 settings:
   available_countries:
@@ -27,18 +41,18 @@ settings:
     familyName:
       override: hidden
     organization:
-      override: hidden
-    addressLine1:
       override: optional
+    addressLine1:
+      override: required
     addressLine2:
       override: hidden
     postalCode:
-      override: optional
+      override: required
     sortingCode:
       override: hidden
     locality:
-      override: optional
+      override: required
     administrativeArea:
-      override: optional
+      override: required
   fields: {  }
 field_type: address
