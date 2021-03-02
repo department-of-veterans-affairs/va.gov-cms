@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d150141ceaf06629b1255e01e1bc4bd4",
+    "content-hash": "dea526351da825b7b1279b01262cbd45",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3701,6 +3701,44 @@
             "time": "2021-01-19T23:11:00+00:00"
         },
         {
+            "name": "drupal/core_event_dispatcher",
+            "version": "2.5.0",
+            "require": {
+                "drupal/core": "^8 || ^9",
+                "drupal/hook_event_dispatcher": "*"
+            },
+            "type": "metapackage",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.05",
+                    "datestamp": "1608409671",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "pdenooijer",
+                    "homepage": "https://www.drupal.org/user/3175437"
+                },
+                {
+                    "name": "robin.ingelbrecht",
+                    "homepage": "https://www.drupal.org/user/2339074"
+                }
+            ],
+            "description": "Registers event dispatchers for several core hooks",
+            "homepage": "https://www.drupal.org/project/hook_event_dispatcher",
+            "support": {
+                "source": "https://git.drupalcode.org/project/hook_event_dispatcher"
+            }
+        },
+        {
             "name": "drupal/crop",
             "version": "2.1.0",
             "source": {
@@ -3969,6 +4007,124 @@
             "homepage": "https://www.drupal.org/project/ctools",
             "support": {
                 "source": "https://git.drupalcode.org/project/ctools"
+            }
+        },
+        {
+            "name": "drupal/danse",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/danse.git",
+                "reference": "2.1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/danse-2.1.0.zip",
+                "reference": "2.1.0",
+                "shasum": "fb8376d0bc6a519922984088d6f4a2b80e2b221f"
+            },
+            "require": {
+                "drupal/core": "^8.8 || ^9",
+                "php": ">=7.2"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.1.0",
+                    "datestamp": "1601449908",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9 | ^10"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "danielspeicher",
+                    "homepage": "https://www.drupal.org/user/3621778"
+                },
+                {
+                    "name": "jurgenhaas",
+                    "homepage": "https://www.drupal.org/user/168924"
+                }
+            ],
+            "description": "Event driven framework to audit system activity, create notifications from them and allow users to subscribe to them.",
+            "homepage": "https://www.drupal.org/project/danse",
+            "keywords": [
+                "Drupal",
+                "Notification",
+                "Subscription"
+            ],
+            "support": {
+                "source": "https://drupal.org/project/danse",
+                "issues": "https://drupal.org/project/issues/danse"
+            }
+        },
+        {
+            "name": "drupal/danse_content_moderation",
+            "version": "2.0.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/danse_content_moderation.git",
+                "reference": "2.0.0-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/danse_content_moderation-2.0.0-beta1.zip",
+                "reference": "2.0.0-beta1",
+                "shasum": "6db50ed87bb007fd9a51e84f856d2efee5a6d555"
+            },
+            "require": {
+                "drupal/core": "^8.8 || ^9",
+                "drupal/core_event_dispatcher": "*",
+                "drupal/danse": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.0-beta1",
+                    "datestamp": "1610573128",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "acrollet",
+                    "homepage": "https://www.drupal.org/user/253909"
+                },
+                {
+                    "name": "indytechcook",
+                    "homepage": "https://www.drupal.org/user/245817"
+                },
+                {
+                    "name": "natedouglas",
+                    "homepage": "https://www.drupal.org/user/3518344"
+                },
+                {
+                    "name": "oksana-c",
+                    "homepage": "https://www.drupal.org/user/2916547"
+                }
+            ],
+            "description": "Creates DANSE events for Content Moderation transitions",
+            "homepage": "https://www.drupal.org/project/danse_content_moderation",
+            "support": {
+                "source": "https://git.drupalcode.org/project/danse_content_moderation"
             }
         },
         {
@@ -5352,6 +5508,85 @@
             "homepage": "https://www.drupal.org/project/fieldhelptext",
             "support": {
                 "source": "https://git.drupalcode.org/project/fieldhelptext"
+            }
+        },
+        {
+            "name": "drupal/flag",
+            "version": "4.0.0-beta2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/flag.git",
+                "reference": "8.x-4.0-beta2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/flag-8.x-4.0-beta2.zip",
+                "reference": "8.x-4.0-beta2",
+                "shasum": "6f180b6f65e0e778e6fccebd07de9f9c689f6a1f"
+            },
+            "require": {
+                "drupal/core": "^8.8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-4.0-beta2",
+                    "datestamp": "1595273815",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                },
+                "patches_applied": {
+                    "2957019 Failed to start the session because headers have already been sent": "https://www.drupal.org/files/issues/2020-01-20/2957019-51.patch"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Berdir",
+                    "homepage": "https://www.drupal.org/user/214652"
+                },
+                {
+                    "name": "fago",
+                    "homepage": "https://www.drupal.org/user/16747"
+                },
+                {
+                    "name": "fubhy",
+                    "homepage": "https://www.drupal.org/user/761344"
+                },
+                {
+                    "name": "joachim",
+                    "homepage": "https://www.drupal.org/user/107701"
+                },
+                {
+                    "name": "merlinofchaos",
+                    "homepage": "https://www.drupal.org/user/26979"
+                },
+                {
+                    "name": "mooffie",
+                    "homepage": "https://www.drupal.org/user/78454"
+                },
+                {
+                    "name": "quicksketch",
+                    "homepage": "https://www.drupal.org/user/35821"
+                },
+                {
+                    "name": "shabana.navas",
+                    "homepage": "https://www.drupal.org/user/1311398"
+                },
+                {
+                    "name": "socketwench",
+                    "homepage": "https://www.drupal.org/user/65793"
+                }
+            ],
+            "description": "Create customized flags that users can set on entities.",
+            "homepage": "https://www.drupal.org/project/flag",
+            "support": {
+                "source": "https://git.drupalcode.org/project/flag"
             }
         },
         {
@@ -21742,6 +21977,7 @@
         "drupal/fast_404": 20,
         "drupal/feature_toggle": 20,
         "drupal/fieldhelptext": 10,
+        "drupal/flag": 10,
         "drupal/graphql_metatag": 20,
         "drupal/health_check_url": 20,
         "drupal/hms_field": 20,
@@ -21769,7 +22005,7 @@
     "platform": [],
     "platform-dev": [],
     "platform-overrides": {
-        "php": "7.1.3"
+        "php": "7.2.32"
     },
     "plugin-api-version": "1.1.0"
 }

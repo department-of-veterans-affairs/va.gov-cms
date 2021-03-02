@@ -78,9 +78,6 @@ services:
         - echo "apc.enable=1" >> /usr/local/etc/php/conf.d/php-cli.ini
         - echo "apc.enable_cli=1" >> /usr/local/etc/php/conf.d/php-cli.ini
 
-        # composer 1 :(
-        - composer self-update --1
-
       # Commands that import files, databases,  or other assets. When an
       # existing preview is refreshed, the build workflow starts here,
       # skipping the init step, because the results of that step will

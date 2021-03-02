@@ -132,7 +132,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC Facility Health Service | Facility | field_facility_location | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC Facility Health Service | Facility description of service | field_body | Text (formatted, long) |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC Facility Health Service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC Facility Health Service | Service locations | field_service_location | Entity reference revisions |  | Unlimited | Paragraphs Classic |  |
+| Content type | VAMC Facility Health Service | Service locations | field_service_location | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Content type | VAMC Facility Health Service | VAMC system health service | field_regional_health_service | Entity reference | Required | 1 | Select list |  |
 | Content type | VAMC Facility Health Service | Is online scheduling available for this service? | field_online_scheduling_availabl | List (text) | Required | 1 | Select list |  |
 | Content type | VAMC Facility Health Service | Phone number for appointments | field_phone_numbers_paragraph | Entity reference revisions |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
