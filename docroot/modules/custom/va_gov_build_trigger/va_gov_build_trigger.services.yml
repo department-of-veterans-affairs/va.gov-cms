@@ -1,7 +1,33 @@
 services:
+  logger.channel.va_gov_build_trigger:
+    parent: logger.channel_base
+    arguments: ['va_gov_build_trigger']
+  va_gov_build_trigger.aws_ssm_client:
+    class: Aws\Ssm\SsmClient
+    arguments: [ { 'version': 'latest', 'region': 'us-gov-west-1' } ]
+  va_gov_build_trigger.jenkins_http_client:
+    class: GuzzleHttp\Client
+    arguments: [ { 'handler': '@va_gov_build_trigger.http_client_handler_stack' } ]
+  va_gov_build_trigger.retry_middleware:
+    class: Closure
+    factory: ['Drupal\va_gov_build_trigger\Service\MiddlewareFactory', 'createRetryMiddleware']
+    arguments: ['@logger.channel.va_gov_build_trigger']
+  va_gov_build_trigger.http_client_handler_stack:
+    class: GuzzleHttp\HandlerStack
+    factory: ['Drupal\va_gov_build_trigger\Service\MiddlewareFactory', 'createHandlerStack']
+    arguments: ['@logger.channel.va_gov_build_trigger']
   va_gov_build_trigger.build_frontend:
     class: Drupal\va_gov_build_trigger\Service\BuildFrontend
     arguments: ['@messenger', '@logger.factory', '@va_gov.build_trigger.web_build_status', '@va_gov.build_trigger.environment_discovery']
+  va_gov_build_trigger.build_time_recorder:
+    class: Drupal\va_gov_build_trigger\Service\BuildTimeRecorder
+    arguments: ['@date.formatter', '@database']
+  va_gov_build_trigger.jenkins_client:
+    class: Drupal\va_gov_build_trigger\Service\JenkinsClient
+    arguments: ['@settings', '@messenger', '@logger.factory', '@va_gov_build_trigger.systems_manager_client', '@va_gov_build_trigger.jenkins_http_client']
+  va_gov_build_trigger.systems_manager_client:
+    class: Drupal\va_gov_build_trigger\Service\SystemsManagerClient
+    arguments: ['@string_translation', '@va_gov_build_trigger.aws_ssm_client']
   va_gov.build_trigger.web_build_status:
     class: Drupal\va_gov_build_trigger\WebBuildStatus
     arguments: ['@state', '@settings']

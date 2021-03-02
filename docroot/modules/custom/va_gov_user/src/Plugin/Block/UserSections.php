@@ -196,7 +196,7 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
    * @param string $lookup
    *   Array key to look up.
    *
-   * @return array|null
+   * @return array
    *   Array of elements that compose a path to searched key.
    */
   protected function getArrayKeyPath(array $array, $lookup) {
@@ -214,7 +214,7 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
         }
       }
     }
-    return NULL;
+    return [];
   }
 
   /**
