@@ -1327,7 +1327,6 @@ function _va_gov_backend_modify_paragraph_interactions(array &$element, FormStat
     // If use facility hours option is not selected, show address entry fields.
     $toggle_fields = [
       'field_facility_service_hours',
-      'field_additional_hours_info',
     ];
     $selector = sprintf(':input[name="field_service_location[%1$d][subform][field_hours]"]', $element['#delta']);
     foreach ($toggle_fields as $field) {
@@ -1337,8 +1336,9 @@ function _va_gov_backend_modify_paragraph_interactions(array &$element, FormStat
         ],
       ];
     }
-    // Remove catpion, rows, and import fields from address tablefield.
+    // Remove caption, rows, and import fields from address tablefield.
     if (isset($element['subform']['field_facility_service_hours']['widget'][0]['caption'])) {
+      unset($element['subform']['field_facility_service_hours']['widget'][0]['#description']);
       unset($element['subform']['field_facility_service_hours']['widget'][0]['caption']);
     }
     $element['subform']['field_facility_service_hours']['widget'][0]['prefix']['#markup'] = t('<div class="description">Format: "8:00 a.m. to 5:30 p.m. ET" or "24/7"</div>');
