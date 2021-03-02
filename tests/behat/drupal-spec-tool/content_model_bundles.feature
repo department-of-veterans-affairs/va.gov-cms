@@ -72,6 +72,7 @@ Feature: Content model bundles
 | Email address | email_contact | Paragraph type |  |
 | Embedded image | media | Paragraph type | For adding an image inline |
 | Expandable Text | expandable_text | Paragraph type | Text that expands upon click. |
+| Featured content | featured_content | Paragraph type |  |
 | Link teaser | link_teaser | Paragraph type | A link followed by a description. For building inline "menus" of content. |
 | Link teaser with image | link_teaser_with_image | Paragraph type |  |
 | Link to file or video | downloadable_file | Paragraph type | A download link for an image or document, or a link to a YouTube video. |
