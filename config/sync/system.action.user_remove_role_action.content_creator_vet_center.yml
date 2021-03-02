@@ -1,0 +1,14 @@
+uuid: 024cfb32-e976-43ef-8e28-b31b7a91046b
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.content_creator_vet_center
+  module:
+    - user
+id: user_remove_role_action.content_creator_vet_center
+label: 'Remove the Content creator - Vet Center role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: content_creator_vet_center

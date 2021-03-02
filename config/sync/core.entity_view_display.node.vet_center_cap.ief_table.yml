@@ -11,7 +11,6 @@ dependencies:
     - field.field.node.vet_center_cap.field_geographical_identifier
     - field.field.node.vet_center_cap.field_media
     - field.field.node.vet_center_cap.field_vet_center
-    - field.field.node.vet_center_cap.field_vet_center_cap_location
     - node.type.vet_center_cap
   module:
     - text
@@ -21,6 +20,11 @@ targetEntityType: node
 bundle: vet_center_cap
 mode: ief_table
 content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   field_body:
     type: text_default
     weight: 1
@@ -35,7 +39,6 @@ hidden:
   field_geographical_identifier: true
   field_media: true
   field_vet_center: true
-  field_vet_center_cap_location: true
   label: true
   links: true
   search_api_excerpt: true
