@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_content_export\ExportCommand;
+namespace Drupal\va_gov_build_trigger\Command;
 
 /**
  * Find the drush exectable.

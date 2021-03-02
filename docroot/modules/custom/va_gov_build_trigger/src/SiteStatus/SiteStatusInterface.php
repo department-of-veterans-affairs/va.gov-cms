@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_content_export\SiteStatus;
+namespace Drupal\va_gov_build_trigger\SiteStatus;
 
 /**
  * Interface SiteStatusInterface.
@@ -10,7 +10,7 @@ interface SiteStatusInterface {
   /**
    * Is the site currently in Deploy Mode.
    *
-   * Deploy mode is enaled when a new code and database changes occur.
+   * Deploy mode is enabled when a new code and database changes occur.
    * At this point the site is in a state where unpredictable results could
    * occur to an end user.
    *
