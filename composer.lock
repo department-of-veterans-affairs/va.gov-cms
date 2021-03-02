@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "357a4f8ef09acb95eb7b2239052d5cc6",
+    "content-hash": "218d98160cef75220684aef3d1aeac57",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -7092,25 +7092,27 @@
         },
         {
             "name": "drupal/migrate_plus",
-            "version": "5.1.0",
+            "version": "4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/migrate_plus.git",
-                "reference": "8.x-5.1"
+                "reference": "8.x-4.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/migrate_plus-8.x-5.1.zip",
-                "reference": "8.x-5.1",
-                "shasum": "1257427ab0c64459c3c1e42bb2a98d3114b77163"
+                "url": "https://ftp.drupal.org/files/projects/migrate_plus-8.x-4.2.zip",
+                "reference": "8.x-4.2",
+                "shasum": "5736a43e39cc5c091d54ceef2849ea35ba979af3"
             },
             "require": {
-                "drupal/core": "^8.8 || ^9",
-                "php": ">=7.1"
+                "drupal/core": "^8.3"
             },
             "require-dev": {
+                "drupal/entity": "*",
                 "drupal/migrate_example_advanced_setup": "*",
-                "drupal/migrate_example_setup": "*"
+                "drupal/migrate_example_setup": "*",
+                "drupal/migrate_tools": "*",
+                "drupal/profile": "*"
             },
             "suggest": {
                 "ext-soap": "*",
@@ -7119,8 +7121,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-5.1",
-                    "datestamp": "1588261060",
+                    "version": "8.x-4.2",
+                    "datestamp": "1555683487",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -7133,7 +7135,7 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0-or-later"
+                "GPL-2.0+"
             ],
             "authors": [
                 {
@@ -7142,17 +7144,16 @@
                     "role": "Maintainer"
                 },
                 {
-                    "name": "Lucas Hedding",
-                    "homepage": "https://www.drupal.org/u/heddn",
-                    "role": "Maintainer"
+                    "name": "mikeryan",
+                    "homepage": "https://www.drupal.org/user/4420"
                 }
             ],
             "description": "Enhancements to core migration support.",
             "homepage": "https://www.drupal.org/project/migrate_plus",
             "support": {
-                "source": "https://git.drupalcode.org/project/migrate_plus",
+                "source": "https://cgit.drupalcode.org/migrate_plus",
                 "issues": "https://www.drupal.org/project/issues/migrate_plus",
-                "slack": "#migrate"
+                "irc": "irc://irc.freenode.org/drupal-migrate"
             }
         },
         {
