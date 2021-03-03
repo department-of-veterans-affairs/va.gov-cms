@@ -7,7 +7,9 @@
   gsub(/-+/, "-", str);
   # Remove leading hyphens.
   gsub(/^-/, "", str);
-  # Trim the string down to 25 characters.
+  # Trim the string down to 25 characters because of max hostname label length. If the prefix length changes this must
+  # change too.
+  # See https://github.com/department-of-veterans-affairs/va.gov-cms/pull/4399#issuecomment-789297526
   str = substr(str, 0, 25);
   # Remove trailing hyphens.
   gsub(/-$/, "", str);
