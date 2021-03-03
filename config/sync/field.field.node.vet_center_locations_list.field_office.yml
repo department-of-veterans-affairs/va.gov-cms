@@ -1,21 +1,22 @@
-uuid: d7c2cbe7-d4b8-44af-846f-52cc49263b69
+uuid: 57d4a44c-dd64-44ac-bf30-29d307476d08
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_vet_center
+    - field.storage.node.field_office
     - node.type.vet_center
-    - node.type.vet_center_facility_health_servi
+    - node.type.vet_center_locations_list
   module:
     - entity_reference_validators
 third_party_settings:
   entity_reference_validators:
-    circular_reference: false
-    duplicate_reference: false
-id: node.vet_center_facility_health_servi.field_vet_center
-field_name: field_vet_center
+    circular_reference: true
+    circular_reference_deep: false
+    duplicate_reference: true
+id: node.vet_center_locations_list.field_office
+field_name: field_office
 entity_type: node
-bundle: vet_center_facility_health_servi
+bundle: vet_center_locations_list
 label: 'Vet Center'
 description: ''
 required: true
