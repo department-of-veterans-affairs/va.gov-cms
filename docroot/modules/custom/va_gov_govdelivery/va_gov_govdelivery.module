@@ -5,94 +5,70 @@
  * Module hooks for va_gov_govdelivery module.
  */
 
-use Drupal\node\NodeInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
 
 /**
- * Implements hook_ENTITY_TYPE_presave().
+ * Implements hook_theme().
  */
-function va_gov_govdelivery_node_presave(NodeInterface $node) {
-  // Make sure we are dealing with correct content type.
-  if ($node->getType() === 'full_width_banner_alert') {
-    // Build computed field array on banner alert nodes.
-    _va_gov_govdelivery_build_alert_computed_field_data($node);
+function va_gov_govdelivery_theme($existing, $type, $theme, $path) {
+  return [
+    'va_gov_body_alert' => [
+      'path' => drupal_get_path('module', 'va_gov_govdelivery') . '/templates',
+      'template' => 'va-gov-body-alert',
+      'variables' => [
+        'alert_title' => '',
+        'alert_type' => '',
+        'date_time' => '',
+        'message' => '',
+        'ops_page_url' => '',
+        'situation_update' => FALSE,
+        'vamc_name' => '',
+        'vamc_url' => '',
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_FORMID_alter().
+ *
+ * Disable send email field for banner alerts so that the form will only
+ *  send initial email once.
+ */
+function va_gov_govdelivery_form_node_full_width_banner_alert_edit_form_alter(
+  array &$form,
+  FormStateInterface $form_state
+) : void {
+  $node = $form_state->getFormObject()->getEntity();
+  if (va_gov_govdelivery_node_has_ever_been_published($node)) {
+    $form['field_operating_status_sendemail']['widget']['#disabled'] = TRUE;
   }
 }
 
 /**
- * Implements hook_ENTITY_TYPE_insert().
- */
-function va_gov_govdelivery_node_insert(NodeInterface $node) {
-  // Make sure we are dealing with correct content type.
-  if ($node->getType() === 'full_width_banner_alert') {
-    $bulletin = \Drupal::service('va_gov_govdelivery.process_status_bulletin')
-      ->processNode($node);
-  }
-}
-
-/**
- * Implements hook_ENTITY_TYPE_update().
- */
-function va_gov_govdelivery_node_update(NodeInterface $node) {
-  // Make sure we are dealing with correct content type.
-  if ($node->getType() === 'full_width_banner_alert') {
-    $bulletin = \Drupal::service('va_gov_govdelivery.process_status_bulletin')
-      ->processNode($node);
-  }
-}
-
-/**
- * Implements hook_form_alter().
- */
-function va_gov_govdelivery_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if ($form_id === 'node_full_width_banner_alert_edit_form') {
-    $node = $form_state->getFormObject()->getEntity();
-    if ($node->isPublished() || ($node->moderation_state->value === 'published')) {
-      // Disable send email field, this form will only send initial email once.
-      // @todo Check node revisions in addition to current state, disable this
-      // field if it was ever published.
-      $form['field_operating_status_sendemail']['widget']['#disabled'] = TRUE;
-    }
-  }
-}
-
-/**
- * Populates computed field on banner alert nodes.
+ * Check if the node has ever been published.
  *
  * @param \Drupal\node\NodeInterface $node
- *   The node object.
+ *   The node to check.
+ *
+ * @return bool
+ *   Whether or not the node has ever been published.
  */
-function _va_gov_govdelivery_build_alert_computed_field_data(NodeInterface $node) {
-  // Make sure it's a node.
-  if ($node instanceof NodeInterface && $node->bundle() === 'full_width_banner_alert') {
-    // This is where we get our Operating status node id's.
-    $vamcs_op_status_ids = $node->get('field_banner_alert_vamcs')->getValue();
-    foreach ($vamcs_op_status_ids as $key => $vamcs_op_status_id) {
-      $vamcs_op_status_ids[$key] = !empty($vamcs_op_status_id['target_id']) ? $vamcs_op_status_id['target_id'] : '';
-    }
-    // Get a node storage object.
-    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+function va_gov_govdelivery_node_has_ever_been_published(NodeInterface $node) : bool {
+  $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+  $revision_ids = $node_storage->revisionIds($node);
+  sort($revision_ids);
 
-    $vamc_office_nids = [];
-    $computed_return = [];
-    $vamc_op_nodes = $node_storage->loadMultiple($vamcs_op_status_ids);
+  foreach (array_reverse($revision_ids) as $revision_id) {
+    $node_revision = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadRevision($revision_id);
 
-    // Get out op status page paths.
-    foreach ($vamc_op_nodes as $key => $vamc_op_node) {
-      $vamc_office_nid = $vamc_op_node->get('field_office')->getString();
-      $computed_return[$vamc_office_nid]['vamc_op_status_path'] = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $vamc_op_node->id());
-      $vamc_office_nids[] = $vamc_office_nid;
+    if ($node_revision->isPublished()) {
+      return TRUE;
     }
-
-    // Grab what we need from our vamcs.
-    $vamc_system_nodes = $node_storage->loadMultiple($vamc_office_nids);
-    foreach ($vamc_system_nodes as $key => $vamc_system_node) {
-      $computed_return[$key]['vamc_topic_id'] = !empty($vamc_system_node->get('field_govdelivery_id_emerg')->getString()) ? $vamc_system_node->get('field_govdelivery_id_emerg')->getString() : '';
-      $computed_return[$key]['vamc_title'] = $vamc_system_node->getTitle();
-      $computed_return[$key]['vamc_path'] = $vamc_system_node->toUrl()->toString();
-    }
-    // Convert to string for field storage.
-    $storage = json_encode($computed_return);
-    $node->field_banner_alert_computdvalues->setValue(['value' => $storage]);
   }
+
+  return FALSE;
 }

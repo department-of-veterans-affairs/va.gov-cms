@@ -1,0 +1,47 @@
+uuid: 857183f4-e88e-40e2-957e-53c880b96111
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_address
+    - node.type.vet_center_mobile_vet_center
+  module:
+    - address
+id: node.vet_center_mobile_vet_center.field_address
+field_name: field_address
+entity_type: node
+bundle: vet_center_mobile_vet_center
+label: Address
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    country_code: US
+    langcode: ''
+    given_name: ''
+    family_name: ''
+    organization: ''
+    address_line1: ''
+    address_line2: ''
+    locality: ''
+    administrative_area: ''
+    postal_code: ''
+    additional_name: null
+    sorting_code: null
+    dependent_locality: null
+default_value_callback: ''
+settings:
+  available_countries: {  }
+  langcode_override: ''
+  field_overrides:
+    givenName:
+      override: hidden
+    additionalName:
+      override: hidden
+    familyName:
+      override: hidden
+    organization:
+      override: hidden
+  fields: {  }
+field_type: address

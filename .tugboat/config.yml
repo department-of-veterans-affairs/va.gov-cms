@@ -1,6 +1,10 @@
 services:
   proxy:
     image: tugboatqa/httpd
+    # Set this as the default service. This does a few things:
+    #   1. Clones the git repository into the service container
+    #   2. Exposes port 80 to the Tugboat HTTP proxy
+    #   3. Routes requests to the preview URL to this service
     default: true
     aliases:
       - cms
@@ -15,10 +19,10 @@ services:
   # What to call the service hosting the site.
   php:
     # Use PHP 7.x with Apache; this syntax pulls in the latest version of PHP 7
-    image: tugboatqa/php:7.1-apache
+    image: tugboatqa/php:7.2.32-apache
     checkout: true
 
-    # Wait until the mysql service is done building
+    # Wait until the 'mysql' service is done building
     depends: mysql
 
     # A set of commands to run while building this service

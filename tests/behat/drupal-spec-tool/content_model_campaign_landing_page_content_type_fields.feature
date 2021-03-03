@@ -29,7 +29,7 @@ Feature: Content model: Campaign Landing Page Content Type fields
 | Content type | Campaign Landing Page | Heading | field_clp_stories_header | Text (plain) |  | 1 | Textfield with counter |  |
 | Content type | Campaign Landing Page | Heading | field_clp_video_panel_header | Text (plain) |  | 1 | Textfield with counter |  |
 | Content type | Campaign Landing Page | Heading | field_clp_what_you_can_do_header | Text (plain) | Required | 1 | Textfield with counter |  |
-| Content type | Campaign Landing Page | Hero Image (Optional) | field_hero_image | Entity reference |  | 1 | Media library |  |
+| Content type | Campaign Landing Page | Hero Image | field_hero_image | Entity reference | Required | 1 | Media library |  |
 | Content type | Campaign Landing Page | Introduction | field_clp_resources_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | Campaign Landing Page | Introduction | field_clp_spotlight_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | Campaign Landing Page | Introduction | field_clp_stories_intro | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
@@ -40,8 +40,8 @@ Feature: Content model: Campaign Landing Page Content Type fields
 | Content type | Campaign Landing Page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Campaign Landing Page | Page introduction | field_hero_blurb | Text (plain) |  | 1 | Textfield with counter |  |
 | Content type | Campaign Landing Page | Primary call to action | field_primary_call_to_action | Entity reference revisions | Required | 1 | Paragraphs EXPERIMENTAL |  |
-| Content type | Campaign Landing Page | Resources | field_clp_resources | Entity reference |  | 3 | Entity browser |  |
+| Content type | Campaign Landing Page | Resources | field_clp_resources | Entity reference |  | 3 | Inline entity form - Complex - Table View Mode |  |
 | Content type | Campaign Landing Page | Related benefits | field_benefit_categories | Entity reference | Required | Unlimited | Entity Browser - Table | Translatable |
 | Content type | Campaign Landing Page | Secondary call to action | field_secondary_call_to_action | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | Campaign Landing Page | Video | field_media | Entity reference |  | 1 | Media library | Translatable |
-| Content type | Campaign Landing Page | What you can do promos | field_clp_what_you_can_do_promos | Entity reference | Required | 3 | Entity Browser - Table |  |
+| Content type | Campaign Landing Page | What you can do promos | field_clp_what_you_can_do_promos | Entity reference | Required | 3 | Inline entity form - Complex - Table View Mode |  |

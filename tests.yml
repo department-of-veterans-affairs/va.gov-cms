@@ -21,10 +21,6 @@ va/tests/behavioral:
   description: behavioral tests with cypress
   command: composer va:test:behavioral
 
-va/web/install:
-  description: Install VA.gov node environment
-  command: composer va:web:install
-
 va/web/build:
   description: Build VA.gov Front-end
   command: ./tests/scripts/build-web.sh
@@ -39,9 +35,9 @@ va/tests/revision-log:
   description: Ensure revision log field is present
   command: ./tests/scripts/check-revision-logs.sh
 
-va/tests/linkit-log:
-  description: Ensure linkit widget is used in lieu of core link widget
-  command: ./tests/scripts/check-linkit-logs.sh
+va/tests/check-cer:
+  description: Ensure cer fields exist
+  command: ./tests/scripts/check-cer.sh
 
 va/tests/status-error:
   description: Check for Drupal status errors

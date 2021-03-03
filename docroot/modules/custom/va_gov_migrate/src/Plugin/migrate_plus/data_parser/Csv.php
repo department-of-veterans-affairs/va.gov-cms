@@ -2,11 +2,14 @@
 
 namespace Drupal\va_gov_migrate\Plugin\migrate_plus\data_parser;
 
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\migrate\Exception\RequirementsException;
 use Drupal\migrate\MigrateException;
+use Drupal\migrate\MigrateSkipRowException;
 use Drupal\migrate_plus\DataParserPluginBase;
 use League\Csv\Reader;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Obtain CSV data for migration.
@@ -26,6 +29,47 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
   protected $iterator;
 
   /**
+   * Logger.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
+  protected $logger;
+
+  /**
+   * The location of the current csv being processed.
+   *
+   * @var string
+   */
+  protected $currentUrl;
+
+  /**
+   * The index of the current row in the CSV being processed.
+   *
+   * @var int
+   */
+  protected $currentRowIndex;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, LoggerChannelFactoryInterface $logger) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->logger = $logger->get('migrate_plus');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('logger.factory')
+      );
+  }
+
+  /**
    * Retrieves the CSV data and returns it as an array.
    *
    * @param string $url
@@ -37,13 +81,36 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
    * @throws \GuzzleHttp\Exception\RequestException
    */
   protected function getSourceData($url) {
+    $this->currentUrl = $url;
     $data_fetcher = !empty($this->configuration['data_fetcher_plugin']) ? $this->configuration['data_fetcher_plugin'] : NULL;
-    $response = $this->getDataFetcherPlugin()->getResponseContent($url);
+    $response = $this->getDataFetcherPlugin()->getResponse($url);
 
     switch ($data_fetcher) {
       case 'http':
-        // This fetcher returns an object.
-        $content = $response->getContents();
+        $response_code = $response->getStatusCode();
+
+        if ($response_code === 200) {
+          // This fetcher returns an object.
+          $content = $response->getBody()->getContents();
+          $msg = "Migrating from `@url` ";
+          $variables = [
+            '@url' => $url,
+          ];
+          $this->logger->info($msg, $variables);
+        }
+        else {
+          // This request failed. Don't abort the entire migration just log an
+          // error and move on to next source.
+          $msg = "Could not process `@url` because it returned status @code : @phrase.";
+          $variables = [
+            '@url' => $url,
+            '@code' => $response_code,
+            '@phrase' => $response->getReasonPhrase(),
+          ];
+          $this->logger->error($msg, $variables);
+          // Curl was unsuccessful so provide empty content.
+          $content = '';
+        }
         break;
 
       case 'file':
@@ -141,7 +208,6 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
       chr(0xBB) => '&raquo;',
     ];
     $csv = html_entity_decode(mb_convert_encoding(strtr($csv, $map), 'UTF-8', 'ISO-8859-2'), ENT_QUOTES, 'UTF-8');
-
   }
 
   /**
@@ -165,6 +231,7 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
       throw new RequirementsException('League CSV Reader is required to use the CSV dataparser.');
     }
     $reader = Reader::createFromString($csv);
+    $reader->skipEmptyRecords();
     $reader->setDelimiter($delimiter);
     // Set additional options if we have them.
     if (!empty($enclosure)) {
@@ -178,8 +245,12 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
     }
 
     $data = [];
-    foreach ($reader->fetchAssoc($headers) as $row) {
-      $data[] = $this->expandRow($row);
+    foreach ($reader->getRecords($headers) as $index => $row) {
+      $this->currentRowIndex = $index;
+      if ($this->rowGood($row)) {
+        // The number of columns is appropriate for the number of fields.
+        $data[] = $this->expandRow($row);
+      }
     }
 
     return $data;
@@ -216,6 +287,38 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
     // (Re)open the provided URL.
     $source_data = $this->getSourceData($url);
     $this->iterator = new \ArrayIterator($source_data);
+    return TRUE;
+  }
+
+  /**
+   * Check to see if a row should be used.
+   *
+   * @param array $row
+   *   The array that represents the columns of the row.
+   *
+   * @return bool
+   *   TRUE if the row should be used, FALSE if it should not.
+   */
+  protected function rowGood(array $row) {
+    $keys = (array) $this->configuration['keys'];
+    $empty_keys = [];
+    foreach ($keys as $key) {
+      if (empty(trim($row[$key]))) {
+        // This key is empty.
+        $empty_keys[] = $key;
+      }
+    }
+    if (!empty($empty_keys)) {
+      $msg = "Could not process row @row_num in '@csv' because the keys '@keys' were empty.";
+      $variables = [
+        '@row_num' => $this->currentRowIndex,
+        '@csv' => $this->currentUrl,
+        '@keys' => implode(',', $empty_keys),
+      ];
+      $this->logger->notice($msg, $variables);
+      throw new MigrateSkipRowException(t("Could not process row @row_num in '@csv' because the keys '@keys' were empty.", $variables));
+    }
+
     return TRUE;
   }
 
