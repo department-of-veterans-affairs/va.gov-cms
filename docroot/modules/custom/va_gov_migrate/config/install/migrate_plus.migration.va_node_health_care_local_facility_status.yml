@@ -29,7 +29,6 @@ source:
     - https://www.asheville.va.gov/locations/facilities.asp
     - https://www.atlanta.va.gov/locations/facilities.asp
     - https://www.augusta.va.gov/locations/facilities.asp
-    ## - https://www.bath.va.gov/locations/facilities.asp
     - https://www.battlecreek.va.gov/locations/facilities.asp
     - https://www.baypines.va.gov/locations/facilities.asp
     - https://www.beckley.va.gov/locations/facilities.asp
@@ -43,7 +42,6 @@ source:
     - https://www.bronx.va.gov/locations/facilities.asp
     - https://www.buffalo.va.gov/locations/facilities.asp
     - https://www.butler.va.gov/locations/facilities.asp
-    ## - https://www.canandaigua.va.gov/locations/facilities.asp
     - https://www.caribbean.va.gov/locations/facilities.asp
     - https://www.centralalabama.va.gov/locations/facilities.asp
     - https://www.centraliowa.va.gov/locations/facilities.asp
@@ -72,6 +70,7 @@ source:
     - https://www.fargo.va.gov/locations/facilities.asp
     - https://www.fayettevillear.va.gov/locations/facilities.asp
     - https://www.fayettevillenc.va.gov/locations/facilities.asp
+    - https://www.fingerlakes.va.gov/locations/facilities.asp
     - https://www.fresno.va.gov/locations/facilities.asp
     - https://www.grandjunction.va.gov/locations/facilities.asp
     - https://www.hampton.va.gov/locations/facilities.asp
@@ -159,6 +158,8 @@ source:
     - https://www.wichita.va.gov/locations/facilities.asp
     - https://www.wilkes-barre.va.gov/locations/facilities.asp
     - https://www.wilmington.va.gov/locations/facilities.asp
+  request_options:
+    allow_redirects: false
   delimiter: "\t"
   enclosure: ''
   escape: ''
@@ -200,6 +201,7 @@ source:
   keys:
     - id
   track_changes: true
+  track_last_imported: true
   skip_count: true
   # The unique identifiers that are used to map the source to the destination.
   ids:
@@ -213,11 +215,6 @@ source:
 process:
   # If there is no id, this can not be migrated.
   field_facility_locator_api_id:
-    -
-      plugin: skip_on_empty
-      method: row
-      source: id
-      message: 'Skipped: Source API ID is empty, must have it.'
     -
       plugin: get
       source:
@@ -320,12 +317,12 @@ destination:
     - changed
     - field_operating_status_facility
     - field_operating_status_more_info
+    - langcode
     - new_revision
     - revision_default
     - revision_log
     - revision_timestamp
     - revision_uid
-    - uid
 # Dependency on other migrations.
 migration_dependencies:
   required: {  }

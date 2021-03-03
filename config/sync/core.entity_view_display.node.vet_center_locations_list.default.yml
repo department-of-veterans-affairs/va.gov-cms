@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - field.field.node.vet_center_locations_list.field_administration
+    - field.field.node.vet_center_locations_list.field_intro_text
+    - field.field.node.vet_center_locations_list.field_nearby_vet_centers
     - field.field.node.vet_center_locations_list.field_vet_center
     - node.type.vet_center_locations_list
   module:
@@ -13,8 +15,23 @@ targetEntityType: node
 bundle: vet_center_locations_list
 mode: default
 content:
-  field_vet_center:
+  field_intro_text:
     weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_nearby_vet_centers:
+    weight: 3
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_vet_center:
+    weight: 2
     label: above
     settings:
       link: true

@@ -239,6 +239,13 @@ class RolesPermissionsTest extends ExistingSiteBase {
         ],
       ],
       [
+        'content_creator_vet_center',
+        [
+          'create vet_center_cap content',
+          'create vet_center_facility_health_servi content',
+        ],
+      ],
+      [
         'content_editor',
         [
           'access administration pages',
@@ -309,6 +316,8 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'edit any vba_facility content',
           'edit any vet_center content',
           'edit any vet_center_locations_list content',
+          'edit any vet_center_mobile_vet_center content',
+          'edit any vet_center_outstation content',
           'edit any video media',
           'execute entity:break_lock node',
           'notify of path changes',
@@ -445,6 +454,8 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'edit any vba_facility content',
           'edit any vet_center content',
           'edit any vet_center_locations_list content',
+          'edit any vet_center_mobile_vet_center content',
+          'edit any vet_center_outstation content',
           'edit any video media',
           'execute entity:break_lock node',
           'notify of path changes',
@@ -628,6 +639,8 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'edit any vba_facility content',
           'edit any vet_center content',
           'edit any vet_center_locations_list content',
+          'edit any vet_center_mobile_vet_center content',
+          'edit any vet_center_outstation content',
           'edit any video media',
           'edit own document media',
           'edit own image media',

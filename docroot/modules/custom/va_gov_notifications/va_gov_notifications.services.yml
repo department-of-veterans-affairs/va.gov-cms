@@ -1,0 +1,12 @@
+services:
+  logger.channel.va_gov_notifications:
+    parent: logger.channel_base
+    arguments: ['va_gov_notifications']
+  va_gov_notifications.flagging:
+    class: Drupal\va_gov_notifications\Service\Flagging
+    arguments: [ '@flag', '@entity_type.manager']
+  va_gov_notifications.edited_flag_entity_event_subscriber:
+    class: Drupal\va_gov_notifications\Event\Entity\EditedFlag
+    arguments: [ '@va_gov_notifications.flagging' ]
+    tags:
+      - { name: event_subscriber }
