@@ -22,13 +22,6 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
   protected $appRoot;
 
   /**
-   * Use CMS Export.
-   *
-   * @var bool
-   */
-  protected $useContentExport;
-
-  /**
    * Composer Home Directory.
    *
    * @var string
@@ -54,11 +47,8 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
    *
    * @param \Drupal\Core\Site\Settings $settings
    *   Drupal settings.
-   * @param \Drupal\va_gov_build_trigger\WebBuildStatusInterface $webBuildStatus
-   *   WebBuild status.
    */
-  public function __construct(Settings $settings, WebBuildStatusInterface $webBuildStatus) {
-    $this->useContentExport = $webBuildStatus->useContentExport();
+  public function __construct(Settings $settings) {
     $this->appRoot = $settings->get(static::APP_ROOT, '');
     $this->composerHome = $settings->get(static::COMPOSER_HOME, '');
     $this->pathToComposer = $settings->get(static::PATH_TO_COMPOSER, '');
@@ -116,10 +106,6 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
    */
   protected function commandName(string $front_end_git_ref = NULL) : string {
     $command = 'va:web:build';
-
-    if ($this->useContentExport()) {
-      $command .= ':export';
-    }
 
     if ($front_end_git_ref) {
       $command .= ':full';
@@ -185,7 +171,10 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
   }
 
   /**
-   * {@inheritdoc}
+   * Use CMS export.
+   *
+   * @return bool
+   *   Should we use cms export?
    */
   public function useContentExport() : bool {
     return $this->useContentExport;
