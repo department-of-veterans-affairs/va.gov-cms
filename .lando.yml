@@ -42,7 +42,7 @@ services:
       # cypress-axe dependencies - https://docs.cypress.io/guides/getting-started/installing-cypress.html#System-requirements
       - "apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb -y"
       - .lando/scripts/blackfire-init.sh
-    xdebug: false
+    xdebug: true
     config:
       php: .lando/zzz-lando-my-custom.ini
     build:
