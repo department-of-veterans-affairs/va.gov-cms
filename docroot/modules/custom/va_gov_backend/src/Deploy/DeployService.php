@@ -44,7 +44,6 @@ class DeployService {
    */
   public static function deployPlugins() : array {
     return [
-      CMSExport::class,
       FeatureFlag::class,
       HealthCheck::class,
       MaintenanceMode::class,
