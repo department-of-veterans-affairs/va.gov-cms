@@ -45,3 +45,6 @@ services:
   va_gov.build_trigger.web_build_command_builder:
     class: Drupal\va_gov_build_trigger\WebBuildCommandBuilder
     arguments: ['@settings', '@va_gov.build_trigger.web_build_status']
+  va_gov.site_status:
+    class: Drupal\va_gov_build_trigger\SiteStatus\SiteStatus
+    arguments: ['@state']

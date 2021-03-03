@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_content_export\SiteStatus;
+namespace Drupal\va_gov_build_trigger\SiteStatus;
 
 use Drupal\Core\State\StateInterface;
 

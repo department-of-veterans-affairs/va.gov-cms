@@ -8,7 +8,7 @@ use Drupal\advancedqueue\Plugin\AdvancedQueue\JobType\JobTypeBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\va_gov_content_export\ExportCommand\CommandRunner;
+use Drupal\va_gov_build_trigger\Command\CommandRunner;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Process\Process;
 
