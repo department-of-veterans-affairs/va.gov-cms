@@ -5,6 +5,7 @@
  * Contains va_gov_backend.module.
  */
 
+use Drupal\user\Entity\User;
 use Drupal\Component\Utility\Crypt;
 use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Entity\EntityFormInterface;
@@ -422,6 +423,13 @@ function _va_gov_toggle_field_states(array &$form, array $toggle_group) {
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // Prevent system title from being edited on the edit form by non admins.
+  if ($form_id === 'node_health_care_region_page_edit_form') {
+    if (!User::load(\Drupal::currentUser()->id())->hasRole('administrator')) {
+      $form['title']['#disabled'] = 'disabled';
+    }
+  }
 
   if (isset($form['field_hservice_appt_intro_select'])) {
     $form['field_hservice_appt_leadin']['widget'][0]['value']['#title_display'] = 'invisible';
