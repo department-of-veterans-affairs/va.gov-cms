@@ -1079,7 +1079,6 @@ function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
   $perms_service = \Drupal::service('va_gov_user.user_perms');
   // Grabs items user can access per section associations.
   $allowed_options = $perms_service->userOptionsStorage($form, $targets, $user_id);
-
   // Loop through all of our target fields.
   foreach ($targets as $target) {
     if (in_array($target, $form) && !empty($form[$target]['widget']['#options'])) {
@@ -1097,6 +1096,15 @@ function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
             // If not in the allowed items array, take it out.
             if (!in_array($option_key, $allowed_options)) {
               unset($form[$target]['widget']['#options'][$header_key][$option_key]);
+            }
+          }
+        }
+        // Vet center handling.
+        elseif (!empty($option_header)) {
+          foreach ($form[$target]['widget']['#options'] as $option_key) {
+            // If not in the allowed items array, take it out.
+            if (!in_array($option_key, $allowed_options) && is_numeric($option_key)) {
+              unset($form[$target]['widget']['#options'][$option_key]);
             }
           }
         }
