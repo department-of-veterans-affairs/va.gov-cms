@@ -11,7 +11,6 @@ dependencies:
     - field.field.node.vet_center_cap.field_geographical_identifier
     - field.field.node.vet_center_cap.field_media
     - field.field.node.vet_center_cap.field_vet_center
-    - field.field.node.vet_center_cap.field_vet_center_cap_location
     - node.type.vet_center_cap
   module:
     - user
@@ -20,6 +19,11 @@ targetEntityType: node
 bundle: vet_center_cap
 mode: teaser
 content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   links:
     weight: 100
     settings: {  }
@@ -33,5 +37,4 @@ hidden:
   field_geographical_identifier: true
   field_media: true
   field_vet_center: true
-  field_vet_center_cap_location: true
   search_api_excerpt: true

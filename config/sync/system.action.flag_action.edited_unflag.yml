@@ -1,0 +1,15 @@
+uuid: 518e49ad-fff9-40f2-bbd8-67662ff4fbcc
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.edited
+  module:
+    - flag
+id: flag_action.edited_unflag
+label: 'Unmark as edited'
+type: node
+plugin: 'flag_action:edited_unflag'
+configuration:
+  flag_id: edited
+  flag_action: unflag

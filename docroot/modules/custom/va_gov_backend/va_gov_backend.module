@@ -132,6 +132,39 @@ function va_gov_backend_press_release_address_after_build(array $element, FormSt
 }
 
 /**
+ * Hide hours caption in hours widget on vc cap type.
+ *
+ * @param array $element
+ *   The hours table widget form array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ *
+ * @return string
+ *   The altered hours table widget.
+ */
+function va_gov_backend_vc_cap_hours_hide_caption_after_build(array $element, FormStateInterface $form_state) {
+  unset($element[0]['#description']);
+  unset($element[0]['caption']);
+  return $element;
+}
+
+/**
+ * Change company title label in address widget on vc cap type.
+ *
+ * @param array $element
+ *   The address widget form array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ *
+ * @return string
+ *   The altered Address organization label.
+ */
+function va_gov_backend_vc_cap_address_alter_label_after_build(array $element, FormStateInterface $form_state) {
+  $element[0]['address']['organization']['#title'] = t('Located at');
+  return $element;
+}
+
+/**
  * Implements hook_form_FORMID_alter().
  */
 function va_gov_backend_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
@@ -528,6 +561,12 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   // Add after_build callback for Press Release node forms.
   if ($form_id === 'node_press_release_form' || $form_id === 'node_press_release_edit_form') {
     $form['field_address']['widget']['#after_build'][] = 'va_gov_backend_press_release_address_after_build';
+  }
+
+  // Add after_build callback for VC CAP node forms.
+  if ($form_id === 'node_vet_center_cap_form' || $form_id === 'node_vet_center_cap_edit_form') {
+    $form['field_address']['widget']['#after_build'][] = 'va_gov_backend_vc_cap_address_alter_label_after_build';
+    $form['field_facility_hours']['widget']['#after_build'][] = 'va_gov_backend_vc_cap_hours_hide_caption_after_build';
   }
 
 }
@@ -1288,7 +1327,6 @@ function _va_gov_backend_modify_paragraph_interactions(array &$element, FormStat
     // If use facility hours option is not selected, show address entry fields.
     $toggle_fields = [
       'field_facility_service_hours',
-      'field_additional_hours_info',
     ];
     $selector = sprintf(':input[name="field_service_location[%1$d][subform][field_hours]"]', $element['#delta']);
     foreach ($toggle_fields as $field) {
@@ -1298,8 +1336,9 @@ function _va_gov_backend_modify_paragraph_interactions(array &$element, FormStat
         ],
       ];
     }
-    // Remove catpion, rows, and import fields from address tablefield.
+    // Remove caption, rows, and import fields from address tablefield.
     if (isset($element['subform']['field_facility_service_hours']['widget'][0]['caption'])) {
+      unset($element['subform']['field_facility_service_hours']['widget'][0]['#description']);
       unset($element['subform']['field_facility_service_hours']['widget'][0]['caption']);
     }
     $element['subform']['field_facility_service_hours']['widget'][0]['prefix']['#markup'] = t('<div class="description">Format: "8:00 a.m. to 5:30 p.m. ET" or "24/7"</div>');

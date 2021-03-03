@@ -8,7 +8,7 @@ use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
 use Drupal\va_gov_build_trigger\Form\TugboatBuildTriggerForm;
 use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
-use Drupal\va_gov_content_export\ExportCommand\CommandRunner;
+use Drupal\va_gov_build_trigger\Command\CommandRunner;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

@@ -6,6 +6,7 @@ dependencies:
     - field.field.block_content.alert.field_owner
     - field.field.block_content.promo.field_owner
     - field.field.media.document.field_owner
+    - field.field.media.document_external.field_owner
     - field.field.media.image.field_owner
     - field.field.media.video.field_owner
     - field.field.node.basic_landing_page.field_administration
@@ -80,6 +81,10 @@ scheme_settings:
     -
       entity_type: media
       bundle: video
+      field: field_owner
+    -
+      entity_type: media
+      bundle: document_external
       field: field_owner
     -
       entity_type: node
@@ -247,11 +252,11 @@ scheme_settings:
       field: field_administration
     -
       entity_type: node
-      bundle: vet_center_mobile_vet_center
+      bundle: vet_center_outstation
       field: field_administration
     -
       entity_type: node
-      bundle: vet_center_outstation
+      bundle: vet_center_mobile_vet_center
       field: field_administration
     -
       entity_type: taxonomy_term

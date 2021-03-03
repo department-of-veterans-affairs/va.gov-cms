@@ -15,13 +15,6 @@ $databases['default']['default'] = array (
 // Use the TUGBOAT_REPO_ID to generate a hash salt for Tugboat sites.
 $settings['hash_salt'] = hash('sha256', getenv('TUGBOAT_REPO_ID'));
 
-// Set cookie_lifetime to 0 for SSO requirements.
-// We set this in services.yml and would prefer that value to take effect
-// anyways.
-// DevShop shouldn't set this, maybe we can just unset this so services.yml is
-// authoritative source for the cookie_lifetime.
-ini_set('session.cookie_lifetime', 0);
-
 /**
  * GLOBAL SETTINGS.PHP OVERRIDES
  *

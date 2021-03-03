@@ -252,7 +252,7 @@ content:
     type: options_select
     region: content
   field_service_location:
-    type: entity_reference_paragraphs
+    type: paragraphs
     weight: 9
     region: content
     settings:
@@ -262,6 +262,12 @@ content:
       add_mode: button
       form_display_mode: default
       default_paragraph_type: service_location
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
     third_party_settings:
       limited_field_widgets:
         limit_values: '3'
