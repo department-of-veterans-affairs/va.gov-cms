@@ -2,7 +2,7 @@
 
 ## Xdebug:
 * Setup:
-    * Enable Xdebug by `lando xdebug-on`
+    * Enable Xdebug by `lando xdebug-on` (default)
     * Disable by typing `lando xdebug-off`
 
 * IDEs
@@ -15,35 +15,7 @@
             * Go to Settings > Languages & Frameworks > PHP. Press "..." button next to CLI interpreter to open interpreter settings.
             * If "Additional > Debugger extension" field is empty, add a path to debugger extension manually. Press `i` (Show phpinfo) button next to PHP executable to find debugger extension path. Look for `extension_dir` variable. Add `xdebug.so` and save this value in "Debugger extension" field. E.g. `/usr/local/lib/php/extensions/no-debug-non-zts-20160303/xdebug.so`.
     * VS Code
-        * Details are here on [lando docs](https://docs.lando.dev/guides/lando-with-vscode.html#getting-started), however, all the php.ini extras have already been added.  The only thing needed is to add the necessary config to .vscode/launch.json
-
-        ```json
-            {
-            "version": "0.2.0",
-            "configurations": [
-                {
-                "name": "Listen for Xdebug",
-                "type": "php",
-                "request": "launch",
-                "port": 9000,
-                "log": true,
-                "pathMappings": {
-                    "/app/": "${workspaceFolder}/",
-                }
-                },
-                {
-                "name": "Launch currently open script",
-                "type": "php",
-                "request": "launch",
-                "program": "${file}",
-                "cwd": "${fileDirname}",
-                "port": 9000
-                }
-            ]
-            }
-
-        ```
-        This file is git ignored so can be additionally modified without affecting others.
+        * Details are here on [lando docs](https://docs.lando.dev/guides/lando-with-vscode.html#getting-started), however, all the php.ini extras have already been added.  And .vscode/launch.json is already configured as part of this repo.
 
 * Browser:
     * Open index.php and set a test breakpoint on the first line ($autoloader)
