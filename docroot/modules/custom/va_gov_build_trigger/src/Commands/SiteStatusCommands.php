@@ -34,7 +34,7 @@ class SiteStatusCommands extends DrushCommands {
    * @aliases va-gov-get-deploy-mode
    */
   public function getDeployMode() {
-    echo $this->siteStatus->inDeployMode() ? 'ENABLED' : 'DISABLED';
+    echo ($this->siteStatus->inDeployMode() ? 'ENABLED' : 'DISABLED') . PHP_EOL;
   }
 
   /**
