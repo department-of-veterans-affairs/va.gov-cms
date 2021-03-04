@@ -1,0 +1,101 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_menu_access.module.
+ */
+
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function va_gov_menu_access_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#attached']['library'][] = 'va_gov_menu_access/parent_section_select';
+}
+
+/**
+ * Gets menu access settings.
+ *
+ * @return array
+ *   Menu config settings.
+ */
+function _va_gov_menu_access_get_menu_access() {
+  $menu_access_config = \Drupal::config('va_gov_menu_access.settings');
+  return [
+    'allowed_menus' => $menu_access_config->get('va_gov_menu_access.menus'),
+    'allowed_roles' => $menu_access_config->get('va_gov_menu_access.roles'),
+    'current_user_roles' => \Drupal::currentUser()->getRoles(),
+    'disallowed_paths' => $menu_access_config->get('va_gov_menu_access.paths'),
+  ];
+}
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * Adds menu access info to drupalsettings for js menu association limiting.
+ */
+function va_gov_menu_access_page_attachments(array &$attachments) {
+  $menu_access_settings = _va_gov_menu_access_get_menu_access();
+  $attachments['#attached']['drupalSettings']['vagovmenuaccess'] = [
+    'allowedmenus' => $menu_access_settings['allowed_menus'],
+    'allowedroles' => $menu_access_settings['allowed_roles'],
+    'currentuserroles' => $menu_access_settings['current_user_roles'],
+    'disallowedpaths' => $menu_access_settings['disallowed_paths'],
+  ];
+
+}
+
+/**
+ * Implements hook_node_access().
+ *
+ * Limits access to vamc node ops depending on section and perm conditions.
+ */
+function va_gov_menu_access_node_access(NodeInterface $node, $op, AccountInterface $account) {
+  // Make sure we are on a VAMC content type.
+  if ($node->hasField('field_administration')) {
+    $current_user_roles = $account->getRoles();
+    $admin_roles = [
+      'administrator',
+      'content_admin',
+    ];
+    $admin_role_count = count(array_intersect($admin_roles, $current_user_roles));
+    // User not admin, so more checking.
+    if ($admin_role_count < 1) {
+      $section_scheme = \Drupal::entityTypeManager()->getStorage('access_scheme')->load('section');
+      $user_sections = \Drupal::service('workbench_access.user_section_storage')->getUserSections($section_scheme, $account);
+      $node_section = $node->get('field_administration')->getString();
+      // User doesn't have section perms, so don't let them operate on node.
+      if (!in_array($node_section, $user_sections) && $op !== 'view') {
+        return AccessResult::forbidden();
+      }
+      // Not a detail page, and user is trying to operate on node.
+      if ($node->bundle() !== 'health_care_region_detail_page' && ($op === 'update' || $op === 'create')) {
+
+        $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+        // Get the VISN.
+        $parent_raw = $term_storage->loadParents($node_section);
+        $parent = reset($parent_raw);
+        $visn_tid = $parent->id();
+        $visn_parent_raw = $term_storage->loadParents($visn_tid);
+        $visn_parent = reset($visn_parent_raw);
+        // Get the top level section, and make sure it is VAMC
+        // before we implement restriction.
+        if ($visn_parent->id() === '8') {
+          return AccessResult::forbidden();
+        }
+      }
+    }
+  }
+
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function va_gov_menu_access_entity_type_alter(array &$entity_types) {
+  $entity_types['node']->addConstraint('ReservedPath');
+}
