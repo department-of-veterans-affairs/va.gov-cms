@@ -6939,17 +6939,17 @@
         },
         {
             "name": "drupal/menu_link_attributes",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/menu_link_attributes.git",
-                "reference": "8.x-1.1"
+                "reference": "8.x-1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/menu_link_attributes-8.x-1.1.zip",
-                "reference": "8.x-1.1",
-                "shasum": "d0207acb0cf253bea6204d1de99ea67b5aa1f5a2"
+                "url": "https://ftp.drupal.org/files/projects/menu_link_attributes-8.x-1.2.zip",
+                "reference": "8.x-1.2",
+                "shasum": "a332eca9d63eed14df01af759882627512ba6448"
             },
             "require": {
                 "drupal/core": "^8 || ^9"
@@ -6957,8 +6957,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.1",
-                    "datestamp": "1593424626",
+                    "version": "8.x-1.2",
+                    "datestamp": "1614211187",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -19302,16 +19302,16 @@
         },
         {
             "name": "va-gov/web",
-            "version": "v0.1.1363",
+            "version": "v0.1.1376",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
-                "reference": "0f309abd83beccd0d560867b4e25648feb3e4d77"
+                "reference": "a3043e1f9bb33bcd46822615700bdb3b2971006c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/0f309abd83beccd0d560867b4e25648feb3e4d77",
-                "reference": "0f309abd83beccd0d560867b4e25648feb3e4d77",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/a3043e1f9bb33bcd46822615700bdb3b2971006c",
+                "reference": "a3043e1f9bb33bcd46822615700bdb3b2971006c",
                 "shasum": ""
             },
             "type": "node-project",
@@ -19336,7 +19336,7 @@
                 }
             ],
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
-            "time": "2021-03-01T20:22:37+00:00"
+            "time": "2021-03-04T18:56:25+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -21776,6 +21776,11 @@
                 "squizlabs/php_codesniffer": "^2.7"
             },
             "type": "library",
+            "extra": {
+                "patches_applied": {
+                    "Throw meaningful message for duplicate entry. See https://github.com/TravisCarden/behat-table-comparison/pull/7": "patches/duplicate-row-message.patch"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "TravisCarden\\BehatTableComparison\\": "src/BehatTableComparison/"
@@ -21796,12 +21801,7 @@
                 "Behat",
                 "gherkin"
             ],
-            "time": "2018-07-03T17:42:23+00:00",
-            "extra": {
-                "patches_applied": {
-                    "Throw meaningful message for duplicate entry. See https://github.com/TravisCarden/behat-table-comparison/pull/7": "patches/duplicate-row-message.patch"
-                }
-            }
+            "time": "2018-07-03T17:42:23+00:00"
         },
         {
             "name": "vipnytt/robotstxtparser",
