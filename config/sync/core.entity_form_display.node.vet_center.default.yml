@@ -36,7 +36,7 @@ third_party_settings:
         - field_intro_text
         - field_media
         - field_address
-        - field_phone_number
+        - group_phone
         - field_office_hours
         - field_non_traditional_hours
         - field_vet_center_call_center
@@ -56,7 +56,7 @@ third_party_settings:
         - field_operating_status_facility
         - field_operating_status_more_info
       parent_name: ''
-      weight: 2
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -69,7 +69,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 3
+      weight: 5
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -85,7 +85,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 4
+      weight: 6
       format_type: fieldset
       format_settings:
         id: ''
@@ -94,6 +94,20 @@ third_party_settings:
         required_fields: true
       label: 'Editorial Workflow'
       region: content
+    group_phone:
+      children:
+        - field_phone_number
+      parent_name: group_facility_api
+      weight: 6
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        open: true
+        required_fields: true
+        id: ''
+        classes: ''
+      label: Phone
 id: node.vet_center.default
 targetEntityType: node
 bundle: vet_center
@@ -172,7 +186,7 @@ content:
     type: string_textarea_with_counter
     region: content
   field_phone_number:
-    weight: 6
+    weight: 7
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -180,7 +194,7 @@ content:
     region: content
   field_prepare_for_visit:
     type: paragraphs
-    weight: 1
+    weight: 3
     settings:
       title: accordion
       title_plural: accordions

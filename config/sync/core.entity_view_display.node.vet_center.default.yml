@@ -20,10 +20,25 @@ dependencies:
     - address
     - entity_field_fetch
     - entity_reference_revisions
+    - field_group
     - office_hours
     - options
     - telephone
     - user
+third_party_settings:
+  field_group:
+    group_phone:
+      children:
+        - field_phone_number
+      parent_name: ''
+      weight: 10
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Phone
 id: node.vet_center.default
 targetEntityType: node
 bundle: vet_center
@@ -75,7 +90,7 @@ content:
     type: entity_field_fetch
     region: content
   field_office_hours:
-    weight: 11
+    weight: 12
     label: above
     settings:
       show_closed: all
@@ -116,7 +131,7 @@ content:
     type: basic_string
     region: content
   field_phone_number:
-    weight: 10
+    weight: 11
     label: above
     settings:
       title: ''
@@ -125,7 +140,7 @@ content:
     region: content
   field_prepare_for_visit:
     type: entity_reference_revisions_entity_view
-    weight: 12
+    weight: 13
     label: above
     settings:
       view_mode: default
