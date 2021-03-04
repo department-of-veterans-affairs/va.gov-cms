@@ -75,10 +75,7 @@ class WebBuildStatus implements WebBuildStatusInterface {
   }
 
   /**
-   * Use CMS export.
-   *
-   * @return bool
-   *   Should we use cms export?
+   * {@inheritDoc}
    */
   public function useContentExport() : bool {
     return $this->useContentExport;
