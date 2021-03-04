@@ -241,7 +241,7 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
       $reader->setEscape($escape);
     }
     if (!empty($header_offset) && is_numeric($header_offset)) {
-      $reader->setOffset($header_offset);
+      $reader->setHeaderOffset(($header_offset - 1));
     }
 
     $data = [];
