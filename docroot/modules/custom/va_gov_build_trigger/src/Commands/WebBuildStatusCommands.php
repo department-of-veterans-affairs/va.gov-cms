@@ -21,7 +21,7 @@ class WebBuildStatusCommands extends DrushCommands {
    * Constructor.
    *
    * @param \Drupal\va_gov_build_trigger\WebBuildStatusInterface $webBuildStatus
-   *   The site status service.
+   *   The frontend build service.
    */
   public function __construct(WebBuildStatusInterface $webBuildStatus) {
     $this->webBuildStatus = $webBuildStatus;
