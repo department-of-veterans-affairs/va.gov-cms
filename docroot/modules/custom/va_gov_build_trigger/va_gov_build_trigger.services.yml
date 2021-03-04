@@ -48,3 +48,5 @@ services:
   va_gov.site_status:
     class: Drupal\va_gov_build_trigger\SiteStatus\SiteStatus
     arguments: ['@state']
+  va_gov_build_trigger.web_build_command_job:
+    class: Drupal\va_gov_build_trigger\Service\WebBuildCommandJobService
