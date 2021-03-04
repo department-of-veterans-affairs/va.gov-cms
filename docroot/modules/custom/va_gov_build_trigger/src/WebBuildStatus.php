@@ -56,15 +56,22 @@ class WebBuildStatus implements WebBuildStatusInterface {
   /**
    * {@inheritDoc}
    */
+  public function setWebBuildStatus(bool $status) : void {
+    $this->stateProvider->set(static::STATE, $status);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public function enableWebBuildStatus() : void {
-    $this->stateProvider->set(static::STATE, TRUE);
+    $this->setWebBuildStatus(TRUE);
   }
 
   /**
    * {@inheritDoc}
    */
   public function disableWebBuildStatus() : void {
-    $this->stateProvider->set(static::STATE, FALSE);
+    $this->setWebBuildStatus(FALSE);
   }
 
   /**

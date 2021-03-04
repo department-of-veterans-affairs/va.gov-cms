@@ -94,12 +94,7 @@ class BuildFrontend {
    *   The state that should be set for build pending.
    */
   public function setPendingState(bool $state) : void {
-    if ($state) {
-      $this->webStatus->enableWebBuildStatus();
-    }
-    else {
-      $this->webStatus->disableWebBuildStatus();
-    }
+    $this->webStatus->setWebBuildStatus($state);
   }
 
   /**

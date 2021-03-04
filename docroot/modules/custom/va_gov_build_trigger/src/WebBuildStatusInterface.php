@@ -16,6 +16,14 @@ interface WebBuildStatusInterface {
   public function getWebBuildStatus() : bool;
 
   /**
+   * Set the status of the web build.
+   *
+   * @param bool $status
+   *   The status of the web build.
+   */
+  public function setWebBuildStatus(bool $status) : void;
+
+  /**
    * Enable the Web Build status.
    */
   public function enableWebBuildStatus() : void;
