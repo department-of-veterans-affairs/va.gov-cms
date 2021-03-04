@@ -38,7 +38,6 @@ interface WebBuildStatusInterface {
    *
    * @return bool
    *   Should Content Export be used?
-   *   Should Content Export be used?
    */
   public function useContentExport() : bool;
 
