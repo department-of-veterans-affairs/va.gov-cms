@@ -2,9 +2,7 @@
 
 namespace tests\phpunit\FrontendBuild;
 
-use Drupal\Core\Site\Settings;
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\va_gov_build_trigger\WebBuildStatus;
 
 /**
  * Kernel tests for the web build status service.
@@ -20,16 +18,6 @@ class WebBuildStatusTest extends KernelTestBase {
     'datetime',
     'va_gov_build_trigger',
   ];
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setUp() {
-    parent::setUp();
-    $settings = [];
-    $settings[WebBuildStatus::USE_CMS_EXPORT_SETTING] = 3;
-    $this->container->set('settings', new Settings($settings));
-  }
 
   /**
    * Test that the service really does what it claims to do.
