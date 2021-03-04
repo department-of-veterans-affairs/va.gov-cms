@@ -11,7 +11,7 @@ use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 class WebBuildStatusCommands extends DrushCommands {
 
   /**
-   * The Site Status service.
+   * The Web Build Status service.
    *
    * @var \Drupal\va_gov_build_trigger\WebBuildStatusInterface
    */
