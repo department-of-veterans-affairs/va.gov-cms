@@ -5,11 +5,7 @@ namespace tests\phpunit\Migration;
 use Drupal\migrate\MigrateExecutable;
 use Drupal\migrate\MigrateMessage;
 use Drupal\migrate\Plugin\MigrationInterface;
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
-use GuzzleHttp\Psr7\Response;
+use Tests\Mock\HttpClient as MockHttpClient;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
@@ -25,25 +21,11 @@ class VaFormMigrationTest extends ExistingSiteBase {
   protected $entityTypeManager;
 
   /**
-   * History of requests/responses.
-   *
-   * @var array
-   */
-  protected $history = [];
-
-  /**
    * Migration manager service.
    *
    * @var \Drupal\migrate\Plugin\MigrationPluginManager
    */
   protected $migrationManager;
-
-  /**
-   * Mock client.
-   *
-   * @var \GuzzleHttp\ClientInterface
-   */
-  protected $mockClient;
 
   /**
    * Set up.
@@ -73,7 +55,8 @@ class VaFormMigrationTest extends ExistingSiteBase {
     int $count,
     bool $cleanup
   ) : void {
-    $this->mockClient(new Response('200', ['Content-Type' => 'text/csv'], $csv));
+    $mockClient = MockHttpClient::create('200', ['Content-Type' => 'text/csv'], $csv);
+    $this->container->set('http_client', $mockClient);
     $this->doImport($migration_id);
     $result = $this->queryNodes($bundle, $row_id, $form_title);
     $this->assertCount($count, $result);
@@ -109,23 +92,6 @@ class VaFormMigrationTest extends ExistingSiteBase {
       1,
       TRUE,
     ];
-  }
-
-  /**
-   * Mock the http client.
-   */
-  protected function mockClient(Response ...$responses) {
-    if (!isset($this->mockClient)) {
-      // Create a mock and queue responses.
-      $mock = new MockHandler($responses);
-
-      $handler_stack = HandlerStack::create($mock);
-      $history = Middleware::history($this->history);
-      $handler_stack->push($history);
-      $this->mockClient = new Client(['handler' => $handler_stack]);
-    }
-
-    $this->container->set('http_client', $this->mockClient);
   }
 
   /**
