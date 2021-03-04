@@ -1,0 +1,10 @@
+services:
+  va_gov_menu_access.route_subscriber:
+    class: Drupal\va_gov_menu_access\Routing\AdminRouteSubscriber
+    tags:
+      - { name: event_subscriber }
+  va_gov_menu_access.access_checker:
+      class: Drupal\va_gov_menu_access\AccessChecks\RouteAccessChecks
+      tags:
+        - { name: access_check }
+

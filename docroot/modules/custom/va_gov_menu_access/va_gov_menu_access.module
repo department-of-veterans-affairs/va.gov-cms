@@ -1,0 +1,204 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_menu_access.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * Adds user role info to drupalsettings for js menu association limiting.
+ */
+function va_gov_menu_access_page_attachments(array &$attachments) {
+  $attachments['#attached']['drupalSettings']['vagov_menu_access'] = [
+    'current_user_roles' => \Drupal::currentUser()->getRoles(),
+  ];
+
+}
+
+/**
+ * Gets menu access settings.
+ *
+ * @return array
+ *   Menu config settings.
+ */
+function _va_gov_menu_access_get_menu_access() {
+  // Get our menu form settings.
+  $menu_access_config = \Drupal::config('va_gov_menu_access.settings');
+
+  // Grab the allowed parents config.
+  $allowed_parents = $menu_access_config->get('va_gov_menu_access.paths');
+  $allowed_parents_array = explode("\n", $allowed_parents);
+  $universal_parents = [];
+  $single_parents = [];
+  // Sort parents into universal and single allowance arrays.
+  foreach ($allowed_parents_array as $parent) {
+    if (strpos($parent, '*') !== FALSE) {
+      $universal_item_raw = explode('*/', $parent);
+      $universal_parents[] = trim(end($universal_item_raw));
+    }
+    else {
+      $single_parents[] = trim($parent);
+    }
+  }
+
+  // Grab the locked_paths config.
+  $locked_paths = $menu_access_config->get('va_gov_menu_access.locked_paths');
+  $locked_paths_array = explode("\n", $locked_paths);
+  $universal_locked_paths = [];
+  $single_locked_paths = [];
+  // Sort locked paths into universal and single allowance arrays.
+  foreach ($locked_paths_array as $locked_path) {
+    if (strpos($locked_path, '*') !== FALSE) {
+      $universal_locked_raw = explode('*/', $locked_path);
+      $universal_locked_paths[] = trim(end($universal_locked_raw));
+    }
+    else {
+      $single_locked_paths[] = trim($parent);
+    }
+  }
+
+  return [
+    'single_parents' => $single_parents,
+    'universal_parents' => $universal_parents,
+    'universal_locked_paths' => $universal_locked_paths,
+    'single_locked_paths' => $single_locked_paths,
+  ];
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function va_gov_menu_access_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Node form alters.
+  if (substr($form_id, 0, 4) === 'node') {
+    $form['#attached']['library'][] = 'va_gov_menu_access/parent_section_select';
+    $form['#after_build'][] = 'va_gov_menu_access_alter_menus';
+  }
+}
+
+/**
+ * Used to filter disable all menu options when user shouldn't access.
+ *
+ * @param array $form
+ *   The form array.
+ *
+ * @return array
+ *   The form array.
+ */
+function va_gov_menu_access_disable_parent_menu_options(array $form) {
+  $form['menu']['link']['title']['#attributes']['disabled'] = TRUE;
+  $form['menu']['link']['description']['#attributes']['disabled'] = TRUE;
+  $form['menu']['link']['menu_parent']['#attributes']['disabled'] = TRUE;
+  $form['menu']['link']['link_enabled']['#attributes']['disabled'] = TRUE;
+  $form['menu']['link']['weight']['#attributes']['disabled'] = TRUE;
+  return $form;
+}
+
+/**
+ * Used to filter / alter menus in node rail.
+ *
+ * @param array $form
+ *   The form array.
+ *
+ * @return array
+ *   The form array.
+ */
+function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_state) {
+  $user_roles = \Drupal::currentUser()->getRoles();
+  $admin_roles = ['content_admin', 'administrator'];
+  // User isn't an admin, so logic is applied.
+  if (empty(array_intersect($user_roles, $admin_roles))) {
+    // Unable to pass $form_id from parent function when using after_build.
+    // Throws uneven arguments error.
+    $form_id = $form_state->getFormObject()->getFormId();
+    if (strpos($form_id, 'health_care_region_detail_page') === FALSE) {
+      va_gov_menu_access_disable_parent_menu_options($form);
+    }
+    // Grab our alias service.
+    $alias_manager = \Drupal::service('path.alias_manager');
+    // Grab our custom paths config settings.
+    $paths_config = _va_gov_menu_access_get_menu_access();
+    $universal_locked_paths = $paths_config['universal_locked_paths'];
+    $single_locked_paths = $paths_config['single_locked_paths'];
+
+    $page_alias = $form['path']['widget'][0]['alias']['#default_value'];
+    if (!empty($page_alias)) {
+      $last_arg_page_alias_raw = explode('/', $page_alias);
+      $last_arg_page_alias = end($last_arg_page_alias_raw);
+      // If the page is listed in locked array, lockdown menu options.
+      if (in_array($page_alias, $single_locked_paths) || in_array($last_arg_page_alias, $universal_locked_paths)) {
+        va_gov_menu_access_disable_parent_menu_options($form);
+      }
+    }
+
+    $universal_parents = $paths_config['universal_parents'];
+    $single_parents = $paths_config['single_parents'];
+
+    // Make sure there is a parent menu on the page before we dig.
+    if (!empty($form['menu']['link']['menu_parent']['#options'])) {
+
+      // Grab all the values in the dropdown.
+      $parent_options = $form['menu']['link']['menu_parent']['#options'];
+
+      // Create some empty arrays for organizing our items.
+      $allowed_parents = [];
+      $uuids_with_vals = [];
+      $uuids_only = [];
+      $key_count = 0;
+      foreach ($parent_options as $key => $option) {
+        if (!empty(explode('menu_link_content:', $key))) {
+          // This is how we get our menu item uuid.
+          $menu_id_array = explode('menu_link_content:', $key);
+          if (!empty($menu_id_array[1])) {
+            $menu_id = $menu_id_array[1];
+            // Load them into an array we can use for cherrypicking by keys.
+            $uuids_with_vals[$menu_id] = [
+              'key_count' => $key_count,
+              'menu_key' => $key,
+              'option' => $option,
+            ];
+            // Flat array for multi menu loading.
+            $uuids_only[$key_count] = $menu_id;
+            $key_count++;
+          }
+        }
+      }
+
+      // Load up all our menu items at once.
+      $loaded_menu_items = \Drupal::entityTypeManager()->getStorage('menu_link_content')->loadByProperties(['uuid' => $uuids_only]);
+
+      // Loop through them, and decide whether it should be allowed in options.
+      foreach ($loaded_menu_items as $menu_item) {
+        $uri = $menu_item->get('link')->uri;
+        if (substr($uri, 0, 12) === 'entity:node/') {
+          // Get our alias, as well as last arg of alias for comparison.
+          $uri_parts = explode('entity:node/', $uri);
+          $nid = end($uri_parts);
+          $alias = $alias_manager->getAliasByPath('/node/' . $nid);
+          $alias_last_arg_raw = explode('/', $alias);
+          $alias_last_arg = end($alias_last_arg_raw);
+          $subject_uuid = $uuids_with_vals[$menu_item->get('uuid')->value];
+          // If we don't match full alias or last arg, flag as disabled.
+          if (!in_array($alias, $single_parents) && !in_array($alias_last_arg, $universal_parents)) {
+            $allowed_parents[$subject_uuid['key_count']][$subject_uuid['menu_key']] = $subject_uuid['option'] . ' | Disabled';
+          }
+          else {
+            $allowed_parents[$subject_uuid['key_count']][$subject_uuid['menu_key']] = $subject_uuid['option'];
+          }
+        }
+      }
+      // Reassemble our options with items set to allow children in select list,
+      // in original order.
+      ksort($allowed_parents);
+      $allowed_parents = array_map(function ($parent) {
+        return reset($parent);
+      }, $allowed_parents);
+      $form['menu']['link']['menu_parent']['#options'] = $allowed_parents;
+    }
+  }
+  return $form;
+}
