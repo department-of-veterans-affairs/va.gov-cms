@@ -387,3 +387,19 @@ function va_gov_db_update_8021(&$sandbox) {
   $messages = _va_gov_db_uninstall_modules(['markdown']);
   return $messages;
 }
+
+
+/**
+ * Uninstall cms export modules modules.
+ */
+function va_gov_db_update_8022(&$sandbox) {
+  $unistall_modules = [
+    'tome',
+    'tome_sync',
+    'va_gov_content_export',
+    'zippylib',
+  ];
+  $messages = _va_gov_db_uninstall_modules($unistall_modules);
+
+  return $messages;
+}
