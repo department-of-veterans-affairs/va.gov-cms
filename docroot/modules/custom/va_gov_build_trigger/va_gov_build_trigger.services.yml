@@ -50,3 +50,6 @@ services:
     arguments: ['@state']
   va_gov_build_trigger.web_build_command_job:
     class: Drupal\va_gov_build_trigger\Service\WebBuildCommandJobService
+  va_gov_build_trigger.web_build_command_queue:
+    class: Drupal\va_gov_build_trigger\Service\WebBuildCommandQueue
+    arguments: ['@va_gov_build_trigger.web_build_command_job', '@entity_type.manager']
