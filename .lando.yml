@@ -10,7 +10,6 @@ config:
 
 events:
   post-db-import:
-    # If updated, also update in devops:post-deploy-tasks.yml and .tugboat/config.yml
     - appserver: cd $LANDO_WEBROOT && drush deploy
 
   # Runs composer install after app starts
