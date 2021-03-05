@@ -72,7 +72,7 @@ class Storage {
    *
    * @param string $entity_type
    *   The entity type.
-   * 
+   *
    * @return \Drupal\Core\Entity\EntityStorageInterface
    *   The entity storage.
    */
