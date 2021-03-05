@@ -1,10 +1,15 @@
 uuid: 5df937f8-ed94-4360-bde8-0b04825d3376
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - va_gov_backend
+third_party_settings:
+  va_gov_backend:
+    vgb_description: 'Can create Vet Center Health Services and CAPs.'
 id: content_creator_vet_center
 label: 'Content creator - Vet Center'
-weight: 3
+weight: -3
 is_admin: null
 permissions:
   - 'create vet_center_cap content'

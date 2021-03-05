@@ -1,22 +1,22 @@
-uuid: 21f06565-6765-4a58-8f71-8ef9904fe11a
+uuid: 2a83c823-dcb1-4af8-835b-5fd90953a2b3
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_vet_center
+    - field.storage.node.field_office
     - node.type.vet_center
-    - node.type.vet_center_outstation
+    - node.type.vet_center_facility_health_servi
   module:
     - entity_reference_validators
 third_party_settings:
   entity_reference_validators:
     circular_reference: false
     circular_reference_deep: false
-    duplicate_reference: true
-id: node.vet_center_outstation.field_vet_center
-field_name: field_vet_center
+    duplicate_reference: false
+id: node.vet_center_facility_health_servi.field_office
+field_name: field_office
 entity_type: node
-bundle: vet_center_outstation
+bundle: vet_center_facility_health_servi
 label: 'Vet Center'
 description: ''
 required: true
@@ -24,12 +24,13 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: unpublished
   handler_settings:
     target_bundles:
       vet_center: vet_center
     sort:
-      field: _none
-    auto_create: false
+      field: title
+      direction: ASC
+    auto_create: 0
     auto_create_bundle: ''
 field_type: entity_reference
