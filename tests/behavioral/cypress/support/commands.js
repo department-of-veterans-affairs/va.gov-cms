@@ -34,6 +34,9 @@ Cypress.Commands.add('drupalLogin', (username, password) => {
   cy.get('#edit-name').type(username);
   cy.get('#edit-pass').type(password);
   cy.get('#edit-submit').click();
+  cy.window().then((window) => {
+    cy.wrap(window.drupalSettings.user.uid).as('uid');
+  });
 });
 
 Cypress.Commands.add('drupalLogout', () => {
