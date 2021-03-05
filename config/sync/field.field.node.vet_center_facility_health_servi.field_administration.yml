@@ -13,6 +13,7 @@ dependencies:
 third_party_settings:
   entity_reference_validators:
     circular_reference: false
+    circular_reference_deep: false
     duplicate_reference: true
 id: node.vet_center_facility_health_servi.field_administration
 field_name: field_administration
@@ -20,7 +21,7 @@ entity_type: node
 bundle: vet_center_facility_health_servi
 label: Owner
 description: ''
-required: false
+required: true
 translatable: true
 default_value:
   -

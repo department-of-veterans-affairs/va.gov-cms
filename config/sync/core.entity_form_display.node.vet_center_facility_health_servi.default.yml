@@ -5,8 +5,8 @@ dependencies:
   config:
     - field.field.node.vet_center_facility_health_servi.field_administration
     - field.field.node.vet_center_facility_health_servi.field_body
+    - field.field.node.vet_center_facility_health_servi.field_office
     - field.field.node.vet_center_facility_health_servi.field_service_name_and_descripti
-    - field.field.node.vet_center_facility_health_servi.field_vet_center
     - node.type.vet_center_facility_health_servi
     - workflows.workflow.editorial
   module:
@@ -63,14 +63,14 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
-  field_service_name_and_descripti:
-    weight: 2
+  field_office:
+    weight: 1
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
-  field_vet_center:
-    weight: 1
+  field_service_name_and_descripti:
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: options_select
