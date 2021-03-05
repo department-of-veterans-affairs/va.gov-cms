@@ -8,10 +8,10 @@ dependencies:
     - field.field.node.vet_center_outstation.field_facility_locator_api_id
     - field.field.node.vet_center_outstation.field_media
     - field.field.node.vet_center_outstation.field_office_hours
+    - field.field.node.vet_center_outstation.field_office
     - field.field.node.vet_center_outstation.field_operating_status_facility
     - field.field.node.vet_center_outstation.field_operating_status_more_info
     - field.field.node.vet_center_outstation.field_phone_number
-    - field.field.node.vet_center_outstation.field_vet_center
     - node.type.vet_center_outstation
   module:
     - address
@@ -41,6 +41,14 @@ content:
     region: content
   field_media:
     weight: 3
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_office:
+    weight: 1
     label: above
     settings:
       link: true
@@ -95,14 +103,6 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
-    region: content
-  field_vet_center:
-    weight: 1
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
     region: content
   links:
     weight: 0
