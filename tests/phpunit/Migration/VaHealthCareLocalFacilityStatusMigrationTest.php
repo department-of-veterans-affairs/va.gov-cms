@@ -2,9 +2,7 @@
 
 namespace tests\phpunit\Migration;
 
-use Drupal\migrate\MigrateExecutable;
-use Drupal\migrate\MigrateMessage;
-use Drupal\migrate\Plugin\MigrationInterface;
+use Tests\Support\Migration\Migrator;
 use Tests\Support\Mock\HttpClient as MockHttpClient;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
@@ -28,20 +26,12 @@ class VaHealthCareLocalFacilityStatusMigrationTest extends ExistingSiteBase {
   protected $entityTypeManager;
 
   /**
-   * Migration manager service.
-   *
-   * @var \Drupal\migrate\Plugin\MigrationPluginManager
-   */
-  protected $migrationManager;
-
-  /**
    * Set up.
    */
   protected function setUp() {
     parent::setUp();
 
     $this->entityTypeManager = \Drupal::service('entity_type.manager');
-    $this->migrationManager = \Drupal::service('plugin.manager.migration');
   }
 
   /**
@@ -67,13 +57,13 @@ class VaHealthCareLocalFacilityStatusMigrationTest extends ExistingSiteBase {
       $json = file_get_contents(__DIR__ . '/fixtures/health_care_local_facility.json');
       $mockClient = MockHttpClient::create('200', ['Content-Type' => 'application/vnd.geo+json;charset=UTF-8'], $json);
       $this->container->set('http_client', $mockClient);
-      $this->doImport('va_node_health_care_local_facility');
+      Migrator::doImport('va_node_health_care_local_facility');
     }
 
     // Do the status migration.
     $mockClient = MockHttpClient::create('200', ['Content-Type' => 'text/html'], $html);
     $this->container->set('http_client', $mockClient);
-    $this->doImport($migration_id);
+    Migrator::doImport($migration_id, ['urls' => ['http://localhost']]);
     $result = $this->queryNodes($bundle, $conditions);
     $this->assertCount($count, $result);
 
@@ -114,28 +104,6 @@ class VaHealthCareLocalFacilityStatusMigrationTest extends ExistingSiteBase {
       1,
       TRUE,
     ];
-  }
-
-  /**
-   * Run an import for the given migration ID.
-   *
-   * @param string $migration_id
-   *   The migration machine name.
-   */
-  protected function doImport($migration_id) : void {
-    $migration = $this->migrationManager->createInstance($migration_id);
-
-    $source_config = $migration->getSourceConfiguration();
-    $source_config['urls'] = reset($source_config['urls']);
-    $migration->set('source', $source_config);
-
-    $status = $migration->getStatus();
-    if ($status !== MigrationInterface::STATUS_IDLE) {
-      $migration->setStatus(MigrationInterface::STATUS_IDLE);
-    }
-    $migration->getIdMap()->prepareUpdate();
-    $executable = new MigrateExecutable($migration, new MigrateMessage());
-    $executable->import();
   }
 
   /**

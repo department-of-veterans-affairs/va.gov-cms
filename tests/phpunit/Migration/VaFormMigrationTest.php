@@ -2,9 +2,7 @@
 
 namespace tests\phpunit\Migration;
 
-use Drupal\migrate\MigrateExecutable;
-use Drupal\migrate\MigrateMessage;
-use Drupal\migrate\Plugin\MigrationInterface;
+use Tests\Support\Migration\Migrator;
 use Tests\Support\Mock\HttpClient as MockHttpClient;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
@@ -21,20 +19,12 @@ class VaFormMigrationTest extends ExistingSiteBase {
   protected $entityTypeManager;
 
   /**
-   * Migration manager service.
-   *
-   * @var \Drupal\migrate\Plugin\MigrationPluginManager
-   */
-  protected $migrationManager;
-
-  /**
    * Set up.
    */
   protected function setUp() {
     parent::setUp();
 
     $this->entityTypeManager = \Drupal::service('entity_type.manager');
-    $this->migrationManager = \Drupal::service('plugin.manager.migration');
   }
 
   /**
@@ -57,7 +47,7 @@ class VaFormMigrationTest extends ExistingSiteBase {
   ) : void {
     $mockClient = MockHttpClient::create('200', ['Content-Type' => 'text/csv'], $csv);
     $this->container->set('http_client', $mockClient);
-    $this->doImport($migration_id);
+    Migrator::doImport($migration_id);
     $result = $this->queryNodes($bundle, $row_id, $form_title);
     $this->assertCount($count, $result);
 
@@ -92,23 +82,6 @@ class VaFormMigrationTest extends ExistingSiteBase {
       1,
       TRUE,
     ];
-  }
-
-  /**
-   * Run an import for the given migration ID.
-   *
-   * @param string $migration_id
-   *   The migration machine name.
-   */
-  protected function doImport($migration_id) : void {
-    $migration = $this->migrationManager->createInstance($migration_id);
-    $status = $migration->getStatus();
-    if ($status !== MigrationInterface::STATUS_IDLE) {
-      $migration->setStatus(MigrationInterface::STATUS_IDLE);
-    }
-    $migration->getIdMap()->prepareUpdate();
-    $executable = new MigrateExecutable($migration, new MigrateMessage());
-    $executable->import();
   }
 
   /**
