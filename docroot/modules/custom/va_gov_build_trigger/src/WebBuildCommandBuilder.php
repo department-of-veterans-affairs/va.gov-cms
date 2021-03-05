@@ -66,15 +66,7 @@ class WebBuildCommandBuilder {
   }
 
   /**
-   * Build an array of commands to run for the web build.
-   *
-   * @param string|null $front_end_git_ref
-   *   Front end git reference to build (branch name or PR number)
-   * @param string|null $unique_key
-   *   A unique key to use in the branch name.  Defaults to time().
-   *
-   * @return array
-   *   An array of commands to run for a build.
+   * {@inheritdoc}
    */
   public function buildCommands(string $front_end_git_ref = NULL, string $unique_key = NULL) : array {
     $commands = [];
@@ -107,26 +99,14 @@ class WebBuildCommandBuilder {
   }
 
   /**
-   * Build a composer command.
-   *
-   * @param string $composer_command
-   *   The composer command to run.
-   *
-   * @return string
-   *   The composer command line.
+   * {@inheritdoc}
    */
   public function buildComposerCommand(string $composer_command) : string {
     return "cd {$this->appRoot} && COMPOSER_HOME={$this->composerHome} {$this->pathToComposer} --no-cache $composer_command";
   }
 
   /**
-   * The name of the composer command to run.
-   *
-   * @param string|null $front_end_git_ref
-   *   Front end git reference to build (branch name or PR number)
-   *
-   * @return string
-   *   The name of the composer command to run
+   * {@inheritdoc}
    */
   protected function commandName(string $front_end_git_ref = NULL) : string {
     $command = 'va:web:build';
@@ -143,17 +123,7 @@ class WebBuildCommandBuilder {
   }
 
   /**
-   * Build the command to check out a git reference.
-   *
-   * @param string $repo_root
-   *   The path to the repository root.
-   * @param string $unique_key
-   *   A unique key to use in the branch name.
-   * @param string|null $front_end_git_ref
-   *   Front end git reference to build (branch name or PR number)
-   *
-   * @return string
-   *   The command to run to checkout the repo.
+   * {@inheritdoc}
    */
   protected function getFrontEndGitReferenceCheckoutCommand(string $repo_root, string $unique_key, string $front_end_git_ref = NULL) : string {
     $web_branch = "build-{$front_end_git_ref}-{$unique_key}";
@@ -170,13 +140,7 @@ class WebBuildCommandBuilder {
   }
 
   /**
-   * Build the commands to reinstall va-gov/web.
-   *
-   * @param string $repo_root
-   *   The path to the repository root.
-   *
-   * @return array
-   *   The commands to run to reinstall va-gov/web.
+   * {@inheritdoc}
    */
   protected function getFrontEndReinstallCommands(string $repo_root) : array {
     $commands = ["cd {$repo_root} && rm -fr docroot/vendor/va-gov"];
@@ -186,13 +150,7 @@ class WebBuildCommandBuilder {
   }
 
   /**
-   * Build the command to reset va-gov/web files to their default state.
-   *
-   * @param string $repo_root
-   *   The path to the repository root.
-   *
-   * @return array
-   *   The commands to run to reset va-gov/web files.
+   * {@inheritdoc}
    */
   protected function getFrontEndResetCommand(string $repo_root) : string {
     return "cd {$repo_root} && git reset --hard HEAD";
