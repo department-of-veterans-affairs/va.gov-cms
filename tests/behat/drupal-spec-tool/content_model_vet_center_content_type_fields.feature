@@ -28,7 +28,7 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center Community Access Point | Vet Center | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center Community Access Point | Vet center community access point description of service | field_body | Text (formatted, long) |  | 1 | -- Disabled -- | Translatable |
 | Content type | Vet Center Facility Health Service | Description | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
-| Content type | Vet Center Facility Health Service | Owner | field_administration | Entity reference |  | 1 | Select list | Translatable |
+| Content type | Vet Center Facility Health Service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center Facility Health Service | Service | field_service_name_and_descripti | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center Facility Health Service | Vet Center | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center Locations List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
