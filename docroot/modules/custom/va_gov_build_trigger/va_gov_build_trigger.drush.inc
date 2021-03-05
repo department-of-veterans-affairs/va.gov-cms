@@ -31,6 +31,9 @@ function va_gov_build_trigger_drush_command() {
       'reference' => 'The git reference.',
       'full_rebuild' => 'Whether or not to perform a full rebuild.',
     ],
+    'options' => [
+      'dry-run' => 'Don\'t actually build; just print the commands that would be executed.',
+    ],
   ];
 
   $items['va-gov-get-web-build-status'] = [
@@ -50,17 +53,36 @@ function va_gov_build_trigger_drush_command() {
 /**
  * Drush command to build the frontend.
  */
-function drush_va_gov_build_trigger_va_gov_build_frontend(string $reference = NULL, string $fullRebuild = 'FALSE') {
-  $buildFrontend = \Drupal::service('va_gov_build_trigger.build_frontend');
-  $buildFrontend->buildFrontend($reference, $fullRebuild);
+function drush_va_gov_build_trigger_va_gov_build_frontend(string $reference = NULL, string $full_rebuild = 'FALSE') {
+  if (filter_var($reference, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) !== NULL) {
+    $full_rebuild = $reference;
+    $reference = NULL;
+  }
+  if (empty($reference)) {
+    $reference = NULL;
+  }
+  $full_rebuild = filter_var($full_rebuild, FILTER_VALIDATE_BOOLEAN);
+  $build_frontend = \Drupal::service('va_gov_build_trigger.build_frontend');
+  $build_commands = \Drupal::service('va_gov.build_trigger.web_build_command_builder')
+    ->buildCommands($reference, $full_rebuild);
+  if ($dry_run = drush_get_option('dry-run')) {
+    echo '# $reference: ' . $reference . PHP_EOL;
+    echo '# $full_rebuild: ' . ($full_rebuild ? 'TRUE' : 'FALSE') . PHP_EOL;
+    foreach ($build_commands as $build_command) {
+      echo $build_command . PHP_EOL;
+    }
+  }
+  else {
+    $build_frontend->triggerFrontendBuild($reference, $full_rebuild);
+  }
 }
 
 /**
  * Drush command to get the current web build status.
  */
 function drush_va_gov_build_trigger_va_gov_get_web_build_status() {
-  $webBuildStatus = \Drupal::service('va_gov.build_trigger.web_build_status');
-  echo ($webBuildStatus->getWebBuildStatus() ? 'ENABLED' : 'DISABLED') . PHP_EOL;
+  $web_build_status = \Drupal::service('va_gov.build_trigger.web_build_status');
+  echo ($web_build_status->getWebBuildStatus() ? 'ENABLED' : 'DISABLED') . PHP_EOL;
 }
 
 /**
@@ -71,9 +93,9 @@ function drush_va_gov_build_trigger_va_gov_get_web_build_status() {
  */
 function drush_va_gov_build_trigger_va_gov_set_web_build_status(string $status) {
   $status = filter_var($status, FILTER_VALIDATE_BOOLEAN);
-  $webBuildStatus = \Drupal::service('va_gov.build_trigger.web_build_status');
-  $webBuildStatus->setWebBuildStatus($status);
-  if ($webBuildStatus->getWebBuildStatus() !== $status) {
+  $web_build_status = \Drupal::service('va_gov.build_trigger.web_build_status');
+  $web_build_status->setWebBuildStatus($status);
+  if ($web_build_status->getWebBuildStatus() !== $status) {
     throw new \Exception('Failed to set Web Build Status.');
   }
   drush_log(t('Web Build Status is now :status.', [
