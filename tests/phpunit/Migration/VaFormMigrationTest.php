@@ -5,7 +5,7 @@ namespace tests\phpunit\Migration;
 use Drupal\migrate\MigrateExecutable;
 use Drupal\migrate\MigrateMessage;
 use Drupal\migrate\Plugin\MigrationInterface;
-use Tests\Mock\HttpClient as MockHttpClient;
+use Tests\Support\Mock\HttpClient as MockHttpClient;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
