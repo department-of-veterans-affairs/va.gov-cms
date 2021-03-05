@@ -43,9 +43,11 @@ dependencies:
     - node.type.vamc_system_policies_page
     - node.type.vba_facility
     - node.type.vet_center
+    - node.type.vet_center_cap
     - node.type.vet_center_facility_health_servi
     - node.type.vet_center_locations_list
-    - node.type.vet_center_cap
+    - node.type.vet_center_mobile_vet_center
+    - node.type.vet_center_outstation
   module:
     - content_moderation
 _core:
@@ -170,7 +172,9 @@ type_settings:
       - vamc_system_policies_page
       - vba_facility
       - vet_center
+      - vet_center_cap
       - vet_center_facility_health_servi
       - vet_center_locations_list
-      - vet_center_cap
+      - vet_center_mobile_vet_center
+      - vet_center_outstation
   default_moderation_state: draft

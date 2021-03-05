@@ -9,7 +9,7 @@ third_party_settings:
     vgb_description: 'Can approve content changes for publishing, but can''t publish it.'
 id: content_reviewer
 label: 'Content reviewer'
-weight: -3
+weight: -1
 is_admin: null
 permissions:
   - 'access administration pages'
@@ -78,6 +78,8 @@ permissions:
   - 'edit any vba_facility content'
   - 'edit any vet_center content'
   - 'edit any vet_center_locations_list content'
+  - 'edit any vet_center_mobile_vet_center content'
+  - 'edit any vet_center_outstation content'
   - 'edit any video media'
   - 'execute entity:break_lock node'
   - 'notify of path changes'
