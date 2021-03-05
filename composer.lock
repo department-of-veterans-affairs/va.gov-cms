@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64647c81757a7c93a9bf1cd8de352ee4",
+    "content-hash": "dd38d948ecc300d316caadfb79593068",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5699,34 +5699,31 @@
         },
         {
             "name": "drupal/graphql",
-            "version": "3.0.0-rc3",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/graphql.git",
-                "reference": "8.x-3.0-rc3"
+                "reference": "8.x-3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/graphql-8.x-3.0-rc3.zip",
-                "reference": "8.x-3.0-rc3",
-                "shasum": "9764fe0c8c2288cb114e3c58b8c3abc5008432dc"
+                "url": "https://ftp.drupal.org/files/projects/graphql-8.x-3.1.zip",
+                "reference": "8.x-3.1",
+                "shasum": "088430befbf13f2c8dadf1d9d14d01487e6f52bc"
             },
             "require": {
-                "drupal/core": "~8.0",
+                "drupal/core": "^8.8 || ^9",
                 "webonyx/graphql-php": "^0.12.5"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.0-rc3",
-                    "datestamp": "1572538084",
+                    "version": "8.x-3.1",
+                    "datestamp": "1603962169",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "RC releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": {
-                    "PHP 7.4 Notices (https://github.com/drupal-graphql/graphql/pull/989)": "https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/989.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
