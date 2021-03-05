@@ -13,7 +13,7 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Vet Center | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center | Address | field_address | Address |  | 1 | Address | Translatable |
-| Content type | Vet Center | Hours | field_facility_hours | Table Field |  | 1 | Table Field | Translatable |
+| Content type | Vet Center | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) |  |
 | Content type | Vet Center | Image | field_media | Entity reference |  | 1 | Autocomplete | Translatable |
 | Content type | Vet Center | Non-traditional hours | field_non_traditional_hours | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | Vet Center | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
