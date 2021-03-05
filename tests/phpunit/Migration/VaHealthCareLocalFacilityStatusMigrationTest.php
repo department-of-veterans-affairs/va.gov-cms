@@ -2,6 +2,7 @@
 
 namespace tests\phpunit\Migration;
 
+use Tests\Support\Entity\Storage as EntityStorage;
 use Tests\Support\Migration\Migrator;
 use Tests\Support\Mock\HttpClient as MockHttpClient;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
@@ -17,22 +18,6 @@ class VaHealthCareLocalFacilityStatusMigrationTest extends ExistingSiteBase {
    * @var bool
    */
   protected $firstRun = TRUE;
-
-  /**
-   * Entity type manager service.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManager
-   */
-  protected $entityTypeManager;
-
-  /**
-   * Set up.
-   */
-  protected function setUp() {
-    parent::setUp();
-
-    $this->entityTypeManager = \Drupal::service('entity_type.manager');
-  }
 
   /**
    * Test the VA Health Care Local Facility Status Migration.
@@ -64,12 +49,11 @@ class VaHealthCareLocalFacilityStatusMigrationTest extends ExistingSiteBase {
     $mockClient = MockHttpClient::create('200', ['Content-Type' => 'text/html'], $html);
     $this->container->set('http_client', $mockClient);
     Migrator::doImport($migration_id, ['urls' => ['http://localhost']]);
-    $result = $this->queryNodes($bundle, $conditions);
-    $this->assertCount($count, $result);
+    $entityCount = EntityStorage::getMatchingEntityCount('node', $bundle, $conditions);
+    $this->assertSame($count, $entityCount);
 
     if ($cleanup) {
-      $node = $this->entityTypeManager->getStorage('node')->load(reset($result));
-      $node->delete();
+      EntityStorage::deleteMatchingEntities('node', $bundle, $conditions);
     }
   }
 
@@ -104,28 +88,6 @@ class VaHealthCareLocalFacilityStatusMigrationTest extends ExistingSiteBase {
       1,
       TRUE,
     ];
-  }
-
-  /**
-   * Build query for the given parameters.
-   *
-   * @param string $bundle
-   *   The node type.
-   * @param array $conditions
-   *   Additional query conditions.
-   *
-   * @return array
-   *   Query result.
-   */
-  protected function queryNodes($bundle, array $conditions) : array {
-    $node_storage = $this->entityTypeManager->getStorage('node');
-    $query = $node_storage->getQuery()->condition('type', $bundle);
-
-    foreach ($conditions as $key => $value) {
-      $query->condition($key, $value);
-    }
-
-    return $query->execute();
   }
 
 }

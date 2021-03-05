@@ -2,6 +2,7 @@
 
 namespace tests\phpunit\Migration;
 
+use Tests\Support\Entity\Storage as EntityStorage;
 use Tests\Support\Migration\Migrator;
 use Tests\Support\Mock\HttpClient as MockHttpClient;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
@@ -10,22 +11,6 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * A test to confirm that the VA Form Migration works correctly.
  */
 class VaFormMigrationTest extends ExistingSiteBase {
-
-  /**
-   * Entity type manager service.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManager
-   */
-  protected $entityTypeManager;
-
-  /**
-   * Set up.
-   */
-  protected function setUp() {
-    parent::setUp();
-
-    $this->entityTypeManager = \Drupal::service('entity_type.manager');
-  }
 
   /**
    * Test the VA Form Migration.
@@ -40,20 +25,18 @@ class VaFormMigrationTest extends ExistingSiteBase {
     string $migration_id,
     string $bundle,
     string $csv,
-    int $row_id,
-    string $form_title,
+    array $conditions,
     int $count,
     bool $cleanup
   ) : void {
     $mockClient = MockHttpClient::create('200', ['Content-Type' => 'text/csv'], $csv);
     $this->container->set('http_client', $mockClient);
     Migrator::doImport($migration_id);
-    $result = $this->queryNodes($bundle, $row_id, $form_title);
-    $this->assertCount($count, $result);
+    $entityCount = EntityStorage::getMatchingEntityCount('node', $bundle, $conditions);
+    $this->assertSame($count, $entityCount);
 
     if ($cleanup) {
-      $node = $this->entityTypeManager->getStorage('node')->load(reset($result));
-      $node->delete();
+      EntityStorage::deleteMatchingEntities('node', $bundle, $conditions);
     }
   }
 
@@ -68,8 +51,10 @@ class VaFormMigrationTest extends ExistingSiteBase {
       'va_node_form',
       'va_form',
       file_get_contents(__DIR__ . '/fixtures/forms.csv'),
-      999999,
-      'Test VA Form',
+      [
+        'field_va_form_row_id' => 999999,
+        'field_va_form_title' => 'Test VA Form',
+      ],
       1,
       FALSE,
     ];
@@ -77,33 +62,13 @@ class VaFormMigrationTest extends ExistingSiteBase {
       'va_node_form',
       'va_form',
       file_get_contents(__DIR__ . '/fixtures/forms_updated.csv'),
-      999999,
-      'Test VA Form - Updated',
+      [
+        'field_va_form_row_id' => 999999,
+        'field_va_form_title' => 'Test VA Form - Updated',
+      ],
       1,
       TRUE,
     ];
-  }
-
-  /**
-   * Build query for the given parameters.
-   *
-   * @param string $bundle
-   *   The node type.
-   * @param int $row_id
-   *   The migration row key.
-   * @param string $form_title
-   *   The form title.
-   *
-   * @return array
-   *   Query result.
-   */
-  protected function queryNodes($bundle, $row_id, $form_title) : array {
-    $node_storage = $this->entityTypeManager->getStorage('node');
-    return $node_storage->getQuery()
-      ->condition('type', $bundle)
-      ->condition('field_va_form_row_id', $row_id)
-      ->condition('field_va_form_title', $form_title)
-      ->execute();
   }
 
 }

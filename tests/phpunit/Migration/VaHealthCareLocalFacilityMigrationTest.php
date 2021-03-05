@@ -2,6 +2,7 @@
 
 namespace tests\phpunit\Migration;
 
+use Tests\Support\Entity\Storage as EntityStorage;
 use Tests\Support\Migration\Migrator;
 use Tests\Support\Mock\HttpClient as MockHttpClient;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
@@ -10,22 +11,6 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * A test to confirm that the VA HC Facility Migration works correctly.
  */
 class VaHealthCareLocalFacilityMigrationTest extends ExistingSiteBase {
-
-  /**
-   * Entity type manager service.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManager
-   */
-  protected $entityTypeManager;
-
-  /**
-   * Set up.
-   */
-  protected function setUp() {
-    parent::setUp();
-
-    $this->entityTypeManager = \Drupal::service('entity_type.manager');
-  }
 
   /**
    * Test the VA Health Care Local Facility Migration.
@@ -40,20 +25,18 @@ class VaHealthCareLocalFacilityMigrationTest extends ExistingSiteBase {
     string $migration_id,
     string $bundle,
     string $json,
-    string $api_id,
-    string $phone_number,
+    array $conditions,
     int $count,
     bool $cleanup
   ) : void {
     $mockClient = MockHttpClient::create('200', ['Content-Type' => 'application/vnd.geo+json;charset=UTF-8'], $json);
     $this->container->set('http_client', $mockClient);
     Migrator::doImport($migration_id);
-    $result = $this->queryNodes($bundle, $api_id, $phone_number);
-    $this->assertCount($count, $result);
+    $entityCount = EntityStorage::getMatchingEntityCount('node', $bundle, $conditions);
+    $this->assertSame($count, $entityCount);
 
     if ($cleanup) {
-      $node = $this->entityTypeManager->getStorage('node')->load(reset($result));
-      $node->delete();
+      EntityStorage::deleteMatchingEntities('node', $bundle, $conditions);
     }
   }
 
@@ -68,8 +51,10 @@ class VaHealthCareLocalFacilityMigrationTest extends ExistingSiteBase {
       'va_node_health_care_local_facility',
       'health_care_local_facility',
       file_get_contents(__DIR__ . '/fixtures/health_care_local_facility.json'),
-      'vha_999999',
-      '309-827-4090',
+      [
+        'field_facility_locator_api_id' => 'vha_999999',
+        'field_phone_number' => '309-827-4090',
+      ],
       1,
       FALSE,
     ];
@@ -77,33 +62,13 @@ class VaHealthCareLocalFacilityMigrationTest extends ExistingSiteBase {
       'va_node_health_care_local_facility',
       'health_care_local_facility',
       file_get_contents(__DIR__ . '/fixtures/health_care_local_facility_updated.json'),
-      'vha_999999',
-      '309-827-4091',
+      [
+        'field_facility_locator_api_id' => 'vha_999999',
+        'field_phone_number' => '309-827-4091',
+      ],
       1,
       TRUE,
     ];
-  }
-
-  /**
-   * Build query for the given parameters.
-   *
-   * @param string $bundle
-   *   The node type.
-   * @param string $api_id
-   *   The migration row key.
-   * @param string $phone_number
-   *   The phone number.
-   *
-   * @return array
-   *   Query result.
-   */
-  protected function queryNodes($bundle, $api_id, $phone_number) : array {
-    $node_storage = $this->entityTypeManager->getStorage('node');
-    return $node_storage->getQuery()
-      ->condition('type', $bundle)
-      ->condition('field_facility_locator_api_id', $api_id)
-      ->condition('field_phone_number', $phone_number)
-      ->execute();
   }
 
 }
