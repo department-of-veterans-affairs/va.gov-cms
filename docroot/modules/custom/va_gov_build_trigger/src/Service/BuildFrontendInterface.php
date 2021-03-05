@@ -28,30 +28,6 @@ interface BuildFrontendInterface {
   public function setPendingState(bool $state) : void;
 
   /**
-   * Check to see if this had a status or status info change.
-   *
-   * @param \Drupal\node\NodeInterface $node
-   *   The node object of a node just updated or saved.
-   *
-   * @return bool
-   *   TRUE if there was a status related change, FALSE if there was not.
-   */
-  private function changedStatus(NodeInterface $node) : bool;
-
-  /**
-   * Gets the previously saved value of a field.
-   *
-   * @param \Drupal\node\NodeInterface $node
-   *   The node object of a node just updated or saved.
-   * @param string $fieldname
-   *   The machine name of the field to get.
-   *
-   * @return string
-   *   The value of the field, or '' if not found.
-   */
-  private function getOriginalFieldValue(NodeInterface $node, $fieldname) : string;
-
-  /**
    * Method to trigger a frontend build as the result of a save.
    *
    * @param \Drupal\node\NodeInterface $node
