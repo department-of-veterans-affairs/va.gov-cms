@@ -5,11 +5,11 @@ dependencies:
   config:
     - field.field.node.vet_center.field_address
     - field.field.node.vet_center.field_administration
-    - field.field.node.vet_center.field_facility_hours
     - field.field.node.vet_center.field_facility_locator_api_id
     - field.field.node.vet_center.field_intro_text
     - field.field.node.vet_center.field_media
     - field.field.node.vet_center.field_non_traditional_hours
+    - field.field.node.vet_center.field_office_hours
     - field.field.node.vet_center.field_operating_status_facility
     - field.field.node.vet_center.field_operating_status_more_info
     - field.field.node.vet_center.field_phone_number
@@ -23,8 +23,8 @@ dependencies:
     - entity_field_fetch
     - field_group
     - limited_field_widgets
+    - office_hours
     - paragraphs
-    - tablefield
     - telephone
     - textfield_counter
 third_party_settings:
@@ -36,8 +36,8 @@ third_party_settings:
         - field_intro_text
         - field_media
         - field_address
-        - field_phone_number
-        - field_facility_hours
+        - group_phone
+        - field_office_hours
         - field_non_traditional_hours
         - field_vet_center_call_center
       parent_name: ''
@@ -56,7 +56,7 @@ third_party_settings:
         - field_operating_status_facility
         - field_operating_status_more_info
       parent_name: ''
-      weight: 2
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -69,7 +69,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 3
+      weight: 5
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -85,7 +85,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 4
+      weight: 6
       format_type: fieldset
       format_settings:
         id: ''
@@ -94,6 +94,20 @@ third_party_settings:
         required_fields: true
       label: 'Editorial Workflow'
       region: content
+    group_phone:
+      children:
+        - field_phone_number
+      parent_name: group_facility_api
+      weight: 6
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        open: true
+        required_fields: true
+        id: ''
+        classes: ''
+      label: Phone
 id: node.vet_center.default
 targetEntityType: node
 bundle: vet_center
@@ -110,13 +124,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
-    region: content
-  field_facility_hours:
-    weight: 7
-    settings:
-      input_type: textfield
-    third_party_settings: {  }
-    type: tablefield
     region: content
   field_facility_locator_api_id:
     weight: 2
@@ -153,6 +160,12 @@ content:
     third_party_settings: {  }
     type: entity_field_fetch_widget
     region: content
+  field_office_hours:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    type: office_hours_default
+    region: content
   field_operating_status_facility:
     weight: 9
     settings: {  }
@@ -173,7 +186,7 @@ content:
     type: string_textarea_with_counter
     region: content
   field_phone_number:
-    weight: 6
+    weight: 7
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -181,7 +194,7 @@ content:
     region: content
   field_prepare_for_visit:
     type: paragraphs
-    weight: 1
+    weight: 3
     settings:
       title: accordion
       title_plural: accordions
