@@ -5,11 +5,11 @@ dependencies:
   config:
     - field.field.node.vet_center.field_address
     - field.field.node.vet_center.field_administration
-    - field.field.node.vet_center.field_facility_hours
     - field.field.node.vet_center.field_facility_locator_api_id
     - field.field.node.vet_center.field_intro_text
     - field.field.node.vet_center.field_media
     - field.field.node.vet_center.field_non_traditional_hours
+    - field.field.node.vet_center.field_office_hours
     - field.field.node.vet_center.field_operating_status_facility
     - field.field.node.vet_center.field_operating_status_more_info
     - field.field.node.vet_center.field_phone_number
@@ -20,9 +20,25 @@ dependencies:
     - address
     - entity_field_fetch
     - entity_reference_revisions
+    - field_group
+    - office_hours
     - options
-    - tablefield
+    - telephone
     - user
+third_party_settings:
+  field_group:
+    group_phone:
+      children:
+        - field_phone_number
+      parent_name: ''
+      weight: 10
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Phone
 id: node.vet_center.default
 targetEntityType: node
 bundle: vet_center
@@ -42,15 +58,6 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
-  field_facility_hours:
-    weight: 11
-    label: above
-    settings:
-      row_header: true
-      column_header: false
-    third_party_settings: {  }
-    type: tablefield
     region: content
   field_facility_locator_api_id:
     weight: 1
@@ -82,6 +89,33 @@ content:
     third_party_settings: {  }
     type: entity_field_fetch
     region: content
+  field_office_hours:
+    weight: 12
+    label: above
+    settings:
+      show_closed: all
+      office_hours_first_day: ''
+      day_format: short
+      time_format: g
+      closed_format: ''
+      separator:
+        days: '<br />'
+        grouped_days: ' - '
+        day_hours: ': '
+        hours_hours: '-'
+        more_hours: ', '
+      current_status:
+        position: ''
+        open_text: 'Currently open!'
+        closed_text: 'Currently closed'
+      compress: false
+      grouped: false
+      schema:
+        enabled: false
+      timezone_field: ''
+    third_party_settings: {  }
+    type: office_hours
+    region: content
   field_operating_status_facility:
     weight: 2
     label: above
@@ -97,15 +131,16 @@ content:
     type: basic_string
     region: content
   field_phone_number:
-    weight: 10
+    weight: 11
     label: above
-    settings: {  }
+    settings:
+      title: ''
     third_party_settings: {  }
-    type: basic_string
+    type: telephone_link
     region: content
   field_prepare_for_visit:
     type: entity_reference_revisions_entity_view
-    weight: 12
+    weight: 13
     label: above
     settings:
       view_mode: default
