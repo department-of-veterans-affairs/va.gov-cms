@@ -9,7 +9,7 @@ use Tests\Mock\HttpClient as MockHttpClient;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
- * A test to confirm that the VA Form Migration works correctly.
+ * A test to confirm that the VA HC Facility Migration works correctly.
  */
 class VaHealthCareLocalFacilityMigrationTest extends ExistingSiteBase {
 
