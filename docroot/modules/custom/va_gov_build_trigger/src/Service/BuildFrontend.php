@@ -10,9 +10,9 @@ use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 
 /**
- * Class for processing facility status to GovDelivery Bulletin.
+ * Class for dispatching frontend builds.
  */
-class BuildFrontend {
+class BuildFrontend implements BuildFrontendInterface {
 
   /**
    * The logger service.
@@ -67,12 +67,7 @@ class BuildFrontend {
   }
 
   /**
-   * Triggers the appropriate frontend Build based on the environment.
-   *
-   * @param string $front_end_git_ref
-   *   Front end git reference to build (branch name or PR number).
-   * @param bool $full_rebuild
-   *   Trigger a full content export rebuild.
+   * {@inheritdoc}
    */
   public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
     try {
@@ -88,25 +83,16 @@ class BuildFrontend {
   }
 
   /**
-   * Set the config state of build pending.
-   *
-   * @param bool $state
-   *   The state that should be set for build pending.
+   * {@inheritdoc}
    */
   public function setPendingState(bool $state) : void {
     $this->webStatus->setWebBuildStatus($state);
   }
 
   /**
-   * Check to see if this had a status or status info change.
-   *
-   * @param \Drupal\node\NodeInterface $node
-   *   The node object of a node just updated or saved.
-   *
-   * @return bool
-   *   TRUE if there was a status related change, FALSE if there was not.
+   * {@inheritdoc}
    */
-  private function changedStatus(NodeInterface $node) {
+  private function changedStatus(NodeInterface $node) : bool {
     // Check for change of workflow to published.
     $mod_state = $node->get('moderation_state')->value;
     $mod_state_original = $this->getOriginalFieldValue($node, 'moderation_state');
@@ -139,17 +125,9 @@ class BuildFrontend {
   }
 
   /**
-   * Gets the previously saved value of a field.
-   *
-   * @param \Drupal\node\NodeInterface $node
-   *   The node object of a node just updated or saved.
-   * @param string $fieldname
-   *   The machine name of the field to get.
-   *
-   * @return string
-   *   The value of the field, or '' if not found.
+   * {@inheritdoc}
    */
-  private function getOriginalFieldValue(NodeInterface $node, $fieldname) {
+  private function getOriginalFieldValue(NodeInterface $node, $fieldname) : string {
     $value = '';
     if (isset($node->original) && ($node->original instanceof NodeInterface)) {
       // There was a previous save.
@@ -160,12 +138,9 @@ class BuildFrontend {
   }
 
   /**
-   * Method to trigger a frontend build as the result of a save.
-   *
-   * @param \Drupal\node\NodeInterface $node
-   *   The node object of a node just updated or saved.
+   * {@inheritdoc}
    */
-  public function triggerFrontendBuildFromContentSave(NodeInterface $node) {
+  public function triggerFrontendBuildFromContentSave(NodeInterface $node) : void {
     if (!$this->environmentDiscovery->shouldTriggerFrontendBuild()) {
       return;
     }
