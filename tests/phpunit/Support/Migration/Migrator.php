@@ -20,7 +20,7 @@ class Migrator {
    *   An associative array of source configuration parameters to override.
    */
   public static function doImport(string $migration_id, array $source_config_overrides = []) : void {
-    /* @var \Drupal\migrate\Plugin\MigrationPluginManager */
+    /** @var \Drupal\migrate\Plugin\MigrationPluginManager */
     $migrationManager = \Drupal::service('plugin.manager.migration');
 
     $migration = $migrationManager->createInstance($migration_id);
