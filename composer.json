@@ -7,7 +7,8 @@
     "prefer-stable": true,
     "require-dev": {
         "acquia/drupal-spec-tool": "^2.0",
-        "drupal/console": "~1.0",
+        "drupal/console": "^1.9",
+        "drupal/console-extend-plugin": "^0.9.5",
         "drupal/media_entity_generic": "^1.0",
         "marcortola/behat-seo-contexts": "^3.1"
     },
@@ -18,8 +19,10 @@
         "bower-asset/cropper": "^4.1",
         "bower-asset/dropzone": "^5.5",
         "composer/installers": "^1.7",
-        "cweagans/composer-patches": "^1.6.4",
+        "consolidation/robo": "^1",
+        "cweagans/composer-patches": "^1.7",
         "devshop/behat-drupal-extension": "dev-rewrite-last-page-output-links",
+        "devshop/yaml-tasks": "^1.7@alpha",
         "drupal/address": "^1.4",
         "drupal/admin_toolbar": "^3.0",
         "drupal/advancedqueue": "^1.0@RC",
@@ -138,15 +141,14 @@
         "drush-ops/behat-drush-endpoint": "^9.4.0",
         "drush/drush": "~8",
         "http-interop/http-factory-guzzle": "^1.0",
-        "knplabs/github-api": "^2.12.1",
+        "knplabs/github-api": "^1.4",
         "michelf/php-markdown": "^1.8",
         "mikey179/vfsstream": "^1.6",
         "mouf/nodejs-installer": "^1.0",
         "npm-asset/yarn": "1.21.1",
-        "oomphinc/composer-installers-extender": "1.1.2",
+        "oomphinc/composer-installers-extender": "^2.0",
         "php-http/guzzle6-adapter": "^1.1",
         "phpunit/phpunit": "^7",
-        "provision-ops/yaml-tests": "~1.9",
         "querypath/querypath": "^3.0",
         "simplesamlphp/simplesamlphp": "^1.18",
         "squizlabs/php_codesniffer": "^3.5",
@@ -157,7 +159,7 @@
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
         "weitzman/drupal-test-traits": "dev-master",
-        "zaporylie/composer-drupal-optimizations": "^1.0"
+        "zaporylie/composer-drupal-optimizations": "^1.2"
     },
     "autoload": {
         "psr-4": {
@@ -233,6 +235,9 @@
             "node-project"
         ],
         "installer-paths": {
+            "docroot": [
+                "type:node-project"
+            ],
             "docroot/core": [
                 "type:drupal-core"
             ],
@@ -385,6 +390,9 @@
             "# This will allow you to run any command in the ./bin directory without a path.",
             "echo \"export PATH=${PATH}\""
         ],
+        "pre-install-cmd": [
+            "mkdir -p vendor"
+        ],
         "post-install-cmd": [
             "mkdir --parents docroot/profiles",
             "cp -r 'hooks/git/.' '.git/hooks/'",
@@ -394,11 +402,16 @@
             "cp -r 'simplesamlphp-config-metadata/config' 'simplesamlphp-config-metadata/metadata' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
             "echo 'Removing deleted .git/hooks/commit-msg file, no longer used.'",
             "rm -f .git/hooks/commit-msg",
-            "git update-index --skip-worktree samlsessiondb.sq3"
+            "git update-index --skip-worktree samlsessiondb.sq3",
+            "rm -r vendor"
+        ],
+        "pre-update-cmd": [
+            "mkdir -p vendor"
         ],
         "post-update-cmd": [
             "cp -r 'hooks/git/.' '.git/hooks/'",
-            "php -r \"chmod('.git/hooks/pre-commit', 0777);\""
+            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
+            "rm -r vendor"
         ],
         "nuke": [
             "rm -rf bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor /var/www/.cache/yarn",
