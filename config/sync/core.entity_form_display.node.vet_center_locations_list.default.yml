@@ -6,7 +6,7 @@ dependencies:
     - field.field.node.vet_center_locations_list.field_administration
     - field.field.node.vet_center_locations_list.field_intro_text
     - field.field.node.vet_center_locations_list.field_nearby_vet_centers
-    - field.field.node.vet_center_locations_list.field_vet_center
+    - field.field.node.vet_center_locations_list.field_office
     - node.type.vet_center_locations_list
     - workflows.workflow.editorial
   module:
@@ -56,7 +56,7 @@ content:
     type: options_select
     region: content
   field_intro_text:
-    weight: 1
+    weight: 2
     settings:
       rows: 5
       placeholder: ''
@@ -75,8 +75,8 @@ content:
         limit_values: '0'
     type: entity_reference_autocomplete
     region: content
-  field_vet_center:
-    weight: 2
+  field_office:
+    weight: 1
     settings: {  }
     third_party_settings: {  }
     type: options_select
