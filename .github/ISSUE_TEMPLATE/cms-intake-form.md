@@ -3,7 +3,7 @@ name: CMS intake form
 about: 'To file requests with the VFS-CMS team (mostly engineering support as helpdesk
   issues can be submitted through #cms-support)'
 title: "<Type of Request> from <Team>"
-labels: ''
+labels: Needs refining
 assignees: ''
 
 ---
