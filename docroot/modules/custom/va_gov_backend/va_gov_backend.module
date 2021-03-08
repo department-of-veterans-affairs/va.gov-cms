@@ -423,6 +423,11 @@ function _va_gov_toggle_field_states(array &$form, array $toggle_group) {
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
+  // Prevent system title from being edited on the edit form by non admins.
+  if ($form_id === 'node_health_care_region_page_edit_form') {
+    _va_gov_backend_vamc_title_access($form);
+  }
+
   if (isset($form['field_hservice_appt_intro_select'])) {
     $form['field_hservice_appt_leadin']['widget'][0]['value']['#title_display'] = 'invisible';
     _va_gov_backend_modify_appt_intro_text_states($form, $form_state);
@@ -696,6 +701,24 @@ function _va_gov_backend_get_unlocked_alias_bundles() {
 
   // Insert into array bundles that do not need alias locked upon publish.
   return [];
+}
+
+/**
+ * Determines whether or not user can edit vamc title.
+ *
+ * @param array $form
+ *   The node form array.
+ */
+function _va_gov_backend_vamc_title_access(array &$form) {
+  $allowed_roles = [
+    'administrator',
+    'content_admin',
+  ];
+  $current_user_roles = \Drupal::currentUser()->getRoles();
+  $admin_role_count = count(array_intersect($allowed_roles, $current_user_roles));
+  if ($admin_role_count < 1) {
+    $form['title']['#disabled'] = 'disabled';
+  }
 }
 
 /**

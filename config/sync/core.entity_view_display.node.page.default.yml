@@ -19,6 +19,7 @@ dependencies:
   module:
     - entity_reference_revisions
     - field_group
+    - text
     - user
 third_party_settings:
   field_group:
@@ -77,6 +78,13 @@ content:
       link: ''
     third_party_settings: {  }
     region: content
+  field_intro_text_limited_html:
+    type: text_default
+    weight: 1
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
   field_last_update:
     weight: 7
     label: above
@@ -116,7 +124,6 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
-  field_intro_text_limited_html: true
   field_meta_tags: true
   field_page_last_built: true
   field_plainlanguage_date: true
