@@ -159,14 +159,14 @@ There are 4 main types of tests:
 
 ## Running Tests
 
-The main way to run Yaml-tasks is the `composer yaml-tasks` command.
+The main way to run Yaml-task tests is the `composer yaml-tasks --tasks-file=tests.yml` command.
 
 Run `composer yaml-tasks --help` for more information.
 
-### Composer Command:  `composer yaml-tasks`
+### Composer Command:  `composer yaml-tasks --tasks-file=tests.yml`
 
 All composer commands can be shortened to any unique string, so `composer y
-` is an alias for `composer yaml-tasks`.
+` is an alias for `composer yaml-tasks --tasks-file=tests.yml`.
 
 Run `composer y --help` to see more options.
 
@@ -191,10 +191,10 @@ Lando commands are listed in [`.lando.yml`](../.lando.yml). There are some
 
  | Lando Command        | Composer Command
  |--------------        |----------------
- |lando test            | composer yaml-tasks
- |lando test va/deploy  | composer yaml-tasks va/deploy
+ |lando test            | composer yaml-tasks --tasks-file=tests.yml
+ |lando test va/deploy  | composer yaml-tasks --tasks-file=tests.yml va/deploy
  |lando web-build       | composer va:web:build
- |lando phpunit         | composer yaml-tasks  va/tests/phpunit
+ |lando phpunit         | composer yaml-tasks --tasks-file=tests.yml va/tests/phpunit
  |lando web-build       | composer va:web:build
  |lando behat           | cd /app/tests/behat && /app/bin/behat
 
@@ -212,13 +212,13 @@ You can add an argument to filter the tests to run:
 
  ```sh
  # Run the entire test suite.
- composer yaml-tasks
+ composer yaml-tasks --tasks-file=tests.yml
 
  # Run `va/tests/phpunit` only
- composer yaml-tests phpunit
+ composer yaml-tests --tasks-file=tests.yml phpunit
 
  # Run all `va/deploy/*` tests.
- composer yaml-tasks va/deploy
+ composer yaml-tasks --tasks-file=tests.yml va/deploy
  ```
 
 
