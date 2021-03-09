@@ -88,7 +88,7 @@ services:
       update:
         # Install/update packages managed by composer, including drush.
         # Composer options are in composer.json, 'config' key.
-        - COMPOSER_PROCESS_TIMEOUT=600 composer install
+        - composer install
         - composer va:web:install
 
         - curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/files/cms-prod-files-latest.tgz
