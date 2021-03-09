@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b7fc6b2fa2ba134525dfc59f082750e",
+    "content-hash": "3efbae6042450525f0c336b385ec47cb",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -767,12 +767,12 @@
             "version": "v5.5.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:enyo/dropzone.git",
+                "url": "https://github.com/dropzone/dropzone.git",
                 "reference": "08b9e0a763b54a685404dea523a9c54242fbe1b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/enyo/dropzone/zipball/08b9e0a763b54a685404dea523a9c54242fbe1b9",
+                "url": "https://api.github.com/repos/dropzone/dropzone/zipball/08b9e0a763b54a685404dea523a9c54242fbe1b9",
                 "reference": "08b9e0a763b54a685404dea523a9c54242fbe1b9"
             },
             "type": "bower-asset"
@@ -2855,6 +2855,10 @@
                 {
                     "name": "RenatoG",
                     "homepage": "https://www.drupal.org/user/3326031"
+                },
+                {
+                    "name": "VladimirAus",
+                    "homepage": "https://www.drupal.org/user/673120"
                 },
                 {
                     "name": "bforchhammer",
@@ -5159,17 +5163,17 @@
         },
         {
             "name": "drupal/entity_reference_revisions",
-            "version": "1.8.0",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/entity_reference_revisions.git",
-                "reference": "8.x-1.8"
+                "reference": "8.x-1.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity_reference_revisions-8.x-1.8.zip",
-                "reference": "8.x-1.8",
-                "shasum": "c1279e6c683edc2dbccedba8de1505340c8a62b6"
+                "url": "https://ftp.drupal.org/files/projects/entity_reference_revisions-8.x-1.9.zip",
+                "reference": "8.x-1.9",
+                "shasum": "e1c51bdea495eb3b458130d6f0a00c347f5637df"
             },
             "require": {
                 "drupal/core": "^8.7.7 || ^9"
@@ -5180,8 +5184,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.8",
-                    "datestamp": "1583961846",
+                    "version": "8.x-1.9",
+                    "datestamp": "1614805871",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5193,7 +5197,7 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -10388,7 +10392,7 @@
             "extra": {
                 "drupal": {
                     "version": "6.0.2",
-                    "datestamp": "1614791851",
+                    "datestamp": "1614794871",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10484,6 +10488,9 @@
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "3118596 - Cache isn't invalidated after user is removed from section/added to section.": "https://www.drupal.org/files/issues/2020-06-30/3118596_workbench_access-user-cache-18.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -10678,16 +10685,16 @@
         },
         {
             "name": "drush/drush",
-            "version": "10.4.0",
+            "version": "10.4.0-rc1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/drush.git",
-                "reference": "507cecd32b05850cf2f70c8922ddad247cd9ce10"
+                "reference": "f4a2f73066714ef0c464c8c71ca3945e7bd94d38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/drush/zipball/507cecd32b05850cf2f70c8922ddad247cd9ce10",
-                "reference": "507cecd32b05850cf2f70c8922ddad247cd9ce10",
+                "url": "https://api.github.com/repos/drush-ops/drush/zipball/f4a2f73066714ef0c464c8c71ca3945e7bd94d38",
+                "reference": "f4a2f73066714ef0c464c8c71ca3945e7bd94d38",
                 "shasum": ""
             },
             "require": {
@@ -10698,7 +10705,6 @@
                 "consolidation/robo": "^1.4.11 || ^2",
                 "consolidation/site-alias": "^3.0.0@stable",
                 "consolidation/site-process": "^2.1 || ^4",
-                "enlightn/security-checker": "^1",
                 "ext-dom": "*",
                 "grasmash/yaml-expander": "^1.1.1",
                 "guzzlehttp/guzzle": "^6.3 || ^7.0",
@@ -10813,7 +10819,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-02-15T20:26:00+00:00"
+            "time": "2021-01-04T17:31:48+00:00"
         },
         {
             "name": "easyrdf/easyrdf",
@@ -10934,67 +10940,6 @@
                 "validator"
             ],
             "time": "2020-02-13T22:36:52+00:00"
-        },
-        {
-            "name": "enlightn/security-checker",
-            "version": "v1.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/enlightn/security-checker.git",
-                "reference": "1ac108ba278ba0c2e71d2ce2ac4fac07ed6e8a29"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/enlightn/security-checker/zipball/1ac108ba278ba0c2e71d2ce2ac4fac07ed6e8a29",
-                "reference": "1ac108ba278ba0c2e71d2ce2ac4fac07ed6e8a29",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-zip": "*",
-                "guzzlehttp/guzzle": "^6.3|^7.0",
-                "php": ">=5.6",
-                "symfony/console": "^3.4|^4|^5",
-                "symfony/finder": "^3|^4|^5",
-                "symfony/yaml": "^3.4|^4|^5"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.18",
-                "phpunit/phpunit": "^5.5|^6|^7|^8|^9"
-            },
-            "bin": [
-                "security-checker"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Enlightn\\SecurityChecker\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Paras Malhotra",
-                    "email": "paras@laravel-enlightn.com"
-                },
-                {
-                    "name": "Miguel Piedrafita",
-                    "email": "soy@miguelpiedrafita.com"
-                }
-            ],
-            "description": "A PHP dependency vulnerabilities scanner based on the Security Advisories Database.",
-            "keywords": [
-                "package",
-                "php",
-                "scanner",
-                "security",
-                "security advisories",
-                "vulnerability scanner"
-            ],
-            "time": "2021-03-03T11:56:26+00:00"
         },
         {
             "name": "fabpot/goutte",
@@ -19623,16 +19568,16 @@
         },
         {
             "name": "va-gov/web",
-            "version": "v0.1.1363",
+            "version": "v0.1.1376",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
-                "reference": "0f309abd83beccd0d560867b4e25648feb3e4d77"
+                "reference": "a3043e1f9bb33bcd46822615700bdb3b2971006c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/0f309abd83beccd0d560867b4e25648feb3e4d77",
-                "reference": "0f309abd83beccd0d560867b4e25648feb3e4d77",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/a3043e1f9bb33bcd46822615700bdb3b2971006c",
+                "reference": "a3043e1f9bb33bcd46822615700bdb3b2971006c",
                 "shasum": ""
             },
             "type": "node-project",
@@ -19657,7 +19602,7 @@
                 }
             ],
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
-            "time": "2021-03-01T20:22:37+00:00"
+            "time": "2021-03-04T18:56:25+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -22394,7 +22339,7 @@
     "platform": [],
     "platform-dev": [],
     "platform-overrides": {
-        "php": "7.2.32"
+        "php": "7.3"
     },
     "plugin-api-version": "1.1.0"
 }

@@ -215,7 +215,7 @@ process:
     default_value: draft
   changed:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   new_revision:
     plugin: default_value
     default_value: true
@@ -227,7 +227,7 @@ process:
     default_value: "Update of Facility API data by migration."
   revision_timestamp:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   revision_uid:
     plugin: default_value
     default_value: 1317

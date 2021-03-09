@@ -60,7 +60,7 @@ process:
     source: field_administration
   changed:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   new_revision:
     plugin: default_value
     default_value: true
@@ -72,7 +72,7 @@ process:
     default_value: 'Imported by facility_health_care_service migration.'
   revision_timestamp:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   revision_uid:
     plugin: default_value
     default_value: 1317
