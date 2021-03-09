@@ -34,6 +34,9 @@ Cypress.Commands.add('drupalLogin', (username, password) => {
   cy.get('#edit-name').type(username);
   cy.get('#edit-pass').type(password);
   cy.get('#edit-submit').click();
+  cy.window().then((window) => {
+    cy.wrap(window.drupalSettings.user.uid).as('uid');
+  });
 });
 
 Cypress.Commands.add('drupalLogout', () => {
@@ -101,9 +104,47 @@ Cypress.Commands.add('scrollToSelector', (selector) => {
     if (htmlElement) {
       htmlElement.style.scrollBehavior = 'inherit';
     }
-  })
+  });
   cy.get(selector).scrollIntoView({ offset: {top: 0}});
   return cy.get(selector);
-})
+});
+
+Cypress.Commands.add('getDataLayer', () => {
+  return cy.window().then((window) => window.dataLayer.filter((object) => object.event === 'pageLoad').pop());
+});
+
+Cypress.Commands.add('getDrupalSettings', () => {
+  return cy.window().then((window) => window.drupalSettings);
+});
+
+Cypress.Commands.add('unsetWorkbenchAccessSections', () => {
+  return cy.get('@uid')
+    .then((uid) => {
+      const command = `
+        $user = user_load(${uid});
+        $section_scheme = \\Drupal::entityTypeManager()->getStorage('access_scheme')->load('section');
+        $section_storage = \\Drupal::service('workbench_access.user_section_storage');
+        $current_sections = $section_storage->getUserSections($section_scheme, $user);
+        if (!empty($current_sections)) {
+          $section_storage->removeUser($section_scheme, $user, $current_sections);
+        }
+      `;
+      return cy.drupalDrushEval(command);
+    });
+});
+
+Cypress.Commands.add('setWorkbenchAccessSections', (value) => {
+  return cy.unsetWorkbenchAccessSections()
+    .then(() => cy.get('@uid'))
+    .then((uid) => {
+      const command = `
+        $user = user_load(${uid});
+        $section_scheme = \\Drupal::entityTypeManager()->getStorage('access_scheme')->load('section');
+        $section_storage = \\Drupal::service('workbench_access.user_section_storage');
+        $section_storage->addUser($section_scheme, $user, explode(',', '${value}'));
+      `;
+      return cy.drupalDrushEval(command);
+    });
+});
 
 compareSnapshotCommand();
