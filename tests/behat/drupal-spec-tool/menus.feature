@@ -79,7 +79,7 @@ Feature: Menus
 | VA North Florida health care | va-north-florida-health-care | VISN 8 \| va.gov/north-florida-health-care |
 | VA Northern California health care | va-northern-california-health-ca | VISN 21 \| va.gov/northern-california-health-care |
 | VA Northport health care | va-northport-health-care | VISN 2 \| va.gov/northport-health-care |
-| VA Oklahoma health care | va-oklahoma-health-care | VISN 19 \| va.gov/oklahoma-city-health-care |
+| VA Oklahoma City health care | va-oklahoma-health-care | VISN 19 \| va.gov/oklahoma-city-health-care |
 | VA Orlando health care | va-orlando-health-care | VISN 8 \| va.gov/orlando-health-care |
 | VA Pacific Islands health care | va-pacific-islands-health-care | VISN 21 \| va.gov/pacific-islands-health-care |
 | VA Palo Alto health care | va-palo-alto-health-care | VISN 21 \| va.gov/palo-alto-health-care |

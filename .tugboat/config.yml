@@ -2,7 +2,7 @@ services:
   # What to call the service hosting the site.
   php:
     # Use PHP 7.x with Apache; this syntax pulls in the latest version of PHP 7
-    image: tugboatqa/php:7.2.32-apache
+    image: tugboatqa/php:7.3-apache
 
     aliases:
       - cms
@@ -77,6 +77,9 @@ services:
         - echo "apc.enable=1" >> /usr/local/etc/php/conf.d/my-php.ini
         - echo "apc.enable=1" >> /usr/local/etc/php/conf.d/php-cli.ini
         - echo "apc.enable_cli=1" >> /usr/local/etc/php/conf.d/php-cli.ini
+
+        # Downgrade to Composer 1 until https://github.com/department-of-veterans-affairs/va.gov-cms/issues/3303 is done
+        - composer self-update --1
 
       # Commands that import files, databases,  or other assets. When an
       # existing preview is refreshed, the build workflow starts here,
