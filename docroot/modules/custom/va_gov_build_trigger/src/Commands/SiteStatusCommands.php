@@ -34,7 +34,27 @@ class SiteStatusCommands extends DrushCommands {
    * @aliases va-gov-get-deploy-mode
    */
   public function getDeployMode() {
-    echo ($this->siteStatus->inDeployMode() ? 'ENABLED' : 'DISABLED') . PHP_EOL;
+    echo ($this->siteStatus->getDeployMode() ? 'TRUE' : 'FALSE') . PHP_EOL;
+  }
+
+  /**
+   * Set the deploy mode.
+   *
+   * @param string $mode
+   *   Will be coerced to an int or string.
+   *
+   * @command va-gov:set-deploy-mode
+   * @aliases va-gov-set-deploy-mode
+   */
+  public function setDeployMode(string $mode) {
+    $mode = filter_var($mode, FILTER_VALIDATE_BOOLEAN);
+    $this->siteStatus->setDeployMode($mode);
+    if ($this->siteStatus->getDeployMode() !== $mode) {
+      throw new \Exception('Failed to set Deploy Mode.');
+    }
+    $this->logger->success(dt('Deploy Mode is currently :mode.', [
+      ':mode' => ($mode ? 'enabled' : 'disabled'),
+    ]));
   }
 
   /**
@@ -44,8 +64,7 @@ class SiteStatusCommands extends DrushCommands {
    * @aliases va-gov-enable-deploy-mode
    */
   public function enableDeployMode() {
-    $this->siteStatus->enableDeployMode();
-    $this->logger->success(dt('Deploy mode has been enabled.'));
+    $this->setDeployMode('TRUE');
   }
 
   /**
@@ -55,8 +74,7 @@ class SiteStatusCommands extends DrushCommands {
    * @aliases va-gov-disable-deploy-mode
    */
   public function disableDeployMode() {
-    $this->siteStatus->disableDeployMode();
-    $this->logger->success(dt('Deploy mode has been disabled.'));
+    $this->setDeployMode('FALSE');
   }
 
 }

@@ -2,12 +2,10 @@ services:
   logger.channel.va_gov_build_trigger:
     parent: logger.channel_base
     arguments: ['va_gov_build_trigger']
+
   va_gov_build_trigger.aws_ssm_client:
     class: Aws\Ssm\SsmClient
     arguments: [ { 'version': 'latest', 'region': 'us-gov-west-1' } ]
-  va_gov_build_trigger.jenkins_http_client:
-    class: GuzzleHttp\Client
-    arguments: [ { 'handler': '@va_gov_build_trigger.http_client_handler_stack' } ]
   va_gov_build_trigger.retry_middleware:
     class: Closure
     factory: ['Drupal\va_gov_build_trigger\Service\MiddlewareFactory', 'createRetryMiddleware']
@@ -16,40 +14,46 @@ services:
     class: GuzzleHttp\HandlerStack
     factory: ['Drupal\va_gov_build_trigger\Service\MiddlewareFactory', 'createHandlerStack']
     arguments: ['@logger.channel.va_gov_build_trigger']
-  va_gov_build_trigger.build_frontend:
-    class: Drupal\va_gov_build_trigger\Service\BuildFrontend
-    arguments: ['@messenger', '@logger.factory', '@va_gov.build_trigger.web_build_status', '@va_gov.build_trigger.environment_discovery']
-  va_gov_build_trigger.build_time_recorder:
-    class: Drupal\va_gov_build_trigger\Service\BuildTimeRecorder
-    arguments: ['@date.formatter', '@database']
+  va_gov_build_trigger.jenkins_http_client:
+    class: GuzzleHttp\Client
+    arguments: [ { 'handler': '@va_gov_build_trigger.http_client_handler_stack' } ]
   va_gov_build_trigger.jenkins_client:
     class: Drupal\va_gov_build_trigger\Service\JenkinsClient
     arguments: ['@settings', '@messenger', '@logger.factory', '@va_gov_build_trigger.systems_manager_client', '@va_gov_build_trigger.jenkins_http_client']
   va_gov_build_trigger.systems_manager_client:
     class: Drupal\va_gov_build_trigger\Service\SystemsManagerClient
     arguments: ['@string_translation', '@va_gov_build_trigger.aws_ssm_client']
-  va_gov.build_trigger.web_build_status:
-    class: Drupal\va_gov_build_trigger\WebBuildStatus
-    arguments: ['@state', '@settings']
-  va_gov.build_trigger.environment_discovery:
+
+  va_gov_build_trigger.environment_discovery:
     class: Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery
-    arguments: [ '@plugin.manager.va_gov.environment' ]
+    arguments: [ '@settings', '@plugin.manager.va_gov.environment' ]
   plugin.manager.va_gov.environment:
     class: Drupal\va_gov_build_trigger\Environment\EnvironmentManager
     parent: default_plugin_manager
   va_gov_build_trigger.route_subscriber:
     class: Drupal\va_gov_build_trigger\Routing\RouteSubscriber
-    arguments: ['@va_gov.build_trigger.environment_discovery']
+    arguments: ['@va_gov_build_trigger.environment_discovery']
     tags:
       - { name: event_subscriber }
-  va_gov.build_trigger.web_build_command_builder:
-    class: Drupal\va_gov_build_trigger\WebBuildCommandBuilder
-    arguments: ['@settings', '@va_gov.build_trigger.web_build_status']
-  va_gov.site_status:
+
+  va_gov_build_trigger.site_status:
     class: Drupal\va_gov_build_trigger\SiteStatus\SiteStatus
     arguments: ['@state']
-  va_gov_build_trigger.web_build_command_job:
-    class: Drupal\va_gov_build_trigger\Service\WebBuildCommandJobService
-  va_gov_build_trigger.web_build_command_queue:
-    class: Drupal\va_gov_build_trigger\Service\WebBuildCommandQueue
-    arguments: ['@entity_type.manager', '@va_gov_build_trigger.web_build_command_job']
+
+  va_gov_build_trigger.frontend_build.build_time_recorder:
+    class: Drupal\va_gov_build_trigger\FrontendBuild\BuildTimeRecorder
+    arguments: ['@date.formatter', '@database']
+  va_gov_build_trigger.frontend_build.dispatcher:
+    class: Drupal\va_gov_build_trigger\FrontendBuild\Dispatcher
+    arguments: ['@messenger', '@logger.factory', '@va_gov_build_trigger.frontend_build.status', '@va_gov_build_trigger.environment_discovery']
+  va_gov_build_trigger.frontend_build.status:
+    class: Drupal\va_gov_build_trigger\FrontendBuild\Status
+    arguments: ['@state', '@settings']
+  va_gov_build_trigger.frontend_build.command.builder:
+    class: Drupal\va_gov_build_trigger\FrontendBuild\Command\Builder
+    arguments: ['@settings', '@va_gov_build_trigger.frontend_build.status']
+  va_gov_build_trigger.frontend_build.command.job:
+    class: Drupal\va_gov_build_trigger\FrontendBuild\Command\JobService
+  va_gov_build_trigger.frontend_build.command.queue:
+    class: Drupal\va_gov_build_trigger\FrontendBuild\Command\Queue
+    arguments: ['@entity_type.manager', '@va_gov_build_trigger.frontend_build.command.job']

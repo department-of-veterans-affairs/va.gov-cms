@@ -57,7 +57,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
         'department-of-veterans-affairs/vets-website',
         'va_cms_bot_github_auth_token'
       ),
-      Git::get($container->get('va_gov.build_trigger.web_build_command_builder')->getPathToWebRoot()),
+      Git::get($container->get('va_gov_build_trigger.frontend_build.command.builder')->getPathToWebRoot()),
       $container->get('logger.factory')
     );
   }

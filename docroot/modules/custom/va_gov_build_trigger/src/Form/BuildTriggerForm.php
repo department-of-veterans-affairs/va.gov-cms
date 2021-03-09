@@ -6,8 +6,8 @@ use Drupal\Core\Block\BlockManager;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
-use Drupal\va_gov_build_trigger\Service\BuildFrontend;
-use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
+use Drupal\va_gov_build_trigger\FrontendBuild\DispatcherInterface;
+use Drupal\va_gov_build_trigger\FrontendBuild\StatusInterface as FrontendBuildStatusInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -22,18 +22,18 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class BuildTriggerForm extends FormBase {
 
   /**
-   * The front-end build service.
+   * The frontend build dispatcher service.
    *
-   * @var \Drupal\va_gov_build_trigger\Service\BuildFrontend
+   * @var \Drupal\va_gov_build_trigger\FrontendBuild\DispatcherInterface
    */
-  protected $buildFrontend;
+  protected $dispatcher;
 
   /**
    * The state provider.
    *
-   * @var \Drupal\va_gov_build_trigger\WebBuildStatusInterface
+   * @var \Drupal\va_gov_build_trigger\FrontendBuild\StatusInterface
    */
-  protected $webBuildStatus;
+  protected $frontendBuildStatus;
 
   /**
    * EnvironmentDiscovery Service.
@@ -52,9 +52,9 @@ class BuildTriggerForm extends FormBase {
   /**
    * Class constructor.
    *
-   * @param \Drupal\va_gov_build_trigger\Service\BuildFrontend $buildFrontend
+   * @param \Drupal\va_gov_build_trigger\Service\FrontendBuild\DispatcherInterface $dispatcher
    *   Build the front end service.
-   * @param \Drupal\va_gov_build_trigger\WebBuildStatusInterface $webBuildStatus
+   * @param \Drupal\va_gov_build_trigger\FrontendBuild\StatusInterface $frontendBuildStatus
    *   Webbuild status provider.
    * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery $environmentDiscovery
    *   EnvironmentDiscovery service.
@@ -62,13 +62,13 @@ class BuildTriggerForm extends FormBase {
    *   Block Manager service.
    */
   public function __construct(
-    BuildFrontend $buildFrontend,
-    WebBuildStatusInterface $webBuildStatus,
+    DispatcherInterface $dispatcher,
+    FrontendBuildStatusInterface $frontendBuildStatus,
     EnvironmentDiscovery $environmentDiscovery,
-    BlockManager $blockManager) {
-
-    $this->buildFrontend = $buildFrontend;
-    $this->webBuildStatus = $webBuildStatus;
+    BlockManager $blockManager
+  ) {
+    $this->dispatcher = $dispatcher;
+    $this->frontendBuildStatus = $frontendBuildStatus;
     $this->environmentDiscovery = $environmentDiscovery;
     $this->blockManager = $blockManager;
   }
@@ -78,9 +78,9 @@ class BuildTriggerForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('va_gov_build_trigger.build_frontend'),
-      $container->get('va_gov.build_trigger.web_build_status'),
-      $container->get('va_gov.build_trigger.environment_discovery'),
+      $container->get('va_gov_build_trigger.frontend_build.dispatcher'),
+      $container->get('va_gov_build_trigger.frontend_build.status'),
+      $container->get('va_gov_build_trigger.environment_discovery'),
       $container->get('plugin.manager.block')
     );
   }
@@ -122,7 +122,47 @@ class BuildTriggerForm extends FormBase {
    *   Object containing current form state.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->buildFrontend->triggerFrontendBuild();
+    $this->getDispatcher()->triggerFrontendBuild();
+  }
+
+  /**
+   * Get the dispatcher.
+   *
+   * @return \Drupal\va_gov_build_trigger\FrontendBuild\DispatcherInterface
+   *   The frontend build dispatcher.
+   */
+  protected function getDispatcher() : DispatcherInterface {
+    return $this->dispatcher;
+  }
+
+  /**
+   * Get the frontend build status service.
+   *
+   * @return \Drupal\va_gov_build_trigger\FrontendBuild\StatusInterface
+   *   The frontend build status service.
+   */
+  protected function getFrontendBuildStatus() : FrontendBuildStatusInterface {
+    return $this->frontendBuildStatus;
+  }
+
+  /**
+   * Get the environment discovery service.
+   *
+   * @return \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery
+   *   The environment discovery service.
+   */
+  protected function getEnvironmentDiscovery() : EnvironmentDiscovery {
+    return $this->environmentDiscovery;
+  }
+
+  /**
+   * Get the block manager.
+   *
+   * @return \Drupal\Core\Block\BlockManager
+   *   The block manager service.
+   */
+  protected function getBlockManager() : BlockManager {
+    return $this->environmentDiscovery;
   }
 
 }

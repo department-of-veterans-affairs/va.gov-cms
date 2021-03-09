@@ -31,22 +31,29 @@ class SiteStatus implements SiteStatusInterface {
   /**
    * {@inheritDoc}
    */
-  public function inDeployMode(): bool {
+  public function getDeployMode(): bool {
     return $this->state->get(static::VA_GOV_DEPLOY_MODE, FALSE);
   }
 
   /**
    * {@inheritDoc}
    */
+  public function setDeployMode(bool $mode): void {
+    $this->state->set(static::VA_GOV_DEPLOY_MODE, $mode);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public function enableDeployMode(): void {
-    $this->state->set(static::VA_GOV_DEPLOY_MODE, TRUE);
+    $this->setDeployMode(TRUE);
   }
 
   /**
    * {@inheritDoc}
    */
   public function disableDeployMode(): void {
-    $this->state->set(static::VA_GOV_DEPLOY_MODE, FALSE);
+    $this->setDeployMode(FALSE);
   }
 
 }

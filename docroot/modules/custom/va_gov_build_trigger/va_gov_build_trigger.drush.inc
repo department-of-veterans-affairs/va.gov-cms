@@ -17,6 +17,13 @@ function va_gov_build_trigger_drush_command() {
     'description' => 'Get the deploy mode.',
   ];
 
+  $items['va-gov-set-deploy-mode'] = [
+    'description' => 'Set the deploy mode.',
+    'arguments' => [
+      'mode' => 'The intended deploy mode.',
+    ],
+  ];
+
   $items['va-gov-enable-deploy-mode'] = [
     'description' => 'Enable the deploy mode.',
   ];
@@ -34,16 +41,25 @@ function va_gov_build_trigger_drush_command() {
     'options' => [
       'dry-run' => 'Don\'t actually build; just print the commands that would be executed.',
     ],
+    'aliases' => [
+      'va-gov-build-web',
+    ],
   ];
 
-  $items['va-gov-get-web-build-status'] = [
-    'description' => 'Get the web build status.',
+  $items['va-gov-get-frontend-build-status'] = [
+    'description' => 'Get the frontend build status.',
+    'aliases' => [
+      'va-gov-get-web-build-status',
+    ],
   ];
 
-  $items['va-gov-set-web-build-status'] = [
-    'description' => 'Set the web build status.',
+  $items['va-gov-set-frontend-build-status'] = [
+    'description' => 'Set the frontend build status.',
     'arguments' => [
-      'status' => 'The intended web build status.',
+      'status' => 'The intended frontend build status.',
+    ],
+    'aliases' => [
+      'va-gov-set-web-build-status',
     ],
   ];
 
@@ -62,8 +78,7 @@ function drush_va_gov_build_trigger_va_gov_build_frontend(string $reference = NU
     $reference = NULL;
   }
   $full_rebuild = filter_var($full_rebuild, FILTER_VALIDATE_BOOLEAN);
-  $build_frontend = \Drupal::service('va_gov_build_trigger.build_frontend');
-  $build_commands = \Drupal::service('va_gov.build_trigger.web_build_command_builder')
+  $build_commands = \Drupal::service('va_gov_build_trigger.frontend_build.command.builder')
     ->buildCommands($reference, $full_rebuild);
   if ($dry_run = drush_get_option('dry-run')) {
     echo '# $reference: ' . $reference . PHP_EOL;
@@ -73,16 +88,17 @@ function drush_va_gov_build_trigger_va_gov_build_frontend(string $reference = NU
     }
   }
   else {
-    $build_frontend->triggerFrontendBuild($reference, $full_rebuild);
+    $dispatcher = \Drupal::service('va_gov_build_trigger.frontend_build.dispatcher');
+    $dispatcher->triggerFrontendBuild($reference, $full_rebuild);
   }
 }
 
 /**
  * Drush command to get the current web build status.
  */
-function drush_va_gov_build_trigger_va_gov_get_web_build_status() {
-  $web_build_status = \Drupal::service('va_gov.build_trigger.web_build_status');
-  echo ($web_build_status->getWebBuildStatus() ? 'ENABLED' : 'DISABLED') . PHP_EOL;
+function drush_va_gov_build_trigger_va_gov_get_frontend_build_status() {
+  $status_service = \Drupal::service('va_gov_build_trigger.frontend_build.status');
+  echo ($status_service->getStatus() ? 'TRUE' : 'FALSE') . PHP_EOL;
 }
 
 /**
@@ -91,14 +107,14 @@ function drush_va_gov_build_trigger_va_gov_get_web_build_status() {
  * @param string $status
  *   The intended web build status.
  */
-function drush_va_gov_build_trigger_va_gov_set_web_build_status(string $status) {
+function drush_va_gov_build_trigger_va_gov_set_frontend_build_status(string $status) {
   $status = filter_var($status, FILTER_VALIDATE_BOOLEAN);
-  $web_build_status = \Drupal::service('va_gov.build_trigger.web_build_status');
-  $web_build_status->setWebBuildStatus($status);
-  if ($web_build_status->getWebBuildStatus() !== $status) {
-    throw new \Exception('Failed to set Web Build Status.');
+  $status_service = \Drupal::service('va_gov_build_trigger.frontend_build.status');
+  $status_service->setStatus($status);
+  if ($status_service->getStatus() !== $status) {
+    throw new \Exception('Failed to set Frontend Build Status.');
   }
-  drush_log(t('Web Build Status is now :status.', [
+  drush_log(t('Frontend Build Status is now :status.', [
     ':status' => ($status ? 'active' : 'inactive'),
   ]), LogLevel::OK);
 }
@@ -107,25 +123,38 @@ function drush_va_gov_build_trigger_va_gov_set_web_build_status(string $status) 
  * Drush command to get the current display mode.
  */
 function drush_va_gov_build_trigger_va_gov_get_deploy_mode() {
-  $site_state = \Drupal::getContainer()->get('va_gov.site_status');
-  $site_status = $site_state->inDeployMode() ? 'ENABLED' : 'DISABLED';
-  drush_log($site_status, LogLevel::OK);
+  $status_service = \Drupal::service('va_gov_build_trigger.site_status');
+  echo ($status_service->getDeployMode() ? 'TRUE' : 'FALSE') . PHP_EOL;
+}
+
+/**
+ * Drush command to set the current deploy mode.
+ *
+ * @param string $mode
+ *   The intended deploy mode.
+ */
+function drush_va_gov_build_trigger_va_gov_set_deploy_mode(string $mode) {
+  $mode = filter_var($mode, FILTER_VALIDATE_BOOLEAN);
+  $status_service = \Drupal::service('va_gov_build_trigger.site_status');
+  $status_service->setDeployMode($mode);
+  if ($status_service->getDeployMode() !== $mode) {
+    throw new \Exception('Failed to set Deploy Mode.');
+  }
+  drush_log(t('Deploy Mode is now :mode.', [
+    ':mode' => ($mode ? 'enabled' : 'disabled'),
+  ]), LogLevel::OK);
 }
 
 /**
  * Drush command to get the current display mode.
  */
 function drush_va_gov_build_trigger_va_gov_enable_deploy_mode() {
-  $site_state = \Drupal::getContainer()->get('va_gov.site_status');
-  $site_state->enableDeployMode();
-  drush_log('Deploy mode has been enabled', LogLevel::OK);
+  drush_va_gov_build_trigger_va_gov_set_deploy_mode('TRUE');
 }
 
 /**
  * Drush command to get the current display mode.
  */
 function drush_va_gov_build_trigger_va_gov_disable_deploy_mode() {
-  $site_state = \Drupal::getContainer()->get('va_gov.site_status');
-  $site_state->disableDeployMode();
-  drush_log('Deploy mode has been disabled', LogLevel::OK);
+  drush_va_gov_build_trigger_va_gov_set_deploy_mode('FALSE');
 }

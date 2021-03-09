@@ -7,7 +7,14 @@ use Drupal\Core\Site\Settings;
 /**
  * A class responsible for environment (dev/stage/prod) discovery.
  */
-class EnvironmentDiscovery {
+class EnvironmentDiscovery implements EnvironmentDiscoveryInterface {
+
+  /**
+   * Drupal Settings.
+   *
+   * @var \Drupal\Core\Site\Settings
+   */
+  protected $settings;
 
   /**
    * The current environment object.
@@ -26,34 +33,28 @@ class EnvironmentDiscovery {
   /**
    * EnvironmentDiscovery constructor.
    *
+   * @param \Drupal\Core\Site\Settings $settings
+   *   The Drupal settings service.
    * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentManager $environmentManager
    *   The environment manager class.
    */
-  public function __construct(EnvironmentManager $environmentManager) {
+  public function __construct(Settings $settings, EnvironmentManager $environmentManager) {
+    $this->settings = $settings;
     $this->environmentManager = $environmentManager;
   }
 
   /**
-   * Is this on the BRD system?
-   *
-   * @return bool
-   *   Is this on the BRD system?
-   *
-   * @codingStandardsIgnoreStart
+   * {@inheritdoc}
    */
-  public function isBRD() : bool {
-    // @codingStandardsIgnoreEnd
-    $jenkins_build_environment = Settings::get('jenkins_build_env');
+  public function isBrd() : bool {
+    $jenkins_build_environment = $this->settings->get('jenkins_build_env');
     return !empty($jenkins_build_environment) &&
       $this->getBuildTypeKey() === 'brd' &&
       !$this->isCli();
   }
 
   /**
-   * Is this on Devshop?
-   *
-   * @return bool
-   *   Is this on Devshop?
+   * {@inheritdoc}
    */
   public function isDevShop() : bool {
     return $this->getBuildTypeKey() === 'devshop' &&
@@ -62,10 +63,7 @@ class EnvironmentDiscovery {
   }
 
   /**
-   * Is this on Tugboat?
-   *
-   * @return bool
-   *   Is this on Tugboat?
+   * {@inheritdoc}
    */
   public function isTugboat() : bool {
     return $this->getBuildTypeKey() === 'tugboat' ||
@@ -73,85 +71,53 @@ class EnvironmentDiscovery {
   }
 
   /**
-   * Is this on Local?
-   *
-   * @return bool
-   *   Is this on Local?
+   * {@inheritdoc}
    */
   public function isLocal() : bool {
     return $this->getBuildTypeKey() === 'lando';
   }
 
   /**
-   * Get the environment type.
-   *
-   * @return string
-   *   The name of the environment.
+   * {@inheritdoc}
    */
   public function getEnvironmentId() : string {
     return getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
   }
 
   /**
-   * Get the front end build type key.
-   *
-   * @return string|null
-   *   The key defined in settings.php for the front end build.
+   * {@inheritdoc}
    */
   public function getBuildTypeKey() : string {
-    return Settings::get('va_gov_frontend_build_type', 'tugboat');
+    return $this->settings->get('va_gov_frontend_build_type', 'tugboat');
   }
 
   /**
-   * Get the Environment Object.
-   *
-   * @return \Drupal\va_gov_build_trigger\Environment\EnvironmentInterface
-   *   The Environment object.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\PluginException
-   *   The exception if the plugin can not be loaded.
+   * {@inheritdoc}
    */
   public function getEnvironment() : EnvironmentInterface {
-    if ($this->environment) {
-      return $this->environment;
+    if (!$this->environment) {
+      $build_type = $this->getBuildTypeKey();
+      $this->environment = $this->environmentManager->createInstance($build_type);
     }
-
-    $build_type = $this->getBuildTypeKey();
-    $this->environment = $this->environmentManager->createInstance($build_type);
     return $this->environment;
   }
 
   /**
-   * Get the WEB Url for a desired environment type.
-   *
-   * @return string
-   *   The location of the frontend web for the environment.
+   * {@inheritdoc}
    */
   public function getWebUrl() : string {
     return $this->getEnvironment()->getWebUrl();
   }
 
   /**
-   * Should the front end build be triggered?
-   *
-   * @return bool
-   *   Whether the front end build should be triggered.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\PluginException
+   * {@inheritdoc}
    */
   public function shouldTriggerFrontendBuild() : bool {
     return $this->getEnvironment()->shouldTriggerFrontendBuild();
   }
 
   /**
-   * Trigger a front end content build.
-   *
-   * @param string $front_end_git_ref
-   *   Front end git reference to build (branch name or PR number)
-   * @param bool $full_rebuild
-   *   Trigger a full rebuild of the content.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\PluginException
+   * {@inheritdoc}
    */
   public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
     $this->getEnvironment()->triggerFrontendBuild($front_end_git_ref, $full_rebuild);
@@ -168,10 +134,7 @@ class EnvironmentDiscovery {
   }
 
   /**
-   * Returns the Build Trigger Form class for the current environment.
-   *
-   * @return string
-   *   Class name.
+   * {@inheritdoc}
    */
   public function getBuildTriggerFormClass() : string {
     return $this->getEnvironment()->getBuildTriggerFormClass();

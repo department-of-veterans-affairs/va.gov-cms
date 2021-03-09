@@ -3,7 +3,7 @@ services:
     class: Drupal\va_gov_user\EventSubscriber\UserImport
     arguments:
       - '@entity_type.manager'
-      - '@va_gov.build_trigger.environment_discovery'
+      - '@va_gov_build_trigger.environment_discovery'
       - '@externalauth.externalauth'
       - '@messenger'
       - '@module_handler'

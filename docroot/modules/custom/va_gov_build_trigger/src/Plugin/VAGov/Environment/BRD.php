@@ -6,10 +6,11 @@ use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
 use Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm;
-use Drupal\va_gov_build_trigger\Service\BuildTimeRecorderInterface;
+use Drupal\va_gov_build_trigger\FrontendBuild\Command\BuilderInterface as CommandBuilderInterface;
+use Drupal\va_gov_build_trigger\FrontendBuild\Command\QueueInterface;
+use Drupal\va_gov_build_trigger\FrontendBuild\StatusInterface;
+use Drupal\va_gov_build_trigger\FrontendBuild\BuildTimeRecorderInterface;
 use Drupal\va_gov_build_trigger\Service\JenkinsClientInterface;
-use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
-use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -24,13 +25,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class BRD extends EnvironmentPluginBase {
 
   use StringTranslationTrait;
-
-  /**
-   * Settings.
-   *
-   * @var \Drupal\Core\Site\Settings
-   */
-  protected $settings;
 
   /**
    * Jenkins Client.
@@ -54,9 +48,10 @@ class BRD extends EnvironmentPluginBase {
     $plugin_id,
     $plugin_definition,
     LoggerInterface $logger,
-    WebBuildStatusInterface $webBuildStatus,
-    WebBuildCommandBuilder $webBuildCommandBuilder,
     Settings $settings,
+    StatusInterface $status,
+    CommandBuilderInterface $commandBuilder,
+    QueueInterface $queue,
     JenkinsClientInterface $jenkinsClient,
     BuildTimeRecorderInterface $buildTimeRecorder
   ) {
@@ -65,10 +60,11 @@ class BRD extends EnvironmentPluginBase {
       $plugin_id,
       $plugin_definition,
       $logger,
-      $webBuildStatus,
-      $webBuildCommandBuilder
+      $settings,
+      $status,
+      $commandBuilder,
+      $queue
     );
-    $this->settings = $settings;
     $this->jenkinsClient = $jenkinsClient;
     $this->buildTimeRecorder = $buildTimeRecorder;
   }
@@ -81,12 +77,13 @@ class BRD extends EnvironmentPluginBase {
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('logger.factory')->get('va_gov_build_trigger'),
-      $container->get('va_gov.build_trigger.web_build_status'),
-      $container->get('va_gov.build_trigger.web_build_command_builder'),
+      $container->get('logger.channel.va_gov_build_trigger'),
       $container->get('settings'),
+      $container->get('va_gov_build_trigger.frontend_build.status'),
+      $container->get('va_gov_build_trigger.frontend_build.command.builder'),
+      $container->get('va_gov_build_trigger.frontend_build.command.queue'),
       $container->get('va_gov_build_trigger.jenkins_client'),
-      $container->get('va_gov_build_trigger.build_time_recorder')
+      $container->get('va_gov_build_trigger.frontend_build.build_time_recorder')
     );
   }
 

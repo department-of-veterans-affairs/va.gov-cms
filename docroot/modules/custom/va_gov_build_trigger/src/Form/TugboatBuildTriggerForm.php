@@ -59,7 +59,7 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
         'visible' => [':input[name="selection"]' => ['value' => 'choose']],
       ],
     ];
-    if ($this->webBuildStatus->useContentExport()) {
+    if ($this->getFrontendBuildStatus()->useContentExport()) {
       $form['section_1']['full_rebuild'] = [
         '#type' => 'checkbox',
         '#title' => $this->t('Trigger a full Content Export Rebuild.'),
@@ -105,7 +105,7 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
       '#type' => 'item',
       '#markup' => $description,
     ];
-    $target = $this->environmentDiscovery->getWebUrl();
+    $target = $this->getEnvironmentDiscovery()->getWebUrl();
     $target_url = Url::fromUri($target, ['attributes' => ['target' => '_blank']]);
     $target_link = Link::fromTextAndUrl($this->t('Go to front end'), $target_url);
     $form['section_3']['cta'] = [
@@ -133,7 +133,7 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
       $git_ref = $matches[1];
     }
 
-    $this->buildFrontend->triggerFrontendBuild($git_ref, $full_rebuild);
+    $this->getDispatcher()->triggerFrontendBuild($git_ref, $full_rebuild);
   }
 
   /**
@@ -143,7 +143,7 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
    *   Block render array.
    */
   protected function getContentReleaseStatusBlock() {
-    return $this->blockManager
+    return $this->getBlockManager()
       ->createInstance('content_release_status_block', [])
       ->build();
   }

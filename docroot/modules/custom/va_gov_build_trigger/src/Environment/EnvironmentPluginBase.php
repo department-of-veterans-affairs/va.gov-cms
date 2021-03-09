@@ -5,8 +5,9 @@ namespace Drupal\va_gov_build_trigger\Environment;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\Core\Site\Settings;
-use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
-use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
+use Drupal\va_gov_build_trigger\FrontendBuild\Command\BuilderInterface as CommandBuilderInterface;
+use Drupal\va_gov_build_trigger\FrontendBuild\Command\QueueInterface;
+use Drupal\va_gov_build_trigger\FrontendBuild\StatusInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -22,18 +23,32 @@ abstract class EnvironmentPluginBase extends PluginBase implements EnvironmentIn
   protected $logger;
 
   /**
-   * The WebStatus service.
+   * Settings.
    *
-   * @var \Drupal\va_gov_build_trigger\WebBuildStatusInterface
+   * @var \Drupal\Core\Site\Settings
    */
-  protected $webBuildStatus;
+  protected $settings;
+
+  /**
+   * The Frontend Build status service.
+   *
+   * @var \Drupal\va_gov_build_trigger\FrontendBuild\StatusInterface
+   */
+  protected $status;
 
   /**
    * Web build command builder.
    *
-   * @var \Drupal\va_gov_build_trigger\WebBuildCommandBuilder
+   * @var \Drupal\va_gov_build_trigger\FrontendBuild\Command\BuilderInterface
    */
-  protected $webBuildCommandBuilder;
+  protected $commandBuilder;
+
+  /**
+   * The queue service.
+   *
+   * @var \Drupal\va_gov_build_trigger\FrontendBuild\Command\QueueInterface
+   */
+  protected $queue;
 
   /**
    * {@inheritDoc}
@@ -43,13 +58,17 @@ abstract class EnvironmentPluginBase extends PluginBase implements EnvironmentIn
     $plugin_id,
     $plugin_definition,
     LoggerInterface $logger,
-    WebBuildStatusInterface $webBuildStatus,
-    WebBuildCommandBuilder $webBuildCommandBuilder
+    Settings $settings,
+    StatusInterface $status,
+    CommandBuilderInterface $commandBuilder,
+    QueueInterface $queue
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->logger = $logger;
-    $this->webBuildStatus = $webBuildStatus;
-    $this->webBuildCommandBuilder = $webBuildCommandBuilder;
+    $this->settings = $settings;
+    $this->status = $status;
+    $this->commandBuilder = $commandBuilder;
+    $this->queue = $queue;
   }
 
   /**
@@ -60,9 +79,11 @@ abstract class EnvironmentPluginBase extends PluginBase implements EnvironmentIn
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('logger.factory')->get('va_gov_build_trigger'),
-      $container->get('va_gov.build_trigger.web_build_status'),
-      $container->get('va_gov.build_trigger.web_build_command_builder')
+      $container->get('logger.channel.va_gov_build_trigger'),
+      $container->get('settings'),
+      $container->get('va_gov_build_trigger.frontend_build.status'),
+      $container->get('va_gov_build_trigger.frontend_build.command.builder'),
+      $container->get('va_gov_build_trigger.frontend_build.command.queue')
     );
   }
 
@@ -70,14 +91,14 @@ abstract class EnvironmentPluginBase extends PluginBase implements EnvironmentIn
    * {@inheritDoc}
    */
   public function getWebUrl(): string {
-    return Settings::get('va_gov_frontend_url') ?? 'https://www.va.gov';
+    return $this->settings->get('va_gov_frontend_url') ?? 'https://www.va.gov';
   }
 
   /**
    * {@inheritDoc}
    */
-  protected function getWebBuildCommandBuilder(): WebBuildCommandBuilder {
-    return $this->webBuildCommandBuilder;
+  protected function getWebBuildCommandBuilder(): CommandBuilderInterface {
+    return $this->commandBuilder;
   }
 
 }

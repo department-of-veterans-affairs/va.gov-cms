@@ -8,7 +8,7 @@ namespace Drupal\va_gov_build_trigger\SiteStatus;
 interface SiteStatusInterface {
 
   /**
-   * Is the site currently in Deploy Mode.
+   * Is the site currently in Deploy Mode?
    *
    * Deploy mode is enabled when a new code and database changes occur.
    * At this point the site is in a state where unpredictable results could
@@ -18,9 +18,17 @@ interface SiteStatusInterface {
    * database update and cms bulk cms export have been completed.
    *
    * @return bool
-   *   In Deploy Mode.
+   *   TRUE if in deploy mode, otherwise FALSE.
    */
-  public function inDeployMode() : bool;
+  public function getDeployMode() : bool;
+
+  /**
+   * Set whether or not we are currently in deploy mode.
+   *
+   * @param bool $mode
+   *   TRUE if we should be in deploy mode, otherwise FALSE.
+   */
+  public function setDeployMode(bool $mode) : void;
 
   /**
    * Turn on Deploy Mode.

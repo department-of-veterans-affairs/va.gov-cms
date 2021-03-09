@@ -1,16 +1,16 @@
 services:
   va_gov_build_trigger.site_status_commands:
     class: \Drupal\va_gov_build_trigger\Commands\SiteStatusCommands
-    arguments: ['@va_gov.site_status']
+    arguments: ['@va_gov_build_trigger.site_status']
     tags:
       - { name: drush.command }
   va_gov_build_trigger.web_build_status_commands:
-    class: \Drupal\va_gov_build_trigger\Commands\WebBuildStatusCommands
-    arguments: ['@va_gov.build_trigger.web_build_status']
+    class: \Drupal\va_gov_build_trigger\Commands\FrontendBuildStatusCommands
+    arguments: ['@va_gov_build_trigger.frontend_build.status']
     tags:
       - { name: drush.command }
   va_gov_build_trigger.web_build_commands:
     class: \Drupal\va_gov_build_trigger\Commands\WebBuildCommands
-    arguments: ['@va_gov.build_trigger.web_build_status', '@va_gov_build_trigger.build_frontend']
+    arguments: ['@va_gov_build_trigger.frontend_build.status', '@va_gov_build_trigger.frontend_build.dispatcher']
     tags:
       - { name: drush.command }

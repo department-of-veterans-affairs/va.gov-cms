@@ -26,7 +26,7 @@ trait CommandRunner {
    * @return array
    *   An array of errors encountered when running commands.
    */
-  protected function runCommands(array $commands, $concurrency = 1, $retry_count = 0, $callback = NULL) : array {
+  public function runCommands(array $commands, $concurrency = 1, $retry_count = 0, $callback = NULL) : array {
     $current_processes = [];
     $collected_errors = [];
 
