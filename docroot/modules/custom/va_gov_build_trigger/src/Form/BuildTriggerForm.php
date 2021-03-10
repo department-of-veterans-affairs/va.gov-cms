@@ -162,7 +162,7 @@ class BuildTriggerForm extends FormBase {
    *   The block manager service.
    */
   protected function getBlockManager() : BlockManager {
-    return $this->environmentDiscovery;
+    return $this->blockManager;
   }
 
 }
