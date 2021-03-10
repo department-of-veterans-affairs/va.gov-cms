@@ -1,0 +1,21 @@
+{
+    "name": "va.gov-cms",
+    "settings": {
+      "editor.formatOnSave": true,
+      "terminal.integrated.shell.linux": "/bin/bash",
+      "workbench.startupEditor": "readme"
+    },
+    "extensions": [
+      "cweijan.vscode-mysql-client2",
+      "dbaeumer.vscode-eslint",
+      "eamodio.gitlens",
+      "esbenp.prettier-vscode",
+      "felixfbecker.php-debug",
+      "felixfbecker.php-intellisense",
+      "github.vscode-pull-request-github",
+      "neilbrayfield.php-docblocker",
+      "stylelint.vscode-stylelint",
+      "valeryanm.vscode-phpsab"
+    ],
+    "postCreateCommand": "/bin/bash ./.devcontainer/post-create.sh 2>&1 | tee ~/post-create.log"
+}
