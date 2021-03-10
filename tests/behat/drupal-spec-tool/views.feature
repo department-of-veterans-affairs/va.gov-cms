@@ -62,6 +62,7 @@ Feature: Views
 | Recent content | content_recent | Content | Disabled | Recent content. |
 | Taxonomy entity browsers | taxonomy_entity_browsers | Taxonomy terms | Enabled |  |
 | VAMC top task pages | vamc_top_task_pages | Content | Enabled |  |
+| Vet centers | vet_centers | Content | Enabled |  |
 
   @dst @views_displays
      Scenario: Views displays
@@ -211,3 +212,5 @@ Feature: Views
 | Taxonomy entity browsers | Block | block_1 | Block |
 | Taxonomy entity browsers | Entity browser | entity_browser_1 | Entity browser |
 | Taxonomy entity browsers | Master | default | Master |
+| Vet centers | Entity browser | vet_center_entity_browser | Entity browser |
+| Vet centers | Master | default | Master |
