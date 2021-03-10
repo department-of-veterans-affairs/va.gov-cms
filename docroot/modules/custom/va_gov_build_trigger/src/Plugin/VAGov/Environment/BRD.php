@@ -36,7 +36,7 @@ class BRD extends EnvironmentPluginBase {
   /**
    * Build Time Recorder.
    *
-   * @var \Drupal\va_gov_build_trigger\Service\BuildTimeRecorderInterface
+   * @var \Drupal\va_gov_build_trigger\FrontendBuild\BuildTimeRecorderInterface
    */
   protected $buildTimeRecorder;
 
@@ -112,7 +112,7 @@ class BRD extends EnvironmentPluginBase {
       $this->messenger()->addError($message);
       $this->logger->error($message);
 
-      $this->webBuildStatus->disableWebBuildStatus();
+      $this->getFrontendBuildStatus()->setStatus(FALSE);
       watchdog_exception('va_gov_build_trigger', $exception);
     }
   }

@@ -85,7 +85,7 @@ class Dispatcher implements DispatcherInterface {
    * {@inheritdoc}
    */
   public function setPendingState(bool $state) : void {
-    $this->status->setWebBuildStatus($state);
+    $this->status->setStatus($state);
   }
 
   /**

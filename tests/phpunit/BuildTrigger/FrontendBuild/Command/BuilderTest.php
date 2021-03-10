@@ -108,7 +108,7 @@ class BuilderTest extends UnitTestCase {
   /**
    * Test the building of commands.
    *
-   * @covers \Drupal\va_gov_build_trigger\WebBuildCommandBuilder::buildCommands
+   * @covers \Drupal\va_gov_build_trigger\FrontendBuild\Command\Builder::buildCommands
    */
   public function testBuildCommandsContentExport() {
 
@@ -201,7 +201,7 @@ class BuilderTest extends UnitTestCase {
   /**
    * Test the useContentExport setting.
    *
-   * @covers \Drupal\va_gov_build_trigger\WebBuildCommandBuilder::useContentExport
+   * @covers \Drupal\va_gov_build_trigger\FrontendBuild\Command\Builder::useContentExport
    */
   public function testUseContentExport() {
     $settings_array = [

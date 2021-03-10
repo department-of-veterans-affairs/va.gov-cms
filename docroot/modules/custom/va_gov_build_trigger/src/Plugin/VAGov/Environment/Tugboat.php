@@ -24,14 +24,14 @@ class Tugboat extends EnvironmentPluginBase {
    */
   public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
     if ($full_rebuild && $this->getWebBuildCommandBuilder()->useContentExport()) {
-      $this->queue->enqueueCommands([
+      $this->getQueue()->enqueueCommands([
         $this->getExportCommand(),
       ]);
     }
 
     // A new command variable since the rebuild commands has been queued.
     $commands = $this->getWebBuildCommandBuilder()->buildCommands($front_end_git_ref);
-    $this->queue->enqueueCommands($commands);
+    $this->getQueue()->enqueueCommands($commands);
 
     $this->messenger()->addStatus('A request to rebuild the front end has been submitted.');
   }

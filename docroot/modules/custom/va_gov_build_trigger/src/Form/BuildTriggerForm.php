@@ -52,7 +52,7 @@ class BuildTriggerForm extends FormBase {
   /**
    * Class constructor.
    *
-   * @param \Drupal\va_gov_build_trigger\Service\FrontendBuild\DispatcherInterface $dispatcher
+   * @param \Drupal\va_gov_build_trigger\FrontendBuild\DispatcherInterface $dispatcher
    *   Build the front end service.
    * @param \Drupal\va_gov_build_trigger\FrontendBuild\StatusInterface $frontendBuildStatus
    *   Webbuild status provider.

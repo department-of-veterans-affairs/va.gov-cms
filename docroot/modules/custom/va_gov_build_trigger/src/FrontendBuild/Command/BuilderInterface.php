@@ -74,8 +74,8 @@ interface BuilderInterface {
    * @param string $repo_root
    *   The path to the repository root.
    *
-   * @return array
-   *   The commands to run to reset va-gov/web files.
+   * @return string
+   *   The command to run to reset va-gov/web files.
    */
   public function getFrontEndResetCommand(string $repo_root) : string;
 

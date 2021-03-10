@@ -8,7 +8,7 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
+use Drupal\va_gov_build_trigger\FrontendBuild\StatusInterface as FrontendBuildStatusInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -65,7 +65,7 @@ class DeployStatusMessagesSubscriber implements EventSubscriberInterface {
    *   The messenger service.
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
    *   The string translation service.
-   * @param \Drupal\va_gov_build_trigger\WebBuildStatusInterface $web_build_status
+   * @param \Drupal\va_gov_build_trigger\FrontendBuild\StatusInterface $web_build_status
    *   The Web Build Status service.
    */
   public function __construct(
@@ -73,7 +73,7 @@ class DeployStatusMessagesSubscriber implements EventSubscriberInterface {
     AccountProxyInterface $current_user,
     MessengerInterface $messenger,
     TranslationInterface $string_translation,
-    WebBuildStatusInterface $web_build_status
+    FrontendBuildStatusInterface $web_build_status
   ) {
     $this->configFactory = $config_factory;
     $this->currentUser = $current_user;
@@ -92,7 +92,7 @@ class DeployStatusMessagesSubscriber implements EventSubscriberInterface {
    *   TRUE if we should show deploy status messages, FALSE if not.
    */
   protected function showDeployStatusMessages(GetResponseEvent $event) : bool {
-    return $this->webStatus->getWebBuildStatus() &&
+    return $this->webStatus->getStatus() &&
       $this->currentUser->isAuthenticated() &&
       $this->currentUser->hasPermission('access content');
   }

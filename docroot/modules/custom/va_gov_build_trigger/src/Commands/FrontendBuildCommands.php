@@ -48,13 +48,21 @@ class FrontendBuildCommands extends DrushCommands {
    *   A git reference, or null.
    * @param string $fullRebuild
    *   Will be coerced to a boolean.
+   * @param array $options
+   *   Command-line options.
    *
    * @command va-gov:build-frontend
    * @aliases va-gov-build-frontend
    * @option dry-run
    *   Don't actually build; just print the commands that would be executed.
    */
-  public function buildFrontend(string $reference = NULL, string $fullRebuild = 'FALSE') {
+  public function buildFrontend(
+    string $reference = NULL,
+    string $fullRebuild = 'FALSE',
+    array $options = [
+      'dry-run' => FALSE,
+    ]
+  ) {
     if (filter_var($reference, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) !== NULL) {
       $fullRebuild = $reference;
       $reference = NULL;

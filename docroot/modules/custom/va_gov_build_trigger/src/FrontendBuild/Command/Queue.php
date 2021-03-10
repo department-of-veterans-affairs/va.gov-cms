@@ -21,7 +21,7 @@ class Queue implements QueueInterface {
   /**
    * The web build command job service.
    *
-   * @var \Drupal\va_gov_build_trigger\FrontendBuild\CommandJobServiceInterface
+   * @var \Drupal\va_gov_build_trigger\FrontendBuild\Command\JobServiceInterface
    */
   protected $jobBuilder;
 

@@ -88,17 +88,40 @@ abstract class EnvironmentPluginBase extends PluginBase implements EnvironmentIn
   }
 
   /**
-   * {@inheritDoc}
+   * Access to the frontend build status service.
+   *
+   * @return \Drupal\va_gov_build_trigger\FrontendBuild\StatusInterface
+   *   The frontend build status service.
    */
-  public function getWebUrl(): string {
-    return $this->settings->get('va_gov_frontend_url') ?? 'https://www.va.gov';
+  protected function getFrontendBuildStatus(): StatusInterface {
+    return $this->status;
+  }
+
+  /**
+   * Access to the internal command builder.
+   *
+   * @return \Drupal\va_gov_build_trigger\FrontendBuild\Command\BuilderInterface
+   *   The command builder.
+   */
+  protected function getWebBuildCommandBuilder(): CommandBuilderInterface {
+    return $this->commandBuilder;
+  }
+
+  /**
+   * Access to the queue service.
+   *
+   * @return \Drupal\va_gov_build_trigger\FrontendBuild\Command\QueueInterface
+   *   The queue service.
+   */
+  protected function getQueue(): QueueInterface {
+    return $this->queue;
   }
 
   /**
    * {@inheritDoc}
    */
-  protected function getWebBuildCommandBuilder(): CommandBuilderInterface {
-    return $this->commandBuilder;
+  public function getWebUrl(): string {
+    return $this->settings->get('va_gov_frontend_url') ?? 'https://www.va.gov';
   }
 
 }

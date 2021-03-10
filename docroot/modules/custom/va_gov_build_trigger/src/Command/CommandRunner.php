@@ -18,7 +18,7 @@ trait CommandRunner {
    *   The number of concurrent processes to execute.
    * @param int $retry_count
    *   The number of times to retry a failed command.
-   * @param callback|\Closure $callback
+   * @param callable $callback
    *   (optional) A callback to invoke for each completed callback.
    *
    * @see \Drupal\tome_base\ProcessTrait::runCommands()
@@ -26,7 +26,7 @@ trait CommandRunner {
    * @return array
    *   An array of errors encountered when running commands.
    */
-  public function runCommands(array $commands, $concurrency = 1, $retry_count = 0, $callback = NULL) : array {
+  public function runCommands(array $commands, int $concurrency = 1, int $retry_count = 0, callable $callback = NULL) : array {
     $current_processes = [];
     $collected_errors = [];
 
