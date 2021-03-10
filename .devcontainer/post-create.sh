@@ -11,3 +11,6 @@ rm /tmp/lando-stable.deb
 
 # Add upstream git remote.
 cd ~/workspace/va.gov-cms && git remote add upstream https://github.com/department-of-veterans-affairs/va.gov-cms.git
+
+# Start lando.
+cd ~/workspace/va.gov-cms && lando start
