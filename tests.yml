@@ -41,4 +41,4 @@ va/tests/check-cer:
 
 va/tests/status-error:
   description: Check for Drupal status errors
-  command: "drush $DRUSH_ALIAS core-requirements --severity=2 | grep . && exit 1 || echo 'Success: No Drupal status requirement errors were found.'"
+  command: "drush $DRUSH_ALIAS core-requirements --format=list --severity=2 | grep . && exit 1 || echo 'Success: No Drupal status requirement errors were found.'"
