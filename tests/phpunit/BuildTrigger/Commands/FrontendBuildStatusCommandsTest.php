@@ -7,6 +7,8 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * Functional test of the FrontendBuildStatusCommands commands.
+ *
+ * @coversDefaultClass \Drupal\va_gov_build_trigger\Commands\FrontendBuildStatusCommands
  */
 class FrontendBuildStatusCommandsTest extends ExistingSiteBase {
   use DrushTestTrait;

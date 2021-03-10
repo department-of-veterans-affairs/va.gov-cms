@@ -7,7 +7,7 @@ use Drupal\KernelTests\KernelTestBase;
 /**
  * Kernel tests for the web build command job service.
  *
- * @coversDefaultClass \Drupal\va_gov_build_trigger\Service\FrontendBuild\Command\JobService
+ * @coversDefaultClass \Drupal\va_gov_build_trigger\FrontendBuild\Command\JobService
  */
 class JobServiceTest extends KernelTestBase {
 
