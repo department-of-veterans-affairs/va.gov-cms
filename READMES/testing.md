@@ -3,7 +3,7 @@
 The code for cms.VA.gov undergoes numerous tests before merging, and tests
 are run before deployment and release.
 
-The automated test suite for cms.VA.gov is defined in the [tasks.yml](../tasks.yml)
+The automated test suite for cms.VA.gov is defined in the [tests.yml](../tests.yml)
  file and is run using the [Yaml-Tasks](https://github.com/devshop-packages/yaml-tasks) tool, allowing the same command to be used local development, in CMS
  -CI and for production releases.
 
@@ -45,7 +45,7 @@ The **Yaml Tests** tool was designed with these goals in mind.
 
 ## VA.gov CMS Test Suite
 
-Always refer to the file `tasks.yml` for the canonical list of required tests
+Always refer to the file `tests.yml` for the canonical list of required tests
  that are included in the automated testing system, and are required to pass
  before merge or deployment,
 
@@ -159,21 +159,9 @@ There are 4 main types of tests:
 
 ## Running Tests
 
-The main way to run Yaml-task tests is the `composer yaml-tasks --tasks-file=tests.yml` command.
+The main way to run Yaml-task tests is the `./bin/yaml-tasks --tasks-file=tests.yml` command.
 
-Run `composer yaml-tasks --help` for more information.
-
-### Composer Command:  `composer yaml-tasks --tasks-file=tests.yml`
-
-All composer commands can be shortened to any unique string, so `composer y
-` is an alias for `composer yaml-tasks --tasks-file=tests.yml`.
-
-Run `composer y --help` to see more options.
-
-### Bin dir executable: `./bin/yaml-tasks`
-
-There is a `bin/yaml-tasks` file provided with this package. You can run it
- from the project root.
+Run `./bin/yaml-tasks --help` for more information.
 
 *NOTE: The `bin` directory is automatically included in the $PATH for all
  Composer commands, including yaml-tasks itself.*
@@ -186,15 +174,15 @@ There is a `bin/yaml-tasks` file provided with this package. You can run it
 This project is configured to work with Lando out of the box.
 
 Lando commands are listed in [`.lando.yml`](../.lando.yml). There are some
- helper commands that map to Composer Yaml-test commands.
+ helper commands that map to Composer Yaml-task commands.
 
 
  | Lando Command        | Composer Command
  |--------------        |----------------
- |lando test            | composer yaml-tasks --tasks-file=tests.yml
- |lando test va/deploy  | composer yaml-tasks --tasks-file=tests.yml va/deploy
+ |lando test            | ./bin/yaml-tasks --tasks-file=tests.yml
+ |lando test va/deploy  | ./bin/yaml-tasks --tasks-file=tests.yml va/deploy
  |lando web-build       | composer va:web:build
- |lando phpunit         | composer yaml-tasks --tasks-file=tests.yml va/tests/phpunit
+ |lando phpunit         | ./bin/yaml-tasks --tasks-file=tests.yml va/tests/phpunit
  |lando web-build       | composer va:web:build
  |lando behat           | cd /app/tests/behat && /app/bin/behat
 
@@ -212,25 +200,25 @@ You can add an argument to filter the tests to run:
 
  ```sh
  # Run the entire test suite.
- composer yaml-tasks --tasks-file=tests.yml
+ ./bin/yaml-tasks --tasks-file=tests.yml
 
  # Run `va/tests/phpunit` only
- composer yaml-tests --tasks-file=tests.yml phpunit
+ ./bin/yaml-tests --tasks-file=tests.yml phpunit
 
  # Run all `va/deploy/*` tests.
- composer yaml-tasks --tasks-file=tests.yml va/deploy
+ ./bin/yaml-tasks --tasks-file=tests.yml va/deploy
  ```
 
 
 ## GitHub Integration
 
-The Yaml-Tests tool also integrates with GitHub, providing pass/fail commit
- status for each test listed in `tasks.yml`, and posting errors as comments
+The Yaml-Tasks tool also integrates with GitHub, providing pass/fail commit
+ status for each test listed in `tests.yml`, and posting errors as comments
   on the commit's page on GitHub.com.
 
 ### Branch Enforcement Rules
 
-All of the tests in `tasks.yml` are required to pass before a Pull Request
+All of the tests in `tests.yml` are required to pass before a Pull Request
  can be merged. This is enforced by GitHub.com and is configurable: See the
   [Branches section of the repository's Settings](https://github.com/department-of-veterans-affairs/va.gov-cms/settings/branches).
 
@@ -268,7 +256,7 @@ if you open a second PR with the same commits, the commit status AND the
   the `config.bin-dir` section of `composer.json`.
 
   This means you only have to include the script name when referring to them in
-  `composer.json` or in `tasks.yml`.
+  `composer.json` or in `tests.yml`.
 
  For example, if you wanted to create a `composer special-tests` command as
   an alias for `yaml-tasks` but with a different file and with a filter, add
@@ -331,7 +319,7 @@ Whether these third party libraries are secure involves multiple factors (and ha
 
 Nightwatch is not currently included in the CMS test suite.
 
-@TODO: Add Nightwatch tests using composer npm-asset and add to `tasks.yml`
+@TODO: Add Nightwatch tests using composer npm-asset and add to `tests.yml`
 
 ## Manual visual regression
 

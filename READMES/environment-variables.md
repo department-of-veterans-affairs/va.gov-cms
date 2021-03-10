@@ -18,7 +18,7 @@ Using a `.env` file instead on relying on the server environment has many benefi
  - No need to pass variables through docker, docker-compose, Dockerfiles, etc.
  - No need to worry about the execution environment: 
    - Every system (local, CI, BRD, etc) has it's way of loading the "execution environment" for running processes. 
-   - In other words, commands like `drush cache-rebuild` or `composer yaml-tasks` are run by the `apache` user in BRD,
+   - In other words, commands like `drush cache-rebuild` or `./bin/yaml-tasks` are run by the `apache` user in BRD,
      the `aegir` user in CMS-CI, and the `www-data` user in Lando.
    - By using a single `.env` file for all environments, we no longer have to maintain scripts to set system-specific
      environment variables. 
