@@ -539,6 +539,9 @@
         ],
         "va:web:test": [
             "echo 'drupal address: ' $DRUPAL_ADDRESS"
+        ],
+        "va:command_queue:run": [
+            "drush advancedqueue:queue:process command_runner"
         ]
     }
 }
