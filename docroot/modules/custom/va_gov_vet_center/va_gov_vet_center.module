@@ -1,0 +1,124 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_vet_center.module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function va_gov_vet_center_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the va_gov_vet_center module.
+    case 'help.page.va_gov_vet_center':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Custom code for Vet centers') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * @todo Use for vc dashboard theme work.
+ */
+function va_gov_vet_center_theme() {
+  return [
+    'va_gov_vet_center' => [
+      'render element' => 'children',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function va_gov_vet_center_entity_presave(EntityInterface $entity) {
+  // Set our vc cap facility id field for lighthouse if field is empty.
+  // Step 1: Trim suffixes: os | v | mvc
+  // Step 2: query for this type of pattern ---> vc_0204CP123.
+  if (empty($entity->field_facility_locator_api_id->value)) {
+    $vc_id = '';
+    if (!empty($entity->field_office->entity->field_facility_locator_api_id->value)) {
+      $vc_id = $entity->field_office->entity->field_facility_locator_api_id->value;
+    }
+    // VC suffixes.
+    $patterns = [
+      '/OS/',
+      '/V/',
+      '/MVC/',
+    ];
+    $replacements = [
+      '',
+      '',
+      '',
+    ];
+    $stripped_vc_id = preg_replace($patterns, $replacements, $vc_id);
+    $vc_search_string = $stripped_vc_id . 'CP';
+    $database = \Drupal::database();
+    $result = $database->select('node__field_facility_locator_api_id', 't')
+      ->fields('t', ['field_facility_locator_api_id_value'])
+      ->condition('field_facility_locator_api_id_value', "%" . $database->escapeLike($vc_search_string) . "%", 'LIKE')
+      ->execute()
+      ->fetchAll();
+    // If it's our first cap in the vc, start at 1, otherwise, increment.
+    $index = !empty($result) ? (integer) $result + 1 : 1;
+    $vcap_id = $vc_search_string . (string) $index;
+    $entity->field_facility_locator_api_id = $vcap_id;
+  }
+
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function va_gov_vet_center_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  if ($form_id === 'node_vet_center_cap_form' || $form_id === 'node_vet_center_cap_edit_form') {
+    // Add after_build callbacks for VC CAP node forms.
+    $form['field_address']['widget']['#after_build'][] = 'va_gov_vet_center_vc_cap_address_alter_label_after_build';
+    $form['field_facility_hours']['widget']['#after_build'][] = 'va_gov_vet_center_vc_cap_hours_hide_caption_after_build';
+  }
+
+}
+
+/**
+ * Change company title label in address widget on vc cap type.
+ *
+ * @param array $element
+ *   The address widget form array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ *
+ * @return string
+ *   The altered Address organization label.
+ */
+function va_gov_vet_center_vc_cap_address_alter_label_after_build(array $element, FormStateInterface $form_state) {
+  $element[0]['address']['organization']['#title'] = t('Located at');
+  return $element;
+}
+
+/**
+ * Hide hours caption in hours widget on vc cap type.
+ *
+ * @param array $element
+ *   The hours table widget form array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ *
+ * @return string
+ *   The altered hours table widget.
+ */
+function va_gov_vet_center_vc_cap_hours_hide_caption_after_build(array $element, FormStateInterface $form_state) {
+  unset($element[0]['#description']);
+  unset($element[0]['caption']);
+  return $element;
+}
