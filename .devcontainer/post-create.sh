@@ -20,3 +20,4 @@ cd ~/workspace/va.gov-cms && lando start
 
 # Import the database.
 cd ~/workspace/va.gov-cms && ./scripts/sync-db.sh
+cd ~/workspace/va.gov-cms && ./scripts/sync-files.sh
