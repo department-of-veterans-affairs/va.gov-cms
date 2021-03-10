@@ -158,10 +158,7 @@ class Builder implements BuilderInterface {
   }
 
   /**
-   * Use CMS export.
-   *
-   * @return bool
-   *   Should we use cms export?
+   * {@inheritdoc}
    */
   public function useContentExport() : bool {
     return $this->useContentExport;

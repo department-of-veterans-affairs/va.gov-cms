@@ -79,4 +79,12 @@ interface BuilderInterface {
    */
   public function getFrontEndResetCommand(string $repo_root) : string;
 
+  /**
+   * Use CMS export.
+   *
+   * @return bool
+   *   Should we use cms export?
+   */
+  public function useContentExport() : bool;
+
 }
