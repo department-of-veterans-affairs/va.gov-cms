@@ -276,13 +276,13 @@ process:
     default_value: 'Update of status by migration.'
   revision_timestamp:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   revision_uid:
     plugin: default_value
     default_value: 1317
   changed:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   langcode:
     plugin: default_value
     default_value: en
