@@ -84,12 +84,12 @@
         "drupal/menu_breadcrumb": "^1.8",
         "drupal/menu_export": "^1.2",
         "drupal/menu_item_extras": "^2.7",
-        "drupal/menu_link_attributes": "^1.1",
+        "drupal/menu_link_attributes": "^1.2",
         "drupal/metatag": "^1.13",
-        "drupal/migrate_plus": "^4.0",
+        "drupal/migrate_plus": "^5.1",
         "drupal/migrate_source_csv": "^2.2",
         "drupal/migrate_source_ui": "^1.0@RC",
-        "drupal/migrate_tools": "^4.0",
+        "drupal/migrate_tools": "5.x-dev#7ae3747d1e30790d11c2eefcc56e0796bea25c76",
         "drupal/migration_tools": "^2.1",
         "drupal/node_link_report": "^1.14",
         "drupal/node_revision_delete": "^1.0",
@@ -113,7 +113,7 @@
         "drupal/role_delegation": "^1.0@alpha",
         "drupal/seckit": "^2.0",
         "drupal/simplesamlphp_auth": "^3.2",
-        "drupal/site_alert": "1.x-dev#d3700174bdddeca1f33c6995fde86e436b034270",
+        "drupal/site_alert": "1.2",
         "drupal/slack": "^1.2",
         "drupal/smart_date": "3.1.1",
         "drupal/social_media_links": "^2.6",
@@ -136,7 +136,7 @@
         "drupal/workbench_menu_access": "^1.0",
         "drupal/workflow_assignments": "1.x-dev",
         "drush-ops/behat-drush-endpoint": "^9.4.0",
-        "drush/drush": "~8",
+        "drush/drush": "^10.4",
         "http-interop/http-factory-guzzle": "^1.0",
         "knplabs/github-api": "^2.12.1",
         "michelf/php-markdown": "^1.8",
@@ -161,11 +161,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Traits\\": "tests/traits",
             "CustomDrupal\\": "tests/behat/Drupal",
             "Drupal\\va_gov_backend\\": "docroot/modules/custom/va_gov_backend/src",
             "Drupal\\va_gov_content_export\\": "docroot/modules/custom/va_gov_content_export/src",
-            "Drupal\\va_gov_flags\\": "docroot/modules/custom/va_gov_flags/src"
+            "Drupal\\va_gov_flags\\": "docroot/modules/custom/va_gov_flags/src",
+            "Tests\\Support\\": "tests/phpunit/Support",
+            "Traits\\": "tests/traits"
         },
         "files": [
             "scripts/composer/EnvironmentHandler.php"
@@ -336,6 +337,9 @@
               "3113461 - Allow properties in str_replace process plugin." : "https://www.drupal.org/files/issues/2020-03-16/migrate_plus-properties_str_replace-2.patch",
               "Allow request options https://gitlab.com/drupalspoons/migrate_plus/-/issues/257" : "https://gitlab.com/drupalspoons/migrate_plus/uploads/35f5950f1647e237cdd706f2e3e93c54/257-add-request-option-support-to-http.patch"
             },
+            "drupal/migration_tools": {
+              "3163830 - Fatal Error: Call to undefined function drush_print()" : "https://www.drupal.org/files/issues/2020-08-06/migration_tools-drush-10-compatibility-13778991-3.patch"
+            },
             "drupal/paragraphs": {
                 "Content & Behavior tabs use fixed IDs": "https://www.drupal.org/files/issues/2020-10-14/paragraphs-fix_duplicate_content_behavior_tab_ids-3176946-3.patch",
                 "Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch",
@@ -355,9 +359,7 @@
                 "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2020-07-31/reroll-existing-test-and-logging-fix-2748731-29.patch"
             },
             "drupal/site_alert": {
-                "Add drush commands https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-05-20/site_alert-add_drush_commands-3118800-12.patch",
-                "Make drush commands Drush 8 https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-05-20/site_alert-add_drush_commands_for_drush8-3118800-14.patch",
-                "Allow access to /ajax/site_alert route in maintenance mode": "https://www.drupal.org/files/issues/2020-04-29/maintenance-access.patch"
+                "3118800 - Add drush commands to add and remove alerts by label": "https://www.drupal.org/files/issues/2020-10-26/3118800-45.patch"
             },
             "drupal/tablefield": {
                 "0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch",
@@ -497,40 +499,40 @@
             "@va:web:watch"
         ],
         "va:web:build": [
-            "drush state-set va_gov.build va.web_build_stats TRUE -y",
+            "drush state:set va.web_build_stats TRUE -y",
             "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
             "cd web && echo \"Downloading assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
             "cd web && NODE_ENV=production yarn build:content --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov --asset-source=$(git rev-parse --verify HEAD)",
             "echo 'Replace s3 address with local in generated files'",
             "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -print0 | xargs -0 sed -i \"s/https:\\/\\/dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com//g\" ",
-            "drush state-set va_gov.build va.web_build_stats FALSE -y"
+            "drush state:set va.web_build_stats FALSE -y"
         ],
         "va:web:build:full": [
-            "drush state-set va_gov.build va.web_build_stats TRUE -y",
+            "drush state:set va.web_build_stats TRUE -y",
             "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
             "cd web && echo \"Building assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
             "cd web && NODE_ENV=production yarn build --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov",
             "echo 'Replace s3 address with local in generated files'",
             "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -print0 | xargs -0 sed -i \"s/https:\\/\\/dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com//g\" ",
-            "drush state-set va_gov.build va.web_build_stats FALSE -y"
+            "drush state:set va.web_build_stats FALSE -y"
         ],
         "va:web:build:export": [
-            "drush state-set va_gov.build va.web_build_stats TRUE -y",
+            "drush state:set va.web_build_stats TRUE -y",
             "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
             "cd web && echo \"Building assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
             "cd web && NODE_ENV=production yarn build:content --use-cms-export --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov --asset-source=$(git rev-parse --verify HEAD)",
             "echo 'Replace s3 address with local in generated files'",
             "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -print0 | xargs -0 sed -i \"s/https:\\/\\/dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com//g\" ",
-            "drush state-set va_gov.build va.web_build_stats FALSE -y"
+            "drush state:set va.web_build_stats FALSE -y"
         ],
         "va:web:build:export:full": [
-            "drush state-set va_gov.build va.web_build_stats TRUE -y",
+            "drush state:set va.web_build_stats TRUE -y",
             "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
             "cd web && echo \"Downloading assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
             "cd web && NODE_ENV=production yarn build --use-cms-export --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov",
             "echo 'Replace s3 address with local in generated files'",
             "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -print0 | xargs -0 sed -i \"s/https:\\/\\/dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com//g\" ",
-            "drush state-set va_gov.build va.web_build_stats FALSE -y"
+            "drush state:set va.web_build_stats FALSE -y"
         ],
         "va:web:build:export:content": [
             "drush va-gov-cms-export-all-content --process-count=8 --entity-count=500 --delete-existing"
