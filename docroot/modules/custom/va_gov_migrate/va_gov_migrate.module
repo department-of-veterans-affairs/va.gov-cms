@@ -65,3 +65,20 @@ function va_gov_migrate_help($route_name, RouteMatchInterface $route_match) {
     default:
   }
 }
+
+/**
+ * This is simply a call back for time that removes the arg to prevent null.
+ *
+ * Reference https://bugs.php.net/bug.php?id=78509
+ *
+ * @param mixed $arg
+ *   An argument from the process plugin pipeline.  It is not used.
+ *
+ * @return int
+ *   The current time measured in the number of seconds
+ */
+function va_gov_migrate_time($arg) {
+  // Process pipeline passes the return of the previous process.
+  // Since time() can not use this so we don't use the arg.
+  return time();
+}
