@@ -69,7 +69,7 @@ process:
       message: 'Entity lookup for field_administration (owner) found nothing.'
   changed:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   new_revision:
     plugin: default_value
     default_value: true
@@ -81,7 +81,7 @@ process:
     default_value: 'Imported system health services'
   revision_timestamp:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   revision_uid:
     plugin: default_value
     default_value: constants/cmsmigrator_id
