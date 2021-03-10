@@ -54,7 +54,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
     $instance->currentUser = $container->get('current_user');
     $instance->database = $container->get('database');
     $instance->dateFormatter = $container->get('date.formatter');
-    $instance->environmentDiscovery = $container->get('va_gov.build_trigger.environment_discovery');
+    $instance->environmentDiscovery = $container->get('va_gov_build_trigger.environment_discovery');
     return $instance;
   }
 

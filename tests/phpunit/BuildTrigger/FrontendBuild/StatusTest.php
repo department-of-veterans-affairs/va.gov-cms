@@ -26,7 +26,7 @@ class StatusTest extends KernelTestBase {
    * @covers ::setStatus
    */
   public function testWebBuildStatus() {
-    $service = $this->container->get('va_gov.build_trigger.web_build_status');
+    $service = $this->container->get('va_gov_build_trigger.web_build_status');
     $this->assertFalse($service->getWebBuildStatus());
     $service->setWebBuildStatus(TRUE);
     $this->assertTrue($service->getWebBuildStatus());
