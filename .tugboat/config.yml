@@ -30,6 +30,10 @@ services:
         # cypress-axe dependencies - https://docs.cypress.io/guides/getting-started/installing-cypress.html#System-requirements
         - apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
 
+        # Install php ZIP extension (drush 10 requires it).
+        - apt-get install libzip-dev zip
+        - docker-php-ext-install zip
+
         # Install opcache, and Apache modules
         - docker-php-ext-install opcache
         - a2enmod headers rewrite vhost_alias
@@ -117,13 +121,7 @@ services:
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
         - composer install
         - composer va:web:install
-        # Follows `drush deploy` sequence recommendations - https://www.drush.org/latest/deploycommand/
-        # Replace with `drush deploy` once Drush 10 is upgraded
-        # If updated, also update in devops:post-deploy-tasks.yml and .lando.yml
-        - drush updatedb --cache-clear=0 -y
-        - drush cache:rebuild
-        - drush config:import -y
-        - drush cache:rebuild
+        - drush deploy
 
         # Setup background processing service.  This uses runit to keep process up
         # See https://docs.tugboat.qa/setting-up-services/how-to-set-up-services/running-a-background-process

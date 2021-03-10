@@ -19,7 +19,7 @@ gulp.task("sass", function () {
 gulp.task("sass").description = "process SCSS files: compile to compressed css, add browser prefixes, create a source map, and save in assets folder";
 
 gulp.task("clearcache", function (done) {
-  var child = spawn("lando drush cache-rebuild", {
+  var child = spawn("lando drush cache:rebuild", {
     stdio: "inherit",
     shell: "true"
   });

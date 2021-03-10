@@ -14,9 +14,6 @@ use Drupal\node\NodeInterface;
  *   The node being updated.
  */
 function va_gov_build_trigger_node_update(NodeInterface $node) {
-  if (function_exists('devshop_tasks_api_create')) {
-    devshop_tasks_api_create('vabuild');
-  }
   // Trigger a frontend build for certain content types.
   $frontend_service = \Drupal::service('va_gov_build_trigger.build_frontend');
   $frontend_service->triggerFrontendBuildFromContentSave($node);

@@ -32,7 +32,7 @@ gulp.task("sass").description =
  * Clear all drupal caches
  */
 gulp.task("clearcache", (done) => {
-  const child = spawn("lando drush cache-rebuild", {
+  const child = spawn("lando drush cache:rebuild", {
     stdio: "inherit",
     shell: "true",
   });

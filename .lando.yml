@@ -10,13 +10,7 @@ config:
 
 events:
   post-db-import:
-    # Follows `drush deploy` sequence recommendations - https://www.drush.org/latest/deploycommand/
-    # Replace with `drush deploy` once Drush 10 is upgraded
-    # If updated, also update in devops:post-deploy-tasks.yml and .tugboat/config.yml
-    - appserver: cd $LANDO_WEBROOT && drush updatedb --cache-clear=0 -y
-    - appserver: cd $LANDO_WEBROOT && drush cache-rebuild -y
-    - appserver: cd $LANDO_WEBROOT && drush config:import -y
-    - appserver: cd $LANDO_WEBROOT && drush cache-rebuild -y
+    - appserver: cd $LANDO_WEBROOT && drush deploy
 
   # Runs composer install after app starts
   post-start:
