@@ -17,3 +17,6 @@ if command -v /opt/php/lts/bin/php; then sudo ln -s /opt/php/lts/bin/php /usr/bi
 
 # Start lando.
 cd ~/workspace/va.gov-cms && lando start
+
+# Import the database.
+cd ~/workspace/va.gov-cms && ./scripts/sync-db.sh
