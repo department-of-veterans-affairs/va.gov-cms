@@ -22,6 +22,7 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center | Vet Center call center | field_vet_center_call_center | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | Vet Center | Featured content | field_vet_center_feature_content | Entity reference revisions |  | 2 | Paragraphs EXPERIMENTAL |  |
 | Content type | Vet Center Community Access Point | Address | field_address | Address | Required | 1 | Address | Translatable |
+| Content type | Vet Center Community Access Point | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Vet Center Community Access Point | Geographical identifier | field_geographical_identifier | Text (plain) | Required | 1 | Textfield |  |
 | Content type | Vet Center Community Access Point | Hours | field_facility_hours | Table Field |  | 1 | Table Field | Translatable |
 | Content type | Vet Center Community Access Point | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
@@ -34,5 +35,5 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center Facility Health Service | Vet Center | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center Locations List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center Locations List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
-      | Content type | Vet Center Locations List | Select nearby Vet Centers | field_nearby_vet_centers | Entity reference |  | Unlimited | Entity Browser - Table |  |
+| Content type | Vet Center Locations List | Select nearby Vet Centers | field_nearby_vet_centers | Entity reference |  | Unlimited | Entity Browser - Table |  |
 | Content type | Vet Center Locations List | Vet Center | field_office | Entity reference | Required | 1 | Select list | Translatable |
