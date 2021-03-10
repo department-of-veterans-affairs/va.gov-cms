@@ -11,42 +11,42 @@ va/background/daily/migrate_copy/va_forms_csv_source:
 va/background/daily/migrate/va_forms:
   description: Migrate va forms.
   command:
-    - drush $DRUSH_ALIAS migrate-reset-status va_node_form
-    - drush $DRUSH_ALIAS migrate-import va_node_form
+    - drush $DRUSH_ALIAS migrate:reset-status va_node_form
+    - drush $DRUSH_ALIAS migrate:import va_node_form
 
 va/background/daily/migrate/health_care_local_facility:
   description: These commands are to run nightly.
   command:
-    - drush $DRUSH_ALIAS migrate-reset-status va_node_health_care_local_facility
-    - drush $DRUSH_ALIAS migrate-import va_node_health_care_local_facility
+    - drush $DRUSH_ALIAS migrate:reset-status va_node_health_care_local_facility
+    - drush $DRUSH_ALIAS migrate:import va_node_health_care_local_facility
 
 va/background/daily/migrate/vet_centers_facility:
   description: These commands are to run nightly.
   command:
-    - drush $DRUSH_ALIAS migrate-reset-status va_node_facility_vet_centers
-    - drush $DRUSH_ALIAS migrate-import va_node_facility_vet_centers
+    - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_vet_centers
+    - drush $DRUSH_ALIAS migrate:import va_node_facility_vet_centers
 
 va/background/daily/migrate/vba_facility:
   description: These commands are to run nightly.
   command:
-    - drush $DRUSH_ALIAS migrate-reset-status va_node_facility_vba
-    - drush $DRUSH_ALIAS migrate-import va_node_facility_vba
+    - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_vba
+    - drush $DRUSH_ALIAS migrate:import va_node_facility_vba
 
 va/background/daily/migrate/nca_facility:
   description: These commands are to run nightly.
   command:
-    - drush $DRUSH_ALIAS migrate-reset-status va_node_facility_nca
-    - drush $DRUSH_ALIAS migrate-import va_node_facility_nca
+    - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_nca
+    - drush $DRUSH_ALIAS migrate:import va_node_facility_nca
 
 # Run with:  composer yaml-tests --tests-file=tasks-periodic.yml periodic
 # http://jenkins.vfs.va.gov/job/cms/job/cms-periodic
 va/background/periodic/migrate/facility_status:
   description: Run migrate facility status to run every 15 min as called by Jenkins.
   command:
-    - drush $DRUSH_ALIAS migrate-reset-status va_node_health_care_local_facility_status
-    - drush $DRUSH_ALIAS migrate-import va_node_health_care_local_facility_status
+    - drush $DRUSH_ALIAS migrate:reset-status va_node_health_care_local_facility_status
+    - drush $DRUSH_ALIAS migrate:import va_node_health_care_local_facility_status
 
 va/background/periodic/cron:
   description: Run cron every 15 min as called by Jenkins.
   command:
-    - drush $DRUSH_ALIAS cron
+    - drush $DRUSH_ALIAS core:cron

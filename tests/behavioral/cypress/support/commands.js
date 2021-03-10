@@ -58,7 +58,7 @@ Cypress.Commands.add('drupalDrushCommand', (command) => {
 
 Cypress.Commands.add('drupalDrushEval', (php) => {
   return cy.drupalDrushCommand([
-    'eval',
+    'php:eval',
     `'${php.replace(/'/g, `'\\''`)}'`,
   ]);
 });
@@ -74,7 +74,7 @@ Cypress.Commands.add('drupalDrushUserCreate', (username, password) => {
 
 Cypress.Commands.add('drupalDrushUserRoleAdd', (username, role) => {
   cy.drupalDrushCommand([
-    'urol',
+    'user:role:add',
     role,
     username,
   ]);
