@@ -6,19 +6,21 @@ Feature: Content Release
   @content_release @content_release_page
   Scenario: The content release page should normally display no in-process releases
     Given I am logged in as a user with the "content_admin" role
+    And I clear the web build queue
     And I am at "/admin/content/deploy"
     Then I should see "No recent updates"
 
   @content_release @content_release_page
   Scenario: The content release page should show an in-process default release initiated within the browser
     Given I am logged in as a user with the "content_admin" role
+    And I clear the web build queue
     And I initiate a content release
-    And I wait "75" seconds
     Then I should see "Pending"
 
   @content_release @content_release_page
   Scenario: The content release page should show an in-process chosen release initiated within the browser
     Given I am logged in as a user with the "content_admin" role
+    And I clear the web build queue
     And I initiate a content release with the branch "master"
-    And I wait "75" seconds
     Then I should see "Branch: master"
+    And I should see "Pending"
