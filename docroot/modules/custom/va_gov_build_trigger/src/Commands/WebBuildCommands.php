@@ -121,18 +121,16 @@ class WebBuildCommands extends DrushCommands {
       $reference = NULL;
     }
     $fullRebuild = filter_var($fullRebuild, FILTER_VALIDATE_BOOLEAN);
-    $buildCommands = [];
-    if ($fullRebuild && $this->getWebBuildCommandBuilder()->useContentExport()) {
-      $newCommands = [
-        $this->getExportCommand(),
-      ];
-      $buildCommands = array_merge($buildCommands, $newCommands);
-    }
-    $newCommands = $this->getWebBuildCommandBuilder()->buildCommands($reference, $fullRebuild);
-    $buildCommands = array_merge($buildCommands, $newCommands);
     if ($options['dry-run']) {
-      echo '# $reference: ' . $reference . PHP_EOL;
-      echo '# $fullRebuild: ' . ($fullRebuild ? 'TRUE' : 'FALSE') . PHP_EOL;
+      $buildCommands = [];
+      if ($fullRebuild && $this->getWebBuildCommandBuilder()->useContentExport()) {
+        $newCommands = [
+          $this->getExportCommand(),
+        ];
+        $buildCommands = array_merge($buildCommands, $newCommands);
+      }
+      $newCommands = $this->getWebBuildCommandBuilder()->buildCommands($reference, $fullRebuild);
+      $buildCommands = array_merge($buildCommands, $newCommands);
       foreach ($buildCommands as $buildCommand) {
         echo $buildCommand . PHP_EOL;
       }
