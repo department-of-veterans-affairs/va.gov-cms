@@ -7,7 +7,8 @@
     "prefer-stable": true,
     "require-dev": {
         "acquia/drupal-spec-tool": "^2.0",
-        "drupal/console": "~1.0",
+        "drupal/console": "^1.9",
+        "drupal/console-extend-plugin": "^0.9.5",
         "drupal/media_entity_generic": "^1.0",
         "marcortola/behat-seo-contexts": "^3.1"
     },
@@ -18,8 +19,10 @@
         "bower-asset/cropper": "^4.1",
         "bower-asset/dropzone": "^5.5",
         "composer/installers": "^1.7",
-        "cweagans/composer-patches": "^1.6.4",
+        "consolidation/robo": "^1",
+        "cweagans/composer-patches": "^1.7",
         "devshop/behat-drupal-extension": "dev-rewrite-last-page-output-links",
+        "devshop/yaml-tasks": "^1.7@alpha",
         "drupal/address": "^1.4",
         "drupal/admin_toolbar": "^3.0",
         "drupal/advancedqueue": "^1.0@RC",
@@ -44,6 +47,7 @@
         "drupal/danse": "^2.1",
         "drupal/danse_content_moderation": "^2.0",
         "drupal/devel": "^2.1",
+        "drupal/diff": "1.0",
         "drupal/dropzonejs": "^2.0",
         "drupal/dynamic_entity_reference": "^2.0",
         "drupal/embed": "^1.3",
@@ -96,6 +100,9 @@
         "drupal/node_title_help_text": "^1.0",
         "drupal/office_hours": "^1.3",
         "drupal/openapi": "^1.0@beta",
+        "drupal/openapi_ui": "1.0-rc2",
+        "drupal/openapi_ui_redoc": "1.0-rc2",
+        "drupal/openapi_ui_swagger": "1.0-rc3",
         "drupal/override_node_options": "^2.4",
         "drupal/paragraphs": "^1.5",
         "drupal/paragraphs_browser": "^1.0@alpha",
@@ -111,7 +118,9 @@
         "drupal/rest_menu_tree": "^1.1",
         "drupal/restui": "^1.16",
         "drupal/role_delegation": "^1.0@alpha",
+        "drupal/search_api": "1.17",
         "drupal/seckit": "^2.0",
+        "drupal/simple_oauth": "3.16",
         "drupal/simplesamlphp_auth": "^3.2",
         "drupal/site_alert": "1.2",
         "drupal/slack": "^1.2",
@@ -137,16 +146,16 @@
         "drupal/workflow_assignments": "1.x-dev",
         "drush-ops/behat-drush-endpoint": "^9.4.0",
         "drush/drush": "^10.4",
+        "easyrdf/easyrdf": "1.1.1 as 0.9.1",
         "http-interop/http-factory-guzzle": "^1.0",
-        "knplabs/github-api": "^2.12.1",
+        "knplabs/github-api": "^1.4",
         "michelf/php-markdown": "^1.8",
         "mikey179/vfsstream": "^1.6",
         "mouf/nodejs-installer": "^1.0",
         "npm-asset/yarn": "1.21.1",
-        "oomphinc/composer-installers-extender": "1.1.2",
+        "oomphinc/composer-installers-extender": "^2.0",
         "php-http/guzzle6-adapter": "^1.1",
         "phpunit/phpunit": "^7",
-        "provision-ops/yaml-tests": "~1.9",
         "querypath/querypath": "^3.0",
         "simplesamlphp/simplesamlphp": "^1.18",
         "squizlabs/php_codesniffer": "^3.5",
@@ -154,10 +163,11 @@
         "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^5.1",
         "va-gov/web": "^0.1",
+        "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
         "weitzman/drupal-test-traits": "dev-master",
-        "zaporylie/composer-drupal-optimizations": "^1.0"
+        "zaporylie/composer-drupal-optimizations": "^1.2"
     },
     "autoload": {
         "psr-4": {
@@ -224,14 +234,13 @@
         "mouf": {
             "nodejs": {
                 "version": "14.15.0",
-                "targetDir": "vendor/nodejs/nodejs",
+                "targetDir": "docroot/vendor/nodejs/nodejs",
                 "forceLocal": true
             }
         },
         "installer-types": [
             "bower-asset",
-            "npm-asset",
-            "node-project"
+            "npm-asset"
         ],
         "installer-paths": {
             "docroot/core": [
@@ -277,7 +286,8 @@
                 "2911932 - Correct vertical tab does not focus on form validation": "https://www.drupal.org/files/issues/2020-12-12/vertical-tabs--focus-on-onvalid-7b.patch",
                 "3188331 - Vertical tabs scroll behavior is buggy": "https://www.drupal.org/files/issues/2020-12-14/vertical-tab-scroll-frozen-2.patch",
                 "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2020-01-07/2893933-34.patch",
-                "3198608 - Migrate does not set set track_lst_updated from config": "https://www.drupal.org/files/issues/2021-02-15/3198608-track-last-updated-6.patch"
+                "3198608 - Migrate does not set set track_lst_updated from config": "https://www.drupal.org/files/issues/2021-02-15/3198608-track-last-updated-6.patch",
+                "3176975 - Allow updating easyrdf/easyrdf on 8.9.x": "patches/allow_updating_easyrdf_8_9_x.patch"
             },
             "drupal/entity_browser": {
                 "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch",
@@ -307,9 +317,6 @@
             },
             "drupal/field_group": {
                 "2787179 Visibility of invalid fields": "https://www.drupal.org/files/issues/2021-01-05/2787179-highlight-html5-validation-59.patch"
-            },
-            "drupal/graphql": {
-                "PHP 7.4 Notices (https://github.com/drupal-graphql/graphql/pull/989)": "https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/989.patch"
             },
             "drupal/health_check_url": {
                 "3147740 - Make d9 compatible": "https://www.drupal.org/files/issues/2020-06-06/health_check_url.2.x-dev.rector.patch"
@@ -390,6 +397,9 @@
             "# This will allow you to run any command in the ./bin directory without a path.",
             "echo \"export PATH=${PATH}\""
         ],
+        "pre-install-cmd": [
+            "mkdir -p vendor"
+        ],
         "post-install-cmd": [
             "mkdir --parents docroot/profiles",
             "cp -r 'hooks/git/.' '.git/hooks/'",
@@ -399,11 +409,16 @@
             "cp -r 'simplesamlphp-config-metadata/config' 'simplesamlphp-config-metadata/metadata' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
             "echo 'Removing deleted .git/hooks/commit-msg file, no longer used.'",
             "rm -f .git/hooks/commit-msg",
-            "git update-index --skip-worktree samlsessiondb.sq3"
+            "git update-index --skip-worktree samlsessiondb.sq3",
+            "rm -r vendor"
+        ],
+        "pre-update-cmd": [
+            "mkdir -p vendor"
         ],
         "post-update-cmd": [
             "cp -r 'hooks/git/.' '.git/hooks/'",
-            "php -r \"chmod('.git/hooks/pre-commit', 0777);\""
+            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
+            "rm -r vendor"
         ],
         "nuke": [
             "rm -rf bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor /var/www/.cache/yarn",
