@@ -104,6 +104,8 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
       $this->logger->info($message);
       return JobResult::failure($message, 1, $delay);
     }
+    // Blank the message to remove details of previous failures.
+    $job->setMessage('');
     $this->webBuildStatus->enableWebBuildStatus();
     $this->logger->info('Starting front end rebuild.');
 
@@ -121,7 +123,7 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
     }
 
     $this->logger->info('Front end has been successfully rebuilt.');
-
+    $this->webBuildStatus->disableWebBuildStatus();
     return JobResult::success();
   }
 
