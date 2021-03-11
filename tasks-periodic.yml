@@ -1,6 +1,6 @@
 # These are tasks that are called by Jenkins similar to cron..
 
-# Run with:  composer yaml-tests --tests-file=tasks-periodic.yml daily
+# Run with: ./bin/yaml-tasks --tasks-file=tasks-periodic.yml daily
 # http://jenkins.vfs.va.gov/job/cms/job/cms-daily
 va/background/daily/migrate_copy/va_forms_csv_source:
   description: This is because we cannot access the server on the SOCKS proxy right now.
@@ -38,7 +38,7 @@ va/background/daily/migrate/nca_facility:
     - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_nca
     - drush $DRUSH_ALIAS migrate:import va_node_facility_nca
 
-# Run with:  composer yaml-tests --tests-file=tasks-periodic.yml periodic
+# Run with: ./bin/yaml-tasks --tasks-file=tasks-periodic.yml periodic
 # http://jenkins.vfs.va.gov/job/cms/job/cms-periodic
 va/background/periodic/migrate/facility_status:
   description: Run migrate facility status to run every 15 min as called by Jenkins.

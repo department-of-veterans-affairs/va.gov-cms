@@ -6,7 +6,7 @@ config:
   # Match with terraform-aws-vsp-cms/rds.tf (another repo)
   # Match with .tugboat/config.yml (this repo)
   database: mariadb:10.5
-  composer_version: '1.10.1'
+  composer_version: '2.0.11'
 
 events:
   post-db-import:
@@ -116,7 +116,7 @@ tooling:
   test:
     description: Run all VA.gov tests, as defined in tests.yml. Add arguments to run subsets of tests. For example. "lando test web" will run all of the "va/web/*" tests.
     service: appserver
-    cmd: composer yaml-tests
+    cmd: ./bin/yaml-tasks --tasks-file=tests.yml
 
   # "drush" being here overrides the default "lando drush" command.
   # Using /app/bin/drush means we are using the site-local drush directly.
@@ -145,7 +145,7 @@ tooling:
   phpunit:
     service: appserver
     description: "Run VA PHPUnit tests found in va/tests/phpunit: lando phpunit. Syntax: lando phpunit"
-    cmd: "composer yaml-tests va/tests/phpunit"
+    cmd: "./bin/yaml-tasks --tasks-file=tests.yml va/tests/phpunit"
 
   phpunit-run:
     service: appserver
@@ -161,7 +161,7 @@ tooling:
   test_filter_test:
     service: appserver
     description: "Run this command to see the strange problem where `lando test behat` does not work."
-    cmd: "composer yaml-tests va/tests/behat"
+    cmd: "./bin/yaml-tasks --tasks-file=tests.yml va/tests/behat"
 
   test_performance:
     service: appserver

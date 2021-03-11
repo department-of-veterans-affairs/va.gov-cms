@@ -82,8 +82,8 @@ services:
         - echo "apc.enable=1" >> /usr/local/etc/php/conf.d/php-cli.ini
         - echo "apc.enable_cli=1" >> /usr/local/etc/php/conf.d/php-cli.ini
 
-        # Downgrade to Composer 1 until https://github.com/department-of-veterans-affairs/va.gov-cms/issues/3303 is done
-        - composer self-update --1
+        # Ensure that we're using version 2 of composer.
+        - composer self-update --2
 
       # Commands that import files, databases,  or other assets. When an
       # existing preview is refreshed, the build workflow starts here,
@@ -139,7 +139,7 @@ services:
       online:
         # We only want tests running on PRs, not branches like the base preview build of master.
         # This sets the commit status checks to pending all at once.
-        - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then composer yaml-tests va/web/build va/tests; fi
+        - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then ./bin/yaml-tasks --tasks-file=tests.yml va/web/build va/tests; fi
 
         # Set file permissions so web based build calls work.  This must run after all web builds are done in tests.
         - chown -R www-data:www-data "${DOCROOT}/vendor/va-gov/web"
