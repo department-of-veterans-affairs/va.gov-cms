@@ -2,10 +2,15 @@
 
 namespace Drupal\va_gov_build_trigger\Commands;
 
-use Drush\Commands\DrushCommands;
+use Consolidation\OutputFormatters\StructuredData\RowsOfFields;
+use Drupal\Core\Database\Connection;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\advancedqueue\Job;
+use Drupal\advancedqueue\ProcessorInterface as QueueProcessorInterface;
 use Drupal\va_gov_build_trigger\Service\BuildFrontendInterface;
 use Drupal\va_gov_build_trigger\CommandExportable;
 use Drupal\va_gov_build_trigger\WebBuildCommandBuilderInterface;
+use Drush\Commands\DrushCommands;
 
 /**
  * A Drush interface to the Frontend Build dispatcher service.
@@ -29,19 +34,54 @@ class WebBuildCommands extends DrushCommands {
   protected $buildService;
 
   /**
+   * The database connection.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $database;
+
+  /**
+   * The queue processor.
+   *
+   * @var \Drupal\advancedqueue\ProcessorInterface
+   */
+  protected $queueProcessor;
+
+  /**
+   * The web build command queue.
+   *
+   * @var \Drupal\advancedQueue\Entity\QueueInterface
+   */
+  protected $queue;
+
+  /**
    * Constructor.
    *
    * @param \Drupal\va_gov_build_trigger\WebBuildCommandBuilderInterface $commandBuilder
    *   The web build command builder.
    * @param \Drupal\va_gov_build_trigger\Service\BuildFrontendInterface $buildService
    *   The frontend build dispatcher service.
+   * @param \Drupal\Core\Database\Connection $database
+   *   The database connection.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager service.
+   * @param \Drupal\advancedqueue\ProcessorInterface $queueProcessor
+   *   The AdvancedQueue queue processor.
    */
   public function __construct(
     WebBuildCommandBuilderInterface $commandBuilder,
-    BuildFrontendInterface $buildService
+    BuildFrontendInterface $buildService,
+    Connection $database,
+    EntityTypeManagerInterface $entityTypeManager,
+    QueueProcessorInterface $queueProcessor
   ) {
     $this->commandBuilder = $commandBuilder;
     $this->buildService = $buildService;
+    $this->database = $database;
+    $this->queue = $entityTypeManager
+      ->getStorage('advancedqueue_queue')
+      ->load('command_runner');
+    $this->queueProcessor = $queueProcessor;
   }
 
   /**
@@ -100,6 +140,91 @@ class WebBuildCommands extends DrushCommands {
     else {
       $this->buildService->triggerFrontendBuild($reference, $fullRebuild);
     }
+  }
+
+  /**
+   * Process jobs in the web build queue.
+   *
+   * @command va-gov:build-frontend:process-queue
+   * @aliases va-gov-build-frontend-process-queue
+   */
+  public function processQueue() {
+    $this->queueProcessor->processQueue($this->queue);
+  }
+
+  /**
+   * Empty the web build queue.
+   *
+   * This will remove all jobs from the queue, even if they haven't been
+   * enqueued.
+   *
+   * @command va-gov:build-frontend:empty-queue
+   * @aliases va-gov-build-frontend-empty-queue
+   */
+  public function emptyQueue() {
+    $this->database->delete('advancedqueue')
+      ->condition('queue_id', 'command_runner')
+      ->execute();
+  }
+
+  /**
+   * Delete all jobs in the web build queue.
+   *
+   * @command va-gov:build-frontend:delete-jobs
+   * @aliases va-gov-build-frontend-delete-jobs
+   */
+  public function deleteQueueJobs() {
+    $backend = $this->queue->getBackend();
+    foreach ($this->getJobs() as $job) {
+      $backend->deleteJob($job->getId());
+    }
+  }
+
+  /**
+   * Release all jobs in the web build queue.
+   *
+   * @command va-gov:build-frontend:release-jobs
+   * @aliases va-gov-build-frontend-release-jobs
+   */
+  public function releaseQueueJobs() {
+    $backend = $this->queue->getBackend();
+    foreach ($this->getJobs() as $job) {
+      $backend->releaseJob($job->getId());
+    }
+  }
+
+  /**
+   * List jobs in the web build queue.
+   *
+   * @command va-gov:build-frontend:list-jobs
+   * @aliases va-gov-build-frontend-list-jobs
+   */
+  public function listQueueJobs() {
+    $rows = [];
+    foreach ($this->getJobs() as $job) {
+      $rows[] = $job->toArray();
+    }
+    return new RowsOfFields($rows);
+  }
+
+  /**
+   * Get content release build jobs.
+   *
+   * @return array[\Drupal\advancedqueue\Job]
+   *   Array of Jobs.
+   */
+  public function getJobs() : array {
+    $jobs = [];
+    $result = $this->database->select('advancedqueue', 'aq')
+      ->condition('aq.queue_id', 'command_runner')
+      ->fields('aq')
+      ->range(0, 1000)
+      ->orderBy('available', 'DESC')
+      ->execute();
+    while ($record = $result->fetchAssoc()) {
+      $jobs[] = new Job($record);
+    }
+    return $jobs;
   }
 
 }
