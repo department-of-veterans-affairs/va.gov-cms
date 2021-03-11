@@ -7,10 +7,8 @@ dependencies:
     - field.field.node.vet_center_mobile_vet_center.field_administration
     - field.field.node.vet_center_mobile_vet_center.field_facility_locator_api_id
     - field.field.node.vet_center_mobile_vet_center.field_media
-    - field.field.node.vet_center_mobile_vet_center.field_office_hours
     - field.field.node.vet_center_mobile_vet_center.field_office
-    - field.field.node.vet_center_mobile_vet_center.field_operating_status_facility
-    - field.field.node.vet_center_mobile_vet_center.field_operating_status_more_info
+    - field.field.node.vet_center_mobile_vet_center.field_office_hours
     - field.field.node.vet_center_mobile_vet_center.field_phone_number
     - node.type.vet_center_mobile_vet_center
     - workflows.workflow.editorial
@@ -27,9 +25,9 @@ third_party_settings:
         - field_operating_status_facility
         - field_operating_status_more_info
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: fieldset
-      region: content
+      region: hidden
       format_settings:
         id: ''
         classes: ''
@@ -41,7 +39,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 10
+      weight: 8
       format_type: fieldset
       region: content
       format_settings:
@@ -54,7 +52,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 9
+      weight: 7
       format_type: details_sidebar
       region: content
       format_settings:
@@ -107,27 +105,13 @@ content:
     type: options_select
     region: content
   field_office_hours:
-    weight: 6
+    weight: 5
     settings: {  }
     third_party_settings: {  }
     type: office_hours_default
     region: content
-  field_operating_status_facility:
-    weight: 7
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: content
-  field_operating_status_more_info:
-    weight: 8
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textarea
-    region: content
   field_phone_number:
-    weight: 7
+    weight: 6
     settings:
       placeholder: ''
     third_party_settings: {  }
