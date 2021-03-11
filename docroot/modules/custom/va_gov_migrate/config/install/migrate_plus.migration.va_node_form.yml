@@ -133,6 +133,7 @@ source:
   keys:
     - rowid
   track_changes: true
+  track_last_imported: true
   skip_count: false
   # The unique identifiers that are used to map the source to the destination.
   ids:
@@ -288,13 +289,13 @@ process:
     default_value: "Update of form metadata from Forms DB."
   revision_timestamp:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   revision_uid:
     plugin: default_value
     default_value: 1317
   changed:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   type:
     plugin: default_value
     default_value: va_form

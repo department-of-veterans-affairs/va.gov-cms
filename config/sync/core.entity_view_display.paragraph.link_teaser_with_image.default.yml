@@ -5,9 +5,11 @@ dependencies:
   config:
     - field.field.paragraph.link_teaser_with_image.field_link_teaser
     - field.field.paragraph.link_teaser_with_image.field_media
+    - image.style.3_2_medium_thumbnail
     - paragraphs.paragraphs_type.link_teaser_with_image
   module:
     - entity_reference_revisions
+    - media
 id: paragraph.link_teaser_with_image.default
 targetEntityType: paragraph
 bundle: link_teaser_with_image
@@ -16,7 +18,7 @@ content:
   field_link_teaser:
     type: entity_reference_revisions_entity_view
     weight: 1
-    label: above
+    label: hidden
     settings:
       view_mode: default
       link: ''
@@ -24,12 +26,12 @@ content:
     region: content
   field_media:
     weight: 0
-    label: above
+    label: hidden
     settings:
-      link: true
-      view_mode: default
+      image_style: 3_2_medium_thumbnail
+      image_link: ''
     third_party_settings: {  }
-    type: entity_reference_entity_view
+    type: media_thumbnail
     region: content
 hidden:
   search_api_excerpt: true

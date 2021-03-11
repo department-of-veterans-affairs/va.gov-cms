@@ -1,0 +1,6 @@
+services:
+  va_gov_build_trigger.site_status_commands:
+    class: \Drupal\va_gov_build_trigger\Commands\SiteStatusCommands
+    arguments: ['@va_gov.site_status']
+    tags:
+      - { name: drush.command }

@@ -11,6 +11,7 @@ dependencies:
     - media.type.document_external
   module:
     - link
+    - string_field_formatter
 id: media.document_external.default
 targetEntityType: media
 bundle: document_external
@@ -23,14 +24,14 @@ content:
     third_party_settings: {  }
   field_description:
     weight: 1
-    label: inline
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_media_external_file:
     label: visually_hidden
-    weight: 3
+    weight: 2
     settings:
       trim_length: 80
       url_only: false
@@ -40,25 +41,20 @@ content:
     third_party_settings: {  }
     type: link
     region: content
-  field_mime_type:
-    weight: 2
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
   name:
-    type: string
+    type: plain_string_formatter
     weight: 0
     region: content
-    label: above
+    label: hidden
     settings:
+      wrap_tag: strong
+      wrap_class: ''
       link_to_entity: false
     third_party_settings: {  }
 hidden:
   created: true
   field_media_in_library: true
+  field_mime_type: true
   field_owner: true
   search_api_excerpt: true
   thumbnail: true

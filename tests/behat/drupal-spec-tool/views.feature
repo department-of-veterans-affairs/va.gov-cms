@@ -9,6 +9,7 @@ Feature: Views
        Then exactly the following views should exist
        | Name | Machine name | Base table | Status | Description |
 | Administration section | administration_section | Taxonomy terms | Enabled | Top-level items in the Section taxonomy |
+| Advanced Queue jobs | advancedqueue_jobs | Jobs | Enabled |  |
 | Archive | archive | Content | Disabled | All content, by month. |
 | Benefit Hubs Categories | benefits_hub_categories | Content | Enabled |  |
 | Benefits hub list | benefits_hub_list | Content | Enabled |  |
@@ -21,7 +22,8 @@ Feature: Views
 | Content served from Drupal | content_served_from_drupal | Content | Enabled | An exportable list of all content served from Drupal |
 | Content entity browsers | content_entity_browsers | Content | Enabled | Collection of Entity Browsers to use for field widgets configuration in form displays. |
 | Content Entity Reference Source | content_entity_reference_source | Content | Enabled |  |
-| Date fields | date_fields | Content | Enabled |  |
+| Content release logs | content_release_logs | Log entries | Enabled | Shows content release job log entries |
+| Date fields | date_fields | Content | Disabled |  |
 | Facility Governance | facility_governance | Content | Enabled | Provides facility management tools. |
 | Files | files | Files | Enabled | Find and manage files. |
 | File browsers | file_browsers | Media | Enabled |  |
@@ -54,7 +56,7 @@ Feature: Views
 | User history | user_history | User history | Enabled |  |
 | User history list | user_history_list | User history | Enabled |  |
 | User email csv | user_email_csv | Users | Enabled |  |
-| Listing page dashboard | listing_page_dashboard | Content | Enabled |  |
+| Listing page dashboard | listing_page_dashboard | Content | Disabled |  |
 | Custom block entity browsers | custom_block_entity_browsers | Custom Block | Enabled | For placing on content forms |
 | Services | services | Content | Enabled | Lists of services for facility pages, health services lists, etc |
 | Recent content | content_recent | Content | Disabled | Recent content. |
@@ -68,6 +70,8 @@ Feature: Views
 | Administration section | Entity Reference | entity_reference_1 | Entity Reference |
 | Administration section | Master | default | Master |
 | Administration section | CLP Entity Reference | clp_entity_reference | Entity Reference |
+| Advanced Queue jobs | Master | default | Master |
+| Advanced Queue jobs | Page | page_1 | Page |
 | Archive | Block | block_1 | Block |
 | Archive | Master | default | Master |
 | Archive | Page | page_1 | Page |
@@ -87,11 +91,9 @@ Feature: Views
 | Content | Master | default | Master |
 | Content | All content | page_1 | Page |
 | Content | Bulk edit content | page_2 | Page |
+| Content | Bulk edit events | events_page | Page |
 | Content | Resources and support | resources_support_dashboard | Page |
 | Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
-| Content served from Drupal | Page | page_1 | Page |
-| Content served from Drupal | Data export | data_export_1 | Data export |
-| Content served from Drupal | Master | default | Master |
 | Content entity browsers | Master | default | Master |
 | Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
 | Content entity browsers | Q&A entity browser | entity_browser_1 | Entity browser |
@@ -102,6 +104,11 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
 | Custom block library | Master | default | Master |
 | Custom block library | Page | page_1 | Page |
+| Content release logs | Master | default | Master |
+| Content release logs | Page | page_1 | Page |
+| Content served from Drupal | Page | page_1 | Page |
+| Content served from Drupal | Data export | data_export_1 | Data export |
+| Content served from Drupal | Master | default | Master |
 | Date fields | Master | default | Master |
 | Date fields | Page | page_1 | Page |
 | Facility Governance | Master | default | Master |
@@ -148,9 +155,6 @@ Feature: Views
 | Right sidebar latest revision | All revisions | block_1 | Block |
 | Right sidebar latest revision | Latest revision | attachment_1 | Attachment |
 | Right sidebar latest revision | Master | default | Master |
-| Right sidebar latest revision | Meta tags | attachment_2 | Attachment |
-| Right sidebar latest revision | Owner | attachment_0 | Attachment |
-| Right sidebar latest revision | Posted to | attachment_0b | Attachment |
 | Search | Master | default | Master |
 | Search | Page | page | Page |
 | Sections tree | Block | block_1 | Block |

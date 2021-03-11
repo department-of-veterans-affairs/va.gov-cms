@@ -1,0 +1,29 @@
+uuid: 98145b7e-652c-4f21-bf31-f6b886e843ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cc_intro_text
+    - node.type.vamc_system_policies_page
+  module:
+    - entity_field_fetch
+id: node.vamc_system_policies_page.field_cc_intro_text
+field_name: field_cc_intro_text
+entity_type: node
+bundle: vamc_system_policies_page
+label: 'National intro text'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_type: paragraph
+    target_uuid: b02cd373-7926-4328-9c9f-a26f4d0ae87c
+    target_field: null
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '15588'
+  field_to_fetch: field_content_block
+  target_paragraph_uuid: b02cd373-7926-4328-9c9f-a26f4d0ae87c
+field_type: entity_field_fetch

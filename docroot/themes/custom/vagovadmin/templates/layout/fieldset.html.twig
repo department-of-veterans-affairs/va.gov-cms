@@ -46,15 +46,15 @@
         <strong>{{ errors }}</strong>
       </div>
     {% endif %}
+    {% if description.content %}
+      <div{{ description.attributes.addClass('description') }}>{{ description.content }}</div>
+    {% endif %}
     {% if prefix %}
       <span class="field-prefix">{{ prefix }}</span>
     {% endif %}
     {{ children }}
     {% if suffix %}
       <span class="field-suffix">{{ suffix }}</span>
-    {% endif %}
-    {% if description.content %}
-      <div{{ description.attributes.addClass('description') }}>{{ description.content }}</div>
     {% endif %}
   </div>
 </fieldset>

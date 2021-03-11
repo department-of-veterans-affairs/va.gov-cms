@@ -19,8 +19,13 @@ interface EnvironmentInterface extends PluginInspectionInterface {
 
   /**
    * Trigger the frontend web build.
+   *
+   * @param string $front_end_git_ref
+   *   Front end git reference to build (branch name or PR number)
+   * @param bool $full_rebuild
+   *   Trigger a full rebuild of the content.
    */
-  public function triggerFrontendBuild() : void;
+  public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void;
 
   /**
    * Should this environment trigger a frontend content deploy?
@@ -32,5 +37,13 @@ interface EnvironmentInterface extends PluginInspectionInterface {
    *   Should we trigger a front end deploy
    */
   public function shouldTriggerFrontendBuild() : bool;
+
+  /**
+   * The Build Trigger Form Class.
+   *
+   * @return string
+   *   The build trigger form class
+   */
+  public function getBuildTriggerFormClass() : string;
 
 }

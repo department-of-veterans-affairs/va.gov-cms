@@ -41,37 +41,7 @@ file and changing the values as needed.
 
 ### CMS-CI
 
-The `.env` file in CMS-CI is written using DevShop/Drush hooks in a Drush include file on the CMS-CI server: `/var/aegir/.drush/va.drush.inc`
-
-The drush hook `hook_devshop_environment_file_alter` is used to set more environment variables. The VA-specific hook
-looks like this:
-
-```php
-<?php
-
-/**
- * Implement hook_devshop_environment_file_alter()
- */
-function va_devshop_environment_file_alter(&$environment){
-  // Pass AEGIR database variables to CMS variables.  
-  $environment['CMS_MARIADB_DATABASE'] = $_SERVER['db_name'];
-  $environment['CMS_MARIADB_USERNAME'] = $_SERVER['db_user'];
-  $environment['CMS_MARIADB_PASSWORD'] = $_SERVER['db_passwd'];
-  $environment['CMS_MARIADB_HOST'] = $_SERVER['db_host'];
-
-  // Set DRUPAL_ADDRESS, DTT_BASE_URL, and SIMPLETEST_BASE_URL to match the site's URL. 
-  $environment['DRUPAL_ADDRESS'] =
-  $environment['DTT_BASE_URL'] =
-  $environment['SIMPLETEST_BASE_URL'] =
-    'http://' . d()->uri;
-
-  // Set API keys that need to be private
-  $environment['GITHUB_TOKEN'] = '00000';
-  $environment['FACILITY_API'] = '00000';
-
-}
-
-```
+The default values for Tugboat environments are templated from `.tugboat/.env.j2`.
 
 ### CMS in BRD
 

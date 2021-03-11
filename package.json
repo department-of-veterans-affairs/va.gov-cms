@@ -15,7 +15,9 @@
     "stylelint-modules": "npx stylelint 'docroot/modules/custom/**/*.css'",
     "stylelint-themes": "npx stylelint 'docroot/themes/custom/**/*.scss'",
     "stylelint": "npx stylelint",
-    "test": "node ./tests/accessibility/aXeAccessibilityCheck.js"
+    "test:accessibility": "cd tests/accessibility && cypress run",
+    "test:behavioral": "cd tests/behavioral && cypress run -e \"TAGS=not @ignore\"",
+    "test:interactive": "cd tests/behavioral && cypress open -e \"VAGOV_INTERACTIVE=true\""
   },
   "repository": {
     "type": "git",
@@ -29,11 +31,16 @@
   "homepage": "https://github.com/department-of-veterans-affairs/va.gov-cms#readme",
   "dependencies": {
     "@axe-core/webdriverjs": "^4.0.0",
+    "@testing-library/cypress": "^7.0.3",
     "axe-core": "^4.0.2",
     "axe-reports": "^1.1.11",
-    "phantomjs-prebuilt": "^2.1.16",
-    "require": "^2.4.20",
-    "selenium-webdriver": "^3.6.0"
+    "cypress": "^6.5.0",
+    "cypress-axe": "^0.12.0",
+    "cypress-cucumber-preprocessor": "^4.0.0",
+    "debug": "^2.6.9",
+    "faker": "^5.3.1",
+    "pixelmatch": "^5.2.1",
+    "pngjs": "^6.0.0"
   },
   "directories": {
     "test": "tests"
@@ -51,6 +58,8 @@
     "babel-preset-env": "^1.4.0",
     "chokidar": "^2.0.0",
     "cross-env": "^5.1.3",
+    "cypress-file-upload": "^5.0.2",
+    "cypress-visual-regression": "^1.5.7",
     "eslint": "^7.15.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^7.0.0",
@@ -90,5 +99,8 @@
         ]
       }
     }
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
   }
 }

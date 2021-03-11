@@ -32,6 +32,10 @@ As user _uid_ with _user_role_
 - [ ] `Core Application Team`
 - [ ] `Product Support Team`
 
+### Is this PR blocked by another PR?
+
+- [ ] `DO NOT MERGE`
+
 ### Does this PR need review from a Product Owner
 
 - [ ] `Needs PO review`

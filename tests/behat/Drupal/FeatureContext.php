@@ -4,7 +4,6 @@ namespace CustomDrupal;
 
 use Behat\Behat\Context\SnippetAcceptingContext;
 use DevShop\Behat\DrupalExtension\Context\DevShopDrupalContext;
-use Drupal\Component\Utility\Crypt;
 
 /**
  * FeatureContext class defines custom step definitions for Behat.
@@ -72,6 +71,26 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
     }
     else {
       throw new \Exception("Cannot locate a valid node with the title '$title'");
+    }
+  }
+
+  /**
+   * Go to a view or edit page for a term.
+   *
+   * @param string $page
+   *   Either the view or edit page.
+   * @param string $title
+   *   The term title.
+   *
+   * @Then I visit the :arg1 page for a term with the title :arg2
+   */
+  public function iViewTerm($page, $title) {
+    $tid = $this->getTestContentTidByTitle($title);
+    if ($tid) {
+      $this->visitPath("taxonomy/term/$tid/$page");
+    }
+    else {
+      throw new \Exception("Cannot locate a valid term with the title '$title'");
     }
   }
 
@@ -468,92 +487,6 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   }
 
   /**
-   * Check that the Google Tag Manager dataLayer value is set.
-   *
-   * @Given the GTM data layer value for :arg1 should be set
-   */
-  public function googleTagManagerValueShouldBeSet($key) {
-    $property_value = $this->getGoogleTagManagerValue($key);
-    if (empty($property_value)) {
-      throw new \Exception("The data layer value for \"{$key}\" should be set.");
-    }
-  }
-
-  /**
-   * Check that the Google Tag Manager dataLayer value is set correctly.
-   *
-   * @Given the GTM data layer value for :arg1 should be set to :arg2
-   */
-  public function googleTagManagerValueShouldBeSetTo($key, $value) {
-    $property_value = $this->getGoogleTagManagerValue($key);
-    if ($value != $property_value) {
-      throw new \Exception("The data layer value for \"{$key}\" should be {$value}, but it is actually {$property_value}.");
-    }
-  }
-
-  /**
-   * Check that the dataLayer value is not set.
-   *
-   * @Given the GTM data layer value for :arg1 should be unset
-   * @Given the GTM data layer value for :arg1 should not be set
-   */
-  public function googleTagManagerValueShouldBeUnset($key) {
-    if ($this->hasGoogleTagManagerValue($key)) {
-      throw new \Exception("The data layer value for \"{$key}\" should not be set.");
-    }
-  }
-
-  /**
-   * Check that the dataLayer value is set correctly.
-   *
-   * @Given the GTM data layer user id should be correctly hashed
-   */
-  public function googleTagManagerUserIdShouldBeCorrectlyHashed() {
-    $property_value = $this->getGoogleTagManagerValue('userId');
-    $hashed_value = Crypt::hashBase64((string) $this->getUserManager()->getCurrentUser()->uid);
-    if ($hashed_value != $property_value) {
-      throw new \Exception("The userId value was \"{$property_value}\" , but it should be \"{$hashed_value}\".");
-    }
-  }
-
-  /**
-   * Indicate whether the dataLayer has a value for the specified key.
-   *
-   * @param string $key
-   *   The dataLayer key.
-   *
-   * @return mixed
-   *   Some value.
-   *
-   * @throws \Exception
-   */
-  protected function hasGoogleTagManagerValue($key) {
-    $drupal_settings = $this->getDrupalSettings();
-    $gtm_data = $drupal_settings['gtm_data'];
-    return isset($gtm_data[$key]);
-  }
-
-  /**
-   * Get Google Tag Manager dataLayer value for specified key.
-   *
-   * @param string $key
-   *   The dataLayer key.
-   *
-   * @return mixed
-   *   Some value.
-   *
-   * @throws \Exception
-   */
-  protected function getGoogleTagManagerValue($key) {
-    $drupal_settings = $this->getDrupalSettings();
-    $gtm_data = $drupal_settings['gtm_data'];
-    if (isset($gtm_data[$key])) {
-      return $gtm_data[$key];
-    }
-    throw new \Exception($key . ' not found.');
-  }
-
-  /**
    * Get Drupal Settings object.
    *
    * @return array
@@ -567,6 +500,30 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
     }
     $json = $element->getText();
     return json_decode($json, TRUE);
+  }
+
+  /**
+   * Is the personal flag set on the content for the current user?
+   *
+   * @Then the :arg1 flag for node :arg2 should be set for me
+   */
+  public function theFlagForNodeShouldBeSetForTheRevisionEditor(string $flagName, string $title) {
+    $account = user_load($this->getUserManager()->getCurrentUser()->uid);
+    $flag_service = \Drupal::service('flag');
+    $flag = $flag_service->getFlagById($flagName);
+    if (empty($flag)) {
+      throw new \InvalidArgumentException(sprintf('The flag "%s" does not exist', $flagName));
+    }
+    $nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties(['title' => $title]);
+    if (empty($nodes) || empty(reset($nodes))) {
+      throw new \InvalidArgumentException(sprintf('Node with title "%s" does not exist', $title));
+    }
+    $node = reset($nodes);
+    if (!$flag_service->getFlagging($flag, $node, $account)) {
+      throw new \InvalidArgumentException(sprintf('The flag with name "%s" was not set', $flagName));
+    }
   }
 
 }

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_home_page_hub_label
+    - field.storage.node.field_teaser_text
     - node.type.landing_page
   module:
     - entity_browser
@@ -84,6 +85,69 @@ display:
           id: field_home_page_hub_label
           table: node__field_home_page_hub_label
           field: field_home_page_hub_label
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_teaser_text:
+          id: field_teaser_text
+          table: node__field_teaser_text
+          field: field_teaser_text
           relationship: none
           group_type: group
           admin_label: ''
@@ -228,6 +292,7 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_home_page_hub_label'
+        - 'config:field.storage.node.field_teaser_text'
   benefits_hub_categories:
     display_plugin: entity_browser
     id: benefits_hub_categories
@@ -287,6 +352,69 @@ display:
           use_field_cardinality: false
           entity_type: node
           plugin_id: entity_browser_select
+        field_teaser_text:
+          id: field_teaser_text
+          table: node__field_teaser_text
+          field: field_teaser_text
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Hub teaser text'
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
         field_home_page_hub_label:
           id: field_home_page_hub_label
           table: node__field_home_page_hub_label
@@ -298,7 +426,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: 'VA {{ field_home_page_hub_label }}'
+            text: "VA {{ field_home_page_hub_label }}\r\n<hr>\r\n{{ field_teaser_text }}"
             make_link: false
             path: ''
             absolute: false
@@ -366,9 +494,15 @@ display:
           summary: ''
           description: ''
           columns:
-            field_home_page_hub_label: field_home_page_hub_label
             entity_browser_select: entity_browser_select
+            field_home_page_hub_label: field_home_page_hub_label
+            field_teaser_text: field_teaser_text
           info:
+            entity_browser_select:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             field_home_page_hub_label:
               sortable: false
               default_sort_order: asc
@@ -376,7 +510,9 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            entity_browser_select:
+            field_teaser_text:
+              sortable: false
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
@@ -400,3 +536,4 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_home_page_hub_label'
+        - 'config:field.storage.node.field_teaser_text'

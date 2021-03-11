@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.event.field_address
     - field.field.node.event.field_administration
     - field.field.node.event.field_body
-    - field.field.node.event.field_date
     - field.field.node.event.field_datetime_range_timezone
     - field.field.node.event.field_description
     - field.field.node.event.field_event_cost
@@ -29,7 +28,7 @@ dependencies:
     - address
     - content_moderation
     - field_group
-    - link
+    - linkit
     - media_library
     - path
     - smart_date
@@ -259,7 +258,7 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-    type: link_default
+    type: linkit
     region: content
   field_listing:
     type: options_select
@@ -300,7 +299,7 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-    type: link_default
+    type: linkit
     region: content
   moderation_state:
     type: moderation_state_default
@@ -338,7 +337,6 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
-  field_date: true
   field_meta_tags: true
   promote: true
   status: true

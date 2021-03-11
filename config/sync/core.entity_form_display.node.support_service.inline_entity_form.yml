@@ -5,7 +5,6 @@ dependencies:
   config:
     - core.entity_form_mode.node.inline_entity_form
     - field.field.node.support_service.field_administration
-    - field.field.node.support_service.field_health_service_appt_leadin
     - field.field.node.support_service.field_link
     - field.field.node.support_service.field_office
     - field.field.node.support_service.field_page_last_built
@@ -46,14 +45,6 @@ content:
     settings:
       placeholder: ''
     third_party_settings: {  }
-  revision_log:
-    weight: 6
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textarea
-    region: content
   title:
     type: string_textfield
     weight: 0
@@ -64,7 +55,6 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_health_service_appt_leadin: true
   field_page_last_built: true
   moderation_state: true
   path: true

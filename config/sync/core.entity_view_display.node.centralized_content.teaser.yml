@@ -1,0 +1,41 @@
+uuid: ce69d6ac-5c2f-48bc-9404-c6a145b828f2
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.centralized_content.body
+    - field.field.node.centralized_content.field_administration
+    - field.field.node.centralized_content.field_content_block
+    - node.type.centralized_content
+  module:
+    - entity_reference_revisions
+    - user
+id: node.centralized_content.teaser
+targetEntityType: node
+bundle: centralized_content
+mode: teaser
+content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_content_block:
+    type: entity_reference_revisions_entity_view
+    weight: 1
+    region: content
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  body: true
+  field_administration: true
+  search_api_excerpt: true

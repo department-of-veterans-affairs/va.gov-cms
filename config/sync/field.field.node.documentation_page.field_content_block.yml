@@ -12,6 +12,7 @@ dependencies:
     - paragraphs.paragraphs_type.list_of_link_teasers
     - paragraphs.paragraphs_type.lists_of_links
     - paragraphs.paragraphs_type.media
+    - paragraphs.paragraphs_type.media_list_videos
     - paragraphs.paragraphs_type.process
     - paragraphs.paragraphs_type.q_a_section
     - paragraphs.paragraphs_type.table
@@ -44,6 +45,7 @@ settings:
       downloadable_file: downloadable_file
       lists_of_links: lists_of_links
       table: table
+      media_list_videos: media_list_videos
     target_bundles_drag_drop:
       address:
         weight: -32
@@ -51,15 +53,36 @@ settings:
       alert:
         enabled: true
         weight: -31
+      alert_single:
+        weight: 44
+        enabled: false
+      audience_topics:
+        weight: 45
+        enabled: false
+      button:
+        weight: 46
+        enabled: false
+      checklist:
+        weight: 47
+        enabled: false
+      checklist_item:
+        weight: 48
+        enabled: false
       collapsible_panel:
         enabled: true
         weight: -33
       collapsible_panel_item:
         weight: -30
         enabled: false
+      contact_information:
+        weight: 51
+        enabled: false
       downloadable_file:
         enabled: true
         weight: 26
+      email_contact:
+        weight: 53
+        enabled: false
       expandable_text:
         enabled: true
         weight: -29
@@ -68,6 +91,9 @@ settings:
         enabled: false
       link_teaser:
         weight: -27
+        enabled: false
+      link_teaser_with_image:
+        weight: 57
         enabled: false
       list_of_link_teasers:
         enabled: true
@@ -81,6 +107,15 @@ settings:
       media:
         enabled: true
         weight: -35
+      media_list_images:
+        weight: 62
+        enabled: false
+      media_list_videos:
+        enabled: true
+        weight: 63
+      non_reusable_alert:
+        weight: 64
+        enabled: false
       number_callout:
         weight: -24
         enabled: false
@@ -93,11 +128,23 @@ settings:
       q_a:
         weight: -23
         enabled: false
+      q_a_group:
+        weight: 69
+        enabled: false
       q_a_section:
         enabled: true
         weight: -36
       react_widget:
         weight: -22
+        enabled: false
+      rich_text_char_limit_1000:
+        weight: 72
+        enabled: false
+      service_location:
+        weight: 73
+        enabled: false
+      service_location_address:
+        weight: 74
         enabled: false
       situation_update:
         weight: 37
@@ -111,12 +158,15 @@ settings:
       starred_horizontal_rule:
         weight: -20
         enabled: false
+      step:
+        weight: 79
+        enabled: false
+      step_by_step:
+        weight: 80
+        enabled: false
       table:
         enabled: true
         weight: 41
-      three_column_layout:
-        enabled: true
-        weight: 47
       wysiwyg:
         enabled: true
         weight: -37

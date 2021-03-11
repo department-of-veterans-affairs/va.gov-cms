@@ -6,7 +6,7 @@
       - [VAMC Status](#vamc-status-migration)
    1. VBA (Veterans Benefits Administraion) Facilities
    1. Vet Centers
-1. [Status Changes to Lighthouse](#status-changes-to-lighthouse)
+1. [Status Changes to Lighthouse](vamc-facilities.md#status-changes-to-lighthouse)
 
 ![Facilities updates and actions](images/VA-facilities.png)
 
@@ -29,15 +29,12 @@ to the user "CMS Migrator"
 ### VAMC Status Migration
 VAMC Statuses are updated by a separate migration
 (va_node_health_care_local_facility_status) that runs every hour.  It grabs
-multiple CSV sources (one per system) which are scraped from TeamSite and
-updates the "Operating status" (field_operating_status_facility) and "Operating
-status - more info" (field_operating_status_more_info)
+[multiple CSV sources](../docroot/modules/custom/va_gov_migrate/config/install/migrate_plus.migration.va_node_health_care_local_facility_status.yml) (one per system) which are
+scraped from TeamSite and updates the "Operating status"
+(field_operating_status_facility) and "Operating status - more info"
+(field_operating_status_more_info)  [Changes to operating status also get pushed
+ to Lighthouse](vamc-facilities.md#status-changes-to-lighthouse).
 
-## Status Changes to Lighthouse
-Whenever any facility has a change of "Operating status" or "Operating status -
-more info" saved in VACMS (whether by an editor, or migration), a change post is
-added to the "post API queue" by module:va_gov_post_api. When cron runs, any
-items in the queue are posted to the Lighthouse API.
 
 
 [Table of Contents](../README.md)

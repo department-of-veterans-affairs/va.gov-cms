@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Listen for XDebug",
+      "type": "php",
+      "request": "launch",
+      "port": 9003,
+      "log": false,
+      "pathMappings": {
+        "/app/": "${workspaceFolder}",
+        "/opt/drush/8/drush/drush": "${env:HOME}/.config/composer/vendor/drush/drush",
+      }
+    }
+  ]
+}

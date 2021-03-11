@@ -68,10 +68,15 @@ class BuildFrontend {
 
   /**
    * Triggers the appropriate frontend Build based on the environment.
+   *
+   * @param string $front_end_git_ref
+   *   Front end git reference to build (branch name or PR number).
+   * @param bool $full_rebuild
+   *   Trigger a full content export rebuild.
    */
-  public function triggerFrontendBuild() {
+  public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
     try {
-      $this->environmentDiscovery->triggerFrontendBuild();
+      $this->environmentDiscovery->triggerFrontendBuild($front_end_git_ref, $full_rebuild);
     }
     catch (PluginException $e) {
       // In an unaccounted for environment without a plugin.

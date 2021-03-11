@@ -2,12 +2,23 @@
 
 namespace Drupal\va_gov_build_trigger;
 
+use Drupal\Core\Site\Settings;
 use Drupal\Core\State\StateInterface;
 
 /**
  * Status of Web Build.
  */
 class WebBuildStatus implements WebBuildStatusInterface {
+
+  public const USE_CMS_EXPORT_SETTING = 'va_gov_use_cms_export';
+
+  /**
+   * Use CMS Export.
+   *
+   * @var bool
+   */
+  protected $useContentExport;
+
   /**
    * The state provider.
    *
@@ -27,9 +38,12 @@ class WebBuildStatus implements WebBuildStatusInterface {
    *
    * @param \Drupal\Core\State\StateInterface $stateProvider
    *   The drupal state provider.
+   * @param \Drupal\Core\Site\Settings $settings
+   *   Drupal settings.
    */
-  public function __construct(StateInterface $stateProvider) {
+  public function __construct(StateInterface $stateProvider, Settings $settings) {
     $this->stateProvider = $stateProvider;
+    $this->useContentExport = $settings->get(static::USE_CMS_EXPORT_SETTING, FALSE);
   }
 
   /**
@@ -51,6 +65,16 @@ class WebBuildStatus implements WebBuildStatusInterface {
    */
   public function disableWebBuildStatus() : void {
     $this->stateProvider->set(static::STATE, FALSE);
+  }
+
+  /**
+   * Use CMS export.
+   *
+   * @return bool
+   *   Should we use cms export?
+   */
+  public function useContentExport() : bool {
+    return $this->useContentExport;
   }
 
 }

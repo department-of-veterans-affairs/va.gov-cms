@@ -146,6 +146,16 @@ There are 4 main types of tests:
         ```
         lando behat --tags=dst
         ```
+   
+     1. `va/tests/behavioral` - The [Cypress](https://github.com/cypress-io/cypress) behavioral test suite includes end-to-end logged out tests.
+
+        To run and debug cypress tests in a web UI, run the following commands from the project root on your local machine (not within lando):
+
+        ```
+        npm i && cd tests/behavioral && ../../node_modules/.bin/cypress open
+        ```
+        
+        You will see a window with a list of tests. Just click on the name of any test to run it within a browser.
 
 ## Running Tests
 

@@ -9,7 +9,7 @@ third_party_settings:
     vgb_description: 'Can create and edit content, but can''t review or publish it. '
 id: content_editor
 label: 'Content editor'
-weight: -4
+weight: -2
 is_admin: null
 permissions:
   - 'access administration pages'
@@ -34,10 +34,13 @@ permissions:
   - 'create image media'
   - 'create media'
   - 'create promo block content'
+  - 'create vet_center_cap content'
+  - 'create vet_center_facility_health_servi content'
   - 'create video media'
   - 'delete media'
   - 'edit any basic_landing_page content'
   - 'edit any campaign_landing_page content'
+  - 'edit any centralized_content content'
   - 'edit any checklist content'
   - 'edit any document media'
   - 'edit any documentation_page content'
@@ -73,8 +76,12 @@ permissions:
   - 'edit any support_service content'
   - 'edit any va_form content'
   - 'edit any vamc_operating_status_and_alerts content'
+  - 'edit any vamc_system_policies_page content'
   - 'edit any vba_facility content'
   - 'edit any vet_center content'
+  - 'edit any vet_center_locations_list content'
+  - 'edit any vet_center_mobile_vet_center content'
+  - 'edit any vet_center_outstation content'
   - 'edit any video media'
   - 'execute entity:break_lock node'
   - 'notify of path changes'
@@ -95,6 +102,7 @@ permissions:
   - 'view any unpublished content'
   - 'view basic_landing_page revisions'
   - 'view campaign_landing_page revisions'
+  - 'view centralized_content revisions'
   - 'view checklist revisions'
   - 'view cms_help_center in toolbar'
   - 'view event revisions'
@@ -134,6 +142,7 @@ permissions:
   - 'view unpublished paragraphs'
   - 'view va_form revisions'
   - 'view vamc_operating_status_and_alerts revisions'
+  - 'view vamc_system_policies_page revisions'
   - 'view vba_facility revisions'
   - 'view vet_center revisions'
   - 'view workbench access information'

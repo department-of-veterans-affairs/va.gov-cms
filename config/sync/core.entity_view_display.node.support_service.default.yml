@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.node.support_service.field_administration
-    - field.field.node.support_service.field_health_service_appt_leadin
     - field.field.node.support_service.field_link
     - field.field.node.support_service.field_office
     - field.field.node.support_service.field_page_last_built
@@ -19,13 +18,6 @@ targetEntityType: node
 bundle: support_service
 mode: default
 content:
-  field_health_service_appt_leadin:
-    weight: 2
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-    region: content
   field_link:
     weight: 0
     label: above

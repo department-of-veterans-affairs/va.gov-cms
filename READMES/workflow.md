@@ -104,6 +104,7 @@ If your composer.lock ends up with a conflict due to incoming changes, these ste
 We follow the [Drupal core javascript workflow](https://www.drupal.org/node/2815083), writing code in `es6.js` files and transpiling to ES5 for backwards compatibility. Both the `es6.js` and transpiled `.js` files are committed to the repository. To follow this workflow:
 
 * Create or edit a `.es6.js` file under `docroot/modules/custom` or `docroot/themes/custom`
+* Run `lando npm install` to ensure that all dependencies are up to date
 * From the repository root, execute the command `lando npm run build:js` (To have changes automatically transpiled while you work, run `lando npm run watch:js`)
 * When you are finished, commit the changes to both files
 

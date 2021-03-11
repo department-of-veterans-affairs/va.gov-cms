@@ -13,7 +13,7 @@ migration_group: vamc
 label: 'Node - VAMC Facility Health Service.'
 source:
   plugin: csv
-  path: modules/custom/va_gov_migrate/data/health-care-service-covid.csv
+  path: modules/custom/va_gov_migrate/data/facility_health_care_service_covid.csv
   delimiter: ;
   enclosure: ''''
   escape: \
@@ -29,13 +29,7 @@ source:
     -
       station_id: 'Station ID'
     -
-      field_health_care_facility_name: 'VAMC Facility Name'
-    -
       field_health_care_system_name: 'VAMC System Name'
-    -
-      field_health_care_system_id: 'VAMC System ID'
-    -
-      field_system_service_description: 'VAMC System description of services'
     -
       field_facility_service_description: 'VAMC Facility description of services'
 process:
@@ -95,7 +89,7 @@ process:
       message: 'Entity lookup for field_health_care_system_name owner found nothing.'
   changed:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   new_revision:
     plugin: default_value
     default_value: true
@@ -107,7 +101,7 @@ process:
     default_value: 'Imported by facility_health_care_service_covid migration.'
   revision_timestamp:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   revision_uid:
     plugin: default_value
     default_value: constants/cmsmigrator_id

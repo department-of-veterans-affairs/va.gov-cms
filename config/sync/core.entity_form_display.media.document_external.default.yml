@@ -16,11 +16,10 @@ dependencies:
 third_party_settings:
   field_group:
     group_governance:
-      children:
-        - field_owner
+      children: {  }
       parent_name: ''
       weight: 3
-      format_type: details_sidebar
+      format_type: details
       region: content
       format_settings:
         description: ''
@@ -33,9 +32,9 @@ third_party_settings:
     group_edi:
       children: {  }
       parent_name: ''
-      weight: 4
+      weight: 11
       format_type: fieldset
-      region: content
+      region: hidden
       format_settings:
         id: ''
         classes: ''
@@ -69,7 +68,7 @@ content:
     type: link_default
     region: content
   field_owner:
-    weight: 7
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -81,12 +80,18 @@ content:
     region: content
     third_party_settings: {  }
   name:
-    type: string_textfield
+    type: string_textfield_with_counter
     weight: 0
     region: content
     settings:
       size: 60
       placeholder: ''
+      maxlength: 70
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: "<span class=\"remaining_count\">@remaining_count</span> characters remaining.\r\n"
+      use_field_maxlength: false
     third_party_settings: {  }
 hidden:
   created: true

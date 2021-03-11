@@ -16,10 +16,9 @@ Feature: Content model: Benefits hubs Content Type fields
 | Content type | Benefits Detail Page | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- |  |
 | Content type | Benefits Detail Page | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter |  |
 | Content type | Benefits Detail Page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Benefits Detail Page | Page introduction | field_intro_text_limited_html | Text (formatted, long) | Required | 1 | -- Disabled -- |  |
-| Content type | Benefits Detail Page | Page introduction | field_intro_text  | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter |  |
+| Content type | Benefits Detail Page | Page introduction | field_intro_text_limited_html | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
 | Content type | Benefits Detail Page | Page last built | field_page_last_built | Date |  | 1 | -- Disabled -- |  |
-| Content type | Benefits Detail Page | Plain Language Certification Date | field_plainlanguage_date | Date |  | 1 | Date and time |  |
+| Content type | Benefits Detail Page | Plain Language Certification Date | field_plainlanguage_date | Date |  | 1 | -- Disabled -- |  |
 | Content type | Benefits Detail Page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | Benefits Hub Landing Page | Alert | field_alert | Entity reference |  | 1 | Entity browser | Translatable |
 | Content type | Benefits Hub Landing Page | Hub Icon | field_title_icon | List (text) |  | 1 | Select list |  |
@@ -32,7 +31,7 @@ Feature: Content model: Benefits hubs Content Type fields
 | Content type | Benefits Hub Landing Page | Owner | field_administration | Entity reference | Required | 1 | Select list |  |
 | Content type | Benefits Hub Landing Page | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Content type | Benefits Hub Landing Page | Page last built | field_page_last_built | Date |  | 1 | Date and time | Translatable |
-| Content type | Benefits Hub Landing Page | Plain language Certified Date | field_plainlanguage_date | Date |  | 1 | Date and time | Translatable |
+| Content type | Benefits Hub Landing Page | Plain language Certified Date | field_plainlanguage_date | Date |  | 1 | -- Disabled -- | Translatable |
 | Content type | Benefits Hub Landing Page | Promo | field_promo | Entity reference |  | 1 | Select list |  |
 | Content type | Benefits Hub Landing Page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Benefits Hub Landing Page | Spokes | field_spokes | Entity reference revisions | Required | 4 | Paragraphs EXPERIMENTAL |  |
@@ -44,8 +43,7 @@ Feature: Content model: Benefits hubs Content Type fields
 | Content type | Landing Page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Landing Page | Page introduction | field_intro_text_limited_html  | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Landing Page | Product | field_product | Entity reference | Required | 1 | Select list |  |
-| Content type | Support Service | Appointment lead-in text | field_health_service_appt_leadin | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
-| Content type | Support Service | Link | field_link | Link |  | 1 | Link |  |
+| Content type | Support Service | Link | field_link | Link |  | 1 | Linkit |  |
 | Content type | Support Service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Support Service | Page last built | field_page_last_built | Date |  | 1 | Date and time | Translatable |
 | Content type | Support Service | Phone Number | field_phone_number | Telephone number |  | 1 | Telephone number |  |

@@ -11,6 +11,7 @@ Feature: Content model bundles
 | Benefits Detail Page | page | Content type | These pages hold all of the benefits overview content, such the detail pages linked to from va.gov/disability, va.gov/health-care, and va.gov/education. |
 | Benefits Hub Landing Page | landing_page | Content type | A special page for top-level Benefits content with its own one-off layout and content. |
 | Campaign Landing Page | campaign_landing_page | Content type |  |
+| Centralized Content | centralized_content | Content type | Common content for reuse on other content types. |
 | Checklist | checklist | Content type |  |
 | CMS Help Page | documentation_page | Content type | Help guide pages on how to use the CMS to edit content on VA.gov. |
 | Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
@@ -21,7 +22,7 @@ Feature: Content model bundles
 | Landing Page | basic_landing_page | Content type | Basic Landing Page can be used to build one-off pages for various products. E.g. a homepage for a specific product. |
 | Leadership List | leadership_listing | Content type | A listing of staff profiles. |
 | Resources and support Detail Page | support_resources_detail_page | Content type |  |
-| Locations List | locations_listing | Content type | A listing of VA facilities. |
+| VAMC System Locations List | locations_listing | Content type | A listing of VA facilities. |
 | Media list - Images | media_list_images | Content type |  |
 | Media list - Videos | media_list_videos | Content type |  |
 | NCA Facility | nca_facility | Content type | A facility within National Cemetery Administration system. |
@@ -43,8 +44,12 @@ Feature: Content model bundles
 | VAMC System Banner Alert with Situation Updates | full_width_banner_alert | Content type | A full-width alert that will be added to a VAMC system, or multiple VAMC systems. |
 | VAMC System Health Service | regional_health_care_service_des | Content type | A description of a health service specific to a VAMC system, which appears on a VAMC's health services page and on facility pages, within accordions. |
 | VAMC System Operating Status | vamc_operating_status_and_alerts | Content type | Create one of these pages for each VAMC system. Then you can add banner alerts and update facilities' operating status, all from one place. |
+| VAMC System Policies Page | vamc_system_policies_page | Content type | Add policies specific to this VA medical center to appear on the Policies page. Local policies will appear alongside national policies that apply to all VAMCs. |
 | VBA Facility | vba_facility | Content type | A facility within Veterans Benefits Administration system. |
 | Vet Center | vet_center | Content type | A facility within Vet Centers system. |
+| Vet Center Community Access Point | vet_center_cap | Content type |  |
+| Vet Center Facility Health Service | vet_center_facility_health_servi | Content type |  |
+| Vet Center Locations List | vet_center_locations_list | Content type |  |
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
 | Promo | promo | Custom block type | Promote a link with an image, title, and description. |
 | Document | document | Media type | A locally hosted document, such as a PDF. |
@@ -58,16 +63,19 @@ Feature: Content model bundles
 | Alert | alert | Paragraph type | A reusable or non-reusable alert, either "information status" or "warning status". |
 | Alert (single) | alert_single | Paragraph type |  |
 | Audience & Topics | audience_topics | Paragraph type | Audience & Topic selection for "Resources and Support" articles. |
+| Basic accordion | basic_accordion | Paragraph type |  |
 | Call to action | button | Paragraph type | Button with a label and link field. |
+| Centralized content descriptor | centralized_content_descriptor | Paragraph type | This should only be used on Centralized content nodes to provide a field level name and description for Centralized Content paragraphs. |
 | Checklist | checklist | Paragraph type |  |
 | Checklist section | checklist_item | Paragraph type |  |
 | Contact information | contact_information | Paragraph type |  |
 | Email address | email_contact | Paragraph type |  |
 | Embedded image | media | Paragraph type | For adding an image inline |
 | Expandable Text | expandable_text | Paragraph type | Text that expands upon click. |
+| Featured content | featured_content | Paragraph type |  |
 | Link teaser | link_teaser | Paragraph type | A link followed by a description. For building inline "menus" of content. |
 | Link teaser with image | link_teaser_with_image | Paragraph type |  |
-| Link to file or video | downloadable_file | Paragraph type | For image or document downloads. |
+| Link to file or video | downloadable_file | Paragraph type | A download link for an image or document, or a link to a YouTube video. |
 | List of link teasers | list_of_link_teasers | Paragraph type | A paragraph that contains only one type of paragraph: Link teaser. |
 | List of links | list_of_links | Paragraph type | A set of links, with link text and URL required, and an optional header. |
 | Lists of links | lists_of_links | Paragraph type | WARNING: Resources and support and User Guides only! A list of links, or several lists of links, with an optional section header. |
@@ -101,4 +109,6 @@ Feature: Content model bundles
 | Topics | topics | Vocabulary |  |
 | Type of Redirect | type_of_redirect | Vocabulary |  |
 | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
+| Vet Center Mobile Vet Center | vet_center_mobile_vet_center | Content type |  |
+| Vet Center Outstation | vet_center_outstation | Content type |  |
 

@@ -6,7 +6,6 @@ dependencies:
     - editor
     - entity_embed
     - linkit
-    - markdown
     - media
     - pathologic
 _core:
@@ -86,13 +85,6 @@ filters:
     weight: -45
     settings:
       title: true
-  markdown:
-    id: markdown
-    provider: markdown
-    status: false
-    weight: -38
-    settings:
-      markdown_library: php-markdown
   filter_pathologic:
     id: filter_pathologic
     provider: pathologic
