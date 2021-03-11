@@ -4,10 +4,10 @@ The code for cms.VA.gov undergoes numerous tests before merging, and tests
 are run before deployment and release.
 
 The automated test suite for cms.VA.gov is defined in the [tests.yml](../tests.yml)
- file and is run using the [Yaml-Tests](https://github.com/provision-ops/yaml-tests) tool, allowing the same command to be used local development, in CMS
+ file and is run using the [Yaml-Tasks](https://github.com/devshop-packages/yaml-tasks) tool, allowing the same command to be used local development, in CMS
  -CI and for production releases.
 
-The *Yaml Tests* Composer plugin is required by the main va.gov-cms
+The *Yaml Tasks* Composer plugin is required by the main va.gov-cms
 `composer.json` file.
 
 ## Goals
@@ -159,24 +159,12 @@ There are 4 main types of tests:
 
 ## Running Tests
 
-The main way to run Yaml-tests is the `composer yaml-tests` command.
+The main way to run Yaml-task tests is the `./bin/yaml-tasks --tasks-file=tests.yml` command.
 
-Run `composer yaml-tests --help` for more information.
-
-### Composer Command:  `composer yaml-tests`
-
-All composer commands can be shortened to any unique string, so `composer y
-` is an alias for `composer yaml-tests`.
-
-Run `composer y --help` to see more options.
-
-### Bin dir executable: `./bin/yaml-tests`
-
-There is a `bin/yaml-tests` file provided with this package. You can run it
- from the project root.
+Run `./bin/yaml-tasks --help` for more information.
 
 *NOTE: The `bin` directory is automatically included in the $PATH for all
- Composer commands, including yaml-tests itself.*
+ Composer commands, including yaml-tasks itself.*
 
   See [Composer Paths](#composer-configbinpath-and-path) for more information
    on Composer and $PATH.
@@ -186,15 +174,15 @@ There is a `bin/yaml-tests` file provided with this package. You can run it
 This project is configured to work with Lando out of the box.
 
 Lando commands are listed in [`.lando.yml`](../.lando.yml). There are some
- helper commands that map to Composer Yaml-test commands.
+ helper commands that map to Composer Yaml-task commands.
 
 
  | Lando Command        | Composer Command
  |--------------        |----------------
- |lando test            | composer yaml-tests
- |lando test va/deploy  | composer yaml-tests va/deploy
+ |lando test            | ./bin/yaml-tasks --tasks-file=tests.yml
+ |lando test va/deploy  | ./bin/yaml-tasks --tasks-file=tests.yml va/deploy
  |lando web-build       | composer va:web:build
- |lando phpunit         | composer yaml-tests  va/tests/phpunit
+ |lando phpunit         | ./bin/yaml-tasks --tasks-file=tests.yml va/tests/phpunit
  |lando web-build       | composer va:web:build
  |lando behat           | cd /app/tests/behat && /app/bin/behat
 
@@ -204,7 +192,7 @@ Lando commands are listed in [`.lando.yml`](../.lando.yml). There are some
   - Any Composer command can be run inside a Lando container after you call
    `lando ssh`.
 
-@TODO: Standardize this mapping on Yaml-tests. It will continue to improve
+@TODO: Standardize this mapping on Yaml-tasks. It will continue to improve
  with features like timing, profiling, output logging, etc.
 
 ### Limit tests to run
@@ -212,19 +200,19 @@ You can add an argument to filter the tests to run:
 
  ```sh
  # Run the entire test suite.
- composer yaml-tests
+ ./bin/yaml-tasks --tasks-file=tests.yml
 
  # Run `va/tests/phpunit` only
- composer yaml-tests phpunit
+ ./bin/yaml-tests --tasks-file=tests.yml phpunit
 
  # Run all `va/deploy/*` tests.
- composer yaml-tests va/deploy
+ ./bin/yaml-tasks --tasks-file=tests.yml va/deploy
  ```
 
 
 ## GitHub Integration
 
-The Yaml-Tests tool also integrates with GitHub, providing pass/fail commit
+The Yaml-Tasks tool also integrates with GitHub, providing pass/fail commit
  status for each test listed in `tests.yml`, and posting errors as comments
   on the commit's page on GitHub.com.
 
@@ -247,7 +235,7 @@ The API used by Yaml Tests and GitHub for testing code is called the
 
 It stores test results attached to the commit, based on SHA.
 
-Yaml-tests reads the SHA of git repository, runs the test, and sends the state
+Yaml-tasks reads the SHA of git repository, runs the test, and sends the state
 to GitHub Status API, which sends it along to the users.
 
 What you end up seeing is something like this:
@@ -271,15 +259,15 @@ if you open a second PR with the same commits, the commit status AND the
   `composer.json` or in `tests.yml`.
 
  For example, if you wanted to create a `composer special-tests` command as
-  an alias for `yaml-tests` but with a different file and with a filter, add
+  an alias for `yaml-tasks` but with a different file and with a filter, add
    this to `composer.json`:
 
   ```json
   {
     "scripts": {
       "special-tests": [
-        "which yaml-tests",
-        "yaml-tests myuniquetests --file=custom.yml"
+        "which yaml-tasks",
+        "yaml-tasks myuniquetests --file=custom.yml"
       ]
     }
   }
@@ -289,7 +277,7 @@ if you open a second PR with the same commits, the commit status AND the
   test, just call the script name:
 
   ```yaml
-  # tests.yml example that runs commands from the project's ./bin directory.
+  # tasks.yml example that runs commands from the project's ./bin directory.
   example/drush/status: drush status
   example/drush/version: drush --version
   example/npm/which: which npm
