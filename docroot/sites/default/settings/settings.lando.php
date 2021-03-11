@@ -31,6 +31,7 @@ $config['migrate_plus.migration.va_node_form']['source']['urls'] = ['http://va-g
 
 $settings['trusted_host_patterns'] = [
     'localhost',
+    '127.0.0.1',
     'va-gov-cms.lndo.site',
 ];
 
