@@ -177,8 +177,8 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
    * @param string $repo_root
    *   The path to the repository root.
    *
-   * @return array
-   *   The commands to run to reset va-gov/web files.
+   * @return string
+   *   The command to run to reset va-gov/web files.
    */
   protected function getFrontEndResetCommand(string $repo_root) : string {
     return "cd {$repo_root} && git reset --hard HEAD";
