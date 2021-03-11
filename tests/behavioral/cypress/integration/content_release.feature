@@ -11,16 +11,33 @@ Feature: Content Release
     Then I should see "No recent updates"
 
   @content_release @content_release_page
-  Scenario: The content release page should show an in-process default release initiated within the browser
+  Scenario: The content release page should show a pending default release initiated within the browser
     Given I am logged in as a user with the "content_admin" role
     And I clear the web build queue
     And I initiate a content release
     Then I should see "Pending"
 
   @content_release @content_release_page
-  Scenario: The content release page should show an in-process chosen release initiated within the browser
+  Scenario: The content release page should show a pending chosen release initiated within the browser
     Given I am logged in as a user with the "content_admin" role
     And I clear the web build queue
     And I initiate a content release with the branch "master"
     Then I should see "Branch: master"
+    And I should see "Pending"
+
+  @content_release @content_release_page
+  Scenario: The content release page should show a pending default release initiated from the command line
+    Given I am logged in as a user with the "content_admin" role
+    And I clear the web build queue
+    And I initiate a content release from the command line
+    And I reload the page
+    Then I should see "Pending"
+
+  @content_release @content_release_page
+  Scenario: The content release page should show a pending chosen release initiated from the command line
+    Given I am logged in as a user with the "content_admin" role
+    And I clear the web build queue
+    And I initiate a content release from the command line with the branch "master"
+    And I reload the page
+    Then I should see "Branch: "
     And I should see "Pending"
