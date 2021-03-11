@@ -62,6 +62,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'access promo_blocks_browser entity browser pages',
           'access site-wide contact form',
           'access taxonomy overview',
+          'access vet_centers entity browser pages',
           'add user_history entities',
           'create terms in audience_tags',
           'enter all revision log entry',

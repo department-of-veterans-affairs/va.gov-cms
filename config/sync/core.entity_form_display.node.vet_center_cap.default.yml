@@ -6,11 +6,11 @@ dependencies:
     - field.field.node.vet_center_cap.field_address
     - field.field.node.vet_center_cap.field_administration
     - field.field.node.vet_center_cap.field_body
-    - field.field.node.vet_center_cap.field_facility_hours
     - field.field.node.vet_center_cap.field_facility_locator_api_id
     - field.field.node.vet_center_cap.field_geographical_identifier
     - field.field.node.vet_center_cap.field_media
     - field.field.node.vet_center_cap.field_office
+    - field.field.node.vet_center_cap.field_office_hours
     - node.type.vet_center_cap
     - workflows.workflow.editorial
   module:
@@ -18,14 +18,14 @@ dependencies:
     - content_moderation
     - field_group
     - media_library
-    - tablefield
+    - office_hours
 third_party_settings:
   field_group:
     group_governance:
       children:
         - field_administration
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: details_sidebar
       region: content
       format_settings:
@@ -42,7 +42,7 @@ third_party_settings:
         - revision_log
         - status
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: fieldset
       region: content
       format_settings:
@@ -57,7 +57,7 @@ bundle: vet_center_cap
 mode: default
 content:
   field_address:
-    weight: 3
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: address_default
@@ -68,23 +68,8 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
-  field_facility_hours:
-    weight: 4
-    settings:
-      input_type: textfield
-    third_party_settings: {  }
-    type: tablefield
-    region: content
-  field_facility_locator_api_id:
-    weight: 0
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_geographical_identifier:
-    weight: 2
+    weight: 1
     settings:
       size: 70
       placeholder: ''
@@ -92,17 +77,23 @@ content:
     type: string_textfield
     region: content
   field_media:
-    weight: 5
+    weight: 4
     settings:
       media_types: {  }
     third_party_settings: {  }
     type: media_library_widget
     region: content
   field_office:
-    weight: 1
+    weight: 0
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
+  field_office_hours:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: office_hours_default
     region: content
   moderation_state:
     type: moderation_state_default
@@ -120,6 +111,7 @@ content:
 hidden:
   created: true
   field_body: true
+  field_facility_locator_api_id: true
   path: true
   promote: true
   sticky: true

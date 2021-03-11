@@ -42,39 +42,61 @@ function va_gov_vet_center_theme() {
  * Implements hook_entity_presave().
  */
 function va_gov_vet_center_entity_presave(EntityInterface $entity) {
-  // Set our vc cap facility id field for lighthouse if field is empty.
-  // Step 1: Trim suffixes: os | v | mvc
-  // Step 2: query for this type of pattern ---> vc_0204CP123.
+  if ($entity->bundle() === 'vet_center_cap') {
+    _va_gov_vet_center_create_cap_id($entity);
+  }
+}
+
+/**
+ * Creates unique VC Cap facility id.
+ *
+ * @param Drupal\Core\Entity\EntityInterface $entity
+ *   The vc cap node.
+ */
+function _va_gov_vet_center_create_cap_id(EntityInterface $entity) {
   if (empty($entity->field_facility_locator_api_id->value)) {
+    // Set our vc cap facility id field for lighthouse if field is empty.
+    // Step 1: Trim suffixes: os | v | mvc
+    // Step 2: query for this type of pattern ---> vc_0204CP123.
     $vc_id = '';
     if (!empty($entity->field_office->entity->field_facility_locator_api_id->value)) {
       $vc_id = $entity->field_office->entity->field_facility_locator_api_id->value;
     }
     // VC suffixes.
     $patterns = [
-      '/OS/',
-      '/V/',
-      '/MVC/',
+      '/OS(?!\S)/',
+      '/V(?!\S)/',
+      '/MVC(?!\S)/',
     ];
     $replacements = [
-      '',
-      '',
-      '',
+      'CAP',
+      'CAP',
+      'CAP',
     ];
-    $stripped_vc_id = preg_replace($patterns, $replacements, $vc_id);
-    $vc_search_string = $stripped_vc_id . 'CP';
+    $vc_search_string = preg_replace($patterns, $replacements, $vc_id, 1);
     $database = \Drupal::database();
-    $result = $database->select('node__field_facility_locator_api_id', 't')
+    // Grab our caps.
+    $results = $database->select('node__field_facility_locator_api_id', 't')
       ->fields('t', ['field_facility_locator_api_id_value'])
       ->condition('field_facility_locator_api_id_value', "%" . $database->escapeLike($vc_search_string) . "%", 'LIKE')
       ->execute()
       ->fetchAll();
-    // If it's our first cap in the vc, start at 1, otherwise, increment.
-    $index = !empty($result) ? (integer) $result + 1 : 1;
+    $highest_cap = 0;
+    if (!empty($results)) {
+      // Stuff our cap numbers into an array.
+      $facilities_array = [];
+      foreach ($results as $key => $facility_value_from_db) {
+        preg_match("/CAP(.*)/", $facility_value_from_db->field_facility_locator_api_id_value, $cap_id);
+        $facilities_array[$key] = (integer) $cap_id[1];
+      }
+      sort($facilities_array);
+      $highest_cap = array_pop($facilities_array);
+    }
+    // Add 1 to the highest cap number found.
+    $index = $highest_cap + 1;
     $vcap_id = $vc_search_string . (string) $index;
-    $entity->field_facility_locator_api_id = $vcap_id;
+    $entity->set('field_facility_locator_api_id', $vcap_id);
   }
-
 }
 
 /**
