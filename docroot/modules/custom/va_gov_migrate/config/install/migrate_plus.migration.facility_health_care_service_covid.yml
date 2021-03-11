@@ -88,7 +88,7 @@ process:
       message: 'Entity lookup for field_health_care_system_name owner found nothing.'
   changed:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   new_revision:
     plugin: default_value
     default_value: true
@@ -100,7 +100,7 @@ process:
     default_value: 'Imported by facility_health_care_service_covid migration.'
   revision_timestamp:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   ## This is the uid for CMS Migrator.
   revision_uid:
     plugin: default_value

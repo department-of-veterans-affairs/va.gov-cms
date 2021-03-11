@@ -179,7 +179,7 @@ process:
         parent: '@pseudo_field_parent'
   changed:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   new_revision:
     plugin: default_value
     default_value: true
@@ -191,7 +191,7 @@ process:
     default_value: Imported by health_care_region_page migration.
   revision_timestamp:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   revision_uid: 'constants/cmsmigrator_id'
   langcode:
     plugin: default_value
