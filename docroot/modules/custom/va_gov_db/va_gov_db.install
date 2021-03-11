@@ -416,3 +416,16 @@ function va_gov_db_update_8023(&$sandbox) {
 
   return $messages;
 }
+
+/**
+ * Uninstall tome modules, again.
+ */
+function va_gov_db_update_8024(&$sandbox) {
+  $unistall_modules = [
+    'tome_static',
+    'tome_base',
+  ];
+  $messages = _va_gov_db_uninstall_modules($unistall_modules);
+
+  return $messages;
+}
