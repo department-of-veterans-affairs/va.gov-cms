@@ -24,6 +24,7 @@ dependencies:
     - entity_field_fetch
     - field_group
     - limited_field_widgets
+    - media_library
     - office_hours
     - paragraphs
     - telephone
@@ -145,12 +146,9 @@ content:
   field_media:
     weight: 4
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      media_types: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: media_library_widget
     region: content
   field_non_traditional_hours:
     weight: 8
