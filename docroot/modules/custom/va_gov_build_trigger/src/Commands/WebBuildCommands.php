@@ -3,13 +3,16 @@
 namespace Drupal\va_gov_build_trigger\Commands;
 
 use Drush\Commands\DrushCommands;
-use Drupal\va_gov_build_trigger\WebBuildCommandBuilderInterface;
 use Drupal\va_gov_build_trigger\Service\BuildFrontendInterface;
+use Drupal\va_gov_build_trigger\CommandExportable;
+use Drupal\va_gov_build_trigger\WebBuildCommandBuilderInterface;
 
 /**
  * A Drush interface to the Frontend Build dispatcher service.
  */
 class WebBuildCommands extends DrushCommands {
+
+  use CommandExportable;
 
   /**
    * The command builder service.
@@ -42,6 +45,13 @@ class WebBuildCommands extends DrushCommands {
   }
 
   /**
+   * {@inheritDoc}
+   */
+  protected function getWebBuildCommandBuilder(): WebBuildCommandBuilderInterface {
+    return $this->commandBuilder;
+  }
+
+  /**
    * Dispatch a frontend build.
    *
    * @param string|null $reference
@@ -71,7 +81,15 @@ class WebBuildCommands extends DrushCommands {
       $reference = NULL;
     }
     $fullRebuild = filter_var($fullRebuild, FILTER_VALIDATE_BOOLEAN);
-    $buildCommands = $this->commandBuilder->buildCommands($reference, $fullRebuild);
+    $buildCommands = [];
+    if ($fullRebuild && $this->getWebBuildCommandBuilder()->useContentExport()) {
+      $newCommands = [
+        $this->getExportCommand(),
+      ];
+      $buildCommands = array_merge($buildCommands, $newCommands);
+    }
+    $newCommands = $this->getWebBuildCommandBuilder()->buildCommands($reference, $fullRebuild);
+    $buildCommands = array_merge($buildCommands, $newCommands);
     if ($options['dry-run']) {
       echo '# $reference: ' . $reference . PHP_EOL;
       echo '# $fullRebuild: ' . ($fullRebuild ? 'TRUE' : 'FALSE') . PHP_EOL;
