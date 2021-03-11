@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.vet_center.field_phone_number
     - field.field.node.vet_center.field_prepare_for_visit
     - field.field.node.vet_center.field_vet_center_call_center
+    - field.field.node.vet_center.field_vet_center_feature_content
     - node.type.vet_center
   module:
     - address
@@ -153,6 +154,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: entity_field_fetch
+    region: content
+  field_vet_center_feature_content:
+    type: entity_reference_revisions_entity_view
+    weight: 13
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
     region: content
   links:
     weight: 0
