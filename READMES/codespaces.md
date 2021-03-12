@@ -39,3 +39,7 @@ To debug with [Xdebug](https://xdebug.org), follow these steps:
   ![starting xdebug](https://user-images.githubusercontent.com/101649/111009307-8102d180-8350-11eb-8a59-70d7270d0ea6.png)
 3. Set a breakpoint and load a page in your browser. Go to town!
   ![xdebug](https://user-images.githubusercontent.com/101649/111009487-fbcbec80-8350-11eb-8057-afc1c86f05e4.jpg)
+
+## Global Configuration
+
+The codespaces configuration and setup script are located in the [.devcontainer](../.devcontainer) directory of this repo. The main configuration is stored in `devcontainer.json` - available properties are [documented here](https://code.visualstudio.com/docs/remote/devcontainerjson-reference).
