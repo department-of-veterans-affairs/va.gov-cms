@@ -49,6 +49,7 @@ dependencies:
     - field.field.node.vba_facility.field_administration
     - field.field.node.vet_center.field_administration
     - field.field.node.vet_center_cap.field_administration
+    - field.field.node.vet_center_facility_health_servi.field_administration
     - field.field.node.vet_center_locations_list.field_administration
     - field.field.node.vet_center_mobile_vet_center.field_administration
     - field.field.node.vet_center_outstation.field_administration
@@ -249,6 +250,10 @@ scheme_settings:
     -
       entity_type: node
       bundle: vet_center_cap
+      field: field_administration
+    -
+      entity_type: node
+      bundle: vet_center_facility_health_servi
       field: field_administration
     -
       entity_type: node
