@@ -546,21 +546,6 @@
         ],
         "va:web:test": [
             "echo 'drupal address: ' $DRUPAL_ADDRESS"
-        ],
-        "va:web:status": [
-            "drush state:get va.web_build_status"
-        ],
-        "va:web:queue:build": [
-            "drush va-gov-build-frontend"
-        ],
-        "va:web:queue:run": [
-            "drush va-gov-build-frontend-process-queue"
-        ],
-        "va:web:queue:list": [
-            "drush va-gov-build-frontend-list-jobs"
-        ],
-        "va:web:queue:empty": [
-            "drush va-gov-build-frontend-empty-queue"
         ]
     }
 }
