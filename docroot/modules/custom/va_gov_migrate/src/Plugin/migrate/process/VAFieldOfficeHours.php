@@ -7,7 +7,7 @@ use Drupal\migrate\MigrateExecutableInterface;
 use Drupal\migrate\Row;
 
 /**
- * Migrates Tablefield content from array of times into table_field hours in D8.
+ * Migrates Tablefield content from array of times into field_office_hours.
  *
  * @MigrateProcessPlugin(
  * id = "va_field_office_hours",

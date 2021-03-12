@@ -10,18 +10,21 @@ use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Row;
 
 /**
- * If the source evaluates to a configured value, skip processing or whole row.
+ * If a substring value is found in the source, skip processing or whole row.
  *
  * @MigrateProcessPlugin(
  *   id = "va_skip_on_substr"
  * )
  *
  * Available configuration keys:
- * - value: An single value or array of values against which the source value
- *   should be compared.
- * - not_equals: (optional) If set, skipping occurs when values are not equal.
- * - method: What to do if the input value equals to value given in
- *   configuration key value. Possible values:
+ * - value: An single substring value or array of
+ *   substring values against which the source value should be compared.
+ * - case_sensitive: Compare substring for either upper-case or lower-case.
+ *   - true: Search source for upper-case substring
+ *   - false: Search source for lower-case substring
+ * - not_equals: (optional) If set, skipping occurs when value is not found.
+ * - method: What to do if the substring value is found in the source.
+ *   Possible values:
  *   - row: Skips the entire row.
  *   - process: Prevents further processing of the input property
  *
@@ -32,18 +35,18 @@ use Drupal\migrate\Row;
  * Example usage with minimal configuration:
  * @code
  *   type:
- *     plugin: skip_on_value
+ *     plugin: va_skip_on_substr
  *     source: content_type
  *     method: process
  *     value: blog
  * @endcode
  * The above example will skip further processing of the input property if
- * the content_type source field equals "blog".
+ * the content_type source field has a substring value of "blog".
  *
  * Example usage with full configuration:
  * @code
  *   type:
- *     plugin: skip_on_value
+ *     plugin: va_skip_on_substr
  *     not_equals: true
  *     source: content_type
  *     method: row
@@ -52,7 +55,7 @@ use Drupal\migrate\Row;
  *       - testimonial
  * @endcode
  * The above example will skip processing any row for which the source row's
- * content type field is not "article" or "testimonial".
+ * content type field is does not contain a substring of "article" or "testimonial".
  *
  * @codingStandardsIgnoreEnd
  */
@@ -113,7 +116,7 @@ class VASkipOnSubstr extends ProcessPluginBase {
   }
 
   /**
-   * Compare values to see if they are equal.
+   * Compare values to see if they contain a substring value.
    *
    * @param mixed $value
    *   Actual value.
