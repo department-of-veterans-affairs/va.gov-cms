@@ -31,8 +31,7 @@ source:
     id:
       type: string
   # Define any constants that are needed to pass in as data.
-  constants:
-    visnprefix: 'VISN '
+  constants: null
   # All the fields that are used from the source.
   fields:
     -
@@ -94,6 +93,7 @@ process:
     method: row
     value:
       - vet_center
+  # Exlusion of MVC, OS and CAP if substring found in source id.
   non_field2:
     plugin: va_skip_on_substr
     case_sensitive: false
@@ -103,19 +103,6 @@ process:
       - mvc
       - os
       - cap
-  # Pseudo fields have no real destination but can be processed the same way.
-  pseudo_field_parent:
-    -
-      plugin: concat
-      source:
-      - 'constants/visnprefix'
-      - visn
-    -
-      plugin: entity_lookup
-      entity_type: taxonomy_term
-      value_key: name
-      bundle_key: vid
-      bundle: administration
   title:
     plugin: skip_on_empty
     method: row
@@ -132,12 +119,15 @@ process:
   field_address/langcode:
     plugin: default_value
     default_value: en
-  # We have three lines that have to become one.
   field_address/address_line1:
+    plugin: callback
+    callable: trim
+    source: address1
+  # We have two lines that have to become one.
+  field_address/address_line2:
     -
       plugin: get
       source:
-        - address1
         - address2
         - address3
     -
@@ -185,8 +175,9 @@ process:
       value_key: name
       bundle_key: vid
       bundle: administration
+  # Vet Centers section is Term ID 190.
       values:
-        parent: '@pseudo_field_parent'
+        parent: 'Vet Centers'
   langcode:
     plugin: default_value
     default_value: en
@@ -241,8 +232,14 @@ destination:
   # Only these fields will be overwritten if the content changes in the API.
   overwrite_properties:
     - changed
-    - field_phone_number
+    - 'field_address/address_line1'
+    - 'field_address/address_line2'
+    - 'field_address/administrative_area'
+    - 'field_address/country_code'
+    - 'field_address/locality'
+    - 'field_address/postal_code'
     - field_office_hours
+    - field_phone_number
     - new_revision
     - revision_default
     - revision_log

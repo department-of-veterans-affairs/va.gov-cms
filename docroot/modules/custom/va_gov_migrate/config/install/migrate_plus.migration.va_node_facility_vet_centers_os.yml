@@ -113,12 +113,15 @@ process:
   field_address/langcode:
     plugin: default_value
     default_value: en
-  # We have three lines that have to become one.
   field_address/address_line1:
+    plugin: callback
+    callable: trim
+    source: address1
+  # We have two lines that have to become one.
+  field_address/address_line2:
     -
       plugin: get
       source:
-        - address1
         - address2
         - address3
     -
@@ -156,7 +159,7 @@ process:
     source: hours
   field_administration:
     plugin: default_value
-    # Set the value for "NCA Facilities" which is 190.
+    # Set the value for "Vet Center" which is 190.
     default_value: 190
   langcode:
     plugin: default_value
@@ -183,7 +186,7 @@ process:
     default_value: draft
   changed:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   new_revision:
     plugin: default_value
     default_value: true
@@ -195,7 +198,7 @@ process:
     default_value: "Update of Facility API data by migration."
   revision_timestamp:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   revision_uid:
     plugin: default_value
     default_value: 1317
@@ -212,6 +215,12 @@ destination:
   # Only these fields will be overwritten if the content changes in the API.
   overwrite_properties:
     - changed
+    - 'field_address/address_line1'
+    - 'field_address/address_line2'
+    - 'field_address/administrative_area'
+    - 'field_address/country_code'
+    - 'field_address/locality'
+    - 'field_address/postal_code'
     - field_phone_number
     - field_office_hours
     - new_revision
@@ -223,4 +232,4 @@ destination:
     - uid
 # Dependency on other migrations.
 migration_dependencies:
-  required: {  }
+  required: {}

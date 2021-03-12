@@ -97,6 +97,16 @@ process:
     method: row
     value:
       - MVC
+  # Search for 'Mobile' in source name and replace with blank.
+  non_field3_vet_center_parent:
+    -
+      plugin: callback
+      callable: trim
+      source: name
+    -
+      plugin: str_replace
+      search: "Mobile "
+      replace: ""
   title:
     plugin: skip_on_empty
     method: row
@@ -107,18 +117,34 @@ process:
     method: row
     source: id
     message: 'Skipped: Source API ID is empty, must have it.'
+  field_office:
+    -
+      plugin: entity_lookup
+      ignore_case: true
+      value_key: title
+      entity_type: node
+      bundle_key: type
+      bundle: vet_center
+      source: '@non_field3_vet_center_parent'
+    -
+      plugin: skip_on_empty
+      method: process
+      message: 'Field office vet center not found'
   field_address/country_code:
     plugin: default_value
     default_value: US
   field_address/langcode:
     plugin: default_value
     default_value: en
-  # We have three lines that have to become one.
   field_address/address_line1:
+    plugin: callback
+    callable: trim
+    source: address1
+  # We have two lines that have to become one.
+  field_address/address_line2:
     -
       plugin: get
       source:
-        - address1
         - address2
         - address3
     -
@@ -155,9 +181,17 @@ process:
     plugin: va_field_office_hours
     source: hours
   field_administration:
-    plugin: default_value
-    # Set the value for "NCA Facilities" which is 190.
-    default_value: 190
+    -
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: name
+      bundle_key: vid
+      bundle: administration
+      source: '@non_field3_vet_center_parent'
+    -
+      plugin: skip_on_empty
+      method: process
+      message: 'Entity Lookup for field_administration found no matching parent Vet Center for this MVC.'
   langcode:
     plugin: default_value
     default_value: en
@@ -183,7 +217,7 @@ process:
     default_value: draft
   changed:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   new_revision:
     plugin: default_value
     default_value: true
@@ -195,7 +229,7 @@ process:
     default_value: "Update of Facility API data by migration."
   revision_timestamp:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   revision_uid:
     plugin: default_value
     default_value: 1317
@@ -212,8 +246,14 @@ destination:
   # Only these fields will be overwritten if the content changes in the API.
   overwrite_properties:
     - changed
-    - field_phone_number
+    - 'field_address/address_line1'
+    - 'field_address/address_line2'
+    - 'field_address/administrative_area'
+    - 'field_address/country_code'
+    - 'field_address/locality'
+    - 'field_address/postal_code'
     - field_office_hours
+    - field_phone_number
     - new_revision
     - revision_default
     - revision_log
@@ -223,4 +263,5 @@ destination:
     - uid
 # Dependency on other migrations.
 migration_dependencies:
-  required: {  }
+  required:
+    - va_node_facility_vet_centers

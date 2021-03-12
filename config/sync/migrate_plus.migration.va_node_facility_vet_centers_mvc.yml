@@ -1,4 +1,4 @@
-uuid: d4ca47c3-5dfc-4367-add1-ba07ab628f06
+uuid: 0fe338f4-d68a-4ec0-8725-47973d878bde
 langcode: en
 status: true
 dependencies: {  }
@@ -89,6 +89,15 @@ process:
     method: row
     value:
       - MVC
+  non_field3_vet_center_parent:
+    -
+      plugin: callback
+      callable: trim
+      source: name
+    -
+      plugin: str_replace
+      search: 'Mobile '
+      replace: ''
   title:
     plugin: skip_on_empty
     method: row
@@ -99,6 +108,19 @@ process:
     method: row
     source: id
     message: 'Skipped: Source API ID is empty, must have it.'
+  field_office:
+    -
+      plugin: entity_lookup
+      ignore_case: true
+      value_key: title
+      entity_type: node
+      bundle_key: type
+      bundle: vet_center
+      source: '@non_field3_vet_center_parent'
+    -
+      plugin: skip_on_empty
+      method: process
+      message: 'Field office vet center not found'
   field_address/country_code:
     plugin: default_value
     default_value: US
@@ -106,10 +128,13 @@ process:
     plugin: default_value
     default_value: en
   field_address/address_line1:
+    plugin: callback
+    callable: trim
+    source: address1
+  field_address/address_line2:
     -
       plugin: get
       source:
-        - address1
         - address2
         - address3
     -
@@ -145,8 +170,17 @@ process:
     plugin: va_field_office_hours
     source: hours
   field_administration:
-    plugin: default_value
-    default_value: 190
+    -
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: name
+      bundle_key: vid
+      bundle: administration
+      source: '@non_field3_vet_center_parent'
+    -
+      plugin: skip_on_empty
+      method: process
+      message: 'Entity Lookup for field_administration found no matching parent Vet Center for this MVC.'
   langcode:
     plugin: default_value
     default_value: en
@@ -170,7 +204,7 @@ process:
     default_value: draft
   changed:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   new_revision:
     plugin: default_value
     default_value: true
@@ -182,7 +216,7 @@ process:
     default_value: 'Update of Facility API data by migration.'
   revision_timestamp:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   revision_uid:
     plugin: default_value
     default_value: 1317
@@ -197,8 +231,14 @@ destination:
   default_bundle: vet_center_mobile_vet_center
   overwrite_properties:
     - changed
-    - field_phone_number
+    - field_address/address_line1
+    - field_address/address_line2
+    - field_address/administrative_area
+    - field_address/country_code
+    - field_address/locality
+    - field_address/postal_code
     - field_office_hours
+    - field_phone_number
     - new_revision
     - revision_default
     - revision_log
@@ -207,4 +247,5 @@ destination:
     - title
     - uid
 migration_dependencies:
-  required: {  }
+  required:
+    - va_node_facility_vet_centers

@@ -27,8 +27,7 @@ source:
   ids:
     id:
       type: string
-  constants:
-    visnprefix: 'VISN '
+  constants: null
   fields:
     -
       name: facility_type
@@ -95,18 +94,6 @@ process:
       - mvc
       - os
       - cap
-  pseudo_field_parent:
-    -
-      plugin: concat
-      source:
-        - constants/visnprefix
-        - visn
-    -
-      plugin: entity_lookup
-      entity_type: taxonomy_term
-      value_key: name
-      bundle_key: vid
-      bundle: administration
   title:
     plugin: skip_on_empty
     method: row
@@ -124,10 +111,13 @@ process:
     plugin: default_value
     default_value: en
   field_address/address_line1:
+    plugin: callback
+    callable: trim
+    source: address1
+  field_address/address_line2:
     -
       plugin: get
       source:
-        - address1
         - address2
         - address3
     -
@@ -175,7 +165,7 @@ process:
       bundle_key: vid
       bundle: administration
       values:
-        parent: '@pseudo_field_parent'
+        parent: 'Vet Centers'
   langcode:
     plugin: default_value
     default_value: en
@@ -226,8 +216,14 @@ destination:
   default_bundle: vet_center
   overwrite_properties:
     - changed
-    - field_phone_number
+    - field_address/address_line1
+    - field_address/address_line2
+    - field_address/administrative_area
+    - field_address/country_code
+    - field_address/locality
+    - field_address/postal_code
     - field_office_hours
+    - field_phone_number
     - new_revision
     - revision_default
     - revision_log

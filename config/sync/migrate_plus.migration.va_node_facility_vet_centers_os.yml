@@ -1,4 +1,4 @@
-uuid: e98b4693-ce02-4936-8190-ea7fdf7bff9f
+uuid: ff27de80-7858-4490-ae97-fb530b02493f
 langcode: en
 status: true
 dependencies: {  }
@@ -106,10 +106,13 @@ process:
     plugin: default_value
     default_value: en
   field_address/address_line1:
+    plugin: callback
+    callable: trim
+    source: address1
+  field_address/address_line2:
     -
       plugin: get
       source:
-        - address1
         - address2
         - address3
     -
@@ -170,7 +173,7 @@ process:
     default_value: draft
   changed:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   new_revision:
     plugin: default_value
     default_value: true
@@ -182,7 +185,7 @@ process:
     default_value: 'Update of Facility API data by migration.'
   revision_timestamp:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   revision_uid:
     plugin: default_value
     default_value: 1317
@@ -197,6 +200,12 @@ destination:
   default_bundle: vet_center_outstation
   overwrite_properties:
     - changed
+    - field_address/address_line1
+    - field_address/address_line2
+    - field_address/administrative_area
+    - field_address/country_code
+    - field_address/locality
+    - field_address/postal_code
     - field_phone_number
     - field_office_hours
     - new_revision
