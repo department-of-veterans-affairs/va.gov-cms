@@ -1,0 +1,15 @@
+diff --git a/Command/YamlTasksConsoleCommand.php b/Command/YamlTasksConsoleCommand.php
+index 3e06b75..7ce9230 100644
+--- a/Command/YamlTasksConsoleCommand.php
++++ b/Command/YamlTasksConsoleCommand.php
+@@ -358,8 +358,8 @@ class YamlTasksConsoleCommand extends BaseCommand
+                     $params = new \stdClass();
+ 
+                     // Reserve "Pending" for the earliest possible commit status update (a curl request at the beginning.)
+-                    // Use "queued" once it is in the task system.
+-                    $params->state = 'queued';
++                    // Use "pending" once it is in the task system.
++                    $params->state = 'pending';
+                     $params->target_url = $this->getTargetUrl($task_name);
+                     $params->description = implode(
+                         ' — ',
