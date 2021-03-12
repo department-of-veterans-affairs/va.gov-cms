@@ -43,12 +43,13 @@ va/tests/status-error:
   description: Check for Drupal status errors
   command: "drush $DRUSH_ALIAS core-requirements --format=list --severity=2 | grep . && exit 1 || echo 'Success: No Drupal status requirement errors were found.'"
 
+# The php-* tests should stay at the end, after all other tests have run. 
 va/tests/php-warning:
   description: Post test run to check for any new PHP warnings
   command: |
-    drush $DRUSH_ALIAS watchdog:show --type=php --severity=warning 2>&1 | tee /dev/stderr | grep --quiet "No log messages available";
+    drush $DRUSH_ALIAS watchdog:show --type=php --severity=Warning 2>&1 | tee /dev/stderr | grep --quiet "No log messages available";
 
 va/tests/php-error:
   description: Post test run to check for any new PHP errors
   command: |
-    drush $DRUSH_ALIAS watchdog:show --type=php --severity=error 2>&1 | tee /dev/stderr | grep --quiet "No log messages available"
+    drush $DRUSH_ALIAS watchdog:show --type=php --severity=Error 2>&1 | tee /dev/stderr | grep --quiet "No log messages available"
