@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b3bb6a914b8acc9dd70176bccc771a0b",
+    "content-hash": "eb1639600c8e267698219ec93c01ce33",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -8732,31 +8732,31 @@
         },
         {
             "name": "drupal/password_strength",
-            "version": "2.0.0-alpha2",
+            "version": "2.0.0-beta1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/password_strength.git",
-                "reference": "8.x-2.0-alpha2"
+                "reference": "8.x-2.0-beta1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/password_strength-8.x-2.0-alpha2.zip",
-                "reference": "8.x-2.0-alpha2",
-                "shasum": "9f4b309731c396306880b1085a87841ca8323ac4"
+                "url": "https://ftp.drupal.org/files/projects/password_strength-8.x-2.0-beta1.zip",
+                "reference": "8.x-2.0-beta1",
+                "shasum": "ac70d4aa5cd45be5009a2be06f43b0b991fd8c1e"
             },
             "require": {
-                "bjeavons/zxcvbn-php": "*",
-                "drupal/core": "~8.0",
+                "bjeavons/zxcvbn-php": "0.4.0",
+                "drupal/core": "^8 || ^9",
                 "drupal/password_policy": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.0-alpha2",
-                    "datestamp": "1490306283",
+                    "version": "8.x-2.0-beta1",
+                    "datestamp": "1614007268",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Alpha releases are not covered by Drupal security advisories."
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -20973,6 +20973,58 @@
             "time": "2020-07-12T23:59:07+00:00"
         },
         {
+            "name": "traviscarden/behat-table-comparison",
+            "version": "v0.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TravisCarden/behat-table-comparison.git",
+                "reference": "76e75352b19a509b4ada4128baaf08bfdd8be785"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TravisCarden/behat-table-comparison/zipball/76e75352b19a509b4ada4128baaf08bfdd8be785",
+                "reference": "76e75352b19a509b4ada4128baaf08bfdd8be785",
+                "shasum": ""
+            },
+            "require": {
+                "behat/gherkin": "^4.4.4",
+                "php": "^5.6|^7.0",
+                "sebastian/diff": ">=1.4"
+            },
+            "require-dev": {
+                "behat/behat": "^3.3",
+                "codeclimate/php-test-reporter": "^0.4.2",
+                "phpunit/phpunit": "^4.8",
+                "squizlabs/php_codesniffer": "^2.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TravisCarden\\BehatTableComparison\\": "src/BehatTableComparison/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Travis Carden",
+                    "email": "travis.carden@gmail.com"
+                }
+            ],
+            "description": "Provides an equality assertion for comparing Behat TableNode tables.",
+            "keywords": [
+                "Behat",
+                "gherkin"
+            ],
+            "support": {
+                "issues": "https://github.com/TravisCarden/behat-table-comparison/issues",
+                "source": "https://github.com/TravisCarden/behat-table-comparison/tree/master"
+            },
+            "time": "2018-07-03T17:42:23+00:00"
+        },
+        {
             "name": "twig/extensions",
             "version": "v1.5.4",
             "source": {
@@ -22404,58 +22456,6 @@
             "time": "2019-11-24T17:03:06+00:00"
         },
         {
-            "name": "traviscarden/behat-table-comparison",
-            "version": "v0.2.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/TravisCarden/behat-table-comparison.git",
-                "reference": "76e75352b19a509b4ada4128baaf08bfdd8be785"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/TravisCarden/behat-table-comparison/zipball/76e75352b19a509b4ada4128baaf08bfdd8be785",
-                "reference": "76e75352b19a509b4ada4128baaf08bfdd8be785",
-                "shasum": ""
-            },
-            "require": {
-                "behat/gherkin": "^4.4.4",
-                "php": "^5.6|^7.0",
-                "sebastian/diff": ">=1.4"
-            },
-            "require-dev": {
-                "behat/behat": "^3.3",
-                "codeclimate/php-test-reporter": "^0.4.2",
-                "phpunit/phpunit": "^4.8",
-                "squizlabs/php_codesniffer": "^2.7"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "TravisCarden\\BehatTableComparison\\": "src/BehatTableComparison/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Travis Carden",
-                    "email": "travis.carden@gmail.com"
-                }
-            ],
-            "description": "Provides an equality assertion for comparing Behat TableNode tables.",
-            "keywords": [
-                "Behat",
-                "gherkin"
-            ],
-            "support": {
-                "issues": "https://github.com/TravisCarden/behat-table-comparison/issues",
-                "source": "https://github.com/TravisCarden/behat-table-comparison/tree/master"
-            },
-            "time": "2018-07-03T17:42:23+00:00"
-        },
-        {
             "name": "vipnytt/robotstxtparser",
             "version": "v2.0.2",
             "source": {
@@ -22631,8 +22631,6 @@
         "drupal/migrate_tools": 20,
         "drupal/openapi": 10,
         "drupal/paragraphs_browser": 15,
-        "drupal/password_policy": 15,
-        "drupal/password_strength": 15,
         "drupal/path_redirect_import": 10,
         "drupal/pathologic": 15,
         "drupal/user_history": 15,
