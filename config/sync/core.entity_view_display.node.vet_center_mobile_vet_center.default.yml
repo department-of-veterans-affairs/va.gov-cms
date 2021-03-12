@@ -7,16 +7,13 @@ dependencies:
     - field.field.node.vet_center_mobile_vet_center.field_administration
     - field.field.node.vet_center_mobile_vet_center.field_facility_locator_api_id
     - field.field.node.vet_center_mobile_vet_center.field_media
-    - field.field.node.vet_center_mobile_vet_center.field_office_hours
     - field.field.node.vet_center_mobile_vet_center.field_office
-    - field.field.node.vet_center_mobile_vet_center.field_operating_status_facility
-    - field.field.node.vet_center_mobile_vet_center.field_operating_status_more_info
+    - field.field.node.vet_center_mobile_vet_center.field_office_hours
     - field.field.node.vet_center_mobile_vet_center.field_phone_number
     - node.type.vet_center_mobile_vet_center
   module:
     - address
     - office_hours
-    - options
     - telephone
     - user
 id: node.vet_center_mobile_vet_center.default
@@ -56,7 +53,7 @@ content:
     type: entity_reference_label
     region: content
   field_office_hours:
-    weight: 6
+    weight: 5
     label: above
     settings:
       show_closed: all
@@ -82,22 +79,8 @@ content:
     third_party_settings: {  }
     type: office_hours
     region: content
-  field_operating_status_facility:
-    weight: 8
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
-    region: content
-  field_operating_status_more_info:
-    weight: 9
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-    region: content
   field_phone_number:
-    weight: 7
+    weight: 6
     label: above
     settings:
       title: ''
