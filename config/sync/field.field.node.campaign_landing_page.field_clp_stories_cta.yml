@@ -1,0 +1,23 @@
+uuid: 288459cb-3f21-4f27-84ba-550886b19ef6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_clp_stories_cta
+    - node.type.campaign_landing_page
+  module:
+    - link
+id: node.campaign_landing_page.field_clp_stories_cta
+field_name: field_clp_stories_cta
+entity_type: node
+bundle: campaign_landing_page
+label: 'Add a link to an external blog or other list of stories'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 0
+field_type: link

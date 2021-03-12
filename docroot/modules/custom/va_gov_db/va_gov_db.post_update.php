@@ -21,12 +21,16 @@ function va_gov_db_post_update_resave_facility_nodes(&$sandbox) {
       ->orConditionGroup()
       ->condition('type', 'health_care_local_health_service')
       ->condition('type', 'regional_health_care_service_des');
-    $result_count = $query
-      ->condition($group)
-      ->count()
-      ->execute();
+
+    $nids_to_update = $query
+      ->condition($group)->execute();
+    $result_count = count($nids_to_update);
     $sandbox['total'] = $result_count;
     $sandbox['current'] = 0;
+    $prefix = 'node_';
+    $sandbox['nids_to_update'] = array_combine(
+            array_map('_va_gov_stringifynid', array_values($nids_to_update)),
+            array_values($nids_to_update));
   }
 
   // Do not continue if no nodes are found.
@@ -36,20 +40,10 @@ function va_gov_db_post_update_resave_facility_nodes(&$sandbox) {
   }
 
   $limit = 25;
-  // Fetch node ids for processing in the current batch run.
-  $query = $node_storage->getQuery();
-  $group = $query
-    ->orConditionGroup()
-    ->condition('type', 'health_care_local_health_service')
-    ->condition('type', 'regional_health_care_service_des');
-  $node_ids = $query
-    ->condition($group)
-    ->range($sandbox['current'], $limit)
-    ->execute();
 
   // Load entities.
+  $node_ids = array_slice($sandbox['nids_to_update'], 0, $limit, TRUE);
   $nodes = $node_storage->loadMultiple($node_ids);
-  $nids = [];
 
   foreach ($nodes as $node) {
     // Make this change a new revision.
@@ -64,8 +58,9 @@ function va_gov_db_post_update_resave_facility_nodes(&$sandbox) {
     // Set revision log message.
     $node->setRevisionLogMessage('Resaved node to update title and path alias.');
     $node->save();
+    unset($sandbox['nids_to_update']["node_{$node->id()}"]);
     $nids[] = $node->id();
-    $sandbox['current']++;
+    $sandbox['current'] = $sandbox['total'] - count($sandbox['nids_to_update']);
   }
 
   // Log the processed nodes.
@@ -82,8 +77,21 @@ function va_gov_db_post_update_resave_facility_nodes(&$sandbox) {
     Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'RE-saving all %count health service nodes completed by va_gov_db_post_update_resave_facility_nodes.', [
       '%count' => $sandbox['total'],
     ]);
-    return t('Health service node re-saving complete.');
+    return "Health service node re-saving complete. {$sandbox['current']} / {$sandbox['total']}";
   }
 
-  return t('Processing health service nodes...');
+  return "Processing health service nodes...{$sandbox['current']} / {$sandbox['total']}";
+}
+
+/**
+ * Callback function to concat node ids with string.
+ *
+ * @param int $nid
+ *   The node id.
+ *
+ * @return string
+ *   The node id concatenated to the end o node_
+ */
+function _va_gov_stringifynid($nid) {
+  return "node_$nid";
 }

@@ -1,0 +1,121 @@
+uuid: 9fde8ad5-8fbb-4767-8118-5c065835aeff
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_browser.browser.vet_centers
+    - field.field.node.vet_center_locations_list.field_administration
+    - field.field.node.vet_center_locations_list.field_intro_text
+    - field.field.node.vet_center_locations_list.field_nearby_vet_centers
+    - field.field.node.vet_center_locations_list.field_office
+    - node.type.vet_center_locations_list
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - entity_browser_table
+    - field_group
+    - limited_field_widgets
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 4
+      format_type: details_sidebar
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        open: true
+        required_fields: true
+        weight: 0
+      label: Governance
+    group_ed:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 5
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+id: node.vet_center_locations_list.default
+targetEntityType: node
+bundle: vet_center_locations_list
+mode: default
+content:
+  field_administration:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_intro_text:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_nearby_vet_centers:
+    weight: 3
+    settings:
+      entity_browser: vet_centers
+      field_widget_display: label
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      open: '1'
+      selection_mode: selection_append
+      field_widget_replace: 0
+      field_widget_display_settings: {  }
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+    type: entity_reference_browser_table_widget
+    region: content
+  field_office:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 7
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 6
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  url_redirects:
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true

@@ -1,0 +1,62 @@
+uuid: ce642d6b-355f-4590-b882-1fb3663f80fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.featured_content.field_cta
+    - field.field.paragraph.featured_content.field_description
+    - field.field.paragraph.featured_content.field_section_header
+    - paragraphs.paragraphs_type.featured_content
+  module:
+    - paragraphs
+    - text
+    - textfield_counter
+id: paragraph.featured_content.default
+targetEntityType: paragraph
+bundle: featured_content
+mode: default
+content:
+  field_cta:
+    type: paragraphs
+    weight: 2
+    settings:
+      title: 'Call to Action'
+      title_plural: 'Calls to Action'
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: '0'
+    third_party_settings: {  }
+    region: content
+  field_description:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_section_header:
+    weight: 0
+    settings:
+      size: 80
+      placeholder: ''
+      maxlength: 80
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+      use_field_maxlength: false
+    third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
+hidden:
+  created: true
+  status: true

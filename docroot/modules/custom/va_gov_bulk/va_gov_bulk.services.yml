@@ -1,0 +1,4 @@
+services:
+  va_gov_bulk.moderation_actions:
+    class: Drupal\va_gov_bulk\Service\ModerationActions
+    arguments: ['@current_user', '@datetime.time', '@entity_type.manager']

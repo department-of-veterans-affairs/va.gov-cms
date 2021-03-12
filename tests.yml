@@ -5,29 +5,6 @@
 #  command: intentionalFailure
 #  description: Intentional Failure. Uncomment to test CI system failure behavior.
 
-# TODO: These can be removed once the DevShop deploy task runs the install task before it runs the deploy hooks.
-va/deploy/0-composer:
-  description: Composer Install
-  about: Using --dev is actually the default. Putting it here to make it clear this is the way composer should be run right now.
-  # Removing va-gov/web here because composer won't update it, we think... needs more testing.
-  command: rm -rf ./docroot/vendor/va-gov/web && composer install --dev --no-interaction --no-progress --ansi
-
-va/deploy/1-cache:
-  description: Rebuild Drupal caches
-  command: drush $DRUSH_ALIAS cr
-
-va/deploy/2-update:
-  description: Run Drupal Update Hooks
-  command: drush $DRUSH_ALIAS updatedb --yes
-
-va/deploy/3-config:
-  - drush $DRUSH_ALIAS cim --yes
-  - drush $DRUSH_ALIAS cr
-
-va/tests/phpcs:
-  description: PHP CodeSniffer
-  command: composer va:test:cs
-
 va/tests/phplint:
   description: PHP Lint
   command: composer va:test:lint
@@ -37,26 +14,34 @@ va/tests/phpunit:
   command: phpunit --exclude-group disabled tests/phpunit --colors=always
 
 va/tests/accessibility:
-  description: accessibility test with axe-webdriverjs for 508 compliance
+  description: accessibility test with cypress-axe for 508 compliance
   command: composer va:test:accessibility
-  # ignore failures until 508 issues are resoled
-  ignore-failure: true
+
+va/tests/behavioral:
+  description: behavioral tests with cypress
+  command: composer va:test:behavioral
 
 va/web/build:
   description: Build VA.gov Front-end
-
-  # NOTE: If we used the `va:web:build` command directly, it would throw a false positive if it were to exit 0.
-  # Instead of presuming that it will always exit 0 if unable to read Drupal content, we make sure to check for the error as well.
-  #
-  # So, we decided to keep the "grep" for the Metalsmith error message to ensure that we catch the situation where the
-  # error is shown, but the command exits successfully (exit 0).
-  command: composer va:web:build | tee /dev/stderr | grep "Failed to pipe Drupal content into Metalsmith!" -B1000 -C8 && echo "tests.yml | composer va:web:build included the Drupal/Metalsmith error." && exit 1 || echo "tests.yml | Front end site was built! Check $DRUPAL_ADDRESS/static for raw output!"
+  command: ./tests/scripts/build-web.sh
 
 va/tests/behat:
   description: Behat Tests
   command: |
     cd tests/behat
     behat --colors
+
+va/tests/revision-log:
+  description: Ensure revision log field is present
+  command: ./tests/scripts/check-revision-logs.sh
+
+va/tests/check-cer:
+  description: Ensure cer fields exist
+  command: ./tests/scripts/check-cer.sh
+
+va/tests/status-error:
+  description: Check for Drupal status errors
+  command: "drush $DRUSH_ALIAS core-requirements --format=list --severity=2 | grep . && exit 1 || echo 'Success: No Drupal status requirement errors were found.'"
 
 va/tests/php-warning:
   description: Post test run to check for any new PHP warnings

@@ -5,29 +5,19 @@
  * Usage: gulp watch.
  */
 
-module.exports = function (gulp, options, plugins) {
-  'use strict';
-
+module.exports = (gulp, options, plugins) => {
   function lintFile(file) {
-    gulp.src(file)
-      .pipe(plugins.sassLint())
-      .pipe(plugins.sassLint.format());
+    gulp.src(file).pipe(plugins.sassLint()).pipe(plugins.sassLint.format());
   }
 
   // Keep an eye on Sass files for changes and only lint changed files.
-  gulp.task('watch', function () {
-    gulp.watch([
-      options.sass.sassFiles,
-      options.sass.plFiles
-    ], function (ev) {
-      if (ev.type === 'added' || ev.type === 'changed') {
+  gulp.task("watch", () => {
+    gulp.watch([options.sass.sassFiles, options.sass.plFiles], (ev) => {
+      if (ev.type === "added" || ev.type === "changed") {
         lintFile(ev.path);
       }
     });
     // Compile sass changes.
-    gulp.watch([
-        options.sass.sassFiles,
-        options.sass.plFiles],
-      ['sass']);
+    gulp.watch([options.sass.sassFiles, options.sass.plFiles], ["sass"]);
   });
 };

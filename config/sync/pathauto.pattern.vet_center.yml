@@ -1,0 +1,22 @@
+uuid: 65757fb9-b1dd-4343-b076-86541d83f7f5
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: vet_center
+label: 'Vet Center'
+type: 'canonical_entities:node'
+pattern: '[node:title]'
+selection_criteria:
+  1db09d04-18a9-4092-baef-da73c9bd2412:
+    id: node_type
+    bundles:
+      vet_center: vet_center
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 1db09d04-18a9-4092-baef-da73c9bd2412
+selection_logic: and
+weight: -5
+relationships: {  }

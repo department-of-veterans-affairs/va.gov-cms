@@ -1,0 +1,42 @@
+uuid: b7a421b8-dcb3-4e5d-aa1c-31786a278dfb
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.content_entity_browsers
+  module:
+    - entity_browser_entity_form
+    - views
+name: events_browser
+label: 'Events browser'
+display: modal
+display_configuration:
+  width: ''
+  height: ''
+  link_text: 'Select events'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: single
+widget_selector_configuration: {  }
+widgets:
+  967e6599-ca8c-44da-8c45-1216b45b32bb:
+    settings:
+      view: content_entity_browsers
+      view_display: event_entity_browser
+      submit_text: 'Select events'
+      auto_select: false
+    uuid: 967e6599-ca8c-44da-8c45-1216b45b32bb
+    weight: 1
+    label: ''
+    id: view
+  952c391b-79d0-4a5a-920e-294e21ed1192:
+    settings:
+      entity_type: node
+      bundle: event
+      form_mode: inline_entity_form
+      submit_text: 'Select events'
+    uuid: 952c391b-79d0-4a5a-920e-294e21ed1192
+    weight: 2
+    label: entity_form
+    id: entity_form

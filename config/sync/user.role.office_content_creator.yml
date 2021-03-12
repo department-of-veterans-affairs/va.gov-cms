@@ -1,0 +1,33 @@
+uuid: 550fe9cf-424b-4991-96ef-7c99d65d3040
+langcode: en
+status: true
+dependencies:
+  module:
+    - va_gov_backend
+third_party_settings:
+  va_gov_backend:
+    vgb_description: 'Can create content types related to Outreach Hub'
+id: office_content_creator
+label: 'Content creator - Office'
+weight: -5
+is_admin: null
+permissions:
+  - 'access alert_blocks entity browser pages'
+  - 'access benefit_hub_contact_information entity browser pages'
+  - 'access files overview'
+  - 'access lc_benefit_hubs entity browser pages'
+  - 'access media entity browser pages'
+  - 'access q_a_browser entity browser pages'
+  - 'clone block entity'
+  - 'clone block_content entity'
+  - 'clone field_config entity'
+  - 'clone file entity'
+  - 'clone media entity'
+  - 'clone menu entity'
+  - 'clone node entity'
+  - 'clone paragraph entity'
+  - 'create alert block content'
+  - 'create event content'
+  - 'create outreach_asset content'
+  - 'create promo block content'
+  - 'view node link report'

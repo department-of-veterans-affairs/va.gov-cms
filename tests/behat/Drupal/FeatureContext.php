@@ -16,11 +16,15 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   use \Traits\GroupTrait;
 
   /**
+   * Private storage.
+   *
    * @var array
    */
   private $privateStorage = [];
 
   /**
+   * Timestamp property.
+   *
    * @var int
    *   Useful to have different timestamp even if nodes created at same time.
    */
@@ -38,6 +42,8 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   }
 
   /**
+   * Clean up private storage.
+   *
    * @AfterScenario
    */
   public function cleanUp() {
@@ -65,6 +71,26 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
     }
     else {
       throw new \Exception("Cannot locate a valid node with the title '$title'");
+    }
+  }
+
+  /**
+   * Go to a view or edit page for a term.
+   *
+   * @param string $page
+   *   Either the view or edit page.
+   * @param string $title
+   *   The term title.
+   *
+   * @Then I visit the :arg1 page for a term with the title :arg2
+   */
+  public function iViewTerm($page, $title) {
+    $tid = $this->getTestContentTidByTitle($title);
+    if ($tid) {
+      $this->visitPath("taxonomy/term/$tid/$page");
+    }
+    else {
+      throw new \Exception("Cannot locate a valid term with the title '$title'");
     }
   }
 
@@ -148,17 +174,58 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   /**
    * Check that an html element exists.
    *
-   * @param string $element
+   * @param string $selector
    *   The css selector.
    *
-   * @Then the :element element should exist
+   * @Then the :selector element should exist
    */
-  public function theElementShouldExist($element) {
+  public function theElementShouldExist($selector) {
     $session = $this->getSession();
-    $element = $session->getPage()->find('css', $element);
+    $element = $session->getPage()->find('css', $selector);
 
     if (NULL === $element) {
-      throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $element));
+      throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $selector));
+    }
+  }
+
+  /**
+   * Check that an XPath expression does not find any matches.
+   *
+   * @param string $expression
+   *   The XPath expression.
+   *
+   * @Then the xpath :expression should have no matches
+   */
+  public function theXpathExpressionShouldHaveNoMatches($expression) {
+    $session = $this->getSession();
+    $element = $session->getPage()->find(
+      'xpath',
+      $session->getSelectorsHandler()->selectorToXpath('xpath', $expression)
+    );
+    if ($element) {
+      throw new \InvalidArgumentException(sprintf('This XPath expression should have no matches: "%s"', $expression));
+    }
+  }
+
+  /**
+   * Check value of html attribute.
+   *
+   * @param string $element
+   *   The css selector.
+   * @param string $attribute
+   *   The attribute.
+   *
+   * @Then :element should have the attribute :attribute
+   */
+  public function theElementShouldHaveAttribute($element, $attribute) {
+    $session = $this->getSession();
+    $element = $session->getPage()->find('css', $element);
+    if (NULL === $element) {
+      throw new \InvalidArgumentException(sprintf('This element is not available: "%s"', $element));
+    }
+    $attribute_val = $element->getAttribute($attribute);
+    if (empty($attribute_val)) {
+      throw new \InvalidArgumentException(sprintf('This attribute is not available: "%s"', $attribute_val));
     }
   }
 
@@ -172,24 +239,60 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
    * @param string $value
    *   The attribute value.
    *
-   * @Then :element should have the :attribute with :value
+   * @Then :element should have the attribute :attribute with value :value
    */
   public function theElementShouldHaveAttributeValue($element, $attribute, $value) {
+    $this->theElementShouldHaveAttribute($element, $attribute);
     $session = $this->getSession();
     $element = $session->getPage()->find('css', $element);
-    if (NULL === $element) {
-      throw new \InvalidArgumentException(sprintf('This element is not available: "%s"', $element));
-    }
-
     $attribute_val = $element->getAttribute($attribute);
-    if (empty($attribute_val)) {
-      throw new \InvalidArgumentException(sprintf('This attribute is not available: "%s"', $attribute_val));
-    }
-
     if ($attribute_val !== $value) {
       throw new \InvalidArgumentException(sprintf('This attribute value is incorrect: "%s"', $attribute_val));
     }
+  }
 
+  /**
+   * Check value of html attribute.
+   *
+   * @param string $element
+   *   The css selector.
+   * @param string $attribute
+   *   The attribute.
+   * @param string $value
+   *   The attribute value.
+   *
+   * @Then :element should have the attribute :attribute containing value :value
+   */
+  public function theElementShouldHaveAttributeContainingValue($element, $attribute, $value) {
+    $this->theElementShouldHaveAttribute($element, $attribute);
+    $session = $this->getSession();
+    $element = $session->getPage()->find('css', $element);
+    $attribute_val = $element->getAttribute($attribute);
+    if (strpos($attribute_val, $value) === FALSE) {
+      throw new \InvalidArgumentException(sprintf('This attribute value "%s" does not contain value "%s"', $attribute_val, $value));
+    }
+  }
+
+  /**
+   * Check value of html attribute.
+   *
+   * @param string $element
+   *   The css selector.
+   * @param string $attribute
+   *   The attribute.
+   * @param string $pattern
+   *   A regular expression for matching the pattern..
+   *
+   * @Then :element should have the attribute :attribute matching pattern :pattern
+   */
+  public function theElementShouldHaveAttributeMatchingPattern($element, $attribute, $pattern) {
+    $this->theElementShouldHaveAttribute($element, $attribute);
+    $session = $this->getSession();
+    $element = $session->getPage()->find('css', $element);
+    $attribute_val = $element->getAttribute($attribute);
+    if (!preg_match($pattern, $attribute_val)) {
+      throw new \InvalidArgumentException(sprintf('The attribute value "%s" does not match the pattern "%s"', $attribute_val, $pattern));
+    }
   }
 
   /**
@@ -221,6 +324,26 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
     $node->setPublished($status['pub']);
     $node->set('moderation_state', $status['mod']);
     $node->save();
+  }
+
+  /**
+   * This permits clicking on any XPath expression.
+   *
+   * @param string $expression
+   *   An XPath expression describing at least one eleement.
+   *
+   * @When I click on the xpath :expression
+   */
+  public function iClickOnTheXpath($expression) {
+    $session = $this->getSession();
+    $element = $session->getPage()->find(
+      'xpath',
+      $session->getSelectorsHandler()->selectorToXpath('xpath', $expression)
+    );
+    if (NULL === $element) {
+      throw new \InvalidArgumentException(sprintf('Cannot find XPath expression: "%s"', $expression));
+    }
+    $element->click();
   }
 
   /**
@@ -360,6 +483,46 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
     // DraftIn reviewStagedPublished.
     if ($match) {
       throw new \Exception('Current selection value ' . $item . ' is present.');
+    }
+  }
+
+  /**
+   * Get Drupal Settings object.
+   *
+   * @return array
+   *   The Drupal settings.
+   */
+  protected function getDrupalSettings() {
+    $session = $this->getSession();
+    $element = $session->getPage()->find('xpath', "//script[@data-drupal-selector='drupal-settings-json']");
+    if (NULL === $element) {
+      throw new \Exception('The Drupal Settings JSON could not be retrieved.');
+    }
+    $json = $element->getText();
+    return json_decode($json, TRUE);
+  }
+
+  /**
+   * Is the personal flag set on the content for the current user?
+   *
+   * @Then the :arg1 flag for node :arg2 should be set for me
+   */
+  public function theFlagForNodeShouldBeSetForTheRevisionEditor(string $flagName, string $title) {
+    $account = user_load($this->getUserManager()->getCurrentUser()->uid);
+    $flag_service = \Drupal::service('flag');
+    $flag = $flag_service->getFlagById($flagName);
+    if (empty($flag)) {
+      throw new \InvalidArgumentException(sprintf('The flag "%s" does not exist', $flagName));
+    }
+    $nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties(['title' => $title]);
+    if (empty($nodes) || empty(reset($nodes))) {
+      throw new \InvalidArgumentException(sprintf('Node with title "%s" does not exist', $title));
+    }
+    $node = reset($nodes);
+    if (!$flag_service->getFlagging($flag, $node, $account)) {
+      throw new \InvalidArgumentException(sprintf('The flag with name "%s" was not set', $flagName));
     }
   }
 

@@ -1,0 +1,44 @@
+uuid: 20e21efe-6949-49ab-b356-8af101edf7b3
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.media_library
+    - field.field.media.document_external.field_description
+    - field.field.media.document_external.field_media_external_file
+    - field.field.media.document_external.field_media_in_library
+    - field.field.media.document_external.field_mime_type
+    - field.field.media.document_external.field_owner
+    - media.type.document_external
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+id: media.document_external.media_library
+targetEntityType: media
+bundle: document_external
+mode: media_library
+content:
+  moderation_state:
+    type: moderation_state_default
+    weight: 100
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    settings:
+      size: 60
+      placeholder: ''
+    weight: 0
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  field_description: true
+  field_media_external_file: true
+  field_media_in_library: true
+  field_mime_type: true
+  field_owner: true
+  path: true
+  status: true
+  uid: true

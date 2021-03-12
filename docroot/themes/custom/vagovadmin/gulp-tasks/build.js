@@ -7,15 +7,13 @@
  * Usage: gulp build.
  */
 
-module.exports = function (gulp, plugins, options) {
-  'use strict';
-
+// eslint-disable-next-line no-unused-vars
+module.exports = (gulp, plugins, options) => {
   // Frontend build.
-  gulp.task('build', [
-    'js-lint',
-    'sass-lint',
-    'sass-for-build',
-    'patternlab:generate'
+  gulp.task("build", [
+    "js-lint",
+    "sass-lint",
+    "sass-for-build",
+    "patternlab:generate",
   ]);
-
 };

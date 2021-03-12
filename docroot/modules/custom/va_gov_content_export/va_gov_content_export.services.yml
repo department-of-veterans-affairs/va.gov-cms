@@ -18,6 +18,7 @@ services:
   tome_sync.file_sync.va_gov_content_export:
     class: Drupal\va_gov_content_export\TomeFileSync
     decorates: tome_sync.file_sync
+    arguments: ['@file_system']
   va_gov.content_export.archive_directory:
     class: Drupal\va_gov_content_export\Archive\ArchiveDirectory
     arguments: ['@zippy', '@file_system', '@event_dispatcher']

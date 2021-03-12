@@ -1,0 +1,14 @@
+# Tugboat CLI configuration file
+#
+# Copy this file to your home directory to use it.
+# More documentation available here: https://docs.tugboat.qa/tugboat-cli/
+
+# Generate your Tugboat access token at https://tugboat.vfs.va.gov/access-tokens
+token: <generated access token>
+# Must have a SOCKS connection for this to work.
+api: https://api.tugboat.vfs.va.gov
+# Ignore SSL certificate warnings on https.
+insecure: true
+# You can also use `-p|--proxy socks socks5h://127.0.0.1:2001` or `export http_proxy socks5h://127.0.0.1:2001`
+# The 'h' is a flag for doing DNS lookups on the proxy server.
+proxy: socks5h://127.0.0.1:2001

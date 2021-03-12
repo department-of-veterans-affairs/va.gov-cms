@@ -14,7 +14,7 @@ entity_type: node
 bundle: media_list_videos
 label: Alert
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
@@ -34,6 +34,9 @@ settings:
       alert_single:
         enabled: true
         weight: 38
+      audience_topics:
+        weight: 44
+        enabled: false
       button:
         weight: 39
         enabled: false
@@ -49,8 +52,14 @@ settings:
       collapsible_panel_item:
         weight: 43
         enabled: false
+      contact_information:
+        weight: 50
+        enabled: false
       downloadable_file:
         weight: 44
+        enabled: false
+      email_contact:
+        weight: 52
         enabled: false
       expandable_text:
         weight: 45
@@ -72,6 +81,9 @@ settings:
         enabled: false
       media:
         weight: 51
+        enabled: false
+      media_list_images:
+        weight: 60
         enabled: false
       media_list_videos:
         weight: 52
@@ -99,6 +111,9 @@ settings:
         enabled: false
       react_widget:
         weight: 60
+        enabled: false
+      rich_text_char_limit_1000:
+        weight: 70
         enabled: false
       service_location:
         weight: 61

@@ -1,0 +1,27 @@
+uuid: 41b9ef2d-bcf2-4355-82c0-c34416af5fdb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_vamc_other_policies
+    - node.type.vamc_system_policies_page
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    rich_text: rich_text
+    rich_text_limited: '0'
+    plain_text: '0'
+id: node.vamc_system_policies_page.field_vamc_other_policies
+field_name: field_vamc_other_policies
+entity_type: node
+bundle: vamc_system_policies_page
+label: 'Other policies'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

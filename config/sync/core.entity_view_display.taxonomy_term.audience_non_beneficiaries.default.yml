@@ -1,0 +1,33 @@
+uuid: 2ee00e8b-a5ed-4e34-b4fa-32c314878134
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.audience_non_beneficiaries.field_audience_rs_homepage
+    - taxonomy.vocabulary.audience_non_beneficiaries
+  module:
+    - text
+id: taxonomy_term.audience_non_beneficiaries.default
+targetEntityType: taxonomy_term
+bundle: audience_non_beneficiaries
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_audience_rs_homepage:
+    weight: 1
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+hidden:
+  search_api_excerpt: true

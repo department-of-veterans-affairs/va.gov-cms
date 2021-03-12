@@ -13,9 +13,23 @@ entity_type: node
 bundle: press_release
 label: Location
 description: 'This is displayed at the start of the press release. '
-required: true
+required: false
 translatable: true
-default_value: {  }
+default_value:
+  -
+    country_code: US
+    langcode: ''
+    locality: ''
+    administrative_area: ''
+    given_name: null
+    additional_name: null
+    family_name: null
+    organization: null
+    address_line1: null
+    address_line2: null
+    postal_code: null
+    sorting_code: null
+    dependent_locality: null
 default_value_callback: ''
 settings:
   available_countries:

@@ -1,0 +1,148 @@
+uuid: 43af30d6-8ff6-4fc6-9b50-550a2a59b50e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_clp_spotlight_cta
+    - node.type.campaign_landing_page
+    - paragraphs.paragraphs_type.button
+  module:
+    - entity_reference_revisions
+id: node.campaign_landing_page.field_clp_spotlight_cta
+field_name: field_clp_spotlight_cta
+entity_type: node
+bundle: campaign_landing_page
+label: 'Optional Spotlight cta'
+description: 'Add a call to action, which will appear immediately after the intro text.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      button: button
+    target_bundles_drag_drop:
+      address:
+        weight: 41
+        enabled: false
+      alert:
+        weight: 42
+        enabled: false
+      alert_single:
+        weight: 43
+        enabled: false
+      audience_topics:
+        weight: 44
+        enabled: false
+      button:
+        enabled: true
+        weight: 45
+      checklist:
+        weight: 46
+        enabled: false
+      checklist_item:
+        weight: 47
+        enabled: false
+      collapsible_panel:
+        weight: 48
+        enabled: false
+      collapsible_panel_item:
+        weight: 49
+        enabled: false
+      contact_information:
+        weight: 50
+        enabled: false
+      downloadable_file:
+        weight: 51
+        enabled: false
+      email_contact:
+        weight: 52
+        enabled: false
+      expandable_text:
+        weight: 53
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 54
+        enabled: false
+      link_teaser:
+        weight: 55
+        enabled: false
+      list_of_link_teasers:
+        weight: 58
+        enabled: false
+      list_of_links:
+        weight: 57
+        enabled: false
+      lists_of_links:
+        weight: 56
+        enabled: false
+      media:
+        weight: 59
+        enabled: false
+      media_list_images:
+        weight: 60
+        enabled: false
+      media_list_videos:
+        weight: 61
+        enabled: false
+      non_reusable_alert:
+        weight: 62
+        enabled: false
+      number_callout:
+        weight: 63
+        enabled: false
+      phone_number:
+        weight: 64
+        enabled: false
+      process:
+        weight: 65
+        enabled: false
+      q_a:
+        weight: 66
+        enabled: false
+      q_a_group:
+        weight: 67
+        enabled: false
+      q_a_section:
+        weight: 68
+        enabled: false
+      react_widget:
+        weight: 69
+        enabled: false
+      rich_text_char_limit_1000:
+        weight: 70
+        enabled: false
+      service_location:
+        weight: 71
+        enabled: false
+      service_location_address:
+        weight: 72
+        enabled: false
+      situation_update:
+        weight: 73
+        enabled: false
+      spanish_translation_summary:
+        weight: 74
+        enabled: false
+      staff_profile:
+        weight: 75
+        enabled: false
+      starred_horizontal_rule:
+        weight: 76
+        enabled: false
+      step:
+        weight: 77
+        enabled: false
+      step_by_step:
+        weight: 78
+        enabled: false
+      table:
+        weight: 79
+        enabled: false
+      wysiwyg:
+        weight: 80
+        enabled: false
+field_type: entity_reference_revisions

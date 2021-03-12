@@ -483,16 +483,18 @@ display:
         - user.permissions
       tags:
         - 'config:core.entity_view_display.media.document.default'
-        - 'config:core.entity_view_display.media.document.media_library'
-        - 'config:core.entity_view_display.media.image.default'
-        - 'config:core.entity_view_display.media.image.media_library'
-        - 'config:core.entity_view_display.media.video.default'
         - 'config:core.entity_view_display.media.document.download_link'
         - 'config:core.entity_view_display.media.document.embedded'
+        - 'config:core.entity_view_display.media.document.media_library'
         - 'config:core.entity_view_display.media.document.thumbnail'
+        - 'config:core.entity_view_display.media.document_external.default'
+        - 'config:core.entity_view_display.media.document_external.media_library'
+        - 'config:core.entity_view_display.media.image.default'
         - 'config:core.entity_view_display.media.image.download_link'
         - 'config:core.entity_view_display.media.image.embedded'
+        - 'config:core.entity_view_display.media.image.media_library'
         - 'config:core.entity_view_display.media.image.thumbnail'
+        - 'config:core.entity_view_display.media.video.default'
         - 'config:core.entity_view_display.media.video.embedded'
         - 'config:core.entity_view_display.media.video.thumbnail'
   page:
@@ -781,6 +783,7 @@ display:
           plugin_id: rendered_entity
       defaults:
         fields: false
+      enabled: false
     cache_metadata:
       max-age: 0
       contexts:
@@ -797,6 +800,8 @@ display:
         - 'config:core.entity_view_display.media.document.embedded'
         - 'config:core.entity_view_display.media.document.media_library'
         - 'config:core.entity_view_display.media.document.thumbnail'
+        - 'config:core.entity_view_display.media.document_external.default'
+        - 'config:core.entity_view_display.media.document_external.media_library'
         - 'config:core.entity_view_display.media.image.default'
         - 'config:core.entity_view_display.media.image.download_link'
         - 'config:core.entity_view_display.media.image.embedded'
@@ -1191,6 +1196,8 @@ display:
         - 'config:core.entity_view_display.media.document.embedded'
         - 'config:core.entity_view_display.media.document.media_library'
         - 'config:core.entity_view_display.media.document.thumbnail'
+        - 'config:core.entity_view_display.media.document_external.default'
+        - 'config:core.entity_view_display.media.document_external.media_library'
         - 'config:core.entity_view_display.media.image.default'
         - 'config:core.entity_view_display.media.image.download_link'
         - 'config:core.entity_view_display.media.image.embedded'

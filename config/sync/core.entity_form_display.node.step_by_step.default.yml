@@ -14,7 +14,6 @@ dependencies:
     - field.field.node.step_by_step.field_primary_category
     - field.field.node.step_by_step.field_related_benefit_hubs
     - field.field.node.step_by_step.field_related_information
-    - field.field.node.step_by_step.field_related_links
     - field.field.node.step_by_step.field_steps
     - field.field.node.step_by_step.field_table_of_contents_boolean
     - field.field.node.step_by_step.field_tags
@@ -79,9 +78,9 @@ third_party_settings:
       format_type: details_sidebar
       format_settings:
         description: ''
-        open: '1'
-        weight: '-10'
-        required_fields: '1'
+        open: true
+        weight: -10
+        required_fields: true
         id: ''
         classes: ''
       label: Governance
@@ -344,7 +343,6 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_related_links: true
   promote: true
   status: true
   sticky: true

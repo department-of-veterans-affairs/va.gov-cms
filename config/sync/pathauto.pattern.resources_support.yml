@@ -1,0 +1,28 @@
+uuid: ac26c7ac-f5a5-424e-83bc-06babfaac01c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: resources_support
+label: 'Resources and support'
+type: 'canonical_entities:node'
+pattern: 'resources/[node:title]'
+selection_criteria:
+  9740c223-7b46-4b5f-af57-e43140e912ac:
+    id: node_type
+    bundles:
+      checklist: checklist
+      faq_multiple_q_a: faq_multiple_q_a
+      media_list_images: media_list_images
+      media_list_videos: media_list_videos
+      q_a: q_a
+      step_by_step: step_by_step
+      support_resources_detail_page: support_resources_detail_page
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 9740c223-7b46-4b5f-af57-e43140e912ac
+selection_logic: and
+weight: -5
+relationships: {  }

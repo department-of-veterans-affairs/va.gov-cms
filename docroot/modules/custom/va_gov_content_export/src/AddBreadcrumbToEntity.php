@@ -62,6 +62,7 @@ class AddBreadcrumbToEntity {
    */
   protected static $excludedTypes = [
     'content_moderation_state',
+    'flagging',
     'paragraph',
     'file',
     'section_association',

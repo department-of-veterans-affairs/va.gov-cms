@@ -15,7 +15,7 @@ class EnvironmentHandler {
   /**
    * Loads .env files if they exist.
    */
-  static function load() {
+  public static function load() {
 
     $env_file_dir = dirname(dirname(__DIR__));
     $env_file_name = '.env';
@@ -35,16 +35,16 @@ class EnvironmentHandler {
 
       // If NOT in LANDO, and .env file exists, load it.
       elseif (file_exists($env_file_dir . '/.env')) {
-          $env_file_name = '.env';
+        $env_file_name = '.env';
       }
       else {
-          // No lando and .env does not exist: don't load.
-          return;
+        // No lando and .env does not exist: don't load.
+        return;
       }
 
       // Load environment and set required params.
-      $dotenv = new Dotenv($env_file_dir, $env_file_name);
-      $dotenv->overload();
+      $dotenv = Dotenv::createUnsafeMutable($env_file_dir, $env_file_name);
+      $dotenv->safeLoad();
       $dotenv->required('DRUPAL_ADDRESS')->notEmpty();
       $dotenv->required('BEHAT_PARAMS')->notEmpty();
     }
@@ -52,4 +52,5 @@ class EnvironmentHandler {
       throw $exception;
     }
   }
+
 }

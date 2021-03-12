@@ -1,0 +1,30 @@
+uuid: 2c93ac65-5778-428b-b532-567084de9e44
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_hservice_appt_intro_select
+field_name: field_hservice_appt_intro_select
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: default_intro_text
+      label: 'Use default text'
+    -
+      value: custom_intro_text
+      label: 'Customize text'
+    -
+      value: no_intro_text
+      label: 'Remove text'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

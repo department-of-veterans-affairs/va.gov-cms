@@ -1,0 +1,35 @@
+uuid: d23c2d2a-ce86-4700-b3b4-0966a54f7376
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.vamc_system_policies_page
+    - taxonomy.vocabulary.administration
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: false
+id: node.vamc_system_policies_page.field_administration
+field_name: field_administration
+entity_type: node
+bundle: vamc_system_policies_page
+label: Owner
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

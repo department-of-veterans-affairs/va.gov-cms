@@ -11,7 +11,6 @@ dependencies:
     - field.field.node.full_width_banner_alert.field_alert_inheritance_subpages
     - field.field.node.full_width_banner_alert.field_alert_operating_status_cta
     - field.field.node.full_width_banner_alert.field_alert_type
-    - field.field.node.full_width_banner_alert.field_banner_alert_computdvalues
     - field.field.node.full_width_banner_alert.field_banner_alert_situationinfo
     - field.field.node.full_width_banner_alert.field_banner_alert_vamcs
     - field.field.node.full_width_banner_alert.field_body
@@ -214,16 +213,8 @@ content:
       autocollapse: none
       closed_mode_threshold: 0
       features:
-        duplicate: duplicate
         collapse_edit_all: collapse_edit_all
-    third_party_settings: {  }
-  revision_log:
-    type: string_textarea
-    weight: 6
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
+        duplicate: duplicate
     third_party_settings: {  }
   status:
     type: boolean_checkbox
@@ -243,7 +234,6 @@ content:
 hidden:
   created: true
   field_administration: true
-  field_banner_alert_computdvalues: true
   field_banner_alert_vamcs: true
   moderation_state: true
   path: true

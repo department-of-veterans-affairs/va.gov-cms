@@ -13,20 +13,20 @@ streamline collaboration process.
 
 https://github.com/agilesix/workflow_assignments 
 
-EWA module machine name is `workflow_assignements` and it is currently included
-in va.gov-cms codebase as `drupal/workflow_assignments` composer package.
+EWA module machine name is `workflow_assignments` and it is currently included
+in the va.gov-cms codebase as `drupal/workflow_assignments` composer package.
 
 Collaboration in GitHub vs. Drupal.org or in a custom module in va.gov-cms repo
 offers several advantages:
 * feedback loops are streamlined and happen in the same channel that we use
 day-to-day - GitHub
-* we don't spend extra time on managing Drupal.org repository and issue queue.
-We'll start managing Drupal.org repo once development slows down
+* we don't spend extra time on managing the Drupal.org repository and issue queue.
+We'll start managing the Drupal.org repo once development slows down
 * commit authors are preserved and once a stable version of the module is moved
 to Drupal.org, all committers will be credited automatically. Please ensure that
 your github user email is what you use on your DO profile in order to support
 work credits
-* `workflow_assignments` module is included in the project codebase as a
+* The `workflow_assignments` module is included in the project codebase as a
 contrib module. When the time comes to pull it from Drupal.org, the namespace and
 files location will remain the same, so no additional effort is needed besides
 updating composer version/config.

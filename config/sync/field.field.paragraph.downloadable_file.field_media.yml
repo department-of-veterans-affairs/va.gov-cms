@@ -8,6 +8,12 @@ dependencies:
     - media.type.image
     - media.type.video
     - paragraphs.paragraphs_type.downloadable_file
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: false
 id: paragraph.downloadable_file.field_media
 field_name: field_media
 entity_type: paragraph

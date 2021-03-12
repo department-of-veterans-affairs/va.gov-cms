@@ -14,7 +14,6 @@ dependencies:
   module:
     - content_moderation
     - field_group
-    - metatag
     - path
     - textfield_counter
 third_party_settings:
@@ -27,9 +26,9 @@ third_party_settings:
       format_type: details_sidebar
       format_settings:
         description: ''
-        open: '1'
-        weight: '0'
-        required_fields: '1'
+        open: true
+        weight: 0
+        required_fields: true
         id: ''
         classes: ''
       label: Governance
@@ -97,12 +96,6 @@ content:
     third_party_settings: {  }
     type: string_textarea
     region: content
-  field_meta_tags:
-    weight: 4
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_firehose
-    region: content
   field_meta_title:
     weight: 1
     settings:
@@ -131,7 +124,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -145,6 +138,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_meta_tags: true
   promote: true
   status: true
   sticky: true

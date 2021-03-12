@@ -1,0 +1,27 @@
+uuid: 916377ea-8703-464e-a503-803c4adba6da
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_rich_wysiwyg
+    - paragraphs.paragraphs_type.basic_accordion
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    rich_text_limited: rich_text_limited
+    rich_text: '0'
+    plain_text: '0'
+id: paragraph.basic_accordion.field_rich_wysiwyg
+field_name: field_rich_wysiwyg
+entity_type: paragraph
+bundle: basic_accordion
+label: 'Rich text'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_resources_and_support.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function va_gov_resources_and_support_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the va_gov_resources_and_support module.
+    case 'help.page.va_gov_resources_and_support':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Custom logic for Resources and Support') . '</p>';
+      return $output;
+
+    default:
+  }
+}

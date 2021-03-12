@@ -1,0 +1,31 @@
+uuid: 4fe2f5a0-1496-45f9-8cab-3d4de67bb665
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.custom_block_entity_browsers
+  module:
+    - views
+name: promo_blocks_browser
+label: 'Promo blocks browser'
+display: modal
+display_configuration:
+  width: ''
+  height: ''
+  link_text: 'Place promo'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: single
+widget_selector_configuration: {  }
+widgets:
+  03832723-7601-4ed8-82e3-09617277e3bb:
+    settings:
+      view: custom_block_entity_browsers
+      view_display: entity_browser_2
+      submit_text: 'Select promo'
+      auto_select: false
+    uuid: 03832723-7601-4ed8-82e3-09617277e3bb
+    weight: 1
+    label: ''
+    id: view

@@ -1,0 +1,23 @@
+uuid: d59452f9-1d93-4e58-ab02-83b20e3ad973
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_accordion_display
+    - paragraphs.paragraphs_type.q_a_group
+id: paragraph.q_a_group.field_accordion_display
+field_name: field_accordion_display
+entity_type: paragraph
+bundle: q_a_group
+label: 'Display this set of Q&As as a group of accordions.'
+description: 'Use this option if you have a long set of questions.'
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

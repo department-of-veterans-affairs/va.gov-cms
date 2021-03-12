@@ -15,7 +15,6 @@ dependencies:
   module:
     - content_moderation
     - field_group
-    - metatag
     - path
     - text
     - textfield_counter
@@ -31,9 +30,9 @@ third_party_settings:
         id: ''
         classes: ''
         description: ''
-        open: 1
-        required_fields: 1
-        weight: '0'
+        open: true
+        required_fields: true
+        weight: 0
       label: Governance
       region: content
     group_editorial_workflow:
@@ -126,12 +125,6 @@ content:
     third_party_settings: {  }
     type: string_textarea
     region: content
-  field_meta_tags:
-    weight: 7
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_firehose
-    region: content
   field_meta_title:
     weight: 1
     settings:
@@ -182,6 +175,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_meta_tags: true
   promote: true
   status: true
   sticky: true

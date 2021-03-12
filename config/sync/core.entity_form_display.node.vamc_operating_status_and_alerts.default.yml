@@ -15,7 +15,7 @@ dependencies:
   module:
     - field_group
     - ief_table_view_mode
-    - link
+    - linkit
     - text
 third_party_settings:
   field_group:
@@ -27,9 +27,9 @@ third_party_settings:
       format_type: details_sidebar
       format_settings:
         description: ''
-        open: '1'
-        weight: '-10'
-        required_fields: '1'
+        open: true
+        weight: -10
+        required_fields: true
         id: ''
         classes: ''
       label: Governance
@@ -113,7 +113,7 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-    type: link_default
+    type: linkit
     region: content
   field_office:
     type: options_select

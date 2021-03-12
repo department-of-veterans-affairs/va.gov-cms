@@ -14,6 +14,8 @@ use TravisCarden\BehatTableComparison\TableEqualityAssertion;
 class UserRolesAndPermissionsContext extends RawDrupalContext implements SnippetAcceptingContext {
 
   /**
+   * Test that the given permission exists.
+   *
    * @Then the :permission permission should exist
    * @throws \Exception
    */
@@ -26,6 +28,8 @@ class UserRolesAndPermissionsContext extends RawDrupalContext implements Snippet
   }
 
   /**
+   * Test that the permissions are configured as specified in the CSV.
+   *
    * @Given permissions should be configured exactly as in :csv
    * @throws \Exception
    */
@@ -34,6 +38,8 @@ class UserRolesAndPermissionsContext extends RawDrupalContext implements Snippet
   }
 
   /**
+   * Test that the given permissions are configured as specified.
+   *
    * @Then permissions should be configured exactly as follows
    * @throws \Exception
    */
@@ -77,6 +83,8 @@ class UserRolesAndPermissionsContext extends RawDrupalContext implements Snippet
   }
 
   /**
+   * Test that the given role ID exists.
+   *
    * @Then the :role_id role should exist
    * @throws \Exception
    */
@@ -87,6 +95,8 @@ class UserRolesAndPermissionsContext extends RawDrupalContext implements Snippet
   }
 
   /**
+   * Test that the given role has the given permission.
+   *
    * @Then the :role_id role should have the :permission permission
    * @throws \Exception
    */
@@ -103,6 +113,8 @@ class UserRolesAndPermissionsContext extends RawDrupalContext implements Snippet
   }
 
   /**
+   * Test that a given role has the given permissions.
+   *
    * @Then the :role_id role should have exactly the following permissions
    * @throws \Exception
    */
@@ -121,6 +133,8 @@ class UserRolesAndPermissionsContext extends RawDrupalContext implements Snippet
   }
 
   /**
+   * Test that a given role is the administrator role.
+   *
    * @Then the :role_id role should be the administrator role
    * @throws \Exception
    */

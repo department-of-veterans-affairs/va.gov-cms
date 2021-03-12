@@ -15,7 +15,6 @@ dependencies:
     - field.field.node.faq_multiple_q_a.field_q_a_groups
     - field.field.node.faq_multiple_q_a.field_related_benefit_hubs
     - field.field.node.faq_multiple_q_a.field_related_information
-    - field.field.node.faq_multiple_q_a.field_related_links
     - field.field.node.faq_multiple_q_a.field_table_of_contents_boolean
     - field.field.node.faq_multiple_q_a.field_tags
     - node.type.faq_multiple_q_a
@@ -54,9 +53,9 @@ third_party_settings:
         id: ''
         classes: ''
         description: ''
-        open: 1
-        required_fields: 1
-        weight: '-10'
+        open: true
+        required_fields: true
+        weight: -10
       label: Governance
       region: content
     group_editorial_workflow:
@@ -334,7 +333,6 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_related_links: true
   promote: true
   status: true
   sticky: true

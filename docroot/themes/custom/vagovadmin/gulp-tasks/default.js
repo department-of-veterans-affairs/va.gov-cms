@@ -5,15 +5,8 @@
  * Default gulp task.
  */
 
-module.exports = function (gulp, plugins, options) {
-  'use strict';
-
+// eslint-disable-next-line no-unused-vars
+module.exports = (gulp, plugins, options) => {
   // Watch.
-  gulp.task('default', [
-    'sass-lint',
-    'sass',
-    'patternlab:watch',
-    'watch'
-  ]);
-
+  gulp.task("default", ["sass-lint", "sass", "patternlab:watch", "watch"]);
 };

@@ -1,0 +1,38 @@
+uuid: 39aa50cd-863f-4399-ac03-22ef3d200535
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.lc_categories
+  module:
+    - path
+    - text
+id: taxonomy_term.lc_categories.default
+targetEntityType: taxonomy_term
+bundle: lc_categories
+mode: default
+content:
+  description:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
+      rows: 5
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  status: true

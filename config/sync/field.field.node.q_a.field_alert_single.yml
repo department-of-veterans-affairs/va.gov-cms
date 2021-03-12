@@ -14,7 +14,7 @@ entity_type: node
 bundle: q_a
 label: Alert
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -34,6 +34,9 @@ settings:
       alert_single:
         enabled: true
         weight: 39
+      audience_topics:
+        weight: 44
+        enabled: false
       button:
         weight: 40
         enabled: false
@@ -49,8 +52,14 @@ settings:
       collapsible_panel_item:
         weight: 44
         enabled: false
+      contact_information:
+        weight: 50
+        enabled: false
       downloadable_file:
         weight: 45
+        enabled: false
+      email_contact:
+        weight: 52
         enabled: false
       expandable_text:
         weight: 46
@@ -102,6 +111,9 @@ settings:
         enabled: false
       react_widget:
         weight: 62
+        enabled: false
+      rich_text_char_limit_1000:
+        weight: 70
         enabled: false
       service_location:
         weight: 63

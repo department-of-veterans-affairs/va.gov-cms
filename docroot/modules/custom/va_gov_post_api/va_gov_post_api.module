@@ -14,6 +14,8 @@ use Drupal\Core\Entity\EntityInterface;
  */
 function post_api_entity_insert(EntityInterface $entity) {
   _post_api_add_facility_to_queue($entity);
+  _post_api_add_facility_service_to_queue($entity);
+
 }
 
 /**
@@ -23,6 +25,7 @@ function post_api_entity_insert(EntityInterface $entity) {
  */
 function post_api_entity_update(EntityInterface $entity) {
   _post_api_add_facility_to_queue($entity);
+  _post_api_add_facility_service_to_queue($entity);
 }
 
 /**
@@ -78,7 +81,7 @@ function _post_api_add_facility_to_queue(EntityInterface $entity) {
 }
 
 /**
- * Compose and return payload array.
+ * Compose and return payload array for facility status.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   Entity.
@@ -123,4 +126,16 @@ function _post_api_get_facility_payload(EntityInterface $entity) {
   }
 
   return $payload;
+}
+
+/**
+ * Adds facility service data to Post API queue to update Lighthouse.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Entity.
+ */
+function _post_api_add_facility_service_to_queue(EntityInterface $entity) {
+  if ($entity->bundle() === 'health_care_local_health_service') {
+    Drupal::service('va_gov_post_api.queue_service_updates')->queueFacilityService($entity);
+  }
 }

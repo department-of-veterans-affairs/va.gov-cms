@@ -109,7 +109,13 @@ $settings['jenkins_build_job_host'] = 'http://jenkins.vfs.va.gov';
 // Authorized to the Jenkins API via GitHub login.
 $settings['va_cms_bot_github_username'] = 'va-cms-bot';
 $settings['va_cms_bot_github_auth_token'] = getenv('CMS_GITHUB_VA_CMS_BOT_TOKEN') ?: FALSE;
-$settings['va_cms_bot_jenkins_auth_token'] = getenv('CMS_JENKINS_VA_CMS_BOT_TOKEN') ?: FALSE;
+
+// Environment settings
+$settings['va_gov_composer_home'] = getenv('COMPOSER_HOME');
+$settings['va_gov_path_to_composer'] = '/usr/local/bin/composer';
+// The default BRD locations. These settings are currently only used on tugboat/lando
+$settings['va_gov_web_root'] = '/var/www/cms/docroot/web';
+$settings['va_gov_app_root'] = '/var/www/cms';
 
 // Defaults (should only be local that doesn't set these), default to dev for config_split
 $config['config_split.config_split.dev']['status'] = TRUE;
@@ -146,6 +152,9 @@ $facility_migrations = [
   'va_node_facility_vet_centers',
 ];
 
+// Use classic node migrations instead of complete.
+// cf. https://www.drupal.org/node/3105503
+$settings['migrate_node_migrate_type_classic'] = TRUE;
 foreach ($facility_migrations as $facility_migration) {
   $config["migrate_plus.migration.{$facility_migration}"]['source']['urls'] = $facility_api_urls;
   $config["migrate_plus.migration.{$facility_migration}"]['source']['headers']['apikey'] = $facility_api_key;
@@ -190,7 +199,7 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.local.php')) 
 }
 
 // The VA_GOV_IN_DEPLOY_MODE is set in settings.deploy.active.php.
-// Ths file is copied from settings.deploy.inactive.php. by ansible during deploys.
+// The file is copied from settings.deploy.inactive.php by Ansible during deploys.
 if (!empty($GLOBALS['request']) &&
   is_a($GLOBALS['request'], \Symfony\Component\HttpFoundation\Request::class) &&
   !empty(getenv('VA_GOV_IN_DEPLOY_MODE'))) {
@@ -203,20 +212,25 @@ if (!empty($GLOBALS['request']) &&
 // internal*elb addresses. And sometimes the host would return data with
 // "http://default/..." hostnames for files so we set the host here and pass it
 // to the `file_public_base_url` setting to fix that.
-if (PHP_SAPI === 'cli') {
-  // This is running from drush so set the webhost.
-  // Var $webhost_on_cli is set in <settings.<environment>.php.
-  $webhost = $webhost_on_cli;
+if (!empty($webhost_on_cli)) {
+  if (PHP_SAPI === 'cli') {
+    // This is running from drush so set the webhost.
+    // Var $webhost_on_cli is set in <settings.<environment>.php.
+    $webhost = $webhost_on_cli;
+  }
+  else {
+    // This is running from an HTTP request.
+    $webhost = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}";
+  }
+  // DevShop sets this in settings.devshop.php
+  $settings['file_public_base_url'] = "{$webhost}/sites/default/files";
 }
-else {
-  // This is running from a web request.
-  $webhost = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}";
-
-}
-$settings['file_public_base_url'] = "{$webhost}/sites/default/files";
 
 // Extend the limit of the tome cache table beyond 5000 rows.
 // See https://www.drupal.org/node/3162499.
 $settings['database_cache_max_rows']['bins']['tome_static'] = -1;
 $settings['tome_content_directory'] = 'public://cms-export-content';
 $settings['tome_files_directory'] = 'public://cms-export-files';
+
+// Disable use of the Symfony autoloader, and use the Composer autoloader instead.
+$settings['class_loader_auto_detect'] = FALSE;

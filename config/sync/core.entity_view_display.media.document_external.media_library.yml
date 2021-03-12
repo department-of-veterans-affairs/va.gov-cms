@@ -1,0 +1,44 @@
+uuid: 33f9a677-905e-4480-92fb-dcf534db061b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.media_library
+    - field.field.media.document_external.field_description
+    - field.field.media.document_external.field_media_external_file
+    - field.field.media.document_external.field_media_in_library
+    - field.field.media.document_external.field_mime_type
+    - field.field.media.document_external.field_owner
+    - image.style.medium
+    - media.type.document_external
+  module:
+    - image
+id: media.document_external.media_library
+targetEntityType: media
+bundle: document_external
+mode: media_library
+content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_style: medium
+      image_link: ''
+    weight: 0
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  field_description: true
+  field_media_external_file: true
+  field_media_in_library: true
+  field_mime_type: true
+  field_owner: true
+  name: true
+  search_api_excerpt: true
+  uid: true

@@ -2,7 +2,7 @@
 
 namespace Drupal\va_gov_migrate\Paragraph\Base;
 
-use Drupal\Core\Entity\Entity;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\va_gov_migrate\Paragraph\QAAccordion;
 use Drupal\va_gov_migrate\ParagraphMigrator;
@@ -66,7 +66,7 @@ abstract class QABase extends ParagraphType {
   /**
    * {@inheritdoc}
    */
-  public static function attachParagraph(Paragraph $paragraph, Entity &$entity, $parent_field, DOMQuery $query_path = NULL) {
+  public static function attachParagraph(Paragraph $paragraph, EntityInterface &$entity, $parent_field, DOMQuery $query_path = NULL) {
     list('allowed' => $allowed_paragraphs) = ParagraphMigrator::getAllowedParagraphs($entity, $parent_field);
     // If this field allows Q&As just add it normally.
     if (in_array('q_a', $allowed_paragraphs)) {

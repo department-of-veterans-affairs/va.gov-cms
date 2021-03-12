@@ -1,0 +1,23 @@
+uuid: 5355d755-578d-4e7e-b8c3-6bba88127b64
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_audience_rs_homepage
+    - taxonomy.vocabulary.audience_non_beneficiaries
+id: taxonomy_term.audience_non_beneficiaries.field_audience_rs_homepage
+field_name: field_audience_rs_homepage
+entity_type: taxonomy_term
+bundle: audience_non_beneficiaries
+label: 'Promoted to Resources and Support Homepage'
+description: 'When checked, this audience will appear as a link on the <a href="https://www.va.gov/resources">Resources & support homepage</a>'
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Promoted to R&S Homepage'
+  off_label: 'Not promoted to R&S Homepage'
+field_type: boolean

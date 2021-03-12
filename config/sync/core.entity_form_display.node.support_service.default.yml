@@ -14,7 +14,7 @@ dependencies:
     - content_moderation
     - datetime
     - field_group
-    - link
+    - linkit
     - path
     - telephone
 third_party_settings:
@@ -44,9 +44,9 @@ third_party_settings:
       format_settings:
         id: ''
         classes: ''
-        open: 1
-        required_fields: 1
-        weight: '-10'
+        open: true
+        required_fields: true
+        weight: -10
       label: Governance
       region: content
 id: node.support_service.default
@@ -66,7 +66,7 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-    type: link_default
+    type: linkit
     region: content
   field_office:
     weight: 1

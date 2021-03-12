@@ -38,6 +38,7 @@ The VA.gov CMS Team
 1. **Architecture**
     1. Overview
     1. Drupal
+      1. [content models](READMES/content-models)
     1. MetalSmith
     1. [Interfaces](READMES/interfaces.md) - APIs and Feature Flag
     1. Migrations (data imports)
@@ -46,6 +47,8 @@ The VA.gov CMS Team
     1. [Security](READMES/security.md)
 1. **CMS Users**
     1. [Login / SSOi](READMES/cms-login.md)
+1. **CMS Content**
+    1. [Workflow](READMES/cms-content-workflow.md)
 
 ## Introduction
 

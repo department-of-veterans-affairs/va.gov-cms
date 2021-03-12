@@ -1,0 +1,21 @@
+uuid: 0e501776-2cc8-47df-90cb-451e9da6cc5b
+langcode: en
+status: true
+dependencies:
+  module:
+    - entity_reference_revisions
+    - node
+    - paragraphs
+id: node.field_prepare_for_visit
+field_name: field_prepare_for_visit
+entity_type: node
+type: entity_reference_revisions
+settings:
+  target_type: paragraph
+module: entity_reference_revisions
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

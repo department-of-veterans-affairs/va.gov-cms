@@ -2,8 +2,8 @@
 
 #edit-field-service-location-wrapper {
   border-bottom: 2 px solid #c0c0c0;
-  padding-bottom: 15px;
   margin-bottom: 15px;
+  padding-bottom: 15px;
 
   // Hide Collapse, label, and info buttons.
   .paragraphs-icon-button-collapse,
@@ -17,14 +17,18 @@
   .field-multiple-drag.paragraph-bullet {
     display: none;
   }
+
   .paragraph-type--service-location {
     padding: 30px 0 30px 18px;
   }
+
   fieldset {
-    border: none;
+    border: hidden;
+
     th.field-label {
       display: none;
     }
+
     &.form-tablefield {
       padding-top: 0;
     }
@@ -44,8 +48,9 @@
     .paragraphs-actions {
       display: none;
     }
+
     tr {
-      border-bottom: none;
+      border-bottom: hidden;
     }
   }
 }

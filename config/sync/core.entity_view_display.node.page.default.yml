@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.page.field_content_block
     - field.field.node.page.field_description
     - field.field.node.page.field_featured_content
-    - field.field.node.page.field_intro_text
     - field.field.node.page.field_intro_text_limited_html
     - field.field.node.page.field_meta_tags
     - field.field.node.page.field_meta_title
@@ -20,6 +19,7 @@ dependencies:
   module:
     - entity_reference_revisions
     - field_group
+    - text
     - user
 third_party_settings:
   field_group:
@@ -28,7 +28,7 @@ third_party_settings:
         - field_meta_title
         - field_description
       parent_name: ''
-      weight: 1
+      weight: 0
       format_type: fieldset
       format_settings:
         description: ''
@@ -43,13 +43,8 @@ targetEntityType: node
 bundle: page
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_alert:
-    weight: 3
+    weight: 2
     label: above
     settings:
       view_mode: default
@@ -59,7 +54,7 @@ content:
     region: content
   field_content_block:
     type: entity_reference_revisions_entity_view
-    weight: 6
+    weight: 5
     label: above
     settings:
       view_mode: default
@@ -76,20 +71,20 @@ content:
     third_party_settings: {  }
   field_featured_content:
     type: entity_reference_revisions_entity_view
-    weight: 4
+    weight: 3
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
     region: content
-  field_intro_text:
-    weight: 2
+  field_intro_text_limited_html:
+    type: text_default
+    weight: 1
+    region: content
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
-    region: content
   field_last_update:
     weight: 7
     label: above
@@ -109,7 +104,7 @@ content:
     third_party_settings: {  }
   field_related_links:
     type: entity_reference_revisions_entity_view
-    weight: 7
+    weight: 6
     label: above
     settings:
       view_mode: default
@@ -117,7 +112,7 @@ content:
     third_party_settings: {  }
     region: content
   field_table_of_contents_boolean:
-    weight: 5
+    weight: 4
     label: above
     settings:
       format: default
@@ -127,8 +122,8 @@ content:
     type: boolean
     region: content
 hidden:
+  content_moderation_control: true
   field_administration: true
-  field_intro_text_limited_html: true
   field_meta_tags: true
   field_page_last_built: true
   field_plainlanguage_date: true

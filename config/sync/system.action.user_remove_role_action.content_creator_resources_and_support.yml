@@ -1,0 +1,14 @@
+uuid: 0b9d1311-dc5b-4c65-90ed-1d168d04f2d6
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.content_creator_resources_and_support
+  module:
+    - user
+id: user_remove_role_action.content_creator_resources_and_support
+label: 'Remove the Content Creator - Resources and support role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: content_creator_resources_and_support

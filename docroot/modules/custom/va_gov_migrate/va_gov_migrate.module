@@ -26,14 +26,27 @@ function _va_gov_migrate_process_va_form(EntityInterface &$entity) {
     return;
   }
 
+  // Bail if this is not being run by "cms migrator" (1317).
+  if ($entity->getRevisionUserId() !== 1317) {
+    return;
+  }
+
   // Grab any values set in the migration.
   $deleted = $entity->get('field_va_form_deleted')->value;
-  if (!empty($deleted)) {
+  $was_deleted = (!empty($entity->original) && $entity->original->get('field_va_form_deleted')->value) ? TRUE : FALSE;
+  $modstate = $entity->get('moderation_state')->value;
+  if (!empty($deleted) && ($modstate !== "archived")) {
     // This should be set to unpublished because the migration is intentionally,
     // not overriding status.
     $entity->setPublished(FALSE);
     $entity->set('moderation_state', 'archived');
     $entity->set('revision_log', 'Archived because it was marked as deleted in the Forms DB.');
+  }
+  elseif (!$deleted && $was_deleted && ($modstate === "archived")) {
+    // This was deleted in the forms DB but the flag has been removed, so change
+    // to draft, because we can't know what state it was in when it was flagged.
+    $entity->set('moderation_state', 'draft');
+    $entity->set('revision_log', 'Changed to Draft because deleted flag was removed in the Forms DB.');
   }
 }
 
@@ -51,4 +64,21 @@ function va_gov_migrate_help($route_name, RouteMatchInterface $route_match) {
 
     default:
   }
+}
+
+/**
+ * This is simply a call back for time that removes the arg to prevent null.
+ *
+ * Reference https://bugs.php.net/bug.php?id=78509
+ *
+ * @param mixed $arg
+ *   An argument from the process plugin pipeline.  It is not used.
+ *
+ * @return int
+ *   The current time measured in the number of seconds
+ */
+function va_gov_migrate_time($arg) {
+  // Process pipeline passes the return of the previous process.
+  // Since time() can not use this so we don't use the arg.
+  return time();
 }

@@ -94,7 +94,7 @@ class ContentModelContextCustom extends ContextBase {
   }
 
   /**
-   * Asserts the configuration of fields on select content entity types and bundles.
+   * Asserts the configuration of fields on select content entity types/bundles.
    *
    * @Then exactly the following fields should exist for bundles :bundles of entity type :entity_type_id
    *

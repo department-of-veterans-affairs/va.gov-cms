@@ -1,0 +1,21 @@
+uuid: e71d9dfb-4116-4b69-8c70-24aceb95b644
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_service_type_of_care
+    - taxonomy.vocabulary.health_care_service_taxonomy
+  module:
+    - options
+id: taxonomy_term.health_care_service_taxonomy.field_service_type_of_care
+field_name: field_service_type_of_care
+entity_type: taxonomy_term
+bundle: health_care_service_taxonomy
+label: 'Type of care'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

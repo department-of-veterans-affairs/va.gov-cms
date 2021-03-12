@@ -1,0 +1,13 @@
+parameters:
+  excludes_analyse:
+    - *Test.php
+    - *TestBase.php
+  level: 2
+  ignoreErrors:
+    - '#Unsafe usage of new static\(\)#'
+  reportUnmatchedIgnoredErrors: false
+  bootstrapFiles:
+    - phpstan_bootstrap.php
+includes:
+  - docroot/vendor/mglaman/phpstan-drupal/extension.neon
+  - docroot/vendor/phpstan/phpstan-deprecation-rules/rules.neon

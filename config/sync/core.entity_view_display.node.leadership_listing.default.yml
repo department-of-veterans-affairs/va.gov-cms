@@ -20,7 +20,7 @@ third_party_settings:
       children:
         - field_intro_text
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         id: ''
@@ -33,7 +33,7 @@ third_party_settings:
         - field_administration
         - field_office
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: fieldset
       format_settings:
         id: ''
@@ -46,7 +46,7 @@ third_party_settings:
         - field_description
         - field_meta_title
       parent_name: ''
-      weight: 1
+      weight: 0
       format_type: fieldset
       format_settings:
         id: ''
@@ -59,11 +59,6 @@ targetEntityType: node
 bundle: leadership_listing
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_description:
     type: string
     weight: 0
@@ -80,7 +75,7 @@ content:
     type: basic_string
     region: content
   field_leadership:
-    weight: 8
+    weight: 2
     label: above
     settings:
       link: true
@@ -96,6 +91,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
 hidden:
+  content_moderation_control: true
   field_administration: true
   field_meta_tags: true
   field_office: true

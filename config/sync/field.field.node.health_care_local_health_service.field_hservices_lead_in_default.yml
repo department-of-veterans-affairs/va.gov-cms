@@ -1,0 +1,25 @@
+uuid: f80947ea-e42c-4af9-a8a2-44a4e018b368
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hservices_lead_in_default
+    - node.type.health_care_local_health_service
+  module:
+    - markup
+id: node.health_care_local_health_service.field_hservices_lead_in_default
+field_name: field_hservices_lead_in_default
+entity_type: node
+bundle: health_care_local_health_service
+label: 'Appointment lead-in default'
+description: ''
+required: false
+translatable: false
+default_value:
+  - {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: "<p><em>&nbsp; &nbsp;Contact us to schedule, reschedule, or cancel your appointment. If a referral is required, you’ll need to contact your primary care provider first.</em></p>\r\n"
+    format: rich_text
+field_type: markup

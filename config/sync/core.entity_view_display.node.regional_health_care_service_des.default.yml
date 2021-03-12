@@ -19,7 +19,7 @@ third_party_settings:
       children:
         - field_service_name_and_descripti
       parent_name: ''
-      weight: 1
+      weight: 0
       format_type: fieldset
       format_settings:
         id: ''
@@ -33,7 +33,7 @@ third_party_settings:
       children:
         - field_local_health_care_service_
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: fieldset
       format_settings:
         description: ''
@@ -45,7 +45,7 @@ third_party_settings:
       children:
         - field_body
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         description: ''
@@ -58,11 +58,6 @@ targetEntityType: node
 bundle: regional_health_care_service_des
 mode: default
 content:
-  content_moderation_control:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_body:
     weight: 4
     label: hidden
@@ -89,6 +84,7 @@ content:
     type: entity_reference_entity_view
     region: content
 hidden:
+  content_moderation_control: true
   field_administration: true
   field_region_page: true
   links: true
