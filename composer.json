@@ -56,7 +56,7 @@
         "drupal/entity_browser_table": "^1.2",
         "drupal/entity_clone": "^1.0@beta",
         "drupal/entity_embed": "^1.0",
-        "drupal/entity_field_fetch": "^1.0@beta",
+        "drupal/entity_field_fetch": "^1.0-beta2",
         "drupal/entity_reference_revisions": "^1.7",
         "drupal/entity_reference_unpublished": "^1.1",
         "drupal/entity_reference_validators": "^1.0@alpha",
@@ -106,8 +106,8 @@
         "drupal/override_node_options": "^2.4",
         "drupal/paragraphs": "^1.5",
         "drupal/paragraphs_browser": "^1.0@alpha",
-        "drupal/password_policy": "^3.0@alpha",
-        "drupal/password_strength": "^2.0@alpha",
+        "drupal/password_policy": "3.0-beta1",
+        "drupal/password_strength": "2.0-beta1",
         "drupal/path_redirect_import": "^1.0@beta",
         "drupal/pathauto": "^1.6",
         "drupal/pathologic": "^1.0@alpha",
@@ -117,7 +117,7 @@
         "drupal/redirect_options": "^2.0.2",
         "drupal/rest_menu_tree": "^1.1",
         "drupal/restui": "^1.16",
-        "drupal/role_delegation": "^1.0@alpha",
+        "drupal/role_delegation": "1.1",
         "drupal/search_api": "1.17",
         "drupal/seckit": "^2.0",
         "drupal/simple_oauth": "3.16",
@@ -162,6 +162,7 @@
         "symfony/config": "^3.4",
         "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^5.1",
+        "traviscarden/behat-table-comparison": "~0.2",
         "va-gov/web": "^0.1",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
@@ -517,40 +518,32 @@
             "@va:web:watch"
         ],
         "va:web:build": [
-            "drush state:set va.web_build_stats TRUE -y",
             "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
             "cd web && echo \"Downloading assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
             "cd web && NODE_ENV=production yarn build:content --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov --asset-source=$(git rev-parse --verify HEAD)",
             "echo 'Replace s3 address with local in generated files'",
-            "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -print0 | xargs -0 sed -i \"s/https:\\/\\/dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com//g\" ",
-            "drush state:set va.web_build_stats FALSE -y"
+            "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -exec sed -i \"s#https://dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com##g\" {} \\+"
         ],
         "va:web:build:full": [
-            "drush state:set va.web_build_stats TRUE -y",
             "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
             "cd web && echo \"Building assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
             "cd web && NODE_ENV=production yarn build --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov",
             "echo 'Replace s3 address with local in generated files'",
-            "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -print0 | xargs -0 sed -i \"s/https:\\/\\/dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com//g\" ",
-            "drush state:set va.web_build_stats FALSE -y"
+            "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -exec sed -i \"s#https://dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com##g\" {} \\+"
         ],
         "va:web:build:export": [
-            "drush state:set va.web_build_stats TRUE -y",
             "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
             "cd web && echo \"Building assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
             "cd web && NODE_ENV=production yarn build:content --use-cms-export --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov --asset-source=$(git rev-parse --verify HEAD)",
             "echo 'Replace s3 address with local in generated files'",
-            "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -print0 | xargs -0 sed -i \"s/https:\\/\\/dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com//g\" ",
-            "drush state:set va.web_build_stats FALSE -y"
+            "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -exec sed -i \"s#https://dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com##g\" {} \\+"
         ],
         "va:web:build:export:full": [
-            "drush state:set va.web_build_stats TRUE -y",
             "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
             "cd web && echo \"Downloading assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
             "cd web && NODE_ENV=production yarn build --use-cms-export --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov",
             "echo 'Replace s3 address with local in generated files'",
-            "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -print0 | xargs -0 sed -i \"s/https:\\/\\/dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com//g\" ",
-            "drush state:set va.web_build_stats FALSE -y"
+            "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -exec sed -i \"s#https://dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com##g\" {} \\+"
         ],
         "va:web:build:export:content": [
             "drush va-gov-cms-export-all-content --process-count=8 --entity-count=500 --delete-existing"

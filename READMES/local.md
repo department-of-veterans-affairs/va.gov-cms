@@ -14,11 +14,11 @@
     | `lando composer nuke` | Destroy the vendor directory so it can be rebuilt properly. |
     | `lando xdebug-on` / `lando xdebug-off` | Turns [xdebug](debugging.md) on or off. |
     | `lando info` | View service URLs and ports |
-    
+
     ### Mailhog
-    
+
     [Mailhog](https://github.com/mailhog/MailHog) is an email testing tool that has two main functions:
-    
+
     1. captures outgoing email from the application
     2. provides a web UI for viewing outgoing emails
 
@@ -182,6 +182,18 @@ See https://getcomposer.org/doc/articles/scripts.md for more information on how 
   * `lando drush uli`
   * `lando drush cr`
   * `lando drush sqlq "show tables"`
+
+#### Custom Drush Commands
+  As noted above, these should normally be run with a `lando` prefix.  Dashes may be substituted for colons.
+  * `drush va-gov:get-deploy-mode` -- Indicates whether the CMS is currently in Deploy Mode, which is a precautionary measure used to prevent content changes while content is being deployed.
+  * `drush va-gov:enable-deploy-mode` -- Sets the Deploy Mode flag to TRUE.  This is not normally necessary.
+  * `drush va-gov:disable-deploy-mode` -- Sets the Deploy Mode flag to FALSE.  This is not normally necessary.
+  * `drush va-gov:build-frontend` -- Adds a request to build the vets-website frontend and deploy content to the queue, but does not perform it.  If passed the `--dry-run` option, will output the commands that would be executed so they might be run interactively.
+  * `drush va-gov:build-frontend:process-queue` -- Processes the frontend build queue, executing any currently enqueued jobs.
+  * `drush va-gov:build-frontend:empty-queue` -- Removes all jobs currently in the frontend build queue.
+  * `drush va-gov:build-frontend:delete-jobs` -- Delete all enqueued jobs.  Note that this use of "enqueued" refers specifically to the `advancedqueue`'s internal state.  A job is not necessarily in the "enqueued" state just because it's been added to the queue.  To completely empty the queue in all situations, use the `drush va-gov:build-frontend:empty-queue` command.
+  * `drush va-gov:build-frontend:release-jobs` -- Release all enqueued jobs.  This refers to releasing the leases that mark a claim on the job so that the jobs might be claimed and executed by a new process.  This is not normally necessary.
+  * `drush va-gov:build-frontend:list-jobs` -- Output a sparsely-formatted list of the current jobs in the queue.  This should indicate the job's ID, status, and the commands it would invoke during processing.
 
 ### Testing
 See [testing](testing.md).

@@ -22,9 +22,9 @@ trait CommandExportable {
   /**
    * Get the WebBuildCommandBuilder class.
    *
-   * @return \Drupal\va_gov_build_trigger\WebBuildCommandBuilder
+   * @return \Drupal\va_gov_build_trigger\WebBuildCommandBuilderInterface
    *   The Web Build Command class.
    */
-  abstract protected function getWebBuildCommandBuilder() : WebBuildCommandBuilder;
+  abstract protected function getWebBuildCommandBuilder() : WebBuildCommandBuilderInterface;
 
 }
