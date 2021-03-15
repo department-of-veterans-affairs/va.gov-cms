@@ -56,7 +56,7 @@
         "drupal/entity_browser_table": "^1.2",
         "drupal/entity_clone": "^1.0@beta",
         "drupal/entity_embed": "^1.0",
-        "drupal/entity_field_fetch": "^1.0@beta",
+        "drupal/entity_field_fetch": "^1.0-beta2",
         "drupal/entity_reference_revisions": "^1.7",
         "drupal/entity_reference_unpublished": "^1.1",
         "drupal/entity_reference_validators": "^1.0@alpha",
@@ -106,8 +106,8 @@
         "drupal/override_node_options": "^2.4",
         "drupal/paragraphs": "^1.5",
         "drupal/paragraphs_browser": "^1.0@alpha",
-        "drupal/password_policy": "^3.0@alpha",
-        "drupal/password_strength": "^2.0@alpha",
+        "drupal/password_policy": "3.0-beta1",
+        "drupal/password_strength": "2.0-beta1",
         "drupal/path_redirect_import": "^1.0@beta",
         "drupal/pathauto": "^1.6",
         "drupal/pathologic": "^1.0@alpha",
@@ -117,7 +117,7 @@
         "drupal/redirect_options": "^2.0.2",
         "drupal/rest_menu_tree": "^1.1",
         "drupal/restui": "^1.16",
-        "drupal/role_delegation": "^1.0@alpha",
+        "drupal/role_delegation": "1.1",
         "drupal/search_api": "1.17",
         "drupal/seckit": "^2.0",
         "drupal/simple_oauth": "3.16",
@@ -162,6 +162,7 @@
         "symfony/config": "^3.4",
         "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^5.1",
+        "traviscarden/behat-table-comparison": "~0.2",
         "va-gov/web": "^0.1",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
@@ -268,6 +269,9 @@
         "composer-exit-on-patch-failure": true,
         "patches-ignore": {},
         "patches": {
+            "devshop/yaml-tasks": {
+                "Used 'pending' instead of 'queued' for commit status": "patches/yaml-tasks-pending.patch"
+            },
             "drupal/cer": {
                 "3197953 - Make d9 compatible": "https://www.drupal.org/files/issues/2021-02-11/3197953.patch",
                 "3200122 - Remove delete hook": "https://www.drupal.org/files/issues/2021-02-24/delete-hook-added-in-dev-causes-test-failures.patch"
