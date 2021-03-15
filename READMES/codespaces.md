@@ -2,14 +2,23 @@
 
 ## About
 
-[Github Codespaces](https://github.com/features/codespaces) is a cloud-based development environment that can be used in-browser or (preferably) with [Visual Studio Code](https://code.visualstudio.com). Codespaces is currently (Q1 2021) under evaluation by DSVA.
+[Github Codespaces](https://github.com/features/codespaces) is a cloud-based development environment that can be used in-browser or (preferably) with [Visual Studio Code](https://code.visualstudio.com). Codespaces is currently (Q1 2021) under evaluation by DSVA. Please join [#codespaces](https://dsva.slack.com/archives/C01AN96U39V) for any comments or questions about using Codespaces at VA .
 
-## Getting Started
+## Access
 
 1. Request access to the beta by [creating a Github issue here](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?assignees=&labels=general+issue%2C+user-created&template=general-help-request.md&title=Add%20user%20to%20Codespaces).
-1. Download and install [Visual Studio Code](https://code.visualstudio.com/download)
+
+## Web UI
+
+1. Visit 
+2. Click green "Code" button
+3. Select "Open with Codespaces"
+4. See [Getting Started](https://github.com/department-of-veterans-affairs/vets-website/blob/master/docs/GithubCodespaces.md#getting-started) in `vets-website` for more detail.
+
+## Local VS Code
+3. Download and install [Visual Studio Code](https://code.visualstudio.com/download)
   1. Arch Linux: `yay --sync visual-studio-code-bin`
-1. Open VS Code and install the [Codespaces plugin](https://marketplace.visualstudio.com/items?itemName=ms-vsonline.vsonline)
+4. Open VS Code and install the [Codespaces plugin](https://marketplace.visualstudio.com/items?itemName=ms-vsonline.vsonline)
   ![codespaces plugin](https://user-images.githubusercontent.com/101649/111006584-4d24ad80-834a-11eb-84d8-b0f574880e49.png)
 1. Once you've received access, go to the main [Codespaces page](https://github.com/codespaces) and click the 'New codespace' button
 1. Make sure your remote fork is updated with the latest in upstream repo (must have .devenvironment to work)
