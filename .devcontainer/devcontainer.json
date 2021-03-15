@@ -17,5 +17,6 @@
       "stylelint.vscode-stylelint",
       "valeryanm.vscode-phpsab"
     ],
-    "postCreateCommand": "/bin/bash ./.devcontainer/post-create.sh 2>&1 | tee ~/post-create.log"
+    "postCreateCommand": "/bin/bash ./.devcontainer/post-create.sh 2>&1 | tee ~/post-create.log",
+    "postStartCommand": "/bin/bash ./.devcontainer/post-start.sh 2>&1 | tee ~/post-start.log"
 }
