@@ -31,7 +31,7 @@ class WebBuildStatus implements WebBuildStatusInterface {
    *
    * @var string;
    */
-  protected const STATE = 'va.web_build_stats';
+  protected const STATE = 'va.web_build_status';
 
   /**
    * WebBuildStatus constructor.

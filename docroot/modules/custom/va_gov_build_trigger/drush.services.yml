@@ -4,3 +4,13 @@ services:
     arguments: ['@va_gov.site_status']
     tags:
       - { name: drush.command }
+  va_gov_build_trigger.web_build_commands:
+    class: \Drupal\va_gov_build_trigger\Commands\WebBuildCommands
+    arguments:
+      - '@va_gov.build_trigger.web_build_command_builder'
+      - '@va_gov_build_trigger.build_frontend'
+      - '@database'
+      - '@entity_type.manager'
+      - '@advancedqueue.processor'
+    tags:
+      - { name: drush.command }
