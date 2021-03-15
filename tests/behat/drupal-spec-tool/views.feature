@@ -157,9 +157,6 @@ Feature: Views
 | Right sidebar latest revision | Master | default | Master |
 | Search | Master | default | Master |
 | Search | Page | page | Page |
-| Sections tree | Block | block_1 | Block |
-| Sections tree | Master | default | Master |
-| Sections tree | Page | page_1 | Page |
 | Taxonomy term | Master | default | Master |
 | Taxonomy term | Feed | feed_1 | Feed |
 | Taxonomy term | Page | page_1 | Page |
