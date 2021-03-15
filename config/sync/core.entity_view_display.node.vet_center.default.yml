@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.vet_center.field_address
     - field.field.node.vet_center.field_administration
+    - field.field.node.vet_center.field_cc_vet_center_faqs
     - field.field.node.vet_center.field_facility_locator_api_id
     - field.field.node.vet_center.field_intro_text
     - field.field.node.vet_center.field_media
@@ -59,6 +60,13 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_cc_vet_center_faqs:
+    weight: 14
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: entity_field_fetch
     region: content
   field_facility_locator_api_id:
     weight: 1

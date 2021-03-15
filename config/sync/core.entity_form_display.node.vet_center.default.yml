@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.vet_center.field_address
     - field.field.node.vet_center.field_administration
+    - field.field.node.vet_center.field_cc_vet_center_faqs
     - field.field.node.vet_center.field_facility_locator_api_id
     - field.field.node.vet_center.field_intro_text
     - field.field.node.vet_center.field_media
@@ -23,7 +24,6 @@ dependencies:
     - content_moderation
     - entity_field_fetch
     - field_group
-    - limited_field_widgets
     - media_library
     - office_hours
     - paragraphs
@@ -58,7 +58,7 @@ third_party_settings:
         - field_operating_status_facility
         - field_operating_status_more_info
       parent_name: ''
-      weight: 4
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -127,6 +127,15 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  field_cc_vet_center_faqs:
+    weight: 4
+    settings:
+      show_field_label: true
+      show_link_to_source: false
+      show_source_updated_date: false
+    third_party_settings: {  }
+    type: entity_field_fetch_widget
+    region: content
   field_facility_locator_api_id:
     weight: 2
     settings:
@@ -193,7 +202,7 @@ content:
     region: content
   field_prepare_for_visit:
     type: paragraphs
-    weight: 3
+    weight: 2
     settings:
       title: accordion
       title_plural: accordions
@@ -223,7 +232,7 @@ content:
     region: content
   field_vet_center_feature_content:
     type: paragraphs
-    weight: 2
+    weight: 1
     settings:
       title: 'featured content block'
       title_plural: 'featured content blocks'

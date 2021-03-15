@@ -21,6 +21,7 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center | Prepare for your visit accordions | field_prepare_for_visit | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Content type | Vet Center | Vet Center call center | field_vet_center_call_center | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | Vet Center | Featured content | field_vet_center_feature_content | Entity reference revisions |  | 2 | Paragraphs EXPERIMENTAL |  |
+| Content type | Vet Center | Vet Center faqs | field_cc_vet_center_faqs | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | Vet Center Community Access Point | Address | field_address | Address | Required | 1 | Address | Translatable |
 | Content type | Vet Center Community Access Point | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | -- Disabled -- | Translatable |
 | Content type | Vet Center Community Access Point | Geographical identifier | field_geographical_identifier | Text (plain) | Required | 1 | Textfield |  |
