@@ -5,17 +5,17 @@ dependencies:
   config:
     - field.field.node.vet_center.field_address
     - field.field.node.vet_center.field_administration
+    - field.field.node.vet_center.field_cc_non_traditional_hours
+    - field.field.node.vet_center.field_cc_vet_center_call_center
     - field.field.node.vet_center.field_cc_vet_center_faqs
     - field.field.node.vet_center.field_facility_locator_api_id
     - field.field.node.vet_center.field_intro_text
     - field.field.node.vet_center.field_media
-    - field.field.node.vet_center.field_non_traditional_hours
     - field.field.node.vet_center.field_office_hours
     - field.field.node.vet_center.field_operating_status_facility
     - field.field.node.vet_center.field_operating_status_more_info
     - field.field.node.vet_center.field_phone_number
     - field.field.node.vet_center.field_prepare_for_visit
-    - field.field.node.vet_center.field_vet_center_call_center
     - field.field.node.vet_center.field_vet_center_feature_content
     - node.type.vet_center
     - workflows.workflow.editorial
@@ -41,7 +41,9 @@ third_party_settings:
         - group_phone
         - field_office_hours
         - field_non_traditional_hours
+        - field_cc_non_traditional_hours
         - field_vet_center_call_center
+        - field_cc_vet_center_call_center
       parent_name: ''
       weight: 0
       format_type: details
@@ -58,7 +60,7 @@ third_party_settings:
         - field_operating_status_facility
         - field_operating_status_more_info
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -71,7 +73,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -87,7 +89,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: fieldset
       format_settings:
         id: ''
@@ -127,8 +129,26 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  field_cc_non_traditional_hours:
+    weight: 9
+    settings:
+      show_field_label: '1'
+      show_link_to_source: 0
+      show_source_updated_date: 0
+    third_party_settings: {  }
+    type: entity_field_fetch_widget
+    region: content
+  field_cc_vet_center_call_center:
+    weight: 11
+    settings:
+      show_field_label: true
+      show_link_to_source: false
+      show_source_updated_date: false
+    third_party_settings: {  }
+    type: entity_field_fetch_widget
+    region: content
   field_cc_vet_center_faqs:
-    weight: 4
+    weight: 5
     settings:
       show_field_label: true
       show_link_to_source: false
@@ -158,15 +178,6 @@ content:
       media_types: {  }
     third_party_settings: {  }
     type: media_library_widget
-    region: content
-  field_non_traditional_hours:
-    weight: 8
-    settings:
-      show_field_label: true
-      show_link_to_source: false
-      show_source_updated_date: false
-    third_party_settings: {  }
-    type: entity_field_fetch_widget
     region: content
   field_office_hours:
     weight: 7
@@ -202,7 +213,7 @@ content:
     region: content
   field_prepare_for_visit:
     type: paragraphs
-    weight: 2
+    weight: 3
     settings:
       title: accordion
       title_plural: accordions
@@ -221,18 +232,9 @@ content:
       limited_field_widgets:
         limit_values: '0'
     region: content
-  field_vet_center_call_center:
-    weight: 9
-    settings:
-      show_field_label: true
-      show_link_to_source: false
-      show_source_updated_date: false
-    third_party_settings: {  }
-    type: entity_field_fetch_widget
-    region: content
   field_vet_center_feature_content:
     type: paragraphs
-    weight: 1
+    weight: 2
     settings:
       title: 'featured content block'
       title_plural: 'featured content blocks'
