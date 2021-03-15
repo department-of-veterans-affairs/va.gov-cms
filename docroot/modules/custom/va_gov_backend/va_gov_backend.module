@@ -132,39 +132,6 @@ function va_gov_backend_press_release_address_after_build(array $element, FormSt
 }
 
 /**
- * Hide hours caption in hours widget on vc cap type.
- *
- * @param array $element
- *   The hours table widget form array.
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state.
- *
- * @return string
- *   The altered hours table widget.
- */
-function va_gov_backend_vc_cap_hours_hide_caption_after_build(array $element, FormStateInterface $form_state) {
-  unset($element[0]['#description']);
-  unset($element[0]['caption']);
-  return $element;
-}
-
-/**
- * Change company title label in address widget on vc cap type.
- *
- * @param array $element
- *   The address widget form array.
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state.
- *
- * @return string
- *   The altered Address organization label.
- */
-function va_gov_backend_vc_cap_address_alter_label_after_build(array $element, FormStateInterface $form_state) {
-  $element[0]['address']['organization']['#title'] = t('Located at');
-  return $element;
-}
-
-/**
  * Implements hook_form_FORMID_alter().
  */
 function va_gov_backend_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
@@ -423,6 +390,11 @@ function _va_gov_toggle_field_states(array &$form, array $toggle_group) {
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
+  // Prevent system title from being edited on the edit form by non admins.
+  if ($form_id === 'node_health_care_region_page_edit_form') {
+    _va_gov_backend_vamc_title_access($form);
+  }
+
   if (isset($form['field_hservice_appt_intro_select'])) {
     $form['field_hservice_appt_leadin']['widget'][0]['value']['#title_display'] = 'invisible';
     _va_gov_backend_modify_appt_intro_text_states($form, $form_state);
@@ -563,12 +535,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     $form['field_address']['widget']['#after_build'][] = 'va_gov_backend_press_release_address_after_build';
   }
 
-  // Add after_build callback for VC CAP node forms.
-  if ($form_id === 'node_vet_center_cap_form' || $form_id === 'node_vet_center_cap_edit_form') {
-    $form['field_address']['widget']['#after_build'][] = 'va_gov_backend_vc_cap_address_alter_label_after_build';
-    $form['field_facility_hours']['widget']['#after_build'][] = 'va_gov_backend_vc_cap_hours_hide_caption_after_build';
-  }
-
 }
 
 /**
@@ -696,6 +662,24 @@ function _va_gov_backend_get_unlocked_alias_bundles() {
 
   // Insert into array bundles that do not need alias locked upon publish.
   return [];
+}
+
+/**
+ * Determines whether or not user can edit vamc title.
+ *
+ * @param array $form
+ *   The node form array.
+ */
+function _va_gov_backend_vamc_title_access(array &$form) {
+  $allowed_roles = [
+    'administrator',
+    'content_admin',
+  ];
+  $current_user_roles = \Drupal::currentUser()->getRoles();
+  $admin_role_count = count(array_intersect($allowed_roles, $current_user_roles));
+  if ($admin_role_count < 1) {
+    $form['title']['#disabled'] = 'disabled';
+  }
 }
 
 /**
@@ -1079,7 +1063,6 @@ function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
   $perms_service = \Drupal::service('va_gov_user.user_perms');
   // Grabs items user can access per section associations.
   $allowed_options = $perms_service->userOptionsStorage($form, $targets, $user_id);
-
   // Loop through all of our target fields.
   foreach ($targets as $target) {
     if (in_array($target, $form) && !empty($form[$target]['widget']['#options'])) {

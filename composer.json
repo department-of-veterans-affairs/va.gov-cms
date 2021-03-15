@@ -7,7 +7,8 @@
     "prefer-stable": true,
     "require-dev": {
         "acquia/drupal-spec-tool": "^2.0",
-        "drupal/console": "~1.0",
+        "drupal/console": "^1.9",
+        "drupal/console-extend-plugin": "^0.9.5",
         "drupal/media_entity_generic": "^1.0",
         "marcortola/behat-seo-contexts": "^3.1"
     },
@@ -18,8 +19,10 @@
         "bower-asset/cropper": "^4.1",
         "bower-asset/dropzone": "^5.5",
         "composer/installers": "^1.7",
-        "cweagans/composer-patches": "^1.6.4",
+        "consolidation/robo": "^1",
+        "cweagans/composer-patches": "^1.7",
         "devshop/behat-drupal-extension": "dev-rewrite-last-page-output-links",
+        "devshop/yaml-tasks": "^1.7@alpha",
         "drupal/address": "^1.4",
         "drupal/admin_toolbar": "^3.0",
         "drupal/advancedqueue": "^1.0@RC",
@@ -44,6 +47,7 @@
         "drupal/danse": "^2.1",
         "drupal/danse_content_moderation": "^2.0",
         "drupal/devel": "^2.1",
+        "drupal/diff": "1.0",
         "drupal/dropzonejs": "^2.0",
         "drupal/dynamic_entity_reference": "^2.0",
         "drupal/embed": "^1.3",
@@ -52,7 +56,7 @@
         "drupal/entity_browser_table": "^1.2",
         "drupal/entity_clone": "^1.0@beta",
         "drupal/entity_embed": "^1.0",
-        "drupal/entity_field_fetch": "^1.0@beta",
+        "drupal/entity_field_fetch": "^1.0-beta2",
         "drupal/entity_reference_revisions": "^1.7",
         "drupal/entity_reference_unpublished": "^1.1",
         "drupal/entity_reference_validators": "^1.0@alpha",
@@ -84,22 +88,26 @@
         "drupal/menu_breadcrumb": "^1.8",
         "drupal/menu_export": "^1.2",
         "drupal/menu_item_extras": "^2.7",
-        "drupal/menu_link_attributes": "^1.1",
+        "drupal/menu_link_attributes": "^1.2",
         "drupal/metatag": "^1.13",
-        "drupal/migrate_plus": "^4.0",
+        "drupal/migrate_plus": "^5.1",
         "drupal/migrate_source_csv": "^2.2",
         "drupal/migrate_source_ui": "^1.0@RC",
-        "drupal/migrate_tools": "^4.0",
+        "drupal/migrate_tools": "5.x-dev#7ae3747d1e30790d11c2eefcc56e0796bea25c76",
         "drupal/migration_tools": "^2.1",
         "drupal/node_link_report": "^1.14",
         "drupal/node_revision_delete": "^1.0",
         "drupal/node_title_help_text": "^1.0",
+        "drupal/office_hours": "^1.3",
         "drupal/openapi": "^1.0@beta",
+        "drupal/openapi_ui": "1.0-rc2",
+        "drupal/openapi_ui_redoc": "1.0-rc2",
+        "drupal/openapi_ui_swagger": "1.0-rc3",
         "drupal/override_node_options": "^2.4",
         "drupal/paragraphs": "^1.5",
         "drupal/paragraphs_browser": "^1.0@alpha",
-        "drupal/password_policy": "^3.0@alpha",
-        "drupal/password_strength": "^2.0@alpha",
+        "drupal/password_policy": "3.0-beta1",
+        "drupal/password_strength": "2.0-beta1",
         "drupal/path_redirect_import": "^1.0@beta",
         "drupal/pathauto": "^1.6",
         "drupal/pathologic": "^1.0@alpha",
@@ -109,10 +117,12 @@
         "drupal/redirect_options": "^2.0.2",
         "drupal/rest_menu_tree": "^1.1",
         "drupal/restui": "^1.16",
-        "drupal/role_delegation": "^1.0@alpha",
+        "drupal/role_delegation": "1.1",
+        "drupal/search_api": "1.17",
         "drupal/seckit": "^2.0",
+        "drupal/simple_oauth": "3.16",
         "drupal/simplesamlphp_auth": "^3.2",
-        "drupal/site_alert": "1.x-dev#d3700174bdddeca1f33c6995fde86e436b034270",
+        "drupal/site_alert": "1.2",
         "drupal/slack": "^1.2",
         "drupal/smart_date": "3.1.1",
         "drupal/social_media_links": "^2.6",
@@ -135,36 +145,39 @@
         "drupal/workbench_menu_access": "^1.0",
         "drupal/workflow_assignments": "1.x-dev",
         "drush-ops/behat-drush-endpoint": "^9.4.0",
-        "drush/drush": "~8",
+        "drush/drush": "^10.4",
+        "easyrdf/easyrdf": "1.1.1 as 0.9.1",
         "http-interop/http-factory-guzzle": "^1.0",
-        "knplabs/github-api": "^2.12.1",
+        "knplabs/github-api": "^1.4",
         "michelf/php-markdown": "^1.8",
         "mikey179/vfsstream": "^1.6",
         "mouf/nodejs-installer": "^1.0",
         "npm-asset/yarn": "1.21.1",
-        "oomphinc/composer-installers-extender": "1.1.2",
+        "oomphinc/composer-installers-extender": "^2.0",
         "php-http/guzzle6-adapter": "^1.1",
         "phpunit/phpunit": "^7",
-        "provision-ops/yaml-tests": "~1.9",
         "querypath/querypath": "^3.0",
         "simplesamlphp/simplesamlphp": "^1.18",
         "squizlabs/php_codesniffer": "^3.5",
         "symfony/config": "^3.4",
         "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^5.1",
+        "traviscarden/behat-table-comparison": "~0.2",
         "va-gov/web": "^0.1",
+        "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
         "weitzman/drupal-test-traits": "dev-master",
-        "zaporylie/composer-drupal-optimizations": "^1.0"
+        "zaporylie/composer-drupal-optimizations": "^1.2"
     },
     "autoload": {
         "psr-4": {
-            "Traits\\": "tests/traits",
             "CustomDrupal\\": "tests/behat/Drupal",
             "Drupal\\va_gov_backend\\": "docroot/modules/custom/va_gov_backend/src",
             "Drupal\\va_gov_content_export\\": "docroot/modules/custom/va_gov_content_export/src",
-            "Drupal\\va_gov_flags\\": "docroot/modules/custom/va_gov_flags/src"
+            "Drupal\\va_gov_flags\\": "docroot/modules/custom/va_gov_flags/src",
+            "Tests\\Support\\": "tests/phpunit/Support",
+            "Traits\\": "tests/traits"
         },
         "files": [
             "scripts/composer/EnvironmentHandler.php"
@@ -193,7 +206,7 @@
         "sort-packages": true,
         "optimize-autoloader": true,
         "platform": {
-            "php": "7.2.32"
+            "php": "7.3"
         },
         "preferred-install": {
             "drupal/core": "source",
@@ -222,14 +235,13 @@
         "mouf": {
             "nodejs": {
                 "version": "14.15.0",
-                "targetDir": "vendor/nodejs/nodejs",
+                "targetDir": "docroot/vendor/nodejs/nodejs",
                 "forceLocal": true
             }
         },
         "installer-types": [
             "bower-asset",
-            "npm-asset",
-            "node-project"
+            "npm-asset"
         ],
         "installer-paths": {
             "docroot/core": [
@@ -257,6 +269,9 @@
         "composer-exit-on-patch-failure": true,
         "patches-ignore": {},
         "patches": {
+            "devshop/yaml-tasks": {
+                "Used 'pending' instead of 'queued' for commit status": "patches/yaml-tasks-pending.patch"
+            },
             "drupal/cer": {
                 "3197953 - Make d9 compatible": "https://www.drupal.org/files/issues/2021-02-11/3197953.patch",
                 "3200122 - Remove delete hook": "https://www.drupal.org/files/issues/2021-02-24/delete-hook-added-in-dev-causes-test-failures.patch"
@@ -275,7 +290,8 @@
                 "2911932 - Correct vertical tab does not focus on form validation": "https://www.drupal.org/files/issues/2020-12-12/vertical-tabs--focus-on-onvalid-7b.patch",
                 "3188331 - Vertical tabs scroll behavior is buggy": "https://www.drupal.org/files/issues/2020-12-14/vertical-tab-scroll-frozen-2.patch",
                 "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2020-01-07/2893933-34.patch",
-                "3198608 - Migrate does not set set track_lst_updated from config": "https://www.drupal.org/files/issues/2021-02-15/3198608-track-last-updated-6.patch"
+                "3198608 - Migrate does not set set track_lst_updated from config": "https://www.drupal.org/files/issues/2021-02-15/3198608-track-last-updated-6.patch",
+                "3176975 - Allow updating easyrdf/easyrdf on 8.9.x": "patches/allow_updating_easyrdf_8_9_x.patch"
             },
             "drupal/entity_browser": {
                 "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch",
@@ -306,9 +322,6 @@
             "drupal/field_group": {
                 "2787179 Visibility of invalid fields": "https://www.drupal.org/files/issues/2021-01-05/2787179-highlight-html5-validation-59.patch"
             },
-            "drupal/graphql": {
-                "PHP 7.4 Notices (https://github.com/drupal-graphql/graphql/pull/989)": "https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/989.patch"
-            },
             "drupal/health_check_url": {
                 "3147740 - Make d9 compatible": "https://www.drupal.org/files/issues/2020-06-06/health_check_url.2.x-dev.rector.patch"
             },
@@ -335,6 +348,9 @@
               "3113461 - Allow properties in str_replace process plugin." : "https://www.drupal.org/files/issues/2020-03-16/migrate_plus-properties_str_replace-2.patch",
               "Allow request options https://gitlab.com/drupalspoons/migrate_plus/-/issues/257" : "https://gitlab.com/drupalspoons/migrate_plus/uploads/35f5950f1647e237cdd706f2e3e93c54/257-add-request-option-support-to-http.patch"
             },
+            "drupal/migration_tools": {
+              "3163830 - Fatal Error: Call to undefined function drush_print()" : "https://www.drupal.org/files/issues/2020-08-06/migration_tools-drush-10-compatibility-13778991-3.patch"
+            },
             "drupal/paragraphs": {
                 "Content & Behavior tabs use fixed IDs": "https://www.drupal.org/files/issues/2020-10-14/paragraphs-fix_duplicate_content_behavior_tab_ids-3176946-3.patch",
                 "Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch",
@@ -354,9 +370,7 @@
                 "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2020-07-31/reroll-existing-test-and-logging-fix-2748731-29.patch"
             },
             "drupal/site_alert": {
-                "Add drush commands https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-05-20/site_alert-add_drush_commands-3118800-12.patch",
-                "Make drush commands Drush 8 https://www.drupal.org/project/site_alert/issues/3118800": "https://www.drupal.org/files/issues/2020-05-20/site_alert-add_drush_commands_for_drush8-3118800-14.patch",
-                "Allow access to /ajax/site_alert route in maintenance mode": "https://www.drupal.org/files/issues/2020-04-29/maintenance-access.patch"
+                "3118800 - Add drush commands to add and remove alerts by label": "https://www.drupal.org/files/issues/2020-10-26/3118800-45.patch"
             },
             "drupal/tablefield": {
                 "0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch",
@@ -369,6 +383,9 @@
             },
             "drupal/tome": {
                 "Allow entity types to be excluded in tome sync": "https://www.drupal.org/files/issues/2020-02-20/tome_export_types-3114961-2.patch"
+            },
+            "drupal/workbench_access": {
+                "3118596 - Cache isn't invalidated after user is removed from section/added to section.": "https://www.drupal.org/files/issues/2020-06-30/3118596_workbench_access-user-cache-18.patch"
             },
             "drupal/workflow_participants": {
                 "Fix revision uncaught type error by extending class.": "https://www.drupal.org/files/issues/2019-08-16/workflow_participants-revision-error-3075426-1.patch"
@@ -384,6 +401,9 @@
             "# This will allow you to run any command in the ./bin directory without a path.",
             "echo \"export PATH=${PATH}\""
         ],
+        "pre-install-cmd": [
+            "mkdir -p vendor"
+        ],
         "post-install-cmd": [
             "mkdir --parents docroot/profiles",
             "cp -r 'hooks/git/.' '.git/hooks/'",
@@ -393,11 +413,16 @@
             "cp -r 'simplesamlphp-config-metadata/config' 'simplesamlphp-config-metadata/metadata' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
             "echo 'Removing deleted .git/hooks/commit-msg file, no longer used.'",
             "rm -f .git/hooks/commit-msg",
-            "git update-index --skip-worktree samlsessiondb.sq3"
+            "git update-index --skip-worktree samlsessiondb.sq3",
+            "rm -r vendor"
+        ],
+        "pre-update-cmd": [
+            "mkdir -p vendor"
         ],
         "post-update-cmd": [
             "cp -r 'hooks/git/.' '.git/hooks/'",
-            "php -r \"chmod('.git/hooks/pre-commit', 0777);\""
+            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
+            "rm -r vendor"
         ],
         "nuke": [
             "rm -rf bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor /var/www/.cache/yarn",
@@ -493,40 +518,40 @@
             "@va:web:watch"
         ],
         "va:web:build": [
-            "drush state-set va_gov.build va.web_build_stats TRUE -y",
+            "drush state:set va.web_build_stats TRUE -y",
             "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
             "cd web && echo \"Downloading assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
             "cd web && NODE_ENV=production yarn build:content --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov --asset-source=$(git rev-parse --verify HEAD)",
             "echo 'Replace s3 address with local in generated files'",
             "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -print0 | xargs -0 sed -i \"s/https:\\/\\/dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com//g\" ",
-            "drush state-set va_gov.build va.web_build_stats FALSE -y"
+            "drush state:set va.web_build_stats FALSE -y"
         ],
         "va:web:build:full": [
-            "drush state-set va_gov.build va.web_build_stats TRUE -y",
+            "drush state:set va.web_build_stats TRUE -y",
             "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
             "cd web && echo \"Building assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
             "cd web && NODE_ENV=production yarn build --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov",
             "echo 'Replace s3 address with local in generated files'",
             "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -print0 | xargs -0 sed -i \"s/https:\\/\\/dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com//g\" ",
-            "drush state-set va_gov.build va.web_build_stats FALSE -y"
+            "drush state:set va.web_build_stats FALSE -y"
         ],
         "va:web:build:export": [
-            "drush state-set va_gov.build va.web_build_stats TRUE -y",
+            "drush state:set va.web_build_stats TRUE -y",
             "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
             "cd web && echo \"Building assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
             "cd web && NODE_ENV=production yarn build:content --use-cms-export --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov --asset-source=$(git rev-parse --verify HEAD)",
             "echo 'Replace s3 address with local in generated files'",
             "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -print0 | xargs -0 sed -i \"s/https:\\/\\/dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com//g\" ",
-            "drush state-set va_gov.build va.web_build_stats FALSE -y"
+            "drush state:set va.web_build_stats FALSE -y"
         ],
         "va:web:build:export:full": [
-            "drush state-set va_gov.build va.web_build_stats TRUE -y",
+            "drush state:set va.web_build_stats TRUE -y",
             "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
             "cd web && echo \"Downloading assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
             "cd web && NODE_ENV=production yarn build --use-cms-export --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov",
             "echo 'Replace s3 address with local in generated files'",
             "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -print0 | xargs -0 sed -i \"s/https:\\/\\/dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com//g\" ",
-            "drush state-set va_gov.build va.web_build_stats FALSE -y"
+            "drush state:set va.web_build_stats FALSE -y"
         ],
         "va:web:build:export:content": [
             "drush va-gov-cms-export-all-content --process-count=8 --entity-count=500 --delete-existing"

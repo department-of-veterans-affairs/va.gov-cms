@@ -223,7 +223,7 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
     $delimiter = (!empty($this->configuration['delimiter'])) ? $this->configuration['delimiter'] : ',';
     $enclosure = (!empty($this->configuration['enclosure'])) ? $this->configuration['enclosure'] : '';
     $escape = (!empty($this->configuration['escape'])) ? $this->configuration['escape'] : '';
-    $header_offset = (!empty($this->configuration['header_offset'])) ? $this->configuration['header_offset'] : NULL;
+    $header_offset = (!empty($this->configuration['header_offset'])) ? (int) ($this->configuration['header_offset'] - 1) : NULL;
     $headers = $this->getHeaders();
 
     // Create the League CSV reader object to handle parsing and reading.
@@ -240,8 +240,8 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
     if (!empty($escape)) {
       $reader->setEscape($escape);
     }
-    if (!empty($header_offset) && is_numeric($header_offset)) {
-      $reader->setOffset($header_offset);
+    if (is_numeric($header_offset)) {
+      $reader->setHeaderOffset($header_offset);
     }
 
     $data = [];
