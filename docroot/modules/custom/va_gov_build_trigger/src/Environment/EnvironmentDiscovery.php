@@ -95,7 +95,7 @@ class EnvironmentDiscovery {
   /**
    * Get the front end build type key.
    *
-   * @return string|null
+   * @return string
    *   The key defined in settings.php for the front end build.
    */
   public function getBuildTypeKey() : string {
