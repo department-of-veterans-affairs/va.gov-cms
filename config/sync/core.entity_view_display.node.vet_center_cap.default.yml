@@ -6,16 +6,17 @@ dependencies:
     - field.field.node.vet_center_cap.field_address
     - field.field.node.vet_center_cap.field_administration
     - field.field.node.vet_center_cap.field_body
-    - field.field.node.vet_center_cap.field_facility_hours
+    - field.field.node.vet_center_cap.field_facility_locator_api_id
     - field.field.node.vet_center_cap.field_geographical_identifier
     - field.field.node.vet_center_cap.field_media
     - field.field.node.vet_center_cap.field_office
+    - field.field.node.vet_center_cap.field_office_hours
     - image.style.crop_3_2
     - node.type.vet_center_cap
   module:
     - address
     - media
-    - tablefield
+    - office_hours
     - user
 id: node.vet_center_cap.default
 targetEntityType: node
@@ -28,15 +29,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: address_default
-    region: content
-  field_facility_hours:
-    weight: 4
-    label: above
-    settings:
-      row_header: true
-      column_header: false
-    third_party_settings: {  }
-    type: tablefield
     region: content
   field_geographical_identifier:
     weight: 1
@@ -63,9 +55,37 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
+  field_office_hours:
+    weight: 4
+    label: above
+    settings:
+      day_format: long
+      time_format: G
+      compress: false
+      grouped: false
+      show_closed: all
+      closed_format: Closed
+      separator:
+        days: '<br />'
+        grouped_days: ' - '
+        day_hours: ': '
+        hours_hours: '-'
+        more_hours: ', '
+      current_status:
+        position: ''
+        open_text: 'Currently open!'
+        closed_text: 'Currently closed'
+      schema:
+        enabled: false
+      timezone_field: ''
+      office_hours_first_day: ''
+    third_party_settings: {  }
+    type: office_hours
+    region: content
 hidden:
   content_moderation_control: true
   field_administration: true
   field_body: true
+  field_facility_locator_api_id: true
   links: true
   search_api_excerpt: true
