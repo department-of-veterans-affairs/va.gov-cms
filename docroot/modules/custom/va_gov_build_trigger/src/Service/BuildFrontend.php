@@ -169,16 +169,9 @@ class BuildFrontend implements BuildFrontendInterface {
       'health_care_local_facility',
     ];
 
-    // Is this is the right content type to trigger a build?
     $is_allowed_type = in_array($node->getType(), $allowed_content_types);
-
-    // Is this node published?
     $is_published = $node->isPublished();
-
-    // Is this a facility?
     $is_facility = $node->getType() === 'health_care_local_facility';
-
-    // Has the status changed?
     $is_status_changed = $this->changedStatus($node);
 
     if (
