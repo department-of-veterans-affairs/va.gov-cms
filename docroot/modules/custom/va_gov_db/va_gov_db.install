@@ -428,3 +428,18 @@ function va_gov_db_update_8024(&$sandbox) {
 
   return $messages;
 }
+
+/**
+ * Uninstall OpenAPI, OpenAPI UI, ReDoc for OpenAPI UI,
+ * and Swagger UI for OpenAPI UI.
+ */
+function va_gov_db_update_8025(&$sandbox) {
+  $unistall_modules = [
+    'openapi',
+    'openapi_ui',
+    'openapi_ui_redoc',
+    'openapi_ui_swagger',
+  ];
+
+  return _va_gov_db_uninstall_modules($unistall_modules);
+}
