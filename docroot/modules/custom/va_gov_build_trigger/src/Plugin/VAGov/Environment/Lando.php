@@ -70,11 +70,6 @@ class Lando extends EnvironmentPluginBase {
     /** @var \Drupal\advancedqueue\Entity\QueueInterface $queue */
     $queue = $this->queueLoader->load('command_runner');
 
-    if ($full_rebuild && $this->webBuildCommandBuilder->useContentExport()) {
-      $commands = [$this->getExportCommand()];
-      $this->queueCommands($commands, $queue);
-    }
-
     // A new command variable since the rebuild commands has been queued.
     $commands = $this->webBuildCommandBuilder->buildCommands($front_end_git_ref);
     $this->queueCommands($commands, $queue);
