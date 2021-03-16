@@ -171,16 +171,6 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
   }
 
   /**
-   * Use CMS export.
-   *
-   * @return bool
-   *   Should we use cms export?
-   */
-  public function useContentExport() : bool {
-    return $this->useContentExport;
-  }
-
-  /**
    * Path to App Root.
    *
    * @return string

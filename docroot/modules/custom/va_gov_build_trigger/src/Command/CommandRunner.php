@@ -21,8 +21,6 @@ trait CommandRunner {
    * @param callable $callback
    *   (optional) A callback to invoke for each completed callback.
    *
-   * @see \Drupal\tome_base\ProcessTrait::runCommands()
-   *
    * @return array
    *   An array of errors encountered when running commands.
    */

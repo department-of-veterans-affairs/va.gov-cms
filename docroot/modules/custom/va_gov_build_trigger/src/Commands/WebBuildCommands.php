@@ -123,12 +123,7 @@ class WebBuildCommands extends DrushCommands {
     $fullRebuild = filter_var($fullRebuild, FILTER_VALIDATE_BOOLEAN);
     if ($options['dry-run']) {
       $buildCommands = [];
-      if ($fullRebuild && $this->getWebBuildCommandBuilder()->useContentExport()) {
-        $newCommands = [
-          $this->getExportCommand(),
-        ];
-        $buildCommands = array_merge($buildCommands, $newCommands);
-      }
+
       $newCommands = $this->getWebBuildCommandBuilder()->buildCommands($reference, $fullRebuild);
       $buildCommands = array_merge($buildCommands, $newCommands);
       foreach ($buildCommands as $buildCommand) {
