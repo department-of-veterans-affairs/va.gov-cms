@@ -40,4 +40,15 @@ class Migrator {
     $executable->import();
   }
 
+  /**
+   * Clean up migration mappings for the given entity IDs.
+   *
+   * @param array $entity_ids
+   *   Array of entity IDs for which to remove mappings.
+   */
+  public static function removeMigrationMappings(array $entity_ids) : void {
+    // Get all migrate_map_% tables
+    // Delete from tables where destid1 in node_ids.
+  }
+
 }
