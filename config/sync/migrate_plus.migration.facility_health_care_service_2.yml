@@ -17,21 +17,25 @@ source:
   delimiter: ;
   enclosure: ''''
   escape: \
-  header_row_count: 1
+  header_offset: 0
   track_changes: true
-  keys:
-    - id
-  column_names:
+  ids: [id]
+  fields:
     -
-      id: Id
+      name: id
+      label: Id
     -
-      field_facility_location: 'Facility Name'
+      name: field_facility_location
+      label: 'Facility Name'
     -
-      field_regional_health_service: 'VAMC System Health Service'
+      name: field_regional_health_service
+      label: 'VAMC System Health Service'
     -
-      field_body: 'Facility description of services'
+      name: field_body
+      label: 'Facility description of services'
     -
-      field_administration: Owner
+      name: field_administration
+      label: Owner
 process:
   field_facility_location:
     -
