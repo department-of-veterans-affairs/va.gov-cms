@@ -211,7 +211,10 @@ function va_gov_db_update_8008() {
   ];
 
   foreach ($revisions_ids_to_draft as $nid => $vid) {
-    $log_message = t('Deleting vid :vid from :nid', [':vid' => $vid, ':nid' => $nid]);
+    $log_message = t(
+      'Deleting vid :vid from :nid',
+      [':vid' => $vid, ':nid' => $nid]
+    );
     \Drupal::logger('va_gov_db')->info($log_message);
 
     node_revision_delete($vid);
@@ -430,8 +433,7 @@ function va_gov_db_update_8024(&$sandbox) {
 }
 
 /**
- * Uninstall OpenAPI, OpenAPI UI, ReDoc for OpenAPI UI,
- * and Swagger UI for OpenAPI UI.
+ * Uninstall OpenAPI based modules.
  */
 function va_gov_db_update_8025(&$sandbox) {
   $unistall_modules = [
