@@ -40,7 +40,6 @@ Feature: Views
 | Redirect | redirect | Redirect | Enabled | List of redirects |
 | Right sidebar latest revision | right_sidebar_latest_revision | Content revisions | Enabled |  |
 | Search | search | Index Content | Disabled |  |
-| Sections tree | sections_tree | Taxonomy terms | Enabled |  |
 | Taxonomy term | taxonomy_term | Content | Enabled | Content belonging to a certain taxonomy term. |
 | People | user_admin_people | Users | Enabled | Find and manage people interacting with your site. |
 | Blocks listing | va_blocks_admin | Custom Block | Enabled | Shows existing blocks on the site. |
@@ -158,9 +157,6 @@ Feature: Views
 | Right sidebar latest revision | Master | default | Master |
 | Search | Master | default | Master |
 | Search | Page | page | Page |
-| Sections tree | Block | block_1 | Block |
-| Sections tree | Master | default | Master |
-| Sections tree | Page | page_1 | Page |
 | Taxonomy term | Master | default | Master |
 | Taxonomy term | Feed | feed_1 | Feed |
 | Taxonomy term | Page | page_1 | Page |

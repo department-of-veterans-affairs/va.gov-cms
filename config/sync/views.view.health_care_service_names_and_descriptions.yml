@@ -7,7 +7,6 @@ dependencies:
   module:
     - taxonomy
     - user
-    - views_tree
 id: health_care_service_names_and_descriptions
 label: 'Health care service names and descriptions'
 module: views
@@ -52,21 +51,20 @@ display:
         options:
           offset: 0
       style:
-        type: tree
+        type: entity_reference
         options:
-          row_class: ''
-          default_row_class: true
-          type: ul
-          main_field: tid
-          parent_field: tid_1
-          collapsible_tree: '0'
+          search_fields:
+            name: name
+            parent_target_id: parent_target_id
       row:
-        type: fields
+        type: entity_reference
         options:
-          inline: {  }
+          default_field_elements: true
+          inline:
+            name: name
+            parent_target_id: parent_target_id
           separator: ''
           hide_empty: false
-          default_field_elements: true
       fields:
         name:
           id: name
@@ -271,26 +269,14 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      style:
-        type: entity_reference
-        options:
-          search_fields:
-            name: name
-            parent_target_id: parent_target_id
-      row:
-        type: entity_reference
-        options:
-          default_field_elements: true
-          inline:
-            name: name
-            parent_target_id: parent_target_id
-          separator: ''
-          hide_empty: false
       pager:
         type: some
         options:
           items_per_page: 0
           offset: 0
+      defaults:
+        style: true
+        row: true
     cache_metadata:
       max-age: -1
       contexts:
