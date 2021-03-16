@@ -8,7 +8,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\advancedqueue\Job;
 use Drupal\advancedqueue\ProcessorInterface as QueueProcessorInterface;
 use Drupal\va_gov_build_trigger\Service\BuildFrontendInterface;
-use Drupal\va_gov_build_trigger\CommandExportable;
 use Drupal\va_gov_build_trigger\WebBuildCommandBuilderInterface;
 use Drush\Commands\DrushCommands;
 
@@ -16,8 +15,6 @@ use Drush\Commands\DrushCommands;
  * A Drush interface to the Frontend Build dispatcher service.
  */
 class WebBuildCommands extends DrushCommands {
-
-  use CommandExportable;
 
   /**
    * The command builder service.

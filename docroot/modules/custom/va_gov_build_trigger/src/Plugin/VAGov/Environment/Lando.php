@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_build_trigger\Plugin\VAGov\Environment;
 
 use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\va_gov_build_trigger\CommandExportable;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
 use Drupal\va_gov_build_trigger\Form\LandoBuildTriggerForm;
 use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
@@ -23,7 +22,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class Lando extends EnvironmentPluginBase {
   use CommandRunner;
   use QueueHelper;
-  use CommandExportable;
 
   /**
    * The queue storage manager.
