@@ -16,20 +16,24 @@ source:
   path: modules/custom/va_gov_migrate/data/facility-health-care-service.csv
   delimiter: ;
   enclosure: ''''
-  header_row_count: 1
-  keys:
-    - id
-  column_names:
+  header_offset: 0
+  ids: [id]
+  fields:
     -
-      id: Id
+      name: id
+      label: Id
     -
-      field_facility_location: Facility
+      name: field_facility_location
+      label: Facility
     -
-      field_regional_health_service: 'VAMC System Health Service'
+      name: field_regional_health_service
+      label: 'VAMC System Health Service'
     -
-      field_body: 'Facility description of services'
+      name: field_body
+      label: 'Facility description of services'
     -
-      field_administration: Owner
+      name: field_administration
+      label: Owner
 process:
   field_facility_location:
     plugin: entity_lookup
