@@ -23,8 +23,8 @@ To import users:
 1. Upload a CSV file in the following format:
 ```
 email,roles,sections
-test_user@example.com,"content_editor,content_admin",""
-another_user@example.com,"content_editor,content_publisher","VA Wilmington health care, VA Coatesville health care"
+test_user@va.gov,"content_editor,content_admin",""
+another_user@va.gov,"content_editor,content_publisher","VA Wilmington health care, VA Coatesville health care"
 ```
 
 Notes:
