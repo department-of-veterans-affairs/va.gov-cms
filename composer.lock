@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e7f235fc867fa3865332473108b549f0",
+    "content-hash": "62bcbf3223224fe873e7e24c8dc1cfab",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -10151,29 +10151,26 @@
         },
         {
             "name": "drupal/taxonomy_menu",
-            "version": "3.4.0",
+            "version": "dev-3.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/taxonomy_menu.git",
-                "reference": "8.x-3.4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/taxonomy_menu-8.x-3.4.zip",
-                "reference": "8.x-3.4",
-                "shasum": "c0c8890a7c07f9af8a6f0509d2e9ea678f95aab1"
+                "reference": "e89d1e8"
             },
             "require": {
-                "drupal/core": "~8.0"
+                "drupal/core": "^8 || ^9"
             },
             "type": "drupal-module",
             "extra": {
+                "branch-alias": {
+                    "dev-3.x": "3.x-dev"
+                },
                 "drupal": {
-                    "version": "8.x-3.4",
-                    "datestamp": "1545492780",
+                    "version": "8.x-3.4+21-dev",
+                    "datestamp": "1596791490",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -22632,6 +22629,7 @@
         "drupal/paragraphs_browser": 15,
         "drupal/path_redirect_import": 10,
         "drupal/pathologic": 15,
+        "drupal/taxonomy_menu": 20,
         "drupal/user_history": 15,
         "drupal/views_data_export": 10,
         "drupal/views_tree": 15,
