@@ -157,6 +157,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'use graphql voyager',
           'view any unpublished content',
           'view own unpublished content',
+          'bypass field security',
         ],
       ],
       [

@@ -59,12 +59,7 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
         'visible' => [':input[name="selection"]' => ['value' => 'choose']],
       ],
     ];
-    if ($this->webBuildStatus->useContentExport()) {
-      $form['section_1']['full_rebuild'] = [
-        '#type' => 'checkbox',
-        '#title' => $this->t('Trigger a full Content Export Rebuild.'),
-      ];
-    }
+
     $form['section_1']['actions']['#type'] = 'actions';
     $form['section_1']['actions']['submit'] = [
       '#type' => 'submit',

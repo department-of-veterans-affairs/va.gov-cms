@@ -8,7 +8,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\advancedqueue\Job;
 use Drupal\advancedqueue\ProcessorInterface as QueueProcessorInterface;
 use Drupal\va_gov_build_trigger\Service\BuildFrontendInterface;
-use Drupal\va_gov_build_trigger\CommandExportable;
 use Drupal\va_gov_build_trigger\WebBuildCommandBuilderInterface;
 use Drush\Commands\DrushCommands;
 
@@ -16,8 +15,6 @@ use Drush\Commands\DrushCommands;
  * A Drush interface to the Frontend Build dispatcher service.
  */
 class WebBuildCommands extends DrushCommands {
-
-  use CommandExportable;
 
   /**
    * The command builder service.
@@ -123,12 +120,7 @@ class WebBuildCommands extends DrushCommands {
     $fullRebuild = filter_var($fullRebuild, FILTER_VALIDATE_BOOLEAN);
     if ($options['dry-run']) {
       $buildCommands = [];
-      if ($fullRebuild && $this->getWebBuildCommandBuilder()->useContentExport()) {
-        $newCommands = [
-          $this->getExportCommand(),
-        ];
-        $buildCommands = array_merge($buildCommands, $newCommands);
-      }
+
       $newCommands = $this->getWebBuildCommandBuilder()->buildCommands($reference, $fullRebuild);
       $buildCommands = array_merge($buildCommands, $newCommands);
       foreach ($buildCommands as $buildCommand) {
