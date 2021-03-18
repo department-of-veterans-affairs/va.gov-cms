@@ -108,6 +108,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'clone menu entity',
           'clone node entity',
           'clone paragraph entity',
+          'create url aliases',
           'execute entity:break_lock node',
           'execute publish_latest_revision_action node',
           'execute views_bulk_edit all',
