@@ -1,29 +1,29 @@
-uuid: b5bcad92-e73c-443f-a5f9-83747b792c98
+uuid: a1b1a733-aa36-4afa-a4bf-c4cc90da0086
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_non_traditional_hours
+    - field.storage.node.field_cc_vet_center_faqs
     - node.type.vet_center
   module:
     - entity_field_fetch
-id: node.vet_center.field_non_traditional_hours
-field_name: field_non_traditional_hours
+id: node.vet_center.field_cc_vet_center_faqs
+field_name: field_cc_vet_center_faqs
 entity_type: node
 bundle: vet_center
-label: 'Non-traditional hours'
+label: 'Vet Center faqs'
 description: ''
 required: false
 translatable: false
 default_value:
   -
-    target_type: null
-    target_uuid: null
-    target_field: null
+    target_type: node
+    target_uuid: '16142'
+    target_field: field_content_block
 default_value_callback: ''
 settings:
   target_entity_type: node
   target_entity_id: '16142'
   field_to_fetch: field_content_block
-  target_paragraph_uuid: da491d60-a25f-4f08-b9de-db8b5ba42e0d
+  target_paragraph_uuid: 5f582f12-b72f-4a35-a9df-411485c8e446
 field_type: entity_field_fetch
