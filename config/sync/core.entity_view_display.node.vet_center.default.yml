@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.vet_center.field_cc_vet_center_call_center
     - field.field.node.vet_center.field_cc_vet_center_faqs
     - field.field.node.vet_center.field_facility_locator_api_id
+    - field.field.node.vet_center.field_fieldset_markup
     - field.field.node.vet_center.field_intro_text
     - field.field.node.vet_center.field_media
     - field.field.node.vet_center.field_office_hours
@@ -16,6 +17,7 @@ dependencies:
     - field.field.node.vet_center.field_operating_status_more_info
     - field.field.node.vet_center.field_phone_number
     - field.field.node.vet_center.field_prepare_for_visit
+    - field.field.node.vet_center.field_table_of_contents
     - field.field.node.vet_center.field_vet_center_feature_content
     - node.type.vet_center
   module:
@@ -23,6 +25,7 @@ dependencies:
     - entity_field_fetch
     - entity_reference_revisions
     - field_group
+    - markup
     - office_hours
     - options
     - telephone
@@ -89,6 +92,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_fieldset_markup:
+    weight: 17
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
     region: content
   field_intro_text:
     weight: 9
@@ -162,6 +172,13 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
+  field_table_of_contents:
+    weight: 18
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
     region: content
   field_vet_center_feature_content:
     type: entity_reference_revisions_entity_view
