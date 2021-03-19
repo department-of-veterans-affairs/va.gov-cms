@@ -5,10 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_office
     - node.type.vet_center
-    - node.type.vet_center_cap
     - node.type.vet_center_locations_list
-    - node.type.vet_center_mobile_vet_center
-    - node.type.vet_center_outstation
   module:
     - entity_reference_validators
 third_party_settings:
@@ -31,9 +28,6 @@ settings:
   handler_settings:
     target_bundles:
       vet_center: vet_center
-      vet_center_cap: vet_center_cap
-      vet_center_mobile_vet_center: vet_center_mobile_vet_center
-      vet_center_outstation: vet_center_outstation
     sort:
       field: title
       direction: ASC

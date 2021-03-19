@@ -98,7 +98,7 @@ Feature: CMS Users may effectively create & edit content
 
 @content_editing
   Scenario: Confirm that the EWA block URL is shown correctly.
-    Given I am logged in as a user with the "content_admin" role
+    Given I am logged in as a user with the "administrator" role
     And I am at "node/add/office"
     Then I should see "Create Office"
 
@@ -222,7 +222,7 @@ Feature: CMS Users may effectively create & edit content
 
 @content_editing
   Scenario: Confirm Generate automatic URL alias is unchecked after node publish.
-    When I am logged in as a user with the "content_admin" role
+    When I am logged in as a user with the "administrator" role
     And I am at "node/add/basic_landing_page"
     Then the "path[0][pathauto]" checkbox should be checked
 

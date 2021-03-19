@@ -9,6 +9,7 @@ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\va_gov_build_trigger\Command\CommandRunner;
+use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Process\Process;
 
@@ -36,6 +37,13 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
   protected $logger;
 
   /**
+   * Web Build Status.
+   *
+   * @var \Drupal\va_gov_build_trigger\WebBuildStatusInterface
+   */
+  protected $webBuildStatus;
+
+  /**
    * Constructs a \Drupal\Component\Plugin\PluginBase object.
    *
    * @param array $configuration
@@ -46,12 +54,21 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
    *   The plugin implementation definition.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
    *   The logger factory.
+   * @param \Drupal\va_gov_build_trigger\WebBuildStatusInterface $webBuildStatus
+   *   The web build status.
    */
-  public function __construct(array $configuration, $pluginId, $pluginDefinition, LoggerChannelFactoryInterface $loggerFactory) {
+  public function __construct(
+    array $configuration,
+    $pluginId,
+    $pluginDefinition,
+    LoggerChannelFactoryInterface $loggerFactory,
+    WebBuildStatusInterface $webBuildStatus
+  ) {
     parent::__construct($configuration, $pluginId, $pluginDefinition);
 
     $this->setLoggerFactory($loggerFactory);
     $this->logger = $this->getLogger($this->getPluginId());
+    $this->webBuildStatus = $webBuildStatus;
   }
 
   /**
@@ -62,7 +79,8 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('logger.factory')
+      $container->get('logger.factory'),
+      $container->get('va_gov.build_trigger.web_build_status')
     );
   }
 
@@ -80,6 +98,15 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function process(Job $job) {
+    if ($this->webBuildStatus->getWebBuildStatus()) {
+      $delay = 30;
+      $message = "Frontend build already in process... retrying in {$delay} seconds...";
+      $this->logger->info($message);
+      return JobResult::failure($message, 1, $delay);
+    }
+    // Blank the message to remove details of previous failures.
+    $job->setMessage('');
+    $this->webBuildStatus->enableWebBuildStatus();
     $this->logger->info('Starting front end rebuild.');
 
     $payload = $job->getPayload();
@@ -91,12 +118,12 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
       foreach ($messages as $message) {
         $this->logger->error(nl2br($message));
       }
-
+      $this->webBuildStatus->disableWebBuildStatus();
       return JobResult::failure();
     }
 
     $this->logger->info('Front end has been successfully rebuilt.');
-
+    $this->webBuildStatus->disableWebBuildStatus();
     return JobResult::success();
   }
 

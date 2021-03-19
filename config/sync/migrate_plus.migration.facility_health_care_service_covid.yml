@@ -17,21 +17,23 @@ source:
   delimiter: ;
   enclosure: ''''
   escape: \
-  header_row_count: 1
+  header_offset: 0
   track_changes: true
-  keys:
-    - station_id
+  ids: [station_id]
   constants:
     cmsmigrator_id: 1317
     vamc_health_service: 'COVID-19 vaccines at '
     vamc_facility_locator_api: vha_
-  column_names:
+  fields:
     -
-      station_id: 'Station ID'
+      name: station_id
+      label: 'Station ID'
     -
-      field_health_care_system_name: 'VAMC System Name'
+      name: field_health_care_system_name
+      label: 'VAMC System Name'
     -
-      field_facility_service_description: 'VAMC Facility description of services'
+      name: field_facility_service_description
+      label: 'VAMC Facility description of services'
 process:
   field_regional_health_service:
     -

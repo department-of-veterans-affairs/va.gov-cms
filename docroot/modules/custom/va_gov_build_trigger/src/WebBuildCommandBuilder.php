@@ -7,7 +7,7 @@ use Drupal\Core\Site\Settings;
 /**
  * A service to build out commands array.
  */
-class WebBuildCommandBuilder {
+class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
 
   public const COMPOSER_HOME = 'va_gov_composer_home';
   public const PATH_TO_COMPOSER = 'va_gov_path_to_composer';
@@ -20,13 +20,6 @@ class WebBuildCommandBuilder {
    * @var string
    */
   protected $appRoot;
-
-  /**
-   * Use CMS Export.
-   *
-   * @var bool
-   */
-  protected $useContentExport;
 
   /**
    * Composer Home Directory.
@@ -54,11 +47,8 @@ class WebBuildCommandBuilder {
    *
    * @param \Drupal\Core\Site\Settings $settings
    *   Drupal settings.
-   * @param \Drupal\va_gov_build_trigger\WebBuildStatusInterface $webBuildStatus
-   *   WebBuild status.
    */
-  public function __construct(Settings $settings, WebBuildStatusInterface $webBuildStatus) {
-    $this->useContentExport = $webBuildStatus->useContentExport();
+  public function __construct(Settings $settings) {
     $this->appRoot = $settings->get(static::APP_ROOT, '');
     $this->composerHome = $settings->get(static::COMPOSER_HOME, '');
     $this->pathToComposer = $settings->get(static::PATH_TO_COMPOSER, '');
@@ -66,15 +56,7 @@ class WebBuildCommandBuilder {
   }
 
   /**
-   * Build an array of commands to run for the web build.
-   *
-   * @param string|null $front_end_git_ref
-   *   Front end git reference to build (branch name or PR number)
-   * @param string|null $unique_key
-   *   A unique key to use in the branch name.  Defaults to time().
-   *
-   * @return array
-   *   An array of commands to run for a build.
+   * {@inheritdoc}
    */
   public function buildCommands(string $front_end_git_ref = NULL, string $unique_key = NULL) : array {
     $commands = [];
@@ -107,13 +89,7 @@ class WebBuildCommandBuilder {
   }
 
   /**
-   * Build a composer command.
-   *
-   * @param string $composer_command
-   *   The composer command to run.
-   *
-   * @return string
-   *   The composer command line.
+   * {@inheritdoc}
    */
   public function buildComposerCommand(string $composer_command) : string {
     return "cd {$this->appRoot} && COMPOSER_HOME={$this->composerHome} {$this->pathToComposer} --no-cache $composer_command";
@@ -130,10 +106,6 @@ class WebBuildCommandBuilder {
    */
   protected function commandName(string $front_end_git_ref = NULL) : string {
     $command = 'va:web:build';
-
-    if ($this->useContentExport()) {
-      $command .= ':export';
-    }
 
     if ($front_end_git_ref) {
       $command .= ':full';
@@ -191,21 +163,11 @@ class WebBuildCommandBuilder {
    * @param string $repo_root
    *   The path to the repository root.
    *
-   * @return array
-   *   The commands to run to reset va-gov/web files.
+   * @return string
+   *   The command to run to reset va-gov/web files.
    */
   protected function getFrontEndResetCommand(string $repo_root) : string {
     return "cd {$repo_root} && git reset --hard HEAD";
-  }
-
-  /**
-   * Use CMS export.
-   *
-   * @return bool
-   *   Should we use cms export?
-   */
-  public function useContentExport() : bool {
-    return $this->useContentExport;
   }
 
   /**

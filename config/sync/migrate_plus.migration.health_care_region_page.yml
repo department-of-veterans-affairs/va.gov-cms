@@ -17,10 +17,9 @@ source:
   delimiter: ;
   enclosure: ''''
   escape: \
-  header_row_count: 1
+  header_offset: 0
   track_changes: true
-  keys:
-    - field_vamc_system_official_name
+  ids: [field_vamc_system_official_name]
   constants:
     cmsmigrator_id: 1317
     visnprefix: 'VISN '
@@ -28,39 +27,55 @@ source:
     introtextsuffix: ', our health care teams are deeply experienced and guided by the needs of Veterans, their families, and caregivers. Find a health facility near you, and manage your health online. Sign up for community events and updates.'
     metadescprefix: 'Find a health facility near you at '
     metadescsuffix: ', and manage your health online. Our health care teams are deeply experienced and guided by the needs of Veterans, their families, and caregivers.'
-  column_names:
+  fields:
     -
-      visn: visn
+      name: visn
+      label: visn
     -
-      field_title: 'VAMC system plain language name'
+      name: field_title
+      label: 'VAMC system plain language name'
     -
-      field_vamc_system_official_name: 'VAMC system official name'
+      name: field_vamc_system_official_name
+      label: 'VAMC system official name'
     -
-      field_meta_title: 'Meta title tag'
+      name: field_meta_title
+      label: 'Meta title tag'
     -
-      field_description: 'Meta Description'
+      name: field_description
+      label: 'Meta Description'
     -
-      field_govdelivery_id_emerg: 'GovDelivery ID for Emergency Updates email'
+      name: field_govdelivery_id_emerg
+      label: 'GovDelivery ID for Emergency Updates email'
     -
-      field_govdelivery_id_news: 'GovDelivery ID for News and Announcements'
+      name: field_govdelivery_id_news
+      label: 'GovDelivery ID for News and Announcements'
     -
-      field_facebook_uri: 'Facebook URL'
+      name: field_facebook_uri
+      label: 'Facebook URL'
     -
-      field_facebook_title: 'Link text'
+      name: field_facebook_title
+      label: 'Link text'
     -
-      field_twitter_uri: 'Twitter URL'
+      name: field_twitter_uri
+      label: 'Twitter URL'
     -
-      field_twitter_title: 'Link text'
+      name: field_twitter_title
+      label: 'Link text'
     -
-      field_flickr_uri: 'Flickr URL'
+      name: field_flickr_uri
+      label: 'Flickr URL'
     -
-      field_flickr_title: 'Link text'
+      name: field_flickr_title
+      label: 'Link text'
     -
-      field_instagram_uri: 'Instagram URL'
+      name: field_instagram_uri
+      label: 'Instagram URL'
     -
-      field_instagram_title: 'Link text'
+      name: field_instagram_title
+      label: 'Link text'
     -
-      path: 'URL alias'
+      name: path
+      label: 'URL alias'
 process:
   pseudo_field_parent:
     -

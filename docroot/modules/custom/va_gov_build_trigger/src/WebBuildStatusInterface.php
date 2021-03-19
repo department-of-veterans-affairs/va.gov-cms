@@ -25,13 +25,4 @@ interface WebBuildStatusInterface {
    */
   public function disableWebBuildStatus() : void;
 
-  /**
-   * Should Content Export be used?
-   *
-   * @return bool
-   *   Should Content Export be used?
-   *   Should Content Export be used?
-   */
-  public function useContentExport() : bool;
-
 }

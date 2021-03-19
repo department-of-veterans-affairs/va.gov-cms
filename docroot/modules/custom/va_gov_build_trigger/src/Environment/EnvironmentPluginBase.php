@@ -5,7 +5,7 @@ namespace Drupal\va_gov_build_trigger\Environment;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\Core\Site\Settings;
-use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
+use Drupal\va_gov_build_trigger\WebBuildCommandBuilderInterface;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -31,7 +31,7 @@ abstract class EnvironmentPluginBase extends PluginBase implements EnvironmentIn
   /**
    * Web build command builder.
    *
-   * @var \Drupal\va_gov_build_trigger\WebBuildCommandBuilder
+   * @var \Drupal\va_gov_build_trigger\WebBuildCommandBuilderInterface
    */
   protected $webBuildCommandBuilder;
 
@@ -44,7 +44,7 @@ abstract class EnvironmentPluginBase extends PluginBase implements EnvironmentIn
     $plugin_definition,
     LoggerInterface $logger,
     WebBuildStatusInterface $webBuildStatus,
-    WebBuildCommandBuilder $webBuildCommandBuilder
+    WebBuildCommandBuilderInterface $webBuildCommandBuilder
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->logger = $logger;
@@ -76,7 +76,7 @@ abstract class EnvironmentPluginBase extends PluginBase implements EnvironmentIn
   /**
    * {@inheritDoc}
    */
-  protected function getWebBuildCommandBuilder(): WebBuildCommandBuilder {
+  protected function getWebBuildCommandBuilder(): WebBuildCommandBuilderInterface {
     return $this->webBuildCommandBuilder;
   }
 

@@ -1014,7 +1014,15 @@ function _va_gov_backend_vbo_facility_status_form_ui(array &$form, FormStateInte
     if (is_array($fields)) {
       foreach ($fields as $field_name => $field_meta) {
         $form['node'][$bundle]['#open'] = TRUE;
-        if (!in_array($field_name, ['field_operating_status_facility', 'field_operating_status_more_info']) && strpos($field_name, '#', 0) === FALSE) {
+        if (!in_array(
+            $field_name,
+            [
+              'field_operating_status_facility',
+              'field_operating_status_more_info',
+            ]
+          )
+          && strpos($field_name, '#', 0) === FALSE) {
+
           // Remove all facility content type fields that are not related
           // to Operating status and Op info from field_selection form.
           unset($form['node'][$bundle]['_field_selector'][$field_name]);
@@ -1741,7 +1749,7 @@ function va_gov_backend_pathauto_alias_alter(&$alias, array &$context) {
 /**
  * Implements hook_entity_presave().
  *
- * @todo: Remove node page wysiwyg sync after VACMS-1163 is on prod.
+ * @todo Remove node page wysiwyg sync after VACMS-1163 is on prod.
  */
 function va_gov_backend_entity_presave(EntityInterface $entity) {
   $bundle_types = ['event', 'news_story', 'press_release', 'outreach_asset'];
@@ -1777,7 +1785,7 @@ function _va_gov_backend_set_file_type(EntityInterface $entity) {
  * Apply html filter to tablefield on save to properly format on the way in.
  *
  * This is needed because the field data of table fields does not have a
- * 'processed' property in graphQL or CMS Export.
+ * 'processed' property in graphQL.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   The table paragraph.
@@ -1890,11 +1898,15 @@ function _va_gov_backend_feature_bump(EntityInterface $entity) {
  */
 function _va_gov_backend_set_field_listing_value(EntityInterface &$entity, array $entity_listing_mapping, int $id = NULL) {
   if (!is_int($id) || $id == 0) {
+    // @codingStandardsIgnoreStart
     // Listing corresponding to field_office, was not found. Fail silently.
     // Give a warning message to the user and log in dblog.
     Drupal::messenger()->addWarning("{$entity->type->entity->label()} Listing page for the office or system you've selected does not exist. Please create {$entity->type->entity->label()} Listing page and come back to re-save this {$entity->type->entity->label()}.");
-    Drupal::logger('va_gov_backend')->warning('%bundle Listing page for the office or system you\'ve selected does not exist. Please create %bundle Listing page and come back to re-save %bundle with NID %nid.', ['%bundle' => $entity->type->entity->label(), '%nid' => $entity->id()]);
+    Drupal::logger('va_gov_backend')->warning(
+      '%bundle Listing page for the office or system you\'ve selected does not exist. Please create %bundle Listing page and come back to re-save %bundle with NID %nid.',
+      ['%bundle' => $entity->type->entity->label(), '%nid' => $entity->id()]);
     return;
+    // @codingStandardsIgnoreEnd
   }
 
   // We have a listing node id.
