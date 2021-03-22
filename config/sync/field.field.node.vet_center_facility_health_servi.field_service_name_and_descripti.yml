@@ -5,12 +5,12 @@ dependencies:
   config:
     - field.storage.node.field_service_name_and_descripti
     - node.type.vet_center_facility_health_servi
-    - taxonomy.vocabulary.health_care_service_taxonomy
   module:
     - entity_reference_validators
 third_party_settings:
   entity_reference_validators:
     circular_reference: false
+    circular_reference_deep: false
     duplicate_reference: true
 id: node.vet_center_facility_health_servi.field_service_name_and_descripti
 field_name: field_service_name_and_descripti
@@ -23,13 +23,10 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      health_care_service_taxonomy: health_care_service_taxonomy
-    sort:
-      field: name
-      direction: asc
-    auto_create: false
-    auto_create_bundle: ''
+    view:
+      view_name: health_care_service_names_and_descriptions
+      display_name: entity_reference_vet_center_services
+      arguments: {  }
 field_type: entity_reference
