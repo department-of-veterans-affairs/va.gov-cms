@@ -15,7 +15,7 @@ interface SiteStatusInterface {
    * occur to an end user.
    *
    * Deploy mode is disabled when the all code deploy, config import,
-   * database update and cms bulk cms export have been completed.
+   * and database have been completed.
    *
    * @return bool
    *   In Deploy Mode.

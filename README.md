@@ -20,7 +20,6 @@ The VA.gov CMS Team
     1. [Getting Started](READMES/getting-started.md)
     1. [WEB & CMS Integration](READMES/unity.md)
     1. [Workflow](READMES/workflow.md)
-    1. [CMS Export](READMES/cms-export.md)
     1. [Project Conventions](READMES/project-conventions.md)
     1. [Environments](READMES/environments.md)
         1. [CI Environments](READMES/cms-ci.md)
