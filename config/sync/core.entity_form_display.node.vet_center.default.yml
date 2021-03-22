@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.vet_center.field_cc_vet_center_faqs
     - field.field.node.vet_center.field_facility_locator_api_id
     - field.field.node.vet_center.field_fieldset_markup
+    - field.field.node.vet_center.field_health_services
     - field.field.node.vet_center.field_intro_text
     - field.field.node.vet_center.field_media
     - field.field.node.vet_center.field_office_hours
@@ -24,8 +25,10 @@ dependencies:
   module:
     - address
     - content_moderation
+    - entity_browser_entity_form
     - entity_field_fetch
     - field_group
+    - ief_table_view_mode
     - limited_field_widgets
     - markup
     - media_library
@@ -35,20 +38,6 @@ dependencies:
     - textfield_counter
 third_party_settings:
   field_group:
-    group_facility_api:
-      children:
-        - field_facility_locator_api_id
-      parent_name: group_locations_and_contact_info
-      weight: 3
-      format_type: details
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        open: true
-        required_fields: false
-      label: 'Facility API'
-      region: content
     group_operating_status:
       children:
         - field_operating_status_facility
@@ -67,7 +56,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -81,9 +70,8 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: fieldset
       format_settings:
         id: ''
@@ -139,7 +127,7 @@ third_party_settings:
       label: 'Page title'
     group_locations_and_contact_info:
       children:
-        - group_facility_api
+        - field_facility_locator_api_id
         - group_contact
         - group_information
         - field_fieldset_markup
@@ -160,7 +148,7 @@ third_party_settings:
         - group_phone
         - field_office_hours
       parent_name: group_locations_and_contact_info
-      weight: 4
+      weight: 5
       format_type: tooltip
       region: content
       format_settings:
@@ -179,7 +167,7 @@ third_party_settings:
         - field_cc_non_traditional_hours
         - field_cc_vet_center_call_center
       parent_name: group_locations_and_contact_info
-      weight: 5
+      weight: 6
       format_type: tooltip
       region: content
       format_settings:
@@ -198,7 +186,7 @@ third_party_settings:
       children:
         - field_prepare_for_visit
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: fieldset
       region: content
       format_settings:
@@ -211,7 +199,7 @@ third_party_settings:
       children:
         - field_vet_center_feature_content
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: fieldset
       region: content
       format_settings:
@@ -224,7 +212,7 @@ third_party_settings:
       children:
         - field_cc_vet_center_faqs
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: fieldset
       region: content
       format_settings:
@@ -278,7 +266,7 @@ content:
     type: entity_field_fetch_widget
     region: content
   field_facility_locator_api_id:
-    weight: 2
+    weight: 4
     settings:
       size: 60
       placeholder: ''
@@ -290,6 +278,27 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: markup
+    region: content
+  field_health_services:
+    weight: 6
+    settings:
+      form_mode: default
+      override_labels: true
+      label_singular: service
+      label_plural: services
+      allow_new: true
+      match_operator: CONTAINS
+      revision: false
+      collapsible: false
+      collapsed: false
+      allow_existing: false
+      allow_duplicate: false
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: _none
+      limited_field_widgets:
+        limit_values: '0'
+    type: inline_entity_form_complex_table_view_mode
     region: content
   field_intro_text:
     weight: 22
@@ -346,7 +355,7 @@ content:
     settings:
       title: accordion
       title_plural: accordions
-      edit_mode: open
+      edit_mode: closed
       closed_mode: summary
       autocollapse: none
       closed_mode_threshold: 0
