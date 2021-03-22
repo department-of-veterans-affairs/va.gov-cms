@@ -205,35 +205,30 @@ display:
           clear_on_exposed: true
           action_title: Action
           selected_actions:
-            -
-              action_id: node_assign_owner_action
-              preconfiguration:
-                label_override: ''
-            -
+            3:
               action_id: node_save_action
               preconfiguration:
-                label_override: ''
-            -
+                add_confirmation: 0
+            7:
+              action_id: node_assign_owner_action
+              preconfiguration:
+                add_confirmation: 0
+            12:
               action_id: publish_latest_revision_action
-              preconfiguration:
-                label_override: ''
-            -
+            13:
               action_id: archive_node_action
-              preconfiguration:
-                label_override: ''
-            -
+            14:
               action_id: views_bulk_edit
               preconfiguration:
-                label_override: ''
+                add_confirmation: 0
                 get_bundles_from_results: 1
-            -
+            15:
               action_id: views_bulk_operations_delete_entity
+            16:
+              action_id: 'entity:pathauto_update_alias:node'
               preconfiguration:
-                label_override: ''
-            -
-              action_id: pathauto_update_alias_node
-              preconfiguration:
-                label_override: ''
+                add_confirmation: 0
+          force_selection_info: 0
           plugin_id: views_bulk_operations_bulk_form
         title:
           id: title
