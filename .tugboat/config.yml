@@ -15,7 +15,9 @@ services:
     default: true
 
     # Wait until the mysql service is done building
-    depends: mysql
+    depends:
+      - mysql
+      - memcache
 
     # A set of commands to run while building this service
     commands:
@@ -178,6 +180,6 @@ services:
         - zcat cms-prod-db-sanitized-latest.sql.gz | mysql tugboat
         - rm cms-prod-db-sanitized-latest.sql.gz
 
-  memcached:
+  memcache:
     image: tugboatqa/memcached:1.6
 
