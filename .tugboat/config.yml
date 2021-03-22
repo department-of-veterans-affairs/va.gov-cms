@@ -41,7 +41,7 @@ services:
         - a2enmod headers rewrite vhost_alias
 
         # Install memcache extension
-        - pecl install memcache
+        - pecl install memcache-4.0.5.2
         - docker-php-ext-enable memcache
 
         # Setup web-*. vhost to serve static website.
