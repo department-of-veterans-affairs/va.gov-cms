@@ -41,7 +41,8 @@ services:
         - a2enmod headers rewrite vhost_alias
 
         # Install memcache extension
-        - docker-php-ext-install memcache
+        - pecl install memcache
+        - docker-php-ext-enable memcache
 
         # Setup web-*. vhost to serve static website.
         - cp "${TUGBOAT_ROOT}"/.tugboat/web-vhost.conf /etc/apache2/sites-enabled/
