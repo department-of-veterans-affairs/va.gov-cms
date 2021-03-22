@@ -2,10 +2,6 @@ services:
   github.client:
     class: Github\Client
     public: true
-  va_gov_consumers.route_subscriber:
-    class: Drupal\va_gov_consumers\Routing\RouteSubscriber
-    tags:
-      - { name: event_subscriber }
   va_gov.consumers.github.factory:
     class: Drupal\va_gov_consumers\Git\GithubFactory
     calls:

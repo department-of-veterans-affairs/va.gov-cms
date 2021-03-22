@@ -15,12 +15,13 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center | Address | field_address | Address |  | 1 | Address | Translatable |
 | Content type | Vet Center | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) |  |
 | Content type | Vet Center | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
-| Content type | Vet Center | Non-traditional hours | field_non_traditional_hours | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
+| Content type | Vet Center | Non-traditional hours | field_cc_non_traditional_hours | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | Vet Center | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Content type | Vet Center | Phone Number | field_phone_number | Telephone number |  | 1 | Telephone number | Translatable |
 | Content type | Vet Center | Prepare for your visit accordions | field_prepare_for_visit | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
-| Content type | Vet Center | Vet Center call center | field_vet_center_call_center | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
+| Content type | Vet Center | Vet Center call center | field_cc_vet_center_call_center | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | Vet Center | Featured content | field_vet_center_feature_content | Entity reference revisions |  | 2 | Paragraphs EXPERIMENTAL |  |
+| Content type | Vet Center | Vet Center faqs | field_cc_vet_center_faqs | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | Vet Center Community Access Point | Address | field_address | Address | Required | 1 | Address | Translatable |
 | Content type | Vet Center Community Access Point | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | -- Disabled -- | Translatable |
 | Content type | Vet Center Community Access Point | Geographical identifier | field_geographical_identifier | Text (plain) | Required | 1 | Textfield |  |

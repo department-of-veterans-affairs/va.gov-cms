@@ -54,6 +54,8 @@ class VaHealthCareLocalFacilityStatusMigrationTest extends ExistingSiteBase {
 
     if ($cleanup) {
       EntityStorage::deleteMatchingEntities('node', $bundle, $conditions);
+      Migrator::removeMigrationMapping($migration_id, '999999');
+      Migrator::removeMigrationMapping('va_node_health_care_local_facility', 'vha_999999');
     }
   }
 

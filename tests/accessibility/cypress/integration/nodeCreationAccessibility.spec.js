@@ -1,5 +1,4 @@
 const routes = [
-  '/sections',
   '/node/add/page',
   '/node/add/landing_page',
   '/node/add/documentation_page',

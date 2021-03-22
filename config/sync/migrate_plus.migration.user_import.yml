@@ -13,16 +13,19 @@ label: 'User Import'
 source:
   plugin: csv
   path: modules/custom/va_gov_migrate/data/user_import.csv
-  header_row_count: 1
-  keys:
+  header_offset: 0
+  ids:
     - email
-  column_names:
+  fields:
     -
-      email: email
+      name: email
+      label: Email
     -
-      roles: roles
+      name: roles
+      label: Roles
     -
-      sections: sections
+      name: sections
+      label: Sections
 process:
   name: email
   mail: email

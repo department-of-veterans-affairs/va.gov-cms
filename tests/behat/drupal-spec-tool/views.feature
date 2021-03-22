@@ -40,7 +40,6 @@ Feature: Views
 | Redirect | redirect | Redirect | Enabled | List of redirects |
 | Right sidebar latest revision | right_sidebar_latest_revision | Content revisions | Enabled |  |
 | Search | search | Index Content | Disabled |  |
-| Sections tree | sections_tree | Taxonomy terms | Enabled |  |
 | Taxonomy term | taxonomy_term | Content | Enabled | Content belonging to a certain taxonomy term. |
 | People | user_admin_people | Users | Enabled | Find and manage people interacting with your site. |
 | Blocks listing | va_blocks_admin | Custom Block | Enabled | Shows existing blocks on the site. |
@@ -63,6 +62,7 @@ Feature: Views
 | Taxonomy entity browsers | taxonomy_entity_browsers | Taxonomy terms | Enabled |  |
 | VAMC top task pages | vamc_top_task_pages | Content | Enabled |  |
 | Vet centers | vet_centers | Content | Enabled |  |
+| Vet Center facility listing | vet_center_facility_listing | Content | Enabled |  |
 
   @dst @views_displays
      Scenario: Views displays
@@ -158,9 +158,6 @@ Feature: Views
 | Right sidebar latest revision | Master | default | Master |
 | Search | Master | default | Master |
 | Search | Page | page | Page |
-| Sections tree | Block | block_1 | Block |
-| Sections tree | Master | default | Master |
-| Sections tree | Page | page_1 | Page |
 | Taxonomy term | Master | default | Master |
 | Taxonomy term | Feed | feed_1 | Feed |
 | Taxonomy term | Page | page_1 | Page |
@@ -214,3 +211,5 @@ Feature: Views
 | Taxonomy entity browsers | Master | default | Master |
 | Vet centers | Entity browser | vet_center_entity_browser | Entity browser |
 | Vet centers | Master | default | Master |
+| Vet Center facility listing | Block | vc_facility_listing | Block |
+| Vet Center facility listing | Master | default | Master |
