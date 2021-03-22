@@ -1,0 +1,5 @@
+services:
+  # Replaces the default lock backend with a memcache implementation.
+  lock:
+    class: Drupal\Core\Lock\LockBackendInterface
+    factory: memcache.lock.factory:get

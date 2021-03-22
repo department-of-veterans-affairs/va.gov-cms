@@ -72,6 +72,9 @@ services:
     portforward: true
     hogfrom:
       - appserver
+  memcache:
+    type: memcached:1
+    mem: 64
 
   # Uncomment this to work on site build triggers, then export ENV vars below, then `lando rebuild`.
   # Must use lando 3.0.0-rc9+

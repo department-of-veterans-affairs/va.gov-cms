@@ -57,11 +57,16 @@ $settings['hash_salt'] = 'HJwuroKYGPRzhRHXnWR7H38RkH9rOkJ0WP8C5qD_pRStai8zvFX655
  * TRUE back to a FALSE!
  */
 $settings['update_free_access'] = FALSE;
+$env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
 
 /**
  * Load services definition file.
  */
 $settings['container_yamls'][] = $app_root . '/' . $site_path . '/../default/services.yml';
+// Environment specific services
+if (file_exists($app_root . '/' . $site_path . '/services/services.' . $env_type . '.yml')) {
+  $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services/services.' . $env_type . '.yml';
+}
 
 /**
  * The default list of directories that will be ignored by Drupal's file API.
@@ -135,8 +140,6 @@ $config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'Local';
 
 $settings['config_sync_directory'] = '../config/sync';
-
-$env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
 
 $config['govdelivery_bulletins.settings']['govdelivery_endpoint'] = getenv('CMS_GOVDELIVERY_ENDPOINT') ?: FALSE;
 $config['govdelivery_bulletins.settings']['govdelivery_username'] = getenv('CMS_GOVDELIVERY_USERNAME') ?: FALSE;

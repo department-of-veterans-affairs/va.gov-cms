@@ -38,6 +38,9 @@ services:
         - docker-php-ext-install opcache
         - a2enmod headers rewrite vhost_alias
 
+        # Install memcache extension
+        - docker-php-ext-install memcache
+
         # Setup web-*. vhost to serve static website.
         - cp "${TUGBOAT_ROOT}"/.tugboat/web-vhost.conf /etc/apache2/sites-enabled/
 
@@ -174,3 +177,7 @@ services:
         - mysql -e "DROP DATABASE IF EXISTS tugboat; CREATE DATABASE tugboat";
         - zcat cms-prod-db-sanitized-latest.sql.gz | mysql tugboat
         - rm cms-prod-db-sanitized-latest.sql.gz
+
+  memcached:
+    image: tugboatqa/memcached:1.6
+
