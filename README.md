@@ -57,8 +57,7 @@ The VA.gov CMS Team
 The [VA.gov](https://www.va.gov) website is made possible by a number of different tools and systems. See
 [High-Level Architecture](#high-level-architecture) for an overview of all of the components.
 
-This repository contains the source code for the _Content Management System_ (**CMS** or **CMS-API**)
-for [VA.gov](https://www.va.gov), running at [cms.VA.gov](https://cms.va.gov).
+This repository contains the source code for the _Content Management System_ (**CMS** or **CMS-API**) for [VA.gov](https://www.va.gov), running at [prod.cms.va.gov](https://prod.cms.va.gov/).
 
 Access to the production CMS is restricted with CAG. See [Getting Access](READMES/access.md).
 
