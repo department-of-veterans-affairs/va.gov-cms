@@ -13,6 +13,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  */
 function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   _vagov_consumers_modify_va_form_fields($form, $form_id, $form_state);
+  _vagov_consumers_modify_vet_center_fields($form, $form_id, $form_state);
   _vagov_consumers_disable_vha_api_form_fields($form, $form_id);
   _vagov_consumers_disable_non_vha_facilities_api_form_fields($form, $form_id);
 }
@@ -149,6 +150,39 @@ function _vagov_consumers_modify_va_form_fields(array &$form, $form_id, FormStat
 }
 
 /**
+ * Modify the display of the fields on vet center form.
+ *
+ * @param array $form
+ *   A drupal form array by reference.
+ * @param string $form_id
+ *   The machine name for the form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state by reference.
+ */
+function _vagov_consumers_modify_vet_center_fields(array &$form, $form_id, FormStateInterface &$form_state) {
+  if ($form_id === 'node_vet_center_edit_form' || $form_id === 'node_vet_center_form') {
+    $node = $form_state->getformObject()->getEntity();
+    $title = "<p>{$node->getTitle()}</p>";
+
+    // We want the form name in a different location, so remove it from here.
+    unset($form['field_name_of_facility']);
+
+    $form['top_of_page_information'] = [
+      '#weight' => 1,
+      'title' => [
+        '#markup' => $title,
+      ],
+    ];
+
+    $form['group_page_title_tooltip']['top_of_page_information'] = $form['top_of_page_information'];
+
+    unset($form['top_of_page_information']);
+
+    _va_gov_consumers_disable_external_content_editing($form, $form_state, 'field_facility_locator_api_id');
+  }
+}
+
+/**
  * Displays selected content as text, not form fields.
  *
  * Adds node rendered as 'external_content' to form and removes the first
@@ -192,6 +226,11 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
       '#markup' => render($readonly_content),
       '#weight' => 1,
     ];
+
+    if ($node->getType() === 'vet_center') {
+      $form['group_locations_and_contact_info']['external_content'] = $form['external_content'];
+      unset($form['external_content']);
+    }
   }
 
 }
