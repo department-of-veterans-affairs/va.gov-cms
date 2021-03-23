@@ -28,20 +28,20 @@ our own "pseudo-package" inside `composer.json`:
 
 ```json
 {
- "repositories": {
-        "va-gov-web":   {
-            "type": "package",
-            "package": {
-                "name": "va-gov/web",
-                "version": "dev-VAGOV-2937-unity",
-                "source": {
-                    "url": "https://github.com/department-of-veterans-affairs/vets-website",
-                    "type": "git",
-                    "reference": "e76d8b6e1ae5fddc9c3f629b76c082e2d956ee8f"
-                }
-            }
+  "repositories": {
+    "va-gov-web": {
+      "type": "package",
+      "package": {
+        "name": "va-gov/web",
+        "version": "dev-VAGOV-2937-unity",
+        "source": {
+          "url": "https://github.com/department-of-veterans-affairs/vets-website",
+          "type": "git",
+          "reference": "e76d8b6e1ae5fddc9c3f629b76c082e2d956ee8f"
         }
+      }
     }
+  }
 }
 ```
 
@@ -80,6 +80,7 @@ the "reference" under "va-gov-web" repository:
     }
 }
 ```
+
 Then followup with a `composer update --lock` and `lando test` will build the front-end with the new hash.
 
 #### Rebuild WEB from a local CMS
@@ -100,10 +101,9 @@ NOTE: We are working on a method to load this content from a root url, like http
 
 The **CMS-CI** system rebuilds the PR sites, including **WEB** every time code is pushed via git.
 
-If team members wish to rebuild WEB manually, they can now sign into DevShop and press the "Rebuild Front-End" button
-on the environment they are working on.
+If team members wish to rebuild WEB manually, they may log into the CMS preview, go to the "Release Content" page, and press the "Release content" button.
 
-![Screenshot of DevShop Environment "Rebuild VA.gov Front-end" Button](images/devshop-rebuild.png)
+![Screenshot of "Release content" Button](images/tugboat-release-content.png)
 
 ### Build CMS PR Environment for WEB PR
 
@@ -114,12 +114,10 @@ can open a PR in the `va.gov-cms` repository:
 1. Determine the SHA of the WEB code you want to test.
 1. Put that SHA into the "reference" field in `composer.json`, as described above.
 1. Visit [Create Pull Request](https://github.com/department-of-veterans-affairs/va.gov-cms/compare?expand=1) page of
-the CMS repo, and describe your intentions.
+   the CMS repo, and describe your intentions.
 1. Wait for the Deployment notification to give you a link to your new site.
 
-  - You will see the text "va-cms-bot requested a deployment to pr548.ci.cms.va.gov - devshop-deploy just now Pending"
-  - Your site will have a URL with the pattern: http://pr548.ci.cms.va.gov. To see the WEB version of the site, add
-  ".web": http://pr548.web,ci.cms.va.gov
-
+- You will see the text "@va-cms-bot va-cms-bot requested a deployment to Tugboat"
+- Your site will have a URL with the pattern: https://pr123-{hash}.ci.cms.va.gov. To see the WEB version of the site, add "web" to the beginning: https://web-{hash}.ci.cms.va.gov
 
 [Table of Contents](../README.md)
