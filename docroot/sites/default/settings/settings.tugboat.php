@@ -59,5 +59,5 @@ $settings['va_gov_app_root'] = getenv('TUGBOAT_ROOT');
 $settings['va_gov_web_root'] = getenv('TUGBOAT_ROOT') . '/web';
 
 // Memcached setup
-$settings['cache']['default'] = 'cache.backend.memcache';
+//$settings['cache']['default'] = 'cache.backend.memcache';
 $settings['memcache']['servers'] = ['memcache:11211' => 'default'];
