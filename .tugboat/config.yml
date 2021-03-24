@@ -34,6 +34,10 @@ services:
         - apt-get install libzip-dev zip
         - docker-php-ext-install zip
 
+        # Install redis
+        - pecl install redis
+        - docker-php-ext-enable redis
+
         # Install opcache, and Apache modules
         - docker-php-ext-install opcache
         - a2enmod headers rewrite vhost_alias
@@ -174,3 +178,5 @@ services:
         - mysql -e "DROP DATABASE IF EXISTS tugboat; CREATE DATABASE tugboat";
         - zcat cms-prod-db-sanitized-latest.sql.gz | mysql tugboat
         - rm cms-prod-db-sanitized-latest.sql.gz
+  reids:
+    image: tugboatqa/redis:5.0.12
