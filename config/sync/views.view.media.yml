@@ -1496,8 +1496,6 @@ display:
         - 'config:core.entity_view_display.media.document.embedded'
         - 'config:core.entity_view_display.media.document.media_library'
         - 'config:core.entity_view_display.media.document.thumbnail'
-        - 'config:core.entity_view_display.media.document_external.default'
-        - 'config:core.entity_view_display.media.document_external.media_library'
         - 'config:core.entity_view_display.media.image.default'
         - 'config:core.entity_view_display.media.image.download_link'
         - 'config:core.entity_view_display.media.image.embedded'
@@ -1506,7 +1504,6 @@ display:
         - 'config:core.entity_view_display.media.video.default'
         - 'config:core.entity_view_display.media.video.embedded'
         - 'config:core.entity_view_display.media.video.thumbnail'
-        - 'config:core.entity_view_display.media.video.user_guides'
   entity_browser_2:
     display_plugin: entity_browser
     id: entity_browser_2
@@ -2321,8 +2318,6 @@ display:
         - 'config:core.entity_view_display.media.document.embedded'
         - 'config:core.entity_view_display.media.document.media_library'
         - 'config:core.entity_view_display.media.document.thumbnail'
-        - 'config:core.entity_view_display.media.document_external.default'
-        - 'config:core.entity_view_display.media.document_external.media_library'
         - 'config:core.entity_view_display.media.image.default'
         - 'config:core.entity_view_display.media.image.download_link'
         - 'config:core.entity_view_display.media.image.embedded'
@@ -2331,7 +2326,6 @@ display:
         - 'config:core.entity_view_display.media.video.default'
         - 'config:core.entity_view_display.media.video.embedded'
         - 'config:core.entity_view_display.media.video.thumbnail'
-        - 'config:core.entity_view_display.media.video.user_guides'
   media_page_list:
     display_plugin: page
     id: media_page_list
@@ -2476,15 +2470,20 @@ display:
           clear_on_exposed: true
           action_title: Action
           selected_actions:
-            -
-              action_id: views_bulk_edit
-              preconfiguration:
-                label_override: ''
-                get_bundles_from_results: 1
-            -
-              action_id: 'entity:delete_action:media'
-              preconfiguration:
-                label_override: ''
+            'entity:break_lock:media': 0
+            views_bulk_edit: views_bulk_edit
+            views_bulk_operations_delete_entity: 0
+            pathauto_update_alias: 0
+            'entity:save_action:media': 0
+            'entity:unpublish_action:media': 0
+            'entity:publish_action:media': 0
+            'entity:delete_action:media': 'entity:delete_action:media'
+          preconfiguration:
+            views_bulk_edit:
+              label_override: ''
+              get_bundles_from_results: 1
+            'entity:delete_action:media':
+              label_override: ''
           plugin_id: views_bulk_operations_bulk_form
         thumbnail__target_id:
           id: thumbnail__target_id
