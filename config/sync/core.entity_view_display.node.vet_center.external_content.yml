@@ -9,8 +9,8 @@ dependencies:
     - field.field.node.vet_center.field_cc_non_traditional_hours
     - field.field.node.vet_center.field_cc_vet_center_call_center
     - field.field.node.vet_center.field_cc_vet_center_faqs
+    - field.field.node.vet_center.field_cc_vet_center_featured_con
     - field.field.node.vet_center.field_facility_locator_api_id
-    - field.field.node.vet_center.field_fieldset_markup
     - field.field.node.vet_center.field_health_services
     - field.field.node.vet_center.field_intro_text
     - field.field.node.vet_center.field_media
@@ -26,7 +26,6 @@ dependencies:
     - address
     - field_group
     - office_hours
-    - telephone
     - user
 third_party_settings:
   field_group:
@@ -34,7 +33,7 @@ third_party_settings:
       children:
         - field_facility_locator_api_id
         - field_address
-        - group_phone_
+        - field_phone_number
         - field_office_hours
       parent_name: ''
       weight: 0
@@ -45,23 +44,12 @@ third_party_settings:
         tooltip_description: "Why can’t I edit this?\r\nThis content is automatically generated from the VAST database, which helps VA maintain a consistent source of information across all of VA.gov."
         description: ''
         id: ''
-        classes: centralized
+        classes: 'not-editable '
+        show_empty_fields: 0
         element: div
         label_element: h3
         attributes: ''
       label: 'Location Information'
-    group_phone_:
-      children:
-        - field_phone_number
-      parent_name: group_location_information
-      weight: 4
-      format_type: fieldset
-      region: content
-      format_settings:
-        description: ''
-        id: ''
-        classes: centralized
-      label: ' Direct line'
 id: node.vet_center.external_content
 targetEntityType: node
 bundle: vet_center
@@ -84,7 +72,7 @@ content:
     third_party_settings: {  }
   field_office_hours:
     type: office_hours
-    weight: 5
+    weight: 6
     region: content
     label: above
     settings:
@@ -110,12 +98,12 @@ content:
       timezone_field: ''
     third_party_settings: {  }
   field_phone_number:
-    type: telephone_link
-    weight: 6
+    type: string
+    weight: 4
     region: content
-    label: hidden
+    label: above
     settings:
-      title: ''
+      link_to_entity: false
     third_party_settings: {  }
 hidden:
   content_moderation_control: true
@@ -123,7 +111,7 @@ hidden:
   field_cc_non_traditional_hours: true
   field_cc_vet_center_call_center: true
   field_cc_vet_center_faqs: true
-  field_fieldset_markup: true
+  field_cc_vet_center_featured_con: true
   field_health_services: true
   field_intro_text: true
   field_media: true
