@@ -174,8 +174,10 @@ function _vagov_consumers_modify_vet_center_fields(array &$form, $form_id, FormS
       ],
     ];
 
+    // We want the title to appear within the page_title fieldgroup.
     $form['group_page_title_tooltip']['top_of_page_information'] = $form['top_of_page_information'];
 
+    // We want the page title in a different location, so remove it from here.
     unset($form['top_of_page_information']);
 
     _va_gov_consumers_disable_external_content_editing($form, $form_state, 'field_facility_locator_api_id');
@@ -199,12 +201,12 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
   $node = $form_state->getformObject()->getEntity();
 
   $is_admin = in_array('administrator', \Drupal::currentUser()->getRoles());
-  $has_va_form_number = !empty($node->get($display_if_empty_field)->value);
+  $has_field_value = !empty($node->get($display_if_empty_field)->value);
 
   // If the user is not admin or and there is migrated data, hide the fields.
   // We want admins to have access to fields in case they have to temporarily
-  // fix bad data from the forms db.  It will get wiped out each night.
-  if ((!$is_admin) && ($has_va_form_number) && (!empty($form) && !empty($form['#fieldgroups']))) {
+  // fix bad data from the forms db. It will get wiped out each night.
+  if ((!$is_admin) && ($has_field_value) && (!empty($form) && !empty($form['#fieldgroups']))) {
     // Hide the actual fields.
     foreach ($form['#fieldgroups'] as &$fieldgroup) {
       if (!empty($fieldgroup->format_settings['id']) && $fieldgroup->format_settings['id'] === 'external-content') {
@@ -227,6 +229,8 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
       '#weight' => 1,
     ];
 
+    // We want the external content to appear in the fieldgroup
+    // group_locations_and_contact_info if vet_center node.
     if ($node->getType() === 'vet_center') {
       $form['group_locations_and_contact_info']['external_content'] = $form['external_content'];
       unset($form['external_content']);
