@@ -106,13 +106,17 @@
   font-size: 20px;
 }
 
-.field--name-field-phone-number,
-.field--name-field-phone-extension {
-  float: left;
+.field--name-field-phone-number {
+  .form-type-textfield {
+    float: left;
+  }
 }
 
 .field--name-field-phone-extension {
-  margin-left: 20px;
+  .form-type-textfield {
+    float: left;
+    margin-left: 20px;
+  }
 }
 
 .field--name-field-phone-label {
