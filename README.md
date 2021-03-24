@@ -83,7 +83,7 @@ All development on these projects is done via Pull Requests.
 
 The public website seen at [VA.gov](https://www.va.gov) is a static site hosted on S3: just HTML, CSS, JavaScript and images.
 
-The source code used to generate the public site is called _vets-website_ or _Front-end_ or **WEB**, and is availalble
+The source code used to generate the public site is called _vets-website_ or _Front-end_ or **WEB**, and is available
 at [github.com/department-of-veterans-affairs/vets-website](https://github.com/department-of-veterans-affairs/vets-website).
 
 #### Decoupled Drupal
