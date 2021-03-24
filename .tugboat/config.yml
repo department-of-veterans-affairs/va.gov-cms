@@ -178,5 +178,5 @@ services:
         - mysql -e "DROP DATABASE IF EXISTS tugboat; CREATE DATABASE tugboat";
         - zcat cms-prod-db-sanitized-latest.sql.gz | mysql tugboat
         - rm cms-prod-db-sanitized-latest.sql.gz
-  reids:
+  redis:
     image: tugboatqa/redis:5.0.12
