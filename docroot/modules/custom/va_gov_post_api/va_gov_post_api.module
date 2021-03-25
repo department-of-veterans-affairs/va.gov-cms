@@ -40,6 +40,7 @@ function _post_api_add_facility_to_queue(EntityInterface $entity) {
     'nca_facility',
     'vba_facility',
     'vet_center',
+    'vet_center_outstation',
   ];
 
   if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $facility_types)) {

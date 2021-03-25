@@ -25,6 +25,10 @@ va/background/daily/migrate/vet_centers_facility:
   command:
     - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_vet_centers
     - drush $DRUSH_ALIAS migrate:import va_node_facility_vet_centers
+    - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_vet_centers_mvc
+    - drush $DRUSH_ALIAS migrate:import va_node_facility_vet_centers_mvc
+    - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_vet_centers_os
+    - drush $DRUSH_ALIAS migrate:import va_node_facility_vet_centers_os
 
 va/background/daily/migrate/vba_facility:
   description: These commands are to run nightly.

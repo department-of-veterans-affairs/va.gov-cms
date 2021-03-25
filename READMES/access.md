@@ -38,14 +38,6 @@ To access any CMS or VA environment, you must connect with either CAG or SOCKS p
                   - or -
             $ composer v:p:t
 
-### SSH Access
-
-To SSH into the DevShop server and access CI environments, you must add an entry to your local hosts file:
-
-    10.247.104.242 devshop.cms.va.gov 
-
-This is because there is no DNS entry for the server. 
-
 ## CMS Production, Staging, Dev 
 
 The three primary environments are hosted in the VAEC and managed by VFS's BRD System.
