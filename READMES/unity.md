@@ -34,7 +34,7 @@ lando composer require va-gov/web:dev-master#7b4c87257cfc9b5e684c4ba7ddca283efbc
 lando composer require va-gov/web:dev-branch_name
 ```
 
-Then followup with a `lando composer update --lock` and `lando test` will build the front-end with the new hash.
+Then followup with a `lando composer update --lock` and `lando composer va:web:build` will build the front-end with the new hash.
 
 #### Rebuild WEB from a local CMS
 
