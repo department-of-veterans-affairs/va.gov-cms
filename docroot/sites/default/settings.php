@@ -225,7 +225,7 @@ if (!empty($webhost_on_cli)) {
     // This is running from an HTTP request.
     $webhost = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}";
   }
-  // DevShop sets this in settings.devshop.php
+
   $settings['file_public_base_url'] = "{$webhost}/sites/default/files";
 }
 
