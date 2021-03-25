@@ -150,6 +150,9 @@ $facility_migrations = [
   'va_node_facility_vba',
   'va_node_facility_nca',
   'va_node_facility_vet_centers',
+  'va_node_facility_vet_centers_mvc',
+  'va_node_facility_vet_centers_os',
+  //Add other migrations here
 ];
 
 // Use classic node migrations instead of complete.
