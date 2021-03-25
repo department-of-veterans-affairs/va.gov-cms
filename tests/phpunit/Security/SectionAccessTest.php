@@ -31,7 +31,7 @@ class SectionAccessTest extends ExistingSiteBase {
 
     $sections = $this->getSectionIds($content_sections);
     $node = $this->createNode([
-      'title' => '[TEST] test vha page',
+      'title' => '[TEST] section access',
       'type' => 'page',
       'uid' => 1,
       'field_administration' => $sections,
