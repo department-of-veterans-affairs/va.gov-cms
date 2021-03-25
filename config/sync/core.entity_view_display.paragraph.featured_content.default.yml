@@ -9,6 +9,7 @@ dependencies:
     - paragraphs.paragraphs_type.featured_content
   module:
     - entity_reference_revisions
+    - string_field_formatter
     - text
 id: paragraph.featured_content.default
 targetEntityType: paragraph
@@ -18,7 +19,7 @@ content:
   field_cta:
     type: entity_reference_revisions_entity_view
     weight: 2
-    label: above
+    label: hidden
     settings:
       view_mode: default
       link: ''
@@ -26,18 +27,20 @@ content:
     region: content
   field_description:
     weight: 1
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_section_header:
     weight: 0
-    label: above
+    label: hidden
     settings:
+      wrap_tag: h3
+      wrap_class: ''
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    type: plain_string_formatter
     region: content
 hidden:
   search_api_excerpt: true

@@ -1,29 +1,29 @@
-uuid: 2226fb0a-a731-4fe7-a323-43677f8a7f0b
+uuid: df6a18d9-c8e3-4a8f-a829-8aff586dfd15
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_cc_non_traditional_hours
+    - field.storage.node.field_cc_vet_center_featured_con
     - node.type.vet_center
   module:
     - entity_field_fetch
-id: node.vet_center.field_cc_non_traditional_hours
-field_name: field_cc_non_traditional_hours
+id: node.vet_center.field_cc_vet_center_featured_con
+field_name: field_cc_vet_center_featured_con
 entity_type: node
 bundle: vet_center
-label: 'Hours details'
+label: 'Nationally featured Vet Center content'
 description: ''
 required: false
 translatable: false
 default_value:
   -
-    target_type: paragraph
-    target_uuid: '29005'
+    target_type: null
+    target_uuid: null
     target_field: null
 default_value_callback: ''
 settings:
   target_entity_type: node
   target_entity_id: '16142'
   field_to_fetch: field_content_block
-  target_paragraph_uuid: da491d60-a25f-4f08-b9de-db8b5ba42e0d
+  target_paragraph_uuid: '32957'
 field_type: entity_field_fetch

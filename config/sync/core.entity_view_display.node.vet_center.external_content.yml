@@ -1,0 +1,124 @@
+uuid: c7d73991-7256-4b3c-b5df-5af33066e5ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.external_content
+    - field.field.node.vet_center.field_address
+    - field.field.node.vet_center.field_administration
+    - field.field.node.vet_center.field_cc_non_traditional_hours
+    - field.field.node.vet_center.field_cc_vet_center_call_center
+    - field.field.node.vet_center.field_cc_vet_center_faqs
+    - field.field.node.vet_center.field_cc_vet_center_featured_con
+    - field.field.node.vet_center.field_facility_locator_api_id
+    - field.field.node.vet_center.field_health_services
+    - field.field.node.vet_center.field_intro_text
+    - field.field.node.vet_center.field_media
+    - field.field.node.vet_center.field_office_hours
+    - field.field.node.vet_center.field_operating_status_facility
+    - field.field.node.vet_center.field_operating_status_more_info
+    - field.field.node.vet_center.field_phone_number
+    - field.field.node.vet_center.field_prepare_for_visit
+    - field.field.node.vet_center.field_table_of_contents
+    - field.field.node.vet_center.field_vet_center_feature_content
+    - node.type.vet_center
+  module:
+    - address
+    - field_group
+    - office_hours
+    - user
+third_party_settings:
+  field_group:
+    group_location_information:
+      children:
+        - field_facility_locator_api_id
+        - field_address
+        - field_phone_number
+        - field_office_hours
+      parent_name: ''
+      weight: 0
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_label: '0'
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically generated from the VAST database, which helps VA maintain a consistent source of information across all of VA.gov."
+        description: ''
+        id: ''
+        classes: 'not-editable '
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
+      label: 'Location Information'
+id: node.vet_center.external_content
+targetEntityType: node
+bundle: vet_center
+mode: external_content
+content:
+  field_address:
+    type: address_default
+    weight: 3
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_facility_locator_api_id:
+    type: string
+    weight: 2
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_office_hours:
+    type: office_hours
+    weight: 6
+    region: content
+    label: above
+    settings:
+      show_closed: all
+      office_hours_first_day: ''
+      day_format: short
+      time_format: g
+      closed_format: ''
+      separator:
+        days: '<br />'
+        grouped_days: ' - '
+        day_hours: ': '
+        hours_hours: '-'
+        more_hours: ', '
+      current_status:
+        position: ''
+        open_text: 'Currently open!'
+        closed_text: 'Currently closed'
+      compress: false
+      grouped: false
+      schema:
+        enabled: false
+      timezone_field: ''
+    third_party_settings: {  }
+  field_phone_number:
+    type: string
+    weight: 4
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_cc_non_traditional_hours: true
+  field_cc_vet_center_call_center: true
+  field_cc_vet_center_faqs: true
+  field_cc_vet_center_featured_con: true
+  field_health_services: true
+  field_intro_text: true
+  field_media: true
+  field_operating_status_facility: true
+  field_operating_status_more_info: true
+  field_prepare_for_visit: true
+  field_table_of_contents: true
+  field_vet_center_feature_content: true
+  links: true
+  search_api_excerpt: true
