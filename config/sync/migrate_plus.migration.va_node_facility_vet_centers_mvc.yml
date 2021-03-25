@@ -1,8 +1,8 @@
-uuid: 0099e8f7-4307-4db2-98fe-caa8ecc1e990
+uuid: 0fe338f4-d68a-4ec0-8725-47973d878bde
 langcode: en
 status: true
 dependencies: {  }
-id: va_node_facility_vet_centers
+id: va_node_facility_vet_centers_mvc
 class: null
 field_plugin_method: null
 cck_plugin_method: null
@@ -11,7 +11,7 @@ migration_tags:
   - Content
   - Node
 migration_group: facility
-label: 'Node - Vet Centers Facility'
+label: 'Node - Vet Centers Facility MVC'
 source:
   track_changes: true
   cache_counts: true
@@ -41,10 +41,6 @@ source:
       name: name
       label: name
       selector: properties/name
-    -
-      name: visn
-      label: visn
-      selector: properties/visn
     -
       name: city
       label: city
@@ -87,13 +83,21 @@ process:
       - vet_center
   non_field2:
     plugin: va_skip_on_substr
-    case_sensitive: false
+    not_equals: true
+    case_sensitive: true
     source: id
     method: row
     value:
-      - mvc
-      - os
-      - cap
+      - MVC
+  non_field3_vet_center_parent:
+    -
+      plugin: callback
+      callable: trim
+      source: name
+    -
+      plugin: str_replace
+      search: 'Mobile '
+      replace: ''
   title:
     plugin: skip_on_empty
     method: row
@@ -104,6 +108,19 @@ process:
     method: row
     source: id
     message: 'Skipped: Source API ID is empty, must have it.'
+  field_office:
+    -
+      plugin: entity_lookup
+      ignore_case: true
+      value_key: title
+      entity_type: node
+      bundle_key: type
+      bundle: vet_center
+      source: '@non_field3_vet_center_parent'
+    -
+      plugin: skip_on_empty
+      method: process
+      message: 'Field office vet center not found'
   field_address/country_code:
     plugin: default_value
     default_value: US
@@ -154,18 +171,16 @@ process:
     source: hours
   field_administration:
     -
-      plugin: callback
-      callable: trim
-      source: name
-    -
-      plugin: entity_generate
+      plugin: entity_lookup
       entity_type: taxonomy_term
-      ignore_case: true
       value_key: name
       bundle_key: vid
       bundle: administration
-      values:
-        parent: 'Vet Centers'
+      source: '@non_field3_vet_center_parent'
+    -
+      plugin: skip_on_empty
+      method: process
+      message: 'Entity Lookup for field_administration found no matching parent Vet Center for this MVC.'
   langcode:
     plugin: default_value
     default_value: en
@@ -210,10 +225,10 @@ process:
     default_value: 1317
   type:
     plugin: default_value
-    default_value: vet_center
+    default_value: vet_center_mobile_vet_center
 destination:
   plugin: 'entity:node'
-  default_bundle: vet_center
+  default_bundle: vet_center_mobile_vet_center
   overwrite_properties:
     - changed
     - field_address/address_line1
@@ -232,4 +247,5 @@ destination:
     - title
     - uid
 migration_dependencies:
-  required: {  }
+  required:
+    - va_node_facility_vet_centers
