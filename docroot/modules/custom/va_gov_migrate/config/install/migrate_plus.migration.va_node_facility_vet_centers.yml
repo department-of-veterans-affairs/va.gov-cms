@@ -31,7 +31,7 @@ source:
     id:
       type: string
   # Define any constants that are needed to pass in as data.
-  constants:
+  constants: null
   # All the fields that are used from the source.
   fields:
     -
@@ -46,6 +46,42 @@ source:
       name: name
       label: name
       selector: properties/name
+    -
+      name: visn
+      label: visn
+      selector: properties/visn
+    -
+      name: city
+      label: city
+      selector: properties/address/physical/city
+    -
+      name: state
+      label: state
+      selector: properties/address/physical/state
+    -
+      name: zip
+      label: zip
+      selector: properties/address/physical/zip
+    -
+      name: address1
+      label: address1
+      selector: properties/address/physical/address_1
+    -
+      name: address2
+      label: address2
+      selector: properties/address/physical/address_2
+    -
+      name: address3
+      label: address3
+      selector: properties/address/physical/address_3
+    -
+      name: phone-main
+      label: phone-main
+      selector: properties/phone/main
+    -
+      name: hours
+      label: hours
+      selector: properties/hours
 # The destination fields mapped and processed from source fields.
 process:
   # We have no destination of facility type, but we need to skip the migration
@@ -57,6 +93,16 @@ process:
     method: row
     value:
       - vet_center
+  # Exlusion of MVC, OS and CAP if substring found in source id.
+  non_field2:
+    plugin: va_skip_on_substr
+    case_sensitive: false
+    source: id
+    method: row
+    value:
+      - mvc
+      - os
+      - cap
   title:
     plugin: skip_on_empty
     method: row
@@ -67,10 +113,71 @@ process:
     method: row
     source: id
     message: 'Skipped: Source API ID is empty, must have it.'
-  field_administration:
+  field_address/country_code:
     plugin: default_value
-    # Set the value for "NCA Facilities" which is 190.
-    default_value: 190
+    default_value: US
+  field_address/langcode:
+    plugin: default_value
+    default_value: en
+  field_address/address_line1:
+    plugin: callback
+    callable: trim
+    source: address1
+  # We have two lines that have to become one.
+  field_address/address_line2:
+    -
+      plugin: get
+      source:
+        - address2
+        - address3
+    -
+      # This gets rid of any empty elements.
+      plugin: callback
+      callable: array_filter
+    -
+      plugin: multiple_values
+    -
+      plugin: callback
+      callable: trim
+    -
+      plugin: concat
+      delimiter: ', '
+  field_address/locality: city
+  field_address/administrative_area: state
+  field_address/postal_code: zip
+  field_phone_number:
+    -
+      plugin: str_replace
+      source: phone-main
+      search: Ext.
+      replace: x
+    -
+      plugin: explode
+      delimiter: x
+    -
+      plugin: callback
+      callable: trim
+    -
+      plugin: concat
+      delimiter: ' x'
+  field_office_hours:
+    plugin: va_field_office_hours
+    source: hours
+  field_administration:
+    -
+      plugin: callback
+      callable: trim
+      source: name
+    -
+      plugin: entity_generate
+      entity_type: taxonomy_term
+      ignore_case: true
+      value_key: name
+      bundle_key: vid
+      bundle: administration
+  # Vet Centers section is Term ID 190.
+      values:
+        parent: 'Vet Centers'
   langcode:
     plugin: default_value
     default_value: en
@@ -125,6 +232,14 @@ destination:
   # Only these fields will be overwritten if the content changes in the API.
   overwrite_properties:
     - changed
+    - 'field_address/address_line1'
+    - 'field_address/address_line2'
+    - 'field_address/administrative_area'
+    - 'field_address/country_code'
+    - 'field_address/locality'
+    - 'field_address/postal_code'
+    - field_office_hours
+    - field_phone_number
     - new_revision
     - revision_default
     - revision_log
