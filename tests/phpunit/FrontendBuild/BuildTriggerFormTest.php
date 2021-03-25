@@ -63,22 +63,11 @@ class BuildTriggerFormTest extends ExistingSiteBase {
   }
 
   /**
-   * Test that the correct form is shown on Devshop.
-   */
-  public function testDevshopBuildTriggerForm() {
-    $this->setupEnvironment('devshop');
-    $this->visit('/admin/content/deploy');
-    $this->assertSession()->pageTextContains('A content release for this environment is handled by CMS-CI');
-    $this->assertSession()->fieldNotExists('git_ref');
-  }
-
-  /**
    * Revert to the default environment when all test are complete.
    *
    * @depends testLandoBuildTriggerForm
    * @depends testTugboatBuildTriggerForm
    * @depends testBrdBuildTriggerForm
-   * @depends testDevshopBuildTriggerForm
    */
   public function testRevertToDefaultEnvironment() {
     // This should more properly be run in a tearDown method,
