@@ -16,37 +16,51 @@ class SectionAccessTest extends ExistingSiteBase {
    *
    * @group edit
    * @group all
+   *
+   * @dataProvider sectionDataProvider
    */
-  public function testSectionAccess() {
+  public function testSectionAccess(
+    string $role,
+    array $user_sections,
+    array $content_sections,
+    bool $should_have_access
+  ) {
     $author = $this->createUser();
-    $author->addRole('content_editor');
-    $this->addUserToSections(['Veterans Health Administration'], $author);
+    $author->addRole($role);
+    $this->addUserToSections($user_sections, $author);
 
-    $sections = $this->getSectionIds(['Veterans Health Administration']);
-    $vha_section = reset($sections);
-    $vha_node = $this->createNode([
+    $sections = $this->getSectionIds($content_sections);
+    $node = $this->createNode([
       'title' => '[TEST] test vha page',
       'type' => 'page',
       'uid' => 1,
-      'field_administration' => [$vha_section],
+      'field_administration' => $sections,
     ]);
-    $vha_node->save();
+    $node->save();
 
-    $sections = $this->getSectionIds(['National Cemetery Administration']);
-    $nca_section = reset($sections);
-    $nca_node = $this->createNode([
-      'title' => '[TEST] test nca page',
-      'type' => 'page',
-      'uid' => 1,
-      'field_administration' => [$nca_section],
-    ]);
-    $nca_node->save();
+    $url = Url::fromRoute('entity.node.edit_form', ['node' => $node->id()]);
+    $this->assertEquals($should_have_access, $url->access($author));
+  }
 
-    $url = Url::fromRoute('entity.node.edit_form', ['node' => $vha_node->id()]);
-    $this->assertTrue($url->access($author));
-
-    $url = Url::fromRoute('entity.node.edit_form', ['node' => $nca_node->id()]);
-    $this->assertFalse($url->access($author));
+  /**
+   * Data provider for testSectionAccess.
+   *
+   * @return \Generator
+   *   Test assertion data.
+   */
+  public function sectionDataProvider() : \Generator {
+    yield 'Content editors may edit nodes in their sections' => [
+      'content_editor',
+      ['Veterans Health Administration'],
+      ['Veterans Health Administration'],
+      TRUE,
+    ];
+    yield 'Content editors may not edit nodes in other sections' => [
+      'content_editor',
+      ['Veterans Health Administration'],
+      ['National Cemetery Administration'],
+      FALSE,
+    ];
   }
 
   /**
