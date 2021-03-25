@@ -109,7 +109,7 @@ This section outlines only the systems utilized by the CMS. For information on t
 
 #### CMS-CI: Pull Request and Demo/Ad-hoc Environments
 
-- Running [Tugboat](https://www.tugboat.qa) at [tugboat.vfs.va.gov/](https://tugboat.vfs.va.gov/). Access restricted to CAG, sign in with GitHub.
+- Running [Tugboat](https://www.tugboat.qa) ([docs](READMES/tugboat.md)) at [tugboat.vfs.va.gov/](https://tugboat.vfs.va.gov/). Access restricted to CAG, sign in with GitHub.
 - A single "mirror" environment is regularly populated with a sanitized production database copy.
 - Open Pull Requests get environments created automatically, cloned from the "mirror" environment, with URLs like
   [pr123-{hash}.ci.cms.va.gov](https://pr123-{hash}.ci.cms.va.gov) and
