@@ -11,25 +11,25 @@ id: node.vet_center.field_address
 field_name: field_address
 entity_type: node
 bundle: vet_center
-label: Address
+label: 'Main location address'
 description: ''
 required: false
 translatable: true
 default_value:
   -
-    country_code: US
     langcode: ''
-    given_name: ''
-    family_name: ''
-    organization: ''
+    country_code: US
+    administrative_area: ''
+    locality: ''
+    dependent_locality: null
+    postal_code: ''
+    sorting_code: null
     address_line1: ''
     address_line2: ''
-    locality: ''
-    administrative_area: ''
-    postal_code: ''
+    organization: null
+    given_name: null
     additional_name: null
-    sorting_code: null
-    dependent_locality: null
+    family_name: null
 default_value_callback: ''
 settings:
   available_countries: {  }

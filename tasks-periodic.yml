@@ -25,6 +25,10 @@ va/background/daily/migrate/vet_centers_facility:
   command:
     - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_vet_centers
     - drush $DRUSH_ALIAS migrate:import va_node_facility_vet_centers
+    - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_vet_centers_mvc
+    - drush $DRUSH_ALIAS migrate:import va_node_facility_vet_centers_mvc
+    - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_vet_centers_os
+    - drush $DRUSH_ALIAS migrate:import va_node_facility_vet_centers_os
 
 va/background/daily/migrate/vba_facility:
   description: These commands are to run nightly.
@@ -37,6 +41,11 @@ va/background/daily/migrate/nca_facility:
   command:
     - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_nca
     - drush $DRUSH_ALIAS migrate:import va_node_facility_nca
+
+va/background/daily/update/taxonomy_entity_index:
+  description: Update the taxonomy_entity_index nightly.
+  command:
+    - drush $DRUSH_ALIAS taxonomy_entity_index:rebuild
 
 # Run with: ./bin/yaml-tasks --tasks-file=tasks-periodic.yml periodic
 # http://jenkins.vfs.va.gov/job/cms/job/cms-periodic

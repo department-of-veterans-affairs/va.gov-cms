@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d9bc57bdc07f6ee25e8ded4d332ccb2",
+    "content-hash": "d86c29dcff56a42f21e9e232ff627bb2",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -10540,27 +10540,32 @@
         },
         {
             "name": "drupal/views_bulk_edit",
-            "version": "2.4.0",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/views_bulk_edit.git",
-                "reference": "8.x-2.4"
+                "reference": "8.x-2.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/views_bulk_edit-8.x-2.4.zip",
-                "reference": "8.x-2.4",
-                "shasum": "039ebf9c6ae3cdd0555c7bfb97c629ebfee61ddb"
+                "url": "https://ftp.drupal.org/files/projects/views_bulk_edit-8.x-2.5.zip",
+                "reference": "8.x-2.5",
+                "shasum": "5f268f532e070fd3d1bffcb135d90f395f303a37"
             },
             "require": {
-                "drupal/core": "^8",
-                "drupal/views_bulk_operations": "~1.0 | ~2.0 | ~3.0"
+                "drupal/core": "^8 || ^9"
+            },
+            "require-dev": {
+                "drupal/views_bulk_operations": "~3.0"
+            },
+            "suggest": {
+                "drupal/views_bulk_operations": "Get VBO for all the views benefits like batching, ability to select all view results or persistent selection across pages"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.4",
-                    "datestamp": "1570030085",
+                    "version": "8.x-2.5",
+                    "datestamp": "1606726163",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10969,29 +10974,34 @@
         },
         {
             "name": "drupal/workbench_access",
-            "version": "1.0.0-beta2",
+            "version": "1.0.0-beta4",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/workbench_access.git",
-                "reference": "8.x-1.0-beta2"
+                "reference": "8.x-1.0-beta4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/workbench_access-8.x-1.0-beta2.zip",
-                "reference": "8.x-1.0-beta2",
-                "shasum": "976ae351d6984e6e920307dbf92b43f7f6efdecc"
+                "url": "https://ftp.drupal.org/files/projects/workbench_access-8.x-1.0-beta4.zip",
+                "reference": "8.x-1.0-beta4",
+                "shasum": "8d81c3daef91d89ecb3c0e3823ee0144b37889a8"
             },
             "require": {
-                "drupal/core": "^8"
+                "drupal/core": "^8.7.7 || ^9"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta2",
-                    "datestamp": "1525788697",
+                    "version": "8.x-1.0-beta4",
+                    "datestamp": "1591119383",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9 || ^10"
                     }
                 }
             },
@@ -21063,16 +21073,16 @@
         },
         {
             "name": "va-gov/web",
-            "version": "v0.1.1446",
+            "version": "v0.1.1456",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/vets-website.git",
-                "reference": "6a00d889bf889da9b2f2bdf781ccb66f21dfd841"
+                "reference": "db8ec8d5a0e48bdcc369cd7bd898a11af2fe0db8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/6a00d889bf889da9b2f2bdf781ccb66f21dfd841",
-                "reference": "6a00d889bf889da9b2f2bdf781ccb66f21dfd841",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/vets-website/zipball/db8ec8d5a0e48bdcc369cd7bd898a11af2fe0db8",
+                "reference": "db8ec8d5a0e48bdcc369cd7bd898a11af2fe0db8",
                 "shasum": ""
             },
             "type": "node-project",
@@ -21099,9 +21109,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/vets-website/issues",
-                "source": "https://github.com/department-of-veterans-affairs/vets-website/tree/vets-website/v0.1.1446"
+                "source": "https://github.com/department-of-veterans-affairs/vets-website/tree/vets-website/v0.1.1456"
             },
-            "time": "2021-03-22T21:31:33+00:00"
+            "time": "2021-03-23T19:23:59+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -22491,7 +22501,6 @@
         "drupal/user_history": 15,
         "drupal/views_data_export": 10,
         "drupal/views_tree": 15,
-        "drupal/workbench_access": 10,
         "drupal/workflow_assignments": 20,
         "weitzman/drupal-test-traits": 20
     },
