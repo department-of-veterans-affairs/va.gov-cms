@@ -1,9 +1,9 @@
-uuid: af3a6033-16fe-4bf0-9bcd-0c789103b134
+uuid: 137d2f30-2f70-4f5f-a3e4-3333304984c2
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.ief_table
     - field.field.node.vet_center.field_address
     - field.field.node.vet_center.field_administration
     - field.field.node.vet_center.field_cc_non_traditional_hours
@@ -23,17 +23,36 @@ dependencies:
     - field.field.node.vet_center.field_vet_center_feature_content
     - node.type.vet_center
   module:
+    - field_group
     - user
-id: node.vet_center.teaser
+third_party_settings:
+  field_group:
+    group_phone:
+      children:
+        - field_address
+        - field_phone_number
+      parent_name: ''
+      weight: 14
+      format_type: fieldset
+      region: hidden
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Phone
+id: node.vet_center.ief_table
 targetEntityType: node
 bundle: vet_center
-mode: teaser
+mode: ief_table
 content:
-  links:
-    weight: 100
-    settings: {  }
-    third_party_settings: {  }
+  field_health_services:
+    type: entity_reference_label
+    weight: 0
     region: content
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
 hidden:
   content_moderation_control: true
   field_address: true
@@ -43,7 +62,6 @@ hidden:
   field_cc_vet_center_faqs: true
   field_cc_vet_center_featured_con: true
   field_facility_locator_api_id: true
-  field_health_services: true
   field_intro_text: true
   field_media: true
   field_office_hours: true
@@ -53,4 +71,7 @@ hidden:
   field_prepare_for_visit: true
   field_table_of_contents: true
   field_vet_center_feature_content: true
+  label: true
+  links: true
   search_api_excerpt: true
+  status: true
