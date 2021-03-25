@@ -31,8 +31,8 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Audience & Topics | Non-Beneficiares | field_non_beneficiares | Entity reference |  | 1 | Check boxes/radio buttons |  |
 | Paragraph type | Audience & Topics | Markup | field_markup | Markup |  | 1 | Markup | Translatable |
 | Paragraph type | Audience & Topics | Topics | field_topics | Entity reference |  | 4 | Check boxes/radio buttons |  |
-| Paragraph type | Basic accordion | Header | field_header | Text (plain) | Required | 1 | Textfield |  |
-| Paragraph type | Basic accordion | Rich text | field_rich_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
+| Paragraph type | Accordion | Header | field_header | Text (plain) | Required | 1 | Textfield |  |
+| Paragraph type | Accordion | Rich text | field_rich_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
 | Paragraph type | Call to action | Button Label | field_button_label | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Call to action | Button Link | field_button_link | Link |  | 1 | Linkit |  |
 | Paragraph type | Centralized content descriptor | Description | field_cc_documentor_description | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
@@ -90,7 +90,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Q&A group | Display this set of Q&As as a group of accordions. | field_accordion_display | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Paragraph type | Q&A group | Section Header | field_section_header | Text (plain) |  | 1 | Textfield with counter | Translatable |
 | Paragraph type | Q&A group | Q&As | field_q_as | Entity reference | Required | Unlimited | Entity Browser - Table |  |
-| Paragraph type | Q&A Section | Display this set of Q&As as a group of accordions. | field_accordion_display | Boolean |  | 1 | Single on/off checkbox |  |
+| Paragraph type | Q&A Section | Display this set of Q&As as a group of accordions. | field_accordion_display | Boolean |  | 1 | -- Disabled -- |  |
 | Paragraph type | Q&A Section | Questions | field_questions | Entity reference revisions | Required | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Paragraph type | Q&A Section | Section Intro | field_section_intro | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
 | Paragraph type | Q&A Section | Section Header | field_section_header | Text (plain) |  | 1 | Textfield |  |
