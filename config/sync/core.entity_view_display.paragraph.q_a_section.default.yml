@@ -15,16 +15,6 @@ targetEntityType: paragraph
 bundle: q_a_section
 mode: default
 content:
-  field_accordion_display:
-    type: boolean
-    weight: 3
-    region: content
-    label: hidden
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
   field_questions:
     type: entity_reference_revisions_entity_view
     weight: 2
@@ -50,4 +40,5 @@ content:
     type: basic_string
     region: content
 hidden:
+  field_accordion_display: true
   search_api_excerpt: true

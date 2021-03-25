@@ -15,16 +15,9 @@ targetEntityType: paragraph
 bundle: q_a_section
 mode: default
 content:
-  field_accordion_display:
-    type: boolean_checkbox
-    weight: 2
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
   field_questions:
     type: paragraphs
-    weight: 3
+    weight: 2
     settings:
       title: 'Question & Answer'
       title_plural: 'Questions & Answers'
@@ -59,5 +52,6 @@ content:
     region: content
 hidden:
   created: true
+  field_accordion_display: true
   status: true
   uid: true
