@@ -42,6 +42,11 @@ va/background/daily/migrate/nca_facility:
     - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_nca
     - drush $DRUSH_ALIAS migrate:import va_node_facility_nca
 
+va/background/daily/update/taxonomy_entity_index:
+  description: Update the taxonomy_entity_index nightly.
+  command:
+    - drush $DRUSH_ALIAS taxonomy_entity_index:rebuild
+
 # Run with: ./bin/yaml-tasks --tasks-file=tasks-periodic.yml periodic
 # http://jenkins.vfs.va.gov/job/cms/job/cms-periodic
 va/background/periodic/migrate/facility_status:
