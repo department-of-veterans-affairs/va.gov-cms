@@ -27,7 +27,8 @@ source:
   ids:
     id:
       type: string
-  constants: null
+  constants:
+    vet_centers_tid: 190
   fields:
     -
       name: facility_type
@@ -165,7 +166,7 @@ process:
       bundle_key: vid
       bundle: administration
       values:
-        parent: 'Vet Centers'
+        parent: 'constants/vet_centers_tid'
   langcode:
     plugin: default_value
     default_value: en
