@@ -12,6 +12,8 @@ dependencies:
     - node.type.nca_facility
     - node.type.vba_facility
     - node.type.vet_center
+    - node.type.vet_center_cap
+    - node.type.vet_center_outstation
     - taxonomy.vocabulary.administration
     - user.role.authenticated
   content:
@@ -23,7 +25,7 @@ dependencies:
     - content_moderation
     - node
     - options
-    - taxonomy
+    - taxonomy_entity_index
     - user
     - views_bulk_operations
 id: facility_governance
@@ -764,6 +766,8 @@ display:
             health_care_local_facility: health_care_local_facility
             vba_facility: vba_facility
             vet_center: vet_center
+            vet_center_cap: vet_center_cap
+            vet_center_outstation: vet_center_outstation
           group: 1
           exposed: false
           expose:
@@ -1000,10 +1004,10 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           plugin_id: string
-        field_administration_target_id:
-          id: field_administration_target_id
-          table: node__field_administration
-          field: field_administration_target_id
+        taxonomy_entity_index_tid_depth:
+          id: taxonomy_entity_index_tid_depth
+          table: node
+          field: taxonomy_entity_index_tid_depth
           relationship: none
           group_type: group
           admin_label: ''
@@ -1016,14 +1020,14 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_administration_target_id_op
+            operator_id: taxonomy_entity_index_tid_depth_op
             label: Owner
             description: ''
             use_operator: false
-            operator: field_administration_target_id_op
+            operator: taxonomy_entity_index_tid_depth_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: field_administration_target_id
+            identifier: taxonomy_entity_index_tid_depth
             required: false
             remember: false
             multiple: true
@@ -1033,7 +1037,9 @@ display:
               content_api_consumer: '0'
               content_creator_benefits_hubs: '0'
               content_creator_resources_and_support: '0'
+              office_content_creator: '0'
               vamc_content_creator: '0'
+              content_creator_vet_center: '0'
               content_editor: '0'
               content_reviewer: '0'
               content_publisher: '0'
@@ -1058,9 +1064,11 @@ display:
           type: select
           limit: true
           vid: administration
-          hierarchy: false
+          hierarchy: true
           error_message: true
-          plugin_id: taxonomy_index_tid
+          depth: 3
+          entity_type: node
+          plugin_id: taxonomy_entity_index_tid_depth
         moderation_state:
           id: moderation_state
           table: node_field_data
