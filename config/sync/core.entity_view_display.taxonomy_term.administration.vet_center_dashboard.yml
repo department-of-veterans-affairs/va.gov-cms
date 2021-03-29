@@ -1,8 +1,9 @@
-uuid: 4b48e284-7024-44e3-a43f-53fd534c7d98
+uuid: c490b80b-cdd2-4cb7-98be-4ed4d86449f4
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.taxonomy_term.vet_center_dashboard
     - field.field.taxonomy_term.administration.field_acronym
     - field.field.taxonomy_term.administration.field_description
     - field.field.taxonomy_term.administration.field_email_updates_link_text
@@ -12,7 +13,7 @@ dependencies:
     - field.field.taxonomy_term.administration.field_metatags
     - field.field.taxonomy_term.administration.field_social_media_links
     - taxonomy.vocabulary.administration
-    - views.view.taxonomy_term
+    - views.view.vet_center_facility_listing
   module:
     - layout_builder
     - layout_discovery
@@ -24,11 +25,31 @@ dependencies:
 third_party_settings:
   layout_builder:
     allow_custom: false
-    enabled: false
-id: taxonomy_term.administration.default
+    enabled: true
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: 'Section 1'
+        components:
+          8ecdc8b0-417b-41f4-b52a-8576df63919a:
+            uuid: 8ecdc8b0-417b-41f4-b52a-8576df63919a
+            region: content
+            configuration:
+              id: 'views_block:vet_center_facility_listing-vc_facility_listing'
+              label: ''
+              provider: views
+              label_display: visible
+              views_label: ''
+              items_per_page: none
+              context_mapping: {  }
+            additional: {  }
+            weight: 0
+        third_party_settings: {  }
+id: taxonomy_term.administration.vet_center_dashboard
 targetEntityType: taxonomy_term
 bundle: administration
-mode: default
+mode: vet_center_dashboard
 content:
   description:
     label: above
