@@ -141,7 +141,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC Facility Health Service | Appointments help text | field_appointments_help_text | Markup |  | 1 | Markup |  |
 | Content type | VAMC Facility Health Service | Service locations help text | field_facility_service_loc_help | Markup |  | 1 | Markup |  |
 | Content type | VAMC System | Appointments can be scheduled and viewed online | field_appointments_online | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | VAMC System | Banner image | field_media | Entity reference |  | 1 | Media library | Translatable |
+| Content type | VAMC System | Banner image | field_media | Entity reference | Required | 1 | Media library | Translatable |
 | Content type | VAMC System | Common Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | VAMC System | Facebook | field_facebook | Link |  | 1 | Linkit | Translatable |
 | Content type | VAMC System | Flickr | field_flickr | Link |  | 1 | Linkit | Translatable |

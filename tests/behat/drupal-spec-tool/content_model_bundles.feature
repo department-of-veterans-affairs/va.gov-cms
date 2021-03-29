@@ -63,7 +63,7 @@ Feature: Content model bundles
 | Alert | alert | Paragraph type | A reusable or non-reusable alert, either "information status" or "warning status". |
 | Alert (single) | alert_single | Paragraph type |  |
 | Audience & Topics | audience_topics | Paragraph type | Audience & Topic selection for "Resources and Support" articles. |
-| Basic accordion | basic_accordion | Paragraph type |  |
+| Accordion | basic_accordion | Paragraph type |  |
 | Call to action | button | Paragraph type | Button with a label and link field. |
 | Centralized content descriptor | centralized_content_descriptor | Paragraph type | This should only be used on Centralized content nodes to provide a field level name and description for Centralized Content paragraphs. |
 | Checklist | checklist | Paragraph type |  |

@@ -31,7 +31,9 @@ source:
     id:
       type: string
   # Define any constants that are needed to pass in as data.
-  constants: null
+  constants:
+    # Vet Centers section is Term ID 190.
+    vet_centers_tid: 190
   # All the fields that are used from the source.
   fields:
     -
@@ -93,7 +95,7 @@ process:
     method: row
     value:
       - vet_center
-  # Exlusion of MVC, OS and CAP if substring found in source id.
+  # Exclusion of MVC, OS and CAP if substring found in source id.
   non_field2:
     plugin: va_skip_on_substr
     case_sensitive: false
@@ -175,9 +177,8 @@ process:
       value_key: name
       bundle_key: vid
       bundle: administration
-  # Vet Centers section is Term ID 190.
       values:
-        parent: 'Vet Centers'
+        parent: 'constants/vet_centers_tid'
   langcode:
     plugin: default_value
     default_value: en
@@ -238,6 +239,7 @@ destination:
     - 'field_address/country_code'
     - 'field_address/locality'
     - 'field_address/postal_code'
+    - field_administration
     - field_office_hours
     - field_phone_number
     - new_revision
