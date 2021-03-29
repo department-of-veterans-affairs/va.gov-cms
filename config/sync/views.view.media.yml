@@ -21,7 +21,6 @@ dependencies:
     - taxonomy
     - user
     - views_bulk_operations
-    - views_infinite_scroll
 _core:
   default_config_hash: rRzAWaXpJGYA2gPG6BmGxy8gfFd4srCc-LQY3JB6tR8
 id: media
@@ -997,6 +996,9 @@ display:
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
+      use_more: true
+      use_more_always: false
+      use_more_text: more
     cache_metadata:
       max-age: -1
       contexts:
@@ -1412,15 +1414,17 @@ display:
           content: 'There are no media items to display.'
           plugin_id: text_custom
       pager:
-        type: infinite_scroll
+        type: full
         options:
-          items_per_page: 12
+          items_per_page: 50
           offset: 0
           id: 0
           total_pages: null
           tags:
-            previous: '‹ Previous'
-            next: 'Next ›'
+            previous: ‹‹
+            next: ››
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -1429,9 +1433,7 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          views_infinite_scroll:
-            button_text: 'Load More'
-            automatically_load_content: false
+          quantity: 9
       display_description: ''
       css_class: eb-media
       arguments:
@@ -1491,19 +1493,22 @@ display:
         - url.query_args
         - user.permissions
       tags:
-        - 'config:core.entity_view_display.media.document.default'
         - 'config:core.entity_view_display.media.document.download_link'
         - 'config:core.entity_view_display.media.document.embedded'
-        - 'config:core.entity_view_display.media.document.media_library'
         - 'config:core.entity_view_display.media.document.thumbnail'
-        - 'config:core.entity_view_display.media.image.default'
         - 'config:core.entity_view_display.media.image.download_link'
         - 'config:core.entity_view_display.media.image.embedded'
-        - 'config:core.entity_view_display.media.image.media_library'
         - 'config:core.entity_view_display.media.image.thumbnail'
-        - 'config:core.entity_view_display.media.video.default'
         - 'config:core.entity_view_display.media.video.embedded'
         - 'config:core.entity_view_display.media.video.thumbnail'
+        - 'config:core.entity_view_display.media.video.user_guides'
+        - 'config:core.entity_view_display.media.document.default'
+        - 'config:core.entity_view_display.media.document.media_library'
+        - 'config:core.entity_view_display.media.document_external.default'
+        - 'config:core.entity_view_display.media.document_external.media_library'
+        - 'config:core.entity_view_display.media.image.default'
+        - 'config:core.entity_view_display.media.image.media_library'
+        - 'config:core.entity_view_display.media.video.default'
   entity_browser_2:
     display_plugin: entity_browser
     id: entity_browser_2
@@ -1856,15 +1861,17 @@ display:
           content: 'There are no images to display.'
           plugin_id: text_custom
       pager:
-        type: infinite_scroll
+        type: full
         options:
-          items_per_page: 12
+          items_per_page: 50
           offset: 0
           id: 0
           total_pages: null
           tags:
             previous: '‹ Previous'
             next: 'Next ›'
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -1873,9 +1880,7 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          views_infinite_scroll:
-            button_text: 'Load More'
-            automatically_load_content: false
+          quantity: 9
       display_description: ''
       css_class: eb-media
       relationships:
@@ -2235,15 +2240,17 @@ display:
           content: 'There are no media items to display.'
           plugin_id: text_custom
       pager:
-        type: infinite_scroll
+        type: full
         options:
-          items_per_page: 12
+          items_per_page: 50
           offset: 0
           id: 0
           total_pages: null
           tags:
             previous: '‹ Previous'
             next: 'Next ›'
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -2252,9 +2259,7 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          views_infinite_scroll:
-            button_text: 'Load More'
-            automatically_load_content: false
+          quantity: 9
       display_description: ''
       css_class: eb-media
       arguments:
@@ -2318,6 +2323,8 @@ display:
         - 'config:core.entity_view_display.media.document.embedded'
         - 'config:core.entity_view_display.media.document.media_library'
         - 'config:core.entity_view_display.media.document.thumbnail'
+        - 'config:core.entity_view_display.media.document_external.default'
+        - 'config:core.entity_view_display.media.document_external.media_library'
         - 'config:core.entity_view_display.media.image.default'
         - 'config:core.entity_view_display.media.image.download_link'
         - 'config:core.entity_view_display.media.image.embedded'
@@ -2326,6 +2333,7 @@ display:
         - 'config:core.entity_view_display.media.video.default'
         - 'config:core.entity_view_display.media.video.embedded'
         - 'config:core.entity_view_display.media.video.thumbnail'
+        - 'config:core.entity_view_display.media.video.user_guides'
   media_page_list:
     display_plugin: page
     id: media_page_list
