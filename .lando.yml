@@ -21,7 +21,7 @@ events:
     # Alert user if landofile and current environment are out of sync.
     - appserver: cd /app && sha1sum --status -c ~/.lando.yml.sha1 || echo $(echo $($TXT_ALERT)Your Lando environment is outdated! Please run \"lando rebuild\" to update.$($TXT_RESET))
     # Install the Task task runner/build tool.
-    - appserver: cd /app && ./scripts/install_task.sh
+    - appserver: cd /app && ./scripts/install_task_runner.sh
 
   # After code changes
   post-update:
