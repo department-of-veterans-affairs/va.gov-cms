@@ -7,20 +7,15 @@ dependencies:
     - field.field.taxonomy_term.administration.field_description
     - field.field.taxonomy_term.administration.field_email_updates_link_text
     - field.field.taxonomy_term.administration.field_email_updates_url
-    - field.field.taxonomy_term.administration.field_intro_text
     - field.field.taxonomy_term.administration.field_link
-    - field.field.taxonomy_term.administration.field_metatags
+    - field.field.taxonomy_term.administration.field_product
     - field.field.taxonomy_term.administration.field_social_media_links
     - taxonomy.vocabulary.administration
-    - views.view.taxonomy_term
   module:
     - layout_builder
-    - layout_discovery
     - link
-    - metatag
     - social_media_links_field
     - text
-    - views
 third_party_settings:
   layout_builder:
     allow_custom: false
@@ -61,13 +56,6 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_intro_text:
-    weight: 1
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-    region: content
   field_link:
     weight: 3
     label: above
@@ -80,12 +68,13 @@ content:
     third_party_settings: {  }
     type: link
     region: content
-  field_metatags:
-    weight: 7
+  field_product:
+    weight: 8
     label: above
-    settings: {  }
+    settings:
+      link: true
     third_party_settings: {  }
-    type: metatag_empty_formatter
+    type: entity_reference_label
     region: content
   field_social_media_links:
     weight: 4

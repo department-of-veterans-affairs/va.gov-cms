@@ -8,9 +8,8 @@ dependencies:
     - field.field.taxonomy_term.administration.field_description
     - field.field.taxonomy_term.administration.field_email_updates_link_text
     - field.field.taxonomy_term.administration.field_email_updates_url
-    - field.field.taxonomy_term.administration.field_intro_text
     - field.field.taxonomy_term.administration.field_link
-    - field.field.taxonomy_term.administration.field_metatags
+    - field.field.taxonomy_term.administration.field_product
     - field.field.taxonomy_term.administration.field_social_media_links
     - taxonomy.vocabulary.administration
     - views.view.taxonomy_term
@@ -77,13 +76,6 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_intro_text:
-    weight: 1
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-    region: content
   field_link:
     weight: 3
     label: above
@@ -100,6 +92,6 @@ hidden:
   field_description: true
   field_email_updates_link_text: true
   field_email_updates_url: true
-  field_metatags: true
+  field_product: true
   field_social_media_links: true
   search_api_excerpt: true
