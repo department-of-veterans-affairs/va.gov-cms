@@ -160,7 +160,7 @@ Feature: Views
 | Search | Master | default | Master |
 | Search | Page | page | Page |
 | Taxonomy term | Master | default | Master |
-| Taxonomy term | Feed | feed_1 | Feed |
+| Taxonomy term | Block | taxonomy_term_listing_block | Block |
 | Taxonomy term | Page | page_1 | Page |
 | Taxonomy term | Attachment | attachment_1 | Attachment |
 | VA Forms | Master | default | Master |
