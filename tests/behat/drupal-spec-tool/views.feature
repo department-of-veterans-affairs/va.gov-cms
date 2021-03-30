@@ -127,7 +127,8 @@ Feature: Views
 | Glossary | Master | default | Master |
 | Glossary | Page | page_1 | Page |
 | Health care service names and descriptions | Master | default | Master |
-| Health care service names and descriptions |  Entity Reference   | entity_reference_1 | Entity Reference |
+| Health care service names and descriptions | VAMC health service and type of care - entity reference | entity_reference_vamc_services | Entity Reference |
+| Health care service names and descriptions | Vet Center health service and type of care - entity reference | entity_reference_vet_center_services | Entity Reference |
 | Image Style Warmer Warmup Files | Files overview  | page_1 | Page |
 | Image Style Warmer Warmup Files | Master | default | Master |
 | Local facilities entity reference view | Master | default | Master |
