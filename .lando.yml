@@ -118,7 +118,7 @@ tooling:
   test:
     description: Run all VA.gov tests, as defined in tests.yml. Add arguments to run subsets of tests. For example. "lando test web" will run all of the "va/web/*" tests.
     service: appserver
-    cmd: ./bin/task --taskfile tests.yml
+    cmd: ./bin/task --taskfile=tests.yml
 
   # "drush" being here overrides the default "lando drush" command.
   # Using /app/bin/drush means we are using the site-local drush directly.
@@ -147,7 +147,7 @@ tooling:
   phpunit:
     service: appserver
     description: "Run VA PHPUnit tests found in va/tests/phpunit: lando phpunit. Syntax: lando phpunit"
-    cmd: "./bin/task --taskfile tests.yml va/tests/phpunit"
+    cmd: "./bin/task --taskfile=tests.yml va/tests/phpunit"
 
   phpunit-run:
     service: appserver
@@ -163,7 +163,7 @@ tooling:
   test_filter_test:
     service: appserver
     description: "Run this command to see the strange problem where `lando test behat` does not work."
-    cmd: "./bin/task --taskfile tests.yml va/tests/behat"
+    cmd: "./bin/task --taskfile=tests.yml va/tests/behat"
 
   test_performance:
     service: appserver

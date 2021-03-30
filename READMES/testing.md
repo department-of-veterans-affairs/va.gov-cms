@@ -162,7 +162,7 @@ There are 4 main types of tests:
 
 ## Running Tests
 
-The main way to run tests is the `./bin/task --taskfile tests.yml` command.
+The main way to run tests is the `./bin/task --taskfile=tests.yml` command.
 
 Run `./bin/task --help` for more information.
 
@@ -182,10 +182,10 @@ helper commands that map to shell commands.
 | Lando Command        | Shell Command                                            |
 | -------------------- | -------------------------------------------------------- |
 | lando task           | ./bin/task                                               |
-| lando test           | ./bin/task --taskfile tests.yml                          |
-| lando test va/deploy | ./bin/task --taskfile tests.yml va/deploy                |
+| lando test           | ./bin/task --taskfile=tests.yml                          |
+| lando test va/deploy | ./bin/task --taskfile=tests.yml va/deploy                |
 | lando web-build      | composer va:web:build                                    |
-| lando phpunit        | ./bin/task --taskfile tests.yml va/tests/phpunit         |
+| lando phpunit        | ./bin/task --taskfile=tests.yml va/tests/phpunit         |
 | lando web-build      | composer va:web:build                                    |
 | lando behat          | cd /app/tests/behat && /app/bin/behat                    |
 
@@ -202,10 +202,10 @@ You can add an argument to filter the tests to run:
 
 ```sh
 # Run the entire test suite.
-./bin/task --taskfile tests.yml
+./bin/task --taskfile=tests.yml
 
 # Run `va/tests/phpunit` only
-./bin/task --taskfile tests.yml va/tests/phpunit
+./bin/task --taskfile=tests.yml va/tests/phpunit
 ```
 
 ## GitHub Integration
