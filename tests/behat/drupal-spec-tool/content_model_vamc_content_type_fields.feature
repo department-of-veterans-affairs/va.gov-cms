@@ -174,7 +174,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Health Service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Health Service | VAMC system | field_region_page | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Health Service | VAMC system description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
-| Content type | VAMC System Health Service | VHA service name and description | field_service_name_and_descripti | Entity reference | Required | 1 | Select list |  |
+| Content type | VAMC System Health Service | Service | field_service_name_and_descripti | Entity reference | Required | 1 | Select list |  |
 | Content type | VAMC Facility Health Service | Appointment intro text | field_hservice_appt_intro_select | List (text) | Required | 1 | Check boxes/radio buttons |  |
 | Content type | VAMC Facility Health Service | Appointment lead-in default | field_hservices_lead_in_default | Markup |  | 1 | Markup |  |
 | Content type | VAMC Facility Health Service | Appointment lead-in text | field_hservice_appt_leadin | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
