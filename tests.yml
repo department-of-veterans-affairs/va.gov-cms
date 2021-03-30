@@ -1,44 +1,63 @@
 # If any of these test names get updated they need to be updated here too
-# https://github.com/department-of-veterans-affairs/va.gov-cms/settings/branch_protection_rules
+# https://github.com/department-of-veterans-affairs/va.gov-cms/settings/branches
 
-# va/error:
-#  command: intentionalFailure
-#  description: Intentional Failure. Uncomment to test CI system failure behavior.
+version: '3'
 
-va/tests/phplint:
-  description: PHP Lint
-  command: composer va:test:lint
+tasks:
+  default:
+    cmds:
+      - task: va/tests/phplint
+      - task: va/tests/phpunit
+      - task: va/tests/accessibility
+      - task: va/tests/behavioral
+      - task: va/web/build
+      - task: va/tests/behat
+      - task: va/tests/revision-log
+      - task: va/tests/check-cer
+      - task: va/tests/status-error
 
-va/tests/phpunit:
-  description: PHPUnit
-  command: phpunit --exclude-group disabled tests/phpunit --colors=always
+  va/tests/phplint:
+    desc: PHP Lint
+    cmds:
+      - composer va:test:lint
 
-va/tests/accessibility:
-  description: accessibility test with cypress-axe for 508 compliance
-  command: composer va:test:accessibility
+  va/tests/phpunit:
+    desc: PHPUnit
+    cmds:
+      - phpunit --exclude-group disabled tests/phpunit --colors=always
 
-va/tests/behavioral:
-  description: behavioral tests with cypress
-  command: composer va:test:behavioral
+  va/tests/accessibility:
+    desc: accessibility test with cypress-axe for 508 compliance
+    cmds:
+      - composer va:test:accessibility
 
-va/web/build:
-  description: Build VA.gov Front-end
-  command: ./tests/scripts/build-web.sh
+  va/tests/behavioral:
+    desc: behavioral tests with cypress
+    cmds:
+      - composer va:test:behavioral
 
-va/tests/behat:
-  description: Behat Tests
-  command: |
-    cd tests/behat
-    behat --colors
+  va/web/build:
+    desc: Build VA.gov Front-end
+    cmds:
+      - ./tests/scripts/build-web.sh
 
-va/tests/revision-log:
-  description: Ensure revision log field is present
-  command: ./tests/scripts/check-revision-logs.sh
+  va/tests/behat:
+    desc: Behat Tests
+    cmds:
+      - cd tests/behat
+      - behat --colors
 
-va/tests/check-cer:
-  description: Ensure cer fields exist
-  command: ./tests/scripts/check-cer.sh
+  va/tests/revision-log:
+    desc: Ensure revision log field is present
+    cmds:
+      - ./tests/scripts/check-revision-logs.sh
 
-va/tests/status-error:
-  description: Check for Drupal status errors
-  command: "drush $DRUSH_ALIAS core-requirements --format=list --severity=2 | grep . && exit 1 || echo 'Success: No Drupal status requirement errors were found.'"
+  va/tests/check-cer:
+    desc: Ensure cer fields exist
+    cmds:
+      - ./tests/scripts/check-cer.sh
+
+  va/tests/status-error:
+    desc: Check for Drupal status errors
+    cmds:
+      - "drush $DRUSH_ALIAS core-requirements --format=list --severity=2 | grep . && exit 1 || echo 'Success: No Drupal status requirement errors were found.'"
