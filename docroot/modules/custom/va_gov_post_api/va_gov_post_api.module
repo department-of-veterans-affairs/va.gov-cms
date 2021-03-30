@@ -98,6 +98,11 @@ function _post_api_get_facility_payload(EntityInterface $entity) {
   $operating_status = $entity->field_operating_status_facility->value;
   $additional_info = $entity->field_operating_status_more_info->value;
 
+  if (empty($operating_status)) {
+    // We can not send this without a status, so bail out.
+    return $payload;
+  }
+
   $config = \Drupal::config('va_gov_post_api.settings');
   $bypass_data_check = $config->get('bypass_data_check');
 
