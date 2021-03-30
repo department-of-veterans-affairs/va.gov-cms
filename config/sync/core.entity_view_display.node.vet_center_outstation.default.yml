@@ -13,10 +13,12 @@ dependencies:
     - field.field.node.vet_center_outstation.field_operating_status_more_info
     - field.field.node.vet_center_outstation.field_phone_number
     - field.field.node.vet_center_outstation.field_table_of_contents
+    - image.style.3_2_medium_thumbnail
     - node.type.vet_center_outstation
   module:
     - address
     - field_group
+    - media
     - office_hours
     - options
     - telephone
@@ -49,7 +51,7 @@ third_party_settings:
         id: locations-and-contact-information
         classes: ''
         show_empty_fields: false
-      label: 'Locations and contact information'
+      label: 'Location and contact information'
     group_facility_data_from_vast:
       children:
         - field_facility_locator_api_id
@@ -62,8 +64,8 @@ third_party_settings:
       region: content
       format_settings:
         show_label: '0'
-        tooltip_description: ''
-        description: "Why can’t I edit this?\r\nThis content is automatically generated from the VAST database, which helps VA maintain a consistent source of information across all of VA.gov."
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically generated from the VAST database, which helps VA maintain a consistent source of information across all of VA.gov."
+        description: ''
         id: external-content
         classes: not-editable
         show_empty_fields: 0
@@ -104,12 +106,13 @@ content:
     type: string
     region: content
   field_media:
-    type: entity_reference_label
+    type: media_thumbnail
     weight: 4
     region: content
     label: above
     settings:
-      link: true
+      image_style: 3_2_medium_thumbnail
+      image_link: ''
     third_party_settings: {  }
   field_office:
     type: entity_reference_label

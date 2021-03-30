@@ -10,22 +10,23 @@ dependencies:
     - field.field.node.vet_center_mobile_vet_center.field_office
     - field.field.node.vet_center_mobile_vet_center.field_office_hours
     - field.field.node.vet_center_mobile_vet_center.field_phone_number
+    - field.field.node.vet_center_mobile_vet_center.field_table_of_contents
     - node.type.vet_center_mobile_vet_center
     - workflows.workflow.editorial
   module:
     - address
     - content_moderation
     - field_group
+    - markup
+    - media_library
     - office_hours
     - telephone
 third_party_settings:
   field_group:
     group_op:
-      children:
-        - field_operating_status_facility
-        - field_operating_status_more_info
+      children: {  }
       parent_name: ''
-      weight: 9
+      weight: 15
       format_type: fieldset
       region: hidden
       format_settings:
@@ -39,7 +40,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 8
+      weight: 6
       format_type: fieldset
       region: content
       format_settings:
@@ -52,7 +53,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 7
+      weight: 5
       format_type: details_sidebar
       region: content
       format_settings:
@@ -63,6 +64,76 @@ third_party_settings:
         required_fields: true
         weight: 0
       label: Governance
+    group_facility_name:
+      children:
+        - group_page_title_tooltip
+        - field_office
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      region: content
+      format_settings:
+        show_empty_fields: false
+        id: facility-name
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Facility name'
+    group_locations_and_contact_info:
+      children:
+        - group_facility_data_from_vast
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: 'Review key location information about this facility. To request a correction to address, phone, or hours, contact an <a href="https://vaww.va.gov/WEBCOM/VAMC_Facility_Location_Updates.asp " target="_blank">administrator</a>.'
+        required_fields: true
+        id: locations-and-contact-information
+        classes: ''
+        show_empty_fields: false
+      label: 'Location and contact information'
+    group_facility_data_from_vast:
+      children:
+        - field_facility_locator_api_id
+        - field_address
+        - field_phone_number
+        - field_office_hours
+      parent_name: group_locations_and_contact_info
+      weight: 19
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_empty_fields: 0
+        id: external-content
+        classes: ''
+        element: div
+        show_label: '1'
+        label_element: h3
+        required_fields: 1
+        attributes: ''
+        description: ''
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically generated from the VAST database, which helps VA maintain a consistent source of information across all of VA.gov."
+        open: false
+      label: 'Facility data from VAST'
+    group_page_title_tooltip:
+      children: {  }
+      parent_name: group_facility_name
+      weight: 21
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_empty_fields: '1'
+        show_label: '0'
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically generated from the VAST database, which helps VA maintain a consistent source of information across all of VA.gov."
+        description: '<strong>Page title</strong>'
+        required_fields: '1'
+        id: ''
+        classes: not-editable
+        element: div
+        label_element: h3
+        attributes: ''
+      label: 'Page title'
 id: node.vet_center_mobile_vet_center.default
 targetEntityType: node
 bundle: vet_center_mobile_vet_center
@@ -81,7 +152,7 @@ content:
     type: options_select
     region: content
   field_facility_locator_api_id:
-    weight: 2
+    weight: 3
     settings:
       size: 60
       placeholder: ''
@@ -89,33 +160,36 @@ content:
     type: string_textfield
     region: content
   field_media:
-    weight: 3
+    weight: 4
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      media_types: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: media_library_widget
     region: content
   field_office:
-    weight: 1
+    weight: 22
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_office_hours:
-    weight: 5
+    weight: 6
     settings: {  }
     third_party_settings: {  }
     type: office_hours_default
     region: content
   field_phone_number:
-    weight: 6
+    weight: 5
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
+    region: content
+  field_table_of_contents:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
     region: content
   moderation_state:
     type: moderation_state_default
@@ -123,19 +197,12 @@ content:
     settings: {  }
     region: content
     third_party_settings: {  }
-  title:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
 hidden:
   created: true
   path: true
   promote: true
   status: true
   sticky: true
+  title: true
   uid: true
   url_redirects: true

@@ -95,12 +95,12 @@ third_party_settings:
       format_type: fieldset
       region: content
       format_settings:
-        description: ''
+        description: 'Review key location information about this facility. To request a correction to address, phone, or hours, contact an <a href="https://vaww.va.gov/WEBCOM/VAMC_Facility_Location_Updates.asp " target="_blank">administrator</a>.'
         required_fields: true
         id: locations-and-contact-information
         classes: ''
         show_empty_fields: false
-      label: 'Locations and contact information'
+      label: 'Location and contact information'
     group_operating_status:
       children:
         - field_operating_status_facility
@@ -138,20 +138,6 @@ third_party_settings:
         label_element: h3
         attributes: ''
       label: 'Facility data from VAST'
-    group_facility_photo:
-      children:
-        - field_media
-      parent_name: ''
-      weight: 4
-      format_type: fieldset
-      region: content
-      format_settings:
-        show_empty_fields: false
-        id: facility-photo
-        classes: ''
-        description: ''
-        required_fields: true
-      label: 'Facility photo'
 id: node.vet_center_outstation.default
 targetEntityType: node
 bundle: vet_center_outstation
