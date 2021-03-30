@@ -104,6 +104,9 @@ services:
         - find "${DOCROOT}/sites/default/files" -type d -print0 | xargs -0 chmod 2775
         - find "${DOCROOT}/sites/default/files" -type f -print0 | xargs -0 chmod 0664
 
+        # Update $PATH to include Composer binary path.
+        - PATH="$(composer config bin-dir --absolute --quiet):${PATH}";
+
         # Install the Task task runner/build tool.
         - cd "${TUGBOAT_ROOT}" && ./scripts/install_task_runner.sh
 
