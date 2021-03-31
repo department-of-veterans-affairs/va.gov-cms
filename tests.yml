@@ -56,8 +56,7 @@ tasks:
   va/tests/behat:
     desc: Behat Tests
     cmds:
-      - cd tests/behat
-      - /bin/bash -lc 'behat --colors'
+      - /bin/bash -lc 'cd tests/behat; behat --colors'
 
   va/tests/revision-log:
     desc: Ensure revision log field is present
