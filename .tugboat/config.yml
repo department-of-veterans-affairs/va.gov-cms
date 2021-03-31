@@ -121,6 +121,7 @@ services:
         # Tugboat currently merges the branch into master and we don't need that because we have a GitHub branch rule
         # setup to ensure branch is up to date.
         - git reset --hard $TUGBOAT_PREVIEW_SHA
+
         # This j2 command is shared in both the build & clone stages. If modifying, change the other too.
         - j2 "${TUGBOAT_ROOT}/.tugboat/.env.j2" -o "${TUGBOAT_ROOT}/.env"
         # This command is shared by the clone and build stages, make sure to update both stages.
@@ -143,6 +144,8 @@ services:
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
 
       online:
+        # Ensure $PATH is updated for current environment.
+        - PATH="$(composer config bin-dir --absolute --quiet):$PATH"
         # We only want tests running on PRs, not branches like the base preview build of master.
         # This sets the commit status checks to pending all at once.
         - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then ./bin/task --taskfile=tests.yml va/web/build va/tests; fi
