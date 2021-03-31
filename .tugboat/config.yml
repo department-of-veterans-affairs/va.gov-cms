@@ -51,7 +51,7 @@ services:
         - apt-get install python3-apt python3-distutils python3
         - curl -O https://bootstrap.pypa.io/get-pip.py
         - python3 get-pip.py
-        - echo "export PATH=~/.local/bin:$PATH" >> ~/.bashrc
+        - echo "export PATH=/var/lib/tugboat/bin:~/.local/bin:$PATH" >> ~/.bashrc
         - pip3 install j2cli
 
         # Install VA Root CA
@@ -84,9 +84,6 @@ services:
 
         # Ensure that we're using version 2 of composer.
         - composer self-update --2
-
-        # Update $PATH to include Composer binary path.
-        - PATH="$(composer config bin-dir --absolute --quiet):${PATH}";
 
         # Install the Task task runner/build tool.
         - ./scripts/install_task_runner.sh
