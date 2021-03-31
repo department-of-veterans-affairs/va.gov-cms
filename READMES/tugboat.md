@@ -92,6 +92,7 @@ For example, when creating the 'Wilmington health care' demo environment, these 
 | Scroll the logs. | This is not possible in the Tugboat UI, use `tugboat log <service id>` to grep or scroll. |
 | Run more advanced commands with the `tugboat` tool on the proxy | See the "Tugboat's CLI tool for software engineers" section of this document. |
 | Want to get the latest .env file | Run a "Refresh" to run the "Build" stage which re-generates the .env file with latest ENV variables. |
+| Use a branch as a base preview for further PRs that will be merged into that branch | Push the base preview branch upstream, then go to branches and click "Build Preview".  From that preview, click "Preview Settings", select "Use this preview as a Base Preview", then select "Branch Base Preview".  PRs representing branches based on the base preview branch will then create previews that use that base preview.| 
 
 ## Tugboat config testing operations
 | I want to... | Then you should... |
