@@ -2,6 +2,11 @@
 
 version: '3'
 
+env:
+  PATH: "/var/lib/tugboat/bin:~/.local/bin:{{.PATH}}"
+
+dotenv: ['.env']
+
 tasks:
 
   # Run with: ./bin/task --taskfile=tasks-periodic.yml daily
