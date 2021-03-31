@@ -36,6 +36,7 @@ tasks:
   va/tests/phpunit:
     desc: PHPUnit
     cmds:
+      - echo $PATH
       - phpunit --exclude-group disabled tests/phpunit --colors=always
 
   va/tests/accessibility:
