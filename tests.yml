@@ -36,7 +36,7 @@ tasks:
   va/tests/phpunit:
     desc: PHPUnit
     cmds:
-      - phpunit --exclude-group disabled tests/phpunit --colors=always
+      - /bin/bash -lc 'phpunit --exclude-group disabled tests/phpunit --colors=always'
 
   va/tests/accessibility:
     desc: accessibility test with cypress-axe for 508 compliance
@@ -57,7 +57,7 @@ tasks:
     desc: Behat Tests
     cmds:
       - cd tests/behat
-      - behat --colors
+      - /bin/bash -lc 'behat --colors'
 
   va/tests/revision-log:
     desc: Ensure revision log field is present
