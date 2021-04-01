@@ -26,3 +26,8 @@ Continue the deployment manually:
 1. rm /var/www/cms/docroot/sites/default/settings/settings.deploy.active.php (settings.deploy.inactive.php should still exist) (this brings in all the traffic again)
 #### 2B) drush deploy (updatedb & config:import) HAS run
 1. TODO: Need to revert to database snapshot just before deploy started
+
+
+## Post-Tasks
+1. If Periodic job was disabled for any reason, make sure to re-enable it here.
+   http://jenkins.vfs.va.gov/job/cms/job/cms-periodic-prod/
