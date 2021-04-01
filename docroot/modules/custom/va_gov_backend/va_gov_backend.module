@@ -53,7 +53,7 @@ function va_gov_backend_help($route_name, RouteMatchInterface $route_match) {
  */
 function va_gov_backend_form_user_form_alter(array &$form) {
   if (isset($form['account']['roles'])) {
-    foreach (Role::loadMultiple() as $id => $role) {
+    foreach (Role::loadMultiple() as $id => $role){
       if ($role instanceof RoleInterface) {
         $form['account']['roles'][$id]['#description'] = $role->getThirdPartySetting('va_gov_backend', 'vgb_description');
       }
