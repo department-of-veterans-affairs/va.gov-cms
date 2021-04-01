@@ -1,0 +1,6 @@
+runner:
+  just-a-test:
+    cmd: ".reviewdog.yml:3:6: This is only a test."
+    level: info
+    errorformat:
+      - "%f:%l:%c: %m"
