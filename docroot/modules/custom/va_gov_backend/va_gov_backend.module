@@ -515,7 +515,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     $form['redirect_match_type'] = [
       '#type' => 'select',
       '#options' => [
-        'prefix' => 'prefix',
+        'prefix' => t('prefix'),
         'exact_match' => 'exact match',
         'regex_case_sensitive' => 'regex case sensitive',
         'regex_case_insensitive' => 'regex case insensitive',
