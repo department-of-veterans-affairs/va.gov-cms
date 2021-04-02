@@ -1,6 +1,11 @@
 runner:
-  just-a-test:
-    cmd: ".reviewdog.yml:3:6: This is only a test."
-    level: info
-    errorformat:
-      - "%f:%l:%c: %m"
+  phpstan:
+    name: phpstan
+    cmd: /bin/bash -lc 'phpstan analyze docroot/modules/custom/
+    level: warning
+    format: phpstan
+  phpcs:
+    name: phpcs
+    cmd: /bin/bash -lc 'phpcs docroot/modules/custom/ --report-checkstyle'
+    level: warning
+    format: checkstyle

@@ -22,6 +22,8 @@ tasks:
     desc:
     cmds:
       - task: va/tests/phplint
+      - task: va/tests/phpstan
+      - task: va/tests/phpcs
       - task: va/tests/phpunit
       - task: va/tests/accessibility
       - task: va/tests/behavioral
@@ -29,6 +31,16 @@ tasks:
       - task: va/tests/revision-log
       - task: va/tests/check-cer
       - task: va/tests/status-error
+
+  va/tests/phpcs:
+    desc: PHPCodeSniffer
+    cmds:
+      - /bin/bash -lc 'export $(grep -v '^#' .env | xargs -d '\n'); reviewdog -runner=phpcs -reporter=github-pr-review -fail-on-error'
+
+  va/tests/phpstan:
+    desc: PHPStan
+    cmds:
+      - /bin/bash -lc 'export $(grep -v '^#' .env | xargs -d '\n'); reviewdog -runner=phpstan -reporter=github-pr-review -fail-on-error'
 
   va/tests/phplint:
     desc: PHP Lint
