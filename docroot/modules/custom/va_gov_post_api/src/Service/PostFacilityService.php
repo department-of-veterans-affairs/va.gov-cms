@@ -117,6 +117,9 @@ class PostFacilityService {
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   Entity.
+   *
+   * @return int
+   *   The count of the number of items queued (1,0).
    */
   public function queueFacilityService(EntityInterface $entity) {
     $this->errors = [];
@@ -149,6 +152,7 @@ class PostFacilityService {
           // to remove the messenger as it will be too noisy.
           $message = t('The facility service data for %service_name is being sent to the Facility Locator.', ['%service_name' => $this->facilityService->getTitle()]);
           $this->messenger->addStatus($message);
+          return 1;
         }
       }
       elseif (!empty($this->errors) && ($this->isPushable())) {
@@ -156,6 +160,8 @@ class PostFacilityService {
         $errors = implode(' ', $this->errors);
         $message = sprintf('Post API: attempted to add a system  NID %d to queue, but ran into errors: %s', $this->facilityService->id(), $errors);
         $this->logger->get('va_gov_post_api')->error($message);
+
+        return 0;
       }
     }
   }

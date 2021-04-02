@@ -119,6 +119,7 @@ class VaGovFacilityForceQueueForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $bundle = $form_state->getValue('facility_type');
+    $queued_count = 0;
 
     // Enable force update.
     $this->configFactory()
@@ -142,24 +143,25 @@ class VaGovFacilityForceQueueForm extends FormBase {
           $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
           foreach ($nodes as $node) {
             if ($bundle === 'health_care_local_health_service') {
-              _post_api_add_facility_service_to_queue($node);
+              $queued_count += _post_api_add_facility_service_to_queue($node);
             }
             else {
-              _post_api_add_facility_to_queue($node);
+              $queued_count += _post_api_add_facility_to_queue($node);
             }
           }
 
           $sandbox['current'] = $sandbox['current'] + count($nids);
 
           $this->logger('va_gov_post_api')
-            ->log(LogLevel::INFO, 'VA.gov Post API: %current of %total %type nodes queued for sync to Lighthouse.', [
+            ->log(LogLevel::INFO, 'VA.gov Post API: %current of %total %type nodes processed. Queued %queued_count for sync to Lighthouse.', [
               '%type' => $bundle,
               '%current' => $sandbox['current'],
               '%total' => count($sandbox['nids']),
+              '%queued_count' => $queued_count,
             ]);
         }
 
-        $this->messenger()->addStatus(sprintf('%d %s nodes queued for sync to Lighthouse.', count($sandbox['nids']), $bundle));
+        $this->messenger()->addStatus(sprintf('%d %s nodes processed. Queued %d for sync to Lighthouse.', count($sandbox['nids']), $bundle, $queued_count));
       }
       catch (\Exception $e) {
         $this->logger('va_gov_post_api')
