@@ -155,7 +155,7 @@ Feature: CMS Users may effectively create & edit content
     And I should see "City" in the "#edit-field-address-0" element
     And I should see "State" in the "#edit-field-address-0" element
 
-@content_editing
+@content_editing @et
   Scenario: Log in and confirm that System-wide alerts can be created and edited
     When I am logged in as a user with the "content_admin" role
 
@@ -163,6 +163,7 @@ Feature: CMS Users may effectively create & edit content
     Then I am at "node/add/vamc_operating_status_and_alerts"
     And I press "Add new banner alert"
     And I select "Information" from "Alert type"
+    And I select "Veterans Affairs" from "edit-field-administration"
     And I fill in "Title" with "BeHat Alert title"
     And I fill in "Alert body" with "BeHat Alert body"
     And I press "Save draft and continue editing"
