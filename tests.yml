@@ -6,101 +6,6 @@ version: '3'
 dotenv: ['.env']
 
 tasks:
-  tugboat-tests:
-    cmds:
-      - task: set-all-tests-pending
-      - task: va/web/build
-      - task: va/tests
-
-  set-check-status:
-    cmds:
-      - echo $PATH
-      - |
-        echo $PATH
-        github-status-updater -action=update_state -state="{{ .STATUS }}" -context="{{ .CONTEXT }}" -description="{{ .DESCRIPTION }}"
-        set -o allexport
-        source .env
-        set +o allexport
-        github-status-updater -action=update_state -state="{{ .STATUS }}" -context="{{ .CONTEXT }}" -description="{{ .DESCRIPTION }}"
-
-  set-all-tests-pending:
-    cmds:
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/phpcs
-          DESCRIPTION: 'PHPCodeSniffer'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/phpstan
-          DESCRIPTION: 'PHPStan'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/unit
-          DESCRIPTION: 'PHPUnit'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/accessibility
-          DESCRIPTION: 'Accessibility'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/behavioral
-          DESCRIPTION: 'Behavioral'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/revision-log
-          DESCRIPTION: 'Revision Log'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/check-cer
-          DESCRIPTION: 'Ensure cer fields exist'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/status-error
-          DESCRIPTION: 'Check for Drupal status errors'
-
-  default:
-    cmds:
-      - task: va/tests/phplint
-      - task: va/tests/phpunit
-      - task: va/tests/phpstan
-      - task: va/tests/phpcs
-      - task: va/tests/accessibility
-      - task: va/tests/behavioral
-      - task: va/web/build
-      - task: va/tests/behat
-      - task: va/tests/revision-log
-      - task: va/tests/check-cer
-      - task: va/tests/status-error
-
-  va/tests:
-    desc:
-    cmds:
-      - task: va/tests/phplint
-      - task: va/tests/phpstan
-      - task: va/tests/phpcs
-      - task: va/tests/phpunit
-      - task: va/tests/accessibility
-      - task: va/tests/behavioral
-      - task: va/tests/behat
-      - task: va/tests/revision-log
-      - task: va/tests/check-cer
-      - task: va/tests/status-error
 
   va/tests/phpcs:
     desc: PHPCodeSniffer
@@ -204,3 +109,94 @@ tasks:
         else
           github-status-updater -action=update_state -state=failure -context='va/tests/check-cer' -description='Failed'
         fi
+
+  tugboat-tests:
+    cmds:
+      - task: set-all-tests-pending
+      - task: va/web/build
+      - task: va/tests
+
+  set-check-status:
+    cmds:
+      - |
+        github-status-updater -action=update_state -state="{{ .STATUS }}" -context="{{ .CONTEXT }}" -description="{{ .DESCRIPTION }}"
+
+  set-all-tests-pending:
+    cmds:
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/phpcs
+          DESCRIPTION: 'PHPCodeSniffer'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/phpstan
+          DESCRIPTION: 'PHPStan'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/unit
+          DESCRIPTION: 'PHPUnit'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/accessibility
+          DESCRIPTION: 'Accessibility'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/behavioral
+          DESCRIPTION: 'Behavioral'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/revision-log
+          DESCRIPTION: 'Revision Log'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/check-cer
+          DESCRIPTION: 'Ensure cer fields exist'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/status-error
+          DESCRIPTION: 'Check for Drupal status errors'
+
+  default:
+    cmds:
+      - task: va/tests/phplint
+      - task: va/tests/phpunit
+      - task: va/tests/phpstan
+      - task: va/tests/phpcs
+      - task: va/tests/accessibility
+      - task: va/tests/behavioral
+      - task: va/web/build
+      - task: va/tests/behat
+      - task: va/tests/revision-log
+      - task: va/tests/check-cer
+      - task: va/tests/status-error
+
+  va/tests:
+    desc:
+    cmds:
+      - task: va/tests/phplint
+      - task: va/tests/phpstan
+      - task: va/tests/phpcs
+      - task: va/tests/phpunit
+      - task: va/tests/accessibility
+      - task: va/tests/behavioral
+      - task: va/tests/behat
+      - task: va/tests/revision-log
+      - task: va/tests/check-cer
+      - task: va/tests/status-error
+
