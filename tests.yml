@@ -14,7 +14,7 @@ tasks:
 
   set-check-pending:
     cmds:
-      - /bin/bash -lc 'github-status-updater -state pending -context "{{ .CONTEXT }}" -description "{{ .DESCRIPTION }}"'
+      - github-status-updater -state pending -context "{{ .CONTEXT }}" -description "{{ .DESCRIPTION }}"
 
   set-all-tests-pending:
     cmds:
@@ -90,12 +90,18 @@ tasks:
   va/tests/phpcs:
     desc: PHPCodeSniffer
     cmds:
-      - /bin/bash -lc 'export $(grep -v '^#' .env | xargs -d '\n'); reviewdog -runner=phpcs -reporter=github-pr-review -fail-on-error'
+      - |
+        {
+          reviewdog -runners=phpcs -reporter=github-pr-review -fail-on-error
+        } || github-status-updater -state failure -context 'va/tests/phpcs' -description 'Failure'
 
   va/tests/phpstan:
     desc: PHPStan
     cmds:
-      - /bin/bash -lc 'export $(grep -v '^#' .env | xargs -d '\n'); reviewdog -runner=phpstan -reporter=github-pr-review -fail-on-error'
+      - |
+        {
+          reviewdog -runners=phpstan -reporter=github-pr-review
+        } || github-status-updater -state failure -context 'va/tests/phpstan' -description 'Failure'
 
   va/tests/phplint:
     desc: PHP Lint
