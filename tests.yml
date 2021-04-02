@@ -190,11 +190,10 @@ tasks:
     desc: Check for Drupal status errors
     cmds:
       - |
-        {
-          lines=$(drush $DRUSH_ALIAS core-requirements --format=list --severity=2)
-          line_count=$(grep -c "^.+$" <<< $lines)
-          if [ $line_count -ne 0 ]; then
-            github-status-updater -action=update_state -state=success -context='va/tests/status-error' -description='Success: No Drupal status requirement errors were found.'
-          fi
-          exit $line_count;
-        } || github-status-updater -action=update_state -state=failure -context='va/tests/check-cer' -description='Failed'
+        lines=$(drush $DRUSH_ALIAS core-requirements --format=list --severity=2)
+        line_count=$(grep -c "^.+$" <<< $lines)
+        if [ $line_count -eq 0 ]; then
+          github-status-updater -action=update_state -state=success -context='va/tests/status-error' -description='Success: No Drupal status requirement errors were found.'
+        else
+          github-status-updater -action=update_state -state=failure -context='va/tests/check-cer' -description='Failed'
+        fi
