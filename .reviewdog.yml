@@ -1,11 +1,11 @@
 runner:
   phpstan:
     name: phpstan
-    cmd: /bin/bash -lc 'phpstan analyze docroot/modules/custom/
+    cmd: phpstan analyze docroot/modules/custom/ --error-format=checkstyle
     level: warning
-    format: phpstan
+    format: checkstyle
   phpcs:
     name: phpcs
-    cmd: /bin/bash -lc 'phpcs docroot/modules/custom/ --report-checkstyle'
+    cmd: phpcs docroot/modules/custom/ --report-checkstyle
     level: warning
     format: checkstyle
