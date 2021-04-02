@@ -3,11 +3,68 @@
 
 version: '3'
 
+dotenv: ['.env']
+
 tasks:
+  tugboat-tests:
+    cmds:
+      - task: set-all-tests-pending
+      - task: va/web/build
+      - task: va/tests
+
+  set-check-pending:
+    cmds:
+      - /bin/bash -lc 'github-status-updater -state pending -context "{{ .CONTEXT }}" -description "{{ .DESCRIPTION }}"'
+
+  set-all-tests-pending:
+    cmds:
+
+      - task: set-check-pending
+        vars:
+          CONTEXT: va/tests/phpcs
+          DESCRIPTION: 'PHPCodeSniffer'
+
+      - task: set-check-pending
+        vars:
+          CONTEXT: va/tests/phpstan
+          DESCRIPTION: 'PHPStan'
+
+      - task: set-check-pending
+        vars:
+          CONTEXT: va/tests/unit
+          DESCRIPTION: 'PHPUnit'
+
+      - task: set-check-pending
+        vars:
+          CONTEXT: va/tests/accessibility
+          DESCRIPTION: 'Accessibility'
+
+      - task: set-check-pending
+        vars:
+          CONTEXT: va/tests/behavioral
+          DESCRIPTION: 'Behavioral'
+
+      - task: set-check-pending
+        vars:
+          CONTEXT: va/tests/revision-log
+          DESCRIPTION: 'Revision Log'
+
+      - task: set-check-pending
+        vars:
+          CONTEXT: va/tests/check-cer
+          DESCRIPTION: 'Ensure cer fields exist'
+
+      - task: set-check-pending
+        vars:
+          CONTEXT: va/tests/status-error
+          DESCRIPTION: 'Check for Drupal status errors'
+
   default:
     cmds:
       - task: va/tests/phplint
       - task: va/tests/phpunit
+      - task: va/tests/phpstan
+      - task: va/tests/phpcs
       - task: va/tests/accessibility
       - task: va/tests/behavioral
       - task: va/web/build
