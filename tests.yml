@@ -14,7 +14,14 @@ tasks:
 
   set-check-status:
     cmds:
-      - github-status-updater -action=update_state -state="{{ .STATUS }}" -context="{{ .CONTEXT }}" -description="{{ .DESCRIPTION }}"
+      - echo $PATH
+      - |
+        echo $PATH
+        github-status-updater -action=update_state -state="{{ .STATUS }}" -context="{{ .CONTEXT }}" -description="{{ .DESCRIPTION }}"
+        set -o allexport
+        source .env
+        set +o allexport
+        github-status-updater -action=update_state -state="{{ .STATUS }}" -context="{{ .CONTEXT }}" -description="{{ .DESCRIPTION }}"
 
   set-all-tests-pending:
     cmds:
