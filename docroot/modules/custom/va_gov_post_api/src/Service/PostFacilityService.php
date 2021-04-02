@@ -119,6 +119,7 @@ class PostFacilityService {
    *   Entity.
    */
   public function queueFacilityService(EntityInterface $entity) {
+    $this->errors = [];
     if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'health_care_local_health_service')) {
       // This is an appropriate service so begin gathering data to process.
       $this->facilityService = $entity;
@@ -194,7 +195,7 @@ class PostFacilityService {
    * Assembles the phone data and returns an array of objects.
    *
    * @return array
-   *   An array of objects with propertied type, label, number, extension.
+   *   An array of objects with properties type, label, number, extension.
    */
   protected function getPhones() {
     $assembled_phones = [];
@@ -333,6 +334,14 @@ class PostFacilityService {
 
       case ($defaultRevisionIsPublished && !$thisRevisionIsPublished):
         // Draft revision on published node, should not push, even w/bypass.
+        $push = FALSE;
+        break;
+
+      case ($this->shouldBypass()):
+        // Bypass is activated.
+        $push = TRUE;
+        break;
+
       default:
         // Anything that makes it this far should not be pushed.
         $push = FALSE;
