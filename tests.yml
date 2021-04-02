@@ -12,50 +12,58 @@ tasks:
       - task: va/web/build
       - task: va/tests
 
-  set-check-pending:
+  set-check-status:
     cmds:
-      - github-status-updater -state pending -context "{{ .CONTEXT }}" -description "{{ .DESCRIPTION }}"
+      - github-status-updater -action=update_state -state="{{ .STATUS }}" -context="{{ .CONTEXT }}" -description="{{ .DESCRIPTION }}"
 
   set-all-tests-pending:
     cmds:
 
-      - task: set-check-pending
+      - task: set-check-status
         vars:
+          STATUS: pending
           CONTEXT: va/tests/phpcs
           DESCRIPTION: 'PHPCodeSniffer'
 
-      - task: set-check-pending
+      - task: set-check-status
         vars:
+          STATUS: pending
           CONTEXT: va/tests/phpstan
           DESCRIPTION: 'PHPStan'
 
-      - task: set-check-pending
+      - task: set-check-status
         vars:
+          STATUS: pending
           CONTEXT: va/tests/unit
           DESCRIPTION: 'PHPUnit'
 
-      - task: set-check-pending
+      - task: set-check-status
         vars:
+          STATUS: pending
           CONTEXT: va/tests/accessibility
           DESCRIPTION: 'Accessibility'
 
-      - task: set-check-pending
+      - task: set-check-status
         vars:
+          STATUS: pending
           CONTEXT: va/tests/behavioral
           DESCRIPTION: 'Behavioral'
 
-      - task: set-check-pending
+      - task: set-check-status
         vars:
+          STATUS: pending
           CONTEXT: va/tests/revision-log
           DESCRIPTION: 'Revision Log'
 
-      - task: set-check-pending
+      - task: set-check-status
         vars:
+          STATUS: pending
           CONTEXT: va/tests/check-cer
           DESCRIPTION: 'Ensure cer fields exist'
 
-      - task: set-check-pending
+      - task: set-check-status
         vars:
+          STATUS: pending
           CONTEXT: va/tests/status-error
           DESCRIPTION: 'Check for Drupal status errors'
 
@@ -92,58 +100,101 @@ tasks:
     cmds:
       - |
         {
-          reviewdog -runners=phpcs -reporter=github-pr-review -fail-on-error
-        } || github-status-updater -state failure -context 'va/tests/phpcs' -description 'Failure'
+          reviewdog -runners=phpcs -reporter=github-pr-review -fail-on-error -filter-mode=nofilter && \
+            github-status-updater -action=update_state -state=success -context='va/tests/phpcs' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='va/tests/phpcs' -description='Failed'
 
   va/tests/phpstan:
     desc: PHPStan
     cmds:
       - |
         {
-          reviewdog -runners=phpstan -reporter=github-pr-review
-        } || github-status-updater -state failure -context 'va/tests/phpstan' -description 'Failure'
+          reviewdog -runners=phpstan -reporter=github-pr-review -fail-on-error -filter-mode=nofilter && \
+            github-status-updater -action=update_state -state=success -context='va/tests/phpstan' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='va/tests/phpstan' -description='Failed'
 
   va/tests/phplint:
     desc: PHP Lint
     cmds:
-      - composer va:test:lint
+      - |
+        {
+          composer va:test:lint && \
+            github-status-updater -action=update_state -state=success -context='va/tests/lint' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='va/tests/lint' -description='Failed'
 
   va/tests/phpunit:
     desc: PHPUnit
     cmds:
-      - /bin/bash -lc 'phpunit --exclude-group disabled tests/phpunit --colors=always'
+      - |
+        {
+          phpunit --exclude-group disabled tests/phpunit --colors=always && \
+            github-status-updater -action=update_state -state=success -context='va/tests/phpunit' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='va/tests/phpunit' -description='Failed'
 
   va/tests/accessibility:
     desc: accessibility test with cypress-axe for 508 compliance
     cmds:
-      - composer va:test:accessibility
+      - |
+        {
+          composer va:test:accessibility && \
+            github-status-updater -action=update_state -state=success -context='va/tests/accessibility' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='va/tests/accessibility' -description='Failed'
 
   va/tests/behavioral:
     desc: behavioral tests with cypress
     cmds:
-      - composer va:test:behavioral
+      - |
+        {
+          composer va:test:behavioral && \
+            github-status-updater -action=update_state -state=success -context='va/tests/behavioral' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='va/tests/behavioral' -description='Failed'
 
   va/web/build:
     desc: Build VA.gov Front-end
     cmds:
-      - ./tests/scripts/build-web.sh
+      - |
+        {
+          ./tests/scripts/build-web.sh && \
+            github-status-updater -action=update_state -state=success -context='va/web/build' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='va/web/build' -description='Failed'
 
   va/tests/behat:
     desc: Behat Tests
     cmds:
-      - /bin/bash -lc 'cd tests/behat; behat --colors'
+      - |
+        {
+          cd tests/behat
+          behat --colors && \
+            github-status-updater -action=update_state -state=success -context='va/tests/behat' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='va/web/build' -description='Failed'
 
   va/tests/revision-log:
     desc: Ensure revision log field is present
     cmds:
-      - ./tests/scripts/check-revision-logs.sh
+      - |
+        {
+          ./tests/scripts/check-revision-logs.sh && \
+            github-status-updater -action=update_state -state=success -context='va/tests/revision-log' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='va/tests/revision-log' -description='Failed'
 
   va/tests/check-cer:
     desc: Ensure cer fields exist
     cmds:
-      - ./tests/scripts/check-cer.sh
+      - |
+        {
+          ./tests/scripts/check-cer.sh && \
+            github-status-updater -action=update_state -state=success -context='va/tests/check-cer' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='va/tests/check-cer' -description='Failed'
 
   va/tests/status-error:
     desc: Check for Drupal status errors
     cmds:
-      - "drush $DRUSH_ALIAS core-requirements --format=list --severity=2 | grep . && exit 1 || echo 'Success: No Drupal status requirement errors were found.'"
+      - |
+        {
+          lines=$(drush $DRUSH_ALIAS core-requirements --format=list --severity=2)
+          line_count=$(grep -c "^.+$" <<< $lines)
+          if [ $line_count -ne 0 ]; then
+            github-status-updater -action=update_state -state=success -context='va/tests/status-error' -description='Success: No Drupal status requirement errors were found.'
+          fi
+          exit $line_count;
+        } || github-status-updater -action=update_state -state=failure -context='va/tests/check-cer' -description='Failed'
