@@ -150,11 +150,9 @@ services:
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
 
       online:
-        # Ensure $PATH is updated for current environment.
-        - export PATH="$(composer config bin-dir --absolute --quiet):$PATH"
         # We only want tests running on PRs, not branches like the base preview build of master.
         # This sets the commit status checks to pending all at once.
-        - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then echo $PATH; ./bin/task --taskfile=tests.yml tugboat-tests; fi
+        - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then bash -lc 'task --taskfile=tests.yml tugboat-tests'; fi
 
         # Set file permissions so web based build calls work.  This must run after all web builds are done in tests.
         - chown -R www-data:www-data "${DOCROOT}/vendor/va-gov/web"
