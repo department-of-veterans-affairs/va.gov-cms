@@ -33,6 +33,9 @@ function post_api_entity_update(EntityInterface $entity) {
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   Entity.
+ *
+ * @return int
+ *   The count of the number of items queued (1,0).
  */
 function _post_api_add_facility_to_queue(EntityInterface $entity) {
   $facility_types = [
@@ -42,6 +45,7 @@ function _post_api_add_facility_to_queue(EntityInterface $entity) {
     'vet_center',
     'vet_center_outstation',
   ];
+  $queued_count = 0;
 
   if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $facility_types)) {
     $queue = Drupal::service('post_api.add_to_queue');
@@ -72,11 +76,13 @@ function _post_api_add_facility_to_queue(EntityInterface $entity) {
       // If bypass_data_check setting is enabled, do not dedupe, just force.
       $dedupe = !empty($config->get('bypass_data_check')) ? FALSE : TRUE;
       $queue->addToQueue($data, $dedupe);
+      return 1;
     }
     elseif (empty($facility_id)) {
       // Log error on empty Facility Locator API ID.
       $message = sprintf('Post API: attempted to add an item with NID %d to queue, but it had no Facility API ID.', $entity->id());
       Drupal::logger('va_gov_post_api')->error($message);
+      return 0;
     }
   }
 }
@@ -139,9 +145,14 @@ function _post_api_get_facility_payload(EntityInterface $entity) {
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   Entity.
+ *
+ * @return int
+ *   The count of the number of items queued (1,0).
  */
 function _post_api_add_facility_service_to_queue(EntityInterface $entity) {
   if ($entity->bundle() === 'health_care_local_health_service') {
-    Drupal::service('va_gov_post_api.queue_service_updates')->queueFacilityService($entity);
+    return Drupal::service('va_gov_post_api.queue_service_updates')->queueFacilityService($entity);
   }
-}
+
+  return 0;
+}q
