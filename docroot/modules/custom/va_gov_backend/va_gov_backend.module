@@ -3,8 +3,6 @@
 /**
  * @file
  * Contains va_gov_backend.module.
- *
- * Also: a saucy comment!
  */
 
 use Drupal\Component\Utility\Crypt;
@@ -14,6 +12,7 @@ use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\WidgetBase;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Template\Attribute;
@@ -515,7 +514,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     $form['redirect_match_type'] = [
       '#type' => 'select',
       '#options' => [
-        'prefix' => t('prefix'),
+        'prefix' => 'prefix',
         'exact_match' => 'exact match',
         'regex_case_sensitive' => 'regex case sensitive',
         'regex_case_insensitive' => 'regex case insensitive',
