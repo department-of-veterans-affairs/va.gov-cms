@@ -117,8 +117,12 @@ class PostFacilityService {
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   Entity.
+   *
+   * @return int
+   *   The count of the number of items queued (1,0).
    */
   public function queueFacilityService(EntityInterface $entity) {
+    $this->errors = [];
     if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'health_care_local_health_service')) {
       // This is an appropriate service so begin gathering data to process.
       $this->facilityService = $entity;
@@ -148,6 +152,7 @@ class PostFacilityService {
           // to remove the messenger as it will be too noisy.
           $message = t('The facility service data for %service_name is being sent to the Facility Locator.', ['%service_name' => $this->facilityService->getTitle()]);
           $this->messenger->addStatus($message);
+          return 1;
         }
       }
       elseif (!empty($this->errors) && ($this->isPushable())) {
@@ -155,6 +160,8 @@ class PostFacilityService {
         $errors = implode(' ', $this->errors);
         $message = sprintf('Post API: attempted to add a system  NID %d to queue, but ran into errors: %s', $this->facilityService->id(), $errors);
         $this->logger->get('va_gov_post_api')->error($message);
+
+        return 0;
       }
     }
   }
@@ -172,11 +179,15 @@ class PostFacilityService {
     if (empty($this->errors) && $this->shouldPush()) {
       $service = new \stdClass();
       $service->name = $this->serviceTerm->getName();
-      $service->active = ($this->facilityService->isPublished()) ? 1 : 0;
+      $service->active = ($this->facilityService->isPublished()) ? TRUE : FALSE;
       $service->description_national = $this->serviceTerm->getDescription();
       $service->description_system = $this->systemService->get('field_body')->value;
       $service->description_facility = $this->facilityService->get('field_body')->value;
       $service->health_service_api_id = $this->serviceTerm->get('field_health_service_api_id')->value;
+      $service->appointment_leadin = $this->getAppointmentLeadin();
+      $service->appointment_phones = $this->getPhones();
+      $service->referral_required = $this->getReferralRequired();
+      $service->walk_ins_accepted = $this->getWalkInsAccepted();
 
       $payload = [
         'detailed_services' => [$service],
@@ -184,6 +195,110 @@ class PostFacilityService {
     }
 
     return $payload;
+  }
+
+  /**
+   * Assembles the phone data and returns an array of objects.
+   *
+   * @return array
+   *   An array of objects with properties type, label, number, extension.
+   */
+  protected function getPhones() {
+    $assembled_phones = [];
+    // Grab phones from the facility service.
+    $phones = $this->facilityService->get('field_phone_numbers_paragraph')->referencedEntities();
+    if (empty($phones)) {
+      // The service has no phones, so use the facility's as fallback.
+      $phone_w_ext = $this->Facility->get('field_phone_number')->value;
+      // This field may have extension present like 555-555-1212 x 444.
+      $phone_split = explode('x', $phone_w_ext);
+      $assembledPhone = new \stdClass();
+      $assembledPhone->type = 'tel';
+      $assembledPhone->label = "Main phone";
+      $assembledPhone->number = !empty($phone_split[0]) ? trim($phone_split[0]) : NULL;
+      $assembledPhone->extension = !empty($phone_split[1]) ? trim($phone_split[1]) : NULL;
+      $assembled_phones[] = $assembledPhone;
+    }
+    else {
+      // Process the phones from the facility health service.
+      foreach ($phones as $phone) {
+        $assembledPhone = new \stdClass();
+        $assembledPhone->type = $phone->get('field_phone_number_type')->value;
+        $assembledPhone->label = $phone->get('field_phone_label')->value;
+        $assembledPhone->number = $phone->get('field_phone_number')->value;
+        $assembledPhone->extension = $phone->get('field_phone_extension')->value;
+        $assembled_phones[] = $assembledPhone;
+      }
+    }
+
+    return $assembled_phones;
+  }
+
+  /**
+   * Gets the appropriate appointment intro text.
+   *
+   * @return string
+   *   The mapped values of the field.  True, False, not applicable, NULL.
+   */
+  protected function getAppointmentLeadin() {
+    $selection = $this->facilityService->get('field_hservice_appt_intro_select')->value;
+
+    switch ($selection) {
+      case 'custom_intro_text':
+        $text = $this->facilityService->get('field_hservice_appt_leadin')->value;
+        break;
+
+      case 'no_intro_text':
+        $text = NULL;
+        break;
+
+      case 'default_intro_text':
+      default:
+        $markupField = $this->facilityService->get('field_hservices_lead_in_default');
+        $text = $markupField->getSetting('markup')['value'] ?? NULL;
+
+        break;
+    }
+
+    return $text;
+  }
+
+  /**
+   * Maps and returns the value of referral required.
+   *
+   * @return string
+   *   The mapped values of the field.  True, False, not applicable, NULL.
+   */
+  protected function getReferralRequired() {
+    $raw = $this->facilityService->get('field_referral_required')->value;
+    $map = [
+      // Value => Return.
+      // Lighthouse decided to receive these as strings since non-bool options.
+      '0' => 'false',
+      '1' => 'true',
+      'not_applicable' => 'not applicable',
+    ];
+
+    return $map[$raw] ?? NULL;
+  }
+
+  /**
+   * Maps and returns the value of walk ins accepted.
+   *
+   * @return string
+   *   The mapped values of the field.  True, False, not applicable, NULL.
+   */
+  protected function getWalkInsAccepted() {
+    $raw = $this->facilityService->get('field_walk_ins_accepted')->value;
+    $map = [
+      // Value => Return.
+      // Lighthouse decided to receive these as strings since non-bool options.
+      '0' => 'false',
+      '1' => 'true',
+      'not_applicable' => 'not applicable',
+    ];
+
+    return $map[$raw] ?? NULL;
   }
 
   /**
@@ -225,6 +340,14 @@ class PostFacilityService {
 
       case ($defaultRevisionIsPublished && !$thisRevisionIsPublished):
         // Draft revision on published node, should not push, even w/bypass.
+        $push = FALSE;
+        break;
+
+      case ($this->shouldBypass()):
+        // Bypass is activated.
+        $push = TRUE;
+        break;
+
       default:
         // Anything that makes it this far should not be pushed.
         $push = FALSE;
