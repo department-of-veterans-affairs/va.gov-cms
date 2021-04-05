@@ -143,11 +143,10 @@ tooling:
     cmd: "rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && /etc/init.d/apache2 reload"
     user: root
 
-
   phpunit:
     service: appserver
     description: "Run VA PHPUnit tests found in va/tests/phpunit: lando phpunit. Syntax: lando phpunit"
-    cmd: "./bin/task --taskfile=tests.yml va/tests/phpunit"
+    cmd: "./bin/task --taskfile=tests.yml va/tests/phpunit --"
 
   phpunit-run:
     service: appserver
