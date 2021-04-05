@@ -7,42 +7,6 @@ dotenv: ['.env']
 
 tasks:
 
-  va/tests/phpcs:
-    desc: PHPCodeSniffer
-    cmds:
-      - |
-        {
-          reviewdog -runners=phpcs -reporter=github-pr-review -fail-on-error -filter-mode=nofilter && \
-            github-status-updater -action=update_state -state=success -context='va/tests/phpcs' -description='Success'
-        } || github-status-updater -action=update_state -state=failure -context='va/tests/phpcs' -description='Failed'
-
-  va/tests/phpstan:
-    desc: PHPStan
-    cmds:
-      - |
-        {
-          reviewdog -runners=phpstan -reporter=github-pr-review -fail-on-error -filter-mode=nofilter && \
-            github-status-updater -action=update_state -state=success -context='va/tests/phpstan' -description='Success'
-        } || github-status-updater -action=update_state -state=failure -context='va/tests/phpstan' -description='Failed'
-
-  va/tests/phplint:
-    desc: PHP Lint
-    cmds:
-      - |
-        {
-          composer va:test:lint && \
-            github-status-updater -action=update_state -state=success -context='va/tests/lint' -description='Success'
-        } || github-status-updater -action=update_state -state=failure -context='va/tests/lint' -description='Failed'
-
-  va/tests/phpunit:
-    desc: PHPUnit
-    cmds:
-      - |
-        {
-          phpunit --exclude-group disabled tests/phpunit --colors=always && \
-            github-status-updater -action=update_state -state=success -context='va/tests/phpunit' -description='Success'
-        } || github-status-updater -action=update_state -state=failure -context='va/tests/phpunit' -description='Failed'
-
   va/tests/accessibility:
     desc: accessibility test with cypress-axe for 508 compliance
     cmds:
@@ -51,24 +15,6 @@ tasks:
           composer va:test:accessibility && \
             github-status-updater -action=update_state -state=success -context='va/tests/accessibility' -description='Success'
         } || github-status-updater -action=update_state -state=failure -context='va/tests/accessibility' -description='Failed'
-
-  va/tests/behavioral:
-    desc: behavioral tests with cypress
-    cmds:
-      - |
-        {
-          composer va:test:behavioral && \
-            github-status-updater -action=update_state -state=success -context='va/tests/behavioral' -description='Success'
-        } || github-status-updater -action=update_state -state=failure -context='va/tests/behavioral' -description='Failed'
-
-  va/web/build:
-    desc: Build VA.gov Front-end
-    cmds:
-      - |
-        {
-          ./tests/scripts/build-web.sh && \
-            github-status-updater -action=update_state -state=success -context='va/web/build' -description='Success'
-        } || github-status-updater -action=update_state -state=failure -context='va/web/build' -description='Failed'
 
   va/tests/behat:
     desc: Behat Tests
@@ -80,14 +26,14 @@ tasks:
             github-status-updater -action=update_state -state=success -context='va/tests/behat' -description='Success'
         } || github-status-updater -action=update_state -state=failure -context='va/web/build' -description='Failed'
 
-  va/tests/revision-log:
-    desc: Ensure revision log field is present
+  va/tests/behavioral:
+    desc: behavioral tests with cypress
     cmds:
       - |
         {
-          ./tests/scripts/check-revision-logs.sh && \
-            github-status-updater -action=update_state -state=success -context='va/tests/revision-log' -description='Success'
-        } || github-status-updater -action=update_state -state=failure -context='va/tests/revision-log' -description='Failed'
+          composer va:test:behavioral && \
+            github-status-updater -action=update_state -state=success -context='va/tests/behavioral' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='va/tests/behavioral' -description='Failed'
 
   va/tests/check-cer:
     desc: Ensure cer fields exist
@@ -97,6 +43,51 @@ tasks:
           ./tests/scripts/check-cer.sh && \
             github-status-updater -action=update_state -state=success -context='va/tests/check-cer' -description='Success'
         } || github-status-updater -action=update_state -state=failure -context='va/tests/check-cer' -description='Failed'
+
+  va/tests/phpcs:
+    desc: PHPCodeSniffer
+    cmds:
+      - |
+        {
+          reviewdog -runners=phpcs -reporter=github-pr-review -fail-on-error && \
+            github-status-updater -action=update_state -state=success -context='va/tests/phpcs' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='va/tests/phpcs' -description='Failed'
+
+  va/tests/phplint:
+    desc: PHP Lint
+    cmds:
+      - |
+        {
+          composer va:test:lint && \
+            github-status-updater -action=update_state -state=success -context='va/tests/lint' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='va/tests/lint' -description='Failed'
+
+  va/tests/phpstan:
+    desc: PHPStan
+    cmds:
+      - |
+        {
+          reviewdog -runners=phpstan -reporter=github-pr-review -fail-on-error && \
+            github-status-updater -action=update_state -state=success -context='va/tests/phpstan' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='va/tests/phpstan' -description='Failed'
+
+  va/tests/phpunit:
+    desc: PHPUnit
+    cmds:
+      - |
+        {
+          phpunit --exclude-group disabled tests/phpunit --colors=always && \
+            github-status-updater -action=update_state -state=success -context='va/tests/phpunit' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='va/tests/phpunit' -description='Failed'
+
+  va/tests/revision-log:
+    desc: Ensure revision log field is present
+    cmds:
+      - |
+        {
+          ./tests/scripts/check-revision-logs.sh && \
+            github-status-updater -action=update_state -state=success -context='va/tests/revision-log' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='va/tests/revision-log' -description='Failed'
 
   va/tests/status-error:
     desc: Check for Drupal status errors
@@ -110,6 +101,15 @@ tasks:
           github-status-updater -action=update_state -state=failure -context='va/tests/check-cer' -description='Failed'
         fi
 
+  va/web/build:
+    desc: Build VA.gov Front-end
+    cmds:
+      - |
+        {
+          ./tests/scripts/build-web.sh && \
+            github-status-updater -action=update_state -state=success -context='va/web/build' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='va/web/build' -description='Failed'
+
   tugboat-tests:
     cmds:
       - task: set-all-tests-pending
@@ -118,8 +118,7 @@ tasks:
 
   set-check-status:
     cmds:
-      - |
-        github-status-updater -action=update_state -state="{{ .STATUS }}" -context="{{ .CONTEXT }}" -description="{{ .DESCRIPTION }}"
+      - github-status-updater -action=update_state -state="{{ .STATUS }}" -context="{{ .CONTEXT }}" -description="{{ .DESCRIPTION }}"
 
   set-all-tests-pending:
     cmds:
@@ -127,8 +126,38 @@ tasks:
       - task: set-check-status
         vars:
           STATUS: pending
+          CONTEXT: va/tests/accessibility
+          DESCRIPTION: 'Accessibility'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/behat
+          DESCRIPTION: 'Behat'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/behavioral
+          DESCRIPTION: 'Behavioral'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/check-cer
+          DESCRIPTION: 'Ensure cer fields exist'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
           CONTEXT: va/tests/phpcs
           DESCRIPTION: 'PHPCodeSniffer'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/phplint
+          DESCRIPTION: 'PHPLint'
 
       - task: set-check-status
         vars:
@@ -145,26 +174,8 @@ tasks:
       - task: set-check-status
         vars:
           STATUS: pending
-          CONTEXT: va/tests/accessibility
-          DESCRIPTION: 'Accessibility'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/behavioral
-          DESCRIPTION: 'Behavioral'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
           CONTEXT: va/tests/revision-log
           DESCRIPTION: 'Revision Log'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/check-cer
-          DESCRIPTION: 'Ensure cer fields exist'
 
       - task: set-check-status
         vars:
@@ -174,29 +185,20 @@ tasks:
 
   default:
     cmds:
-      - task: va/tests/phplint
-      - task: va/tests/phpunit
-      - task: va/tests/phpstan
-      - task: va/tests/phpcs
-      - task: va/tests/accessibility
-      - task: va/tests/behavioral
+      - task: va/tests
       - task: va/web/build
-      - task: va/tests/behat
-      - task: va/tests/revision-log
-      - task: va/tests/check-cer
-      - task: va/tests/status-error
 
   va/tests:
     desc:
     cmds:
+      - task: va/tests/accessibility
+      - task: va/tests/behat
+      - task: va/tests/behavioral
+      - task: va/tests/check-cer
+      - task: va/tests/phpcs
       - task: va/tests/phplint
       - task: va/tests/phpstan
-      - task: va/tests/phpcs
       - task: va/tests/phpunit
-      - task: va/tests/accessibility
-      - task: va/tests/behavioral
-      - task: va/tests/behat
       - task: va/tests/revision-log
-      - task: va/tests/check-cer
       - task: va/tests/status-error
 
