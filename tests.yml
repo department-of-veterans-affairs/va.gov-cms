@@ -13,8 +13,8 @@ tasks:
       - |
         {
           composer va:test:accessibility && \
-            github-status-updater -action=update_state -state=success -context='va/tests/accessibility' -description='Success'
-        } || github-status-updater -action=update_state -state=failure -context='va/tests/accessibility' -description='Failed'
+            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
 
   va/tests/behat:
     desc: Behat Tests
@@ -23,8 +23,8 @@ tasks:
         {
           cd tests/behat
           behat --colors && \
-            github-status-updater -action=update_state -state=success -context='va/tests/behat' -description='Success'
-        } || github-status-updater -action=update_state -state=failure -context='va/web/build' -description='Failed'
+            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
 
   va/tests/behavioral:
     desc: behavioral tests with cypress
@@ -32,20 +32,19 @@ tasks:
       - |
         {
           composer va:test:behavioral && \
-            github-status-updater -action=update_state -state=success -context='va/tests/behavioral' -description='Success'
-        } || github-status-updater -action=update_state -state=failure -context='va/tests/behavioral' -description='Failed'
+            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
 
   va/tests/check-cer:
     desc: Ensure cer fields exist
     cmds:
       - |
-        preamble="va/tests/phplint:";
-        result="${preamble}<br/><br/>$(./tests/scripts/check-cer.sh)";
+        result="{{ .TASK }}:<br/><br/>$(./tests/scripts/check-cer.sh)"
         if [ "$?" -eq 0 ]; then
-          github-status-updater -action=update_state -state=success -context='va/tests/check-cer' -description='Success'
+          github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
         else
-          github-status-updater -action=update_state -state=failure -context='va/tests/check-cer' -description='Failed'
-          github-commenter -delete-comment-regex "${preamble}" -comment="${result}"
+          github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+          github-commenter -delete-comment-regex="{{ .TASK }}" -comment="${result}"
         fi
 
   va/tests/phplint:
@@ -53,9 +52,8 @@ tasks:
     cmds:
       - |
         cat <<'EOF' | bash
-          exit_code=0;
-          preamble="va/tests/phplint:";
-          result="${preamble}<br/><br/>";
+          exit_code=0
+          result="{{ .TASK }}<br/><br/>"
           trap '{ (( exit_code |= $? )); result+="$output<br/>"; }' ERR
           output=$(find docroot/modules/custom docroot/themes -name '*.inc' -print0 | xargs -0 -n1 php -l 2>&1)
           output=$(find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l 2>&1)
@@ -63,10 +61,10 @@ tasks:
           output=$(find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l 2>&1)
           trap - ERR
           if [ "$exit_code" -eq 0 ]; then
-            github-status-updater -action=update_state -state=success -context='va/tests/lint' -description='Success'
+            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
           else
-            github-status-updater -action=update_state -state=failure -context='va/tests/lint' -description='Failed'
-            github-commenter -delete-comment-regex "${preamble}" -comment="${result}"
+            github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+            github-commenter -delete-comment-regex="{{ .TASK }}" -comment="${result}"
           fi
         EOF
 
@@ -76,8 +74,8 @@ tasks:
       - |
         {
           phpunit --exclude-group disabled tests/phpunit --colors=always && \
-            github-status-updater -action=update_state -state=success -context='va/tests/phpunit' -description='Success'
-        } || github-status-updater -action=update_state -state=failure -context='va/tests/phpunit' -description='Failed'
+            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
 
   va/tests/revision-log:
     desc: Ensure revision log field is present
@@ -85,8 +83,8 @@ tasks:
       - |
         {
           ./tests/scripts/check-revision-logs.sh && \
-            github-status-updater -action=update_state -state=success -context='va/tests/revision-log' -description='Success'
-        } || github-status-updater -action=update_state -state=failure -context='va/tests/revision-log' -description='Failed'
+            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
 
   va/tests/status-error:
     desc: Check for Drupal status errors
@@ -95,9 +93,10 @@ tasks:
         lines=$(drush $DRUSH_ALIAS core-requirements --format=list --severity=2)
         line_count=$(grep -c "^.+$" <<< $lines)
         if [ $line_count -eq 0 ]; then
-          github-status-updater -action=update_state -state=success -context='va/tests/status-error' -description='Success: No Drupal status requirement errors were found.'
+          github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success: No Drupal status requirement errors were found.'
         else
-          github-status-updater -action=update_state -state=failure -context='va/tests/check-cer' -description='Failed'
+          github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+          github-commenter -delete-comment-regex="{{ .TASK }}" -comment="{{ .TASK }}:<br /><br />${lines}"
         fi
 
   va/web/build:
@@ -106,8 +105,8 @@ tasks:
       - |
         {
           ./tests/scripts/build-web.sh && \
-            github-status-updater -action=update_state -state=success -context='va/web/build' -description='Success'
-        } || github-status-updater -action=update_state -state=failure -context='va/web/build' -description='Failed'
+            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+        } || github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
 
   tugboat-tests:
     cmds:
