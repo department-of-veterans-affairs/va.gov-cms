@@ -6,13 +6,20 @@ dependencies:
     - field.storage.node.field_media
     - media.type.image
     - node.type.health_care_region_page
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
 id: node.health_care_region_page.field_media
 field_name: field_media
 entity_type: node
 bundle: health_care_region_page
 label: 'Banner image'
 description: "This appears at the top of the health care system landing page. Make sure to crop your image with the 7:2 aspect ratio. \r\n"
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

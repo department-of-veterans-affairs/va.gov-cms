@@ -5,12 +5,19 @@ dependencies:
   config:
     - field.storage.node.field_service_name_and_descripti
     - node.type.regional_health_care_service_des
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: true
 id: node.regional_health_care_service_des.field_service_name_and_descripti
 field_name: field_service_name_and_descripti
 entity_type: node
 bundle: regional_health_care_service_des
-label: 'VHA service name and description'
-description: 'Look up the name and description from the national list of health care services.'
+label: Service
+description: 'Look up the name from the national list of health care services.'
 required: true
 translatable: false
 default_value: {  }
@@ -20,6 +27,6 @@ settings:
   handler_settings:
     view:
       view_name: health_care_service_names_and_descriptions
-      display_name: entity_reference_1
+      display_name: entity_reference_vamc_services
       arguments: {  }
 field_type: entity_reference

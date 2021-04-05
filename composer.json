@@ -94,7 +94,7 @@
         "drupal/migrate_source_csv": "^3.4",
         "drupal/migrate_source_ui": "^1.0@RC",
         "drupal/migrate_tools": "5.x-dev#7ae3747d1e30790d11c2eefcc56e0796bea25c76",
-        "drupal/migration_tools": "^2.1",
+        "drupal/migration_tools": "^2.3",
         "drupal/node_link_report": "^1.14",
         "drupal/node_revision_delete": "^1.0",
         "drupal/node_title_help_text": "^1.0",
@@ -118,6 +118,7 @@
         "drupal/rest_menu_tree": "^1.1",
         "drupal/restui": "^1.16",
         "drupal/role_delegation": "1.1",
+        "drupal/schemata": "1.0.0-beta1",
         "drupal/search_api": "1.17",
         "drupal/seckit": "^2.0",
         "drupal/simple_oauth": "3.16",
@@ -140,7 +141,7 @@
         "drupal/views_infinite_scroll": "^1.6",
         "drupal/views_tree": "^2.0@alpha",
         "drupal/webform": "^6",
-        "drupal/workbench_access": "^1.0@beta",
+        "drupal/workbench_access": "^1.0-beta4",
         "drupal/workbench_menu_access": "^1.0",
         "drupal/workflow_assignments": "1.x-dev",
         "drush-ops/behat-drush-endpoint": "^9.4.0",
@@ -270,9 +271,6 @@
             "devshop/yaml-tasks": {
                 "Used 'pending' instead of 'queued' for commit status": "patches/yaml-tasks-pending.patch"
             },
-            "drupal/pathauto": {
-                "3204586 - Update URL Alias action is only available for nodes + users and does not work with views_bulk_operations": "https://www.drupal.org/files/issues/2021-03-22/pathauto-add_deriver_for_alias_update_action-3204586-19.patch"
-            },
             "drupal/cer": {
                 "3197953-5 - Make d9 compatible": "https://www.drupal.org/files/issues/2021-03-19/cer-3197953-5.patch",
                 "3200122 - Remove delete hook": "https://www.drupal.org/files/issues/2021-02-24/delete-hook-added-in-dev-causes-test-failures.patch"
@@ -292,7 +290,8 @@
                 "3188331 - Vertical tabs scroll behavior is buggy": "https://www.drupal.org/files/issues/2020-12-14/vertical-tab-scroll-frozen-2.patch",
                 "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2020-01-07/2893933-34.patch",
                 "3198608 - Migrate does not set set track_lst_updated from config": "https://www.drupal.org/files/issues/2021-02-15/3198608-track-last-updated-6.patch",
-                "3176975 - Allow updating easyrdf/easyrdf on 8.9.x": "patches/allow_updating_easyrdf_8_9_x.patch"
+                "3176975 - Allow updating easyrdf/easyrdf on 8.9.x": "patches/allow_updating_easyrdf_8_9_x.patch",
+                "3205691 - Disallow aria-required on fieldsets": "https://www.drupal.org/files/issues/2021-03-25/disallow-aria-required-fieldsets.patch"
             },
             "drupal/entity_browser": {
                 "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch",
@@ -321,7 +320,8 @@
                 "3192020 - Flood control admin form adds contact.settings when Contact module is not enabled": "https://www.drupal.org/files/issues/2021-01-10/3192020-2.patch"
             },
             "drupal/field_group": {
-                "2787179 Visibility of invalid fields": "https://www.drupal.org/files/issues/2021-01-05/2787179-highlight-html5-validation-59.patch"
+                "2787179 Visibility of invalid fields": "https://www.drupal.org/files/issues/2021-01-05/2787179-highlight-html5-validation-59.patch",
+                "1482958-47 Allow field_group with empty fields to be displayed via setting": "https://www.drupal.org/files/issues/2020-06-24/field_group-empty-config-1482958-47.patch"
             },
             "drupal/health_check_url": {
                 "3147740 - Make d9 compatible": "https://www.drupal.org/files/issues/2020-06-06/health_check_url.2.x-dev.rector.patch"
@@ -348,16 +348,17 @@
                 "3113461 - Allow properties in str_replace process plugin.": "https://www.drupal.org/files/issues/2020-03-16/migrate_plus-properties_str_replace-2.patch",
                 "Allow request options https://gitlab.com/drupalspoons/migrate_plus/-/issues/257": "https://gitlab.com/drupalspoons/migrate_plus/uploads/35f5950f1647e237cdd706f2e3e93c54/257-add-request-option-support-to-http.patch"
             },
-            "drupal/migration_tools": {
-                "3163830 - Fatal Error: Call to undefined function drush_print()": "https://www.drupal.org/files/issues/2020-08-06/migration_tools-drush-10-compatibility-13778991-3.patch"
-            },
             "drupal/paragraphs": {
                 "Content & Behavior tabs use fixed IDs": "https://www.drupal.org/files/issues/2020-10-14/paragraphs-fix_duplicate_content_behavior_tab_ids-3176946-3.patch",
                 "Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch",
-                "Remove button should not be shown on required field": "https://www.drupal.org/files/issues/2020-05-13/hide_field_required_paragraphs_remove_button_1.patch"
+                "Remove button should not be shown on required field": "https://www.drupal.org/files/issues/2020-05-13/hide_field_required_paragraphs_remove_button_1.patch",
+                "2901390 - Integrity constraint violation: 1048 Column 'langcode' cannot be null": "https://www.drupal.org/files/issues/2021-03-01/2901390-76-integrity-constraint-violation-paragraph.patch"
             },
             "drupal/path_redirect_import": {
                 "Add an option to import non-existent paths": "https://www.drupal.org/files/issues/2019-09-17/path_redirect_import-2995543-4.patch"
+            },
+            "drupal/pathauto": {
+                "3204586 - Update URL Alias action is only available for nodes + users and does not work with views_bulk_operations": "https://www.drupal.org/files/issues/2021-03-22/pathauto-add_deriver_for_alias_update_action-3204586-19.patch"
             },
             "drupal/hide_revision_field": {
                 "Fix whitescreen when editing your own user. https://www.drupal.org/project/hide_revision_field/issues/3018160": "https://www.drupal.org/files/issues/2019-05-15/hide-revision-field-3018160-5-8.x-2.1.patch"

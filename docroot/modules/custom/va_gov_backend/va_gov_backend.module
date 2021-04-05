@@ -6,6 +6,7 @@
  */
 
 use Drupal\Component\Utility\Crypt;
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -386,10 +387,40 @@ function _va_gov_toggle_field_states(array &$form, array $toggle_group) {
 }
 
 /**
+ * Returns the text area field sans wysiwyg.
+ *
+ * @param array $form_element
+ *   The textarea field.
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   The current form state.
+ *
+ * @return array
+ *   The textarea field.
+ */
+function _va_gov_backend_allowed_formats_remove_textarea_help(array $form_element, FormStateInterface $form_state) {
+  if (isset($form_element[0]['format'])) {
+    unset($form_element[0]['format']['guidelines']);
+    unset($form_element[0]['format']['help']);
+    unset($form_element[0]['format']['#type']);
+    unset($form_element[0]['format']['#theme_wrappers']);
+    $form_element[0]['#base_type'] = 'string_text';
+    $form_element[0]['#format'] = 'plain_text';
+    $form_element[0]['format']['format']['#access'] = FALSE;
+  }
+
+  return $form_element;
+}
+
+/**
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-
+  // Don't allow wysiwyg on core taxonomy description field.
+  if ($form_id === 'taxonomy_term_health_care_service_taxonomy_form') {
+    // We need to manipulate the html prior to after_build.
+    $form['description']['widget'][0]['#default_value'] = Html::decodeEntities($form['description']['widget'][0]['#default_value']);
+    $form['description']['widget']['#after_build'][] = '_va_gov_backend_allowed_formats_remove_textarea_help';
+  }
   // Prevent system title from being edited on the edit form by non admins.
   if ($form_id === 'node_health_care_region_page_edit_form') {
     _va_gov_backend_vamc_title_access($form);

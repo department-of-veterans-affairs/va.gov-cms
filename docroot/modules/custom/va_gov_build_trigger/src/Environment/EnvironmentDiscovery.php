@@ -50,18 +50,6 @@ class EnvironmentDiscovery {
   }
 
   /**
-   * Is this on Devshop?
-   *
-   * @return bool
-   *   Is this on Devshop?
-   */
-  public function isDevShop() : bool {
-    return $this->getBuildTypeKey() === 'devshop' &&
-      class_exists('DevShopTaskApiClient') &&
-      !$this->isCli();
-  }
-
-  /**
    * Is this on Tugboat?
    *
    * @return bool

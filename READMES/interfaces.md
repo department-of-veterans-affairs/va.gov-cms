@@ -3,6 +3,7 @@
 1. [GraphQL](graph_ql.md)
 1. [FeatureFlags](#featureflags)
 1. [FacilitiesAPI](#facilities-api)
+1. [Mirrors](#mirrors)
 
 
 ## GraphQL
@@ -59,6 +60,8 @@ and common calls look like:
 
 * Since this is a React widget displaying dynamic data it’s not using Metalsmith templates. The .jsx component files to support rendering are located in https://github.com/department-of-veterans-affairs/vets-website/tree/master/src/applications/facility-locator/components
 
+## Mirrors
 
+There are environment which exist in [Tugboat](tugboat.md) that provide a mirror of Prod.  The content and code are updated daily at 3am EST on the mirrors.  The list of mirrors can be found in the "[Mirrors (refreshed daily from PROD at 3am ET)](https://tugboat.vfs.va.gov/6042eeed6a89945a99399d3d)" project in tugboat.  Contact CMS Support in the #cms-support Slack channel to request a new mirror.
 
 [Table of Contents](../README.md)
