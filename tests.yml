@@ -39,10 +39,14 @@ tasks:
     desc: Ensure cer fields exist
     cmds:
       - |
-        {
-          ./tests/scripts/check-cer.sh && \
-            github-status-updater -action=update_state -state=success -context='va/tests/check-cer' -description='Success'
-        } || github-status-updater -action=update_state -state=failure -context='va/tests/check-cer' -description='Failed'
+        preamble="va/tests/phplint:";
+        result="${preamble}<br/><br/>$(./tests/scripts/check-cer.sh)";
+        if [ "$?" -eq 0 ]; then
+          github-status-updater -action=update_state -state=success -context='va/tests/check-cer' -description='Success'
+        else
+          github-status-updater -action=update_state -state=failure -context='va/tests/check-cer' -description='Failed'
+          github-commenter -delete-comment-regex "${preamble}" -comment="${result}"
+        fi
 
   va/tests/phplint:
     desc: PHP Lint
