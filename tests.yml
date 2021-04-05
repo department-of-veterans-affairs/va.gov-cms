@@ -49,7 +49,7 @@ tasks:
     cmds:
       - |
         {
-          reviewdog -runners=phpcs -reporter=github-pr-review -fail-on-error -filter-mode=nofilter && \
+          reviewdog -runners=phpcs -reporter=github-pr-review -fail-on-error && \
             github-status-updater -action=update_state -state=success -context='va/tests/phpcs' -description='Success'
         } || github-status-updater -action=update_state -state=failure -context='va/tests/phpcs' -description='Failed'
 
@@ -67,7 +67,7 @@ tasks:
     cmds:
       - |
         {
-          reviewdog -runners=phpstan -reporter=github-pr-review -fail-on-error -filter-mode=nofilter && \
+          reviewdog -runners=phpstan -reporter=github-pr-review -fail-on-error && \
             github-status-updater -action=update_state -state=success -context='va/tests/phpstan' -description='Success'
         } || github-status-updater -action=update_state -state=failure -context='va/tests/phpstan' -description='Failed'
 
