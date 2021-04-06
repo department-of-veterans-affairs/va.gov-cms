@@ -1,8 +1,9 @@
-uuid: 0d5bb9de-804e-4d7c-91dc-6f4f15b12537
+uuid: ed8312b9-64ab-4d9a-9e47-01d3c55c8618
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.external_content
     - field.field.node.vet_center_outstation.field_address
     - field.field.node.vet_center_outstation.field_administration
     - field.field.node.vet_center_outstation.field_facility_locator_api_id
@@ -13,82 +14,40 @@ dependencies:
     - field.field.node.vet_center_outstation.field_operating_status_more_info
     - field.field.node.vet_center_outstation.field_phone_number
     - field.field.node.vet_center_outstation.field_table_of_contents
-    - image.style.3_2_medium_thumbnail
     - node.type.vet_center_outstation
   module:
     - address
     - field_group
-    - media
     - office_hours
-    - options
     - telephone
     - user
 third_party_settings:
   field_group:
-    group_operating_status:
-      children:
-        - field_operating_status_facility
-        - field_operating_status_more_info
-      parent_name: ''
-      weight: 2
-      format_type: fieldset
-      region: content
-      format_settings:
-        show_empty_fields: false
-        id: operating-status
-        classes: ''
-        description: ''
-      label: 'Operating status'
-    group_locations_and_contact_info:
-      children:
-        - group_facility_data_from_vast
-      parent_name: ''
-      weight: 3
-      format_type: fieldset
-      region: content
-      format_settings:
-        description: '<p>Review key location information about this facility. To request an correction to address, phone, or hours, <a href = "https://vaww.va.gov/WEBCOM/VAMC_Facility_Location_Updates.asp " target = "_blank">contact an administrator</a>.</p>'
-        id: locations-and-contact-information
-        classes: ''
-        show_empty_fields: false
-      label: 'Location and contact information'
-    group_facility_data_from_vast:
+    group_location_information:
       children:
         - field_facility_locator_api_id
         - field_address
         - field_phone_number
         - field_office_hours
-      parent_name: group_locations_and_contact_info
-      weight: 13
+      parent_name: ''
+      weight: 0
       format_type: tooltip
       region: content
       format_settings:
         show_label: '0'
         tooltip_description: "Why can’t I edit this?\r\nThis content is automatically generated from the VAST database, which helps VA maintain a consistent source of information across all of VA.gov."
         description: ''
-        id: external-content
+        id: ''
         classes: not-editable
         show_empty_fields: 0
         element: div
         label_element: h3
         attributes: ''
-      label: 'Facility data from VAST'
-    group_ex:
-      children: {  }
-      parent_name: ''
-      weight: 10
-      format_type: fieldset
-      region: hidden
-      format_settings:
-        show_empty_fields: false
-        id: ''
-        classes: ''
-        description: 'Data maintained by VAST.'
-      label: 'External content'
-id: node.vet_center_outstation.default
+      label: 'Location Information'
+id: node.vet_center_outstation.external_content
 targetEntityType: node
 bundle: vet_center_outstation
-mode: default
+mode: external_content
 content:
   field_address:
     weight: 4
@@ -105,23 +64,6 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_media:
-    type: media_thumbnail
-    weight: 4
-    region: content
-    label: above
-    settings:
-      image_style: 3_2_medium_thumbnail
-      image_link: ''
-    third_party_settings: {  }
-  field_office:
-    type: entity_reference_label
-    weight: 1
-    region: content
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
   field_office_hours:
     weight: 6
     label: above
@@ -149,20 +91,6 @@ content:
     third_party_settings: {  }
     type: office_hours
     region: content
-  field_operating_status_facility:
-    type: list_default
-    weight: 8
-    region: content
-    label: visually_hidden
-    settings: {  }
-    third_party_settings: {  }
-  field_operating_status_more_info:
-    type: basic_string
-    weight: 9
-    region: content
-    label: above
-    settings: {  }
-    third_party_settings: {  }
   field_phone_number:
     weight: 5
     label: above
@@ -174,6 +102,10 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_media: true
+  field_office: true
+  field_operating_status_facility: true
+  field_operating_status_more_info: true
   field_table_of_contents: true
   links: true
   search_api_excerpt: true
