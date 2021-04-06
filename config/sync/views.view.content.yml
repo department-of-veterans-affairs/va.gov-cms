@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_administration
     - node.type.checklist
+    - node.type.event
     - node.type.faq_multiple_q_a
     - node.type.media_list_images
     - node.type.media_list_videos
@@ -943,31 +944,72 @@ display:
           depth: 6
           entity_type: node
           plugin_id: taxonomy_entity_index_tid_depth
-        field_date_value:
-          id: field_date_value
-          table: node__field_date
-          field: field_date_value
+        type:
+          id: type
+          table: node_field_data
+          field: type
           relationship: none
           group_type: group
           admin_label: ''
-          operator: '<'
+          operator: in
+          value:
+            event: event
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+        field_datetime_range_timezone_value:
+          id: field_datetime_range_timezone_value
+          table: node__field_datetime_range_timezone
+          field: field_datetime_range_timezone_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
           value:
             min: ''
             max: ''
-            value: '+0 day'
+            value: ''
             type: offset
           group: 1
           exposed: true
           expose:
-            operator_id: field_date_value_op
-            label: 'Date and time (field_date)'
+            operator_id: field_datetime_range_timezone_value_op
+            label: 'Date and time - Start'
             description: ''
             use_operator: true
-            operator: field_date_value_op
+            operator: field_datetime_range_timezone_value_op
             operator_limit_selection: false
-            operator_list:
-              '<': '<'
-            identifier: field_date_value
+            operator_list: {  }
+            identifier: field_datetime_range_timezone_value
             required: false
             remember: false
             multiple: false
@@ -979,6 +1021,7 @@ display:
               content_creator_resources_and_support: '0'
               office_content_creator: '0'
               vamc_content_creator: '0'
+              content_creator_vet_center: '0'
               content_editor: '0'
               content_reviewer: '0'
               content_publisher: '0'
@@ -991,20 +1034,17 @@ display:
             max_placeholder: ''
           is_grouped: false
           group_info:
-            label: 'Date and time (field_date)'
-            description: null
-            identifier: field_date_value
+            label: ''
+            description: ''
+            identifier: ''
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
             default_group_multiple: {  }
-            group_items:
-              1: {  }
-              2: {  }
-              3: {  }
-          plugin_id: datetime
+            group_items: {  }
+          plugin_id: date
       filter_groups:
         operator: AND
         groups:
