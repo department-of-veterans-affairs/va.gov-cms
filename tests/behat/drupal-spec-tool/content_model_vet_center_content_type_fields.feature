@@ -42,5 +42,6 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center Facility Health Service | Vet Center | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center Locations List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center Locations List | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
-| Content type | Vet Center Locations List | Nearby Vet Centers | field_nearby_vet_centers | Entity reference |  | Unlimited | Entity Browser - Table |  |
+| Content type | Vet Center Locations List | Nearby Mobile Vet Centers | field_nearby_mobile_vet_centers | Entity reference |  | Unlimited | Select list |  |
+| Content type | Vet Center Locations List | Nearby Vet Centers and Outstations | field_nearby_vet_centers | Entity reference |  | Unlimited | Entity Browser - Table |  |
 | Content type | Vet Center Locations List | Vet Center | field_office | Entity reference | Required | 1 | Select list | Translatable |
