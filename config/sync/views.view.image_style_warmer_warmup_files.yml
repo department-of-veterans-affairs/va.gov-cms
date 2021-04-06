@@ -200,13 +200,10 @@ display:
           clear_on_exposed: false
           action_title: Action
           selected_actions:
-            image_style_warmer: image_style_warmer
-            views_bulk_operations_delete_entity: 0
-            pathauto_update_alias: 0
-            'entity:save_action:file': 0
-          preconfiguration:
-            image_style_warmer:
-              label_override: ''
+            -
+              action_id: image_style_warmer
+              preconfiguration:
+                label_override: ''
           plugin_id: views_bulk_operations_bulk_form
         fid:
           id: fid

@@ -71,18 +71,8 @@
  */
 #}
 
-<details class="external-content js-form-wrapper form-wrapper seven-details" data-drupal-selector="edit-group-from-db" id="edit-group-from-db">
-  <summary role="button" aria-controls="edit-group-from-db" aria-expanded="false" aria-pressed="false" class="seven-details__summary">
-    {{ external_content_label }}
-  </summary>
-  <div class="seven-details__wrapper details-wrapper">
-    {% if external_content_message %}
-      <div class="external-content--message">{{ external_content_message }}</div>
-    {% endif %}
-    {% block content %}
-    <div{{ content_attributes.addClass('node__content') }}>
-      {{ content }}
-    </div>
-    {% endblock %}
-  </div>
-</details>
+{% block content %}
+<div{{ content_attributes.addClass('node__content') }}>
+  {{ content }}
+</div>
+{% endblock %}
