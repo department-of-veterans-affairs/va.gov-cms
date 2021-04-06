@@ -14,7 +14,6 @@ dependencies:
     - field_group
     - linkit
     - social_media_links_field
-    - text
 third_party_settings:
   field_group:
     group_connect_with_us:
@@ -51,12 +50,12 @@ targetEntityType: taxonomy_term
 bundle: administration
 mode: default
 content:
-  description:
-    type: text_textarea
+  field_description:
+    type: string_textfield
     weight: 1
     region: content
     settings:
-      rows: 5
+      size: 60
       placeholder: ''
     third_party_settings: {  }
   field_email_updates_link_text:
@@ -106,7 +105,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
-  field_description: true
+  description: true
   layout_builder__layout: true
   path: true
   status: true
