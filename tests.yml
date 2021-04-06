@@ -108,12 +108,6 @@ tasks:
             github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
         } || github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
 
-  tugboat-tests:
-    cmds:
-      - task: set-all-tests-pending
-      - task: va/web/build
-      - task: va/tests
-
   set-check-status:
     cmds:
       - github-status-updater -action=update_state -state="{{ .STATUS }}" -context="{{ .CONTEXT }}" -description="{{ .DESCRIPTION }}"
@@ -171,8 +165,9 @@ tasks:
 
   default:
     cmds:
-      - task: va/tests
+      - task: set-all-tests-pending
       - task: va/web/build
+      - task: va/tests
 
   va/tests:
     desc:
