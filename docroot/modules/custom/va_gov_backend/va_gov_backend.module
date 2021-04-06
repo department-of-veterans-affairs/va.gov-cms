@@ -415,6 +415,26 @@ function _va_gov_backend_allowed_formats_remove_textarea_help(array $form_elemen
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // List of forms to modify media library widget help text.
+  $media_widget_content_form_ids = [
+    'node_vet_center_cap_form',
+    'node_vet_center_cap_edit_form',
+    'node_vet_center_edit_form',
+    'node_vet_center_form',
+    'node_vet_center_mobile_vet_center_form',
+    'node_vet_center_mobile_vet_center_edit_form',
+    'node_vet_center_outstation_form',
+    'node_vet_center_outstation_edit_form',
+  ];
+
+  // We want to modify media library widget help text.
+  if (in_array($form_id, $media_widget_content_form_ids)) {
+    $form['field_media']['widget']['#field_prefix']['empty_selection'] = [
+      '#markup' => t('Add a photo of the facility'),
+    ];
+  }
+
   // Don't allow wysiwyg on core taxonomy description field.
   if ($form_id === 'taxonomy_term_health_care_service_taxonomy_form') {
     // We need to manipulate the html prior to after_build.
@@ -590,7 +610,7 @@ function va_gov_backend_form_field_config_edit_form_alter(&$form, FormStateInter
  * Implements hook_field_widget_WIDGET_TYPE_form_alter() for moderation_state widgets.
  */
 function va_gov_backend_field_widget_moderation_state_default_form_alter(&$element, FormStateInterface $form_state, $context) {
-  $base_form_id = $form_state->getBuildInfo()['base_form_id'];
+  $base_form_id = $form_state->getBuildInfo()['base_form_id'] ?? '';
   if ($base_form_id === 'node_form') {
 
     // Set default new state to "Draft" when node is in "Published" state

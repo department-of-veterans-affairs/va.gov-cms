@@ -11,13 +11,14 @@ dependencies:
 third_party_settings:
   entity_reference_validators:
     circular_reference: false
+    circular_reference_deep: false
     duplicate_reference: false
 id: node.vet_center_cap.field_media
 field_name: field_media
 entity_type: node
 bundle: vet_center_cap
-label: Image
-description: 'Provide a photo if possible of the Community Access Point. Take a photo (with your phone is OK!) showing the CAP. Avoid including photos of people, or cars with license plates. Mobile phone photos are OK. Your image will be cropped to 3:2 aspect ratio, so it''s best to upload a landscape photo.'
+label: 'Facility photo'
+description: "<strong>Photo guidelines</strong> <br>\r\n✓ Smart phone photos are ok <br>\r\n✓ Use landscape orientation <br>\r\n✓ Show the entrance side of the building <br>\r\n✗ No people <br>\r\n✗ No car license plates<br>"
 required: false
 translatable: true
 default_value: {  }

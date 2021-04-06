@@ -1,8 +1,9 @@
-uuid: 2fc0c6f0-fbd3-4d92-9b26-c80ef659fc42
+uuid: 0e0c3aab-e962-40a7-a2e6-828e114de52c
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.external_content
     - field.field.node.vet_center_cap.field_address
     - field.field.node.vet_center_cap.field_administration
     - field.field.node.vet_center_cap.field_body
@@ -12,54 +13,25 @@ dependencies:
     - field.field.node.vet_center_cap.field_office
     - field.field.node.vet_center_cap.field_office_hours
     - field.field.node.vet_center_cap.field_table_of_contents
-    - image.style.crop_3_2
     - node.type.vet_center_cap
   module:
     - address
     - field_group
-    - media
     - office_hours
     - user
 third_party_settings:
   field_group:
-    group_facility_name:
-      children:
-        - field_office
-        - field_geographical_identifier
-      parent_name: ''
-      weight: 0
-      format_type: fieldset
-      region: content
-      format_settings:
-        show_empty_fields: false
-        id: ''
-        classes: ''
-        description: 'First, select the main location, then give the CAP a name that helps Veterans distinguish it from other locations.'
-      label: 'Facility name'
-    group_locations_and_contact_info:
-      children:
-        - group_facility_data_from_vast
-      parent_name: ''
-      weight: 1
-      format_type: fieldset
-      region: content
-      format_settings:
-        show_empty_fields: false
-        id: ''
-        classes: ''
-        description: 'Review key location information about this facility. To request a correction to address, phone, or hours, contact an <a href="https://vaww.va.gov/WEBCOM/VAMC_Facility_Location_Updates.asp " target="_blank">administrator</a>.'
-      label: 'Locations and contact information'
-    group_facility_data_from_vast:
+    group_location_information:
       children:
         - field_address
         - field_office_hours
-      parent_name: group_locations_and_contact_info
-      weight: 20
+      parent_name: ''
+      weight: 0
       format_type: tooltip
       region: content
       format_settings:
         show_empty_fields: 0
-        id: external-content
+        id: ''
         classes: not-editable
         element: div
         show_label: '0'
@@ -69,46 +41,21 @@ third_party_settings:
         tooltip_description: "Why can’t I edit this?\r\nThis content is automatically generated from the VAST database, which helps VA maintain a consistent source of information across all of VA.gov."
         open: false
         required_fields: false
-      label: 'Facility data from VAST'
-id: node.vet_center_cap.default
+      label: 'Location Information'
+id: node.vet_center_cap.external_content
 targetEntityType: node
 bundle: vet_center_cap
-mode: default
+mode: external_content
 content:
   field_address:
-    weight: 2
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
     region: content
-  field_geographical_identifier:
-    weight: 2
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_media:
-    weight: 4
-    label: hidden
-    settings:
-      image_style: crop_3_2
-      image_link: ''
-    third_party_settings: {  }
-    type: media_thumbnail
-    region: content
-  field_office:
-    weight: 1
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_office_hours:
-    weight: 3
+    weight: 2
     label: above
     settings:
       show_closed: all
@@ -139,6 +86,9 @@ hidden:
   field_administration: true
   field_body: true
   field_facility_locator_api_id: true
+  field_geographical_identifier: true
+  field_media: true
+  field_office: true
   field_table_of_contents: true
   links: true
   search_api_excerpt: true
