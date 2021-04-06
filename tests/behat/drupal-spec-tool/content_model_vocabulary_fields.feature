@@ -10,7 +10,7 @@ Feature: Content model: Vocabulary fields
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
 | Vocabulary | Audience - Beneficiaries | Promoted to Resources and Support Homepage | field_audience_rs_homepage | Boolean |  | 1 | Single on/off checkbox |  |
 | Vocabulary | Audience - Non-beneficiaries | Promoted to Resources and Support Homepage | field_audience_rs_homepage | Boolean |  | 1 | Single on/off checkbox | Translatable |
-| Vocabulary | Sections | Acronym | field_acronym | Text (plain) |  | 1 | Textfield |  |
+| Vocabulary | Sections | Description | field_description | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | Sections | Link text | field_email_updates_link_text | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | Sections | Link | field_link | Link |  | 1 | Linkit |  |
 | Vocabulary | Sections | Social media links | field_social_media_links | Social Media Links Field  |  | 1 | List with all available platforms |  |

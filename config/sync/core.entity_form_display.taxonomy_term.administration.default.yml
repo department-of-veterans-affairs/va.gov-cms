@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.administration.field_acronym
     - field.field.taxonomy_term.administration.field_description
     - field.field.taxonomy_term.administration.field_email_updates_link_text
     - field.field.taxonomy_term.administration.field_email_updates_url
@@ -15,6 +14,7 @@ dependencies:
     - field_group
     - linkit
     - social_media_links_field
+    - text
 third_party_settings:
   field_group:
     group_connect_with_us:
@@ -23,7 +23,7 @@ third_party_settings:
         - field_social_media_links
         - group_email_updates
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: details
       format_settings:
         id: ''
@@ -51,6 +51,14 @@ targetEntityType: taxonomy_term
 bundle: administration
 mode: default
 content:
+  description:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   field_email_updates_link_text:
     weight: 21
     settings:
@@ -78,7 +86,7 @@ content:
     type: linkit
     region: content
   field_product:
-    weight: 1
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -98,8 +106,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
-  description: true
-  field_acronym: true
   field_description: true
   layout_builder__layout: true
   path: true
