@@ -44,7 +44,7 @@ tasks:
           github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
         else
           github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
-          github-commenter -delete-comment-regex="{{ .TASK }}" -comment="${result}"
+          [ -z "${GITHUB_COMMENT_TYPE}" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="${result}"
         fi
 
   va/tests/phplint:
@@ -64,7 +64,7 @@ tasks:
             github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
           else
             github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
-            github-commenter -delete-comment-regex="{{ .TASK }}" -comment="${result}"
+            [ -z "${GITHUB_COMMENT_TYPE}" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="${result}"
           fi
         EOF
 
@@ -96,7 +96,7 @@ tasks:
           github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success: No Drupal status requirement errors were found.'
         else
           github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
-          github-commenter -delete-comment-regex="{{ .TASK }}" -comment="{{ .TASK }}:<br /><br />${lines}"
+          [ -z "${GITHUB_COMMENT_TYPE}" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="{{ .TASK }}:<br /><br />${lines}"
         fi
 
   va/web/build:
