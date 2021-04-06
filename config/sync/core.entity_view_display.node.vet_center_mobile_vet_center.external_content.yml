@@ -1,8 +1,9 @@
-uuid: 3fa6e142-64f4-4934-a894-51f2c1fbcd2c
+uuid: 51a2c0f6-62ee-4a95-a9aa-cbebd09ac912
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.external_content
     - field.field.node.vet_center_mobile_vet_center.field_address
     - field.field.node.vet_center_mobile_vet_center.field_administration
     - field.field.node.vet_center_mobile_vet_center.field_facility_locator_api_id
@@ -11,43 +12,28 @@ dependencies:
     - field.field.node.vet_center_mobile_vet_center.field_office_hours
     - field.field.node.vet_center_mobile_vet_center.field_phone_number
     - field.field.node.vet_center_mobile_vet_center.field_table_of_contents
-    - image.style.3_2_medium_thumbnail
     - node.type.vet_center_mobile_vet_center
   module:
     - address
     - field_group
-    - media
     - office_hours
     - telephone
     - user
 third_party_settings:
   field_group:
-    group_locations_and_contact_info:
-      children:
-        - group_facility_data_from_vast
-      parent_name: ''
-      weight: 1
-      format_type: fieldset
-      region: content
-      format_settings:
-        description: ''
-        id: ''
-        classes: ''
-        show_empty_fields: false
-      label: 'Location and contact information'
-    group_facility_data_from_vast:
+    group_location_information:
       children:
         - field_facility_locator_api_id
         - field_address
         - field_phone_number
         - field_office_hours
-      parent_name: group_locations_and_contact_info
-      weight: 12
+      parent_name: ''
+      weight: 0
       format_type: tooltip
       region: content
       format_settings:
         show_empty_fields: 0
-        id: external-content
+        id: ''
         classes: not-editable
         element: div
         show_label: '0'
@@ -57,46 +43,29 @@ third_party_settings:
         tooltip_description: "Why can’t I edit this?\r\nThis content is automatically generated from the VAST database, which helps VA maintain a consistent source of information across all of VA.gov."
         open: false
         required_fields: false
-      label: 'Facility data from VAST'
-id: node.vet_center_mobile_vet_center.default
+      label: 'Location Information'
+id: node.vet_center_mobile_vet_center.external_content
 targetEntityType: node
 bundle: vet_center_mobile_vet_center
-mode: default
+mode: external_content
 content:
   field_address:
-    weight: 3
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
     region: content
   field_facility_locator_api_id:
-    weight: 2
+    weight: 3
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
     region: content
-  field_media:
-    weight: 3
-    label: above
-    settings:
-      image_style: 3_2_medium_thumbnail
-      image_link: ''
-    third_party_settings: {  }
-    type: media_thumbnail
-    region: content
-  field_office:
-    weight: 0
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_office_hours:
-    weight: 5
+    weight: 6
     label: above
     settings:
       show_closed: all
@@ -123,7 +92,7 @@ content:
     type: office_hours
     region: content
   field_phone_number:
-    weight: 4
+    weight: 5
     label: above
     settings:
       title: ''
@@ -133,6 +102,8 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_media: true
+  field_office: true
   field_table_of_contents: true
   links: true
   search_api_excerpt: true

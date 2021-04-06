@@ -415,6 +415,26 @@ function _va_gov_backend_allowed_formats_remove_textarea_help(array $form_elemen
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // List of forms to modify media library widget help text.
+  $media_widget_content_form_ids = [
+    'node_vet_center_cap_form',
+    'node_vet_center_cap_edit_form',
+    'node_vet_center_edit_form',
+    'node_vet_center_form',
+    'node_vet_center_mobile_vet_center_form',
+    'node_vet_center_mobile_vet_center_edit_form',
+    'node_vet_center_outstation_form',
+    'node_vet_center_outstation_edit_form',
+  ];
+
+  // We want to modify media library widget help text.
+  if (in_array($form_id, $media_widget_content_form_ids)) {
+    $form['field_media']['widget']['#field_prefix']['empty_selection'] = [
+      '#markup' => t('Add a photo of the facility'),
+    ];
+  }
+
   // Don't allow wysiwyg on core taxonomy description field.
   if ($form_id === 'taxonomy_term_health_care_service_taxonomy_form') {
     // We need to manipulate the html prior to after_build.
