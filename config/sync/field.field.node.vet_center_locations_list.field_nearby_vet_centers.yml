@@ -6,6 +6,7 @@ dependencies:
     - field.storage.node.field_nearby_vet_centers
     - node.type.vet_center
     - node.type.vet_center_locations_list
+    - node.type.vet_center_outstation
   module:
     - entity_reference_validators
 third_party_settings:
@@ -28,8 +29,9 @@ settings:
   handler_settings:
     target_bundles:
       vet_center: vet_center
+      vet_center_outstation: vet_center_outstation
     sort:
       field: _none
     auto_create: false
-    auto_create_bundle: ''
+    auto_create_bundle: vet_center
 field_type: entity_reference

@@ -36,6 +36,7 @@ third_party_settings:
     group_ed:
       children:
         - moderation_state
+        - revision_log
       parent_name: ''
       weight: 6
       format_type: fieldset
@@ -66,13 +67,23 @@ content:
     type: string_textarea
     region: content
   field_nearby_mobile_vet_centers:
-    weight: 4
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
+    weight: 3
+    settings:
+      entity_browser: mobile_vet_centers
+      field_widget_display: label
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      open: '1'
+      selection_mode: selection_append
+      field_widget_replace: 0
+      field_widget_display_settings: {  }
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+    type: entity_reference_browser_table_widget
     region: content
   field_nearby_vet_centers:
-    weight: 3
+    weight: 4
     settings:
       entity_browser: vet_centers
       field_widget_display: label
