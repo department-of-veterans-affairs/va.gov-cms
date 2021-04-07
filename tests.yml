@@ -7,6 +7,8 @@ dotenv: ['.env']
 
 tasks:
 
+  # Any changes to test names or additions or removals must be updated in set-all-tests-pending as well for the Pending status to work.
+
   va/tests/accessibility:
     desc: accessibility test with cypress-axe for 508 compliance
     cmds:
@@ -95,7 +97,7 @@ tasks:
         if [ $line_count -eq 0 ]; then
           github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success: No Drupal status requirement errors were found.'
         else
-          github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+          github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description="Failed: ${line_count} Drupal status requirements found."
           [ -z "${GITHUB_COMMENT_TYPE}" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="{{ .TASK }}:<br /><br />${lines}"
         fi
 
@@ -114,6 +116,8 @@ tasks:
 
   set-all-tests-pending:
     cmds:
+
+      # Any changes to test names or additions or removals above must be updated here as well for the Pending status to work.
 
       - task: set-check-status
         vars:
