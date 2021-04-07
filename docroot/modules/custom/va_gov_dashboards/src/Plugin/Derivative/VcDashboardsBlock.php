@@ -48,58 +48,89 @@ class VcDashboardsBlock extends DeriverBase implements ContainerDeriverInterface
   }
 
   /**
+   * Gets the node associated with subject term.
+   *
+   * @param string $content_type
+   *   The bundle.
+   * @param string $tid
+   *   The term id.
+   *
+   * @return mixed
+   *   Node object or null if empty.
+   */
+  private function getCorrespondingNode(string $content_type, string $tid) {
+    $node = NULL;
+    $vc_node_fetch = $this->entityTypeManager->getStorage('node')->loadByProperties([
+      'type' => 'vet_center',
+      'field_administration' => $tid,
+    ]);
+    if (!empty($vc_node_fetch)) {
+      $node = reset($vc_node_fetch);
+    }
+    return $node;
+  }
+
+  /**
+   * Returns our term page blocks.
+   *
+   * @param string $node_id
+   *   The subject node id.
+   *
+   * @return array
+   *   The blocks that appear in layout builder.
+   */
+  private function getPanels(string $node_id) {
+    return [
+      'visitor_information' => [
+        'title' => 'Visitor information',
+        'description' => 'Provide info that helps Veterans prepare for their visit.',
+        'action' => 'Go to visitor info',
+        'nid' => $node_id,
+        'image' => 'visitor_information.svg',
+      ],
+      'services' => [
+        'title' => 'Services',
+        'description' => 'List the services that Veterans can receive at your facility.',
+        'action' => 'Go to services',
+        'nid' => $node_id,
+        'image' => 'services.svg',
+      ],
+      'featured_content' => [
+        'title' => 'Featured content',
+        'description' => 'Highlight up to two Vet center activities, such as events or programs',
+        'action' => 'Go to featured content',
+        'nid' => $node_id,
+        'image' => 'featured_content.svg',
+      ],
+      'operating_status' => [
+        'title' => 'Operating status',
+        'description' => 'Flag temporary changes to hours and operations for the main location.',
+        'action' => 'Update operating status',
+        'nid' => $node_id,
+        'image' => 'operating_status.svg',
+      ],
+      'vet_center_page' => [
+        'title' => 'Main Vet Center page',
+        'description' => 'Manage all main location page content.',
+        'action' => 'View',
+        'nid' => $node_id,
+        'image' => 'main_vet_center_page.svg',
+      ],
+    ];
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
     $dash_panels = [];
-    if ($this->routeMatch->getRouteName() === 'entity.taxonomy_term.canonical' || $this->routeMatch->getRouteName() === 'layout_builder.defaults.taxonomy_term.view') {
-      $vc_node = '';
-      $tid = $this->routeMatch->getRawParameter('taxonomy_term') ? $this->routeMatch->getRawParameter('taxonomy_term') : '392';
-      $vc_node_fetch = $this->entityTypeManager->getStorage('node')->loadByProperties([
-        'type' => 'vet_center',
-        'field_administration' => $tid,
-      ]);
-      if (!empty($vc_node_fetch)) {
-        $vc_node = reset($vc_node_fetch);
+    if ($this->routeMatch->getRouteName() === 'entity.taxonomy_term.canonical'
+        || $this->routeMatch->getRouteName() === 'layout_builder.defaults.taxonomy_term.view') {
+      $tid = $this->routeMatch->getRawParameter('taxonomy_term') ? $this->routeMatch->getRawParameter('taxonomy_term') : '';
+      $vc_node = $this->getCorrespondingNode('vet_center', $tid);
+      if (!empty($vc_node)) {
         $vc_node_id = $vc_node->id();
-        $dash_panels = [
-          'visitor_information' => [
-            'title' => 'Visitor information',
-            'description' => 'Provide info that helps Veterans prepare for their visit.',
-            'action' => 'Go to visitor info',
-            'nid' => $vc_node_id,
-            'image' => 'visitor_information.svg',
-          ],
-          'services' => [
-            'title' => 'Services',
-            'description' => 'List the services that Veterans can receive at your facility.',
-            'action' => 'Go to services',
-            'nid' => $vc_node_id,
-            'image' => 'services.svg',
-          ],
-          'featured_content' => [
-            'title' => 'Featured content',
-            'description' => 'Highlight up to two Vet center activities, such as events or programs',
-            'action' => 'Go to featured content',
-            'nid' => $vc_node_id,
-            'image' => 'featured_content.svg',
-          ],
-          'operating_status' => [
-            'title' => 'Operating status',
-            'description' => 'Flag temporary changes to hours and operations for the main location.',
-            'action' => 'Update operating status',
-            'nid' => $vc_node_id,
-            'image' => 'operating_status.svg',
-          ],
-          'vet_center_page' => [
-            'title' => 'Main Vet Center page',
-            'description' => 'Manage all main location page content.',
-            'action' => 'View',
-            'nid' => $vc_node_id,
-            'image' => 'main_vet_center_page.svg',
-          ],
-        ];
-
+        $dash_panels = $this->getPanels($vc_node_id);
         $vc_locations_node_fetch = $this->entityTypeManager->getStorage('node')->loadByProperties([
           'type' => 'vet_center_locations_list',
           'field_administration' => $tid,
