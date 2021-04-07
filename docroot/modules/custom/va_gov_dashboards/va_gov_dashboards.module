@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_dashboards.module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function va_gov_dashboards_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the va_gov_dashboards module.
+    case 'help.page.va_gov_dashboards':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Creates taxonomy based dashboards.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function va_gov_dashboards_theme($existing, $type, $theme, $path) {
+  return [
+    'vc_dashboards_block' => [
+      'variables' => [
+        'attributes' => [],
+        'id' => '',
+        'image' => '',
+        'title' => '',
+        'description' => '',
+        'action' => '',
+        'nid' => '',
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_entity_view_mode_alter().
+ */
+function va_gov_dashboards_entity_view_mode_alter(&$view_mode, EntityInterface $entity, $context) {
+  if ($entity->getEntityTypeId() === 'taxonomy_term' && $entity->bundle() === 'administration') {
+    // Check for a product id.
+    $product_id = $entity->field_product->getString() ? $entity->field_product->getString() : '';
+    // If we don't have one, traverse parents.
+    if (!empty($product_id)) {
+      $parents = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")->loadAllParents($entity->id());
+      foreach ($parents as $parent) {
+        $product_id = $parent->field_product->getString() ? $entity->field_product->getString() : '';
+        // If we hit one, stop the loop.
+        if (!empty($product_id)) {
+          break;
+        }
+      }
+    }
+    switch ($product_id) {
+      case '285':
+        $product = 'resources_and_support';
+        break;
+
+      case '289':
+        $product = 'vet_center_dashboard';
+        break;
+
+      case '290':
+        echo 'va_gov_homepage';
+        break;
+
+      default:
+        $product = 'default';
+    }
+    // Set our dash according to product found.
+    $view_mode = $product;
+  }
+}

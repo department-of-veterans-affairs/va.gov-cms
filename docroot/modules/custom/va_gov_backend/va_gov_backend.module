@@ -1034,8 +1034,7 @@ function va_gov_backend_preprocess_page_title(&$variables) {
       'topics',
     ];
     $vocab = $term->get('vid')->getString();
-    if (in_array($vocab, $vocabs)) {
-
+    if (in_array($vocab, $vocabs) && is_array($variables['title'])) {
       $variables['title']['#markup'] = t('All articles in:') . ' ' . $variables['title']['#markup'];
     }
   }
