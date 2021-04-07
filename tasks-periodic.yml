@@ -28,25 +28,25 @@ tasks:
 
   va/background/daily/migrate_copy/va_forms_csv_source:
     desc: This is because we cannot access the server on the SOCKS proxy right now.
-    command:
+    cmds:
       - cd docroot/sites/default/files/migrate_source
       - curl http://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt --output va_forms_data.csv
 
   va/background/daily/migrate/va_forms:
     desc: Migrate va forms.
-    command:
+    cmds:
       - drush $DRUSH_ALIAS migrate:reset-status va_node_form
       - drush $DRUSH_ALIAS migrate:import va_node_form
 
   va/background/daily/migrate/health_care_local_facility:
     desc: These commands are to run nightly.
-    command:
+    cmds:
       - drush $DRUSH_ALIAS migrate:reset-status va_node_health_care_local_facility
       - drush $DRUSH_ALIAS migrate:import va_node_health_care_local_facility
 
   va/background/daily/migrate/vet_centers_facility:
     desc: These commands are to run nightly.
-    command:
+    cmds:
       - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_vet_centers
       - drush $DRUSH_ALIAS migrate:import va_node_facility_vet_centers
       - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_vet_centers_mvc
@@ -56,28 +56,28 @@ tasks:
 
   va/background/daily/migrate/vba_facility:
     desc: These commands are to run nightly.
-    command:
+    cmds:
       - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_vba
       - drush $DRUSH_ALIAS migrate:import va_node_facility_vba
 
   va/background/daily/migrate/nca_facility:
     desc: These commands are to run nightly.
-    command:
+    cmds:
       - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_nca
       - drush $DRUSH_ALIAS migrate:import va_node_facility_nca
 
   va/background/daily/update/taxonomy_entity_index:
     desc: Update the taxonomy_entity_index nightly.
-    command:
+    cmds:
       - drush $DRUSH_ALIAS taxonomy_entity_index:rebuild
 
   va/background/periodic/migrate/facility_status:
     desc: Run migrate facility status to run every 15 min as called by Jenkins.
-    command:
+    cmds:
       - drush $DRUSH_ALIAS migrate:reset-status va_node_health_care_local_facility_status
       - drush $DRUSH_ALIAS migrate:import va_node_health_care_local_facility_status
 
   va/background/periodic/cron:
     desc: Run cron every 15 min as called by Jenkins.
-    command:
+    cmds:
       - drush $DRUSH_ALIAS core:cron
