@@ -1,0 +1,21 @@
+uuid: 20cac08d-7e8d-4de3-9817-fa1a4fe9969b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_operating_status_facility
+    - node.type.vet_center_cap
+  module:
+    - options
+id: node.vet_center_cap.field_operating_status_facility
+field_name: field_operating_status_facility
+entity_type: node
+bundle: vet_center_cap
+label: Status
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

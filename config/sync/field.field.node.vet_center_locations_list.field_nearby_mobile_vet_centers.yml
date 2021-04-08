@@ -1,12 +1,11 @@
-uuid: 72043167-f480-46b8-9e95-6e13cdfbe84e
+uuid: b6acc0b7-97b3-4c96-8034-f70f811c43d3
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_nearby_vet_centers
-    - node.type.vet_center
+    - field.storage.node.field_nearby_mobile_vet_centers
     - node.type.vet_center_locations_list
-    - node.type.vet_center_outstation
+    - node.type.vet_center_mobile_vet_center
   module:
     - entity_reference_validators
 third_party_settings:
@@ -14,11 +13,11 @@ third_party_settings:
     circular_reference: false
     circular_reference_deep: false
     duplicate_reference: true
-id: node.vet_center_locations_list.field_nearby_vet_centers
-field_name: field_nearby_vet_centers
+id: node.vet_center_locations_list.field_nearby_mobile_vet_centers
+field_name: field_nearby_mobile_vet_centers
 entity_type: node
 bundle: vet_center_locations_list
-label: 'Nearby Vet Centers and Outstations'
+label: 'Nearby Mobile Vet Centers'
 description: ''
 required: false
 translatable: false
@@ -28,10 +27,9 @@ settings:
   handler: unpublished
   handler_settings:
     target_bundles:
-      vet_center: vet_center
-      vet_center_outstation: vet_center_outstation
+      vet_center_mobile_vet_center: vet_center_mobile_vet_center
     sort:
       field: _none
     auto_create: 0
-    auto_create_bundle: vet_center
+    auto_create_bundle: ''
 field_type: entity_reference
