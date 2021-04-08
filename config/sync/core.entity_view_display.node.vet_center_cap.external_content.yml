@@ -1,6 +1,6 @@
 uuid: 0e0c3aab-e962-40a7-a2e6-828e114de52c
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.external_content
@@ -26,6 +26,7 @@ third_party_settings:
     group_location_information:
       children:
         - field_address
+        - field_vetcenter_cap_hours_opt_in
         - field_office_hours
       parent_name: ''
       weight: 0
@@ -57,7 +58,7 @@ content:
     type: address_default
     region: content
   field_office_hours:
-    weight: 2
+    weight: 3
     label: above
     settings:
       show_closed: all
@@ -83,6 +84,16 @@ content:
     third_party_settings: {  }
     type: office_hours
     region: content
+  field_vetcenter_cap_hours_opt_in:
+    type: boolean
+    weight: 2
+    region: content
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
 hidden:
   content_moderation_control: true
   field_administration: true
@@ -93,6 +104,5 @@ hidden:
   field_operating_status_facility: true
   field_operating_status_more_info: true
   field_table_of_contents: true
-  field_vetcenter_cap_hours_opt_in: true
   links: true
   search_api_excerpt: true
