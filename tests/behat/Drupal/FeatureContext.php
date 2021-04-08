@@ -3,12 +3,12 @@
 namespace CustomDrupal;
 
 use Behat\Behat\Context\SnippetAcceptingContext;
-use DevShop\Behat\DrupalExtension\Context\DevShopDrupalContext;
+use Drupal\DrupalExtension\Context\RawDrupalContext;
 
 /**
  * FeatureContext class defines custom step definitions for Behat.
  */
-class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingContext {
+class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
 
   use \Traits\FieldTrait;
   use \Traits\UserEntityTrait;
