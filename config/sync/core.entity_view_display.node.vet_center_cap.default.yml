@@ -55,6 +55,7 @@ third_party_settings:
     group_facility_data_from_vast:
       children:
         - field_address
+        - field_field_vc_hours_opt_in
         - field_office_hours
       parent_name: group_locations_and_contact_info
       weight: 20
@@ -100,12 +101,12 @@ content:
     type: address_default
     region: content
   field_field_vc_hours_opt_in:
-    weight: 21
+    weight: 3
     label: above
     settings:
       format: default
-      format_custom_false: ''
       format_custom_true: ''
+      format_custom_false: ''
     third_party_settings: {  }
     type: boolean
     region: content
@@ -135,7 +136,7 @@ content:
     type: entity_reference_label
     region: content
   field_office_hours:
-    weight: 3
+    weight: 4
     label: above
     settings:
       show_closed: all
