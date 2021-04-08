@@ -1,0 +1,23 @@
+uuid: f7116748-7d9d-4b8c-8168-cbdd02025ddc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_field_vc_hours_opt_in
+    - node.type.vet_center_cap
+id: node.vet_center_cap.field_field_vc_hours_opt_in
+field_name: field_field_vc_hours_opt_in
+entity_type: node
+bundle: vet_center_cap
+label: 'Provide opening hours'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Specify opening hours for this Community Access Point'
+  off_label: 'Do not specify opening hours (Veterans should call main Vet Center for info)'
+field_type: boolean
