@@ -29,9 +29,7 @@ third_party_settings:
     group_governance:
       children:
         - field_administration
-        - revision_log
       parent_name: ''
-      weight: 5
       weight: 6
       format_type: details_sidebar
       region: content
@@ -46,9 +44,8 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - status
+        - revision_log
       parent_name: ''
-      weight: 4
       weight: 5
       format_type: fieldset
       region: content
@@ -63,7 +60,7 @@ third_party_settings:
         - field_office
         - field_geographical_identifier
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       region: content
       format_settings:
@@ -94,7 +91,7 @@ third_party_settings:
         - field_operating_status_facility
         - field_operating_status_more_info
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       region: content
       format_settings:
@@ -130,7 +127,6 @@ content:
     type: string_textfield
     region: content
   field_media:
-    weight: 3
     weight: 4
     settings:
       media_types: {  }
