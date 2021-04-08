@@ -63,6 +63,8 @@ function _vagov_consumers_disable_vha_api_form_fields(array &$form, $form_id) {
 
     // Special handling for the address field widget.
     $form['field_address']['widget']['#disabled'] = TRUE;
+    // Special handling for the mobile flag field.
+    $form['field_mobile']['widget']['#disabled'] = TRUE;
     // Special handling for the table field widget.
     $form['field_facility_hours']['widget'][0]['#after_build'][] = '_va_gov_consumers_customize_table';
   }
