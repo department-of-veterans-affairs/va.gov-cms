@@ -6,7 +6,6 @@ dependencies:
     - field.field.node.vet_center_cap.field_address
     - field.field.node.vet_center_cap.field_administration
     - field.field.node.vet_center_cap.field_facility_locator_api_id
-    - field.field.node.vet_center_cap.field_field_vc_hours_opt_in
     - field.field.node.vet_center_cap.field_geographical_identifier
     - field.field.node.vet_center_cap.field_media
     - field.field.node.vet_center_cap.field_office
@@ -14,6 +13,7 @@ dependencies:
     - field.field.node.vet_center_cap.field_operating_status_facility
     - field.field.node.vet_center_cap.field_operating_status_more_info
     - field.field.node.vet_center_cap.field_table_of_contents
+    - field.field.node.vet_center_cap.field_vetcenter_cap_hours_opt_in
     - node.type.vet_center_cap
     - workflows.workflow.editorial
   module:
@@ -30,6 +30,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
+      weight: 5
       weight: 6
       format_type: details_sidebar
       region: content
@@ -46,6 +47,7 @@ third_party_settings:
         - moderation_state
         - status
       parent_name: ''
+      weight: 4
       weight: 5
       format_type: fieldset
       region: content
@@ -73,7 +75,7 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - field_address
-        - field_field_vc_hours_opt_in
+        - field_vetcenter_cap_hours_opt_in
         - field_office_hours
       parent_name: ''
       weight: 3
@@ -118,12 +120,6 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
-  field_field_vc_hours_opt_in:
-    weight: 4
-    settings: {  }
-    third_party_settings: {  }
-    type: options_buttons
-    region: content
   field_geographical_identifier:
     weight: 3
     settings:
@@ -133,6 +129,7 @@ content:
     type: string_textfield
     region: content
   field_media:
+    weight: 3
     weight: 4
     settings:
       media_types: {  }
@@ -175,6 +172,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: markup
+    region: content
+  field_vetcenter_cap_hours_opt_in:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
     region: content
   moderation_state:
     type: moderation_state_default

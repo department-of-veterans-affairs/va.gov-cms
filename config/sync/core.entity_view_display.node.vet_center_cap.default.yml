@@ -6,7 +6,6 @@ dependencies:
     - field.field.node.vet_center_cap.field_address
     - field.field.node.vet_center_cap.field_administration
     - field.field.node.vet_center_cap.field_facility_locator_api_id
-    - field.field.node.vet_center_cap.field_field_vc_hours_opt_in
     - field.field.node.vet_center_cap.field_geographical_identifier
     - field.field.node.vet_center_cap.field_media
     - field.field.node.vet_center_cap.field_office
@@ -14,6 +13,7 @@ dependencies:
     - field.field.node.vet_center_cap.field_operating_status_facility
     - field.field.node.vet_center_cap.field_operating_status_more_info
     - field.field.node.vet_center_cap.field_table_of_contents
+    - field.field.node.vet_center_cap.field_vetcenter_cap_hours_opt_in
     - image.style.crop_3_2
     - node.type.vet_center_cap
   module:
@@ -55,7 +55,7 @@ third_party_settings:
     group_facility_data_from_vast:
       children:
         - field_address
-        - field_field_vc_hours_opt_in
+        - field_vetcenter_cap_hours_opt_in
         - field_office_hours
       parent_name: group_locations_and_contact_info
       weight: 20
@@ -100,16 +100,6 @@ content:
     third_party_settings: {  }
     type: address_default
     region: content
-  field_field_vc_hours_opt_in:
-    weight: 3
-    label: above
-    settings:
-      format: default
-      format_custom_true: ''
-      format_custom_false: ''
-    third_party_settings: {  }
-    type: boolean
-    region: content
   field_geographical_identifier:
     weight: 2
     label: above
@@ -119,6 +109,7 @@ content:
     type: string
     region: content
   field_media:
+    weight: 2
     weight: 3
     label: hidden
     settings:
@@ -175,6 +166,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
+  field_vetcenter_cap_hours_opt_in:
+    weight: 3
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
 hidden:
   content_moderation_control: true
