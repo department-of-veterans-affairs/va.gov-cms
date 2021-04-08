@@ -26,7 +26,9 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center | Services | field_health_services | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | Vet Center | Table of contents | field_table_of_contents | Markup |  | 1 | Markup |  |
 | Content type | Vet Center Community Access Point | Address | field_address | Address | Required | 1 | Address | Translatable |
+| Content type | Vet Center Community Access Point | Details | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Vet Center Community Access Point | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | -- Disabled -- | Translatable |
+| Content type | Vet Center Community Access Point | Status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
 | Content type | Vet Center Community Access Point | Access point name | field_geographical_identifier | Text (plain) | Required | 1 | Textfield |  |
 | Content type | Vet Center Community Access Point | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) | Translatable |
 | Content type | Vet Center Community Access Point | Facility photo | field_media | Entity reference |  | 1 | Media library | Translatable |
@@ -40,5 +42,6 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center Facility Health Service | Vet Center | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center Locations List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center Locations List | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
-| Content type | Vet Center Locations List | Nearby Vet Centers | field_nearby_vet_centers | Entity reference |  | Unlimited | Entity Browser - Table |  |
+| Content type | Vet Center Locations List | Nearby Mobile Vet Centers | field_nearby_mobile_vet_centers | Entity reference |  | Unlimited | Entity Browser - Table |  |
+| Content type | Vet Center Locations List | Nearby Vet Centers and Outstations | field_nearby_vet_centers | Entity reference |  | Unlimited | Entity Browser - Table |  |
 | Content type | Vet Center Locations List | Vet Center | field_office | Entity reference | Required | 1 | Select list | Translatable |
