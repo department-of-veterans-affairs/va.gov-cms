@@ -6,6 +6,7 @@ dependencies:
     - entity_browser.browser.vet_centers
     - field.field.node.vet_center_locations_list.field_administration
     - field.field.node.vet_center_locations_list.field_intro_text
+    - field.field.node.vet_center_locations_list.field_nearby_mobile_vet_centers
     - field.field.node.vet_center_locations_list.field_nearby_vet_centers
     - field.field.node.vet_center_locations_list.field_office
     - node.type.vet_center_locations_list
@@ -21,7 +22,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: details_sidebar
       region: content
       format_settings:
@@ -37,7 +38,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: fieldset
       region: content
       format_settings:
@@ -65,8 +66,24 @@ content:
     third_party_settings: {  }
     type: string_textarea
     region: content
-  field_nearby_vet_centers:
+  field_nearby_mobile_vet_centers:
     weight: 3
+    settings:
+      entity_browser: mobile_vet_centers
+      field_widget_display: label
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      open: '1'
+      selection_mode: selection_append
+      field_widget_replace: 0
+      field_widget_display_settings: {  }
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+    type: entity_reference_browser_table_widget
+    region: content
+  field_nearby_vet_centers:
+    weight: 4
     settings:
       entity_browser: vet_centers
       field_widget_display: label
@@ -97,7 +114,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 6
+    weight: 7
     region: content
     third_party_settings: {  }
   title:
@@ -109,7 +126,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
