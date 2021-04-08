@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_mental_health_phone
     - field.field.node.health_care_local_facility.field_meta_tags
     - field.field.node.health_care_local_facility.field_meta_title
+    - field.field.node.health_care_local_facility.field_mobile
     - field.field.node.health_care_local_facility.field_operating_status_facility
     - field.field.node.health_care_local_facility.field_operating_status_more_info
     - field.field.node.health_care_local_facility.field_phone_number
@@ -51,6 +52,7 @@ third_party_settings:
       children:
         - field_facility_locator_api_id
         - field_address
+        - field_mobile
         - field_phone_number
         - field_mental_health_phone
         - field_facility_hours
@@ -125,7 +127,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
   field_facility_hours:
-    weight: 11
+    weight: 12
     label: above
     settings:
       row_header: true
@@ -167,7 +169,7 @@ content:
     type: media_thumbnail
     region: content
   field_mental_health_phone:
-    weight: 10
+    weight: 11
     label: inline
     settings:
       title: ''
@@ -182,6 +184,16 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
+  field_mobile:
+    weight: 9
+    label: inline
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
   field_operating_status_facility:
     weight: 4
     label: hidden
@@ -197,7 +209,7 @@ content:
     type: basic_string
     region: content
   field_phone_number:
-    weight: 9
+    weight: 10
     label: inline
     settings:
       title: ''
