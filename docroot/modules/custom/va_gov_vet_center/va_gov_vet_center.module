@@ -5,6 +5,7 @@
  * Contains va_gov_vet_center.module.
  */
 
+use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -111,6 +112,40 @@ function va_gov_vet_center_form_alter(&$form, FormStateInterface $form_state, $f
     $form['field_facility_hours']['widget']['#after_build'][] = 'va_gov_vet_center_vc_cap_hours_hide_caption_after_build';
   }
 
+  _va_gov_vet_center_office_selection_modify($form, $form_state, $form_id);
+
+}
+
+/**
+ * Determine when and how to display office select field on node forms.
+ *
+ * @param array $form
+ *   The form array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ *
+ * @return string
+ *   The altered office select field.
+ */
+function _va_gov_vet_center_office_selection_modify(array &$form, FormStateInterface $form_state, $form_id) {
+  // Only prevent user from changing on these three edit forms.
+  $vc_target_bundles = [
+    'node_vet_center_locations_list_edit_form',
+    'node_vet_center_outstation_edit_form',
+    'node_vet_center_mobile_vet_center_edit_form',
+  ];
+  if (in_array($form_id, $vc_target_bundles)) {
+    $user_roles = \Drupal::currentUser()->getRoles();
+    $admin_roles = ['content_admin', 'administrator'];
+    // User isn't an admin, so logic is applied.
+    if (empty(array_intersect($user_roles, $admin_roles))) {
+      $form_object = $form_state->getFormObject();
+      if ($form_object instanceof ContentEntityForm) {
+        $form['field_administration']['#disabled'] = TRUE;
+      }
+    }
+  }
+  return $form;
 }
 
 /**
