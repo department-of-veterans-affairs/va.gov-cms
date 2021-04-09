@@ -59,6 +59,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'access downloadable_resources entity browser pages',
           'access environment indicator',
           'access events_browser entity browser pages',
+          'access mobile_vet_centers entity browser pages',
           'access promo_blocks_browser entity browser pages',
           'access site-wide contact form',
           'access taxonomy overview',

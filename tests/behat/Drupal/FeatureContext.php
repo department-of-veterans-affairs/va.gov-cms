@@ -3,17 +3,27 @@
 namespace CustomDrupal;
 
 use Behat\Behat\Context\SnippetAcceptingContext;
-use DevShop\Behat\DrupalExtension\Context\DevShopDrupalContext;
+use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Behat\Testwork\Tester\Result\TestResult;
+use Drupal\DrupalExtension\Context\DrushContext;
+use Drupal\DrupalExtension\Context\RawDrupalContext;
 
 /**
  * FeatureContext class defines custom step definitions for Behat.
  */
-class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingContext {
+class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
 
   use \Traits\FieldTrait;
   use \Traits\UserEntityTrait;
   use \Traits\ContentTrait;
   use \Traits\GroupTrait;
+
+  /**
+   * Make DrushContext available.
+   *
+   * @var \Drupal\DrupalExtension\Context\DrushContext
+   */
+  private $drushContext;
 
   /**
    * Private storage.
@@ -523,6 +533,27 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
     $node = reset($nodes);
     if (!$flag_service->getFlagging($flag, $node, $account)) {
       throw new \InvalidArgumentException(sprintf('The flag with name "%s" was not set', $flagName));
+    }
+  }
+
+  /**
+   * Prepare DrushContext so we can use Drush commands easily.
+   *
+   * @BeforeScenario
+   */
+  public function gatherContexts(BeforeScenarioScope $scope) {
+    $this->drushContext = $scope->getEnvironment()->getContext(DrushContext::CLASS);
+  }
+
+  /**
+   * Print watchdog logs after any failed step.
+   *
+   * @AfterStep
+   */
+  public function printWatchdogLogAfterFailedStep($event) {
+    if ($event->getTestResult()->getResultCode() === TestResult::FAILED) {
+      $this->drushContext->assertDrushCommand('wd-show');
+      $this->drushContext->printLastDrushOutput();
     }
   }
 

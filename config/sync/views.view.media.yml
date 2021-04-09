@@ -2478,20 +2478,15 @@ display:
           clear_on_exposed: true
           action_title: Action
           selected_actions:
-            'entity:break_lock:media': 0
-            views_bulk_edit: views_bulk_edit
-            views_bulk_operations_delete_entity: 0
-            pathauto_update_alias: 0
-            'entity:save_action:media': 0
-            'entity:unpublish_action:media': 0
-            'entity:publish_action:media': 0
-            'entity:delete_action:media': 'entity:delete_action:media'
-          preconfiguration:
-            views_bulk_edit:
-              label_override: ''
-              get_bundles_from_results: 1
-            'entity:delete_action:media':
-              label_override: ''
+            -
+              action_id: views_bulk_edit
+              preconfiguration:
+                label_override: ''
+                get_bundles_from_results: 1
+            -
+              action_id: 'entity:delete_action:media'
+              preconfiguration:
+                label_override: ''
           plugin_id: views_bulk_operations_bulk_form
         thumbnail__target_id:
           id: thumbnail__target_id

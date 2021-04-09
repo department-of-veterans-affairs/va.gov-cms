@@ -63,6 +63,8 @@ function _vagov_consumers_disable_vha_api_form_fields(array &$form, $form_id) {
 
     // Special handling for the address field widget.
     $form['field_address']['widget']['#disabled'] = TRUE;
+    // Special handling for the mobile flag field.
+    $form['field_mobile']['widget']['#disabled'] = TRUE;
     // Special handling for the table field widget.
     $form['field_facility_hours']['widget'][0]['#after_build'][] = '_va_gov_consumers_customize_table';
   }
@@ -84,6 +86,10 @@ function _vagov_consumers_disable_non_vha_facilities_api_form_fields(array &$for
     'node_vba_facility_form',
     'node_vet_center_edit_form',
     'node_vet_center_form',
+    'node_vet_center_mobile_vet_center_form',
+    'node_vet_center_mobile_vet_center_edit_form',
+    'node_vet_center_outstation_form',
+    'node_vet_center_outstation_edit_form',
   ];
 
   if (in_array($form_id, $target_forms)) {
@@ -165,6 +171,10 @@ function _vagov_consumers_modify_vet_center_fields(array &$form, $form_id, FormS
   $external_content_form_ids = [
     'node_vet_center_edit_form',
     'node_vet_center_form',
+    'node_vet_center_mobile_vet_center_form',
+    'node_vet_center_mobile_vet_center_edit_form',
+    'node_vet_center_outstation_form',
+    'node_vet_center_outstation_edit_form',
   ];
 
   // We want to confirm we are on a specific form.
@@ -240,6 +250,8 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
     // We want to modify display of fields for specific node id's.
     $external_content_node_ids = [
       'vet_center',
+      'vet_center_mobile_vet_center',
+      'vet_center_outstation',
     ];
 
     // We want the external content to appear in the fieldgroup

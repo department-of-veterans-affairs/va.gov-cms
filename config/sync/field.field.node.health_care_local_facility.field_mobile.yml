@@ -1,0 +1,23 @@
+uuid: 8ff9e109-01cb-427f-9704-dd5085640632
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_mobile
+    - node.type.health_care_local_facility
+id: node.health_care_local_facility.field_mobile
+field_name: field_mobile
+entity_type: node
+bundle: health_care_local_facility
+label: Mobile
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'TRUE'
+  off_label: 'FALSE'
+field_type: boolean
