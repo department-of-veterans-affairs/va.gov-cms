@@ -14,18 +14,20 @@ source:
   path: modules/custom/va_gov_migrate/data/regional_health_care_service_covid.csv
   delimiter: ;
   enclosure: ''''
-  header_row_count: 1
+  header_offset: 0
   track_changes: true
-  keys:
+  ids:
     - field_health_care_system_name
   # Define any constants that are needed to pass in as data.
   constants:
     cmsmigrator_id: 1317
-  column_names:
+  fields:
     -
-      field_health_care_system_name: 'VAMC System Name'
+      name: field_health_care_system_name
+      label: 'VAMC System Name'
     -
-      field_system_service_description: 'VAMC System description of services'
+      name: field_system_service_description
+      label: 'VAMC System description of services'
 process:
   # This is where we process the incoming row and assign to fields.
   pseudo_facility_name: field_health_care_system_name

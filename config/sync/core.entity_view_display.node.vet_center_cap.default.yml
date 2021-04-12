@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.field.node.vet_center_cap.field_address
     - field.field.node.vet_center_cap.field_administration
-    - field.field.node.vet_center_cap.field_body
     - field.field.node.vet_center_cap.field_facility_locator_api_id
     - field.field.node.vet_center_cap.field_geographical_identifier
     - field.field.node.vet_center_cap.field_media
@@ -14,6 +13,7 @@ dependencies:
     - field.field.node.vet_center_cap.field_operating_status_facility
     - field.field.node.vet_center_cap.field_operating_status_more_info
     - field.field.node.vet_center_cap.field_table_of_contents
+    - field.field.node.vet_center_cap.field_vetcenter_cap_hours_opt_in
     - image.style.crop_3_2
     - node.type.vet_center_cap
   module:
@@ -41,7 +41,9 @@ third_party_settings:
       label: 'Facility name'
     group_locations_and_contact_info:
       children:
-        - group_facility_data_from_vast
+        - field_address
+        - field_vetcenter_cap_hours_opt_in
+        - field_office_hours
       parent_name: ''
       weight: 2
       format_type: fieldset
@@ -52,27 +54,6 @@ third_party_settings:
         classes: ''
         description: 'Review key location information about this facility. To request a correction to address, phone, or hours, contact an <a href="https://vaww.va.gov/WEBCOM/VAMC_Facility_Location_Updates.asp " target="_blank">administrator</a>.'
       label: 'Locations and contact information'
-    group_facility_data_from_vast:
-      children:
-        - field_address
-        - field_office_hours
-      parent_name: group_locations_and_contact_info
-      weight: 20
-      format_type: tooltip
-      region: content
-      format_settings:
-        show_empty_fields: 0
-        id: external-content
-        classes: not-editable
-        element: div
-        show_label: '0'
-        label_element: h3
-        attributes: ''
-        description: ''
-        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically generated from the VAST database, which helps VA maintain a consistent source of information across all of VA.gov."
-        open: false
-        required_fields: false
-      label: 'Facility data from VAST'
     group_operating_status:
       children:
         - field_operating_status_facility
@@ -125,7 +106,7 @@ content:
     type: entity_reference_label
     region: content
   field_office_hours:
-    weight: 3
+    weight: 4
     label: above
     settings:
       show_closed: all
@@ -165,10 +146,19 @@ content:
     third_party_settings: {  }
     type: basic_string
     region: content
+  field_vetcenter_cap_hours_opt_in:
+    weight: 3
+    label: above
+    settings:
+      format: default
+      format_custom_true: ''
+      format_custom_false: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
 hidden:
   content_moderation_control: true
   field_administration: true
-  field_body: true
   field_facility_locator_api_id: true
   field_table_of_contents: true
   links: true

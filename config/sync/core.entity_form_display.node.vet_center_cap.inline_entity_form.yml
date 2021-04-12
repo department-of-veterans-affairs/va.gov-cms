@@ -1,12 +1,11 @@
 uuid: 421e86a8-974e-412e-b324-32808b7176ed
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_form_mode.node.inline_entity_form
     - field.field.node.vet_center_cap.field_address
     - field.field.node.vet_center_cap.field_administration
-    - field.field.node.vet_center_cap.field_body
     - field.field.node.vet_center_cap.field_facility_locator_api_id
     - field.field.node.vet_center_cap.field_geographical_identifier
     - field.field.node.vet_center_cap.field_media
@@ -15,10 +14,10 @@ dependencies:
     - field.field.node.vet_center_cap.field_operating_status_facility
     - field.field.node.vet_center_cap.field_operating_status_more_info
     - field.field.node.vet_center_cap.field_table_of_contents
+    - field.field.node.vet_center_cap.field_vetcenter_cap_hours_opt_in
     - node.type.vet_center_cap
   module:
     - field_group
-    - text
 third_party_settings:
   field_group:
     group_governance:
@@ -90,14 +89,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_body:
-    type: text_textarea
-    weight: 2
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
 hidden:
   created: true
   field_address: true
@@ -109,6 +100,7 @@ hidden:
   field_operating_status_facility: true
   field_operating_status_more_info: true
   field_table_of_contents: true
+  field_vetcenter_cap_hours_opt_in: true
   moderation_state: true
   path: true
   promote: true

@@ -87,6 +87,10 @@ source:
       name: zip
       label: zip
       selector: properties/address/physical/zip
+    -
+      name: mobile
+      label: mobile
+      selector: properties/mobile
 # The destination fields mapped and processed from source fields.
 process:
   # We have no destination of facility type, but we need to skip the migration
@@ -193,6 +197,11 @@ process:
     -
       plugin: concat
       delimiter: ' x'
+  field_mobile:
+    plugin: str_replace
+    source: mobile
+    search: ["true", "false", "null"]
+    replace: ["1", "0", "0"]
   # Bring these in as unpublished.
   status:
     plugin: default_value
@@ -253,6 +262,7 @@ destination:
     - field_facility_classification
     - field_mental_health_phone
     - field_phone_number
+    - field_mobile
     - new_revision
     - revision_default
     - revision_log
