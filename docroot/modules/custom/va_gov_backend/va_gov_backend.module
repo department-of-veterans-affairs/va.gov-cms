@@ -609,6 +609,10 @@ function _va_gov_vet_center_require_revision_message(array &$form, FormStateInte
   ];
   // Vet centers need to have revision log messages on edit.
   if (in_array($form_id, $vc_types)) {
+    $form['revision_log']['#required'] = TRUE;
+    $form['revision_log']['widget']['#required'] = TRUE;
+    $form['revision_log']['widget'][0]['#required'] = TRUE;
+    $form['revision_log']['widget'][0]['value']['#required'] = TRUE;
     $form['#validate'][] = '_va_gov_backend_validate_required_revision_message';
   }
 }
