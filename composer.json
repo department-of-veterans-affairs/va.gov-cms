@@ -512,7 +512,7 @@
         "va:web:build:full": [
             "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
             "cd web && echo \"Building assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
-            "cd web && NODE_ENV=production yarn build --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov",
+            "cd web && NODE_ENV=production yarn build --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov --force-content-build",
             "echo 'Replace s3 address with local in generated files'",
             "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -exec sed -i \"s#https://dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com##g\" {} \\+"
         ],
