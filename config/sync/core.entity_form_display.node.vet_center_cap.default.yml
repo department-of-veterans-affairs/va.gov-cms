@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.field.node.vet_center_cap.field_address
     - field.field.node.vet_center_cap.field_administration
-    - field.field.node.vet_center_cap.field_body
     - field.field.node.vet_center_cap.field_facility_locator_api_id
     - field.field.node.vet_center_cap.field_geographical_identifier
     - field.field.node.vet_center_cap.field_media
@@ -14,6 +13,7 @@ dependencies:
     - field.field.node.vet_center_cap.field_operating_status_facility
     - field.field.node.vet_center_cap.field_operating_status_more_info
     - field.field.node.vet_center_cap.field_table_of_contents
+    - field.field.node.vet_center_cap.field_vetcenter_cap_hours_opt_in
     - node.type.vet_center_cap
     - workflows.workflow.editorial
   module:
@@ -45,7 +45,6 @@ third_party_settings:
       children:
         - moderation_state
         - revision_log
-        - status
       parent_name: ''
       weight: 5
       format_type: fieldset
@@ -61,7 +60,7 @@ third_party_settings:
         - field_office
         - field_geographical_identifier
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       region: content
       format_settings:
@@ -74,6 +73,7 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - field_address
+        - field_vetcenter_cap_hours_opt_in
         - field_office_hours
       parent_name: ''
       weight: 3
@@ -91,7 +91,7 @@ third_party_settings:
         - field_operating_status_facility
         - field_operating_status_more_info
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       region: content
       format_settings:
@@ -140,7 +140,7 @@ content:
     type: options_select
     region: content
   field_office_hours:
-    weight: 4
+    weight: 5
     settings: {  }
     third_party_settings: {  }
     type: office_hours_default
@@ -170,6 +170,12 @@ content:
     third_party_settings: {  }
     type: markup
     region: content
+  field_vetcenter_cap_hours_opt_in:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
   moderation_state:
     type: moderation_state_default
     weight: 0
@@ -185,7 +191,6 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_body: true
   field_facility_locator_api_id: true
   path: true
   promote: true

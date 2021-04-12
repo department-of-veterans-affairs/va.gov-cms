@@ -81,6 +81,10 @@ source:
       name: zip
       label: zip
       selector: properties/address/physical/zip
+    -
+      name: mobile
+      label: mobile
+      selector: properties/mobile
 process:
   non_field1:
     plugin: skip_on_value
@@ -181,6 +185,17 @@ process:
     -
       plugin: concat
       delimiter: ' x'
+  field_mobile:
+    plugin: str_replace
+    source: mobile
+    search:
+      - 'true'
+      - 'false'
+      - 'null'
+    replace:
+      - '1'
+      - '0'
+      - '0'
   status:
     plugin: default_value
     default_value: 0
@@ -237,6 +252,7 @@ destination:
     - field_facility_classification
     - field_mental_health_phone
     - field_phone_number
+    - field_mobile
     - new_revision
     - revision_default
     - revision_log

@@ -1,12 +1,11 @@
 uuid: 0e0c3aab-e962-40a7-a2e6-828e114de52c
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.external_content
     - field.field.node.vet_center_cap.field_address
     - field.field.node.vet_center_cap.field_administration
-    - field.field.node.vet_center_cap.field_body
     - field.field.node.vet_center_cap.field_facility_locator_api_id
     - field.field.node.vet_center_cap.field_geographical_identifier
     - field.field.node.vet_center_cap.field_media
@@ -15,6 +14,7 @@ dependencies:
     - field.field.node.vet_center_cap.field_operating_status_facility
     - field.field.node.vet_center_cap.field_operating_status_more_info
     - field.field.node.vet_center_cap.field_table_of_contents
+    - field.field.node.vet_center_cap.field_vetcenter_cap_hours_opt_in
     - node.type.vet_center_cap
   module:
     - address
@@ -26,6 +26,7 @@ third_party_settings:
     group_location_information:
       children:
         - field_address
+        - field_vetcenter_cap_hours_opt_in
         - field_office_hours
       parent_name: ''
       weight: 0
@@ -57,7 +58,7 @@ content:
     type: address_default
     region: content
   field_office_hours:
-    weight: 2
+    weight: 3
     label: above
     settings:
       show_closed: all
@@ -83,10 +84,19 @@ content:
     third_party_settings: {  }
     type: office_hours
     region: content
+  field_vetcenter_cap_hours_opt_in:
+    type: boolean
+    weight: 2
+    region: content
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
 hidden:
   content_moderation_control: true
   field_administration: true
-  field_body: true
   field_facility_locator_api_id: true
   field_geographical_identifier: true
   field_media: true
