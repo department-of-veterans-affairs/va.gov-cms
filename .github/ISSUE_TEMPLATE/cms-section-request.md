@@ -54,8 +54,11 @@ DEPO
 
 [Example: Existing CMS users at VBA, NCA and VHA will be able to create (and then edit) content in a Resources and support section in their respective sections.]
 
+
 ## Acceptance Criteria
+[For CMS team to complete]
 
 Examples: 
 - [ ] New "Resources and support" sections are added under each of the three main Administrations (NCA, VHA, VBA)
 - [ ] All existing Resources and support content is moved to ...
+- [ ] Update X, Y, and Z editors about a change in content access
