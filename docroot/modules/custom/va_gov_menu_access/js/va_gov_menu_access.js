@@ -13,17 +13,24 @@
       var adminTest = adminRoles.some(function (role) {
         return currentUserRoles.includes(role);
       });
+      var menuEnableCheckbox = document.getElementById("edit-menu-enable");
 
       function menuSelectHandler() {
-        var parentOptions = context.querySelectorAll("#edit-menu-menu-parent option");
-        if (document.getElementById("edit-menu-title").hasAttribute("disabled")) {
-          document.getElementById("edit-menu-enabled").disabled = true;
+        if (document.querySelector(".menu-parent-select").classList.contains("no-available-menu-targets")) {
+          document.getElementById("edit-menu").style.display = "none";
         }
+
+        var parentOptions = context.querySelectorAll("#edit-menu-menu-parent option");
+
+        if (document.getElementById("edit-menu-title").hasAttribute("disabled") && menuEnableCheckbox !== null) {
+          menuEnableCheckbox.disabled = true;
+        }
+
         parentOptions.forEach(function (opt) {
           if (opt && opt.text.includes(" | Disabled")) {
             opt.setAttribute("disabled", "");
 
-            opt.innerHTML = opt.text.replace(/ \| Disabled/gi, "").replace(/\(disabled\)/gi, "");
+            opt.innerHTML = opt.text.replace(/ \| Disabled/gi, "").replace(/\(disabled\)/gi, "").replace(/no-link/gi, "");
           }
         });
       }
