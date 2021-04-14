@@ -119,6 +119,8 @@ tooling:
     description: Run all VA.gov tests, as defined in tests.yml. Add arguments to run subsets of tests. For example. "lando test web" will run all of the "va/web/*" tests.
     service: appserver
     cmd: ./bin/task --taskfile=tests.yml
+    env:
+      SKIP_REPORTING: 1
 
   # "drush" being here overrides the default "lando drush" command.
   # Using /app/bin/drush means we are using the site-local drush directly.
@@ -206,3 +208,5 @@ tooling:
     service: appserver
     cmd:
       - ./bin/task
+    env:
+      SKIP_REPORTING: 1
