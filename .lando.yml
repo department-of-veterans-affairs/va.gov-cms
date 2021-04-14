@@ -149,6 +149,8 @@ tooling:
     service: appserver
     description: "Run VA PHPUnit tests found in va/tests/phpunit: lando phpunit. Syntax: lando phpunit"
     cmd: "./bin/task --taskfile=tests.yml va/tests/phpunit --"
+    env:
+      SKIP_REPORTING: 1
 
   phpunit-run:
     service: appserver
@@ -165,6 +167,8 @@ tooling:
     service: appserver
     description: "Run this command to see the strange problem where `lando test behat` does not work."
     cmd: "./bin/task --taskfile=tests.yml va/tests/behat"
+    env:
+      SKIP_REPORTING: 1
 
   test_performance:
     service: appserver
