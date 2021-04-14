@@ -1128,7 +1128,7 @@ function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
       foreach ($form[$target]['widget']['#options'] as $header_key => $option_header) {
         // Field_listing is an exception. It is a one level field and doesn't
         // have opt groups.
-        if (!is_array($option_header) && !empty($option_header)) {
+        if ($target === 'field_listing' && !is_array($option_header) && !empty($option_header)) {
           // If not in the allowed items array, take it out.
           if (!in_array($header_key, $allowed_options)) {
             unset($form[$target]['widget']['#options'][$header_key]);
