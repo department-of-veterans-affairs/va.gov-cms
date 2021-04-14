@@ -70,21 +70,21 @@ tasks:
     desc: PHP Lint
     cmds:
       - |
-        cat <<'EOF' | bash
+        cat <<EOF | bash
           exit_code=0
           result="{{ .TASK }}<br/><br/>"
-          trap '{ (( exit_code |= $? )); result+="$output<br/>"; }' ERR
-          output=$(find docroot/modules/custom docroot/themes -name '*.inc' -print0 | xargs -0 -n1 php -l 2>&1)
-          output=$(find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l 2>&1)
-          output=$(find docroot/modules/custom docroot/themes -name '*.module' -print0 | xargs -0 -n1 php -l 2>&1)
-          output=$(find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l 2>&1)
+          trap '{ (( exit_code |=\$? )); result+="\$output<br/>"; }' ERR
+          output=\$(find docroot/modules/custom docroot/themes -name '*.inc' -print0 | xargs -0 -n1 php -l 2>&1)
+          output=\$(find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l 2>&1)
+          output=\$(find docroot/modules/custom docroot/themes -name '*.module' -print0 | xargs -0 -n1 php -l 2>&1)
+          output=\$(find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l 2>&1)
           trap - ERR
           if [ "$SKIP_REPORTING" -ne 1 ]; then
-            if [ "$exit_code" -eq 0 ]; then
+            if [ "\$exit_code" -eq 0 ]; then
               github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
             else
               github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
-              [ -z "${GITHUB_COMMENT_TYPE}" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="${result}"
+              [ -z "\${GITHUB_COMMENT_TYPE}" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="\${result}"
             fi
           fi
         EOF
