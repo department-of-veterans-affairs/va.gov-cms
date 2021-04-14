@@ -14,25 +14,39 @@
       const adminTest = adminRoles.some((role) =>
         currentUserRoles.includes(role)
       );
+      const menuEnableCheckbox = document.getElementById("edit-menu-enable");
 
       function menuSelectHandler() {
+        // If we don't have anything in the menu, don't show it.
+        if (
+          document
+            .querySelector(".menu-parent-select")
+            .classList.contains("no-available-menu-targets")
+        ) {
+          document.getElementById("edit-menu").style.display = "none";
+        }
+
         // When the menu link box is checked, fire logic.
         const parentOptions = context.querySelectorAll(
           "#edit-menu-menu-parent option"
         );
+
         if (
-          document.getElementById("edit-menu-title").hasAttribute("disabled")
+          document.getElementById("edit-menu-title").hasAttribute("disabled") &&
+          menuEnableCheckbox !== null
         ) {
-          document.getElementById("edit-menu-enabled").disabled = true;
+          menuEnableCheckbox.disabled = true;
         }
+
         parentOptions.forEach((opt) => {
           // If an option doesn't pass the check, set it to disabled.
           if (opt && opt.text.includes(" | Disabled")) {
             opt.setAttribute("disabled", "");
-            // Remove the disabled text - color change is visual cue.
+            // Remove the disabled / no-link text - color change is visual cue.
             opt.innerHTML = opt.text
               .replace(/ \| Disabled/gi, "")
-              .replace(/\(disabled\)/gi, "");
+              .replace(/\(disabled\)/gi, "")
+              .replace(/no-link/gi, "");
           }
         });
       }

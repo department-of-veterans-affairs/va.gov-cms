@@ -59,16 +59,16 @@ class VaGovMenuAccessConfigForm extends ConfigFormBase {
     ];
     $form['va_gov_menu_access_paths']['paths'] = [
       '#type' => 'textarea',
-      '#title' => $this->t('Allow children menu items on these URL paths'),
+      '#title' => $this->t('Allow children menu items for "Detail Page" nodes on these URL paths'),
       '#default_value' => $config->get('va_gov_menu_access.paths'),
-      '#description' => $this->t('Put each path on its own line | use "*" for wildcards'),
+      '#description' => $this->t('Put each path on its own line. Available wildcards: "%" = all occurences. "~" = disabled with children. "~" = disabled no children.'),
     ];
 
     $form['va_gov_menu_access_paths']['locked_paths'] = [
       '#type' => 'textarea',
-      '#title' => $this->t('Url paths that are locked from menu editing'),
+      '#title' => $this->t('Prevent menu editing of "Detail Page" nodes for non-admin users at these URL paths'),
       '#default_value' => $config->get('va_gov_menu_access.locked_paths'),
-      '#description' => $this->t('Put each path on its own line | use "*" for wildcards'),
+      '#description' => $this->t('Put each path on its own line. Available wildcards: "%" = all occurences. "*" = inherited by children.'),
     ];
 
     return parent::buildForm($form, $form_state);
