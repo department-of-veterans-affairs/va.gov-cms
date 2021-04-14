@@ -72,6 +72,7 @@ tasks:
       - |
         cat <<EOF | bash
           exit_code=0
+          : "${SKIP_REPORTING:=0}"
           result="{{ .TASK }}<br/><br/>"
           trap '{ (( exit_code |=\$? )); result+="\$output<br/>"; }' ERR
           output=\$(find docroot/modules/custom docroot/themes -name '*.inc' -print0 | xargs -0 -n1 php -l 2>&1)
