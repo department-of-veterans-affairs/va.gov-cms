@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d70b91322802a571f1390940a6d1fa50",
+    "content-hash": "0299178a809e5966e1737a9d1d575347",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -555,12 +555,12 @@
             "version": "v5.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dropzone/dropzone.git",
+                "url": "git@github.com:enyo/dropzone.git",
                 "reference": "08b9e0a763b54a685404dea523a9c54242fbe1b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dropzone/dropzone/zipball/08b9e0a763b54a685404dea523a9c54242fbe1b9",
+                "url": "https://api.github.com/repos/enyo/dropzone/zipball/08b9e0a763b54a685404dea523a9c54242fbe1b9",
                 "reference": "08b9e0a763b54a685404dea523a9c54242fbe1b9"
             },
             "type": "bower-asset"
@@ -1818,128 +1818,6 @@
                 "source": "https://github.com/cweagans/composer-patches/tree/1.7.0"
             },
             "time": "2020-09-30T17:56:20+00:00"
-        },
-        {
-            "name": "devshop/power-process",
-            "version": "1.7.0-alpha4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/devshop-packages/power-process.git",
-                "reference": "82292c454d8b38d4bb49deed6e7aaf88eb9c7fe0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/devshop-packages/power-process/zipball/82292c454d8b38d4bb49deed6e7aaf88eb9c7fe0",
-                "reference": "82292c454d8b38d4bb49deed6e7aaf88eb9c7fe0",
-                "shasum": ""
-            },
-            "require": {
-                "consolidation/robo": "^1",
-                "php": ">=5.5.9|>=7.0.8",
-                "symfony/process": "^3"
-            },
-            "conflict": {
-                "symfony/console": ">=4",
-                "symfony/process": ">=4"
-            },
-            "bin": [
-                "run"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "DevShop\\Component\\PowerProcess\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jon Pugh",
-                    "email": "jon@thinkdrop.net"
-                },
-                {
-                    "name": "DevShop Community",
-                    "homepage": "https://github.com/opendevshop/devshop/graphs/contributors"
-                }
-            ],
-            "description": "Enhanced Symfony Process component.",
-            "homepage": "https://getdevshop.com",
-            "support": {
-                "issues": "https://github.com/devshop-packages/power-process/issues",
-                "source": "https://github.com/devshop-packages/power-process/tree/ci/install/devshop-tech"
-            },
-            "time": "2020-04-22T18:59:23+00:00"
-        },
-        {
-            "name": "devshop/yaml-tasks",
-            "version": "1.7.0-alpha4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/devshop-packages/yaml-tasks.git",
-                "reference": "6c7d645336115fd8122126b6dbb1eeb210c5c5f9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/devshop-packages/yaml-tasks/zipball/6c7d645336115fd8122126b6dbb1eeb210c5c5f9",
-                "reference": "6c7d645336115fd8122126b6dbb1eeb210c5c5f9",
-                "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "^2.0",
-                "devshop/power-process": "^1.6",
-                "ext-json": "*",
-                "knplabs/github-api": "^1.4",
-                "php-http/guzzle6-adapter": "^1.1",
-                "teqneers/php-stream-wrapper-for-git": "^2.0"
-            },
-            "require-dev": {
-                "composer/composer": "^1.10",
-                "squizlabs/php_codesniffer": "^3.5"
-            },
-            "bin": [
-                "yaml-tasks"
-            ],
-            "type": "composer-plugin",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                },
-                "class": "DevShop\\Component\\YamlTasks\\Composer\\Plugin"
-            },
-            "autoload": {
-                "psr-4": {
-                    "DevShop\\Component\\YamlTasks\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jon Pugh",
-                    "email": "jon@thinkdrop.net"
-                },
-                {
-                    "name": "DevShop Community",
-                    "homepage": "https://github.com/opendevshop/devshop/graphs/contributors"
-                }
-            ],
-            "description": "Plugin to run commands from a YML file and pass to GitHub commit status API.",
-            "homepage": "https://getdevshop.com",
-            "support": {
-                "issues": "https://github.com/devshop-packages/yaml-tasks/issues",
-                "source": "https://github.com/devshop-packages/yaml-tasks/tree/1.7.0-alpha4"
-            },
-            "time": "2020-11-06T17:22:41+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -19051,66 +18929,6 @@
             "time": "2020-05-11T07:51:54+00:00"
         },
         {
-            "name": "teqneers/php-stream-wrapper-for-git",
-            "version": "v2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/teqneers/PHP-Stream-Wrapper-for-Git.git",
-                "reference": "ef4cfd4941e3979ccb972c71b4329275036778ed"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/teqneers/PHP-Stream-Wrapper-for-Git/zipball/ef4cfd4941e3979ccb972c71b4329275036778ed",
-                "reference": "ef4cfd4941e3979ccb972c71b4329275036778ed",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0.0"
-            },
-            "require-dev": {
-                "knplabs/gaufrette": "~0.5",
-                "phpunit/phpunit": "~5.7 >=5.7.11",
-                "symfony/yaml": "~3.4"
-            },
-            "suggest": {
-                "knplabs/gaufrette": "to use the Gaufrette adapter"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Stefan Gehrig",
-                    "email": "gehrig@teqneers.de",
-                    "homepage": "http://opensource.teqneers.de/"
-                }
-            ],
-            "description": "Git Stream Wrapper for PHP",
-            "homepage": "https://github.com/teqneers/PHP-Stream-Wrapper-for-Git",
-            "keywords": [
-                "git",
-                "stream-wrapper",
-                "streamwrapper"
-            ],
-            "support": {
-                "issues": "https://github.com/teqneers/PHP-Stream-Wrapper-for-Git/issues",
-                "source": "https://github.com/teqneers/PHP-Stream-Wrapper-for-Git/tree/v2.0.0"
-            },
-            "time": "2018-03-19T14:31:54+00:00"
-        },
-        {
             "name": "theseer/tokenizer",
             "version": "1.2.0",
             "source": {
@@ -21192,7 +21010,6 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "devshop/yaml-tasks": 15,
         "drupal/advancedqueue": 5,
         "drupal/blazy": 5,
         "drupal/cer": 20,
