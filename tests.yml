@@ -1,44 +1,227 @@
 # If any of these test names get updated they need to be updated here too
-# https://github.com/department-of-veterans-affairs/va.gov-cms/settings/branch_protection_rules
+# https://github.com/department-of-veterans-affairs/va.gov-cms/settings/branches
 
-# va/error:
-#  command: intentionalFailure
-#  description: Intentional Failure. Uncomment to test CI system failure behavior.
+version: '3'
 
-va/tests/phplint:
-  description: PHP Lint
-  command: composer va:test:lint
+dotenv: ['.env']
 
-va/tests/phpunit:
-  description: PHPUnit
-  command: phpunit --exclude-group disabled tests/phpunit --colors=always
+tasks:
 
-va/tests/accessibility:
-  description: accessibility test with cypress-axe for 508 compliance
-  command: composer va:test:accessibility
+  # Any changes to test names or additions or removals must be updated in set-all-tests-pending as well for the Pending status to work.
 
-va/tests/behavioral:
-  description: behavioral tests with cypress
-  command: composer va:test:behavioral
+  va/tests/accessibility:
+    desc: accessibility test with cypress-axe for 508 compliance
+    cmds:
+      - |
+        result="$(composer va:test:accessibility)"
+        exit_code=$?
+        if [ "$SKIP_REPORTING" -ne 1 ]; then
+          if [ "$exit_code" -eq 0 ]; then
+            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+          else
+            github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+          fi
+        fi
 
-va/web/build:
-  description: Build VA.gov Front-end
-  command: ./tests/scripts/build-web.sh
+  va/tests/behat:
+    desc: Behat Tests
+    cmds:
+      - |
+        cd tests/behat
+        result="$(behat --colors)"
+        exit_code=$?
+        if [ "$SKIP_REPORTING" -ne 1 ]; then
+          if [ "$exit_code" -eq 0 ]; then
+            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+          else
+            github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+          fi
+        fi
 
-va/tests/behat:
-  description: Behat Tests
-  command: |
-    cd tests/behat
-    behat --colors
+  va/tests/behavioral:
+    desc: behavioral tests with cypress
+    cmds:
+      - |
+        result="$(composer va:test:behavioral)"
+        exit_code=$?
+        if [ "$SKIP_REPORTING" -ne 1 ]; then
+          if [ "$exit_code" -eq 0 ]; then
+            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+          else
+            github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+          fi
+        fi
 
-va/tests/revision-log:
-  description: Ensure revision log field is present
-  command: ./tests/scripts/check-revision-logs.sh
+  va/tests/check-cer:
+    desc: Ensure cer fields exist
+    cmds:
+      - |
+        result="{{ .TASK }}:<br/><br/>$(./tests/scripts/check-cer.sh)"
+        if [ "$SKIP_REPORTING" -ne 1 ]; then
+          if [ "$exit_code" -eq 0 ]; then
+            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+          else
+            github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+            [ -z "${GITHUB_COMMENT_TYPE}" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="${result}"
+          fi
+        fi
 
-va/tests/check-cer:
-  description: Ensure cer fields exist
-  command: ./tests/scripts/check-cer.sh
+  va/tests/phplint:
+    desc: PHP Lint
+    cmds:
+      - |
+        cat <<EOF | bash
+          exit_code=0
+          : "${SKIP_REPORTING:=0}"
+          result="{{ .TASK }}<br/><br/>"
+          trap '{ (( exit_code |=\$? )); result+="\$output<br/>"; }' ERR
+          output=\$(find docroot/modules/custom docroot/themes -name '*.inc' -print0 | xargs -0 -n1 php -l 2>&1)
+          output=\$(find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l 2>&1)
+          output=\$(find docroot/modules/custom docroot/themes -name '*.module' -print0 | xargs -0 -n1 php -l 2>&1)
+          output=\$(find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l 2>&1)
+          trap - ERR
+          if [ "$SKIP_REPORTING" -ne 1 ]; then
+            if [ "\$exit_code" -eq 0 ]; then
+              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+            else
+              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+              [ -z "\${GITHUB_COMMENT_TYPE}" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="\${result}"
+            fi
+          fi
+        EOF
 
-va/tests/status-error:
-  description: Check for Drupal status errors
-  command: "drush $DRUSH_ALIAS core-requirements --format=list --severity=2 | grep . && exit 1 || echo 'Success: No Drupal status requirement errors were found.'"
+  va/tests/phpunit:
+    desc: PHPUnit
+    cmds:
+      - |
+        result="$(phpunit --exclude-group disabled tests/phpunit --colors=always)"
+        exit_code=$?
+        if [ "$SKIP_REPORTING" -ne 1 ]; then
+          if [ "$exit_code" -eq 0 ]; then
+            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+          else
+            github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+          fi
+        fi
+
+  va/tests/revision-log:
+    desc: Ensure revision log field is present
+    cmds:
+      - |
+        result="$(./tests/scripts/check-revision-logs.sh)"
+        exit_code=$?
+        if [ "$SKIP_REPORTING" -ne 1 ]; then
+          if [ "$exit_code" -eq 0 ]; then
+            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+          else
+            github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+          fi
+        fi
+
+  va/tests/status-error:
+    desc: Check for Drupal status errors
+    cmds:
+      - |
+        lines=$(drush $DRUSH_ALIAS core-requirements --format=list --severity=2)
+        line_count=$(grep -c "^.+$" <<< $lines)
+        if [ "$SKIP_REPORTING" -ne 1 ]; then
+          if [ $line_count -eq 0 ]; then
+            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success: No Drupal status requirement errors were found.'
+          else
+            github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description="Failed: ${line_count} Drupal status requirements found."
+            [ -z "${GITHUB_COMMENT_TYPE}" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="{{ .TASK }}:<br /><br />${lines}"
+          fi
+        fi
+
+  va/web/build:
+    desc: Build VA.gov Front-end
+    cmds:
+      - |
+        result="$(./tests/scripts/build-web.sh)"
+        exit_code=$?
+        if [ "$SKIP_REPORTING" -ne 1 ]; then
+          if [ "$exit_code" -eq 0 ]; then
+            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+          else
+            github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+          fi
+        fi
+
+  set-check-status:
+    cmds:
+      - |
+        if [ "$SKIP_REPORTING" -ne 1 ]; then
+          github-status-updater -action=update_state -state="{{ .STATUS }}" -context="{{ .CONTEXT }}" -description="{{ .DESCRIPTION }}"
+        fi
+
+  set-all-tests-pending:
+    cmds:
+
+      # Any changes to test names or additions or removals above must be updated here as well for the Pending status to work.
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/accessibility
+          DESCRIPTION: 'Accessibility'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/behat
+          DESCRIPTION: 'Behat'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/behavioral
+          DESCRIPTION: 'Behavioral'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/check-cer
+          DESCRIPTION: 'Ensure cer fields exist'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/phplint
+          DESCRIPTION: 'PHPLint'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/phpunit
+          DESCRIPTION: 'PHPUnit'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/revision-log
+          DESCRIPTION: 'Revision Log'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/status-error
+          DESCRIPTION: 'Check for Drupal status errors'
+
+  default:
+    cmds:
+      - task: set-all-tests-pending
+      - task: va/web/build
+      - task: va/tests
+
+  va/tests:
+    desc:
+    cmds:
+      - task: va/tests/accessibility
+      - task: va/tests/behat
+      - task: va/tests/behavioral
+      - task: va/tests/check-cer
+      - task: va/tests/phplint
+      - task: va/tests/phpunit
+      - task: va/tests/revision-log
+      - task: va/tests/status-error
+
