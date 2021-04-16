@@ -33,10 +33,10 @@ third_party_settings:
             region: content
             configuration:
               id: 'views_block:taxonomy_term-taxonomy_term_listing_block'
-              label: ''
+              label: ' '
               provider: views
               label_display: visible
-              views_label: ''
+              views_label: ' '
               items_per_page: none
               context_mapping: {  }
             additional: {  }
@@ -241,6 +241,106 @@ third_party_settings:
                 type: entity_reference_label
             additional: {  }
             weight: 12
+          a61422bd-2e25-45d9-9c0a-fc403006df99:
+            uuid: a61422bd-2e25-45d9-9c0a-fc403006df99
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:administration:description'
+              formatter:
+                label: above
+                type: text_default
+                settings: {  }
+                third_party_settings: {  }
+            additional: {  }
+            weight: 13
+          1915ea43-0ac4-4d93-beaf-1f5dee531cbf:
+            uuid: 1915ea43-0ac4-4d93-beaf-1f5dee531cbf
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:administration:field_link'
+              formatter:
+                label: above
+                settings:
+                  trim_length: 80
+                  url_only: false
+                  url_plain: false
+                  rel: ''
+                  target: ''
+                third_party_settings: {  }
+                type: link
+            additional: {  }
+            weight: 14
+          e620a3af-f581-4f15-a63b-d60c1d6402b8:
+            uuid: e620a3af-f581-4f15-a63b-d60c1d6402b8
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:administration:field_social_media_links'
+              formatter:
+                label: above
+                settings:
+                  appearance: {  }
+                  link_attributes: {  }
+                third_party_settings: {  }
+                type: social_media_links_field_default
+            additional: {  }
+            weight: 15
+          0e8de1f0-564c-4d48-8b6c-a20ef468cca8:
+            uuid: 0e8de1f0-564c-4d48-8b6c-a20ef468cca8
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:administration:field_email_updates_url'
+              formatter:
+                label: above
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+                type: string
+            additional: {  }
+            weight: 16
+          902b3555-c669-4cf2-a2bb-feb08e38e420:
+            uuid: 902b3555-c669-4cf2-a2bb-feb08e38e420
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:administration:field_email_updates_link_text'
+              formatter:
+                label: above
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+                type: string
+            additional: {  }
+            weight: 17
+          bcc5c6ee-fdb7-42a2-815e-9ea81a27ab9c:
+            uuid: bcc5c6ee-fdb7-42a2-815e-9ea81a27ab9c
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:administration:field_product'
+              formatter:
+                label: above
+                settings:
+                  link: true
+                third_party_settings: {  }
+                type: entity_reference_label
+            additional: {  }
+            weight: 18
         third_party_settings: {  }
 id: taxonomy_term.administration.default
 targetEntityType: taxonomy_term
