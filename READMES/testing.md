@@ -1,14 +1,13 @@
 # Testing
 
-The code for cms.VA.gov undergoes numerous tests before merging, and tests
+The code for cms.va.gov undergoes numerous tests before merging, and tests
 are run before deployment and release.
 
-The automated test suite for cms.VA.gov is defined in the [tests.yml](../tests.yml)
-file and is run using the [Yaml-Tasks](https://github.com/devshop-packages/yaml-tasks) tool, allowing the same command to be used local development, in CMS
--CI and for production releases.
+The automated test suite for cms.va.gov is defined in the [tests.yml](../tests.yml)
+file and is run using the [Task](https://github.com/go-task/task) tool, allowing
+the same command to be used local development, in CMS-CI and for production releases.
 
-The _Yaml Tasks_ Composer plugin is required by the main va.gov-cms
-`composer.json` file.
+Task is installed by the `install_task.sh` script.
 
 ## Goals
 
@@ -40,8 +39,6 @@ Example: _Developers chasing down a mis-entered content link is not a good use
 of time._
 End to End tests should be achieved when possible, by each area of concern
 providing coverage for their particular area.
-
-The **Yaml Tests** tool was designed with these goals in mind.
 
 ## VA.gov CMS Test Suite
 
@@ -165,12 +162,12 @@ There are 4 main types of tests:
 
 ## Running Tests
 
-The main way to run Yaml-task tests is the `./bin/yaml-tasks --tasks-file=tests.yml` command.
+The main way to run tests is the `./bin/task --taskfile=tests.yml` command.
 
-Run `./bin/yaml-tasks --help` for more information.
+Run `./bin/task --help` for more information.
 
 _NOTE: The `bin` directory is automatically included in the $PATH for all
-Composer commands, including yaml-tasks itself._
+Composer commands, including Task itself._
 
 See [Composer Paths](#composer-configbinpath-and-path) for more information
 on Composer and $PATH.
@@ -180,14 +177,15 @@ on Composer and $PATH.
 This project is configured to work with Lando out of the box.
 
 Lando commands are listed in [`.lando.yml`](../.lando.yml). There are some
-helper commands that map to Composer Yaml-task commands.
+helper commands that map to shell commands.
 
-| Lando Command        | Composer Command                                         |
+| Lando Command        | Shell Command                                            |
 | -------------------- | -------------------------------------------------------- |
-| lando test           | ./bin/yaml-tasks --tasks-file=tests.yml                  |
-| lando test va/deploy | ./bin/yaml-tasks --tasks-file=tests.yml va/deploy        |
+| lando task           | ./bin/task                                               |
+| lando test           | ./bin/task --taskfile=tests.yml                          |
+| lando test va/deploy | ./bin/task --taskfile=tests.yml va/deploy                |
 | lando web-build      | composer va:web:build                                    |
-| lando phpunit        | ./bin/yaml-tasks --tasks-file=tests.yml va/tests/phpunit |
+| lando phpunit        | ./bin/task --taskfile=tests.yml va/tests/phpunit         |
 | lando web-build      | composer va:web:build                                    |
 | lando behat          | cd /app/tests/behat && /app/bin/behat                    |
 
@@ -198,27 +196,21 @@ _NOTES:_
 - Any Composer command can be run inside a Lando container after you call
   `lando ssh`.
 
-@TODO: Standardize this mapping on Yaml-tasks. It will continue to improve
-with features like timing, profiling, output logging, etc.
-
 ### Limit tests to run
 
 You can add an argument to filter the tests to run:
 
 ```sh
 # Run the entire test suite.
-./bin/yaml-tasks --tasks-file=tests.yml
+./bin/task --taskfile=tests.yml
 
 # Run `va/tests/phpunit` only
-./bin/yaml-tests --tasks-file=tests.yml phpunit
-
-# Run all `va/deploy/*` tests.
-./bin/yaml-tasks --tasks-file=tests.yml va/deploy
+./bin/task --taskfile=tests.yml va/tests/phpunit
 ```
 
 ## GitHub Integration
 
-The Yaml-Tasks tool also integrates with GitHub, providing pass/fail commit
+The Task tool also integrates with GitHub through ReviewDog, providing pass/fail commit
 status for each test listed in `tests.yml`, and posting errors as comments
 on the commit's page on GitHub.com.
 
@@ -230,7 +222,7 @@ can be merged. This is enforced by GitHub.com and is configurable: See the
 
 ![GitHub comment with the output from a failed test.](images/github-test-fail-comment.png)
 
-If an individual test fails, the Yaml-tasks tool creates a comment on the
+If an individual test fails, the Task tool creates a comment on the
 commit with the failed test results.
 The test results are also logged in Tugboat.
 

@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.node.inline_entity_form
     - field.field.node.vet_center.field_address
     - field.field.node.vet_center.field_administration
     - field.field.node.vet_center.field_cc_non_traditional_hours
@@ -311,13 +312,13 @@ content:
   field_health_services:
     weight: 7
     settings:
-      form_mode: default
+      form_mode: inline_entity_form
+      revision: true
       override_labels: true
       label_singular: service
       label_plural: services
       allow_new: true
       match_operator: CONTAINS
-      revision: false
       collapsible: false
       collapsed: false
       allow_existing: false

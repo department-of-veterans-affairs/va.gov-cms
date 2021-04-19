@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_administration
     - node.type.checklist
+    - node.type.event
     - node.type.faq_multiple_q_a
     - node.type.media_list_images
     - node.type.media_list_videos
@@ -27,7 +28,6 @@ dependencies:
   module:
     - content_lock
     - content_moderation
-    - datetime
     - node
     - taxonomy
     - taxonomy_entity_index
@@ -203,44 +203,33 @@ display:
           batch_size: 25
           form_step: true
           buttons: false
-          clear_on_exposed: false
+          clear_on_exposed: true
           action_title: Action
           selected_actions:
-            'entity:break_lock:node': 0
-            node_unpromote_action: 0
-            node_unpublish_action: 0
-            node_publish_action: 0
-            node_unpublish_by_keyword_action: 0
-            node_assign_owner_action: node_assign_owner_action
-            node_promote_action: 0
-            node_save_action: node_save_action
-            node_make_sticky_action: 0
-            node_make_unsticky_action: 0
-            publish_latest_revision_action: publish_latest_revision_action
-            archive_node_action: archive_node_action
-            views_bulk_edit: views_bulk_edit
-            views_bulk_operations_delete_entity: views_bulk_operations_delete_entity
-            pathauto_update_alias: pathauto_update_alias
-            'entity:save_action:node': 0
-            'entity:unpublish_action:node': 0
-            'entity:publish_action:node': 0
-            'entity:delete_action:node': 0
-          preconfiguration:
-            node_assign_owner_action:
-              label_override: ''
-            node_save_action:
-              label_override: ''
-            publish_latest_revision_action:
-              label_override: ''
-            archive_node_action:
-              label_override: ''
-            views_bulk_edit:
-              label_override: ''
-              get_bundles_from_results: 1
-            views_bulk_operations_delete_entity:
-              label_override: ''
-            pathauto_update_alias:
-              label_override: ''
+            -
+              action_id: node_save_action
+              preconfiguration:
+                add_confirmation: 0
+            -
+              action_id: node_assign_owner_action
+              preconfiguration:
+                add_confirmation: 0
+            -
+              action_id: publish_latest_revision_action
+            -
+              action_id: archive_node_action
+            -
+              action_id: views_bulk_edit
+              preconfiguration:
+                add_confirmation: 0
+                get_bundles_from_results: 1
+            -
+              action_id: views_bulk_operations_delete_entity
+            -
+              action_id: 'entity:pathauto_update_alias:node'
+              preconfiguration:
+                add_confirmation: 0
+          force_selection_info: 0
           plugin_id: views_bulk_operations_bulk_form
         title:
           id: title
@@ -955,31 +944,72 @@ display:
           depth: 6
           entity_type: node
           plugin_id: taxonomy_entity_index_tid_depth
-        field_date_value:
-          id: field_date_value
-          table: node__field_date
-          field: field_date_value
+        type:
+          id: type
+          table: node_field_data
+          field: type
           relationship: none
           group_type: group
           admin_label: ''
-          operator: '<'
+          operator: in
+          value:
+            event: event
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+        field_datetime_range_timezone_value:
+          id: field_datetime_range_timezone_value
+          table: node__field_datetime_range_timezone
+          field: field_datetime_range_timezone_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
           value:
             min: ''
             max: ''
-            value: '+0 day'
+            value: ''
             type: offset
           group: 1
           exposed: true
           expose:
-            operator_id: field_date_value_op
-            label: 'Date and time (field_date)'
+            operator_id: field_datetime_range_timezone_value_op
+            label: 'Date and time - Start'
             description: ''
             use_operator: true
-            operator: field_date_value_op
+            operator: field_datetime_range_timezone_value_op
             operator_limit_selection: false
-            operator_list:
-              '<': '<'
-            identifier: field_date_value
+            operator_list: {  }
+            identifier: field_datetime_range_timezone_value
             required: false
             remember: false
             multiple: false
@@ -991,6 +1021,7 @@ display:
               content_creator_resources_and_support: '0'
               office_content_creator: '0'
               vamc_content_creator: '0'
+              content_creator_vet_center: '0'
               content_editor: '0'
               content_reviewer: '0'
               content_publisher: '0'
@@ -1003,20 +1034,17 @@ display:
             max_placeholder: ''
           is_grouped: false
           group_info:
-            label: 'Date and time (field_date)'
-            description: null
-            identifier: field_date_value
+            label: ''
+            description: ''
+            identifier: ''
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
             default_group_multiple: {  }
-            group_items:
-              1: {  }
-              2: {  }
-              3: {  }
-          plugin_id: datetime
+            group_items: {  }
+          plugin_id: date
       filter_groups:
         operator: AND
         groups:
@@ -1074,36 +1102,22 @@ display:
           batch_size: 25
           form_step: true
           buttons: false
-          clear_on_exposed: false
+          clear_on_exposed: true
           action_title: Action
           selected_actions:
-            'entity:break_lock:node': 0
-            node_save_action: 0
-            node_unpromote_action: 0
-            node_unpublish_by_keyword_action: 0
-            node_make_unsticky_action: 0
-            node_promote_action: 0
-            node_make_sticky_action: 0
-            node_assign_owner_action: 0
-            node_publish_action: 0
-            node_unpublish_action: 0
-            publish_latest_revision_action: publish_latest_revision_action
-            archive_node_action: archive_node_action
-            views_bulk_edit: views_bulk_edit
-            views_bulk_operations_delete_entity: 0
-            pathauto_update_alias: 0
-            'entity:publish_action:node': 0
-            'entity:unpublish_action:node': 0
-            'entity:save_action:node': 0
-            'entity:delete_action:node': 0
-          preconfiguration:
-            publish_latest_revision_action:
-              label_override: ''
-            archive_node_action:
-              label_override: ''
-            views_bulk_edit:
-              label_override: ''
-              get_bundles_from_results: 1
+            -
+              action_id: publish_latest_revision_action
+              preconfiguration:
+                label_override: ''
+            -
+              action_id: archive_node_action
+              preconfiguration:
+                label_override: ''
+            -
+              action_id: views_bulk_edit
+              preconfiguration:
+                label_override: ''
+                get_bundles_from_results: 1
           plugin_id: views_bulk_operations_bulk_form
         title:
           id: title
@@ -3147,31 +3161,13 @@ display:
           batch_size: 25
           form_step: true
           buttons: false
-          clear_on_exposed: false
+          clear_on_exposed: true
           action_title: Action
           selected_actions:
-            'entity:break_lock:node': 0
-            node_unpromote_action: 0
-            node_unpublish_action: 0
-            node_publish_action: 0
-            node_unpublish_by_keyword_action: 0
-            node_assign_owner_action: 0
-            node_promote_action: 0
-            node_save_action: 0
-            node_make_sticky_action: 0
-            node_make_unsticky_action: 0
-            publish_latest_revision_action: publish_latest_revision_action
-            archive_node_action: 0
-            views_bulk_edit: 0
-            views_bulk_operations_delete_entity: 0
-            pathauto_update_alias: 0
-            'entity:save_action:node': 0
-            'entity:unpublish_action:node': 0
-            'entity:publish_action:node': 0
-            'entity:delete_action:node': 0
-          preconfiguration:
-            publish_latest_revision_action:
-              label_override: ''
+            -
+              action_id: publish_latest_revision_action
+              preconfiguration:
+                label_override: ''
           plugin_id: views_bulk_operations_bulk_form
         title:
           id: title

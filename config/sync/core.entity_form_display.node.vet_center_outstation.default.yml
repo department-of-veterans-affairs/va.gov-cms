@@ -7,41 +7,30 @@ dependencies:
     - field.field.node.vet_center_outstation.field_administration
     - field.field.node.vet_center_outstation.field_facility_locator_api_id
     - field.field.node.vet_center_outstation.field_media
-    - field.field.node.vet_center_outstation.field_office_hours
     - field.field.node.vet_center_outstation.field_office
+    - field.field.node.vet_center_outstation.field_office_hours
     - field.field.node.vet_center_outstation.field_operating_status_facility
     - field.field.node.vet_center_outstation.field_operating_status_more_info
     - field.field.node.vet_center_outstation.field_phone_number
+    - field.field.node.vet_center_outstation.field_table_of_contents
     - node.type.vet_center_outstation
     - workflows.workflow.editorial
   module:
     - address
     - content_moderation
     - field_group
+    - markup
+    - media_library
     - office_hours
     - telephone
 third_party_settings:
   field_group:
-    group_op:
-      children:
-        - field_operating_status_facility
-        - field_operating_status_more_info
-      parent_name: ''
-      weight: 8
-      format_type: fieldset
-      region: content
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        required_fields: true
-      label: 'Operating status'
     group_editorial_workflow:
       children:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 10
+      weight: 7
       format_type: fieldset
       region: content
       format_settings:
@@ -54,7 +43,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 9
+      weight: 6
       format_type: details_sidebar
       region: content
       format_settings:
@@ -65,13 +54,97 @@ third_party_settings:
         required_fields: true
         weight: 0
       label: Governance
+    group_facility_name:
+      children:
+        - group_page_title_tooltip
+        - field_office
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        required_fields: true
+        id: facility-name
+        classes: ''
+        show_empty_fields: false
+      label: 'Facility name'
+    group_page_title_tooltip:
+      children: {  }
+      parent_name: group_facility_name
+      weight: 20
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_empty_fields: '1'
+        show_label: '0'
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically generated from the VAST database, which helps VA maintain a consistent source of information across all of VA.gov."
+        description: '<strong>Page title</strong>'
+        required_fields: '1'
+        id: ''
+        classes: 'not-editable '
+        element: div
+        label_element: h3
+        attributes: ''
+      label: 'Page title'
+    group_locations_and_contact_info:
+      children:
+        - group_vet_center_data
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: 'Review key location information about this facility. To request a correction to address, phone, or hours, contact an <a href="https://vaww.va.gov/WEBCOM/VAMC_Facility_Location_Updates.asp " target="_blank">administrator</a>.'
+        required_fields: true
+        id: locations-and-contact-information
+        classes: ''
+        show_empty_fields: false
+      label: 'Location and contact information'
+    group_operating_status:
+      children:
+        - field_operating_status_facility
+        - field_operating_status_more_info
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        required_fields: true
+        id: operating-status
+        classes: ''
+        show_empty_fields: false
+      label: 'Operating status'
+    group_vet_center_data:
+      children:
+        - field_facility_locator_api_id
+        - field_address
+        - field_phone_number
+        - field_office_hours
+      parent_name: group_locations_and_contact_info
+      weight: 20
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_label: '1'
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically generated from the VAST database, which helps VA maintain a consistent source of information across all of VA.gov."
+        description: ''
+        required_fields: '1'
+        id: external-content
+        classes: ''
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
+      label: 'Facility data from VAST'
 id: node.vet_center_outstation.default
 targetEntityType: node
 bundle: vet_center_outstation
 mode: default
 content:
   field_address:
-    weight: 4
+    weight: 22
     settings: {  }
     third_party_settings: {  }
     type: address_default
@@ -83,7 +156,7 @@ content:
     type: options_select
     region: content
   field_facility_locator_api_id:
-    weight: 2
+    weight: 21
     settings:
       size: 60
       placeholder: ''
@@ -91,23 +164,20 @@ content:
     type: string_textfield
     region: content
   field_media:
-    weight: 3
+    weight: 5
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      media_types: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: media_library_widget
     region: content
   field_office:
-    weight: 1
+    weight: 21
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_office_hours:
-    weight: 6
+    weight: 24
     settings: {  }
     third_party_settings: {  }
     type: office_hours_default
@@ -127,11 +197,17 @@ content:
     type: string_textarea
     region: content
   field_phone_number:
-    weight: 7
+    weight: 23
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
+    region: content
+  field_table_of_contents:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: markup
     region: content
   moderation_state:
     type: moderation_state_default
@@ -139,19 +215,12 @@ content:
     settings: {  }
     region: content
     third_party_settings: {  }
-  title:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
 hidden:
   created: true
   path: true
   promote: true
   status: true
   sticky: true
+  title: true
   uid: true
   url_redirects: true

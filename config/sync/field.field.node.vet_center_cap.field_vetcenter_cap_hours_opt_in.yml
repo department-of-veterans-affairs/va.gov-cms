@@ -1,0 +1,23 @@
+uuid: c1a5f08d-3f9d-43e0-8a85-59243935a47d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_vetcenter_cap_hours_opt_in
+    - node.type.vet_center_cap
+id: node.vet_center_cap.field_vetcenter_cap_hours_opt_in
+field_name: field_vetcenter_cap_hours_opt_in
+entity_type: node
+bundle: vet_center_cap
+label: 'How should CAP hours be communicated?'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Provide CAP hours online'
+  off_label: 'Veterans should call main Vet Center for hours'
+field_type: boolean
