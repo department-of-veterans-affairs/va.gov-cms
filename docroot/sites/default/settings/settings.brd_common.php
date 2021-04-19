@@ -3,7 +3,7 @@
 // @codingStandardsIgnoreFile
 
 // Memcache-specific settings
-if (extension_loaded('memcache') && \Drupal::hasService('cache.backend.memcache')) {
+if (extension_loaded('memcache')) {
   $memcache_nodes = getenv('CMS_MEMCACHE_NODES');
   if (!empty($memcache_nodes)) {
     $memcache_servers = explode(',', $memcache_nodes);
