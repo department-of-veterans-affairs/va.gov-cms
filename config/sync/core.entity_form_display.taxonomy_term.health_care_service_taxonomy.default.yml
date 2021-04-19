@@ -24,7 +24,7 @@ third_party_settings:
       children:
         - field_owner
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: details_sidebar
       format_settings:
         weight: 0
@@ -41,16 +41,35 @@ third_party_settings:
         - field_vet_center_com_conditions
         - field_vet_center_service_descrip
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: details
       region: content
       format_settings:
         description: 'Add content to these fields if you want to "override" how the service is described on Vet Center pages.'
+        open: true
         required_fields: true
         id: ''
         classes: ''
-        open: false
+        show_empty_fields: false
       label: 'Vet Center'
+    group_vamc:
+      children:
+        - field_service_type_of_care
+        - field_also_known_as
+        - field_commonly_treated_condition
+        - description
+      parent_name: ''
+      weight: 3
+      format_type: details
+      region: content
+      format_settings:
+        description: 'These values act as the default values for VHA health services, but can be overridden for Vet Centers, below.'
+        open: true
+        required_fields: true
+        id: ''
+        classes: ''
+        show_empty_fields: false
+      label: VAMC
 id: taxonomy_term.health_care_service_taxonomy.default
 targetEntityType: taxonomy_term
 bundle: health_care_service_taxonomy
@@ -58,14 +77,14 @@ mode: default
 content:
   description:
     type: text_textarea
-    weight: 5
+    weight: 10
     region: content
     settings:
       placeholder: ''
       rows: 5
     third_party_settings: {  }
   field_also_known_as:
-    weight: 3
+    weight: 8
     settings:
       size: 60
       placeholder: ''
@@ -73,7 +92,7 @@ content:
     type: string_textfield
     region: content
   field_commonly_treated_condition:
-    weight: 4
+    weight: 9
     settings:
       size: 60
       placeholder: ''
@@ -89,7 +108,7 @@ content:
     type: string_textfield
     region: content
   field_service_type_of_care:
-    weight: 6
+    weight: 7
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -141,7 +160,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 8
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
