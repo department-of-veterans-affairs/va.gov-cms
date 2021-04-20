@@ -282,12 +282,25 @@
   }
 }
 
-.centralized,
 .not-editable {
   background-color: #edede8 !important;
-  
-  .data-updated {
+}
+
+
+.centralized {
+  background-color: #edede8 !important;
+
+  .data-updated a {
     float: right;
+  }
+
+  .data-updated::after {
+    clear: both;
+    content: ' ';
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
   }
 }
 
