@@ -40,13 +40,6 @@ $settings['va_gov_frontend_url'] = $webhost_on_cli . '/static';
 $settings['va_gov_app_root'] = getenv('LANDO_MOUNT');
 $settings['va_gov_web_root'] = getenv('LANDO_MOUNT') . '/web';
 
-if (extension_loaded('memcache')) {
-  $settings['memcache']['servers'] = [
-    'memcache:11211' => 'default',
-  ];
-  $settings['cache']['default'] = 'cache.backend.memcache';
-  $settings['memcache']['bins'] = [
-    'default' => 'default',
-  ];
-  $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services/services.memcache.yml';
-}
+$settings['memcache']['servers'] = [
+  'memcache:11211' => 'default',
+];

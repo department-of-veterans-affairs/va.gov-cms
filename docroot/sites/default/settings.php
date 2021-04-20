@@ -236,3 +236,12 @@ $settings['class_loader_auto_detect'] = FALSE;
 if (file_exists($app_root . '/' . $site_path . '/services/services.' . $env_type . '.yml')) {
   $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services/services.' . $env_type . '.yml';
 }
+
+// Memcache-specific settings
+if (extension_loaded('memcache') && !empty($settings['memcache']['servers'])) {
+  $settings['cache']['default'] = 'cache.backend.memcache';
+  $settings['memcache']['bins'] = [
+    'default' => 'default',
+  ];
+  $settings['container_yamls'][] = $app_root . '/' . $site_path . '/../default/services/services.memcache.yml';
+}
