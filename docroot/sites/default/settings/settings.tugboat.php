@@ -66,4 +66,5 @@ if (extension_loaded('memcache')) {
   $settings['memcache']['bins'] = [
     'default' => 'default',
   ];
+  $settings['container_yamls'][] = $app_root . '/' . $site_path . '/../default/services/services.memcache.yml';
 }
