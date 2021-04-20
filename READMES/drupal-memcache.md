@@ -18,8 +18,6 @@ Lando creates a single-node Memcache cluster, available at the hostname `memcach
 ### Testing Memcache directly
 Memcache can be tested and interacted with directly using `telnet`.
 
-Note that you will
-
 On BRD (using [ssm-session](https://github.com/department-of-veterans-affairs/devops/tree/master/utilities/ssm-session)):
 ```sh
 ./ssm-session vagov-staging cms-test
@@ -208,7 +206,11 @@ php -m                                          # Should not list the Memcache m
 The Memcache extension will be restored on the next deploy, or the file can simply be moved back into place and Apache reloaded again to reenable it.
 
 ##### Across Deploys
-If some profound issue with Memcache or its configuration is discovered, Memcache can be disabled by setting CMS_MEMCACHE_NODES to an empty string or unsetting it completely.  This will persist across deploys.
+If some profound issue with Memcache or its configuration is discovered, Memcache can be disabled by setting CMS_MEMCACHE_NODES to an empty string or unsetting it completely.
+
+CMS_MEMCACHE_NODES is set in [ansible/deployment/config/cms-vagov-prod.yml](https://github.com/department-of-veterans-affairs/devops/blob/master/ansible/deployment/config/cms-vagov-prod.yml).
+
+This change will persist across deploys.
 
 #### Tugboat
 On Tugboat, the path to the ini file will differ:
