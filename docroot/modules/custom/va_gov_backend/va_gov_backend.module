@@ -521,6 +521,8 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 
   _va_gov_backend_dropdown_field_access($form, $targets);
 
+  _va_gov_backend_get_owner_section_default($form);
+
   if ($form_id === 'workbench_access_assign_user') {
     $form['#submit'][] = 'va_gov_backend_workbench_assign_user_form_submit';
   }
@@ -1189,6 +1191,31 @@ function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
             }
           }
         }
+      }
+    }
+  }
+}
+
+/**
+ * For setting the default owner section in dropdown.
+ *
+ * @param array $form
+ *   The entity form.
+ */
+function _va_gov_backend_get_owner_section_default(array &$form) {
+  if (!empty($form['field_administration']['widget'])) {
+    $user = \Drupal::currentUser();
+    $admin_roles = [
+      'administrator',
+      'content_admin',
+    ];
+    $role_count = array_intersect($admin_roles, $user->getRoles());
+    // User is admin, so try to set a default section in the dropdown.
+    if ($role_count > 0) {
+      $perms_service = \Drupal::service('va_gov_user.user_perms');
+      // If only 1, make default, otherwise defaults to Select prompt.
+      if ($default = $perms_service->getDefault($user)) {
+        $form['field_administration']['widget']['#default_value'] = $default;
       }
     }
   }
