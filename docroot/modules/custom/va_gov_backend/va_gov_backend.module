@@ -416,11 +416,6 @@ function _va_gov_backend_allowed_formats_remove_textarea_help(array $form_elemen
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
-  // We want to trigger the office hours field on/off.
-  if (($form_id === 'node_vet_center_cap_edit_form') || ($form_id === 'node_vet_center_cap_form')) {
-    _va_gov_backend_cap_hours_opt_in($form);
-  }
-
   // List of forms to modify media library widget help text.
   $media_widget_content_form_ids = [
     'node_vet_center_cap_form',
@@ -635,23 +630,6 @@ function _va_gov_backend_validate_required_revision_message(array $form, FormSta
   // Add revision log validation.
   if ($form_state->isValueEmpty(['revision_log', '0', 'value'])) {
     $form_state->setErrorByName('revision_log][0][value', t('Revision log message is required'));
-
-/**  
- * Determines whether or not user can edit community access point office hours.
- *
- * @param array $form
- *   The node form array.
- */
-function _va_gov_backend_cap_hours_opt_in(array &$form) {
-  $node = \Drupal::routeMatch()->getParameter('node');
-  if ($node instanceof NodeInterface) {
-    if (($node->hasField('field_office_hours')) && ($node->hasField('field_vetcenter_cap_hours_opt_in'))) {
-      $form['field_office_hours']['#states'] = [
-        'visible' => [
-          ':input[name="field_vetcenter_cap_hours_opt_in"]' => ['value' => '1'],
-        ],
-      ];
-    }
   }
 }
 
@@ -743,14 +721,6 @@ function va_gov_backend_entity_view_alter(array &$build, EntityInterface $entity
     }
   };
 
-  // Check if correct content bundle and unset office hours if opted out.
-  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'vet_center_cap') {
-    $office_hours_opt_in_select = $entity->field_vetcenter_cap_hours_opt_in->value;
-    if ($office_hours_opt_in_select === '0') {
-      unset($entity->field_office_hours);
-      unset($build['field_office_hours']);
-    }
-  };
 }
 
 /**
