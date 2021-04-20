@@ -231,3 +231,12 @@ if (!empty($webhost_on_cli)) {
 
 // Disable use of the Symfony autoloader, and use the Composer autoloader instead.
 $settings['class_loader_auto_detect'] = FALSE;
+
+// Memcache-specific settings
+if (extension_loaded('memcache') && !empty($settings['memcache']['servers'])) {
+  $settings['cache']['default'] = 'cache.backend.memcache';
+  $settings['memcache']['bins'] = [
+    'default' => 'default',
+  ];
+  $settings['container_yamls'][] = $app_root . '/' . $site_path . '/../default/services/services.memcache.yml';
+}
