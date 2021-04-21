@@ -468,9 +468,12 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   if (isset($form['field_standalone_page'])) {
     $form['field_primary_category']['widget']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
     $form['field_tags']['widget'][0]['subform']['field_topics']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
+    $form['field_related_information']['widget'][0]['subform']['field_link']['widget'][0]['uri']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
+    $form['field_related_information']['widget'][0]['subform']['field_link']['widget'][0]['title']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
 
-    // Change field uri widget to optional.
+    // Change field uri and title widget to optional.
     $form['field_related_information']['widget'][0]['subform']['field_link']['widget'][0]['uri']['#required'] = FALSE;
+    $form['field_related_information']['widget'][0]['subform']['field_link']['widget'][0]['title']['#required'] = FALSE;
 
     foreach ($form['field_buttons']['widget'] as $idx => $val) {
       if (is_numeric($idx)) {
