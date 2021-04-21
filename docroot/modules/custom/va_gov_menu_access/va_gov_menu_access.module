@@ -119,9 +119,9 @@ function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_st
     // Unable to pass $form_id from parent function when using after_build.
     // Throws uneven arguments error.
     $form_id = $form_state->getFormObject()->getFormId();
-    // If (strpos($form_id, 'health_care_region_detail_page') === FALSE) {.
-    va_gov_menu_access_disable_parent_menu_options($form, $form_id);
-    // }
+    if (strpos($form_id, 'health_care_region_detail_page') === FALSE) {
+      va_gov_menu_access_disable_parent_menu_options($form, $form_id);
+    }
     // Grab our alias service.
     $alias_manager = \Drupal::service('path.alias_manager');
     // Grab our custom paths config settings.
