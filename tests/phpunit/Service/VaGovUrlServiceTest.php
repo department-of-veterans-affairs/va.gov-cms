@@ -109,7 +109,7 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
     $system_node->setPublished()->save();
     $url_alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $system_node->id());
     $this->assertEquals('/va-test-health-care', $url_alias);
-
+    3
     $this->assertEquals('https://www.va.gov/va-test-health-care', $vaGovUrl->getVaGovFrontEndUrlForEntity($system_node));
   }
 
