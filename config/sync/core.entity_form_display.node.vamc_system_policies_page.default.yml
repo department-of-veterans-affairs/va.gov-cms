@@ -42,6 +42,7 @@ third_party_settings:
       children:
         - status
         - moderation_state
+        - revision_log
       parent_name: ''
       weight: 6
       format_type: fieldset
@@ -141,9 +142,9 @@ content:
   field_cc_intro_text:
     weight: 28
     settings:
-      show_link_to_source: '1'
-      show_source_updated_date: '1'
       show_field_label: 0
+      show_link_to_source: 0
+      show_source_updated_date: 0
     third_party_settings: {  }
     type: entity_field_fetch_widget
     region: content
