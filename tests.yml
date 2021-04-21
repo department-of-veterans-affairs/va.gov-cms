@@ -144,7 +144,7 @@ tasks:
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
           lines=\$(drush $DRUSH_ALIAS core-requirements --format=list --severity=2)
-          line_count=\$(grep -c "^.+$" <<< $lines)
+          line_count=\$(grep -c "^.+$" <<< \$lines)
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$line_count" -eq 0 ]; then
               github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success: No Drupal status requirement errors were found.'
