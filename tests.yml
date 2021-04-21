@@ -13,66 +13,79 @@ tasks:
     desc: accessibility test with cypress-axe for 508 compliance
     cmds:
       - |
-        result="$(composer va:test:accessibility)"
-        exit_code=$?
-        if [ "$SKIP_REPORTING" -ne 1 ]; then
-          if [ "$exit_code" -eq 0 ]; then
-            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
-          else
-            github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+        cat <<EOF | bash
+          : "${SKIP_REPORTING:=0}"
+          result="\$(composer va:test:accessibility)"
+          exit_code=\$?
+          if [ "$SKIP_REPORTING" -ne 1 ]; then
+            if [ "\$exit_code" -eq 0 ]; then
+              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+            else
+              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+            fi
           fi
-        fi
+        EOF
 
   va/tests/behat:
     desc: Behat Tests
     cmds:
       - |
-        cd tests/behat
-        result="$(behat --colors)"
-        exit_code=$?
-        if [ "$SKIP_REPORTING" -ne 1 ]; then
-          if [ "$exit_code" -eq 0 ]; then
-            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
-          else
-            github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+        cat <<EOF | bash
+          : "${SKIP_REPORTING:=0}"
+          cd tests/behat
+          result="\$(behat --colors)"
+          exit_code=$?
+          if [ "$SKIP_REPORTING" -ne 1 ]; then
+            if [ "\$exit_code" -eq 0 ]; then
+              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+            else
+              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+            fi
           fi
-        fi
+        EOF
 
   va/tests/behavioral:
     desc: behavioral tests with cypress
     cmds:
       - |
-        result="$(composer va:test:behavioral)"
-        exit_code=$?
-        if [ "$SKIP_REPORTING" -ne 1 ]; then
-          if [ "$exit_code" -eq 0 ]; then
-            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
-          else
-            github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+        cat <<EOF | bash
+          : "${SKIP_REPORTING:=0}"
+          result="\$(composer va:test:behavioral)"
+          exit_code=\$?
+          if [ "$SKIP_REPORTING" -ne 1 ]; then
+            if [ "\$exit_code" -eq 0 ]; then
+              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+            else
+              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+            fi
           fi
-        fi
+        EOF
 
   va/tests/check-cer:
     desc: Ensure cer fields exist
     cmds:
       - |
-        result="{{ .TASK }}:<br/><br/>$(./tests/scripts/check-cer.sh)"
-        if [ "$SKIP_REPORTING" -ne 1 ]; then
-          if [ "$exit_code" -eq 0 ]; then
-            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
-          else
-            github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
-            [ -z "${GITHUB_COMMENT_TYPE}" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="${result}"
+        cat <<EOF | bash
+          : "${SKIP_REPORTING:=0}"
+          result="{{ .TASK }}:<br/><br/>\$(./tests/scripts/check-cer.sh)"
+          exit_code=\$?
+          if [ "$SKIP_REPORTING" -ne 1 ]; then
+            if [ "\$exit_code" -eq 0 ]; then
+              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+            else
+              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+              [ -z "\${GITHUB_COMMENT_TYPE}" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="\${result}"
+            fi
           fi
-        fi
+        EOF
 
   va/tests/phplint:
     desc: PHP Lint
     cmds:
       - |
         cat <<EOF | bash
-          exit_code=0
           : "${SKIP_REPORTING:=0}"
+          exit_code=0
           result="{{ .TASK }}<br/><br/>"
           trap '{ (( exit_code |=\$? )); result+="\$output<br/>"; }' ERR
           output=\$(find docroot/modules/custom docroot/themes -name '*.inc' -print0 | xargs -0 -n1 php -l 2>&1)
@@ -94,58 +107,70 @@ tasks:
     desc: PHPUnit
     cmds:
       - |
-        result="$(phpunit --exclude-group disabled tests/phpunit --colors=always)"
-        exit_code=$?
-        if [ "$SKIP_REPORTING" -ne 1 ]; then
-          if [ "$exit_code" -eq 0 ]; then
-            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
-          else
-            github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+        cat <<EOF | bash
+          : "${SKIP_REPORTING:=0}"
+          result="\$(phpunit --exclude-group disabled tests/phpunit --colors=always)"
+          exit_code=\$?
+          if [ "$SKIP_REPORTING" -ne 1 ]; then
+            if [ "\$exit_code" -eq 0 ]; then
+              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+            else
+              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+            fi
           fi
-        fi
+        EOF
 
   va/tests/revision-log:
     desc: Ensure revision log field is present
     cmds:
       - |
-        result="$(./tests/scripts/check-revision-logs.sh)"
-        exit_code=$?
-        if [ "$SKIP_REPORTING" -ne 1 ]; then
-          if [ "$exit_code" -eq 0 ]; then
-            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
-          else
-            github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+        cat <<EOF | bash
+          : "${SKIP_REPORTING:=0}"
+          result="\$(./tests/scripts/check-revision-logs.sh)"
+          exit_code=\$?
+          if [ "$SKIP_REPORTING" -ne 1 ]; then
+            if [ "\$exit_code" -eq 0 ]; then
+              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+            else
+              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+            fi
           fi
-        fi
+        EOF
 
   va/tests/status-error:
     desc: Check for Drupal status errors
     cmds:
       - |
-        lines=$(drush $DRUSH_ALIAS core-requirements --format=list --severity=2)
-        line_count=$(grep -c "^.+$" <<< $lines)
-        if [ "$SKIP_REPORTING" -ne 1 ]; then
-          if [ $line_count -eq 0 ]; then
-            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success: No Drupal status requirement errors were found.'
-          else
-            github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description="Failed: ${line_count} Drupal status requirements found."
-            [ -z "${GITHUB_COMMENT_TYPE}" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="{{ .TASK }}:<br /><br />${lines}"
+        cat <<EOF | bash
+          : "${SKIP_REPORTING:=0}"
+          lines=\$(drush $DRUSH_ALIAS core-requirements --format=list --severity=2)
+          line_count=\$(grep -c "^.+$" <<< \$lines)
+          if [ "$SKIP_REPORTING" -ne 1 ]; then
+            if [ "\$line_count" -eq 0 ]; then
+              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success: No Drupal status requirement errors were found.'
+            else
+              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description="Failed: \${line_count} Drupal status requirements found."
+              [ -z "\${GITHUB_COMMENT_TYPE}" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="{{ .TASK }}:<br /><br />\${lines}"
+            fi
           fi
-        fi
+        EOF
 
   va/web/build:
     desc: Build VA.gov Front-end
     cmds:
       - |
-        result="$(./tests/scripts/build-web.sh)"
-        exit_code=$?
-        if [ "$SKIP_REPORTING" -ne 1 ]; then
-          if [ "$exit_code" -eq 0 ]; then
-            github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
-          else
-            github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+        cat <<EOF | bash
+          : "${SKIP_REPORTING:=0}"
+          result="\$(./tests/scripts/build-web.sh)"
+          exit_code=\$?
+          if [ "$SKIP_REPORTING" -ne 1 ]; then
+            if [ "\$exit_code" -eq 0 ]; then
+              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+            else
+              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+            fi
           fi
-        fi
+        EOF
 
   set-check-status:
     cmds:
