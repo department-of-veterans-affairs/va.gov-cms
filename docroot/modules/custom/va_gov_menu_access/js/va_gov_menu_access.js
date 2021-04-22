@@ -14,6 +14,10 @@
         return currentUserRoles.includes(role);
       });
       var menuEnableCheckbox = document.getElementById("edit-menu-enable");
+      var parentMenuSelect = document.querySelector(".form-item-menu-menu-parent label");
+      if (parentMenuSelect) {
+        parentMenuSelect.classList.add("form-required");
+      }
 
       function menuSelectHandler() {
         if (document.querySelector(".menu-parent-select").classList.contains("no-available-menu-targets")) {

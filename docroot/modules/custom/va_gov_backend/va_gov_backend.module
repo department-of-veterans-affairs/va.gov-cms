@@ -678,6 +678,7 @@ function _va_gov_backend_alter_parent_menus(array $form, FormStateInterface $for
  *   Instance of FormStateInterface.
  */
 function _va_gov_backend_parent_menu_selected_validation(array $form, FormStateInterface $form_state) {
+
   if ($form_state->getValue('menu')['menu_parent'] === '0') {
     $form_state->setErrorByName('menu][menu_parent', t('Menu parent item cannot be empty.'));
   }
