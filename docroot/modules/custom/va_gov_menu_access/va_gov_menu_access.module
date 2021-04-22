@@ -87,12 +87,15 @@ function va_gov_menu_access_form_alter(&$form, FormStateInterface $form_state, $
  *   The form array.
  */
 function va_gov_menu_access_disable_parent_menu_options(array &$form, string $form_id) {
-  $form_type = 'detail-page';
-  if (strpos($form_id, 'health_care_region_detail_page') === FALSE) {
-    $form_type = 'not-detail-page';
+  $form_type_flag = 'detail-page';
+  if (strpos($form_id, 'vet_center') === TRUE) {
+    $form_type_flag = $form_type_flag;
+  }
+  elseif (strpos($form_id, 'health_care_region_detail_page') === FALSE) {
+    $form_type_flag = 'not-allowed-to-operate-on-menu';
   }
   $form['#attached']['drupalSettings']['vagov_menu_access'] = [
-    'content_type' => $form_type,
+    'content_type' => $form_type_flag,
   ];
 
   if (!empty($form['menu']['link']['menu_parent']['#options'])
