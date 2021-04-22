@@ -21,6 +21,14 @@
       if (parentMenuSelect) {
         parentMenuSelect.classList.add("form-required");
       }
+      // Don't show menu settings widget to non admins on non-detail-pages.
+      if (
+        drupalSettings.vagov_menu_access.content_type ===
+          "not-allowed-to-operate-on-menu" &&
+        adminTest === false
+      ) {
+        document.querySelector("details#edit-menu").style.display = "none";
+      }
 
       function menuSelectHandler() {
         // If we don't have anything in the menu, don't show it.

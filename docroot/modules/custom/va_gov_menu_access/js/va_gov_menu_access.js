@@ -19,6 +19,10 @@
         parentMenuSelect.classList.add("form-required");
       }
 
+      if (drupalSettings.vagov_menu_access.content_type === "not-allowed-to-operate-on-menu" && adminTest === false) {
+        document.querySelector("details#edit-menu").style.display = "none";
+      }
+
       function menuSelectHandler() {
         if (document.querySelector(".menu-parent-select").classList.contains("no-available-menu-targets")) {
           document.getElementById("edit-menu").style.display = "none";
