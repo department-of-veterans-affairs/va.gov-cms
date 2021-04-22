@@ -15,6 +15,12 @@
         currentUserRoles.includes(role)
       );
       const menuEnableCheckbox = document.getElementById("edit-menu-enable");
+      const parentMenuSelect = document.querySelector(
+        ".form-item-menu-menu-parent label"
+      );
+      if (parentMenuSelect) {
+        parentMenuSelect.classList.add("form-required");
+      }
 
       function menuSelectHandler() {
         // If we don't have anything in the menu, don't show it.
