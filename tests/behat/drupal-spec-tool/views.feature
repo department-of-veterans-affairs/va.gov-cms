@@ -60,7 +60,7 @@ Feature: Views
 | Services | services | Content | Enabled | Lists of services for facility pages, health services lists, etc |
 | Recent content | content_recent | Content | Disabled | Recent content. |
 | Taxonomy entity browsers | taxonomy_entity_browsers | Taxonomy terms | Enabled |  |
-| VAMC top task pages | vamc_top_task_pages | Content | Enabled |  |
+| VAMC top task page revision histories | vamc_top_task_page_revisions | Content | Enabled |  |
 | Vet centers | vet_centers | Content | Enabled |  |
 | Vet Center facility listing | vet_center_facility_listing | Content | Enabled |  |
 
@@ -169,9 +169,8 @@ Feature: Views
 | VAMC alerts and operating statuses | Page | page_1 | Page |
 | VAMC operating statuses | Master | default | Master |
 | VAMC operating statuses | Entity Reference | entity_reference_1 | Entity Reference |
-| VAMC top task pages | Master | default | Master |
-| VAMC top task pages | Page | page_1 | Page |
-| VAMC top task pages | Data export | data_export_1 | Data export |
+| VAMC top task page revision histories | Master | default | Master |
+| VAMC top task page revision histories | Page | page_1 | Page |
 | VAMCs | Master | default | Master |
 | VHA Health service taxonomy | Page | page_1 | Page |
 | VHA Health service taxonomy | Data export | data_export_1 | Data export |
