@@ -412,14 +412,14 @@ function _va_gov_backend_allowed_formats_remove_textarea_help(array $form_elemen
 }
 
 /**
- * Sets the owner field to a select option prompt.
+ * Sets the parent menu to a select option prompt.
  *
  * @param array $form
  *   The exposed widget form array.
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state.
  */
-function _va_gov_backend_set_default_option_on_new_nodes(array &$form, FormStateInterface $form_state) {
+function _va_gov_backend_remove_menu_parent_on_new_nodes(array &$form, FormStateInterface $form_state) {
   // Don't set parent menu item on new nodes.
   $form_object = $form_state->getFormObject();
   $form_operation = ($form_state->getFormObject() instanceof EntityFormInterface) ? $form_object->getOperation() : NULL;
@@ -454,8 +454,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   // Require message on revision.
   _va_gov_vet_center_require_revision_message($form, $form_state, $form_id);
 
-  // Default owner field element handling.
-  _va_gov_backend_set_default_option_on_new_nodes($form, $form_state);
+  _va_gov_backend_remove_menu_parent_on_new_nodes($form, $form_state);
 
   // Don't allow wysiwyg on core taxonomy description field.
   if ($form_id === 'taxonomy_term_health_care_service_taxonomy_form') {
@@ -669,7 +668,6 @@ function _va_gov_backend_alter_parent_menus(array $form, FormStateInterface $for
   if (!empty($form['menu']['link']['menu_parent']['#options'])) {
     array_unshift($form['menu']['link']['menu_parent']['#options'], '- Select a value -');
     unset($form['menu']['link']['menu_parent']['#value']);
-    $form['menu']['link']['menu_parent']['#required'] = TRUE;
     $form['menu']['link']['menu_parent']['#default_value'] = '- Select a value-';
     $form['#validate'][] = '_va_gov_backend_parent_menu_selected_validation';
   }
