@@ -1,4 +1,4 @@
 services:
   lock:
     class: Drupal\Core\Lock\LockBackendInterface
-    factory: ['@memcache.lock.factory', get]
+    factory: ['@memcache.lock.factory', 'get']

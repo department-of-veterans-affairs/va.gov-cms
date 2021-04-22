@@ -232,11 +232,6 @@ if (!empty($webhost_on_cli)) {
 // Disable use of the Symfony autoloader, and use the Composer autoloader instead.
 $settings['class_loader_auto_detect'] = FALSE;
 
-// Load per-environment services definition file.
-if (file_exists($app_root . '/' . $site_path . '/services/services.' . $env_type . '.yml')) {
-  $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services/services.' . $env_type . '.yml';
-}
-
 // Memcache-specific settings
 if (extension_loaded('memcache') && !empty($settings['memcache']['servers'])) {
   $settings['cache']['default'] = 'cache.backend.memcache';
