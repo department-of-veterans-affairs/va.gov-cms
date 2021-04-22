@@ -288,6 +288,7 @@ function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_st
       $allowed_parents_formatted[key($allowed_sliced)] = reset($allowed_sliced);
     }
     $form['menu']['link']['menu_parent']['#options'] = $allowed_parents_formatted;
+    array_unshift($form['menu']['link']['menu_parent']['#options'], '- Select a value -');
     if ($enabled_count < 1) {
       $form['menu']['link']['menu_parent']['#attributes']['class'][] = 'no-available-menu-targets';
     }
