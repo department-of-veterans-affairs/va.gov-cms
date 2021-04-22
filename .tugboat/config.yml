@@ -14,8 +14,9 @@ services:
     #   3. Routes requests to the preview URL to this service
     default: true
 
-    # Wait until the mysql service is done building
-    depends: mysql
+    depends:
+      - memcache
+      - mysql
 
     # A set of commands to run while building this service
     commands:
@@ -81,6 +82,10 @@ services:
         - echo "apc.enable=1" >> /usr/local/etc/php/conf.d/my-php.ini
         - echo "apc.enable=1" >> /usr/local/etc/php/conf.d/php-cli.ini
         - echo "apc.enable_cli=1" >> /usr/local/etc/php/conf.d/php-cli.ini
+
+        # Install memcache extension
+        - pecl install memcache-4.0.5.2
+        - docker-php-ext-enable memcache
 
         # Ensure that we're using version 2 of composer.
         - composer self-update --2
@@ -157,6 +162,9 @@ services:
         - find "${DOCROOT}/vendor/va-gov/web" -type f -exec chmod 0664 {} \+
         - find "${DOCROOT}/vendor/va-gov/web/node_modules/.bin" -type f -exec chmod +x {} \+
         - find "${DOCROOT}/vendor/va-gov/web/script" -type f -exec chmod +x {} \+
+
+  memcache:
+    image: tugboatqa/memcached:1.6
 
   # What to call the service hosting MySQL. This name also acts as the
   # hostname to access the service by from the php service.
