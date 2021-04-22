@@ -15,7 +15,10 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
-          result="\$(composer va:test:accessibility)"
+          output="\$(mktemp -d)/output"
+          mkfifo \$output
+          (cat \$output&)
+          result="\$(composer va:test:accessibility 2>&1 | tee \$output)"
           exit_code=\$?
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$exit_code" -eq 0 ]; then
@@ -32,8 +35,11 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
+          output="\$(mktemp -d)/output"
+          mkfifo \$output
+          (cat \$output&)
           cd tests/behat
-          result="\$(behat --colors)"
+          result="\$(behat --colors 2>&1 | tee \$output)"
           exit_code=$?
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$exit_code" -eq 0 ]; then
@@ -50,8 +56,10 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
-          result="\$(composer va:test:behavioral)"
           exit_code=\$?
+          mkfifo output
+          result="\$(composer va:test:behavioral 2>&1 | tee \$output)"
+          (cat output&)
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$exit_code" -eq 0 ]; then
               github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
@@ -67,7 +75,10 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
-          result="{{ .TASK }}:<br/><br/>\$(./tests/scripts/check-cer.sh)"
+          output="\$(mktemp -d)/output"
+          mkfifo \$output
+          (cat \$output&)
+          result="{{ .TASK }}:<br/><br/>\$(./tests/scripts/check-cer.sh 2>&1 | tee \$output)"
           exit_code=\$?
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$exit_code" -eq 0 ]; then
@@ -85,13 +96,16 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
+          output="\$(mktemp -d)/output"
+          mkfifo \$output
+          (cat \$output&)
           exit_code=0
           result="{{ .TASK }}<br/><br/>"
           trap '{ (( exit_code |=\$? )); result+="\$output<br/>"; }' ERR
-          output=\$(find docroot/modules/custom docroot/themes -name '*.inc' -print0 | xargs -0 -n1 php -l 2>&1)
-          output=\$(find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l 2>&1)
-          output=\$(find docroot/modules/custom docroot/themes -name '*.module' -print0 | xargs -0 -n1 php -l 2>&1)
-          output=\$(find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l 2>&1)
+          output=\$(find docroot/modules/custom docroot/themes -name '*.inc' -print0 | xargs -0 -n1 php -l 2>&1 | tee \$output)
+          output=\$(find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l 2>&1 | tee \$output)
+          output=\$(find docroot/modules/custom docroot/themes -name '*.module' -print0 | xargs -0 -n1 php -l 2>&1 | tee \$output)
+          output=\$(find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l 2>&1 | tee \$output)
           trap - ERR
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$exit_code" -eq 0 ]; then
@@ -109,7 +123,10 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
-          result="\$(phpunit --exclude-group disabled tests/phpunit --colors=always)"
+          output="\$(mktemp -d)/output"
+          mkfifo \$output
+          (cat \$output&)
+          result="\$(phpunit --exclude-group disabled tests/phpunit --colors=always 2>&1 | tee \$output)"
           exit_code=\$?
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$exit_code" -eq 0 ]; then
@@ -126,7 +143,10 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
-          result="\$(./tests/scripts/check-revision-logs.sh)"
+          output="\$(mktemp -d)/output"
+          mkfifo \$output
+          (cat \$output&)
+          result="\$(./tests/scripts/check-revision-logs.sh 2>&1 | tee \$output)"
           exit_code=\$?
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$exit_code" -eq 0 ]; then
@@ -143,7 +163,10 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
-          lines=\$(drush $DRUSH_ALIAS core-requirements --format=list --severity=2)
+          output="\$(mktemp -d)/output"
+          mkfifo \$output
+          (cat \$output&)
+          lines=\$(drush $DRUSH_ALIAS core-requirements --format=list --severity=2 2>&1 | tee \$output)
           line_count=\$(grep -c "^.+$" <<< \$lines)
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$line_count" -eq 0 ]; then
@@ -161,7 +184,10 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
-          result="\$(./tests/scripts/build-web.sh)"
+          output="\$(mktemp -d)/output"
+          mkfifo \$output
+          (cat \$output&)
+          result="\$(./tests/scripts/build-web.sh 2>&1 | tee \$output)"
           exit_code=\$?
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$exit_code" -eq 0 ]; then
