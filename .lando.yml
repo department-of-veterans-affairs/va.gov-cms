@@ -39,6 +39,7 @@ services:
       - "apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb -y"
       - .lando/scripts/blackfire-init.sh
       - yes | pecl install memcache-4.0.5.2 && docker-php-ext-enable memcache
+      - rm -f /usr/local/etc/php/conf.d/docker-php-ext-memcached.ini
     xdebug: true
     config:
       php: .lando/zzz-lando-my-custom.ini
@@ -162,7 +163,7 @@ tooling:
     service: appserver
     description: Disable memcache.
     cmd: |
-      rm /usr/local/etc/php/conf.d/docker-php-ext-memcache.ini
+      rm -f /usr/local/etc/php/conf.d/docker-php-ext-memcache.ini
       /etc/init.d/apache2 reload
       /app/bin/drush cache:rebuild
     user: root
