@@ -40,6 +40,7 @@ services:
       - .lando/scripts/blackfire-init.sh
       - yes | pecl install memcache-4.0.5.2 && docker-php-ext-enable memcache
       - rm -f /usr/local/etc/php/conf.d/docker-php-ext-memcached.ini
+      - /etc/init.d/apache2 reload
     xdebug: true
     config:
       php: .lando/zzz-lando-my-custom.ini
