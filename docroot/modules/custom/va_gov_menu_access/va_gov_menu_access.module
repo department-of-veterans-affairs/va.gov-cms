@@ -95,10 +95,13 @@ function va_gov_menu_access_disable_parent_menu_options(array &$form, string $fo
     'content_type' => $form_type,
   ];
 
-  $form['menu']['link']['title']['#attributes']['disabled'] = TRUE;
-  $form['menu']['link']['description']['#attributes']['disabled'] = TRUE;
-  $form['menu']['link']['link_enabled']['#attributes']['disabled'] = TRUE;
-  $form['menu']['link']['weight']['#attributes']['disabled'] = TRUE;
+  if (!empty($form['menu']['link']['menu_parent']['#options'])
+    && $form['menu']['link']['menu_parent']['#options'] === '0') {
+    $form['menu']['link']['title']['#attributes']['disabled'] = TRUE;
+    $form['menu']['link']['description']['#attributes']['disabled'] = TRUE;
+    $form['menu']['link']['link_enabled']['#attributes']['disabled'] = TRUE;
+    $form['menu']['link']['weight']['#attributes']['disabled'] = TRUE;
+  }
   return $form;
 }
 
