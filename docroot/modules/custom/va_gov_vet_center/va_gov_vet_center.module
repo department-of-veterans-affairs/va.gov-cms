@@ -160,7 +160,7 @@ function va_gov_vet_center_entity_view_alter(array &$build, EntityInterface $ent
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   The entity object being rendered.
  */
-function _va_gov_vet_center_unset_cap_hours(array &$build, Drupal\Core\Entity\EntityInterface $entity) {
+function _va_gov_vet_center_unset_cap_hours(array &$build, EntityInterface $entity) {
 
   // Check if correct content bundle and unset office hours if opted out.
   if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'vet_center_cap') {
