@@ -79,6 +79,7 @@ class VcDashboardsBlock extends BlockBase implements ContainerFactoryPluginInter
       '#description' => $block_defintion['description'],
       '#action' => $block_defintion['action'],
       '#nid' => $block_defintion['nid'],
+      '#anchor' => $block_defintion['anchor'],
     ];
 
     return $build;
