@@ -607,8 +607,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 function _va_gov_backend_set_default_option_on_new_nodes(array &$form, FormStateInterface $form_state) {
   // Don't set parent menu item on new nodes.
   $form_object = $form_state->getFormObject();
-  $form_operation = ($form_state->getFormObject() instanceof EntityFormInterface) ? $form_object->getOperation() : NULL;
-  if ($form_operation === 'default' && $form_object->getEntity()->getEntityType()->id() === 'node') {
+  if ($form_object->getEntity()->getEntityType()->id() === 'node') {
     $form['#after_build'][] = '_va_gov_backend_alter_parent_menus';
   }
 }
@@ -669,11 +668,10 @@ function _va_gov_backend_validate_required_revision_message(array $form, FormSta
  *   The altered form.
  */
 function _va_gov_backend_alter_parent_menus(array $form, FormStateInterface $form_state) {
-  if (!empty($form['menu']['link']['menu_parent']['#options'])) {
-    array_unshift($form['menu']['link']['menu_parent']['#options'], '- Select a value -');
-    unset($form['menu']['link']['menu_parent']['#value']);
+  $menu_enabled = $form_state->getValue(['menu', 'enabled']);
+  $blah = '';
+  if ($menu_enabled) {
     $form['menu']['link']['menu_parent']['#required'] = TRUE;
-    $form['menu']['link']['menu_parent']['#default_value'] = '- Select a value-';
     $form['#validate'][] = '_va_gov_backend_parent_menu_selected_validation';
   }
   return $form;
@@ -690,6 +688,7 @@ function _va_gov_backend_alter_parent_menus(array $form, FormStateInterface $for
 function _va_gov_backend_parent_menu_selected_validation(array $form, FormStateInterface $form_state) {
   $menu_enabled = $form_state->getValue(['menu', 'enabled']);
   $parent = $form_state->getValue(['menu', 'menu_parent']);
+  $blah = '';
   if ($menu_enabled && $parent === '0') {
     $form_state->setErrorByName('menu][menu_parent', t('Menu parent item cannot be empty.'));
   }
