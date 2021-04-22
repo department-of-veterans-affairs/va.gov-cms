@@ -669,6 +669,7 @@ function _va_gov_backend_alter_parent_menus(array $form, FormStateInterface $for
   if (!empty($form['menu']['link']['menu_parent']['#options'])) {
     array_unshift($form['menu']['link']['menu_parent']['#options'], '- Select a value -');
     unset($form['menu']['link']['menu_parent']['#value']);
+    $form['menu']['link']['menu_parent']['#required'] = TRUE;
     $form['menu']['link']['menu_parent']['#default_value'] = '- Select a value-';
     $form['#validate'][] = '_va_gov_backend_parent_menu_selected_validation';
   }
