@@ -289,7 +289,7 @@ function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_st
     }
     if (!empty($allowed_parents_formatted)) {
       // We need to have a menu uuid key to prevent fatal error.
-      $allowed_parents_formatted[key(array_values($allowed_parents)[0])] = '- Select a value -';
+      $allowed_parents_formatted = array_merge(['0' => '- Select a value -'], $allowed_parents_formatted);
     }
     $form['menu']['link']['menu_parent']['#options'] = $allowed_parents_formatted;
     if ($enabled_count < 1) {
