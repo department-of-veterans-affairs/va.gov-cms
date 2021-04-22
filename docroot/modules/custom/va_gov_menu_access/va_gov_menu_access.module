@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeForm;
 
 /**
  * Implements hook_page_attachments().
@@ -68,10 +69,64 @@ function _va_gov_menu_access_get_menu_access() {
  * Implements hook_form_alter().
  */
 function va_gov_menu_access_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  _va_gov_menu_access_set_menu_parent_validation($form, $form_state);
+
   // Node form alters.
   if (substr($form_id, 0, 4) === 'node') {
     $form['#attached']['library'][] = 'va_gov_menu_access/parent_section_select';
     $form['#after_build'][] = 'va_gov_menu_access_alter_menus';
+  }
+}
+
+/**
+ * Adds validation to parent menu options select.
+ *
+ * @param array $form
+ *   The node form array.
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   Instance of FormStateInterface.
+ *
+ * @return array
+ *   The altered form.
+ */
+function _va_gov_menu_access_set_menu_parent_requirement(array $form, FormStateInterface $form_state) {
+  $menu_enabled = $form_state->getValue(['menu', 'enabled']);
+  if ($menu_enabled) {
+    $form['menu']['link']['menu_parent']['#required'] = TRUE;
+    $form['#validate'][] = '_va_gov_menu_access_parent_menu_selected_validation';
+  }
+  return $form;
+}
+
+/**
+ * Validates that menu parent item is selected.
+ *
+ * @param array $form
+ *   The node form array.
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   Instance of FormStateInterface.
+ */
+function _va_gov_menu_access_parent_menu_selected_validation(array $form, FormStateInterface $form_state) {
+  $menu_enabled = $form_state->getValue(['menu', 'enabled']);
+  $parent = $form_state->getValue(['menu', 'menu_parent']);
+  if ($menu_enabled && $parent === '0') {
+    $form_state->setErrorByName('menu][menu_parent', t('Menu parent item cannot be empty.'));
+  }
+}
+
+/**
+ * Adds validation to menu parent select.
+ *
+ * @param array $form
+ *   The exposed widget form array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ */
+function _va_gov_menu_access_set_menu_parent_validation(array &$form, FormStateInterface $form_state) {
+  $form_object = $form_state->getFormObject();
+  if ($form_state->getFormObject() instanceof EntityFormInterface
+    && $form_object->getEntity()->getEntityType()->id() === 'node') {
+    $form['#after_build'][] = '_va_gov_menu_access_set_menu_parent_requirement';
   }
 }
 
@@ -120,6 +175,7 @@ function va_gov_menu_access_disable_parent_menu_options(array &$form, string $fo
 function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_state) {
   $user_roles = \Drupal::currentUser()->getRoles();
   $admin_roles = ['content_admin', 'administrator'];
+  $node_type = ($form_state->getFormObject() instanceof NodeForm) ? $form_state->getFormObject()->getEntity()->getType() : NULL;
   // User isn't an admin, so logic is applied.
   if (empty(array_intersect($user_roles, $admin_roles))) {
     // Unable to pass $form_id from parent function when using after_build.
@@ -164,9 +220,9 @@ function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_st
         va_gov_menu_access_disable_parent_menu_options($form, $form_id);
       }
     }
-
     // Make sure there is a parent menu on the page before we dig.
-    if (!empty($form['menu']['link']['menu_parent']['#options'])) {
+    if ($node_type === 'health_care_region_detail_page'
+        && !empty($form['menu']['link']['menu_parent']['#options'])) {
       // List of menu items that aren't real links = faux menu items.
       $allowed_separators = ['About'];
       // Grab our menu items list.
@@ -285,22 +341,26 @@ function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_st
         }
 
       }
+      // Reassemble our options with items set to allow children in select list,
+      // in original order.
+      ksort($allowed_parents);
+      $allowed_parents_formatted = [];
+      foreach ($allowed_parents as $key => $allowed_sliced) {
+        $allowed_parents_formatted[key($allowed_sliced)] = reset($allowed_sliced);
+      }
+      $form['menu']['link']['menu_parent']['#options'] = $allowed_parents_formatted;
+      if ($enabled_count < 1) {
+        $form['menu']['link']['menu_parent']['#attributes']['class'][] = 'no-available-menu-targets';
+      }
     }
-    // Reassemble our options with items set to allow children in select list,
-    // in original order.
-    ksort($allowed_parents);
-    $allowed_parents_formatted = [];
-    foreach ($allowed_parents as $key => $allowed_sliced) {
-      $allowed_parents_formatted[key($allowed_sliced)] = reset($allowed_sliced);
-    }
-    if (!empty($allowed_parents_formatted)) {
-      // We need to have a menu uuid key to prevent fatal error.
-      $allowed_parents_formatted = array_merge(['0' => '- Select a value -'], $allowed_parents_formatted);
-    }
-    $form['menu']['link']['menu_parent']['#options'] = $allowed_parents_formatted;
-    if ($enabled_count < 1) {
-      $form['menu']['link']['menu_parent']['#attributes']['class'][] = 'no-available-menu-targets';
-    }
+  }
+
+  // Sets an empty Select prompt on parent menu selector for all node forms.
+  $form['menu']['link']['menu_parent']['#options'] = array_merge(['0' => '- Select a value -'], $form['menu']['link']['menu_parent']['#options']);
+  // If we don't have a value set, yet, ensure the Select appears first.
+  if ($form_state->getValue(['menu', 'enabled']) === 0) {
+    $form['menu']['link']['menu_parent']['#default_value'] = '0';
+    $form['menu']['link']['menu_parent']['#value'] = '0';
   }
   return $form;
 }

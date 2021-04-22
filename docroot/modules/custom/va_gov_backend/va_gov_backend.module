@@ -437,9 +437,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   // Require message on revision.
   _va_gov_vet_center_require_revision_message($form, $form_state, $form_id);
 
-  // Default owner field element handling.
-  _va_gov_backend_set_default_option_on_new_nodes($form, $form_state);
-
   // Don't allow wysiwyg on core taxonomy description field.
   if ($form_id === 'taxonomy_term_health_care_service_taxonomy_form') {
     // We need to manipulate the html prior to after_build.
@@ -597,23 +594,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 }
 
 /**
- * Sets the owner field to a select option prompt.
- *
- * @param array $form
- *   The exposed widget form array.
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state.
- */
-function _va_gov_backend_set_default_option_on_new_nodes(array &$form, FormStateInterface $form_state) {
-  // Don't set parent menu item on new nodes.
-  $form_object = $form_state->getFormObject();
-  if ($form_state->getFormObject() instanceof EntityFormInterface
-    && $form_object->getEntity()->getEntityType()->id() === 'node') {
-    $form['#after_build'][] = '_va_gov_backend_alter_parent_menus';
-  }
-}
-
-/**
  * Adds Validation to check revision log message is added.
  *
  * @param array $form
@@ -666,42 +646,6 @@ function _va_gov_backend_validate_required_revision_message(array $form, FormSta
   // Add revision log validation.
   if ($form_state->isValueEmpty(['revision_log', '0', 'value'])) {
     $form_state->setErrorByName('revision_log][0][value', t('Revision log message is required'));
-  }
-}
-
-/**
- * Returns form with empty option set for parent menu item.
- *
- * @param array $form
- *   The node form array.
- * @param Drupal\Core\Form\FormStateInterface $form_state
- *   Instance of FormStateInterface.
- *
- * @return array
- *   The altered form.
- */
-function _va_gov_backend_alter_parent_menus(array $form, FormStateInterface $form_state) {
-  $menu_enabled = $form_state->getValue(['menu', 'enabled']);
-  if ($menu_enabled) {
-    $form['menu']['link']['menu_parent']['#required'] = TRUE;
-    $form['#validate'][] = '_va_gov_backend_parent_menu_selected_validation';
-  }
-  return $form;
-}
-
-/**
- * Validates that menu parent item is selected.
- *
- * @param array $form
- *   The node form array.
- * @param Drupal\Core\Form\FormStateInterface $form_state
- *   Instance of FormStateInterface.
- */
-function _va_gov_backend_parent_menu_selected_validation(array $form, FormStateInterface $form_state) {
-  $menu_enabled = $form_state->getValue(['menu', 'enabled']);
-  $parent = $form_state->getValue(['menu', 'menu_parent']);
-  if ($menu_enabled && $parent === '0') {
-    $form_state->setErrorByName('menu][menu_parent', t('Menu parent item cannot be empty.'));
   }
 }
 
