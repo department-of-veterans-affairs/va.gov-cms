@@ -144,7 +144,7 @@ function _va_gov_menu_access_set_menu_parent_validation(array &$form, FormStateI
 function va_gov_menu_access_disable_parent_menu_options(array &$form, string $form_id) {
   $form_type_flag = 'detail-page';
   if (strpos($form_id, 'vet_center') === TRUE) {
-    $form_type_flag = $form_type_flag;
+    $form_type_flag = 'vet-center';
   }
   elseif (strpos($form_id, 'health_care_region_detail_page') === FALSE) {
     $form_type_flag = 'not-allowed-to-operate-on-menu';
@@ -153,8 +153,7 @@ function va_gov_menu_access_disable_parent_menu_options(array &$form, string $fo
     'content_type' => $form_type_flag,
   ];
 
-  if (!empty($form['menu']['link']['menu_parent']['#options'])
-    && $form['menu']['link']['menu_parent']['#options'] === '0') {
+  if (!empty($form['menu']['link']['menu_parent']['#options'])) {
     $form['menu']['link']['title']['#attributes']['disabled'] = TRUE;
     $form['menu']['link']['description']['#attributes']['disabled'] = TRUE;
     $form['menu']['link']['link_enabled']['#attributes']['disabled'] = TRUE;
@@ -355,12 +354,14 @@ function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_st
     }
   }
 
-  // Sets an empty Select prompt on parent menu selector for all node forms.
-  $form['menu']['link']['menu_parent']['#options'] = array_merge(['0' => '- Select a value -'], $form['menu']['link']['menu_parent']['#options']);
-  // If we don't have a value set, yet, ensure the Select appears first.
-  if ($form_state->getValue(['menu', 'enabled']) === 0) {
-    $form['menu']['link']['menu_parent']['#default_value'] = '0';
-    $form['menu']['link']['menu_parent']['#value'] = '0';
+  if (!empty($form['menu'])) {
+    // Sets an empty Select prompt on parent menu selector for all node forms.
+    $form['menu']['link']['menu_parent']['#options'] = array_merge(['0' => '- Select a value -'], $form['menu']['link']['menu_parent']['#options']);
+    // If we don't have a value set, yet, ensure the Select appears first.
+    if ($form_state->getValue(['menu', 'enabled']) === 0) {
+      $form['menu']['link']['menu_parent']['#default_value'] = '0';
+      $form['menu']['link']['menu_parent']['#value'] = '0';
+    }
   }
   return $form;
 }
