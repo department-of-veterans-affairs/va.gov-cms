@@ -2,6 +2,8 @@
 
 // @codingStandardsIgnoreFile
 
+include dirname(__FILE__) . '/settings.brd_common.php';
+
 $settings['jenkins_build_job_path'] = '/job/deploys/job/vets-gov-autodeploy-vets-website';
 $settings['jenkins_build_job_params'] = '/buildWithParameters?' . 'release_wait=0' . '&' . 'use_latest_release=true';
 $settings['jenkins_build_job_url'] = $settings['jenkins_build_job_host'] . $settings['jenkins_build_job_path'] . $settings['jenkins_build_job_params'];
