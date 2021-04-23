@@ -45,23 +45,23 @@ function _va_gov_menu_access_get_menu_access() {
   // Grab the locked_paths config.
   $locked_paths = $menu_access_config->get('va_gov_menu_access.locked_paths');
   $locked_paths_array = explode("\n", $locked_paths);
-  $universal_locked_paths = [];
-  $single_locked_paths = [];
+  $paths_config['universal_locked_paths'] = [];
+  $paths_config['single_locked_paths'] = [];
   // Sort locked paths into universal and single allowance arrays.
   foreach ($locked_paths_array as $locked_path) {
     if (strpos($locked_path, '%') !== FALSE) {
       $universal_locked_raw = explode('%', $locked_path);
-      $universal_locked_paths[] = trim(end($universal_locked_raw));
+      $paths_config['universal_locked_paths'][] = trim(end($universal_locked_raw));
     }
     else {
-      $single_locked_paths[] = trim($parent);
+      $paths_config['single_locked_paths'][] = trim($parent);
     }
   }
 
   return [
     'universal_parent_menu_items' => $universal_parent_menu_items,
-    'universal_locked_paths' => $universal_locked_paths,
-    'single_locked_paths' => $single_locked_paths,
+    'universal_locked_paths' => $paths_config['universal_locked_paths'],
+    'single_locked_paths' => $paths_config['single_locked_paths'],
   ];
 }
 
@@ -187,15 +187,13 @@ function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_st
     $alias_manager = \Drupal::service('path.alias_manager');
     // Grab our custom paths config settings.
     $paths_config = _va_gov_menu_access_get_menu_access();
-    $universal_locked_paths = $paths_config['universal_locked_paths'];
-    $single_locked_paths = $paths_config['single_locked_paths'];
 
     $page_alias = !empty($form['path']['widget'][0]['alias']['#default_value']) ? $form['path']['widget'][0]['alias']['#default_value'] : '';
     if (!empty($page_alias)) {
       // In this loop, we look to see if we have either an all children
       // pattern lock, or a specific parent pattern lock.
       $matcher = 0;
-      foreach ($universal_locked_paths as $path) {
+      foreach ($paths_config['universal_locked_paths'] as $path) {
         if (strpos($path, '*') !== FALSE) {
           $path_sanitized = rtrim($path, '*');
           if (strpos($page_alias, $path_sanitized) !== FALSE) {
@@ -214,7 +212,7 @@ function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_st
         }
       }
       // If the page is listed in a locked array, lockdown menu options.
-      if (in_array($page_alias, $single_locked_paths)
+      if (in_array($page_alias, $paths_config['single_locked_paths'])
           || $matcher > 0) {
         va_gov_menu_access_disable_parent_menu_options($form, $form_id);
       }
