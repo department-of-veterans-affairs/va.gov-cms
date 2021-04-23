@@ -30,7 +30,12 @@ class VcDashboardsBlock extends DeriverBase implements ContainerDeriverInterface
   protected $entityTypeManager;
 
   /**
-   * {@inheritdoc}
+   * Constructor.
+   *
+   * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
+   *   Provides an interface for classes representing the result of routing.
+   * @param Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   Provides an interface for entity type managers.
    */
   public function __construct(RouteMatchInterface $route_match, EntityTypeManagerInterface $entity_type_manager) {
     $this->routeMatch = $route_match;
@@ -64,7 +69,7 @@ class VcDashboardsBlock extends DeriverBase implements ContainerDeriverInterface
       return $node;
     }
     $vc_node_fetch = $this->entityTypeManager->getStorage('node')->loadByProperties([
-      'type' => 'vet_center',
+      'type' => $content_type,
       'field_administration' => $tid,
     ]);
     if (!empty($vc_node_fetch)) {

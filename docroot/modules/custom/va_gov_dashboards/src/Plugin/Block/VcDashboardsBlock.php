@@ -34,7 +34,18 @@ class VcDashboardsBlock extends BlockBase implements ContainerFactoryPluginInter
   protected $entityTypeManager;
 
   /**
-   * {@inheritDoc}
+   * Constructor.
+   *
+   * @param array $configuration
+   *   Array of configuration settings.
+   * @param string $plugin_id
+   *   The plugin id.
+   * @param string $plugin_definition
+   *   The plugin definition.
+   * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
+   *   Provides an interface for classes representing the result of routing.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   Provides an interface for entity type managers.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteMatchInterface $route_match, EntityTypeManagerInterface $entity_type_manager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
