@@ -59,10 +59,10 @@ class VcDashboardsBlock extends DeriverBase implements ContainerDeriverInterface
    *   Node object or null if empty.
    */
   private function getCorrespondingNode(string $content_type, string $tid) {
-    if (empty($tid)) {
-      return;
-    }
     $node = NULL;
+    if (empty($tid)) {
+      return $node;
+    }
     $vc_node_fetch = $this->entityTypeManager->getStorage('node')->loadByProperties([
       'type' => 'vet_center',
       'field_administration' => $tid,
