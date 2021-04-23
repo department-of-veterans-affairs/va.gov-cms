@@ -5,6 +5,7 @@
  * Contains va_gov_dashboards.module.
  */
 
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
@@ -50,8 +51,15 @@ function va_gov_dashboards_entity_view_mode_alter(&$view_mode, EntityInterface $
   if ($entity->getEntityTypeId() === 'taxonomy_term' && $entity->bundle() === 'administration') {
     // Check for a product id.
     $product_id = $entity->field_product->getString() ? $entity->field_product->getString() : '';
+
     // If we don't have one, traverse parents.
-    if (!empty($product_id)) {
+    if (empty($product_id)) {
+      $cid = 'taxonomy_term:' . $entity->id() . ':view-mode';
+
+      // Look for the item in cache.
+      if ($item = \Drupal::cache()->get($cid)) {
+        return $item->data;
+      }
       $parents = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")->loadAllParents($entity->id());
       foreach ($parents as $parent) {
         $product_id = $parent->field_product->getString() ? $entity->field_product->getString() : '';
@@ -60,7 +68,10 @@ function va_gov_dashboards_entity_view_mode_alter(&$view_mode, EntityInterface $
           break;
         }
       }
+      // Set the cache so we don't need to do this  again until $entity changes.
+      \Drupal::cache()->set($cid, $product_id, Cache::PERMANENT, $entity->getCacheTags());
     }
+
     switch ($product_id) {
       case '285':
         $product = 'resources_and_support';

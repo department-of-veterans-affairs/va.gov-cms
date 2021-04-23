@@ -84,11 +84,4 @@ class VcDashboardsBlock extends BlockBase implements ContainerFactoryPluginInter
     return $build;
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getCacheTags() {
-    return ['taxonomy_term:' . $this->routeMatch->getRawParameter('taxonomy_term')];
-  }
-
 }
