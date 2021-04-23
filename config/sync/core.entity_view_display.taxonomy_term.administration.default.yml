@@ -1,4 +1,4 @@
-suuid: 4b48e284-7024-44e3-a43f-53fd534c7d98
+uuid: 4b48e284-7024-44e3-a43f-53fd534c7d98
 langcode: en
 status: true
 dependencies:
@@ -241,6 +241,106 @@ third_party_settings:
                 type: entity_reference_label
             additional: {  }
             weight: 12
+          8544d27b-8295-4561-ac0a-102e8b59563e:
+            uuid: 8544d27b-8295-4561-ac0a-102e8b59563e
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:administration:description'
+              formatter:
+                label: above
+                type: text_default
+                settings: {  }
+                third_party_settings: {  }
+            additional: {  }
+            weight: 13
+          191a1b9d-463b-413e-bf12-f247c6f32ae2:
+            uuid: 191a1b9d-463b-413e-bf12-f247c6f32ae2
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:administration:field_link'
+              formatter:
+                label: above
+                settings:
+                  trim_length: 80
+                  url_only: false
+                  url_plain: false
+                  rel: ''
+                  target: ''
+                third_party_settings: {  }
+                type: link
+            additional: {  }
+            weight: 14
+          dea6f32f-9c96-4922-bc01-f6929bc30b0a:
+            uuid: dea6f32f-9c96-4922-bc01-f6929bc30b0a
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:administration:field_social_media_links'
+              formatter:
+                label: above
+                settings:
+                  appearance: {  }
+                  link_attributes: {  }
+                third_party_settings: {  }
+                type: social_media_links_field_default
+            additional: {  }
+            weight: 15
+          d0edd423-20c5-404e-826b-8f11844bb76d:
+            uuid: d0edd423-20c5-404e-826b-8f11844bb76d
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:administration:field_email_updates_url'
+              formatter:
+                label: above
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+                type: string
+            additional: {  }
+            weight: 16
+          bb2bba36-a12f-42fc-89ae-33d0ea735574:
+            uuid: bb2bba36-a12f-42fc-89ae-33d0ea735574
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:administration:field_email_updates_link_text'
+              formatter:
+                label: above
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+                type: string
+            additional: {  }
+            weight: 17
+          170c4eeb-345e-4313-ad67-396c3c86cade:
+            uuid: 170c4eeb-345e-4313-ad67-396c3c86cade
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:administration:field_product'
+              formatter:
+                label: above
+                settings:
+                  link: true
+                third_party_settings: {  }
+                type: entity_reference_label
+            additional: {  }
+            weight: 18
         third_party_settings: {  }
 id: taxonomy_term.administration.default
 targetEntityType: taxonomy_term
