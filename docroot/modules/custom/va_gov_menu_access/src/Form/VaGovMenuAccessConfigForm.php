@@ -71,7 +71,7 @@ class VaGovMenuAccessConfigForm extends ConfigFormBase {
       '#description' => $this->t('Put each path on its own line. Available wildcards: "%" = all occurences. "*" = inherited by children.'),
     ];
 
-    return parent::buildForm($form, $form_state);
+    return $form;
 
   }
 
