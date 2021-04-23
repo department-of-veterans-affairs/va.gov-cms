@@ -111,6 +111,64 @@ function va_gov_vet_center_form_alter(&$form, FormStateInterface $form_state, $f
     $form['field_facility_hours']['widget']['#after_build'][] = 'va_gov_vet_center_vc_cap_hours_hide_caption_after_build';
   }
 
+  _va_gov_vet_center_cap_hours_opt_in($form, $form_state, $form_id);
+
+}
+
+/**
+ * Determine whether or not user can edit community access point office hours.
+ *
+ * @param array $form
+ *   The form array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ * @param string $form_id
+ *   The form id.
+ */
+function _va_gov_vet_center_cap_hours_opt_in(array &$form, FormStateInterface $form_state, $form_id) {
+
+  if (($form_id === 'node_vet_center_cap_edit_form') || ($form_id === 'node_vet_center_cap_form')) {
+
+    $node = $form_state->getformObject()->getEntity();
+
+    // We want to implement the states logic only if the field_office_hours
+    // and the field_vetcenter_cap_hours_opt_in are available.
+    if (($node->hasField('field_office_hours')) && ($node->hasField('field_vetcenter_cap_hours_opt_in'))) {
+      $form['field_office_hours']['#states'] = [
+        'visible' => [
+          ':input[name="field_vetcenter_cap_hours_opt_in"]' => ['value' => '1'],
+        ],
+      ];
+    }
+
+  }
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function va_gov_vet_center_entity_view_alter(array &$build, EntityInterface $entity) {
+
+  _va_gov_vet_center_unset_cap_hours($build, $entity);
+}
+
+/**
+ * Unset field_office_hours on proofing page based on trigger field.
+ *
+ * @param array &$build
+ *   A renderable array representing the entity content.
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity object being rendered.
+ */
+function _va_gov_vet_center_unset_cap_hours(array &$build, EntityInterface $entity) {
+
+  // Check if correct content bundle and unset office hours if opted out.
+  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'vet_center_cap') {
+    $office_hours_opt_in_select = $entity->field_vetcenter_cap_hours_opt_in->value;
+    if ($office_hours_opt_in_select === '0') {
+      unset($build['field_office_hours']);
+    }
+  };
 }
 
 /**
