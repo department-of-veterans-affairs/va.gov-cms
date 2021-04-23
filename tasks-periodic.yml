@@ -11,7 +11,6 @@ tasks:
   daily:
     cmds:
       - task: va/background/daily/migrate_copy/va_forms_csv_source
-      - task: va/background/daily/migrate_copy/va_forms_csv_source
       - task: va/background/daily/migrate/va_forms
       - task: va/background/daily/migrate/health_care_local_facility
       - task: va/background/daily/migrate/vet_centers_facility
@@ -29,8 +28,9 @@ tasks:
   va/background/daily/migrate_copy/va_forms_csv_source:
     desc: This is because we cannot access the server on the SOCKS proxy right now.
     cmds:
-      - cd docroot/sites/default/files/migrate_source
-      - curl http://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt --output va_forms_data.csv
+      - |
+        cd docroot/sites/default/files/migrate_source
+        curl http://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt --output va_forms_data.csv
 
   va/background/daily/migrate/va_forms:
     desc: Migrate va forms.
