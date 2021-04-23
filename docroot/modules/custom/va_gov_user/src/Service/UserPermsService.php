@@ -117,14 +117,15 @@ class UserPermsService {
   /**
    * Get the user's default workbench access section id.
    *
-   * @param \Drupal\Core\Session\AccountInterface $user
-   *   User object.
+   * @param bool $admin_bypass
+   *   Determines whether or not we return all options (admin default) or
+   *   restrict to items selected on workbench access form.
    *
    * @return mixed
    *   Returns default user section key or NULL.
    */
-  public function getDefault(AccountInterface $user) {
-    $user_sections = $this->getSections($user, TRUE);
+  public function getDefault(bool $admin_bypass = FALSE) {
+    $user_sections = $this->getSections($this->currentUser, $admin_bypass);
     // If only 1 found, return it.
     if (count($user_sections) === 1) {
       return key($user_sections);
