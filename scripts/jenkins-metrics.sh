@@ -35,6 +35,8 @@ BUILD_LOG=`curl -s -X POST -L \
 
 GQL_TIME=`echo $BUILD_LOG | grep -oP 'queries in \d+s' | grep -oP '\d+'` # seconds
 
+GQL_PAGES=`echo $BUILD_LOG | grep -oP 'with \d+ pages' | grep -oP '\d+'`
+
 BUILD_TIME=`echo $BUILD_LOG | grep -oP 'Done in \d+\.\d+s' | grep -oP '\d+\.\d+' | tail -1` # seconds
 
 
@@ -42,6 +44,7 @@ printf "build number: $BUILD_NUMBER
 build duration (msec): $BUILD_DURATION
 build timestamp: $BUILD_TIMESTAMP
 gql query time (s): $GQL_TIME
+gql pages: $GQL_PAGES
 build time (s): $BUILD_TIME
 "
 
