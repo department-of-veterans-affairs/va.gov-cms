@@ -88,6 +88,9 @@ class VcDashboardsBlock extends DeriverBase implements ContainerDeriverInterface
    *   The blocks that appear in layout builder.
    */
   private function getPanels(string $node_id) {
+    if (empty($node_id)) {
+      return [];
+    }
     return [
       'visitor_information' => [
         'title' => 'Visitor information',
@@ -133,6 +136,34 @@ class VcDashboardsBlock extends DeriverBase implements ContainerDeriverInterface
   }
 
   /**
+   * Gets our vc locations list node.
+   *
+   * @param int $tid
+   *   The term id.
+   * @param array $panels
+   *   The panel blocks that appear on the dashboard.
+   */
+  private function addLocationsPanel($tid, array &$panels) {
+
+    $vc_locations_node_fetch = $this->entityTypeManager->getStorage('node')->loadByProperties([
+      'type' => 'vet_center_locations_list',
+      'field_administration' => $tid,
+    ]);
+    if (!empty($vc_locations_node_fetch)) {
+      $vc_locations_node = reset($vc_locations_node_fetch);
+      $vc_locations_node_id = $vc_locations_node->id();
+      $panels['locations'] = [
+        'title' => 'Locations page',
+        'description' => 'Manage the page introduction and select nearby locations.',
+        'action' => 'View',
+        'nid' => $vc_locations_node_id,
+        'anchor' => '',
+        'image' => 'locations_page.svg',
+      ];
+    }
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
@@ -144,22 +175,8 @@ class VcDashboardsBlock extends DeriverBase implements ContainerDeriverInterface
       if (!empty($vc_node)) {
         $vc_node_id = $vc_node->id();
         $dash_panels = $this->getPanels($vc_node_id);
-        $vc_locations_node_fetch = $this->entityTypeManager->getStorage('node')->loadByProperties([
-          'type' => 'vet_center_locations_list',
-          'field_administration' => $tid,
-        ]);
-        if (!empty($vc_locations_node_fetch)) {
-          $vc_locations_node = reset($vc_locations_node_fetch);
-          $vc_locations_node_id = $vc_locations_node->id();
-          $dash_panels['locations'] = [
-            'title' => 'Locations page',
-            'description' => 'Manage the page introduction and select nearby locations.',
-            'action' => 'View',
-            'nid' => $vc_locations_node_id,
-            'anchor' => '',
-            'image' => 'locations_page.svg',
-          ];
-        }
+        $this->addLocationsPanel($tid, $dash_panels);
+
         foreach ($dash_panels as $key => $panel) {
           $this->derivatives[$key] = $base_plugin_definition;
           $this->derivatives[$key]['id'] = $key;
