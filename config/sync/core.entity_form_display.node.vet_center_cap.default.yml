@@ -19,6 +19,7 @@ dependencies:
   module:
     - address
     - content_moderation
+    - cshs
     - field_group
     - markup
     - media_library
@@ -44,7 +45,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
       weight: 5
       format_type: fieldset
@@ -114,9 +114,16 @@ content:
     region: content
   field_administration:
     weight: 2
-    settings: {  }
+    settings:
+      parent: '190'
+      force_deepest: true
+      level_labels: ''
+      none_label: '- Select -'
+      hierarchy_depth: 0
+      required_depth: 0
+      save_lineage: false
     third_party_settings: {  }
-    type: options_select
+    type: cshs
     region: content
   field_geographical_identifier:
     weight: 3

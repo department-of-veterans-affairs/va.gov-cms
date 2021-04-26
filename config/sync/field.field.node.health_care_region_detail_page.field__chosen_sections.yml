@@ -1,9 +1,9 @@
-uuid: f6b76eb6-98d7-4f42-a9e2-8e1e26b0941b
+uuid: 4ca8eba1-a0aa-4c36-9312-a8a37aab4d00
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_administration
+    - field.storage.node.field__chosen_sections
     - node.type.health_care_region_detail_page
     - taxonomy.vocabulary.administration
   module:
@@ -13,14 +13,14 @@ third_party_settings:
     circular_reference: false
     circular_reference_deep: false
     duplicate_reference: false
-id: node.health_care_region_detail_page.field_administration
-field_name: field_administration
+id: node.health_care_region_detail_page.field__chosen_sections
+field_name: field__chosen_sections
 entity_type: node
 bundle: health_care_region_detail_page
-label: '"Hierarchical select" - single value'
-description: 'Limited to VAMC Facilities, forces the user to select the deepest. Also has special labels for each level. '
-required: true
-translatable: true
+label: '"Chosen"'
+description: 'Type-ahead showing the hierarchy.'
+required: false
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:

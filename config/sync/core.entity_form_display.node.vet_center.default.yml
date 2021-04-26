@@ -26,6 +26,7 @@ dependencies:
   module:
     - address
     - content_moderation
+    - cshs
     - entity_browser_entity_form
     - entity_field_fetch
     - field_group
@@ -71,7 +72,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
       weight: 10
       format_type: fieldset
@@ -261,9 +261,16 @@ content:
     region: content
   field_administration:
     weight: 12
-    settings: {  }
+    settings:
+      parent: '190'
+      force_deepest: true
+      level_labels: ''
+      none_label: '- Select -'
+      hierarchy_depth: 0
+      required_depth: 0
+      save_lineage: false
     third_party_settings: {  }
-    type: options_select
+    type: cshs
     region: content
   field_cc_non_traditional_hours:
     weight: 6

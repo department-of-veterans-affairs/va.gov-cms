@@ -27,6 +27,7 @@ dependencies:
   module:
     - address
     - content_moderation
+    - cshs
     - field_group
     - linkit
     - media_library
@@ -86,7 +87,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
       weight: 14
       format_type: fieldset
@@ -169,9 +169,16 @@ content:
     region: content
   field_administration:
     weight: 43
-    settings: {  }
+    settings:
+      parent: '8'
+      force_deepest: true
+      level_labels: ''
+      none_label: '- Select -'
+      hierarchy_depth: 0
+      required_depth: 0
+      save_lineage: false
     third_party_settings: {  }
-    type: options_select
+    type: cshs
     region: content
   field_body:
     weight: 4
@@ -258,6 +265,8 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      linkit_profile: default
+      linkit_auto_link_text: false
     third_party_settings: {  }
     type: linkit
     region: content
@@ -299,6 +308,8 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      linkit_profile: default
+      linkit_auto_link_text: false
     third_party_settings: {  }
     type: linkit
     region: content

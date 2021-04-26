@@ -1,0 +1,20 @@
+uuid: a46212d4-12c8-4e0a-9da1-e83cae7b93c9
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field__chosen_sections
+field_name: field__chosen_sections
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
