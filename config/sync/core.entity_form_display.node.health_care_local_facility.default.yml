@@ -29,6 +29,7 @@ dependencies:
     - content_moderation
     - field_group
     - media_library
+    - multiple_selects
     - paragraphs
     - path
     - tablefield
@@ -53,7 +54,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
       weight: 9
       format_type: fieldset
@@ -182,7 +182,7 @@ content:
     weight: 12
     settings: {  }
     third_party_settings: {  }
-    type: options_select
+    type: multiple_options_select
     region: content
   field_description:
     weight: 3

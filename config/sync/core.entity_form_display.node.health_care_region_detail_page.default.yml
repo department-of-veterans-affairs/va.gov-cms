@@ -3,11 +3,14 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.health_care_region_detail_page.field__chosen_sections
+    - field.field.node.health_care_region_detail_page.field__multiple_select_sections
     - field.field.node.health_care_region_detail_page.field_administration
     - field.field.node.health_care_region_detail_page.field_alert
     - field.field.node.health_care_region_detail_page.field_content_block
     - field.field.node.health_care_region_detail_page.field_description
     - field.field.node.health_care_region_detail_page.field_featured_content
+    - field.field.node.health_care_region_detail_page.field_hierarchical_select_multip
     - field.field.node.health_care_region_detail_page.field_intro_text
     - field.field.node.health_care_region_detail_page.field_meta_tags
     - field.field.node.health_care_region_detail_page.field_meta_title
@@ -17,8 +20,12 @@ dependencies:
     - node.type.health_care_region_detail_page
     - workflows.workflow.editorial
   module:
+    - chosen_field
     - content_moderation
+    - cshs
     - field_group
+    - limited_field_widgets
+    - multiple_selects
     - paragraphs
     - paragraphs_browser
     - path
@@ -27,25 +34,26 @@ third_party_settings:
   field_group:
     group_governance:
       children:
-        - field_office
         - field_administration
+        - field_hierarchical_select_multip
+        - field__multiple_select_sections
+        - field__chosen_sections
       parent_name: ''
-      weight: 12
-      format_type: details_sidebar
+      weight: 0
+      format_type: fieldset
       format_settings:
+        description: ''
+        required_fields: true
         id: ''
         classes: ''
-        open: true
-        required_fields: true
-        weight: -10
-      label: Governance
+        show_empty_fields: false
+      label: 'Select a section '
       region: content
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
-      weight: 13
+      weight: 15
       format_type: fieldset
       format_settings:
         id: ''
@@ -59,7 +67,7 @@ third_party_settings:
         - title
         - field_intro_text
       parent_name: ''
-      weight: 0
+      weight: 3
       format_type: fieldset
       format_settings:
         description: ''
@@ -72,7 +80,7 @@ third_party_settings:
       children:
         - field_alert
       parent_name: ''
-      weight: 3
+      weight: 6
       format_type: fieldset
       format_settings:
         description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver. You can <a href="/block/add/alert?destination=/admin/content/alerts">create a new alert</a>, or reuse an existing one.'
@@ -85,7 +93,7 @@ third_party_settings:
       children:
         - field_table_of_contents_boolean
       parent_name: ''
-      weight: 2
+      weight: 5
       format_type: details
       format_settings:
         description: ''
@@ -97,10 +105,11 @@ third_party_settings:
       region: content
     group_meta_tags:
       children:
+        - field_office
         - field_meta_title
         - field_description
       parent_name: ''
-      weight: 1
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -116,15 +125,36 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 8
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_administration:
-    weight: 5
+  field__chosen_sections:
+    weight: 8
+    settings: {  }
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+    type: chosen_select
+    region: content
+  field__multiple_select_sections:
+    weight: 7
     settings: {  }
     third_party_settings: {  }
-    type: options_select
+    type: multiple_options_select
+    region: content
+  field_administration:
+    weight: 5
+    settings:
+      parent: '8'
+      force_deepest: true
+      level_labels: 'VISN, VAMC System'
+      none_label: '- Select -'
+      hierarchy_depth: 0
+      required_depth: 0
+      save_lineage: false
+    third_party_settings: {  }
+    type: cshs
     region: content
   field_alert:
     weight: 15
@@ -133,7 +163,7 @@ content:
     type: options_select
     region: content
   field_content_block:
-    weight: 5
+    weight: 8
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -169,7 +199,7 @@ content:
     type: string_textfield_with_counter
     region: content
   field_featured_content:
-    weight: 4
+    weight: 7
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -186,6 +216,19 @@ content:
         duplicate: '0'
     third_party_settings: {  }
     type: paragraphs
+    region: content
+  field_hierarchical_select_multip:
+    weight: 6
+    settings:
+      parent: '0'
+      hierarchy_depth: '0'
+      required_depth: '0'
+      level_labels: ''
+      none_label: '- Select -'
+      force_deepest: false
+      save_lineage: false
+    third_party_settings: {  }
+    type: cshs
     region: content
   field_intro_text:
     weight: 4
@@ -215,13 +258,13 @@ content:
     type: string_textfield_with_counter
     region: content
   field_office:
-    weight: 4
+    weight: 1
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_related_links:
-    weight: 6
+    weight: 9
     settings:
       title: 'Related link'
       title_plural: 'Related links'
@@ -240,7 +283,7 @@ content:
     type: paragraphs
     region: content
   field_table_of_contents_boolean:
-    weight: 15
+    weight: 29
     settings:
       display_label: true
     third_party_settings: {  }
@@ -254,7 +297,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 9
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -262,7 +305,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 11
+    weight: 14
     region: content
     third_party_settings: {  }
   title:
@@ -281,7 +324,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 7
+    weight: 10
     settings:
       match_operator: CONTAINS
       size: 60
@@ -290,7 +333,7 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 10
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
