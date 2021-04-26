@@ -96,16 +96,13 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
-          output="\$(mktemp -d)/output"
-          mkfifo \$output
-          (cat \$output&)
           exit_code=0
           result="{{ .TASK }}<br/><br/>"
           trap '{ (( exit_code |=\$? )); result+="\$output_text<br/>"; }' ERR
-          output_text=\$(find docroot/modules/custom docroot/themes -name '*.inc' -print0 | xargs -0 -n1 php -l 2>&1 | tee \$output)
-          output_text=\$(find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l 2>&1 | tee \$output)
-          output_text=\$(find docroot/modules/custom docroot/themes -name '*.module' -print0 | xargs -0 -n1 php -l 2>&1 | tee \$output)
-          output_text=\$(find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l 2>&1 | tee \$output)
+          output_text=\$(find docroot/modules/custom docroot/themes -name '*.inc' -print0 | xargs -0 -n1 php -l 2>&1)
+          output_text=\$(find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l 2>&1)
+          output_text=\$(find docroot/modules/custom docroot/themes -name '*.module' -print0 | xargs -0 -n1 php -l 2>&1)
+          output_text=\$(find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l 2>&1)
           trap - ERR
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$exit_code" -eq 0 ]; then

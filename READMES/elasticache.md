@@ -73,6 +73,11 @@ Debugging docs
 Elasticache/cluster debugging
 CI/Lando will be same-node debugging
 
+## Monitoring
+
+[Memcache health and performance metrics](http://grafana.vfs.va.gov/d/dxf8a-6Zz/cms-dashboard?orgId=1&refresh=5s) are graphed in Grafana.  This Grafrana implemenation is only available within the VA, accessible by the socks proxy. 
+Memcache metrics are at the bottom of this page.
+
 
 ## References
 1. https://github.com/department-of-veterans-affairs/va.gov-cms/issues/4458
