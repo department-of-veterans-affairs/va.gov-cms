@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "054a850b6eb047ed763c5b06e183034b",
+    "content-hash": "bb4f15300a33ae6c9e89899424c10984",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5289,26 +5289,29 @@
         },
         {
             "name": "drupal/fast_404",
-            "version": "dev-2.x",
+            "version": "2.0.0-alpha5",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/fast_404.git",
-                "reference": "5382a99335ee466f8261dc1774a3d56f1699da81"
+                "reference": "8.x-2.0-alpha5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/fast_404-8.x-2.0-alpha5.zip",
+                "reference": "8.x-2.0-alpha5",
+                "shasum": "071518c28f73ed011068ec0dbfe07a5904b8f982"
             },
             "require": {
-                "drupal/core": "^8.8 || ^9"
+                "drupal/core": "^8.8"
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-2.x": "2.x-dev"
-                },
                 "drupal": {
-                    "version": "8.x-2.0-alpha5+6-dev",
-                    "datestamp": "1600095923",
+                    "version": "8.x-2.0-alpha5",
+                    "datestamp": "1590876049",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
+                        "message": "Alpha releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -21161,7 +21164,7 @@
         "drupal/entity_field_fetch": 10,
         "drupal/entity_reference_validators": 15,
         "drupal/entityqueue": 10,
-        "drupal/fast_404": 20,
+        "drupal/fast_404": 15,
         "drupal/feature_toggle": 20,
         "drupal/fieldhelptext": 10,
         "drupal/flag": 10,
@@ -21170,6 +21173,7 @@
         "drupal/hms_field": 20,
         "drupal/libraries": 15,
         "drupal/markup": 10,
+        "drupal/migrate_source_ui": 5,
         "drupal/migrate_tools": 20,
         "drupal/paragraphs_browser": 15,
         "drupal/path_redirect_import": 10,
