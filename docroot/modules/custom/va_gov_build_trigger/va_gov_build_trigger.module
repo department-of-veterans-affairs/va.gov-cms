@@ -6,6 +6,7 @@
  */
 
 use Drupal\node\NodeInterface;
+use Drupal\va_gov_build_trigger\GraphQLEntityQuery;
 
 /**
  * Trigger a web rebuild whenever a node is updated.
@@ -26,4 +27,11 @@ function va_gov_build_trigger_node_insert(NodeInterface $node) {
   // Trigger a frontend build for certain content types.
   $frontend_service = \Drupal::service('va_gov_build_trigger.build_frontend');
   $frontend_service->triggerFrontendBuildFromContentSave($node);
+}
+
+/**
+ * Implements hook_graphql_fields_alter().
+ */
+function va_gov_build_trigger_graphql_fields_alter(array &$config) {
+  $config['entity_query:node']['class'] = GraphQLEntityQuery::class;
 }
