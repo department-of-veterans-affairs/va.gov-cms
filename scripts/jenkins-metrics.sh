@@ -17,7 +17,7 @@ BUILD_INFO=`curl -s -X POST -L \
     http://jenkins.vfs.va.gov/job/builds/job/vets-website-content-vagovprod/lastSuccessfulBuild/api/json`
 
 BUILD_NUMBER=`echo $BUILD_INFO | jq '.number'`
-    
+
 BUILD_DURATION=`echo $BUILD_INFO | jq '.duration'` # msec
 
 BUILD_TIMESTAMP=`echo $BUILD_INFO | jq '.timestamp'`
@@ -33,11 +33,11 @@ BUILD_LOG=`curl -s -X POST -L \
 
 
 
-GQL_TIME=`echo $BUILD_LOG | grep -oP 'queries in \d+s' | grep -oP '\d+'` # seconds
+GQL_TIME=`echo $BUILD_LOG | grep -oE 'queries in \d+s' | grep -oE '\d+'` # seconds
 
-GQL_PAGES=`echo $BUILD_LOG | grep -oP 'with \d+ pages' | grep -oP '\d+'`
+GQL_PAGES=`echo $BUILD_LOG | grep -oE 'with \d+ pages' | grep -oE '\d+'`
 
-BUILD_TIME=`echo $BUILD_LOG | grep -oP 'Done in \d+\.\d+s' | grep -oP '\d+\.\d+' | tail -1` # seconds
+BUILD_TIME=`echo $BUILD_LOG | grep -oE 'Done in \d+\.\d+s' | grep -oE '\d+\.\d+' | tail -1` # seconds
 
 
 printf "build number: $BUILD_NUMBER
