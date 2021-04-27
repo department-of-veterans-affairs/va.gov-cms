@@ -75,3 +75,11 @@ This is particularly relevant for feature launches, or for making changes to the
 - [ ] Product release notes (How will we describe this feature to CMS users?)
 - [ ] Training (Will any users require additional training?)
 - [ ] Metrics (How will we measure any improvements)
+
+### CMS Team
+
+Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
+
+- [x] `Core Application Team`
+- [x] `Product Support Team`
+

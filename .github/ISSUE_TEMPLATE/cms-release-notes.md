@@ -21,3 +21,11 @@ Defaults to @rachel-kauff unless she's not available.
 - [ ] Publish: Once you get the ping that the dev has merged the changes, publish immediately after the deploy (~3:30/4:00 ET)
   - [ ] Post in #cms-support (can schedule this in advance using the workflow builder)
   - [ ] Post in [CMS Annoucements](https://prod.cms.va.gov/help/support/release-notes)
+
+### CMS Team
+
+Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
+
+- [x] `Core Application Team`
+- [x] `Product Support Team`
+
