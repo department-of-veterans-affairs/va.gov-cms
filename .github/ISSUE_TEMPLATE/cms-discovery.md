@@ -3,13 +3,13 @@ name: CMS discovery
 about: A discovery request
 title: "<Insert summary>"
 labels: ''
-assignees: cmaeng, kevwalsh, oksana-c
+assignees: cmaeng, kevwalsh
 
 ---
 
 ## *About this form*
 
-*Have you looked at the [Public Websites intake form](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=lunascoop&labels=vsa-public-websites%2C+vsa%2C+vsa-public-websites-intake%2C+needs-grooming%2C+Epic&template=public-websites-intake.md&title=%3CType+of+Request%3E+from+%3CTeam%3E)? If the "Why you're here" section fits your product's needs, please use that form instead!* 
+*Have you looked at the [Public Websites intake form](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=lunascoop&labels=vsa-public-websites%2C+vsa%2C+vsa-public-websites-intake%2C+needs-grooming%2C+Epic&template=public-websites-intake.md&title=%3CType+of+Request%3E+from+%3CTeam%3E)? If the "Why you're here" section fits your product's needs, please use that form instead!*
 
 *If you don't have the answer yet to some of the questions, that's fine!*
 
@@ -55,7 +55,7 @@ assignees: cmaeng, kevwalsh, oksana-c
 
 ## Training and access to CMS
 
-**Who will need access to CMS to edit?** 
+**Who will need access to CMS to edit?**
 
 **Will they need training?**
 
@@ -63,9 +63,9 @@ assignees: cmaeng, kevwalsh, oksana-c
 
 **What’s your timeline for going live OR for releasing the next iteration?**
 
-**How do you expect the product to evolve, if at all, in the next:** 
+**How do you expect the product to evolve, if at all, in the next:**
 
-- **Weeks (you should know this)** 
+- **Weeks (you should know this)**
 - **Months (you may know this)**
 - **Years (you probably don’t know this, but if you had to guess…)**
 
