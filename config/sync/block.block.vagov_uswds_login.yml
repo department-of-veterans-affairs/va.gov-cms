@@ -1,0 +1,22 @@
+uuid: ee298309-5497-4804-baea-7acd869c4385
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+  theme:
+    - vagov_uswds
+_core:
+  default_config_hash: XdkKOI3-nvnGym135VOpwEwX13O8irqxZeikL5R5A24
+id: vagov_uswds_login
+theme: vagov_uswds
+region: sidebar_first
+weight: -14
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: 'User login'
+  provider: user
+  label_display: visible
+visibility: {  }

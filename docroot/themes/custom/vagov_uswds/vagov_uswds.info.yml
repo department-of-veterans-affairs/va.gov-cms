@@ -1,0 +1,33 @@
+type: theme
+base theme: uswds_base
+
+name: 'VA.gov USWDS theme'
+description: 'Uses the USWDS Base and requires download of the USWDS assets'
+package: 'USWDS Base'
+core: 8.x
+logo: 'logo.png'
+screenshot: 'screenshot.png'
+
+regions:
+  header_top: 'Above Header'
+  header: 'Header'
+  primary_menu: 'Primary Menu'
+  secondary_menu: 'Secondary Menu'
+  sidebar_first: 'First sidebar'
+  sidebar_second: 'Second sidebar'
+  breadcrumb: 'Breadcrumb'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  hero: 'Hero'
+  content: 'Content'
+  footer_menu: 'Footer Menu'
+  footer: 'Primary Footer'
+  footer_secondary: 'Secondary Footer'
+
+libraries:
+  - 'vagov_uswds/styles'
+  - 'vagov_uswds/formation'
+
+components:
+  namespaces:
+    components: components

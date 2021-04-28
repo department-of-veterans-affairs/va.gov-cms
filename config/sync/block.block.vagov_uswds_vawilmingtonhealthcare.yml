@@ -1,0 +1,30 @@
+uuid: 9556c23a-3e6f-45ca-917b-9967ac9a3ce0
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.va-wilmington-health-care
+  module:
+    - system
+  theme:
+    - vagov_uswds
+id: vagov_uswds_vawilmingtonhealthcare
+theme: vagov_uswds
+region: sidebar_first
+weight: 5
+provider: null
+plugin: 'system_menu_block:va-wilmington-health-care'
+settings:
+  id: 'system_menu_block:va-wilmington-health-care'
+  label: 'VA Wilmington health care'
+  provider: system
+  label_display: visible
+  level: 2
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    pages: '/wilmington-health-car*'
+    negate: false
+    context_mapping: {  }

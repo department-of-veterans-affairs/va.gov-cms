@@ -1,0 +1,23 @@
+{
+  "name": "vagov_uswds",
+  "version": "1.0.0",
+  "description": "VA.gov USWDS theme",
+  "main": "index.js",
+  "scripts": {
+    "compile-styles": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/styles.scss css/styles.css",
+    "css-minify": "cleancss --level 1 --format breaksWith=lf --source-map --source-map-inline-sources --output css/styles.min.css css/styles.css",
+    "process-styles": "npm run compile-styles && npm run css-minify"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@department-of-veterans-affairs/formation": "^6.16.1"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.2.2",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^4.1.0",
+    "node-sass": "^5.0.0"
+  }
+}

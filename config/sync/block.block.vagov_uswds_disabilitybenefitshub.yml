@@ -1,0 +1,30 @@
+uuid: c51adb6a-d04d-4cb5-8285-8aa29309bd5c
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.disability-benefits-hub
+  module:
+    - system
+  theme:
+    - vagov_uswds
+id: vagov_uswds_disabilitybenefitshub
+theme: vagov_uswds
+region: sidebar_first
+weight: -11
+provider: null
+plugin: 'system_menu_block:disability-benefits-hub'
+settings:
+  id: 'system_menu_block:disability-benefits-hub'
+  label: 'Disability benefits hub'
+  provider: system
+  label_display: visible
+  level: 2
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    pages: '/disabilit*'
+    negate: false
+    context_mapping: {  }

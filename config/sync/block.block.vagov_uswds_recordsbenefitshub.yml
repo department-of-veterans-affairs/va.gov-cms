@@ -1,0 +1,30 @@
+uuid: 5ecc0595-cbeb-4dea-9398-ffc5e5cbd1c4
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.records-benefits-hub
+  module:
+    - system
+  theme:
+    - vagov_uswds
+id: vagov_uswds_recordsbenefitshub
+theme: vagov_uswds
+region: sidebar_first
+weight: -5
+provider: null
+plugin: 'system_menu_block:records-benefits-hub'
+settings:
+  id: 'system_menu_block:records-benefits-hub'
+  label: 'Records benefits hub'
+  provider: system
+  label_display: visible
+  level: 2
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    pages: '/record*'
+    negate: false
+    context_mapping: {  }

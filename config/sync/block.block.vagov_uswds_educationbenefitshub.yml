@@ -1,0 +1,30 @@
+uuid: 51e825f9-e855-4e4c-b225-cd3dfce25e68
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.education-benefits-hub
+  module:
+    - system
+  theme:
+    - vagov_uswds
+id: vagov_uswds_educationbenefitshub
+theme: vagov_uswds
+region: sidebar_first
+weight: -10
+provider: null
+plugin: 'system_menu_block:education-benefits-hub'
+settings:
+  id: 'system_menu_block:education-benefits-hub'
+  label: 'Education benefits hub'
+  provider: system
+  label_display: visible
+  level: 2
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    pages: '/education*'
+    negate: false
+    context_mapping: {  }

@@ -1,0 +1,30 @@
+uuid: 0863c513-a569-46a5-a778-1d0c6f090cf4
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.va-altoona-health-care
+  module:
+    - system
+  theme:
+    - vagov_uswds
+id: vagov_uswds_vaaltoonahealthcare
+theme: vagov_uswds
+region: sidebar_first
+weight: -3
+provider: null
+plugin: 'system_menu_block:va-altoona-health-care'
+settings:
+  id: 'system_menu_block:va-altoona-health-care'
+  label: 'VA Altoona health care'
+  provider: system
+  label_display: visible
+  level: 2
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    pages: '/altoona-health-car*'
+    negate: false
+    context_mapping: {  }

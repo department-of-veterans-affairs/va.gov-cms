@@ -133,6 +133,39 @@ third_party_settings:
                 type: boolean
             additional: {  }
             weight: 6
+          209a9713-f028-4c78-a8af-cc1d08b1e2cd:
+            uuid: 209a9713-f028-4c78-a8af-cc1d08b1e2cd
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:audience_non_beneficiaries:description'
+              formatter:
+                label: hidden
+                type: text_default
+                settings: {  }
+                third_party_settings: {  }
+            additional: {  }
+            weight: 7
+          d28ddabe-5906-4b7c-9788-6ae98e19dc75:
+            uuid: d28ddabe-5906-4b7c-9788-6ae98e19dc75
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:audience_non_beneficiaries:field_audience_rs_homepage'
+              formatter:
+                label: above
+                settings:
+                  format: default
+                  format_custom_false: ''
+                  format_custom_true: ''
+                third_party_settings: {  }
+                type: boolean
+            additional: {  }
+            weight: 8
         third_party_settings: {  }
 id: taxonomy_term.audience_non_beneficiaries.default
 targetEntityType: taxonomy_term
