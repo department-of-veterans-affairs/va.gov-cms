@@ -5,8 +5,135 @@ dependencies:
   config:
     - field.field.taxonomy_term.audience_beneficiaries.field_audience_rs_homepage
     - taxonomy.vocabulary.audience_beneficiaries
+    - views.view.taxonomy_term
   module:
+    - layout_builder
+    - layout_discovery
     - text
+    - views
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: true
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          a0ba2968-6e31-4501-8301-77fae7a86c5a:
+            uuid: a0ba2968-6e31-4501-8301-77fae7a86c5a
+            region: content
+            configuration:
+              id: 'views_block:taxonomy_term-taxonomy_term_listing_block'
+              label: ''
+              provider: views
+              label_display: visible
+              views_label: ''
+              items_per_page: none
+              context_mapping: {  }
+            additional: {  }
+            weight: 0
+          52464593-957d-4296-b452-e9085b6d6afb:
+            uuid: 52464593-957d-4296-b452-e9085b6d6afb
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:audience_beneficiaries:description'
+              formatter:
+                label: hidden
+                type: text_default
+                settings: {  }
+                third_party_settings: {  }
+            additional: {  }
+            weight: 1
+          a44d5ea1-89e3-4d3f-9a51-3928d9191eef:
+            uuid: a44d5ea1-89e3-4d3f-9a51-3928d9191eef
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:audience_beneficiaries:field_audience_rs_homepage'
+              formatter:
+                label: above
+                settings:
+                  format: default
+                  format_custom_false: ''
+                  format_custom_true: ''
+                third_party_settings: {  }
+                type: boolean
+            additional: {  }
+            weight: 2
+          68393f32-474d-4a40-b678-51eb4d6ca382:
+            uuid: 68393f32-474d-4a40-b678-51eb4d6ca382
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:audience_beneficiaries:description'
+              formatter:
+                label: hidden
+                type: text_default
+                settings: {  }
+                third_party_settings: {  }
+            additional: {  }
+            weight: 3
+          220d40dc-03d1-4ce2-8edc-76e98958fddb:
+            uuid: 220d40dc-03d1-4ce2-8edc-76e98958fddb
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:audience_beneficiaries:field_audience_rs_homepage'
+              formatter:
+                label: above
+                settings:
+                  format: default
+                  format_custom_false: ''
+                  format_custom_true: ''
+                third_party_settings: {  }
+                type: boolean
+            additional: {  }
+            weight: 4
+          f7700f78-af6b-4fc4-9bef-a1ef06410d42:
+            uuid: f7700f78-af6b-4fc4-9bef-a1ef06410d42
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:audience_beneficiaries:description'
+              formatter:
+                label: hidden
+                type: text_default
+                settings: {  }
+                third_party_settings: {  }
+            additional: {  }
+            weight: 5
+          5209c3eb-44a4-4114-a9d5-afc58dc271ed:
+            uuid: 5209c3eb-44a4-4114-a9d5-afc58dc271ed
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:taxonomy_term:audience_beneficiaries:field_audience_rs_homepage'
+              formatter:
+                label: above
+                settings:
+                  format: default
+                  format_custom_false: ''
+                  format_custom_true: ''
+                third_party_settings: {  }
+                type: boolean
+            additional: {  }
+            weight: 6
+        third_party_settings: {  }
 id: taxonomy_term.audience_beneficiaries.default
 targetEntityType: taxonomy_term
 bundle: audience_beneficiaries

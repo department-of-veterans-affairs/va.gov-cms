@@ -32,7 +32,11 @@
 <div{{ attributes.setAttribute('id', 'taxonomy-term-' ~ term.id).addClass(classes) }}>
   {{ title_prefix }}
   {% if name and not page %}
-    <strong><a href="{{ url }}">{{ name }}</a></strong>
+    {% if view_mode == 'vet_center_dashboard' %}
+      <strong><h2>{{ name }}</h2></strong>
+    {% else %}
+      <strong><a href="{{ url }}">{{ name }}</a></strong>
+    {% endif %}
   {% endif %}
   {{ title_suffix }}
   <div class="content">

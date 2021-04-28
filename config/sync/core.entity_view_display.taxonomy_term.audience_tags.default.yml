@@ -1,0 +1,50 @@
+uuid: 78b20ba5-9b57-46ec-8123-3496d2ddb380
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.audience_tags
+    - views.view.taxonomy_term
+  module:
+    - layout_builder
+    - layout_discovery
+    - text
+    - views
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: true
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          88bbdded-ef4c-47b0-9f9c-76dc60b72906:
+            uuid: 88bbdded-ef4c-47b0-9f9c-76dc60b72906
+            region: content
+            configuration:
+              id: 'views_block:taxonomy_term-taxonomy_term_listing_block'
+              label: ''
+              provider: views
+              label_display: visible
+              views_label: ''
+              items_per_page: none
+              context_mapping: {  }
+            additional: {  }
+            weight: 0
+        third_party_settings: {  }
+id: taxonomy_term.audience_tags.default
+targetEntityType: taxonomy_term
+bundle: audience_tags
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  search_api_excerpt: true
