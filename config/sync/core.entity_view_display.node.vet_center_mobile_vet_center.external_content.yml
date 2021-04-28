@@ -1,0 +1,109 @@
+uuid: 51a2c0f6-62ee-4a95-a9aa-cbebd09ac912
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.external_content
+    - field.field.node.vet_center_mobile_vet_center.field_address
+    - field.field.node.vet_center_mobile_vet_center.field_administration
+    - field.field.node.vet_center_mobile_vet_center.field_facility_locator_api_id
+    - field.field.node.vet_center_mobile_vet_center.field_media
+    - field.field.node.vet_center_mobile_vet_center.field_office
+    - field.field.node.vet_center_mobile_vet_center.field_office_hours
+    - field.field.node.vet_center_mobile_vet_center.field_phone_number
+    - field.field.node.vet_center_mobile_vet_center.field_table_of_contents
+    - node.type.vet_center_mobile_vet_center
+  module:
+    - address
+    - field_group
+    - office_hours
+    - telephone
+    - user
+third_party_settings:
+  field_group:
+    group_location_information:
+      children:
+        - field_facility_locator_api_id
+        - field_address
+        - field_phone_number
+        - field_office_hours
+      parent_name: ''
+      weight: 0
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_empty_fields: 0
+        id: ''
+        classes: not-editable
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically generated from the VAST database, which helps VA maintain a consistent source of information across all of VA.gov."
+        open: false
+        required_fields: false
+      label: 'Location Information'
+id: node.vet_center_mobile_vet_center.external_content
+targetEntityType: node
+bundle: vet_center_mobile_vet_center
+mode: external_content
+content:
+  field_address:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+    region: content
+  field_facility_locator_api_id:
+    weight: 3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_office_hours:
+    weight: 6
+    label: above
+    settings:
+      show_closed: all
+      office_hours_first_day: ''
+      day_format: short
+      time_format: g
+      closed_format: ''
+      separator:
+        days: '<br />'
+        grouped_days: ' - '
+        day_hours: ': '
+        hours_hours: '-'
+        more_hours: ', '
+      current_status:
+        position: ''
+        open_text: 'Currently open!'
+        closed_text: 'Currently closed'
+      compress: false
+      grouped: false
+      schema:
+        enabled: false
+      timezone_field: ''
+    third_party_settings: {  }
+    type: office_hours
+    region: content
+  field_phone_number:
+    weight: 5
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_media: true
+  field_office: true
+  field_table_of_contents: true
+  links: true
+  search_api_excerpt: true

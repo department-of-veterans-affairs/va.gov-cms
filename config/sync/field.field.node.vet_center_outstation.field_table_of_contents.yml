@@ -1,0 +1,25 @@
+uuid: 0a19f57e-6284-41b0-a12e-35123d47e289
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_table_of_contents
+    - node.type.vet_center_outstation
+  module:
+    - markup
+id: node.vet_center_outstation.field_table_of_contents
+field_name: field_table_of_contents
+entity_type: node
+bundle: vet_center_outstation
+label: 'Table of contents'
+description: ''
+required: false
+translatable: true
+default_value:
+  - {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: "<h3>Editing this content</h3>\r\n\r\n<p>Edit basic details about this satellite facility. Some content won’t be editable because it comes from other sources. Learn more by hovering over the “?.”</p>\r\n\r\n<p>For full guidance, see <a href=\"/help/vet-centers\">How to edit Vet Center pages</a>.</p>\r\n\r\n<h3>Jump to edit...</h3>\r\n\r\n<p>↓<a href=\"#facility-name\"> Facility name</a></p>\r\n\r\n<p>↓<a href=\"#operating-status\"> Operating status</a></p>\r\n\r\n<p>↓<a href=\"#locations-and-contact-information\"> Locations and contact information</a></p>\r\n\r\n<p>↓<a href=\"#field_media-media-library-wrapper\"> Facility photo</a></p>\r\n\r\n<h3>Content</h3>\r\n"
+    format: rich_text
+field_type: markup

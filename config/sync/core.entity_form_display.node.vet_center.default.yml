@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.node.inline_entity_form
     - field.field.node.vet_center.field_address
     - field.field.node.vet_center.field_administration
     - field.field.node.vet_center.field_cc_non_traditional_hours
@@ -277,26 +278,26 @@ content:
     weight: 7
     settings:
       show_field_label: '1'
-      show_link_to_source: 0
-      show_source_updated_date: 0
+      show_link_to_source: '1'
+      show_source_updated_date: '1'
     third_party_settings: {  }
     type: entity_field_fetch_widget
     region: content
   field_cc_vet_center_faqs:
     weight: 6
     settings:
+      show_link_to_source: '1'
+      show_source_updated_date: '1'
       show_field_label: 0
-      show_link_to_source: 0
-      show_source_updated_date: 0
     third_party_settings: {  }
     type: entity_field_fetch_widget
     region: content
   field_cc_vet_center_featured_con:
     weight: 21
     settings:
+      show_link_to_source: '1'
+      show_source_updated_date: '1'
       show_field_label: 0
-      show_link_to_source: 0
-      show_source_updated_date: 0
     third_party_settings: {  }
     type: entity_field_fetch_widget
     region: content
@@ -311,13 +312,13 @@ content:
   field_health_services:
     weight: 7
     settings:
-      form_mode: default
+      form_mode: inline_entity_form
+      revision: true
       override_labels: true
       label_singular: service
       label_plural: services
       allow_new: true
       match_operator: CONTAINS
-      revision: false
       collapsible: false
       collapsed: false
       allow_existing: false
