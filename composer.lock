@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "054a850b6eb047ed763c5b06e183034b",
+    "content-hash": "8a357a6dec8984e8068f256f2142a452",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -8368,106 +8368,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/role_delegation",
                 "issues": "http://drupal.org/project/role_delegation"
-            }
-        },
-        {
-            "name": "drupal/schemata",
-            "version": "1.0.0-beta1",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/schemata.git",
-                "reference": "8.x-1.0-beta1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/schemata-8.x-1.0-beta1.zip",
-                "reference": "8.x-1.0-beta1",
-                "shasum": "01766a4dc44e1b2a0ce7baae4d67e0f572c0f72f"
-            },
-            "require": {
-                "drupal/core": "^8"
-            },
-            "require-dev": {
-                "drupal/coder": "^8.2",
-                "jakub-onderka/php-parallel-lint": "^0.9.2",
-                "league/json-guard": "^1.0",
-                "league/json-reference": "^1.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-1.0-beta1",
-                    "datestamp": "1560865981",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "scripts": {
-                "phpcs": [
-                    "phpcs --standard=tests/phpcs.xml"
-                ],
-                "phpcbf": [
-                    "phpcbf --standard=tests/phpcs.xml"
-                ],
-                "lint": [
-                    "parallel-lint -e php,module,install,profile,theme,inc --exclude vendor/ --blame ."
-                ],
-                "quality": [
-                    "@lint",
-                    "@phpcs"
-                ]
-            },
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Adam Ross",
-                    "homepage": "https://www.drupal.org/user/346868",
-                    "email": "grayside@gmail.com"
-                },
-                {
-                    "name": "HalfChem",
-                    "homepage": "https://www.drupal.org/user/1608382"
-                },
-                {
-                    "name": "e0ipso",
-                    "homepage": "https://www.drupal.org/user/550110"
-                },
-                {
-                    "name": "febbraro",
-                    "homepage": "https://www.drupal.org/user/43670"
-                },
-                {
-                    "name": "jhedstrom",
-                    "homepage": "https://www.drupal.org/user/208732"
-                },
-                {
-                    "name": "mpotter",
-                    "homepage": "https://www.drupal.org/user/616192"
-                },
-                {
-                    "name": "richgerdes",
-                    "homepage": "https://www.drupal.org/user/3437973"
-                },
-                {
-                    "name": "tekante",
-                    "homepage": "https://www.drupal.org/user/640024"
-                }
-            ],
-            "description": "Facilitate generation of schema definitions of Drupal 8 data models.",
-            "homepage": "https://drupal.org/project/schemata",
-            "keywords": [
-                "Drupal",
-                "json",
-                "schema"
-            ],
-            "support": {
-                "source": "https://cgit.drupalcode.org/schemata",
-                "issues": "https://drupal.org/project/issues/schemata"
             }
         },
         {
