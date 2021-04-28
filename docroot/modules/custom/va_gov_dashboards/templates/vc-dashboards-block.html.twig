@@ -5,7 +5,7 @@
 <h3>{{ title }}</h3>
 <p>{{ description }}</p>
 <div>
-  {% if id == "vet_center_page" or id == "locations" %}
+  {% if id == "dash_vc_vet_center_page" or id == "dash_vc_locations" %}
     <span class="dashboard-block-link dashboard-block-link-left">
       <a href="{{ path('entity.node.canonical', {'node': nid}) }}">View ›</a>
     </span>
