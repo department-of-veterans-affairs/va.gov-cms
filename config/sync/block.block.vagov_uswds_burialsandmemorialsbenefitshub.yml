@@ -1,0 +1,30 @@
+uuid: 91592d83-4725-4300-a020-6af09941d4ba
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.burials-and-memorials-benef
+  module:
+    - system
+  theme:
+    - vagov_uswds
+id: vagov_uswds_burialsandmemorialsbenefitshub
+theme: vagov_uswds
+region: sidebar_first
+weight: -13
+provider: null
+plugin: 'system_menu_block:burials-and-memorials-benef'
+settings:
+  id: 'system_menu_block:burials-and-memorials-benef'
+  label: 'Burials and memorials benefits hub'
+  provider: system
+  label_display: visible
+  level: 2
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    pages: '/burials*'
+    negate: false
+    context_mapping: {  }

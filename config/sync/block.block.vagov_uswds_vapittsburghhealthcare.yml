@@ -1,0 +1,30 @@
+uuid: ddd33900-a4a6-4390-a31c-233abc54b83e
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.pittsburgh-health-care
+  module:
+    - system
+  theme:
+    - vagov_uswds
+id: vagov_uswds_vapittsburghhealthcare
+theme: vagov_uswds
+region: sidebar_first
+weight: 3
+provider: null
+plugin: 'system_menu_block:pittsburgh-health-care'
+settings:
+  id: 'system_menu_block:pittsburgh-health-care'
+  label: 'VA Pittsburgh health care'
+  provider: system
+  label_display: visible
+  level: 2
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    pages: '/pittsburgh-health-car*'
+    negate: false
+    context_mapping: {  }

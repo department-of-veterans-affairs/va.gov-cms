@@ -1,0 +1,22 @@
+uuid: c0c5f905-09d6-48b8-867a-f17cb4f502b2
+langcode: en
+status: true
+dependencies:
+  theme:
+    - vagov_uswds
+_core:
+  default_config_hash: DIhfo3vqMBmJ5dgZj7bocULh6Kv2WB5yKrtfzB2EFEM
+id: vagov_uswds_secondary_local_tasks
+theme: vagov_uswds
+region: header_top
+weight: 0
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Secondary tabs'
+  provider: core
+  label_display: '0'
+  primary: false
+  secondary: true
+visibility: {  }

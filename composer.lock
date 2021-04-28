@@ -2899,6 +2899,55 @@
             "time": "2021-02-06T10:44:32+00:00"
         },
         {
+            "name": "drupal/components",
+            "version": "2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/components.git",
+                "reference": "8.x-2.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/components-8.x-2.4.zip",
+                "reference": "8.x-2.4",
+                "shasum": "9b083c2f845ff2e1a1632efcf24f88cecd7479cc"
+            },
+            "require": {
+                "drupal/core": "^8.7.7 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.4",
+                    "datestamp": "1618861606",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "JohnAlbin",
+                    "homepage": "https://www.drupal.org/user/32095",
+                    "email": "virtually.johnalbin@gmail.com"
+                },
+                {
+                    "name": "RobLoach",
+                    "homepage": "https://www.drupal.org/user/61114"
+                }
+            ],
+            "description": "Registers folders of components defined by your theme or module as Twig namespaces",
+            "homepage": "https://drupal.org/project/components",
+            "support": {
+                "source": "https://git.drupalcode.org/project/components"
+            }
+        },
+        {
             "name": "drupal/config_filter",
             "version": "1.8.0",
             "source": {
@@ -8404,6 +8453,66 @@
             }
         },
         {
+            "name": "drupal/simplify_menu",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/simplify_menu.git",
+                "reference": "8.x-2.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/simplify_menu-8.x-2.1.zip",
+                "reference": "8.x-2.1",
+                "shasum": "44905c5e90e297044e4536ce3a72c101a009e6f9"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.1",
+                    "datestamp": "1603078010",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "edutrul",
+                    "homepage": "https://www.drupal.org/user/1621444"
+                },
+                {
+                    "name": "jmolivas",
+                    "homepage": "https://www.drupal.org/user/678770"
+                },
+                {
+                    "name": "marcelovani",
+                    "homepage": "https://www.drupal.org/user/854220"
+                },
+                {
+                    "name": "mariohernandez",
+                    "homepage": "https://www.drupal.org/user/446544"
+                },
+                {
+                    "name": "shrop",
+                    "homepage": "https://www.drupal.org/user/14767"
+                }
+            ],
+            "description": "Adds a TwigExtension that grants access to Drupal's menu render array so it can be used within a twig template.",
+            "homepage": "https://www.drupal.org/project/simplify_menu",
+            "support": {
+                "source": "https://git.drupalcode.org/project/simplify_menu"
+            }
+        },
+        {
             "name": "drupal/site_alert",
             "version": "1.2.0",
             "source": {
@@ -9096,6 +9205,50 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/user_history",
                 "issues": "https://www.drupal.org/project/issues/user_history"
+            }
+        },
+        {
+            "name": "drupal/uswds_base",
+            "version": "2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/uswds_base.git",
+                "reference": "8.x-2.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/uswds_base-8.x-2.4.zip",
+                "reference": "8.x-2.4",
+                "shasum": "e3a148b835a5b6b8f02fdb8861ef5680c7068ff1"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-theme",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.4",
+                    "datestamp": "1595452819",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "mferanda",
+                    "homepage": "https://www.drupal.org/user/3541484"
+                }
+            ],
+            "description": "Drupal USWDS Base Theme - The U.S. Web Design System provides design guidelines and code to help you quickly create trustworthy, accessible, and consistent digital government services.",
+            "homepage": "https://www.drupal.org/project/uswds_base",
+            "support": {
+                "source": "https://git.drupalcode.org/project/uswds_base"
             }
         },
         {

@@ -1,0 +1,30 @@
+uuid: 512b1bfb-1904-4679-8e52-2ca93d7604b6
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.life-insurance-benefits-hub
+  module:
+    - system
+  theme:
+    - vagov_uswds
+id: vagov_uswds_lifeinsurancebenefitshub
+theme: vagov_uswds
+region: sidebar_first
+weight: -7
+provider: null
+plugin: 'system_menu_block:life-insurance-benefits-hub'
+settings:
+  id: 'system_menu_block:life-insurance-benefits-hub'
+  label: 'Life insurance benefits hub'
+  provider: system
+  label_display: visible
+  level: 2
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    pages: '/life-insu*'
+    negate: false
+    context_mapping: {  }
