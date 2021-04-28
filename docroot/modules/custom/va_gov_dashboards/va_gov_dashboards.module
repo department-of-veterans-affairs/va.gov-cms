@@ -5,6 +5,7 @@
  * Contains va_gov_dashboards.module.
  */
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -14,15 +15,21 @@ use Drupal\Core\Routing\RouteMatchInterface;
  */
 function va_gov_dashboards_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
-    // Main module help for the va_gov_dashboards module.
     case 'help.page.va_gov_dashboards':
-      $output = '';
-      $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('Creates taxonomy based dashboards.') . '</p>';
-      return $output;
-
-    default:
+      $text = file_get_contents(__DIR__ . '/README.md');
+      if (!\Drupal::moduleHandler()->moduleExists('markdown')) {
+        return '<pre>' . Html::escape($text) . '</pre>';
+      }
+      else {
+        // Use the Markdown filter to render the README.
+        $filter_manager = \Drupal::service('plugin.manager.filter');
+        $settings = \Drupal::configFactory()->get('markdown.settings')->getRawData();
+        $config = ['settings' => $settings];
+        $filter = $filter_manager->createInstance('markdown', $config);
+        return $filter->process($text, 'en');
+      }
   }
+  return NULL;
 }
 
 /**
