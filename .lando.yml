@@ -38,6 +38,9 @@ services:
       # cypress-axe dependencies - https://docs.cypress.io/guides/getting-started/installing-cypress.html#System-requirements
       - "apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb -y"
       - .lando/scripts/blackfire-init.sh
+      - yes | pecl install memcache-4.0.5.2 && docker-php-ext-enable memcache
+      - rm -f /usr/local/etc/php/conf.d/docker-php-ext-memcached.ini
+      - /etc/init.d/apache2 reload
     xdebug: true
     config:
       php: .lando/zzz-lando-my-custom.ini
@@ -74,6 +77,9 @@ services:
     portforward: true
     hogfrom:
       - appserver
+  memcache:
+    type: memcached:1
+    mem: 64
 
   # Uncomment this to work on site build triggers, then export ENV vars below, then `lando rebuild`.
   # Must use lando 3.0.0-rc9+
@@ -143,6 +149,24 @@ tooling:
     service: appserver
     description: Disable xdebug for apache.
     cmd: "rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && /etc/init.d/apache2 reload"
+    user: root
+
+  memcache-on:
+    service: appserver
+    description: Enable Memcache.
+    cmd: |
+      docker-php-ext-enable memcache
+      /etc/init.d/apache2 reload
+      /app/bin/drush cache:rebuild
+    user: root
+
+  memcache-off:
+    service: appserver
+    description: Disable memcache.
+    cmd: |
+      rm -f /usr/local/etc/php/conf.d/docker-php-ext-memcache.ini
+      /etc/init.d/apache2 reload
+      /app/bin/drush cache:rebuild
     user: root
 
   phpunit:
