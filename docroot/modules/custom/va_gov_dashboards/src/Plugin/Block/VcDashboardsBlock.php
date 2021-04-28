@@ -3,9 +3,9 @@
 namespace Drupal\va_gov_dashboards\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\va_gov_dashboards\Service\VetCenterDashboard;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -20,18 +20,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class VcDashboardsBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
-   * The route match.
+   * Dashboard service providing related tids and nids.
    *
-   * @var \Drupal\Core\Routing\RouteMatchInterface
+   * @var \Drupal\va_gov_dashboards\Service\VetCenterDashboard
    */
-  protected $routeMatch;
-
-  /**
-   * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
+  protected $dashboard;
 
   /**
    * Constructor.
@@ -42,15 +35,12 @@ class VcDashboardsBlock extends BlockBase implements ContainerFactoryPluginInter
    *   The plugin id.
    * @param string $plugin_definition
    *   The plugin definition.
-   * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
-   *   Provides an interface for classes representing the result of routing.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   Provides an interface for entity type managers.
+   * @param \Drupal\va_gov_dashboards\Service\VetCenterDashboard $dashboard
+   *   Dashboard service providing related tids and nids.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteMatchInterface $route_match, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, VetCenterDashboard $dashboard) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->routeMatch = $route_match;
-    $this->entityTypeManager = $entity_type_manager;
+    $this->dashboard = $dashboard;
   }
 
   /**
@@ -61,8 +51,7 @@ class VcDashboardsBlock extends BlockBase implements ContainerFactoryPluginInter
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('current_route_match'),
-      $container->get('entity_type.manager'),
+      $container->get('va_gov_dashboards.vetcenter'),
     );
   }
 
@@ -70,28 +59,35 @@ class VcDashboardsBlock extends BlockBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function build() {
-    $block_defintion = $this->getPluginDefinition();
-    $id = $this->getDerivativeId();
+    $block_definition = $this->getPluginDefinition();
+    $nid = ($block_definition['id'] === 'dash_vc_locations') ? $this->dashboard->getLocationNid() : $this->dashboard->getFacilityNid();
     $build = [];
-    $build = [
-      '#theme' => 'vc_dashboards_block',
-      '#attributes' => [
-        'class' => ['dashboards-block'],
-        'id' => $id,
-      ],
-      '#attached' => [
-        'library' => [
-          'va_gov_dashboards/dashboard_blocks',
+    if ($nid) {
+      $build = [
+        '#theme' => 'vc_dashboards_block',
+        '#attributes' => [
+          'class' => ['dashboards-block'],
+          'id' => $this->getDerivativeId(),
         ],
-      ],
-      '#id' => $block_defintion['id'],
-      '#image' => $block_defintion['image'],
-      '#title' => $block_defintion['admin_label'],
-      '#description' => $block_defintion['description'],
-      '#action' => $block_defintion['action'],
-      '#nid' => $block_defintion['nid'],
-      '#anchor' => $block_defintion['anchor'],
-    ];
+        '#attached' => [
+          'library' => [
+            'va_gov_dashboards/dashboard_blocks',
+          ],
+        ],
+        '#id' => $block_definition['id'],
+        '#image' => $block_definition['image'],
+        '#title' => $block_definition['admin_label'],
+        '#description' => $block_definition['description'],
+        '#action' => $block_definition['action'],
+        '#nid' => $nid,
+        '#anchor' => $block_definition['anchor'],
+        '#cache' => [
+          'tags' => ['route'],
+          'contexts' => ['route'],
+          'max-age' => Cache::PERMANENT,
+        ],
+      ];
+    }
 
     return $build;
   }

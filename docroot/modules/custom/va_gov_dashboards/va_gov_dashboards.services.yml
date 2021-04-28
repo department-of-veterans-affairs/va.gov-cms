@@ -1,0 +1,4 @@
+services:
+  va_gov_dashboards.vetcenter:
+    class: Drupal\va_gov_dashboards\Service\VetCenterDashboard
+    arguments: ['@current_route_match', '@entity_type.manager']

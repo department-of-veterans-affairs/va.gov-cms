@@ -3,9 +3,7 @@
 namespace Drupal\va_gov_dashboards\Plugin\Derivative;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
-use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -31,72 +29,32 @@ class VcDashboardsBlock extends DeriverBase implements ContainerDeriverInterface
 
   /**
    * Constructor.
-   *
-   * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
-   *   Provides an interface for classes representing the result of routing.
-   * @param Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   Provides an interface for entity type managers.
    */
-  public function __construct(RouteMatchInterface $route_match, EntityTypeManagerInterface $entity_type_manager) {
-    $this->routeMatch = $route_match;
-    $this->entityTypeManager = $entity_type_manager;
+  public function __construct() {
+    // Only here to satisfy the interface.
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, $base_plugin_id) {
-    return new static(
-      $container->get('current_route_match'),
-      $container->get('entity_type.manager'),
-    );
-  }
-
-  /**
-   * Gets the node associated with subject term.
-   *
-   * @param string $content_type
-   *   The bundle.
-   * @param string $tid
-   *   The term id.
-   *
-   * @return mixed
-   *   Node object or null if empty.
-   */
-  private function getCorrespondingNode(string $content_type, string $tid) {
-    $node = NULL;
-    if (empty($tid)) {
-      return $node;
-    }
-    $vc_node_fetch = $this->entityTypeManager->getStorage('node')->loadByProperties([
-      'type' => $content_type,
-      'field_administration' => $tid,
-    ]);
-    if (!empty($vc_node_fetch)) {
-      $node = reset($vc_node_fetch);
-    }
-    return $node;
+    // Only here to satisfy the interface.
+    return new static();
   }
 
   /**
    * Returns our term page blocks.
    *
-   * @param string $node_id
-   *   The subject node id.
-   *
    * @return array
    *   The blocks that appear in layout builder.
    */
-  private function getPanels(string $node_id) {
-    if (empty($node_id)) {
-      return [];
-    }
+  private function getBlocks() {
     return [
       'visitor_information' => [
         'title' => 'Visitor information',
         'description' => 'Provide info that helps Veterans prepare for their visit.',
         'action' => 'Go to visitor info',
-        'nid' => $node_id,
+        'nid' => NULL,
         'anchor' => '#prepare-for-your-visit',
         'image' => 'visitor_information.svg',
       ],
@@ -104,7 +62,7 @@ class VcDashboardsBlock extends DeriverBase implements ContainerDeriverInterface
         'title' => 'Services',
         'description' => 'List the services that Veterans can receive at your facility.',
         'action' => 'Go to services',
-        'nid' => $node_id,
+        'nid' => NULL,
         'anchor' => '#edit-field-health-services',
         'image' => 'services.svg',
       ],
@@ -112,7 +70,7 @@ class VcDashboardsBlock extends DeriverBase implements ContainerDeriverInterface
         'title' => 'Featured content',
         'description' => 'Highlight up to two Vet center activities, such as events or programs',
         'action' => 'Go to featured content',
-        'nid' => $node_id,
+        'nid' => NULL,
         'anchor' => '#featured-content',
         'image' => 'featured_content.svg',
       ],
@@ -120,7 +78,7 @@ class VcDashboardsBlock extends DeriverBase implements ContainerDeriverInterface
         'title' => 'Operating status',
         'description' => 'Flag temporary changes to hours and operations for the main location.',
         'action' => 'Update operating status',
-        'nid' => $node_id,
+        'nid' => NULL,
         'anchor' => '#operating-status',
         'image' => 'operating_status.svg',
       ],
@@ -128,69 +86,37 @@ class VcDashboardsBlock extends DeriverBase implements ContainerDeriverInterface
         'title' => 'Main Vet Center page',
         'description' => 'Manage all main location page content.',
         'action' => 'View',
-        'nid' => $node_id,
+        'nid' => NULL,
         'anchor' => '',
         'image' => 'main_vet_center_page.svg',
       ],
-    ];
-  }
-
-  /**
-   * Gets our vc locations list node.
-   *
-   * @param int $tid
-   *   The term id.
-   * @param array $panels
-   *   The panel blocks that appear on the dashboard.
-   */
-  private function addLocationsPanel($tid, array &$panels) {
-
-    $vc_locations_node_fetch = $this->entityTypeManager->getStorage('node')->loadByProperties([
-      'type' => 'vet_center_locations_list',
-      'field_administration' => $tid,
-    ]);
-    if (!empty($vc_locations_node_fetch)) {
-      $vc_locations_node = reset($vc_locations_node_fetch);
-      $vc_locations_node_id = $vc_locations_node->id();
-      $panels['locations'] = [
+      'locations' => [
         'title' => 'Locations page',
         'description' => 'Manage the page introduction and select nearby locations.',
         'action' => 'View',
-        'nid' => $vc_locations_node_id,
+        'nid' => NULL,
         'anchor' => '',
         'image' => 'locations_page.svg',
-      ];
-    }
+      ],
+    ];
   }
 
   /**
    * {@inheritdoc}
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
-    $dash_panels = [];
-    if ($this->routeMatch->getRouteName() === 'entity.taxonomy_term.canonical'
-        || $this->routeMatch->getRouteName() === 'layout_builder.defaults.taxonomy_term.view') {
-      $tid = $this->routeMatch->getRawParameter('taxonomy_term') ? $this->routeMatch->getRawParameter('taxonomy_term') : '';
-      $vc_node = $this->getCorrespondingNode('vet_center', $tid);
-      if (!empty($vc_node)) {
-        $vc_node_id = $vc_node->id();
-        $dash_panels = $this->getPanels($vc_node_id);
-        $this->addLocationsPanel($tid, $dash_panels);
-
-        foreach ($dash_panels as $key => $panel) {
-          $this->derivatives[$key] = $base_plugin_definition;
-          $this->derivatives[$key]['id'] = $key;
-          $this->derivatives[$key]['image'] = $panel['image'];
-          $this->derivatives[$key]['admin_label'] = $panel['title'];
-          $this->derivatives[$key]['description'] = $panel['description'];
-          $this->derivatives[$key]['action'] = $panel['action'];
-          $this->derivatives[$key]['nid'] = $panel['nid'];
-          $this->derivatives[$key]['anchor'] = $panel['anchor'];
-        }
-      }
+    foreach ($this->getBlocks() as $key => $panel) {
+      $this->derivatives[$key] = $base_plugin_definition;
+      $this->derivatives[$key]['id'] = 'dash_vc_' . $key;
+      $this->derivatives[$key]['image'] = $panel['image'];
+      $this->derivatives[$key]['admin_label'] = $panel['title'];
+      $this->derivatives[$key]['description'] = $panel['description'];
+      $this->derivatives[$key]['action'] = $panel['action'];
+      $this->derivatives[$key]['nid'] = $panel['nid'];
+      $this->derivatives[$key]['anchor'] = $panel['anchor'];
     }
 
-    return $this->derivatives;
+    return parent::getDerivativeDefinitions($base_plugin_definition);
   }
 
 }
