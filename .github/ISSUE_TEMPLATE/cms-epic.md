@@ -7,10 +7,6 @@ assignees: ''
 
 ---
 
-Once merged, will this work cause changes that CMS users will notice?
-  - [ ] Y: Add the annoucements label to this issue for the PM and UX writer to review and include a design review in the ACs.
-  - [ ] N: No futher action needed
-
 ## Background
 
 ### User Story or Problem Statement
@@ -36,6 +32,16 @@ _A hypothesis may depend on a spike ticket to be completed._
 
 We believe that _this_solution_ will achieve _this_outcome_. We'll know that to be true when _this measurable outcome occurs._
 
+
+## Design principles
+
+Which [CMS design principle](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/cms-product-design-principles.md) is at play?
+- [ ] Purpose-driven: Creates an opportunity to involve the editor community in VA’s mission and content strategy goals.
+- [ ] Efficient: Removes distractions and create clear, straightforward paths to get the job done.
+- [ ] Approachable: Offers friendly guidance over authoritative instruction.
+- [ ] Consistent: Reduce user’s mental load by allowing them to fall back on pattern recognition to complete tasks.
+- [ ] Empowering: Provide clear information to help editors make decisions about their work.
+
 ### Assumptions
 * Tk
 * Tk
@@ -49,29 +55,9 @@ We believe that _this_solution_ will achieve _this_outcome_. We'll know that to 
 - [ ] Testable_Outcome_Y
 - [ ] Testable_Outcome_Z
 
-## Runbook  
+## Runbook
 This is particularly relevant for feature launches, or for making changes to the content model that require front end changes as well.
-1. Step_to_get_to_production_X  
+1. Step_to_get_to_production_X
 1. Step_to_get_to_production_Y
 1. Step_to_get_to_production_Z
 
-
-## Possible tickets to create for this epic
-
-- [ ] Spike task, with some of the following attributes:
-* Identify the baseline against which we will measure improvements
-* Ideation (sketching, cross-displinary meeting of minds around how the problem may be solved)
-* Analysis of the drupal landscape
-* Possible implementation(s)
-* Proof of concept or prototype
-* UX writing discovery
-
-- [ ] User research
-- [ ] Design
-- [ ] UX writing
-- [ ] Usability testing (eg with a prototype or other design stimula)
-- [ ] Implementation
-- [ ] Documentation (What needs changing or adding to the documentation?
-- [ ] Product release notes (How will we describe this feature to CMS users?)
-- [ ] Training (Will any users require additional training?)
-- [ ] Metrics (How will we measure any improvements)
