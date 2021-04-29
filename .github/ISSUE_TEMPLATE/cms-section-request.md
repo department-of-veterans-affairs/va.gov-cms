@@ -62,3 +62,11 @@ Examples:
 - [ ] New "Resources and support" sections are added under each of the three main Administrations (NCA, VHA, VBA)
 - [ ] All existing Resources and support content is moved to ...
 - [ ] Update X, Y, and Z editors about a change in content access
+
+### CMS Team
+
+Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
+
+- [x] `Core Application Team`
+- [x] `Product Support Team`
+
