@@ -1,7 +1,7 @@
 ---
 name: VAMC launch support
 about: Support VAMC upgrade team with a VAMC launch
-title: VAMC launch support for va_city_health_care
+title: VAMC launch support
 labels: VAMC system, vsa-vamc-upgrade
 assignees: ''
 
@@ -20,4 +20,3 @@ Please leave only the team that will do this work selected. If you're not sure, 
 
 - [x] `Core Application Team`
 - [x] `Product Support Team`
-

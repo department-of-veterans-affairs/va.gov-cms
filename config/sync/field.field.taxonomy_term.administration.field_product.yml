@@ -1,0 +1,36 @@
+uuid: bd1931ba-269c-4a6d-b656-6fdbbb8144d1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_product
+    - taxonomy.vocabulary.administration
+    - taxonomy.vocabulary.products
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+id: taxonomy_term.administration.field_product
+field_name: field_product
+entity_type: taxonomy_term
+bundle: administration
+label: Product
+description: 'Which product is associated with this Section? This may determine what dashboard appears on the Section landing page.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      products: products
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

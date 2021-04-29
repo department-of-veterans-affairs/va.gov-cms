@@ -1,9 +1,9 @@
-uuid: 9af30ed0-60d3-467b-ac61-f91143995c79
+uuid: 3369cf4d-e117-4b3d-b425-b83320baed84
 langcode: en
 status: true
 dependencies:
   config:
-    - taxonomy.vocabulary.topics
+    - taxonomy.vocabulary.lc_categories
     - views.view.taxonomy_term
   module:
     - layout_builder
@@ -14,9 +14,9 @@ third_party_settings:
   layout_builder:
     allow_custom: false
     enabled: false
-id: taxonomy_term.topics.default
+id: taxonomy_term.lc_categories.default
 targetEntityType: taxonomy_term
-bundle: topics
+bundle: lc_categories
 mode: default
 content:
   description:

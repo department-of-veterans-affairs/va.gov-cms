@@ -1,9 +1,9 @@
-uuid: 9af30ed0-60d3-467b-ac61-f91143995c79
+uuid: 78b20ba5-9b57-46ec-8123-3496d2ddb380
 langcode: en
 status: true
 dependencies:
   config:
-    - taxonomy.vocabulary.topics
+    - taxonomy.vocabulary.audience_tags
     - views.view.taxonomy_term
   module:
     - layout_builder
@@ -14,9 +14,9 @@ third_party_settings:
   layout_builder:
     allow_custom: false
     enabled: false
-id: taxonomy_term.topics.default
+id: taxonomy_term.audience_tags.default
 targetEntityType: taxonomy_term
-bundle: topics
+bundle: audience_tags
 mode: default
 content:
   description:
