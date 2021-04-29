@@ -13,72 +13,7 @@ dependencies:
 third_party_settings:
   layout_builder:
     allow_custom: false
-    enabled: true
-    sections:
-      -
-        layout_id: layout_onecol
-        layout_settings:
-          label: ''
-        components:
-          419a6b92-07b3-4dc9-a8da-11a3c9b8ec5f:
-            uuid: 419a6b92-07b3-4dc9-a8da-11a3c9b8ec5f
-            region: content
-            configuration:
-              id: 'views_block:taxonomy_term-taxonomy_term_listing_block'
-              label: ''
-              provider: views
-              label_display: visible
-              views_label: ''
-              items_per_page: none
-              context_mapping: {  }
-            additional: {  }
-            weight: 0
-          e49ff9ed-11c3-486d-bd11-53afed140976:
-            uuid: e49ff9ed-11c3-486d-bd11-53afed140976
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:taxonomy_term:topics:description'
-              formatter:
-                label: hidden
-                type: text_default
-                settings: {  }
-                third_party_settings: {  }
-            additional: {  }
-            weight: 1
-          475a3c48-0625-4131-bed2-d11b13e3fb5c:
-            uuid: 475a3c48-0625-4131-bed2-d11b13e3fb5c
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:taxonomy_term:topics:description'
-              formatter:
-                label: hidden
-                type: text_default
-                settings: {  }
-                third_party_settings: {  }
-            additional: {  }
-            weight: 2
-          eba53248-4cb5-44a3-9a5c-db9c16dc78b8:
-            uuid: eba53248-4cb5-44a3-9a5c-db9c16dc78b8
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:taxonomy_term:topics:description'
-              formatter:
-                label: hidden
-                type: text_default
-                settings: {  }
-                third_party_settings: {  }
-            additional: {  }
-            weight: 3
-        third_party_settings: {  }
+    enabled: false
 id: taxonomy_term.topics.default
 targetEntityType: taxonomy_term
 bundle: topics
