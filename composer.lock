@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8dae92ca216185040ac46670861d4d92",
+    "content-hash": "ba9846cf47c0a77fddb2f3d0f7d39eb2",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2685,6 +2685,10 @@
                 {
                     "name": "floretan",
                     "homepage": "https://www.drupal.org/user/66163"
+                },
+                {
+                    "name": "nord102",
+                    "homepage": "https://www.drupal.org/user/3471419"
                 }
             ],
             "description": "Limit which text formats are available for each field instance.",
@@ -5334,8 +5338,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.1+12-dev",
-                    "datestamp": "1605118690",
+                    "version": "8.x-3.1+14-dev",
+                    "datestamp": "1618865165",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -7103,10 +7107,6 @@
                     "role": "Maintainer"
                 },
                 {
-                    "name": "heddn",
-                    "homepage": "https://www.drupal.org/user/1463982"
-                },
-                {
                     "name": "hl17",
                     "homepage": "https://www.drupal.org/user/3542612"
                 }
@@ -8653,7 +8653,7 @@
             "extra": {
                 "drupal": {
                     "version": "8.x-2.8",
-                    "datestamp": "1615222638",
+                    "datestamp": "1615222684",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -19593,25 +19593,33 @@
     "packages-dev": [
         {
             "name": "acquia/drupal-spec-tool",
-            "version": "v2.0.0",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/acquia/drupal-spec-tool.git",
-                "reference": "cd4d09810ec2a16143ba60ea9215dd997809e15d"
+                "reference": "d5ffe88551af323d84ab415b6b6787b8f29dc9cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/acquia/drupal-spec-tool/zipball/cd4d09810ec2a16143ba60ea9215dd997809e15d",
-                "reference": "cd4d09810ec2a16143ba60ea9215dd997809e15d",
+                "url": "https://api.github.com/repos/acquia/drupal-spec-tool/zipball/d5ffe88551af323d84ab415b6b6787b8f29dc9cc",
+                "reference": "d5ffe88551af323d84ab415b6b6787b8f29dc9cc",
                 "shasum": ""
             },
             "require": {
-                "drupal/core": "^8.5.1",
-                "drupal/drupal-extension": "^3.4",
-                "php": "^5.6|^7.0",
+                "drupal/core": "^8.7.0",
+                "drupal/drupal-extension": "^3.4 || ^4.0",
+                "php": "^5.6 || ^7.0",
                 "traviscarden/behat-table-comparison": "^0.2.1"
             },
+            "suggest": {
+                "nickwilde1990/drupal-spec-tool-commands": "^1.0@RC"
+            },
             "type": "behat-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "v3.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Acquia\\DrupalSpecTool\\": "src/"
@@ -19637,7 +19645,7 @@
                 "issues": "https://github.com/acquia/drupal-spec-tool/issues",
                 "source": "https://github.com/acquia/drupal-spec-tool"
             },
-            "time": "2018-07-17T19:21:47+00:00"
+            "time": "2020-06-23T12:35:43+00:00"
         },
         {
             "name": "behat/behat",
