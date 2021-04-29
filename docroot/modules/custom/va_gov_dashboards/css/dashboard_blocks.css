@@ -1,0 +1,70 @@
+.layout__region.layout__region--first,
+.layout__region.layout__region--second,
+.layout__region.layout__region--third {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media screen and (min-width: 40em) {
+  .vocabulary-administration .layout--threecol-section {
+    justify-content: center;
+  }
+
+  .vocabulary-administration .layout--threecol-section--33-34-33 > .layout__region--first,
+  .vocabulary-administration .layout--threecol-section--33-34-33 > .layout__region--second,
+  .vocabulary-administration .layout--threecol-section--33-34-33 > .layout__region--third {
+    flex: 0 1 auto;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+@media screen and (max-width: 70em) {
+  .vocabulary-administration .layout--threecol-section--33-34-33 > .layout__region--first,
+  .vocabulary-administration .layout--threecol-section--33-34-33 > .layout__region--second,
+  .vocabulary-administration .layout--threecol-section--33-34-33 > .layout__region--third {
+    flex: 0 1 100%;
+  }
+}
+
+
+.block-va-gov-dashboards {
+  background-color: #f5f5f2;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+  display: inline-grid;
+  flex-wrap: wrap;
+  margin: 10px auto;
+  padding: 16px;
+  width: 284px;
+  /* stylelint-disable */
+  /* width: -webkit-fill-available; */
+  /* width: -moz-available; */
+  /* stylelint-enable */
+}
+
+.dashboard-block-img-wrap {
+  display: block;
+  margin: 8px auto 22px;
+}
+
+.dashboard-block-link-right {
+  float: right;
+}
+
+.dashboard-block-link {
+  font-size: 1.15em;
+}
+
+/* Vet center facilities list block */
+.block-views-blockvet-center-facility-listing-vc-facility-listing {
+  margin-top: 3em;
+}
+
+.block-vet-center-facility-button {
+  margin: 1em 0;
+}
+
+.view-vet-center-facility-listing img {
+  height: 100px;
+  width: auto;
+}
