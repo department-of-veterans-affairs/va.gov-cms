@@ -10,7 +10,7 @@ I wrote [this script](./wget_spider.sh) to load up pages -- it's not really a be
 ```bash
 #!/bin/bash
 site="http://localhost";
-name="nathan.douglas@agile6.com";
+name="axcsd452ksey";
 password="drupal8";
 cookies_file="$(mktemp)";
 
