@@ -20,7 +20,7 @@
 set -e;
 
 site="http://localhost";
-name="nathan.douglas@agile6.com";
+name="axcsd452ksey";
 password="drupal8";
 cookies_file="$(mktemp)";
 
