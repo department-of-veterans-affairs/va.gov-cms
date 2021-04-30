@@ -6,13 +6,14 @@ dependencies:
     - views.view.right_sidebar_latest_revision
   module:
     - system
+    - user
     - views
   theme:
     - vagov_uswds
 id: vagov_uswds_views_block__right_sidebar_latest_revision_block_1
 theme: vagov_uswds
 region: sidebar_second
-weight: -15
+weight: -18
 provider: null
 plugin: 'views_block:right_sidebar_latest_revision-block_1'
 settings:
@@ -21,7 +22,7 @@ settings:
   provider: views
   label_display: visible
   views_label: ''
-  items_per_page: none
+  items_per_page: '2'
   context_mapping: {  }
 visibility:
   request_path:
@@ -29,3 +30,10 @@ visibility:
     pages: "/node/*/edit\r\n/node/*/history\r\n/node/*/delete\r\n/node/*/clone\r\n/node/*/moderation-history\r\n/node/add/*\r\n/help\r\n/help/*\r\n\r\n"
     negate: true
     context_mapping: {  }
+  user_role:
+    id: user_role
+    roles:
+      authenticated: authenticated
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'

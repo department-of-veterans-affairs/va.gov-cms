@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_theme_blocks.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function va_gov_theme_blocks_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the va_gov_theme_blocks module.
+    case 'help.page.va_gov_theme_blocks':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Creates blocks to be placed in block ui.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function va_gov_theme_blocks_theme() {
+  return [
+    'connect_with_us' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'render element' => 'children',
+    ],
+    'on_this_page' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'render element' => 'children',
+    ],
+  ];
+}

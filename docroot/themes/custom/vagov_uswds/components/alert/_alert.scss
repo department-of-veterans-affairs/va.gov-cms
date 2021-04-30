@@ -1,0 +1,21 @@
+.usa-alert {
+  .form-expanding-group {
+    & > span {
+      display: none;
+    }
+    &.form-expanding-group-open {
+      & > span {
+        display: inline;
+      }
+      .svg-inline--fa {
+        &.fa-angle-down {
+          transform: rotate(180deg);
+          transition: transform 0.15s linear;
+        }
+      }
+    }
+  }
+  ::-webkit-details-marker {
+    display: none;
+  }
+}

@@ -1,0 +1,97 @@
+.footer {
+  color: #fff;
+  margin: 0 auto;
+  background: #112e51;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 50vh 0 50vh #112e51;
+  .footer-inner {
+    padding: 2rem 1rem 0;
+    .va-footer-linkgroup {
+      flex: 0 1 33%;
+      margin: 2em 1em 1.5em 0;
+      .va-button-link {
+        color: #fff !important;
+      }
+      &:first-child {
+        margin-top: 2em;
+        padding-left: 0;
+      }
+      .va-footer-linkgroup-title {
+        -webkit-font-smoothing: antialiased;
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.1em;
+        margin: 0;
+        padding: 0 0 1em;
+      }
+      .va-footer-links {
+        padding-left: 0;
+        margin-top: 0;
+        padding: 0 0 0 1.5em;
+        list-style: square;
+        & > li {
+          margin-bottom: 0;
+          list-style: none;
+          line-height: 1.5;
+          a {
+            display: inline-block;
+            background: none;
+            color: #fff;
+            font-size: 1em;
+            font-weight: 400;
+            margin: 0.25em 0;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+    .footer-banner {
+      padding-top: 1.5em;
+      padding-bottom: 2em;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+    }
+    .va-footer-logo {
+      & > img {
+        width: 200px;
+        height: auto;
+      }
+    }
+    .va-footer-links-bottom {
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+      ul {
+        padding-left: 0;
+        padding-bottom: 3em;
+        list-style: none;
+        li {
+          display: inline-block;
+          a {
+            color: #fff;
+            &:visited {
+              color: #fff;
+            }
+            &:after {
+              content: "|";
+              padding: 0 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.veteran-banner {
+  background: #fff;
+  background: linear-gradient(180deg, #fff 0, #f1f1f1 63%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$from,endColorstr=$to,GradientType=0);
+  margin: 1.5em auto 0;
+  padding: 0 0.5em;
+  margin-top: 2.5em;
+  .veteran-banner-container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+}

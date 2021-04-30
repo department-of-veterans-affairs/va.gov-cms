@@ -1,0 +1,107 @@
+{#
+/**
+ * @file
+ * Theme override for a field.
+ *
+ * To override output, copy the "field.html.twig" from the templates directory
+ * to your theme's directory and customize it, just like customizing other
+ * Drupal templates such as page.html.twig or node.html.twig.
+ *
+ * Instead of overriding the theming for all fields, you can also just override
+ * theming for a subset of fields using
+ * @link themeable Theme hook suggestions. @endlink For example,
+ * here are some theme hook suggestions that can be used for a field_foo field
+ * on an article node type:
+ * - field--node--field-foo--article.html.twig
+ * - field--node--field-foo.html.twig
+ * - field--node--article.html.twig
+ * - field--field-foo.html.twig
+ * - field--text-with-summary.html.twig
+ * - field.html.twig
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the containing element.
+ * - label_hidden: Whether to show the field label or not.
+ * - title_attributes: HTML attributes for the title.
+ * - label: The label for the field.
+ * - multiple: TRUE if a field can contain multiple items.
+ * - items: List of all the field items. Each item contains:
+ *   - attributes: List of HTML attributes for each item.
+ *   - content: The field item's content.
+ * - entity_type: The entity type to which the field belongs.
+ * - field_name: The name of the field.
+ * - field_type: The type of the field.
+ * - label_display: The display settings for the label.
+ *
+ *
+ * @see template_preprocess_field()
+ */
+#}
+{% set referralHeaders = [] %}
+{% set referralContents = [] %}
+
+{% set counsellingHeaders = [] %}
+{% set counsellingContents = [] %}
+
+{% set otherHeaders = [] %}
+{% set otherContents = [] %}
+
+<div class="field__items">
+
+	{% for item in items %}
+
+
+		{% if item.content['#options'].entity.field_body.value is iterable %}
+			{% set content = item.content['#options'].entity.field_service_name_and_descripti.entity.field_vet_center_service_descrip.value %}
+		{% else %}
+			{% set content = item.content['#options'].entity.field_body.value %}
+		{% endif %}
+
+
+		{% set careType = item.content['#options'].entity.field_service_name_and_descripti.entity.field_vet_center_type_of_care.value %}
+		{% set header = item.content['#options'].entity.title.value|split(' - ') %}
+
+
+		{% if careType is same as('referral') %}
+			{% set referralHeaders = referralHeaders|merge([header[1]]) %}
+			{% set referralContents = referralContents|merge([content]) %}
+		{% endif %}
+
+		{% if careType is same as('counselling') %}
+			{% set counsellingHeaders = counsellingHeaders|merge([header[1]]) %}
+			{% set counsellingContents = counsellingContents|merge([content]) %}
+		{% endif %}
+
+		{% if careType is same as('other') %}
+			{% set otherHeaders = otherHeaders|merge([header[1]]) %}
+			{% set otherContents = otherContents|merge([content]) %}
+
+		{% endif %}
+
+	{% endfor %}
+
+	{% for counsellingHeader in counsellingHeaders %}
+		{% if loop.first %}
+			<h2 id="counselling-services" class="vads-u-margin-top--0 vads-u-font-size--lg small-screen:vads-u-font-size--xl vads-u-margin-bottom--2">Counselling Services</h2>
+			Click on a service for more details.
+		{% endif %}
+		{% include "@components/accordions/accordions.html.twig" with { 'header': counsellingHeader, 'content': counsellingContents[loop.index0] } %}
+	{% endfor %}
+
+	{% for referralHeader in referralHeaders %}
+		{% if loop.first %}
+			<h2 id="referral-services" class="vads-u-margin-top--4 vads-u-font-size--lg small-screen:vads-u-font-size--xl vads-u-margin-bottom--2">Referral Services</h2>
+			Click on a service for more details.
+		{% endif %}
+		{% include "@components/accordions/accordions.html.twig" with { 'header': referralHeader, 'content': referralContents[loop.index0] } %}
+	{% endfor %}
+
+	{% for otherHeader in otherHeaders %}
+		{% if loop.first %}
+			<h2 id="other-services" class="vads-u-margin-top--4 vads-u-font-size--lg small-screen:vads-u-font-size--xl vads-u-margin-bottom--2">Other Services</h2>
+			Click on a service for more details.
+		{% endif %}
+		{% include "@components/accordions/accordions.html.twig" with { 'header': otherHeader, 'content': otherContents[loop.index0] } %}
+	{% endfor %}
+
+</div>

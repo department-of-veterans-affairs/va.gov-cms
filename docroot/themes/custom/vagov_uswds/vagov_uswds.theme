@@ -6,3 +6,26 @@
  *
  * Place your custom PHP code in this file.
  */
+
+use Drupal\node\NodeInterface;
+
+/**
+ * Make node object available to blocks.
+ */
+function vagov_uswds_preprocess_block(&$vars) {
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof NodeInterface) {
+    $vars['nid'] = $node->id();
+    $vars['owner'] = $node->field_promo ? $node->field_promo->getString() : '';
+    if (!empty($node->field_support_services)) {
+      foreach ($node->field_support_services as $service) {
+        $vars['support_services'][] = $service->entity;
+      }
+    }
+    if (!empty($node->field_spokes)) {
+      foreach ($node->field_spokes as $spoke) {
+        $vars['spokes'][] = $spoke->entity;
+      }
+    }
+  }
+}

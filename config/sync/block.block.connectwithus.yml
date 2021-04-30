@@ -1,0 +1,28 @@
+uuid: bebc98b5-abf0-4a05-8697-42b65d5f6af1
+langcode: en
+status: true
+dependencies:
+  module:
+    - ctools
+    - va_gov_theme_blocks
+  theme:
+    - vagov_uswds
+id: connectwithus
+theme: vagov_uswds
+region: sidebar_second
+weight: -14
+provider: null
+plugin: connect_with_us
+settings:
+  id: connect_with_us
+  label: 'Connect with us'
+  provider: va_gov_theme_blocks
+  label_display: '0'
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      landing_page: landing_page
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

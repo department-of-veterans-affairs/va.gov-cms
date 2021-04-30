@@ -265,7 +265,7 @@ $medium-phone-screen: 375px;
 
     a {
       &::before {
-        content: ' \2039 ';
+        content: " \2039 ";
         display: inline-block;
         padding: 0 0.35em 0 0;
       }
@@ -392,7 +392,7 @@ $medium-phone-screen: 375px;
   }
 
   li {
-    line-height: 2.2;
+    line-height: 2.5;
   }
 
   a {
@@ -400,11 +400,147 @@ $medium-phone-screen: 375px;
   }
 }
 
-#vetnav-menu > li:first-of-type {
-  display: none;
-}
-
 .vetnav-level1 {
   background-color: transparent;
   background-size: 1rem auto;
+}
+
+.node-title {
+  i {
+    &.icon-large {
+      float: left;
+    }
+  }
+  h1 {
+    float: left;
+  }
+  clear: both;
+  display: flex;
+}
+
+.field--name-field-intro-text {
+  font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
+  font-size: 2rem;
+  font-weight: 400;
+  max-width: 77rem;
+}
+
+.merger-r-rail {
+  margin-bottom: 1.5em;
+  &.hub-promo {
+    background-color: #f1f1f1;
+    border: none;
+  }
+}
+
+.merger article {
+  width: 100%;
+}
+
+.hub-promo-text {
+  padding: 1em;
+}
+
+details {
+  &.va-accordion {
+    border: 3px solid #f1f1f1;
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    &[open] {
+      summary::-webkit-details-marker {
+        color: #0000ff;
+        background: #00ffff;
+      }
+      summary:after {
+        content: "-";
+        color: #000;
+      }
+    }
+    summary {
+      position: relative;
+      cursor: pointer;
+      line-height: 1;
+      background-color: #f1f1f1;
+      display: flex;
+      h3 {
+        font-family: var(--font-source-sans);
+        font-size: 1.17em;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 10px 10px 10px 20px;
+      }
+      &::-webkit-details-marker {
+        display: none;
+      }
+      &:after {
+        position: absolute;
+        right: 10px;
+        content: "+";
+        color: #000;
+        font-size: 2.5em;
+        font-weight: bold;
+      }
+    }
+
+    .details-content {
+      padding: 10px 10px 10px 20px;
+      .views-row,
+      .row {
+        padding: 10px 0;
+      }
+    }
+  }
+}
+
+.flex-container {
+  display: flex;
+}
+
+#block-vagov-uswds-node-link-report {
+  .usa-alert {
+    cursor: pointer;
+    padding: 10px;
+    margin-top: 0;
+    margin-bottom: 1.5em;
+    details {
+      display: inline;
+    }
+    &:before {
+      float: left;
+    }
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0;
+      padding: 0;
+    }
+  }
+}
+
+.usa-alert {
+  &.usa-alert--success {
+    margin-top: 0;
+    margin-bottom: 1.5em;
+    padding: 10px;
+    font-weight: 700;
+    border-left-color: green;
+  }
+}
+
+#block-vagov-uswds-views-block-right-sidebar-latest-revision-block-1 {
+  margin-bottom: 25px;
+}
+
+@media screen and (min-width: 768px) {
+  .featured-content-list-item {
+    width: 33%;
+    margin-right: 1em;
+  }
+}
+
+.field--name-field-cc-vet-center-call-center {
+  p {
+    background: #fff1d2;
+    padding: 20px;
+  }
 }

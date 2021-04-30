@@ -1,0 +1,21 @@
+{#
+/**
+* @file
+* Default theme implementation to display a block.
+*
+* @see template_preprocess_block()
+*
+* @ingroup themeable
+*/
+#}
+{{ attach_library('va_gov_theme_blocks/on_this_page') }}
+
+
+{% set classes = [
+    'clear-both',
+] %}
+<div{{ attributes.addClass(classes) }}>
+    {% for value in content %}
+        <p>{{value}}</p>
+    {% endfor %}
+</div>

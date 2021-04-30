@@ -1,0 +1,9 @@
+<div class="merger-majorlinks va-nav-linkslist va-nav-linkslist--related">
+
+{% if lol.field_title %}
+<h2 class="section-header va-nav-linkslist-heading">{{ lol.field_title.0 }}</h2>
+
+{% endif %}
+
+{{ lol|without('field_title') }}
+</div>

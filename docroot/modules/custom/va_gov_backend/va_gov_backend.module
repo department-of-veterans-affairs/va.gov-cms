@@ -1042,47 +1042,6 @@ function va_gov_backend_preprocess_page_title(&$variables) {
 }
 
 /**
- * Add preview button to node view.
- */
-function va_gov_backend_preprocess_page(&$variables) {
-
-  $node = \Drupal::routeMatch()->getParameter('node');
-  if ($node instanceof NodeInterface) {
-    // It's a node.
-    $exclusion_types = [
-      'documentation_page',
-      'event_listing',
-      'full_width_banner_alert',
-      'health_care_local_health_service',
-      'health_services_listing,',
-      'leadership_listing',
-      'locations_listing',
-      'outreach_asset',
-      'press_releases_listing',
-      'regional_health_care_service_des',
-      'support_service',
-      'story_listing',
-    ];
-    // Make sure we aren't on the node form or an excluded type.
-    $route_name = \Drupal::routeMatch()->getRouteName();
-    if (($route_name !== 'entity.node.edit_form') &&
-      (!in_array($node->bundle(), $exclusion_types))) {
-      // Make sure we aren't on /training-guide.
-      $current_uri = \Drupal::request()->getRequestUri();
-      if ($current_uri !== '/training-guide') {
-        $node = \Drupal::routeMatch()->getParameter('node');
-        $nid = $node->id();
-        $host = \Drupal::request()->getHost();
-        $preview_form = new PreviewForm();
-        $url = $preview_form->getEnvironment($host, $nid);
-        $button = '<a class="button button--primary js-form-submit form-submit node-preview-button" target="_blank" href="' . $url . '">Preview</a>';
-        $variables['page']['sidebar_second']['#markup'] = $button;
-      }
-    }
-  }
-}
-
-/**
  * Modifies UI of the Facility Status VBO Modify Field Values form.
  *
  * The form that allows the user to modify field values contains too many

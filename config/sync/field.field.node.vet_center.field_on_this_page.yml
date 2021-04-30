@@ -1,0 +1,25 @@
+uuid: 140a9988-5d4b-46ee-b08e-cec6fe2085cf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_on_this_page
+    - node.type.vet_center
+  module:
+    - markup
+id: node.vet_center.field_on_this_page
+field_name: field_on_this_page
+entity_type: node
+bundle: vet_center
+label: 'On this page'
+description: ''
+required: false
+translatable: true
+default_value:
+  - {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: "<ul class=\"usa-unstyled-list\">\r\n\t<li class=\"vads-u-margin-bottom--2\">\r\n\t\t<a href=\"#locations-and-contact-information\" class=\"vads-u-display--flex vads-u-text-decoration--none\">\r\n\t\t\tLocations and contact information</a>\r\n\t</li>\r\n\t<li class=\"vads-u-margin-bottom--2\">\r\n\t\t<a href=\"#prepare-for-your-visit\" class=\"vads-u-display--flex vads-u-text-decoration--none\">\r\n\t\t\tPrepare for your visit</a>\r\n\t</li>\r\n\t<li class=\"vads-u-margin-bottom--2\">\r\n\t\t<a href=\"#in-the-spot-light\" class=\"vads-u-display--flex vads-u-text-decoration--none\">\r\n\t\t\tIn the spotlight at Escanaba Vet Center\r\n\t\t</a>\r\n\t</li>\r\n\t<li class=\"vads-u-margin-bottom--2\">\r\n\t\t<a href=\"#counseling-services\" class=\"vads-u-display--flex vads-u-text-decoration--none\">\r\n\t\t\tCounseling services</a>\r\n\t</li>\r\n\t<li class=\"vads-u-margin-bottom--2\">\r\n\t\t<a href=\"#referral-services\" class=\"vads-u-display--flex vads-u-text-decoration--none\">\r\n\t\t\tReferral Services</a>\r\n\t</li>\r\n\t<li class=\"vads-u-margin-bottom--2\">\r\n\t\t<a href=\"#other-services\" class=\"vads-u-display--flex vads-u-text-decoration--none\">\r\n\t\t\tOther services</a>\r\n\t</li>\r\n\t<li class=\"vads-u-margin-bottom--2\">\r\n\t\t<a href=\"#how-different-than-clinic\" class=\"vads-u-display--flex vads-u-text-decoration--none\">\r\n\t\t\tHow we're different than a clinic</a>\r\n\t</li>\r\n</ul>"
+    format: rich_text
+field_type: markup

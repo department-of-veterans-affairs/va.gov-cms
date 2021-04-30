@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.vet_center.field_intro_text
     - field.field.node.vet_center.field_media
     - field.field.node.vet_center.field_office_hours
+    - field.field.node.vet_center.field_on_this_page
     - field.field.node.vet_center.field_operating_status_facility
     - field.field.node.vet_center.field_operating_status_more_info
     - field.field.node.vet_center.field_phone_number
@@ -26,16 +27,14 @@ dependencies:
     - entity_field_fetch
     - entity_reference_revisions
     - field_group
-    - office_hours
-    - options
-    - telephone
+    - markup
     - user
 third_party_settings:
   field_group:
     group_external_content:
       children: {  }
       parent_name: ''
-      weight: 12
+      weight: 21
       format_type: fieldset
       region: hidden
       format_settings:
@@ -47,10 +46,11 @@ third_party_settings:
       children:
         - field_operating_status_facility
         - field_operating_status_more_info
+        - field_phone_number
       parent_name: ''
-      weight: 0
+      weight: 20
       format_type: fieldset
-      region: content
+      region: hidden
       format_settings:
         show_empty_fields: false
         id: operating-status
@@ -58,12 +58,11 @@ third_party_settings:
         description: ''
       label: 'Operating status'
     group_top_of_page_information:
-      children:
-        - field_intro_text
+      children: {  }
       parent_name: ''
-      weight: 1
+      weight: 19
       format_type: fieldset
-      region: content
+      region: hidden
       format_settings:
         description: '<p>Update key information that helps Veterans understand what they might find on this page. To request a correction to the page title, <a href="https://vaww.va.gov/WEBCOM/VAMC_Facility_Location_Updates.asp " target="_blank">contact an administrator</a>.</p>'
         id: top-of-page-information
@@ -73,122 +72,127 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - group_vet_center_data
-        - group_hours_details
-        - field_media
       parent_name: ''
       weight: 2
       format_type: fieldset
       region: content
       format_settings:
-        show_empty_fields: false
+        description: ''
         id: locations-and-contact-information
         classes: ''
-        description: '<p>Review key location information about this facility. To request an correction to address, phone, or hours, <a href = "https://vaww.va.gov/WEBCOM/VAMC_Facility_Location_Updates.asp " target = "_blank">contact an administrator</a>.</p>'
+        show_empty_fields: false
       label: 'Locations and contact information'
     group_vet_center_data:
       children:
-        - field_facility_locator_api_id
         - field_address
-        - field_phone_number
-        - field_office_hours
+        - field_cc_vet_center_call_center
       parent_name: group_locations_and_contact_info
       weight: 8
-      format_type: tooltip
+      format_type: html_element
       region: content
       format_settings:
-        show_label: '0'
+        show_label: false
         tooltip_description: "Why can’t I edit this?\r\nThis content is automatically generated from the VAST database, which helps VA maintain a consistent source of information across all of VA.gov."
         description: ''
         id: external-content
         classes: 'not-editable '
-        show_empty_fields: 0
+        show_empty_fields: false
         element: div
         label_element: h3
         attributes: ''
+        label_element_classes: ''
+        effect: none
+        speed: fast
       label: 'Facility data from VAST'
     group_hours_details:
       children:
         - field_cc_non_traditional_hours
-        - field_cc_vet_center_call_center
-      parent_name: group_locations_and_contact_info
-      weight: 9
-      format_type: tooltip
-      region: content
+      parent_name: ''
+      weight: 18
+      format_type: html_element
+      region: hidden
       format_settings:
-        show_label: '0'
+        show_label: false
         tooltip_description: "Why can’t I edit this?\r\nVHA keeps this content standardized to provide consistent messaging for Vet Center sites nationwide."
         description: ''
         id: ''
         classes: centralized
-        show_empty_fields: 0
+        show_empty_fields: false
         element: div
         label_element: h3
         attributes: ''
+        label_element_classes: ''
+        effect: none
+        speed: fast
       label: 'Hours details and call center information'
     group_prepare_for_your_visit:
       children:
         - field_prepare_for_visit
       parent_name: ''
-      weight: 4
+      weight: 3
       format_type: fieldset
       region: content
       format_settings:
-        show_empty_fields: false
+        description: ''
         id: prepare-for-your-visit
         classes: ''
-        description: 'Add or edit a visitor information topic, such as parking, transportation, etc.'
+        show_empty_fields: false
       label: 'Prepare for your visit'
     group_how_we_re_different_than_a:
       children:
         - field_cc_vet_center_faqs
       parent_name: ''
       weight: 6
-      format_type: tooltip
+      format_type: html_element
       region: content
       format_settings:
-        show_label: '1'
+        show_label: true
         tooltip_description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
         description: ''
         id: faqs
         classes: centralized
-        show_empty_fields: 0
+        show_empty_fields: false
         element: div
         label_element: h3
         attributes: ''
+        label_element_classes: ''
+        effect: none
+        speed: fast
       label: 'How we''re different than a clinic (FAQs)'
     group_featured_content:
       children:
-        - group_national_featured_content
         - field_vet_center_feature_content
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       region: content
       format_settings:
-        show_empty_fields: false
+        description: ''
         id: featured-content
         classes: ''
-        description: 'Highlight up to two Vet Center activities, such as events or programs.'
+        show_empty_fields: false
       label: 'Featured content'
     group_national_featured_content:
-      children:
-        - field_cc_vet_center_featured_con
-      parent_name: group_featured_content
-      weight: 7
-      format_type: tooltip
-      region: content
+      children: {  }
+      parent_name: ''
+      weight: 17
+      format_type: html_element
+      region: hidden
       format_settings:
-        show_empty_fields: 0
+        show_empty_fields: false
         id: ''
         classes: centralized
         element: div
-        show_label: '0'
+        show_label: false
         label_element: h3
         attributes: ''
         description: ''
         tooltip_description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA).'
         open: false
         required_fields: false
+        label_element_classes: ''
+        effect: none
+        speed: fast
       label: 'National featured content'
 id: node.vet_center.default
 targetEntityType: node
@@ -199,23 +203,16 @@ content:
     type: address_default
     weight: 1
     region: content
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-  field_cc_non_traditional_hours:
-    weight: 6
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: entity_field_fetch
-    region: content
   field_cc_vet_center_call_center:
-    weight: 7
-    label: above
+    type: entity_field_fetch
+    weight: 2
+    region: content
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: entity_field_fetch
-    region: content
   field_cc_vet_center_faqs:
     weight: 8
     label: visually_hidden
@@ -223,21 +220,6 @@ content:
     third_party_settings: {  }
     type: entity_field_fetch
     region: content
-  field_cc_vet_center_featured_con:
-    weight: 8
-    label: visually_hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: entity_field_fetch
-    region: content
-  field_facility_locator_api_id:
-    type: string
-    weight: 0
-    region: content
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
   field_health_services:
     weight: 5
     label: above
@@ -247,69 +229,19 @@ content:
     type: entity_reference_label
     region: content
   field_intro_text:
-    weight: 4
-    label: above
-    settings: {  }
-    third_party_settings: {  }
     type: basic_string
+    weight: 0
     region: content
-  field_media:
-    weight: 11
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_office_hours:
-    type: office_hours
-    weight: 4
-    region: content
-    label: above
-    settings:
-      show_closed: all
-      office_hours_first_day: ''
-      day_format: short
-      time_format: g
-      closed_format: ''
-      separator:
-        days: '<br />'
-        grouped_days: ' - '
-        day_hours: ': '
-        hours_hours: '-'
-        more_hours: ', '
-      current_status:
-        position: ''
-        open_text: 'Currently open!'
-        closed_text: 'Currently closed'
-      compress: false
-      grouped: false
-      schema:
-        enabled: false
-      timezone_field: ''
-    third_party_settings: {  }
-  field_operating_status_facility:
-    weight: 3
-    label: visually_hidden
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: list_default
-    region: content
-  field_operating_status_more_info:
-    weight: 4
+  field_on_this_page:
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    type: markup
     region: content
-  field_phone_number:
-    type: telephone_link
-    weight: 2
-    region: content
-    label: above
-    settings:
-      title: ''
-    third_party_settings: {  }
   field_prepare_for_visit:
     type: entity_reference_revisions_entity_view
     weight: 7
@@ -322,7 +254,7 @@ content:
   field_vet_center_feature_content:
     type: entity_reference_revisions_entity_view
     weight: 8
-    label: above
+    label: hidden
     settings:
       view_mode: default
       link: ''
@@ -331,6 +263,14 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_cc_non_traditional_hours: true
+  field_cc_vet_center_featured_con: true
+  field_facility_locator_api_id: true
+  field_media: true
+  field_office_hours: true
+  field_operating_status_facility: true
+  field_operating_status_more_info: true
+  field_phone_number: true
   field_table_of_contents: true
   links: true
   search_api_excerpt: true

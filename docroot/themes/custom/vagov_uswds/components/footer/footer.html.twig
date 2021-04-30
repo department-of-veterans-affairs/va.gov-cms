@@ -1,0 +1,354 @@
+<div class="veteran-banner">
+	<div class="veteran-banner-container">
+		<picture>
+			<img class="veteran-banner-image" src="/{{ directory }}/components/footer/assets/img/veterans-banner-desktop-2.png" alt="Veteran portraits"/>
+		</picture>
+	</div>
+</div>
+
+<footer class="{{ footer_classes }} footer" role="contentinfo">
+
+	{% if display_footer_primary %}
+		<div class="usa-footer__primary-section usa-grid grid-container">
+
+			<div class="usa-footer__primary-content">
+				{% if footer_style != 'medium' %}
+					<div class="grid-container">
+						<div class="grid-row grid-gap">
+						{% endif %}
+
+						{% if page.footer_menu %}
+							{{ page.footer_menu }}
+						{% endif %}
+
+						{% if footer_slim and (footer_phone or footer_email) %}
+							<div class="mobile-lg:grid-col-4">
+								<address class="usa-footer__address">
+									<div class="grid-row grid-gap mobile-lg:grid-gap-0">
+
+										{% if footer_phone %}
+											<div class="grid-col-auto mobile-lg:grid-col-12 desktop:grid-col-auto">
+												<div class="usa-footer-contact_info">
+													<a href="tel:{{ footer_phone }}">{{ footer_phone }}</a>
+												</div>
+											</div>
+										{% endif %}
+
+										{% if footer_email %}
+											<div class="grid-col-auto mobile-lg:grid-col-12 desktop:grid-col-auto">
+												<div class="usa-footer-contact_info">
+													<a href="mailto:{{ footer_email }}">{{ footer_email }}</a>
+												</div>
+											</div>
+										{% endif %}
+									</div>
+								</address>
+							</div>
+						{% endif %}
+
+						{% if footer_style != 'medium' %}
+						</div>
+					</div>
+				{% endif %}
+
+				{% if page.footer %}
+					<div class="grid-container">
+						<div class="grid-row grid-gap">
+							<div class="grid-col-fill">
+								{{ page.footer }}
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+
+		</div>
+	{% endif %}
+
+	{% if display_footer_secondary %}
+		<div class="usa-footer__secondary-section usa-grid grid-container">
+
+			<div class="grid-container">
+				<div class="grid-row grid-gap">
+					{% if display_footer_agency %}
+						<div class="usa-footer__logo grid-row mobile-lg:grid-col-6 mobile-lg:grid-gap-2">
+
+							{% if footer_agency_url %}
+								<a href="{{ footer_agency_url }}">
+								{% endif %}
+
+								{% if footer_agency_logo %}
+									<div class="mobile-lg:grid-col-auto">
+										<img class="usa-footer__logo-img" src="{{ footer_agency_logo }}" alt="{{ 'Agency logo'|t }}">
+									</div>
+								{% endif %}
+
+								{% if footer_agency_name %}
+									<div class="mobile-lg:grid-col-auto">
+										<h3 class="usa-footer__logo-heading">{{ footer_agency_name }}</h3>
+									</div>
+								{% endif %}
+
+								{% if footer_agency_url %}
+								</a>
+							{% endif %}
+
+						</div>
+
+						{% if not footer_slim %}
+							<div class="usa-footer__contact-links desktop:grid-col-6">
+								{% if facebook or twitter or youtube or rss %}
+									<div class="usa-footer__social-links grid-row grid-gap-1">
+										{% if facebook %}
+											<div class="grid-col-auto">
+												<a class="usa-social-link usa-social-link--facebook" href="{{ facebook }}">
+													<span>Facebook</span>
+												</a>
+											</div>
+										{% endif %}
+
+										{% if twitter %}
+											<div class="grid-col-auto">
+												<a class="usa-social-link usa-social-link--twitter" href="{{ twitter }}">
+													<span>Twitter</span>
+												</a>
+											</div>
+										{% endif %}
+
+										{% if youtube %}
+											<div class="grid-col-auto">
+												<a class="usa-social-link usa-social-link--youtube" href="{{ youtube }}">
+													<span>YouTube</span>
+												</a>
+											</div>
+										{% endif %}
+
+										{% if rss %}
+											<div class="grid-col-auto">
+												<a class="usa-social-link usa-social-link--rss" href="{{ rss }}">
+													<span>RSS</span>
+												</a>
+											</div>
+										{% endif %}
+									</div>
+								{% endif %}
+								{% if contact_center %}
+									<h3 class="usa-footer__contact-heading">{{ contact_center }}</h3>
+								{% endif %}
+								<address class="usa-footer__address">
+									<div class="usa-footer__contact-info grid-row grid-gap">
+										{% if phone %}
+											<div class="grid-col-auto">
+												<a href="tel:{{ phone }}">{{ phone }}</a>
+											</div>
+										{% endif %}
+
+										{% if email %}
+											<div class="grid-col-auto">
+												<a href="mailto:{{ email }}">{{ email }}</a>
+											</div>
+										{% endif %}
+									</div>
+								</address>
+							</div>
+						{% endif %}
+
+					</div>
+				{% endif %}
+
+				{% if page.footer_secondary %}
+					<div class="grid-container">
+						<div class="grid-row grid-gap">
+							<div class="grid-col-fill">
+								{{ page.footer_secondary }}
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+	<div id="footerNav">
+		<div>
+			<div class="footer-inner">
+				<div aria-hidden="false" class="usa-grid-full flex-container usa-grid-flex-mobile va-footer-content">
+					<div class="va-footer-linkgroup">
+						<h2 class="va-footer-linkgroup-title">Veteran programs and services</h2>
+						<ul class="va-footer-links">
+							<li>
+								<a href="https://www.va.gov/homeless/" target="">Homeless Veterans</a>
+							</li>
+							<li>
+								<a href="https://www.va.gov/womenvet/" target="">Women Veterans</a>
+							</li>
+							<li>
+								<a href="https://www.va.gov/centerforminorityveterans/" target="">Minority Veterans</a>
+							</li>
+							<li>
+								<a href="https://www.patientcare.va.gov/lgbt/" target="" rel="noopener noreferrer">LGBT Veterans</a>
+							</li>
+							<li>
+								<a href="https://www.ptsd.va.gov" target="" rel="noopener noreferrer">PTSD</a>
+							</li>
+							<li>
+								<a href="https://www.mentalhealth.va.gov" target="" rel="noopener noreferrer">Mental health</a>
+							</li>
+							<li>
+								<a href="https://www.va.gov/adaptivesports/" target="">Adaptive sports and special events</a>
+							</li>
+							<li>
+								<a href="https://www.va.gov/outreach-and-events/events/">VA outreach events</a>
+							</li>
+							<li>
+								<a href="https://www.nrd.gov" target="_blank" rel="noopener noreferrer">National Resource Directory</a>
+							</li>
+						</ul>
+					</div>
+					<div class="va-footer-linkgroup" id="footer-services">
+						<h2 class="va-footer-linkgroup-title">More VA resources</h2>
+						<ul class="va-footer-links">
+							<li>
+								<a href="https://www.va.gov/find-forms/">VA forms</a>
+							</li>
+							<li>
+								<a href="https://www.accesstocare.va.gov/ourproviders/" target="_blank" rel="noopener noreferrer">VA health care providers</a>
+							</li>
+							<li>
+								<a href="https://www.va.gov/ogc/accreditation.asp">Accredited claims representatives</a>
+							</li>
+							<li>
+								<a href="https://www.mobile.va.gov/appstore/" target="_blank" rel="noopener noreferrer">VA mobile apps</a>
+							</li>
+							<li>
+								<a href="https://www.va.gov/vso/">Veterans Service Organizations (VSOs)</a>
+							</li>
+							<li>
+								<a href="https://www.va.gov/statedva.htm">State Veterans Affairs offices</a>
+							</li>
+							<li>
+								<a href="https://www.va.gov/landing2_business.htm">Doing business with VA</a>
+							</li>
+							<li>
+								<a href="https://www.va.gov/jobs/">Careers at VA</a>
+							</li>
+							<li>
+								<a href="https://www.va.gov/outreach-and-events/outreach-materials/">VA outreach materials</a>
+							</li>
+							<li>
+								<a href="https://www.va.gov/welcome-kit/">Your VA welcome kit</a>
+							</li>
+						</ul>
+					</div>
+					<div class="va-footer-linkgroup" id="footer-popular">
+						<h2 class="va-footer-linkgroup-title">Get VA updates</h2>
+						<ul class="va-footer-links">
+							<li>
+								<a href="https://www.blogs.va.gov/VAntage/" target="_blank" rel="noopener noreferrer">VAntage Point blog</a>
+							</li>
+							<li>
+								<a href="https://public.govdelivery.com/accounts/USVA/subscriber/new/" target="_blank" rel="noopener noreferrer">Email updates</a>
+							</li>
+							<li>
+								<a href="https://www.facebook.com/VeteransAffairs" target="_blank" rel="noopener noreferrer">Facebook</a>
+							</li>
+							<li>
+								<a href="https://www.instagram.com/deptvetaffairs/" target="_blank" rel="noopener noreferrer">Instagram</a>
+							</li>
+							<li>
+								<a href="https://www.twitter.com/DeptVetAffairs/" target="_blank" rel="noopener noreferrer">Twitter</a>
+							</li>
+							<li>
+								<a href="https://www.flickr.com/photos/VeteransAffairs/" target="_blank" rel="noopener noreferrer">Flickr</a>
+							</li>
+							<li>
+								<a href="https://www.youtube.com/user/DeptVetAffairs" target="_blank" rel="noopener noreferrer">YouTube</a>
+							</li>
+							<li>
+								<a href="https://www.va.gov/opa/socialmedia.asp">All VA social media</a>
+							</li>
+						</ul>
+					</div>
+					<div class="va-footer-linkgroup" id="veteran-crisis">
+						<h2 class="va-footer-linkgroup-title">In crisis? Talk to someone now</h2>
+						<ul class="va-footer-links">
+							<li>
+								<button class="va-button-link va-overlay-trigger" data-show="#modal-crisisline">Veterans Crisis Line</button>
+							</li>
+						</ul>
+						<h2 class="va-footer-linkgroup-title">Get answers</h2>
+						<ul class="va-footer-links">
+							<li>
+								<a href="https://www.va.gov/resources/">Resources and support</a>
+							</li>
+							<li>
+								<a href="https://www.va.gov/contact-us/">Contact us</a>
+							</li>
+							<li>
+								<h2 class="va-footer-linkgroup-title vads-u-margin-top--2 vads-u-padding-bottom--1">Call us</h2>
+								<a href="tel:18006982411">800-698-2411</a>
+							</li>
+							<li>
+								<a aria-label="TTY: 7 1 1." href="tel:+1711">TTY: 711</a>
+							</li>
+							<li>
+								<h2 class="va-footer-linkgroup-title vads-u-margin-top--2 vads-u-padding-bottom--1">Visit a medical center or regional office</h2>
+								<a href="https://www.va.gov/find-locations/">Find a VA location</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="usa-grid usa-grid-full footer-banner">
+					<a href="/" class="va-footer-logo" title="Go to VA.gov"><img src="https://www.va.gov/img/homepage/va-logo-white.png" alt="VA logo"></a>
+				</div>
+				<div class="usa-grid usa-grid-full va-footer-links-bottom">
+					<ul>
+						<li><a href="https://www.section508.va.gov" rel="noopener noreferrer">Accessibility</a></li>
+						<li><a href="https://www.va.gov/ormdi/NOFEAR_Select.asp">No FEAR Act Data</a></li>
+						<li><a href="https://www.va.gov/oig/">Office of Inspector General</a></li>
+						<li><a href="https://www.va.gov/opa/Plain_Language.asp">Plain language</a></li>
+						<li><a href="https://www.va.gov/privacy-policy/">Privacy, policies, and legal information</a></li>
+						<li><a href="https://www.va.gov/privacy/">VA Privacy Service</a></li>
+						<li><a href="https://www.va.gov/foia/">Freedom of Information Act (FOIA)</a></li>
+						<li><a href="https://www.usa.gov/" target="_blank" rel="noopener noreferrer">USA.gov</a></li>
+						<li><a href="https://www.va.gov/performance-dashboard/">VA performance dashboard</a></li>
+						<li><a href="https://www.va.gov/veterans-portrait-project/">Veterans Portrait Project</a></li>
+					</ul>
+				</div>
+			</div>
+			<div id="modal-crisisline" class="va-overlay va-modal va-modal-large" role="alertdialog">
+				<div class="va-crisis-panel va-modal-inner">
+					<button aria-label="Close this modal" class="va-modal-close va-overlay-close va-crisis-panel-close" type="button">
+						<i class="fas fa-times-circle va-overlay-close" aria-hidden="true"></i>
+					</button>
+					<div class="va-overlay-body va-crisis-panel-body">
+						<h3 class="va-crisis-panel-title">We’re here anytime, day or night – 24/7</h3>
+						<p>If you are a Veteran in crisis or concerned about one, connect with our caring, qualified responders for confidential help. Many of them are Veterans themselves.</p>
+						<ul class="va-crisis-panel-list">
+							<li>
+								<i class="fa fa-phone va-crisis-panel-icon" aria-hidden="true"></i>
+								<a href="tel:18002738255">Call
+									<strong>800-273-8255 and select 1</strong>
+								</a>
+							</li>
+							<li>
+								<i class="fa fa-mobile-alt va-crisis-panel-icon" aria-hidden="true"></i>
+								<a href="sms:838255">Text
+									<strong>838255</strong>
+								</a>
+							</li>
+							<li>
+								<i class="fa fa-comments va-crisis-panel-icon" aria-hidden="true"></i>
+								<a class="no-external-icon" href="https://www.veteranscrisisline.net/ChatTermsOfService.aspx?account=Veterans%20Chat">Start a confidential chat</a>
+							</li>
+							<li>
+								<i class="fa fa-deaf va-crisis-panel-icon" aria-hidden="true"></i>Call TTY if you have hearing loss<strong class="vads-u-margin-left--0p5">
+									<a class="no-wrap " href="tel:+18007994889" aria-label="8 0 0. 7 9 9. 4 8 8 9.">800-799-4889</a>
+								</strong>
+							</li>
+						</ul>Get more resources at
+						<a class="no-external-icon" href="https://www.veteranscrisisline.net/">VeteransCrisisLine.net</a>.</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>

@@ -12,8 +12,8 @@ id: node.vet_center.field_prepare_for_visit
 field_name: field_prepare_for_visit
 entity_type: node
 bundle: vet_center
-label: 'Prepare for your visit accordions'
-description: ''
+label: 'Prepare for your visit'
+description: 'Click on a topic for more details.'
 required: false
 translatable: false
 default_value: {  }
@@ -69,6 +69,9 @@ settings:
         enabled: false
       expandable_text:
         weight: 58
+        enabled: false
+      featured_content:
+        weight: 60
         enabled: false
       health_care_local_facility_servi:
         weight: 59

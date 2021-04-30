@@ -1,5 +1,154 @@
+details.va-accordion.va-accordions-set {
+  margin: 5px 0; }
+  details.va-accordion.va-accordions-set h3 {
+    font-size: 1.6rem; }
+  details.va-accordion.va-accordions-set summary:after {
+    position: absolute;
+    right: 10px;
+    content: "+";
+    color: #000;
+    font-size: 2em;
+    font-weight: bold; }
+
+.usa-alert .form-expanding-group > span {
+  display: none; }
+
+.usa-alert .form-expanding-group.form-expanding-group-open > span {
+  display: inline; }
+
+.usa-alert .form-expanding-group.form-expanding-group-open .svg-inline--fa.fa-angle-down {
+  transform: rotate(180deg);
+  transition: transform 0.15s linear; }
+
+.usa-alert ::-webkit-details-marker {
+  display: none; }
+
+details.va-accordion.va-accordions-set {
+  margin: 5px 0; }
+  details.va-accordion.va-accordions-set h3 {
+    font-size: 1.6rem; }
+  details.va-accordion.va-accordions-set summary:after {
+    position: absolute;
+    right: 10px;
+    content: "+";
+    color: #000;
+    font-size: 2em;
+    font-weight: bold; }
+
+.footer {
+  color: #fff;
+  margin: 0 auto;
+  background: #112e51;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 50vh 0 50vh #112e51; }
+  .footer .footer-inner {
+    padding: 2rem 1rem 0; }
+    .footer .footer-inner .va-footer-linkgroup {
+      flex: 0 1 33%;
+      margin: 2em 1em 1.5em 0; }
+      .footer .footer-inner .va-footer-linkgroup .va-button-link {
+        color: #fff !important; }
+      .footer .footer-inner .va-footer-linkgroup:first-child {
+        margin-top: 2em;
+        padding-left: 0; }
+      .footer .footer-inner .va-footer-linkgroup .va-footer-linkgroup-title {
+        -webkit-font-smoothing: antialiased;
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.1em;
+        margin: 0;
+        padding: 0 0 1em; }
+      .footer .footer-inner .va-footer-linkgroup .va-footer-links {
+        padding-left: 0;
+        margin-top: 0;
+        padding: 0 0 0 1.5em;
+        list-style: square; }
+        .footer .footer-inner .va-footer-linkgroup .va-footer-links > li {
+          margin-bottom: 0;
+          list-style: none;
+          line-height: 1.5; }
+          .footer .footer-inner .va-footer-linkgroup .va-footer-links > li a {
+            display: inline-block;
+            background: none;
+            color: #fff;
+            font-size: 1em;
+            font-weight: 400;
+            margin: 0.25em 0;
+            text-decoration: underline; }
+    .footer .footer-inner .footer-banner {
+      padding-top: 1.5em;
+      padding-bottom: 2em;
+      padding-left: 0.5em;
+      padding-right: 0.5em; }
+    .footer .footer-inner .va-footer-logo > img {
+      width: 200px;
+      height: auto; }
+    .footer .footer-inner .va-footer-links-bottom {
+      padding-left: 0.5em;
+      padding-right: 0.5em; }
+      .footer .footer-inner .va-footer-links-bottom ul {
+        padding-left: 0;
+        padding-bottom: 3em;
+        list-style: none; }
+        .footer .footer-inner .va-footer-links-bottom ul li {
+          display: inline-block; }
+          .footer .footer-inner .va-footer-links-bottom ul li a {
+            color: #fff; }
+            .footer .footer-inner .va-footer-links-bottom ul li a:visited {
+              color: #fff; }
+            .footer .footer-inner .va-footer-links-bottom ul li a:after {
+              content: "|";
+              padding: 0 1rem; }
+
+.veteran-banner {
+  background: #fff;
+  background: linear-gradient(180deg, #fff 0, #f1f1f1 63%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$from,endColorstr=$to,GradientType=0);
+  margin: 1.5em auto 0;
+  padding: 0 0.5em;
+  margin-top: 2.5em; }
+  .veteran-banner .veteran-banner-container {
+    max-width: 1280px;
+    margin: 0 auto; }
+
 .usa-nav__close {
   display: none; }
+
+.va-nav-linkslist--related {
+  background: #f1f1f1;
+  padding: 0.1rem 1.6rem;
+  margin: 2.6rem 0 4rem; }
+  .va-nav-linkslist--related a {
+    font-weight: 700;
+    text-decoration: none; }
+  .va-nav-linkslist--related .paragraph--type--link-teaser {
+    margin: 1.6rem 0; }
+  .va-nav-linkslist--related .va-nav-linkslist-heading {
+    border-bottom: 1px solid #aeb0b5;
+    margin: 0;
+    padding: 1.6rem 0 0.4rem;
+    font-size: 1.5em; }
+
+.mb2 {
+  position: relative; }
+
+.expand-image-button,
+.expand-image-button:visited {
+  background-color: #0071bb;
+  color: white;
+  height: 32px;
+  width: 32px;
+  border-radius: 5px;
+  position: absolute;
+  right: 5px;
+  top: 5px; }
+
+.field--name-field-spokes .paragraph--type--link-teaser {
+  margin: 1.6rem 0; }
+  .field--name-field-spokes .paragraph--type--link-teaser .field--name-field-link a {
+    font-weight: 700;
+    text-decoration: none; }
 
 /* OVERRIDE */
 .merger {
@@ -177,7 +326,7 @@
     font-size: 15px;
     padding-bottom: 12px; }
     .merger .sidenav-previous-page a::before {
-      content: ' \2039 ';
+      content: " \2039 ";
       display: inline-block;
       padding: 0 0.35em 0 0; }
   .merger .sign-in-links {
@@ -267,13 +416,135 @@
     margin-bottom: 0;
     margin-top: 0; }
   #vetnav-menu li {
-    line-height: 2.2; }
+    line-height: 2.5; }
   #vetnav-menu a {
     text-decoration: none; }
-
-#vetnav-menu > li:first-of-type {
-  display: none; }
 
 .vetnav-level1 {
   background-color: transparent;
   background-size: 1rem auto; }
+
+.node-title {
+  clear: both;
+  display: flex; }
+  .node-title i.icon-large {
+    float: left; }
+  .node-title h1 {
+    float: left; }
+
+.field--name-field-intro-text {
+  font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
+  font-size: 2rem;
+  font-weight: 400;
+  max-width: 77rem; }
+
+.merger-r-rail {
+  margin-bottom: 1.5em; }
+  .merger-r-rail.hub-promo {
+    background-color: #f1f1f1;
+    border: none; }
+
+.merger article {
+  width: 100%; }
+
+.hub-promo-text {
+  padding: 1em; }
+
+details.va-accordion {
+  border: 3px solid #f1f1f1;
+  display: block;
+  width: 100%;
+  margin: 10px 0; }
+  details.va-accordion[open] summary::-webkit-details-marker {
+    color: #0000ff;
+    background: #00ffff; }
+  details.va-accordion[open] summary:after {
+    content: "-";
+    color: #000; }
+  details.va-accordion summary {
+    position: relative;
+    cursor: pointer;
+    line-height: 1;
+    background-color: #f1f1f1;
+    display: flex; }
+    details.va-accordion summary h3 {
+      font-family: var(--font-source-sans);
+      font-size: 1.17em;
+      margin-bottom: 0;
+      margin-top: 0;
+      padding: 10px 10px 10px 20px; }
+    details.va-accordion summary::-webkit-details-marker {
+      display: none; }
+    details.va-accordion summary:after {
+      position: absolute;
+      right: 10px;
+      content: "+";
+      color: #000;
+      font-size: 2.5em;
+      font-weight: bold; }
+  details.va-accordion .details-content {
+    padding: 10px 10px 10px 20px; }
+    details.va-accordion .details-content .views-row,
+    details.va-accordion .details-content .row {
+      padding: 10px 0; }
+
+.flex-container {
+  display: flex; }
+
+#block-vagov-uswds-node-link-report .usa-alert {
+  cursor: pointer;
+  padding: 10px;
+  margin-top: 0;
+  margin-bottom: 1.5em; }
+  #block-vagov-uswds-node-link-report .usa-alert details {
+    display: inline; }
+  #block-vagov-uswds-node-link-report .usa-alert:before {
+    float: left; }
+  #block-vagov-uswds-node-link-report .usa-alert h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0; }
+
+.usa-alert.usa-alert--success {
+  margin-top: 0;
+  margin-bottom: 1.5em;
+  padding: 10px;
+  font-weight: 700;
+  border-left-color: green; }
+
+#block-vagov-uswds-views-block-right-sidebar-latest-revision-block-1 {
+  margin-bottom: 25px; }
+
+@media screen and (min-width: 768px) {
+  .featured-content-list-item {
+    width: 33%;
+    margin-right: 1em; } }
+
+.field--name-field-cc-vet-center-call-center p {
+  background: #fff1d2;
+  padding: 20px; }
+
+.icon-large {
+  font-size: 20px;
+  height: 40px;
+  width: 40px; }
+  .icon-large.hub-icon-health-care {
+    background: #3f57a6;
+    border-radius: 50%;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 1;
+    font-family: "Font Awesome 5 Free";
+    font-size: inherit;
+    font-weight: 900;
+    margin: 7px 15px 0 0;
+    position: relative;
+    text-rendering: auto;
+    font-style: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; }
+    .icon-large.hub-icon-health-care:before {
+      content: "\F469";
+      margin-top: 10.25px;
+      margin-left: 12px;
+      position: absolute; }

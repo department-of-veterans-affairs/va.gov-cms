@@ -1,0 +1,33 @@
+uuid: 9342ea36-d6c0-4802-88fa-4ffa715991da
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.support_services
+  module:
+    - ctools
+    - views
+  theme:
+    - vagov_uswds
+id: views_block__support_services_block_1
+theme: vagov_uswds
+region: sidebar_second
+weight: -15
+provider: null
+plugin: 'views_block:support_services-block_1'
+settings:
+  id: 'views_block:support_services-block_1'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      landing_page: landing_page
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

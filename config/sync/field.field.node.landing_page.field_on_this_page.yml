@@ -1,0 +1,25 @@
+uuid: 9d8eeef1-dd90-4f2a-8cd9-b6dbeaab9a38
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_on_this_page
+    - node.type.landing_page
+  module:
+    - markup
+id: node.landing_page.field_on_this_page
+field_name: field_on_this_page
+entity_type: node
+bundle: landing_page
+label: 'On this page'
+description: ''
+required: false
+translatable: false
+default_value:
+  - {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: "<ul>\r\n          <li>\r\n            <a href=\"#get-va-health-care\">\r\n              Get VA health care\r\n            </a>\r\n          </li>\r\n          <li>\r\n            <a href=\"#manage-your-health-and-benefits\">\r\n              Manage your health and benefits\r\n            </a>\r\n          </li>\r\n          <li>\r\n            <a href=\"#more-information-and-resources\">\r\n              More information and resources\r\n            </a>\r\n          </li>\r\n        </ul>"
+    format: rich_text
+field_type: markup

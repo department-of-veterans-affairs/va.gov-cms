@@ -8,7 +8,7 @@ dependencies:
     - field.field.media.image.field_media_submission_guideline
     - field.field.media.image.field_owner
     - field.field.media.image.image
-    - image.style.full_content_width
+    - image.style.3_2_medium_thumbnail
     - media.type.image
   module:
     - image
@@ -19,51 +19,22 @@ targetEntityType: media
 bundle: image
 mode: default
 content:
-  field_description:
-    weight: 4
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-    region: content
-  field_media_in_library:
-    type: boolean
-    weight: 2
-    region: content
-    label: hidden
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-  field_owner:
-    weight: 3
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   image:
     type: image
-    weight: 1
+    weight: 0
     label: hidden
     settings:
-      image_style: full_content_width
+      image_style: 3_2_medium_thumbnail
       image_link: content
     third_party_settings: {  }
     region: content
-  name:
-    type: string
-    weight: 0
-    region: content
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
 hidden:
   created: true
+  field_description: true
+  field_media_in_library: true
   field_media_submission_guideline: true
+  field_owner: true
+  name: true
   search_api_excerpt: true
   thumbnail: true
   uid: true
