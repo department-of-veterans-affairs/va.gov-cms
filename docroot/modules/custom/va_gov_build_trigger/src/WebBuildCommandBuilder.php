@@ -65,15 +65,15 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
     $repo_root = $this->getPathToWebRoot();
 
     if (!$front_end_git_ref) {
-      // If no git reference is passed, reset va-gov/content-build to the default tag. We
-      // do this to ensure that the default tag is used even if a branch or PR
-      // was checked out earlier.
+      // If no git reference is passed, reset va-gov/content-build
+      // to the default tag. We do this to ensure that the default tag is used
+      // even if a branch or PR was checked out earlier.
       $commands += $this->getFrontEndReinstallCommands($repo_root);
     }
     else {
-      // If we are checking out a branch or PR, reset all files in va-gov/content-build
-      // to their default state. We do this to avoid having the checkout fail
-      // if there are modified files.
+      // If we are checking out a branch or PR, reset all files in
+      // va-gov/content-build to their default state. We do this to avoid
+      // having the checkout fail if there are modified files.
       $commands[] = $this->getFrontEndResetCommand($repo_root);
     }
 
@@ -158,7 +158,7 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
   }
 
   /**
-   * Build the command to reset va-gov/content-build files to their default state.
+   * Build a command to reset va-gov/content-build files to their default state.
    *
    * @param string $repo_root
    *   The path to the repository root.
