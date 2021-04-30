@@ -68,7 +68,7 @@ make && make install
 And, because I couldn't get Siege to handle cookies from wget, the following siegerc:
 
 ```ini
-login-url = http://localhost/user/login POST name=nathan.douglas@agile6.com&pass=drupal8&op=Log%20in&form_id=user_login_form
+login-url = http://localhost/user/login POST name= axcsd452ksey&pass=drupal8&op=Log%20in&form_id=user_login_form
 ```
 
 Running the following command:
