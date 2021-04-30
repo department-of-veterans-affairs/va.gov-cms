@@ -1,16 +1,16 @@
-uuid: acaea178-c05b-4531-82de-2f5a1c0b2bc8
+uuid: a2c1a47d-29df-4e63-8964-72cc077197f8
 langcode: en
 status: true
 dependencies:
   module:
-    - metatag
     - taxonomy
-id: taxonomy_term.field_metatags
-field_name: field_metatags
+id: taxonomy_term.field_product
+field_name: field_product
 entity_type: taxonomy_term
-type: metatag
-settings: {  }
-module: metatag
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
 locked: false
 cardinality: 1
 translatable: true
