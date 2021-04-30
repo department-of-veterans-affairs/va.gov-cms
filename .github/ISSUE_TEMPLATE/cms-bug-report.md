@@ -39,3 +39,11 @@ Add any other context about the problem here. Reach out to the Product Managers 
 - [ ] CMS practice area (blue)
 - [x] CMS objective (orange) (not needed for bug tickets)
 - [ ] CMS-supported product (black)
+
+### CMS Team
+
+Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
+
+- [x] `Core Application Team`
+- [x] `Product Support Team`
+
