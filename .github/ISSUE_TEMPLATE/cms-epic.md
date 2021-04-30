@@ -61,3 +61,29 @@ This is particularly relevant for feature launches, or for making changes to the
 1. Step_to_get_to_production_Y
 1. Step_to_get_to_production_Z
 
+## Possible tickets to create for this epic
+
+- [ ] Spike task, with some of the following attributes:
+* Identify the baseline against which we will measure improvements
+* Ideation (sketching, cross-displinary meeting of minds around how the problem may be solved)
+* Analysis of the drupal landscape
+* Possible implementation(s)
+* Proof of concept or prototype
+* UX writing discovery
+
+- [ ] User research
+- [ ] Design
+- [ ] UX writing
+- [ ] Usability testing (eg with a prototype or other design stimula)
+- [ ] Implementation
+- [ ] Documentation (What needs changing or adding to the documentation?
+- [ ] Product release notes (How will we describe this feature to CMS users?)
+- [ ] Training (Will any users require additional training?)
+- [ ] Metrics (How will we measure any improvements)
+
+### CMS Team
+
+Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
+
+- [x] `Core Application Team`
+- [x] `Product Support Team`

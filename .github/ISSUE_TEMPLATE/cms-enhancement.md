@@ -33,3 +33,10 @@ Which [CMS design principle](https://github.com/department-of-veterans-affairs/v
 - [ ] Approachable: Offers friendly guidance over authoritative instruction.
 - [ ] Consistent: Reduce user’s mental load by allowing them to fall back on pattern recognition to complete tasks.
 - [ ] Empowering: Provide clear information to help editors make decisions about their work.
+
+### CMS Team
+
+Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
+
+- [x] `Core Application Team`
+- [x] `Product Support Team`
