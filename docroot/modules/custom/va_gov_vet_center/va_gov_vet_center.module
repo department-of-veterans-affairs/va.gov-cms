@@ -26,19 +26,6 @@ function va_gov_vet_center_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
- * Implements hook_theme().
- *
- * @todo Use for vc dashboard theme work.
- */
-function va_gov_vet_center_theme() {
-  return [
-    'va_gov_vet_center' => [
-      'render element' => 'children',
-    ],
-  ];
-}
-
-/**
  * Implements hook_entity_presave().
  */
 function va_gov_vet_center_entity_presave(EntityInterface $entity) {
