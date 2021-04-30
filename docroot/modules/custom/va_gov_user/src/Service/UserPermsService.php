@@ -121,7 +121,7 @@ class UserPermsService {
    *   Determines whether or not we return all options (admin default) or
    *   restrict to items selected on workbench access form.
    *
-   * @return mixed
+   * @return int|null
    *   Returns default user section key or NULL.
    */
   public function getDefault(bool $admin_bypass = FALSE) {

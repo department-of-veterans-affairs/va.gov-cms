@@ -521,7 +521,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 
   _va_gov_backend_dropdown_field_access($form, $targets);
 
-  _va_gov_backend_get_owner_section_default($form);
+  _va_gov_backend_set_owner_section_default($form);
 
   if ($form_id === 'workbench_access_assign_user') {
     $form['#submit'][] = 'va_gov_backend_workbench_assign_user_form_submit';
@@ -1202,7 +1202,7 @@ function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
  * @param array $form
  *   The entity form.
  */
-function _va_gov_backend_get_owner_section_default(array &$form) {
+function _va_gov_backend_set_owner_section_default(array &$form) {
   if (!empty($form['field_administration']['widget'])) {
     $perms_service = \Drupal::service('va_gov_user.user_perms');
     // If only 1, make default, otherwise defaults to Select prompt.
