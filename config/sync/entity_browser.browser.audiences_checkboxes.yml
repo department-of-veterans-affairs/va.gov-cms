@@ -1,0 +1,31 @@
+uuid: 04ddbfb5-610a-4bc8-9541-6f839c1bb783
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.taxonomy_entity_browsers
+  module:
+    - views
+name: audiences_checkboxes
+label: 'Audiences checkboxes'
+display: modal
+display_configuration:
+  width: '800'
+  height: '800'
+  link_text: 'Select audiences'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: single
+widget_selector_configuration: {  }
+widgets:
+  448715f9-9289-440d-a726-6fa85aed47e0:
+    settings:
+      view: taxonomy_entity_browsers
+      view_display: audiences_vocabularies
+      submit_text: 'Select audiences'
+      auto_select: false
+    uuid: 448715f9-9289-440d-a726-6fa85aed47e0
+    weight: 1
+    label: ''
+    id: view
