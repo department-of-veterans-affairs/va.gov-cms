@@ -3,19 +3,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.administration.field_acronym
     - field.field.taxonomy_term.administration.field_description
     - field.field.taxonomy_term.administration.field_email_updates_link_text
     - field.field.taxonomy_term.administration.field_email_updates_url
-    - field.field.taxonomy_term.administration.field_intro_text
     - field.field.taxonomy_term.administration.field_link
-    - field.field.taxonomy_term.administration.field_metatags
+    - field.field.taxonomy_term.administration.field_product
     - field.field.taxonomy_term.administration.field_social_media_links
     - taxonomy.vocabulary.administration
   module:
     - field_group
     - linkit
-    - metatag
     - social_media_links_field
 third_party_settings:
   field_group:
@@ -24,8 +21,8 @@ third_party_settings:
         - field_link
         - field_social_media_links
         - group_email_updates
-      parent_name: group_contact_info
-      weight: 20
+      parent_name: ''
+      weight: 3
       format_type: details
       format_settings:
         id: ''
@@ -33,40 +30,13 @@ third_party_settings:
         open: false
         required_fields: false
       label: 'Connect with us'
-      region: hidden
-    group_contact_info:
-      children:
-        - group_ask_questions
-        - group_connect_with_us
-      parent_name: ''
-      weight: 8
-      format_type: details
-      format_settings:
-        required_fields: true
-        id: ''
-        classes: ''
-        open: false
-      label: 'Contact info'
-      region: hidden
-    group_ask_questions:
-      children: {  }
-      parent_name: group_contact_info
-      weight: 20
-      format_type: details
-      format_settings:
-        id: ''
-        classes: ''
-        open: false
-        required_fields: false
-      label: 'Ask questions'
-      region: hidden
+      region: content
     group_email_updates:
       children:
         - field_email_updates_link_text
         - field_email_updates_url
-        - status
       parent_name: group_connect_with_us
-      weight: 11
+      weight: 5
       format_type: fieldset
       format_settings:
         id: ''
@@ -74,28 +44,20 @@ third_party_settings:
         description: 'A link that leads someone to subscribe to email updates.'
         required_fields: true
       label: 'Email updates'
-      region: hidden
+      region: content
 id: taxonomy_term.administration.default
 targetEntityType: taxonomy_term
 bundle: administration
 mode: default
 content:
-  field_acronym:
-    weight: 1
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_description:
-    weight: 2
+    type: string_textfield
+    weight: 1
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_email_updates_link_text:
     weight: 21
     settings:
@@ -112,32 +74,24 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_intro_text:
-    weight: 3
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textarea
-    region: content
   field_link:
-    weight: 10
+    weight: 3
     settings:
       placeholder_url: ''
       placeholder_title: ''
       linkit_profile: default
+      linkit_auto_link_text: false
     third_party_settings: {  }
     type: linkit
     region: content
-  field_metatags:
-    weight: 4
-    settings:
-      sidebar: true
+  field_product:
+    weight: 2
+    settings: {  }
     third_party_settings: {  }
-    type: metatag_firehose
+    type: options_select
     region: content
   field_social_media_links:
-    weight: 12
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: social_media_links_field_default
@@ -152,5 +106,6 @@ content:
     third_party_settings: {  }
 hidden:
   description: true
+  layout_builder__layout: true
   path: true
   status: true

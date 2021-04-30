@@ -53,6 +53,7 @@ The VA.gov CMS Team
 1. **CMS Content**
    1. [Workflow](READMES/cms-content-workflow.md)
    1. [Content Release](READMES/cms-content-release.md)
+   1. [Section Dashboards](docroot/modules/custom/va_gov_dashboards/README.md)
 
 ## Introduction
 

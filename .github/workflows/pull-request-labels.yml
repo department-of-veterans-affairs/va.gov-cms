@@ -1,7 +1,10 @@
-name: Apply Labels, owners and reviewers to pull request.
+name: Apply Labels, owners and reviewers to pull requests and issues.
 
 on:
-
+  issues:
+    types:
+      - opened
+      - edited
   schedule:
     - cron: '5 * * * *'
 
@@ -11,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
       - uses: harupy/auto-labeling@master
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"

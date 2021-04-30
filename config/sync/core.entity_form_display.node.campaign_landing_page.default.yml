@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - entity_browser.browser.audiences_checkboxes
     - entity_browser.browser.events_browser
     - field.field.node.campaign_landing_page.field_administration
     - field.field.node.campaign_landing_page.field_benefit_categories
@@ -45,6 +46,7 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - content_moderation
+    - entity_browser
     - entity_browser_entity_form
     - entity_browser_table
     - field_group
@@ -317,12 +319,16 @@ content:
   field_clp_audience:
     weight: 3
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      entity_browser: audiences_checkboxes
+      field_widget_display: label
+      field_widget_remove: true
+      selection_mode: selection_append
+      field_widget_edit: false
+      field_widget_replace: false
+      open: false
+      field_widget_display_settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: entity_browser_entity_reference
     region: content
   field_clp_connect_with_us:
     weight: 39
