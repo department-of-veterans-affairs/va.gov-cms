@@ -163,6 +163,9 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
     if ($json['brokenLinksCount'] && $json['summary']) {
       $this->logger->info("There are {$json['brokenLinksCount']} broken links");
       $this->logger->info(BlazyMarkdown::parse($json['summary']));
+      $this->logger->info(nl2br(BlazyMarkdown::parse($json['summary'])));
+      $this->logger->info(BlazyMarkdown::parse($json['summary'], FALSE));
+      $this->logger->info(nl2br(BlazyMarkdown::parse($json['summary'], FALSE)));
     }
   }
 
