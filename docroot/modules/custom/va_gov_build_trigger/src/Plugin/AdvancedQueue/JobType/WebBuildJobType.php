@@ -5,13 +5,15 @@ namespace Drupal\va_gov_build_trigger\Plugin\AdvancedQueue\JobType;
 use Drupal\advancedqueue\Job;
 use Drupal\advancedqueue\JobResult;
 use Drupal\advancedqueue\Plugin\AdvancedQueue\JobType\JobTypeBase;
+use Drupal\blazy\Utility\BlazyMarkdown;
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\va_gov_build_trigger\Command\CommandRunner;
+use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
+use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
-use Github\Api\Markdown;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Process\Process;
 
@@ -46,6 +48,11 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
   protected $webBuildStatus;
 
   /**
+   * @var \Drupal\va_gov_build_trigger\WebBuildCommandBuilder
+   */
+  private $webCommandBuilder;
+
+  /**
    * Constructs a \Drupal\Component\Plugin\PluginBase object.
    *
    * @param array $configuration
@@ -58,19 +65,23 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
    *   The logger factory.
    * @param \Drupal\va_gov_build_trigger\WebBuildStatusInterface $webBuildStatus
    *   The web build status.
+   * @param \Drupal\va_gov_build_trigger\WebBuildCommandBuilder $webBuildCommandBuilder
+   *   Command builder used to get paths.
    */
   public function __construct(
     array $configuration,
     $pluginId,
     $pluginDefinition,
     LoggerChannelFactoryInterface $loggerFactory,
-    WebBuildStatusInterface $webBuildStatus
+    WebBuildStatusInterface $webBuildStatus,
+    WebBuildCommandBuilder $webBuildCommandBuilder
   ) {
     parent::__construct($configuration, $pluginId, $pluginDefinition);
 
     $this->setLoggerFactory($loggerFactory);
     $this->logger = $this->getLogger($this->getPluginId());
     $this->webBuildStatus = $webBuildStatus;
+    $this->webCommandBuilder = $webBuildCommandBuilder;
   }
 
   /**
@@ -82,7 +93,8 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
       $plugin_id,
       $plugin_definition,
       $container->get('logger.factory'),
-      $container->get('va_gov.build_trigger.web_build_status')
+      $container->get('va_gov.build_trigger.web_build_status'),
+      $container->get('va_gov.build_trigger.environment_discovery')
     );
   }
 
@@ -136,14 +148,21 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
    * Log Broken links if they exist.
    */
   protected function logBrokenLinks() : void {
+    $path = $this->webCommandBuilder->getAppRoot();
+    $path .= '/docroot/vendor/va-gov/web/logs/vagovdev-broken-links.json';
 
-    $contents = '{"summary":"*`campaign-mission-act`* : \n```<a class=\"vads-c-action-link--blue\" href rel=\"noreferrer noopener\" target=\"_blank\" id=\"a85fcc36ed81ab70421ca9977c5ec256\">\n                See more stories\n              </a>```\n```<a href=\"/outreach-and-events/events/veterans-town-hall-in-pittsburgh-pa-0\" id=\"8987ac5f258d32380703c3678a8b3a15\">\n                      Veterans town hall in Pittsburgh, PA\n                    </a>```\n```<a href=\"/outreach-and-events/events/facebook-live-community-care-info-session-0\" id=\"0dc1302ad74844b2fbdc726eeb672b6c\">\n                      Facebook Live: Community care info session\n                    </a>```","isHomepageBroken":false,"brokenLinksCount":3}';
+    if (!file_exists($path)) {
+      return;
+    }
+
+    //$contents = '{"summary":"*`campaign-mission-act`* : \n```<a class=\"vads-c-action-link--blue\" href rel=\"noreferrer noopener\" target=\"_blank\" id=\"a85fcc36ed81ab70421ca9977c5ec256\">\n                See more stories\n              </a>```\n```<a href=\"/outreach-and-events/events/veterans-town-hall-in-pittsburgh-pa-0\" id=\"8987ac5f258d32380703c3678a8b3a15\">\n                      Veterans town hall in Pittsburgh, PA\n                    </a>```\n```<a href=\"/outreach-and-events/events/facebook-live-community-care-info-session-0\" id=\"0dc1302ad74844b2fbdc726eeb672b6c\">\n                      Facebook Live: Community care info session\n                    </a>```","isHomepageBroken":false,"brokenLinksCount":3}';
+    $contents = file_get_contents($path);
     $json = Json::decode($contents);
 
-    $client = new \Github\Client();
-    $markdown = new Markdown($client);
-    $this->logger->info(nl2br("There are {$json['brokenLinksCount']} broken links"));
-    $this->logger->info(nl2br($markdown->render($json['summary'])));
+    if ($json['brokenLinksCount'] && $json['summary']) {
+      $this->logger->info("There are {$json['brokenLinksCount']} broken links");
+      $this->logger->info(BlazyMarkdown::parse($json['summary']));
+    }
   }
 
 }
