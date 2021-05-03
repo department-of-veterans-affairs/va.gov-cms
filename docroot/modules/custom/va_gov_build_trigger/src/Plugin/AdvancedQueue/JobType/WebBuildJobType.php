@@ -5,11 +5,13 @@ namespace Drupal\va_gov_build_trigger\Plugin\AdvancedQueue\JobType;
 use Drupal\advancedqueue\Job;
 use Drupal\advancedqueue\JobResult;
 use Drupal\advancedqueue\Plugin\AdvancedQueue\JobType\JobTypeBase;
+use Drupal\Component\Serialization\Json;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\va_gov_build_trigger\Command\CommandRunner;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
+use Github\Api\Markdown;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Process\Process;
 
@@ -118,13 +120,30 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
       foreach ($messages as $message) {
         $this->logger->error(nl2br($message));
       }
+
+      $this->logBrokenLinks();
       $this->webBuildStatus->disableWebBuildStatus();
       return JobResult::failure();
     }
 
+    $this->logBrokenLinks();
     $this->logger->info('Front end has been successfully rebuilt.');
     $this->webBuildStatus->disableWebBuildStatus();
     return JobResult::success();
+  }
+
+  /**
+   * Log Broken links if they exist.
+   */
+  protected function logBrokenLinks() : void {
+
+    $contents = '{"summary":"*`campaign-mission-act`* : \n```<a class=\"vads-c-action-link--blue\" href rel=\"noreferrer noopener\" target=\"_blank\" id=\"a85fcc36ed81ab70421ca9977c5ec256\">\n                See more stories\n              </a>```\n```<a href=\"/outreach-and-events/events/veterans-town-hall-in-pittsburgh-pa-0\" id=\"8987ac5f258d32380703c3678a8b3a15\">\n                      Veterans town hall in Pittsburgh, PA\n                    </a>```\n```<a href=\"/outreach-and-events/events/facebook-live-community-care-info-session-0\" id=\"0dc1302ad74844b2fbdc726eeb672b6c\">\n                      Facebook Live: Community care info session\n                    </a>```","isHomepageBroken":false,"brokenLinksCount":3}';
+    $json = Json::decode($contents);
+
+    $client = new \Github\Client();
+    $markdown = new Markdown($client);
+    $this->logger->info(nl2br("There are {$json['brokenLinksCount']} broken links"));
+    $this->logger->info(nl2br($markdown->render($json['summary'])));
   }
 
 }
