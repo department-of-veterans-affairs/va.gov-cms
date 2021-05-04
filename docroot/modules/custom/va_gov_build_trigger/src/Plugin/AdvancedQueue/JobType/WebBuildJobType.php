@@ -5,10 +5,13 @@ namespace Drupal\va_gov_build_trigger\Plugin\AdvancedQueue\JobType;
 use Drupal\advancedqueue\Job;
 use Drupal\advancedqueue\JobResult;
 use Drupal\advancedqueue\Plugin\AdvancedQueue\JobType\JobTypeBase;
+use Drupal\blazy\Utility\BlazyMarkdown;
+use Drupal\Component\Serialization\Json;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\va_gov_build_trigger\Command\CommandRunner;
+use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Process\Process;
@@ -44,6 +47,13 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
   protected $webBuildStatus;
 
   /**
+   * Web Command Builder.
+   *
+   * @var \Drupal\va_gov_build_trigger\WebBuildCommandBuilder
+   */
+  private $webCommandBuilder;
+
+  /**
    * Constructs a \Drupal\Component\Plugin\PluginBase object.
    *
    * @param array $configuration
@@ -56,19 +66,23 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
    *   The logger factory.
    * @param \Drupal\va_gov_build_trigger\WebBuildStatusInterface $webBuildStatus
    *   The web build status.
+   * @param \Drupal\va_gov_build_trigger\WebBuildCommandBuilder $webBuildCommandBuilder
+   *   Command builder used to get paths.
    */
   public function __construct(
     array $configuration,
     $pluginId,
     $pluginDefinition,
     LoggerChannelFactoryInterface $loggerFactory,
-    WebBuildStatusInterface $webBuildStatus
+    WebBuildStatusInterface $webBuildStatus,
+    WebBuildCommandBuilder $webBuildCommandBuilder
   ) {
     parent::__construct($configuration, $pluginId, $pluginDefinition);
 
     $this->setLoggerFactory($loggerFactory);
     $this->logger = $this->getLogger($this->getPluginId());
     $this->webBuildStatus = $webBuildStatus;
+    $this->webCommandBuilder = $webBuildCommandBuilder;
   }
 
   /**
@@ -80,7 +94,8 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
       $plugin_id,
       $plugin_definition,
       $container->get('logger.factory'),
-      $container->get('va_gov.build_trigger.web_build_status')
+      $container->get('va_gov.build_trigger.web_build_status'),
+      $container->get('va_gov.build_trigger.web_build_command_builder')
     );
   }
 
@@ -118,13 +133,36 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
       foreach ($messages as $message) {
         $this->logger->error(nl2br($message));
       }
+
+      $this->logBrokenLinks();
       $this->webBuildStatus->disableWebBuildStatus();
       return JobResult::failure();
     }
 
+    $this->logBrokenLinks();
     $this->logger->info('Front end has been successfully rebuilt.');
     $this->webBuildStatus->disableWebBuildStatus();
     return JobResult::success();
+  }
+
+  /**
+   * Log Broken links if they exist.
+   */
+  protected function logBrokenLinks() : void {
+    $path = $this->webCommandBuilder->getAppRoot();
+    $path .= '/docroot/vendor/va-gov/web/logs/vagovdev-broken-links.json';
+
+    if (!file_exists($path)) {
+      return;
+    }
+
+    $contents = file_get_contents($path);
+    $json = Json::decode($contents);
+
+    if ($json['brokenLinksCount'] && $json['summary']) {
+      $this->logger->info("There are {$json['brokenLinksCount']} broken links");
+      $this->logger->info(BlazyMarkdown::parse($json['summary']));
+    }
   }
 
 }
