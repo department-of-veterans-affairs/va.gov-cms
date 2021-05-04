@@ -98,20 +98,11 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
   /**
    * The name of the composer command to run.
    *
-   * @param string|null $front_end_git_ref
-   *   Front end git reference to build (branch name or PR number)
-   *
    * @return string
    *   The name of the composer command to run
    */
-  protected function commandName(string $front_end_git_ref = NULL) : string {
-    $command = 'va:web:build';
-
-    if ($front_end_git_ref) {
-      $command .= ':full';
-    }
-
-    return $command;
+  protected function commandName() : string {
+    return 'va:web:build';
   }
 
   /**
