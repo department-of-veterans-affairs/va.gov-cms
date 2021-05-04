@@ -2,25 +2,27 @@
 name: CMS section request
 about: Requests a change to the Sections hierarchy
 title: 
-labels: 'Section request, Content governance'
-assignees: 'kevwalsh'
+labels: 'Section request, Content governance, Product support team'
+assignees: ''
 
 ---
+
+_Use this form to request change to the Sections hierarchy. You can expect a response within a week._
 
 ## Proposed change
 
 **What change to the Sections hierarchy do you want?** 
 
-[For example: Move a branch of RS to VBA section hierarchy, so VBA, VHA, and NCA business line stakeholders can create and publish non-Veteran-facing RS articles.]
+_For example: Move a branch of RS to VBA section hierarchy, so VBA, VHA, and NCA business line stakeholders can create and publish non-Veteran-facing RS articles._
 
 
 **What types of content are associated with this Section?**
 
-[For example: Various Resources and Support content types.]
+_For example: Various Resources and Support content types._
 
 **Include a screenshot or diagram of this proposed change**
 
-Example: 
+_Example:_
 
 Current R&S section hierarchy:  
 
@@ -32,12 +34,12 @@ New R&S section hierarchy
 
 ```
 VBA
-- Resources and support
+- VBA Resources and support
 VHA
-- Resources and support
+- VHA Resources and support
 NCA
-- Resources and support
-DEPO 
+- NCA Resources and support
+OCTO 
 - Public Websites
   - Resources and support
 ```
@@ -55,13 +57,26 @@ DEPO
 [Example: Existing CMS users at VBA, NCA and VHA will be able to create (and then edit) content in a Resources and support section in their respective sections.]
 
 
+# For CMS team to complete 
+
+## Products affected
+
+
+
+## Product owner
+
+
+
+
 ## Acceptance Criteria
-[For CMS team to complete]
 
 Examples: 
 - [ ] New "Resources and support" sections are added under each of the three main Administrations (NCA, VHA, VBA)
 - [ ] All existing Resources and support content is moved to ...
 - [ ] Update X, Y, and Z editors about a change in content access
+
+
+
 
 ### CMS Team
 
