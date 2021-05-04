@@ -27,13 +27,11 @@ to the user "CMS Migrator"
   1. Vet Centers - va_node_facility_vet_centers
 
 ### VAMC Status Migration
-VAMC Statuses are updated by a separate migration
-(va_node_health_care_local_facility_status) that runs every hour.  It grabs
-[multiple CSV sources](../docroot/modules/custom/va_gov_migrate/config/install/migrate_plus.migration.va_node_health_care_local_facility_status.yml) (one per system) which are
-scraped from TeamSite and updates the "Operating status"
-(field_operating_status_facility) and "Operating status - more info"
-(field_operating_status_more_info)  [Changes to operating status also get pushed
- to Lighthouse](vamc-facilities.md#status-changes-to-lighthouse).
+VAMC Statuses are updated by a separate migration `va_node_health_care_local_facility_status` that runs every hour. It grabs [multiple CSV sources](../docroot/modules/custom/va_gov_migrate/config/install/migrate_plus.migration.va_node_health_care_local_facility_status.yml) (one per system) which are scraped from TeamSite (hosted by [EWIS](https://github.com/department-of-veterans-affairs/devops/blob/master/docs/External%20Service%20Integrations/EWIS.md)) and updates the fields:
+- "Operating status" (`field_operating_status_facility`)
+- "Operating status - more info" (`field_operating_status_more_info`)
+
+Changes to operating status also get [pushed to Lighthouse](vamc-facilities.md#status-changes-to-lighthouse).
 
 
 
