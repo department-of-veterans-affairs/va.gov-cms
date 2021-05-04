@@ -152,7 +152,6 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
     $path = $this->webCommandBuilder->getAppRoot();
     $path .= '/docroot/vendor/va-gov/web/logs/vagovdev-broken-links.json';
 
-    $this->logger->info($path);
     if (!file_exists($path)) {
       return;
     }
