@@ -241,13 +241,10 @@ function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_st
             $menu_id = $menu_id_array[1];
             // Load them into an array we can use for cherrypicking by keys.
             $uuids_with_vals[$menu_id] = [
-              'key_count' => $key_count,
+              'key_count' => $key_count++,
               'menu_key' => $key,
               'option' => $option,
             ];
-            // Flat array for multi menu loading.
-            $uuids_only[$key_count] = $menu_id;
-            $key_count++;
           }
         }
       }
@@ -255,7 +252,10 @@ function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_st
       // Load up all our menu items at once.
       $loaded_menu_items = \Drupal::entityTypeManager()
         ->getStorage('menu_link_content')
-        ->loadByProperties(['uuid' => $uuids_only, 'enabled' => 1]);
+        ->loadByProperties([
+          'uuid' => array_keys($uuids_with_vals),
+          'enabled' => 1,
+        ]);
 
       $enabled_count = 0;
 
