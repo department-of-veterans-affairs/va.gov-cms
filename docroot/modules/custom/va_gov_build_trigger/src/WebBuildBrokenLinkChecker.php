@@ -5,6 +5,9 @@ namespace Drupal\va_gov_build_trigger;
 use Drupal\blazy\Utility\BlazyMarkdown;
 use Drupal\Component\Serialization\Json;
 
+/**
+ * Handle the web Broken Link checker.
+ */
 class WebBuildBrokenLinkChecker {
 
   /**
@@ -83,7 +86,7 @@ class WebBuildBrokenLinkChecker {
   }
 
   /**
-   * Get Formatted Broken link Report
+   * Get Formatted Broken link Report.
    *
    * @return string
    */
