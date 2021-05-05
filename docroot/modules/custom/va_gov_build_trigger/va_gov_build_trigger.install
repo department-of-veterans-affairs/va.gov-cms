@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * A file that does stuff.  And things.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function va_gov_build_trigger_requirements($phase) {
+
+  $requirements = [];
+  $requirements['nug_doug_pizza'] = [
+    'title' => t('Nathan Douglas Is Mad 😡'),
+    'description' => t('Nathan Douglas demands pizza!  NOW!'),
+    'severity' => REQUIREMENT_ERROR,
+  ];
+
+  return $requirements;
+}
