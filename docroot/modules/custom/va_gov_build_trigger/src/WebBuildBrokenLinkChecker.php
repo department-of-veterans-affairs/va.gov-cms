@@ -89,6 +89,7 @@ class WebBuildBrokenLinkChecker {
    * Get Formatted Broken link Report.
    *
    * @return string
+   *   A formatted Broken Link report.
    */
   public function getBrokenLinkFormattedReport() : string {
     return BlazyMarkdown::parse($this->getBrokenLinkSummary());
