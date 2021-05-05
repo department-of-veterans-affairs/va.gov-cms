@@ -150,7 +150,7 @@
         "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^5.1",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/web": "^0.1",
+        "va-gov/content-build": "^0.0.34",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -502,18 +502,11 @@
             "@va:web:watch"
         ],
         "va:web:build": [
-            "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
-            "cd web && echo \"Downloading assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
-            "cd web && NODE_ENV=production yarn build:content --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov --asset-source=$(git rev-parse --verify HEAD)",
+            "rm -rf docroot/vendor/va-gov/content-build/build/vagovdev",
+            "cd docroot/vendor/va-gov/vets-website && echo \"Downloading assets for vets-website for vagovdev\" ",
+            "cd web && INSTALL_HOOKS=no NODE_ENV=production yarn build --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov",
             "echo 'Replace s3 address with local in generated files'",
-            "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -exec sed -i \"s#https://dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com##g\" {} \\+"
-        ],
-        "va:web:build:full": [
-            "rm -rf docroot/vendor/va-gov/web/build/vagovdev",
-            "cd web && echo \"Building assets for vets-website ref $(git rev-parse --verify HEAD)\" ",
-            "cd web && NODE_ENV=production yarn build --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov --force-content-build",
-            "echo 'Replace s3 address with local in generated files'",
-            "find ./docroot/vendor/va-gov/web/build/vagovdev/generated -type f -exec sed -i \"s#https://dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com##g\" {} \\+"
+            "find ./docroot/vendor/va-gov/content-build/build/vagovdev/generated -type f -exec sed -i \"s#https://dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com##g\" {} \\+"
         ],
         "va:web:test": [
             "echo 'drupal address: ' $DRUPAL_ADDRESS"
