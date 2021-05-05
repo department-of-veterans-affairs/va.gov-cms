@@ -59,6 +59,7 @@ Feature: Views
 | Custom block entity browsers | custom_block_entity_browsers | Custom Block | Enabled | For placing on content forms |
 | Services | services | Content | Enabled | Lists of services for facility pages, health services lists, etc |
 | Recent content | content_recent | Content | Disabled | Recent content. |
+| Section hierarchy export | section_export | Taxonomy terms | Enabled | Enables easy export of Sections taxonomy hierarchy for analysis outside Drupal |
 | Taxonomy entity browsers | taxonomy_entity_browsers | Taxonomy terms | Enabled |  |
 | VAMC top task page revision histories | vamc_top_task_page_revisions | Content | Enabled |  |
 | Vet centers | vet_centers | Content | Enabled |  |
@@ -206,6 +207,9 @@ Feature: Views
 | Services | Master | default | Master |
 | Recent content | Master | default | Master |
 | Recent content | Block | block_1 | Block |
+| Section hierarchy export | Data export | csv_export | Data export |
+| Section hierarchy export | Master | default | Master |
+| Section hierarchy export | Page | page_1 | Page |
 | Taxonomy entity browsers | Block | block_1 | Block |
 | Taxonomy entity browsers | Entity browser | entity_browser_1 | Entity browser |
 | Taxonomy entity browsers | Master | default | Master |
