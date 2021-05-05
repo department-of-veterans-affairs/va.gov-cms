@@ -6,7 +6,11 @@ use Drupal\blazy\Utility\BlazyMarkdown;
 use Drupal\Component\Serialization\Json;
 
 class WebBuildBrokenLinkChecker {
-  public CONST BROKEN_LINK_SUFFIX = '/docroot/vendor/va-gov/web/logs/vagovdev-broken-links.json';
+
+  /**
+   * Broken link path.
+   */
+  public const BROKEN_LINK_SUFFIX = '/docroot/vendor/va-gov/web/logs/vagovdev-broken-links.json';
 
   /**
    * Web Build Command Builder class.
@@ -41,7 +45,6 @@ class WebBuildBrokenLinkChecker {
   public function __construct(WebBuildCommandBuilder $webCommandBuilder) {
     $this->webCommandBuilder = $webCommandBuilder;
   }
-
 
   /**
    * Load Broken Links.
@@ -79,6 +82,11 @@ class WebBuildBrokenLinkChecker {
     return $this->summary ?? '';
   }
 
+  /**
+   * Get Formatted Broken link Report
+   *
+   * @return string
+   */
   public function getBrokenLinkFormattedReport() : string {
     return BlazyMarkdown::parse($this->getBrokenLinkSummary());
   }

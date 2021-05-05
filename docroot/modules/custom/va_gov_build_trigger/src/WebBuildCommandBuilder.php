@@ -54,7 +54,7 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
    *
    * @param \Drupal\Core\Site\Settings $settings
    *   Drupal settings.
-   * @param \Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker
+   * @param \Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker $webBuildBrokenLinkChecker
    *   Web build link command builder.
    */
   public function __construct(Settings $settings, WebBuildBrokenLinkChecker $webBuildBrokenLinkChecker) {
@@ -102,7 +102,7 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
   /**
    * Clear broken link files.
    *
-   * return string
+   * @return string
    *   The broken link command.
    */
   public function buildBrokenLinkCommand() : string {
