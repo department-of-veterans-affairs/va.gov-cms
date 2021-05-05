@@ -65,15 +65,15 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
     $repo_root = $this->getPathToWebRoot();
 
     if (!$front_end_git_ref) {
-      // If no git reference is passed, reset va-gov/web to the default tag. We
-      // do this to ensure that the default tag is used even if a branch or PR
-      // was checked out earlier.
+      // If no git reference is passed, reset va-gov/content-build
+      // to the default tag. We do this to ensure that the default tag is used
+      // even if a branch or PR was checked out earlier.
       $commands += $this->getFrontEndReinstallCommands($repo_root);
     }
     else {
-      // If we are checking out a branch or PR, reset all files in va-gov/web
-      // to their default state. We do this to avoid having the checkout fail
-      // if there are modified files.
+      // If we are checking out a branch or PR, reset all files in
+      // va-gov/content-build to their default state. We do this to avoid
+      // having the checkout fail if there are modified files.
       $commands[] = $this->getFrontEndResetCommand($repo_root);
     }
 
@@ -98,20 +98,11 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
   /**
    * The name of the composer command to run.
    *
-   * @param string|null $front_end_git_ref
-   *   Front end git reference to build (branch name or PR number)
-   *
    * @return string
    *   The name of the composer command to run
    */
-  protected function commandName(string $front_end_git_ref = NULL) : string {
-    $command = 'va:web:build';
-
-    if ($front_end_git_ref) {
-      $command .= ':full';
-    }
-
-    return $command;
+  protected function commandName() : string {
+    return 'va:web:build';
   }
 
   /**
@@ -158,13 +149,13 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
   }
 
   /**
-   * Build the command to reset va-gov/web files to their default state.
+   * Build a command to reset va-gov/content-build files to their default state.
    *
    * @param string $repo_root
    *   The path to the repository root.
    *
    * @return string
-   *   The command to run to reset va-gov/web files.
+   *   The command to run to reset va-gov/content-build files.
    */
   protected function getFrontEndResetCommand(string $repo_root) : string {
     return "cd {$repo_root} && git reset --hard HEAD";
