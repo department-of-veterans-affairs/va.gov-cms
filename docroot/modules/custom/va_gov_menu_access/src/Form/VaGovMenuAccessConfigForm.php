@@ -2,6 +2,8 @@
 
 namespace Drupal\va_gov_menu_access\Form;
 
+use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -13,18 +15,31 @@ class VaGovMenuAccessConfigForm extends ConfigFormBase {
   /**
    * The cache manager service.
    *
-   * @var Drupal\Core\Cache\CacheBackendInterface
+   * @var \Drupal\Core\Cache\CacheBackendInterface
    */
   protected $cacheManager;
+
+  /**
+   * Constructor for VaGovMenuAccessConfigForm.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The factory for configuration objects.
+   * @param \Drupal\Core\Cache\CacheBackendInterface $cache_manager
+   *   Cache manager.
+   */
+  public function __construct(ConfigFactoryInterface $config_factory, CacheBackendInterface $cache_manager) {
+    parent::__construct($config_factory);
+    $this->cacheManager = $cache_manager;
+  }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    $instance = parent::create($container);
-    $instance->cacheManager = $container->get('cache.menu');
-
-    return $instance;
+    return new static(
+      $container->get('config.factory'),
+      $container->get('cache.menu')
+    );
   }
 
   /**
