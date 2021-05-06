@@ -172,11 +172,11 @@ function va_gov_menu_access_disable_parent_menu_options(array &$form, string $fo
  *   The form array.
  */
 function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_state) {
-  $user_roles = \Drupal::currentUser()->getRoles();
-  $admin_roles = ['content_admin', 'administrator'];
+  /** @var \Drupal\va_gov_user\Service\UserPermsService */
+  $perms_service = \Drupal::service('va_gov_user.user_perms');
   $node_type = ($form_state->getFormObject() instanceof NodeForm) ? $form_state->getFormObject()->getEntity()->getType() : NULL;
   // User isn't an admin, so logic is applied.
-  if (empty(array_intersect($user_roles, $admin_roles))) {
+  if (!$perms_service->hasAdminRole()) {
     // Unable to pass $form_id from parent function when using after_build.
     // Throws uneven arguments error.
     $form_id = $form_state->getFormObject()->getFormId();
@@ -225,29 +225,7 @@ function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_st
       // Grab our menu items list.
       $universal_parent_menu_items = $paths_config['universal_parent_menu_items'];
 
-      // Grab all the values in the dropdown.
-      $parent_options = $form['menu']['link']['menu_parent']['#options'];
-
-      // Create some empty arrays for organizing our items.
-      $allowed_parents = [];
-      $uuids_with_vals = [];
-      $uuids_only = [];
-      $key_count = 0;
-      foreach ($parent_options as $key => $option) {
-        if (!empty(explode('menu_link_content:', $key))) {
-          // This is how we get our menu item uuid.
-          $menu_id_array = explode('menu_link_content:', $key);
-          if (!empty($menu_id_array[1])) {
-            $menu_id = $menu_id_array[1];
-            // Load them into an array we can use for cherrypicking by keys.
-            $uuids_with_vals[$menu_id] = [
-              'key_count' => $key_count++,
-              'menu_key' => $key,
-              'option' => $option,
-            ];
-          }
-        }
-      }
+      $uuids_with_vals = _va_gov_menu_access_extract_menu_ids($form['menu']['link']['menu_parent']['#options']);
 
       // Load up all our menu items at once.
       $loaded_menu_items = \Drupal::entityTypeManager()
@@ -315,6 +293,8 @@ function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_st
             }
           }
 
+          $allowed_parents = [];
+
           // If we hit on one of our allowed menu separators, include it.
           $separator_flag = 0;
           foreach ($allowed_separators as $separator) {
@@ -362,4 +342,33 @@ function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_st
     }
   }
   return $form;
+}
+
+/**
+ * Extract menu ids and other date from parent options.
+ *
+ * @param mixed $parent_options
+ *   Array of options from the menu link.
+ *
+ * @return array
+ *   An array of menu ids and related metadata.
+ */
+function _va_gov_menu_access_extract_menu_ids($parent_options) : array {
+  $uuids_with_vals = [];
+  $key_count = 0;
+  foreach ($parent_options as $key => $option) {
+    if (!empty(explode('menu_link_content:', $key))) {
+      // This is how we get our menu item uuid.
+      $menu_id_array = explode('menu_link_content:', $key);
+      if (!empty($menu_id_array[1])) {
+        $menu_id = $menu_id_array[1];
+        $uuids_with_vals[$menu_id] = [
+          'key_count' => $key_count++,
+          'menu_key' => $key,
+          'option' => $option,
+        ];
+      }
+    }
+  }
+  return $uuids_with_vals;
 }
