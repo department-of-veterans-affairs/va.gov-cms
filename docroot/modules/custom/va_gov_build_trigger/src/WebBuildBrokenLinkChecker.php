@@ -16,13 +16,6 @@ class WebBuildBrokenLinkChecker {
   public const BROKEN_LINK_SUFFIX = '/docroot/vendor/va-gov/web/logs/vagovdev-broken-links.json';
 
   /**
-   * Web Build Command Builder class.
-   *
-   * @var \Drupal\va_gov_build_trigger\WebBuildCommandBuilder
-   */
-  protected $webCommandBuilder;
-
-  /**
    * The number of broken Links.
    *
    * @var int
@@ -38,16 +31,6 @@ class WebBuildBrokenLinkChecker {
    * @var string
    */
   protected $summary;
-
-  /**
-   * WebBuildBrokenLinkChecker constructor.
-   *
-   * @param \Drupal\va_gov_build_trigger\WebBuildCommandBuilder $webCommandBuilder
-   *   The web command builder class.
-   */
-  public function __construct(WebBuildCommandBuilder $webCommandBuilder) {
-    $this->webCommandBuilder = $webCommandBuilder;
-  }
 
   /**
    * Load Broken Links.
@@ -68,11 +51,14 @@ class WebBuildBrokenLinkChecker {
   /**
    * Get the path to the broken link build file.
    *
+   * @param string $appRoot
+   *   The path to the application root.
+   *
    * @return string
    *   The path to the broken link file.
    */
-  public function getBrokenLinkPath() : string {
-    return $this->webCommandBuilder->getAppRoot() . static::BROKEN_LINK_SUFFIX;
+  public function getBrokenLinkPath(string $appRoot) : string {
+    return $appRoot . static::BROKEN_LINK_SUFFIX;
   }
 
   /**

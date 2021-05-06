@@ -33,7 +33,6 @@ services:
     arguments: ['@state']
   va_gov.build_trigger.web_build_link_checker:
     class: Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker
-    arguments: ['@va_gov.build_trigger.web_build_command_builder']
   va_gov.build_trigger.environment_discovery:
     class: Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery
     arguments: [ '@plugin.manager.va_gov.environment' ]

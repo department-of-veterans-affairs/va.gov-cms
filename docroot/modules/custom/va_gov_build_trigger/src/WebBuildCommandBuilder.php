@@ -106,7 +106,7 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
    *   The broken link command.
    */
   public function buildBrokenLinkCommand() : string {
-    return 'rm -rf ' . $this->webBuildBrokenLinkChecker->getBrokenLinkPath();
+    return 'rm -rf ' . $this->webBuildBrokenLinkChecker->getBrokenLinkPath($this->getAppRoot());
   }
 
   /**
