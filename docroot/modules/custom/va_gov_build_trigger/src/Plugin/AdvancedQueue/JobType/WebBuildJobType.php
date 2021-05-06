@@ -53,7 +53,7 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
   protected $webBuildBrokenLinkChecker;
 
   /**
-   * Web Command Builder
+   * Web Command Builder.
    *
    * @var \Drupal\va_gov_build_trigger\WebBuildCommandBuilder
    */
