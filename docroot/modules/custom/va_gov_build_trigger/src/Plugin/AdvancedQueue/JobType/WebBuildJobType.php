@@ -168,8 +168,8 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
     );
 
     $link_count = $this->webBuildBrokenLinkChecker->getBrokenLinkCount();
-    if ($link_count) {
-      $this->logger->info("There are {$link_count} broken links");
+    $this->logger->info("There are {$link_count} broken links");
+    if ($link_count > 0) {
       $this->logger->info($this->webBuildBrokenLinkChecker->getBrokenLinkFormattedReport());
     }
   }
