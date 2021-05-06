@@ -521,8 +521,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 
   _va_gov_backend_dropdown_field_access($form, $targets);
 
-  _va_gov_backend_set_owner_section_default($form, $form_state);
-
   if ($form_id === 'workbench_access_assign_user') {
     $form['#submit'][] = 'va_gov_backend_workbench_assign_user_form_submit';
   }
@@ -1197,6 +1195,13 @@ function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
 }
 
 /**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function va_gov_backend_form_node_form_alter(array &$form, FormStateInterface &$form_state) {
+  _va_gov_backend_set_owner_section_default($form, $form_state);
+}
+
+/**
  * For setting the default owner section in dropdown.
  *
  * @param array $form
@@ -1204,19 +1209,18 @@ function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
  * @param Drupal\Core\Form\FormStateInterface $form_state
  *   The entity form state.
  */
-function _va_gov_backend_set_owner_section_default(array &$form, FormStateInterface $form_state) {
+function _va_gov_backend_set_owner_section_default(array &$form, FormStateInterface &$form_state) {
   if (!empty($form['field_administration']['widget'])) {
-    // See if there is already a value set on the entity for this field.
-    $field_administration_value = NULL;
+    // No value set, so run default value set logic.
     if ($form_state->getFormObject() instanceof EntityFormInterface) {
-      $field_administration_value = $form_state->getFormObject()->getEntity()->field_administration->getString();
-    }
-    // There isn't a target id, so set a default using perms service.
-    if (!$field_administration_value) {
-      $perms_service = \Drupal::service('va_gov_user.user_perms');
-      // If only 1, make default, otherwise defaults to Select prompt.
-      if ($default = $perms_service->getDefault(TRUE)) {
-        $form['field_administration']['widget']['#default_value'] = $default;
+      $entity = $form_state->getFormObject()->getEntity();
+
+      if ($entity->isNew()) {
+        $perms_service = \Drupal::service('va_gov_user.user_perms');
+        // If only 1, make default, otherwise defaults to Select prompt.
+        if ($default = $perms_service->getDefault(TRUE)) {
+          $form['field_administration']['widget']['#default_value'] = $default;
+        }
       }
     }
   }
