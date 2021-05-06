@@ -6,12 +6,31 @@ use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Routing\Access\AccessInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\Routing\Route;
 
 /**
  * Determines access rules for particular routes.
  */
 class RouteAccessChecks implements AccessInterface {
+
+
+  /**
+   * The UserPermsService for the current user.
+   *
+   * @var \Drupal\va_gov_user\Service\UserPermsService
+   */
+  protected $permsService;
+
+  /**
+   * RouteAccessChecks constructor.
+   *
+   * @param \Drupal\va_gov_user\Service\UserPermsService $perms_service
+   *   The UserPermsService.
+   */
+  public function __construct(UserPermsService $perms_service) {
+    $this->permsService = $perms_service;
+  }
 
   /**
    * A custom access check.
@@ -25,13 +44,7 @@ class RouteAccessChecks implements AccessInterface {
    */
   public function access(Route $route, RouteMatchInterface $route_match, AccountInterface $account) {
     // Restrict admin menu access.
-    $current_user_roles = $account->getRoles();
-    $admin_roles = [
-      'administrator',
-      'content_admin',
-    ];
-    $admin_role_count = count(array_intersect($admin_roles, $current_user_roles));
-    if ($admin_role_count > 0) {
+    if ($this->permsService->hasAdminRole()) {
       return AccessResult::allowed();
     }
 
