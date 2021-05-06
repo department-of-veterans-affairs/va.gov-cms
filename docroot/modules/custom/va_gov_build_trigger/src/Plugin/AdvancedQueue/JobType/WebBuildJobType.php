@@ -74,6 +74,8 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
    *   The web build status.
    * @param \Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker $webBuildBrokenLinkChecker
    *   Web Build Link checker interface.
+   * @param \Drupal\va_gov_build_trigger\WebBuildCommandBuilder $webBuildCommandBuilder
+   *   Web Command Builder Class.
    */
   public function __construct(
     array $configuration,
