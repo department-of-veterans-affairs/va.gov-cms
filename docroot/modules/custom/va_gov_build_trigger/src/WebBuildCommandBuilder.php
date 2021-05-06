@@ -85,7 +85,7 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
       // va-gov/content-build to their default state. We do this to avoid
       // having the checkout fail if there are modified files.
       $commands[] = $this->getFrontEndResetCommand($repo_root);
-      $commands[] = $this->buildBrokenLinkCommand();
+      $commands[] = $this->buildRemoveBrokenLinkCommand();
     }
 
     $composer_command = $this->commandName();
@@ -105,7 +105,7 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
    * @return string
    *   The broken link command.
    */
-  public function buildBrokenLinkCommand() : string {
+  public function buildRemoveBrokenLinkCommand() : string {
     return 'rm -rf ' . $this->webBuildBrokenLinkChecker->getBrokenLinkPath($this->getAppRoot());
   }
 

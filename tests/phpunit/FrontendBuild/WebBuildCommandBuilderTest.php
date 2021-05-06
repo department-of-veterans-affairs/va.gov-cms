@@ -4,8 +4,8 @@ namespace tests\phpunit\FrontendBuild;
 
 use Drupal\Core\Site\Settings;
 use Drupal\Tests\UnitTestCase;
+use Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker;
 use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
-use Drupal\va_gov_build_trigger\WebBuildStatus;
 
 /**
  * @covers \Drupal\va_gov_build_trigger\WebBuildCommandBuilder
@@ -30,9 +30,8 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
     $settings = new Settings($settings_array);
 
     /** @var \Drupal\Core\State\StateInterface $state */
-    $state = $this->createMock('Drupal\Core\State\StateInterface');
-    $webBuildStatus = new WebBuildStatus($state, $settings);
-    $webBuildCommandBuilder = new WebBuildCommandBuilder($settings, $webBuildStatus);
+    $webBrokenLinkChecker = new WebBuildBrokenLinkChecker();
+    $webBuildCommandBuilder = new WebBuildCommandBuilder($settings, $webBrokenLinkChecker);
 
     $commands = $webBuildCommandBuilder->buildCommands(NULL, $unique_key);
     self::assertEquals(
@@ -60,25 +59,30 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
     );
 
     self::assertEquals(
-      "cd /repo/root && git fetch origin pull/1234/head:{$web_branch} && git checkout {$web_branch}",
+      "rm -rf /app/root/docroot/vendor/va-gov/web/logs/vagovdev-broken-links.json",
       $commands[1],
+      'Remove the broken link report json file'
+    );
+
+    self::assertEquals(
+      "cd /repo/root && git fetch origin pull/1234/head:{$web_branch} && git checkout {$web_branch}",
+      $commands[2],
       'Web Command Build with commit and GraphQL git command'
     );
 
     self::assertEquals(
       "cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:install",
-      $commands[2],
+      $commands[3],
       'Web Command Build with commit and GraphQL npm install command'
     );
 
     self::assertEquals(
       "cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build",
-      $commands[3],
+      $commands[4],
       'Web Command Build with commit and GraphQL composer command'
     );
 
     $commands = $webBuildCommandBuilder->buildCommands('abcd', $unique_key);
-    $web_branch = "build-abcd-abcssss";
     self::assertEquals(
       "cd /repo/root && git reset --hard HEAD",
       $commands[0],

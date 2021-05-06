@@ -34,9 +34,12 @@ class WebBuildBrokenLinkChecker {
 
   /**
    * Load Broken Links.
+   *
+   * * @param string $appRoot
+   *   The path to the application root.
    */
-  public function loadBrokenLinks() : void {
-    $path = $this->$this->getBrokenLinkPath();
+  public function loadBrokenLinks(string $appRoot) : void {
+    $path = $this->getBrokenLinkPath($appRoot);
     if (!file_exists($path)) {
       return;
     }

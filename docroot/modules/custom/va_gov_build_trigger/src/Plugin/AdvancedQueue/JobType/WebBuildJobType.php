@@ -10,6 +10,7 @@ use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\va_gov_build_trigger\Command\CommandRunner;
 use Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker;
+use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Process\Process;
@@ -45,11 +46,18 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
   protected $webBuildStatus;
 
   /**
-   * Web Command Builder.
+   * Web Broken Link Checker.
    *
    * @var \Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker
    */
   protected $webBuildBrokenLinkChecker;
+
+  /**
+   * Web Command Builder
+   *
+   * @var \Drupal\va_gov_build_trigger\WebBuildCommandBuilder
+   */
+  protected $webBuildCommandBuilder;
 
   /**
    * Constructs a \Drupal\Component\Plugin\PluginBase object.
@@ -73,7 +81,8 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
     $pluginDefinition,
     LoggerChannelFactoryInterface $loggerFactory,
     WebBuildStatusInterface $webBuildStatus,
-    WebBuildBrokenLinkChecker $webBuildBrokenLinkChecker
+    WebBuildBrokenLinkChecker $webBuildBrokenLinkChecker,
+    WebBuildCommandBuilder $webBuildCommandBuilder
   ) {
     parent::__construct($configuration, $pluginId, $pluginDefinition);
 
@@ -81,6 +90,7 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
     $this->logger = $this->getLogger($this->getPluginId());
     $this->webBuildStatus = $webBuildStatus;
     $this->webBuildBrokenLinkChecker = $webBuildBrokenLinkChecker;
+    $this->webBuildCommandBuilder = $webBuildCommandBuilder;
   }
 
   /**
@@ -93,7 +103,8 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
       $plugin_definition,
       $container->get('logger.factory'),
       $container->get('va_gov.build_trigger.web_build_status'),
-      $container->get('va_gov.build_trigger.web_build_link_checker')
+      $container->get('va_gov.build_trigger.web_build_link_checker'),
+      $container->get('va_gov.build_trigger.web_build_command_builder')
     );
   }
 
@@ -150,7 +161,9 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
     // We sleep for 10 seconds to make sure this log message
     // is after the build.
     sleep(10);
-    $this->webBuildBrokenLinkChecker->loadBrokenLinks();
+    $this->webBuildBrokenLinkChecker->loadBrokenLinks(
+      $this->webBuildCommandBuilder->getAppRoot()
+    );
 
     $link_count = $this->webBuildBrokenLinkChecker->getBrokenLinkCount();
     if ($link_count) {

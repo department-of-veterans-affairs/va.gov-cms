@@ -68,14 +68,8 @@ class Tugboat extends EnvironmentPluginBase {
     /** @var \Drupal\advancedqueue\Entity\QueueInterface $queue */
     $queue = $this->queueLoader->load('command_runner');
 
-
-    // Remove broken links file just incaes it's still there
-    // from a previous build.
-    $commands = [
-      'rm -rf ' . $this->webBuildCommandBuilder->getAppRoot() . '/docroot/vendor/va-gov/web/logs/vagovdev-broken-links.json',
-    ];
     // A new command variable since the rebuild commands has been queued.
-    $commands += $this->webBuildCommandBuilder->buildCommands($front_end_git_ref);
+    $commands = $this->webBuildCommandBuilder->buildCommands($front_end_git_ref);
     $this->queueCommands($commands, $queue);
 
     $this->messenger()->addStatus('A request to rebuild the front end has been submitted.');
