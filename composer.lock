@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "053b43493c2ced6218c5b881aea3c817",
+    "content-hash": "ed07efa749919a0d4b0e530f1634bd47",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -742,16 +742,16 @@
         },
         {
             "name": "composer/installers",
-            "version": "v1.11.0",
+            "version": "v1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "ae03311f45dfe194412081526be2e003960df74b"
+                "reference": "1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/ae03311f45dfe194412081526be2e003960df74b",
-                "reference": "ae03311f45dfe194412081526be2e003960df74b",
+                "url": "https://api.github.com/repos/composer/installers/zipball/1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d",
+                "reference": "1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d",
                 "shasum": ""
             },
             "require": {
@@ -845,7 +845,6 @@
                 "majima",
                 "mako",
                 "mediawiki",
-                "miaoxing",
                 "modulework",
                 "modx",
                 "moodle",
@@ -863,7 +862,6 @@
                 "sydes",
                 "sylius",
                 "symfony",
-                "tastyigniter",
                 "typo3",
                 "wordpress",
                 "yawik",
@@ -872,7 +870,7 @@
             ],
             "support": {
                 "issues": "https://github.com/composer/installers/issues",
-                "source": "https://github.com/composer/installers/tree/v1.11.0"
+                "source": "https://github.com/composer/installers/tree/v1.10.0"
             },
             "funding": [
                 {
@@ -888,7 +886,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-04-28T06:42:17+00:00"
+            "time": "2021-01-14T11:07:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -2946,21 +2944,17 @@
                     "dev-4.x": "4.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-4.0-alpha2+6-dev",
-                    "datestamp": "1590769222",
+                    "version": "8.x-4.0-alpha2+9-dev",
+                    "datestamp": "1620240013",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
                     }
-                },
-                "patches_applied": {
-                    "3197953-5 - Make d9 compatible": "https://www.drupal.org/files/issues/2021-03-19/cer-3197953-5.patch",
-                    "3200122 - Remove delete hook": "https://www.drupal.org/files/issues/2021-02-24/delete-hook-added-in-dev-causes-test-failures.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -2970,6 +2964,10 @@
                 {
                     "name": "chertzog",
                     "homepage": "https://www.drupal.org/user/806366"
+                },
+                {
+                    "name": "gcb",
+                    "homepage": "https://www.drupal.org/user/1682976"
                 },
                 {
                     "name": "gregcube",
@@ -2988,8 +2986,7 @@
             "homepage": "https://www.drupal.org/project/cer",
             "support": {
                 "source": "https://git.drupalcode.org/project/cer"
-            },
-            "time": "2020-05-29T16:20:02+00:00"
+            }
         },
         {
             "name": "drupal/coder",
@@ -3356,9 +3353,6 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": {
-                    "Content lock causes redirect response preventing migration rollback.": "https://www.drupal.org/files/issues/2018-08-28/2951652-4.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3595,21 +3589,6 @@
                         "[web-root]/profiles/README.txt": "assets/scaffold/files/profiles.README.txt",
                         "[web-root]/themes/README.txt": "assets/scaffold/files/themes.README.txt"
                     }
-                },
-                "patches_applied": {
-                    "2807629 - Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/drupal-core-allow-menu-items-to-link-to-unpublished-2807629-7-8.3.x.patch",
-                    "2894449 - Indirect modification of overloaded element with Views responsive table": "https://www.drupal.org/files/issues/2018-10-05/core-indirect-modification-of-overloaded-element-2894449-18.patch",
-                    "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2019-09-11/3057267-maintenance-forced-logout-experimental.patch",
-                    "1091852 - Display Bug when using #states (Forms API) with Ajax Request": "https://www.drupal.org/files/issues/2019-11-19/1091852-104.patch",
-                    "2859042 - Entity original revision": "https://www.drupal.org/files/issues/2018-07-30/entity_original_revision-2859042-26.patch",
-                    "2930508 - Seven inactive tabs do not meet WCAG AA 1.4.3 for contrast": "https://www.drupal.org/files/issues/2020-10-15/drupal-seven_inactive_tabs_do_not_meet_wcag_aa-2930508-36.patch",
-                    "2632750 - Interface previews/skeleton screens through optional preview or placeholder templates": "https://www.drupal.org/files/issues/2020-11-18/2632750-76-do-not-test_0.patch",
-                    "2911932 - Correct vertical tab does not focus on form validation": "https://www.drupal.org/files/issues/2020-12-12/vertical-tabs--focus-on-onvalid-7b.patch",
-                    "3188331 - Vertical tabs scroll behavior is buggy": "https://www.drupal.org/files/issues/2020-12-14/vertical-tab-scroll-frozen-2.patch",
-                    "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2020-01-07/2893933-34.patch",
-                    "3198608 - Migrate does not set set track_lst_updated from config": "https://www.drupal.org/files/issues/2021-02-15/3198608-track-last-updated-6.patch",
-                    "3176975 - Allow updating easyrdf/easyrdf on 8.9.x": "patches/allow_updating_easyrdf_8_9_x.patch",
-                    "3205691 - Disallow aria-required on fieldsets": "https://www.drupal.org/files/issues/2021-03-25/disallow-aria-required-fieldsets.patch"
                 }
             },
             "autoload": {
@@ -4656,10 +4635,6 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": {
-                    "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch",
-                    "Entity browser cardinality validation": "https://www.drupal.org/files/issues/0001-Issue-2856138-by-gordon-Error-messages-are-not-being.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4745,11 +4720,6 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": {
-                    "Table drag doesn't work on new entity form, and sort is lost on ajax": "https://www.drupal.org/files/issues/2020-08-25/fix-sort-loss-and-add-form-3166733-2.patch",
-                    "Add moderation status column": "https://www.drupal.org/files/issues/2020-08-24/add-moderation-status-3166953-5.patch",
-                    "Limit validation checks on remove": "https://www.drupal.org/files/issues/2021-01-25/limit-remove-button-validators.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4795,9 +4765,6 @@
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
                     }
-                },
-                "patches_applied": {
-                    "Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4975,9 +4942,6 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": {
-                    "2984027 Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5314,57 +5278,17 @@
             "homepage": "https://www.drupal.org/project/fast_404",
             "support": {
                 "source": "https://git.drupalcode.org/project/fast_404"
-            },
-            "time": "2020-09-14T15:03:19+00:00"
+            }
         },
         {
             "name": "drupal/feature_toggle",
-            "version": "dev-1.x",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/feature_toggle.git",
                 "reference": "8753ecb9a6a541fdea2de04a4640aa6b998a8df4"
             },
-            "require": {
-                "drupal/core": "~8.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.1+1-dev",
-                    "datestamp": "1508931243",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
-                    }
-                },
-                "patches_applied": {
-                    "3147452 - Make compatible with d9": "https://www.drupal.org/files/issues/2020-06-06/feature_toggle.1.x-dev.rector.patch"
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "TechNikh",
-                    "homepage": "https://www.drupal.org/user/372123"
-                },
-                {
-                    "name": "plopesc",
-                    "homepage": "https://www.drupal.org/user/282415"
-                }
-            ],
-            "description": "Enable or disable features.",
-            "homepage": "https://www.drupal.org/project/feature_toggle",
-            "support": {
-                "source": "https://git.drupalcode.org/project/feature_toggle"
-            },
-            "time": "2017-10-25T11:31:01+00:00"
+            "type": "drupal-module"
         },
         {
             "name": "drupal/field_group",
@@ -5392,10 +5316,6 @@
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
                     }
-                },
-                "patches_applied": {
-                    "2787179 Visibility of invalid fields": "https://www.drupal.org/files/issues/2021-01-05/2787179-highlight-html5-validation-59.patch",
-                    "1482958-47 Allow field_group with empty fields to be displayed via setting": "https://www.drupal.org/files/issues/2020-06-24/field_group-empty-config-1482958-47.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5429,8 +5349,7 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/field_group",
                 "issues": "https://www.drupal.org/project/issues/field_group"
-            },
-            "time": "2021-04-19T21:00:23+00:00"
+            }
         },
         {
             "name": "drupal/fieldhelptext",
@@ -5503,9 +5422,6 @@
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
                     }
-                },
-                "patches_applied": {
-                    "2957019 Failed to start the session because headers have already been sent": "https://www.drupal.org/files/issues/2020-01-20/2957019-51.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5582,10 +5498,6 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": {
-                    "3191346 - Custom events not listed in getEvents() of floodUnblockManager caused undefined index error": "https://www.drupal.org/files/issues/2021-02-16/flood_control-prevent_notices_for_custom_events-3191346-9.patch",
-                    "3192020 - Flood control admin form adds contact.settings when Contact module is not enabled": "https://www.drupal.org/files/issues/2021-01-10/3192020-2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5824,110 +5736,27 @@
             "homepage": "https://www.drupal.org/project/graphql_metatag",
             "support": {
                 "source": "https://git.drupalcode.org/project/graphql_metatag"
-            },
-            "time": "2020-11-21T17:17:48+00:00"
+            }
         },
         {
             "name": "drupal/health_check_url",
-            "version": "dev-2.x",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/health_check_url.git",
                 "reference": "6eff12c076f6e0412b33e11201e33b1257431f4e"
             },
-            "require": {
-                "drupal/core": "~8.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-2.x": "2.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-2.1+1-dev",
-                    "datestamp": "1554880081",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
-                    }
-                },
-                "patches_applied": {
-                    "3147740 - Make d9 compatible": "https://www.drupal.org/files/issues/2020-06-06/health_check_url.2.x-dev.rector.patch"
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "btobac",
-                    "homepage": "https://www.drupal.org/user/3630142"
-                },
-                {
-                    "name": "karthikeyan-manivasagam",
-                    "homepage": "https://www.drupal.org/user/1494424"
-                }
-            ],
-            "description": "Configurable string & end point for load balancers to check Drupal site health",
-            "homepage": "https://www.drupal.org/project/health_check_url",
-            "support": {
-                "source": "https://git.drupalcode.org/project/health_check_url"
-            },
-            "time": "2019-04-10T07:06:40+00:00"
+            "type": "drupal-module"
         },
         {
             "name": "drupal/hms_field",
-            "version": "dev-1.x",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/hms_field.git",
                 "reference": "f138860c7b18c6aab00f5860b29d15b9ab2197f5"
             },
-            "require": {
-                "drupal/core": "^8"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.0-beta1+1-dev",
-                    "datestamp": "1530813521",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
-                    }
-                },
-                "patches_applied": {
-                    "3145496 - Make d9 compatible": "https://www.drupal.org/files/issues/2020-06-05/3145496-6.patch"
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Frans",
-                    "homepage": "https://www.drupal.org/user/514222"
-                },
-                {
-                    "name": "jeroen.b",
-                    "homepage": "https://www.drupal.org/user/1853532"
-                },
-                {
-                    "name": "ws.agency",
-                    "homepage": "https://www.drupal.org/user/2851415"
-                }
-            ],
-            "description": "Provides a field for Hours, Minutes and Seconds stored as seconds.",
-            "homepage": "https://www.drupal.org/project/hms_field",
-            "support": {
-                "source": "https://git.drupalcode.org/project/hms_field"
-            },
-            "time": "2018-07-04T14:28:12+00:00"
+            "type": "drupal-module"
         },
         {
             "name": "drupal/hook_event_dispatcher",
@@ -6455,9 +6284,6 @@
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
                     }
-                },
-                "patches_applied": {
-                    "2712951 - Linkit for Link field": "https://www.drupal.org/files/issues/2021-01-26/linkit-for-link-field-2712951-207.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -6888,7 +6714,7 @@
             "extra": {
                 "drupal": {
                     "version": "8.x-1.2",
-                    "datestamp": "1614211187",
+                    "datestamp": "1616337149",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -7062,10 +6888,6 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": {
-                    "3113461 - Allow properties in str_replace process plugin.": "https://www.drupal.org/files/issues/2020-03-16/migrate_plus-properties_str_replace-2.patch",
-                    "Allow request options https://gitlab.com/drupalspoons/migrate_plus/-/issues/257": "https://gitlab.com/drupalspoons/migrate_plus/uploads/35f5950f1647e237cdd706f2e3e93c54/257-add-request-option-support-to-http.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -7261,8 +7083,7 @@
                 "source": "https://git.drupalcode.org/project/migrate_tools",
                 "issues": "https://www.drupal.org/project/issues/migrate_tools",
                 "slack": "#migrate"
-            },
-            "time": "2021-01-04T16:50:03+00:00"
+            }
         },
         {
             "name": "drupal/migration_tools",
@@ -7639,12 +7460,6 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": {
-                    "Content & Behavior tabs use fixed IDs": "https://www.drupal.org/files/issues/2020-10-14/paragraphs-fix_duplicate_content_behavior_tab_ids-3176946-3.patch",
-                    "Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch",
-                    "Remove button should not be shown on required field": "https://www.drupal.org/files/issues/2020-05-13/hide_field_required_paragraphs_remove_button_1.patch",
-                    "2901390 - Integrity constraint violation: 1048 Column 'langcode' cannot be null": "https://www.drupal.org/files/issues/2021-03-01/2901390-76-integrity-constraint-violation-paragraph.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -7960,9 +7775,6 @@
                     "services": {
                         "drush.services.yml": "^9 || ^10"
                     }
-                },
-                "patches_applied": {
-                    "3204586 - Update URL Alias action is only available for nodes + users and does not work with views_bulk_operations": "https://www.drupal.org/files/issues/2021-03-22/pathauto-add_deriver_for_alias_update_action-3204586-19.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -8508,9 +8320,6 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": {
-                    "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2020-07-31/reroll-existing-test-and-logging-fix-2748731-29.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -8575,9 +8384,6 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": {
-                    "3118800 - Add drush commands to add and remove alerts by label": "https://www.drupal.org/files/issues/2020-10-26/3118800-45.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -8848,12 +8654,6 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": {
-                    "0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch",
-                    "Fix Undefined index: caption notice": "https://www.drupal.org/files/issues/2020-08-10/tablefield-empty-caption-notice-2.patch",
-                    "Tablefield input elements have no title or label": "https://www.drupal.org/files/issues/2020-10-14/tablefield-add_title_to_input_elements-3176982-2.patch",
-                    "Copying caption to value breaks some data exports https://www.drupal.org/project/tablefield/issues/3195203": "https://www.drupal.org/files/issues/2021-01-28/tablefield-caption-copied-to-value-3195203-2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -9032,8 +8832,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/taxonomy_menu",
                 "issues": "http://drupal.org/project/taxonomy_menu"
-            },
-            "time": "2020-08-07T09:11:08+00:00"
+            }
         },
         {
             "name": "drupal/textfield_counter",
@@ -9061,9 +8860,6 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": {
-                    "Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -9681,9 +9477,6 @@
                     "services": {
                         "drush.services.yml": "^9 || ^10"
                     }
-                },
-                "patches_applied": {
-                    "3118596 - Cache isn't invalidated after user is removed from section/added to section.": "https://www.drupal.org/files/issues/2020-06-30/3118596_workbench_access-user-cache-18.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -9771,6 +9564,7 @@
                 "url": "https://github.com/agilesix/workflow_assignments.git",
                 "reference": "c9e4ff60d9b0db3e8df444cf649349e2eaaee253"
             },
+            "default-branch": true,
             "type": "drupal-module",
             "extra": {
                 "branch-alias": {
@@ -11724,6 +11518,10 @@
             "keywords": [
                 "markdown"
             ],
+            "support": {
+                "issues": "https://github.com/michelf/php-markdown/issues",
+                "source": "https://github.com/michelf/php-markdown/tree/1.9.0"
+            },
             "time": "2019-12-02T02:32:27+00:00"
         },
         {
@@ -12997,6 +12795,10 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
+            "support": {
+                "issues": "https://github.com/PHPMailer/PHPMailer/issues",
+                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.4.1"
+            },
             "funding": [
                 {
                     "url": "https://github.com/Synchro",
@@ -16664,6 +16466,9 @@
             ],
             "description": "Simulates the behavior of a web browser, allowing you to make requests, click on links and submit forms programmatically",
             "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/browser-kit/tree/v4.4.22"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -16955,6 +16760,9 @@
             ],
             "description": "Converts CSS selectors to XPath expressions",
             "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/css-selector/tree/v4.4.22"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -18916,6 +18724,9 @@
                 "debug",
                 "dump"
             ],
+            "support": {
+                "source": "https://github.com/symfony/var-dumper/tree/v4.4.22"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -19084,11 +18895,6 @@
                 "squizlabs/php_codesniffer": "^2.7"
             },
             "type": "library",
-            "extra": {
-                "patches_applied": {
-                    "Throw meaningful message for duplicate entry. See https://github.com/TravisCarden/behat-table-comparison/pull/7": "patches/duplicate-row-message.patch"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "TravisCarden\\BehatTableComparison\\": "src/BehatTableComparison/"
@@ -19653,6 +19459,7 @@
                 "squizlabs/php_codesniffer": "^3.2",
                 "zaporylie/composer-drupal-optimizations": "^1.0"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "installer-paths": {
@@ -19687,6 +19494,9 @@
                 }
             ],
             "description": "Traits for testing Drupal sites that have user content (versus unpopulated sites).",
+            "support": {
+                "issues": "https://gitlab.com/api/v4/projects/6878188/issues"
+            },
             "time": "2021-04-16T01:33:10+00:00"
         },
         {
@@ -21175,12 +20985,9 @@
         "drupal/entity_reference_validators": 15,
         "drupal/entityqueue": 10,
         "drupal/fast_404": 20,
-        "drupal/feature_toggle": 20,
         "drupal/fieldhelptext": 10,
         "drupal/flag": 10,
         "drupal/graphql_metatag": 20,
-        "drupal/health_check_url": 20,
-        "drupal/hms_field": 20,
         "drupal/libraries": 15,
         "drupal/markup": 10,
         "drupal/migrate_source_ui": 5,
