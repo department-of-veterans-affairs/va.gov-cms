@@ -4,7 +4,6 @@ namespace Drupal\va_gov_build_trigger;
 
 use Drupal\blazy\Utility\BlazyMarkdown;
 use Drupal\Component\Serialization\Json;
-use Drush\Log\Logger;
 
 /**
  * Handle the web Broken Link checker.
@@ -14,7 +13,7 @@ class WebBuildBrokenLinkChecker {
   /**
    * Broken link path.
    */
-  public const BROKEN_LINK_SUFFIX = '/docroot/vendor/va-gov/web/logs/vagovdev-broken-links.json';
+  public const BROKEN_LINK_SUFFIX = '/docroot/vendor/va-gov/content-build/logs/vagovdev-broken-links.json';
 
   /**
    * The number of broken Links.
@@ -41,7 +40,7 @@ class WebBuildBrokenLinkChecker {
    */
   public function loadBrokenLinks(string $appRoot) : void {
     $path = $this->getBrokenLinkPath($appRoot);
-    \Drupal::logger('neil')->info($path);
+
     if (!file_exists($path)) {
       return;
     }
