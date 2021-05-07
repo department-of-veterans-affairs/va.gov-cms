@@ -85,7 +85,7 @@ tasks:
               github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
             else
               github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
-              [ -z "\${GITHUB_COMMENT_TYPE}" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="\${result}"
+              [ "\${GITHUB_COMMENT_TYPE}" == "pr" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="\${result}"
             fi
           fi
         EOF
@@ -109,7 +109,7 @@ tasks:
               github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
             else
               github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
-              [ -z "\${GITHUB_COMMENT_TYPE}" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="\${result}"
+              [ "\${GITHUB_COMMENT_TYPE}" == "pr" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="\${result}"
             fi
           fi
         EOF
@@ -164,13 +164,13 @@ tasks:
           mkfifo \$output
           (cat \$output&)
           lines=\$(drush $DRUSH_ALIAS core-requirements --format=list --severity=2 2>&1 | tee \$output)
-          line_count=\$(grep -c "^.+$" <<< \$lines)
+          line_count=\$(grep -c "\S" <<< \$lines)
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$line_count" -eq 0 ]; then
               github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success: No Drupal status requirement errors were found.'
             else
               github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description="Failed: \${line_count} Drupal status requirements found."
-              [ -z "\${GITHUB_COMMENT_TYPE}" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="{{ .TASK }}:<br /><br />\${lines}"
+              [ "\${GITHUB_COMMENT_TYPE}" == "pr" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="{{ .TASK }}:<br /><br /><pre>\$(drush $DRUSH_ALIAS core-requirements --severity=2)</pre>"
             fi
           fi
         EOF
