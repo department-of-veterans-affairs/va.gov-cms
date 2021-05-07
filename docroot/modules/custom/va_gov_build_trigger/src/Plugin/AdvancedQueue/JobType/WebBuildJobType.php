@@ -5,12 +5,11 @@ namespace Drupal\va_gov_build_trigger\Plugin\AdvancedQueue\JobType;
 use Drupal\advancedqueue\Job;
 use Drupal\advancedqueue\JobResult;
 use Drupal\advancedqueue\Plugin\AdvancedQueue\JobType\JobTypeBase;
-use Drupal\blazy\Utility\BlazyMarkdown;
-use Drupal\Component\Serialization\Json;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\va_gov_build_trigger\Command\CommandRunner;
+use Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker;
 use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -47,11 +46,18 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
   protected $webBuildStatus;
 
   /**
+   * Web Broken Link Checker.
+   *
+   * @var \Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker
+   */
+  protected $webBuildBrokenLinkChecker;
+
+  /**
    * Web Command Builder.
    *
    * @var \Drupal\va_gov_build_trigger\WebBuildCommandBuilder
    */
-  private $webCommandBuilder;
+  protected $webBuildCommandBuilder;
 
   /**
    * Constructs a \Drupal\Component\Plugin\PluginBase object.
@@ -66,8 +72,10 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
    *   The logger factory.
    * @param \Drupal\va_gov_build_trigger\WebBuildStatusInterface $webBuildStatus
    *   The web build status.
+   * @param \Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker $webBuildBrokenLinkChecker
+   *   Web Build Link checker interface.
    * @param \Drupal\va_gov_build_trigger\WebBuildCommandBuilder $webBuildCommandBuilder
-   *   Command builder used to get paths.
+   *   Web Command Builder Class.
    */
   public function __construct(
     array $configuration,
@@ -75,6 +83,7 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
     $pluginDefinition,
     LoggerChannelFactoryInterface $loggerFactory,
     WebBuildStatusInterface $webBuildStatus,
+    WebBuildBrokenLinkChecker $webBuildBrokenLinkChecker,
     WebBuildCommandBuilder $webBuildCommandBuilder
   ) {
     parent::__construct($configuration, $pluginId, $pluginDefinition);
@@ -82,7 +91,8 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
     $this->setLoggerFactory($loggerFactory);
     $this->logger = $this->getLogger($this->getPluginId());
     $this->webBuildStatus = $webBuildStatus;
-    $this->webCommandBuilder = $webBuildCommandBuilder;
+    $this->webBuildBrokenLinkChecker = $webBuildBrokenLinkChecker;
+    $this->webBuildCommandBuilder = $webBuildCommandBuilder;
   }
 
   /**
@@ -95,6 +105,7 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
       $plugin_definition,
       $container->get('logger.factory'),
       $container->get('va_gov.build_trigger.web_build_status'),
+      $container->get('va_gov.build_trigger.web_build_link_checker'),
       $container->get('va_gov.build_trigger.web_build_command_builder')
     );
   }
@@ -149,19 +160,17 @@ class WebBuildJobType extends JobTypeBase implements ContainerFactoryPluginInter
    * Log Broken links if they exist.
    */
   protected function logBrokenLinks() : void {
-    $path = $this->webCommandBuilder->getAppRoot();
-    $path .= '/docroot/vendor/va-gov/web/logs/vagovdev-broken-links.json';
+    // We sleep for 10 seconds to make sure this log message
+    // is after the build.
+    sleep(10);
+    $this->webBuildBrokenLinkChecker->loadBrokenLinks(
+      $this->webBuildCommandBuilder->getAppRoot()
+    );
 
-    if (!file_exists($path)) {
-      return;
-    }
-
-    $contents = file_get_contents($path);
-    $json = Json::decode($contents);
-
-    if ($json['brokenLinksCount'] && $json['summary']) {
-      $this->logger->info("There are {$json['brokenLinksCount']} broken links");
-      $this->logger->info(BlazyMarkdown::parse($json['summary']));
+    $link_count = $this->webBuildBrokenLinkChecker->getBrokenLinkCount();
+    $this->logger->info("There are {$link_count} broken links");
+    if ($link_count > 0) {
+      $this->logger->info($this->webBuildBrokenLinkChecker->getBrokenLinkFormattedReport());
     }
   }
 

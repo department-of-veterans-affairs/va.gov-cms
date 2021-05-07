@@ -31,6 +31,8 @@ services:
   va_gov.build_trigger.web_build_status:
     class: Drupal\va_gov_build_trigger\WebBuildStatus
     arguments: ['@state']
+  va_gov.build_trigger.web_build_link_checker:
+    class: Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker
   va_gov.build_trigger.environment_discovery:
     class: Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery
     arguments: [ '@plugin.manager.va_gov.environment' ]
@@ -44,7 +46,7 @@ services:
       - { name: event_subscriber }
   va_gov.build_trigger.web_build_command_builder:
     class: Drupal\va_gov_build_trigger\WebBuildCommandBuilder
-    arguments: ['@settings']
+    arguments: ['@settings', '@va_gov.build_trigger.web_build_link_checker']
   va_gov.site_status:
     class: Drupal\va_gov_build_trigger\SiteStatus\SiteStatus
     arguments: ['@state']

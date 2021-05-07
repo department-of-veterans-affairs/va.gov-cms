@@ -43,16 +43,26 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
   protected $pathToWebRoot;
 
   /**
+   * Broken Link Checker class.
+   *
+   * @var \Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker
+   */
+  protected $webBuildBrokenLinkChecker;
+
+  /**
    * WebBuildCommandBuilder constructor.
    *
    * @param \Drupal\Core\Site\Settings $settings
    *   Drupal settings.
+   * @param \Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker $webBuildBrokenLinkChecker
+   *   Web build link command builder.
    */
-  public function __construct(Settings $settings) {
+  public function __construct(Settings $settings, WebBuildBrokenLinkChecker $webBuildBrokenLinkChecker) {
     $this->appRoot = $settings->get(static::APP_ROOT, '');
     $this->composerHome = $settings->get(static::COMPOSER_HOME, '');
     $this->pathToComposer = $settings->get(static::PATH_TO_COMPOSER, '');
     $this->pathToWebRoot = $settings->get(static::WEB_ROOT, '');
+    $this->webBuildBrokenLinkChecker = $webBuildBrokenLinkChecker;
   }
 
   /**
@@ -68,16 +78,17 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
       // If no git reference is passed, reset va-gov/content-build
       // to the default tag. We do this to ensure that the default tag is used
       // even if a branch or PR was checked out earlier.
-      $commands += $this->getFrontEndReinstallCommands($repo_root);
+      $commands = $this->getFrontEndReinstallCommands($repo_root);
     }
     else {
       // If we are checking out a branch or PR, reset all files in
       // va-gov/content-build to their default state. We do this to avoid
       // having the checkout fail if there are modified files.
       $commands[] = $this->getFrontEndResetCommand($repo_root);
+      $commands[] = $this->buildRemoveBrokenLinkCommand();
     }
 
-    $composer_command = $this->commandName($front_end_git_ref);
+    $composer_command = $this->commandName();
     if ($command = $this->getFrontEndGitReferenceCheckoutCommand($repo_root, $unique_key, $front_end_git_ref)) {
       $commands[] = $command;
       $commands[] = $this->buildComposerCommand('va:web:install');
@@ -86,6 +97,16 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
     $commands[] = $this->buildComposerCommand($composer_command);
 
     return $commands;
+  }
+
+  /**
+   * Clear broken link files.
+   *
+   * @return string
+   *   The broken link command.
+   */
+  public function buildRemoveBrokenLinkCommand() : string {
+    return 'rm -rf ' . $this->webBuildBrokenLinkChecker->getBrokenLinkPath($this->getAppRoot());
   }
 
   /**
