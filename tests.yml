@@ -59,8 +59,9 @@ tasks:
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
           set -o pipefail
-          mkfifo output
-          (cat output&)
+          output="\$(mktemp -d)/output"
+          mkfifo \$output
+          (cat \$output&)
           result="\$(composer va:test:behavioral 2>&1 | tee \$output)"
           exit_code=\$?
           if [ "$SKIP_REPORTING" -ne 1 ]; then
