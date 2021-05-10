@@ -55,24 +55,32 @@ Feature: Google Tag Manager dataLayer values are correct
     And I am at "/node/2"
     Then the GTM data layer value for "userSections" should be set to "all"
 
-  Scenario: A user should have GTM userSections values corresponding to their currently set sections.
+  Scenario: A user should have GTM userSections values corresponding to their currently set sections (1)
     Given I am logged in as a user with the "content_creator_benefits_hubs" role
     And my workbench access sections are not set
     And I am at "/node/2"
     Then the GTM data layer value for "userSections" should be unset
 
+  Scenario: A user should have GTM userSections values corresponding to their currently set sections (2)
+    Given I am logged in as a user with the "content_creator_benefits_hubs" role
     And my workbench access sections are set to "administration"
     And I reload the page
     Then the GTM data layer value for "userSections" should be set to "all"
 
+  Scenario: A user should have GTM userSections values corresponding to their currently set sections (3)
+    Given I am logged in as a user with the "content_creator_benefits_hubs" role
     And my workbench access sections are set to "165"
     And I reload the page
     Then the GTM data layer value for "userSections" should be set to "165"
 
+  Scenario: A user should have GTM userSections values corresponding to their currently set sections (4)
+    Given I am logged in as a user with the "content_creator_benefits_hubs" role
     And my workbench access sections are set to "165,176,177,212,246,374,375,376,377,378"
     And I reload the page
     Then the GTM data layer value for "userSections" should be set to "165,176,177,212,246,374,375,376,377,378"
 
+  Scenario: A user should have GTM userSections values corresponding to their currently set sections (5)
+    Given I am logged in as a user with the "content_creator_benefits_hubs" role
     And my workbench access sections are set to "1,10,157,162,163,191,192,2,204,205,206,207,208,209,210,211,247,248,249,250,251,252,253,254,255,295,3,46,5,6,65,66,67,68,69,7,70,72,73,74,75,76,77,8"
     And I reload the page
     Then the GTM data layer value for "userSections" should be set to "1,10,157,162,163,191,192,2,204,205,206,207,208,209,210,211,247,248,249,250,251,252,253,254,255,295,3,46,5,6,65,66,67,68,69,7,70,72,73,74,75,76,77,8"
