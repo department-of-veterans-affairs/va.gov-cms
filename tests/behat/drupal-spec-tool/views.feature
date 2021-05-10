@@ -57,13 +57,13 @@ Feature: Views
 | User email csv | user_email_csv | Users | Enabled |  |
 | Listing page dashboard | listing_page_dashboard | Content | Disabled |  |
 | Custom block entity browsers | custom_block_entity_browsers | Custom Block | Enabled | For placing on content forms |
+| Section administration and export | section_export | Taxonomy terms | Enabled | Enables easier adminstration of Sections/Product relationship, and export tools for analysis outside Drupal |
 | Services | services | Content | Enabled | Lists of services for facility pages, health services lists, etc |
 | Recent content | content_recent | Content | Disabled | Recent content. |
-| Section hierarchy export | section_export | Taxonomy terms | Enabled | Enables easy export of Sections taxonomy hierarchy for analysis outside Drupal |
 | Taxonomy entity browsers | taxonomy_entity_browsers | Taxonomy terms | Enabled |  |
-| VAMC top task page revision histories | vamc_top_task_page_revisions | Content | Enabled |  |
+| VAMC top task page revision histories | vamc_top_task_page_revisions | Content revisions | Enabled | An audit of VAMC top task pages for runbook planning |
 | Vet centers | vet_centers | Content | Enabled |  |
-| Vet Center facility listing | vet_center_facility_listing | Content | Enabled |  |
+| Vet Center facility listing  | vet_center_facility_listing | Content | Enabled |  |
 
   @dst @views_displays
      Scenario: Views displays
@@ -104,13 +104,13 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: Publication Listing | entity_reference_2 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Story Listing | entity_reference_3 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
-| Custom block library | Master | default | Master |
-| Custom block library | Page | page_1 | Page |
 | Content release logs | Master | default | Master |
 | Content release logs | Page | page_1 | Page |
 | Content served from Drupal | Page | page_1 | Page |
 | Content served from Drupal | Data export | data_export_1 | Data export |
 | Content served from Drupal | Master | default | Master |
+| Custom block library | Master | default | Master |
+| Custom block library | Page | page_1 | Page |
 | Date fields | Master | default | Master |
 | Date fields | Page | page_1 | Page |
 | Facility Governance | Master | default | Master |
@@ -150,6 +150,7 @@ Feature: Views
 | Moderated content | Moderated content | moderated_content | Page |
 | Moderation history | Master | default | Master |
 | Moderation history | Page | page | Page |
+| People | Data export | data_export_1 | Data export |
 | People | Master | default | Master |
 | People | Page | page_1 | Page |
 | Redirect | Master | default | Master |
@@ -170,8 +171,8 @@ Feature: Views
 | VAMC alerts and operating statuses | Page | page_1 | Page |
 | VAMC operating statuses | Master | default | Master |
 | VAMC operating statuses | Entity Reference | entity_reference_1 | Entity Reference |
-| VAMC top task page revision histories | Master | default | Master |
-| VAMC top task page revision histories | Page | page_1 | Page |
+| VAMC top task page revision histories  | Master | default | Master |
+| VAMC top task page revision histories  | Page | page_1 | Page |
 | VAMCs | Master | default | Master |
 | VHA Health service taxonomy | Page | page_1 | Page |
 | VHA Health service taxonomy | Data export | data_export_1 | Data export |
@@ -202,19 +203,20 @@ Feature: Views
 | Custom block entity browsers | Alert block entity browsers | entity_browser_1 | Entity browser |
 | Custom block entity browsers | Promo block entity browsers | entity_browser_2 | Entity browser |
 | Custom block entity browsers | Master | default | Master |
+| Section administration and export | Data export | csv_export | Data export |
+| Section administration and export | Master | default | Master |
+| Section administration and export | Page | page_1 | Page |
 | Services | Facility health services | block_1 | Block |
 | Services | VAMC system health services | block_2 | Block |
 | Services | Master | default | Master |
 | Recent content | Master | default | Master |
 | Recent content | Block | block_1 | Block |
-| Section hierarchy export | Data export | csv_export | Data export |
-| Section hierarchy export | Master | default | Master |
-| Section hierarchy export | Page | page_1 | Page |
+| Taxonomy entity browsers | Audiences vocabularies | audiences_vocabularies | Entity browser |
 | Taxonomy entity browsers | Block | block_1 | Block |
-| Taxonomy entity browsers | Entity browser | entity_browser_1 | Entity browser |
+| Taxonomy entity browsers | Resources and support vocabulary | entity_browser_1 | Entity browser |
 | Taxonomy entity browsers | Master | default | Master |
+| Vet Center facility listing  | Block | vc_facility_listing | Block |
+| Vet Center facility listing  | Master | default | Master |
 | Vet centers | Entity browser | vet_center_entity_browser | Entity browser |
 | Vet centers | Master | default | Master |
 | Vet centers | Mobile Vet Centers Entity Browser | mvc_entity_browser | Entity browser |
-| Vet Center facility listing | Block | vc_facility_listing | Block |
-| Vet Center facility listing | Master | default | Master |
