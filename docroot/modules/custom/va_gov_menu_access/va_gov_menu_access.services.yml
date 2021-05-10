@@ -6,5 +6,5 @@ services:
   va_gov_menu_access.access_checker:
     class: Drupal\va_gov_menu_access\AccessChecks\RouteAccessChecks
     arguments: ['@va_gov_user.user_perms']
-      tags:
-        - { name: access_check }
+    tags:
+      - { name: access_check }
