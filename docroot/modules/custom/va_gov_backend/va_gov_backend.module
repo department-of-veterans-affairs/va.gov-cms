@@ -1540,6 +1540,7 @@ function va_gov_backend_page_attachments(array &$attachments) {
 
   // Pass our relevant data to settings.
   $attachments['#attached']['drupalSettings']['gtm_data'] = _va_gov_backend_gtm_settings();
+  $attachments['#cache']['tags'][] = 'config:workbench_access.access_scheme.section';
 
   $attachments['#attached']['library'][] = 'va_gov_backend/alert_form';
   $attachments['#attached']['library'][] = 'va_gov_backend/system_styles';
