@@ -59,7 +59,7 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
     );
 
     self::assertEquals(
-      "rm -rf /app/root/docroot/vendor/va-gov/content-build/logs/vagovdev-broken-links.json",
+      "rm -rf /repo/root/vendor/va-gov/content-build/logs/vagovdev-broken-links.json",
       $commands[1],
       'Remove the broken link report json file'
     );
