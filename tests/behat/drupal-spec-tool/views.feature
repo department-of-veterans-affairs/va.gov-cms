@@ -32,7 +32,7 @@ Feature: Views
 | Health care service names and descriptions | health_care_service_names_and_descriptions | Taxonomy terms | Enabled | A list of nationally-controlled health care service names and descriptions |
 | Image Style Warmer Warmup Files | image_style_warmer_warmup_files | Files | Enabled | VBO for processing existing files with Image Style Warmer. |
 | Local facilities entity reference view | local_facilities_entity_reference_view | Content | Enabled | An entity reference view that determines options for the Local Health Service descriptions |
-| Locked content  | locked_content | Content | Enabled |  |
+| Locked content | locked_content | Content | Enabled |  |
 | Media | media | Media | Enabled |  |
 | Media library | media_library | Media | Enabled | Find and manage media. |
 | Moderated content | moderated_content | Content revisions | Enabled | Find and moderate content. |
@@ -63,7 +63,7 @@ Feature: Views
 | Taxonomy entity browsers | taxonomy_entity_browsers | Taxonomy terms | Enabled |  |
 | VAMC top task page revision histories | vamc_top_task_page_revisions | Content revisions | Enabled | An audit of VAMC top task pages for runbook planning |
 | Vet centers | vet_centers | Content | Enabled |  |
-| Vet Center facility listing  | vet_center_facility_listing | Content | Enabled |  |
+| Vet Center facility listing | vet_center_facility_listing | Content | Enabled |  |
 
   @dst @views_displays
      Scenario: Views displays
@@ -134,8 +134,8 @@ Feature: Views
 | Image Style Warmer Warmup Files | Master | default | Master |
 | Local facilities entity reference view | Master | default | Master |
 | Local facilities entity reference view | Entity Reference | entity_reference_1 | Entity Reference |
-| Locked content  | Master | default | Master |
-| Locked content  | Page | page_1 | Page |
+| Locked content | Master | default | Master |
+| Locked content | Page | page_1 | Page |
 | Media | Master | default | Master |
 | Media | Browser | entity_browser_1 | Entity browser |
 | Media | Image Browser | entity_browser_2 | Entity browser |
@@ -171,8 +171,8 @@ Feature: Views
 | VAMC alerts and operating statuses | Page | page_1 | Page |
 | VAMC operating statuses | Master | default | Master |
 | VAMC operating statuses | Entity Reference | entity_reference_1 | Entity Reference |
-| VAMC top task page revision histories  | Master | default | Master |
-| VAMC top task page revision histories  | Page | page_1 | Page |
+| Administration section | Master | default | Master |
+| VAMC top task page revision histories | Page | page_1 | Page |
 | VAMCs | Master | default | Master |
 | VHA Health service taxonomy | Page | page_1 | Page |
 | VHA Health service taxonomy | Data export | data_export_1 | Data export |
@@ -215,8 +215,8 @@ Feature: Views
 | Taxonomy entity browsers | Block | block_1 | Block |
 | Taxonomy entity browsers | Resources and support vocabulary | entity_browser_1 | Entity browser |
 | Taxonomy entity browsers | Master | default | Master |
-| Vet Center facility listing  | Block | vc_facility_listing | Block |
-| Vet Center facility listing  | Master | default | Master |
+| Vet Center facility listing | Block | vc_facility_listing | Block |
+| Vet Center facility listing | Master | default | Master |
 | Vet centers | Entity browser | vet_center_entity_browser | Entity browser |
 | Vet centers | Master | default | Master |
 | Vet centers | Mobile Vet Centers Entity Browser | mvc_entity_browser | Entity browser |
