@@ -66,16 +66,13 @@ function _va_gov_menu_access_get_menu_access() {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_BASE_FORM_ID_alter().
  */
-function va_gov_menu_access_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  _va_gov_menu_access_set_menu_parent_validation($form, $form_state);
-
-  // Node form alters.
-  if (substr($form_id, 0, 4) === 'node') {
-    $form['#attached']['library'][] = 'va_gov_menu_access/parent_section_select';
-    $form['#after_build'][] = 'va_gov_menu_access_alter_menus';
-  }
+function va_gov_menu_access_form_node_form_alter(&$form, &$form_state, $form_id) {
+  // Process menu options on all node forms.
+  $form['#attached']['library'][] = 'va_gov_menu_access/parent_section_select';
+  $form['#after_build'][] = 'va_gov_menu_access_alter_menus';
+  $form['#after_build'][] = '_va_gov_menu_access_set_menu_parent_requirement';
 }
 
 /**
@@ -111,22 +108,6 @@ function _va_gov_menu_access_parent_menu_selected_validation(array $form, FormSt
   $parent = $form_state->getValue(['menu', 'menu_parent']);
   if ($menu_enabled && $parent === '0') {
     $form_state->setErrorByName('menu][menu_parent', t('Menu parent item cannot be empty.'));
-  }
-}
-
-/**
- * Adds validation to menu parent select.
- *
- * @param array $form
- *   The exposed widget form array.
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state.
- */
-function _va_gov_menu_access_set_menu_parent_validation(array &$form, FormStateInterface $form_state) {
-  $form_object = $form_state->getFormObject();
-  if ($form_state->getFormObject() instanceof EntityFormInterface
-    && $form_object->getEntity()->getEntityType()->id() === 'node') {
-    $form['#after_build'][] = '_va_gov_menu_access_set_menu_parent_requirement';
   }
 }
 
