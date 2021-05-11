@@ -105,8 +105,8 @@ function _va_gov_menu_access_set_menu_parent_requirement(array $form, FormStateI
  */
 function _va_gov_menu_access_parent_menu_selected_validation(array $form, FormStateInterface $form_state) {
   $menu_enabled = $form_state->getValue(['menu', 'enabled']);
-  $parent = $form_state->getValue(['menu', 'menu_parent']);
-  if ($menu_enabled && $parent === '0') {
+  $parent_empty = $form_state->isValueEmpty(['menu', 'menu_parent']);
+  if ($menu_enabled && $parent_empty) {
     $form_state->setErrorByName('menu][menu_parent', t('Menu parent item cannot be empty.'));
   }
 }
@@ -118,21 +118,9 @@ function _va_gov_menu_access_parent_menu_selected_validation(array $form, FormSt
  *   The form array.
  * @param string $form_id
  *   The form id.
- *
- * @return array
- *   The form array.
  */
 function va_gov_menu_access_disable_parent_menu_options(array &$form, string $form_id) {
-  $form_type_flag = 'detail-page';
-  if (strpos($form_id, 'vet_center') === TRUE) {
-    $form_type_flag = 'vet-center';
-  }
-  elseif (strpos($form_id, 'health_care_region_detail_page') === FALSE) {
-    $form_type_flag = 'not-allowed-to-operate-on-menu';
-  }
-  $form['#attached']['drupalSettings']['vagov_menu_access'] = [
-    'content_type' => $form_type_flag,
-  ];
+  _va_gov_menuaccess_set_content_type($form, $form_id);
 
   if (!empty($form['menu']['link']['menu_parent']['#options'])) {
     $form['menu']['link']['title']['#attributes']['disabled'] = TRUE;
@@ -140,7 +128,35 @@ function va_gov_menu_access_disable_parent_menu_options(array &$form, string $fo
     $form['menu']['link']['link_enabled']['#attributes']['disabled'] = TRUE;
     $form['menu']['link']['weight']['#attributes']['disabled'] = TRUE;
   }
-  return $form;
+}
+
+/**
+ * Set the ['vagov_menu_access']['content_type'] on drupal settings.
+ *
+ * @param array $form
+ *   The form array.
+ * @param string $form_id
+ *   The form id.
+ */
+function _va_gov_menuaccess_set_content_type(array &$form, string $form_id) {
+  // Case race. First to evaluate TRUE wins.
+  switch (TRUE) {
+    case (strpos($form_id, 'vet_center') === TRUE):
+      $form_type_flag = 'vet-center';
+      break;
+
+    case (strpos($form_id, 'health_care_region_detail_page') === FALSE):
+      $form_type_flag = 'not-allowed-to-operate-on-menu';
+      break;
+
+    default:
+      $form_type_flag = 'detail-page';
+      break;
+  }
+
+  $form['#attached']['drupalSettings']['vagov_menu_access'] = [
+    'content_type' => $form_type_flag,
+  ];
 }
 
 /**
