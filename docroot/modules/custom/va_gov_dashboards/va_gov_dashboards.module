@@ -1,0 +1,120 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_dashboards.module.
+ */
+
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function va_gov_dashboards_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.va_gov_dashboards':
+      $text = file_get_contents(__DIR__ . '/README.md');
+      if (!\Drupal::moduleHandler()->moduleExists('markdown')) {
+        return '<pre>' . Html::escape($text) . '</pre>';
+      }
+      else {
+        // Use the Markdown filter to render the README.
+        $filter_manager = \Drupal::service('plugin.manager.filter');
+        $settings = \Drupal::configFactory()->get('markdown.settings')->getRawData();
+        $config = ['settings' => $settings];
+        $filter = $filter_manager->createInstance('markdown', $config);
+        return $filter->process($text, 'en');
+      }
+  }
+  return NULL;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function va_gov_dashboards_theme($existing, $type, $theme, $path) {
+  return [
+    'vc_dashboards_block' => [
+      'variables' => [
+        'attributes' => [],
+        'id' => '',
+        'image' => '',
+        'title' => '',
+        'description' => '',
+        'action' => '',
+        'nid' => '',
+        'anchor' => '',
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_entity_view_mode_alter().
+ */
+function va_gov_dashboards_entity_view_mode_alter(&$view_mode, EntityInterface $entity, $context) {
+  if ($entity->getEntityTypeId() === 'taxonomy_term' && $entity->bundle() === 'administration') {
+
+    // Check for a product id.
+    $product_id = $entity->field_product->getString() ?? NULL;
+    // Let's check to see if we have a node for our
+    // term for panel block population.
+    $vc_node_fetch = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
+      'type' => 'vet_center',
+      'field_administration' => $entity->id(),
+    ]);
+    if (empty($vc_node_fetch)) {
+      // We don't have a vc to populate panels, or to reference for
+      // displaying related CAP's and Outstations in listing block,
+      // so set product to NULL to show default view.
+      $product_id = NULL;
+    }
+
+    // If we don't have a product id, but we do have a node to match our term,
+    // traverse parents to find a product display.
+    if (empty($product_id) && !empty($vc_node_fetch)) {
+
+      $cid = 'taxonomy_term:' . $entity->id();
+
+      // Look for the item in cache.
+      if ($item = \Drupal::cache()->get($cid)) {
+        $product_id = $item->data;
+      }
+      // We don't want to dig for a product without a node match for term,
+      // And we don't want to dig if we already have a product id.
+      if (!empty($vc_node_fetch) && empty($product_id)) {
+        $parents = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")->loadAllParents($entity->id());
+        foreach ($parents as $parent) {
+          $product_id = $parent->get('field_product')->target_id ?? NULL;
+          // If we hit one, stop the loop.
+          if (!empty($product_id)) {
+            break;
+          }
+        }
+      }
+      // Set the cache so we don't need to do this  again until $entity changes.
+      \Drupal::cache()->set($cid, $product_id, Cache::PERMANENT, $entity->getCacheTags());
+    }
+    switch ($product_id) {
+      case '285':
+        $product = 'resources_and_support';
+        break;
+
+      case '289':
+        $product = 'vet_center_dashboard';
+        break;
+
+      case '290':
+        $product = 'va_gov_homepage';
+        break;
+
+      default:
+        $product = 'default';
+    }
+    // Set our dash according to product found.
+    $view_mode = $product;
+  }
+}
