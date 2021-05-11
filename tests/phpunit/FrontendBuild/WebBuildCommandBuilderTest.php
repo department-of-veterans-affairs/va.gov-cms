@@ -59,7 +59,7 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
     );
 
     self::assertEquals(
-      "rm -rf /app/root/docroot/vendor/va-gov/web/logs/vagovdev-broken-links.json",
+      "rm -rf /app/root/docroot/vendor/va-gov/content-build/logs/vagovdev-broken-links.json",
       $commands[1],
       'Remove the broken link report json file'
     );
@@ -90,20 +90,26 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
     );
 
     self::assertEquals(
-      "cd /repo/root && git fetch origin && git checkout -b build-abcd-abcssss origin/abcd",
+      "rm -rf /app/root/docroot/vendor/va-gov/content-build/logs/vagovdev-broken-links.json",
       $commands[1],
+      'Remove the broken link report json file'
+    );
+
+    self::assertEquals(
+      "cd /repo/root && git fetch origin && git checkout -b build-abcd-abcssss origin/abcd",
+      $commands[2],
       'Web command build with branch and GraphQL git command'
     );
 
     self::assertEquals(
       "cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:install",
-      $commands[2],
+      $commands[3],
       'Web Command Build with branch and GraphQL npm install command'
     );
 
     self::assertEquals(
       "cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build",
-      $commands[3],
+      $commands[4],
       'Web command build with branch and GraphQL composer command'
     );
   }
