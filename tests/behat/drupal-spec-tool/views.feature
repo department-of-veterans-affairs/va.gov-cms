@@ -214,6 +214,7 @@ Feature: Views
 | Taxonomy entity browsers | Block | block_1 | Block |
 | Taxonomy entity browsers | Resources and support vocabulary | entity_browser_1 | Entity browser |
 | Taxonomy entity browsers | Master | default | Master |
+| VAMC top task page revision histories | Master | default | Master |
 | Vet Center facility listing | Block | vc_facility_listing | Block |
 | Vet Center facility listing | Master | default | Master |
 | Vet centers | Entity browser | vet_center_entity_browser | Entity browser |
