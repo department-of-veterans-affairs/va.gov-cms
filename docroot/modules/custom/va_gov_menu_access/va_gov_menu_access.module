@@ -71,12 +71,12 @@ function _va_gov_menu_access_get_menu_access() {
 function va_gov_menu_access_form_node_form_alter(&$form, &$form_state, $form_id) {
   // Process menu options on all node forms.
   $form['#attached']['library'][] = 'va_gov_menu_access/parent_section_select';
-  $form['#after_build'][] = 'va_gov_menu_access_alter_menus';
+  $form['#after_build'][] = '_va_gov_menu_access_alter_menus';
   $form['#after_build'][] = '_va_gov_menu_access_set_menu_parent_requirement';
 }
 
 /**
- * Adds validation to parent menu options select.
+ * Afterbuild callback: Adds validation to parent menu options select.
  *
  * @param array $form
  *   The node form array.
@@ -87,8 +87,7 @@ function va_gov_menu_access_form_node_form_alter(&$form, &$form_state, $form_id)
  *   The altered form.
  */
 function _va_gov_menu_access_set_menu_parent_requirement(array $form, FormStateInterface $form_state) {
-  $menu_enabled = $form_state->getValue(['menu', 'enabled']);
-  if ($menu_enabled) {
+  if ($form_state->getValue(['menu', 'enabled'])) {
     $form['menu']['link']['menu_parent']['#required'] = TRUE;
     $form['#validate'][] = '_va_gov_menu_access_parent_menu_selected_validation';
   }
@@ -96,7 +95,7 @@ function _va_gov_menu_access_set_menu_parent_requirement(array $form, FormStateI
 }
 
 /**
- * Validates that menu parent item is selected.
+ * Validation callback: Validates that menu parent item is selected.
  *
  * @param array $form
  *   The node form array.
@@ -119,8 +118,8 @@ function _va_gov_menu_access_parent_menu_selected_validation(array $form, FormSt
  * @param string $form_id
  *   The form id.
  */
-function va_gov_menu_access_disable_parent_menu_options(array &$form, string $form_id) {
-  _va_gov_menuaccess_set_content_type($form, $form_id);
+function _va_gov_menu_access_disable_parent_menu_options(array &$form, string $form_id) {
+  _va_gov_menu_access_set_content_type($form, $form_id);
 
   if (!empty($form['menu']['link']['menu_parent']['#options'])) {
     $form['menu']['link']['title']['#attributes']['disabled'] = TRUE;
@@ -134,11 +133,11 @@ function va_gov_menu_access_disable_parent_menu_options(array &$form, string $fo
  * Set the ['vagov_menu_access']['content_type'] on drupal settings.
  *
  * @param array $form
- *   The form array.
+ *   The form array by reference.
  * @param string $form_id
  *   The form id.
  */
-function _va_gov_menuaccess_set_content_type(array &$form, string $form_id) {
+function _va_gov_menu_access_set_content_type(array &$form, string $form_id) {
   // Case race. First to evaluate TRUE wins.
   switch (TRUE) {
     case (strpos($form_id, 'vet_center') === TRUE):
@@ -160,15 +159,17 @@ function _va_gov_menuaccess_set_content_type(array &$form, string $form_id) {
 }
 
 /**
- * Used to filter / alter menus in node rail.
+ * Afterbuild callback: Used to filter / alter menus in node rail.
  *
  * @param array $form
- *   The form array.
+ *   The form array by reference.
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   Instance of FormStateInterface.
  *
  * @return array
  *   The form array.
  */
-function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_state) {
+function _va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_state) {
   /** @var \Drupal\va_gov_user\Service\UserPermsService */
   $perms_service = \Drupal::service('va_gov_user.user_perms');
   $node_type = ($form_state->getFormObject() instanceof NodeForm) ? $form_state->getFormObject()->getEntity()->getType() : NULL;
@@ -178,7 +179,7 @@ function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_st
     // Throws uneven arguments error.
     $form_id = $form_state->getFormObject()->getFormId();
     if (strpos($form_id, 'health_care_region_detail_page') === FALSE) {
-      va_gov_menu_access_disable_parent_menu_options($form, $form_id);
+      _va_gov_menu_access_disable_parent_menu_options($form, $form_id);
     }
     // Grab our alias service.
     $alias_manager = \Drupal::service('path.alias_manager');
@@ -211,7 +212,7 @@ function va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_st
       // If the page is listed in a locked array, lockdown menu options.
       if (in_array($page_alias, $paths_config['single_locked_paths'])
           || $matcher > 0) {
-        va_gov_menu_access_disable_parent_menu_options($form, $form_id);
+        _va_gov_menu_access_disable_parent_menu_options($form, $form_id);
       }
     }
     // Make sure there is a parent menu on the page before we dig.
