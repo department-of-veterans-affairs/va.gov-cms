@@ -24,7 +24,6 @@ Feature: Content Release
     Given I am logged in as a user with the "content_admin" role
     And I clear the web build queue
     And I initiate a content release with the branch "master"
-    Then I should see "Branch: master"
     And I should see "Pending"
     Then I clear the web build queue
 

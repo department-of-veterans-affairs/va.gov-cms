@@ -8,7 +8,8 @@ Given(`I initiate a content release with the branch {string}`, (branchName) => {
     .type(branchName, { force: true })
     .wait(3000)
     .type('{downarrow}', { force: true })
-    .type('{enter}', { force: true })
+    .type('{enter}', { force: true });
+  cy.get('input#edit-git-ref')
     .blur();
   cy.get('input#edit-submit').click({ force: true });
 });
