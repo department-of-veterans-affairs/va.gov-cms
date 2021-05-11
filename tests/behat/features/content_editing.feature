@@ -234,7 +234,7 @@ Feature: CMS Users may effectively create & edit content
     And I press "op"
     And I press "Add"
     And I fill in "Text" with "BeHat URL Alias Rich text content"
-    And I select "Benefit Hubs" from "edit-field-product"
+    And I select "Benefits Hubs" from "edit-field-product"
     And I select "Veterans Affairs" from "edit-field-administration"
     And I press "Save draft and continue editing"
     Then I should see "Edit Landing Page BeHat URL Alias Title"
