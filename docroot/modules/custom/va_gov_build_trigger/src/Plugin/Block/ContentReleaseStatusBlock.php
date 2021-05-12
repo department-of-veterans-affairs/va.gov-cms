@@ -191,12 +191,12 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
       return ['data' => ['#markup' => '[default]']];
     }
 
-    if (preg_match('/origin\/([^\/ ]*)$/', $payload->commands[1], $matches)) {
+    if (preg_match('/origin\/([^\/ ]*)$/', $payload->commands[2], $matches)) {
       $branch = $matches[1];
       return ['data' => ['#markup' => "Branch: {$branch}"]];
     }
 
-    if (preg_match('/git fetch origin pull\/([0-9]*)\/head/', $payload->commands[1], $matches)) {
+    if (preg_match('/git fetch origin pull\/([0-9]*)\/head/', $payload->commands[2], $matches)) {
       $pr = $matches[1];
       return ['data' => ['#markup' => "Pull request: #{$pr}"]];
     }
