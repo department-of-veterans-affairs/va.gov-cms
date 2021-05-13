@@ -163,6 +163,7 @@ Feature: CMS Users may effectively create & edit content
     Then I am at "node/add/vamc_operating_status_and_alerts"
     And I press "Add new banner alert"
     And I select "Information" from "Alert type"
+    And I select "Veterans Affairs" from "edit-field-administration"
     And I fill in "Title" with "BeHat Alert title"
     And I fill in "Alert body" with "BeHat Alert body"
     And I press "Save draft and continue editing"
