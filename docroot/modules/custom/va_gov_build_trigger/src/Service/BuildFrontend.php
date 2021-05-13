@@ -168,21 +168,18 @@ class BuildFrontend implements BuildFrontendInterface {
       'full_width_banner_alert',
       'health_care_local_facility',
     ];
-    if (in_array($node->getType(), $allowed_content_types)) {
-      // This is the right content type to trigger a build. Is it published?
-      if ($node->isPublished()) {
-        // It is published.
-        if ($node->getType() === 'health_care_local_facility') {
-          // This is a facility, check if the status or status info changed.
-          if ($this->changedStatus($node)) {
-            // The status changed so trigger a build.
-            $this->triggerFrontendBuild();
-          }
-        }
-        else {
-          $this->triggerFrontendBuild();
-        }
-      }
+
+    $is_allowed_type = in_array($node->getType(), $allowed_content_types);
+    $is_published = $node->isPublished();
+    $is_facility = $node->getType() === 'health_care_local_facility';
+    $is_status_changed = $this->changedStatus($node);
+
+    if (
+      $is_allowed_type
+      && $is_published
+      && (($is_facility && $is_status_changed) || !$is_facility)
+      ) {
+      $this->triggerFrontendBuild();
     }
   }
 

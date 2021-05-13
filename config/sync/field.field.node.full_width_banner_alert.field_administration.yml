@@ -6,8 +6,13 @@ dependencies:
     - field.storage.node.field_administration
     - node.type.full_width_banner_alert
     - taxonomy.vocabulary.administration
-  content:
-    - 'taxonomy_term:administration:87832236-1e54-4ce3-8141-8dec27c8a9a7'
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
 id: node.full_width_banner_alert.field_administration
 field_name: field_administration
 entity_type: node
@@ -16,9 +21,7 @@ label: Owner
 description: ''
 required: true
 translatable: true
-default_value:
-  -
-    target_uuid: 87832236-1e54-4ce3-8141-8dec27c8a9a7
+default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'

@@ -15,6 +15,7 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
+          set -o pipefail
           output="\$(mktemp -d)/output"
           mkfifo \$output
           (cat \$output&)
@@ -35,12 +36,13 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
+          set -o pipefail
           output="\$(mktemp -d)/output"
           mkfifo \$output
           (cat \$output&)
           cd tests/behat
-          result="\$(behat --colors 2>&1 | tee \$output)"
-          exit_code=$?
+          result="\$(behat --strict --colors 2>&1 | tee \$output)"
+          exit_code=\$?
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$exit_code" -eq 0 ]; then
               github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
@@ -56,10 +58,12 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
-          exit_code=\$?
-          mkfifo output
+          set -o pipefail
+          output="\$(mktemp -d)/output"
+          mkfifo \$output
+          (cat \$output&)
           result="\$(composer va:test:behavioral 2>&1 | tee \$output)"
-          (cat output&)
+          exit_code=\$?
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$exit_code" -eq 0 ]; then
               github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
@@ -75,6 +79,7 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
+          set -o pipefail
           output="\$(mktemp -d)/output"
           mkfifo \$output
           (cat \$output&)
@@ -120,6 +125,7 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
+          set -o pipefail
           output="\$(mktemp -d)/output"
           mkfifo \$output
           (cat \$output&)
@@ -140,6 +146,7 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
+          set -o pipefail
           output="\$(mktemp -d)/output"
           mkfifo \$output
           (cat \$output&)
@@ -160,6 +167,7 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
+          set -o pipefail
           output="\$(mktemp -d)/output"
           mkfifo \$output
           (cat \$output&)
@@ -181,6 +189,7 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
+          set -o pipefail
           output="\$(mktemp -d)/output"
           mkfifo \$output
           (cat \$output&)

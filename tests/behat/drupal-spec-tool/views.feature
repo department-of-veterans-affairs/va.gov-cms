@@ -171,7 +171,6 @@ Feature: Views
 | VAMC alerts and operating statuses | Page | page_1 | Page |
 | VAMC operating statuses | Master | default | Master |
 | VAMC operating statuses | Entity Reference | entity_reference_1 | Entity Reference |
-| Administration section | Master | default | Master |
 | VAMC top task page revision histories | Page | page_1 | Page |
 | VAMCs | Master | default | Master |
 | VHA Health service taxonomy | Page | page_1 | Page |
@@ -215,6 +214,7 @@ Feature: Views
 | Taxonomy entity browsers | Block | block_1 | Block |
 | Taxonomy entity browsers | Resources and support vocabulary | entity_browser_1 | Entity browser |
 | Taxonomy entity browsers | Master | default | Master |
+| VAMC top task page revision histories | Master | default | Master |
 | Vet Center facility listing | Block | vc_facility_listing | Block |
 | Vet Center facility listing | Master | default | Master |
 | Vet centers | Entity browser | vet_center_entity_browser | Entity browser |
