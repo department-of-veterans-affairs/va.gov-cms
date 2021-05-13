@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac9c9af43125de0d6c0d7b22276f9440",
+    "content-hash": "9c853969c84637797a564d38250a4107",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -6745,6 +6745,69 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/menu_link_attributes",
                 "issues": "http://drupal.org/project/issues/menu_link_attributes"
+            }
+        },
+        {
+            "name": "drupal/menu_link_weight",
+            "version": "1.0.0-beta4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/menu_link_weight.git",
+                "reference": "8.x-1.0-beta4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/menu_link_weight-8.x-1.0-beta4.zip",
+                "reference": "8.x-1.0-beta4",
+                "shasum": "1de0a9f92bd16a4b8a6ba243a13100341ba4db15"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "require-dev": {
+                "drupal/cshs": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.0-beta4",
+                    "datestamp": "1592326061",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "bart.hanssens",
+                    "homepage": "https://www.drupal.org/user/699486"
+                },
+                {
+                    "name": "johnwebdev",
+                    "homepage": "https://www.drupal.org/user/3331569"
+                },
+                {
+                    "name": "rutiolma",
+                    "homepage": "https://www.drupal.org/user/757938"
+                },
+                {
+                    "name": "stefan.r",
+                    "homepage": "https://www.drupal.org/user/551886"
+                },
+                {
+                    "name": "webflo",
+                    "homepage": "https://www.drupal.org/user/254778"
+                }
+            ],
+            "description": "Replaces the menu link weight dropdown with a tabledrag widget",
+            "homepage": "https://www.drupal.org/project/menu_link_weight",
+            "support": {
+                "source": "https://git.drupalcode.org/project/menu_link_weight"
             }
         },
         {
@@ -20992,6 +21055,7 @@
         "drupal/graphql_metatag": 20,
         "drupal/libraries": 15,
         "drupal/markup": 10,
+        "drupal/menu_link_weight": 10,
         "drupal/migrate_source_ui": 5,
         "drupal/migrate_tools": 20,
         "drupal/paragraphs_browser": 15,
