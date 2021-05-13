@@ -71,8 +71,18 @@ function _va_gov_help_center_build_get_help_button() {
     '#url' => $url_object,
     '#title' => t('Get help'),
     '#attributes' => [
+      'class' => [
+        'button',
+        'button--primary',
+      ],
       'id' => [
         'get-help-button',
+      ],
+      'hreflang' => [
+        'en',
+      ],
+      'lang' => [
+        'en',
       ],
     ],
   ];
