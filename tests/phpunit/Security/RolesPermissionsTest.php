@@ -24,7 +24,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
 
     if (isset($role)) {
       $permissions = $role->getPermissions();
-      $message = "The permissions for the " . $roleMatch . " do not match the expected permissions.  Make the expected look like this, to get the test passing: \n '" . implode("',\n '", $permissions) . "'\n";
+      $message = "The permissions for the " . $roleMatch . " do not match the expected permissions.  Make the expected look like this, to get the test passing: \n '" . implode("',\n '", $permissions) . "',\n";
     }
     else {
       $message = 'The ' . $roleMatch . ' role is missing from the system.';
@@ -55,12 +55,19 @@ class RolesPermissionsTest extends ExistingSiteBase {
       [
         'authenticated',
         [
+          'access alert_blocks entity browser pages',
+          'access audiences_checkboxes entity browser pages',
+          'access benefit_hub_contact_information entity browser pages',
+          'access categories entity browser pages',
           'access content',
           'access downloadable_resources entity browser pages',
           'access environment indicator',
           'access events_browser entity browser pages',
+          'access lc_benefit_hubs entity browser pages',
+          'access media entity browser pages',
           'access mobile_vet_centers entity browser pages',
           'access promo_blocks_browser entity browser pages',
+          'access q_a_browser entity browser pages',
           'access site-wide contact form',
           'access taxonomy overview',
           'access vet_centers entity browser pages',
@@ -83,9 +90,12 @@ class RolesPermissionsTest extends ExistingSiteBase {
         [
           'access administration pages',
           'access files overview',
+          'access image_browser entity browser pages',
           'access media overview',
+          'access media_browser entity browser pages',
           'access toolbar',
           'access user profiles',
+          'access vamc_operating_statuses entity browser pages',
           'administer media',
           'administer menu',
           'administer nodes',
@@ -210,10 +220,13 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'access administration pages',
           'access content overview',
           'access files overview',
+          'access image_browser entity browser pages',
           'access media overview',
+          'access media_browser entity browser pages',
           'access shortcuts',
           'access toolbar',
           'access user profiles',
+          'access vamc_operating_statuses entity browser pages',
           'administer menu',
           'break content lock',
           'create alert block content',
@@ -341,10 +354,13 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'access administration pages',
           'access content overview',
           'access files overview',
+          'access image_browser entity browser pages',
           'access media overview',
+          'access media_browser entity browser pages',
           'access shortcuts',
           'access toolbar',
           'access user profiles',
+          'access vamc_operating_statuses entity browser pages',
           'administer menu',
           'break content lock',
           'create alert block content',
@@ -473,10 +489,13 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'access administration pages',
           'access content overview',
           'access files overview',
+          'access image_browser entity browser pages',
           'access media overview',
+          'access media_browser entity browser pages',
           'access shortcuts',
           'access toolbar',
           'access user profiles',
+          'access vamc_operating_statuses entity browser pages',
           'administer menu',
           'break content lock',
           'create alert block content',
