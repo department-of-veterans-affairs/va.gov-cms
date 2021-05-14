@@ -7,16 +7,16 @@ dependencies:
 id: health_care_region_detail_page
 label: 'Detail Page'
 type: 'canonical_entities:node'
-pattern: '[node:field_office:entity:url:path]/[node:title]'
+pattern: '[node:menu-link:parents:join-path]/[node:title]'
 selection_criteria:
-  33460d3a-06fc-4f59-9c55-ae375cbda429:
+  57ed0c89-5888-4ca1-86d8-44310b3e01c9:
     id: node_type
     bundles:
       health_care_region_detail_page: health_care_region_detail_page
     negate: false
     context_mapping:
       node: node
-    uuid: 33460d3a-06fc-4f59-9c55-ae375cbda429
+    uuid: 57ed0c89-5888-4ca1-86d8-44310b3e01c9
 selection_logic: and
 weight: -8
 relationships: {  }
