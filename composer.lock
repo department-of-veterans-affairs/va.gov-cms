@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac9c9af43125de0d6c0d7b22276f9440",
+    "content-hash": "30194ae10c18767c883b4091213394d9",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -19107,18 +19107,19 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.127",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "6bde46f714e858bf7752e8798e4fa0f134999de4"
+                "reference": "6370263c776e80e63179003fa3ebd4c38f96a329"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/6bde46f714e858bf7752e8798e4fa0f134999de4",
-                "reference": "6bde46f714e858bf7752e8798e4fa0f134999de4",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/6370263c776e80e63179003fa3ebd4c38f96a329",
+                "reference": "6370263c776e80e63179003fa3ebd4c38f96a329",
                 "shasum": ""
             },
+            "default-branch": true,
             "type": "node-project",
             "extra": {
                 "installer-types": [
@@ -19143,9 +19144,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.127"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/master"
             },
-            "time": "2021-05-12T17:05:53+00:00"
+            "time": "2021-05-14T16:26:36+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -21001,6 +21002,7 @@
         "drupal/user_history": 15,
         "drupal/views_data_export": 10,
         "drupal/workflow_assignments": 20,
+        "va-gov/content-build": 20,
         "weitzman/drupal-test-traits": 20
     },
     "prefer-stable": true,
