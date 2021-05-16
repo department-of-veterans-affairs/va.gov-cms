@@ -23,7 +23,7 @@ class AdminRouteSubscriber extends RouteSubscriberBase {
       if (in_array($routename, $menu_routes)) {
         $route->setRequirement(
           '_custom_access',
-          '\Drupal\va_gov_menu_access\AccessChecks\RouteAccessChecks::access'
+          '\Drupal\va_gov_menu_access\Access\RouteAccessChecks::access'
           );
       }
     }

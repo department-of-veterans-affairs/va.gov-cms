@@ -4,6 +4,7 @@ va_gov_menu_access.VaGovMenuAccessConfigForm:
     _form: 'Drupal\va_gov_menu_access\Form\VaGovMenuAccessConfigForm'
     _title: 'VAMC Menu Custom Access'
   requirements:
-    _permission: 'va gov menu access administration'
+    _permission: 'administer cms custom menu access'
+    _menu_access_check: 'TRUE'
   options:
     _admin_route: TRUE

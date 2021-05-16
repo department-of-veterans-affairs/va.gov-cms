@@ -1,19 +1,20 @@
 <?php
 
-namespace Drupal\va_gov_menu_access\AccessChecks;
+namespace Drupal\va_gov_menu_access\Access;
 
 use Drupal\Core\Access\AccessResult;
-use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Routing\Access\AccessInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\Routing\Route;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 
 /**
  * Determines access rules for particular routes.
  */
-class RouteAccessChecks implements AccessInterface {
-
+class RouteAccessChecks implements AccessInterface, ContainerInjectionInterface {
 
   /**
    * The UserPermsService for the current user.
@@ -33,6 +34,19 @@ class RouteAccessChecks implements AccessInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    // This create exists due to a weird thing, where DI of the argument from
+    // services.yml is not injecting the argument of the user_perms service.
+    // As a result it has to be done here in the create().
+    return new static(
+      $container->get('va_gov_user.user_perms')
+    );
+
+  }
+
+  /**
    * A custom access check.
    *
    * @param \Symfony\Component\Routing\Route $route
@@ -44,15 +58,12 @@ class RouteAccessChecks implements AccessInterface {
    */
   public function access(Route $route, RouteMatchInterface $route_match, AccountInterface $account) {
     // Restrict admin menu access.
-    if ($this->permsService->hasAdminRole()) {
+    if ($this->permsService->hasAdminRole()
+    || $account->hasPermission('administer cms custom menu access')) {
       return AccessResult::allowed();
     }
 
-    if (!$account->hasPermission('VA.gov custom menu access administration')) {
-      return AccessResult::forbidden();
-    }
-
-    return AccessResult::allowed();
+    return AccessResult::forbidden();
   }
 
 }
