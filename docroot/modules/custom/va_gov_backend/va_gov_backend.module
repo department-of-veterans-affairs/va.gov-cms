@@ -1195,6 +1195,38 @@ function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
 }
 
 /**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function va_gov_backend_form_node_form_alter(array &$form, FormStateInterface &$form_state) {
+  _va_gov_backend_set_owner_section_default($form, $form_state);
+}
+
+/**
+ * For setting the default owner section in dropdown.
+ *
+ * @param array $form
+ *   The entity form.
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   The entity form state.
+ */
+function _va_gov_backend_set_owner_section_default(array &$form, FormStateInterface &$form_state) {
+  if (!empty($form['field_administration']['widget'])) {
+    // No value set, so run default value set logic.
+    if ($form_state->getFormObject() instanceof EntityFormInterface) {
+      $entity = $form_state->getFormObject()->getEntity();
+
+      if ($entity->isNew()) {
+        $perms_service = \Drupal::service('va_gov_user.user_perms');
+        // If only 1, make default, otherwise defaults to Select prompt.
+        if ($default = $perms_service->getDefault(TRUE)) {
+          $form['field_administration']['widget']['#default_value'] = $default;
+        }
+      }
+    }
+  }
+}
+
+/**
  * Redirect form alter submit handler to store redirect Match Type.
  */
 function va_gov_backend_form_alter_redirect_submit($form, FormStateInterface $form_state) {
