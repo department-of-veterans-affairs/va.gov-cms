@@ -5,17 +5,17 @@
 <h3>{{ title }}</h3>
 <p>{{ description }}</p>
 <div>
-  {% if id == "dash_vc_vet_center_page" or id == "dash_vc_locations" %}
-    <span class="dashboard-block-link dashboard-block-link-left">
-      <a href="{{ path('entity.node.canonical', {'node': nid}) }}">View ›</a>
-    </span>
-    <span class="dashboard-block-link dashboard-block-link-right">
-      <a href="/node/{{nid}}/edit">Edit ›</a>
-    </span>
-  {% else %}
-    <span class="dashboard-block-link dashboard-block-link-right">
-      <a href="/node/{{nid}}/edit/{{ anchor }}">{{ action }}
-        ›</a>
-    </span>
-  {% endif %}
+	{% if id == "dash_vc_vet_center_page" or id == "dash_vc_locations" %}
+		<span class="dashboard-block-link dashboard-block-link-left">
+			<a href="{{ path('entity.node.canonical', {'node': nid}) }}">View ›</a>
+		</span>
+		<span class="dashboard-block-link dashboard-block-link-right">
+			<a href="/node/{{nid}}/edit?destination={{ path('<current>') }}">Edit ›</a>
+		</span>
+	{% else %}
+		<span class="dashboard-block-link dashboard-block-link-right">
+			<a href="/node/{{nid}}/edit?destination={{ path('<current>') }}{{ anchor }}">{{ action }}
+				›</a>
+		</span>
+	{% endif %}
 </div>
