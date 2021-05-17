@@ -21,7 +21,7 @@ Feature: Views
 | Content | content | Content | Enabled | Find and manage content. |
 | Content served from Drupal | content_served_from_drupal | Content | Enabled | An exportable list of all content served from Drupal |
 | Content entity browsers | content_entity_browsers | Content | Enabled | Collection of Entity Browsers to use for field widgets configuration in form displays. |
-| Content Entity Reference Source | content_entity_reference_source | Content | Enabled |  |
+| Content Entity Reference Source | content_entity_reference_source | Content | Enabled | Various views used to populate options on entity reference fields |
 | Content release logs | content_release_logs | Log entries | Enabled | Shows content release job log entries |
 | Date fields | date_fields | Content | Disabled |  |
 | Facility Governance | facility_governance | Content | Enabled | Provides facility management tools. |
