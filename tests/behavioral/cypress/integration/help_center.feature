@@ -3,10 +3,10 @@ Feature: CMS Users are able to get help and/or training information in the CMS
   As anyone involved in the project
   I need to have certain functionality available
 
-  @help_center @jsd_widget
-  Scenario: Anonymous users, who may have issues logging in, are able to submit a help desk request to JSD
+  @help_center @get_help_link
+  Scenario: Anonymous users, who may have issues logging in, are able to submit a help desk request to help center
     Given I am at "/user/login"
-    Then I should see the JSD widget
+    Then I should see the Get Help link
 
   @help_center @jsd_widget
   Scenario: Users who are denied access to a page are able to submit a help desk request to JSD
