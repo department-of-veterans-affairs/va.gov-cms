@@ -71,10 +71,10 @@ content:
     settings:
       entity_browser: mobile_vet_centers
       field_widget_display: label
-      field_widget_edit: '1'
       field_widget_remove: '1'
       open: '1'
       selection_mode: selection_append
+      field_widget_edit: 0
       field_widget_replace: 0
       field_widget_display_settings: {  }
     third_party_settings:
@@ -87,11 +87,11 @@ content:
     settings:
       entity_browser: vet_centers
       field_widget_display: label
-      field_widget_edit: '1'
-      field_widget_remove: '1'
-      open: '1'
+      field_widget_remove: true
+      open: true
       selection_mode: selection_append
-      field_widget_replace: 0
+      field_widget_edit: false
+      field_widget_replace: false
       field_widget_display_settings: {  }
     third_party_settings:
       limited_field_widgets:
@@ -110,13 +110,6 @@ content:
     settings: {  }
     region: content
     third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 7
-    region: content
-    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
@@ -125,14 +118,11 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  url_redirects:
-    weight: 8
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   created: true
   path: true
   promote: true
+  status: true
   sticky: true
   uid: true
+  url_redirects: true
