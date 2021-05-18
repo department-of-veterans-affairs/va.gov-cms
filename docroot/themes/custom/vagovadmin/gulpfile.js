@@ -28,7 +28,7 @@ gulp.task("clearcache", function (done) {
 gulp.task("clearcache").description = "clear all Drupal caches";
 
 gulp.task("watch", function () {
-  gulp.watch(["scss/**/*.scss"], gulp.series("sass"));
+  gulp.watch(["assets/scss/**/*.scss"], gulp.series("sass"));
 });
 gulp.task("watch").description = "watch SCSS";
 
