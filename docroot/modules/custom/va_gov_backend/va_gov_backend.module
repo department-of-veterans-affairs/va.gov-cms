@@ -1805,7 +1805,7 @@ function va_gov_backend_preprocess_paragraph(&$variables) {
         $fid = $media_entity->getSource()->getSourceFieldValue($media_entity);
         if (!empty($fid)) {
           $file = File::load($fid);
-          $media_object['link_url'] = $file->url();
+          $media_object['link_url'] = $file->createFileUrl(FALSE);
         }
       }
       elseif ($media_bundle === 'video') {
