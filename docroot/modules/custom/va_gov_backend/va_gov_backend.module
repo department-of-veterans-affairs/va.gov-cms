@@ -613,6 +613,18 @@ function _va_gov_vet_center_require_revision_message(array &$form, FormStateInte
   ];
   // Vet centers need to have revision log messages on edit.
   if (in_array($form_id, $vc_types)) {
+    $widget_fields = [
+      'field_nearby_vet_centers',
+      'field_nearby_mobile_vet_centers',
+    ];
+    foreach ($widget_fields as $widget_field) {
+      // We don't want the node form validation to fire on the removal buttons.
+      foreach ($form[$widget_field]['widget']['current'] as $key => $button) {
+        if (is_numeric($key)) {
+          $form[$widget_field]['widget']['current'][$key]['actions']['remove_button']['#limit_validation_errors'] = [['field_nearby_vet_centers']];
+        }
+      }
+    }
     $form['revision_log']['#required'] = TRUE;
     $form['revision_log']['widget']['#required'] = TRUE;
     $form['revision_log']['widget'][0]['#required'] = TRUE;
