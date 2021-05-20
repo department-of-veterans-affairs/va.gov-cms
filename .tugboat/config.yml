@@ -176,7 +176,8 @@ services:
       - php
     commands:
       build:
-        - git clone git@github.com:department-of-veterans-affairs/content-build.git
+        - git clone https://github.com/department-of-veterans-affairs/content-build.git
+        - cd "content-build" && git fetch && git checkout --track origin/nps--single-page-publish
         - cd "content-build" && yarn install
         - cd "content-build" && yarn build
       online:
