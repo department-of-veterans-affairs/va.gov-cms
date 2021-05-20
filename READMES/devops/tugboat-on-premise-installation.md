@@ -3,7 +3,7 @@
 The hostname of the Tugboat
 
 ### Database Backups and Restoration
-**Backups** are performed automatically to the /opt/tugboat/data/backups folder nightly at 00:00 UTC. There are three databases, all MongoDB .json and .bson. Then a [Jenkins job]() goes into the Tugboat server once per day and uploads them to an [S3 bucket]().
+**Backups** are performed automatically to the /opt/tugboat/data/backups folder nightly at 00:00 UTC. There are three databases, all MongoDB .json and .bson. Then a [Jenkins job](http://jenkins.vfs.va.gov/job/utility/job/tugboat-backup/) goes into the Tugboat server once per day and uploads them to an the dsva-vetsgov-utility-tugboat S3 bucket.
 
 TODO: We think that the nightly backup already runs an /opt/tugboat/util/verify-backup.sh and think that it would be good to run this again in our Jenkins job before upload to S3.
 
@@ -21,6 +21,7 @@ These backups do not contain Docker data and will not restore the ephemeral revi
 ### Deployment
 Manual for now. @SEE "Future" section
 1. Check for patches that need to be re-applied in va.gov-cms/.tugboat/patches/PATCHES.txt. Also can use `git status` and `git diff`, can possibly use `git stash`.
+1. (optional) `curl --location https://raw.githubusercontent.com/department-of-veterans-affairs/va.gov-cms/fb9e9c8f3746395710482150c53a973ad8ca0144/.tugboat/patches/race-condition.patch --remote-name`
 1. cd /opt/tugboat
 1. git fetch --tags
 1. git checkout $TAG
