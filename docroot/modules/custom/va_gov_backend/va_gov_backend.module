@@ -613,6 +613,18 @@ function _va_gov_vet_center_require_revision_message(array &$form, FormStateInte
   ];
   // Vet centers need to have revision log messages on edit.
   if (in_array($form_id, $vc_types)) {
+    $widget_fields = [
+      'field_nearby_vet_centers',
+      'field_nearby_mobile_vet_centers',
+    ];
+    foreach ($widget_fields as $widget_field) {
+      // We don't want the node form validation to fire on the removal buttons.
+      foreach ($form[$widget_field]['widget']['current'] as $key => $button) {
+        if (is_numeric($key)) {
+          $form[$widget_field]['widget']['current'][$key]['actions']['remove_button']['#limit_validation_errors'] = [['field_nearby_vet_centers']];
+        }
+      }
+    }
     $form['revision_log']['#required'] = TRUE;
     $form['revision_log']['widget']['#required'] = TRUE;
     $form['revision_log']['widget'][0]['#required'] = TRUE;
@@ -1062,6 +1074,10 @@ function va_gov_backend_preprocess_page(&$variables) {
       'regional_health_care_service_des',
       'support_service',
       'story_listing',
+      'vet_center_cap',
+      'vet_center_facility_health_servi',
+      'vet_center_mobile_vet_center',
+      'vet_center_outstation',
     ];
     // Make sure we aren't on the node form or an excluded type.
     $route_name = \Drupal::routeMatch()->getRouteName();
@@ -1188,6 +1204,43 @@ function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
               unset($form[$target]['widget']['#options'][$header_key][$option_key]);
             }
           }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function va_gov_backend_form_node_form_alter(array &$form, FormStateInterface &$form_state) {
+  _va_gov_backend_set_owner_section_default($form, $form_state);
+
+  // Only attach the service options limiter to facility health service bundle.
+  if ($form_state->getformObject()->getEntity()->bundle() === 'health_care_local_health_service') {
+    $form['#attached']['library'][] = 'va_gov_backend/limit_services_to_user_sections';
+  }
+}
+
+/**
+ * For setting the default owner section in dropdown.
+ *
+ * @param array $form
+ *   The entity form.
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   The entity form state.
+ */
+function _va_gov_backend_set_owner_section_default(array &$form, FormStateInterface &$form_state) {
+  if (!empty($form['field_administration']['widget'])) {
+    // No value set, so run default value set logic.
+    if ($form_state->getFormObject() instanceof EntityFormInterface) {
+      $entity = $form_state->getFormObject()->getEntity();
+
+      if ($entity->isNew()) {
+        $perms_service = \Drupal::service('va_gov_user.user_perms');
+        // If only 1, make default, otherwise defaults to Select prompt.
+        if ($default = $perms_service->getDefault(TRUE)) {
+          $form['field_administration']['widget']['#default_value'] = $default;
         }
       }
     }
@@ -1540,6 +1593,7 @@ function va_gov_backend_page_attachments(array &$attachments) {
 
   // Pass our relevant data to settings.
   $attachments['#attached']['drupalSettings']['gtm_data'] = _va_gov_backend_gtm_settings();
+  $attachments['#cache']['tags'][] = 'config:workbench_access.access_scheme.section';
 
   $attachments['#attached']['library'][] = 'va_gov_backend/alert_form';
   $attachments['#attached']['library'][] = 'va_gov_backend/system_styles';
@@ -1772,7 +1826,7 @@ function va_gov_backend_preprocess_paragraph(&$variables) {
         $fid = $media_entity->getSource()->getSourceFieldValue($media_entity);
         if (!empty($fid)) {
           $file = File::load($fid);
-          $media_object['link_url'] = $file->url();
+          $media_object['link_url'] = $file->createFileUrl(FALSE);
         }
       }
       elseif ($media_bundle === 'video') {

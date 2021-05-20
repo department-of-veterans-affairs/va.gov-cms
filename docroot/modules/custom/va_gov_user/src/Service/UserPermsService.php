@@ -77,6 +77,9 @@ class UserPermsService {
    *
    * @param \Drupal\Core\Session\AccountInterface $user
    *   User object.
+   * @param bool $admin_bypass
+   *   Determines whether we get all sections or just ones
+   *   selected on workbench access form.
    *
    * @return array
    *   Array of user sections where keys are term ids and values are term names.
@@ -84,7 +87,7 @@ class UserPermsService {
    *   NOTE: consumers of this method will have to take care of array key
    *   'administration' according to their use case.
    */
-  public function getSections(AccountInterface $user) {
+  public function getSections(AccountInterface $user, bool $admin_bypass = FALSE) {
     $sections = [];
     $entity_storage = $this->entityTypeManager->getStorage('taxonomy_term');
 
@@ -94,8 +97,8 @@ class UserPermsService {
     $query->condition('sau.user_id_target_id', $user->id());
     $query->fields('sa', ['section_id']);
     $results = $query->execute()->fetchCol();
-
-    if (($key = array_search('administration', $results)) !== FALSE || $user->hasPermission('bypass workbench access')) {
+    $key = array_search('administration', $results);
+    if ((!$admin_bypass) && ($key !== FALSE || $user->hasPermission('bypass workbench access'))) {
       unset($results[$key]);
       $tree = $entity_storage->loadTree('administration');
       foreach ($tree as $term) {
@@ -109,6 +112,25 @@ class UserPermsService {
     $this->addSections($sections, $terms);
 
     return $sections;
+  }
+
+  /**
+   * Get the user's default workbench access section id.
+   *
+   * @param bool $admin_bypass
+   *   Determines whether or not we return all options (admin default) or
+   *   restrict to items selected on workbench access form.
+   *
+   * @return int|null
+   *   Returns default user section key or NULL.
+   */
+  public function getDefault(bool $admin_bypass = FALSE) {
+    $user_sections = $this->getSections($this->currentUser, $admin_bypass);
+    // If only 1 found, return it.
+    if (count($user_sections) === 1) {
+      return key($user_sections);
+    }
+    return NULL;
   }
 
   /**

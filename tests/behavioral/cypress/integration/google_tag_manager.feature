@@ -55,7 +55,7 @@ Feature: Google Tag Manager dataLayer values are correct
     And I am at "/node/2"
     Then the GTM data layer value for "userSections" should be set to "all"
 
-  Scenario: A user should have GTM userSections values corresponding to their currently set sections.
+  Scenario: A user should have GTM userSections values corresponding to their currently set sections
     Given I am logged in as a user with the "content_creator_benefits_hubs" role
     And my workbench access sections are not set
     And I am at "/node/2"
