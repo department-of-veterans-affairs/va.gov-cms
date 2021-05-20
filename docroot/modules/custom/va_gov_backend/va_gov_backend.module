@@ -436,7 +436,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   }
   // Require message on revision.
   _va_gov_vet_center_require_revision_message($form, $form_state, $form_id);
-
   // Don't allow wysiwyg on core taxonomy description field.
   if ($form_id === 'taxonomy_term_health_care_service_taxonomy_form') {
     // We need to manipulate the html prior to after_build.
