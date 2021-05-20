@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cd "${TUGBOAT_ROOT}/web"
+cd content-build
 NODE_ENV=production yarn preview --buildtype=vagovprod
