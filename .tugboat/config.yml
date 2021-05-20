@@ -166,6 +166,24 @@ services:
   memcache:
     image: tugboatqa/memcached:1.6
 
+  preview:
+    image: tugboatqa/node:14.15
+    http: true
+    https: true
+    expose: 3002
+    checkout: true
+    depends:
+      - php
+    commands:
+      build:
+        - cd "${DOCROOT}/vendor/va-gov/content-build" && yarn install
+        - cd "${DOCROOT}/vendor/va-gov/content-build" && yarn build
+        # Setup background processing service.  This uses runit to keep process up
+        # See https://docs.tugboat.qa/setting-up-services/how-to-set-up-services/running-a-background-process
+        - mkdir -p /etc/service/preview-server
+        - mv "${TUGBOAT_ROOT}/scripts/preview-server.sh" /etc/service/preview-server/run
+        - chmod +x /etc/service/preview-server/run
+
   # What to call the service hosting MySQL. This name also acts as the
   # hostname to access the service by from the php service.
   mysql:
