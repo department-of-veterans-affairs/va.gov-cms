@@ -176,6 +176,8 @@ services:
       - php
     commands:
       build:
+        - composer install
+        - composer va:web:install
         - cd "${DOCROOT}/vendor/va-gov/content-build" && yarn install
         - cd "${DOCROOT}/vendor/va-gov/content-build" && yarn build
         # Setup background processing service.  This uses runit to keep process up
