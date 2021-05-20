@@ -179,7 +179,7 @@ services:
         - git clone https://github.com/department-of-veterans-affairs/content-build.git
         - cd "content-build" && git fetch && git checkout --track origin/nps--single-page-publish
         - cd "content-build" && yarn install
-        - cd "content-build" && INSTALL_HOOKS=no NODE_ENV=production yarn build --buildtype=vagovprod --no-drupal-proxy --api=https://dev-api.va.gov"
+        - cd "content-build" && INSTALL_HOOKS=no NODE_ENV=production yarn build --buildtype=vagovprod --no-drupal-proxy --api=https://dev-api.va.gov
       online:
         - cd "content-build" && NODE_ENV=production yarn preview --buildtype=vagovprod --no-drupal-proxy
 
