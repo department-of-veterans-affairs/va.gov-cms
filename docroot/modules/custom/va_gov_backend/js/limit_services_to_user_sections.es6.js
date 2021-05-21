@@ -16,11 +16,20 @@
     "edit-field-regional-health-service"
   );
   const winnower = () => {
-    // Set our selects back to "Select a value."
-    if (typeof facilityField !== "undefined" && facilityField !== null) {
+    const pathType = drupalSettings.path.currentPath.split("/")[1];
+    // Set our selects back to "Select a value." on add forms.
+    if (
+      typeof facilityField !== "undefined" &&
+      facilityField !== null &&
+      pathType === "add"
+    ) {
       facilityField.selectedIndex = "_none";
     }
-    if (typeof systemField !== "undefined" && systemField !== null) {
+    if (
+      typeof systemField !== "undefined" &&
+      systemField !== null &&
+      pathType === "add"
+    ) {
       systemField.selectedIndex = "_none";
     }
 

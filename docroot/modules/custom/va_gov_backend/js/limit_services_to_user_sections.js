@@ -12,10 +12,12 @@
   var facilityField = document.getElementById("edit-field-facility-location");
   var systemField = document.getElementById("edit-field-regional-health-service");
   var winnower = function winnower() {
-    if (typeof facilityField !== "undefined" && facilityField !== null) {
+    var pathType = drupalSettings.path.currentPath.split("/")[1];
+
+    if (typeof facilityField !== "undefined" && facilityField !== null && pathType === "add") {
       facilityField.selectedIndex = "_none";
     }
-    if (typeof systemField !== "undefined" && systemField !== null) {
+    if (typeof systemField !== "undefined" && systemField !== null && pathType === "add") {
       systemField.selectedIndex = "_none";
     }
 
