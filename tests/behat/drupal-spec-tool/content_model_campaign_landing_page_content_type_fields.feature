@@ -37,7 +37,7 @@ Feature: Content model: Campaign Landing Page Content Type fields
 | Content type | Campaign Landing Page | Introduction | field_clp_why_this_matters | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter |  |
 | Content type | Campaign Landing Page | Links with summaries | field_clp_spotlight_link_teasers | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
 | Content type | Campaign Landing Page | Optional Spotlight cta | field_clp_spotlight_cta | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
-| Content type | Campaign Landing Page | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Campaign Landing Page | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Campaign Landing Page | Page introduction | field_hero_blurb | Text (plain) |  | 1 | Textfield with counter |  |
 | Content type | Campaign Landing Page | Primary call to action | field_primary_call_to_action | Entity reference revisions | Required | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | Campaign Landing Page | Related benefits | field_benefit_categories | Entity reference | Required | Unlimited | Entity Browser - Table | Translatable |

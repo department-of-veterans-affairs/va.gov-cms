@@ -11,7 +11,7 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center | Facility ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Vet Center | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
 | Content type | Vet Center | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
-| Content type | Vet Center | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Vet Center | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center | Main location address  | field_address | Address |  | 1 | Address | Translatable |
 | Content type | Vet Center | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) |  |
 | Content type | Vet Center | Facility photo | field_media | Entity reference |  | 1 | Media library | Translatable |
@@ -32,15 +32,15 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center - Community Access Point | Access point name | field_geographical_identifier | Text (plain) | Required | 1 | Textfield |  |
 | Content type | Vet Center - Community Access Point | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) | Translatable |
 | Content type | Vet Center - Community Access Point | Facility photo | field_media | Entity reference |  | 1 | Media library | Translatable |
-| Content type | Vet Center - Community Access Point | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Vet Center - Community Access Point | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Community Access Point | Main Vet Center location | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Community Access Point | Table of contents | field_table_of_contents | Markup |  | 1 | Markup | Translatable |
 | Content type | Vet Center - Community Access Point | How should CAP hours be communicated? | field_vetcenter_cap_hours_opt_in | Boolean | Required | 1 | Check boxes/radio buttons |  |
 | Content type | Vet Center - Facility Service | Description | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
-| Content type | Vet Center - Facility Service | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Vet Center - Facility Service | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Facility Service | Service | field_service_name_and_descripti | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Facility Service | Vet Center | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Vet Center - Locations List | Owner | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Vet Center - Locations List | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Locations List | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Content type | Vet Center - Locations List | Nearby Mobile Vet Centers | field_nearby_mobile_vet_centers | Entity reference |  | Unlimited | Entity Browser - Table |  |
 | Content type | Vet Center - Locations List | Nearby Vet Centers and Outstations | field_nearby_vet_centers | Entity reference |  | Unlimited | Entity Browser - Table |  |

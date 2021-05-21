@@ -70,7 +70,7 @@ Feature: CMS Users may effectively create & edit content
     # Create an office node with a menu link.
     And I fill in "Name" with "Test Office - BeHaT"
     And I fill in "Meta title tag" with "Test Office - BeHaT | Veterans Affairs"
-    And I fill in "Owner" with "5"
+    And I fill in "Section" with "5"
     And I check "Provide a menu link"
     And I fill in "Menu link title" with "Test Office - BeHat"
     And I select "-- Outreach and events" from "Parent item"
@@ -106,7 +106,7 @@ Feature: CMS Users may effectively create & edit content
     # Create an office node.
     And I fill in "Name" with "Test Office - BeHaT"
     And I fill in "Meta title tag" with "Test Office - BeHaT | Veterans Affairs"
-    And I fill in "Owner" with "5"
+    And I fill in "Section" with "5"
     And I press "Save"
 
     # Confirm that the va.gov url is not shown for nodes without a published revision.
