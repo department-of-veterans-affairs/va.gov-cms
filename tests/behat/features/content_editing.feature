@@ -73,6 +73,7 @@ Feature: CMS Users may effectively create & edit content
     And I fill in "Owner" with "5"
     And I check "Provide a menu link"
     And I fill in "Menu link title" with "Test Office - BeHat"
+    And I select "-- Outreach and events" from "Parent item"
     And I uncheck "Enable in menu"
     And I press "Save"
     Then I should see "Test Office - BeHaT"
