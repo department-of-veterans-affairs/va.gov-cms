@@ -12,13 +12,11 @@ id: node.documentation_page.field_administration
 field_name: field_administration
 entity_type: node
 bundle: documentation_page
-label: Owner
-description: ''
+label: Section
+description: 'Select a section to determine who will manage this content.'
 required: true
 translatable: true
-default_value:
-  -
-    target_uuid: d2799316-7164-43e4-9f2b-090fd62141c8
+default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'

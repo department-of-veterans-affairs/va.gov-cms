@@ -13,11 +13,11 @@ Feature: Content model: Custom Block fields
 | Custom block type | Alert | Alert title | field_alert_title | Text (plain) | Required | 1 | Textfield |  |
 | Custom block type | Alert | Alert Type | field_alert_type | List (text) | Required | 1 | Select list |  |
 | Custom block type | Alert | Banner or in-page alert? | field_is_this_a_header_alert_ | List (text) |  | 1 | Select list |  |
-| Custom block type | Alert | Owner | field_owner | Entity reference | Required | 1 | Select list |  |
+| Custom block type | Alert | Section | field_owner | Entity reference | Required | 1 | Select list |  |
 | Custom block type | Alert | Persistence (for dismissable alerts only) | field_alert_frequency | List (text) | Required | 1 | Select list |  |
 | Custom block type | Alert | Reusability | field_reusability | List (text) | Required | 1 | -- Disabled -- |  |
 | Custom block type | Alert | Scope | field_node_reference | Entity reference |  | Unlimited | Autocomplete |  |
 | Custom block type | Promo | Image | field_image | Entity reference | Required | 1 | Media library |  |
 | Custom block type | Promo | Link | field_promo_link | Entity reference revisions |  | 1 | Inline entity form - Simple |  |
-| Custom block type | Promo | Owner | field_owner | Entity reference | Required | 1 | Select list | Translatable |
+| Custom block type | Promo | Section | field_owner | Entity reference | Required | 1 | Select list | Translatable |
 

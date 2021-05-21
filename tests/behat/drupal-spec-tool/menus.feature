@@ -33,7 +33,9 @@ Feature: Menus
 | VA Albany health care | va-albany-health-care | VISN 2 \| va.gov/albany-health-care |
 | VA Alexandria health care | va-alexandria-health-care | VISN 16 \| va.gov/alexandria-health-care |
 | VA Altoona health care | va-altoona-health-care | VISN 4 \| va.gov/altoona-health-care |
+| VA Ann Arbor health care | va-ann-arbor-health-care | VISN 10 \| va.gov/va-ann-arbor-health-care |
 | VA Asheville health care | va-asheville-health-care | VISN 6 \| va.gov/asheville-health-care |
+| VA Battle Creek health care | va-battle-creek-health-care | VISN 10 \| va.gov/va-battle-creek-health-care |
 | VA Bay Pines health care | va-bay-pines-health-care | VISN 8 \| va.gov/bay-pines-health-care |
 | VA Beckley health care | va-beckley-health-care | VISN 5 \| va.gov/beckley-health-care |
 | VA Bedford health care | va-bedford-health-care | VISN 1 \| va.gov/bedford-health-care |
@@ -45,13 +47,19 @@ Feature: Menus
 | VA Central Arkansas health care | va-central-arkansas-health-care | VISN 16 \| va.gov/central-arkansas-health-care |
 | VA Central California health care | va-central-california-health-car | VISN 21 \| va.gov/central-california-health-care |
 | VA Central Iowa health care | va-central-iowa-health-care | VISN 23 \| va.gov/central-iowa-health-care |
+| VA Central Ohio health care | va-central-ohio-health-care | VISN 10 \| va.gov/va-central-ohio-health-care |
 | VA Central Western Massachusetts health care | va-central-western-massachusetts | VISN 1 \| va.gov/central-western-massachusetts-health-care |
 | VA Cheyenne health care | va-cheyenne-health-care | VISN 19 \| va.gov/cheyenne-health-care |
+| VA Chillicothe health care | va-chillicothe-health-care | VISN 10 \| va.gov/va-chillicothe-health-care |
+| VA Cincinnati health care | va-cincinnati-health-care | VISN 10 \| va.gov/va-cincinnati-health-care |
 | VA Clarksburg health care | va-clarksburg-health-care | VISN 5 \| va.gov/clarksburg-health-care |
 | VA Coatesville health care | va-coatesville-health-care | VISN 4 \| va.gov/coatesville-health-care |
 | VA Connecticut health care | va-connecticut-health-care | VISN 1 \| va.gov/connecticut-health-care |
+| VA Dayton health care | va-dayton-health-care | VISN 10 \| va.gov/va-dayton-health-care |
+| VA Detroit health care | va-detroit-health-care | VISN 10 \| va.gov/va-detroit-health-care |
 | VA Durham health care | va-durham-health-care | VISN 6 \| va.gov/durham-health-care |
 | VA Eastern Colorado health care | va-eastern-colorado-health-care | VISN 19 \| va.gov/eastern-colorado-health-care |
+| VA Eastern Kansas health care | va-eastern-kansas-health-care | VISN 15 \| va.gov/va-eastern-kansas-health-care |
 | VA Eastern Oklahoma health care | va-eastern-oklahoma-health-care | VISN 19 \| va.gov/eastern-oklahoma-health-care |
 | VA Erie health care | va-erie-health-care | VISN 4 \| va.gov/erie-health-care |
 | VA Fargo health care | va-fargo-health-care | VISN 23 \| va.gov/fargo-health-care |
@@ -63,6 +71,7 @@ Feature: Menus
 | VA Houston health care | va-houston-health-care | VISN 16 \| va.gov/houston-health-care |
 | VA Hudson Valley health care | va-hudson-valley-health-care | VISN 2 \| va.gov/hudson-valley-health-care |
 | VA Huntington health care | va-huntington-health-care | VISN 5 \| va.gov/huntington-health-care |
+| VA Indiana health care | va-indiana-health-care  | VISN 10 \| va.gov/va-indiana-health-care |
 | VA Iowa City health care | va-iowa-city-health-care | VISN 23 \| va.gov/iowa-city-health-care |
 | VA Jackson health care | va-jackson-health-care | VISN 16 \| va.gov/jackson-health-care |
 | VA Lebanon health care | va-lebanon | VISN 4 \| va.gov/lebanon-health-care |
@@ -77,7 +86,9 @@ Feature: Menus
 | VA New Jersey health care | va-new-jersey-health-care | VISN 2 \| va.gov/new-jersey-health-care |
 | VA New York Harbor health care | va-new-york-harbor-health-care | VISN 2 \| va.gov/new-york-harbor-health-care |
 | VA North Florida health care | va-north-florida-health-care | VISN 8 \| va.gov/north-florida-health-care |
+| VA Northeast Ohio health care | va-northeast-ohio-health-care | VISN 10 \| va.gov/va-northeast-ohio-health-care |
 | VA Northern California health care | va-northern-california-health-ca | VISN 21 \| va.gov/northern-california-health-care |
+| VA Northern Indiana health care | va-northern-indiana-health-care | VISN 10 \| va.gov/va-northern-indiana-health-care |
 | VA Northport health care | va-northport-health-care | VISN 2 \| va.gov/northport-health-care |
 | VA Oklahoma City health care | va-oklahoma-health-care | VISN 19 \| va.gov/oklahoma-city-health-care |
 | VA Orlando health care | va-orlando-health-care | VISN 8 \| va.gov/orlando-health-care |
@@ -87,6 +98,7 @@ Feature: Menus
 | VA Pittsburgh health care | pittsburgh-health-care | VISN 4 \| va.gov/pittsburgh-health-care |
 | VA Providence health care | va-providence-health-care | VISN 1 \| va.gov/providence-health-care |
 | VA Richmond health care | va-richmond-health-care | VISN 6 \| va.gov/richmond-health-care |
+| VA Saginaw health care | va-saginaw-health-care | VISN 10 \| va.gov/va-saginaw-health-care |
 | VA Salem health care | va-salem-health-care | VISN 6 \| va.gov/salem-health-care |
 | VA Salisbury health care | va-salisbury-health-care | VISN 6 \| va.gov/salisbury-health-care |
 | VA Salt Lake City health care | va-salt-lake-city-health-care | VISN 19 \| va.gov/saltlakecity-health-care |

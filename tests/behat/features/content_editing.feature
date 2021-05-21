@@ -70,9 +70,10 @@ Feature: CMS Users may effectively create & edit content
     # Create an office node with a menu link.
     And I fill in "Name" with "Test Office - BeHaT"
     And I fill in "Meta title tag" with "Test Office - BeHaT | Veterans Affairs"
-    And I fill in "Owner" with "5"
+    And I fill in "Section" with "5"
     And I check "Provide a menu link"
     And I fill in "Menu link title" with "Test Office - BeHat"
+    And I select "-- Outreach and events" from "Parent item"
     And I uncheck "Enable in menu"
     And I press "Save"
     Then I should see "Test Office - BeHaT"
@@ -105,7 +106,7 @@ Feature: CMS Users may effectively create & edit content
     # Create an office node.
     And I fill in "Name" with "Test Office - BeHaT"
     And I fill in "Meta title tag" with "Test Office - BeHaT | Veterans Affairs"
-    And I fill in "Owner" with "5"
+    And I fill in "Section" with "5"
     And I press "Save"
 
     # Confirm that the va.gov url is not shown for nodes without a published revision.
@@ -163,6 +164,7 @@ Feature: CMS Users may effectively create & edit content
     Then I am at "node/add/vamc_operating_status_and_alerts"
     And I press "Add new banner alert"
     And I select "Information" from "Alert type"
+    And I select "Veterans Affairs" from "edit-field-administration"
     And I fill in "Title" with "BeHat Alert title"
     And I fill in "Alert body" with "BeHat Alert body"
     And I press "Save draft and continue editing"

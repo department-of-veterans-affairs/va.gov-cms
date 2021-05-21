@@ -19,13 +19,11 @@ id: node.vet_center_facility_health_servi.field_administration
 field_name: field_administration
 entity_type: node
 bundle: vet_center_facility_health_servi
-label: Owner
-description: ''
+label: Section
+description: 'Select a section to determine who will manage this content.'
 required: true
 translatable: true
-default_value:
-  -
-    target_uuid: a8b1bb11-67a8-4489-a648-6d35c04be9cb
+default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'
