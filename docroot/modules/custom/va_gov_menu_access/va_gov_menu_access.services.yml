@@ -1,0 +1,13 @@
+services:
+  va_gov_menu_access.route_subscriber:
+    class: Drupal\va_gov_menu_access\Routing\AdminRouteSubscriber
+    tags:
+      - { name: event_subscriber }
+  va_gov_menu_access.access:
+    class: Drupal\va_gov_menu_access\Access\RouteAccessChecks
+    arguments: ['@va_gov_user.user_perms']
+    tags:
+      - { name: access_check, applies_to: _menu_access_check }
+  va_gov_menu_access.menu_reduction_service:
+    class: Drupal\va_gov_menu_access\Service\MenuReductionService
+    arguments: ['@config.factory', '@entity_type.manager', '@path_alias.manager', '@va_gov_user.user_perms']

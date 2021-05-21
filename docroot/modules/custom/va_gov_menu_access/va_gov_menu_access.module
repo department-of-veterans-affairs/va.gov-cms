@@ -1,0 +1,84 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_menu_access.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * Adds user role info to drupalsettings for js menu association limiting.
+ */
+function va_gov_menu_access_page_attachments(array &$attachments) {
+  $attachments['#attached']['drupalSettings']['vagov_menu_access'] = [
+    'current_user_roles' => \Drupal::currentUser()->getRoles(),
+  ];
+
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function va_gov_menu_access_form_node_form_alter(&$form, &$form_state, $form_id) {
+  // Process menu options on all node forms.
+  $form['#attached']['library'][] = 'va_gov_menu_access/parent_section_select';
+  $form['#after_build'][] = '_va_gov_menu_access_alter_menus';
+  $form['#after_build'][] = '_va_gov_menu_access_set_menu_parent_requirement';
+}
+
+/**
+ * Afterbuild callback: Adds validation to parent menu options select.
+ *
+ * @param array $form
+ *   The node form array.
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   Instance of FormStateInterface.
+ *
+ * @return array
+ *   The altered form.
+ */
+function _va_gov_menu_access_set_menu_parent_requirement(array $form, FormStateInterface $form_state) {
+  if ($form_state->getValue(['menu', 'enabled'])) {
+    $form['menu']['link']['menu_parent']['#required'] = TRUE;
+    $form['#validate'][] = '_va_gov_menu_access_parent_menu_selected_validation';
+  }
+  return $form;
+}
+
+/**
+ * Validation callback: Validates that menu parent item is selected.
+ *
+ * @param array $form
+ *   The node form array.
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   Instance of FormStateInterface.
+ */
+function _va_gov_menu_access_parent_menu_selected_validation(array $form, FormStateInterface $form_state) {
+  $menu_enabled = $form_state->getValue(['menu', 'enabled']);
+  $parent_empty = $form_state->isValueEmpty(['menu', 'menu_parent']);
+  if ($menu_enabled && $parent_empty) {
+    $form_state->setErrorByName('menu][menu_parent', t('Menu parent item cannot be empty.'));
+  }
+}
+
+/**
+ * Afterbuild callback: Used to filter / alter menus in node rail.
+ *
+ * @param array $form
+ *   The form array by reference.
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   Instance of FormStateInterface.
+ *
+ * @return array
+ *   The form array.
+ */
+function _va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_state) {
+  /** @var \Drupal\va_gov_menu_access\Service\MenuReductionService */
+  $menu_reduction_service = \Drupal::service('va_gov_menu_access.menu_reduction_service');
+  $menu_reduction_service->reduceForm($form, $form_state);
+
+  return $form;
+}

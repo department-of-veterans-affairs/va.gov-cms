@@ -171,6 +171,24 @@ class UserPermsService {
   }
 
   /**
+   * Checks to see if the current user has an admin level role.
+   *
+   * @return bool
+   *   TRUE if has an admin role, FALSE otherwise.
+   */
+  public function hasAdminRole() : bool {
+    $current_user_roles = $this->currentUser->getRoles();
+    // Roles to consider as admin.
+    $admin_roles = [
+      'administrator',
+      'content_admin',
+    ];
+    $admin_role_count = count(array_intersect($admin_roles, $current_user_roles));
+
+    return ($admin_role_count > 0) ? TRUE : FALSE;
+  }
+
+  /**
    * Check which values are allowed and put into array.
    *
    * @param array $form
