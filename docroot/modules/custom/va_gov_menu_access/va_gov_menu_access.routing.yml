@@ -1,0 +1,10 @@
+va_gov_menu_access.VaGovMenuAccessConfigForm:
+  path: '/admin/config/content/va_gov_menu_access'
+  defaults:
+    _form: 'Drupal\va_gov_menu_access\Form\VaGovMenuAccessConfigForm'
+    _title: 'VAMC Menu Custom Access'
+  requirements:
+    _permission: 'administer cms custom menu access'
+    _menu_access_check: 'TRUE'
+  options:
+    _admin_route: TRUE

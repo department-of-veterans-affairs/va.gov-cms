@@ -48,6 +48,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
         'anonymous',
         [
           'access content',
+          'access prometheus metrics',
           'access site-wide contact form',
           'view media',
         ],
@@ -96,6 +97,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'access toolbar',
           'access user profiles',
           'access vamc_operating_statuses entity browser pages',
+          'administer cms custom menu access',
           'administer media',
           'administer menu',
           'administer nodes',
