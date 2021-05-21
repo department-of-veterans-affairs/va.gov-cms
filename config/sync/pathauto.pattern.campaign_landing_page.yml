@@ -1,0 +1,22 @@
+uuid: e25fb7bc-2965-4ec5-a10d-ab24937eb5ec
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: campaign_landing_page
+label: 'Campaign Landing Page'
+type: 'canonical_entities:node'
+pattern: 'initiatives/[node:title]'
+selection_criteria:
+  3130bf6c-efba-434c-8292-09f48dea028d:
+    id: node_type
+    bundles:
+      campaign_landing_page: campaign_landing_page
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 3130bf6c-efba-434c-8292-09f48dea028d
+selection_logic: and
+weight: -5
+relationships: {  }
