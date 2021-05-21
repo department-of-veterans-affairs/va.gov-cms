@@ -1,0 +1,9 @@
+name: VA.gov Menu Access
+type: module
+description: 'Granular perms and control for CMS menus'
+package: 'Custom'
+core_version_requirement: ^8 || ^9
+configure: va_gov_menu_access.VaGovMenuAccessConfigForm
+dependencies:
+  - drupal:admin_toolbar_tools
+  - drupal:va_gov_user
