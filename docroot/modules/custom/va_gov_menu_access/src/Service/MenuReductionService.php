@@ -125,7 +125,7 @@ class MenuReductionService {
       'menu',
       'menu_parent',
     ]);
-    $this->originalMenuParentOptions = $form['menu']['link']['menu_parent']['#options'];
+    $this->originalMenuParentOptions = $form['menu']['link']['menu_parent']['#options'] ?? [];
     $this->setEmptyMenuParentSelector($form);
 
     // @todo Remove this nonsense check to activate the remainder of this logic
