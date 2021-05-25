@@ -1095,6 +1095,10 @@ function va_gov_backend_preprocess_page(&$variables) {
         $variables['page']['sidebar_second']['#markup'] = $button;
       }
     }
+    $publish_now = \Drupal::service('va_gov_backend.publish_now');
+    if ($publish_now->shouldDisplayButton($node)) {
+      $variables['page']['sidebar_second']['#markup'] .= $publish_now->getButtonMarkup($node);
+    }
   }
 }
 

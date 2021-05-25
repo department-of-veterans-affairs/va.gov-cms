@@ -8,6 +8,16 @@ va_gov_backend.exclusion_types_admin_form:
   options:
     _admin_route: TRUE
 
+va_gov_backend.publish_now:
+  path: '/admin/va_gov_backend/publish_now/{node}'
+  defaults:
+    _controller: '\Drupal\va_gov_backend\Controller\PublishNowController::publishNow'
+    _title: 'Publish Now!'
+  requirements:
+    _permission: 'va gov publish content now'
+  options:
+    _admin_route: TRUE
+
 va_gov_backend.content_release_status:
   path: '/admin/content/deploy/status'
   defaults:
