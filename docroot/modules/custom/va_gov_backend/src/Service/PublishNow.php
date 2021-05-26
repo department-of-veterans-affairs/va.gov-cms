@@ -73,6 +73,9 @@ class PublishNow implements PublishNowInterface {
     if (!$node->isPublished()) {
       return FALSE;
     }
+    if ($node->bundle() !== 'faq_multiple_q_a') {
+      return FALSE;
+    }
     if (!$this->currentUser->hasPermission('administer content')) {
       return FALSE;
     }
