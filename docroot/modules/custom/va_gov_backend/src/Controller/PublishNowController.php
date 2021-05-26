@@ -13,10 +13,26 @@ use Symfony\Component\HttpFoundation\Request;
 class PublishNowController extends ControllerBase {
 
   /**
+   * AWS SQS Client.
+   *
+   * @var \Aws\Sqs\SqsClient
+   */
+  protected $sqsClient;
+
+  /**
+   * Settings.
+   *
+   * @var \Drupal\Core\Site\Settings
+   */
+  protected $settings;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     $instance = parent::create($container);
+    $instance->sqsClient = $container->get('va_gov_backend.aws_sqs_client');
+    $instance->settings = $container->get('settings');
     return $instance;
   }
 
@@ -29,9 +45,28 @@ class PublishNowController extends ControllerBase {
    *   The node to publish.
    */
   public function publishNow(Request $request, NodeInterface $node = NULL) {
+    $body = 'test';
+    $queueUrl = $this->settings->get('va_gov_publish_now_queue_url');
+    $attributes = [];
+    $nid = $node->id();
+    $response = $this->sqsClient->sendMessage([
+      'MessageBody' => $body,
+      'QueueUrl' => $queueUrl,
+      'MessageAttributes' => $attributes,
+    ]);
+    $jsonResponse = json_encode($response, NULL, 2);
+    $message = <<<EOF
+Node $nid was submitted to the SQS queue.
+
+The raw data returned from AWS is as follows:
+
+<pre>
+$jsonResponse
+</pre>
+EOF;
     return [
       '#type' => 'markup',
-      '#markup' => $node->id(),
+      '#markup' => $message,
     ];
   }
 

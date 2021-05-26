@@ -5,6 +5,7 @@ namespace Drupal\va_gov_backend\Service;
 use Drupal\Core\Url;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\node\NodeInterface;
+use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -27,11 +28,18 @@ class PublishNow implements PublishNowInterface {
   protected $request;
 
   /**
-   * The VA.gov URL Service.
+   * The VA.gov URL service.
    *
    * @var \Symfony\Component\HttpFoundation\RequestInterface
    */
   protected $liveUrl;
+
+  /**
+   * The environment discovery service.
+   *
+   * @var \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery
+   */
+  protected $environmentDiscovery;
 
   /**
    * Constructor.
@@ -39,11 +47,13 @@ class PublishNow implements PublishNowInterface {
   public function __construct(
     AccountProxyInterface $currentUser,
     RequestStack $requestStack,
-    VaGovUrlInterface $liveUrl
+    VaGovUrlInterface $liveUrl,
+    EnvironmentDiscovery $environmentDiscovery
   ) {
     $this->currentUser = $currentUser;
     $this->request = $requestStack->getCurrentRequest();
     $this->liveUrl = $liveUrl;
+    $this->environmentDiscovery = $environmentDiscovery;
   }
 
   /**
@@ -69,14 +79,12 @@ class PublishNow implements PublishNowInterface {
     if ($this->request->getHost() === 'prod.cms.va.gov') {
       return FALSE;
     }
-    // phpcs:disable
-    // This code is not working as expected; will look at tests.
-    /*
+    if (!$this->environmentDiscovery->isBRD()) {
+      return FALSE;
+    }
     if (!$this->liveUrl->vaGovFrontEndUrlForEntityIsLive($node)) {
       return FALSE;
     }
-    */
-    // phpcs:enable
     return TRUE;
   }
 
