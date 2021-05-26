@@ -505,3 +505,23 @@ function va_gov_db_update_8026(&$sandbox) {
 
   return "Processing vet center nodes...";
 }
+
+/**
+ * Enable  pathauto for detail page nodes.
+ */
+function va_gov_db_update_8027(&$sandbox) {
+  $key_value = \Drupal::keyValue('pathauto_state.node');
+  $nids = \Drupal::entityQuery('node')
+    ->condition('type', 'health_care_region_detail_page')
+    ->execute();
+  $count = 0;
+  foreach ($nids as $key => $nid) {
+    if ($key_value->get($nid) == 0) {
+      $key_value->set($nid, 1);
+      $count++;
+    }
+  }
+  Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Enabled pathauto auto alias for %count Detail page nodes completed by va_gov_db_update_8027.', [
+    '%count' => $count,
+  ]);
+}
