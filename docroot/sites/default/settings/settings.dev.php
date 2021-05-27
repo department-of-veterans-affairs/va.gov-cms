@@ -39,3 +39,4 @@ $settings['trusted_host_patterns'] = [
 
 $settings['va_gov_frontend_url'] = 'https://dev.va.gov';
 $settings['va_gov_frontend_build_type'] = 'brd';
+$settings['va_gov_publish_now_queue_url'] = 'https://sqs.us-gov-west-1.amazonaws.com/008577686731/dsva_vagov_dev_single_page_build';
