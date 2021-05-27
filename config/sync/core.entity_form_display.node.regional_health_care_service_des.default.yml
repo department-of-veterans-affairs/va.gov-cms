@@ -5,12 +5,14 @@ dependencies:
   config:
     - field.field.node.regional_health_care_service_des.field_administration
     - field.field.node.regional_health_care_service_des.field_body
+    - field.field.node.regional_health_care_service_des.field_enforce_unique_combo
     - field.field.node.regional_health_care_service_des.field_local_health_care_service_
     - field.field.node.regional_health_care_service_des.field_region_page
     - field.field.node.regional_health_care_service_des.field_service_name_and_descripti
     - node.type.regional_health_care_service_des
     - workflows.workflow.editorial
   module:
+    - allow_only_one
     - content_moderation
     - field_group
     - text
@@ -21,7 +23,7 @@ third_party_settings:
         - field_region_page
         - field_administration
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: details_sidebar
       format_settings:
         open: true
@@ -29,14 +31,14 @@ third_party_settings:
         required_fields: true
         id: ''
         classes: ''
-      label: Section settings
+      label: 'Section settings'
       region: content
     group_editorial_workflow:
       children:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -58,12 +60,19 @@ content:
     type: options_select
     region: content
   field_body:
-    weight: 1
+    weight: 2
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
+  field_enforce_unique_combo:
+    weight: 0
+    settings:
+      size: 1
+    third_party_settings: {  }
+    type: allow_only_one_widget
     region: content
   field_region_page:
     weight: 1
@@ -72,7 +81,7 @@ content:
     type: options_select
     region: content
   field_service_name_and_descripti:
-    weight: 0
+    weight: 1
     settings: {  }
     third_party_settings: {  }
     type: options_select

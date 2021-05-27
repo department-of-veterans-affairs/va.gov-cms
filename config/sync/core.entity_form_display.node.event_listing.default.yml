@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.event_listing.field_administration
     - field.field.node.event_listing.field_description
+    - field.field.node.event_listing.field_enforce_unique_combo
     - field.field.node.event_listing.field_intro_text
     - field.field.node.event_listing.field_meta_tags
     - field.field.node.event_listing.field_meta_title
@@ -12,6 +13,7 @@ dependencies:
     - node.type.event_listing
     - workflows.workflow.editorial
   module:
+    - allow_only_one
     - content_moderation
     - field_group
     - path
@@ -22,7 +24,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -31,14 +33,14 @@ third_party_settings:
         open: true
         required_fields: true
         weight: 0
-      label: Section settings
+      label: 'Section settings'
       region: content
     group_editorial_workflow:
       children:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -53,7 +55,7 @@ third_party_settings:
         - title
         - field_intro_text
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         description: ''
@@ -67,7 +69,7 @@ third_party_settings:
         - field_meta_title
         - field_description
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -101,6 +103,13 @@ content:
     third_party_settings: {  }
     type: string_textfield_with_counter
     region: content
+  field_enforce_unique_combo:
+    weight: 0
+    settings:
+      size: 1
+    third_party_settings: {  }
+    type: allow_only_one_widget
+    region: content
   field_intro_text:
     weight: 3
     settings:
@@ -124,7 +133,7 @@ content:
     type: string_textfield_with_counter
     region: content
   field_office:
-    weight: 0
+    weight: 1
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -137,7 +146,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
