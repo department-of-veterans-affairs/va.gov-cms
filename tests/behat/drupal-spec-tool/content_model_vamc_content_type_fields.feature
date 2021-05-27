@@ -44,6 +44,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Events List | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Events List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Events List | Office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Events List | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | Health Services List | Featured content on health-services page | field_featured_content_healthser | Entity reference revisions |  | 3 | Paragraphs Classic | Translatable |
 | Content type | Health Services List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Health Services List | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
@@ -51,6 +52,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Health Services List | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Health Services List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Health Services List | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Health Services List | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | Leadership List | Leadership team | field_leadership | Entity reference |  | Unlimited | Autocomplete | Translatable |
 | Content type | Leadership List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Leadership List | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
@@ -64,6 +66,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Locations List | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Locations List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | VAMC System Locations List | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC System Locations List | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | News Release | Full text of the Press Release | field_press_release_fulltext | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
 | Content type | News Release | Introduction | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | News Release | Location | field_address | Address |  | 1 | Address | Translatable |
@@ -81,6 +84,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | News Releases List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | News Releases List | Press Release Blurb | field_press_release_blurb | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | News Releases List | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | News Releases List | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | Staff Profile | Body text | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Staff Profile | Complete Biography | field_complete_biography | File |  | 1 | File |  |
 | Content type | Staff Profile | Email address | field_email_address | Email |  | 1 | Email |  |
@@ -111,6 +115,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Stories List | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Stories List | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Stories List | Office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Stories List | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC Facility | Address | field_address | Address |  | 1 | Address | Translatable |
 | Content type | VAMC Facility | Classification | field_facility_classification | List (text) |  | 1 | Select list |  |
 | Content type | VAMC Facility | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield |  |
@@ -141,6 +146,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC Facility Health Service | Are walkins accepted? | field_walk_ins_accepted | List (text) | Required | 1 | Select list |  |
 | Content type | VAMC Facility Health Service | Appointments help text | field_appointments_help_text | Markup |  | 1 | Markup |  |
 | Content type | VAMC Facility Health Service | Service locations help text | field_facility_service_loc_help | Markup |  | 1 | Markup |  |
+| Content type | VAMC Facility Health Service | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget |  |
 | Content type | VAMC System | Appointments can be scheduled and viewed online | field_appointments_online | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System | Banner image | field_media | Entity reference | Required | 1 | Media library | Translatable |
 | Content type | VAMC System | Common Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL | Translatable |
@@ -176,6 +182,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Health Service | VAMC system | field_region_page | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Health Service | VAMC system description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | VAMC System Health Service | Service | field_service_name_and_descripti | Entity reference | Required | 1 | Select list |  |
+| Content type | VAMC System Health Service | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC Facility Health Service | Appointment intro text | field_hservice_appt_intro_select | List (text) | Required | 1 | Check boxes/radio buttons |  |
 | Content type | VAMC Facility Health Service | Appointment lead-in default | field_hservices_lead_in_default | Markup |  | 1 | Markup |  |
 | Content type | VAMC Facility Health Service | Appointment lead-in text | field_hservice_appt_leadin | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
@@ -186,6 +193,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Operating Status | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Operating Status | Facility operating statuses | field_facility_operating_status | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | VAMC System Operating Status | VAMC system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC System Operating Status | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC System Policies Page | Fieldset Markup | field_fieldset_markup | Markup |  | 1 | Markup |  |
 | Content type | VAMC System Policies Page | National bottom of page content | field_cc_bottom_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | VAMC System Policies Page | National general visitation policy | field_cc_gen_visitation_policy | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
@@ -195,3 +203,4 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Policies Page | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Policies Page | Related health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Policies Page | Visitation policy | field_vamc_visitation_policy | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
+| Content type | VAMC System Policies Page | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
