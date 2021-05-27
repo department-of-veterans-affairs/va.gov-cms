@@ -71,7 +71,6 @@ Feature: Views
        Then exactly the following views displays should exist
        | View | Title | Machine name | Display plugin |
 | Administration section | Entity Reference | entity_reference_1 | Entity Reference |
-| Administration section | Master | default | Master |
 | Administration section | CLP Entity Reference | clp_entity_reference | Entity Reference |
 | Advanced Queue jobs | Master | default | Master |
 | Advanced Queue jobs | Page | page_1 | Page |
@@ -177,6 +176,7 @@ Feature: Views
 | VAMC operating statuses | Entity Reference | entity_reference_1 | Entity Reference |
 | Administration section | Master | default | Master |
 | VAMC top task page revision histories | Page | page_1 | Page |
+| VAMC top task page revision histories | Master | default | Master |
 | VAMCs | Master | default | Master |
 | VHA Health service taxonomy | Page | page_1 | Page |
 | VHA Health service taxonomy | Data export | data_export_1 | Data export |
