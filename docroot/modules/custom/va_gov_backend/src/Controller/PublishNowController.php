@@ -45,18 +45,22 @@ class PublishNowController extends ControllerBase {
    *   The node to publish.
    */
   public function publishNow(Request $request, NodeInterface $node = NULL) {
-    $body = 'test';
     $queueUrl = $this->settings->get('va_gov_publish_now_queue_url');
     $attributes = [];
     $nid = $node->id();
+    $path = $node->toUrl()->toString();
+    $body = [
+      'nid' => $nid,
+      'path' => $path,
+    ];
     $response = $this->sqsClient->sendMessage([
-      'MessageBody' => $body,
+      'MessageBody' => json_encode($body),
       'QueueUrl' => $queueUrl,
       'MessageAttributes' => $attributes,
     ]);
     $jsonResponse = json_encode($response, NULL, 2);
     $message = <<<EOF
-Node $nid was submitted to the SQS queue.
+Node $nid ($path) was submitted to the SQS queue.
 
 The raw data returned from AWS is as follows:
 
