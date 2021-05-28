@@ -58,6 +58,7 @@ class PublishNowController extends ControllerBase {
       'QueueUrl' => $queueUrl,
       'MessageAttributes' => $attributes,
     ]);
+    $responseArray = print_r($response->toArray(), TRUE);
     $jsonResponse = json_encode($response->toArray(), NULL, 2);
     $message = <<<EOF
 Node $nid ($path) was submitted to the SQS queue.
@@ -65,6 +66,8 @@ Node $nid ($path) was submitted to the SQS queue.
 The raw data returned from AWS is as follows:
 
 <pre>
+$responseArray
+
 $jsonResponse
 </pre>
 EOF;
