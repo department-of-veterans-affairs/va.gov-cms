@@ -61,3 +61,4 @@ $settings['va_gov_web_root'] = getenv('TUGBOAT_ROOT') . '/web';
 $settings['memcache']['servers'] = [
   'memcache:11211' => 'default',
 ];
+$settings['va_gov_publish_now_queue_url'] = 'https://sqs.us-gov-west-1.amazonaws.com/008577686731/dsva_vagov_dev_single_page_build';
