@@ -14,7 +14,7 @@ Feature: Content model bundles
 | Centralized Content | centralized_content | Content type | Common content for reuse on other content types. |
 | Checklist | checklist | Content type |  |
 | CMS Help Page | documentation_page | Content type | Help guide pages on how to use the CMS to edit content on VA.gov. |
-| Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
+| VAMC Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
 | Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
 | Events List | event_listing | Content type | A listing of events. |
 | FAQ - multiple Q&As | faq_multiple_q_a | Content type | Curated collection of Q&As. |
