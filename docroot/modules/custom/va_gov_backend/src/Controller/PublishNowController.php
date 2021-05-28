@@ -58,7 +58,7 @@ class PublishNowController extends ControllerBase {
       'QueueUrl' => $queueUrl,
       'MessageAttributes' => $attributes,
     ]);
-    $jsonResponse = json_encode($response, NULL, 2);
+    $jsonResponse = json_encode($response->toArray(), NULL, 2);
     $message = <<<EOF
 Node $nid ($path) was submitted to the SQS queue.
 
