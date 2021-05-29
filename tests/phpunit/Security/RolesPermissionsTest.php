@@ -619,7 +619,6 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'use text format rich_text',
           'use text format rich_text_limited',
           'use workbench access',
-          'va gov deploy content build',
           'view all media revisions',
           'view all revisions',
           'view any unpublished content',
