@@ -106,12 +106,10 @@ class PublishNow implements PublishNowInterface {
       return FALSE;
     }
     if (!$this->environmentDiscovery->isBRD()) {
-      // Commented out for ease of testing on Tugboat.
-      // return FALSE;
+      return FALSE;
     }
     if (!$this->liveUrl->vaGovFrontEndUrlForEntityIsLive($node)) {
-      // Commented out for ease of testing on Tugboat.
-      // return FALSE;
+      return FALSE;
     }
     return TRUE;
   }
