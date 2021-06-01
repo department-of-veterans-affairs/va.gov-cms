@@ -10,15 +10,15 @@ use Drupal\node\NodeInterface;
 interface PublishNowInterface {
 
   /**
-   * Should we show a "Publish Now" button?
+   * Can this node be published in its present form?
    *
    * @param \Drupal\node\NodeInterface $node
    *   A node that may or may not correspond to a publishable page.
    *
    * @return bool
-   *   TRUE if the button should be displayed, otherwise FALSE.
+   *   TRUE if the node is publishable, otherwise FALSE.
    */
-  public function shouldDisplayButton(NodeInterface $node) : bool;
+  public function canPublishNode(NodeInterface $node) : bool;
 
   /**
    * Returns the correct markup for the "Publish Now" button.

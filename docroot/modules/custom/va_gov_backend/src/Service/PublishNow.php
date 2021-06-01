@@ -69,7 +69,7 @@ class PublishNow implements PublishNowInterface {
   /**
    * {@inheritDoc}
    */
-  public function shouldDisplayButton(NodeInterface $node) : bool {
+  public function canPublishNode(NodeInterface $node) : bool {
     if (!$node->isPublished()) {
       return FALSE;
     }

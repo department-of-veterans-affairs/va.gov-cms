@@ -27,12 +27,20 @@ class PublishNowController extends ControllerBase {
   protected $settings;
 
   /**
+   * Publish Now service.
+   *
+   * @var \Drupal\va_gov_backend\Service\PublishNow
+   */
+  protected $publishNow;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     $instance = parent::create($container);
     $instance->sqsClient = $container->get('va_gov_backend.aws_sqs_client');
     $instance->settings = $container->get('settings');
+    $instance->publishNow = $container->get('va_gov_backend.publish_now');
     return $instance;
   }
 
@@ -45,6 +53,9 @@ class PublishNowController extends ControllerBase {
    *   The node to publish.
    */
   public function publishNow(Request $request, NodeInterface $node = NULL) {
+    if (!$this->publishNow->canPublishNode($node)) {
+      throw new \Exception('This node cannot be published in its present form.');
+    }
     $queueUrl = $this->settings->get('va_gov_publish_now_queue_url');
     $attributes = [];
     $nid = $node->id();
