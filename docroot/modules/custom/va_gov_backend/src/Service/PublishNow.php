@@ -4,6 +4,7 @@ namespace Drupal\va_gov_backend\Service;
 
 use Drupal\Core\Url;
 use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\Core\Utility\LinkGeneratorInterface;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -42,28 +43,37 @@ class PublishNow implements PublishNowInterface {
   protected $environmentDiscovery;
 
   /**
+   * The link generator.
+   *
+   * @var \Drupal\Core\Utility\LinkGeneratorInterface
+   */
+  protected $linkGenerator;
+
+  /**
    * Constructor.
    */
   public function __construct(
     AccountProxyInterface $currentUser,
     RequestStack $requestStack,
     VaGovUrlInterface $liveUrl,
-    EnvironmentDiscovery $environmentDiscovery
+    EnvironmentDiscovery $environmentDiscovery,
+    LinkGeneratorInterface $linkGenerator
   ) {
     $this->currentUser = $currentUser;
     $this->request = $requestStack->getCurrentRequest();
     $this->liveUrl = $liveUrl;
     $this->environmentDiscovery = $environmentDiscovery;
+    $this->linkGenerator = $linkGenerator;
   }
 
   /**
    * Get the publish URL.
    */
-  public function getUrl(NodeInterface $node): string {
+  public function getUrl(NodeInterface $node): Url {
     $url = Url::fromRoute('va_gov_backend.publish_now', [
       'node' => $node->id(),
     ]);
-    return $url->toString();
+    return $url;
   }
 
   /**
@@ -97,7 +107,22 @@ class PublishNow implements PublishNowInterface {
    * {@inheritDoc}
    */
   public function getButtonMarkup(NodeInterface $node) : string {
-    return '<a class="button button--primary js-form-submit form-submit node-preview-button" target="_blank" href="' . $this->getUrl($node) . '">Publish Now</a>';
+    $url = $this->getUrl($node);
+    $url->setOptions([
+      'attributes' => [
+        'class' => [
+          'button',
+          'button--primary',
+          'js-form-submit',
+          'form-submit',
+          'node-publish-button',
+        ],
+        'target' => [
+          '_blank',
+        ],
+      ],
+    ]);
+    return $this->linkGenerator->generate('Publish Now', $url);
   }
 
 }
