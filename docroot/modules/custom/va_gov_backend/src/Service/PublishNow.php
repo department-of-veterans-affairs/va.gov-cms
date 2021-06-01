@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_backend\Service;
 
 use Drupal\Core\Url;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Utility\LinkGeneratorInterface;
 use Drupal\node\NodeInterface;
@@ -13,6 +14,13 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * Collects logic related to the "Publish Now" button.
  */
 class PublishNow implements PublishNowInterface {
+
+  /**
+   * The Route Match service.
+   *
+   * @var \Drupal\Core\Routing\RouteMatchInterface
+   */
+  protected $routeMatch;
 
   /**
    * The Current User service.
@@ -53,12 +61,14 @@ class PublishNow implements PublishNowInterface {
    * Constructor.
    */
   public function __construct(
+    RouteMatchInterface $routeMatch,
     AccountProxyInterface $currentUser,
     RequestStack $requestStack,
     VaGovUrlInterface $liveUrl,
     EnvironmentDiscovery $environmentDiscovery,
     LinkGeneratorInterface $linkGenerator
   ) {
+    $this->routeMatch = $routeMatch;
     $this->currentUser = $currentUser;
     $this->request = $requestStack->getCurrentRequest();
     $this->liveUrl = $liveUrl;
@@ -80,6 +90,9 @@ class PublishNow implements PublishNowInterface {
    * {@inheritDoc}
    */
   public function canPublishNode(NodeInterface $node) : bool {
+    if ($this->routeMatch->getRouteName() === 'entity.node.edit_form') {
+      return FALSE;
+    }
     if (!$node->isPublished()) {
       return FALSE;
     }
