@@ -156,7 +156,7 @@ Feature: CMS Users may effectively create & edit content
     And I should see "City" in the "#edit-field-address-0" element
     And I should see "State" in the "#edit-field-address-0" element
 
-@content_editing @et
+@content_editing
   Scenario: Log in and confirm that System-wide alerts can be created and edited
     When I am logged in as a user with the "content_admin" role
 
