@@ -1,0 +1,33 @@
+uuid: 09753d7c-f2e5-49cc-9666-9f54321a90cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_enforce_unique_combo
+    - node.type.event_listing
+  module:
+    - allow_only_one
+third_party_settings:
+  allow_only_one:
+    field_administration: 0
+    field_description: 0
+    field_intro_text: 0
+    field_meta_tags: 0
+    field_meta_title: 0
+    field_office: 1
+    title: 0
+    case_sensitive: '0'
+id: node.event_listing.field_enforce_unique_combo
+field_name: field_enforce_unique_combo
+entity_type: node
+bundle: event_listing
+label: 'Enforce unique combo'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings: {  }
+field_type: allow_only_one

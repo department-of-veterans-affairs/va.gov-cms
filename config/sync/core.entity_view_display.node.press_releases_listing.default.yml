@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.press_releases_listing.field_administration
     - field.field.node.press_releases_listing.field_description
+    - field.field.node.press_releases_listing.field_enforce_unique_combo
     - field.field.node.press_releases_listing.field_intro_text
     - field.field.node.press_releases_listing.field_meta_tags
     - field.field.node.press_releases_listing.field_meta_title
@@ -12,6 +13,7 @@ dependencies:
     - field.field.node.press_releases_listing.field_press_release_blurb
     - node.type.press_releases_listing
   module:
+    - allow_only_one
     - field_group
     - text
     - user
@@ -68,6 +70,13 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
+  field_enforce_unique_combo:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: allow_only_one
+    region: content
   field_intro_text:
     weight: 7
     label: above

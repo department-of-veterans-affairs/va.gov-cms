@@ -45,3 +45,5 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center - Locations List | Nearby Mobile Vet Centers | field_nearby_mobile_vet_centers | Entity reference |  | Unlimited | Entity Browser - Table |  |
 | Content type | Vet Center - Locations List | Nearby Vet Centers and Outstations | field_nearby_vet_centers | Entity reference |  | Unlimited | Entity Browser - Table |  |
 | Content type | Vet Center - Locations List | Vet Center | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Vet Center - Locations List | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
+| Content type | Vet Center - Facility Service | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
