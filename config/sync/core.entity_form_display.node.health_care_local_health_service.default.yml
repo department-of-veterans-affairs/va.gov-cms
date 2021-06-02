@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.health_care_local_health_service.field_administration
     - field.field.node.health_care_local_health_service.field_appointments_help_text
     - field.field.node.health_care_local_health_service.field_body
+    - field.field.node.health_care_local_health_service.field_enforce_unique_combo
     - field.field.node.health_care_local_health_service.field_facility_location
     - field.field.node.health_care_local_health_service.field_facility_service_loc_help
     - field.field.node.health_care_local_health_service.field_hservice_appt_intro_select
@@ -20,6 +21,7 @@ dependencies:
     - node.type.health_care_local_health_service
     - workflows.workflow.editorial
   module:
+    - allow_only_one
     - content_moderation
     - entity_browser_entity_form
     - field_group
@@ -43,7 +45,7 @@ third_party_settings:
         open: true
         required_fields: true
         weight: 0
-      label: Section settings
+      label: 'Section settings'
       region: content
     group_appointments:
       children:
@@ -133,6 +135,7 @@ third_party_settings:
       region: content
     group_health_service_and_facilit:
       children:
+        - field_enforce_unique_combo
         - field_facility_location
         - field_regional_health_service
       parent_name: ''
@@ -177,8 +180,15 @@ content:
     third_party_settings: {  }
     type: markup
     region: content
+  field_enforce_unique_combo:
+    weight: 29
+    settings:
+      size: 1
+    third_party_settings: {  }
+    type: allow_only_one_widget
+    region: content
   field_facility_location:
-    weight: 0
+    weight: 30
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -246,7 +256,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_regional_health_service:
-    weight: 1
+    weight: 31
     settings: {  }
     third_party_settings: {  }
     type: options_select
