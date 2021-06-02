@@ -234,7 +234,7 @@ class MenuReductionService {
       // Sets an empty Select prompt on parent menu selector for all node forms.
       $form['menu']['link']['menu_parent']['#options'] = array_merge(['0' => '- Select a value -'], $form['menu']['link']['menu_parent']['#options']);
       // If we don't have a value set, yet, ensure the Select appears first.
-      if (!$this->isMenuEnabled()) {
+      if (!$this->isMenuEnabled() && $this->formState->getFormObject()->getEntity()->isNew()) {
         $form['menu']['link']['menu_parent']['#default_value'] = '0';
         $form['menu']['link']['menu_parent']['#value'] = '0';
       }
