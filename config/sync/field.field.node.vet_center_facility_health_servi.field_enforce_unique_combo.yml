@@ -1,0 +1,31 @@
+uuid: d8503843-9484-491f-b00c-7ea625044894
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_enforce_unique_combo
+    - node.type.vet_center_facility_health_servi
+  module:
+    - allow_only_one
+third_party_settings:
+  allow_only_one:
+    field_administration: 0
+    field_body: 0
+    field_office: 1
+    field_service_name_and_descripti: 1
+    title: 0
+    case_sensitive: null
+id: node.vet_center_facility_health_servi.field_enforce_unique_combo
+field_name: field_enforce_unique_combo
+entity_type: node
+bundle: vet_center_facility_health_servi
+label: 'Enforce unique combo'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings: {  }
+field_type: allow_only_one

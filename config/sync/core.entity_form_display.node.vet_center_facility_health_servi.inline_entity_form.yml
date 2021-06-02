@@ -6,6 +6,7 @@ dependencies:
     - core.entity_form_mode.node.inline_entity_form
     - field.field.node.vet_center_facility_health_servi.field_administration
     - field.field.node.vet_center_facility_health_servi.field_body
+    - field.field.node.vet_center_facility_health_servi.field_enforce_unique_combo
     - field.field.node.vet_center_facility_health_servi.field_office
     - field.field.node.vet_center_facility_health_servi.field_service_name_and_descripti
     - node.type.vet_center_facility_health_servi
@@ -43,7 +44,7 @@ third_party_settings:
         open: true
         required_fields: true
         weight: 0
-      label: Section settings
+      label: 'Section settings'
 id: node.vet_center_facility_health_servi.inline_entity_form
 targetEntityType: node
 bundle: vet_center_facility_health_servi
@@ -91,6 +92,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_enforce_unique_combo: true
   path: true
   promote: true
   status: true
