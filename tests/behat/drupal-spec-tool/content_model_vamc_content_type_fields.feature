@@ -8,17 +8,17 @@ Feature: Content model: VAMC Content Type fields
      Scenario: Fields
        Then exactly the following fields should exist for bundles "health_care_region_detail_page,event,event_listing,health_services_listing,leadership_listing,locations_listing,press_release,press_releases_listing,person_profile,story_listing,news_story,health_care_local_facility,health_care_local_health_service,health_care_region_page,full_width_banner_alert,regional_health_care_service_des,vamc_operating_status_and_alerts,vamc_system_policies_page" of entity type node
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
-| Content type | Detail Page | Alert | field_alert | Entity reference |  | 1 | Select list | Translatable |
-| Content type | Detail Page | Featured content | field_featured_content | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
-| Content type | Detail Page | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | Detail Page | Main content | field_content_block | Entity reference revisions |  | Unlimited | Paragraphs Browser EXPERIMENTAL | Translatable |
-| Content type | Detail Page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | Detail Page | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
-| Content type | Detail Page | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
-| Content type | Detail Page | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Detail Page | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
-| Content type | Detail Page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL | Translatable |
-| Content type | Detail Page | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC Detail Page | Alert | field_alert | Entity reference |  | 1 | Select list | Translatable |
+| Content type | VAMC Detail Page | Featured content | field_featured_content | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
+| Content type | VAMC Detail Page | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | VAMC Detail Page | Main content | field_content_block | Entity reference revisions |  | Unlimited | Paragraphs Browser EXPERIMENTAL | Translatable |
+| Content type | VAMC Detail Page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | VAMC Detail Page | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
+| Content type | VAMC Detail Page | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Content type | VAMC Detail Page | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC Detail Page | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+| Content type | VAMC Detail Page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL | Translatable |
+| Content type | VAMC Detail Page | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Event | Building, floor, or room | field_location_humanreadable | Text (plain) |  | 1 | Textfield |  |
 | Content type | Event | Additional registration  information | field_additional_information_abo | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | Event | Address | field_address | Address |  | 1 | Address |  |
