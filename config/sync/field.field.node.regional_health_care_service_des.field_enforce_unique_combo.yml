@@ -1,0 +1,32 @@
+uuid: 6e3c1cc2-8cb0-4c83-a59a-7a04a57b1e48
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_enforce_unique_combo
+    - node.type.regional_health_care_service_des
+  module:
+    - allow_only_one
+third_party_settings:
+  allow_only_one:
+    field_administration: 0
+    field_body: 0
+    field_local_health_care_service_: 0
+    field_region_page: 1
+    field_service_name_and_descripti: 1
+    title: 0
+    case_sensitive: null
+id: node.regional_health_care_service_des.field_enforce_unique_combo
+field_name: field_enforce_unique_combo
+entity_type: node
+bundle: regional_health_care_service_des
+label: 'Enforce unique combo'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings: {  }
+field_type: allow_only_one

@@ -4,18 +4,27 @@ status: true
 dependencies:
   config:
     - field.field.node.vet_center_locations_list.field_administration
+    - field.field.node.vet_center_locations_list.field_enforce_unique_combo
     - field.field.node.vet_center_locations_list.field_intro_text
     - field.field.node.vet_center_locations_list.field_nearby_mobile_vet_centers
     - field.field.node.vet_center_locations_list.field_nearby_vet_centers
     - field.field.node.vet_center_locations_list.field_office
     - node.type.vet_center_locations_list
   module:
+    - allow_only_one
     - user
 id: node.vet_center_locations_list.default
 targetEntityType: node
 bundle: vet_center_locations_list
 mode: default
 content:
+  field_enforce_unique_combo:
+    weight: 5
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: allow_only_one
+    region: content
   field_intro_text:
     weight: 2
     label: above
