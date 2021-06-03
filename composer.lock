@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f116d0946abca4540637bb568c8d64da",
+    "content-hash": "386778af3f59a34fedb877f049631d94",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2649,6 +2649,54 @@
             "homepage": "https://www.drupal.org/project/advancedqueue",
             "support": {
                 "source": "https://git.drupalcode.org/project/advancedqueue"
+            }
+        },
+        {
+            "name": "drupal/allow_only_one",
+            "version": "1.0.0-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/allow_only_one.git",
+                "reference": "1.0.0-alpha1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/allow_only_one-1.0.0-alpha1.zip",
+                "reference": "1.0.0-alpha1",
+                "shasum": "c0d680668bcc8365e552eaed31a0a358d42dffcf"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0-alpha1",
+                    "datestamp": "1622133534",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "kaise.lafrai",
+                    "homepage": "https://www.drupal.org/user/3628898"
+                },
+                {
+                    "name": "swirt",
+                    "homepage": "https://www.drupal.org/user/138230"
+                }
+            ],
+            "description": "The Allow Only One module allows administrators to require that values supplied for specified fields is a unique combination. Validation will throw an error if another content item exists with the same field value combination.",
+            "homepage": "https://www.drupal.org/project/allow_only_one",
+            "support": {
+                "source": "https://git.drupalcode.org/project/allow_only_one"
             }
         },
         {
@@ -19687,16 +19735,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.274",
+            "version": "v0.0.280",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "1a57b7cf90ea4506c72907c25f94ec13f74c3389"
+                "reference": "ea05bdaf53ff20e3624ca53caac05216dcb333b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/1a57b7cf90ea4506c72907c25f94ec13f74c3389",
-                "reference": "1a57b7cf90ea4506c72907c25f94ec13f74c3389",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/ea05bdaf53ff20e3624ca53caac05216dcb333b5",
+                "reference": "ea05bdaf53ff20e3624ca53caac05216dcb333b5",
                 "shasum": ""
             },
             "type": "node-project",
@@ -19723,9 +19771,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.274"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.280"
             },
-            "time": "2021-05-27T15:30:11+00:00"
+            "time": "2021-05-27T21:02:58+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

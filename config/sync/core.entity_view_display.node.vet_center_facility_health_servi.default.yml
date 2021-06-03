@@ -5,10 +5,12 @@ dependencies:
   config:
     - field.field.node.vet_center_facility_health_servi.field_administration
     - field.field.node.vet_center_facility_health_servi.field_body
+    - field.field.node.vet_center_facility_health_servi.field_enforce_unique_combo
     - field.field.node.vet_center_facility_health_servi.field_office
     - field.field.node.vet_center_facility_health_servi.field_service_name_and_descripti
     - node.type.vet_center_facility_health_servi
   module:
+    - allow_only_one
     - text
     - user
 id: node.vet_center_facility_health_servi.default
@@ -22,6 +24,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
+  field_enforce_unique_combo:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: allow_only_one
     region: content
   field_office:
     weight: 1

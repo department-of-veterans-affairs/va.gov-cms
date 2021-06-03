@@ -8,12 +8,14 @@ dependencies:
     - field.field.node.vamc_system_policies_page.field_cc_gen_visitation_policy
     - field.field.node.vamc_system_policies_page.field_cc_intro_text
     - field.field.node.vamc_system_policies_page.field_cc_top_of_page_content
+    - field.field.node.vamc_system_policies_page.field_enforce_unique_combo
     - field.field.node.vamc_system_policies_page.field_fieldset_markup
     - field.field.node.vamc_system_policies_page.field_office
     - field.field.node.vamc_system_policies_page.field_vamc_other_policies
     - field.field.node.vamc_system_policies_page.field_vamc_visitation_policy
     - node.type.vamc_system_policies_page
   module:
+    - allow_only_one
     - entity_field_fetch
     - field_group
     - markup
@@ -106,6 +108,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: entity_field_fetch
+    region: content
+  field_enforce_unique_combo:
+    weight: 11
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: allow_only_one
     region: content
   field_fieldset_markup:
     weight: 8

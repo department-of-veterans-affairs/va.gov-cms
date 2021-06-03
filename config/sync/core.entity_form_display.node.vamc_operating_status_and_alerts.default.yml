@@ -6,6 +6,7 @@ dependencies:
     - core.entity_form_mode.node.inline_entity_form
     - field.field.node.vamc_operating_status_and_alerts.field_administration
     - field.field.node.vamc_operating_status_and_alerts.field_banner_alert
+    - field.field.node.vamc_operating_status_and_alerts.field_enforce_unique_combo
     - field.field.node.vamc_operating_status_and_alerts.field_facility_operating_status
     - field.field.node.vamc_operating_status_and_alerts.field_links
     - field.field.node.vamc_operating_status_and_alerts.field_meta_tags
@@ -13,6 +14,7 @@ dependencies:
     - field.field.node.vamc_operating_status_and_alerts.field_operating_status_emerg_inf
     - node.type.vamc_operating_status_and_alerts
   module:
+    - allow_only_one
     - field_group
     - ief_table_view_mode
     - linkit
@@ -23,7 +25,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details_sidebar
       format_settings:
         description: ''
@@ -32,13 +34,13 @@ third_party_settings:
         required_fields: true
         id: ''
         classes: ''
-      label: Section settings
+      label: 'Section settings'
       region: content
     group_editorial_workflow:
       children:
         - revision_log
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: fieldset
       format_settings:
         id: ''
@@ -52,7 +54,7 @@ third_party_settings:
         - field_operating_status_emerg_inf
         - field_links
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: details
       format_settings:
         description: 'Add general emergency resources relevant to a variety of situations and emergencies. '
@@ -74,7 +76,7 @@ content:
     type: options_select
     region: content
   field_banner_alert:
-    weight: 2
+    weight: 3
     settings:
       form_mode: inline_entity_form
       override_labels: true
@@ -90,8 +92,15 @@ content:
     third_party_settings: {  }
     type: inline_entity_form_complex_table_view_mode
     region: content
+  field_enforce_unique_combo:
+    weight: 1
+    settings:
+      size: 1
+    third_party_settings: {  }
+    type: allow_only_one_widget
+    region: content
   field_facility_operating_status:
-    weight: 3
+    weight: 4
     settings:
       form_mode: inline_entity_form
       override_labels: true
@@ -112,12 +121,14 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      linkit_profile: default
+      linkit_auto_link_text: false
     third_party_settings: {  }
     type: linkit
     region: content
   field_office:
     type: options_select
-    weight: 1
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
