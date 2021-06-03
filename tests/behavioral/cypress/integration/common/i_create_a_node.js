@@ -19,7 +19,6 @@ const creators = {
     cy.findAllByLabelText('Provide a menu link').check({ force: true });
     cy.findAllByLabelText('Menu link title').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Parent item').select('-- Outreach and events', { force: true });
-    cy.findAllByLabelText('Enable in menu').uncheck({ force: true });
     return cy.get('form.node-form').find('input#edit-submit').click();
   },
   step_by_step: () => {
