@@ -7,7 +7,7 @@ const creators = {
     cy.scrollTo('top');
     cy.findAllByLabelText('Name').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Description').type(faker.lorem.sentence(), { force: true });
-    cy.findAllByLabelText('Owner').select('Veterans Affairs');
+    cy.findAllByLabelText('Section').select('Veterans Affairs');
     cy.get('#edit-image-0-upload').attachFile('images/polygon_image.png').wait(1000);
     cy.findAllByLabelText('Alternative text').type(faker.lorem.sentence(), { force: true });
     const resizePoint = cy.get('span.cropper-face.cropper-move');

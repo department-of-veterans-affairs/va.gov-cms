@@ -5,12 +5,14 @@ dependencies:
   config:
     - field.field.node.event_listing.field_administration
     - field.field.node.event_listing.field_description
+    - field.field.node.event_listing.field_enforce_unique_combo
     - field.field.node.event_listing.field_intro_text
     - field.field.node.event_listing.field_meta_tags
     - field.field.node.event_listing.field_meta_title
     - field.field.node.event_listing.field_office
     - node.type.event_listing
   module:
+    - allow_only_one
     - field_group
     - user
 third_party_settings:
@@ -66,6 +68,13 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
+  field_enforce_unique_combo:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: allow_only_one
+    region: content
   field_intro_text:
     weight: 7
     label: above
