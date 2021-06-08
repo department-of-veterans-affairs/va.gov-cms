@@ -23,10 +23,22 @@ function va_gov_menu_access_page_attachments(array &$attachments) {
  * Implements hook_form_BASE_FORM_ID_alter().
  */
 function va_gov_menu_access_form_node_form_alter(&$form, &$form_state, $form_id) {
+  _va_gov_menu_access_hide_menu_fields($form);
   // Process menu options on all node forms.
   $form['#attached']['library'][] = 'va_gov_menu_access/parent_section_select';
   $form['#after_build'][] = '_va_gov_menu_access_alter_menus';
   $form['#after_build'][] = '_va_gov_menu_access_set_menu_parent_requirement';
+}
+
+/**
+ * Hides description and weight fields in node form menu widget.
+ *
+ * @param array $form
+ *   The node form array.
+ * */
+function _va_gov_menu_access_hide_menu_fields(array &$form) {
+  $form['menu']['link']['description']['#type'] = 'hidden';
+  $form['menu']['link']['weight']['#type'] = 'hidden';
 }
 
 /**

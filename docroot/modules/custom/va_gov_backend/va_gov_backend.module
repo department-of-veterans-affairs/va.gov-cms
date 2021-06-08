@@ -415,10 +415,6 @@ function _va_gov_backend_allowed_formats_remove_textarea_help(array $form_elemen
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-
-  // Hide menu description and weight fields.
-  _va_gov_backend_hide_menu_fields($form);
-
   // List of forms to modify media library widget help text.
   $media_widget_content_form_ids = [
     'node_vet_center_cap_form',
@@ -593,17 +589,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     $form['field_address']['widget']['#after_build'][] = 'va_gov_backend_press_release_address_after_build';
   }
 
-}
-
-/**
- * Hides description and weight fields in node form menu widget.
- *
- * @param array $form
- *   The node form array.
- * */
-function _va_gov_backend_hide_menu_fields(array &$form) {
-  $form['menu']['link']['description']['#type'] = 'hidden';
-  $form['menu']['link']['weight']['#type'] = 'hidden';
 }
 
 /**
