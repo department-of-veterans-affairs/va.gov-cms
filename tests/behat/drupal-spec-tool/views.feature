@@ -24,6 +24,7 @@ Feature: Views
 | Content Entity Reference Source | content_entity_reference_source | Content | Enabled | Various views used to populate options on entity reference fields |
 | Content release logs | content_release_logs | Log entries | Enabled | Shows content release job log entries |
 | Date fields | date_fields | Content | Disabled |  |
+| Detail page URL audit and bulk udpate | detail_page_url_audit_and_bulk_udpate | Content | Enabled | For bulk updating URL aliases for VAMC detail pages. |
 | Facility Governance | facility_governance | Content | Enabled | Provides facility management tools. |
 | Files | files | Files | Enabled | Find and manage files. |
 | File browsers | file_browsers | Media | Enabled |  |
@@ -70,7 +71,6 @@ Feature: Views
        Then exactly the following views displays should exist
        | View | Title | Machine name | Display plugin |
 | Administration section | Entity Reference | entity_reference_1 | Entity Reference |
-| Administration section | Master | default | Master |
 | Administration section | CLP Entity Reference | clp_entity_reference | Entity Reference |
 | Advanced Queue jobs | Master | default | Master |
 | Advanced Queue jobs | Page | page_1 | Page |
@@ -113,6 +113,9 @@ Feature: Views
 | Custom block library | Page | page_1 | Page |
 | Date fields | Master | default | Master |
 | Date fields | Page | page_1 | Page |
+| Detail page URL audit and bulk udpate | CSV export | data_export_1 | Data export |
+| Detail page URL audit and bulk udpate | Master | default | Master |
+| Detail page URL audit and bulk udpate | Audit page | audit_page | Page |
 | Facility Governance | Master | default | Master |
 | Facility Governance | Page | page_1 | Page |
 | Files | Master | default | Master |
@@ -171,7 +174,9 @@ Feature: Views
 | VAMC alerts and operating statuses | Page | page_1 | Page |
 | VAMC operating statuses | Master | default | Master |
 | VAMC operating statuses | Entity Reference | entity_reference_1 | Entity Reference |
+| Administration section | Master | default | Master |
 | VAMC top task page revision histories | Page | page_1 | Page |
+| VAMC top task page revision histories | Master | default | Master |
 | VAMCs | Master | default | Master |
 | VHA Health service taxonomy | Page | page_1 | Page |
 | VHA Health service taxonomy | Data export | data_export_1 | Data export |
@@ -214,7 +219,6 @@ Feature: Views
 | Taxonomy entity browsers | Block | block_1 | Block |
 | Taxonomy entity browsers | Resources and support vocabulary | entity_browser_1 | Entity browser |
 | Taxonomy entity browsers | Master | default | Master |
-| VAMC top task page revision histories | Master | default | Master |
 | Vet Center facility listing | Block | vc_facility_listing | Block |
 | Vet Center facility listing | Master | default | Master |
 | Vet centers | Entity browser | vet_center_entity_browser | Entity browser |

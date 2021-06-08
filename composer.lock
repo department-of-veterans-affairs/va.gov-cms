@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae0cec1ef19e5fb7cba081ba8e9aed61",
+    "content-hash": "ff4c10dc807a24cb974a27b2f59af935",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -6212,7 +6212,7 @@
             "extra": {
                 "drupal": {
                     "version": "8.x-3.0-beta1",
-                    "datestamp": "1609758293",
+                    "datestamp": "1618261123",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -6671,6 +6671,58 @@
             "homepage": "https://www.drupal.org/project/menu_export",
             "support": {
                 "source": "https://git.drupalcode.org/project/menu_export"
+            }
+        },
+        {
+            "name": "drupal/menu_force",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/menu_force.git",
+                "reference": "8.x-1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/menu_force-8.x-1.2.zip",
+                "reference": "8.x-1.2",
+                "shasum": "96036cf057002223ee08d1f03e494cbad25439ac"
+            },
+            "require": {
+                "drupal/core": "^8.7.7 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.2",
+                    "datestamp": "1593463689",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "BarisW",
+                    "homepage": "https://www.drupal.org/user/107229"
+                },
+                {
+                    "name": "perennial.sky",
+                    "homepage": "https://www.drupal.org/user/2622667"
+                },
+                {
+                    "name": "scuba_fly",
+                    "homepage": "https://www.drupal.org/user/953390"
+                }
+            ],
+            "description": "Makes sure a node gets added to the menu system on specific content types",
+            "homepage": "https://www.drupal.org/project/menu_force",
+            "support": {
+                "source": "https://git.drupalcode.org/project/menu_force"
             }
         },
         {
@@ -7193,17 +7245,17 @@
         },
         {
             "name": "drupal/node_link_report",
-            "version": "1.16.0",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/node_link_report.git",
-                "reference": "8.x-1.16"
+                "reference": "8.x-1.15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/node_link_report-8.x-1.16.zip",
-                "reference": "8.x-1.16",
-                "shasum": "c3a98dd78fed8aa40176b4da32ad486ca6c2d9db"
+                "url": "https://ftp.drupal.org/files/projects/node_link_report-8.x-1.15.zip",
+                "reference": "8.x-1.15",
+                "shasum": "78fdc2da0d760cd282dcbd5401218294ab26b0bc"
             },
             "require": {
                 "drupal/core": "^8 || ^9"
@@ -7211,8 +7263,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.16",
-                    "datestamp": "1622813676",
+                    "version": "8.x-1.15",
+                    "datestamp": "1621354935",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -17677,6 +17729,7 @@
                     "type": "tidelift"
                 }
             ],
+            "abandoned": "use `EnglishInflector` from the String component instead",
             "time": "2021-05-10T14:56:10+00:00"
         },
         {

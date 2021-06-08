@@ -415,7 +415,6 @@ function _va_gov_backend_allowed_formats_remove_textarea_help(array $form_elemen
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-
   // List of forms to modify media library widget help text.
   $media_widget_content_form_ids = [
     'node_vet_center_cap_form',
@@ -771,7 +770,7 @@ function _va_gov_backend_unset_fields(EntityInterface $entity) {
 function _va_gov_backend_get_unlocked_alias_bundles() {
 
   // Insert into array bundles that do not need alias locked upon publish.
-  return [];
+  return ['health_care_region_detail_page'];
 }
 
 /**
