@@ -164,7 +164,7 @@ services:
         - find "${DOCROOT}/vendor/va-gov/content-build/script" -type f -exec chmod +x {} \+
 
   memcache:
-    image: tugboatqa/memcached:1.6
+    image: vacmsbot/docker-memcached-tugboat:1.6.6
 
   # What to call the service hosting MySQL. This name also acts as the
   # hostname to access the service by from the php service.
