@@ -26,9 +26,9 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center | Services | field_health_services | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | Vet Center | Table of contents | field_table_of_contents | Markup |  | 1 | Markup |  |
 | Content type | Vet Center - Community Access Point | Address | field_address | Address | Required | 1 | Address | Translatable |
-| Content type | Vet Center - Community Access Point | Details | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
+| Content type | Vet Center - Community Access Point | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Vet Center - Community Access Point | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | -- Disabled -- | Translatable |
-| Content type | Vet Center - Community Access Point | Status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
+| Content type | Vet Center - Community Access Point | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Community Access Point | Access point name | field_geographical_identifier | Text (plain) | Required | 1 | Textfield |  |
 | Content type | Vet Center - Community Access Point | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) | Translatable |
 | Content type | Vet Center - Community Access Point | Facility photo | field_media | Entity reference |  | 1 | Media library | Translatable |

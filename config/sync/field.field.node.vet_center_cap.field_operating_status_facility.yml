@@ -11,11 +11,13 @@ id: node.vet_center_cap.field_operating_status_facility
 field_name: field_operating_status_facility
 entity_type: node
 bundle: vet_center_cap
-label: Status
+label: 'Operating status'
 description: ''
 required: true
 translatable: true
-default_value: {  }
+default_value:
+  -
+    value: normal
 default_value_callback: ''
 settings: {  }
 field_type: list_string
