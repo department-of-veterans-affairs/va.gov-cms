@@ -1,8 +1,9 @@
-uuid: 0177226c-a8f5-4e9b-8af7-8c0279b017f5
+uuid: e7aa8be5-dda9-4419-b6cb-c82113bb71d2
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.external_content
     - field.field.node.health_care_local_facility.field_address
     - field.field.node.health_care_local_facility.field_administration
     - field.field.node.health_care_local_facility.field_description
@@ -21,36 +22,19 @@ dependencies:
     - field.field.node.health_care_local_facility.field_operating_status_more_info
     - field.field.node.health_care_local_facility.field_phone_number
     - field.field.node.health_care_local_facility.field_region_page
-    - image.style.crop_3_2
     - node.type.health_care_local_facility
   module:
     - address
-    - entity_reference_revisions
     - field_group
-    - media
-    - options
+    - layout_builder
     - tablefield
-    - telephone
     - user
 third_party_settings:
   field_group:
     group_meta:
       children:
-        - field_meta_title
         - field_description
-      parent_name: ''
-      weight: 2
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-      label: Meta
-      region: content
-    group_operating_status:
-      children:
-        - field_operating_status_facility
-        - field_operating_status_more_info
+        - field_meta_title
       parent_name: ''
       weight: 3
       format_type: fieldset
@@ -58,12 +42,25 @@ third_party_settings:
         id: ''
         classes: ''
         description: ''
+      label: Meta
+      region: hidden
+    group_operating_status:
+      children:
+        - field_operating_status_facility
+        - field_operating_status_more_info
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
       label: 'Operating status'
-      region: content
+      region: hidden
     group_social_media:
       children: {  }
       parent_name: ''
-      weight: 6
+      weight: 12
       format_type: details
       format_settings:
         id: ''
@@ -72,12 +69,12 @@ third_party_settings:
         open: false
         required_fields: false
       label: 'Social media'
-      region: content
+      region: hidden
     group_location_services:
       children:
         - field_location_services
       parent_name: ''
-      weight: 5
+      weight: 9
       format_type: details
       format_settings:
         description: ''
@@ -85,67 +82,105 @@ third_party_settings:
         id: ''
         classes: ''
       label: 'Prepare for your visit'
-      region: content
-    group_locations_and_contact_info:
-      children:
-        - group_facility_data_from_vast
-      parent_name: ''
-      weight: 4
-      format_type: fieldset
-      region: content
-      format_settings:
-        show_empty_fields: false
-        id: locations-and-contact-information
-        classes: ''
-        description: 'To request a correction or update to this centrally-managed data, <a class="admin-help-email-tpl" href="mailto:api@va.gov?bcc=vadrupalcms@va.gov&subject=Requested updates to [js_entry_facility_name] facility data&body=Dear API team,%0D%0A%0D%0AI would like to request an update to data for my facility.%0D%0A%0D%0AFacility%0D%0AFacility Name: [js_entry_facility_name]%0D%0AFacility ID: [js_entry_facility_id]%0D%0A%0D%0AAffected data%0D%0AThe following type of information needs to be updated:%0D%0A[Add your response here, for example: facility name, address, phone number, etc.]%0D%0A%0D%0ARequested Update%0D%0APlease make the following changes:%0D%0A[Add your response here, for example, ''change street address from 123 Fake Street to 456 Real Street.'']">email an administrator</a>.'
-      label: 'Locations and contact information'
+      region: hidden
     group_facility_data_from_vast:
       children:
         - field_facility_locator_api_id
         - field_address
-        - field_phone_number
         - field_mobile
+        - field_phone_number
         - field_mental_health_phone
         - field_facility_hours
-      parent_name: group_locations_and_contact_info
-      weight: 14
+      parent_name: ''
+      weight: 0
       format_type: tooltip
-      region: hidden
+      region: content
       format_settings:
-        show_empty_fields: 0
-        id: external-content
-        classes: not-editable
-        element: div
         show_label: '0'
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
+        description: 'To request a correction or update to this centrally-managed data, <a class="admin-help-email-tpl" href="mailto:api@va.gov?bcc=vadrupalcms@va.gov&subject=Requested updates to [js_entry_facility_name] facility data&body=Dear API team,%0D%0A%0D%0AI would like to request an update to data for my facility.%0D%0A%0D%0AFacility%0D%0AFacility Name: [js_entry_facility_name]%0D%0AFacility ID: [js_entry_facility_id]%0D%0A%0D%0AAffected data%0D%0AThe following type of information needs to be updated:%0D%0A[Add your response here, for example: facility name, address, phone number, etc.]%0D%0A%0D%0ARequested Update%0D%0APlease make the following changes:%0D%0A[Add your response here, for example, ''''change street address from 123 Fake Street to 456 Real Street.'''']">email an administrator</a>.'
+        id: ''
+        classes: not-editable
+        show_empty_fields: 0
+        element: div
         label_element: h3
         attributes: ''
+      label: 'Location Information'
+    group_vamc_system:
+      children:
+        - field_main_location
+        - field_region_page
+      parent_name: group_title_and_summary
+      weight: 1
+      format_type: fieldset
+      region: hidden
+      format_settings:
+        show_empty_fields: false
+        id: ''
+        classes: ''
         description: ''
-        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
-        open: false
+      label: 'VAMC system'
+    group_title_and_summary:
+      children:
+        - field_intro_text
+        - field_media
+        - group_vamc_system
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      region: hidden
+      format_settings:
+        show_empty_fields: false
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Title and summary'
+    group_section_settings:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 10
+      format_type: details_sidebar
+      region: hidden
+      format_settings:
+        show_empty_fields: false
+        id: ''
+        classes: ''
+        description: ''
+        open: true
+        weight: 0
         required_fields: false
-      label: 'Facility data'
-id: node.health_care_local_facility.default
+      label: 'Section settings'
+    group_editorial_workflow:
+      children:
+        - content_moderation_control
+      parent_name: ''
+      weight: 11
+      format_type: fieldset
+      region: hidden
+      format_settings:
+        show_empty_fields: false
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Editorial workflow'
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: node.health_care_local_facility.external_content
 targetEntityType: node
 bundle: health_care_local_facility
-mode: default
+mode: external_content
 content:
   field_address:
-    weight: 16
+    weight: 18
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
     region: content
-  field_description:
-    type: string
-    weight: 1
-    region: content
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
   field_facility_hours:
-    weight: 20
+    weight: 22
     label: above
     settings:
       row_header: false
@@ -154,85 +189,53 @@ content:
     type: tablefield
     region: content
   field_facility_locator_api_id:
-    weight: 15
-    label: inline
+    weight: 17
+    label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
     region: content
-  field_intro_text:
-    weight: 1
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-    region: content
-  field_location_services:
-    type: entity_reference_revisions_entity_view
-    weight: 8
-    label: hidden
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    region: content
-  field_media:
-    weight: 0
-    label: hidden
-    settings:
-      image_style: crop_3_2
-      image_link: ''
-    third_party_settings: {  }
-    type: media_thumbnail
-    region: content
   field_mental_health_phone:
-    weight: 19
-    label: inline
+    weight: 21
+    label: above
     settings:
-      title: ''
+      link_to_entity: false
     third_party_settings: {  }
-    type: telephone_link
+    type: string
     region: content
   field_mobile:
-    weight: 18
-    label: inline
+    weight: 19
+    label: above
     settings:
-      format: default
-      format_custom_false: ''
+      format: yes-no
       format_custom_true: ''
+      format_custom_false: ''
     third_party_settings: {  }
     type: boolean
     region: content
-  field_operating_status_facility:
-    weight: 4
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
-    region: content
-  field_operating_status_more_info:
-    weight: 5
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-    region: content
   field_phone_number:
-    weight: 17
-    label: inline
+    weight: 20
+    label: above
     settings:
-      title: ''
+      link_to_entity: false
     third_party_settings: {  }
-    type: telephone_link
+    type: string
     region: content
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_description: true
   field_facility_classification: true
+  field_intro_text: true
   field_local_health_care_service_: true
+  field_location_services: true
   field_main_location: true
+  field_media: true
   field_meta_tags: true
+  field_meta_title: true
+  field_operating_status_facility: true
+  field_operating_status_more_info: true
   field_region_page: true
   links: true
   search_api_excerpt: true
