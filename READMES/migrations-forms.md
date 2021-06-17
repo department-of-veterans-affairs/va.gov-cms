@@ -30,7 +30,7 @@ Our task-periodic job copies that file and places it here
 https://prod.cms.va.gov/sites/default/files/migrate_source/va_forms_data.csv
 so that it can be available to all our network environments (CI & BRD).
 To run it in sandboxes it will need to be pulled down with our file sync command.
-Catastophic safeties:  If the source disappeared, the migration would make no changes to the existing nodes.
+Catastrophic safeties:  If the source disappeared, the migration would make no changes to the existing nodes.
 
 ## Editorial
 There are fields on the "VA form" nodes that are not connected to the migration
@@ -44,8 +44,15 @@ _vagov_consumers_modify_va_form_fields().
 
 
 ## CMS forms data to Lighthouse
-Lighthouse will be reading data via a GraphQL and making it available to
+Lighthouse reads data from the CMS nightly via a GraphQL and makes it available to
 Form search and other React widgets.
 
+The timeline for changes to a VA Form looks like this:
+![Forms data flow with timeline](images/va-forms-flow.png)
+1. Forms DB admin adds, edits or deletes a form entry and possibly updates the actual pdf file.
+2. Forms DB performs a full data export to CSV
+3. CMS migrates in any changes.
+4. Lighthouse pulls data from CMS and makes it available through Facility API exposed through [https://www.va.gov/find-forms/](https://www.va.gov/find-forms/).
+5. Updates to published content end up on VA.gov with the first content-release of the day from the CMS.
 
 [Table of Contents](../README.md)
