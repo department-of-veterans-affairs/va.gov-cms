@@ -446,7 +446,7 @@ class MenuReductionService {
   }
 
   /**
-   * Gets the meny type based on the alias.
+   * Gets the menu type based on the alias.
    *
    * @param string $alias
    *   The alias to check.
@@ -544,7 +544,8 @@ class MenuReductionService {
    */
   protected function preventUnintendedChangeOfParent(array &$form) {
     // Check to see if the current parent exists in the reduced form.
-    if (!in_array($this->currentMenuParent, $form['menu']['link']['menu_parent']['#options'])) {
+    if (!in_array($this->currentMenuParent, $form['menu']['link']['menu_parent']['#options']) &&
+    !$this->formState->getFormObject()->getEntity()->isNew()) {
       // Parent does not exist in reduced form, Put the original parent options
       // back to prevent data loss. The existing menu setting should not be
       // allowed, but it exists, so allow it to persist. It may have been
