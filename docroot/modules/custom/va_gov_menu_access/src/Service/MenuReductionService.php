@@ -5,6 +5,7 @@ namespace Drupal\va_gov_menu_access\Service;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeForm;
 use Drupal\path_alias\AliasManagerInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
@@ -13,6 +14,8 @@ use Drupal\va_gov_user\Service\UserPermsService;
  * Class MenuReductionService a service for reducing possible menu items.
  */
 class MenuReductionService {
+
+  use StringTranslationTrait;
 
   /**
    * Possible states for the type of menu item.
@@ -551,8 +554,12 @@ class MenuReductionService {
       // allowed, but it exists, so allow it to persist. It may have been
       // created and approved by a content_admin.
       $form['menu']['link']['menu_parent']['#options'] = $this->originalMenuParentOptions;
-      // The menu form itself should be hidden for non-admins.
-      $form['menu']['#attributes'] = ['style' => 'display:none'];
+      // Lock it so the parent can not be changed.
+      $form['menu']['link']['menu_parent']['#attributes']['disabled'] = TRUE;
+      $title = $form['menu']['link']['menu_parent']['#title'];
+      $can_not_change = $this->t('Can not be changed.');
+      $title .= " ($can_not_change)";
+      $form['menu']['link']['menu_parent']['#title'] = $title;
     }
   }
 
