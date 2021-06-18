@@ -230,7 +230,7 @@ class MenuReductionService {
    *   The form array by reference.
    */
   protected function setEmptyMenuParentSelector(array &$form) {
-    if (!empty($form['menu'])) {
+    if (!empty($form['menu']) && !empty($form['menu']['link']['menu_parent'])) {
       // Sets an empty Select prompt on parent menu selector for all node forms.
       $form['menu']['link']['menu_parent']['#options'] = array_merge(['0' => '- Select a value -'], $form['menu']['link']['menu_parent']['#options']);
       // If we don't have a value set, yet, ensure the Select appears first.
