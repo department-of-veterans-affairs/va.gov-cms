@@ -618,7 +618,8 @@ function _va_gov_vet_center_require_revision_message(array &$form, FormStateInte
     ];
     foreach ($widget_fields as $widget_field) {
       // We don't want the node form validation to fire on the removal buttons.
-      foreach ($form[$widget_field]['widget']['current'] as $key => $button) {
+      $current_widgets = $form[$widget_field]['widget']['current'] ?? [];
+      foreach ($current_widgets as $key => $button) {
         if (is_numeric($key)) {
           $form[$widget_field]['widget']['current'][$key]['actions']['remove_button']['#limit_validation_errors'] = [['field_nearby_vet_centers']];
         }
