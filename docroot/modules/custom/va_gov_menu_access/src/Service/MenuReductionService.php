@@ -128,14 +128,6 @@ class MenuReductionService {
     $this->originalMenuParentOptions = $form['menu']['link']['menu_parent']['#options'] ?? [];
     $this->setEmptyMenuParentSelector($form);
 
-    // @todo Remove this nonsense check to activate the remainder of this logic
-    // when the other issues in #2427 have paved the way for adjusting and
-    // testing this logic.
-    if (TRUE) {
-      $this->nuke();
-      return;
-    }
-    // End of @todo removal.  Nothing below this point will run.
     if ($this->userPermsService->hasAdminRole()) {
       // User is an admin so no menu reduction needed.
       $this->nuke();
