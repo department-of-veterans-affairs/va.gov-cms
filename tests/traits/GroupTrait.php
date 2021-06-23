@@ -72,7 +72,7 @@ trait GroupTrait {
       'status' => 1,
     ]);
     $user->save();
-    $this->username = $user->getUsername();
+    $this->username = $user->getAccountName();
     $this->userJoinGroup($user, $group, $group_role);
 
     return $user;
