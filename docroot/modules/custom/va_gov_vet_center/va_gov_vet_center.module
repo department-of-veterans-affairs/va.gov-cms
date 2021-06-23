@@ -190,3 +190,15 @@ function va_gov_vet_center_vc_cap_hours_hide_caption_after_build(array $element,
   unset($element[0]['caption']);
   return $element;
 }
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function va_gov_vet_center_form_node_form_alter(array &$form, FormStateInterface &$form_state) {
+  _va_gov_backend_set_owner_section_default($form, $form_state);
+
+  // Only attach the service select setter to vet_center service bundle.
+  if ($form_state->getformObject()->getEntity()->bundle() === 'vet_center') {
+    $form['#attached']['library'][] = 'va_gov_vet_center/set_ief_service_selects';
+  }
+}
