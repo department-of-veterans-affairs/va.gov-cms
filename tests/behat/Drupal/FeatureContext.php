@@ -584,15 +584,18 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       $driver = $session->getDriver();
       $url = $session->getCurrentUrl();
       $html = $page->getContent();
+      $text = preg_replace('/\s+/u', ' ', $page->getText());
       $date = date('Y-m-d--H-i-s');
       $featureFilePath = $this->getFeatureFilePath($event);
       $featureFileName = basename($featureFilePath);
       if (!file_exists($dumpPath)) {
         mkdir($dumpPath);
       }
-      $outputPath = "$dumpPath/$date-$featureFileName.html";
-      file_put_contents($outputPath, $html);
-      echo "\nDumped HTML to $outputPath\n\n";
+      $htmlPath = "$dumpPath/$date-$featureFileName.html";
+      $textPath = "$dumpPath/$date-$featureFileName.txt";
+      file_put_contents($htmlPath, $html);
+      file_put_contents($textPath, $text);
+      echo "\nDumped HTML to $htmlPath\nDumped Text to $textPath\n";
     }
   }
 
