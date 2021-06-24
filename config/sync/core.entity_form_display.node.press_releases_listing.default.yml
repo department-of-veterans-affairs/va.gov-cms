@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.press_releases_listing.field_enforce_unique_combo
     - field.field.node.press_releases_listing.field_intro_text
     - field.field.node.press_releases_listing.field_meta_tags
-    - field.field.node.press_releases_listing.field_meta_title
     - field.field.node.press_releases_listing.field_office
     - field.field.node.press_releases_listing.field_press_release_blurb
     - node.type.press_releases_listing
@@ -133,20 +132,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
-    region: content
-  field_meta_title:
-    weight: 1
-    settings:
-      size: 60
-      placeholder: ''
-      use_field_maxlength: false
-      maxlength: 0
-      counter_position: after
-      js_prevent_submit: true
-      count_html_characters: true
-      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
-    third_party_settings: {  }
-    type: string_textfield_with_counter
     region: content
   field_office:
     weight: 1

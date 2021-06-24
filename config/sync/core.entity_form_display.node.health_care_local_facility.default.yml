@@ -16,7 +16,6 @@ dependencies:
     - field.field.node.health_care_local_facility.field_media
     - field.field.node.health_care_local_facility.field_mental_health_phone
     - field.field.node.health_care_local_facility.field_meta_tags
-    - field.field.node.health_care_local_facility.field_meta_title
     - field.field.node.health_care_local_facility.field_mobile
     - field.field.node.health_care_local_facility.field_operating_status_facility
     - field.field.node.health_care_local_facility.field_operating_status_more_info
@@ -264,20 +263,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
-    region: content
-  field_meta_title:
-    weight: 2
-    settings:
-      size: 70
-      placeholder: ''
-      use_field_maxlength: true
-      maxlength: null
-      counter_position: after
-      js_prevent_submit: true
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
-      count_html_characters: false
-    third_party_settings: {  }
-    type: string_textfield_with_counter
     region: content
   field_mobile:
     weight: 15
