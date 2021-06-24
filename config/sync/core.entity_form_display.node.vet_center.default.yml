@@ -103,10 +103,11 @@ third_party_settings:
       format_type: fieldset
       region: content
       format_settings:
-        description: '<p>Update key information that helps Veterans understand what they might find on this page. To request a correction to the page title, <a href="https://vaww.va.gov/WEBCOM/VAMC_Facility_Location_Updates.asp " target="_blank">contact an administrator</a>.</p>'
+        description: ''
         required_fields: true
         id: top-of-page-information
         classes: ''
+        show_empty_fields: false
       label: 'Top of page information'
     group_page_title_tooltip:
       children: {  }
@@ -117,7 +118,7 @@ third_party_settings:
       format_settings:
         show_empty_fields: '1'
         show_label: '0'
-        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically generated from the VAST database, which helps VA maintain a consistent source of information across all of VA.gov."
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
         description: '<strong>Page title</strong>'
         required_fields: '1'
         id: ''
@@ -136,10 +137,11 @@ third_party_settings:
       format_type: fieldset
       region: content
       format_settings:
-        description: '<p>Review key location information about this facility. To request an correction to address, phone, or hours, <a href = "https://vaww.va.gov/WEBCOM/VAMC_Facility_Location_Updates.asp " target = "_blank">contact an administrator</a>.</p>'
+        description: ''
         required_fields: true
         id: locations-and-contact-information
         classes: ''
+        show_empty_fields: false
       label: 'Locations and contact information'
     group_information:
       children:
@@ -219,8 +221,8 @@ third_party_settings:
       region: content
       format_settings:
         show_label: '1'
-        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically generated from the VAST database, which helps VA maintain a consistent source of information across all of VA.gov."
-        description: ''
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
+        description: 'To request a correction or update to this centrally-managed data, <a class="admin-help-email-tpl" href="mailto:api@va.gov?bcc=vadrupalcms@va.gov&subject=Requested updates to [js_entry_facility_name] facility data&body=Dear API team,%0D%0A%0D%0AI would like to request an update to data for my facility.%0D%0A%0D%0AFacility%0D%0AFacility Name: [js_entry_facility_name]%0D%0AFacility ID: [js_entry_facility_id]%0D%0A%0D%0AAffected data%0D%0AThe following type of information needs to be updated:%0D%0A[Add your response here, for example: facility name, address, phone number, etc.]%0D%0A%0D%0ARequested Update%0D%0APlease make the following changes:%0D%0A[Add your response here, for example, ''''change street address from 123 Fake Street to 456 Real Street.'''']">email an administrator</a>.'
         required_fields: '1'
         id: external-content
         classes: ''
@@ -228,7 +230,7 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-      label: 'Facility data from VAST'
+      label: 'Facility data'
     group_national_featured_content:
       children:
         - field_cc_vet_center_featured_con

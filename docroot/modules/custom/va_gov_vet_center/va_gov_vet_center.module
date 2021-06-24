@@ -92,7 +92,6 @@ function _va_gov_vet_center_create_cap_id(EntityInterface $entity) {
 function va_gov_vet_center_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
   if ($form_id === 'node_vet_center_cap_form' || $form_id === 'node_vet_center_cap_edit_form') {
-    $form['field_facility_locator_api_id']['#disabled'] = TRUE;
     // Add after_build callbacks for VC CAP node forms.
     $form['field_address']['widget']['#after_build'][] = 'va_gov_vet_center_vc_cap_address_alter_label_after_build';
     $form['field_facility_hours']['widget']['#after_build'][] = 'va_gov_vet_center_vc_cap_hours_hide_caption_after_build';
