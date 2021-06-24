@@ -7,6 +7,7 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Testwork\Tester\Result\TestResult;
 use Drupal\DrupalExtension\Context\DrushContext;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
+use Drupal\user\Entity\User;
 
 /**
  * FeatureContext class defines custom step definitions for Behat.
@@ -518,7 +519,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    * @Then the :arg1 flag for node :arg2 should be set for me
    */
   public function theFlagForNodeShouldBeSetForTheRevisionEditor(string $flagName, string $title) {
-    $account = user_load($this->getUserManager()->getCurrentUser()->uid);
+    $account = User::load($this->getUserManager()->getCurrentUser()->uid);
     $flag_service = \Drupal::service('flag');
     $flag = $flag_service->getFlagById($flagName);
     if (empty($flag)) {
