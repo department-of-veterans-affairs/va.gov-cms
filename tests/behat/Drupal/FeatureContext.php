@@ -547,6 +547,19 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
+   * Get the feature file path of the scenario/outline originating an event.
+   *
+   * @param mixed $event
+   *   BeHat event.
+   *
+   * @return string|null
+   *   The feature file path, or NULL if I can't figure it out.
+   */
+  public function getFeatureFilePath($event) {
+    return $event->getFeature()->getFile();
+  }
+
+  /**
    * Print watchdog logs after any failed step.
    *
    * @AfterStep
@@ -555,6 +568,31 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     if ($event->getTestResult()->getResultCode() === TestResult::FAILED) {
       $this->drushContext->assertDrushCommand('wd-show');
       $this->drushContext->printLastDrushOutput();
+    }
+  }
+
+  /**
+   * Print HTML after any failed step.
+   *
+   * @AfterStep
+   */
+  public function printHtmlAfterFailedStep($event) {
+    if ($event->getTestResult()->getResultCode() === TestResult::FAILED) {
+      $dumpPath = 'behat_failures';
+      $session = $this->getSession();
+      $page = $session->getPage();
+      $driver = $session->getDriver();
+      $url = $session->getCurrentUrl();
+      $html = $page->getContent();
+      $date = date('Y-m-d H:i:s');
+      $featureFilePath = $this->getFeatureFilePath($event);
+      $featureFileName = basename($featureFilePath);
+      if (!file_exists($dumpPath)) {
+        mkdir($dumpPath);
+      }
+      $outputPath = "$dumpPath/$date-$featureFileName.html";
+      file_put_contents($outputPath, $html);
+      echo "\nDumped HTML to $outputPath\n\n";
     }
   }
 
