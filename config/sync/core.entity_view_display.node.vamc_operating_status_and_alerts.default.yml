@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.vamc_operating_status_and_alerts.field_administration
     - field.field.node.vamc_operating_status_and_alerts.field_banner_alert
+    - field.field.node.vamc_operating_status_and_alerts.field_enforce_unique_combo
     - field.field.node.vamc_operating_status_and_alerts.field_facility_operating_status
     - field.field.node.vamc_operating_status_and_alerts.field_links
     - field.field.node.vamc_operating_status_and_alerts.field_meta_tags
@@ -12,6 +13,7 @@ dependencies:
     - field.field.node.vamc_operating_status_and_alerts.field_operating_status_emerg_inf
     - node.type.vamc_operating_status_and_alerts
   module:
+    - allow_only_one
     - link
     - text
     - user
@@ -27,6 +29,13 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_enforce_unique_combo:
+    weight: 5
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: allow_only_one
     region: content
   field_facility_operating_status:
     weight: 2

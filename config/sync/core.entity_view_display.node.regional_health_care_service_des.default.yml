@@ -5,11 +5,13 @@ dependencies:
   config:
     - field.field.node.regional_health_care_service_des.field_administration
     - field.field.node.regional_health_care_service_des.field_body
+    - field.field.node.regional_health_care_service_des.field_enforce_unique_combo
     - field.field.node.regional_health_care_service_des.field_local_health_care_service_
     - field.field.node.regional_health_care_service_des.field_region_page
     - field.field.node.regional_health_care_service_des.field_service_name_and_descripti
     - node.type.regional_health_care_service_des
   module:
+    - allow_only_one
     - field_group
     - text
     - user
@@ -64,6 +66,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
+  field_enforce_unique_combo:
+    weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: allow_only_one
     region: content
   field_local_health_care_service_:
     weight: 5

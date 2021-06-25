@@ -10,25 +10,34 @@ var sass = require("gulp-sass");
 var autoprefixer = require("gulp-autoprefixer");
 var sourcemaps = require("gulp-sourcemaps");
 
-var _require = require("child_process"),
-    spawn = _require.spawn;
+var _require = require("child_process");
+var { spawn } = _require;
+
+var sassSourceDir = "assets/scss/**/*.scss";
 
 gulp.task("sass", function () {
-  return gulp.src(["assets/scss/**/*.scss"]).pipe(sourcemaps.init()).pipe(sass({ outputStyle: "compressed" }).on("error", sass.logError)).pipe(autoprefixer("last 2 version")).pipe(sourcemaps.write("./")).pipe(gulp.dest("assets/css/"));
+  return gulp
+    .src([sassSourceDir])
+    .pipe(sourcemaps.init())
+    .pipe(sass({ outputStyle: "compressed" }).on("error", sass.logError))
+    .pipe(autoprefixer("last 2 version"))
+    .pipe(sourcemaps.write("./"))
+    .pipe(gulp.dest("assets/css/"));
 });
+
 gulp.task("sass").description = "process SCSS files: compile to compressed css, add browser prefixes, create a source map, and save in assets folder";
 
 gulp.task("clearcache", function (done) {
   var child = spawn("lando drush cache:rebuild", {
     stdio: "inherit",
-    shell: "true"
+    shell: "true",
   });
   child.on("close", done);
 });
 gulp.task("clearcache").description = "clear all Drupal caches";
 
 gulp.task("watch", function () {
-  gulp.watch(["scss/**/*.scss"], gulp.series("sass"));
+  gulp.watch([sassSourceDir], gulp.series("sass"));
 });
 gulp.task("watch").description = "watch SCSS";
 

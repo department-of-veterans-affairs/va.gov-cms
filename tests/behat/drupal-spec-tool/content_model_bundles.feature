@@ -14,7 +14,7 @@ Feature: Content model bundles
 | Centralized Content | centralized_content | Content type | Common content for reuse on other content types. |
 | Checklist | checklist | Content type |  |
 | CMS Help Page | documentation_page | Content type | Help guide pages on how to use the CMS to edit content on VA.gov. |
-| Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
+| VAMC Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
 | Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
 | Events List | event_listing | Content type | A listing of events. |
 | FAQ - multiple Q&As | faq_multiple_q_a | Content type | Curated collection of Q&As. |
@@ -48,10 +48,8 @@ Feature: Content model bundles
 | VBA Facility | vba_facility | Content type | A facility within Veterans Benefits Administration system. |
 | Vet Center | vet_center | Content type | Location and page content for community-based counseling centers. |
 | Vet Center - Community Access Point | vet_center_cap | Content type | Location information for Vet Center services situated in another organization. |
-| Vet Center - Facility Service | vet_center_facility_health_servi | Content type | Facility-specific description of a service available at a Vet Center. |
+| Vet Center - Facility Service | vet_center_facility_health_servi | Content type | Facility-specific description of a health service available at a Vet Center. |
 | Vet Center - Locations List | vet_center_locations_list | Content type | Page content that lists all facilities associated with a Vet Center, including nearby locations. |
-| Vet Center - Mobile Vet Center | vet_center_mobile_vet_center | Content type | Location information for Vet Center services provided out of an RV. |
-| Vet Center - Outstation | vet_center_outstation | Content type | Location information for remote facilities related to a main Vet Center. |
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
 | Promo | promo | Custom block type | Promote a link with an image, title, and description. |
 | Document | document | Media type | A locally hosted document, such as a PDF. |
@@ -102,7 +100,6 @@ Feature: Content model bundles
 | Step by step | step_by_step | Paragraph type | An ordered list (1, 2, 3, 4, N) of steps. |
 | Table | table | Paragraph type | Add an HTML table with rows and columns. |
 | VAMC facility service (non-healthcare service) | health_care_local_facility_servi | Paragraph type | A service available at a specific health care facility, like Parking, or Chaplaincy. |
-| Audience (tags) | audience_tags | Vocabulary |  |
 | Audience - Beneficiaries | audience_beneficiaries | Vocabulary |  |
 | Audience - Non-beneficiaries | audience_non_beneficiaries | Vocabulary |  |
 | Resources and support Categories | lc_categories | Vocabulary |  |
@@ -111,5 +108,5 @@ Feature: Content model bundles
 | Topics | topics | Vocabulary |  |
 | Type of Redirect | type_of_redirect | Vocabulary |  |
 | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
-
-
+| Vet Center - Mobile Vet Center | vet_center_mobile_vet_center | Content type | Location information for Vet Center services provided out of an RV. |
+| Vet Center - Outstation | vet_center_outstation | Content type | Location information for remote facilities related to a main Vet Center. |

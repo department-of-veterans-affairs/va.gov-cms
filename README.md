@@ -31,6 +31,7 @@ The VA.gov CMS Team
    1. [Testing](READMES/testing.md)
    1. [Debugging](READMES/debugging.md)
    1. [Code Review](READMES/code-review.md)
+   1. [Comparing GraphQL Output](READMES/graphql-output.md)
 1. **Release & Deployment**
    1. [The BRD System: Build, Release, Deploy](READMES/brd.md)
    1. [CMS Release Process](READMES/brd.md#cms-release-process)

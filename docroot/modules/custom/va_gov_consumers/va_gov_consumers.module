@@ -43,30 +43,17 @@ function _vagov_consumers_disable_vha_api_form_fields(array &$form, $form_id) {
     if (empty($form['title']['widget'][0]['value']['#default_value'])) {
       $form['title']['widget'][0]['value']['#default_value'] = t('API Data');
     }
-
     // Disable the facility locator API field if it is populated because it
     // should not be altered, or it will deviate from the API.
     if (!empty($form['field_facility_locator_api_id']['widget'][0]['value']['#default_value'])) {
       $form['field_facility_locator_api_id']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
-      $form['field_facility_locator_api_id']['widget'][0]['value']['#description'] = t('Synced to the Facility API.  If you need to change this, please contact CMS Support.');
     }
-    // Disable items that are populated by the Facility API migration.
-    $form['title']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
-    $form['field_facility_classification']['widget']['#attributes']['disabled'] = TRUE;
+    // Special handling for the table field widget.
+    $form['field_facility_hours']['widget'][0]['#after_build'][] = '_va_gov_consumers_customize_table';
+    $form['field_facility_hours']['widget'][0]['#addrow'] = FALSE;
     if (isset($form['field_facility_hours']['widget'][0]['caption'])) {
       unset($form['field_facility_hours']['widget'][0]['caption']);
     }
-    $form['field_facility_hours']['widget'][0]['#addrow'] = FALSE;
-    $form['field_facility_hours']['widget'][0]['#attributes']['disabled'] = TRUE;
-    $form['field_phone_number']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
-    $form['field_mental_health_phone']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
-
-    // Special handling for the address field widget.
-    $form['field_address']['widget']['#disabled'] = TRUE;
-    // Special handling for the mobile flag field.
-    $form['field_mobile']['widget']['#disabled'] = TRUE;
-    // Special handling for the table field widget.
-    $form['field_facility_hours']['widget'][0]['#after_build'][] = '_va_gov_consumers_customize_table';
   }
 }
 
@@ -105,7 +92,6 @@ function _vagov_consumers_disable_non_vha_facilities_api_form_fields(array &$for
     // should not be altered, or it will deviate from the API.
     if (!empty($form['field_facility_locator_api_id']['widget'][0]['value']['#default_value'])) {
       $form['field_facility_locator_api_id']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
-      $form['field_facility_locator_api_id']['widget'][0]['value']['#description'] = t('Synced to the Facility API.  If you need to change this, please contact CMS Support.');
     }
   }
 }
@@ -124,7 +110,6 @@ function _vagov_consumers_modify_va_form_fields(array &$form, $form_id, FormStat
   if ($form_id === 'node_va_form_edit_form' || $form_id === 'node_va_form_form') {
     $node = $form_state->getformObject()->getEntity();
     $title = "<h1>{$node->getTitle()}</h1>";
-
     $form_name = $form['field_va_form_name'];
     // We want the form name in a different location, so remove it from here.
     unset($form['field_va_form_name']);
@@ -169,6 +154,8 @@ function _vagov_consumers_modify_vet_center_fields(array &$form, $form_id, FormS
 
   // We want to modify display of fields for specific form id's.
   $external_content_form_ids = [
+    'node_health_care_local_facility_form',
+    'node_health_care_local_facility_edit_form',
     'node_vet_center_edit_form',
     'node_vet_center_form',
     'node_vet_center_mobile_vet_center_form',
@@ -180,6 +167,7 @@ function _vagov_consumers_modify_vet_center_fields(array &$form, $form_id, FormS
   // We want to confirm we are on a specific form.
   if (in_array($form_id, $external_content_form_ids)) {
     $node = $form_state->getformObject()->getEntity();
+    $get_help = '<div id="top-get-help-email">To request a correction or update to this centrally-managed data, <a class="admin-help-email-tpl" href="mailto:api@va.gov?bcc=vadrupalcms@va.gov&subject=Requested updates to [js_entry_facility_name] facility data&body=Dear API team,%0D%0A%0D%0AI would like to request an update to data for my facility.%0D%0A%0D%0AFacility%0D%0AFacility Name: [js_entry_facility_name]%0D%0AFacility ID: [js_entry_facility_id]%0D%0A%0D%0AAffected data%0D%0AThe following type of information needs to be updated:%0D%0A[Add your response here, for example: facility name, address, phone number, etc.]%0D%0A%0D%0ARequested Update%0D%0APlease make the following changes:%0D%0A[Add your response here, for example, \'change street address from 123 Fake Street to 456 Real Street.\']">email an administrator</a>.</div>';
     $title = "<p>{$node->getTitle()}</p>";
 
     // We want the form name in a different location, so remove it from here.
@@ -187,13 +175,16 @@ function _vagov_consumers_modify_vet_center_fields(array &$form, $form_id, FormS
 
     $form['top_of_page_information'] = [
       '#weight' => 1,
+      '#prefix' => $get_help,
       'title' => [
         '#markup' => $title,
       ],
     ];
 
     // We want the title to appear within the page_title fieldgroup.
-    $form['group_page_title_tooltip']['top_of_page_information'] = $form['top_of_page_information'];
+    if ($node->getType() !== 'health_care_local_facility') {
+      $form['group_page_title_tooltip']['top_of_page_information'] = $form['top_of_page_information'];
+    }
 
     // We want the page title in a different location, so remove it from here.
     unset($form['top_of_page_information']);
@@ -249,6 +240,7 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
 
     // We want to modify display of fields for specific node id's.
     $external_content_node_ids = [
+      'health_care_local_facility',
       'vet_center',
       'vet_center_mobile_vet_center',
       'vet_center_outstation',

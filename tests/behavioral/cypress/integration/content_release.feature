@@ -19,12 +19,11 @@ Feature: Content Release
     Then I should see "Pending"
     Then I clear the web build queue
 
-  @content_release @content_release_page
+  @content_release @content_release_page @ignore
   Scenario: The content release page should show a pending chosen release initiated within the browser
     Given I am logged in as a user with the "content_admin" role
     And I clear the web build queue
     And I initiate a content release with the branch "master"
-    Then I should see "Branch: master"
     And I should see "Pending"
     Then I clear the web build queue
 

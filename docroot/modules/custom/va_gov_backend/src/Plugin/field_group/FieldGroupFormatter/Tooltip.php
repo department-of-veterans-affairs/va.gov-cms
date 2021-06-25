@@ -79,7 +79,7 @@ class Tooltip extends HtmlElement implements ContainerFactoryPluginInterface {
       $element['tooltip_description'] = [
         '#type' => 'html_tag',
         '#tag' => 'div',
-        '#prefix' => '<button class="tooltip-toggle" role="tooltip" title="' . $this->getSetting('tooltip_description') . '" value="' . $this->getSetting('tooltip_description') . '"></button>',
+        '#prefix' => '<button aria-label="tooltip" class="tooltip-toggle" role="presentation" title="' . $this->getSetting('tooltip_description') . '" value="' . $this->getSetting('tooltip_description') . '"></button>',
         '#attributes' => [
           'id' => [
             Html::getUniqueId('add-tooltip-description'),
@@ -94,6 +94,8 @@ class Tooltip extends HtmlElement implements ContainerFactoryPluginInterface {
         '#type' => 'html_tag',
         '#tag' => 'div',
         '#attributes' => [
+          'aria-label' => 'tooltip',
+          'role' => 'presentation',
           'class' => [
             'description',
           ],

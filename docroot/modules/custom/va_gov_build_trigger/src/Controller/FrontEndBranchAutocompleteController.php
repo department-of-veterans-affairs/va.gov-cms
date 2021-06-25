@@ -54,7 +54,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('va_gov.consumers.github.factory')->get(
-        'department-of-veterans-affairs/vets-website',
+        'department-of-veterans-affairs/content-build',
         'va_cms_bot_github_auth_token'
       ),
       Git::get($container->get('va_gov.build_trigger.web_build_command_builder')->getPathToWebRoot()),

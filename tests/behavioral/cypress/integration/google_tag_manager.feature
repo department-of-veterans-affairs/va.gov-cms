@@ -36,7 +36,7 @@ Feature: Google Tag Manager dataLayer values are correct
     And I click the edit tab
     And I fill in "Name" with "[Test Data] My Test Office"
     And I fill in "Meta title tag" with "[Test Data] My Meta title tag"
-    And I select option "--Outreach Hub" from dropdown "Owner"
+    And I select option "--Outreach Hub" from dropdown "Section"
     And I save the node
     Then the GTM data layer value for "contentTitle" should be set to "[Test Data] My Test Office"
     Then the GTM data layer value for "pageTitle" should be set to "[Test Data] My Test Office"
@@ -55,7 +55,7 @@ Feature: Google Tag Manager dataLayer values are correct
     And I am at "/node/2"
     Then the GTM data layer value for "userSections" should be set to "all"
 
-  Scenario: A user should have GTM userSections values corresponding to their currently set sections.
+  Scenario: A user should have GTM userSections values corresponding to their currently set sections
     Given I am logged in as a user with the "content_creator_benefits_hubs" role
     And my workbench access sections are not set
     And I am at "/node/2"

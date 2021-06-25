@@ -43,16 +43,26 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
   protected $pathToWebRoot;
 
   /**
+   * Broken Link Checker class.
+   *
+   * @var \Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker
+   */
+  protected $webBuildBrokenLinkChecker;
+
+  /**
    * WebBuildCommandBuilder constructor.
    *
    * @param \Drupal\Core\Site\Settings $settings
    *   Drupal settings.
+   * @param \Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker $webBuildBrokenLinkChecker
+   *   Web build link command builder.
    */
-  public function __construct(Settings $settings) {
+  public function __construct(Settings $settings, WebBuildBrokenLinkChecker $webBuildBrokenLinkChecker) {
     $this->appRoot = $settings->get(static::APP_ROOT, '');
     $this->composerHome = $settings->get(static::COMPOSER_HOME, '');
     $this->pathToComposer = $settings->get(static::PATH_TO_COMPOSER, '');
     $this->pathToWebRoot = $settings->get(static::WEB_ROOT, '');
+    $this->webBuildBrokenLinkChecker = $webBuildBrokenLinkChecker;
   }
 
   /**
@@ -65,19 +75,20 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
     $repo_root = $this->getPathToWebRoot();
 
     if (!$front_end_git_ref) {
-      // If no git reference is passed, reset va-gov/web to the default tag. We
-      // do this to ensure that the default tag is used even if a branch or PR
-      // was checked out earlier.
-      $commands += $this->getFrontEndReinstallCommands($repo_root);
+      // If no git reference is passed, reset va-gov/content-build
+      // to the default tag. We do this to ensure that the default tag is used
+      // even if a branch or PR was checked out earlier.
+      $commands = $this->getFrontEndReinstallCommands($repo_root);
     }
     else {
-      // If we are checking out a branch or PR, reset all files in va-gov/web
-      // to their default state. We do this to avoid having the checkout fail
-      // if there are modified files.
+      // If we are checking out a branch or PR, reset all files in
+      // va-gov/content-build to their default state. We do this to avoid
+      // having the checkout fail if there are modified files.
       $commands[] = $this->getFrontEndResetCommand($repo_root);
+      $commands[] = $this->buildRemoveBrokenLinkCommand();
     }
 
-    $composer_command = $this->commandName($front_end_git_ref);
+    $composer_command = $this->commandName();
     if ($command = $this->getFrontEndGitReferenceCheckoutCommand($repo_root, $unique_key, $front_end_git_ref)) {
       $commands[] = $command;
       $commands[] = $this->buildComposerCommand('va:web:install');
@@ -86,6 +97,16 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
     $commands[] = $this->buildComposerCommand($composer_command);
 
     return $commands;
+  }
+
+  /**
+   * Clear broken link files.
+   *
+   * @return string
+   *   The broken link command.
+   */
+  public function buildRemoveBrokenLinkCommand() : string {
+    return 'rm -rf ' . $this->webBuildBrokenLinkChecker->getBrokenLinkPath($this->getAppRoot());
   }
 
   /**
@@ -98,20 +119,11 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
   /**
    * The name of the composer command to run.
    *
-   * @param string|null $front_end_git_ref
-   *   Front end git reference to build (branch name or PR number)
-   *
    * @return string
    *   The name of the composer command to run
    */
-  protected function commandName(string $front_end_git_ref = NULL) : string {
-    $command = 'va:web:build';
-
-    if ($front_end_git_ref) {
-      $command .= ':full';
-    }
-
-    return $command;
+  protected function commandName() : string {
+    return 'va:web:build';
   }
 
   /**
@@ -158,13 +170,13 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
   }
 
   /**
-   * Build the command to reset va-gov/web files to their default state.
+   * Build a command to reset va-gov/content-build files to their default state.
    *
    * @param string $repo_root
    *   The path to the repository root.
    *
    * @return string
-   *   The command to run to reset va-gov/web files.
+   *   The command to run to reset va-gov/content-build files.
    */
   protected function getFrontEndResetCommand(string $repo_root) : string {
     return "cd {$repo_root} && git reset --hard HEAD";
