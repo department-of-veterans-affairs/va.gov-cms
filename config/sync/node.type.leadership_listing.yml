@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - menu_force
     - menu_ui
     - node_revision_delete
     - node_title_help_text
@@ -158,6 +159,9 @@ third_party_settings:
     minimum_revisions_to_keep: 50
     minimum_age_to_delete: 0
     when_to_delete: 0
+  menu_force:
+    menu_force: 1
+    menu_force_parent: 0
 name: 'Leadership List'
 type: leadership_listing
 description: 'A listing of staff profiles.'
