@@ -547,19 +547,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * Get the feature file path of the scenario/outline originating an event.
-   *
-   * @param mixed $event
-   *   BeHat event.
-   *
-   * @return string|null
-   *   The feature file path, or NULL if I can't figure it out.
-   */
-  public function getFeatureFilePath($event) {
-    return $event->getFeature()->getFile();
-  }
-
-  /**
    * Print watchdog logs after any failed step.
    *
    * @AfterStep
@@ -581,12 +568,10 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       $dumpPath = 'behat_failures';
       $session = $this->getSession();
       $page = $session->getPage();
-      $driver = $session->getDriver();
-      $url = $session->getCurrentUrl();
       $html = $page->getContent();
       $text = preg_replace('/\s+/u', ' ', $page->getText());
       $date = date('Y-m-d--H-i-s');
-      $featureFilePath = $this->getFeatureFilePath($event);
+      $featureFilePath = $event->getFeature()->getFile();
       $featureFileName = basename($featureFilePath);
       if (!file_exists($dumpPath)) {
         mkdir($dumpPath);
