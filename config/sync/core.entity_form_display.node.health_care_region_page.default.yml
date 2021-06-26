@@ -15,7 +15,6 @@ dependencies:
     - field.field.node.health_care_region_page.field_intro_text
     - field.field.node.health_care_region_page.field_media
     - field.field.node.health_care_region_page.field_meta_tags
-    - field.field.node.health_care_region_page.field_meta_title
     - field.field.node.health_care_region_page.field_operating_status
     - field.field.node.health_care_region_page.field_other_va_locations
     - field.field.node.health_care_region_page.field_related_links
@@ -270,20 +269,6 @@ content:
       media_types: {  }
     region: content
     third_party_settings: {  }
-  field_meta_title:
-    weight: 4
-    settings:
-      size: 70
-      placeholder: ''
-      use_field_maxlength: true
-      maxlength: 0
-      counter_position: after
-      js_prevent_submit: true
-      count_html_characters: true
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
-    third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_operating_status:
     weight: 37
     settings:

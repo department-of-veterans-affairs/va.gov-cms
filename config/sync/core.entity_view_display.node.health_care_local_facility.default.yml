@@ -16,7 +16,6 @@ dependencies:
     - field.field.node.health_care_local_facility.field_media
     - field.field.node.health_care_local_facility.field_mental_health_phone
     - field.field.node.health_care_local_facility.field_meta_tags
-    - field.field.node.health_care_local_facility.field_meta_title
     - field.field.node.health_care_local_facility.field_mobile
     - field.field.node.health_care_local_facility.field_operating_status_facility
     - field.field.node.health_care_local_facility.field_operating_status_more_info
@@ -47,25 +46,6 @@ third_party_settings:
         classes: ''
         description: ''
       label: Meta
-      region: content
-    group_migrated_data_from_facilit:
-      children:
-        - field_facility_locator_api_id
-        - field_address
-        - field_mobile
-        - field_phone_number
-        - field_mental_health_phone
-        - field_facility_hours
-      parent_name: ''
-      weight: 4
-      format_type: details
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        open: false
-        required_fields: false
-      label: 'Migrated data from Facility API'
       region: content
     group_operating_status:
       children:
@@ -106,13 +86,51 @@ third_party_settings:
         classes: ''
       label: 'Prepare for your visit'
       region: content
+    group_locations_and_contact_info:
+      children:
+        - group_facility_data_from_vast
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      region: content
+      format_settings:
+        show_empty_fields: false
+        id: locations-and-contact-information
+        classes: ''
+        description: 'To request a correction or update to this centrally-managed data, <a class="admin-help-email-tpl" href="mailto:api@va.gov?bcc=vadrupalcms@va.gov&subject=Requested updates to [js_entry_facility_name] facility data&body=Dear API team,%0D%0A%0D%0AI would like to request an update to data for my facility.%0D%0A%0D%0AFacility%0D%0AFacility Name: [js_entry_facility_name]%0D%0AFacility ID: [js_entry_facility_id]%0D%0A%0D%0AAffected data%0D%0AThe following type of information needs to be updated:%0D%0A[Add your response here, for example: facility name, address, phone number, etc.]%0D%0A%0D%0ARequested Update%0D%0APlease make the following changes:%0D%0A[Add your response here, for example, ''change street address from 123 Fake Street to 456 Real Street.'']">email an administrator</a>.'
+      label: 'Locations and contact information'
+    group_facility_data_from_vast:
+      children:
+        - field_facility_locator_api_id
+        - field_address
+        - field_phone_number
+        - field_mobile
+        - field_mental_health_phone
+        - field_facility_hours
+      parent_name: group_locations_and_contact_info
+      weight: 14
+      format_type: tooltip
+      region: hidden
+      format_settings:
+        show_empty_fields: 0
+        id: external-content
+        classes: not-editable
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
+        open: false
+        required_fields: false
+      label: 'Facility data'
 id: node.health_care_local_facility.default
 targetEntityType: node
 bundle: health_care_local_facility
 mode: default
 content:
   field_address:
-    weight: 8
+    weight: 16
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -127,16 +145,16 @@ content:
       link_to_entity: false
     third_party_settings: {  }
   field_facility_hours:
-    weight: 12
+    weight: 20
     label: above
     settings:
-      row_header: true
+      row_header: false
       column_header: false
     third_party_settings: {  }
     type: tablefield
     region: content
   field_facility_locator_api_id:
-    weight: 7
+    weight: 15
     label: inline
     settings:
       link_to_entity: false
@@ -169,23 +187,15 @@ content:
     type: media_thumbnail
     region: content
   field_mental_health_phone:
-    weight: 11
+    weight: 19
     label: inline
     settings:
       title: ''
     third_party_settings: {  }
     type: telephone_link
     region: content
-  field_meta_title:
-    type: string
-    weight: 0
-    region: content
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
   field_mobile:
-    weight: 9
+    weight: 18
     label: inline
     settings:
       format: default
@@ -209,7 +219,7 @@ content:
     type: basic_string
     region: content
   field_phone_number:
-    weight: 10
+    weight: 17
     label: inline
     settings:
       title: ''

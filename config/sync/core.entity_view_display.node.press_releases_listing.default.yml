@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.press_releases_listing.field_enforce_unique_combo
     - field.field.node.press_releases_listing.field_intro_text
     - field.field.node.press_releases_listing.field_meta_tags
-    - field.field.node.press_releases_listing.field_meta_title
     - field.field.node.press_releases_listing.field_office
     - field.field.node.press_releases_listing.field_press_release_blurb
     - node.type.press_releases_listing
@@ -84,14 +83,6 @@ content:
     third_party_settings: {  }
     type: basic_string
     region: content
-  field_meta_title:
-    type: string
-    weight: 0
-    region: content
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
   field_press_release_blurb:
     weight: 2
     label: above
