@@ -35,6 +35,59 @@
   };
 
   /**
+   * Behaviors for hiding elements when user shouldn't have access.
+   * */
+  Drupal.behaviors.nationalDataHideDelete = {
+    attach(context) {
+      const adminRoles = ["administrator"];
+      // If national content and user isn't admin, start operating.
+      if (
+        drupalSettings.gtm_data.contentType === "centralized_content" &&
+        !adminRoles.some((item) =>
+          drupalSettings.gtm_data.userRoles.includes(item)
+        )
+      ) {
+        const inputs = context.querySelectorAll(
+          "#field-content-block-values input"
+        );
+        const buttons = context.querySelectorAll(
+          "#field-content-block-values button"
+        );
+        const drags = context.querySelectorAll(
+          "#field-content-block-values .field-multiple-drag"
+        );
+        const weightToggles = context.querySelectorAll(
+          ".tabledrag-toggle-weight-wrapper"
+        );
+        // Hide paragraph deletes.
+        inputs.forEach((item) => {
+          if (item.value && item.value === "Remove") {
+            item.style.display = "none";
+          }
+        });
+        // Hide options.
+        buttons.forEach((item) => {
+          if (item && item.classList.contains("paragraphs-dropdown-toggle")) {
+            item.style.display = "none";
+          }
+        });
+        // Hide drags.
+        drags.forEach((item) => {
+          if (item) {
+            item.style.display = "none";
+          }
+        });
+        // Hide weight toggles.
+        weightToggles.forEach((item) => {
+          if (item) {
+            item.style.display = "none";
+          }
+        });
+      }
+    },
+  };
+
+  /**
    * Behaviors for manipulating vast output on node forms.
    * */
   Drupal.behaviors.vastDataNodeOutputManipulation = {
