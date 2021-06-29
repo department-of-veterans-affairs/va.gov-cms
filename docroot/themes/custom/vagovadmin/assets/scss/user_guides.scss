@@ -170,3 +170,51 @@ h2.section-header {
     }
   }
 }
+
+// Knowledge base menu, but we could apply this elsewhere.
+
+#block-cmsuserguides {
+  ul {
+    margin-left: -0.5em; // First menu should align with parent div.
+
+    ul {
+      margin-left: 1em; // Any child lists should have left margin.
+      margin-top: 0;
+    }
+  }
+
+  li.menu-item {
+    list-style: none;
+    padding: 0.5em 0 0;
+
+    > * {
+      padding: 0.5em;
+    }
+
+    a {
+      border: 1px solid transparent;
+
+      &:hover {
+        background-color: #eee;
+        border: 1px solid #aaa;
+        text-decoration: none;
+      }
+    }
+
+    .menu-item--active-trail {
+      background-color: #eee;
+    }
+  }
+
+  .knowledge_base__menu__section_label {
+    display: block;
+    font-weight: bold;
+    margin-top: 1em;
+    text-transform: uppercase;
+
+    &:hover {
+      background: none;
+      border: 1px solid transparent;
+    }
+  }
+}
