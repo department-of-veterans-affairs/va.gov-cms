@@ -39,7 +39,7 @@
             });
         },
         theme: "tippy_popover tippy_popover_center",
-        offset: "0, -12",
+        allowHTML: true,
       });
     },
   };
