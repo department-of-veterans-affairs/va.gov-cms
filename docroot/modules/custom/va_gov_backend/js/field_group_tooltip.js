@@ -7,17 +7,20 @@
 
 (function ($, Drupal, Tippy) {
   Drupal.behaviors.vaGovTooltip = {
-    attach: function attach() {
-      Tippy(".tooltip-toggle", {
-        content: function content(reference) {
-          var title = reference.getAttribute("title");
-          reference.removeAttribute("title");
-          return title;
-        },
+    attach: function attach(context) {
+      $(document, context).once("tooltip-toggle").each(function () {
+        Tippy(".tooltip-toggle", {
+          content: function content(reference) {
+            var title = reference.getAttribute("title");
+            reference.removeAttribute("title");
+            return title;
+          },
 
-        theme: "tippy_popover",
-        placement: "left",
-        offset: "40, 0"
+          theme: "tippy_popover",
+          placement: "left",
+          arrow: true,
+          offset: [40, 0]
+        });
       });
     }
   };
