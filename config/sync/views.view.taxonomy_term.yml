@@ -289,7 +289,6 @@ display:
           summary: ''
           description: ''
           columns:
-            views_bulk_operations_bulk_form: views_bulk_operations_bulk_form
             title: title
             nid: nid
             edit_node: edit_node
@@ -303,13 +302,8 @@ display:
             is_locked: is_locked
             vid: vid
           info:
-            views_bulk_operations_bulk_form:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             title:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -392,7 +386,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-          default: title
+          default: changed
           empty_table: false
       row:
         type: fields
