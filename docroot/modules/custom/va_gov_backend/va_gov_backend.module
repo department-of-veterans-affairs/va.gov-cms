@@ -1918,7 +1918,30 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
     _va_gov_backend_disable_autopath_alias($entity);
   }
 
+  if ($entity instanceof TermInterface) {
+    /** @var \Drupal\taxonomy\TermInterface $term */
+    $term = $entity;
+    _va_gov_backend_set_term_weight($term);
+  }
+
   _va_gov_backend_apply_filter_to_tablefield_cells($entity);
+}
+
+/**
+ * Sets administration child term weights to 0 if child of vamc or vc.
+ *
+ * @param \Drupal\Taxonomy\TermInterface $term
+ *   The term on which to perform weight setting operation.
+ */
+function _va_gov_backend_set_term_weight(TermInterface $term) {
+  if ($term->bundle() === 'administration') {
+    /** @var \Drupal\taxonomy\TermStorage $storage */
+    $storage = \Drupal::service('entity_type.manager')->getStorage('taxonomy_term');
+    $parents = $storage->loadAllParents($term->id());
+    if (array_key_exists(8, $parents) || array_key_exists(190, $parents)) {
+      $term->setWeight(0);
+    }
+  }
 }
 
 /**
