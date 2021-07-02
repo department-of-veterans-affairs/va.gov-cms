@@ -13,8 +13,10 @@ dependencies:
     - field.field.node.vamc_operating_status_and_alerts.field_office
     - field.field.node.vamc_operating_status_and_alerts.field_operating_status_emerg_inf
     - node.type.vamc_operating_status_and_alerts
+    - workflows.workflow.editorial
   module:
     - allow_only_one
+    - content_moderation
     - field_group
     - ief_table_view_mode
     - linkit
@@ -25,7 +27,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: details_sidebar
       format_settings:
         description: ''
@@ -38,6 +40,7 @@ third_party_settings:
       region: content
     group_editorial_workflow:
       children:
+        - moderation_state
         - revision_log
       parent_name: ''
       weight: 6
@@ -140,6 +143,12 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
@@ -151,7 +160,6 @@ content:
 hidden:
   created: true
   field_meta_tags: true
-  moderation_state: true
   path: true
   promote: true
   status: true
