@@ -525,3 +525,43 @@ function va_gov_db_update_8027(&$sandbox) {
     '%count' => $count,
   ]);
 }
+
+/**
+ * Set vamc term children to 0 weight for proper sorting.
+ */
+function va_gov_db_update_8028(&$sandbox) {
+  // Grab our terms and set the count.
+  $vamc_items = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('administration', 8, NULL, TRUE);
+  foreach ($vamc_items as $vamc_term) {
+    $vamc_term->set('weight', 0);
+    $vamc_term->save();
+
+  }
+
+  // Tell drupal we processed vamc terms.
+  Drupal::logger('va_gov_db')
+    ->log(LogLevel::INFO, 'VAMC terms processed: %count', [
+      '%count' => count($vamc_items),
+    ]);
+
+}
+
+/**
+ * Set vc term children to 0 weight for proper sorting.
+ */
+function va_gov_db_update_8029(&$sandbox) {
+  // Grab our terms and set the count.
+  $vc_items = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('administration', 190, NULL, TRUE);
+  foreach ($vc_items as $vc_term) {
+    $vc_term->set('weight', 0);
+    $vc_term->save();
+
+  }
+
+  // Tell drupal we processed vc terms.
+  Drupal::logger('va_gov_db')
+    ->log(LogLevel::INFO, 'VC terms processed: %count', [
+      '%count' => count($vc_items),
+    ]);
+
+}
