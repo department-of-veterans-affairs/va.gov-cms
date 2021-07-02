@@ -4,3 +4,21 @@
  * @file
  * Contains va_gov_user.module.
  */
+
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+/**
+ * Redirect user to section on login if they only have one section assigned.
+ *
+ * Implements hook_user_user_login().
+ */
+function va_gov_user_user_login($account) {
+  $sections = \Drupal::service('va_gov_user.user_perms')->getSections($account);
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if (count($sections) === 1 && $route_name === 'user.login') {
+    $alias_manager = \Drupal::service('path.alias_manager');
+    $alias = $alias_manager->getAliasByPath('/taxonomy/term/' . key($sections));
+    $response = new RedirectResponse($alias);
+    $response->send();
+  }
+}
