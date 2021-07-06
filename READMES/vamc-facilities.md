@@ -1,6 +1,6 @@
 # VAMC Facilities
 
-1. [Facility Migrations](migrations-facilities.md#facility-migrations)
+1. [Facility Migrations](migrations-facility.md#facility-migrations)
 2. [Status Updates to Lighthouse](#status-changes-to-lighthouse)
 3. [Facility Service Updates to Lighthouse](#facility-service-changes-to-lighthouse)
 
