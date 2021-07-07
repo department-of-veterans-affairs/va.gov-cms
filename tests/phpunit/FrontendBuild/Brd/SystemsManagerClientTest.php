@@ -5,22 +5,21 @@ namespace tests\phpunit\FrontendBuild\Brd;
 use Aws\MockHandler;
 use Aws\Result;
 use Aws\Ssm\SsmClient;
-use Drupal\KernelTests\KernelTestBase;
+use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * Tests of the Jenkins client.
  *
  * @coversDefaultClass \Drupal\va_gov_build_trigger\Service\SystemsManagerClient
  */
-class SystemsManagerClientTest extends KernelTestBase {
+class SystemsManagerClientTest extends ExistingSiteBase {
 
   /**
-   * {@inheritdoc}
+   * Stash variable to store the original service.
+   *
+   * @var \Aws\Ssm\SsmClient
    */
-  public static $modules = [
-    'datetime',
-    'va_gov_build_trigger',
-  ];
+  protected $originalSsmClient;
 
   /**
    * {@inheritdoc}
@@ -50,7 +49,16 @@ class SystemsManagerClientTest extends KernelTestBase {
         'secret' => 'FAKE AWS SECRET KEY',
       ],
     ]);
+    $this->originalSsmClient = $this->container->get('va_gov_build_trigger.aws_ssm_client');
     $this->container->set('va_gov_build_trigger.aws_ssm_client', $ssmClient);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function tearDown() {
+    $this->container->set('va_gov_build_trigger.aws_ssm_client', $this->originalSsmClient);
+    parent::tearDown();
   }
 
   /**
