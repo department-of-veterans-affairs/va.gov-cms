@@ -1,8 +1,7 @@
 @import 'mixins';
 
 // User guide pages should be narrow for readability.
-.region-breadcrumb,
-.node-columns {
+.layout-container {
   max-width: 1280px;
   @media (min-width: 1320px) {
     margin: 0 auto;
@@ -216,5 +215,25 @@ h2.section-header {
       background: none;
       border: 1px solid transparent;
     }
+  }
+}
+
+.kb__search-result {
+
+  border-bottom: 1px solid #eee;
+  padding: 1em 0;
+  @include va-basic-styling;
+
+  &__title {
+    display: block;
+  }
+
+  &__intro {
+    @include intro-text;
+  }
+
+  &__excerpt {
+    font-style: italic;
+    padding: 1em 0;
   }
 }

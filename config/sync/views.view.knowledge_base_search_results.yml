@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - block.block.knowledge_base_search_form
     - field.storage.node.field_intro_text
     - search_api.index.knowledge_base_search
     - system.menu.documentation
@@ -68,6 +69,10 @@ display:
           quantity: 9
       style:
         type: default
+        options:
+          grouping: {  }
+          row_class: kb__search_result
+          default_row_class: true
       row:
         type: fields
       fields:
@@ -124,7 +129,7 @@ display:
           settings:
             link_to_entity: true
             wrap_tag: h2
-            wrap_class: ''
+            wrap_class: kb__search_result__title
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -181,7 +186,7 @@ display:
             preserve_tags: ''
             html: false
           element_type: ''
-          element_class: ''
+          element_class: kb__search_result__intro
           element_label_type: ''
           element_label_class: ''
           element_label_colon: false
@@ -250,7 +255,7 @@ display:
             preserve_tags: ''
             html: false
           element_type: ''
-          element_class: ''
+          element_class: kb__search_result__excerpt
           element_label_type: ''
           element_label_class: ''
           element_label_colon: false
@@ -338,6 +343,19 @@ display:
           plugin_id: search_api
       title: 'Search CMS Knowledge Base'
       header:
+        entity_block:
+          id: entity_block
+          table: views
+          field: entity_block
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: true
+          target: knowledge_base_search_form
+          view_mode: default
+          bypass_access: false
+          plugin_id: entity
         result:
           id: result
           table: views
@@ -364,6 +382,7 @@ display:
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
+      css_class: kb__search_page
     cache_metadata:
       max-age: -1
       contexts:
