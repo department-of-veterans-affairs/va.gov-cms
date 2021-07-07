@@ -1932,7 +1932,7 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
  *   The term on which to perform weight setting operation.
  */
 function _va_gov_backend_set_term_weight(EntityInterface $entity) {
-  if ($entity->getVocabularyId() === 'administration') {
+  if ($entity->bundle() === 'administration') {
     $storage = \Drupal::service('entity_type.manager')->getStorage('taxonomy_term');
     $parents = $storage->loadAllParents($entity->id());
     if (array_key_exists(8, $parents) || array_key_exists(190, $parents)) {
