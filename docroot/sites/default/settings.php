@@ -229,9 +229,6 @@ if (!empty($webhost_on_cli)) {
   $settings['file_public_base_url'] = "{$webhost}/sites/default/files";
 }
 
-// Disable use of the Symfony autoloader, and use the Composer autoloader instead.
-$settings['class_loader_auto_detect'] = FALSE;
-
 // Memcache-specific settings
 if (extension_loaded('memcache') && !empty($settings['memcache']['servers'])) {
   $settings['cache']['default'] = 'cache.backend.memcache';
