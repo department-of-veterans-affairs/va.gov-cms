@@ -18,6 +18,7 @@
 .field--name-field-intro-text {
   &.field__item {
     @include intro-text;
+    max-width: 100%;
   }
 }
 
@@ -62,8 +63,7 @@ h2.section-header {
 .field--name-field-related-user-guides {
   background: #f1f1f1;
   margin-top: 2rem;
-  max-width: 700px;
-  padding: 1em;
+  padding: 1em 2em;
 
   h2.field__label {
     border-bottom: 1px solid #aeb0b5;
@@ -200,8 +200,18 @@ h2.section-header {
       }
     }
 
-    .menu-item--active-trail {
-      background-color: #eee;
+    &.menu-item--expanded.menu-item--active-trail {
+      font-weight: bold;
+
+      > ul {
+        border-left: 3px solid #ccc;
+        margin: 0.5em;
+        padding-top: 0;
+
+        a {
+          font-weight: normal;
+        }
+      }
     }
   }
 
@@ -213,16 +223,27 @@ h2.section-header {
 
     &:hover {
       background: none;
-      border: 1px solid transparent;
     }
   }
 }
+
+// Last updated
+
+.last_updated {
+  @include va-body-font;
+  border-top: 2px solid #aeb0b5;
+  margin-top: 1.5rem;
+  padding-top: 1em;
+  width: 100%;
+}
+
+
+// Search
 
 .kb__search-result {
 
   border-bottom: 1px solid #eee;
   padding: 1em 0;
-  @include va-basic-styling;
 
   &__title {
     display: block;
@@ -237,3 +258,4 @@ h2.section-header {
     padding: 1em 0;
   }
 }
+
