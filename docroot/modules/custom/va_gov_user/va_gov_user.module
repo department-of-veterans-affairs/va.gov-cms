@@ -16,7 +16,7 @@ function va_gov_user_user_login($account) {
   $sections = \Drupal::service('va_gov_user.user_perms')->getSections($account);
   $route_name = \Drupal::routeMatch()->getRouteName();
   if (count($sections) === 1 && $route_name === 'user.login') {
-    $alias_manager = \Drupal::service('path.alias_manager');
+    $alias_manager = \Drupal::service('path_alias.manager');
     $alias = $alias_manager->getAliasByPath('/taxonomy/term/' . key($sections));
     $response = new RedirectResponse($alias);
     $response->send();
