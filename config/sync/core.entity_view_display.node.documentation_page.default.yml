@@ -8,10 +8,72 @@ dependencies:
     - field.field.node.documentation_page.field_intro_text
     - field.field.node.documentation_page.field_related_user_guides
     - field.field.node.documentation_page.field_table_of_contents_boolean
+    - field.field.node.documentation_page.layout_builder__layout
     - node.type.documentation_page
   module:
     - entity_reference_revisions
+    - layout_builder
+    - layout_discovery
     - user
+third_party_settings:
+  layout_builder:
+    allow_custom: true
+    enabled: true
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          c9715f28-d6eb-4b2c-9e1f-9592c3d5bf36:
+            uuid: c9715f28-d6eb-4b2c-9e1f-9592c3d5bf36
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:documentation_page:field_intro_text'
+              formatter:
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+                type: basic_string
+            additional: {  }
+            weight: 0
+          66f36537-3ebf-4955-bd04-7a3239f02e89:
+            uuid: 66f36537-3ebf-4955-bd04-7a3239f02e89
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:documentation_page:field_content_block'
+              formatter:
+                label: hidden
+                settings:
+                  view_mode: user_guides
+                  link: ''
+                third_party_settings: {  }
+                type: entity_reference_revisions_entity_view
+            additional: {  }
+            weight: 1
+          e5d7df06-6531-4a63-817a-4cfebd8985fd:
+            uuid: e5d7df06-6531-4a63-817a-4cfebd8985fd
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:documentation_page:field_related_user_guides'
+              formatter:
+                label: above
+                settings:
+                  link: true
+                third_party_settings: {  }
+                type: entity_reference_label
+            additional: {  }
+            weight: 3
+        third_party_settings: {  }
 id: node.documentation_page.default
 targetEntityType: node
 bundle: documentation_page
@@ -45,5 +107,6 @@ hidden:
   content_moderation_control: true
   field_administration: true
   field_table_of_contents_boolean: true
+  layout_builder__layout: true
   links: true
   search_api_excerpt: true
