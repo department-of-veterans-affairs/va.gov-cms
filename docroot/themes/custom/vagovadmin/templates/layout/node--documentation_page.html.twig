@@ -105,6 +105,9 @@
 
   <div{{ content_attributes.addClass('node__content') }}>
     {{ content }}
+    <div class="last_updated">
+      Last updated: {{ node.changed.value|date("F j, Y") }}
+    </div>
   </div>
 
 </article>
