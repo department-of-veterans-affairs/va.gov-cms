@@ -174,55 +174,94 @@ h2.section-header {
 
 #block-cmsuserguides {
   ul {
+    border-bottom: 0;
+    font-family: Source Sans Pro, Helvetica Neue, Roboto, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.3;
+    list-style-type: none;
     margin-left: -0.5em; // First menu should align with parent div.
+    padding-left: 0;
 
     ul {
-      margin-left: 1em; // Any child lists should have left margin.
-      margin-top: 0;
+      margin: 0;
+      padding: 0;
     }
   }
 
+  // Outdent the first set of <nolink> menu items.
+  > ul > li.menu-item > .knowledge_base__menu__section_label {
+    padding-left: 0 !important;
+  }
+
   li.menu-item {
+    border-top: 1px solid #e6e6e6;
     list-style: none;
-    padding: 0.5em 0 0;
+    margin-bottom: 0;
+    max-width: unset;
+    padding: 0;
 
     > * {
-      padding: 0.5em;
+      display: block;
+      padding: 0.5rem 1rem;
+    }
+
+    // Hide all 2nd level menus until we build them out.
+    > ul {
+      display: none;
     }
 
     a {
+      background-color: transparent;
       border: 1px solid transparent;
+      color: #5c5c5c;
 
       &:hover {
         background-color: #eee;
-        border: 1px solid #aaa;
+        color: #005ea2;
         text-decoration: none;
       }
     }
 
-    &.menu-item--expanded.menu-item--active-trail {
+    &.menu-item--active-trail {
+      border-left: 3px;
       font-weight: bold;
 
+
       > ul {
-        border-left: 3px solid #ccc;
-        margin: 0.5em;
-        padding-top: 0;
+        padding: 0;
+
+        > li {
+          max-width: unset;
+
+          > * {
+            padding-left: 2rem; // Both links and section labels.
+          }
+        }
+
+        .knowledge_base__menu__section_label {
+          padding-left: 2rem;
+        }
+
 
         a {
+          //padding-left: 2rem;
+          color: #005ea2;
           font-weight: normal;
+          text-decoration: none;
         }
       }
     }
   }
 
   .knowledge_base__menu__section_label {
+    color: #0a0a0a;
     display: block;
     font-weight: bold;
     margin-top: 1em;
-    text-transform: uppercase;
 
     &:hover {
       background: none;
+      color: #0a0a0a;
     }
   }
 }

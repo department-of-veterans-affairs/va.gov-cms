@@ -37,15 +37,17 @@ display:
           skip_access: false
           preserve_facet_query_args: false
       exposed_form:
-        type: basic
+        type: input_required
         options:
           submit_button: Search
-          reset_button: false
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
+          text_input_required: 'Select any filter and click on Apply to see results'
+          text_input_required_format: rich_text
       pager:
         type: full
         options:
@@ -409,9 +411,10 @@ display:
         description: ''
         expanded: false
         parent: 'menu_link_content:34a97e62-ff2e-4595-979f-29667167a8a0'
-        weight: 0
+        weight: -56
         context: '0'
         menu_name: documentation
+        enabled: false
     cache_metadata:
       max-age: -1
       contexts:
