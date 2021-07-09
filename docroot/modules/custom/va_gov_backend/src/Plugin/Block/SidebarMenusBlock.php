@@ -9,6 +9,7 @@ use Drupal\Core\Menu\MenuLinkManager;
 use Drupal\Core\Menu\MenuLinkTree;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -118,7 +119,7 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
     $node = $this->routeMatch->getParameters()->get('node');
     $menu_name = $this->getMenuName();
     // Before we start doing stuff, make sure we have a node object.
-    if (!empty($node)) {
+    if ($node instanceof NodeInterface) {
 
       $route_params = ['node' => $node->id()];
       // Load the menu.
