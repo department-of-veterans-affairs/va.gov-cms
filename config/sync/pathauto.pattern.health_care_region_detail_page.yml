@@ -5,18 +5,19 @@ dependencies:
   module:
     - node
 id: health_care_region_detail_page
-label: 'Detail Page'
+label: 'Menu item based'
 type: 'canonical_entities:node'
 pattern: '[node:menu-link:parents:menu-path-use-parent-url]/[node:title]'
 selection_criteria:
-  f5bd0167-aad9-4e76-9c35-7aa6a2b092ab:
+  88921afc-b786-4244-8a72-cc85c473fb16:
     id: node_type
     bundles:
       health_care_region_detail_page: health_care_region_detail_page
+      leadership_listing: leadership_listing
     negate: false
     context_mapping:
       node: node
-    uuid: f5bd0167-aad9-4e76-9c35-7aa6a2b092ab
+    uuid: 88921afc-b786-4244-8a72-cc85c473fb16
 selection_logic: and
 weight: -8
 relationships: {  }
