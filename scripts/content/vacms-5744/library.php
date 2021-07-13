@@ -22,11 +22,14 @@ const SITE_ALERT_MESSAGE = <<<EOF
 EOF;
 
 // User ID used to make these changes.
-const USER_ID = 1;
+const USER_ID = 1317;
 
 // Exception codes.
 const EXCEPTION_COULD_NOT_LOCK = 1;
 const EXCEPTION_UNEXPECTED_DIFFERENCES = 2;
+
+// A weird node I don't want to deal with.
+const ELDRITCH_NODE_ID = 23;
 
 /**
  * Log a message.
@@ -162,7 +165,7 @@ function compare_arrays(array $array1, array $array2): array {
  * @return array
  *   A filter, minus some keys we could do without.
  */
-function filter_array(array $array): array {
+function filter_array_junk(array $array): array {
   $ignore_keys = [
     'changed',
     'id',
@@ -180,7 +183,7 @@ function filter_array(array $array): array {
       continue;
     }
     if (is_array($value)) {
-      $filtered_array = filter_array($value);
+      $filtered_array = filter_array_junk($value);
       if (!empty($filtered_array)) {
         $result[$key] = $filtered_array;
       }
@@ -204,7 +207,7 @@ function filter_array(array $array): array {
  *   An array composed of the differences between the two arrays.
  */
 function compare_filtered_arrays(array $array1, array $array2): array {
-  return compare_arrays(filter_array($array1), filter_array($array2));
+  return compare_arrays(filter_array_junk($array1), filter_array_junk($array2));
 }
 
 /**
@@ -249,7 +252,7 @@ function get_multiply_parented_paragraph_hash(string $parent_type = NULL): array
   $query->join('node_revision', 'node', "node.nid=paragraphs_item_revision.parent_id");
   $query->addField('paragraphs_item_revision', 'id', 'paragraph_id');
   $query->addField('paragraphs_item_revision', 'parent_id');
-  $query->condition('parent_id', "23", "<>");
+  $query->condition('parent_id', ELDRITCH_NODE_ID, "<>");
   $query->condition('parent_id', "0", "<>");
   if (isset($parent_type)) {
     $query->condition('parent_type', $parent_type);
@@ -282,10 +285,10 @@ function get_multiply_parented_paragraph_hash(string $parent_type = NULL): array
  *   An associative array with the form $nid => [ $pid1, $pid2, ...].
  */
 function get_multiply_parented_paragraph_parent_hash(string $parent_type = NULL): array {
-  $pidHash = get_multiply_parented_paragraph_hash($parent_type);
+  $pid_hash = get_multiply_parented_paragraph_hash($parent_type);
 
   $result = [];
-  foreach ($pidHash as $pid => $nids) {
+  foreach ($pid_hash as $pid => $nids) {
     foreach ($nids as $nid) {
       $nid = (int) $nid;
       $result[$nid] = $result[$nid] ?? [];
@@ -316,7 +319,7 @@ function get_all_parent_ids_for_paragraph(int $pid): array {
   $query = $database->select('paragraphs_item_revision_field_data', 'paragraphs_item_revision');
   $query->addField('paragraphs_item_revision', 'parent_id');
   $query->condition('id', $pid);
-  $query->condition('parent_id', "23", "<>");
+  $query->condition('parent_id', ELDRITCH_NODE_ID, "<>");
   $query->condition('parent_id', "0", "<>");
 
   $result = array_map('intval', $query->distinct()->execute()->fetchCol());
@@ -382,7 +385,7 @@ function get_misparented_paragraph_rows(string $parent_type, string $field_name)
   $query->addField('paragraph', 'id', 'target_id');
   $query->addField('paragraph', 'revision_id', 'target_revision_id');
   $query->condition('parent.entity_id', "0", "<>");
-  $query->condition('parent.entity_id', "23", "<>");
+  $query->condition('parent.entity_id', ELDRITCH_NODE_ID, "<>");
   $query->condition('paragraph.id', "0", "<>");
   $query->condition('paragraph.parent_type', $parent_type);
   $query->condition('paragraph.parent_field_name', $field_name);
@@ -520,27 +523,6 @@ function get_node_serialization(NodeInterface $node): string {
 }
 
 /**
- * Get the latest revision of a node.
- *
- * @param int $nid
- *   The node ID.
- *
- * @return int
- *   The latest revision ID.
- */
-function get_node_latest_revision(int $nid): int {
-  $entity_type_manager = \Drupal::entityTypeManager();
-  $node_storage = $entity_type_manager->getStorage('node');
-  $node_default_revision = $node_storage->load($nid);
-  if (!$node_default_revision) {
-    throw new \Exception("Could not load node $nid!");
-  }
-  $revision_ids = $node_storage->revisionIds($node_default_revision);
-  $result = $revision_ids[array_key_last($revision_ids)];
-  return $result;
-}
-
-/**
  * Load the latest revision of a node.
  *
  * @param int $nid
@@ -552,7 +534,7 @@ function get_node_latest_revision(int $nid): int {
 function get_node_at_latest_revision(int $nid): NodeInterface {
   $entity_type_manager = \Drupal::entityTypeManager();
   $node_storage = $entity_type_manager->getStorage('node');
-  $result = $node_storage->loadRevision(get_node_latest_revision($nid));
+  $result = $node_storage->loadRevision($node_storage->getLatestRevisionId($nid));
   return $result;
 }
 
@@ -571,7 +553,9 @@ function get_node_at_latest_revision(int $nid): NodeInterface {
  *   TRUE if the node needs to be repaired, otherwise FALSE.
  */
 function is_currently_incompletely_cloned_node(int $nid): bool {
-  $latest_revision_id = get_node_latest_revision($nid);
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $node_storage = $entity_type_manager->getStorage('node');
+  $latest_revision_id = $node_storage->getLatestRevisionId($nid);
   $paragraph_field_names = get_paragraph_field_names();
   foreach ($paragraph_field_names as $field_name) {
     if (is_currently_incompletely_cloned_node_revision($nid, $latest_revision_id, $field_name)) {

@@ -24,6 +24,9 @@ require_once __DIR__ . '/library.php';
 
 $locked_nids = [];
 
+create_site_alert();
+switch_user();
+
 $all_nids = get_currently_improperly_cloned_nodes();
 foreach ($all_nids as $key => $nid) {
   try {
@@ -46,3 +49,5 @@ foreach ($all_nids as $key => $nid) {
 if (count($locked_nids)) {
   log_message("The following nodes could not be locked: " . json_encode($locked_nids));
 }
+
+delete_site_alert();
