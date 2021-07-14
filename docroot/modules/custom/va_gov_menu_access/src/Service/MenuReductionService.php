@@ -256,7 +256,6 @@ class MenuReductionService {
       ->getStorage('menu_link_content')
       ->loadByProperties([
         'uuid' => array_keys($parent_options_menu_ids),
-        'enabled' => 1,
       ]);
 
     // Loop through them, and decide whether it should be allowed in options.
