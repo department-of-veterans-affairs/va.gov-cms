@@ -568,9 +568,12 @@ class MenuReductionService {
    *   The form array by reference.
    */
   protected function preventUnintendedChangeOfParent(array &$form) {
-    // Check to see if the current parent exists in the reduced form.
-    if (!isset($form['menu']['link']['menu_parent']['#options'][$this->currentMenuParent]) &&
-    !$this->formState->getFormObject()->getEntity()->isNew()) {
+    if ($this->formState->getFormObject()->getEntity()->isNew()) {
+      // Reapply the value that was set when submitted.
+      $form['menu']['link']['menu_parent']['#value'] = $this->currentMenuParent;
+    }
+    // This is not new so check the current parent exists in the reduced form.
+    elseif (!isset($form['menu']['link']['menu_parent']['#options'][$this->currentMenuParent])) {
       // Parent does not exist in reduced form, Put the original parent options
       // back to prevent data loss. The existing menu setting should not be
       // allowed, but it exists, so allow it to persist. It may have been
