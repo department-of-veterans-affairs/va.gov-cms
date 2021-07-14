@@ -1,21 +1,27 @@
-uuid: 05e99e8d-eee9-40c5-bfaf-548e87a5cbfc
+uuid: b1f83928-259c-4c04-8f8a-9d5e81b59df6
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.paragraph.user_guides
     - field.field.paragraph.basic_accordion.field_header
     - field.field.paragraph.basic_accordion.field_rich_wysiwyg
     - paragraphs.paragraphs_type.basic_accordion
   module:
+    - layout_builder
     - text
-id: paragraph.basic_accordion.default
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: paragraph.basic_accordion.user_guides
 targetEntityType: paragraph
 bundle: basic_accordion
-mode: default
+mode: user_guides
 content:
   field_header:
     weight: 0
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }

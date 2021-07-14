@@ -1,0 +1,50 @@
+uuid: de94d107-1d56-4b1a-8754-8ada302f7e61
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.user_guides
+    - field.field.paragraph.q_a_section.field_accordion_display
+    - field.field.paragraph.q_a_section.field_questions
+    - field.field.paragraph.q_a_section.field_section_header
+    - field.field.paragraph.q_a_section.field_section_intro
+    - paragraphs.paragraphs_type.q_a_section
+  module:
+    - entity_reference_revisions
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: paragraph.q_a_section.user_guides
+targetEntityType: paragraph
+bundle: q_a_section
+mode: user_guides
+content:
+  field_questions:
+    type: entity_reference_revisions_entity_view
+    weight: 2
+    label: visually_hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_section_header:
+    weight: 0
+    label: visually_hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_section_intro:
+    weight: 1
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+hidden:
+  field_accordion_display: true
+  search_api_excerpt: true
