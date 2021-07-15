@@ -129,10 +129,10 @@ class MenuReductionService {
       'menu_parent',
     ]);
     $this->originalMenuParentOptions = $form['menu']['link']['menu_parent']['#options'] ?? [];
-    $this->setEmptyMenuParentSelector($form);
 
     if ($this->userPermsService->hasAdminRole()) {
       // User is an admin so no menu reduction needed.
+      $this->setEmptyMenuParentSelector($form);
       $this->nuke();
       return;
     }
@@ -150,6 +150,7 @@ class MenuReductionService {
     }
 
     $this->applyVamcMenuRulesForDetailPage($form);
+    $this->setEmptyMenuParentSelector($form);
     $this->nuke();
   }
 
