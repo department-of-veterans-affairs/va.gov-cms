@@ -17,6 +17,7 @@ jobs:
           tools: composer:v2, phpstan
       - name: Run PHPStan
         run: |
+          composer install
           bin/phpstan analyze \
             docroot/modules/custom \
             docroot/themes/custom \
