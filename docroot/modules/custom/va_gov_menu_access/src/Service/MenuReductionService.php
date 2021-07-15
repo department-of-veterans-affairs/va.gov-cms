@@ -251,13 +251,7 @@ class MenuReductionService {
     $enabled_count = 0;
 
     $parent_options_menu_ids = $this->extractMenuIds($form['menu']['link']['menu_parent']['#options']);
-
-    // Load up all our menu items at once.
-    $parent_menu_items = $this->entityTypeManager
-      ->getStorage('menu_link_content')
-      ->loadByProperties([
-        'uuid' => array_keys($parent_options_menu_ids),
-      ]);
+    $parent_menu_items = $this->loadParentMenuItems($parent_options_menu_ids);
 
     // Loop through them, and decide whether it should be allowed in options.
     foreach ($parent_menu_items as $key => $menu_item) {
@@ -282,6 +276,27 @@ class MenuReductionService {
       $form['menu']['link']['menu_parent']['#attributes']['class'][] = 'no-available-menu-targets';
     }
     $this->preventUnintendedChangeOfParent($form);
+  }
+
+  /**
+   * Loads and returns the entities for all menu parents.
+   *
+   * @param array $parent_options_menu_ids
+   *   Menu ids.
+   *
+   * @return array
+   *   An array of menu entities loaded.
+   */
+  protected function loadParentMenuItems(array $parent_options_menu_ids) {
+    $parent_menu_items = [];
+    if (!empty($parent_options_menu_ids)) {
+      $parent_menu_items = $this->entityTypeManager
+        ->getStorage('menu_link_content')
+        ->loadByProperties([
+          'uuid' => array_keys($parent_options_menu_ids),
+        ]);
+    }
+    return $parent_menu_items;
   }
 
   /**
