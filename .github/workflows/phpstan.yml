@@ -15,4 +15,4 @@ jobs:
       - name: Composer install
         run: 'COMPOSER_MEMORY_LIMIT=-1 composer install'
       - name: PHPStan
-        run: 'php docroot/vendor/bin/phpstan analyze docroot/modules/custom docroot/themes/custom tests'
+        run: 'php bin/phpstan analyze docroot/modules/custom docroot/themes/custom tests'
