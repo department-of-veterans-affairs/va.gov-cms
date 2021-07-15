@@ -10,13 +10,14 @@ jobs:
         with:
           path: /tmp/composer-cache
           key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
-      - uses: php-actions/composer@v6
+      - uses: shivammathur/setup-php@v2
         with:
-          php_extensions: zip gd
-      - uses: php-actions/phpstan@v3
-        with:
-          version: 8.4.0
-          php_version: 7.3
-          php_extensions: dom curl libxml mbstring zip pdo mysql pdo_mysql gd
-          configuration: 'phpstan.neon'
-          path: 'docroot/modules/custom docroot/themes/custom tests'
+          php-version: '7.4'
+          extensions: zip gd
+          tools: composer:v2, phpstan
+      - name: Run PHPStan
+        run: |
+          bin/phpstan analyze \
+            docroot/modules/custom \
+            docroot/themes/custom \
+            tests
