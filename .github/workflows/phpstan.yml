@@ -6,24 +6,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: shivammathur/setup-php@v2
+      - uses: actions/cache@v2
         with:
-          coverage: "none"
-          php-version: 7.3
-          tools: composer:v2
-          extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, gd
-      - name: Composer install
-        run: 'COMPOSER_MEMORY_LIMIT=-1 composer install'
-#       - uses: php-actions/composer@v6
-#         with:
-#           php_version: 7.3
-#           version: 2
-#           command: install --no-scripts --ignore-platform-reqs
-      - name: PHPStan
-        uses: GeneaLabs/action-reviewdog-phpstan@1.0.0
+          path: /tmp/composer-cache
+        key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+      - uses: php-actions/composer@v6
         with:
-          github_token: '${{ github.token }}'
-          level: 'warning'
-          reporter: 'github-pr-review'
-          target_directory: 'docroot/modules/custom docroot/themes/custom tests'
-          args: '-c phpstan.neon'
+          github_token: ${{ secrets.github_token }}
+      - uses: php-actions/phpstan@v3
+        with:
+          version: 8.4.0
+          php_version: 7.3
+          php_extensions: dom curl libxml mbstring zip pdo mysql pdo_mysql gd
+          configuration: 'phpstan.neon'
+          path: 'docroot/modules/custom docroot/themes/custom tests'
