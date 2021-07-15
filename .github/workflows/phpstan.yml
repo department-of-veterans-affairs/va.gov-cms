@@ -1,0 +1,18 @@
+name: phpstan
+on: [pull_request]
+jobs:
+  phpstan:
+    name: runner / phpstan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: php-actions/composer@v5
+      - uses: php-actions/phpstan@v3
+        with:
+          version: 8.4.0
+          php_version: 7.3
+          configuration: 'phpstan.neon'
+          path:
+            - 'docroot/modules/custom'
+            - 'docroot/themes/custom'
+            - 'tests'
