@@ -12,12 +12,7 @@ jobs:
           php-version: 7.3
           tools: composer:v2
           extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, gd
-      - name: Install dependencies
+      - name: Composer install
         run: 'COMPOSER_MEMORY_LIMIT=-1 composer install'
-      - uses: php-actions/phpstan@v3
-        with:
-          version: 8.4.0
-          php_version: 7.3
-          configuration: 'phpstan.neon'
-          path: 'docroot/modules/custom docroot/themes/custom tests'
-        # continue-on-error: true
+      - name: PHPStan
+        run: 'php vendor/bin/phpstan analyze docroot/modules/custom docroot/themes/custom tests'
