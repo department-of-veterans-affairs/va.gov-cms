@@ -23,7 +23,6 @@ jobs:
         uses: GeneaLabs/action-reviewdog-phpstan@1.0.0
         with:
           github_token: '${{ github.token }}'
-          level: 'error'
-          phpstan_level: 4
+          level: 'warning'
           reporter: 'github-pr-review'
           target_directory: 'docroot/modules/custom docroot/themes/custom tests'
