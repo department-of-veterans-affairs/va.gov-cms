@@ -9,7 +9,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: /tmp/composer-cache
-        key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
       - uses: php-actions/composer@v6
         with:
           github_token: ${{ secrets.github_token }}
