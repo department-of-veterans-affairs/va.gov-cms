@@ -14,5 +14,16 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, gd
       - name: Composer install
         run: 'COMPOSER_MEMORY_LIMIT=-1 composer install'
+#       - uses: php-actions/composer@v6
+#         with:
+#           php_version: 7.3
+#           version: 2
+#           command: install --no-scripts --ignore-platform-reqs
       - name: PHPStan
-        run: 'php bin/phpstan analyze docroot/modules/custom docroot/themes/custom tests'
+        uses: GeneaLabs/action-reviewdog-phpstan@1.0.0
+        with:
+          github_token: '${{ github.token }}'
+          level: 'error'
+          phpstan_level: 4
+          reporter: 'github-pr-review'
+          target_directory: 'docroot/modules/custom docroot/themes/custom tests'
