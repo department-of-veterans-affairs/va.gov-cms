@@ -12,8 +12,5 @@ jobs:
           version: 8.4.0
           php_version: 7.3
           configuration: 'phpstan.neon'
-          path:
-            - 'docroot/modules/custom'
-            - 'docroot/themes/custom'
-            - 'tests'
+          path: 'docroot/modules/custom docroot/themes/custom tests'
         # continue-on-error: true
