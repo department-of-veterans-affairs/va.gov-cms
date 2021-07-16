@@ -1,0 +1,49 @@
+uuid: 1a86c83d-b117-488d-9a4e-ce5848f5360f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.user_guides
+    - field.field.paragraph.collapsible_panel_item.field_title
+    - field.field.paragraph.collapsible_panel_item.field_va_paragraphs
+    - field.field.paragraph.collapsible_panel_item.field_wysiwyg
+    - paragraphs.paragraphs_type.collapsible_panel_item
+  module:
+    - entity_reference_revisions
+    - layout_builder
+    - text
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: paragraph.collapsible_panel_item.user_guides
+targetEntityType: paragraph
+bundle: collapsible_panel_item
+mode: user_guides
+content:
+  field_title:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_va_paragraphs:
+    type: entity_reference_revisions_entity_view
+    weight: 2
+    region: content
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  field_wysiwyg:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden:
+  search_api_excerpt: true
