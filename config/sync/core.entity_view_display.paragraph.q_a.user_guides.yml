@@ -1,0 +1,43 @@
+uuid: b38f7d78-9fba-450d-b8d5-21a13ee8bde0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.user_guides
+    - field.field.paragraph.q_a.field_answer
+    - field.field.paragraph.q_a.field_question
+    - paragraphs.paragraphs_type.q_a
+  module:
+    - entity_reference_revisions
+    - layout_builder
+    - string_field_formatter
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: paragraph.q_a.user_guides
+targetEntityType: paragraph
+bundle: q_a
+mode: user_guides
+content:
+  field_answer:
+    type: entity_reference_revisions_entity_view
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  field_question:
+    weight: 0
+    label: hidden
+    settings:
+      wrap_tag: h3
+      wrap_class: ''
+      link_to_entity: false
+    third_party_settings: {  }
+    type: plain_string_formatter
+    region: content
+hidden:
+  search_api_excerpt: true
