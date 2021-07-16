@@ -19,10 +19,8 @@ source:
   item_selector: ''
   urls:
     - 'https://www.alaska.va.gov/locations/facilities.asp'
-    - 'https://www.albany.va.gov/locations/facilities.asp'
     - 'https://www.albuquerque.va.gov/locations/facilities.asp'
     - 'https://www.alexandria.va.gov/locations/facilities.asp'
-    - 'https://www.altoona.va.gov/locations/facilities.asp'
     - 'https://www.amarillo.va.gov/locations/facilities.asp'
     - 'https://www.annarbor.va.gov/locations/facilities.asp'
     - 'https://www.asheville.va.gov/locations/facilities.asp'
@@ -85,7 +83,6 @@ source:
     - 'https://www.kansascity.va.gov/locations/facilities.asp'
     - 'https://www.lasvegas.va.gov/locations/facilities.asp'
     - 'https://www.leavenworth.va.gov/locations/facilities.asp'
-    - 'https://www.lebanon.va.gov/locations/facilities.asp'
     - 'https://www.lexington.va.gov/locations/facilities.asp'
     - 'https://www.littlerock.va.gov/locations/facilities.asp'
     - 'https://www.lomalinda.va.gov/locations/facilities.asp'
@@ -105,7 +102,6 @@ source:
     - 'https://www.minneapolis.va.gov/locations/facilities.asp'
     - 'https://www.montana.va.gov/locations/facilities.asp'
     - 'https://www.mountainhome.va.gov/locations/facilities.asp'
-    - 'https://www.muskogee.va.gov/locations/facilities.asp'
     - 'https://www.nebraska.va.gov/locations/facilities.asp'
     - 'https://www.newjersey.va.gov/locations/facilities.asp'
     - 'https://www.neworleans.va.gov/locations/facilities.asp'
@@ -155,8 +151,7 @@ source:
     - 'https://www.westpalmbeach.va.gov/locations/facilities.asp'
     - 'https://www.whiteriver.va.gov/locations/facilities.asp'
     - 'https://www.wichita.va.gov/locations/facilities.asp'
-    - 'https://www.wilkes-barre.va.gov/locations/facilities.asp'
-    - 'https://www.wilmington.va.gov/locations/facilities.asp'
+    - 'https://www.albany.va.gov/locations/facilities.asp'
   request_options:
     allow_redirects: false
   delimiter: "\t"
@@ -276,13 +271,13 @@ process:
     default_value: 'Update of status by migration.'
   revision_timestamp:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   revision_uid:
     plugin: default_value
     default_value: 1317
   changed:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   langcode:
     plugin: default_value
     default_value: en

@@ -31,6 +31,7 @@ $config['migrate_plus.migration.va_node_form']['source']['urls'] = ['http://va-g
 
 $settings['trusted_host_patterns'] = [
     'localhost',
+    '127.0.0.1',
     'va-gov-cms.lndo.site',
 ];
 
@@ -38,3 +39,7 @@ $settings['va_gov_frontend_build_type'] = 'lando';
 $settings['va_gov_frontend_url'] = $webhost_on_cli . '/static';
 $settings['va_gov_app_root'] = getenv('LANDO_MOUNT');
 $settings['va_gov_web_root'] = getenv('LANDO_MOUNT') . '/web';
+
+$settings['memcache']['servers'] = [
+  'memcache:11211' => 'default',
+];

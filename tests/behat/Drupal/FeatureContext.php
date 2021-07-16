@@ -3,18 +3,28 @@
 namespace CustomDrupal;
 
 use Behat\Behat\Context\SnippetAcceptingContext;
-use DevShop\Behat\DrupalExtension\Context\DevShopDrupalContext;
-use Drupal\Component\Utility\Crypt;
+use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Behat\Testwork\Tester\Result\TestResult;
+use Drupal\DrupalExtension\Context\DrushContext;
+use Drupal\DrupalExtension\Context\RawDrupalContext;
+use Drupal\user\Entity\User;
 
 /**
  * FeatureContext class defines custom step definitions for Behat.
  */
-class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingContext {
+class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
 
   use \Traits\FieldTrait;
   use \Traits\UserEntityTrait;
   use \Traits\ContentTrait;
   use \Traits\GroupTrait;
+
+  /**
+   * Make DrushContext available.
+   *
+   * @var \Drupal\DrupalExtension\Context\DrushContext
+   */
+  private $drushContext;
 
   /**
    * Private storage.
@@ -488,95 +498,6 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   }
 
   /**
-   * Check that the Google Tag Manager dataLayer value is set.
-   *
-   * @Given the GTM data layer value for :arg1 should be set
-   */
-  public function googleTagManagerValueShouldBeSet($key) {
-    $property_value = $this->getGoogleTagManagerValue($key);
-    if (empty($property_value)) {
-      throw new \Exception("The data layer value for \"{$key}\" should be set.");
-    }
-  }
-
-  /**
-   * Check that the Google Tag Manager dataLayer value is set correctly.
-   *
-   * @Given the GTM data layer value for :arg1 should be set to :arg2
-   */
-  public function googleTagManagerValueShouldBeSetTo($key, $value) {
-    $property_value = $this->getGoogleTagManagerValue($key);
-    if ($value != $property_value) {
-      throw new \Exception("The data layer value for \"{$key}\" should be {$value}, but it is actually {$property_value}.");
-    }
-  }
-
-  /**
-   * Check that the dataLayer value is not set.
-   *
-   * @Given the GTM data layer value for :arg1 should be unset
-   * @Given the GTM data layer value for :arg1 should not be set
-   */
-  public function googleTagManagerValueShouldBeUnset($key) {
-    if ($this->hasGoogleTagManagerValue($key)) {
-      $value = $this->getGoogleTagManagerValue($key);
-      if (!empty($value)) {
-        throw new \Exception("The data layer value for \"{$key}\" should not be set, but it is set to \"{$value}\".");
-      }
-    }
-  }
-
-  /**
-   * Check that the dataLayer value is set correctly.
-   *
-   * @Given the GTM data layer user id should be correctly hashed
-   */
-  public function googleTagManagerUserIdShouldBeCorrectlyHashed() {
-    $property_value = $this->getGoogleTagManagerValue('userId');
-    $hashed_value = Crypt::hashBase64((string) $this->getUserManager()->getCurrentUser()->uid);
-    if ($hashed_value != $property_value) {
-      throw new \Exception("The userId value was \"{$property_value}\" , but it should be \"{$hashed_value}\".");
-    }
-  }
-
-  /**
-   * Indicate whether the dataLayer has a value for the specified key.
-   *
-   * @param string $key
-   *   The dataLayer key.
-   *
-   * @return mixed
-   *   Some value.
-   *
-   * @throws \Exception
-   */
-  protected function hasGoogleTagManagerValue($key) {
-    $drupal_settings = $this->getDrupalSettings();
-    $gtm_data = $drupal_settings['gtm_data'];
-    return isset($gtm_data[$key]);
-  }
-
-  /**
-   * Get Google Tag Manager dataLayer value for specified key.
-   *
-   * @param string $key
-   *   The dataLayer key.
-   *
-   * @return mixed
-   *   Some value.
-   *
-   * @throws \Exception
-   */
-  protected function getGoogleTagManagerValue($key) {
-    $drupal_settings = $this->getDrupalSettings();
-    $gtm_data = $drupal_settings['gtm_data'];
-    if (isset($gtm_data[$key])) {
-      return $gtm_data[$key];
-    }
-    throw new \Exception($key . ' not found.');
-  }
-
-  /**
    * Get Drupal Settings object.
    *
    * @return array
@@ -598,7 +519,7 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
    * @Then the :arg1 flag for node :arg2 should be set for me
    */
   public function theFlagForNodeShouldBeSetForTheRevisionEditor(string $flagName, string $title) {
-    $account = user_load($this->getUserManager()->getCurrentUser()->uid);
+    $account = User::load($this->getUserManager()->getCurrentUser()->uid);
     $flag_service = \Drupal::service('flag');
     $flag = $flag_service->getFlagById($flagName);
     if (empty($flag)) {
@@ -617,33 +538,50 @@ class FeatureContext extends DevShopDrupalContext implements SnippetAcceptingCon
   }
 
   /**
-   * Ensure workbench access sections are empty.
+   * Prepare DrushContext so we can use Drush commands easily.
    *
-   * @Given my workbench access sections are not set
+   * @BeforeScenario
    */
-  public function myWorkbenchAccessSectionsAreNotSet() {
-    $user = user_load($this->getUserManager()->getCurrentUser()->uid);
-    $section_scheme = \Drupal::entityTypeManager()->getStorage('access_scheme')->load('section');
-    $section_storage = \Drupal::service('workbench_access.user_section_storage');
-    $current_sections = $section_storage->getUserSections($section_scheme, $user);
-    if (!empty($current_sections)) {
-      $section_storage->removeUser($section_scheme, $user, $current_sections);
-      drupal_flush_all_caches();
+  public function gatherContexts(BeforeScenarioScope $scope) {
+    $this->drushContext = $scope->getEnvironment()->getContext(DrushContext::CLASS);
+  }
+
+  /**
+   * Print watchdog logs after any failed step.
+   *
+   * @AfterStep
+   */
+  public function printWatchdogLogAfterFailedStep($event) {
+    if ($event->getTestResult()->getResultCode() === TestResult::FAILED) {
+      $this->drushContext->assertDrushCommand('wd-show');
+      $this->drushContext->printLastDrushOutput();
     }
   }
 
   /**
-   * Sets workbench access sections explicitly.
+   * Print HTML after any failed step.
    *
-   * @Then my workbench access sections are set to :arg1
+   * @AfterStep
    */
-  public function myWorkbenchAccessSectionsAreSetTo($new_sections) {
-    $this->myWorkbenchAccessSectionsAreNotSet();
-    $user = user_load($this->getUserManager()->getCurrentUser()->uid);
-    $section_scheme = \Drupal::entityTypeManager()->getStorage('access_scheme')->load('section');
-    $section_storage = \Drupal::service('workbench_access.user_section_storage');
-    $section_storage->addUser($section_scheme, $user, explode(',', $new_sections));
-    drupal_flush_all_caches();
+  public function printHtmlAfterFailedStep($event) {
+    if ($event->getTestResult()->getResultCode() === TestResult::FAILED) {
+      $dumpPath = 'behat_failures';
+      $session = $this->getSession();
+      $page = $session->getPage();
+      $html = $page->getContent();
+      $text = preg_replace('/\s+/u', ' ', $page->getText());
+      $date = date('Y-m-d--H-i-s');
+      $featureFilePath = $event->getFeature()->getFile();
+      $featureFileName = basename($featureFilePath);
+      if (!file_exists($dumpPath)) {
+        mkdir($dumpPath);
+      }
+      $htmlPath = "$dumpPath/$date-$featureFileName.html";
+      $textPath = "$dumpPath/$date-$featureFileName.txt";
+      file_put_contents($htmlPath, $html);
+      file_put_contents($textPath, $text);
+      echo "\nDumped HTML to $htmlPath\nDumped Text to $textPath\n";
+    }
   }
 
 }

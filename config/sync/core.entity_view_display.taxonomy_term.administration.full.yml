@@ -1,0 +1,88 @@
+uuid: 4081c6b1-3476-4d78-9c1f-b497d6b1383b
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.full
+    - field.field.taxonomy_term.administration.field_description
+    - field.field.taxonomy_term.administration.field_email_updates_link_text
+    - field.field.taxonomy_term.administration.field_email_updates_url
+    - field.field.taxonomy_term.administration.field_link
+    - field.field.taxonomy_term.administration.field_product
+    - field.field.taxonomy_term.administration.field_social_media_links
+    - taxonomy.vocabulary.administration
+    - views.view.taxonomy_term
+  module:
+    - layout_builder
+    - layout_discovery
+    - link
+    - text
+    - views
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: true
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: Main
+        components:
+          938569e2-806b-412c-b625-23ec9710f176:
+            uuid: 938569e2-806b-412c-b625-23ec9710f176
+            region: content
+            configuration:
+              id: 'views_block:taxonomy_term-taxonomy_term_listing_block'
+              label: ''
+              provider: views
+              label_display: visible
+              views_label: ''
+              items_per_page: none
+              context_mapping: {  }
+            additional: {  }
+            weight: 0
+          2448f45e-d3ed-4735-9adc-eaa1b51a0511:
+            uuid: 2448f45e-d3ed-4735-9adc-eaa1b51a0511
+            region: content
+            configuration:
+              id: 'views_block:taxonomy_term-block_1'
+              label: ''
+              provider: views
+              label_display: visible
+              views_label: ''
+              items_per_page: none
+              context_mapping: {  }
+            additional: {  }
+            weight: 1
+        third_party_settings: {  }
+id: taxonomy_term.administration.full
+targetEntityType: taxonomy_term
+bundle: administration
+mode: full
+content:
+  description:
+    label: above
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_link:
+    weight: 3
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+hidden:
+  field_description: true
+  field_email_updates_link_text: true
+  field_email_updates_url: true
+  field_product: true
+  field_social_media_links: true
+  search_api_excerpt: true

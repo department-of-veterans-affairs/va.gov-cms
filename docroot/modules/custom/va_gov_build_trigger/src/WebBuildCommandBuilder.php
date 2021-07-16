@@ -7,7 +7,7 @@ use Drupal\Core\Site\Settings;
 /**
  * A service to build out commands array.
  */
-class WebBuildCommandBuilder {
+class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
 
   public const COMPOSER_HOME = 'va_gov_composer_home';
   public const PATH_TO_COMPOSER = 'va_gov_path_to_composer';
@@ -20,13 +20,6 @@ class WebBuildCommandBuilder {
    * @var string
    */
   protected $appRoot;
-
-  /**
-   * Use CMS Export.
-   *
-   * @var bool
-   */
-  protected $useContentExport;
 
   /**
    * Composer Home Directory.
@@ -50,31 +43,30 @@ class WebBuildCommandBuilder {
   protected $pathToWebRoot;
 
   /**
+   * Broken Link Checker class.
+   *
+   * @var \Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker
+   */
+  protected $webBuildBrokenLinkChecker;
+
+  /**
    * WebBuildCommandBuilder constructor.
    *
    * @param \Drupal\Core\Site\Settings $settings
    *   Drupal settings.
-   * @param \Drupal\va_gov_build_trigger\WebBuildStatusInterface $webBuildStatus
-   *   WebBuild status.
+   * @param \Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker $webBuildBrokenLinkChecker
+   *   Web build link command builder.
    */
-  public function __construct(Settings $settings, WebBuildStatusInterface $webBuildStatus) {
-    $this->useContentExport = $webBuildStatus->useContentExport();
+  public function __construct(Settings $settings, WebBuildBrokenLinkChecker $webBuildBrokenLinkChecker) {
     $this->appRoot = $settings->get(static::APP_ROOT, '');
     $this->composerHome = $settings->get(static::COMPOSER_HOME, '');
     $this->pathToComposer = $settings->get(static::PATH_TO_COMPOSER, '');
     $this->pathToWebRoot = $settings->get(static::WEB_ROOT, '');
+    $this->webBuildBrokenLinkChecker = $webBuildBrokenLinkChecker;
   }
 
   /**
-   * Build an array of commands to run for the web build.
-   *
-   * @param string|null $front_end_git_ref
-   *   Front end git reference to build (branch name or PR number)
-   * @param string|null $unique_key
-   *   A unique key to use in the branch name.  Defaults to time().
-   *
-   * @return array
-   *   An array of commands to run for a build.
+   * {@inheritdoc}
    */
   public function buildCommands(string $front_end_git_ref = NULL, string $unique_key = NULL) : array {
     $commands = [];
@@ -83,19 +75,20 @@ class WebBuildCommandBuilder {
     $repo_root = $this->getPathToWebRoot();
 
     if (!$front_end_git_ref) {
-      // If no git reference is passed, reset va-gov/web to the default tag. We
-      // do this to ensure that the default tag is used even if a branch or PR
-      // was checked out earlier.
-      $commands += $this->getFrontEndReinstallCommands($repo_root);
+      // If no git reference is passed, reset va-gov/content-build
+      // to the default tag. We do this to ensure that the default tag is used
+      // even if a branch or PR was checked out earlier.
+      $commands = $this->getFrontEndReinstallCommands($repo_root);
     }
     else {
-      // If we are checking out a branch or PR, reset all files in va-gov/web
-      // to their default state. We do this to avoid having the checkout fail
-      // if there are modified files.
+      // If we are checking out a branch or PR, reset all files in
+      // va-gov/content-build to their default state. We do this to avoid
+      // having the checkout fail if there are modified files.
       $commands[] = $this->getFrontEndResetCommand($repo_root);
+      $commands[] = $this->buildRemoveBrokenLinkCommand();
     }
 
-    $composer_command = $this->commandName($front_end_git_ref);
+    $composer_command = $this->commandName();
     if ($command = $this->getFrontEndGitReferenceCheckoutCommand($repo_root, $unique_key, $front_end_git_ref)) {
       $commands[] = $command;
       $commands[] = $this->buildComposerCommand('va:web:install');
@@ -107,13 +100,17 @@ class WebBuildCommandBuilder {
   }
 
   /**
-   * Build a composer command.
-   *
-   * @param string $composer_command
-   *   The composer command to run.
+   * Clear broken link files.
    *
    * @return string
-   *   The composer command line.
+   *   The broken link command.
+   */
+  public function buildRemoveBrokenLinkCommand() : string {
+    return 'rm -rf ' . $this->webBuildBrokenLinkChecker->getBrokenLinkPath($this->getAppRoot());
+  }
+
+  /**
+   * {@inheritdoc}
    */
   public function buildComposerCommand(string $composer_command) : string {
     return "cd {$this->appRoot} && COMPOSER_HOME={$this->composerHome} {$this->pathToComposer} --no-cache $composer_command";
@@ -122,24 +119,11 @@ class WebBuildCommandBuilder {
   /**
    * The name of the composer command to run.
    *
-   * @param string|null $front_end_git_ref
-   *   Front end git reference to build (branch name or PR number)
-   *
    * @return string
    *   The name of the composer command to run
    */
-  protected function commandName(string $front_end_git_ref = NULL) : string {
-    $command = 'va:web:build';
-
-    if ($this->useContentExport()) {
-      $command .= ':export';
-    }
-
-    if ($front_end_git_ref) {
-      $command .= ':full';
-    }
-
-    return $command;
+  protected function commandName() : string {
+    return 'va:web:build';
   }
 
   /**
@@ -186,26 +170,16 @@ class WebBuildCommandBuilder {
   }
 
   /**
-   * Build the command to reset va-gov/web files to their default state.
+   * Build a command to reset va-gov/content-build files to their default state.
    *
    * @param string $repo_root
    *   The path to the repository root.
    *
-   * @return array
-   *   The commands to run to reset va-gov/web files.
+   * @return string
+   *   The command to run to reset va-gov/content-build files.
    */
   protected function getFrontEndResetCommand(string $repo_root) : string {
     return "cd {$repo_root} && git reset --hard HEAD";
-  }
-
-  /**
-   * Use CMS export.
-   *
-   * @return bool
-   *   Should we use cms export?
-   */
-  public function useContentExport() : bool {
-    return $this->useContentExport;
   }
 
   /**

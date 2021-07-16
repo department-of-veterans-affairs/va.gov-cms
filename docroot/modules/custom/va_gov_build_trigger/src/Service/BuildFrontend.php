@@ -12,7 +12,7 @@ use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 /**
  * Class for processing facility status to GovDelivery Bulletin.
  */
-class BuildFrontend {
+class BuildFrontend implements BuildFrontendInterface {
 
   /**
    * The logger service.
@@ -67,12 +67,7 @@ class BuildFrontend {
   }
 
   /**
-   * Triggers the appropriate frontend Build based on the environment.
-   *
-   * @param string $front_end_git_ref
-   *   Front end git reference to build (branch name or PR number).
-   * @param bool $full_rebuild
-   *   Trigger a full content export rebuild.
+   * {@inheritdoc}
    */
   public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
     try {
@@ -88,10 +83,7 @@ class BuildFrontend {
   }
 
   /**
-   * Set the config state of build pending.
-   *
-   * @param bool $state
-   *   The state that should be set for build pending.
+   * {@inheritdoc}
    */
   public function setPendingState(bool $state) : void {
     if ($state) {
@@ -165,10 +157,7 @@ class BuildFrontend {
   }
 
   /**
-   * Method to trigger a frontend build as the result of a save.
-   *
-   * @param \Drupal\node\NodeInterface $node
-   *   The node object of a node just updated or saved.
+   * {@inheritdoc}
    */
   public function triggerFrontendBuildFromContentSave(NodeInterface $node) {
     if (!$this->environmentDiscovery->shouldTriggerFrontendBuild()) {
@@ -179,21 +168,18 @@ class BuildFrontend {
       'full_width_banner_alert',
       'health_care_local_facility',
     ];
-    if (in_array($node->getType(), $allowed_content_types)) {
-      // This is the right content type to trigger a build. Is it published?
-      if ($node->isPublished()) {
-        // It is published.
-        if ($node->getType() === 'health_care_local_facility') {
-          // This is a facility, check if the status or status info changed.
-          if ($this->changedStatus($node)) {
-            // The status changed so trigger a build.
-            $this->triggerFrontendBuild();
-          }
-        }
-        else {
-          $this->triggerFrontendBuild();
-        }
-      }
+
+    $is_allowed_type = in_array($node->getType(), $allowed_content_types);
+    $is_published = $node->isPublished();
+    $is_facility = $node->getType() === 'health_care_local_facility';
+    $is_status_changed = $this->changedStatus($node);
+
+    if (
+      $is_allowed_type
+      && $is_published
+      && (($is_facility && $is_status_changed) || !$is_facility)
+      ) {
+      $this->triggerFrontendBuild();
     }
   }
 

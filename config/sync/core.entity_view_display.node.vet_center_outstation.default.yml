@@ -5,20 +5,86 @@ dependencies:
   config:
     - field.field.node.vet_center_outstation.field_address
     - field.field.node.vet_center_outstation.field_administration
-    - field.field.node.vet_center_outstation.field_facility_hours
     - field.field.node.vet_center_outstation.field_facility_locator_api_id
     - field.field.node.vet_center_outstation.field_media
+    - field.field.node.vet_center_outstation.field_office
+    - field.field.node.vet_center_outstation.field_office_hours
     - field.field.node.vet_center_outstation.field_operating_status_facility
     - field.field.node.vet_center_outstation.field_operating_status_more_info
     - field.field.node.vet_center_outstation.field_phone_number
-    - field.field.node.vet_center_outstation.field_vet_center
+    - field.field.node.vet_center_outstation.field_table_of_contents
+    - image.style.3_2_medium_thumbnail
     - node.type.vet_center_outstation
   module:
     - address
+    - field_group
+    - media
+    - office_hours
     - options
-    - tablefield
     - telephone
     - user
+third_party_settings:
+  field_group:
+    group_operating_status:
+      children:
+        - field_operating_status_facility
+        - field_operating_status_more_info
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      region: content
+      format_settings:
+        show_empty_fields: false
+        id: operating-status
+        classes: ''
+        description: ''
+      label: 'Operating status'
+    group_locations_and_contact_info:
+      children:
+        - group_facility_data_from_vast
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: 'To request a correction or update to this centrally-managed data, <a class="admin-help-email-tpl" href="mailto:api@va.gov?bcc=vadrupalcms@va.gov&subject=Requested updates to [js_entry_facility_name] facility data&body=Dear API team,%0D%0A%0D%0AI would like to request an update to data for my facility.%0D%0A%0D%0AFacility%0D%0AFacility Name: [js_entry_facility_name]%0D%0AFacility ID: [js_entry_facility_id]%0D%0A%0D%0AAffected data%0D%0AThe following type of information needs to be updated:%0D%0A[Add your response here, for example: facility name, address, phone number, etc.]%0D%0A%0D%0ARequested Update%0D%0APlease make the following changes:%0D%0A[Add your response here, for example, ''change street address from 123 Fake Street to 456 Real Street.'']">email an administrator</a>.'
+        id: locations-and-contact-information
+        classes: ''
+        show_empty_fields: false
+      label: 'Location and contact information'
+    group_facility_data_from_vast:
+      children:
+        - field_facility_locator_api_id
+        - field_address
+        - field_phone_number
+        - field_office_hours
+      parent_name: group_locations_and_contact_info
+      weight: 13
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_label: '0'
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
+        description: ''
+        id: external-content
+        classes: not-editable
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
+      label: 'Facility data'
+    group_ex:
+      children: {  }
+      parent_name: ''
+      weight: 10
+      format_type: fieldset
+      region: hidden
+      format_settings:
+        show_empty_fields: false
+        id: ''
+        classes: ''
+        description: 'Data maintained by VAST.'
+      label: 'External content'
 id: node.vet_center_outstation.default
 targetEntityType: node
 bundle: vet_center_outstation
@@ -31,17 +97,8 @@ content:
     third_party_settings: {  }
     type: address_default
     region: content
-  field_facility_hours:
-    weight: 5
-    label: above
-    settings:
-      row_header: true
-      column_header: false
-    third_party_settings: {  }
-    type: tablefield
-    region: content
   field_facility_locator_api_id:
-    weight: 2
+    weight: 3
     label: above
     settings:
       link_to_entity: false
@@ -49,49 +106,74 @@ content:
     type: string
     region: content
   field_media:
-    weight: 3
+    type: media_thumbnail
+    weight: 4
+    region: content
+    label: above
+    settings:
+      image_style: 3_2_medium_thumbnail
+      image_link: ''
+    third_party_settings: {  }
+  field_office:
+    type: entity_reference_label
+    weight: 1
+    region: content
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+  field_office_hours:
+    weight: 6
+    label: above
+    settings:
+      show_closed: all
+      office_hours_first_day: ''
+      day_format: short
+      time_format: g
+      closed_format: ''
+      separator:
+        days: '<br />'
+        grouped_days: ' - '
+        day_hours: ': '
+        hours_hours: '-'
+        more_hours: ', '
+      current_status:
+        position: ''
+        open_text: 'Currently open!'
+        closed_text: 'Currently closed'
+      compress: false
+      grouped: false
+      schema:
+        enabled: false
+      timezone_field: ''
+    third_party_settings: {  }
+    type: office_hours
     region: content
   field_operating_status_facility:
-    weight: 7
-    label: above
-    settings: {  }
-    third_party_settings: {  }
     type: list_default
-    region: content
-  field_operating_status_more_info:
     weight: 8
+    region: content
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_operating_status_more_info:
+    type: basic_string
+    weight: 9
+    region: content
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
-    region: content
   field_phone_number:
-    weight: 6
+    weight: 5
     label: above
     settings:
       title: ''
     third_party_settings: {  }
     type: telephone_link
     region: content
-  field_vet_center:
-    weight: 1
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  links:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_table_of_contents: true
+  links: true
   search_api_excerpt: true

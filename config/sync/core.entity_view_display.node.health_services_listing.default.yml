@@ -5,13 +5,14 @@ dependencies:
   config:
     - field.field.node.health_services_listing.field_administration
     - field.field.node.health_services_listing.field_description
+    - field.field.node.health_services_listing.field_enforce_unique_combo
     - field.field.node.health_services_listing.field_featured_content_healthser
     - field.field.node.health_services_listing.field_intro_text
     - field.field.node.health_services_listing.field_meta_tags
-    - field.field.node.health_services_listing.field_meta_title
     - field.field.node.health_services_listing.field_office
     - node.type.health_services_listing
   module:
+    - allow_only_one
     - entity_reference_revisions
     - field_group
     - user
@@ -68,6 +69,13 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
+  field_enforce_unique_combo:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: allow_only_one
+    region: content
   field_featured_content_healthser:
     weight: 2
     label: above
@@ -84,14 +92,6 @@ content:
     third_party_settings: {  }
     type: basic_string
     region: content
-  field_meta_title:
-    type: string
-    weight: 0
-    region: content
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
 hidden:
   content_moderation_control: true
   field_administration: true

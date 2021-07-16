@@ -3,73 +3,61 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.node.inline_entity_form
     - field.field.node.vet_center.field_address
     - field.field.node.vet_center.field_administration
-    - field.field.node.vet_center.field_facility_hours
+    - field.field.node.vet_center.field_cc_non_traditional_hours
+    - field.field.node.vet_center.field_cc_vet_center_call_center
+    - field.field.node.vet_center.field_cc_vet_center_faqs
+    - field.field.node.vet_center.field_cc_vet_center_featured_con
     - field.field.node.vet_center.field_facility_locator_api_id
+    - field.field.node.vet_center.field_health_services
     - field.field.node.vet_center.field_intro_text
     - field.field.node.vet_center.field_media
-    - field.field.node.vet_center.field_non_traditional_hours
+    - field.field.node.vet_center.field_office_hours
     - field.field.node.vet_center.field_operating_status_facility
     - field.field.node.vet_center.field_operating_status_more_info
     - field.field.node.vet_center.field_phone_number
     - field.field.node.vet_center.field_prepare_for_visit
-    - field.field.node.vet_center.field_vet_center_call_center
+    - field.field.node.vet_center.field_table_of_contents
+    - field.field.node.vet_center.field_vet_center_feature_content
     - node.type.vet_center
     - workflows.workflow.editorial
   module:
     - address
     - content_moderation
+    - entity_browser_entity_form
     - entity_field_fetch
     - field_group
+    - ief_table_view_mode
     - limited_field_widgets
+    - markup
+    - media_library
+    - office_hours
     - paragraphs
-    - tablefield
     - telephone
     - textfield_counter
 third_party_settings:
   field_group:
-    group_facility_api:
-      children:
-        - title
-        - field_facility_locator_api_id
-        - field_intro_text
-        - field_media
-        - field_address
-        - field_phone_number
-        - field_facility_hours
-        - field_non_traditional_hours
-        - field_vet_center_call_center
-      parent_name: ''
-      weight: 0
-      format_type: details
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        open: true
-        required_fields: false
-      label: 'Facility API'
-      region: content
     group_operating_status:
       children:
         - field_operating_status_facility
         - field_operating_status_more_info
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
-        classes: ''
         description: ''
         required_fields: true
+        id: operating-status
+        classes: ''
       label: 'Operating status'
       region: content
     group_governance:
       children:
         - field_administration
       parent_name: ''
-      weight: 3
+      weight: 10
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -78,14 +66,14 @@ third_party_settings:
         open: true
         required_fields: true
         weight: -10
-      label: Governance
+      label: 'Section settings'
       region: content
     group_editorial_workflow:
       children:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 4
+      weight: 11
       format_type: fieldset
       format_settings:
         id: ''
@@ -94,6 +82,174 @@ third_party_settings:
         required_fields: true
       label: 'Editorial Workflow'
       region: content
+    group_phone:
+      children: {  }
+      parent_name: ''
+      weight: 6
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Direct line'
+    group_top_of_page_information:
+      children:
+        - group_page_title_tooltip
+        - field_intro_text
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        required_fields: true
+        id: top-of-page-information
+        classes: ''
+        show_empty_fields: false
+      label: 'Top of page information'
+    group_page_title_tooltip:
+      children: {  }
+      parent_name: group_top_of_page_information
+      weight: 20
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_empty_fields: '1'
+        show_label: '0'
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
+        description: '<strong>Page title</strong>'
+        required_fields: '1'
+        id: ''
+        classes: 'not-editable '
+        element: div
+        label_element: h3
+        attributes: ''
+      label: 'Page title'
+    group_locations_and_contact_info:
+      children:
+        - group_vet_center_data
+        - group_information
+        - field_media
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        required_fields: true
+        id: locations-and-contact-information
+        classes: ''
+        show_empty_fields: false
+      label: 'Locations and contact information'
+    group_information:
+      children:
+        - field_cc_non_traditional_hours
+        - field_cc_vet_center_call_center
+      parent_name: group_locations_and_contact_info
+      weight: 5
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_label: '0'
+        tooltip_description: "Why can’t I edit this?\r\nVHA keeps this content standardized to provide consistent messaging for Vet Center sites nationwide."
+        description: ''
+        required_fields: '1'
+        id: ''
+        classes: centralized
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
+      label: 'Hours details and call center information'
+    group_prepare_for_your_visit:
+      children:
+        - field_prepare_for_visit
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: 'Add or edit a visitor information topic, such as parking, transportation, etc.'
+        required_fields: true
+        id: prepare-for-your-visit
+        classes: ''
+      label: 'Prepare for your visit'
+    group_featured_content:
+      children:
+        - group_national_featured_content
+        - field_vet_center_feature_content
+      parent_name: ''
+      weight: 5
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: 'Highlight up to two Vet Center activities, such as events or programs.'
+        required_fields: true
+        id: featured-content
+        classes: ''
+      label: 'Featured content'
+    group_faqs:
+      children:
+        - field_cc_vet_center_faqs
+      parent_name: ''
+      weight: 8
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_label: '0'
+        tooltip_description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
+        description: ''
+        required_fields: '1'
+        id: faqs
+        classes: centralized
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
+      label: 'How we''re different than a clinic (FAQs)'
+    group_vet_center_data:
+      children:
+        - field_facility_locator_api_id
+        - field_address
+        - field_phone_number
+        - field_office_hours
+      parent_name: group_locations_and_contact_info
+      weight: 4
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_label: '1'
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
+        description: 'To request a correction or update to this centrally-managed data, <a class="admin-help-email-tpl" href="mailto:api@va.gov?bcc=vadrupalcms@va.gov&subject=Requested updates to [js_entry_facility_name] facility data&body=Dear API team,%0D%0A%0D%0AI would like to request an update to data for my facility.%0D%0A%0D%0AFacility%0D%0AFacility Name: [js_entry_facility_name]%0D%0AFacility ID: [js_entry_facility_id]%0D%0A%0D%0AAffected data%0D%0AThe following type of information needs to be updated:%0D%0A[Add your response here, for example: facility name, address, phone number, etc.]%0D%0A%0D%0ARequested Update%0D%0APlease make the following changes:%0D%0A[Add your response here, for example, ''''change street address from 123 Fake Street to 456 Real Street.'''']">email an administrator</a>.'
+        required_fields: '1'
+        id: external-content
+        classes: ''
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
+      label: 'Facility data'
+    group_national_featured_content:
+      children:
+        - field_cc_vet_center_featured_con
+      parent_name: group_featured_content
+      weight: 20
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_label: '0'
+        tooltip_description: 'This part of the page describes policies that apply across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA).'
+        description: ''
+        required_fields: '1'
+        id: ''
+        classes: centralized
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
+      label: 'National featured content'
 id: node.vet_center.default
 targetEntityType: node
 bundle: vet_center
@@ -111,23 +267,73 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
-  field_facility_hours:
+  field_cc_non_traditional_hours:
+    weight: 6
+    settings:
+      show_field_label: '1'
+      show_link_to_source: 0
+      show_source_updated_date: 0
+    third_party_settings: {  }
+    type: entity_field_fetch_widget
+    region: content
+  field_cc_vet_center_call_center:
     weight: 7
     settings:
-      input_type: textfield
+      show_field_label: '1'
+      show_link_to_source: '1'
+      show_source_updated_date: '1'
     third_party_settings: {  }
-    type: tablefield
+    type: entity_field_fetch_widget
+    region: content
+  field_cc_vet_center_faqs:
+    weight: 6
+    settings:
+      show_link_to_source: '1'
+      show_source_updated_date: '1'
+      show_field_label: 0
+    third_party_settings: {  }
+    type: entity_field_fetch_widget
+    region: content
+  field_cc_vet_center_featured_con:
+    weight: 21
+    settings:
+      show_link_to_source: '1'
+      show_source_updated_date: '1'
+      show_field_label: 0
+    third_party_settings: {  }
+    type: entity_field_fetch_widget
     region: content
   field_facility_locator_api_id:
-    weight: 2
+    weight: 4
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_health_services:
+    weight: 7
+    settings:
+      form_mode: inline_entity_form
+      revision: true
+      override_labels: true
+      label_singular: service
+      label_plural: services
+      allow_new: true
+      match_operator: CONTAINS
+      collapsible: false
+      collapsed: false
+      allow_existing: false
+      allow_duplicate: false
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: _none
+      limited_field_widgets:
+        limit_values: '0'
+    type: inline_entity_form_complex_table_view_mode
+    region: content
   field_intro_text:
-    weight: 3
+    weight: 21
     settings:
       rows: 5
       placeholder: ''
@@ -135,23 +341,19 @@ content:
     type: string_textarea
     region: content
   field_media:
-    weight: 4
+    weight: 7
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      media_types: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: media_library_widget
     region: content
-  field_non_traditional_hours:
-    weight: 8
-    settings:
-      show_field_label: true
-      show_link_to_source: false
-      show_source_updated_date: false
-    third_party_settings: {  }
-    type: entity_field_fetch_widget
+  field_office_hours:
+    weight: 7
+    settings: {  }
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+    type: office_hours_default
     region: content
   field_operating_status_facility:
     weight: 9
@@ -181,11 +383,11 @@ content:
     region: content
   field_prepare_for_visit:
     type: paragraphs
-    weight: 1
+    weight: 5
     settings:
       title: accordion
       title_plural: accordions
-      edit_mode: open
+      edit_mode: closed
       closed_mode: summary
       autocollapse: none
       closed_mode_threshold: 0
@@ -200,14 +402,30 @@ content:
       limited_field_widgets:
         limit_values: '0'
     region: content
-  field_vet_center_call_center:
-    weight: 9
-    settings:
-      show_field_label: true
-      show_link_to_source: false
-      show_source_updated_date: false
+  field_table_of_contents:
+    weight: 0
+    settings: {  }
     third_party_settings: {  }
-    type: entity_field_fetch_widget
+    type: markup
+    region: content
+  field_vet_center_feature_content:
+    type: paragraphs
+    weight: 22
+    settings:
+      title: 'featured content block'
+      title_plural: 'featured content blocks'
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: '0'
+        duplicate: '0'
+    third_party_settings: {  }
     region: content
   moderation_state:
     type: moderation_state_default
@@ -215,25 +433,12 @@ content:
     settings: {  }
     region: content
     third_party_settings: {  }
-  title:
-    type: string_textfield_with_counter
-    weight: 1
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-      maxlength: 150
-      counter_position: after
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
-      use_field_maxlength: false
-      js_prevent_submit: false
-      count_html_characters: false
-    third_party_settings: {  }
 hidden:
   created: true
   path: true
   promote: true
   status: true
   sticky: true
+  title: true
   uid: true
   url_redirects: true

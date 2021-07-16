@@ -2,7 +2,9 @@
 
 // @codingStandardsIgnoreFile
 
-$settings['jenkins_build_job_path'] = '/job/builds/job/vets-website-content-vagov' . $settings['jenkins_build_env'];
+include dirname(__FILE__) . '/settings.brd_common.php';
+
+$settings['jenkins_build_job_path'] = '/job/builds/job/content-build-content-only-vagov' . $settings['jenkins_build_env'];
 $settings['jenkins_build_job_params'] = '/buildWithParameters?deploy=true';
 $settings['jenkins_build_job_url'] = $settings['jenkins_build_job_host'] . $settings['jenkins_build_job_path'] . $settings['jenkins_build_job_params'];
 

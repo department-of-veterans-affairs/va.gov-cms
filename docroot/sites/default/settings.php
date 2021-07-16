@@ -150,6 +150,9 @@ $facility_migrations = [
   'va_node_facility_vba',
   'va_node_facility_nca',
   'va_node_facility_vet_centers',
+  'va_node_facility_vet_centers_mvc',
+  'va_node_facility_vet_centers_os',
+  //Add other migrations here
 ];
 
 // Use classic node migrations instead of complete.
@@ -222,15 +225,15 @@ if (!empty($webhost_on_cli)) {
     // This is running from an HTTP request.
     $webhost = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}";
   }
-  // DevShop sets this in settings.devshop.php
+
   $settings['file_public_base_url'] = "{$webhost}/sites/default/files";
 }
 
-// Extend the limit of the tome cache table beyond 5000 rows.
-// See https://www.drupal.org/node/3162499.
-$settings['database_cache_max_rows']['bins']['tome_static'] = -1;
-$settings['tome_content_directory'] = 'public://cms-export-content';
-$settings['tome_files_directory'] = 'public://cms-export-files';
-
-// Disable use of the Symfony autoloader, and use the Composer autoloader instead.
-$settings['class_loader_auto_detect'] = FALSE;
+// Memcache-specific settings
+if (extension_loaded('memcache') && !empty($settings['memcache']['servers'])) {
+  $settings['cache']['default'] = 'cache.backend.memcache';
+  $settings['memcache']['bins'] = [
+    'default' => 'default',
+  ];
+  $settings['container_yamls'][] = $app_root . '/' . $site_path . '/../default/services/services.memcache.yml';
+}

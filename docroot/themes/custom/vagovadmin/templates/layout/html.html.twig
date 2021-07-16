@@ -31,7 +31,12 @@
     <css-placeholder token="{{ placeholder_token|raw }}">
     <js-placeholder token="{{ placeholder_token|raw }}">
   </head>
-  <body{{ attributes }}>
+  {%
+    set additional_body_classes = [
+      logged_in ? 'user-logged-in',
+    ]
+  %}
+  <body{{ attributes.addClass(additional_body_classes) }}>
     {#
       Keyboard navigation/accessibility link to main content section in
       page.html.twig.

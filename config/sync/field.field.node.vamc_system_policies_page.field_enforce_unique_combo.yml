@@ -1,0 +1,36 @@
+uuid: fbd8a530-4e38-4980-9ec5-576bbd194766
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_enforce_unique_combo
+    - node.type.vamc_system_policies_page
+  module:
+    - allow_only_one
+third_party_settings:
+  allow_only_one:
+    field_administration: 0
+    field_cc_bottom_of_page_content: 0
+    field_cc_gen_visitation_policy: 0
+    field_cc_intro_text: 0
+    field_cc_top_of_page_content: 0
+    field_fieldset_markup: 0
+    field_office: 1
+    field_vamc_other_policies: 0
+    field_vamc_visitation_policy: 0
+    title: 0
+    case_sensitive: null
+id: node.vamc_system_policies_page.field_enforce_unique_combo
+field_name: field_enforce_unique_combo
+entity_type: node
+bundle: vamc_system_policies_page
+label: 'Enforce unique combo'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings: {  }
+field_type: allow_only_one

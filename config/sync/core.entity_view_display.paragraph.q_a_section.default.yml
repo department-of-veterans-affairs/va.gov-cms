@@ -15,19 +15,9 @@ targetEntityType: paragraph
 bundle: q_a_section
 mode: default
 content:
-  field_accordion_display:
-    weight: 2
-    label: hidden
-    settings:
-      format: custom
-      format_custom_true: 'Q&A''s in this section will display as accordions'
-      format_custom_false: ''
-    third_party_settings: {  }
-    type: boolean
-    region: content
   field_questions:
     type: entity_reference_revisions_entity_view
-    weight: 3
+    weight: 2
     label: visually_hidden
     settings:
       view_mode: default
@@ -50,4 +40,5 @@ content:
     type: basic_string
     region: content
 hidden:
+  field_accordion_display: true
   search_api_excerpt: true

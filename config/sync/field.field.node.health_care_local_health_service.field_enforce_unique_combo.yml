@@ -1,0 +1,41 @@
+uuid: a158f46e-433a-456d-9f00-06fef33e20e6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_enforce_unique_combo
+    - node.type.health_care_local_health_service
+  module:
+    - allow_only_one
+third_party_settings:
+  allow_only_one:
+    field_administration: 0
+    field_appointments_help_text: 0
+    field_body: 0
+    field_facility_location: 1
+    field_facility_service_loc_help: 0
+    field_hservices_lead_in_default: 0
+    field_hservice_appt_intro_select: 0
+    field_hservice_appt_leadin: 0
+    field_online_scheduling_availabl: 0
+    field_phone_numbers_paragraph: 0
+    field_referral_required: 0
+    field_regional_health_service: 1
+    field_service_location: 0
+    field_walk_ins_accepted: 0
+    title: 0
+    case_sensitive: null
+id: node.health_care_local_health_service.field_enforce_unique_combo
+field_name: field_enforce_unique_combo
+entity_type: node
+bundle: health_care_local_health_service
+label: 'Enforce unique combo'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings: {  }
+field_type: allow_only_one

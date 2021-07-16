@@ -6,6 +6,7 @@ use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 use Drupal\paragraphs\Entity\Paragraph;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Drupal\Core\File\FileSystemInterface;
 
 /**
  * Confirm downloadable_file paragraphs are displayed correctly.
@@ -18,7 +19,7 @@ class DownloadableFileTest extends ExistingSiteBase {
   public function createFile($name, $content) {
     $path = uniqid();
     $directory = "public://$path";
-    file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
+    \Drupal::service('file_system')->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
     return file_save_data($content, "$directory/$name.txt");
   }
 
@@ -108,7 +109,7 @@ class DownloadableFileTest extends ExistingSiteBase {
     $name = uniqid();
     $content = uniqid();
     $media = $this->createDocumentMedia($name, $content);
-    $file_url = File::load($media->getSource()->getSourceFieldValue($media))->url();
+    $file_url = File::load($media->getSource()->getSourceFieldValue($media))->createFileUrl(FALSE);
     $paragraph = $this->createMediaParagraph($media);
     $node = $this->createNode([
       'title' => "$name test",
@@ -148,7 +149,7 @@ class DownloadableFileTest extends ExistingSiteBase {
     $name = uniqid();
     $content = uniqid();
     $media = $this->createImageMedia($name, $content);
-    $file_url = File::load($media->getSource()->getSourceFieldValue($media))->url();
+    $file_url = File::load($media->getSource()->getSourceFieldValue($media))->createFileUrl(FALSE);
     $paragraph = $this->createMediaParagraph($media);
     $node = $this->createNode([
       'title' => "$name test",

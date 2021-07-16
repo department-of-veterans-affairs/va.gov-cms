@@ -26,7 +26,7 @@ class AdminDashboardTest extends ExistingSiteBase {
     }
     $author->save();
 
-    $name = $author->getUsername();
+    $name = $author->getAccountName();
     $account = user_load_by_name($name);
     $uid = $account->id();
 

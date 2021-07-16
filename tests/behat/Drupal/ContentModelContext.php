@@ -17,6 +17,7 @@ class ContentModelContext extends RawDrupalContext implements SnippetAcceptingCo
    * Test automatic table labels.
    *
    * @Then exactly the following auto labels should be configured
+   *
    * @throws \Exception
    */
   public function assertAutoLabels(TableNode $expected) {
@@ -80,6 +81,21 @@ class ContentModelContext extends RawDrupalContext implements SnippetAcceptingCo
     }
 
     $this->getSession()->getDriver()->selectOption($radioButton->getXPath(), $radioButton->getAttribute('value'));
+  }
+
+  /**
+   * Run the specified command.
+   *
+   * @When I run :command
+   *
+   * @throws \Exception
+   */
+  public function iRun($command) {
+    exec($command, $output, $exit_code);
+    print implode("\n", $output);
+    if ($exit_code != 0) {
+      throw new \Exception("The command `$command` returned a non-zero exit code: $exit_code .");
+    }
   }
 
 }

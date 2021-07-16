@@ -15,21 +15,26 @@ source:
   delimiter: ;
   enclosure: "'"
   escape: '\'
-  header_row_count: 1
+  header_offset: 0
   track_changes: true
-  keys:
+  ids:
     - id
-  column_names:
+  fields:
     -
-      id: Id
+      name: id
+      label: Id
     -
-      field_facility_location: Facility Name
+      name: field_facility_location
+      label: 'Facility Name'
     -
-      field_regional_health_service: 'VAMC System Health Service'
+      name: field_regional_health_service
+      label: 'VAMC System Health Service'
     -
-      field_body: 'Facility description of services'
+      name: field_body
+      label: 'Facility description of services'
     -
-      field_administration: Owner
+      name: field_administration
+      label: Owner
 process:
   field_facility_location:
     -
@@ -84,7 +89,7 @@ process:
       message: 'Entity lookup for field_administration found nothing.'
   changed:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   new_revision:
     plugin: default_value
     default_value: true
@@ -96,7 +101,7 @@ process:
     default_value: 'Imported by facility_health_care_service_2 migration.'
   revision_timestamp:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   ## This is the uid for CMS Migrator.
   revision_uid:
     plugin: default_value

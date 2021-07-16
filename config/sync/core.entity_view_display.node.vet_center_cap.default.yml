@@ -5,41 +5,83 @@ dependencies:
   config:
     - field.field.node.vet_center_cap.field_address
     - field.field.node.vet_center_cap.field_administration
-    - field.field.node.vet_center_cap.field_body
-    - field.field.node.vet_center_cap.field_facility_hours
+    - field.field.node.vet_center_cap.field_facility_locator_api_id
     - field.field.node.vet_center_cap.field_geographical_identifier
     - field.field.node.vet_center_cap.field_media
-    - field.field.node.vet_center_cap.field_vet_center
+    - field.field.node.vet_center_cap.field_office
+    - field.field.node.vet_center_cap.field_office_hours
+    - field.field.node.vet_center_cap.field_operating_status_facility
+    - field.field.node.vet_center_cap.field_operating_status_more_info
+    - field.field.node.vet_center_cap.field_table_of_contents
+    - field.field.node.vet_center_cap.field_vetcenter_cap_hours_opt_in
     - image.style.crop_3_2
     - node.type.vet_center_cap
   module:
     - address
+    - field_group
     - media
-    - tablefield
+    - office_hours
+    - options
     - user
+third_party_settings:
+  field_group:
+    group_facility_name:
+      children:
+        - field_office
+        - field_geographical_identifier
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      region: content
+      format_settings:
+        show_empty_fields: false
+        id: ''
+        classes: ''
+        description: 'First, select the main location, then give the CAP a name that helps Veterans distinguish it from other locations.'
+      label: 'Facility name'
+    group_locations_and_contact_info:
+      children:
+        - field_address
+        - field_vetcenter_cap_hours_opt_in
+        - field_office_hours
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      region: content
+      format_settings:
+        show_empty_fields: false
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Locations and contact information'
+    group_operating_status:
+      children:
+        - field_operating_status_facility
+        - field_operating_status_more_info
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      region: content
+      format_settings:
+        show_empty_fields: false
+        id: operating-status
+        classes: ''
+        description: ''
+      label: 'Operating status'
 id: node.vet_center_cap.default
 targetEntityType: node
 bundle: vet_center_cap
 mode: default
 content:
   field_address:
-    weight: 4
+    weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
     region: content
-  field_facility_hours:
-    weight: 5
-    label: above
-    settings:
-      row_header: true
-      column_header: false
-    third_party_settings: {  }
-    type: tablefield
-    region: content
   field_geographical_identifier:
-    weight: 0
+    weight: 2
     label: above
     settings:
       link_to_entity: false
@@ -47,7 +89,7 @@ content:
     type: string
     region: content
   field_media:
-    weight: 2
+    weight: 3
     label: hidden
     settings:
       image_style: crop_3_2
@@ -55,18 +97,69 @@ content:
     third_party_settings: {  }
     type: media_thumbnail
     region: content
-  field_vet_center:
+  field_office:
     weight: 1
     label: above
     settings:
       link: true
-      view_mode: default
     third_party_settings: {  }
-    type: entity_reference_entity_view
+    type: entity_reference_label
+    region: content
+  field_office_hours:
+    weight: 4
+    label: above
+    settings:
+      show_closed: all
+      office_hours_first_day: ''
+      day_format: short
+      time_format: g
+      closed_format: ''
+      separator:
+        days: '<br />'
+        grouped_days: ' - '
+        day_hours: ': '
+        hours_hours: '-'
+        more_hours: ', '
+      current_status:
+        position: ''
+        open_text: 'Currently open!'
+        closed_text: 'Currently closed'
+      compress: false
+      grouped: false
+      schema:
+        enabled: false
+      timezone_field: ''
+    third_party_settings: {  }
+    type: office_hours
+    region: content
+  field_operating_status_facility:
+    weight: 6
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_operating_status_more_info:
+    weight: 7
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_vetcenter_cap_hours_opt_in:
+    weight: 3
+    label: above
+    settings:
+      format: default
+      format_custom_true: ''
+      format_custom_false: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
 hidden:
   content_moderation_control: true
   field_administration: true
-  field_body: true
+  field_facility_locator_api_id: true
+  field_table_of_contents: true
   links: true
   search_api_excerpt: true

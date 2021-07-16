@@ -1,0 +1,34 @@
+uuid: ad704233-bb29-48ff-b838-cdc1c066d1be
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_enforce_unique_combo
+    - node.type.vamc_operating_status_and_alerts
+  module:
+    - allow_only_one
+third_party_settings:
+  allow_only_one:
+    field_administration: 0
+    field_banner_alert: 0
+    field_facility_operating_status: 0
+    field_links: 0
+    field_meta_tags: 0
+    field_office: 1
+    field_operating_status_emerg_inf: 0
+    title: 0
+    case_sensitive: null
+id: node.vamc_operating_status_and_alerts.field_enforce_unique_combo
+field_name: field_enforce_unique_combo
+entity_type: node
+bundle: vamc_operating_status_and_alerts
+label: 'Enforce unique combo'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings: {  }
+field_type: allow_only_one

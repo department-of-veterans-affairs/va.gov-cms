@@ -7,6 +7,10 @@ dependencies:
     - field.storage.taxonomy_term.field_commonly_treated_condition
     - field.storage.taxonomy_term.field_health_service_api_id
     - field.storage.taxonomy_term.field_service_type_of_care
+    - field.storage.taxonomy_term.field_vet_center_com_conditions
+    - field.storage.taxonomy_term.field_vet_center_friendly_name
+    - field.storage.taxonomy_term.field_vet_center_service_descrip
+    - field.storage.taxonomy_term.field_vet_center_type_of_care
     - field.storage.taxonomy_term.field_vha_healthservice_stopcode
     - system.menu.admin
     - taxonomy.vocabulary.health_care_service_taxonomy
@@ -265,14 +269,14 @@ display:
           absolute: false
           entity_type: taxonomy_term
           plugin_id: entity_link_edit
-        field_also_known_as:
-          id: field_also_known_as
-          table: taxonomy_term__field_also_known_as
-          field: field_also_known_as
+        field_health_service_api_id:
+          id: field_health_service_api_id
+          table: taxonomy_term__field_health_service_api_id
+          field: field_health_service_api_id
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Patient-friendly name'
+          label: 'Health Service API ID'
           exclude: false
           alter:
             alter_text: false
@@ -317,195 +321,6 @@ display:
           type: string
           settings:
             link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        field_commonly_treated_condition:
-          id: field_commonly_treated_condition
-          table: taxonomy_term__field_commonly_treated_condition
-          field: field_commonly_treated_condition
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Common conditions'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        description__value:
-          id: description__value
-          table: taxonomy_term_field_data
-          field: description__value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Description
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 100
-            word_boundary: true
-            ellipsis: true
-            more_link: true
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: text_default
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: taxonomy_term
-          entity_field: description
-          plugin_id: field
-        field_service_type_of_care:
-          id: field_service_type_of_care
-          table: taxonomy_term__field_service_type_of_care
-          field: field_service_type_of_care
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Type of care'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: list_default
-          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -581,14 +396,14 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_health_service_api_id:
-          id: field_health_service_api_id
-          table: taxonomy_term__field_health_service_api_id
-          field: field_health_service_api_id
+        field_also_known_as:
+          id: field_also_known_as
+          table: taxonomy_term__field_also_known_as
+          field: field_also_known_as
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Health Service API ID'
+          label: 'VAMC Patient-friendly name'
           exclude: false
           alter:
             alter_text: false
@@ -633,6 +448,445 @@ display:
           type: string
           settings:
             link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_commonly_treated_condition:
+          id: field_commonly_treated_condition
+          table: taxonomy_term__field_commonly_treated_condition
+          field: field_commonly_treated_condition
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'VAMC Common conditions'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        description__value:
+          id: description__value
+          table: taxonomy_term_field_data
+          field: description__value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'VAMC Description'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 100
+            word_boundary: true
+            ellipsis: true
+            more_link: true
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: text_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: taxonomy_term
+          entity_field: description
+          plugin_id: field
+        field_service_type_of_care:
+          id: field_service_type_of_care
+          table: taxonomy_term__field_service_type_of_care
+          field: field_service_type_of_care
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'VAMC Type of care'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_vet_center_friendly_name:
+          id: field_vet_center_friendly_name
+          table: taxonomy_term__field_vet_center_friendly_name
+          field: field_vet_center_friendly_name
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Vet Center Patient friendly name'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_vet_center_com_conditions:
+          id: field_vet_center_com_conditions
+          table: taxonomy_term__field_vet_center_com_conditions
+          field: field_vet_center_com_conditions
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Vet Center Common conditions'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_vet_center_service_descrip:
+          id: field_vet_center_service_descrip
+          table: taxonomy_term__field_vet_center_service_descrip
+          field: field_vet_center_service_descrip
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Vet Center Service description'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: basic_string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_vet_center_type_of_care:
+          id: field_vet_center_type_of_care
+          table: taxonomy_term__field_vet_center_type_of_care
+          field: field_vet_center_type_of_care
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Vet Center Type of Care'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -705,8 +959,8 @@ display:
           settings:
             thousand_separator: ''
             prefix_suffix: true
-          group_column: value
-          group_columns: {  }
+          group_column: null
+          group_columns: null
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -784,85 +1038,78 @@ display:
         - 'config:field.storage.taxonomy_term.field_commonly_treated_condition'
         - 'config:field.storage.taxonomy_term.field_health_service_api_id'
         - 'config:field.storage.taxonomy_term.field_service_type_of_care'
+        - 'config:field.storage.taxonomy_term.field_vet_center_com_conditions'
+        - 'config:field.storage.taxonomy_term.field_vet_center_friendly_name'
+        - 'config:field.storage.taxonomy_term.field_vet_center_service_descrip'
+        - 'config:field.storage.taxonomy_term.field_vet_center_type_of_care'
         - 'config:field.storage.taxonomy_term.field_vha_healthservice_stopcode'
   data_export_1:
     display_plugin: data_export
     id: data_export_1
     display_title: 'Data export'
-    position: 2
+    position: 3
     display_options:
       display_extenders: {  }
       path: vha-healthcare-services/export
       filename: vha-health-services.csv
-      displays:
-        page_1: page_1
-        default: '0'
-      pager:
-        type: none
-        options:
-          offset: 0
-      style:
-        type: data_export
-        options:
-          formats:
-            csv: csv
-          csv_settings:
-            delimiter: ','
-            enclosure: '"'
-            escape_char: \
-            strip_tags: true
-            trim: true
-            encoding: utf8
-          xls_settings:
-            xls_format: Excel2007
-            metadata:
-              creator: ''
-              last_modified_by: ''
-              title: ''
-              description: ''
-              subject: ''
-              keywords: ''
-              category: ''
-              manager: ''
-              company: ''
+      automatic_download: false
+      store_in_public_file_directory: null
+      redirect_to_display: none
+      custom_redirect_path: false
+      include_query_params: false
       fields:
         name:
           id: name
           table: taxonomy_term_field_data
           field: name
-          entity_type: taxonomy_term
-          entity_field: name
-          alter:
-            alter_text: false
-            make_link: false
-            absolute: false
-            trim: false
-            word_boundary: false
-            ellipsis: false
-            strip_tags: false
-            html: false
-          hide_empty: false
-          empty_zero: false
-          type: string
-          settings:
-            link_to_entity: true
-          plugin_id: term_name
           relationship: none
           group_type: group
           admin_label: ''
-          label: Name
+          label: ''
           exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: false
+            ellipsis: false
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
           element_type: ''
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
           empty: ''
+          hide_empty: false
+          empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: true
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -874,15 +1121,81 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
-        tid:
-          id: tid
-          table: taxonomy_term_field_data
-          field: tid
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
+        field_health_service_api_id:
+          id: field_health_service_api_id
+          table: taxonomy_term__field_health_service_api_id
+          field: field_health_service_api_id
           relationship: none
           group_type: group
           admin_label: ''
           label: ''
-          exclude: true
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_vha_healthservice_stopcode:
+          id: field_vha_healthservice_stopcode
+          table: taxonomy_term__field_vha_healthservice_stopcode
+          field: field_vha_healthservice_stopcode
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -937,17 +1250,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: taxonomy_term
-          entity_field: tid
           plugin_id: field
-        field_commonly_treated_condition:
-          id: field_commonly_treated_condition
-          table: taxonomy_term__field_commonly_treated_condition
-          field: field_commonly_treated_condition
+        field_also_known_as:
+          id: field_also_known_as
+          table: taxonomy_term__field_also_known_as
+          field: field_also_known_as
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Common conditions'
+          label: ''
           exclude: false
           alter:
             alter_text: false
@@ -980,7 +1291,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -1003,14 +1314,14 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_also_known_as:
-          id: field_also_known_as
-          table: taxonomy_term__field_also_known_as
-          field: field_also_known_as
+        field_commonly_treated_condition:
+          id: field_commonly_treated_condition
+          table: taxonomy_term__field_commonly_treated_condition
+          field: field_commonly_treated_condition
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Patient-friendly name'
+          label: ''
           exclude: false
           alter:
             alter_text: false
@@ -1043,7 +1354,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -1073,7 +1384,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Description
+          label: ''
           exclude: false
           alter:
             alter_text: false
@@ -1106,7 +1417,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -1137,7 +1448,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Type of care'
+          label: ''
           exclude: false
           alter:
             alter_text: false
@@ -1170,7 +1481,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -1192,14 +1503,14 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_vha_healthservice_stopcode:
-          id: field_vha_healthservice_stopcode
-          table: taxonomy_term__field_vha_healthservice_stopcode
-          field: field_vha_healthservice_stopcode
+        field_vet_center_friendly_name:
+          id: field_vet_center_friendly_name
+          table: taxonomy_term__field_vet_center_friendly_name
+          field: field_vet_center_friendly_name
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Stop code'
+          label: ''
           exclude: false
           alter:
             alter_text: false
@@ -1232,71 +1543,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        field_health_service_api_id:
-          id: field_health_service_api_id
-          table: taxonomy_term__field_health_service_api_id
-          field: field_health_service_api_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Health Service API ID'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -1319,14 +1566,14 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        nid:
-          id: nid
-          table: node_field_data
-          field: nid
-          relationship: reverse__node__field_service_name_and_descripti
-          group_type: count
+        field_vet_center_com_conditions:
+          id: field_vet_center_com_conditions
+          table: taxonomy_term__field_vet_center_com_conditions
+          field: field_vet_center_com_conditions
+          relationship: none
+          group_type: group
           admin_label: ''
-          label: 'Number of uses by VAMCs'
+          label: ''
           exclude: false
           alter:
             alter_text: false
@@ -1359,7 +1606,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -1367,19 +1614,10 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          set_precision: false
-          precision: 0
-          decimal: .
-          separator: ', '
-          format_plural: 0
-          format_plural_string: !!binary MQNAY291bnQ=
-          prefix: ''
-          suffix: ''
           click_sort_column: value
-          type: number_integer
+          type: string
           settings:
-            thousand_separator: ''
-            prefix_suffix: true
+            link_to_entity: false
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -1388,17 +1626,153 @@ display:
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
+          separator: ', '
           field_api_classes: false
-          entity_type: node
-          entity_field: nid
+          plugin_id: field
+        field_vet_center_service_descrip:
+          id: field_vet_center_service_descrip
+          table: taxonomy_term__field_vet_center_service_descrip
+          field: field_vet_center_service_descrip
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: basic_string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_vet_center_type_of_care:
+          id: field_vet_center_type_of_care
+          table: taxonomy_term__field_vet_center_type_of_care
+          field: field_vet_center_type_of_care
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
           plugin_id: field
       defaults:
         fields: false
-      automatic_download: false
-      store_in_public_file_directory: null
-      redirect_to_display: none
-      custom_redirect_path: false
-      include_query_params: false
+      displays:
+        page_1: page_1
+        default: '0'
+      style:
+        type: data_export
+        options:
+          formats:
+            csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
+      display_description: ''
     cache_metadata:
       max-age: -1
       contexts:
@@ -1410,6 +1784,10 @@ display:
         - 'config:field.storage.taxonomy_term.field_commonly_treated_condition'
         - 'config:field.storage.taxonomy_term.field_health_service_api_id'
         - 'config:field.storage.taxonomy_term.field_service_type_of_care'
+        - 'config:field.storage.taxonomy_term.field_vet_center_com_conditions'
+        - 'config:field.storage.taxonomy_term.field_vet_center_friendly_name'
+        - 'config:field.storage.taxonomy_term.field_vet_center_service_descrip'
+        - 'config:field.storage.taxonomy_term.field_vet_center_type_of_care'
         - 'config:field.storage.taxonomy_term.field_vha_healthservice_stopcode'
   page_1:
     display_plugin: page
@@ -1435,4 +1813,8 @@ display:
         - 'config:field.storage.taxonomy_term.field_commonly_treated_condition'
         - 'config:field.storage.taxonomy_term.field_health_service_api_id'
         - 'config:field.storage.taxonomy_term.field_service_type_of_care'
+        - 'config:field.storage.taxonomy_term.field_vet_center_com_conditions'
+        - 'config:field.storage.taxonomy_term.field_vet_center_friendly_name'
+        - 'config:field.storage.taxonomy_term.field_vet_center_service_descrip'
+        - 'config:field.storage.taxonomy_term.field_vet_center_type_of_care'
         - 'config:field.storage.taxonomy_term.field_vha_healthservice_stopcode'

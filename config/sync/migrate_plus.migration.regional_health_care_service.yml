@@ -16,20 +16,25 @@ source:
   path: modules/custom/va_gov_migrate/data/regional-health-care-service.csv
   delimiter: ;
   enclosure: ''''
-  header_row_count: 1
-  keys:
+  header_offset: 0
+  ids:
     - id
-  column_names:
+  fields:
     -
-      id: Id
+      name: id
+      label: Id
     -
-      field_service_name_and_descripti: 'Health Service'
+      name: field_service_name_and_descripti
+      label: 'Health Service'
     -
-      field_body: 'Full Upload'
+      name: field_body
+      label: 'Full Upload'
     -
-      field_owner: Owner
+      name: field_owner
+      label: Owner
     -
-      field_health_system: 'Health System'
+      name: field_health_system
+      label: 'Health System'
 process:
   field_service_name_and_descripti:
     -
@@ -65,7 +70,7 @@ process:
     source: field_health_system
   changed:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   new_revision:
     plugin: default_value
     default_value: true
@@ -77,7 +82,7 @@ process:
     default_value: 'Imported system health services'
   revision_timestamp:
     plugin: callback
-    callable: time
+    callable: va_gov_migrate_time
   revision_uid:
     plugin: default_value
     default_value: 1317

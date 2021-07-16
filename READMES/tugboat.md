@@ -1,7 +1,7 @@
 # Tugboat 101
 
 ## Summary of Tugboat
-Tugboat is a fast, modern Preview Environment creation tool based on containers ([Docker Swarm](https://docs.docker.com/engine/swarm/)). Tugboat creates "Previews" which are environments that you can test proposed code changes on, login with a web shell, and view logs in the UI. It uses a concept of a "Base Preview" which is a container with a production database snapshot baked into it and ready to put your new code onto and run post-deploy operations (updatedb, config:import). This base preview image is built every day just after the PROD CMS deploy at 3:30pm ET and uses a database snapshot from just after that deployment time. Then, when you launch your PR it launches from that state and doesn't have to sync the file assets or database snapshot and will only run your code updates (`drush updatdb`) and configuration import (`drush config:import`) and then posts a GitHub comment to your pull request with links to your preview environment(s).
+[Tugboat](https://www.tugboat.qa) is a fast, modern Preview Environment creation tool based on containers ([Docker Swarm](https://docs.docker.com/engine/swarm/)). Tugboat creates "Previews" which are environments that you can test proposed code changes on, login with a web shell, and view logs in the UI. It uses a concept of a "Base Preview" which is a container with a production database snapshot baked into it and ready to put your new code onto and run post-deploy operations (updatedb, config:import). This base preview image is built every day just after the PROD CMS deploy at 3:30pm ET and uses a database snapshot from just after that deployment time. Then, when you launch your PR it launches from that state and doesn't have to sync the file assets or database snapshot and will only run your code updates (`drush updatedb`) and configuration import (`drush config:import`) and then posts a GitHub comment to your pull request with links to your preview environment(s).
 
 ## Getting started with CMS Pull Request Preview Environments
 1. Log in to the Tugboat dashboard (internal) https://tugboat.vfs.va.gov. When you first log in with GitHub, you need to wait up to 2 minutes for your user account to be granted access to project(s) by a cron script that runs every minute (we are working on making this instant eventually). After you have waited the 2 minutes:
@@ -92,6 +92,7 @@ For example, when creating the 'Wilmington health care' demo environment, these 
 | Scroll the logs. | This is not possible in the Tugboat UI, use `tugboat log <service id>` to grep or scroll. |
 | Run more advanced commands with the `tugboat` tool on the proxy | See the "Tugboat's CLI tool for software engineers" section of this document. |
 | Want to get the latest .env file | Run a "Refresh" to run the "Build" stage which re-generates the .env file with latest ENV variables. |
+| Use a branch as a base preview for further PRs that will be merged into that branch | Push the base preview branch upstream, then go to branches and click "Build Preview".  From that preview, click "Preview Settings", select "Use this preview as a Base Preview", then select "Branch Base Preview".  PRs representing branches based on the base preview branch will then create previews that use that base preview.| 
 
 ## Tugboat config testing operations
 | I want to... | Then you should... |

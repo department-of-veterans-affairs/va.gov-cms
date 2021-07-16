@@ -1,0 +1,31 @@
+uuid: 731806a7-a5a8-47de-80c7-b49a32d71be9
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.vet_centers
+  module:
+    - views
+name: vet_centers
+label: 'Vet centers'
+display: modal
+display_configuration:
+  width: '650'
+  height: '500'
+  link_text: 'Select Vet Centers'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  0705886d-7ccf-4340-ae99-12e71d1424d3:
+    settings:
+      view: vet_centers
+      view_display: vet_center_entity_browser
+      submit_text: 'Select nearby Vet Centers'
+      auto_select: false
+    uuid: 0705886d-7ccf-4340-ae99-12e71d1424d3
+    weight: 1
+    label: ''
+    id: view

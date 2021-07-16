@@ -1,0 +1,28 @@
+diff --git a/lib/server/lib/actions/jobs/create.js b/lib/server/lib/actions/jobs/create.js
+index 38a0587c5..34fc4122b 100644
+--- a/lib/server/lib/actions/jobs/create.js
++++ b/lib/server/lib/actions/jobs/create.js
+@@ -39,6 +39,10 @@ module.exports = async function ({
+     }
+
+     if (lock) {
++        // If the job is forced, release any extant lock on this object.
++        if (args.force) {
++            await tugboat.locks.findOneAndRemove({ name: objectId }).catch(() => null);
++        }
+         // Attempt to acquire a lock on the object. Wait for up to 3 seconds before
+         // throwing an error. It would be great if we could have multiple jobs
+         // queued up for an object, but that would require a bunch of job management
+diff --git a/lib/webhooks/lib/client.js b/lib/webhooks/lib/client.js
+index 694a4d072..fa4e84376 100644
+--- a/lib/webhooks/lib/client.js
++++ b/lib/webhooks/lib/client.js
+@@ -76,7 +76,7 @@ class TugboatClient {
+                         target: 'previews',
+                         action: 'rebuild',
+                         object: preview.id,
+-                        args: { preview: preview.id },
++                        args: { preview: preview.id, force: true },
+                     });
+
+                     // Run the rebuild job

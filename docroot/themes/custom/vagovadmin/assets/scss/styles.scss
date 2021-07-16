@@ -106,13 +106,17 @@
   font-size: 20px;
 }
 
-.field--name-field-phone-number,
-.field--name-field-phone-extension {
-  float: left;
+.field--name-field-phone-number {
+  .form-type-textfield {
+    float: left;
+  }
 }
 
 .field--name-field-phone-extension {
-  margin-left: 20px;
+  .form-type-textfield {
+    float: left;
+    margin-left: 20px;
+  }
 }
 
 .field--name-field-phone-label {
@@ -278,8 +282,26 @@
   }
 }
 
+.not-editable {
+  background-color: #edede8 !important;
+}
+
+
 .centralized {
   background-color: #edede8 !important;
+
+  .data-updated a {
+    float: right;
+  }
+
+  .data-updated::after {
+    clear: both;
+    content: ' ';
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
+  }
 }
 
 .claro-spinner {
@@ -292,4 +314,31 @@
       pointer-events: none;
     }
   }
+}
+
+#get-help-button {
+  background-color: #1179bf;
+  border-radius: 999px;
+  bottom: 150px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  height: 50px;
+  line-height: 50px;
+  outline: none;
+  padding: 0 20px;
+  position: fixed;
+  right: 20px;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.field--name-field-facility-hours table tr td p {
+  margin: 0;
+}
+
+#external-content h3 {
+  text-transform: uppercase;
 }

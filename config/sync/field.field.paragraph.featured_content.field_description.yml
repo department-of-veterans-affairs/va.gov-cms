@@ -1,0 +1,27 @@
+uuid: cb2398f9-1216-4d1a-a723-39719ae3c588
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_description
+    - paragraphs.paragraphs_type.featured_content
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    rich_text_limited: rich_text_limited
+    rich_text: '0'
+    plain_text: '0'
+id: paragraph.featured_content.field_description
+field_name: field_description
+entity_type: paragraph
+bundle: featured_content
+label: Description
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

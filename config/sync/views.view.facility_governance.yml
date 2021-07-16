@@ -12,6 +12,8 @@ dependencies:
     - node.type.nca_facility
     - node.type.vba_facility
     - node.type.vet_center
+    - node.type.vet_center_cap
+    - node.type.vet_center_outstation
     - taxonomy.vocabulary.administration
     - user.role.authenticated
   content:
@@ -23,7 +25,7 @@ dependencies:
     - content_moderation
     - node
     - options
-    - taxonomy
+    - taxonomy_entity_index
     - user
     - views_bulk_operations
 id: facility_governance
@@ -230,29 +232,11 @@ display:
           clear_on_exposed: true
           action_title: ''
           selected_actions:
-            'entity:break_lock:node': 0
-            node_unpromote_action: 0
-            node_unpublish_action: 0
-            node_publish_action: 0
-            node_unpublish_by_keyword_action: 0
-            node_assign_owner_action: 0
-            node_promote_action: 0
-            node_save_action: 0
-            node_make_sticky_action: 0
-            node_make_unsticky_action: 0
-            publish_latest_revision_action: 0
-            archive_node_action: 0
-            views_bulk_edit: views_bulk_edit
-            views_bulk_operations_delete_entity: 0
-            pathauto_update_alias: 0
-            'entity:save_action:node': 0
-            'entity:unpublish_action:node': 0
-            'entity:publish_action:node': 0
-            'entity:delete_action:node': 0
-          preconfiguration:
-            views_bulk_edit:
-              label_override: 'Update Operating status'
-              get_bundles_from_results: 1
+            -
+              action_id: views_bulk_edit
+              preconfiguration:
+                label_override: 'Update Operating status'
+                get_bundles_from_results: 1
           plugin_id: views_bulk_operations_bulk_form
         title:
           id: title
@@ -513,7 +497,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Owner
+          label: Section
           exclude: false
           alter:
             alter_text: false
@@ -764,6 +748,8 @@ display:
             health_care_local_facility: health_care_local_facility
             vba_facility: vba_facility
             vet_center: vet_center
+            vet_center_cap: vet_center_cap
+            vet_center_outstation: vet_center_outstation
           group: 1
           exposed: false
           expose:
@@ -1000,10 +986,10 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           plugin_id: string
-        field_administration_target_id:
-          id: field_administration_target_id
-          table: node__field_administration
-          field: field_administration_target_id
+        taxonomy_entity_index_tid_depth:
+          id: taxonomy_entity_index_tid_depth
+          table: node
+          field: taxonomy_entity_index_tid_depth
           relationship: none
           group_type: group
           admin_label: ''
@@ -1016,14 +1002,14 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_administration_target_id_op
-            label: Owner
+            operator_id: taxonomy_entity_index_tid_depth_op
+            label: Section
             description: ''
             use_operator: false
-            operator: field_administration_target_id_op
+            operator: taxonomy_entity_index_tid_depth_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: field_administration_target_id
+            identifier: taxonomy_entity_index_tid_depth
             required: false
             remember: false
             multiple: true
@@ -1033,7 +1019,9 @@ display:
               content_api_consumer: '0'
               content_creator_benefits_hubs: '0'
               content_creator_resources_and_support: '0'
+              office_content_creator: '0'
               vamc_content_creator: '0'
+              content_creator_vet_center: '0'
               content_editor: '0'
               content_reviewer: '0'
               content_publisher: '0'
@@ -1058,9 +1046,11 @@ display:
           type: select
           limit: true
           vid: administration
-          hierarchy: false
+          hierarchy: true
           error_message: true
-          plugin_id: taxonomy_index_tid
+          depth: 3
+          entity_type: node
+          plugin_id: taxonomy_entity_index_tid_depth
         moderation_state:
           id: moderation_state
           table: node_field_data
