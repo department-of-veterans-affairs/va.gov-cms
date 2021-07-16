@@ -1,0 +1,52 @@
+uuid: e638088e-c6c8-4602-8674-052b4509d135
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.user_guides
+    - field.field.paragraph.featured_content.field_cta
+    - field.field.paragraph.featured_content.field_description
+    - field.field.paragraph.featured_content.field_section_header
+    - paragraphs.paragraphs_type.featured_content
+  module:
+    - entity_reference_revisions
+    - layout_builder
+    - string_field_formatter
+    - text
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: paragraph.featured_content.user_guides
+targetEntityType: paragraph
+bundle: featured_content
+mode: user_guides
+content:
+  field_cta:
+    type: entity_reference_revisions_entity_view
+    weight: 2
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_description:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_section_header:
+    weight: 0
+    label: hidden
+    settings:
+      wrap_tag: h3
+      wrap_class: ''
+      link_to_entity: false
+    third_party_settings: {  }
+    type: plain_string_formatter
+    region: content
+hidden:
+  search_api_excerpt: true

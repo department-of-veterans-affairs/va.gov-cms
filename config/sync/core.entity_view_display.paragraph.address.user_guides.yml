@@ -1,0 +1,29 @@
+uuid: 41f1e6dd-f8b1-4788-b103-bcf46de20b1a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.user_guides
+    - field.field.paragraph.address.field_address
+    - paragraphs.paragraphs_type.address
+  module:
+    - address
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: paragraph.address.user_guides
+targetEntityType: paragraph
+bundle: address
+mode: user_guides
+content:
+  field_address:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+    region: content
+hidden:
+  search_api_excerpt: true
