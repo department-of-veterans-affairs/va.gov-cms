@@ -1,0 +1,38 @@
+uuid: 130af877-8079-4eb4-84c2-b4b6b903c3ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.user_guides
+    - field.field.paragraph.spanish_translation_summary.field_text_expander
+    - field.field.paragraph.spanish_translation_summary.field_wysiwyg
+    - paragraphs.paragraphs_type.spanish_translation_summary
+  module:
+    - layout_builder
+    - text
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: paragraph.spanish_translation_summary.user_guides
+targetEntityType: paragraph
+bundle: spanish_translation_summary
+mode: user_guides
+content:
+  field_text_expander:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_wysiwyg:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden:
+  search_api_excerpt: true
