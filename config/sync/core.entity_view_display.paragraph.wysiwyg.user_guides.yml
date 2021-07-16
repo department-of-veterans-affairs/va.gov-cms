@@ -1,0 +1,29 @@
+uuid: 1d30e484-5e1d-4e11-81d7-b01eed5cde6e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.user_guides
+    - field.field.paragraph.wysiwyg.field_wysiwyg
+    - paragraphs.paragraphs_type.wysiwyg
+  module:
+    - layout_builder
+    - text
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: paragraph.wysiwyg.user_guides
+targetEntityType: paragraph
+bundle: wysiwyg
+mode: user_guides
+content:
+  field_wysiwyg:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden:
+  search_api_excerpt: true

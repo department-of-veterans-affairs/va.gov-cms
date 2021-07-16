@@ -1,0 +1,43 @@
+uuid: 8ffe72f8-d008-4380-a119-db5cdc71fc42
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.user_guides
+    - field.field.paragraph.button.field_button_label
+    - field.field.paragraph.button.field_button_link
+    - paragraphs.paragraphs_type.button
+  module:
+    - layout_builder
+    - link
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: paragraph.button.user_guides
+targetEntityType: paragraph
+bundle: button
+mode: user_guides
+content:
+  field_button_label:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_button_link:
+    weight: 1
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+hidden:
+  search_api_excerpt: true

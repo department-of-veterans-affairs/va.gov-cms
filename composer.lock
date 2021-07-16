@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9bac19f217d897d66b55cdbd399a34b3",
+    "content-hash": "bb6f00426641fdce6ec78c4a8f05d7b1",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -2931,6 +2931,54 @@
             }
         },
         {
+            "name": "drupal/animated_gif",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/animated_gif.git",
+                "reference": "8.x-1.6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/animated_gif-8.x-1.6.zip",
+                "reference": "8.x-1.6",
+                "shasum": "150441262ac4d2fe9638a673a7637ea68654bc65"
+            },
+            "require": {
+                "drupal/core": "^8.8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.6",
+                    "datestamp": "1616606860",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Grimreaper",
+                    "homepage": "https://www.drupal.org/user/2388214"
+                },
+                {
+                    "name": "StijnStroobants",
+                    "homepage": "https://www.drupal.org/user/1787140"
+                }
+            ],
+            "description": "Allows you to render animated GIFs without image style.",
+            "homepage": "https://www.drupal.org/project/animated_gif",
+            "support": {
+                "source": "https://git.drupalcode.org/project/animated_gif"
+            }
+        },
+        {
             "name": "drupal/auto_entitylabel",
             "version": "3.0.0-beta3",
             "source": {
@@ -5842,17 +5890,17 @@
         },
         {
             "name": "drupal/govdelivery_bulletins",
-            "version": "1.3.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/govdelivery_bulletins.git",
-                "reference": "8.x-1.3"
+                "reference": "8.x-1.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/govdelivery_bulletins-8.x-1.3.zip",
-                "reference": "8.x-1.3",
-                "shasum": "49cb4139bac511925081a18b060afcb233ef42f6"
+                "url": "https://ftp.drupal.org/files/projects/govdelivery_bulletins-8.x-1.5.zip",
+                "reference": "8.x-1.5",
+                "shasum": "e0e15ca1f1718c50b41bc30495d1eff9688ef4b5"
             },
             "require": {
                 "drupal/core": "^8 || ^9"
@@ -5860,8 +5908,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.3",
-                    "datestamp": "1605564728",
+                    "version": "8.x-1.5",
+                    "datestamp": "1626385868",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -20631,16 +20679,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.546",
+            "version": "v0.0.576",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "698a52ecc825d18f72095809eabc686a772ccc5b"
+                "reference": "e1f6d39ac93123a24e57dbe556e31babd1a2c233"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/698a52ecc825d18f72095809eabc686a772ccc5b",
-                "reference": "698a52ecc825d18f72095809eabc686a772ccc5b",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/e1f6d39ac93123a24e57dbe556e31babd1a2c233",
+                "reference": "e1f6d39ac93123a24e57dbe556e31babd1a2c233",
                 "shasum": ""
             },
             "type": "node-project",
@@ -20667,9 +20715,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.546"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.576"
             },
-            "time": "2021-07-07T21:15:49+00:00"
+            "time": "2021-07-12T17:55:50+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
