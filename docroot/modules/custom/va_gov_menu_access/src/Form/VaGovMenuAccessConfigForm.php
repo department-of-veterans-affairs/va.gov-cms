@@ -76,7 +76,7 @@ class VaGovMenuAccessConfigForm extends ConfigFormBase {
       '#type' => 'textarea',
       '#title' => $this->t('Allow children menu items for "Detail Page" nodes on these URL paths'),
       '#default_value' => $config->get('va_gov_menu_access.paths'),
-      '#description' => $this->t('Put each path on its own line. Available wildcards: "%" = all occurences. "~" = disabled with children. "~" = disabled no children.'),
+      '#description' => $this->t('Put each path on its own line. Available wildcards: "%" = all occurences. "!" = disabled but allow children. "~" = disabled no children allowed.'),
     ];
 
     $form['va_gov_menu_access_paths']['locked_paths'] = [
