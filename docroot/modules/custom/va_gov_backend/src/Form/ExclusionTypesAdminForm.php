@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class ExclusionTypesAdminForm.
+ * Class ExclusionTypesAdminForm is an admin form for exclusion types.
  */
 class ExclusionTypesAdminForm extends FormBase {
 
@@ -53,7 +53,9 @@ class ExclusionTypesAdminForm extends FormBase {
       ->loadMultiple();
 
     foreach ($types as $type) {
-      $options[$type->get('type')] = $this->t(':name', [':name' => $type->get('name')]);
+      $options[$type->get('type')] = $this->t(':name', [
+        ':name' => $type->get('name'),
+      ]);
     }
 
     $form['types_to_exclude'] = [
