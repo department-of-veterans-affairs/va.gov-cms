@@ -411,12 +411,10 @@ class MenuReductionService {
       if (strpos($parent_rule, '~') !== FALSE) {
         // The ~ tells us we just have a disabled parent.
         $parent_rule = $this->removeWildCard('~', $parent_rule);
-        if (strpos($alias, $parent_rule) !== FALSE) {
-          // Check to see if this is the parent item.
-          $parent_sanitized = str_replace('/', '\/', $parent_rule);
-          if (preg_match("/{$parent_sanitized}$/", $alias)) {
-            return self::DISABLED;
-          }
+        // Check to see if this is the parent item.
+        $parent_sanitized = str_replace('/', '\/', $parent_rule);
+        if (preg_match("/{$parent_sanitized}$/", $alias)) {
+          return self::DISABLED;
         }
       }
     }
