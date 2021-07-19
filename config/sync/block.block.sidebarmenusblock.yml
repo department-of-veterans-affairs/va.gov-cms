@@ -1,0 +1,34 @@
+uuid: f07f00b2-f5cf-4a94-9f3c-352ebb78a2e4
+langcode: en
+status: true
+dependencies:
+  module:
+    - ctools
+    - system
+    - va_gov_backend
+  theme:
+    - vagovadmin
+id: sidebarmenusblock
+theme: vagovadmin
+region: sidebar_first
+weight: -12
+provider: null
+plugin: sidebar_menu_block
+settings:
+  id: sidebar_menu_block
+  label: 'Sidebar Menus block'
+  provider: va_gov_backend
+  label_display: '0'
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      page: page
+    negate: true
+    context_mapping:
+      node: '@node.node_route_context:node'
+  request_path:
+    id: request_path
+    pages: "/admin/*\r\n/node/*/edit\r\n/node/*/delete\r\n/node/*/revisions\r\n/user\r\n/user/*"
+    negate: true
+    context_mapping: {  }

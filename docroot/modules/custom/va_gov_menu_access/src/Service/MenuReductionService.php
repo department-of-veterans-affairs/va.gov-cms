@@ -5,6 +5,7 @@ namespace Drupal\va_gov_menu_access\Service;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeForm;
 use Drupal\path_alias\AliasManagerInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
@@ -13,6 +14,8 @@ use Drupal\va_gov_user\Service\UserPermsService;
  * Class MenuReductionService a service for reducing possible menu items.
  */
 class MenuReductionService {
+
+  use StringTranslationTrait;
 
   /**
    * Possible states for the type of menu item.
@@ -126,18 +129,10 @@ class MenuReductionService {
       'menu_parent',
     ]);
     $this->originalMenuParentOptions = $form['menu']['link']['menu_parent']['#options'] ?? [];
-    $this->setEmptyMenuParentSelector($form);
 
-    // @todo Remove this nonsense check to activate the remainder of this logic
-    // when the other issues in #2427 have paved the way for adjusting and
-    // testing this logic.
-    if (TRUE) {
-      $this->nuke();
-      return;
-    }
-    // End of @todo removal.  Nothing below this point will run.
     if ($this->userPermsService->hasAdminRole()) {
       // User is an admin so no menu reduction needed.
+      $this->setEmptyMenuParentSelector($form);
       $this->nuke();
       return;
     }
@@ -145,8 +140,6 @@ class MenuReductionService {
     $form_id = $this->formState->getFormObject()->getFormId();
     // RISK: This is a risky pattern tying menu governance to page alias.
     // Only config joins menu and alias, a config change could break this.
-    // This risk can be mitigated with a different approach once the majority
-    // of the tasks in Issue #2427 have been addressed.
     $page_alias = !empty($form['path']['widget'][0]['alias']['#default_value']) ? $form['path']['widget'][0]['alias']['#default_value'] : '';
 
     // Health care region detail pages are special because they have no
@@ -157,7 +150,7 @@ class MenuReductionService {
     }
 
     $this->applyVamcMenuRulesForDetailPage($form);
-
+    $this->setEmptyMenuParentSelector($form);
     $this->nuke();
   }
 
@@ -188,10 +181,10 @@ class MenuReductionService {
    *   TRUE if a match, FALSE otherwise.
    */
   protected function isLockedPath($page_alias) : bool {
-    $match = FALSE;
+    $is_match = FALSE;
     if (empty($page_alias)) {
       // There is no alias to match.
-      return $match;
+      return $is_match;
     }
     // In this loop, we look to see if we have either an all children
     // pattern lock, or a specific parent pattern lock.
@@ -199,7 +192,7 @@ class MenuReductionService {
       if (strpos($path, '*') !== FALSE) {
         $path_sanitized = rtrim($path, '*');
         if (strpos($page_alias, $path_sanitized) !== FALSE) {
-          $match = TRUE;
+          $is_match = TRUE;
           break;
         }
       }
@@ -208,19 +201,19 @@ class MenuReductionService {
           $path_sanitized = str_replace('/', '\/', $path);
           $matches = preg_match('/' . $path_sanitized . '$/', $page_alias);
           if ($matches > 0) {
-            $match = TRUE;
+            $is_match = TRUE;
             break;
           }
         }
       }
     }
 
-    if (!$match && in_array($page_alias, $this->menuRules['single_locked_paths'])) {
+    if (!$is_match && in_array($page_alias, $this->menuRules['single_locked_paths'])) {
       // The page is a match for the single locked paths.
-      $match = TRUE;
+      $is_match = TRUE;
     }
 
-    return $match;
+    return $is_match;
   }
 
   /**
@@ -257,36 +250,19 @@ class MenuReductionService {
     $allowed_parents = [];
     $enabled_count = 0;
 
-    $uuids_with_vals = $this->extractMenuIds($form['menu']['link']['menu_parent']['#options']);
-
-    // Load up all our menu items at once.
-    $loaded_menu_items = $this->entityTypeManager
-      ->getStorage('menu_link_content')
-      ->loadByProperties([
-        'uuid' => array_keys($uuids_with_vals),
-        'enabled' => 1,
-      ]);
+    $parent_options_menu_ids = $this->extractMenuIds($form['menu']['link']['menu_parent']['#options']);
+    $parent_menu_items = $this->loadParentMenuItems($parent_options_menu_ids);
 
     // Loop through them, and decide whether it should be allowed in options.
-    foreach ($loaded_menu_items as $key => $menu_item) {
-      $uri = $menu_item->get('link')->uri;
-
-      if (substr($uri, 0, 12) === 'entity:node/' || $uri === 'route:<nolink>') {
-        // Get our alias, as well as last arg of alias for comparison.
-        $uri_parts = explode('entity:node/', $uri);
-        $nid = end($uri_parts);
-        $alias = $this->aliasManager->getAliasByPath('/node/' . $nid);
-
-        $subject_uuid = $uuids_with_vals[$menu_item->get('uuid')->value];
-
-        // In this loop, we look to see if we have either an all children
-        // pattern lock, or a specific parent pattern lock match.
-        $menu_element_type = $this->getMenuType($alias);
-
+    foreach ($parent_menu_items as $key => $menu_item) {
+      $alias = $this->getAliasFromUri($menu_item->get('link')->uri);
+      if ($alias) {
+        $subject_uuid = $parent_options_menu_ids[$menu_item->get('uuid')->value];
+        $menu_element_type = $this->getMenuItemType($alias);
         $menu_element_type = $menu_element_type ?? $this->checkForSeparator($allowed_separators, $menu_item);
+
         $this->addAllowedParent($allowed_parents, $enabled_count, $menu_element_type, $subject_uuid);
       }
-
     }
     // Reassemble our options with items set to allow children in select list,
     // in original order.
@@ -300,6 +276,47 @@ class MenuReductionService {
       $form['menu']['link']['menu_parent']['#attributes']['class'][] = 'no-available-menu-targets';
     }
     $this->preventUnintendedChangeOfParent($form);
+  }
+
+  /**
+   * Loads and returns the entities for all menu parents.
+   *
+   * @param array $parent_options_menu_ids
+   *   Menu ids.
+   *
+   * @return array
+   *   An array of menu entities loaded.
+   */
+  protected function loadParentMenuItems(array $parent_options_menu_ids) {
+    $parent_menu_items = [];
+    if (!empty($parent_options_menu_ids)) {
+      $parent_menu_items = $this->entityTypeManager
+        ->getStorage('menu_link_content')
+        ->loadByProperties([
+          'uuid' => array_keys($parent_options_menu_ids),
+        ]);
+    }
+    return $parent_menu_items;
+  }
+
+  /**
+   * Getter for the alias of a node.
+   *
+   * @param string $uri
+   *   The drupal URI.
+   *
+   * @return string
+   *   The alias for the uri.
+   */
+  protected function getAliasFromUri($uri) {
+    $alias = NULL;
+    if (substr($uri, 0, 12) === 'entity:node/' || $uri === 'route:<nolink>') {
+      // Get our alias, as well as last arg of alias for comparison.
+      $uri_parts = explode('entity:node/', $uri);
+      $nid = end($uri_parts);
+      $alias = $this->aliasManager->getAliasByPath('/node/' . $nid);
+    }
+    return $alias;
   }
 
   /**
@@ -368,11 +385,11 @@ class MenuReductionService {
    */
   protected function checkForSimpleMatch($alias) {
     foreach ($this->menuRules['universal_parent_menu_items'] as $parent_rule) {
-      if (strpos($alias, $parent_rule) !== FALSE) {
+      if ((strpos($alias, $parent_rule) !== FALSE) && (strpos($parent_rule, '~') === FALSE)) {
         // Check for simple match.
         $parent_sanitized = str_replace('/', '\/', $parent_rule);
-        $matcher = preg_match('/' . $parent_sanitized . '$/', $alias);
-        if ($matcher > 0) {
+        $matches = preg_match('/' . $parent_sanitized . '/', $alias);
+        if ($matches > 0) {
           return self::ENABLED;
         }
       }
@@ -381,7 +398,7 @@ class MenuReductionService {
   }
 
   /**
-   * Check for a match for a pattern of Disabled parent.
+   * Check for a match for pattern of Disabled parent with no children allowed.
    *
    * @param string $alias
    *   The current alias.
@@ -393,11 +410,11 @@ class MenuReductionService {
     foreach ($this->menuRules['universal_parent_menu_items'] as $parent_rule) {
       if (strpos($parent_rule, '~') !== FALSE) {
         // The ~ tells us we just have a disabled parent.
-        $parent_sanitized = rtrim($parent_rule, '~');
-        if (strpos($alias, $parent_sanitized) !== FALSE) {
+        $parent_rule = $this->removeWildCard('~', $parent_rule);
+        if (strpos($alias, $parent_rule) !== FALSE) {
           // Check to see if this is the parent item.
-          $parent_sanitized = str_replace('/', '\/', $parent_sanitized);
-          if (preg_match('/' . $parent_sanitized . '$/', $alias)) {
+          $parent_sanitized = str_replace('/', '\/', $parent_rule);
+          if (preg_match("/{$parent_sanitized}$/", $alias)) {
             return self::DISABLED;
           }
         }
@@ -407,7 +424,7 @@ class MenuReductionService {
   }
 
   /**
-   * Check for a match for a pattern of Disabled parent with enabled children.
+   * Check for a match for a pattern of enabled allowed parent.
    *
    * @param string $alias
    *   The current alias.
@@ -415,14 +432,15 @@ class MenuReductionService {
    * @return string|null
    *   A state of self::ENABLED, self::DISABLED, or NULL.
    */
-  protected function checkForTypeParentWithEnabledChildren(string $alias) {
+  protected function checkForDisabledParentWithChildren(string $alias) {
     foreach ($this->menuRules['universal_parent_menu_items'] as $parent_rule) {
       if (strpos($parent_rule, '!') !== FALSE) {
         // The ! tells us we have a disabled parent with children enabled.
-        $parent_sanitized = rtrim($parent_rule, '!');
-        if (strpos($alias, $parent_sanitized) !== FALSE) {
+        $parent_rule = $this->removeWildCard('!', $parent_rule);
+        if (strpos($alias, $parent_rule) !== FALSE) {
+          // It loosely matches the pattern.
           // Check to see if this is the parent item.
-          $parent_sanitized = str_replace('/', '\/', $parent_sanitized);
+          $parent_sanitized = str_replace('/', '\/', $parent_rule);
           if (preg_match("/{$parent_sanitized}$/", $alias)) {
             return self::DISABLED;
           }
@@ -454,7 +472,7 @@ class MenuReductionService {
   }
 
   /**
-   * Gets the meny type based on the alias.
+   * Gets the menu type based on the alias.
    *
    * @param string $alias
    *   The alias to check.
@@ -462,10 +480,10 @@ class MenuReductionService {
    * @return string|null
    *   The type of menu entry this would be based on path.
    */
-  protected function getMenuType($alias) {
+  protected function getMenuItemType($alias) {
     $type = NULL;
     if ($alias) {
-      $type = $this->checkForTypeParentWithEnabledChildren($alias)
+      $type = $this->checkForDisabledParentWithChildren($alias)
       ?? $this->checkForTypeDisabledParent($alias)
       ?? $this->checkForSimpleMatch($alias);
     }
@@ -480,10 +498,9 @@ class MenuReductionService {
     $allowed_parents = $this->settings->get('va_gov_menu_access.paths');
     $allowed_parents_array = explode("\n", $allowed_parents);
     // Push items into parent array.
-    foreach ($allowed_parents_array as $parent) {
-      if (strpos($parent, '%') !== FALSE) {
-        $universal_parent_menu_items_raw = explode('%', $parent);
-        $this->menuRules['universal_parent_menu_items'][] = trim(end($universal_parent_menu_items_raw));
+    foreach ($allowed_parents_array as $allowed_parent) {
+      if (strpos($allowed_parent, '%') !== FALSE) {
+        $this->menuRules['universal_parent_menu_items'][] = $this->removeWildCard('%', $allowed_parent);
       }
     }
     // Grab the locked_paths config.
@@ -492,13 +509,29 @@ class MenuReductionService {
     // Sort locked paths into universal and single allowance arrays.
     foreach ($locked_paths_array as $locked_path) {
       if (strpos($locked_path, '%') !== FALSE) {
-        $universal_locked_raw = explode('%', $locked_path);
-        $this->menuRules['universal_locked_paths'][] = trim(end($universal_locked_raw));
+        $this->menuRules['universal_locked_paths'][] = $this->removeWildCard('%', $locked_path);
       }
       else {
-        $this->menuRules['single_locked_paths'][] = trim($parent);
+        $this->menuRules['single_locked_paths'][] = trim($locked_path);
       }
     }
+  }
+
+  /**
+   * Removes the wildcard character from the string.
+   *
+   * @param string $wildcard
+   *   The wildcard string to remove.
+   * @param string $path
+   *   The path to remove the wildcard from.
+   *
+   * @return string
+   *   The path with the wildcard removed.
+   */
+  protected function removeWildCard($wildcard, $path) {
+    $path = str_replace($wildcard, '', $path);
+    $path = trim($path);
+    return $path;
   }
 
   /**
@@ -551,16 +584,48 @@ class MenuReductionService {
    *   The form array by reference.
    */
   protected function preventUnintendedChangeOfParent(array &$form) {
-    // Check to see if the current parent exists in the reduced form.
-    if (!in_array($this->currentMenuParent, $form['menu']['link']['menu_parent']['#options'])) {
+    $current_menu_item_is_present = isset($form['menu']['link']['menu_parent']['#options'][$this->currentMenuParent]);
+    if ($this->formState->getFormObject()->getEntity()->isNew()) {
+      // Reapply the value that was set when submitted.
+      $form['menu']['link']['menu_parent']['#value'] = $this->currentMenuParent;
+    }
+    // Check for rare possibility that menu parent is the default menu root.
+    elseif ($this->currentMenuParent === "pittsburgh-health-care:") {
+      return;
+    }
+    // This is not new so check the current parent exists in the reduced form.
+    elseif (!$current_menu_item_is_present || $this->isCurrentMenuSettingDisabled($form)) {
       // Parent does not exist in reduced form, Put the original parent options
       // back to prevent data loss. The existing menu setting should not be
       // allowed, but it exists, so allow it to persist. It may have been
       // created and approved by a content_admin.
       $form['menu']['link']['menu_parent']['#options'] = $this->originalMenuParentOptions;
-      // The menu form itself should be hidden for non-admins.
-      $form['menu']['#attributes'] = ['style' => 'display:none'];
+      // Lock it so the parent can not be changed.
+      $form['menu']['link']['menu_parent']['#attributes']['disabled'] = TRUE;
+      $title = $form['menu']['link']['menu_parent']['#title'];
+      $can_not_change = $this->t('Can not be changed.');
+      $title .= " ($can_not_change)";
+      $form['menu']['link']['menu_parent']['#title'] = $title;
     }
+  }
+
+  /**
+   * Checks to see if the current menu parent is disabled.
+   *
+   * @param array $form
+   *   The form array.
+   *
+   * @return bool
+   *   TRUE if the current menu parent is disabled.  FALSE otherwise.
+   */
+  protected function isCurrentMenuSettingDisabled(array $form) : bool {
+    $is_disabled = FALSE;
+    $current_menu_setting = $form['menu']['link']['menu_parent']['#options'][$this->currentMenuParent] ?? '';
+    if (strpos($current_menu_setting, 'Disabled no-link') !== FALSE) {
+      $is_disabled = TRUE;
+    }
+
+    return $is_disabled;
   }
 
   /**
