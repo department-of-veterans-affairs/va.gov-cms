@@ -66,17 +66,19 @@
       {{ page.content }}
     </div>{# /.layout-content #}
 
-    {% if page.sidebar_first %}
-      <aside class="layout-sidebar-first" role="complementary">
-        {{ page.sidebar_first }}
-      </aside>
-    {% endif %}
 
-    {% if page.sidebar_second %}
-      <aside class="layout-sidebar-second" role="complementary">
-        {{ page.sidebar_second }}
-      </aside>
-    {% endif %}
+// Remove sidebars, at least for now.
+{#    {% if page.sidebar_first %}#}
+{#      <aside class="layout-sidebar-first" role="complementary">#}
+{#        {{ page.sidebar_first }}#}
+{#      </aside>#}
+{#    {% endif %}#}
+
+{#    {% if page.sidebar_second %}#}
+{#      <aside class="layout-sidebar-second" role="complementary">#}
+{#        {{ page.sidebar_second }}#}
+{#      </aside>#}
+{#    {% endif %}#}
 
   </main>
 

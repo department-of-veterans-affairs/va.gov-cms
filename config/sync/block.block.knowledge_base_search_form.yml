@@ -12,7 +12,7 @@ dependencies:
 id: knowledge_base_search_form
 theme: vagovadmin
 region: sidebar_first
-weight: -19
+weight: 4
 provider: null
 plugin: 'views_exposed_filter_block:knowledge_base_search_results-knowledge_base_search_page'
 settings:
@@ -24,6 +24,6 @@ settings:
 visibility:
   request_path:
     id: request_path
-    pages: '/help/*'
+    pages: "/help/*\r\n"
     negate: false
     context_mapping: {  }
