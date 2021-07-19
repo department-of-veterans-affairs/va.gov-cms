@@ -1830,7 +1830,7 @@ function va_gov_backend_preprocess_paragraph(&$variables) {
         }
       }
       elseif ($media_bundle === 'video') {
-        $media_object['link_url'] = $media_entity->get('field_media_video_embed_field')->getValue()[0]['value'];
+        $media_object['link_url'] = $media_entity->get('field_media_video_embed_field')->getValuetypo()[0]['value'];
       }
       $variables['field_media'][] = $media_object;
     }
