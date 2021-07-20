@@ -552,6 +552,7 @@ function va_gov_db_update_8028(&$sandbox) {
 function va_gov_db_update_8029(&$sandbox) {
   // Grab our terms and set the count.
   $vc_items = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('administration', 190, NULL, TRUE);
+
   foreach ($vc_items as $vc_term) {
     $vc_term->set('weight', 0);
     $vc_term->save();
@@ -563,5 +564,24 @@ function va_gov_db_update_8029(&$sandbox) {
     ->log(LogLevel::INFO, 'VC terms processed: %count', [
       '%count' => count($vc_items),
     ]);
+}
 
+/**
+ * Enable pathauto for vamc leadership_listing node types.
+ */
+function va_gov_db_update_8030(&$sandbox) {
+  $key_value = \Drupal::keyValue('pathauto_state.node');
+  $nids = \Drupal::entityQuery('node')
+    ->condition('type', 'leadership_listing')
+    ->execute();
+  $count = 0;
+  foreach ($nids as $key => $nid) {
+    if ($key_value->get($nid) == 0) {
+      $key_value->set($nid, 1);
+      $count++;
+    }
+  }
+  Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Enabled pathauto auto alias for %count Leadership listing page nodes completed by va_gov_db_update_8028.', [
+    '%count' => $count,
+  ]);
 }

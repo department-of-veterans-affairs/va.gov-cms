@@ -8,8 +8,8 @@ dependencies:
     - field.field.paragraph.featured_content.field_section_header
     - paragraphs.paragraphs_type.featured_content
   module:
+    - allowed_formats
     - paragraphs
-    - text
     - textfield_counter
 id: paragraph.featured_content.default
 targetEntityType: paragraph
@@ -40,8 +40,16 @@ content:
     settings:
       rows: 5
       placeholder: ''
-    third_party_settings: {  }
-    type: text_textarea
+      maxlength: 240
+      counter_position: after
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+      js_prevent_submit: false
+    third_party_settings:
+      allowed_formats:
+        hide_help: '0'
+        hide_guidelines: '0'
+    type: text_textarea_with_counter
     region: content
   field_section_header:
     weight: 0

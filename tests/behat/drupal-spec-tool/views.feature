@@ -222,6 +222,7 @@ Feature: Views
 | Taxonomy entity browsers | Master | default | Master |
 | Vet Center facility listing | Block | vc_facility_listing | Block |
 | Vet Center facility listing | Master | default | Master |
+| Vet Center facility listing | VC listing for node form | vc_listing_for_node_form | Block |
 | Vet centers | Entity browser | vet_center_entity_browser | Entity browser |
 | Vet centers | Master | default | Master |
 | Vet centers | Mobile Vet Centers Entity Browser | mvc_entity_browser | Entity browser |

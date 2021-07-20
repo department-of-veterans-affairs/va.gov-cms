@@ -1,0 +1,59 @@
+uuid: 19a12110-204e-4ca9-bdca-c0c6eaa4b047
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.user_guides
+    - field.field.paragraph.alert.field_alert_block_reference
+    - field.field.paragraph.alert.field_alert_heading
+    - field.field.paragraph.alert.field_alert_type
+    - field.field.paragraph.alert.field_va_paragraphs
+    - paragraphs.paragraphs_type.alert
+  module:
+    - entity_reference_revisions
+    - layout_builder
+    - options
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: paragraph.alert.user_guides
+targetEntityType: paragraph
+bundle: alert
+mode: user_guides
+content:
+  field_alert_block_reference:
+    weight: 0
+    label: hidden
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+  field_alert_heading:
+    weight: 2
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_alert_type:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_va_paragraphs:
+    weight: 3
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+hidden:
+  search_api_excerpt: true
