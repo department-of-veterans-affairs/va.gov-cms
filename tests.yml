@@ -15,6 +15,7 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
+          : "${RETURN_EXIT_CODE:=0}"
           set -o pipefail
           output="\$(mktemp -d)/output"
           mkfifo \$output
@@ -28,6 +29,9 @@ tasks:
               github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
             fi
           fi
+          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
+            return "\$exit_code";
+          fi
         EOF
 
   va/tests/behat:
@@ -36,6 +40,7 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
+          : "${RETURN_EXIT_CODE:=0}"
           set -o pipefail
           output="\$(mktemp -d)/output"
           mkfifo \$output
@@ -50,6 +55,9 @@ tasks:
               github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
             fi
           fi
+          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
+            return "\$exit_code";
+          fi
         EOF
 
   va/tests/behavioral:
@@ -58,6 +66,7 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
+          : "${RETURN_EXIT_CODE:=0}"
           set -o pipefail
           output="\$(mktemp -d)/output"
           mkfifo \$output
@@ -71,6 +80,9 @@ tasks:
               github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
             fi
           fi
+          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
+            return "\$exit_code";
+          fi
         EOF
 
   va/tests/check-cer:
@@ -79,6 +91,7 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
+          : "${RETURN_EXIT_CODE:=0}"
           set -o pipefail
           output="\$(mktemp -d)/output"
           mkfifo \$output
@@ -93,6 +106,9 @@ tasks:
               [ "\${GITHUB_COMMENT_TYPE}" == "pr" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="\${result}"
             fi
           fi
+          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
+            return "\$exit_code";
+          fi
         EOF
 
   va/tests/phplint:
@@ -101,6 +117,7 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
+          : "${RETURN_EXIT_CODE:=0}"
           exit_code=0
           result="{{ .TASK }}<br/><br/>"
           trap '{ (( exit_code |=\$? )); result+="\$output_text<br/>"; }' ERR
@@ -117,6 +134,9 @@ tasks:
               [ "\${GITHUB_COMMENT_TYPE}" == "pr" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="\${result}"
             fi
           fi
+          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
+            return "\$exit_code";
+          fi
         EOF
 
   va/tests/phpunit:
@@ -125,6 +145,7 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
+          : "${RETURN_EXIT_CODE:=0}"
           set -o pipefail
           output="\$(mktemp -d)/output"
           mkfifo \$output
@@ -138,6 +159,9 @@ tasks:
               github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
             fi
           fi
+          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
+            return "\$exit_code";
+          fi
         EOF
 
   va/tests/revision-log:
@@ -146,18 +170,23 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
+          : "${RETURN_EXIT_CODE:=0}"
           set -o pipefail
           output="\$(mktemp -d)/output"
           mkfifo \$output
           (cat \$output&)
           result="\$(./tests/scripts/check-revision-logs.sh 2>&1 | tee \$output)"
           exit_code=\$?
+          exit_code=3
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$exit_code" -eq 0 ]; then
               github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
             else
               github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
             fi
+          fi
+          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
+            return "\$exit_code";
           fi
         EOF
 
@@ -167,6 +196,7 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
+          : "${RETURN_EXIT_CODE:=0}"
           set -o pipefail
           output="\$(mktemp -d)/output"
           mkfifo \$output
@@ -181,6 +211,9 @@ tasks:
               [ "\${GITHUB_COMMENT_TYPE}" == "pr" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="{{ .TASK }}:<br /><br /><pre>\$(drush $DRUSH_ALIAS core-requirements --severity=2)</pre>"
             fi
           fi
+          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
+            return "\$exit_code";
+          fi
         EOF
 
   va/web/build:
@@ -189,6 +222,7 @@ tasks:
       - |
         cat <<EOF | bash
           : "${SKIP_REPORTING:=0}"
+          : "${RETURN_EXIT_CODE:=0}"
           set -o pipefail
           output="\$(mktemp -d)/output"
           mkfifo \$output
@@ -201,6 +235,9 @@ tasks:
             else
               github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
             fi
+          fi
+          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
+            return "\$exit_code";
           fi
         EOF
 
