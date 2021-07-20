@@ -65,7 +65,8 @@
       </main>
 
 
-      {% if page.sidebar_first %}
+      {% set has_sidebar_first = page.sidebar_first|render|striptags|trim is not empty %}
+      {% if has_sidebar_first %}
         <aside class="layout-sidebar-first" role="complementary">
           {{ page.sidebar_first }}
         </aside>{# /.layout-sidebar-first #}
