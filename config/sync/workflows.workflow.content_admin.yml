@@ -1,35 +1,40 @@
-uuid: 1e565c5c-5b27-4819-ab0f-9b9a2895d9ad
+uuid: 82379dfd-7aa9-4c74-a9f6-d97244d75a5b
 langcode: en
 status: true
 dependencies:
   config:
     - block_content.type.alert
     - block_content.type.promo
-    - node.type.basic_landing_page
-    - node.type.campaign_landing_page
-    - node.type.checklist
-    - node.type.event
-    - node.type.faq_multiple_q_a
-    - node.type.health_care_local_health_service
-    - node.type.health_care_region_detail_page
-    - node.type.media_list_images
-    - node.type.media_list_videos
-    - node.type.news_story
-    - node.type.outreach_asset
-    - node.type.person_profile
-    - node.type.press_release
-    - node.type.q_a
-    - node.type.regional_health_care_service_des
-    - node.type.step_by_step
-    - node.type.support_resources_detail_page
-    - node.type.vet_center_cap
+    - node.type.centralized_content
+    - node.type.documentation_page
+    - node.type.event_listing
+    - node.type.health_care_local_facility
+    - node.type.health_care_region_page
+    - node.type.health_services_listing
+    - node.type.landing_page
+    - node.type.leadership_listing
+    - node.type.locations_listing
+    - node.type.nca_facility
+    - node.type.office
+    - node.type.page
+    - node.type.press_releases_listing
+    - node.type.publication_listing
+    - node.type.story_listing
+    - node.type.support_service
+    - node.type.va_form
+    - node.type.vamc_operating_status_and_alerts
+    - node.type.vamc_system_policies_page
+    - node.type.vba_facility
+    - node.type.vet_center
     - node.type.vet_center_facility_health_servi
+    - node.type.vet_center_locations_list
+    - node.type.vet_center_mobile_vet_center
   module:
     - content_moderation
 _core:
   default_config_hash: 8FLw3dX-3yJxrgAtaiNul_N8e8yc70gQD4u9UehUHhs
-id: editorial
-label: 'Content publishers can archive'
+id: content_admin
+label: 'Only Content Admin can archive'
 type: content_moderation
 type_settings:
   states:
@@ -110,23 +115,28 @@ type_settings:
       - alert
       - promo
     node:
-      - basic_landing_page
-      - campaign_landing_page
-      - checklist
-      - event
-      - faq_multiple_q_a
-      - health_care_local_health_service
-      - health_care_region_detail_page
-      - media_list_images
-      - media_list_videos
-      - news_story
-      - outreach_asset
-      - person_profile
-      - press_release
-      - q_a
-      - regional_health_care_service_des
-      - step_by_step
-      - support_resources_detail_page
-      - vet_center_cap
+      - centralized_content
+      - documentation_page
+      - event_listing
+      - health_care_local_facility
+      - health_care_region_page
+      - health_services_listing
+      - landing_page
+      - leadership_listing
+      - locations_listing
+      - nca_facility
+      - office
+      - page
+      - press_releases_listing
+      - publication_listing
+      - story_listing
+      - support_service
+      - va_form
+      - vamc_operating_status_and_alerts
+      - vamc_system_policies_page
+      - vba_facility
+      - vet_center
       - vet_center_facility_health_servi
+      - vet_center_locations_list
+      - vet_center_mobile_vet_center
   default_moderation_state: draft
