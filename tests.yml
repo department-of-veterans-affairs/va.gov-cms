@@ -30,7 +30,7 @@ tasks:
             fi
           fi
           if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            return "\$exit_code";
+            exit "\$exit_code";
           fi
         EOF
 
@@ -56,7 +56,7 @@ tasks:
             fi
           fi
           if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            return "\$exit_code";
+            exit "\$exit_code";
           fi
         EOF
 
@@ -81,7 +81,7 @@ tasks:
             fi
           fi
           if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            return "\$exit_code";
+            exit "\$exit_code";
           fi
         EOF
 
@@ -107,7 +107,7 @@ tasks:
             fi
           fi
           if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            return "\$exit_code";
+            exit "\$exit_code";
           fi
         EOF
 
@@ -135,7 +135,7 @@ tasks:
             fi
           fi
           if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            return "\$exit_code";
+            exit "\$exit_code";
           fi
         EOF
 
@@ -160,7 +160,7 @@ tasks:
             fi
           fi
           if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            return "\$exit_code";
+            exit "\$exit_code";
           fi
         EOF
 
@@ -177,7 +177,6 @@ tasks:
           (cat \$output&)
           result="\$(./tests/scripts/check-revision-logs.sh 2>&1 | tee \$output)"
           exit_code=\$?
-          exit_code=3
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$exit_code" -eq 0 ]; then
               github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
@@ -186,7 +185,7 @@ tasks:
             fi
           fi
           if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            return "\$exit_code";
+            exit "\$exit_code";
           fi
         EOF
 
@@ -212,7 +211,7 @@ tasks:
             fi
           fi
           if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            return "\$exit_code";
+            exit "\$exit_code";
           fi
         EOF
 
@@ -237,7 +236,7 @@ tasks:
             fi
           fi
           if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            return "\$exit_code";
+            exit "\$exit_code";
           fi
         EOF
 
