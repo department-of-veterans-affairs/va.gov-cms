@@ -221,12 +221,6 @@ process:
         'Limited Services': limited
         Closed: closed
       default_value: normal
-  promote:
-    plugin: default_value
-    default_value: 0
-  sticky:
-    plugin: default_value
-    default_value: 0
   field_operating_status_more_info:
     -
       plugin: callback
@@ -237,6 +231,12 @@ process:
       start: 0
       length: 300
   status:
+    plugin: default_value
+    default_value: 0
+  promote:
+    plugin: default_value
+    default_value: 0
+  sticky:
     plugin: default_value
     default_value: 0
   path/pathauto:
