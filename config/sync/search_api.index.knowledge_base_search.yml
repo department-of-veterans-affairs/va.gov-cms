@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_content_block
     - field.storage.node.field_intro_text
+    - field.storage.node.field_product
     - search_api.server.database
     - core.entity_view_mode.node.full
   module:
@@ -32,6 +33,15 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_intro_text
+  field_product:
+    label: Product
+    datasource_id: 'entity:node'
+    property_path: field_product
+    type: text
+    boost: !!float 13
+    dependencies:
+      config:
+        - field.storage.node.field_product
   node_grants:
     label: 'Node access information'
     property_path: search_api_node_grants
@@ -109,6 +119,7 @@ processor_settings:
     fields:
       - field_content_block
       - field_intro_text
+      - field_product
       - rendered_item
       - title
     title: true
@@ -127,6 +138,7 @@ processor_settings:
     fields:
       - field_content_block
       - field_intro_text
+      - field_product
       - rendered_item
       - title
     weights:
@@ -139,6 +151,7 @@ processor_settings:
     fields:
       - field_content_block
       - field_intro_text
+      - field_product
       - rendered_item
       - title
     exceptions:
