@@ -5,6 +5,7 @@ dependencies:
   config:
     - system.menu.documentation
   module:
+    - ctools
     - system
   theme:
     - vagovadmin
@@ -25,6 +26,13 @@ settings:
 visibility:
   request_path:
     id: request_path
-    pages: "/help/*\r\n"
-    negate: false
+    pages: "/help\r\n/help/search\r\n"
+    negate: true
     context_mapping: {  }
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      documentation_page: documentation_page
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
