@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - system
     - user
   theme:
     - vagovadmin
@@ -19,4 +20,9 @@ settings:
   label: 'User login'
   provider: user
   label_display: visible
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    pages: '/help*'
+    negate: true
+    context_mapping: {  }
