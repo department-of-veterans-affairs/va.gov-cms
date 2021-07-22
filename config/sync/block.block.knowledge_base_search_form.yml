@@ -1,0 +1,29 @@
+uuid: b8a8c4c4-5a8e-4e90-9135-1f136a4ba666
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.knowledge_base_search_results
+  module:
+    - system
+    - views
+  theme:
+    - vagovadmin
+id: knowledge_base_search_form
+theme: vagovadmin
+region: sidebar_first
+weight: 4
+provider: null
+plugin: 'views_exposed_filter_block:knowledge_base_search_results-knowledge_base_search_page'
+settings:
+  id: 'views_exposed_filter_block:knowledge_base_search_results-knowledge_base_search_page'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+visibility:
+  request_path:
+    id: request_path
+    pages: "/help/*\r\n"
+    negate: false
+    context_mapping: {  }
