@@ -256,3 +256,11 @@ function va_gov_vet_center_form_node_form_alter(array &$form, FormStateInterface
     $form['#attached']['library'][] = 'va_gov_vet_center/set_ief_service_selects';
   }
 }
+
+/**
+ * Implements hook_page_attachments().
+ */
+function va_gov_vet_center_page_attachments(array &$attachments) {
+  // PRevent duplicate services in select.
+  $attachments['#attached']['library'][] = 'va_gov_vet_center/prevent_select_duplicates';
+}

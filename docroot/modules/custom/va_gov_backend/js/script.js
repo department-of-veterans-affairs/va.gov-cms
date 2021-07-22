@@ -71,7 +71,7 @@
 
         var facilityID = context.querySelector(".field--name-field-facility-locator-api-id .field__item") ? context.querySelector(".field--name-field-facility-locator-api-id .field__item").textContent : context.querySelector(".form-item-field-facility-locator-api-id-0-value input").value;
 
-        var facilityName = context.querySelector(".breadcrumb li:last-child").textContent.trim();
+        var facilityName = context.querySelector(".breadcrumb li:last-child") !== null ? context.querySelector(".breadcrumb li:last-child").textContent.trim() : "";
 
         emailLinks.forEach(function (emailLink) {
           var eHref = emailLink.href;
