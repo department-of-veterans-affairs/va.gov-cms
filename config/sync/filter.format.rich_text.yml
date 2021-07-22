@@ -3,11 +3,13 @@ langcode: en
 status: true
 dependencies:
   module:
+    - blazy
     - editor
     - entity_embed
     - linkit
     - media
     - pathologic
+    - va_gov_backend
 _core:
   default_config_hash: Mc8Hl-Ya14lrbMXaUx7Ybmv-18vtqE4lw2DpgNHPj-s
 name: 'Rich Text'
@@ -18,13 +20,13 @@ filters:
     id: filter_align
     provider: filter
     status: false
-    weight: -43
+    weight: -42
     settings: {  }
   filter_caption:
     id: filter_caption
     provider: filter
     status: false
-    weight: -42
+    weight: -41
     settings: {  }
   filter_htmlcorrector:
     id: filter_htmlcorrector
@@ -42,7 +44,7 @@ filters:
     id: entity_embed
     provider: entity_embed
     status: true
-    weight: -44
+    weight: -43
     settings: {  }
   filter_html:
     id: filter_html
@@ -57,19 +59,19 @@ filters:
     id: filter_autop
     provider: filter
     status: false
-    weight: -40
+    weight: -39
     settings: {  }
   filter_html_escape:
     id: filter_html_escape
     provider: filter
     status: false
-    weight: -41
+    weight: -40
     settings: {  }
   filter_html_image_secure:
     id: filter_html_image_secure
     provider: filter
     status: false
-    weight: -39
+    weight: -38
     settings: {  }
   filter_url:
     id: filter_url
@@ -82,7 +84,7 @@ filters:
     id: linkit
     provider: linkit
     status: true
-    weight: -45
+    weight: -44
     settings:
       title: true
   filter_pathologic:
@@ -99,8 +101,26 @@ filters:
     id: media_embed
     provider: media
     status: false
-    weight: 100
+    weight: -36
     settings:
       default_view_mode: default
       allowed_media_types: {  }
       allowed_view_modes: {  }
+  blazy_filter:
+    id: blazy_filter
+    provider: blazy
+    status: false
+    weight: -37
+    settings:
+      filter_tags:
+        img: img
+        iframe: iframe
+      media_switch: ''
+      use_data_uri: '0'
+  va_gov_backend_node_link_enforcement:
+    id: va_gov_backend_node_link_enforcement
+    provider: va_gov_backend
+    status: true
+    weight: -45
+    settings:
+      title: '1'
