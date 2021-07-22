@@ -2,6 +2,8 @@
 
 namespace Drupal\va_gov_consumers\Git;
 
+use Gitonomy\Git\Commit;
+
 /**
  * Interact with a git repo.
  */
@@ -20,4 +22,11 @@ interface GitInterface {
    */
   public function searchBranches(string $search_string, int $count = 10) : array;
 
+  /**
+   * Get the Last commit hash.
+   *
+   * @return \Gitonomy\Git\Commit|null
+   *   The commit object.
+   */
+  public function getLastCommitHash() : ?Commit;
 }
