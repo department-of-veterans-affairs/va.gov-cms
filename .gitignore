@@ -73,6 +73,10 @@ node_modules/
 .lando/zzz*local.ini
 .lando.compose.yml
 
+# Cache file used by PHPUnit
+# Can be introduced accidentally by local dev
+.phpunit.result.cache
+
 # Ignore WEB (vets-website)
 # web
 # @TODO: Installer paths is not working. Leaving symlink for now.
