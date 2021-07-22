@@ -1,10 +1,11 @@
-uuid: 4b42e37f-ac38-46a2-af64-baa015ad56fb
+uuid: c8368e18-0403-4930-bde1-a5a9293c005b
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_related_user_guides
+    - field.storage.node.field_product
     - node.type.documentation_page
+    - taxonomy.vocabulary.products
   module:
     - entity_reference_validators
 third_party_settings:
@@ -12,24 +13,24 @@ third_party_settings:
     circular_reference: false
     circular_reference_deep: false
     duplicate_reference: false
-id: node.documentation_page.field_related_user_guides
-field_name: field_related_user_guides
+id: node.documentation_page.field_product
+field_name: field_product
 entity_type: node
 bundle: documentation_page
-label: Related
+label: Product
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      documentation_page: documentation_page
+      products: products
     sort:
-      field: title
-      direction: ASC
+      field: name
+      direction: asc
     auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference
