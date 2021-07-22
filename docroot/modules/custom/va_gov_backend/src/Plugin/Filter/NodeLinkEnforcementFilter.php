@@ -68,6 +68,9 @@ class NodeLinkEnforcementFilter extends FilterBase implements ContainerFactoryPl
    */
   public function process($text, $langcode) {
     $result = new FilterProcessResult($text);
+    if (strpos($text, '<a href="/node/') === FALSE) {
+      return $result;
+    }
     $dom = Html::load($text);
     $xpath = new \DOMXPath($dom);
     foreach ($xpath->query('//a[starts-with(@href, "/node/") and ( not(@data-entity-type) or not(@data-entity-uuid) )]') as $element) {
