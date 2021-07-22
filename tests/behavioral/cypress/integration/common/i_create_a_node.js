@@ -8,7 +8,7 @@ const creators = {
     cy.findAllByLabelText('Page title').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Page introduction').type(faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Section').select('Veterans Affairs', { force: true });
-    cy.findAllByLabelText('Parent link').select('-- CMS help center', { force: true });
+    cy.findAllByLabelText('Parent link').select('-- CMS Knowledge Base (disabled)', { force: true });
     return cy.get('form.node-form').find('input#edit-submit').click();
   },
   office: () => {
