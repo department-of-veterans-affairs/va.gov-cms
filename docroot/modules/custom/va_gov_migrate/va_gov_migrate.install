@@ -26,7 +26,7 @@ use Psr\Log\LogLevel;
  */
 function _va_gov_migrate_move_data_file($filename) {
   // Copy the example file to example directory.
-  $module_path = drupal_get_path('module', 'va_gov_migrate');
+  $module_path = \Drupal::service('extension.list.module')->getPath('va_gov_migrate');
   $file_source = "{$module_path}/data/{$filename}";
   $destination = PublicStream::basePath() . "/migrate_source";
   \Drupal::service('file_system')->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY);

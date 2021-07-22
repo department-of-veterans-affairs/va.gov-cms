@@ -12,9 +12,10 @@ use Drupal\node\NodeInterface;
  * Implements hook_theme().
  */
 function va_gov_govdelivery_theme($existing, $type, $theme, $path) {
+  $template_path = \Drupal::service('extension.list.module')->getPath('va_gov_govdelivery') . '/templates';
   return [
     'va_gov_body_alert' => [
-      'path' => drupal_get_path('module', 'va_gov_govdelivery') . '/templates',
+      'path' => $template_path,
       'template' => 'va-gov-body-alert',
       'variables' => [
         'alert_title' => '',
