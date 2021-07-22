@@ -134,6 +134,12 @@ targetEntityType: node
 bundle: full_width_banner_alert
 mode: inline_entity_form
 content:
+  field_administration:
+    type: options_select
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_alert_dismissable:
     weight: 5
     settings:
@@ -233,7 +239,6 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_administration: true
   field_banner_alert_vamcs: true
   moderation_state: true
   path: true

@@ -135,7 +135,7 @@ Feature: CMS Users may effectively create & edit content
     And I fill in "Alert body" with "BeHat Alert body"
     And I press "Save draft and continue editing"
     Then I should see "Pages for the following VAMC systems"
-    And I should not see "BeHat Alert Body"
+    And I should see "BeHat Alert Body"
 
   @content_editing
   Scenario Outline: Confirm that content cannot be published directly from the node view but can from the node edit form.
