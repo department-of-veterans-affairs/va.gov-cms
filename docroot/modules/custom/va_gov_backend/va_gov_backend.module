@@ -696,7 +696,7 @@ function va_gov_backend_form_media_library_add_form_upload_alter(&$form, FormSta
 function va_gov_backend_field_widget_boolean_checkbox_form_alter(&$element, FormStateInterface $form_state, $context) {
   $field_definition = $context['items']->getFieldDefinition();
   if ($field_definition instanceof FieldConfig) {
-    list ($entity_type, $bundle, $field_name) = explode('.', $field_definition->id());
+    [$entity_type, $bundle, $field_name] = explode('.', $field_definition->id());
     if ($entity_type === 'media' && $field_name === 'field_media_in_library') {
       $element['value']['#attributes']['class'][] = 'field_media_in_library';
     }
@@ -2068,4 +2068,12 @@ function _va_gov_backend_set_field_listing_value(EntityInterface &$entity, array
     // Assuming there's only one Event Listing per Office/VAMC System.
     $entity->field_listing[] = ['target_id' => $id];
   }
+}
+
+/**
+ * Implements hook_raven_options_alter().
+ */
+function va_gov_backend_raven_options_alter(array &$options) {
+  $git = Drupal::getContainer()->get('va_gov.consumers.git.repository.factory')->getAppRepository();
+  $options['release'] = $git ? $git->getLastCommitHash() : $git->getLastCommitHash()->getHash();
 }
