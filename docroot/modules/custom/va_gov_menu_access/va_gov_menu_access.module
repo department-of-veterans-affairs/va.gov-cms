@@ -5,6 +5,7 @@
  * Contains va_gov_menu_access.module.
  */
 
+use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -93,4 +94,25 @@ function _va_gov_menu_access_alter_menus(array $form, FormStateInterface $form_s
   $menu_reduction_service->reduceForm($form, $form_state);
 
   return $form;
+}
+
+/**
+ * Implements hook_block_build_alter().
+ */
+function va_gov_menu_access_block_build_alter(array &$build, BlockPluginInterface $block) {
+  _va_gov_menu_access_exclude_sidebar_menu_block_from_lazybuilder($build, $block);
+}
+
+/**
+ * Prevents lazybuilder placeholders from being set on sidebar menu blocks.
+ *
+ * @param array $build
+ *   The block build.
+ * @param \Drupal\Core\Block\BlockPluginInterface $block
+ *   The block plugin interface.
+ */
+function _va_gov_menu_access_exclude_sidebar_menu_block_from_lazybuilder(array &$build, BlockPluginInterface $block) {
+  if ($block->getPluginId() === 'sidebar_menu_block') {
+    $build['#create_placeholder'] = FALSE;
+  }
 }
