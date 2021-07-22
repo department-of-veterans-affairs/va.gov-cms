@@ -35,16 +35,26 @@ running on BRD servers.
 
 The BRD system uses a standard release process for all of the supported apps:
   
-1. A Jenkins job reads the source git repository and checks the latest commit 
+1. A [Jenkins job](http://jenkins.vfs.va.gov/job/deploys/job/cms-auto-deploy/) reads the source git repository and checks the latest commit 
 of the default branch.
 2. If all commit status checks are passing, it automatically tags and verifies 
 a GitHub release: https://github.com/department-of-veterans-affairs/va.gov-cms/releases
-3. A new GitHub release triggers a **Build**,**Deploy**, and **Test** of a new server image.
+3. A new GitHub release triggers a **Build**, **Deploy**, and **Test** of a new server image.
 4. At first the build goes to **Stage**. 
 5. At a pre-scheduled time each day, a new release is announced, and can be stopped 
 within one hour. If not stopped, the latest **Build** image is deployed to **Production**.
 
-## CMS Ansible Taks
+### Canceling/Delaying the Automatic Release
+
+1. Disable the [auto-deploy prod job](http://jenkins.vfs.va.gov/job/deploys/job/cms-auto-deploy/).
+  - If too late, and the auto deploy prod job has already been triggered and we are in the 60 minute warn window, cancel the job and any downstream jobs that were triggered as well.
+2. Update the [site-alert in CMS](https://prod.cms.va.gov/admin/config/system/site-alerts) to remove any site-alert that was created.
+3. When release is ready [create a new site-alert](https://prod.cms.va.gov/admin/config/system/site-alerts) letting users know when the deploy is happening.
+  - This will depend on the urgency, so it could be 5 minutes or could be 60 minutes or anywhere in between.
+4. Reenable the [auto-deploy prod job](http://jenkins.vfs.va.gov/job/deploys/job/cms-auto-deploy/).
+5. [Trigger the auto-deploy prod job manually](http://jenkins.vfs.va.gov/job/deploys/job/cms-auto-deploy/build?delay=0sec) and fill out the warn time, e.g. 5 min or 60 min.
+
+## CMS Ansible Tasks
 
 See https://github.com/department-of-veterans-affairs/devops/tree/master/ansible/cms 
 to view the additional Ansible tasks that are available to run on the site:
