@@ -48,10 +48,10 @@ within one hour. If not stopped, the latest **Build** image is deployed to **Pro
 
 1. Disable the [auto-deploy prod job](http://jenkins.vfs.va.gov/job/deploys/job/cms-auto-deploy/).
   - If too late, and the auto deploy prod job has already been triggered and we are in the 60 minute warn window, cancel the job and any downstream jobs that were triggered as well.
-2. Update the [site-alert in CMS](https://prod.cms.va.gov/admin/config/system/site-alerts) to remove any site-alert that was created.
+  - Update the [site-alert in CMS](https://prod.cms.va.gov/admin/config/system/site-alerts) to remove any site-alert that was created by the auto-deploy job.
 3. When release is ready [create a new site-alert](https://prod.cms.va.gov/admin/config/system/site-alerts) letting users know when the deploy is happening.
   - This will depend on the urgency, so it could be 5 minutes or could be 60 minutes or anywhere in between.
-4. Reenable the [auto-deploy prod job](http://jenkins.vfs.va.gov/job/deploys/job/cms-auto-deploy/).
+4. Re-enable the [auto-deploy prod job](http://jenkins.vfs.va.gov/job/deploys/job/cms-auto-deploy/).
 5. [Trigger the auto-deploy prod job manually](http://jenkins.vfs.va.gov/job/deploys/job/cms-auto-deploy/build?delay=0sec) and fill out the warn time, e.g. 5 min or 60 min.
 
 ## CMS Ansible Tasks
