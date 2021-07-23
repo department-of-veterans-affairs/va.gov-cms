@@ -2074,6 +2074,6 @@ function _va_gov_backend_set_field_listing_value(EntityInterface &$entity, array
  * Implements hook_raven_options_alter().
  */
 function va_gov_backend_raven_options_alter(array &$options) {
-  $git = Drupal::getContainer()->get('va_gov.consumers.git.repository.factory')->getAppRepository();
-  $options['release'] = $git ? $git->getLastCommitHash() : $git->getLastCommitHash()->getHash();
+  $repository = Drupal::getContainer()->get('va_gov.consumers.git.repository.factory')->getAppRepository();
+  $options['release'] = $repository ? $repository->getLastCommit() : $repository->getLastCommit()->getHash();
 }

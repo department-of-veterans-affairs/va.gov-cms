@@ -23,10 +23,11 @@ interface GitInterface {
   public function searchBranches(string $search_string, int $count = 10) : array;
 
   /**
-   * Get the Last commit hash.
+   * Get the Last commit.
    *
    * @return \Gitonomy\Git\Commit|null
    *   The commit object.
    */
-  public function getLastCommitHash() : ?Commit;
+  public function getLastCommit() : ?Commit;
+
 }

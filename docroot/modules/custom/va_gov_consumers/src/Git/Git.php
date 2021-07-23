@@ -22,7 +22,7 @@ class Git implements GitInterface {
   /**
    * Git constructor.
    *
-   * @param Repository $repository
+   * @param \Gitonomy\Git\Repository $repository
    *   The repository class.
    */
   public function __construct(Repository $repository) {
@@ -32,8 +32,9 @@ class Git implements GitInterface {
   /**
    * Factory method.
    *
-   * @param Repository $repository
-   *   The Repository Class
+   * @param \Gitonomy\Git\Repository $repository
+   *   The Repository Class.
+   *
    * @return \Drupal\va_gov_consumers\Git\Git
    *   The git class.
    */
@@ -58,7 +59,7 @@ class Git implements GitInterface {
   /**
    * {@inheritDoc}
    */
-  public function getLastCommitHash(): ?Commit {
+  public function getLastCommit(): ?Commit {
     return $this->repository->getHeadCommit();
   }
 

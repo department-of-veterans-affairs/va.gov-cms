@@ -18,8 +18,6 @@ class GitFactory implements ContainerAwareInterface {
    *
    * @param string $repositoryRoot
    *   The path to the repository root.
-   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerChannelFactory
-   *  The logger Factory.
    *
    * @return \Drupal\va_gov_consumers\Git\GitInterface
    *   The Git Repository class.
@@ -35,9 +33,10 @@ class GitFactory implements ContainerAwareInterface {
   }
 
   /**
-   * Get the Repository class for the Web Root
+   * Get the Repository class for the Web Root.
    *
    * @return \Drupal\va_gov_consumers\Git\GitInterface
+   *   The Git object.
    */
   public function getWebRepository() : GitInterface {
     return $this->get(
@@ -46,13 +45,15 @@ class GitFactory implements ContainerAwareInterface {
   }
 
   /**
-   * Get the Repository class for the App Root
+   * Get the Repository class for the App Root.
    *
    * @return \Drupal\va_gov_consumers\Git\GitInterface
+   *   The Git Object.
    */
   public function getAppRepository() : GitInterface {
     return $this->get(
       $this->container->get('va_gov.build_trigger.web_build_command_builder')->getAppRoot()
     );
   }
+
 }
