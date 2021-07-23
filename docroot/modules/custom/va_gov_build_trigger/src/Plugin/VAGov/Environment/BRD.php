@@ -109,7 +109,7 @@ class BRD extends EnvironmentPluginBase {
       $this->logger->info($message);
     }
     catch (\Throwable $exception) {
-      $message = $this->t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify in #cms-support Slack and please email vacmssupport@va.gov immediately with the error message you see here.', [
+      $message = $this->t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify in #cms-support Slack and please email support@va-gov.atlassian.net immediately with the error message you see here.', [
         ':url' => $this->settings->get('jenkins_build_job_url'),
       ]);
       $this->messenger()->addError($message);
