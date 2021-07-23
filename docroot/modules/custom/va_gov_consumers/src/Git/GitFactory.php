@@ -23,10 +23,7 @@ class GitFactory implements ContainerAwareInterface {
    *   The Git Repository class.
    */
   public function get(string $repositoryRoot) : GitInterface {
-    $logger = $this->container->get('logger.factory')->get('git');
-    $repository = new Repository($repositoryRoot, [
-      'logger' => $logger,
-    ]);
+    $repository = new Repository($repositoryRoot);
 
     return Git::get($repository);
   }
