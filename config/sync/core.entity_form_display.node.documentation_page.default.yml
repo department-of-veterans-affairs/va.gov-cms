@@ -6,8 +6,10 @@ dependencies:
     - field.field.node.documentation_page.field_administration
     - field.field.node.documentation_page.field_content_block
     - field.field.node.documentation_page.field_intro_text
+    - field.field.node.documentation_page.field_product
     - field.field.node.documentation_page.field_related_user_guides
     - field.field.node.documentation_page.field_table_of_contents_boolean
+    - field.field.node.documentation_page.layout_builder__layout
     - node.type.documentation_page
     - workflows.workflow.editorial
   module:
@@ -79,15 +81,21 @@ content:
     type: paragraphs_browser
     region: content
   field_intro_text:
-    weight: 1
+    weight: 2
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
     region: content
+  field_product:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   field_related_user_guides:
-    weight: 3
+    weight: 4
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -119,6 +127,7 @@ content:
 hidden:
   created: true
   field_table_of_contents_boolean: true
+  layout_builder__layout: true
   promote: true
   status: true
   sticky: true

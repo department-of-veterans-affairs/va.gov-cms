@@ -9,7 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 
 // The NID of the CMS Help Center homepage.
-const CMS_HELP_CENTER_HOMEPAGE_NID = 6454;
+const CMS_HELP_CENTER_HOMEPAGE_NID = 26856;
 
 /**
  * Implements hook_toolbar().
@@ -24,7 +24,7 @@ function va_gov_help_center_toolbar() {
     'tab' => [
       '#type' => 'link',
       '#url' => Url::fromRoute('entity.node.canonical', ['node' => CMS_HELP_CENTER_HOMEPAGE_NID]),
-      '#title' => t('Help'),
+      '#title' => t('Knowledge Base'),
       '#attributes' => [
         'class' => ['toolbar-icon', 'toolbar-icon-help'],
       ],
