@@ -20,9 +20,12 @@ $settings['hash_salt'] = hash('sha256', getenv('TUGBOAT_REPO_ID'));
  *
  * Put regular settings.php overrides below this section.
  */
-$config['config_split.config_split.dev']['status'] = TRUE;
+$config['config_split.config_split.dev']['status'] = FALSE;
 $config['config_split.config_split.stg']['status'] = FALSE;
 $config['config_split.config_split.prod']['status'] = FALSE;
+$config['config_split.config_split.local']['status'] = FALSE;
+$config['config_split.config_split.tugboat']['status'] = TRUE;
+
 $config['config_split.config_split.config_dev']['status'] = TRUE;
 $config['system.performance']['cache']['page']['use_internal'] = FALSE;
 $config['system.performance']['css']['preprocess'] = FALSE;
