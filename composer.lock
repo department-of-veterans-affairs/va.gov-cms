@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f78c05afe9b88b7607e3ff1fb04d56b5",
+    "content-hash": "403a69ee1cba037a38078351b3ba3754",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -9523,17 +9523,17 @@
         },
         {
             "name": "drupal/user_history",
-            "version": "1.0.0-beta2",
+            "version": "1.0.0-rc3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/user_history.git",
-                "reference": "8.x-1.0-beta2"
+                "reference": "8.x-1.0-rc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/user_history-8.x-1.0-beta2.zip",
-                "reference": "8.x-1.0-beta2",
-                "shasum": "fbcbc28696843f03706f76fb07cc7f796a788bea"
+                "url": "https://ftp.drupal.org/files/projects/user_history-8.x-1.0-rc3.zip",
+                "reference": "8.x-1.0-rc3",
+                "shasum": "539b4de7f15d543a877a3d96d569c1d86e13c726"
             },
             "require": {
                 "drupal/core": "^8 || ^9"
@@ -9541,8 +9541,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta2",
-                    "datestamp": "1612415366",
+                    "version": "8.x-1.0-rc3",
+                    "datestamp": "1627095789",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -9566,7 +9566,7 @@
             "description": "Track changes to user records by recording details in a custom user_history entity.",
             "homepage": "https://www.drupal.org/project/user_history",
             "support": {
-                "source": "http://cgit.drupalcode.org/user_history",
+                "source": "https://git.drupalcode.org/project/user_history",
                 "issues": "https://www.drupal.org/project/issues/user_history"
             }
         },
@@ -13531,16 +13531,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "7.0.14",
+            "version": "7.0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "bb7c9a210c72e4709cdde67f8b7362f672f2225c"
+                "reference": "819f92bba8b001d4363065928088de22f25a3a48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/bb7c9a210c72e4709cdde67f8b7362f672f2225c",
-                "reference": "bb7c9a210c72e4709cdde67f8b7362f672f2225c",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/819f92bba8b001d4363065928088de22f25a3a48",
+                "reference": "819f92bba8b001d4363065928088de22f25a3a48",
                 "shasum": ""
             },
             "require": {
@@ -13549,7 +13549,7 @@
                 "php": ">=7.2",
                 "phpunit/php-file-iterator": "^2.0.2",
                 "phpunit/php-text-template": "^1.2.1",
-                "phpunit/php-token-stream": "^3.1.1 || ^4.0",
+                "phpunit/php-token-stream": "^3.1.3 || ^4.0",
                 "sebastian/code-unit-reverse-lookup": "^1.0.1",
                 "sebastian/environment": "^4.2.2",
                 "sebastian/version": "^2.0.1",
@@ -13592,7 +13592,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/7.0.14"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/7.0.15"
             },
             "funding": [
                 {
@@ -13600,7 +13600,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-12-02T13:39:03+00:00"
+            "time": "2021-07-26T12:20:09+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -20681,7 +20681,7 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.692",
+            "version": "v0.0.696",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
@@ -20717,7 +20717,7 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.692"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.696"
             },
             "time": "2021-07-22T17:42:11+00:00"
         },
@@ -22610,7 +22610,6 @@
         "drupal/pathologic": 15,
         "drupal/prometheus_exporter": 10,
         "drupal/taxonomy_menu": 20,
-        "drupal/user_history": 15,
         "drupal/views_data_export": 10,
         "drupal/workflow_assignments": 20,
         "weitzman/drupal-test-traits": 20
@@ -22622,5 +22621,5 @@
     "platform-overrides": {
         "php": "7.3"
     },
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
