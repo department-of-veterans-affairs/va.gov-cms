@@ -1,6 +1,6 @@
 <?php
 
-// @codingStandardsIgnoreFile
+// phpcs:ignoreFile
 
 /**
 * Fast 404 settings:
