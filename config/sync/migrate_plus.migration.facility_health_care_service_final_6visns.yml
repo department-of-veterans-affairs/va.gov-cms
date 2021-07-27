@@ -21,6 +21,7 @@ source:
   track_changes: true
   ids:
     - id
+    - field_regional_health_service
   fields:
     -
       name: id
@@ -42,11 +43,11 @@ process:
     -
       plugin: callback
       callable: trim
-      source: field_facility_location
+      source: id
     -
       plugin: entity_lookup
       ignore_case: true
-      value_key: title
+      value_key: field_facility_locator_api_id
       entity_type: node
       bundle_key: type
       bundle: health_care_local_facility
@@ -111,7 +112,7 @@ process:
     default_value: true
   revision_log:
     plugin: default_value
-    default_value: 'Imported by facility_health_care_service_2 migration.'
+    default_value: 'Imported by facility_health_care_service_6visns migration.'
   revision_timestamp:
     plugin: callback
     callable: va_gov_migrate_time
