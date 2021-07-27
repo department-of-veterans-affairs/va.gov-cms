@@ -8,7 +8,7 @@
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 
-// The NID of the CMS Help Center homepage.
+// The NID of the CMS Knowledge Base homepage.
 const CMS_HELP_CENTER_HOMEPAGE_NID = 26856;
 
 /**
@@ -17,7 +17,7 @@ const CMS_HELP_CENTER_HOMEPAGE_NID = 26856;
 function va_gov_help_center_toolbar() {
   $items = [];
 
-  // Adds a link to CMS help center to the top level of admin toolbar.
+  // Adds a link to CMS Knowledge Base to the top level of admin toolbar.
   $items['help-center'] = [
     '#type' => 'toolbar_item',
     '#weight' => 1,
@@ -57,7 +57,7 @@ function va_gov_help_center_form_user_login_form_alter(&$form, FormStateInterfac
  * Builds the get help button for user login form.
  *
  * @return null|string
- *   Either the html link to the help center or null.
+ *   Either the html link to the Knowledge Base or null.
  */
 function _va_gov_help_center_build_get_help_button() {
   // Login form is on all pages in sidebar for anon, so need to target route.
@@ -106,7 +106,7 @@ function _va_gov_help_center_should_attach_widget(string $route_name, array $rou
   }
   if ($route_name === 'entity.node.canonical' && !empty($route_parameters['node']) && $node = $route_parameters['node']) {
     // Attach Jira Service Desk widget library to all nodes of type
-    // `documentation_page` with an exception of CMS Help Center homepage.
+    // `documentation_page` with an exception of CMS Knowledge Base homepage.
     if ($node->getType() === 'documentation_page' && $node->id() != CMS_HELP_CENTER_HOMEPAGE_NID) {
       return TRUE;
     }
