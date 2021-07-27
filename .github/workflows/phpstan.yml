@@ -1,0 +1,20 @@
+name: phpstan
+on: [pull_request]
+jobs:
+  phpstan:
+    name: runner / phpstan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+      - uses: lindluni/composer@master
+      - uses: php-actions/phpstan@v3
+        with:
+          version: 8.4.0
+          php_version: 7.3
+          php_extensions: dom curl libxml mbstring zip pdo mysql pdo_mysql gd
+          configuration: 'phpstan.neon'
+          path: 'docroot/modules/custom docroot/themes/custom tests'
