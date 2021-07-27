@@ -585,3 +585,55 @@ function va_gov_db_update_8030(&$sandbox) {
     '%count' => $count,
   ]);
 }
+
+/**
+ * Create locations listing pages for all remaining vet centers.
+ */
+function va_gov_db_update_8031(&$sandbox) {
+  // Get all of our existing vc locations listings.
+  $vc_list_nids = \Drupal::entityQuery('node')->condition('type', 'vet_center_locations_list')->execute();
+  $vc_list_nodes = Node::loadMultiple($vc_list_nids);
+  $vcs_with_lists_ids = [];
+  // Get their vc associations.
+  foreach ($vc_list_nodes as $vc_list_node) {
+    $vcs_with_lists_ids[$vc_list_node->get('field_office')->getString()] = $vc_list_node->get('field_office')->getString();
+  }
+
+  // Get all of the vet centers.
+  $vc_nids = \Drupal::entityQuery('node')->condition('type', 'vet_center')->execute();
+  $vc_nodes = Node::loadMultiple($vc_nids);
+  $vcs_ids = [];
+  $vc_term_loader = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+
+  // Run through our vc's, and grab their corresponding term ids.
+  foreach ($vc_nodes as $vc_node) {
+    $vc_title = $vc_node->getTitle();
+    $vc_term_raw = $vc_term_loader->loadByProperties([
+      'name' => $vc_title,
+      'vid' => 'administration',
+    ]);
+    $vc_term = reset($vc_term_raw);
+    $vcs_ids[$vc_node->id()] = [
+      'vc_title' => $vc_title,
+      'node_id' => $vc_node->id(),
+      'term_id' => $vc_term->id(),
+    ];
+  }
+  // Get all vc's that don't have a vc locations listing.
+  $vcs_ids = array_diff_key($vcs_ids, $vcs_with_lists_ids);
+
+  // Create our vc locations listings.
+  // This operation is fast, so no need to batch.
+  foreach ($vcs_ids as $vcs_id) {
+    $new_vc_listing = Node::create(['type' => 'vet_center_locations_list']);
+    $new_vc_listing->setOwnerId(1317);
+    $new_vc_listing->set('title', 'Locations');
+    $new_vc_listing->set('field_intro_text', 'We provide all of our counseling, outreach, and support services at our main location.');
+    $new_vc_listing->set('field_administration', $vcs_id['term_id']);
+    $new_vc_listing->set('field_office', $vcs_id['node_id']);
+    $new_vc_listing->save();
+    Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Created a locations listing page for %vc_title by va_gov_db_update_8031.', [
+      '%vc_title' => $vcs_id['vc_title'],
+    ]);
+  }
+}
