@@ -211,7 +211,7 @@ tasks:
             fi
           fi
           if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            exit "\$exit_code";
+            exit "\$line_count";
           fi
         EOF
 
