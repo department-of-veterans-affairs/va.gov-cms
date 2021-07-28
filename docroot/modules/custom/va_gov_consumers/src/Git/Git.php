@@ -2,6 +2,9 @@
 
 namespace Drupal\va_gov_consumers\Git;
 
+use Gitonomy\Git\Commit;
+use Gitonomy\Git\Repository;
+
 /**
  * Interact with Git.
  *
@@ -10,46 +13,54 @@ namespace Drupal\va_gov_consumers\Git;
 class Git implements GitInterface {
 
   /**
-   * Path to repository Root.
+   * Repository class.
    *
-   * @var string
+   * @var \Gitonomy\Git\Repository
    */
-  protected $repositoryRoot;
+  protected $repository;
 
   /**
    * Git constructor.
    *
-   * @param string $repositoryRoot
-   *   The repository Root path.
+   * @param \Gitonomy\Git\Repository $repository
+   *   The repository class.
    */
-  public function __construct(string $repositoryRoot) {
-    $this->repositoryRoot = $repositoryRoot;
+  public function __construct(Repository $repository) {
+    $this->repository = $repository;
   }
 
   /**
    * Factory method.
    *
-   * @param string $repositoryRoot
-   *   The repository root.
+   * @param \Gitonomy\Git\Repository $repository
+   *   The Repository Class.
    *
    * @return \Drupal\va_gov_consumers\Git\Git
    *   The git class.
    */
-  public static function get(string $repositoryRoot) : Git {
-    return new static($repositoryRoot);
+  public static function get(Repository $repository) : Git {
+    return new static($repository);
   }
 
   /**
    * {@inheritDoc}
    */
   public function searchBranches(string $search_string, int $count = 10) : array {
+    $repository = $this->repository->getPath();
     // If we expand usage of looking at git, we need to not use shell_exec.
-    $branches = explode(PHP_EOL, shell_exec("cd {$this->repositoryRoot} && git ls-remote --heads origin | cut -f2 | sed 's#refs/heads/##'"));
+    $branches = explode(PHP_EOL, shell_exec("cd {$repository} && git ls-remote --heads origin | cut -f2 | sed 's#refs/heads/##'"));
     $matches = array_filter($branches, static function ($branch_name) use ($search_string) {
       return stristr($branch_name, $search_string) !== FALSE;
     });
 
     return array_slice(array_values($matches), 0, $count);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function getLastCommit(): ?Commit {
+    return $this->repository->getHeadCommit();
   }
 
 }

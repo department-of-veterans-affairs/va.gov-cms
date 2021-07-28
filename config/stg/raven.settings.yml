@@ -1,0 +1,37 @@
+environment: staging
+release: ''
+fatal_error_handler: true
+fatal_error_handler_memory: 2560
+log_levels:
+  1: 1
+  2: 2
+  3: 3
+  4: 4
+  5: 5
+  6: 0
+  7: 0
+  8: 0
+drush_error_handler: true
+stack: true
+timeout: !!float 2
+message_limit: 2048
+trace: true
+javascript_error_handler: false
+public_dsn: ''
+ssl: verify_ssl
+ca_cert: ''
+ignored_channels:
+  - 'access denied'
+  - 'page not found'
+send_user_data: true
+rate_limit: 0
+send_request_body: true
+request_tracing: true
+traces_sample_rate: !!float 0
+browser_traces_sample_rate: null
+database_tracing: true
+twig_tracing: true
+auto_session_tracking: false
+max_request_body_size: always
+_core:
+  default_config_hash: 0cSFmtaooEoYv15Hw6hl0XsvZE6k1DKbqjukwUjZi6Y

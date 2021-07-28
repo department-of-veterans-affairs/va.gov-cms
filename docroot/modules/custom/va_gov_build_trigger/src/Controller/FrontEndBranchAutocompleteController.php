@@ -5,7 +5,6 @@ namespace Drupal\va_gov_build_trigger\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Utility\Error;
-use Drupal\va_gov_consumers\Git\Git;
 use Drupal\va_gov_consumers\Git\GithubInterface;
 use Drupal\va_gov_consumers\Git\GitInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -57,7 +56,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
         'department-of-veterans-affairs/content-build',
         'va_cms_bot_github_auth_token'
       ),
-      Git::get($container->get('va_gov.build_trigger.web_build_command_builder')->getPathToWebRoot()),
+      $container->get('va_gov.consumers.git.repository.factory')->getWebRepository(),
       $container->get('logger.factory')
     );
   }
