@@ -108,9 +108,12 @@
             ).value;
 
         // Last crumb will always be the title.
-        const facilityName = context
-          .querySelector(".breadcrumb li:last-child")
-          .textContent.trim();
+        const facilityName =
+          context.querySelector(".breadcrumb li:last-child") !== null
+            ? context
+                .querySelector(".breadcrumb li:last-child")
+                .textContent.trim()
+            : "";
 
         // Loop through our tpls and replace vars with const's from above.
         emailLinks.forEach((emailLink) => {
