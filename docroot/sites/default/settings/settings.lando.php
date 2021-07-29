@@ -7,9 +7,12 @@ $settings['jenkins_build_job_params'] = '/buildWithParameters?deploy=true';
 $settings['jenkins_build_job_url'] = $settings['jenkins_build_job_host'] . $settings['jenkins_build_job_path'] . $settings['jenkins_build_job_params'];
 $settings['skip_permissions_hardening'] = TRUE;
 
-$config['config_split.config_split.dev']['status'] = TRUE;
+$config['config_split.config_split.dev']['status'] = FALSE;
 $config['config_split.config_split.stg']['status'] = FALSE;
 $config['config_split.config_split.prod']['status'] = FALSE;
+$config['config_split.config_split.local']['status'] = TRUE;
+$config['config_split.config_split.tugboat']['status'] = FALSE;
+
 $config['system.performance']['cache']['page']['use_internal'] = FALSE;
 $config['system.performance']['css']['preprocess'] = FALSE;
 $config['system.performance']['css']['gzip'] = FALSE;

@@ -9,10 +9,12 @@ folder: ../config/stg
 module:
   fast404: 0
   syslog: 0
+  raven: 0
 theme: {  }
 blacklist: {  }
 graylist:
   - simplesamlphp_auth.settings
+  - raven.settings
 graylist_dependents: true
 graylist_skip_equal: true
 weight: 0

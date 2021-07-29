@@ -9,11 +9,13 @@ folder: ../config/prod
 module:
   fast404: 0
   syslog: 0
+  raven: 0
   simplesamlphp_auth: 0
 theme: {  }
 blacklist: {  }
 graylist:
   - simplesamlphp_auth.settings
+  - raven.settings.yml
 graylist_dependents: true
 graylist_skip_equal: true
 weight: 0
