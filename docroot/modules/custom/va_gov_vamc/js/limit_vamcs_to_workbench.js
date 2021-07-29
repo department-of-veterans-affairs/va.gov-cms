@@ -26,8 +26,15 @@
 
   Drupal.behaviors.vaGovLimitServiceOptions = {
     attach: function attach() {
-      winnower();
-      adminField.addEventListener("change", winnower);
+      var currentUserRoles = drupalSettings.vagov_menu_access.current_user_roles;
+      var adminRoles = ["content_admin", "administrator"];
+      var adminTest = adminRoles.some(function (role) {
+        return currentUserRoles.includes(role);
+      });
+      if (!adminTest) {
+        winnower();
+        adminField.addEventListener("change", winnower);
+      }
     }
   };
 })(Drupal);
