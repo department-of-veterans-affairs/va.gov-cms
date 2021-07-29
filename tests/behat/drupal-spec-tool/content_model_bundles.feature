@@ -13,7 +13,7 @@ Feature: Content model bundles
 | Campaign Landing Page | campaign_landing_page | Content type |  |
 | Centralized Content | centralized_content | Content type | Common content for reuse on other content types. |
 | Checklist | checklist | Content type |  |
-| CMS Help Page | documentation_page | Content type | Help guide pages on how to use the CMS to edit content on VA.gov. |
+| CMS Knowledge Base Article | documentation_page | Content type | Articles about how to use the VA.gov Drupal Content Management System (CMS). |
 | VAMC Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
 | Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
 | Events List | event_listing | Content type | A listing of events. |
@@ -78,7 +78,7 @@ Feature: Content model bundles
 | Link to file or video | downloadable_file | Paragraph type | A download link for an image or document, or a link to a YouTube video. |
 | List of link teasers | list_of_link_teasers | Paragraph type | A paragraph that contains only one type of paragraph: Link teaser. |
 | List of links | list_of_links | Paragraph type | A set of links, with link text and URL required, and an optional header. |
-| Lists of links | lists_of_links | Paragraph type | WARNING: Resources and support and User Guides only! A list of links, or several lists of links, with an optional section header. |
+| Lists of links | lists_of_links | Paragraph type | WARNING: Resources and support and Knowledge Base only! A list of links, or several lists of links, with an optional section header. |
 | Media list - Images | media_list_images | Paragraph type |  |
 | Media list - Videos | media_list_videos | Paragraph type |  |
 | Non-reusable Alert | non_reusable_alert | Paragraph type |  |
