@@ -2077,7 +2077,7 @@ function _va_gov_backend_set_field_listing_value(EntityInterface &$entity, array
 function va_gov_backend_raven_options_alter(array &$options) {
   try {
     $repository = Drupal::getContainer()->get('va_gov.consumers.git.repository.factory')->getAppRepository();
-    $options['release'] = $repository ? $repository->getLastCommit() : $repository->getLastCommit()->getHash();
+    $options['release'] = !empty($repository->getLastCommit()) ? $repository->getLastCommit()->getHash() : NULL;
   }
   catch (RuntimeExceptionAlias $e) {
     watchdog_exception('git', $e, 'Error getting HEAD commit');
