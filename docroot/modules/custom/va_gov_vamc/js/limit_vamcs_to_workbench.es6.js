@@ -11,18 +11,14 @@
   );
 
   const winnower = () => {
-    // Get our base match text string.
-    const adminFieldText = adminField.options[adminField.selectedIndex].text;
-    // Get our search string from the field text.
-    const adminMatcher = adminFieldText.replace(/(^-+)/g, "");
+    // Get our list of nids user can't access.
+    const disallowedValues = drupalSettings.va_gov_vamc.disallowed_vamc_options;
 
-    // Winnow options that don't contain adminMatcher.
+    // Disable our disallowed options.
     checkBoxDivs.forEach((i) => {
-      // Apply reset everytime we fire.
-      const text = i.querySelector("label span.field-content").textContent;
-      i.classList.remove("hidden-option");
-      if (!text.includes(adminMatcher)) {
-        i.classList.add("hidden-option");
+      const currentOptionValue = parseInt(i.querySelector("input").value, 10);
+      if (disallowedValues.includes(currentOptionValue)) {
+        i.querySelector("input").setAttribute("disabled", "disabled");
       }
     });
   };

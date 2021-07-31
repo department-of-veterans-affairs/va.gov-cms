@@ -11,15 +11,12 @@
   var checkBoxDivs = document.querySelectorAll("#edit-field-banner-alert-vamcs-wrapper div.form-type-checkbox");
 
   var winnower = function winnower() {
-    var adminFieldText = adminField.options[adminField.selectedIndex].text;
-
-    var adminMatcher = adminFieldText.replace(/(^-+)/g, "");
+    var disallowedValues = drupalSettings.va_gov_vamc.disallowed_vamc_options;
 
     checkBoxDivs.forEach(function (i) {
-      var text = i.querySelector("label span.field-content").textContent;
-      i.classList.remove("hidden-option");
-      if (!text.includes(adminMatcher)) {
-        i.classList.add("hidden-option");
+      var currentOptionValue = parseInt(i.querySelector("input").value, 10);
+      if (disallowedValues.includes(currentOptionValue)) {
+        i.querySelector("input").setAttribute("disabled", "disabled");
       }
     });
   };
