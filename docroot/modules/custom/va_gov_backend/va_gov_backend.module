@@ -1063,6 +1063,7 @@ function va_gov_backend_preprocess_page(&$variables) {
   if ($node instanceof NodeInterface) {
     // It's a node.
     $exclusion_types = [
+      'banner',
       'documentation_page',
       'event_listing',
       'full_width_banner_alert',

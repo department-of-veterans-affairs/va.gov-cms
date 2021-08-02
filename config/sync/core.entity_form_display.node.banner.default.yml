@@ -1,0 +1,120 @@
+uuid: 714ff1c0-d465-440b-91a5-67767b729486
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.banner.body
+    - field.field.node.banner.field_administration
+    - field.field.node.banner.field_alert_type
+    - field.field.node.banner.field_target_paths
+    - node.type.banner
+    - workflows.workflow.editorial
+  module:
+    - allowed_formats
+    - content_moderation
+    - field_group
+    - textfield_counter
+third_party_settings:
+  field_group:
+    group_section_settings:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 4
+      format_type: details_sidebar
+      region: content
+      format_settings:
+        description: ''
+        open: true
+        weight: 0
+        required_fields: true
+        id: ''
+        classes: ''
+        show_empty_fields: false
+      label: 'Section settings'
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 6
+      format_type: fieldset
+      region: content
+      format_settings:
+        show_empty_fields: false
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+id: node.banner.default
+targetEntityType: node
+bundle: banner
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary_and_counter
+    weight: 2
+    settings:
+      counter_position: after
+      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
+      summary_rows: 5
+      summary_maxlength: 1000
+      rows: 5
+      placeholder: ''
+      maxlength: 1000
+      js_prevent_submit: true
+      count_html_characters: true
+      show_summary: false
+      enable_summary: false
+    third_party_settings:
+      allowed_formats:
+        hide_help: '0'
+        hide_guidelines: '0'
+    region: content
+  field_administration:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_alert_type:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_target_paths:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 9
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  url_redirects:
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
