@@ -376,12 +376,12 @@ parameters:
 			path: docroot/modules/custom/va_gov_build_trigger/src/Commands/SiteStatusCommands.php
 
 		-
-			message: "#^Call to method getBackend\\(\\) on an unknown class Drupal\\\\advancedQueue\\\\Entity\\\\QueueInterface\\.$#"
-			count: 2
+			message: "#^Call to an undefined method Drupal\\\\advancedqueue\\\\Plugin\\\\AdvancedQueue\\\\Backend\\\\BackendInterface\\:\\:deleteJob\\(\\)\\.$#"
+			count: 1
 			path: docroot/modules/custom/va_gov_build_trigger/src/Commands/WebBuildCommands.php
 
 		-
-			message: "#^Property Drupal\\\\va_gov_build_trigger\\\\Commands\\\\WebBuildCommands\\:\\:\\$queue has unknown class Drupal\\\\advancedQueue\\\\Entity\\\\QueueInterface as its type\\.$#"
+			message: "#^Call to an undefined method Drupal\\\\advancedqueue\\\\Plugin\\\\AdvancedQueue\\\\Backend\\\\BackendInterface\\:\\:releaseJob\\(\\)\\.$#"
 			count: 1
 			path: docroot/modules/custom/va_gov_build_trigger/src/Commands/WebBuildCommands.php
 

@@ -18,4 +18,6 @@ jobs:
       - name: Run PHPStan
         run: |
           composer install
-          bin/phpstan analyze --no-progress
+          php -V
+          bin/phpstan -V
+          bin/phpstan analyze --no-progress --no-interaction
