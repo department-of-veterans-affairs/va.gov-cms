@@ -1,0 +1,24 @@
+name: phpstan
+on: [pull_request]
+jobs:
+  phpstan:
+    name: runner / phpstan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: zip gd
+          tools: composer:v2, phpstan
+      - name: Run PHPStan
+        run: |
+          composer install
+          bin/phpstan analyze \
+            docroot/modules/custom \
+            docroot/themes/custom \
+            tests
