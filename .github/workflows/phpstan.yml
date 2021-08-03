@@ -14,11 +14,8 @@ jobs:
         with:
           php-version: '7.4'
           extensions: zip gd
-          tools: composer:v2, phpstan
+          tools: composer:v2
       - name: Run PHPStan
         run: |
           composer install
-          bin/phpstan analyze \
-            docroot/modules/custom \
-            docroot/themes/custom \
-            tests
+          bin/phpstan analyze --no-progress

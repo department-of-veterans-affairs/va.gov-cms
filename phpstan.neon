@@ -1,11 +1,14 @@
 parameters:
+  paths:
+    - docroot/modules/custom
+    - docroot/themes/custom
+    - tests
   excludePaths:
     - *Test.php
     - *TestBase.php
   level: 2
   ignoreErrors:
     - '#Unsafe usage of new static\(\)#'
-  reportUnmatchedIgnoredErrors: false
   bootstrapFiles:
     - phpstan_bootstrap.php
 includes:

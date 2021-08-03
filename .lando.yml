@@ -184,7 +184,7 @@ tooling:
   phpstan:
     service: appserver
     description: "Run PHPStan static analysis on custom code."
-    cmd: "./bin/phpstan analyze docroot/modules/custom docroot/themes/custom tests"
+    cmd: "./bin/phpstan analyze"
 
   behat:
     service: appserver
