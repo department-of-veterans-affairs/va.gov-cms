@@ -95,7 +95,7 @@ function va_gov_backend_form_user_role_form_alter(array &$form, FormStateInterfa
  *   Saves our description field input.
  */
 function va_gov_backend_form_user_role_form_builder($entity_type, Role $role, array &$form, FormStateInterface $form_state) {
-  if ($form_state->getValue('vgb_description')) {
+  if ($form_state->getValueTypo('vgb_description')) {
     $role->setThirdPartySetting('va_gov_backend', 'vgb_description', $form_state->getValue('vgb_description'));
     return;
   }
