@@ -19,3 +19,4 @@ jobs:
         run: |
           composer install
           bin/phpstan analyze --no-progress --no-interaction
+        continue-on-error: true
