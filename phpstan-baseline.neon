@@ -6,21 +6,6 @@ parameters:
 			path: docroot/modules/custom/disable_node_menu_item/disable_node_menu_item.module
 
 		-
-			message: "#^Call to method addCacheableDependency\\(\\) on an unknown class Drupal\\\\va_gov_backend\\\\Controller\\\\Drupal\\\\Core\\\\Render\\\\RendererInterface\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_backend/src/Controller/VaGovBackendController.php
-
-		-
-			message: "#^Property Drupal\\\\va_gov_backend\\\\Controller\\\\VaGovBackendController\\:\\:\\$entityTypeManager has unknown class Drupal\\\\va_gov_backend\\\\Controller\\\\EntityTypeManagerInterface as its type\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_backend/src/Controller/VaGovBackendController.php
-
-		-
-			message: "#^Property Drupal\\\\va_gov_backend\\\\Controller\\\\VaGovBackendController\\:\\:\\$renderer has unknown class Drupal\\\\va_gov_backend\\\\Controller\\\\Drupal\\\\Core\\\\Render\\\\RendererInterface as its type\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_backend/src/Controller/VaGovBackendController.php
-
-		-
 			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
 			count: 2
 			path: docroot/modules/custom/va_gov_backend/src/Form/ExclusionTypesAdminForm.php
