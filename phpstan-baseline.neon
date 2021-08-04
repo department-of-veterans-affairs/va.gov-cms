@@ -1,0 +1,1240 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Form\\\\FormInterface\\:\\:getEntity\\(\\)\\.$#"
+			count: 2
+			path: docroot/modules/custom/disable_node_menu_item/disable_node_menu_item.module
+
+		-
+			message: "#^Call to method addCacheableDependency\\(\\) on an unknown class Drupal\\\\va_gov_backend\\\\Controller\\\\Drupal\\\\Core\\\\Render\\\\RendererInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Controller/VaGovBackendController.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_backend\\\\Controller\\\\VaGovBackendController\\:\\:\\$entityTypeManager has unknown class Drupal\\\\va_gov_backend\\\\Controller\\\\EntityTypeManagerInterface as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Controller/VaGovBackendController.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_backend\\\\Controller\\\\VaGovBackendController\\:\\:\\$renderer has unknown class Drupal\\\\va_gov_backend\\\\Controller\\\\Drupal\\\\Core\\\\Render\\\\RendererInterface as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Controller/VaGovBackendController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_backend/src/Form/ExclusionTypesAdminForm.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$entity_type_manager with type Drupal\\\\va_gov_backend\\\\Plugin\\\\Block\\\\Drupal\\\\Core\\\\Entity\\\\EntityTypeManagerInterface is not subtype of native type Drupal\\\\Core\\\\Entity\\\\EntityTypeManagerInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Block/SidebarMenusBlock.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$menu_link_manager with type Drupal\\\\va_gov_backend\\\\Plugin\\\\Block\\\\Drupal\\\\Core\\\\Menu\\\\MenuLinkManager is not subtype of native type Drupal\\\\Core\\\\Menu\\\\MenuLinkManager\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Block/SidebarMenusBlock.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$menu_link_tree with type Drupal\\\\va_gov_backend\\\\Plugin\\\\Block\\\\Drupal\\\\Core\\\\Menu\\\\MenuLinkTree is not subtype of native type Drupal\\\\Core\\\\Menu\\\\MenuLinkTree\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Block/SidebarMenusBlock.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$request_stack with type Drupal\\\\va_gov_backend\\\\Plugin\\\\Block\\\\Symfony\\\\Component\\\\HttpFoundation\\\\RequestStack is not subtype of native type Symfony\\\\Component\\\\HttpFoundation\\\\RequestStack\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Block/SidebarMenusBlock.php
+
+		-
+			message: "#^Parameter \\$entity_type_manager of method Drupal\\\\va_gov_backend\\\\Plugin\\\\Block\\\\SidebarMenusBlock\\:\\:__construct\\(\\) has invalid typehint type Drupal\\\\va_gov_backend\\\\Plugin\\\\Block\\\\Drupal\\\\Core\\\\Entity\\\\EntityTypeManagerInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Block/SidebarMenusBlock.php
+
+		-
+			message: "#^Parameter \\$menu_link_manager of method Drupal\\\\va_gov_backend\\\\Plugin\\\\Block\\\\SidebarMenusBlock\\:\\:__construct\\(\\) has invalid typehint type Drupal\\\\va_gov_backend\\\\Plugin\\\\Block\\\\Drupal\\\\Core\\\\Menu\\\\MenuLinkManager\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Block/SidebarMenusBlock.php
+
+		-
+			message: "#^Parameter \\$menu_link_tree of method Drupal\\\\va_gov_backend\\\\Plugin\\\\Block\\\\SidebarMenusBlock\\:\\:__construct\\(\\) has invalid typehint type Drupal\\\\va_gov_backend\\\\Plugin\\\\Block\\\\Drupal\\\\Core\\\\Menu\\\\MenuLinkTree\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Block/SidebarMenusBlock.php
+
+		-
+			message: "#^Parameter \\$request_stack of method Drupal\\\\va_gov_backend\\\\Plugin\\\\Block\\\\SidebarMenusBlock\\:\\:__construct\\(\\) has invalid typehint type Drupal\\\\va_gov_backend\\\\Plugin\\\\Block\\\\Symfony\\\\Component\\\\HttpFoundation\\\\RequestStack\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Block/SidebarMenusBlock.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint\\\\BenefitsSelectionLimit\\:\\:\\$moreThanTwo has unknown class Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/BenefitsSelectionLimit.php
+
+		-
+			message: "#^Access to an undefined property Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$moreThanTwo\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/BenefitsSelectionLimitValidator.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint\\\\PdfCheck\\:\\:\\$notPdfFile has unknown class Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/PdfCheck.php
+
+		-
+			message: "#^Access to an undefined property Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$notPdfFile\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/PdfCheckValidator.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/PdfCheckValidator.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint\\\\RequiredParagraph\\:\\:\\$required has unknown class Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/RequiredParagraph.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint\\\\RequiredParagraph\\:\\:\\$tooFew has unknown class Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/RequiredParagraph.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint\\\\RequiredParagraph\\:\\:\\$tooMany has unknown class Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/RequiredParagraph.php
+
+		-
+			message: "#^Access to an undefined property Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$max\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/RequiredParagraphValidator.php
+
+		-
+			message: "#^Access to an undefined property Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$min\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/RequiredParagraphValidator.php
+
+		-
+			message: "#^Access to an undefined property Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$readable\\.$#"
+			count: 3
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/RequiredParagraphValidator.php
+
+		-
+			message: "#^Access to an undefined property Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$required\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/RequiredParagraphValidator.php
+
+		-
+			message: "#^Access to an undefined property Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$toggle\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/RequiredParagraphValidator.php
+
+		-
+			message: "#^Access to an undefined property Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$tooFew\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/RequiredParagraphValidator.php
+
+		-
+			message: "#^Access to an undefined property Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$tooMany\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/RequiredParagraphValidator.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint\\\\UniqueTitle\\:\\:\\$notUniqueTitle has unknown class Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/UniqueTitle.php
+
+		-
+			message: "#^Access to an undefined property Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$notUniqueTitle\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/UniqueTitleValidator.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/UniqueTitleValidator.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/UniqueTitleValidator.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint\\\\ValidPhoneNumber\\:\\:\\$notValidLength has unknown class Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/ValidPhoneNumber.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint\\\\ValidPhoneNumber\\:\\:\\$notValidSms has unknown class Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/ValidPhoneNumber.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint\\\\ValidPhoneNumber\\:\\:\\$notValidTel has unknown class Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/ValidPhoneNumber.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint\\\\ValidPhoneNumber\\:\\:\\$notValidTty has unknown class Drupal\\\\va_gov_backend\\\\Plugin\\\\Validation\\\\Constraint as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/ValidPhoneNumber.php
+
+		-
+			message: "#^Access to an undefined property Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$notValidLength\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/ValidPhoneNumberValidator.php
+
+		-
+			message: "#^Access to an undefined property Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$notValidSms\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/ValidPhoneNumberValidator.php
+
+		-
+			message: "#^Access to an undefined property Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$notValidTel\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/ValidPhoneNumberValidator.php
+
+		-
+			message: "#^Access to an undefined property Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$notValidTty\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/ValidPhoneNumberValidator.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$group with type object is not subtype of native type stdClass\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/field_group/FieldGroupFormatter/DetailsWithImage.php
+
+		-
+			message: "#^Static method Drupal\\\\field_group\\\\FieldGroupFormatterBase\\:\\:defaultSettings\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/field_group/FieldGroupFormatter/DetailsWithImage.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/field_group/FieldGroupFormatter/DetailsWithImage.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$group with type object is not subtype of native type stdClass\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/field_group/FieldGroupFormatter/Tooltip.php
+
+		-
+			message: "#^Static method Drupal\\\\field_group\\\\FieldGroupFormatterBase\\:\\:defaultSettings\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Plugin/field_group/FieldGroupFormatter/Tooltip.php
+
+		-
+			message: "#^Call to an undefined method GuzzleHttp\\\\ClientInterface\\:\\:head\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/src/Service/VaGovUrl.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_owner\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.install
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.install
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:isDefaultRevision\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.install
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:set\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.install
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setChangedTime\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.install
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setNewRevision\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.install
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setRevisionCreationTime\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.install
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setRevisionLogMessage\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.install
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setRevisionUserId\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.install
+
+		-
+			message: "#^Call to method delete\\(\\) on an unknown class Drupal\\\\field\\\\Entity\\\\Drupal\\\\field\\\\Entity\\\\FieldConfigInterface\\.$#"
+			count: 6
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.install
+
+		-
+			message: "#^Function field_group_group_delete not found\\.$#"
+			count: 3
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.install
+
+		-
+			message: "#^Variable \\$node might not be defined\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.install
+
+		-
+			message: "#^Variable \\$saved might not be defined\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.install
+
+		-
+			message: "#^Variable \\$swap_key might not be defined\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.install
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_featured\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_hservice_appt_intro_select\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_listing\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$path\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$type\\.$#"
+			count: 4
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
+			count: 7
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:getTitle\\(\\)\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:hasField\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:set\\(\\)\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:referencedEntities\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Form\\\\FormInterface\\:\\:getEntity\\(\\)\\.$#"
+			count: 6
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Variable \\$contact_type might not be defined\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Variable \\$intro_text_value might not be defined\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Variable \\$intro_type might not be defined\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Call to an undefined method Psr\\\\Log\\\\LoggerInterface\\:\\:success\\(\\)\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_build_trigger/src/Commands/SiteStatusCommands.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\advancedqueue\\\\Plugin\\\\AdvancedQueue\\\\Backend\\\\BackendInterface\\:\\:deleteJob\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_build_trigger/src/Commands/WebBuildCommands.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\advancedqueue\\\\Plugin\\\\AdvancedQueue\\\\Backend\\\\BackendInterface\\:\\:releaseJob\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_build_trigger/src/Commands/WebBuildCommands.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 3
+			path: docroot/modules/custom/va_gov_build_trigger/src/Form/PreviewForm.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$value\\.$#"
+			count: 4
+			path: docroot/modules/custom/va_gov_build_trigger/src/Service/BuildFrontend.php
+
+		-
+			message: "#^Call to method archiveNode\\(\\) on an unknown class Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Plugin/Action/ArchiveNodeAction.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$moderationActions with type Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface is not subtype of native type Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Plugin/Action/ArchiveNodeAction.php
+
+		-
+			message: "#^Parameter \\$moderationActions of method Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\ArchiveNodeAction\\:\\:__construct\\(\\) has invalid typehint type Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Plugin/Action/ArchiveNodeAction.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\ArchiveNodeAction\\:\\:\\$moderationActions has unknown class Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Plugin/Action/ArchiveNodeAction.php
+
+		-
+			message: "#^Call to method publishLatestRevision\\(\\) on an unknown class Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Plugin/Action/PublishLatestRevisionAction.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$moderationActions with type Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface is not subtype of native type Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Plugin/Action/PublishLatestRevisionAction.php
+
+		-
+			message: "#^Parameter \\$moderationActions of method Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\PublishLatestRevisionAction\\:\\:__construct\\(\\) has invalid typehint type Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Plugin/Action/PublishLatestRevisionAction.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\PublishLatestRevisionAction\\:\\:\\$moderationActions has unknown class Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Plugin/Action/PublishLatestRevisionAction.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:set\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActions.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setRevisionCreationTime\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActions.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setRevisionLogMessage\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActions.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setRevisionUserId\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActions.php
+
+		-
+			message: "#^PHPDoc tag @return with type Drupal\\\\va_gov_bulk\\\\Service\\\\Drupal\\\\node\\\\NodeInterface is not subtype of native type Drupal\\\\node\\\\NodeInterface\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActions.php
+
+		-
+			message: "#^Return typehint of method Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActions\\:\\:archiveNode\\(\\) has invalid type Drupal\\\\va_gov_bulk\\\\Service\\\\Drupal\\\\node\\\\NodeInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActions.php
+
+		-
+			message: "#^Return typehint of method Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActions\\:\\:publishLatestRevision\\(\\) has invalid type Drupal\\\\va_gov_bulk\\\\Service\\\\Drupal\\\\node\\\\NodeInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActions.php
+
+		-
+			message: "#^PHPDoc tag @return with type Drupal\\\\va_gov_bulk\\\\Service\\\\Drupal\\\\node\\\\NodeInterface is not subtype of native type Drupal\\\\node\\\\NodeInterface\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActionsInterface.php
+
+		-
+			message: "#^Return typehint of method Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface\\:\\:archiveNode\\(\\) has invalid type Drupal\\\\va_gov_bulk\\\\Service\\\\Drupal\\\\node\\\\NodeInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActionsInterface.php
+
+		-
+			message: "#^Return typehint of method Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface\\:\\:publishLatestRevision\\(\\) has invalid type Drupal\\\\va_gov_bulk\\\\Service\\\\Drupal\\\\node\\\\NodeInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActionsInterface.php
+
+		-
+			message: "#^Call to an undefined method Github\\\\Api\\\\ApiInterface\\:\\:issues\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_consumers/src/Git/GithubAdapter.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\va_gov_consumers\\\\Git\\\\GithubFactory\\:\\:\\$logger\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_consumers/src/Git/GithubFactory.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$children\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_consumers/va_gov_consumers.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Form\\\\FormInterface\\:\\:getEntity\\(\\)\\.$#"
+			count: 3
+			path: docroot/modules/custom/va_gov_consumers/va_gov_consumers.module
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$entity_type_manager with type Drupal\\\\va_gov_dashboards\\\\Service\\\\Drupal\\\\Core\\\\Entity\\\\EntityTypeManagerInterface is not subtype of native type Drupal\\\\Core\\\\Entity\\\\EntityTypeManagerInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_dashboards/src/Service/VetCenterDashboard.php
+
+		-
+			message: "#^Parameter \\$entity_type_manager of method Drupal\\\\va_gov_dashboards\\\\Service\\\\VetCenterDashboard\\:\\:__construct\\(\\) has invalid typehint type Drupal\\\\va_gov_dashboards\\\\Service\\\\Drupal\\\\Core\\\\Entity\\\\EntityTypeManagerInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_dashboards/src/Service/VetCenterDashboard.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_product\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_dashboards/va_gov_dashboards.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_db/va_gov_db.install
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\node\\\\Entity\\\\Node\\:\\:setRevisionAuthorId\\(\\)\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_db/va_gov_db.install
+
+		-
+			message: "#^PHPDoc tag @throws with type DrupalUpdateException is not subtype of Throwable$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_db/va_gov_db.install
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setChangedTime\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_db/va_gov_db.post_update.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setNewRevision\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_db/va_gov_db.post_update.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setOwnerId\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_db/va_gov_db.post_update.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setRevisionAuthorId\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_db/va_gov_db.post_update.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setRevisionCreationTime\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_db/va_gov_db.post_update.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setRevisionLogMessage\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_db/va_gov_db.post_update.php
+
+		-
+			message: "#^Variable \\$nids might not be defined\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_db/va_gov_db.post_update.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$entity with type Drupal\\\\va_gov_govdelivery\\\\EventSubscriber\\\\Drupal\\\\Core\\\\Entity\\\\EntityInterface is not subtype of native type Drupal\\\\Core\\\\Entity\\\\EntityInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_govdelivery/src/EventSubscriber/EntityEventSubscriber.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$event with type Drupal\\\\va_gov_govdelivery\\\\EventSubscriber\\\\Drupal\\\\core_event_dispatcher\\\\Event\\\\Entity\\\\AbstractEntityEvent is not subtype of native type Drupal\\\\core_event_dispatcher\\\\Event\\\\Entity\\\\AbstractEntityEvent\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_govdelivery/src/EventSubscriber/EntityEventSubscriber.php
+
+		-
+			message: "#^Parameter \\$entity of method Drupal\\\\va_gov_govdelivery\\\\EventSubscriber\\\\EntityEventSubscriber\\:\\:isStatusUpdateNode\\(\\) has invalid typehint type Drupal\\\\va_gov_govdelivery\\\\EventSubscriber\\\\Drupal\\\\Core\\\\Entity\\\\EntityInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_govdelivery/src/EventSubscriber/EntityEventSubscriber.php
+
+		-
+			message: "#^Parameter \\$event of method Drupal\\\\va_gov_govdelivery\\\\EventSubscriber\\\\EntityEventSubscriber\\:\\:handleEntityUpsert\\(\\) has invalid typehint type Drupal\\\\va_gov_govdelivery\\\\EventSubscriber\\\\Drupal\\\\core_event_dispatcher\\\\Event\\\\Entity\\\\AbstractEntityEvent\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_govdelivery/src/EventSubscriber/EntityEventSubscriber.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$value\\.$#"
+			count: 4
+			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\ContentEntityInterface\\:\\:isPublished\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:getTitle\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:referencedEntities\\(\\)\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
+
+		-
+			message: "#^Call to method renderPlain\\(\\) on an unknown class Drupal\\\\va_gov_govdelivery\\\\Service\\\\Drupal\\\\Core\\\\Render\\\\RendererInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
+
+		-
+			message: "#^Method Drupal\\\\va_gov_govdelivery\\\\Service\\\\ProcessStatusBulletin\\:\\:getSendType\\(\\) should return string but return statement is missing\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$node with type Drupal\\\\va_gov_govdelivery\\\\Service\\\\Drupal\\\\node\\\\NodeInterface is not subtype of native type Drupal\\\\node\\\\NodeInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
+
+		-
+			message: "#^PHPDoc tag @var contains unknown class Drupal\\\\va_gov_govdelivery\\\\Service\\\\Drupal\\\\path_alias\\\\AliasManager\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
+
+		-
+			message: "#^Parameter \\$node of method Drupal\\\\va_gov_govdelivery\\\\Service\\\\ProcessStatusBulletin\\:\\:getVamcs\\(\\) has invalid typehint type Drupal\\\\va_gov_govdelivery\\\\Service\\\\Drupal\\\\node\\\\NodeInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_govdelivery\\\\Service\\\\ProcessStatusBulletin\\:\\:\\$renderer has unknown class Drupal\\\\va_gov_govdelivery\\\\Service\\\\Drupal\\\\Core\\\\Render\\\\RendererInterface as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
+
+		-
+			message: "#^Variable \\$subject_prefix might not be defined\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
+
+		-
+			message: "#^Variable \\$time might not be defined\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:isPublished\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_govdelivery/va_gov_govdelivery.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Form\\\\FormInterface\\:\\:getEntity\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_govdelivery/va_gov_govdelivery.module
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_graphql/src/Routing/RouteSubscriber.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:getChangedTime\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_help_center/src/Plugin/Block/WhatsNew.php
+
+		-
+			message: "#^Variable \\$entity in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_media/va_gov_media.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:getType\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_menu_access/src/Service/MenuReductionService.php
+
+		-
+			message: "#^Call to method getFormObject\\(\\) on an unknown class Drupal\\\\va_gov_menu_access\\\\Service\\\\Drupal\\\\Core\\\\Form\\\\FormStateInterface\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_menu_access/src/Service/MenuReductionService.php
+
+		-
+			message: "#^Call to method getValue\\(\\) on an unknown class Drupal\\\\va_gov_menu_access\\\\Service\\\\Drupal\\\\Core\\\\Form\\\\FormStateInterface\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_menu_access/src/Service/MenuReductionService.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_menu_access\\\\Service\\\\MenuReductionService\\:\\:\\$formState has unknown class Drupal\\\\va_gov_menu_access\\\\Service\\\\Drupal\\\\Core\\\\Form\\\\FormStateInterface as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_menu_access/src/Service/MenuReductionService.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\va_gov_migrate\\\\Commands\\\\Commands\\:\\:\\$entityTypeManager\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_migrate/src/Commands/Commands.php
+
+		-
+			message: "#^Call to an undefined method Psr\\\\Log\\\\LoggerInterface\\:\\:success\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/Commands/Commands.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$value\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/EventSubscriber/PostRowSave.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 3
+			path: docroot/modules/custom/va_gov_migrate/src/EventSubscriber/PostRowSave.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 4
+			path: docroot/modules/custom/va_gov_migrate/src/Form/MigrateConfigForm.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/Obtainer/ObtainAlertBlockTitles.php
+
+		-
+			message: "#^Variable \\$anomalies might not be defined\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/Obtainer/ObtainAndTestBody.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/Paragraph/Base/QABase.php
+
+		-
+			message: "#^Method Drupal\\\\va_gov_migrate\\\\Paragraph\\\\CollapsiblePanel\\:\\:isParagraph\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/Paragraph/CollapsiblePanel.php
+
+		-
+			message: "#^Variable \\$error might not be defined\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/Paragraph/ReactWidget.php
+
+		-
+			message: "#^Variable \\$link_button might not be defined\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/Paragraph/ReactWidget.php
+
+		-
+			message: "#^Variable \\$link_text might not be defined\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/Paragraph/ReactWidget.php
+
+		-
+			message: "#^Variable \\$link_url might not be defined\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/Paragraph/ReactWidget.php
+
+		-
+			message: "#^Variable \\$loading might not be defined\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/Paragraph/ReactWidget.php
+
+		-
+			message: "#^Variable \\$timeout might not be defined\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/Paragraph/ReactWidget.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/ParagraphMigrator.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:set\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/ParagraphMigrator.php
+
+		-
+			message: "#^Call to method toUrl\\(\\) on an unknown class Drupal\\\\Core\\\\Entity\\\\Entity\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/ParagraphMigrator.php
+
+		-
+			message: "#^Class QueryPath\\\\DOMQuery referenced with incorrect case\\: queryPath\\\\DOMQuery\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/ParagraphMigrator.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_migrate\\\\ParagraphMigrator\\:\\:\\$entity has unknown class Drupal\\\\Core\\\\Entity\\\\Entity as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/ParagraphMigrator.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 5
+			path: docroot/modules/custom/va_gov_migrate/src/ParagraphMigrator.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/ParagraphType.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:set\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/ParagraphType.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/ParagraphType.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/Plugin/migrate/source/AlertBlockSource.php
+
+		-
+			message: "#^Cannot access property \\$data on object\\|false\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_migrate/src/Plugin/migrate/source/MetalsmithSource.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 3
+			path: docroot/modules/custom/va_gov_migrate/src/Plugin/migrate/source/MetalsmithSource.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/src/Plugin/migrate/source/SupportService.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/va_gov_migrate.install
+
+		-
+			message: "#^Undefined variable\\: \\$source_id$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/va_gov_migrate.install
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_migrate/va_gov_migrate.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:getRevisionUserId\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/va_gov_migrate.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:set\\(\\)\\.$#"
+			count: 4
+			path: docroot/modules/custom/va_gov_migrate/va_gov_migrate.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setPublished\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_migrate/va_gov_migrate.module
+
+		-
+			message: "#^Call to method setEditedFlag\\(\\) on an unknown class Drupal\\\\va_gov_notifications\\\\FlagDecisionsInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_notifications/src/Event/Entity/EditedFlag.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_notifications\\\\Event\\\\Entity\\\\EditedFlag\\:\\:\\$flaggingService has unknown class Drupal\\\\va_gov_notifications\\\\FlagDecisionsInterface as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_notifications/src/Event/Entity/EditedFlag.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 6
+			path: docroot/modules/custom/va_gov_post_api/src/Form/VaGovFacilityForceQueueForm.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$moderation_state\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_post_api/src/Service/PostFacilityService.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$status\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_post_api/src/Service/PostFacilityService.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\va_gov_post_api\\\\Service\\\\PostFacilityService\\:\\:\\$Facility\\.$#"
+			count: 5
+			path: docroot/modules/custom/va_gov_post_api/src/Service/PostFacilityService.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
+			count: 11
+			path: docroot/modules/custom/va_gov_post_api/src/Service/PostFacilityService.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:getDescription\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_post_api/src/Service/PostFacilityService.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:getName\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_post_api/src/Service/PostFacilityService.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:getTitle\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_post_api/src/Service/PostFacilityService.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:isPublished\\(\\)\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_post_api/src/Service/PostFacilityService.php
+
+		-
+			message: "#^Method Drupal\\\\va_gov_post_api\\\\Service\\\\PostFacilityService\\:\\:queueFacilityService\\(\\) should return int but return statement is missing\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_post_api/src/Service/PostFacilityService.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_facility_locator_api_id\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_post_api/va_gov_post_api.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_operating_status_facility\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_post_api/va_gov_post_api.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_operating_status_more_info\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_post_api/va_gov_post_api.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:hasField\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_post_api/va_gov_post_api.module
+
+		-
+			message: "#^Function _post_api_add_facility_to_queue\\(\\) should return int but return statement is missing\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_post_api/va_gov_post_api.module
+
+		-
+			message: "#^Method Drupal\\\\va_gov_preview\\\\Encoder\\\\StaticEncoder\\:\\:encode\\(\\) should return string but return statement is missing\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_preview/src/Encoder/StaticEncoder.php
+
+		-
+			message:
+				"""
+					#^Parameter \\$event of method Drupal\\\\va_gov_preview\\\\EventSubscriber\\\\DeployStatusMessagesSubscriber\\:\\:onRequest\\(\\) has typehint with deprecated class Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\GetResponseEvent\\:
+					since Symfony 4\\.3, use RequestEvent instead$#
+				"""
+			count: 1
+			path: docroot/modules/custom/va_gov_preview/src/EventSubscriber/DeployStatusMessagesSubscriber.php
+
+		-
+			message:
+				"""
+					#^Parameter \\$event of method Drupal\\\\va_gov_preview\\\\EventSubscriber\\\\DeployStatusMessagesSubscriber\\:\\:showDeployStatusMessages\\(\\) has typehint with deprecated class Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\GetResponseEvent\\:
+					since Symfony 4\\.3, use RequestEvent instead$#
+				"""
+			count: 1
+			path: docroot/modules/custom/va_gov_preview/src/EventSubscriber/DeployStatusMessagesSubscriber.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\va_gov_user\\\\EventSubscriber\\\\UserImport\\:\\:\\$string_translation\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_user/src/EventSubscriber/UserImport.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Database\\:\\:select\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_user/src/Service/UserPermsService.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_user/src/Service/UserPermsService.php
+
+		-
+			message: "#^Interface Drupal\\\\Core\\\\Session\\\\AccountInterface referenced with incorrect case\\: Drupal\\\\core\\\\Session\\\\AccountInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_user/src/Service/UserPermsService.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_user/src/Service/UserPermsService.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_facility_locator_api_id\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_vet_center/va_gov_vet_center.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_office\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_vet_center/va_gov_vet_center.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_vetcenter_cap_hours_opt_in\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_vet_center/va_gov_vet_center.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:set\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_vet_center/va_gov_vet_center.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Form\\\\FormInterface\\:\\:getEntity\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_vet_center/va_gov_vet_center.module
+
+		-
+			message:
+				"""
+					#^PHPDoc tag @param has invalid value \\(array &\\$build
+					  A renderable array representing the entity content\\.\\)\\: Unexpected token "&", expected variable at offset 87$#
+				"""
+			count: 1
+			path: docroot/modules/custom/va_gov_vet_center/va_gov_vet_center.module
+
+		-
+			message:
+				"""
+					#^PHPDoc tag @param has invalid value \\(array &\\$build
+					  A renderable array representing the entity content\\.\\)\\: Unexpected token "&", expected variable at offset 92$#
+				"""
+			count: 1
+			path: docroot/modules/custom/va_gov_vet_center/va_gov_vet_center.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:referencedEntities\\(\\)\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_workflow_assignments/src/Plugin/Block/EntityMetaDisplay.php
+
+		-
+			message: "#^Call to method typeIsExcluded\\(\\) on an unknown class Drupal\\\\va_gov_backend\\\\ExclusionTypesInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_workflow_assignments/src/Plugin/Block/EntityMetaDisplay.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_workflow_assignments\\\\Plugin\\\\Block\\\\EntityMetaDisplay\\:\\:\\$exclusionTypes has unknown class Drupal\\\\va_gov_backend\\\\ExclusionTypesInterface as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_workflow_assignments/src/Plugin/Block/EntityMetaDisplay.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\ContentEntityInterface\\:\\:\\$field_accordion_display\\.$#"
+			count: 1
+			path: docroot/themes/custom/vagovadmin/vagovadmin.theme
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$entity\\.$#"
+			count: 1
+			path: docroot/themes/custom/vagovadmin/vagovadmin.theme
+
+		-
+			message:
+				"""
+					#^Class CustomDrupal\\\\ContentModelContext implements deprecated interface Behat\\\\Behat\\\\Context\\\\SnippetAcceptingContext\\:
+					will be removed in 4\\.0\\. Use \\-\\-snippets\\-for CLI option instead$#
+				"""
+			count: 1
+			path: tests/behat/Drupal/ContentModelContext.php
+
+		-
+			message: "#^Instantiated class Behat\\\\Behat\\\\Exception\\\\BehaviorException not found\\.$#"
+			count: 1
+			path: tests/behat/Drupal/ContentModelContext.php
+
+		-
+			message: "#^PHPDoc tag @throws with type CustomDrupal\\\\Behat\\\\Behat\\\\Exception\\\\BehaviorException is not subtype of Throwable$#"
+			count: 1
+			path: tests/behat/Drupal/ContentModelContext.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 2
+			path: tests/behat/Drupal/ContentModelContext.php
+
+		-
+			message: "#^Variable \\$entity_type might not be defined\\.$#"
+			count: 5
+			path: tests/behat/Drupal/ContentModelContextCustom.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 4
+			path: tests/behat/Drupal/ContentModelContextCustom.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 1
+			path: tests/behat/Drupal/ContextBase.php
+
+		-
+			message: "#^Access to an undefined property CustomDrupal\\\\FeatureContext\\:\\:\\$username\\.$#"
+			count: 1
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message: "#^Binary operation \"\\.\" between 'The selector ' and Behat\\\\Mink\\\\Element\\\\NodeElement\\|null results in an error\\.$#"
+			count: 2
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message: "#^Call to an undefined method Behat\\\\Testwork\\\\Environment\\\\Environment\\:\\:getContext\\(\\)\\.$#"
+			count: 1
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:set\\(\\)\\.$#"
+			count: 1
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setPublished\\(\\)\\.$#"
+			count: 1
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message: "#^Call to an undefined static method Drupal\\:\\:entityManager\\(\\)\\.$#"
+			count: 1
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message: "#^Call to method addMember\\(\\) on an unknown class Drupal\\\\group\\\\Entity\\\\Group\\.$#"
+			count: 1
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message: "#^Call to method delete\\(\\) on an unknown class Drupal\\\\group\\\\Entity\\\\Group\\.$#"
+			count: 1
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message: "#^Call to method getMember\\(\\) on an unknown class Drupal\\\\group\\\\Entity\\\\Group\\.$#"
+			count: 1
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Drupal\\\\group\\\\Entity\\\\Group\\.$#"
+			count: 1
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message:
+				"""
+					#^Class CustomDrupal\\\\FeatureContext implements deprecated interface Behat\\\\Behat\\\\Context\\\\SnippetAcceptingContext\\:
+					will be removed in 4\\.0\\. Use \\-\\-snippets\\-for CLI option instead$#
+				"""
+			count: 1
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message: "#^PHPDoc tag @throws with type CustomDrupal\\\\ElementNotFoundException is not subtype of Throwable$#"
+			count: 1
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message: "#^PHPDoc tag @throws with type CustomDrupal\\\\Exception is not subtype of Throwable$#"
+			count: 3
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message: "#^Parameter \\$group of method CustomDrupal\\\\FeatureContext\\:\\:newUserJoinGroup\\(\\) has invalid typehint type Drupal\\\\group\\\\Entity\\\\Group\\.$#"
+			count: 2
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message: "#^Parameter \\$group of method CustomDrupal\\\\FeatureContext\\:\\:userJoinGroup\\(\\) has invalid typehint type Drupal\\\\group\\\\Entity\\\\Group\\.$#"
+			count: 2
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message: "#^Property CustomDrupal\\\\FeatureContext\\:\\:\\$groups has unknown class Drupal\\\\group\\\\Entity\\\\Group as its type\\.$#"
+			count: 1
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message: "#^Return typehint of method CustomDrupal\\\\FeatureContext\\:\\:createGroup\\(\\) has invalid type Drupal\\\\group\\\\Entity\\\\Group\\.$#"
+			count: 1
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message: "#^Return typehint of method CustomDrupal\\\\FeatureContext\\:\\:userJoinGroup\\(\\) has invalid type Drupal\\\\group\\\\Entity\\\\Group\\.$#"
+			count: 1
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 4
+			path: tests/behat/Drupal/FeatureContext.php
+
+		-
+			message: "#^Call to an undefined method CustomDrupal\\\\UserRolesAndPermissionsContext\\:\\:getTableNodeFromCsv\\(\\)\\.$#"
+			count: 1
+			path: tests/behat/Drupal/UserRolesAndPermissionsContext.php
+
+		-
+			message:
+				"""
+					#^Class CustomDrupal\\\\UserRolesAndPermissionsContext implements deprecated interface Behat\\\\Behat\\\\Context\\\\SnippetAcceptingContext\\:
+					will be removed in 4\\.0\\. Use \\-\\-snippets\\-for CLI option instead$#
+				"""
+			count: 1
+			path: tests/behat/Drupal/UserRolesAndPermissionsContext.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 4
+			path: tests/behat/Drupal/UserRolesAndPermissionsContext.php
+
+		-
+			message: "#^PHPDoc tag @return with type Tests\\\\Support\\\\Mock\\\\GuzzleHttp\\\\Client is not subtype of native type GuzzleHttp\\\\Client\\.$#"
+			count: 1
+			path: tests/phpunit/Support/Mock/HttpClient.php
+
+		-
+			message: "#^Return typehint of method Tests\\\\Support\\\\Mock\\\\HttpClient\\:\\:create\\(\\) has invalid type Tests\\\\Support\\\\Mock\\\\GuzzleHttp\\\\Client\\.$#"
+			count: 1
+			path: tests/phpunit/Support/Mock/HttpClient.php
+
