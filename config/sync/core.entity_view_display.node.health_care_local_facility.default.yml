@@ -63,7 +63,7 @@ third_party_settings:
     group_social_media:
       children: {  }
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: details
       format_settings:
         id: ''
@@ -77,7 +77,7 @@ third_party_settings:
       children:
         - field_location_services
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: details
       format_settings:
         description: ''
@@ -108,9 +108,9 @@ third_party_settings:
         - field_mental_health_phone
         - field_office_hours
       parent_name: group_locations_and_contact_info
-      weight: 5
+      weight: 19
       format_type: tooltip
-      region: hidden
+      region: content
       format_settings:
         show_empty_fields: 0
         id: external-content
@@ -196,14 +196,17 @@ content:
     type: boolean
     region: content
   field_office_hours:
+    type: office_hours
     weight: 20
+    region: content
     label: above
     settings:
+      day_format: long
+      time_format: G
+      compress: false
+      grouped: false
       show_closed: all
-      office_hours_first_day: ''
-      day_format: short
-      time_format: g
-      closed_format: ''
+      closed_format: Closed
       separator:
         days: '<br />'
         grouped_days: ' - '
@@ -214,14 +217,11 @@ content:
         position: ''
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
-      compress: false
-      grouped: false
       schema:
         enabled: false
       timezone_field: ''
+      office_hours_first_day: ''
     third_party_settings: {  }
-    type: office_hours
-    region: content
   field_operating_status_facility:
     weight: 4
     label: hidden
