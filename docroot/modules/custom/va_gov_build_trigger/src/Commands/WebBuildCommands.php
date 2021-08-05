@@ -47,7 +47,7 @@ class WebBuildCommands extends DrushCommands {
   /**
    * The web build command queue.
    *
-   * @var \Drupal\advancedQueue\Entity\QueueInterface
+   * @var \Drupal\advancedqueue\Entity\QueueInterface
    */
   protected $queue;
 
