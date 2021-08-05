@@ -183,7 +183,6 @@ class RolesPermissionsTest extends ExistingSiteBase {
         'content_creator_benefits_hubs',
         [
           'access files overview',
-          'create alert block content',
           'create landing_page content',
           'create page content',
           'create promo block content',
@@ -195,7 +194,6 @@ class RolesPermissionsTest extends ExistingSiteBase {
         'content_creator_resources_and_support',
         [
           'access files overview',
-          'create alert block content',
           'create checklist content',
           'create faq_multiple_q_a content',
           'create media_list_images content',
@@ -230,7 +228,6 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'access vamc_operating_statuses entity browser pages',
           'administer menu',
           'break content lock',
-          'create alert block content',
           'create document media',
           'create image media',
           'create media',
@@ -368,7 +365,6 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'access vamc_operating_statuses entity browser pages',
           'administer menu',
           'break content lock',
-          'create alert block content',
           'create document media',
           'create image media',
           'create media',
@@ -491,7 +487,8 @@ class RolesPermissionsTest extends ExistingSiteBase {
       ],
       [
         'content_publisher',
-      ['access administration pages',
+      [
+        'access administration pages',
         'access content overview',
         'access files overview',
         'access image_browser entity browser pages',
@@ -503,7 +500,6 @@ class RolesPermissionsTest extends ExistingSiteBase {
         'access vamc_operating_statuses entity browser pages',
         'administer menu',
         'break content lock',
-        'create alert block content',
         'create document media',
         'create image media',
         'create media',
@@ -711,7 +707,6 @@ class RolesPermissionsTest extends ExistingSiteBase {
         'office_content_creator',
         [
           'access files overview',
-          'create alert block content',
           'create event content',
           'create outreach_asset content',
           'create promo block content',
@@ -722,7 +717,6 @@ class RolesPermissionsTest extends ExistingSiteBase {
         'vamc_content_creator',
         [
           'access files overview',
-          'create alert block content',
           'create event content',
           'create full_width_banner_alert content',
           'create health_care_local_health_service content',
