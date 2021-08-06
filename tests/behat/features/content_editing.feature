@@ -107,7 +107,7 @@ Feature: CMS Users may effectively create & edit content
     And I select "Archived" from "edit-moderation-state-0-state"
     And I fill in "Revision log message" with "Test archiving"
     And I press "Save"
-    Then I should see "Office Test Office - BeHaT 404 has been updated."
+    Then I should see "Test Office - BeHaT 404\u003C\/a\u003E\u003C\/em\u003E has been updated."
     And I should see "Content Type: Office" in the "#block-entitymetadisplay" element
     And I should not see "VA.gov URL" in the "#block-entitymetadisplay" element
 
@@ -135,7 +135,7 @@ Feature: CMS Users may effectively create & edit content
     And I fill in "Alert body" with "BeHat Alert body"
     And I press "Save draft and continue editing"
     Then I should see "Pages for the following VAMC systems"
-    And I should not see "BeHat Alert Body"
+    And I should see "BeHat Alert Body"
 
   @content_editing
   Scenario Outline: Confirm that content cannot be published directly from the node view but can from the node edit form.

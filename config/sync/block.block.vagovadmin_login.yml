@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - system
     - user
   theme:
     - vagovadmin
@@ -11,7 +12,7 @@ _core:
 id: vagovadmin_login
 theme: vagovadmin
 region: sidebar_first
-weight: -14
+weight: -13
 provider: null
 plugin: user_login_block
 settings:
@@ -19,4 +20,9 @@ settings:
   label: 'User login'
   provider: user
   label_display: visible
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    pages: '/help*'
+    negate: true
+    context_mapping: {  }

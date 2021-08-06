@@ -90,6 +90,7 @@ The following automated code tools must pass before a Pull Request can be merged
 * eslint
 * PHPCS
 * PHPMD
+* PHPStan
 * stylelint
 
 ## Definition of Done

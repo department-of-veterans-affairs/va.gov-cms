@@ -1,0 +1,169 @@
+uuid: f9eb1e01-dbfa-4e38-b74c-58e0be6f7af7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_block
+    - field.storage.node.field_intro_text
+    - field.storage.node.field_product
+    - search_api.server.database
+    - core.entity_view_mode.node.full
+  module:
+    - node
+    - search_api
+id: knowledge_base_search
+name: 'Knowledge base search'
+description: 'An index of all Knowledge Base Articles'
+read_only: false
+field_settings:
+  field_content_block:
+    label: 'Main content'
+    datasource_id: 'entity:node'
+    property_path: field_content_block
+    type: text
+    boost: 0.8
+    dependencies:
+      config:
+        - field.storage.node.field_content_block
+  field_intro_text:
+    label: 'Page introduction'
+    datasource_id: 'entity:node'
+    property_path: field_intro_text
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_intro_text
+  field_product:
+    label: Product
+    datasource_id: 'entity:node'
+    property_path: field_product
+    type: text
+    boost: !!float 13
+    dependencies:
+      config:
+        - field.storage.node.field_product
+  node_grants:
+    label: 'Node access information'
+    property_path: search_api_node_grants
+    type: string
+    indexed_locked: true
+    type_locked: true
+    hidden: true
+  rendered_item:
+    label: 'Rendered HTML output'
+    property_path: rendered_item
+    type: text
+    configuration:
+      roles:
+        anonymous: anonymous
+      view_mode:
+        'entity:node':
+          documentation_page: full
+  status:
+    label: status
+    datasource_id: 'entity:node'
+    property_path: status
+    type: boolean
+    indexed_locked: true
+    type_locked: true
+    dependencies:
+      module:
+        - node
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+    boost: !!float 21
+    dependencies:
+      module:
+        - node
+  uid:
+    label: uid
+    datasource_id: 'entity:node'
+    property_path: uid
+    type: integer
+    indexed_locked: true
+    type_locked: true
+    dependencies:
+      module:
+        - node
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - documentation_page
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  content_access:
+    weights:
+      preprocess_query: -30
+  entity_status: {  }
+  highlight:
+    highlight: always
+    highlight_partial: true
+    excerpt: true
+    excerpt_length: 256
+    exclude_fields: {  }
+    prefix: '<strong>'
+    suffix: '</strong>'
+    weights:
+      postprocess_query: 0
+  html_filter:
+    all_fields: true
+    fields:
+      - field_content_block
+      - field_intro_text
+      - field_product
+      - rendered_item
+      - title
+    title: true
+    alt: true
+    tags:
+      b: 2
+      h1: 5
+      h2: 3
+      h3: 2
+      strong: 2
+    weights:
+      preprocess_index: -15
+      preprocess_query: -15
+  ignorecase:
+    all_fields: true
+    fields:
+      - field_content_block
+      - field_intro_text
+      - field_product
+      - rendered_item
+      - title
+    weights:
+      preprocess_index: -20
+      preprocess_query: -20
+  language_with_fallback: {  }
+  rendered_item: {  }
+  stemmer:
+    all_fields: true
+    fields:
+      - field_content_block
+      - field_intro_text
+      - field_product
+      - rendered_item
+      - title
+    exceptions:
+      mexican: mexic
+      texan: texa
+    weights:
+      preprocess_index: 0
+      preprocess_query: 0
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  index_directly: true
+  cron_limit: 50
+server: database

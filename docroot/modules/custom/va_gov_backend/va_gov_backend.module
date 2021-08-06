@@ -24,6 +24,7 @@ use Drupal\taxonomy\TermInterface;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 use Drupal\va_gov_build_trigger\Form\PreviewForm;
+use Gitonomy\Git\Exception\RuntimeException as RuntimeExceptionAlias;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -696,7 +697,7 @@ function va_gov_backend_form_media_library_add_form_upload_alter(&$form, FormSta
 function va_gov_backend_field_widget_boolean_checkbox_form_alter(&$element, FormStateInterface $form_state, $context) {
   $field_definition = $context['items']->getFieldDefinition();
   if ($field_definition instanceof FieldConfig) {
-    list ($entity_type, $bundle, $field_name) = explode('.', $field_definition->id());
+    [$entity_type, $bundle, $field_name] = explode('.', $field_definition->id());
     if ($entity_type === 'media' && $field_name === 'field_media_in_library') {
       $element['value']['#attributes']['class'][] = 'field_media_in_library';
     }
@@ -771,7 +772,7 @@ function _va_gov_backend_unset_fields(EntityInterface $entity) {
 function _va_gov_backend_get_unlocked_alias_bundles() {
 
   // Insert into array bundles that do not need alias locked upon publish.
-  return ['health_care_region_detail_page'];
+  return ['documentation_page'];
 }
 
 /**
@@ -1062,6 +1063,7 @@ function va_gov_backend_preprocess_page(&$variables) {
   if ($node instanceof NodeInterface) {
     // It's a node.
     $exclusion_types = [
+      'banner',
       'documentation_page',
       'event_listing',
       'full_width_banner_alert',
@@ -2036,36 +2038,15 @@ function _va_gov_backend_feature_bump(EntityInterface $entity) {
 }
 
 /**
- * Sets field_listing value or throws an exception for an empty value.
- *
- * @param \Drupal\Core\Entity\EntityInterface $entity
- *   Entity.
- * @param array $entity_listing_mapping
- *   Mapping that specifies how content type maps to corresponding
- *   "listing" content type.
- * @param int|null $id
- *   NID of the node of type "listing".
- *
- * @throws \Exception
+ * Implements hook_raven_options_alter().
  */
-function _va_gov_backend_set_field_listing_value(EntityInterface &$entity, array $entity_listing_mapping, int $id = NULL) {
-  if (!is_int($id) || $id == 0) {
-    // @codingStandardsIgnoreStart
-    // Listing corresponding to field_office, was not found. Fail silently.
-    // Give a warning message to the user and log in dblog.
-    Drupal::messenger()->addWarning("{$entity->type->entity->label()} Listing page for the office or system you've selected does not exist. Please create {$entity->type->entity->label()} Listing page and come back to re-save this {$entity->type->entity->label()}.");
-    Drupal::logger('va_gov_backend')->warning(
-      '%bundle Listing page for the office or system you\'ve selected does not exist. Please create %bundle Listing page and come back to re-save %bundle with NID %nid.',
-      ['%bundle' => $entity->type->entity->label(), '%nid' => $entity->id()]);
-    return;
-    // @codingStandardsIgnoreEnd
+function va_gov_backend_raven_options_alter(array &$options) {
+  try {
+    $repository = Drupal::getContainer()->get('va_gov.consumers.git.repository.factory')->getAppRepository();
+    $options['release'] = !empty($repository->getLastCommit()) ? $repository->getLastCommit()->getHash() : NULL;
+  }
+  catch (RuntimeExceptionAlias $e) {
+    watchdog_exception('git', $e, 'Error getting HEAD commit');
   }
 
-  // We have a listing node id.
-  if ($entity->hasField('field_listing')) {
-    // Clear previous value.
-    $entity->set('field_listing', NULL);
-    // Assuming there's only one Event Listing per Office/VAMC System.
-    $entity->field_listing[] = ['target_id' => $id];
-  }
 }

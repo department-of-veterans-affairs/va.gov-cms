@@ -1,0 +1,21 @@
+uuid: d58947c5-37f5-46dc-87ee-2dd0775c6408
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_alert_type
+    - node.type.banner
+  module:
+    - options
+id: node.banner.field_alert_type
+field_name: field_alert_type
+entity_type: node
+bundle: banner
+label: 'Alert type'
+description: "<p>Currently, the CMS supports two types of alerts:</p>\r\n\r\n<ol>\r\n\t<li><strong>Informational alerts</strong>, which are used to provide helpful information to a user or something that warrants attention. Not used for negative consequences.</li>\r\n\t<li><strong>Warning alerts</strong>, which are used to warn a user, such as when there are negative consequences, but necessary when something has gone wrong.</li>\r\n</ol>\r\n\r\n<p>You can read more about these alert types in the <a href=\"https://design.va.gov/components/alertboxes\">VA Design System</a>.</p>"
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

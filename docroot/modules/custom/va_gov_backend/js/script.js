@@ -25,6 +25,45 @@
     }
   };
 
+  Drupal.behaviors.nationalDataHideDelete = {
+    attach: function attach(context) {
+      var adminRoles = ["administrator"];
+
+      if (drupalSettings.gtm_data.contentType === "centralized_content" && !adminRoles.some(function (item) {
+        return drupalSettings.gtm_data.userRoles.includes(item);
+      })) {
+        var inputs = context.querySelectorAll("#field-content-block-values input");
+        var buttons = context.querySelectorAll("#field-content-block-values button");
+        var drags = context.querySelectorAll("#field-content-block-values .field-multiple-drag");
+        var weightToggles = context.querySelectorAll(".tabledrag-toggle-weight-wrapper");
+
+        inputs.forEach(function (item) {
+          if (item.value && item.value === "Remove") {
+            item.style.display = "none";
+          }
+        });
+
+        buttons.forEach(function (item) {
+          if (item && item.classList.contains("paragraphs-dropdown-toggle")) {
+            item.style.display = "none";
+          }
+        });
+
+        drags.forEach(function (item) {
+          if (item) {
+            item.style.display = "none";
+          }
+        });
+
+        weightToggles.forEach(function (item) {
+          if (item) {
+            item.style.display = "none";
+          }
+        });
+      }
+    }
+  };
+
   Drupal.behaviors.vastDataNodeOutputManipulation = {
     attach: function attach(context) {
       if (context.querySelectorAll(".admin-help-email-tpl").length) {
@@ -32,7 +71,7 @@
 
         var facilityID = context.querySelector(".field--name-field-facility-locator-api-id .field__item") ? context.querySelector(".field--name-field-facility-locator-api-id .field__item").textContent : context.querySelector(".form-item-field-facility-locator-api-id-0-value input").value;
 
-        var facilityName = context.querySelector(".breadcrumb li:last-child").textContent.trim();
+        var facilityName = context.querySelector(".breadcrumb li:last-child") !== null ? context.querySelector(".breadcrumb li:last-child").textContent.trim() : "";
 
         emailLinks.forEach(function (emailLink) {
           var eHref = emailLink.href;

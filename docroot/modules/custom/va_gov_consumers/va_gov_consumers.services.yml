@@ -6,6 +6,10 @@ services:
     class: Drupal\va_gov_consumers\Git\GithubFactory
     calls:
       - [ setContainer, [ '@service_container' ] ]
+  va_gov.consumers.git.repository.factory:
+    class: Drupal\va_gov_consumers\Git\GitFactory
+    calls:
+      - [ setContainer, [ '@service_container' ] ]
   va_gov.consumers.github.vets_website:
     class: Drupal\va_gov_consumers\Git\GithubAdapter
     factory: va_gov.consumers.github.factory

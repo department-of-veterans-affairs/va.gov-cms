@@ -1,0 +1,31 @@
+uuid: ffcdc4ab-596e-482d-ade8-cc4e26081632
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.user_guides
+    - field.field.paragraph.table.field_table
+    - paragraphs.paragraphs_type.table
+  module:
+    - layout_builder
+    - tablefield
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: paragraph.table.user_guides
+targetEntityType: paragraph
+bundle: table
+mode: user_guides
+content:
+  field_table:
+    weight: 0
+    label: hidden
+    settings:
+      row_header: true
+      column_header: false
+    third_party_settings: {  }
+    type: tablefield
+    region: content
+hidden:
+  search_api_excerpt: true

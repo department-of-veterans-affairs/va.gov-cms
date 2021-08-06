@@ -22,7 +22,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @Block(
  *   id = "va_gov_workflow_assignments_meta",
  *   admin_label = @Translation("Entity Meta Display"),
- *   context = {
+ *   context_definitions = {
  *     "node" = @ContextDefinition(
  *       "entity:node",
  *       label = @Translation("Node"),
@@ -177,7 +177,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    */
   private function getNode() {
     // Drupal sometimes hands us a nid and sometimes an upcasted node object.
-    // @TODO remove type checks when the patch at
+    // @todo remove type checks when the patch at
     // https://www.drupal.org/project/drupal/issues/2730631
     // is committed. (Should be in 9.2)
     $route_parameter = $this->routeMatch->getParameter('node');
@@ -201,7 +201,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    */
   private function getNodeRevision() {
     // Drupal sometimes hands us a nid and sometimes an upcasted node object.
-    // @TODO remove type checks when the patch at
+    // @todo remove type checks when the patch at
     // https://www.drupal.org/project/drupal/issues/2730631
     // is committed. (Should be in 9.2)
     $route_parameter = $this->routeMatch->getParameter('node_revision');

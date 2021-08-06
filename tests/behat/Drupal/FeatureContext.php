@@ -7,6 +7,7 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Testwork\Tester\Result\TestResult;
 use Drupal\DrupalExtension\Context\DrushContext;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
+use Drupal\user\Entity\User;
 
 /**
  * FeatureContext class defines custom step definitions for Behat.
@@ -518,7 +519,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    * @Then the :arg1 flag for node :arg2 should be set for me
    */
   public function theFlagForNodeShouldBeSetForTheRevisionEditor(string $flagName, string $title) {
-    $account = user_load($this->getUserManager()->getCurrentUser()->uid);
+    $account = User::load($this->getUserManager()->getCurrentUser()->uid);
     $flag_service = \Drupal::service('flag');
     $flag = $flag_service->getFlagById($flagName);
     if (empty($flag)) {
@@ -554,6 +555,32 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     if ($event->getTestResult()->getResultCode() === TestResult::FAILED) {
       $this->drushContext->assertDrushCommand('wd-show');
       $this->drushContext->printLastDrushOutput();
+    }
+  }
+
+  /**
+   * Print HTML after any failed step.
+   *
+   * @AfterStep
+   */
+  public function printHtmlAfterFailedStep($event) {
+    if ($event->getTestResult()->getResultCode() === TestResult::FAILED) {
+      $dumpPath = 'behat_failures';
+      $session = $this->getSession();
+      $page = $session->getPage();
+      $html = $page->getContent();
+      $text = preg_replace('/\s+/u', ' ', $page->getText());
+      $date = date('Y-m-d--H-i-s');
+      $featureFilePath = $event->getFeature()->getFile();
+      $featureFileName = basename($featureFilePath);
+      if (!file_exists($dumpPath)) {
+        mkdir($dumpPath);
+      }
+      $htmlPath = "$dumpPath/$date-$featureFileName.html";
+      $textPath = "$dumpPath/$date-$featureFileName.txt";
+      file_put_contents($htmlPath, $html);
+      file_put_contents($textPath, $text);
+      echo "\nDumped HTML to $htmlPath\nDumped Text to $textPath\n";
     }
   }
 

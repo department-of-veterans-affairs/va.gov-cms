@@ -65,6 +65,9 @@ Feature: Views
 | VAMC top task page revision histories | vamc_top_task_page_revisions | Content revisions | Enabled | An audit of VAMC top task pages for runbook planning |
 | Vet centers | vet_centers | Content | Enabled |  |
 | Vet Center facility listing | vet_center_facility_listing | Content | Enabled |  |
+| Users in section | users_in_section | Section association | Enabled | Views of users associated to a section |
+| CMS Knowledge Base search results | knowledge_base_search_results | Index Knowledge base search | Enabled |  |
+| Knowledge Base Article administration | knowledge_base_article_administration | Content | Enabled | Audits and tools for managing Knowledge Base Articles |
 
   @dst @views_displays
      Scenario: Views displays
@@ -221,6 +224,13 @@ Feature: Views
 | Taxonomy entity browsers | Master | default | Master |
 | Vet Center facility listing | Block | vc_facility_listing | Block |
 | Vet Center facility listing | Master | default | Master |
+| Vet Center facility listing | VC listing for node form | vc_listing_for_node_form | Block |
 | Vet centers | Entity browser | vet_center_entity_browser | Entity browser |
 | Vet centers | Master | default | Master |
 | Vet centers | Mobile Vet Centers Entity Browser | mvc_entity_browser | Entity browser |
+| Users in section | Master | default | Master |
+| Users in section | Page | section_member_page | Page |
+| CMS Knowledge Base search results | Master | default | Master |
+| CMS Knowledge Base search results | Page | knowledge_base_search_page | Page |
+| Knowledge Base Article administration | Master | default | Master |
+| Knowledge Base Article administration | Page | knowledge_base_admin | Page |
