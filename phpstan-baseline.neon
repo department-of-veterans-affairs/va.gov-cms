@@ -286,6 +286,41 @@ parameters:
 			path: docroot/modules/custom/va_gov_backend/va_gov_backend.install
 
 		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_featured\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_listing\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\FieldableEntityInterface\\:\\:\\$path\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$caption\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$format\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$pathauto\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$value\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
 			message: "#^Call to an undefined method Psr\\\\Log\\\\LoggerInterface\\:\\:success\\(\\)\\.$#"
 			count: 2
 			path: docroot/modules/custom/va_gov_build_trigger/src/Commands/SiteStatusCommands.php
