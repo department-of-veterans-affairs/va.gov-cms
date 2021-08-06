@@ -1,0 +1,76 @@
+
+name: VAgov CMS S3 Backup Manager
+on:
+  # UTC 5am is ET 1am, everyday.
+  schedule:
+    - cron: '0 5 * * *'
+
+jobs:
+  backup-daily:
+    runs-on: ubuntu-latest
+    env:
+      CMS_PROD_S3_BUCKET_NAME: dsva-vagov-prod-cms-backup
+      CMS_PROD_S3_BUCKET_SANITIZED: dsva-vagov-prod-cms-backup-sanitized
+    steps:
+      # Cron set to run daily. Lets get the day of the week for the weekly backup steps.
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date)"
+
+        # Get the initial AWS IAM User crednetials. Only has basic permissions to sts:assumeRole
+      - name: Configure AWS credentials (1)
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-gov-west-1
+
+# Will use in the future. CMS github actions user needs additional permissions to use SSM Parameter Store.
+#      - name: Get AWS IAM role
+#        uses: marvinpinto/action-inject-ssm-secrets@latest
+#        with:
+#          ssm_parameter: /cms/github-actions/parameters/AWS_VAGOV_CMS_PROD_S3_ROLE
+#          env_variable_name: AWS_VAGOV_CMS_PROD_S3_ROLE
+
+      # Get credentials from our s3 role. Least privilege method for AWS IAM.
+      - name: Configure AWS Credentials (2)
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-gov-west-1
+          role-to-assume: ${{ secrets.AWS_VAGOV_CMS_PROD_S3_ROLE }}
+          role-duration-seconds: 900
+          role-session-name: vsp-vagov-cms-githubaction
+
+      - name: Backup Daily Asset Files
+        run: |
+          latest_asset_file=$(aws s3api list-objects \
+          --bucket dsva-vagov-prod-cms-backup-sanitized \
+          --prefix files/ \
+          --query "Contents[?contains(Key, 'cmsapp')] | reverse(sort_by(@, &LastModified)[].{LastModified:LastModified,Key:Key}) | [:1]" | jq '.[].Key' --raw-output)
+          aws s3 cp s3://${{ CMS_PROD_S3_BUCKET_SANITIZED }}/$latest_asset_file s3://${{ CMS_PROD_S3_BUCKET_SANITIZED }}/daily/$latest_asset_file
+
+      - name: Backup Daily Sanitized SQL Files
+        run:|
+        latest_db_file=$(aws s3api list-objects \
+        --bucket dsva-vagov-prod-cms-backup-sanitized \
+        --prefix database/ \
+        --query "Contents[?contains(Key, 'cmsapp')] | reverse(sort_by(@, &LastModified)[].{LastModified:LastModified,Key:Key}) | [:1]" | jq '.[].Key' --raw-output)
+        aws s3 cp s3://${{ CMS_PROD_S3_BUCKET_SANITIZED }}/$latest_db_file s3://${{ CMS_PROD_S3_BUCKET_SANITIZED }}/daily/$latest_db_file
+
+      - name: Backup Daily SQL Files
+        run:|
+        latest_db_file=$(aws s3api list-objects \
+        --bucket dsva-vagov-prod-cms-backup-sanitized \
+        --prefix database/ \
+        --query "Contents[?contains(Key, 'cmsapp')] | reverse(sort_by(@, &LastModified)[].{LastModified:LastModified,Key:Key}) | [:1]" | jq '.[].Key' --raw-output)
+        aws s3 cp s3://${{ dsva-vagov-prod-cms-backup }}/$latest_db_file s3://${{ dsva-vagov-prod-cms-backup-sanitized }}/daily/$latest_db_file
+
+      - name: Backup Weekly Asset Files
+        if: contains(steps.date.outputs.date,'Sun')
+        run: aws s3 cp coverage/test-coverage-report.json s3://apps.dev.va.gov/coverage/test-coverage-report.json --acl public-read --region us-gov-west-1
+
+      - name: Backup Weekly SQL Files
+        if: contains(steps.date.outputs.date,'Sun')
+        run: aws s3 cp coverage/test-coverage-report.json s3://apps.dev.va.gov/coverage/test-coverage-report.json --acl public-read --region us-gov-west-1
