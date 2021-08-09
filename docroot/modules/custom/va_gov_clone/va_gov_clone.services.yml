@@ -1,0 +1,8 @@
+services:
+  plugin.manager.va_gov_clone_handler:
+    class: Drupal\va_gov_clone\CloneHandler\CloneHandlerDiscovery
+    parent: default_plugin_manager
+  va_gov.clone.manager:
+    class: Drupal\va_gov_clone\CloneManagerInterface
+    arguments:
+      - '@plugin.manager.va_gov_clone_handler'
