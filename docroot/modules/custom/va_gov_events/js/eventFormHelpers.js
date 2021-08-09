@@ -11,13 +11,39 @@
   var includeLocationItemsRadios = document.getElementById("edit-field-location-type");
 
   var toggleRegistrationElements = function toggleRegistrationElements() {
-    var targetRegistrationElements = document.querySelectorAll(".centralized.reduced-padding, #edit-field-event-registrationrequired-wrapper, #edit-field-event-cta-wrapper, #edit-field-link-wrapper, #edit-field-additional-information-abo-wrapper");
+    var targetRegistrationElements = document.querySelectorAll(".centralized.reduced-padding, #edit-field-event-registrationrequired-wrapper, #edit-field-event-cta-wrapper, #edit-field-link-wrapper, #edit-group-registration-link, #group-registration-link, #edit-field-additional-information-abo-wrapper");
     var toggleVal = !!includeRegistrationsBool.checked;
     targetRegistrationElements.forEach(function (element) {
       if (toggleVal) {
         element.style.display = "block";
       } else {
         element.style.display = "none";
+      }
+    });
+  };
+
+  var requireCTA = function requireCTA() {
+    var ctaSelect = document.getElementById("edit-field-event-cta");
+    var fieldLinkWrapper = document.getElementById("edit-field-link-wrapper");
+    var fieldLinkInput = document.getElementById("edit-field-link-0-uri");
+    var fieldLinkWrapperLabel = document.querySelector("#edit-field-link-wrapper label");
+
+    fieldLinkWrapper.style.display = "none";
+
+    if (ctaSelect.value !== "_none") {
+      fieldLinkWrapper.style.display = "block";
+      fieldLinkInput.required = "required";
+      fieldLinkWrapperLabel.classList.add("js-form-required", "form-required");
+    }
+
+    ctaSelect.addEventListener("change", function (e) {
+      fieldLinkInput.required = "";
+      fieldLinkWrapper.style.display = "none";
+      fieldLinkWrapperLabel.classList.remove("js-form-required", "form-required");
+      if (e.target.value !== "_none") {
+        fieldLinkInput.attributes.required = "required";
+        fieldLinkWrapperLabel.classList.add("js-form-required", "form-required");
+        fieldLinkWrapper.style.display = "block";
       }
     });
   };
@@ -63,6 +89,7 @@
       toggleLocationElements();
     });
     toggleLocationElements();
+    requireCTA();
   };
 
   Drupal.behaviors.vaGovEventFormHelpers = {

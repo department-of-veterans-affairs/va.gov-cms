@@ -30,10 +30,12 @@ dependencies:
     - allowed_formats
     - content_moderation
     - field_group
+    - limited_field_widgets
     - linkit
     - media_library
     - path
     - smart_date
+    - smart_date_recur
     - text
 third_party_settings:
   field_group:
@@ -74,8 +76,6 @@ third_party_settings:
         - group_all_events_are_free
         - field_event_registrationrequired
         - group_registration_link
-        - field_event_cta
-        - field_link
         - field_additional_information_abo
       parent_name: ''
       weight: 6
@@ -103,6 +103,21 @@ third_party_settings:
         required_fields: true
         description: ''
       label: 'Editorial Workflow'
+      region: content
+    group_registration_link:
+      children:
+        - field_event_cta
+        - field_link
+      parent_name: group_link
+      weight: 30
+      format_type: fieldset
+      format_settings:
+        description: 'Direct people to take the next step. For example, "Register" with a link to event registration.'
+        required_fields: true
+        id: ''
+        classes: ''
+        show_empty_fields: false
+      label: 'Call to action link'
       region: content
     group_feature_this_content:
       children:
@@ -183,7 +198,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_additional_information_abo:
-    weight: 33
+    weight: 31
     settings:
       rows: 5
       placeholder: ''
@@ -218,7 +233,9 @@ content:
     weight: 1
     region: content
     settings:
+      show_extra: true
       default_tz: custom
+      add_abbreviations: ''
       custom_tz: America/New_York
       allowed_timezones:
         - America/Anchorage
@@ -228,6 +245,7 @@ content:
         - America/New_York
         - America/Phoenix
         - Asia/Manila
+        - Europe/Berlin
         - Pacific/Guam
         - Pacific/Honolulu
         - Pacific/Saipan
@@ -240,9 +258,18 @@ content:
         90
         120|2 hours
         custom
-      show_extra: true
-      add_abbreviations: ''
-    third_party_settings: {  }
+    third_party_settings:
+      smart_date_recur:
+        modal: true
+        allowed_recur_freq_values:
+          DAILY: DAILY
+          WEEKLY: WEEKLY
+          MONTHLY: MONTHLY
+          MINUTELY: '0'
+          HOURLY: '0'
+          YEARLY: '0'
+      limited_field_widgets:
+        limit_values: '1'
   field_description:
     weight: 3
     settings:
