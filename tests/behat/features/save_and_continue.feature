@@ -46,6 +46,8 @@ Feature: Save and continue button works as expected.
     And I should see "Draft" in the ".views-field-moderation-state" element
     Then I visit the "moderation-history" page for a node with the title "Behat save and continue new test - edited"
     And I should see "Set to Draft on " in the ".views-field-moderation-state" element
+    Then I visit the "revisions" page for a node with the title "Behat save and continue new test - edited"
+    And I should see "Draft" in the ".views-field-moderation-state" element
 
     # Make sure we are in draft state
     Then I visit the "edit" page for a node with the title "Behat save and continue new test - edited"

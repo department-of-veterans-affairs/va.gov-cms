@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.event.field_event_registrationrequired
     - field.field.node.event.field_facility_location
     - field.field.node.event.field_featured
+    - field.field.node.event.field_include_registration_info
     - field.field.node.event.field_link
     - field.field.node.event.field_listing
     - field.field.node.event.field_location_humanreadable
@@ -26,12 +27,15 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - address
+    - allowed_formats
     - content_moderation
     - field_group
+    - limited_field_widgets
     - linkit
     - media_library
     - path
     - smart_date
+    - smart_date_recur
     - text
 third_party_settings:
   field_group:
@@ -68,17 +72,20 @@ third_party_settings:
       region: content
     group_link:
       children:
+        - field_include_registration_info
+        - group_all_events_are_free
         - field_event_registrationrequired
         - group_registration_link
         - field_additional_information_abo
       parent_name: ''
       weight: 6
-      format_type: details
+      format_type: fieldset
       format_settings:
-        description: 'All events on VA.gov are free.'
+        description: ''
         open: true
         id: ''
         classes: ''
+        show_empty_fields: false
         required_fields: false
       label: Registration
       region: content
@@ -87,7 +94,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 14
+      weight: 15
       format_type: fieldset
       format_settings:
         id: ''
@@ -102,22 +109,22 @@ third_party_settings:
         - field_event_cta
         - field_link
       parent_name: group_link
-      weight: 34
+      weight: 30
       format_type: fieldset
       format_settings:
+        description: 'Direct people to take the next step. For example, "Register" with a link to event registration.'
+        required_fields: true
         id: ''
         classes: ''
-        description: ''
-        required_fields: true
-        open: false
-      label: Link
+        show_empty_fields: false
+      label: 'Call to action link'
       region: content
     group_feature_this_content:
       children:
         - field_featured
         - field_order
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -141,6 +148,44 @@ third_party_settings:
         required_fields: true
       label: 'Meta Tags'
       region: content
+    group_all_events_are_free:
+      children:
+        - group_cost
+      parent_name: group_link
+      weight: 28
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_label: '1'
+        tooltip_description: 'All events listed on VA.gov must be free.'
+        description: Free
+        required_fields: '1'
+        id: ''
+        classes: 'centralized reduced-padding'
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
+      label: Cost
+    group_cost:
+      children: {  }
+      parent_name: group_all_events_are_free
+      weight: 15
+      format_type: html_element
+      region: content
+      format_settings:
+        show_empty_fields: true
+        id: ''
+        classes: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        required_fields: true
+        attributes: ''
+        effect: none
+        speed: fast
+      label: Free
 id: node.event.default
 targetEntityType: node
 bundle: event
@@ -148,12 +193,12 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 11
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
   field_additional_information_abo:
-    weight: 35
+    weight: 31
     settings:
       rows: 5
       placeholder: ''
@@ -177,7 +222,10 @@ content:
     settings:
       rows: 5
       placeholder: ''
-    third_party_settings: {  }
+    third_party_settings:
+      allowed_formats:
+        hide_help: '1'
+        hide_guidelines: '1'
     type: text_textarea
     region: content
   field_datetime_range_timezone:
@@ -185,7 +233,9 @@ content:
     weight: 1
     region: content
     settings:
+      show_extra: true
       default_tz: custom
+      add_abbreviations: ''
       custom_tz: America/New_York
       allowed_timezones:
         - America/Anchorage
@@ -195,6 +245,7 @@ content:
         - America/New_York
         - America/Phoenix
         - Asia/Manila
+        - Europe/Berlin
         - Pacific/Guam
         - Pacific/Honolulu
         - Pacific/Saipan
@@ -207,9 +258,18 @@ content:
         90
         120|2 hours
         custom
-      show_extra: true
-      add_abbreviations: ''
-    third_party_settings: {  }
+    third_party_settings:
+      smart_date_recur:
+        modal: true
+        allowed_recur_freq_values:
+          DAILY: DAILY
+          WEEKLY: WEEKLY
+          MONTHLY: MONTHLY
+          MINUTELY: '0'
+          HOURLY: '0'
+          YEARLY: '0'
+      limited_field_widgets:
+        limit_values: '1'
   field_description:
     weight: 3
     settings:
@@ -219,13 +279,13 @@ content:
     type: string_textfield
     region: content
   field_event_cta:
-    weight: 26
+    weight: 31
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_event_registrationrequired:
-    weight: 31
+    weight: 29
     settings:
       display_label: true
     third_party_settings: {  }
@@ -233,9 +293,13 @@ content:
     region: content
   field_facility_location:
     weight: 13
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: options_select
+    type: entity_reference_autocomplete
     region: content
   field_featured:
     weight: 10
@@ -244,8 +308,15 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
-  field_link:
+  field_include_registration_info:
     weight: 27
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_link:
+    weight: 32
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -261,7 +332,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_location_humanreadable:
-    weight: 15
+    weight: 16
     settings:
       size: 60
       placeholder: ''
@@ -272,7 +343,7 @@ content:
     weight: 12
     settings: {  }
     third_party_settings: {  }
-    type: options_select
+    type: options_buttons
     region: content
   field_media:
     type: media_library_widget
@@ -288,7 +359,7 @@ content:
     type: options_select
     region: content
   field_url_of_an_online_event:
-    weight: 14
+    weight: 15
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -305,7 +376,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 12
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -319,7 +390,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 10
+    weight: 11
     settings:
       match_operator: CONTAINS
       size: 60
@@ -328,7 +399,7 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 13
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }

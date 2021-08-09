@@ -1,7 +1,9 @@
 @import 'accordions';
+@import 'events-form';
 @import 'centralized_content';
 @import 'mixins';
 @import 'process_list';
+@import 'recurring_events';
 @import 'services';
 @import 'external_content';
 @import 'toolbar';
@@ -141,14 +143,14 @@
 
     .views-row {
       margin: 2em 0;
-  
+
       .location-details span:not(:first-child)::before {
         content: ', ';
       }
-  
+
       .address {
         margin-top: 0;
-  
+
         br,
         span {
           &:last-child {
