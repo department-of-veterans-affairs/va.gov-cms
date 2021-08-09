@@ -5,7 +5,6 @@ namespace Drupal\va_gov_clone\CloneEntityFinder;
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\va_gov_clone\CloneHandler\CloneEntityFinderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -24,10 +23,10 @@ abstract class CloneEntityFinderBase extends PluginBase implements CloneEntityFi
    * {@inheritDoc}
    */
   public function __construct(
-    EntityTypeManagerInterface $entityTypeManager,
     array $configuration,
     $plugin_id,
-    $plugin_definition
+    $plugin_definition,
+    EntityTypeManagerInterface $entityTypeManager
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->entityTypeManager = $entityTypeManager;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_clone\CloneHandler;
+namespace Drupal\va_gov_clone\CloneEntityFinder;
 
 use Drupal\Component\Plugin\PluginInspectionInterface;
 
