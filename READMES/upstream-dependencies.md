@@ -23,6 +23,7 @@ The following services can affect the CMS's functionality or data at any time.
 * Facility Status (Team Sites)
     * Content
         * Facility operational status & additional information
+            * [README](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/migrations-facility.md#vamc-status-migration)
     * Mode
         * Periodic migration pulls data from TSV endpoints on teamsite ([config](/config/sync/migrate_plus.migration.va_node_health_care_local_facility_status.yml))
     * Notes
