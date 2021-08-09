@@ -181,6 +181,101 @@ parameters:
 			path: docroot/modules/custom/va_gov_build_trigger/src/Service/BuildFrontend.php
 
 		-
+			message: "#^Call to method archiveNode\\(\\) on an unknown class Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Plugin/Action/ArchiveNodeAction.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$moderationActions with type Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface is not subtype of native type Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Plugin/Action/ArchiveNodeAction.php
+
+		-
+			message: "#^Parameter \\$moderationActions of method Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\ArchiveNodeAction\\:\\:__construct\\(\\) has invalid typehint type Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Plugin/Action/ArchiveNodeAction.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\ArchiveNodeAction\\:\\:\\$moderationActions has unknown class Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Plugin/Action/ArchiveNodeAction.php
+
+		-
+			message: "#^Call to method publishLatestRevision\\(\\) on an unknown class Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Plugin/Action/PublishLatestRevisionAction.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$moderationActions with type Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface is not subtype of native type Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Plugin/Action/PublishLatestRevisionAction.php
+
+		-
+			message: "#^Parameter \\$moderationActions of method Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\PublishLatestRevisionAction\\:\\:__construct\\(\\) has invalid typehint type Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Plugin/Action/PublishLatestRevisionAction.php
+
+		-
+			message: "#^Property Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\PublishLatestRevisionAction\\:\\:\\$moderationActions has unknown class Drupal\\\\va_gov_bulk\\\\Plugin\\\\Action\\\\Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface as its type\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Plugin/Action/PublishLatestRevisionAction.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:set\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActions.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setRevisionCreationTime\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActions.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setRevisionLogMessage\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActions.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setRevisionUserId\\(\\)\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActions.php
+
+		-
+			message: "#^PHPDoc tag @return with type Drupal\\\\va_gov_bulk\\\\Service\\\\Drupal\\\\node\\\\NodeInterface is not subtype of native type Drupal\\\\node\\\\NodeInterface\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActions.php
+
+		-
+			message: "#^Return typehint of method Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActions\\:\\:archiveNode\\(\\) has invalid type Drupal\\\\va_gov_bulk\\\\Service\\\\Drupal\\\\node\\\\NodeInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActions.php
+
+		-
+			message: "#^Return typehint of method Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActions\\:\\:publishLatestRevision\\(\\) has invalid type Drupal\\\\va_gov_bulk\\\\Service\\\\Drupal\\\\node\\\\NodeInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActions.php
+
+		-
+			message: "#^PHPDoc tag @return with type Drupal\\\\va_gov_bulk\\\\Service\\\\Drupal\\\\node\\\\NodeInterface is not subtype of native type Drupal\\\\node\\\\NodeInterface\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActionsInterface.php
+
+		-
+			message: "#^Return typehint of method Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface\\:\\:archiveNode\\(\\) has invalid type Drupal\\\\va_gov_bulk\\\\Service\\\\Drupal\\\\node\\\\NodeInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActionsInterface.php
+
+		-
+			message: "#^Return typehint of method Drupal\\\\va_gov_bulk\\\\Service\\\\ModerationActionsInterface\\:\\:publishLatestRevision\\(\\) has invalid type Drupal\\\\va_gov_bulk\\\\Service\\\\Drupal\\\\node\\\\NodeInterface\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActionsInterface.php
+
+		-
+			message: "#^Method Symfony\\\\Contracts\\\\EventDispatcher\\\\EventDispatcherInterface\\:\\:dispatch\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_clone/src/CloneManager.php
+
+		-
 			message: "#^Call to an undefined method Github\\\\Api\\\\ApiInterface\\:\\:issues\\(\\)\\.$#"
 			count: 1
 			path: docroot/modules/custom/va_gov_consumers/src/Git/GithubAdapter.php
