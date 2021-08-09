@@ -91,9 +91,9 @@ class WebBuildCommandBuilder implements WebBuildCommandBuilderInterface {
     $composer_command = $this->commandName();
     if ($command = $this->getFrontEndGitReferenceCheckoutCommand($repo_root, $unique_key, $front_end_git_ref)) {
       $commands[] = $command;
-      $commands[] = $this->buildComposerCommand('va:web:install');
     }
 
+    $commands[] = $this->buildComposerCommand('va:web:install');
     $commands[] = $this->buildComposerCommand($composer_command);
 
     return $commands;

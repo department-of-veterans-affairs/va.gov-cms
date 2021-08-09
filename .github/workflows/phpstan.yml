@@ -1,0 +1,21 @@
+name: phpstan
+on: [pull_request]
+jobs:
+  phpstan:
+    name: runner / phpstan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.3'
+          extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, bcmath, gd, exif, iconv
+          tools: composer:v2
+      - name: Run PHPStan
+        run: |
+          composer install
+          bin/phpstan analyze --no-progress --no-interaction
