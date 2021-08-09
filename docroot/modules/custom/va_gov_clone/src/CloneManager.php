@@ -84,7 +84,7 @@ class CloneManager implements CloneManagerInterface {
   public function cloneAll(int $office_tid) : int {
     $total = 0;
     foreach ($this->cloneEntityFinderDiscovery->getDefinitions() as $plugin_name => $definition) {
-      /** @var \Drupal\va_gov_clone\CloneHandler\CloneEntityFinderInterface $cloneEntityFinder */
+      /** @var \Drupal\va_gov_clone\CloneEntityFinder\CloneEntityFinderInterface $cloneEntityFinder */
       $cloneEntityFinder = $this->cloneEntityFinderDiscovery->createInstance($plugin_name);
       $entities = $cloneEntityFinder->getEntitiesToClone($office_tid);
       $total += count($entities);
