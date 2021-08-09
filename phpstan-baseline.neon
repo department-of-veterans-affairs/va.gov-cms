@@ -466,6 +466,11 @@ parameters:
 			path: docroot/modules/custom/va_gov_bulk/src/Service/ModerationActionsInterface.php
 
 		-
+			message: "#^Method Symfony\\\\Contracts\\\\EventDispatcher\\\\EventDispatcherInterface\\:\\:dispatch\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_clone/src/CloneManager.php
+
+		-
 			message: "#^Call to an undefined method Github\\\\Api\\\\ApiInterface\\:\\:issues\\(\\)\\.$#"
 			count: 1
 			path: docroot/modules/custom/va_gov_consumers/src/Git/GithubAdapter.php
