@@ -63,9 +63,9 @@ class CloneManager implements CloneManagerInterface {
     $entity_clone_handler = $this->entityTypeManager->getHandler($entity->getEntityTypeId(), 'entity_clone');
 
     $duplicate = $entity->createDuplicate();
-    $this->eventDispatcher->dispatch(EntityCloneEvents::PRE_CLONE, new EntityCloneEvent($entity, $duplicate));
+    $this->eventDispatcher->dispatch(new EntityCloneEvent($entity, $duplicate), EntityCloneEvents::PRE_CLONE);
     $cloned_entity = $entity_clone_handler->cloneEntity($entity, $duplicate);
-    $this->eventDispatcher->dispatch(EntityCloneEvents::POST_CLONE, new EntityCloneEvent($entity, $duplicate));
+    $this->eventDispatcher->dispatch(new EntityCloneEvent($entity, $duplicate), EntityCloneEvents::POST_CLONE);
     return $cloned_entity;
   }
 
