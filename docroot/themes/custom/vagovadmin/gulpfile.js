@@ -6,7 +6,7 @@
 **/
 
 var gulp = require("gulp");
-var sass = require("gulp-sass");
+var sass = require("gulp-sass")(require("sass"));
 var autoprefixer = require("gulp-autoprefixer");
 var sourcemaps = require("gulp-sourcemaps");
 
