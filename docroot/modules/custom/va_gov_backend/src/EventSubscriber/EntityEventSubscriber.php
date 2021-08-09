@@ -282,6 +282,16 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Form alterations for eventcontent type.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterEventNodeForm(FormIdAlterEvent $event): void {
+    $this->adddisplayManagementToEventFields($event);
+  }
+
+  /**
    * Form alterations for staff profile content type.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
@@ -320,6 +330,17 @@ class EntityEventSubscriber implements EventSubscriberInterface {
           [$selector => ['checked' => TRUE]],
       ],
     ];
+  }
+
+  /**
+   * Show fields depending on value of checkbox.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function adddisplayManagementToEventFields(FormIdAlterEvent $event) {
+    $form = &$event->getForm();
+    $form['#attached']['library'][] = 'va_gov_backend/event_form_states_helpers';
   }
 
   /**
@@ -478,6 +499,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       HookEventDispatcherInterface::WIDGET_FORM_ALTER => 'paragraphsExperimentalWidgetAlter',
       HookEventDispatcherInterface::ENTITY_VIEW_ALTER => 'entityViewAlter',
       HookEventDispatcherInterface::FORM_ALTER => 'formAlter',
+      'hook_event_dispatcher.form_node_event_form.alter' => 'alterEventNodeForm',
+      'hook_event_dispatcher.form_node_event_edit_form.alter' => 'alterEventNodeForm',
       'hook_event_dispatcher.form_node_person_profile_form.alter' => 'alterStaffProfileNodeForm',
       'hook_event_dispatcher.form_node_person_profile_edit_form.alter' => 'alterStaffProfileNodeForm',
       'hook_event_dispatcher.form_node_centralized_content_edit_form.alter' => 'alterCentralizedContentNodeForm',
