@@ -44,7 +44,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   /**
    * React to entity insert/update events.
    *
-   * @param Drupal\core_event_dispatcher\Event\Entity\AbstractEntityEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\AbstractEntityEvent $event
    *   The dispatched event.
    */
   public function handleEntityUpsert(AbstractEntityEvent $event) : void {
@@ -57,7 +57,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   /**
    * Determine if this is a status update node.
    *
-   * @param Drupal\Core\Entity\EntityInterface $entity
+   * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity being created or updated.
    *
    * @return bool

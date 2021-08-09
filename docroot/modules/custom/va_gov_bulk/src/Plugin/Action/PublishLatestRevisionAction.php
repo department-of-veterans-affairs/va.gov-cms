@@ -40,7 +40,7 @@ class PublishLatestRevisionAction extends ActionBase implements ContainerFactory
   /**
    * Drupal\va_gov_bulk\Service\ModerationActionsInterface definition.
    *
-   * @var Drupal\va_gov_bulk\Service\ModerationActionsInterface
+   * @var \Drupal\va_gov_bulk\Service\ModerationActionsInterface
    */
   protected $moderationActions;
 
@@ -57,7 +57,7 @@ class PublishLatestRevisionAction extends ActionBase implements ContainerFactory
    *   The logger factory.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger.
-   * @param Drupal\va_gov_bulk\Service\ModerationActionsInterface $moderationActions
+   * @param \Drupal\va_gov_bulk\Service\ModerationActionsInterface $moderationActions
    *   The moderation actions service.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, LoggerChannelFactoryInterface $loggerFactory, MessengerInterface $messenger, ModerationActionsInterface $moderationActions) {

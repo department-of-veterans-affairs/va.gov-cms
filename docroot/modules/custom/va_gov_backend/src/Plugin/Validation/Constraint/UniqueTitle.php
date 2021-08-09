@@ -18,7 +18,8 @@ class UniqueTitle extends Constraint {
   /**
    * The message that will be shown if the value is not a unique title.
    *
-   * @var \Drupal\va_gov_backend\Plugin\Validation\Constraint
+   * @var string
+   * @see \Drupal\va_gov_backend\Plugin\Validation\Constraint\UniqueTitleValidator
    */
   public $notUniqueTitle = 'Q&amp;A with title "%title" already exists. <a target="_blank" href="/node/:nid">Check the existing "%title" before creating a new one.</a>';
 

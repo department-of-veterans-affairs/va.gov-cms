@@ -12,7 +12,7 @@ use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\TermInterface;
 use Drupal\va_gov_backend\Service\ExclusionTypesInterface;
-use Drupal\va_gov_backend\Service\VaGovUrl;
+use Drupal\va_gov_backend\Service\VaGovUrlInterface;
 use Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -55,14 +55,14 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
   /**
    * Exclusion Types service.
    *
-   * @var \Drupal\va_gov_backend\ExclusionTypesInterface
+   * @var \Drupal\va_gov_backend\Service\ExclusionTypesInterface
    */
   protected $exclusionTypes;
 
   /**
    * The va.gov URL service.
    *
-   * @var \Drupal\va_gov_backend\Service\VaGovUrl
+   * @var \Drupal\va_gov_backend\Service\VaGovUrlInterface
    */
   protected $vaGovUrl;
 
@@ -83,7 +83,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     RouteMatchInterface $route_match,
     EntityTypeManagerInterface $entity_type_manager,
     ExclusionTypesInterface $exclusionTypes,
-    VaGovUrl $vaGovUrl,
+    VaGovUrlInterface $vaGovUrl,
     EditorialWorkflowContentRepository $editorialWorkflowContentRepository
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);

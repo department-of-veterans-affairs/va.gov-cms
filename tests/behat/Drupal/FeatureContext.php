@@ -17,7 +17,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   use \Traits\FieldTrait;
   use \Traits\UserEntityTrait;
   use \Traits\ContentTrait;
-  use \Traits\GroupTrait;
 
   /**
    * Make DrushContext available.
