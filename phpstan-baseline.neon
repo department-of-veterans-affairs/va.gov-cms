@@ -702,16 +702,6 @@ parameters:
 			path: docroot/modules/custom/va_gov_workflow_assignments/src/Plugin/Block/EntityMetaDisplay.php
 
 		-
-			message: "#^Call to method typeIsExcluded\\(\\) on an unknown class Drupal\\\\va_gov_backend\\\\ExclusionTypesInterface\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_workflow_assignments/src/Plugin/Block/EntityMetaDisplay.php
-
-		-
-			message: "#^Property Drupal\\\\va_gov_workflow_assignments\\\\Plugin\\\\Block\\\\EntityMetaDisplay\\:\\:\\$exclusionTypes has unknown class Drupal\\\\va_gov_backend\\\\ExclusionTypesInterface as its type\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_workflow_assignments/src/Plugin/Block/EntityMetaDisplay.php
-
-		-
 			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\ContentEntityInterface\\:\\:\\$field_accordion_display\\.$#"
 			count: 1
 			path: docroot/themes/custom/vagovadmin/vagovadmin.theme
@@ -791,26 +781,6 @@ parameters:
 			path: tests/behat/Drupal/FeatureContext.php
 
 		-
-			message: "#^Call to method addMember\\(\\) on an unknown class Drupal\\\\group\\\\Entity\\\\Group\\.$#"
-			count: 1
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message: "#^Call to method delete\\(\\) on an unknown class Drupal\\\\group\\\\Entity\\\\Group\\.$#"
-			count: 1
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message: "#^Call to method getMember\\(\\) on an unknown class Drupal\\\\group\\\\Entity\\\\Group\\.$#"
-			count: 1
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message: "#^Call to static method create\\(\\) on an unknown class Drupal\\\\group\\\\Entity\\\\Group\\.$#"
-			count: 1
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
 			message:
 				"""
 					#^Class CustomDrupal\\\\FeatureContext implements deprecated interface Behat\\\\Behat\\\\Context\\\\SnippetAcceptingContext\\:
@@ -837,21 +807,6 @@ parameters:
 		-
 			message: "#^Parameter \\$group of method CustomDrupal\\\\FeatureContext\\:\\:userJoinGroup\\(\\) has invalid typehint type Drupal\\\\group\\\\Entity\\\\Group\\.$#"
 			count: 2
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message: "#^Property CustomDrupal\\\\FeatureContext\\:\\:\\$groups has unknown class Drupal\\\\group\\\\Entity\\\\Group as its type\\.$#"
-			count: 1
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message: "#^Return typehint of method CustomDrupal\\\\FeatureContext\\:\\:createGroup\\(\\) has invalid type Drupal\\\\group\\\\Entity\\\\Group\\.$#"
-			count: 1
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message: "#^Return typehint of method CustomDrupal\\\\FeatureContext\\:\\:userJoinGroup\\(\\) has invalid type Drupal\\\\group\\\\Entity\\\\Group\\.$#"
-			count: 1
 			path: tests/behat/Drupal/FeatureContext.php
 
 		-
