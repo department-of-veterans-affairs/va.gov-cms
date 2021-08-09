@@ -2,12 +2,12 @@
 
 namespace Drupal\va_gov_clone;
 
+use Drupal\Component\EventDispatcher\ContainerAwareEventDispatcher;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\entity_clone\Event\EntityCloneEvent;
 use Drupal\entity_clone\Event\EntityCloneEvents;
 use Drupal\va_gov_clone\CloneEntityFinder\CloneEntityFinderDiscovery;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * The Clone Manager to clone content.
@@ -17,7 +17,7 @@ class CloneManager implements CloneManagerInterface {
   /**
    * Event Dispatcher.
    *
-   * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+   * @var \Drupal\Component\EventDispatcher\ContainerAwareEventDispatcher
    */
   protected $eventDispatcher;
 
@@ -38,7 +38,7 @@ class CloneManager implements CloneManagerInterface {
   /**
    * Constructor for CLone Manager.
    *
-   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
+   * @param \Drupal\Component\EventDispatcher\ContainerAwareEventDispatcher $eventDispatcher
    *   Event Dispatcher.
    * @param \Drupal\va_gov_clone\CloneEntityFinder\CloneEntityFinderDiscovery $cloneEntityFinderDiscovery
    *   THe discovery for the clone entity finder plugins.
@@ -46,7 +46,7 @@ class CloneManager implements CloneManagerInterface {
    *   The entity type manager.
    */
   public function __construct(
-    EventDispatcherInterface $eventDispatcher,
+    ContainerAwareEventDispatcher $eventDispatcher,
     CloneEntityFinderDiscovery $cloneEntityFinderDiscovery,
     EntityTypeManagerInterface $entityTypeManager
   ) {
