@@ -28,10 +28,12 @@ dependencies:
     - address
     - content_moderation
     - field_group
+    - limited_field_widgets
     - linkit
     - media_library
     - path
     - smart_date
+    - smart_date_recur
     - text
 third_party_settings:
   field_group:
@@ -185,6 +187,7 @@ content:
     weight: 1
     region: content
     settings:
+      show_extra: true
       default_tz: custom
       custom_tz: America/New_York
       allowed_timezones:
@@ -195,21 +198,26 @@ content:
         - America/New_York
         - America/Phoenix
         - Asia/Manila
+        - Europe/Berlin
         - Pacific/Guam
         - Pacific/Honolulu
         - Pacific/Saipan
       hide_date: false
       modal: false
       default_duration: 60
-      default_duration_increments: |-
-        30
-        60|1 hour
-        90
-        120|2 hours
-        custom
-      show_extra: true
-      add_abbreviations: ''
-    third_party_settings: {  }
+      default_duration_increments: "30\n60|1 hour\n90\n120|2 hours\ncustom"
+    third_party_settings:
+      smart_date_recur:
+        modal: true
+        allowed_recur_freq_values:
+          DAILY: DAILY
+          WEEKLY: WEEKLY
+          MONTHLY: MONTHLY
+          YEARLY: YEARLY
+          MINUTELY: '0'
+          HOURLY: '0'
+      limited_field_widgets:
+        limit_values: '1'
   field_description:
     weight: 3
     settings:

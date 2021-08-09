@@ -7,13 +7,18 @@ dependencies:
     - node.type.event
   module:
     - smart_date
+    - smart_date_recur
+third_party_settings:
+  smart_date_recur:
+    allow_recurring: true
+    month_limit: 12
 id: node.event.field_datetime_range_timezone
 field_name: field_datetime_range_timezone
 entity_type: node
 bundle: event
 label: 'Date and time'
-description: 'Set a start and end date.'
-required: true
+description: ''
+required: false
 translatable: false
 default_value:
   -
