@@ -32,7 +32,6 @@ class CLP extends CloneEntityFinderBase {
     $query = $this->entityTypeManager->getStorage('node')->getQuery();
     $query->accessCheck(FALSE);
     $query->condition('type', 'campaign_landing_page');
-    $query->condition('moderation_state', 'editorial-published');
     return $query->execute();
   }
 

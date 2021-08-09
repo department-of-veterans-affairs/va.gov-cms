@@ -3,8 +3,9 @@
 namespace Drupal\va_gov_clone;
 
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\entity_clone\EntityClone\EntityCloneInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\entity_clone\Event\EntityCloneEvent;
+use Drupal\entity_clone\Event\EntityCloneEvents;
 use Drupal\va_gov_clone\CloneEntityFinder\CloneEntityFinderDiscovery;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -21,13 +22,6 @@ class CloneManager implements CloneManagerInterface {
   protected $eventDispatcher;
 
   /**
-   * EntityClone Handler.
-   *
-   * @var \Drupal\entity_clone\EntityClone\EntityCloneInterface
-   */
-  protected $entityCloneHandler;
-
-  /**
    * Clone Plugin Discovery.
    *
    * @var \Drupal\va_gov_clone\CloneEntityFinder\CloneEntityFinderDiscovery
@@ -35,32 +29,44 @@ class CloneManager implements CloneManagerInterface {
   protected $cloneEntityFinderDiscovery;
 
   /**
+   * Entity Type Manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * Constructor for CLone Manager.
    *
    * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
    *   Event Dispatcher.
-   * @param \Drupal\entity_clone\EntityClone\EntityCloneInterface $entityCloneHandler
-   *   The entity Clone Handlers.
    * @param \Drupal\va_gov_clone\CloneEntityFinder\CloneEntityFinderDiscovery $cloneEntityFinderDiscovery
    *   THe discovery for the clone entity finder plugins.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
    */
   public function __construct(
     EventDispatcherInterface $eventDispatcher,
-    EntityCloneInterface $entityCloneHandler,
-    CloneEntityFinderDiscovery $cloneEntityFinderDiscovery
+    CloneEntityFinderDiscovery $cloneEntityFinderDiscovery,
+    EntityTypeManagerInterface $entityTypeManager
   ) {
     $this->eventDispatcher = $eventDispatcher;
-    $this->entityCloneHandler = $entityCloneHandler;
     $this->cloneEntityFinderDiscovery = $cloneEntityFinderDiscovery;
+    $this->entityTypeManager = $entityTypeManager;
   }
 
   /**
    * {@inheritDoc}
    */
   public function cloneEntity(EntityInterface $entity) : ?EntityInterface {
+    /** @var \Drupal\entity_clone\EntityClone\EntityCloneInterface $entity_clone_handler */
+    $entity_clone_handler = $this->entityTypeManager->getHandler($entity->getEntityTypeId(), 'entity_clone');
+
     $duplicate = $entity->createDuplicate();
-    $this->eventDispatcher->dispatch(new EntityCloneEvent($entity, $duplicate));
-    return $this->entityCloneHandler->cloneEntity($entity, $duplicate);
+    $this->eventDispatcher->dispatch(EntityCloneEvents::PRE_CLONE, new EntityCloneEvent($entity, $duplicate));
+    $cloned_entity = $entity_clone_handler->cloneEntity($entity, $duplicate);
+    $this->eventDispatcher->dispatch(EntityCloneEvents::POST_CLONE, new EntityCloneEvent($entity, $duplicate));
+    return $cloned_entity;
   }
 
   /**

@@ -35,9 +35,8 @@ class Office extends CloneEntityFinderBase {
   protected function getAllIdsToClone(int $office_id) : array {
     $query = $this->entityTypeManager->getStorage('node')->getQuery();
     $query->accessCheck(FALSE);
-    $query->condition('type', ['detail', 'page', 'press_release', 'event']);
+    $query->condition('type', ['detail', 'page', 'press_release', 'event'], 'IN');
     $query->condition('field_administration.target_id', $office_id);
-    $query->condition('moderation_state', 'editorial-published');
     return $query->execute();
   }
 
