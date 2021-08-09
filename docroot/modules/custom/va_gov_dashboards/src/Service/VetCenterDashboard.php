@@ -50,7 +50,7 @@ class VetCenterDashboard {
    *
    * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
    *   Provides an interface for classes representing the result of routing.
-   * @param Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   Provides an interface for entity type managers.
    */
   public function __construct(RouteMatchInterface $route_match, EntityTypeManagerInterface $entity_type_manager) {

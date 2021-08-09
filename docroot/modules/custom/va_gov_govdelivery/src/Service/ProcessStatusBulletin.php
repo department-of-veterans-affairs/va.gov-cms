@@ -69,7 +69,7 @@ class ProcessStatusBulletin {
    *
    * @var \Drupal\govdelivery_bulletins\Service\AddBulletinToQueue $add_bulletin_to_queue
    *   The add bulletin to queue service.
-   * @var Drupal\path_alias\AliasManager
+   * @var \Drupal\path_alias\AliasManager
    *   The path alias manager service.
    * @var \Drupal\Core\Datetime\DateFormatter $date_formatter
    *   The date formatter service.
@@ -239,7 +239,7 @@ class ProcessStatusBulletin {
   /**
    * Get VAMCs referenced by this node.
    *
-   * @param Drupal\node\NodeInterface $node
+   * @param \Drupal\node\NodeInterface $node
    *   The status update node.
    *
    * @return array[vamcs]
@@ -367,6 +367,7 @@ class ProcessStatusBulletin {
         // This is a new situation update that needs to be sent.
         return self::SEND_TYPE_SITUATION;
       }
+      return '';
     }
   }
 

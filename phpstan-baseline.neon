@@ -206,11 +206,6 @@ parameters:
 			path: docroot/modules/custom/va_gov_dashboards/src/Service/VetCenterDashboard.php
 
 		-
-			message: "#^Parameter \\$entity_type_manager of method Drupal\\\\va_gov_dashboards\\\\Service\\\\VetCenterDashboard\\:\\:__construct\\(\\) has invalid typehint type Drupal\\\\va_gov_dashboards\\\\Service\\\\Drupal\\\\Core\\\\Entity\\\\EntityTypeManagerInterface\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_dashboards/src/Service/VetCenterDashboard.php
-
-		-
 			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_product\\.$#"
 			count: 1
 			path: docroot/modules/custom/va_gov_dashboards/va_gov_dashboards.module
@@ -266,26 +261,6 @@ parameters:
 			path: docroot/modules/custom/va_gov_db/va_gov_db.post_update.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$entity with type Drupal\\\\va_gov_govdelivery\\\\EventSubscriber\\\\Drupal\\\\Core\\\\Entity\\\\EntityInterface is not subtype of native type Drupal\\\\Core\\\\Entity\\\\EntityInterface\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_govdelivery/src/EventSubscriber/EntityEventSubscriber.php
-
-		-
-			message: "#^PHPDoc tag @param for parameter \\$event with type Drupal\\\\va_gov_govdelivery\\\\EventSubscriber\\\\Drupal\\\\core_event_dispatcher\\\\Event\\\\Entity\\\\AbstractEntityEvent is not subtype of native type Drupal\\\\core_event_dispatcher\\\\Event\\\\Entity\\\\AbstractEntityEvent\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_govdelivery/src/EventSubscriber/EntityEventSubscriber.php
-
-		-
-			message: "#^Parameter \\$entity of method Drupal\\\\va_gov_govdelivery\\\\EventSubscriber\\\\EntityEventSubscriber\\:\\:isStatusUpdateNode\\(\\) has invalid typehint type Drupal\\\\va_gov_govdelivery\\\\EventSubscriber\\\\Drupal\\\\Core\\\\Entity\\\\EntityInterface\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_govdelivery/src/EventSubscriber/EntityEventSubscriber.php
-
-		-
-			message: "#^Parameter \\$event of method Drupal\\\\va_gov_govdelivery\\\\EventSubscriber\\\\EntityEventSubscriber\\:\\:handleEntityUpsert\\(\\) has invalid typehint type Drupal\\\\va_gov_govdelivery\\\\EventSubscriber\\\\Drupal\\\\core_event_dispatcher\\\\Event\\\\Entity\\\\AbstractEntityEvent\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_govdelivery/src/EventSubscriber/EntityEventSubscriber.php
-
-		-
 			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$value\\.$#"
 			count: 4
 			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
@@ -312,26 +287,6 @@ parameters:
 
 		-
 			message: "#^Call to method renderPlain\\(\\) on an unknown class Drupal\\\\va_gov_govdelivery\\\\Service\\\\Drupal\\\\Core\\\\Render\\\\RendererInterface\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
-
-		-
-			message: "#^Method Drupal\\\\va_gov_govdelivery\\\\Service\\\\ProcessStatusBulletin\\:\\:getSendType\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
-
-		-
-			message: "#^PHPDoc tag @param for parameter \\$node with type Drupal\\\\va_gov_govdelivery\\\\Service\\\\Drupal\\\\node\\\\NodeInterface is not subtype of native type Drupal\\\\node\\\\NodeInterface\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
-
-		-
-			message: "#^PHPDoc tag @var contains unknown class Drupal\\\\va_gov_govdelivery\\\\Service\\\\Drupal\\\\path_alias\\\\AliasManager\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
-
-		-
-			message: "#^Parameter \\$node of method Drupal\\\\va_gov_govdelivery\\\\Service\\\\ProcessStatusBulletin\\:\\:getVamcs\\(\\) has invalid typehint type Drupal\\\\va_gov_govdelivery\\\\Service\\\\Drupal\\\\node\\\\NodeInterface\\.$#"
 			count: 1
 			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
 
