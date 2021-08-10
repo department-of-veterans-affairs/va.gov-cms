@@ -127,6 +127,13 @@ The following services can affect the deployment process' ability to fully build
         * The codebase is stored in github, and the deployment process depends on it to pull code and push status and code quality messages to our pull requests.
     * Escalation process
         * Use the #github_information channel in DSVA slack
+* [ZenHub](https://www.zenhub.com)
+    * Status
+        * https://twitter.com/zenhubstatus
+     * Notes
+         * ZenHub is a project managment layer on top of GitHub Issues that we use.
+     * Escalation process
+         * TBD   
 * [Docker Hub](https://hub.docker.com/)
     * Status
         * [https://status.docker.com/](https://status.docker.com/)
