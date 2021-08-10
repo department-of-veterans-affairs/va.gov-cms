@@ -12,12 +12,12 @@ interface CloneEntityFinderInterface extends PluginInspectionInterface {
   /**
    * Get Entities to clone.
    *
-   * @param int $office_tid
-   *   The office tid.
+   * @param int $section_id
+   *   The section tid.
    *
    * @return \Drupal\Core\Entity\EntityInterface[]
    *   An array of Entities.
    */
-  public function getEntitiesToClone(int $office_tid) : array;
+  public function getEntitiesToClone(int $section_id) : array;
 
 }

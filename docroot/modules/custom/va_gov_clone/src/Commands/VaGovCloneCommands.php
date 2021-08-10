@@ -41,7 +41,7 @@ class VaGovCloneCommands extends DrushCommands {
    * @aliases foo
    */
   public function cloneAll(int $office_tid) {
-    $count = $this->cloneManager->cloneAll($office_tid);
+    $count = $this->cloneManager->cloneSection($office_tid);
     $this->io()->success("$count entities cloned.");
   }
 

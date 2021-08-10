@@ -17,7 +17,7 @@ class CLP extends CloneEntityFinderBase {
   /**
    * {@inheritDoc}
    */
-  public function getEntitiesToClone(int $office_tid): array {
+  public function getEntitiesToClone(int $section_id): array {
     $ids = $this->getAllIdsToClone();
     return $this->loadEntities($ids, 'node');
   }

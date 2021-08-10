@@ -14,31 +14,31 @@ interface CloneManagerInterface {
   /**
    * Clone All items.
    *
-   * @param int $office_tid
+   * @param int $section_id
    *   The arguments passed from Drupal.
    *
    * @return int
    *   The total count of content updated.
    */
-  public function cloneAll(int $office_tid) : int;
+  public function cloneSection(int $section_id) : int;
 
   /**
    * Clone Entites.
    *
-   * @param Drupal\Core\Entity\EntityInterface[] $entites
-   *   Entites to clone.
+   * @param \Drupal\Core\Entity\EntityInterface[] $entities
+   *   Entities to clone.
    */
-  public function cloneEntities(array $entites) : void;
+  public function cloneEntities(array $entities) : void;
 
   /**
    * Clone a node.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $node
-   *   The Node to clone.
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The Entity to clone.
    *
    * @return \Drupal\Core\Entity\EntityInterface|null
-   *   The cloned node.
+   *   The cloned entity.
    */
-  public function cloneEntity(EntityInterface $node) : ?EntityInterface;
+  public function cloneEntity(EntityInterface $entity) : ?EntityInterface;
 
 }

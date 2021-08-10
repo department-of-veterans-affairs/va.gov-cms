@@ -8,21 +8,21 @@ use Drupal\va_gov_clone\CloneEntityFinder\CloneEntityFinderBase;
  * Office plugin for cloning.
  *
  * @CloneEntityFinder(
- *   id = "office",
- *   label = @Translation("VAMC Office Entites to Clone")
+ *   id = "section",
+ *   label = @Translation("Section Entites to Clone")
  * )
  */
-class Office extends CloneEntityFinderBase {
+class Section extends CloneEntityFinderBase {
 
   /**
    * {@inheritDoc}
    */
-  public function getEntitiesToClone(int $office_tid): array {
-    if (!$office_tid) {
+  public function getEntitiesToClone(int $section_id): array {
+    if (!$section_id) {
       return [];
     }
 
-    $ids = $this->getAllIdsToClone($office_tid);
+    $ids = $this->getAllIdsToClone($section_id);
     return $this->loadEntities($ids, 'node');
   }
 
@@ -32,7 +32,7 @@ class Office extends CloneEntityFinderBase {
    * @return int[]
    *   Array of ids to clone.
    */
-  protected function getAllIdsToClone(int $office_id) : array {
+  protected function getAllIdsToClone(int $section_id) : array {
     $query = $this->entityTypeManager->getStorage('node')->getQuery();
     $query->accessCheck(FALSE);
     $query->condition(
@@ -46,7 +46,7 @@ class Office extends CloneEntityFinderBase {
       ],
       'IN'
     );
-    $query->condition('field_administration.target_id', $office_id);
+    $query->condition('field_administration.target_id', $section_id);
     return $query->execute();
   }
 
