@@ -84,6 +84,16 @@ The following services can affect the CMS's functionality or data at any time.
             * https://valighthouse.statuspage.io
     * Escalation contact
         * [#vsa-facilities slack channel](https://dsva.slack.com/archives/C0FQSS30V) - Adam Stinton
+* [SSOi](https://dvagov.sharepoint.com/sites/OITEPMOIAM/playbooks/Pages/IAM%20URLs.aspx) (must be on VA network to access doc)
+    * Content
+        * CMS users are authenticated with the VA Single Sign On service (SSOi)
+    * Mode
+        * See [README](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/cms-login.md#technical-details)
+        * Monitoring: 
+            * External
+                * https://iamportal.iam.va.gov/iamv2/index.php (must be on VA network)
+    * Escalation contact
+        * https://iamportal.iam.va.gov/iamv2/help/contactUs.php (must be on VA network)
 
 ## Build time
 
