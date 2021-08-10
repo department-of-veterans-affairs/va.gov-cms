@@ -1,0 +1,6 @@
+services:
+  va_gov.clone_commands:
+    class: Drupal\va_gov_clone\Commands\VaGovCloneCommands
+    arguments: ['@va_gov.clone.manager']
+    tags:
+      - { name: drush.command }
