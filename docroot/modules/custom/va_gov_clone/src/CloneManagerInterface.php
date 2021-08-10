@@ -23,12 +23,12 @@ interface CloneManagerInterface {
   public function cloneAll(int $office_tid) : int;
 
   /**
-   * Clone nodes.
+   * Clone Entites.
    *
-   * @param \Drupal\node\NodeInterface[] $nodes
-   *   Nodes to clone.
+   * @param Drupal\Core\Entity\EntityInterface[] $entites
+   *   Entites to clone.
    */
-  public function cloneEntities(array $nodes) : void;
+  public function cloneEntities(array $entites) : void;
 
   /**
    * Clone a node.

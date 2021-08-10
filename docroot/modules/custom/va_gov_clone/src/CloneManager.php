@@ -72,9 +72,9 @@ class CloneManager implements CloneManagerInterface {
   /**
    * {@inheritDoc}
    */
-  public function cloneEntities(array $nodes) : void {
-    foreach ($nodes as $node) {
-      $this->cloneEntity($node);
+  public function cloneEntities(array $entities) : void {
+    foreach ($nodes as $entity) {
+      $this->cloneEntity($entity);
     }
   }
 
