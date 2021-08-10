@@ -4,13 +4,13 @@ In an effort to test scalability of the CMS and the front end web build content 
 
 ## Process to generate content
 
-The `entity_clone` module was used to clone actually content to generate realistic content at scale.  Content from a Secion can be cloned one at a time.  The logic for what content is cloned is stored within: [docroot/modules/custom/va_gov_clone/src/Plugin/VAGov/CloneHandler] folder.
+The `entity_clone` module was used to clone actual content to generate realistic content at scale.  Content from a Section can be cloned one at a time.  The logic for what content is cloned is stored within: [docroot/modules/custom/va_gov_clone/src/Plugin/VAGov/CloneHandler] folder.
 
 To trigger a mass cloning call:
 1. Enable the `va_gov_clone` module via `drush`.  This module is hidden from the admin UI so `drush` must be used.
 2. Run the drush job `drush va-gov-clone:clone-all <section_tid>`.  For example `drush va-gov-clone:clone-all 335` will clone the content for `VA Ann Arbor health care` section.  Note that this currently only allows one section and does not pick up child sections.
 
-Follow up times:
+Follow up tasks:
 * Allow limits to be passed in via a command line
 * Run the cloning in async.
 
