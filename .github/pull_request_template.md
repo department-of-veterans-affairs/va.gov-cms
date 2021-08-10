@@ -1,6 +1,6 @@
 ## Description
 
-Closes #_issueid_. 
+Relates to #_issueid_. 
 
 ## Testing done
 
