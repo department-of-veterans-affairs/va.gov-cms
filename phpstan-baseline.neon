@@ -843,3 +843,7 @@ parameters:
 			count: 1
 			path: tests/phpunit/Support/Mock/HttpClient.php
 
+		-
+			message: "#^Method Symfony\\\\Contracts\\\\EventDispatcher\\\\EventDispatcherInterface\\:\\:dispatch\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_clone/src/CloneManager.php
