@@ -18,7 +18,8 @@ class PdfCheck extends Constraint {
   /**
    * The message that will be shown if the value is not a unique title.
    *
-   * @var \Drupal\va_gov_backend\Plugin\Validation\Constraint
+   * @var string
+   * @see \Drupal\va_gov_backend\Plugin\Validation\Constraint\PdfCheckValidator
    */
   public $notPdfFile = '<a target="_blank" href=":file">:file is not a pdf</a>';
 

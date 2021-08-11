@@ -168,6 +168,6 @@ Feature: Menus
 | VA Tomah health care | va-tomah-health-care | VISN 12 \| va.gov/tomah-health-care |
 | VA Topeka health care | va-topeka-health-care | VISN 15 \| va.gov/topeka-health-care |
 | VA Tuscaloosa health care | va-tuscaloosa-health-care | VISN 7 \| va.gov/tuscaloosa-health-care |
-| VA Wallawalla health care | va-wallawalla-health-care | VISN 20 \| va.gov/wallawalla-health-care |
+| VA Walla Walla health care | va-walla-walla-health-care | VISN 20 \| va.gov/walla-walla-health-care |
 | VA West Texas health care | va-west-texas-health-care | VISN 17 \| va.gov/west-texas-health-care |
 | VA Wichita health care | va-wichita-health-care | VISN 15 \| va.gov/wichita-health-care |

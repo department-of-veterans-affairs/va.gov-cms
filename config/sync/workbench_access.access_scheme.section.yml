@@ -9,6 +9,7 @@ dependencies:
     - field.field.media.document_external.field_owner
     - field.field.media.image.field_owner
     - field.field.media.video.field_owner
+    - field.field.node.banner.field_administration
     - field.field.node.basic_landing_page.field_administration
     - field.field.node.campaign_landing_page.field_administration
     - field.field.node.centralized_content.field_administration
@@ -262,6 +263,10 @@ scheme_settings:
     -
       entity_type: node
       bundle: vet_center_mobile_vet_center
+      field: field_administration
+    -
+      entity_type: node
+      bundle: banner
       field: field_administration
     -
       entity_type: taxonomy_term

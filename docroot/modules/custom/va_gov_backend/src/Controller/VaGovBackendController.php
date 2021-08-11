@@ -11,16 +11,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class VaGovBackendController extends ControllerBase {
 
   /**
-   * Drupal\Core\Entity\EntityTypeManagerInterface definition.
+   * The Entity Type Manager.
    *
-   * @var EntityTypeManagerInterface
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
 
   /**
    * The Renderer Service.
    *
-   * @var Drupal\Core\Render\RendererInterface
+   * @var \Drupal\Core\Render\RendererInterface
    */
   protected $renderer;
 

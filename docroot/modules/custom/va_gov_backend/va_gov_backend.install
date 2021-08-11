@@ -282,6 +282,7 @@ function va_gov_backend_update_8006() {
   foreach ($bundles as $bundle) {
     $field = FieldConfig::loadByName('node', $bundle, 'field_office');
     if ($field) {
+      /** @var Drupal\field\FieldConfigInterface $field */
       $field->delete();
     }
   }
@@ -302,12 +303,14 @@ function va_gov_backend_update_8007() {
   ];
   foreach ($lc_bundles as $bundle) {
     if ($field = FieldConfig::loadByName('node', $bundle, 'field_description')) {
+      /** @var Drupal\field\FieldConfigInterface $field */
       $field->delete();
       Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'Deleted field_description from content type "%bundle".', [
         '%bundle' => $bundle,
       ]);
     }
     if ($field = FieldConfig::loadByName('node', $bundle, 'field_meta_title')) {
+      /** @var Drupal\field\FieldConfigInterface $field */
       $field->delete();
       Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'Deleted field_meta_title from content type "%bundle".', [
         '%bundle' => $bundle,
@@ -358,6 +361,7 @@ function va_gov_backend_update_8008() {
 
   foreach ($vamc_system_fields as $system_field) {
     if ($field = FieldConfig::loadByName('node', 'health_care_region_page', $system_field)) {
+      /** @var Drupal\field\FieldConfigInterface $field */
       $field->delete();
       Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'Deleted "%system_field" from health_care_region_page.', [
         '%system_field' => $system_field,
@@ -366,6 +370,7 @@ function va_gov_backend_update_8008() {
   }
   foreach ($vamc_facility_fields as $facility_field) {
     if ($field = FieldConfig::loadByName('node', 'health_care_local_facility', $facility_field)) {
+      /** @var Drupal\field\FieldConfigInterface $field */
       $field->delete();
       Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'Deleted "%facility_field" from health_care_local_facility_page.', [
         '%facility_field' => $facility_field,
@@ -385,6 +390,7 @@ function va_gov_backend_update_8009() {
 
   foreach ($vamc_system_fields as $system_field) {
     if ($field = FieldConfig::loadByName('node', 'health_care_region_page', $system_field)) {
+      /** @var Drupal\field\FieldConfigInterface $field */
       $field->delete();
       Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'Deleted "%system_field" from health_care_region_page.', [
         '%system_field' => $system_field,

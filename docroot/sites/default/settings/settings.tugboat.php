@@ -1,6 +1,6 @@
 <?php
 
-// @codingStandardsIgnoreFile
+// phpcs:ignoreFile
 
 $databases['default']['default'] = array (
   'database' => 'tugboat',

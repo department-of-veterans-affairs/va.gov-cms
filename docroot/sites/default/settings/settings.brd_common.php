@@ -1,6 +1,6 @@
 <?php
 
-// @codingStandardsIgnoreFile
+// phpcs:ignoreFile
 
 $memcache_nodes = getenv('CMS_MEMCACHE_NODES');
 if (!empty($memcache_nodes)) {

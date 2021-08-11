@@ -160,7 +160,7 @@ services:
         - chown -R www-data:www-data "${DOCROOT}/vendor/va-gov/content-build"
         - find "${DOCROOT}/vendor/va-gov/content-build" -type d -exec chmod 2775 {} \+
         - find "${DOCROOT}/vendor/va-gov/content-build" -type f -exec chmod 0664 {} \+
-        - find "${DOCROOT}/vendor/va-gov/content-build/node_modules/.bin" -type f -exec chmod +x {} \+
+        - find -L "${DOCROOT}/vendor/va-gov/content-build/node_modules/.bin" -type f -exec chmod +x {} \+
         - find "${DOCROOT}/vendor/va-gov/content-build/script" -type f -exec chmod +x {} \+
 
   memcache:

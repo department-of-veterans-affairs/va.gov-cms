@@ -15,6 +15,7 @@ class ValidPhoneNumberValidator extends ConstraintValidator {
    */
   public function validate($items, Constraint $constraint) {
     foreach ($items as $item) {
+      /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\ValidPhoneNumber $constraint */
       // Greater than 9 numbers, so we do a phone number check.
       if (!preg_match("/^\d{3}-\d{3}-\d{4}$/", $item->value) && strlen($item->value) > 9) {
         $this->context->addViolation($constraint->notValidTel, ['%value' => $item->value]);

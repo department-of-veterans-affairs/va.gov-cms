@@ -45,8 +45,13 @@ class WebBuildCommandBuilderTest extends UnitTestCase {
       'Web Commands build with GraphQL'
     );
     self::assertEquals(
-      'cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build',
+      'cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:install',
       $commands[2],
+      'Web Commands build with GraphQL npm install command'
+    );
+    self::assertEquals(
+      'cd /app/root && COMPOSER_HOME=/composer/home /composer/file/here --no-cache va:web:build',
+      $commands[3],
       'Web Commands build with GraphQL'
     );
 
