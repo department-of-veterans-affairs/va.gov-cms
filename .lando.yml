@@ -181,6 +181,11 @@ tooling:
     description: "Run specific PHPUnit tests: lando phpunit-run {docroot/MODULE/PATH/TO/TESTS} --filter {testName}"
     cmd: "/app/bin/phpunit --debug --exclude-group disabled --verbose --colors=always"
 
+  phpstan:
+    service: appserver
+    description: "Run PHPStan static analysis on custom code."
+    cmd: "./bin/phpstan analyze"
+
   behat:
     service: appserver
     description: "Run behat tests located in ./tests/behat"
@@ -238,3 +243,5 @@ tooling:
       - ./bin/task
     env:
       SKIP_REPORTING: 1
+      RETURN_EXIT_CODE: 1
+

@@ -14,6 +14,7 @@ class BenefitsSelectionLimitValidator extends ConstraintValidator {
    * {@inheritdoc}
    */
   public function validate($item, Constraint $constraint) {
+    /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\BenefitsSelectionLimit $constraint */
     if ($item->count() > 2) {
       $this->context->addViolation($constraint->moreThanTwo);
     }

@@ -69,13 +69,13 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
    *   The plugin definition.
    * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
    *   Provides an interface for classes representing the result of routing.
-   * @param Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   Provides an interface for entity type managers.
-   * @param Drupal\Core\Menu\MenuLinkTree $menu_link_tree
+   * @param \Drupal\Core\Menu\MenuLinkTree $menu_link_tree
    *   Provides access to menu trees.
-   * @param Symfony\Component\HttpFoundation\RequestStack $request_stack
+   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
    *   The http request.
-   * @param Drupal\Core\Menu\MenuLinkManager $menu_link_manager
+   * @param \Drupal\Core\Menu\MenuLinkManager $menu_link_manager
    *   The menu link manager.
    */
   public function __construct(

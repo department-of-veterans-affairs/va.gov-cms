@@ -19,22 +19,3 @@ Feature: CMS Users are able to get help and/or training information in the CMS
     Given I am logged in as a user with the "administrator" role
     And I am at "/admin/reports/status"
     Then I should not see the JSD widget
-
-  @help_center @whats_new_in_the_cms_block
-  Scenario: CMS Help Pages should have a visible What's New in the CMS block.
-    Given I am logged in as a user with the "content_admin" role
-    And I create a "documentation_page" node
-    Then I should see the what's new in the CMS block
-
-  @help_center @whats_new_in_the_cms_block
-  Scenario: The CMS Announcements page should not have a visible What's New in the CMS block.
-    Given I am logged in as a user with the "content_admin" role
-    And I am at "/help/support/release-notes"
-    Then I should not see the what's new in the CMS block
-
-  @help_center @whats_new_in_the_cms_block
-  Scenario: Node edit forms should not have a visible What's New in the CMS block.
-    Given I am logged in as a user with the "content_admin" role
-    And I create a "documentation_page" node
-    And I click the "Edit" link
-    Then I should not see the what's new in the CMS block

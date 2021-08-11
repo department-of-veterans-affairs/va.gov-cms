@@ -46,21 +46,24 @@ class RequiredParagraph extends Constraint {
   /**
    * The message that will be shown if the paragraph number is less than min.
    *
-   * @var \Drupal\va_gov_backend\Plugin\Validation\Constraint
+   * @var string
+   * @see \Drupal\va_gov_backend\Plugin\Validation\Constraint\RequiredParagraphValidator
    */
   public $tooFew = '%number %paragraph entries created. Minimum of %min required.';
 
   /**
    * The message that will be shown if the paragraph number is more than max.
    *
-   * @var \Drupal\va_gov_backend\Plugin\Validation\Constraint
+   * @var string
+   * @see \Drupal\va_gov_backend\Plugin\Validation\Constraint\RequiredParagraphValidator
    */
   public $tooMany = '%number %paragraph entries created. Maximum of %max allowed.';
 
   /**
    * The message that will be shown if the paragraph is empty.
    *
-   * @var \Drupal\va_gov_backend\Plugin\Validation\Constraint
+   * @var string
+   * @see \Drupal\va_gov_backend\Plugin\Validation\Constraint\RequiredParagraphValidator
    */
   public $required = '%paragraph entry is required.';
 

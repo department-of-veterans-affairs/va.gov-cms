@@ -18,7 +18,8 @@ class BenefitsSelectionLimit extends Constraint {
   /**
    * The message that will be shown if the value is greater than two.
    *
-   * @var \Drupal\va_gov_backend\Plugin\Validation\Constraint
+   * @var string
+   * @see \Drupal\va_gov_backend\Plugin\Validation\Constraint\BenefitsSelectionLimitValidator
    */
   public $moreThanTwo = 'Please select no more than two VA Benefits';
 

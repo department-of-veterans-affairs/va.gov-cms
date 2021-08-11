@@ -14,6 +14,7 @@ class PdfCheckValidator extends ConstraintValidator {
    * {@inheritdoc}
    */
   public function validate($item, Constraint $constraint) {
+    /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\PdfCheck $constraint */
     // Per internal dev meeting, dependency injection doesn't
     // work well with constraints.
     // Drupal contrib constraint modules call services directly.

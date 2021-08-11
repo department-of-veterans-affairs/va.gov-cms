@@ -24,6 +24,14 @@
   width: auto;
 }
 
+@mixin va-body-font {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 1em;
+}
+
+
 
 /*
  A small subset of Formation for html tags enabled in rich text editor used in
@@ -32,10 +40,7 @@
 
 @mixin va-basic-styling {
   .field__item {
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 1em;
+    @include va-body-font;
 
     /* Reset field labels for nested fields */
     .field__label {

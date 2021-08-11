@@ -4,7 +4,7 @@ status: true
 dependencies: {  }
 id: dev
 label: Dev
-description: 'Configuration for Development and Local environments.'
+description: 'Configuration for Development environments.'
 folder: ../config/dev
 module:
   devel_generate: 0
@@ -17,6 +17,7 @@ blacklist:
   - system.menu.devel
 graylist:
   - simplesamlphp_auth.settings
+  - raven.settings
 graylist_dependents: true
 graylist_skip_equal: true
 weight: 0

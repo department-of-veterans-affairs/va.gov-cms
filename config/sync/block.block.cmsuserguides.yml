@@ -1,0 +1,38 @@
+uuid: f202a083-6dbf-487c-84fb-4e823a561643
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.documentation
+  module:
+    - ctools
+    - system
+  theme:
+    - vagovadmin
+id: cmsuserguides
+theme: vagovadmin
+region: sidebar_first
+weight: -1
+provider: null
+plugin: 'system_menu_block:documentation'
+settings:
+  id: 'system_menu_block:documentation'
+  label: 'CMS Knowledge Base'
+  provider: system
+  label_display: visible
+  level: 2
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    pages: "/help\r\n/help/search\r\n"
+    negate: true
+    context_mapping: {  }
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      documentation_page: documentation_page
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
