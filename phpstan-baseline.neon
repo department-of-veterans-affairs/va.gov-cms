@@ -834,16 +834,6 @@ parameters:
 			path: tests/behat/Drupal/UserRolesAndPermissionsContext.php
 
 		-
-			message: "#^PHPDoc tag @return with type Tests\\\\Support\\\\Mock\\\\GuzzleHttp\\\\Client is not subtype of native type GuzzleHttp\\\\Client\\.$#"
-			count: 1
-			path: tests/phpunit/Support/Mock/HttpClient.php
-
-		-
-			message: "#^Return typehint of method Tests\\\\Support\\\\Mock\\\\HttpClient\\:\\:create\\(\\) has invalid type Tests\\\\Support\\\\Mock\\\\GuzzleHttp\\\\Client\\.$#"
-			count: 1
-			path: tests/phpunit/Support/Mock/HttpClient.php
-
-		-
 			message: "#^Method Symfony\\\\Contracts\\\\EventDispatcher\\\\EventDispatcherInterface\\:\\:dispatch\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 2
 			path: docroot/modules/custom/va_gov_clone/src/CloneManager.php
