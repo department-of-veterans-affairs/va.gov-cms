@@ -8,20 +8,15 @@ The `entity_clone` module was used to clone actual content to generate realistic
 
 To trigger a mass cloning call:
 1. Enable the `va_gov_clone` module via `drush`.  This module is hidden from the admin UI so `drush` must be used.
+  `source /etc/sysconfig/httpd; PATH=$PATH:/usr/local/bin drush en va_gov_clone`
 2. Run the drush job `drush va-gov-clone:clone-all <section_tid>`.  For example `drush va-gov-clone:clone-all 335` will clone the content for `VA Ann Arbor health care` section.  Note that this currently only allows one section and does not pick up child sections.
+  `source /etc/sysconfig/httpd; PATH=$PATH:/usr/local/bin drush va-gov-clone:clone-all 248`
 
 Follow up tasks:
 * Allow limits to be passed in via a command line
 * Run the cloning in async.
 
-## Current generated content (OUTDATED 8/9/21) :
-
-All content is stored in the public S3 bucket `dsva-vagov-prod-cms-backup-sanitized` in the `benchmark` folder.
 
 
-| Node Count | Pages.json link | SQL dump |
-|------------|-----------------|----------|
-| 14228 | https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/benchmark/14228-pages.json | https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/benchmark/14228.sql.gz |
-| 22410 | https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/benchmark/22410-pages.json | https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/benchmark/22410.sql.gz |
-| 50658 | NA | https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/benchmark/50658.sql.gz |
+
 
