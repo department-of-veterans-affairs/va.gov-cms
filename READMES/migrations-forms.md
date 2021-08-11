@@ -40,7 +40,7 @@ controlled by the data in the source are not available to be edited. In the
 event of bad data from the source (a bad file name or title) a site administrator
 can edit the fields.  These edits would of course be overwritten the next time
 the migration runs at midnight.  This logic is handled in
-_vagov_consumers_modify_va_form_fields().
+[_vagov_consumers_modify_va_form_fields()](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/docroot/modules/custom/va_gov_consumers/va_gov_consumers.module#L109).
 
 
 ## CMS forms data to Lighthouse
