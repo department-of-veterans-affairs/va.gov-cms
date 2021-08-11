@@ -300,7 +300,7 @@ class FeatureContext extends RawDrupalContext {
     }
     /** @var \Drupal\node\NodeInterface $node */
     $node = reset($nodes);
-    if ($status['pub']) {
+    if ($status) {
       $node->setPublished();
       $node->set('moderation_state', 'published');
     }
