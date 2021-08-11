@@ -5,14 +5,14 @@ namespace Drupal\va_gov_bulk\Service;
 use Drupal\node\NodeInterface;
 
 /**
- * Interface ModerationActionsInterface.
+ * Encapsulates logic for bulk moderation actions.
  */
 interface ModerationActionsInterface {
 
   /**
    * Archive the given node.
    *
-   * @return Drupal\node\NodeInterface
+   * @return \Drupal\node\NodeInterface
    *   The node.
    */
   public function archiveNode(NodeInterface $node) : NodeInterface;
@@ -20,7 +20,7 @@ interface ModerationActionsInterface {
   /**
    * Publish the latest revision of the given node.
    *
-   * @return Drupal\node\NodeInterface
+   * @return \Drupal\node\NodeInterface
    *   The node.
    */
   public function publishLatestRevision(NodeInterface $node) : NodeInterface;

@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\NodeInterface;
 
 /**
- * Class ModerationActions.
+ * Encapsulates logic for bulk moderation actions.
  */
 class ModerationActions implements ModerationActionsInterface {
 
@@ -45,7 +45,7 @@ class ModerationActions implements ModerationActionsInterface {
   /**
    * Archive the given node.
    *
-   * @return Drupal\node\NodeInterface
+   * @return \Drupal\node\NodeInterface
    *   The node.
    */
   public function archiveNode(NodeInterface $node) : NodeInterface {
@@ -61,10 +61,10 @@ class ModerationActions implements ModerationActionsInterface {
   /**
    * Publish the latest revision of the given node.
    *
-   * @return Drupal\node\NodeInterface
+   * @return \Drupal\node\NodeInterface
    *   The node.
    */
-  public function publishLatestRevision(NodeInterface $node) : nodeInterface {
+  public function publishLatestRevision(NodeInterface $node) : NodeInterface {
     $latest_revision_id = (string) $this->entityTypeManager
       ->getStorage('node')
       ->getLatestRevisionId($node->id());
@@ -74,7 +74,7 @@ class ModerationActions implements ModerationActionsInterface {
         ->getStorage('node')
         ->loadRevision($latest_revision_id);
     }
-
+    /** @var \Drupal\node\NodeInterface $node */
     $node->set('moderation_state', 'published');
     $node->setRevisionCreationTime($this->datetimeTime->getRequestTime());
     $node->setRevisionLogMessage('Bulk operation publish revision');

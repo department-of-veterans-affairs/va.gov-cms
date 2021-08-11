@@ -1,6 +1,6 @@
 <?php
 
-// @codingStandardsIgnoreFile
+// phpcs:ignoreFile
 
 $settings['jenkins_build_job_path'] = '/job/builds/job/vets-website-content-vagov' . $settings['jenkins_build_env'];
 $settings['jenkins_build_job_params'] = '/buildWithParameters?deploy=true';

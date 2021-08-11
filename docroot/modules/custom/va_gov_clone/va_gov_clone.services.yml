@@ -1,0 +1,10 @@
+services:
+  plugin.manager.va_gov_clone_handler:
+    class: Drupal\va_gov_clone\CloneEntityFinder\CloneEntityFinderDiscovery
+    parent: default_plugin_manager
+  va_gov.clone.manager:
+    class: Drupal\va_gov_clone\CloneManager
+    arguments:
+      - '@event_dispatcher'
+      - '@plugin.manager.va_gov_clone_handler'
+      - '@entity_type.manager'
