@@ -4,7 +4,7 @@ This is the public/open documentation for the VA.gov Content Management System (
 
 The VA.gov CMS is the backend for www.va.gov. Frontend repo is at https://github.com/department-of-veterans-affairs/vets-website/.
 
-If you find any errors in this documentation, please feel free to [make an edit and submit a Pull Request](https://github.com/department-of-veterans-affairs/va.gov-cms/edit/master/README.md).
+If you find any improvements to make to this documentation & you have push access then please commit your changes directly to the `master` branch. All commits that affect just `*.md` files will be ignored by the automated Continuous Deployment (CD) and not be tested so they won't have a commit status posted at https://github.com/department-of-veterans-affairs/va.gov-cms/commits. You SHOULD prefix your commit with `[docs]` e.g. `[docs] Commit message ...` so that we know why the commit status will be missing. If you don't have push access, you can submit a pull request for review. 
 
 Thanks,
 

@@ -2,7 +2,6 @@
 
 namespace tests\phpunit\Security;
 
-use GuzzleHttp\Exception\ClientException;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
@@ -15,62 +14,19 @@ class GraphQLTest extends ExistingSiteBase {
    *
    * @group security
    * @group all
-   *
-   * @dataProvider gqlqueries
    */
-  public function testGraphqlAccess($query) {
-
-    $url = $this->baseUrl;
-
-    try {
-      $response = \Drupal::httpClient()->post($url . "/graphql?_format=json,", [
-        'headers' => [
-          'Content-Type' => 'application/json',
-        ],
-        'json' => [
-          'query' => $query,
-        ],
-      ]);
-
-      $response->getStatusCode();
-
+  public function testGraphqlAccess() {
+    $router = $this->container->get('router');
+    $collection = $router->getRouteCollection();
+    $route_provider = $this->container->get('router.route_provider');
+    $graphql_routes = $route_provider->getRoutesByPattern('graphql');
+    $graphql_iterator = $graphql_routes->getIterator();
+    $this->assertGreaterThan(0, $graphql_iterator->count());
+    foreach ($graphql_iterator as $route_name => $route_params) {
+      $route = $collection->get($route_name);
+      $this->assertEquals(['basic_auth', 'cookie'], $route->getOption('_auth'));
+      $this->assertEquals('TRUE', $route->getRequirement('_user_is_logged_in'));
     }
-    catch (ClientException $e) {
-      $this->assertEquals(401, $e->getCode(), 'Graphql insecure request returned status code ' . $e->getCode());
-    }
-
-  }
-
-  /**
-   * Returns graphql queries to be tested.
-   *
-   * @return array
-   *   Array containing graphql queries to be tested.
-   */
-  public function gqlqueries() {
-    return [
-      [
-        '{
-          nodeQuery(limit: 1, filter: {conditions: [{field: "type", value: "page"}]}) {
-            count
-            entities {
-              ... on NodePage {
-                nid
-                entityBundle
-                entityPublished
-                title
-                fieldIntroText
-                fieldContentBlock {
-                  targetId
-                  targetRevisionId
-                }
-              }
-            }
-          }
-        }
-        ',
-      ],
-    ];
   }
 
 }
