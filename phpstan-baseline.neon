@@ -725,23 +725,3 @@ parameters:
 			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
 			count: 3
 			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message: "#^Call to an undefined method CustomDrupal\\\\UserRolesAndPermissionsContext\\:\\:getTableNodeFromCsv\\(\\)\\.$#"
-			count: 1
-			path: tests/behat/Drupal/UserRolesAndPermissionsContext.php
-
-		-
-			message:
-				"""
-					#^Class CustomDrupal\\\\UserRolesAndPermissionsContext implements deprecated interface Behat\\\\Behat\\\\Context\\\\SnippetAcceptingContext\\:
-					will be removed in 4\\.0\\. Use \\-\\-snippets\\-for CLI option instead$#
-				"""
-			count: 1
-			path: tests/behat/Drupal/UserRolesAndPermissionsContext.php
-
-		-
-			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
-			count: 4
-			path: tests/behat/Drupal/UserRolesAndPermissionsContext.php
-
