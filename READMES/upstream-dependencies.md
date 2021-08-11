@@ -25,7 +25,7 @@ The following services can affect the CMS's functionality or data at any time.
         * Facility operational status & additional information
             * [README](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/migrations-facility.md#vamc-status-migration)
     * Mode
-        * Periodic migration pulls data from TSV endpoints on teamsite ([config](/config/sync/migrate_plus.migration.va_node_health_care_local_facility_status.yml))
+        * Periodic migration pulls data from TSV endpoints on teamsite ([task](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/tasks-periodic.yml#L98), [config](/config/sync/migrate_plus.migration.va_node_health_care_local_facility_status.yml))
     * Notes
         * This should be completely phased out by the end of 2021
     * Monitoring
