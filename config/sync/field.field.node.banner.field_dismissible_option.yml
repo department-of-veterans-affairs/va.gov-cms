@@ -1,0 +1,23 @@
+uuid: 175ddf59-b911-4bab-aa44-92761e65cf6c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_dismissible_option
+    - node.type.banner
+  module:
+    - options
+id: node.banner.field_dismissible_option
+field_name: field_dismissible_option
+entity_type: node
+bundle: banner
+label: Persistence
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: perm
+default_value_callback: ''
+settings: {  }
+field_type: list_string
