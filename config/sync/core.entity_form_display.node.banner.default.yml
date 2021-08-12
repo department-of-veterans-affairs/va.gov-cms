@@ -6,7 +6,6 @@ dependencies:
     - field.field.node.banner.body
     - field.field.node.banner.field_administration
     - field.field.node.banner.field_alert_type
-    - field.field.node.banner.field_dismissible
     - field.field.node.banner.field_dismissible_option
     - field.field.node.banner.field_target_paths
     - node.type.banner
@@ -86,18 +85,11 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
-  field_dismissible:
-    weight: 1
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_dismissible_option:
     weight: 2
     settings: {  }
     third_party_settings: {  }
-    type: options_select
+    type: options_buttons
     region: content
   field_target_paths:
     weight: 5

@@ -12,11 +12,14 @@ type: list_string
 settings:
   allowed_values:
     -
-      value: always
-      label: 'Every Session'
+      value: perm
+      label: 'Don''t allow site visitors to dismiss banner'
     -
-      value: once
-      label: 'One Time'
+      value: dismissone
+      label: 'Allow site visitors to dismiss banner for a single session'
+    -
+      value: dismiss
+      label: 'Allow site visitors to dismiss banner permanently'
   allowed_values_function: ''
 module: options
 locked: false

@@ -11,13 +11,13 @@ id: node.banner.field_dismissible_option
 field_name: field_dismissible_option
 entity_type: node
 bundle: banner
-label: 'Persistence (for dismissable alerts only)'
-description: "This determines if a <em>dismissible</em> alert is shown each time a user visits the site. <br/>\r\nIf you select \"Every session\", a user can dismiss the alert during a browsing session, but it will reappear the next time they come back to the site.</br>\r\nIf you select \"One Time\", alerts will be displayed once; after the user dismisses it, they will never see that alert again."
-required: false
+label: Persistence
+description: ''
+required: true
 translatable: false
 default_value:
   -
-    value: always
+    value: perm
 default_value_callback: ''
 settings: {  }
 field_type: list_string
