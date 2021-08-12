@@ -91,9 +91,9 @@ jobs:
           BUCKET: dsva-vagov-prod-cms-backup
 
         # Weekly
-        # if: contains(steps.date.outputs.date,'Sun'), if the date returned is Sunday, run these steps.
+        # if: contains(steps.date.outputs.date,'Mon'), if the date returned is Monday, run these steps.
       - name: Backup Weekly Asset Files
-        if: contains(steps.date.outputs.date,'Sun')
+        if: contains(steps.date.outputs.date,'Mon')
         run: |
           latest_file=$(aws s3api list-objects \
           --bucket $BUCKET \
@@ -109,7 +109,7 @@ jobs:
           BUCKET: dsva-vagov-prod-cms-backup-sanitized
 
       - name: Backup Weekly Sanitized SQL Files
-        if: contains(steps.date.outputs.date,'Sun')
+        if: contains(steps.date.outputs.date,'Mon')
         run: |
           latest_file=$(aws s3api list-objects \
           --bucket $BUCKET \
@@ -125,7 +125,7 @@ jobs:
           BUCKET: dsva-vagov-prod-cms-backup-sanitized
 
       - name: Backup Weekly Production SQL Files
-        if: contains(steps.date.outputs.date,'Sun')
+        if: contains(steps.date.outputs.date,'Mon')
         run: |
           latest_file=$(aws s3api list-objects \
           --bucket $BUCKET \
