@@ -61,11 +61,11 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function alterBannerNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
-    $nids = $form['field_banner_alert_vamcs']['widget']['#options'];
-    foreach ($nids as $key => $nid) {
-      $perms = $this->userPermsService->userAccess($key, 'node', $this->currentUser, 'field_office');
+    $vamc_field_options = $form['field_banner_alert_vamcs']['widget']['#options'];
+    foreach ($vamc_field_options as $nid => $node_option_string) {
+      $perms = $this->userPermsService->userAccess($nid, 'node', $this->currentUser, 'field_office');
       if (!$perms) {
-        $form['#attached']['drupalSettings']['va_gov_vamc']['disallowed_vamc_options'][] = $key;
+        $form['#attached']['drupalSettings']['va_gov_vamc']['disallowed_vamc_options'][] = $nid;
       }
     }
     $form['#attached']['library'][] = 'va_gov_vamc/limit_vamcs_to_workbench';

@@ -18,7 +18,12 @@
     checkBoxDivs.forEach((i) => {
       const currentOptionValue = parseInt(i.querySelector("input").value, 10);
       if (disallowedValues.includes(currentOptionValue)) {
-        i.querySelector("input").setAttribute("disabled", "disabled");
+        if (i.querySelector("input").checked) {
+          i.querySelector("input").style.opacity = ".6";
+          i.querySelector("input").style.pointerEvents = "none";
+        } else {
+          i.querySelector("input").setAttribute("disabled", "disabled");
+        }
       }
     });
   };
