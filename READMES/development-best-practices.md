@@ -1,11 +1,11 @@
 ## Purpose
 
-This document is designed to provide guidelines for the development and architecture of the CMS.  None of the guidelines are hard rules and this document is a constent work in progress.
+This document is designed to provide guidelines for the development and architecture of the CMS.  None of the guidelines are hard rules and this document is a constant work in progress.
 
 ## Intgrations
 
-* All integratiosn should be documented and monitored.
-* Integraions with external systems should not in the direct flow of an editor.
+* All integrations should be documented and monitored.
+* Integrations with external systems should not in the direct flow of an editor.
 
 ## Code Standards
 
@@ -13,7 +13,7 @@ This document is designed to provide guidelines for the development and architec
 * All code which contains business logic must live in a class instead of a function.
 * Classes and methods should follow [SOLID](https://en.wikipedia.org/wiki/SOLID) principles. 
 * All classes containing business logic must have `phpunit` tests.
-* Nested `ifs` should be avoided.
+* Nested `if`s should be avoided.
 * Nested `foreach` loops should be avoided.
 * [Value](https://martinfowler.com/eaaCatalog/valueObject.html) objects should be used instead of arrays to store data.
 
