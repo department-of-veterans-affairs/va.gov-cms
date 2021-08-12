@@ -7,15 +7,21 @@ This document is designed to provide guidelines for the development and architec
 * All integrations should be documented and monitored.
 * Integrations with external systems should not in the direct flow of an editor.
 
-## Code Standards
+## Code Strucutre
 
 * The Event based verions of a hook using the `hook_event_dispatcher` should be used instead of the direct hook implementation.
 * All code which contains business logic must live in a class instead of a function.
 * Classes and methods should follow [SOLID](https://en.wikipedia.org/wiki/SOLID) principles. 
-* All classes containing business logic must have `phpunit` tests.
+* Methods containing business logic must have `phpunit` tests.
+* * [Value](https://martinfowler.com/eaaCatalog/valueObject.html) objects should be used instead of arrays to store data.
+
+## Code Readabilty
+
+* Code should be read as a story.
+* Comments should explian the `why` while the code explains the what/how.
 * Nested `if`s should be avoided.
 * Nested `foreach` loops should be avoided.
-* [Value](https://martinfowler.com/eaaCatalog/valueObject.html) objects should be used instead of arrays to store data.
+
 
 ## Resources
 
