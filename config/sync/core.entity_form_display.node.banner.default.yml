@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.banner.body
     - field.field.node.banner.field_administration
     - field.field.node.banner.field_alert_type
+    - field.field.node.banner.field_dismissible_option
     - field.field.node.banner.field_target_paths
     - node.type.banner
     - workflows.workflow.editorial
@@ -20,7 +21,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 4
+      weight: 6
       format_type: details_sidebar
       region: content
       format_settings:
@@ -37,7 +38,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 6
+      weight: 8
       format_type: fieldset
       region: content
       format_settings:
@@ -54,7 +55,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary_and_counter
-    weight: 2
+    weight: 4
     settings:
       counter_position: after
       textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
@@ -84,8 +85,14 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  field_dismissible_option:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
   field_target_paths:
-    weight: 3
+    weight: 5
     settings:
       size: 60
       placeholder: ''
@@ -100,14 +107,14 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 1
+    weight: 3
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 5
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }

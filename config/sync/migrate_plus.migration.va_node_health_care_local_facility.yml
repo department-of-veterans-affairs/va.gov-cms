@@ -136,6 +136,9 @@ process:
   field_address/locality: city
   field_address/administrative_area: state
   field_address/postal_code: zip
+  field_office_hours:
+    plugin: va_field_office_hours
+    source: hours
   field_facility_hours/value:
     plugin: va_table_field_hours
     source: hours
@@ -247,6 +250,7 @@ destination:
     - field_address/country_code
     - field_address/locality
     - field_address/postal_code
+    - field_office_hours
     - field_facility_hours/value
     - changed
     - field_facility_classification

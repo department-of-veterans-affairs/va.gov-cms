@@ -30,15 +30,27 @@ The following services can affect the CMS's functionality or data at any time.
         * This should be completely phased out by the end of 2021
     * Monitoring
         * External
-            * None known.
-    * Escalation contact
-        * See [DSVA Slack](https://dsva.slack.com/archives/CT4GZBM8F/p1628284192216100)
+            * Error log: [https://vaww.webops.va.gov/apps/errorlog/](https://vaww.webops.va.gov/apps/errorlog/) (must be on internal network)
+    * Escalation contacts
+        * https://github.com/department-of-veterans-affairs/devops/blob/master/docs/External%20Service%20Integrations/EWIS.md
+        * See also: [DSVA Slack](https://dsva.slack.com/archives/CT4GZBM8F/p1628284192216100)
 * Facility API (via lighthouse)
     * Content
         * Operating hours, Contact information, names for all facilities (VHA facilities, vet centers, cemeteries, business offices)
             * [README](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/migrations-facility.md)
     * Mode
-        * Nightly migration pulls data from the Lighthouse API ([specific migrations specified here](/tasks-periodic.yml))
+        * Nightly migration pulls data from the Lighthouse API from the following [periodic tasks](/tasks-periodic.yml):
+            * `va/background/daily/migrate/nca_facility`
+            * `va/background/daily/migrate/vba_facility`
+            * `va/background/daily/migrate/vet_centers_facility`
+            * `va/background/daily/migrate/health_care_local_facility`
+        * Migration configs:
+            * [migrate_plus.migration.va_node_facility_nca.yml](/config/sync/migrate_plus.migration.va_node_facility_nca.yml)
+            * [migrate_plus.migration.va_node_facility_vba.yml](/config/sync/migrate_plus.migration.va_node_facility_vba.yml)
+            * [migrate_plus.migration.va_node_facility_vet_centers.yml](/config/sync/migrate_plus.migration.va_node_facility_vet_centers.yml)
+            * [migrate_plus.migration.va_node_facility_vet_centers_mvc.yml](/config/sync/migrate_plus.migration.va_node_facility_vet_centers_mvc.yml)
+            * [migrate_plus.migration.va_node_facility_vet_centers_os.yml](/config/sync/migrate_plus.migration.va_node_facility_vet_centers_os.yml)
+            * [migrate_plus.migration.va_node_health_care_local_facility.yml](/config/sync/migrate_plus.migration.va_node_health_care_local_facility.yml)
     * Monitoring
         * External
             * https://valighthouse.statuspage.io
