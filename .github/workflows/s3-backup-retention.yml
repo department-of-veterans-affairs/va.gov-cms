@@ -57,7 +57,7 @@ jobs:
           aws s3 cp s3://$BUCKET/$latest_file s3://$BUCKET/$DESTINATION_PREFIX/$latest_file_no_prefix
         env:
           SOURCE_PREFIX: files/
-          DESTINATION_PREFIX: backups/files/daily
+          DESTINATION_PREFIX: backups/daily/files
           BUCKET: dsva-vagov-prod-cms-backup-sanitized
 
       - name: Backup Daily Sanitized SQL Files
@@ -72,7 +72,7 @@ jobs:
           aws s3 cp s3://$BUCKET/$latest_file s3://$BUCKET/$DESTINATION_PREFIX/$latest_file_no_prefix
         env:
           SOURCE_PREFIX: database/
-          DESTINATION_PREFIX: backups/database/daily
+          DESTINATION_PREFIX: backups/daily/database
           BUCKET: dsva-vagov-prod-cms-backup-sanitized
 
       - name: Backup Daily Production SQL Files
@@ -87,7 +87,7 @@ jobs:
           aws s3 cp s3://$BUCKET/$latest_file s3://$BUCKET/$DESTINATION_PREFIX/$latest_file_no_prefix
         env:
           SOURCE_PREFIX: database/
-          DESTINATION_PREFIX: backups/database/daily
+          DESTINATION_PREFIX: backups/daily/database
           BUCKET: dsva-vagov-prod-cms-backup
 
         # Weekly
@@ -105,7 +105,7 @@ jobs:
           aws s3 cp s3://$BUCKET/$latest_file s3://$BUCKET/$DESTINATION_PREFIX/$latest_file_no_prefix
         env:
           SOURCE_PREFIX: files/
-          DESTINATION_PREFIX: backups/files/weekly
+          DESTINATION_PREFIX: backups/weekly/files
           BUCKET: dsva-vagov-prod-cms-backup-sanitized
 
       - name: Backup Weekly Sanitized SQL Files
@@ -121,7 +121,7 @@ jobs:
           aws s3 cp s3://$BUCKET/$latest_file s3://$BUCKET/$DESTINATION_PREFIX/$latest_file_no_prefix
         env:
           SOURCE_PREFIX: database/
-          DESTINATION_PREFIX: backups/database/weekly
+          DESTINATION_PREFIX: backups/weekly/database
           BUCKET: dsva-vagov-prod-cms-backup-sanitized
 
       - name: Backup Weekly Production SQL Files
@@ -137,5 +137,5 @@ jobs:
           aws s3 cp s3://$BUCKET/$latest_file s3://$BUCKET/$DESTINATION_PREFIX/$latest_file_no_prefix
         env:
           SOURCE_PREFIX: database/
-          DESTINATION_PREFIX: backups/database/weekly
+          DESTINATION_PREFIX: backups/weekly/database
           BUCKET: dsva-vagov-prod-cms-backup
