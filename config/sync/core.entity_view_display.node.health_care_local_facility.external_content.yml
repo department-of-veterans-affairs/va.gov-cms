@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_mental_health_phone
     - field.field.node.health_care_local_facility.field_meta_tags
     - field.field.node.health_care_local_facility.field_mobile
+    - field.field.node.health_care_local_facility.field_office_hours
     - field.field.node.health_care_local_facility.field_operating_status_facility
     - field.field.node.health_care_local_facility.field_operating_status_more_info
     - field.field.node.health_care_local_facility.field_phone_number
@@ -27,16 +28,15 @@ dependencies:
     - address
     - field_group
     - layout_builder
-    - tablefield
+    - office_hours
     - user
 third_party_settings:
   field_group:
     group_meta:
       children:
         - field_description
-        - field_meta_title
       parent_name: ''
-      weight: 3
+      weight: 9
       format_type: fieldset
       format_settings:
         id: ''
@@ -49,7 +49,7 @@ third_party_settings:
         - field_operating_status_facility
         - field_operating_status_more_info
       parent_name: ''
-      weight: 1
+      weight: 7
       format_type: fieldset
       format_settings:
         id: ''
@@ -60,7 +60,7 @@ third_party_settings:
     group_social_media:
       children: {  }
       parent_name: ''
-      weight: 12
+      weight: 13
       format_type: details
       format_settings:
         id: ''
@@ -74,7 +74,7 @@ third_party_settings:
       children:
         - field_location_services
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details
       format_settings:
         description: ''
@@ -90,7 +90,7 @@ third_party_settings:
         - field_mobile
         - field_phone_number
         - field_mental_health_phone
-        - field_facility_hours
+        - field_office_hours
       parent_name: ''
       weight: 0
       format_type: tooltip
@@ -126,7 +126,7 @@ third_party_settings:
         - field_media
         - group_vamc_system
       parent_name: ''
-      weight: 2
+      weight: 8
       format_type: fieldset
       region: hidden
       format_settings:
@@ -139,7 +139,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: details_sidebar
       region: hidden
       format_settings:
@@ -155,7 +155,7 @@ third_party_settings:
       children:
         - content_moderation_control
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: fieldset
       region: hidden
       format_settings:
@@ -178,15 +178,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: address_default
-    region: content
-  field_facility_hours:
-    weight: 22
-    label: above
-    settings:
-      row_header: false
-      column_header: false
-    third_party_settings: {  }
-    type: tablefield
     region: content
   field_facility_locator_api_id:
     weight: 17
@@ -214,6 +205,33 @@ content:
     third_party_settings: {  }
     type: boolean
     region: content
+  field_office_hours:
+    type: office_hours
+    weight: 22
+    region: content
+    label: above
+    settings:
+      day_format: long
+      time_format: G
+      compress: false
+      grouped: false
+      show_closed: all
+      closed_format: Closed
+      separator:
+        days: '<br />'
+        grouped_days: ' - '
+        day_hours: ': '
+        hours_hours: '-'
+        more_hours: ', '
+      current_status:
+        position: ''
+        open_text: 'Currently open!'
+        closed_text: 'Currently closed'
+      schema:
+        enabled: false
+      timezone_field: ''
+      office_hours_first_day: ''
+    third_party_settings: {  }
   field_phone_number:
     weight: 20
     label: above
@@ -227,6 +245,7 @@ hidden:
   field_administration: true
   field_description: true
   field_facility_classification: true
+  field_facility_hours: true
   field_intro_text: true
   field_local_health_care_service_: true
   field_location_services: true
