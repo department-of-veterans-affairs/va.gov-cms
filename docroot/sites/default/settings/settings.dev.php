@@ -1,6 +1,6 @@
 <?php
 
-// @codingStandardsIgnoreFile
+// phpcs:ignoreFile
 
 include dirname(__FILE__) . '/settings.brd_common.php';
 

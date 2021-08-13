@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_mental_health_phone
     - field.field.node.health_care_local_facility.field_meta_tags
     - field.field.node.health_care_local_facility.field_mobile
+    - field.field.node.health_care_local_facility.field_office_hours
     - field.field.node.health_care_local_facility.field_operating_status_facility
     - field.field.node.health_care_local_facility.field_operating_status_more_info
     - field.field.node.health_care_local_facility.field_phone_number
@@ -28,15 +29,14 @@ dependencies:
     - entity_reference_revisions
     - field_group
     - media
+    - office_hours
     - options
-    - tablefield
     - telephone
     - user
 third_party_settings:
   field_group:
     group_meta:
       children:
-        - field_meta_title
         - field_description
       parent_name: ''
       weight: 2
@@ -106,11 +106,11 @@ third_party_settings:
         - field_phone_number
         - field_mobile
         - field_mental_health_phone
-        - field_facility_hours
+        - field_office_hours
       parent_name: group_locations_and_contact_info
-      weight: 14
+      weight: 19
       format_type: tooltip
-      region: hidden
+      region: content
       format_settings:
         show_empty_fields: 0
         id: external-content
@@ -144,15 +144,6 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  field_facility_hours:
-    weight: 20
-    label: above
-    settings:
-      row_header: false
-      column_header: false
-    third_party_settings: {  }
-    type: tablefield
-    region: content
   field_facility_locator_api_id:
     weight: 15
     label: inline
@@ -204,6 +195,33 @@ content:
     third_party_settings: {  }
     type: boolean
     region: content
+  field_office_hours:
+    type: office_hours
+    weight: 20
+    region: content
+    label: above
+    settings:
+      day_format: long
+      time_format: G
+      compress: false
+      grouped: false
+      show_closed: all
+      closed_format: Closed
+      separator:
+        days: '<br />'
+        grouped_days: ' - '
+        day_hours: ': '
+        hours_hours: '-'
+        more_hours: ', '
+      current_status:
+        position: ''
+        open_text: 'Currently open!'
+        closed_text: 'Currently closed'
+      schema:
+        enabled: false
+      timezone_field: ''
+      office_hours_first_day: ''
+    third_party_settings: {  }
   field_operating_status_facility:
     weight: 4
     label: hidden
@@ -230,6 +248,7 @@ hidden:
   content_moderation_control: true
   field_administration: true
   field_facility_classification: true
+  field_facility_hours: true
   field_local_health_care_service_: true
   field_main_location: true
   field_meta_tags: true

@@ -14,6 +14,7 @@ class RequiredParagraphValidator extends ConstraintValidator {
    * {@inheritdoc}
    */
   public function validate($item, Constraint $constraint) {
+    /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\RequiredParagraph $constraint */
     $panel_enabled = $this->context->getRoot()->getEntity()->get($constraint->toggle)->getString();
     $number = $item->count();
     if ($panel_enabled && $number < $constraint->min) {

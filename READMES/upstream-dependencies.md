@@ -23,29 +23,48 @@ The following services can affect the CMS's functionality or data at any time.
 * Facility Status (Team Sites)
     * Content
         * Facility operational status & additional information
+            * [README](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/migrations-facility.md#vamc-status-migration)
     * Mode
-        * Periodic migration pulls data from TSV endpoints on teamsite ([config](/config/sync/migrate_plus.migration.va_node_health_care_local_facility_status.yml))
+        * Periodic migration pulls data from TSV endpoints on teamsite ([task](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/tasks-periodic.yml#L98), [config](/config/sync/migrate_plus.migration.va_node_health_care_local_facility_status.yml))
     * Notes
-        * This should be completely phased out by the end of 2021
+        * This is intended to be phased out by the end of 2021 when VAMC migration is complete
     * Monitoring
         * External
-            * None known.
-    * Escalation contact
-        * See [DSVA Slack](https://dsva.slack.com/archives/CT4GZBM8F/p1628284192216100)
-* Facility API (via lighthouse)
+            * Error log: [https://vaww.webops.va.gov/apps/errorlog/](https://vaww.webops.va.gov/apps/errorlog/) (must be on VA network)
+    * Escalation contacts
+        * Teamsites is hosted on [EWIS](https://github.com/department-of-veterans-affairs/devops/blob/master/docs/External%20Service%20Integrations/EWIS.md)
+        * See also: [DSVA Slack](https://dsva.slack.com/archives/CT4GZBM8F/p1628284192216100)
+* Facility, cemetary, and health services (via Lighthouse API)
     * Content
         * Operating hours, Contact information, names for all facilities (VHA facilities, vet centers, cemeteries, business offices)
             * [README](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/migrations-facility.md)
+            * VAMC & Vet Center Facility statuses
+            * Cemetery statuses
+            * Facility health services (covid only now, all services soon)
     * Mode
-        * Nightly migration pulls data from the Lighthouse API ([specific migrations specified here](/tasks-periodic.yml))
+        * Nightly migration pulls data from the Lighthouse API from the following [periodic tasks](/tasks-periodic.yml):
+            * `va/background/daily/migrate/nca_facility`
+            * `va/background/daily/migrate/vba_facility`
+            * `va/background/daily/migrate/vet_centers_facility`
+            * `va/background/daily/migrate/health_care_local_facility`
+        * Migration configs:
+            * [migrate_plus.migration.va_node_facility_nca.yml](/config/sync/migrate_plus.migration.va_node_facility_nca.yml)
+            * [migrate_plus.migration.va_node_facility_vba.yml](/config/sync/migrate_plus.migration.va_node_facility_vba.yml)
+            * [migrate_plus.migration.va_node_facility_vet_centers.yml](/config/sync/migrate_plus.migration.va_node_facility_vet_centers.yml)
+            * [migrate_plus.migration.va_node_facility_vet_centers_mvc.yml](/config/sync/migrate_plus.migration.va_node_facility_vet_centers_mvc.yml)
+            * [migrate_plus.migration.va_node_facility_vet_centers_os.yml](/config/sync/migrate_plus.migration.va_node_facility_vet_centers_os.yml)
+            * [migrate_plus.migration.va_node_health_care_local_facility.yml](/config/sync/migrate_plus.migration.va_node_health_care_local_facility.yml)
+         * Note: API paths are [overridden](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/docroot/modules/custom/va_gov_migrate/config/install/migrate_plus.migration.va_node_facility_nca.yml#L22) by [settings.php](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/docroot/sites/default/settings.php#L146)
     * Monitoring
         * External
             * https://valighthouse.statuspage.io
+    * Escalation contact
+        * [#vsa-facilities slack channel](https://dsva.slack.com/archives/C0FQSS30V) - Adam Stinton
 * Forms API (nightly DB dump)
     * Content
-        * form data (names, filenames, audiences, status) and creates/updates “VA Form” nodes
+        * Form data (names, filenames, audiences, status) and creates/updates “VA Form” nodes
     * Mode
-        * Nightly migration ([README](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/migrations-forms.md))
+        * Nightly migration ([README](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/migrations-forms.md#forms-migration))
     * Monitoring
         * External
             *  Unknown
@@ -71,18 +90,16 @@ The following services can affect the CMS's functionality or data at any time.
             * [https://status.slack.com/](https://status.slack.com/) 
     * Escalation contact
         * Unknown
-* Lighthouse
+* [SSOi](https://dvagov.sharepoint.com/sites/OITEPMOIAM/playbooks/Pages/IAM%20URLs.aspx) (must be on VA network to access doc)
+    * Content
+        * CMS users are authenticated with the VA Single Sign On service (SSOi)
     * Mode
-        * Cron uses post api module to process updates queue
-    * Data
-        * VAMC & Vet Center Facility statuses
-        * Cemetery statuses
-        * Facility health services (covid only now, all services soon)
-    * Monitoring
-        * External
-            * https://valighthouse.statuspage.io
+        * See [README](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/cms-login.md#technical-details)
+        * Monitoring: 
+            * External
+                * https://iamportal.iam.va.gov/iamv2/index.php (must be on VA network)
     * Escalation contact
-        * [#vsa-facilities slack channel](https://dsva.slack.com/archives/C0FQSS30V) - Adam Stinton
+        * https://iamportal.iam.va.gov/iamv2/help/contactUs.php (must be on VA network)
 
 ## Build time
 
@@ -116,6 +133,13 @@ The following services can affect the deployment process' ability to fully build
         * The codebase is stored in github, and the deployment process depends on it to pull code and push status and code quality messages to our pull requests.
     * Escalation process
         * Use the #github_information channel in DSVA slack
+* [ZenHub](https://www.zenhub.com)
+    * Status
+        * https://twitter.com/zenhubstatus
+     * Notes
+         * ZenHub is a project managment layer on top of GitHub Issues that we use.
+     * Escalation process
+         * TBD   
 * [Docker Hub](https://hub.docker.com/)
     * Status
         * [https://status.docker.com/](https://status.docker.com/)

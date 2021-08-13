@@ -113,7 +113,9 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'clone menu entity',
           'clone node entity',
           'clone paragraph entity',
+          'create alert block content',
           'create banner content',
+          'create promo block content',
           'create url aliases',
           'delete any banner content',
           'edit any banner content',
@@ -201,6 +203,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
         [
           'create vet_center_cap content',
           'create vet_center_facility_health_servi content',
+          'view node link report',
         ],
       ],
       [

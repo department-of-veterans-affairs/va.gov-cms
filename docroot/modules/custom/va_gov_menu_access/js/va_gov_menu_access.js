@@ -19,18 +19,18 @@
         parentMenuSelect.classList.add("form-required");
       }
 
-      if (drupalSettings.vagov_menu_access.content_type === "not-allowed-to-operate-on-menu" && adminTest === false) {
+      if (drupalSettings.vagov_menu_access.content_type === "not-allowed-to-operate-on-menu" && adminTest === false && document.querySelector("details#edit-menu")) {
         document.querySelector("details#edit-menu").style.display = "none";
       }
 
       function menuSelectHandler() {
-        if (document.querySelector(".menu-parent-select").classList.contains("no-available-menu-targets")) {
+        if (document.querySelector(".menu-parent-select") && document.querySelector(".menu-parent-select").classList.contains("no-available-menu-targets") && document.getElementById("edit-menu")) {
           document.getElementById("edit-menu").style.display = "none";
         }
 
         var parentOptions = context.querySelectorAll("#edit-menu-menu-parent option");
 
-        if (document.getElementById("edit-menu-title").hasAttribute("disabled") && menuEnableCheckbox !== null) {
+        if (document.getElementById("edit-menu-title") && document.getElementById("edit-menu-title").hasAttribute("disabled") && menuEnableCheckbox !== null) {
           menuEnableCheckbox.disabled = true;
         }
 
