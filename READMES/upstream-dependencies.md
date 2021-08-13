@@ -27,17 +27,20 @@ The following services can affect the CMS's functionality or data at any time.
     * Mode
         * Periodic migration pulls data from TSV endpoints on teamsite ([task](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/tasks-periodic.yml#L98), [config](/config/sync/migrate_plus.migration.va_node_health_care_local_facility_status.yml))
     * Notes
-        * This should be completely phased out by the end of 2021
+        * This is intended to be phased out by the end of 2021 when VAMC migration is complete
     * Monitoring
         * External
-            * Error log: [https://vaww.webops.va.gov/apps/errorlog/](https://vaww.webops.va.gov/apps/errorlog/) (must be on internal network)
+            * Error log: [https://vaww.webops.va.gov/apps/errorlog/](https://vaww.webops.va.gov/apps/errorlog/) (must be on VA network)
     * Escalation contacts
-        * https://github.com/department-of-veterans-affairs/devops/blob/master/docs/External%20Service%20Integrations/EWIS.md
+        * Teamsites is hosted on [EWIS](https://github.com/department-of-veterans-affairs/devops/blob/master/docs/External%20Service%20Integrations/EWIS.md)
         * See also: [DSVA Slack](https://dsva.slack.com/archives/CT4GZBM8F/p1628284192216100)
-* Facility API (via lighthouse)
+* Facility, cemetary, and health services (via Lighthouse API)
     * Content
         * Operating hours, Contact information, names for all facilities (VHA facilities, vet centers, cemeteries, business offices)
             * [README](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/migrations-facility.md)
+            * VAMC & Vet Center Facility statuses
+            * Cemetery statuses
+            * Facility health services (covid only now, all services soon)
     * Mode
         * Nightly migration pulls data from the Lighthouse API from the following [periodic tasks](/tasks-periodic.yml):
             * `va/background/daily/migrate/nca_facility`
@@ -51,14 +54,17 @@ The following services can affect the CMS's functionality or data at any time.
             * [migrate_plus.migration.va_node_facility_vet_centers_mvc.yml](/config/sync/migrate_plus.migration.va_node_facility_vet_centers_mvc.yml)
             * [migrate_plus.migration.va_node_facility_vet_centers_os.yml](/config/sync/migrate_plus.migration.va_node_facility_vet_centers_os.yml)
             * [migrate_plus.migration.va_node_health_care_local_facility.yml](/config/sync/migrate_plus.migration.va_node_health_care_local_facility.yml)
+         * Note: API paths are [overridden](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/docroot/modules/custom/va_gov_migrate/config/install/migrate_plus.migration.va_node_facility_nca.yml#L22) by [settings.php](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/docroot/sites/default/settings.php#L146)
     * Monitoring
         * External
             * https://valighthouse.statuspage.io
+    * Escalation contact
+        * [#vsa-facilities slack channel](https://dsva.slack.com/archives/C0FQSS30V) - Adam Stinton
 * Forms API (nightly DB dump)
     * Content
-        * form data (names, filenames, audiences, status) and creates/updates “VA Form” nodes
+        * Form data (names, filenames, audiences, status) and creates/updates “VA Form” nodes
     * Mode
-        * Nightly migration ([README](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/migrations-forms.md))
+        * Nightly migration ([README](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/migrations-forms.md#forms-migration))
     * Monitoring
         * External
             *  Unknown
@@ -84,18 +90,6 @@ The following services can affect the CMS's functionality or data at any time.
             * [https://status.slack.com/](https://status.slack.com/) 
     * Escalation contact
         * Unknown
-* Lighthouse
-    * Mode
-        * Cron uses post api module to process updates queue
-    * Data
-        * VAMC & Vet Center Facility statuses
-        * Cemetery statuses
-        * Facility health services (covid only now, all services soon)
-    * Monitoring
-        * External
-            * https://valighthouse.statuspage.io
-    * Escalation contact
-        * [#vsa-facilities slack channel](https://dsva.slack.com/archives/C0FQSS30V) - Adam Stinton
 * [SSOi](https://dvagov.sharepoint.com/sites/OITEPMOIAM/playbooks/Pages/IAM%20URLs.aspx) (must be on VA network to access doc)
     * Content
         * CMS users are authenticated with the VA Single Sign On service (SSOi)
