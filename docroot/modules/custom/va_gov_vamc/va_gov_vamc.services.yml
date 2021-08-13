@@ -1,5 +1,6 @@
 services:
   va_gov_vamc.entity_event_subscriber:
     class: Drupal\va_gov_vamc\EventSubscriber\EntityEventSubscriber
+    arguments: ['@current_user', '@va_gov_user.user_perms']
     tags:
       - { name: event_subscriber }
