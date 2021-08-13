@@ -3,7 +3,7 @@ name: VAgov CMS S3 Backup Manager
 on:
   # UTC 5am is ET 1am, everyday.
   schedule:
-    - cron: '0 5 * * *'
+    - cron: '0 0 * * 1-5'
   workflow_dispatch:
 
 jobs:
