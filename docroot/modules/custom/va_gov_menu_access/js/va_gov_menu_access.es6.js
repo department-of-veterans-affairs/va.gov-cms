@@ -25,7 +25,8 @@
       if (
         drupalSettings.vagov_menu_access.content_type ===
           "not-allowed-to-operate-on-menu" &&
-        adminTest === false
+        adminTest === false &&
+        document.querySelector("details#edit-menu")
       ) {
         document.querySelector("details#edit-menu").style.display = "none";
       }
@@ -33,9 +34,11 @@
       function menuSelectHandler() {
         // If we don't have anything in the menu, don't show it.
         if (
+          document.querySelector(".menu-parent-select") &&
           document
             .querySelector(".menu-parent-select")
-            .classList.contains("no-available-menu-targets")
+            .classList.contains("no-available-menu-targets") &&
+          document.getElementById("edit-menu")
         ) {
           document.getElementById("edit-menu").style.display = "none";
         }
@@ -46,6 +49,7 @@
         );
 
         if (
+          document.getElementById("edit-menu-title") &&
           document.getElementById("edit-menu-title").hasAttribute("disabled") &&
           menuEnableCheckbox !== null
         ) {
