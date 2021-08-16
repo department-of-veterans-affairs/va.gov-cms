@@ -23,7 +23,7 @@ class HttpClient {
    * @param string $body
    *   The body to return.
    *
-   * @return GuzzleHttp\Client
+   * @return \GuzzleHttp\Client
    *   Mocked Guzzle Client.
    */
   public static function create(
