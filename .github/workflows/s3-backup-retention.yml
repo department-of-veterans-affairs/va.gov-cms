@@ -1,0 +1,141 @@
+
+name: VAgov CMS S3 Backup Manager
+on:
+  # UTC 5am is ET 1am, everyday.
+  schedule:
+    - cron: '0 5 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  backup-daily:
+    runs-on: ubuntu-latest
+    steps:
+      # Cron set to run daily. Lets get the day of the week for the weekly backup steps.
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date)"
+
+      - name: Display date
+        run: echo "The current date is ${{ steps.date.outputs.date }}"
+
+      # Get the initial AWS IAM User credentials. Only has basic permissions for sts:assumeRole
+      - name: Configure AWS credentials (1)
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-gov-west-1
+
+      # Will use in the future. CMS github actions user needs additional permissions to use SSM Parameter Store.
+      #      - name: Get AWS IAM role
+      #        uses: marvinpinto/action-inject-ssm-secrets@latest
+      #        with:
+      #          ssm_parameter: /cms/github-actions/parameters/AWS_VAGOV_CMS_PROD_S3_ROLE
+      #          env_variable_name: AWS_VAGOV_CMS_PROD_S3_ROLE
+
+      # Get credentials from our s3 role. Least privilege method for AWS IAM.
+      - name: Configure AWS Credentials (2)
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-gov-west-1
+          role-to-assume: ${{ secrets.AWS_VAGOV_CMS_PROD_S3_ROLE }}
+          role-duration-seconds: 900
+          role-session-name: vsp-vagov-cms-githubaction
+
+      # Daily Backups
+      - name: Backup Daily Asset Files
+        run: |
+          latest_file=$(aws s3api list-objects \
+          --bucket $BUCKET \
+          --prefix $SOURCE_PREFIX \
+          --query "Contents[?contains(Key, 'cmsapp')] | reverse(sort_by(@, &LastModified)[].{LastModified:LastModified,Key:Key}) | [:1]" | jq '.[].Key' --raw-output)
+
+          latest_file_no_prefix=$(echo $latest_file | sed "s%^$SOURCE_PREFIX%%g")
+
+          aws s3 cp s3://$BUCKET/$latest_file s3://$BUCKET/$DESTINATION_PREFIX/$latest_file_no_prefix
+        env:
+          SOURCE_PREFIX: files/
+          DESTINATION_PREFIX: backups/daily/files
+          BUCKET: dsva-vagov-prod-cms-backup-sanitized
+
+      - name: Backup Daily Sanitized SQL Files
+        run: |
+          latest_file=$(aws s3api list-objects \
+          --bucket $BUCKET \
+          --prefix $SOURCE_PREFIX \
+          --query "Contents[?contains(Key, 'latest') == \`false\`] | reverse(sort_by(@, &LastModified)[].{LastModified:LastModified,Key:Key}) | [:1]" | jq '.[].Key' --raw-output)
+
+          latest_file_no_prefix=$(echo $latest_file | sed "s%^$SOURCE_PREFIX%%g")
+
+          aws s3 cp s3://$BUCKET/$latest_file s3://$BUCKET/$DESTINATION_PREFIX/$latest_file_no_prefix
+        env:
+          SOURCE_PREFIX: database/
+          DESTINATION_PREFIX: backups/daily/database
+          BUCKET: dsva-vagov-prod-cms-backup-sanitized
+
+      - name: Backup Daily Production SQL Files
+        run: |
+          latest_file=$(aws s3api list-objects \
+          --bucket $BUCKET \
+          --prefix $SOURCE_PREFIX \
+          --query "Contents[?contains(Key, 'latest') == \`false\`] | reverse(sort_by(@, &LastModified)[].{LastModified:LastModified,Key:Key}) | [:1]" | jq '.[].Key' --raw-output)
+
+          latest_file_no_prefix=$(echo $latest_file | sed "s%^$SOURCE_PREFIX%%g")
+
+          aws s3 cp s3://$BUCKET/$latest_file s3://$BUCKET/$DESTINATION_PREFIX/$latest_file_no_prefix
+        env:
+          SOURCE_PREFIX: database/
+          DESTINATION_PREFIX: backups/daily/database
+          BUCKET: dsva-vagov-prod-cms-backup
+
+        # Weekly
+        # if: contains(steps.date.outputs.date,'Mon'), if the date returned is Monday, run these steps.
+      - name: Backup Weekly Asset Files
+        if: contains(steps.date.outputs.date,'Mon')
+        run: |
+          latest_file=$(aws s3api list-objects \
+          --bucket $BUCKET \
+          --prefix $SOURCE_PREFIX \
+          --query "Contents[?contains(Key, 'cmsapp')] | reverse(sort_by(@, &LastModified)[].{LastModified:LastModified,Key:Key}) | [:1]" | jq '.[].Key' --raw-output)
+
+          latest_file_no_prefix=$(echo $latest_file | sed "s%^$SOURCE_PREFIX%%g")
+
+          aws s3 cp s3://$BUCKET/$latest_file s3://$BUCKET/$DESTINATION_PREFIX/$latest_file_no_prefix
+        env:
+          SOURCE_PREFIX: files/
+          DESTINATION_PREFIX: backups/weekly/files
+          BUCKET: dsva-vagov-prod-cms-backup-sanitized
+
+      - name: Backup Weekly Sanitized SQL Files
+        if: contains(steps.date.outputs.date,'Mon')
+        run: |
+          latest_file=$(aws s3api list-objects \
+          --bucket $BUCKET \
+          --prefix $SOURCE_PREFIX \
+          --query "Contents[?contains(Key, 'latest') == \`false\`] | reverse(sort_by(@, &LastModified)[].{LastModified:LastModified,Key:Key}) | [:1]" | jq '.[].Key' --raw-output)
+
+          latest_file_no_prefix=$(echo $latest_file | sed "s%^$SOURCE_PREFIX%%g")
+
+          aws s3 cp s3://$BUCKET/$latest_file s3://$BUCKET/$DESTINATION_PREFIX/$latest_file_no_prefix
+        env:
+          SOURCE_PREFIX: database/
+          DESTINATION_PREFIX: backups/weekly/database
+          BUCKET: dsva-vagov-prod-cms-backup-sanitized
+
+      - name: Backup Weekly Production SQL Files
+        if: contains(steps.date.outputs.date,'Mon')
+        run: |
+          latest_file=$(aws s3api list-objects \
+          --bucket $BUCKET \
+          --prefix $SOURCE_PREFIX \
+          --query "Contents[?contains(Key, 'latest') == \`false\`] | reverse(sort_by(@, &LastModified)[].{LastModified:LastModified,Key:Key}) | [:1]" | jq '.[].Key' --raw-output)
+
+          latest_file_no_prefix=$(echo $latest_file | sed "s%^$SOURCE_PREFIX%%g")
+
+          aws s3 cp s3://$BUCKET/$latest_file s3://$BUCKET/$DESTINATION_PREFIX/$latest_file_no_prefix
+        env:
+          SOURCE_PREFIX: database/
+          DESTINATION_PREFIX: backups/weekly/database
+          BUCKET: dsva-vagov-prod-cms-backup
