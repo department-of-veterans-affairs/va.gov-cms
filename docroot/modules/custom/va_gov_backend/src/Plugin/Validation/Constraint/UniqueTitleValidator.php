@@ -14,6 +14,7 @@ class UniqueTitleValidator extends ConstraintValidator {
    * {@inheritdoc}
    */
   public function validate($item, Constraint $constraint) {
+    /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\UniqueTitle $constraint */
 
     // We will use this for comparison against results.
     $original_comparator = $this->stripPunctuation($item->value);
@@ -38,11 +39,15 @@ class UniqueTitleValidator extends ConstraintValidator {
 
     if (!empty($nodes)) {
       // See if we have any that match our field value.
+      /** @var array{id: int, node: \Drupal\node\NodeInterface} $nodes */
       foreach ($nodes as $node) {
         // Compare our input title against db first word match.
         if ($this->isSame($original_comparator, $node->get('title')->value)) {
           // Identical, so throw violation.
-          $this->context->addViolation($constraint->notUniqueTitle, ['%title' => $node->get('title')->value, ':nid' => $node->id()]);
+          $this->context->addViolation($constraint->notUniqueTitle, [
+            '%title' => $node->get('title')->value,
+            ':nid' => $node->id(),
+          ]);
         }
       }
     }

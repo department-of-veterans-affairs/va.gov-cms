@@ -19,6 +19,15 @@ function va_gov_user_user_login($account) {
     $alias_manager = \Drupal::service('path_alias.manager');
     $alias = $alias_manager->getAliasByPath('/taxonomy/term/' . key($sections));
     $response = new RedirectResponse($alias);
+    // Save the session so login works.
+    // Refactor the redirect code out of hook_user_login().
+    // See https://www.drupal.org/node/2023537 and
+    // https://www.drupal.org/node/3006306.
+    $request = \Drupal::request();
+    $request->getSession()->save();
+    $response->prepare($request);
+    // Make sure to trigger kernel events.
+    \Drupal::service('kernel')->terminate($request, $response);
     $response->send();
   }
 }

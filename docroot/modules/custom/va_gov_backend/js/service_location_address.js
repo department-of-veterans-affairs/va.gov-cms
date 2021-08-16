@@ -7,7 +7,7 @@
 
 (function (Drupal) {
   Drupal.behaviors.vaGovServiceLocationAddress = {
-    attach: function attach() {
+    attach: function attach(context) {
       var checkboxes = document.querySelectorAll(".paragraph-type--service-location-address .form-checkbox");
       checkboxes.forEach(function (check) {
         var address = check.parentElement.parentElement.nextElementSibling;
@@ -19,6 +19,15 @@
           }
         });
       });
+
+      var serviceLocations = context.querySelectorAll(".paragraph-type--service-location");
+      var serviceLocationsToggles = context.querySelectorAll(".paragraph-type--service-location .paragraphs-dropdown-toggle");
+
+      if (serviceLocations.length < 2) {
+        serviceLocationsToggles.forEach(function (item) {
+          item.style.display = "none";
+        });
+      }
     }
   };
 })(Drupal);

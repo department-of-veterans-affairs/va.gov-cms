@@ -4,7 +4,7 @@
 
 ((Drupal) => {
   Drupal.behaviors.vaGovServiceLocationAddress = {
-    attach() {
+    attach(context) {
       // Grab our address toggles.
       const checkboxes = document.querySelectorAll(
         ".paragraph-type--service-location-address .form-checkbox"
@@ -21,6 +21,19 @@
           }
         });
       });
+
+      const serviceLocations = context.querySelectorAll(
+        ".paragraph-type--service-location"
+      );
+      const serviceLocationsToggles = context.querySelectorAll(
+        ".paragraph-type--service-location .paragraphs-dropdown-toggle"
+      );
+      // If only one location, remove the delete button.
+      if (serviceLocations.length < 2) {
+        serviceLocationsToggles.forEach((item) => {
+          item.style.display = "none";
+        });
+      }
     },
   };
 })(Drupal);

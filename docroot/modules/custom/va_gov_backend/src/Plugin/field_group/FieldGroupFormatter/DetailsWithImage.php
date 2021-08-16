@@ -2,7 +2,7 @@
 
 namespace Drupal\va_gov_backend\Plugin\field_group\FieldGroupFormatter;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\field_group\Plugin\field_group\FieldGroupFormatter\Details;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -21,12 +21,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class DetailsWithImage extends Details implements ContainerFactoryPluginInterface {
+
   /**
-   * The entity manager service.
+   * The module handler service.
    *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
-  protected $entityManager;
+  protected $moduleHandler;
 
   /**
    * {@inheritdoc}
@@ -38,7 +39,7 @@ class DetailsWithImage extends Details implements ContainerFactoryPluginInterfac
       $configuration['group'],
       $configuration['settings'],
       $configuration['label'],
-      $container->get('entity_type.manager')
+      $container->get('module_handler')
     );
   }
 
@@ -55,12 +56,12 @@ class DetailsWithImage extends Details implements ContainerFactoryPluginInterfac
    *   The formatter settings.
    * @param string $label
    *   The formatter label.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityManager
-   *   The entity instance.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
+   *   The module handler service.
    */
-  public function __construct($plugin_id, $plugin_definition, \stdClass $group, array $settings, $label, EntityTypeManagerInterface $entityManager) {
+  public function __construct($plugin_id, $plugin_definition, object $group, array $settings, $label, ModuleHandlerInterface $moduleHandler) {
     parent::__construct($plugin_id, $plugin_definition, $group, $settings, $label);
-    $this->entityManager = $entityManager;
+    $this->moduleHandler = $moduleHandler;
   }
 
   /**
@@ -69,7 +70,7 @@ class DetailsWithImage extends Details implements ContainerFactoryPluginInterfac
   public function process(&$element, $processed_object) {
     parent::process($element, $processed_object);
     if (!empty($this->getSetting('visual_guide_file_name'))) {
-      $path = \Drupal::service('module_handler')->getModule('va_gov_backend')->getPath() . '/images/' . $this->getSetting('visual_guide_file_name');
+      $path = $this->moduleHandler->getModule('va_gov_backend')->getPath() . '/images/' . $this->getSetting('visual_guide_file_name');
       if (file_exists($path)) {
         $svg_render = [
           '#theme' => 'image',
@@ -151,7 +152,7 @@ class DetailsWithImage extends Details implements ContainerFactoryPluginInterfac
     $defaults = [
       'open' => FALSE,
       'required_fields' => $context == 'form',
-    ] + parent::defaultSettings($context);
+    ] + parent::defaultSettings();
 
     if ($context == 'form') {
       $defaults['required_fields'] = 1;

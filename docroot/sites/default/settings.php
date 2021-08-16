@@ -1,10 +1,10 @@
 <?php
 
-// @codingStandardsIgnoreFile
+// phpcs:ignoreFile
 
 /**
  * For documentation and more options
- * @see https://git.drupalcode.org/project/drupal/blob/8.6.x/sites/default/default.settings.php
+ * @see /docroot/sites/default/default.settings.php
  */
 
 /**

@@ -2,3 +2,7 @@ services:
   va_gov_workflow_assignments.editorial_workflow:
     class: Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepository
     arguments: ['@database']
+  va_gov_workflow_assignments.entity_event_subscriber:
+    class: Drupal\va_gov_workflow_assignments\EventSubscriber\EntityEventSubscriber
+    tags:
+      - { name: event_subscriber }
