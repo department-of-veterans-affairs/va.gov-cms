@@ -71,11 +71,6 @@ parameters:
 			path: docroot/modules/custom/va_gov_backend/va_gov_backend.install
 
 		-
-			message: "#^Call to method delete\\(\\) on an unknown class Drupal\\\\field\\\\Entity\\\\Drupal\\\\field\\\\Entity\\\\FieldConfigInterface\\.$#"
-			count: 6
-			path: docroot/modules/custom/va_gov_backend/va_gov_backend.install
-
-		-
 			message: "#^Function field_group_group_delete not found\\.$#"
 			count: 3
 			path: docroot/modules/custom/va_gov_backend/va_gov_backend.install
@@ -181,6 +176,11 @@ parameters:
 			path: docroot/modules/custom/va_gov_build_trigger/src/Service/BuildFrontend.php
 
 		-
+			message: "#^Method Symfony\\\\Contracts\\\\EventDispatcher\\\\EventDispatcherInterface\\:\\:dispatch\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_clone/src/CloneManager.php
+
+		-
 			message: "#^Call to an undefined method Github\\\\Api\\\\ApiInterface\\:\\:issues\\(\\)\\.$#"
 			count: 1
 			path: docroot/modules/custom/va_gov_consumers/src/Git/GithubAdapter.php
@@ -199,11 +199,6 @@ parameters:
 			message: "#^Call to an undefined method Drupal\\\\Core\\\\Form\\\\FormInterface\\:\\:getEntity\\(\\)\\.$#"
 			count: 3
 			path: docroot/modules/custom/va_gov_consumers/va_gov_consumers.module
-
-		-
-			message: "#^PHPDoc tag @param for parameter \\$entity_type_manager with type Drupal\\\\va_gov_dashboards\\\\Service\\\\Drupal\\\\Core\\\\Entity\\\\EntityTypeManagerInterface is not subtype of native type Drupal\\\\Core\\\\Entity\\\\EntityTypeManagerInterface\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_dashboards/src/Service/VetCenterDashboard.php
 
 		-
 			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_product\\.$#"
@@ -679,29 +674,6 @@ parameters:
 			path: docroot/modules/custom/va_gov_vet_center/va_gov_vet_center.module
 
 		-
-			message:
-				"""
-					#^PHPDoc tag @param has invalid value \\(array &\\$build
-					  A renderable array representing the entity content\\.\\)\\: Unexpected token "&", expected variable at offset 87$#
-				"""
-			count: 1
-			path: docroot/modules/custom/va_gov_vet_center/va_gov_vet_center.module
-
-		-
-			message:
-				"""
-					#^PHPDoc tag @param has invalid value \\(array &\\$build
-					  A renderable array representing the entity content\\.\\)\\: Unexpected token "&", expected variable at offset 92$#
-				"""
-			count: 1
-			path: docroot/modules/custom/va_gov_vet_center/va_gov_vet_center.module
-
-		-
-			message: "#^Call to an undefined method Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:referencedEntities\\(\\)\\.$#"
-			count: 2
-			path: docroot/modules/custom/va_gov_workflow_assignments/src/Plugin/Block/EntityMetaDisplay.php
-
-		-
 			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\ContentEntityInterface\\:\\:\\$field_accordion_display\\.$#"
 			count: 1
 			path: docroot/themes/custom/vagovadmin/vagovadmin.theme
@@ -712,33 +684,9 @@ parameters:
 			path: docroot/themes/custom/vagovadmin/vagovadmin.theme
 
 		-
-			message:
-				"""
-					#^Class CustomDrupal\\\\ContentModelContext implements deprecated interface Behat\\\\Behat\\\\Context\\\\SnippetAcceptingContext\\:
-					will be removed in 4\\.0\\. Use \\-\\-snippets\\-for CLI option instead$#
-				"""
-			count: 1
-			path: tests/behat/Drupal/ContentModelContext.php
-
-		-
-			message: "#^Instantiated class Behat\\\\Behat\\\\Exception\\\\BehaviorException not found\\.$#"
-			count: 1
-			path: tests/behat/Drupal/ContentModelContext.php
-
-		-
-			message: "#^PHPDoc tag @throws with type CustomDrupal\\\\Behat\\\\Behat\\\\Exception\\\\BehaviorException is not subtype of Throwable$#"
-			count: 1
-			path: tests/behat/Drupal/ContentModelContext.php
-
-		-
 			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
 			count: 2
 			path: tests/behat/Drupal/ContentModelContext.php
-
-		-
-			message: "#^Variable \\$entity_type might not be defined\\.$#"
-			count: 5
-			path: tests/behat/Drupal/ContentModelContextCustom.php
 
 		-
 			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
@@ -751,99 +699,6 @@ parameters:
 			path: tests/behat/Drupal/ContextBase.php
 
 		-
-			message: "#^Access to an undefined property CustomDrupal\\\\FeatureContext\\:\\:\\$username\\.$#"
-			count: 1
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message: "#^Binary operation \"\\.\" between 'The selector ' and Behat\\\\Mink\\\\Element\\\\NodeElement\\|null results in an error\\.$#"
-			count: 2
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message: "#^Call to an undefined method Behat\\\\Testwork\\\\Environment\\\\Environment\\:\\:getContext\\(\\)\\.$#"
-			count: 1
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:set\\(\\)\\.$#"
-			count: 1
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setPublished\\(\\)\\.$#"
-			count: 1
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message: "#^Call to an undefined static method Drupal\\:\\:entityManager\\(\\)\\.$#"
-			count: 1
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message:
-				"""
-					#^Class CustomDrupal\\\\FeatureContext implements deprecated interface Behat\\\\Behat\\\\Context\\\\SnippetAcceptingContext\\:
-					will be removed in 4\\.0\\. Use \\-\\-snippets\\-for CLI option instead$#
-				"""
-			count: 1
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message: "#^PHPDoc tag @throws with type CustomDrupal\\\\ElementNotFoundException is not subtype of Throwable$#"
-			count: 1
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message: "#^PHPDoc tag @throws with type CustomDrupal\\\\Exception is not subtype of Throwable$#"
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
 			count: 3
 			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message: "#^Parameter \\$group of method CustomDrupal\\\\FeatureContext\\:\\:newUserJoinGroup\\(\\) has invalid typehint type Drupal\\\\group\\\\Entity\\\\Group\\.$#"
-			count: 2
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message: "#^Parameter \\$group of method CustomDrupal\\\\FeatureContext\\:\\:userJoinGroup\\(\\) has invalid typehint type Drupal\\\\group\\\\Entity\\\\Group\\.$#"
-			count: 2
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
-			count: 4
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
-			message: "#^Call to an undefined method CustomDrupal\\\\UserRolesAndPermissionsContext\\:\\:getTableNodeFromCsv\\(\\)\\.$#"
-			count: 1
-			path: tests/behat/Drupal/UserRolesAndPermissionsContext.php
-
-		-
-			message:
-				"""
-					#^Class CustomDrupal\\\\UserRolesAndPermissionsContext implements deprecated interface Behat\\\\Behat\\\\Context\\\\SnippetAcceptingContext\\:
-					will be removed in 4\\.0\\. Use \\-\\-snippets\\-for CLI option instead$#
-				"""
-			count: 1
-			path: tests/behat/Drupal/UserRolesAndPermissionsContext.php
-
-		-
-			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
-			count: 4
-			path: tests/behat/Drupal/UserRolesAndPermissionsContext.php
-
-		-
-			message: "#^PHPDoc tag @return with type Tests\\\\Support\\\\Mock\\\\GuzzleHttp\\\\Client is not subtype of native type GuzzleHttp\\\\Client\\.$#"
-			count: 1
-			path: tests/phpunit/Support/Mock/HttpClient.php
-
-		-
-			message: "#^Return typehint of method Tests\\\\Support\\\\Mock\\\\HttpClient\\:\\:create\\(\\) has invalid type Tests\\\\Support\\\\Mock\\\\GuzzleHttp\\\\Client\\.$#"
-			count: 1
-			path: tests/phpunit/Support/Mock/HttpClient.php
-
-		-
-			message: "#^Method Symfony\\\\Contracts\\\\EventDispatcher\\\\EventDispatcherInterface\\:\\:dispatch\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 2
-			path: docroot/modules/custom/va_gov_clone/src/CloneManager.php
