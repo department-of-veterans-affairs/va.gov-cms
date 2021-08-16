@@ -1,0 +1,22 @@
+uuid: c48468f2-2775-4a41-aa9a-4d4005179f7c
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_system_billing_insurance
+id: node.vamc_system_billing_insurance.promote
+field_name: promote
+entity_type: node
+bundle: vamc_system_billing_insurance
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
