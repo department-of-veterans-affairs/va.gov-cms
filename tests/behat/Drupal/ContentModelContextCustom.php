@@ -118,14 +118,7 @@ class ContentModelContextCustom extends ContextBase {
    */
   public function assertFields(TableNode $expected, $entity_type_id, $bundle_names = NULL) {
     $fields = [];
-    try {
-      $entity_type = $this->entityTypeManager()->getDefinition($entity_type_id);
-    }
-    catch (PluginNotFoundException $e) {
-      // A PluginNotFoundException here just means that the module providing
-      // the entity type in question isn't installed. Continue.
-    }
-
+    $entity_type = $this->entityTypeManager()->getDefinition($entity_type_id);
     $bundles = $this->entityTypeManager()
       ->getStorage($entity_type->getBundleEntityType())
       ->loadMultiple($bundle_names);

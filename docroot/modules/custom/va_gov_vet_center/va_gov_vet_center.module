@@ -167,7 +167,7 @@ function va_gov_vet_center_entity_view_alter(array &$build, EntityInterface $ent
 /**
  * Output facility listing view on vc locations node view page.
  *
- * @param array &$build
+ * @param array $build
  *   A renderable array representing the entity content.
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   The entity object being rendered.
@@ -196,7 +196,7 @@ function _va_gov_vet_center_add_facilities_listing_block_to_view(array &$build, 
 /**
  * Unset field_office_hours on proofing page based on trigger field.
  *
- * @param array &$build
+ * @param array $build
  *   A renderable array representing the entity content.
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   The entity object being rendered.
