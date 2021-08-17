@@ -4,6 +4,13 @@ Content releases are initiated in one of two ways:
 - automatically, via [this Jenkins job](http://jenkins.vfs.va.gov/job/deploys/job/vets-website-content-autodeploy/)
 - manually, via the ["Release content"](https://prod.cms.va.gov/admin/content/deploy) page in the CMS.
 
+The configuration for
+
+jenkins_build_job_host
+jenkins_build_job_path
+jenkins_build_job_params
+jenkins_build_job_url
+
 ## Automatic
 
 ### Timed
@@ -25,6 +32,17 @@ This page is constructed by the [`va_gov_build_trigger`](https://github.com/depa
 ### Build-Release-Deploy (Production and Staging)
 
 The Release content page on BRD environments invokes the [same Jenkins job](http://jenkins.vfs.va.gov/job/deploys/job/vets-gov-autodeploy-content-build/) as the automatic deploys do, and consequently there should be no discrepancy between the output of the two.
+
+The configuration in Drupal for the Jenkins build are stored in Drupal settings.
+
+Here are the settings for production.  Other settings can be found in the enviornment `*.settings.php` files.
+
+```
+$settings['jenkins_build_job_host'] = 'http://jenkins.vfs.va.gov';
+$settings['jenkins_build_job_path'] = '/job/deploys/job/vets-gov-autodeploy-content-build';
+$settings['jenkins_build_job_params'] = '/buildWithParameters?' . 'release_wait=0' . '&' . 'use_latest_release=true';
+$settings['jenkins_build_job_url'] = $settings['jenkins_build_job_host'] . $settings['jenkins_build_job_path'] . $settings['jenkins_build_job_params'];
+```
 
 **To manually run the jenkins job:**
 1. Go to http://jenkins.vfs.va.gov/job/deploys/job/vets-gov-autodeploy-content-build/.
