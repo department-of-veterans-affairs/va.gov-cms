@@ -6,9 +6,15 @@ Content releases are initiated in one of two ways:
 
 ## Automatic
 
+### Timed
+
 The [Content-Only Autodeploy job](http://jenkins.vfs.va.gov/job/deploys/job/vets-gov-autodeploy-content-build/) handles automatic content deploys.
 
 It is currently [set](https://github.com/department-of-veterans-affairs/devops/blob/676833d3d85abad9071e1df71a9c73b9f027bd41/ansible/deployment/config/jenkins-vetsgov/seed_job.groovy#L310) to execute weekdays at 9AM, 10AM, 11AM, 12PM, 1:45PM, 4PM, amd 5PM.
+
+### Triggered
+
+The content release is also triggered based upon content updates in Drupal.  The logic to when a build is triggered is at Drupal\va_gov_build_trigger\Service::triggerFrontendBuildFromContentSave()`.
 
 ## Manual
 
