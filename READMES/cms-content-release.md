@@ -14,13 +14,13 @@ It is currently [set](https://github.com/department-of-veterans-affairs/devops/b
 
 ### Triggered
 
-The content release is also triggered based upon content updates in Drupal.  The logic to when a build is triggered is at Drupal\va_gov_build_trigger\Service::triggerFrontendBuildFromContentSave()`.
+The content release is also triggered based upon content updates in Drupal.  The logic that controls when a build is triggered is at [`Drupal\va_gov_build_trigger\Service::triggerFrontendBuildFromContentSave()`](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/98f4666d7b6aabf984f679fdaec4088c35e08488/docroot/modules/custom/va_gov_build_trigger/src/Service/BuildFrontend.php#L162).
 
 ## Manual
 
 Manual content releases are initiated from the **Release content** page in the CMS.
 
-This page is constructed by the `va_gov_build_trigger` module.  The page will differ slightly in presentation and significantly in the details of its operation depending on which environment hosts it.
+This page is constructed by the [`va_gov_build_trigger`](https://github.com/department-of-veterans-affairs/va.gov-cms/tree/master/docroot/modules/custom/va_gov_build_trigger) module. The page will differ slightly in presentation and significantly in the details of its operation depending on which environment hosts it.
 
 ### Build-Release-Deploy (Production and Staging)
 
