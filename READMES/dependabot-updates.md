@@ -1,10 +1,10 @@
-Dependabot automaticly scans the `composer.json`, `composer.lock`, `package.json`, and `package-lock.json` files to make sure packages are up to date.  This document is descrbi the process for reviewing and merging dependabot updates.  Dependabot functionality is described on the [Github documentation page](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically)
+Dependabot automaticly scans the `composer.json`, `composer.lock`, `package.json`, and `package-lock.json` files to make sure packages are up to date.  This document describes the process for reviewing and merging dependabot updates.  Dependabot functionality is described on the [Github documentation page](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically)
 
 ## Determine the source
   
 ### va-gov/content-build
 
-The package is `va-gov/content-build` is the va.gov content build.  This PR can be merged if all tests pass.  No other work is needed.
+The package `va-gov/content-build` is the va.gov content build.  This PR can be merged if all tests pass.  No other work is needed.
   
 ### Packagist/NPM with release note
 
