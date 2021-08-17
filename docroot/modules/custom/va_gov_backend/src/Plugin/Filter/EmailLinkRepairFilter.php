@@ -35,7 +35,7 @@ class EmailLinkRepairFilter extends FilterBase {
       $url = $element->getAttribute('href');
       $email = filter_var($url, FILTER_VALIDATE_EMAIL);
       if ($email !== FALSE) {
-        $element->setAttribute('href', "mailto:$email");
+        $element->setAttribute('href', 'mailto:' . $email);
       }
     }
     $result->setProcessedText(Html::serialize($dom));
