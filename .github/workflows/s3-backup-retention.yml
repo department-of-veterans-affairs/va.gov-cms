@@ -8,6 +8,7 @@ on:
 
 jobs:
   backup-daily:
+    if: github.repository == 'department-of-veterans-affairs/va.gov-cms'
     runs-on: ubuntu-latest
     steps:
       # Cron set to run daily. Lets get the day of the week for the weekly backup steps.
