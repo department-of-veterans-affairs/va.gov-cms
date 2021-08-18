@@ -15,23 +15,12 @@ Current State MVP
 3. Once approved, the user administrator will create your account and assign the requested role(s) and you will receive an email with instructions on how to access your account.
 4. You may then log into Drupal (https://prod.cms.va.gov) while on the VA Network using either your username/password or your PIV/Smartcard by clicking "Login with PIV or other Smartcard.". 
 
-Future State
-1. User requesitng access will fill out and submit a user resuest form at x https://prod.cms.va.gov/user/request-access
-2. The request will be routed to the appropriate user_access_admin who will establish the account with appropriate roles and permissions
-3. An email will be sent to the uer with relevant information on how to access their new account (username, password PIV login instruction) and will providel links to the training guides in Drupal
-
-user_access_admins (proposed / notional)
-VACO: Joshua Tuscher
-VHA: Jennifer Heiland-Luedtke, Steve Tokar 
-VBA: TBD
-NVA: TBD
-
 ## Technical Details
   * SSOi is handled by the simplesaml_php module.  It connects existing accounts to the Active Directory user via their email address and user name.
   * Once the connection has been established by the the user logging in with their PIV card, the system will update their CMS account with username and email address changes from their Active Directory account.
   * Logging in via username and passwords will be turned off once the SSOi system has proven to be reliable.
   * Config settings are split to allow debugging data on DEV but not STAGING or PROD.
-  * Accounts are connect in authmap by VAUID (a number that is specific to a single user.)
+  * Accounts are connected in authmap by VAUID (a number that is specific to a single user.)
   * Email addresses are synced at each login for changes with adUPN (the user's email address) and that email is also used to connect existing accounts to initial logins with SSOi.
   * Usernames are synced at each login to the adUPN (the user's email address).
 
