@@ -81,12 +81,12 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Add js script and disallowed nids to Banner node form.
+   * Add js script and disallowed nids to Full Width Banner node form.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
    *   The event.
    */
-  public function alterBannerNodeForm(FormIdAlterEvent $event): void {
+  public function alterFullWidthBannerNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
     $vamc_field_options = $form['field_banner_alert_vamcs']['widget']['#options'];
     foreach ($vamc_field_options as $nid => $node_option_string) {
@@ -106,10 +106,10 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       // React on Op status forms.
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_form.alter' => 'alterOpStatusNodeForm',
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_edit_form.alter' => 'alterOpStatusNodeForm',
-      // React on banner forms.
-      'hook_event_dispatcher.form_node_full_width_banner_alert_form.alter' => 'alterBannerNodeForm',
-      'hook_event_dispatcher.form_node_full_width_banner_alert_edit_form.alter' => 'alterBannerNodeForm',
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
+      // React on full width banner forms.
+      'hook_event_dispatcher.form_node_full_width_banner_alert_form.alter' => 'alterFullWidthBannerNodeForm',
+      'hook_event_dispatcher.form_node_full_width_banner_alert_edit_form.alter' => 'alterFullWidthBannerNodeForm',
     ];
   }
 
