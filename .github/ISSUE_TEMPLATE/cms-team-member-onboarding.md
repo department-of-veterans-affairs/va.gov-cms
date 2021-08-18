@@ -7,6 +7,8 @@ labels: Onboarding
 
 # Welcome to the VFS-CMS Team!
 
+Projected start date: <insert_here>
+
 The new team member onboarding materials below are organized by chronological order. If you're a returning user, you can come to this section any time to refresh your knowledge on a specific topic covered below.
 
 ## Day one
