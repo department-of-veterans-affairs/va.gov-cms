@@ -23,11 +23,14 @@ This document is designed to provide guidelines for the development and architec
 * Nested `if`s should be avoided.
 * Nested `foreach` loops should be avoided.
 
+_inspired by [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)_
+
 
 ## Resources
 
 * https://phptherightway.com/
 * https://designpatternsphp.readthedocs.io/en/latest/README.html
 * Book: https://smile.amazon.com/Objects-Patterns-Practice-MATT-ZANDSTRA/dp/1484219953
+* Book: [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
 * Video: https://laracasts.com/series/design-patterns-in-php
 * Video: https://symfonycasts.com/tracks/drupal
