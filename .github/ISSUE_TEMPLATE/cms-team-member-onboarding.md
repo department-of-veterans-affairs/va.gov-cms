@@ -81,7 +81,7 @@ The following trainings and additional videos can be found on the Knowledge Base
  - [ ] [SOCKS proxy request](https://depo-platform-documentation.scrollhelp.site/getting-started/Internal-tools-access-via-SOCKS-proxy.1821081710.html) to access VA network tools until you get a PIV card
     - [ ] [SOCKS instructions for Windows](https://www.youtube.com/watch?v=4MHlX39dCwA)
  - [ ] [Citrix Access Gateway instructions](https://www.oit.va.gov/resources/remote-access/index.cfm?) for after you get your PIV card
- - [ ] [Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/179765342/2020-2021?NO_SSR=1)
+ - [ ] [Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/179765342/2020-2021?NO_SSR=1) for team resources and calendar
  - [ ] [Google Drive](https://drive.google.com/drive/u/0/folders/0ADx85_gnl3Y4Uk9PVA?ths=true) for team documents. Generally, VA doesn't use Google products. Use Github or downloadable files when sharing with VA.
  - [ ] [Trello](https://trello.com/vacmsteam)
 #### DevOps
