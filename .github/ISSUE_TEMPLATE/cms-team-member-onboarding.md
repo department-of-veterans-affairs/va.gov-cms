@@ -66,9 +66,9 @@ The following trainings and additional videos can be found on the Knowledge Base
 - [ ] [Watch the training video that VA Medical Center (VAMC) editors have to complete](https://youtu.be/Sowgt1rOmlE).
 - [ ] [Watch the training video that Vet Center editors have to complete](https://youtu.be/scuC5lSHZuw).
 - [ ] [Watch the training video that Campaign Landing Page editors have to complete](https://youtu.be/RcrOLEvL0xQ).
+- [ ] Read the [product sheets](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/VA-CMS-Product-Sheets.pdf).
 
 #### All users
- - [ ] What products does our team support? Read the [product sheets](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/VA-CMS-Product-Sheets.pdf).
  - [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with the discipline lead.
  - [ ] What applications do you need access to? Discuss with the discipline lead.
  - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
