@@ -6,17 +6,20 @@ labels: Onboarding
 ---
 
 # Welcome to the VFS-CMS Team!
+We're are thrilled to have you join us on this journey. Our vision is to build and maintain a best-in-class Content Management System that meets the needs of editors, application development teams, and consuming applications in order to empower our users to help Veterans.
+
+The onboarding materials below are organized by 1) chronological time to complete (day one, week one, week two, month one); and main category (why, how, who, what). There's a lot to digest but don't worry, your delivery manager will guide you and we'll also pair you up with someone from your workstream to help with specific things related to your discipline (UX, DevOps, Drupal Engineering, etc). In addition, you'll have the support of the entire team, who have all gone through this process before and are eager to answer any questions that arise. Come back to this ticket any time to refresh your knowledge on a specific topic covered below.
+
+Have fun and we look forward to getting to know you!
 
 Projected start date: <insert_here>
-
-The new team member onboarding materials below are organized by chronological order. If you're a returning user, you can come to this section any time to refresh your knowledge on a specific topic covered below.
 
 ## Day one
 ### Why?
 ### How?
 - [ ] Read through our [team norms](https://docs.google.com/document/d/1cs5FePhtR0LIJi63b9ZtqT7T6dphgB584UpfEbejSOc/edit#) that also gives an overview of the [USDS playbook](https://playbook.cio.gov/) and VA.gov platform [code of conduct](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/code-of-conduct.md).
 ### Who?
-- [ ] Who's on the VFS-CMS team? Discuss with your delivery manager or product manager.
+- [ ] Who's on the VFS-CMS team? Discuss with your delivery manager.
 ### What?
 - [ ] Contract - Discuss with your delivery manager.
 - [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
@@ -44,6 +47,7 @@ The goals of this week are: 1) get background paperwork completed as quickly as 
  - [ ] A6: How do you charge time or costs to the project? Discuss with your delivery manager or Finance AVP.
 ### Who?
 - [ ] Who is on the VFS-CMS team? Read your [team members' user manuals and create your own](https://drive.google.com/drive/u/0/folders/195otsT1IUxi_k8oEU21TUkvEG-6p5YQj?ths).
+- [ ] Ensure that your info on the [official team roster](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/185270337/Team+Roster+2021) is correct.
 ### What?
 
 ## Week two (tooling)
