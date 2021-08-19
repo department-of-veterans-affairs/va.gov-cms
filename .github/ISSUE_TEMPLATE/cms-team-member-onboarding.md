@@ -27,7 +27,7 @@ Projected start date: <insert_here>
 - [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
 - [ ] [Onboarding questionnaire](https://docs.google.com/document/d/17fWcL-5p4T3H7dT2bbw02u_CHEZ0tDlszcoMVLfRqP4/edit) (what do you already know in regards to tooling, context, history, etc)
 
-## Week one (context)
+## Week one
 The goals of this week are: 1) get background paperwork completed as quickly as possible and 2) start gaining context for what we're doing and why
 ### Why?
 - [ ] Why is VA.gov using Drupal CMS and how is our success measured? Read the [objectives and key results](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/96698383/Product+CMS).
@@ -50,10 +50,11 @@ The goals of this week are: 1) get background paperwork completed as quickly as 
 ### Who?
 - [ ] Who is on the VFS-CMS team? Read your [team members' user manuals and create your own](https://drive.google.com/drive/u/0/folders/195otsT1IUxi_k8oEU21TUkvEG-6p5YQj?ths).
 - [ ] Ensure that your info on the [official team roster](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/185270337/Team+Roster+2021) is correct.
+- [ ] Let's start introducing you to the team and key stakeholders. If you're on a meeting where you don't know someone, feel free to kickstart an introduction. Everyone in the ecosystem is friendly and interested in connecting.
 ### What?
 
-## Week two (tooling)
-We will pair you up with a buddy on the project that is in your same disipline. They will guide you through what you'll need to get access to in order to be successful based on your workstream.
+## Week two
+The goal for this week is to get you set up with the tools you need to be successful. We will pair you up with a buddy on the project that is in your same disipline to help inform which ones are relevant and which aren't.
 ### Why?
 ### How?
 ### Who?
