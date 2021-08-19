@@ -19,7 +19,7 @@ Projected start date: <insert_here>
 ## Day one
 ### Why?
 ### How?
-- [ ] Read through our [team norms](https://docs.google.com/document/d/1cs5FePhtR0LIJi63b9ZtqT7T6dphgB584UpfEbejSOc/edit#) that also gives an overview of the [USDS playbook](https://playbook.cio.gov/) and VA.gov platform [code of conduct](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/code-of-conduct.md).
+- [ ] Read through our [team norms](https://docs.google.com/document/d/1cs5FePhtR0LIJi63b9ZtqT7T6dphgB584UpfEbejSOc/edit#), which will also give an overview of how we apply the [USDS playbook](https://playbook.cio.gov/) and VA.gov platform [code of conduct](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/code-of-conduct.md).
 ### Who?
 - [ ] Who's on the VFS-CMS team? Discuss with your delivery manager.
 ### What?
