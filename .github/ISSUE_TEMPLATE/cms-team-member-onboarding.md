@@ -54,7 +54,7 @@ The goals of this week are: 1) get background paperwork completed as quickly as 
 ### What?
 
 ## Week two
-The goal for this week is to get you set up with the tools you need to be successful. We will pair you up with a buddy on the project that is in your same disipline to help inform which ones are relevant and which aren't.
+The goal for this week is to get you set up with the tools you need to be successful. We will pair you up with a buddy on the project that is in your same disipline to help inform which ones are relevant and which aren't. The most important thing to get set up is SOCKS as it will give you access to our systems so try to prioritize that.
 ### Why?
 ### How?
 ### Who?
@@ -121,11 +121,12 @@ By this point you should have enough context and access to be able to start cont
 ### What?
 - [ ] [What is Drupal?](https://docs.google.com/spreadsheets/d/11ppWiIggKJh-YAWia28utZXW48tJZGCEg-sFJ6eIl9c)
 - [ ] [Google Analytics](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=joanneesteban%2C+bsmartin-ep%2C+jonwehausen&labels=analytics-insights%2C+analytics-request&template=analytics-request-google-analytics-access.md&title=Request+access+to+Google+Analytics)
+ - [ ] [Opt](https://www.va.gov/analytics-opt-out.html) out of GA collection
 
 ## Month two
 ### Why?
 ### How?
 ### Who?
 ### What?
-- [ ] [CMS Support distro group](https://mim.va.gov/IdentityManagement/default.aspx)
+- [ ] Mainly for helpdesk folks: [CMS Support distro group](https://mim.va.gov/IdentityManagement/default.aspx)
 
