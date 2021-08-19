@@ -93,7 +93,7 @@ The following trainings and additional videos can be found on the Knowledge Base
  - [ ] [AWS](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) (SOCKS required)
  - [ ] sshuttle
 #### Helpdesk
- - [ ] Jira Service Desk
+ - [ ] [Jira Service Desk](https://va-gov.atlassian.net/jira/servicedesk/projects/VAHELP)
 #### Instructional Design
  - [ ] Audio/video recording tools
  - [ ] [YouTube channel for training videos](https://www.youtube.com/channel/UC5Y2p4ASQ5HdRR-pQ8RVQKQ)
