@@ -73,6 +73,7 @@ The following trainings and additional videos can be found on the Knowledge Base
  - [ ] What applications do you need access to? Discuss with the discipline lead.
  - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
  - [ ] [Slack](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/orientation/slack-requests.md) for instant messaging
+   - [ ] Please use [Slack etiquette](https://slack.com/blog/collaboration/etiquette-tips-in-slack).
  - [ ] Github for issue tracking and document sharing
     - [ ] [VA.gov request instructions](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?labels=add-user-to-org%2C+new-user%2C+user-created&template=add-user-to-the-va-organization.md&title=ADD+USER+TO+ORG+-+%5BUSERNAME%5D)
     - [ ] [CMS team list](https://github.com/orgs/department-of-veterans-affairs/teams/vfs-cms-team/members) - get added
