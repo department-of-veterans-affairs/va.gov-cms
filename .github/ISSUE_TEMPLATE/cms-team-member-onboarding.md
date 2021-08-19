@@ -14,14 +14,16 @@ The new team member onboarding materials below are organized by chronological or
 ## Day one
 ### Why?
 ### How?
+- [ ] Read through our [team norms](https://docs.google.com/document/d/1cs5FePhtR0LIJi63b9ZtqT7T6dphgB584UpfEbejSOc/edit#) that also gives an overview of the [USDS playbook](https://playbook.cio.gov/) and VA.gov platform [code of conduct](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/code-of-conduct.md).
 ### Who?
 - [ ] Who's on the VFS-CMS team? Discuss with your delivery manager or product manager.
 ### What?
 - [ ] Contract - Discuss with your delivery manager.
 - [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
-- [ ] Assessment questionnaire
+- [ ] Assessment questionnaire (what does the person need to know in regards to tooling, etc)
 
-## Week one
+## Week one (context)
+The goals of this week are: 1) get background paperwork completed as quickly as possible and 2) start gaining context for what we're doing and why
 ### Why?
 - [ ] Why is VA.gov using Drupal CMS and how is our success measured? Read the [objectives and key results](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/96698383/Product+CMS).
 - [ ] Why are Vet Centers important to Veterans? Watch the [2-minute YouTube video](https://www.youtube.com/watch?v=VMzkZNbKk1I).
@@ -43,10 +45,17 @@ The new team member onboarding materials below are organized by chronological or
 ### Who?
 - [ ] Who is on the VFS-CMS team? Read your [team members' user manuals and create your own](https://drive.google.com/drive/u/0/folders/195otsT1IUxi_k8oEU21TUkvEG-6p5YQj?ths).
 ### What?
-- [ ] What products does our team support? Read the [product sheets](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/VA-CMS-Product-Sheets.pdf).
-- [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with the discipline lead.
-- [ ] What applications do you need access to? Discuss with the discipline lead.
+
+## Week two (tooling)
+We will pair you up with a buddy on the project that is in your same disipline. They will guide you through what you'll need to get access to in order to be successful based on your workstream.
+### Why?
+### How?
+### Who?
+### What?
 #### All users
+ - [ ] What products does our team support? Read the [product sheets](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/VA-CMS-Product-Sheets.pdf).
+ - [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with the discipline lead.
+ - [ ] What applications do you need access to? Discuss with the discipline lead.
  - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
  - [ ] [Slack](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/orientation/slack-requests.md) for instant messaging
  - [ ] Github for issue tracking and document sharing
@@ -56,8 +65,9 @@ The new team member onboarding materials below are organized by chronological or
  - [ ] [SOCKS proxy request](https://depo-platform-documentation.scrollhelp.site/getting-started/Internal-tools-access-via-SOCKS-proxy.1821081710.html) to access VA network tools until you get a PIV card
     - [ ] [SOCKS instructions for Windows](https://www.youtube.com/watch?v=4MHlX39dCwA)
  - [ ] [Citrix Access Gateway instructions](https://www.oit.va.gov/resources/remote-access/index.cfm?) for after you get your PIV card
- - [ ] Confluence
- - [ ] WeWork, as needed
+ - [ ] [Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/179765342/2020-2021?NO_SSR=1)
+ - [ ] [Google drive](https://drive.google.com/drive/u/0/folders/0ADx85_gnl3Y4Uk9PVA?ths=true)
+ - [ ] [Trello](https://trello.com/vacmsteam)
 #### DevOps
  - [ ] [Request access to Github Codespaces](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?assignees=&labels=general+issue%2C+user-created&template=general-help-request.md&title=Add%20user%20to%20Codespaces)
  - [ ] [IAM/SSO lower environment access](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md#testing-login)
@@ -67,7 +77,7 @@ The new team member onboarding materials below are organized by chronological or
  - [ ] [AWS](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) (SOCKS required)
  - [ ] sshuttle
 #### Helpdesk
- - [ ] Jira
+ - [ ] Jira Service Desk
 #### Instructional Design
  - [ ] Audio/video recording tools
  - [ ] [YouTube channel for training videos](https://www.youtube.com/channel/UC5Y2p4ASQ5HdRR-pQ8RVQKQ)
@@ -87,6 +97,7 @@ The new team member onboarding materials below are organized by chronological or
   - [ ] Retros
  
 ## Month one
+By this point you should have enough context and access to be able to start contributing. Work with your team to identify specific issues to focus on.
 ### Why?
 ### How?
 ### Who?
