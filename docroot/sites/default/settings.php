@@ -163,6 +163,9 @@ foreach ($facility_migrations as $facility_migration) {
   $config["migrate_plus.migration.{$facility_migration}"]['source']['headers']['apikey'] = $facility_api_key;
 }
 
+// HTTP client settings
+$settings['http_client_config']['timeout'] = 60;
+
 // Variables for post_api.
 $settings['post_api_endpoint_host'] = getenv('CMS_VAGOV_API_URL') ?: FALSE;
 $settings['post_api_apikey'] = getenv('CMS_VAGOV_API_KEY') ?: FALSE;
