@@ -59,6 +59,14 @@ The goal for this week is to get you set up with the tools you need to be succes
 ### How?
 ### Who?
 ### What?
+
+### What products do we support?
+The following trainings and additional videos can be found on the Knowledge Base on the prod and lesser environments that require VA network or SOCKS proxy access. They can be watched without VA network or SOCKS access at the links below.
+- [ ] [Watch the Drupal CMS editorial experience video for all users](https://youtu.be/ju7EH0F5S4I).
+- [ ] [Watch the training video that VA Medical Center (VAMC) editors have to complete](https://youtu.be/Sowgt1rOmlE).
+- [ ] [Watch the training video that Vet Center editors have to complete](https://youtu.be/scuC5lSHZuw).
+- [ ] [Watch the training video that Campaign Landing Page editors have to complete](https://youtu.be/RcrOLEvL0xQ).
+
 #### All users
  - [ ] What products does our team support? Read the [product sheets](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/VA-CMS-Product-Sheets.pdf).
  - [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with the discipline lead.
