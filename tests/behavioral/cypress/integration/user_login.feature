@@ -9,4 +9,4 @@ Feature: User Login
     And my workbench access sections are set to "204"
     And I log out
     And I log back in
-    Then I should see "VA Bedford health care"
+    Then I should be at "/section/veterans-health-administration/vamc-facilities/va-bedford-health-care"

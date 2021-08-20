@@ -17,6 +17,9 @@ import './commands';
 
 /**
  * Allows Cypress to collect the results of multiple operations.
+ *
+ * Remove when/if https://github.com/cypress-io/cypress/issues/8719 is implemented.
+ *
  */
 const chainStart = Symbol();
 cy.all = (...commands) => {
