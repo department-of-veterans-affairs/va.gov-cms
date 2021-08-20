@@ -15,7 +15,7 @@ Feature: Access control
 | Content editor | content_editor |
 | Content publisher | content_publisher |
 | Content reviewer | content_reviewer |
-| User admin | admnistrator_users |
+| CMS account admin | admnistrator_users |
 | Redirect admin | redirect_administrator |
 | Content admin | content_admin |
 | Content creator - Benefits hubs | content_creator_benefits_hubs |
