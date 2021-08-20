@@ -41,7 +41,7 @@ class PreventAbsoluteCmsLinksValidator extends ConstraintValidator {
       return;
     }
     // We don't need no stinkin' XPath bc plain text.
-    if (preg_match_all('#(https?://.*?cms\.va\.gov[^\s]*)#', $text, $matches) && !empty($matches[1])) {
+    if (preg_match_all('#((https?:)?//.*?cms\.va\.gov[^\s]*)#', $text, $matches) && !empty($matches[1])) {
       foreach ($matches[1] as $match) {
         $this->context->addViolation($constraint->plainTextMessage, [
           ':url' => $match,
