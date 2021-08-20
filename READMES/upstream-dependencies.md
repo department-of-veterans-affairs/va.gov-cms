@@ -14,8 +14,15 @@ The following services can affect the CMS's functionality or data at any time.
     * Content
         * Situation updates & alerts are sent to subscribed users via GovDelivery
     * Mode
-        * Uses Post API & govdelivery_bulletins modules to post data to the GovDelivery API endpoint
+        * Uses [govdelivery_bulletins](https://github.com/department-of-veterans-affairs/va.gov-cms/tree/master/docroot/modules/custom/va_gov_govdelivery) module to post data to the GovDelivery API endpoint
     * Monitoring: 
+        * Alerting
+            * (Pending) Slack notifications via Sentry
+        * Error logs
+            * `/admin/reports/dblog?type%5B%5D=govdelivery_bulletins` (ephemeral)
+            * https://sentry.vfs.va.gov/organizations/vsp/issues/?query=logger%3Agovdelivery_bulletins
+        * Internal
+            * (pending) https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6189
         * External
             * [https://status.granicus.com/](https://status.granicus.com/)
     * Escalation contact
