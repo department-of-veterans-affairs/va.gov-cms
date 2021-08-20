@@ -13,8 +13,45 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-// Import commands.js using ES2015 syntax:
-import './commands'
+import './commands';
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
+/**
+ * Allows Cypress to collect the results of multiple operations.
+ */
+const chainStart = Symbol();
+cy.all = (...commands) => {
+  const _ = Cypress._;
+
+  // "Start" the chain with an effectively empty action.
+  const chain = cy.wrap(null, { log: false });
+
+  // Stop command points to the empty first action.
+  const stopCommand = _.find(cy.queue.commands, {
+    attributes: { chainerId: chain.chainerId }
+  });
+
+  // Start command points to the first passed command.
+  const startCommand = _.find(cy.queue.commands, {
+    attributes: { chainerId: commands[0].chainerId }
+  });
+
+  // Construct chain with each command pointing to another.
+  const result = chain.then(() => {
+    return _(commands)
+      .map((cmd) => {
+        return cmd[chainStart]
+          ? cmd[chainStart].attributes
+          : _.find(cy.queue.commands, {
+              attributes: { chainerId: cmd.chainerId }
+            }).attributes;
+      })
+      .concat(stopCommand.attributes)
+      .slice(1)
+      .flatMap((cmd) => cmd.prev.get('subject'))
+      .value();
+  });
+
+  result[chainStart] = startCommand;
+
+  return result;
+}
