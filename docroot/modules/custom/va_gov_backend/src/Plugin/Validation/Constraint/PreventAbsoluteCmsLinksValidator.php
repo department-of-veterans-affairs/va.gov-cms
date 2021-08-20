@@ -15,10 +15,10 @@ class PreventAbsoluteCmsLinksValidator extends ConstraintValidator {
    * {@inheritdoc}
    */
   public function validate($items, Constraint $constraint) {
-    /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventAbsoluteCmsLinks $constraint */
     foreach ($items as $item) {
       $type = $item->getFieldDefinition()->getType();
       $fieldValue = $item->getValue();
+      /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventAbsoluteCmsLinks $constraint */
       if ($type === 'text_long' && $fieldValue['format'] === 'rich_text') {
         $this->validateHtml($fieldValue['value'], $constraint);
       }
