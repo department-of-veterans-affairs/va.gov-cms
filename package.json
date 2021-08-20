@@ -17,7 +17,7 @@
     "stylelint": "npx stylelint",
     "test:accessibility": "cd tests/accessibility && cypress run",
     "test:behavioral": "cd tests/behavioral && cypress run -e \"TAGS=not @ignore\"",
-    "test:interactive": "cd tests/behavioral && cypress open -e \"VAGOV_INTERACTIVE=true\""
+    "test:interactive": "cd tests/behavioral && cypress open -e \"TAGS=not @ignore,VAGOV_INTERACTIVE=true\""
   },
   "repository": {
     "type": "git",
