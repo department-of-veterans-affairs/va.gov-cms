@@ -96,58 +96,33 @@ parameters:
 			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
 
 		-
-			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_hservice_appt_intro_select\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
-
-		-
 			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_listing\\.$#"
 			count: 1
 			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
 
 		-
-			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$path\\.$#"
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\FieldableEntityInterface\\:\\:\\$path\\.$#"
 			count: 1
 			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
 
 		-
-			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
-			count: 7
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$caption\\.$#"
+			count: 1
 			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
 
 		-
-			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:getTitle\\(\\)\\.$#"
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$format\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$pathauto\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$value\\.$#"
 			count: 2
-			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
-
-		-
-			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:set\\(\\)\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
-
-		-
-			message: "#^Call to an undefined method Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:referencedEntities\\(\\)\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
-
-		-
-			message: "#^Call to an undefined method Drupal\\\\Core\\\\Form\\\\FormInterface\\:\\:getEntity\\(\\)\\.$#"
-			count: 6
-			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
-
-		-
-			message: "#^Variable \\$contact_type might not be defined\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
-
-		-
-			message: "#^Variable \\$intro_text_value might not be defined\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
-
-		-
-			message: "#^Variable \\$intro_type might not be defined\\.$#"
-			count: 1
 			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
 
 		-
@@ -702,3 +677,4 @@ parameters:
 			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
 			count: 3
 			path: tests/behat/Drupal/FeatureContext.php
+
