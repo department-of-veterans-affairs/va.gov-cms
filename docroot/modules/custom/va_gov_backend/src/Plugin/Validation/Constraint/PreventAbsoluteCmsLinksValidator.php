@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_backend\Plugin\Validation\Constraint;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Entity\FieldableEntityInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -15,15 +16,15 @@ class PreventAbsoluteCmsLinksValidator extends ConstraintValidator {
    * {@inheritdoc}
    */
   public function validate($items, Constraint $constraint) {
-    foreach ($items as $item) {
+    foreach ($items as $delta => $item) {
       $type = $item->getFieldDefinition()->getType();
       $fieldValue = $item->getValue();
       /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventAbsoluteCmsLinks $constraint */
       if ($type === 'text_long' && $fieldValue['format'] === 'rich_text') {
-        $this->validateHtml($fieldValue['value'], $constraint);
+        $this->validateHtml($fieldValue['value'], $constraint, $delta, $item->getEntity());
       }
       else {
-        $this->validateText($fieldValue['value'], $constraint);
+        $this->validateText($fieldValue['value'], $constraint, $delta, $item->getEntity());
       }
     }
   }
@@ -35,17 +36,24 @@ class PreventAbsoluteCmsLinksValidator extends ConstraintValidator {
    *   A plain text string to validate.
    * @param \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventAbsoluteCmsLinks $constraint
    *   The constraint we're validating.
+   * @param int $delta
+   *   The field item delta.
+   * @param \Drupal\Core\Entity\FieldableEntityInterface $entity
+   *   The field item's host entity.
    */
-  public function validateText(string $text, PreventAbsoluteCmsLinks $constraint) {
+  public function validateText(string $text, PreventAbsoluteCmsLinks $constraint, int $delta, FieldableEntityInterface $entity) {
     if (strpos($text, 'cms.va.gov') === FALSE) {
       return;
     }
     // We don't need no stinkin' XPath bc plain text.
-    if (preg_match_all('#((https?:)?//.*?cms\.va\.gov[^\s]*)#', $text, $matches) && !empty($matches[1])) {
+    if (preg_match_all('#((https?:)(//)?.*?cms\.va\.gov[^\s]*)#', $text, $matches) && !empty($matches[1])) {
       foreach ($matches[1] as $match) {
-        $this->context->addViolation($constraint->plainTextMessage, [
+        $this->context->buildViolation($constraint->plainTextMessage, [
           ':url' => $match,
-        ]);
+        ])
+          ->atPath((string) $delta . '.value')
+          ->setInvalidValue($text)
+          ->addViolation();
       }
     }
   }
@@ -57,8 +65,12 @@ class PreventAbsoluteCmsLinksValidator extends ConstraintValidator {
    *   An HTML string to validate.
    * @param \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventAbsoluteCmsLinks $constraint
    *   The constraint we're validating.
+   * @param int $delta
+   *   The field item delta.
+   * @param \Drupal\Core\Entity\FieldableEntityInterface $entity
+   *   The field item's host entity.
    */
-  public function validateHtml(string $html, PreventAbsoluteCmsLinks $constraint) {
+  public function validateHtml(string $html, PreventAbsoluteCmsLinks $constraint, int $delta, FieldableEntityInterface $entity) {
     if (strpos($html, 'cms.va.gov') === FALSE) {
       return;
     }
@@ -67,16 +79,15 @@ class PreventAbsoluteCmsLinksValidator extends ConstraintValidator {
     // DOMXPath doesn't support matches(), so we need to use contains().
     foreach ($xpath->query('//a[contains(@href, "cms.va.gov/")]') as $element) {
       $url = $element->getAttribute('href');
-      // XPath contains() is fast but could lead to false positives.
-      // The following is slower but will not.
-      if (preg_match('#.*?cms\.va.gov$#', parse_url($url, PHP_URL_HOST))) {
-        $firstChild = $element->hasChildNodes() ? $element->childNodes[0] : NULL;
-        $link = $element->ownerDocument->saveHTML($firstChild ?? $element);
-        $this->context->addViolation($constraint->richTextMessage, [
-          ':link' => $link,
-          ':url' => $url,
-        ]);
-      }
+      $firstChild = $element->hasChildNodes() ? $element->childNodes[0] : NULL;
+      $link = $element->ownerDocument->saveHTML($firstChild ?? $element);
+      $this->context->buildViolation($constraint->richTextMessage, [
+        ':link' => $link,
+        ':url' => $url,
+      ])
+        ->atPath((string) $delta . '.value')
+        ->setInvalidValue($html)
+        ->addViolation();
     }
   }
 

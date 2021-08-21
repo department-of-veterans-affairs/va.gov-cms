@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraint;
  * @Constraint(
  *   id = "PreventAbsoluteCmsLinks",
  *   label = @Translation("Prevent Absolute CMS Links", context = "Validation"),
- *   type = "string"
+ *   type = { "string_long", "text_long" }
  * )
  */
 class PreventAbsoluteCmsLinks extends Constraint {

@@ -1551,7 +1551,7 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
   ];
   foreach ($fields as $field_name => $field) {
     if (in_array($field->getType(), $validate_types)) {
-      $fields[$field_name]->addConstraint('PreventAbsoluteCmsLinks');
+      $field->addConstraint('PreventAbsoluteCmsLinks');
     }
   }
   // Add paragraph checks on clp panels.
