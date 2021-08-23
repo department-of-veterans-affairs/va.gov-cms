@@ -28,7 +28,9 @@ services:
         # so we can remove if they are removed in the future.
         - apt-get install python
 
-        - apt-get install gconf2-common
+        # Ignore errors just for gconf2 right now because need to get builds working again.
+        # https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6216
+        - apt-get install gconf2-common || true
 
         # cypress-axe dependencies - https://docs.cypress.io/guides/getting-started/installing-cypress.html#System-requirements
         - apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
