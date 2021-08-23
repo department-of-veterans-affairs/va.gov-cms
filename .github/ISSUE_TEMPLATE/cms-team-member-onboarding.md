@@ -1,8 +1,10 @@
 ---
 name: CMS team member onboarding
 about: Create an issue for each new team member
-title: "Onboarding: <insert_name>"
+title: 'Onboarding: <insert_name>'
 labels: Onboarding
+assignees: ''
+
 ---
 
 # Welcome to the VFS-CMS Team! 👋
@@ -17,7 +19,6 @@ Have fun and we look forward to getting to know you! 😊
 Projected start date: <insert_here>
 
 ## Day one
-### Why?
 ### How?
 - [ ] Read through our [team norms](https://docs.google.com/document/d/1cs5FePhtR0LIJi63b9ZtqT7T6dphgB584UpfEbejSOc/edit#), which will also give an overview of how we apply the [USDS playbook](https://playbook.cio.gov/) and VA.gov platform [code of conduct](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/code-of-conduct.md).
 ### Who?
@@ -51,23 +52,17 @@ The goals of this week are: 1) get background paperwork completed as quickly as 
 - [ ] Who is on the VFS-CMS team? Read your [team members' user manuals and create your own](https://drive.google.com/drive/u/0/folders/195otsT1IUxi_k8oEU21TUkvEG-6p5YQj?ths).
 - [ ] Ensure that your info on the [official team roster](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/185270337/Team+Roster+2021) is correct.
 - [ ] Let's start introducing you to the team and key stakeholders. If you're on a meeting where you don't know someone, feel free to kickstart an introduction. Everyone in the ecosystem is friendly and interested in connecting.
-### What?
 
 ## Week two
 The goal for this week is to get you set up with the tools you need to be successful. We will pair you up with a buddy on the project that is in your same disipline to help inform which ones are relevant and which aren't. The most important thing to get set up is SOCKS as it will give you access to our systems so try to prioritize that.
-### Why?
-### How?
-### Who?
-### What?
-
 ### What products do we support?
 The following trainings and additional videos can be found on the Knowledge Base on the Drupal CMS prod and lesser environments that require VA network or SOCKS proxy access. They can be watched without VA network or SOCKS access at the links below.
+- [ ] [Review the editor onboarding slides](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/https___prod.cms.va.gov_sites_default_files_2021-07_Welcome%2520to%2520the%2520new%2520VA.gov%2520CMS.pdf).
 - [ ] [Watch the Drupal CMS editorial experience video for all users](https://youtu.be/ju7EH0F5S4I).
 - [ ] [Watch the training video that VA Medical Center (VAMC) editors have to complete](https://youtu.be/Sowgt1rOmlE).
 - [ ] [Watch the training video that Vet Center editors have to complete](https://youtu.be/scuC5lSHZuw).
 - [ ] [Watch the training video that Campaign Landing Page editors have to complete](https://youtu.be/RcrOLEvL0xQ).
 - [ ] Read the [product sheets](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/VA-CMS-Product-Sheets.pdf).
-
 #### All users
  - [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with the discipline lead.
  - [ ] What applications do you need access to? Discuss with the discipline lead.
@@ -79,7 +74,6 @@ The following trainings and additional videos can be found on the Knowledge Base
     - [ ] [CMS team list](https://github.com/orgs/department-of-veterans-affairs/teams/vfs-cms-team/members) - get added
     - [ ] [Zenhub extension instructions](https://www.zenhub.com/extension)
  - [ ] [SOCKS proxy request](https://depo-platform-documentation.scrollhelp.site/getting-started/Internal-tools-access-via-SOCKS-proxy.1821081710.html) to access VA network tools until you get a PIV card
-    - [ ] [SOCKS instructions for Windows](https://www.youtube.com/watch?v=4MHlX39dCwA)
  - [ ] [Citrix Access Gateway instructions](https://www.oit.va.gov/resources/remote-access/index.cfm?) for after you get your PIV card
  - [ ] [Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/179765342/2020-2021?NO_SSR=1) for team resources and calendar
  - [ ] [Google Drive](https://drive.google.com/drive/u/0/folders/0ADx85_gnl3Y4Uk9PVA?ths=true) for team documents. Generally, VA doesn't use Google products. Use Github or downloadable files when sharing with VA.
@@ -93,6 +87,8 @@ The following trainings and additional videos can be found on the Knowledge Base
  - [ ] [AWS](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) (SOCKS required)
  - [ ] sshuttle
 #### Helpdesk
+ - [ ] [Review the helpdesk Github repo](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/helpdesk).
+ - [ ] [Review the helpdesk Google Drive](https://drive.google.com/drive/folders/1opC6DgZyBQ6uEVzIz3FWmISMLt-Y91ts).
  - [ ] [Jira Service Desk](https://va-gov.atlassian.net/jira/servicedesk/projects/VAHELP)
 #### Instructional Design
  - [ ] Audio/video recording tools
@@ -114,20 +110,15 @@ The following trainings and additional videos can be found on the Knowledge Base
  
 ## Month one
 By this point you should have enough context and access to be able to start contributing. Work with your team to identify specific issues to focus on.
-### Why?
-### How?
 ### Who?
 - [ ] Who are our VA points of contact? Discuss with your delivery manager or product manager.
 - [ ] Who should we know on the platform teams? Discuss with your delivery manager or product manager.
 ### What?
 - [ ] [What is Drupal?](https://docs.google.com/spreadsheets/d/11ppWiIggKJh-YAWia28utZXW48tJZGCEg-sFJ6eIl9c)
 - [ ] [Google Analytics](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=joanneesteban%2C+bsmartin-ep%2C+jonwehausen&labels=analytics-insights%2C+analytics-request&template=analytics-request-google-analytics-access.md&title=Request+access+to+Google+Analytics)
- - [ ] [Opt](https://www.va.gov/analytics-opt-out.html) out of GA collection
+ - [ ] [Opt out](https://www.va.gov/analytics-opt-out.html) of GA collection.
+ - [ ] [Learn Drupal from an editor's perspective](https://prod.cms.va.gov/help/get-training).
 
 ## Month two
-### Why?
-### How?
-### Who?
 ### What?
 - [ ] Mainly for helpdesk folks: [CMS Support distro group](https://mim.va.gov/IdentityManagement/default.aspx)
-
