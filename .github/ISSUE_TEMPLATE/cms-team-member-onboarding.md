@@ -55,7 +55,7 @@ The goals of this week are: 1) get background paperwork completed as quickly as 
 The goal for this week is to get you set up with the tools you need to be successful. We will pair you up with a buddy on the project that is in your same disipline to help inform which ones are relevant and which aren't. The most important thing to get set up is SOCKS as it will give you access to our systems so try to prioritize that.
 ### What products do we support?
 The following trainings and additional videos can be found on the Knowledge Base on the Drupal CMS prod and lesser environments that require VA network or SOCKS proxy access. They can be watched without VA network or SOCKS access at the links below.
-- [ ] [Review the editor onboarding slides](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/https___prod.cms.va.gov_sites_default_files_2021-07_Welcome%2520to%2520the%2520new%2520VA.gov%2520CMS.pdf)
+- [ ] [Review the editor onboarding slides](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/https___prod.cms.va.gov_sites_default_files_2021-07_Welcome%2520to%2520the%2520new%2520VA.gov%2520CMS.pdf).
 - [ ] [Watch the Drupal CMS editorial experience video for all users](https://youtu.be/ju7EH0F5S4I).
 - [ ] [Watch the training video that VA Medical Center (VAMC) editors have to complete](https://youtu.be/Sowgt1rOmlE).
 - [ ] [Watch the training video that Vet Center editors have to complete](https://youtu.be/scuC5lSHZuw).
@@ -86,6 +86,8 @@ The following trainings and additional videos can be found on the Knowledge Base
  - [ ] [AWS](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) (SOCKS required)
  - [ ] sshuttle
 #### Helpdesk
+ - [ ] [Review the helpdesk Github repo](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/helpdesk).
+ - [ ] [Review the helpdesk Google Drive] (https://drive.google.com/drive/folders/1opC6DgZyBQ6uEVzIz3FWmISMLt-Y91ts).
  - [ ] [Jira Service Desk](https://va-gov.atlassian.net/jira/servicedesk/projects/VAHELP)
 #### Instructional Design
  - [ ] Audio/video recording tools
@@ -113,7 +115,8 @@ By this point you should have enough context and access to be able to start cont
 ### What?
 - [ ] [What is Drupal?](https://docs.google.com/spreadsheets/d/11ppWiIggKJh-YAWia28utZXW48tJZGCEg-sFJ6eIl9c)
 - [ ] [Google Analytics](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=joanneesteban%2C+bsmartin-ep%2C+jonwehausen&labels=analytics-insights%2C+analytics-request&template=analytics-request-google-analytics-access.md&title=Request+access+to+Google+Analytics)
- - [ ] [Opt](https://www.va.gov/analytics-opt-out.html) out of GA collection
+ - [ ] [Opt out](https://www.va.gov/analytics-opt-out.html) of GA collection.
+ - [ ] [Learn Drupal from an editor's perspective](https://prod.cms.va.gov/help/get-training).
 
 ## Month two
 ### What?
