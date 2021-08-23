@@ -1,8 +1,10 @@
 ---
 name: CMS team member onboarding
 about: Create an issue for each new team member
-title: "Onboarding: <insert_name>"
+title: 'Onboarding: <insert_name>'
 labels: Onboarding
+assignees: ''
+
 ---
 
 # Welcome to the VFS-CMS Team! 👋
@@ -72,7 +74,6 @@ The following trainings and additional videos can be found on the Knowledge Base
     - [ ] [CMS team list](https://github.com/orgs/department-of-veterans-affairs/teams/vfs-cms-team/members) - get added
     - [ ] [Zenhub extension instructions](https://www.zenhub.com/extension)
  - [ ] [SOCKS proxy request](https://depo-platform-documentation.scrollhelp.site/getting-started/Internal-tools-access-via-SOCKS-proxy.1821081710.html) to access VA network tools until you get a PIV card
-    - [ ] [SOCKS instructions for Windows](https://www.youtube.com/watch?v=4MHlX39dCwA)
  - [ ] [Citrix Access Gateway instructions](https://www.oit.va.gov/resources/remote-access/index.cfm?) for after you get your PIV card
  - [ ] [Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/179765342/2020-2021?NO_SSR=1) for team resources and calendar
  - [ ] [Google Drive](https://drive.google.com/drive/u/0/folders/0ADx85_gnl3Y4Uk9PVA?ths=true) for team documents. Generally, VA doesn't use Google products. Use Github or downloadable files when sharing with VA.
@@ -121,4 +122,3 @@ By this point you should have enough context and access to be able to start cont
 ## Month two
 ### What?
 - [ ] Mainly for helpdesk folks: [CMS Support distro group](https://mim.va.gov/IdentityManagement/default.aspx)
-
