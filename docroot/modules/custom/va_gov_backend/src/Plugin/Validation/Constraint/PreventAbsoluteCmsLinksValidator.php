@@ -20,7 +20,7 @@ class PreventAbsoluteCmsLinksValidator extends ConstraintValidator {
       $type = $item->getFieldDefinition()->getType();
       $fieldValue = $item->getValue();
       /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventAbsoluteCmsLinks $constraint */
-      if ($type === 'text_long' && $fieldValue['format'] === 'rich_text') {
+      if ($type === 'text_long' && $fieldValue['format'] !== 'plain_text') {
         $this->validateHtml($fieldValue['value'], $constraint, $delta, $item->getEntity());
       }
       else {
