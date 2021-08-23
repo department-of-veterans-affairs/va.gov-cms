@@ -22,7 +22,8 @@ services:
     commands:
       # Commands that set up the basic preview infrastructure
       init:
-        - apt-get update
+        # Added upgrade because of error here
+        - apt-get update && apt-get upgrade
 
         # TODO: Add "Why" comment for Python, was this for the FE dependencies `yarn install`, if so which dependencies
         # so we can remove if they are removed in the future.
