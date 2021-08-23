@@ -87,7 +87,7 @@ The following trainings and additional videos can be found on the Knowledge Base
  - [ ] sshuttle
 #### Helpdesk
  - [ ] [Review the helpdesk Github repo](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/helpdesk).
- - [ ] [Review the helpdesk Google Drive] (https://drive.google.com/drive/folders/1opC6DgZyBQ6uEVzIz3FWmISMLt-Y91ts).
+ - [ ] [Review the helpdesk Google Drive](https://drive.google.com/drive/folders/1opC6DgZyBQ6uEVzIz3FWmISMLt-Y91ts).
  - [ ] [Jira Service Desk](https://va-gov.atlassian.net/jira/servicedesk/projects/VAHELP)
 #### Instructional Design
  - [ ] Audio/video recording tools
