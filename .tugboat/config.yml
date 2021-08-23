@@ -23,6 +23,8 @@ services:
       # Commands that set up the basic preview infrastructure
       init:
         - apt-get update
+        - whoami
+        - pwd
 
         # TODO: Add "Why" comment for Python, was this for the FE dependencies `yarn install`, if so which dependencies
         # so we can remove if they are removed in the future.
@@ -37,6 +39,7 @@ services:
 
         # Install php ZIP extension (drush 10 requires it).
         - apt-get install libzip-dev zip
+        - pwd
         - docker-php-ext-install zip
 
         # Install opcache, and Apache modules
