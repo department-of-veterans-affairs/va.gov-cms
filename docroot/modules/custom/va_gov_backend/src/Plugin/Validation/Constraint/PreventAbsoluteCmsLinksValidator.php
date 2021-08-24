@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_backend\Plugin\Validation\Constraint;
 
 use Drupal\Component\Utility\Html;
-use Drupal\Core\Entity\FieldableEntityInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -21,10 +20,10 @@ class PreventAbsoluteCmsLinksValidator extends ConstraintValidator {
       $fieldValue = $item->getValue();
       /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventAbsoluteCmsLinks $constraint */
       if ($type === 'text_long' && $fieldValue['format'] !== 'plain_text') {
-        $this->validateHtml($fieldValue['value'], $constraint, $delta, $item->getEntity());
+        $this->validateHtml($fieldValue['value'], $constraint, $delta);
       }
       else {
-        $this->validateText($fieldValue['value'], $constraint, $delta, $item->getEntity());
+        $this->validateText($fieldValue['value'], $constraint, $delta);
       }
     }
   }
@@ -38,10 +37,8 @@ class PreventAbsoluteCmsLinksValidator extends ConstraintValidator {
    *   The constraint we're validating.
    * @param int $delta
    *   The field item delta.
-   * @param \Drupal\Core\Entity\FieldableEntityInterface $entity
-   *   The field item's host entity.
    */
-  public function validateText(string $text, PreventAbsoluteCmsLinks $constraint, int $delta, FieldableEntityInterface $entity) {
+  public function validateText(string $text, PreventAbsoluteCmsLinks $constraint, int $delta) {
     if (strpos($text, 'cms.va.gov') === FALSE) {
       return;
     }
@@ -67,10 +64,8 @@ class PreventAbsoluteCmsLinksValidator extends ConstraintValidator {
    *   The constraint we're validating.
    * @param int $delta
    *   The field item delta.
-   * @param \Drupal\Core\Entity\FieldableEntityInterface $entity
-   *   The field item's host entity.
    */
-  public function validateHtml(string $html, PreventAbsoluteCmsLinks $constraint, int $delta, FieldableEntityInterface $entity) {
+  public function validateHtml(string $html, PreventAbsoluteCmsLinks $constraint, int $delta) {
     if (strpos($html, 'cms.va.gov') === FALSE) {
       return;
     }
