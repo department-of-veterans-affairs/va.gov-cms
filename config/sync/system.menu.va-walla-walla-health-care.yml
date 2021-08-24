@@ -1,7 +1,13 @@
 uuid: 530b0a64-42e1-4786-8333-61c69e5c0078
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - workbench_menu_access
+third_party_settings:
+  workbench_menu_access:
+    access_scheme:
+      379: '379'
 id: va-walla-walla-health-care
 label: 'VA Walla Walla health care'
 description: 'VISN 20 | va.gov/walla-walla-health-care'
