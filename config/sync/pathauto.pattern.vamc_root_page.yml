@@ -1,0 +1,24 @@
+uuid: 857c20d2-0266-4925-aab5-acd93e5687c5
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: vamc_root_page
+label: 'VAMC root page'
+type: 'canonical_entities:node'
+pattern: '[node:field_office:entity:url:path]/[node:title]'
+selection_criteria:
+  4c2053f2-9531-439f-97e5-5e1be98844ec:
+    id: node_type
+    bundles:
+      vamc_system_billing_insurance: vamc_system_billing_insurance
+      vamc_system_medical_records_offi: vamc_system_medical_records_offi
+      vamc_system_register_for_care: vamc_system_register_for_care
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 4c2053f2-9531-439f-97e5-5e1be98844ec
+selection_logic: and
+weight: -5
+relationships: {  }
