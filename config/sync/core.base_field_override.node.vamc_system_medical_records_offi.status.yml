@@ -1,0 +1,22 @@
+uuid: 6cbd38be-13d5-4ab0-84f0-d7bc99ca892c
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_system_medical_records_offi
+id: node.vamc_system_medical_records_offi.status
+field_name: status
+entity_type: node
+bundle: vamc_system_medical_records_offi
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

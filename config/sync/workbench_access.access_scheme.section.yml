@@ -46,7 +46,10 @@ dependencies:
     - field.field.node.support_service.field_administration
     - field.field.node.va_form.field_administration
     - field.field.node.vamc_operating_status_and_alerts.field_administration
+    - field.field.node.vamc_system_billing_insurance.field_administration
+    - field.field.node.vamc_system_medical_records_offi.field_administration
     - field.field.node.vamc_system_policies_page.field_administration
+    - field.field.node.vamc_system_register_for_care.field_administration
     - field.field.node.vba_facility.field_administration
     - field.field.node.vet_center.field_administration
     - field.field.node.vet_center_cap.field_administration
@@ -267,6 +270,18 @@ scheme_settings:
     -
       entity_type: node
       bundle: banner
+      field: field_administration
+    -
+      entity_type: node
+      bundle: vamc_system_register_for_care
+      field: field_administration
+    -
+      entity_type: node
+      bundle: vamc_system_medical_records_offi
+      field: field_administration
+    -
+      entity_type: node
+      bundle: vamc_system_billing_insurance
       field: field_administration
     -
       entity_type: taxonomy_term

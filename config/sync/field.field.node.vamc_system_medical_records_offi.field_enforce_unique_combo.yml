@@ -1,0 +1,29 @@
+uuid: 3cf42a4b-5506-4a16-b28e-10b47ac145bb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_enforce_unique_combo
+    - node.type.vamc_system_medical_records_offi
+  module:
+    - allow_only_one
+third_party_settings:
+  allow_only_one:
+    field_administration: 1
+    field_office: 0
+    title: 0
+    case_sensitive: null
+id: node.vamc_system_medical_records_offi.field_enforce_unique_combo
+field_name: field_enforce_unique_combo
+entity_type: node
+bundle: vamc_system_medical_records_offi
+label: 'Enforce unique combo section'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings: {  }
+field_type: allow_only_one
