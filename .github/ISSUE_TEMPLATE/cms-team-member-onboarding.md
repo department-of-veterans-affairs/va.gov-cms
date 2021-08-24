@@ -116,8 +116,8 @@ By this point you should have enough context and access to be able to start cont
 ### What?
 - [ ] [What is Drupal?](https://docs.google.com/spreadsheets/d/11ppWiIggKJh-YAWia28utZXW48tJZGCEg-sFJ6eIl9c)
 - [ ] [Google Analytics](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=joanneesteban%2C+bsmartin-ep%2C+jonwehausen&labels=analytics-insights%2C+analytics-request&template=analytics-request-google-analytics-access.md&title=Request+access+to+Google+Analytics)
- - [ ] [Opt out](https://www.va.gov/analytics-opt-out.html) of GA collection.
- - [ ] [Learn Drupal from an editor's perspective](https://prod.cms.va.gov/help/get-training).
+ - [ ] [Opt out](https://www.va.gov/analytics-opt-out.html) of Google Analytics collection on VA.gov.
+ - [ ] [Learn Drupal from a VA editor's perspective](https://prod.cms.va.gov/help/get-training).
 
 ## Month two
 ### What?
