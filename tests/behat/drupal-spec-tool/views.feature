@@ -186,11 +186,6 @@ Feature: Views
 | VHA Health service taxonomy | Master | default | Default |
 | Watchdog | Master | default | Default |
 | Watchdog | Page | page | Page |
-| Webform submissions | Embed: Administer | embed_administer | Embed |
-| Webform submissions | Embed: Default | embed_default | Embed |
-| Webform submissions | Embed: Manage | embed_manage | Embed |
-| Webform submissions | Embed: Review | embed_review | Embed |
-| Webform submissions | Master | default | Default |
 | Who's new | Who's new | block_1 | Block |
 | Who's new | Master | default | Default |
 | Who's online block | Master | default | Default |
