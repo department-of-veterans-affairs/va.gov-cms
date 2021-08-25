@@ -1,0 +1,101 @@
+uuid: 57b072e3-efb2-4931-8400-67d382f58a6e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.vamc_system_medical_records_offi.field_administration
+    - field.field.node.vamc_system_medical_records_offi.field_enforce_unique_combo
+    - field.field.node.vamc_system_medical_records_offi.field_enforce_unique_combo_offic
+    - field.field.node.vamc_system_medical_records_offi.field_office
+    - node.type.vamc_system_medical_records_offi
+    - workflows.workflow.editorial
+  module:
+    - allow_only_one
+    - content_moderation
+    - field_group
+third_party_settings:
+  field_group:
+    group_edit:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      region: content
+      format_settings:
+        show_empty_fields: false
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
+    group_section_settings:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: -10
+      format_type: details_sidebar
+      region: content
+      format_settings:
+        show_empty_fields: false
+        id: ''
+        classes: ''
+        description: ''
+        open: true
+        required_fields: true
+        weight: 0
+      label: 'Section settings'
+id: node.vamc_system_medical_records_offi.default
+targetEntityType: node
+bundle: vamc_system_medical_records_offi
+mode: default
+content:
+  field_administration:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_enforce_unique_combo:
+    weight: 2
+    settings:
+      size: 1
+    third_party_settings: {  }
+    type: allow_only_one_widget
+    region: content
+  field_enforce_unique_combo_offic:
+    weight: 26
+    settings:
+      size: 1
+    third_party_settings: {  }
+    type: allow_only_one_widget
+    region: content
+  field_office:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 7
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true

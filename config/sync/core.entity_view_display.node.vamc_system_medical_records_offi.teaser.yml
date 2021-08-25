@@ -1,0 +1,34 @@
+uuid: f19af67f-726c-4fd8-9e47-f71a6630d30c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.vamc_system_medical_records_offi.field_administration
+    - field.field.node.vamc_system_medical_records_offi.field_enforce_unique_combo
+    - field.field.node.vamc_system_medical_records_offi.field_enforce_unique_combo_offic
+    - field.field.node.vamc_system_medical_records_offi.field_office
+    - node.type.vamc_system_medical_records_offi
+  module:
+    - user
+id: node.vamc_system_medical_records_offi.teaser
+targetEntityType: node
+bundle: vamc_system_medical_records_offi
+mode: teaser
+content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_administration: true
+  field_enforce_unique_combo: true
+  field_enforce_unique_combo_offic: true
+  field_office: true
+  search_api_excerpt: true
