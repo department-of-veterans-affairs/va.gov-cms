@@ -7,6 +7,15 @@ URL: http://sentry.vfs.va.gov/
 
 Unless errors are in the Known Errors list below, an issue should be created in Github with a link to the sentry error.  If the error level is `critical`, `alert`, or `emergency` then contact the `@cms-engineers-group` `@cms-devops-engineers` teams in Slack.
 
+## Testing
+
+### How to generate a test error message
+
+On a BRD server, you may run this command to generate a test message:
+
+`sudo -u apache bash -c 'source /etc/sysconfig/httpd; /usr/local/bin/drush raven:captureMessage --level=error "TEST MESSAGE"'`
+
+
 ## Known errors:
 * Facility/Teamsites related errors
 
