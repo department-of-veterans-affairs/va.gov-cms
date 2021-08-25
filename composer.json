@@ -163,6 +163,7 @@
         "symfony/phpunit-bridge": "^5.1",
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
+        "tippyjs/6.x": "*",
         "traviscarden/behat-table-comparison": "~0.2",
         "va-gov/content-build": "^0.0.962",
         "vlucas/phpdotenv": "^5.3",
@@ -234,6 +235,24 @@
         "ewa": {
             "type": "git",
             "url": "https://github.com/agilesix/workflow_assignments.git"
+        },
+        "tippyjs/6.x": {
+            "type": "package",
+            "package": {
+                "name": "tippyjs/6.x",
+                "version": "6.2.6",
+                "type": "drupal-library",
+                "extra": {
+                    "installer-name": "tippyjs/6.x"
+                },
+                "dist": {
+                    "url": "https://unpkg.com/tippy.js@6.2.6/dist/tippy-bundle.umd.min.js",
+                    "type": "file"
+                },
+                "require": {
+                    "composer/installers": "~1.0"
+                }
+            }
         }
     },
     "config": {
