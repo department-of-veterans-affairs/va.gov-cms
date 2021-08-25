@@ -64,45 +64,11 @@ Operating hours, Contact information, names for all facilities (VHA facilities, 
 
 The following services can affect the deployment process' ability to fully build the CMS for testing or production deployment.
 
-* Remi Repo
-    * URL
-        * rpms.remirepo.org (php)
-    * Status
-        * none
-    * Notes
-        * Remi Repo is used to pull in the PHP 7.3 libraries and dependencies in our AMI builds. This won't be used when we switch from Amazon Linux 1 to Amazon Linux 2 when we move to containers on ArgoKube
-    * Escalation process
-        * Tweet [@RemiRepository](https://twitter.com/RemiRepository) and open issue at [https://forum.remirepo.net/](https://forum.remirepo.net/)
-* [Drupal packages](packages.drupal.org)
-    * Status
-        * none
-    * Notes
-        * Drupal packages is used to download Drupal contrib modules
-* [Packagist](https://packagist.org)
-    * Status
-        * [https://status.packagist.org/](https://status.packagist.org/)
-    * Notes
-        * Packagist is used to install our PHP dependencies that are required by Drupal custom and contrib modules.
-    * Escalation process
-        * Tweet at [@packagist](https://twitter.com/packagist). It is used by thousands of sites so highly likely that someone knows about any issues before we do and that it will be resolved quickly.
-* [Github](https://github.com)
-    * Status
-        * [https://www.githubstatus.com/](https://www.githubstatus.com/)
-    * Notes
-        * The codebase is stored in github, and the deployment process depends on it to pull code and push status and code quality messages to our pull requests.
-    * Escalation process
-        * Use the #github_information channel in DSVA slack
-* [ZenHub](https://www.zenhub.com)
-    * Status
-        * https://twitter.com/zenhubstatus
-     * Notes
-         * ZenHub is a project managment layer on top of GitHub Issues that we use.
-     * Escalation process
-         * TBD   
-* [Docker Hub](https://hub.docker.com/)
-    * Status
-        * [https://status.docker.com/](https://status.docker.com/)
-    * Notes
-        * We use Docker Hub to pull down container images for our CI environments in Tugboat.
-    * Escalation process
-        * Contact support@docker.com and/or tweet [@Docker](https://twitter.com/Docker)
+| Service                                 | Url                 | Status                                                         | Escalation                                                                                                                                                                                     | Notes                                                                                                                                                                                                 |
+|-----------------------------------------|---------------------|----------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Remi Repo](https://rpms.remirepo.net/) | rpms.remirepo.net   | none                                                           | Tweet [@RemiRepository](https://twitter.com/RemiRepository) and open issue at [https://forum.remirepo.net/](https://forum.remirepo.net/)                                                       | Remi Repo is used to pull in the PHP 7.3 libraries and dependencies in our AMI builds. This won't be used when we switch from Amazon Linux 1 to Amazon Linux 2 when we move to containers on ArgoKube |
+| Drupal packages                         | packages.drupal.org | [@drupal_infra on Twitter](https://twitter.com/drupal_infra)   |                                                                                                                                                                                                | Drupal packages is used to download Drupal contrib modules                                                                                                                                            |
+| [Packagist](https://packagist.org)      |                     | [https://status.packagist.org/](https://status.packagist.org/) | Tweet at [@packagist](https://twitter.com/packagist). It is used by thousands of sites so highly likely that someone knows about any issues before we do and that it will be resolved quickly. | Packagist is used to install our PHP dependencies that are required by Drupal custom and contrib modules.                                                                                             |
+| [Github](https://github.com)            |                     | [https://www.githubstatus.com/](https://www.githubstatus.com/) | Use the #github_information channel in DSVA slack                                                                                                                                              | The codebase is stored in github, and the deployment process depends on it to pull code and push status and code quality messages to our pull requests.                                               |
+| [ZenHub](https://www.zenhub.com)        |                     | https://twitter.com/zenhubstatus                               |                                                                                                                                                                                                | ZenHub is a project management layer on top of GitHub Issues that we use.                                                                                                                             |
+| [Docker Hub](https://hub.docker.com/)   |                     | [https://status.docker.com/](https://status.docker.com/)       | Contact support@docker.com and/or tweet [@Docker](https://twitter.com/Docker)                                                                                                                  | We use Docker Hub to pull down container images for our CI environments in Tugboat.                                                                                                                   |
