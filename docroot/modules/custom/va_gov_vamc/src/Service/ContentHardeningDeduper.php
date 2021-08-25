@@ -90,7 +90,7 @@ class ContentHardeningDeduper {
       foreach ($duplicate_entities as $duplicate_entity) {
         /** @var \Drupal\Node\NodeInterface $duplicate_entity */
         $duplicate_entity->setTitle("{$title} - REPLACED");
-        $duplicate_entity->path->pathauto = 1;
+        $duplicate_entity->path->alias = "{$duplicate_entity->path->alias}-replaced";
         // Risk: only the last duplicate determines the moderation state.
         // Risk is small since there should only be one. If there more than one,
         // there is no reliable way to determine which is proper.
