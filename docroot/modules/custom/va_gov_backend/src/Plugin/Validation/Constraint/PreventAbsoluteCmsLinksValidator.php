@@ -5,11 +5,49 @@ namespace Drupal\va_gov_backend\Plugin\Validation\Constraint;
 use Drupal\Component\Utility\Html;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Validates the PreventAbsoluteCmsLinks constraint.
  */
 class PreventAbsoluteCmsLinksValidator extends ConstraintValidator {
+
+  /**
+   * Set the execution context directly.
+   *
+   * @param \Symfony\Component\Validator\Context\ExecutionContextInterface $context
+   *   An execution context.
+   */
+  public function setContext(ExecutionContextInterface $context): void {
+    $this->context = $context;
+  }
+
+  /**
+   * Retrieve the execution context.
+   *
+   * @return \Symfony\Component\Validator\Context\ExecutionContextInterface
+   *   The validator's execution context.
+   */
+  public function getContext(): ExecutionContextInterface {
+    return $this->context;
+  }
+
+  /**
+   * Add a violation message.
+   *
+   * @param int $delta
+   *   The field delta.
+   * @param string $message
+   *   The violation message.
+   * @param array $params
+   *   Message parameters.
+   */
+  public function addViolation(int $delta, string $message, array $params = []) {
+    $this->getContext()
+      ->buildViolation($message, $params)
+      ->atPath((string) $delta . '.value')
+      ->addViolation();
+  }
 
   /**
    * {@inheritdoc}
@@ -43,15 +81,10 @@ class PreventAbsoluteCmsLinksValidator extends ConstraintValidator {
       return;
     }
     // We don't need no stinkin' XPath bc plain text.
-    if (preg_match_all('#((https?:)(//)?.*?cms\.va\.gov[^\s]*)#', $text, $matches) && !empty($matches[1])) {
-      foreach ($matches[1] as $match) {
-        $this->context->buildViolation($constraint->plainTextMessage, [
-          ':url' => $match,
-        ])
-          ->atPath((string) $delta . '.value')
-          ->setInvalidValue($text)
-          ->addViolation();
-      }
+    if (preg_match('#((https?:)?(//)?[^\s]*?cms\.va\.gov[^\s]*)#', $text, $matches)) {
+      $this->addViolation($delta, $constraint->plainTextMessage, [
+        ':url' => $matches[1],
+      ]);
     }
   }
 
@@ -72,17 +105,15 @@ class PreventAbsoluteCmsLinksValidator extends ConstraintValidator {
     $dom = Html::load($html);
     $xpath = new \DOMXPath($dom);
     // DOMXPath doesn't support matches(), so we need to use contains().
-    foreach ($xpath->query('//a[contains(@href, "cms.va.gov/")]') as $element) {
+    foreach ($xpath->query('//a[contains(@href, "cms.va.gov")]') as $element) {
       $url = $element->getAttribute('href');
       $firstChild = $element->hasChildNodes() ? $element->childNodes[0] : NULL;
       $link = $element->ownerDocument->saveHTML($firstChild ?? $element);
-      $this->context->buildViolation($constraint->richTextMessage, [
+      $this->addViolation($delta, $constraint->richTextMessage, [
         ':link' => $link,
         ':url' => $url,
-      ])
-        ->atPath((string) $delta . '.value')
-        ->setInvalidValue($html)
-        ->addViolation();
+      ]);
+      return;
     }
   }
 
