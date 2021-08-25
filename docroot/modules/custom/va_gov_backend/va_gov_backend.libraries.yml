@@ -88,10 +88,8 @@ tippyjs:
     url: https://github.com/atomiks/tippyjs/blob/master/LICENSE
     gpl-compatible: true
   directory: tippyjs/6.x
-  cdn:
-    /libraries/tippyjs/6.x/: https://unpkg.com/tippy.js@6.2.6/dist/
   js:
-    /libraries/tippyjs/6.x/tippy-bundle.umd.min.js: {}
+    https://unpkg.com/tippy.js@6.2.6/dist/tippy-bundle.umd.min.js: { type: external, minified: true }
   dependencies:
     - core/popperjs
 tippy_popover_theme:
