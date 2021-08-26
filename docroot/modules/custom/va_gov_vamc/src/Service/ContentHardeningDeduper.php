@@ -7,7 +7,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\Node\NodeInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Class ContentHardeningDeduper remove unhardened dopplegangers.
@@ -82,13 +82,13 @@ class ContentHardeningDeduper {
    */
   public function removeDuplicate(EntityInterface $entity): void {
     if ($this->isHardendType($entity) && $entity->isNew()) {
-      /** @var \Drupal\Node\NodeInterface $entity */
+      /** @var \Drupal\node\NodeInterface $entity */
       $title = $this->contentTypeReplacements[$entity->bundle()]['title'];
       $system_nid = $entity->get('field_office')->target_id;
 
       $duplicate_entities = $this->getExistingDuplicates($title, $system_nid);
       foreach ($duplicate_entities as $duplicate_entity) {
-        /** @var \Drupal\Node\NodeInterface $duplicate_entity */
+        /** @var \Drupal\node\NodeInterface $duplicate_entity */
         $duplicate_entity->setTitle("{$title} - REPLACED");
         $duplicate_entity->path->alias = "{$duplicate_entity->path->alias}-replaced";
         // Risk: only the last duplicate determines the moderation state.

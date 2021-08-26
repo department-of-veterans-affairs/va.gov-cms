@@ -2,7 +2,7 @@
 
 namespace Drupal\va_gov_vamc\EventSubscriber;
 
-use Drupal\core_event_dispatcher\Event\Entity\EntityPreSaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
