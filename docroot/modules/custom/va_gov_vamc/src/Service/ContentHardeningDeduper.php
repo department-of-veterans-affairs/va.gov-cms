@@ -81,7 +81,7 @@ class ContentHardeningDeduper {
    *   The entity being created.
    */
   public function removeDuplicate(EntityInterface $entity): void {
-    if ($this->isHardendType($entity) && $entity->isNew()) {
+    if ($this->isHardendType($entity)) {
       /** @var \Drupal\node\NodeInterface $entity */
       $title = $this->contentTypeReplacements[$entity->bundle()]['title'];
       $system_nid = $entity->get('field_office')->target_id;
