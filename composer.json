@@ -134,7 +134,7 @@
         "drupal/views_bulk_edit": "^2.3",
         "drupal/views_bulk_operations": "^3.11",
         "drupal/views_data_export": "^1.0@beta",
-        "drupal/webform": "^6",
+        "drupal/webform": "^6.0",
         "drupal/workbench_access": "^1.0-beta4",
         "drupal/workbench_menu_access": "^1.0",
         "drupal/workflow_assignments": "1.x-dev",
@@ -234,6 +234,24 @@
         "ewa": {
             "type": "git",
             "url": "https://github.com/agilesix/workflow_assignments.git"
+        },
+        "tippyjs/6.x": {
+            "type": "package",
+            "package": {
+                "name": "tippyjs/6.x",
+                "version": "6.2.6",
+                "type": "drupal-library",
+                "extra": {
+                    "installer-name": "tippyjs/6.x"
+                },
+                "dist": {
+                    "url": "https://unpkg.com/tippy.js@6.2.6/dist/tippy-bundle.umd.min.js",
+                    "type": "file"
+                },
+                "require": {
+                    "composer/installers": "~1.0"
+                }
+            }
         }
     },
     "config": {
