@@ -1544,6 +1544,16 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
   if ($entity_type->id() === 'node' && $bundle === 'campaign_landing_page' && isset($fields['field_benefit_categories'])) {
     $fields['field_benefit_categories']->addConstraint('BenefitsSelectionLimit');
   }
+  // Prevent absolute CMS links in any text or rich text field.
+  $validate_types = [
+    'string_long',
+    'text_long',
+  ];
+  foreach ($fields as $field_name => $field) {
+    if (in_array($field->getType(), $validate_types)) {
+      $field->addConstraint('PreventAbsoluteCmsLinks');
+    }
+  }
   // Add paragraph checks on clp panels.
   if ($entity_type->id() === 'node' && $bundle === 'campaign_landing_page') {
     // Add range check on faq panel.
