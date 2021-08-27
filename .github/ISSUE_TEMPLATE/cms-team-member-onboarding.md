@@ -18,6 +18,8 @@ Have fun and we look forward to getting to know you! 😊
 
 Projected start date: <insert_here>
 
+Onboarding buddy (short check-in meetings the first week): <insert_here>
+
 ## Day one
 ### How?
 - [ ] Read through our [team norms](https://docs.google.com/document/d/1cs5FePhtR0LIJi63b9ZtqT7T6dphgB584UpfEbejSOc/edit#), which will also give an overview of how we apply the [USDS playbook](https://playbook.cio.gov/) and VA.gov platform [code of conduct](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/code-of-conduct.md).
