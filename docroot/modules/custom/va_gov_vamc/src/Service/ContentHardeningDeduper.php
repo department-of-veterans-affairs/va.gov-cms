@@ -46,18 +46,22 @@ class ContentHardeningDeduper {
    */
   protected $contentTypeReplacements = [
     // Key: content_type => [related data].
-    'vamc_system_billing_insurance' => [
-      'title' => 'Billing and insurance',
-    ],
-    'vamc_system_medical_records_offi' => [
-      'title' => 'Medical records office',
-    ],
+    // This deduper needs to act on these content types as soon as they have a
+    // Front End presence. Commented out ones need to be un-commented as they
+    // come online.
+    // 'vamc_system_billing_insurance' => [
+    // 'title' => 'Billing and insurance',
+    // ],
+    // 'vamc_system_medical_records_offi' => [
+    // 'title' => 'Medical records office',
+    // ],
+    // Uncomment these as the content types have a Front End presence.
     'vamc_system_policies_page' => [
       'title' => 'Policies',
     ],
-    'vamc_system_register_for_care' => [
-      'title' => 'Register for care',
-    ],
+    // 'vamc_system_register_for_care' => [
+    // 'title' => 'Register for care',
+    // ],
   ];
 
   /**
