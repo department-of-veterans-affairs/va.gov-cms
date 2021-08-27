@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeInterface;
 
@@ -15,6 +16,14 @@ use Drupal\node\NodeInterface;
 class ContentHardeningDeduper {
 
   use StringTranslationTrait;
+
+  /**
+   * The active user.
+   *
+   * @var \Drupal\Core\Session\AccountInterface
+   *  The user object.
+   */
+  private $currentUser;
 
   /**
    * Drupal\Core\Entity\EntityTypeManagerInterface definition.
@@ -59,8 +68,10 @@ class ContentHardeningDeduper {
   protected $logger;
 
   /**
-   * Constructs a new PostFacilityService object.
+   * Constructs a new ContentHardeningDedupper object.
    *
+   * @param \Drupal\Core\Session\AccountInterface $current_user
+   *   The current user.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager service.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger
@@ -68,7 +79,8 @@ class ContentHardeningDeduper {
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger interface.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger, MessengerInterface $messenger) {
+  public function __construct(AccountInterface $current_user, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger, MessengerInterface $messenger) {
+    $this->currentUser = $current_user;
     $this->entityTypeManager = $entity_type_manager;
     $this->logger = $logger;
     $this->messenger = $messenger;
@@ -188,6 +200,7 @@ class ContentHardeningDeduper {
     $retiring_node->set('changed', time());
     $retiring_node->set('revision_timestamp', time());
     $retiring_node->set('revision_default', TRUE);
+    $retiring_node->set('revision_uid', $this->currentUser->id());
     $retiring_node->save();
   }
 
@@ -200,7 +213,7 @@ class ContentHardeningDeduper {
    *   The alias of the unhardened node being replaced.
    */
   protected function updateNewAlias(NodeInterface $entity, $duplicate_alias) : void {
-    if (!$entity->isNew()  && !empty($duplicate_alias)) {
+    if (!$entity->isNew() && !empty($duplicate_alias)) {
       // This entity is not new and likely has a bad alias, so set it right.
       // @phpstan-ignore-next-line
       $entity->path->alias = $duplicate_alias;

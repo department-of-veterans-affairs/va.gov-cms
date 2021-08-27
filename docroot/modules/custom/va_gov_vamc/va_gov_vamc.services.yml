@@ -6,4 +6,4 @@ services:
       - { name: event_subscriber }
   va_gov_vamc.content_hardening_deduper:
     class: Drupal\va_gov_vamc\Service\ContentHardeningDeduper
-    arguments: ['@entity_type.manager', '@logger.factory', '@messenger']
+    arguments: ['@current_user', '@entity_type.manager', '@logger.factory', '@messenger']
