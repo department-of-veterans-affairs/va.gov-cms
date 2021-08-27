@@ -83,39 +83,28 @@ class ContentHardeningDeduper {
   public function removeDuplicate(EntityInterface $entity): void {
     if ($this->isHardendType($entity)) {
       /** @var \Drupal\node\NodeInterface $entity */
+      $existing_moderation_state = '';
+      $duplicate_alias = '';
       $title = $this->contentTypeReplacements[$entity->bundle()]['title'];
+      // @phpstan-ignore-next-line
       $system_nid = $entity->get('field_office')->target_id;
 
       $duplicate_entities = $this->getExistingDuplicates($title, $system_nid);
       foreach ($duplicate_entities as $duplicate_entity) {
         /** @var \Drupal\node\NodeInterface $duplicate_entity */
-        $duplicate_entity->setTitle("{$title} - REPLACED");
-        $duplicate_entity->path->alias = "{$duplicate_entity->path->alias}-replaced";
+        // @phpstan-ignore-next-line
+        $duplicate_alias = $duplicate_entity->path->alias;
         // Risk: only the last duplicate determines the moderation state.
         // Risk is small since there should only be one. If there more than one,
         // there is no reliable way to determine which is proper.
+        // @phpstan-ignore-next-line
         $existing_moderation_state = $duplicate_entity->moderation_state->value;
-        $duplicate_entity->set('moderation_state', 'archived');
-        $duplicate_entity->set('revision_log', "Archived by the creation of its replacement {$entity->bundle()}.");
-        $duplicate_entity->set('changed', time());
-        $duplicate_entity->set('revision_timestamp', time());
-        $duplicate_entity->set('revision_default', TRUE);
-        $duplicate_entity->save();
-        $vars = [
-          '%title' => $title,
-          '%nid' => $duplicate_entity->id(),
-        ];
-        $message = $this->t('The VAMC detail page "%title" (node: %nid) as been archived by the creation of this page.', $vars);
-        $this->messenger->addStatus($message);
-        $this->logger->get('va_gov_vamc')->info($message);
+        $this->retireDuplicateEntity($duplicate_entity, $entity, $title);
+        $this->logAndMessage($duplicate_entity, $title);
       }
-      // If we have a moderation_state only carry it forward if it has not
-      // already been archived and the current state is not published.
-      if (!empty($existing_moderation_state)
-        && $existing_moderation_state !== 'archived'
-        && $entity->moderation_state->value !== 'published') {
-        $entity->set('moderation_state', $existing_moderation_state);
-      }
+
+      $this->updateNewModerationState($entity, $existing_moderation_state);
+      $this->updateNewAlias($entity, $duplicate_alias);
     }
   }
 
@@ -159,8 +148,81 @@ class ContentHardeningDeduper {
         return TRUE;
       }
     }
-
     return FALSE;
+  }
+
+  /**
+   * Create a log and message.
+   *
+   * @param \Drupal\node\NodeInterface $retired_entity
+   *   The node being retired.
+   * @param string $title
+   *   The title of the node being retired and created.
+   */
+  protected function logAndMessage(NodeInterface $retired_entity, $title) : void {
+    $vars = [
+      '%title' => $title,
+      '%nid' => $retired_entity->id(),
+    ];
+    $message = $this->t('The VAMC Detail Page "%title" (node: %nid) has been archived by the creation of this page.', $vars);
+    $this->messenger->addStatus($message);
+    $this->logger->get('va_gov_vamc')->info($message);
+  }
+
+  /**
+   * Archives and alters the title of the node being retired.
+   *
+   * @param \Drupal\node\NodeInterface $retiring_node
+   *   The node being retired.
+   * @param \Drupal\node\NodeInterface $new_node
+   *   The hardened node being saved.
+   * @param string $title
+   *   The title of the node being retired and created.
+   */
+  protected function retireDuplicateEntity(NodeInterface $retiring_node, NodeInterface $new_node, $title) : void {
+    $retiring_node->setTitle("{$title} - REPLACED");
+    // @phpstan-ignore-next-line
+    $retiring_node->path->alias = "{$retiring_node->path->alias}-replaced";
+    $retiring_node->set('moderation_state', 'archived');
+    $retiring_node->set('revision_log', "Archived by the creation of its replacement {$new_node->bundle()}.");
+    $retiring_node->set('changed', time());
+    $retiring_node->set('revision_timestamp', time());
+    $retiring_node->set('revision_default', TRUE);
+    $retiring_node->save();
+  }
+
+  /**
+   * Updates the alias of the new hardened node.
+   *
+   * @param \Drupal\node\NodeInterface $entity
+   *   The node being saved.
+   * @param string $duplicate_alias
+   *   The alias of the unhardened node being replaced.
+   */
+  protected function updateNewAlias(NodeInterface $entity, $duplicate_alias) : void {
+    if (!$entity->isNew()  && !empty($duplicate_alias)) {
+      // This entity is not new and likely has a bad alias, so set it right.
+      // @phpstan-ignore-next-line
+      $entity->path->alias = $duplicate_alias;
+    }
+  }
+
+  /**
+   * Updates the moderation state of the new hardened node.
+   *
+   * @param \Drupal\node\NodeInterface $entity
+   *   The node being saved.
+   * @param string $existing_moderation_state
+   *   The moderation state of the unhardened node being replaced.
+   */
+  protected function updateNewModerationState(NodeInterface $entity, $existing_moderation_state) : void {
+    // If we have a moderation_state on the existing, only carry it forward if
+    // it has not already been archived.
+    // If the current state is already set to published, do not override.
+    // @phpstan-ignore-next-line
+    if ($existing_moderation_state !== 'archived' && $entity->moderation_state->value !== 'published') {
+      $entity->set('moderation_state', $existing_moderation_state);
+    }
   }
 
 }
