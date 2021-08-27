@@ -55,6 +55,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form['#attached']['library'][] = 'va_gov_workflow_assignments/alert_block_treatment';
     $form['moderation_state']['widget'][0]['state']['#default_value'] = 'draft';
     if (!$this->userPermsService->hasAdminRole()) {
+      $form['field_is_this_a_header_alert_']['widget']['#attributes']['disabled'] = TRUE;
       $form['field_node_reference']['#access'] = FALSE;
     }
   }
