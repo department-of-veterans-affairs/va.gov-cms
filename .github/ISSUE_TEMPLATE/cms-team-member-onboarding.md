@@ -96,12 +96,26 @@ The following trainings and additional videos can be found on the Knowledge Base
  - [ ] Audio/video recording tools
  - [ ] [YouTube channel for training videos](https://www.youtube.com/channel/UC5Y2p4ASQ5HdRR-pQ8RVQKQ)
 #### [Onboarding for UX](https://docs.google.com/document/d/1bKDptaJomOx9aaeZYBakZkqC1J5Eg7kZGtrUbrD7prg/)
-- [ ] Mural
-- [ ] Airtable
-- [ ] Figma
-- [ ] SurveyMonkey
-- [ ] LucidChart
-- [ ] Balsamiq
+- [ ] Attend design onboarding call 1: You are here
+   - The CMS and the products we support
+   - Who are our users?
+   - Research
+- [ ] Attend design onboarding call 2: Project history and opportunties
+- [ ] Attend design onboarding call 3: Design processes
+   - Wireframing elements
+   - Airtable database
+   - Required documentation for design at VA
+- [ ] Get oriented with the stuff of design
+   - Log in to make sure you have access to the design tools used on this project
+   - [ ] Mural
+   - [ ] Figma
+   - [ ] Airtable
+   - Review existing design assets to get a feel for where things are at
+- [ ] Build empathy with our users
+   - Complete a CMS simulation (you’ll need SOCKS proxy access first)
+- [ ] Attend 1:1 w/ Kauff (maybe Clarence and Kev too)
+   - Let’s talk about your skillsets and interests and which project initiatives you might want to take over.
+
 ### When?
 - [ ] Check your calendar for invitations to team ceremonies.
   - [ ] Scrums
